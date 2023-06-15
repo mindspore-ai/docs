@@ -11,7 +11,7 @@ torchtext.data.utils.ngrams_iterator(
 )
 ```
 
-For more information, see [torchtext.data.utils.ngrams_iterator](https://pytorch.org/text/0.10.0/data_utils.html#ngrams-iterator).
+For more information, see [torchtext.data.utils.ngrams_iterator](https://pytorch.org/text/0.9.0/data_utils.html#ngrams-iterator).
 
 ## mindspore.dataset.text.Ngram
 

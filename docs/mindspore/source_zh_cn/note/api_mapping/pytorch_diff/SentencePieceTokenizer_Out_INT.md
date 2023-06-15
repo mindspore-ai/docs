@@ -10,7 +10,7 @@ torchtext.data.functional.sentencepiece_numericalizer(
 )
 ```
 
-更多内容详见[torchtext.data.functional.sentencepiece_numericalizer](https://pytorch.org/text/0.10.0/data_functional.html#sentencepiece-numericalizer)。
+更多内容详见[torchtext.data.functional.sentencepiece_numericalizer](https://pytorch.org/text/0.9.0/data_functional.html#sentencepiece-numericalizer)。
 
 ## mindspore.dataset.text.SentencePieceTokenizer
 
@@ -29,39 +29,32 @@ PyTorch：依据传入的分词模型，返回将文本转换为id的生成器�
 
 MindSpore：依据传入的分词模型，对输入的文本进行分词及标记；输出类型是string或int类型。
 
+| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| --- | ---   | ---   | ---        |---  |
+|参数 | 参数1 | sp_model     | mode     | MindSpore支持SentencePiece词汇表或分词模型地址 |
+|     | 参数2 | -    |out_type     | 分词器输出的类型 |
+
 ## 代码示例
 
 ```python
-import mindspore.dataset as ds
-from mindspore.dataset import text
-from mindspore.dataset.text import SentencePieceModel, SPieceTokenizerOutType
-from torchtext.data.functional import sentencepiece_numericalizer
-from torchtext.data.functional import load_sp_model
+from download import download
 
-# In MindSpore, return tokenizer from vocab object.
-sentence_piece_vocab_file = "/path/to/datasets/1.txt"
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/sentencepiece.bpe.model"
+download(url, './sentencepiece.bpe.model', replace=True)
 
-vocab = text.SentencePieceVocab.from_file(
-    [sentence_piece_vocab_file],
-    27,
-    0.9995,
-    SentencePieceModel.UNIGRAM,
-    {})
-tokenizer = text.SentencePieceTokenizer(vocab, out_type=SPieceTokenizerOutType.INT)
-text_file_dataset_dir = "/path/to/datasets/2.txt"
-text_file_dataset1 = ds.TextFileDataset(dataset_files=text_file_dataset_dir)
-text_file_dataset = text_file_dataset1.map(operations=tokenizer)
+# PyTorch
+from torchtext.data.functional import load_sp_model, sentencepiece_numericalizer
 
-for item in text_file_dataset:
-    print(item[0])
-    break
-# Out:
-# [ 165   28    8   11 4746 1430    4]
+list_a = "sentencepiece encode as pieces"
+model = load_sp_model("./sentencepiece.bpe.model")
+sp_id_generator = sentencepiece_numericalizer(model)
+print(list(sp_id_generator([list_a])))
+# Out: [[149356, 152666, 21, 40898, 236, 126370]]
 
-root = "/path/to/m_user.model"
-sp_model = load_sp_model(root)
-# In torch, return the sentencepiece model according to the input model path.
-sp_id_generator = sentencepiece_numericalizer(sp_model)
-list_a = ["sentencepiece encode as pieces", "examples to   try!"]
-list(sp_id_generator(list_a))
+# MindSpore
+import mindspore.dataset.text as text
+
+sp_id_generator = text.SentencePieceTokenizer("./sentencepiece.bpe.model", out_type=text.SPieceTokenizerOutType.INT)
+print(list(sp_id_generator(list_a)))
+# Out: [149356, 152666, 21, 40898, 236, 126370]
 ```

@@ -16,7 +16,7 @@ class torchvision.datasets.VOCDetection(
     )
 ```
 
-For more information, see [torchvision.datasets.VOCDetection](https://pytorch.org/vision/0.14/generated/torchvision.datasets.VOCDetection.html).
+For more information, see [torchvision.datasets.VOCDetection](https://pytorch.org/vision/0.9/datasets.html#torchvision.datasets.VOCDetection).
 
 ## mindspore.dataset.VOCDataset
 
@@ -34,7 +34,8 @@ class mindspore.dataset.VOCDataset(
     num_shards=None,
     shard_id=None,
     cache=None,
-    extra_metadata=False
+    extra_metadata=False,
+    decrypt=None
     )
 ```
 
@@ -45,6 +46,28 @@ For more information, see [mindspore.dataset.VOCDataset](https://mindspore.cn/do
 PyTorch: Pascal VOC Detection Dataset.
 
 MindSpore: A source dataset for reading and parsing VOC dataset. The generated dataset with different task settings has different output columns.
+
+| Categories | Subcategories |PyTorch | MindSpore | Difference |
+| --- | ---   | ---   | ---        |---  |
+|Parameter | Parameter1 | root    | dataset_dir    | - |
+|     | Parameter2 | year      | -    | Not supported by MindSpore |
+|     | Parameter3 | image_set      | usage  |- |
+|     | Parameter4 | download      | -    | Not supported by MindSpore |
+|     | Parameter5 | transform    | -   | Supported by `mindspore.dataset.map` operation |
+|     | Parameter6 | target_transform    | -   | Supported by `mindspore.dataset.map` operation |
+|     | Parameter7 | transforms    | -   | Supported by `mindspore.dataset.map` operation |
+|     | Parameter8 | -      | task  | Set the task type of reading voc data |
+|     | Parameter9 | -      | class_indexing  | A str-to-int mapping from label name to index |
+|     | Parameter10 | -    | num_samples |  The number of images to be included in the dataset |
+|     | Parameter11 | -    | num_parallel_workers | Number of worker threads to read the data |
+|     | Parameter12 | -    | shuffle  | Whether to perform shuffle on the dataset |
+|     | Parameter13 | -   | decode | Whether to decode the images after reading |
+|     | Parameter14 | -    | sampler  | Object used to choose samples from the dataset |
+|     | Parameter15 | -    | num_shards | Number of shards that the dataset will be divided into |
+|     | Parameter16 | -    | shard_id | The shard ID within num_shards |
+|     | Parameter17 | -    | cache | Use tensor caching service to speed up dataset processing |
+|     | Parameter18 | -    | extra_metadata | Flag to add extra meta-data to row |
+|     | Parameter19 | -    | decrypt | Image decryption function |
 
 ## Code Example
 

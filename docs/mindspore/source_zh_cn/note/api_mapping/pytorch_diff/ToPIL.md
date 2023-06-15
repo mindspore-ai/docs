@@ -10,7 +10,7 @@ class torchvision.transforms.ToPILImage(
     )
 ```
 
-更多内容详见[torchvision.transforms.ToPILImage](https://pytorch.org/vision/0.14/generated/torchvision.transforms.ToPILImage)。
+更多内容详见[torchvision.transforms.ToPILImage](https://pytorch.org/vision/0.9/transforms.html#torchvision.transforms.ToPILImage)。
 
 ## mindspore.dataset.vision.ToPIL
 

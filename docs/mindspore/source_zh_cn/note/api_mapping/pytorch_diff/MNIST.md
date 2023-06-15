@@ -13,7 +13,7 @@ class torchvision.datasets.MNIST(
     download: bool = False)
 ```
 
-更多内容详见[torchvision.datasets.MNIST](https://pytorch.org/vision/0.14/generated/torchvision.datasets.MNIST.html)。
+更多内容详见[torchvision.datasets.MNIST](https://pytorch.org/vision/0.9/datasets.html#torchvision.datasets.MNIST)。
 
 ## mindspore.dataset.MnistDataset
 
@@ -57,19 +57,26 @@ MindSpore：读取MNIST数据集，不支持下载，对image和label的变换�
 ## 代码示例
 
 ```python
-# Torch
+# PyTorch
 import torchvision.transforms as T
 import torchvision.datasets as datasets
 from torch.utils.data import DataLoader
 
 root = "/path/to/dataset_directory/"
-dataset = datasets.MNIST(root, train=False, transform=T.Resize((32, 32)))
+dataset = datasets.MNIST(root, train=False, transform=T.Resize((32, 32)), download=True)
 dataloader = DataLoader(dataset, batch_size=32)
 
 # MindSpore
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 
+# Download the dataset files, unzip into the following structure
+# .
+# └── "/path/to/dataset_directory/"
+#      ├── t10k-images-idx3-ubyte
+#      ├── t10k-labels-idx1-ubyte
+#      ├── train-images-idx3-ubyte
+#      └── train-labels-idx1-ubyte
 root = "/path/to/dataset_directory/"
 ms_dataloader = ds.Cifar10Dataset(root, usage='test')
 ms_dataloader = ms_dataloader.map(vision.Resize((32, 32)), ["image"])

@@ -10,7 +10,7 @@ torchtext.data.functional.sentencepiece_tokenizer(
 )
 ```
 
-For more information, see [torchtext.data.functional.sentencepiece_tokenizer](https://pytorch.org/text/0.10.0/data_functional.html#sentencepiece-tokenizer).
+For more information, see [torchtext.data.functional.sentencepiece_tokenizer](https://pytorch.org/text/0.9.0/data_functional.html#sentencepiece-tokenizer).
 
 ## mindspore.dataset.text.SentencePieceTokenizer
 
@@ -29,31 +29,32 @@ PyTorch: Returns a generator that converts text into string based on the input s
 
 MindSpore: According to the incoming sentencepiece model, the input text is segmented and marked; the output type is string or int type.
 
+| Categories | Subcategories |PyTorch | MindSpore | Difference |
+| --- | ---   | ---   | ---        |---  |
+|Parameter | Parameter1 | spm    | mode    | MindSpore support SentencePieceVocab object or path of  SentencePiece model |
+|     | Parameter2 | -    |out_type     | The output type of tokenizer  |
+
 ## Code Example
 
 ```python
-import mindspore.dataset as ds
-from mindspore.dataset import text
-from mindspore.dataset.text import SentencePieceModel, SPieceTokenizerOutType
-from torchtext.data.functional import sentencepiece_tokenizer
-from torchtext.data.functional import load_sp_model
+from download import download
 
-# In MindSpore, Tokenize scalar token or 1-D tokens to tokens by sentencepiece.
-sentence_piece_vocab_file = "/path/to/datasets/1.txt"
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/sentencepiece.bpe.model"
+download(url, './sentencepiece.bpe.model', replace=True)
 
-vocab = text.SentencePieceVocab.from_file([sentence_piece_vocab_file], 27, 0.9995,
-                                          SentencePieceModel.CHAR, {})
-tokenizer = text.SentencePieceTokenizer(vocab, out_type=SPieceTokenizerOutType.STRING)
-data = 'sentencepiece encode as pieces", "examples to   try!'
+# PyTorch
+from torchtext.data.functional import load_sp_model, sentencepiece_tokenizer
 
-print(list(tokenizer(data)))
-# Out:
-# ['▁', 's', 'e', 'n', 't', 'e', 'n', 'c', 'e', 'p', 'i', 'e', 'c', 'e', '▁', 'e', 'n', 'c', 'o', 'd', 'e', '▁', 'a', 's', '▁', 'p', 'i', 'e', 'c', 'e', 's', '"', ',', '▁', '"', 'e', 'x', 'a', 'm', 'p', 'l', 'e', 's', '▁', 't', 'o', '▁', 't', 'r', 'y', '!']
+list_a = "sentencepiece encode as pieces"
+model = load_sp_model("./sentencepiece.bpe.model")
+sp_id_generator = sentencepiece_tokenizer(model)
+print(list(sp_id_generator([list_a])))
+# Out: [['▁sentence', 'piece', '▁en', 'code', '▁as', '▁pieces']]
 
-root = "/path/to/m_user.model"
-sp_model = load_sp_model(root)
-# In torch, output a generator with the input of text sentence and the output of the corresponding tokens based on SentencePiece model.
-sp_tokens_generator = sentencepiece_tokenizer(sp_model)
-list_a = ["sentencepiece encode as pieces", "examples to   try!"]
-list(sp_tokens_generator(list_a))
+# MindSpore
+import mindspore.dataset.text as text
+
+sp_id_generator = text.SentencePieceTokenizer("./sentencepiece.bpe.model", out_type=text.SPieceTokenizerOutType.STRING)
+print(list(sp_id_generator(list_a)))
+# Out: ['▁sentence', 'piece', '▁en', 'code', '▁as', '▁pieces']
 ```

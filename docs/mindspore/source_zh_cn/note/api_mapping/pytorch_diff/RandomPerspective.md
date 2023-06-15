@@ -8,7 +8,7 @@
 class torchvision.transforms.RandomPerspective(distortion_scale=0.5, p=0.5, interpolation=InterpolationMode.BILINEAR, fill=0)
 ```
 
-更多内容详见[torchvision.transforms.RandomPerspective](https://pytorch.org/vision/0.14/generated/torchvision.transforms.RandomPerspective.html)。
+更多内容详见[torchvision.transforms.RandomPerspective](https://pytorch.org/vision/0.9/transforms.html#torchvision.transforms.RandomPerspective.html)。
 
 ## mindspore.dataset.vision.RandomPerspective
 

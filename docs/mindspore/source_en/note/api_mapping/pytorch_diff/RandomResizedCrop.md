@@ -8,7 +8,7 @@
 class torchvision.transforms.RandomResizedCrop(size, scale=(0.08, 1.0), ratio=(0.75, 1.3333333333333333), interpolation=InterpolationMode.BILINEAR, antialias: Optional[bool] = None)
 ```
 
-For more information, see [torchvision.transforms.RandomResizedCrop](https://pytorch.org/vision/0.14/generated/torchvision.transforms.RandomResizedCrop.html).
+For more information, see [torchvision.transforms.RandomResizedCrop](https://pytorch.org/vision/0.9/transforms.html#torchvision.transforms.RandomResizedCrop).
 
 ## mindspore.dataset.vision.RandomResizedCrop
 
@@ -30,5 +30,4 @@ MindSpore: Crop a random portion of image and resize it to a given size.
 |     | Parameter2 | scale      | scale   |- |
 |     | Parameter3 | ratio     | ratio    | - |
 |     | Parameter4 | interpolation     | interpolation   | - |
-|     | Parameter5 | antialias     | -   | Antialias flag for BILINEAR、BICUBIC interpolation |
-|     | Parameter6 | -     | max_attempts   | The maximum number of attempts to propose a valid crop_area |
+|     | Parameter5 | -     | max_attempts   | The maximum number of attempts to propose a valid crop_area |

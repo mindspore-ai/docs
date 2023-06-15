@@ -12,7 +12,7 @@ torchtext.data.functional.numericalize_tokens_from_iterator(
 )
 ```
 
-更多内容详见[torchtext.data.functional.numericalize_tokens_from_iterator](https://pytorch.org/text/0.10.0/data_functional.html#numericalize-tokens-from-iterator)。
+更多内容详见[torchtext.data.functional.numericalize_tokens_from_iterator](https://pytorch.org/text/0.9.0/data_functional.html#numericalize-tokens-from-iterator)。
 
 ## mindspore.dataset.text.Lookup
 
@@ -32,42 +32,35 @@ PyTorch：从分词迭代器中生成词汇表对应的id列表，输入为词�
 
 MindSpore：依据词汇与id的映射表，查找词汇对应的id。
 
+| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+| --- | ---   | ---   | ---        |---  |
+|参数 | 参数1 | vocab     | vocab     | - |
+|     | 参数2 | iterator   |-     | 被查表对象，MindSpore通过另一种方式支持，见示例 |
+|     | 参数3 | removed_tokens    |-     | 输出结果时需要移除的分词，MindSpore不支持 |
+|     | 参数4 | -   |unknown_token    | 备用词汇，用于要查找的单词不在词汇表时进行替换 |
+|     | 参数5 | -   |data_type    | Lookup输出的数据类型 |
+
 ## 代码示例
 
 ```python
-import mindspore.dataset as ds
-from mindspore.dataset import text
-import torch as T
-from torchtext.data.functional import simple_space_split, numericalize_tokens_from_iterator
+# PyTorch
+from torchtext.data.functional import numericalize_tokens_from_iterator
 
-# In MindSpore, return id of given word with looking up the vocab.
-
-Vocab_file_path = '/path/to/testVocab/vocab_list.txt'
-
-vocab = text.Vocab.from_file(Vocab_file_path, ",", None, ["<pad>", "<unk>"], True)
-lookup = text.Lookup(vocab)
-
-text_file_dataset_dir = '/path/to/testVocab/words.txt'
-
-text_file_dataset = ds.TextFileDataset(dataset_files=text_file_dataset_dir)
-text_file_dataset = text_file_dataset.map(operations=lookup,  input_columns=["text"])
-for d in text_file_dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-   print(d["text"])
-# Out:
-# 14
-# 12
-# 13
-# 10
-# 15
-# 11
-
-# In torch, return the ids iterator with looking up the vocab.
+def gen():
+    yield ["Sentencepiece", "as", "encode"]
 
 vocab = {'Sentencepiece' : 0, 'encode' : 1, 'as' : 2, 'pieces' : 3}
-ids_iter = numericalize_tokens_from_iterator(vocab, simple_space_split(["Sentencepiece as pieces", "as pieces"]))
+ids_iter = numericalize_tokens_from_iterator(vocab, gen())
 for ids in ids_iter:
     print([num for num in ids])
-# Out:
-# [0, 2, 3]
-# [2, 3]
+# Out: [0, 2, 1]
+
+
+# MindSpore
+import mindspore.dataset.text as text
+
+vocab = text.Vocab.from_dict({'Sentencepiece' : 0, 'encode' : 1, 'as' : 2, 'pieces' : 3})
+result = text.Lookup(vocab)(["Sentencepiece", "as", "encode"])
+print(result)
+# Out: [0 2 1]
 ```

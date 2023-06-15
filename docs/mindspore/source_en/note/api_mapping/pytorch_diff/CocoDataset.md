@@ -14,7 +14,7 @@ class torchvision.datasets.CocoDetection(
     )
 ```
 
-For more information, see [torchvision.datasets.CocoDetection](https://pytorch.org/vision/0.14/generated/torchvision.datasets.CocoDetection.html).
+For more information, see [torchvision.datasets.CocoDetection](https://pytorch.org/vision/0.9/datasets.html#torchvision.datasets.CocoDetection).
 
 ## mindspore.dataset.CocoDataset
 
@@ -31,7 +31,8 @@ class mindspore.dataset.CocoDataset(
     num_shards=None,
     shard_id=None,
     cache=None,
-    extra_metadata=False
+    extra_metadata=False,
+    decrypt=None
     )
 ```
 
@@ -42,6 +43,25 @@ For more information, see [mindspore.dataset.CocoDataset](https://mindspore.cn/d
 PyTorch: Input the COCO dataset, and return the created dataset object, which can be traversed to obtain data.
 
 MindSpore: Input the COCO dataset and a specified task type (target detection, panorama segmentation, etc.), and return a dataset object with the given task type, which can be obtained by creating an iterator.
+
+| Categories | Subcategories |PyTorch | MindSpore | Difference |
+| --- | ---   | ---   | ---        |---  |
+|Parameter | Parameter1 | root    | dataset_dir    | - |
+|     | Parameter2 | annFile      | annotation_file    |- |
+|     | Parameter3 | transform    | -   | Supported by `mindspore.dataset.map` operation |
+|     | Parameter4 | target_transform    | -   | Supported by `mindspore.dataset.map` operation |
+|     | Parameter5 | transforms    | -   | Supported by `mindspore.dataset.map` operation |
+|     | Parameter6 | -      | task  | Set the task type for reading COCO data |
+|     | Parameter7 | -    | num_samples |  The number of images to be included in the dataset |
+|     | Parameter8 | -    | num_parallel_workers | Number of worker threads to read the data |
+|     | Parameter9 | -    | shuffle  | Whether to perform shuffle on the dataset |
+|     | Parameter10 | -   | decode | Whether to decode the images after reading |
+|     | Parameter11 | -    | sampler  | Object used to choose samples from the dataset |
+|     | Parameter12 | -    | num_shards | Number of shards that the dataset will be divided into |
+|     | Parameter13 | -    | shard_id | The shard ID within num_shards |
+|     | Parameter14 | -    | cache | Use tensor caching service to speed up dataset processing |
+|     | Parameter15 | -    | extra_metadata | Flag to add extra meta-data to row |
+|     | Parameter16 | -    | decrypt | Image decryption function |
 
 ## Code Example
 
