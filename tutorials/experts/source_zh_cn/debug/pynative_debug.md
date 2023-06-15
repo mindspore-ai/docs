@@ -26,12 +26,11 @@ class Net(nn.Cell):
         self.w1 = Parameter(Tensor(np.random.randn(5, 6).astype(np.float32)), name="w1", requires_grad=True)
         self.w2 = Parameter(Tensor(np.random.randn(5, 6).astype(np.float32)), name="w2", requires_grad=True)
         self.relu = nn.ReLU()
-        self.pow = ops.Pow()
 
     def construct(self, x, y):
         x = self.relu(x * self.w1) * self.w2
         pdb.set_trace()
-        out = self.pow(x - y, 2)
+        out = ops.pow(x - y, 2)
         return out
 
 x = Tensor(np.random.randn(5, 6).astype(np.float32))
@@ -58,11 +57,11 @@ print("grads: ", grads)
     ```python
     x = self.relu(x * self.w1) * self.w2
     pdb.set_trace()
-    out = self.pow(x - y, 2)
+    out = ops.pow(x - y, 2)
     return out
     ```
 
-    如图1所示，脚本暂定在指令 `out = self.pow(x-y, 2)`处，并等待输入pdb指令。
+    如图1所示，脚本暂定在指令 `out = ops.pow(x-y, 2)`处，并等待输入pdb指令。
 
     ![pynative_debug.png](./images/pynative_debug.png)
 

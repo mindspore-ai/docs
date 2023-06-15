@@ -26,12 +26,11 @@ class Net(nn.Cell):
         self.w1 = Parameter(Tensor(np.random.randn(5, 6).astype(np.float32)), name="w1", requires_grad=True)
         self.w2 = Parameter(Tensor(np.random.randn(5, 6).astype(np.float32)), name="w2", requires_grad=True)
         self.relu = nn.ReLU()
-        self.pow = ops.Pow()
 
     def construct(self, x, y):
         x = self.relu(x * self.w1) * self.w2
         pdb.set_trace()
-        out = self.pow(x - y, 2)
+        out = ops.pow(x - y, 2)
         return out
 
 x = Tensor(np.random.randn(5, 6).astype(np.float32))
@@ -58,11 +57,11 @@ print("grads: ", grads)
     ```python
     x = self.relu(x * self.w1) * self.w2
     pdb.set_trace()
-    out = self.pow(x - y, 2)
+    out = ops.pow(x - y, 2)
     return out
     ```
 
-    As shown in Figure 1, the script stops at the `out = self.pow(x-y, 2)` command and waits for the next pdb command.
+    As shown in Figure 1, the script stops at the `out = ops.pow(x-y, 2)` command and waits for the next pdb command.
 
     ![pynative_debug.png](https://gitee.com/mindspore/docs/raw/master/tutorials/experts/source_zh_cn/debug/images/pynative_debug.png)
 
