@@ -5,10 +5,11 @@
 ## torchaudio.transforms.MelSpectrogram
 
 ```python
-class torchaudio.transforms.MelSpectrogram(n_fft: int = 400, n_iter: int = 32, win_length: Optional[int] = None, hop_length: Optional[int] = None,
-                                       window_fn: Callable[[...], torch.Tensor] = <built-in method hann_window of type object>, power: float = 2.0,
-                                       normalized: bool = False, wkwargs: Optional[dict] = None, momentum: float = 0.99,
-                                       length: Optional[int] = None, rand_init: bool = True)
+class torchaudio.transforms.MelSpectrogram(sample_rate: int = 16000, n_fft: int = 400, win_length: Optional[int] = None,
+                                           hop_length: Optional[int] = None, f_min: float = 0.0, f_max: Optional[float] = None,
+                                           pad: int = 0, n_mels: int = 128, window_fn: Callable[[...], torch.Tensor] = <built-in method hann_window of type object>,
+                                           power: Optional[float] = 2.0, normalized: bool = False, wkwargs: Optional[dict] = None,
+                                           center: bool = True, pad_mode: str = 'reflect', onesided: bool = True, norm: Optional[str] = None)
 ```
 
 For more information, see [torchaudio.transforms.MelSpectrogram](https://pytorch.org/audio/0.8.0/transforms.html#torchaudio.transforms.MelSpectrogram.html).
@@ -16,9 +17,10 @@ For more information, see [torchaudio.transforms.MelSpectrogram](https://pytorch
 ## mindspore.dataset.audio.MelSpectrogram
 
 ```python
-class mindspore.dataset.audio.MelSpectrogram(n_fft=400, n_iter=32, win_length=None, hop_length=None,
-                                         window_type=WindowType.HANN, power=2.0,
-                                         momentum=0.99, length=None, rand_init=True)
+class mindspore.dataset.audio.MelSpectrogram(sample_rate=16000, n_fft=400, win_length=None,
+                                             hop_length=None, f_min=0.0, f_max=None,
+                                             pad=0, n_mels=128, window=WindowType.HANN, power=2.0, normalized=False,
+                                             center=True, pad_mode=BorderType.REFLECT, onesided=True, norm=NormType.NONE, mel_scale=MelType.HTK)
 ```
 
 For more information, see [mindspore.dataset.audio.MelSpectrogram](https://mindspore.cn/docs/en/master/api_python/dataset_audio/mindspore.dataset.audio.MelSpectrogram.html#mindspore.dataset.audio.MelSpectrogram).
@@ -40,12 +42,14 @@ MindSpore：Create MelSpectrogram for a raw audio signal.
 |     | Parameter7 | pad   | pad  | - |
 |     | Parameter8 | n_mels    | n_mels     | - |
 |     | Parameter9 | window_fn    | window      | MindSpore only support 5 window functions |
-|     | Parameter10 | wkwargs    | -     | Arguments for window function, not supported by MindSpore |
-|     | Parameter11 | center   | center     | - |
-|     | Parameter12 | pad_mode    | pad_mode     | - |
-|     | Parameter13 | onesided    | onesided     | - |
-|     | Parameter14 | norm    | norm     | - |
-|     | Parameter15 | -    | mel_scale      | Mel scale to use |
+|     | Parameter10 | power    | power     | - |
+|     | Parameter11 | normalized   | normalized     | - |
+|     | Parameter12 | wkwargs    | -     | Arguments for window function, not supported by MindSpore |
+|     | Parameter13 | center   | center     | - |
+|     | Parameter14 | pad_mode    | pad_mode     | - |
+|     | Parameter15 | onesided    | onesided     | - |
+|     | Parameter16 | norm    | norm     | - |
+|     | Parameter17 | -    | mel_scale      | Mel scale to use |
 
 ## Code Example
 

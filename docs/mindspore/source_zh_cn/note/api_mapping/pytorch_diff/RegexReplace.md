@@ -16,7 +16,7 @@ torchtext.data.functional.custom_replace(replace_pattern)
 class mindspore.dataset.text.RegexReplace(pattern, replace, replace_all=True)
 ```
 
-更多内容详见[mindspore.dataset.text.SentencePieceVocab](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.SentencePieceVocab.html#mindspore.dataset.text.RegexReplace)。
+更多内容详见[mindspore.dataset.text.RegexReplace](https://www.mindspore.cn/docs/en/master/api_python/dataset_text/mindspore.dataset.text.RegexReplace.html#mindspore.dataset.text.RegexReplace)。
 
 ## 使用方式
 

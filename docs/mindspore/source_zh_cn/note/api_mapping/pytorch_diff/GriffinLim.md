@@ -38,10 +38,10 @@ MindSpore：使用Griffin-Lim算法从线性幅度频谱图中计算信号波形
 |     | 参数5 | window_fn   | window_type   | MindSpore仅支持5种窗函数 |
 |     | 参数6 | power  | power    | - |
 |     | 参数7 | normalized  | -    | STFT后幅值规范化，MindSpore不支持 |
-|     | 参数8 | wkwargs   | wkwargs     | 自定义窗函数的入参，MindSpore不支持 |
+|     | 参数8 | wkwargs   | -     | 自定义窗函数的入参，MindSpore不支持 |
 |     | 参数9 | momentum   | momentum     | - |
 |     | 参数10 | length   | length     | - |
-|     | 参数11 | hop_length  | rand_init     | - |
+|     | 参数11 | rand_init  | rand_init     | - |
 
 ## 代码示例
 
