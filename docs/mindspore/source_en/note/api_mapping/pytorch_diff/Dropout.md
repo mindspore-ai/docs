@@ -13,7 +13,7 @@ For more information, see [torch.nn.Dropout](https://pytorch.org/docs/1.8.1/gene
 ## mindspore.nn.Dropout
 
 ```python
-mindspore.nn.Dropout(keep_prob=0.5, p=None)
+mindspore.nn.Dropout(keep_prob=0.5, p=None, dtype=mstype.float32)
 ```
 
 For more information, see [mindspore.nn.Dropout](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dropout.html).
@@ -22,13 +22,14 @@ For more information, see [mindspore.nn.Dropout](https://mindspore.cn/docs/en/ma
 
 PyTorch: Dropout is a regularization device. The operator randomly sets some neuron outputs to 0 during training according to the dropout probability `p` , reducing overfitting by preventing correlation between neuron nodes.
 
-MindSpore: MindSpore API implements much the same functionality as PyTorch. `keep_prob` is the input neuron retention rate, now deprecated, will be removed in the near future version.
+MindSpore: MindSpore API implements much the same functionality as PyTorch. `keep_prob` is the input neuron retention rate, now deprecated, will be removed in the near future version. `dtype` sets the data type of the output Tensor, now deprecated.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ----|
 | Parameters | Parameter 1 | -   | keep_prob    | MindSpore discard parameter |
 |      | Parameter 2 | p |  p   | The parameter names and functions are the same |
 |      | Parameter 3 |   inplace   | - | MindSpore does not have this parameter |
+|      | Parameter 4 |   -   | dtype | MindSpore discard parameter |
 
 ### Code Example
 
