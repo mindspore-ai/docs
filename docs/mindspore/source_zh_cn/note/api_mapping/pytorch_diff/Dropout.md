@@ -13,7 +13,7 @@ torch.nn.Dropout(p=0.5, inplace=False)
 ## mindspore.nn.Dropout
 
 ```python
-mindspore.nn.Dropout(keep_prob=0.5, p=None)
+mindspore.nn.Dropout(keep_prob=0.5, p=None, dtype=mstype.float32)
 ```
 
 更多内容详见[mindspore.nn.Dropout](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dropout.html)。
@@ -22,13 +22,14 @@ mindspore.nn.Dropout(keep_prob=0.5, p=None)
 
 PyTorch：Dropout是一种正则化手段，该算子根据丢弃概率 `p` ，在训练过程中随机将一些神经元输出设置为0，通过阻止神经元节点间的相关性来减少过拟合。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致。`keep_prob` 是输入神经元保留率，现已废弃。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致。`keep_prob` 是输入神经元保留率，现已废弃。`dtype` 设置输出Tensor的数据类型，现已废弃。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                                                         |
 | ---- | ----- | ------- | --------- | ------------------------------------------------------------ |
 | 参数 | 参数1 |        | keep_prob         | MindSpore废弃参数  |
 |      | 参数2 | p |  p  |  参数名一致，功能一致   |
 |      | 参数3 | inplace |  -  | MindSpore无此参数 |
+|      | 参数4 | - |  dtype  | MindSpore废弃参数 |
 
 ### 代码示例
 

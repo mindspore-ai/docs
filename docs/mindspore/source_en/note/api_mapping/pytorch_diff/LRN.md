@@ -15,10 +15,10 @@ class torch.nn.LocalResponseNorm(
 
 For more information, see [torch.nn.LocalResponseNorm](https://pytorch.org/docs/1.8.1/generated/torch.nn.LocalResponseNorm.html).
 
-## mindspore.ops.LRN
+## mindspore.nn.LRN
 
 ```text
-class mindspore.ops.LRN(
+class mindspore.nn.LRN(
     depth_radius=5,
     bias=1.0,
     alpha=1.0,
@@ -27,13 +27,13 @@ class mindspore.ops.LRN(
 )(x) -> Tensor
 ```
 
-For more information, see [mindspore.ops.LRN](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.LRN.html).
+For more information, see [mindspore.nn.LRN](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.LRN.html).
 
 ## Differences
 
 PyTorch: This API performs Local Response Normalization (LRN) operation that normalizes the input for each neuron in a specific way to improve the generalization ability of deep neural networks. It returns a tensor with the same type as the input.
 
-MindSpore: It implements the same functionality as PyTorch, but with different parameter names. The `depth_radius` parameter in MindSpore performs the same function as the `size` parameter in PyTorch, and there is a mapping relationship of twice the value: size=2*depth_radius. Currently, mindspore.ops.LRN and tf.raw_ops.LRN can be completely aligned, and both can achieve the same accuracy. However, if compared with torch.nn.LocalResponseNorm, there may be a precision difference of 1e-3.
+MindSpore: It implements the same functionality as PyTorch, but with different parameter names. The `depth_radius` parameter in MindSpore performs the same function as the `size` parameter in PyTorch, and there is a mapping relationship of twice the value: size=2*depth_radius. Currently, mindspore.nn.LRN and tf.raw_ops.LRN can be completely aligned, and both can achieve the same accuracy. However, if compared with torch.nn.LocalResponseNorm, there may be a precision difference of 1e-3.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
@@ -64,11 +64,10 @@ print(output.numpy())
 # MindSpore
 import mindspore
 from mindspore import Tensor
-import mindspore.ops.operations as ops
 import numpy as np
 
 input_x = Tensor(np.array([[[[2.4], [3.51]],[[1.3], [-4.4]]]]), mindspore.float32)
-lrn = ops.LRN(depth_radius=1, bias=1.0, alpha=0.0001, beta=0.75)
+lrn = mindspore.nn.LRN(depth_radius=1, bias=1.0, alpha=0.0001, beta=0.75)
 output = lrn(input_x)
 print(output)
 #[[[[ 2.39866  ]

@@ -15,10 +15,10 @@ class torch.nn.LocalResponseNorm(
 
 更多内容详见[torch.nn.LocalResponseNorm](https://pytorch.org/docs/1.8.1/generated/torch.nn.LocalResponseNorm.html)。
 
-## mindspore.ops.LRN
+## mindspore.nn.LRN
 
 ```text
-class mindspore.ops.LRN(
+class mindspore.nn.LRN(
     depth_radius=5,
     bias=1.0,
     alpha=1.0,
@@ -27,13 +27,13 @@ class mindspore.ops.LRN(
 )(x) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.LRN](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.LRN.html)。
+更多内容详见[mindspore.nn.LRN](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LRN.html)。
 
 ## 差异对比
 
 PyTorch：进行局部响应归一化操作，它通过特定的方式对每个神经元的输入进行归一化，以提高深度神经网络的泛化能力。返回一个与input具有相同类型的Tensor。
 
-MindSpore：MindSpore此API实现功能与PyTorch一致。MindSpore的 `depth_radius` 参数与PyTorch的 `size` 实现同样的功能，但存在一个二倍映射关系：size=2*depth_radius。目前mindspore.ops.LRN与tf.raw_ops.LRN能完全对标，两者能达到相同的精度；如果与torch.nn.LocalResponseNorm相比，会存在1e-3的精度差异。
+MindSpore：MindSpore此API实现功能与PyTorch一致。MindSpore的 `depth_radius` 参数与PyTorch的 `size` 实现同样的功能，但存在一个二倍映射关系：size=2*depth_radius。目前mindspore.nn.LRN与tf.raw_ops.LRN能完全对标，两者能达到相同的精度；如果与torch.nn.LocalResponseNorm相比，会存在1e-3的精度差异。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
@@ -64,11 +64,10 @@ print(output.numpy())
 # MindSpore
 import mindspore
 from mindspore import Tensor
-import mindspore.ops.operations as ops
 import numpy as np
 
 input_x = Tensor(np.array([[[[2.4], [3.51]],[[1.3], [-4.4]]]]), mindspore.float32)
-lrn = ops.LRN(depth_radius=1, bias=1.0, alpha=0.0001, beta=0.75)
+lrn = mindspore.nn.LRN(depth_radius=1, bias=1.0, alpha=0.0001, beta=0.75)
 output = lrn(input_x)
 print(output)
 #[[[[ 2.39866  ]
