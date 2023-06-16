@@ -245,8 +245,6 @@ $$ \theta^{t+1} = \theta^t + \alpha F^{-1}\nabla E$$
 
 从参数更新公式中可以看出，THOR优化器需要额外计算的是每一层的FIM矩阵。FIM矩阵可以对每一层参数更新的步长和方向进行自适应的调整，加速收敛的同时可以降低调参的复杂度。
 
-更多THOR优化器的介绍请参考：[THOR论文](https://www.aaai.org/AAAI21Papers/AAAI-6611.ChenM.pdf)。
-
 在调用MindSpore封装的二阶优化器THOR时，优化器会自动调用转换接口，把之前定义好的ResNet50网络中的Conv2d层和Dense层分别转换成对应的[Conv2dThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/nn/layer/thor_layer.py)和[DenseThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/nn/layer/thor_layer.py)。
 而在Conv2dThor和DenseThor中可以完成二阶信息矩阵的计算和存储。
 
