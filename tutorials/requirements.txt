@@ -5,6 +5,5 @@ sphinx_rtd_theme == 0.5.2
 numpy
 nbsphinx
 IPython
-ipykernel
 jieba
 jinja2 < 3.1
