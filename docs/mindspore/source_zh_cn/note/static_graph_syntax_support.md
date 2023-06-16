@@ -58,7 +58,7 @@ print(x)
 
 #### List
 
-`List` 以及 `Tuple` 是Python中最基本的序列内置类型，`List` 与 `Tuple` 最核心的区别是 `List` 是可以改变的对象，而 `Tuple` 是不可以更改的。 这意味着 `Tuple` 一旦被创建， 就不可以在对象地址不变的情况下被更改。而 `List` 则可以通过一系列inplace操作，在不改变对象地址的情况下， 对对象进行修改。 例如：
+`List` 以及 `Tuple` 是Python中最基本的序列内置类型，`List` 与 `Tuple` 最核心的区别是 `List` 是可以改变的对象，而 `Tuple` 是不可以更改的。 这意味着 `Tuple` 一旦被创建，就不可以在对象地址不变的情况下被更改。而 `List` 则可以通过一系列inplace操作，在不改变对象地址的情况下， 对对象进行修改。 例如：
 
 ```python
 a = [1, 2, 3, 4]
@@ -169,276 +169,276 @@ MindSpore图模式语法扩展了对 `List` 的支持，方便用户使用 `List
 
 - 图模式支持List的内置方法
 
-  在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下，图模式部分 `List` 内置函数支持inplace。在 `JIT_SYNTAX_LEVEL` 为 `STRICT` 的情况下，所有方法均不支持inplace操作。  
-  图模式支持的 `List` 内置方法如下表所示：
+    在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下，图模式部分 `List` 内置函数支持inplace。在 `JIT_SYNTAX_LEVEL` 为 `STRICT` 的情况下，所有方法均不支持inplace操作。  
+    图模式支持的 `List` 内置方法如下表所示：
 
-  | 方法名       | 是否支持inplace （JIT_SYNTAX_LEVEL=COMPATIBLE/LAX）    |  
-  | ----------  | ------------      |
-  | 索引取值      | 非inplace操作      |
-  | 索引赋值      | 不支持             |
-  | append      | 不支持             |
-  | clear       | 不支持             |
-  | extend      | 支持               |
-  | pop         | 支持               |
-  | reverse     | 支持               |
-  | insert      | 支持               |
+    | 方法名       | 是否支持inplace （JIT_SYNTAX_LEVEL=COMPATIBLE/LAX）    |  
+    | ----------  | ------------      |
+    | 索引取值      | 非inplace操作      |
+    | 索引赋值      | 不支持             |
+    | append      | 不支持             |
+    | clear       | 不支持             |
+    | extend      | 支持               |
+    | pop         | 支持               |
+    | reverse     | 支持               |
+    | insert      | 支持               |
 
-  `List` 内置方法的详细介绍如下：
+    `List` 内置方法的详细介绍如下：
 
     - List索引取值
 
-      基础语法：```element = list_object[index]```。
+        基础语法：```element = list_object[index]```。
 
-      基础语义：将 `List` 对象中位于第 `index` 位的元素提取出来（ `index` 从0开始）。支持多层索引取值。
+        基础语义：将 `List` 对象中位于第 `index` 位的元素提取出来（ `index` 从0开始）。支持多层索引取值。
 
-      索引值`index` 支持类型包括 `int`， `Tensor` 和`slice`。其中，`int` 以及 `Tensor` 类型的输入可以支持常量以及变量，`slice`内部数据必须为编译时能够确定的常量。
+        索引值`index` 支持类型包括 `int`， `Tensor` 和`slice`。其中，`int` 以及 `Tensor` 类型的输入可以支持常量以及变量，`slice`内部数据必须为编译时能够确定的常量。
 
-      示例如下：
+        示例如下：
 
-      ```python
-      import mindspore as ms
-      @ms.jit()
-      def list_getitem_func():
-          x = [[1, 2], 3, 4]
-          a = x[0]
-          b = x[0][ms.Tensor([1])]
-          c = x[1:3:1]
-          return a, b, c
+        ```python
+        import mindspore as ms
+        @ms.jit()
+        def list_getitem_func():
+            x = [[1, 2], 3, 4]
+            a = x[0]
+            b = x[0][ms.Tensor([1])]
+            c = x[1:3:1]
+        return a, b, c
 
-      a, b, c = list_getitem_func()
-      print('a:{}'.format(a))
-      print('b:{}'.format(b))
-      print('c:{}'.format(c))
-      ```
+        a, b, c = list_getitem_func()
+        print('a:{}'.format(a))
+        print('b:{}'.format(b))
+        print('c:{}'.format(c))
+        ```
 
-      结果如下：
+        结果如下：
 
-      ```text
+        ```text
         a:[1, 2]
         b:2
         c:[3, 4]
-      ```
+        ```
 
     - List索引赋值
 
-      基础语法：```list_object[index] = target_element```。
+        基础语法：```list_object[index] = target_element```。
 
-      基础语义：将 `List` 对象中位于第 `index` 位的元素赋值为 `target_element`（ `index` 从0开始）。支持多层索引赋值。
+        基础语义：将 `List` 对象中位于第 `index` 位的元素赋值为 `target_element`（ `index` 从0开始）。支持多层索引赋值。
 
-      索引值 `index` 支持类型包括 `int`， `Tensor` 和`slice`。 其中， `int` 以及 `Tensor` 类型的输入可以支持常量以及变量，`slice`内部数据必须为编译时能够确定的常量。
+        索引值 `index` 支持类型包括 `int`， `Tensor` 和`slice`。 其中， `int` 以及 `Tensor` 类型的输入可以支持常量以及变量，`slice`内部数据必须为编译时能够确定的常量。
 
-      索引赋值对象 `target_element` 支持所有图模式支持的类型。
+        索引赋值对象 `target_element` 支持所有图模式支持的类型。
 
-      目前，`List` 索引赋值不支持inplace, 索引赋值后将会生成一个新的对象。该操作后续将会支持inplace。
+        目前，`List` 索引赋值不支持inplace, 索引赋值后将会生成一个新的对象。该操作后续将会支持inplace。
 
-      示例如下：
+        示例如下：
 
-      ```python
-      import mindspore as ms
-      import numpy as np
+        ```python
+        import mindspore as ms
+        import numpy as np
 
-      @ms.jit()
-      def test_setitem_func():
-          x = [[0, 1], 2, 3, 4]
-          x[1] = 10
-          x[2] = "ok"
-          x[3] = (1, 2, 3)
-          x[0][1] = 88
-          return x
+        @ms.jit()
+        def test_setitem_func():
+            x = [[0, 1], 2, 3, 4]
+            x[1] = 10
+            x[2] = "ok"
+            x[3] = (1, 2, 3)
+            x[0][1] = 88
+            return x
 
-      output = test_index()
-      print('output:{}'.format(output))
-       ```
+        output = test_index()
+        print('output:{}'.format(output))
+        ```
 
-      结果如下：
+        结果如下：
 
-      ```text
+        ```text
         output:[[0, 88], 10, "ok", (1, 2, 3)]
-      ```
+        ```
 
     - List.append
 
-      基础语法：```list_object.append(target_element)```。
+        基础语法：```list_object.append(target_element)```。
 
-      基础语义：向 `List` 对象 `list_object` 的最后追加元素 `target_element`。
+        基础语义：向 `List` 对象 `list_object` 的最后追加元素 `target_element`。
 
-      目前，`List.append` 不支持inplace, 索引赋值后将会生成一个新的对象。该操作后续将会支持inplace。
+        目前，`List.append` 不支持inplace, 索引赋值后将会生成一个新的对象。该操作后续将会支持inplace。
 
-      示例如下：
+        示例如下：
 
-      ```python
-      import mindspore as ms
+        ```python
+        import mindspore as ms
 
-      @ms.jit()
-      def test_list():
-          x = [1, 2, 3]
-          x.append(4)
-          return x
+        @ms.jit()
+        def test_list():
+            x = [1, 2, 3]
+            x.append(4)
+            return x
 
-      x = test_list()
-      print('x:{}'.format(x))
-      ```
+        x = test_list()
+        print('x:{}'.format(x))
+        ```
 
-      结果如下：
+        结果如下：
 
-      ```text
-      x:[1, 2, 3, 4]
-      ```
+        ```text
+        x:[1, 2, 3, 4]
+        ```
 
     - List.clear
 
-      基础语法：```list_object.clear()```。
+        基础语法：```list_object.clear()```。
 
-      基础语义：向 `List` 对象 `list_object` 的内的对象清空。
+        基础语义：向 `List` 对象 `list_object` 的内的对象清空。
 
-      目前，`List.clear` 不支持inplace, 索引赋值后将会生成一个新的对象。该操作后续将会支持inplace。
+        目前，`List.clear` 不支持inplace, 索引赋值后将会生成一个新的对象。该操作后续将会支持inplace。
 
-      示例如下：
+        示例如下：
 
-      ```python
-      import mindspore as ms
+        ```python
+        import mindspore as ms
 
-      @ms.jit()
-      def test_list_clear():
-          x = [1, 3, 4]
-          x.clear()
-          return x
+        @ms.jit()
+        def test_list_clear():
+            x = [1, 3, 4]
+            x.clear()
+            return x
 
-      x = test_list_clear()
-      print('x:{}'.format(x))
-      ```
+        x = test_list_clear()
+        print('x:{}'.format(x))
+        ```
 
-      结果如下：
+        结果如下：
 
-      ```text
-      x:[]
-      ```
+        ```text
+        x:[]
+        ```
 
     - List.extend
 
-      基础语法：```list_object.extend(target)```。
+        基础语法：```list_object.extend(target)```。
 
-      基础语义：向 `List` 对象 `list_object` 的最后依次插入 `target` 内的所有元素。
+        基础语义：向 `List` 对象 `list_object` 的最后依次插入 `target` 内的所有元素。
 
-      `target` 支持的类型为 `Tuple`， `List` 以及 `Tensor`。其中，如果 `target` 类型为 `Tensor` 的情况下，会先将该 `Tensor` 转换为 `List`，在进行插入操作。
+        `target` 支持的类型为 `Tuple`， `List` 以及 `Tensor`。其中，如果 `target` 类型为 `Tensor` 的情况下，会先将该 `Tensor` 转换为 `List`，在进行插入操作。
 
-      在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下，`List.extend` 支持inplace操作，函数运行后不生成新的对象。
+        在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下，`List.extend` 支持inplace操作，函数运行后不生成新的对象。
 
-      示例如下：
+        示例如下：
 
-      ```python
-      import mindspore as ms
+        ```python
+        import mindspore as ms
 
-      @ms.jit()
-      def test_list_extend():
-          x1 = [1, 2, 3]
-          x1.extends((4, "a"))
-          x2 = [1, 2, 3]
-          x2.extends(ms.Tensor([4, 5]))
-          return x1, x2
+        @ms.jit()
+        def test_list_extend():
+            x1 = [1, 2, 3]
+            x1.extends((4, "a"))
+            x2 = [1, 2, 3]
+            x2.extends(ms.Tensor([4, 5]))
+            return x1, x2
 
-      output1, output2 = test_list_extend()
-      print('output1:{}'.format(output1))
-      print('output2:{}'.format(output2))
-      ```
+        output1, output2 = test_list_extend()
+        print('output1:{}'.format(output1))
+        print('output2:{}'.format(output2))
+        ```
 
-      结果如下：
+        结果如下：
 
-      ```text
-      output1:[1, 2, 3, 4, "a"]
-      output2:[1, 2, 3, Tensor(shape=[1], dtype=Int64, value= [4]), Tensor(shape=[1], dtype=Int64, value= [5])]
-      ```
+        ```text
+        output1:[1, 2, 3, 4, "a"]
+        output2:[1, 2, 3, Tensor(shape=[1], dtype=Int64, value= [4]), Tensor(shape=[1], dtype=Int64, value= [5])]
+        ```
 
     - List.pop
 
-      基础语法：```pop_element = list_object.pop(index=-1)```。
+        基础语法：```pop_element = list_object.pop(index=-1)```。
 
-      基础语义：将 `List` 对象 `list_object` 的的第 `index` 个元素从 `list_object` 中删除，并返回该元素。
+        基础语义：将 `List` 对象 `list_object` 的的第 `index` 个元素从 `list_object` 中删除，并返回该元素。
 
-      `index` 要求必须为常量 `int`, 当 `list_object` 的长度为 `list_obj_size` 时，`index` 的取之范围为： `[-list_obj_size， list_obj_size-1]`。 `index` 为负数代表从后往前的位数。当没有输入 `index` 时， 默认值为-1， 即删除最后一个元素。
+        `index` 要求必须为常量 `int`, 当 `list_object` 的长度为 `list_obj_size` 时，`index` 的取之范围为： `[-list_obj_size， list_obj_size-1]`。 `index` 为负数代表从后往前的位数。当没有输入 `index` 时， 默认值为-1， 即删除最后一个元素。
 
-      在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下， `List.pop` 支持inplace操作，函数运行后不生成新的对象。
+        在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下， `List.pop` 支持inplace操作，函数运行后不生成新的对象。
 
-      ```python
-      import mindspore as ms
+        ```python
+        import mindspore as ms
 
-      @ms.jit()
-      def test_list_pop():
-          x = [1, 2, 3]
-          b = x.pop()
-          return b, x
+        @ms.jit()
+        def test_list_pop():
+            x = [1, 2, 3]
+            b = x.pop()
+            return b, x
 
-      pop_element, res_list = test_list_extend()
-      print('pop_element:{}'.format(pop_element))
-      print('res_list:{}'.format(res_list))
-      ```
+        pop_element, res_list = test_list_extend()
+        print('pop_element:{}'.format(pop_element))
+        print('res_list:{}'.format(res_list))
+        ```
 
-      结果如下：
+        结果如下：
 
-      ```text
-      pop_element:3
-      res_list:[1, 2]
-      ```
+        ```text
+        pop_element:3
+        res_list:[1, 2]
+        ```
 
     - List.reverse
 
-      基础语法：```list_object.reverse()```。
+        基础语法：```list_object.reverse()```。
 
-      基础语义：将 `List` 对象 `list_object` 的元素顺序倒转。
+        基础语义：将 `List` 对象 `list_object` 的元素顺序倒转。
 
-      在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下， `List.reverse` 支持inplace操作，函数运行后不生成新的对象。
+        在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下， `List.reverse` 支持inplace操作，函数运行后不生成新的对象。
 
-      示例如下：
+        示例如下：
 
-      ```python
-      import mindspore as ms
+        ```python
+        import mindspore as ms
 
-      @ms.jit()
-      def test_list_reverse():
-          x = [1, 2, 3]
-          x.reverse()
-          return x
+        @ms.jit()
+        def test_list_reverse():
+            x = [1, 2, 3]
+            x.reverse()
+            return x
 
-      output = test_list_extend()
-      print('output:{}'.format(output))
-      ```
+        output = test_list_extend()
+        print('output:{}'.format(output))
+        ```
 
-      结果如下：
+        结果如下：
 
-      ```text
-      output1:[3, 2, 1]
-      ```
+        ```text
+        output1:[3, 2, 1]
+        ```
 
     - List.insert
 
-      基础语法：```list_object.insert(index, target_obj)```。
+        基础语法：```list_object.insert(index, target_obj)```。
 
-      基础语义：将 `target_obj` 插入到 `list_object` 的第 `index` 位。
+        基础语义：将 `target_obj` 插入到 `list_object` 的第 `index` 位。
 
-      `index` 要求必须为常量 `int`。 如果 `list_object` 的长度为 `list_obj_size` 。当 `index < -list_obj_size` 时，插入到 `List` 的第一位。当 `index >= -list_obj_size` 时，插入到 `List` 的最后。 `index` 为负数代表从后往前的位数。
+        `index` 要求必须为常量 `int`。 如果 `list_object` 的长度为 `list_obj_size` 。当 `index < -list_obj_size` 时，插入到 `List` 的第一位。当 `index >= -list_obj_size` 时，插入到 `List` 的最后。 `index` 为负数代表从后往前的位数。
 
-      在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下， `List.insert` 支持inplace操作，函数运行后不生成新的对象。
+        在 `JIT_SYNTAX_LEVEL` 设置为 `COMPATIBLE` 以及 `LAX` 的情况下， `List.insert` 支持inplace操作，函数运行后不生成新的对象。
 
-      示例如下：
+        示例如下：
 
-      ```python
-      import mindspore as ms
+        ```python
+        import mindspore as ms
 
-      @ms.jit()
-      def test_list_reverse():
-          x = [1, 2, 3]
-          x.reverse()
-          return x
+        @ms.jit()
+        def test_list_reverse():
+            x = [1, 2, 3]
+            x.reverse()
+            return x
 
-      output = test_list_extend()
-      print('output:{}'.format(output))
-      ```
+        output = test_list_extend()
+        print('output:{}'.format(output))
+        ```
 
-      结果如下：
+        结果如下：
 
-      ```text
-      output1:[3, 2, 1]
-      ```
+        ```text
+        output1:[3, 2, 1]
+        ```
 
 #### Tuple
 
