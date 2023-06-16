@@ -28,9 +28,8 @@ MindSpore：给音频波形施加频域掩码。不支持变化的`mask_value`�
 | --- | ---   | ---   | ---        |---  |
 |参数 | 参数1 | freq_mask_param     | freq_mask_param    | - |
 |     | 参数2 | iid_masks   | iid_masks   | - |
-|     | 参数3 | -   | mask_value   | 指定填充掩码值，MindSpore计算时无法再更改 |
-|输入 | 输入1 | specgram | x   | - |
-|     | 输入2 | -   | mask_value   | PyTorch按照每次输入的值作为掩码填充值 |
+|     | 参数3 | -   | mask_start   | 添加掩码的起始位置 |
+|     | 参数4 | -   | mask_value   | 指定填充掩码值，MindSpore计算时无法再更改 |
 
 ## 代码示例
 

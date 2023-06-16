@@ -42,12 +42,14 @@ MindSpore：计算原始音频信号的梅尔频谱。
 |     | 参数7 | pad   | pad  | - |
 |     | 参数8 | n_mels    | n_mels     | - |
 |     | 参数9 | window_fn    | window      | MindSpore仅支持5种窗函数 |
-|     | 参数10 | wkwargs    | -     | 自定义窗函数的入参，MindSpore不支持 |
-|     | 参数11 | center   | center     | - |
-|     | 参数12 | pad_mode    | pad_mode     | - |
-|     | 参数13 | onesided    | onesided     | - |
-|     | 参数14 | norm    | norm     | - |
-|     | 参数15 | -    | mel_scale      | 要使用的Mel尺度 |
+|     | 参数10 | power    | power     | - |
+|     | 参数11 | normalized   | normalized     | - |
+|     | 参数12 | wkwargs    | -     | 自定义窗函数的入参，MindSpore不支持 |
+|     | 参数13 | center   | center     | - |
+|     | 参数14 | pad_mode    | pad_mode     | - |
+|     | 参数15 | onesided    | onesided     | - |
+|     | 参数16 | norm    | norm     | - |
+|     | 参数17 | -    | mel_scale      | 要使用的Mel尺度 |
 
 ## 代码示例
 

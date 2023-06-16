@@ -28,9 +28,8 @@ MindSpore: Apply masking to a spectrogram in the time domain. Variable `mask_val
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | time_mask_param    | time_mask_param    | - |
 |     | Parameter2 | iid_masks   | iid_masks   | - |
-|     | Parameter3 | -   | mask_value   | Value to assign to the masked location, can not be changed during computing in MindSpore  |
-| Input | Input1 | specgram | x   | - |
-|       | Input2 | -   | mask_value   | Value to assign to the masked location, can be various in PyTorch |
+|     | Parameter3 | -   | mask_start   | Starting point to apply mask  |
+|     | Parameter4 | -   | mask_value   | Value to assign to the masked location, can not be changed during computing in MindSpore  |
 
 ## Code Example
 

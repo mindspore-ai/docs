@@ -31,7 +31,7 @@ MindSpore：依据传入的分词模型，对输入的文本进行分词及标�
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | ---   | ---   | ---        |---  |
-|参数 | 参数1 | spm    | mode    | MindSpore支持SentencePiece词汇表或分词模型地址 |
+|参数 | 参数1 | sp_model    | mode    | MindSpore支持SentencePiece词汇表或分词模型地址 |
 |     | 参数2 | -    |out_type     | 分词器输出的类型 |
 
 ## 代码示例

@@ -38,10 +38,10 @@ MindSpore：Compute waveform from a linear scale magnitude spectrogram using the
 |     | Parameter5 | window_fn   | window_type   | MindSpore only support 5 window functions |
 |     | Parameter6 | power  | power    | - |
 |     | Parameter7 | normalized  | -    | Whether to normalize by magnitude after stft, not supported by MindSpore |
-|     | Parameter8 | wkwargs   | wkwargs     | Arguments for window function, not supported by MindSpore |
+|     | Parameter8 | wkwargs   | -     | Arguments for window function, not supported by MindSpore |
 |     | Parameter9 | momentum   | momentum     | - |
 |     | Parameter10 | length   | length     | - |
-|     | Parameter11 | hop_length  | rand_init     | - |
+|     | Parameter11 | rand_init  | rand_init     | - |
 
 ## Code Example
 

@@ -5,7 +5,7 @@
 ## torchvision.transforms.RandomAffine
 
 ```python
-class torchvision.transforms.RandomAffine(degrees, translate=None, scale=None, shear=None, interpolation=InterpolationMode.NEAREST, fill=0, center=None)
+class torchvision.transforms.RandomAffine(degrees, translate=None, scale=None, shear=None, interpolation=<InterpolationMode.NEAREST: 'nearest'>, fill=0, fillcolor=None, resample=None)
 ```
 
 更多内容详见[torchvision.transforms.RandomAffine](https://pytorch.org/vision/0.9/transforms.html#torchvision.transforms.RandomAffine)。
