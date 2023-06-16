@@ -1,4 +1,4 @@
-# 比较与torch.nn.functional.dropout2d的功能差异
+# 比较与torch.nn.functional.dropout2d的差异
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/dropout2d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -20,9 +20,11 @@ mindspore.ops.dropout2d(input, p=0.5, training=True) -> Tensor
 
 ## 差异对比
 
+MindSpore此API功能与PyTorchy一致，参数支持的数据类型有差异。
+
 PyTorch：在训练期间，dropout2d以服从伯努利分布的概率p随机将输入Tensor的某些通道归零，每个通道将会独立依据伯努利分布概率p来确定是否被清零。对输入Tensor的某些通道清零，已被证明能有效地减少过度拟合，防止神经元共适应。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致。
+MindSpore：MindSpore只支持秩为4的Tensor作为输入。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                                                         |
 | ---- | ----- | ------- | --------- | -----------------------------------------------------------|
