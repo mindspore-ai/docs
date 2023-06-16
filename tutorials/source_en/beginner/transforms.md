@@ -156,16 +156,16 @@ print(normalized_image)
   -0.2842024 ]]
 ```
 
-### HWC2CWH
+### HWC2CHW
 
-The `HWC2CWH` transform is used to convert the image format. The two different formats (height, width, channel) or (channel, height, width) may be targeted and optimized in different hardware devices. MindSpore sets HWC as the default image format and uses this transform for processing when CWH format is required.
+The `HWC2CHW` transform is used to convert the image format. The two different formats (height, width, channel) or (channel, height, width) may be targeted and optimized in different hardware devices. MindSpore sets HWC as the default image format and uses this transform for processing when CHW format is required.
 
 Here we first process the `normalized_image` in the previous section to HWC format, and then convert it. You can see the change of the shape before and after the conversion.
 
 ```python
 hwc_image = np.expand_dims(normalized_image, -1)
-hwc2cwh = vision.HWC2CHW()
-chw_image = hwc2cwh(hwc_image)
+hwc2chw = vision.HWC2CHW()
+chw_image = hwc2chw(hwc_image)
 print(hwc_image.shape, chw_image.shape)
 ```
 
