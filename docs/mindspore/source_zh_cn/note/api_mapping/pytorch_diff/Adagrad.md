@@ -15,7 +15,7 @@ class torch.optim.Adagrad(
 )
 ```
 
-更多内容详见[torch.optim.Adagrad](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.Adagrad)。
+更多内容详见[torch.optim.Adagrad](https://pytorch.org/docs/1.8.0/optim.html#torch.optim.Adagrad)。
 
 ## mindspore.nn.Adagrad
 
@@ -27,58 +27,59 @@ class mindspore.nn.Adagrad(
     update_slots=True,
     loss_scale=1.0,
     weight_decay=0.0
-)(grads)
+)
 ```
 
 更多内容详见[mindspore.nn.Adagrad](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Adagrad.html#mindspore.nn.Adagrad)。
 
-## 使用方式
+## 差异对比
 
-PyTorch：需要将期望更新的参数放入1个迭代类型参数`params`后传入，且设置了`step`方法执行单步优化返回损失值。
+PyTorch和MindSpore此优化器实现算法不同，PyTorch在每一轮迭代中对学习率进行衰减，且在除法计算中加入 `eps` 以维持计算稳定性，MindSpore中无此过程，详情请参考官网公式。
 
-MindSpore：支持所有的参数使用相同的学习率以及不同的参数组使用不用的值的方式。
+| 分类 | 子类  | PyTorch                   | MindSpore     | 差异                                               |
+| ---- |-----|---------------------------|---------------|--------------------------------------------------|
+| 参数 | 参数1 | params                    | params        | 功能一致                                             |
+|      | 参数2 | lr                        | learning_rate | 功能一致，参数名及默认值不同                                   |
+|      | 参数3 | lr_decay                  | -             | PyTorch的 `lr_decay` 表示学习率的衰减值，MindSpore无此参数      |
+|      | 参数4 | weight_decay              | weight_decay             | 功能一致                                             |
+|      | 参数5 | initial_accumulator_value | accum             | 功能一致，参数名及默认值不同                                   |
+|      | 参数6 | eps                       | -             | PyTorch的 `eps` 用于加在除法的分母上以增加计算稳定性，MindSpore无此参数  |
+|      | 参数7 | -                         | update_slots             | MindSpore的 `update_slots` 表示是否更新累加器，PyTorch的无此参数 |
+|      | 参数8 | -                         | loss_scale             | MindSpore的 `loss_scale` 为梯度缩放系数，PyTorch的无此参数     |
 
-## 代码示例
+### 代码示例
 
 ```python
-# The following implements Adagrad with MindSpore.
-import numpy as np
+# MindSpore
+import mindspore
+from mindspore import nn
+
+net = nn.Dense(2, 3)
+optimizer = nn.Adagrad(net.trainable_params())
+criterion = nn.MAELoss(reduction="mean")
+
+def forward_fn(data, label):
+    logits = net(data)
+    loss = criterion(logits, label)
+    return loss, logits
+
+grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+
+def train_step(data, label):
+    (loss, _), grads = grad_fn(data, label)
+    optimizer(grads)
+    return loss
+
+# PyTorch
 import torch
-import mindspore.nn as nn
-import mindspore as ms
-from mindspore.train import Model
 
-net = Net()
-#1) All parameters use the same learning rate and weight decay
-optim = nn.Adagrad(params=net.trainable_params())
-
-#2) Use parameter groups and set different values
-conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
-no_conv_params = list(filter(lambda x: 'conv' not in x.name, net.trainable_params()))
-group_params = [{'params': conv_params, 'weight_decay': 0.01, 'grad_centralization':True},
-                {'params': no_conv_params, 'lr': 0.01},
-                {'order_params': net.trainable_params()}]
-optim = nn.Adagrad(group_params, learning_rate=0.1, weight_decay=0.0)
-# The conv_params's parameters will use default learning rate of 0.1 and weight decay of 0.01 and grad
-# centralization of True.
-# The no_conv_params's parameters will use learning rate of 0.01 and default weight decay of 0.0 and grad
-# centralization of False.
-# The final parameters order in which the optimizer will be followed is the value of 'order_params'.
-
-loss = nn.SoftmaxCrossEntropyWithLogits()
-model = Model(net, loss_fn=loss, optimizer=optim)
-
-# The following implements Adagrad with torch.
-input_x = torch.tensor(np.random.rand(1, 20).astype(np.float32))
-input_y = torch.tensor([1.])
-net = torch.nn.Sequential(torch.nn.Linear(input_x.shape[-1], 1))
-loss = torch.nn.MSELoss()
-optimizer = torch.optim.Adagrad(net.parameters())
-l = loss(net(input_x).view(-1), input_y) / 2
-optimizer.zero_grad()
-l.backward()
-optimizer.step()
-print(loss(net(input_x).view(-1), input_y).item() / 2)
-# Out:
-# 0.1830
+model = torch.nn.Linear(2, 3)
+criterion = torch.nn.L1Loss(reduction='mean')
+optimizer = torch.optim.Adagrad(model.parameters())
+def train_step(data, label):
+    optimizer.zero_grad()
+    output = model(data)
+    loss = criterion(output, label)
+    loss.backward()
+    optimizer.step()
 ```
