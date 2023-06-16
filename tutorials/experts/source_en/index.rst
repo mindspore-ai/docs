@@ -80,14 +80,13 @@ For Experts
    :titlesonly:
 
    parallel/overview
+   parallel/basic_cases
    parallel/operator_parallel
    parallel/pipeline_parallel
    parallel/optimizer_parallel
    parallel/recompute
    parallel/host_device_training
    parallel/parameter_server_training
-   parallel/train_ascend
-   parallel/parallel_training_quickstart
    parallel/startup_method
    parallel/distributed_inference
    parallel/distributed_case
