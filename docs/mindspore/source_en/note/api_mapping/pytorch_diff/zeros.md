@@ -21,9 +21,9 @@ see [mindspore.ops.zeros](https://mindspore.cn/docs/en/master/api_python/ops/min
 
 ## Differences
 
-PyTorch: Generate a Tensor of size `*size` with a padding value of 0.
+PyTorch: Generate a Tensor of size `*size` whose elements are all 0.
 
-MindSpore: MindSpore API implements the same function as TensorFlow, and only the parameter names are different.
+MindSpore: Generate a Tensor of shape `size` whose elements are all 0.
 
 | Categories | Subcategories | PyTorch       | MindSpore | Difference                                         |
 |------------|---------------|---------------|-----------|----------------------------------------------------|

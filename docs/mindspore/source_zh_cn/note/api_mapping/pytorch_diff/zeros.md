@@ -22,7 +22,7 @@ mindspore.ops.zeros(size, dtype=dtype) -> Tensor
 
 PyTorch：生成大小为 `*size` 的填充值为0的Tensor。
 
-MindSpore：MindSpore此API实现功能与PyTorch一致，仅参数名不同。
+MindSpore：生成shape为 `size` 的填充值为0的Tensor。
 
 | 分类  | 子类  | PyTorch       | MindSpore | 差异                         |
 |-----|-----|---------------|-----------|----------------------------|
