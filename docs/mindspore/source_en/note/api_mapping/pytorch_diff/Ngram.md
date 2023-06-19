@@ -28,27 +28,36 @@ For more information, see [mindspore.dataset.text.Ngram](https://mindspore.cn/do
 
 ## Differences
 
-PyTorch: Returns an iterator that generates the given tokens and ngrams.
+PyTorch: Generate n-gram from a 1-D string Tensor.
 
-MindSpore: TensorOp generates n-grams from a one-dimensional string tensor.
+MindSpore: Generate n-gram from a 1-D string Tensor, string padding and connecting character are supported.
+
+| Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
+| ---------- | ------------- | ------------ | ---------     | ------------- |
+| Parameters       | Parameters 1       | token_list    | -         | A list of tokens, uasge see code example below |
+|            | Parameters 2       | ngrams          | n          | n-gram number |
+|            | Parameters 3       | -           | left_pad        | Strings to be paded left side |
+|            | Parameters 4       | -     | right_pad          | Strings to be paded right side |
+|            | Parameters 5       | -          | separator     | Symbol used to join strings together |
 
 ## Code Example
 
 ```python
-from mindspore.dataset import text
+# In torch, return an iterator that yields the given tokens and their ngrams.
 from torchtext.data.utils import ngrams_iterator
 
-# In MindSpore, output numpy.ndarray type n-gram.
-
-ngram_op = text.Ngram(3, separator="-")
-output = ngram_op(["WildRose Country", "Canada's Ocean Playground", "Land of Living Skies"])
-print(output)
-# Out:
-# ["WildRose Country-Canada's Ocean Playground-Land of Living Skies"]
-
-# In torch, return an iterator that yields the given tokens and their ngrams.
 token_list = ['here', 'we', 'are']
 print(list(ngrams_iterator(token_list, 2)))
 # Out:
 # ['here', 'we', 'are', 'here we', 'we are']
+
+# In MindSpore, output numpy.ndarray type n-gram.
+from mindspore.dataset import text
+
+ngram_op = text.Ngram([2, 1], separator=" ")
+token_list = ['here', 'we', 'are']
+output = ngram_op(token_list)
+print(output)
+# Out:
+# ['here we' 'we are' 'here' 'we' 'are']
 ```
