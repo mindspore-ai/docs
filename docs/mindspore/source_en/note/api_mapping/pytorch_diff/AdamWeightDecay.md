@@ -11,10 +11,7 @@ class torch.optim.AdamW(
     betas=(0.9, 0.999),
     eps=1e-08,
     weight_decay=0.01,
-    amsgrad=False,
-    maximize=False,
-    foreach=None,
-    capturable=False
+    amsgrad=False
 )
 ```
 
@@ -39,40 +36,49 @@ For more information, see [mindspore.nn.AdamWeightDecay](https://mindspore.cn/do
 
 The code implementation and parameter update logic of `mindspore.nn.AdamWeightDecay` optimizer is different from `torch.optim.AdamW`. For more information, please refer to the docs of official website.
 
+| Categories | Subcategories |PyTorch | MindSpore | Difference |
+| --- | ---   | ---   | ---        |---  |
+| Parameters | Parameter 1 | params       | params        | Consistent function                                            |
+|      | Parameter 2 | lr           | learning_rate | Same function, different parameter names and default values                                  |
+|      | Parameter 3 | betas        | beta1，beta2   | Same function, different parameter names            |
+|      | Parameter 4 | eps          | eps           | Consistent function                     |
+|      | Parameter 5 | weight_decay | weight_decay  | Consistent function                     |
+|      | Parameter 6 | amsgrad      | -             | PyTorch `amsgrad` indicates whether to apply the amsgrad algorithm, and MindSpore does not have this parameter |
+|      | Parameter 7 | -            | loss_scale    | MindSpore `loss_scale` is the gradient scaling factor, and PyTorch does not have this parameter    |
+
 ## Code Example
 
 ```python
-# The following implements AdamWeightDecay with MindSpore.
-import numpy as np
+# MindSpore
+import mindspore
+from mindspore import nn
+
+net = nn.Dense(2, 3)
+optimizer = nn.AdamWeightDecay(net.trainable_params())
+criterion = nn.MAELoss(reduction="mean")
+
+def forward_fn(data, label):
+    logits = net(data)
+    loss = criterion(logits, label)
+    return loss, logits
+
+grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+
+def train_step(data, label):
+    (loss, _), grads = grad_fn(data, label)
+    optimizer(grads)
+    return loss
+
+# PyTorch
 import torch
-import mindspore.nn as nn
-import mindspore as ms
-from mindspore.train import Model
 
-net = Net()
-#1) All parameters use the same learning rate and weight decay
-optim = nn.AdamWeightDecay(params=net.trainable_params())
-
-#2) Use parameter groups and set different values
-conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
-no_conv_params = list(filter(lambda x: 'conv' not in x.name, net.trainable_params()))
-group_params = [{'params': conv_params, 'weight_decay': 0.01, 'grad_centralization':True},
-                {'params': no_conv_params, 'lr': 0.01},
-                {'order_params': net.trainable_params()}]
-optim = nn.AdamWeightDecay(group_params, learning_rate=0.1, weight_decay=0.0)
-
-
-loss = nn.SoftmaxCrossEntropyWithLogits()
-model = Model(net, loss_fn=loss, optimizer=optim)
-
-# The following implements AdamWeightDecay with torch.
-input_x = torch.tensor(np.random.rand(1, 20).astype(np.float32))
-input_y = torch.tensor([1.])
-net = torch.nn.Sequential(torch.nn.Linear(input_x.shape[-1], 1))
-loss = torch.nn.MSELoss()
-optimizer = torch.optim.AdamW(net.parameters())
-l = loss(net(input_x).view(-1), input_y) / 2
-optimizer.zero_grad()
-l.backward()
-optimizer.step()
+model = torch.nn.Linear(2, 3)
+criterion = torch.nn.L1Loss(reduction='mean')
+optimizer = torch.optim.AdamW(model.parameters())
+def train_step(data, label):
+    optimizer.zero_grad()
+    output = model(data)
+    loss = criterion(output, label)
+    loss.backward()
+    optimizer.step()
 ```

@@ -27,58 +27,59 @@ class mindspore.nn.Adagrad(
     update_slots=True,
     loss_scale=1.0,
     weight_decay=0.0
-)(grads)
+)
 ```
 
 For more information, see [mindspore.nn.Adagrad](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Adagrad.html#mindspore.nn.Adagrad).
 
 ## Differences
 
-PyTorch: Parameters to be optimized should be put into an iterable parameter then passed as a whole. The `step` method is also implemented to perform one single step optimization and return loss.
+PyTorch and MindSpore implement different algorithms for this optimizer. PyTorch decays the learning rate in each round of iteration and adds `eps` to the division calculation to maintain computational stability, while MindSpore does not have this process.
 
-MindSpore: The ways of the same learning rate for all parameters and different values for different parameter groups are supported.
+| Categories | Subcategories |PyTorch | MindSpore | Difference |
+| --- | ---   | ---   | ---        |---  |
+| Parameters | Parameter 1 | params                    | params        | Consistent function                                             |
+|      | Parameter 2 | lr                        | learning_rate | Same function, different parameter names and default values                                   |
+|      | Parameter 3 | lr_decay                  | -             | PyTorch's `lr_decay` indicates the decay value of the learning rate, and MindSpore does not have this parameter      |
+|      | Parameter 4 | weight_decay              | weight_decay             | Consistent function                                             |
+|      | Parameter 5 | initial_accumulator_value | accum             | Same function, different parameter names and default values                                   |
+|      | Parameter 6 | eps                       | -             | PyTorch's `eps` is used to add to the denominator of a division to increase computational stability, and MindSpore does not have this parameter  |
+|      | Parameter 7 | -                         | update_slots             | MindSpore `update_slots` indicates whether to update the accumulator, and PyTorch does not have this parameter |
+|      | Parameter 8 | -                         | loss_scale             | MindSpore `loss_scale` is the gradient scaling factor, and PyTorch does not have this parameter    |
 
-## Code Example
+### Code Example
 
 ```python
-# The following implements Adagrad with MindSpore.
-import numpy as np
+# MindSpore
+import mindspore
+from mindspore import nn
+
+net = nn.Dense(2, 3)
+optimizer = nn.Adagrad(net.trainable_params())
+criterion = nn.MAELoss(reduction="mean")
+
+def forward_fn(data, label):
+    logits = net(data)
+    loss = criterion(logits, label)
+    return loss, logits
+
+grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+
+def train_step(data, label):
+    (loss, _), grads = grad_fn(data, label)
+    optimizer(grads)
+    return loss
+
+# PyTorch
 import torch
-import mindspore.nn as nn
-import mindspore as ms
-from mindspore.train import Model
 
-net = Net()
-#1) All parameters use the same learning rate and weight decay
-optim = nn.Adagrad(params=net.trainable_params())
-
-#2) Use parameter groups and set different values
-conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
-no_conv_params = list(filter(lambda x: 'conv' not in x.name, net.trainable_params()))
-group_params = [{'params': conv_params, 'weight_decay': 0.01, 'grad_centralization':True},
-                {'params': no_conv_params, 'lr': 0.01},
-                {'order_params': net.trainable_params()}]
-optim = nn.Adagrad(group_params, learning_rate=0.1, weight_decay=0.0)
-# The conv_params's parameters will use default learning rate of 0.1 and weight decay of 0.01 and grad
-# centralization of True.
-# The no_conv_params's parameters will use learning rate of 0.01 and default weight decay of 0.0 and grad
-# centralization of False.
-# The final parameters order in which the optimizer will be followed is the value of 'order_params'.
-
-loss = nn.SoftmaxCrossEntropyWithLogits()
-model = Model(net, loss_fn=loss, optimizer=optim)
-
-# The following implements Adagrad with torch.
-input_x = torch.tensor(np.random.rand(1, 20).astype(np.float32))
-input_y = torch.tensor([1.])
-net = torch.nn.Sequential(torch.nn.Linear(input_x.shape[-1], 1))
-loss = torch.nn.MSELoss()
-optimizer = torch.optim.Adagrad(net.parameters())
-l = loss(net(input_x).view(-1), input_y) / 2
-optimizer.zero_grad()
-l.backward()
-optimizer.step()
-print(loss(net(input_x).view(-1), input_y).item() / 2)
-# Out:
-# 0.1830
+model = torch.nn.Linear(2, 3)
+criterion = torch.nn.L1Loss(reduction='mean')
+optimizer = torch.optim.Adagrad(model.parameters())
+def train_step(data, label):
+    optimizer.zero_grad()
+    output = model(data)
+    loss = criterion(output, label)
+    loss.backward()
+    optimizer.step()
 ```
