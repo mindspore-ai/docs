@@ -28,27 +28,36 @@ class mindspore.dataset.text.Ngram(
 
 ## 使用方式
 
-PyTorch：返回一个迭代器，该迭代器生成给定的标记和ngrams。
+PyTorch：从1-D的字符串生成N-gram
 
-MindSpore：TensorOp从一维字符串张量生成n-gram。
+MindSpore：从1-D的字符串生成N-gram，可以指定N-gram的连接符，或对序列进行额外的填充。
+
+| 分类       | 子类         | PyTorch      | MindSpore      | 差异          |
+| ---------- | ------------ | ------------ | ---------      | ------------- |
+| 参数       | 参数 1       | token_list    | -         | 输入的分词列表，用法差别见代码示例 |
+|            | 参数 2       | ngrams          | n          | n-gram的数量 |
+|            | 参数 3       | -           | left_pad        | 指定序列的左侧填充 |
+|            | 参数 4       | -     | right_pad          | 指定序列的右侧填充 |
+|            | 参数 5       | -          | separator     | 指定用于将n-gram结果的连接符 |
 
 ## 代码示例
 
 ```python
-from mindspore.dataset import text
+# In torch, return an iterator that yields the given tokens and their ngrams.
 from torchtext.data.utils import ngrams_iterator
 
-# In MindSpore, output numpy.ndarray type n-gram.
-
-ngram_op = text.Ngram(3, separator="-")
-output = ngram_op(["WildRose Country", "Canada's Ocean Playground", "Land of Living Skies"])
-print(output)
-# Out:
-# ["WildRose Country-Canada's Ocean Playground-Land of Living Skies"]
-
-# In torch, return an iterator that yields the given tokens and their ngrams.
 token_list = ['here', 'we', 'are']
 print(list(ngrams_iterator(token_list, 2)))
 # Out:
 # ['here', 'we', 'are', 'here we', 'we are']
+
+# In MindSpore, output numpy.ndarray type n-gram.
+from mindspore.dataset import text
+
+ngram_op = text.Ngram([2, 1], separator=" ")
+token_list = ['here', 'we', 'are']
+output = ngram_op(token_list)
+print(output)
+# Out:
+# ['here we' 'we are' 'here' 'we' 'are']
 ```

@@ -5,10 +5,10 @@
 ## torchaudio.transforms.Spectrogram
 
 ```python
-class torchaudio.transforms.Spectrogram(n_fft: int = 400, n_iter: int = 32, win_length: Optional[int] = None, hop_length: Optional[int] = None,
-                                       window_fn: Callable[[...], torch.Tensor] = <built-in method hann_window of type object>, power: float = 2.0,
-                                       normalized: bool = False, wkwargs: Optional[dict] = None, momentum: float = 0.99,
-                                       length: Optional[int] = None, rand_init: bool = True)
+class torchaudio.transforms.Spectrogram(n_fft: int = 400, win_length: Optional[int] = None, hop_length: Optional[int] = None,
+                                        pad: int = 0, window_fn: Callable[[...], torch.Tensor] = <built-in method hann_window of type object>,
+                                        power: Optional[float] = 2.0, normalized: bool = False, wkwargs: Optional[dict] = None,
+                                        center: bool = True, pad_mode: str = 'reflect', onesided: bool = True)
 ```
 
 For more information, see [torchaudio.transforms.Spectrogram](https://pytorch.org/audio/0.8.0/transforms.html#torchaudio.transforms.Spectrogram.html).
