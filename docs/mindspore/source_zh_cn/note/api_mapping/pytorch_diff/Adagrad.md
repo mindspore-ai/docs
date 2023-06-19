@@ -44,8 +44,8 @@ PyTorch和MindSpore此优化器实现算法不同，PyTorch在每一轮迭代中
 |      | 参数4 | weight_decay              | weight_decay             | 功能一致                                             |
 |      | 参数5 | initial_accumulator_value | accum             | 功能一致，参数名及默认值不同                                   |
 |      | 参数6 | eps                       | -             | PyTorch的 `eps` 用于加在除法的分母上以增加计算稳定性，MindSpore无此参数  |
-|      | 参数7 | -                         | update_slots             | MindSpore的 `update_slots` 表示是否更新累加器，PyTorch的无此参数 |
-|      | 参数8 | -                         | loss_scale             | MindSpore的 `loss_scale` 为梯度缩放系数，PyTorch的无此参数     |
+|      | 参数7 | -                         | update_slots             | MindSpore的 `update_slots` 表示是否更新累加器，PyTorch无此参数 |
+|      | 参数8 | -                         | loss_scale             | MindSpore的 `loss_scale` 为梯度缩放系数，PyTorch无此参数     |
 
 ### 代码示例
 

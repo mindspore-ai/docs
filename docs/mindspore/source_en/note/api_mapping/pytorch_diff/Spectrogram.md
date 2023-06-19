@@ -16,9 +16,10 @@ For more information, see [torchaudio.transforms.Spectrogram](https://pytorch.or
 ## mindspore.dataset.audio.Spectrogram
 
 ```python
-class mindspore.dataset.audio.Spectrogram(n_fft=400, n_iter=32, win_length=None, hop_length=None,
-                                         window_type=WindowType.HANN, power=2.0,
-                                         momentum=0.99, length=None, rand_init=True)
+class mindspore.dataset.audio.Spectrogram(n_fft=400, win_length=None, hop_length=None,
+                                          pad=0, window=WindowType.HANN,
+                                          power=2.0, normalized=False,
+                                          center=True, pad_mode=BorderType.REFLECT, onesided=True)
 ```
 
 For more information, see [mindspore.dataset.audio.Spectrogram](https://mindspore.cn/docs/en/master/api_python/dataset_audio/mindspore.dataset.audio.Spectrogram.html#mindspore.dataset.audio.Spectrogram).

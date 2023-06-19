@@ -15,7 +15,7 @@ class torch.optim.SparseAdam(
 
 更多内容详见[torch.optim.SparseAdam](https://pytorch.org/docs/1.8.0/optim.html#torch.optim.SparseAdam)。
 
-## mindspore.nn.SparseAdam
+## mindspore.nn.LazyAdam
 
 ```python
 class mindspore.nn.LazyAdam(

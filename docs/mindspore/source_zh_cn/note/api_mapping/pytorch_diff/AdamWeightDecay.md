@@ -43,8 +43,8 @@ PyTorch和MindSpore此优化器实现算法不同，详情请参考官网公式�
 |      | 参数3 | betas        | beta1，beta2   | 功能一致，参数名不同                                      |
 |      | 参数4 | eps          | eps           | 功能一致                                            |
 |      | 参数5 | weight_decay | weight_decay  | 功能一致                                            |
-|      | 参数6 | amsgrad      | -             | PyTorch的 `amsgrad` 表示是否应用amsgrad算法，MindSpore的无此参数 |
-|      | 参数7 | -            | loss_scale    | MindSpore的 `loss_scale` 为梯度缩放系数，PyTorch的无此参数    |
+|      | 参数6 | amsgrad      | -             | PyTorch的 `amsgrad` 表示是否应用amsgrad算法，MindSpore无此参数 |
+|      | 参数7 | -            | loss_scale    | MindSpore的 `loss_scale` 为梯度缩放系数，PyTorch无此参数    |
 
 ## 代码示例
 
