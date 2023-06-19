@@ -29,3 +29,4 @@ MindSpore： 参数 `x` 的dtype可以是 ``float16`` ，``float32`` 或 ``float
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 | 参数 | 参数1 | input | x | 二者参数名不同。二者均为Tensor，但参数 `input` 的dtype可以是 ``int`` 或 ``float`` ，参数 `x` 的dtype可以是 ``float16`` ，``float32`` 或 ``float64`` 。|
+|      | 参数2 | out | - | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |

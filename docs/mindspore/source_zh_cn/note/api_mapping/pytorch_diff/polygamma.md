@@ -30,3 +30,4 @@ MindSpore： 参数 `input` 的dtype可以是 ``float16`` ，``float32`` 或 ``f
 | --- | --- | --- | --- |---|
 | 参数 | 参数1 | n | n | - |
 |      | 参数2 | input | input | 二者均为Tensor，torch.polygamma的参数 `input` 的dtype可以是 ``int`` 或 ``float`` ，mindspore.ops.polygamma的参数 `input` 的dtype可以是 ``float16`` ，``float32`` 或 ``float64`` 。|
+|      | 参数3 | out | - | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
