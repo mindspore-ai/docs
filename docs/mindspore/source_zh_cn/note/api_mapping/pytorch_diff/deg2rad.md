@@ -22,7 +22,7 @@ mindspore.ops.deg2rad(x) -> Tensor
 
 MindSpore此API功能与PyTorch一致，参数支持的数据类型有差异。
 
-PyTorch: 参数 `input` 的dtype可以是 ``int`` 或 ``float`` 。
+PyTorch：参数 `input` 的dtype可以是 ``int`` 或 ``float`` 。
 
 MindSpore： 参数 `x` 的dtype可以是 ``float16`` ，``float32`` 或 ``float64`` 。
 
