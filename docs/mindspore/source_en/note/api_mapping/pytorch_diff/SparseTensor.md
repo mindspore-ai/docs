@@ -54,18 +54,12 @@ indices = ms.Tensor([[0, 1], [1, 2]])
 values = ms.Tensor([1, 2], dtype=ms.float32)
 out = Net((3, 4))(indices, values)
 print(out[0])
+# [[0 1]
+#  [1 2]]
 print(out[1])
+# [1. 2.]
 print(out[2])
-# Linux Out:
-# [[0 1]
-#  [1 2]]
-# [1. 2.]
 # (3, 4)
-# Windows Out:
-# [[0 1]
-#  [1 2]]
-# [1. 2.]
-# (Tensor(shape=[], dtype=Int64, value= 3), Tensor(shape=[], dtype=Int64, value= 4))
 
 # In torch:
 import torch
