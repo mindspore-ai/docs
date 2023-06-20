@@ -49,10 +49,10 @@ class mindspore.nn.LazyAdam(
 |      | 参数2 | lr      | learning_rate | 功能一致，参数名不同                                         |
 |      | 参数3 | betas   | beta1, beta2  | 功能一致，参数名不同                                         |
 |      | 参数4 | eps     | eps           | 功能一致                                               |
-|      | 参数5 | -       | use_locking   | MindSpore的 `use_locking` 表示是否对参数更新加锁保护，PyTorch的无此参数 |
-|      | 参数6 | -       | use_nesterov  | MindSpore的 `use_nesterov` 是否使用NAG算法更新梯度，PyTorch的无此参数     |
+|      | 参数5 | -       | use_locking   | MindSpore的 `use_locking` 表示是否对参数更新加锁保护，PyTorch无此参数 |
+|      | 参数6 | -       | use_nesterov  | MindSpore的 `use_nesterov` 是否使用NAG算法更新梯度，PyTorch无此参数     |
 |      | 参数7 | -       | weight_decay  | PyTorch无此参数                                        |
-|      | 参数8 | -       | loss_scale    | MindSpore的 `loss_scale` 为梯度缩放系数，PyTorch的无此参数       |
+|      | 参数8 | -       | loss_scale    | MindSpore的 `loss_scale` 为梯度缩放系数，PyTorch无此参数       |
 
 ### 代码示例
 

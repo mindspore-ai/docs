@@ -39,7 +39,7 @@ PyTorch和MindSpore此优化器实现算法不同，详情请参考官网公式�
 |      | 参数2 | lr         | learning_rate | 功能一致，参数名及默认值不同                  |
 |      | 参数3 | etas       | etas          | 功能一致，参数名不同                      |
 |      | 参数4 | step_sizes | step_sizes    | 功能一致                            |
-|      | 参数5 | -          | weight_decay  | PyTorch的无此参数                 |
+|      | 参数5 | -          | weight_decay  | PyTorch无此参数                 |
 
 ### 代码示例
 
