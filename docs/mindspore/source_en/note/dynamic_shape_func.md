@@ -1,8 +1,12 @@
-# Dynamic Shape Support Status of ops Interface
+# Dynamic Shape Support Status of functional Interface
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/dynamic_shape_func.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-> Some interfaces may have incomplete data type support in dynamic shape scenarios. This will be gradually improved in future versions. If issues with unsupported data types is encountered, you can resolve them by manually inserting a [Cast](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Cast.html) operator.
+> The following list provides functional interfaces that support dynamic shape functionality in PYNATIVE mode. However, some functional interfaces may have incomplete data type support. If you encounter such issues, you can resolve them by manually incorporating the [Cast](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Cast.html) operator.
+>
+> Functional interfaces outside of this list have limited support for dynamic shape functionality and may fail to execute. Additionally, in graph mode, dynamic shape functionality is also limited and may result in execution failures.
+>
+> If you encounter issues that the execution of dynamic shape operator fails, it is recommended to avoid introducing dynamic shape in the network. For example, you can adjust the inputs of functional interfaces to construct a fully static shape network or confine dynamic shape to a local scope within the network.
 
 | API name  | Ascend |  GPU  |   CPU  |
 | :--- |:-------- | :------- |:---------|
@@ -228,7 +232,6 @@
 |[mindspore.ops.svd](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.svd.html)|✔️|✔️|✔️|
 |[mindspore.ops.tan](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.tan.html)|✔️|✔️|✔️|
 |[mindspore.ops.tanh](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.tanh.html)|✔️|✔️|✔️|
-|[mindspore.ops.tensor_scatter_elements](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.tensor_scatter_elements.html)|✔️|✔️|✔️|
 |[mindspore.ops.tile](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.tile.html)|✔️|✔️|✔️|
 |[mindspore.ops.topk](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.topk.html)|✔️|✔️|✔️|
 |[mindspore.ops.trace](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.trace.html)|✔️|✔️|✔️|

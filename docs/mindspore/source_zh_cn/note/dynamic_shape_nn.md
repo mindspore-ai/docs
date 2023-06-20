@@ -2,9 +2,13 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/dynamic_shape_nn.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-> 部分接口在动态shape场景下可能会存在数据类型支持不全的问题，后续版本会逐步进行完善。如遇到数据类型不支持的问题，可以通过主动插入[Cast](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Cast.html)算子解决。
+> 以下列表列举了PYNATIVE模式下支持动态shape功能的nn接口。其中部分nn接口可能会存在数据类型支持不全的问题，如遇到此类问题，可以通过主动插入[Cast](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Cast.html)算子解决。
+>
+> 列表以外的nn接口对动态shape功能支持尚不完善，可能会执行失败。另外，图模式下，动态shape功能支持也不完善，可能会执行失败。
+>
+> 如遇到动态shape算子执行失败的问题，建议尽量避免在网络中引入动态shape。例如：可以通过调整nn接口输入，构造出全静态shape网络，或将动态shape限制在网络局部范围内。
 
-| API名称  | Ascend |  GPU  |   CPU  |
+| 算子名称  | Ascend |  GPU  |   CPU  |
 | :--- |:-------- | :------- |:---------|
 |[mindspore.nn.Adam](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Adam.html)|✔️|✔️|✔️|
 |[mindspore.nn.AdaptiveAvgPool1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.AdaptiveAvgPool1d.html)|✔️|✔️|✔️|
