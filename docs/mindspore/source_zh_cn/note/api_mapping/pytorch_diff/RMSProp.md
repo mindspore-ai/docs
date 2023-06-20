@@ -45,12 +45,12 @@ PyTorch和MindSpore此优化器实现算法不同，详情请参考官网公式�
 | 参数 | 参数1 | params       | params        | 功能一致                                               |
 |      | 参数2 | lr           | learning_rate | 功能一致，参数名及默认值不同                                     |
 |      | 参数3 | alpha        | decay             | 功能一致，参数名及默认值不同                                     |
-|      | 参数6 | eps          | epsilon             | 功能一致，参数名及默认值不同                                     |
-|      | 参数4 | weight_decay | weight_decay             | 功能一致                                               |
-|      | 参数5 | momentum     | momentum             | 功能一致                                               |
+|      | 参数4 | eps          | epsilon             | 功能一致，参数名及默认值不同                                     |
+|      | 参数5 | weight_decay | weight_decay             | 功能一致                                               |
+|      | 参数6 | momentum     | momentum             | 功能一致                                               |
 |      | 参数7 | centered     | centered             | 功能一致                                               |
-|      | 参数8 | -            | use_locking             | MindSpore的 `use_locking` 用于控制是否更新网络权重，PyTorch的无此参数 |
-|      | 参数8 | -            | loss_scale             | MindSpore的 `loss_scale` 为梯度缩放系数，PyTorch的无此参数       |
+|      | 参数8 | -            | use_locking             | MindSpore的 `use_locking` 用于控制是否更新网络权重，PyTorch无此参数 |
+|      | 参数9 | -            | loss_scale             | MindSpore的 `loss_scale` 为梯度缩放系数，PyTorch无此参数       |
 
 ### 代码示例
 
