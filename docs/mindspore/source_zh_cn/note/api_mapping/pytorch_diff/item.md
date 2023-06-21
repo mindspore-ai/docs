@@ -20,9 +20,9 @@ mindspore.Tensor.item(index=None)
 
 ## 使用方式
 
-PyTorch：返回Tensor的值，适用于只有一个元素的Tensor。
+PyTorch：返回Tensor的值，适用于只有一个元素的Tensor。返回值为Number。
 
-MindSpore：返回Tensor中指定index的值，适用于一个或多个元素的Tensor。
+MindSpore：返回Tensor中指定index的值，适用于一个或多个元素的Tensor。返回值仍为Tensor。
 
 ## 代码示例
 
@@ -31,16 +31,23 @@ import mindspore as ms
 import numpy as np
 import torch
 
+# MindSpore
 x = ms.Tensor(np.array([[1,2,3],[4,5,6]], dtype=np.float32))
 print(x.item((0,1)))
 # Out：
-# 2.0
+# Tensor(shape=[], dtype=Int64, value=2)
+
+x = ms.Tensor(np.array([[1,2,3],[4,5,6]], dtype=np.float32))
+print(x.asnumpy().item((0,1)))
+# Out：
+# 2
 
 y = ms.Tensor([1.0])
 print(y.item())
 # Out:
-# 1.0
+# Tensor(shape=[], dtype=Float32, value=1)
 
+# PyTorch
 z = torch.tensor([1.0])
 print(z.item())
 # Out:
