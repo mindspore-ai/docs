@@ -158,6 +158,13 @@ device_info->SetDeviceID(device_id);
 device_list.push_back(gpu_device_info);
 ```
 
+在Ascend弹性加速服务（拉远模式）环境运行推理：
+
+```c++
+// Set the provider to ge.
+device_info->SetProvider("ge");
+```
+
 用户可通过调用 `SetPrecisionMode()`接口配置精度模式，使用场景如下表所示：
 
 | 用户配置precision mode参数 | ACL实际获取precision mode参数 | ACL使用场景说明       |
