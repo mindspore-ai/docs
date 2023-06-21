@@ -6,7 +6,7 @@
 
 ### 计算机视觉
 
-#### 图像分类（骨干类)
+#### 图像分类（骨干类）
 
 以下数据基于Ascend 910A环境和ImageNet-1K数据集获得。
 
@@ -269,6 +269,16 @@
 | [Dueling DQN](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fdueling_dqn) | >= 0.6 | ✔️ | / | ✔️ | ✔️ | ✔️ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
 
 ## 科学计算套件
+
+| 领域    | 网络                                                                                                                                      | Ascend | GPU |    数据类型     |
+|-------|-----------------------------------------------------------------------------------------------------------------------------------------|:------:|:---:|:-----------:|
+| 通用物理  | [*Deep Learning for High-Dimensional PDEs (deepbsde)](https://gitee.com/mindspore/models/tree/master/research/hpc/deepbsde/README.md)   |        |  ✅  |  Float 32   |
+| 通用物理  | [*Penalty-free Neural Networks (pfnn)](https://gitee.com/mindspore/models/tree/master/research/hpc/pfnn/README_CN.md)                   |        |  ✅  |  Float 32   |
+| 通用物理  | [*Physics Informed Neural Networks (pinns)](https://gitee.com/mindspore/models/tree/master/research/hpc/pinns/README_CN.md)             |        |  ✅  |  Float 32   |
+| 海洋物理  | [*Finite Differential Method for PDEs (ocean_model)](https://gitee.com/mindspore/models/tree/master/research/hpc/ocean_model/README.md) |        |  ✅  |  Float 32   |
+| 电磁学   | [*PINNs with Incremental Learning (incremental_learning)](../MindElec/examples/physics_driven/incremental_learning/README_CN.md)        |   ✅    |  ✅  | Float 16/32 |
+| 电磁学   | [*Multi-scale PINNs (pinn_fwi)](../MindElec/examples/physics_driven/pinnFWI/README.md)                                                  |   ✅    |  ✅  | Float 16/32 |
+| 电磁学   | [*PINNs for Maxwell Equation (time_domain_maxwell)](../MindElec/examples/physics_driven/time_domain_maxwell/README_CN.md)               |   ✅    |  ✅  | Float 16/32 |
 
 ## 大模型套件
 
