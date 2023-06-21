@@ -206,3 +206,5 @@ Before running the network script, configure Profiler configuration items.
 - `data_process` (bool, optional) - Indicates whether to collect data to prepare performance data. Default value: true.
 
 - `parallel_strategy` (bool, optional) - Indicates whether to collect parallel policy performance data. Default value: true.
+
+- `profile_framework` (str, optional) - Whether to collect host memory and time, it must be one of ["all", "time", "memory", null]. Default: "all".
