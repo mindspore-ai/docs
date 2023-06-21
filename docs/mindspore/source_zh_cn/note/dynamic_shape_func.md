@@ -1,8 +1,12 @@
-# ops接口动态shape支持情况
+# functional接口动态shape支持情况
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/dynamic_shape_func.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
-> 部分接口在动态shape场景下可能会存在数据类型支持不全的问题，后续版本会逐步进行完善。如遇到数据类型不支持的问题，可以通过主动插入[Cast](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Cast.html)算子解决。
+> 以下列表列举了PYNATIVE模式下支持动态shape功能的functional接口。其中部分functional接口可能会存在数据类型支持不全的问题，如遇到此类问题，可以通过主动插入[Cast](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Cast.html)算子解决。
+>
+> 列表以外的functional接口对动态shape功能支持尚不完善，可能会执行失败。另外，图模式下，动态shape功能支持也不完善，可能会执行失败。
+>
+> 如遇到动态shape算子执行失败的问题，建议尽量避免在网络中引入动态shape。例如：可以通过调整functional接口输入，构造出全静态shape网络，或将动态shape限制在网络局部范围内。
 
 | API名称  | Ascend |  GPU  |   CPU  |
 | :--- |:-------- | :------- |:---------|
@@ -226,7 +230,6 @@
 |[mindspore.ops.svd](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.svd.html)|✔️|✔️|✔️|
 |[mindspore.ops.tan](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.tan.html)|✔️|✔️|✔️|
 |[mindspore.ops.tanh](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.tanh.html)|✔️|✔️|✔️|
-|[mindspore.ops.tensor_scatter_elements](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.tensor_scatter_elements.html)|✔️|✔️|✔️|
 |[mindspore.ops.tile](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.tile.html)|✔️|✔️|✔️|
 |[mindspore.ops.topk](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.topk.html)|✔️|✔️|✔️|
 |[mindspore.ops.trace](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.trace.html)|✔️|✔️|✔️|

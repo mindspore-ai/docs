@@ -2,9 +2,13 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_en/note/dynamic_shape_primitive.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
 
-> Some operators may have incomplete data type support in dynamic shape scenarios. This will be gradually improved in future versions. If issues with unsupported data types is encountered, you can resolve them by manually inserting a [Cast](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Cast.html) operator.
+> The following list provides primitive interfaces that support dynamic shape functionality in PYNATIVE mode. However, some primitive interfaces may have incomplete data type support. If you encounter such issues, you can resolve them by manually incorporating the [Cast](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Cast.html) operator.
+>
+> Primitive interfaces outside of this list have limited support for dynamic shape functionality and may fail to execute. Additionally, in graph mode, dynamic shape functionality is also limited and may result in execution failures.
+>
+> If you encounter issues that the execution of dynamic shape operator fails, it is recommended to avoid introducing dynamic shape in the network. For example, you can adjust the inputs of primitive interfaces to construct a fully static shape network or confine dynamic shape to a local scope within the network.
 
-| API name  | Ascend |  GPU  |   CPU  |
+| Operator name  | Ascend |  GPU  |   CPU  |
 | :--- |:-------- | :------- |:---------|
 |[mindspore.Abs](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Abs.html)|✔️|✔️|✔️|
 |[mindspore.Acosh](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Acosh.html)|✔️|✔️|✔️|
@@ -206,7 +210,6 @@
 |[mindspore.Svd](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Svd.html)|✔️|✔️|✔️|
 |[mindspore.Tan](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Tan.html)|✔️|✔️|✔️|
 |[mindspore.Tanh](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Tanh.html)|✔️|✔️|✔️|
-|[mindspore.TensorScatterUpdate](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.TensorScatterUpdate.html)|✔️|✔️|✔️|
 |[mindspore.Tile](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Tile.html)|✔️|✔️|✔️|
 |[mindspore.TopK](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.TopK.html)|✔️|✔️|✔️|
 |[mindspore.Trace](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Trace.html)|✔️|✔️|✔️|
