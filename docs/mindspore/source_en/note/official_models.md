@@ -270,6 +270,16 @@ The following results are tested on Ascend 910 with COCO2017.
 
 ## Scientific Computing
 
+| Fields    | Network     | Ascend | GPU |    Data Types     |
+|-------|---------------------------------|:------:|:---:|:-----------:|
+| General Physics  | [*Deep Learning for High-Dimensional PDEs (deepbsde)](https://gitee.com/mindspore/models/tree/master/research/hpc/deepbsde/README.md)   |        |  ✅  |  Float 32   |
+| General Physics  | [*Penalty-free Neural Networks (pfnn)](https://gitee.com/mindspore/models/tree/master/research/hpc/pfnn/README_CN.md)                   |        |  ✅  |  Float 32   |
+| General Physics  | [*Physics Informed Neural Networks (pinns)](https://gitee.com/mindspore/models/tree/master/research/hpc/pinns/README_CN.md)             |        |  ✅  |  Float 32   |
+| Marine Physics  | [*Finite Differential Method for PDEs (ocean_model)](https://gitee.com/mindspore/models/tree/master/research/hpc/ocean_model/README.md) |        |  ✅  |  Float 32   |
+| Electromagnetics   | [*PINNs with Incremental Learning (incremental_learning)](../MindElec/examples/physics_driven/incremental_learning/README_CN.md)        |   ✅    |  ✅  | Float 16/32 |
+| Electromagnetics   | [*Multi-scale PINNs (pinn_fwi)](../MindElec/examples/physics_driven/pinnFWI/README.md)                                                  |   ✅    |  ✅  | Float 16/32 |
+| Electromagnetics   | [*PINNs for Maxwell Equation (time_domain_maxwell)](../MindElec/examples/physics_driven/time_domain_maxwell/README_CN.md)               |   ✅    |  ✅  | Float 16/32 |
+
 ## Foundation Model
 
 ### Transformers
