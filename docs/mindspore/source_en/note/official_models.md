@@ -272,13 +272,33 @@ The following results are tested on Ascend 910 with COCO2017.
 
 | Fields    | Network     | Ascend | GPU |    Data Types     |
 |-------|---------------------------------|:------:|:---:|:-----------:|
-| General Physics  | [*Deep Learning for High-Dimensional PDEs (deepbsde)](https://gitee.com/mindspore/models/tree/master/research/hpc/deepbsde/README.md)   |        |  ✅  |  Float 32   |
-| General Physics  | [*Penalty-free Neural Networks (pfnn)](https://gitee.com/mindspore/models/tree/master/research/hpc/pfnn/README_CN.md)                   |        |  ✅  |  Float 32   |
-| General Physics  | [*Physics Informed Neural Networks (pinns)](https://gitee.com/mindspore/models/tree/master/research/hpc/pinns/README_CN.md)             |        |  ✅  |  Float 32   |
-| Marine Physics  | [*Finite Differential Method for PDEs (ocean_model)](https://gitee.com/mindspore/models/tree/master/research/hpc/ocean_model/README.md) |        |  ✅  |  Float 32   |
-| Electromagnetics   | [*PINNs with Incremental Learning (incremental_learning)](../MindElec/examples/physics_driven/incremental_learning/README_CN.md)        |   ✅    |  ✅  | Float 16/32 |
-| Electromagnetics   | [*Multi-scale PINNs (pinn_fwi)](../MindElec/examples/physics_driven/pinnFWI/README.md)                                                  |   ✅    |  ✅  | Float 16/32 |
-| Electromagnetics   | [*PINNs for Maxwell Equation (time_domain_maxwell)](../MindElec/examples/physics_driven/time_domain_maxwell/README_CN.md)               |   ✅    |  ✅  | Float 16/32 |
+| General Physics  | [*Deep Learning for High-Dimensional PDEs (deepbsde)](https://gitee.com/mindspore/models/tree/master/research/hpc/deepbsde/README.md#)   |        |  ✅  |  Float 32   |
+| General Physics  | [*Penalty-free Neural Networks (pfnn)](https://gitee.com/mindspore/models/tree/master/research/hpc/pfnn/README_CN.md#)                   |        |  ✅  |  Float 32   |
+| General Physics  | [*Physics Informed Neural Networks (pinns)](https://gitee.com/mindspore/models/tree/master/research/hpc/pinns/README_CN.md#)             |        |  ✅  |  Float 32   |
+| Marine Physics  | [*Finite Differential Method for PDEs (ocean_model)](https://gitee.com/mindspore/models/tree/master/research/hpc/ocean_model/README.md#) |        |  ✅  |  Float 32   |
+| Electromagnetics   | [*PINNs with Incremental Learning (incremental_learning)](https://gitee.com/mindspore/mindscience/blob/master/MindElec/examples/physics_driven/incremental_learning/README_CN.md#)        |   ✅    |  ✅  | Float 16/32 |
+| Electromagnetics   | [*Multi-scale PINNs (pinn_fwi)](https://gitee.com/mindspore/mindscience/blob/master/MindElec/examples/physics_driven/pinnFWI/README.md#)                                                  |   ✅    |  ✅  | Float 16/32 |
+| Electromagnetics   | [*PINNs for Maxwell Equation (time_domain_maxwell)](https://gitee.com/mindspore/mindscience/blob/master/MindElec/examples/physics_driven/time_domain_maxwell/README_CN.md#)               |   ✅    |  ✅  | Float 16/32 |
+| Computational Biology | [*MEGA-Fold](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README_CN.md#)         |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*MEGA-EvoGen](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README_CN.md#)       |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*MEGA-Assessment](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README_CN.md#)   |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*ColabDesign](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/Colabdesign)           |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*DeepDR](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/DeepDR/README.md#)           |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*DeepFRI](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/DeepFRI/README_CN.md#)      |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*iterative Folding Assisted peak ASsignmenT](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/FAAST/README_CN.md#)          |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*JT-VAE](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/JT-VAE/README.md#)           |   ✅   | ✅ |  Float 32  |
+| Computational Biology | [*Knowledge Graph Neural Network](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/KGNN/README.md#)               |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*MG-BERT](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/MG_BERT/README.md#)         |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*Multimer](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/Multimer/README.md#)       |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*ProteinMPNN](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/ProteinMPNN/README.md#) |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*UFold](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/UFold/README_CN.md#)          |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*ESM-IF1](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/esm/README_CN.md#)              |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*ESM2]()              |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*GROVER](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/grover/README.md#)           |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*pafnucy](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/pafnucy/README.md#)         |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*SchNet](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/cybertron/)              |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*MolCT](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/cybertron/)              |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*PhysNet](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/cybertron/)              |   ✅   | ✅ | Float 16/32 |
 
 ## Foundation Model
 
