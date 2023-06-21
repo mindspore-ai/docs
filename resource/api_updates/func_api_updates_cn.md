@@ -11,7 +11,7 @@
 [mindspore.ops.cat](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.cat.html#mindspore.ops.cat)|New|在指定轴上拼接输入Tensor。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.channel_shuffle](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.channel_shuffle.html#mindspore.ops.channel_shuffle)|New|将shape为 $(\*, C, H, W)$ 的Tensor的通道划分成 $g$ 组，并按如下方式重新排列 $(\*, \frac{C}{g}, g, H*W)$ ，同时保持原始Tensor的shape不变。|r2.0: Ascend/CPU|Array操作
 [mindspore.ops.chunk](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.chunk.html#mindspore.ops.chunk)|New|沿着指定轴 axis 将输入Tensor切分成 chunks 个sub-tensor。|r2.0: Ascend/GPU/CPU|Array操作
-[mindspore.ops.column_stack](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.column_stack.html#mindspore.ops.column_stack)|New|将多个1-D 或2-D Tensor沿着水平方向堆叠成一个2-D Tensor，即按列拼接。|r2.0: Ascend/GPU/CPU|Array操作
+[mindspore.ops.column_stack](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.column_stack.html#mindspore.ops.column_stack)|New|将多个Tensor沿着水平方向维度堆叠成一个Tensor，即按列拼接。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.conj](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.conj.html#mindspore.ops.conj)|New|逐元素计算输入Tensor的共轭。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.cross](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.cross.html#mindspore.ops.cross)|New|返回沿着维度 dim 上，input 和 other 的向量积（叉积）。|r2.0: Ascend/CPU|Array操作
 [mindspore.ops.diag](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.diag.html#mindspore.ops.diag)|Changed|用给定的对角线值构造对角线Tensor。|r1.10: Ascend/GPU => r2.0: Ascend/GPU/CPU|Array操作
@@ -32,7 +32,6 @@
 [mindspore.ops.inplace_index_add](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.inplace_index_add.html#mindspore.ops.inplace_index_add)|New|逐元素将一个Tensor updates 添加到原Tensor var 的指定轴和索引处。|r2.0: Ascend/CPU|Array操作
 [mindspore.ops.inplace_sub](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.inplace_sub.html#mindspore.ops.inplace_sub)|Changed|将 v 依照索引 indices 从 x 中减去。|r1.10: Ascend/CPU => r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.inplace_update](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.inplace_update.html#mindspore.ops.inplace_update)|Changed|根据 indices，将 x 中的某些值更新为 v。|r1.10: Ascend/GPU/CPU => r2.0: GPU/CPU|Array操作
-[mindspore.ops.matrix_band_part](https://mindspore.cn/docs/zh-CN/r1.10/api_python/ops/mindspore.ops.matrix_band_part.html#mindspore.ops.matrix_band_part)|Deleted|将矩阵的每个中心带外的所有位置设置为0。|GPU/CPU|Array操作
 [mindspore.ops.moveaxis](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.moveaxis.html#mindspore.ops.moveaxis)|New|将 x 在 source 中位置的维度移动到 destination 中的位置。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.movedim](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.movedim.html#mindspore.ops.movedim)|New|调换 x 中 source 和 destination 两个维度的位置。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.nan_to_num](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.nan_to_num.html#mindspore.ops.nan_to_num)|New|将 input 中的 NaN 、正无穷大和负无穷大值分别替换为 nan 、posinf 和 neginf 指定的值。|r2.0: Ascend/CPU|Array操作
@@ -56,7 +55,9 @@
 [mindspore.ops.tensor_split](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.tensor_split.html#mindspore.ops.tensor_split)|New|根据指定的轴将输入Tensor进行分割成多个子Tensor。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.top_k](https://mindspore.cn/docs/zh-CN/r1.10/api_python/ops/mindspore.ops.top_k.html#mindspore.ops.top_k) => [mindspore.ops.topk](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.topk.html#mindspore.ops.topk)|Changed|沿最后一个维度查找 k 个最大元素和对应的索引。|Ascend/GPU/CPU|Array操作
 [mindspore.ops.tril](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.tril.html#mindspore.ops.tril)|New|返回输入Tensor input 的下三角形部分(包含对角线和下面的元素)，并将其他元素设置为0。|r2.0: Ascend/GPU/CPU|Array操作
+[mindspore.ops.triu](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.triu.html#mindspore.ops.triu)|New|返回输入Tensor input 的上三角形部分(包含对角线和下面的元素)，并将其他元素设置为0。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.unbind](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.unbind.html#mindspore.ops.unbind)|New|根据指定轴对输入矩阵进行分解。|r2.0: Ascend/GPU/CPU|Array操作
+[mindspore.ops.unfold](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.unfold.html#mindspore.ops.unfold)|New|从一个batch的输入Tensor中提取滑动局部块。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.unique_consecutive](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.unique_consecutive.html#mindspore.ops.unique_consecutive)|Changed|对输入Tensor中连续且重复的元素去重。|r1.10: Ascend/GPU => r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.unsorted_segment_prod](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.unsorted_segment_prod.html#mindspore.ops.unsorted_segment_prod)|Changed|沿分段计算输入Tensor元素的乘积。|r1.10: Ascend/GPU => r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.unsqueeze](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.unsqueeze.html#mindspore.ops.unsqueeze)|New|对输入 input 在给定维上添加额外维度。|r2.0: Ascend/GPU/CPU|Array操作
@@ -152,7 +153,7 @@
 [mindspore.ops.zeros](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.zeros.html#mindspore.ops.zeros)|New|创建一个填满0的Tensor，shape由 size 决定， dtype由 dtype 决定。|r2.0: Ascend/GPU/CPU|Tensor创建
 [mindspore.ops.zeros_like](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.zeros_like.html#mindspore.ops.zeros_like)|New|创建一个填满0的Tensor，shape由 input 决定，dtype由 dtype 决定。|r2.0: Ascend/GPU/CPU|Tensor创建
 [mindspore.ops.col2im](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.col2im.html#mindspore.ops.col2im)|Changed|将一组滑动局部块组合成一个大的Tensor。|r1.10: GPU => r2.0: Ascend/GPU/CPU|r1.10: Array操作 => r2.0: 图像函数
-[mindspore.ops.pad](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.pad.html#mindspore.ops.pad)|Changed|r1.10: 根据参数 paddings 对输入进行填充。 => r2.0: 根据参数 padding 对输入进行填充。|r1.10: Ascend/GPU/CPU => r2.0: GPU/CPU|r1.10: 神经网络 => r2.0: 图像函数
+[mindspore.ops.matrix_band_part](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.matrix_band_part.html#mindspore.ops.matrix_band_part)|Changed|将矩阵的每个中心带外的所有位置设置为0。|r1.10: GPU/CPU => r2.0: Ascend/GPU/CPU|r1.10: Array操作 => r2.0: 线性代数函数
 [mindspore.ops.bernoulli](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.bernoulli.html#mindspore.ops.bernoulli)|Changed|r1.10: 以p的概率随机将输出的元素设置为0或1，服从伯努利分布。 => r2.0: 以 p 的概率随机将输出的元素设置为0或1，服从伯努利分布。|r1.10: GPU => r2.0: GPU/CPU|r1.10: 逐元素运算 => r2.0: 随机生成函数
 [mindspore.ops.grid_sample](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.grid_sample.html#mindspore.ops.grid_sample)|Changed|给定一个输入和一个网格，使用网格中的输入值和像素位置计算输出。|r1.10: Ascend/GPU => r2.0: Ascend/GPU/CPU|r1.10: 采样函数 => r2.0: 图像函数
 [mindspore.ops.core](https://mindspore.cn/docs/zh-CN/r1.10/api_python/ops/mindspore.ops.core.html#mindspore.ops.core)|Deleted|A decorator that adds a flag to the function.|Ascend/GPU/CPU|其他函数
@@ -199,13 +200,14 @@
 [mindspore.ops.same_type_shape](https://mindspore.cn/docs/zh-CN/r1.10/api_python/ops/mindspore.ops.same_type_shape.html#mindspore.ops.same_type_shape)|Deleted|Checks whether the data type and shape of two tensors are the same.|Ascend/GPU/CPU|比较函数
 [mindspore.ops.searchsorted](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.searchsorted.html#mindspore.ops.searchsorted)|New|返回位置索引，根据这个索引将 values 插入 sorted_sequence 后，sorted_sequence 的最内维度的顺序保持不变。|r2.0: Ascend/GPU/CPU|比较函数
 [mindspore.ops.topk](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.topk.html#mindspore.ops.topk)|New|沿给定维度查找 k 个最大或最小元素和对应的索引。|r2.0: Ascend/GPU/CPU|比较函数
+[mindspore.ops.celu](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.celu.html#mindspore.ops.celu)|New|celu激活函数，逐元素计算输入Tensor的celu（Continuously differentiable exponential linear units）值。|r2.0: Ascend/GPU/CPU|激活函数
 [mindspore.ops.elu](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.elu.html#mindspore.ops.elu)|New|指数线性单元激活函数。|r2.0: Ascend/GPU/CPU|激活函数
 [mindspore.ops.gelu](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.gelu.html#mindspore.ops.gelu)|New|高斯误差线性单元激活函数。|r2.0: Ascend/GPU/CPU|激活函数
 [mindspore.ops.glu](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.glu.html#mindspore.ops.glu)|New|门线性单元函数（Gated Linear Unit function）。|r2.0: Ascend/CPU|激活函数
 [mindspore.ops.hardsigmoid](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.hardsigmoid.html#mindspore.ops.hardsigmoid)|New|Hard Sigmoid激活函数。|r2.0: Ascend/GPU/CPU|激活函数
 [mindspore.ops.hardtanh](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.hardtanh.html#mindspore.ops.hardtanh)|New|逐元素元素计算hardtanh激活函数。|r2.0: Ascend/GPU/CPU|激活函数
 [mindspore.ops.leaky_relu](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.leaky_relu.html#mindspore.ops.leaky_relu)|New|leaky_relu激活函数。|r2.0: Ascend/GPU/CPU|激活函数
-[mindspore.ops.logsigmoid](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.logsigmoid.html#mindspore.ops.logsigmoid)|New|按元素计算logsigmoid激活函数。|r2.0: Ascend/GPU|激活函数
+[mindspore.ops.logsigmoid](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.logsigmoid.html#mindspore.ops.logsigmoid)|New|按元素计算logsigmoid激活函数。|r2.0: Ascend/GPU/CPU|激活函数
 [mindspore.ops.prelu](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.prelu.html#mindspore.ops.prelu)|New|带参数的线性修正单元激活函数（Parametric Rectified Linear Unit activation function）。|r2.0: Ascend/GPU/CPU|激活函数
 [mindspore.ops.relu](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.relu.html#mindspore.ops.relu)|New|对输入Tensor逐元素计算线性修正单元激活函数（Rectified Linear Unit）值。|r2.0: Ascend/GPU/CPU|激活函数
 [mindspore.ops.relu6](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.relu6.html#mindspore.ops.relu6)|New|计算输入Tensor的ReLU（修正线性单元），其上限为6。|r2.0: Ascend/GPU/CPU|激活函数
@@ -216,6 +218,7 @@
 [mindspore.ops.softshrink](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.softshrink.html#mindspore.ops.softshrink)|New|逐元素计算Soft Shrink激活函数。|r2.0: Ascend/GPU/CPU|激活函数
 [mindspore.ops.threshold](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.threshold.html#mindspore.ops.threshold)|New|使用阈值 thr 参数对 input 逐元素阈值化，并将其结果作为Tensor返回。|r2.0: Ascend/GPU/CPU|激活函数
 [mindspore.ops.adaptive_avg_pool1d](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.adaptive_avg_pool1d.html#mindspore.ops.adaptive_avg_pool1d)|New|对可以看作是由一系列1D平面组成的输入Tensor，应用一维自适应平均池化操作。|r2.0: Ascend/GPU/CPU|神经网络
+[mindspore.ops.adaptive_avg_pool2d](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.adaptive_avg_pool2d.html#mindspore.ops.adaptive_avg_pool2d)|Changed|r1.10: 对输入Tensor，提供二维的自适应平均池化操作。 => r2.0: 对一个多平面输入信号执行二维自适应平均池化。|r1.10: GPU => r2.0: Ascend/GPU/CPU|神经网络
 [mindspore.ops.adaptive_avg_pool3d](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.adaptive_avg_pool3d.html#mindspore.ops.adaptive_avg_pool3d)|Changed|r1.10: 对由多个平面组成的输入Tensor，进行三维的自适应平均池化操作。 => r2.0: 对一个多平面输入信号执行三维自适应平均池化。|r1.10: GPU => r2.0: Ascend/GPU/CPU|神经网络
 [mindspore.ops.adaptive_max_pool1d](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.adaptive_max_pool1d.html#mindspore.ops.adaptive_max_pool1d)|New|对可以看作是由一系列1D平面组成的输入Tensor，应用一维自适应最大池化操作。|r2.0: Ascend/GPU/CPU|神经网络
 [mindspore.ops.avg_pool1d](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.avg_pool1d.html#mindspore.ops.avg_pool1d)|New|在输入Tensor上应用1D平均池化，输入Tensor可以看作是由一系列1D平面组成的。|r2.0: Ascend/GPU/CPU|神经网络
@@ -243,17 +246,20 @@
 [mindspore.ops.baddbmm](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.baddbmm.html#mindspore.ops.baddbmm)|New|对输入的两个三维矩阵batch1与batch2相乘，并将结果与input相加。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.bmm](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.bmm.html#mindspore.ops.bmm)|New|基于batch维度的两个Tensor的矩阵乘法。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.cholesky](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.cholesky.html#mindspore.ops.cholesky)|New|计算对称正定矩阵或一批对称正定矩阵的Cholesky分解。|r2.0: GPU/CPU|线性代数函数
+[mindspore.ops.cholesky_solve](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.cholesky_solve.html#mindspore.ops.cholesky_solve)|New|根据Cholesky分解因子 input2 计算一组具有正定矩阵的线性方程组的解。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.eig](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.eig.html#mindspore.ops.eig)|New|计算输入方阵（batch方阵）的特征值和特征向量。|r2.0: Ascend/CPU|线性代数函数
 [mindspore.ops.geqrf](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.geqrf.html#mindspore.ops.geqrf)|New|将矩阵分解为正交矩阵 Q 和上三角矩阵 R 的乘积。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.inner](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.inner.html#mindspore.ops.inner)|New|计算两个1D Tensor的点积。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.inverse](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.inverse.html#mindspore.ops.inverse)|New|计算输入矩阵的逆。|r2.0: GPU/CPU|线性代数函数
 [mindspore.ops.kron](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.kron.html#mindspore.ops.kron)|New|计算 x 和 y 的Kronecker积：$x ⊗ y$ 。|r2.0: Ascend/GPU/CPU|线性代数函数
-[mindspore.ops.logdet](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.logdet.html#mindspore.ops.logdet)|New|计算方块矩阵或批量方块矩阵的对数行列式。|r2.0: GPU/CPU|线性代数函数
+[mindspore.ops.logdet](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.logdet.html#mindspore.ops.logdet)|New|计算方块矩阵或批量方块矩阵的对数行列式。|r2.0: CPU|线性代数函数
 [mindspore.ops.lu_unpack](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.lu_unpack.html#mindspore.ops.lu_unpack)|New|将 LU_data 和 LU_pivots 还原为P, L, U矩阵，其中P为置换矩阵，L为下三角矩阵，U为上三角矩阵。|r2.0: GPU/CPU|线性代数函数
+[mindspore.ops.matrix_power](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.matrix_power.html#mindspore.ops.matrix_power)|New|计算一个方阵的（整数）n次幂。|r2.0: CPU|线性代数函数
 [mindspore.ops.matrix_solve](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.matrix_solve.html#mindspore.ops.matrix_solve)|Changed|求解线性方程组。|r1.10: GPU/CPU => r2.0: Ascend/CPU|线性代数函数
 [mindspore.ops.mm](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.mm.html#mindspore.ops.mm)|New|计算两个矩阵的乘积。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.mv](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.mv.html#mindspore.ops.mv)|New|实现矩阵 mat 和向量 vec 相乘。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.orgqr](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.orgqr.html#mindspore.ops.orgqr)|New|计算 mindspore.ops.Geqrf 返回的正交矩阵 $Q$ 的显式表示。|r2.0: Ascend/GPU/CPU|线性代数函数
+[mindspore.ops.ormqr](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.ormqr.html#mindspore.ops.ormqr)|New|计算一个普通矩阵与Householder矩阵的乘积。|r2.0: GPU|线性代数函数
 [mindspore.ops.outer](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.outer.html#mindspore.ops.outer)|New|计算 input 和 vec2 的外积。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.pinv](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.pinv.html#mindspore.ops.pinv)|New|计算矩阵的（Moore-Penrose）伪逆。|r2.0: CPU|线性代数函数
 [mindspore.ops.qr](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.qr.html#mindspore.ops.qr)|New|返回一个或多个矩阵的QR（正交三角）分解。|r2.0: Ascend/GPU/CPU|线性代数函数
@@ -275,11 +281,11 @@
 [mindspore.ops.addmv](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.addmv.html#mindspore.ops.addmv)|New|mat 和 vec 相乘，且将输入向量 x 加到最终结果中。|r2.0: Ascend/GPU/CPU|逐元素运算
 [mindspore.ops.angle](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.angle.html#mindspore.ops.angle)|New|逐元素计算复数Tensor的辐角。|r2.0: Ascend/GPU/CPU|逐元素运算
 [mindspore.ops.arccos](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.arccos.html#mindspore.ops.arccos)|New|mindspore.ops.acos() 的别名。|r2.0: Ascend/GPU/CPU|逐元素运算
-[mindspore.ops.arccosh](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.arccosh.html#mindspore.ops.arccosh)|New|详情请参考 mindspore.ops.acosh()。|r2.0: Ascend/GPU/CPU|逐元素运算
+[mindspore.ops.arccosh](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.arccosh.html#mindspore.ops.arccosh)|New|mindspore.ops.acosh() 的别名。|r2.0: Ascend/GPU/CPU|逐元素运算
 [mindspore.ops.arcsin](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.arcsin.html#mindspore.ops.arcsin)|New|mindspore.ops.asin() 的别名。|r2.0: Ascend/GPU/CPU|逐元素运算
 [mindspore.ops.arcsinh](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.arcsinh.html#mindspore.ops.arcsinh)|New|mindspore.ops.asinh() 的别名。|r2.0: Ascend/GPU/CPU|逐元素运算
-[mindspore.ops.arctan](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.arctan.html#mindspore.ops.arctan)|New|详情请参考 mindspore.ops.atan()。|r2.0: Ascend/GPU/CPU|逐元素运算
-[mindspore.ops.arctan2](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.arctan2.html#mindspore.ops.arctan2)|New|详情请参考 mindspore.ops.atan2()。|r2.0: Ascend/GPU/CPU|逐元素运算
+[mindspore.ops.arctan](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.arctan.html#mindspore.ops.arctan)|New|mindspore.ops.atan() 的别名。|r2.0: Ascend/GPU/CPU|逐元素运算
+[mindspore.ops.arctan2](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.arctan2.html#mindspore.ops.arctan2)|New|mindspore.ops.atan2() 的别名。|r2.0: Ascend/GPU/CPU|逐元素运算
 [mindspore.ops.arctanh](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.arctanh.html#mindspore.ops.arctanh)|New|mindspore.ops.atanh() 的别名。|r2.0: Ascend/GPU/CPU|逐元素运算
 [mindspore.ops.atleast_1d](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.atleast_1d.html#mindspore.ops.atleast_1d)|New|调整 inputs 中的Tensor维度，使输入中每个Tensor维度不低于1。|r2.0: Ascend/GPU/CPU|逐元素运算
 [mindspore.ops.atleast_2d](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.atleast_2d.html#mindspore.ops.atleast_2d)|New|调整 inputs 中的Tensor维度，使输入中每个Tensor维度不低于2。|r2.0: Ascend/GPU/CPU|逐元素运算
@@ -341,7 +347,8 @@
 [mindspore.ops.trapz](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.trapz.html#mindspore.ops.trapz)|New|使用梯形法则沿给定轴 dim 对 y(x) 进行积分。|r2.0: Ascend/GPU/CPU|逐元素运算
 [mindspore.ops.tril_indices](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.tril_indices.html#mindspore.ops.tril_indices)|New|计算 row * col 行列矩阵的下三角元素的索引，并将它们作为一个 2xN 的Tensor返回。|r2.0: Ascend/GPU/CPU|逐元素运算
 [mindspore.ops.triu_indices](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.triu_indices.html#mindspore.ops.triu_indices)|New|计算 row * col 行列矩阵的上三角元素的索引，并将它们作为一个 2xN 的Tensor返回。|r2.0: Ascend/GPU/CPU|逐元素运算
-[mindspore.ops.true_divide](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.true_divide.html#mindspore.ops.true_divide)|New|mindspore.ops.div() 在 $rounding\\_mode=None$ 时的别名。|r2.0: Ascend/GPU/CPU|逐元素运算
+[mindspore.ops.true_divide](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.true_divide.html#mindspore.ops.true_divide)|New|mindspore.ops.div() 在 $rounding\_mode=None$ 时的别名。|r2.0: Ascend/GPU/CPU|逐元素运算
+[mindspore.ops.zeta](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.zeta.html#mindspore.ops.zeta)|New|逐元素计算Hurwitz zeta的输出。|r2.0: Ascend/GPU/CPU|逐元素运算
 [mindspore.ops.choice_with_mask](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.choice_with_mask.html#mindspore.ops.choice_with_mask)|New|对输入进行随机取样，返回取样索引和掩码。|r2.0: Ascend/GPU/CPU|采样函数
 [mindspore.ops.log_uniform_candidate_sampler](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.log_uniform_candidate_sampler.html#mindspore.ops.log_uniform_candidate_sampler)|New|使用log-uniform(Zipfian)分布对一组类别进行采样。|r2.0: Ascend/CPU|采样函数
 [mindspore.ops.laplace](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.laplace.html#mindspore.ops.laplace)|Changed|r1.10: Generates random numbers according to the Laplace random number distribution. => r2.0: 根据拉普拉斯分布生成随机数。|r1.10: Ascend => r2.0: Ascend/GPU/CPU|随机生成函数
