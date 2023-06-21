@@ -90,5 +90,6 @@
 [mindspore.nn.names](https://mindspore.cn/docs/zh-CN/r1.10/api_python/nn/mindspore.nn.names.html#mindspore.nn.names)|Deleted|获取所有metric的名称。|Ascend/GPU/CPU|评价指标
 [mindspore.nn.rearrange_inputs](https://mindspore.cn/docs/zh-CN/r1.10/api_python/nn/mindspore.nn.rearrange_inputs.html#mindspore.nn.rearrange_inputs)|Deleted|此装饰器用于根据类的 indexes 属性对输入重新排列。|Ascend/GPU/CPU|评价指标
 [mindspore.nn.GLU](https://mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.GLU.html#mindspore.nn.GLU)|New|门线性单元函数（Gated Linear Unit function）。|r2.0: Ascend/GPU/CPU|非线性激活函数层
+[mindspore.nn.LogSigmoid](https://mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.LogSigmoid.html#mindspore.nn.LogSigmoid)|Changed|按元素计算Log Sigmoid激活函数。|r1.10: Ascend/GPU => r2.0: Ascend/GPU/CPU|非线性激活函数层
 [mindspore.nn.PReLU](https://mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.PReLU.html#mindspore.nn.PReLU)|Changed|PReLU激活层（PReLU Activation Operator）。|r1.10: Ascend/GPU => r2.0: Ascend/GPU/CPU|非线性激活函数层
 [mindspore.nn.Softmax2d](https://mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.Softmax2d.html#mindspore.nn.Softmax2d)|New|应用于2D特征数据的Softmax函数。|r2.0: Ascend/GPU/CPU|非线性激活函数层
