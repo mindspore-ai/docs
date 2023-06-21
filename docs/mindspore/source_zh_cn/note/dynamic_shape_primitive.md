@@ -2,9 +2,13 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindspore/source_zh_cn/note/dynamic_shape_primitive.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
 
-> 部分算子在动态shape场景下可能会存在数据类型支持不全的问题，后续版本会逐步进行完善。如遇到数据类型不支持的问题，可以通过主动插入[Cast](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Cast.html)算子解决。
+> 以下列表列举了PYNATIVE模式下支持动态shape功能的算子。其中部分算子可能会存在数据类型支持不全的问题，如遇到此类问题，可以通过主动插入[Cast](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Cast.html)算子解决。
+>
+> 列表以外的算子对动态shape功能支持尚不完善，可能会执行失败。另外，图模式下，动态shape功能支持也不完善，可能会执行失败。
+>
+> 如遇到动态shape算子执行失败的问题，建议尽量避免在网络中引入动态shape。例如：可以通过调整算子输入，构造出全静态shape网络，或将动态shape限制在网络局部范围内。
 
-| API名称  | Ascend |  GPU  |   CPU  |
+| 算子名称  | Ascend |  GPU  |   CPU  |
 | :--- |:-------- | :------- |:---------|
 |[mindspore.Abs](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Abs.html)|✔️|✔️|✔️|
 |[mindspore.Acosh](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Acosh.html)|✔️|✔️|✔️|
@@ -206,7 +210,6 @@
 |[mindspore.Svd](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Svd.html)|✔️|✔️|✔️|
 |[mindspore.Tan](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Tan.html)|✔️|✔️|✔️|
 |[mindspore.Tanh](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Tanh.html)|✔️|✔️|✔️|
-|[mindspore.TensorScatterUpdate](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.TensorScatterUpdate.html)|✔️|✔️|✔️|
 |[mindspore.Tile](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Tile.html)|✔️|✔️|✔️|
 |[mindspore.TopK](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.TopK.html)|✔️|✔️|✔️|
 |[mindspore.Trace](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Trace.html)|✔️|✔️|✔️|
