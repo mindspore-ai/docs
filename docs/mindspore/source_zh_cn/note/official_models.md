@@ -272,13 +272,33 @@
 
 | 领域    | 网络                                                                                                                                      | Ascend | GPU |    数据类型     |
 |-------|-----------------------------------------------------------------------------------------------------------------------------------------|:------:|:---:|:-----------:|
-| 通用物理  | [*Deep Learning for High-Dimensional PDEs (deepbsde)](https://gitee.com/mindspore/models/tree/master/research/hpc/deepbsde/README.md)   |        |  ✅  |  Float 32   |
-| 通用物理  | [*Penalty-free Neural Networks (pfnn)](https://gitee.com/mindspore/models/tree/master/research/hpc/pfnn/README_CN.md)                   |        |  ✅  |  Float 32   |
-| 通用物理  | [*Physics Informed Neural Networks (pinns)](https://gitee.com/mindspore/models/tree/master/research/hpc/pinns/README_CN.md)             |        |  ✅  |  Float 32   |
-| 海洋物理  | [*Finite Differential Method for PDEs (ocean_model)](https://gitee.com/mindspore/models/tree/master/research/hpc/ocean_model/README.md) |        |  ✅  |  Float 32   |
-| 电磁学   | [*PINNs with Incremental Learning (incremental_learning)](../MindElec/examples/physics_driven/incremental_learning/README_CN.md)        |   ✅    |  ✅  | Float 16/32 |
-| 电磁学   | [*Multi-scale PINNs (pinn_fwi)](../MindElec/examples/physics_driven/pinnFWI/README.md)                                                  |   ✅    |  ✅  | Float 16/32 |
-| 电磁学   | [*PINNs for Maxwell Equation (time_domain_maxwell)](../MindElec/examples/physics_driven/time_domain_maxwell/README_CN.md)               |   ✅    |  ✅  | Float 16/32 |
+| 通用物理  | [*Deep Learning for High-Dimensional PDEs (deepbsde)](https://gitee.com/mindspore/models/tree/master/research/hpc/deepbsde/README.md#)   |        |  ✅  |  Float 32   |
+| 通用物理  | [*Penalty-free Neural Networks (pfnn)](https://gitee.com/mindspore/models/tree/master/research/hpc/pfnn/README_CN.md#)                   |        |  ✅  |  Float 32   |
+| 通用物理  | [*Physics Informed Neural Networks (pinns)](https://gitee.com/mindspore/models/tree/master/research/hpc/pinns/README_CN.md#)             |        |  ✅  |  Float 32   |
+| 海洋物理  | [*Finite Differential Method for PDEs (ocean_model)](https://gitee.com/mindspore/models/tree/master/research/hpc/ocean_model/README.md#) |        |  ✅  |  Float 32   |
+| 电磁学   | [*PINNs with Incremental Learning (incremental_learning)](https://gitee.com/mindspore/mindscience/blob/master/MindElec/examples/physics_driven/incremental_learning/README_CN.md#)        |   ✅    |  ✅  | Float 16/32 |
+| 电磁学   | [*Multi-scale PINNs (pinn_fwi)](https://gitee.com/mindspore/mindscience/blob/master/MindElec/examples/physics_driven/pinnFWI/README.md#)                                                  |   ✅    |  ✅  | Float 16/32 |
+| 电磁学   | [*PINNs for Maxwell Equation (time_domain_maxwell)](https://gitee.com/mindspore/mindscience/blob/master/MindElec/examples/physics_driven/time_domain_maxwell/README_CN.md#)               |   ✅    |  ✅  | Float 16/32 |
+| 计算生物 | [*MEGA-Fold](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README_CN.md#)         |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*MEGA-EvoGen](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README_CN.md#)       |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*MEGA-Assessment](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README_CN.md#)   |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*ColabDesign](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/Colabdesign)           |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*DeepDR](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/DeepDR/README.md#)           |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*DeepFRI](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/DeepFRI/README_CN.md#)      |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*iterative Folding Assisted peak ASsignmenT](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/FAAST/README_CN.md#)          |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*JT-VAE](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/JT-VAE/README.md#)           |   ✅   | ✅ |  Float 32  |
+| 计算生物 | [*Knowledge Graph Neural Network](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/KGNN/README.md#)               |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*MG-BERT](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/MG_BERT/README.md#)         |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*Multimer](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/Multimer/README.md#)       |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*ProteinMPNN](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/ProteinMPNN/README.md#) |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*UFold](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/UFold/README_CN.md#)          |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*ESM-IF1](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/esm/README_CN.md#)              |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*ESM2]()              |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*GROVER](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/grover/README.md#)           |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*pafnucy](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/pafnucy/README.md#)         |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*SchNet](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/cybertron/)              |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*MolCT](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/cybertron/)              |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*PhysNet](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/cybertron/)              |   ✅   | ✅ | Float 16/32 |
 
 ## 大模型套件
 
