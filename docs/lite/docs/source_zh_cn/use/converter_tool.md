@@ -52,7 +52,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | 参数  |  是否必选   |  参数说明  | 取值范围 | 默认值 | 备注 |
 | -------- | ------- | ----- | --- | ---- | ---- |
 | `--help` | 否 | 打印全部帮助信息。 | - | - | - |
-| `--fmk=<FMK>`  | 是 | 输入模型的原始格式。 | MINDIR、CAFFE、TFLITE、TF、ONNX、PYTORCH | - | - |
+| `--fmk=<FMK>`  | 是 | 输入模型的原始格式。 | MINDIR、CAFFE、TFLITE、TF、ONNX、PYTORCH、MSLITE | - | 只有在Micro代码生存时，才支持设置为MSLITE |
 | `--modelFile=<MODELFILE>` | 是 | 输入模型的路径。 | - | - | - |
 | `--outputFile=<OUTPUTFILE>` | 是 | 输出模型的路径，不需加后缀，可自动生成`.ms`后缀。 | - | - | - |
 | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - | - | - |

@@ -1147,3 +1147,60 @@ cmake -DCMAKE_TOOLCHAIN_FILE=<MS_SRC_PATH>/mindspore/lite/cmake/himix200.toolcha
 make
 
 ```
+
+## Micro推理与端侧训练结合
+
+### 概述
+
+除MCU外，Micro推理是一种模型结构与权重分离的推理模式。训练一般是改变了权重，但不会改变模型结构。那么，在训练与推理配合的场景下，可以采用端侧训练+Micro推理的模式，以利用Micro推理运行内存小、功耗小的优势。具体过程包括以下几步：
+
+- 基于端侧训练导出推理模型
+
+- 通过converter_lite转换工具，生成与端侧训练相同架构下的模型推理代码
+
+- 下载得到与端侧训练相同架构对应的`Micro`库
+
+- 对得到的推理代码和`Micro`库进行集成，编译并部署
+
+- 基于端侧训练导出推理模型的权重，覆盖原有权重文件，进行验证
+
+    接下来我们将详细介绍各个步骤及其注意事项。
+
+### 训练导出推理模型
+
+用户可以直接参考[端侧训练](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_train_cpp.html)一节。
+
+### 生成推理代码
+
+用户可以直接参考上述内容，但需要注意两个点。第一，训练导出的模型是ms模型，因此在转换时，需设置`fmk`为`MSLITE`；第二，为了能够将训练与Micro推理结合，就需要保证训练导出的权重和Micro导出的权重完全匹配，因此，我们在Micro配置参数中新增了两个属性，以保证权重的一致性。
+
+```text
+[micro_param]
+# false indicates that only the required weights will be saved. Default is false.
+# If collaborate with lite-train, the parameter must be true.
+keep_original_weight=false
+
+# the names of those weight-tensors whose shape is changeable, only embedding-table supports change now.
+# the parameter is used to collaborate with lite-train. If set, `keep_original_weight` must be true.
+changeable_weights_name=name0,name1
+
+```
+
+`keep_original_weight`是保证权重一致性的关键属性，与训练配合时，此属性必须为true。`changeable_weights_name`是针对特殊场景下的属性，例如某些权重的shape发生了变化，当然，当前仅支持embedding表的个数发生变化，一般而言，用户无需设置该属性。
+
+### 编译部署
+
+用户可以直接参考上述内容。
+
+### 训练导出推理模型的权重
+
+MindSpore的Serialization类提供了ExportWeightsCollaborateWithMicro函数，ExportWeightsCollaborateWithMicro原型如下：
+
+```cpp
+  static Status ExportWeightsCollaborateWithMicro(const Model &model, ModelType model_type,
+                                                  const std::string &weight_file, bool is_inference = true,
+                                                  bool enable_fp16 = false,
+                                                  const std::vector<std::string> &changeable_weights_name = {});
+```
+
+其中，`is_inference`当前仅支持为true。

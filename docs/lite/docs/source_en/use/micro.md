@@ -1149,3 +1149,59 @@ cmake -DCMAKE_TOOLCHAIN_FILE=<MS_SRC_PATH>/mindspore/lite/cmake/himix200.toolcha
 make
 
 ```
+
+## Combination of Micro Inference and Device-side Training
+
+### Overview
+
+Except for MCU, micro inference is a inference model that separates model structure and weight. Training usually changes its weights, but does not change its structure. So, in the scenario of combining training and inference, we can adopt the mode of device-side training plus with micro inference to take advantage of the small memory and low power consumption of micro inference. The process includes the following steps:
+
+- Export inference model based on device-side training
+
+- Use the converter_lite conversion tool to generate model inference code that adapts to the training architecture
+
+- Download the Micro lib corresponding to the training architecture
+
+- Integrate and compile the obtained inference code and Micro lib, and deploy
+
+- Export the weights of the inference model based on device-side training, then overwrite the original weight file, and verify it
+
+    Next, we will provide a detailed introduction to eace step and its precautions
+
+### Export inference model
+
+Users can directly refer to [Device-side training](https://www.mindspore.cn/lite/docs/en/master/use/runtime_train_cpp.html).
+
+### Generating Inference Code
+
+Users can directly refer to the above content, but two points need to be noted. Firstly, the trained model is an `ms` mode, so when using converter_lite conversion tool, the `fmk` need to be set to `MSLITE`. Secondly, in order to combine training with micro inference, it is necessary to ensure that the weights exported from training must match exactly with that from micro. Therefore, we have added two attributes to the micro configuration parameters to ensure consistency in weights.
+
+```text
+[micro_param]
+# false indicates that only the required weights will be saved. Default is false.
+# If collaborate with lite-train, the parameter must be true.
+keep_original_weight=false
+
+# the names of those weight-tensors whose shape is changeable, only embedding-table supports change now.
+# the parameter is used to collaborate with lite-train. If set, `keep_original_weight` must be true.
+changeable_weights_name=name0,
+```
+
+`keep_original_weight` is a key attribute that ensures consistency in weight, and when combined with training, the attribute must be set `true`. `changeable_weights_name` is used for special scenarios, such as changes in the shape of certain weights. Of course, currently only the number of embedding-table can be changeable. Generally, users do not need to set the attribute.
+
+### Compilation and Deployment
+
+Users can directly refer to the above content.
+
+### Export weights of inference model
+
+MindSpore `Serialization` class provides the `ExportWeightsCollaborateWithMicro` function, and `ExportWeightsCollaborateWithMicro` is as follows.
+
+```cpp
+  static Status ExportWeightsCollaborateWithMicro(const Model &model, ModelType model_type,
+                                                  const std::string &weight_file, bool is_inference = true,
+                                                  bool enable_fp16 = false,
+                                                  const std::vector<std::string> &changeable_weights_name = {});
+```
+
+Here, `is_inference` currently only supports as `true`.

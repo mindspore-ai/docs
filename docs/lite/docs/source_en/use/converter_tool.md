@@ -54,7 +54,7 @@ The following describes the parameters in detail.
 | Parameter  |  Mandatory or Not   | Parameter Description  | Value Range | Default Value | Remarks |
 | -------- | ------- | ----- | --- | ---- | ---- |
 | `--help` | No | Prints all the help information. | - | - | - |
-| `--fmk=<FMK>`  | Yes | Original format of the input model. | MINDIR, CAFFE, TFLITE, TF, ONNX or PYTORCH | - | - |
+| `--fmk=<FMK>`  | Yes | Original format of the input model. | MINDIR, CAFFE, TFLITE, TF, ONNX or PYTORCH, MSLITE | - | can only be set to MSLITE when it is for code generation |
 | `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - | - |
 | `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. The suffix `.ms` can be automatically generated. | - | - | - |
 | `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - | - |
