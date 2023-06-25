@@ -22,9 +22,9 @@ mindspore.Tensor.sum(axis=None, dtype=None, keepdims=False, initial=None)
 
 MindSpore此API功能与PyTorch一致，参数的个数和顺序不一致。
 
-PyTorch: 无参数 `initial` 。参数 `keepdim` 和 `dtype` 的相对顺序与MindSpore不同。
+PyTorch：无参数 `initial` 。参数 `keepdim` 和 `dtype` 的相对顺序与MindSpore不同。
 
-MindSpore: 可以通过参数 `initial` 配置求和的起始值。参数 `keepdim` 和 `dtype` 的相对顺序与PyTorch不同。
+MindSpore：可以通过参数 `initial` 配置求和的起始值。参数 `keepdim` 和 `dtype` 的相对顺序与PyTorch不同。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                    |
 | ---- | ----- |---------|-----------| ----------------------- |
