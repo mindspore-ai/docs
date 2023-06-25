@@ -20,9 +20,9 @@ For more information, see [mindspore.Tensor.item](https://www.mindspore.cn/docs/
 
 ## Differences
 
-PyTorch: Returns the value of this tensor, applicable to tensors with only one element.
+PyTorch: Returns the value of this tensor, applicable to tensors with only one element. Returns a Number.
 
-MindSpore：Returns the value corresponding to the specified index in the tensor, applicable to tensors with one or more elements.
+MindSpore：Returns the value corresponding to the specified index in the tensor, applicable to tensors with one or more elements. Returns a Tensor.
 
 ## Code Example
 
@@ -31,16 +31,23 @@ import mindspore as ms
 import numpy as np
 import torch
 
+# MindSpore
 x = ms.Tensor(np.array([[1,2,3],[4,5,6]], dtype=np.float32))
 print(x.item((0,1)))
 # Out：
-# 2.0
+# Tensor(shape=[], dtype=Int64, value=2)
+
+x = ms.Tensor(np.array([[1,2,3],[4,5,6]], dtype=np.float32))
+print(x.asnumpy().item((0,1)))
+# Out：
+# 2
 
 y = ms.Tensor([1.0])
 print(y.item())
 # Out:
-# 1.0
+# Tensor(shape=[], dtype=Float32, value=1)
 
+# PyTorch
 z = torch.tensor([1.0])
 print(z.item())
 # Out:
