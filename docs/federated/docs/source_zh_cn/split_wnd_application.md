@@ -68,7 +68,7 @@ Wide&Deep网络原理特性的详细介绍，可参考[MindSpore ModelZoo - Wide
 3. 拷贝[预处理](#数据集准备) 后的Criteo数据集至本目录下。
 
    ```shell
-   cd tests/st/splitnn_criteo
+   cd tests/example/splitnn_criteo
    cp -rf ${DATA_ROOT_PATH}/data/mindrecord/ ./
    ```
 
@@ -76,11 +76,15 @@ Wide&Deep网络原理特性的详细介绍，可参考[MindSpore ModelZoo - Wide
 
    ```shell
    # 启动leader进程：
-   bash run_vfl_train_socket_leader.sh
+   bash run_vfl_train_leader.sh 127.0.0.1:10087 127.0.0.1:10086 /path/to/data_set False
 
    # 启动follower进程：
-   bash run_vfl_train_socket_follower.sh
+   bash run_vfl_train_follower.sh 127.0.0.1:10086 127.0.0.1:10087 /path/to/data_set False
+   ```
 
+   或者
+
+   ```shell
    # 以https加密通信的方式启动leader进程：
    bash run_vfl_train_leader.sh 127.0.0.1:10087 127.0.0.1:10086 /path/to/data_set True server_cert_password client_cert_password /path/to/server_cert /path/to/client_cert /path/to/ca_cert
 
