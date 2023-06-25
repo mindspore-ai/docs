@@ -1,4 +1,4 @@
-# 比较与tf.raw_ops.SparseToDense的功能差异
+# 比较与tf.raw_ops.SparseToDense的差异
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/SparseToDense.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 

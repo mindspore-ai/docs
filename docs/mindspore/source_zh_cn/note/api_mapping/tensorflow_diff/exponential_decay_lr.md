@@ -1,4 +1,4 @@
-# 比较与tf.compat.v1.train.exponential_decay的功能差异
+# 比较与tf.compat.v1.train.exponential_decay的差异
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/exponential_decay_lr.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 

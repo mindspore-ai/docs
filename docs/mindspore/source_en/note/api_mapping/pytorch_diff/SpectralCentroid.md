@@ -1,4 +1,4 @@
-# Function differences with torchaudio.transforms.SpectralCentroid
+# Differences with torchaudio.transforms.SpectralCentroid
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SpectralCentroid.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
