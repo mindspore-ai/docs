@@ -22,6 +22,67 @@
 | `insert_op_config_file_path` | 可选 | 模型插入[AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/601/inferapplicationdev/atctool/atctool_0018.html)算子 | String  | [AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/601/inferapplicationdev/atctool/atctool_0021.html)配置文件路径 |
 | `aoe_mode` | 可选 | [AOE](https://www.hiascend.com/document/detail/zh/canncommercial/601/devtools/auxiliarydevtool/aoe_16_001.html)自动调优模式 | String  | 可选有"subgraph turing"、"operator turing"或者"subgraph turing、operator turing"，默认不使能 |
 
+表2：配置[acl_init_options]参数
+
+| 参数                          |  属性  | 功能描述                                      | 参数类型 | 取值说明 |
+| ---------------------------- | ----- | -------------------------------------------- | -------- | ------ |
+| `ge.engineType`              |  可选  | 设置网络模型使用的Core类型。 | String | 可选有`"VectorCore"`、`"AiCore"` |
+| `ge.socVersion`              |  可选  | 昇腾AI处理器的版本。 | String | 可选有`"Ascend310"`、`"Ascend710"`、`"Ascend910"` |
+| `ge.bufferOptimize`          |  可选  | 数据缓存优化开关。 | String | 可选有`"l1_optimize"`、`"l2_optimize"`、`"off_optimize"`，默认为`"l2_optimize"` |
+| `ge.enableCompressWeight`    |  可选  | 可以对Weight进行数据压缩，提升性能。 | String | 可选有`"true"`、`"false"` |
+| `compress_weight_conf`       |  可选  | 要压缩的node节点列表配置文件路径，node节点主要为conv算子、fc算子。 | String | 配置文件路径 |
+| `ge.exec.precision_mode`     |  可选  | 选择算子精度模式。 | String | 可选有`"force_fp32"`、`"force_fp16"`、`"allow_fp32_to_fp16"`、`"must_keep_origin_dtype"`、`"allow_mix_precision"`，默认为`"force_fp16"` |
+| `ge.exec.disableReuseMemory` |  可选  | 内存复用开关。 | String | 可选有`"0"`、`"１"` |
+| `ge.enableSingleStream`      |  可选  | 是否使能一个模型只使用一个stream。 | String | 可选有`"true"`、`"false"` |
+| `ge.aicoreNum`               |  可选  | 设置编译时使用的ai core数目。 | String | 默认`"１0"` |
+| `ge.fusionSwitchFile`        |  可选  | 融合配置文件路径。 | String | 配置文件路径 |
+| `ge.enableSmallChannel`      |  可选  | 是否使能small channel的优化。 | String | 可选有`"0"`、`"1"` |
+| `ge.opSelectImplmode`        |  可选  | 选择算子实现模式。 | String | 可选有`"high_precision"`、`"high_performance"` |
+| `ge.optypelistForImplmode`   |  可选  | 算子列表，列表中算子使用`ge.opSelectImplmode`参数指定的模式。 | String | 算子类型 |
+| `ge.op_compiler_cache_mode`  |  可选  | 配置算子编译磁盘缓存模式。 | String | 可选有`"enable"`、`"force"`、`"disable"` |
+| `ge.op_compiler_cache_dir`   |  可选  | 配置算子变异磁盘缓存目录。 | String | 默认值`$HOME/atc_data` |
+| `ge.debugDir`                |  可选  | 配置保存算子编译生成的调试相关的过程文件的路径。 | String | 默认生成当前路径 |
+| `ge.opDebugLevel`            |  可选  | 算子debug功能开关。 | String | 可选有`"0"`、`"1"` |
+| `ge.exec.modify_mixlist`     |  可选  | 配置混合精度名单。 | String | 配置文件路径 |
+| `ge.enableSparseMatrixWeight`|  可选  | 使能全局稀疏特性。 | String | 可选有`"1"`、`"0"` |
+| `ge.externalWeight`          |  可选  | 是否将常量节点的权重单独保存到文件中。 | String | 可选有`"１"`、`"0"` |
+| `ge.deterministic`           |  可选  | 是否开启确定性计算。 | String | 可选有`"１"`、`"0"` |
+| `ge.host_env_os`             |  可选  | 支持编译环境操作系统与运行环境不一致。 | String | 可选有`"linux"` |
+| `ge.host_env_cpu`            |  可选  | 支持编译环境操作系统架构与运行环境不一致。 | String | 可选有`"aarch64"`、`"x86_64"` |
+| `ge.virtual_type`            |  可选  | 是否支持离线模型在昇腾虚拟化实例特性生成的虚拟设备上运行。 | String | 可选有`"0"`、`"1"` |
+| `ge.compressionOptimizeConf` |  可选  | 压缩优化功能配置文件路径。 | String | 配置文件路径 |
+
+表3：配置[acl_build_options]参数
+
+| 参数                          | 属性  | 功能描述        | 参数类型 | 取值说明 |
+| ----------------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ |
+| `input_format`                      | 可选 | 指定模型输入format。 | String | 可选有`"NCHW"`、`"NHWC"`、`"ND"` |
+| `input_shape`                       | 可选 | 模型输入shape。 | String | 例如：`input1:1,3,512,512;input2:1,3,224,224` |
+| `input_shape_rang`                  | 可选 | 指定输入的shape rang。 | String | 例如：`input1:[1-10,3,512,512];input2:[1-10,3,224,224]` |
+| `op_name_map`                       | 可选 | 扩展算子映射配置文件路径。 | String | 配置文件路径 |
+| `ge.dynamicBatchSize`               | 可选 | 设置动态batch档位参数。 | String | 该参数需要与`input_shape`参数配合使用 |
+| `ge.dynamicImageSize`               | 可选 | 设置输入图片的动态分辨率参数。 | String | 该参数需要与`input_shape`参数配合使用 |
+| `ge.dynamicDims`                    | 可选 | 设置ND格式下的动态维度的档位。 | String | 该参数需要与`input_shape`参数配合使用 |
+| `ge.inserOpFile`                    | 可选 | 输入预处理算子的配置文件路径。 | String | 配置文件路径 |
+| `ge.exec.precision_mode`            | 可选 | 选择算子精度模式。 | String | 可选有`"force_fp32"`、`"force_fp16"`、`"allow_fp32_to_fp16"`、`"must_keep_origin_dtype"`、`"allow_mix_precision"`，默认为`"force_fp16"` |
+| `ge.exec.disableReuseMemory`        | 可选 | 内存复用开关。 | String | 可选有`"0"`、`"１"` |
+| `ge.outputDataType`                 | 可选 | 网络输出数据类型。 | String | 可选有`"FP32"`、`"UINT8"`、`"FP16"` |
+| `ge.outputNodeName`                 | 可选 | 指定输出节点。 | String | 例如：`"node_name1:0;node_name1:1;node_name2:0"` |
+| `ge.INPUT_NODES_SET_FP16`           | 可选 | 指定输入数据类型为FP16的输入节点名称。 | String | `"node_name1;node_name2"` |
+| `log`                               | 可选 | 设置日志级别。 | String | 可选有`"debug"`、`"info"`、`"warning"`、`"error"` |
+| `ge.op_compiler_cache_mode`         | 可选 | 配置算子编译磁盘缓存模式。 | String | 可选有`"enable"`、`"force"`、`"disable"` |
+| `ge.op_compiler_cache_dir`          | 可选 | 配置算子变异磁盘缓存目录。 | String | 默认值`$HOME/atc_data` |
+| `ge.debugDir`                       | 可选 | 配置保存算子编译生成的调试相关的过程文件的路径。 | String | 默认生成当前路径 |
+| `ge.opDebugLevel`                   | 可选 | 算子debug功能开关。 | String | 可选有`"0"`、`"1"` |
+| `ge.mdl_bank_path`                  | 可选 | 加载模型调优后自定义知识库的路径。 | String | 该参数需要和`ge.bufferOptimize`配合使用 |
+| `ge.op_bank_path`                   | 可选 | 加载算子调优后自定义知识库路径。 | String | 知识库路径 |
+| `ge.exec.modify_mixlist`            | 可选 | 配置混合精度名单。 | String | 配置文件路径 |
+| `ge.exec.op_precision_mode`         | 可选 | 设置具体某个算子的精度模式，通过该参数设置配置文件路径。 | String | 配置文件路径 |
+| `ge.shape_generalized_build_mode`   | 可选 | 图编译时shape编译方式。 | String | 可选有`"shape_generalized"`模糊编译、`"shape_precise"`精确编译 |
+| `op_debug_config`                   | 可选 | 内存检测功能开关。 | String | 配置文件路径 |
+| `ge.externalWeight`                 | 可选 | 是否将常量节点的权重单独保存到文件中。 | String | 可选有`"１"`、`"0"` |
+| `ge.exec.exclude_engines`           | 可选 | 设置网络模型不使用某个或者某些加速引擎。 | String | 可选有`"AiCore"`、`"AiVec"`、`"AiCpu"` |
+
 ## 动态shape配置
 
 在某些推理场景，如检测出目标后再执行目标识别网络，由于目标个数不固定导致目标识别网络输入BatchSize不固定。如果每次推理都按照最大的BatchSize或最大分辨率进行计算，会造成计算资源浪费。因此，推理需要支持动态BatchSize和动态分辨率的场景，Lite在Ascend上推理支持动态BatchSize和动态分辨率场景，在convert阶段通过congFile配置[ascend_context]中dynamic_dims动态参数，推理时使用model的[Resize](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_cpp.html#%E5%8A%A8%E6%80%81shape%E8%BE%93%E5%85%A5)功能，改变输入shape。
@@ -114,6 +175,47 @@
     1）如果用户设置的分辨率数值过大或档位过多，可能会导致模型编译失败，此时建议用户减少档位或调低档位数值。<br/>
     2）如果用户设置了动态分辨率，实际推理时，使用的数据集图片大小需要与具体使用的分辨率相匹配。<br/>
     3）如果用户设置的分辨率数值过大或档位过多，在运行环境执行推理时，建议执行swapoff -a命令关闭swap交换区间作为内存的功能，防止出现由于内存不足，将swap交换空间作为内存继续调用，导致运行环境异常缓慢的情况。<br/>
+
+### 动态维度
+
+- 参数名
+
+    `ge.dynamicDims`
+
+- 功能
+
+    设置ND格式下输入的动态维度的档位。适用于执行推理时，每次处理任意维度的场景，该参数需要与`input_shape`配合使用，`input_shape`中-1的位置为动态维度。
+
+- 取值
+
+    最多支持100档配置，每一档通过英文逗号分隔。例如配置文件中参数配置如下：
+
+    ```
+    [acl_build_options]
+    input_format="ND"
+    input_shape="input1:1,-1,-1;input2:1,-1"
+    ge.dynamicDims="32,32,24;64,64,36"
+    ```
+
+    其中，input_shape中的"-1"表示设置动态维度，即支持档位0：input1:1,32,32; input2:1,24，档位1：1,64,64; input2:1,36。
+
+- converter
+
+    ```bash
+    ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --configFile=./config.txt --optimize=ascend_oriented --outputFile=${model_name}
+    ```
+
+    说明：使能动态维度时，`input_format`必须设置为`ND`。
+
+- 推理
+
+    使能动态维度，进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model的[Resize](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_cpp.html#%E5%8A%A8%E6%80%81shape%E8%BE%93%E5%85%A5)功能。
+
+- 注意事项
+
+    1）如果用户设置的动态维度数值过大或档位过多，可能会导致模型编译失败，此时建议用户减少档位或调低档位数值。<br/>
+    2）如果用户设置了动态维度，实际推理时，使用的数据集图片大小需要与具体使用的维度相匹配。<br/>
+    3）如果用户设置的动态维度数值过大或档位过多，在运行环境执行推理时，建议执行swapoff -a命令关闭swap交换区间作为内存的功能，防止出现由于内存不足，将swap交换空间作为内存继续调用，导致运行环境异常缓慢的情况。<br/>
 
 ## AOE自动调优
 
