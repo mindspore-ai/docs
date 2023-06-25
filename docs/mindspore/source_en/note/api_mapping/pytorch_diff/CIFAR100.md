@@ -1,4 +1,4 @@
-# Function differences with torchvision.datasets.CIFAR100
+# Differences with torchvision.datasets.CIFAR100
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/CIFAR100.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 

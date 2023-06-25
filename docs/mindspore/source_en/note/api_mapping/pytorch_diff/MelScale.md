@@ -1,4 +1,4 @@
-# Function differences with torchaudio.transforms.MelScale
+# Differences with torchaudio.transforms.MelScale
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/MelScale.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 

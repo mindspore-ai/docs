@@ -1,4 +1,4 @@
-# Function Differences with torch.utils.data.distributed.DistributedSampler
+# Differences with torch.utils.data.distributed.DistributedSampler
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/DistributedSampler.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
