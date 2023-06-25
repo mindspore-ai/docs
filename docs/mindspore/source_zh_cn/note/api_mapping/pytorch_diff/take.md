@@ -24,12 +24,12 @@ MindSpore此API功能与PyTorch基本一致。
 
 PyTorch：获取Tensor中的元素。不可指定维度，使用展开的输入数组。若索引超出范围，则抛出异常。
 
-MindSpore：在指定维度上获取Tensor中的元素。可以指定维度，默认，使用展开的输入数组。若索引超出范围:mode为'raise'时，则抛出异常;mode为'wrap'时，绕接;mode为'raise'时，裁剪到范围。
+MindSpore：在指定维度上获取Tensor中的元素。可以指定维度，默认使用展开的输入数组。若索引超出范围：mode为'raise'时，则抛出异常；mode为'wrap'时，绕接；mode为'raise'时，裁剪到范围。
 
 | 分类       | 子类         | PyTorch      | MindSpore  | 差异          |
 | ---------- | ------------ | ------------ | ---------  | ------------- |
 | 参数       | 参数 1       | indices        | indices   |  无  |
-|            | 参数 2       |               | axis       | 指定获取的索引,Pytorch不支持 |
+|            | 参数 2       |               | axis       | 指定获取的索引，Pytorch不支持 |
 |            | 参数 3       |               | mode       | 若索引超出范围时的行为模式选择，Pytorch不支持 |
 
 ## 代码示例 1

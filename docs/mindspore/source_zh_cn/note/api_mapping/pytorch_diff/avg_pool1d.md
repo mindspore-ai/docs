@@ -1,4 +1,4 @@
-# 比较与torch.nn.functional.avg_pool1d的功能差异
+# 比较与torch.nn.functional.avg_pool1d的差异
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/avg_pool1d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -35,11 +35,11 @@ MindSpore：MindSpore此API功能与pytorch基本一致，部分输入默认值�
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 | 参数 | 参数1 | input             | input_x           | 参数名不同 |
-| 参数 | 参数2 | kernel_size       | kernel_size       | pytorch参数无默认值，MindSpore参数默认值为1 |
-| 参数 | 参数3 | stride            | stride            | pytorch参数默认值为None，默认与kernel_size一致，MindSpore参数默认值为1 |
-| 参数 | 参数4 | padding           | padding           |  |
-| 参数 | 参数5 | ceil_mode         | ceil_mode         |  |
-| 参数 | 参数6 | count_include_pad | count_include_pad |  |
+|  | 参数2 | kernel_size       | kernel_size       | pytorch参数无默认值，MindSpore参数默认值为1 |
+|  | 参数3 | stride            | stride            | pytorch参数默认值为None，默认与kernel_size一致，MindSpore参数默认值为1 |
+|  | 参数4 | padding           | padding           |  |
+|  | 参数5 | ceil_mode         | ceil_mode         |  |
+|  | 参数6 | count_include_pad | count_include_pad |  |
 
 ### 代码示例1
 
