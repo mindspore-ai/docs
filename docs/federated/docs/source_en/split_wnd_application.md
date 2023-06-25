@@ -68,7 +68,7 @@ This sample runs as a Shell script pulling up a Python program.
 3. Copy the Criteo dataset after [preprocessing](#dataset-preparation) to this directory.
 
    ```shell
-   cd tests/st/splitnn_criteo
+   cd tests/example/splitnn_criteo
    cp -rf ${DATA_ROOT_PATH}/data/mindrecord/ ./
    ```
 
@@ -76,11 +76,15 @@ This sample runs as a Shell script pulling up a Python program.
 
    ```shell
    # start leader:
-   bash run_vfl_train_socket_leader.sh
+   bash run_vfl_train_leader.sh 127.0.0.1:10087 127.0.0.1:10086 /path/to/data_set False
 
    # start follower:
-   bash run_vfl_train_socket_follower.sh
+   bash run_vfl_train_follower.sh 127.0.0.1:10086 127.0.0.1:10087 /path/to/data_set False
+   ```
 
+   or
+
+   ```shell
    # Start the leader process with https encrypted communication:
    bash run_vfl_train_leader.sh 127.0.0.1:10087 127.0.0.1:10086 /path/to/data_set True server_cert_password client_cert_password /path/to/server_cert /path/to/client_cert /path/to/ca_cert
 
