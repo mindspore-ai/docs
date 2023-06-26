@@ -156,7 +156,7 @@ The following describes how to use the conversion command by using several commo
       ./converter_lite --fmk=PYTORCH --modelFile=model.pth --outputFile=model
       ```
 
-     > The following preconditions must be met for converting PyTorch models: `export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on` before compiling. Add the environment variable of libtorch before conversion: `export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"`。 Users can download [CPU version libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)Then unzip it to the directory `/home/user/libtorch`.
+     > The following preconditions must be met for converting PyTorch models: `export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on` before compiling. Add the environment variable of libtorch before conversion: `export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"`。 Users can download [CPU version libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-2.0.1%2Bcpu.zip)Then unzip it to the directory `/home/user/libtorch`.
 
    In the preceding scenarios, the following information is displayed, indicating that the conversion is successful. In addition, the target file `model.ms` is obtained.
 

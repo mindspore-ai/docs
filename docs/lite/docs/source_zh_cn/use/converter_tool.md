@@ -154,7 +154,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
         ./converter_lite --fmk=PYTORCH --modelFile=model.pth --outputFile=model
         ```
 
-        > 为了转换PyTorch模型，以下前提必须满足：编译前需要export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on。转换前加入libtorch的环境变量。用户可以下载[CPU版本libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)后解压到/home/user/libtorch路径。
+        > 为了转换PyTorch模型，以下前提必须满足：编译前需要export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on。转换前加入libtorch的环境变量。用户可以下载[CPU版本libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-2.0.1%2Bcpu.zip)后解压到/home/user/libtorch路径。
 
     以上几种情况下，均显示如下转换成功提示，且同时获得`model.ms`目标文件。
 
