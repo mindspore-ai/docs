@@ -33,3 +33,4 @@ MindSpore Tutorial
    advanced/derivation
    advanced/compute_graph
    advanced/mixed_precision
+   advanced/error_analysis

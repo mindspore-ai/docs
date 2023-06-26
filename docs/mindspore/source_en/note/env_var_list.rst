@@ -2,7 +2,7 @@ Environment Variables
 =====================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png 
-   :target: https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/env/env_var_list.rst
+   :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/env_var_list.rst
 
 MindSpore environment variables are as follows:
 
@@ -69,7 +69,7 @@ Operators Compile
        false: enable prebuild
      - 
 
-For more information, see `Incremental Operator Build <https://mindspore.cn/tutorials/experts/en/master/debug/op_compilation.html>`_ and `FAQ <https://mindspore.cn/docs/en/master/faq/operators_compile.html>`_.
+For more information, see `Incremental Operator Build <https://mindspore.cn/tutorials/experts/en/master/optimize/op_compilation.html>`_ and `FAQ <https://mindspore.cn/docs/en/master/faq/operators_compile.html>`_.
 
 Parallel Training
 -----------------
@@ -151,7 +151,7 @@ Running Data Recorder
      - This variable is used together with `MS_RDR_ENABLE=1`. The final directory for recording data is `${MS_RDR_PATH}` `/rank_${RANK_ID}/rdr/`. 
        `RANK_ID` is the unique ID for multi-cards training, the single card scenario defaults to `RANK_ID=0`.
 
-For more information, see `Running Data Recorder <https://www.mindspore.cn/tutorials/experts/en/master/debug/custom_debug.html#running-data-recorder>`_.
+For more information, see `Running Data Recorder <https://www.mindspore.cn/tutorials/experts/en/master/debug/rdr.html>`_.
 
 Log
 ---
@@ -234,7 +234,7 @@ Log
        SubModule: COMMON, MD, DEBUG, DEVICE, COMMON, IR...
      - 
 
-For more information, see `Log-related Environment Variables and Configurations <https://www.mindspore.cn/tutorials/experts/en/master/debug/custom_debug.html#log-related-environment-variables-and-configurations>`_.
+For more information, see `Log-related Environment Variables and Configurations <https://www.mindspore.cn/docs/en/master/note/env_var_list.html>`_.
 
 Dump Function
 -------------

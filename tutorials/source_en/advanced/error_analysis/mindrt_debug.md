@@ -1,6 +1,6 @@
 # Network Construction and Training Error Analysis
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/debug/mindrt_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/error_analysis/mindrt_debug.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 The following lists the common network construction and training errors in static graph mode.
 

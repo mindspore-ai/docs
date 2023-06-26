@@ -394,10 +394,6 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 本方法操作步骤如下：
 
-### 固定MindSpore脚本随机性
-
-见[固定随机性以复现脚本运行结果](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/fixing_randomness.html)。
-
 ### 复现精度问题
 
 固定随机性后，应首先检查精度问题是否复现。

@@ -1,6 +1,6 @@
 # Error Analysis
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/debug/error_analyze.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/error_analysis/error_scenario_analyze.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 As mentioned before, error analysis refers to analyzing and inferring possible error causes based on the obtained network and framework information (such as error messages and network code).
 
@@ -20,9 +20,9 @@ Data loading and processing has three phases: data preparation, data loading, an
 
 | Error Type| Error Description| Case Analysis|
 |-------------|---------|---|
-| Data preparation error| The dataset is faulty, involving a path or MindRecord file problem.| [Error Case](https://www.mindspore.cn/tutorials/experts/en/master/debug/minddata_debug.html)|
-| Data loading error| Incorrect resource configuration, customized loading method, or iterator usage in the data loading phase.| [Error Case](https://www.mindspore.cn/tutorials/experts/en/master/debug/minddata_debug.html)|
-| Data augmentation error| Unmatched data format/size, high resource usage, or multi-thread suspension.| [Error Case](https://www.mindspore.cn/tutorials/experts/en/master/debug/minddata_debug.html)|
+| Data preparation error| The dataset is faulty, involving a path or MindRecord file problem.| [Error Case](https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html)|
+| Data loading error| Incorrect resource configuration, customized loading method, or iterator usage in the data loading phase.| [Error Case](https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html)|
+| Data augmentation error| Unmatched data format/size, high resource usage, or multi-thread suspension.| [Error Case](https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html)|
 
 ## Network Construction and Training Error Analysis
 
@@ -32,11 +32,11 @@ The following table lists common network construction and training errors.
 
 | Error Type  | Error Description| Case Analysis|
 | - | - | - |
-| Incorrect context configuration| An error occurs when the system configures the context.| [Error Analysis](https://mindspore.cn/tutorials/experts/en/master/debug/mindrt_debug.html)|
-| Syntax error      | Python syntax errors and MindSpore static graph syntax errors, such as unsupported control flow syntax and tensor slicing errors| [Error Analysis](https://mindspore.cn/tutorials/experts/en/master/debug/mindrt_debug.html)|
-| Operator build error  | The operator parameter value, type, or shape does not meet the requirements, or the operator function is restricted.| [Error Analysis](https://mindspore.cn/tutorials/experts/en/master/debug/mindrt_debug.html)|
-| Operator execution error  | Input data exceptions, operator implementation errors, function restrictions, resource restrictions, etc.| [Error Analysis](https://mindspore.cn/tutorials/experts/en/master/debug/mindrt_debug.html)|
-| Insufficient resources      | The device memory is insufficient, the number of function call stacks exceeds the threshold, and the number of flow resources exceeds the threshold.| [Error Analysis](https://mindspore.cn/tutorials/experts/en/master/debug/mindrt_debug.html)|
+| Incorrect context configuration| An error occurs when the system configures the context.| [Error Analysis](https://mindspore.cn/tutorials/en/master/advanced/error_analysis/mindrt_debug.html)|
+| Syntax error      | Python syntax errors and MindSpore static graph syntax errors, such as unsupported control flow syntax and tensor slicing errors| [Error Analysis](https://mindspore.cn/tutorials/en/master/advanced/error_analysis/mindrt_debug.html)|
+| Operator build error  | The operator parameter value, type, or shape does not meet the requirements, or the operator function is restricted.| [Error Analysis](https://mindspore.cn/tutorials/en/master/advanced/error_analysis/mindrt_debug.html)|
+| Operator execution error  | Input data exceptions, operator implementation errors, function restrictions, resource restrictions, etc.| [Error Analysis](https://mindspore.cn/tutorials/en/master/advanced/error_analysis/mindrt_debug.html)|
+| Insufficient resources      | The device memory is insufficient, the number of function call stacks exceeds the threshold, and the number of flow resources exceeds the threshold.| [Error Analysis](https://mindspore.cn/tutorials/en/master/advanced/error_analysis/mindrt_debug.html)|
 
 ### Error Analysis of the Dynamic Graph Mode
 
@@ -274,11 +274,11 @@ Among the 4-bit error codes, 0000~8999 are user-class errors and 9000~9999 are i
 
 | Common Error Types   | Error Description | Case Analysis |
 | - | - | - |
-| AICORE Operator Compilation Problem | AICORE Operator Error During Compilation | [AICORE Operator Compilation Problem](https://www.mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#aicore-operator-compilation-problem)|
-| AICORE Operator Execution Problem  | AICORE Operator Error During Execution| [AICORE Operator Execution Problem](https://mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#aicore-operator-execution-problem) |
-| AICPU Operator Execution Problem   | AICPU Operator Error During Execution | [AICPU Operator Execution Problem](https://mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#aicpu-operator-execution-problem) |
-| runtime FAQ   | Including input data exceptions, operator implementation errors, functional limitations, resource limitations, etc. | [runtime FAQ](https://mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#runtime-faq) |
-| HCCL & HCCP FAQ   | Common communication problems during multi-machine multi-card training, including socket build timeout, notify wait timeout, ranktable configuration error, etc. | [HCCL & HCCP FAQ](https://mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#hccl-hccp-faq) |
-| profiling FAQ    | Errors when running profiling for performance tuning | [profiling FAQ](https://mindspore.cn/tutorials/experts/en/master/debug/cann_error_cases.html#profiling-faq) |
+| AICORE Operator Compilation Problem | AICORE Operator Error During Compilation | [AICORE Operator Compilation Problem](https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/cann_error_cases.html#aicore-operator-compilation-problem)|
+| AICORE Operator Execution Problem  | AICORE Operator Error During Execution| [AICORE Operator Execution Problem](https://mindspore.cn/tutorials/en/master/advanced/error_analysis/cann_error_cases.html#aicore-operator-execution-problem) |
+| AICPU Operator Execution Problem   | AICPU Operator Error During Execution | [AICPU Operator Execution Problem](https://mindspore.cn/tutorials/en/master/advanced/error_analysis/cann_error_cases.html#aicpu-operator-execution-problem) |
+| runtime FAQ   | Including input data exceptions, operator implementation errors, functional limitations, resource limitations, etc. | [runtime FAQ](https://mindspore.cn/tutorials/en/master/advanced/error_analysis/cann_error_cases.html#runtime-faq) |
+| HCCL & HCCP FAQ   | Common communication problems during multi-machine multi-card training, including socket build timeout, notify wait timeout, ranktable configuration error, etc. | [HCCL & HCCP FAQ](https://mindspore.cn/tutorials/en/master/advanced/error_analysis/cann_error_cases.html#hccl-hccp-faq) |
+| profiling FAQ    | Errors when running profiling for performance tuning | [profiling FAQ](https://mindspore.cn/tutorials/en/master/advanced/error_analysis/cann_error_cases.html#profiling-faq) |
 
 For more information about CANN errors, refer to the [Ascend CANN Developer Documentation](https://www.hiascend.com/document/moreVersion/zh/CANNCommunityEdition/) to check the troubleshooting section of the corresponding CANN version.
