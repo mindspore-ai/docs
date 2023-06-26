@@ -8,6 +8,7 @@
 class torchvision.datasets.ImageFolder(
     root: str,
     transform: Optional[Callable] = None,
+    target_transform: Union[Callable, NoneType] = None,
     loader: Optional[Callable] = None,
     is_valid_file: bool = None)
 ```
