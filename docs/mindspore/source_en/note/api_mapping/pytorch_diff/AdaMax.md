@@ -40,7 +40,7 @@ PyTorch and MindSpore implement different algorithms for this optimizer. Please 
 | --- | ---   | ---   | ---        |---  |
 | Parameters | Parameter 1 | params       | params        | Consistent function                                   |
 |      | Parameter 2 | lr           | learning_rate | Same function, different parameter names and default values                         |
-|      | Parameter 3 | betas        | beta1，beta2   | Same function, different parameter names|
+|      | Parameter 3 | betas        | beta1, beta2  | Same function, different parameter names|
 |      | Parameter 4 | eps          | eps           | Consistent function                                   |
 |      | Parameter 5 | weight_decay | weight_decay  | Consistent function                          |
 |      | Parameter 6 | -            | loss_scale    | MindSpore `loss_scale` is the gradient scaling factor, and PyTorch does not have this parameter |
