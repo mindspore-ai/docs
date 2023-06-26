@@ -365,6 +365,16 @@ class Net(nn.Cell):
     def construct(self, x):
         return self.relu(x)
 
+class NetWithSense(nn.Cell):
+    """ReLU Net"""
+    def __init__(self, sense):
+        super(NetWithSense, self).__init__()
+        self.relu = ops.ReLU()
+        self.sense = sense
+
+    def construct(self, x):
+        return self.relu(x) * self.sense  # Add sense to forward network
+
 class Grad(nn.Cell):
     """Grad Net"""
     def __init__(self, network):
@@ -376,19 +386,19 @@ class Grad(nn.Cell):
         return self.grad(self.network)(input_)
 
 x = np.array([[1, 1], [1, -1]]).astype(np.float32)
+sense = np.array([[2, 3], [4, 5]]).astype(np.float32)
 dynamic_x = Tensor(shape=[2, None], dtype=ms.float32)
-net = Grad(Net())
+net = Grad(NetWithSense(Tensor(sense)))
 net.set_inputs(dynamic_x)
-out = net(Tensor(x))
-sense = Tensor(np.array([[2, 3], [4, 5]]).astype(np.float32))
-print(out * sense)
+print(net(Tensor(x)))
 ```
 
 The result is as follows:
 
 ```text
-[[[2. 3.]
-  [4. 0.]]]
+(Tensor(shape=[2, 2], dtype=Float32, value=
+[[ 2.00000000e+00,  3.00000000e+00],
+ [ 4.00000000e+00,  0.00000000e+00]]),)
 ```
 
 <br/>
