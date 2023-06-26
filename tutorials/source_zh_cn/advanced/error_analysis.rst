@@ -229,19 +229,18 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 |          | metrics        | 当训练结束后，可以使用metrics评估训练\       | `MindSpore \                      |
 |          |                | 结果的好坏。提供了多种metrics评估指标\       | metrics功能介绍 <https://ww       |
 |          |                | ，如：accuracy、loss、preci\                 | w.mindspore.cn/tutorial           |
-|          |                | sion、recall、F1                             | s/zh-CN/master/           |
-|          |                |                                              | advanced/model/metric.html           |
-|          |                |                                              | #           |
-|          |                |                                              |            |
-|          |                |                                              | >`__                      |
+|          |                | sion、recall、F1                             | s/zh-CN/master/                   |
+|          |                |                                              | advanced/model/metric.html        |
+|          |                |                                              | #                                 |
+|          |                |                                              | >`__                              |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | Print算子      | Print算子可以将用户输入的Tensor或\           | `Print算子功能介绍 <https://w     |
-|          |                | 字符串信息打印出来。                         | ww.mindspore.cn/docs           |
-|          |                |                                              | /zh-CN/master           |
-|          |                |                                              | /api_python/ops/mindspore.           |
-|          |                |                                              | ops.Print#           |
-|          |                |                                              | mindspore.           |
-|          |                |                                              | ops.Print>`__               |
+|          |                | 字符串信息打印出来。                         | ww.mindspore.cn/docs              |
+|          |                |                                              | /zh-CN/master                     |
+|          |                |                                              | /api_python/ops/mindspore.        |
+|          |                |                                              | ops.Print#                        |
+|          |                |                                              | mindspore.                        |
+|          |                |                                              | ops.Print>`__                     |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 中间文件保存   | 用于保存图编译过程中生成的中间文件，我们称为\| `查看中间文件 <https://www.mi     |
 |          |                | IR文件，用于支持与图结构、图信息相关的问题\  | ndspore.cn/tutorials/ex           |
@@ -255,16 +254,15 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 +----------+----------------+----------------------------------------------+-----------------------------------+
 | 执行控制 | Callback       | 用户可以使用回调函数在特定时期执行特定动作或\| `回调机制                         |
 |          |                | 观察训练过程中网络信息，例如：保存模型参数、\| Callback <https://www.m           |
-|          |                | 监控loss、动态调整参数、提前终止训练任务\    | indspore.cn/tutorials           |
-|          |                | 等。                                         | /zh-CN/master/advance/           |
-|          |                |                                              | model/callback.html#          |
-|          |                |                                              |            |
-|          |                |                                              | >`__                             |
+|          |                | 监控loss、动态调整参数、提前终止训练任务\    | indspore.cn/tutorials             |
+|          |                | 等。                                         | /zh-CN/master/advance/            |
+|          |                |                                              | model/callback.html#              |
+|          |                |                                              | >`__                              |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | Hook           | 在pynative模式使用Hook功能可以捕\            | `Hook功能 <https://www.mi         |
-|          |                | 获中间层算子的输入、输出数据以及反向梯度。已\| ndspore.cn/tutorials          |
-|          |                | 提供了四种形式的Hook功能，分别为：Hoo\       | /zh-CN/master/advanced/model           |
-|          |                | kBackward算子和在Cell对象上进行\             | /layer.html#hook功能>`__      |
+|          |                | 获中间层算子的输入、输出数据以及反向梯度。已\| ndspore.cn/tutorials              |
+|          |                | 提供了四种形式的Hook功能，分别为：Hoo\       | /zh-CN/master/advanced/model      |
+|          |                | kBackward算子和在Cell对象上进行\             | /layer.html#hook功能>`__          |
 |          |                | 注册的register_forward_pr\                   |                                   |
 |          |                | e_hook、register_forwar\                     |                                   |
 |          |                | d_hook、register_backwa\                     |                                   |
@@ -288,19 +286,19 @@ MindSpore为框架开发者提供了丰富的调试手段，调试功能涵盖�
 | 过程记录      | 日志                  | 用于记录框架的执行各个阶段\ | `日志相关的环境变量和配置 |
 |               |                       | 的信息，为了解框架执行过程\ | <https://www              |
 |               |                       | 或者进行问题诊断提供信息。  | .mindspore.cn             |
-|               |                       |                             | /docs             |
-|               |                       |                             | /zh-CN/master/note             |
-|               |                       |                             | env_var_list.html>`__            |
-|               |                       |                             |              |
-|               |                       |                             |              |
-|               |                       |                             |              |
-|               |                       |                             |              |
-|               |                       |                             |              |
-|               |                       |                             |              |
-|               |                       |                             |              |
-|               |                       |                             |              |
-|               |                       |                             |              |
-|               |                       |                             |               |
+|               |                       |                             | /docs                     |
+|               |                       |                             | /zh-CN/master/note        |
+|               |                       |                             | env_var_list.html>`__     |
+|               |                       |                             |                           |
+|               |                       |                             |                           |
+|               |                       |                             |                           |
+|               |                       |                             |                           |
+|               |                       |                             |                           |
+|               |                       |                             |                           |
+|               |                       |                             |                           |
+|               |                       |                             |                           |
+|               |                       |                             |                           |
+|               |                       |                             |                           |
 +---------------+-----------------------+-----------------------------+---------------------------+
 | 数据记录      | RDR                   | Running Data\               | `Running Data             |
 |               |                       | Recorder(RDR)\              | Recorder <htt             |
@@ -308,21 +306,21 @@ MindSpore为框架开发者提供了丰富的调试手段，调试功能涵盖�
 |               |                       | 执行状态数据的功能。框架运\ | spore.cn/tuto             |
 |               |                       | 行异常会自动地导出预先记录\ | rials/experts             |
 |               |                       | 的数据以辅助定位运行异常的\ | /zh-CN/master             |
-|               |                       | 原因，也可以在框架正常执行\ | /debug/rdr             |
-|               |                       | 过程保存框架关键状态数据，\ | .html#             |
-|               |                       | 例如：IR、图执行顺序、内\   |              |
-|               |                       | 存分配等信息。              | >`__               |
+|               |                       | 原因，也可以在框架正常执行\ | /debug/rdr                |
+|               |                       | 过程保存框架关键状态数据，\ | .html#                    |
+|               |                       | 例如：IR、图执行顺序、内\   |                           |
+|               |                       | 存分配等信息。              | >`__                      |
 +---------------+-----------------------+-----------------------------+---------------------------+
 | 专项控制      | 内存复用              | 可配置内存复用的开启与关闭\ | `内存复用 <https:         |
 |               |                       | ，用于排查或调试怀疑与内存\ | //www.mindspo             |
 |               |                       | 复用相关的问题。            | re.cn/tutoria             |
 |               |                       |                             | ls/experts/zh             |
 |               |                       |                             | -CN/master/de             |
-|               |                       |                             | bug/mem             |
-|               |                       |                             | _reuse.html             |
-|               |                       |                             |              |
-|               |                       |                             |              |
-|               |                       |                             | >`__                |
+|               |                       |                             | bug/mem                   |
+|               |                       |                             | _reuse.html               |
+|               |                       |                             |                           |
+|               |                       |                             |                           |
+|               |                       |                             | >`__                      |
 +---------------+-----------------------+-----------------------------+---------------------------+
 
 
