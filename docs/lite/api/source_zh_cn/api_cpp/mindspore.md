@@ -597,6 +597,7 @@ Serialization类汇总了模型文件读写的方法。
 | [static Status SetParameters(const std::map<std::string, Buffer> &parameters, Model *model)](#setparameters)     |    ✕    |    ✕    |
 | [static Status ExportModel(const Model &model, ModelType model_type, Buffer *model_data)](#exportmodel)     |    ✕    |    √    |
 | [static Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file, QuantizationType quantization_type = kNoQuant, bool export_inference_only = true, std::vector<std::string> output_tensor_name = {})](#exportmodel)     |    ✕    |    √    |
+| [static Status ExportWeightsCollaborateWithMicro(const Model &model, ModelType model_type, const std::string &weight_file, bool is_inference = true, bool enable_fp16 = false, const std::vector<std::string> &changeable_weights_name = {})](#exportweightscollaboratewithmicro)     |    ✕    |    √    |
 
 #### Load
 
@@ -715,6 +716,30 @@ static Status ExportModel(const Model &model, ModelType model_type, const std::s
     - `quantization_type`: 量化类型。
     - `export_inference_only`: 是否导出只做推理的模型。
     - `output_tensor_name`: 设置导出的推理模型的输出张量的名称，默认为空，导出完整的推理模型。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### ExportWeightsCollaborateWithMicro
+
+试验接口，导出供micro推理使用的模型权重，MindSpore Lite训练使用。
+
+```cpp
+static Status ExportWeightsCollaborateWithMicro(const Model &model, ModelType model_type,
+                                                const std::string &weight_file, bool is_inference = true,
+                                                bool enable_fp16 = false,
+                                                const std::vector<std::string> &changeable_weights_name = {})
+```
+
+- 参数
+
+    - `model`：模型数据。
+    - `model_type`：模型文件类型。
+    - `weight_file`：保存的权重文件。
+    - `is_inference`: 是否是对推理模型的导出，当前仅支持推理模型。
+    - `enable_fp16`: 权重保存类型。
+    - `changeable_weights_name`: 设置shape会变化的权重名称。
 
 - 返回值
 
