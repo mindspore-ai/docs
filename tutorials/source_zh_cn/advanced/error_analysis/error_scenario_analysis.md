@@ -58,7 +58,7 @@
 
 静态图模式下，MindSpore首先将网络结构编译成计算图，然后再执行图中涉及的计算操作。因此，静态图模式下的报错问题包括计算图编译报错问题和计算图执行报错问题。计算图编译报错的报错信息如图3所示，发生报错时自动保存`analyze_failed.ir`文件，帮助分析报错代码的位置。
 
-![graph-errmsg](images/graph_errmsg.png)
+![graph-errmsg](../images/graph_errmsg.png)
 
 *图 3*
 

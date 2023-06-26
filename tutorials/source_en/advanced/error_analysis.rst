@@ -10,6 +10,9 @@ Function Debug
 
   error_analysis/error_scenario_analysis
   error_analysis/mindir
+  error_analysis/minddata_debug
+  error_analysis/mindrt_debug
+  error_analysis/cann_error_cases
 
 Overview
 ---------
