@@ -44,11 +44,11 @@ class Net(nn.Cell):
     def construct(self, x):
         init = self.alloc_status()
         clear_status = self.clear_status(init)
-        x = ops.depend(x, clear_status)
+        x = ops.Depend()(x, clear_status)
         res = self.sub(x, self.neg(x))
-        init = ops.depend(init, res)
+        init = ops.Depend()(init, res)
         get_status = self.get_status(init)
-        res = ops.depend(res, get_status)
+        res = ops.Depend()(res, get_status)
         return res
 
 value = 5
