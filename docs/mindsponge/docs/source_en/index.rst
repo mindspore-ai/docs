@@ -208,8 +208,13 @@ Contribution Guide
 
    mindsponge.cell
    mindsponge.common
+   mindsponge.control
+   mindsponge.core
    mindsponge.data
    mindsponge.metrics
+   mindsponge.optimizer
+   mindsponge.potential
+   mindsponge.system
    constant
 
 .. toctree::
