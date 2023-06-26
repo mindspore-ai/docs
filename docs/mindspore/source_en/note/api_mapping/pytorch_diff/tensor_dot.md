@@ -47,6 +47,7 @@ print(output)
 print(output.dtype)
 # tensor(19)
 # torch.int32
+
 # MindSpore doesn't support this feature currently.
 ```
 

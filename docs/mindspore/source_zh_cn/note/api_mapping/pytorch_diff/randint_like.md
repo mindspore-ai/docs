@@ -43,7 +43,7 @@ MindSpore：`low` 为必选输入，无默认值。
 import torch
 
 # PyTorch 无需传入low的值，相当于MindSpore中low=0。
-x = torch.tensor([[2, 3], [1, 2]], dtype=torch.float32)
+x = torch.tensor([[2, 3], [1, 2]], dtype=torch.int32)
 y = torch.randint_like(x, 10)
 print(tuple(y.shape))
 # (2, 2)
@@ -52,8 +52,8 @@ print(tuple(y.shape))
 import mindspore
 
 # MindSpore 必须将torch中low的默认值（此处为0），作为输入传入。
-x = mindspore.Tensor([[2, 3], [1, 2]], mindspore.float32)
-x = mindspore.ops.randint_like(x, 0, 10, )
+x = mindspore.Tensor([[2, 3], [1, 2]], mindspore.int32)
+x = mindspore.ops.randint_like(x, 0, 10)
 print(x.shape)
 # (2, 2)
 ```

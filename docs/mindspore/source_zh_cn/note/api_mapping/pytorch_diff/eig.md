@@ -50,9 +50,11 @@ print(vector)
 import mindspore
 from mindspore import Tensor
 
+inputs = np.array([[1.0, 0.0], [0.0, 2.0]])
 value, vector = mindspore.ops.eig(Tensor(inputs, mindspore.float32))
 print(value)
 # [1.+0.j 2.+0.j]
 print(vector)
 # [[1.+0.j 0.+0.j]
+#  [0.+0.j 1.+0.j]]
 ```

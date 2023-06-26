@@ -53,7 +53,7 @@ mask = Tensor(np.array([[False, False, False, True, True], [True, True, False, T
 source = Tensor(np.array([[0, 1, 2, 3, 4], [5, 6, 7, 8, 9]]), mindspore.int32)
 output = self.masked_scatter(mask, source)
 print(output)
-# [[0 0 0 0 1],
+# [[0 0 0 0 1]
 #  [2 3 0 4 5]]
 ```
 
@@ -80,6 +80,6 @@ mask = Tensor(np.array([False, False, False, True, True]), mindspore.bool_)
 source = Tensor(np.array([[0, 1, 2, 3, 4], [5, 6, 7, 8, 9]]), mindspore.int32)
 output = self.masked_scatter(mask, source)
 print(output)
-# [[0 0 0 0 1],
+# [[0 0 0 0 1]
 #  [0 0 0 2 3]]
 ```

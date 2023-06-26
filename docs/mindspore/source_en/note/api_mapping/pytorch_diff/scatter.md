@@ -58,6 +58,7 @@ print(out)
 #         [7., 8., 0., 0., 0.],
 #         [0., 0., 0., 0., 0.],
 #         [0., 0., 0., 0., 0.]])
+
 # MindSpore doesn't support this feature currently.
 ```
 
