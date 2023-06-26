@@ -92,6 +92,14 @@ MindSpore Documentation
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Environment Variables
+   :hidden:
+
+   note/env_var_list
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: FAQ
    :hidden:
 

@@ -9,69 +9,13 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 数据处理
+   :caption: 静态图使用规范
 
-   dataset/augment
-   dataset/cache
-   dataset/optimize
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 图编译
-
+   network/jit_fallback
    network/control_flow
-   network/op_overload
    network/jit_class
    network/constexpr
    network/dependency_control
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 模型训练优化
-
-   optimize/execution_opt
-   optimize/gradient_accumulation
-   optimize/adaptive_summation
-   optimize/dimention_reduce_training
-   optimize/thor
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 自定义算子
-
-   operation/op_custom
-   operation/ms_kernel
-   operation/op_custom_adv
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 自动向量化
-
-   vmap/vmap
-   
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 模型推理
-
-   infer/inference
-   infer/ascend_310_air
-   infer/model_compression
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 调试调优
-   :titlesonly:
-
-   debug/function_debug
-   debug/performance_optimization
-   精度调优↗ <https://mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_problem_preliminary_location.html>
-   debug/fault_recover
 
 .. toctree::
    :glob:
@@ -94,6 +38,64 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 环境变量
+   :caption: 自定义算子
 
-   env/env_var_list
+   operation/op_custom
+   operation/ms_kernel
+   operation/op_custom_adv
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 性能优化
+
+   Profiling↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling.html>
+   optimize/execution_opt
+   optimize/op_overload
+   optimize/graph_fusion_engine
+   optimize/op_compilation
+   optimize/mem_reuse
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 算法优化
+
+   optimize/gradient_accumulation
+   optimize/adaptive_summation
+   optimize/dimention_reduce_training
+   optimize/thor
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 高阶函数式编程
+
+   vmap/vmap
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 数据处理
+
+   dataset/augment
+   dataset/cache
+   dataset/optimize
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 模型推理
+
+   infer/inference
+   infer/ascend_310_air
+   infer/model_compression
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 复杂问题调试
+
+   debug/dump
+   debug/rdr
+   debug/fault_recover

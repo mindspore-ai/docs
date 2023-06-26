@@ -92,6 +92,14 @@ MindSpore 文档
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: 环境变量
+   :hidden:
+
+   note/env_var_list
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: FAQ
    :hidden:
 

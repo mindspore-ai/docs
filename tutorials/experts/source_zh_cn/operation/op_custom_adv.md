@@ -1,4 +1,4 @@
-# 自定义算子进阶用法
+# 自定义算子注册
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/operation/op_custom_adv.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 

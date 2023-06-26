@@ -1,20 +1,15 @@
-功能调试
+错误分析
 ========
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/function_debug.rst
+    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/error_analysis.rst
 
 .. toctree::
   :maxdepth: 1
   :hidden:
 
-  error_analyze
-  custom_debug
-  mindir
-  dump
-  pynative_debug
-  pynative
-  fixing_randomness
+  error_analysis/error_scenario_analysis
+  error_analysis/mindir
 
 概述
 ----
@@ -92,7 +87,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
    Traceback of Net Construct Code”部分内容，分析报错位置。
 4) 基于可能的报错问题场景以及类型，假设导致报错问题的可能原因。
 
-具体如何基于不同场景进行错误分析请参考\ `错误分析 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/error_analyze.html>`__\ 。
+具体如何基于不同场景进行错误分析请参考\ `错误分析 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/error_scenario_analysis.html>`__\ 。
 
 错误搜索
 ^^^^^^^^
@@ -159,7 +154,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 问题复现
 ^^^^^^^^
 
-问题稳定复现是网络调试的前提，也是验证问题是否彻底解决的条件。网络训练过程因随机初始化网络参数、不同的输入数据等引入随机性，容易造成运行结果或报错位置不一致。MindSpore提供固定随机性的思路与方法，详情请参考\ `固定随机性 <https://mindspore.cn/tutorials/experts/zh-CN/master/debug/fixing_randomness.html>`__\ 。
+问题稳定复现是网络调试的前提，也是验证问题是否彻底解决的条件。网络训练过程因随机初始化网络参数、不同的输入数据等引入随机性，容易造成运行结果或报错位置不一致。
 
 调试验证
 ^^^^^^^^
@@ -172,8 +167,6 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
    1. 在想要进行调试的代码前插入import pdb; pdb.set_trace()开启pdb调试；
    2. 正常运行.py文件，在终端会出现下面类似结果，在(Pdb)位置后输入相应的pdb命令进行调试；
    3. 在pdb交互模式下输入l、p等命令可以查看相应的代码、变量，进而排查相关的问题。
-
-   具体内容请参考\ `PyNative调试 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/pynative_debug.html>`__\ 。
 
 -  静态图调试
 
@@ -236,19 +229,19 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 |          | metrics        | 当训练结束后，可以使用metrics评估训练\       | `MindSpore \                      |
 |          |                | 结果的好坏。提供了多种metrics评估指标\       | metrics功能介绍 <https://ww       |
 |          |                | ，如：accuracy、loss、preci\                 | w.mindspore.cn/tutorial           |
-|          |                | sion、recall、F1                             | s/experts/zh-CN/master/           |
-|          |                |                                              | debug/custom_debug.html           |
-|          |                |                                              | #mindspore-metrics%E5%8           |
-|          |                |                                              | A%9F%E8%83%BD%E4%BB%8B%           |
-|          |                |                                              | E7%BB%8D>`__                      |
+|          |                | sion、recall、F1                             | s/zh-CN/master/           |
+|          |                |                                              | advanced/model/metric.html           |
+|          |                |                                              | #           |
+|          |                |                                              |            |
+|          |                |                                              | >`__                      |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | Print算子      | Print算子可以将用户输入的Tensor或\           | `Print算子功能介绍 <https://w     |
-|          |                | 字符串信息打印出来。                         | ww.mindspore.cn/tutoria           |
-|          |                |                                              | ls/experts/zh-CN/master           |
-|          |                |                                              | /debug/custom_debug.htm           |
-|          |                |                                              | l#print%E7%AE%97%E5%AD%           |
-|          |                |                                              | 90%E5%8A%9F%E8%83%BD%E4           |
-|          |                |                                              | %BB%8B%E7%BB%8D>`__               |
+|          |                | 字符串信息打印出来。                         | ww.mindspore.cn/docs           |
+|          |                |                                              | /zh-CN/master           |
+|          |                |                                              | /api_python/ops/mindspore.           |
+|          |                |                                              | ops.Print#           |
+|          |                |                                              | mindspore.           |
+|          |                |                                              | ops.Print>`__               |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 中间文件保存   | 用于保存图编译过程中生成的中间文件，我们称为\| `查看中间文件 <https://www.mi     |
 |          |                | IR文件，用于支持与图结构、图信息相关的问题\  | ndspore.cn/tutorials/ex           |
@@ -262,16 +255,16 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 +----------+----------------+----------------------------------------------+-----------------------------------+
 | 执行控制 | Callback       | 用户可以使用回调函数在特定时期执行特定动作或\| `回调机制                         |
 |          |                | 观察训练过程中网络信息，例如：保存模型参数、\| Callback <https://www.m           |
-|          |                | 监控loss、动态调整参数、提前终止训练任务\    | indspore.cn/tutorials/e           |
-|          |                | 等。                                         | xperts/zh-CN/master/deb           |
-|          |                |                                              | ug/custom_debug.html#ca           |
-|          |                |                                              | llback%E4%BB%8B%E7%BB%8           |
-|          |                |                                              | D>`__                             |
+|          |                | 监控loss、动态调整参数、提前终止训练任务\    | indspore.cn/tutorials           |
+|          |                | 等。                                         | /zh-CN/master/advance/           |
+|          |                |                                              | model/callback.html#          |
+|          |                |                                              |            |
+|          |                |                                              | >`__                             |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | Hook           | 在pynative模式使用Hook功能可以捕\            | `Hook功能 <https://www.mi         |
-|          |                | 获中间层算子的输入、输出数据以及反向梯度。已\| ndspore.cn/tutorials/ex           |
-|          |                | 提供了四种形式的Hook功能，分别为：Hoo\       | perts/zh-CN/master/debu           |
-|          |                | kBackward算子和在Cell对象上进行\             | g/pynative.html#hook功能>`__      |
+|          |                | 获中间层算子的输入、输出数据以及反向梯度。已\| ndspore.cn/tutorials          |
+|          |                | 提供了四种形式的Hook功能，分别为：Hoo\       | /zh-CN/master/advanced/model           |
+|          |                | kBackward算子和在Cell对象上进行\             | /layer.html#hook功能>`__      |
 |          |                | 注册的register_forward_pr\                   |                                   |
 |          |                | e_hook、register_forwar\                     |                                   |
 |          |                | d_hook、register_backwa\                     |                                   |
@@ -295,19 +288,19 @@ MindSpore为框架开发者提供了丰富的调试手段，调试功能涵盖�
 | 过程记录      | 日志                  | 用于记录框架的执行各个阶段\ | `日志相关的环境变量和配置 |
 |               |                       | 的信息，为了解框架执行过程\ | <https://www              |
 |               |                       | 或者进行问题诊断提供信息。  | .mindspore.cn             |
-|               |                       |                             | /tutorials/ex             |
-|               |                       |                             | perts/zh-CN/m             |
-|               |                       |                             | aster/debug/c             |
-|               |                       |                             | ustom_debug.h             |
-|               |                       |                             | tml#%E6%97%A5             |
-|               |                       |                             | %E5%BF%97%E7%             |
-|               |                       |                             | 9B%B8%E5%85%B             |
-|               |                       |                             | 3%E7%9A%84%E7             |
-|               |                       |                             | %8E%AF%E5%A2%             |
-|               |                       |                             | 83%E5%8F%98%E             |
-|               |                       |                             | 9%87%8F%E5%92             |
-|               |                       |                             | %8C%E9%85%8D%             |
-|               |                       |                             | E7%BD%AE>`__              |
+|               |                       |                             | /docs             |
+|               |                       |                             | /zh-CN/master/note             |
+|               |                       |                             | env_var_list.html>`__            |
+|               |                       |                             |              |
+|               |                       |                             |              |
+|               |                       |                             |              |
+|               |                       |                             |              |
+|               |                       |                             |              |
+|               |                       |                             |              |
+|               |                       |                             |              |
+|               |                       |                             |              |
+|               |                       |                             |              |
+|               |                       |                             |               |
 +---------------+-----------------------+-----------------------------+---------------------------+
 | 数据记录      | RDR                   | Running Data\               | `Running Data             |
 |               |                       | Recorder(RDR)\              | Recorder <htt             |
@@ -315,21 +308,21 @@ MindSpore为框架开发者提供了丰富的调试手段，调试功能涵盖�
 |               |                       | 执行状态数据的功能。框架运\ | spore.cn/tuto             |
 |               |                       | 行异常会自动地导出预先记录\ | rials/experts             |
 |               |                       | 的数据以辅助定位运行异常的\ | /zh-CN/master             |
-|               |                       | 原因，也可以在框架正常执行\ | /debug/custom             |
-|               |                       | 过程保存框架关键状态数据，\ | _debug.html#r             |
-|               |                       | 例如：IR、图执行顺序、内\   | unning-data-r             |
-|               |                       | 存分配等信息。              | ecorder>`__               |
+|               |                       | 原因，也可以在框架正常执行\ | /debug/rdr             |
+|               |                       | 过程保存框架关键状态数据，\ | .html#             |
+|               |                       | 例如：IR、图执行顺序、内\   |              |
+|               |                       | 存分配等信息。              | >`__               |
 +---------------+-----------------------+-----------------------------+---------------------------+
 | 专项控制      | 内存复用              | 可配置内存复用的开启与关闭\ | `内存复用 <https:         |
 |               |                       | ，用于排查或调试怀疑与内存\ | //www.mindspo             |
 |               |                       | 复用相关的问题。            | re.cn/tutoria             |
 |               |                       |                             | ls/experts/zh             |
 |               |                       |                             | -CN/master/de             |
-|               |                       |                             | bug/custom_de             |
-|               |                       |                             | bug.html#%E5%             |
-|               |                       |                             | 86%85%E5%AD%9             |
-|               |                       |                             | 8%E5%A4%8D%E7             |
-|               |                       |                             | %94%A8>`__                |
+|               |                       |                             | bug/mem             |
+|               |                       |                             | _reuse.html             |
+|               |                       |                             |              |
+|               |                       |                             |              |
+|               |                       |                             | >`__                |
 +---------------+-----------------------+-----------------------------+---------------------------+
 
 

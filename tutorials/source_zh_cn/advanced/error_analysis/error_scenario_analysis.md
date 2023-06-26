@@ -1,6 +1,6 @@
 # 错误分析
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/error_analyze.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/error_analysis/error_scenario_analysis.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 如前文所述，错误分析是指基于获取到的网络、框架各种信息（例如：错误信息、网络代码等信息）进行错误原因分析，推断错误的可能原因。
 
@@ -20,9 +20,9 @@
 
 | 常见错误类型 | 错误说明 | 案例分析 |
 |-------------|---------|---|
-| 数据准备错误 | 数据集本身问题，包括数据集路径问题以及MindRecord 文件问题 | [数据准备错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html#数据准备) |
-| 数据加载错误 | 数据加载阶段的资源配置错误、自定义加载方法错误以及迭代器使用错误等 | [数据加载错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html#数据加载) |
-| 数据增强错误 | 数据格式不匹配、数据尺寸不匹配、资源占用问题、多线程卡死 | [数据增强错误案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/minddata_debug.html#数据增强) |
+| 数据准备错误 | 数据集本身问题，包括数据集路径问题以及MindRecord 文件问题 | [数据准备错误案例](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/minddata_debug.html#数据准备) |
+| 数据加载错误 | 数据加载阶段的资源配置错误、自定义加载方法错误以及迭代器使用错误等 | [数据加载错误案例](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/minddata_debug.html#数据加载) |
+| 数据增强错误 | 数据格式不匹配、数据尺寸不匹配、资源占用问题、多线程卡死 | [数据增强错误案例](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/minddata_debug.html#数据增强) |
 
 ## 网络构建与训练错误分析
 
@@ -32,11 +32,11 @@
 
 | 常见错误类型   | 错误说明 | 案例分析 |
 | - | - | - |
-| context配置问题 | 系统进行上下文配置时的错误 | [context配置问题分析](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#context%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98)|
-| 语法错误       | 包括Python语法错误和MindSpore静态图语法错误，例如控制流语法不支持、Tensor切片错误等 | [语法错误分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#语法问题) |
-| 算子编译错误   | 包括算子参数值/类型/shape不满足要求、算子功能限制等 | [算子编译错误分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#算子编译错误) |
-| 算子执行错误   | 包括输入数据异常、算子实现错误、功能限制、资源限制等 | [算子执行错误分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#算子执行错误) |
-| 资源不足       | 包括设备内存不足、函数调用栈超限、流资源超限等 | [资源不足分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/mindrt_debug.html#资源不足) |
+| context配置问题 | 系统进行上下文配置时的错误 | [context配置问题分析](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/mindrt_debug.html#context%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98)|
+| 语法错误       | 包括Python语法错误和MindSpore静态图语法错误，例如控制流语法不支持、Tensor切片错误等 | [语法错误分析](https://mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/mindrt_debug.html#语法问题) |
+| 算子编译错误   | 包括算子参数值/类型/shape不满足要求、算子功能限制等 | [算子编译错误分析](https://mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/mindrt_debug.html#算子编译错误) |
+| 算子执行错误   | 包括输入数据异常、算子实现错误、功能限制、资源限制等 | [算子执行错误分析](https://mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/mindrt_debug.html#算子执行错误) |
+| 资源不足       | 包括设备内存不足、函数调用栈超限、流资源超限等 | [资源不足分析](https://mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/mindrt_debug.html#资源不足) |
 
 ### 动态图模式错误分析
 
@@ -274,11 +274,11 @@ EK0001: Path [/ms_test/csj/csj/user_scene/profiler_chinese_中文/resnet/scripts
 
 | 常见错误类型   | 错误说明 | 案例分析 |
 | - | - | - |
-| AICORE算子编译问题 | AICORE算子编译时的错误 | [AICORE算子编译问题分析](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/cann_error_cases.html#aicore算子编译问题)|
-| AICORE算子执行问题  | AICORE算子执行时的错误 | [AICORE算子执行问题分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/cann_error_cases.html#aicore算子执行问题) |
-| AICPU算子执行问题   | AICPU算子执行时的错误 | [AICPU算子执行问题分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/cann_error_cases.html#aicpu算子执行问题) |
-| runtime常见问题   | 包括输入数据异常、算子实现错误、功能限制、资源限制等 | [runtime常见问题分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/cann_error_cases.html#runtime常见问题) |
-| HCCL&HCCP常见问题   | 多机多卡训练时的通信常见问题，包括socket建链超时、notify wait超时、ranktable配置错误等 | [HCCL&HCCP常见问题](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/cann_error_cases.html#hcclhccp常见问题) |
-| profiling常见问题    | 性能调优运行profiling时的错误 | [profiling常见问题分析](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/cann_error_cases.html#profiling常见问题) |
+| AICORE算子编译问题 | AICORE算子编译时的错误 | [AICORE算子编译问题分析](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/cann_error_cases.html#aicore算子编译问题)|
+| AICORE算子执行问题  | AICORE算子执行时的错误 | [AICORE算子执行问题分析](https://mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/cann_error_cases.html#aicore算子执行问题) |
+| AICPU算子执行问题   | AICPU算子执行时的错误 | [AICPU算子执行问题分析](https://mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/cann_error_cases.html#aicpu算子执行问题) |
+| runtime常见问题   | 包括输入数据异常、算子实现错误、功能限制、资源限制等 | [runtime常见问题分析](https://mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/cann_error_cases.html#runtime常见问题) |
+| HCCL&HCCP常见问题   | 多机多卡训练时的通信常见问题，包括socket建链超时、notify wait超时、ranktable配置错误等 | [HCCL&HCCP常见问题](https://mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/cann_error_cases.html#hcclhccp常见问题) |
+| profiling常见问题    | 性能调优运行profiling时的错误 | [profiling常见问题分析](https://mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/cann_error_cases.html#profiling常见问题) |
 
 更多有关CANN错误的信息可前往[昇腾CANN开发者文档](https://www.hiascend.com/document/moreVersion/zh/CANNCommunityEdition/)，查询对应CANN版本的故障处理章节。
