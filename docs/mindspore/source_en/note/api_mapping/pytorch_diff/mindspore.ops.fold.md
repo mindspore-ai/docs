@@ -45,7 +45,7 @@ x = np.random.randn(1, 3 * 2 * 2, 12)
 input = torch.tensor(x, dtype=torch.float32)
 output = torch.nn.functional.fold(input, output_size=(4, 5), kernel_size=(2, 2))
 print(output.detach().shape)
-# [1, 3, 4, 5]
+# torch.Size([1, 3, 4, 5])
 
 # MindSpore
 import mindspore

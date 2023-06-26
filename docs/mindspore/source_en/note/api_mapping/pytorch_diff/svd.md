@@ -72,6 +72,7 @@ print(v)
 #         [0., 0., 0.]])
 # tensor([[0., 0.],
 #         [0., 0.]])
+
 # MindSpore doesn't support this feature currently.
 ```
 
