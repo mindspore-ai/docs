@@ -8,7 +8,7 @@
 torch.Tensor.take(indices)
 ```
 
-For more information, see [torch.take](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.take).
+For more information, see [torch.Tensor.take](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.take).
 
 ## mindspore.Tensor.take
 

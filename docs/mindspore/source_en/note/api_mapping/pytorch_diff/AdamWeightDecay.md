@@ -44,7 +44,6 @@ The code implementation and parameter update logic of `mindspore.nn.AdamWeightDe
 |      | Parameter 4 | eps          | eps           | Consistent function                     |
 |      | Parameter 5 | weight_decay | weight_decay  | Consistent function                     |
 |      | Parameter 6 | amsgrad      | -             | PyTorch `amsgrad` indicates whether to apply the amsgrad algorithm, and MindSpore does not have this parameter |
-|      | Parameter 7 | -            | loss_scale    | MindSpore `loss_scale` is the gradient scaling factor, and PyTorch does not have this parameter    |
 
 ## Code Example
 

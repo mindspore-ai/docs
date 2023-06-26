@@ -24,7 +24,7 @@ For more information, see [torch.nn.functional.avg_pool1d](https://pytorch.org/d
 mindspore.ops.avg_pool1d(input_x, kernel_size=1, stride=1, padding=0, ceil_mode=False, count_include_pad=True)
 ```
 
-For more information, see [mindspore.nn.avg_pool1d](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.avg_pool1d.html).
+For more information, see [mindspore.ops.avg_pool1d](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.avg_pool1d.html).
 
 ## Differences
 

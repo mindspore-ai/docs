@@ -5,7 +5,7 @@
 ## torchvision.transforms.RandomResizedCrop
 
 ```python
-class torchvision.transforms.RandomResizedCrop(size, scale=(0.08, 1.0), ratio=(0.75, 1.3333333333333333), interpolation=InterpolationMode.BILINEAR, antialias: Optional[bool] = None)
+class torchvision.transforms.RandomResizedCrop(size, scale=(0.08, 1.0), ratio=(0.75, 1.3333333333333333), interpolation=InterpolationMode.BILINEAR)
 ```
 
 For more information, see [torchvision.transforms.RandomResizedCrop](https://pytorch.org/vision/0.9/transforms.html#torchvision.transforms.RandomResizedCrop).
