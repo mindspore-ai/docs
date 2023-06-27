@@ -20,30 +20,33 @@ mindspore.ops.cdist(x1, x2, p=2.0)
 
 ## 差异对比
 
-PyTorch：计算两个Tensor每对列向量之间的p-norm距离。
+MindSpore此API功能与PyTorch基本一致，MindSpore无法指定是否使用矩阵乘的方式计算向量对之间的欧几里得距离。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致，精度稍有差异。
+PyTorch: 当参数 `compute_mode` 为 ``use_mm_for_euclid_dist_if_necessary`` ，且当 `x1` 或 `x2` 的一个batch中的行向量的个数超过25时，使用矩阵乘的方式计算向量对之间的欧几里得距离。当参数 `compute_mode` 为 ``use_mm_for_euclid_dist`` 时，使用矩阵乘的方式计算向量对之间的欧几里得距离。当参数 `compute_mode` 为 ``donot_use_mm_for_euclid_dist`` 时，不会使用矩阵乘的方式计算向量对之间的欧几里得距离。
 
-| 分类 | 子类 |PyTorch | MindSpore | 差异 |
+MindSpore：无参数 `compute_mode` 以指定是否使用矩阵乘的方式计算向量对之间的欧几里得距离。在 ``GPU`` 和 ``CPU`` 上不会使用矩阵乘的方式计算向量对之间的欧几里得距离，在 ``Ascend`` 上，会使用矩阵乘的方式计算向量对之间的欧几里得距离。
+
+| 分类 | 子类 | PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 | 参数 | 参数1 |x1 | x1 | - |
 | | 参数2 | x2 | x2 | - |
 |  | 参数3 | p | p | - |
-| | 参数4 | compute_mode | - | torch中指定是否用矩阵乘法计算欧几里得距离，MindSpore中没有该参数 |
+| | 参数4 | compute_mode | - | PyTorch中指定是否用矩阵乘的方式计算欧几里得距离的参数，MindSpore中没有该参数 |
 
-### 代码示例1
+### 代码示例
 
 ```python
 # PyTorch
 import torch
 import numpy as np
 
+torch.set_printoptions(precision=7)
 x =  torch.tensor(np.array([[1.0, 1.0], [2.0, 2.0]]).astype(np.float32))
 y =  torch.tensor(np.array([[3.0, 3.0], [3.0, 3.0]]).astype(np.float32))
 output = torch.cdist(x, y, 2.0)
 print(output)
-# tensor([[2.8284, 2.8284],
-#         [1.4142, 1.4142]])
+# tensor([[2.8284271, 2.8284271],
+#         [1.4142135, 1.4142135]])
 
 # MindSpore
 import mindspore.numpy as np
@@ -56,5 +59,4 @@ output = ops.cdist(x, y, 2.0)
 print(output)
 # [[2.828427  2.828427 ]
 #  [1.4142135 1.4142135]]
-
 ```
