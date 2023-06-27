@@ -1,17 +1,5 @@
 # 模型参数的保存和加载
 
-<!-- TOC -->
-
-- [模型参数的保存和加载](#模型参数的保存和加载)
-    - [概述](#概述)
-    - [模型参数保存](#模型参数保存)
-        - [CheckPoint配置策略](#checkpoint配置策略)
-    - [模型参数加载](#模型参数加载)
-        - [用于推理验证](#用于推理验证)
-        - [用于再训练场景](#用于再训练场景)
-
-<!-- /TOC -->
-
 ## 概述
 
 在模型训练过程中，可以添加检查点(CheckPoint)用于保存模型的参数，以便进行推理及中断后再训练使用。
@@ -31,12 +19,14 @@ CheckPoint的protocol格式定义在`mindspore/ccsrc/utils/checkpoint.proto`中�
 以下通过一个示例来介绍MindSpore保存和加载的功能，网络选取ResNet-50，数据集为MNIST。
 
 ## 模型参数保存
+
 在模型训练的过程中，使用callback机制传入回调函数`ModelCheckpoint`对象，可以保存模型参数，生成CheckPoint文件。
 通过`CheckpointConfig`对象可以设置CheckPoint的保存策略。
 保存的参数分为网络参数和优化器参数。
 
 `ModelCheckpoint()`提供默认配置策略，方便用户快速上手。
 具体用法如下：
+
 ```python
 from mindspore.train.callback import ModelCheckpoint
 ckpoint_cb = ModelCheckpoint()
@@ -66,14 +56,12 @@ model.train(epoch_num, dataset, callbacks=ckpoint_cb)
 > - resnet50-3_32.ckpt  # 表示保存的是第3个epoch的第32个step的模型参数
 > - ...
 
-
 如果用户使用相同的前缀名，运行多次训练脚本，可能会生成同名CheckPoint文件。
 MindSpore为方便用户区分每次生成的文件，会在用户定义的前缀后添加"_"和数字加以区分。
 
 例：`resnet50_3-2_32.ckpt` 表示运行第3次脚本生成的第2个epoch的第32个step的CheckPoint文件。
 
 > 当保存的单个模型参数较大时(超过64M)，会因为Protobuf自身对数据大小的限制，导致保存失败。这时可通过设置环境变量`PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`解除限制。
-
 
 ### CheckPoint配置策略
 
@@ -91,7 +79,6 @@ MindSpore提供了两种保存CheckPoint策略: 迭代策略和时间策略，�
 两种策略不能同时使用，迭代策略优先级高于时间策略，当同时设置时，只有迭代策略可以生效。
 当参数显示设置为`None`时，表示放弃该策略。
 在迭代策略脚本正常结束的情况下，会默认保存最后一个step的CheckPoint文件。
-
 
 ## 模型参数加载
 
@@ -120,6 +107,7 @@ acc = model.eval(dataset_eval)
 针对任务中断再训练及Fine Tune场景，可以加载网络参数和优化器参数到模型中。
 
 示例代码如下：
+
 ```python
 # return a parameter dict for model
 param_dict = load_checkpoint("resnet50-2_32.ckpt")

@@ -1,16 +1,5 @@
 # 端侧推理
 
-<!-- TOC -->
-
-- [端侧推理](#端侧推理)
-    - [概述](#概述)
-    - [编译方法](#编译方法)
-    - [端侧推理使用](#端侧推理使用)
-        - [生成端侧模型文件](#生成端侧模型文件)
-        - [在端侧实现推理](#在端侧实现推理)
-
-<!-- /TOC -->
-
 ## 概述
 
 MindSpore Predict是一个轻量级的深度神经网络推理引擎，提供了将MindSpore训练出的模型在端侧进行推理的功能。本教程介绍MindSpore Predict的编译方法和使用指南。
@@ -22,25 +11,25 @@ MindSpore Predict是一个轻量级的深度神经网络推理引擎，提供了
 环境要求如下：
 
 - 硬件要求
-  - 内存1GB以上
-  - 硬盘空间10GB以上
+    - 内存1GB以上
+    - 硬盘空间10GB以上
 
 - 系统要求
-  - 系统：Ubuntu = 16.04.02LTS（验证可用）
-  - 内核：4.4.0-62-generic（验证可用）
+    - 系统：Ubuntu = 16.04.02LTS（验证可用）
+    - 内核：4.4.0-62-generic（验证可用）
 
 - 软件依赖
-  - [cmake](https://cmake.org/download/) >= 3.14.1
-  - [GCC](https://gcc.gnu.org/releases.html) >= 5.4
-  - [autoconf](http://ftp.gnu.org/gnu/autoconf/) 2.69
-  - [LLVM 8.0.0](http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz)
-  - [Android_NDK r16b](https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip)
-  - numpy >= 1.16
-  - decorator
-  - scipy
+    - [cmake](https://cmake.org/download/) >= 3.14.1
+    - [GCC](https://gcc.gnu.org/releases.html) >= 5.4
+    - [autoconf](http://ftp.gnu.org/gnu/autoconf/) 2.69
+    - [LLVM 8.0.0](http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz)
+    - [Android_NDK r16b](https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip)
+    - numpy >= 1.16
+    - decorator
+    - scipy
 
     > numpy, decorator和scipy可以通过pip安装，参考命令如下。
-    
+
     ```bash
     pip3 install numpy==1.16 decorator scipy
     ```
@@ -82,17 +71,22 @@ MindSpore Predict是一个轻量级的深度神经网络推理引擎，提供了
 MindSpore进行端侧模型推理的步骤如下。
 
 ### 生成端侧模型文件
+
 1. 加载训练完毕所生成的CheckPoint文件至定义好的网络中。
+
    ```python
    param_dict = load_checkpoint(ckpoint_file_name=ckpt_file_path)
    load_param_into_net(net, param_dict)
    ```
+
 2. 调用`export`接口，导出端侧模型文件(.ms)。
+
    ```python
    export(net, input_data, file_name="./lenet.ms", file_format='LITE')
    ```
 
 以LeNet网络为例，生成的端侧模型文件为`lenet.ms`，完整示例代码lenet.py如下。
+
 ```python
 import os
 import numpy as np
@@ -114,7 +108,7 @@ class LeNet(nn.Cell):
         self.fc1 = nn.Dense(400, 120)
         self.fc2 = nn.Dense(120, 84)
         self.fc3 = nn.Dense(84, 10)
-        
+
     def construct(self, input_x):
         output = self.conv1(input_x)
         output = self.relu(output)
@@ -129,7 +123,7 @@ class LeNet(nn.Cell):
         output = self.relu(output)
         output = self.fc3(output)
         return output
-        
+
 if __name__ == '__main__':
     context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
     seed = 0
@@ -157,7 +151,9 @@ if __name__ == '__main__':
 ![](./images/side_infer_process.png)
 
 图1：端侧推理时序图
+
 1. 加载.ms模型文件到内存缓冲区，ReadFile函数功能需要用户自行实现。
+
    ```cpp
    // read model file
    std::string modelPath = "./models/lenet/lenet.ms";
@@ -168,6 +164,7 @@ if __name__ == '__main__':
    ```
 
 2. 调用CreateSession接口创建Session，创建完成后可释放内存缓冲区中的模型文件。
+
    ```cpp
    // create session
    Context ctx;
@@ -176,6 +173,7 @@ if __name__ == '__main__':
    ```
 
 3. 从内存缓冲区中读取推理的输入数据，调用SetData()接口将输入数据设置到input tensor中。
+
    ```cpp
    // load input buffer
    size_t inputSize = 0;
@@ -189,18 +187,21 @@ if __name__ == '__main__':
    ```
 
 4. 调用Session中的Run()接口执行推理。
+
    ```cpp
    // session run
    int ret = session->Run(inputs);
    ```
 
 5. 调用GetAllOutput()接口获取输出。
+
    ```cpp
    // get output
    std::map<std::string, std::vector<Tensor *>> outputs = session->GetAllOutput();
    ```
-   
+
 6. 调用Tensor的GetData()接口获取输出数据。
+
    ```cpp
    // get output data
    float *data = nullptr;
@@ -211,14 +212,15 @@ if __name__ == '__main__':
      }
    }
    ```
-   
+
 7. 推理结束释放input tensor和output tensor。
+
    ```cpp
    // free inputs and outputs
    for (auto &input : inputs) {
      delete input;
    }
-   inputs.clear(); 
+   inputs.clear();
    for (auto &output : outputs) {
      for (auto &outputTensor : output.second) {
        delete outputTensor;
@@ -286,7 +288,7 @@ int main() {
 
   // get output
   auto outputs = session->GetAllOutput();
-    
+
   // get output data
   float *data = nullptr;
     for (auto output : outputs) {

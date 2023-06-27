@@ -1,21 +1,5 @@
 # Computer Vision Applications
 
-<!-- TOC -->
-
-- [Computer Vision Applications](#computer-vision-applications)
-    - [Overview](#overview)
-    - [Image Classification](#image-classification)
-    - [Task Description and Preparation](#task-description-and-preparation)
-        - [Downloading the CIFAR-10 Dataset](#downloading-the-cifar-10-dataset)
-        - [Data Preloading and Preprocessing](#data-preloading-and-preprocessing)
-        - [Defining the CNN](#defining-the-cnn)
-        - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
-        - [Calling the High-level `Model` API To Train and Save the Model File](#calling-the-high-level-model-api-to-train-and-save-the-model-file)
-        - [Loading and Validating the Saved Model](#loading-and-validating-the-saved-model)
-    - [References](#references)
-
-<!-- /TOC -->
-
 ## Overview
 
 Computer vision is the most widely researched and mature technology field of deep learning, and is widely used in scenarios such as mobile phone photographing, intelligent security protection, and automated driving. Since AlexNet won the ImageNet competition in 2012, deep learning has greatly promoted the development of the computer vision field. Almost all the most advanced computer vision algorithms are related to deep learning. Deep neural network can extract image features layer by layer and retain local invariance. It is widely used in visual tasks such as classification, detection, segmentation, retrieval, recognition, promotion, and reconstruction.

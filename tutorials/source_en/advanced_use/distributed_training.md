@@ -1,34 +1,18 @@
 # Distributed Training
 
-<!-- TOC -->
-
-- [Distributed Training](#distributed-training)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Configuring Distributed Environment Variables](#configuring-distributed-environment-variables)
-        - [Invoking the Collective Communication Library](#invoking-the-collective-communication-library)
-    - [Loading Datasets](#loading-datasets)
-    - [Defining the Network](#defining-the-network)
-    - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
-        - [Defining the Loss Function](#defining-the-loss-function)
-        - [Defining the Optimizer](#defining-the-optimizer)
-    - [Training the Network](#training-the-network)
-    - [Running Test Cases](#running-test-cases)
-
-<!-- /TOC -->
-
 ## Overview
 
-MindSpore supports `DATA_PARALLEL` and `AUTO_PARALLEL`. Automatic parallel is a distributed parallel mode that integrates data parallel, model parallel, and hybrid parallel. It can automatically establish cost models and select a parallel mode for users. 
+MindSpore supports `DATA_PARALLEL` and `AUTO_PARALLEL`. Automatic parallel is a distributed parallel mode that integrates data parallel, model parallel, and hybrid parallel. It can automatically establish cost models and select a parallel mode for users.
 
 Among them:
+
 - Data parallel: A parallel mode for dividing data in batches.
 - Layerwise parallel: A parallel mode for dividing parameters by channel.
 - Hybrid parallel: A parallel mode that covers both data parallel and model parallel.
 - Cost model: A cost model built based on the memory computing cost and communication cost, for which an efficient algorithm is designed to find the parallel strategy with the shorter training time.
 
 In this tutorial, we will learn how to train the ResNet-50 network in `DATA_PARALLEL` or `AUTO_PARALLEL` mode on MindSpore.
-For sample code, please see at 
+For sample code, please see at
 
 <https://gitee.com/mindspore/docs/blob/r0.1/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>.
 
@@ -69,7 +53,9 @@ The Ascend 910 AI processor and 1980 AIServer are used as an example. The JSON c
 }
 
 ```
+
 The following parameters need to be modified based on the actual training environment:
+
 1. `server_num` indicates the number of hosts, and `server_id` indicates the IP address of the local host.
 2. `device_num`, `para_plane_nic_num`, and `instance_count` indicate the number of cards.
 3. `rank_id` indicates the logical sequence number of a card, which starts from 0 fixedly. `device_id` indicates the physical sequence number of a card, that is, the actual sequence number of the host where the card is located.
@@ -97,11 +83,12 @@ from mindspore.communication.management import init
 if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", enable_hccl=True, device_id=int(os.environ["DEVICE_ID"]))
     init()
-    ...   
+    ...
 ```
 
 `mindspore.communication.management` encapsulates the collective communication API provided by the HCCL to help users obtain distributed information. The common types include `get_rank` and `get_group_size`, which correspond to the ID of the current card in the cluster and the number of cards, respectively.
 > HCCL implements multi-device multi-card communication based on the Da Vinci architecture chip. The restrictions on using the distributed service are as follows:
+>
 > 1. In a single-node system, a cluster of 1, 2, 4, or 8 cards is supported. In a multi-node system, a cluster of 8 x N cards is supported.
 > 2. Each server has four NICs (numbered 0 to 3) and four NICs (numbered 4 to 7) deployed on two different networks. During training of two or four cards, the NICs must be connected and clusters cannot be created across networks.
 > 3. The operating system needs to use the symmetric multiprocessing (SMP) mode.
@@ -123,12 +110,12 @@ def create_dataset(repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
     resize_width = 224
     rescale = 1.0 / 255.0
     shift = 0.0
-    
+
     # get rank_id and rank_size
     rank_id = get_rank()
     rank_size = get_group_size()
     data_set = ds.Cifar10Dataset(data_path, num_shards=rank_size, shard_id=rank_id)
-    
+
     # define map operations
     random_crop_op = vision.RandomCrop((32, 32), (4, 4, 4, 4))
     random_horizontal_op = vision.RandomHorizontalFlip()
@@ -194,7 +181,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         self.sparse = sparse
         self.max = P.ReduceMax(keep_dims=True)
         self.sub = P.Sub()
-        
+
     def construct(self, logit, label):
         logit_max = self.max(logit, -1)
         exp = self.exp(self.sub(logit, logit_max))
@@ -227,8 +214,8 @@ opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), lr, mome
 
 - `parallel_mode`: distributed parallel mode. The options are `ParallelMode.DATA_PARALLEL` and `ParallelMode.AUTO_PARALLEL`.
 - `mirror_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple machines, obtains the global gradient value, and transfers the global gradient value to the optimizer for update.
-The value True indicates the `allreduce_mean` operation that would be applied, and the value False indicates the `allreduce_sum` operation that would be applied.
 
+The value True indicates the `allreduce_mean` operation that would be applied, and the value False indicates the `allreduce_sum` operation that would be applied.
 
 In the following example, the parallel mode is set to `AUTO_PARALLEL`. `dataset_sink_mode=False` indicates that the non-sink mode is used. `LossMonitor` can return the loss value through the callback function.
 
@@ -249,14 +236,13 @@ def test_train_cifar(num_classes=10, epoch_size=10):
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=False)
 ```
 
-
 ## Running Test Cases
 
 Currently, MindSpore distributed execution uses the single-card single-process running mode. The number of processes must be the same as the number of used cards. Each single-process will create a folder to save log and building information. The following is an example of a running script for two-card distributed training:
 
 ```bash
   #!/bin/bash
-  
+
   export MINDSPORE_HCCL_CONFIG_PATH=./rank_table.json
   export RANK_SIZE=2
   for((i=0;i<$RANK_SIZE;i++))
@@ -272,4 +258,3 @@ Currently, MindSpore distributed execution uses the single-card single-process r
       cd ../
   done
 ```
-

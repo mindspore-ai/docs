@@ -1,25 +1,7 @@
 # Training Process Visualization
 
-<!-- TOC -->
-
-- [Training Process Visualization](#training-process-visualization)
-    - [Overview](#overview)
-    - [Operation Process](#operation-process)
-    - [Preparing the Training Script](#preparing-the-training-script)
-        - [Basic Script Editing](#basic-script-editing)
-        - [Recording the Computational Graph After Operator Fusion](#recording-the-computational-graph-after-operator-fusion)
-    - [MindInsight Commands](#mindinsight-commands)
-    - [Visualization Components](#visualization-components)
-        - [Computational Graph Visualization](#computational-graph-visualization)
-        - [Scalar Visualization](#scalar-visualization)
-        - [Image Visualization](#image-visualization)
-        - [Model Lineage Visualization](#model-lineage-visualization)
-        - [Dataset Graph Visualization](#dataset-graph-visualization)
-        - [Dataset Lineage Visualization](#dataset-lineage-visualization)
-
-<!-- /TOC -->
-
 ## Overview
+
 Scalars, images, computational graphs, and model hyperparameters during training are recorded in files and can be viewed on the web page.
 
 ## Operation Process
@@ -34,7 +16,6 @@ Currently, MindSpore uses the `Callback` mechanism to save scalars, images, comp
 
 Scalar and image data is recorded by using the `Summary` operator. A computational graph is saved to the summary log file by using `SummaryRecord` after network compilation is complete.
 Model parameters are saved to the summary log file by using `TrainLineage` or `EvalLineage`.
-
 
 ### Basic Script Editing
 
@@ -167,19 +148,19 @@ After completing the script by referring to "Basic Writing", use the `save_graph
 
 ## MindInsight Commands
 
-### View the command help information.
+### View the command help information
 
 ```bash
 mindinsight --help
 ```
 
-### View the version information.
+### View the version information
 
 ```bash
 mindinsight --version
 ```
 
-### Start the service.
+### Start the service
 
 ```bash
 mindinsight start [-h] [--config <CONFIG>] [--workspace <WORKSPACE>]
@@ -198,7 +179,7 @@ Optional parameters as follows:
 
 > When the service is started, the parameter values of the command line are saved as the environment variables of the process and start with `MINDINSIGHT_`, for example, `MINDINSIGHT_CONFIG`, `MINDINSIGHT_WORKSPACE`, and `MINDINSIGHT_PORT`.
 
-### Stop the service.
+### Stop the service
 
 ```bash
 mindinsight stop [-h] [--port PORT]
@@ -209,7 +190,7 @@ Optional parameters as follows:
 - `-h, --help` : Displays the help information about the stop command.
 - `--port <PORT>` : Specifies the port number of the web visualization service. The value ranges from 1 to 65535. The default value of PORT is 8080.
 
-### View the service process information.
+### View the service process information
 
 MindInsight provides user with web services. Run the following command to view the running web service process:
 
@@ -230,6 +211,7 @@ gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>
 ```
 
 ## Visualization Components
+
 ### Computational Graph Visualization
 
 Computational graph visualization is used to display the graph structure, data flow direction, and control flow direction of a computational graph.
@@ -246,11 +228,11 @@ Figure 2 Computational graph function area
 
 Figure 2 shows the function area of the computational graph, including:
 
-*  File selection box: View the computational graphs of different files.
-*  Search box: Enter a node name and press Enter to view the node.
-*  Thumbnail: Display the thumbnail of the entire network structure. When viewing an extra large image structure, you can view the currently browsed area.
-*  Node information: Display the basic information of the selected node, including the node name, properties, input node, and output node.
-*  Legend: Display the meaning of each icon in the computational graph.
+- File selection box: View the computational graphs of different files.
+- Search box: Enter a node name and press Enter to view the node.
+- Thumbnail: Display the thumbnail of the entire network structure. When viewing an extra large image structure, you can view the currently browsed area.
+- Node information: Display the basic information of the selected node, including the node name, properties, input node, and output node.
+- Legend: Display the meaning of each icon in the computational graph.
 
 ### Scalar Visualization
 
@@ -269,7 +251,6 @@ Buttons from left to right in the upper right corner of the figure are used to d
 - Enable/Disable Rectangle Selection: Draw a rectangle to select and zoom in a part of the chart. You can perform rectangle selection again on the zoomed-in chart.
 - Step-by-step Rollback: Cancel operations step by step after continuously drawing rectangles to select and zooming in the same area.
 - Restore Chart: Restore a chart to the original state.
-
 
 ![scalar_select.png](./images/scalar_select.png)
 
@@ -340,9 +321,9 @@ Figure 11: Dataset graph function area
 
 Figure 11 shows the dataset graph function area which includes the following content:
 
-*  Legend: Display the meaning of each icon in the data lineage graph.
-* Data Processing Pipeline: Display the data processing pipeline used for training. Select a single node in the graph to view details.
-* Node Information: Display basic information about the selected node, including names and parameters of the data processing and augmentation operators.
+- Legend: Display the meaning of each icon in the data lineage graph.
+- Data Processing Pipeline: Display the data processing pipeline used for training. Select a single node in the graph to view details.
+- Node Information: Display basic information about the selected node, including names and parameters of the data processing and augmentation operators.
 
 ### Dataset Lineage Visualization
 

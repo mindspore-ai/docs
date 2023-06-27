@@ -1,26 +1,5 @@
 # Natural Language Processing (NLP) Application
 
-<!-- TOC -->
-
-- [Natural Language Processing (NLP) Application](#natural-language-processing-nlp-application)
-    - [Overview](#overview)
-    - [Preparation and Design](#preparation-and-design)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Determining Evaluation Criteria](#determining-evaluation-criteria)
-        - [Determining the Network and Process](#determining-the-network-and-process)
-    - [Implementation](#implementation)
-        - [Importing Library Files](#importing-library-files)
-        - [Configuring Environment Information](#configuring-environment-information)
-        - [Preprocessing the Dataset](#preprocessing-the-dataset)
-        - [Defining the Network](#defining-the-network)
-        - [Defining the Optimizer and Loss Function](#defining-the-optimizer-and-loss-function)
-        - [Training and Saving the Model](#training-and-saving-the-model)
-        - [Validating the Model](#validating-the-model)
-    - [Experiment Result](#experiment-result)
-    - [Downloading Code](#downloading-code)
-
-<!-- /TOC -->
-
 ## Overview
 
 Sentiment classification is a subset of text classification in NLP, and is the most basic application of NLP. It is a process of analyzing and inferencing affective states and subjective information, that is, analyzing whether a person's sentiment is positive or negative.
@@ -43,6 +22,7 @@ Vertical polarity word = General polarity word + Domain-specific polarity word
 According to the text processing granularity, sentiment analysis can be divided into word, phrase, sentence, paragraph, and chapter levels. A sentiment analysis at paragraph level is used as an example. The input is a paragraph, and the output is information about whether the movie review is positive or negative.
 
 ## Preparation and Design
+
 ### Downloading the Dataset
 
 The IMDb movie review dataset is used as experimental data.
@@ -50,15 +30,17 @@ The IMDb movie review dataset is used as experimental data.
 
 The following are cases of negative and positive reviews.
 
-| Review  | Label  | 
+| Review  | Label  |
 |---|---|
-| "Quitting" may be as much about exiting a pre-ordained identity as about drug withdrawal. As a rural guy coming to Beijing, class and success must have struck this young artist face on as an appeal to separate from his roots and far surpass his peasant parents' acting success. Troubles arise, however, when the new man is too new, when it demands too big a departure from family, history, nature, and personal identity. The ensuing splits, and confusion between the imaginary and the real and the dissonance between the ordinary and the heroic are the stuff of a gut check on the one hand or a complete escape from self on the other.  |  Negative |  
+| "Quitting" may be as much about exiting a pre-ordained identity as about drug withdrawal. As a rural guy coming to Beijing, class and success must have struck this young artist face on as an appeal to separate from his roots and far surpass his peasant parents' acting success. Troubles arise, however, when the new man is too new, when it demands too big a departure from family, history, nature, and personal identity. The ensuing splits, and confusion between the imaginary and the real and the dissonance between the ordinary and the heroic are the stuff of a gut check on the one hand or a complete escape from self on the other.  |  Negative |
 | This movie is amazing because the fact that the real people portray themselves and their real life experience and do such a good job it's like they're almost living the past over again. Jia Hongsheng plays himself an actor who quit everything except music and drugs struggling with depression and searching for the meaning of life while being angry at everyone especially the people who care for him most.  | Positive  |
 
 Download the GloVe file and add the following line at the beginning of the file, which means that a total of 400,000 words are read, and each word is represented by a word vector of 300 latitudes.
-```
+
+```text
 400000 300
 ```
+
 GloVe file download address: <http://nlp.stanford.edu/data/glove.6B.zip>
 
 ### Determining Evaluation Criteria
@@ -75,20 +57,21 @@ F1 score = (2 x Precision x Recall)/(Precision + Recall)
 
 In the IMDb dataset, the number of positive and negative samples does not vary greatly. Accuracy can be used as the evaluation criterion of the classification system.
 
-
 ### Determining the Network and Process
 
 Currently, MindSpore GPU supports the long short-term memory (LSTM) network for NLP.
+
 1. Load the dataset in use and process data.
 2. Use the LSTM network training data to generate a model.
     Long short-term memory (LSTM) is an artificial recurrent neural network (RNN) architecture used for processing and predicting an important event with a long interval and delay in a time sequence. For details, refer to online documentation.
 3. After the model is obtained, use the validation dataset to check the accuracy of model.
 
-
-
 ## Implementation
+
 ### Importing Library Files
+
 The following are the required public modules and MindSpore modules and library files.
+
 ```python
 import os
 import shutil
@@ -118,6 +101,7 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
 ### Configuring Environment Information
 
 1. The `parser` module is used to transfer necessary information for running, such as storage paths of the dataset and the GloVe file. In this way, the frequently changed configurations can be entered during code running, which is more flexible.
+
     ```python
     parser = argparse.ArgumentParser(description='MindSpore LSTM Example')
     parser.add_argument('--preprocess', type=str, default='false', choices=['true', 'false'],
@@ -131,23 +115,24 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
     # Add a new line '400000 300' at the beginning of 'glove.6B.300d.txt' with '40000' for total words and '300' for vector length
     parser.add_argument('--glove_path', type=str, default="./glove",
                         help='path where the GloVe is store')
-    # Specify the path to save preprocessed data                
+    # Specify the path to save preprocessed data
     parser.add_argument('--preprocess_path', type=str, default="./preprocess",
                         help='path where the pre-process data is store')
-    # Specify the path to save the CheckPoint file                    
+    # Specify the path to save the CheckPoint file
     parser.add_argument('--ckpt_path', type=str, default="./ckpt", help='if mode is test, must provide\
                         path where the trained ckpt file')
     args = parser.parse_args()
     ```
 
 2. Before implementing code, configure necessary information, including the environment information, execution mode, backend information, and hardware information.
-   
+
     ```python
     context.set_context(
         mode=context.GRAPH_MODE,
         save_graphs=False,
         device_target="GPU")
     ```
+
     For details about the API configuration, see the `context.set_context`.
 
 ### Preprocessing the Dataset
@@ -298,6 +283,7 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
     ```
 
 3. Create a dataset.
+
     ```python
     def create_dataset(base_path, batch_size, num_epochs, is_train):
         """Create dataset for training."""
@@ -370,6 +356,7 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
     ```
 
 2. Use the `cell` method to define the network structure.
+
     ```python
     class SentimentNet(nn.Cell):
         """Sentiment network structure."""
@@ -419,8 +406,8 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
             encoding = self.concat((output[0], output[1]))
             outputs = self.decoder(encoding)
             return outputs
-    
-    
+
+
     embedding_table = np.loadtxt(os.path.join(args.preprocess_path, "weight.txt")).astype(np.float32)
     network = SentimentNet(vocab_size=embedding_table.shape[0],
                     embed_size=cfg.embed_size,
@@ -471,12 +458,15 @@ print("============== Accuracy:{} ==============".format(acc))
 ```
 
 ## Experiment Result
+
 After 10 epochs, the accuracy on the training set converges to about 85%, and the accuracy on the test set is about 86%.
 
 **Training Execution**
+
 1. Run the training code and view the running result.
+
     ```shell
-    $ python main.py --preprocess=true --mode=train --ckpt_path=./ckpt
+    python main.py --preprocess=true --mode=train --ckpt_path=./ckpt
     ```
 
     As shown in the following output, the loss value decreases gradually with the training process and reaches about 0.249. That is, after 10 epochs of training, the accuracy of the current text analysis result is about 85%.
@@ -498,11 +488,11 @@ After 10 epochs, the accuracy on the training set converges to about 85%, and th
     ```
 
 2. Check the saved CheckPoint files.
-   
+
    CheckPoint files (model files) are saved during the training. You can view all saved files in the file path.
 
     ```shell
-    $ ls ckpt/
+    ls ckpt/
     ```
 
     The output is as follows:
@@ -516,7 +506,7 @@ After 10 epochs, the accuracy on the training set converges to about 85%, and th
 Use the last saved CheckPoint file to load and validate the dataset.
 
 ```shell
-$ python main.py --mode=test --ckpt_path=./ckpt/lstm-10_390.ckpt
+python main.py --mode=test --ckpt_path=./ckpt/lstm-10_390.ckpt
 ```
 
 As shown in the following output, the sentiment analysis accuracy of the text is about 86%, which is basically satisfactory.
@@ -532,8 +522,8 @@ RegisterOperatorCreator:OperatorCreators init
 ```
 
 ## Downloading Code
+
 Complete and executable code download address: <https://gitee.com/mindspore/docs/tree/r0.1/tutorials/tutorial_code/lstm>
 
 - main.py: code file, including code for data preprocessing, network definition, and model training.
 - config.py: some configurations on the network, including the batch size and number of training epochs.
-
