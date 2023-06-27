@@ -665,7 +665,7 @@ MindSpore optimizer module is inherited from `Cell`. The optimizer is saved and 
   mindspore.load_param_into_net(opt, param_dict)
   ```
 
-## Differences between random generators
+## Differences between Random Generators
 
 ### API names
 
