@@ -4,7 +4,7 @@
 
 由社区提供的PyTorch APIs和MindSpore APIs之间的映射，可能在参数、输入、输出、逻辑功能和特定场景等方面存在差异，可详见各API描述或已提供的差异对比。
 
-也欢迎更多的MindSpore开发者参与完善映射内容。
+也欢迎更多的MindSpore开发者参与完善映射内容。关于PyTorch与MindSpore关于框架机制差异，请参考：[与PyTorch优化器的区别](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#与pytorch优化器的区别)，[与PyTorch随机数策略的区别](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#与pytorch随机数策略的区别)，[与PyTorch初始化的区别](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#与pytorch初始化的区别)。
 
 ## API映射一致标准及例外场景
 
