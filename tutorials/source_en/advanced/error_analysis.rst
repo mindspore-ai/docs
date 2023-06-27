@@ -52,7 +52,7 @@ Understanding the meaning of error description information plays an important ro
 MindSpore error messages are processed by using Python
 Traceback processing, including Python stack information, error types and error descriptions, error messages related to networkdevelopers, and error messages related to framework developers. As shown in the following figure:
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/debug/images/graph_errmsg.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/images/graph_errmsg.png
 
 -  Python stack information:
 
@@ -208,17 +208,17 @@ Network execution debugging is the corresponding debugging capability provided b
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 | Function classification   | Main debugging functions                 | Description of use                                                                                          | Detailed introduction                                 |
 +===========================+==========================================+=============================================================================================================+=======================================================+
-| Execution observation     | Visualization of the training process    | The scalar, image, computation graph, training optimization process                                         | `Collect Summary data <https://ww                     |
-|                           |                                          | and model superparameter information during the training process are recorded in a file                     | w.mindspore.cn/mindin                                 |
-|                           |                                          | and made available for users to view through the MindSpore Insight visualization interface,                 | sight/docs/en                                         |
-|                           |                                          | including: scalar visualization, parameter distribution visualization, computational graph visualization,   | /master/summary                                       |
-|                           |                                          | data graph visualization, image visualization, tensor visualization and optimization process visualization. | _record.html>`_                                       |
+| Execution observation     | Visualization of the training process    | The scalar, image, computation graph, training optimization process                                         | `Collect Summary data <https://www.mindspore.cn/      |
+|                           |                                          | and model superparameter information during the training process are recorded in a file                     | mindinsight/docs/en/master/summary_record.html>`_     |
+|                           |                                          | and made available for users to view through the MindSpore Insight visualization interface,                 |                                                       |
+|                           |                                          | including: scalar visualization, parameter distribution visualization, computational graph visualization,   |                                                       |
+|                           |                                          | data graph visualization, image visualization, tensor visualization and optimization process visualization. |                                                       |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Training traceability and comparison     | The model traceability, data traceability, and comparison dashboard allow users to observe                  | `Viewing Lineage and Scalars Comparison               |
 |                           |                                          | different scalar trend graphs to identify problems and then use the traceability function                   | <https://www.mindspore.cn/                            |
 |                           |                                          | to locate the cause of the problem, providing users with the ability to efficiently                         | mindinsight/docs/en/master/                           |
-|                           |                                          | tune the data augmentation and deep neural networks.                                                        | lineage_and_scalars_                                  |
-|                           |                                          |                                                                                                             | comparison.html>`_                                    |
+|                           |                                          | tune the data augmentation and deep neural networks.                                                        | lineage_and_scalars_comparison.html>`_                |
+|                           |                                          |                                                                                                             |                                                       |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | metrics                                  | When the training is finished,                                                                              | `MindSpore metrics function                           |
 |                           |                                          | metrics can be used to evaluate the training results.                                                       | introduction <https://www.mindspore.cn/tutorials      |
@@ -266,14 +266,14 @@ MindSpore provides framework developers with rich debugging tools. Debugging fea
 +=========================+==========================+===============================================================+=======================================================+
 | Process records         | Logs                     | used to record information at each stage of the framework     | `Log-related environment variables and configurations |
 |                         |                          | implementation to provide information for understanding       | <https://www.mindspore.cn/docs/en/master              |
-|                         |                          | the framework implementation process or for problem diagnosis.| /note/env_var_list.html                               |
-|                         |                          |                                                               | >`_                                                   |
+|                         |                          | the framework implementation process or for problem diagnosis.| /note/env_var_list.html>`_                            |
+|                         |                          |                                                               |                                                       |
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+
 | Data records            | RDR                      | Running Data Recorder (RDR) provides the ability              | `Running Data Recorder                                |
 |                         |                          | to record framework execution status data                     | <https://www.mindspore.cn/                            |
-|                         |                          | while the training program is running.                        | ps://www.mind                                         |
-|                         |                          | It can also save key frame state data, such as IR,            | tutorials/experts/en/master/                          |
-|                         |                          | graph execution order,                                        | debug/rdr.html>`_                                     |
+|                         |                          | while the training program is running.                        | tutorials/experts/en/master/debug/rdr.html>`_         |
+|                         |                          | It can also save key frame state data, such as IR,            |                                                       |
+|                         |                          | graph execution order,                                        |                                                       |
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+
 | Specialized control     | Memory reuse             | Configure memory reuse on and off for troubleshooting         | `Memory Reuse <https://www.mindspore.cn/              |
 |                         |                          | or debugging suspected problems related to memory reuse.      | tutorials/experts/en/master/debug                     |
