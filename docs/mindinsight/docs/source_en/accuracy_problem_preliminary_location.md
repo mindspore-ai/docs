@@ -394,8 +394,6 @@ If the benchmark script in another framework is available, you can compare the M
 
 The procedure is as follows:
 
-### Fixing MindSpore Script Randomness
-
 ### Reproducing the Accuracy Problem
 
 After the randomness is fixed, check whether the accuracy problem recurs.

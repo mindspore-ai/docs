@@ -5,9 +5,9 @@
 ## torch.Tensor.to
 
 ```python
-torch.Tensor.to(dtype, non_blocking=False, copy=False, memory_format=torch.preserve_format) → Tensor
-torch.Tensor.to(device=None, dtype=None, non_blocking=False, copy=False, memory_format=torch.preserve_format) → Tensor
-torch.Tensor.to(other, non_blocking=False, copy=False) → Tensor
+torch.Tensor.to(dtype, non_blocking=False, copy=False, memory_format=torch.preserve_format) -> Tensor
+torch.Tensor.to(device=None, dtype=None, non_blocking=False, copy=False, memory_format=torch.preserve_format) -> Tensor
+torch.Tensor.to(other, non_blocking=False, copy=False) -> Tensor
 ```
 
 For more information, see [torch.Tensor.to](https://pytorch.org/docs/1.8.1/tensors.html?#torch.Tensor.to).
@@ -37,7 +37,7 @@ MindSpore：Only the `dtype` parameter is supported, which returns Tensor of the
 | Parameters | Parameter 1   | dtype        | dtype         | Use the data types under the corresponding framework. |
 |            | Parameter 2   | device       | -             | PyTorch specifies the device, which MindSpore does not support. |
 |            | Parameter 3   | other        | -             | PyTorch specifies the Tensor used, which MindSpore does not support. |
-|            | Parameter 4   | non_blocking | seed          | PyTorch uses this for asynchronous copying between the CPU and GPU, which MindSpore does not support. |
+|            | Parameter 4   | non_blocking | -          | PyTorch uses this for asynchronous copying between the CPU and GPU, which MindSpore does not support. |
 |            | Parameter 5   | copy         | -             | PyTorch uses this to force the creation of new Tensors, which MindSpore does not support. |
 |            | Parameter 6   | memory_format| -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
