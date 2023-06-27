@@ -108,24 +108,6 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
-# Copy source files of chinese python api from mindscience repository.
-from sphinx.util import logging
-logger = logging.getLogger(__name__)
-
-src_dir_rm = os.path.join(os.getenv("RM_PATH"), 'docs/api/api_python_en')
-
-present_path = os.path.dirname(__file__)
-
-for i in os.listdir(src_dir_rm):
-    if os.path.isfile(os.path.join(src_dir_rm,i)):
-        if os.path.exists('./'+i):
-            os.remove('./'+i)
-        shutil.copy(os.path.join(src_dir_rm,i),'./'+i)
-    else:
-        if os.path.exists('./'+i):
-            shutil.rmtree('./'+i)
-        shutil.copytree(os.path.join(src_dir_rm,i),'./'+i)
-
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
 import nbsphinx_mod
@@ -138,13 +120,3 @@ from custom_directives import IncludeCodeDirective
 
 def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
-
-src_release = os.path.join(os.getenv("RM_PATH"), 'RELEASE.md')
-des_release = "./RELEASE.md"
-with open(src_release, "r", encoding="utf-8") as f:
-    data = f.read()
-content = re.findall("(## [\s\S\n]*?)\n## ", data)
-#result = content[0].replace('# MindSpore', '#', 1)
-with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes"+"\n\n")
-    p.write(content[0])
