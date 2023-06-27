@@ -104,6 +104,12 @@ context.cpu.thread_num = 1
 context.cpu.thread_affinity_mode=2
 ```
 
+如果需要在Ascend弹性加速服务环境（拉远模式）推理，需要配置`provider`为`ge`。
+
+```python
+context.ascend.provider = "ge"
+```
+
 如果用户需要在GPU设备上运行推理时，因此需要设置上下文的目标设备为gpu。
 
 ```python
