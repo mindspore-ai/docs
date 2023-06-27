@@ -38,9 +38,3 @@ MindSpore API
    api/python/mindarmour/mindarmour.attacks
    api/python/mindarmour/mindarmour.defenses
    api/python/mindarmour/mindarmour.fuzzing
-
-.. toctree::
-   :maxdepth: 1
-   :caption: C++ API
-
-   predict <https://www.mindspore.cn/apicc/zh-CN/0.2.0-alpha/predict/namespacemembers.html>
