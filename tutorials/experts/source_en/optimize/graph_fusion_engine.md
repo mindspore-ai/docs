@@ -43,14 +43,9 @@ ms.set_context(save_graphs=2)
 ms.set_context(enable_graph_kernel=True)
 
 class MyNet(Cell):
-    def __init__(self):
-        super(MyNet, self).__init__()
-        self.add = ops.Add()
-        self.mul = ops.Mul()
-
     def construct(self, x):
-        a = self.mul(x, 2.0)
-        res = self.add(a, 1.0)
+        a = ops.mul(x, 2.0)
+        res = ops.add(a, 1.0)
         return res
 
 x = np.ones((4, 4)).astype(np.float32) * 0.5
@@ -98,25 +93,18 @@ ms.set_context(enable_graph_kernel=True)
 
 class MyOp(Cell):
     """ my first custom OP composited by basic OPs """
-    def __init__(self):
-        super(MyOp, self).__init__()
-        self.sub = ops.Sub()
-        self.mul = ops.Mul()
-
     def construct(self, x, y):
-        a = self.sub(x, y)
-        return self.mul(a, x)
+        a = ops.sub(x, y)
+        return ops.mul(a, x)
 
 class MyNet(Cell):
     def __init__(self):
         super(MyNet, self).__init__()
-        self.mul = ops.Mul()
-        self.pow = ops.Pow()
         self.my_op = MyOp()
 
     def construct(self, x, y):
-        a = self.mul(x, 2.0)
-        b = self.pow(a, 3.0)
+        a = ops.mul(x, 2.0)
+        b = ops.pow(a, 3.0)
         res = self.my_op(b, y)
         return res
 
