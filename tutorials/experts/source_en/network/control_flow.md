@@ -47,7 +47,7 @@ The operator output can be determined only when each step is executed. Therefore
 
 ## if Statement
 
-When defining a network in `GRAPH_MODE` using the `if` statement, pay attention to the following: **When the condition expression is a variable condition, the same variable in different branches must be assigned the same data type. For example, the Tensor type variable requires the shape and type to be the same.**
+When defining a network in `GRAPH_MODE` using the `if` statement, pay attention to the following: **When the condition expression is a variable condition, the same variable in different branches must be assigned the same data type. For example, the Tensor type variable requires the shape and type to be the same.** For shape consistency restrictions, please refer to [ShapeJoin Rules](#shapejoin-rules).
 
 ### if Statement Under a Variable Condition
 

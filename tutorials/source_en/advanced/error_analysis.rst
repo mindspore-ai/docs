@@ -1,4 +1,4 @@
-Function Debug
+Error Analysis
 ===============
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png
@@ -82,7 +82,7 @@ The general process of MindSpore network training is data loading and processing
 3) Analyze the location where the error is reported based on the Python call stack and the error information. In dynamic graph mode, it is easier to determine the location of the code error. In the static graph mode, you need to analyze the location of the error report according to the error message "The Traceback of Net Construct Code" part of the error message.
 4) Based on possible error problem scenarios and types, hypothesize the possible causes of the error problem.
 
-Please refer to error analysis for details on how to perform error analysis based on different scenarios.
+Please refer to error analysis for details on how to perform `error analysis <https://www.mindspore.cn/tutorials/experts/en/master/debug/error_scenario_analysis.html>`_ based on different scenarios.
 
 Error Search
 ^^^^^^^^^^^^^
@@ -147,7 +147,7 @@ Strategy Selection
 Problem Recurrence
 ^^^^^^^^^^^^^^^^^^^
 
-Stable problem recurrence is a prerequisite for network debugging and a condition to verify whether the problem is completely solved. The network training process introduces randomness due to random initialization of network parameters, and different input data, which can easily cause inconsistent running results or error reporting locations. MindSpore provides ideas and methods for fixed randomness.
+Stable problem recurrence is a prerequisite for network debugging and a condition to verify whether the problem is completely solved. The network training process introduces randomness due to random initialization of network parameters, and different input data, which can easily cause inconsistent running results or error reporting locations.
 
 Debugging Verification
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -160,8 +160,6 @@ Debugging Verification
    1. insert import pdb; pdb.set_trace() before the code you want to debug to enable pdb debugging.
    2. run the .py file normally. The following similar result will appear in the terminal, debug by entering the corresponding pdb command after the (Pdb).
    3. Enter commands such as l and p in pdb interactive mode to view the corresponding code and variables, and then troubleshoot the related problems.
-
-   For details, please refer to PyNative Debugging.
 
 -  Static graph debugging
 
@@ -239,12 +237,12 @@ Network execution debugging is the corresponding debugging capability provided b
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 | Execution control         | Callback                                 | Users can use callback functions to perform specific actions                                                | `Callback mechanism <https://www.                     |
 |                           |                                          | at specific times or to observe network information                                                         | mindspore.cn/tutorials                                |
-|                           |                                          | during training, e.g., save model parameters, monitor loss,                                                 | /en/master/advanced/debug/callback.html               |
-|                           |                                          | dynamically adjust parameters, terminate training tasks early.                                              | #introduction-to-callback>`_                          |
+|                           |                                          | during training, e.g., save model parameters, monitor loss,                                                 | /en/master/advanced/model/callback.html               |
+|                           |                                          | dynamically adjust parameters, terminate training tasks early.                                              | #>`_                                                  |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Hook                                     | The Hook function in pynative mode captures the input and output data                                       | `Hook function <https://www.mindspore.cn/             |
 |                           |                                          | and the backward gradient of the middle layer operator.                                                     | tutorials/en/master/                                  |
-|                           |                                          | Four forms of Hook functions are available:                                                                 | advanced/modules/layer.html#hook-function>`_          |
+|                           |                                          | Four forms of Hook functions are available:                                                                 | advanced/model/layer.html#hook-function>`_            |
 |                           |                                          | HookBackward operator and register_forward_pre_hook, register_forward_hook,                                 |                                                       |
 |                           |                                          | and register_backward_hook functions                                                                        |                                                       |
 |                           |                                          | registered on the Cell object.                                                                              |                                                       |
