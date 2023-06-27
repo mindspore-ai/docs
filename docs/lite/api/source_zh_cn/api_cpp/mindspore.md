@@ -3485,6 +3485,8 @@ RunnerConfig()
 | [inline std::map<std::string, std::map<std::string, std::string>> GetConfigInfo() const](#getconfiginfo)     |    √    |    ✕    |
 | [inline void SetConfigPath(const std::string &config_path)](#setconfigpath)     |    √    |    ✕    |
 | [inline std::string GetConfigPath() const](#getconfigpath)     |    √    |    ✕    |
+| [void SetDeviceIds(const std::vector<uint32_t\> &device_ids)](#setdeviceids)     |    √    |    ✕    |
+| [std::vector<uint32_t\> GetDeviceIds() const](#getdeviceids)     |    √    |    ✕    |
 
 #### SetWorkersNum
 
@@ -3501,7 +3503,7 @@ void SetWorkersNum(int32_t workers_num)
 #### GetWorkersNum
 
 ```cpp
-int32_t GetWorkersNum() const;
+int32_t GetWorkersNum() const
 ```
 
 获取RunnerConfig的worker的个数。
@@ -3525,7 +3527,7 @@ void SetContext(const std::shared_ptr<Context> &context)
 #### GetContext
 
 ```cpp
-std::shared_ptr<Context> GetContext() const;
+std::shared_ptr<Context> GetContext() const
 ```
 
 获取RunnerConfig配置的上下文参数。
@@ -3550,7 +3552,7 @@ void SetConfigInfo(const std::string &key, const std::map<std::string, std::stri
 #### GetConfigInfo
 
 ```cpp
-std::map<std::string, std::map<std::string, std::string>> GetConfigInfo() const;
+std::map<std::string, std::map<std::string, std::string>> GetConfigInfo() const
 ```
 
 获取RunnerConfig配置参数信息。
@@ -3574,7 +3576,7 @@ void SetConfigPath(const std::string &config_path)
 #### GetConfigPath
 
 ```cpp
-std::string GetConfigPath() const;
+std::string GetConfigPath() const
 ```
 
 获取RunnerConfig中的配置文件的路径。
@@ -3582,6 +3584,30 @@ std::string GetConfigPath() const;
 - 返回值
 
   RunnerConfig类中的配置文件路径。
+
+#### SetDeviceIds
+
+```cpp
+void SetDeviceIds(const std::vector<uint32_t> &device_ids)
+```
+
+设置RunnerConfig中的设备ID列表。
+
+- 参数
+
+    - `device_ids`: 设备ID列表。
+
+#### GetDeviceIds
+
+```cpp
+std::vector<uint32_t> GetDeviceIds() const
+```
+
+获取RunnerConfig中的设备ID列表。
+
+- 返回值
+
+  RunnerConfig类中的设备ID列表。
 
 ## ModelParallelRunner
 

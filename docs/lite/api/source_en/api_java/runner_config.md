@@ -15,6 +15,8 @@ RunnerConfig defines the configuration parameters of MindSpore Lite concurrent i
 | [public void setConfigPath(String configPath)](#setconfigpath)                         | √      | ✕      |
 | [void getConfigPath()](#getconfigpath)                         | √      | ✕      |
 | [long getRunnerConfigPtr()](#getrunnerconfigptr)               | √      | ✕      |
+| [public void setDeviceIds(ArrayList<Integer\> deviceIds)](#setdeviceids)                         | √      | ✕      |
+| [public ArrayList<Integer\> getDeviceIds()](#getdeviceids)                         | √      | ✕      |
 
 ## init
 
@@ -102,3 +104,27 @@ Get a pointer to the underlying concurrent inference configuration parameters.
 - Returns
 
   Low-level concurrent inference configuration parameter pointer.
+
+## setDeviceIds
+
+```java
+public void setDeviceIds(ArrayList<Integer> deviceIds)
+```
+
+Set the list of device id in concurrent inference.
+
+- Parameters
+
+    - `deviceIds`: list of device id.
+
+## getDeviceIds
+
+```java
+public ArrayList<Integer> getDeviceIds()
+```
+
+Get the list of device id set in RunnerConfig.
+
+- Returns
+
+  list of device id.
