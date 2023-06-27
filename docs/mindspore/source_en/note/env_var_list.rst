@@ -170,11 +170,21 @@ Log
      - String
      - File path, which can be a relative path or an absolute path.
      - This variable is used together with GLOG_logtostderr
+
+       If the value of `GLOG_logtostderr` is 0, this variable must be set
+	   
+       If `GLOG_log_dir` is specified and the value of `GLOG_logtostderr` is 1, the logs are output to the screen and not to the file
+	 
+       The log saving path is: `specified path/rank_${rank_id}/logs/`. Under non-distributed training scenario, `rank_id` is 0, while under distributed training scenario, `rank_id` is the ID of the current device in the cluster 
+
+       C++ and Python logs are output to different files. The C++ logs follow the `GLOG` log file naming rules. In this case `mindspore.machine name. user name.log.log level.timestamp.Process ID`, the Python log file name is `mindspore.log.process ID`.
+	   
+       `GLOG_log_dir` can only contain upper and lower case letters, numbers, "-", "_", "/" characters, etc.
    * - GLOG_log_max
-     - Controls the size of the mindspire C++ module log file.
+     - Control the size of the MindSpore C++ module log file. You can change the default maximum value of the log file with this environment variable
      - Integer
-     - >0. Default: 50
-     - 
+     - Positive integer. Default value: 50MB
+     - If the current written log file exceeds the maximum value, the new output log content is written to a new log file
    * - GLOG_logtostderr
      - Specifies the log output mode.
      - Integer
@@ -195,6 +205,8 @@ Log
 
        3-ERROR
 
+       4-CRITICAL
+
        Default: 2
      - 
    * - GLOG_v
@@ -206,10 +218,12 @@ Log
 
        2-WARNING
 
-       3-ERROR
+       3-ERROR, indicating that the program execution error, output error log, and the program may not terminate
+	   
+       4-CRITICAL, indicating that the execution of the program is abnormal, and the program may not terminate
 
        Default: 2.
-     - 
+     - After a log level is specified, output log messages greater than or equal to that level
    * - logger_backupCount
      - Controls the number of mindspire Python module log files.
      - Integer
@@ -218,7 +232,7 @@ Log
    * - logger_maxBytes
      - Controls the size of the mindspire Python module log file.
      - Integer
-     - Default: 52428800
+     - Default: 52428800 bytes
      - 
    * - MS_SUBMODULE_LOG_v
      - Specifies log levels of C++ sub modules of MindSpore.
@@ -232,9 +246,82 @@ Log
        3-ERROR
        
        SubModule: COMMON, MD, DEBUG, DEVICE, COMMON, IR...
-     - 
+     - The assignment way is:`MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`
+	 
+       The log level of the specified sub-module will override the setting of `GLOG_v` in this module, where the log level of the sub-module `LogLevel` has the same meaning as that of `GLOG_v`, and the division of MindSpore sub-module is as follows
+	   
+       For example, you can set the log level of `PARSER` and `ANALYZER` modules to WARNING and the log level of other modules to INFO by `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`.
 
-For more information, see `Log-related Environment Variables and Configurations <https://www.mindspore.cn/docs/en/master/note/env_var_list.html>`_.
+The MindSpore submodules are divided by directory as follows:
+
+.. list-table::
+   :widths: 30 10
+   :header-rows: 1
+
+   * - Source Files
+     - Sub Module Name
+   * - mindspore/ccsrc/kernel
+     - KERNEL
+   * - mindspore/ccsrc/plugin/device/*/kernel
+     - KERNEL
+   * - mindspore/ccsrc/backend/common/optimizer
+     - PRE_ACT
+   * - mindspore/ccsrc/backend/common/pass
+     - PRE_ACT
+   * - mindspore/ccsrc/plugin/device/*/optimizer
+     - PRE_ACT
+   * - mindspore/ccsrc/backend/common/session
+     - SESSION
+   * - mindspore/ccsrc/common
+     - COMMON
+   * - mindspore/ccsrc/debug
+     - DEBUG
+   * - mindspore/ccsrc/frontend/operator
+     - ANALYZER
+   * - mindspore/ccsrc/frontend/optimizer
+     - OPTIMIZER
+   * - mindspore/ccsrc/frontend/parallel
+     - PARALLEL
+   * - mindspore/ccsrc/minddata/dataset
+     - MD
+   * - mindspore/ccsrc/minddata/mindrecord
+     - MD
+   * - mindspore/ccsrc/pipeline/jit/*.cc
+     - PIPELINE
+   * - mindspore/ccsrc/pipeline/jit/parse
+     - PARSER
+   * - mindspore/ccsrc/pipeline/jit/static_analysis
+     - ANALYZER
+   * - mindspore/ccsrc/pipeline/pynative
+     - PYNATIVE
+   * - mindspore/ccsrc/pybind_api
+     - COMMON
+   * - mindspore/ccsrc/runtime/device
+     - DEVICE
+   * - mindspore/ccsrc/runtime/hardware
+     - DEVICE
+   * - mindspore/ccsrc/runtime/collective
+     - DEVICE
+   * - mindspore/ccsrc/runtime/pynative
+     - DEVICE
+   * - mindspore/ccsrc/runtime/addons
+     - RUNTIME_FRAMEWORK
+   * - mindspore/ccsrc/runtime/graph_scheduler
+     - RUNTIME_FRAMEWORK
+   * - mindspore/ccsrc/transform/graph_ir
+     - GE_ADPT
+   * - mindspore/ccsrc/transform/express_ir
+     - EXPRESS
+   * - mindspore/ccsrc/utils
+     - UTILS
+   * - mindspore/ccsrc/backend/graph_compiler
+     - VM
+   * - mindspore/ccsrc
+     - ME
+   * - mindspore/core
+     - CORE
+
+> glog does not support log file wrapping. If you need to control the log file occupation of disk space, you can use the log file management tool provided by the operating system, for example: logrotate for Linux.
 
 Dump Function
 -------------
