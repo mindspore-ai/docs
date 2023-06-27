@@ -4,7 +4,7 @@
 
 Mapping between TensorFlow APIs and MindSpore APIs, which is provided by the community. There may be differences in parameters, inputs, outputs, logic functions, and specific scenarios. For details, see the description of each API or the difference comparison provided.
 
-More MindSpore developers are also welcome to participate in improving the mapping content.
+More MindSpore developers are also welcome to participate in improving the mapping content. For more information on the differences in framework mechanisms of PyTorch and MindSpore, see: [Differences with PyTorch Optimizer](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#differences-with-pytorch-optimizer), [Differences between random generators](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#differences-between-random-generators), and [Differences between Initializations](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#differences-between-initializations).
 
 ## API Mapping Consistency Criteria and Exceptions
 

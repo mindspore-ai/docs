@@ -20,30 +20,33 @@ For more information, see [mindspore.ops.cdist](https://mindspore.cn/docs/en/mas
 
 ## Differences
 
-PyTorch: Compute the p-norm distance between each pair of column vectors of the two Tensors.
+MindSpore is basically the same as PyTorch, but MindSpore cannot specify whether to compute the Euclidean distance between vector pairs using matrix multiplication.
 
-MindSpore: MindSpore API basically implements the same functionality as PyTorch, with a slight difference in accuracy.
+PyTorch: When the parameter `compute_mode` is ``use_mm_for_euclid_dist_if_necessary`` and the number of row vectors in a batch of `x1` or `x2` exceeds 25, the Euclidean distance between vector pairs is calculated using matrix multiplication. When `compute_mode` is ``use_mm_for_euclid_dist``, the Euclidean distance between vector pairs is calculated using matrix multiplication. When `compute_mode` is ``donot_use_mm_for_euclid_dist``, the Euclidean distances between vector pairs are not computed using matrix multiplication.
+
+MindSpore: No parameter `compute_mode` to specify whether to use matrix multiplication to compute the Euclidean distance between vector pairs. Euclidean distances between vector pairs are not computed using matrix multiplication on ``GPU`` and ``CPU``, while on ``Ascend``, Euclidean distances between vector pairs are computed using matrix multiplication.
 
 | Categories | Subcategories | PyTorch | MindSpore | Differences  |
 | --- |---------------|---------| --- |-------------|
 | Parameters | Parameter 1 |x1 | x1 | -  |
 | | Parameter 2 | x2 | x2 | - |
 |  | Parameter 3 | p | p | - |
-| | Parameter 4 | compute_mode | - | torch specifies whether to calculate the Euclidean distance by using matrix multiplication, which is not available in MindSpore |
+| | Parameter 4 | compute_mode | - | A parameter in PyTorch specifying whether to calculate Euclidean distances by matrix multiplication, which is not available in MindSpore |
 
-### Code Example 1
+### Code Example
 
 ```python
 # PyTorch
 import torch
 import numpy as np
 
+torch.set_printoptions(precision=7)
 x =  torch.tensor(np.array([[1.0, 1.0], [2.0, 2.0]]).astype(np.float32))
 y =  torch.tensor(np.array([[3.0, 3.0], [3.0, 3.0]]).astype(np.float32))
 output = torch.cdist(x, y, 2.0)
 print(output)
-# tensor([[2.8284, 2.8284],
-#         [1.4142, 1.4142]])
+# tensor([[2.8284271, 2.8284271],
+#         [1.4142135, 1.4142135]])
 
 # MindSpore
 import mindspore.numpy as np
