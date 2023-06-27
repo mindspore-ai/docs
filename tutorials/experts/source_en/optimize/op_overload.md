@@ -88,7 +88,7 @@ def select_net(x, y):
     out = x
     for _ in range(100):
         cond = x < y
-        x = ops.Select()(cond, x - y, x + y)
+        x = ops.select(cond, x - y, x + y)
         out = out + x
     return out
 
