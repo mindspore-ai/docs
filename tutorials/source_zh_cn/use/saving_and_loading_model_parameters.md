@@ -1,18 +1,5 @@
 # 模型参数的保存和加载
 
-<!-- TOC -->
-
-- [模型参数的保存和加载](#模型参数的保存和加载)
-    - [概述](#概述)
-    - [模型参数保存](#模型参数保存)
-        - [CheckPoint配置策略](#checkpoint配置策略)
-    - [模型参数加载](#模型参数加载)
-        - [用于推理验证](#用于推理验证)
-        - [用于再训练场景](#用于再训练场景)
-    - [导出GEIR模型和ONNX模型](#导出geir模型和onnx模型)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_zh_cn/use/saving_and_loading_model_parameters.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

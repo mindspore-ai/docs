@@ -1,13 +1,5 @@
 # Operator List
 
-<!-- TOC -->
-
-- [Operator List](#operator-list)
-    - [mindspore.nn](#mindsporenn)
-    - [mindspore.ops.operations](#mindsporeopsoperations)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/docs/source_en/operator_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## mindspore.nn

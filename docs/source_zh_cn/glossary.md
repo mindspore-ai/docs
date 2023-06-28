@@ -1,11 +1,5 @@
 # 术语
 
-<!-- TOC -->
-
-- [术语](#术语)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/docs/source_zh_cn/glossary.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 |  术语/缩略语  |  说明  | 

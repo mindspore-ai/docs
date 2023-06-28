@@ -1,26 +1,5 @@
 # 训练看板和溯源
 
-<!-- TOC -->
-
-- [训练看板和溯源](#训练看板和溯源)
-    - [概述](#概述)
-    - [操作流程](#操作流程)
-    - [准备训练脚本](#准备训练脚本)
-        - [Summary数据收集](#summary数据收集)
-    - [可视化组件](#可视化组件)
-        - [训练看板](#训练看板)
-            - [标量可视化](#标量可视化)
-            - [参数分布图可视化](#参数分布图可视化)
-            - [计算图可视化](#计算图可视化)
-            - [数据图可视化](#数据图可视化)
-            - [图像可视化](#图像可视化)
-        - [模型溯源](#模型溯源)
-        - [数据溯源](#数据溯源)
-        - [对比看板](#对比看板)
-    - [规格](#规格)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_zh_cn/advanced_use/dashboard_and_lineage.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/tree/r0.5/tutorials/notebook/mindinsight" target="_blank"><img src="../_static/logo_notebook.png"></a>
 

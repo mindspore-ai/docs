@@ -1,18 +1,5 @@
 # 加载数据集
 
-<!-- TOC -->
-
-- [加载数据集](#加载数据集)
-    - [概述](#概述)
-    - [加载常见的数据集](#加载常见的数据集)
-    - [加载特定数据格式的数据集](#加载特定数据格式的数据集)
-        - [MindSpore数据格式](#mindspore数据格式)
-        - [`Manifest`数据格式](#manifest数据格式)
-        - [`TFRecord`数据格式](#tfrecord数据格式)
-    - [加载自定义数据集](#加载自定义数据集)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_zh_cn/use/data_preparation/loading_the_datasets.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 概述

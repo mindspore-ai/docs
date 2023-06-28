@@ -1,16 +1,5 @@
 # 端侧推理
 
-<!-- TOC -->
-
-- [端侧推理](#端侧推理)
-    - [概述](#概述)
-    - [编译方法](#编译方法)
-    - [端侧推理使用](#端侧推理使用)
-        - [生成端侧模型文件](#生成端侧模型文件)
-        - [在端侧实现推理](#在端侧实现推理)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_zh_cn/advanced_use/on_device_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

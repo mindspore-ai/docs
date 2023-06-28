@@ -1,18 +1,5 @@
 # 自定义调试信息
 
-<!-- TOC -->
-
-- [自定义调试信息](#自定义调试信息)
-    - [概述](#概述)
-    - [Callback介绍](#callback介绍)
-        - [MindSpore的Callback能力](#mindspore的callback能力)
-        - [自定义Callback](#自定义callback)
-    - [MindSpore metrics功能介绍](#mindspore-metrics功能介绍)
-    - [print算子功能介绍](#print算子功能介绍)
-    - [日志相关的环境变量和配置](#日志相关的环境变量和配置)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_zh_cn/advanced_use/customized_debugging_information.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

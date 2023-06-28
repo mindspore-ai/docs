@@ -1,18 +1,5 @@
 # Saving and Loading Model Parameters
 
-<!-- TOC -->
-
-- [Saving and Loading Model Parameters](#saving-and-loading-model-parameters)
-    - [Overview](#overview)
-    - [Saving Model Parameters](#saving-model-parameters)
-        - [CheckPoint Configuration Policies](#checkpoint-configuration-policies)
-    - [Loading Model Parameters](#loading-model-parameters)
-        - [For Inference Validation](#for-inference-validation)
-        - [For Retraining](#for-retraining)
-    - [Export GEIR Model and ONNX Model](#export-geir-model-and-onnx-model)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/use/saving_and_loading_model_parameters.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

@@ -1,29 +1,5 @@
 # Implementing an Image Classification Application
 
-<!-- TOC -->
-
-
-- [Implementing an Image Classification Application](#implementing-an-image-classification-application)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Importing Python Libraries and Modules](#importing-python-libraries-and-modules)
-        - [Configuring the Running Information](#configuring-the-running-information)
-    - [Processing Data](#processing-data)
-        - [Defining the Dataset and Data Operations](#defining-the-dataset-and-data-operations)
-    - [Defining the Network](#defining-the-network)
-    - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
-        - [Basic Concepts](#basic-concepts)
-        - [Defining the Loss Function](#defining-the-loss-function)
-        - [Defining the Optimizer](#defining-the-optimizer)
-    - [Training the Network](#training-the-network)
-        - [Saving the Configured Model](#saving-the-configured-model)
-        - [Configuring the Network Training](#configuring-the-network-training)
-    - [Running and Viewing the Result](#running-and-viewing-the-result)
-    - [Validating the Model](#validating-the-model)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
