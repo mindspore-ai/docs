@@ -1,33 +1,11 @@
 # Implementing an Image Classification Application
 
-<!-- TOC -->
-
-- [Implementing an Image Classification Application](#implementing-an-image-classification-application)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Importing Python Libraries and Modules](#importing-python-libraries-and-modules)
-        - [Configuring the Running Information](#configuring-the-running-information)
-    - [Processing Data](#processing-data)
-        - [Defining the Dataset and Data Operations](#defining-the-dataset-and-data-operations)
-    - [Defining the Network](#defining-the-network)
-    - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
-        - [Basic Concepts](#basic-concepts)
-        - [Defining the Loss Function](#defining-the-loss-function)
-        - [Defining the Optimizer](#defining-the-optimizer)
-    - [Training the Network](#training-the-network)
-        - [Saving the Configured Model](#saving-the-configured-model)
-        - [Configuring the Network Training](#configuring-the-network-training)
-    - [Running and Viewing the Result](#running-and-viewing-the-result)
-    - [Validating the Model](#validating-the-model)
-
-<!-- /TOC -->
-
 ## Overview
 
 This document uses a practice example to demonstrate the basic functions of MindSpore. For common users, it takes 20 to 30 minutes to complete the practice.
 
 During the practice, a simple image classification function is implemented. The overall process is as follows:
+
 1. Process the required dataset. The MNIST dataset is used in this example.
 2. Define a network. The LeNet network is used in this example.
 3. Define the loss function and optimizer.
@@ -35,13 +13,13 @@ During the practice, a simple image classification function is implemented. The 
 5. Load the saved model for inference.
 6. Validate the model, load the test dataset and trained model, and validate the result accuracy.
 
-> You can find the complete executable sample code at <https://gitee.com/mindspore/docs/blob/r0.1/tutorials/tutorial_code/lenet.py>. 
+> You can find the complete executable sample code at <https://gitee.com/mindspore/docs/blob/r0.1/tutorials/tutorial_code/lenet.py>.
 
 This is a simple and basic application process. For other advanced and complex applications, extend this basic process as needed.
 
 ## Preparations
 
-Before you start, check whether MindSpore has been correctly installed. If no, install MindSpore on your computer by visiting [MindSpore installation page](https://www.mindspore.cn/install).  
+Before you start, check whether MindSpore has been correctly installed. If no, install MindSpore on your computer by visiting [MindSpore installation page](https://www.mindspore.cn/install).
 
 In addition, you shall have basic mathematical knowledge such as Python coding basics, probability, and matrix.
 
@@ -57,7 +35,7 @@ Download the files, decompress them, and store them in the workspace directories
 
 The directory structure is as follows:
 
-```
+```text
 └─MNIST_Data
     ├─test
     │      t10k-images.idx3-ubyte
@@ -67,6 +45,7 @@ The directory structure is as follows:
             train-images.idx3-ubyte
             train-labels.idx1-ubyte
 ```
+
 > For ease of use, we added the function of automatically downloading datasets in the sample script.
 
 ### Importing Python Libraries and Modules
@@ -74,8 +53,7 @@ The directory structure is as follows:
 Before start, you need to import Python libraries.
 
 Currently, the `os` libraries are required. For ease of understanding, other required libraries will not be described here.
- 
- 
+
 ```python
 import os
 ```
@@ -152,7 +130,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     rescale_op = CV.Rescale(rescale, shift)  # rescale images
     hwc2chw_op = CV.HWC2CHW()  # change shape from (height, width, channel) to (channel, height, width) to fit network.
     type_cast_op = C.TypeCast(mstype.int32)  # change data type of label to int32 to fit network
-    
+
     # apply map operations on images
     mnist_ds = mnist_ds.map(input_columns="label", operations=type_cast_op, num_parallel_workers=num_parallel_workers)
     mnist_ds = mnist_ds.map(input_columns="image", operations=resize_op, num_parallel_workers=num_parallel_workers)
@@ -170,26 +148,25 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
 
 ```
 
-In the preceding information:  
-`batch_size`: number of data records in each group. Currently, each group contains 32 data records.  
+In the preceding information:
+`batch_size`: number of data records in each group. Currently, each group contains 32 data records.
 `repeat_size`: number of replicated data records.
 
 Perform the shuffle and batch operations, and then perform the repeat operation to ensure that data during an epoch is unique.
 
-> MindSpore supports multiple data processing and augmentation operations, which are usually combined. For details, see section "Data Processing and Augmentation" in the MindSpore Tutorials (https://www.mindspore.cn/tutorial/en/0.1.0-alpha/use/data_preparation/data_processing_and_augmentation.html).
-
+> MindSpore supports multiple data processing and augmentation operations, which are usually combined. For details, see section "Data Processing and Augmentation" in the MindSpore Tutorials (<https://www.mindspore.cn/tutorial/en/0.1.0-alpha/use/data_preparation/data_processing_and_augmentation.html>).
 
 ## Defining the Network
 
 The LeNet network is relatively simple. In addition to the input layer, the LeNet network has seven layers, including two convolutional layers, two down-sample layers (pooling layers), and three full connection layers. Each layer contains different numbers of training parameters, as shown in the following figure:
 
 ![LeNet-5](./images/LeNet_5.jpg)
-  
+
 > For details about the LeNet network, visit <http://yann.lecun.com/exdb/lenet/>.
 
-You need to initialize the full connection layers and convolutional layers. 
+You need to initialize the full connection layers and convolutional layers.
 
-`TruncatedNormal`: parameter initialization method. MindSpore supports multiple parameter initialization methods, such as `TruncatedNormal`, `Normal`, and `Uniform`. For details, see the description of the `mindspore.common.initializer` module of the MindSpore API. 
+`TruncatedNormal`: parameter initialization method. MindSpore supports multiple parameter initialization methods, such as `TruncatedNormal`, `Normal`, and `Uniform`. For details, see the description of the `mindspore.common.initializer` module of the MindSpore API.
 
 The following is the sample code for initialization:
 
@@ -269,7 +246,7 @@ class LeNet5(nn.Cell):
 Before definition, this section briefly describes concepts of loss function and optimizer.
 
 - Loss function: It is also called objective function and is used to measure the difference between a predicted value and an actual value. Deep learning reduces the value of the loss function by continuous iteration. Defining a good loss function can effectively improve the model performance.
-- Optimizer: It is used to minimize the loss function, improving the model during training. 
+- Optimizer: It is used to minimize the loss function, improving the model during training.
 
 After the loss function is defined, the weight-related gradient of the loss function can be obtained. The gradient is used to indicate the weight optimization direction for the optimizer, improving model performance.
 
@@ -323,9 +300,9 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
 if __name__ == "__main__":
     ...
     # set parameters of check point
-    config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10) 
+    config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
     # apply parameters of check point
-    ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck) 
+    ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
     ...
 ```
 
@@ -350,25 +327,28 @@ def train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb):
 
 if __name__ == "__main__":
     ...
-    
-    epoch_size = 1    
+
+    epoch_size = 1
     mnist_path = "./MNIST_Data"
     repeat_size = epoch_size
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
     train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb)
     ...
 ```
-In the preceding information:    
+
+In the preceding information:
 In the `train_net` method, we loaded the training dataset, `MNIST path` is MNIST dataset path.
 
 ## Running and Viewing the Result
 
 Run the script using the following command:
-```
+
+```text
 python lenet.py --device_target=CPU
 ```
-In the preceding information:   
-`Lenet. Py`: the script file you wrote.  
+
+In the preceding information:
+`Lenet. Py`: the script file you wrote.
 `--device_target CPU`: Specify the hardware platform.The   parameters are 'CPU', 'GPU' or 'Ascend'.
 
 Loss values are output during training, as shown in the following figure. Although loss values may fluctuate, they gradually decrease and the accuracy gradually increases in general. Loss values displayed each time may be different because of their randomicity.
@@ -396,13 +376,12 @@ The following is an example of model files saved after training:
 checkpoint_lenet-1_1875.ckpt
 ```
 
-In the preceding information:  
+In the preceding information:
 `checkpoint_lenet-1_1875.ckpt`: saved model parameter file. The following refers to saved files as well. The file name format is checkpoint_{network name}-{epoch No.}_{step No.}.ckpt.
 
 ## Validating the Model
 
 After get the model file, we verify the generalization ability of the model.
-
 
 ```python
 from mindspore.train.serialization import load_checkpoint, load_param_into_net
@@ -424,23 +403,24 @@ if __name__ == "__main__":
     test_net(args, network, model, mnist_path)
 ```
 
-In the preceding information:   
-`load_checkpoint()`: This API is used to load the CheckPoint model parameter file and return a parameter dictionary.  
-`checkpoint_lenet-3_1404.ckpt`: name of the saved CheckPoint model file.  
+In the preceding information:
+`load_checkpoint()`: This API is used to load the CheckPoint model parameter file and return a parameter dictionary.
+`checkpoint_lenet-3_1404.ckpt`: name of the saved CheckPoint model file.
 `load_param_into_net`: This API is used to load parameters to the network.
 
-
 Run the script using the following command:
-```
+
+```python
 python lenet.py --device_target=CPU
 ```
-In the preceding information: 
+
+In the preceding information:
 `Lenet. Py`: the script file you wrote.
 `--device_target CPU`: Specify the hardware platform.The parameters are 'CPU', 'GPU' or 'Ascend'.
 
 Command output similar to the following is displayed:
 
-```
+```text
 ============== Starting Testing ==============
 ============== Accuracy:{'Accuracy': 0.9742588141025641} ==============
 ```

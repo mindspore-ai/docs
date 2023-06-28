@@ -1,20 +1,5 @@
 # Model Security
 
-<!-- TOC -->
-
-- [Model Security](#model-security)
-    - [Overview](#overview)
-    - [Creating an Target Model](#creating-an-target-model)
-        - [Importing Related Packages](#importing-related-packages)
-        - [Loading the Dataset](#loading-the-dataset)
-        - [Creating the Model](#creating-the-model)
-    - [Adversarial Attack](#adversarial-attack)
-    - [Adversarial Defense](#adversarial-defense)
-        - [Defense Implementation](#defense-implementation)
-        - [Defense Effect](#defense-effect)
-
-<!-- /TOC -->
-
 ## Overview
 
 This tutorial describes the model security protection methods provided by MindArmour, helping you quickly use MindArmour and provide certain security protection capabilities for your AI model.
@@ -27,8 +12,8 @@ At the beginning of AI algorithm design, related security threats are sometimes 
 
 This section describes how to use MindArmour in adversarial attack and defense by taking the Fast Gradient Sign Method (FGSM) attack algorithm and Natural Adversarial Defense (NAD) algorithm as examples.
 
-> You can find the complete executable sample code at 
-> <https://gitee.com/mindspore/docs/tree/r0.1/tutorials/tutorial_code/model_safety/mnist_attack_fgsm.py> 
+> You can find the complete executable sample code at
+> <https://gitee.com/mindspore/docs/tree/r0.1/tutorials/tutorial_code/model_safety/mnist_attack_fgsm.py>
 > and <https://gitee.com/mindspore/docs/tree/r0.1/tutorials/tutorial_code/model_safety/mnist_defense_nad.py>
 
 ## Creating an Target Model
@@ -128,18 +113,18 @@ The LeNet model is used as an example. You can also create and train your own mo
        return nn.Conv2d(in_channels, out_channels,
                         kernel_size=kernel_size, stride=stride, padding=padding,
                         weight_init=weight, has_bias=False, pad_mode="valid")
-   
-   
+
+
    def fc_with_initialize(input_channels, out_channels):
        weight = weight_variable()
        bias = weight_variable()
        return nn.Dense(input_channels, out_channels, weight, bias)
-   
-   
+
+
    def weight_variable():
        return TruncatedNormal(0.2)
-   
-   
+
+
    class LeNet5(nn.Cell):
        """
        Lenet network
@@ -154,7 +139,7 @@ The LeNet model is used as an example. You can also create and train your own mo
            self.relu = nn.ReLU()
            self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
            self.reshape = P.Reshape()
-   
+
        def construct(self, x):
            x = self.conv1(x)
            x = self.relu(x)
@@ -178,7 +163,7 @@ The LeNet model is used as an example. You can also create and train your own mo
    net = LeNet5()
    load_dict = load_checkpoint(ckpt_name)
    load_param_into_net(net, load_dict)
-   
+
    # get test data
    data_list = "./MNIST_unzip/test"
    batch_size = 32
@@ -214,7 +199,7 @@ The LeNet model is used as an example. You can also create and train your own mo
 
    The classification accuracy reaches 98%.
 
-   ```python 
+   ```python
    prediction accuracy before attacking is : 0.9895833333333334
    ```
 
@@ -352,4 +337,3 @@ The average distance (l0, l2, linf) between original samples and adversarial sam
 ```
 
 After NAD is used to defend against adversarial examples, the model's misclassification ratio of adversarial examples decreases from 95% to 48%, effectively defending against adversarial examples. In addition, the classification accuracy of the model for the original test dataset reaches 97%. The NAD function does not reduce the classification accuracy of the model.
-

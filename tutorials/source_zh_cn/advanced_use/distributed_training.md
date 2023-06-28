@@ -1,27 +1,11 @@
 # 分布式并行训练
 
-<!-- TOC -->
-
-- [分布式并行训练](#分布式并行训练)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [配置分布式环境变量](#配置分布式环境变量)
-        - [调用集合通信库](#调用集合通信库)
-    - [加载数据集](#加载数据集)
-    - [定义网络](#定义网络)
-    - [定义损失函数及优化器](#定义损失函数及优化器)
-        - [定义损失函数](#定义损失函数)
-        - [定义优化器](#定义优化器)
-    - [训练网络](#训练网络)
-    - [运行测试用例](#运行测试用例)
-
-<!-- /TOC -->
-
 ## 概述
 
-MindSpore支持数据并行及自动并行。自动并行是MindSpore融合了数据并行、模型并行及混合并行的一种分布式并行模式，可以自动建立代价模型，为用户选择一种并行模式。 
+MindSpore支持数据并行及自动并行。自动并行是MindSpore融合了数据并行、模型并行及混合并行的一种分布式并行模式，可以自动建立代价模型，为用户选择一种并行模式。
 
 其中：
+
 - 数据并行（Data Parallel）：对数据batch维度切分的一种并行模式。
 - 模型并行（Layerwise Parallel）：对参数channel维度切分的一种并行模式。
 - 混合并行（Hybrid Parallel）：涵盖数据并行和模型并行的一种并行模式。
@@ -67,7 +51,9 @@ MindSpore支持数据并行及自动并行。自动并行是MindSpore融合了�
 }
 
 ```
+
 其中需要根据实际训练环境修改的参数项有：
+
 1. `server_num`表示机器数量， `server_id`表示本机IP地址。
 2. `device_num`、`para_plane_nic_num`及`instance_count`表示卡的数量。
 3. `rank_id`表示卡逻辑序号，固定从0开始编号，`device_id`表示卡物理序号，即卡所在机器中的实际序号。
@@ -95,12 +81,13 @@ from mindspore.communication.management import init
 if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", enable_hccl=True, device_id=int(os.environ["DEVICE_ID"]))
     init()
-    ...   
+    ...
 ```
 
 `mindspore.communication.management`中封装了HCCL提供的集合通信接口，方便用户获取分布式信息。常用的包括`get_rank`和`get_group_size`，分别对应当前设备在集群中的ID和集群数量。
 
 > HCCL实现了基于Davinci架构芯片的多机多卡通信。当前使用分布式服务存在如下约束：
+>
 > 1. 单机场景下支持1、2、4、8卡设备集群，多机场景下支持8*n卡设备集群。
 > 2. 每台机器的0-3卡和4-7卡各为一个组网，2卡和4卡训练时网卡必须相连且不支持跨组网创建集群。
 > 3. 操作系统需使用SMP (symmetric multiprocessing)处理模式。
@@ -122,12 +109,12 @@ def create_dataset(repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
     resize_width = 224
     rescale = 1.0 / 255.0
     shift = 0.0
-    
+
     # get rank_id and rank_size
     rank_id = get_rank()
     rank_size = get_group_size()
     data_set = ds.Cifar10Dataset(data_path, num_shards=rank_size, shard_id=rank_id)
-    
+
     # define map operations
     random_crop_op = vision.RandomCrop((32, 32), (4, 4, 4, 4))
     random_horizontal_op = vision.RandomHorizontalFlip()
@@ -191,7 +178,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         self.sparse = sparse
         self.max = P.ReduceMax(keep_dims=True)
         self.sub = P.Sub()
-        
+
     def construct(self, logit, label):
         logit_max = self.max(logit, -1)
         exp = self.exp(self.sub(logit, logit_max))
@@ -224,8 +211,8 @@ opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), lr, mome
 
 - `parallel_mode`：分布式并行模式。可选数据并行`ParallelMode.DATA_PARALLEL`及自动并行`ParallelMode.AUTO_PARALLEL`。
 - `mirror_mean`: 反向计算时，框架内部会将数据并行参数分散在多台机器的梯度进行收集，得到全局梯度值后再传入优化器中更新。
-设置为True对应`allreduce_mean`操作，False对应`allreduce_sum`操作。
 
+设置为True对应`allreduce_mean`操作，False对应`allreduce_sum`操作。
 
 在下面的样例中我们指定并行模式为自动并行，其中`dataset_sink_mode=False`表示采用数据非下沉模式，`LossMonitor`能够通过回调函数返回loss值。
 
@@ -246,14 +233,13 @@ def test_train_cifar(num_classes=10, epoch_size=10):
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=False)
 ```
 
-
 ## 运行测试用例
 
 目前MindSpore分布式执行采用单卡单进程运行方式，进程数量应当与卡的使用数量保持一致。每个进程创建一个目录，用来保存日志信息以及算子编译信息。下面以一个2卡分布式训练的运行脚本为例：
 
 ```bash
   #!/bin/bash
-  
+
   export MINDSPORE_HCCL_CONFIG_PATH=./rank_table.json
   export RANK_SIZE=2
   for((i=0;i<$RANK_SIZE;i++))
@@ -269,4 +255,3 @@ def test_train_cifar(num_classes=10, epoch_size=10):
       cd ../
   done
 ```
-

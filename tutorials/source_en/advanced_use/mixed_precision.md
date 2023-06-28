@@ -1,18 +1,8 @@
 # Mixed Precision
 
-<!-- TOC -->
-
-- [Mixed Precision](#mixed-precision)
-    - [Overview](#overview)
-    - [Computation Process](#computation-process)
-    - [Automatic Mixed Precision](#automatic-mixed-precision)
-    - [Manual Mixed Precision](#manual-mixed-precision)
-
-<!-- /TOC -->
-
 ## Overview
 
-The mixed precision training method accelerates the deep learning neural network training process by using both the single-precision and half-precision data formats, and maintains the network precision achieved by the single-precision training at the same time. 
+The mixed precision training method accelerates the deep learning neural network training process by using both the single-precision and half-precision data formats, and maintains the network precision achieved by the single-precision training at the same time.
 Mixed precision training can accelerate the computation process, reduce memory usage, and enable a larger model or batch size to be trained on specific hardware.
 
 ## Computation Process
@@ -37,6 +27,7 @@ To use the automatic mixed precision, you need to invoke the corresponding API, 
 In addition, after the mixed precision is employed, the loss scale must be used to avoid data overflow.
 
 The procedure is as follows:
+
 1. Introduce the MindSpore mixed precision API.
 
 2. Define the network. This step is the same as the common network definition. (You do not need to manually configure the precision of any specific operator.)
@@ -90,12 +81,12 @@ train_network = amp.build_train_network(net_with_loss, optimizer, level="O2")
 output = train_network(inputs, label, scaling_sens)
 ```
 
-
 ## Manual Mixed Precision
 
 MindSpore also supports manual mixed precision. It is assumed that only one dense layer in the network needs to be calculated by using FP32, and other layers are calculated by using FP16. The mixed precision is configured in the granularity of cell. The default format of a cell is FP32.
 
 The following is the procedure for implementing manual mixed precision:
+
 1. Define the network. This step is similar to step 2 in the automatic mixed precision. NoteThe fc3 operator in LeNet needs to be manually set to FP32.
 
 2. Configure the mixed precision. Use net.add_flags_recursive(fp16=True) to set all operators of the cell and its sub-cells to FP16.
