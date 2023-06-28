@@ -17,6 +17,82 @@ Add the MindSpore Profiler interface to the training script.
 
 - At the end of the training, ``Profiler.analyse()`` should be called to finish profiling and generate the perforamnce analyse results.
 
+** Conditional open example: **
+
+The user decides not to start the Profiler by setting the initialization parameter start_profile to False, then starts the Profiler at the right time by calling Start, stops collecting data, and finally calls analyse to phase the data.
+You can open and close the Profiler based on the epoch or step, and the data within the specified step or epoch interval is collected. There are two ways to collect performance data based on step or epoch, one is through user-defined training,
+the other is through Callback based on step or epoch to open and close Profiler.
+
+- Custom training:
+
+  The MindSpore functional programming use case uses profilers for custom training by turning Profiler performance data on or off during a specified step interval or epoch interval. `Enable Profiler's complete code sample based on step <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_step.py>`_.
+
+  .. code:: python
+
+     profiler = ms.Profiler(start_profile=False)
+     data_loader = ds.create_dict_iterator()
+
+     for i, data in enumerate(data_loader):
+         train()
+         if i==100:
+             profiler.start()
+         if i==200:
+             profiler.stop()
+
+     profiler.analyse()
+
+- User-defined Callback
+
+  - For data non-sink mode, there is only an opportunity to turn on and off CANN at the end of each step, so whether the CANN is turned on or off is based on the step. A custom Callback opens the Profiler's `complete code sample based on step <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_feed_step.py>`_ .
+
+    .. code:: python
+
+       import mindspore as ms
+
+       class StopAtStep(ms.Callback):
+           def __init__(self, start_step, stop_step):
+               super(StopAtStep, self).__init__()
+               self.start_step = start_step
+               self.stop_step = stop_step
+               self.profiler = ms.Profiler(start_profile=False, ouput_path='./data_step')
+
+           def on_train_step_begin(self, run_context):
+               cb_params = run_context.original_args()
+               step_num = cb_params.cur_step_num
+               if step_num == self.start_step:
+                   self.profiler.start()
+
+           def on_train_step_end(self, run_context):
+               cb_params = run_context.original_args()
+               step_num = cb_params.cur_step_num
+               if step_num == self.stop_step:
+                   self.profiler.stop()
+                   self.profiler.analyse()
+
+- For data sink mode, CANN is told to start and stop only after the end of each epoch, so it needs to start and stop based on the epoch. The Profiler sample code modification training script can be opened based on step according to a custom Callback.
+
+  .. code:: python
+
+      class StopAtEpoch(ms.Callback):
+          def __init__(self, start_epoch, stop_epoch):
+              super(StopAtEpoch, self).__init__()
+              self.start_epoch = start_epoch
+              self.stop_epoch = stop_epoch
+              self.profiler = ms.Profiler(start_profile=False, ouput_path='./data_epoch')
+
+          def on_train_epoch_begin(self, run_context):
+              cb_params = run_context.original_args()
+              epoch_num = cb_params.cur_epoch_num
+              if epoch_num == self.start_epoch:
+                  self.profiler.start()
+
+          def on_train_epoch_end(self, run_context):
+              cb_params = run_context.original_args()
+              epoch_num = cb_params.cur_epoch_num
+              if epoch_num == self.stop_epoch:
+                  self.profiler.stop()
+                  self.profiler.analyse()
+
 ** Unconditional Open example: **
 
 - Example 1: In the MindSpore functional Programming use case, Profiler is used to collect performance data. Part of the sample code is shown below.
@@ -97,86 +173,6 @@ Add the MindSpore Profiler interface to the training script.
 
          # Profiler end
          profiler.analyse()
-
-** Conditional open example: **
-
-The user decides not to start the Profiler by setting the initialization parameter start_profile to False, then starts the Profiler at the right time by calling Start, stops collecting data, and finally calls analyse to phase the data.
-You can open and close the Profiler based on the epoch or step, and the data within the specified step or epoch interval is collected. There are two ways to collect performance data based on step or epoch, one is through user-defined training,
-the other is through Callback based on step or epoch to open and close Profiler.
-
-- Custom training:
-
-  The MindSpore functional programming use case uses profilers for custom training by turning Profiler performance data on or off during a specified step interval or epoch interval. `Enable Profiler's complete code sample based on step <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_step.py>`_.
-
-  .. code:: python
-
-     profiler = ms.Profiler(start_profile=False)
-     data_loader = ds.create_dict_iterator()
-
-     for i, data in enumerate(data_loader):
-         train()
-         if i==100:
-             profiler.start()
-         if i==200:
-             profiler.stop()
-
-     profiler.analyse()
-
-- User-defined Callback
-
-  - For data non-sink mode, there is only an opportunity to turn on and off CANN at the end of each step, so whether the CANN is turned on or off is based on the step. A custom Callback opens the Profiler's `complete code sample based on step <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_feed_step.py>`_ .
-
-    .. code:: python
-
-       import mindspore as ms
-
-       class StopAtStep(ms.Callback):
-           def __init__(self, start_step, stop_step):
-               super(StopAtStep, self).__init__()
-               self.start_step = start_step
-               self.stop_step = stop_step
-               self.profiler = ms.Profiler(start_profile=False)
-
-           def step_begin(self, run_context):
-               cb_params = run_context.original_args()
-               step_num = cb_params.cur_step_num
-               if step_num == self.start_step:
-                   self.profiler.start()
-
-           def step_end(self, run_context):
-               cb_params = run_context.original_args()
-               step_num = cb_params.cur_step_num
-               if step_num == self.stop_step:
-                   self.profiler.stop()
-
-           def end(self, run_context):
-               self.profiler.analyse()
-
-- For data sink mode, CANN is told to start and stop only after the end of each epoch, so it needs to start and stop based on the epoch. The Profiler sample code modification training script can be opened based on step according to a custom Callback.
-
-  .. code:: python
-
-     class StopAtEpoch(ms.Callback):
-         def __init__(self, start_epoch, stop_epoch):
-             super(StopAtEpoch, self).__init__()
-             self.start_epoch = start_epoch
-             self.stop_epoch = stop_epoch
-             self.profiler = ms.Profiler(start_profile=False)
-
-         def epoch_begin(self, run_context):
-             cb_params = run_context.original_args()
-             epoch_num = cb_params.cur_epoch_num
-             if epoch_num == self.start_epoch:
-                 self.profiler.start()
-
-         def epoch_end(self, run_context):
-             cb_params = run_context.original_args()
-             epoch_num = cb_params.cur_epoch_num
-             if epoch_num == self.stop_epoch:
-                 self.profiler.stop()
-
-         def end(self, run_context):
-             self.profiler.analyse()
 
 Method 2: Enable environment variables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
