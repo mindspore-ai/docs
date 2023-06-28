@@ -4,8 +4,8 @@
 
 ## 概述
 
-用户可以将非标准的数据集和常见的数据集转换为MindSpore数据格式，从而方便地加载到MindSpore中进行训练。同时，MindSpore在部分场景做了性能优化，使用MindSpore数据格式可以获得更好的性能体验。
-MindSpore数据格式具备的特征如下：
+用户可以将非标准的数据集和常见的数据集转换为MindSpore数据格式，从而方便地加载到MindSpore中进行训练。同时，MindSpore在部分场景做了性能优化，使用MindSpore数据格式可以获得更好的性能体验。  
+MindSpore数据格式具备的特征如下：  
 1. 实现多变的用户数据统一存储、访问，训练数据读取更简便。
 2. 数据聚合存储，高效读取，且方便管理、移动。
 3. 高效数据编解码操作，对用户透明、无感知。
@@ -28,15 +28,15 @@ MindSpore提供写操作工具，可将用户定义的原始数据写为MindSpor
     ```python
     cv_schema_json = {"file_name": {"type": "string"}, "label": {"type": "int32"}, "data": {"type": "bytes"}}
     ```
-    其中，Schema的相关规范如下：
-    字段名：字母、数字、下划线。
-    字段属性type：int32、int64、float32、float64、string、bytes。
+    其中，Schema的相关规范如下：  
+    字段名：字母、数字、下划线。  
+    字段属性type：int32、int64、float32、float64、string、bytes。  
     字段属性shape：[...], ...可以是一维数组，用[-1]表示; 可以是二维数组，用[m, n]表示；可以是三维数组，用[x, y, z]表示。
 
     > 1. 如果字段有属性Shape，暂时只支持type为int32、int64、float32、float64类型。
     > 2. 如果字段有属性Shape，则用户在准备数据并传入write_raw_data接口时必须是numpy.ndarray类型。
 
-    举例：
+    举例：  
     - 图片分类
         ```python
         cv_schema_json = {"file_name": {"type": "string"}, "label": {"type": "int32"}, "data": {"type": "bytes"}}
@@ -69,8 +69,8 @@ MindSpore提供写操作工具，可将用户定义的原始数据写为MindSpor
     writer.write_raw_data(data)
     writer.commit()
     ```
-    其中，
-    `write_raw_data`：会将数据写入到内存中。
+    其中，  
+    `write_raw_data`：会将数据写入到内存中。  
     `commit`：最终将内存中的数据写入到磁盘。
 
 6. 在现有数据格式文件中增加新数据，调用`open_for_append`接口打开已存在的数据文件，继续调用`write_raw_data`接口写入新数据，最后调用`commit`接口生成本地数据文件。
@@ -122,8 +122,8 @@ MindSpore提供转换常见数据集的工具类，将常见数据集转换为Mi
     cifar10_transformer = Cifar10ToMR(CIFAR10_DIR, MINDRECORD_FILE)
     cifar10_transformer.transform(['label'])
     ```
-    其中，
-    `CIFAR10_DIR`：CIFAR-10数据集的文件夹路径。
+    其中，  
+    `CIFAR10_DIR`：CIFAR-10数据集的文件夹路径。  
     `MINDRECORD_FILE`：输出的MindSpore数据格式文件路径。
 
 ### 转换CIFAR-100数据集
@@ -151,8 +151,8 @@ MindSpore提供转换常见数据集的工具类，将常见数据集转换为Mi
     cifar100_transformer = Cifar100ToMR(CIFAR100_DIR, MINDRECORD_FILE)
     cifar100_transformer.transform(['fine_label', 'coarse_label'])
     ```
-    其中，
-    `CIFAR100_DIR`：CIFAR-100数据集的文件夹路径。
+    其中，  
+    `CIFAR100_DIR`：CIFAR-100数据集的文件夹路径。  
     `MINDRECORD_FILE`：输出的MindSpore数据格式文件路径。
 
 ### 转换ImageNet数据集
@@ -188,9 +188,9 @@ MindSpore提供转换常见数据集的工具类，将常见数据集转换为Mi
     imagenet_transformer = ImageNetToMR(IMAGENET_MAP_FILE, IMAGENET_IMAGE_DIR, MINDRECORD_FILE, PARTITION_NUMBER)
     imagenet_transformer.transform()
     ```
-    其中，
-    `IMAGENET_MAP_FILE`：ImageNetToMR数据集的标签映射文件路径。
-    `IMAGENET_IMAGE_DIR`：包含ImageNet所有图片的文件夹路径。
+    其中，  
+    `IMAGENET_MAP_FILE`：ImageNetToMR数据集的标签映射文件路径。  
+    `IMAGENET_IMAGE_DIR`：包含ImageNet所有图片的文件夹路径。  
     `MINDRECORD_FILE`：输出的MindSpore数据格式文件路径。
 
 ### 转换MNIST数据集
@@ -219,6 +219,6 @@ MindSpore提供转换常见数据集的工具类，将常见数据集转换为Mi
     mnist_transformer = MnistToMR(MNIST_DIR, MINDRECORD_FILE)
     mnist_transformer.transform()
     ```
-    其中，
-    `MNIST_DIR`：MNIST数据集的文件夹路径。
+    其中，  
+    `MNIST_DIR`：MNIST数据集的文件夹路径。  
     `MINDRECORD_FILE`：输出的MindSpore数据格式文件路径。

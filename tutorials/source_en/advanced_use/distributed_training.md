@@ -248,7 +248,7 @@ def test_train_cifar(num_classes=10, epoch_size=10):
     model = Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
-In the preceding code:
+In the preceding code:  
 - `dataset_sink_mode=True`: uses the dataset sink mode. That is, the training computing is sunk to the hardware platform for execution.
 - `LossMonitor`: returns the loss value through the callback function to monitor the loss function.
 
