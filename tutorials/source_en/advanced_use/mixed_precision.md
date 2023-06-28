@@ -2,16 +2,6 @@
 
 `Ascend` `GPU` `Model Training` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Mixed Precision](#mixed-precision)
-    - [Overview](#overview)
-    - [Computation Process](#computation-process)
-    - [Automatic Mixed Precision](#automatic-mixed-precision)
-    - [Manual Mixed Precision](#manual-mixed-precision)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/mixed_precision.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

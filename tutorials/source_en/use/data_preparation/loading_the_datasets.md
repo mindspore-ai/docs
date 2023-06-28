@@ -2,19 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Loading the Dataset](#loading-the-dataset)
-    - [Overview](#overview)
-    - [Loading Common Datasets](#loading-common-datasets)
-    - [Loading Datasets of a Specific Data Format](#loading-datasets-of-a-specific-data-format)
-        - [MindSpore Data Format](#mindspore-data-format)
-        - [`Manifest` Data Format](#manifest-data-format)
-        - [`TFRecord` Data Format](#tfrecord-data-format)
-    - [Loading a Custom Dataset](#loading-a-custom-dataset)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/use/data_preparation/loading_the_datasets.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## Overview

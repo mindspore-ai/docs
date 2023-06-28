@@ -2,22 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型导出` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [模型参数的保存和加载](#模型参数的保存和加载)
-    - [概述](#概述)
-    - [模型参数保存](#模型参数保存)
-        - [CheckPoint配置策略](#checkpoint配置策略)
-    - [模型参数加载](#模型参数加载)
-        - [用于推理验证](#用于推理验证)
-        - [用于再训练场景](#用于再训练场景)
-    - [导出模型](#导出模型)
-        - [导出AIR格式文件](#导出air格式文件)
-        - [导出ONNX格式文件](#导出onnx格式文件)
-        - [导出MINDIR格式文件](#导出mindir格式文件)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/use/saving_and_loading_model_parameters.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

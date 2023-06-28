@@ -2,24 +2,6 @@
 
 `Ascend` `GPU` `Model Optimization` `Expert`
 
-<!-- TOC -->
-
-- [Quantization](#quantization)
-    - [Background](#background)
-    - [Concept](#concept)
-        - [Quantization](#quantization-1)
-        - [Fake Quantization Node](#fake-quantization-node)
-    - [Quantization Aware Training](#quantization-aware-training)
-    - [Quantization Aware Training Example](#quantization-aware-training-example)
-        - [Defining a Fusion Network](#defining-a-fusion-network)
-        - [Converting the Fusion Model into a Quantization Network](#converting-the-fusion-model-into-a-quantization-network)
-    - [Retraining and Inference](#retraining-and-inference)
-        - [Importing a Model for Retraining](#importing-a-model-for-retraining)
-        - [Inference](#inference)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/quantization_aware.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Background

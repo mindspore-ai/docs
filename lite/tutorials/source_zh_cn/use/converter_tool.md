@@ -1,16 +1,5 @@
 ﻿# 模型转换工具
 
-<!-- TOC -->
-
-- [模型转换工具](#模型转换工具)
-    - [概述](#概述)
-    - [Linux环境使用说明](#linux环境使用说明)
-        - [环境准备](#环境准备)
-        - [参数说明](#参数说明)
-        - [使用示例](#使用示例)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_zh_cn/use/converter_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

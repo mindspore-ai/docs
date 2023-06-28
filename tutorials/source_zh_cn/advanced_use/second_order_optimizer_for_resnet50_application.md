@@ -1,26 +1,6 @@
 # ResNet-50二阶优化实践
 
 `Ascend` `GPU` `模型开发` `模型调优` `高级`
-
-<!-- TOC -->
-
-- [ResNet-50二阶优化实践](#resnet-50二阶优化实践)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [准备数据集](#准备数据集)
-        - [配置分布式环境变量](#配置分布式环境变量)
-    - [加载处理数据集](#加载处理数据集)
-    - [定义网络](#定义网络)
-    - [定义损失函数及THOR优化器](#定义损失函数及thor优化器)
-        - [定义损失函数](#定义损失函数)
-        - [定义优化器](#定义优化器)
-    - [训练网络](#训练网络)
-		- [配置模型保存](#配置模型保存)
-        - [配置训练网络](#配置训练网络)
-		- [运行脚本](#运行脚本)
-    - [模型推理](#模型推理)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/second_order_optimizer_for_resnet50_application.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

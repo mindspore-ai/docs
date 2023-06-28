@@ -4,30 +4,6 @@
 
 `Ascend` `GPU` `模型训练` `中级` `高级`
 
-<!-- TOC -->
-
-- [手动设置并行场景模型参数的保存和加载](#手动设置并行场景模型参数的保存和加载)
-    - [概述](#概述)
-        - [背景](#背景)
-        - [使用场景](#使用场景)
-    - [对保存的CheckPoint文件做合并处理](#对保存的checkpoint文件做合并处理)
-        - [整体流程](#整体流程)
-        - [准备工作](#准备工作)
-            - [按逻辑顺序导入CheckPoint文件](#按逻辑顺序导入checkpoint文件)
-            - [获取模型参数切分策略](#获取模型参数切分策略)
-        - [对模型并行的参数做合并处理](#对模型并行的参数做合并处理)
-        - [保存数据生成新的CheckPoint文件](#保存数据生成新的checkpoint文件)
-    - [加载合并保存的CheckPoint文件](#加载合并保存的checkpoint文件)
-        - [整体流程](#整体流程-1)
-        - [步骤1：加载CheckPoint文件](#步骤1加载checkpoint文件)
-        - [步骤2：对模型并行参数做切分处理](#步骤2对模型并行参数做切分处理)
-        - [步骤3：将修改后的参数数据加载到网络中](#步骤3将修改后的参数数据加载到网络中)
-    - [示例](#示例)
-        - [示例场景说明](#示例场景说明)
-        - [示例代码](#示例代码)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/checkpoint_for_hybrid_parallel.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

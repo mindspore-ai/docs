@@ -1,21 +1,6 @@
 # 基于MindSpore部署推理服务
 
 `Ascend` `环境准备` `企业` `高级`
-
-<!-- TOC -->
-
-- [基于MindSpore部署推理服务](#基于mindspore部署推理服务)
-    - [概述](#概述)
-    - [启动Serving服务](#启动serving服务)
-    - [应用示例](#应用示例)
-        - [导出模型](#导出模型)
-        - [启动Serving推理服务](#启动serving推理服务)
-        - [gRPC客户端示例](#gRPC客户端示例)
-            - [Python客户端示例](#python客户端示例)
-            - [C++客户端示例](#cpp客户端示例)
-        - [REST API客户端示例](#rest-api客户端示例)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/serving.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 

@@ -2,16 +2,6 @@
 
 `Ascend` `GPU` `模型训练` `中级` `高级`
 
-<!-- TOC -->
-
-- [混合精度](#混合精度)
-    - [概述](#概述)
-    - [计算流程](#计算流程)
-    - [自动混合精度](#自动混合精度)
-    - [手动混合精度](#手动混合精度)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/mixed_precision.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/mixed_precision.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 

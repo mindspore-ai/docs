@@ -1,19 +1,5 @@
 # 编译
 
-<!-- TOC -->
-
-- [编译](#编译)
-    - [Linux环境编译](#linux环境编译)
-        - [环境要求](#环境要求)
-        - [编译选项](#编译选项)
-        - [编译示例](#编译示例)        
-        - [编译输出](#编译输出)
-            - [模型转换工具converter目录结构说明](#模型转换工具converter目录结构说明)
-            - [模型推理框架runtime及其他工具目录结构说明](#模型推理框架runtime及其他工具目录结构说明)                  
-
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_zh_cn/build.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 本章节介绍如何快速编译出MindSpore Lite，其包含的模块如下：

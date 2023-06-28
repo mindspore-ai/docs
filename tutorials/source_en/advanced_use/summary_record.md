@@ -2,20 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Summary Record](#summary-record)
-    - [Overview](#overview)
-    - [Operation Process](#operation-process)
-    - [Preparing The Training Script](#preparing-the-training-script)
-        - [Method one: Automatically collected through SummaryCollector](#method-one-automatically-collected-through-summarycollector)
-        - [Method two: Custom collection of network data with summary operators and SummaryCollector](#method-two-custom-collection-of-network-data-with-summary-operators-and-summarycollector)
-        - [Method three: Custom callback recording data](#method-three-custom-callback-recording-data)
-    - [Run MindInsight](#run-mindinsight)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/summary_record.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

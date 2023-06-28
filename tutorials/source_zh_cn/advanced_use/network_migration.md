@@ -2,23 +2,6 @@
 
 `Ascend` `GPU` `CPU` `全流程` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [网络迁移](#网络迁移)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [算子评估](#算子评估)
-        - [软硬件环境准备](#软硬件环境准备)
-    - [E2E迁移网络](#e2e迁移网络)
-        - [训练阶段](#训练阶段)
-            - [脚本迁移](#脚本迁移)
-            - [精度调试](#精度调试)
-            - [云上集成](#云上集成)
-        - [推理阶段](#推理阶段)
-    - [样例参考](#样例参考)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/network_migration.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

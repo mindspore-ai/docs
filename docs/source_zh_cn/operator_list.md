@@ -2,19 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型开发` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [算子支持](#算子支持)
-    - [mindspore.nn](#mindsporenn)
-    - [mindspore.ops.operations](#mindsporeopsoperations)
-    - [mindspore.ops.functional](#mindsporeopsfunctional)
-    - [隐式类型转换](#隐式类型转换)
-        - [转换规则](#转换规则)
-        - [参与转换的数据类型](#参与转换的数据类型)
-        - [支持算子](#支持算子)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/docs/source_zh_cn/operator_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## mindspore.nn

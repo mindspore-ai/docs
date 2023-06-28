@@ -1,15 +1,5 @@
 # TimeProfiler Tool
 
-<!-- TOC -->
-
-- [TimeProfiler Tool](#timeprofiler-tool)
-    - [Overview](#overview)
-    - [Environment Preparation](#environment-preparation)
-    - [Parameter Description](#parameter-description)
-    - [Example](#example)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_en/use/timeprofiler_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

@@ -1,22 +1,5 @@
 # FAQ
 
-<!-- TOC -->
-
-- [FAQ](#faq)
-    - [Installation](#installation)
-        - [Installing Using pip](#installing-using-pip)
-        - [Source Code Compilation Installation](#source-code-compilation-installation)
-        - [Environment Variables](#environment-variables)
-        - [Verifying the Installation](#verifying-the-installation)
-    - [Supported Operators](#supported-operators)
-    - [Network Models](#network-models)
-    - [Platform and System](#platform-and-system)
-    - [Backend Running](#backend-running)
-    - [Programming Language Extensions](#programming-language-extensions)
-    - [Supported Features](#supported-features)
-
-<!-- /TOC -->
-
 ## Installation
 
 ### Installing Using pip

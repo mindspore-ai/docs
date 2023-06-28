@@ -2,18 +2,6 @@
 
 `GPU` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Performance Profiler（GPU）](#performance-profiler-gpu)
-    - [Overview](#overview)
-    - [Operation Process](#operation-process)
-    - [Preparing the Training Script](#preparing-the-training-script)
-    - [Launch MindInsight](#launch-mindinsight)
-        - [Performance Analysis](#performance-analysis)
-            - [Operator Performance Analysis](#operator-performance-analysis)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

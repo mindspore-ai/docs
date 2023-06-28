@@ -2,20 +2,6 @@
 
 `Ascend` `模型开发` `模型调优` `企业` `高级`
 
-<!-- TOC -->
-
-- [机器学习中的差分隐私](#机器学习中的差分隐私)
-    - [概述](#概述)
-    - [实现阶段](#实现阶段)
-        - [导入需要的库文件](#导入需要的库文件)
-        - [参数配置](#参数配置)
-        - [预处理数据集](#预处理数据集)
-        - [建立模型](#建立模型)
-        - [引入差分隐私](#引入差分隐私)
-        - [引用](#引用)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/differential_privacy.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
