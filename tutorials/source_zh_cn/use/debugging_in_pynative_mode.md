@@ -1,16 +1,5 @@
 # 使用PyNative模式调试
 
-<!-- TOC -->
-
-- [使用PyNative模式调试](#使用pynative模式调试)
-    - [概述](#概述)
-    - [执行单算子](#执行单算子)
-    - [执行普通函数](#执行普通函数)
-    - [提升PyNative性能](#提升PyNative性能)
-    - [调试网络训练模型](#调试网络训练模型)
-
-<!-- /TOC -->
-
 ## 概述
 
 MindSpore支持两种运行模式，在调试或者运行方面做了不同的优化:
@@ -67,12 +56,12 @@ print(output.asnumpy())
 [ 0.05016355 0.03958241 0.03958241 0.03958241 0.03443141]]]]
 ```
 
-
 ## 执行普通函数
 
 将若干算子组合成一个函数，然后直接通过函数调用的方式执行这些算子，并打印相关结果，如下例所示。
 
 **示例代码**
+
 ```python
 import numpy as np
 from mindspore import context, Tensor
@@ -100,7 +89,6 @@ print(output.asnumpy())
 ```
 
 > PyNative不支持并行执行和summary功能，图模式的并行和summary相关算子不能使用。
-
 
 ### 提升PyNative性能
 
@@ -134,6 +122,7 @@ tensor_add = P.TensorAdd()
 res = tensor_add(x, z) # PyNative mode
 print(res.asnumpy())
 ```
+
 **输出**
 
 ```python
@@ -170,6 +159,7 @@ y = Tensor(np.ones([4, 4]).astype(np.float32))
 z = tensor_add_fn(x, y)
 print(z.asnumpy())
 ```
+
 **输出**
 
 ```shell
@@ -304,7 +294,7 @@ class LeNet5(nn.Cell):
     Lenet network
     Args:
         num_class (int): Num classes. Default: 10.
-        
+
     Returns:
         Tensor, output tensor
 
@@ -338,8 +328,8 @@ class LeNet5(nn.Cell):
         x = self.relu(x)
         x = self.fc3(x)
         return x
- 
-    
+
+
 class GradWrap(nn.Cell):
     """ GradWrap definition """
     def __init__(self, network):

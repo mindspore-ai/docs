@@ -1,16 +1,5 @@
 # On-Device Inference
 
-<!-- TOC -->
-
-- [On-Device Inference](#on-device-inference)
-    - [Overview](#overview)
-    - [Compilation Method](#compilation-method)
-    - [Use of On-Device Inference](#use-of-on-device-inference)
-        - [Generating an On-Device Model File](#generating-an-on-device-model-file)
-        - [Implementing On-Device Inference](#implementing-on-device-inference)
-
-<!-- /TOC -->
-
 ## Overview
 
 MindSpore Predict is a lightweight deep neural network inference engine that provides the inference function for models trained by MindSpore on the device side. This tutorial describes how to use and compile MindSpore Predict.
@@ -22,29 +11,28 @@ You need to compile the MindSpore Predict by yourself. This section describes ho
 The environment requirements are as follows:
 
 - Hardware requirements
-  - Memory: 1 GB or above
-  - Hard disk space: 10 GB or above
+    - Memory: 1 GB or above
+    - Hard disk space: 10 GB or above
 
 - System requirements
-  - System: Ubuntu = 16.04.02LTS (availability is checked)
-  - Kernel: 4.4.0-62-generic (availability is checked)
+    - System: Ubuntu = 16.04.02LTS (availability is checked)
+    - Kernel: 4.4.0-62-generic (availability is checked)
 
 - Software dependencies
-  - [cmake](https://cmake.org/download/) >= 3.14.1
-  - [GCC](https://gcc.gnu.org/releases.html) >= 5.4
-  - [autoconf](http://ftp.gnu.org/gnu/autoconf/) 2.69
-  - [LLVM 8.0.0](http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz)
-  - [Android_NDK r16b](https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip)
-  - numpy >= 1.16
-  - decorator
-  - scipy
-    
+    - [cmake](https://cmake.org/download/) >= 3.14.1
+    - [GCC](https://gcc.gnu.org/releases.html) >= 5.4
+    - [autoconf](http://ftp.gnu.org/gnu/autoconf/) 2.69
+    - [LLVM 8.0.0](http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz)
+    - [Android_NDK r16b](https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip)
+    - numpy >= 1.16
+    - decorator
+    - scipy
+
     > numpy, decorator and scipy can be installed through pip.  The reference command is as following.
-    
+
     ```bash
     pip3 install numpy==1.16 decorator scipy
     ```
-
 
 The compilation procedure is as follows:
 
@@ -83,17 +71,22 @@ This section describes how to use MindSpore to perform model inference. The setu
 To perform on-device model inference using MindSpore, perform the following steps.
 
 ### Generating an On-Device Model File
+
 1. After training is complete, load the generated checkpoint file to the defined network.
+
    ```python
    param_dict = load_checkpoint(ckpoint_file_name=ckpt_file_path)
    load_param_into_net(net, param_dict)
    ```
+
 2. Call the `export` API to export the .ms model file on the device.
+
    ```python
    export(net, input_data, file_name="./lenet.ms", file_format='LITE')
    ```
 
 Take the LeNet network as an example. The generated on-device model file is `lenet.ms`. The complete sample code lenet.py is as follows:
+
 ```python
 import os
 import numpy as np
@@ -115,7 +108,7 @@ class LeNet(nn.Cell):
         self.fc1 = nn.Dense(400, 120)
         self.fc2 = nn.Dense(120, 84)
         self.fc3 = nn.Dense(84, 10)
-        
+
     def construct(self, input_x):
         output = self.conv1(input_x)
         output = self.relu(output)
@@ -130,7 +123,7 @@ class LeNet(nn.Cell):
         output = self.relu(output)
         output = self.fc3(output)
         return output
-        
+
 if __name__ == '__main__':
     context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
     seed = 0
@@ -158,7 +151,9 @@ Use the .ms model file and image data as input to create a session and implement
 ![](./images/side_infer_process.png)
 
 Figure 1 On-device inference sequence diagram
+
 1. Load the .ms model file to the memory buffer. The ReadFile function needs to be implemented by users, according to the [C++ tutorial](http://www.cplusplus.com/doc/tutorial/files/).
+
    ```cpp
    // read model file
    std::string modelPath = "./models/lenet/lenet.ms";
@@ -169,6 +164,7 @@ Figure 1 On-device inference sequence diagram
    ```
 
 2. Call the CreateSession API to create a session. After the session is created, the model file in the memory buffer can be released.
+
    ```cpp
    // create session
    Context ctx;
@@ -177,6 +173,7 @@ Figure 1 On-device inference sequence diagram
    ```
 
 3. Read the input data for inference from the memory buffer and call the SetData() API to set the input data to input tensor.
+
    ```cpp
    // load input buffer
    size_t inputSize = 0;
@@ -190,18 +187,21 @@ Figure 1 On-device inference sequence diagram
    ```
 
 4. Call the Run() API in the session to perform inference.
+
    ```cpp
    // session run
    int ret = session->Run(inputs);
    ```
 
 5. Call the GetAllOutput() API to obtain the output.
+
    ```cpp
    // get output
    std::map<std::string, std::vector<Tensor *>> outputs = session->GetAllOutput();
    ```
-   
+
 6. Call the Getdata() API to get the output data.
+
    ```cpp
    // get output data
    float *data = nullptr;
@@ -214,12 +214,13 @@ Figure 1 On-device inference sequence diagram
    ```
 
 7. Release input and output tensors after the inference is complete.
+
    ```cpp
    // free inputs and outputs
    for (auto &input : inputs) {
      delete input;
    }
-   inputs.clear(); 
+   inputs.clear();
    for (auto &output : outputs) {
      for (auto &outputTensor : output.second) {
        delete outputTensor;
@@ -287,7 +288,7 @@ int main() {
 
   // get output
   auto outputs = session->GetAllOutput();
-    
+
   // get output data
   float *data = nullptr;
     for (auto output : outputs) {

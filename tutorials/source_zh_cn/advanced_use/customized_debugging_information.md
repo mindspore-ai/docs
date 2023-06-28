@@ -1,17 +1,5 @@
 # 自定义调试信息
 
-<!-- TOC -->
-
-- [自定义调试信息](#自定义调试信息)
-    - [概述](#概述)
-    - [Callback介绍](#callback介绍)
-        - [MindSpore的Callback能力](#mindspore的callback能力)
-        - [自定义Callback](#自定义callback)
-    - [MindSpore metrics功能介绍](#mindspore-metrics功能介绍)
-    - [print算子功能介绍](#print算子功能介绍)
-    - [日志相关的环境变量和配置](#日志相关的环境变量和配置)
-
-<!-- /TOC -->
 ## 概述
 
 本文介绍如何使用MindSpore提供的Callback、metrics、print算子、日志打印等自定义能力，帮助用户快速调试训练网络。
@@ -31,7 +19,7 @@ MindSpore提供Callback能力，支持用户在训练/推理的特定阶段，�
 使用方法：在model.train方法中传入Callback对象，它可以是一个Callback列表，例：
 
 ```python
-ckpt_cb = ModelCheckpoint()                                                            
+ckpt_cb = ModelCheckpoint()
 loss_cb = LossMonitor()
 summary_cb = SummaryStep()
 model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
@@ -49,7 +37,7 @@ Callback基类定义如下所示：
 
 ```python
 class Callback():
-    """Callback base class""" 
+    """Callback base class"""
     def begin(self, run_context):
         """Called once before the network executing."""
         pass
@@ -59,11 +47,11 @@ class Callback():
         pass
 
     def epoch_end(self, run_context):
-        """Called after each epoch finished.""" 
+        """Called after each epoch finished."""
         pass
 
     def step_begin(self, run_context):
-        """Called before each epoch beginning.""" 
+        """Called before each epoch beginning."""
         pass
 
     def step_end(self, run_context):
@@ -101,14 +89,14 @@ class StopAtTime(Callback):
     def begin(self, run_context):
         cb_params = run_context.original_args()
         cb_params.init_time = time.time()
-    
+
     def step_end(self, run_context):
         cb_params = run_context.original_args()
         epoch_num = cb_params.cur_epoch_num
         step_num = cb_params.cur_step_num
         loss = cb_params.cb_params
-	cur_time = time.time()
-	if (cur_time - cb_params.init_time) > self.run_time:
+        cur_time = time.time()
+        if (cur_time - cb_params.init_time) > self.run_time:
             print("epoch: ", epoch_num, " step: ", step_num, " loss: ", loss)
             run_context.request_stop()
 
@@ -118,7 +106,7 @@ model.train(100, dataset, callbacks=stop_cb)
 
 输出：
 
-```
+```text
 epoch: 20 step: 32 loss: 2.298344373703003
 ```
 
@@ -175,13 +163,17 @@ print('Accuracy is ', accuracy)
 ```
 
 输出：
-```
+
+```text
 Accuracy is 0.6667
 ```
+
 ## print算子功能介绍
+
 MindSpore的自研print算子可以将用户输入的Tensor或字符串信息打印出来，支持多字符串输入，多Tensor输入和字符串与Tensor的混合输入，输入参数以逗号隔开。
 
 print算子使用方法与其他算子相同，在网络中的`__init__`()声明算子并在`construct()`进行调用，具体使用实例及输出结果如下：
+
 ```python
 import numpy as np
 from mindspore import Tensor
@@ -205,8 +197,10 @@ y = Tensor(np.ones([2, 2]).astype(np.int32))
 net = PrintDemo()
 output = net(x, y)
 ```
+
 输出：
-```
+
+```text
 print Tensor x and Tensor y:
 Tensor shape:[[const vector][2, 1]]Int32
 val:[[1]
@@ -217,9 +211,9 @@ val:[[1 1]
 ```
 
 ## 日志相关的环境变量和配置
+
 MindSpore采用glog来输出日志，常用的几个环境变量如下：
 
 1. GLOG_v 控制日志的级别，默认值为2，即WARNING级别，对应关系如下：0-DEBUG、1-INFO、2-WARNING、3-ERROR。
 2. GLOG_logtostderr 值设置为1时，日志输出到屏幕；值设置为0时，日志输出到文件。默认值为1。
 3. GLOG_log_dir=YourPath 指定日志输出的路径。若GLOG_logtostderr的值为0，则必须设置此变量。若指定了GLOG_log_dir且GLOG_logtostderr的值为1时，则日志输出到屏幕，不输出到文件。C++和Python的日志会被输出到不同的文件中，C++日志的文件名遵从GLOG日志文件的命名规则，这里是`mindspore.机器名.用户名.log.日志级别.时间戳`，Python日志的文件名为`mingspore.log`。
-

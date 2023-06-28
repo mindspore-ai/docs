@@ -1,18 +1,8 @@
 # Mixed Precision
 
-<!-- TOC -->
-
-- [Mixed Precision](#mixed-precision)
-    - [Overview](#overview)
-    - [Computation Process](#computation-process)
-    - [Automatic Mixed Precision](#automatic-mixed-precision)
-    - [Manual Mixed Precision](#manual-mixed-precision)
-
-<!-- /TOC -->
-
 ## Overview
 
-The mixed precision training method accelerates the deep learning neural network training process by using both the single-precision and half-precision data formats, and maintains the network precision achieved by the single-precision training at the same time. 
+The mixed precision training method accelerates the deep learning neural network training process by using both the single-precision and half-precision data formats, and maintains the network precision achieved by the single-precision training at the same time.
 Mixed precision training can accelerate the computation process, reduce memory usage, and enable a larger model or batch size to be trained on specific hardware.
 
 For FP16 operators, if the input data type is FP32, the backend of MindSpore will automatically handle it with reduced precision. Users could check the reduced-precision operators by enabling INFO log and then searching 'reduce precision'.
@@ -38,6 +28,7 @@ This document describes the computation process by using examples of automatic a
 To use the automatic mixed precision, you need to invoke the corresponding API, which takes the network to be trained and the optimizer as the input. This API converts the operators of the entire network into FP16 operators (except the BatchNorm and Loss operators).
 
 The procedure is as follows:
+
 1. Introduce the MindSpore mixed precision API.
 
 2. Define the network. This step is the same as the common network definition. (You do not need to manually configure the precision of any specific operator.)
@@ -88,13 +79,13 @@ train_network = amp.build_train_network(net, optimizer, loss, level="O2", loss_s
 output = train_network(predict, label)
 ```
 
-
 ## Manual Mixed Precision
 
 MindSpore also supports manual mixed precision. It is assumed that only one dense layer in the network needs to be calculated by using FP32, and other layers are calculated by using FP16. The mixed precision is configured in the granularity of cell. The default format of a cell is FP32.
 
 The following is the procedure for implementing manual mixed precision:
-1. Define the network. This step is similar to step 2 in the automatic mixed precision. 
+
+1. Define the network. This step is similar to step 2 in the automatic mixed precision.
 
 2. Configure the mixed precision. Use net.to_float(mstype.float16) to set all operators of the cell and its sub-cells to FP16. Then, configure the dense to FP32.
 

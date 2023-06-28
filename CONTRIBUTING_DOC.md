@@ -2,15 +2,6 @@
 
 You are welcome to contribute MindSpore documents. Documents that meet requirements will be displayed on the [MindSpore official website](https://www.mindspore.cn).
 
-<!-- TOC -->
-
-- [Contributing Documents](#contributing-documents)
-    - [Creating or Updating Documents](#creating-or-updating-documents)
-    - [Submitting Modification](#submitting-modification)
-    - [Document Writing Specifications](#document-writing-specifications)
-
-<!-- /TOC -->
-
 ## Creating or Updating Documents
 
 This project supports contribution documents in MarkDown and reStructuredText formats. You can create the ```.md``` or ```.rst``` files or modify existing documents.
@@ -61,10 +52,10 @@ The procedure for submitting the modification is the same as that for submitting
 
 - Comments in the sample code must comply with the following requirements:
 
-  - Comments are written in English.
-  - Use ```"""``` to comment out Python functions, methods, and classes.
-  - Use ```#``` to comment out other Python code.
-  - Use ```//``` to comment out C++ code.
+    - Comments are written in English.
+    - Use ```"""``` to comment out Python functions, methods, and classes.
+    - Use ```#``` to comment out other Python code.
+    - Use ```//``` to comment out C++ code.
 
   ```
   """
@@ -79,7 +70,7 @@ The procedure for submitting the modification is the same as that for submitting
 
 - A blank line must be added before and after an image and an image title. Otherwise, the typesetting will be abnormal.
 
-   ```
+  ```
   Example:
 
   ![](./xxx.png)
