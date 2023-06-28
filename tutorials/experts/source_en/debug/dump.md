@@ -104,13 +104,12 @@ The configuration files required for different modes and the data format of dump
     - `kernels`: This item can be configured in two formats:
         1. List of operator names. Turn on the IR save switch `set_context(save_graphs=2)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/tutorials/experts/en/master/debug/mindir.html#saving-ir).
         Note that whether setting `set_context(save_graphs=2)` may cause the different IDs of the same operator, so when dump specified operators, keep this setting unchanged after obtaining the operator name. Or you can obtain the operator names from the file `ms_output_trace_code_graph_{graph_id}.ir` saved by Dump. Refer to [Synchronous Dump Data Object Directory](#synchronous-dump-data-object-directory).
-        2. You can also specify an operator type. When there is no operator scope information or operator id information in the string, the background considers it as an operator type, such as "conv". The matching rule of operator type is: when the operator name contains an operator type string, the matching is considered successful (case insensitive).
-        For example, "conv" can match operators "Conv2D-op1234" and "Conv3D-op1221".
+        2. You can also specify an operator type. When there is no operator scope information or operator id information in the string, the background considers it as an operator type, such as "conv". The matching rule of operator type is: when the operator name contains an operator type string, the matching is considered successful (case insensitive). For example, "conv" can match operators "Conv2D-op1234" and "Conv3D-op1221".
     - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data. This configuration parameter is invalid on the CPU, because there is no concept of device on the CPU, but it is still need to reserve this parameter in the json file.
     - `enable`: When set to true, enable Synchronous Dump. When set to false, asynchronous dump will be used on Ascend and synchronous dump will still be used on GPU.
     - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `True`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `False`, the data format on the Device side will be retained. This configuration parameter is invalid on the CPU, because there is no format conversion on the CPU, but it is still need to reserve this parameter in the json file.
 
-3. Set Dump environment variable.
+2. Set Dump environment variable.
 
    Specify the json configuration file of Dump.
 
@@ -137,7 +136,7 @@ The configuration files required for different modes and the data format of dump
     - Set the environment variables before executing the training script. Setting environment variables during training will not take effect.
     - Dump environment variables need to be configured before calling `mindspore.communication.init`.
 
-4. Execute the training script to dump data.
+3. Execute the training script to dump data.
 
    After the training is started, if the `MINDSPORE_DUMP_CONFIG` environment variable is correctly configured, the content of the configuration file will be read and the operator data will be saved according to the data storage path specified in the Dump configuration.
    In synchronous mode, if you want to dump data in GPU environment, you must use the non-data sink mode (set the `dataset_sink_mode` parameter in `model.train` or `DatasetHelper` to `False`) to ensure that you can get the dump data of each step.
@@ -145,7 +144,7 @@ The configuration files required for different modes and the data format of dump
 
     You can set `set_context(reserve_class_name_in_scope=False)` in your training script to avoid dump failure because of file name is too long.
 
-5. Read and parse synchronous dump data through `numpy.load`, refer to [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file).
+4. Read and parse synchronous dump data through `numpy.load`, refer to [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file).
 
 ### Synchronous Dump Data Object Directory
 
@@ -229,8 +228,7 @@ The suffix of the graph execution history file is `.csv`. The file naming format
 ms_global_execution_order_graph_{graph_id}.csv
 ```
 
-This file stores the list of iterations in which the graph was executed. After the graph is compiled, it may be split into multiple sub-graphs.
-Since sub-graphs share the same graph execution history with root graph, only root graph will generate an execution history file.
+This file stores the list of iterations in which the graph was executed. After the graph is compiled, it may be split into multiple sub-graphs. Since sub-graphs share the same graph execution history with root graph, only root graph will generate an execution history file.
 
 `.dump_metadata` records the original training information, and `data_dump.json` saves the dump configuration set by the user.
 
@@ -410,14 +408,12 @@ Large networks (such as Bert Large) will cause memory overflow when using synchr
     - `kernels`: This item can be configured in two formats:
         1. List of operator names. Turn on the IR save switch `set_context(save_graphs=2)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/tutorials/experts/en/master/debug/mindir.html#saving-ir).
         Note that whether setting `set_context(save_graphs=2)` may cause the different IDs of the same operator, so when dump specified operators, keep this setting unchanged after obtaining the operator name. Or you can obtain the operator names from the file `ms_output_trace_code_graph_{graph_id}.ir` saved by Dump. Refer to [Synchronous Dump Data Object Directory](#synchronous-dump-data-object-directory).
-        2. You can also specify an operator type. When there is no operator scope information or operator id information in the string, the background considers it as an operator type, such as "conv". The matching rule of operator type is: when the operator name contains an operator type string, the matching is considered successful (case insensitive).
-        For example, "conv" can match operators "Conv2D-op1234" and "Conv3D-op1221".
+        2. You can also specify an operator type. When there is no operator scope information or operator id information in the string, the background considers it as an operator type, such as "conv". The matching rule of operator type is: when the operator name contains an operator type string, the matching is considered successful (case insensitive). For example, "conv" can match operators "Conv2D-op1234" and "Conv3D-op1221".
     - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
-    - `enable`: Enable Asynchronous Dump. If synchronous dump and asynchronous dump are enabled at the same time, only synchronous dump will take effect.
     - `op_debug_mode`: This attribute is used for operator overflow debugging. 0: disable overflow check function; 1: enable AiCore overflow check; 2: enable Atomic overflow check; 3: enable all overflow check function. Set it to 0 when Dump data is processed. If it is not set to 0, only the data of the overflow operator will be dumped.
     - `file_format`: Dump file type. It can be either `npy` and `bin`. `npy`: data will be dumped in npy files as host format. `bin`: data will be dumped in protobuf file as device format and need to be transformed to parse using the provided data analysis tool. Please refer to [Asynchronous Dump Data Analysis Sample](#asynchronous-dump-data-analysis-sample) for details. The default value is `bin`.
 
-3. Set Dump environment variable.
+2. Set Dump environment variable.
 
     ```bash
     export MINDSPORE_DUMP_CONFIG=${Absolute path of data_dump.json}
@@ -434,11 +430,11 @@ Large networks (such as Bert Large) will cause memory overflow when using synchr
     - Set the environment variables before executing the training script. Setting environment variables during training will not take effect.
     - Dump environment variables need to be configured before calling `mindspore.communication.init`.
 
-4. Execute the training script to dump data.
+3. Execute the training script to dump data.
 
     You can set `set_context(reserve_class_name_in_scope=False)` in your training script to avoid dump failure because of file name is too long.
 
-5. Refer to [Asynchronous Dump Data Analysis Sample](#asynchronous-dump-data-analysis-sample) to analyze the Dump data file.
+4. Refer to [Asynchronous Dump Data Analysis Sample](#asynchronous-dump-data-analysis-sample) to analyze the Dump data file.
 
     Note:
 
@@ -546,8 +542,7 @@ Take the Conv2D-op12 of AlexNet network as an example: `Conv2D.Default_network-W
 
 If ".", "/", "\", and spaces appear in `op_type` and `op_name`, they will be converted to underscores.
 
-The original data file generated by dump can also be parsed by using the data parsing tool DumpParser of MindSpore Insight. Please refer to [DumpParser Introduction](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/parser/README.md#) for the usage of DumpParser.
-The data format parsed by MindSpore Insight is exactly the same as that of synchronous dump.
+The original data file generated by dump can also be parsed by using the data parsing tool DumpParser of MindSpore Insight. Please refer to [DumpParser Introduction](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/parser/README.md#) for the usage of DumpParser. The data format parsed by MindSpore Insight is exactly the same as that of synchronous dump.
 
 If setting `file_format` to `npy`, the naming convention of data files generated by asynchronous dump is the same as those of synchronous dump. Please refer to [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file). The overflow file generated by overflow detection is in the `json` format, and the content analysis of the overflow file can refer to the [Analyzing the Data File of an Overflow/Underflow Operator](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/infacldevg/aclcppdevg/aclcppdevg_000160.html) .
 
