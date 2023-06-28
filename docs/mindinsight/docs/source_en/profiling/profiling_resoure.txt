@@ -130,3 +130,20 @@ detailed information from ``Memory Usage``, including:
    :alt: memory_graphics.png
 
 *Figure:Memory Statistics*
+
+Host side memory usage
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If the host side memory collection function is enabled, the memory usage can be saved in the specified directory after the training is completed. For example, when a Profiler is specified with ``output_ Path="/XXX/profiler_output"`` , the file containing host side memory data will be saved in the "/XXX/profiler_output/profile/host_info" directory. The file is in csv format and with prefix ``"host_Info_"`` and suffix rank_id. The meaning of the header is as follows:
+
+- tid: The thread ID of the current thread when collecting host side memory.
+- pid: The process ID of the current process when collecting host side memory.
+- parent_pid: The process ID of the current process's Parent process when collecting the host side memory.
+- module_name: Name of the module that collects host side memory, one or more event may be included in a module.
+- event: The event name which collected the host side memory, one or more stage may be included in a event.
+- stage: The stage name which collected the host side memory.
+- level: Information level, 0 represents fine-grained information, usually used by advanced developers to locate problems, and 1 represents coarse-grained information, used by ordinary developers.
+- start_end: The mark for the start or end of the stage, where 0 represents the start mark, 1 represents the end mark, and 2 represents an indistinguishable start or end.
+- custom_info: Module customization information, possibly empty.
+- memory_usage: Host-side memory usage in kB, and 0 means no memory data is collected at the current stage.
+- time_stamp: Time stamp in us.

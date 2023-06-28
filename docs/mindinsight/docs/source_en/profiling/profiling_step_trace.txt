@@ -10,7 +10,7 @@ Step Trace Analysis
   find the bottleneck stage quickly.
 
 .. note::
-   Step Trace does not support heterogeneous training currently.
+   Step trace analysis only supports single-graph scenarios in Graph mode, and does not support scenarios such as pynative, heterogeneous, and multi-subgraphs.
 
 .. figure:: ./images/step_trace.png
    :alt: step_trace.png

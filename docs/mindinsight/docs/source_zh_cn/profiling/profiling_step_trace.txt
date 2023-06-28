@@ -7,7 +7,7 @@ reduce、参数更新等几个阶段，并显示出每个阶段的时长，帮�
 
 
 .. note::
-   迭代轨迹暂不支持异构训练场景。
+   迭代轨迹目前仅支持Graph模式单图场景，暂不支持PyNative、异构、多子图等场景。
 
 
 .. figure:: ./images/step_trace.png

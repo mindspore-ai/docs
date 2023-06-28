@@ -1,0 +1,4 @@
+Host side time consumption analysis
+-------------------------------------
+
+If the Host side time collection function is enabled, the Host side time-consuming of each stage can be saved in the specified directory after the training is completed. For example, when a Profiler is specified with ``output_ Path="/XXX/profiler_output"`` , the file containing time consumption data on the Host side will be saved in the "/XXX/profiler_output/profile/host_info" directory. The file is in json format and with the prefix ``"timeline_"``, and suffix rank_id. The host side time-consuming file can be viewed by `` chrome://tracing `` . You can use W/S/A/D to zoom in, out, move left, and right to view time consuming information.
