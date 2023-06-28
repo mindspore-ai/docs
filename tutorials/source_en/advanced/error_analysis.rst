@@ -242,7 +242,7 @@ Network execution debugging is the corresponding debugging capability provided b
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Hook                                     | The Hook function in pynative mode captures the input and output data                                       | `Hook function <https://www.mindspore.cn/             |
 |                           |                                          | and the backward gradient of the middle layer operator.                                                     | tutorials/en/master/                                  |
-|                           |                                          | Four forms of Hook functions are available:                                                                 | advanced/model/layer.html#hook-function>`_            |
+|                           |                                          | Four forms of Hook functions are available:                                                                 | advanced/modules/layer.html#hook-function>`_          |
 |                           |                                          | HookBackward operator and register_forward_pre_hook, register_forward_hook,                                 |                                                       |
 |                           |                                          | and register_backward_hook functions                                                                        |                                                       |
 |                           |                                          | registered on the Cell object.                                                                              |                                                       |
@@ -274,6 +274,6 @@ MindSpore provides framework developers with rich debugging tools. Debugging fea
 |                         |                          | graph execution order,                                        |                                                       |
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+
 | Specialized control     | Memory reuse             | Configure memory reuse on and off for troubleshooting         | `Memory Reuse <https://www.mindspore.cn/              |
-|                         |                          | or debugging suspected problems related to memory reuse.      | tutorials/experts/en/master/debug                     |
+|                         |                          | or debugging suspected problems related to memory reuse.      | tutorials/experts/en/master/optimize                  |
 |                         |                          |                                                               | /mem_reuse.html>`_                                    |
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+
