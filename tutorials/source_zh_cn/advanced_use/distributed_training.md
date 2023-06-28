@@ -96,7 +96,7 @@ if __name__ == "__main__":
     ...
 ```
 
-其中，
+其中，  
 - `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
 - `device_id`：卡的物理序号，即卡所在机器中的实际序号。
 - `init()`：使能HCCL通信，并完成分布式训练初始化操作。
@@ -151,9 +151,9 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
     return data_set
 ```
-其中，与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，建议通过HCCL接口获取：
-- `get_rank`：获取当前设备在集群中的ID。
-- `get_group_size`：获取集群数量。
+其中，与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，建议通过HCCL接口获取：  
+- `get_rank`：获取当前设备在集群中的ID。  
+- `get_group_size`：获取集群数量。  
 
 ## 定义网络
 
@@ -246,7 +246,7 @@ def test_train_cifar(num_classes=10, epoch_size=10):
     model = Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
-其中，
+其中，  
 - `dataset_sink_mode=True`：表示采用数据集的下沉模式，即训练的计算下沉到硬件平台中执行。
 - `LossMonitor`：能够通过回调函数返回Loss值，用于监控损失函数。
 
@@ -311,9 +311,9 @@ cd ../
 
 脚本需要传入变量`DATA_PATH`和`RANK_SIZE`，分别表示数据集的路径和卡的数量。
 
-其中必要的环境变量有，
+其中必要的环境变量有，  
 - `MINDSPORE_HCCL_CONFIG_PATH`：组网信息文件的路径。
-- `DEVICE_ID`：当前卡在机器上的实际序号。
+- `DEVICE_ID`：当前卡在机器上的实际序号。    
 - `RANK_ID`: 当前卡的逻辑序号。
 其余环境变量请参考安装教程中的配置项。
 

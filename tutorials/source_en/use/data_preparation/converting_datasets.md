@@ -4,8 +4,8 @@
 
 ## Overview
 
-You can convert non-standard datasets and common datasets into the MindSpore data format so that they can be easily loaded to MindSpore for training. In addition, the performance of MindSpore in some scenarios is optimized, which delivers better user experience when you use datasets in the MindSpore data format.
-The MindSpore data format has the following features:
+You can convert non-standard datasets and common datasets into the MindSpore data format so that they can be easily loaded to MindSpore for training. In addition, the performance of MindSpore in some scenarios is optimized, which delivers better user experience when you use datasets in the MindSpore data format.  
+The MindSpore data format has the following features:  
 1. Unified storage and access of user data are implemented, simplifying training data reading.
 2. Data is aggregated for storage, efficient reading, and easy management and transfer.
 3. Data encoding and decoding are efficient and transparent to users.
@@ -28,9 +28,9 @@ MindSpore provides write operation tools to write user-defined raw data in MindS
     ```python
     cv_schema_json = {"file_name": {"type": "string"}, "label": {"type": "int32"}, "data": {"type": "bytes"}}
     ```
-    Schema specifications are as follows:
-    A field name can contain only letters, digits, and underscores (_).
-    The field type can be int32, int64, float32, float64, string, or bytes.
+    Schema specifications are as follows:  
+    A field name can contain only letters, digits, and underscores (_).  
+    The field type can be int32, int64, float32, float64, string, or bytes.  
     The field shape can be a one-dimensional array represented by [-1], a two-dimensional array represented by [m, n], or a three-dimensional array represented by [x, y, z].
 
     > 1. The type of a field with the shape attribute can only be int32, int64, float32, or float64.
@@ -122,8 +122,8 @@ You can use the `Cifar10ToMR` class to convert the raw CIFAR-10 data into the Mi
     cifar10_transformer = Cifar10ToMR(CIFAR10_DIR, MINDRECORD_FILE)
     cifar10_transformer.transform(['label'])
     ```
-    In the preceding information:
-    `CIFAR10_DIR`: path where the CIFAR-10 dataset folder is stored.
+    In the preceding information:  
+    `CIFAR10_DIR`: path where the CIFAR-10 dataset folder is stored.  
     `MINDRECORD_FILE`: path where the output file in the MindSpore data format is stored.
 
 ### Converting the CIFAR-100 Dataset
@@ -151,8 +151,8 @@ You can use the `Cifar100ToMR` class to convert the raw CIFAR-100 data to the Mi
     cifar100_transformer = Cifar100ToMR(CIFAR100_DIR, MINDRECORD_FILE)
     cifar100_transformer.transform(['fine_label', 'coarse_label'])
     ```
-    In the preceding information:
-    `CIFAR100_DIR`: path where the CIFAR-100 dataset folder is stored.
+    In the preceding information:  
+    `CIFAR100_DIR`: path where the CIFAR-100 dataset folder is stored.  
     `MINDRECORD_FILE`: path where the output file in the MindSpore data format is stored.
 
 ### Converting the ImageNet Dataset
@@ -188,9 +188,9 @@ You can use the `ImageNetToMR` class to convert the raw ImageNet data (images an
     imagenet_transformer = ImageNetToMR(IMAGENET_MAP_FILE, IMAGENET_IMAGE_DIR, MINDRECORD_FILE, PARTITION_NUMBER)
     imagenet_transformer.transform()
     ```
-    In the preceding information:
-    `IMAGENET_MAP_FILE`: path where the label mapping file of the ImageNetToMR dataset is stored.
-    `IMAGENET_IMAGE_DIR`: path where all ImageNet images are stored.
+    In the preceding information:  
+    `IMAGENET_MAP_FILE`: path where the label mapping file of the ImageNetToMR dataset is stored.  
+    `IMAGENET_IMAGE_DIR`: path where all ImageNet images are stored.  
     `MINDRECORD_FILE`: path where the output file in the MindSpore data format is stored.
 
 ### Converting the MNIST Dataset
@@ -219,6 +219,6 @@ You can use the `MnistToMR` class to convert the raw MNIST data to the MindSpore
     mnist_transformer = MnistToMR(MNIST_DIR, MINDRECORD_FILE)
     mnist_transformer.transform()
     ```
-    In the preceding information:
-    `MNIST_DIR`: path where the MNIST dataset folder is stored.
+    In the preceding information:  
+    `MNIST_DIR`: path where the MNIST dataset folder is stored.  
     `MINDRECORD_FILE`: path where the output file in the MindSpore data format is stored.

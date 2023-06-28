@@ -41,7 +41,7 @@ The procedure for loading common datasets is as follows. The following describes
 ## Loading Datasets of a Specific Data Format
 
 ### MindSpore Data Format
-MindSpore supports reading of datasets stored in MindSpore data format, that is, `MindRecord` which has better performance and features.
+MindSpore supports reading of datasets stored in MindSpore data format, that is, `MindRecord` which has better performance and features.  
 > For details about how to convert datasets to the MindSpore data format, see the [Converting the Dataset to MindSpore Data Format](converting_datasets.md).
 
 To read a dataset using the `MindDataset` object, perform the following steps:
@@ -51,7 +51,7 @@ To read a dataset using the `MindDataset` object, perform the following steps:
     CV_FILE_NAME = os.path.join(MODULE_PATH, "./imagenet.mindrecord")
     data_set = ds.MindDataset(dataset_file=CV_FILE_NAME)
     ```
-    In the preceding information:
+    In the preceding information:  
     `dataset_file`: specifies the MindRecord file, including the path and file name.
 
 2. Create a dictionary iterator and read data records through the iterator.
@@ -103,9 +103,9 @@ MindSpore can also read datasets in the `TFRecord` data format through the `TFRe
       }
     }
     ```
-    In the preceding information:
-    `datasetType`: data format. TF indicates the TFRecord data format.
-    `columns`: column information field, which is defined based on the actual column names of the dataset. In the preceding schema file example, the dataset columns are image and label.
+    In the preceding information:  
+    `datasetType`: data format. TF indicates the TFRecord data format.  
+    `columns`: column information field, which is defined based on the actual column names of the dataset. In the preceding schema file example, the dataset columns are image and label.  
     `numRows`: row information field, which controls the maximum number of rows for loading data. If the number of defined rows is greater than the actual number of rows, the actual number of rows prevails during loading.
 
     When creating the TFRecordDataset, input the schema file path. An example is as follows:
