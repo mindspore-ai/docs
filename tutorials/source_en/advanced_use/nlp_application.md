@@ -1,26 +1,5 @@
 # Natural Language Processing (NLP) Application
 
-<!-- TOC -->
-
-- [Natural Language Processing (NLP) Application](#natural-language-processing-nlp-application)
-    - [Overview](#overview)
-    - [Preparation and Design](#preparation-and-design)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Determining Evaluation Criteria](#determining-evaluation-criteria)
-        - [Determining the Network and Process](#determining-the-network-and-process)
-    - [Implementation](#implementation)
-        - [Importing Library Files](#importing-library-files)
-        - [Configuring Environment Information](#configuring-environment-information)
-        - [Preprocessing the Dataset](#preprocessing-the-dataset)
-        - [Defining the Network](#defining-the-network)
-        - [Pre-Training](#pre-training)
-        - [Defining the Optimizer and Loss Function](#defining-the-optimizer-and-loss-function)
-        - [Training and Saving the Model](#training-and-saving-the-model)
-        - [Validating the Model](#validating-the-model)
-    - [Experiment Result](#experiment-result)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_en/advanced_use/nlp_application.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

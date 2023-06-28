@@ -1,29 +1,6 @@
 # 实现一个图片分类应用
 
 
-<!-- TOC -->
-
-- [实现一个图片分类应用](#实现一个图片分类应用)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [下载数据集](#下载数据集)
-        - [导入Python库&模块](#导入python库模块)
-        - [配置运行信息](#配置运行信息)
-    - [数据处理](#数据处理)
-        - [定义数据集及数据操作](#定义数据集及数据操作)
-    - [定义网络](#定义网络)
-    - [定义损失函数及优化器](#定义损失函数及优化器)
-        - [基本概念](#基本概念)
-        - [定义损失函数](#定义损失函数)
-        - [定义优化器](#定义优化器)
-    - [训练网络](#训练网络)
-        - [配置模型保存](#配置模型保存)
-        - [配置训练网络](#配置训练网络)
-    - [运行并查看结果](#运行并查看结果)
-    - [验证模型](#验证模型)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/notebook/quick_start.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>

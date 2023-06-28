@@ -1,28 +1,5 @@
 # Python源码构造网络约束
 
-<!-- TOC -->
-
-- [Python源码构造网络约束](#python源码构造网络约束)
-    - [概述](#概述)
-    - [语法约束](#语法约束)
-        - [支持的Python数据类型](#支持的python数据类型)
-        - [MindSpore扩展数据类型](#mindspore扩展数据类型)
-        - [表达式类型](#表达式类型)
-        - [语句类型](#语句类型)
-        - [系统函数/系统类](#系统函数系统类)
-        - [函数参数](#函数参数)
-        - [操作符](#操作符)
-        - [索引操作](#索引操作)
-        - [不支持的语法](#不支持的语法)
-    - [网络定义约束](#网络定义约束)
-        - [整网实例类型](#整网实例类型)
-        - [网络输入类型](#网络输入类型)
-        - [网络图优化](#网络图优化)
-        - [网络构造组件](#网络构造组件)
-        - [其他约束](#其他约束)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/docs/source_zh_cn/constraints_on_network_construction.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述

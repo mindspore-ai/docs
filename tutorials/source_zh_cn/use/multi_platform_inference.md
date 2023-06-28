@@ -1,22 +1,5 @@
 # 多平台推理
 
-<!-- TOC -->
-
-- [多平台推理](#多平台推理)
-    - [概述](#概述)
-    - [Ascend 910 AI处理器上推理](#ascend-910-ai处理器上推理)
-        - [使用checkpoint格式文件推理](#使用checkpoint格式文件推理)
-    - [Ascend 310 AI处理器上推理](#ascend-310-ai处理器上推理)
-        - [使用ONNX与GEIR格式文件推理](#使用onnx与geir格式文件推理)
-    - [GPU上推理](#gpu上推理)
-        - [使用checkpoint格式文件推理](#使用checkpoint格式文件推理-1)
-        - [使用ONNX格式文件推理](#使用onnx格式文件推理)
-    - [CPU上推理](#cpu上推理)
-        - [使用checkpoint格式文件推理](#使用checkpoint格式文件推理-2)
-        - [使用ONNX格式文件推理](#使用onnx格式文件推理-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/use/multi_platform_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

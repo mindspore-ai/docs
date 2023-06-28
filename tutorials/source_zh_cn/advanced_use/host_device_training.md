@@ -1,15 +1,5 @@
 # Host+Device混合训练
 
-<!-- TOC -->
-
-- [Host+Device混合训练](#hostdevice混合训练)
-    - [概述](#概述)
-    - [准备工作](#准备工作)
-    - [配置混合执行](#配置混合执行)
-    - [训练模型](#训练模型)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/host_device_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

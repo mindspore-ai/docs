@@ -1,19 +1,5 @@
 # 分布式训练设计
 
-<!-- TOC -->
-
-- [分布式训练设计](#分布式训练设计)
-    - [背景](#背景)
-    - [概念](#概念)
-        - [集合通信](#集合通信)
-        - [同步模式](#同步模式)
-    - [数据并行](#数据并行)
-        - [设计原理](#设计原理)
-        - [代码实现](#代码实现)
-    - [其他并行](#其他并行)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/docs/source_zh_cn/design/mindspore/distributed_training_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 背景

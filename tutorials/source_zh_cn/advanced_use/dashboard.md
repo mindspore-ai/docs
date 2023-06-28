@@ -1,19 +1,5 @@
 # 训练看板
 
-<!-- TOC -->
-
-- [训练看板](#训练看板)
-    - [概述](#概述)
-    - [标量可视化](#标量可视化)
-    - [参数分布图可视化](#参数分布图可视化)
-    - [计算图可视化](#计算图可视化)
-    - [数据图可视化](#数据图可视化)
-    - [图像可视化](#图像可视化)
-    - [张量可视化](#张量可视化)
-    - [注意事项](#注意事项)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/dashboard.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/tree/r0.6/tutorials/notebook/mindinsight" target="_blank"><img src="../_static/logo_notebook.png"></a>
 

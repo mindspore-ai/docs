@@ -2,17 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/mindinsight_commands.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
-<!-- TOC -->
-
-- [MindInsight相关命令](#mindinsight相关命令)
-    - [查看命令帮助信息](#查看命令帮助信息)
-    - [查看版本信息](#查看版本信息)
-    - [启动服务](#启动服务)
-    - [查看服务进程信息](#查看服务进程信息)
-    - [停止服务](#停止服务)
-
-<!-- /TOC -->
-
 ## 查看命令帮助信息
 
 ```shell

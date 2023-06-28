@@ -1,21 +1,5 @@
 # Data Processing and Augmentation
 
-<!-- TOC -->
-
-- [Data Processing and Augmentation](#data-processing-and-augmentation)
-    - [Overview](#overview)
-    - [Data Processing Operations Supported by Mindspore](#data-processing-operations-supported-by-mindspore)
-        - [repeat](#repeat)
-        - [batch](#batch)
-        - [shuffle](#shuffle)
-        - [map](#map)
-        - [zip](#zip)
-    - [Data Augmentation](#data-augmentation)
-        - [Using the `c_transforms` Module](#using-the-c_transforms-module)
-        - [Using the `py_transforms` Module](#using-the-py_transforms-module)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_en/use/data_preparation/data_processing_and_augmentation.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## Overview
