@@ -121,42 +121,6 @@ with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
     code_str = f.read()
     exec(code_str, sphinx_autodoc.__dict__)
 
-# Copy source files of chinese python api from reinforcement repository.
-from sphinx.util import logging
-import shutil
-logger = logging.getLogger(__name__)
-
-src_dir_api = os.path.join(os.getenv("RM_PATH"), 'docs/api/api_python')
-des_sir = "./api_python"
-
-if not exists(src_dir_api):
-    logger.warning(f"不存在目录：{src_dir_api}！")
-if os.path.exists(des_sir):
-    shutil.rmtree(des_sir)
-shutil.copytree(src_dir_api, des_sir)
-
-    # Rename .rst file to .txt file for include directive.
-from rename_include import rename_include
-
-rename_include('api_python')
-
-src_dir = os.path.join(os.path.dirname(__file__),'api_python')
-try:
-    for root,dirs,files in os.walk(src_dir):
-        for dir in dirs:
-            if os.path.exists('./' + dir):
-                shutil.rmtree('./' + dir)
-            if root == src_dir:
-                shutil.copytree(os.path.join(root,dir), './' + dir)
-        for file in files:
-            if root == src_dir:
-                if os.path.exists('./' + file):
-                    os.remove('./' + file)
-                shutil.copy(os.path.join(root,file), './' + file)
-    shutil.rmtree(des_sir)
-except Exception as e:
-    logger.warning(f'{e}')
-
 import mindspore_rl
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
@@ -171,13 +135,3 @@ from custom_directives import IncludeCodeDirective
 
 def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
-
-src_release = os.path.join(os.getenv("RM_PATH"), 'RELEASE_CN.md')
-des_release = "./RELEASE.md"
-with open(src_release, "r", encoding="utf-8") as f:
-    data = f.read()
-content = re.findall("(## [\s\S\n]*?)\n## ", data)
-result = content[0].replace('# MindSpore', '#', 1)
-with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes"+"\n\n")
-    p.write(result)
