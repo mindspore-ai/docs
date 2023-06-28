@@ -1,14 +1,5 @@
 # 硬件资源
 
-<!-- TOC -->
-
-- [概述](#概述)
-- [昇腾AI处理器看板](#昇腾ai处理器看板)
-- [CPU看板](#cpu看板)
-- [内存看板](#内存看板)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/system_metrics.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

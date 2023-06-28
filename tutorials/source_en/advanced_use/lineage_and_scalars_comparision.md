@@ -1,16 +1,5 @@
 # Lineage and Scalars Comparision
 
-<!-- TOC -->
-
-- [Lineage and Scalars Comparision](#lineage-and-scalars-comparision)
-    - [Overview](#overview)
-    - [Model Lineage](#model-lineage)
-    - [Dataset Lineage](#dataset-lineage)
-    - [Scalars Comparision](#scalars-comparision)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_en/advanced_use/lineage_and_scalars_comparision.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

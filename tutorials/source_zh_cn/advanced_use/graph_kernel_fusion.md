@@ -1,17 +1,5 @@
 # 图算融合
 
-<!-- TOC -->
-
-- [图算融合](#图算融合)
-  - [概述](#概述)
-  - [启用方法](#启用方法)
-    - [样例脚本](#样例脚本)
-  - [效果评估](#效果评估)
-    - [计算图](#计算图)
-    - [训练单step时间](#训练单step时间)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/graph_kernel_fusion.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

@@ -1,28 +1,5 @@
 # Constraints on Network Construction Using Python
 
-<!-- TOC -->
-
-- [Constraints on Network Construction Using Python](#constraints-on-network-construction-using-python)
-  - [Overview](#overview)
-  - [Syntax Constraints](#syntax-constraints)
-    - [Supported Python Data Types](#supported-python-data-types)
-    - [MindSpore Extended Data Type](#mindspore-extended-data-type)
-    - [Expression Types](#expression-types)
-    - [Statement Types](#statement-types)
-    - [System Functions/Class](#system-functionsclasses)
-    - [Function Parameters](#function-parameters)
-    - [Operators](#operators)
-    - [Index operation](#index-operation)
-    - [Unsupported Syntax](#unsupported-syntax)
-  - [Network Definition Constraints](#network-definition-constraints)
-    - [Instance Types on the Entire Network](#instance-types-on-the-entire-network)
-    - [Network Input Type](#network-input-type)
-    - [Network Graph Optimization](#network-graph-optimization)
-    - [Network Construction Components](#network-construction-components)
-    - [Other Constraints](#other-constraints)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/docs/source_en/constraints_on_network_construction.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

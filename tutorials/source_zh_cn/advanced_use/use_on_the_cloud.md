@@ -1,29 +1,6 @@
 # 在云上使用MindSpore
 
 
-<!-- TOC -->
-
-
-- [在云上使用MindSpore](#在云上使用mindspore)
-    - [概述](#概述)
-    - [准备工作](#准备工作)
-        - [ModelArts使用准备](#modelarts使用准备)
-        - [拥有云上昇腾AI处理器资源](#拥有云上昇腾ai处理器资源)
-        - [数据准备](#数据准备)
-        - [执行脚本准备](#执行脚本准备)
-    - [通过简单适配将MindSpore脚本运行在ModelArts](#通过简单适配将mindspore脚本运行在modelarts)
-        - [适配脚本参数](#适配脚本参数)
-        - [适配OBS数据](#适配obs数据)
-        - [适配8卡训练任务](#适配8卡训练任务)
-        - [示例代码](#示例代码)
-    - [创建训练任务](#创建训练任务)
-        - [进入ModelArts控制台](#进入modelarts控制台)
-        - [使用常用框架创建训练作业](#使用常用框架创建训练作业)
-        - [使用MindSpore作为常用框架创建训练作业](#使用mindspore作为常用框架创建训练作业)
-    - [查看运行结果](#查看运行结果)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/use_on_the_cloud.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

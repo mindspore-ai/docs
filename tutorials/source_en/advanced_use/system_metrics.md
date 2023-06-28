@@ -1,14 +1,5 @@
 # System Metrics
 
-<!-- TOC -->
-
-- [Overview](#overview)
-- [Ascend AI Processor Board](#ascend-ai-processor-board)
-- [CPU Board](#cpu-board)
-- [Memory Board](#memory-board)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_en/advanced_use/system_metrics.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

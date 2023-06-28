@@ -2,17 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_en/advanced_use/mindinsight_commands.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
-<!-- TOC -->
-
-- [MindInsight Commands](#mindinsight-commands)
-    - [View the Command Help Information](#view-the-command-help-information)
-    - [View the Version Information](#view-the-version-information)
-    - [Start the Service](#start-the-service)
-    - [View the Service Process Information](#view-the-service-process-information)
-    - [Stop the Service](#stop-the-service)
-
-<!-- /TOC -->
-
 ## View the Command Help Information
 
 ```shell

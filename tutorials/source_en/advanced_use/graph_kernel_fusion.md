@@ -1,17 +1,5 @@
 # Graph Kernel Fusion
 
-<!-- TOC -->
-
-- [Graph Kernel Fusion](#graph-kernel-fusion)
-  - [Overview](#overview)
-  - [Enabling Method](#enabling-method)
-    - [Sample Scripts](#sample-scripts)
-  - [Effect Evaluation](#effect-evaluation)
-    - [Computational Graph](#computational-graph)
-    - [Training Time for One Step](#training-time-for-one-step)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_en/advanced_use/graph_kernel_fusion.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

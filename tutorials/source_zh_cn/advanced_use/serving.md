@@ -1,17 +1,5 @@
 # 基于MindSpore部署推理服务
 
-
-<!-- TOC -->
-
-- [基于MindSpore部署推理服务](#基于mindspore部署推理服务)
-    - [概述](#概述)
-    - [启动Serving服务](#启动serving服务)
-    - [应用示例](#应用示例)
-        - [导出模型](#导出模型)
-        - [启动Serving推理服务](#启动serving推理服务)
-        - [客户端示例](#客户端示例)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/serving.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 

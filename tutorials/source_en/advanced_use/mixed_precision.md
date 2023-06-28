@@ -1,15 +1,5 @@
 # Mixed Precision
 
-<!-- TOC -->
-
-- [Mixed Precision](#mixed-precision)
-    - [Overview](#overview)
-    - [Computation Process](#computation-process)
-    - [Automatic Mixed Precision](#automatic-mixed-precision)
-    - [Manual Mixed Precision](#manual-mixed-precision)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_en/advanced_use/mixed_precision.m" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

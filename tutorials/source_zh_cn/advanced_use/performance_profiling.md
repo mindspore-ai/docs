@@ -1,22 +1,6 @@
 # 性能调试
 
 
-<!-- TOC -->
-
-- [性能调试](#性能调试)
-    - [概述](#概述)
-    - [操作流程](#操作流程)
-    - [准备训练脚本](#准备训练脚本)
-    - [启动MindInsight](#启动mindinsight)
-        - [性能分析](#性能分析)
-            - [迭代轨迹分析](#迭代轨迹分析)
-            - [算子性能分析](#算子性能分析)
-            - [MindData性能分析](#minddata性能分析)
-            - [Timeline分析](#timeline分析)
-    - [规格](#规格)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/performance_profiling.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

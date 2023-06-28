@@ -1,16 +1,5 @@
 ﻿# 溯源和对比看板
 
-<!-- TOC -->
-
-- [溯源和对比看板](#溯源和对比看板)
-    - [概述](#概述)
-    - [模型溯源](#模型溯源)
-    - [数据溯源](#数据溯源)
-    - [对比看板](#对比看板)
-    - [注意事项](#注意事项)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/lineage_and_scalars_comparision.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/tree/r0.6/tutorials/notebook/mindinsight" target="_blank"><img src="../_static/logo_notebook.png"></a>
 

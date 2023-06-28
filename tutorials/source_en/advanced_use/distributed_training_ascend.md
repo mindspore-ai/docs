@@ -1,23 +1,5 @@
 # Parallel Distributed Training (Ascend)
 
-<!-- TOC -->
-
-- [Parallel Distributed Training (Ascend)](#parallel-distributed-training-ascend)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Configuring Distributed Environment Variables](#configuring-distributed-environment-variables)
-        - [Calling the Collective Communication Library](#calling-the-collective-communication-library)
-    - [Loading the Dataset in Data Parallel Mode](#loading-the-dataset-in-data-parallel-mode)
-    - [Defining the Network](#defining-the-network)
-    - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
-        - [Defining the Loss Function](#defining-the-loss-function)
-        - [Defining the Optimizer](#defining-the-optimizer)
-    - [Training the Network](#training-the-network)
-    - [Running the Script](#running-the-script)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_en/advanced_use/distributed_training_ascend.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
