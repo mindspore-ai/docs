@@ -118,7 +118,7 @@ MindSpore也支持读取`TFRecord`数据格式的数据集，可以通过`TFReco
 
     其中，  
     `datasetType`: 数据格式的类型，这里“TF”是指TFrecord数据格式。  
-    `columns`：列信息字段，需要根据数据集的实际列名定义，上面Schema文件示例中，数据集列为image和label两列。
+    `columns`：列信息字段，需要根据数据集的实际列名定义，上面Schema文件示例中，数据集列为image和label两列。  
     `numRows`：行数信息字段，控制加载数据的最大行数。如果定义的行数大于实际行数，加载时则以实际行数为准。
 
     在创建TFRecordDataset时将Schema文件路径传入，使用样例如下：

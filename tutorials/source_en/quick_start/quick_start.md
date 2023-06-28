@@ -148,8 +148,8 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
 
 ```
 
-In the preceding information:
-`batch_size`: number of data records in each group. Currently, each group contains 32 data records.
+In the preceding information:  
+`batch_size`: number of data records in each group. Currently, each group contains 32 data records.  
 `repeat_size`: number of replicated data records.
 
 Perform the shuffle and batch operations, and then perform the repeat operation to ensure that data during an epoch is unique.
@@ -376,7 +376,7 @@ The following is an example of model files saved after training:
 checkpoint_lenet-1_1875.ckpt
 ```
 
-In the preceding information:
+In the preceding information:  
 `checkpoint_lenet-1_1875.ckpt`: saved model parameter file. The following refers to saved files as well. The file name format is checkpoint_{network name}-{epoch No.}_{step No.}.ckpt.
 
 ## Validating the Model
@@ -403,9 +403,9 @@ if __name__ == "__main__":
     test_net(args, network, model, mnist_path)
 ```
 
-In the preceding information:
-`load_checkpoint()`: This API is used to load the CheckPoint model parameter file and return a parameter dictionary.
-`checkpoint_lenet-3_1404.ckpt`: name of the saved CheckPoint model file.
+In the preceding information:  
+`load_checkpoint()`: This API is used to load the CheckPoint model parameter file and return a parameter dictionary.  
+`checkpoint_lenet-3_1404.ckpt`: name of the saved CheckPoint model file.  
 `load_param_into_net`: This API is used to load parameters to the network.
 
 Run the script using the following command:
