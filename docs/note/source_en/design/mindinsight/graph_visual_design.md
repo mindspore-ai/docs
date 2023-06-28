@@ -2,19 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
 
-<!-- TOC -->
-
-- [Computational Graph Visualization Design](#computational-graph-visualization-design)
-    - [Background](#background)
-    - [Overall Design](#overall-design)
-        - [Concept Design](#concept-design)
-        - [Backend Design](#backend-design)
-        - [Frontend Design](#frontend-design)
-        - [API Design](#api-design)
-            - [File API Design](#file-api-design)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_en/design/mindinsight/graph_visual_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## Background

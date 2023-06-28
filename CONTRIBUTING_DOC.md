@@ -4,16 +4,6 @@
 
 You are welcome to contribute MindSpore documents. Documents that meet requirements will be displayed on the [MindSpore official website](https://www.mindspore.cn).
 
-<!-- TOC -->
-
-- [Contributing Documents](#contributing-documents)
-    - [Creating or Updating Documents](#creating-or-updating-documents)
-    - [Submitting Modification](#submitting-modification)
-    - [Document Writing Specifications](#document-writing-specifications)
-    - [Markdown Check](#markdown-check)
-
-<!-- /TOC -->
-
 ## Creating or Updating Documents
 
 This project supports contribution documents in MarkDown and reStructuredText formats. You can create the ```.md``` or ```.rst``` files or modify existing documents.

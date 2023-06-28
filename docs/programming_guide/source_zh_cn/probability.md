@@ -1,52 +1,5 @@
 # 深度概率编程库
 
-<!-- TOC -->
-
-- [深度概率编程库](#深度概率编程库)
-    - [概率分布](#概率分布)
-        - [概率分布类](#概率分布类)
-            - [Distribution基类](#distribution基类)
-            - [伯努利分布(Bernoulli)](#伯努利分布bernoulli)
-            - [指数分布(Exponential)](#指数分布exponential)
-            - [几何分布(Geometric)](#几何分布geometric)
-            - [正态分布(Normal)](#正态分布normal)
-            - [均匀分布(Uniform)](#均匀分布uniform)
-            - [多类别分布(Categorical)](#多类别分布categorical)
-            - [柯西分布(Cauchy)](#柯西分布cauchy)
-            - [对数正态分布分布(LogNormal)](#对数正态分布lognormal)
-            - [耿贝尔极值分布(Gumbel)](#耿贝尔极值分布gumbel)
-            - [逻辑斯谛分布(Logistic)](#逻辑斯谛分布logistic)
-            - [泊松分布(Poisson)](#对数正态分布lognormal)
-            - [伽马分布(Gamma)](#伽马分布gamma)
-            - [贝塔分布(Beta)](#贝塔分布beta)
-        - [概率分布类在PyNative模式下的应用](#概率分布类在pynative模式下的应用)
-        - [概率分布类在图模式下的应用](#概率分布类在图模式下的应用)
-        - [TransformedDistribution类接口设计](#transformeddistribution类接口设计)
-        - [PyNative模式下调用TransformedDistribution实例](#pynative模式下调用transformeddistribution实例)
-        - [图模式下调用TransformedDistribution实例](#图模式下调用transformeddistribution实例)
-    - [概率分布映射](#概率分布映射)
-        - [Bijector类接口设计](#bijector类接口设计)
-            - [Bijector基类](#bijector基类)
-            - [幂函数变换映射(PowerTransform)](#幂函数变换映射powertransform)
-            - [指数变换映射(Exp)](#指数变换映射exp)
-            - [标量仿射变换映射(ScalarAffine)](#标量仿射变换映射scalaraffine)
-            - [Softplus变换映射(Softplus)](#softplus变换映射softplus)
-            - [耿贝尔累计密度函数映射(GumbelCDF)](#耿贝尔累计密度函数映射gumbelcdf)
-            - [逆映射(Invert)](#逆映射Invert)
-        - [PyNative模式下调用Bijector实例](#pynative模式下调用bijector实例)
-        - [图模式下调用Bijector实例](#图模式下调用bijector实例)
-    - [深度概率网络](#深度概率网络)
-        - [VAE](#vae)
-        - [ConditionalVAE](#conditionalvae)
-    - [概率推断算法](#概率推断算法)
-    - [贝叶斯层](#贝叶斯层)
-    - [贝叶斯转换](#贝叶斯转换)
-    - [贝叶斯工具箱](#贝叶斯工具箱)
-        - [不确定性评估](#不确定性评估)
-        - [异常检测](#异常检测)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/probability.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合，包括概率分布、概率分布映射、深度概率网络、概率推断算法、贝叶斯层、贝叶斯转换和贝叶斯工具箱，面向不同的开发者。对于专业的贝叶斯学习用户，提供概率采样、推理算法和模型构建库；另一方面，为不熟悉贝叶斯深度学习的用户提供了高级的API，从而不用更改深度学习编程逻辑，即可利用贝叶斯模型。

@@ -1,19 +1,5 @@
 # Sampler
 
-<!-- TOC -->
-
-- [Sampler](#sampler)
-    - [Overview](#overview)
-    - [MindSpore Samplers](#mindspore-samplers)
-        - [RandomSampler](#randomsampler)
-        - [WeightedRandomSampler](#weightedrandomsampler)
-        - [SubsetRandomSampler](#subsetrandomsampler)
-        - [PKSampler](#pksampler)
-        - [DistributedSampler](#distributedsampler)
-    - [User-defined Sampler](#user-defined-sampler)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/sampler.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

@@ -2,19 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [MindInsight Commands](#mindinsight-commands)
-    - [View the Command Help Information](#view-the-command-help-information)
-    - [View the Version Information](#view-the-version-information)
-    - [Start the Service](#start-the-service)
-    - [View the Service Process Information](#view-the-service-process-information)
-    - [Stop the Service](#stop-the-service)
-    - [Parse Summary](#parse-summary)
-    - [Use Mindoptimizer to Tune Hyperparameters](#use-mindoptimizer-to-tune-hyperparameters)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/mindinsight_commands.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## View the Command Help Information

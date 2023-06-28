@@ -1,45 +1,5 @@
 # 算子
 
-<!-- TOC -->
-
-- [算子](#算子)
-    - [概述](#概述)
-    - [算子使用方式](#算子使用方式)
-        - [mindspore.ops.operations](#mindsporeopsoperations)
-        - [mindspore.ops.functional](#mindsporeopsfunctional)
-        - [mindspore.ops.composite](#mindsporeopscomposite)
-        - [operations/functional/composite三类算子合并用法](#operationsfunctionalcomposite三类算子合并用法)
-    - [算子功能](#算子功能)
-        - [张量操作](#张量操作)
-        - [标量运算](#标量运算)
-            - [加法](#加法)
-            - [Element-wise乘法](#element-wise乘法)
-            - [求三角函数](#求三角函数)
-        - [向量运算](#向量运算)
-            - [Squeeze](#squeeze)
-        - [矩阵运算](#矩阵运算)
-            - [矩阵乘法](#矩阵乘法)
-            - [广播机制](#广播机制)
-        - [网络操作](#网络操作)
-            - [特征提取](#特征提取)
-            - [激活函数](#激活函数)
-            - [LossFunction](#lossfunction)
-            - [优化算法](#优化算法)
-        - [数组操作](#数组操作)
-            - [DType](#dtype)
-            - [Cast](#cast)
-            - [Shape](#shape)
-        - [图像操作](#图像操作)
-        - [编码运算](#编码运算)
-            - [BoundingBoxEncode](#boundingboxencode)
-            - [BoundingBoxDecode](#boundingboxdecode)
-            - [IOU计算](#iou计算)
-        - [调试操作](#调试操作)
-            - [Debug](#debug)
-            - [HookBackward](#hookbackward)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/programming_guide/mindspore_operators.ipynb"><img src="./_static/logo_notebook.png"></a>

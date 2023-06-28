@@ -2,17 +2,6 @@
 
 `Linux` `Serving` `Ascend` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [基于RESTful接口访问MindSpore Serving服务](#基于restful接口访问mindspore-serving服务)
-    - [概述](#概述)
-    - [请求方式](#请求方式)
-    - [请求输入格式](#请求输入格式)
-        - [base64数据编码](#base64数据编码)
-    - [请求应答格式](#请求应答格式)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/inference/source_zh_cn/serving_restful.md" target="_blank"><img src="_static/logo_source.png"></a>
 
 ## 概述

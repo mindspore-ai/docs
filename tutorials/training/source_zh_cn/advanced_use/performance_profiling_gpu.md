@@ -2,20 +2,6 @@
 
 `Linux` `GPU` `模型调优` `中级` `高级`
 
-<!-- TOC -->
-
-- [性能调试（GPU）](#性能调试-gpu)
-    - [概述](#概述)
-    - [操作流程](#操作流程)
-    - [准备训练脚本](#准备训练脚本)
-    - [启动MindInsight](#启动mindinsight)
-        - [性能分析](#性能分析)
-            - [算子性能分析](#算子性能分析)
-            - [Timeline分析](#timeline分析)
-            - [MindData性能分析](#minddata性能分析)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

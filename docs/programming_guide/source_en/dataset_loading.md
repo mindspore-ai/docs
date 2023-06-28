@@ -1,26 +1,5 @@
 # Loading Dataset
 
-<!-- TOC -->
-
-- [Loading Dataset](#loading-dataset)
-    - [Overview](#overview)
-    - [Loading Common Dataset](#loading-common-dataset)
-        - [CIFAR-10/100 Dataset](#cifar-10100-dataset)
-        - [VOC Dataset](#voc-dataset)
-        - [COCO Dataset](#coco-dataset)
-    - [Loading Datasets in Specific Format](#loading-datasets-in-specific-format)
-        - [MindRecord](#mindrecord)
-        - [Manifest](#manifest)
-        - [TFRecord](#tfrecord)
-        - [NumPy](#numpy)
-        - [CSV](#csv)
-    - [Loading User-defined Dataset](#loading-user-defined-dataset)
-        - [Constructing Dataset Generator Function](#constructing-dataset-generator-function)
-        - [Constructing Iterable Dataset Class](#constructing-iterable-dataset-class)
-        - [Constructing Random Accessible Dataset Class](#constructing-random-accessible-dataset-class)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/dataset_loading.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

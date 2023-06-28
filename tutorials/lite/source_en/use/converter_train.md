@@ -2,17 +2,6 @@
 
 `Linux` `Environment Preparation` `Model Export` `Model Converting` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Creating MindSpore Lite Models](#creating-mindspore-lite-model)
-    - [Overview](#overview)
-    - [Linux Environment](#linux-environment)
-        - [Environment Preparation](#environment-preparation)
-        - [Parameters Description](#parameters-description)
-        - [Example](#example)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_en/use/converter_train.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

@@ -1,21 +1,5 @@
 # 数据增强
 
-<!-- TOC -->
-
-- [数据增强](#数据增强)
-    - [概述](#概述)
-    - [c_transforms](#c_transforms)
-        - [RandomCrop](#randomcrop)
-        - [RandomHorizontalFlip](#randomhorizontalflip)
-        - [Resize](#resize)
-        - [Invert](#invert)
-    - [py_transforms](#py_transforms)
-        - [Compose](#compose)
-    - [使用说明](#使用说明)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/augmentation.md" target="_blank"><img src="./_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/programming_guide/mindspore_augmentation.ipynb"><img src="./_static/logo_notebook.png"></a>

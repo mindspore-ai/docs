@@ -1,19 +1,5 @@
 # 分词器
 
-<!-- TOC -->
-
-- [分词器](#分词器)
-    - [概述](#概述)
-    - [MindSpore分词器](#mindspore分词器)
-        - [BertTokenizer](#BertTokenizer)
-        - [JiebaTokenizer](#JiebaTokenizer)
-        - [SentencePieceTokenizer](#SentencePieceTokenizer)
-        - [UnicodeCharTokenizer](#UnicodeCharTokenizer)
-        - [WhitespaceTokenizer](#WhitespaceTokenizer)
-        - [WordpieceTokenizer](#WordpieceTokenizer)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/tokenizer.md" target="_blank"><img src="./_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/programming_guide/mindspore_tokenizer.ipynb"><img src="./_static/logo_notebook.png"></a>

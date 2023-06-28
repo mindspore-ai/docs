@@ -2,24 +2,6 @@
 
 `Android` `推理应用` `模型加载` `数据准备` `中级` `高级`
 
-<!-- TOC -->
-
-- [使用Runtime执行推理（Java）](#使用runtime执行推理java)
-    - [概述](#概述)
-    - [Android项目引用AAR包](#android项目引用aar包)
-    - [运行MindSpore Lite推理框架](#运行mindspore-lite推理框架)
-        - [加载模型](#加载模型)
-        - [创建配置上下文](#创建配置上下文)
-        - [创建会话](#创建会话)
-        - [图编译](#图编译)
-        - [输入数据](#输入数据)
-        - [图执行](#图执行)
-        - [获得输出](#获得输出)
-        - [释放内存](#释放内存)
-    - [Android项目使用MindSpore Lite推理框架示例](#android项目使用mindspore-lite推理框架示例)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_zh_cn/use/runtime_java.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

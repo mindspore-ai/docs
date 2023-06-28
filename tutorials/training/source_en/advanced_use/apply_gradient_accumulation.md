@@ -2,21 +2,6 @@
 
 `Linux` `GPU` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Applying Gradient Accumulation Algorithm](#applying-gradient-accumulation-algorithm)
-    - [Overview](#overview)
-    - [Creating a Gradient Accumulation Model](#creating-a-gradient-accumulation-model)
-        - [Importing Library Files](#importing-library-files)
-        - [Loading the Dataset](#loading-the-dataset)
-        - [Defining the Network](#defining-the-network)
-        - [Defining the Training Model](#defining-the-training-model)
-        - [Defining the Training Process](#defining-the-training-process)
-        - [Training and Saving the Model](#training-and-saving-the-model)
-    - [Experiment Result](#experiment-result)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/apply_gradient_accumulation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

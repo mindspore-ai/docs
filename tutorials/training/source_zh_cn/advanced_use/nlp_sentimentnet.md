@@ -2,27 +2,6 @@
 
 `Linux` `GPU` `CPU` `全流程` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [使用SentimentNet实现情感分类](#使用sentimentnet实现情感分类)
-    - [概述](#概述)
-    - [准备及设计](#准备及设计)
-        - [下载数据集](#下载数据集)
-        - [确定评价标准](#确定评价标准)
-        - [确定网络及流程](#确定网络及流程)
-    - [实现阶段](#实现阶段)
-        - [导入需要的库文件](#导入需要的库文件)
-        - [配置环境信息](#配置环境信息)
-        - [预处理数据集](#预处理数据集)
-        - [定义网络](#定义网络)
-        - [预训练模型](#预训练模型)
-        - [定义优化器及损失函数](#定义优化器及损失函数)
-        - [训练并保存模型](#训练并保存模型)
-        - [模型验证](#模型验证)
-    - [实验结果](#实验结果)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/nlp_sentimentnet.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/mindspore_nlp_application.ipynb"><img src="../_static/logo_notebook.png"></a>&nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9ubHBfYXBwbGljYXRpb24uaXB5bmI=&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="../_static/logo_modelarts.png"></a>

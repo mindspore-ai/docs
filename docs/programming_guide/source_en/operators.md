@@ -1,45 +1,5 @@
 ﻿# Operators
 
-<!-- TOC -->
-
-- [Operators](#operators)
-    - [Overview](#overview)
-    - [Operator Usage](#operator-usage)
-        - [mindspore.ops.operations](#mindsporeopsoperations)
-        - [mindspore.ops.functional](#mindsporeopsfunctional)
-        - [mindspore.ops.composite](#mindsporeopscomposite)
-        - [Combination usage of operations/functional/composite three types of operators](#combination-usage-of-operationsfunctionalcomposite-three-types-of-operators)
-    - [Operator Functions](#operator-functions)
-        - [Tensor Operations](#tensor-operations)
-        - [Scalar Operations](#scalar-operations)
-            - [Addition](#addition)
-            - [Element-wise Multiplication](#element-wise-multiplication)
-            - [Trigonometric Function](#trigonometric-function)
-        - [Vector Operations](#vector-operations)
-            - [Squeeze](#squeeze)
-        - [Matrix Operations](#matrix-operations)
-            - [Matrix Multiplication](#matrix-multiplication)
-            - [Broadcast Mechanism](#broadcast-mechanism)
-        - [Network Operations](#network-operations)
-            - [Feature Extraction](#feature-extraction)
-            - [Activation Function](#activation-function)
-            - [Loss Function](#loss-function)
-            - [Optimization Algorithm](#optimization-algorithm)
-        - [Array Operations](#array-operations)
-            - [DType](#dtype)
-            - [Cast](#cast)
-            - [Shape](#shape)
-        - [Image Operations](#image-operations)
-        - [Encoding Operations](#encoding-operations)
-            - [BoundingBoxEncode](#boundingboxencode)
-            - [BoundingBoxDecode](#boundingboxdecode)
-            - [IOU Computing](#iou-computing)
-        - [Debugging Operations](#debugging-operations)
-            - [Debug](#debug)
-            - [HookBackward](#hookbackward)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

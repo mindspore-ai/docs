@@ -2,14 +2,6 @@
 
 `Linux` `CPU` `推理应用` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [CPU上推理](#cpu上推理)
-    - [使用checkpoint格式文件推理](#使用checkpoint格式文件推理)
-    - [使用ONNX格式文件推理](#使用onnx格式文件推理)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/inference/source_zh_cn/multi_platform_inference_cpu.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 使用checkpoint格式文件推理

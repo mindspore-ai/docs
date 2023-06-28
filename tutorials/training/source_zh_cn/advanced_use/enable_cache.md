@@ -2,20 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `数据准备` `中级` `高级`
 
-<!-- TOC -->
-
-- [应用单节点数据缓存](#应用单节点数据缓存)
-    - [概述](#概述)
-    - [配置环境](#配置环境)
-    - [启动缓存服务器](#启动缓存服务器)
-    - [创建缓存会话](#创建缓存会话)
-    - [创建缓存实例](#创建缓存实例)
-    - [插入缓存实例](#插入缓存实例)
-    - [销毁缓存会话](#销毁缓存会话)
-    - [关闭缓存服务器](#关闭缓存服务器)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/enable_cache.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

@@ -2,18 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `数据准备` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [加载图像数据集](#加载图像数据集)
-    - [概述](#概述)
-    - [准备](#准备)
-    - [加载数据集](#加载数据集)
-    - [数据处理](#数据处理)
-    - [数据增强](#数据增强)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/use/load_dataset_image.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/mindspore_loading_image_dataset.ipynb"><img src="../_static/logo_notebook.png"></a>

@@ -2,16 +2,6 @@
 
  `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Converting Dataset to MindRecord](#converting-dataset-to-mindrecord)
-    - [Overview](#overview)
-    - [Basic Concepts](#basic-concepts)
-    - [Converting Dataset to MindRecord](#converting-dataset-to-mindrecord-1)
-    - [Loading MindRecord Dataset](#loading-mindrecord-dataset)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/convert_dataset.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

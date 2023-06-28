@@ -1,15 +1,5 @@
 # Common Network Components
 
-<!-- TOC -->
-
-- [Common Network Components](#common-network-components)
-    - [Overview](#overview)
-    - [GradOperation](#gradoperation)
-    - [WithLossCell](#withlosscell)
-    - [TrainOneStepCell](#trainonestepcell)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/network_component.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

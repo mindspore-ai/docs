@@ -2,29 +2,6 @@
 
 `Windows` `Linux` `Android` `环境准备` `中级` `高级`
 
-<!-- TOC -->
-
-- [编译MindSpore Lite](#编译mindspore-lite)
-    - [Linux环境编译](#linux环境编译)
-        - [环境要求](#环境要求)
-        - [编译选项](#编译选项)
-        - [编译示例](#编译示例)
-        - [端侧推理框架编译输出](#端侧推理框架编译输出)
-            - [模型转换工具converter目录结构说明](#推理模型转换工具converter目录结构说明)
-            - [Runtime及其他工具目录结构说明](#推理Runtime及其他工具目录结构说明)
-        - [端侧训练框架编译输出](#端侧训练框架编译输出)
-            - [训练模型转换工具converter目录结构说明](#训练模型转换工具converter目录结构说明)
-            - [训练Runtime及其他工具目录结构说明](#训练Runtime及其他工具目录结构说明)
-    - [Windows环境编译](#windows环境编译)
-        - [环境要求](#环境要求-1)
-        - [编译选项](#编译选项-1)
-        - [编译示例](#编译示例-1)
-        - [端侧推理框架编译输出](#端侧推理框架编译输出)
-            - [模型转换工具converter目录结构说明](#模型转换工具converter目录结构说明-1)
-            - [基准测试工具benchmark目录结构说明](#基准测试工具benchmark目录结构说明-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_zh_cn/use/build.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 本章节介绍如何快速编译出MindSpore Lite。

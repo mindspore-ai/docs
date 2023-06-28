@@ -2,34 +2,6 @@
 
 `Linux` `Android` `Model Training` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Using runtime for Model Training (C++)](#using-runtime-for-model-training-c)
-    - [Overview](#overview)
-    - [Session Creation](#session-creation)
-        - [Reading Models](#reading-models)
-        - [Creating Contexts](#creating-contexts)
-        - [Creating Sessions](#creating-sessions)
-        - [Example](#example)
-    - [Training Mode](#training-mode)
-        - [Switching between Train Mode and Eval Mode](#switching-between-train-mode-and-eval-mode)
-        - [Example](#example-2)
-    - [Data Input](#data-input)
-        - [Obtaining Input Tensors](#obtaining-input-tensors)
-        - [Copying Data](#copying-data)
-        - [Example](#example-3)
-    - [Graph Execution](#graph-execution)
-        - [Executing Sessions](#executing-sessions)
-        - [Callback Running](#callback-running)
-        - [Example](#example-4)
-    - [Obtaining Outputs](#obtaining-outputs)
-        - [Obtaining Output Tensors](#obtaining-output-tensors)
-        - [Example](#example-5)
-    - [Obtaining Version String](#obtaining-version-string)
-    - [Saving the Trained Model](#saving-the-trained-model)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_en/use/runtime_train_cpp.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

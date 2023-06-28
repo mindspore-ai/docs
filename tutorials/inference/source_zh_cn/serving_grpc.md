@@ -2,15 +2,6 @@
 
 `Linux` `Ascend` `Serving` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [基于gRPC接口访问MindSpore Serving服务](#基于grpc接口访问mindspore-serving服务)
-    - [概述](#概述)
-    - [add样例](#add样例)
-    - [ResNet-50样例](#resnet50样例)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/inference/source_zh_cn/serving_grpc.md" target="_blank"><img src="_static/logo_source.png"></a>
 
 ## 概述

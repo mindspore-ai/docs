@@ -1,16 +1,5 @@
 # Parameter
 
-<!-- TOC -->
-
-- [Parameter](#parameter)
-    - [概述](#概述)
-    - [初始化](#初始化)
-    - [属性](#属性)
-    - [方法](#方法)
-    - [ParameterTuple](#parametertuple)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/parameter.md" target="_blank"><img src="./_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/programming_guide/mindspore_parameter.ipynb"><img src="./_static/logo_notebook.png"></a>
