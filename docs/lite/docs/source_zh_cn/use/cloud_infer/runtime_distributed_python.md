@@ -8,7 +8,7 @@
 
 MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，支持的设备类型为Ascend 910和Nvidia GPU。如下图所示，当前通过多进程方式启动分布式推理，每个进程对应通信集合中的一个`Rank`，对各自已切分的模型进行加载、编译与执行，每个进程输入数据相同。
 
-![img](../../images/lite_runtime_distributed.png)
+![img](./images/lite_runtime_distributed.png)
 
 每个进程主要包括以下步骤：
 

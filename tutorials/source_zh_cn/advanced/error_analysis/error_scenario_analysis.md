@@ -1,6 +1,6 @@
 # 错误分析
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/error_analysis/error_scenario_analysis.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/error_analysis/error_scenario_analysis.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 如前文所述，错误分析是指基于获取到的网络、框架各种信息（例如：错误信息、网络代码等信息）进行错误原因分析，推断错误的可能原因。
 
@@ -69,7 +69,7 @@
 - 如果是计算图编译报错，根据报错描述和发生报错时自动保存的`analyze_failed.ir`文件，分析计算图推导失败的原因和位置；
 - 如果是计算图执行报错，可能是资源不足导致的执行报错，也可能是算子的执行报错，需要根据报错信息进行区分。如果是算子执行报错，首先确认是哪个算子，然后使用Dump功能保存算子的输入数据，通过输入数据分析算子报错的原因；
 
-分析计算图推导失败的原因可以参考[`analyze_failed.ir`分析方法](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindir.html#如何根据analyze-failir文件分析图推导失败的原因)。
+分析计算图推导失败的原因可以参考[`analyze_failed.ir`分析方法](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/mindir.html#如何根据analyze-failir文件分析图推导失败的原因)。
 
 使用Dump保存算子输入数据可以参考[Dump功能调试](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)。
 
