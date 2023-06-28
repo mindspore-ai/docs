@@ -11,6 +11,7 @@ AI算法设计之初普遍未考虑相关的安全威胁，使得AI算法的判�
 - 评估模块提供多种指标全面评估对抗样本攻防性能。
 
 这里通过图像分类任务上的对抗性攻防，以攻击算法FGSM和防御算法NAD为例，介绍MindArmour在对抗攻防上的使用方法。
+
 > 你可以在这里找到完整可运行的样例代码：
 > 攻击代码：<https://gitee.com/mindspore/docs/tree/r0.1/tutorials/tutorial_code/model_safety/mnist_attack_fgsm.py>
 > 防御代码：<https://gitee.com/mindspore/docs/tree/r0.1/tutorials/tutorial_code/model_safety/mnist_defense_nad.py>

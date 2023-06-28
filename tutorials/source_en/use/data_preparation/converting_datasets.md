@@ -2,7 +2,7 @@
 
 ## Overview
 
-You can convert non-standard datasets and common datasets into the MindSpore data format so that they can be easily loaded to MindSpore for training. In addition, the performance of MindSpore in some scenarios is optimized, which delivers better user experience when you use datasets in the MindSpore data format.
+You can convert non-standard datasets and common datasets into the MindSpore data format so that they can be easily loaded to MindSpore for training. In addition, the performance of MindSpore in some scenarios is optimized, which delivers better user experience when you use datasets in the MindSpore data format.  
 The MindSpore data format has the following features:  
 
 1. Unified storage and access of user data are implemented, simplifying training data reading.

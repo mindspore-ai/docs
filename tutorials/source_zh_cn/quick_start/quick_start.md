@@ -148,8 +148,8 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
 
 ```
 
-其中，
-`batch_size`：每组包含的数据个数，现设置每组包含32个数据。
+其中，  
+`batch_size`：每组包含的数据个数，现设置每组包含32个数据。  
 `repeat_size`：数据集复制的数量。
 
 先进行shuffle、batch操作，再进行repeat操作，这样能保证1个epoch内数据不重复。
@@ -347,8 +347,8 @@ if __name__ == "__main__":
 python lenet.py --device_target=CPU
 ```
 
-其中，
-`lenet.py`：为你根据教程编写的脚本文件。
+其中，  
+`lenet.py`：为你根据教程编写的脚本文件。  
 `--device_target CPU`：指定运行硬件平台，参数为`CPU`、`GPU`或者`Ascend`，根据你的实际运行硬件平台来指定。
 
 训练过程中会打印loss值，类似下图。loss值会波动，但总体来说loss值会逐步减小，精度逐步提高。每个人运行的loss值有一定随机性，不一定完全相同。
@@ -406,9 +406,9 @@ if __name__ == "__main__":
     test_net(args, network, model, mnist_path)
 ```
 
-其中，
-`load_checkpoint()`：通过该接口加载CheckPoint模型参数文件，返回一个参数字典。
-`checkpoint_lenet-1_1875.ckpt`：之前保存的CheckPoint模型文件名称。
+其中，  
+`load_checkpoint()`：通过该接口加载CheckPoint模型参数文件，返回一个参数字典。  
+`checkpoint_lenet-1_1875.ckpt`：之前保存的CheckPoint模型文件名称。  
 `load_param_into_net`：通过该接口把参数加载到网络中。
 
 使用运行命令，运行你的代码脚本。
@@ -417,8 +417,8 @@ if __name__ == "__main__":
 python lenet.py --device_target=CPU
 ```
 
-其中，
-`lenet.py`：为你根据教程编写的脚本文件。
+其中，  
+`lenet.py`：为你根据教程编写的脚本文件。  
 `--device_target CPU`：指定运行硬件平台，参数为`CPU`、`GPU`或者`Ascend`，根据你的实际运行硬件平台来指定。
 
 运行结果示例如下：
