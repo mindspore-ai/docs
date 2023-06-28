@@ -241,14 +241,14 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 |          |                | 字符串信息打印出来。                         | ww.mindspore.cn/docs              |
 |          |                |                                              | /zh-CN/master                     |
 |          |                |                                              | /api_python/ops/mindspore.        |
-|          |                |                                              | ops.Print#mindspore.ops.Print>`_  |
-|          |                |                                              |                                   |
+|          |                |                                              | ops.Print.html#mindspore.ops.Pri  |
+|          |                |                                              | nt>`_                             |
 |          |                |                                              |                                   |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 中间文件保存   | 用于保存图编译过程中生成的中间文件，我们称为\| `查看中间文件 <https://www.mi     |
-|          |                | IR文件，用于支持与图结构、图信息相关的问题\  | ndspore.cn/tutorials/ex           |
-|          |                | 诊断。                                       | perts/zh-CN/master/debu           |
-|          |                |                                              | g/mindir.html>`_                  |
+|          |                | IR文件，用于支持与图结构、图信息相关的问题\  | ndspore.cn/tutorials/zh-CN/       |
+|          |                | 诊断。                                       | master/advanced/error_            |
+|          |                |                                              | analysis/mindir.html>`_           |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 数据Dump       | 训练网络时，若训练结果和预期有偏差，通过Du\  | `Dump功能调试 <https://www.       |
 |          |                | mp功能保存算子输入输出数据进行调试。         | mindspore.cn/tutorials/           |
@@ -258,13 +258,13 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 | 执行控制 | Callback       | 用户可以使用回调函数在特定时期执行特定动作或\| `回调机制                         |
 |          |                | 观察训练过程中网络信息，例如：保存模型参数、\| Callback <https://www.m           |
 |          |                | 监控loss、动态调整参数、提前终止训练任务\    | indspore.cn/tutorials             |
-|          |                | 等。                                         | /zh-CN/master/advance/            |
+|          |                | 等。                                         | /zh-CN/master/advanced/           |
 |          |                |                                              | model/callback.html#>`_           |
 |          |                |                                              |                                   |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | Hook           | 在pynative模式使用Hook功能可以捕\            | `Hook功能 <https://www.mi         |
 |          |                | 获中间层算子的输入、输出数据以及反向梯度。已\| ndspore.cn/tutorials              |
-|          |                | 提供了四种形式的Hook功能，分别为：Hoo\       | /zh-CN/master/advanced/model      |
+|          |                | 提供了四种形式的Hook功能，分别为：Hoo\       | /zh-CN/master/advanced/modules    |
 |          |                | kBackward算子和在Cell对象上进行\             | /layer.html#hook功能>`_           |
 |          |                | 注册的register_forward_pr\                   |                                   |
 |          |                | e_hook、register_forwar\                     |                                   |
@@ -291,7 +291,7 @@ MindSpore为框架开发者提供了丰富的调试手段，调试功能涵盖�
 |               |                       | 或者进行问题诊断提供信息。  | .mindspore.cn             |
 |               |                       |                             | /docs                     |
 |               |                       |                             | /zh-CN/master/note        |
-|               |                       |                             | env_var_list.html>`_      |
+|               |                       |                             | /env_var_list.html>`_     |
 |               |                       |                             |                           |
 |               |                       |                             |                           |
 |               |                       |                             |                           |
@@ -318,8 +318,8 @@ MindSpore为框架开发者提供了丰富的调试手段，调试功能涵盖�
 |               |                       | ，用于排查或调试怀疑与内存\ | //www.mindspo             |
 |               |                       | 复用相关的问题。            | re.cn/tutoria             |
 |               |                       |                             | ls/experts/zh             |
-|               |                       |                             | -CN/master/de             |
-|               |                       |                             | bug/mem                   |
+|               |                       |                             | -CN/master/op             |
+|               |                       |                             | timize/mem                |
 |               |                       |                             | _reuse.html>`_            |
 |               |                       |                             |                           |
 |               |                       |                             |                           |
