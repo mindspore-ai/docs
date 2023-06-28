@@ -1,15 +1,5 @@
 ﻿# TimeProfiler工具
 
-<!-- TOC -->
-
-- [TimeProfiler工具](#timeprofiler工具)
-    - [概述](#概述)
-    - [环境准备](#环境准备)
-    - [参数说明](#参数说明)
-    - [使用示例](#使用示例)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_zh_cn/use/timeprofiler_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

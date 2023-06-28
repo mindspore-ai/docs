@@ -2,19 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型开发` `模型调优` `框架开发` `中级` `高级` `贡献者`
 
-<!-- TOC -->
-
-- [计算图可视设计](#计算图可视设计)
-    - [特性背景](#特性背景)
-    - [总体设计](#总体设计)
-        - [概念设计](#概念设计)
-        - [后端设计](#后端设计)
-        - [前端设计](#前端设计)
-        - [接口设计](#接口设计)
-            - [文件接口设计](#文件接口设计)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/docs/source_zh_cn/design/mindinsight/graph_visual_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 特性背景

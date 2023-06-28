@@ -1,30 +1,6 @@
 # Saving and Loading Model Parameters in the Hybrid Parallel Scenario
 
 `Ascend` `GPU` `Model Training` `Intermediate` `Expert`
-
-<!-- TOC -->
-
-- [Saving and Loading Model Parameters in the Hybrid Parallel Scenario](#saving-and-loading-model-parameters-in-the-hybrid-parallel-scenario)
-    - [Overview](#overview)
-        - [Background](#background)
-        - [Application Scenario](#application-scenario)
-    - [Integrating the Saved Checkpoint Files](#integrating-the-saved-checkpoint-files)
-        - [Overall Process](#overall-process)
-        - [Preparations](#preparations)
-            - [Importing the Checkpoint Files in rank id order](#importing-the-checkpoint-files-in-rank-id-order)
-            - [Obtaining the slice strategy of model](#obtaining-the-slice-strategy-of-model)
-        - [Integrate the Model Parallel Parameters](#integrate-the-model-parallel-parameters)
-        - [Saving the Data and Generating a New Checkpoint File](#saving-the-data-and-generating-a-new-checkpoint-file)
-    - [Loading the Integrated and Saved Checkpoint File](#loading-the-integrated-and-saved-checkpoint-file)
-        - [Overall Process](#overall-process-1)
-        - [Step 1: Loading the Checkpoint File](#step-1-loading-the-checkpoint-file)
-        - [Step 2: Dividing a Model Parallel Parameter](#step-2-dividing-a-model-parallel-parameter)
-        - [Step 3: Loading the Modified Parameter Data to the Network](#step-3-loading-the-modified-parameter-data-to-the-network)
-    - [Example](#example)
-        - [Scenario Description](#scenario-description)
-        - [Example Code](#example-code)
-
-<!-- /TOC -->
 ## Overview
 
 ### Background

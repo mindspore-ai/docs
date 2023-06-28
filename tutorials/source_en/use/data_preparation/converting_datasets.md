@@ -2,20 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Converting Datasets to the Mindspore Data Format](#converting-datasets-to-the-mindspore-data-format)
-    - [Overview](#overview)
-    - [Converting Non-Standard Datasets to the Mindspore Data Format](#converting-non-standard-datasets-to-the-mindspore-data-format)
-        - [Converting Images and Labels](#converting-images-and-labels)
-    - [Converting Common Datasets to the MindSpore Data Format](#converting-common-datasets-to-the-mindspore-data-format)
-        - [Converting the CIFAR-10 Dataset](#converting-the-cifar-10-dataset)
-        - [Converting the CIFAR-100 Dataset](#converting-the-cifar-100-dataset)
-        - [Converting the ImageNet Dataset](#converting-the-imagenet-dataset)
-        - [Converting the MNIST Dataset](#converting-the-mnist-dataset)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/use/data_preparation/converting_datasets.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## Overview

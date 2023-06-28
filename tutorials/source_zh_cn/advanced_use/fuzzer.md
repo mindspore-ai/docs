@@ -1,17 +1,6 @@
 # AI模型安全测试
 
 `Ascend` `GPU` `CPU` `数据准备` `模型开发` `模型训练` `模型调优` `企业` `高级`
-
-<!-- TOC -->
-
-- [AI模型安全测试](#ai模型安全测试)
-    - [概述](#概述)
-    - [实现阶段](#实现阶段)
-        - [导入需要的库文件](#引入相关包)
-        - [参数配置](#参数配置)
-        - [运用Fuzzer](#运用Fuzzer)
-        
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/fuzzer.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

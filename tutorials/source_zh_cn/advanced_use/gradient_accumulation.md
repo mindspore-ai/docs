@@ -2,22 +2,6 @@
 
 `Ascend` `GPU` `模型调优` `中级` `高级`
 
-<!-- TOC -->
-
-- [梯度累积](#梯度累积)
-    - [概述](#概述)
-    - [建立梯度累积模型](#建立梯度累积模型)
-        - [导入需要的库文件](#导入需要的库文件)
-        - [加载数据集](#加载数据集)
-        - [定义网络](#定义网络)
-        - [定义训练模型](#定义训练模型)
-        - [定义训练过程](#定义训练过程)
-        - [训练并保存模型](#训练并保存模型)
-    - [实验结果](#实验结果)
-    
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/gradient_accumulation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

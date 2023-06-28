@@ -1,36 +1,5 @@
 # Runtime User Guide
 
-<!-- TOC -->
-
-- [Runtime User Guide](#runtime-user-guide)
-    - [Overview](#overview)
-    - [Reading Models](#reading-models)
-    - [Session Creation](#session-creation)
-        - [Creating Contexts](#creating-contexts)
-        - [Creating Sessions](#creating-sessions-1)
-        - [Example](#example)
-    - [Graph Compilation](#graph-compilation)
-        - [Variable Dimension](#variable-dimension)
-        - [Example](#example-1)
-        - [Compiling Graphs](#compiling-graphs)
-        - [Example](#example-2)
-    - [Data Input](#data-input)
-        - [Obtaining Input Tensors](#obtaining-input-tensors)
-        - [Copying Data](#copying-data)
-        - [Example](#example-3)
-    - [Graph Execution](#graph-execution)
-        - [Executing Sessions](#executing-sessions)
-        - [Core Binding](#core-binding)
-        - [Callback Running](#callback-running)
-        - [Example](#example-4)
-    - [Obtaining Outputs](#obtaining-outputs)
-        - [Obtaining Output Tensors](#obtaining-output-tensors)
-        - [Example](#example-5)
-    - [Obtaining Version String](#obtaining-version-string)
-        - [Example](#example-6)
-
-<!-- /TOC -->
-
 
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_en/use/runtime.md" target="_blank"><img src="../_static/logo_source.png"></a>
 

@@ -2,19 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Operator List](#operator-list)
-    - [mindspore.nn](#mindsporenn)
-    - [mindspore.ops.operations](#mindsporeopsoperations)
-    - [mindspore.ops.functional](#mindsporeopsfunctional)
-    - [Implicit Type Conversion](#implicit-type-conversion)
-        - [conversion rules](#conversion-rules)
-        - [data types involved in conversion](#data-types-involved-in-conversion)
-        - [support ops](#support-ops)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/docs/source_en/operator_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## mindspore.nn

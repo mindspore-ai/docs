@@ -4,28 +4,6 @@
 
 作者：[杨奕](https://github.com/helloyesterday)&nbsp;&nbsp;&nbsp;&nbsp;编辑：[吕明赋](https://gitee.com/lvmingfu)
 
-<!-- TOC -->
-
-- [实现简单线性函数拟合](#实现简单线性函数拟合)   
-    - [概述](#概述)
-    - [环境准备](#环境准备)  
-    - [生成数据集](#生成数据集)
-        - [定义数据集生成函数](#定义数据集生成函数)
-        - [生成测试数据](#生成测试数据)
-    - [定义前向传播网络](#定义前向传播网络)
-        - [初始化网络模型](#初始化网络模型)
-        - [查看初始化的网络模型](#查看初始化的网络模型)
-        - [定义损失函数](#定义损失函数)
-        - [损失函数与网络结合](#损失函数与网络结合)
-    - [定义反向传播网络](#定义反向传播网络)
-        - [实现梯度函数](#实现梯度函数)
-        - [反向传播更新权重](#反向传播更新权重)
-    - [定义模型拟合过程可视化函数](#定义模型拟合过程可视化函数)
-    - [执行训练](#执行训练)    
-    - [总结](#总结)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/quick_start/linear_regression.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/linear_regression.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>

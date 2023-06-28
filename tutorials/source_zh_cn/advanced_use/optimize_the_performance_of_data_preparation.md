@@ -2,31 +2,6 @@
 
 `Ascend` `GPU` `CPU` `数据准备` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [优化数据准备的性能](#优化数据准备的性能)
-    - [概述](#概述)
-    - [整体流程](#整体流程)
-    - [准备环节](#准备环节)
-        - [导入模块](#导入模块)
-        - [下载所需数据集](#下载所需数据集)
-    - [数据加载性能优化](#数据加载性能优化)
-        - [性能优化方案](#性能优化方案)
-        - [代码示例](#代码示例)
-    - [shuffle性能优化](#shuffle性能优化)
-        - [性能优化方案](#性能优化方案-1)
-        - [代码示例](#代码示例-1)
-    - [数据增强性能优化](#数据增强性能优化)
-        - [性能优化方案](#性能优化方案-2)
-        - [代码示例](#代码示例-2)
-    - [性能优化方案总结](#性能优化方案总结)
-        - [多线程优化方案](#多线程优化方案)
-        - [多进程优化方案](#多进程优化方案)
-        - [Compose优化方案](#compose优化方案)
-        - [算子融合优化方案](#算子融合优化方案)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/optimize_the_performance_of_data_preparation.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/optimize_the_performance_of_data_preparation/optimize_the_performance_of_data_preparation.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 

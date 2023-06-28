@@ -1,17 +1,6 @@
 # 基准性能
 
 `Ascend` `模型训练` `中级` `高级`
-
-<!-- TOC -->
-
-- [基准性能](#基准性能)
-    - [训练性能](#训练性能)
-        - [ResNet](#resnet)
-        - [BERT](#bert)
-        - [Wide & Deep (数据并行)](#wide--deep-数据并行)
-        - [Wide & Deep (Host-Device混合计算模型并行)](#wide--deep-host-device混合计算模型并行)
-
-<!-- /TOC -->
         
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/docs/source_zh_cn/benchmark.md" target="_blank"><img src="./_static/logo_source.png"></a>
 

@@ -1,21 +1,6 @@
 # MindSpore-based Inference Service Deployment
 
 `Ascend` `Environmental Setup` `Enterprise` `Expert`
-
-<!-- TOC -->
-
-- [MindSpore-based Inference Service Deployment](#mindspore-based-inference-service-deployment)
-    - [Overview](#overview)
-    - [Starting Serving](#starting-serving)
-    - [Application Example](#application-example)
-        - [Exporting Model](#exporting-model)
-        - [Starting Serving Inference](#starting-serving-inference)
-        - [Client Samples](#client-samples)
-            - [Python Client Sample](#python-client-sample)
-            - [C++ Client Sample](#cpp-client-sample)
-        - [REST API Client Sample](#rest-api-client-sample)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/serving.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

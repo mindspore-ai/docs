@@ -2,30 +2,6 @@
 
 `Linux` `Windows` `CPU` `Ascend` `GPU` `模型开发` `中级` `高级`
 
-<!-- TOC -->
-
-- [MobileNetV2 增量学习](#mobilenetv2-增量学习)
-  - [概述](#概述)
-  - [任务描述及准备](#任务描述及准备)
-    - [环境配置](#环境配置)
-    - [下载代码](#下载代码)
-    - [准备预训练模型](#准备预训练模型)
-    - [准备数据](#准备数据)
-  - [预训练模型加载代码详解](#预训练模型加载代码详解)
-  - [参数简介](#参数简介)
-    - [运行Python文件](#运行python文件)
-    - [运行Shell脚本](#运行shell脚本)
-  - [加载增量学习训练](#加载增量学习训练)
-    - [CPU加载训练](#cpu加载训练)
-    - [GPU加载训练](#gpu加载训练)
-    - [Ascend加载训练](#ascend加载训练)
-    - [增量学习训练结果](#增量学习训练结果)
-  - [验证增量学习训练模型](#验证增量学习训练模型)
-    - [验证模型](#验证模型)
-    - [验证结果](#验证结果)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/mobilenetv2_incremental_learning.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

@@ -1,15 +1,5 @@
 # AI模型安全测试
 
-<!-- TOC -->
-- [AI模型安全测试](#ai模型安全测试)
-    - [背景](#背景)
-    - [Fuzzer设计图](#Fuzzer设计图)
-    - [Fuzzer流程](#Fuzzer流程)
-    - [代码实现](#代码实现)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/docs/source_zh_cn/design/mindarmour/fuzzer_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 背景

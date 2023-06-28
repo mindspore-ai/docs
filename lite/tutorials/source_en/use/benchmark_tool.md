@@ -1,17 +1,5 @@
 # Benchmark Tool
 
-<!-- TOC -->
-
-- [Benchmark Tool](#benchmark-tool)
-    - [Overview](#overview)
-    - [Environment Preparation](#environment-preparation)
-    - [Parameter Description](#parameter-description)
-    - [Example](#example)
-        - [Performance Test](#performance-test)
-        - [Accuracy Test](#accuracy-test)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_en/use/benchmark_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

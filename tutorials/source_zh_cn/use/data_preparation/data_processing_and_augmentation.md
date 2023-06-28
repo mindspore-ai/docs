@@ -2,22 +2,6 @@
 
 `Ascend` `GPU` `CPU` `数据准备` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [数据处理与数据增强](#数据处理与数据增强)
-    - [概述](#概述)
-    - [MindSpore支持的数据处理操作](#mindspore支持的数据处理操作)
-        - [repeat](#repeat)
-        - [batch](#batch)
-        - [shuffle](#shuffle)
-        - [map](#map)
-        - [zip](#zip)
-    - [数据增强](#数据增强)
-        - [使用`c_transforms`模块进行数据增强](#使用c_transforms模块进行数据增强)
-        - [使用`py_transforms`模块进行数据增强](#使用py_transforms模块进行数据增强)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/use/data_preparation/data_processing_and_augmentation.md" target="_blank"><img src="../../_static/logo_source.png"></a>&nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/data_loading_enhance/data_loading_enhancement.ipynb" target="_blank"><img src="../../_static/logo_notebook.png"></a>
 

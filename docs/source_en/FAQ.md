@@ -1,23 +1,6 @@
 # FAQ
 
 `Ascend` `GPU` `CPU` `Environmental Setup` `Model Export` `Model Training` `Beginner` `Intermediate` `Expert`
-
-<!-- TOC -->
-
-- [FAQ](#faq)
-    - [Installation](#installation)
-        - [Installing Using pip](#installing-using-pip)
-        - [Source Code Compilation Installation](#source-code-compilation-installation)
-        - [Environment Variables](#environment-variables)
-        - [Verifying the Installation](#verifying-the-installation)
-    - [Supported Operators](#supported-operators)
-    - [Network Models](#network-models)
-    - [Platform and System](#platform-and-system)
-    - [Backend Running](#backend-running)
-    - [Programming Language Extensions](#programming-language-extensions)
-    - [Supported Features](#supported-features)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/docs/source_en/FAQ.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Installation

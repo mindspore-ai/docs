@@ -2,20 +2,6 @@
 
 `Ascend` `Model Development` `Model Optimization` `Enterprise` `Expert`
 
-<!-- TOC -->
-
-- [Differential Privacy in Machine Learning](#differential-privacy-in-machine-learning)
-    - [Overview](#overview)
-    - [Implementation](#implementation)
-        - [Importing Library Files](#importing-library-files)
-        - [Configuring Parameters](#configuring-parameters)
-        - [Preprocessing the Dataset](#preprocessing-the-dataset)
-        - [Creating the Model](#creating-the-model)
-        - [Introducing the Differential Privacy](#introducing-the-differential-privacy)
-        - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/differential_privacy.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

@@ -1,16 +1,5 @@
 # Converter Tool
 
-<!-- TOC -->
-
-- [Model Conversion Tool](#model-conversion-tool)
-    - [Overview](#overview)
-    - [Linux Environment Instructions](#linux-environment-instructions)    
-        - [Environment Preparation](#environment-preparation)
-        - [Parameter Description](#parameter-description)
-        - [Example](#example)      
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_en/use/converter_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

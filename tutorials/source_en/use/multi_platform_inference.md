@@ -2,24 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Inference Application` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Multi-Platform Inference](#multi-platform-inference)
-    - [Overview](#overview)
-    - [Inference on the Ascend 910 AI processor](#inference-on-the-ascend-910-ai-processor)
-        - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file)
-    - [Inference on the Ascend 310 AI processor](#inference-on-the-ascend-310-ai-processor)
-        - [Inference Using an ONNX or AIR File](#inference-using-an-onnx-or-air-file)
-    - [Inference on a GPU](#inference-on-a-gpu)
-        - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file-1)
-        - [Inference Using an ONNX File](#inference-using-an-onnx-file)
-    - [Inference on a CPU](#inference-on-a-cpu)
-        - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file-2)
-        - [Inference Using an ONNX File](#inference-using-an-onnx-file-1)
-    - [On-Device Inference](#on-device-inference)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/use/multi_platform_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

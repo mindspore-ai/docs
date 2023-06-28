@@ -2,15 +2,6 @@
 
 `Ascend` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Overview](#overview)
-- [Ascend AI Processor Board](#ascend-ai-processor-board)
-- [CPU Board](#cpu-board)
-- [Memory Board](#memory-board)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/hardware_resources.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

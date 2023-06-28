@@ -1,23 +1,6 @@
 # FAQ
 
 `Ascend` `GPU` `CPU` `环境准备` `模型导出` `模型训练` `初级` `中级` `高级`
-
-<!-- TOC -->
-
-- [FAQ](#faq)
-    - [安装类](#安装类)
-        - [pip安装](#pip安装)
-        - [源码编译安装](#源码编译安装)
-        - [环境变量](#环境变量)
-        - [安装验证](#安装验证)
-    - [算子支持](#算子支持)
-    - [网络模型](#网络模型)
-    - [平台系统](#平台系统)
-    - [后端运行](#后端运行)
-    - [编程语言拓展](#编程语言拓展)
-    - [特性支持](#特性支持)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r0.7/docs/source_zh_cn/FAQ.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 安装类
