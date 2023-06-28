@@ -244,7 +244,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | Print算子      | Print算子可以将用户输入的Tensor或\           | `Print算子功能介绍 <https://w     |
 |          |                | 字符串信息打印出来。                         | ww.mindspore.cn/tutoria           |
-|          |                |                                              | ls/experts/zh-CN/master           |
+|          |                |                                              | ls/experts/zh-CN/r2.0             |
 |          |                |                                              | /debug/custom_debug.htm           |
 |          |                |                                              | l#print%E7%AE%97%E5%AD%           |
 |          |                |                                              | 90%E5%8A%9F%E8%83%BD%E4           |
@@ -296,8 +296,8 @@ MindSpore为框架开发者提供了丰富的调试手段，调试功能涵盖�
 |               |                       | 的信息，为了解框架执行过程\ | <https://www              |
 |               |                       | 或者进行问题诊断提供信息。  | .mindspore.cn             |
 |               |                       |                             | /tutorials/ex             |
-|               |                       |                             | perts/zh-CN/m             |
-|               |                       |                             | aster/debug/c             |
+|               |                       |                             | perts/zh-CN/r2.0          |
+|               |                       |                             | /debug/c                  |
 |               |                       |                             | ustom_debug.h             |
 |               |                       |                             | tml#%E6%97%A5             |
 |               |                       |                             | %E5%BF%97%E7%             |
@@ -314,7 +314,7 @@ MindSpore为框架开发者提供了丰富的调试手段，调试功能涵盖�
 |               |                       | 提供训练程序运行时记录框架\ | ps://www.mind             |
 |               |                       | 执行状态数据的功能。框架运\ | spore.cn/tuto             |
 |               |                       | 行异常会自动地导出预先记录\ | rials/experts             |
-|               |                       | 的数据以辅助定位运行异常的\ | /zh-CN/master             |
+|               |                       | 的数据以辅助定位运行异常的\ | /zh-CN/r2.0               |
 |               |                       | 原因，也可以在框架正常执行\ | /debug/custom             |
 |               |                       | 过程保存框架关键状态数据，\ | _debug.html#r             |
 |               |                       | 例如：IR、图执行顺序、内\   | unning-data-r             |

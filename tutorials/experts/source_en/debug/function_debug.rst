@@ -253,7 +253,7 @@ Network execution debugging is the corresponding debugging capability provided b
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Synchronous execution                    | In dynamic graph mode, operators are executed asynchronously                                                | `Synchronized execution of dynamic graph <https://    |
 |                           |                                          | on the device to improve performance,                                                                       | www.mindspore.cn/tutorials/en/                        |
-|                           |                                          | so operator execution errors may be displayed at the end of program execution.                              | master/advanced/compute_graph.html#dynamic-graphs>`_  |
+|                           |                                          | so operator execution errors may be displayed at the end of program execution.                              | r2.0/advanced/compute_graph.html#dynamic-graphs>`_    |
 |                           |                                          | In this case, MindSpore provides a synchronous execution setting                                            |                                                       |
 |                           |                                          | to control whether the arithmetic is executed asynchronously on the device.                                 |                                                       |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
@@ -267,15 +267,15 @@ MindSpore provides framework developers with rich debugging tools. Debugging fea
 | Function classification | Main debugging functions |  Description of use                                           | Detailed introduction                                 |
 +=========================+==========================+===============================================================+=======================================================+
 | Process records         | Logs                     | used to record information at each stage of the framework     | `Log-related environment variables and configurations |
-|                         |                          | implementation to provide information for understanding       | <https://www.mindspore.cn/tutorials/experts/en/master |
+|                         |                          | implementation to provide information for understanding       | <https://www.mindspore.cn/tutorials/experts/en/r2.0   |
 |                         |                          | the framework implementation process or for problem diagnosis.| /debug/custom_debug.html#log-related-environment      |
 |                         |                          |                                                               | -variables-and-configurations>`_                      |
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+
 | Data records            | RDR                      | Running Data Recorder (RDR) provides the ability              | `Running Data Recorder                                |
 |                         |                          | to record framework execution status data                     | <https://www.mindspore.cn/                            |
-|                         |                          | while the training program is running.                        | ps://www.mind                                         |
-|                         |                          | It can also save key frame state data, such as IR,            | tutorials/experts/en/r2.0/                            |
-|                         |                          | graph execution order,                                        | debug/custom_debug.html#running-data-recorder>`_      |
+|                         |                          | while the training program is running.                        | tutorials/experts/en/r2.0/                            |
+|                         |                          | It can also save key frame state data, such as IR,            | debug/custom_debug.html#running-data-recorder>`_      |
+|                         |                          | graph execution order,                                        |                                                       |
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+
 | Specialized control     | Memory reuse             | Configure memory reuse on and off for troubleshooting         | `Memory Reuse <https://www.mindspore.cn/              |
 |                         |                          | or debugging suspected problems related to memory reuse.      | tutorials/experts/en/r2.0/debug                       |
