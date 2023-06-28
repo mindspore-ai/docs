@@ -300,3 +300,27 @@ make
 ```
 
 说明MindSpore安装成功了。
+
+## 升级MindSpore版本
+
+从MindSpore 1.x升级到MindSpore 2.x版本时，需要先手动卸载旧版本：
+
+```bash
+pip uninstall mindspore-ascend
+```
+
+然后安装新版本：
+
+```bash
+pip install mindspore=={version}
+```
+
+从MindSpore 2.x版本升级时，执行如下命令：
+
+```bash
+pip install --upgrade mindspore=={version}
+```
+
+其中：
+
+- 升级到rc版本时，需要手动指定`{version}`为rc版本号，例如1.6.0rc1；如果升级到正式版本，`=={version}`字段可以缺省。

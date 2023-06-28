@@ -243,3 +243,27 @@ The following information is displayed:
 ```
 
 The preceding information indicates that MindSpore is successfully installed.
+
+## Version Update
+
+When upgrading from MindSpore 1.x to MindSpore 2.x, you need to manually uninstall the old version first:
+
+```bash
+pip uninstall mindspore-ascend-dev
+```
+
+Then install MindSpore 2.x:
+
+```bash
+pip install mindspore-dev=={version}
+```
+
+When upgrading from MindSpore 2.x:
+
+```bash
+pip install --upgrade mindspore-dev=={version}
+```
+
+Of which,
+
+- When updating to a release candidate (RC) version, set `{version}` to the RC version number, for example, 2.0.0.rc1. When updating to a stable release, you can remove `=={version}`.
