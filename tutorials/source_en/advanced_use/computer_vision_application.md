@@ -1,21 +1,5 @@
 # Computer Vision Applications
 
-<!-- TOC -->
-
-- [Computer Vision Applications](#computer-vision-applications)
-    - [Overview](#overview)
-    - [Image Classification](#image-classification)
-    - [Task Description and Preparation](#task-description-and-preparation)
-        - [Downloading the CIFAR-10 Dataset](#downloading-the-cifar-10-dataset)
-        - [Data Preloading and Preprocessing](#data-preloading-and-preprocessing)
-        - [Defining the CNN](#defining-the-cnn)
-        - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
-        - [Calling the High-level `Model` API To Train and Save the Model File](#calling-the-high-level-model-api-to-train-and-save-the-model-file)
-        - [Loading and Validating the Saved Model](#loading-and-validating-the-saved-model)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_en/advanced_use/computer_vision_application.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

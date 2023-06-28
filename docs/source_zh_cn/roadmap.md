@@ -10,19 +10,6 @@
 
 热忱希望各位在用户社区加入讨论，并贡献您的建议。
 
-<!-- TOC -->
-
-- [RoadMap](#roadmap)
-    - [预置模型](#预置模型)
-    - [易用性](#易用性)
-    - [性能优化](#性能优化)
-    - [架构演进](#架构演进)
-    - [MindInsight调试调优](#mindinsight调试调优)
-    - [MindArmour安全增强包](#mindarmour安全增强包)
-    - [推理框架](#推理框架)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/docs/source_zh_cn/roadmap.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 预置模型

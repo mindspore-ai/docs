@@ -1,28 +1,5 @@
 # Python源码构造网络约束
 
-<!-- TOC -->
-
-- [Python源码构造网络约束](#python源码构造网络约束)
-    - [概述](#概述)
-    - [语法约束](#语法约束)
-        - [支持的Python数据类型](#支持的python数据类型)
-        - [MindSpore扩展数据类型](#mindspore扩展数据类型)
-        - [表达式类型](#表达式类型)
-        - [语句类型](#语句类型)
-        - [系统函数](#系统函数)
-        - [函数参数](#函数参数)
-        - [操作符](#操作符)
-        - [索引操作](#索引操作)
-        - [不支持的语法](#不支持的语法)
-    - [网络定义约束](#网络定义约束)
-        - [整网实例类型](#整网实例类型)
-        - [网络输入类型](#网络输入类型)
-        - [网络图优化](#网络图优化)
-        - [网络构造组件](#网络构造组件)
-        - [其他约束](#其他约束)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/docs/source_zh_cn/constraints_on_network_construction.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
@@ -40,7 +17,7 @@
 
 ### 表达式类型
 
-| 操作名          | 具体操作 
+| 操作名          | 具体操作
 | :-----------    |:--------
 | 一元操作符      |`+`、`-`、`not`，其中`+`操作符只支持标量。
 | 数学表达式      |`+`、`-`、`*`、`/`、`%`、`**`、`//`
@@ -117,7 +94,7 @@
       - 包含`Tensor`的`Tuple`需满足下面条件：
         每个`Tensor`的`shape`一样；
         `(len(Tuple),) + Tensor.shape`等于或者可广播为`index.shape + tensor_x.shape[1:]`。
-      
+
 - None常量索引：index为`None`
   - 取值：`tensor_x[None]`，结果与numpy保持一致。
   - 赋值：暂不支持。
@@ -125,7 +102,7 @@
   - tuple元素为slice:
     - 取值：例如`tensor_x[::, :4, 3:0:-1]`。
     - 赋值：例如`tensor_x[::, :4, 3:0:-1]=u`。
-  - tuple元素为Number: 
+  - tuple元素为Number:
     - 取值：例如`tensor_x[2,1]`。
     - 赋值：例如`tensor_x[1,4]=u`。
   - tuple元素为slice和ellipsis混合情况:
@@ -137,7 +114,7 @@
 
 ### 不支持的语法
 
-目前在网络构造函数里面暂不支持以下语法： 
+目前在网络构造函数里面暂不支持以下语法：
  `raise`、 `yield`、 `async for`、 `with`、 `async with`、 `assert`、 `import`、 `await`。
 
 ## 网络定义约束

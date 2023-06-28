@@ -1,25 +1,5 @@
 # 自然语言处理应用
 
-<!-- TOC -->
-
-- [自然语言处理应用](#自然语言处理应用)
-    - [概述](#概述)
-    - [准备及设计](#准备及设计)
-        - [下载数据集](#下载数据集)
-        - [确定评价标准](#确定评价标准)
-        - [确定网络及流程](#确定网络及流程)
-    - [实现阶段](#实现阶段)
-        - [导入需要的库文件](#导入需要的库文件)
-        - [配置环境信息](#配置环境信息)
-        - [预处理数据集](#预处理数据集)
-        - [定义网络](#定义网络)
-        - [定义优化器及损失函数](#定义优化器及损失函数)
-        - [训练并保存模型](#训练并保存模型)
-        - [模型验证](#模型验证)
-    - [实验结果](#实验结果)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/advanced_use/nlp_application.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
@@ -51,9 +31,9 @@ $垂直极性词 = 通用极性词 + 领域特有极性词$
 
 以下是负面影评（Negative）和正面影评（Positive）的案例。
 
-| Review  | Label  | 
+| Review  | Label  |
 |---|---|
-| "Quitting" may be as much about exiting a pre-ordained identity as about drug withdrawal. As a rural guy coming to Beijing, class and success must have struck this young artist face on as an appeal to separate from his roots and far surpass his peasant parents' acting success. Troubles arise, however, when the new man is too new, when it demands too big a departure from family, history, nature, and personal identity. The ensuing splits, and confusion between the imaginary and the real and the dissonance between the ordinary and the heroic are the stuff of a gut check on the one hand or a complete escape from self on the other.  |  Negative |  
+| "Quitting" may be as much about exiting a pre-ordained identity as about drug withdrawal. As a rural guy coming to Beijing, class and success must have struck this young artist face on as an appeal to separate from his roots and far surpass his peasant parents' acting success. Troubles arise, however, when the new man is too new, when it demands too big a departure from family, history, nature, and personal identity. The ensuing splits, and confusion between the imaginary and the real and the dissonance between the ordinary and the heroic are the stuff of a gut check on the one hand or a complete escape from self on the other.  |  Negative |
 | This movie is amazing because the fact that the real people portray themselves and their real life experience and do such a good job it's like they're almost living the past over again. Jia Hongsheng plays himself an actor who quit everything except music and drugs struggling with depression and searching for the meaning of life while being angry at everyone especially the people who care for him most.  | Positive  |
 
 同时，我们要下载GloVe文件，并在文件开头处添加新的一行，意思是总共读取400000个单词，每个单词用300纬度的词向量表示。
@@ -70,7 +50,7 @@ $精度（Accuracy）= 分类正确的样本数目 / 总样本数目$
 
 $精准度（Precision）= 真阳性样本数目 / 所有预测类别为阳性的样本数目$
 
-$召回率（Recall）= 真阳性样本数目 / 所有真实类别为阳性的样本数目$ 
+$召回率（Recall）= 真阳性样本数目 / 所有真实类别为阳性的样本数目$
 
 $F1分数 = (2 * Precision * Recall) / (Precision + Recall)$
 
@@ -134,17 +114,17 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
     # Add a new line '400000 300' at the beginning of 'glove.6B.300d.txt' with '40000' for total words and '300' for vector length
     parser.add_argument('--glove_path', type=str, default="./glove",
                         help='path where the GloVe is store')
-    # Specify the path to save preprocessed data                
+    # Specify the path to save preprocessed data
     parser.add_argument('--preprocess_path', type=str, default="./preprocess",
                         help='path where the pre-process data is store')
-    # Specify the path to save the CheckPoint file                    
+    # Specify the path to save the CheckPoint file
     parser.add_argument('--ckpt_path', type=str, default="./ckpt", help='if mode is test, must provide\
                         path where the trained ckpt file')
     args = parser.parse_args()
     ```
 
 2. 实现代码前，需要配置必要的信息，包括环境信息、执行的模式、后端信息及硬件信息。
-   
+
     ```python
     context.set_context(
         mode=context.GRAPH_MODE,
@@ -422,8 +402,8 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
             encoding = self.concat((output[0], output[1]))
             outputs = self.decoder(encoding)
             return outputs
-    
-    
+
+
     embedding_table = np.loadtxt(os.path.join(args.preprocess_path, "weight.txt")).astype(np.float32)
     network = SentimentNet(vocab_size=embedding_table.shape[0],
                     embed_size=cfg.embed_size,
@@ -499,9 +479,9 @@ print("============== Accuracy:{} ==============".format(acc))
     epoch: 10 step: 390 , loss is 0.22616856
     epoch: 10 step: 390 , loss is 0.24914627
     ```
-    
+
 2. 查看保存的CheckPoint文件。
-   
+
    训练过程中保存了CheckPoint文件，即模型文件，我们可以查看文件保存的路径下的所有保存文件。
 
     ```shell

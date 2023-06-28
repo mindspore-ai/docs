@@ -1,26 +1,10 @@
 # Data Processing and Augmentation
 
-<!-- TOC -->
-
-- [Data Processing and Augmentation](#data-processing-and-augmentation)
-    - [Overview](#overview)
-    - [Data Processing Operations Supported by Mindspore](#data-processing-operations-supported-by-mindspore)
-        - [repeat](#repeat)
-        - [batch](#batch)
-        - [shuffle](#shuffle)
-        - [map](#map)
-        - [zip](#zip)
-    - [Data Augmentation](#data-augmentation)
-        - [Using the `c_transforms` Module](#using-the-c_transforms-module)
-        - [Using the `py_transforms` Module](#using-the-py_transforms-module)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_en/use/data_preparation/data_processing_and_augmentation.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## Overview
 
-Data is the basis of deep learning. Data input plays an important role in the deep neural network training. Therefore, after the original dataset is obtained and before data is loaded and trained, data processing or augmentation is often required due to data size and performance restrictions, to obtain optimized data input.  
+Data is the basis of deep learning. Data input plays an important role in the deep neural network training. Therefore, after the original dataset is obtained and before data is loaded and trained, data processing or augmentation is often required due to data size and performance restrictions, to obtain optimized data input.
 MindSpore provides users with data processing and augmentation functions.
 > Essentially, data augmentation is implemented through the data processing operation `map`. Yet data augmentation is described separately due to its diversified transform operations.
 
@@ -48,10 +32,10 @@ import mindspore.dataset as ds
 
 ds1 = ds.MnistDataset(MNIST_DATASET_PATH, MNIST_SCHEMA)  # Create MNIST dataset.
 
-ds1 = ds1.shuffle(buffer_size=10000) 
+ds1 = ds1.shuffle(buffer_size=10000)
 ds1 = ds1.batch(32, drop_remainder=True)
 ds1 = ds1.repeat(10)
-``` 
+```
 In the preceding operations, data is shuffled, every 32 data records are combined into a batch, and then the dataset is repeated for 10 times.
 
 The following describes how to construct a simple dataset `ds1` and perform data processing operations on it.
@@ -200,7 +184,7 @@ After shuffle:
 ```
 ### map
 The map operation is used to process data. For example, convert the dataset of color images into the dataset of grayscale images. You can flexibly perform the operation as required.
-MindSpore provides the `map()` function to map datasets. You can apply the provided functions or operators to the specified column data.  
+MindSpore provides the `map()` function to map datasets. You can apply the provided functions or operators to the specified column data.
 You can customize the function or use `c_transforms` or `py_transforms` for data augmentation.
 > For details about data augmentation operations, see Data Augmentation section.
 
@@ -229,7 +213,7 @@ The code output is as follows. Data values in each row of the dataset `ds2` is m
 ```
 ### zip
 MindSpore provides the `zip()` function to combine multiple datasets into one dataset.
-> If the column names in the two datasets are the same, the two datasets are not combined. Therefore, pay attention to column names.  
+> If the column names in the two datasets are the same, the two datasets are not combined. Therefore, pay attention to column names.
 > If the number of rows in the two datasets is different, the number of rows after combination is the same as the smaller number.
 ```python
 def zip(self, datasets):
@@ -242,7 +226,7 @@ def zip(self, datasets):
 
     ds2 = ds.GeneratorDataset(generator_func2, ["data2"])
     ```
-   
+
 2. Use `zip()` to combine the `data1` column of the dataset `ds1`and the `data2` column of the dataset `ds2` into the dataset `ds3`.
     ```python
     ds3 = ds.zip((ds1, ds2))
@@ -258,15 +242,15 @@ def zip(self, datasets):
     {'data1': array([4, 5, 6], dtype=int64), 'data2': array([1, 2, 3], dtype=int64)}
     ```
 ## Data Augmentation
-During image training, especially when the dataset size is relatively small, you can preprocess images by using a series of data augmentation operations, thereby enriching the datasets.  
+During image training, especially when the dataset size is relatively small, you can preprocess images by using a series of data augmentation operations, thereby enriching the datasets.
 MindSpore provides the `c_transforms` and `py_transforms` module functions for users to perform data augmentation. You can also customize functions or operators to perform data augmentation. The following table describes the two modules provided by MindSpore. For details, see the related description in the API reference document.
 
 | Module        | Implementation                                                   | Description |
-| ---------------| ------------------------------------------------------ | --- |  
+| ---------------| ------------------------------------------------------ | --- |
 | `c_transforms`  | C++-based [OpenCV](https://opencv.org/) implementation           | The performance is high.  |
 | `py_transforms` | Python-based [PIL](https://pypi.org/project/Pillow/) implementation | This module provides multiple image augmentation functions and the method for converting between PIL images and NumPy arrays. |
 
-For users who would like to use Python PIL in image learning tasks, the `py_transforms` module is a good tool for image augmentation. You can use Python PIL to customize extensions.  
+For users who would like to use Python PIL in image learning tasks, the `py_transforms` module is a good tool for image augmentation. You can use Python PIL to customize extensions.
 Data augmentation requires the `map()` function. For details about how to use the `map()` function, see [map](#map).
 
 ### Using the `c_transforms` Module
@@ -279,7 +263,7 @@ Data augmentation requires the `map()` function. For details about how to use th
     ```
 2. Define data augmentation operators. The following uses `Resize` as an example:
     ```python
-    dataset = ds.ImageFolderDatasetV2(DATA_DIR, decode=True)  # Deocde images. 
+    dataset = ds.ImageFolderDatasetV2(DATA_DIR, decode=True)  # Deocde images.
     resize_op = transforms.Resize(size=(500,500), interpolation=Inter.LINEAR)
     dataset.map(input_columns="image", operations=resize_op)
 

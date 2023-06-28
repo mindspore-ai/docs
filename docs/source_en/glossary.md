@@ -1,14 +1,8 @@
 # Glossary
 
-<!-- TOC -->
-
-- [Glossary](#glossary)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/docs/source_en/glossary.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-|  Acronym and Abbreviation  |  Description  | 
+|  Acronym and Abbreviation  |  Description  |
 | -----    | -----    |
 |  Ascend  |  Name of Huawei Ascend series chips.  |
 |  CCE  | Cube-based Computing Engine, which is an operator development tool oriented to hardware architecture programming.  |

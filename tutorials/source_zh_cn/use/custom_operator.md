@@ -1,19 +1,5 @@
 # 自定义算子
 
-<!-- TOC -->
-
-- [自定义算子](#自定义算子)
-    - [概述](#概述)
-    - [注册算子原语](#注册算子原语)
-    - [实现TBE算子和注册算子信息](#实现tbe算子和注册算子信息)
-        - [实现TBE算子](#实现tbe算子)
-        - [注册算子信息](#注册算子信息)
-        - [示例](#示例)
-    - [使用自定义算子](#使用自定义算子)
-    - [定义算子反向传播函数](#定义算子反向传播函数)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/use/custom_operator.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
@@ -22,7 +8,7 @@
 
 添加一个自定义算子，需要完成算子原语注册、算子实现、算子信息注册三部分工作。
 
-其中：  
+其中：
 - 算子原语：定义了算子在网络中的前端接口原型，也是组成网络模型的基础单元，主要包括算子的名称、属性（可选）、输入输出名称、输出shape推理方法、输出dtype推理方法等信息。
 - 算子实现：通过TBE（Tensor Boost Engine）提供的特性语言接口，描述算子内部计算逻辑的实现。TBE提供了开发昇腾AI芯片自定义算子的能力。你可以在<https://www.huaweicloud.com/ascend/tbe>页面申请公测。
 - 算子信息：描述TBE算子的基本信息，如算子名称、支持的输入输出类型等。它是后端做算子选择和映射时的依据。
@@ -33,7 +19,7 @@
 
 每个算子的原语是一个继承于`PrimitiveWithInfer`的子类，其类型名称即是算子名称。
 
-自定义算子原语与内置算子原语的接口定义完全一致：  
+自定义算子原语与内置算子原语的接口定义完全一致：
 - 属性由构造函数`__init__()`的入参定义。本用例的算子没有属性，因此`__init__()`没有额外的入参。带属性的用例可参考MindSpore源码中的[custom add3](https://gitee.com/mindspore/mindspore/tree/r0.3/tests/st/ops/custom_ops_tbe/cus_add3.py)用例。
 - 输入输出的名称通过`init_prim_io_names()`函数定义。
 - 输出Tensor的shape推理方法在`infer_shape()`函数中定义，输出Tensor的dtype推理方法在`infer_dtype()`函数中定义。
@@ -70,7 +56,7 @@ class CusSquare(PrimitiveWithInfer):
 
 算子的计算函数主要用来封装算子的计算逻辑供主函数调用，其内部通过调用TBE的API接口组合实现算子的计算逻辑。
 
-算子的入口函数描述了编译算子的内部过程，一般分为如下几步：  
+算子的入口函数描述了编译算子的内部过程，一般分为如下几步：
 1. 准备输入的placeholder，placeholder是一个占位符，返回一个Tensor对象，表示一组输入数据。
 2. 调用计算函数，计算函数使用TBE提供的API接口描述了算子内部的计算逻辑。
 3. 调用Schedule调度模块，调度模块对算子中的数据按照调度模块的调度描述进行切分，同时指定好数据的搬运流程，确保在硬件上的执行达到最优。默认可以采用自动调度模块（`auto_schedule`）。
@@ -124,7 +110,7 @@ cus_square_op_info = TBERegOp("CusSquare") \
     .output(0, "y", False, "required", "all") \
     .dtype_format(DataType.F32_Default, DataType.F32_Default) \
     .dtype_format(DataType.F16_Default, DataType.F16_Default) \
-    .get_op_info() 
+    .get_op_info()
 
 # Binding kernel info with the kernel implementation.
 @op_info_register(cus_square_op_info)

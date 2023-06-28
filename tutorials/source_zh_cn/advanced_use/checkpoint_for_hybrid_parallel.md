@@ -2,30 +2,6 @@
 
 # 手动设置并行场景模型参数的保存和加载
 
-<!-- TOC -->
-
-- [手动设置并行场景模型参数的保存和加载](#手动设置并行场景模型参数的保存和加载)
-    - [概述](#概述)
-        - [背景](#背景)
-        - [使用场景](#使用场景)
-    - [对保存的CheckPoint文件做合并处理](#对保存的checkpoint文件做合并处理)
-        - [整体流程](#整体流程)
-        - [准备工作](#准备工作)
-            - [导入CheckPoint文件到网络](#导入checkpoint文件到网络)
-            - [获取网络中全量参数列表](#获取网络中全量参数列表)
-        - [对模型并行的参数做合并处理](#对模型并行的参数做合并处理)
-        - [保存数据生成新的CheckPoint文件](#保存数据生成新的checkpoint文件)
-    - [加载合并保存的CheckPoint文件](#加载合并保存的checkpoint文件)
-        - [整体流程](#整体流程-1)
-        - [步骤1：加载CheckPoint文件](#步骤1加载checkpoint文件)
-        - [步骤2：对模型并行参数做切分处理](#步骤2对模型并行参数做切分处理)
-        - [步骤3：将修改后的参数数据加载到网络中](#步骤3将修改后的参数数据加载到网络中)
-    - [示例](#示例)
-        - [示例场景说明](#示例场景说明)
-        - [示例代码](#示例代码)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/advanced_use/checkpoint_for_hybrid_parallel.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
@@ -85,7 +61,7 @@ MindSpore模型并行场景下，每个实例进程只保存有本节点对应�
 
 最后，将更新之后的参数列表，通过MindSpore提供的API保存到文件，生成新的CheckPoint文件。对应下图中的Step4。
 
-![img](./images/checkpoint_integration_process.jpg) 
+![img](./images/checkpoint_integration_process.jpg)
 
 ### 准备工作
 
@@ -94,7 +70,7 @@ MindSpore模型并行场景下，每个实例进程只保存有本节点对应�
 定义网络，并调用`load_checkpoint`、`load_param_into_net`接口，将CheckPoint文件导入网络。
 ```
 param_dict = load_checkpoint(./CKP_1-4_32.ckpt)  # checkpoint file name
-net = Net() 
+net = Net()
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
 net = TrainOneStepCell(net, opt)
 load_param_into_net(net, param_dict)
@@ -114,7 +90,7 @@ load_param_into_net(net, param_dict)
 ```
 param_dict = {}
 for _, param in net.parameters_and_names():
-    param_dict[param.name] = param 
+    param_dict[param.name] = param
 ```
 
 ### 对模型并行的参数做合并处理
@@ -130,7 +106,7 @@ for _, param in net.parameters_and_names():
 | ------------- | ------------ | ------------- | ------------- |
 | Value  [1, 2] | Value [3, 4] | Value  [5, 6] | Value  [7, 8] |
 
-1. 针对涉及模型并行的参数，获取本节点上的数据值。 
+1. 针对涉及模型并行的参数，获取本节点上的数据值。
 
     ```
     param_data = param_dict[“model_parallel_weight”]
@@ -143,7 +119,7 @@ for _, param in net.parameters_and_names():
     ```
     from mindspore.nn.cell import Cell
     from mindspore.ops.operations.comm_ops import AllGather
-    
+
     class AllGatherCell(Cell):
         """
         Allgather cell, used in model parallel scenario.
@@ -152,14 +128,14 @@ for _, param in net.parameters_and_names():
         def __init__(self):
             super(AllGatherCell, self).__init__(auto_prefix=False)
             self.allgather = AllGather()
-    
+
         def construct(self, x):
             x = self.allgather(x)
             return x
-            
+
     allgather_net = AllGatherCell()
-    param_data = allgather_net(param_data) 
-    param_data_moments = allgather_net(param_data_moments) 
+    param_data = allgather_net(param_data)
+    param_data_moments = allgather_net(param_data_moments)
     ```
 
     ​得到的数据param_data为每卡上的数据在维度0上的合并，数据值为 [[1, 2], [3, 4], [5, 6], [7, 8]]，shape为[4, 2]。
@@ -174,19 +150,19 @@ for _, param in net.parameters_and_names():
 
     得到结果param_data为：
 
-        slice_list[0]  --- [1,  2]     device0上的切片数据    
-        slice_list[1]  --- [3,  4]     device1上的切片数据    
-        slice_list[2]  --- [5,  6]     device2上的切片数据    
-        slice_list[3]  --- [7,  8]     device3上的切片数据    
+        slice_list[0]  --- [1,  2]     device0上的切片数据
+        slice_list[1]  --- [3,  4]     device1上的切片数据
+        slice_list[2]  --- [5,  6]     device2上的切片数据
+        slice_list[3]  --- [7,  8]     device3上的切片数据
 
-4. 按照实际情况，重新组装数据。 
+4. 按照实际情况，重新组装数据。
 
     如下代码，先分别对切片1和切片2，切片3和切片4按列拼接，之后对前两步得到的数据按行拼接。
     ```
     slice_line1 = np.concatenate((slice_list[0], slice_list[1]), axis=1)   # result [1,2,3,4]
     slice_line2 = np.concatenate((slice_list[2], slice_list[3]), axis=1)   # result [5,6,7,8]
     whole_data = np.concatenate((slice_line1, slice_line2), axis=0)        # result [[1, 2, 3, 4], [5, 6, 7, 8]]
-    
+
     slice_moments_line1 = np.concatenate((slice_lis_moments[0], slice_lis_moments[1]), axis=1)
     slice_moments_line2 = np.concatenate((slice_lis_moments[2], slice_lis_moments[3]), axis=1)
     whole_moments_data = np.concatenate((slice_moments_line1, slice_moments_line2), axis=0)
@@ -195,7 +171,7 @@ for _, param in net.parameters_and_names():
 5. 对模型参数赋值。
 
     ```
-    param_data = Tensor(whole_data) 
+    param_data = Tensor(whole_data)
     param_data_moments = Tensor(whole_moments_data)
     ```
 
@@ -205,18 +181,18 @@ for _, param in net.parameters_and_names():
 
 ### 保存数据生成新的CheckPoint文件
 
-1. 将param_dict转换为list类型数据。 
+1. 将param_dict转换为list类型数据。
 
     ```
     param_list = []
     for (key, value) in param_dict.items():
-        each_param = {}                                                   
-        each_param["name"] = key                                          
-        if isinstance(value.data, Tensor):                                      
-            param_data = value.data                                         
-        else:                                                            
-            param_data = Tensor(value.data)                                                       
-        each_param["data"] = param_data                                                       
+        each_param = {}
+        each_param["name"] = key
+        if isinstance(value.data, Tensor):
+            param_data = value.data
+        else:
+            param_data = Tensor(value.data)
+        each_param["data"] = param_data
         param_list.append(each_param）
     ```
 
@@ -268,12 +244,12 @@ param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
 
     切分后的数据情况：
 
-        slice_list[0]  --- [1, 2, 3, 4]    对应device0   
-        slice_list[1]  --- [5, 6, 7, 8]    对应device1     
+        slice_list[0]  --- [1, 2, 3, 4]    对应device0
+        slice_list[1]  --- [5, 6, 7, 8]    对应device1
 
     与slice_list类似，slice_moments_list 也被切分为两个shape为[1, 4]的Tensor。
 
-2. 在每个节点分别加载对应的数据切片。 
+2. 在每个节点分别加载对应的数据切片。
 
     获取本节点的rank_id，根据rank_id加载数据。
     ```
@@ -281,13 +257,13 @@ param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
     tensor_slice = Tensor(slice_list[rank])
     tensor_slice_moments = Tensor(slice_moments_list[rank])
     ```
-    - `get_rank`：获取当前设备在集群中的ID。 
+    - `get_rank`：获取当前设备在集群中的ID。
 
-3. 修改模型参数数据值。 
+3. 修改模型参数数据值。
 
     ```
-    new_param.set_parameter_data(tensor_slice) 
-    new_param_moments.set_parameter_data(tensor_slice_moments) 
+    new_param.set_parameter_data(tensor_slice)
+    new_param_moments.set_parameter_data(tensor_slice_moments)
     ```
 
     - `set_parameter_data`：设置模型参数的值，接口参数类型为Tensor 或number。
@@ -296,7 +272,7 @@ param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
 
 调用`load_param_into_net`接口，将模型参数数据加载到网络中。
 ```
-net = Net() 
+net = Net()
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=parallel_net.get_parameters())
 load_param_into_net(net, param_dict)
 load_param_into_net(opt, param_dict)
@@ -325,7 +301,7 @@ load_param_into_net(opt, param_dict)
 
 1. 执行脚本对CheckPoint文件做合并处理。
 
-    脚本执行命令： 
+    脚本执行命令：
     ```
     python  ./integrate_checkpoint.py "待合并的CheckPoint文件路径&名称" "合并生成的CheckPoint文件路径&名称"
     ```
@@ -345,17 +321,17 @@ load_param_into_net(opt, param_dict)
     devid = int(os.getenv('DEVICE_ID'))
     context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', save_graphs=True, device_id=devid)
     init()
-    
+
     class Net(nn.Cell):
         def __init__(self,weight_init):
             super(Net, self).__init__()
             self.weight = Parameter(Tensor(weight_init),  "model_parallel_weight", layerwise_parallel=True)
             self.fc = P.MatMul(transpose_b=True)
-    
+
         def construct(self, x):
             x = self.fc(x, self.weight1)
             return x
-    
+
     class AllGatherNet(Cell):
         """
         Allgather cell, used in model parallel scenario.
@@ -364,24 +340,24 @@ load_param_into_net(opt, param_dict)
         def __init__(self):
             super().__init__()
             self.allgather = AllGather()
-    
+
         def construct(self, x):
             x = self.allgather(x)
             return x
-    
+
     def integrate_ckpt_file(old_ckpt_file, new_ckpt_file):
         weight = np.ones([2, 8]).astype(np.float32)
         net = Net(weight)
         opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
         net = TrainOneStepCell(net, opt)
-     
+
         # load CheckPoint into net
         param_dict = load_checkpoint(old_ckpt_file)
-        load_param_into_net(net, param_dict)  
+        load_param_into_net(net, param_dict)
         param_dict = {}
         for _, param in net.parameters_and_names():
            param_dict[param.name] = param
-    
+
         for paramname in ["model_parallel_weight", "moments.model_parallel_weight"]:
             # get layer wise model parallel parameter
             layerwise_param = param_dict[paramname]
@@ -393,7 +369,7 @@ load_param_into_net(opt, param_dict)
             allgather_net = get_allgather_cell()
             param_data = allgather_net(param_data)
             layerwise_param.set_parameter_data(param_data)
-    
+
         # convert param_dict to list type data
         param_list = []
         for (key, value) in param_dict.items():
@@ -403,14 +379,14 @@ load_param_into_net(opt, param_dict)
                 param_data = value.data
             else:
                 param_data = Tensor(value.data)
-            each_param["data"] = param_data 
-            param_list.append(each_param) 
-    
+            each_param["data"] = param_data
+            param_list.append(each_param)
+
         # call the API to generate a new CheckPoint file
         save_checkpoint(param_list, new_ckpt_file)
-    
+
         return
-    
+
     if __name__ == "__main__":
         try:
             old_ckpt_file = sys.argv[1]
@@ -433,7 +409,7 @@ load_param_into_net(opt, param_dict)
     ```
     device0：
     name is model_parallel_weight
-    value is 
+    value is
     [[0.87537426 1.0448935 0.86736983 0.8836905 0.77354026 0.69588304 0.9183654 0.7792076]
      [0.87224025 0.8726848 0.771446 0.81967723 0.88974726 0.7988162 0.72919345 0.7677011]]
     name is learning_rate
@@ -444,10 +420,10 @@ load_param_into_net(opt, param_dict)
     value is
     [[0.2567724 -0.07485991 0.282002 0.2456022 0.454939 0.619168 0.18964815 0.45714882]
      [0.25946522 0.24344791 0.45677605 0.3611395 0.23378398 0.41439137 0.5312468 0.4696194]]
-      
+
     device1：
     name is model_parallel_weight
-    value is 
+    value is
     [[0.9210751 0.9050457 0.9827775 0.920396 0.9240526 0.9750359 1.0275179 1.0819869]
      [0.73605865 0.84631145 0.9746683 0.9386582 0.82902765 0.83565056 0.9702136 1.0514659]]
     name is learning_rate
@@ -457,11 +433,11 @@ load_param_into_net(opt, param_dict)
     name is moments.model_weight
     value is
     [[0.2417504 0.28193963 0.06713893 0.21510397 0.23380603 0.11424308 0.0218009 -0.11969765]
-     [0.45955992 0.22664294 0.01990281 0.0731914 0.27125207 0.27298513 -0.01716102 -0.15327111]] 
-      
+     [0.45955992 0.22664294 0.01990281 0.0731914 0.27125207 0.27298513 -0.01716102 -0.15327111]]
+
     device2：
     name is model_parallel_weight
-    value is 
+    value is
     [[1.0108461 0.8689414  0.91719437 0.8805056 0.7994629 0.8999671 0.7585804 1.0287056 ]
      [0.90653455 0.60146594 0.7206475 0.8306303 0.8364681 0.89625114 0.7354735 0.8447268]]
     name is learning_rate
@@ -469,10 +445,10 @@ load_param_into_net(opt, param_dict)
     name is momentum
     value is [0.9]
     name is moments.model_weight
-    value is 
+    value is
     [[0.03440702 0.41419312 0.24817684 0.30765256 0.48516113 0.24904746 0.57791173 0.00955463]
      [0.13458519 0.6690533 0.49259356 0.28319967 0.25951773 0.16777472 0.45696738 0.24933104]]
-    
+
     device3：
     name is model_parallel_weight
     value is
@@ -483,7 +459,7 @@ load_param_into_net(opt, param_dict)
     name is momentum
     value is [0.9]
     name is moments.model_parallel_weight
-    value is 
+    value is
     [[0.14152306 0.5040985 0.24455397 0.10907605 0.11319532 0.19538902 0.01208619 0.40430856]
     [-0.7773164 -0.47611716 -0.6041424 -0.6144473 -0.2651842 -0.31909415 -0.4510405 -0.12860501]]
     ```
@@ -492,7 +468,7 @@ load_param_into_net(opt, param_dict)
 
     ```
     name is model_parallel_weight
-    value is 
+    value is
     [[1.1138763 1.0962057 1.3516843 1.0812817 1.1579804 1.1078343 1.0906502 1.3207073]
      [0.916671 1.0781671 1.0368758 0.9680898 1.1735439 1.0628364 0.9960786 1.0135143]
      [0.8828271 0.7963984 0.90675324 0.9830291 0.89010954 0.897052 0.7890109 0.89784735]
@@ -506,7 +482,7 @@ load_param_into_net(opt, param_dict)
     name is momentum
     value is [0.9]
     name is moments.model_parallel_weight
-    value is 
+    value is
     [[0.2567724 -0.07485991 0.282002 0.2456022 0.454939 0.619168 0.18964815 0.45714882]
      [0.25946522 0.24344791 0.45677605 0.3611395 0.23378398 0.41439137 0.5312468 0.4696194 ]
      [0.2417504 0.28193963 0.06713893 0.21510397 0.23380603 0.11424308 0.0218009 -0.11969765]
@@ -529,24 +505,24 @@ load_param_into_net(opt, param_dict)
     from mindspore import Tensor, Parameter
     from mindspore.ops import operations as P
     from mindspore.train.serialization import load_checkpoint, load_param_into_net
-    
+
     from mindspore.communication.management import init
     devid = int(os.getenv('DEVICE_ID'))
     context.set_context(mode=context.GRAPH_MODE,device_target='Ascend',save_graphs=True, device_id=devid)
     init()
-    
+
     class Net(nn.Cell):
         def __init__(self,weight_init):
             super(Net, self).__init__()
             self.weight = Parameter(Tensor(weight_init), "model_parallel_weight", layerwise_parallel=True)
             self.fc = P.MatMul(transpose_b=True)
-    
+
         def construct(self, x):
             x = self.fc(x, self.weight1)
             return x
     def train_mindspore_impl_fc(input, label, ckpt_file):
         param_dict = load_checkpoint(ckpt_file)
-    
+
         for paramname in ["model_parallel_weight", "moments.model_parallel_weight"]:
             # get layer wise model parallel parameter
             new_param = parameter_dict[paramname]
@@ -557,16 +533,16 @@ load_param_into_net(opt, param_dict)
             tensor_slice = Tensor(slice_list[rank])
             # modify model parameter data values
             new_param.set_parameter_data(tensor_slice)
-        
+
             # load the modified parameter data into the network
             weight = np.ones([4, 8]).astype(np.float32)
             net = Net(weight)
             load_param_into_net(net, param_dict)
             opt = Momentum(learning_rate=0.01, momentum=0.9, params=parallel_net.get_parameters())
             load_param_into_net(opt, param_dict)
-            # train code 
+            # train code
             ...
-        
+
         if __name__ == "__main__":
             input = np.random.random((4, 8)).astype(np.float32)
             print("mean = ", np.mean(input,axis=1, keepdims=True))
@@ -579,7 +555,7 @@ load_param_into_net(opt, param_dict)
     ```
     device0：
     name is model_parallel_weight
-    value is 
+    value is
     [[0.87537426 1.0448935 0.86736983 0.8836905 0.77354026 0.69588304 0.9183654 0.7792076]
     [0.87224025 0.8726848 0.771446 0.81967723 0.88974726 0.7988162 0.72919345 0.7677011]
     [0.8828271 0.7963984 0.90675324 0.9830291 0.89010954 0.897052 0.7890109 0.89784735]
@@ -597,7 +573,7 @@ load_param_into_net(opt, param_dict)
 
     device1：
     name is model_parallel_weight
-    value is 
+    value is
     [[1.0053468 0.98402303 0.99762845 0.97587246 1.0259694 1.0055295 0.99420834 0.9496847]
     [1.0851002 1.0295962 1.0999886 1.0958165 0.9765328 1.146529 1.0970603 1.1388365]
     [0.7147005 0.9168278 0.80178416 0.6258351 0.8413766 0.5909515 0.696347 0.71359116]
@@ -611,5 +587,5 @@ load_param_into_net(opt, param_dict)
     [[0.03440702 0.41419312 0.24817684 0.30765256 0.48516113 0.24904746 0.57791173 0.00955463]
     [0.13458519 0.6690533 0.49259356 0.28319967 0.25951773 0.16777472 0.45696738  0.24933104]
     [0.14152306 0.5040985 0.24455397 0.10907605 0.11319532 0.19538902 0.01208619  0.40430856]
-    [-0.7773164 -0.47611716 -0.6041424 -0.6144473 -0.2651842 -0.31909415 -0.4510405 -0.12860501]] 
+    [-0.7773164 -0.47611716 -0.6041424 -0.6144473 -0.2651842 -0.31909415 -0.4510405 -0.12860501]]
     ```

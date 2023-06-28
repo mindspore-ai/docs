@@ -1,16 +1,5 @@
 # On-Device Inference
 
-<!-- TOC -->
-
-- [On-Device Inference](#on-device-inference)
-    - [Overview](#overview)
-    - [Compilation Method](#compilation-method)
-    - [Use of On-Device Inference](#use-of-on-device-inference)
-        - [Generating an On-Device Model File](#generating-an-on-device-model-file)
-        - [Implementing On-Device Inference](#implementing-on-device-inference)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_en/advanced_use/on_device_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
@@ -40,9 +29,9 @@ The environment requirements are as follows:
   - numpy >= 1.16
   - decorator
   - scipy
-    
+
     > numpy, decorator and scipy can be installed through pip.  The reference command is as following.
-    
+
     ```bash
     pip3 install numpy==1.16 decorator scipy
     ```
@@ -117,7 +106,7 @@ class LeNet(nn.Cell):
         self.fc1 = nn.Dense(400, 120)
         self.fc2 = nn.Dense(120, 84)
         self.fc3 = nn.Dense(84, 10)
-        
+
     def construct(self, input_x):
         output = self.conv1(input_x)
         output = self.relu(output)
@@ -132,7 +121,7 @@ class LeNet(nn.Cell):
         output = self.relu(output)
         output = self.fc3(output)
         return output
-        
+
 if __name__ == '__main__':
     context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
     seed = 0
@@ -202,7 +191,7 @@ Figure 1 On-device inference sequence diagram
    // get output
    std::map<std::string, std::vector<Tensor *>> outputs = session->GetAllOutput();
    ```
-   
+
 6. Call the Getdata() API to get the output data.
    ```cpp
    // get output data
@@ -221,7 +210,7 @@ Figure 1 On-device inference sequence diagram
    for (auto &input : inputs) {
      delete input;
    }
-   inputs.clear(); 
+   inputs.clear();
    for (auto &output : outputs) {
      for (auto &outputTensor : output.second) {
        delete outputTensor;
@@ -289,7 +278,7 @@ int main() {
 
   // get output
   auto outputs = session->GetAllOutput();
-    
+
   // get output data
   float *data = nullptr;
     for (auto output : outputs) {

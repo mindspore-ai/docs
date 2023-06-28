@@ -1,16 +1,5 @@
 # 使用PyNative模式调试
 
-<!-- TOC -->
-
-- [使用PyNative模式调试](#使用pynative模式调试)
-    - [概述](#概述)
-    - [执行单算子](#执行单算子)
-    - [执行普通函数](#执行普通函数)
-        - [提升PyNative性能](#提升pynative性能)
-    - [调试网络训练模型](#调试网络训练模型)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/advanced_use/debugging_in_pynative_mode.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
@@ -307,7 +296,7 @@ class LeNet5(nn.Cell):
     Lenet network
     Args:
         num_class (int): Num classes. Default: 10.
-        
+
     Returns:
         Tensor, output tensor
 
@@ -341,8 +330,8 @@ class LeNet5(nn.Cell):
         x = self.relu(x)
         x = self.fc3(x)
         return x
- 
-    
+
+
 class GradWrap(nn.Cell):
     """ GradWrap definition """
     def __init__(self, network):

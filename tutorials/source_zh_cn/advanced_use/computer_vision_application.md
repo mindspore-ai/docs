@@ -1,21 +1,5 @@
 # 计算机视觉应用
 
-<!-- TOC -->
-
-- [计算机视觉应用](#计算机视觉应用)
-    - [概述](#概述)
-    - [图像分类](#图像分类)
-    - [任务描述及准备](#任务描述及准备)
-    - [下载CIFAR-10数据集](#下载cifar-10数据集)
-        - [数据预加载和预处理](#数据预加载和预处理)
-        - [定义卷积神经网络](#定义卷积神经网络)
-        - [定义损失函数和优化器](#定义损失函数和优化器)
-        - [调用`Model`高阶API进行训练和保存模型文件](#调用model高阶api进行训练和保存模型文件)
-        - [加载保存的模型，并进行验证](#加载保存的模型并进行验证)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/advanced_use/computer_vision_application.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

@@ -1,26 +1,13 @@
 # Customized Debugging Information
 
 
-<!-- TOC -->
-
-- [Customized Debugging Information](#customized-debugging-information)
-    - [Overview](#overview)
-    - [Introduction to Callback](#introduction-to-callback)
-        - [Callback Capabilities of MindSpore](#callback-capabilities-of-mindspore)
-        - [Custom Callback](#custom-callback)
-    - [MindSpore Metrics](#mindspore-metrics)
-    - [MindSpore Print Operator](#mindspore-print-operator)
-    - [Log-related Environment Variables and Configurations](#log-related-environment-variables-and-configurations)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_en/advanced_use/customized_debugging_information.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
 This section describes how to use the customized capabilities provided by MindSpore, such as callback, metrics, and log printing, to help you quickly debug the training network.
 
-## Introduction to Callback 
+## Introduction to Callback
 
 Callback here is not a function but a class. You can use callback to observe the internal status and related information of the network during training or perform specific actions in a specific period.
 For example, you can monitor the loss, save model parameters, dynamically adjust parameters, and terminate training tasks in advance.
@@ -35,7 +22,7 @@ MindSpore provides the callback capabilities to allow users to insert customized
 Usage: Transfer the callback object in the model.train method. The callback object can be a list, for example:
 
 ```python
-ckpt_cb = ModelCheckpoint()                                                            
+ckpt_cb = ModelCheckpoint()
 loss_cb = LossMonitor()
 summary_cb = SummaryStep()
 model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
@@ -54,7 +41,7 @@ The callback base class is defined as follows:
 
 ```python
 class Callback():
-    """Callback base class""" 
+    """Callback base class"""
     def begin(self, run_context):
         """Called once before the network executing."""
         pass
@@ -64,11 +51,11 @@ class Callback():
         pass
 
     def epoch_end(self, run_context):
-        """Called after each epoch finished.""" 
+        """Called after each epoch finished."""
         pass
 
     def step_begin(self, run_context):
-        """Called before each epoch beginning.""" 
+        """Called before each epoch beginning."""
         pass
 
     def step_end(self, run_context):
@@ -106,7 +93,7 @@ class StopAtTime(Callback):
     def begin(self, run_context):
         cb_params = run_context.original_args()
         cb_params.init_time = time.time()
-    
+
     def step_end(self, run_context):
         cb_params = run_context.original_args()
         epoch_num = cb_params.cur_epoch_num
@@ -184,8 +171,8 @@ The output is as follows:
 Accuracy is 0.6667
 ```
 ## MindSpore Print Operator
-MindSpore-developed print operator is used to print the tensors or character strings input by users. Multiple strings, multiple tensors, and a combination of tensors and strings are supported, which are separated by comma (,). 
-The use method of MindSpore print operator is the same that of other operators. You need to assert MindSpore print operator in `__init__`() and invoke using `construct()`. The following is an example. 
+MindSpore-developed print operator is used to print the tensors or character strings input by users. Multiple strings, multiple tensors, and a combination of tensors and strings are supported, which are separated by comma (,).
+The use method of MindSpore print operator is the same that of other operators. You need to assert MindSpore print operator in `__init__`() and invoke using `construct()`. The following is an example.
 ```python
 import numpy as np
 from mindspore import Tensor

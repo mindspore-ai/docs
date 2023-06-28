@@ -1,18 +1,5 @@
 # Loading the Dataset
 
-<!-- TOC -->
-
-- [Loading the Dataset](#loading-the-dataset)
-    - [Overview](#overview)
-    - [Loading Common Datasets](#loading-common-datasets)
-    - [Loading Datasets of a Specific Data Format](#loading-datasets-of-a-specific-data-format)
-        - [MindSpore Data Format](#mindspore-data-format)
-        - [`Manifest` Data Format](#manifest-data-format)
-        - [`TFRecord` Data Format](#tfrecord-data-format)
-    - [Loading a Custom Dataset](#loading-a-custom-dataset)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_en/use/data_preparation/loading_the_datasets.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## Overview
@@ -48,13 +35,13 @@ The procedure for loading common datasets is as follows. The following describes
     for data in cifar10_dataset.create_dict_iterator():
     # In CIFAR-10 dataset, each dictionary of data has keys "image" and "label".
         print(data["image"])
-        print(data["label"]) 
+        print(data["label"])
     ```
 
 ## Loading Datasets of a Specific Data Format
 
 ### MindSpore Data Format
-MindSpore supports reading of datasets stored in MindSpore data format, that is, `MindRecord` which has better performance and features.  
+MindSpore supports reading of datasets stored in MindSpore data format, that is, `MindRecord` which has better performance and features.
 > For details about how to convert datasets to the MindSpore data format, see the [Converting the Dataset to MindSpore Data Format](converting_datasets.md).
 
 To read a dataset using the `MindDataset` object, perform the following steps:
@@ -64,7 +51,7 @@ To read a dataset using the `MindDataset` object, perform the following steps:
     CV_FILE_NAME = os.path.join(MODULE_PATH, "./imagenet.mindrecord")
     data_set = ds.MindDataset(dataset_file=CV_FILE_NAME)
     ```
-    In the preceding information:  
+    In the preceding information:
     `dataset_file`: specifies the MindRecord file, including the path and file name.
 
 2. Create a dictionary iterator and read data records through the iterator.
@@ -95,7 +82,7 @@ MindSpore can also read datasets in the `TFRecord` data format through the `TFRe
 
     dataset = ds.TFRecordDataset(DATA_DIR)
     ```
-    
+
 2. Create schema files or schema classes to set the dataset format and features.
 
     The following is an example of the schema file:
@@ -116,11 +103,11 @@ MindSpore can also read datasets in the `TFRecord` data format through the `TFRe
       }
     }
     ```
-    In the preceding information:  
-    `datasetType`: data format. TF indicates the TFRecord data format.  
-    `columns`: column information field, which is defined based on the actual column names of the dataset. In the preceding schema file example, the dataset columns are image and label.   
+    In the preceding information:
+    `datasetType`: data format. TF indicates the TFRecord data format.
+    `columns`: column information field, which is defined based on the actual column names of the dataset. In the preceding schema file example, the dataset columns are image and label.
     `numRows`: row information field, which controls the maximum number of rows for loading data. If the number of defined rows is greater than the actual number of rows, the actual number of rows prevails during loading.
-    
+
     When creating the TFRecordDataset, input the schema file path. An example is as follows:
     ```python
     DATA_DIR = ["tfrecord_dataset_path/train-0000-of-0001.tfrecord"]
@@ -128,7 +115,7 @@ MindSpore can also read datasets in the `TFRecord` data format through the `TFRe
 
     dataset = ds.TFRecordDataset(DATA_DIR, schema=SCHEMA_DIR)
     ```
-    
+
     An example of creating a schema class is as follows:
     ```python
     import mindspore.common.dtype as mstype
@@ -144,14 +131,14 @@ MindSpore can also read datasets in the `TFRecord` data format through the `TFRe
     for data in dataset.create_dict_iterator():
     # The dictionary of data has keys "image" and "label" which are consistent with columns names in its schema.
         print(data["image"])
-        print(data["label"]) 
+        print(data["label"])
     ```
 
 ## Loading a Custom Dataset
 You can load a custom dataset using the `GeneratorDataset` object.
 
 1. Define a function (for example, `Generator1D`) to generate a dataset.
-   > The custom generation function returns the objects that can be called. Each time, tuples of `numpy array` are returned as a row of data. 
+   > The custom generation function returns the objects that can be called. Each time, tuples of `numpy array` are returned as a row of data.
 
    An example of a custom function is as follows:
    ```python
@@ -160,7 +147,7 @@ You can load a custom dataset using the `GeneratorDataset` object.
        for i in range(64):
            yield (np.array([i]),)  # Notice, tuple of only one element needs following a comma at the end.
    ```
-2. Transfer `Generator1D` to `GeneratorDataset` to create a dataset and set `column` to data.  
+2. Transfer `Generator1D` to `GeneratorDataset` to create a dataset and set `column` to data.
    ```python
    dataset = ds.GeneratorDataset(Generator1D, ["data"])
    ```
@@ -173,7 +160,7 @@ You can load a custom dataset using the `GeneratorDataset` object.
       ```
 
    - Create an iterator whose return value is of the dictionary type.
-      ```python 
+      ```python
       for data in dataset.create_dict_iterator():  # each data is a dictionary
           print(data["data"])
       ```

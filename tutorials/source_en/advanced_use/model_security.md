@@ -1,20 +1,5 @@
 # Model Security
 
-<!-- TOC -->
-
-- [Model Security](#model-security)
-    - [Overview](#overview)
-    - [Creating an Target Model](#creating-an-target-model)
-        - [Importing Related Packages](#importing-related-packages)
-        - [Loading the Dataset](#loading-the-dataset)
-        - [Creating the Model](#creating-the-model)
-    - [Adversarial Attack](#adversarial-attack)
-    - [Adversarial Defense](#adversarial-defense)
-        - [Defense Implementation](#defense-implementation)
-        - [Defense Effect](#defense-effect)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_en/advanced_use/model_security.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
@@ -130,17 +115,17 @@ The LeNet model is used as an example. You can also create and train your own mo
                         kernel_size=kernel_size, stride=stride, padding=padding,
                         weight_init=weight, has_bias=False, pad_mode="valid")
 
-    
+
    def fc_with_initialize(input_channels, out_channels):
        weight = weight_variable()
        bias = weight_variable()
        return nn.Dense(input_channels, out_channels, weight, bias)
-    
-    
+
+
    def weight_variable():
        return TruncatedNormal(0.02)
-    
-    
+
+
    class LeNet5(nn.Cell):
        """
        Lenet network
@@ -155,7 +140,7 @@ The LeNet model is used as an example. You can also create and train your own mo
            self.relu = nn.ReLU()
            self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
            self.flatten = nn.Flatten()
-    
+
        def construct(self, x):
            x = self.conv1(x)
            x = self.relu(x)
@@ -179,7 +164,7 @@ The LeNet model is used as an example. You can also create and train your own mo
    net = LeNet5()
    load_dict = load_checkpoint(ckpt_name)
    load_param_into_net(net, load_dict)
-   
+
    # get test data
    data_list = "./MNIST_unzip/test"
    batch_size = 32
@@ -215,7 +200,7 @@ The LeNet model is used as an example. You can also create and train your own mo
 
    The classification accuracy reaches 98%.
 
-   ```python 
+   ```python
    prediction accuracy before attacking is : 0.9895833333333334
    ```
 

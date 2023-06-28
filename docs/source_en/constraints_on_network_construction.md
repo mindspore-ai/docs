@@ -1,28 +1,5 @@
 # Constraints on Network Construction Using Python
 
-<!-- TOC -->
-
-- [Constraints on Network Construction Using Python](#constraints-on-network-construction-using-python)
-  - [Overview](#overview)
-  - [Syntax Constraints](#syntax-constraints)
-    - [Supported Python Data Types](#supported-python-data-types)
-    - [MindSpore Extended Data Type](#mindspore-extended-data-type)
-    - [Expression Types](#expression-types)
-    - [Statement Types](#statement-types)
-    - [System Functions](#system-functions)
-    - [Function Parameters](#function-parameters)
-    - [Operators](#operators)
-    - [Index operation](#index-operation)
-    - [Unsupported Syntax](#unsupported-syntax)
-  - [Network Definition Constraints](#network-definition-constraints)
-    - [Instance Types on the Entire Network](#instance-types-on-the-entire-network)
-    - [Network Input Type](#network-input-type)
-    - [Network Graph Optimization](#network-graph-optimization)
-    - [Network Construction Components](#network-construction-components)
-    - [Other Constraints](#other-constraints)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/docs/source_en/constraints_on_network_construction.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
@@ -40,7 +17,7 @@
 
 ### Expression Types
 
-| Operation          | Description 
+| Operation          | Description
 | :-----------    |:--------
 | Unary operator      |`+`,`-`, and`not`. The operator `+` supports only scalars.
 | Binary operator      |`+`, `-`, `*`, `/`, `%`, `**` and `//`
@@ -103,7 +80,7 @@ The index operation includes `tuple` and` Tensor`. The following focuses on the 
 - Boolean constant index: index is `True`, index is `False` is not supported temporarily.
   - Value: `tensor_x[True]`.
   - Assignment: Not supported yet.
-  
+
 - Tensor index: index is `Tensor`
    - Value: `tensor_x [index]`, `index` must be `Tensor` of data type `int32` or `int64`,
      the element value range is `[0, tensor_x.shape[0])`.
@@ -142,7 +119,7 @@ In addition, tuple also supports slice value operation, `tuple_x [start: stop: s
 
 ### Unsupported Syntax
 
-Currently, the following syntax is not supported in network constructors: 
+Currently, the following syntax is not supported in network constructors:
  `raise`, `yield`, `async for`, `with`, `async with`, `assert`, `import`, and `await`.
 
 ## Network Definition Constraints

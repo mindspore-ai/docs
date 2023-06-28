@@ -1,18 +1,5 @@
 # 自定义调试信息
 
-<!-- TOC -->
-
-- [自定义调试信息](#自定义调试信息)
-    - [概述](#概述)
-    - [Callback介绍](#callback介绍)
-        - [MindSpore的Callback能力](#mindspore的callback能力)
-        - [自定义Callback](#自定义callback)
-    - [MindSpore metrics功能介绍](#mindspore-metrics功能介绍)
-    - [print算子功能介绍](#print算子功能介绍)
-    - [日志相关的环境变量和配置](#日志相关的环境变量和配置)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/advanced_use/customized_debugging_information.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
@@ -34,7 +21,7 @@ MindSpore提供Callback能力，支持用户在训练/推理的特定阶段，�
 使用方法：在model.train方法中传入Callback对象，它可以是一个Callback列表，例：
 
 ```python
-ckpt_cb = ModelCheckpoint()                                                            
+ckpt_cb = ModelCheckpoint()
 loss_cb = LossMonitor()
 summary_cb = SummaryStep()
 model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
@@ -53,7 +40,7 @@ Callback基类定义如下所示：
 
 ```python
 class Callback():
-    """Callback base class""" 
+    """Callback base class"""
     def begin(self, run_context):
         """Called once before the network executing."""
         pass
@@ -63,11 +50,11 @@ class Callback():
         pass
 
     def epoch_end(self, run_context):
-        """Called after each epoch finished.""" 
+        """Called after each epoch finished."""
         pass
 
     def step_begin(self, run_context):
-        """Called before each epoch beginning.""" 
+        """Called before each epoch beginning."""
         pass
 
     def step_end(self, run_context):
@@ -105,7 +92,7 @@ class StopAtTime(Callback):
     def begin(self, run_context):
         cb_params = run_context.original_args()
         cb_params.init_time = time.time()
-    
+
     def step_end(self, run_context):
         cb_params = run_context.original_args()
         epoch_num = cb_params.cur_epoch_num

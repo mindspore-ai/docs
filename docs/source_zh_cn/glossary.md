@@ -1,14 +1,8 @@
 # 术语
 
-<!-- TOC -->
-
-- [术语](#术语)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/docs/source_zh_cn/glossary.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-|  术语/缩略语  |  说明  | 
+|  术语/缩略语  |  说明  |
 | -----    | -----    |
 |  Ascend  |  华为昇腾系列芯片的系列名称。  |
 |  CCE  |  Cube-based Computing Engine，面向硬件架构编程的算子开发工具。  |

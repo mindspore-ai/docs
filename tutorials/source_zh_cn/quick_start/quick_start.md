@@ -1,29 +1,6 @@
 # 实现一个图片分类应用
 
 
-<!-- TOC -->
-
-- [实现一个图片分类应用](#实现一个图片分类应用)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [下载数据集](#下载数据集)
-        - [导入Python库&模块](#导入python库模块)
-        - [配置运行信息](#配置运行信息)
-    - [数据处理](#数据处理)
-        - [定义数据集及数据操作](#定义数据集及数据操作)
-    - [定义网络](#定义网络)
-    - [定义损失函数及优化器](#定义损失函数及优化器)
-        - [基本概念](#基本概念)
-        - [定义损失函数](#定义损失函数)
-        - [定义优化器](#定义优化器)
-    - [训练网络](#训练网络)
-        - [配置模型保存](#配置模型保存)
-        - [配置训练网络](#配置训练网络)
-    - [运行并查看结果](#运行并查看结果)
-    - [验证模型](#验证模型)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
@@ -45,7 +22,7 @@
 
 ## 准备环节
 
-在动手进行实践之前，确保，你已经正确安装了MindSpore。如果没有，可以通过[MindSpore安装页面](https://www.mindspore.cn/install)将MindSpore安装在你的电脑当中。  
+在动手进行实践之前，确保，你已经正确安装了MindSpore。如果没有，可以通过[MindSpore安装页面](https://www.mindspore.cn/install)将MindSpore安装在你的电脑当中。
 
 同时希望你拥有Python编码基础和概率、矩阵等基础数学知识。
 
@@ -78,8 +55,8 @@
 在使用前，需要导入需要的Python库。
 
 目前使用到`os`库，为方便理解，其他需要的库，我们在具体使用到时再说明。
- 
- 
+
+
 ```python
 import os
 ```
@@ -155,7 +132,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     rescale_op = CV.Rescale(rescale, shift)  # rescale images
     hwc2chw_op = CV.HWC2CHW()  # change shape from (height, width, channel) to (channel, height, width) to fit network.
     type_cast_op = C.TypeCast(mstype.int32)  # change data type of label to int32 to fit network
-    
+
     # apply map operations on images
     mnist_ds = mnist_ds.map(input_columns="label", operations=type_cast_op, num_parallel_workers=num_parallel_workers)
     mnist_ds = mnist_ds.map(input_columns="image", operations=resize_op, num_parallel_workers=num_parallel_workers)
@@ -173,8 +150,8 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
 
 ```
 
-其中，  
-`batch_size`：每组包含的数据个数，现设置每组包含32个数据。  
+其中，
+`batch_size`：每组包含的数据个数，现设置每组包含32个数据。
 `repeat_size`：数据集复制的数量。
 
 先进行shuffle、batch操作，再进行repeat操作，这样能保证1个epoch内数据不重复。
@@ -187,10 +164,10 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
 我们选择相对简单的LeNet网络。LeNet网络不包括输入层的情况下，共有7层：2个卷积层、2个下采样层（池化层）、3个全连接层。每层都包含不同数量的训练参数，如下图所示：
 
 ![LeNet-5](./images/LeNet_5.jpg)
-  
+
 > 更多的LeNet网络的介绍不在此赘述，希望详细了解LeNet网络，可以查询<http://yann.lecun.com/exdb/lenet/>。
 
-我们需要对全连接层以及卷积层进行初始化。 
+我们需要对全连接层以及卷积层进行初始化。
 
 `TruncatedNormal`：参数初始化方法，MindSpore支持`TruncatedNormal`、`Normal`、`Uniform`等多种参数初始化方法，具体可以参考MindSpore API的`mindspore.common.initializer`模块说明。
 
@@ -269,7 +246,7 @@ class LeNet5(nn.Cell):
 在进行定义之前，先简单介绍损失函数及优化器的概念。
 
 - 损失函数：又叫目标函数，用于衡量预测值与实际值差异的程度。深度学习通过不停地迭代来缩小损失函数的值。定义一个好的损失函数，可以有效提高模型的性能。
-- 优化器：用于最小化损失函数，从而在训练过程中改进模型。 
+- 优化器：用于最小化损失函数，从而在训练过程中改进模型。
 
 定义了损失函数后，可以得到损失函数关于权重的梯度。梯度用于指示优化器优化权重的方向，以提高模型性能。
 
@@ -323,9 +300,9 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
 if __name__ == "__main__":
     ...
     # set parameters of check point
-    config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10) 
+    config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
     # apply parameters of check point
-    ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck) 
+    ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
     ...
 ```
 
@@ -351,8 +328,8 @@ def train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb):
 
 if __name__ == "__main__":
     ...
-    
-    epoch_size = 1    
+
+    epoch_size = 1
     mnist_path = "./MNIST_Data"
     repeat_size = epoch_size
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
@@ -368,8 +345,8 @@ if __name__ == "__main__":
 ```
 python lenet.py --device_target=CPU
 ```
-其中，  
-`lenet.py`：为你根据教程编写的脚本文件。  
+其中，
+`lenet.py`：为你根据教程编写的脚本文件。
 `--device_target CPU`：指定运行硬件平台，参数为`CPU`、`GPU`或者`Ascend`，根据你的实际运行硬件平台来指定。
 
 训练过程中会打印loss值，类似下图。loss值会波动，但总体来说loss值会逐步减小，精度逐步提高。每个人运行的loss值有一定随机性，不一定完全相同。
@@ -396,7 +373,7 @@ epoch: 1 step: 271, loss is 0.7432692
 checkpoint_lenet-1_1875.ckpt
 ```
 
-其中，  
+其中，
 `checkpoint_lenet-1_1875.ckpt`：指保存的模型参数文件。名称具体含义checkpoint_{网络名称}-{第几个epoch}_{第几个step}.ckpt。
 
 ## 验证模型
@@ -427,9 +404,9 @@ if __name__ == "__main__":
     test_net(args, network, model, mnist_path)
 ```
 
-其中，   
-`load_checkpoint()`：通过该接口加载CheckPoint模型参数文件，返回一个参数字典。  
-`checkpoint_lenet-1_1875.ckpt`：之前保存的CheckPoint模型文件名称。  
+其中，
+`load_checkpoint()`：通过该接口加载CheckPoint模型参数文件，返回一个参数字典。
+`checkpoint_lenet-1_1875.ckpt`：之前保存的CheckPoint模型文件名称。
 `load_param_into_net`：通过该接口把参数加载到网络中。
 
 
@@ -437,8 +414,8 @@ if __name__ == "__main__":
 ```bash
 python lenet.py --device_target=CPU
 ```
-其中，  
-`lenet.py`：为你根据教程编写的脚本文件。  
+其中，
+`lenet.py`：为你根据教程编写的脚本文件。
 `--device_target CPU`：指定运行硬件平台，参数为`CPU`、`GPU`或者`Ascend`，根据你的实际运行硬件平台来指定。
 
 运行结果示例如下：

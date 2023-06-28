@@ -1,28 +1,5 @@
 # Training Process Visualization
 
-<!-- TOC -->
-
-- [Training Process Visualization](#training-process-visualization)
-    - [Overview](#overview)
-    - [Operation Process](#operation-process)
-    - [Preparing the Training Script](#preparing-the-training-script)
-    - [MindInsight Commands](#mindinsight-commands)
-    - [Visualization Components](#visualization-components)
-        - [Training Dashboard](#training-dashboard)
-            - [Scalar Visualization](#scalar-visualization)
-            - [Parameter Distribution Visualization](#parameter-distribution-visualization)
-            - [Computational Graph Visualization](#computational-graph-visualization)
-            - [Dataset Graph Visualization](#dataset-graph-visualization)
-            - [Image Visualization](#image-visualization)
-        - [Model Lineage](#model-lineage)
-        - [Dataset Lineage](#dataset-lineage)
-        - [Scalars Comparision](#scalars-comparision)
-        - [Performance Profiler](#performance-profiler)
-            - [Operator Performance Analysis](#operator-performance-analysis)
-  - [Specifications](#specifications)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_en/advanced_use/visualization_tutorials.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
@@ -100,7 +77,7 @@ class MyOptimizer(Optimizer):
         self.histogram_summary(self.weight_names[0], self.paramters[0])
         # Record gradient
         self.histogram_summary(self.weight_names[0] + ".gradient", grads[0])
-        
+
         ......
 
 
@@ -180,7 +157,7 @@ Use the `save_graphs` option of `context` to record the computational graph afte
 ### Collect Performance Profile Data
 
 To enable the performance profiling of neural networks, MindInsight Profiler APIs should be added into the script. At first, the MindInsight `Profiler` object need
-to be set after set context and before the network initialization. Then, at the end of the training, `Profiler.analyse()` should be called to finish profiling and generate the perforamnce 
+to be set after set context and before the network initialization. Then, at the end of the training, `Profiler.analyse()` should be called to finish profiling and generate the perforamnce
 analyse results.
 
 The sample code is as follows:
@@ -193,25 +170,25 @@ from mindspore import Model, nn, context
 def test_profiler():
     # Init context env
     context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
-    
+
     # Init Profiler
     profiler = Profiler(output_path='./data', is_detail=True, is_show_op_path=False, subgraph='all')
-    
+
     # Init hyperparameter
     epoch = 2
     # Init network and Model
     net = Net()
     loss_fn = CrossEntropyLoss()
     optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
-    model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics=None)  
+    model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics=None)
     # Prepare mindrecord_dataset for training
     train_ds = create_mindrecord_dataset_for_training()
     # Model Train
     model.train(epoch, train_ds)
-    
+
     # Profiler end
     profiler.analyse()
-``` 
+```
 
 ## MindInsight Commands
 
@@ -336,7 +313,7 @@ Figure 5 shows the function area of the parameter distribution histogram, includ
 
 - Tag selection: Select the required tags to view the corresponding histogram.
 - Vertical axis: Select any of `Step`, `Relative time`, and `Absolute time` as the data displayed on the vertical axis of the histogram.
-- Angle of view: Select either `Front` or `Top`. `Front` view refers to viewing the histogram from the front view. In this case, data between different steps is overlapped. `Top` view refers to viewing the histogram at an angle of 45 degrees. In this case, data between different steps can be presented.  
+- Angle of view: Select either `Front` or `Top`. `Front` view refers to viewing the histogram from the front view. In this case, data between different steps is overlapped. `Top` view refers to viewing the histogram at an angle of 45 degrees. In this case, data between different steps can be presented.
 
 #### Computational Graph Visualization
 
@@ -481,7 +458,7 @@ Figure 19: Statistics for Operator Types
 
 Figure 19 displays the statistics for the operator types, including:
 
-- Choose pie or bar graph to show the proportion time occupied by each operator type. The time of one operator type is calculated by accumulating the execution time of operators belong to this type.   
+- Choose pie or bar graph to show the proportion time occupied by each operator type. The time of one operator type is calculated by accumulating the execution time of operators belong to this type.
 - Display top 20 operator types with longest execution time, show the proportion and execution time (ms) of each operator type.
 
 ![op_statistics.png](./images/op_statistics.PNG)
@@ -505,7 +482,7 @@ To limit memory usage, MindInsight limits the number of tags and steps:
 - There are 50 steps at most for each parameter distribution(histogram) tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
 
 To ensure performance, MindInsight implements scalars comparision with the cache mechanism and the following restrictions:
-- The scalars comparision supports only for trainings in cache. 
+- The scalars comparision supports only for trainings in cache.
 - The maximum of 15 latest trainings (sorted by modification time) can be retained in the cache.
 - The maximum of 5 trainings can be selected for scalars comparision at the same time.
 

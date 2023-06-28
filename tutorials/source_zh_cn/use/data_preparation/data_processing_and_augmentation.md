@@ -1,26 +1,10 @@
 # 数据处理与数据增强
 
-<!-- TOC -->
-
-- [数据处理与数据增强](#数据处理与数据增强)
-    - [概述](#概述)
-    - [MindSpore支持的数据处理操作](#mindspore支持的数据处理操作)
-        - [repeat](#repeat)
-        - [batch](#batch)
-        - [shuffle](#shuffle)
-        - [map](#map)
-        - [zip](#zip)
-    - [数据增强](#数据增强)
-        - [使用`c_transforms`模块进行数据增强](#使用c_transforms模块进行数据增强)
-        - [使用`py_transforms`模块进行数据增强](#使用py_transforms模块进行数据增强)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/use/data_preparation/data_processing_and_augmentation.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 概述
 
-数据是深度学习的基础，有好的数据输入，可以对整个深度神经网络训练起到非常积极的作用。所以在获取到原始的数据集后，数据加载训练前，因为数据量、性能等等限制，往往会需要先进行数据处理或者数据增强，从而获得更加优化的数据输入。  
+数据是深度学习的基础，有好的数据输入，可以对整个深度神经网络训练起到非常积极的作用。所以在获取到原始的数据集后，数据加载训练前，因为数据量、性能等等限制，往往会需要先进行数据处理或者数据增强，从而获得更加优化的数据输入。
 同样，MindSpore也为用户提供了数据处理以及数据增强的功能。
 > 从本质上来说，数据增强是通过数据处理中的`map`（映射）进行实现，但是因为数据增强提供丰富的变换操作，所以将其单独提出进行描述。
 
@@ -48,10 +32,10 @@ import mindspore.dataset as ds
 
 ds1 = ds.MnistDataset(MNIST_DATASET_PATH, MNIST_SCHEMA)  # Create MNIST dataset.
 
-ds1 = ds1.shuffle(buffer_size=10000) 
+ds1 = ds1.shuffle(buffer_size=10000)
 ds1 = ds1.batch(32, drop_remainder=True)
 ds1 = ds1.repeat(10)
-``` 
+```
 上面操作先对数据进行混洗，再将每32条数据组成一个batch，最后将数据集重复10次。
 
 下面将构造一个简单数据集`ds1`，并对其进行数据处理操作，来介绍各类数据处理操作的详细使用。
@@ -199,7 +183,7 @@ After shuffle:
 ```
 ### map
 map（映射）即对数据进行处理，譬如将彩色图片的数据集转化为灰色图片的数据集等，应用非常灵活。
-MindSpore提供`map()`函数对数据集进行映射操作，用户可以将提供的函数或算子作用于指定的列数据。  
+MindSpore提供`map()`函数对数据集进行映射操作，用户可以将提供的函数或算子作用于指定的列数据。
 用户可以自定义函数，也可以直接使用`c_transforms`或`py_transforms`做数据增强。
 > 详细的数据增强操作，将在文后数据增强章节进行介绍。
 
@@ -228,7 +212,7 @@ for data in ds2.create_dict_iterator():
 ```
 ### zip
 MindSpore提供`zip()`函数，可将多个数据集合并成1个数据集。
-> 如果两个数据集的列名相同，则不会合并，请注意列的命名。  
+> 如果两个数据集的列名相同，则不会合并，请注意列的命名。
 > 如果两个数据集的行数不同，合并后的行数将和较小行数保持一致。
 ```python
 def zip(self, datasets):
@@ -241,7 +225,7 @@ def zip(self, datasets):
 
     ds2 = ds.GeneratorDataset(generator_func2, ["data2"])
     ```
-   
+
 2. 通过`zip()`将数据集`ds1`的`data1`列和数据集`ds2`的`data2`列合并成数据集`ds3`。
     ```python
     ds3 = ds.zip((ds1, ds2))
@@ -257,15 +241,15 @@ def zip(self, datasets):
     {'data1': array([4, 5, 6], dtype=int64), 'data2': array([1, 2, 3], dtype=int64)}
     ```
 ## 数据增强
-在图片训练中，尤其在数据集较小的情况下，用户可以通过一系列的数据增强操作对图片进行预处理，从而丰富了数据集。  
+在图片训练中，尤其在数据集较小的情况下，用户可以通过一系列的数据增强操作对图片进行预处理，从而丰富了数据集。
 MindSpore提供`c_transforms`模块以及`py_transforms`模块函数供用户进行数据增强操作，用户也可以自定义函数或者算子进行数据增强。MindSpore提供的两个模块的简要说明如下表，详细的介绍请参考API中对应模块的说明。
 
 | 模块名称        | 实现                                                   | 说明 |
-| ---------------| ------------------------------------------------------ | --- |  
+| ---------------| ------------------------------------------------------ | --- |
 | `c_transforms`  | 基于C++的[OpenCV](https://opencv.org/)实现           | 具有较高的性能。  |
 | `py_transforms` | 基于Python的[PIL](https://pypi.org/project/Pillow/)实现 | 该模块提供了多种图像增强功能，并提供了PIL Image和numpy数组之间的传输方法。 |
 
-对于喜欢在图像学习任务中使用Python PIL的用户，`py_transforms`模块是处理图像增强的好工具。用户还可以使用Python PIL自定义自己的扩展。  
+对于喜欢在图像学习任务中使用Python PIL的用户，`py_transforms`模块是处理图像增强的好工具。用户还可以使用Python PIL自定义自己的扩展。
 数据增强需要使用`map()`函数，详细`map()`函数的使用，可参考[map](#map)章节。
 
 ### 使用`c_transforms`模块进行数据增强
@@ -278,7 +262,7 @@ MindSpore提供`c_transforms`模块以及`py_transforms`模块函数供用户进
     ```
 2. 定义数据增强算子，以`Resize`为例：
     ```python
-    dataset = ds.ImageFolderDatasetV2(DATA_DIR, decode=True)  # Deocde images. 
+    dataset = ds.ImageFolderDatasetV2(DATA_DIR, decode=True)  # Deocde images.
     resize_op = transforms.Resize(size=(500,500), interpolation=Inter.LINEAR)
     dataset.map(input_columns="image", operations=resize_op)
 
