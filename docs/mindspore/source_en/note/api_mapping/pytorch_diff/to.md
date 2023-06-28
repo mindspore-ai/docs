@@ -6,6 +6,8 @@
 
 ```python
 torch.Tensor.to(dtype, non_blocking=False, copy=False, memory_format=torch.preserve_format) -> Tensor
+torch.Tensor.to(device=None, dtype=None, non_blocking=False, copy=False, memory_format=torch.preserve_format) -> Tensor
+torch.Tensor.to(other, non_blocking=False, copy=False) -> Tensor
 ```
 
 For more information, see [torch.Tensor.to](https://pytorch.org/docs/1.8.1/tensors.html?#torch.Tensor.to).
