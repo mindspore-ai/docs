@@ -33,20 +33,18 @@ class StopAtStep(ms.Callback):
         self.stop_step = stop_step
         self.profiler = ms.Profiler(start_profile=False, output_path='./data_step')
 
-    def step_begin(self, run_context):
+    def on_train_step_begin(self, run_context):
         cb_params = run_context.original_args()
         step_num = cb_params.cur_step_num
         if step_num == self.start_step:
             self.profiler.start()
 
-    def step_end(self, run_context):
+    def on_train_step_end(self, run_context):
         cb_params = run_context.original_args()
         step_num = cb_params.cur_step_num
         if step_num == self.stop_step:
             self.profiler.stop()
-
-    def end(self, run_context):
-        self.profiler.analyse()
+            self.profiler.analyse()
 
 
 class Net(nn.Cell):
