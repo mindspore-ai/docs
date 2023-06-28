@@ -2,15 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型开发` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [MindSpore算子支持](#mindspore算子支持)
-    - [mindspore.nn](#mindsporenn)
-    - [mindspore.ops.operations](#mindsporeopsoperations)
-    - [mindspore.ops.functional](#mindsporeopsfunctional)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/operator_list_ms.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## mindspore.nn

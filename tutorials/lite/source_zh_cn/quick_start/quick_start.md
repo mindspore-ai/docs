@@ -1,22 +1,5 @@
 # 实现一个图像分类应用
 
-<!-- TOC -->
-
-- [实现一个图像分类应用](#实现一个图像分类应用)
-    - [概述](#概述)
-    - [选择模型](#选择模型)
-    - [转换模型](#转换模型)
-    - [部署应用](#部署应用)
-        - [运行依赖](#运行依赖)
-        - [构建与运行](#构建与运行)
-    - [示例程序详细说明](#示例程序详细说明)
-        - [示例程序结构](#示例程序结构)
-        - [配置MindSpore Lite依赖项](#配置mindspore-lite依赖项)
-        - [下载及部署模型文件](#下载及部署模型文件)
-        - [编写端侧推理代码](#编写端侧推理代码)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

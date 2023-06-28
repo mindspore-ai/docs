@@ -1,17 +1,5 @@
 ﻿# 使用Benchmark进行基准测试
 
-<!-- TOC -->
-
-- [使用Benchmark进行基准测试](#使用benchmark进行基准测试)
-    - [概述](#概述)
-    - [环境准备](#环境准备)
-    - [使用示例](#使用示例)
-        - [性能测试](#性能测试)
-        - [精度测试](#精度测试)
-    - [参数说明](#参数说明)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_zh_cn/use/benchmark_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

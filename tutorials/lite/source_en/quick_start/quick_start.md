@@ -1,22 +1,5 @@
 ﻿# Implementing an Image Classification Application
 
-<!-- TOC -->
-
-- [Implementing an Image Classification Application](#implementing-an-image-classification-application)
-    - [Overview](#overview)
-    - [Selecting a Model](#selecting-a-model)
-    - [Converting a Model](#converting-a-model)
-    - [Deploying an Application](#deploying-an-application)
-        - [Running Dependencies](#running-dependencies)
-        - [Building and Running](#building-and-running)
-    - [Detailed Description of the Sample Program](#detailed-description-of-the-sample-program)
-        - [Sample Program Structure](#sample-program-structure)
-        - [Configuring MindSpore Lite Dependencies](#configuring-mindspore-lite-dependencies)
-        - [Downloading and Deploying a Model File](#downloading-and-deploying-a-model-file)
-        - [Compiling On-Device Inference Code](#compiling-on-device-inference-code)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_en/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

@@ -2,14 +2,6 @@
 
 `Linux` `GPU` `Inference Application` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Inference on a GPU](#inference-on-a-gpu)
-    - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file)
-    - [Inference Using an ONNX File](#inference-using-an-onnx-file)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/inference/source_en/multi_platform_inference_gpu.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 

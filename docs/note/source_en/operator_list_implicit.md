@@ -2,16 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [MindSpore Implicit Type Conversion Operator List](#mindspore-implicit-type-conversion-operator-list)
-    - [Implicit Type Conversion](#implicit-type-conversion)
-        - [conversion rules](#conversion-rules)
-        - [data types involved in conversion](#data-types-involved-in-conversion)
-        - [support ops](#support-ops)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/operator_list_implicit.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Implicit Type Conversion

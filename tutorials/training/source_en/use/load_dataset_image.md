@@ -2,18 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Loading Image Dataset](#loading-image-dataset)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-    - [Loading Dataset](#loading-dataset)
-    - [Processing Data](#processing-data)
-    - [Augmentation](#augmentation)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/use/load_dataset_image.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

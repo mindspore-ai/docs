@@ -2,18 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型导出` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [保存模型](#保存模型)
-    - [概述](#概述)
-    - [保存CheckPoint格式文件](#保存checkpoint格式文件)
-        - [CheckPoint配置策略](#checkpoint配置策略)
-    - [导出MINDIR格式文件](#导出mindir格式文件)
-    - [导出AIR格式文件](#导出air格式文件)
-    - [导出ONNX格式文件](#导出onnx格式文件)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/use/save_model.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

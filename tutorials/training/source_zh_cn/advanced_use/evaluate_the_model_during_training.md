@@ -2,17 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `初级` `中级` `高级` `模型导出` `模型训练`
 
-<!-- TOC -->
-
-- [同步训练和验证模型](#同步训练和验证模型)
-    - [概述](#概述)
-    - [定义回调函数EvalCallBack](#定义回调函数evalcallback)
-    - [定义训练网络并执行](#定义训练网络并执行)
-    - [定义函数绘制不同epoch下模型的精度](#定义函数绘制不同epoch下模型的精度)
-    - [总结](#总结)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/evaluate_the_model_during_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/evaluate_the_model_during_training.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>

@@ -2,23 +2,6 @@
 
 `Linux` `Ascend` `GPU` `静态图` `模型调试` `中级` `高级`
 
-<!-- TOC -->
-
-- [使用调试器](#使用调试器)
-    - [概述](#概述)
-    - [操作流程](#操作流程)
-    - [调试器环境准备](#调试器环境准备)
-    - [调试器页面介绍](#调试器页面介绍)
-        - [计算图](#计算图)
-        - [节点列表](#节点列表)
-        - [节点信息](#节点信息)
-        - [条件断点](#条件断点)
-        - [训练控制](#训练控制)
-    - [使用调试器进行调试](#使用调试器进行调试)
-    - [注意事项](#注意事项)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/debugger.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

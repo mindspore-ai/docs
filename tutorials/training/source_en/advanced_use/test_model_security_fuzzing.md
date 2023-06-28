@@ -1,17 +1,6 @@
 ﻿# Testing Model Security Using Fuzz Testing
 
 `Ascend` `GPU` `CPU` `Data Preparation` `Model Development` `Model Training` `Model Optimization` `Enterprise` `Expert`
-
-<!-- TOC -->
-
-- [Testing Model Security Using Fuzz Testing](#testing-model-security-using-fuzz-testing)
-    - [Overview](#overview)
-    - [Implementation](#implementation)
-        - [Importing Library Files](#importing-library-files)
-        - [Parameter Configuration](#parameter-configuration)
-        - [Fuzz Testing Application](#fuzz-testing-application)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/test_model_security_fuzzing.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview

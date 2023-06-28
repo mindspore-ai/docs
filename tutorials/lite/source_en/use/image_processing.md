@@ -1,24 +1,5 @@
 # Preprocessing Image Data
 
-<!-- TOC -->
-
-- [Preprocessing Image Data](#preprocessing-image-data)
-    - [Overview](#Overview)
-    - [Import image preprocessing function library](#import-image-preprocessing-function-library)
-    - [Initialize the image](#initialize-the-image)
-        - [Usage example](#usage-example)
-    - [Optional image preprocessing operator](#optional-image-preprocessing-operator) 
-        - [Resize image](#resize-image)
-            - [Usage example](#usage-example-1) 
-        - [Convert the image data type](#convert-the-image-data-type)
-            - [Usage example](#usage-example-2) 
-        - [Crop image data](#crop-image-data)
-            - [Usage example](#usage-example-3) 
-        - [Normalize image data](#normalize-image-data)
-            - [Usage example](#usage-example-4)        
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_en/use/image_processing.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

@@ -1,15 +1,5 @@
 ﻿# 使用TimeProfiler进行耗时分析
 
-<!-- TOC -->
-
-- [使用TimeProfiler进行耗时分析](#使用timeprofiler进行耗时分析)
-    - [概述](#概述)
-    - [环境准备](#环境准备)
-    - [使用示例](#使用示例)
-    - [参数说明](#参数说明)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_zh_cn/use/timeprofiler_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

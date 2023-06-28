@@ -2,13 +2,6 @@
 
 `Linux` `Ascend` `推理应用` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [Ascend 310 AI处理器上推理](#ascend-310-ai处理器上推理)
-    - [使用ONNX与AIR格式文件推理](#使用onnx与air格式文件推理)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/inference/source_zh_cn/multi_platform_inference_ascend_310.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 使用ONNX与AIR格式文件推理

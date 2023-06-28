@@ -2,23 +2,6 @@
 
 `Linux` `Ascend` `GPU` `Graph Mode` `Debug Training` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Using Debugger](#using-debugger)
-    - [Overview](#overview)
-    - [Operation Process](#operation-process)
-    - [Debugger Environment Preparation](#debugger-environment-preparation)
-    - [Debugger UI Introduction](#debugger-ui-introduction)
-        - [Computational Graph](#computational-graph)
-        - [Node List](#node-list)
-        - [Graph Node Details](#graph-node-details)
-        - [Conditional Breakpoint](#conditional-breakpoint)
-        - [Training Control](#training-control)
-    - [Debugger Usage Example](#debugger-usage-example)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/debugger.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

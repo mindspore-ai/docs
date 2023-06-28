@@ -2,16 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `数据准备` `中级` `高级`
 
-<!-- TOC -->
-
-- [转换数据集为MindRecord](#转换数据集为mindrecord)
-    - [概述](#概述)
-    - [基本概念](#基本概念)
-    - [将数据集转换为MindRecord](#将数据集转换为mindrecord)
-    - [读取MindRecord数据集](#读取mindrecord数据集)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/convert_dataset.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

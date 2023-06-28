@@ -2,17 +2,6 @@
 
 `Linux` `Ascend` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Enabling Graph Kernel Fusion](#enabling-graph-kernel-fusion)
-    - [Overview](#overview)
-    - [Enabling Method](#enabling-method)
-        - [Sample Scripts](#sample-scripts)
-    - [Effect Evaluation](#effect-evaluation)
-        - [Computational Graph](#computational-graph)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/enable_graph_kernel_fusion.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

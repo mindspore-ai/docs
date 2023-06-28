@@ -1,18 +1,5 @@
 # 训练
 
-<!-- TOC -->
-
-- [训练](#训练)
-    - [概述](#概述)
-    - [自定义训练网络](#自定义训练网络)
-    - [自定义训练循环](#自定义训练循环)
-    - [边训练边推理](#边训练边推理)
-    - [on-device执行](#on-device执行)
-        - [计算图下沉](#计算图下沉)
-        - [数据下沉](#数据下沉)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/train.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述

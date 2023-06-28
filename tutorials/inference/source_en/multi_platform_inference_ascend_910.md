@@ -2,13 +2,6 @@
 
 `Linux` `Ascend` `Inference Application` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Inference on the Ascend 910 AI processor](#inference-on-the-ascend-910-ai-processor)
-    - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/inference/source_en/multi_platform_inference_ascend_910.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Inference Using a Checkpoint File

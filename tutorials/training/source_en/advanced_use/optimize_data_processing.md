@@ -2,20 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Optimizing Data Processing](#optimizing-data-processing)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-    - [Optimizing the Data Loading Performance](#optimizing-the-data-loading-performance)
-    - [Optimizing the Shuffle Performance](#optimizing-the-shuffle-performance)
-    - [Optimizing the Data Augmentation Performance](#optimizing-the-data-augmentation-performance)
-    - [Optimizing the Operating System Performance](#optimizing-the-operating-system-performance)
-    - [Performance Optimization Solution Summary](#performance-optimization-solution-summary)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/optimize_data_processing.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
