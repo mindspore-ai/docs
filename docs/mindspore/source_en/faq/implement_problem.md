@@ -445,7 +445,7 @@ A: In MindSpore Ascend mode, if init is called first, all processes will be allo
 
 <br/>
 
-<font size=3>**Q: What should I do if the memory continues to increase when resnet50 training is being performed on the CPU ARM platform?**</font>
+<font size=3>**Q: Why report the error `Stream isn't enough` when executing the model on the Ascend platform?**</font>
 
 A: When resnet50 training is performed on the CPU ARM, some operators are implemented based on the oneDNN library, and the oneDNN library achieves multi-threaded parallelism based on the libgomp library. Currently, there is a problem in libgomp where the number of threads configured for multiple parallel domains is different and the memory consumption continues to grow. The continuous growth of the memory can be controlled by configuring a uniform number of threads globally. For comprehensive performance considerations, it is recommended to configure a unified configuration to 1/4 of the number of physical cores, such as `export OMP_NUM_THREADS=32`.
 
