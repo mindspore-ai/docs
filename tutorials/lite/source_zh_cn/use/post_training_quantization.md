@@ -1,20 +1,5 @@
 # 转换为MindSpore Lite量化模型(训练后量化)
 
-<!-- TOC -->
-
-- [转换为MindSpore Lite量化模型(训练后量化)](#转换为mindspore-lite量化模型训练后量化)
-    - [概述](#概述)
-    - [权重量化](#权重量化)
-        - [参数说明](#参数说明)
-        - [使用步骤](#使用步骤)
-        - [部分模型精度结果](#部分模型精度结果)
-    - [全量化](#全量化)
-        - [参数说明](#参数说明-1)
-        - [使用步骤](#使用步骤-1)
-        - [部分模型精度结果](#部分模型精度结果-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_zh_cn/use/post_training_quantization.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

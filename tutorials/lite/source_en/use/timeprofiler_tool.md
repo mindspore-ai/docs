@@ -1,15 +1,5 @@
 # Using TimeProfiler to Analyze the Time Consumption
 
-<!-- TOC -->
-
-- [Using TimeProfiler to Analyze the Time Consumption](#using-timeprofiler-to-analyze-the-time-consumption)
-    - [Overview](#overview)
-    - [Environment Preparation](#environment-preparation)
-    - [Parameter Description](#parameter-description)
-    - [Example](#example)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_en/use/timeprofiler_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

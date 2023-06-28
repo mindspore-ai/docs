@@ -1,21 +1,5 @@
 # 运行管理
 
-<!-- TOC -->
-
-- [运行管理](#运行管理)
-    - [概述](#概述)
-    - [执行模式管理](#执行模式管理)
-        - [模式选择](#模式选择)
-        - [模式切换](#模式切换)
-    - [硬件管理](#硬件管理)
-    - [分布式管理](#分布式管理)
-    - [维测管理](#维测管理)
-        - [采集profiling数据](#采集profiling数据)
-        - [异步数据dump功能](#异步数据dump功能)
-        - [print算子落盘](#print算子落盘)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/context.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述

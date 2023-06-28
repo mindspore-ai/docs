@@ -1,20 +1,5 @@
 ﻿# 转换为MindSpore Lite模型
 
-<!-- TOC -->
-
-- [转换为MindSpore Lite模型](#转换为mindspore-lite模型)
-    - [概述](#概述)
-    - [Linux环境使用说明](#linux环境使用说明)
-        - [环境准备](#环境准备)
-        - [使用示例](#使用示例)
-        - [参数说明](#参数说明)
-    - [Windows环境使用说明](#windows环境使用说明)
-        - [环境准备](#环境准备-1)
-        - [参数说明](#参数说明-1)
-        - [使用示例](#使用示例-1)        
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_zh_cn/use/converter_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

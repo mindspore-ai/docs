@@ -2,20 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Viewing Dashboard](#viewing-dashboard)
-    - [Overview](#overview)
-    - [Scalar Visualization](#scalar-visualization)
-    - [Parameter Distribution Visualization](#parameter-distribution-visualization)
-    - [Computational Graph Visualization](#computational-graph-visualization)
-    - [Dataset Graph Visualization](#dataset-graph-visualization)
-    - [Image Visualization](#image-visualization)
-    - [Tensor Visualization](#tensor-visualization)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/dashboard.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

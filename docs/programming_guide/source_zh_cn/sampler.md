@@ -1,19 +1,5 @@
 # 采样器
 
-<!-- TOC -->
-
-- [采样器](#采样器)
-    - [概述](#概述)
-    - [MindSpore采样器](#mindspore采样器)
-        - [RandomSampler](#randomsampler)
-        - [WeightedRandomSampler](#weightedrandomsampler)
-        - [SubsetRandomSampler](#subsetrandomsampler)
-        - [PKSampler](#pksampler)
-        - [DistributedSampler](#distributedsampler)
-    - [自定义采样器](#自定义采样器)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/sampler.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述

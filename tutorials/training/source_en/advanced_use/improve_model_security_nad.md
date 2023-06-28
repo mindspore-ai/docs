@@ -2,21 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Model Development` `Model Training` `Model Optimization` `Enterprise` `Expert`
 
-<!-- TOC -->
-
-- [Improving Model Security with NAD Algorithm](#improving-model-security-with-nad-algorithm)
-    - [Overview](#overview)
-    - [Creating an Target Model](#creating-an-target-model)
-        - [Importing Related Packages](#importing-related-packages)
-        - [Loading the Dataset](#loading-the-dataset)
-        - [Creating the Model](#creating-the-model)
-    - [Adversarial Attack](#adversarial-attack)
-    - [Adversarial Defense](#adversarial-defense)
-        - [Defense Implementation](#defense-implementation)
-        - [Defense Effect](#defense-effect)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/improve_model_security_nad.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

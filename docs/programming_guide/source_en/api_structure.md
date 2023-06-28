@@ -1,14 +1,5 @@
 # MindSpore API Overview
 
-<!-- TOC -->
-
-- [MindSpore API Overview](#mindspore-api-overview)
-    - [Overall Architecture](#overall-architecture)
-    - [Design Concept](#design-concept)
-    - [Level Structure](#level-structure)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_en/api_structure.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overall Architecture

@@ -1,17 +1,5 @@
 # 自动数据增强
 
-<!-- TOC -->
-
-- [自动数据增强](#自动数据增强)
-    - [概述](#概述)
-    - [基于概率的自动数据增强](#基于概率的自动数据增强)
-        - [RandomApply](#RandomApply)
-        - [RandomChoice](#RandomChoice)
-        - [RandomSelectSubpolicy](#RandomSelectSubpolicy)
-    - [基于回调参数的自动数据增强](#基于回调参数的自动数据增强)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/auto_augmentation.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述

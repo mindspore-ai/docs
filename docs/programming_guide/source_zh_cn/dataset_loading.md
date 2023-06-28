@@ -1,26 +1,5 @@
 # 数据集加载
 
-<!-- TOC -->
-
-- [数据集加载](#数据集加载)
-    - [概述](#概述)
-    - [常用数据集加载](#常用数据集加载)
-        - [CIFAR-10/100数据集](#cifar-10100数据集)
-        - [VOC数据集](#voc数据集)
-        - [COCO数据集](#coco数据集)
-    - [特定格式数据集加载](#特定格式数据集加载)
-        - [MindRecord数据格式](#mindrecord数据格式)
-        - [Manifest数据格式](#manifest数据格式)
-        - [TFRecord数据格式](#tfrecord数据格式)
-        - [NumPy数据格式](#numpy数据格式)
-        - [CSV数据格式](#csv数据格式)
-    - [自定义数据集加载](#自定义数据集加载)
-        - [构造数据集生成函数](#构造数据集生成函数)
-        - [构造可迭代的数据集类](#构造可迭代的数据集类)
-        - [构造可随机访问的数据集类](#构造可随机访问的数据集类)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/dataset_loading.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述

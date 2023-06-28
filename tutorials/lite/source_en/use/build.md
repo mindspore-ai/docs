@@ -1,19 +1,5 @@
 # Building MindSpore Lite
 
-<!-- TOC -->
-
-- [Building MindSpore Lite](#building-mindspore-lite)
-    - [Linux Environment Compilation](#linux-environment-compilation)
-        - [Environment Requirements](#environment-requirements)
-        - [Compilation Options](#compilation-options)
-        - [Compilation Example](#compilation-example)
-        - [Output Description](#output-description)
-            - [Description of Converter's Directory Structure](#description-of-converters-directory-structure)
-            - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)
-            - [Description of Imageprocess's Directory Structure](#description-of-imageprocesss-directory-structure)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_en/use/build.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 This chapter introduces how to quickly compile MindSpore Lite, which includes the following modules:

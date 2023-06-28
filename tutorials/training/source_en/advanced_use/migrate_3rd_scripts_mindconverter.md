@@ -2,20 +2,6 @@
 
 `Linux` `Ascend` `Model Development` `Beginner`
 
-<!-- TOC -->
-
-- [Migrating From Third Party Frameworks With Tools](#migrating-from-third-party-frameworks-with-tools)
-    - [Overview](#overview)
-    - [Installation](#installation)
-    - [Usage](#usage)
-    - [Scenario](#scenario)
-    - [Example](#example)
-        - [AST-Based Conversion](#ast-based-conversion)
-        - [Graph-Based Conversion](#graph-based-conversion)
-    - [Caution](#caution)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

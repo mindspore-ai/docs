@@ -1,14 +1,5 @@
 # MindSpore API概述
 
-<!-- TOC -->
-
-- [MindSpore API概述](#mindsporeapi概述)
-    - [总体架构](#总体架构)
-    - [设计理念](#设计理念)
-    - [层次结构](#层次结构)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/api_structure.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 总体架构

@@ -1,19 +1,5 @@
 # 数据处理
 
-<!-- TOC -->
-
-- [数据处理](#数据处理)
-    - [概述](#概述)
-    - [数据处理算子](#数据处理算子)
-        - [shuffle](#shuffle)
-        - [map](#map)
-        - [batch](#batch)
-        - [repeat](#repeat)
-        - [zip](#zip)
-        - [concat](#concat)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/pipeline.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述

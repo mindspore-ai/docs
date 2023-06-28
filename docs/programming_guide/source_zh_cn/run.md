@@ -1,17 +1,5 @@
 # 运行方式
 
-<!-- TOC -->
-
-- [运行方式](#运行方式)
-    - [概述](#概述)
-    - [执行单算子](#执行单算子)
-    - [执行普通函数](#执行普通函数)
-    - [执行网络模型](#执行网络模型)
-        - [执行训练模型](#执行训练模型)
-        - [执行推理模型](#执行推理模型)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/run.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述

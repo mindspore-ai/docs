@@ -2,15 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `数据准备` `中级` `高级`
 
-<!-- TOC -->
-
-- [应用自动数据增强](#应用自动数据增强)
-    - [概述](#概述)
-    - [ImageNet自动数据增强](#imagenet自动数据增强)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/enable_auto_augmentation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

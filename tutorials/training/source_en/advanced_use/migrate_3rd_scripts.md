@@ -2,23 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Migrating Training Scripts from Third Party Frameworks](#migrating-training-scripts-from-third-party-frameworks)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Operator Assessment](#operator-assessment)
-        - [Software and Hardware Environments](#software-and-hardware-environments)
-    - [E2E Network Migration](#e2e-network-migration)
-        - [Training Phase](#training-phase)
-            - [Script Migration](#script-migration)
-            - [Accuracy Debugging](#accuracy-debugging)
-            - [On-Cloud Integration](#on-cloud-integration)
-        - [Inference Phase](#inference-phase)
-    - [Examples](#examples)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/migrate_3rd_scripts.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

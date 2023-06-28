@@ -1,15 +1,5 @@
 # 常用网络组件
 
-<!-- TOC -->
-
-- [常用网络组件](#常用网络组件)
-    - [概述](#概述)
-    - [GradOperation](#gradoperation)
-    - [WithLossCell](#withlosscell)
-    - [TrainOneStepCell](#trainonestepcell)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/network_component.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述

@@ -1,16 +1,5 @@
 # Tensor
 
-<!-- TOC -->
-
-- [Tensor](#tensor)
-    - [概述](#概述)
-    - [张量构造](#张量构造)
-    - [张量的属性和方法](#张量的属性和方法)
-        - [属性](#属性)
-        - [方法](#方法)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/tensor.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述

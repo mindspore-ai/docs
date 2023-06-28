@@ -2,17 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `数据准备` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [加载文本数据集](#加载文本数据集)
-    - [概述](#概述)
-    - [准备](#准备)
-    - [加载数据集](#加载数据集)
-    - [数据处理](#数据处理)
-    - [数据分词](#数据分词)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/use/load_dataset_text.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

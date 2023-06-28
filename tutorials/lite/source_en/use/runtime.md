@@ -1,40 +1,5 @@
 # Using Runtime for Model Inference
 
-<!-- TOC -->
-
-- [Use Runtime for Model Inference](#use-runtime-for-model-inference)
-  - [Overview](#overview)
-  - [Reading Models](#reading-models)
-  - [Session Creation](#session-creation)
-    - [Creating Contexts](#creating-contexts)
-    - [Creating Sessions](#creating-sessions)
-    - [Example](#example)
-  - [Graph Compilation](#graph-compilation)
-    - [Variable Dimension](#variable-dimension)
-    - [Example](#example-1)
-    - [Compiling Graphs](#compiling-graphs)
-    - [Example](#example-2)
-  - [Data Input](#data-input)
-    - [Obtaining Input Tensors](#obtaining-input-tensors)
-    - [Copying Data](#copying-data)
-    - [Example](#example-3)
-  - [Graph Execution](#graph-execution)
-    - [Executing Sessions](#executing-sessions)
-    - [Core Binding](#core-binding)
-    - [Callback Running](#callback-running)
-    - [Example](#example-4)
-  - [Obtaining Outputs](#obtaining-outputs)
-    - [Obtaining Output Tensors](#obtaining-output-tensors)
-    - [Example](#example-5)
-  - [Obtaining Version String](#obtaining-version-string)
-    - [Example](#example-6)
-  - [Session parallel launch](#session-parallel-launch)
-    - [Single Session parallel launch](#single-session-parallel-launch)
-    - [Multiple Session parallel launch](#multiple-session-parallel-launch)
-    - [Example](#example-7)  
-
-<!-- /TOC -->
-
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_en/use/runtime.md" target="_blank"><img src="../_static/logo_source.png"></a>
 

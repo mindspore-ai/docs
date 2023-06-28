@@ -3,21 +3,6 @@
 
 `Linux` `Windows` `Framework Development` `Intermediate` `Expert` `Contributor`
 
-<!-- TOC -->
-
-- [MindSpore IR (MindIR)](#mindspore-ir-mindir)
-    - [Overview](#overview)
-    - [Syntax](#syntax)
-    - [Example](#example)
-    - [Saving IR](#saving-ir)
-    - [Function-style Semantics](#function-style-semantics)
-        - [Higher-Order Functions](#higher-order-functions)
-        - [Control Flows](#control-flows)
-        - [Free Variables and Closures](#free-variables-and-closures)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/design/mindspore/mindir.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## Overview
