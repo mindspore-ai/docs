@@ -1,23 +1,5 @@
 # 分布式并行训练入门
 
-<!-- TOC -->
-
-- [分布式并行训练入门](#分布式并行训练入门)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [下载数据集](#下载数据集)
-        - [配置分布式环境变量](#配置分布式环境变量)
-        - [调用集合通信库](#调用集合通信库)
-    - [数据并行模式加载数据集](#数据并行模式加载数据集)
-    - [定义网络](#定义网络)
-    - [定义损失函数及优化器](#定义损失函数及优化器)
-        - [定义损失函数](#定义损失函数)
-        - [定义优化器](#定义优化器)
-    - [训练网络](#训练网络)
-    - [运行脚本](#运行脚本)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/advanced_use/distributed_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
@@ -111,10 +93,10 @@ from mindspore.communication.management import init
 if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
     init()
-    ...   
+    ...
 ```
 
-其中，  
+其中，
 - `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
 - `device_id`：卡的物理序号，即卡所在机器中的实际序号。
 - `init()`：使能HCCL通信，并完成分布式训练初始化操作。
@@ -136,12 +118,12 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
     resize_width = 224
     rescale = 1.0 / 255.0
     shift = 0.0
-    
+
     # get rank_id and rank_size
     rank_id = get_rank()
     rank_size = get_group_size()
     data_set = ds.Cifar10Dataset(data_path, num_shards=rank_size, shard_id=rank_id)
-    
+
     # define map operations
     random_crop_op = vision.RandomCrop((32, 32), (4, 4, 4, 4))
     random_horizontal_op = vision.RandomHorizontalFlip()
@@ -169,7 +151,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
     return data_set
 ```
-其中，与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，建议通过HCCL接口获取：  
+其中，与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，建议通过HCCL接口获取：
 - `get_rank`：获取当前设备在集群中的ID。
 - `get_group_size`：获取集群数量。
 
@@ -209,7 +191,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         self.sparse = sparse
         self.max = P.ReduceMax(keep_dims=True)
         self.sub = P.Sub()
-        
+
     def construct(self, logit, label):
         logit_max = self.max(logit, -1)
         exp = self.exp(self.sub(logit, logit_max))
@@ -264,7 +246,7 @@ def test_train_cifar(num_classes=10, epoch_size=10):
     model = Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
-其中，  
+其中，
 - `dataset_sink_mode=True`：表示采用数据集的下沉模式，即训练的计算下沉到硬件平台中执行。
 - `LossMonitor`：能够通过回调函数返回Loss值，用于监控损失函数。
 
@@ -329,7 +311,7 @@ cd ../
 
 脚本需要传入变量`DATA_PATH`和`RANK_SIZE`，分别表示数据集的路径和卡的数量。
 
-其中必要的环境变量有，  
+其中必要的环境变量有，
 - `MINDSPORE_HCCL_CONFIG_PATH`：组网信息文件的路径。
 - `DEVICE_ID`：当前卡在机器上的实际序号。
 - `RANK_ID`: 当前卡的逻辑序号。

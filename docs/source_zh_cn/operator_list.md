@@ -1,13 +1,5 @@
 # 算子支持
 
-<!-- TOC -->
-
-- [算子支持](#算子支持)
-    - [mindspore.nn](#mindsporenn)
-    - [mindspore.ops.operations](#mindsporeopsoperations)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/docs/source_zh_cn/operator_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## mindspore.nn
@@ -137,18 +129,18 @@
 | [mindspore.ops.operations.ReduceSum](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ReduceSum)                         |    Supported | Supported    | Doing | math_ops
 | [mindspore.ops.operations.ReduceAll](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ReduceAll)                         |  Doing | Doing  | Doing | math_ops
 | [mindspore.ops.operations.ReduceMax](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ReduceMax)                         |    Supported   | Supported  | Doing | math_ops
-| [mindspore.ops.operations.ReduceMin](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ReduceMin)                         |  Supported | Doing  | Doing | math_ops 
-| [mindspore.ops.operations.ReduceProd](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ReduceProd)                       |  Supported | Doing  | Doing | math_ops 
-| [mindspore.ops.operations.CumProd](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.CumProd)                             |  Supported | Doing  | Doing | math_ops 
+| [mindspore.ops.operations.ReduceMin](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ReduceMin)                         |  Supported | Doing  | Doing | math_ops
+| [mindspore.ops.operations.ReduceProd](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ReduceProd)                       |  Supported | Doing  | Doing | math_ops
+| [mindspore.ops.operations.CumProd](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.CumProd)                             |  Supported | Doing  | Doing | math_ops
 | [mindspore.ops.operations.MatMul](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.MatMul)                               |    Supported   | Supported  |   Supported | math_ops
 | [mindspore.ops.operations.BatchMatMul](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.BatchMatMul)                     |    Supported | Doing  | Doing | math_ops
 | [mindspore.ops.operations.CumSum](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.CumSum)                               |  Supported   | Doing| Doing | math_ops
 | [mindspore.ops.operations.AddN](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.AddN)                                   |    Supported   | Supported  | Doing | math_ops
 | [mindspore.ops.operations.Neg](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Neg)                                     |    Supported   | Supported  | Doing | math_ops
-| [mindspore.ops.operations.Sub](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Sub)                                     |    Supported   | Doing| Doing | math_ops   
+| [mindspore.ops.operations.Sub](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Sub)                                     |    Supported   | Doing| Doing | math_ops
 | [mindspore.ops.operations.Mul](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Mul)                                     |    Supported   | Supported  |   Supported | math_ops
-| [mindspore.ops.operations.Square](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Square)                               |    Supported | Doing  | Doing | math_ops   
-| [mindspore.ops.operations.SquareSumAll](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.SquareSumAll)                               |    Supported | Doing  | Doing | math_ops   
+| [mindspore.ops.operations.Square](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Square)                               |    Supported | Doing  | Doing | math_ops
+| [mindspore.ops.operations.SquareSumAll](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.SquareSumAll)                               |    Supported | Doing  | Doing | math_ops
 | [mindspore.ops.operations.Rsqrt](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Rsqrt)                                 |    Supported | Doing  | Doing | math_ops
 | [mindspore.ops.operations.Sqrt](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Sqrt)                                   |    Supported | Doing  | Doing | math_ops
 | [mindspore.ops.operations.Reciprocal](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Reciprocal)                       |    Supported   | Supported  | Doing | math_ops
@@ -156,7 +148,7 @@
 | [mindspore.ops.operations.Exp](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Exp)                                     |    Supported   | Supported  | Doing | math_ops
 | [mindspore.ops.operations.Log](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Log)                                     |    Supported   | Supported  | Doing | math_ops
 | [mindspore.ops.operations.Log1p](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Log1p)                                     |    Supported   | Doing  | Doing | math_ops
-| [mindspore.ops.operations.Minimum](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Minimum)                             |    Supported | Doing  | Doing | math_ops 
+| [mindspore.ops.operations.Minimum](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Minimum)                             |    Supported | Doing  | Doing | math_ops
 | [mindspore.ops.operations.Maximum](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Maximum)                             |    Supported | Doing  | Doing | math_ops
 | [mindspore.ops.operations.RealDiv](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.RealDiv)                             |    Supported   | Supported  | Doing | math_ops
 | [mindspore.ops.operations.Div](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Div)                                     |    Supported | Doing  | Doing | math_ops
@@ -221,7 +213,7 @@
 | [mindspore.ops.operations.StridedSlice](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.StridedSlice)                   |    Supported | Supported    | Doing | array_ops
 | [mindspore.ops.operations.Diag](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Diag)                                   |   Doing |  Doing  |  Doing | array_ops
 | [mindspore.ops.operations.DiagPart](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.DiagPart)                                   |   Doing |  Doing  |  Doing | array_ops
-| [mindspore.ops.operations.Eye](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Eye)                                     |   Supported |  Supported  |  Supported | array_ops 
+| [mindspore.ops.operations.Eye](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Eye)                                     |   Supported |  Supported  |  Supported | array_ops
 | [mindspore.ops.operations.ScatterNd](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ScatterNd)                         |    Supported | Doing  | Doing | array_ops
 | [mindspore.ops.operations.ResizeNearestNeighbor](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ResizeNearestNeighbor) |  Supported | Doing  | Doing | array_ops
 | [mindspore.ops.operations.GatherNd](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.GatherNd)                           |  Supported | Doing  | Doing | array_ops

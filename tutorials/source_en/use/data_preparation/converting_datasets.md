@@ -1,25 +1,11 @@
 # Converting Datasets to the Mindspore Data Format
 
-<!-- TOC -->
-
-- [Converting Datasets to the Mindspore Data Format](#converting-datasets-to-the-mindspore-data-format)
-    - [Overview](#overview)
-    - [Converting Non-Standard Datasets to the Mindspore Data Format](#converting-non-standard-datasets-to-the-mindspore-data-format)
-        - [Converting Images and Labels](#converting-images-and-labels)
-    - [Converting Common Datasets to the MindSpore Data Format](#converting-common-datasets-to-the-mindspore-data-format)
-        - [Converting the CIFAR-10 Dataset](#converting-the-cifar-10-dataset)
-        - [Converting the CIFAR-100 Dataset](#converting-the-cifar-100-dataset)
-        - [Converting the ImageNet Dataset](#converting-the-imagenet-dataset)
-        - [Converting the MNIST Dataset](#converting-the-mnist-dataset)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_en/use/data_preparation/converting_datasets.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## Overview
 
-You can convert non-standard datasets and common datasets into the MindSpore data format so that they can be easily loaded to MindSpore for training. In addition, the performance of MindSpore in some scenarios is optimized, which delivers better user experience when you use datasets in the MindSpore data format.   
-The MindSpore data format has the following features:  
+You can convert non-standard datasets and common datasets into the MindSpore data format so that they can be easily loaded to MindSpore for training. In addition, the performance of MindSpore in some scenarios is optimized, which delivers better user experience when you use datasets in the MindSpore data format.
+The MindSpore data format has the following features:
 1. Unified storage and access of user data are implemented, simplifying training data reading.
 2. Data is aggregated for storage, efficient reading, and easy management and transfer.
 3. Data encoding and decoding are efficient and transparent to users.
@@ -42,14 +28,15 @@ MindSpore provides write operation tools to write user-defined raw data in MindS
     ```python
     cv_schema_json = {"file_name": {"type": "string"}, "label": {"type": "int32"}, "data": {"type": "bytes"}}
     ```
-    Schema specifications are as follows:  
-    A field name can contain only letters, digits, and underscores (_). 
-    The field type can be int32, int64, float32, float64, string, or bytes.  
-    The field shape can be a one-dimensional array represented by [-1], a two-dimensional array represented by [m, n], or a three-dimensional array represented by [x, y, z].  
-    > 1. The type of a field with the shape attribute can only be int32, int64, float32, or float64.  
-    > 2. If the field has the shape attribute, prepare the data of numpy.ndarray type and transfer the data to the write_raw_data API.  
-    
-    Examples:  
+    Schema specifications are as follows:
+    A field name can contain only letters, digits, and underscores (_).
+    The field type can be int32, int64, float32, float64, string, or bytes.
+    The field shape can be a one-dimensional array represented by [-1], a two-dimensional array represented by [m, n], or a three-dimensional array represented by [x, y, z].
+
+    > 1. The type of a field with the shape attribute can only be int32, int64, float32, or float64.
+    > 2. If the field has the shape attribute, prepare the data of numpy.ndarray type and transfer the data to the write_raw_data API.
+
+    Examples:
     - Image classification
         ```python
         cv_schema_json = {"file_name": {"type": "string"}, "label": {"type": "int32"}, "data": {"type": "bytes"}}
@@ -66,7 +53,7 @@ MindSpore provides write operation tools to write user-defined raw data in MindS
             {"file_name": "2.jpg", "label": 56, "data": b"\xe6\xda\xd1\xae\x07\xb8>\xd4\x00\xf8\x129\x15\xd9\xf2q\xc0\xa2\x91YFUO\x1dsE1\x1ep"},
             {"file_name": "3.jpg", "label": 99, "data": b"\xaf\xafU<\xb8|6\xbd}\xc1\x99[\xeaj+\x8f\x84\xd3\xcc\xa0,i\xbb\xb9-\xcdz\xecp{T\xb1\xdb\"}]
     ```
-    
+
 4. Prepare index fields. Adding index fields can accelerate data reading. This step is optional.
 
     ```python
@@ -75,15 +62,15 @@ MindSpore provides write operation tools to write user-defined raw data in MindS
 
 5. Create a `FileWriter` object, transfer the file name and number of slices, add the schema and index, call the `write_raw_data` API to write data, and call the `commit` API to generate a local data file.
 
-    ```python    
+    ```python
     writer = FileWriter(file_name="testWriter.mindrecord", shard_num=4)
     writer.add_schema(cv_schema_json, "test_schema")
     writer.add_index(indexes)
     writer.write_raw_data(data)
     writer.commit()
     ```
-    In the preceding information:  
-    `write_raw_data`: writes data to the memory.  
+    In the preceding information:
+    `write_raw_data`: writes data to the memory.
     `commit`: writes the data in the memory to the disk.
 
 6. Add data to the existing data format file, call the `open_for_append` API to open the existing data file, call the `write_raw_data` API to write new data, and then call the `commit` API to generate a local data file.
@@ -95,7 +82,7 @@ MindSpore provides write operation tools to write user-defined raw data in MindS
 
 ## Converting Common Datasets to the MindSpore Data Format
 
-MindSpore provides utility classes to convert common datasets to the MindSpore data format. The following table lists common datasets and called utility classes:  
+MindSpore provides utility classes to convert common datasets to the MindSpore data format. The following table lists common datasets and called utility classes:
 
 | Dataset  | Called Utility Class |
 | -------- | ------------ |
@@ -108,7 +95,7 @@ MindSpore provides utility classes to convert common datasets to the MindSpore d
 ### Converting the CIFAR-10 Dataset
 You can use the `Cifar10ToMR` class to convert the raw CIFAR-10 data into the MindSpore data format.
 
-1. Prepare the CIFAR-10 python version dataset and decompress the file to a specified directory (the `cifar10` directory in the example), as the following shows:  
+1. Prepare the CIFAR-10 python version dataset and decompress the file to a specified directory (the `cifar10` directory in the example), as the following shows:
     ```
     % ll cifar10/cifar-10-batches-py/
     batches.meta
@@ -119,8 +106,8 @@ You can use the `Cifar10ToMR` class to convert the raw CIFAR-10 data into the Mi
     data_batch_5
     readme.html
     test_batch
-    ```  
-    > CIFAR-10 dataset download address: <https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz>    
+    ```
+    > CIFAR-10 dataset download address: <https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz>
 
 2. Import the `Cifar10ToMR` class for dataset converting.
 
@@ -135,8 +122,8 @@ You can use the `Cifar10ToMR` class to convert the raw CIFAR-10 data into the Mi
     cifar10_transformer = Cifar10ToMR(CIFAR10_DIR, MINDRECORD_FILE)
     cifar10_transformer.transform(['label'])
     ```
-    In the preceding information:  
-    `CIFAR10_DIR`: path where the CIFAR-10 dataset folder is stored.  
+    In the preceding information:
+    `CIFAR10_DIR`: path where the CIFAR-10 dataset folder is stored.
     `MINDRECORD_FILE`: path where the output file in the MindSpore data format is stored.
 
 ### Converting the CIFAR-100 Dataset
@@ -164,8 +151,8 @@ You can use the `Cifar100ToMR` class to convert the raw CIFAR-100 data to the Mi
     cifar100_transformer = Cifar100ToMR(CIFAR100_DIR, MINDRECORD_FILE)
     cifar100_transformer.transform(['fine_label', 'coarse_label'])
     ```
-    In the preceding information:  
-    `CIFAR100_DIR`: path where the CIFAR-100 dataset folder is stored.  
+    In the preceding information:
+    `CIFAR100_DIR`: path where the CIFAR-100 dataset folder is stored.
     `MINDRECORD_FILE`: path where the output file in the MindSpore data format is stored.
 
 ### Converting the ImageNet Dataset
@@ -191,7 +178,7 @@ You can use the `ImageNetToMR` class to convert the raw ImageNet data (images an
     ```python
     from mindspore.mindrecord import ImageNetToMR
     ```
-    
+
 3. Instantiate the `ImageNetToMR` object and call the `transform` API to convert the dataset to the MindSpore data format.
     ```python
     IMAGENET_MAP_FILE = "./testImageNetDataWhole/labels_map.txt"
@@ -201,9 +188,9 @@ You can use the `ImageNetToMR` class to convert the raw ImageNet data (images an
     imagenet_transformer = ImageNetToMR(IMAGENET_MAP_FILE, IMAGENET_IMAGE_DIR, MINDRECORD_FILE, PARTITION_NUMBER)
     imagenet_transformer.transform()
     ```
-    In the preceding information:  
-    `IMAGENET_MAP_FILE`: path where the label mapping file of the ImageNetToMR dataset is stored.  
-    `IMAGENET_IMAGE_DIR`: path where all ImageNet images are stored.  
+    In the preceding information:
+    `IMAGENET_MAP_FILE`: path where the label mapping file of the ImageNetToMR dataset is stored.
+    `IMAGENET_IMAGE_DIR`: path where all ImageNet images are stored.
     `MINDRECORD_FILE`: path where the output file in the MindSpore data format is stored.
 
 ### Converting the MNIST Dataset
@@ -232,6 +219,6 @@ You can use the `MnistToMR` class to convert the raw MNIST data to the MindSpore
     mnist_transformer = MnistToMR(MNIST_DIR, MINDRECORD_FILE)
     mnist_transformer.transform()
     ```
-    In the preceding information:  
-    `MNIST_DIR`: path where the MNIST dataset folder is stored.  
+    In the preceding information:
+    `MNIST_DIR`: path where the MNIST dataset folder is stored.
     `MINDRECORD_FILE`: path where the output file in the MindSpore data format is stored.

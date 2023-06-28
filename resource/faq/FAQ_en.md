@@ -1,22 +1,5 @@
 # FAQ
 
-<!-- TOC -->
-
-- [FAQ](#faq)
-    - [Installation](#installation)
-        - [Pip Installation](#pip-installation)
-        - [Source Code Installation](#source-code-installation)
-    - [Support](#support)
-        - [Model Support](#model-support)
-        - [Backend Support](#backend-support)
-        - [System Support](#system-support)
-        - [Programming Language](#programming-language)
-        - [Others](#others)
-    - [Features](#features)
-    - [Capabilities](#capabilities)
-
-<!-- /TOC -->
-
 ## Installation
 
 ### Pip Installation

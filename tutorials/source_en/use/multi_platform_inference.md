@@ -1,13 +1,5 @@
 # Multi-platform Inference
 
-<!-- TOC -->
-
-- [Multi-platform Inference](#multi-platform-inference)
-    - [Overview](#overview)
-    - [On-Device Inference](#on-device-inference)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_en/advanced_use/multi_platform_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
@@ -21,7 +13,7 @@ Models based on MindSpore training can be used for inference on different hardwa
    ```python
    res = model.eval(dataset)
    ```
-   
+
    In addition, the` model.predict ()` interface can be used for inference. For detailed usage, please refer to API description.
 
 2. Inference on the Ascend 310 AI processor

@@ -1,23 +1,5 @@
 # Getting Started with Parallel Distributed Training
 
-<!-- TOC -->
-
-- [Getting Started with Parallel Distributed Training](#getting-started-with-parallel-distributed-training)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Configuring Distributed Environment Variables](#configuring-distributed-environment-variables)
-        - [Calling the Collective Communication Library](#calling-the-collective-communication-library)
-    - [Loading the Dataset in Data Parallel Mode](#loading-the-dataset-in-data-parallel-mode)
-    - [Defining the Network](#defining-the-network)
-    - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
-        - [Defining the Loss Function](#defining-the-loss-function)
-        - [Defining the Optimizer](#defining-the-optimizer)
-    - [Training the Network](#training-the-network)
-    - [Running the Script](#running-the-script)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_en/advanced_use/distributed_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
@@ -113,10 +95,10 @@ from mindspore.communication.management import init
 if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
     init()
-    ...   
+    ...
 ```
 
-In the preceding code:  
+In the preceding code:
 - `mode=context.GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode does not support parallel running.)
 - `device_id`: physical sequence number of a device, that is, the actual sequence number of the device on the corresponding host.
 - `init()`: enables HCCL communication and completes the distributed training initialization.
@@ -138,12 +120,12 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
     resize_width = 224
     rescale = 1.0 / 255.0
     shift = 0.0
-    
+
     # get rank_id and rank_size
     rank_id = get_rank()
     rank_size = get_group_size()
     data_set = ds.Cifar10Dataset(data_path, num_shards=rank_size, shard_id=rank_id)
-    
+
     # define map operations
     random_crop_op = vision.RandomCrop((32, 32), (4, 4, 4, 4))
     random_horizontal_op = vision.RandomHorizontalFlip()
@@ -171,7 +153,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
     return data_set
 ```
-Different from the single-node system, the multi-node system needs to transfer the `num_shards` and `shard_id` parameters to the dataset API. The two parameters correspond to the number of devices and logical sequence numbers of devices, respectively. You are advised to obtain the parameters through the HCCL API.  
+Different from the single-node system, the multi-node system needs to transfer the `num_shards` and `shard_id` parameters to the dataset API. The two parameters correspond to the number of devices and logical sequence numbers of devices, respectively. You are advised to obtain the parameters through the HCCL API.
 - `get_rank`: obtains the ID of the current device in the cluster.
 - `get_group_size`: obtains the number of devices.
 
@@ -211,7 +193,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         self.sparse = sparse
         self.max = P.ReduceMax(keep_dims=True)
         self.sub = P.Sub()
-        
+
     def construct(self, logit, label):
         logit_max = self.max(logit, -1)
         exp = self.exp(self.sub(logit, logit_max))
@@ -266,7 +248,7 @@ def test_train_cifar(num_classes=10, epoch_size=10):
     model = Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
-In the preceding code:  
+In the preceding code:
 - `dataset_sink_mode=True`: uses the dataset sink mode. That is, the training computing is sunk to the hardware platform for execution.
 - `LossMonitor`: returns the loss value through the callback function to monitor the loss function.
 
@@ -331,7 +313,7 @@ cd ../
 
 The variables `DATA_PATH` and `RANK_SIZE` need to be transferred to the script, which indicate the path of the dataset and the number of devices, respectively.
 
-The necessary environment variables are as follows:  
+The necessary environment variables are as follows:
 - `MINDSPORE_HCCL_CONFIG_PATH`: path for storing the networking information file.
 - `DEVICE_ID`: actual sequence number of the current device on the corresponding host.
 - `RANK_ID`: logical sequence number of the current device.

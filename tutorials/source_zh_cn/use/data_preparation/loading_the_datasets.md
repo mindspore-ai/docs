@@ -1,18 +1,5 @@
 # 加载数据集
 
-<!-- TOC -->
-
-- [加载数据集](#加载数据集)
-    - [概述](#概述)
-    - [加载常见的数据集](#加载常见的数据集)
-    - [加载特定数据格式的数据集](#加载特定数据格式的数据集)
-        - [MindSpore数据格式](#mindspore数据格式)
-        - [`Manifest`数据格式](#manifest数据格式)
-        - [`TFRecord`数据格式](#tfrecord数据格式)
-    - [加载自定义数据集](#加载自定义数据集)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/use/data_preparation/loading_the_datasets.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 概述
@@ -48,13 +35,13 @@ MindSpore可以加载常见的标准数据集。支持的数据集如下表：
     for data in cifar10_dataset.create_dict_iterator():
     # In CIFAR-10 dataset, each dictionary of data has keys "image" and "label".
         print(data["image"])
-        print(data["label"]) 
+        print(data["label"])
     ```
 
 ## 加载特定数据格式的数据集
 
 ### MindSpore数据格式
-MindSpore天然支持读取MindSpore数据格式——`MindRecord`存储的数据集，在性能和特性上有更好的支持。  
+MindSpore天然支持读取MindSpore数据格式——`MindRecord`存储的数据集，在性能和特性上有更好的支持。
 > 阅读[将数据集转换为MindSpore数据格式](converting_datasets.md)章节，了解如何将数据集转化为MindSpore数据格式。
 
 可以通过`MindDataset`对象对数据集进行读取。详细方法如下所示：
@@ -64,7 +51,7 @@ MindSpore天然支持读取MindSpore数据格式——`MindRecord`存储的数�
     CV_FILE_NAME = os.path.join(MODULE_PATH, "./imagenet.mindrecord")
     data_set = ds.MindDataset(dataset_file=CV_FILE_NAME)
     ```
-    其中，  
+    其中，
     `dataset_file`：指定MindRecord的文件，含路径及文件名。
 
 2. 创建字典迭代器，通过迭代器读取数据记录。
@@ -95,7 +82,7 @@ MindSpore也支持读取`TFRecord`数据格式的数据集，可以通过`TFReco
 
     dataset = ds.TFRecordDataset(DATA_DIR)
     ```
-    
+
 2. 用户可以通过创建Schema文件或Schema类，设定数据集格式及特征。
 
     Schema文件示例如下所示：
@@ -116,11 +103,11 @@ MindSpore也支持读取`TFRecord`数据格式的数据集，可以通过`TFReco
       }
     }
     ```
-    其中，  
-    `datasetType`: 数据格式的类型，这里“TF”是指TFrecord数据格式。  
-    `columns`：列信息字段，需要根据数据集的实际列名定义，上面Schema文件示例中，数据集列为image和label两列。   
+    其中，
+    `datasetType`: 数据格式的类型，这里“TF”是指TFrecord数据格式。
+    `columns`：列信息字段，需要根据数据集的实际列名定义，上面Schema文件示例中，数据集列为image和label两列。
     `numRows`：行数信息字段，控制加载数据的最大行数。如果定义的行数大于实际行数，加载时则以实际行数为准。
-    
+
     在创建TFRecordDataset时将Schema文件路径传入，使用样例如下：
     ```python
     DATA_DIR = ["tfrecord_dataset_path/train-0000-of-0001.tfrecord"]
@@ -128,7 +115,7 @@ MindSpore也支持读取`TFRecord`数据格式的数据集，可以通过`TFReco
 
     dataset = ds.TFRecordDataset(DATA_DIR, schema=SCHEMA_DIR)
     ```
-    
+
     创建Schema类使用样例如下：
     ```python
     import mindspore.common.dtype as mstype
@@ -144,14 +131,14 @@ MindSpore也支持读取`TFRecord`数据格式的数据集，可以通过`TFReco
     for data in dataset.create_dict_iterator():
     # The dictionary of data has keys "image" and "label" which are consistent with columns names in its schema.
         print(data["image"])
-        print(data["label"]) 
+        print(data["label"])
     ```
 
 ## 加载自定义数据集
 对于自定义数据集，可以通过`GeneratorDataset`对象加载。
 
 1. 定义一个函数（示例函数名为`Generator1D`）用于生成数据集的函数。
-   > 自定义的生成函数返回的是可调用的对象，每次返回`numpy array`的元组，作为一行数据。 
+   > 自定义的生成函数返回的是可调用的对象，每次返回`numpy array`的元组，作为一行数据。
 
    自定义函数示例如下：
    ```python
@@ -160,7 +147,7 @@ MindSpore也支持读取`TFRecord`数据格式的数据集，可以通过`TFReco
        for i in range(64):
            yield (np.array([i]),)  # Notice, tuple of only one element needs following a comma at the end.
    ```
-2. 将`Generator1D`传入`GeneratorDataset`创建数据集，并设定`column`名为“data”。  
+2. 将`Generator1D`传入`GeneratorDataset`创建数据集，并设定`column`名为“data”。
    ```python
    dataset = ds.GeneratorDataset(Generator1D, ["data"])
    ```
@@ -173,7 +160,7 @@ MindSpore也支持读取`TFRecord`数据格式的数据集，可以通过`TFReco
       ```
 
    - 创建返回值为字典类型的迭代器。
-      ```python 
+      ```python
       for data in dataset.create_dict_iterator():  # each data is a dictionary
           print(data["data"])
       ```

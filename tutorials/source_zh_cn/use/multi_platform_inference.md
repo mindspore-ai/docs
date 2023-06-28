@@ -1,16 +1,5 @@
 # 多平台推理
 
-<!-- TOC -->
-
-- [多平台推理](#多平台推理)
-    - [概述](#概述)
-    - [Ascend 910 AI处理器上推理](#ascend-910-ai处理器上推理)
-    - [Ascend 310 AI处理器上推理](#ascend-310-ai处理器上推理)
-    - [GPU上推理](#gpu上推理)
-    - [端侧推理](#端侧推理)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/advanced_use/multi_platform_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

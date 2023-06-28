@@ -1,16 +1,5 @@
 # 端侧推理
 
-<!-- TOC -->
-
-- [端侧推理](#端侧推理)
-    - [概述](#概述)
-    - [编译方法](#编译方法)
-    - [端侧推理使用](#端侧推理使用)
-        - [生成端侧模型文件](#生成端侧模型文件)
-        - [在端侧实现推理](#在端侧实现推理)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/advanced_use/on_device_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
@@ -42,7 +31,7 @@ MindSpore Predict是一个轻量级的深度神经网络推理引擎，提供了
   - scipy
 
     > numpy, decorator和scipy可以通过pip安装，参考命令如下。
-    
+
     ```bash
     pip3 install numpy==1.16 decorator scipy
     ```
@@ -116,7 +105,7 @@ class LeNet(nn.Cell):
         self.fc1 = nn.Dense(400, 120)
         self.fc2 = nn.Dense(120, 84)
         self.fc3 = nn.Dense(84, 10)
-        
+
     def construct(self, input_x):
         output = self.conv1(input_x)
         output = self.relu(output)
@@ -131,7 +120,7 @@ class LeNet(nn.Cell):
         output = self.relu(output)
         output = self.fc3(output)
         return output
-        
+
 if __name__ == '__main__':
     context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
     seed = 0
@@ -201,7 +190,7 @@ if __name__ == '__main__':
    // get output
    std::map<std::string, std::vector<Tensor *>> outputs = session->GetAllOutput();
    ```
-   
+
 6. 调用Tensor的GetData()接口获取输出数据。
    ```cpp
    // get output data
@@ -213,14 +202,14 @@ if __name__ == '__main__':
      }
    }
    ```
-   
+
 7. 推理结束释放input tensor和output tensor。
    ```cpp
    // free inputs and outputs
    for (auto &input : inputs) {
      delete input;
    }
-   inputs.clear(); 
+   inputs.clear();
    for (auto &output : outputs) {
      for (auto &outputTensor : output.second) {
        delete outputTensor;
@@ -288,7 +277,7 @@ int main() {
 
   // get output
   auto outputs = session->GetAllOutput();
-    
+
   // get output data
   float *data = nullptr;
     for (auto output : outputs) {

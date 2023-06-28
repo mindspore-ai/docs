@@ -1,33 +1,5 @@
 # 训练过程可视
 
-<!-- TOC -->
-
-- [训练过程可视](#训练过程可视)
-    - [概述](#概述)
-    - [操作流程](#操作流程)
-    - [准备训练脚本](#准备训练脚本)
-    - [MindInsight相关命令](#mindinsight相关命令)
-        - [查看命令帮助信息](#查看命令帮助信息)
-        - [查看版本信息](#查看版本信息)
-        - [启动服务](#启动服务)
-        - [停止服务](#停止服务)
-        - [查看服务进程信息](#查看服务进程信息)
-    - [可视化组件](#可视化组件)
-        - [训练看板](#训练看板)
-            - [标量可视化](#标量可视化)
-            - [参数分布图可视化](#参数分布图可视化)
-            - [计算图可视化](#计算图可视化)
-            - [数据图可视化](#数据图可视化)
-            - [图像可视化](#图像可视化)
-        - [模型溯源](#模型溯源)
-        - [数据溯源](#数据溯源)
-        - [对比看板](#对比看板)
-        - [性能调试](#性能调试)
-            - [算子性能分析](#算子性能分析)
-    - [规格](#规格)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/advanced_use/visualization_tutorials.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
@@ -198,25 +170,25 @@ from mindspore import Model, nn, context
 def test_profiler():
     # Init context env
     context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
-    
+
     # Init Profiler
     profiler = Profiler(output_path='./data', is_detail=True, is_show_op_path=False, subgraph='all')
-    
+
     # Init hyperparameter
     epoch = 2
     # Init network and Model
     net = Net()
     loss_fn = CrossEntropyLoss()
     optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
-    model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics=None)  
+    model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics=None)
     # Prepare mindrecord_dataset for training
     train_ds = create_mindrecord_dataset_for_training()
     # Model Train
     model.train(epoch, train_ds)
-    
+
     # Profiler end
     profiler.analyse()
-``` 
+```
 
 ## MindInsight相关命令
 

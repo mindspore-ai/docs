@@ -1,28 +1,4 @@
 # Saving and Loading Model Parameters in the Hybrid Parallel Scenario
-
-<!-- TOC -->
-
-- [Saving and Loading Model Parameters in the Hybrid Parallel Scenario](#saving-and-loading-model-parameters-in-the-hybrid-parallel-scenario)
-    - [Overview](#overview)
-        - [Background](#background)
-        - [Application Scenario](#application-scenario)
-    - [Integrating the Saved Checkpoint Files](#integrating-the-saved-checkpoint-files)
-        - [Overall Process](#overall-process)
-        - [Preparations](#preparations)
-            - [Importing the Checkpoint Files to the Network](#importing-the-checkpoint-files-to-the-network)
-            - [Obtaining a List of All Parameters on the Network](#obtaining-a-list-of-all-parameters-on-the-network)
-        - [Integrate the Model Parallel Parameters](#integrate-the-model-parallel-parameters)
-        - [Saving the Data and Generating a New Checkpoint File](#saving-the-data-and-generating-a-new-checkpoint-file)
-    - [Loading the Integrated and Saved Checkpoint File](#loading-the-integrated-and-saved-checkpoint-file)
-        - [Overall Process](#overall-process-1)
-        - [Step 1: Loading the Checkpoint File](#step-1-loading-the-checkpoint-file)
-        - [Step 2: Dividing a Model Parallel Parameter](#step-2-dividing-a-model-parallel-parameter)
-        - [Step 3: Loading the Modified Parameter Data to the Network](#step-3-loading-the-modified-parameter-data-to-the-network)
-    - [Example](#example)
-        - [Scenario Description](#scenario-description)
-        - [Example Code](#example-code)
-
-<!-- /TOC -->
 ## Overview
 
 ### Background
@@ -87,7 +63,7 @@ Define the network, call the `load_checkpoint` and `load_param_into_net` APIs, a
 
 ```
 param_dict = load_checkpoint(./CKP_1-4_32.ckpt)  # checkpoint file name
-net = Net() 
+net = Net()
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
 net = TrainOneStepCell(net, opt)
 load_param_into_net(net, param_dict)
@@ -108,7 +84,7 @@ Call the `parameters_and_names` API to obtain all parameter data on the network.
 ```
 param_dict = {}
 for _, param in net.parameters_and_names():
-    param_dict[param.name] = param 
+    param_dict[param.name] = param
 ```
 
 ### Integrate the Model Parallel Parameters
@@ -152,8 +128,8 @@ The dividing strategy is to perform dividing in a 4-device scenario based on \[2
            return x
 
    allgather_net = AllGatherCell()
-   param_data = allgather_net(param_data) 
-   param_data_moments = allgather_net(param_data_moments) 
+   param_data = allgather_net(param_data)
+   param_data_moments = allgather_net(param_data_moments)
    ```
 
    The value of param\_data is the integration of data on each device in dimension 0. The data value is \[\[1, 2], \[3, 4], \[5, 6], \[7, 8]], and the shape is \[4, 2]. The raw data value of param\_data is \[\[1, 2, 3, 4], \[5, 6, 7, 8]], and the shape is \[2, 4]. The data needs to be redivided and integrated.
@@ -167,10 +143,10 @@ The dividing strategy is to perform dividing in a 4-device scenario based on \[2
 
    The result of param\_data is as follows:
 
-        slice_list[0]  --- [1,  2]     Slice data on device0    
-        slice_list[1]  --- [3,  4]     Slice data on device1    
-        slice_list[2]  --- [5,  6]     Slice data on device2    
-        slice_list[3]  --- [7,  8]     Slice data on device3    
+        slice_list[0]  --- [1,  2]     Slice data on device0
+        slice_list[1]  --- [3,  4]     Slice data on device1
+        slice_list[2]  --- [5,  6]     Slice data on device2
+        slice_list[3]  --- [7,  8]     Slice data on device3
 
 4. Reassemble data based on the site requirements.
 
@@ -189,7 +165,7 @@ The dividing strategy is to perform dividing in a 4-device scenario based on \[2
 5. Assign values to model parameters.
 
    ```
-   param_data = Tensor(whole_data) 
+   param_data = Tensor(whole_data)
    param_data_moments = Tensor(whole_moments_data)
    ```
 
@@ -206,9 +182,9 @@ The dividing strategy is to perform dividing in a 4-device scenario based on \[2
        each_param = {}
        each_param["name"] = key
        if isinstance(value.data, Tensor):
-           param_data = value.data                                         
+           param_data = value.data
        else:
-           param_data = Tensor(value.data)                                                       
+           param_data = Tensor(value.data)
        each_param["data"] = param_data
        param_list.append(each_param）
    ```
@@ -262,8 +238,8 @@ The following uses a specific model parameter as an example. The parameter name 
 
    Data after dividing:
 
-        slice_list[0]  --- [1, 2, 3, 4]    Corresponding to device0   
-        slice_list[1]  --- [5, 6, 7, 8]    Corresponding to device1     
+        slice_list[0]  --- [1, 2, 3, 4]    Corresponding to device0
+        slice_list[1]  --- [5, 6, 7, 8]    Corresponding to device1
 
    Similar to slice\_list, slice\_moments\_list is divided into two tensors with the shape of \[1, 4].
 
@@ -282,8 +258,8 @@ The following uses a specific model parameter as an example. The parameter name 
 3. Modify values of model parameters.
 
    ```
-   new_param.set_parameter_data(tensor_slice) 
-   new_param_moments.set_parameter_data(tensor_slice_moments) 
+   new_param.set_parameter_data(tensor_slice)
+   new_param_moments.set_parameter_data(tensor_slice_moments)
    ```
 
    - `set_parameter_data`: sets the value of a model parameter. The API parameter type is Tensor or number.
@@ -293,7 +269,7 @@ The following uses a specific model parameter as an example. The parameter name 
 Call the `load_param_into_net` API to load the model parameter data to the network.
 
 ```
-net = Net() 
+net = Net()
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=parallel_net.get_parameters())
 load_param_into_net(net, param_dict)
 load_param_into_net(opt, param_dict)
@@ -321,7 +297,7 @@ User process:
 
 1. Run the following script to integrate the checkpoint files:
 
-    
+
 
    ```
    python  ./integrate_checkpoint.py "Path and name of the checkpoint file to be integrated" "Path and name of the checkpoint file generated after integration"
@@ -400,8 +376,8 @@ User process:
                param_data = value.data
            else:
                param_data = Tensor(value.data)
-           each_param["data"] = param_data 
-           param_list.append(each_param) 
+           each_param["data"] = param_data
+           param_list.append(each_param)
 
        # call the API to generate a new CheckPoint file
        save_checkpoint(param_list, new_ckpt_file)
@@ -431,7 +407,7 @@ User process:
    ```
    device0：
    name is model_parallel_weight
-   value is 
+   value is
    [[0.87537426 1.0448935 0.86736983 0.8836905 0.77354026 0.69588304 0.9183654 0.7792076]
     [0.87224025 0.8726848 0.771446 0.81967723 0.88974726 0.7988162 0.72919345 0.7677011]]
    name is learning_rate
@@ -445,7 +421,7 @@ User process:
 
    device1：
    name is model_parallel_weight
-   value is 
+   value is
    [[0.9210751 0.9050457 0.9827775 0.920396 0.9240526 0.9750359 1.0275179 1.0819869]
     [0.73605865 0.84631145 0.9746683 0.9386582 0.82902765 0.83565056 0.9702136 1.0514659]]
    name is learning_rate
@@ -455,11 +431,11 @@ User process:
    name is moments.model_weight
    value is
    [[0.2417504 0.28193963 0.06713893 0.21510397 0.23380603 0.11424308 0.0218009 -0.11969765]
-    [0.45955992 0.22664294 0.01990281 0.0731914 0.27125207 0.27298513 -0.01716102 -0.15327111]] 
+    [0.45955992 0.22664294 0.01990281 0.0731914 0.27125207 0.27298513 -0.01716102 -0.15327111]]
 
    device2：
    name is model_parallel_weight
-   value is 
+   value is
    [[1.0108461 0.8689414  0.91719437 0.8805056 0.7994629 0.8999671 0.7585804 1.0287056 ]
     [0.90653455 0.60146594 0.7206475 0.8306303 0.8364681 0.89625114 0.7354735 0.8447268]]
    name is learning_rate
@@ -467,7 +443,7 @@ User process:
    name is momentum
    value is [0.9]
    name is moments.model_weight
-   value is 
+   value is
    [[0.03440702 0.41419312 0.24817684 0.30765256 0.48516113 0.24904746 0.57791173 0.00955463]
     [0.13458519 0.6690533 0.49259356 0.28319967 0.25951773 0.16777472 0.45696738 0.24933104]]
 
@@ -481,7 +457,7 @@ User process:
    name is momentum
    value is [0.9]
    name is moments.model_parallel_weight
-   value is 
+   value is
    [[0.14152306 0.5040985 0.24455397 0.10907605 0.11319532 0.19538902 0.01208619 0.40430856]
    [-0.7773164 -0.47611716 -0.6041424 -0.6144473 -0.2651842 -0.31909415 -0.4510405 -0.12860501]]
    ```
@@ -490,7 +466,7 @@ User process:
 
    ```
    name is model_parallel_weight
-   value is 
+   value is
    [[1.1138763 1.0962057 1.3516843 1.0812817 1.1579804 1.1078343 1.0906502 1.3207073]
     [0.916671 1.0781671 1.0368758 0.9680898 1.1735439 1.0628364 0.9960786 1.0135143]
     [0.8828271 0.7963984 0.90675324 0.9830291 0.89010954 0.897052 0.7890109 0.89784735]
@@ -504,7 +480,7 @@ User process:
    name is momentum
    value is [0.9]
    name is moments.model_parallel_weight
-   value is 
+   value is
    [[0.2567724 -0.07485991 0.282002 0.2456022 0.454939 0.619168 0.18964815 0.45714882]
     [0.25946522 0.24344791 0.45677605 0.3611395 0.23378398 0.41439137 0.5312468 0.4696194 ]
     [0.2417504 0.28193963 0.06713893 0.21510397 0.23380603 0.11424308 0.0218009 -0.11969765]
@@ -561,7 +537,7 @@ User process:
            load_param_into_net(net, param_dict)
            opt = Momentum(learning_rate=0.01, momentum=0.9, params=parallel_net.get_parameters())
            load_param_into_net(opt, param_dict)
-           # train code 
+           # train code
            ...
 
        if __name__ == "__main__":
@@ -576,7 +552,7 @@ User process:
    ```
    device0：
    name is model_parallel_weight
-   value is 
+   value is
    [[0.87537426 1.0448935 0.86736983 0.8836905 0.77354026 0.69588304 0.9183654 0.7792076]
    [0.87224025 0.8726848 0.771446 0.81967723 0.88974726 0.7988162 0.72919345 0.7677011]
    [0.8828271 0.7963984 0.90675324 0.9830291 0.89010954 0.897052 0.7890109 0.89784735]
@@ -594,7 +570,7 @@ User process:
 
    device1：
    name is model_parallel_weight
-   value is 
+   value is
    [[1.0053468 0.98402303 0.99762845 0.97587246 1.0259694 1.0055295 0.99420834 0.9496847]
    [1.0851002 1.0295962 1.0999886 1.0958165 0.9765328 1.146529 1.0970603 1.1388365]
    [0.7147005 0.9168278 0.80178416 0.6258351 0.8413766 0.5909515 0.696347 0.71359116]
@@ -608,5 +584,5 @@ User process:
    [[0.03440702 0.41419312 0.24817684 0.30765256 0.48516113 0.24904746 0.57791173 0.00955463]
    [0.13458519 0.6690533 0.49259356 0.28319967 0.25951773 0.16777472 0.45696738  0.24933104]
    [0.14152306 0.5040985 0.24455397 0.10907605 0.11319532 0.19538902 0.01208619  0.40430856]
-   [-0.7773164 -0.47611716 -0.6041424 -0.6144473 -0.2651842 -0.31909415 -0.4510405 -0.12860501]] 
+   [-0.7773164 -0.47611716 -0.6041424 -0.6144473 -0.2651842 -0.31909415 -0.4510405 -0.12860501]]
    ```

@@ -1,19 +1,5 @@
 # Custom Operators
 
-<!-- TOC -->
-
-- [Custom Operators](#custom-operators)
-    - [Overview](#overview)
-    - [Registering the Operator Primitive](#registering-the-operator-primitive)
-    - [Implementing a TBE Operator and Registering the Operator Information](#implementing-a-tbe-operator-and-registering-the-operator-information)
-        - [Implementing a TBE Operator](#implementing-a-tbe-operator)
-        - [Registering the Operator Information](#registering-the-operator-information)
-        - [Example](#example)
-    - [Using Custom Operators](#using-custom-operators)
-    - [Defining the bprop Function for an Operator](#defining-the-bprop-function-for-an-operator)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_en/use/custom_operator.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
@@ -22,7 +8,7 @@ When built-in operators cannot meet requirements during network development, you
 
 To add a custom operator, you need to register the operator primitive, implement the operator, and register the operator information.
 
-The related concepts are as follows:  
+The related concepts are as follows:
 - Operator primitive: defines the frontend API prototype of an operator on the network. It is the basic unit for forming a network model and includes the operator name, attribute (optional), input and output names, output shape inference method, and output dtype inference method.
 - Operator implementation: describes the implementation of the internal computation logic for an operator through the DSL API provided by the Tensor Boost Engine (TBE). The TBE supports the development of custom operators based on the Ascend AI chip. You can apply for Open Beta Tests (OBTs) by visiting <https://www.huaweicloud.com/ascend/tbe>.
 - Operator information: describes basic information about a TBE operator, such as the operator name and supported input and output types. It is the basis for the backend to select and map operators.
@@ -33,7 +19,7 @@ This section takes a Square operator as an example to describe how to customize 
 
 The primitive of an operator is a subclass inherited from `PrimitiveWithInfer`. The type name of the subclass is the operator name.
 
-The definition of the custom operator primitive is the same as that of the built-in operator primitive.  
+The definition of the custom operator primitive is the same as that of the built-in operator primitive.
 - The attribute is defined by the input parameter of the constructor function `__init__()`. The operator in this test case has no attribute. Therefore, `__init__()` has only one input parameter. For details about test cases in which operators have attributes, see [custom add3](https://gitee.com/mindspore/mindspore/tree/r0.3/tests/st/ops/custom_ops_tbe/cus_add3.py) in the MindSpore source code.
 - The input and output names are defined by the `init_prim_io_names()` function.
 - The shape inference method of the output tensor is defined in the `infer_shape()` function, and the dtype inference method of the output tensor is defined in the `infer_dtype()` function.
@@ -70,7 +56,7 @@ To compile an operator implementation, you need to compile a computable function
 
 The computable function of an operator is mainly used to encapsulate the computation logic of the operator for the main function to call. The computation logic is implemented by calling the combined API of the TBE.
 
-The entry function of an operator describes the internal process of compiling the operator. The process is as follows:  
+The entry function of an operator describes the internal process of compiling the operator. The process is as follows:
 1. Prepare placeholders to be input. A placeholder will return a tensor object that represents a group of input data.
 2. Call the computable function. The computable function uses the API provided by the TBE to describe the computation logic of the operator.
 3. Call the scheduling module. The model tiles the operator data based on the scheduling description and specifies the data transfer process to ensure optimal hardware execution. By default, the automatic scheduling module (`auto_schedule`) can be used.
@@ -124,7 +110,7 @@ cus_square_op_info = TBERegOp("CusSquare") \
     .output(0, "y", False, "required", "all") \
     .dtype_format(DataType.F32_Default, DataType.F32_Default) \
     .dtype_format(DataType.F16_Default, DataType.F16_Default) \
-    .get_op_info() 
+    .get_op_info()
 
 # Binding kernel info with the kernel implementation.
 @op_info_register(cus_square_op_info)

@@ -1,22 +1,5 @@
 # Network Migration
 
-<!-- TOC -->
-
-- [Network Migration](#network-migration)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Operator Assessment](#operator-assessment)
-        - [Software and Hardware Environments](#software-and-hardware-environments)
-    - [E2E Network Migration](#e2e-network-migration)
-        - [Training Phase](#training-phase)
-            - [Script Migration](#script-migration)
-            - [Accuracy Debugging](#accuracy-debugging)
-            - [On-Cloud Integration](#on-cloud-integration)
-        - [Inference Phase](#inference-phase)
-    - [Examples](#examples)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/tree/r0.3/tutorials/source_en/advanced_use/network_migration.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
