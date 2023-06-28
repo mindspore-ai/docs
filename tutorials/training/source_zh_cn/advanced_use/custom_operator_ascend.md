@@ -2,20 +2,6 @@
 
 `Linux` `Ascend` `模型开发` `高级`
 
-<!-- TOC -->
-
-- [自定义算子](#自定义算子)
-    - [概述](#概述)
-    - [注册算子原语](#注册算子原语)
-    - [实现TBE算子和注册算子信息](#实现tbe算子和注册算子信息)
-        - [实现TBE算子](#实现tbe算子)
-        - [注册算子信息](#注册算子信息)
-        - [示例](#示例)
-    - [使用自定义算子](#使用自定义算子)
-    - [定义算子反向传播函数](#定义算子反向传播函数)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/custom_operator_ascend.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

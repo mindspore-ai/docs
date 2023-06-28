@@ -2,20 +2,6 @@
 
 `Linux` `Ascend` `Inference Application` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Inference on the Ascend 910 AI processor](#inference-on-the-ascend-910-ai-processor)
-    - [Inference Using a Checkpoint File with Single Device](#inference-using-a-checkpoint-file-with-single-device)
-    - [Distributed Inference with Multiple Devices](#distributed-inference-with-multi-devices)
-    - [Use C++ Interface to Load a MindIR file for inferencing](#use-c-interface-to-load-a-mindir-file-for-inferencing)
-        - [Inference Directory Structure](#inference-directory-structure)
-        - [Inference Code](#inference-code)
-        - [Introduce to Building Script](#introduce-to-building-script)
-        - [Building Inference Code](#building-inference-code)
-        - [Performing Inference and Viewing the Result](#performing-inference-and-viewing-the-result)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/inference/source_en/multi_platform_inference_ascend_910.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Inference Using a Checkpoint File with Single Device

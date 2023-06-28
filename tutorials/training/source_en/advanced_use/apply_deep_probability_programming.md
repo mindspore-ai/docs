@@ -2,31 +2,6 @@
 
 `Ascend` `GPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Deep Probabilistic Programming](#deep-probabilistic-programming)
-    - [Overview](#overview)
-    - [Using BNN](#using-bnn)
-        - [Processing the Dataset](#processing-the-dataset)
-        - [Defining the BNN](#defining-the-bnn)
-        - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
-        - [Training the Network](#training-the-network)
-    - [Using the VAE](#using-the-vae)
-        - [Defining the VAE](#defining-the-vae)
-        - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer-1)
-        - [Processing Data](#processing-data)
-        - [Training the Network](#training-the-network-1)
-        - [Generating New Samples or Rebuilding Input Samples](#generating-new-samples-or-rebuilding-input-samples)
-    - [One-click Conversion from DNN to BNN](#one-click-conversion-from-dnn-to-bnn)
-        - [Defining the DNN Model](#defining-the-dnn-model)
-        - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer-2)
-        - [Instantiating TransformToBNN](#instantiating-transformtobnn)
-        - [Function 1: Converting the Entire Model](#function-1-converting-the-entire-model)
-        - [Function 2: Converting a Layer of a Specified Type](#function-2-converting-a-layer-of-a-specified-type)
-    - [Using the Uncertainty Evaluation Toolbox](#using-the-uncertainty-evaluation-toolbox)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/apply_deep_probability_programming.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

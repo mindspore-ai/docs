@@ -2,18 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
 
-<!-- TOC -->
-
-- [使用mindoptimizer进行超参调优](#使用mindoptimizer进行超参调优)
-    - [概述](#概述)
-    - [安装](#安装)
-    - [用法](#用法)
-    - [配置文件规则说明](#配置文件规则说明)
-    - [使用示例](#使用示例)
-    - [注意事项](#注意事项)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/hyper_parameters_auto_tuning.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

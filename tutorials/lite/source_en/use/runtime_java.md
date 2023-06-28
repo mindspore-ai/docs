@@ -2,24 +2,6 @@
 
 `Android` `Inference` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Using Runtime for Model Inference (Java)](#using-runtime-for-model-inference-java)
-    - [Overview](#overview)
-    - [Android project references AAR package](#android-project-references-aar-package)
-    - [Running MindSpore Lite inference framework](#running-mindspore-lite-inference-framework)
-        - [Loading Model](#loading-model)
-        - [Creating Configuration Context](#creating-configuration-context)
-        - [Creating Session](#creating-session)
-        - [Compiling Graphs](#compiling-graphs)
-        - [Setting Data](#setting-data)
-        - [Graph Execution](#graph-execution)
-        - [Getting Output](#getting-output)
-        - [Releasing Memory](#releasing-memory)
-    - [Example of Android project using MindSpore Lite inference framework](#example-of-android-project-using-mindspore-lite-inference-framework)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_en/use/runtime_java.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

@@ -2,25 +2,6 @@
 
 `Windows` `Linux` `Environment Preparation` `Benchmark Testing` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Performing Benchmark Testing](#performing-benchmark-testing)
-    - [Overview](#overview)
-    - [Linux Environment Usage](#linux-environment-usage)
-        - [Environment Preparation](#environment-preparation)
-        - [Parameter Description](#parameter-description)
-        - [Example](#example)
-            - [Performance Test](#performance-test)
-            - [Accuracy Test](#accuracy-test)
-    - [Windows Environment Usage](#windows-environment-usage)
-        - [Environment Preparation](#environment-preparation-1)
-        - [Parameter Description](#parameter-description-1)
-        - [Example](#example-1)
-            - [Performance Test](#performance-test-1)
-            - [Accuracy Test](#accuracy-test-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_en/use/benchmark_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

@@ -2,20 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `数据准备` `中级` `高级`
 
-<!-- TOC -->
-
-- [优化数据处理](#优化数据处理)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-    - [数据加载性能优化](#数据加载性能优化)
-    - [shuffle性能优化](#shuffle性能优化)
-    - [数据增强性能优化](#数据增强性能优化)
-    - [操作系统性能优化](#操作系统性能优化)
-    - [性能优化方案总结](#性能优化方案总结)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/optimize_data_processing.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/optimize_the_performance_of_data_preparation/mindspore_optimize_the_performance_of_data_preparation.ipynb"><img src="../_static/logo_notebook.png"></a>
 &nbsp;&nbsp;

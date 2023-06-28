@@ -4,27 +4,6 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `全流程` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [实现简单线性函数拟合](#实现简单线性函数拟合)
-    - [概述](#概述)
-    - [环境准备](#环境准备)
-    - [生成数据集](#生成数据集)
-        - [定义数据集生成函数](#定义数据集生成函数)
-        - [定义数据增强函数](#定义数据增强函数)
-    - [定义训练网络](#定义训练网络)
-    - [定义前向传播网络与反向传播网络并关联](#定义前向传播网络与反向传播网络并关联)
-        - [定义前向传播网络](#定义前向传播网络)
-        - [定义反向传播网络](#定义反向传播网络)
-        - [关联前向和反向传播网络](#关联前向和反向传播网络)
-    - [拟合过程可视化准备](#拟合过程可视化准备)
-        - [定义绘图函数](#定义绘图函数)
-        - [定义回调函数](#定义回调函数)
-    - [执行训练](#执行训练)
-    - [总结](#总结)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/quick_start/linear_regression.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/mindspore_linear_regression.ipynb"><img src="../_static/logo_notebook.png"></a>

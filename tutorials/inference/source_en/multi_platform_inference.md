@@ -2,12 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Inference Application` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Multi-Platform Inference Overview](#multi-platform-inference-overview)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/inference/source_en/multi_platform_inference.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 Models trained by MindSpore support the inference on different hardware platforms. This document describes the inference process on each platform.

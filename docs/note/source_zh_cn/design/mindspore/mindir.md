@@ -2,21 +2,6 @@
 
 `Linux` `Windows` `框架开发` `中级` `高级` `贡献者`
 
-<!-- TOC -->
-
-- [MindSpore IR（MindIR）](#mindspore-irmindir)
-    - [简介](#简介)
-    - [文法定义](#文法定义)
-    - [示例](#示例)
-    - [如何保存IR](#如何保存ir)
-    - [函数式语义](#函数式语义)
-        - [高阶函数](#高阶函数)
-        - [控制流](#控制流)
-        - [自由变量和闭包](#自由变量和闭包)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_zh_cn/design/mindspore/mindir.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 简介

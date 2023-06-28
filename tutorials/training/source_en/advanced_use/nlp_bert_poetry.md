@@ -1,26 +1,6 @@
 # Using the BERT Network to Implement Intelligent Poem Writing
 
 `Linux` `Ascend` `Model Training` `Inference Application` `Expert`
-
-<!-- TOC -->
-
-- [Using the BERT Network to Implement Intelligent Poem Writing](#using-the-bert-network-to-implement-intelligent-poem-writing)
-    - [Case Overview](#case-overview)
-    - [Model Description](#model-description)
-    - [Model Training](#model-training)
-        - [Pre-training](#pre-training)
-        - [Fine-tuning](#fine-tuning)
-        - [Modifying a Model](#modifying-a-model)
-    - [Sample Code](#sample-code)
-    - [Implementation Procedure](#implementation-procedure)
-        - [Basic Information](#basic-information)
-        - [Data Preparation](#data-preparation)
-        - [Training](#training)
-        - [Inference Validation](#inference-validation)
-        - [Service Deployment](#service-deployment)
-    - [References](#references)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/nlp_bert_poetry.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 Poetry is an indispensable part of the five-millennium-old Chinese culture. When appreciating poetry, you can perceive the pure and vast world with ultimate sensibility and reduce stress and anxiety brought by the fast-paced world. As we know, one has to practice a skill a lot to become good at it. Today, let's see how the science-backed MindSpore trains a model to show its sense of arts!

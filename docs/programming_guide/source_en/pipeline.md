@@ -1,19 +1,5 @@
 # Processing Data
 
-<!-- TOC -->
-
-- [Processing Data](#processing-data)
-    - [Overview](#overview)
-    - [Data Processing Operators](#data-processing-operators)
-        - [shuffle](#shuffle)
-        - [map](#map)
-        - [batch](#batch)
-        - [repeat](#repeat)
-        - [zip](#zip)
-        - [concat](#concat)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/pipeline.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

@@ -1,20 +1,5 @@
 # MindSpore数据格式转换
 
-<!-- TOC -->
-
-- [MindSpore数据格式转换](#mindspore数据格式转换)
-    - [概述](#概述)
-    - [非标准数据集转换MindRecord](#非标准数据集转换mindrecord)
-        - [转换CV类数据集](#转换cv类数据集)
-        - [转换NLP类数据集](#转换nlp类数据集)
-    - [常用数据集转换MindRecord](#常用数据集转换mindrecord)
-        - [转换CIFAR-10数据集](#转换cifar-10数据集)
-        - [转换ImageNet数据集](#转换imagenet数据集)
-        - [转换CSV数据集](#转换csv数据集)
-        - [转换TFRecord数据集](#转换tfrecord数据集)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/dataset_conversion.md" target="_blank"><img src="./_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/programming_guide/mindspore_dataset_conversion.ipynb"><img src="./_static/logo_notebook.png"></a>

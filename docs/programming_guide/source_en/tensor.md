@@ -1,16 +1,5 @@
 ﻿# Tensor
 
-<!-- TOC -->
-
-- [Tensor](#tensor)
-    - [Overview](#overview)
-    - [Tensor Structure](#tensor-structure)
-    - [Tensor Attributes and Methods](#tensor-attributes-and-methods)
-        - [Attributes](#attributes)
-        - [Methods](#methods)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/tensor.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

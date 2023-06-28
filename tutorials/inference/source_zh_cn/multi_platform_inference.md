@@ -2,14 +2,6 @@
 
  `Linux` `Ascend` `GPU` `CPU` `推理应用` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [推理模型总览](#推理模型总览)
-    - [模型文件](#模型文件)
-    - [执行推理](#执行推理)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/inference/source_zh_cn/multi_platform_inference.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 MindSpore可以基于训练好的模型，在不同的硬件平台上执行推理任务。

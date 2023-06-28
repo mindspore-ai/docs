@@ -2,29 +2,6 @@
 
 `Windows` `Linux` `Android` `Environment Preparation` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Building MindSpore Lite](#building-mindspore-lite)
-    - [Linux Environment Compilation](#linux-environment-compilation)
-        - [Environment Requirements](#environment-requirements)
-        - [Compilation Options](#compilation-options)
-        - [Compilation Example](#compilation-example)
-        - [Inference Output Description](#inference-output-description)
-            - [Description of Converter's Directory Structure](#description-of-converters-directory-structure)
-            - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)
-        - [Training Output Description](#training-output-description)
-            - [Description of Training Converter's Directory Structure](#description-of-training-converter-s-directory-structure)
-            - [Description of Training Runtime and Other tools' Directory Structure](#description-of-training-runtime-and-other-tools-directory-structure)
-    - [Windows Environment Compilation](#windows-environment-compilation)
-        - [Environment Requirements](#environment-requirements-1)
-        - [Compilation Options](#compilation-options-1)
-        - [Compilation Example](#compilation-example-1)
-        - [Output Description](#output-description)
-            - [Description of Converter's Directory Structure](#description-of-converter-s-directory-structure-1)
-            - [Description of Benchmark's Directory Structure](#description-of-benchmark-s-directory-structure)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_en/use/build.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 This chapter introduces how to quickly compile MindSpore Lite, which includes the following modules:

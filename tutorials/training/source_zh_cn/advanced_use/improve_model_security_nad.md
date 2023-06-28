@@ -2,21 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型训练` `模型调优` `企业` `高级`
 
-<!-- TOC -->
-
-- [使用NAD算法提升模型安全性](#使用nad算法提升模型安全性)
-    - [概述](#概述)
-    - [建立被攻击模型](#建立被攻击模型)
-        - [引入相关包](#引入相关包)
-        - [加载数据集](#加载数据集)
-        - [建立模型](#建立模型)
-    - [对抗性攻击](#对抗性攻击)
-    - [对抗性防御](#对抗性防御)
-        - [防御实现](#防御实现)
-        - [防御效果](#防御效果)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/improve_model_security_nad.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1//mindspore_model_security.ipynb"><img src="../_static/logo_notebook.png"></a>
 &nbsp;&nbsp;

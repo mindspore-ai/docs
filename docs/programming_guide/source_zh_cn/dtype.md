@@ -1,13 +1,5 @@
 # dtype
 
-<!-- TOC -->
-
-- [dtype](#dtype)
-    - [概述](#概述)
-    - [数据类型转换接口](#数据类型转换接口)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/dtype.md" target="_blank"><img src="./_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/programming_guide/mindspore_dtype.ipynb"><img src="./_static/logo_notebook.png"></a>

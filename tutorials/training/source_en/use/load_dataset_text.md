@@ -2,17 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Loading Text Dataset](#loading-text-dataset)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-    - [Loading Dataset](#loading-dataset)
-    - [Processing Data](#processing-data)
-    - [Tokenization](#tokenization)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/use/load_dataset_text.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

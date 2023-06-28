@@ -1,22 +1,5 @@
 ﻿# Security and Privacy Protection
 
-<!-- TOC -->
-
-- [Security and Privacy Protection](#security-and-privacy-protection)
-    - [Overview](#overview)
-    - [Adversarial Robustness](#adversarial-robustness)
-        - [Attack](#attack)
-        - [Defense](#defense)
-        - [Detector](#detector)
-- [Model Security Test](#model-security-test)
-        - [Fuzzer](#fuzzer)
-    - [Differential Privacy Training](#differential-privacy-training)
-        - [DPModel](#dpmodel)
-    - [Privacy Breach Risk Assessment](#privacy-breach-risk-assessment)
-        - [Membership Inference](#membership-inference)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/security_and_privacy.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

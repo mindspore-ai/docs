@@ -2,23 +2,6 @@
 
 `CPU` `GPU` `Ascend` `全流程` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [实现高阶自动微分](#实现高阶自动微分)
-    - [概述](#概述)
-    - [一阶求导](#一阶求导)
-        - [输入求导](#输入求导)
-        - [权重求导](#权重求导)
-        - [梯度值缩放](#梯度值缩放)
-    - [高阶求导](#高阶求导)
-        - [单输入单输出高阶导数](#单输入单输出高阶导数)
-        - [单输入多输出高阶导数](#单输入多输出高阶导数)
-        - [多输入多输出高阶导数](#多输入多输出高阶导数)
-    - [二阶微分算子支持情况](#二阶微分算子支持情况)
-    - [引用](#引用)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/achieve_high_order_differentiation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

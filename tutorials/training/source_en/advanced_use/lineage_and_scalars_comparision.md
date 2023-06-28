@@ -2,17 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Viewing Lineage and Scalars Comparision](#viewing-lineage-and-scalars-comparision)
-    - [Overview](#overview)
-    - [Model Lineage](#model-lineage)
-    - [Dataset Lineage](#dataset-lineage)
-    - [Scalars Comparision](#scalars-comparision)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/lineage_and_scalars_comparision.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

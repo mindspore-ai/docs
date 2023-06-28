@@ -2,14 +2,6 @@
 
 `Linux` `Ascend` `GPU` `Model Publishing` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Publishing Models using MindSpore Hub](#publishing-models-using-mindspore-hub)
-    - [Overview](#overview)
-    - [How to publish models](#how-to-publish-models)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/use/publish_model.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

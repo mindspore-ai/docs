@@ -1,22 +1,5 @@
 # AI安全与隐私保护
 
-<!-- TOC -->
-
-- [AI安全与隐私保护](#ai安全与隐私保护)
-    - [概述](#概述)
-    - [对抗鲁棒性](#对抗鲁棒性)
-        - [Attack](#attack)
-        - [Defense](#defense)
-        - [Detector](#detector)
-    - [模型安全测试](#模型安全测试)
-        - [Fuzzer](#fuzzer)
-    - [差分隐私训练](#差分隐私训练)
-        - [DPModel](#dpmodel)
-    - [隐私泄露风险评估](#隐私泄露风险评估)
-        - [MembershipInference](#membershipinference)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/security_and_privacy.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述

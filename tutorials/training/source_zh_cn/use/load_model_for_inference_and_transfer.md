@@ -2,19 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型加载` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [加载模型用于推理或迁移学习](#加载模型用于推理或迁移学习)
-    - [概述](#概述)
-    - [本地加载模型](#本地加载模型)
-        - [用于推理验证](#用于推理验证)
-        - [用于迁移学习](#用于迁移学习)
-    - [从Hub加载模型](#从hub加载模型)
-        - [用于推理验证](#用于推理验证-1)
-        - [用于迁移学习](#用于迁移学习-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/use/load_model_for_inference_and_transfer.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/mindspore_load_model_for_inference_and_transfer.ipynb"><img src="../_static/logo_notebook.png"></a>

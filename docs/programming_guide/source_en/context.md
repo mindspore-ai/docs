@@ -1,21 +1,5 @@
 # Running Management
 
-<!-- TOC -->
-
-- [Running Management](#running-management)
-    - [Overview](#overview)
-    - [Execution Mode Management](#execution-mode-management)
-        - [Mode Selection](#mode-selection)
-        - [Mode Switching](#mode-switching)
-    - [Hardware Management](#hardware-management)
-    - [Distributed Management](#distributed-management)
-    - [Maintenance and Test Management](#maintenance-and-test-management)
-        - [Profiling Data Collection](#profiling-data-collection)
-        - [Saving MindIR](#saving mindir)
-        - [Print Operator Disk Flushing](#print-operator-disk-flushing)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/context.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

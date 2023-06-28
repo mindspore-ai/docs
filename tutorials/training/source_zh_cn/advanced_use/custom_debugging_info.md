@@ -2,22 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
 
-<!-- TOC -->
-
-- [自定义调试信息](#自定义调试信息)
-    - [概述](#概述)
-    - [Callback介绍](#callback介绍)
-        - [MindSpore的Callback能力](#mindspore的callback能力)
-        - [自定义Callback](#自定义callback)
-    - [MindSpore metrics功能介绍](#mindspore-metrics功能介绍)
-    - [print算子功能介绍](#print算子功能介绍)
-    - [数据Dump功能介绍](#数据dump功能介绍)
-        - [同步Dump功能介绍](#同步dump功能介绍)
-        - [异步Dump功能介绍](#异步dump功能介绍)
-    - [日志相关的环境变量和配置](#日志相关的环境变量和配置)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/custom_debugging_info.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/mindspore_custom_debugging_info.ipynb"><img src="../_static/logo_notebook.png"></a>

@@ -1,26 +1,5 @@
 # Cell Building and Its Subclasses
 
-<!-- TOC -->
-
-- [Cell Building and Its Subclasses](#cell-building-and-its-subclasses)
-    - [Overview](#overview)
-    - [Key Member Functions](#key-member-functions)
-        - [construct](#construct)
-        - [parameters_dict](#parameters_dict)
-        - [cells_and_names](#cells_and_names)
-        - [set_grad](#set_grad)
-    - [Relationship Between the nn Module and the ops Module](#relationship-between-the-nn-module-and-the-ops-module)
-    - [Model Layers](#model-layers)
-        - [Built-in Model Layers](#built-in-model-layers)
-        - [Application Cases](#application-cases)
-    - [Loss Functions](#loss-functions)
-        - [Built-in Loss Functions](#built-in-loss-functions)
-        - [Application Cases](#application-cases-1)
-    - [Optimization Algorithms](#optimization-algorithms)
-    - [Building a Customized Network](#building-a-customized-network)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/cell.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
