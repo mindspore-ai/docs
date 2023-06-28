@@ -1,13 +1,5 @@
 # 算子支持
 
-<!-- TOC -->
-
-- [算子支持](#算子支持)
-    - [mindspore.nn](#mindsporenn)
-    - [mindspore.ops.operations](#mindsporeopsoperations)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/docs/source_zh_cn/operator_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## mindspore.nn

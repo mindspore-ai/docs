@@ -1,16 +1,5 @@
 # Debugging in PyNative Mode
 
-<!-- TOC -->
-
-- [Debugging in PyNative Mode](#debugging-in-pynative-mode)
-    - [Overview](#overview)
-    - [Executing a Single Operator](#executing-a-single-operator)
-    - [Executing a Common Function](#executing-a-common-function)
-        - [Improving PyNative Performance](#improving-pynative-performance)
-    - [Debugging Network Train Model](#debugging-network-train-model)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/advanced_use/debugging_in_pynative_mode.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

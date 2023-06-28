@@ -1,20 +1,5 @@
 # Model Security
 
-<!-- TOC -->
-
-- [Model Security](#model-security)
-    - [Overview](#overview)
-    - [Creating an Target Model](#creating-an-target-model)
-        - [Importing Related Packages](#importing-related-packages)
-        - [Loading the Dataset](#loading-the-dataset)
-        - [Creating the Model](#creating-the-model)
-    - [Adversarial Attack](#adversarial-attack)
-    - [Adversarial Defense](#adversarial-defense)
-        - [Defense Implementation](#defense-implementation)
-        - [Defense Effect](#defense-effect)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/advanced_use/model_security.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

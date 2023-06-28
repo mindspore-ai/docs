@@ -1,16 +1,5 @@
 # On-Device Inference
 
-<!-- TOC -->
-
-- [On-Device Inference](#on-device-inference)
-    - [Overview](#overview)
-    - [Compilation Method](#compilation-method)
-    - [Use of On-Device Inference](#use-of-on-device-inference)
-        - [Generating an On-Device Model File](#generating-an-on-device-model-file)
-        - [Implementing On-Device Inference](#implementing-on-device-inference)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/advanced_use/on_device_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

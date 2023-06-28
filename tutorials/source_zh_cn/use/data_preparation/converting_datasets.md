@@ -1,19 +1,5 @@
 # 将数据集转换为MindSpore数据格式
 
-<!-- TOC -->
-
-- [将数据集转换为MindSpore数据格式](#将数据集转换为mindspore数据格式)
-    - [概述](#概述)
-    - [将非标准数据集转换为MindSpore数据格式](#将非标准数据集转换为mindspore数据格式)
-        - [转换图片及标注数据](#转换图片及标注数据)
-    - [将常见数据集转换为MindSpore数据格式](#将常见数据集转换为mindspore数据格式)
-        - [转换CIFAR-10数据集](#转换cifar-10数据集)
-        - [转换CIFAR-100数据集](#转换cifar-100数据集)
-        - [转换ImageNet数据集](#转换imagenet数据集)
-        - [转换MNIST数据集](#转换mnist数据集)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_zh_cn/use/data_preparation/converting_datasets.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 概述

@@ -1,19 +1,6 @@
 # Customized Debugging Information
 
 
-<!-- TOC -->
-
-- [Customized Debugging Information](#customized-debugging-information)
-    - [Overview](#overview)
-    - [Introduction to Callback](#introduction-to-callback)
-        - [Callback Capabilities of MindSpore](#callback-capabilities-of-mindspore)
-        - [Custom Callback](#custom-callback)
-    - [MindSpore Metrics](#mindspore-metrics)
-    - [MindSpore Print Operator](#mindspore-print-operator)
-    - [Log-related Environment Variables and Configurations](#log-related-environment-variables-and-configurations)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/advanced_use/customized_debugging_information.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

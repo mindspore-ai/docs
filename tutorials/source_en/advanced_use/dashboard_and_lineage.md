@@ -1,26 +1,5 @@
 # Dashboard and Lineage
 
-<!-- TOC -->
-
-- [Dashboard and Lineage](#dashboard-and-lineage)
-    - [Overview](#overview)
-    - [Operation Process](#operation-process)
-    - [Preparing the Training Script](#preparing-the-training-script)
-        - [Collect Summary Data](#collect-summary-data)
-    - [Visualization Components](#visualization-components)
-        - [Training Dashboard](#training-dashboard)
-            - [Scalar Visualization](#scalar-visualization)
-            - [Parameter Distribution Visualization](#parameter-distribution-visualization)
-            - [Computational Graph Visualization](#computational-graph-visualization)
-            - [Dataset Graph Visualization](#dataset-graph-visualization)
-            - [Image Visualization](#image-visualization)
-        - [Model Lineage](#model-lineage)
-        - [Dataset Lineage](#dataset-lineage)
-        - [Scalars Comparision](#scalars-comparision)
-    - [Specifications](#specifications)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/advanced_use/dashboard_and_lineage.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
