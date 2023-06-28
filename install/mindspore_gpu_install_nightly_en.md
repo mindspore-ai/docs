@@ -252,7 +252,19 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
-Use the following command if you need to update the MindSpore version:
+When upgrading from MindSpore 1.x to MindSpore 2.x, you need to manually uninstall the old version first:
+
+```bash
+pip uninstall mindspore-gpu-dev
+```
+
+Then install MindSpore 2.x:
+
+```bash
+pip install mindspore-dev=={version}
+```
+
+When upgrading from MindSpore 2.x:
 
 ```bash
 pip install --upgrade mindspore-dev=={version}
