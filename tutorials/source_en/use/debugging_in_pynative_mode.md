@@ -1,16 +1,5 @@
 # Debugging in PyNative Mode
 
-<!-- TOC -->
-
-- [Debugging in PyNative Mode](#debugging-in-pynative-mode)
-    - [Overview](#overview)
-    - [Executing a Single Operator](#executing-a-single-operator)
-    - [Executing a Common Function](#executing-a-common-function)
-    - [Improving PyNative Performance](#improving-pynative-performance)
-    - [Debugging Network Train Model](#Debugging-network-train-model)
-
-<!-- /TOC -->
-
 ## Overview
 
 MindSpore supports the following running modes which are optimized in terms of debugging or running:
@@ -67,12 +56,12 @@ Output:
 [ 0.05016355 0.03958241 0.03958241 0.03958241 0.03443141]]]]
 ```
 
-
 ## Executing a Common Function
 
 Combine multiple operators into a function, call the function to execute the operators, and output the result, as shown in the following example:
 
 **Example Code**
+
 ```python
 import numpy as np
 from mindspore import context, Tensor
@@ -100,7 +89,6 @@ print(output.asnumpy())
 ```
 
 > Parallel execution and summary is not supported in PyNative mode, so parallel and summary related operators can not be used.
-
 
 ### Improving PyNative Performance
 
@@ -134,6 +122,7 @@ tensor_add = P.TensorAdd()
 res = tensor_add(x, z) # PyNative mode
 print(res.asnumpy())
 ```
+
 **Output**
 
 ```python
@@ -170,6 +159,7 @@ y = Tensor(np.ones([4, 4]).astype(np.float32))
 z = tensor_add_fn(x, y)
 print(z.asnumpy())
 ```
+
 **Output**
 
 ```shell
@@ -304,7 +294,7 @@ class LeNet5(nn.Cell):
     Lenet network
     Args:
         num_class (int): Num classes. Default: 10.
-        
+
     Returns:
         Tensor, output tensor
 
@@ -338,8 +328,8 @@ class LeNet5(nn.Cell):
         x = self.relu(x)
         x = self.fc3(x)
         return x
- 
-    
+
+
 class GradWrap(nn.Cell):
     """ GradWrap definition """
     def __init__(self, network):

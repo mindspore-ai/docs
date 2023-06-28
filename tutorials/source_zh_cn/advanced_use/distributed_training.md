@@ -1,23 +1,7 @@
 # 分布式并行训练
 
-<!-- TOC -->
-
-- [分布式并行训练](#分布式并行训练)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [配置分布式环境变量](#配置分布式环境变量)
-        - [调用集合通信库](#调用集合通信库)
-    - [数据并行模式加载数据集](#数据并行模式加载数据集)
-    - [定义网络](#定义网络)
-    - [定义损失函数及优化器](#定义损失函数及优化器)
-        - [定义损失函数](#定义损失函数)
-        - [定义优化器](#定义优化器)
-    - [训练网络](#训练网络)
-    - [运行脚本](#运行脚本)
-
-<!-- /TOC -->
-
 ## 概述
+
 在深度学习中，当数据集和参数量的规模越来越大，训练所需的时间和硬件资源会随之增加，最后会变成制约训练的瓶颈。分布式并行训练，可以降低对内存、计算性能等硬件的需求，是进行训练的重要优化手段。根据并行的原理及模式不同，业界主流的并行类型有以下几种：
 
 - 数据并行（Data Parallel）：对数据进行切分的并行模式，一般按照batch维度切分，将数据分配到各个计算单元（worker）中，进行模型计算。
@@ -25,6 +9,7 @@
 - 混合并行（Hybrid Parallel）：涵盖数据并行和模型并行的并行模式。
 
 当前MindSpore也提供分布式并行训练的功能。它支持了多种模式包括：
+
 - `DATA_PARALLEL`：数据并行模式。
 - `AUTO_PARALLEL`：自动并行模式，融合了数据并行、模型并行及混合并行的1种分布式并行模式，可以自动建立代价模型，为用户选择1种并行模式。其中，代价模型指围绕Ascend 910芯片基于内存的计算开销和通信开销对训练时间建模，并设计高效的算法找到训练时间较短的并行策略。
 
@@ -71,6 +56,7 @@
 }
 
 ```
+
 其中需要根据实际训练环境修改的参数项有：
 
 - `board_id`表示当前运行的环境，x86设为`0x0000`，arm设为`0x0020`。
@@ -80,11 +66,11 @@
 - `device_ip`表示网卡IP地址，可以在当前机器执行指令`cat /etc/hccn.conf`，`address_x`的键值就是网卡IP地址。
 - `para_plane_nic_name`对应网卡名称。
 
-
 ### 调用集合通信库
 
 MindSpore分布式并行训练的通信使用了华为集合通信库`Huawei Collective Communication Library`（以下简称HCCL），可以在Ascend AI处理器配套的软件包中找到。同时`mindspore.communication.management`中封装了HCCL提供的集合通信接口，方便用户配置分布式信息。
 > HCCL实现了基于Ascend AI处理器的多机多卡通信，有一些使用限制，我们列出使用分布式服务常见的，详细的可以查看HCCL对应的使用文档。
+>
 > - 单机场景下支持1、2、4、8卡设备集群，多机场景下支持8*n卡设备集群。
 > - 每台机器的0-3卡和4-7卡各为1个组网，2卡和4卡训练时网卡必须相连且不支持跨组网创建集群。
 > - 服务器硬件架构及操作系统需要是SMP（Symmetrical Multi-Processing，对称多处理器）处理模式。
@@ -99,10 +85,11 @@ from mindspore.communication.management import init
 if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", enable_hccl=True, device_id=int(os.environ["DEVICE_ID"]))
     init()
-    ...   
+    ...
 ```
 
-其中，  
+其中，
+
 - `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
 - `enable_hccl=True`：使能HCCL通信。
 - `device_id`：卡的物理序号，即卡所在机器中的实际序号。
@@ -111,7 +98,6 @@ if __name__ == "__main__":
 ## 数据并行模式加载数据集
 
 分布式训练时，数据是以数据并行的方式导入的。下面我们以CIFAR-10数据集为例，介绍以数据并行方式导入CIFAR-10数据集的方法，`data_path`是指数据集的路径。
-
 
 ```python
 import mindspore.common.dtype as mstype
@@ -125,12 +111,12 @@ def create_dataset(repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
     resize_width = 224
     rescale = 1.0 / 255.0
     shift = 0.0
-    
+
     # get rank_id and rank_size
     rank_id = get_rank()
     rank_size = get_group_size()
     data_set = ds.Cifar10Dataset(data_path, num_shards=rank_size, shard_id=rank_id)
-    
+
     # define map operations
     random_crop_op = vision.RandomCrop((32, 32), (4, 4, 4, 4))
     random_horizontal_op = vision.RandomHorizontalFlip()
@@ -158,7 +144,9 @@ def create_dataset(repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
 
     return data_set
 ```
-其中，与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应网卡数量和逻辑序号，建议通过HCCL接口获取：  
+
+其中，与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应网卡数量和逻辑序号，建议通过HCCL接口获取：
+
 - `get_rank`：获取当前设备在集群中的ID。
 - `get_group_size`：获取集群数量。
 
@@ -198,7 +186,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         self.sparse = sparse
         self.max = P.ReduceMax(keep_dims=True)
         self.sub = P.Sub()
-        
+
     def construct(self, logit, label):
         logit_max = self.max(logit, -1)
         exp = self.exp(self.sub(logit, logit_max))
@@ -253,11 +241,14 @@ def test_train_cifar(num_classes=10, epoch_size=10):
     model = Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
-其中，  
+
+其中，
+
 - `dataset_sink_mode=True`，`enable_task_sink=True`,`enable_loop_sink=True`：表示采用数据集和任务的下沉模式，即训练的计算下沉到硬件平台中执行。
 - `LossMonitor`：能够通过回调函数返回Loss值，用于监控损失函数。
 
 ## 运行脚本
+
 上述已将训练所需的脚本编辑好了，接下来通过命令调用对应的脚本。
 
 目前MindSpore分布式执行采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。每个进程创建1个目录，用来保存日志信息以及算子编译信息。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
@@ -281,7 +272,8 @@ do
 done
 ```
 
-其中必要的环境变量有，  
+其中必要的环境变量有，
+
 - `RANK_TABLE_FILE`：组网信息文件的路径。
 - `DEVICE_ID`：当前网卡在机器上的实际序号。
 其余环境变量请参考安装教程中的配置项。

@@ -1,25 +1,5 @@
 # 自然语言处理应用
 
-<!-- TOC -->
-
-- [自然语言处理应用](#自然语言处理应用)
-    - [概述](#概述)
-    - [准备及设计](#准备及设计)
-        - [下载数据集](#下载数据集)
-        - [确定评价标准](#确定评价标准)
-        - [确定网络及流程](#确定网络及流程)
-    - [实现阶段](#实现阶段)
-        - [导入需要的库文件](#导入需要的库文件)
-        - [配置环境信息](#配置环境信息)
-        - [预处理数据集](#预处理数据集)
-        - [定义网络](#定义网络)
-        - [定义优化器及损失函数](#定义优化器及损失函数)
-        - [训练并保存模型](#训练并保存模型)
-        - [模型验证](#模型验证)
-    - [实验结果](#实验结果)
-
-<!-- /TOC -->
-
 ## 概述
 
 情感分类是自然语言处理中文本分类问题的子集，属于自然语言处理最基础的应用。它是对带有感情色彩的主观性文本进行分析和推理的过程，即分析说话人的态度，是倾向正面还是反面。
@@ -42,6 +22,7 @@ $垂直极性词 = 通用极性词 + 领域特有极性词$
 按照处理文本的粒度不同，情感分析可分为词语级、短语级、句子级、段落级以及篇章级等几个研究层次。这里以“段落级”为例，输入为一个段落，输出为影评是正面还是负面的信息。
 
 ## 准备及设计
+
 ### 下载数据集
 
 采用IMDB影评数据集作为实验数据。
@@ -49,15 +30,17 @@ $垂直极性词 = 通用极性词 + 领域特有极性词$
 
 以下是负面影评（Negative）和正面影评（Positive）的案例。
 
-| Review  | Label  | 
+| Review  | Label  |
 |---|---|
-| "Quitting" may be as much about exiting a pre-ordained identity as about drug withdrawal. As a rural guy coming to Beijing, class and success must have struck this young artist face on as an appeal to separate from his roots and far surpass his peasant parents' acting success. Troubles arise, however, when the new man is too new, when it demands too big a departure from family, history, nature, and personal identity. The ensuing splits, and confusion between the imaginary and the real and the dissonance between the ordinary and the heroic are the stuff of a gut check on the one hand or a complete escape from self on the other.  |  Negative |  
+| "Quitting" may be as much about exiting a pre-ordained identity as about drug withdrawal. As a rural guy coming to Beijing, class and success must have struck this young artist face on as an appeal to separate from his roots and far surpass his peasant parents' acting success. Troubles arise, however, when the new man is too new, when it demands too big a departure from family, history, nature, and personal identity. The ensuing splits, and confusion between the imaginary and the real and the dissonance between the ordinary and the heroic are the stuff of a gut check on the one hand or a complete escape from self on the other.  |  Negative |
 | This movie is amazing because the fact that the real people portray themselves and their real life experience and do such a good job it's like they're almost living the past over again. Jia Hongsheng plays himself an actor who quit everything except music and drugs struggling with depression and searching for the meaning of life while being angry at everyone especially the people who care for him most.  | Positive  |
 
 同时，我们要下载GloVe文件，并在文件开头处添加新的一行，意思是总共读取400000个单词，每个单词用300纬度的词向量表示。
-```
+
+```text
 400000 300
 ```
+
 GloVe文件下载地址：<http://nlp.stanford.edu/data/glove.6B.zip>。
 
 ### 确定评价标准
@@ -68,28 +51,32 @@ $精度（Accuracy）= 分类正确的样本数目 / 总样本数目$
 
 $精准度（Precision）= 真阳性样本数目 / 所有预测类别为阳性的样本数目$
 
-$召回率（Recall）= 真阳性样本数目 / 所有真实类别为阳性的样本数目$ 
+$召回率（Recall）= 真阳性样本数目 / 所有真实类别为阳性的样本数目$
 
-$F1分数 = (2 * Precision * Recall) / (Precision + Recall)$
+$$F1分数 = (2 * Precision * Recall) / (Precision + Recall)$$
 
 在IMDB这个数据集中，正负样本数差别不大，可以简单地用精度（accuracy）作为分类器的衡量标准。
-
 
 ### 确定网络及流程
 
 我们使用LSTM网络进行自然语言处理。
+
 1. 加载使用的数据集，并进行必要的数据处理。
 2. 使用LSTM网络训练数据，生成模型。
     > LSTM（Long short-term memory，长短期记忆）网络是一种时间循环神经网络，适合于处理和预测时间序列中间隔和延迟非常长的重要事件。具体介绍可参考网上资料，在此不再赘述。
 3. 得到模型之后，使用验证数据集，查看模型精度情况。
 
 > 本例面向GPU硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/r0.2/tutorials/tutorial_code/lstm>
+>
 > - main.py：代码文件，包括数据预处理、网络定义、模型训练等代码。
 > - config.py：网络中的一些配置，包括batch size、进行几次epoch训练等。
 
 ## 实现阶段
+
 ### 导入需要的库文件
+
 下列是我们所需要的公共模块及MindSpore的模块及库文件。
+
 ```python
 import os
 import shutil
@@ -119,6 +106,7 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
 ### 配置环境信息
 
 1. 使用`parser`模块，传入运行必要的信息，如数据集存放路径，GloVe存放路径，这样的好处是，对于经常变化的配置，可以在运行代码时输入，使用更加灵活。
+
     ```python
     parser = argparse.ArgumentParser(description='MindSpore LSTM Example')
     parser.add_argument('--preprocess', type=str, default='false', choices=['true', 'false'],
@@ -132,23 +120,24 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
     # Add a new line '400000 300' at the beginning of 'glove.6B.300d.txt' with '40000' for total words and '300' for vector length
     parser.add_argument('--glove_path', type=str, default="./glove",
                         help='path where the GloVe is store')
-    # Specify the path to save preprocessed data                
+    # Specify the path to save preprocessed data
     parser.add_argument('--preprocess_path', type=str, default="./preprocess",
                         help='path where the pre-process data is store')
-    # Specify the path to save the CheckPoint file                    
+    # Specify the path to save the CheckPoint file
     parser.add_argument('--ckpt_path', type=str, default="./ckpt", help='if mode is test, must provide\
                         path where the trained ckpt file')
     args = parser.parse_args()
     ```
 
 2. 实现代码前，需要配置必要的信息，包括环境信息、执行的模式、后端信息及硬件信息。
-   
+
     ```python
     context.set_context(
         mode=context.GRAPH_MODE,
         save_graphs=False,
         device_target="GPU")
     ```
+
     详细的接口配置信息，请参见`context.set_context`接口说明。
 
 ### 预处理数据集
@@ -299,6 +288,7 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
     ```
 
 3. 创建数据集。
+
     ```python
     def create_dataset(base_path, batch_size, num_epochs, is_train):
         """Create dataset for training."""
@@ -371,6 +361,7 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
     ```
 
 2. 使用`cell`方法，定义网络结构。
+
     ```python
     class SentimentNet(nn.Cell):
         """Sentiment network structure."""
@@ -420,8 +411,8 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
             encoding = self.concat((output[0], output[1]))
             outputs = self.decoder(encoding)
             return outputs
-    
-    
+
+
     embedding_table = np.loadtxt(os.path.join(args.preprocess_path, "weight.txt")).astype(np.float32)
     network = SentimentNet(vocab_size=embedding_table.shape[0],
                     embed_size=cfg.embed_size,
@@ -472,12 +463,15 @@ print("============== Accuracy:{} ==============".format(acc))
 ```
 
 ## 实验结果
+
 在经历了10轮epoch之后，在训练集上的精度收敛到约85%，在测试集上的精度约为86%。
 
 **执行训练**
+
 1. 运行训练代码，查看运行结果。
+
     ```shell
-    $ python main.py --preprocess=true --mode=train --ckpt_path=./ckpt
+    python main.py --preprocess=true --mode=train --ckpt_path=./ckpt
     ```
 
     输出如下，可以看到loss值随着训练逐步降低，最后达到0.249左右，即经过10个epoch的训练，对当前文本分析的结果正确率在85%左右：
@@ -497,13 +491,13 @@ print("============== Accuracy:{} ==============".format(acc))
     epoch: 10 step: 390 , loss is 0.22616856
     epoch: 10 step: 390 , loss is 0.24914627
     ```
-    
+
 2. 查看保存的CheckPoint文件。
-   
+
    训练过程中保存了CheckPoint文件，即模型文件，我们可以查看文件保存的路径下的所有保存文件。
 
     ```shell
-    $ ls ckpt/
+    ls ckpt/
     ```
 
     输出如下：
@@ -517,7 +511,7 @@ print("============== Accuracy:{} ==============".format(acc))
 使用最后保存的CheckPoint文件，加载验证数据集，进行验证。
 
 ```shell
-$ python main.py --mode=test --ckpt_path=./ckpt/lstm-10_390.ckpt
+python main.py --mode=test --ckpt_path=./ckpt/lstm-10_390.ckpt
 ```
 
 输出如下，可以看到使用验证的数据集，对文本的情感分析正确率在86%左右，达到一个基本满意的结果。
@@ -531,6 +525,3 @@ RegisterOperatorCreator:OperatorCreators init
 [INFO] ME(29963:140462460516096,MainProcess):2020-03-09-16:37:20.467.649 [mindspore/train/serialization.py:268] Load parameter into net process finish.
 ============== Accuracy:{'acc': 0.8599358974358975} ==============
 ```
-
-
-

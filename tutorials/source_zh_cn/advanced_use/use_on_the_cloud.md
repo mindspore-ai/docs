@@ -1,28 +1,5 @@
 # 在云上使用MindSpore
 
-
-<!-- TOC -->
-
-- [在云上使用MindSpore](#在云上使用mindspore)
-    - [概述](#概述)
-    - [准备工作](#准备工作)
-        - [ModelArts使用准备](#modelarts使用准备)
-        - [拥有云上昇腾AI处理器资源](#拥有云上昇腾ai处理器资源)
-        - [数据准备](#数据准备)
-        - [执行脚本准备](#执行脚本准备)
-    - [通过简单适配将MindSpore脚本运行在ModelArts](#通过简单适配将mindspore脚本运行在modelarts)
-        - [适配脚本参数](#适配脚本参数)
-        - [适配OBS数据](#适配obs数据)
-        - [适配8卡训练任务](#适配8卡训练任务)
-        - [示例代码](#示例代码)
-    - [创建训练任务](#创建训练任务)
-        - [进入ModelArts控制台](#进入modelarts控制台)
-        - [使用常用框架创建训练作业](#使用常用框架创建训练作业)
-        - [使用MindSpore作为常用框架创建训练作业](#使用mindspore作为常用框架创建训练作业)
-    - [查看运行结果](#查看运行结果)
-
-<!-- /TOC -->
-
 ## 概述
 
 ModelArts是华为云提供的面向开发者的一站式AI开发平台，集成了昇腾AI处理器资源池，用户可以在该平台下体验MindSpore。
@@ -84,7 +61,7 @@ ModelArts使用对象存储服务（Object Storage Service，简称OBS）进行�
 
 “执行脚本准备”章节提供的脚本可以直接运行在ModelArts，想要快速体验ResNet-50训练CIFAR-10可以跳过本章节。如果需要将自定义MindSpore脚本或更多MindSpore示例代码在ModelArts运行起来，需要参考本章节对MindSpore代码进行简单适配。
 
-###  适配脚本参数
+### 适配脚本参数
 
 1. 在ModelArts运行的脚本必须配置`data_url`和`train_url`，分别对应数据存储路径(OBS路径)和训练输出路径(OBS路径)。
 
@@ -122,13 +99,14 @@ MindSpore暂时没有提供直接访问OBS数据的接口，需要通过MoXing�
     ```
 
 ### 适配8卡训练任务
+
 如果需要将脚本运行在`8*Ascend`规格的环境上，需要对创建数据集的代码和本地数据路径进行适配，并配置分布式策略。通过获取`DEVICE_ID`和`RANK_SIZE`两个环境变量，用户可以构建适用于`1*Ascend`和`8*Ascend`两种不同规格的训练脚本。
 
 1. 本地路径适配。
 
     ```python
     import os
-    
+
     device_num = int(os.getenv('RANK_SIZE'))
     device_id = int(os.getenv('DEVICE_ID'))
     # define local data path

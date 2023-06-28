@@ -1,19 +1,5 @@
 # Saving and Loading Model Parameters
 
-<!-- TOC -->
-
-- [Saving and Loading Model Parameters](#saving-and-loading-model-parameters)
-    - [Overview](#overview)
-    - [Saving Model Parameters](#saving-model-parameters)
-        - [CheckPoint Configuration Policies](#checkpoint-configuration-policies)
-    - [Loading Model Parameters](#loading-model-parameters)
-        - [For Inference Validation](#for-inference-validation)
-        - [For Retraining](#for-retraining)
-    - [Export GEIR Model and ONNX Model](#export-geir-model-and-onnx-model)
-
-<!-- /TOC -->
-
-
 ## Overview
 
 During model training, you can add CheckPoints to save model parameters for inference and retraining after interruption.
@@ -33,12 +19,14 @@ The protocol format of CheckPoints is defined in `mindspore/ccsrc/utils/checkpoi
 The following uses an example to describe the saving and loading functions of MindSpore. The ResNet-50 network and the MNIST dataset are selected.
 
 ## Saving Model Parameters
+
 During model training, use the callback mechanism to transfer the object of the callback function `ModelCheckpoint` to save model parameters and generate CheckPoint files.
 You can use the `CheckpointConfig` object to set the CheckPoint saving policies.
 The saved parameters are classified into network parameters and optimizer parameters.
 
 `ModelCheckpoint()` provides default configuration policies for users to quickly get started.
 The following describes the usage:
+
 ```python
 from mindspore.train.callback import ModelCheckpoint
 ckpoint_cb = ModelCheckpoint()
@@ -68,12 +56,10 @@ Generated CheckPoint files are as follows:
 > - resnet50-3_32.ckpt  # The file name indicates that the model parameters generated during the 32th step of the third epoch are saved.
 > - ...
 
-
 If you use the same prefix and run the training script for multiple times, CheckPoint files with the same name may be generated.
 MindSpore adds underscores (_) and digits at the end of the user-defined prefix to distinguish CheckPoints with the same name.
 
 For example, `resnet50_3-2_32.ckpt` indicates the CheckPoint file generated during the 32th step of the second epoch after the script is executed for the third time.
-
 
 ### CheckPoint Configuration Policies
 
@@ -91,7 +77,6 @@ CheckpointConfig contains the following four parameters:
 The two types of policies cannot be used together. Iteration policies have a higher priority than time policies. When the two types of policies are configured at the same time, only iteration policies take effect.
 If a parameter is set to None, the related policy is canceled.
 After the training script is normally executed, the CheckPoint file generated during the last step is saved by default.
-
 
 ## Loading Model Parameters
 
@@ -120,6 +105,7 @@ The `eval` method validates the accuracy of the trained model.
 In the retraining after task interruption and fine-tuning scenarios, you can load network parameters and optimizer parameters to the model.
 
 The sample code is as follows:
+
 ```python
 # return a parameter dict for model
 param_dict = load_checkpoint("resnet50-2_32.ckpt")
@@ -137,9 +123,11 @@ model.train(epoch, dataset)
 The `load_checkpoint` method returns a parameter dictionary and then the `load_param_into_net` method loads parameters in the parameter dictionary to the network or optimizer.
 
 ## Export GEIR Model and ONNX Model
+
 When you have a CheckPoint file, if you want to do inference, you need to generate corresponding models based on the network and CheckPoint.
 Currently we support the export of GEIR models based on Ascend AI processor and the export of ONNX models based on GPU. Taking the export of GEIR model as an example to illustrate the implementation of model export,
 the code is as follows:
+
 ```python
 from mindspore.train.serialization import export
 import numpy as np
@@ -151,6 +139,7 @@ load_param_into_net(net)
 input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
 export(net, input, file_name = 'resnet50-2_32.pb', file_format = 'GEIR')
 ```
-Before using the `export` interface, you need to import` mindspore.train.serialization`.
+
+Before using the `export` interface, you need to import`mindspore.train.serialization`.
 The `input` parameter is used to specify the input shape and data type of the exported model.
-If you want to export the ONNX model, you only need to specify the `file_format` parameter in the` export` interface as ONNX: `file_format = 'ONNX'`.
+If you want to export the ONNX model, you only need to specify the `file_format` parameter in the`export` interface as ONNX: `file_format = 'ONNX'`.
