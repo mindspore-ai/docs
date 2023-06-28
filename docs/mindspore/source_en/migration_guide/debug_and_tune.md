@@ -5,7 +5,7 @@
 ## Function Debugging
 
 During network migration, you are advised to use the PyNative mode for debugging. In PyNative mode, you can perform debugging, and log printing is user-friendly. After the debugging is complete, the graph mode is used. The graph mode is more user-friendly in execution performance. You can also find some problems in network compilation. For example, gradient truncation caused by third-party operators.
-For details, see [Function Debug](https://mindspore.cn/tutorials/experts/en/master/debug/function_debug.html).
+For details, see [Error Analysis](https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/error_scenario_analysis.html).
 
 ## Accuracy Debugging
 
@@ -304,4 +304,4 @@ When the data processing speed is slow, the empty queue is gradually consumed fr
 
 For details about data performance problems, see [Data Preparation Performance Analysis](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) of MindSpore Insight. This describes common data performance problems and solutions.
 
-For more performance debugging methods, see [Performance Tuning](https://www.mindspore.cn/tutorials/experts/en/master/debug/performance_optimization.html).
+For more performance debugging methods, see [Performance Optimization](https://www.mindspore.cn/tutorials/experts/en/master/optimize/execution_opt.html).

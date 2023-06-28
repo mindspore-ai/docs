@@ -9,10 +9,10 @@ Error Analysis
   :hidden:
 
   error_analysis/error_scenario_analysis
-  error_analysis/mindir
   error_analysis/minddata_debug
   error_analysis/mindrt_debug
   error_analysis/cann_error_cases
+  error_analysis/mindir
 
 Overview
 ---------
@@ -82,7 +82,7 @@ The general process of MindSpore network training is data loading and processing
 3) Analyze the location where the error is reported based on the Python call stack and the error information. In dynamic graph mode, it is easier to determine the location of the code error. In the static graph mode, you need to analyze the location of the error report according to the error message "The Traceback of Net Construct Code" part of the error message.
 4) Based on possible error problem scenarios and types, hypothesize the possible causes of the error problem.
 
-Please refer to error analysis for details on how to perform `error analysis <https://www.mindspore.cn/tutorials/experts/en/master/debug/error_scenario_analysis.html>`_ based on different scenarios.
+Please refer to error analysis for details on how to perform `error analysis <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/error_scenario_analysis.html>`_ based on different scenarios.
 
 Error Search
 ^^^^^^^^^^^^^
@@ -229,8 +229,8 @@ Network execution debugging is the corresponding debugging capability provided b
 |                           |                                          |                                                                                                             | mindspore.ops.Print>`_                                |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Intermediate file saving                 | Used to save the intermediate files generated                                                               | `Reading IR <https://www.mindspore.cn/tutorials       |
-|                           |                                          | during the diagram compilation process, which we call IR files, to support                                  | /experts/en/master/debug/mindir.html>`_               |
-|                           |                                          | the diagnosis of problems related to diagram structure and diagram information.                             |                                                       |
+|                           |                                          | during the diagram compilation process, which we call IR files, to support                                  | /en/master/advanced/error_analysis                    |
+|                           |                                          | the diagnosis of problems related to diagram structure and diagram information.                             | /mindir.html>`_                                       |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Data Dump                                | When training the network, if the training result deviates from the expectation,                            | `Dump function debugging <https://www.mindspore.cn/   |
 |                           |                                          | the operator input and output data are saved for debugging by the Du mp function.                           | tutorials/experts/en/master/debug/dump.html>`_        |

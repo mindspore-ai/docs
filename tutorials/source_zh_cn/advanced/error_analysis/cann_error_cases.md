@@ -9,7 +9,7 @@ export ASCEND_GLOBAL_LOG_LEVEL=1        # CANN日志级别，0为debug，1为inf
 export ASCEND_SLOG_PRINT_TO_STDOUT=1    # 配置开启日志打屏
 ```
 
-另外，如果需要知道图编译过程中的网络结构和算子信息，可以[查看中间文件](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/mindir.html)，保存IR图等中间文件进行查看。
+另外，如果需要知道图编译过程中的网络结构和算子信息，可以[查看中间文件](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/mindir.html)，保存IR图等中间文件进行查看。
 
 ## AICORE算子编译问题
 

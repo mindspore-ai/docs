@@ -9,10 +9,10 @@
   :hidden:
 
   error_analysis/error_scenario_analysis
-  error_analysis/mindir
   error_analysis/minddata_debug
   error_analysis/mindrt_debug
   error_analysis/cann_error_cases
+  error_analysis/mindir
 
 概述
 ----
@@ -90,7 +90,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
    Traceback of Net Construct Code”部分内容，分析报错位置。
 4) 基于可能的报错问题场景以及类型，假设导致报错问题的可能原因。
 
-具体如何基于不同场景进行错误分析请参考\ `错误分析 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/error_scenario_analysis.html>`__\ 。
+具体如何基于不同场景进行错误分析请参考\ `错误分析 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/error_scenario_analysis.html>`__\ 。
 
 错误搜索
 ^^^^^^^^
