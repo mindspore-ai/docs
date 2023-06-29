@@ -2,17 +2,6 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
 
-<!-- TOC -->
-
-- [Installation](#installation)
-    - [Installing Using pip](#installing-using-pip)
-    - [Source Code Compilation Installation](#source-code-compilation-installation)
-    - [Uninstall](#uninstall)
-    - [Environment Variables](#environment-variables)
-    - [Verifying the Installation](#verifying-the-installation)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_en/installation.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Installing Using pip

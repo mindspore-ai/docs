@@ -2,20 +2,6 @@
 
 `Linux` `Ascend` `Model Development` `Expert`
 
-<!-- TOC -->
-
-- [Custom Operators (Ascend)](#custom-operators-ascend)
-    - [Overview](#overview)
-    - [Registering the Operator Primitive](#registering-the-operator-primitive)
-    - [Implementing a TBE Operator and Registering the Operator Information](#implementing-a-tbe-operator-and-registering-the-operator-information)
-        - [Implementing a TBE Operator](#implementing-a-tbe-operator)
-        - [Registering the Operator Information](#registering-the-operator-information)
-        - [Example](#example)
-    - [Using Custom Operators](#using-custom-operators)
-    - [Defining the bprop Function for an Operator](#defining-the-bprop-function-for-an-operator)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/custom_operator_ascend.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

@@ -2,20 +2,6 @@
 
 `Linux` `GPU` `Model Training` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Distributed Parallel Training (GPU)](#distributed-parallel-training-gpu)
-    - [Overview](#overview)
-    - [Preparation](#preparation)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Configuring Distributed Environment](#configuring-distributed-environment)
-        - [Calling the Collective Communication Library](#calling-the-collective-communication-library)
-    - [Defining the Network](#defining-the-network)
-    - [Running the Script](#running-the-script)
-    - [Running the Multi-Host Script](#running-the-multi-host-script)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/distributed_training_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

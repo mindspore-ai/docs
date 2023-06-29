@@ -2,18 +2,6 @@
 
 `Linux` `Windows` `X86` `C++` `全流程` `推理应用` `数据准备` `初级`
 
-<!-- TOC -->
-
-- [体验MindSpore Lite C++ 极简Demo](#体验mindspore-lite-c-极简demo)
-    - [概述](#概述)
-    - [构建与运行](#构建与运行)
-    - [模型加载](#模型加载)
-    - [模型编译](#模型编译)
-    - [模型推理](#模型推理)
-    - [内存释放](#内存释放)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/quick_start/quick_start_cpp.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

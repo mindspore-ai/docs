@@ -2,27 +2,6 @@
 
 `Linux` `Android` `Whole Process` `Model Export` `Model Converting` `Model Training` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Overview](#overview)
-- [Environment Preparing](#environment-preparing)
-    - [Dataset](#dataset)
-    - [Install MindSpore](#install-mindspore)
-    - [Download and Install MindSpore Lite](#download-and-install-mindspore-lite)
-    - [Connect Android Device](#connect-android-device)
-- [Train and Eval](#train-and-eval)
-- [Details](#details)
-    - [Folder Structure](#folder-structure)
-    - [Model Exporting](#model-exporting)
-    - [Model Transferring](#model-transferring)
-    - [Model Training](#model-training)
-        - [Loading Model](#loading-model)
-        - [Dataset Processing](#dataset-processing)
-        - [Execute Training](#execute-training)
-        - [Execute Evaluating](#execute-evaluating)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_en/quick_start/train_lenet.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

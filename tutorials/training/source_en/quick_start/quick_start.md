@@ -2,27 +2,6 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Implementing an Image Classification Application](#implementing-an-image-classification-application)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Importing Python Libraries and Modules](#importing-python-libraries-and-modules)
-        - [Configuring the Running Information](#configuring-the-running-information)
-    - [Processing Data](#processing-data)
-        - [Defining the Dataset and Data Operations](#defining-the-dataset-and-data-operations)
-        - [Viewing Enhanced Data](#viewing-enhanced-data)
-    - [Defining the Network](#defining-the-network)
-    - [Custom Callback Function to Collect the Model Loss Value and Precision Value](#custom-callback-function-to-collect-the-model-loss-value-and-precision-value)
-    - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
-    - [Training the Network](#training-the-network)
-        - [Checking the Loss Value of the Model with the Change of Training Steps](#checking-the-loss-value-of-the-model-with-the-change-of-training-steps)
-    - [Validating the Model](#validating-the-model)
-    - [Inference and Prediction](#inference-and-prediction)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

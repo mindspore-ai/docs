@@ -1,18 +1,5 @@
 # Training
 
-<!-- TOC -->
-
-- [Training](#training)
-    - [Overview](#overview)
-    - [Customizing a Training Network](#customizing-a-training-network)
-    - [Customizing a Training Cycle](#customizing-a-training-cycle)
-    - [Conducting Inference While Training](#conducting-inference-while-training)
-    - [On-Device Execution](#on-device-execution)
-        - [Computational Graphs on Devices](#computational-graphs-on-devices)
-        - [Data Sinking](#data-sinking)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_en/train.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

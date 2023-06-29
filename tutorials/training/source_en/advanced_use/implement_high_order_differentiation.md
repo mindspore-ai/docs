@@ -2,23 +2,6 @@
 
 `CPU` `GPU` `Ascend` `Whole Process` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Implementing High-order Automatic Differentiation](#implementing-high-order-automatic-differentiation)
-    - [Overview](#overview)
-    - [First-order Derivation](#first-order-derivation)
-        - [Input Derivation](#input-derivation)
-        - [Weight Derivation](#weight-derivation)
-        - [Gradient Value Scaling](#gradient-value-scaling)
-    - [High-order Derivation](#high-order-derivation)
-        - [Single-input Single-output High-order Derivative](#single-input-single-output-high-order-derivative)
-        - [Single-input Multi-output High-order Derivative](#single-input-multi-output-high-order-derivative)
-        - [Multiple-Input Multiple-Output High-Order Derivative](#multiple-input-multiple-output-high-order-derivative)
-    - [Support for Second-order Differential Operators](#support-for-second-order-differential-operators)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/implement_high_order_differentiation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

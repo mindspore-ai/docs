@@ -2,14 +2,6 @@
 
 `Windows` `Linux` `Android` `环境准备` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [下载MindSpore Lite](#下载mindspore-lite)
-    - [1.2.0](#120)
-    - [1.1.0](#110)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/use/downloads.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 欢迎使用MindSpore Lite，我们提供了支持多种操作系统和硬件平台的模型转换、模型推理、图像处理等功能，你可以下载适用于本地环境的版本包直接使用。

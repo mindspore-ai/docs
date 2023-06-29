@@ -2,36 +2,6 @@
 
 `Windows` `Linux` `Android` `Environment Preparation` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Building MindSpore Lite](#building-mindspore-lite)
-    - [Linux Environment Compilation](#linux-environment-compilation)
-        - [Environment Requirements](#environment-requirements)
-        - [Compilation Options](#compilation-options)
-        - [Compilation Example](#compilation-example)
-        - [Inference Output Description](#inference-output-description)
-            - [Description of Converter's Directory Structure](#description-of-converters-directory-structure)
-            - [Description of Obfuscator's Directory Structure](#description-of-obfuscators-directory-structure)
-            - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)
-        - [Training Output Description](#training-output-description)
-            - [Description of Training Runtime and Related Tools' Directory Structure](#description-of-training-runtime-and-related-tools-directory-structure)
-    - [Windows Environment Compilation](#windows-environment-compilation)
-        - [Environment Requirements](#environment-requirements-1)
-        - [Compilation Options](#compilation-options-1)
-        - [Compilation Example](#compilation-example-1)
-        - [Output Description](#output-description)
-            - [Description of Runtime and Related Tools' Directory Structure](#description-of-runtime-and-related-tools-directory-structure)
-    - [Docker Environment Compilation](#docker-environment-compilation)
-        - [Environmental Preparation](#environmental-preparation)
-            - [Download the docker image](#download-the-docker-image)
-            - [Create a container](#create-a-container)
-            - [Enter the container](#enter-the-container)
-        - [Compilation Options](#compilation-options-2)
-        - [Compilation Example](#compilation-example-2)
-        - [Output Description](#output-description-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_en/use/build.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 This chapter introduces how to quickly compile MindSpore Lite, which includes the following modules:

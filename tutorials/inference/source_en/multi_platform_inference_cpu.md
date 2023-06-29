@@ -2,14 +2,6 @@
 
 `Linux` `CPU` `Inference Application` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Inference on a CPU](#inference-on-a-cpu)
-    - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file)
-    - [Inference Using an ONNX File](#inference-using-an-onnx-file)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_en/multi_platform_inference_cpu.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Inference Using a Checkpoint File

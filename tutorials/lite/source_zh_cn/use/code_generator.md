@@ -2,18 +2,6 @@
 
 `Linux` `IoT` `C++` `模型代码生成` `推理应用` `初级` `中级`
 
-<!-- TOC -->
-
-- [代码生成工具](#代码生成工具)
-    - [概述](#概述)
-    - [获取codegen](#获取codegen)
-    - [参数说明](#参数说明)
-    - [使用步骤](#使用步骤)
-        - [生成代码](#生成代码)
-        - [执行推理](#执行推理)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/use/code_generator.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

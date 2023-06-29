@@ -2,13 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型开发` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [MindSpore分布式算子支持](#mindspore分布式算子支持)
-    - [分布式算子](#分布式算子)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/operator_list_parallel.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 分布式算子

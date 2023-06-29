@@ -2,20 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `数据准备` `中级` `高级`
 
-<!-- TOC -->
-
-- [应用单节点数据缓存](#应用单节点数据缓存)
-    - [概述](#概述)
-    - [配置环境](#配置环境)
-    - [启动缓存服务器](#启动缓存服务器)
-    - [创建缓存会话](#创建缓存会话)
-    - [创建缓存实例](#创建缓存实例)
-    - [插入缓存实例](#插入缓存实例)
-    - [销毁缓存会话](#销毁缓存会话)
-    - [关闭缓存服务器](#关闭缓存服务器)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/enable_cache.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.2/mindspore_enable_cache.ipynb"><img src="../_static/logo_notebook.png"></a>&nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9lbmFibGVfY2FjaGUuaXB5bmI=&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="../_static/logo_modelarts.png"></a>

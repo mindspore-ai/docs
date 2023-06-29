@@ -2,19 +2,6 @@
 
 `Linux` `GPU` `模型开发` `高级`
 
-<!-- TOC -->
-
-- [自定义算子（GPU）](#自定义算子gpu)
-    - [概述](#概述)
-    - [注册算子原语](#注册算子原语)
-    - [定义算子反向传播函数](#定义算子反向传播函数)
-    - [GPU算子开发](#gpu算子开发)
-    - [GPU算子注册](#gpu算子注册)
-    - [编译MindSpore](#编译mindspore)
-    - [算子验证](#算子验证)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/custom_operator_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

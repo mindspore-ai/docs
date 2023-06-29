@@ -1,14 +1,5 @@
 # Ascend310处理器上推理MindIR模型
 
-<!-- TOC -->
-
-- [Ascend310处理器上推理MindIR模型](#ascend310处理器上推理mindir模型)
-    - [推理代码介绍](#推理代码介绍)
-    - [构建脚本介绍](#构建脚本介绍)
-    - [编译并执行推理代码](#编译并执行推理代码)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/source_zh_cn/intermediate/inference/ascend310_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png"></a>
 
 本文介绍如何在Ascend310处理器中推理MindIR模型。Ascend环境配置可参考[Ascend安装指南](https://www.mindspore.cn/install/)，完整推理代码可参考[ascend310_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/tree/r1.2/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample)。

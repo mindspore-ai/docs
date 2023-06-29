@@ -2,18 +2,6 @@
 
 `Linux` `Ascend` `模型开发` `模型调优` `框架开发` `企业` `高级` `贡献者`
 
-<!-- TOC -->
-
-- [差分隐私](#差分隐私)
-    - [总体设计](#总体设计)
-        - [差分隐私优化器](#差分隐私优化器)
-        - [差分隐私的噪声机制](#差分隐私的噪声机制)
-        - [Monitor](#monitor)
-    - [代码实现](#代码实现)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/design/mindarmour/differential_privacy_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 总体设计

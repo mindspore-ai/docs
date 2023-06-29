@@ -1,21 +1,6 @@
 # SPONGE分子模拟实践
 
 `Linux` `GPU` `模型开发` `高级`
-
-<!-- TOC -->
-
-- [SPONGE分子模拟实践](#sponge分子模拟实践)
-    - [概述](#概述)
-    - [整体执行](#整体执行)
-    - [准备环节](#准备环节)
-    - [模拟多肽水溶液体系示例](#模拟多肽水溶液体系示例)
-        - [准备输入文件](#准备输入文件)
-        - [加载数据](#加载数据)
-        - [构建模拟流程](#构建模拟流程)
-        - [运行脚本](#运行脚本)
-        - [运行结果](#运行结果)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/hpc_sponge.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

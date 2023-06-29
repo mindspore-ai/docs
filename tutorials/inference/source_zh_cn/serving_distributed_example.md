@@ -2,20 +2,6 @@
 
 `Linux` `Ascend` `Serving` `中级` `高级`
 
-<!-- TOC -->
-
-- [基于Mindspore Serving部署分布式推理服务](#基于mindspore-serving部署分布式推理服务)
-    - [概述](#概述)
-        - [环境准备](#环境准备)
-        - [导出分布式模型](#导出分布式模型)
-        - [部署分布式推理服务](#部署分布式推理服务)
-            - [使用限制](#使用限制)
-            - [启动Master与分布式Worker](#启动master与分布式worker)
-            - [启动Agent](#启动agent)
-        - [执行推理](#执行推理)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_zh_cn/serving_distributed_example.md" target="_blank"><img src="_static/logo_source.png"></a>
 
 ## 概述

@@ -2,25 +2,6 @@
 
 `Linux` `Ascend` `Inference Application` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Inference on the Ascend 310 AI Processor](#inference-on-the-ascend-310-ai-processor)
-    - [Overview](#overview)
-    - [Preparing the Development Environment](#preparing-the-development-environment)
-        - [Hardware Preparation](#hardware-preparation)
-        - [Software Package Preparation](#software-package-preparation)
-        - [Preparing the SD Card](#preparing-the-sd-card)
-        - [Connecting the Atlas 200 DK to the Ubuntu Server](#connecting-the-atlas-200-dk-to-the-ubuntu-server)
-        - [Configuring the Python Environment](#configuring-the-python-environment)
-        - [Installing the Development Kit](#installing-the-development-kit)
-    - [Inference Directory Structure](#inference-directory-structure)
-    - [Exporting the AIR Model](#exporting-the-air-model)
-    - [Converting the AIR Model File into an OM Model](#converting-the-air-model-file-into-an-om-model)
-    - [Building Inference Code](#building-inference-code)
-    - [Performing Inference and Viewing the Result](#performing-inference-and-viewing-the-result)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_en/multi_platform_inference_ascend_310_air.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

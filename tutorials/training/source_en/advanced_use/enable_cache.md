@@ -2,20 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Application of Single-Node Tensor Cache](#application-of-single-node-tensor-cache)
-    - [Overview](#overview)
-    - [Configuring the Environment](#configuring-the-environment)
-    - [Starting the Cache Server](#starting-the-cache-server)
-    - [Creating a Cache Session](#creating-a-cache-session)
-    - [Creating a Cache Instance](#creating-a-cache-instance)
-    - [Inserting a Cache Instance](#inserting-a-cache-instance)
-    - [Destroying a Cache Session](#destroying-a-cache-session)
-    - [Stopping the Cache Server](#stopping-the-cache-server)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/enable_cache.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

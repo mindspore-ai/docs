@@ -1,24 +1,5 @@
 # 自定义算子
 
-<!-- TOC -->
-
-- [自定义算子](#自定义算子)
-    - [自定义算子开发](#自定义算子开发)
-    - [自定义算子前端接入](#自定义算子前端接入)
-        - [算子前端定义](#算子前端定义)
-            - [正向算子定义](#正向算子定义)
-            - [反向算子定义](#反向算子定义)
-    - [自定义算子后端接入](#自定义算子后端接入)
-        - [Ascend昇腾算子信息注册](#ascend昇腾算子信息注册)
-            - [AI Core算子信息注册](#ai-core算子信息注册)
-            - [AI CPU算子信息注册](#ai-cpu算子信息注册)
-            - [反向算子信息注册](#反向算子信息注册)
-        - [GPU/CPU算子信息注册](#gpucpu算子信息注册)
-            - [正向算子信息注册](#正向算子信息注册)
-            - [反向算子信息注册](#反向算子信息注册)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/source_zh_cn/intermediate/custom/operator.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png"></a>
 
 ## 自定义算子开发

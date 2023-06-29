@@ -2,21 +2,6 @@
 
 `Linux` `Ascend` `GPU` `Serving` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [通过配置模型提供Servable](#通过配置模型提供servable)
-    - [概述](#概述)
-    - [相关概念](#相关概念)
-        - [预处理和后处理](#预处理和后处理)
-        - [方法](#方法)
-        - [实例](#实例)
-    - [模型配置](#模型配置)
-        - [预处理和后处理定义](#预处理和后处理定义)
-        - [模型声明](#模型声明)
-        - [方法定义](#方法定义)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_zh_cn/serving_model.md" target="_blank"><img src="_static/logo_source.png"></a>
 
 ## 概述

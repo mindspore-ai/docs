@@ -1,19 +1,6 @@
 # 使用成员推理测试模型安全性
 
 `Linux` `Ascend` `GPU` `CPU` `模型评测` `企业` `高级`
-
-<!-- TOC -->
-
-- [使用成员推理测试模型安全性](#使用成员推理测试模型安全性)
-    - [概述](#概述)
-    - [实现阶段](#实现阶段)
-        - [导入需要的库文件](#导入需要的库文件)
-        - [加载数据集](#加载数据集)
-        - [建立模型](#建立模型)
-        - [运用MembershipInference进行隐私安全评估](#运用membershipinference进行隐私安全评估)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/test_model_security_membership_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.2/test_model_security_membership_inference.ipynb"><img src="../_static/logo_notebook.png"></a>&nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV90ZXN0X21vZGVsX3NlY3VyaXR5X21lbWJlcnNoaXBfaW5mZXJlbmNlLmlweW5i&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="../_static/logo_modelarts.png"></a>

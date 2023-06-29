@@ -2,16 +2,6 @@
 
 `Linux` `环境准备` `静态库裁剪` `中级` `高级`
 
-<!-- TOC -->
-
-- [使用裁剪工具降低库文件大小](#使用裁剪工具降低库文件大小)
-    - [概述](#概述)
-    - [环境准备](#环境准备)
-    - [参数说明](#参数说明)
-    - [使用示例](#使用示例)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/use/cropper_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

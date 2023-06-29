@@ -1,32 +1,5 @@
 # Numpy Interfaces in MindSpore
 
-<!-- TOC -->
-
-- [Numpy Interfaces in MindSpore](#numpy-interfaces-in-mindspore)
-    - [Overview](#overview)
-    - [Operator Functions](#operator-functions)
-        - [Array Generations](#array-generations)
-            - [Generate a tensor filled with the same element](#generate-a-tensor-filled-with-the-same-element)
-            - [Generate tensors in a specified range](#generate-tensors-in-a-specified-range)
-            - [Generate tensors with specific requirement](#generate-tensors-with-specific-requirement)
-        - [Array Operations](#array-operations)
-            - [Manipulate the shape of the tensor](#manipulate-the-shape-of-the-tensor)
-            - [Tensor splitting](#tensor-splitting)
-            - [Tensor combination](#tensor-combination)
-        - [Logic Operations](#logic-operations)
-        - [Math Operations](#math-operations)
-            - [Sum two tensors](#sum-two-tensors)
-            - [Matrics multiplication](#matrics-multiplication)
-            - [Take the average along a given axis](#take-the-average-along-a-given-axis)
-            - [Exponential arithmetic](#exponential-arithmetic)
-    - [Interact With MindSpore Functions](#interact-with-mindspore-functions)
-        - [Use ms_function to run code in static graph mode](#use-ms_function-to-run-code-in-static-graph-mode)
-        - [Use GradOperation to compute deratives](#use-gradoperation-to-compute-deratives)
-        - [Use mindspore.context to control execution mode](#use-mindsporecontext-to-control-execution-mode)
-        - [Use mindspore.numpy in MindSpore Deep Learning Models](#use-mindsporenumpy-in-mindspore-deep-learning-models)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_en/numpy.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

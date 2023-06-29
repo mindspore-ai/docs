@@ -1,19 +1,5 @@
 # Tokenizer
 
-<!-- TOC -->
-
-- [Tokenizer](#tokenizer)
-    - [Overview](#overview)
-    - [MindSpore Tokenizers](#mindspore-tokenizers)
-        - [BertTokenizer](#berttokenizer)
-        - [JiebaTokenizer](#jiebatokenizer)
-        - [SentencePieceTokenizer](#sentencepiecetokenizer)
-        - [UnicodeCharTokenizer](#unicodechartokenizer)
-        - [WhitespaceTokenizer](#whitespacetokenizer)
-        - [WordpieceTokenizer](#wordpiecetokenizer)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_en/tokenizer.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

@@ -2,14 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Whole Process` `Framework Development` `Intermediate` `Advanced` `Contributor`
 
-<!-- TOC -->
-
-- [Technical White Paper](#technical-white-paper)
-    - [Introduction](#introduction)
-    - [Overview](#overview)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_en/design/technical_white_paper.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Introduction

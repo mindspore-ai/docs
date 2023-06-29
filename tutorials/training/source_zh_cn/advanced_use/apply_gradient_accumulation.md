@@ -2,25 +2,6 @@
 
 `Linux` `GPU` `模型调优` `中级` `高级`
 
-<!-- TOC -->
-
-- [应用梯度累积算法](#应用梯度累积算法)
-    - [概述](#概述)
-    - [单机模式](#单机模式)
-        - [导入需要的库文件](#导入需要的库文件)
-        - [加载数据集](#加载数据集)
-        - [定义网络](#定义网络)
-        - [定义训练流程](#定义训练流程)
-        - [定义训练模型](#定义训练模型)
-        - [训练并保存模型](#训练并保存模型)
-        - [实验结果](#实验结果)
-    - [并行模式](#并行模式)
-        - [定义并行训练流程](#定义并行训练流程)
-        - [定义并行训练模型](#定义并行训练模型)
-        - [训练模型](#训练模型)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/apply_gradient_accumulation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.2/mindspore_apply_gradient_accumulation.ipynb"><img src="../_static/logo_notebook.png"></a>

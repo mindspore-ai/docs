@@ -2,21 +2,6 @@
 
 `Linux` `Ascend` `模型训练` `模型调优` `企业` `高级`
 
-<!-- TOC -->
-
-- [应用抑制隐私机制保护用户隐私](#应用抑制隐私机制保护用户隐私)
-    - [概述](#概述)
-    - [实现阶段](#实现阶段)
-        - [导入需要的库文件](#导入需要的库文件)
-        - [参数配置](#参数配置)
-        - [预处理数据集](#预处理数据集)
-        - [建立模型](#建立模型)
-        - [引入抑制隐私](#引入抑制隐私)
-        - [隐私保护效果测试](#隐私保护效果测试)
-        - [引用](#引用)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/protect_user_privacy_with_suppress_privacy.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

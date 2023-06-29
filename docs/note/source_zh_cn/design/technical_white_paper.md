@@ -2,14 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `全流程` `框架开发` `中级` `高级` `贡献者`
 
-<!-- TOC -->
-
-- [技术白皮书](#技术白皮书)
-    - [引言](#引言)
-    - [简介](#简介)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/design/technical_white_paper.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 引言
