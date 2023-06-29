@@ -1,17 +1,6 @@
 # 使用fuzz testing模块测试模型安全性
 
 `Linux` `Ascend` `GPU` `CPU` `模型评测` `企业` `高级`
-
-<!-- TOC -->
-
-- [使用fuzz testing模块测试模型安全性](#使用fuzz-testing模块测试模型安全性)
-    - [概述](#概述)
-    - [实现阶段](#实现阶段)
-        - [导入需要的库文件](#导入需要的库文件)
-        - [参数配置](#参数配置)
-        - [运用Fuzz Testing](#运用fuzz-testing)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindarmour/docs/source_zh_cn/test_model_security_fuzzing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

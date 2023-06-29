@@ -1,19 +1,5 @@
 # Text Data Processing and Enhancement
 
-<!-- TOC -->
-
-- [Text Data Processing and Enhancement](#text-data-processing-and-enhancement)
-    - [Overview](#overview)
-    - [MindSpore Tokenizers](#mindspore-tokenizers)
-        - [BertTokenizer](#berttokenizer)
-        - [JiebaTokenizer](#jiebatokenizer)
-        - [SentencePieceTokenizer](#sentencepiecetokenizer)
-        - [UnicodeCharTokenizer](#unicodechartokenizer)
-        - [WhitespaceTokenizer](#whitespacetokenizer)
-        - [WordpieceTokenizer](#wordpiecetokenizer)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/tokenizer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

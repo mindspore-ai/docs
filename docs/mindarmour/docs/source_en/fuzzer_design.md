@@ -2,17 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Model Development` `Model Training` `Model Optimization` `Enterprise` `Expert`
 
-<!-- TOC -->
-
-- [AI Model Security Testing Design](#ai-model-security-testing-design)
-    - [Background](#background)
-    - [Fuzz Testing Design](#fuzz-testing-design)
-    - [Fuzz Testing Process](#fuzz-testing-process)
-    - [Code Implementation](#code-implementation)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindarmour/docs/source_en/fuzzer_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Background

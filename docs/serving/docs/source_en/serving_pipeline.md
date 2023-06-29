@@ -2,19 +2,6 @@
 
 `Linux` `Ascend` `Serving` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Scheduling Multi-Graph Based on the Pipeline](#scheduling-multi-graph-based-on-the-pipeline)
-    - [Overview](#overview)
-        - [Environment Preparation](#environment-preparation)
-        - [Exporting a Multi-Graph Model](#exporting-a-multi-graph-model)
-        - [Deploying the Distributed Inference Service](#deploying-the-distributed-inference-service)
-            - [Starting the Serving Server](#starting-the-serving-server)
-            - [Starting the Agent](#starting-the-agent)
-        - [Executing Inference](#executing-inference)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/serving/docs/source_en/serving_pipeline.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

@@ -2,18 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型开发` `模型调优` `框架开发` `中级` `高级` `贡献者`
 
-<!-- TOC -->
-
-- [张量可视设计](#张量可视设计)
-    - [特性背景](#特性背景)
-    - [总体设计](#总体设计)
-        - [后端设计](#后端设计)
-        - [前端设计](#前端设计)
-        - [接口设计](#接口设计)
-            - [文件接口设计](#文件接口设计)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_zh_cn/tensor_visual_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 特性背景

@@ -2,13 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Model Development` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [MindSpore Network List](#mindspore-network-list)
-    - [Model Zoo](#model-zoo)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/note/source_en/network_list_ms.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Model Zoo

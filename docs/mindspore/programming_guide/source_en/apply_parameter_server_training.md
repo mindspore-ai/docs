@@ -2,18 +2,6 @@
 
 `Linux` `Ascend` `GPU` `Model Training` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Training with Parameter Server](#training-with-parameter-server)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Training Script Preparation](#training-script-preparation)
-        - [Parameter Setting](#parameter-setting)
-        - [Environment Variable Setting](#environment-variable-setting)
-    - [Training](#training)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/apply_parameter_server_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

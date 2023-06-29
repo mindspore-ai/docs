@@ -1,15 +1,5 @@
 # Using Performance Profiling Tool
 
-<!-- TOC -->
-
-- [Quick Start](#quick-start)
-    - [Case 1: Long Step Interval](#case-1-long-step-interval)
-    - [Case 2: Long Forward and Backward Propagation Interval Caused by Operations](#case-2-long-forward-and-backward-propagation-interval-caused-by-operations)
-    - [Case 3: Long Forward and Backward Propagation Interval Caused by Operation Intervals](#case-3-long-forward-and-backward-propagation-interval-caused-by-operation-intervals)
-- [FAQ](#faq)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_en/performance_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 Profiler provides performance tuning ability for MindSpore, and provides easy-to-use and rich debugging functions in operator performance, iteration performance, data processing performance, etc., helping users quickly locate and solve performance problems.

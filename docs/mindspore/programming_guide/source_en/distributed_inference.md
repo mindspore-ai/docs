@@ -1,13 +1,5 @@
 # Distributed Inference With Multi Devices
 
-<!-- TOC -->
-
-- [Distributed Inference With Multi Devices](#distributed-inference-with-multi-devices)
-    - [Process of Distributed Inference](#process-of-distributed-inference)
-    - [Distributed Export MindIR File With Multi Devices](#distributed-export-mindir-file-with-multi-devices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/distributed_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 Distributed inference means use multiple devices for prediction. If data parallel or integrated save is used in training, the method of distributed inference is same with the above description. It is noted that each device should load one same checkpoint file.

@@ -2,19 +2,6 @@
 
 `Linux` `Ascend` `Serving` `中级` `高级`
 
-<!-- TOC -->
-
-- [基于Pipeline实现多图调度](#基于pipeline实现多图调度)
-    - [概述](#概述)
-        - [环境准备](#环境准备)
-        - [导出多图模型](#导出多图模型)
-        - [部署分布式推理服务](#部署分布式推理服务)
-            - [启动Serving服务器](#启动serving服务器)
-            - [启动Agent](#启动agent)
-        - [执行推理](#执行推理)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/serving/docs/source_zh_cn/serving_pipeline.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述

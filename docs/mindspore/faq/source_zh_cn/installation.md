@@ -2,17 +2,6 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
-<!-- TOC -->
-
-- [安装](#安装)
-    - [pip安装](#pip安装)
-    - [源码编译安装](#源码编译安装)
-    - [卸载](#卸载)
-    - [环境变量](#环境变量)
-    - [安装验证](#安装验证)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## pip安装

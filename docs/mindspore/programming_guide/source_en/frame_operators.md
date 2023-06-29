@@ -1,26 +1,5 @@
 ﻿# Frame Operators
 
-<!-- TOC -->
-
-- [Frame Operators](#frame-operators)
-    - [Overview](#overview)
-    - [MultitypeFuncGraph](#multitypefuncgraph)
-    - [HyperMap](#hypermap)
-    - [GradOperation](#gradoperation)
-        - [First-order Derivation](#first-order-derivation)
-            - [Input Derivation](#input-derivation)
-            - [Weight Derivation](#weight-derivation)
-            - [Gradient Value Scaling](#gradient-value-scaling)
-        - [Stop Gradient](#stop-gradient)
-        - [High-order Derivation](#high-order-derivation)
-            - [Single-input Single-output High-order Derivative](#single-input-single-output-high-order-derivative)
-            - [Single-input Multi-output High-order Derivative](#single-input-multi-output-high-order-derivative)
-            - [Multiple-Input Multiple-Output High-Order Derivative](#multiple-input-multiple-output-high-order-derivative)
-        - [Support for Second-order Differential Operators](#support-for-second-order-differential-operators)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/frame_operators.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

@@ -2,23 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
 
-<!-- TOC -->
-
-- [收集Summary数据](#收集summary数据)
-    - [概述](#概述)
-    - [操作流程](#操作流程)
-    - [准备训练脚本](#准备训练脚本)
-        - [方式一：通过SummaryCollector自动收集](#方式一通过summarycollector自动收集)
-        - [方式二：结合Summary算子和SummaryCollector，自定义收集网络中的数据](#方式二结合summary算子和summarycollector自定义收集网络中的数据)
-        - [方式三：自定义Callback记录数据](#方式三自定义callback记录数据)
-        - [方式四：进阶用法，自定义训练循环](#方式四进阶用法自定义训练循环)
-        - [分布式训练场景](#分布式训练场景)
-        - [使用技巧：记录梯度信息](#使用技巧记录梯度信息)
-    - [运行MindInsight](#运行mindinsight)
-    - [注意事项](#注意事项)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_zh_cn/summary_record.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.3/notebook/mindspore_mindinsight_dashboard.ipynb" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_notebook.png"></a>
 

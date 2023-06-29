@@ -1,16 +1,5 @@
 # 实现一个图像分类应用(x86)
 
-<!-- TOC -->
-
-- [实现一个图像分类应用(x86)](#实现一个图像分类应用x86)
-    - [下载数据集](#下载数据集)
-    - [定义网络](#定义网络)
-    - [定义训练过程](#定义训练过程)
-    - [生成端侧模型文件](#生成端侧模型文件)
-    - [模拟启动多客户端参与联邦学习](#模拟启动多客户端参与联邦学习)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/federated/docs/source_zh_cn/image_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 在动手进行实践之前，确保，你已经正确安装了MindSpore。如果没有，可以参考[MindSpore安装页面](https://www.mindspore.cn/install)完成安装。

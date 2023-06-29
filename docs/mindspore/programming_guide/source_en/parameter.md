@@ -1,16 +1,5 @@
 # Updating Network Parameters
 
-<!-- TOC -->
-
-- [Updating Network Parameters](#updating-network-parameters)
-    - [Overview](#overview)
-    - [Initialization](#initialization)
-    - [Attributes](#attributes)
-    - [Methods](#methods)
-    - [ParameterTuple](#parametertuple)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/parameter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

@@ -1,21 +1,5 @@
 # Image Data Processing and Enhancement
 
-<!-- TOC -->
-
-- [Image Data Processing and Enhancement](#image-data-processing-and-enhancement)
-    - [Overview](#overview)
-    - [c_transforms](#c_transforms)
-        - [RandomCrop](#randomcrop)
-        - [RandomHorizontalFlip](#randomhorizontalflip)
-        - [Resize](#resize)
-        - [Invert](#invert)
-    - [py_transforms](#py_transforms)
-        - [Compose](#compose)
-    - [Usage Instructions](#usage-instructions)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/augmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

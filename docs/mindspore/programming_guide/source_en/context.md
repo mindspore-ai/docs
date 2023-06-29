@@ -1,21 +1,5 @@
 # Configuring Running Information
 
-<!-- TOC -->
-
-- [Configuring Running Information](#configuring-running-information)
-    - [Overview](#overview)
-    - [Execution Mode Management](#execution-mode-management)
-        - [Mode Selection](#mode-selection)
-        - [Mode Switching](#mode-switching)
-    - [Hardware Management](#hardware-management)
-    - [Distributed Management](#distributed-management)
-    - [Maintenance and Test Management](#maintenance-and-test-management)
-        - [Profiling Data Collection](#profiling-data-collection)
-        - [Saving MindIR](#saving-mindir)
-        - [Print Operator Disk Flushing](#print-operator-disk-flushing)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/context.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

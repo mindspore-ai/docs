@@ -2,17 +2,6 @@
 
 `Linux` `Ascend` `GPU` `模型调优` `中级` `高级`
 
-<!-- TOC -->
-
-- [使能图算融合](#使能图算融合)
-    - [概述](#概述)
-    - [使用方法](#使用方法)
-        - [样例脚本](#样例脚本)
-    - [自定义组合算子](#自定义组合算子)
-        - [样例脚本](#样例脚本-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/enable_graph_kernel_fusion.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述

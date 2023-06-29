@@ -2,17 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型开发` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [使用PyNative模式调试](#使用pynative模式调试)
-    - [概述](#概述)
-    - [执行单算子](#执行单算子)
-    - [执行普通函数](#执行普通函数)
-        - [提升PyNative性能](#提升pynative性能)
-    - [调试网络训练模型](#调试网络训练模型)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/debug_in_pynative_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.3/notebook/mindspore_debugging_in_pynative_mode.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_notebook.png"></a>

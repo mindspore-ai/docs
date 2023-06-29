@@ -2,21 +2,6 @@
 
 `Windows` `Linux` `模型转换` `模型调优` `中级` `高级`
 
-<!-- TOC -->
-
-- [优化模型(训练后量化)](#优化模型训练后量化)
-    - [概述](#概述)
-    - [权重量化](#权重量化)
-        - [参数说明](#参数说明)
-        - [使用步骤](#使用步骤)
-        - [部分模型精度结果](#部分模型精度结果)
-    - [全量化](#全量化)
-        - [参数说明](#参数说明-1)
-        - [使用步骤](#使用步骤-1)
-        - [部分模型精度结果](#部分模型精度结果-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_zh_cn/use/post_training_quantization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述

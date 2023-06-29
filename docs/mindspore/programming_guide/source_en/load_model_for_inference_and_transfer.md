@@ -2,16 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Model Loading` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Loading a Model for Inference and Transfer Learning](#loading-a-model-for-inference-and-transfer-learning)
-    - [Overview](#overview)
-    - [Loading the local Model](#loading-the-local-model)
-        - [For Inference Validation](#for-inference-validation)
-        - [For Transfer Training](#for-transfer-training)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/load_model_for_inference_and_transfer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

@@ -4,21 +4,6 @@ Translator: [LiangRio](https://gitee.com/liangrio)
 
 `Linux` `GPU` `Model Development` `Expert`
 
-<!-- TOC -->
-
-- [SPONGE Molecular Simulation Practice](#sponge-molecular-simulation-practice)
-    - [Overview](#overview)
-    - [Overall Execution](#overall-execution)
-    - [Preparation](#preparation)
-    - [Example of Simulated Polypeptide Aqueous Solution System](#example-of-simulated-polypeptide-aqueous-solution-system)
-        - [Preparing Input Files](#preparing-input-files)
-        - [Loading Data](#loading-data)
-        - [Constructing Simulation Process](#constructing-simulation-process)
-        - [Running Script](#running-script)
-        - [Running Result](#running-result)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/hpc_sponge.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview

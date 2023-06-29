@@ -2,21 +2,6 @@
 
 `Windows` `Linux` `Model Converting` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Optimizing the Model (Quantization After Training)](#optimizing-the-model-quantization-after-training)
-    - [Overview](#overview)
-    - [Weight Quantization](#weight-quantization)
-        - [Parameter Description](#parameter-description)
-        - [Procedure](#procedure)
-        - [Partial Model Accuracy Result](#partial-model-accuracy-result)
-    - [Full Quantization](#full-quantization)
-        - [Parameter Description](#parameter-description-1)
-        - [Procedure](#procedure-1)
-        - [Partial Model Accuracy Result](#partial-model-accuracy-result-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_en/use/post_training_quantization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

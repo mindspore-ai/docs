@@ -2,19 +2,6 @@
 
 Translator: [ChanJiatao](https://gitee.com/ChanJiatao)
 
-<!-- TOC -->
-
-- [Using Mindcoverter to Perform Migration](#using-mindcoverter-to-perform-migration)
-    - [Overview](#overview)
-    - [Environment Preparation](#environment-preparation)
-    - [ONNX Model Export](#onnx-model-export)
-    - [ONNX Model Validation](#onnx-model-validation)
-    - [Using MindConverter to Perform Model Script and Weight Migration](#using-mindconverter-to-perform-model-script-and-weight-migration)
-    - [MindSpore Model Validation](#mindSpore-model-validation)
-    - [Frequently Asked Questions](#frequently-asked-questions)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_en/migration_case_of_mindconverter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

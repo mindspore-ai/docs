@@ -2,21 +2,6 @@
 
 `Linux` `Ascend` `GPU` `Serving` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Servable Provided Through Model Configuration](#servable-provided-through-model-configuration)
-    - [Overview](#overview)
-    - [Concepts](#concepts)
-        - [Preprocessing and Post-processing](#preprocessing-and-post-processing)
-        - [Methods](#methods)
-        - [Instances](#instances)
-    - [Model Configuration](#model-configuration)
-        - [Preprocessing and Post-processing Definition](#preprocessing-and-post-processing-definition)
-        - [Model Declaration](#model-declaration)
-        - [Method Definition](#method-definition)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/serving/docs/source_en/serving_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

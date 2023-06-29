@@ -1,49 +1,5 @@
 # FLParameter
 
-<!-- TOC -->
-
-- [FLParameter](#flparameter)
-    - [Public Member Functions](#public-member-functions)
-    - [getInstance](#getinstance)
-    - [getHostName](#gethostname)
-    - [setHostName](#sethostname)
-    - [getCertPath](#getcertpath)
-    - [setCertPath](#setcertpath)
-    - [isUseHttps](#isusehttps)
-    - [setUseHttps](#setusehttps)
-    - [getTrainDataset](#gettraindataset)
-    - [setTrainDataset](#settraindataset)
-    - [getVocabFile](#getvocabfile)
-    - [setVocabFile](#setvocabfile)
-    - [getIdsFile](#getidsfile)
-    - [setIdsFile](#setidsfile)
-    - [getTestDataset](#gettestdataset)
-    - [setTestDataset](#settestdataset)
-    - [getFlName](#getflname)
-    - [setFlName](#setflname)
-    - [getTrainModelPath](#gettrainmodelpath)
-    - [setTrainModelPath](#settrainmodelpath)
-    - [getInferModelPath](#getinfermodelpath)
-    - [setInferModelPath](#setinfermodelpath)
-    - [getIp](#getip)
-    - [setIp](#setip)
-    - [isUseSSL](#isusessl)
-    - [setUseSSL](#setusessl)
-    - [getPort](#getport)
-    - [setPort](#setport)
-    - [getTimeOut](#gettimeout)
-    - [setTimeOut](#settimeout)
-    - [getSleepTime](#getsleeptime)
-    - [setSleepTime](#setsleeptime)
-    - [isUseElb](#isuseelb)
-    - [setUseElb](#setuseelb)
-    - [getServerNum](#getservernum)
-    - [setServerNum](#setservernum)
-    - [getClientID](#getclientid)
-    - [setClientID](#setclientid)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/federated/api/source_en/java_api_flparameter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ```java

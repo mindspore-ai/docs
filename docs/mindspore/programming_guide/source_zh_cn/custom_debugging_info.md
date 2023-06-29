@@ -2,29 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
 
-<!-- TOC -->
-
-- [自定义调试信息](#自定义调试信息)
-    - [概述](#概述)
-    - [Callback介绍](#callback介绍)
-        - [MindSpore的Callback能力](#mindspore的callback能力)
-        - [自定义Callback](#自定义callback)
-    - [MindSpore metrics功能介绍](#mindspore-metrics功能介绍)
-    - [Print算子功能介绍](#print算子功能介绍)
-    - [数据Dump功能介绍](#数据dump功能介绍)
-        - [同步Dump功能使用方法](#同步dump功能使用方法)
-        - [异步Dump功能使用方法](#异步dump功能使用方法)
-    - [Running Data Recorder](#running-data-recorder)
-        - [使用方法](#使用方法)
-            - [通过配置文件配置RDR](#通过配置文件配置rdr)
-            - [通过环境变量配置RDR](#通过环境变量配置rdr)
-            - [异常处理](#异常处理)
-    - [内存复用](#内存复用)
-        - [使用方法](#使用方法-1)
-    - [日志相关的环境变量和配置](#日志相关的环境变量和配置)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/custom_debugging_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.3/notebook/mindspore_custom_debugging_info.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_notebook.png"></a>

@@ -1,26 +1,5 @@
 ﻿# 框架算子
 
-<!-- TOC -->
-
-- [框架算子](#框架算子)
-    - [概述](#概述)
-    - [MultitypeFuncGraph](#multitypefuncgraph)
-    - [HyperMap](#hypermap)
-    - [GradOperation](#gradoperation)
-        - [一阶求导](#一阶求导)
-            - [输入求导](#输入求导)
-            - [权重求导](#权重求导)
-            - [梯度值缩放](#梯度值缩放)
-        - [停止计算梯度](#停止计算梯度)
-        - [高阶求导](#高阶求导)
-            - [单输入单输出高阶导数](#单输入单输出高阶导数)
-            - [单输入多输出高阶导数](#单输入多输出高阶导数)
-            - [多输入多输出高阶导数](#多输入多输出高阶导数)
-        - [二阶微分算子支持情况](#二阶微分算子支持情况)
-    - [引用](#引用)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/frame_operators.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述

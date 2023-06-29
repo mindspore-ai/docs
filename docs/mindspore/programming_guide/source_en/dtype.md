@@ -1,13 +1,5 @@
 ﻿# dtype
 
-<!-- TOC -->
-
-- [dtype](#dtype)
-    - [Overview](#overview)
-    - [Data Type Conversion API](#data-type-conversion-api)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/dtype.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

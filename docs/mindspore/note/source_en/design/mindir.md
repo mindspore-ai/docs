@@ -3,22 +3,6 @@
 
 `Linux` `Windows` `Ascend` `GPU` `Framework Development` `Intermediate` `Model Development` `Expert` `Contributor`
 
-<!-- TOC -->
-
-- [MindSpore IR (MindIR)](#mindspore-ir-mindir)
-    - [Overview](#overview)
-    - [Syntax](#syntax)
-    - [Example](#example)
-    - [Saving IR](#saving-ir)
-    - [IR File Contents Introduction](#ir-file-contents-introduction)
-    - [Function-style Semantics](#function-style-semantics)
-        - [Higher-Order Functions](#higher-order-functions)
-        - [Control Flows](#control-flows)
-        - [Free Variables and Closures](#free-variables-and-closures)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/note/source_en/design/mindir.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

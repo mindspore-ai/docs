@@ -2,26 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Using Dump in the Graph Mode](#using-dump-in-the-graph-mode)
-    - [Overview](#overview)
-        - [Debugging Process](#debugging-process)
-        - [Applicable Scene](#applicable-scene)
-    - [Dump Introduction](#dump-introduction)
-    - [Synchronous Dump](#synchronous-dump)
-        - [Synchronous Dump Step](#synchronous-dump-step)
-        - [Synchronous Dump Data Object Directory](#synchronous-dump-data-object-directory)
-        - [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file)
-        - [Synchronous Dump Data Analysis Sample](#synchronous-dump-data-analysis-sample)
-    - [Asynchronous Dump](#asynchronous-dump)
-        - [Asynchronous Dump Step](#asynchronous-dump-step)
-        - [Asynchronous Dump Data Object Directory](#asynchronous-dump-data-object-directory)
-        - [Introduction to Asynchronous Dump Data File](#introduction-to-asynchronous-dump-data-file)
-        - [Asynchronous Dump Data Analysis Sample](#asynchronous-dump-data-analysis-sample)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/dump_in_graph_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

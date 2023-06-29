@@ -2,21 +2,6 @@
 
 `Linux` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [The Application of Quantum Neural Network in NLP](#the-application-of-quantum-neural-network-in-nlp)
-    - [Overview](#overview)
-    - [Environment Preparation](#environment-preparation)
-    - [Data Pre-processing](#data-pre-processing)
-    - [Encoding Ccircuitircuit](#encoding-ccircuitircuit)
-    - [Ansatz Circuicircuitt](#ansatz-circuicircuitt)
-    - [Measurement](#measurement)
-    - [Quantum Word Embedding Layer](#quantum-word-embedding-layer)
-    - [Classical Word Embedding Layer](#classical-word-embedding-layer)
-    - [Reference](#reference)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindquantum/docs/source_en/qnn_for_nlp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

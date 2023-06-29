@@ -2,17 +2,6 @@
 
 `Linux` `Ascend` `CPU` `Model Training` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Applying Host&Device Hybrid Training](#applying-hostdevice-hybrid-training)
-    - [Overview](#overview)
-    - [Preliminaries](#preliminaries)
-    - [Configuring for Hybrid Training](#configuring-for-hybrid-training)
-    - [Training the Model](#training-the-model)
-    - [Reference](#reference)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/apply_host_device_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

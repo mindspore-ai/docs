@@ -1,23 +1,6 @@
 # 实现区域海洋模型GOMO
 
 `Linux`  `GPU` `模型开发`  `高级`
-
-<!-- TOC -->
-
-- [实现区域海洋模型GOMO](#实现区域海洋模型GOMO)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [安装软件依赖](#安装软件依赖)
-        - [准备数据](#准备数据)
-    - [加载数据](#加载数据)
-    - [定义网络](#定义网络)
-    - [训练网络](#训练网络)
-        - [配置模型保存](#配置模型保存)
-        - [配置训练网络](#配置训练网络)
-        - [运行脚本](#运行脚本)
-    - [引用](#引用)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/hpc_gomo.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

@@ -2,16 +2,6 @@
 
 `MindSpore Federated` `Installation`
 
-<!-- TOC -->
-
-- [Obtaining MindSpore Federated](#obtaining-mindspore-federated)
-    - [Installation Overview](#installation-overview)
-        - [Obtaining the MindSpore WHL Package](#obtaining-the-mindspore-whl-package)
-        - [Obtaining the MindSpore Lite Java Package](#obtaining-the-mindspore-lite-java-package)
-        - [Requirements for Building the Linux Environment](#requirements-for-building-the-linux-environment)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/federated/docs/source_en/federated_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Installation Overview

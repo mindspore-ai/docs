@@ -2,30 +2,6 @@
 
 `Ascend` `GPU` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
 
-<!-- TOC -->
-
-- [Performance Profiling Design](#performance-profiling-design)
-    - [Background](#background)
-    - [Profiler Architecture Design](#profiler-architecture-design)
-        - [Context](#context)
-        - [Module Structure](#module-structure)
-        - [Internal Module Interaction](#internal-module-interaction)
-    - [Sub-Module Design](#sub-module-design)
-        - [ProfilerAPI and Controller](#profilerapi-and-controller)
-            - [Description](#description)
-            - [Design](#design)
-        - [Parser](#parser)
-            - [Description](#description-1)
-            - [Design](#design-1)
-        - [Analyser](#analyser)
-            - [Description](#description-2)
-            - [Design](#design-2)
-        - [Proposer](#proposer)
-            - [Description](#description-3)
-            - [Design](#design-3)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_en/profiler_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Background

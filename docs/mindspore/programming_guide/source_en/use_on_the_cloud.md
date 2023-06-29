@@ -2,28 +2,6 @@
 
 `Linux` `Ascend` `Whole Process` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Using MindSpore on the Cloud](#using-mindspore-on-the-cloud)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Preparing ModelArts](#preparing-modelarts)
-        - [Accessing Ascend AI Processor Resources on HUAWEI CLOUD](#accessing-ascend-ai-processor-resources-on-huawei-cloud)
-        - [Preparing Data](#preparing-data)
-        - [Preparing for Script Execution](#preparing-for-script-execution)
-    - [Running the MindSpore Script on ModelArts After Simple Adaptation](#running-the-mindspore-script-on-modelarts-after-simple-adaptation)
-        - [Adapting to Script Arguments](#adapting-to-script-arguments)
-        - [Adapting to OBS Data](#adapting-to-obs-data)
-        - [Adapting to 8-Device Training Jobs](#adapting-to-8-device-training-jobs)
-        - [Sample Code](#sample-code)
-    - [Creating a Training Job](#creating-a-training-job)
-        - [Opening the ModelArts Console](#opening-the-modelarts-console)
-        - [Using a Common Framework to Create a Training Job](#using-a-common-framework-to-create-a-training-job)
-        - [Using MindSpore as a Common Framework to Create a Training Job](#using-mindspore-as-a-common-framework-to-create-a-training-job)
-    - [Viewing the Execution Result](#viewing-the-execution-result)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/use_on_the_cloud.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
