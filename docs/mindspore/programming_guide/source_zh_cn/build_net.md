@@ -2,18 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型开发`
 
-<!-- TOC -->
-
-- [网络构建](#网络构建)
-    - [概述](#概述)
-    - [运行基础算子](#运行基础算子)
-    - [使用Cell构建和执行网络](#使用Cell构建和执行网络)
-        - [Cell的基础使用](#ell的基础使用])
-        - [基础算子的nn封装](#基础算子的nn封装)
-        - [CellList和SequentialCell](#CellList和SequentialCell)
-
-<!-- TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/build_net.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述

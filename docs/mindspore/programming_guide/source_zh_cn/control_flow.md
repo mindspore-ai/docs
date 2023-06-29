@@ -2,23 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型开发`
 
-<!-- TOC -->
-
-- [使用流程控制语句](#使用流程控制语句)
-    - [概述](#概述)
-    - [使用if语句](#使用if语句)
-        - [使用条件为变量的if语句](#使用条件为变量的if语句)
-        - [使用条件为常量的if语句](#使用条件为常量的if语句)
-    - [使用for语句](#使用for语句)
-    - [使用while语句](#使用while语句)
-        - [使用条件为常量的while语句](#使用条件为常量的while语句)
-        - [使用条件为变量的while语句](#使用条件为变量的while语句)
-    - [约束](#约束)
-        - [副作用约束](#副作用约束)
-        - [死循环约束](#死循环约束)
-
-<!-- TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/control_flow.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述

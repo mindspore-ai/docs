@@ -1,12 +1,5 @@
 # MindSpore分布式算子支持
 
-<!-- TOC -->
-
-- [MindSpore分布式算子支持](#mindspore分布式算子支持)
-    - [分布式算子](#分布式算子)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/note/source_zh_cn/operator_list_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 分布式算子

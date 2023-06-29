@@ -2,18 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Data Preparation`
 
-<!-- TOC -->
-
-- [Auto Augmentation](#auto-augmentation)
-    - [Overview](#overview)
-    - [Probability Based Auto Augmentation](#probability-based-auto-augmentation)
-        - [RandomApply](#randomapply)
-        - [RandomChoice](#randomchoice)
-        - [RandomSelectSubpolicy](#randomselectsubpolicy)
-    - [Callback Parameter based Auto Augmentation](#callback-parameter-based-auto-augmentation)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_en/auto_augmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview

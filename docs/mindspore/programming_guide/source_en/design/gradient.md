@@ -2,21 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Design` `Model Development`
 
-<!-- TOC -->
-
-- [MindSpore Automatic Differentiation](#mindSpore-automatic-differentiation)
-    - [Automatic Differentiation Overview](#automatic-differentiation-overview)
-        - [Forward Mode AD](#forward-mode-ad)
-        - [Backward Mode AD](#backward-mode-ad)
-    - [GradOperation](#gradoperation)
-        - [GradOperation Design](#gradoperation-design)
-        - [GradOperation Implementation](#gradoperation-implementation)
-        - [GradOperation Example](#gradoperation-example)
-    - [Forward Mode Implementation](#forward-mode-implementation)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/design/gradient.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Automatic Differentiation Overview

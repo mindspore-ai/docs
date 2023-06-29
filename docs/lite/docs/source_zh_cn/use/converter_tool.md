@@ -2,27 +2,6 @@
 
 `Windows` `Linux` `模型转换` `中级` `高级`
 
-<!-- TOC -->
-
-- [推理模型转换](#推理模型转换)
-    - [概述](#概述)
-    - [Linux环境使用说明](#linux环境使用说明)
-        - [环境准备](#环境准备)
-        - [目录结构](#目录结构)
-        - [参数说明](#参数说明)
-        - [使用示例](#使用示例)
-    - [Windows环境使用说明](#windows环境使用说明)
-        - [环境准备](#环境准备-1)
-        - [目录结构](#目录结构-1)
-        - [参数说明](#参数说明-1)
-        - [使用示例](#使用示例-1)
-    - [高级用法](#高级用法)
-        - [Pass扩展](#pass扩展)
-        - [算子InferShape扩展](#算子infershape扩展)
-        - [示例演示](#示例演示)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/docs/source_zh_cn/use/converter_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述

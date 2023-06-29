@@ -2,18 +2,6 @@
 
 `Ascend` `GPU` `设计` `模型运行`
 
-<!-- TOC -->
-
-- [异构并行训练](#异构并行训练)
-    - [概述](#概述)
-    - [计算流程](#计算流程)
-    - [优化器异构](#优化器异构)
-    - [Embedding异构](#embedding异构)
-    - [PS异构](#ps异构)
-    - [约束](#约束)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/design/heterogeneous_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述

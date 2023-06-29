@@ -2,23 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型开发` `模型运行` `模型评估`
 
-<!-- TOC -->
-
-- [构建训练与评估网络](#构建训练与评估网络)
-    - [概述](#概述)
-    - [构建前向网络](#构建前向网络)
-    - [构建训练网络](#构建训练网络)
-        - [使用训练网络包装函数](#使用训练网络包装函数)
-        - [创建数据集并执行训练](#创建数据集并执行训练)
-        - [自定义训练网络包装函数](#自定义训练网络包装函数)
-    - [构建评估网络](#构建评估网络)
-        - [使用评估网络包装函数](#使用评估网络包装函数)
-        - [创建数据集并执行评估](#创建数据集并执行评估)
-        - [自定义评估网络包装函数](#自定义评估网络包装函数)
-    - [构建网络的权重共享](#构建网络的权重共享)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/train_and_eval.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述

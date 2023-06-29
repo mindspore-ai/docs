@@ -1,26 +1,5 @@
 # Using MindInsight Visualization
 
-<!-- TOC -->
-
-- [Using MindInsight Visualization](#using-mindinsight-visualization)
-    - [Operation Process](#operation-process)
-        - [Downloading Data Package](#downloading-data-package)
-        - [Preparing the Script](#preparing-the-script)
-        - [Restrictions](#restrictions)
-        - [Enabling MindInsight](#enabling-mindinsight)
-    - [Pages and Functions](#pages-and-functions)
-        - [Saliency Map Visualization](#saliency-map-visualization)
-        - [Explanation Method Assessment](#explanation-method-assessment)
-            - [Comprehensive Assessment](#comprehensive-assessment)
-            - [Classification Assessment](#classification-assessment)
-    - [Uncertainty](#uncertainty)
-    - [Counterfactual](#counterfactual)
-        - [Hierarchical Occlusion](#hierarchical-occlusion-counterfactual-hoc)
-            - [Restrictions](#hoc-restrictions)
-            - [Pages and Functions](#hoc-pages-and-functions)
-
-<!--/ TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindinsight/docs/source_en/model_explanation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Operation Process

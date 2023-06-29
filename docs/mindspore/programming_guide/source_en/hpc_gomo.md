@@ -1,23 +1,6 @@
 # Implementing Regional Ocean Model GOMO
 
 `GPU` `High Performance Computing` `Whole Process`
-
-<!-- TOC -->
-
-- [Implementing Regional Ocean Model GOMO](#implementing-regional-ocean-model-gomo)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Installing Software Dependencies](#installing-software-dependencies)
-        - [Preparing Data](#preparing-data)
-    - [Loading Data](#loading-data)
-    - [Defining GOMO Grid](#defining-gomo-grid)
-        - [Initializing Variables](#initializing-variables)
-        - [Defining GOMO Model](#defining-gomo-model)
-    - [Training Grid](#training-grid)
-        - [Running Script](#running-script)
-    - [References](#references)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_en/hpc_gomo.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview

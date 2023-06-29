@@ -1,18 +1,5 @@
 # 优化器迁移指南
 
-<!-- TOC -->
-
-- [优化器迁移指南](#优化器迁移指南)
-    - [概述](#概述)
-    - [基本用法](#基本用法)
-    - [基类入参设置及支持的方法](#基类入参设置及支持的方法)
-        - [基类入参](#基类入参)
-        - [基类支持的方法](#基类支持的方法)
-    - [自定义优化器](#自定义优化器)
-    - [API映射](#API映射)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/migration_guide/source_zh_cn/optim.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述

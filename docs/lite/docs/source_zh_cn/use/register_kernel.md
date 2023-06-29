@@ -2,35 +2,6 @@
 
 `Windows` `Linux` `Android` `C++` `推理应用` `高级`
 
-<!-- TOC -->
-
-- [自定义南向算子](#自定义南向算子)
-    - [概述](#概述)
-    - [确定算子类型](#确定算子类型)
-    - [通用算子](#通用算子)
-        - [通用算子实现](#通用算子实现)
-            - [样例代码与说明](#样例代码与说明)
-        - [通用算子注册](#通用算子注册)
-            - [样例代码与说明](#样例代码与说明-1)
-        - [通用算子Infershape](#通用算子Infershape)
-            - [样例代码与说明](#样例代码与说明-2)
-        - [通用算子Infershape注册](#通用算子Infershape注册)
-            - [样例代码与说明](#样例代码与说明-3)
-    - [Custom算子](#Custom算子)
-        - [Custom算子定义](#Custom算子定义)
-            - [Custom算子创建](#Custom算子创建)
-        - [Custom算子实现](#Custom算子实现)
-            - [样例代码与说明](#样例代码与说明-4)
-            - [Custom算子属性解码样例](#Custom算子属性解码样例)
-        - [Custom算子注册](#Custom算子注册)
-            - [样例代码与说明](#样例代码与说明-5)
-        - [Custom算子Infershape](#Custom算子Infershape)
-            - [样例代码与说明](#样例代码与说明-6)
-        - [Custom算子Infershape注册](#Custom算子Infershape注册)
-            - [样例代码与说明](#样例代码与说明-7)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/docs/source_zh_cn/use/register_kernel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述

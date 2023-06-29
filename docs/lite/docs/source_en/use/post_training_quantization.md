@@ -2,24 +2,6 @@
 
 `Windows` `Linux` `Model Converting` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Optimizing the Model (Quantization After Training)](#optimizing-the-model-quantization-after-training)
-    - [Overview](#overview)
-    - [Configuration Parameter](#configuration-parameter)
-        - [Common Quantization Parameter](#common-quantization-parameter)
-        - [Mixed Bit Weight Quantization Parameter](#mixed-bit-weight-quantization-parameter)
-        - [Full Quantization Parameters](#full-quantization-parameters)
-        - [Data Preprocessing](#data-preprocessing)
-    - [Weight Quantization](#weight-quantization)
-        - [Mixed Bit Weight Quantization](#mixed-bit-weight-quantization)
-        - [Fixed Bit Weight Quantization](#fixed-bit-weight-quantization)
-        - [Partial Model Accuracy Result](#partial-model-accuracy-result)
-    - [Full Quantization](#full-quantization)
-        - [Partial Model Accuracy Result](#partial-model-accuracy-result-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/docs/source_en/use/post_training_quantization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview

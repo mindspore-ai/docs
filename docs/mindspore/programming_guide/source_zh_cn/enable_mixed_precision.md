@@ -2,17 +2,6 @@
 
 `Ascend` `GPU` `模型调优`
 
-<!-- TOC -->
-
-- [使能混合精度](#使能混合精度)
-    - [概述](#概述)
-    - [计算流程](#计算流程)
-    - [自动混合精度](#自动混合精度)
-    - [手动混合精度](#手动混合精度)
-    - [约束](#约束)
-
-<!-- /TOC -->
-
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9taXhlZF9wcmVjaXNpb24uaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_modelarts.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.5/notebook/mindspore_mixed_precision.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.5/notebook/mindspore_mixed_precision.py"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;

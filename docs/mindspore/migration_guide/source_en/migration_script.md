@@ -2,15 +2,6 @@
 
 Translator: [zhangxiaoxiao](https://gitee.com/zhangxiaoxiao16)
 
-<!-- TOC -->
-
-- [Migration Script](#migration-script)
-    - [Overview](#overview)
-    - [Migrating the TensorFlow Script to MindSpore](#migrating-the-tensorflow-script-to-mindspore)
-    - [Migrating the PyTorch Script to MindSpore](#migrating-the-pytorch-script-to-mindspore)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/migration_guide/source_en/migration_script.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview

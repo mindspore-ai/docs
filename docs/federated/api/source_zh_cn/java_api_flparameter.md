@@ -1,42 +1,5 @@
 # FLParameter
 
-<!-- TOC -->
-
-- [FLParameter](#flparameter)
-    - [公有成员函数](#公有成员函数)
-    - [getInstance](#getinstance)
-    - [getDomainName](#getdomainname)
-    - [setDomainName](#setdomainname)
-    - [getCertPath](#getcertpath)
-    - [setCertPath](#setcertpath)
-    - [getTrainDataset](#gettraindataset)
-    - [setTrainDataset](#settraindataset)
-    - [getVocabFile](#getvocabfile)
-    - [setVocabFile](#setvocabfile)
-    - [getIdsFile](#getidsfile)
-    - [setIdsFile](#setidsfile)
-    - [getTestDataset](#gettestdataset)
-    - [setTestDataset](#settestdataset)
-    - [getFlName](#getflname)
-    - [setFlName](#setflname)
-    - [getTrainModelPath](#gettrainmodelpath)
-    - [setTrainModelPath](#settrainmodelpath)
-    - [getInferModelPath](#getinfermodelpath)
-    - [setInferModelPath](#setinfermodelpath)
-    - [isUseSSL](#isusessl)
-    - [setUseSSL](#setusessl)
-    - [getTimeOut](#gettimeout)
-    - [setTimeOut](#settimeout)
-    - [getSleepTime](#getsleeptime)
-    - [setSleepTime](#setsleeptime)
-    - [isUseElb](#isuseelb)
-    - [setUseElb](#setuseelb)
-    - [getServerNum](#getservernum)
-    - [setServerNum](#setservernum)
-    - [getClientID](#getclientid)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/federated/api/source_zh_cn/java_api_flparameter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ```java

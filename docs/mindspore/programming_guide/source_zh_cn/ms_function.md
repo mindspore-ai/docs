@@ -2,17 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型运行`
 
-<!-- TOC -->
-
-- [ms_function动静结合](#ms_function动静结合)
-    - [概述](#概述)
-    - [修饰独立函数](#修饰独立函数)
-    - [修饰Cell的成员函数](#修饰cell的成员函数)
-    - [实现原理](#实现原理)
-    - [使用须知](#使用须知)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/ms_function.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

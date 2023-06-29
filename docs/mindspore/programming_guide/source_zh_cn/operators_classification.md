@@ -2,25 +2,6 @@
 
 `Ascend` `GPU` `CPU` `入门`
 
-<!-- TOC -->
-
-- [算子分类](#算子分类)
-    - [概述](#概述)
-    - [Primitive算子](#primitive算子)
-        - [计算算子](#计算算子)
-            - [神经网络算子](#神经网络算子)
-            - [数学算子](#数学算子)
-            - [数组算子](#数组算子)
-            - [通信算子](#通信算子)
-        - [框架算子](#框架算子)
-    - [nn算子](#nn算子)
-        - [卷积层算子](#卷积层算子)
-        - [池化层算子](#池化层算子)
-        - [损失函数](#损失函数)
-        - [优化器](#优化器)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/operators_classification.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述

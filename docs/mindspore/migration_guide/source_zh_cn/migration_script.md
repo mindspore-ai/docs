@@ -1,14 +1,5 @@
 # 迁移脚本
 
-<!-- TOC -->
-
-- [迁移脚本](#迁移脚本)
-    - [概述](#概述)
-    - [TensorFlow脚本迁移MindSpore](#tensorflow脚本迁移mindspore)
-    - [PyTorch脚本迁移MindSpore](#pytorch脚本迁移mindspore)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/migration_guide/source_zh_cn/migration_script.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述

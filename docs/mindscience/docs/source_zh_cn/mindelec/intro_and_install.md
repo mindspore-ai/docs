@@ -1,19 +1,6 @@
 # MindElec介绍和安装
 
-<!-- TOC -->
-
-- [MindElec介绍和安装](#mindelec介绍和安装)
-    - [MindElec介绍](#mindelec介绍)
-    - [MindElec安装](#mindelec安装)
-        - [确认系统环境信息](#确认系统环境信息)
-        - [安装方式](#安装方式)
-            - [pip安装](#pip安装)
-            - [源码安装](#源码安装)
-        - [验证是否成功安装](#验证是否成功安装)
-
-<!-- /TOC -->
-<a href=
-"https://gitee.com/mindspore/docs/blob/r1.5/docs/mindscience/docs/source_zh_cn/mindelec/intro_and_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindscience/docs/source_zh_cn/mindelec/intro_and_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## MindElec介绍
 

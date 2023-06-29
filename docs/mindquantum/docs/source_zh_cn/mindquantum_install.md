@@ -2,19 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindquantum/docs/source_zh_cn/mindquantum_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
-<!-- TOC --->
-
-- [安装MindQuantum](#安装mindquantum)
-    - [确认系统环境信息](#确认系统环境信息)
-    - [安装方式](#安装方式)
-        - [源码安装](#源码安装)
-        - [pip安装](#pip安装)
-    - [验证是否成功安装](#验证是否成功安装)
-    - [Docker安装](#docker安装)
-    - [注意事项](#注意事项)
-
-<!-- /TOC -->
-
 ## 确认系统环境信息
 
 - 硬件平台确认为Linux系统下的CPU，并支持avx指令集。

@@ -2,24 +2,6 @@
 
 `Windows` `Linux` `模型转换` `模型调优` `中级` `高级`
 
-<!-- TOC -->
-
-- [优化模型(训练后量化)](#优化模型训练后量化)
-    - [概述](#概述)
-    - [配置参数](#配置参数)
-        - [通用量化参数](#通用量化参数)
-        - [混合比特权重量化参数](#混合比特权重量化参数)
-        - [全量化参数](#全量化参数)
-        - [数据预处理](#数据预处理)
-    - [权重量化](#权重量化)
-        - [混合比特量化](#混合比特量化)
-        - [固定比特量化](#固定比特量化)
-        - [部分模型精度结果](#部分模型精度结果)
-    - [全量化](#全量化)
-        - [部分模型精度结果](#部分模型精度结果-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/docs/source_zh_cn/use/post_training_quantization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述

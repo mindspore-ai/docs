@@ -1,16 +1,5 @@
 # 基本执行流程横向对比
 
-<!-- TOC -->
-
-- [基本执行流程横向对比](#基本执行流程横向对比)
-    - [总体流程](#总体流程)
-    - [构建数据集](#构建数据集)
-    - [反向传播](#反向传播)
-        - [反向传播原理](#反向传播原理)
-        - [TrainOneStepCell](#trainonestepcell)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/migration_guide/source_zh_cn/training_process_comparision.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 总体流程

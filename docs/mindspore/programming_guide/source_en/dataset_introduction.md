@@ -4,18 +4,6 @@
 
 Translator: [Wei_zz](https://gitee.com/wei-zz)
 
-<!-- TOC -->
-
-- [Dataset](#dataset)
-    - [Dataset](#data-set)
-    - [Dataset Loading](#dataset-loading)
-    - [Data Processing](#data-processing)
-        - [Shuffle Operation](#shuffle-operation)
-        - [Map Operation](#map-operation)
-        - [Batch Operation](#batch-operation)
-
-<!-- TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_en/dataset_introduction.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 Data is the foundation of deep learning, and high-quality data input will play a positive role in the entire deep neural network.

@@ -2,23 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型开发`
 
-<!-- TOC -->
-
-- [损失函数](#损失函数)
-    - [概述](#概述)
-    - [内置损失函数](#内置损失函数)
-        - [内置损失函数应用实例](#内置损失函数应用实例)
-    - [定义损失函数](#定义损失函数)
-    - [损失函数与模型训练](#损失函数与模型训练)
-        - [定义数据集和网络](#定义数据集和网络)
-        - [使用Model进行模型训练](#使用model进行模型训练)
-    - [多标签损失函数与模型训练](#多标签损失函数与模型训练)
-        - [定义多标签数据集](#定义多标签数据集)
-        - [定义多标签损失函数](#定义多标签损失函数)
-        - [使用Model进行多标签模型训练](#使用model进行多标签模型训练)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/loss.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述
