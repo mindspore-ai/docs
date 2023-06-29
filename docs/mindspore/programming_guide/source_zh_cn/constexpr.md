@@ -1,12 +1,6 @@
 # 网络内构造常量
 
 `Ascend` `GPU` `CPU` `模型开发`
-
-<!-- TOC -->
-
-- [网络内构造常量](#网络内构造常量)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/constexpr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 `mindspore.ops.constexpr`中提供了一个@constexpr的Python 装饰器，该装饰器可以用于修饰一个函数，该函数在编译阶段将会通过Python解释器执行，最终在MindSpore的类型推导阶段被常量折叠成为ANF图的一个常量节点(ValueNode)。

@@ -2,17 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/serving/docs/source_en/serving_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
-<!-- TOC -->
-
-- [MindSpore Serving Installation](#mindspore-serving-installation)
-    - [Installation](#installation)
-        - [Installation by pip](#installation-by-pip)
-        - [Installation by Source Code](#installation-by-source-code)
-    - [Installation Verification](#installation-verification)
-    - [Configuring Environment Variables](#configuring-environment-variables)
-
-<!-- /TOC -->
-
 ## Installation
 
 MindSpore Serving supports the Ascend 310, Ascend 910 and Nvidia GPU environments.

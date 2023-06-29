@@ -3,21 +3,6 @@
 
 `Ascend` `GPU` `CPU` `模型开发`
 
-<!-- TOC -->
-
-- [优化器](#优化器)
-    - [概述](#概述)
-    - [权重配置](#权重配置)
-        - [使用Cell的网络权重获取函数](#使用Cell的网络权重获取函数)
-        - [自定义筛选](#自定义筛选)
-    - [学习率](#学习率)
-        - [固定学习率](#固定学习率)
-        - [动态学习率：预生成学习率列表](#动态学习率：预生成学习率列表)
-        - [动态学习率：定义学习率计算图](#动态学习率：定义学习率计算图)
-    - [权重衰减](#权重衰减)
-    - [参数分组](#参数分组)
-    - [混合精度](#混合精度)
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/optim.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述

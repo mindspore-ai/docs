@@ -2,19 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型开发`
 
-<!-- TOC -->
-
-- [Model基本使用](#model基本使用)
-    - [概述](#概述)
-    - [Model基本介绍](#model基本介绍)
-    - [模型训练、评估和推理](#模型训练评估和推理)
-    - [自定义场景的Model应用](#自定义场景的model应用)
-        - [手动连接前向网络与损失函数](#手动连接前向网络与损失函数)
-        - [自定义训练网络](#自定义训练网络)
-        - [自定义网络的权重共享](#自定义网络的权重共享)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/model_use_guide.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述

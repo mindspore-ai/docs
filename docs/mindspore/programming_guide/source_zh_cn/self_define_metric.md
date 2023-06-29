@@ -2,15 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型评估`
 
-<!-- TOC -->
-
-- [自定义Metrics验证模型推理精度](#自定义metrics验证模型推理精度)
-    - [概述](#概述)
-    - [自定义Metrics步骤](#自定义metrics步骤)
-    - [在Model中使用Metrics](#在model中使用metrics)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/self_define_metric.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
 

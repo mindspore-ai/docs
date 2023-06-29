@@ -2,19 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindquantum/docs/source_en/mindquantum_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
-<!-- TOC --->
-
-- [MindQuantum Installation](#mindquantum-installation)
-    - [Confirming System Environment Information](#confirming-system-environment-information)
-    - [Installation Methods](#installation-methods)
-        - [Install by Source Code](#install-by-source-code)
-        - [Install by pip](#install-by-pip)
-    - [Verifying Successful Installation](#verifying-successful-installation)
-    - [Install with Docker](#install-with-docker)
-    - [Note](#Note)
-
-<!-- /TOC -->
-
 ## Confirming System Environment Information
 
 - The hardware platform should be Linux CPU with avx supported.

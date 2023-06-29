@@ -2,22 +2,6 @@
 
 `Ascend` `GPU` `CPU` `设计` `模型运行`
 
-<!-- TOC -->
-
-- [动态图和静态图](#动态图和静态图)
-    - [动态图和静态图的概念](#动态图和静态图的概念)
-    - [MindSpore静态图](#mindspore静态图)
-    - [MindSpore动态图](#mindspore动态图)
-        - [PyNative执行原理](#pynative执行原理)
-        - [PyNative自动微分原理](#pynative自动微分原理)
-        - [PyNative模式下的控制流](#pynative模式下的控制流)
-    - [动静统一](#动静统一)
-        - [概述](#概述)
-        - [动态图和静态图互相转换](#动态图和静态图互相转换)
-        - [动静结合](#动静结合)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/design/dynamic_graph_and_static_graph.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 动态图和静态图的概念

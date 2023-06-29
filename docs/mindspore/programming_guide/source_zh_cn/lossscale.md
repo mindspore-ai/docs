@@ -2,16 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型开发`
 
-<!-- TOC -->
-
-- [LossScale](#lossscale)
-    - [概述](#概述)
-    - [FixedLossScaleManager](#fixedlossscalemanager)
-        - [LossScale与优化器](#lossscale与优化器)
-    - [DynamicLossScaleManager](#dynamiclossscalemanager)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/lossscale.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述

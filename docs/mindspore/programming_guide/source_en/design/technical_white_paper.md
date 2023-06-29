@@ -2,14 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Design`
 
-<!-- TOC -->
-
-- [Technical White Paper](#technical-white-paper)
-    - [Introduction](#introduction)
-    - [Overview](#overview)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_en/design/technical_white_paper.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Introduction

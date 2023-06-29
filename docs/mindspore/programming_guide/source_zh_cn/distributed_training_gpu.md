@@ -2,21 +2,6 @@
 
 `GPU` `分布式并行` `全流程`
 
-<!-- TOC -->
-
-- [分布式并行训练基础样例（GPU）](#分布式并行训练基础样例gpu)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [下载数据集](#下载数据集)
-        - [配置分布式环境](#配置分布式环境)
-        - [调用集合通信库](#调用集合通信库)
-    - [定义网络](#定义网络)
-    - [运行脚本](#运行脚本)
-        - [单机多卡训练](#单机多卡训练)
-        - [多机多卡训练](#多机多卡训练)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/distributed_training_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述

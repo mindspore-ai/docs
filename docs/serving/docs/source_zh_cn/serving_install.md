@@ -2,17 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/serving/docs/source_zh_cn/serving_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
-<!-- TOC -->
-
-- [安装MindSpore Serving](安装#mindspore-serving)
-    - [安装](#安装)
-        - [pip安装](#pip安装)
-        - [源码编译安装](#源码编译安装)
-    - [验证是否成功安装](#验证是否成功安装)
-    - [配置环境变量](#配置环境变量)
-
-<!-- /TOC -->
-
 ## 安装
 
 MindSpore Serving当前仅支持Ascend 310、Ascend 910和Nvidia GPU环境。

@@ -1,31 +1,5 @@
 # Migrating From Third Party Frameworks With MindConverter
 
-<!-- TOC -->
-
-- [Migrating From Third Party Frameworks With MindConverter](#migrating-from-third-party-frameworks-with-mindconverter)
-    - [Overview](#overview)
-    - [Quick Starts](#quick-starts)
-    - [Install Dependencies](#install-dependencies)
-    - [Migration Solution](#migration-solution)
-    - [Practice Guidance](#practice-guidance)
-        - [Step 0：Export the model file](#step-0export-the-model-file)
-        - [Step 1:Migrate the model definition](#step-1migrate-the-model-definition)
-        - [Step 2：Migrate the data processing](#step-2migrate-the-data-processing)
-        - [Step 3：Migrate the model training](#step-3migrate-the-model-training)
-        - [Step 4：Migrate the model evaluation](#step-4migrate-the-model-evaluation)
-    - [MindConverter CLI Usage](#mindconverter-cli-usage)
-    - [Model List Supported by MindConverter](#model-list-supported-by-mindconverter)
-    - [MindConverter Error Code Definition](#mindconverter-error-code-definition)
-    - [FAQ](#faq)
-        - [Install dependencies under ARM](#install-dependencies-under-arm)
-        - [Export the model file of Tensorflow](#export-the-model-file-of-tensorflow)
-        - [Rectify parameters of forward function definition](#rectify-parameters-of-forward-function-definition)
-        - [Mix the MindSpore model with the original training scripts](#mix-the-mindspore-model-with-the-original-training-scripts)
-        - [Migration reports and weights mapping](#migration-reports-and-weights-mapping)
-        - [AST-Based Model Migration](#ast-based-model-migration)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindinsight/docs/source_en/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview
