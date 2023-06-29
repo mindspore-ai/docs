@@ -2,14 +2,6 @@
 
 `Linux` `Ascend` `GPU` `模型发布` `中级` `高级`
 
-<!-- TOC -->
-
-- [发布模型](#发布模型)
-    - [概述](#概述)
-    - [发布模型到MindSpore Hub](#发布模型到mindspore-hub)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/use/publish_model.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

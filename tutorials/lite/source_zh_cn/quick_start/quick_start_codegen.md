@@ -2,23 +2,6 @@
 
  `Linux` `IoT` `C++` `全流程` `模型编译` `模型代码生成` `模型部署` `推理应用` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [编译一个MNIST分类模型](#编译一个MNIST分类模型)
-    - [概述](#概述)
-    - [模型编译体验](#模型编译体验)
-    - [详细步骤](#详细步骤)
-        - [生成代码](#生成代码)
-        - [部署应用](#部署应用)
-            - [编译依赖](#编译依赖)
-            - [构建与运行](#构建与运行)
-            - [编写推理代码示例](#编写推理代码示例)
-    - [更多详情](#更多详情)
-        - [Android平台编译部署](#android平台编译部署)
-        - [Arm&nbsp;Cortex-M平台编译部署](#armcortex-m平台编译部署)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/quick_start/quick_start_codegen.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

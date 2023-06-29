@@ -2,25 +2,6 @@
 
 `Linux` `Ascend` `模型开发` `初级`
 
-<!-- TOC -->
-
-- [使用工具迁移第三方框架脚本](#使用工具迁移第三方框架脚本)
-    - [概述](#概述)
-    - [安装](#安装)
-    - [用法](#用法)
-        - [PyTorch模型脚本迁移](#pytorch模型脚本迁移)
-        - [TensorFlow模型脚本迁移](#tensorflow模型脚本迁移)
-        - [ONNX模型文件迁移](#onnx模型文件迁移)
-    - [使用场景](#使用场景)
-    - [使用示例](#使用示例)
-        - [基于AST的脚本转换示例](#基于ast的脚本转换示例)
-        - [基于图结构的脚本生成示例](#基于图结构的脚本生成示例)
-            - [TensorFlow模型脚本生成示例](#tensorflow模型脚本生成示例)
-            - [ONNX模型文件生成示例](#onnx模型文件生成示例)
-    - [注意事项](#注意事项)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

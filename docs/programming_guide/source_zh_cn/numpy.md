@@ -1,32 +1,5 @@
 # MindSpore NumPy函数使用介绍
 
-<!-- TOC -->
-
-- [MindSpore NumPy函数使用介绍](#mindspore-numpy函数使用介绍)
-    - [概述](#概述)
-    - [算子介绍](#算子介绍)
-        - [张量生成](#张量生成)
-            - [生成具有相同元素的数组](#生成具有相同元素的数组)
-            - [生成具有某个范围内的数值的数组](#生成具有某个范围内的数值的数组)
-            - [生成特殊类型的数组](#生成特殊类型的数组)
-        - [张量操作](#张量操作)
-            - [数组维度变换](#数组维度变换)
-            - [数组分割](#数组分割)
-            - [数组拼接](#数组拼接)
-        - [逻辑运算](#逻辑运算)
-        - [数学运算](#数学运算)
-            - [加法](#加法)
-            - [矩阵乘法](#矩阵乘法)
-            - [求平均值](#求平均值)
-            - [指数](#指数)
-    - [MindSpore Numpy与MindSpore特性结合](#mindspore-numpy与mindspore特性结合)
-        - [ms_function使用示例](#ms_function使用示例)
-        - [GradOperation使用示例](#gradoperation使用示例)
-        - [mindspore.context使用示例](#mindsporecontext使用示例)
-        - [mindspore.numpy使用示例](#mindsporenumpy使用示例)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_zh_cn/numpy.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述

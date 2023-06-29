@@ -2,15 +2,6 @@
 
 `Linux` `Ascend` `模型训练` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [算子增量编译](#算子增量编译)
-    - [概述](#概述)
-    - [使用方法](#使用方法)
-    - [常见问题](#常见问题)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/incremental_operator_build.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

@@ -2,16 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型开发` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [MindSpore隐式类型转换的算子支持](#mindspore隐式类型转换的算子支持)
-    - [隐式类型转换](#隐式类型转换)
-        - [转换规则](#转换规则)
-        - [参与转换的数据类型](#参与转换的数据类型)
-        - [支持算子](#支持算子)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/operator_list_implicit.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 隐式类型转换

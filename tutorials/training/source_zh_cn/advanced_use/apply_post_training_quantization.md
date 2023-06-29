@@ -2,16 +2,6 @@
 
 `Linux` `模型调优` `高级`
 
-<!-- TOC -->
-
-- [应用训练后量化](#应用训练后量化)
-    - [概念](#概念)
-        - [权重量化](#权重量化)
-        - [全量化](#全量化)
-    - [训练后量化工具](#训练后量化工具)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/apply_post_training_quantization.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概念

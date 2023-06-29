@@ -4,27 +4,6 @@ Author: [Yi Yang](https://github.com/helloyesterday)&nbsp;&nbsp;&nbsp;&nbsp;Edit
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Implementing Simple Linear Function Fitting](#implementing-simple-linear-function-fitting)
-    - [Overview](#overview)
-    - [Environment Preparation](#environment-preparation)
-    - [Generating Datasets](#generating-datasets)
-        - [Defining the Dataset Generation Function](#defining-the-dataset-generation-function)
-        - [Defining the Data Argumentation Function](#defining-the-data-argumentation-function)
-    - [Defining the Training Network](#defining-the-training-network)
-    - [Defining and Associating the Forward and Backward Propagation Networks](#defining-and-associating-the-forward-and-backward-propagation-networks)
-        - [Defining the Forward Propagation Network](#defining-the-forward-propagation-network)
-        - [Defining the Backward Propagation Network](#defining-the-backward-propagation-network)
-        - [Associating the Forward and Backward Propagation Networks](#associating-the-forward-and-backward-propagation-networks)
-    - [Preparation for Fitting Process Visualization](#preparation-for-fitting-process-visualization)
-        - [Defining the Visualization Function](#defining-the-visualization-function)
-        - [Defining the Callback Function](#defining-the-callback-function)
-    - [Performing Training](#performing-training)
-    - [Summary](#summary)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/quick_start/linear_regression.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

@@ -1,20 +1,6 @@
 # Using Membership Inference to Test Model Security
 
 `Linux` `Ascend` `GPU` `CPU` `Model Evaluation` `Enterprise` `Expert`
-
-<!-- TOC -->
-
-- [Using Membership Inference to Test Model Security](#using-membership-inference-to-test-model-security)
-    - [Overview](#overview)
-    - [Implementation](#implementation)
-        - [Importing Library Files](#importing-library-files)
-            - [Importing Related Packages](#importing-related-packages)
-        - [Loading the Dataset](#loading-the-dataset)
-        - [Creating the Model](#creating-the-model)
-        - [Using Membership Inference for Privacy Security Evaluation](#using-membership-inference-for-privacy-security-evaluation)
-    - [References](#references)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/test_model_security_membership_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview

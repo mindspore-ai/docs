@@ -2,18 +2,6 @@
 
 `Ascend` `Model Development` `Model Optimization` `Framework Development` `Enterprise` `Expert` `Contributor`
 
-<!-- TOC -->
-
-- [Differential Privacy](#differential-privacy)
-    - [Overall Design](#overall-design)
-        - [DP Optimizer](#dp-optimizer)
-        - [DP Mechanisms](#dp-mechanisms)
-        - [Monitor](#monitor)
-    - [Code Implementation](#code-implementation)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_en/design/mindarmour/differential_privacy_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## Overall Design

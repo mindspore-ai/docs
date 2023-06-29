@@ -2,18 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Use Mindoptimizer to Tune Hyperparameters](#use-mindoptimizer-to-tune-hyperparameters)
-    - [Overview](#overview)
-    - [Installation](#installation)
-    - [Usage](#usage)
-    - [Configuration File Rules](#configuration-file-rules)
-    - [Usage Examples](#usage-examples)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/hyper_parameters_auto_tuning.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

@@ -1,21 +1,5 @@
 # Data Augmentation
 
-<!-- TOC -->
-
-- [Data Augmentation](#data-augmentation)
-    - [Overview](#overview)
-    - [c_transforms](#c_transforms)
-        - [RandomCrop](#randomcrop)
-        - [RandomHorizontalFlip](#randomhorizontalflip)
-        - [Resize](#resize)
-        - [Invert](#invert)
-    - [py_transforms](#py_transforms)
-        - [Compose](#compose)
-    - [Usage Instructions](#usage-instructions)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_en/augmentation.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

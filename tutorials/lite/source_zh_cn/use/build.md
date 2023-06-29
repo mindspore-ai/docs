@@ -2,37 +2,6 @@
 
 `Windows` `Linux` `Android` `环境准备` `中级` `高级`
 
-<!-- TOC -->
-
-- [编译MindSpore Lite](#编译mindspore-lite)
-    - [Linux环境编译](#linux环境编译)
-        - [环境要求](#环境要求)
-        - [编译选项](#编译选项)
-        - [编译示例](#编译示例)
-        - [端侧推理框架编译输出](#端侧推理框架编译输出)
-            - [模型转换工具converter目录结构说明](#推理模型转换工具converter目录结构说明)
-            - [代码生成工具codegen目录结构说明](#代码生成工具codegen目录结构说明)
-            - [模型混淆工具obfuscator目录结构说明](#模型混淆工具obfuscator目录结构说明)
-            - [Runtime及其他工具目录结构说明](#推理Runtime及其他工具目录结构说明)
-        - [端侧训练框架编译输出](#端侧训练框架编译输出)
-            - [训练Runtime及配套工具目录结构说明](#训练Runtime及配套工具目录结构说明)
-    - [Windows环境编译](#windows环境编译)
-        - [环境要求](#环境要求-1)
-        - [编译选项](#编译选项-1)
-        - [编译示例](#编译示例-1)
-        - [端侧推理框架编译输出](#端侧推理框架编译输出)
-            - [Runtime及配套工具目录结构说明](#Runtime及配套工具目录结构说明-1)
-    - [Docker环境编译](#docker环境编译)
-        - [环境准备](#环境准备)
-            - [下载镜像](#下载镜像)
-            - [创建容器](#创建容器)
-            - [进入容器](#进入容器)
-        - [编译选项](#编译选项-2)
-        - [编译示例](#编译示例-2)
-        - [编译输出](#编译输出)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/use/build.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 本章节介绍如何快速编译出MindSpore Lite。

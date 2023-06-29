@@ -1,18 +1,5 @@
 # Optimization Algorithms
 
-<!-- TOC -->
-
-- [Optimization Algorithms](#optimization-algorithms)
-    - [Overview](#overview)
-    - [Learning Rates](#learning-rates)
-        - [dynamic_lr](#dynamic_lr)
-        - [learning_rate_schedule](#learning_rate_schedule)
-    - [Optimzers](#optimzers)
-        - [Usage](#usage)
-        - [Built-in Optimizers](#built-in-optimizers)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_en/optim.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

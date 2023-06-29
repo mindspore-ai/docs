@@ -2,13 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [MindSpore Distributed Operator List](#mindspore-distributed-operator-list)
-    - [Distributed Operator](#distributed-operator)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_en/operator_list_parallel.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Distributed Operator

@@ -2,33 +2,6 @@
 
 `Android` `Java` `Inference Application` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Using Runtime to Perform Inference (Java)](#using-runtime-to-perform-inference-java)
-    - [Overview](#overview)
-    - [Referencing the MindSpore Lite Java Library](#referencing-the-mindspore-lite-java-library)
-        - [Linux X86 Project Referencing the JAR Library](#linux-x86-project-referencing-the-jar-library)
-        - [Android Projects Referencing the AAR Library](#android-projects-referencing-the-aar-library)
-    - [Loading a Model](#loading-a-model)
-    - [Creating a Configuration Context](#creating-a-configuration-context)
-        - [Configuring the CPU Backend](#configuring-the-cpu-backend)
-        - [Configuring the GPU Backend](#configuring-the-gpu-backend)
-    - [Creating a Session](#creating-a-session)
-    - [Building a Graph](#building-a-graph)
-    - [Inputting Data](#inputting-data)
-    - [Executing Inference](#executing-inference)
-    - [Obtaining the Output](#obtaining-the-output)
-    - [Releasing the Memory](#releasing-the-memory)
-    - [Advanced Usage](#advanced-usage)
-        - [Optimizing the Memory Size](#optimizing-the-memory-size)
-        - [Core Binding Operations](#core-binding-operations)
-        - [Resizing the Input Dimension](#resizing-the-input-dimension)
-        - [Parallel Sessions](#parallel-sessions)
-        - [Viewing Logs](#viewing-logs)
-        - [Obtaining the Version Number](#obtaining-the-version-number)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_en/use/runtime_java.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png"></a>
 
 ## Overview

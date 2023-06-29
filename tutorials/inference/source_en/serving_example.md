@@ -2,19 +2,6 @@
 
 `Linux` `Ascend` `Serving` `GPU` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [MindSpore Serving-based Inference Service Deployment](#mindspore-serving-based-inference-service-deployment)
-    - [Overview](#overview)
-        - [Preparing the Environment](#preparing-the-environment)
-        - [Exporting the Model](#exporting-the-model)
-        - [Deploying the Serving Inference Service](#deploying-the-serving-inference-service)
-            - [Lightweight Deployment](#lightweight-deployment)
-            - [Cluster Deployment](#cluster-deployment)
-        - [Inference Execution](#inference-execution)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_en/serving_example.md" target="_blank"><img src="_static/logo_source.png"></a>
 
 ## Overview

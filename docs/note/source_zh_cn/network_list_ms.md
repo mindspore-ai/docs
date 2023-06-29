@@ -2,13 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型开发` `中级` `高级`
 
-<!-- TOC -->
-
-- [MindSpore网络支持](#mindspore网络支持)
-    - [Model Zoo](#model-zoo)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/network_list_ms.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Model Zoo

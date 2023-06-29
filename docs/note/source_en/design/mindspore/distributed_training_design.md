@@ -2,22 +2,6 @@
 
 `Ascend` `GPU` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
 
-<!-- TOC -->
-
-- [Distributed Training Design](#distributed-training-design)
-    - [Background](#background)
-    - [Concepts](#concepts)
-        - [Collective Communication](#collective-communication)
-        - [Synchronization Mode](#synchronization-mode)
-    - [Data Parallelism](#data-parallelism)
-        - [Principle of Data Parallelism](#principle-of-data-parallelism)
-        - [Data Parallel Code](#data-parallel-code)
-    - [Automatic Parallelism](#automatic-parallelism)
-        - [Principle of Automatic Parallelism](#principle-of-automatic-parallelism)
-        - [Automatic Parallel Code](#automatic-parallel-code)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_en/design/mindspore/distributed_training_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## Background

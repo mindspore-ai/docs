@@ -2,18 +2,6 @@
 
 `Linux` `x86` `Java` `Whole Process` `Inference Application` `Data Preparation` `Beginner`
 
-<!-- TOC -->
-
-- [Simplified MindSpore Lite Java Demo](#simplified-mindspore-lite-java-demo)
-    - [Overview](#overview)
-    - [Building and Running](#building-and-running)
-    - [Model Loading](#model-loading)
-    - [Model Build](#model-build)
-    - [Model Inference](#model-inference)
-    - [Memory Release](#memory-release)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_en/quick_start/quick_start_java.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

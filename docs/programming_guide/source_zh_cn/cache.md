@@ -1,16 +1,5 @@
 # 单节点数据缓存
 
-<!-- TOC -->
-
-- [单节点数据缓存](#单节点数据缓存)
-    - [概述](#概述)
-    - [缓存基础使用](#缓存基础使用)
-    - [缓存共享](#缓存共享)
-    - [当前限制](#当前限制)
-    - [缓存性能调优](#缓存性能调优)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_zh_cn/cache.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述

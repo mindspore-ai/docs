@@ -2,15 +2,6 @@
 
 `Linux` `Ascend` `GPU` `Serving` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [gRPC-based MindSpore Serving Access](#grpc-based-mindspore-serving-access)
-    - [Overview](#overview)
-    - [add](#add)
-    - [ResNet-50](#resnet-50)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_en/serving_grpc.md" target="_blank"><img src="_static/logo_source.png"></a>
 
 ## Overview

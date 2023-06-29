@@ -2,20 +2,6 @@
 
 `Linux` `Ascend` `Model Training` `Model Optimization` `Enterprise` `Expert`
 
-<!-- TOC -->
-
-- [Protecting User Privacy with Differential Privacy Mechanism](#protecting-user-privacy-with-differential-privacy-mechanism)
-    - [Overview](#overview)
-    - [Implementation](#implementation)
-        - [Importing Library Files](#importing-library-files)
-        - [Configuring Parameters](#configuring-parameters)
-        - [Preprocessing the Dataset](#preprocessing-the-dataset)
-        - [Creating the Model](#creating-the-model)
-        - [Introducing the Differential Privacy](#introducing-the-differential-privacy)
-        - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/protect_user_privacy_with_differential_privacy.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

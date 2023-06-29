@@ -2,19 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
 
-<!-- TOC -->
-
-- [MindInsight相关命令](#mindinsight相关命令)
-    - [查看命令帮助信息](#查看命令帮助信息)
-    - [查看版本信息](#查看版本信息)
-    - [启动服务](#启动服务)
-    - [查看服务进程信息](#查看服务进程信息)
-    - [停止服务](#停止服务)
-    - [Summary导出](#summary导出)
-    - [使用mindoptimizer进行超参调优](#使用mindoptimizer进行超参调优)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/mindinsight_commands.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 查看命令帮助信息

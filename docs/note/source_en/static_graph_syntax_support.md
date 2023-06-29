@@ -2,63 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Static Graph Syntax Support](#static-graph-syntax-support)
-    - [Overview](#overview)
-    - [Data Types](#data-types)
-        - [Built-in Python Data Types](#built-in-python-data-types)
-            - [Number](#number)
-            - [String](#string)
-            - [List](#list)
-            - [Tuple](#tuple)
-            - [Dictionary](#dictionary)
-        - [MindSpore User-defined Data Types](#mindspore-user-defined-data-types)
-            - [Tensor](#tensor)
-            - [Primitive](#primitive)
-            - [Cell](#cell)
-    - [Operators](#operators)
-        - [Arithmetic Operators](#arithmetic-operators)
-        - [Assignment Operators](#assignment-operators)
-        - [Logical Operators](#logical-operators)
-        - [Member Operators](#member-operators)
-        - [Identity Operators](#identity-operators)
-    - [Expressions](#expressions)
-        - [Conditional Control Statements](#conditional-control-statements)
-            - [single if](#single-if)
-            - [side-by-side if](#side-by-side-if)
-            - [if in if](#if-in-if)
-        - [Loop Statements](#loop-statements)
-            - [for](#for)
-            - [while](#while)
-            - [side-by-side while](#side-by-side-while)
-            - [while in while](#while-in-while)
-        - [Conditional Control Statements in Loop Statements](#conditional-control-statements-in-loop-statements)
-            - [if in for](#if-in-for)
-            - [if in while](#if-in-while)
-        - [Function Definition Statements](#function-definition-statements)
-            - [def Keyword](#def-keyword)
-            - [lambda Expression](#lambda-expression)
-    - [Functions](#functions)
-        - [Python Built-in Functions](#python-built-in-functions)
-            - [len](#len)
-            - [isinstance](#isinstance)
-            - [partial](#partial)
-            - [map](#map)
-            - [zip](#zip)
-            - [range](#range)
-            - [enumerate](#enumerate)
-            - [super](#super)
-            - [pow](#pow)
-            - [print](#print)
-        - [Function Parameters](#function-parameters)
-    - [Network Definition](#network-definition)
-        - [Instance Types on the Entire Network](#instance-types-on-the-entire-network)
-        - [Network Construction Components](#network-construction-components)
-        - [Network Constraints](#network-constraints)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_en/static_graph_syntax_support.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview

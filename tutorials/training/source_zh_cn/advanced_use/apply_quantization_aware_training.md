@@ -2,23 +2,6 @@
 
 `Linux` `Ascend` `GPU` `模型调优` `高级`
 
-<!-- TOC -->
-
-- [应用感知量化训练](#应用感知量化训练)
-    - [背景](#背景)
-    - [概念](#概念)
-        - [量化](#量化)
-        - [伪量化节点](#伪量化节点)
-    - [感知量化训练](#感知量化训练)
-    - [感知量化训练示例](#感知量化训练示例)
-        - [定义量化网络](#定义量化网络)
-            - [自动构建量化网络](#自动构建量化网络)
-            - [手动构建量化网络](#手动构建量化网络)
-        - [导出量化模型](#导出量化模型)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/apply_quantization_aware_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 背景

@@ -2,19 +2,6 @@
 
 `Linux` `Ascend` `GPU` `Serving` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [基于MindSpore Serving部署推理服务](#基于mindspore-serving部署推理服务)
-    - [概述](#概述)
-        - [环境准备](#环境准备)
-        - [导出模型](#导出模型)
-        - [部署Serving推理服务](#部署serving推理服务)
-            - [轻量级部署](#轻量级部署)
-            - [集群部署](#集群部署)
-        - [执行推理](#执行推理)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_zh_cn/serving_example.md" target="_blank"><img src="_static/logo_source.png"></a>
 
 ## 概述

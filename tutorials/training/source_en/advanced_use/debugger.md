@@ -2,26 +2,6 @@
 
 `Linux` `Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Using Debugger](#using-debugger)
-    - [Overview](#overview)
-    - [Operation Process](#operation-process)
-    - [Debugger Environment Preparation](#debugger-environment-preparation)
-    - [Debugger UI Introduction](#debugger-ui-introduction)
-        - [Computational Graph](#computational-graph)
-        - [Node List](#node-list)
-        - [Graph Node Details](#graph-node-details)
-        - [Watchpoint List](#watchpoint-list)
-        - [Setting Watchpoints](#setting-watchpoints)
-        - [Recheck](#recheck)
-        - [Training Control](#training-control)
-        - [Tensor Check View](#tensor-check-view)
-    - [Debugger Usage Example](#debugger-usage-example)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/debugger.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

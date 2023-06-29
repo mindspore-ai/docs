@@ -2,21 +2,6 @@
 
 `Linux` `Ascend` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Cluster Performance Profiling (Ascend)](#cluster-performance-profiling-ascend)
-    - [Overview](#overview)
-    - [Operation Process](#operation-process)
-    - [Distributed Training](#distributed-training)
-    - [Collect Cluster Performance Data](#distributed-training)
-    - [Launch MindInsight](#launch-mindinsight)
-        - [Performance Analysis](#performance-analysis)
-            - [Cluster Step Trace Analysis](#cluster-step-trace-analysis)
-    - [Specifications](#specifications)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/performance_profiling_ascend_of_cluster.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview

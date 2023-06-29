@@ -2,35 +2,6 @@
 
 `Windows` `Linux` `Android` `C++` `推理应用` `模型加载` `数据准备` `中级` `高级`
 
-<!-- TOC -->
-
-- [使用Runtime执行推理（C++）](#使用runtime执行推理c)
-    - [概述](#概述)
-    - [模型加载](#模型加载)
-    - [创建配置上下文](#创建配置上下文)
-        - [配置线程数](#配置线程数)
-        - [配置使用CPU后端](#配置使用cpu后端)
-        - [配置使用GPU后端](#配置使用gpu后端)
-        - [配置使用NPU后端](#配置使用npu后端)
-    - [创建会话](#创建会话)
-    - [图编译](#图编译)
-    - [输入数据](#输入数据)
-    - [执行推理](#执行推理)
-    - [获取输出](#获取输出)
-    - [内存释放](#内存释放)
-    - [高级用法](#高级用法)
-        - [优化运行内存大小](#优化运行内存大小)
-        - [绑核操作](#绑核操作)
-        - [输入维度Resize](#输入维度resize)
-        - [Session并行](#session并行)
-        - [共享内存池](#共享内存池)
-        - [回调运行](#回调运行)
-        - [CreateSession简化版接口调用流程](#createsession简化版接口调用流程)
-        - [查看日志](#查看日志)
-        - [获取版本号](#获取版本号)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/use/runtime_cpp.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
