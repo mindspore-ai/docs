@@ -166,17 +166,17 @@
      - 指定日志输出的路径
      - String
      - 文件路径，支持相对路径与绝对路径
-     - 与`GLOG_logtostderr`一起使用
+     - 与 `GLOG_logtostderr` 一起使用
 	 
-       若`GLOG_logtostderr`的值为0，则必须设置此变量
+       若 `GLOG_logtostderr` 的值为0，则必须设置此变量
 	   
-       若指定了`GLOG_log_dir`且`GLOG_logtostderr`的值为1时，则日志输出到屏幕，不输出到文件
+       若指定了 `GLOG_log_dir` 且 `GLOG_logtostderr` 的值为1时，则日志输出到屏幕，不输出到文件
 	 
-       日志保存路径为：`指定的路径/rank_${rank_id}/logs/`，非分布式训练场景下，`rank_id`为0；分布式训练场景下，`rank_id`为当前设备在集群中的ID	  
+       日志保存路径为： `指定的路径/rank_${rank_id}/logs/` ，非分布式训练场景下， `rank_id` 为0；分布式训练场景下， `rank_id` 为当前设备在集群中的ID	  
 
-       C++和Python的日志会被输出到不同的文件中，C++日志的文件名遵从`GLOG`日志文件的命名规则，这里是`mindspore.机器名.用户名.log.日志级别.时间戳.进程ID`，Python日志的文件名为`mindspore.log.进程ID`
+       C++和Python的日志会被输出到不同的文件中，C++日志的文件名遵从 `GLOG` 日志文件的命名规则，这里是 `mindspore.机器名.用户名.log.日志级别.时间戳.进程ID` ，Python日志的文件名为 `mindspore.log.进程ID`
 	   
-       `GLOG_log_dir`只能包含大小写字母、数字、"-"、"_"、"/"等字符
+       `GLOG_log_dir` 只能包含大小写字母、数字、"-"、"_"、"/"等字符
    * - GLOG_log_max
      - 控制MindSpore C++模块日志单文件大小，可以通过该环境变量更改日志文件默认的最大值
      - Integer
@@ -245,9 +245,12 @@
        SubModule: COMMON, MD, DEBUG, DEVICE, COMMON, IR...
      - 赋值方式为：`MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`
 	 
-       其中被指定子模块的日志级别将覆盖`GLOG_v`在此模块内的设置，此处子模块的日志级别`LogLevel`与`GLOG_v`的日志级别含义相同，MindSpore子模块的划分如下表
+       其中被指定子模块的日志级别将覆盖 `GLOG_v` 在此模块内的设置，
+       此处子模块的日志级别 `LogLevel` 与 `GLOG_v` 的日志级别含义相同，
+       MindSpore子模块的划分如下表
 	   
-       例如可以通过`GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`把`PARSER`和`ANALYZER`模块的日志级别设为WARNING，其他模块的日志级别设为INFO
+       例如可以通过 `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"` 
+       把 `PARSER` 和 `ANALYZER` 模块的日志级别设为WARNING，其他模块的日志级别设为INFO
 
 MindSpore子模块按照目录划分如下：
 
@@ -259,13 +262,13 @@ MindSpore子模块按照目录划分如下：
      - Sub Module Name
    * - mindspore/ccsrc/kernel
      - KERNEL
-   * - mindspore/ccsrc/plugin/device/*/kernel
+   * - mindspore/ccsrc/plugin/device/\*/kernel
      - KERNEL
    * - mindspore/ccsrc/backend/common/optimizer
      - PRE_ACT
    * - mindspore/ccsrc/backend/common/pass
      - PRE_ACT
-   * - mindspore/ccsrc/plugin/device/*/optimizer
+   * - mindspore/ccsrc/plugin/device/\*/optimizer
      - PRE_ACT
    * - mindspore/ccsrc/backend/common/session
      - SESSION
@@ -283,7 +286,7 @@ MindSpore子模块按照目录划分如下：
      - MD
    * - mindspore/ccsrc/minddata/mindrecord
      - MD
-   * - mindspore/ccsrc/pipeline/jit/*.cc
+   * - mindspore/ccsrc/pipeline/jit/\*.cc
      - PIPELINE
    * - mindspore/ccsrc/pipeline/jit/parse
      - PARSER
@@ -318,7 +321,7 @@ MindSpore子模块按照目录划分如下：
    * - mindspore/core
      - CORE
 
-> glog不支持日志文件的绕接，如果需要控制日志文件对磁盘空间的占用，可选用操作系统提供的日志文件管理工具，例如：Linux的logrotate。
+注意：glog不支持日志文件的绕接，如果需要控制日志文件对磁盘空间的占用，可选用操作系统提供的日志文件管理工具，例如：Linux的logrotate。
 
 Dump功能
 --------
