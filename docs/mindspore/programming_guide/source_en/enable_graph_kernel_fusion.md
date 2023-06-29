@@ -2,17 +2,6 @@
 
 `Linux` `Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Enabling Graph Kernel Fusion](#enabling-graph-kernel-fusion)
-    - [Introduction](#introduction)
-    - [Enabling Method](#enabling-method)
-        - [Sample Scripts](#sample-scripts)
-    - [Custom Combination Operators](#custom-combination-operators)
-        - [Sample Scripts](#sample-scripts-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/enable_graph_kernel_fusion.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Introduction

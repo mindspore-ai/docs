@@ -4,19 +4,6 @@ Translator: [Wei_zz](https://gitee.com/wei-zz)
 
 `Linux` `CPU` `Whole Process` `Beginner` `Intermediate` `Advanced`
 
-<!-- TOC -->
-
-- [Parameterized Quantum Circuit](#parameterized-quantum-circuit)
-    - [Summary](#summary)
-    - [Preparing Environment](#preparing-environment)
-    - [Quantum Gate](#quantum-gate)
-    - [Quantum Circuit](#quantum-circuit)
-        - [HiQsimulator Compatible Quantum Circuit Building Format](#hiqsimulator-compatible-quantum-circuit-building-format)
-        - [A More Convenient Circuit Generation](#a-more-convenient-circuit-generation)
-    - [Simulate Quantum Circuit by MindSpore Operator](#simulate-quantum-circuit-by-mindspore-operator)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindquantum/docs/source_en/parameterized_quantum_circuit.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Summary

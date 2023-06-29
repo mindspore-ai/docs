@@ -1,13 +1,5 @@
 # Model Layers
 
-<!-- TOC -->
-
-- [Model Layers](#model-layers)
-    - [Built-in Model Layers](#built-in-model-layers)
-    - [Application Cases](#application-cases)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/layer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 MindSpore can use `Cell` as the base class to build the network structure.

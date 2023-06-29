@@ -2,26 +2,6 @@
 
 `Linux` `Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Using Online Debugger](#using-online-debugger)
-    - [Overview](#overview)
-    - [Operation Process](#operation-process)
-    - [Debugger Environment Preparation](#debugger-environment-preparation)
-    - [Debugger UI Introduction](#debugger-ui-introduction)
-        - [Computational Graph](#computational-graph)
-        - [Node List](#node-list)
-        - [Graph Node Details](#graph-node-details)
-        - [Watchpoint List](#watchpoint-list)
-        - [Setting Watchpoints](#setting-watchpoints)
-        - [Recheck](#recheck)
-        - [Training Control](#training-control)
-        - [Tensor Check View](#tensor-check-view)
-    - [Debugger Usage Example](#debugger-usage-example)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_en/debugger_online.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

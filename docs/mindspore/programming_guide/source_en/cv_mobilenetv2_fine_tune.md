@@ -2,30 +2,6 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `Model Development` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Using MobileNetV2 to Implement Fine-Tuning](#using-mobilenetv2-to-implement-fine-tuning)
-    - [Overview](#overview)
-    - [Task Description and Preparations](#task-description-and-preparations)
-        - [Environment Configuration](#environment-configuration)
-        - [Downloading Code](#downloading-code)
-        - [Preparing a Pre-Trained Model](#preparing-a-pre-trained-model)
-        - [Preparing Data](#preparing-data)
-    - [Code for Loading a Pre-Trained Model](#code-for-loading-a-pre-trained-model)
-    - [Parameter Description](#parameter-description)
-        - [Running Python Files](#running-python-files)
-        - [Running Shell Scripts](#running-shell-scripts)
-    - [Loading Fine-Tuning Training](#loading-fine-tuning-training)
-        - [Loading Training on CPU](#loading-training-on-cpu)
-        - [Loading Training on GPU](#loading-training-on-gpu)
-        - [Loading Training on Ascend AI Processor](#loading-training-on-ascend-ai-processor)
-        - [Fine-Tuning Training Result](#fine-tuning-training-result)
-    - [Validating the Fine-Tuning Training Model](#validating-the-fine-tuning-training-model)
-        - [Validating the Model](#validating-the-model)
-        - [Validation Result](#validation-result)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/cv_mobilenetv2_fine_tune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview

@@ -2,22 +2,6 @@
 
 Translator: [Karlos Ma](https://gitee.com/Mavendetta985)
 
-<!-- TOC -->
-
-- [Initialization of Network Parameters](#initialization-of-network-parameters)
-    - [Overview](#overview)
-    - [Using Encapsulation Operator to Initialize Parameters](#using-encapsulation-operator-to-initialize-parameters)
-        - [Character String](#character-string)
-        - [Initializer Subclass](#initializer-subclass)
-        - [The Custom of the Tensor](#the-custom-of-the-tensor)
-    - [Using the Initializer Method to Initialize Parameters](#using-the-initializer-method-to-initialize-parameters)
-        - [The Parameter of Init is Tensor](#the-parameter-of-init-is-tensor)
-        - [The Parameter of Init is Str](#the-parameter-of-init-is-str)
-        - [The Parameter of Init is the Subclass of Initializer](#the-parameter-of-init-is-the-subclass-of-initializer)
-        - [Application in Parameter](#application-in-parameter)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/initializer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

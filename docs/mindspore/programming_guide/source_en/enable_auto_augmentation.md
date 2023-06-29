@@ -2,15 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Application of Auto Augmentation](#application-of-auto-augmentation)
-    - [Overview](#overview)
-    - [Auto Augmentation on ImageNet](#auto-augmentation-on-imagenet)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/enable_auto_augmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

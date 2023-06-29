@@ -2,24 +2,6 @@
 
 `Linux` `Ascend` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Cluster Performance Profiling (Ascend)](#cluster-performance-profiling-ascend)
-    - [Overview](#overview)
-    - [Operation Process](#operation-process)
-    - [Distributed Training](#distributed-training)
-    - [Collect Cluster Performance Data](#distributed-training)
-    - [Launch MindInsight](#launch-mindinsight)
-    - [Training Performance](#training-performance)
-        - [Cluster Iterative Trajectory Analysis](#cluster-iterative-trajectory-analysis)
-        - [Cluster Communication Performance Analysis](#cluster-communication-performance-analysis)
-    - [Resource Utilization](#resource-utilization)
-        - [Cluster Memory Analysis](#cluster-memory-analysis)
-    - [Specifications](#specifications)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_en/performance_profiling_ascend_of_cluster.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

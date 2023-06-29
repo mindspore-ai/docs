@@ -2,36 +2,6 @@
 
 `Windows` `macOS` `Linux` `iOS` `Android` `C++` `Inference Application` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Using C++ Interface to Perform Inference](#using-c-interface-to-perform-inference)
-    - [Overview](#overview)
-    - [Loading a Model](#loading-a-model)
-    - [Creating a Configuration Context](#creating-a-configuration-context)
-        - [Configuring the Number of Threads](#configuring-the-number-of-threads)
-        - [Configuring the CPU Backend](#configuring-the-cpu-backend)
-        - [Configuring the GPU Backend](#configuring-the-gpu-backend)
-        - [Configuring the NPU Backend](#configuring-the-npu-backend)
-        - [Configuring the TensorRT Backend](#configuring-the-tensorrt-backend)
-    - [Creating a Session](#creating-a-session)
-    - [Building a Graph](#building-a-graph)
-    - [Inputting Data](#inputting-data)
-    - [Executing Inference](#executing-inference)
-    - [Obtaining Output](#obtaining-output)
-    - [Releasing Memory](#releasing-memory)
-    - [Advanced Usage](#advanced-usage)
-        - [Optimizing the Memory Size](#optimizing-the-memory-size)
-        - [Core Binding Operations](#core-binding-operations)
-        - [Resizing the Input Dimension](#resizing-the-input-dimension)
-        - [Parallel Sessions](#parallel-sessions)
-        - [Sharing a Memory Pool](#sharing-a-memory-pool)
-        - [Calling Back a Model During the Running Process](#calling-back-a-model-during-the-running-process)
-        - [Simplified CreateSession API Invocation Process](#simplified-createsession-api-invocation-process)
-        - [Viewing Logs](#viewing-logs)
-        - [Obtaining the Version Number](#obtaining-the-version-number)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_en/use/runtime_cpp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

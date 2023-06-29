@@ -4,16 +4,6 @@ Translator: [unseeme](https://gitee.com/unseenme)
 
 `Linux` `Model Optimization` `Expert`
 
-<!-- TOC -->
-
-- [Applying Post Training Quantization](#applying-post-training-quantization)
-    - [Concept](#concept)
-        - [Weight Quantization](#weight-quantization)
-        - [Full Quantization](#full-quantization)
-    - [Post Training Quantization Tools](#post-training-quantization-tools)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/apply_post_training_quantization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Concept

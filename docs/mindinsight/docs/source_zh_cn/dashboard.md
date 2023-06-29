@@ -2,20 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
 
-<!-- TOC -->
-
-- [查看训练看板](#查看训练看板)
-    - [概述](#概述)
-    - [标量可视化](#标量可视化)
-    - [参数分布图可视化](#参数分布图可视化)
-    - [计算图可视化](#计算图可视化)
-    - [数据图可视化](#数据图可视化)
-    - [图像可视化](#图像可视化)
-    - [张量可视化](#张量可视化)
-    - [注意事项](#注意事项)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_zh_cn/dashboard.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.3/notebook/mindspore_mindinsight_dashboard.ipynb" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_notebook.png"></a>
 

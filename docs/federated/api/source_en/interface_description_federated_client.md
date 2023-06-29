@@ -1,14 +1,5 @@
 # Examples
 
-<!-- TOC -->
-
-- [Examples](#examples)
-    - [flJobRun() for Starting Federated Learning](#fljobrun-for-starting-federated-learning)
-    - [ModelInference() for Inferring Multiple Input Data Records](#modelinference-for-inferring-multiple-input-data-records)
-    - [getModel() for Obtaining the Latest Model on the Cloud](#getmodel-for-obtaining-the-latest-model-on-the-cloud)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/federated/api/source_en/interface_description_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## flJobRun() for Starting Federated Learning

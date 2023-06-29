@@ -2,19 +2,6 @@
 
 `Linux` `Ascend` `推理应用` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [Ascend 910 AI处理器上推理](#ascend-910-ai处理器上推理)
-    - [使用checkpoint格式文件单卡推理](#使用checkpoint格式文件单卡推理)
-    - [使用C++接口推理MindIR格式文件](#使用c接口推理mindir格式文件)
-        - [推理目录结构介绍](#推理目录结构介绍)
-        - [推理代码介绍](#推理代码介绍)
-        - [构建脚本介绍](#构建脚本介绍)
-        - [编译推理代码](#编译推理代码)
-        - [执行推理并查看结果](#执行推理并查看结果)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/multi_platform_inference_ascend_910.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 使用checkpoint格式文件单卡推理

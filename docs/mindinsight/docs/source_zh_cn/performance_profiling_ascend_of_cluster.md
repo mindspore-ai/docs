@@ -2,24 +2,6 @@
 
 `Linux` `Ascend` `集群调优` `中级` `高级`
 
-<!-- TOC -->
-
-- [集群性能调试（Ascend）](#集群性能调试ascend)
-    - [概述](#概述)
-    - [操作流程](#操作流程)
-    - [分布式训练](#分布式训练)
-    - [收集集群性能数据](#收集集群性能数据)
-    - [启动MindInsight](#启动mindinsight)
-    - [训练性能](#训练性能)
-        - [集群迭代轨迹性能数据分析](#集群迭代轨迹性能数据分析)
-        - [集群通信性能数据分析](#集群通信性能数据分析)
-    - [资源利用](#资源利用)
-        - [集群内存使用情况分析](#集群内存使用情况分析)
-    - [规格](#规格)
-    - [注意事项](#注意事项)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_zh_cn/performance_profiling_ascend_of_cluster.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述

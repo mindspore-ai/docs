@@ -2,24 +2,6 @@
 
 `Linux` `GPU` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Performance Profiling (GPU)](#performance-profiling-gpu)
-    - [Overview](#overview)
-    - [Operation Process](#operation-process)
-    - [Preparing the Training Script](#preparing-the-training-script)
-    - [Launching MindInsight](#launching-mindinsight)
-    - [Training Performance](#training-performance)
-        - [Operator Performance Analysis](#operator-performance-analysis)
-        - [Timeline Analysis](#timeline-analysis)
-        - [Step Trace Analysis](#step-trace-analysis)
-        - [Data Preparation Analysis](#data-preparation-analysis)
-    - [Resource Utilization](#resource-utilization)
-        - [CPU Utilization Analysis](#cpu-utilization-analysis)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_en/performance_profiling_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

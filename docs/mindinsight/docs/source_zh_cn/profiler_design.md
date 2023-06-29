@@ -2,29 +2,6 @@
 
 `Linux` `Ascend` `GPU` `模型开发` `模型调优` `框架开发` `中级` `高级` `贡献者`
 
-<!-- TOC -->
-
-- [性能调试设计](#性能调试设计)
-    - [背景](#背景)
-    - [Profiler框架设计](#profiler架构设计)
-        - [上下文](#上下文)
-        - [模块层级结构](#模块层级结构)
-        - [内部模块交互](#内部模块交互)
-    - [子模块设计](#准备训练脚本)
-        - [ProfilerAPI和Controller](#profiler-api-controller)
-            - [ProfilerAPI和Controller模块介绍](#profiler-api-controller模块介绍)
-        - [Analyser](#analyser)
-            - [Analyser模块介绍](#analyser模块介绍)
-            - [Analyser模块设计](#analyser模块设计)
-        - [Parser](#parser)
-            - [Parser模块介绍](#parser模块介绍)
-            - [Parser模块设计](#parser模块设计)
-        - [Proposer](#proposer)
-            - [Proposer模块介绍](#proposer模块介绍)
-            - [Proposer模块设计](#proposer模块设计)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_zh_cn/profiler_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 背景

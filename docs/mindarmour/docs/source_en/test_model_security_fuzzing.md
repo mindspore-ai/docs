@@ -1,17 +1,6 @@
 ﻿# Testing Model Security Using Fuzz Testing
 
 `Linux` `Ascend` `GPU` `CPU` `Model Evaluation` `Enterprise` `Expert`
-
-<!-- TOC -->
-
-- [Testing Model Security Using Fuzz Testing](#testing-model-security-using-fuzz-testing)
-    - [Overview](#overview)
-    - [Implementation](#implementation)
-        - [Importing Library Files](#importing-library-files)
-        - [Parameter Configuration](#parameter-configuration)
-        - [Fuzz Testing Application](#fuzz-testing-application)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindarmour/docs/source_en/test_model_security_fuzzing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview

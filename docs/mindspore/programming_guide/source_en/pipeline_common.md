@@ -1,19 +1,5 @@
 # General Data Processing
 
-<!-- TOC -->
-
-- [General Data Processing](#general-data-processing)
-    - [Overview](#overview)
-    - [Data Processing Operators](#data-processing-operators)
-        - [shuffle](#shuffle)
-        - [map](#map)
-        - [batch](#batch)
-        - [repeat](#repeat)
-        - [zip](#zip)
-        - [concat](#concat)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/pipeline_common.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

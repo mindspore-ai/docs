@@ -2,17 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Debugging in PyNative Mode](#debugging-in-pynative-mode)
-    - [Overview](#overview)
-    - [Executing a Single Operator](#executing-a-single-operator)
-    - [Executing a Common Function](#executing-a-common-function)
-        - [Improving PyNative Performance](#improving-pynative-performance)
-    - [Debugging Network Train Model](#debugging-network-train-model)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/debug_in_pynative_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

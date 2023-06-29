@@ -2,24 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Custom Debugging Information](#custom-debugging-information)
-    - [Overview](#overview)
-    - [Introduction to Callback](#introduction-to-callback)
-        - [Callback Capabilities of MindSpore](#callback-capabilities-of-mindspore)
-        - [Custom Callback](#custom-callback)
-    - [MindSpore Metrics](#mindspore-metrics)
-    - [MindSpore Print Operator](#mindspore-print-operator)
-    - [Data Dump Introduction](#data-dump-introduction)
-        - [Synchronous Dump](#synchronous-dump)
-        - [Asynchronous Dump](#asynchronous-dump)
-    - [Running Data Recorder](#running-data-recorder)
-        - [Usage](#usage)
-    - [Log-related Environment Variables and Configurations](#log-related-environment-variables-and-configurations)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/custom_debugging_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

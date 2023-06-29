@@ -2,18 +2,6 @@
 
 `Linux` `Serving` `Ascend` `GPU` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [RESTful-based MindSpore Serving Access](#restful-based-mindspore-serving-access)
-    - [Overview](#overview)
-    - [Request Method](#request-method)
-    - [Request Format](#request-format)
-        - [Base64 Data Encoding](#base64-data-encoding)
-    - [Response Format](#response-format)
-    - [Accessing SSL/TLS enabled Serving RESTful service](#accessing-ssltls-enabled-serving-restful-service)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/serving/docs/source_en/serving_restful.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

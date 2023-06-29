@@ -2,25 +2,6 @@
 
 `Linux` `Ascend` `Model Development` `Beginner`
 
-<!-- TOC -->
-
-- [Migrating From Third Party Frameworks With Tools](#migrating-from-third-party-frameworks-with-tools)
-    - [Overview](#overview)
-    - [Installation](#installation)
-    - [Usage](#usage)
-        - [PyTorch Model Scripts Migration](#pytorch-model-scripts-migration)
-        - [TensorFlow Model Scripts Migration](#tensorflow-model-scripts-migration)
-        - [ONNX Model File Migration](#onnx-model-file-migration)
-    - [Scenario](#scenario)
-    - [Example](#example)
-        - [AST-Based Conversion](#ast-based-conversion)
-        - [Graph-Based Conversion](#graph-based-conversion)
-            - [TensorFlow Model Scripts Conversion](#tensorflow-model-scripts-conversion)
-            - [ONNX Model File Conversion](#onnx-model-file-conversion)
-    - [Caution](#caution)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_en/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

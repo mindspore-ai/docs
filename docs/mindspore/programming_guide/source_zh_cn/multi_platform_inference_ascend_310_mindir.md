@@ -2,20 +2,6 @@
 
 `Linux` `Ascend` `推理应用` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [Ascend 310 AI处理器上使用MindIR模型进行推理](#ascend-310-ai处理器上使用mindir模型进行推理)
-    - [概述](#概述)
-    - [开发环境准备](#开发环境准备)
-    - [导出MindIR模型文件](#导出mindir模型文件)
-    - [推理目录结构介绍](#推理目录结构介绍)
-    - [推理代码介绍](#推理代码介绍)
-    - [构建脚本介绍](#构建脚本介绍)
-    - [编译推理代码](#编译推理代码)
-    - [执行推理并查看结果](#执行推理并查看结果)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/multi_platform_inference_ascend_310_mindir.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述

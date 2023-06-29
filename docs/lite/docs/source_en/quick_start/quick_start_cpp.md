@@ -2,21 +2,6 @@
 
 `Linux` `Windows` `x86` `C++` `Whole Process``Inference Application` `Data Preparation` `Beginner`
 
-<!-- TOC -->
-
-- [Experience C++ Simple Inference Demo](#experience-c-simple-inference-demo)
-    - [Overview](#overview)
-    - [Building and Running](#building-and-running)
-        - [Linux x86](#linux-x86)
-        - [Windows](#windows)
-    - [CMake Integration](#cmake-integration)
-    - [Model Loading](#model-loading)
-    - [Model Build](#model-build)
-    - [Model Inference](#model-inference)
-    - [Memory Release](#memory-release)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_en/quick_start/quick_start_cpp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

@@ -2,18 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Model Export` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Saving Models](#saving-models)
-    - [Overview](#overview)
-    - [Saving CheckPoint files](#saving-checkpoint-files)
-        - [CheckPoint Configuration Policies](#checkpoint-configuration-policies)
-    - [Export MindIR Model](#export-mindir-model)
-    - [Export AIR Model](#export-air-model)
-    - [Export ONNX Model](#export-onnx-model)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/save_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview

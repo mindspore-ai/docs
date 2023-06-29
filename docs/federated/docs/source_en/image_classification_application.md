@@ -1,16 +1,5 @@
 ﻿# Implementing an Image Classification Application (x86)
 
-<!-- TOC -->
-
-- [Implementing an Image Classification Application (x86)](#implementing-an-image-classification-application-x86)
-    - [Downloading the Dataset](#downloading-the-dataset)
-    - [Defining the Network](#defining-the-network)
-    - [Defining the Training Process](#defining-the-training-process)
-    - [Generating a Device Model File](#generating-a-device-model-file)
-    - [Simulating Multi-client Participation in Federated Learning](#simulating-multi-client-participation-in-federated-learning)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/federated/docs/source_en/image_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 Before you start, check whether MindSpore has been correctly installed. If not, install MindSpore on your computer by referring to [Install](https://www.mindspore.cn/install/en) on the MindSpore website.

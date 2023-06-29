@@ -2,18 +2,6 @@
 
 `Linux` `Ascend` `GPU` `模型训练` `中级` `高级`
 
-<!-- TOC -->
-
-- [Parameter Server训练](#parameter_server训练)
-    - [概述](#概述)
-    - [准备工作](#准备工作)
-        - [训练脚本准备](#训练脚本准备)
-        - [参数设置](#参数设置)
-        - [环境变量设置](#环境变量设置)
-    - [执行训练](#执行训练)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/apply_parameter_server_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述

@@ -2,17 +2,6 @@
 
 `Linux` `Ascend` `GPU` `Serving` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [gRPC-based MindSpore Serving Access](#grpc-based-mindspore-serving-access)
-    - [Overview](#overview)
-    - [add](#add)
-    - [ResNet-50](#resnet-50)
-    - [Accessing Serving Server through Unix Domain Socket](#accessing-serving-server-through-unix-domain-socket)
-    - [Accessing SSL/TLS enabled Serving service](#accessing-ssltls-enabled-serving-service)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/serving/docs/source_en/serving_grpc.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
