@@ -1,17 +1,5 @@
 # 模型加密保护
 
-<!-- TOC -->
-
-- [模型加密保护](#模型加密保护)
-    - [概述](#概述)
-    - [安全导出CheckPoint文件](#安全导出checkpoint文件)
-    - [加载密文CheckPoint文件](#加载密文checkpoint文件)
-    - [安全导出MindIR文件](#安全导出mindir文件)
-    - [加载密文MindIR文件](#加载密文mindir文件)
-    - [端侧模型保护](#端侧模型保护)
-        - [模型转换工具](#模型转换工具)
-
-<!-- TOC -->
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbWFzdGVyL25vdGVib29rL21pbmRzcG9yZV9tb2RlbF9lbmNyeXB0X3Byb3RlY3Rpb24uaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_modelarts.png"></a>
 &nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindarmour/docs/source_zh_cn/model_encrypt_protection.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>

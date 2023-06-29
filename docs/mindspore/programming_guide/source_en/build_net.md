@@ -4,18 +4,6 @@ Translator: [ChanJiatao](https://gitee.com/ChanJiatao)
 
 `Ascend` `GPU` `CPU` `Model Development`
 
-<!-- TOC -->
-
-- [Constructing Single Operator Network and Multi-layer Network](#constructing-single-operator-network-and-multi-layer-network)
-    - [Overview](#overview)
-    - [Running Basic Operators](#running-basic-operators)
-    - [Using Cell to Construct and Run Networks](#using-cell-to-construct-and-run-networks)
-        - [The Basic Use of Cell](#the-basic-use-of-cell)
-        - [The nn Encapsulation of Basic Operators](#the-nn-encapsulation-of-basic-operators)
-        - [CellList and SequentialCell](#celllist-and-sequentialcell)
-
-<!-- TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/build_net.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
