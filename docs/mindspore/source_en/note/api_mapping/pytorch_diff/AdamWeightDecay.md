@@ -41,7 +41,7 @@ The code implementation and parameter update logic of `mindspore.nn.AdamWeightDe
 | Parameters | Parameter 1 | params       | params        | Consistent function                                            |
 |      | Parameter 2 | lr           | learning_rate | Same function, different parameter names and default values                                  |
 |      | Parameter 3 | betas        | beta1, beta2  | Same function, different parameter names            |
-|      | Parameter 4 | eps          | eps           | Consistent function                     |
+|      | Parameter 4 | eps          | eps           | Same function, different default values             |
 |      | Parameter 5 | weight_decay | weight_decay  | Consistent function                     |
 |      | Parameter 6 | amsgrad      | -             | PyTorch `amsgrad` indicates whether to apply the amsgrad algorithm, and MindSpore does not have this parameter |
 
