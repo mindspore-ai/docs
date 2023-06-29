@@ -105,7 +105,7 @@
 
 ### 不支持的语法
 
-目前在网络构造函数里面暂不支持以下语法：
+目前在网络构造函数里面暂不支持以下语法：  
  `break`、 `continue`、 `pass`、 `raise`、 `yield`、 `async for`、 `with`、 `async with`、 `assert`、 `import`、 `await`。
 
 ## 网络定义约束

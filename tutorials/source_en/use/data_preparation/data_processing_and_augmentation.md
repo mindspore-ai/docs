@@ -2,7 +2,7 @@
 
 ## Overview
 
-Data is the basis of deep learning. Data input plays an important role in the deep neural network training. Therefore, after the original dataset is obtained and before data is loaded and trained, data processing or augmentation is often required due to data size and performance restrictions, to obtain optimized data input.
+Data is the basis of deep learning. Data input plays an important role in the deep neural network training. Therefore, after the original dataset is obtained and before data is loaded and trained, data processing or augmentation is often required due to data size and performance restrictions, to obtain optimized data input.  
 MindSpore provides users with data processing and augmentation functions.
 > Essentially, data augmentation is implemented through the data processing operation `map`. Yet data augmentation is described separately due to its diversified transform operations.
 
@@ -211,7 +211,7 @@ After shuffle:
 ### map
 
 The map operation is used to process data. For example, convert the dataset of color images into the dataset of grayscale images. You can flexibly perform the operation as required.
-MindSpore provides the `map()` function to map datasets. You can apply the provided functions or operators to the specified column data.
+MindSpore provides the `map()` function to map datasets. You can apply the provided functions or operators to the specified column data.  
 You can customize the function or use `c_transforms` or `py_transforms` for data augmentation.
 > For details about data augmentation operations, see Data Augmentation section.
 
@@ -246,7 +246,7 @@ The code output is as follows. Data values in each row of the dataset `ds2` is m
 ### zip
 
 MindSpore provides the `zip()` function to combine multiple datasets into one dataset.
-> If the column names in the two datasets are the same, the two datasets are not combined. Therefore, pay attention to column names.
+> If the column names in the two datasets are the same, the two datasets are not combined. Therefore, pay attention to column names.  
 > If the number of rows in the two datasets is different, the number of rows after combination is the same as the smaller number.
 
 ```python
