@@ -28,12 +28,12 @@ MindSpore provides write operation tools to write user-defined raw data in MindS
     cv_schema_json = {"file_name": {"type": "string"}, "label": {"type": "int32"}, "data": {"type": "bytes"}}
     ```
 
-    Schema specifications are as follows:
-    A field name can contain only letters, digits, and underscores (_).
-    The field type can be int32, int64, float32, float64, string, or bytes.
+    Schema specifications are as follows:  
+    A field name can contain only letters, digits, and underscores (_).  
+    The field type can be int32, int64, float32, float64, string, or bytes.  
     The field shape can be a one-dimensional array represented by [-1], a two-dimensional array represented by [m, n], or a three-dimensional array represented by [x, y, z].
 
-    > 1. The type of a field with the shape attribute can only be int32, int64, float32, or float64.
+    > 1. The type of a field with the shape attribute can only be int32, int64, float32, or float64.  
     > 2. If the field has the shape attribute, prepare the data of numpy.ndarray type and transfer the data to the write_raw_data API.
 
     Examples:
@@ -166,8 +166,8 @@ You can use the `Cifar100ToMR` class to convert the raw CIFAR-100 data to the Mi
     cifar100_transformer.transform(['fine_label', 'coarse_label'])
     ```
 
-    In the preceding information:
-    `CIFAR100_DIR`: path where the CIFAR-100 dataset folder is stored.
+    In the preceding information:  
+    `CIFAR100_DIR`: path where the CIFAR-100 dataset folder is stored.  
     `MINDRECORD_FILE`: path where the output file in the MindSpore data format is stored.
 
 ### Converting the ImageNet Dataset
@@ -206,9 +206,9 @@ You can use the `ImageNetToMR` class to convert the raw ImageNet data (images an
     imagenet_transformer.transform()
     ```
 
-    In the preceding information:
-    `IMAGENET_MAP_FILE`: path where the label mapping file of the ImageNetToMR dataset is stored.
-    `IMAGENET_IMAGE_DIR`: path where all ImageNet images are stored.
+    In the preceding information:  
+    `IMAGENET_MAP_FILE`: path where the label mapping file of the ImageNetToMR dataset is stored.  
+    `IMAGENET_IMAGE_DIR`: path where all ImageNet images are stored.  
     `MINDRECORD_FILE`: path where the output file in the MindSpore data format is stored.
 
 ### Converting the MNIST Dataset
@@ -242,6 +242,6 @@ You can use the `MnistToMR` class to convert the raw MNIST data to the MindSpore
     mnist_transformer.transform()
     ```
 
-    In the preceding information:
-    `MNIST_DIR`: path where the MNIST dataset folder is stored.
+    In the preceding information:  
+    `MNIST_DIR`: path where the MNIST dataset folder is stored.  
     `MINDRECORD_FILE`: path where the output file in the MindSpore data format is stored.

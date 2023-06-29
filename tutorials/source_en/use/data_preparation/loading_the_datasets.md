@@ -45,7 +45,7 @@ The procedure for loading common datasets is as follows. The following describes
 
 ### MindSpore Data Format
 
-MindSpore supports reading of datasets stored in MindSpore data format, that is, `MindRecord` which has better performance and features.
+MindSpore supports reading of datasets stored in MindSpore data format, that is, `MindRecord` which has better performance and features.  
 > For details about how to convert datasets to the MindSpore data format, see the [Converting the Dataset to MindSpore Data Format](converting_datasets.md).
 
 To read a dataset using the `MindDataset` object, perform the following steps:
@@ -116,9 +116,9 @@ MindSpore can also read datasets in the `TFRecord` data format through the `TFRe
     }
     ```
 
-    In the preceding information:
-    `datasetType`: data format. TF indicates the TFRecord data format.
-    `columns`: column information field, which is defined based on the actual column names of the dataset. In the preceding schema file example, the dataset columns are image and label.
+    In the preceding information:  
+    `datasetType`: data format. TF indicates the TFRecord data format.  
+    `columns`: column information field, which is defined based on the actual column names of the dataset. In the preceding schema file example, the dataset columns are image and label.  
     `numRows`: row information field, which controls the maximum number of rows for loading data. If the number of defined rows is greater than the actual number of rows, the actual number of rows prevails during loading.
 
     When creating the TFRecordDataset, input the schema file path. An example is as follows:

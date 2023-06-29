@@ -45,7 +45,7 @@ MindSpore可以加载常见的标准数据集。支持的数据集如下表：
 
 ### MindSpore数据格式
 
-MindSpore天然支持读取MindSpore数据格式——`MindRecord`存储的数据集，在性能和特性上有更好的支持。
+MindSpore天然支持读取MindSpore数据格式——`MindRecord`存储的数据集，在性能和特性上有更好的支持。  
 > 阅读[将数据集转换为MindSpore数据格式](converting_datasets.md)章节，了解如何将数据集转化为MindSpore数据格式。
 
 可以通过`MindDataset`对象对数据集进行读取。详细方法如下所示：
@@ -57,7 +57,7 @@ MindSpore天然支持读取MindSpore数据格式——`MindRecord`存储的数�
     data_set = ds.MindDataset(dataset_file=CV_FILE_NAME)
     ```
 
-    其中，
+    其中，  
     `dataset_file`：指定MindRecord的文件，含路径及文件名。
 
 2. 创建字典迭代器，通过迭代器读取数据记录。
@@ -116,9 +116,9 @@ MindSpore也支持读取`TFRecord`数据格式的数据集，可以通过`TFReco
     }
     ```
 
-    其中，
-    `datasetType`: 数据格式的类型，这里“TF”是指TFrecord数据格式。
-    `columns`：列信息字段，需要根据数据集的实际列名定义，上面Schema文件示例中，数据集列为image和label两列。
+    其中，  
+    `datasetType`: 数据格式的类型，这里“TF”是指TFrecord数据格式。  
+    `columns`：列信息字段，需要根据数据集的实际列名定义，上面Schema文件示例中，数据集列为image和label两列。  
     `numRows`：行数信息字段，控制加载数据的最大行数。如果定义的行数大于实际行数，加载时则以实际行数为准。
 
     在创建TFRecordDataset时将Schema文件路径传入，使用样例如下：
