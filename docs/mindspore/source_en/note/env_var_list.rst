@@ -262,13 +262,13 @@ The MindSpore submodules are divided by directory as follows:
      - Sub Module Name
    * - mindspore/ccsrc/kernel
      - KERNEL
-   * - mindspore/ccsrc/plugin/device/*/kernel
+   * - mindspore/ccsrc/plugin/device/\*/kernel
      - KERNEL
    * - mindspore/ccsrc/backend/common/optimizer
      - PRE_ACT
    * - mindspore/ccsrc/backend/common/pass
      - PRE_ACT
-   * - mindspore/ccsrc/plugin/device/*/optimizer
+   * - mindspore/ccsrc/plugin/device/\*/optimizer
      - PRE_ACT
    * - mindspore/ccsrc/backend/common/session
      - SESSION
@@ -286,7 +286,7 @@ The MindSpore submodules are divided by directory as follows:
      - MD
    * - mindspore/ccsrc/minddata/mindrecord
      - MD
-   * - mindspore/ccsrc/pipeline/jit/*.cc
+   * - mindspore/ccsrc/pipeline/jit/\*.cc
      - PIPELINE
    * - mindspore/ccsrc/pipeline/jit/parse
      - PARSER
@@ -321,7 +321,7 @@ The MindSpore submodules are divided by directory as follows:
    * - mindspore/core
      - CORE
 
-> glog does not support log file wrapping. If you need to control the log file occupation of disk space, you can use the log file management tool provided by the operating system, for example: logrotate for Linux.
+Note: glog does not support log file wrapping. If you need to control the log file occupation of disk space, you can use the log file management tool provided by the operating system, for example: logrotate for Linux.
 
 Dump Function
 -------------
