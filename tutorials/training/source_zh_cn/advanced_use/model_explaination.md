@@ -2,22 +2,6 @@
 
 `Linux` `Ascend` `GPU` `模型调优` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [解释模型](#解释模型)
-    - [概述](#概述)
-    - [操作流程](#操作流程)
-        - [准备脚本](#准备脚本)
-        - [使用限制](#使用限制)
-        - [启动MindInsight](#启动mindinsight)
-    - [页面及功能介绍](#页面及功能介绍)
-        - [显著图可视化](#显著图可视化)
-        - [解释方法评估](#解释方法评估)
-            - [综合评估](#综合评估)
-            - [分类评估](#分类评估)
-
-<!--/ TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/model_explaination.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
