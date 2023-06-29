@@ -2,18 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型保护` `企业` `高级`
 
-<!-- TOC -->
-
-- [模型加密保护](#模型加密保护)
-    - [概述](#概述)
-    - [安全导出CheckPoint文件](#安全导出CheckPoint文件)
-    - [加载密文CheckPoint文件](#加载密文CheckPoint文件)
-    - [安全导出MindIR文件](#安全导出MindIR文件)
-    - [加载密文MindIR文件](#加载密文MindIR文件)
-    - [端侧模型保护](#端侧模型保护)
-        - [模型转换工具](#模型转换工具)
-
-<!-- TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindarmour/docs/source_zh_cn/model_encrypt_protection.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
