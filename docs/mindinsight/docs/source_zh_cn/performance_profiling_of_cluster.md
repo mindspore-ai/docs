@@ -183,7 +183,8 @@ done
         |-- step_trace_raw_{rank_id}_detail_time.csv
 ```
 
-> 集群性能目录和单卡性能目录格式进行了统一。
+> 1. 集群性能目录和单卡性能目录格式进行了统一。
+> 2. 集群场景下，Profiler初始化需要放在 `mindspore.communication.init` 方法执行后。
 
 在MindSpore Insight r1.3以及之前的版本中，集群性能目录结构如下：
 

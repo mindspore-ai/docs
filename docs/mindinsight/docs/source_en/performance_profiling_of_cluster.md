@@ -184,7 +184,8 @@ The directory structure of cluster performance folder collected by script is as 
         |-- step_trace_raw_{rank_id}_detail_time.csv
 ```
 
-> The format of cluster directory and single device performance directory are unified.
+> 1. The format of cluster directory and single device performance directory are unified.
+> 2. In the cluster scenario, the initialization of the Profiler needs to be placed after the execution of the `mindspore.communication.init` method.
 
 In MindSpore Insight r1.3 and earlier versions, the cluster directory structure is as follows:
 
