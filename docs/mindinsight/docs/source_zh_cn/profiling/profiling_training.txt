@@ -202,4 +202,4 @@
 
 - `parallel_strategy` (bool, 可选) - 表示是否收集并行策略性能数据， 默认值：true。
 
-- `profile_framework`（str, 可选）- 是否需要收集Host侧的内存和时间，可选参数为["all", "time", "memory", null]。默认值："all"。
+- `profile_framework` (str, 可选) - 是否需要收集Host侧的内存和时间，可选参数为["all", "time", "memory", null]。默认值："all"。
