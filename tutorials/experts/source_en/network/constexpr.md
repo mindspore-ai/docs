@@ -33,12 +33,8 @@ def construct_tensor(x):
 
 
 class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.relu = ops.ReLU()
-
     def construct(self, x):
-        return self.relu(construct_tensor(ops.shape(x)))
+        return ops.relu(construct_tensor(ops.shape(x)))
 
 
 net = Net()
@@ -62,12 +58,8 @@ def construct_tensor(x):
 
 
 class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.relu = ops.ReLU()
-
     def construct(self, x):
-        return self.relu(construct_tensor(self.relu(x)))
+        return ops.relu(construct_tensor(self.relu(x)))
 
 
 net = Net()
