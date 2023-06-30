@@ -1,5 +1,5 @@
-Error Analysis
-===============
+Error Reporting Analysis
+=========================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png
     :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/error_analysis.rst
@@ -163,23 +163,10 @@ Debugging Verification
 
 -  Static graph debugging
 
-   1. ops.Print
+   1. ops.print_
 
-      In static graph mode, MindSpore provides ops.Print operator to print Tensor information or string information in the computational graph.
-
-      .. code:: python
-
-         class PrintDemo(nn.Cell):
-             def __init__(self):
-                 super(PrintDemo, self).__init__()
-                 self.print = ops.Print()
-             def construct(self, x, y):
-                 self.print('print Tensor x and Tensor y:', x, y)
-                 return x
-         x = Tensor(np.ones([2, 1]).astype(np.int32))
-         y = Tensor(np.ones([2, 2]).astype(np.int32))
-         net = PrintDemo()
-         output = net(x, y)
+      In static graph mode, MindSpore provides `ops.print_ <https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.print_.html>`_ interface to print Tensor information or string information in the computational graph.
+      The outputs are printed to screen by default, and it can also be saved in a file.
 
    2. Debugger
 
