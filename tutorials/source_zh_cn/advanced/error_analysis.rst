@@ -1,4 +1,4 @@
-错误分析
+报错分析
 ========
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png
@@ -173,23 +173,9 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
 -  静态图调试
 
-   1. ops.Print算子
+   1. ops.print_接口
 
-      静态图模式下，MindSpore提供ops.Print算子，用于打印计算图中Tensor信息或字符串信息。
-
-      .. code:: python
-
-         class PrintDemo(nn.Cell):
-             def __init__(self):
-                 super(PrintDemo, self).__init__()
-                 self.print = ops.Print()
-             def construct(self, x, y):
-                 self.print('print Tensor x and Tensor y:', x, y)
-                 return x
-         x = Tensor(np.ones([2, 1]).astype(np.int32))
-         y = Tensor(np.ones([2, 2]).astype(np.int32))
-         net = PrintDemo()
-         output = net(x, y)
+      静态图模式下，MindSpore提供 `ops.print_ <https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.print_.html>`_ 接口，用于打印计算图中Tensor信息或字符串信息。默认打印在屏幕上，也可以保存在文件中。
 
    2. 调试器
 
