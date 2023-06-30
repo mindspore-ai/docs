@@ -403,3 +403,127 @@ print(net(Tensor(x)))
 A: “External” 类型表示在图模式中使用了无法原生支持的对象。例如：第三方库对象是 “External” 类型。
 
 <br/>
+
+<font size=3>**Q: 编译时报错"Nested execution during JIT execution for 'xxx' is not supported when 'xxx' compile and execute."怎么办？**</font>
+
+A: 当触发编译流程，即代码编译成静态计算图时，见[Graph模式执行原理](https://www.mindspore.cn/docs/zh-CN/master/design/dynamic_graph_and_static_graph.html)，同时在默认使用JIT Fallback特性时，再次进入编译流程时，则会抛出以上异常。
+
+下面以JIT Fallback支持调用第三方库的对象和方法为例：
+
+1) 再次调用@jit装饰器修饰函数或者类的成员方法，所修饰的函数或方法将会被编译成静态计算图。
+
+```python
+from mindspore import context, Tensor, jit, nn
+import numpy as np
+context.set_context(mode=context.GRAPH_MODE)
+
+class UserDefinedNet: # 自定义普通Python类
+    def __init__(self):
+        self.value = 10
+
+    @jit
+    def func(self, x):  # jit装饰的方法
+        return 2 * x + self.value
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.net = UserDefinedNet()
+
+    def construct(self, x):
+        x = self.net.value + self.net.func(x)
+        return x
+
+x = np.random.randn(2, 2, 3).astype(np.float32)
+net = Net()
+out = net(Tensor(x))
+```
+
+执行结果如下：
+
+```text
+Nested execution during JIT execution for 'UserDefinedNet.func' is not supported when 'Net.construct' compile and execute.
+```
+
+当前场景建议去掉@jit装饰器。
+
+2) 使用Cell类并且在construct函数中编写执行代码，此时construct函数的代码将会被编译成静态计算图。
+
+```python
+from mindspore import context, Tensor, jit, nn
+import numpy as np
+context.set_context(mode=context.GRAPH_MODE)
+
+class InnerNet(nn.Cell):
+    def __init__(self):
+        super(InnerNet, self).__init__()
+
+    def construct(self, x):
+        return x
+
+class UserDefinedNet: # 自定义普通Python类
+    def __init__(self):
+        self.value = 10
+        self.inner_net = InnerNet()
+
+    def func(self, x):
+        return 2 * x * self.inner_net(x) + self.value
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.net = UserDefinedNet()
+
+    def construct(self, x):
+        x = self.net.value + self.net.func(x)
+        return x
+
+x = np.random.randn(2, 2, 3).astype(np.float32)
+net = Net()
+out = net(Tensor(x))
+```
+
+执行结果如下：
+
+```text
+Nested execution during JIT execution for 'InnerNet.construct' is not supported when 'Net.construct' compile and execute.
+```
+
+建议修改为以下代码：
+
+```python
+from mindspore import context, Tensor, jit, nn
+import numpy as np
+context.set_context(mode=context.GRAPH_MODE)
+
+class InnerNet(nn.Cell):
+    def __init__(self):
+        super(InnerNet, self).__init__()
+
+    def construct(self, x):
+        return x
+
+class UserDefinedNet: # 自定义普通Python类
+    def __init__(self):
+        self.value = 10
+
+    def func(self, x, y):
+        return 2 * x * y + self.value
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.net = UserDefinedNet()
+        self.inner_net = InnerNet()
+
+    def construct(self, x):
+        y = self.inner_net(x)
+        x = self.net.value + self.net.func(x, y)
+        return x
+
+x = np.random.randn(2, 2, 3).astype(np.float32)
+net = Net()
+out = net(Tensor(x))
+```
+
+<br/>

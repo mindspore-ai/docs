@@ -408,3 +408,128 @@ The result is as follows:
 A: The "External" type indicates that an object that cannot be natively supported is used in graph mode. For example: The third-party library object is "External" type.
 
 <br/>
+
+<font size=3>**Q: What can I do if an error "Nested execution during JIT execution for 'xxx' is not supported when 'xxx' compile and execute." is reported?**</font>
+
+A: When the compilation process is triggered, that is, when the code is compiled into a static computational diagram
+, see [Graph Mode Execution Principle](https://www.mindspore.cn/docs/en/master/design/dynamic_graph_and_static_graph.html), using the JIT Fallback feature by default, the above exception will be thrown when entering the compilation process again.
+
+Taking JIT Fallback support for calling objects and methods from third-party libraries as an example:
+
+1) call the @jit decorator to modify a function or a class member method, and then the decorated function or method will be compiled into a static computation graph.
+
+```python
+from mindspore import context, Tensor, jit, nn
+import numpy as np
+context.set_context(mode=context.GRAPH_MODE)
+
+class UserDefinedNet: # Customized Python classes
+    def __init__(self):
+        self.value = 10
+
+    @jit
+    def func(self, x):  # Method decorated by jit
+        return 2 * x + self.value
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.net = UserDefinedNet()
+
+    def construct(self, x):
+        x = self.net.value + self.net.func(x)
+        return x
+
+x = np.random.randn(2, 2, 3).astype(np.float32)
+net = Net()
+out = net(Tensor(x))
+```
+
+The result is as follows:
+
+```text
+Nested execution during JIT execution for 'UserDefinedNet.func' is not supported when 'Net.construct' compile and execute.
+```
+
+It is recommended to remove the @jit decorator in the current scene.
+
+2) write the code in the construct function of the Cell so that the code in the construct function will be compiled into a static computation graph.
+
+```python
+from mindspore import context, Tensor, jit, nn
+import numpy as np
+context.set_context(mode=context.GRAPH_MODE)
+
+class InnerNet(nn.Cell):
+    def __init__(self):
+        super(InnerNet, self).__init__()
+
+    def construct(self, x):
+        return x
+
+class UserDefinedNet: # Customized Python classes
+    def __init__(self):
+        self.value = 10
+        self.inner_net = InnerNet()
+
+    def func(self, x):
+        return 2 * x * self.inner_net(x) + self.value
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.net = UserDefinedNet()
+
+    def construct(self, x):
+        x = self.net.value + self.net.func(x)
+        return x
+
+x = np.random.randn(2, 2, 3).astype(np.float32)
+net = Net()
+out = net(Tensor(x))
+```
+
+The result is as follows:
+
+```text
+Nested execution during JIT execution for 'InnerNet.construct' is not supported when 'Net.construct' compile and execute.
+```
+
+It is recommended to change it to the following code:
+
+```python
+from mindspore import context, Tensor, jit, nn
+import numpy as np
+context.set_context(mode=context.GRAPH_MODE)
+
+class InnerNet(nn.Cell):
+    def __init__(self):
+        super(InnerNet, self).__init__()
+
+    def construct(self, x):
+        return x
+
+class UserDefinedNet: # Customized Python classes
+    def __init__(self):
+        self.value = 10
+
+    def func(self, x, y):
+        return 2 * x * y + self.value
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.net = UserDefinedNet()
+        self.inner_net = InnerNet()
+
+    def construct(self, x):
+        y = self.inner_net(x)
+        x = self.net.value + self.net.func(x, y)
+        return x
+
+x = np.random.randn(2, 2, 3).astype(np.float32)
+net = Net()
+out = net(Tensor(x))
+```
+
+<br/>
