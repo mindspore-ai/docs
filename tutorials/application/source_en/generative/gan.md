@@ -94,24 +94,16 @@ latent_size = 100 # Length of the implicit vector.
 train_dataset = ds.MnistDataset(dataset_dir='./MNIST_Data/train')
 test_dataset = ds.MnistDataset(dataset_dir='./MNIST_Data/test')
 
-def data_load(dataset, valid=False):
+def data_load(dataset):
     dataset1 = ds.GeneratorDataset(dataset, ["image", "label"], shuffle=True, python_multiprocessing=False)
     # Data augmentation
-    if valid:
-        mnist_ds = dataset1.map(
-            operations=lambda x: (x[-10000:].astype("float32"), np.random.normal(size=latent_size).astype("float32")),
-            output_columns=["image", "latent_code"])
-    else:
-        mnist_ds = dataset1.map(
-            operations=lambda x: (x.astype("float32"), np.random.normal(size=latent_size).astype("float32")),
-            output_columns=["image", "latent_code"])
+    mnist_ds = dataset1.map(
+        operations=lambda x: (x.astype("float32"), np.random.normal(size=latent_size).astype("float32")),
+        output_columns=["image", "latent_code"])
     mnist_ds = mnist_ds.project(["image", "latent_code"])
 
     # Batch operations
-    if valid:
-        mnist_ds = mnist_ds.batch(batch_size_valid, True)
-    else:
-        mnist_ds = mnist_ds.batch(batch_size, True)
+    mnist_ds = mnist_ds.batch(batch_size, True)
 
     return mnist_ds
 
