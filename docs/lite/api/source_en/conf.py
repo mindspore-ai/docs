@@ -35,7 +35,6 @@ release = 'master'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx_markdown_tables',
     'myst_parser',
     'breathe',
     'exhale',
@@ -67,7 +66,7 @@ html_theme = 'sphinx_rtd_theme'
 html_search_language = 'en'
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 
 # Tell sphinx what the primary language being documented is.
 # primary_domain = 'cpp'

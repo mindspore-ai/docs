@@ -35,7 +35,6 @@ release = 'master'
 # ones.
 extensions = [
     'myst_parser',
-    'sphinx_markdown_tables',
     'breathe',
     'exhale',
     'sphinx.ext.mathjax',
@@ -64,7 +63,7 @@ pygments_style = 'sphinx'
 html_theme = 'sphinx_rtd_theme'
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
