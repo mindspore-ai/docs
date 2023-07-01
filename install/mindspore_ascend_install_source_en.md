@@ -376,24 +376,22 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
+After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, and use the following command to update your version.
+
 When upgrading from MindSpore 1.x to MindSpore 2.x, you need to manually uninstall the old version first:
 
 ```bash
 pip uninstall mindspore-ascend
 ```
 
-Use the following command if you need to update the MindSpore version.
+Then install MindSpore 2.x:
 
-- Update Online directly
+```bash
+pip install mindspore*.whl
+```
 
-    ```bash
-    pip install --upgrade mindspore
-    ```
+When upgrading from MindSpore 2.x:
 
-- Update after source code compilation
-
-    After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, and use the following command to update your version.
-
-    ```bash
-    pip install --upgrade mindspore-*.whl
-    ```
+```bash
+pip install --upgrade mindspore*.whl
+```

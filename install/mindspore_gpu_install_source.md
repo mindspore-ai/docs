@@ -359,24 +359,22 @@ print(ops.add(x, y))
 
 ## 升级MindSpore版本
 
+在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行下述命令进行升级。
+
 从MindSpore 1.x升级到MindSpore 2.x版本时，需要先手动卸载旧版本：
 
 ```bash
 pip uninstall mindspore-gpu
 ```
 
-当需要升级MindSpore版本时，可执行如下命令：
+然后安装新版本：
 
-- 直接在线升级
+```bash
+pip install mindspore-*.whl
+```
 
-    ```bash
-    pip install --upgrade mindspore
-    ```
+从MindSpore 2.x版本升级到最新版本时，执行如下命令：
 
-- 本地源码编译升级
-
-    在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行命令进行升级。
-
-    ```bash
-    pip install --upgrade mindspore-*.whl
-    ```
+ ```bash
+pip install --upgrade mindspore-*.whl
+```
