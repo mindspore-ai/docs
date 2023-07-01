@@ -533,3 +533,114 @@ out = net(Tensor(x))
 ```
 
 <br/>
+
+<font size=3>**Q: What can I do if an error "ValueError: The value Parameter (name=name_a, shape=(1,), dtype=Float32, requires_grad=True) , its name 'name_a' already exists. Please set a unique name for the parameter." is reported? What does it mean?**</font>
+
+A: The graph mode requires the name of the parameter to be unique. If there are two or more Parameters with the same name, the network cannot distinguish different objects, which will cause errors. We can troubleshoot the Parameters with the same name in the script from the following angles, and set a unique name for the Parameter in it.
+
+```python
+import mindspore as ms
+from mindspore.nn import Cell
+from mindspore import Tensor, context, ParameterTuple, Parameter
+
+context.set_context(mode=context.GRAPH_MODE)
+
+
+class ParamNet(Cell):
+    def __init__(self):
+        super(ParamNet, self).__init__()
+        self.res1 = ParameterTuple((Parameter(Tensor([2], ms.float32), name="name_a"),
+                                    Parameter(Tensor([4], ms.float32), name="name_a")))
+        self.param_tuple = (Parameter(Tensor([1], ms.float32), name="name_b"),
+                            Parameter(Tensor([2], ms.float32)))
+        self.param_list = [Parameter(Tensor([3], ms.float32), name="name_b"),
+                           Parameter(Tensor([4], ms.float32))]
+
+    def construct(self):
+        out1 = self.res1[0] + self.res1[1]
+        out2 = self.param_tuple[0] + self.param_tuple[1] + self.param_list[0] + self.param_listp[1]
+        return out1, out2
+
+
+net = ParamNet()
+res = net()
+```
+
+As in the above script, ParameterTuple defines two Parameters with the same name name_a, which are not allowed. Parameters with the same name name_b defined in param_tuple and param_list are also not allowed. In another case, if a network is instantiated in the same cell in the script, such as the following example, the error "its name 'name_a' already exists." is reported.
+
+```python
+import mindspore as ms
+import mindspore.nn as nn
+from mindspore import Tensor, context, ParameterTuple, Parameter
+
+
+context.set_context(mode=context.GRAPH_MODE)
+
+
+class InnerNet(nn.Cell):
+    def __init__(self):
+        super(InnerNet, self).__init__()
+        self.param = Parameter(Tensor([1], ms.float32), name="name_a")
+
+    def construct(self, x):
+        return x + self.param
+
+
+class OutNet1(nn.Cell):
+    def __init__(self, net1, net2):
+        super(OutNet1, self).__init__()
+        self.param1 = ParameterTuple(net1.get_parameters())
+        self.param2 = ParameterTuple(net2.get_parameters())
+
+    def construct(self, x):
+        return x + self.param1[0] + self.param2[0]
+
+
+net1 = InnerNet()
+net2 = InnerNet()
+out_net = OutNet1(net1, net2)
+res = out_net(Tensor([1], ms.float32))
+print("res:", res)
+```
+
+For this case, we can use CellList to manage multiple instances of the same network.
+
+```python
+import mindspore as ms
+import mindspore.nn as nn
+from mindspore import Tensor, context, ParameterTuple, Parameter
+
+
+context.set_context(mode=context.GRAPH_MODE)
+
+
+class InnerNet(nn.Cell):
+    def __init__(self):
+        super(InnerNet, self).__init__()
+        self.param = Parameter(Tensor([1], ms.float32), name="name_a")
+
+    def construct(self, x):
+        return x + self.param
+
+
+class OutNet1(nn.Cell):
+    def __init__(self, net1, net2):
+        super(OutNet1, self).__init__()
+        self.cell_list = nn.CellList()
+        self.cell_list.append(net1)
+        self.cell_list.append(net2)
+        self.param1 = ParameterTuple(self.cell_list[0].get_parameters())
+        self.param2 = ParameterTuple(self.cell_list[1].get_parameters())
+
+    def construct(self, x):
+        return x + self.param1[0] + self.param2[0]
+
+
+net1 = InnerNet()
+net2 = InnerNet()
+out_net = OutNet1(net1, net2)
+res = out_net(Tensor([1], ms.float32))
+print("res:", res)
+```
+
+<br/>
