@@ -18,8 +18,6 @@
 |[mindspore.Add](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Add.html)|✔️|✔️|✔️|
 |[mindspore.Addcmul](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Addcmul.html)|✔️|✔️|✔️|
 |[mindspore.AddN](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.AddN.html)|✔️|✔️|✔️|
-|[mindspore.AllGather](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.AllGather.html)|️❌|️❌|️❌|
-|[mindspore.AllReduce](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.AllReduce.html)|️❌|️❌|️❌|
 |[mindspore.Angle](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Angle.html)|✔️|✔️|✔️|
 |[mindspore.ArgMaxWithValue](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.ArgMaxWithValue.html)|✔️|✔️|✔️|
 |[mindspore.ArgMinWithValue](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.ArgMinWithValue.html)|✔️|✔️|✔️|
@@ -73,7 +71,6 @@
 |[mindspore.Dropout3D](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Dropout3D.html)|✔️|✔️|✔️|
 |[mindspore.DynamicGRUV2](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.DynamicGRUV2.html)|✔️|✔️|✔️|
 |[mindspore.DynamicRNN](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.DynamicRNN.html)|✔️|️❌|️❌|
-|[mindspore.Eig](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Eig.html)|️❌|️❌|️❌|
 |[mindspore.Einsum](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Einsum.html)|✔️|✔️|✔️|
 |[mindspore.Elu](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Elu.html)|✔️|✔️|✔️|
 |[mindspore.Equal](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Equal.html)|✔️|✔️|✔️|
@@ -103,7 +100,6 @@
 |[mindspore.HSwish](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.HSwish.html)|✔️|✔️|✔️|
 |[mindspore.Hypot](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Hypot.html)|✔️|✔️|✔️|
 |[mindspore.Identity](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Identity.html)|✔️|✔️|✔️|
-|[mindspore.Igamma](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Igamma.html)|️❌|️❌|️❌|
 |[mindspore.Imag](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Imag.html)|✔️|✔️|✔️|
 |[mindspore.Invert](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.Invert.html)|✔️|✔️|✔️|
 |[mindspore.IsFinite](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.IsFinite.html)|✔️|✔️|✔️|
