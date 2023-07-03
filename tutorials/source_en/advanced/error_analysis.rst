@@ -163,7 +163,7 @@ Debugging Verification
 
 -  Static graph debugging
 
-   1. ops.print_
+   1. ops.print\_
 
       In static graph mode, MindSpore provides `ops.print_ <https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.print_.html>`_ interface to print Tensor information or string information in the computational graph.
       The outputs are printed to screen by default, and it can also be saved in a file.

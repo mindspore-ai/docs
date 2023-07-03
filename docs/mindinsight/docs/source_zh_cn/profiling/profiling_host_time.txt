@@ -1,4 +1,4 @@
 Host侧耗时分析
 --------------
 
-如果开启了Host侧时间收集功能，在训练结束后可以在指定目录下查看各阶段的Host侧耗时情况。例如，Profiler实例化时，指定output_path="/XXX/profiler_output"，Host侧耗时数据会保存在"/XXX/profiler_output/profiler/host_info"目录下，文件格式为json，前缀为timeline_，后缀为rank_id。Host侧耗时文件可以用 ``chrome://tracing`` 来展示。可以使用W/S/A/D来放大、缩小、左移、右移地查看耗时信息。
+如果开启了Host侧时间收集功能，在训练结束后可以在指定目录下查看各阶段的Host侧耗时情况。例如，Profiler实例化时，指定output_path="/XXX/profiler_output"，Host侧耗时数据会保存在"/XXX/profiler_output/profiler/host_info"目录下，文件格式为json，前缀为timeline\_，后缀为rank_id。Host侧耗时文件可以用 ``chrome://tracing`` 来展示。可以使用W/S/A/D来放大、缩小、左移、右移地查看耗时信息。
