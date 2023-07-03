@@ -76,6 +76,7 @@ MindSpore Lite Documentation
 
    use/cloud_infer/runtime
    use/cloud_infer/runtime_parallel
+   use/cloud_infer/runtime_distributed
 
 .. toctree::
    :glob:
