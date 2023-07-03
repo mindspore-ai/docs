@@ -225,6 +225,7 @@ def main(version, user, pd, WGETDIR, release_url):
     failed_list = []
     failed_name_list = []
 
+    replace_flag = 1
     # 遍历ArraySource开始生成html
     # pylint: disable=R1702
     for i in ArraySource:
@@ -233,6 +234,17 @@ def main(version, user, pd, WGETDIR, release_url):
         else:
             os.chdir(os.path.join(DOCDIR, "../../docs", i))
         subprocess.run(["pip", "install", "-r", "requirements.txt"])
+        try:
+            if replace_flag:
+                from docutils import nodes
+                nodes_target = os.path.join(os.path.dirname(nodes.__file__), 'nodes.py')
+                nodes_src = os.path.join(DOCDIR, '../../resource/sphinx_ext/nodes.txt')
+                if os.path.exists(nodes_target):
+                    os.remove(nodes_target)
+                shutil.copy(nodes_src, nodes_target)
+                replace_flag = 0
+        except ModuleNotFoundError:
+            pass
         if os.path.exists("source_zh_cn"):
             # 输出中文
             try:

@@ -52,7 +52,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
-    'sphinx_markdown_tables',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -77,6 +76,8 @@ pygments_style = 'sphinx'
 autodoc_inherit_docstrings = False
 
 autosummary_generate = True
+
+autosummary_generate_overwrite = False
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -166,7 +167,7 @@ for i in os.listdir(gl_dir_msg):
 import mindspore_gl
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 import nbsphinx_mod
 
 sys.path.append(os.path.abspath('../../../../resource/search'))

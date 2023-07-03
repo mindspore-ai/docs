@@ -62,7 +62,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
-    'sphinx_markdown_tables',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -121,9 +120,9 @@ def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
     app.add_directive('msnoteautosummary', MsNoteAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
-    app.add_stylesheet('css/bootstrap.min.css')
-    app.add_stylesheet('css/training.css')
-    app.add_javascript('js/training.js')
+    app.add_css_file('css/bootstrap.min.css')
+    app.add_css_file('css/training.css')
+    app.add_js_file('js/training.js')
 
 # Modify regex for sphinx.ext.autosummary.generate.find_autosummary_in_lines.
 gfile_abs_path = os.path.abspath(g.__file__)
