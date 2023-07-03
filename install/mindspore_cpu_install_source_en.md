@@ -214,18 +214,8 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
-Using the following command if you need to update the MindSpore version:
+After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, and use the following command to update your version.
 
-- Update online directly
-
-    ```bash
-    pip install --upgrade mindspore
-    ```
-
-- Update after source code compilation
-
-    After successfully executing the compilation script `build.sh` in the root path of the source code, find the whl package in path `output`, and use the following command to update your version.
-
-    ```bash
-    pip install --upgrade mindspore-*.whl
-    ```
+```bash
+pip install --upgrade mindspore*.whl
+```
