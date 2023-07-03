@@ -43,7 +43,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
-    'sphinx_markdown_tables',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -147,7 +146,7 @@ for root,dirs,files in os.walk(src_dir_api):
         shutil.copy(os.path.join(src_dir_api,file),os.path.join(moment_dir,file))
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 import nbsphinx_mod
 
 sys.path.append(os.path.abspath('../../../../resource/search'))

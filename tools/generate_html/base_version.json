@@ -1,0 +1,335 @@
+[
+    {
+        "version" : "r1.9",
+        "versionAlias" : "r1.9",
+        "label" : {
+            "zh": "MindSpore",
+            "en": "MindSpore"
+        },
+        "repo_name" : "mindspore",
+        "theme": "theme-docs",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/mindspore",
+                    "to": "/docs/zh-CN/r1.9/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/mindspore",
+                    "to": "/docs/en/r1.9/"
+                }
+            ]
+        }
+    }, 
+    {
+        "version" : "r1.9",
+        "versionAlias" : "r1.9",
+        "label" : {
+            "zh": "教程",
+            "en": "Tutorials"
+        },
+        "repo_name" : "tutorials",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "初学入门",
+                    "url": "/tutorials/zh-CN/r1.9/index.html"
+                },
+                {
+                    "label": "应用实践",
+                    "url": "/tutorials/application/zh-CN/r1.9/index.html"
+                },
+                {
+                    "label": "深度开发",
+                    "url": "/tutorials/experts/zh-CN/r1.9/index.html"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Quickstart",
+                    "url": "/tutorials/en/r1.9/index.html"
+                },
+                {
+                    "label": "Application",
+                    "url": "/tutorials/application/en/r1.9/index.html"
+                },
+                {
+                    "label": "Experts",
+                    "url": "/tutorials/experts/en/r1.9/index.html"
+                }
+            ]
+        },
+        "theme": "theme-tutorials",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/tutorials",
+                    "to": "/tutorials/zh-CN/r1.9/"
+                },
+                {
+                    "from": "docs/tutorials/application",
+                    "to": "/tutorials/application/zh-CN/r1.9/"
+                },
+                {
+                    "from": "docs/tutorials/experts",
+                    "to": "/tutorials/experts/zh-CN/r1.9/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/tutorials/",
+                    "to": "/tutorials/en/r1.9/"
+                },
+                {
+                    "from": "docs/tutorials/application",
+                    "to": "/tutorials/application/en/r1.9/"
+                },
+                {
+                    "from": "docs/tutorials/experts",
+                    "to": "/tutorials/experts/en/r1.9/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r1.9",
+        "label": {
+            "zh": "全场景推理框架（MindSpore Lite）",
+            "en": "MindSpore Lite"
+        },
+        "repo_name": "lite",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "概述",
+                    "url": "/lite?version=/r1.9/"
+                },
+                {
+                    "label": "下载",
+                    "url": "/lite/docs/zh-CN/r1.9/use/downloads.html"
+                },
+                {
+                    "label": "文档",
+                    "url": "/lite/docs/zh-CN/r1.9/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/lite/api/zh-CN/r1.9/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/lite/faq/zh-CN/r1.9/faq.html"
+                },
+                {
+                    "label": "示例",
+                    "url": "/lite/examples?version=/r1.9/"
+                },
+                {
+                    "label": "模型",
+                    "url": "/lite/models?version=/r1.9/"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Overview",
+                    "url": "/lite/en?version=/r1.9/"
+                },
+                {
+                    "label": "Downloads",
+                    "url": "/lite/docs/en/r1.9/use/downloads.html"
+                },
+                {
+                    "label": "Docs",
+                    "url": "/lite/docs/en/r1.9/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/lite/api/en/r1.9/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/lite/faq/en/r1.9/faq.html"
+                },
+                {
+                    "label": "Examples",
+                    "url": "/lite/examples/en?version=/r1.9/"
+                },
+                {
+                    "label": "Models",
+                    "url": "/lite/models/en?version=/r1.9/"
+                }
+            ]
+        },
+        "theme": "theme-lite",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/lite/docs",
+                    "to": "/lite/docs/zh-CN/r1.9/"
+                },
+                {
+                    "from": "docs/docs/lite/api",
+                    "to": "/lite/api/zh-CN/r1.9/"
+                },
+                {
+                    "from": "docs/docs/lite/faq",
+                    "to": "/lite/faq/zh-CN/r1.9/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/lite/docs/",
+                    "to": "/lite/docs/en/r1.9/"
+                },
+                {
+                    "from": "docs/docs/lite/api/",
+                    "to": "/lite/api/en/r1.9/"
+                },
+                {
+                    "from": "docs/docs/lite/faq/",
+                    "to": "/lite/faq/en/r1.9/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r1.9",
+        "label": {
+            "zh": "可视化调试调优（MindInsight）",
+            "en": "MindInsight"
+        },
+        "repo_name": "mindinsight",
+        "theme": "theme-docs",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/mindinsight/docs",
+                    "to": "/mindinsight/docs/zh-CN/r1.9/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/mindinsight/docs/",
+                    "to": "/mindinsight/docs/en/r1.9/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r1.9",
+        "label": {
+            "zh": "AI安全和隐私（MindArmour）",
+            "en": "MindArmour"
+        },
+        "repo_name": "mindarmour",
+        "theme": "theme-docs",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/mindarmour/docs",
+                    "to": "/mindarmour/docs/zh-CN/r1.9/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/mindarmour/docs/",
+                    "to": "/mindarmour/docs/en/r1.9/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r1.9",
+        "label": {
+            "zh": "服务化部署框架（MindSpore Serving）",
+            "en": "MindSpore Serving"
+        },
+        "repo_name": "serving",
+        "theme": "theme-docs",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/serving/docs",
+                    "to": "/serving/docs/zh-CN/r1.9/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/serving/docs/",
+                    "to": "/serving/docs/en/r1.9/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r0.2",
+        "label": {
+            "zh": "MindSpore Golden Stick",
+            "en": "MindSpore Golden Stick"
+        },
+        "repo_name": "golden_stick",
+        "theme": "theme-docs",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/golden_stick/docs",
+                    "to": "/golden_stick/docs/zh-CN/r0.2/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/golden_stick/docs/",
+                    "to": "/golden_stick/docs/en/r0.2/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r1.9",
+        "label": {
+            "zh": "预训练模型（MindSpore Hub）",
+            "en": "MindSpore Hub"
+        },
+        "repo_name": "hub",
+        "theme": "theme-docs",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/hub/docs",
+                    "to": "/hub/docs/zh-CN/r1.9/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/hub/docs/",
+                    "to": "/hub/docs/en/r1.9/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r0.1",
+        "label": {
+            "zh": "MindPandas",
+            "en": "MindPandas"
+        },
+        "repo_name": "mindpandas",
+        "theme": "theme-docs",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/mindpandas/docs",
+                    "to": "/mindpandas/docs/zh-CN/r0.1/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/mindpandas/docs/",
+                    "to": "/mindpandas/docs/en/r0.1/"
+                }
+            ]
+        }
+    }
+]
