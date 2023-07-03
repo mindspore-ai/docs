@@ -62,7 +62,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
-    'sphinx_markdown_tables',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -121,9 +120,9 @@ def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
     app.add_directive('msnoteautosummary', MsNoteAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
-    app.add_stylesheet('css/bootstrap.min.css')
-    app.add_stylesheet('css/training.css')
-    app.add_javascript('js/training.js')
+    app.add_css_file('css/bootstrap.min.css')
+    app.add_css_file('css/training.css')
+    app.add_js_file('js/training.js')
 
 # Modify regex for sphinx.ext.autosummary.generate.find_autosummary_in_lines.
 gfile_abs_path = os.path.abspath(g.__file__)
@@ -224,7 +223,7 @@ except:
 try:
     decorator_list = [("mindspore/dataset/__init__.py","mindspore/python/mindspore/dataset/__init__.py"),
                       ("mindspore/dataset/audio/transforms.py","mindspore/python/mindspore/dataset/audio/transforms.py"),
-                      ("mindspore/ops/composite/base.py","mindspore/python/mindspore/ops/composite/base.py"),
+                    #   ("mindspore/ops/composite/base.py","mindspore/python/mindspore/ops/composite/base.py"),
                       ("mindspore/ops/composite/math_ops.py","mindspore/python/mindspore/ops/composite/math_ops.py"),
                       ("mindspore/ops/composite/random_ops.py","mindspore/python/mindspore/ops/composite/random_ops.py"),
                       ("mindspore/ops/function/array_func.py","mindspore/python/mindspore/ops/function/array_func.py"),
