@@ -16,7 +16,7 @@ Each process consists of the following main steps:
 2. Context creation and configuration: Create and configure the [Context](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context), and hold the distributed inference parameters to guide distributed model compilation and model execution.
 3. Model loading and compilation: Use the [Model::Build](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#build-2) interface for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase optimizes the front-end computational graph into a high-performance back-end computational graph. The process is time-consuming and it is recommended to compile once and inference multiple times.
 4. Model input data padding.
-5. Distributed inference execution: use the [Model::Predict](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#predict) interface for model distributed inference.
+5. Distributed inference execution: use the [Model::Predict](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface for model distributed inference.
 6. Model output data obtaining.
 7. Multi-process execution of distributed inference programs.
 
@@ -68,7 +68,7 @@ context.gpu.provider = "tensorrt"
 
 ## Model Creation, Loading and Compilation
 
-Consistent with [MindSpore Lite Cloud-side Single Card Inference](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_cpp.html), the main entry point for distributed inference is the [Model](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#model) interface for model loading, compilation and execution. Create [Model](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) and call the [Model.build_from_file](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface to implement the model Loading and model compilation, the sample code is as follows.
+Consistent with [MindSpore Lite Cloud-side Single Card Inference](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_cpp.html), the main entry point for distributed inference is the [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface for model loading, compilation and execution. Create [Model](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) and call the [Model.build_from_file](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface to implement the model Loading and model compilation, the sample code is as follows.
 
 ```python
 # create Model and build Model
@@ -89,7 +89,7 @@ for input_i in inputs:
 
 ## Distributed Inference Execution
 
-Call the [Model.predict](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict) interface to perform distributed inference, with the following sample code.
+Call the [Model.predict](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface to perform distributed inference, with the following sample code.
 
 ```python
 # execute inference

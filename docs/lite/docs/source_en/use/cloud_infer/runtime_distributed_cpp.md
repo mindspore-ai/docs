@@ -13,7 +13,7 @@ MindSpore Lite cloud-side distributed inference is only supported to run in Linu
 Each process consists of the following main steps:
 
 1. Model reading: Slice and [export the distributed MindIR model](https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_inference.html#exporting-mindir-files-on-the-distributed-scenarios) via MindSpore. The number of MindIR models is the same as the number of devices for loading to each device for inference.
-2. Context creation and configuration: Create and configure the [Context](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#context), and hold the distributed inference parameters to guide distributed model compilation and model execution.
+2. Context creation and configuration: Create and configure the [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html), and hold the distributed inference parameters to guide distributed model compilation and model execution.
 3. Model loading and compilation: Use the [Model::Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase optimizes the front-end computational graph into a high-performance back-end computational graph. The process is time-consuming and it is recommended to compile once and inference multiple times.
 4. Model input data padding.
 5. Distributed inference execution: use the [Model::Predict](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface for model distributed inference.
@@ -34,7 +34,7 @@ The main steps of MindSpore Lite cloud-side distributed inference will be descri
 
 ## Creating Contextual Configuration
 
-The contextual configuration holds the required basic configuration parameters and distributed inference parameters to guide model compilation and model distributed execution. The following sample code demonstrates how to create a context through [Context](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#context) and specify a running device through [Context:. MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) to specify the running device.
+The contextual configuration holds the required basic configuration parameters and distributed inference parameters to guide model compilation and model distributed execution. The following sample code demonstrates how to create a context through [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) and specify a running device through [Context:. MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) to specify the running device.
 
 ```c++
 // Create and init context, add Ascend device info
