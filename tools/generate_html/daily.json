@@ -3,11 +3,11 @@
     "id" : 1 ,
     "name" : "lite",
     "branch" : "master",
-    "whl_path" : "/mindspore/website/lite/centos_x86",
+    "whl_path" : "/mindspore/website/lite/centos_x86/cloud_fusion/python37",
     "whl_name" : "mindspore_lite-.*-cp37-cp37m-linux_x86_64.whl$",
     "environ" : "MS_PATH",
     "uninstall_name" : "mindspore_lite",
-    "tar_path" : "/mindspore/website/lite/centos_x86",
+    "tar_path" : "/mindspore/website/lite/centos_x86/cloud_fusion/python37",
     "tar_name" : "mindspore-lite-.*-linux-x64.tar.gz$"
 },
 {
