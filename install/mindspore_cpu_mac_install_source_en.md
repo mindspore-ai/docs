@@ -84,18 +84,8 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
-Using the following command if you need to update the MindSpore version:
+After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, and use the following command to update your version.
 
-- Update online directly
-
-    ```bash
-    pip install --upgrade mindspore
-    ```
-
-- Update after source code compilation
-
-    After successfully executing the compilation script `build.sh` in the source code root directory, find the generated whl installation package by compilation in the `output` directory, and then execute the command to upgrade.
-
-    ```bash
-    pip install --upgrade mindspore-{version}-{python_version}-macosx_{platform_version}_{arch}.whl
-    ```
+```bash
+pip install --upgrade mindspore*.whl
+```
