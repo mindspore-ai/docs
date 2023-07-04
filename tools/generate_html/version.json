@@ -1,0 +1,29 @@
+[
+   {
+      "id" : 1 ,
+      "name" : "mindspore",
+      "branch" : "r0.1",
+      "whl_path" : "0.1.0-alpha/MindSpore/cpu/ubuntu-x86/",
+      "whl_name" : "mindspore-0.1.0-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "",
+      "uninstall_name" : "mindspore"
+   }, 
+   {
+      "id" : 2 ,
+      "name" : "mindinsight",
+      "branch" : "r0.1",
+      "whl_path" : "0.1.0-alpha/MindInsight/ubuntu/x86_64/",
+      "whl_name" : "mindinsight-0.1.0-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "",
+      "uninstall_name" : "mindinsight"
+   },
+   {
+      "id" : 3 ,
+      "name" : "mindarmour",
+      "branch" : "r0.1",
+      "whl_path" : "0.1.0-alpha/MindArmour/x86_64/",
+      "whl_name" : "mindarmour-0.1.0-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "",
+      "uninstall_name" : "mindarmour"
+   }
+]
