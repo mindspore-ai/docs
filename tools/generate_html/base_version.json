@@ -1,0 +1,80 @@
+[
+    {
+        "version" : "0.2.0-alpha",
+        "versionAlias" : "0.2.0-alpha",
+        "label" : {
+            "zh": "MindSpore",
+            "en": "MindSpore"
+        },
+        "repo_name" : "mindspore",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "文档",
+                    "url": "/docs/zh-CN/0.2.0-alpha/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/api/zh-CN/0.2.0-alpha/index.html"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Docs",
+                    "url": "/docs/en/0.2.0-alpha/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/api/en/0.2.0-alpha/index.html"
+                }
+            ]
+        },
+        "theme": "theme-lite",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs",
+                    "to": "/docs/zh-CN/0.2.0-alpha/"
+                },
+                {
+                    "from": "docs/api",
+                    "to": "/api/zh-CN/0.2.0-alpha/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs",
+                    "to": "/docs/en/0.2.0-alpha/"
+                },
+                {
+                    "from": "docs/api",
+                    "to": "/api/en/0.2.0-alpha/"
+                }
+            ]
+        }
+    }, 
+    {
+        "version" : "0.2.0-alpha",
+        "versionAlias" : "0.2.0-alpha",
+        "label" : {
+            "zh": "教程",
+            "en": "Tutorials"
+        },
+        "repo_name" : "tutorial",
+        "theme": "theme-docs",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/tutorials",
+                    "to": "/tutorial/zh-CN/0.2.0-alpha/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/tutorials",
+                    "to": "/tutorial/en/0.2.0-alpha/"
+                }
+            ]
+        }
+    }
+]
