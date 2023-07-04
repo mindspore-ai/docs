@@ -1,0 +1,80 @@
+[
+    {
+        "version" : "r0.5",
+        "versionAlias" : "r0.5",
+        "label" : {
+            "zh": "MindSpore",
+            "en": "MindSpore"
+        },
+        "repo_name" : "mindspore",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "文档",
+                    "url": "/docs/zh-CN/r0.5/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/api/zh-CN/r0.5/index.html"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Docs",
+                    "url": "/docs/en/r0.5/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/api/en/r0.5/index.html"
+                }
+            ]
+        },
+        "theme": "theme-lite",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs",
+                    "to": "/docs/zh-CN/r0.5/"
+                },
+                {
+                    "from": "docs/api",
+                    "to": "/api/zh-CN/r0.5/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs",
+                    "to": "/docs/en/r0.5/"
+                },
+                {
+                    "from": "docs/api",
+                    "to": "/api/en/r0.5/"
+                }
+            ]
+        }
+    }, 
+    {
+        "version" : "r0.5",
+        "versionAlias" : "r0.5",
+        "label" : {
+            "zh": "教程",
+            "en": "Tutorials"
+        },
+        "repo_name" : "tutorial",
+        "theme": "theme-docs",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/tutorials",
+                    "to": "/tutorial/zh-CN/r0.5/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/tutorials",
+                    "to": "/tutorial/en/r0.5/"
+                }
+            ]
+        }
+    }
+]
