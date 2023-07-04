@@ -1,0 +1,716 @@
+[
+    {
+        "version" : "r1.3",
+        "versionAlias" : "r1.3",
+        "label" : {
+            "zh": "MindSpore",
+            "en": "MindSpore"
+        },
+        "repo_name" : "mindspore",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "概述",
+                    "url": "/mindspore?version=/r1.3/"
+                },
+                {
+                    "label": "编程指南",
+                    "url": "/docs/programming_guide/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "迁移指南",
+                    "url": "/docs/migration_guide/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "规格和说明",
+                    "url": "/docs/note/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/docs/api/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/docs/faq/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "API映射",
+                    "url": "https://gitee.com/mindspore/docs/blob/r1.3/resource/api_mapping/api_mapping.md"
+                },
+                {
+                    "label": "开发者分享精华",
+                    "url": "https://www.hiascend.com/forum/forum-0106101385921175002-1.html?filterCondition=1&topicClassId=0605101392353374008"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Overview",
+                    "url": "/mindspore/en?version=/r1.3/"
+                },
+                {
+                    "label": "Programming Guide",
+                    "url": "/docs/programming_guide/en/r1.3/index.html"
+                },
+                {
+                    "label": "Migration Guide",
+                    "url": "/docs/migration_guide/en/r1.3/index.html"
+                },
+                {
+                    "label": "Specification and Notes",
+                    "url": "/docs/note/en/r1.3/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/docs/api/en/r1.3/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/docs/faq/en/r1.3/index.html"
+                },
+                {
+                    "label": "API Mapping",
+                    "url": "https://gitee.com/mindspore/docs/blob/r1.3/resource/api_mapping/api_mapping.md"
+                }
+            ]
+        },
+        "theme": "theme-lite",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/mindspore/programming_guide",
+                    "to": "/docs/programming_guide/zh-CN/r1.3/"
+                },
+                {
+                    "from": "docs/docs/mindspore/migration_guide",
+                    "to": "/docs/migration_guide/zh-CN/r1.3/"
+                },
+                {
+                    "from": "docs/docs/mindspore/note",
+                    "to": "/docs/note/zh-CN/r1.3/"
+                },
+                {
+                    "from": "docs/docs/mindspore/api",
+                    "to": "/docs/api/zh-CN/r1.3/"
+                },
+                {
+                    "from": "docs/docs/mindspore/faq",
+                    "to": "/docs/faq/zh-CN/r1.3/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/mindspore/programming_guide",
+                    "to": "/docs/programming_guide/en/r1.3/"
+                },
+                {
+                    "from": "docs/docs/mindspore/migration_guide",
+                    "to": "/docs/migration_guide/en/r1.3/"
+                },
+                {
+                    "from": "docs/docs/mindspore/note",
+                    "to": "/docs/note/en/r1.3/"
+                },
+                {
+                    "from": "docs/docs/mindspore/api",
+                    "to": "/docs/api/en/r1.3/"
+                },
+                {
+                    "from": "docs/docs/mindspore/faq",
+                    "to": "/docs/faq/en/r1.3/"
+                }
+            ]
+        }
+    }, 
+    {
+        "version" : "r1.3",
+        "versionAlias" : "r1.3",
+        "label" : {
+            "zh": "教程",
+            "en": "Tutorials"
+        },
+        "repo_name" : "tutorials",
+        "theme": "theme-docs",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/tutorials",
+                    "to": "/tutorials/zh-CN/r1.3/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/tutorials",
+                    "to": "/tutorials/en/r1.3/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r1.3",
+        "label": {
+            "zh": "全场景推理框架（MindSpore Lite）",
+            "en": "MindSpore Lite"
+        },
+        "repo_name": "lite",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "概述",
+                    "url": "/lite?version=/r1.3/"
+                },
+                {
+                    "label": "下载",
+                    "url": "/lite/docs/zh-CN/r1.3/use/downloads.html"
+                },
+                {
+                    "label": "文档",
+                    "url": "/lite/docs/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/lite/api/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/lite/faq/zh-CN/r1.3/faq.html"
+                },
+                {
+                    "label": "示例",
+                    "url": "/lite/examples?version=/r1.3/"
+                },
+                {
+                    "label": "模型",
+                    "url": "/lite/models?version=/r1.3/"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Overview",
+                    "url": "/lite/en?version=/r1.3/"
+                },
+                {
+                    "label": "Downloads",
+                    "url": "/lite/docs/en/r1.3/use/downloads.html"
+                },
+                {
+                    "label": "Docs",
+                    "url": "/lite/docs/en/r1.3/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/lite/api/en/r1.3/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/lite/faq/en/r1.3/faq.html"
+                },
+                {
+                    "label": "Examples",
+                    "url": "/lite/examples/en?version=/r1.3/"
+                },
+                {
+                    "label": "Models",
+                    "url": "/lite/models/en?version=/r1.3/"
+                }
+            ]
+        },
+        "theme": "theme-lite",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/lite/docs",
+                    "to": "/lite/docs/zh-CN/r1.3/"
+                },
+                {
+                    "from": "docs/docs/lite/api",
+                    "to": "/lite/api/zh-CN/r1.3/"
+                },
+                {
+                    "from": "docs/docs/lite/faq",
+                    "to": "/lite/faq/zh-CN/r1.3/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/lite/docs/",
+                    "to": "/lite/docs/en/r1.3/"
+                },
+                {
+                    "from": "docs/docs/lite/api/",
+                    "to": "/lite/api/en/r1.3/"
+                },
+                {
+                    "from": "docs/docs/lite/faq/",
+                    "to": "/lite/faq/en/r1.3/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r1.3",
+        "label": {
+            "zh": "可视化调试调优（MindInsight）",
+            "en": "MindInsight"
+        },
+        "repo_name": "mindinsight",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "概述",
+                    "url": "/mindinsight/docs/zh-CN/master/index.html"
+                },
+                {
+                    "label": "文档",
+                    "url": "/mindinsight/docs/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/mindinsight/faq/zh-CN/r1.3/faq.html"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Overview",
+                    "url": "/mindinsight/docs/en/master/index.html"
+                },
+                {
+                    "label": "Docs",
+                    "url": "/mindinsight/docs/en/r1.3/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/mindinsight/faq/en/r1.3/faq.html"
+                }
+            ]
+        },
+        "theme": "theme-lite",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/mindinsight/docs",
+                    "to": "/mindinsight/docs/zh-CN/r1.3/"
+                },
+                {
+                    "from": "docs/docs/mindinsight/faq",
+                    "to": "/mindinsight/faq/zh-CN/r1.3/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/mindinsight/docs/",
+                    "to": "/mindinsight/docs/en/r1.3/"
+                },
+                {
+                    "from": "docs/docs/mindinsight/faq/",
+                    "to": "/mindinsight/faq/en/r1.3/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r1.3",
+        "label": {
+            "zh": "AI安全和隐私（MindArmour）",
+            "en": "MindArmour"
+        },
+        "repo_name": "mindarmour",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "概述",
+                    "url": "/mindarmour/docs/zh-CN/master/index.html"
+                },
+                {
+                    "label": "文档",
+                    "url": "/mindarmour/docs/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/mindarmour/api/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/mindarmour/faq/zh-CN/r1.3/faq.html"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Overview",
+                    "url": "/mindarmour/docs/en/master/index.html"
+                },
+                {
+                    "label": "Docs",
+                    "url": "/mindarmour/docs/en/r1.3/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/mindarmour/api/en/r1.3/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/mindarmour/faq/en/r1.3/faq.html"
+                }
+            ]
+        },
+        "theme": "theme-lite",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/mindarmour/docs",
+                    "to": "/mindarmour/docs/zh-CN/r1.3/"
+                },
+                {
+                    "from": "docs/docs/mindarmour/api",
+                    "to": "/mindarmour/api/zh-CN/r1.3/"
+                },
+                {
+                    "from": "docs/docs/mindarmour/faq",
+                    "to": "/mindarmour/faq/zh-CN/r1.3/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/mindarmour/docs/",
+                    "to": "/mindarmour/docs/en/r1.3/"
+                },
+                {
+                    "from": "docs/docs/mindarmour/api/",
+                    "to": "/mindarmour/api/en/r1.3/"
+                },
+                {
+                    "from": "docs/docs/mindarmour/faq/",
+                    "to": "/mindarmour/faq/en/r1.3/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r1.3",
+        "label": {
+            "zh": "服务化部署框架（MindSpore Serving）",
+            "en": "MindSpore Serving"
+        },
+        "repo_name": "serving",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "概述",
+                    "url": "/serving/docs/zh-CN/master/index.html"
+                },
+                {
+                    "label": "文档",
+                    "url": "/serving/docs/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/serving/api/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/serving/faq/zh-CN/r1.3/faq.html"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Overview",
+                    "url": "/serving/docs/en/master/index.html"
+                },
+                {
+                    "label": "Docs",
+                    "url": "/serving/docs/en/r1.3/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/serving/api/en/r1.3/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/serving/faq/en/r1.3/faq.html"
+                }
+            ]
+        },
+        "theme": "theme-lite",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/serving/docs",
+                    "to": "/serving/docs/zh-CN/r1.3/"
+                },
+                {
+                    "from": "docs/docs/serving/api",
+                    "to": "/serving/api/zh-CN/r1.3/"
+                },
+                {
+                    "from": "docs/docs/serving/faq",
+                    "to": "/serving/faq/zh-CN/r1.3/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/serving/docs/",
+                    "to": "/serving/docs/en/r1.3/"
+                },
+                {
+                    "from": "docs/docs/serving/api/",
+                    "to": "/serving/api/en/r1.3/"
+                },
+                {
+                    "from": "docs/docs/serving/faq/",
+                    "to": "/serving/faq/en/r1.3/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r1.3",
+        "label": {
+            "zh": "概率编程（MindSpore Probability）",
+            "en": "MindSpore Probability"
+        },
+        "repo_name": "probability",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "概述",
+                    "url": "/probability/docs/zh-CN/master/index.html"
+                },
+                {
+                    "label": "文档",
+                    "url": "/probability/docs/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/probability/api/zh-CN/r1.3/index.html"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Overview",
+                    "url": "/probability/docs/en/master/index.html"
+                },
+                {
+                    "label": "Docs",
+                    "url": "/probability/docs/en/r1.3/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/probability/api/en/r1.3/index.html"
+                }
+            ]
+        },
+        "theme": "theme-lite",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/probability/docs",
+                    "to": "/probability/docs/zh-CN/r1.3/"
+                },
+                {
+                    "from": "docs/docs/probability/api",
+                    "to": "/probability/api/zh-CN/r1.3/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/probability/docs/",
+                    "to": "/probability/docs/en/r1.3/"
+                },
+                {
+                    "from": "docs/docs/probability/api/",
+                    "to": "/probability/api/en/r1.3/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r1.3",
+        "label": {
+            "zh": "预训练模型（MindSpore Hub）",
+            "en": "MindSpore Hub"
+        },
+        "repo_name": "hub",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "概述",
+                    "url": "/hub/docs/zh-CN/master/index.html"
+                },
+                {
+                    "label": "文档",
+                    "url": "/hub/docs/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/hub/api/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "模型",
+                    "url": "https://www.mindspore.cn/resources/hub/"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Overview",
+                    "url": "/hub/docs/en/master/index.html"
+                },
+                {
+                    "label": "Docs",
+                    "url": "/hub/docs/en/r1.3/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/hub/api/en/r1.3/index.html"
+                },
+                {
+                    "label": "Models",
+                    "url": "https://www.mindspore.cn/resources/hub/en"
+                }
+            ]
+        },
+        "theme": "theme-lite",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/hub/docs",
+                    "to": "/hub/docs/zh-CN/r1.3/"
+                },
+                {
+                    "from": "docs/docs/hub/api",
+                    "to": "/hub/api/zh-CN/r1.3/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/hub/docs/",
+                    "to": "/hub/docs/en/r1.3/"
+                },
+                {
+                    "from": "docs/docs/hub/api/",
+                    "to": "/hub/api/en/r1.3/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r0.2",
+        "label": {
+            "zh": "MindQuantum",
+            "en": "MindQuantum"
+        },
+        "repo_name": "mindquantum",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "概述",
+                    "url": "/mindquantum/docs/zh-CN/master/index.html"
+                },
+                {
+                    "label": "文档",
+                    "url": "/mindquantum/docs/zh-CN/r0.2/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/mindquantum/api/zh-CN/r0.2/index.html"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Overview",
+                    "url": "/mindquantum/docs/en/master/index.html"
+                },
+                {
+                    "label": "Docs",
+                    "url": "/mindquantum/docs/en/r0.2/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/mindquantum/api/en/r0.2/index.html"
+                }
+            ]
+        },
+        "theme": "theme-lite",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/mindquantum/docs",
+                    "to": "/mindquantum/docs/zh-CN/r0.2/"
+                },
+                {
+                    "from": "docs/docs/mindquantum/api",
+                    "to": "/mindquantum/api/zh-CN/r0.2/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/mindquantum/docs/",
+                    "to": "/mindquantum/docs/en/r0.2/"
+                },
+                {
+                    "from": "docs/docs/mindquantum/api/",
+                    "to": "/mindquantum/api/en/r0.2/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r1.3",
+        "label": {
+            "zh": "联邦学习（MindSpore Federated）",
+            "en": "MindSpore Federated"
+        },
+        "repo_name": "federated",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "概述",
+                    "url": "/federated/docs/zh-CN/master/index.html"
+                },
+                {
+                    "label": "文档",
+                    "url": "/federated/docs/zh-CN/r1.3/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/federated/api/zh-CN/r1.3/index.html"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Overview",
+                    "url": "/federated/docs/en/master/index.html"
+                },
+                {
+                    "label": "Docs",
+                    "url": "/federated/docs/en/r1.3/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/federated/api/en/r1.3/index.html"
+                }
+            ]
+        },
+        "theme": "theme-lite",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/federated/docs",
+                    "to": "/federated/docs/zh-CN/r1.3/"
+                },
+                {
+                    "from": "docs/docs/federated/api",
+                    "to": "/federated/api/zh-CN/r1.3/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/federated/docs/",
+                    "to": "/federated/docs/en/r1.3/"
+                },
+                {
+                    "from": "docs/docs/federated/api/",
+                    "to": "/federated/api/en/r1.3/"
+                }
+            ]
+        }
+    }
+]
