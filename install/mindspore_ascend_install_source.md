@@ -331,7 +331,7 @@ export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
 方法一：
 
 ```bash
-python -c "import mindspore;mindspore.run_check()"
+python -c "import mindspore;mindspore.set_context(device_target='Ascend');mindspore.run_check()"
 ```
 
 如果输出：

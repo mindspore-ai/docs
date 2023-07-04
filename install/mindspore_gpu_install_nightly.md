@@ -207,7 +207,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda-11.6/lib64:$LD_LIBRARY_PATH
 方法一：
 
 ```bash
-python -c "import mindspore;mindspore.run_check()"
+python -c "import mindspore;mindspore.set_context(device_target='GPU');mindspore.run_check()"
 ```
 
 如果输出：
