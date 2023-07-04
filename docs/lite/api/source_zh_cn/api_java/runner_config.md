@@ -15,6 +15,8 @@ RunnerConfig定义了MindSpore Lite并发推理的配置参数。
 | [public void setConfigPath(String configPath)](#setconfigpath)                         | √      | ✕      |
 | [void getConfigPath()](#getconfigpath)                         | √      | ✕      |
 | [long getRunnerConfigPtr()](#getrunnerconfigptr)               | √      | ✕      |
+| [public void setDeviceIds(ArrayList<Integer\> deviceIds)](#setdeviceids)               | √      | ✕      |
+| [public ArrayList<Integer\> getDeviceIds()](#getdeviceids)               | √      | ✕      |
 | [public void free()](#free)    | √      | ✕      |
 
 ## init
@@ -103,6 +105,30 @@ public long getRunnerConfigPtr()
 - 返回值
 
   底层并发推理配置参数指针。
+
+## setDeviceIds
+
+```java
+public void setDeviceIds(ArrayList<Integer> deviceIds)
+```
+
+并发推理中设置设备ID列表。
+
+- 参数
+
+    - `deviceIds`: 设备ID列表。
+
+## getDeviceIds
+
+```java
+public ArrayList<Integer> getDeviceIds()
+```
+
+获取RunnerConfig中设置的设备ID列表。
+
+- 返回值
+
+  设备ID列表。
 
 ## free
 
