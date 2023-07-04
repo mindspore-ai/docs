@@ -21,7 +21,7 @@ class mindspore.dataset.IMDBDataset(
     num_samples=None,
     num_parallel_workers=None,
     shuffle=None,
-    sample=None,
+    sampler=None,
     num_shards=None,
     shard_id=None,
     cache=None)

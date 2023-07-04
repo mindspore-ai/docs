@@ -21,7 +21,7 @@ class mindspore.dataset.IMDBDataset(
     num_samples=None,
     num_parallel_workers=None,
     shuffle=None,
-    sample=None,
+    sampler=None,
     num_shards=None,
     shard_id=None,
     cache=None)
@@ -41,7 +41,7 @@ MindSpore: Read the IMDB dataset. Download dataset from web is not supported.
 |     | Parameter3 | -    | num_samples | The number of images to be included in the dataset |
 |     | Parameter4 | -    | num_parallel_workers | Number of worker threads to read the data |
 |     | Parameter5 | -    | shuffle  | Whether to perform shuffle on the dataset |
-|     | Parameter6 | -    | sample  | Object used to choose samples from the dataset |
+|     | Parameter6 | -    | sampler  | Object used to choose samples from the dataset |
 |     | Parameter7 | -    | num_shards | Number of shards that the dataset will be divided into |
 |     | Parameter8 | -    | shard_id | The shard ID within num_shards |
 |     | Parameter9 | -    | cache | Use tensor caching service to speed up dataset processing |
