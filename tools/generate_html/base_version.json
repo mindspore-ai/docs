@@ -1,0 +1,178 @@
+[
+    {
+        "version" : "r1.0",
+        "versionAlias" : "r1.0",
+        "label" : {
+            "zh": "MindSpore",
+            "en": "MindSpore"
+        },
+        "repo_name" : "mindspore",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "编程指南",
+                    "url": "/doc/programming_guide/zh-CN/r1.0/index.html"
+                },
+                {
+                    "label": "规格和说明",
+                    "url": "/doc/note/zh-CN/r1.0/index.html"
+                },
+                {
+                    "label": "Python API",
+                    "url": "/doc/api_python/zh-CN/r1.0/index.html"
+                },
+                {
+                    "label": "C++ API",
+                    "url": "/doc/api_cpp/zh-CN/r1.0/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/doc/faq/zh-CN/r1.0/index.html"
+                },
+                {
+                    "label": "开发者分享精华",
+                    "url": "https://www.hiascend.com/forum/forum-0106101385921175002-1.html?filterCondition=1&topicClassId=0605101392353374008"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Programming Guide",
+                    "url": "/doc/programming_guide/en/r1.0/index.html"
+                },
+                {
+                    "label": "Specification and Notes",
+                    "url": "/doc/note/en/r1.0/index.html"
+                },
+                {
+                    "label": "Python API",
+                    "url": "/doc/api_python/en/r1.0/index.html"
+                },
+                {
+                    "label": "C++ API",
+                    "url": "/doc/api_cpp/en/r1.0/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/doc/faq/en/r1.0/index.html"
+                }
+            ]
+        },
+        "theme": "theme-lite",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/programming_guide",
+                    "to": "/doc/programming_guide/zh-CN/r1.0/"
+                },
+                {
+                    "from": "docs/docs/note",
+                    "to": "/doc/note/zh-CN/r1.0/"
+                },
+                {
+                    "from": "docs/docs/api_python",
+                    "to": "/doc/api_python/zh-CN/r1.0/"
+                },
+                {
+                    "from": "docs/docs/api_cpp",
+                    "to": "/doc/api_cpp/zh-CN/r1.0/"
+                },
+                {
+                    "from": "docs/docs/faq",
+                    "to": "/doc/faq/zh-CN/r1.0/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/programming_guide",
+                    "to": "/doc/programming_guide/en/r1.0/"
+                },
+                {
+                    "from": "docs/docs/note",
+                    "to": "/doc/note/en/r1.0/"
+                },
+                {
+                    "from": "docs/docs/api_python",
+                    "to": "/doc/api_python/en/r1.0/"
+                },
+                {
+                    "from": "docs/docs/api_cpp",
+                    "to": "/doc/api_cpp/en/r1.0/"
+                },
+                {
+                    "from": "docs/docs/faq",
+                    "to": "/doc/faq/en/r1.0/"
+                }
+            ]
+        }
+    }, 
+    {
+        "version" : "r1.0",
+        "versionAlias" : "r1.0",
+        "label" : {
+            "zh": "教程",
+            "en": "Tutorials"
+        },
+        "repo_name" : "tutorial",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "训练",
+                    "url": "/tutorial/training/zh-CN/r1.0/index.html"
+                },
+                {
+                    "label": "推理",
+                    "url": "/tutorial/inference/zh-CN/r1.0/index.html"
+                },
+                {
+                    "label": "手机及IoT",
+                    "url": "/tutorial/lite/zh-CN/r1.0/index.html"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Training",
+                    "url": "/tutorial/training/en/r1.0/index.html"
+                },
+                {
+                    "label": "Inference",
+                    "url": "/tutorial/inference/en/r1.0/index.html"
+                },
+                {
+                    "label": "Mobile & IoT",
+                    "url": "/tutorial/lite/en/r1.0/index.html"
+                }
+            ]
+        },
+        "theme": "theme-tutorials",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/tutorials/training",
+                    "to": "/tutorial/training/zh-CN/r1.0/"
+                },
+                {
+                    "from": "docs/tutorials/inference",
+                    "to": "/tutorial/inference/zh-CN/r1.0/"
+                },
+                {
+                    "from": "docs/tutorials/lite",
+                    "to": "/tutorial/lite/zh-CN/r1.0/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/tutorials/training",
+                    "to": "/tutorial/training/en/r1.0/"
+                },
+                {
+                    "from": "docs/tutorials/inference",
+                    "to": "/tutorial/inference/en/r1.0/"
+                },
+                {
+                    "from": "docs/tutorials/lite",
+                    "to": "/tutorial/lite/en/r1.0/"
+                }
+            ]
+        }
+    }
+]
