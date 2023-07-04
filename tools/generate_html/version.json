@@ -1,0 +1,47 @@
+[
+   {
+      "id" : 1 ,
+      "name" : "mindspore",
+      "branch" : "r1.2",
+      "whl_path" : "1.2.1/MindSpore/cpu/ubuntu_x86/",
+      "whl_name" : "mindspore-1.2.1-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "",
+      "uninstall_name" : "mindspore"
+   },
+   {
+      "id" : 2 ,
+      "name" : "mindarmour",
+      "branch" : "r1.2",
+      "whl_path" : "1.2.1/MindArmour/x86_64/",
+      "whl_name" : "mindarmour-1.2.1-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "",
+      "uninstall_name" : "mindarmour"
+   },
+   {
+      "id" : 3 ,
+      "name" : "hub",
+      "branch" : "r1.2",
+      "whl_path" : "1.2.0/Hub/any/",
+      "whl_name" : "mindspore_hub-1.2.0-py3-none-any.whl",
+      "environ" : "",
+      "uninstall_name" : "mindspore-hub"
+   },
+   {
+      "id" : 4 ,
+      "name" : "serving",
+      "branch" : "r1.2",
+      "whl_path" : "1.2.1/Serving/ubuntu_x86/",
+      "whl_name" : "mindspore_serving-1.2.1-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "",
+      "uninstall_name" : "mindspore-serving"
+   },
+   {
+      "id" : 5 ,
+      "name" : "mindquantum",
+      "branch" : "r1.2",
+      "whl_path" : "1.2.0/MindQuantum/ubuntu_x86/",
+      "whl_name" : "mindquantum-0.1.0-py3-none-any.whl",
+      "environ" : "",
+      "uninstall_name" : "mindquantum"
+   }
+]
