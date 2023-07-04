@@ -15,7 +15,7 @@ class torch.optim.Adagrad(
 )
 ```
 
-更多内容详见[torch.optim.Adagrad](https://pytorch.org/docs/1.8.0/optim.html#torch.optim.Adagrad)。
+更多内容详见[torch.optim.Adagrad](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.Adagrad)。
 
 ## mindspore.nn.Adagrad
 

@@ -15,7 +15,7 @@ class torch.optim.Adagrad(
 )
 ```
 
-For more information, see [torch.optim.Adagrad](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.Adagrad).
+For more information, see [torch.optim.Adagrad](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.Adagrad).
 
 ## mindspore.nn.Adagrad
 
@@ -43,7 +43,7 @@ PyTorch and MindSpore implement different algorithms for this optimizer. PyTorch
 |      | Parameter 3 | lr_decay                  | -             | PyTorch's `lr_decay` indicates the decay value of the learning rate, and MindSpore does not have this parameter      |
 |      | Parameter 4 | weight_decay              | weight_decay             | Consistent function                                             |
 |      | Parameter 5 | initial_accumulator_value | accum             | Same function, different parameter names and default values                                   |
-|      | Parameter 6 | eps                       | -             | PyTorch's `eps` is used to add to the denominator of a division to increase computational stability, and MindSpore does not have this parameter  |
+|      | Parameter 6 | eps                       | -             | PyTorch `eps` is used to add to the denominator of a division to increase computational stability, and MindSpore does not have this parameter  |
 |      | Parameter 7 | -                         | update_slots             | MindSpore `update_slots` indicates whether to update the accumulator, and PyTorch does not have this parameter |
 |      | Parameter 8 | -                         | loss_scale             | MindSpore `loss_scale` is the gradient scaling factor, and PyTorch does not have this parameter    |
 

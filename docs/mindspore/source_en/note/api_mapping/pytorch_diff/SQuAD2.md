@@ -10,7 +10,7 @@ class torchtext.datasets.SQuAD2(
     split: Union[List[str], str] = ('train', 'dev'))
 ```
 
-For more information, see [torchtext.datasets.SQuAD2](https://pytorch.org/text/0.9.0/datasets.html#squad-2-0).
+For more information, see [torchtext.datasets.SQuAD2](https://pytorch.org/text/0.9.0/datasets.html#torchtext.datasets.SQuAD2).
 
 ## mindspore.dataset.SQuADDataset
 
