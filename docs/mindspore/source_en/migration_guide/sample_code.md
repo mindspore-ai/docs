@@ -672,11 +672,26 @@ from src.utils import init_env
 from src.resnet import resnet50
 
 
-def train_epoch(epoch, model, data_loader):
+def train_epoch(epoch, model, loss_fn, optimizer, data_loader):
     model.set_train()
+    # Define forward function
+    def forward_fn(data, label):
+        logits = model(data)
+        loss = loss_fn(logits, label)
+        return loss, logits
+
+    # Get gradient function
+    grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+
+    # Define function of one-step training
+    def train_step(data, label):
+        (loss, _), grads = grad_fn(data, label)
+        optimizer(grads)
+        return loss
+
     dataset_size = data_loader.get_dataset_size()
     for batch_idx, (data, target) in enumerate(data_loader):
-        loss = float(model(data, target)[0].asnumpy())
+        loss = float(train_step(data, target).asnumpy())
         if batch_idx % 100 == 0:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx, dataset_size,
@@ -711,12 +726,10 @@ def train_net():
     config.steps_per_epoch = train_dataset.get_dataset_size()
     resnet = resnet50(num_classes=config.class_num)
     optimizer = nn.Adam(resnet.trainable_params(), config.lr, weight_decay=config.weight_decay)
-    loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-    train_net = nn.TrainOneStepWithLossScaleCell(
-        nn.WithLossCell(resnet, loss), optimizer, ms.Tensor(config.loss_scale, ms.float32))
+    loss_fn = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
     for epoch in range(config.epoch_size):
-        train_epoch(epoch, train_net, train_dataset)
-        test_epoch(resnet, eval_dataset, loss)
+        train_epoch(epoch, train_net, loss_fn, optimizer, train_dataset)
+        test_epoch(resnet, eval_dataset, loss_fn)
 
     print('Finished Training')
     save_path = './resnet.ckpt'
@@ -729,7 +742,7 @@ if __name__ == '__main__':
 
 ## Performance Optimization
 
-During the preceding training, it is found that the training is slow and performance optimization is required. Before performing specific optimization items, run the profiler tool to obtain the performance data. The profiler tool can obtain only the training encapsulated by the model. Therefore, you need to reconstruct the training process first.
+During the preceding training, it is found that the training is slow and performance optimization is required. Before performing specific optimization items, run the [profiler tool](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling.html) to obtain the performance data. The profiler tool can obtain only the training encapsulated by the model. Therefore, you need to reconstruct the training process first.
 
 ```python
 device_num = config.device_num
