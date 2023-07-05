@@ -38,14 +38,12 @@ class Net(nn.Cell):
         self.alloc_status = ops.NPUAllocFloatStatus()
         self.get_status = ops.NPUGetFloatStatus()
         self.clear_status = ops.NPUClearFloatStatus()
-        self.sub = ops.Sub()
-        self.neg = ops.Neg()
 
     def construct(self, x):
         init = self.alloc_status()
         clear_status = self.clear_status(init)
         x = ops.Depend()(x, clear_status)
-        res = self.sub(x, self.neg(x))
+        res = ops.sub(x, ops.neg(x))
         init = ops.Depend()(init, res)
         get_status = self.get_status(init)
         res = ops.Depend()(res, get_status)
