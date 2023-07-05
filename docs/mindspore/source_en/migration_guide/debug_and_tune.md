@@ -214,6 +214,8 @@ For details about more accuracy debugging policies, see [Accuracy Debugging](htt
 
 ## Performance Tuning
 
+Firstly, it is necessary to obtain performance data, as shown in the specific acquisition method: [Performance Profiling (Ascend)](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html) and [Performance Profiling (GPU)](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_gpu.html).
+
 The performance tuning directions are as follows:
 
 1. Operator performance tuning
