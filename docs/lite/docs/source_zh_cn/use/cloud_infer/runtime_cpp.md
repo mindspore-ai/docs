@@ -565,6 +565,6 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
       }
     ```
 
-3. 多线程加载模型
+### 多线程加载模型
 
-    硬件后端为Ascend，provider为默认时，支持多线程并发加载多个Ascend优化后模型，以提升模型加载性能。使用[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)，指定 `--optimize=ascend_oriented` 可将MindSpore导出的 `MindIR` 模型、第三方框架导出的TensorFlow和ONNX模型转换为Ascend优化后模型。MindSpore导出的 `MindIR` 模型未进行Ascend优化，对于第三方框架模型，转换工具中如果指定 `--optimize=none` 产生的 `MindIR` 模型也未进行Ascend优化。
+硬件后端为Ascend，provider为默认时，支持多线程并发加载多个Ascend优化后模型，以提升模型加载性能。使用[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)，指定 `--optimize=ascend_oriented` 可将MindSpore导出的 `MindIR` 模型、第三方框架导出的TensorFlow和ONNX模型转换为Ascend优化后模型。MindSpore导出的 `MindIR` 模型未进行Ascend优化，对于第三方框架模型，转换工具中如果指定 `--optimize=none` 产生的 `MindIR` 模型也未进行Ascend优化。
