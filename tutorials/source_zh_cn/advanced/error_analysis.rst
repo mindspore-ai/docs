@@ -173,7 +173,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
 -  静态图调试
 
-   1. ops.print_接口
+   1. ops.print\_接口
 
       静态图模式下，MindSpore提供 `ops.print_ <https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.print_.html>`_ 接口，用于打印计算图中Tensor信息或字符串信息。默认打印在屏幕上，也可以保存在文件中。
 
@@ -223,12 +223,12 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 |          |                |                                              |                                   |
 |          |                |                                              |                                   |
 +----------+----------------+----------------------------------------------+-----------------------------------+
-|          | Print算子      | Print算子可以将用户输入的Tensor或\           | `Print算子功能介绍 <https://w     |
+|          | print\_接口    | print\_接口可以将用户输入的Tensor或\         | `print\_接口功能介绍 <https://w   |
 |          |                | 字符串信息打印出来。                         | ww.mindspore.cn/docs              |
 |          |                |                                              | /zh-CN/master                     |
 |          |                |                                              | /api_python/ops/mindspore.        |
-|          |                |                                              | ops.Print.html#mindspore.ops.Pri  |
-|          |                |                                              | nt>`_                             |
+|          |                |                                              | ops.print_.html>`_                |
+|          |                |                                              |                                   |
 |          |                |                                              |                                   |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 中间文件保存   | 用于保存图编译过程中生成的中间文件，我们称为\| `查看中间文件 <https://www.mi     |
