@@ -70,7 +70,7 @@ pip install --pre -i https://pypi.anaconda.org/scipy-wheels-nightly/simple scipy
 ## 验证安装是否成功
 
 ```bash
-python -c "import mindspore;mindspore.run_check()"
+python -c "import mindspore;mindspore.set_context(device_target='CPU');mindspore.run_check()"
 ```
 
 如果输出：

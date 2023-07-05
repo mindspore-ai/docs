@@ -120,7 +120,7 @@ Of which,
 ## Installation Verification
 
 ```bash
-python -c "import mindspore;mindspore.run_check()"
+python -c "import mindspore;mindspore.set_context(device_target='CPU');mindspore.run_check()"
 ```
 
 The outputs should be the same as:

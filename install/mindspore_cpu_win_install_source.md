@@ -51,7 +51,7 @@ for %x in (output\mindspore*.whl) do pip install %x -i https://pypi.tuna.tsinghu
 
 ```bash
 cd ..
-python -c "import mindspore;mindspore.run_check()"
+python -c "import mindspore;mindspore.set_context(device_target='CPU');mindspore.run_check()"
 ```
 
 执行`import mindspore`应在MindSpore源码根目录之外，因为Windows上的Python将当前目录视为执行环境，可能产生目录查找问题。

@@ -51,7 +51,7 @@ When the network is connected, dependency items are automatically downloaded dur
 
 ```bash
 cd ..
-python -c "import mindspore;mindspore.run_check()"
+python -c "import mindspore;mindspore.set_context(device_target='CPU');mindspore.run_check()"
 ```
 
 Importing MindSpore installed by pip should be done outside MindSpore source code base directory, as Python for Windows processes environment paths differently.

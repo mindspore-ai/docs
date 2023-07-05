@@ -50,7 +50,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/%MS_VERSION%/Min
 ## 验证是否成功安装
 
 ```bash
-python -c "import mindspore;mindspore.run_check()"
+python -c "import mindspore;mindspore.set_context(device_target='GPU');mindspore.run_check()"
 ```
 
 如果输出：

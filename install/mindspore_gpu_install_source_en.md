@@ -314,7 +314,7 @@ When the network is connected, dependencies of MindSpore are automatically downl
 i:
 
 ```bash
-python -c "import mindspore;mindspore.run_check()"
+python -c "import mindspore;mindspore.set_context(device_target='GPU');mindspore.run_check()"
 ```
 
 The output should be like:

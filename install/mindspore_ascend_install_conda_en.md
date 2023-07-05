@@ -204,7 +204,7 @@ export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
 i:
 
 ```bash
-python -c "import mindspore;mindspore.run_check()"
+python -c "import mindspore;mindspore.set_context(device_target='Ascend');mindspore.run_check()"
 ```
 
 The output should be like:

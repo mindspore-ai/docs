@@ -72,7 +72,7 @@ docker run -it --network host swr.cn-south-1.myhuaweicloud.com/mindspore/mindspo
 i:
 
 ```bash
-python -c "import mindspore;mindspore.run_check()"
+python -c "import mindspore;mindspore.set_context(device_target='CPU');mindspore.run_check()"
 ```
 
 - The outputs should be the same as:
