@@ -1,0 +1,126 @@
+[
+    {
+        "version" : "r0.7",
+        "versionAlias" : "r0.7",
+        "label" : {
+            "zh": "MindSpore",
+            "en": "MindSpore"
+        },
+        "repo_name" : "mindspore",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "文档",
+                    "url": "/docs/zh-CN/r0.7/index.html"
+                },
+                {
+                    "label": "Python API",
+                    "url": "/api/zh-CN/r0.7/index.html"
+                },
+                {
+                    "label": "Lite 文档",
+                    "url": "/lite/docs/zh-CN/r0.7/index.html"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Docs",
+                    "url": "/docs/en/r0.7/index.html"
+                },
+                {
+                    "label": "Python API",
+                    "url": "/api/en/r0.7/index.html"
+                },
+                {
+                    "label": "Lite Docs",
+                    "url": "/lite/docs/en/r0.7/index.html"
+                }
+            ]
+        },
+        "theme": "theme-lite",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs",
+                    "to": "/docs/zh-CN/r0.7/"
+                },
+                {
+                    "from": "docs/api",
+                    "to": "/api/zh-CN/r0.7/"
+                },
+                {
+                    "from": "docs/lite/docs",
+                    "to": "/lite/docs/zh-CN/r0.7/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs",
+                    "to": "/docs/en/r0.7/"
+                },
+                {
+                    "from": "docs/api",
+                    "to": "/api/en/r0.7/"
+                },
+                {
+                    "from": "docs/lite/docs",
+                    "to": "/lite/docs/en/r0.7/"
+                }
+            ]
+        }
+    }, 
+    {
+        "version" : "r0.7",
+        "versionAlias" : "r0.7",
+        "label" : {
+            "zh": "教程",
+            "en": "Tutorials"
+        },
+        "repo_name" : "tutorial",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "训练及推理",
+                    "url": "/tutorial/zh-CN/r0.7/index.html"
+                },
+                {
+                    "label": "手机及IoT",
+                    "url": "/lite/tutorial/zh-CN/r0.7/index.html"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Training & Inference",
+                    "url": "/tutorial/en/r0.7/index.html"
+                },
+                {
+                    "label": "Mobile & IoT",
+                    "url": "/lite/tutorial/en/r0.7/index.html"
+                }
+            ]
+        },
+        "theme": "theme-tutorials",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/tutorials",
+                    "to": "/tutorial/zh-CN/r0.7/"
+                },
+                {
+                    "from": "docs/lite/tutorials",
+                    "to": "/lite/tutorial/zh-CN/r0.7/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/tutorials",
+                    "to": "/tutorial/en/r0.7/"
+                },
+                {
+                    "from": "docs/lite/tutorials",
+                    "to": "/lite/tutorial/en/r0.7/"
+                }
+            ]
+        }
+    }
+]
