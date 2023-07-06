@@ -30,8 +30,7 @@ release = 'r1.1'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'recommonmark',
-    'sphinx_markdown_tables',
+    'myst_parser',
 ]
 
 source_suffix = {
@@ -63,6 +62,6 @@ html_search_options = {'dict': '../../resource/jieba.txt'}
 html_static_path = ['_static']
 
 def setup(app):
-    app.add_stylesheet('css/bootstrap.min.css')
-    app.add_stylesheet('css/lite.css')
-    app.add_javascript('js/lite.js')
+    app.add_css_file('css/bootstrap.min.css')
+    app.add_css_file('css/lite.css')
+    app.add_js_file('js/lite.js')

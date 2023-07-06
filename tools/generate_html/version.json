@@ -1,0 +1,38 @@
+[
+   {
+      "id" : 1 ,
+      "name" : "mindspore",
+      "branch" : "r1.1",
+      "whl_path" : "1.1.1/MindSpore/cpu/ubuntu_x86/",
+      "whl_name" : "mindspore-1.1.1-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "",
+      "uninstall_name" : "mindspore"
+   },
+   {
+      "id" : 2 ,
+      "name" : "mindarmour",
+      "branch" : "r1.1",
+      "whl_path" : "1.1.1/MindArmour/x86_64/",
+      "whl_name" : "mindarmour-1.1.1-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "",
+      "uninstall_name" : "mindarmour"
+   },
+   {
+      "id" : 3 ,
+      "name" : "hub",
+      "branch" : "r1.1",
+      "whl_path" : "1.1.1/Hub/any/",
+      "whl_name" : "mindspore_hub-1.1.1-py3-none-any.whl",
+      "environ" : "",
+      "uninstall_name" : "mindspore-hub"
+   },
+   {
+      "id" : 4 ,
+      "name" : "serving",
+      "branch" : "r1.1",
+      "whl_path" : "1.1.1/Serving/ascend/ubuntu_x86/",
+      "whl_name" : "mindspore_serving-1.1.1-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "",
+      "uninstall_name" : "mindspore-serving"
+   }
+]
