@@ -41,10 +41,10 @@ inputs = np.array([[1.0, 0.0], [0.0, 2.0]])
 value, vector = torch.eig(torch.tensor(inputs), eigenvectors=True)
 print(value)
 # tensor([[1., 0.],
-#         [2., 0.]], dytpe=torch.float64)
+#         [2., 0.]], dtype=torch.float64)
 print(vector)
 # tensor([[1., 0.],
-#         [0., 1.]], dytpe=torch.float64)
+#         [0., 1.]], dtype=torch.float64)
 
 # MindSpore
 import mindspore

@@ -57,10 +57,10 @@ input = torch.tensor(x1, dtype=torch.int32)
 other = torch.tensor(x2, dtype=torch.int32)
 output = torch.ger(input, other)
 print(output)
-print(output.dtype)
 # tensor([[ 0,  0,  0,  0,  0,  0],
 #         [ 0,  1,  2,  3,  4,  5],
 #         [ 0,  2,  4,  6,  8, 10]], dtype=torch.int32)
+print(output.dtype)
 # torch.int32
 
 # MindSpore doesn't support this feature currently.
@@ -80,10 +80,10 @@ input = torch.tensor(x1, dtype=torch.float32)
 other = torch.tensor(x2, dtype=torch.float32)
 output = torch.ger(input, other)
 print(output)
-print(output.dtype)
 # tensor([[ 0.,  0.,  0.,  0.,  0.,  0.],
 #         [ 0.,  1.,  2.,  3.,  4.,  5.],
 #         [ 0.,  2.,  4.,  6.,  8., 10.]])
+print(output.dtype)
 # torch.float32
 
 # MindSpore
@@ -95,9 +95,9 @@ input = ms.Tensor(x1, ms.float32)
 other = ms.Tensor(x2, ms.float32)
 output = ms.ops.ger(input, other)
 print(output)
-print(output.dtype)
 # [[ 0.  0.  0.  0.  0.  0.]
 #  [ 0.  1.  2.  3.  4.  5.]
 #  [ 0.  2.  4.  6.  8. 10.]]
+print(output.dtype)
 # Float32
 ```

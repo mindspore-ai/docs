@@ -73,7 +73,7 @@ import torch
 import numpy as np
 input = torch.tensor(np.zeros((5, 5)), dtype=torch.float32)
 src = torch.tensor(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), dtype=torch.float32)
-index = torch.tensor(np.array([[0, 1], [0, 1], [0, 1]]), dtype=torch.int64)
+index = torch.tensor(np.array([[0, 1, 2], [0, 1, 2], [0, 1, 2]]), dtype=torch.int64)
 out = torch.scatter(input=input, dim=1, index=index, src=src)
 print(out)
 # tensor([[1., 2., 3., 0., 0.],
