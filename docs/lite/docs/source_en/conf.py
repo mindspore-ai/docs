@@ -31,7 +31,6 @@ release = 'master'
 # ones.
 extensions = [
     'myst_parser',
-    'sphinx_markdown_tables',
 ]
 
 source_suffix = {
@@ -62,9 +61,9 @@ sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
 
 def setup(app):
-    app.add_stylesheet('css/bootstrap.min.css')
-    app.add_stylesheet('css/lite.css')
-    app.add_javascript('js/lite.js')
+    app.add_css_file('css/bootstrap.min.css')
+    app.add_css_file('css/lite.css')
+    app.add_js_file('js/lite.js')
     app.add_directive('includecode', IncludeCodeDirective)
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
