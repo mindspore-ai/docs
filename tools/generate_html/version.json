@@ -1,0 +1,74 @@
+[
+   {
+      "id" : 1 ,
+      "name" : "mindspore",
+      "branch" : "r1.5",
+      "whl_path" : "1.5.2/MindSpore/cpu/x86_64/",
+      "whl_name" : "mindspore-1.5.2-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "MS_PATH",
+      "uninstall_name" : "mindspore"
+   },
+   {
+      "id" : 2 ,
+      "name" : "mindarmour",
+      "branch" : "r1.5",
+      "whl_path" : "1.5.0/MindArmour/any/",
+      "whl_name" : "mindarmour-1.5.0-py3-none-any.whl",
+      "environ" : "",
+      "uninstall_name" : "mindarmour"
+   },
+   {
+      "id" : 3 ,
+      "name" : "hub",
+      "branch" : "r1.5",
+      "whl_path" : "1.5.0/Hub/any/",
+      "whl_name" : "mindspore_hub-1.5.0-py3-none-any.whl",
+      "environ" : "",
+      "uninstall_name" : "mindspore-hub"
+   },
+   {
+      "id" : 4 ,
+      "name" : "serving",
+      "branch" : "r1.5",
+      "whl_path" : "1.5.0/Serving/x86_64/",
+      "whl_name" : "mindspore_serving-1.5.0-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "",
+      "uninstall_name" : "mindspore-serving"
+   },
+   {
+      "id" : 4 ,
+      "name" : "mindquantum",
+      "branch" : "r0.3",
+      "whl_path" : "1.5.0/MindQuantum/any/",
+      "whl_name" : "mindquantum-0.3.1-py3-none-any.whl",
+      "environ" : "",
+      "uninstall_name" : "mindquantum"
+   },
+   {
+      "id" : 4 ,
+      "name" : "xai",
+      "branch" : "r1.5",
+      "whl_path" : "1.5.0/Xai/any/",
+      "whl_name" : "mindspore_xai-1.5.0-py3-none-any.whl",
+      "environ" : "",
+      "uninstall_name" : "xai"
+   },
+   {
+      "id" : 4 ,
+      "name" : "reinforcement",
+      "branch" : "r0.1",
+      "whl_path" : "1.5.0/Reinforcement/any/",
+      "whl_name" : "mindspore_rl-0.1.0-py3-none-any.whl",
+      "environ" : "",
+      "uninstall_name" : "mindspore-rl"
+   },
+   {
+      "id" : 4 ,
+      "name" : "mindscience",
+      "branch" : "r0.1",
+      "whl_path" : "1.5.0/MindScience/x86_64/",
+      "whl_name" : "mindscience_mindelec_ascend-0.1.0-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "",
+      "uninstall_name" : "mindscience-mindelec-ascend"
+   }
+]

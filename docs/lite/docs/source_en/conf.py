@@ -31,7 +31,6 @@ release = 'master'
 # ones.
 extensions = [
     'myst_parser',
-    'sphinx_markdown_tables',
 ]
 
 source_suffix = {
@@ -59,9 +58,9 @@ html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 
 def setup(app):
-    app.add_stylesheet('css/bootstrap.min.css')
-    app.add_stylesheet('css/lite.css')
-    app.add_javascript('js/lite.js')
+    app.add_css_file('css/bootstrap.min.css')
+    app.add_css_file('css/lite.css')
+    app.add_js_file('js/lite.js')
 
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
