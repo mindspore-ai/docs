@@ -199,6 +199,7 @@ def main(version, user, pd, WGETDIR, release_url):
                             with open(title, 'wb') as fd:
                                 shutil.copyfileobj(dowmloaded.raw, fd)
                             print(f"Download {title} success!")
+                            time.sleep(1)
 
             if 'tar_path' in data[i].keys():
                 if data[i]['tar_path'] != '':
@@ -224,11 +225,7 @@ def main(version, user, pd, WGETDIR, release_url):
         elif version != "daily":
             if data[i]['whl_path'] != "":
                 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-                if data[i]['name'] not in ['lite', 'mindspore', 'mindinsight']:
-                    download_url = release_url.replace('/2.0.0', '/2.0.0rc1') + data[i]['whl_path']\
-                        + data[i]['whl_name']
-                else:
-                    download_url = release_url + data[i]['whl_path'] + data[i]['whl_name']
+                download_url = release_url + data[i]['whl_path'] + data[i]['whl_name']
                 dowmloaded = requests.get(download_url, stream=True, verify=False)
                 with open(data[i]['whl_name'], 'wb') as fd:
                     shutil.copyfileobj(dowmloaded.raw, fd)
@@ -236,11 +233,7 @@ def main(version, user, pd, WGETDIR, release_url):
             if 'tar_path' in data[i].keys():
                 if data[i]['tar_path'] != '':
                     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-                    if data[i]['name'] not in ['lite', 'mindspore', 'mindinsight']:
-                        download_url = release_url.replace('/2.0.0', '/2.0.0rc1') + data[i]['tar_path']\
-                            + data[i]['tar_name']
-                    else:
-                        download_url = release_url + data[i]['tar_path'] + data[i]['tar_name']
+                    download_url = release_url + data[i]['tar_path'] + data[i]['tar_name']
                     dowmloaded = requests.get(download_url, stream=True, verify=False)
                     with open(data[i]['tar_name'], 'wb') as fd:
                         shutil.copyfileobj(dowmloaded.raw, fd)
@@ -277,6 +270,7 @@ def main(version, user, pd, WGETDIR, release_url):
     failed_list = []
     failed_name_list = []
 
+    replace_flag = 1
     # 遍历ArraySource开始生成html
     # pylint: disable=R1702
     for i in ArraySource:
@@ -285,6 +279,18 @@ def main(version, user, pd, WGETDIR, release_url):
         else:
             os.chdir(os.path.join(DOCDIR, "../../docs", i))
         subprocess.run(["pip", "install", "-r", "requirements.txt"])
+
+        try:
+            if replace_flag:
+                from docutils import nodes
+                nodes_target = os.path.join(os.path.dirname(nodes.__file__), 'nodes.py')
+                nodes_src = os.path.join(DOCDIR, '../../resource/sphinx_ext/nodes.txt')
+                if os.path.exists(nodes_target):
+                    os.remove(nodes_target)
+                shutil.copy(nodes_src, nodes_target)
+                replace_flag = 0
+        except ModuleNotFoundError:
+            pass
 
         # 输出英文
         if os.path.exists("source_en"):
@@ -455,8 +461,6 @@ if __name__ == "__main__":
                 try:
                     static_path_css = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/theme.css")[0]
                     static_path_js = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/theme.js")[0]
-                    fonts_dir_1 = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/fonts/")[0]
-                    fonts_dir_2 = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/fonts/")[0]
                     static_path_version = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/")[0]
                     static_path_version = os.path.join(static_path_version, "version.json")
                     if 'lite' in out_name or 'tutorials' in out_name:
@@ -469,10 +473,12 @@ if __name__ == "__main__":
                     static_path_new_js = os.path.join(theme_path, js_path)
                     out_name_1 = out_name.split('/')[0]
                     static_path_new_version = os.path.join(version_path, f"{out_name_1}_version.json")
-                    if os.path.exists(fonts_dir_1):
-                        shutil.rmtree(fonts_dir_1)
-                    if os.path.exists(fonts_dir_2):
-                        shutil.rmtree(fonts_dir_2)
+                    fonts_dir_1 = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/fonts/")
+                    fonts_dir_2 = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/fonts/")
+                    if fonts_dir_1 and os.path.exists(fonts_dir_1[0]):
+                        shutil.rmtree(fonts_dir_1[0])
+                    if fonts_dir_2 and os.path.exists(fonts_dir_2[0]):
+                        shutil.rmtree(fonts_dir_2[0])
                     if os.path.exists(static_path_css):
                         os.remove(static_path_css)
                     shutil.copy(static_path_new_css, static_path_css)

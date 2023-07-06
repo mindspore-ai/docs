@@ -50,7 +50,7 @@
    "id" : 6 ,
    "name" : "reinforcement",
    "branch" : "master",
-   "whl_path" : "/mindrl/website/any/",
+   "whl_path" : "/mindrl/website/x86_64",
    "whl_name" : "mindspore_rl-.*-py3-none-any.whl$",
    "environ" : "RM_PATH",
    "uninstall_name" : "mindspore_rl"

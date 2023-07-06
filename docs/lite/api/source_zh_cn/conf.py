@@ -39,6 +39,8 @@ release = 'master'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
+
+myst_update_mathjax = False
 extensions = [
     'breathe',
     'exhale',
@@ -50,7 +52,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
-    'sphinx_markdown_tables',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -193,7 +194,7 @@ def setup(app):
 import mindspore_lite
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
