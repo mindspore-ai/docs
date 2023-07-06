@@ -1,0 +1,74 @@
+[
+   {
+      "id" : 1 ,
+      "name" : "mindspore",
+      "branch" : "r1.7",
+      "whl_path" : "1.7.1/MindSpore/cpu/x86_64/",
+      "whl_name" : "mindspore-1.7.1-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "MS_PATH",
+      "uninstall_name" : "mindspore"
+   },
+   {
+      "id" : 2 ,
+      "name" : "mindinsight",
+      "branch" : "r1.7",
+      "whl_path" : "1.7.0/MindInsight/any/",
+      "whl_name" : "mindinsight-1.7.0-py3-none-any.whl",
+      "environ" : "MI_PATH",
+      "uninstall_name" : "mindinsight"
+   },
+   {
+      "id" : 3 ,
+      "name" : "mindinsight",
+      "branch" : "r1.7",
+      "whl_path" : "1.7.0/MindInsight/any/",
+      "whl_name" : "mindconverter-1.7.0-py3-none-any.whl",
+      "environ" : "MI_PATH",
+      "uninstall_name" : "mindconverter"
+   },
+   {
+      "id" : 4 ,
+      "name" : "mindarmour",
+      "branch" : "r1.7",
+      "whl_path" : "1.7.0/MindArmour/any/",
+      "whl_name" : "mindarmour-1.7.0-py3-none-any.whl",
+      "environ" : "MA_PATH",
+      "uninstall_name" : "mindarmour"
+   },
+   {
+      "id" : 5 ,
+      "name" : "serving",
+      "branch" : "r1.7",
+      "whl_path" : "1.7.0/Serving/x86_64/",
+      "whl_name" : "mindspore_serving-1.7.0-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "SV_PATH",
+      "uninstall_name" : "mindspore-serving"
+   },
+   {
+      "id" : 6 ,
+      "name" : "mindquantum",
+      "branch" : "r0.6",
+      "whl_path" : "1.7.0/MindQuantum/x86_64/",
+      "whl_name" : "mindquantum-0.6.0-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "MQ_PATH",
+      "uninstall_name" : "mindquantum"
+   },
+   {
+      "id" : 7 ,
+      "name" : "reinforcement",
+      "branch" : "r0.3",
+      "whl_path" : "1.7.0/Reinforcement/any/",
+      "whl_name" : "mindspore_rl-0.3.0-py3-none-any.whl",
+      "environ" : "",
+      "uninstall_name" : "mindspore-rl"
+   },
+   {
+      "id" : 8 ,
+      "name" : "vision",
+      "branch" : "r0.1",
+      "whl_path" : "1.7.0/Vision/any/",
+      "whl_name" : "mindvision-0.1.0-py3-none-any.whl",
+      "environ" : "",
+      "uninstall_name" : "mindvision"
+   }
+]

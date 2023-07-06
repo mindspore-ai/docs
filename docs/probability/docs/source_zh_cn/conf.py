@@ -44,7 +44,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
-    'sphinx_markdown_tables',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -73,6 +72,8 @@ pygments_style = 'sphinx'
 autodoc_inherit_docstrings = False
 
 autosummary_generate = True
+
+autosummary_generate_overwrite = False
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -132,7 +133,7 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(code_str, sphinx_autodoc.__dict__)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 import nbsphinx_mod
 
 
