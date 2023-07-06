@@ -50,7 +50,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
-    'sphinx_markdown_tables',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -152,7 +151,7 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(code_str, sphinx_autodoc.__dict__)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 
 # Tell sphinx what the primary language being documented is.
 # primary_domain = 'cpp'

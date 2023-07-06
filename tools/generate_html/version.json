@@ -1,0 +1,94 @@
+[
+   {
+      "id" : 1 ,
+      "name" : "mindspore",
+      "branch" : "r1.8",
+      "whl_path" : "1.8.1/MindSpore/cpu/x86_64/",
+      "whl_name" : "mindspore-1.8.1-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "MS_PATH",
+      "uninstall_name" : "mindspore"
+   },
+   {
+      "id" : 2 ,
+      "name" : "mindinsight",
+      "branch" : "r1.8",
+      "whl_path" : "1.8.0/MindInsight/any/",
+      "whl_name" : "mindinsight-1.8.0-py3-none-any.whl",
+      "environ" : "MI_PATH",
+      "uninstall_name" : "mindinsight"
+   },
+   {
+      "id" : 3 ,
+      "name" : "mindarmour",
+      "branch" : "r1.8",
+      "whl_path" : "1.8.1/MindArmour/any/",
+      "whl_name" : "mindarmour-1.8.1-py3-none-any.whl",
+      "environ" : "MA_PATH",
+      "uninstall_name" : "mindarmour"
+   },
+   {
+      "id" : 4 ,
+      "name" : "serving",
+      "branch" : "r1.8",
+      "whl_path" : "1.8.0/Serving/x86_64/",
+      "whl_name" : "mindspore_serving-1.8.0-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "SV_PATH",
+      "uninstall_name" : "mindspore-serving"
+   },
+   {
+      "id" : 5 ,
+      "name" : "mindquantum",
+      "branch" : "r0.7",
+      "whl_path" : "1.8.0/MindQuantum/x86_64/",
+      "whl_name" : "mindquantum-0.7.0-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "MQ_PATH",
+      "uninstall_name" : "mindquantum"
+   },
+   {
+      "id" : 6 ,
+      "name" : "xai",
+      "branch" : "r1.8",
+      "whl_path" : "1.8.1/Xai/any/",
+      "whl_name" : "mindspore_xai-1.8.1-py3-none-any.whl",
+      "environ" : "XA_PATH",
+      "uninstall_name" : "xai"
+   },
+   {
+      "id" : 7 ,
+      "name" : "reinforcement",
+      "branch" : "r0.5",
+      "whl_path" : "1.8.0/Reinforcement/any/",
+      "whl_name" : "mindspore_rl-0.5.0-py3-none-any.whl",
+      "environ" : "",
+      "uninstall_name" : "mindspore-rl"
+   },
+   {
+      "id" : 8 ,
+      "name" : "golden_stick",
+      "branch" : "r0.1",
+      "whl_path" : "1.8.0/GoldenStick/any/",
+      "whl_name" : "mindspore_gs-0.1.0-py3-none-any.whl",
+      "environ" : "GS_PATH",
+      "uninstall_name" : "mindspore-gs"
+   },
+   {
+      "id" : 9 ,
+      "name" : "lite",
+      "branch" : "r1.8",
+      "whl_path" : "1.8.1/MindSpore/lite/release/linux/x86_64/",
+      "whl_name" : "mindspore_lite-1.8.1-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "MS_PATH",
+      "uninstall_name" : "mindspore-lite",
+      "tar_path" : "1.8.1/MindSpore/lite/release/linux/x86_64/",
+      "tar_name" : "mindspore-lite-1.8.1-linux-x64.tar.gz"
+   },
+   {
+      "id" : 10 ,
+      "name" : "devtoolkit",
+      "branch" : "r1.8",
+      "whl_path" : "",
+      "whl_name" : "",
+      "environ" : "DT_PATH",
+      "uninstall_name" : ""
+   }
+]
