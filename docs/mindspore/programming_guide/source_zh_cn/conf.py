@@ -32,7 +32,6 @@ release = 'master'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx_markdown_tables',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -91,8 +90,8 @@ sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
 
 def setup(app):
-    app.add_stylesheet('css/bootstrap.min.css')
-    app.add_stylesheet('css/training.css')
-    app.add_javascript('js/training.js')
+    app.add_css_file('css/bootstrap.min.css')
+    app.add_css_file('css/training.css')
+    app.add_js_file('js/training.js')
     app.add_directive('includecode', IncludeCodeDirective)
 
