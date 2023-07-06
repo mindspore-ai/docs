@@ -48,6 +48,7 @@ MindSpore Dev Toolkit通过深度学习、智能搜索及智能推荐等技术�
 
    VSCode_plugin_install
    VSCode_smart_completion
+   VSCode_api_scan
 
 .. toctree::
    :glob:
