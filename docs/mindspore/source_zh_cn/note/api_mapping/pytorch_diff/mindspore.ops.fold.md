@@ -50,10 +50,10 @@ print(output.detach().shape)
 # MindSpore
 import mindspore
 import numpy as np
-x = np.random.randn(1, 3, 4, 12)
+x = np.random.randn(1, 3 * 4, 12)
 input = mindspore.Tensor(x, mindspore.float32)
 output_size = mindspore.Tensor((4, 5), mindspore.int32)
 output = mindspore.ops.fold(input, output_size, kernel_size=(2, 2))
-print(output)
+print(output.shape)
 # (1, 3, 4, 5)
 ```

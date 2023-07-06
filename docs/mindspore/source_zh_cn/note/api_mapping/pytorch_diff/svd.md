@@ -66,12 +66,12 @@ import torch
 input = torch.tensor([[1, 2], [-4, -5], [2, 1]], dtype=torch.float32)
 u, s, v = torch.svd(input, some=False, compute_uv=False)
 print(s)
-print(u)
-print(v)
 # tensor([7.0653, 1.0401])
+print(u)
 # tensor([[0., 0., 0.],
 #         [0., 0., 0.],
 #         [0., 0., 0.]])
+print(v)
 # tensor([[0., 0.],
 #         [0., 0.]])
 
@@ -89,12 +89,12 @@ import torch
 input = torch.tensor([[1, 2], [-4, -5], [2, 1]], dtype=torch.float32)
 u, s, v = torch.svd(input, some=False, compute_uv=True)
 print(s)
-print(u)
-print(v)
 # tensor([7.0653, 1.0401])
+print(u)
 # tensor([[-0.3082, -0.4882,  0.8165],
 #         [ 0.9061,  0.1107,  0.4082],
 #         [-0.2897,  0.8657,  0.4082]])
+print(v)
 # tensor([[-0.6386,  0.7695],
 #         [-0.7695, -0.6386]])
 
@@ -103,12 +103,12 @@ import mindspore as ms
 input = ms.Tensor([[1, 2], [-4, -5], [2, 1]], ms.float32)
 s, u, v = ms.ops.svd(input, full_matrices=True, compute_uv=True)
 print(s)
-print(u)
-print(v)
 # [7.0652843 1.040081 ]
+print(u)
 # [[ 0.30821905 -0.48819482  0.81649697]
 #  [-0.90613353  0.11070572  0.40824813]
 #  [ 0.2896955   0.8656849   0.4082479 ]]
+print(v)
 # [[ 0.63863593  0.769509  ]
 #  [ 0.769509   -0.63863593]]
 ```

@@ -44,8 +44,8 @@ input_x1 = torch.tensor([2, 3, 4], dtype=torch.int32)
 input_x2 = torch.tensor([2, 1, 3], dtype=torch.int32)
 output = torch.dot(input_x1, input_x2)
 print(output)
-print(output.dtype)
 # tensor(19)
+print(output.dtype)
 # torch.int32
 
 # MindSpore doesn't support this feature currently.
@@ -62,8 +62,8 @@ input_x1 = torch.tensor([2, 3, 4], dtype=torch.float32)
 input_x2 = torch.tensor([2, 1, 3], dtype=torch.float32)
 output = torch.dot(input_x1, input_x2)
 print(output)
-print(output.dtype)
 # tensor(19)
+print(output.dtype)
 # torch.float32
 
 import mindspore as ms
@@ -73,7 +73,7 @@ input_x1 = ms.Tensor(np.array([2, 3, 4]), ms.float32)
 input_x2 = ms.Tensor(np.array([2, 1, 3]), ms.float32)
 output = ops.tensor_dot(input_x1, input_x2, 1)
 print(output)
-print(output.dtype)
 # 19.0
+print(output.dtype)
 # Float32
 ```
