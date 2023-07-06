@@ -31,7 +31,6 @@ release = 'master'
 # ones.
 extensions = [
     'myst_parser',
-    'sphinx_markdown_tables',
 ]
 
 source_suffix = {

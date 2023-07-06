@@ -13,6 +13,7 @@
 
 import os
 import re
+import shutil
 import sys
 sys.path.append(os.path.abspath('./_ext'))
 import sphinx.ext.autosummary.generate as g
@@ -53,7 +54,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
-    'sphinx_markdown_tables',
     'myst_parser',
 ]
 
@@ -346,10 +346,28 @@ with open(gfile_abs_path, "r+", encoding="utf8") as f:
 # Modify default signatures for autodoc.
 autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
 inspect_source_path = os.path.abspath(sphinx_inspect.__file__)
-autodoc_source_re = re.compile(r"(\s+)args = self\.format_args\(\*\*kwargs\)")
-inspect_source_code_str = """signature = inspect.signature(subject)"""
-inspect_target_code_str = """signature = my_signature.signature(subject)"""
-autodoc_source_code_str = """args = self.format_args(**kwargs)"""
+autodoc_source_re = re.compile(r"(\s+)args = self\._call_format_args\(\*\*kwargs\)")
+inspect_source_code_str = """
+        try:
+            if _should_unwrap(subject):
+                signature = inspect.signature(subject)
+            else:
+                signature = inspect.signature(subject, follow_wrapped=follow_wrapped)
+        except ValueError:
+            # follow built-in wrappers up (ex. functools.lru_cache)
+            signature = inspect.signature(subject)"""
+
+inspect_target_code_str = """
+        try:
+            if _should_unwrap(subject):
+                signature = my_signature.signature(subject)
+            else:
+                signature = my_signature.signature(subject, follow_wrapped=follow_wrapped)
+        except ValueError:
+            # follow built-in wrappers up (ex. functools.lru_cache)
+            signature = my_signature.signature(subject)"""
+
+autodoc_source_code_str = """args = self._call_format_args(**kwargs)"""
 is_autodoc_code_str = """args = args.replace("'", "")"""
 with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = f.read()
@@ -361,21 +379,22 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
             if re_matched_str:
                 space_num = re_matched_str.group(1)
                 autodoc_target_code_str = dedent("""\
-                    {0}
-                    {1}if type(args) != type(None):
-                    {1}    {2}""".format(autodoc_source_code_str, space_num, is_autodoc_code_str))
+                {0}
+                {1}if type(args) != type(None):
+                {1}    {2}""".format(autodoc_source_code_str, space_num, is_autodoc_code_str))
                 break
         if autodoc_target_code_str:
             code_str = code_str.replace(autodoc_source_code_str, autodoc_target_code_str)
             f.seek(0)
             f.truncate()
             f.write(code_str)
+
 with open(inspect_source_path, "r+", encoding="utf8") as g:
     code_str = g.read()
     if inspect_target_code_str not in code_str:
         code_str = code_str.replace(inspect_source_code_str, inspect_target_code_str)
-        if "import my_signature" not in code_str:
-            code_str = code_str.replace("import sys", "import sys\nimport my_signature")
+        if "from . import my_signature" not in code_str:
+            code_str = code_str.replace("import sys", "import sys\nfrom . import my_signature")
         g.seek(0)
         g.truncate()
         g.write(code_str)
