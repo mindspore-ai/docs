@@ -17,10 +17,10 @@ class torchtext.datasets.CoNLL2000Chunking(
 ```python
 class mindspore.dataset.CoNLL2000Dataset(
     dataset_dir,
-    usage='None',
+    usage=None,
     num_samples=None,
     num_parallel_workers=None,
-    shuffle='Shuffle.GLOBAL',
+    shuffle=Shuffle.GLOBAL,
     num_shards=None,
     shard_id=None,
     cache=None)

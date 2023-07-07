@@ -17,10 +17,10 @@ For more information, see [torchtext.datasets.SQuAD1](https://pytorch.org/text/0
 ```python
 class mindspore.dataset.SQuADDataset(
     dataset_dir,
-    usage='None',
+    usage=None,
     num_samples=None,
     num_parallel_workers=None,
-    shuffle='Shuffle.GLOBAL',
+    shuffle=Shuffle.GLOBAL,
     num_shards=None,
     shard_id=None,
     cache=None)
@@ -52,7 +52,7 @@ import torchtext.datasets as datasets
 from torch.utils.data import DataLoader
 
 root = "/path/to/dataset_directory/"
-dataset = datasets.SQuAD1(root, split=('train', 'test'))
+dataset = datasets.SQuAD1(root, split=('train', 'dev'))
 dataloader = DataLoader(dataset)
 
 # MindSpore

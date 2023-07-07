@@ -17,7 +17,7 @@ For more information, see [torchtext.datasets.IMDB](https://pytorch.org/text/0.9
 ```python
 class mindspore.dataset.IMDBDataset(
     dataset_dir,
-    usage='None',
+    usage=None,
     num_samples=None,
     num_parallel_workers=None,
     shuffle=None,
