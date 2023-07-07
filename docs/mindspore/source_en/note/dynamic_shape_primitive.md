@@ -171,7 +171,6 @@
 |[mindspore.Reshape](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Reshape.html)|✔️|✔️|✔️|
 |[mindspore.ResizeBicubic](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ResizeBicubic.html)|✔️|✔️|✔️|
 |[mindspore.ResizeBilinearV2](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ResizeBilinearV2.html)|✔️|✔️|️❌|
-|[mindspore.ResizeNearestNeighborV2](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ResizeNearestNeighborV2.html)|✔️|✔️|✔️|
 |[mindspore.ReverseSequence](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ReverseSequence.html)|✔️|✔️|✔️|
 |[mindspore.ReverseV2](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ReverseV2.html)|✔️|✔️|✔️|
 |[mindspore.RightShift](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.RightShift.html)|✔️|✔️|✔️|
