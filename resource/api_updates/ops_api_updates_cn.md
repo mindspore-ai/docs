@@ -54,7 +54,6 @@
 [mindspore.ops.ScatterNdMul](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.ScatterNdMul.html#mindspore.ops.ScatterNdMul)|New|对张量中的单个值或切片应用sparse multiplication。|r2.0: GPU/CPU|Array操作
 [mindspore.ops.SearchSorted](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.SearchSorted.html#mindspore.ops.SearchSorted)|New|返回位置索引，根据这个索引将 values 插入 sorted_sequence 后，sorted_sequence 的元素大小顺序保持不变。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.SpaceToBatchND](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.SpaceToBatchND.html#mindspore.ops.SpaceToBatchND)|Changed|将空间维度划分为对应大小的块，并在批次维度重排张量。|r1.10: Ascend/CPU => r2.0: Ascend/GPU/CPU|Array操作
-[mindspore.ops.TensorScatterElements](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.TensorScatterElements.html#mindspore.ops.TensorScatterElements)|New|根据指定的规约算法逐元素更新输入Tensor的值。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.Trace](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Trace.html#mindspore.ops.Trace)|New|返回在Tensor的对角线方向上的总和。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.Tril](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Tril.html#mindspore.ops.Tril)|New|返回单个或一批二维矩阵下三角形部分，其他位置的元素将被置零。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.TrilIndices](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.TrilIndices.html#mindspore.ops.TrilIndices)|New|计算 row * col 行列矩阵的下三角元素的索引，并将它们作为一个 2xN 的Tensor返回。|r2.0: Ascend/GPU/CPU|Array操作
@@ -105,11 +104,9 @@
 [mindspore.ops.MaxUnpool2D](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.MaxUnpool2D.html#mindspore.ops.MaxUnpool2D)|New|MaxPool2D的逆过程。|r2.0: Ascend/GPU/CPU|神经网络
 [mindspore.ops.MaxUnpool3D](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.MaxUnpool3D.html#mindspore.ops.MaxUnpool3D)|New|mindspore.ops.MaxPool3D 的逆过程。|r2.0: Ascend/GPU/CPU|神经网络
 [mindspore.ops.ResizeBicubic](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.ResizeBicubic.html#mindspore.ops.ResizeBicubic)|New|使用双三次插值调整图像大小到指定的大小。|r2.0: Ascend/GPU/CPU|神经网络
-[mindspore.ops.ResizeNearestNeighborV2](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.ResizeNearestNeighborV2.html#mindspore.ops.ResizeNearestNeighborV2)|New|使用最近邻算法将输入Tensor调整为特定大小。|r2.0: Ascend/GPU/CPU|神经网络
 [mindspore.ops.SparseTensorDenseMatmul](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.SparseTensorDenseMatmul.html#mindspore.ops.SparseTensorDenseMatmul)|Changed|r1.10: Multiplies sparse matrix A by dense matrix B. => r2.0: 稀疏矩阵 A 乘以稠密矩阵 B 。|r1.10: CPU => r2.0: GPU/CPU|稀疏算子
 [mindspore.ops.ScalarToArray](https://mindspore.cn/docs/zh-CN/r1.10/api_python/ops/mindspore.ops.ScalarToArray.html#mindspore.ops.ScalarToArray)|Deleted|将Scalar转换为 Tensor 。|Ascend/GPU/CPU|类型转换
 [mindspore.ops.MatrixInverse](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.MatrixInverse.html#mindspore.ops.MatrixInverse)|Changed|r1.10: 计算输入矩阵的逆矩阵，如果输入矩阵不可逆，将产生错误或者返回一个未知结果。 => r2.0: 计算输入矩阵的逆矩阵。|r1.10: GPU/CPU => r2.0: Ascend/GPU/CPU|线性代数算子
-[mindspore.ops.MatrixPower](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.MatrixPower.html#mindspore.ops.MatrixPower)|New|计算一个batch的方阵的n次幂。|r2.0: Ascend/CPU|线性代数算子
 [mindspore.ops.Orgqr](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Orgqr.html#mindspore.ops.Orgqr)|New|计算 Householder 矩阵乘积的前 $N$ 列。|r2.0: Ascend/GPU/CPU|线性代数算子
 [mindspore.ops.Ormqr](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Ormqr.html#mindspore.ops.Ormqr)|New|计算一个普通矩阵与Householder矩阵的乘积。|r2.0: GPU|线性代数算子
 [mindspore.ops.Svd](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Svd.html#mindspore.ops.Svd)|New|计算一个或多个矩阵的奇异值分解。|r2.0: GPU/CPU|线性代数算子
