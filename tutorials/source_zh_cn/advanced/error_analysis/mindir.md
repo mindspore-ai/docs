@@ -6,7 +6,7 @@
 
 在图模式`set_context(mode=GRAPH_MODE)`下运行用MindSpore编写的模型时，若配置中设置了`set_context(save_graphs=2)`，运行时会输出一些图编译过程中生成的中间文件，我们称为IR文件。当前主要有两种格式的IR文件：
 
-- ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。可以通过设置环境变量`export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`打印异序排序方式的ir文件。可以通过将该环境变量设置为其他值来切换为打印原来的排序方式的ir文件。
+- ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。可以通过设置环境变量`export MS_DEV_SAVE_GRAPHS_SORT_MODE=1`打印异序排序方式的ir文件。异序ir文件将按照图的调用顺序打印ir图。可以通过将该环境变量设置为`export MS_DEV_SAVE_GRAPHS_SORT_MODE=0`来切换为打印原来的排序方式的ir文件。
 - dot后缀结尾的IR文件：若在配置中设置了`set_context(save_graphs=3)`, 运行时会输出后缀为dot的ir文件。该文件描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
 
 ## 如何保存IR
@@ -183,7 +183,7 @@ print(out)
 - 第1行告诉了我们该网络的顶图名称 `20_1___main___Net_construct.295`，也就是入口图。
 - 第2行告诉我们该网络解析出来的图的数量，该IR文件展示了三张图的信息。 分别为第13行的入口图`20_1___main___Net_construct.295`；第52行的图`21_3_✓__main___Net_construct.296`，对应着网络中if条件为true时所运行的图``；第74行的图`22_15_✗__main___Net_construct.297`，即对应着网络中if条件为false时所运行的图。
 - 第8行告诉了我们该网络有多少个输入。
-- 第10-11行是输入列表，遵循`%para[序号]_[name] : <[data_type]x[shape]>`的格式。
+- 第10-11行是输入列表，遵循`%para[序号]_[name] : <[data_type], (shape)>`的格式。
 
 对于具体的图来说（此处我们以图`20_1___main___Net_construct.295`为例）：
 
@@ -200,7 +200,7 @@ print(out)
 
 关于关联代码行的说明：
 
-- 代码行展示有两种模式，第一种是显示完整的调用栈，前端或后端最后生成的IR文件(如前端的`15_execute_0141.ir`和后端的`graph_build_0_136.ir`)
+- 代码行展示有两种模式，第一种是显示完整的调用栈，前端或后端最后生成的IR文件(如前端的`17_execute_0765.ir`和后端的`graph_build_0_136.ir`)
   按此模式展示代码行；第二种为了减小文件的体积，只显示第一行，即省去了调用过程（如`04_abstract_specialize_0012.ir`）。
 - 如果算子是反向传播算子，关联代码行除了会显示本身的代码，还会显示对应的正向代码，通过“Corresponding forward node candidate:”标识。
 - 如果算子是融合算子，关联代码行会显示出融合的相关代码，通过“Corresponding code candidate:”标识，其中用分隔符“-”区分不同的代码。
@@ -210,96 +210,103 @@ print(out)
 
 ### 异序ir文件介绍
 
-使用文本编辑软件（例如`vi`）打开在设置了环境变量并执行完后输出的IR文件`14_validate_0042.ir`，内容如下所示（此处版本为MindSpore 2.1，后续版本中内容可能会有一些细微变化）：
+使用文本编辑软件（例如`vi`）打开在设置了环境变量`export MS_DEV_SAVE_GRAPHS_SORT_MODE=1`并执行样例：
 
 ```text
-  1 #IR entry      : @20_1___main___Net_construct.278
+  1 import mindspore as ms
+  2 import mindspore.nn as nn
+  3 from mindspore import ops
+  4
+  5 ms.set_context(mode=ms.GRAPH_MODE)
+  6 ms.set_context(save_graphs=2, save_graphs_path="./ir")
+  7
+  8 class Net(nn.Cell):
+  9     def __init__(self):
+ 10         super().__init__()
+ 11
+ 12     def func(x, y):
+ 13         return ops.mul(x, y)
+ 14
+ 15     def construct(self, x, y):
+ 16         b = self.func(x, y)
+ 17         return b
+ 18
+ 19 input1 = ms.Tensor(3, ms.float32)
+ 20 input2 = ms.Tensor(2, ms.float32)
+ 21 net = Net()
+ 22 out = net(input1, input2)
+ 23 print(out)
+```
+
+输出的IR文件`04_abstract_specialize_0004.ir`，内容如下所示（此处版本为MindSpore 2.1，后续版本中内容可能会有一些细微变化）：
+
+```text
+  1 #IR entry      : @1___main___Net_construct.12
   2 #Total subgraph: 3
   3
   4 #attrs         :
-  5 check_set_strategy_valid_once_only : 1
-  6 auto_parallel_finish_pre_action : 1
-  7 # Total params: 2
-  8 # Params:
-  9 %para1_x : <Tensor[Float32], ()>
- 10 %para2_y : <Tensor[Float32], ()>
- 11
- 12 subgraph attr:
- 13 check_set_strategy_valid_once_only : 1
- 14 auto_parallel_finish_pre_action : 1
- 15 subgraph instance: 20_1___main___Net_construct.278 : 0x55d2f2a15e70
- 16 # In file t2.py:15/    def construct(self, x, y):/
- 17 subgraph @20_1___main___Net_construct.278() {
- 18   %0(a) = Sub(%para1_x, Tensor(shape=[], dtype=Float32, value=1)) primitive_attrs: {output_names: [output], input_names: [x, y]}
- 19       : (<Tensor[Float32], ()>, <Tensor[Float32], (), value=...>) -> (<Tensor[Float32], ()>)
+  5 # Total params: 2
+  6 # Params:
+  7 %para1_x : <Tensor[Float32], ()>
+  8 %para2_y : <Tensor[Float32], ()>
+  9
+ 10 subgraph attr:
+ 11 subgraph instance: 1___main___Net_construct.12 : 0x55844586acc0
+ 12 # In file t6.py:15/    def construct(self, x, y):/
+ 13 subgraph @1___main___Net_construct.12() {
+ 14   %0(b) = call @2_func.13(%para1_x, %para2_y)
+ 15       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 16       # Scope: (Default)
+ 17       # In file t6.py:16/        b = self.func(x, y)/
+ 18   Return(%0)
+ 19       : (<Tensor[Float32], ()>)
  20       # Scope: (Default)
- 21       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:839/    return tensor_sub(input, other)/
- 22   %1(b) = Add(%0, %para2_y) primitive_attrs: {output_names: [output], input_names: [x, y]}
- 23       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 24       # Scope: (Default)
- 25       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:316/    return _get_cache_prim(P.Add)()(input, other)/
- 26   %2([CNode]257) = Cast(%1, Bool) primitive_attrs: {output_names: [output], input_names: [x, dst_type], SrcT: F32, DstT: Bool}
- 27       : (<Tensor[Float32], ()>, <TypeType, NoShape>) -> (<Tensor[Bool], ()>)
- 28       # Scope: (Default)
- 29       # In file /workspace/mindspore/build/package/mindspore/_extends/parse/standard_method.py:3359/    return F.cast(x, mstype.bool_)/
- 30   %3([CNode]281) = Partial(@21_3_✓__main___Net_construct.279, %1, %0) primitive_attrs: {side_effect_propagate: I64(1)}
- 31       : (<Func, NoShape>, <Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Func, NoShape>)
- 32       # Scope: (Default)
- 33   %4([CNode]282) = Partial(@22_15_✗__main___Net_construct.280, %1) primitive_attrs: {side_effect_propagate: I64(1)}
- 34       : (<Func, NoShape>, <Tensor[Float32], ()>) -> (<Func, NoShape>)
+ 21       # In file t6.py:17/        return b/
+ 22 }
+ 23 # Order:
+ 24 #   1: @1___main___Net_construct.12:b{[0]: ValueNode<FuncGraph> 2_func.13, [1]: x, [2]: y}
+ 25 #   2: @1___main___Net_construct.12:[CNode]5{[0]: ValueNode<Primitive> Return, [1]: b}
+ 26
+ 27
+ 28 subgraph attr:
+ 29 undeterminate : 0
+ 30 subgraph instance: 2_func.13 : 0x55844588f4d0
+ 31 # In file t6.py:12/    def func(x, y):/
+ 32 subgraph @2_func.13(%para3_x, %para4_y) {
+ 33   %0([CNode]8) = call @3_mul.14(%para3_x, %para4_y)
+ 34       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
  35       # Scope: (Default)
- 36   %5([CNode]6) = Switch(%2, %3, %4)
- 37       : (<Tensor[Bool], ()>, <Func, NoShape>, <Func, NoShape>) -> (<Func, NoShape>)
- 38       # Scope: (Default)
- 39       # In file t2.py:18/        if b :/
- 40   %6([CNode]9) = %5[@FuncUnion(@21_3_✓__main___Net_construct.279, @22_15_✗__main___Net_construct.280)]()
- 41       : () -> (<Tensor[Float32], ()>)
- 42       # Scope: (Default)
- 43       # In file t2.py:18/        if b :/
- 44   Return(%6)
- 45       : (<Tensor[Float32], ()>)
- 46       # Scope: (Default)
- 47       # In file t2.py:18/        if b :/
- 48 }
- 49
- 50
- 51 switch_input: 1
- 52 subgraph attr:
- 53 defer_inline : 0
- 54 undeterminate : 0
- 55 subgraph instance: 21_3_✓__main___Net_construct.279 : 0x55d2f2ab79c0
- 56 # In file t2.py:18/        if b :/
- 57 subgraph @21_3_✓__main___Net_construct.279(%para3_b, %para4_a) {
- 58   %0([CNode]19) = Div(%para4_a, %para3_b) primitive_attrs: {output_names: [output], input_names: [x, y]}
- 59       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 60       # Scope: (Default)
- 61       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:998/    output = _get_cache_prim(P.Div)()(input, other)/
- 62   %1(b) = Mul(%para3_b, %0) primitive_attrs: {output_names: [output], input_names: [x, y]}
- 63       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 64       # Scope: (Default)
- 65       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:929/    return tensor_mul(input, other)/
- 66   Return(%1)
- 67       : (<Tensor[Float32], ()>)
- 68       # Scope: (Default)
- 69       # In file t2.py:19/            b = ops.mul(b, self.func(a, b))/
- 70 }
- 71
- 72
- 73 switch_input: 1
- 74 subgraph attr:
- 75 defer_inline : 0
- 76 undeterminate : 0
- 77 subgraph instance: 22_15_✗__main___Net_construct.280 : 0x55d2f2b8d100
- 78 # In file t2.py:18/        if b :/
- 79 subgraph @22_15_✗__main___Net_construct.280(%para3_b) {
- 80   Return(%para3_b)
- 81       : (<Tensor[Float32], ()>)
- 82       # Scope: (Default)
- 83       # In file t2.py:18/        if b :/
- 84 }
+ 36       # In file t6.py:13/        return ops.mul(x, y)/
+ 37   Return(%0)
+ 38       : (<Tensor[Float32], ()>)
+ 39       # Scope: (Default)
+ 40       # In file t6.py:13/        return ops.mul(x, y)/
+ 41 }
+ 42 # Order:
+ 43 #   1: @2_func.13:[CNode]8{[0]: ValueNode<FuncGraph> 3_mul.14, [1]: x, [2]: y}
+ 44 #   2: @2_func.13:[CNode]9{[0]: ValueNode<Primitive> Return, [1]: [CNode]8}
+ 45
+ 46
+ 47 subgraph attr:
+ 48 undeterminate : 0
+ 49 subgraph instance: 3_mul.14 : 0x558445891190
+ 50 # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:936/def mul(input, other):/
+ 51 subgraph @3_mul.14(%para3_input, %para4_other) {
+ 52   %0([CNode]10) = Mul(%para3_input, %para4_other) primitive_attrs: {output_names: [output], input_names: [x, y]}
+ 53       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 54       # Scope: (Default)
+ 55       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:982/    return tensor_mul(input, other)/
+ 56   Return(%0)
+ 57       : (<Tensor[Float32], ()>)
+ 58       # Scope: (Default)
+ 59       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:982/    return tensor_mul(input, other)/
+ 60 }
+ 61 # Order:
+ 62 #   1: @3_mul.14:[CNode]10{[0]: ValueNode<PrimitivePy> Mul, [1]: input, [2]: other}
+ 63 #   2: @3_mul.14:[CNode]11{[0]: ValueNode<Primitive> Return, [1]: [CNode]10}
 ```
 
-以上内容，从顶图开始，以拓扑排序的方式展示了所有图的信息。
+以上内容，从顶图开始，以拓扑排序的方式展示了所有图的信息。图将根据调用顺序打印出来。如有需要追踪图的调用，可以使用此种排序的ir图。
 
 ### dot文件介绍
 
@@ -439,7 +446,7 @@ MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段�
 ```
 
 `analyze_fail.ir`文件与前文介绍过的异序ir文件格式一致，唯一有区别的地方在于`analyze_fail.ir`文件中会指出推导出错的节点所在的位置。
-我们不断搜索`------------------------>`并来到最后一处该箭头出现的位置，即第19行的`------------------------> 0`。该最后一处箭头指向了推导出错的节点，为`%3([CNode]5) = call @func.21(%1, %1, %2) ...`，表达了该节点在IR中的信息，如何查看analyze_fail.ir文件前文`异序ir文件介绍`一节中已经介绍，此处不再赘述。
+即第19行的`------------------------> 0`。该箭头指向了推导出错的节点，为`%3([CNode]5) = call @func.21(%1, %1, %2) ...`，如何查看analyze_fail.ir文件前文`异序ir文件介绍`一节中已经介绍，此处不再赘述。
 根据`(%1, %1, %2)`可知，该节点的输入参数有三个。从源码解析调用栈中可以知道实际该函数为`self.func`，在脚本中的定义为`def dunc(x, y):...`。
 在函数定义中，只需要两个参数，故会在此处出现推导失败的报错，我们需要修改脚本中传入的参数个数以解决该问题。
 
