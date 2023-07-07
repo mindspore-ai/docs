@@ -131,7 +131,7 @@ After completing the installation of CUDA, Log in and download the corresponding
 
 ```bash
 tar -zxvf cudnn.tgz
-sudo cp cuda/include/cudnn.h /usr/local/cuda-11.6/include
+sudo cp cuda/include/cudnn*.h /usr/local/cuda-11.6/include
 sudo cp cuda/lib64/libcudnn* /usr/local/cuda-11.6/lib64
 sudo chmod a+r /usr/local/cuda-11.1/include/cudnn.h /usr/local/cuda-11.6/lib64/libcudnn*
 ```
