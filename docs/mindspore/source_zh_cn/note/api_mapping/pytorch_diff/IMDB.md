@@ -17,7 +17,7 @@ class torchtext.datasets.IMDB(
 ```python
 class mindspore.dataset.IMDBDataset(
     dataset_dir,
-    usage='None',
+    usage=None,
     num_samples=None,
     num_parallel_workers=None,
     shuffle=None,
