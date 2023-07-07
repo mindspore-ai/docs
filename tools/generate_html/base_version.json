@@ -1,0 +1,220 @@
+[
+    {
+        "version" : "r1.10",
+        "versionAlias" : "r1.10",
+        "label" : {
+            "zh": "MindSpore",
+            "en": "MindSpore"
+        },
+        "repo_name" : "mindspore",
+        "theme": "theme-docs",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/mindspore",
+                    "to": "/docs/zh-CN/r1.10/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/mindspore",
+                    "to": "/docs/en/r1.10/"
+                }
+            ]
+        }
+    }, 
+    {
+        "version" : "r1.10",
+        "versionAlias" : "r1.10",
+        "label" : {
+            "zh": "教程",
+            "en": "Tutorials"
+        },
+        "repo_name" : "tutorials",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "初学入门",
+                    "url": "/tutorials/zh-CN/r1.10/index.html"
+                },
+                {
+                    "label": "应用实践",
+                    "url": "/tutorials/application/zh-CN/r1.10/index.html"
+                },
+                {
+                    "label": "深度开发",
+                    "url": "/tutorials/experts/zh-CN/r1.10/index.html"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Quickstart",
+                    "url": "/tutorials/en/r1.10/index.html"
+                },
+                {
+                    "label": "Application",
+                    "url": "/tutorials/application/en/r1.10/index.html"
+                },
+                {
+                    "label": "Experts",
+                    "url": "/tutorials/experts/en/r1.10/index.html"
+                }
+            ]
+        },
+        "theme": "theme-tutorials",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/tutorials",
+                    "to": "/tutorials/zh-CN/r1.10/"
+                },
+                {
+                    "from": "docs/tutorials/application",
+                    "to": "/tutorials/application/zh-CN/r1.10/"
+                },
+                {
+                    "from": "docs/tutorials/experts",
+                    "to": "/tutorials/experts/zh-CN/r1.10/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/tutorials/",
+                    "to": "/tutorials/en/r1.10/"
+                },
+                {
+                    "from": "docs/tutorials/application",
+                    "to": "/tutorials/application/en/r1.10/"
+                },
+                {
+                    "from": "docs/tutorials/experts",
+                    "to": "/tutorials/experts/en/r1.10/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r1.10",
+        "label": {
+            "zh": "全场景推理框架（MindSpore Lite）",
+            "en": "MindSpore Lite"
+        },
+        "repo_name": "lite",
+        "submenu": {
+            "zh": [
+                {
+                    "label": "概述",
+                    "url": "/lite?version=/r1.10/"
+                },
+                {
+                    "label": "下载",
+                    "url": "/lite/docs/zh-CN/r1.10/use/downloads.html"
+                },
+                {
+                    "label": "文档",
+                    "url": "/lite/docs/zh-CN/r1.10/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/lite/api/zh-CN/r1.10/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/lite/faq/zh-CN/r1.10/faq.html"
+                },
+                {
+                    "label": "示例",
+                    "url": "/lite/examples?version=/r1.10/"
+                },
+                {
+                    "label": "模型",
+                    "url": "/lite/models?version=/r1.10/"
+                }
+            ],
+            "en": [
+                {
+                    "label": "Overview",
+                    "url": "/lite/en?version=/r1.10/"
+                },
+                {
+                    "label": "Downloads",
+                    "url": "/lite/docs/en/r1.10/use/downloads.html"
+                },
+                {
+                    "label": "Docs",
+                    "url": "/lite/docs/en/r1.10/index.html"
+                },
+                {
+                    "label": "API",
+                    "url": "/lite/api/en/r1.10/index.html"
+                },
+                {
+                    "label": "FAQ",
+                    "url": "/lite/faq/en/r1.10/faq.html"
+                },
+                {
+                    "label": "Examples",
+                    "url": "/lite/examples/en?version=/r1.10/"
+                },
+                {
+                    "label": "Models",
+                    "url": "/lite/models/en?version=/r1.10/"
+                }
+            ]
+        },
+        "theme": "theme-lite",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/lite/docs",
+                    "to": "/lite/docs/zh-CN/r1.10/"
+                },
+                {
+                    "from": "docs/docs/lite/api",
+                    "to": "/lite/api/zh-CN/r1.10/"
+                },
+                {
+                    "from": "docs/docs/lite/faq",
+                    "to": "/lite/faq/zh-CN/r1.10/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/lite/docs/",
+                    "to": "/lite/docs/en/r1.10/"
+                },
+                {
+                    "from": "docs/docs/lite/api/",
+                    "to": "/lite/api/en/r1.10/"
+                },
+                {
+                    "from": "docs/docs/lite/faq/",
+                    "to": "/lite/faq/en/r1.10/"
+                }
+            ]
+        }
+    },
+    {
+        "version": "r1.10",
+        "label": {
+            "zh": "可视化调试调优（MindInsight）",
+            "en": "MindInsight"
+        },
+        "repo_name": "mindinsight",
+        "theme": "theme-docs",
+        "build": {
+            "zh": [
+                {
+                    "from": "docs/docs/mindinsight/docs",
+                    "to": "/mindinsight/docs/zh-CN/r1.10/"
+                }
+            ],
+            "en": [
+                {
+                    "from": "docs/docs/mindinsight/docs/",
+                    "to": "/mindinsight/docs/en/r1.10/"
+                }
+            ]
+        }
+    }
+]

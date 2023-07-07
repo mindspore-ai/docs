@@ -3,29 +3,29 @@
       "id" : 1 ,
       "name" : "mindspore",
       "branch" : "r1.10",
-      "whl_path" : "/MindSpore/cpu/x86_64/",
-      "whl_name" : "mindspore-1.10.0-cp37-cp37m-linux_x86_64.whl",
+      "whl_path" : "1.10.1/MindSpore/cpu/x86_64/",
+      "whl_name" : "mindspore-1.10.1-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MS_PATH",
       "uninstall_name" : "mindspore"
-   }, 
+   },
    {
       "id" : 2 ,
-      "name" : "tutorials",
+      "name" : "mindinsight",
       "branch" : "r1.10",
-      "whl_path" : "",
-      "whl_name" : "",
-      "environ" : "",
-      "uninstall_name" : ""
+      "whl_path" : "1.10.1/MindInsight/any/",
+      "whl_name" : "mindinsight-1.10.0-py3-none-any.whl",
+      "environ" : "MI_PATH",
+      "uninstall_name" : "mindinsight"
    },
    {
       "id" : 3 ,
       "name" : "lite",
       "branch" : "r1.10",
-      "whl_path" : "/MindSpore/lite/release/linux/x86_64/",
-      "whl_name" : "mindspore_lite-1.10.0-cp37-cp37m-linux_x86_64.whl",
+      "whl_path" : "1.10.1/MindSpore/lite/release/linux/x86_64/",
+      "whl_name" : "mindspore_lite-1.10.1-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MS_PATH",
-      "uninstall_name" : "mindspore_lite",
-      "tar_path" : "/MindSpore/lite/release/linux/x86_64/",
-      "tar_name" : "mindspore-lite-1.10.0-linux-x64.tar.gz"
+      "uninstall_name" : "mindspore-lite",
+      "tar_path" : "1.10.1/MindSpore/lite/release/linux/x86_64/",
+      "tar_name" : "mindspore-lite-1.10.1-linux-x64.tar.gz"
    }
 ]
