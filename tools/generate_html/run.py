@@ -429,7 +429,7 @@ if __name__ == "__main__":
     process.communicate()
     process.wait()
 
-    extra_cmd = ["sudo", "dpkg", "-i", "libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb"]
+    extra_cmd = ["dpkg", "-i", "libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb"]
     subprocess.run(extra_cmd)
 
 
