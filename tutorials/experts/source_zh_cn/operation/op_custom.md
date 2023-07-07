@@ -197,49 +197,36 @@ from mindspore.ops import CustomRegOp, DataType
 ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 
 # 算子实现，注册算子信息
-dropout2d_op_info = CustomRegOp("Dropout2D") \
+acos_op_info = CustomRegOp("Abs") \
     .fusion_type("OPAQUE") \
     .input(0, "x", "required") \
     .output(0, "y", "required") \
-    .output(1, "mask", "required") \
-    .attr("keep_prob", "required", "float") \
     .attr("cust_aicpu", "required", "str", "mindspore_aicpu_kernels") \
-    .dtype_format(DataType.BOOL_Default, DataType.BOOL_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.I8_Default, DataType.I8_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.I16_Default, DataType.I16_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.I32_Default, DataType.I32_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.I64_Default, DataType.I64_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.U8_Default, DataType.U8_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.U16_Default, DataType.U16_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.U32_Default, DataType.U32_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.U64_Default, DataType.U64_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.F16_Default, DataType.F16_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.F32_Default, DataType.F32_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.F64_Default, DataType.F64_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.F16_Default, DataType.F16_Default) \
+    .dtype_format(DataType.F32_Default, DataType.F32_Default) \
+    .dtype_format(DataType.F64_Default, DataType.F64_Default) \
     .target("Ascend") \
     .get_op_info()
 
 
 # 定义自定义算子网络
-class NetDropout2D(nn.Cell):
-    def __init__(self, keep_prob=0.5):
-        super(NetDropout2D, self).__init__()
-        self.op = ops.Custom("dropout2d_aicpu", out_shape=lambda x, _, cust_attr: (x, x), \
-                              out_dtype=lambda x, _, cust_attr: (x, ms.bool_), func_type="aicpu",
-                              reg_info=dropout2d_op_info)
-        self.keep_prob = keep_prob
+class NetAbs(nn.Cell):
+    def __init__(self):
+        super(NetAbs, self).__init__()
+        self.op = ops.Custom("acos_aicpu", out_shape=lambda x, cust_attr: x,
+                             out_dtype=lambda x, cust_attr: x, func_type="aicpu",
+                             reg_info=acos_op_info)
         self.cust_aicpu_so_path = "mindspore_aicpu_kernels"
 
     def construct(self, inputs):
-        return self.op(inputs, self.keep_prob,  self.cust_aicpu_so_path)
+        return self.op(inputs, self.cust_aicpu_so_path)
 
 if __name__ == "__main__":
     # 定义aicpu类型的自定义算子
     input_tensor = ms.Tensor(np.ones([1, 1, 2, 3]), ms.float32)
-    dropout2d_nn = NetDropout2D(0.5)
-    output, mask = dropout2d_nn(input_tensor)
-    print("output: ", output)
-    print("mask: ", mask)
+    abs_nn = NetAbs()
+    output = abs_nn(input_tensor)
+    print("output shape: ", output.shape)
 ```
 
 本例中，有如下几点需要说明：
@@ -256,8 +243,7 @@ python test_dropout_aicpu.py
 执行结果（由于dropout算子具有随机性，多次运行结果存在差异）：
 
 ```text
-output : [[[[2.  2.  2.] [2.  2.  2.]]]]
-mask: [[[[True  True  True]  [True  True  True]]]]
+output shape:  (1, 1, 2, 3)
 ```
 
 ### aot类型的自定义算子开发
