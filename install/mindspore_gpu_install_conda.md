@@ -143,9 +143,9 @@ source ~/.bashrc
 
 ```bash
 tar -zxvf cudnn.tgz
-sudo cp cuda/include/cudnn.h /usr/local/cuda-11.6/include
+sudo cp cuda/include/cudnn*.h /usr/local/cuda-11.6/include
 sudo cp cuda/lib64/libcudnn* /usr/local/cuda-11.6/lib64
-sudo chmod a+r /usr/local/cuda-11.6/include/cudnn.h /usr/local/cuda-11.6/lib64/libcudnn*
+sudo chmod a+r /usr/local/cuda-11.6/include/cudnn*.h /usr/local/cuda-11.6/lib64/libcudnn*
 ```
 
 如果之前安装了其他CUDA版本或者CUDA安装路径不同，只需替换上述命令中的`/usr/local/cuda-11.6`为当前安装的CUDA路径。
