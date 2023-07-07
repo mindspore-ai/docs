@@ -6,3 +6,4 @@ sphinx_rtd_theme == 1.0.0
 numpy
 IPython
 jieba
+gym == 0.18.3
