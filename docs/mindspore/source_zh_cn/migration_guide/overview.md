@@ -41,6 +41,10 @@
 
 本章包含了一个完整的网络迁移样例。从对标网络的分析与复现开始，详细说明脚本开发与精度调试调优等步骤，最后列出了迁移过程中的常见问题与相应优化方法、框架性能问题等等。
 
+## [网络迁移工具应用实践](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/migrator_with_tools.html)
+
+本章节介绍了将神经网络从其他机器学习框架迁移到MindSpore时，如何应用各种迁移相关工具以提高迁移效率，侧重描述如何将迁移工具与迁移过程紧密结合。
+
 ## [常见问题](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/faq.html)
 
 在这里会列出一些常见问题与相应解决方法。

@@ -78,6 +78,7 @@ MindSpore 文档
    migration_guide/model_development/model_development
    migration_guide/debug_and_tune
    migration_guide/sample_code
+   migration_guide/migrator_with_tools
    migration_guide/faq
 
 .. toctree::
