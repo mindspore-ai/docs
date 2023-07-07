@@ -198,48 +198,35 @@ from mindspore.ops import CustomRegOp, DataType
 ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 
 # Operator implementation, registering operator information
-dropout2d_op_info = CustomRegOp("Dropout2D") \
+acos_op_info = CustomRegOp("Abs") \
     .fusion_type("OPAQUE") \
     .input(0, "x", "required") \
     .output(0, "y", "required") \
-    .output(1, "mask", "required") \
-    .attr("keep_prob", "required", "float") \
     .attr("cust_aicpu", "required", "str", "mindspore_aicpu_kernels") \
-    .dtype_format(DataType.BOOL_Default, DataType.BOOL_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.I8_Default, DataType.I8_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.I16_Default, DataType.I16_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.I32_Default, DataType.I32_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.I64_Default, DataType.I64_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.U8_Default, DataType.U8_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.U16_Default, DataType.U16_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.U32_Default, DataType.U32_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.U64_Default, DataType.U64_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.F16_Default, DataType.F16_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.F32_Default, DataType.F32_Default, DataType.BOOL_Default) \
-    .dtype_format(DataType.F64_Default, DataType.F64_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.F16_Default, DataType.F16_Default) \
+    .dtype_format(DataType.F32_Default, DataType.F32_Default) \
+    .dtype_format(DataType.F64_Default, DataType.F64_Default) \
     .target("Ascend") \
     .get_op_info()
 
 # Define a custom operator network
-class NetDropout2D(nn.Cell):
-    def __init__(self, keep_prob=0.5):
-        super(NetDropout2D, self).__init__()
-        self.op = ops.Custom("dropout2d_aicpu", out_shape=lambda x, _, cust_attr: (x, x), \
-                              out_dtype=lambda x, _, cust_attr: (x, ms.bool_), func_type="aicpu",
-                              reg_info=dropout2d_op_info)
-        self.keep_prob = keep_prob
+class NetAbs(nn.Cell):
+    def __init__(self):
+        super(NetAbs, self).__init__()
+        self.op = ops.Custom("acos_aicpu", out_shape=lambda x, cust_attr: x,
+                             out_dtype=lambda x, cust_attr: x, func_type="aicpu",
+                             reg_info=acos_op_info)
         self.cust_aicpu_so_path = "mindspore_aicpu_kernels"
 
     def construct(self, inputs):
-        return self.op(inputs, self.keep_prob,  self.cust_aicpu_so_path)
+        return self.op(inputs, self.cust_aicpu_so_path)
 
 if __name__ == "__main__":
     # Defines a custom operator of type aicpu
     input_tensor = ms.Tensor(np.ones([1, 1, 2, 3]), ms.float32)
-    dropout2d_nn = NetDropout2D(0.5)
-    output, mask = dropout2d_nn(input_tensor)
-    print("output: ", output)
-    print("mask: ", mask)
+    abs_nn = NetAbs()
+    output = abs_nn(input_tensor)
+    print("output shape: ", output.shape)
 ```
 
 In this example, there are the following points to explain:
@@ -256,8 +243,7 @@ python test_dropout_aicpu.py
 The execution result is as follows (due to the random nature of the dropout operator, there is a difference in the result of multiple runs):
 
 ```text
-output : [[[[2.  2.  2.] [2.  2.  2.]]]]
-mask: [[[[True  True  True]  [True  True  True]]]]
+output shape:  (1, 1, 2, 3)
 ```
 
 ### Defining Custom Operator of aot Type
