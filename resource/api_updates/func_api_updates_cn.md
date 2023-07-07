@@ -254,7 +254,6 @@
 [mindspore.ops.kron](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.kron.html#mindspore.ops.kron)|New|计算 x 和 y 的Kronecker积：$x ⊗ y$ 。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.logdet](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.logdet.html#mindspore.ops.logdet)|New|计算方块矩阵或批量方块矩阵的对数行列式。|r2.0: CPU|线性代数函数
 [mindspore.ops.lu_unpack](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.lu_unpack.html#mindspore.ops.lu_unpack)|New|将 LU_data 和 LU_pivots 还原为P, L, U矩阵，其中P为置换矩阵，L为下三角矩阵，U为上三角矩阵。|r2.0: GPU/CPU|线性代数函数
-[mindspore.ops.matrix_power](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.matrix_power.html#mindspore.ops.matrix_power)|New|计算一个方阵的（整数）n次幂。|r2.0: CPU|线性代数函数
 [mindspore.ops.matrix_solve](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.matrix_solve.html#mindspore.ops.matrix_solve)|Changed|求解线性方程组。|r1.10: GPU/CPU => r2.0: Ascend/CPU|线性代数函数
 [mindspore.ops.mm](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.mm.html#mindspore.ops.mm)|New|计算两个矩阵的乘积。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.mv](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.mv.html#mindspore.ops.mv)|New|实现矩阵 mat 和向量 vec 相乘。|r2.0: Ascend/GPU/CPU|线性代数函数
