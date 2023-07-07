@@ -1,8 +1,17 @@
+"""
+    sphinx.directives
+    ~~~~~~~~~~~~~~~~~
+
+    Handlers for additional ReST directives.
+
+    :copyright: Copyright 2007-2022 by the Sphinx team, see AUTHORS.
+    :license: BSD, see LICENSE for details.
+"""
+
 import re
 import inspect
 import importlib
-from typing import Any, Dict, List, Tuple
-from typing import cast
+from typing import TYPE_CHECKING, Any, Dict, Generic, List, Tuple, TypeVar, cast
 
 from docutils import nodes
 from docutils.nodes import Node
@@ -10,14 +19,13 @@ from docutils.parsers.rst import directives, roles
 
 from sphinx import addnodes
 from sphinx.addnodes import desc_signature
-from sphinx.deprecation import RemovedInSphinx40Warning, deprecated_alias
+from sphinx.deprecation import RemovedInSphinx50Warning, deprecated_alias
 from sphinx.util import docutils, logging
 from sphinx.util.docfields import DocFieldTransformer, Field, TypedField
 from sphinx.util.docutils import SphinxDirective
-from sphinx.util.typing import DirectiveOption
+from sphinx.util.typing import OptionSpec
 
-if False:
-    # For type annotation
+if TYPE_CHECKING:
     from sphinx.application import Sphinx
 
 
@@ -25,9 +33,10 @@ if False:
 nl_escape_re = re.compile(r'\\\n')
 strip_backslash_re = re.compile(r'\\(.)')
 
+T = TypeVar('T')
 logger = logging.getLogger(__name__)
 
-def optional_int(argument):
+def optional_int(argument: str) -> int:
     """
     Check for an integer argument or None value; raise ``ValueError`` if not.
     """
@@ -81,17 +90,7 @@ def get_platforms(name: str):
     except:
         return []
 
-def get_side_effect(name: str):
-    try:
-        api_doc = inspect.getdoc(get_api(name))
-        side_effect_str = re.findall(r'Side Effects Form:\n\s+(.*?)\n\n', api_doc)
-        side_effect_str = side_effect_str[0].strip()
-        side_effect_list = side_effect_str.split('\n')
-        return ["", "**副作用：**", ""] + side_effect_list + [""]
-    except:
-        return []
-
-class ObjectDescription(SphinxDirective):
+class ObjectDescription(SphinxDirective, Generic[T]):
     """
     Directive to describe a class, function or similar object.  Not used
     directly, but subclassed (in domain-specific directives) to add custom
@@ -102,15 +101,15 @@ class ObjectDescription(SphinxDirective):
     required_arguments = 1
     optional_arguments = 0
     final_argument_whitespace = True
-    option_spec = {
+    option_spec: OptionSpec = {
         'noindex': directives.flag,
     }  # type: Dict[str, DirectiveOption]
 
     # types of doc fields that this directive handles, see sphinx.util.docfields
-    doc_field_types = []    # type: List[Field]
-    domain = None           # type: str
-    objtype = None          # type: str
-    indexnode = None        # type: addnodes.index
+    doc_field_types: List[Field] = []
+    domain: str = None
+    objtype: str = None
+    indexnode: addnodes.index = None
 
     # Warning: this might be removed in future version. Don't touch this from extensions.
     _doc_field_type_map = {}  # type: Dict[str, Tuple[Field, bool]]
@@ -137,8 +136,11 @@ class ObjectDescription(SphinxDirective):
         Backslash-escaping of newlines is supported.
         """
         lines = nl_escape_re.sub('', self.arguments[0]).split('\n')
-        # remove backslashes to support (dummy) escapes; helps Vim highlighting
-        return [strip_backslash_re.sub(r'\1', line.strip()) for line in lines]
+        if self.config.strip_signature_backslash:
+            # remove backslashes to support (dummy) escapes; helps Vim highlighting
+            return [strip_backslash_re.sub(r'\1', line.strip()) for line in lines]
+        else:
+            return [line.strip() for line in lines]
 
     def handle_signature(self, sig: str, signode: desc_signature) -> Any:
         """
@@ -164,6 +166,15 @@ class ObjectDescription(SphinxDirective):
         """
         Called before parsing content. Used to set information about the current
         directive context on the build environment.
+        """
+        pass
+
+    def transform_content(self, contentnode: addnodes.desc_content) -> None:
+        """
+        Called after creating the content through nested parsing,
+        but before the ``object-description-transform`` event is emitted,
+        and before the info-fields are transformed.
+        Can be used to manipulate the content.
         """
         pass
 
@@ -216,14 +227,17 @@ class ObjectDescription(SphinxDirective):
         # 'desctype' is a backwards compatible attribute
         node['objtype'] = node['desctype'] = self.objtype
         node['noindex'] = noindex = ('noindex' in self.options)
+        if self.domain:
+            node['classes'].append(self.domain)
+        node['classes'].append(node['objtype'])
 
-        self.names = []  # type: List[Any]
+        self.names: List[T] = []
         signatures = self.get_signatures()
-        for i, sig in enumerate(signatures):
+        for sig in signatures:
             # add a signature node for each signature in the current unit
             # and add a reference target for it
             signode = addnodes.desc_signature(sig, '')
-            signode['first'] = False
+            self.set_source_info(signode)
             node.append(signode)
             try:
                 # name can also be a tuple, e.g. (classname, objname);
@@ -251,13 +265,12 @@ class ObjectDescription(SphinxDirective):
         try:
             example = get_example(self.names[0][0])
             platforms = get_platforms(self.names[0][0])
-            side_effect = get_side_effect(self.names[0][0])
-        except IndexError:
+        except Exception as e:
             example = ''
             platforms = ''
-            side_effect = ''
             logger.warning(f'Error API names in {self.arguments[0]}.')
-        extra = side_effect + platforms + example
+            logger.warning(f'{e}')
+        extra = platforms + example
         if extra:
             if self.objtype == "method":
                 self.content.data.extend(extra)
@@ -275,9 +288,10 @@ class ObjectDescription(SphinxDirective):
                     self.content.data.extend(extra)
         try:
             self.content.items.extend(self.extend_items(self.content.items[0][0], self.content.items[-1][1], len(extra)))
-        except IndexError:
-            logger.warning(f'{self.names[0][0]} has error format.')
+        except Exception as e:
+            logger.warning(f'{e}')
         self.state.nested_parse(self.content, self.content_offset, contentnode)
+        self.transform_content(contentnode)
         self.env.app.emit('object-description-transform',
                           self.domain, self.objtype, contentnode)
         DocFieldTransformer(self).transform_all(contentnode)
@@ -336,46 +350,8 @@ class DefaultDomain(SphinxDirective):
         self.env.temp_data['default_domain'] = self.env.domains.get(domain_name)
         return []
 
-from sphinx.directives.code import (  # noqa
-    Highlight, CodeBlock, LiteralInclude
-)
-from sphinx.directives.other import (  # noqa
-    TocTree, Author, VersionChange, SeeAlso,
-    TabularColumns, Centered, Acks, HList, Only, Include, Class
-)
-from sphinx.directives.patches import (  # noqa
-    Figure, Meta
-)
-from sphinx.domains.index import IndexDirective  # noqa
-
-deprecated_alias('sphinx.directives',
-                 {
-                     'Highlight': Highlight,
-                     'CodeBlock': CodeBlock,
-                     'LiteralInclude': LiteralInclude,
-                     'TocTree': TocTree,
-                     'Author': Author,
-                     'Index': IndexDirective,
-                     'VersionChange': VersionChange,
-                     'SeeAlso': SeeAlso,
-                     'TabularColumns': TabularColumns,
-                     'Centered': Centered,
-                     'Acks': Acks,
-                     'HList': HList,
-                     'Only': Only,
-                     'Include': Include,
-                     'Class': Class,
-                     'Figure': Figure,
-                     'Meta': Meta,
-                 },
-                 RemovedInSphinx40Warning)
-
-
-# backwards compatible old name (will be marked deprecated in 3.0)
-DescDirective = ObjectDescription
-
-
 def setup(app: "Sphinx") -> Dict[str, Any]:
+    app.add_config_value("strip_signature_backslash", False, 'env')
     directives.register_directive('default-role', DefaultRole)
     directives.register_directive('default-domain', DefaultDomain)
     directives.register_directive('describe', ObjectDescription)

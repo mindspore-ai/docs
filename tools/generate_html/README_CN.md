@@ -54,7 +54,7 @@
     比如构建2.0.0-alpha的发布版本：
 
     ```bash
-    python run.py --version="r2.0.0-alpha" --user="" --pd="" --wgetdir="" --release_url="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0a0"
+    python run.py --version="r2.0.0-alpha" --user="" --pd="" --wgetdir="" --release_url="https://ms-release.obs.cn-north-4.myhuaweicloud.com/"
     ```
 
     | 参数 | 值 | 必填 |

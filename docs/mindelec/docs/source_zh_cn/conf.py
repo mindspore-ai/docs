@@ -44,7 +44,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
-    'sphinx_markdown_tables',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -70,6 +69,8 @@ autodoc_inherit_docstrings = False
 
 autosummary_generate = True
 
+autosummary_generate_overwrite = False
+
 # -- Options for HTML output -------------------------------------------------
 
 # Reconstruction of sphinx auto generated document translation.
@@ -87,7 +88,7 @@ html_search_language = 'zh'
 html_search_options = {'dict': '../../../resource/jieba.txt'}
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 import nbsphinx_mod
 
 # Example configuration for intersphinx: refer to the Python standard library.
