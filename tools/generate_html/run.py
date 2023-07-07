@@ -425,7 +425,7 @@ if __name__ == "__main__":
     # 安装依赖
     print('安装版本所需额外依赖')
     extra_cmd = ["wget", "http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb"]
-    process = subprocess.Popen(cmd, stderr=subprocess.PIPE, encoding="utf-8")
+    process = subprocess.Popen(extra_cmd, stderr=subprocess.PIPE, encoding="utf-8")
     process.communicate()
     process.wait()
 
