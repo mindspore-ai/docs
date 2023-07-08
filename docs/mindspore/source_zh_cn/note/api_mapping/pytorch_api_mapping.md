@@ -35,20 +35,20 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 
 因为框架机制原因，MindSpore不提供PyTorch的以下参数：
 
-|    参数名     |                        功能                        |
-| :-----------: | :------------------------------------------------: |
-|      out      |                  表示输出的Tensor                  |
-|    layout     |                  表示内存分布策略                  |
-|    device     |                 表示Tensor存放位置                 |
-| requires_grad |                  表示是否更新梯度                  |
-|   generator   |                 表示伪随机数生成器                 |
-|  pin_memeory  |                表示是否使用锁页内存                |
-| memory_format |                表示Tensor的内存格式                |
-|    stable     |                  表示是否稳定排序                  |
-|    inplace    | 表示在不更改变量内存地址的情况下，直接修改变量的值 |
-|  sparse_grad  |                表示是否对梯度稀疏化                |
-| size_average  |                  PyTorch废弃参数                   |
-|    reduce     |                  PyTorch废弃参数                   |
+|      参数名      |                        功能                        |                              说明                              |
+|:-------------:| :------------------------------------------------: |:------------------------------------------------------------:|
+|      out      |                  表示输出的Tensor                  |                把运算结果赋值给out参数，MindSpore目前无此机制                 |
+|    layout     |                  表示内存分布策略                  | PyTorch支持torch.strided和torch.sparse_coo两种模式, MindSpore目前无此机制 |
+|    device     |                 表示Tensor存放位置                 |            包含设备类型及可选设备号，MindSpore目前支持算子或网络级别的设备调度            |
+| requires_grad |                  表示是否更新梯度                  |           MindSpore中可以通过`Parameter.requires_grad`控制           |
+|   generator   |                 表示伪随机数生成器                 |                MindSpore中通过随机数API的seed参数进行控制                 |
+|  pin_memeory  |                表示是否使用锁页内存                |                       MindSpore目前无此机制                        |
+| memory_format |                表示Tensor的内存格式                |                       MindSpore目前无此机制                        |
+|    stable     |                  表示是否稳定排序                  |                一般用在排序算法的API中，MindSpore目前无此功能                 |
+|    inplace    | 表示在不更改变量内存地址的情况下，直接修改变量的值 |           MindSpore目前提供少量inplace的API，例如`assign_add`等           |
+|  sparse_grad  |                表示是否对梯度稀疏化                |                       MindSpore目前无此机制                        |
+| size_average  |                  PyTorch废弃参数                   |                MindSpore中可以使用`reduction`参数替代                 |
+|    reduce     |                  PyTorch废弃参数                   |                MindSpore中可以使用`reduction`参数替代                 |
 
 ## PyTorch 1.8.1
 

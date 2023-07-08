@@ -35,20 +35,20 @@ mindspore.ops.argmax has only one API form, namely mindspore.ops.argmax(input, d
 
 Because of the framework mechanism, MindSpore does not provide the following parameters for PyTorch:
 
-| Parameter Names |                          Functions                           |
-| :-------------: | :----------------------------------------------------------: |
-|       out       |                 Indicates the output Tensor                  |
-|     layout      |          Indicates the memory distribution strategy          |
-|     device      |            Indicates the Tensor storage location             |
-|  requires_grad  |           Indicates whether to update the gradient           |
-|    generator    |        Indicates a generator for pseudorandom number         |
-|   pin_memeory   |         Indicates whether to use locking page memory         |
-|  memory_format  |          Indicates the memory format of the Tensor           |
-|     stable      |           Indicates whether the sorting is stable            |
-|     inplace     | Indicates that the value of a variable is modified directly without changing the memory address of the variable |
-|   sparse_grad   | Indicates whether to perform sparsification on the gradient  |
-|  size_average   |             The deprecated parameter in PyTorch              |
-|     reduce      |             The deprecated parameter in PyTorch              |
+| Parameter Names |                          Functions                           |Descriptions|
+| :-------------: | :----------------------------------------------------------: |:--:|
+|       out       |                 Indicates the output Tensor                  |Assign the operation result to the out parameter, not supported in MindSpore.|
+|     layout      |          Indicates the memory distribution strategy          |PyTorch supports torch.striped and torch.split_coo, not supported in MindSpore.|
+|     device      |            Indicates the Tensor storage location             |Including device type and optional device number, MindSpore currently supports operator or network-level device scheduling.|
+|  requires_grad  |           Indicates whether to update the gradient           |MindSpore can be accessed through the `Parameters.requires_grad` attribute to control.|
+|    generator    |        Indicates a generator for pseudorandom number         |In MindSpore, replaced with the parameter `seed` of the APIs of random number.|
+|   pin_memeory   |         Indicates whether to use locking page memory         |Not supported in MindSpore.|
+|  memory_format  |          Indicates the memory format of the Tensor           |Not supported in MindSpore.|
+|     stable      |           Indicates whether the sorting is stable            |Generally used in the API of Sorting algorithm, not supported in MindSpore.|
+|     inplace     | Indicates that the value of a variable is modified directly without changing the memory address of the variable |MindSpore currently provides some inplace APIs, such as `assign_add`.|
+|   sparse_grad   | Indicates whether to perform sparsification on the gradient  |Not supported in MindSpore.|
+|  size_average   |             The deprecated parameter in PyTorch              |The `reduction` parameter can be used instead.|
+|     reduce      |             The deprecated parameter in PyTorch              |The `reduction` parameter can be used instead.|
 
 ## PyTorch 1.8.1
 
