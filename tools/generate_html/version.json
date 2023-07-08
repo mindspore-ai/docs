@@ -1,24 +1,35 @@
 [
    {
       "id" : 1 ,
+      "name" : "lite",
+      "branch" : "r2.0.0-alpha",
+      "whl_path" : "2.0.0a0/MindSpore/lite/release/linux/x86_64/",
+      "whl_name" : "mindspore_lite-2.0.0a0-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "MS_PATH",
+      "uninstall_name" : "mindspore_lite",
+      "tar_path" : "/MindSpore/lite/release/linux/x86_64/",
+      "tar_name" : "mindspore-lite-2.0.0a0-linux-x64.tar.gz"
+   },
+   {
+      "id" : 2 ,
       "name" : "mindspore",
       "branch" : "r2.0.0-alpha",
-      "whl_path" : "/MindSpore/unified/x86_64/",
+      "whl_path" : "2.0.0a0/MindSpore/unified/x86_64/",
       "whl_name" : "mindspore-2.0.0a0-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MS_PATH",
       "uninstall_name" : "mindspore"
    }, 
    {
-      "id" : 2 ,
+      "id" : 3 ,
       "name" : "golden_stick",
       "branch" : "r0.3.0-alpha",
-      "whl_path" : "/GoldenStick/any/",
+      "whl_path" : "2.0.0a0/GoldenStick/any/",
       "whl_name" : "mindspore_gs-0.3.0-py3-none-any.whl",
       "environ" : "GS_PATH",
       "uninstall_name" : "mindspore_gs"
    },
    {
-      "id" : 12 ,
+      "id" : 4 ,
       "name" : "mindscience",
       "branch" : "r0.2.0-alpha",
       "whl_path" : "",
@@ -27,61 +38,61 @@
       "uninstall_name" : ""
    },
    {
-      "id" : 3 ,
+      "id" : 5 ,
       "name" : "mindelec",
       "branch" : "r0.2.0-alpha",
-      "whl_path" : "/MindScience/x86_64/",
+      "whl_path" : "2.0.0a0/MindScience/x86_64/",
       "whl_name" : "mindscience_mindelec_ascend-0.2.0a0-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MSC_PATH",
       "uninstall_name" : "mindscience_mindelec_ascend"
    },
    {
-      "id" : 4 ,
+      "id" : 6 ,
       "name" : "mindsponge",
       "branch" : "r1.0.0-alpha",
-      "whl_path" : "/MindScience/gpu/x86_64/cuda-10.1/",
+      "whl_path" : "2.0.0a0/MindScience/gpu/x86_64/cuda-10.1/",
       "whl_name" : "mindsponge_gpu-1.0.0a0-py3-none-any.whl",
       "environ" : "MSC_PATH",
       "uninstall_name" : "mindsponge_gpu"
    },
    {
-      "id" : 5 ,
+      "id" : 7 ,
       "name" : "mindflow",
       "branch" : "r0.1.0-alpha",
-      "whl_path" : "/MindScience/gpu/x86_64/cuda-10.1/",
+      "whl_path" : "2.0.0a0/MindScience/gpu/x86_64/cuda-10.1/",
       "whl_name" : "mindflow_gpu-0.1.0a0-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MSC_PATH",
       "uninstall_name" : "mindflow_gpu"
    },
    {
-      "id" : 6 ,
+      "id" : 8 ,
       "name" : "reinforcement",
       "branch" : "r0.6.0-alpha",
-      "whl_path" : "/Reinforcement/any/",
+      "whl_path" : "2.0.0a0/Reinforcement/any/",
       "whl_name" : "mindspore_rl-0.6.0a0-py3-none-any.whl",
-      "environ" : "RM_PATH",
+      "environ" : "",
       "uninstall_name" : "mindspore_rl"
    },
    {
-      "id" : 7 ,
+      "id" : 9 ,
       "name" : "mindinsight",
       "branch" : "r2.0.0-alpha",
-      "whl_path" : "/MindInsight/any/",
+      "whl_path" : "2.0.0a0/MindInsight/any/",
       "whl_name" : "mindinsight-2.0.0a0-py3-none-any.whl",
       "environ" : "MI_PATH",
       "uninstall_name" : "mindinsight"
    },
    {
-      "id" : 8 ,
+      "id" : 10 ,
       "name" : "graphlearning",
       "branch" : "r0.2.0-alpha",
-      "whl_path" : "/GraphLearning/cpu/x86_64/",
+      "whl_path" : "2.0.0a0/GraphLearning/cpu/x86_64/",
       "whl_name" : "mindspore_gl-0.2.0a0-cp37-cp37m-linux_x86_64.whl",
       "environ" : "GL_PATH",
       "uninstall_name" : "mindspore_gl"
    },
    {
-      "id" : 9 ,
+      "id" : 11 ,
       "name" : "tutorials",
       "branch" : "r2.0.0-alpha",
       "whl_path" : "",
@@ -90,21 +101,10 @@
       "uninstall_name" : ""
    },
    {
-      "id" : 10 ,
-      "name" : "lite",
-      "branch" : "r2.0.0-alpha",
-      "whl_path" : "/MindSpore/lite/release/linux/x86_64/",
-      "whl_name" : "mindspore_lite-2.0.0a0-cp37-cp37m-linux_x86_64.whl",
-      "environ" : "MS_PATH",
-      "uninstall_name" : "mindspore_lite",
-      "tar_path" : "/MindSpore/lite/release/linux/x86_64/",
-      "tar_name" : "mindspore-lite-2.0.0a0-linux-x64.tar.gz"
-   },
-   {
-      "id" : 11 ,
+      "id" : 12 ,
       "name" : "mindquantum",
       "branch" : "r0.8",
-      "whl_path" : "/MindQuantum/x86_64/",
+      "whl_path" : "2.0.0a0/MindQuantum/x86_64/",
       "whl_name" : "mindquantum-0.8.0-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MQ_PATH",
       "uninstall_name" : "mindquantum"

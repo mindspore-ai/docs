@@ -2,6 +2,8 @@
 使用json文件自动化生成mindspore各组件的html页面
 """
 import argparse
+import copy
+import glob
 import json
 import os
 import pickle
@@ -52,6 +54,29 @@ def flush(dir_path):
         shutil.rmtree(dir_path)
     os.makedirs(dir_path)
 
+def generate_version_json(repo_name, branch, js_data, version, target_path):
+    """
+    基于base_version.json文件给每个组件生成对应的version.json文件。
+    """
+    for d in range(len(js_data)):
+        if js_data[d]['repo_name'] == repo_name:
+            write_content = copy.deepcopy(js_data[d])
+            if not write_content['version']:
+                write_content['version'] = branch
+            write_content.pop("repo_name", None)
+            if js_data[d]['repo_name'] != 'mindspore':
+                filename = js_data[d]['repo_name']
+            else:
+                filename = "docs"
+            if version != "daily" and "submenu" in write_content.keys():
+                for url in write_content["submenu"]["zh"]:
+                    url["url"] = url["url"].replace('/master/', f'/{branch}/')
+                for url in write_content["submenu"]["en"]:
+                    url["url"] = url["url"].replace('/master/', f'/{branch}/')
+            with open(os.path.join(target_path, f"{filename}_version.json"), 'w+', encoding='utf-8') as g:
+                json.dump(write_content, g, indent=4)
+            break
+
 #######################################
 # 运行检测
 #######################################
@@ -82,6 +107,12 @@ def main(version, user, pd, WGETDIR, release_url):
         with open(os.path.join(os.path.dirname(__file__), "version.json"), 'r+', encoding='utf-8') as f:
             data = json.load(f)
 
+    with open(os.path.join(os.path.dirname(__file__), "base_version.json"), 'r+', encoding='utf-8') as g:
+        data_b = json.load(g)
+
+    target_version = f"{MAINDIR}/{version}_version"
+    flush(target_version)
+
     flush(WHLDIR)
     # 遍历json数据做好生成html前的准备
     # pylint: disable=R1702
@@ -102,14 +133,23 @@ def main(version, user, pd, WGETDIR, release_url):
         else:
             ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
 
+        if data[i]['name'] != "mindscience":
+            generate_version_json(data[i]['name'], data[i]["branch"], data_b, version, target_version)
+
         # 克隆仓库与配置环境变量
         repo_name = data[i]['name'].replace('_', '-')
         repo_url = f"https://gitee.com/mindspore/{repo_name}.git"
         repo_path = f"{REPODIR}/{data[i]['name']}"
         branch_ = data[i]["branch"]
-        if  data[i]['name'] == "devtoolkit":
+        if data[i]['name'] == "devtoolkit":
             repo_url = f"https://gitee.com/mindspore/ide-plugin.git"
             repo_path = f"{REPODIR}/ide-plugin"
+        elif data[i]['name'] == "reinforcement":
+            repo_url = f"https://github.com/mindspore-lab/mindrl.git"
+            repo_path = f"{REPODIR}/mindrl"
+        elif data[i]['name'] == "recommender":
+            repo_url = f"https://github.com/mindspore-lab/mindrec.git"
+            repo_path = f"{REPODIR}/mindrec"
 
         status_code = requests.get(f"{repo_url}").status_code
         if status_code == 200:
@@ -134,10 +174,14 @@ def main(version, user, pd, WGETDIR, release_url):
         if version == "daily":
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
             s = requests.session()
-            res = s.get(WGETDIR, auth=(user, pd), verify=False)
+            if data[i]['name'] == "reinforcement" or data[i]['name'] == "recommender":
+                wgetdir = WGETDIR + "mindspore-lab"
+            else:
+                wgetdir = WGETDIR + "mindspore"
+            res = s.get(wgetdir, auth=(user, pd), verify=False)
             requests.packages.urllib3.disable_warnings()
             if data[i]['whl_path'] != "":
-                url = f"{WGETDIR}/{data[i]['whl_path']}"
+                url = f"{wgetdir}/{data[i]['whl_path']}"
                 if not url.endswith(".html") and not url.endswith("/"):
                     url += "/"
                 re_name = data[i]['whl_name'].replace('.whl', '\\.whl')
@@ -155,10 +199,11 @@ def main(version, user, pd, WGETDIR, release_url):
                             with open(title, 'wb') as fd:
                                 shutil.copyfileobj(dowmloaded.raw, fd)
                             print(f"Download {title} success!")
+                            time.sleep(1)
 
             if 'tar_path' in data[i].keys():
                 if data[i]['tar_path'] != '':
-                    url = f"{WGETDIR}/{data[i]['tar_path']}"
+                    url = f"{wgetdir}/{data[i]['tar_path']}"
                     if not url.endswith(".html") and not url.endswith("/"):
                         url += "/"
                     re_name = data[i]['tar_name'].replace('.tar.gz', '\\.tar\\.gz')
@@ -234,6 +279,7 @@ def main(version, user, pd, WGETDIR, release_url):
         else:
             os.chdir(os.path.join(DOCDIR, "../../docs", i))
         subprocess.run(["pip", "install", "-r", "requirements.txt"])
+
         try:
             if replace_flag:
                 from docutils import nodes
@@ -245,43 +291,6 @@ def main(version, user, pd, WGETDIR, release_url):
                 replace_flag = 0
         except ModuleNotFoundError:
             pass
-        if os.path.exists("source_zh_cn"):
-            # 输出中文
-            try:
-                print(f"当前输出-{i}- 的-中文-版本---->")
-                with open("Makefile", "r+") as f:
-                    content = f.read()
-                    content_mod = content.replace("source_en", "source_zh_cn")\
-                        .replace("build_en", "build_zh_cn")
-                    f.seek(0)
-                    f.truncate()
-                    f.write(content_mod)
-                subprocess.run(["make", "clean"])
-                cmd_make = ["make", "html"]
-                process = subprocess.Popen(cmd_make, stderr=subprocess.PIPE, encoding="utf-8")
-                _, stderr = process.communicate()
-                process.wait()
-                if stderr:
-                    for j in stderr.split("\n"):
-                        if ": WARNING:" in j:
-                            error_lists.append(deal_err(j))
-                if process.returncode != 0:
-                    print(f"{i} 的 中文版本运行失败")
-                    print(stderr)
-                    failed_list.append(stderr)
-                    failed_name_list.append(f'{i}的中文版本')
-                else:
-                    if i == "mindspore":
-                        TARGET = f"{OUTPUTDIR}/docs/zh-CN/{ArraySource[i]}"
-                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
-                        shutil.copytree("build_zh_cn/html", TARGET)
-                    else:
-                        TARGET = f"{OUTPUTDIR}/{i}/zh-CN/{ArraySource[i]}"
-                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
-                        shutil.copytree("build_zh_cn/html", TARGET)
-            # pylint: disable=W0702
-            except:
-                print(f"{i} 的 中文版本运行失败")
 
         # 输出英文
         if os.path.exists("source_en"):
@@ -322,6 +331,44 @@ def main(version, user, pd, WGETDIR, release_url):
             except:
                 print(f"{i} 的 英文版本运行失败")
 
+        # 输出中文
+        if os.path.exists("source_zh_cn"):
+            try:
+                print(f"当前输出-{i}- 的-中文-版本---->")
+                with open("Makefile", "r+") as f:
+                    content = f.read()
+                    content_mod = content.replace("source_en", "source_zh_cn")\
+                        .replace("build_en", "build_zh_cn")
+                    f.seek(0)
+                    f.truncate()
+                    f.write(content_mod)
+                subprocess.run(["make", "clean"])
+                cmd_make = ["make", "html"]
+                process = subprocess.Popen(cmd_make, stderr=subprocess.PIPE, encoding="utf-8")
+                _, stderr = process.communicate()
+                process.wait()
+                if stderr:
+                    for j in stderr.split("\n"):
+                        if ": WARNING:" in j:
+                            error_lists.append(deal_err(j))
+                if process.returncode != 0:
+                    print(f"{i} 的 中文版本运行失败")
+                    print(stderr)
+                    failed_list.append(stderr)
+                    failed_name_list.append(f'{i}的中文版本')
+                else:
+                    if i == "mindspore":
+                        TARGET = f"{OUTPUTDIR}/docs/zh-CN/{ArraySource[i]}"
+                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
+                        shutil.copytree("build_zh_cn/html", TARGET)
+                    else:
+                        TARGET = f"{OUTPUTDIR}/{i}/zh-CN/{ArraySource[i]}"
+                        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
+                        shutil.copytree("build_zh_cn/html", TARGET)
+            # pylint: disable=W0702
+            except:
+                print(f"{i} 的 中文版本运行失败")
+
     # 将每个组件的warning写入文件
     if error_lists:
         with open(os.path.join(WORKDIR, 'err.txt'), 'wb') as f:
@@ -361,6 +408,7 @@ if __name__ == "__main__":
     parser.add_argument('--pd', type=str, default="") # repo url password
     parser.add_argument('--wgetdir', type=str, default="") # repo url
     parser.add_argument('--release_url', type=str, default="") # repo url
+    parser.add_argument('--theme', type=str, default="") # theme.css/js
     args = parser.parse_args()
 
     password = args.pd
@@ -374,6 +422,70 @@ if __name__ == "__main__":
     # 开始执行
     try:
         main(version=args.version, user=args.user, pd=password, WGETDIR=args.wgetdir, release_url=args.release_url)
+        theme_list = []
+        output_path = f"{MAINDIR}/{args.version}/output"
+        version_path = f"{MAINDIR}/{args.version}_version/"
+        for dir_name in os.listdir(output_path):
+            if os.path.isfile(os.path.join(output_path, dir_name)):
+                continue
+            if dir_name == 'docs':
+                theme_list.append(dir_name)
+            elif dir_name == 'tutorials':
+                theme_list.append(dir_name + '/application')
+                theme_list.append(dir_name + '/experts')
+                theme_list.append(dir_name)
+            elif dir_name == 'lite':
+                theme_list.append(dir_name + '/docs')
+                theme_list.append(dir_name + '/faq')
+                theme_list.append(dir_name + '/api')
+            else:
+                theme_list.append(dir_name + '/docs')
+        theme_path = args.theme
+        for f_name in os.listdir(theme_path):
+            if os.path.isfile(os.path.join(theme_path, f_name)):
+                if os.path.exists(os.path.join(output_path, f_name)):
+                    os.remove(os.path.join(output_path, f_name))
+                shutil.copy(os.path.join(theme_path, f_name), os.path.join(output_path, f_name))
+        # pylint: disable=W0621
+        for lg in ['en', 'zh-CN']:
+            # pylint: disable=W0621
+            for out_name in theme_list:
+                try:
+                    static_path_css = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/theme.css")[0]
+                    static_path_js = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/theme.js")[0]
+                    static_path_version = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/")[0]
+                    static_path_version = os.path.join(static_path_version, "version.json")
+                    if 'lite' in out_name or 'tutorials' in out_name:
+                        css_path = f"theme-{out_name.split('/')[0]}/theme.css"
+                        js_path = f"theme-{out_name.split('/')[0]}/theme.js"
+                    else:
+                        css_path = "theme-docs/theme.css"
+                        js_path = "theme-docs/theme.js"
+                    static_path_new_css = os.path.join(theme_path, css_path)
+                    static_path_new_js = os.path.join(theme_path, js_path)
+                    out_name_1 = out_name.split('/')[0]
+                    static_path_new_version = os.path.join(version_path, f"{out_name_1}_version.json")
+                    fonts_dir_1 = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/fonts/")
+                    fonts_dir_2 = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/fonts/")
+                    if fonts_dir_1 and os.path.exists(fonts_dir_1[0]):
+                        shutil.rmtree(fonts_dir_1[0])
+                    if fonts_dir_2 and os.path.exists(fonts_dir_2[0]):
+                        shutil.rmtree(fonts_dir_2[0])
+                    if os.path.exists(static_path_css):
+                        os.remove(static_path_css)
+                    shutil.copy(static_path_new_css, static_path_css)
+                    if os.path.exists(static_path_js):
+                        os.remove(static_path_js)
+                    shutil.copy(static_path_new_js, static_path_js)
+                    if os.path.exists(static_path_version):
+                        os.remove(static_path_version)
+                    shutil.copy(static_path_new_version, static_path_version)
+                # pylint: disable=W0702
+                # pylint: disable=W0703
+                except Exception as e:
+                    print(f'替换{out_name}下的样式文件失败!\n{e}')
+                    continue
+        print(f'替换样式文件成功!')
     except (KeyboardInterrupt, SystemExit):
         print("程序即将终止....")
         time.sleep(1)
