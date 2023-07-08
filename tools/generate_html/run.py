@@ -154,9 +154,9 @@ def main(version, user, pd, WGETDIR, release_url):
         status_code = requests.get(f"{repo_url}").status_code
         if status_code == 200:
             try:
-                git_clone(repo_url, repo_path)
-                git_update(repo_path, branch_)
                 if data[i]['environ']:
+                    git_clone(repo_url, repo_path)
+                    git_update(repo_path, branch_)
                     os.environ[data[i]['environ']] = repo_path
             except KeyError:
                 print(f'{repo_name}仓库克隆或更新失败')
