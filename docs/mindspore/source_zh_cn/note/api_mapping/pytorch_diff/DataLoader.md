@@ -46,15 +46,18 @@ MindSpore：GeneratorDataset需要接收一个数据加载类、采样器、混�
 |     | 参数9 | drop_last   | -  | MindSpore通过 `mindspore.dataset.batch` 操作支持 |
 |     | 参数10 | timeout   | -  | MindSpore不支持 |
 |     | 参数11 | worker_init_fn   | -  | MindSpore不支持 |
-|     | 参数12 | prefetch_factor   | -  | 定义在 `mindspore.dataset.config.set_prefetch_size` 中 |
-|     | 参数13 | -   | column_names   | 指定数据集生成的列名 |
-|     | 参数14 | -   | column_types   | 指定生成数据集各个数据列的数据类型 |
-|     | 参数15 | -   | schema   | 数据格式策略，用于指定读取数据列的数据类型、数据维度等信 |
-|     | 参数16 | -   | num_samples   | 指定从数据集中读取的样本数 |
-|     | 参数17 | -   | num_shards   | 指定分布式训练时将数据集进行划分的分片数 |
-|     | 参数18 | -   | shard_id   | 指定分布式训练时使用的分片ID号 |
-|     | 参数19 | -   | python_multiprocessing    | 指定是否启用Python多进程模式加速运算 |
-|     | 参数20 | -   | max_rowsize    | 指定在多进程之间复制数据时，共享内存分配的最大空间 |
+|     | 参数12 | multiprocessing_context   | -  | 多进程上下文，MindSpore不支持 |
+|     | 参数13 | generator   | -  | 自定义索引生成器，MindSpore不支持 |
+|     | 参数14 | prefetch_factor   | -  | 定义在 `mindspore.dataset.config.set_prefetch_size` 中 |
+|     | 参数15 | persistent_workers  | -  | 指定遍历完一次数据后是否释放数据集对象， MindSpore通过 `create_tuple_iterator` 的 `num_epoch` 参数支持，如果设置参数大于1则与 `persistent_workers` 为True一致 |
+|     | 参数16 | -   | column_names   | 指定数据集生成的列名 |
+|     | 参数17 | -   | column_types   | 指定生成数据集各个数据列的数据类型 |
+|     | 参数18 | -   | schema   | 数据格式策略，用于指定读取数据列的数据类型、数据维度等信 |
+|     | 参数19 | -   | num_samples   | 指定从数据集中读取的样本数 |
+|     | 参数20 | -   | num_shards   | 指定分布式训练时将数据集进行划分的分片数 |
+|     | 参数21 | -   | shard_id   | 指定分布式训练时使用的分片ID号 |
+|     | 参数22 | -   | python_multiprocessing    | 指定是否启用Python多进程模式加速运算 |
+|     | 参数23 | -   | max_rowsize    | 指定在多进程之间复制数据时，共享内存分配的最大空间 |
 
 ### 代码示例1
 
