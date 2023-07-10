@@ -39,8 +39,8 @@ MindSpore：读取LJSpeech数据集，不支持下载。
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | ---   | ---   | ---        |---  |
 |参数 | 参数1 | root    | dataset_dir    | - |
-|     | 参数2 | url      | MindSpore不支持    |- |
-|     | 参数3 | folder_in_archive      | MindSpore不支持    | - |
+|     | 参数2 | url      | -    |MindSpore不支持 |
+|     | 参数3 | folder_in_archive      | - | MindSpore不支持  |
 |     | 参数4 | download    | -   | MindSpore不支持 |
 |     | 参数5 | -    | num_samples | 指定从数据集中读取的样本数 |
 |     | 参数6 | -    | num_parallel_workers | 指定读取数据的工作线程数 |
