@@ -4,7 +4,7 @@
 
 ## Overview
 
-For reliability requirements during training, MindSpore provides **dynamic cluster** features that enable users to start Ascend/GPU/CPU distributed training tasks without relying on any third-party library (OpenMPI) and without any modification to the training script. We recommend users to use this startup method in preference. Users can click [Multi-Card Startup Method](https://www.mindspore.cn/tutorials/experts/en/master/parallel/overview.html#multi-card-startup-method) to check the support of multi-card startup method on different platforms.
+For reliability requirements during training, MindSpore provides **dynamic cluster** features that enable users to start Ascend/GPU/CPU distributed training tasks without relying on any third-party library (OpenMPI) and without any modification to the training script. We recommend users to use this startup method in preference. Users can click [Multi-Card Startup Method](https://www.mindspore.cn/tutorials/experts/en/master/parallel/startup_method.html) to check the support of multi-card startup method on different platforms.
 
 OpenMPI synchronizes data on the Host side and clustering between processes in a distributed training scenario. The MindSpore **Dynamic Cluster** feature replaces the OpenMPI capability by **reusing the Parameter Server mode training architecture**, which can be found in the [Parameter Server Mode](https://mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html) training tutorial.
 
@@ -36,7 +36,7 @@ Several environment variables need to be exported before the training script can
             <ul>
                 <li>MS_SCHED: Represents a Scheduler process. Only one Scheduler is started for a training task, responsible for cluster, disaster recovery, etc. <b>No training code is executed</b>.</li>
                 <li>MS_WORKER: Represents the Worker process, and generally sets the distributed training process to this role.</li>
-                <li>MS_PSERVER: Represents Parameter Server process. This role is only available in Parameter Server mode. For more details, refer to <a link="(https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html">Parameter Server Mode</a>.</li>
+                <li>MS_PSERVER: Represents Parameter Server process. This role is only available in Parameter Server mode. For more details, refer to <a href="https://mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html">Parameter Server Mode</a>.</li>
             </ul>
         </td>
         <td align="left">The Worker and Parameter Server processes will register with the Scheduler process to complete the cluster.</td>
