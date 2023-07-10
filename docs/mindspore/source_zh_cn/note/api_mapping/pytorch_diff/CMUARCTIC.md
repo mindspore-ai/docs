@@ -41,7 +41,7 @@ MindSpore：读取CMU Arctic数据集，不支持下载。
 | --- | ---   | ---   | ---        |---  |
 |参数 | 参数1 | root    | dataset_dir    | - |
 |     | 参数2 | url      | name    |- |
-|     | 参数3 | folder_in_archive      | MindSpore不支持    | - |
+|     | 参数3 | folder_in_archive      | -    | MindSpore不支持|
 |     | 参数4 | download    | -   | MindSpore不支持 |
 |     | 参数5 | -    | num_samples | 指定从数据集中读取的样本数 |
 |     | 参数6 | -    | num_parallel_workers | 指定读取数据的工作线程数 |

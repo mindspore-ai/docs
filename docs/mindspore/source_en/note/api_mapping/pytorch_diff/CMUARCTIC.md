@@ -10,7 +10,6 @@ class torchaudio.datasets.CMUARCTIC(
     url: str = 'aew',
     folder_in_archive: str = 'ARCTIC',
     download: bool = False)
-    )
 ```
 
 For more information, see [torchaudio.datasets.CMUARCTIC](https://pytorch.org/audio/0.8.0/datasets.html#cmuarctic).
@@ -42,7 +41,7 @@ MindSpore: Read the CMU Arctic dataset. Download dataset from web is not support
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |
 |     | Parameter2 | url      | name    |- |
-|     | Parameter3 | folder_in_archive      | Not supported by MindSpore    |- |
+|     | Parameter3 | folder_in_archive      | -    |Not supported by MindSpore |
 |     | Parameter4 | download    | -   | Not supported by MindSpore |
 |     | Parameter5 | -    | num_samples |  The number of images to be included in the dataset |
 |     | Parameter6 | -    | num_parallel_workers | Number of worker threads to read the data |

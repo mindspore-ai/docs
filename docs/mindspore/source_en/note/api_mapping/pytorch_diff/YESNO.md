@@ -39,8 +39,8 @@ MindSpore: Read the YesNo dataset. Download dataset from web is not supported.
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |
-|     | Parameter2 | url      | Not supported by MindSpore    |- |
-|     | Parameter3 | folder_in_archive      | Not supported by MindSpore    |- |
+|     | Parameter2 | url      | -    |Not supported by MindSpore|
+|     | Parameter3 | folder_in_archive      | - |Not supported by MindSpore|
 |     | Parameter4 | download    | -   | Not supported by MindSpore |
 |     | Parameter5 | -    | num_samples |  The number of images to be included in the dataset |
 |     | Parameter6 | -    | num_parallel_workers | Number of worker threads to read the data |
