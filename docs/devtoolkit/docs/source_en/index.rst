@@ -48,6 +48,7 @@ System Requirements
 
    VSCode_plugin_install
    VSCode_smart_completion
+   VSCode_api_scan
 
 .. toctree::
    :glob:
