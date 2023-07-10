@@ -18,11 +18,11 @@ For more information, see [torchtext.datasets.IWSLT2017](https://pytorch.org/tex
 ```python
 class mindspore.dataset.IWSLT2017Dataset(
     dataset_dir,
-    usage='None',
+    usage=None,
     language_pair=None,
     num_samples=None,
     num_parallel_workers=None,
-    shuffle='Shuffle.GLOBAL',
+    shuffle=Shuffle.GLOBAL,
     num_shards=None,
     shard_id=None,
     cache=None)

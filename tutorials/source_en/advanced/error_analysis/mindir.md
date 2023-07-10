@@ -6,7 +6,7 @@
 
 When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and `set_context(save_graphs=2)` is set in the configuration, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. Currently, there are two IR files:
 
-- .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors. By setting environment variable `export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`, an deep sorted ir can be generated. It can be switched back to the default ir file by setting environment variable `MS_DEV_SAVE_GRAPTHS_SORT_MODE` to any other value rather than 1.
+- .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors. By setting environment variable `export MS_DEV_SAVE_GRAPHS_SORT_MODE=1`, an deep sorted ir can be generated. The ir graphs will be printed in calling order of them. It can be switched back to the default ir file by setting environment variable `export MS_DEV_SAVE_GRAPHS_SORT_MODE=1`.
 - .dot file: When `set_context(save_graphs=3)` is set in the configuration, an IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize computing graphs.
 
 ## Saving IR
@@ -88,7 +88,7 @@ print(out)
 
 ### ir Introduction
 
-Use a text editing software (for example, `vi`) to open the `14_validate_0042.ir` file output after execution. The file contents are as follows (Here is MindSpore 2.1, and the content may have some imperceptible changes with the version upgrade):
+Use a text editing software (for example, `vi`) to open the `17_execute_0765.ir` file output after execution. The file contents are as follows (Here is MindSpore 2.1, and the content may have some imperceptible changes with the version upgrade):
 
 ```text
   1 # IR entry: @20_1___main___Net_construct.295
@@ -183,7 +183,7 @@ The above contents can be divided into two parts. The first part is the input li
 - Line 1 tells us `@20_1___main___Net_construct.295`, the name of the top MindSpore graph about the network, which is the entry graph.
 - Line 2 tells us the number of subgraph parsed by the network. There are 3 graphs in this IR. Line 13 is the entry graph `20_1___main___Net_construct.295`. Line 52 is graph `21_3_✓__main___Net_construct.296`, parsed from the block when the condition of the if statement in the network is true. Line 74 is graph `22_15_✗__main___Net_construct.297`, parsed from the block when the condition of the if statement in the network is false.
 - Line 6 tells us how many inputs are in the network.
-- Line 10 to 11 are the input list, which is in the format of `%para[No.]_[name] : <[data_type]x[shape]>`.
+- Line 10 to 11 are the input list, which is in the format of `%para[No.]_[name] : <[data_type], (shape)>`.
 
 Taking graph `@20_1___main___Net_construct.295` as an example:
 
@@ -208,96 +208,103 @@ About the corresponding source code:
 
 ### deep sorted ir Introduction
 
-Use a text editing software (for example, `vi`) to open the `14_validate_0042.ir` file after setting environment variable `export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`. The file contents are as follows (Here is MindSpore 2.1, and the content may have some imperceptible changes with the version upgrade):
+Use a text editing software (for example, `vi`) to open the `04_abstract_specialize_0004.ir` file after setting environment variable `export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1` and run the following example:
 
 ```text
-  1 #IR entry      : @20_1___main___Net_construct.278
+  1 import mindspore as ms
+  2 import mindspore.nn as nn
+  3 from mindspore import ops
+  4
+  5 ms.set_context(mode=ms.GRAPH_MODE)
+  6 ms.set_context(save_graphs=2, save_graphs_path="./ir")
+  7
+  8 class Net(nn.Cell):
+  9     def __init__(self):
+ 10         super().__init__()
+ 11
+ 12     def func(x, y):
+ 13         return ops.mul(x, y)
+ 14
+ 15     def construct(self, x, y):
+ 16         b = self.func(x, y)
+ 17         return b
+ 18
+ 19 input1 = ms.Tensor(3, ms.float32)
+ 20 input2 = ms.Tensor(2, ms.float32)
+ 21 net = Net()
+ 22 out = net(input1, input2)
+ 23 print(out)
+```
+
+The file contents are as follows (Here is MindSpore 2.1, and the content may have some imperceptible changes with the version upgrade):
+
+```text
+  1 #IR entry      : @1___main___Net_construct.12
   2 #Total subgraph: 3
   3
   4 #attrs         :
-  5 check_set_strategy_valid_once_only : 1
-  6 auto_parallel_finish_pre_action : 1
-  7 # Total params: 2
-  8 # Params:
-  9 %para1_x : <Tensor[Float32], ()>
- 10 %para2_y : <Tensor[Float32], ()>
- 11
- 12 subgraph attr:
- 13 check_set_strategy_valid_once_only : 1
- 14 auto_parallel_finish_pre_action : 1
- 15 subgraph instance: 20_1___main___Net_construct.278 : 0x55d2f2a15e70
- 16 # In file t2.py:15/    def construct(self, x, y):/
- 17 subgraph @20_1___main___Net_construct.278() {
- 18   %0(a) = Sub(%para1_x, Tensor(shape=[], dtype=Float32, value=1)) primitive_attrs: {output_names: [output], input_names: [x, y]}
- 19       : (<Tensor[Float32], ()>, <Tensor[Float32], (), value=...>) -> (<Tensor[Float32], ()>)
+  5 # Total params: 2
+  6 # Params:
+  7 %para1_x : <Tensor[Float32], ()>
+  8 %para2_y : <Tensor[Float32], ()>
+  9
+ 10 subgraph attr:
+ 11 subgraph instance: 1___main___Net_construct.12 : 0x55844586acc0
+ 12 # In file t6.py:15/    def construct(self, x, y):/
+ 13 subgraph @1___main___Net_construct.12() {
+ 14   %0(b) = call @2_func.13(%para1_x, %para2_y)
+ 15       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 16       # Scope: (Default)
+ 17       # In file t6.py:16/        b = self.func(x, y)/
+ 18   Return(%0)
+ 19       : (<Tensor[Float32], ()>)
  20       # Scope: (Default)
- 21       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:839/    return tensor_sub(input, other)/
- 22   %1(b) = Add(%0, %para2_y) primitive_attrs: {output_names: [output], input_names: [x, y]}
- 23       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 24       # Scope: (Default)
- 25       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:316/    return _get_cache_prim(P.Add)()(input, other)/
- 26   %2([CNode]257) = Cast(%1, Bool) primitive_attrs: {output_names: [output], input_names: [x, dst_type], SrcT: F32, DstT: Bool}
- 27       : (<Tensor[Float32], ()>, <TypeType, NoShape>) -> (<Tensor[Bool], ()>)
- 28       # Scope: (Default)
- 29       # In file /workspace/mindspore/build/package/mindspore/_extends/parse/standard_method.py:3359/    return F.cast(x, mstype.bool_)/
- 30   %3([CNode]281) = Partial(@21_3_✓__main___Net_construct.279, %1, %0) primitive_attrs: {side_effect_propagate: I64(1)}
- 31       : (<Func, NoShape>, <Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Func, NoShape>)
- 32       # Scope: (Default)
- 33   %4([CNode]282) = Partial(@22_15_✗__main___Net_construct.280, %1) primitive_attrs: {side_effect_propagate: I64(1)}
- 34       : (<Func, NoShape>, <Tensor[Float32], ()>) -> (<Func, NoShape>)
+ 21       # In file t6.py:17/        return b/
+ 22 }
+ 23 # Order:
+ 24 #   1: @1___main___Net_construct.12:b{[0]: ValueNode<FuncGraph> 2_func.13, [1]: x, [2]: y}
+ 25 #   2: @1___main___Net_construct.12:[CNode]5{[0]: ValueNode<Primitive> Return, [1]: b}
+ 26
+ 27
+ 28 subgraph attr:
+ 29 undeterminate : 0
+ 30 subgraph instance: 2_func.13 : 0x55844588f4d0
+ 31 # In file t6.py:12/    def func(x, y):/
+ 32 subgraph @2_func.13(%para3_x, %para4_y) {
+ 33   %0([CNode]8) = call @3_mul.14(%para3_x, %para4_y)
+ 34       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
  35       # Scope: (Default)
- 36   %5([CNode]6) = Switch(%2, %3, %4)
- 37       : (<Tensor[Bool], ()>, <Func, NoShape>, <Func, NoShape>) -> (<Func, NoShape>)
- 38       # Scope: (Default)
- 39       # In file t2.py:18/        if b :/
- 40   %6([CNode]9) = %5[@FuncUnion(@21_3_✓__main___Net_construct.279, @22_15_✗__main___Net_construct.280)]()
- 41       : () -> (<Tensor[Float32], ()>)
- 42       # Scope: (Default)
- 43       # In file t2.py:18/        if b :/
- 44   Return(%6)
- 45       : (<Tensor[Float32], ()>)
- 46       # Scope: (Default)
- 47       # In file t2.py:18/        if b :/
- 48 }
- 49
- 50
- 51 switch_input: 1
- 52 subgraph attr:
- 53 defer_inline : 0
- 54 undeterminate : 0
- 55 subgraph instance: 21_3_✓__main___Net_construct.279 : 0x55d2f2ab79c0
- 56 # In file t2.py:18/        if b :/
- 57 subgraph @21_3_✓__main___Net_construct.279(%para3_b, %para4_a) {
- 58   %0([CNode]19) = Div(%para4_a, %para3_b) primitive_attrs: {output_names: [output], input_names: [x, y]}
- 59       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 60       # Scope: (Default)
- 61       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:998/    output = _get_cache_prim(P.Div)()(input, other)/
- 62   %1(b) = Mul(%para3_b, %0) primitive_attrs: {output_names: [output], input_names: [x, y]}
- 63       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 64       # Scope: (Default)
- 65       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:929/    return tensor_mul(input, other)/
- 66   Return(%1)
- 67       : (<Tensor[Float32], ()>)
- 68       # Scope: (Default)
- 69       # In file t2.py:19/            b = ops.mul(b, self.func(a, b))/
- 70 }
- 71
- 72
- 73 switch_input: 1
- 74 subgraph attr:
- 75 defer_inline : 0
- 76 undeterminate : 0
- 77 subgraph instance: 22_15_✗__main___Net_construct.280 : 0x55d2f2b8d100
- 78 # In file t2.py:18/        if b :/
- 79 subgraph @22_15_✗__main___Net_construct.280(%para3_b) {
- 80   Return(%para3_b)
- 81       : (<Tensor[Float32], ()>)
- 82       # Scope: (Default)
- 83       # In file t2.py:18/        if b :/
- 84 }
+ 36       # In file t6.py:13/        return ops.mul(x, y)/
+ 37   Return(%0)
+ 38       : (<Tensor[Float32], ()>)
+ 39       # Scope: (Default)
+ 40       # In file t6.py:13/        return ops.mul(x, y)/
+ 41 }
+ 42 # Order:
+ 43 #   1: @2_func.13:[CNode]8{[0]: ValueNode<FuncGraph> 3_mul.14, [1]: x, [2]: y}
+ 44 #   2: @2_func.13:[CNode]9{[0]: ValueNode<Primitive> Return, [1]: [CNode]8}
+ 45
+ 46
+ 47 subgraph attr:
+ 48 undeterminate : 0
+ 49 subgraph instance: 3_mul.14 : 0x558445891190
+ 50 # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:936/def mul(input, other):/
+ 51 subgraph @3_mul.14(%para3_input, %para4_other) {
+ 52   %0([CNode]10) = Mul(%para3_input, %para4_other) primitive_attrs: {output_names: [output], input_names: [x, y]}
+ 53       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 54       # Scope: (Default)
+ 55       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:982/    return tensor_mul(input, other)/
+ 56   Return(%0)
+ 57       : (<Tensor[Float32], ()>)
+ 58       # Scope: (Default)
+ 59       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:982/    return tensor_mul(input, other)/
+ 60 }
+ 61 # Order:
+ 62 #   1: @3_mul.14:[CNode]10{[0]: ValueNode<PrimitivePy> Mul, [1]: input, [2]: other}
+ 63 #   2: @3_mul.14:[CNode]11{[0]: ValueNode<Primitive> Return, [1]: [CNode]10}
 ```
 
-Above, it lists all the graphs beginning with the entry graph.
+Above, it lists all the graphs beginning with the entry graph. The ir graphs are printed in calling order of them. If you need to trace the call of the graph,you can use this sort of graphs.
 
 ### dot Introduction
 
@@ -439,7 +446,7 @@ Sometimes when the exception information is not enough easy to understand, or we
 ```
 
 The file `analyze_fail.ir` has the same information format with deep sorted ir file. The only difference is `analyze_fail.ir` will locate the node which inferring failed.
-Searching the point by the text of `------------------------>`, we reach the last position of the `------------------------> 0` at line 19. This last arrow points to the node that derives the error, which is `%3([CNode]5) = call @func.21(%1, %1, %2) ....`, which expresses the information of the node in IR. How to view the deep sorted ir file has been described in the `deep sorted ir Introduction` section earlier, and will not be repeated here.
+Searching the point by the text of `------------------------>`, we reach `------------------------> 0` at line 19. This points to the node that derives the error, which is `%3([CNode]5) = call @func.21(%1, %1, %2) ....`. How to view the deep sorted ir file has been described in the `deep sorted ir Introduction` section earlier, and will not be repeated here.
 The node at line 45 to 48 have an error. Its IR expression is `%3([CNode]5) = call @func.20(%1, %1, %2) ...`. We can know the node have 3 parameters from `(%1, %1, %2)`. From the source parsing call stack, it can be known that the function is actually `self.func`, which is defined in the script as `def dunc(x, y):...`.
 In the function definition, only two parameters are needed, so there will be a deduction failure error, and we need to modify the number of parameters passed in the script to solve the problem.
 

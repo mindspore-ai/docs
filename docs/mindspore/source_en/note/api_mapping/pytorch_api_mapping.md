@@ -35,20 +35,20 @@ mindspore.ops.argmax has only one API form, namely mindspore.ops.argmax(input, d
 
 Because of the framework mechanism, MindSpore does not provide the following parameters for PyTorch:
 
-| Parameter Names |                          Functions                           |
-| :-------------: | :----------------------------------------------------------: |
-|       out       |                 Indicates the output Tensor                  |
-|     layout      |          Indicates the memory distribution strategy          |
-|     device      |            Indicates the Tensor storage location             |
-|  requires_grad  |           Indicates whether to update the gradient           |
-|    generator    |        Indicates a generator for pseudorandom number         |
-|   pin_memeory   |         Indicates whether to use locking page memory         |
-|  memory_format  |          Indicates the memory format of the Tensor           |
-|     stable      |           Indicates whether the sorting is stable            |
-|     inplace     | Indicates that the value of a variable is modified directly without changing the memory address of the variable |
-|   sparse_grad   | Indicates whether to perform sparsification on the gradient  |
-|  size_average   |             The deprecated parameter in PyTorch              |
-|     reduce      |             The deprecated parameter in PyTorch              |
+| Parameter Names |                          Functions                           |Descriptions|
+| :-------------: | :----------------------------------------------------------: |:--:|
+|       out       |                 Indicates the output Tensor                  |Assign the operation result to the out parameter, not supported in MindSpore.|
+|     layout      |          Indicates the memory distribution strategy          |PyTorch supports torch.striped and torch.split_coo, not supported in MindSpore.|
+|     device      |            Indicates the Tensor storage location             |Including device type and optional device number, MindSpore currently supports operator or network-level device scheduling.|
+|  requires_grad  |           Indicates whether to update the gradient           |MindSpore can be accessed through the `Parameters.requires_grad` attribute to control.|
+|    generator    |        Indicates a generator for pseudorandom number         |In MindSpore, replaced with the parameter `seed` of the APIs of random number.|
+|   pin_memeory   |         Indicates whether to use locking page memory         |Not supported in MindSpore.|
+|  memory_format  |          Indicates the memory format of the Tensor           |Not supported in MindSpore.|
+|     stable      |           Indicates whether the sorting is stable            |Generally used in the API of Sorting algorithm, not supported in MindSpore.|
+|     inplace     | Indicates that the value of a variable is modified directly without changing the memory address of the variable |MindSpore currently provides some inplace APIs, such as `assign_add`.|
+|   sparse_grad   | Indicates whether to perform sparsification on the gradient  |Not supported in MindSpore.|
+|  size_average   |             The deprecated parameter in PyTorch              |The `reduction` parameter can be used instead.|
+|     reduce      |             The deprecated parameter in PyTorch              |The `reduction` parameter can be used instead.|
 
 ## PyTorch 1.8.1
 
@@ -860,6 +860,13 @@ Because of the framework mechanism, MindSpore does not provide the following par
 
 | TorchAudio 0.8.1 APIs     | MindSpore APIs     | Descriptions        |
 | ----------------------- | ------------------------- | ------------------ |
+| [torchaudio.datasets.CMUARCTIC](https://pytorch.org/audio/0.8.0/datasets.html#cmuarctic)  | [mindspore.dataset.CMUArcticDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.CMUArcticDataset.html#mindspore.dataset.CMUArcticDataset) |  [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/CMUARCTIC.html)  |
+| [torchaudio.datasets.GTZAN](https://pytorch.org/audio/0.8.0/datasets.html#gztan)  | [mindspore.dataset.GTZANDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GTZANDataset.html#mindspore.dataset.GTZANDataset) |  [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/GTZAN.html)  |
+| [torchaudio.datasets.LIBRITTS](https://pytorch.org/audio/0.8.0/datasets.html#libritts)  | [mindspore.dataset.LibriTTSDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.LibriTTSDataset.html#mindspore.dataset.LibriTTSDataset) |  [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/LIBRITTS.html)  |
+| [torchaudio.datasets.LJSPEECH](https://pytorch.org/audio/0.8.0/datasets.html#ljspeech)  | [mindspore.dataset.LJSpeechDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.LJSpeechDataset.html#mindspore.dataset.LJSpeechDataset) |  [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/LJSPEECH.html)  |
+| [torchaudio.datasets.SPEECHCOMMANDS](https://pytorch.org/audio/0.8.0/datasets.html#speechcommands)  | [mindspore.dataset.SpeechCommandsDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.SpeechCommandsDataset.html#mindspore.dataset.SpeechCommandsDataset) |  [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/SPEECHCOMMANDS.html)  |
+| [torchaudio.datasets.TEDLIUM](https://pytorch.org/audio/0.8.0/datasets.html#tedlium)  | [mindspore.dataset.TedliumDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.TedliumDataset.html#mindspore.dataset.TedliumDataset) |  [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/TEDLIUM.html)  |
+| [torchaudio.datasets.YESNO](https://pytorch.org/audio/0.8.0/datasets.html#yesno)  | [mindspore.dataset.YesNoDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.YesNoDataset.html#mindspore.dataset.YesNoDataset) |  [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/YESNO.html)  |
 | [torchaudio.transforms.AmplitudeToDB](https://pytorch.org/audio/0.8.0/transforms.html#torchaudio.transforms.AmplitudeToDB.html)   | [mindspore.dataset.audio.AmplitudeToDB](https://mindspore.cn/docs/en/master/api_python/dataset_audio/mindspore.dataset.audio.AmplitudeToDB.html#mindspore.dataset.audio.AmplitudeToDB)   | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/AmplitudeToDB.html)  |
 | [torchaudio.transforms.ComplexNorm](https://pytorch.org/audio/0.8.0/transforms.html#torchaudio.transforms.ComplexNorm.html)   | [mindspore.dataset.audio.ComplexNorm](https://mindspore.cn/docs/en/master/api_python/dataset_audio/mindspore.dataset.audio.ComplexNorm.html#mindspore.dataset.audio.ComplexNorm)   | Consistent  |
 | [torchaudio.transforms.ComputeDeltas](https://pytorch.org/audio/0.8.0/transforms.html#torchaudio.transforms.ComputeDeltas.html)   | [mindspore.dataset.audio.ComputeDeltas](https://mindspore.cn/docs/en/master/api_python/dataset_audio/mindspore.dataset.audio.ComputeDeltas.html#mindspore.dataset.audio.ComputeDeltas)   | Consistent  |

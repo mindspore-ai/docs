@@ -20,13 +20,13 @@ For more information, see [torchtext.datasets.IWSLT2016](https://pytorch.org/tex
 ```python
 class mindspore.dataset.IWSLT2016Dataset(
     dataset_dir,
-    usage='None',
+    usage=None,
     language_pair=None,
     valid_set=None,
     test_set=None,
     num_samples=None,
     num_parallel_workers=None,
-    shuffle='Shuffle.GLOBAL',
+    shuffle=Shuffle.GLOBAL,
     num_shards=None,
     shard_id=None,
     cache=None)

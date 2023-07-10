@@ -8,7 +8,7 @@
 
    ![img](./images/clip_image116.jpg)
 
-2. 扫描后，生成该文件中torch.tensor接口使用分析结果，包括“可以转化的PyTorch API”、“可能是torch.Tensor API的结果”、
+2. 以下图为例，扫描后，生成该文件中torch.Tensor接口使用分析结果，包括“可以转化的PyTorch API”、“可能是torch.Tensor API的结果”、
    “暂未提供直接映射关系的PyTorch API”三种分析结果。
 
    ![img](./images/clip_image117.jpg)
@@ -30,3 +30,9 @@
 4. 若选中文件目录，可获取该目录下所有Python文件的接口分析结果。
 
    ![img](./images/clip_image121.jpg)
+
+5. 蓝色字体部分均可以点击，会自动在用户默认浏览器中打开网页。
+
+   ![img](./images/clip_image122.jpg)
+
+   ![img](./images/clip_image123.jpg)

@@ -17,10 +17,10 @@ For more information, see [torchtext.datasets.PennTreebank](https://pytorch.org/
 ```python
 class mindspore.dataset.PennTreebankDataset(
     dataset_dir,
-    usage='None',
+    usage=None,
     num_samples=None,
     num_parallel_workers=None,
-    shuffle='Shuffle.GLOBAL',
+    shuffle=Shuffle.GLOBAL,
     num_shards=None,
     shard_id=None,
     cache=None)

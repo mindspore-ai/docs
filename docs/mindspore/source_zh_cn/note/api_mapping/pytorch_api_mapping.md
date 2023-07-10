@@ -35,20 +35,20 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 
 因为框架机制原因，MindSpore不提供PyTorch的以下参数：
 
-|    参数名     |                        功能                        |
-| :-----------: | :------------------------------------------------: |
-|      out      |                  表示输出的Tensor                  |
-|    layout     |                  表示内存分布策略                  |
-|    device     |                 表示Tensor存放位置                 |
-| requires_grad |                  表示是否更新梯度                  |
-|   generator   |                 表示伪随机数生成器                 |
-|  pin_memeory  |                表示是否使用锁页内存                |
-| memory_format |                表示Tensor的内存格式                |
-|    stable     |                  表示是否稳定排序                  |
-|    inplace    | 表示在不更改变量内存地址的情况下，直接修改变量的值 |
-|  sparse_grad  |                表示是否对梯度稀疏化                |
-| size_average  |                  PyTorch废弃参数                   |
-|    reduce     |                  PyTorch废弃参数                   |
+|      参数名      |                        功能                        |                              说明                              |
+|:-------------:| :------------------------------------------------: |:------------------------------------------------------------:|
+|      out      |                  表示输出的Tensor                  |                把运算结果赋值给out参数，MindSpore目前无此机制                 |
+|    layout     |                  表示内存分布策略                  | PyTorch支持torch.strided和torch.sparse_coo两种模式, MindSpore目前无此机制 |
+|    device     |                 表示Tensor存放位置                 |            包含设备类型及可选设备号，MindSpore目前支持算子或网络级别的设备调度            |
+| requires_grad |                  表示是否更新梯度                  |           MindSpore中可以通过`Parameter.requires_grad`控制           |
+|   generator   |                 表示伪随机数生成器                 |                MindSpore中通过随机数API的seed参数进行控制                 |
+|  pin_memeory  |                表示是否使用锁页内存                |                       MindSpore目前无此机制                        |
+| memory_format |                表示Tensor的内存格式                |                       MindSpore目前无此机制                        |
+|    stable     |                  表示是否稳定排序                  |                一般用在排序算法的API中，MindSpore目前无此功能                 |
+|    inplace    | 表示在不更改变量内存地址的情况下，直接修改变量的值 |           MindSpore目前提供少量inplace的API，例如`assign_add`等           |
+|  sparse_grad  |                表示是否对梯度稀疏化                |                       MindSpore目前无此机制                        |
+| size_average  |                  PyTorch废弃参数                   |                MindSpore中可以使用`reduction`参数替代                 |
+|    reduce     |                  PyTorch废弃参数                   |                MindSpore中可以使用`reduction`参数替代                 |
 
 ## PyTorch 1.8.1
 
@@ -860,6 +860,13 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 
 | TorchAudio 0.8.1 APIs     | MindSpore APIs     | 说明        |
 | ----------------------- | ------------------------- | ------------------ |
+| [torchaudio.datasets.CMUARCTIC](https://pytorch.org/audio/0.8.0/datasets.html#cmuarctic)  | [mindspore.dataset.CMUArcticDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.CMUArcticDataset.html#mindspore.dataset.CMUArcticDataset) |  [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/CMUARCTIC.html)  |
+| [torchaudio.datasets.GTZAN](https://pytorch.org/audio/0.8.0/datasets.html#gztan)  | [mindspore.dataset.GTZANDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GTZANDataset.html#mindspore.dataset.GTZANDataset) |  [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/GTZAN.html)  |
+| [torchaudio.datasets.LIBRITTS](https://pytorch.org/audio/0.8.0/datasets.html#libritts)  | [mindspore.dataset.LibriTTSDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.LibriTTSDataset.html#mindspore.dataset.LibriTTSDataset) |  [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/LIBRITTS.html)  |
+| [torchaudio.datasets.LJSPEECH](https://pytorch.org/audio/0.8.0/datasets.html#ljspeech)  | [mindspore.dataset.LJSpeechDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.LJSpeechDataset.html#mindspore.dataset.LJSpeechDataset) |  [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/LJSPEECH.html)  |
+| [torchaudio.datasets.SPEECHCOMMANDS](https://pytorch.org/audio/0.8.0/datasets.html#speechcommands)  | [mindspore.dataset.SpeechCommandsDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.SpeechCommandsDataset.html#mindspore.dataset.SpeechCommandsDataset) |  [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/SPEECHCOMMANDS.html)  |
+| [torchaudio.datasets.TEDLIUM](https://pytorch.org/audio/0.8.0/datasets.html#tedlium)  | [mindspore.dataset.TedliumDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.TedliumDataset.html#mindspore.dataset.TedliumDataset) |  [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/TEDLIUM.html)  |
+| [torchaudio.datasets.YESNO](https://pytorch.org/audio/0.8.0/datasets.html#yesno)  | [mindspore.dataset.YesNoDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.YesNoDataset.html#mindspore.dataset.YesNoDataset) |  [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/YESNO.html)  |
 | [torchaudio.transforms.AmplitudeToDB](https://pytorch.org/audio/0.8.0/transforms.html#torchaudio.transforms.AmplitudeToDB.html)   | [mindspore.dataset.audio.AmplitudeToDB](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_audio/mindspore.dataset.audio.AmplitudeToDB.html#mindspore.dataset.audio.AmplitudeToDB)   | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/AmplitudeToDB.html)  |
 | [torchaudio.transforms.ComplexNorm](https://pytorch.org/audio/0.8.0/transforms.html#torchaudio.transforms.ComplexNorm.html)   | [mindspore.dataset.audio.ComplexNorm](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_audio/mindspore.dataset.audio.ComplexNorm.html#mindspore.dataset.audio.ComplexNorm)   | 一致  |
 | [torchaudio.transforms.ComputeDeltas](https://pytorch.org/audio/0.8.0/transforms.html#torchaudio.transforms.ComputeDeltas.html)   | [mindspore.dataset.audio.ComputeDeltas](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_audio/mindspore.dataset.audio.ComputeDeltas.html#mindspore.dataset.audio.ComputeDeltas)   | 一致  |

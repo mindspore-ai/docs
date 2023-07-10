@@ -17,10 +17,10 @@ class torchtext.datasets.UDPOS(
 ```python
 class mindspore.dataset.UDPOSDataset(
     dataset_dir,
-    usage='None',
+    usage=None,
     num_samples=None,
     num_parallel_workers=None,
-    shuffle='Shuffle.GLOBAL',
+    shuffle=Shuffle.GLOBAL,
     num_shards=None,
     shard_id=None,
     cache=None)
@@ -53,7 +53,7 @@ import torchtext.datasets as datasets
 from torch.utils.data import DataLoader
 
 root = "/path/to/dataset_directory/"
-dataset = datasets.UDPOS(root, split=('train', 'test'))
+dataset = datasets.UDPOS(root, split=('train', 'valid', 'test'))
 dataloader = DataLoader(dataset)
 
 # MindSpore
