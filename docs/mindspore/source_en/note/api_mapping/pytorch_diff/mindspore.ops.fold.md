@@ -26,7 +26,7 @@ MindSpore：MindSpore API implements basically the same function as PyTorch.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
-|Parameter | Parameter1 | input | input | Pytorch: shape is :math:`(N, C \times \prod(\text{kernel_size}), L)` , MindSpore: shape is :math:`(N, C, \prod(\text{kernel_size}), L)` . |
+|Parameter | Parameter1 | input | input | |
 | | Parameter2 | output_size | output_size | Pytorch: int or tuple, MindSpore: 1D tensor with 2 elements of data type int. |
 | | Parameter3 | kernel_size | kernel_size |- |
 | | Parameter4 | dilation | dilation |- |
@@ -50,7 +50,7 @@ print(output.detach().shape)
 # MindSpore
 import mindspore
 import numpy as np
-x = np.random.randn(1, 3 * 4, 12)
+x = np.random.randn(1, 3 * 2 * 2, 12)
 input = mindspore.Tensor(x, mindspore.float32)
 output_size = mindspore.Tensor((4, 5), mindspore.int32)
 output = mindspore.ops.fold(input, output_size, kernel_size=(2, 2))

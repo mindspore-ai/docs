@@ -26,7 +26,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
-|参数 | 参数1 | input | input | Pytorch：shape大小为 :math:`(N, C \times \prod(\text{kernel_size}), L)` ，MindSpore：shape大小为 :math:`(N, C, \prod(\text{kernel_size}), L)` |
+|参数 | 参数1 | input | input | |
 | | 参数2 | output_size | output_size | Pytorch：整型或者元组类型，MindSpore：一维Tensor，包含两个元素，均为整数类型 |
 | | 参数3 | kernel_size | kernel_size |- |
 | | 参数4 | dilation | dilation |- |
@@ -50,7 +50,7 @@ print(output.detach().shape)
 # MindSpore
 import mindspore
 import numpy as np
-x = np.random.randn(1, 3 * 4, 12)
+x = np.random.randn(1, 3 * 2 * 2, 12)
 input = mindspore.Tensor(x, mindspore.float32)
 output_size = mindspore.Tensor((4, 5), mindspore.int32)
 output = mindspore.ops.fold(input, output_size, kernel_size=(2, 2))
