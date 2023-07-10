@@ -37,7 +37,7 @@ MindSpore：随机采样器，不支持指定采样逻辑。
 import torch
 from torch.utils.data import RandomSampler
 
-torch.manual_seed(0)
+torch.manual_seed(1)
 
 class MyMapDataset(torch.utils.data.Dataset):
     def __init__(self):
@@ -49,21 +49,21 @@ class MyMapDataset(torch.utils.data.Dataset):
         return len(self.data)
 
 ds = MyMapDataset()
-sampler = RandomSampler(ds, num_samples=2)
+sampler = RandomSampler(ds, num_samples=2, replacement=True)
 dataloader = torch.utils.data.DataLoader(ds, sampler=sampler)
 
 for data in dataloader:
     print(data)
 # Out:
 # tensor([2])
-# tensor([1])
+# tensor([0])
 ```
 
 ```python
 import mindspore as ms
 from mindspore.dataset import RandomSampler
 
-ms.dataset.config.set_seed(10)
+ms.dataset.config.set_seed(3)
 
 class MyMapDataset():
     def __init__(self):
@@ -75,12 +75,12 @@ class MyMapDataset():
         return len(self.data)
 
 ds = MyMapDataset()
-sampler = RandomSampler(num_samples=2)
+sampler = RandomSampler(num_samples=2, replacement=True)
 dataloader = ms.dataset.GeneratorDataset(ds, column_names=["data"], sampler=sampler)
 
 for data in dataloader:
     print(data)
 # Out:
 # [Tensor(shape=[], dtype=Int64, value= 2)]
-# [Tensor(shape=[], dtype=Int64, value= 1)]
+# [Tensor(shape=[], dtype=Int64, value= 0)]
 ```
