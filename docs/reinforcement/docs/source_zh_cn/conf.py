@@ -60,6 +60,8 @@ exclude_patterns = []
 
 pygments_style = 'sphinx'
 
+myst_update_mathjax = False
+
 # -- Options for HTML output -------------------------------------------------
 
 # Reconstruction of sphinx auto generated document translation.

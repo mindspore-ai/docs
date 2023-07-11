@@ -55,6 +55,8 @@ highlight_language = 'python'
 
 pygments_style = 'sphinx'
 
+myst_update_mathjax = False
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
