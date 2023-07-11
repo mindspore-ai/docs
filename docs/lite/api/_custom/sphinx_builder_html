@@ -1073,22 +1073,27 @@ class StandaloneHTMLBuilder(Builder):
 
             # Move Example to the end.
             output_html = etree.HTML(output, etree.HTMLParser())
-            api_name = output_html.xpath('//dl[@class="class" or @class="function"]')
+            api_name = output_html.xpath('//dl[@class="cpp class" or @class="cpp function"]')
             for i in api_name:
-                doc_ = i.xpath('dd/dl[@class="simple"]')
+                doc_ = i.xpath('dd/dl[@class="field-list simple"]')
+                doc_all = i.xpath('./dd')
                 if not doc_:
                     continue
-                example_node = doc_[0].xpath('dt/strong[text()="Example"]')
+                # example_node = doc_[0].xpath('dt/strong[text()="Example"]')
+                example_node = i.xpath('dd/dl/dt/strong[text()="Example"]')
                 if example_node:
                     is_example = doc_[0].xpath('dt[last()]/strong/text()')
                     if is_example and is_example[0] == "Example":
                         continue
                     example_code = example_node[0].xpath('../following-sibling::dd[1]')
-                    example_node = example_node[0].xpath('..')
+                    example_all = example_node[0].xpath('../parent::dl')
+                    # example_node = example_node[0].xpath('..')
                     doc_node = doc_[0]
-                    doc_node.remove(example_node[0])
-                    doc_node.remove(example_code[0])
-                    doc_node.append(example_node[0])
+                    doc_all[0].remove(example_all[0])
+                    # doc_node.remove(example_code[0])
+                    # doc_node.append(example_node[0])
+                    cn_example = lhtml.fromstring("<dt><strong>样例</strong></dt>")
+                    doc_node.append(cn_example[0])
                     doc_node.append(example_code[0])
                     output = lhtml.tostring(output_html, method='html').decode('utf-8')
 
