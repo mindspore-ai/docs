@@ -136,6 +136,8 @@ exclude_patterns = []
 
 pygments_style = 'sphinx'
 
+myst_update_mathjax = False
+
 autodoc_inherit_docstrings = False
 
 autosummary_generate = True

@@ -48,6 +48,8 @@ exclude_patterns = []
 
 pygments_style = 'sphinx'
 
+myst_update_mathjax = False
+
 # -- Options for HTML output -------------------------------------------------
 
 language = "zh_CN"
