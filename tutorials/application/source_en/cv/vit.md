@@ -440,7 +440,7 @@ class ViT(nn.Cell):
 
 The overall flow diagram is shown below:
 
-![data-process](https://gitee.com/mindspore/docs/raw/master/tutorials/application/source_en/cv/images/data_process.png)
+![data-process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/application/source_en/cv/images/data_process.png)
 
 ## Model Training and Inference
 

@@ -19,7 +19,7 @@ w^{’} &= w_0 - \alpha \cdot [(1 - \frac{g^T_2 \cdot g_1}{2 \cdot ||g_1||^2}) \
 \end{aligned}
 $$
 
-where $g_1$ is the gradient of training node 1, and $g_2$ is the gradient of training node 2. When the training node expands to $n$($n = 2^x, x = 1,2,3 cdots$), the problem is decomposed recursively as follows:
+where $g_1$ is the gradient of training node 1, and $g_2$ is the gradient of training node 2. When the training node expands to $n$($n = 2^x, x = 1,2,3 \cdots$), the problem is decomposed recursively as follows:
 
 $$
 Adasum(g_{|0,n|}) = Adasum(Adasum(g_{|0, n/2|}), Adasum(g_{|n/2, n|}))
