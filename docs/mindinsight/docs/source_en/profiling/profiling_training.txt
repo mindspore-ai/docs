@@ -178,6 +178,7 @@ Method 2: Enable environment variables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before running the network script, configure Profiler configuration items.
+Note：This feature does not yet support the Ascend 910B chip scenario. Stay tuned.
 
 .. code-block:: shell
 
