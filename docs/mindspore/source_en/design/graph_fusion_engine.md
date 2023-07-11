@@ -25,7 +25,7 @@ The overall architecture of graph-kernel fusion is shown in the figure below. Th
 
 The optimized computational graph is passed to MindSpore AKG as a subgraph for further back-end optimization and target code generation.
 
-![graphkernel](https://gitee.com/mindspore/docs/raw/master/docs/mindspore/source_zh_cn/design/images/graphkernel.png)
+![graphkernel](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/graphkernel.png)
 
 By following these steps, we can obtain two aspects of performance gains:
 
@@ -83,11 +83,11 @@ Auto-Mapping refers to automatically mapping data and instance in the execution 
 
   As shown in the figure below, with a shape of 8 * 12 operator, Auto-Tiling will try to take the tiling in (a) to reduce the circular boundary judgments shown in blue in (b).
 
-  ![graphkernel_mapping_tile](https://gitee.com/mindspore/docs/raw/master/docs/mindspore/source_zh_cn/design/images/graphkernel_mapping_tile.png)
+  ![graphkernel_mapping_tile](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/graphkernel_mapping_tile.png)
 
   Next, Auto-Mapping also tries to allocate a Thread size that can be divided by the tiled data to improve the utilization of Threads, as in the following example with a Thread of 4.
 
-  ![graphkernel_mapping_tile](https://gitee.com/mindspore/docs/raw/master/docs/mindspore/source_zh_cn/design/images/graphkernel_mapping_map.png)
+  ![graphkernel_mapping_tile](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/graphkernel_mapping_map.png)
 
 - Optimize Block/Thread/Tile ratio
 

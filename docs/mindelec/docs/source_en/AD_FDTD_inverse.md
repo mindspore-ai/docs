@@ -33,7 +33,7 @@ where $x_0$ is the excitation source position and $g(t)$ is the functional expre
 
 This case solves the electromagnetic inverse scattering in two-dimensional TM mode. The two plastids are located inside the rectangular area. Four excitation sources (red triangles) and eight observation points (green dots) are set on the outside of the solution area, as shown in the following figure:
 
-![Solution Area Setting](https://gitee.com/mindspore/docs/raw/master/docs/mindelec/docs/source_zh_cn/images/AD_FDTD/fdtd_inverse/inversion_problem_setup.png)
+![Solution Area Setting](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindelec/docs/source_zh_cn/images/AD_FDTD/fdtd_inverse/inversion_problem_setup.png)
 
 The process that MindSpore Elec solves the problem is as follows:
 
@@ -189,7 +189,7 @@ def get_waveform_t(nt, dt, fmax):
 
 This case solves the electromagnetic inverse scattering problem in two-dimensional TM mode. The process of solving Maxwell's equations by the finite-difference in time domain (FDTD) method is equivalent to a recurrent convolutional network (RCNN). When the CFS-PML is used to truncate the infinite region, the update process of the $n$th time step of the two-dimensional FDTD in TM mode is as follows:
 
-![FDTD Time-step Update Process](https://gitee.com/mindspore/docs/raw/master/docs/mindelec/docs/source_zh_cn/images/AD_FDTD/fdtd_inverse/FDTD_RCNN_Update_TM_Mode.png)
+![FDTD Time-step Update Process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindelec/docs/source_zh_cn/images/AD_FDTD/fdtd_inverse/FDTD_RCNN_Update_TM_Mode.png)
 
 The device-to-device differentiable FDTD is obtained by rewriting the update process of the FDTD with the differentiable operator of MindSpore. The computation process within each time step is as follows:
 
@@ -465,4 +465,4 @@ The relative permittivity of `PSNR` and `SSIM` obtained by inversion based on th
 
 The relative permittivity distribution obtained by the inversion is shown in the figure below:
 
-![inversion result](https://gitee.com/mindspore/docs/raw/master/docs/mindelec/docs/source_zh_cn/images/AD_FDTD/fdtd_inverse/epsr_reconstructed.png)
+![inversion result](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindelec/docs/source_zh_cn/images/AD_FDTD/fdtd_inverse/epsr_reconstructed.png)
