@@ -22,9 +22,9 @@ class mindspore.ops.bucketize(input, boundaries, *, right=False)
 
 MindSpore此API功能与PyTorch一致，参数支持的数据类型有差异。
 
-PyTorch：`input` 支持scalar和Tensor类型, `boundaries` 支持Tensor类型，且可以通过 `out_int32` 指定返回的索引的数据类型。
+PyTorch：`input` 支持scalar和Tensor类型，`boundaries` 支持Tensor类型，且可以通过 `out_int32` 指定返回的索引的数据类型。
 
-MindSpore：`input` 支持Tensor类型, `boundaries` 支持list类型，无 `out_int32` 参数。
+MindSpore：`input` 支持Tensor类型，`boundaries` 支持list类型，无 `out_int32` 参数。
 
 | 分类 | 子类  | PyTorch | MindSpore | 差异                                    |
 | ---- | ----- | ------- | --------- | --------------------------------------- |
