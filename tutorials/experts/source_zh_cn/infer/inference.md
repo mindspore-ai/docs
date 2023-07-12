@@ -4,18 +4,16 @@
 
 MindSpore可以基于训练好的模型，在不同的硬件平台上执行推理任务。
 
-Ascend 310是面向边缘场景的高能效高集成度AI处理器，支持对MindIR格式和AIR格式模型进行推理。
+Ascend 310是面向边缘场景的高能效高集成度AI处理器，支持对MindIR格式模型进行推理。
 
 MindIR格式可由MindSpore CPU、GPU、Ascend 910导出，可运行在GPU、Ascend 910、Ascend 310上，推理前不需要手动执行模型转换，推理时需要安装MindSpore Lite，调用MindSpore Lite C++ API进行推理。
-
-AIR格式仅MindSpore Ascend 910可导出，仅Ascend 310可推理，推理前需使用Ascend CANN中atc工具进行模型转换，推理时不依赖MindSpore，仅需Ascend CANN软件包。
 
 ## 模型文件
 
 MindSpore支持保存两种类型的数据：训练参数和网络模型（模型中包含参数信息）。
 
 - 训练参数指的是Checkpoint格式文件。
-- 网络模型包括MindIR、AIR和ONNX三种格式文件。
+- 网络模型包括MindIR和ONNX两种格式文件。
 
 下面介绍一下这几种格式的基本概念及其应用场景。
 
@@ -30,10 +28,6 @@ MindSpore支持保存两种类型的数据：训练参数和网络模型（模�
     - 一般用于不同框架间的模型迁移或在推理引擎([TensorRT](https://docs.nvidia.com/deeplearning/tensorrt/api/python_api/index.html))上使用。
     - 目前支持导出的模型有：Resnet50、YOLOv3_darknet53、YOLOv4、BERT。可以在[ONNX Runtime](https://onnxruntime.ai/)上使用。
 
-- AIR
-    - 全称Ascend Intermediate Representation，是华为定义的针对机器学习所设计的开放式文件格式。
-    - 它能更好地适应华为AI处理器，一般用于Ascend 310上执行推理任务。
-
 ## 执行推理
 
 按照使用环境的不同，推理可以分为以下两种方式。
@@ -44,7 +38,7 @@ MindSpore支持保存两种类型的数据：训练参数和网络模型（模�
 
 2. 跨平台推理
 
-    使用网络定义和Checkpoint文件，调用`export`接口导出模型文件，在不同平台执行推理，目前支持导出MindIR、ONNX和AIR（仅支持Ascend AI处理器）模型，具体操作可查看[保存模型](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html)。
+    使用网络定义和Checkpoint文件，调用`export`接口导出模型文件，在不同平台执行推理，目前支持导出MindIR和ONNX（仅支持Ascend AI处理器）模型，具体操作可查看[保存模型](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html)。
 
 ## MindIR介绍
 
