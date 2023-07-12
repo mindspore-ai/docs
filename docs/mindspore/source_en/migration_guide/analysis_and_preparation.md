@@ -421,7 +421,7 @@ In some scenarios (such as recommendation systems, molecular dynamics, graph neu
 MindSpore now supports the most commonly used [CSR and COO data formats](https://www.mindspore.cn/tutorials/en/r1.9/beginner/tensor.html#sparse-tensor). Currently, only a limited number of sparse operators are supported, and most sparse features are restricted. In this case, you are advised to check whether the corresponding operator supports sparse computing. If the operator does not support sparse computing, convert it into a common operator.
 After the operator is converted into a dense operator, the video memory used increases. Therefore, the batch size implemented by referring to may not be used for training. In this case, you can use [Gradient Accumulation](https://www.mindspore.cn/tutorials/experts/en/r1.9/others/gradient_accumulation.html) to simulate large batch training.
 
-## MindSpore Function/Feature Recommendation
+## MindSpore Function and Feature Recommendation
 
 ### [Dynamic and Static Graphs](https://www.mindspore.cn/tutorials/en/r1.9/advanced/compute_graph.html)
 
