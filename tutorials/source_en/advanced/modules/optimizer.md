@@ -10,13 +10,15 @@ The most basic optimizer is the stochastic gradient descent (SGD) algorithm. Man
 
 > For details about the optimizer provided by MindSpore, see [Optimizer API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#optimizer).
 
-## Configuring the Optimizer
+## nn.optim
+
+### Configuring the Optimizer
 
 When using the optimizer provided by MindSpore, you need to specify the network parameter `params` to be optimized, and then set other main parameters of the optimizer, such as `learning_rate` and `weight_decay`.
 
 If you want to set options for different network parameters separately, for example, set different learning rates for convolutional and non-convolutional parameters, you can use the parameter grouping method to set the optimizer.
 
-### Parameter Configuration
+#### Parameter Configuration
 
 When building an optimizer instance, you need to use the optimizer parameter `params` to configure the weights to be trained and updated on the model network.
 
@@ -69,11 +71,11 @@ optim = nn.Adam(params=net.trainable_params())
 [Parameter (name=param, shape=(1,), dtype=Float32, requires_grad=True)]
 ```
 
-### Learning Rate
+#### Learning Rate
 
 As a common hyperparameter in machine learning and deep learning, the learning rate has an important impact on whether the target function can converge to the local minimum value and when to converge to the minimum value. If the learning rate is too high, the target function may fluctuate greatly and it is difficult to converge to the optimal value. If the learning rate is too low, the convergence process takes a long time. In addition to setting a fixed learning rate, MindSpore also supports setting a dynamic learning rate. These methods can significantly improve the convergence efficiency on a deep learning network.
 
-#### Fixed Learning Rate
+**Fixed Learning Rate**:
 
 When a fixed learning rate is used, the `learning_rate` input by the optimizer is a floating-point tensor or scalar tensor.
 
@@ -84,7 +86,7 @@ Take `nn.Momentum` as an example. The fixed learning rate is 0.01. The following
 optim = nn.Momentum(params=net.trainable_params(), learning_rate=0.01, momentum=0.9)
 ```
 
-#### Dynamic Learning Rate
+**Dynamic Learning Rate**:
 
 `mindspore.nn` provides the dynamic learning rate module, which is classified into the Dynamic LR function and LearningRateSchedule class. The Dynamic LR function pre-generates a learning rate list whose length is `total_step` and transfers the list to the optimizer for use. During training, the value of the ith learning rate is used as the learning rate of the current step in step `i`. The value of `total_step` cannot be less than the total number of training steps. The LearningRateSchedule class transfers the instance to the optimizer, and the optimizer computes the current learning rate based on the current step.
 
@@ -143,7 +145,7 @@ optim = nn.Momentum(params=net.trainable_params(), learning_rate=0.01, momentum=
     step4, lr:0.09240211
     ```
 
-### Weight Decay
+#### Weight Decay
 
 Weight decay, also referred to as L2 regularization, is a method for mitigating overfitting of a deep neural network.
 
@@ -182,7 +184,7 @@ optimizer = nn.Momentum(net.trainable_params(), learning_rate=0.01,
                         momentum=0.9, weight_decay=weight_decay)
 ```
 
-### Hyperparameter Grouping
+#### Hyperparameter Grouping
 
 The optimizer can also set options for different parameters separately. In this case, a dictionary list is transferred instead of variables. Each dictionary corresponds to a group of parameter values. Available keys in the dictionary include `params`, `lr`, `weight_decay`, and `grad_centralizaiton`, and `value` indicates the corresponding value.
 
@@ -217,7 +219,7 @@ optim = nn.Momentum(group_params, learning_rate=0.1, momentum=0.9, weight_decay=
 
 > Except a few optimizers (such as AdaFactor and FTRL), MindSpore supports grouping of learning rates. For details, see [Optimizer API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#optimizer).
 
-## Customized Optimizer
+### Customized Optimizer
 
 In addition to the optimizers provided by MindSpore, you can customize optimizers.
 
@@ -279,3 +281,206 @@ net = Net()
 # Set the parameter to be optimized and the learning rate of the optimizer to 0.01.
 opt = Momentum(net.trainable_params(), 0.01)
 ```
+
+## nn.optim_ex
+
+In addition to the optimizer within the `mindspore.nn.optim` module mentioned above, MindSpore also provides an experimental optimizer module, `mindspore.nn.optim_ex`, which is designed to extend the function of the optimizer.
+
+> The `mindspore.nn.optim_ex` module is still under development. Currently the optimizer for this module is only available for functional programming scenarios and only adapts to the dynamic learning rate class under [mindspore.nn.lr_scheduler](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#lrscheduler).
+
+Usage differences:
+
+| Parameters   | nn.optim | nn.optim_ex | Functions    |
+|-------|----------| ------------|-------|
+| Parameter configuration (hyperparameter not grouped) | Configure input to be `params` | Configure input to be `params`  | The configuration and function is the same in normal scenarios, and passing in `net.trainable_params` is sufficient.|
+| Learning rate   | Configure input to be `learning_rate` | Configure input to be `lr` |  For configuration and function difference for dynamic learning rate scenarios, see [Dynamic Learning Rate](#learning-late-1) for details|
+| Weight decay  | Configure input to be `weight_decay` | Configure input to be `weight_decay` | For different dynamic weight_decay scenarios configuration, see [weight_decay](#weight-decay-1) for details.|
+| Hyperparameter grouping  | Configure input to be `params`, passing in the set of parameters dict | Configure input to be `params`, passing in the set of parameters dict | In the grouping scenario, i.e., when `params` is a dict, the functions are different, see [hyperparameter grouping](#hyperparameter-grouping-1) for details.|
+
+In addition to the above similarities and differences, `mindspore.nn.optim_ex` also supports [Viewing Parameter Groups](#viewing-optimizer-configuration), [Modifying Optimizer Parameters during Running](#modifying-optimizer-parameters-dring-running), and other features, as detailed below.
+
+### Configuring Optimizer
+
+#### Parameter Configuration
+
+In normal scenarios, the parameters are configured in the same way as for `mindspore.nn.optim`, passing in `net.trainable_params`.
+
+#### Learning Rate
+
+**Fixed Learning Rate**:
+
+Configured in the same way as the fixed learning rates of `mindspore.nn.optim`.
+
+**Dynamic Learning Rate**:
+
+The dynamic learning rate module is provided under `mindspore.nn.lr_scheduler` for use with `mindspore.nn.optim_ex` and the usage way is different from that of `mindspore.nn.optim`:
+
+`mindspore.nn.optim`: Pass a list or instance of dynamic learning rates to the optimizer input `learning_rate`, as used in [DynamicLR function](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#dynamic-lr-function) and [LearningRateSchedule class](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#learningrateschedule-class).
+
+`mindspore.nn.optim_ex`: Pass the optimizer instance to the input `optimizer` of the dynamic learning rate class, as used in [LRScheduler class](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#lrscheduler).
+
+The `LRScheduler` also provides two ways of obtaining the learning rate:
+
+`get_lr`. Taking `StepLR` as an example, the learning rate can be obtained manually using `scheduler.get_lr()` directly during the training process.
+
+```python
+net = Net()
+optimizer = nn.optim_ex.Adam(net.trainable_params(), lr=0.1)
+scheduler = nn.StepLR(optimizer, step_size=30, gamma=0.1)
+print(scheduler.get_last_lr())
+```
+
+```text
+[Tensor(shape=[], dtype=Float32, value= 0.1)]
+```
+
+Set the input `verbose` to True. Taking `StepLR` as an example, during the training process, when the training period reaches `step_size`, the learning rate will decay `gamma`. Assuming that the value of the learning rate after the decay becomes 0.01, "Adjusting learning rate of group 0 to 0.1." will automatically be displayed on the screen.
+
+```python
+net = Net()
+optimizer = nn.optim_ex.Adam(net.trainable_params(), lr=0.1)
+scheduler = nn.StepLR(optimizer, step_size=30, gamma=0.1, verbose=True)
+```
+
+```text
+Adjusting learning rate of group 0 to 0.1.
+```
+
+#### Weight Decay
+
+`mindspore.nn.optim`: `weight_decay` supports int and float types, and also supports Cell type for dynamic weight_decay scenarios.
+
+`mindspore.nn.optim_ex`: `weight_decay` data type only supports for int and float types, but the user is supported to manually modify the value of weight_decay in PyNative mode.
+
+#### Hyperparameter Grouping
+
+`mindspore.nn.optim`: Specific key groupings are supported: "params", "lr", "weight_decay" and "grad_centralizaiton", see [above](#hyperparameter-grouping) for details on how to use them.
+
+`mindspore.nn.optim_ex`: Supports all optimizer parameter groupings.
+
+Code Example:
+
+```python
+conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
+no_conv_params = list(
+    filter(lambda x: 'conv' not in x.name, net.trainable_params()))
+group_params = [
+    {'params': conv_params, 'weight_decay': 0.01, 'lr': 0.9, "amsgrad": True},
+    {'params': no_conv_params, 'lr': 0.66, "eps": 1e-6, "betas": (0.8, 0.88)}]
+optimizer = nn.optim_ex.Adam(params=group_params, lr=0.01)
+```
+
+#### Viewing Optimizer Configuration
+
+**Use the `param_group` attribute to view parameter groups**:
+
+Code Example:
+
+```python
+print(optimizer.param_groups)
+```
+
+```text
+[{'params': [Parameter (name=conv.weight, shape=(6, 1, 5, 5), dtype=Float32, requires_grad=True)], 'weight_decay': 0.01, 'lr': Parameter (name=learning_rate_group_0, shape=(), dtype=Float32, requires_grad=True), 'amsgrad': True, 'betas': (0.9, 0.999), 'eps': 1e-08, 'maximize': False, 'grad_centralization': False}, {'params': [Parameter (name=param, shape=(1,), dtype=Float32, requires_grad=True)], 'lr': Parameter (name=learning_rate_group_1, shape=(), dtype=Float32, requires_grad=True), 'eps': 1e-06, 'betas': (0.8, 0.88), 'weight_decay': 0.0, 'amsgrad': False, 'maximize': False, 'grad_centralization': False}]
+```
+
+As you can see from the above output, the learning rate in the optimizer parameter group is `Parameter`. `Parameter` in mindspore does not display the parameter value natively, and you can view the parameter value by using `.value()`. It can use `get_lr` of `mindspore.nn.LRScheduler` from [Dynamic Learning Rate Module](#dynamic-learning-rate-1) `mindspore.nn.LRScheduler` as described above or set `verbose=True`.
+
+```python
+print(optimizer.param_groups[1]["lr"].value())
+```
+
+```text
+0.66
+```
+
+**Printing Optimizer Instances Directly to View Parameter Groups**:
+
+```python
+print(optimizer)
+```
+
+```text
+Adam (
+Parameter Group 0
+    amsgrad: True
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    grad_centralization: False
+    lr: 0.9
+    maximize: False
+    weight_decay: 0.01
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.8, 0.88)
+    eps: 1e-06
+    grad_centralization: False
+    lr: 0.66
+    maximize: False
+    weight_decay: 0.0
+)
+```
+
+### Modifying Optimizer Parameters during Running
+
+#### Modifying Learning Rate during Running
+
+The learning rate in `mindspore.nn.optim_ex` is `Parameter`, in addition to the dynamic modification of the learning rate through the dynamic learning rate module `mindspore.nn.lr_scheduler` as described above, the modification of the learning rate using the `assign` assignment is also supported.
+
+For example, in the sample below, in the training step, set the learning rate of 1st parameter group in the optimizer to be adjusted to 0.01 if the change in the loss value compared to the previous step is less than 0.1:
+
+```python
+net = Net()
+loss_fn = nn.MAELoss()
+optimizer = nn.optim_ex.Adam(net.trainable_params(), lr=0.1)
+scheduler = nn.StepLR(optimizer, step_size=10, gamma=0.5)
+last_step_loss = 0.1
+
+def forward_fn(data, label):
+    logits = net(data)
+    loss = loss_fn(logits, label)
+    return loss
+
+grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+
+def train_step(data, label):
+    (loss, _), grads = grad_fn(data, label)
+    optimizer(grads)
+    if ops.abs(loss - last_step_loss) < 0.1:
+        ops.assign(optimizer.param_groups[1]["lr"], Tensor(0.01))
+    return loss
+```
+
+#### Modifying Optimizer Parameters other than lr during Running
+
+> Currently, only PyNative mode supports modifying other optimizer parameters during running, and modifications in Graph mode will not take effect or report errors.
+
+In the following sample, in the training step, set the `weight_decay` of 1st parameter group in the optimizer to be adjusted to 0.02 if the change in the loss value compared to the previous step is less than 0.1:
+
+```python
+net = Net()
+loss_fn = nn.MAELoss()
+optimizer = nn.optim_ex.Adam(net.trainable_params(), lr=0.1)
+scheduler = nn.StepLR(optimizer, step_size=10, gamma=0.5)
+last_step_loss = 0.1
+
+def forward_fn(data, label):
+    logits = net(data)
+    loss = loss_fn(logits, label)
+    return loss
+
+grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+
+def train_step(data, label):
+    (loss, _), grads = grad_fn(data, label)
+    optimizer(grads)
+    if ops.abs(loss - last_step_loss) < 0.1:
+        optimizer.param_groups[1]["weight_decay"] = 0.02
+    return loss
+```
+
+### Customized Optimizer
+
+In the same way as the [Customized Optimizer](#customized-optimizer) above, a custom optimizer can also inherit from the optimizer base class [nn.optim_ex.Optimizer](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.optim_ex.Optimizer.html) and override the `__init__` method and `construct` method to set your own parameter update strategy.
+
