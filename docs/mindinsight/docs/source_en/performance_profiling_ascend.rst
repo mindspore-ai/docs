@@ -23,5 +23,6 @@ debugging on Ascend AI processors.
 .. include:: profiling/profiling_msprof.txt
 .. include:: profiling/profiling_host_time.txt
 .. include:: profiling/profiling_resoure.txt
+.. include:: profiling/profiling_offline.txt
 .. include:: profiling/profiling_specifications.txt
 .. include:: profiling/profiling_notices.txt

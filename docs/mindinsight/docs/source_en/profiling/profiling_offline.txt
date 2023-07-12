@@ -1,0 +1,43 @@
+Offline Analyse
+--------------------
+
+When an error occurs during the training process leading to an abnormal exit, the performance file cannot be fully saved, and the Profiler provides offline parsing functionality. Currently, offline parsing only supports parsing the host side memory and host side time consumption.
+
+For example, the partial code of the training script is as follows:
+
+.. code:: python
+
+   class Net(nn.Cell):
+       ...
+
+
+   def train(net):
+       ...
+
+
+   if __name__ == '__main__':
+       ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
+
+       # Init Profiler
+       # Note that the Profiler should be initialized before model.train
+       profiler = ms.Profiler(output_path='/path/to/profiler_data')
+
+       # Train Model
+       net = Net()
+       train(net)  # Error occur.
+
+       # Profiler end
+       profiler.analyse()
+
+
+If an exception occurs in above code during the training process, resulting in the `profiler.analyse()` at the last line not being executed, the performance data will not be completely parsed. At this point, the offline interface can be used to parse data, and the example code is as follows:
+
+.. code:: python
+
+   from mindspore import Profiler
+
+   profiler = Profiler(start_profile=False)
+   profiler.analyse(offline_path='/path/to/profiler_data')
+
+
+After offline parsing, you can view the host side data in the directory `/path/to/profiler_data/profile/host_info` .

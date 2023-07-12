@@ -485,8 +485,9 @@ The directory structure of Pynative mode is as follows:
     - rank_{rank_id}/
         - .dump_metadata/
         - debug_files/
-            Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
-            ...
+            - {iteration_id}/
+                Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
+                ...
         - {net_name}/
             - {graph_id}/
                 - {iteration_id}/
@@ -523,6 +524,8 @@ For multi-graph networks, such as dynamic shape scenario, the iterations of all 
 If the length of the tensor file name defined according to the naming rules exceeds the OS file name length limit (usually 255 characters), the tensor file will be renamed to a string of random numbers. The mapping relationship will be written to the file 'mapping.csv' in the same directory.
 
 For PyNative mode, since there is no forward graph and only the backward graph and optimization graph are saved, there may be situations where overflow nodes cannot find corresponding graph files.
+
+In PyNative mode, because there is no forward graph or iteration_id, the value of graph_id and iteration_id for the forward node is 0, not the actual value. For reverse nodes or nodes in the optimizer, the data files are saved in the corresponding {graph_id}/{iteration_id} directory, and the corresponding overflow files are saved in debug_files/0 directory.
 
 ### Introduction to Asynchronous Dump Data File
 

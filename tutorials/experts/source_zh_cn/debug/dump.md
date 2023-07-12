@@ -485,8 +485,9 @@ PyNative模式的Dump目录结构如下所示：
     - rank_{rank_id}/
         - .dump_metadata/
         - debug_files/
-            Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
-            ...
+            - {iteration_id}/
+                Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
+                ...
         - {net_name}/
             - {graph_id}/
                 - {iteration_id}/
@@ -523,6 +524,8 @@ PyNative模式的Dump目录结构如下所示：
 如果按命名规则定义的张量文件名称长度超过了OS文件名称长度限制（一般是255个字符），则会将该张量文件重命名为一串随机数字，映射关系会保存在同目录下的“mapping.csv”。
 
 对于PyNative模式，由于没有前向图，只保存了反向图和优化图，可能出现溢出节点找不到对应的图文件的情况。
+
+PyNative模式下，由于没有前向图，也没有iteration_id，前向节点的graph_id和iteration_id取值为0，不是实际值。对反向节点或者优化器中的节点，数据文件保存在对应的{graph_id}/{iteration_id}目录下，其对应的溢出文件保存在debug_files/0目录下。
 
 ### 异步Dump数据文件介绍
 

@@ -81,15 +81,17 @@ CPU利用率常用场景:
 Host侧内存使用情况
 ~~~~~~~~~~~~~~~~~~
 
-如果开启了Host侧内存收集功能，在训练结束后可以在指定目录下查看内存使用情况。例如，Profiler实例化时，指定output_path="/XXX/profiler_output"，Host侧内存数据会保存在"/XXX/profiler_output/profiler/host_info"目录下，文件格式为csv，前缀为host_info\_，后缀为rank_id。表头的含义如下：
-- tid: 收集Host侧内存时当前线程的线程号。
-- pid: 收集Host侧内存时当前进程的进程号。
-- parent_pid: 收集Host侧内存时当前进程的父进程的进程号。
-- module_name: 收集Host侧内存的组件名，一个组件包含一个或多个event。
-- event: 收集Host侧内存的事件名，一个event包含一个或多个stage。
-- stage: 收集Host侧内存的阶段名。
-- level: 信息级别，0表示细粒度的信息，通常是高级开发者用于定位问题，1表示粗粒度的信息，用于普通开发者。
-- start_end: stage开始或结束的标记，0表示开始标记，1表示结束标记，2表示不区分开始或结束。
-- custom_info: 组件自定义信息，可能为空。
-- memory_usage: Host侧内存占用，单位为kB，0表示当前阶段没有收集内存数据。
-- time_stamp: 时间戳，单位为us。
+如果开启了Host侧内存收集功能，在训练结束后可以在指定目录下查看内存使用情况。例如，Profiler实例化时，指定output_path="/XXX/profiler_output"，Host侧内存数据会保存在"/XXX/profiler_output/profiler/host_info"目录下，文件格式为csv，前缀为host_memory\_，后缀为rank_id。表头的含义如下：
+
+- tid：收集Host侧内存时当前线程的线程号。
+- pid：收集Host侧内存时当前进程的进程号。
+- parent_pid：收集Host侧内存时当前进程的父进程的进程号。
+- module_name：收集Host侧内存的组件名，一个组件包含一个或多个event。
+- event：收集Host侧内存的事件名，一个event包含一个或多个stage。
+- stage：收集Host侧内存的阶段名。
+- level：信息级别，0表示细粒度的信息，通常是高级开发者用于定位问题，1表示粗粒度的信息，用于普通开发者。
+- start_end：stage开始或结束的标记，0表示开始标记，1表示结束标记，2表示不区分开始或结束。
+- custom_info：组件自定义信息，可能为空。
+- memory_usage：Host侧内存占用，单位为kB，0表示当前阶段没有收集内存数据。
+- time_stamp：时间戳，单位为us。
+
