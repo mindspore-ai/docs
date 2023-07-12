@@ -88,7 +88,6 @@ For Experts
    :caption: Model Inference
 
    infer/inference
-   infer/ascend_310_air
    infer/model_compression
 
 .. toctree::
