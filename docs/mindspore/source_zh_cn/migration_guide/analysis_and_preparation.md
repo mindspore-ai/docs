@@ -426,7 +426,7 @@ print(y)
 MindSpore现在已经支持最常用的[CSR和COO两种稀疏数据格式](https://www.mindspore.cn/tutorials/zh-CN/r2.0.0-alpha/beginner/tensor.html#%E7%A8%80%E7%96%8F%E5%BC%A0%E9%87%8F)。但是由于目前支持稀疏算子有限，大部分稀疏的特性还存在限制，在此情况下，建议优先查找对应的算子是否支持稀疏计算，如不支持的话需要转换成普通算子。
 由于转换成稠密算子后使用的显存会增加，可能不能使用参考实现的batch size进行训练，此时可以使用 [梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/optimize/gradient_accumulation.html) 来模拟大batch训练。
 
-## MindSpore好用功能/特性推荐
+## MindSpore好用功能和特性推荐
 
 ### [动态图与静态图](https://www.mindspore.cn/tutorials/zh-CN/r2.0.0-alpha/advanced/compute_graph.html)
 
