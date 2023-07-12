@@ -31,6 +31,8 @@ release = '0.3.0-alpha'
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
 
+myst_update_mathjax = False
+
 extensions = [
     'myst_parser',
 ]
