@@ -35,6 +35,8 @@
 
 .. include:: profiling/profiling_resoure.txt
 
+.. include:: profiling/profiling_offline.txt
+
 .. include:: profiling/profiling_specifications.txt
     
 .. include:: profiling/profiling_notices.txt

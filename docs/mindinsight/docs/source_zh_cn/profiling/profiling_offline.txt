@@ -1,0 +1,42 @@
+离线解析
+--------
+
+当训练进程出错导致异常退出时，性能文件不能被完全保存下来，Profiler提供了离线解析功能。目前离线解析仅支持解析Host侧内存和Host侧耗时。
+
+例如，训练脚本的部分代码如下：
+
+.. code:: python
+
+   class Net(nn.Cell):
+       ...
+
+
+   def train(net):
+       ...
+
+
+   if __name__ == '__main__':
+       ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
+
+       # Init Profiler
+       # Note that the Profiler should be initialized before model.train
+       profiler = ms.Profiler(output_path='/path/to/profiler_data')
+
+       # Train Model
+       net = Net()
+       train(net)  # Error occur.
+
+       # Profiler end
+       profiler.analyse()
+
+
+假如上述代码在训练过程中出现异常，导致没有执行到最后一行的profiler.analyse()，那么性能数据就不会被完全解析。这时可以用离线接口来解析数据，示例代码如下：
+
+.. code:: python
+
+   from mindspore import Profiler
+
+   profiler = Profiler(start_profile=False)
+   profiler.analyse(offline_path='/path/to/profiler_data')
+
+离线解析之后，就可以在/path/to/profiler_data/profiler/host_info目录查看Host侧数据了。
