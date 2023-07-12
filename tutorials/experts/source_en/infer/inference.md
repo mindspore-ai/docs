@@ -4,18 +4,16 @@
 
 MindSpore can execute inference tasks on different hardware platforms based on trained models.
 
-Ascend 310 is an energy-efficient, highly integrated AI processor for edge scenarios that supports inference in Both MindIR and AIR format models.
+Ascend 310 is an energy-efficient, highly integrated AI processor for edge scenarios that supports inference in Both MindIR format models.
 
 MindIR format can be exported by MindSpore CPU, GPU, Ascend 910, can be run on GPU, Ascend 910, Ascend 310, no need to manually perform model conversion before inference. Inference needs to install MindSpore Lite, and call MindSpore Lite C++ API.
-
-Only MindSpore Ascend 910 can export AIR format, and only Ascend 310 can be inferred. Before inference, you need to use the atc tool in Ascend CANN for model conversion. Inference does not rely on MindSpore, but only require the Ascend CANN package.
 
 ## Model Files
 
 MindSpore can save two types of data: training parameters and network models that contain parameter information.
 
 - Training parameters are stored in the Checkpoint format.
-- Network models are stored in the MindIR, AIR, or ONNX format.
+- Network models are stored in the MindIR, or ONNX format.
 
 Basic concepts and application scenarios of these formats are as follows:
 
@@ -29,9 +27,6 @@ Basic concepts and application scenarios of these formats are as follows:
     - Open Neural Network Exchange is an open format built to represent machine learning models.
     - It is generally used to transfer models between different frameworks or used on the inference engine ([TensorRT](https://docs.nvidia.com/deeplearning/tensorrt/api/python_api/index.html)).
     - Currently, the models supported for export are Resnet50, YOLOv3_darknet53, YOLOv4 and BERT. These models can be used on [ONNX Runtime](https://onnxruntime.ai/).
-- AIR
-    - Ascend Intermediate Representation is an open file format defined by Huawei for machine learning.
-    - It adapts to Huawei AI processors well and is generally used to execute inference tasks on Ascend 310.
 
 ## Inference Execution
 
@@ -43,7 +38,7 @@ Inference can be classified into the following two modes based on the applicatio
 
 2. Cross-platform inference
 
-    Use a network definition and a checkpoint file, call the `export` API to export a model file, and perform inference on different platforms. Currently, MindIR, ONNX, and AIR (on only Ascend AI Processors) models can be exported. For details, see [Saving Models](https://www.mindspore.cn/tutorials/en/r2.0/beginner/save_load.html).
+    Use a network definition and a checkpoint file, call the `export` API to export a model file, and perform inference on different platforms. Currently, MindIR and ONNX (on only Ascend AI Processors) models can be exported. For details, see [Saving Models](https://www.mindspore.cn/tutorials/en/r2.0/beginner/save_load.html).
 
 ## Introduction to MindIR
 
