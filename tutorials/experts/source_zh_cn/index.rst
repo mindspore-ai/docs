@@ -59,7 +59,6 @@
    :caption: 模型推理
 
    infer/inference
-   infer/ascend_310_air
    infer/model_compression
 
 .. toctree::
