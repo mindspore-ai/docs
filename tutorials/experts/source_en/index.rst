@@ -97,5 +97,6 @@ For Experts
    :caption: Complex Problem Debugging
 
    debug/dump
+   debug/aoe
    debug/rdr
    debug/fault_recover

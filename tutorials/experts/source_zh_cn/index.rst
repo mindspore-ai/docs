@@ -97,5 +97,6 @@
    :caption: 复杂问题调试
 
    debug/dump
+   debug/aoe
    debug/rdr
    debug/fault_recover
