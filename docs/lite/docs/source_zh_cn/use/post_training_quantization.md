@@ -134,6 +134,22 @@ center_crop_width=224
 center_crop_height=224
 ```
 
+### 动态量化参数
+
+动态量化参数`quant_strategy`，可设置动态量化策略。参数的详细介绍如下所示：
+
+| 参数       | 属性 | 功能描述                                                     | 参数类型 | 默认值 | 取值范围    |
+| ---------- | ---- | ------------------------------------------------------------ | -------- | ------ | ----------- |
+| quant_strategy | 可选 | 动态量化策略 | String  | ALWC   |  ALWC: 激活perlayer权重perchannel量化策略；<br/>ACWL: 激活perchannel权重perlayer量化策略。|
+
+动态量化参数配置如下所示：
+
+```ini
+[dynamic_quant_param]
+# If set to ALWC, it will enable activation perlayer and weight perchannel quantization. If set to ACWL, it will enable activation perchannel and weight perlayer quantization. Default value is ALWC.
+quant_strategy=ACWL
+```
+
 ## 权重量化
 
 权重量化支持混合比特量化，同时也支持1~16之间的固定比特量化，比特数越低，模型压缩率越大，但是精度损失通常也比较大。下面对权重量化的使用方式和效果进行阐述。
@@ -399,6 +415,10 @@ Ascend全量化支持动态Shape参数，同时转换命令需要设置校准数
 [common_quant_param]
 quant_type=DYNAMIC_QUANT
 bit_num=8
+
+[dynamic_quant_param]
+# If set to ALWC, it will enable activation perlayer and weight perchannel quantization. If set to ACWL, it will enable activation perchannel and weight perlayer quantization. Default value is ALWC.
+quant_strategy=ACWL
 ```
 
 > 为了保证量化精度，目前动态量化不支持设置FP16的运行模式。

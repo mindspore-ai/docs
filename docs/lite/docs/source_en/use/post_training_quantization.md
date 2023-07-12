@@ -134,6 +134,22 @@ center_crop_width=224
 center_crop_height=224
 ```
 
+### Dynamic Quantization Parameters
+
+The dynamic quantization parameter `quant_strategy` sets the dynamic quantizaiton strategy. The detailed description of the parameter is as follows:
+
+| Parameter  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range |
+| ---------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ----------- |
+| quant_strategy | Optional | the dynamic quantizaiton strategy | String  | ALWC   |  ALWC: Enable activation perlayer and weight perchannel quantization; <br/>ACWL: Enable activation perchannel and weight perlayer quantization. |
+
+The dynamic quantization parameter configuration is as follows:：
+
+```ini
+[dynamic_quant_param]
+# If set to ALWC, it will enable activation perlayer and weight perchannel quantization. If set to ACWL, it will enable activation perchannel and weight perlayer quantization. Default value is ALWC.
+quant_strategy=ACWL
+```
+
 ## Weight Quantization
 
 Weight quantization supports mixed bit quantization, as well as fixed bit quantization between 1 and 16. The lower the number of bits, the greater the model compression rate, but the accuracy loss is usually larger. The following describes how to use weight quantization and its effects.
@@ -398,6 +414,10 @@ The dynamic quantization profile is as follows:
 [common_quant_param]
 quant_type=DYNAMIC_QUANT
 bit_num=8
+
+[dynamic_quant_param]
+# If set to ALWC, it will enable activation perlayer and weight perchannel quantization. If set to ACWL, it will enable activation perchannel and weight perlayer quantization. Default value is ALWC.
+quant_strategy=ACWL
 ```
 
 > In order to ensure the quantization accuracy, the dynamic quantization does not support setting the FP16 mode .
