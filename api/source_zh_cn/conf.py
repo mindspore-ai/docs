@@ -39,6 +39,8 @@ release = 'r0.5'
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
 
+myst_update_mathjax = False
+
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
