@@ -30,6 +30,8 @@ release = 'master'
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
 
+myst_update_mathjax = False
+
 extensions = [
     'myst_parser',
 ]
