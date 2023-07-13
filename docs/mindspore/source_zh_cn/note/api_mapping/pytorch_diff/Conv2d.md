@@ -56,7 +56,7 @@ MindSpore：与PyTorch实现的功能基本一致，但存在偏置差异和填�
 
  1. PyTorch的参数padding_mode可选项有‘zeros’、‘reflect’、‘replicate’、‘circular，默认为‘zeros’， 参数padding可选项有int， tuple of ints， ‘valid’， ‘same’， 默认为0， 参数padding_mode与torch.nn.functional.pad接口的四种填充模式一致， 设置过后会对卷积的输入按照指定模式的填充方式进行填充，如下：
 
-    - zero：常量填充（默认零填充）。
+    - zeros：常量填充（默认零填充）。
 
     - reflect：反射填充。
 
@@ -127,7 +127,7 @@ print(output)
 
 ### 代码示例2
 
-> PyTorch的参数padding_mode为'zero'时，表示对输入进行零填充，而MindSpore中实现零填充需设置参数pad_mode为'pad'。
+> PyTorch的参数padding_mode为'zeros'时，表示对输入进行零填充，而MindSpore中实现零填充需设置参数pad_mode为'pad'。
 
 ```python
 # PyTorch

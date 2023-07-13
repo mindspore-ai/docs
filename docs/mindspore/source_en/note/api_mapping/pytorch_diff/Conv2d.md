@@ -54,9 +54,9 @@ MindSpore: It is basically the same as the functions implemented by PyTorch, but
 
 ### Filling Behavior Difference
 
-1. The parameter "padding_mode" of PyTorch can be selected as 'zero','reflect', 'replicate', and 'circular'. The default is 'zero'. The parameter "padding" can be selected as 'int', 'tuple of ints', 'valid', and 'same'. The default is 0. The four padding mode of the parameter "padding_mode" is consistent with that of the "torch.nn.functional.pad" interface. After setting, the convolution input will be filled according to the specified filling mode, as follows:
+1. The parameter "padding_mode" of PyTorch can be selected as 'zeros','reflect', 'replicate', and 'circular'. The default is 'zeros'. The parameter "padding" can be selected as 'int', 'tuple of ints', 'valid', and 'same'. The default is 0. The four padding mode of the parameter "padding_mode" is consistent with that of the "torch.nn.functional.pad" interface. After setting, the convolution input will be filled according to the specified filling mode, as follows:
 
-    - zero: constant fill (default zero fill).
+    - zeros: constant fill (default zero fill).
 
     - reflect: reflection fill.
 
@@ -127,7 +127,7 @@ print(output)
 
 ### Code Example 2
 
-> PyTorch parameter padding_mode is 'zero', which means zero padding for the input, while implementing zero padding in MindSpore requires setting the parameter pad_mode to 'pad'.
+> PyTorch parameter padding_mode is 'zeros', which means zero padding for the input, while implementing zero padding in MindSpore requires setting the parameter pad_mode to 'pad'.
 
 ```python
 # PyTorch
