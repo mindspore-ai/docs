@@ -155,7 +155,7 @@ if (device_info == nullptr) {
 // Set Ascend 310/310P/910 device id.
 device_info->SetDeviceID(device_id);
 // The Ascend device context needs to be push_back into device_list to work.
-device_list.push_back(gpu_device_info);
+device_list.push_back(device_info);
 ```
 
 在Ascend弹性加速服务（拉远模式）环境运行推理：
@@ -568,3 +568,84 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
 ### 多线程加载模型
 
 硬件后端为Ascend，provider为默认时，支持多线程并发加载多个Ascend优化后模型，以提升模型加载性能。使用[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)，指定 `--optimize=ascend_oriented` 可将MindSpore导出的 `MindIR` 模型、TensorFlow和ONNX等第三方框架模型转换为Ascend优化后模型。MindSpore导出的 `MindIR` 模型未进行Ascend优化，对于第三方框架模型，转换工具中如果指定 `--optimize=none` 产生的 `MindIR` 模型也未进行Ascend优化。
+
+### 多模型共享权重
+
+Ascend推理时，运行时指定 `provider` 为 ``ge`` 时，支持部署到同一张卡的多个模型共享权重，支持模型中存在可以被更新的权重。
+
+针对相同的模型脚本，不同的条件分支或者不同的输入shape，使用相同的权重，可以导出不同的模型。多个模型共享权重时，在推理过程中，部分权重可以不再更新，我们将解析为常量，多个模型将拥有相同的常量权重。部分权重也可以发生变化，我们解析为变量，其中一个模型修改权重，本模型下次推理或其他模型推理可以使用和更新修改后的权重。
+
+可以通过 [ModelGroup](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.ModelGroup.html#mindspore_lite.ModelGroup) 接口关联多个模型的共享权重的关系。
+
+Python实现：
+
+```python
+def load_model(mode_path0, model_path1, config_file_0, config_file_1, rank_id, device_id):
+    context = mslite.Context()
+    context.ascend.device_id = device_id
+    context.ascend.rank_id = rank_id  # for distributed model
+    context.ascend.provider = "ge"
+    context.target = ["Ascend"]
+    model0 = mslite.Model()
+    model1 = mslite.Model()
+
+    model_group = mslite.ModelGroup(mslite.ModelGroupFlag.SHARE_WEIGHT)
+    model_group.add_model([model0, model1])
+
+    model0.build_from_file(mode_path0, mslite.ModelType.MINDIR, context, config_file_0)
+    model1.build_from_file(model_path1, mslite.ModelType.MINDIR, context, config_file_1)
+    return model0, model1
+```
+
+C++实现：
+
+```c++
+std::vector<Model> LoadModel(const std::string &mode_path0, const std::string &model_path1,
+                             const std::string &config_file_0, const std::string &config_file_1,
+                             uint32_t rank_id, uint32_t device_id) {
+    auto context = std::make_shared<mindspore::Context>();
+    if (context == nullptr) {
+      std::cerr << "New context failed." << std::endl;
+      return {};
+    }
+    auto &device_list = context->MutableDeviceInfo();
+    auto device_info = std::make_shared<mindspore::AscendDeviceInfo>();
+    if (device_info == nullptr) {
+      std::cerr << "New AscendDeviceInfo failed." << std::endl;
+      return {};
+    }
+    device_info->SetDeviceID(device_id);
+    device_info->SetRankID(rank_id);
+    device_info->SetProvider("ge");
+    device_list.push_back(device_info);
+
+    mindspore::Model model0;
+    mindspore::Model model1;
+    mindspore::ModelGroup model_group(mindspore::ModelGroupFlag::kShareWeight);
+    model_group.AddModel({model0, model1});
+    if (!model0.LoadConfig(config_file_0).IsOk()) {
+      std::cerr << "Failed to load config file " << config_file_0 << std::endl;
+      return {};
+    }
+    if (!model0.Build(mode_path0, mindspore::ModelType::kMindIR, context).IsOk()) {
+      std::cerr << "Failed to load model " << mode_path0 << std::endl;
+      return {};
+    }
+    if (!model1.LoadConfig(config_file_1).IsOk()) {
+      std::cerr << "Failed to load config file " << config_file_1 << std::endl;
+      return {};
+    }
+    if (!model1.Build(model_path1, mindspore::ModelType::kMindIR, context).IsOk()) {
+      std::cerr << "Failed to load model " << model_path1 << std::endl;
+      return {};
+    }
+    return {model0, model1};
+}
+```
+
+上述配置的默认情况下多个模型仅共享了变量，共享常量时，需要在配置文件中配置权重外置选项。配置文件即上述例子的 `config_file_0` 和 `config_file_1` 。
+
+```ini
+[ge_session_options]
+ge.externalWeight=1
+```

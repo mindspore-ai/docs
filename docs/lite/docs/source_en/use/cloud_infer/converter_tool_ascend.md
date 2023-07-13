@@ -221,6 +221,8 @@ In some inference scenarios, such as detecting a target and then executing the t
 
 AOE is a computational graph performance auto-tuning tool built specifically for the Davinci platform. Lite enables AOE ability to integrate the AOE offline executable in the converter phase, to perform performance tuning of the graph, generate a knowledge base, and save the offline model. This function supports subgraph tuning and operator tuning. The function supports subgraph tuning and operator tuning. The specific use process is as follows:
 
+### AOE Tool Tuning
+
 1. Configure environment variables
 
     ``${LOCAL_ASCEND}`` is the path where the Ascend package is installed
@@ -262,6 +264,98 @@ AOE is a computational graph performance auto-tuning tool built specifically for
 > - The performance improvements will vary from environment to environment, and the actual latency reduction percentage is not exactly the same as the results shown in the tuning logs.
 > - AOE tuning generates ``aoe_workspace`` directory in the current directory where the task is executed, which is used to save the models before and after tuning for performance improvement comparison, as well as the process data and result files necessary for tuning. This directory will occupy additional disk space, e.g., 2~10GB for a 500MB raw model, depending on the model size, operator type structure, input shape size and other factors. Therefore, it is recommended to reserve enough disk space, otherwise it may lead to tuning failure.
 > - The ``aoe_workspace`` directory needs to be deleted manually to free up disk space.
+
+### AOE API Tuning
+
+For Ascend inference, when the runtime specifies `provider` as ``ge``, multiple models within one device can share weights, and some the weights in the model can be updated, that is, variables. Currently, only AOE API tuning supports variables exists in the model, and the default AOE tool tuning does not support that. The environment variables, setting and use of knowledge base paths, and AOE tuning cache are consistent with AOE tool tuning in the previous section. For details, please refer to [AOE tuning](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_001.html).
+
+AOE API tuning needs to be done through converter tool. When `optimize=ascend_oriented`, in the configuration file, there is `provider=ge` in `[ascend_context]`, and there is a valid `aoe_mode` in `[ascend_context]` or `acl_option_cfg_param]`, or there is a valid `job_type` in `[aoe_global_options]`, AOE API tuning will be performed. AOE API tuning only generates a knowledge base and does not generate an optimized model.
+
+1. Specify `provider` as ``ge``
+
+    ```bash
+    [ascend_context]
+    provider=ge
+    ```
+
+2. AOE options
+
+    The options in `[aoe_global_options]` will be passed through to the [global options](https://gitee.com/link?target=https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_070.html) of the AOE API. The options in `[aoe_tuning_options]` will be passed through to the [tuning options](https://gitee.com/link?target=https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_071.html) of the AOE API.
+
+    We will extract the options in `[acl_option_cfg_param]`, `[ascend_context]`, `[ge_session_options]` and `[ge_graph_options]` and convert them into AOE options to avoid the need for users to manually convert these options. The extracted options include `input_format`, `input_shape`, `dynamic_dims` and `precision_mode`. When the same option exists in multiple configuration sections at the same time, the priority ranges from low to high, with options in `[aoe_global_options]` and `[aoe_tuning_options]` having the highest priority.
+
+3. AOE tuning mode
+
+    The `aoe_mode` is currently limited to `subgraph turning` or `operator turning`. Currently, `subgraph turning, operator turning` is not supported, which means that subgraph and operator tuning is not supported in the same tuning process. If necessary, subgraph and operator tuning can be performed separately.
+
+    In `[aoe_global_options]`, when the value of `job_type` is ``1``, it means subgraph tuning, and when the value is ``2``, it means operator tuning.
+
+    ```bash
+    [ascend_context]
+    aoe_mode="operator tuning"
+    ```
+
+    ```bash
+    [acl_option_cfg_param]
+    aoe_mode="operator tuning"
+    ```
+
+    ```bash
+    [aoe_global_options]
+    job_type=2
+    ```
+
+4. Dynamic dimension profiles
+
+    Dynamic dimension profiles can be set in `[acl_option_cfg_param]`, `[ascend_context]`, `[ge_graph_options]`, `[aoe_tuning_options]`, with priority ranging from low to high. The following settings are equivalent. Setting the dynamic dimension profiles in `[ascend_context]` can refer to [Dynamic Shape Configuration](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool_ascend.html#dynamic-shape-configuration). Setting the dynamic dimension profiles in `[acl_option_cfg_param]`, `[ge_graph_options]` and `[aoe_tuning_options]` can refer to [dynamic_dims](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_015.html), [dynamic_batch_size](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_013.html), [dynamic_image_size](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_014.html).
+
+    ```bash
+    [ascend_context]
+    input_shape=x1:[-1,3,224,224];x2:[-1,3,1024,1024]
+    dynamic_dims=[1],[2],[3],[4];[1],[2],[3],[4]
+    ```
+
+    ```bash
+    [acl_option_cfg_param]
+    input_shape=x1:-1,3,224,224;x2:-1,3,1024,1024
+    dynamic_dims=1,1;2,2;3,3;4,4
+    ```
+
+    ```bash
+    [ge_graph_options]
+    ge.inputShape=x1:-1,3,224,224;x2:-1,3,1024,1024
+    ge.dynamicDims=1,1;2,2;3,3;4,4
+    ```
+
+    ```bash
+    [aoe_tuning_options]
+    input_shape=x1:-1,3,224,224;x2:-1,3,1024,1024
+    dynamic_dims=1,1;2,2;3,3;4,4
+    ```
+
+5. Precision mode
+
+    Precision mode can be set in `[acl_option_cfg_param]`, `[ascend_context]`, `[ge_graph_options]`, `[aoe_tuning_options]`, with priority ranging from low to high. The following settings are equivalent. Setting the precision mode in `[ascend_context]` can refer to [ascend_context - precision_mode](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool_ascend.html#configuration-file). Setting the precision mode in `[acl_option_cfg_param]`, `[ge_graph_options]` and `[aoe_tuning_options]` can refer to [precision_mode](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_046.html).
+
+    ```bash
+    [ascend_context]
+    precision_mode=preferred_fp32
+    ```
+
+    ```bash
+    [acl_option_cfg_param]
+    precision_mode=allow_fp32_to_fp16
+    ```
+
+    ```bash
+    [ge_graph_options]
+    precision_mode=allow_fp32_to_fp16
+    ```
+
+    ```bash
+    [aoe_tuning_options]
+    precision_mode=allow_fp32_to_fp16
+    ```
 
 ## Deploying Ascend Custom Operators
 

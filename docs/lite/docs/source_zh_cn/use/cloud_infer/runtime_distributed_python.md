@@ -26,7 +26,7 @@ MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，支持�
 
 2. 通过MindSpore切分并[导出分布式MindIR模型](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_inference.html#%E5%88%86%E5%B8%83%E5%BC%8F%E5%9C%BA%E6%99%AF%E5%AF%BC%E5%87%BAmindir%E6%96%87%E4%BB%B6)，将其存放至示例代码目录。如需快速体验，可下载已切分的两个Matmul模型文件[Matmul0.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul0.mindir)、[Matmul1.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul1.mindir)。
 
-3. 对于Ascend设备类型，从[分布式并行训练基础样例代码](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)中获取组网信息文件（如`rank_table_xxx.json`），参照[分布式并行训练基础样例说明](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)进行配置，存放至示例代码目录，并将该文件路径填入示例代码目录下配置文件`config_file.ini`中。
+3. 对于Ascend设备类型，从[分布式并行训练基础样例代码](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)中获取组网信息文件（如`rank_table_xxx.json`），或者通过[hccl_tools.py](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools)按照需要生成组网信息文件，参照[分布式并行训练基础样例说明](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)进行配置，存放至示例代码目录，并将该文件路径填入示例代码目录下配置文件`config_file.ini`中。
 
 4. 下载MindSpore Lite云侧推理安装包[mindspore-lite-{version}-linux-{arch}.whl](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，存放至示例代码目录，并通过`pip`工具安装。
 
@@ -87,6 +87,13 @@ for input_i in inputs:
     input_i.set_data_from_numpy(np.ones(input_i.shape, dtype=np.float32))
 ```
 
+也可通过以下方式构造MindSpore Lite输入。
+
+```python
+# np_inputs is a list or tuple of numpy array
+inputs = [mslite.Tensor(np_input) for np_input in np_inputs]
+```
+
 ## 分布式推理执行
 
 调用[Model.predict](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict)接口执行分布式推理，示例代码如下。
@@ -129,3 +136,7 @@ python3 ./ascend_ge_distributed.py --model_path=/your/path/to/Matmul1.mindir --d
 RANK_SIZE=2
 mpirun -n $RANK_SIZE python3 ./main.py --model_path=/your/path/to/Matmul.mindir
 ```
+
+## 多模型共享权重
+
+Ascend设备GE场景下，单个卡可以部署多个模型，部署到同一张卡的模型可以共享权重，详情可参考[高级用法-多模型共享权重](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_cpp.html#%E5%A4%9A%E6%A8%A1%E5%9E%8B%E5%85%B1%E4%BA%AB%E6%9D%83%E9%87%8D)。

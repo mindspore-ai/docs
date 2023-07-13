@@ -26,7 +26,7 @@ Each process consists of the following main steps:
 
 2. Slice and [export the distributed MindIR model](https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_inference.html#exporting-mindir-files-on-the-distributed-scenarios) via MindSpore and store it to the sample code directory. For a quick experience, you can download the two sliced Matmul model files [Matmul0.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul0.mindir), [Matmul1.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul1.mindir).
 
-3. For Ascend device type, get the group network information file (such as `rank_ table_xxx.json`) from [Distributed parallel training base sample code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training). Refer to the [DDistributed Parallel Training Basic Sample](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html) for configuration, and store it in the sample code directory, and fill in the path of the file into the configuration file `config_file.ini` in the sample code directory.
+3. For Ascend device type, get the group network information file (such as `rank_ table_xxx.json`) from [Distributed parallel training base sample code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training). Alternatively, generate networking information files as needed through [hccl_tools.py](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools). Refer to the [Distributed Parallel Training Basic Sample](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html) for configuration, and store it in the sample code directory, and fill in the path of the file into the configuration file `config_file.ini` in the sample code directory.
 
 4. Download the MindSpore Lite cloud-side inference installation package [mindspore-lite-{version}-linux-{arch}.whl](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html), store it to the sample code directory, and install it via `pip`.
 
@@ -87,6 +87,13 @@ for input_i in inputs:
     input_i.set_data_from_numpy(np.ones(input_i.shape, dtype=np.float32))
 ```
 
+MindSpore Lite input can also be constructed in the following way.
+
+```python
+# np_inputs is a list or tuple of numpy array
+inputs = [mslite.Tensor(np_input) for np_input in np_inputs]
+```
+
 ## Distributed Inference Execution
 
 Call the [Model.predict](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) interface to perform distributed inference, with the following sample code.
@@ -129,3 +136,7 @@ python3 ./ascend_ge_distributed.py --model_path=/your/path/to/Matmul1.mindir --d
 RANK_SIZE=2
 mpirun -n $RANK_SIZE python3 ./main.py --model_path=/your/path/to/Matmul.mindir
 ```
+
+## Multiple Models Sharing Weights
+
+In the Ascend device GE scenario, a single card can deploy multiple models, and models deployed to the same card can share weights. For details, please refer to [Advanced Usage - Multiple Model Sharing Weights](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_cpp.html#multiple-models-sharing-weights).

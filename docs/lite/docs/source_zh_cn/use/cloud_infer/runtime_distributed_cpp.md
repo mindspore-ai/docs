@@ -64,7 +64,7 @@ device_info->SetDeviceID(device_id);
 device_info->SetRankID(rank_id);
 device_info->SetProvider("ge");
 // Device context needs to be push_back into device_list to work.
-device_list.push_back(gpu_device_info);
+device_list.push_back(device_info);
 ```
 
 ### 配置使用GPU设备上下文
@@ -199,3 +199,7 @@ make
 RANK_SIZE=2
 mpirun -n $RANK_SIZE ./build/gpu_trt_distributed /your/path/to/Matmul.mindir
 ```
+
+## 多模型共享权重
+
+Ascend设备GE场景下，单个卡可以部署多个模型，部署到同一张卡的模型可以共享权重，详情可参考[高级用法-多模型共享权重](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_cpp.html#%E5%A4%9A%E6%A8%A1%E5%9E%8B%E5%85%B1%E4%BA%AB%E6%9D%83%E9%87%8D)。

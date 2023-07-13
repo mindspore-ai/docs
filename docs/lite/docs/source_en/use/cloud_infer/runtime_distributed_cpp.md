@@ -64,7 +64,7 @@ device_info->SetDeviceID(device_id);
 device_info->SetRankID(rank_id);
 device_info->SetProvider("ge");
 // Device context needs to be push_back into device_list to work.
-device_list.push_back(gpu_device_info);
+device_list.push_back(device_info);
 ```
 
 ### Configuring GPU Device Context
@@ -199,3 +199,7 @@ After successful compilation, the `{device_type}_{backend}_distributed_cpp` exec
 RANK_SIZE=2
 mpirun -n $RANK_SIZE ./build/gpu_trt_distributed /your/path/to/Matmul.mindir
 ```
+
+## Multiple Models Sharing Weights
+
+In the Ascend device GE scenario, a single card can deploy multiple models, and models deployed to the same card can share weights. For details, please refer to [Advanced Usage - Multiple Model Sharing Weights](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_cpp.html#multiple-models-sharing-weights).
