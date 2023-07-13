@@ -142,8 +142,8 @@ If the host side memory collection function is enabled, the memory usage can be 
 - module_name: Name of the module that collects host side memory, one or more event may be included in a module.
 - event: The event name which collected the host side memory, one or more stage may be included in a event.
 - stage: The stage name which collected the host side memory.
-- level: Information level, 0 represents fine-grained information, usually used by advanced developers to locate problems, and 1 represents coarse-grained information, used by ordinary developers.
+- level: 0 means used by framework developers, and 1 means used by users(algorithm engineers).
 - start_end: The mark for the start or end of the stage, where 0 represents the start mark, 1 represents the end mark, and 2 represents an indistinguishable start or end.
-- custom_info: Module customization information, possibly empty.
+- custom_info: The component customization information used by framework developers to locate performance issues, possibly empty.
 - memory_usage: Host-side memory usage in kB, and 0 means no memory data is collected at the current stage.
 - time_stamp: Time stamp in us.
