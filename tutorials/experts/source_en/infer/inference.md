@@ -27,6 +27,7 @@ Basic concepts and application scenarios of these formats are as follows:
     - Open Neural Network Exchange is an open format built to represent machine learning models.
     - It is generally used to transfer models between different frameworks or used on the inference engine ([TensorRT](https://docs.nvidia.com/deeplearning/tensorrt/api/python_api/index.html)).
     - Currently, the models supported for export are Resnet50, YOLOv3_darknet53, YOLOv4 and BERT. These models can be used on [ONNX Runtime](https://onnxruntime.ai/).
+    - Inference execution is achieved on Ascend via [ACT tool](https://www.hiascend.com/document/detail/zh/canncommercial/63RC1/inferapplicationdev/aclcppdevg/aclcppdevg_000001.html).
 
 ## Inference Execution
 

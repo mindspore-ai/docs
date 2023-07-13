@@ -27,6 +27,7 @@ MindSpore支持保存两种类型的数据：训练参数和网络模型（模�
     - 全称Open Neural Network Exchange，是一种针对机器学习模型的通用表达。
     - 一般用于不同框架间的模型迁移或在推理引擎([TensorRT](https://docs.nvidia.com/deeplearning/tensorrt/api/python_api/index.html))上使用。
     - 目前支持导出的模型有：Resnet50、YOLOv3_darknet53、YOLOv4、BERT。可以在[ONNX Runtime](https://onnxruntime.ai/)上使用。
+    - 通过昇腾[ACT工具](https://www.hiascend.com/document/detail/zh/canncommercial/63RC1/inferapplicationdev/aclcppdevg/aclcppdevg_000001.html)实现在昇腾上的推理执行。
 
 ## 执行推理
 
