@@ -474,8 +474,8 @@ optimizer = optim.SGD(model.parameters(), lr=0.01)
 
   ```python
   optim.SGD([
-            {'params': model.base.parameters()},
-            {'params': model.classifier.parameters(), 'lr': 1e-3}
+              {'params': model.base.parameters()},
+              {'params': model.classifier.parameters(), 'lr': 1e-3}
           ], lr=1e-2, momentum=0.9)
   ```
 
@@ -485,7 +485,7 @@ optimizer = optim.SGD(model.parameters(), lr=0.01)
   conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
   no_conv_params = list(filter(lambda x: 'conv' not in x.name, net.trainable_params()))
   group_params = [{'params': conv_params, 'weight_decay': 0.01, 'lr': 0.02},
-               {'params': no_conv_params}]
+          {'params': no_conv_params}]
 
   optim = nn.Momentum(group_params, learning_rate=0.1, momentum=0.9)
   ```
@@ -677,7 +677,7 @@ MindSpore uses `seed` to control the generation of a random number while PyTorch
 
 1. There are 2 levels of random seed, graph-level and op-level. Graph-level seed is used as a global variable, and in most cases, users do not have to set the graph-level seed, they only care about the op-level seed (the parameter `seed` in the APIs, are all op-level seeds). If a program uses a random generator algorithm twice, the results are different even thought they are using the same seed. Nevertheless, if the user runs the script again, the same results should be obtained. For example:
 
-    ```Python
+    ```python
     # If a random op is called twice within one program, the two results will be different:
     import mindspore as ms
     from mindspore import Tensor, ops

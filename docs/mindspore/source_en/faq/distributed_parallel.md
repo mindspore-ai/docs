@@ -24,9 +24,7 @@ The remaining processes may normally execute to the initialization `NCCL` step d
 ```
 
 In this step, the `NCCL` interface `ncclCommInitRank` is called, which blocks until all processes agree. So if a process doesn't call `ncclCommInitRank`, it will cause the process to block.
-
 We have reported this issue to the `NCCL` community, and the community developers are designing a solution. The latest version has not been fixed, see [issue link](https://github.com/NVIDIA/nccl/issues/593#issuecomment-965939279).
-
 Solution: Manually `kill` the training process. According to the error log, set the correct card number, and then restart the training task.
 
 <br/>
@@ -40,9 +38,7 @@ A: In this scenario, the abnormal process exits due to various problems, and the
 ```
 
 In this step, the `NCCL` interface `ncclCommInitRank` is called, which blocks until all processes agree. So if a process doesn't call `ncclCommInitRank`, it will cause the process to block.
-
 We have reported this issue to the `NCCL` community, and the community developers are designing a solution. The latest version has not been fixed, see [issue link](https://github.com/NVIDIA/nccl/issues/593#issuecomment-965939279).
-
 Solution: Manually `kill` the training process. According to the error log, set the correct card number, and then restart the training task.
 
 <br/>
@@ -53,7 +49,7 @@ Solution: Manually `kill` the training process. According to the error log, set 
 [CRITICAL] DISTRIBUTED [mindspore/ccsrc/distributed/cluster/cluster_context.cc:130] InitNodeRole] Role name is invalid...
 ```
 
-A: In the case where the user does not start the process using `mpirun` but still calls the `init()` method, MindSpore requires the user to configure several environment variables and verify according to [training and do not rely on OpenMPI for training]( https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#不依赖openmpi进行训练). If without configuring, MindSpore may display the above error message. Therefore, it is suggested that only when performing distributed training, `mindspore.communication.init` is called, and in the case of not using `mpirun`, it is configured the correct environment variables according to the documentation to start distributed training.
+A: In the case where the user does not start the process using `mpirun` but still calls the `init()` method, MindSpore requires the user to configure several environment variables and verify according to [training and do not rely on OpenMPI for training]( https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#training-without-relying-on-openmpi). If without configuring, MindSpore may display the above error message. Therefore, it is suggested that only when performing distributed training, `mindspore.communication.init` is called, and in the case of not using `mpirun`, it is configured the correct environment variables according to the documentation to start distributed training.
 
 <br/>
 
@@ -110,6 +106,42 @@ export NCCL_SOCKET_IFNAME=eth
 ```
 
 The above command sets the `NCCL` to select the network card name with `eth` in the Host side to communicate.
+
+<br/>
+
+<font size=3>**Q: After selecting RDMA NIC with a specific name (set via NCCL_SOCKET_IFNAME) for communication for multiple machines and multiple cards, the training still reports an error:**</font>
+
+```text
+misc/ibvwrap.cc:284 NCCL WARN Call to ibv_modify_qp failed with error Invalid argument
+...
+include/socket.h:403 NCCL WARN Connect to XXX failed: Connection refused
+```
+
+A: Generally this problem is the existence of differences in the configuration of the RDMA network card between multiple machines, which need to be analyzed on a case-by-case basis. However, the common reason is there are IB protocol and RoCE protocol on some host NICs at the same time, and there may be connection establishment failure. Solution:
+
+The following command is required to specify the name of the RDMA NIC to be used as beginning with ib:
+
+```text
+export NCCL_IB_HCA=mlx
+```
+
+<br/>
+
+<font size=3>**Q：Single-machine multi-card training can be successful, but after expanding the script to multi-machine multi-card, other hosts prompt all kinds of errors:**</font>
+
+There are various types of errors reported. Here are a few typical ones:
+
+1. The installed whl package could not be found.
+2. IB NIC communication failure.
+3. Cuda library load failure.
+
+A: These problems are caused by the fact that when `mpirun` starts other hosts, the environment variables of the other hosts (including the NCCL's NIC selection configurations) are not synchronized with the local machine, resulting in the phenomenon that single-machine multi-card executes normally while multi-machine multi-card fails. The solution is to export specific environment variables via mpirun -x option:
+
+```text
+mpirun --hostfile /path/to/hostfile -n 64 -x PYTHONPATH -x GLOG_v -x LD_LIBRARY_PATH -x NCCL_SOCKET_IFNAME -x NCCL_IB_HCA -x NCCL_DEBUG=INFO python train.py
+```
+
+The above command exports some environment variables that have been set on this machine to other hosts, ensuring that the environment variables of all hosts remain the same before executing the training script to achieve the goal of multi-machine multi-card training.
 
 <br/>
 

@@ -71,11 +71,10 @@ MNIST_Data/
     The command output is as follows:
 
     ```text
-    ......
     ==========Loading Model, Create Train Session=============
     Model path is ../model/lenet_tod.ms
     batch_size: 4
-    virtual batch multiplier: 1
+    virtual batch multiplier: 16
     ==========Initing DataSet================
     train data cnt: 60000
     test data cnt: 10000
@@ -84,10 +83,12 @@ MNIST_Data/
     step_1000: Loss is 0.15295759 [min=0.0018140086] max_acc=0.96594554
     step_1500: Loss is 0.018035552 [min=0.0018140086] max_acc=0.9704527
     step_2000: Loss is 0.029250022 [min=0.0010245014] max_acc=0.9765625
-    ......
+    step_2500: Loss is 0.11875624 [min=7.5288175E-4] max_acc=0.9765625
+    step_3000: Loss is 0.046675075 [min=7.5288175E-4] max_acc=0.9765625
+    step_3500: Loss is 0.034442786 [min=4.3545474E-4] max_acc=0.97686297
     ==========Evaluating The Trained Model============
     accuracy = 0.9770633
-    Trained model successfully saved: ../model/lenet_tod_trained.ms
+    Trained model successfully saved: ./model/lenet_tod_trained.ms
     ```
 
 ## Detailed Demo Description

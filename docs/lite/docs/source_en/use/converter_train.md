@@ -16,7 +16,6 @@ Creating your MindSpore Lite(Train on Device) model is a two step procedure:
 MindSpore Lite model transfer tool (only suppot Linux OS) has provided multiple parameters. The procedure is as follows:
 
 - [Compile](https://www.mindspore.cn/lite/docs/en/master/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) model transfer tool.
-
 - Add the path of dynamic library required by the conversion tool to the environment variables LD_LIBRARY_PATH.
 
     ```bash
@@ -42,8 +41,6 @@ The table below shows the parameters used in the MindSpore Lite model training t
 >
 > The calibration dataset configuration file uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [post training quantization](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html).
 
-If running the conversion command is failed, an errorcode will be output.
-
 ### Example
 
 Suppose the file to be converted is `my_model.mindir` and run the following command:
@@ -52,10 +49,16 @@ Suppose the file to be converted is `my_model.mindir` and run the following comm
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=my_model.mindir --outputFile=my_model
 ```
 
-If the command executes successfully, the `model.ms` target file will be obtained and the console will print as follows:
+The output of successful conversion is as follows:
 
-```bash
+```text
 CONVERT RESULT SUCCESS:0
 ```
 
-If running the conversion command is failed, an errorcode will be output.
+This indicates that the MindSpore model is successfully converted to a MindSpore end-side model and a new file `my_model.ms` is generated. If the output of conversion failure is as follows:
+
+```text
+CONVERT RESULT FAILED:
+```
+
+The program returns error codes and error messages.
