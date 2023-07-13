@@ -59,17 +59,17 @@ When using the `benchmark_train` tool to perform benchmark testing, you can set 
 The main test indicator of the performance test performed by the Benchmark tool is the duration of a single forward inference. In a performance test, you do not need to set benchmark data parameters such as `benchmarkDataFile`. But you can set the parameter `timeProfiling` as True or False to decide whether to print the running time of the model at the network layer on a certain device. The default value of `timeProfiling` is False. For example:
 
 ```bash
-./benchmark_train --modelFile=./models/test_benchmark.ms --s=10
+./benchmark_train --modelFile=./models/test_benchmark.ms --epochs=10
 ```
 
 This command uses a random input, and other parameters use default values. After this command is executed, the following statistics are displayed. The statistics include the minimum duration, maximum duration, and average duration of a single inference after the tested model runs for the specified number of inference rounds.
 
 ```text
-Model = test_benchmark.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73.094002 ms, AvgRunTime = 72.556000 ms
+Model = test_benchmark.ms, numThreads = 1, MinRunTime = 72.228996 ms, MaxRuntime = 73.094002 ms, AvgRunTime = 72.556000 ms
 ```
 
 ```bash
-./benchmark_train --modelFile=./models/test_benchmark.ms --timeProfiling=true
+./benchmark_train --modelFile=./models/test_benchmark.ms --epochs=10 --timeProfiling=true
 ```
 
 This command uses a random input, sets the parameter `timeProfiling` as true,  times and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimess` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single inference operation of the model and the sum of the average time consumed by all operators in the model inference, respectively.
@@ -117,7 +117,7 @@ total time :     2.90800 ms,    kernel cost : 2.74851 ms
 The accuracy test performed by the Benchmark tool aims to verify the accuracy of the MinSpore model output by setting benchmark data (the default input and benchmark data type are float32). In an accuracy test, in addition to the `modelFile` parameter, the `benchmarkDataFile` parameter must be set. For example:
 
 ```bash
-./benchmark_train --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
+./benchmark_train --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --accuracyThreshold=3 --expectedDataFile=./output/test_benchmark.out
 ```
 
 This command specifies the input data and benchmark data of the tested model, specifies that the model inference program runs on the CPU, and sets the accuracy threshold to 3%. After this command is executed, the following statistics are displayed, including the single input data of the tested model, output result and average deviation rate of the output node, and average deviation rate of all nodes.
@@ -129,12 +129,6 @@ Data of node age_out : 5.94584e-08 6.3317e-08 1.94726e-07 1.91809e-07 8.39805e-0
 Mean bias of node age_out : 0%
 Mean bias of all nodes: 0%
 =======================================================
-```
-
-To set specified input shapes (such as 1,32,32,1), use the command as follows:
-
-```bash
-./benchmark_train --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
 ```
 
 ### Dump

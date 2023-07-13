@@ -153,7 +153,9 @@ Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2
 A: OpenMPI启动时，当前版本的hccl下，创建通信域时，相应的卡需要分配大约300M的device内存，因此每张卡所在的通信域的数量越多，则额外需要的内存越多，因此会有内存不足的问题。
 可以设置`context`中的`variable_memory_max_size`来减少Ascend进程可用的内存，从而为hccl预留足够的内存创建通信域。
 
-<font size=3>**Q: 在自动并行下执行分布式网络时，报张量无法被当前策略完整切分的错误如下，该怎么解决？:**</font>
+<br/>
+
+<font size=3>**Q: 在自动并行下执行分布式网络时，报张量无法被当前策略完整切分的错误如下，该怎么解决？**</font>
 
 ```text
 np_tensor can not be split by strategy!
