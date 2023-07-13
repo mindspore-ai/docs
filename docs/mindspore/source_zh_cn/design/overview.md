@@ -21,7 +21,7 @@ MindSpore整体架构分为四层：
 
 1. 模型层，为用户提供开箱即用的功能，该层主要包含预置的模型和开发套件，以及图神经网络（GNN）、深度概率编程、科学计算库等热点研究领域拓展库；
 2. 表达层 （MindExpression），为用户提供AI模型开发、训练、推理的接口，支持用户用原生 Python语法开发和调试神经网络，其特有的动静态图统一能力使开发者可以兼顾开发效率和执行性能，同时该层在生产和部署阶段提供全场景统一的C++/Python接口；
-3. 编译优化（MindCompiler），作为AI框架的核心，以全场景统一中间表达（[MindIR](https://mindspore.cn/docs/zh-CN/master/design/mindir.html)）为媒介，将前端表达编译成执行效率更高的底层语言，同时进行全局性能优化，包括自动微分、代数化简等硬件无关优化，以及图算融合、算子生成等硬件相关优化；
+3. 编译优化（MindCompiler），作为AI框架的核心，以全场景统一中间表达（[MindIR](https://mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#mindir)）为媒介，将前端表达编译成执行效率更高的底层语言，同时进行全局性能优化，包括自动微分、代数化简等硬件无关优化，以及图算融合、算子生成等硬件相关优化；
 4. 运行时，按照上层编译优化的结果对接并调用底层硬件算子，同时通过“端-边-云”统一的运行时架构，支持包括联邦学习在内的“端-边-云”AI协同。
 
 ![arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/introduction2.png)
@@ -30,7 +30,7 @@ MindSpore整体架构分为四层：
 
 MindSpore为用户提供Python等语言的编程范式。基于源码转换，用户可以使用原生Python控制语法和其他一些高级API，如元组（Tuple）、列表（List）和Lambda表达。
 
-### 编程范式
+### 函数式和对象式融合编程范式
 
 MindSpore提供面向对象和面向函数的[编程范式](https://www.mindspore.cn/docs/zh-CN/master/design/programming_paradigm.html)，二者都可用来构建网络算法和训练流程。
 
@@ -38,7 +38,7 @@ MindSpore提供面向对象和面向函数的[编程范式](https://www.mindspor
 
 同时用户也可以定义一个可被MindSpore源到源编译转换的Python纯函数，通过MindSpore提供的函数或装饰器，将其加速执行。在满足MindSpore静态语法的要求下，Python纯函数可以支持子函数嵌套、控制逻辑甚至是递归函数表达。因此基于此编程范式，用户可灵活使能一些功能特性，更易于表达业务逻辑。
 
-MindSpore实现了[函数式微分编程](https://www.mindspore.cn/docs/zh-CN/master/design/auto_gradient.html)，对可被微分求导的函数对象，按照调用关系，基于调用链进行求导。采取这样自动微分策略更符合数学语义，与基本代数中的复合函数有直观的对应关系，只要已知基础函数的求导公式，就能推导出由任意基础函数组成的复合函数的求导公式。
+MindSpore实现了[函数式微分编程](https://www.mindspore.cn/docs/zh-CN/master/design/programming_paradigm.html#functional-differential-programming)，对可被微分求导的函数对象，按照调用关系，基于调用链进行求导。采取这样自动微分策略更符合数学语义，与基本代数中的复合函数有直观的对应关系，只要已知基础函数的求导公式，就能推导出由任意基础函数组成的复合函数的求导公式。
 
 同时基于函数式编程范式，MindSpore提供了丰富高阶函数如vmap、shard等内置高阶函数功能。与微分求导函数grad一样，可以让用户方便的构造一个函数或对象，作为高阶函数的参数。高阶函数经过内部编译优化，生成针对用户函数的优化版本，实现如向量化变换、分布式并行切分等特点功能。
 
