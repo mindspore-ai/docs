@@ -380,7 +380,7 @@ print(fid)
 ```
 
 ```text
-0.9999999997874571
+0.9999999997874573
 ```
 
 It can be seen that the fidelity at this time is 100.00%, that is to say, the similarity between this state and the target state $|0\rangle$ is 100.00%.

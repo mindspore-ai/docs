@@ -192,6 +192,10 @@ molecule_file = molecule_of.filename
 print(molecule_file.split('/')[-1])
 ```
 
+```text
+H1-Li1_sto3g_singlet
+```
+
 One of the major obstacles to quantum chemistry is the volume of computation. As the system size (electron number and atomic number) increases, the time required for solving the FCI wave function and ground state energy increases by about $2^{N}$. Even for small molecules such as ethylene molecules, FCI computing is not easy. Quantum computers provide a possible solution to this problem. Research shows that quantum computers can simulate the time-dependent evolution of Hamiltonian in terms of polynomial time complexity. Compared with classical computers, quantum computers exponentially accelerate the chemical simulation on quantum processors. This tutorial introduces one of the quantum algorithms: VQE.
 
 ## Variational Quantum Eigensolver (VQE)
@@ -446,7 +450,6 @@ from mindquantum.algorithm.nisq import Transform
 from mindquantum.algorithm.nisq import get_qubit_hamiltonian
 from mindquantum.algorithm.nisq import uccsd_singlet_generator, uccsd_singlet_get_packed_amplitudes
 from mindquantum.core.operators import TimeEvolution
-from mindquantum.framework import MQAnsatzOnlyLayer
 ```
 
 The molecule Hamiltonian uses `get_qubit_hamiltonian` to read the previous computing result. The result is as follows:

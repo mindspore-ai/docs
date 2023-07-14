@@ -126,19 +126,21 @@ print("Label in quantum state is: ", np.argmax(amp))
 ```
 
 ```text
-    Label is:  2
-    Binary label is:  010
-    Parameters of encoder is:
-     [0.      3.14159 0.     ]
-    Encoder circuit is:
-     RX(e_0|0)
-    RX(e_1|1)
-    RX(e_2|2)
-    Encoder parameter names are:
-     ['e_0', 'e_1', 'e_2']
-    Amplitude of quantum state is:
-     [0. 0. 1. 0. 0. 0. 0. 0.]
-    Label in quantum state is:  2
+Label is:  2
+Binary label is:  010
+Parameters of encoder is:
+ [0.      3.14159 0.     ]
+Encoder circuit is:
+ q0: ──RX(e_0)──
+
+q1: ──RX(e_1)──
+
+q2: ──RX(e_2)──
+Encoder parameter names are:
+ ['e_0', 'e_1', 'e_2']
+Amplitude of quantum state is:
+ [0. 0. 1. 0. 0. 0. 0. 0.]
+Label in quantum state is:  2
 ```
 
 Through the above verification, for the data with label 2, the position where the largest amplitude of the quantum state is finally obtained is also 2. Therefore, the obtained quantum state is exactly the encoding information of input label. We summarize the process of generating parameter values through data encoding information into the following function.
@@ -152,7 +154,7 @@ def GenerateTrainData(sample, word_dict):
         data_x.append([])
         for word in around:
             label = word_dict[word]
-            label_bin = bin(label)[-1:1:-1].ljust(n_qubits,'0')
+            label_bin = bin(label)[-1: 1: -1].ljust(n_qubits, '0')
             label_array = [int(i)*np.pi for i in label_bin]
             data_x[-1].extend(label_array)
         data_y.append(word_dict[center])
@@ -164,10 +166,10 @@ GenerateTrainData(sample, word_dict)
 ```
 
 ```text
-    (array([[0.       , 0.       , 0.       , 0.       , 3.1415927, 0.       ,
-             3.1415927, 0.       , 0.       , 0.       , 0.       , 3.1415927]],
-           dtype=float32),
-     array([3], dtype=int32))
+(array([[0.       , 0.       , 0.       , 0.       , 3.1415927, 0.       ,
+         3.1415927, 0.       , 0.       , 0.       , 0.       , 3.1415927]],
+       dtype=float32),
+ array([3], dtype=int32))
 ```
 
 According to the above result, we merge the encoding information of these 4 input words into a longer vector for further usage of the neural network.
@@ -236,7 +238,7 @@ GenerateEmbeddingHamiltonian(5, 5)
 ```
 
 ```text
-    [1.0 Z0, 1.0 Z1, 1.0 Z0 Z1, 1.0 Z2, 1.0 Z0 Z2]
+    [1 [Z0] , 1 [Z1] , 1 [Z0 Z1] , 1 [Z2] , 1 [Z0 Z2] ]
 ```
 
 ## Quantum Word Embedding Layer
@@ -338,7 +340,6 @@ Next, embed a long setence by using the quantum `CBOW`. This command sets the th
 
 ```python
 import mindspore as ms
-
 ms.set_context(mode=ms.PYNATIVE_MODE, device_target="CPU")
 corpus = """We are about to study the idea of a computational process.
 Computational processes are abstract beings that inhabit computers.
@@ -352,12 +353,12 @@ window_size = 2
 embedding_dim = 10
 hidden_dim = 128
 word_dict, sample = GenerateWordDictAndSample(corpus, window=window_size)
-train_x,train_y = GenerateTrainData(sample, word_dict)
+train_x, train_y = GenerateTrainData(sample, word_dict)
 
 train_loader = ds.NumpySlicesDataset({
     "around": train_x,
     "center": train_y
-},shuffle=False).batch(3)
+}, shuffle=False).batch(3)
 net = CBOW(len(word_dict), embedding_dim, window_size, 3, 4, hidden_dim)
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 net_opt = nn.Momentum(net.trainable_params(), 0.01, 0.9)
@@ -367,21 +368,21 @@ model.train(350, train_loader, callbacks=[loss_monitor], dataset_sink_mode=False
 ```
 
 ```text
-    epoch:  25 step:  20 time: 0.592, loss is 3.154
-    epoch:  50 step:  20 time: 0.614, loss is 2.944
-    epoch:  75 step:  20 time: 0.572, loss is 0.224
-    epoch: 100 step:  20 time: 0.562, loss is 0.015
-    epoch: 125 step:  20 time: 0.545, loss is 0.009
-    epoch: 150 step:  20 time: 0.599, loss is 0.003
-    epoch: 175 step:  20 time: 0.586, loss is 0.002
-    epoch: 200 step:  20 time: 0.552, loss is 0.045
-    epoch: 225 step:  20 time: 0.590, loss is 0.001
-    epoch: 250 step:  20 time: 0.643, loss is 0.001
-    epoch: 275 step:  20 time: 0.562, loss is 0.001
-    epoch: 300 step:  20 time: 0.584, loss is 0.001
-    epoch: 325 step:  20 time: 0.566, loss is 0.000
-    epoch: 350 step:  20 time: 0.578, loss is 0.000
-    Total time used: 206.29734826087952
+epoch:  25 step:  20 time: 0.351, loss is 3.154
+epoch:  50 step:  20 time: 0.362, loss is 3.023
+epoch:  75 step:  20 time: 0.353, loss is 2.948
+epoch: 100 step:  20 time: 0.389, loss is 2.299
+epoch: 125 step:  20 time: 0.392, loss is 0.810
+epoch: 150 step:  20 time: 0.389, loss is 0.464
+epoch: 175 step:  20 time: 0.384, loss is 0.306
+epoch: 200 step:  20 time: 0.383, loss is 0.217
+epoch: 225 step:  20 time: 0.387, loss is 0.168
+epoch: 250 step:  20 time: 0.382, loss is 0.143
+epoch: 275 step:  20 time: 0.389, loss is 0.130
+epoch: 300 step:  20 time: 0.386, loss is 0.122
+epoch: 325 step:  20 time: 0.408, loss is 0.117
+epoch: 350 step:  20 time: 0.492, loss is 0.102
+Total time used: 138.5629165172577
 ```
 
 Print the loss value during convergence:
@@ -406,25 +407,25 @@ net.embedding.weight.asnumpy()
 ```
 
 ```text
-    array([ 1.52044818e-01,  1.71521559e-01,  2.35021308e-01, -3.95286232e-01,
-           -3.71680595e-03,  7.96886325e-01, -4.04954888e-02,  1.55393332e-01,
-            4.11805660e-02,  7.79824018e-01,  2.96543002e-01, -2.21819162e-01,
-           -4.67430688e-02,  4.66759771e-01,  2.75283188e-01,  1.35858059e-01,
-           -3.23841363e-01, -2.31937021e-01, -4.68942285e-01, -1.96520030e-01,
-            2.16065589e-02,  1.23866223e-01, -9.68078300e-02,  1.69127151e-01,
-           -8.90062153e-01,  2.56734312e-01,  8.37369189e-02, -1.15734830e-01,
-           -1.34410933e-01, -3.12207133e-01, -8.90189946e-01,  1.97006428e+00,
-           -2.49193460e-02,  2.25960299e-01, -3.90179232e-02, -3.03875893e-01,
-            2.02030335e-02, -7.07065910e-02, -4.81521547e-01,  5.04257262e-01,
-           -1.32081115e+00,  2.83502758e-01,  2.80248702e-01,  1.63375765e-01,
-           -6.91465080e-01,  6.82975233e-01, -2.67829001e-01,  2.29658693e-01,
-            2.78859794e-01, -1.04206935e-01, -5.57148576e-01,  4.41706657e-01,
-           -6.76973104e-01,  2.47751385e-01, -2.96468334e-03, -1.66827604e-01,
-           -3.47717047e-01, -9.04396921e-03, -7.69433856e-01,  4.33617719e-02,
-           -2.09145937e-02, -1.55236557e-01, -2.16777384e-01, -2.26556376e-01,
-           -6.16374731e-01,  2.05871137e-03, -3.08128931e-02, -1.63372140e-02,
-            1.46710426e-01,  2.31793106e-01,  4.16066934e-04, -9.28813033e-03],
-          dtype=float32)
+array([-1.06950325e-03, -1.62345007e-01,  6.51378045e-03,  3.30513604e-02,
+        1.43976521e-03, -8.73360550e-05,  1.58920437e-02,  4.88108210e-02,
+       -1.38961999e-02, -8.95568263e-03, -9.16828722e-05,  6.78092847e-03,
+        9.64443013e-03,  6.65064156e-02, -2.27977871e-03, -2.90895114e-04,
+        6.87254360e-03, -3.33692250e-03, -5.43189228e-01, -1.90237209e-01,
+       -3.96547168e-02, -1.54710874e-01,  3.94615083e-04, -3.17311606e-05,
+       -5.17031252e-01,  9.45210159e-01,  6.53367564e-02, -4.39741276e-02,
+       -6.84748637e-03, -9.54589061e-03, -5.17159104e-01,  7.45301664e-01,
+       -3.10309901e-04, -3.35418060e-02,  2.80578714e-03, -1.21473498e-03,
+        2.32869145e-02, -2.02556834e-01, -9.99295652e-01, -2.33947067e-05,
+        6.91292621e-03, -1.37111245e-04,  1.10169267e-02, -2.61709969e-02,
+       -5.76490164e-01,  6.42279327e-01, -1.17960293e-02, -3.99340130e-03,
+        9.62817296e-03, -2.04294510e-02,  9.17679537e-03,  6.43585920e-01,
+        7.80070573e-03,  1.40992356e-02, -1.67036298e-04, -7.76478276e-03,
+       -3.02837696e-02, -2.40557283e-01,  2.06130613e-02,  7.22330203e-03,
+        4.16821009e-03,  2.04327740e-02,  1.80713329e-02, -1.01204574e-01,
+        1.14764208e-02,  2.05871137e-03, -5.73002594e-03,  2.16162428e-01,
+       -1.32567063e-02, -1.02419645e-01,  4.16066934e-04, -9.28813033e-03],
+      dtype=float32)
 ```
 
 ## Classical Word Embedding Layer
@@ -479,10 +480,11 @@ Train the classical CBOW network.
 
 ```python
 ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
+
 train_loader = ds.NumpySlicesDataset({
     "around": train_x,
     "center": train_y
-},shuffle=False).batch(3)
+}, shuffle=False).batch(3)
 net = CBOWClassical(len(word_dict), embedding_dim, window_size, hidden_dim)
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 net_opt = nn.Momentum(net.trainable_params(), 0.01, 0.9)
@@ -492,21 +494,21 @@ model.train(350, train_loader, callbacks=[loss_monitor], dataset_sink_mode=False
 ```
 
 ```text
-    epoch:  25 step:  20 time: 0.008, loss is 3.155
-    epoch:  50 step:  20 time: 0.026, loss is 3.027
-    epoch:  75 step:  20 time: 0.010, loss is 3.010
-    epoch: 100 step:  20 time: 0.009, loss is 2.955
-    epoch: 125 step:  20 time: 0.008, loss is 0.630
-    epoch: 150 step:  20 time: 0.008, loss is 0.059
-    epoch: 175 step:  20 time: 0.009, loss is 0.008
-    epoch: 200 step:  20 time: 0.008, loss is 0.003
-    epoch: 225 step:  20 time: 0.017, loss is 0.001
-    epoch: 250 step:  20 time: 0.008, loss is 0.001
-    epoch: 275 step:  20 time: 0.016, loss is 0.000
-    epoch: 300 step:  20 time: 0.008, loss is 0.000
-    epoch: 325 step:  20 time: 0.016, loss is 0.000
-    epoch: 350 step:  20 time: 0.008, loss is 0.000
-    Total time used: 5.06074857711792
+    epoch:  25 step:  20 time: 0.023, loss is 3.155
+    epoch:  50 step:  20 time: 0.014, loss is 3.027
+    epoch:  75 step:  20 time: 0.022, loss is 3.010
+    epoch: 100 step:  20 time: 0.021, loss is 2.955
+    epoch: 125 step:  20 time: 0.021, loss is 0.630
+    epoch: 150 step:  20 time: 0.022, loss is 0.059
+    epoch: 175 step:  20 time: 0.023, loss is 0.008
+    epoch: 200 step:  20 time: 0.022, loss is 0.003
+    epoch: 225 step:  20 time: 0.023, loss is 0.001
+    epoch: 250 step:  20 time: 0.021, loss is 0.001
+    epoch: 275 step:  20 time: 0.021, loss is 0.000
+    epoch: 300 step:  20 time: 0.018, loss is 0.000
+    epoch: 325 step:  20 time: 0.022, loss is 0.000
+    epoch: 350 step:  20 time: 0.019, loss is 0.000
+    Total time used: 8.10720443725586
 ```
 
 Print the loss value during convergence:
