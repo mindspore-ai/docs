@@ -152,7 +152,7 @@ GPU环境编译，使用TensorRT需要集成CUDA、TensorRT。当前版本适配
 
 #### 安装LLVM-可选
 
-模型转换工具的CPU的图算融合功能需要依赖LLVM-12，可以通过以下命令安装[LLVM](https://llvm.org/)。 如果没有安装LLVM-12则图算融合功能仅能支持GPU和Ascend后端。
+模型转换工具中图算融合功能的CPU后端需要依赖LLVM-12，可以通过以下命令安装[LLVM](https://llvm.org/)。 如果没有安装LLVM-12则图算融合功能仅能支持GPU和Ascend后端。
 
 ```shell
 wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
