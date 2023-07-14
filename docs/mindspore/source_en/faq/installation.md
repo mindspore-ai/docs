@@ -371,3 +371,9 @@ A: The above issue occurs in environments with a newer version of numpy (>=1.22.
 <font size=3>**Q: What should I do if an error message `AttributeError: module 'six' has no attribute 'ensure_text'` is displayed when running Mindspore?**</font>
 
 A: The reason for the above issue is that a newer version of `asttokens` (>=2.0.6) is installed, but the version of `six` on which it depends does not match. It can be solved by updating the `six` version (>=1.12.0).
+
+<br/>
+
+<font size=3>**Q: What should I do if an error message `AttributeError: module 'PIL' has no attribute 'ANTIALIAS'` is displayed when running Mindspore?**</font>
+
+A: The reason for the above issue is that a newer version of `pillow` (>=10.0.0) is installed. It can be solved by reducing the `pillow` version (<10.0.0).
