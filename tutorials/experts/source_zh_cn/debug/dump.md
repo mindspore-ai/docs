@@ -45,7 +45,7 @@
 
 1. 静态图算子结果分析。
 
-   通过Dump功能获得的IR图，可以了解脚本代码与执行算子的映射关系（详情见[MindSpore IR简介](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html#简介)）。结合执行算子的输入和输出数据，可以分析训练过程中可能存在的溢出、梯度爆炸与消失等问题，反向跟踪到脚本中可能存在问题的代码。
+   通过Dump功能获得的IR图，可以了解脚本代码与执行算子的映射关系（详情见[MindSpore IR简介](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#简介)）。结合执行算子的输入和输出数据，可以分析训练过程中可能存在的溢出、梯度爆炸与消失等问题，反向跟踪到脚本中可能存在问题的代码。
 
 2. 特征图分析。
 

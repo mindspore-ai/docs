@@ -14,8 +14,6 @@ MindSpore Documentation
 
    design/overview
    design/programming_paradigm
-   design/auto_gradient
-   design/mindir
    design/all_scenarios
    design/dynamic_graph_and_static_graph
    design/pluggable_device
