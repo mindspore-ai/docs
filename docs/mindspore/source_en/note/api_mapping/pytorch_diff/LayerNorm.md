@@ -37,7 +37,7 @@ MindSpore: MindSpore API basically implements the same function as PyTorch, but 
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
-|Parameters | Parameter 1 | normalized_shape | normalized_shape |- |
+|Parameters | Parameter 1 | normalized_shape | normalized_shape |PyTorch supports both int and list. However, in MindSpore, this parameter supports tuple and list |
 | | Parameter 2 | eps | epsilon | Same function, different parameter names, different default values |
 | | Parameter 3 | elementwise_affine | - | This parameter is used in PyTorch to control whether the learnable parameters are used. MindSpore does not have this parameter|
 | | Parameter 4 | - | begin_norm_axis | This parameter in MindSpore controls the axis on which the normalization begins. PyTorch does not have this parameter|
@@ -74,3 +74,28 @@ output = m(x).shape
 print(output)
 # (20, 5, 10, 10)
 ```
+
+> When the `num_features` parameter in PyTorch is of type `int`, in MindSpore it should be of type `tuple(int)`
+
+```python
+# PyTorch
+import torch
+import torch.nn as nn
+
+input_tensor = torch.randn(10, 20, 30)
+layer_norm = nn.LayerNorm(normalized_shape=30)
+output = layer_norm(input_tensor)
+print("Output shape:", output.shape)
+# Output shape: torch.Size([10, 20, 30])
+
+# MindSpore
+import mindspore
+from mindspore import nn
+
+input_tensor = mindspore.ops.randn(10, 20, 30)
+layer_norm = nn.LayerNorm(normalized_shape=(30,))
+output = layer_norm(input_tensor)
+print("Output shape:", output.shape)
+# Output shape: (10, 20, 30)
+```
+
