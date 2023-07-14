@@ -96,19 +96,41 @@ nx.add_path(g, [2,3])
 nx.add_path(g, [3,4])
 nx.add_path(g, [0,4])
 nx.add_path(g, [0,2])
-nx.draw(g,with_labels=True, font_weight='bold')
+nx.draw(g, with_labels=True, font_weight='bold')
 ```
 
 ![png](./images/maxcut_graph.png)
 
 As shown in the preceding figure, a graph structure consisting of five vertices and six edges is obtained.
 
+Next we use the exhaustive method to see the number of cutting edges for all cases.
+
 ```python
 for i in g.nodes:
-    print('one size:', [i], 'cut=', nx.cut_size(g, [i]))
+    print('one size:', [i], 'cut=', nx.cut_size(g, [i]))            # All cases with 1 node in one group and 4 nodes in the other group
     for j in range(i):
-        print('one size:', [i, j], 'cut=', nx.cut_size(g, [i, j]))
+        print('one size:', [i, j], 'cut=', nx.cut_size(g, [i, j]))  # All cases with 2 nodes in one group and 3 nodes in the other group
 ```
+
+```text
+one size: [0] cut= 3
+one size: [1] cut= 2
+one size: [1, 0] cut= 3
+one size: [2] cut= 3
+one size: [2, 0] cut= 4
+one size: [2, 1] cut= 3
+one size: [3] cut= 2
+one size: [3, 0] cut= 5
+one size: [3, 1] cut= 4
+one size: [3, 2] cut= 3
+one size: [4] cut= 2
+one size: [4, 0] cut= 3
+one size: [4, 1] cut= 4
+one size: [4, 2] cut= 5
+one size: [4, 3] cut= 2
+```
+
+From the above results, it can be seen that the maximum number of cutting edges obtained by the exhaustive method is 5. If a distinction is made between the left and right of the node grouping, there are a total of 4 grouping methods that maximize the number of cutting edges, i.e., there are 4 simplex solutions to the problem.
 
 ## The Process of QAQA Algorithm
 
@@ -121,6 +143,8 @@ for i in g.nodes:
 7. Based on the result of step 4, the approximate solution of the target problem is calculated
 
 In this process, steps 2-6 can all be implemented by packages and functions available in MindSpore and MindSpore Quantum, so we will focus on step 1: building the quantum circuit.
+
+![Flowchart](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindquantum/docs/source_zh_cn/images/QAOA_Flowchart.png)
 
 ## Setting up a QAOA Quantum Circuit
 
