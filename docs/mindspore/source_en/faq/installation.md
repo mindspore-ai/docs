@@ -369,3 +369,9 @@ $sudo make install
 <font size=3>**Q: What should I do if an warning message `UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.` is displayed when running Mindspore?**</font>
 
 A: The above issue occurs in environments with a newer version of numpy (>=1.22.0) version of ARM python 3.9 installed. We observed such warnings on ARM environment, with python 3.9 and numpy >=1.22.0 installed. The wharnings come from numpy and not from MindSpore. If the wharnings affect the normal debugging of the code, you can consider manually installing an earlier version of numpy (<=1.21.2) to circumvent it.
+
+<br/>
+
+<font size=3>**Q: What should I do if an error message `AttributeError: module 'PIL' has no attribute 'ANTIALIAS'` is displayed when running Mindspore?**</font>
+
+A: The reason for the above issue is that a newer version of `pillow` (>=10.0.0) is installed. It can be solved by reducing the `pillow` version (<10.0.0).
