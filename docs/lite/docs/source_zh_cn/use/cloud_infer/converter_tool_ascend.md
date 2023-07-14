@@ -221,6 +221,8 @@
 
 AOE是一款专门为Davinci平台打造的计算图形性能自动调优工具。Lite使能AOE的能力，是在converter阶段集成AOE离线可执行程序，对图进行性能调优，生成知识库，并保存离线模型。该功能支持子图调优和算子调优。具体使用流程如下：
 
+### AOE工具调优
+
 1. 配置环境变量
 
     ``${LOCAL_ASCEND}``为昇腾软件包安装所在路径
@@ -262,6 +264,100 @@ AOE是一款专门为Davinci平台打造的计算图形性能自动调优工具�
 > - 性能提升结果会因不同环境存在差异，实际时延减少百分比不完全等同于调优日志中所展示的结果。
 > - AOE调优会在执行任务的当前目录下产生``aoe_workspace``目录，用于保存调优前后的模型，用于性能提升对比，以及调优所必须的过程数据和结果文件。该目录会占用额外磁盘空间，如500MB左右的原始模型会占用2~10GB的磁盘空间，视模型大小，算子种类结构，输入shape的大小等因素浮动。因此建议预留足够的磁盘空间，否则可能导致调优失败。
 > - ``aoe_workspace``目录需要手动删除来释放磁盘空间。
+
+### AOE API调优
+
+Ascend推理时，运行时指定 `provider` 为 ``ge`` 时，支持多个模型共享权重，支持模型中存在可以被更新的权重，即变量。当前仅AOE API调优支持模型中存在变量，默认的AOE工具调优不支持。环境变量、知识库路径的设置和使用、AOE调优缓存与AOE工具调优一致。详情可参考[AOE调优](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_001.html)。
+
+转换工具支持AOE API调优，当 `optimize=ascend_oriented`，配置文件中识别到 `[ascend_context]` 存在 `provider=ge` ，且 `[ascend_context]` 或 `[acl_option_cfg_param]` 中存在有效的 `aoe_mode` 或 `[aoe_global_options]` 存在有效的 `job_type` ，将启动AOE API调优。AOE API调优只产生知识库，不产生优化后的模型。
+
+1. 指定 `provider` 为 ``ge``
+
+    ```bash
+    [ascend_context]
+    provider=ge
+    ```
+
+2. AOE选项
+
+    `[aoe_global_options]` 中的选项将传给AOE API的[全局选项](https://gitee.com/link?target=https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_070.html)。 `[aoe_tuning_options]` 中的选项将传给AOE API的[调优选项](https://gitee.com/link?target=https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_071.html)。
+
+    我们将提取 `[acl_option_cfg_param]` 、`[ascend_context]` 、 `[ge_session_options]` 、 `[ge_graph_options]` 中的选项并转换为AOE选项，避免用户开启AOE调优时需要手动转换这些选项。提取的选项包括 `input_format` 、 `input_shape` 、 `dynamic_dims` 、 `precision_mode` 。相同选项在多个配置Section同时存在时，优先级从前往后由低到高，`[aoe_global_options]` 和 `[aoe_tuning_options]` 中的选项优先级最高。
+
+3. AOE调优模式
+
+    `aoe_mode` 当前仅限定为 `subgraph turing` 或 `operator turing` ，暂不支持 `subgraph turing, operator turing`，即不支持同一个调优过程进行子图和算子调优，如需要，可通过两次调用转换工具分别启动子图调优和算子调优。
+
+    `[aoe_global_options]` 中， `job_type` 为 ``1`` 时为子图调优， `job_type` 为 `2` 时为算子调优。
+
+    ```bash
+    [ascend_context]
+    aoe_mode="operator tuning"
+    ```
+
+    ```bash
+    [acl_option_cfg_param]
+    aoe_mode="operator tuning"
+    ```
+
+    ```bash
+    [aoe_global_options]
+    job_type=2
+    ```
+
+4. 动态分档
+
+    可在 `[acl_option_cfg_param]` 、`[ascend_context]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 设置动态分档信息，优先级从低到高。以下设置方式等价。 `[ascend_context]` 分档设置可参考 [动态shape配置](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool_ascend.html#%E5%8A%A8%E6%80%81shape%E9%85%8D%E7%BD%AE)。 `[acl_option_cfg_param]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 分档设置可参考 [dynamic_dims](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_015.html)、[dynamic_batch_size](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_013.html)、[dynamic_image_size](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_014.html)。
+
+    ```bash
+    [ascend_context]
+    input_shape=x1:[-1,3,224,224];x2:[-1,3,1024,1024]
+    dynamic_dims=[1],[2],[3],[4];[1],[2],[3],[4]
+    ```
+
+    ```bash
+    [acl_option_cfg_param]
+    input_shape=x1:-1,3,224,224;x2:-1,3,1024,1024
+    dynamic_dims=1,1;2,2;3,3;4,4
+    ```
+
+    ```bash
+    [ge_graph_options]
+    ge.inputShape=x1:-1,3,224,224;x2:-1,3,1024,1024
+    ge.dynamicDims=1,1;2,2;3,3;4,4
+    ```
+
+    ```bash
+    [aoe_tuning_options]
+    input_shape=x1:-1,3,224,224;x2:-1,3,1024,1024
+    dynamic_dims=1,1;2,2;3,3;4,4
+    ```
+
+5. 精度模式
+
+    可在 `[acl_option_cfg_param]` 、`[ascend_context]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 设置模式信息，优先级从低到高。以下设置方式等价。
+
+    `[ascend_context]` 精度模式设置可参考 [ascend_context - precision_mode](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool_ascend.html#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)。 `[acl_option_cfg_param]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 精度模式设置可参考 [precision_mode](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_046.html)。
+
+    ```bash
+    [ascend_context]
+    precision_mode=preferred_fp32
+    ```
+
+    ```bash
+    [acl_option_cfg_param]
+    precision_mode=allow_fp32_to_fp16
+    ```
+
+    ```bash
+    [ge_graph_options]
+    precision_mode=allow_fp32_to_fp16
+    ```
+
+    ```bash
+    [aoe_tuning_options]
+    precision_mode=allow_fp32_to_fp16
+    ```
 
 ## 部署Ascend自定义算子
 
