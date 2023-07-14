@@ -276,5 +276,3 @@ encoder.svg()
 From the Summary of Encoder, we can see that the quantum line consists of three quantum gates, one of which is a quantum gate with parameters and has the parameter theta, and the number of quantum bits regulated by this quantum line is 3.
 
 Therefore, we can build the corresponding quantum line according to the problem we need to solve. Go and build your first quantum line!
-
-To find out more about MindSpore Quantum's API, please click: [https://mindspore.cn/mindquantum/](https://mindspore.cn/mindquantum/).

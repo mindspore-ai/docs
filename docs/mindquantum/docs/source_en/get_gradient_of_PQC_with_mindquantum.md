@@ -307,5 +307,3 @@ print(circuit.get_qs(pr=rot_angle, ket=True))
 (0.7074343486186319-0.00010695972396782116j)¦0⟩
 (0.7067790538448511+√5/3906250j)¦1⟩
 ```
-
-To find out more about MindSpore Quantum's API, please click: https://mindspore.cn/mindquantum/
