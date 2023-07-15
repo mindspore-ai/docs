@@ -53,17 +53,20 @@ fake_input = np.ones((151, 36)).astype(np.float32)
 # PyTorch
 import torch
 import torchaudio.transforms as T
+torch.manual_seed(1)
 
 transformer = T.GriffinLim(n_fft=300, n_iter=10, win_length=None, hop_length=None, window_fn=torch.hann_window, power=2, momentum=0.5)
 torch_result = transformer(torch.from_numpy(fake_input))
 print(torch_result)
-# Out: tensor([-0.1000, -0.0116,  0.0687,  ..., -0.0897, -0.0263,  0.0067])
+# Out: tensor([-0.0800,  0.1134, -0.0888,  ..., -0.0610, -0.0206, -0.1800])
 
 # MindSpore
+import mindspore as ms
 import mindspore.dataset.audio as audio
+ms.dataset.config.set_seed(3)
 
 transformer = audio.GriffinLim(n_fft=300, n_iter=10, win_length=None, hop_length=None, window_type=audio.WindowType.HANN, power=2, momentum=0.5)
 ms_result = transformer(fake_input)
 print(ms_result)
-# Out: [ 0.06666667  0.06637156  0.08702356 ...  0.04688901 -0.05855678 0.03994351]
+# Out: [-0.08666667  0.06763329 -0.03155987 ... -0.07218403 -0.01178891 -0.00664348]
 ```

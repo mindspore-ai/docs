@@ -37,21 +37,24 @@ MindSpore: Apply masking to a spectrogram in the frequency domain. Variable `mas
 import numpy as np
 
 fake_specgram = np.array([[[0.17274511, 0.85174704, 0.07162686, -0.45436913],
-                          [-1.0271876, 0.33526883, 1.7413973, 0.12313101]]]).astype(np.float32)
+                           [-1.0271876, 0.33526883, 1.7413973, 0.12313101]]]).astype(np.float32)
 
 # PyTorch
 import torch
 import torchaudio.transforms as T
+torch.manual_seed(1)
 
 transformer = T.FrequencyMasking(freq_mask_param=2, iid_masks=True)
 torch_result = transformer(torch.from_numpy(fake_specgram), mask_value=0.0)
 print(torch_result)
 # Out: tensor([[[ 0.0000,  0.0000,  0.0000,  0.0000],
-#         [-1.0272,  0.3353,  1.7414,  0.1231]]])
+#               [-1.0272,  0.3353,  1.7414,  0.1231]]])
 
 # MindSpore
+import mindspore as ms
 import mindspore.dataset.audio as audio
 
+ms.dataset.config.set_seed(2)
 transformer = audio.FrequencyMasking(freq_mask_param=2, iid_masks=True, mask_start=0, mask_value=0.0)
 ms_result = transformer(fake_specgram)
 print(ms_result)

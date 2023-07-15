@@ -31,3 +31,30 @@ MindSpore: Crop a random portion of image and resize it to a given size.
 |     | Parameter3 | ratio     | ratio    | - |
 |     | Parameter4 | interpolation     | interpolation   | - |
 |     | Parameter5 | -     | max_attempts   | The maximum number of attempts to propose a valid crop_area |
+
+## Code Example
+
+```python
+from download import download
+from PIL import Image
+
+url = "https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/flamingos.jpg"
+download(url, './flamingos.jpg', replace=True)
+orig_img = Image.open('flamingos.jpg')
+
+# PyTorch
+import torchvision.transforms as T
+
+op = T.RandomResizedCrop((32, 32), scale=(0.08, 1.0), ratio=(0.75, 0.8))
+img_torch =op(orig_img)
+print(img_torch.size)
+# Out: (32, 32)
+
+# MindSpore
+import mindspore.dataset.vision as vision
+
+op = vision.RandomResizedCrop((32, 32), scale=(0.08, 1.0), ratio=(0.75, 0.8))
+img_ms = op(orig_img)
+print(img_ms.size)
+# Out: (32, 32)
+```

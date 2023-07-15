@@ -22,13 +22,13 @@ class mindspore.dataset.text.SentencePieceTokenizer(mode, out_type)
 
 ## 使用方式
 
-PyTorch：加载语句片段模型。
+PyTorch：加载SentencePiece分词模型。
 
-MindSpore：构造一个语句片段分词器，包含加载语句片段模型功能。
+MindSpore：构造一个SentencePiece分词器，包含加载SentencePiece模型功能。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | ---   | ---   | ---        |---  |
-|参数 | 参数1 | spm    | mode    | MindSpore支持SentencePiece词汇表或语句片段模型地址 |
+|参数 | 参数1 | spm    | mode    | MindSpore支持SentencePiece词汇表或SentencePiece模型地址 |
 |     | 参数2 | -    |out_type     | 分词器输出的类型 |
 
 ## 代码示例

@@ -28,9 +28,9 @@ class mindspore.dataset.text.Ngram(
 
 ## 使用方式
 
-PyTorch：从1-D的字符串生成N-gram
+PyTorch：从1维的字符串生成N-gram
 
-MindSpore：从1-D的字符串生成N-gram，可以指定N-gram的连接符，或对序列进行额外的填充。
+MindSpore：从1维的字符串生成N-gram，可以指定N-gram的连接符，或对序列进行额外的填充。
 
 | 分类       | 子类         | PyTorch      | MindSpore      | 差异          |
 | ---------- | ------------ | ------------ | ---------      | ------------- |

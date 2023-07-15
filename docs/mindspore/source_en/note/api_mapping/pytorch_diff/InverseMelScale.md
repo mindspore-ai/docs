@@ -55,19 +55,22 @@ fake_input = np.array([[1., 1.],
 # PyTorch
 import torch
 import torchaudio.transforms as T
+torch.manual_seed(1)
 
 transformer = T.InverseMelScale(n_stft=2, n_mels=4)
 torch_result = transformer(torch.from_numpy(fake_input))
 print(torch_result)
-# Out: tensor([[0.4181, 0.2522],
-#             [0.3385, 0.4193]])
+# Out: tensor([[0.7576, 0.4031],
+#              [0.2793, 0.7347]])
 
 # MindSpore
+import mindspore as ms
 import mindspore.dataset.audio as audio
+ms.dataset.config.set_seed(3)
 
 transformer = audio.InverseMelScale(n_stft=2, n_mels=4)
 ms_result = transformer(fake_input)
 print(ms_result)
-# Out: [[[0.81363475 0.38404778]
-#       [0.31173563 0.740281  ]]]
+# Out: [[[0.5507979  0.07072488]
+#        [0.7081478  0.8399491 ]]]
 ```
