@@ -15,7 +15,7 @@ Add the MindSpore Profiler interface to the training script.
      `Profiler API <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ .
      Before initializing the Profiler, you need to determine the device_id.
 
-- At the end of the training, ``Profiler.analyse()`` should be called to finish profiling and generate the perforamnce analyse results.
+- At the end of the training, ``Profiler.analyse()`` should be called to finish profiling and generate the performance analyse results.
 
 ** Conditional open example: **
 
@@ -54,7 +54,7 @@ the other is through Callback based on step or epoch to open and close Profiler.
                super(StopAtStep, self).__init__()
                self.start_step = start_step
                self.stop_step = stop_step
-               self.profiler = ms.Profiler(start_profile=False, ouput_path='./data_step')
+               self.profiler = ms.Profiler(start_profile=False, output_path='./data_step')
 
            def on_train_step_begin(self, run_context):
                cb_params = run_context.original_args()
@@ -78,7 +78,7 @@ the other is through Callback based on step or epoch to open and close Profiler.
               super(StopAtEpoch, self).__init__()
               self.start_epoch = start_epoch
               self.stop_epoch = stop_epoch
-              self.profiler = ms.Profiler(start_profile=False, ouput_path='./data_epoch')
+              self.profiler = ms.Profiler(start_profile=False, output_path='./data_epoch')
 
           def on_train_epoch_begin(self, run_context):
               cb_params = run_context.original_args()
@@ -178,13 +178,18 @@ Method 2: Enable environment variables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before running the network script, configure Profiler configuration items.
-Note：This feature does not yet support the Ascend 910B chip scenario. Stay tuned.
+
+Note：
+
+- This feature does not yet support the Ascend 910B chip scenario. Stay tuned.
+
+- To enable using environment variables, please set the device ID through the environment variables before the script starts executing. Prohibit using set in scripts_ The context function sets the device ID.
 
 .. code-block:: shell
 
    export MS_PROFILER_OPTIONS='{"start": true, "output_path": "/XXX", "profile_memory": false, "profile_communication": false, "aicore_metrics": 0, "l2_cache": false}'
 
-- `start` (bool, mandatory) - Set to true to enable Profiler. Set to false to disable performance data collection. Default value: false.
+- `start` (bool, mandatory) - Set to true to enable Profiler. Set false to disable performance data collection. Default value: false.
 
 - `output_path` (str, optional) - Represents the path (absolute path) of the output data. Default value： "./data".
 
