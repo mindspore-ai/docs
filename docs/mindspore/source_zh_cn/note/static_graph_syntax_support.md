@@ -94,7 +94,7 @@ a_after_id = id(a)
 assert a_id == a_after_id
 ```
 
-上述示例代码中，通过`append`这个inplace语法更改`List`对象时候，其对象的地址并没有被修改。而`Tuple`是不支持这种inplace操作的。在`JIT_SYNTAX_LEVEL`设置为`COMPATIBLE`以及`LAX`的情况下，静态图模式可以支持部分`List`对象的inplace操作。
+上述示例代码中，通过`append`这个inplace语法更改`List`对象的时候，其对象的地址并没有被修改。而`Tuple`是不支持这种inplace操作的。在`JIT_SYNTAX_LEVEL`设置为`COMPATIBLE`以及`LAX`的情况下，静态图模式可以支持部分`List`对象的inplace操作。
 
 MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`进行网络构建。
 
@@ -155,7 +155,7 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
 
 - 图模式支持以`List`作为输入
 
-  图模式支持`List`作为静态图的输入，作为输入的`List`对象的元素必须为图模式支持的输入类型, 也支持多层嵌套。
+  图模式支持`List`作为静态图的输入，作为输入的`List`对象的元素必须为图模式支持的输入类型，也支持多层嵌套。
 
   ```python
   import mindspore as ms
@@ -193,7 +193,7 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
 
 - 图模式支持List的内置方法
 
-    在`JIT_SYNTAX_LEVEL`设置为`COMPATIBLE`以及`LAX`的情况下，图模式部分`List`内置函数支持inplace。在 `JIT_SYNTAX_LEVEL`为 `STRICT` 的情况下，所有方法均不支持inplace操作。  
+    在`JIT_SYNTAX_LEVEL`设置为`COMPATIBLE`以及`LAX`的情况下，图模式部分`List`内置函数支持inplace。在 `JIT_SYNTAX_LEVEL`为 `STRICT` 的情况下，所有方法均不支持inplace操作。
     图模式支持的`List`内置方法如下表所示：
 
     | 方法名       | 是否支持inplace操作 （JIT_SYNTAX_LEVEL=COMPATIBLE/LAX）    |  
@@ -379,7 +379,7 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
 
         基础语义：将`List`对象`list_object` 的第`index`个元素从`list_object`中删除，并返回该元素。
 
-        `index` 要求必须为常量`int`, 当`list_object`的长度为`list_obj_size`时，`index`的取之范围为：`[-list_obj_size，list_obj_size-1]`。`index`为负数代表从后往前的位数。当没有输入`index`时，默认值为-1，即删除最后一个元素。
+        `index` 要求必须为常量`int`, 当`list_object`的长度为`list_obj_size`时，`index`的取值范围为：`[-list_obj_size，list_obj_size-1]`。`index`为负数，代表从后往前的位数。当没有输入`index`时，默认值为-1，即删除最后一个元素。
 
         在`JIT_SYNTAX_LEVEL`设置为`COMPATIBLE`以及`LAX`的情况下，`List.pop`支持inplace操作，函数运行后不生成新的对象。
 
@@ -765,7 +765,7 @@ TypeError: Only supported positional parameter type for python primitive, but go
 
 属性引用是后面带有一个句点加一个名称的原型。以下两种情况的属性引用是允许进行修改的：
 
-- 被修改的属性属于本 `cell` 对象， 即必须为 `self.xxx`。 且该属性在Cell的 `__init__` 函数中完成初始化。 示例如下：
+- 被修改的属性属于本 `cell` 对象， 即必须为 `self.xxx`。 且该属性在Cell的 `__init__` 函数中完成初始化。示例如下：
 
   ```python
   import mindspore as ms
@@ -781,7 +781,7 @@ TypeError: Only supported positional parameter type for python primitive, but go
       def construct(self, x, y):
           self.weight = x  # 满足条件可以修改
           self.m = 3  # 满足条件可以修改
-          # self.a = 2 属性a未在__init__内初始化， 无法进行修改。
+          # self.a = 2 属性a未在__init__内初始化，无法进行修改。
           return x
 
   net = Net()
@@ -797,7 +797,7 @@ TypeError: Only supported positional parameter type for python primitive, but go
   net.x:3
   ```
 
-- 被修改属性的对象为全局对象， 示例如下：
+- 被修改属性的对象为全局对象，示例如下：
 
   ```python
   import mindspore as ms
@@ -882,7 +882,7 @@ ret:[[3. 3. 3. 3.]]
 | :------------- | :---------------------------------------------- |
 | `+`            | `Number`、`Tensor`，取正值。                    |
 | `-`            | `Number`、`Tensor`、`COOTensor`、`CSRTensor`，取负值。 |
-| `~`            | `Tensor`， 且其数据类型为`Bool`。成员逐个取反。 |
+| `~`            | `Tensor`，且其数据类型为`Bool`。成员逐个取反。 |
 
 说明：
 
@@ -1630,7 +1630,7 @@ out2: [2]
 
 - `x` -- 需要被转换为整数的对象，支持类型为`int`、`float`、`bool`、`str`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
 
-- `base` -- 待转换进制， 只有在`x`为常量`str`的时候， 才可以设置该输入。
+- `base` -- 待转换进制，只有在`x`为常量`str`的时候，才可以设置该输入。
 
 返回值：转换后的整数值。
 
@@ -2295,7 +2295,7 @@ g: 3
 
 功能：返回给定参数的最小值。
 
-调用：`min(*data)`
+调用：`min(*data)`。
 
 入参： - `*data` -- 若`*data`为单输入，则会比较单个输入内的各个元素，此时`data`必须为可迭代对象。若存在多个输入，则比较每个输入。`data`有效类型为`int`、`float`、`bool`、`list`、`tuple`、`dict`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
 
