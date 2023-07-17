@@ -369,3 +369,9 @@ A: 上述问题出现在安装了较新版本的numpy(>=1.22.0)版本的ARM pyth
 <font size=3>**Q: 运行MindSpore时出现报错 `AttributeError: module 'six' has no attribute 'ensure_text'` 应该怎么解决？**</font>
 
 A: 上述问题的原因是环境安装了较新版本的`asttokens`(>=2.0.6)，其依赖的`six`版本不匹配。更新`six`版本(>=1.12.0)即可解决。
+
+<br/>
+
+<font size=3>**Q: 运行MindSpore时出现报错 `AttributeError: module 'PIL' has no attribute 'ANTIALIAS'` 应该怎么解决？**</font>
+
+A: 上述问题的原因是环境安装了较新版本的`pillow`(>=10.0.0)。降低`pillow`版本(<10.0.0)即可解决。
