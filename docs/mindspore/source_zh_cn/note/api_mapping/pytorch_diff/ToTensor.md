@@ -35,29 +35,29 @@ MindSpore：输入为PIL类型的图像或<H, W, C>格式且取值在[0, 255]范
 ```python
 import numpy as np
 from PIL import Image
+from download import download
 from torchvision import transforms
 import mindspore.dataset.vision as vision
 
-# In MindSpore, ToTensor convert PIL Image into numpy array.
-img_path =  "/path/to/test/1.jpg"
+url = "https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/flamingos.jpg"
+download(url, './flamingos.jpg', replace=True)
+img = Image.open('flamingos.jpg')
 
-img = Image.open(img_path)
+# In MindSpore, ToTensor convert PIL Image into numpy array.
 to_tensor = vision.ToTensor()
 img_data = to_tensor(img)
+print("img_data shape:", img_data.shape)
 print("img_data type:", type(img_data))
-print("img_data dtype:", img_data.dtype)
-
 # Out:
-#img_data type: <class 'numpy.ndarray'>
-#img_data dtype: float32
+# img_data shape: (3, 292, 471)
+# img_data type: <class 'numpy.ndarray'>
 
 # In torch, ToTensor transforms the input to tensor.
-img_path = "/path/to/test/1.jpg"
-
 image_transform = transforms.Compose([transforms.ToTensor()])
-img = np.array(Image.open(img_path))
 img_data = image_transform(img)
-print(img_data.shape)
+print("img_data shape:", img_data.shape)
+print("img_data type:", type(img_data))
 # Out:
-# torch.Size([3, 2268, 4032])
+# img_data shape: torch.Size([3, 292, 471])
+# img_data type: <class 'torch.Tensor'>
 ```
