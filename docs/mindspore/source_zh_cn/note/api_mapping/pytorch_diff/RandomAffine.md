@@ -32,8 +32,8 @@ MindSpore：对输入图像应用随机仿射变换，旋转中心在图像中�
 |     | 参数4 | shear   | shear   | - |
 |     | 参数5 | interpolation   | resample  | - |
 |     | 参数6 | fill   | fill_value | - |
-|     | 参数8 | fillcolor   | -  | PyTorch已废弃此参数，与fill参数功能相同 |
-|     | 参数9 | resample    | -  | PyTorch已废弃此参数，与interpolation参数功能相同 |
+|     | 参数7 | fillcolor   | -  | PyTorch已废弃此参数，与fill参数功能相同 |
+|     | 参数8 | resample    | -  | PyTorch已废弃此参数，与interpolation参数功能相同 |
 
 ## 代码示例
 

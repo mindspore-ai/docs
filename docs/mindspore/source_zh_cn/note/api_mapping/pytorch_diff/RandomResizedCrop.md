@@ -31,3 +31,30 @@ MindSpore：对输入图像进行随机裁剪，并使用指定的插值方式�
 |     | 参数3 | ratio     | ratio    | - |
 |     | 参数4 | interpolation     | interpolation   | - |
 |     | 参数5 | -     | max_attempts   | 生成随机裁剪位置的最大尝试次数，超过该次数时将使用中心裁剪 |
+
+## 代码示例
+
+```python
+from download import download
+from PIL import Image
+
+url = "https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/flamingos.jpg"
+download(url, './flamingos.jpg', replace=True)
+orig_img = Image.open('flamingos.jpg')
+
+# PyTorch
+import torchvision.transforms as T
+
+op = T.RandomResizedCrop((32, 32), scale=(0.08, 1.0), ratio=(0.75, 0.8))
+img_torch =op(orig_img)
+print(img_torch.size)
+# Out: (32, 32)
+
+# MindSpore
+import mindspore.dataset.vision as vision
+
+op = vision.RandomResizedCrop((32, 32), scale=(0.08, 1.0), ratio=(0.75, 0.8))
+img_ms = op(orig_img)
+print(img_ms.size)
+# Out: (32, 32)
+```

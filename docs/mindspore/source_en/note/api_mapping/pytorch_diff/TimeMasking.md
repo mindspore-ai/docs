@@ -37,24 +37,27 @@ MindSpore: Apply masking to a spectrogram in the time domain. Variable `mask_val
 import numpy as np
 
 fake_wav = np.array([[[0.17274511, 0.85174704, 0.07162686, -0.45436913],
-                     [-1.0271876, 0.33526883, 1.7413973, 0.12313101]]]).astype(np.float32)
+                      [-1.0271876, 0.33526883, 1.7413973, 0.12313101]]]).astype(np.float32)
 
 # PyTorch
 import torch
 import torchaudio.transforms as T
+torch.manual_seed(1)
 
 transformer = T.TimeMasking(time_mask_param=2, iid_masks=True)
 torch_result = transformer(torch.from_numpy(fake_wav), mask_value=0.0)
 print(torch_result)
-# Out: tensor([[[ 0.1727,  0.8517,  0.0000, -0.4544],
-#               [-1.0272,  0.3353,  0.0000,  0.1231]]])
+# Out: tensor([[[ 0.0000,  0.8517,  0.0716, -0.4544],
+#               [ 0.0000,  0.3353,  1.7414,  0.1231]]])
 
 # MindSpore
+import mindspore as ms
 import mindspore.dataset.audio as audio
+ms.dataset.config.set_seed(2)
 
 transformer = audio.TimeMasking(time_mask_param=2, iid_masks=True, mask_start=0, mask_value=0.0)
 ms_result = transformer(fake_wav)
 print(ms_result)
-# Out: [[[ 0.17274511  0.85174704  0.         -0.45436913]
-#        [-1.0271876   0.33526883  0.          0.12313101]]]
+# Out: [[[ 0.          0.85174704  0.07162686 -0.45436913]
+#        [ 0.          0.33526883  1.7413973   0.12313101]]]
 ```
