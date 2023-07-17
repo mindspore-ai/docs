@@ -565,6 +565,74 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
       }
     ```
 
+### Ascend后端GE推理
+
+Ascend推理当前有两种对接方式。
+
+一种为默认的ACL推理，ACL接口仅有全局和模型（图）级别的选项配置，多个图无法指示关联关系，多个图之间相对独立，不可共享权重（包括常量和变量）。如果模型存在可以变更的权重，即变量，变量需要先执行初始化，需要额外构建和执行初始化图，与计算图共享变量，由于多个图相对独立，使用默认的ACL推理时，模型不能存在变量。
+
+ACL接口支持提前构建模型，加载时使用已构建的模型。
+
+另一种为GE推理，GE接口存在全局、Session和模型（图）级别的选项配置，多个图可以在同一个Session中，在同一个Session中的图可以使能共享权重。在同一个Session中，可针对变量创建初始化图，与计算图共享变量。使用默认的GE推理时，模型可以存在变量。
+
+当前GE接口不支持提前构建模型，加载时需要构建模型。
+
+可以通过指定 `provider` 为 ``ge`` 能GE。
+
+```python
+import mindspore_lite as mslite
+context = mslite.Context()
+context.target = ["Ascend"]
+context.ascend.device_id = 0
+context.ascend.rank_id = 0
+context.ascend.provider = "ge"
+model = mslite.Model()
+model.build_from_file("seq_1024.mindir", mslite.ModelType.MINDIR, context, "config.ini")
+```
+
+```C++
+auto device_info = std::make_shared<mindspore::AscendDeviceInfo>();
+if (device_info == nullptr) {
+  std::cerr << "New AscendDeviceInfo failed." << std::endl;
+  return -1;
+}
+// Set Ascend 910 device id， rank id and provider.
+device_info->SetDeviceID(0);
+device_info->SetRankID(0);
+device_info->SetProvider("ge");
+// Device context needs to be push_back into device_list to work.
+device_list.push_back(device_info);
+
+mindspore::Model model;
+if (model.LoadConfig("config.ini") != mindspore::kSuccess) {
+  std::cerr << "Failed to load config file " << "config.ini" << std::endl;
+  return -1;
+}
+
+// Build model
+auto build_ret = model.Build("seq_1024.mindir", mindspore::kMindIR, context);
+if (build_ret != mindspore::kSuccess) {
+  std::cerr << "Build model error " << build_ret << std::endl;
+  return -1;
+}
+```
+
+在配置文件中，来自 `[ge_global_options]` 、 `[ge_sesion_options]` 和 `[ge_graph_options]` 中的选项将作为GE接口的全局、Session和模型（图）级别的选项，详情可参考[GE选项](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/infacldevg/graphdevg/atlasgeapi_07_0112.html)。比如：
+
+```ini
+[ge_global_options]
+ge.opSelectImplmode=high_precision
+
+[ge_session_options]
+ge.externalWeight=1
+
+[ge_graph_options]
+ge.exec.precision_mode=allow_fp32_to_fp16
+ge.inputShape=x1:-1,3,224,224;x2:-1,3,1024,1024
+ge.dynamicDims=1,1;2,2;3,3;4,4
+ge.dynamicNodeType=1
+```
+
 ### 多线程加载模型
 
 硬件后端为Ascend，provider为默认时，支持多线程并发加载多个Ascend优化后模型，以提升模型加载性能。使用[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)，指定 `--optimize=ascend_oriented` 可将MindSpore导出的 `MindIR` 模型、TensorFlow和ONNX等第三方框架模型转换为Ascend优化后模型。MindSpore导出的 `MindIR` 模型未进行Ascend优化，对于第三方框架模型，转换工具中如果指定 `--optimize=none` 产生的 `MindIR` 模型也未进行Ascend优化。
