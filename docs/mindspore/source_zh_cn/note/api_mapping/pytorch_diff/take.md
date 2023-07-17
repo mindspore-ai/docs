@@ -37,22 +37,19 @@ MindSpore：在指定维度上获取Tensor中的元素。可以指定维度，�
 ```python
 # PyTorch
 import torch
-import numpy as np
 input_x1 = torch.tensor([[4, 3, 5], [6, 7, 8]])
 indices = torch.tensor([0, 2, 4])
 output = input_x1.take(indices)
 print(output)
-# tensor([4, 5, 7]])
+# tensor([4, 5, 7])
 
 # MindSpore
 import mindspore as ms
-import mindspore.ops as ops
-import numpy as np
 input_x1 = ms.Tensor([[4, 3, 5], [6, 7, 8]])
 indices = ms.Tensor([0, 2, 4])
 output = input_x1.take(indices)
 print(output)
-# Tensor(shape=[3], dtype=Int64, value=[4, 5, 7]])
+# [4 5 7]
 ```
 
 ## 代码示例 2
@@ -60,7 +57,6 @@ print(output)
 ```python
 # PyTorch
 import torch
-import numpy as np
 input_x1 = torch.tensor([[4, 3, 5], [6, 7, 8]])
 indices = torch.tensor([0, 2, 8])
 output = input_x1.take(indices)
@@ -69,11 +65,9 @@ print(output)
 
 # MindSpore
 import mindspore as ms
-import mindspore.ops as ops
-import numpy as np
 input_x1 = ms.Tensor([[4, 3, 5], [6, 7, 8]])
 indices = ms.Tensor([0, 2, 8])
 output = input_x1.take(indices, mode='clip')
 print(output)
-# Tensor(shape=[3], dtype=Int64, value=[4, 5, 8]])
+# [4 5 8]
 ```

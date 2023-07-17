@@ -34,22 +34,17 @@ import torch
 # MindSpore
 x = ms.Tensor(np.array([[1,2,3],[4,5,6]], dtype=np.float32))
 print(x.item((0,1)))
-# Out：
-# Tensor(shape=[], dtype=Int64, value=2)
+# 2.0
 
 x = ms.Tensor(np.array([[1,2,3],[4,5,6]], dtype=np.float32))
 print(x.asnumpy().item((0,1)))
-# Out：
-# 2
+# 2.0
 
 y = ms.Tensor([1.0])
 print(y.item())
-# Out:
-# Tensor(shape=[], dtype=Float32, value=1)
+# 1.0
 
 # PyTorch
 z = torch.tensor([1.0])
-print(z.item())
-# Out:
 # 1.0
 ```

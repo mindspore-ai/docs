@@ -55,7 +55,7 @@ print(output1)
 x = ms.Tensor(np.array([[1, 2, 3, 4, 5], [5, 4, 3, 2, 1]]), ms.float32)
 output2 = ops.softmax(x, axis=0)
 print(output2)
-# out:
+# Out:
 # [[0.01798621 0.11920292 0.5        0.880797   0.98201376]
 #  [0.98201376 0.880797   0.5        0.11920292 0.01798621]]
 

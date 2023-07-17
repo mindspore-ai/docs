@@ -70,12 +70,10 @@ loss = loss_fun(out, torch.tensor(label_pt, dtype=torch.long))
 loss.backward()
 grads = [p.grad for p in net1.parameters() if p.grad is not None]
 print(grads)
-# Before clip out:
 # [tensor([[-0.1000, -0.2500, -0.1000],
 #         [ 0.1000,  0.2500,  0.1000]]), tensor([-0.5000,  0.5000])]
 torch.nn.utils.clip_grad_value_(net1.parameters(), clip_value=0.1)
 print(grads)
-# After clip out:
 # [tensor([[-0.1000, -0.1000, -0.1000],
 #         [ 0.1000,  0.1000,  0.1000]]), tensor([-0.1000,  0.1000])]
 
@@ -105,13 +103,11 @@ def forward_fn(data, label):
 grad_fn = ms.grad(forward_fn, grad_position=None, weights=net2.trainable_params(), has_aux=True)
 grads = grad_fn(ms.ops.unsqueeze(ms.Tensor(data), dim=0), ms.Tensor(label))
 print(grads)
-# Before clip out:
 # ((Tensor(shape=[2, 3], dtype=Float32, value=
 # [[-1.00000001e-01, -2.50000000e-01, -1.00000001e-01],
 #  [ 1.00000001e-01,  2.50000000e-01,  1.00000001e-01]]), Tensor(shape=[2], dtype=Float32, value= [-5.00000000e-01,  5.00000000e-01])), (Tensor(shape=[2], dtype=Float32, value= [ 0.00000000e+00,  0.00000000e+00]),))
 grads = ms.ops.clip_by_value(grads, clip_value_min=-0.1, clip_value_max=0.1)
 print(grads)
-# After clip out:
 # ((Tensor(shape=[2, 3], dtype=Float32, value=
 # [[-1.00000001e-01, -1.00000001e-01, -1.00000001e-01],
 #  [ 1.00000001e-01,  1.00000001e-01,  1.00000001e-01]]), Tensor(shape=[2], dtype=Float32, value= [-1.00000001e-01,  1.00000001e-01])), (Tensor(shape=[2], dtype=Float32, value= [ 0.00000000e+00,  0.00000000e+00]),))
