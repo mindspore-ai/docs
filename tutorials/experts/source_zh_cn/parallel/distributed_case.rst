@@ -13,3 +13,4 @@
   resilience_train_and_predict
   save_load
   sharding_propagation
+  memory_offload
