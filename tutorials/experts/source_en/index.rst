@@ -11,7 +11,6 @@ For Experts
    :maxdepth: 1
    :caption: Static Graph Usage Sepecifications
 
-   network/jit_fallback
    network/control_flow
    network/jit_class
    network/constexpr

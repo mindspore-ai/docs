@@ -11,7 +11,6 @@
    :maxdepth: 1
    :caption: 静态图使用规范
 
-   network/jit_fallback
    network/control_flow
    network/jit_class
    network/constexpr
