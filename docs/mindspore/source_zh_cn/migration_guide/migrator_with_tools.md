@@ -272,7 +272,7 @@ loss与的验证方案，与正向结果的半自动验证方案类似，在满�
 
 在网络中，使用[`ts.save`](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#)保存API的输出，用于排查网络差异引入点。
 
-> 说明：[`ts.save`](https://gitee.com/DavidFFFan/toolkits/blob/master/troubleshooter/docs/api/save.md#)支持保存Tensor（包括mindspore.Tensor和torch.tensor），以及Tensor构成的list/tuple/dict。当为list/tuple类型时，会按照顺序添加编号；当为dict类型时，文件名中会添加key，详细参考TroubleShooter说明文档。
+> 说明：[`ts.save`](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#)支持保存Tensor（包括mindspore.Tensor和torch.tensor），以及Tensor构成的list/tuple/dict。当为list/tuple类型时，会按照顺序添加编号；当为dict类型时，文件名中会添加key，详细参考TroubleShooter说明文档。
 
 ```python
 class Mlp(nn.Module):
