@@ -293,6 +293,7 @@ def main(version, user, pd, WGETDIR, release_url):
     failed_list = []
     failed_name_list = []
 
+    replace_flag = 1
     # 遍历ArraySource开始生成html
     # pylint: disable=R1702
     for i in range(len(data_b)):
@@ -300,6 +301,18 @@ def main(version, user, pd, WGETDIR, release_url):
             for en in data_b[i]['build']['en']:
                 os.chdir(os.path.join(DOCDIR, '../../..', en['from']))
                 subprocess.run(["pip", "install", "-r", "requirements.txt"])
+
+                try:
+                    if replace_flag:
+                        import sphinx_rtd_theme
+                        layout_target = os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'layout.html')
+                        layout_src = os.path.join(DOCDIR, '../../resource/_static/layout.html')
+                        if os.path.exists(layout_target):
+                            os.remove(layout_target)
+                        shutil.copy(layout_src, layout_target)
+                        replace_flag = 0
+                except ModuleNotFoundError:
+                    pass
 
                 # 输出英文
                 if os.path.exists("source_en"):
@@ -338,6 +351,18 @@ def main(version, user, pd, WGETDIR, release_url):
             for zh in data_b[i]['build']['zh']:
                 os.chdir(os.path.join(DOCDIR, '../../..', zh['from']))
                 subprocess.run(["pip", "install", "-r", "requirements.txt"])
+
+                try:
+                    if replace_flag:
+                        import sphinx_rtd_theme
+                        layout_target = os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'layout.html')
+                        layout_src = os.path.join(DOCDIR, '../../resource/_static/layout.html')
+                        if os.path.exists(layout_target):
+                            os.remove(layout_target)
+                        shutil.copy(layout_src, layout_target)
+                        replace_flag = 0
+                except ModuleNotFoundError:
+                    pass
 
                 # 输出中文
                 if os.path.exists("source_zh_cn"):
