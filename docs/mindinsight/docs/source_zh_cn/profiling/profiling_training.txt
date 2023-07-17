@@ -54,7 +54,7 @@
                super(StopAtStep, self).__init__()
                self.start_step = start_step
                self.stop_step = stop_step
-               self.profiler = ms.Profiler(start_profile=False, ouput_path='./data_step')
+               self.profiler = ms.Profiler(start_profile=False, output_path='./data_step')
 
            def on_train_step_begin(self, run_context):
                cb_params = run_context.original_args()
@@ -78,7 +78,7 @@
                super(StopAtEpoch, self).__init__()
                self.start_epoch = start_epoch
                self.stop_epoch = stop_epoch
-               self.profiler = ms.Profiler(start_profile=False, ouput_path='./data_epoch')
+               self.profiler = ms.Profiler(start_profile=False, output_path='./data_epoch')
 
            def on_train_epoch_begin(self, run_context):
                cb_params = run_context.original_args()
@@ -177,7 +177,12 @@
 ~~~~~~~~~~~~~~~~~~~~
 
 在运行网络脚本前，配置Profiler相关配置项。
-说明：该功能尚未支持Ascend 910B芯片场景，敬请期待。
+
+说明：
+
+- 该功能尚未支持Ascend 910B芯片场景，敬请期待。
+
+- 使用环境变量使能方式，请在脚本开始执行之前通过环境变量设置好device id。禁止在脚本中通过set_context函数设置device id。
 
 .. code-block:: shell
 
