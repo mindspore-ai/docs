@@ -39,12 +39,11 @@ MindSpore: Calculates the dot product of two tensors on any axis. Support tensor
 
 ```python
 import torch
-import numpy as np
 input_x1 = torch.tensor([2, 3, 4], dtype=torch.int32)
 input_x2 = torch.tensor([2, 1, 3], dtype=torch.int32)
 output = torch.dot(input_x1, input_x2)
 print(output)
-# tensor(19)
+# tensor(19, dtype=torch.int32)
 print(output.dtype)
 # torch.int32
 
@@ -57,12 +56,11 @@ print(output.dtype)
 
 ```python
 import torch
-import numpy as np
 input_x1 = torch.tensor([2, 3, 4], dtype=torch.float32)
 input_x2 = torch.tensor([2, 1, 3], dtype=torch.float32)
 output = torch.dot(input_x1, input_x2)
 print(output)
-# tensor(19)
+# tensor(19.)
 print(output.dtype)
 # torch.float32
 
