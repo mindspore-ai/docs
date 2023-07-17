@@ -69,7 +69,7 @@ There are many numerical algorithms that can be used to solve the time-independe
 dist = 1.5
 geometry = [
     ["Li", [0.0, 0.0, 0.0 * dist]],
-    ["H",  [0.0, 0.0, 1.0 * dist]],
+    ["H", [0.0, 0.0, 1.0 * dist]],
 ]
 basis = "sto3g"
 spin = 0
@@ -78,7 +78,7 @@ print("Geometry: \n", geometry)
 
 ```bash
 Geometry:
-    [['Li', [0.0, 0.0, 0.0]], ['H', [0.0, 0.0, 1.5]]]
+ [['Li', [0.0, 0.0, 0.0]], ['H', [0.0, 0.0, 1.5]]]
 ```
 
 The code above defines a Li-H key with a length of 1.5Å molecules. The STO-3G basis set is used for computing. Then, OpenFermion-PySCF is used to call PySCF to perform Hartree-Fock (HF), coupled-cluster with singles and doubles (CCSD), and full configuration interaction (FCI) computing. These three methods belong to the wave function. Before starting the computing, first make a brief introduction to these methods.
@@ -179,9 +179,9 @@ print("FCI energy: %20.16f Ha" % (molecule_of.fci_energy))
 ```
 
 ```bash
-Hartree-Fock energy:  -7.8633576215351200 Ha
-CCSD energy:  -7.8823529091527051 Ha
-FCI energy:  -7.8823622867987249 Ha
+Hartree-Fock energy:  -7.8633576215351129 Ha
+CCSD energy:  -7.8823529091526972 Ha
+FCI energy:  -7.8823622867987213 Ha
 ```
 
 In the preceding example, HF, CCSD, and FCI are used to compute the total energy. If you collect statistics on the runtime, you will find that $T_{HF}<T_{CCSD}\ll T_{FCI}$. It is more obvious if you use the system with larger calculation amount, such as ethylene molecule. In addition, for the total computed energy, you will find that $E_{HF}>E_{CCSD}>E_{FCI}$. After the computing is complete, save the result to the `molecule_file` file (`molecule_of.filename`).
@@ -268,8 +268,8 @@ n_qubits, n_electrons = generate_uccsd(molecule_file, threshold=-1)
 ```
 
 ```bash
-ccsd:-7.882352909152705.
-fci:-7.882362286798725.
+ccsd:-7.882352909152697.
+fci:-7.882362286798721.
 ```
 
 `generate_uccsd` packs functions related to the unitary coupled-cluster, including multiple steps such as deriving a molecular Hamiltonian, building a unitary coupled-cluster ansatz operator, and extracting a coupled-cluster coefficient computed by CCSD. This function reads the molecule by entering its file path. The parameter `th` indicates the to-be-updated gradient threshold of a parameter in the quantum circuit. In the section [Building a Unitary Coupled-Cluster Ansatz Step by Step](#building-a-unitary-coupled-cluster-ansatz-step-by-step), we will demonstrate how to use the related interfaces of MindSpore Quantum to complete the steps. A complete quantum circuit includes an HF initial state and a UCCSD ansatz, as shown in the following code:
@@ -284,7 +284,8 @@ print("Number of parameters: %d" % (len(ansatz_parameter_names)))
 ============================Circuit Summary============================
 |Total number of gates  : 15172.                                      |
 |Parameter gates        : 640.                                        |
-|with 44 parameters are : p0, p8, p1, p9, p2, p10, p3, p11, p4, p12...|
+|with 44 parameters are :                                             |
+|p0, p8, p1, p9, p2, p10, p3, p11, p4, p12..                        . |
 |Number qubit of circuit: 12                                          |
 =======================================================================
 Number of parameters: 44
@@ -331,21 +332,21 @@ print("Gradient: ", g, "\nshape: ", g.shape)
 Energy:  [[-7.86335762+0.j]]
 shape:  (1, 1)
 
-Gradient:  [[[-1.16994143e-10+0.j -8.60518140e-02+0.j  7.34833530e-09+0.j
-   -4.85545093e-02+0.j -1.36967588e-14+0.j -3.92769093e-02+0.j
-   -1.09638025e-14+0.j -9.59481736e-02+0.j  4.52856423e-15+0.j
-   -3.92769093e-02+0.j  1.10350609e-14+0.j -9.59481736e-02+0.j
-   -1.36448855e-10+0.j -2.89649669e-02+0.j  4.02379782e-10+0.j
-   -4.91813235e-01+0.j -9.35292655e-04+0.j -1.64675713e-16+0.j
-   -3.54669942e-17+0.j  1.57545914e-17+0.j  1.57929222e-16+0.j
-    2.47722711e-17+0.j -2.16194380e-17+0.j  5.06813144e-03+0.j
-    1.08542342e-02+0.j -1.28614257e-02+0.j -5.02920246e-17+0.j
-    7.35980769e-18+0.j  1.33973783e-01+0.j -3.03063678e-02+0.j
-   -6.13317366e-19+0.j -1.53329342e-18+0.j  4.01043916e-29+0.j
-    5.36652696e-17+0.j -3.74490333e-17+0.j  3.33490478e-17+0.j
-    2.14562992e-28+0.j  1.15391966e-16+0.j -3.03063678e-02+0.j
-   -5.42785870e-17+0.j  4.61905181e-17+0.j -4.22508288e-17+0.j
-   -2.44510200e-17+0.j -1.68035030e-03+0.j]]]
+Gradient:  [[[-1.17000470e-10+0.j -8.60518140e-02+0.j  7.34841121e-09+0.j
+   -4.85545093e-02+0.j -4.27880918e-16+0.j -3.92769093e-02+0.j
+   -2.03178123e-14+0.j -9.59481736e-02+0.j -2.19963362e-15+0.j
+   -3.92769093e-02+0.j  2.01070916e-15+0.j -9.59481736e-02+0.j
+   -1.36457968e-10+0.j -2.89649669e-02+0.j  4.02404639e-10+0.j
+   -4.91813235e-01+0.j -9.35292655e-04+0.j -1.66209006e-16+0.j
+   -3.46620125e-17+0.j  1.54862629e-17+0.j  1.54555976e-16+0.j
+    2.53664212e-17+0.j -2.06994596e-17+0.j  5.06813144e-03+0.j
+    1.08542342e-02+0.j -1.28614257e-02+0.j -4.90653894e-17+0.j
+    1.10397120e-17+0.j  1.33973783e-01+0.j -3.03063678e-02+0.j
+    6.13317367e-19+0.j  6.13317367e-19+0.j  7.90297720e-29+0.j
+    5.24386349e-17+0.j -3.70848761e-17+0.j  3.33490478e-17+0.j
+    1.29095036e-28+0.j  1.15391966e-16+0.j -3.03063678e-02+0.j
+   -5.24386349e-17+0.j  4.89887785e-17+0.j -4.22508287e-17+0.j
+   -2.44510201e-17+0.j -1.68035030e-03+0.j]]]
 shape:  (1, 1, 44)
 ```
 
@@ -366,18 +367,18 @@ fun(p0, molecule_pqc)
 ```
 
 ```bash
-(-7.8633576215369505,
- array([-1.16994143e-10, -8.60518140e-02,  7.34833530e-09, -4.85545093e-02,
-        -1.36967588e-14, -3.92769093e-02, -1.09638025e-14, -9.59481736e-02,
-         4.52856423e-15, -3.92769093e-02,  1.10350609e-14, -9.59481736e-02,
-        -1.36448855e-10, -2.89649669e-02,  4.02379782e-10, -4.91813235e-01,
-        -9.35292655e-04, -1.64675713e-16, -3.54669942e-17,  1.57545914e-17,
-         1.57929222e-16,  2.47722711e-17, -2.16194380e-17,  5.06813144e-03,
-         1.08542342e-02, -1.28614257e-02, -5.02920246e-17,  7.35980769e-18,
-         1.33973783e-01, -3.03063678e-02, -6.13317366e-19, -1.53329342e-18,
-         4.01043916e-29,  5.36652696e-17, -3.74490333e-17,  3.33490478e-17,
-         2.14562992e-28,  1.15391966e-16, -3.03063678e-02, -5.42785870e-17,
-         4.61905181e-17, -4.22508288e-17, -2.44510200e-17, -1.68035030e-03]))
+(-7.863357621536957,
+ array([-1.17000470e-10, -8.60518140e-02,  7.34841121e-09, -4.85545093e-02,
+        -4.27880918e-16, -3.92769093e-02, -2.03178123e-14, -9.59481736e-02,
+        -2.19963362e-15, -3.92769093e-02,  2.01070916e-15, -9.59481736e-02,
+        -1.36457968e-10, -2.89649669e-02,  4.02404639e-10, -4.91813235e-01,
+        -9.35292655e-04, -1.66209006e-16, -3.46620125e-17,  1.54862629e-17,
+         1.54555976e-16,  2.53664212e-17, -2.06994596e-17,  5.06813144e-03,
+         1.08542342e-02, -1.28614257e-02, -4.90653894e-17,  1.10397120e-17,
+         1.33973783e-01, -3.03063678e-02,  6.13317367e-19,  6.13317367e-19,
+         7.90297720e-29,  5.24386349e-17, -3.70848761e-17,  3.33490478e-17,
+         1.29095036e-28,  1.15391966e-16, -3.03063678e-02, -5.24386349e-17,
+         4.89887785e-17, -4.22508287e-17, -2.44510201e-17, -1.68035030e-03]))
 ```
 
 Here, the `fun` that we define can correctly to return the data that we need: a real energy value, and a array of gradient value with the same size of parameters. Now, we use `bfgs` optimizer in scipy to finish the optimization.
@@ -386,17 +387,19 @@ Here, the `fun` that we define can correctly to return the data that we need: a 
 from scipy.optimize import minimize
 
 energy_list = []
-res = minimize(fun, p0, args=(molecule_pqc, energy_list ), method='bfgs', jac=True)
+res = minimize(fun, p0, args=(molecule_pqc, energy_list), method='bfgs', jac=True)
 ```
 
 ```bash
-Step: 5,    energy: -7.880227726053251
-Step: 10,   energy: -7.88181712396991
-Step: 15,   energy: -7.882213242985563
-Step: 20,   energy: -7.882345337008383
-Step: 25,   energy: -7.882352494991607
-Step: 30,   energy: -7.882352691272302
-Step: 35,   energy: -7.882352697922093
+Step: 5, energy: -7.880227726053225
+Step: 10, energy: -7.881817123969861
+Step: 15, energy: -7.882213242986122
+Step: 20, energy: -7.882345337008459
+Step: 25, energy: -7.882352494991635
+Step: 30, energy: -7.882352691272213
+Step: 35, energy: -7.882352707864624
+Step: 40, energy: -7.882352708256735
+Step: 45, energy: -7.882352708339958
 ```
 
 So, we finished the gradient optimization of variational quantum circuit. Here, `energy_list` is going to store the energy during optimization. Here, we briefly introduce the usage of `minimize`:
@@ -417,23 +420,23 @@ print(f"Optimized amplitudes: \n{res.x}")
 
 ```bash
 Ground state:
--7.882352708353374
+-7.882352708347493
 
 FCI:
 -7.882362286798721
 
 Optimized amplitudes:
-[ 2.38617266e-04  1.89071997e-03  3.52371725e-02  1.60368287e-02
- -3.88585413e-09  9.09450204e-04 -1.31960456e-10  1.41641358e-02
- -2.77241824e-09  9.08722622e-04  1.50885283e-10  1.41698519e-02
- -5.47736126e-04  4.26814173e-04  2.87162290e-03  5.38110124e-02
-  2.34666985e-04 -4.31273238e-10 -1.05864122e-07  1.04891423e-07
-  2.04861474e-08 -3.59771636e-08  3.39882867e-08  1.32744726e-05
- -1.04141351e-04  7.99026270e-04  3.53881973e-10  1.60036086e-10
- -5.50005590e-02  3.09114423e-03 -2.85746198e-10  7.60919677e-09
- -7.59032177e-09  5.62150158e-09 -6.40411683e-09  3.10490502e-09
- -8.38905987e-13  2.81089918e-11  3.09113690e-03 -2.10016387e-08
-  1.83862009e-08 -1.68153439e-08 -6.09114800e-12  3.72796434e-04]
+[ 2.38712434e-04  1.89072212e-03  3.52371962e-02  1.60368062e-02
+  4.58341956e-09  9.09417397e-04  8.87731878e-10  1.41638572e-02
+  8.70408136e-10  9.08690861e-04  1.01871578e-09  1.41700430e-02
+ -5.47655818e-04  4.26823250e-04  2.87179882e-03  5.38109243e-02
+  2.34704374e-04 -1.53416806e-08  8.33679682e-08 -8.59399531e-08
+ -1.09241359e-08  8.69631759e-08 -8.85803852e-08  1.33003007e-05
+ -1.04125728e-04  7.99021032e-04 -6.16712752e-10 -5.09574759e-10
+ -5.50005269e-02  3.09114892e-03 -4.78658817e-11 -1.05874198e-07
+  1.05877675e-07  4.10043904e-07  2.63845620e-07 -2.76942779e-07
+ -1.69080845e-13  2.10388157e-09  3.09108797e-03  1.90755827e-08
+  1.86729203e-07 -1.76508410e-07  6.07581905e-10  3.72843789e-04]
 ```
 
 We can see here the result of ucc method is very close to FCI method with very good accuracy.
@@ -489,7 +492,8 @@ total_circuit.summary()
 ==================================Circuit Summary==================================
 |Total number of gates  : 15172.                                                  |
 |Parameter gates        : 640.                                                    |
-|with 44 parameters are : s_0, d1_0, s_1, d1_1, s_2, d1_2, s_3, d1_3, s_4, d1_4...|
+|with 44 parameters are :                                                         |
+|s_0, d1_0, s_1, d1_1, s_2, d1_2, s_3, d1_3, s_4, d1_4..                        . |
 |Number qubit of circuit: 12                                                      |
 ===================================================================================
 ```
@@ -518,14 +522,14 @@ res = minimize(fun, init_amplitudes_ccsd, args=(grad_ops, energy_list), method='
 ```
 
 ```bash
-Step: 5,    energy: -7.878223282730576
-Step: 10,   energy: -7.880288481438869
-Step: 15,   energy: -7.88203566830419
-Step: 20,   energy: -7.882302370885842
-Step: 25,   energy: -7.882349803534311
-Step: 30,   energy: -7.882352702053698
-Step: 35,   energy: -7.882352707981867
-Step: 40,   energy: -7.882352708341503
+Step: 5, energy: -7.878223282730547
+Step: 10, energy: -7.880288481438961
+Step: 15, energy: -7.882035668304055
+Step: 20, energy: -7.882302370885741
+Step: 25, energy: -7.882349803534313
+Step: 30, energy: -7.882352702053751
+Step: 35, energy: -7.8823527077335065
+Step: 40, energy: -7.882352708347106
 ```
 
 The final optimized result is shown as below.
@@ -538,23 +542,23 @@ print(f"Optimized amplitudes: \n{res.x}")
 
 ```bash
 Ground state:
--7.882352708341503
+-7.882352708347106
 
 FCI:
 -7.882362286798721
 
 Optimized amplitudes:
-[-2.38195252e-04  1.89063643e-03 -3.52375909e-02  1.60366971e-02
- -1.65614925e-08  9.09491908e-04  2.38186936e-10  1.41647347e-02
-  9.24467076e-09  9.08692183e-04 -6.16653740e-10  1.41689929e-02
-  5.47235936e-04  4.26809292e-04 -2.87276305e-03  5.38108290e-02
-  2.34388089e-04 -2.72175513e-07  1.94745388e-07 -1.75983096e-07
-  2.40304213e-07  2.96373905e-08 -4.42183121e-08  1.32992416e-05
-  7.98572575e-04 -1.04555876e-04 -1.41365735e-09  5.97733807e-10
- -5.50009283e-02  3.09145849e-03 -2.11953953e-08  4.90939781e-09
- -3.50933024e-09 -1.34832630e-07  1.12110269e-08  2.70076674e-09
- -6.16084033e-11 -4.20721078e-10  3.09116851e-03 -8.60550220e-08
- -1.26395082e-08  1.94093958e-08 -3.50865290e-10  3.72983611e-04]
+[-2.38716797e-04  1.89072948e-03 -3.52373113e-02  1.60368505e-02
+ -1.65211897e-08  9.09419406e-04  6.97535496e-10  1.41633024e-02
+ -6.40543396e-09  9.08685812e-04  3.62517408e-10  1.41706530e-02
+  5.47788025e-04  4.26824061e-04 -2.87153659e-03  5.38109309e-02
+  2.34736444e-04 -2.07143981e-07  1.78941118e-07 -1.62503048e-07
+ -8.80911165e-08  4.07521713e-08 -3.40755199e-08  1.32909026e-05
+  7.99087755e-04 -1.04066519e-04 -1.07974132e-09 -3.40797600e-10
+ -5.50004943e-02  3.09140289e-03 -2.51213790e-09 -2.71345445e-11
+  1.93711194e-10 -1.81505812e-07 -1.08665216e-07  1.19335275e-07
+ -7.25358274e-12 -9.25316075e-10  3.09081391e-03 -4.66785554e-08
+ -5.15818095e-08  5.28564624e-08 -3.02691203e-10  3.72803168e-04]
 ```
 
 ## Summary
