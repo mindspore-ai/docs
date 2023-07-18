@@ -41,7 +41,7 @@
 ### 模型分组
 
 | 类名                                       | 描述                  | 云侧推理是否支持 | 端侧推理是否支持 |
-|-------------------------------------------|-------------------- --|--------|--------|
+|-------------------------------------------|-----------------------|--------|--------|
 | [ModelGroup](#modelgroup)                 | 模型分组。              |    √   |  ✕     |
 
 ### 状态
@@ -3738,9 +3738,9 @@ ModelGroup(ModelGroupFlag flags = ModelGroupFlag::kShareWorkspace)
 
 | 函数                   | 云侧推理是否支持 | 端侧推理是否支持 |
 |-------------------------------------------------------------|---------|---------|
-| [Status AddModel(const std::vector<std::string> &model_path_list)](#add_model)     |    √    |    ✕    |
-| [Status AddModel(const std::vector<std::pair<const void *, size_t>> &model_buff_list)](#add_model-1)     |    √    |    ✕    |
-| [Status AddModel(const std::vector<Model> &model_list)](#add_model-2)     |    √    |    ✕    |
+| [Status AddModel(const std::vector<std::string> &model_path_list)](#addmodel)     |    √    |    ✕    |
+| [Status AddModel(const std::vector<std::pair<const void *, size_t>> &model_buff_list)](#addmodel-1)     |    √    |    ✕    |
+| [Status AddModel(const std::vector<Model> &model_list)](#addmodel-2)     |    √    |    ✕    |
 | [Status CalMaxSizeOfWorkspace(ModelType model_type, const std::shared_ptr<Context> &ms_context)](#calmaxsizeofworkspace)     |    √    |    ✕    |
 
 #### AddModel
