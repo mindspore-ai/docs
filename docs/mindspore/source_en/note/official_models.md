@@ -278,29 +278,28 @@ The following results are tested on Ascend 910 with COCO2017.
 
 ### Reinforcement Learning
 
-| Algorithm | Discrete Action Space | Continuous Action Space | CPU | GPU | Ascend | Environment |
-| --- | --- | --- | --- | --- | --- | --- |
-| [DQN](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fdqn)  | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
-| [PPO](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fppo)  | / | ✅ | ✅ | ✅ | ✅ | [HalfCheetah-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fhalf_cheetah%2F) |
-| [AC](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fac) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
-| [A2C](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fa2c) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
-| [DDPG](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fddpg)  | / | ✅ | ✅ | ✅ | ✅ | [HalfCheetah-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fhalf_cheetah%2F) |
-| [QMIX](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fqmix)  | ✅ | / | ✅ | ✅ | ✅ | [SMAC, Simple Spread](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Foxwhirl%2Fsmac%2F) |
-| [SAC](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fsac)  | / | ✅ | ✅ | ✅ | ✅ | [HalfCheetah-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fhalf_cheetah%2F) |
-| [TD3](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Ftd3)  | / | ✅ | ✅ | ✅ | ✅ | [HalfCheetah-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fhalf_cheetah%2F) |
-| [C51](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fc51) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
-| [A3C](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fa3c) | ✅ | / | / | ✅ | ✅ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
-| [CQL](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fcql) | / | ✅ | ✅ | ✅ | ✅ | [Hopper-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fhopper) |
-| [MAPPO](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fmappo)  | ✅ | / | ✅ | ✅ | ✅ | [Simple Spread](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fopenai%2Fmultiagent-particle-envs) |
-| [GAIL](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fgail) | / | ✅ | ✅ | ✅ | ✅ | [HalfCheetah-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fhalf_cheetah%2F) |
-| [MCTS](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fmcts) | ✅ | / | ✅ | ✅ | / | [Tic-Tac-Toe](https://github.com/mindspore-lab/mindrl/blob/master/mindspore_rl/environment/tic_tac_toe_environment.py) |
-| [AWAC](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fawac) | / | ✅ | ✅ | ✅ | ✅ | [Ant-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fant) |
-| [Dreamer](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fdreamer)  | / | ✅ | / | ✅ | ✅ | [Walker-walk](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fdeepmind%2Fdm_control) |
-| [IQL](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fiql) | / | ✅ | ✅ | ✅ | ✅ | [Walker2d-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fwalker2d%2F) |
-| [MADDPG](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fmaddpg)  | ✅ | / | ✅ | ✅ | ✅ | [simple_spread](https://gitee.com/link?target=https%3A%2F%2Fpettingzoo.farama.org%2Fenvironments%2Fmpe%2Fsimple_spread%2F) |
-| [Double DQN](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fdouble_dqn) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
-| [Policy Gradient](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fpg) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
-| [Dueling DQN](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fdueling_dqn) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fclassic_control%2Fcart_pole%2F) |
+ Algorithm | Discrete Action Space | Continuous Action Space | CPU | GPU | Ascend | Environment | Reward |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| [DQN](https://github.com/mindspore-lab/mindrl/tree/master/example/dqn)  | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://www.gymlibrary.dev/environments/classic_control/cart_pole/) | 195 |
+| [PPO](https://github.com/mindspore-lab/mindrl/tree/master/example/ppo)  | / | ✅ | ✅ | ✅ | ✅ | [HalfCheetah-v2](https://www.gymlibrary.dev/environments/mujoco/half_cheetah/) | 4800 |
+| [AC](https://github.com/mindspore-lab/mindrl/tree/master/example/ac) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://www.gymlibrary.dev/environments/classic_control/cart_pole/) | 195 |
+| [A2C](https://github.com/mindspore-lab/mindrl/tree/master/example/a2c) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://www.gymlibrary.dev/environments/classic_control/cart_pole/) | 195 |
+| [DDPG](https://github.com/mindspore-lab/mindrl/tree/master/example/ddpg)  | / | ✅ | ✅ | ✅ | ✅ | [HalfCheetah-v2](https://www.gymlibrary.dev/environments/mujoco/half_cheetah/) | 4800 |
+| [QMIX](https://github.com/mindspore-lab/mindrl/tree/master/example/qmix)  | ✅ | / | ✅ | ✅ | ✅ | [SMAC/Simple Spread](https://github.com/oxwhirl/smac/) | 90%/-145 |
+| [SAC](https://github.com/mindspore-lab/mindrl/tree/master/example/sac)  | / | ✅ | ✅ | ✅ | ✅ | [HalfCheetah-v2](https://www.gymlibrary.dev/environments/mujoco/half_cheetah/) | 4800 |
+| [TD3](https://github.com/mindspore-lab/mindrl/tree/master/example/td3)  | / | ✅ | ✅ | ✅ | ✅ | [HalfCheetah-v2](https://www.gymlibrary.dev/environments/mujoco/half_cheetah/) | 4800 |
+| [C51](https://github.com/mindspore-lab/mindrl/tree/master/example/c51) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://www.gymlibrary.dev/environments/classic_control/cart_pole/) | 195 |
+| [A3C](https://github.com/mindspore-lab/mindrl/tree/master/example/a3c) | ✅ | / | / | ✅ | ✅ | [CartPole-v0](https://www.gymlibrary.dev/environments/classic_control/cart_pole/) | 195 |
+| [CQL](https://github.com/mindspore-lab/mindrl/tree/master/example/cql) | / | ✅ | ✅ | ✅ | ✅ | [Hopper-v0](https://www.gymlibrary.dev/environments/mujoco/hopper) | 3500 |
+| [MAPPO](https://github.com/mindspore-lab/mindrl/tree/master/example/mappo)  | ✅ | / | ✅ | ✅ | ✅ | [Simple Spread](https://github.com/openai/multiagent-particle-envs) | -145 |
+| [GAIL](https://github.com/mindspore-lab/mindrl/tree/master/example/gail) | / | ✅ | ✅ | ✅ | ✅ | [HalfCheetah-v2](https://www.gymlibrary.dev/environments/mujoco/half_cheetah/) | 4800 |
+| [AWAC](https://github.com/mindspore-lab/mindrl/tree/master/example/awac) | / | ✅ | ✅ | ✅ | ✅ | [Ant-v2](https://www.gymlibrary.dev/environments/mujoco/ant) | 5000 |
+| [Dreamer](https://github.com/mindspore-lab/mindrl/tree/master/example/dreamer)  | / | ✅ | / | ✅ | ✅ | [Walker-walk](https://github.com/deepmind/dm_control) | 900 |
+| [IQL](https://github.com/mindspore-lab/mindrl/tree/master/example/iql) | / | ✅ | ✅ | ✅ | ✅ | [Walker2d-v2](https://www.gymlibrary.dev/environments/mujoco/walker2d/) | 3000 |
+| [MADDPG](https://github.com/mindspore-lab/mindrl/tree/master/example/maddpg)  | ✅ | / | ✅ | ✅ | ✅ | [simple_spread](https://pettingzoo.farama.org/environments/mpe/simple_spread/) | -140 |
+| [Double DQN](https://github.com/mindspore-lab/mindrl/tree/master/example/double_dqn) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://www.gymlibrary.dev/environments/classic_control/cart_pole/) | 195 |
+| [Policy Gradient](https://github.com/mindspore-lab/mindrl/tree/master/example/pg) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://www.gymlibrary.dev/environments/classic_control/cart_pole/) | 195 |
+| [Dueling DQN](https://github.com/mindspore-lab/mindrl/tree/master/example/dueling_dqn) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://www.gymlibrary.dev/environments/classic_control/cart_pole/) | 195 |
 
 ## Scientific Computing
 
