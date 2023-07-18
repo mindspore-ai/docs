@@ -577,7 +577,7 @@ ACL接口支持提前构建模型，加载时使用已构建的模型。
 
 当前GE接口不支持提前构建模型，加载时需要构建模型。
 
-可以通过指定 `provider` 为 ``ge`` 能GE。
+可以通过指定 `provider` 为 ``ge`` 使能GE。
 
 ```python
 import mindspore_lite as mslite
@@ -648,7 +648,7 @@ Ascend推理时，运行时指定 `provider` 为 ``ge`` 时，支持部署到同
 Python实现：
 
 ```python
-def load_model(mode_path0, model_path1, config_file_0, config_file_1, rank_id, device_id):
+def load_model(model_path0, model_path1, config_file_0, config_file_1, rank_id, device_id):
     context = mslite.Context()
     context.ascend.device_id = device_id
     context.ascend.rank_id = rank_id  # for distributed model
@@ -660,7 +660,7 @@ def load_model(mode_path0, model_path1, config_file_0, config_file_1, rank_id, d
     model_group = mslite.ModelGroup(mslite.ModelGroupFlag.SHARE_WEIGHT)
     model_group.add_model([model0, model1])
 
-    model0.build_from_file(mode_path0, mslite.ModelType.MINDIR, context, config_file_0)
+    model0.build_from_file(model_path0, mslite.ModelType.MINDIR, context, config_file_0)
     model1.build_from_file(model_path1, mslite.ModelType.MINDIR, context, config_file_1)
     return model0, model1
 ```
@@ -668,7 +668,7 @@ def load_model(mode_path0, model_path1, config_file_0, config_file_1, rank_id, d
 C++实现：
 
 ```c++
-std::vector<Model> LoadModel(const std::string &mode_path0, const std::string &model_path1,
+std::vector<Model> LoadModel(const std::string &model_path0, const std::string &model_path1,
                              const std::string &config_file_0, const std::string &config_file_1,
                              uint32_t rank_id, uint32_t device_id) {
     auto context = std::make_shared<mindspore::Context>();
@@ -695,8 +695,8 @@ std::vector<Model> LoadModel(const std::string &mode_path0, const std::string &m
       std::cerr << "Failed to load config file " << config_file_0 << std::endl;
       return {};
     }
-    if (!model0.Build(mode_path0, mindspore::ModelType::kMindIR, context).IsOk()) {
-      std::cerr << "Failed to load model " << mode_path0 << std::endl;
+    if (!model0.Build(model_path0, mindspore::ModelType::kMindIR, context).IsOk()) {
+      std::cerr << "Failed to load model " << model_path0 << std::endl;
       return {};
     }
     if (!model1.LoadConfig(config_file_1).IsOk()) {
