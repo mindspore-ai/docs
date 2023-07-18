@@ -29,7 +29,7 @@ Supports `int`, `float`, and `bool`, but does not support `complex` numbers.
 `Number` can be defined on the network. That is, the syntax `y = 1`, `y = 1.2`, and `y = True` are supported.
 
 When the data is a constant, the value of the data can be achieved at compile time, the forcible conversion to `Number` is supported in the network. The syntax `y = int(x)`, `y = float(x)`, and `y = bool(x)` are supported.
-When the data is a variable, i.e., you can get the value only at runtime. It also supports data type conversion using built-in functions [Python Built-in Functions](#python built-in functions) such as int(), float() and bool(). For example:
+When the data is a variable, i.e., you can get the value only at runtime. It also supports data type conversion using built-in functions [Python Built-in Functions](#python-built-in-functions) such as int(), float() and bool(). For example:
 
 ```python
 from mindspore import Tensor, jit
@@ -1616,7 +1616,7 @@ out1: [5]
 out2: [2]
 ```
 
-## Python Built-in Function
+## Python Built-in Functions
 
 Currently supported Python built-in functions include `int`, `float`, `bool`, `str`, `list`, `tuple`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `any`, `round`, `max`, `min` , `sum`, `abs`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, `filter`. The use of built-in functions in graph mode is similar to the corresponding Python built-in functions.
 

@@ -3078,7 +3078,7 @@ print(res)
 
 #### 调用Python内置函数
 
-MindSpore在静态图模式下已经支持了一些Python内置函数，包括但不限于`abs`、`all`、`any`、`getattr`、`setattr`、`len`、`isinstance`、`map`、`zip`、`round`、`dict`等，通过JIT Fallback，在JIT语法支持级别选项为`LAX`时，可以支持更多的Python内置函数的用法。下面简单举例支持的部分Python内置函数，更多内置函数支持情况可参考本文的[Python内置函数](#Python内置函数)章节。
+MindSpore在静态图模式下已经支持了一些Python内置函数，包括但不限于`abs`、`all`、`any`、`getattr`、`setattr`、`len`、`isinstance`、`map`、`zip`、`round`、`dict`等，通过JIT Fallback，在JIT语法支持级别选项为`LAX`时，可以支持更多的Python内置函数的用法。下面简单举例支持的部分Python内置函数，更多内置函数支持情况可参考本文的[Python内置函数](#python内置函数)章节。
 
 ##### dict()
 
