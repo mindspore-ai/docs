@@ -89,7 +89,7 @@ source code install
 
 -  dependency install
 
-   .. code:: bash
+   .. code::
 
       pip install -r requirements.txt
 
@@ -97,7 +97,7 @@ source code install
 
    Enable ``c`` if you want to use Cybertron.
 
-   .. code:: bash
+   .. code::
 
       bash build.sh -e ascend -c on
 
@@ -107,14 +107,14 @@ source code install
 
    Enable ``t`` if you want to use traditional MD.
 
-   .. code:: bash
+   .. code::
 
       export CUDA_PATH={your_cuda_path}
       bash build.sh -e gpu -j32 -t on -c on
 
 -  Install whl package
 
-   .. code:: bash
+   .. code::
 
       cd output/
       pip install mindsponge*.whl
