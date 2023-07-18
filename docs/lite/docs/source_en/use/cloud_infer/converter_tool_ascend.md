@@ -20,7 +20,7 @@ Table 1: Configure [ascend_context] parameter
 | `output_type`       | Optional| Specify the data type of network output | String | Options: `"FP16"`, `"FP32"`, `"UINT8"` |
 | `fusion_switch_config_file_path` | Optional| Configure the [Fusion Switch Configuration File](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/atctool/atctool_0078.html) file path and file name. | String   | Specify the configuration file for the fusion switch      |
 | `insert_op_config_file_path` | Optional| Model insertion [AIPP](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/atctool/atctool_0018.html) operator | String  | Path of [AIPP](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/atctool/atctool_0021.html) configuration file |
-| `aoe_mode` | Optional| [AOE](https://www.hiascend.com/document/detail/en/canncommercial/601/devtools/auxiliarydevtool/aoe_16_001.html) auto-tuning mode | String  | Options: "subgraph turing", "operator turing" or "subgraph turing, operator turing". Default: Not enabled |
+| `aoe_mode` | Optional| [AOE](https://www.hiascend.com/document/detail/en/canncommercial/601/devtools/auxiliarydevtool/aoe_16_001.html) auto-tuning mode | String  | Options: "subgraph tuning", "operator tuning" or "subgraph tuning, operator tuning". Default: Not enabled |
 
 Table 2:  Configure [acl_init_options] parameter
 
@@ -282,11 +282,11 @@ AOE API tuning needs to be done through converter tool. When `optimize=ascend_or
 
     The options in `[aoe_global_options]` will be passed through to the [global options](https://gitee.com/link?target=https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_070.html) of the AOE API. The options in `[aoe_tuning_options]` will be passed through to the [tuning options](https://gitee.com/link?target=https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoe_16_071.html) of the AOE API.
 
-    We will extract the options in `[acl_option_cfg_param]`, `[ascend_context]`, `[ge_session_options]` and `[ge_graph_options]` and convert them into AOE options to avoid the need for users to manually convert these options. The extracted options include `input_format`, `input_shape`, `dynamic_dims` and `precision_mode`. When the same option exists in multiple configuration sections at the same time, the priority ranges from low to high, with options in `[aoe_global_options]` and `[aoe_tuning_options]` having the highest priority.
+    We will extract the options in sections `[acl_option_cfg_param]`, `[ascend_context]`, `[ge_session_options]` and `[ge_graph_options]` and convert them into AOE options to avoid the need for users to manually convert these options. The extracted options include `input_format`, `input_shape`, `dynamic_dims` and `precision_mode`. When the same option exists in multiple configuration sections at the same time, the priority ranges from low to high, with options in `[aoe_global_options]` and `[aoe_tuning_options]` having the highest priority. It is recommended to use `[ge_graph_options]` and `aoe_uning_options`.
 
 3. AOE tuning mode
 
-    The `aoe_mode` is currently limited to `subgraph turning` or `operator turning`. Currently, `subgraph turning, operator turning` is not supported, which means that subgraph and operator tuning is not supported in the same tuning process. If necessary, subgraph and operator tuning can be performed separately.
+    The `aoe_mode` is currently limited to `subgraph tuning` or `operator tuning`. Currently, `subgraph tuning, operator tuning` is not supported, which means that subgraph and operator tuning is not supported in the same tuning process. If necessary, subgraph and operator tuning can be performed separately.
 
     In `[aoe_global_options]`, when the value of `job_type` is ``1``, it means subgraph tuning, and when the value is ``2``, it means operator tuning.
 
@@ -307,7 +307,7 @@ AOE API tuning needs to be done through converter tool. When `optimize=ascend_or
 
 4. Dynamic dimension profiles
 
-    Dynamic dimension profiles can be set in `[acl_option_cfg_param]`, `[ascend_context]`, `[ge_graph_options]`, `[aoe_tuning_options]`, with priority ranging from low to high. The following settings are equivalent. Setting the dynamic dimension profiles in `[ascend_context]` can refer to [Dynamic Shape Configuration](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool_ascend.html#dynamic-shape-configuration). Setting the dynamic dimension profiles in `[acl_option_cfg_param]`, `[ge_graph_options]` and `[aoe_tuning_options]` can refer to [dynamic_dims](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_015.html), [dynamic_batch_size](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_013.html), [dynamic_image_size](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_014.html).
+    Dynamic dimension profiles can be set in `[acl_option_cfg_param]`, `[ascend_context]`, `[ge_graph_options]`, `[aoe_tuning_options]`, with priority ranging from low to high. The following settings are equivalent. Setting the dynamic dimension profiles in `[ascend_context]` can refer to [Dynamic Shape Configuration](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool_ascend.html#dynamic-shape-configuration). Setting the dynamic dimension profiles in `[acl_option_cfg_param]`, `[ge_graph_options]` and `[aoe_tuning_options]` can refer to [dynamic_dims](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_015.html), [dynamic_batch_size](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_013.html), [dynamic_image_size](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_014.html). Note that the `[ge_graph_options]` only supports the `ge.dynamicDims` and does not support the forms of `dynamic_batch_size` and `dynamic_image_size`. `input_format` is used to specify the input dimension layout for dynamic profiles. When using `dynamic_image_size`, it is necessary to specify `input_format` as `NCHW` or `NHWC` to indicate the location of the `H` and `W` dimensions.
 
     ```bash
     [ascend_context]
@@ -335,7 +335,7 @@ AOE API tuning needs to be done through converter tool. When `optimize=ascend_or
 
 5. Precision mode
 
-    Precision mode can be set in `[acl_option_cfg_param]`, `[ascend_context]`, `[ge_graph_options]`, `[aoe_tuning_options]`, with priority ranging from low to high. The following settings are equivalent. Setting the precision mode in `[ascend_context]` can refer to [ascend_context - precision_mode](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool_ascend.html#configuration-file). Setting the precision mode in `[acl_option_cfg_param]`, `[ge_graph_options]` and `[aoe_tuning_options]` can refer to [precision_mode](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_046.html).
+    Precision mode can be set in `[acl_option_cfg_param]`, `[ascend_context]`, `[ge_graph_options]`, `[aoe_tuning_options]`, with priority ranging from low to high. The following settings are equivalent. Setting the precision mode in `[ascend_context]` and `[acl_option_cfg_param]` can refer to [ascend_context - precision_mode](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool_ascend.html#configuration-file). Setting the precision mode in `[ge_graph_options]` and `[aoe_tuning_options]` can refer to [precision_mode](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_046.html).
 
     ```bash
     [ascend_context]
@@ -344,7 +344,7 @@ AOE API tuning needs to be done through converter tool. When `optimize=ascend_or
 
     ```bash
     [acl_option_cfg_param]
-    precision_mode=allow_fp32_to_fp16
+    precision_mode=preferred_fp32
     ```
 
     ```bash
