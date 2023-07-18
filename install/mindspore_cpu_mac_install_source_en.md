@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_mac_install_source_en.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/install/mindspore_cpu_mac_install_source_en.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 This document describes how to install MindSpore by compiling source code on macOS.
 
@@ -42,7 +42,7 @@ This document describes how to install MindSpore by compiling source code on mac
 ## Downloading Source Code from Code Repository
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone -b r2.1 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## Compiling MindSpore

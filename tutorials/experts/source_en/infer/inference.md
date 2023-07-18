@@ -56,7 +56,7 @@ MindSpore defines logical network structures and operator attributes through a u
 
 2. Application Scenarios
 
-    Use a network definition and a checkpoint file to export a MindIR model file, and then execute inference based on different requirements, for example, [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/serving/docs/en/master/serving_example.html) and [Lite Inference](https://www.mindspore.cn/lite/docs/en/r2.1/index.html).
+    Use a network definition and a checkpoint file to export a MindIR model file, and then execute inference based on different requirements, for example, [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/serving/docs/en/r2.0/serving_example.html) and [Lite Inference](https://www.mindspore.cn/lite/docs/en/r2.1/index.html).
 
 ## model.eval Model Validation
 
@@ -82,7 +82,7 @@ Where
 
 `model.eval` is the model validation interface, and corresponding interface description is as follows: [mindspore.train.Model](https://www.mindspore.cn/docs/en/r2.1/api_python/train/mindspore.train.Model.html#mindspore.train.Model).
 
-> Inference sample code: [eval.py](https://gitee.com/mindspore/models/blob/r2.1/research/cv/lenet/eval.py).
+> Inference sample code: [eval.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/eval.py).
 
 ### Using MindSpore Hub to Load Models from HUAWEI CLOUD
 
@@ -103,7 +103,7 @@ print("============== {} ==============".format(acc))
 
 Where
 
-`mindspore_hub.load` is the interface for loading model parameter, and corresponding interface description is as follows: [mindspore_hub.load](https://www.mindspore.cn/hub/docs/en/master/hub.html#mindspore_hub.load).
+`mindspore_hub.load` is the interface for loading model parameter, and corresponding interface description is as follows: [mindspore_hub.load](https://www.mindspore.cn/hub/docs/en/r1.9/hub.html#mindspore_hub.load).
 
 ## Using the `model.predict` Interface for Inference Operations
 

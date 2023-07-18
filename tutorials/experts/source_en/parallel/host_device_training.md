@@ -6,7 +6,7 @@
 
 In deep learning, one usually has to deal with the huge model problem, in which the total size of parameters in the model is beyond the device memory capacity. To efficiently train a huge model, one solution is to employ homogeneous accelerators (*e.g.*, Ascend 910 AI Accelerator and GPU) for distributed training. When the size of a model is hundreds of GBs or several TBs, the number of required accelerators is too overwhelming for people to access, resulting in this solution inapplicable.  One alternative is Host+Device hybrid training. This solution simultaneously leveraging the huge memory in hosts and fast computation in accelerators, is a promisingly efficient method for addressing huge model problem.
 
-In MindSpore, users can easily implement hybrid training by configuring trainable parameters and necessary operators to run on hosts, and other operators to run on accelerators. This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/models/tree/r2.1/official/recommend/Wide_and_Deep) in the Host+Ascend 910 AI Accelerator mode.
+In MindSpore, users can easily implement hybrid training by configuring trainable parameters and necessary operators to run on hosts, and other operators to run on accelerators. This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep) in the Host+Ascend 910 AI Accelerator mode.
 
 ## Basic Principle
 
@@ -26,11 +26,11 @@ A careful analysis of the special structure of the Wide & Deep model can be obta
 
 ### Sample Code Description
 
-1. Prepare the model code. The Wide&Deep code can be found at: <https://gitee.com/mindspore/models/tree/r2.1/official/recommend/Wide_and_Deep>, in which `train_and_eval_auto_parallel.py` defines the main function for model training, `src/` directory contains the model definition, data processing and configuration files, and `script/` directory contains the training scripts in different modes.
+1. Prepare the model code. The Wide&Deep code can be found at: <https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep>, in which `train_and_eval_auto_parallel.py` defines the main function for model training, `src/` directory contains the model definition, data processing and configuration files, and `script/` directory contains the training scripts in different modes.
 
 2. Prepare the dataset. Please refer the link in [1] to download the dataset, and use the script `src/preprocess_data.py` to transform dataset into MindRecord format.
 
-3. Configure the device information. When performing distributed training in the bare-metal environment (That is, there is an Ascend 910 AI processor locally), the network information file needs to be configured. This example only employs one accelerator, thus `rank_table_1p_0.json` containing #0 accelerator is configured. MindSpore provides an automated build script for generating this configuration file and related instructions. For the detailed, see [HCCL_TOOL](https://gitee.com/mindspore/models/tree/r2.1/utils/hccl_tools).
+3. Configure the device information. When performing distributed training in the bare-metal environment (That is, there is an Ascend 910 AI processor locally), the network information file needs to be configured. This example only employs one accelerator, thus `rank_table_1p_0.json` containing #0 accelerator is configured. MindSpore provides an automated build script for generating this configuration file and related instructions. For the detailed, see [HCCL_TOOL](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools).
 
 ### Configuring for Hybrid Training
 
@@ -56,7 +56,7 @@ A careful analysis of the special structure of the Wide & Deep model can be obta
 
 ### Training the Model
 
-In order to save enough log information, use the command `export GLOG_v=1` to set the log level to INFO before executing the script, and add the `-p on` option when compiling MindSpore. For the details about compiling MindSpore, refer to [Compiling MindSpore](https://www.mindspore.cn/install/detail/en?path=install/master/mindspore_ascend_install_source_en.md&highlight=%E7%BC%96%E8%AF%91mindspore).
+In order to save enough log information, use the command `export GLOG_v=1` to set the log level to INFO before executing the script, and add the `-p on` option when compiling MindSpore. For the details about compiling MindSpore, refer to [Compiling MindSpore](https://www.mindspore.cn/install/detail/en?path=install/r2.1/mindspore_ascend_install_source_en.md&highlight=%E7%BC%96%E8%AF%91mindspore).
 
 Use the script `script/run_auto_parallel_train.sh`. Run the command `bash run_auto_parallel_train.sh 1 1 <DATASET_PATH> <RANK_TABLE_FILE>`, where the first `1` is the number of cards used in the case, the second `1` is the number of epochs, `DATASET_PATH` is the path of dataset, and `RANK_TABLE_FILE` is the path of the above `rank_table_1p_0.json` file.
 

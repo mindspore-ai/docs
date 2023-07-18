@@ -14,4 +14,4 @@ The training architecture for large-scale feature vectors in recommendation mode
 
 ## Example
 
-[Wide&Deep distributed training](https://github.com/mindspore-lab/mindrec/tree/master/models/wide_deep)
+[Wide&Deep distributed training](https://github.com/mindspore-lab/mindrec/tree/r0.3/models/wide_deep)
