@@ -13,7 +13,7 @@ torchvision.ops.nms(boxes: torch.Tensor, scores: torch.Tensor, iou_threshold: fl
 ## mindspore.ops.NMSWithMask
 
 ```python
-class mindspore.ops.NMSWithMask(iou_threshold=0.5)
+class mindspore.ops.NMSWithMask(iou_threshold=0.5)(bboxes)
 ```
 
 更多内容详见[mindspore.ops.NMSWithMask](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.NMSWithMask.html)。

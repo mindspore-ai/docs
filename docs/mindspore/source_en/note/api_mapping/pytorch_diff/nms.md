@@ -13,7 +13,7 @@ For more information, see [torchvision.ops.nms](https://pytorch.org/vision/0.9/o
 ## mindspore.ops.NMSWithMask
 
 ```python
-class mindspore.ops.NMSWithMask(iou_threshold=0.5)
+class mindspore.ops.NMSWithMask(iou_threshold=0.5)(bboxes)
 ```
 
 For more information, see [mindspore.ops.NMSWithMask](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.NMSWithMask.html).
