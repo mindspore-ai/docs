@@ -4,7 +4,7 @@
 
 You are welcome to contribute MindSpore documents. Documents that meet requirements will be displayed on the [MindSpore website](https://www.mindspore.cn/en).
 
-This project supports contribution documents in markdown and reStructuredText formats. You can create the `.md` or `.rst` files or modify existing files.
+This project supports contribution documents in markdown and reStructuredText formats. You can create `.md` or `.rst` files or modify existing files.
 
 ## Document
 
@@ -24,9 +24,9 @@ If you need to add a document, create a markdown or reStructuredText file in a p
 
 1. Create a document.
 
-    Requirements for the new document are as follows:
+    Requirements for a new document are as follows:
 
-    - Storage path: A Chinese document is stored in the `source_zh_cn` directory and an English document is stored in the `source_en` directory.
+    - Storage path: `source_en`.
     - Document name: A document name must consist of lowercase letters or underscores (_).
 
 2. Add the new document to the web page.
@@ -160,7 +160,7 @@ The format of the image citation is: \!\[image name] (the path where the image i
 
 ### Confirming the Content
 
-On the next day after the PR is merged, you can view the new content on the MindSpore website. The new image will shown in the document.
+On the next day after the PR is merged, you can view the new content on the MindSpore website. The new image will be shown in the document.
 
 By default, tutorials and documents of the latest version are displayed on the official website. To view the newly merged content, switch to master from the drop-down list.
 
