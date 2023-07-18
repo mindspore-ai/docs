@@ -86,6 +86,9 @@ MindSpore 文档
    :hidden:
 
    note/static_graph_syntax_support
+   note/static_graph_syntax/operators
+   note/static_graph_syntax/statements
+   note/static_graph_syntax/python_builtin_functions
    note/index_support
 
 .. toctree::
