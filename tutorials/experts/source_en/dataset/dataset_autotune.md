@@ -116,7 +116,7 @@ def create_dataset(...)
 
 ### Starting Training
 
-Start the training process as described in [resnet/README.md](https://gitee.com/mindspore/models/blob/r2.1/official/cv/ResNet/README.md#). Dataset AutoTune will display its analysis result through log messages.
+Start the training process as described in [resnet/README.md](https://gitee.com/mindspore/models/blob/master/official/cv/ResNet/README.md#). Dataset AutoTune will display its analysis result through log messages.
 
 ```text
 [INFO] [auto_tune.cc:73 LaunchThread] Launching Dataset AutoTune thread
