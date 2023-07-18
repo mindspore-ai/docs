@@ -1,6 +1,6 @@
 # Differences with torch.nn.PReLU
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/PReLU.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/PReLU.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.PReLU
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.PReLU](https://pytorch.org/docs/1.8.1/genera
 class mindspore.nn.PReLU(channel=1, w=0.25)(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.PReLU](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.PReLU.html).
+For more information, see [mindspore.nn.PReLU](https://www.mindspore.cn/docs/en/r2.1/api_python/nn/mindspore.nn.PReLU.html).
 
 ## Differences
 

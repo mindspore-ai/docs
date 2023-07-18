@@ -1,17 +1,17 @@
 # Performance Tuning Guide
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_tuning_guide.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindinsight/docs/source_en/performance_tuning_guide.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
 MindSpore Insight provides a number of indicators from the perspective of single device and cluster to help users find performance bottlenecks. This paper focuses on the explanation of methodology. The purpose is to guide users how to use these indicators to find the performance bottlenecks in the network step by step.
 For the meaning of each indicator, users can refer to the following tutorials:
 
-[Performance Profiling（Ascend）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html)
+[Performance Profiling（Ascend）](https://www.mindspore.cn/mindinsight/docs/en/r2.1/performance_profiling_ascend.html)
 
-[Performance Profiling（GPU）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_gpu.html)
+[Performance Profiling（GPU）](https://www.mindspore.cn/mindinsight/docs/en/r2.1/performance_profiling_gpu.html)
 
-[Cluster Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_of_cluster.html)
+[Cluster Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/r2.1/performance_profiling_of_cluster.html)
 
 ## Single Device Performance Tuning
 
@@ -58,7 +58,7 @@ Step 1：Please jump to the `step interval` tab on the `data preparation details
 
 - If there is no time-consuming customized logic in the script, it indicates that sending data from host to device is time-consuming, please feedback to the [MindSpore Community](https://gitee.com/mindspore/mindspore/issues) .
 
-Step 2：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operation has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html) and try to optimize the data processing performance.
+Step 2：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operation has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/r2.1/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/r2.1/dataset/optimize.html) and try to optimize the data processing performance.
 
 #### Graph Mode
 
@@ -69,7 +69,7 @@ Step 1：Please jump to the `step interval` tab on the `data preparation details
 
 Step 2: See how the size curve changes in the host queue. If none of the size in the queue is 0, it indicates that the process by which training data is sent from host to device is a performance bottleneck, please feedback to the [MindSpore Community](https://gitee.com/mindspore/mindspore/issues). Otherwise it indicates that the data processing process is the performance bottleneck, please refer to Step 3 to continue to locate which operation of data processing has performance problems.
 
-Step 3：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operation has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html) and try to optimize the data processing performance.
+Step 3：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operation has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/r2.1/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/r2.1/dataset/optimize.html) and try to optimize the data processing performance.
 
 ### Long Forward And Backward Propagation
 
@@ -97,7 +97,7 @@ The main factors affecting cluster performance are the following:
 - Slow node: Because the collective communication operator is executed synchronously, if there are slow nodes in the cluster, the performance of the cluster will be delayed by the barrel effect.
 - Slow link: If there is a problem with some links in the cluster, resulting in less bandwidth, it can drag down the performance of the cluster.
 - Unreasonable division: Mainly for the model parallel and pipeline model.
-    - For the model parallel, If the two operator sharding strategies before and after are not consistent will lead to automatic insertion of [reschedule](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html) , which will increase the communication operator to complete the data transformation, and excessive communication is the main factor affecting the cluster performance. Ideally, the shorter the communication time, the better the communication performance. When the pure communication time (only the communication operator execution time period, parallel execution time period of the communication operator and the computation operator can not be concerned because the communication time is hidden in the computation operator execution time) occupies a large proportion of the total time, the user needs to consider optimizing the operator sharding strategy to avoid the introduction of rescheduling, which makes the communication time increase.
+    - For the model parallel, If the two operator sharding strategies before and after are not consistent will lead to automatic insertion of [reschedule](https://www.mindspore.cn/docs/en/r2.1/design/distributed_training_design.html) , which will increase the communication operator to complete the data transformation, and excessive communication is the main factor affecting the cluster performance. Ideally, the shorter the communication time, the better the communication performance. When the pure communication time (only the communication operator execution time period, parallel execution time period of the communication operator and the computation operator can not be concerned because the communication time is hidden in the computation operator execution time) occupies a large proportion of the total time, the user needs to consider optimizing the operator sharding strategy to avoid the introduction of rescheduling, which makes the communication time increase.
     - For pipeline parallel, since different layers will be sliced into different stages, if the stage slicing is not reasonable, the amount of computation on each stage will be unbalanced, which will eventually lead to extra data waiting time between stages due to the lack of synchronization (as shown by the long time consumption of the Receive communication operator, which is used to receive data sent by other stages), so it is necessary to adjust the amount of computation on each stage to be as close to the average as possible.
 
 For the main factors that affect cluster performance, MindSpore Insight provides different indicators for data parallel, model parallel, pipeline parallel, and hybrid parallel to help users quickly identify performance bottlenecks in the cluster.
@@ -125,7 +125,7 @@ Step 2：Observe the forward and backward propagation in the cluster step trace 
 Step 3: Observe the step tail in the cluster step trace page
 
 - Users should make sure if the step tail of one device is much longer than others first. If it is, it usually caused by slow node in the cluster. Users can refer to Step 1 and Step 2 to find the slow node.
-- If the step tail of all devices are essentially the same, and the phase is time-consuming, it is usually due to the long time taken by the AllReduce collective communication operators. Users can try to modify the all_reduce_fusion_config parameter to optimize the performance, and change [AllReduce Fusion Sharding Strategy](https://mindspore.cn/tutorials/experts/en/master/parallel/overview.html) to reduce the time spent in this phase.
+- If the step tail of all devices are essentially the same, and the phase is time-consuming, it is usually due to the long time taken by the AllReduce collective communication operators. Users can try to modify the all_reduce_fusion_config parameter to optimize the performance, and change [AllReduce Fusion Sharding Strategy](https://mindspore.cn/tutorials/experts/en/r2.1/parallel/overview.html) to reduce the time spent in this phase.
 
 ### Model Parallel
 
@@ -143,7 +143,7 @@ Please refer to step 2 of [Data Parallel](#data-parallel).
 Step 3: Observe the pure communication time in the cluster step trace page
 
 On the premise of confirming that there is no slow node through step 1 and step 2, the pure communication time of each card in the cluster should be basically the same. If this phase takes a short time, it means that the communication time caused by re-distribution of operators is very short, and users do not need to consider optimizing the parallel strategy. Otherwise, users need to focus on analyzing whether the parallel strategy can be optimized.
-Users need to have a certain understanding of the principle of model parallelism before continue to analyse. Please refer to [Distributed Training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/overview.html) for the basic principles. The following steps are only to assist users in rationality analysis. Whether the parallel strategy has room for optimization and how to optimize it need users to make a judgment after specific analysis of their respective networks.
+Users need to have a certain understanding of the principle of model parallelism before continue to analyse. Please refer to [Distributed Training](https://www.mindspore.cn/tutorials/experts/en/r2.1/parallel/overview.html) for the basic principles. The following steps are only to assist users in rationality analysis. Whether the parallel strategy has room for optimization and how to optimize it need users to make a judgment after specific analysis of their respective networks.
 
 - If this stage takes a long time, the user can choose any one of the devices and observe its timeline. In the timeline, MindSpore Insight marks the pure communication time, refer to 'Pure Communication Op' below.
 

@@ -1,6 +1,6 @@
 # 比较与torchaudio.transforms.Resample的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Resample.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Resample.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## torchaudio.transforms.Resample
 
@@ -17,7 +17,7 @@ class mindspore.dataset.audio.Resample(orig_freq=16000, new_freq=16000, resample
                                        lowpass_filter_width=6, rolloff=0.99, beta=None)
 ```
 
-更多内容详见[mindspore.dataset.audio.Resample](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_audio/mindspore.dataset.audio.Resample.html#mindspore.dataset.audio.Resample)。
+更多内容详见[mindspore.dataset.audio.Resample](https://mindspore.cn/docs/zh-CN/r2.1/api_python/dataset_audio/mindspore.dataset.audio.Resample.html#mindspore.dataset.audio.Resample)。
 
 ## 差异对比
 

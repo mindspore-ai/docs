@@ -12,7 +12,7 @@
 
   .. note::
      Profiler支持的参数可以参考：
-     `Profiler API <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ 。
+     `Profiler API <https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ 。
      Profiler初始化之前需要确定device_id。
 
 - 在训练结束后，调用\ ``Profiler.analyse()``\ 停止性能数据收集并生成性能分析结果。
@@ -24,7 +24,7 @@
 
 - 自定义训练：
 
-  MindSpore函数式编程用例使用Profiler进行自定义训练，可以在指定的step区间或者epoch区间开启或者关闭收集Profiler性能数据。`基于step开启Profiler完整代码样例 <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_step.py>`_。
+  MindSpore函数式编程用例使用Profiler进行自定义训练，可以在指定的step区间或者epoch区间开启或者关闭收集Profiler性能数据。`基于step开启Profiler完整代码样例 <https://gitee.com/mindspore/docs/blob/r2.1/docs/sample_code/mindinsight/profiler/profiling_step.py>`_。
 
   .. code:: python
 
@@ -43,7 +43,7 @@
 - 自定义Callback
 
   - 对于数据非下沉模式，只有在每个step结束后才有机会告知CANN开启和停止，因此需要基于step开启和关闭。
-    `自定义Callback基于step开启Profiler完整代码样例 <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_feed_step.py>`_。
+    `自定义Callback基于step开启Profiler完整代码样例 <https://gitee.com/mindspore/docs/blob/r2.1/docs/sample_code/mindinsight/profiler/profiling_feed_step.py>`_。
 
     .. code:: python
 
@@ -95,7 +95,7 @@
 
 **非条件开启样例：**
 
-- 样例一：MindSpore函数式编程用例中使用Profiler收集性能数据，部分样例代码如下所示。`完整代码样例 <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_sample.py>`_ 。
+- 样例一：MindSpore函数式编程用例中使用Profiler收集性能数据，部分样例代码如下所示。`完整代码样例 <https://gitee.com/mindspore/docs/blob/r2.1/docs/sample_code/mindinsight/profiler/profiling_sample.py>`_ 。
 
   .. code:: python
 

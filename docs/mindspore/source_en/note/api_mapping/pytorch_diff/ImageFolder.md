@@ -1,6 +1,6 @@
 # Differences with torchvision.datasets.ImageFolder
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/ImageFolder.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/ImageFolder.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torchvision.datasets.ImageFolder
 
@@ -33,7 +33,7 @@ class mindspore.dataset.ImageFolderDataset(
     decrypt=None)
 ```
 
-For more information, see [mindspore.dataset.ImageFolderDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.ImageFolderDataset.html#mindspore.dataset.ImageFolderDataset).
+For more information, see [mindspore.dataset.ImageFolderDataset](https://mindspore.cn/docs/en/r2.1/api_python/dataset/mindspore.dataset.ImageFolderDataset.html#mindspore.dataset.ImageFolderDataset).
 
 ## Differences
 

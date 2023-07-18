@@ -1,6 +1,6 @@
 # Function Differences with tf.nn.relu
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/ReLU.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/ReLU.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## tf.nn.relu
 
@@ -16,7 +16,7 @@ For more information, see [tf.nn.relu](https://tensorflow.google.cn/versions/r2.
 class mindspore.nn.ReLU()(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.ReLU](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ReLU.html).
+For more information, see [mindspore.nn.ReLU](https://www.mindspore.cn/docs/en/r2.1/api_python/nn/mindspore.nn.ReLU.html).
 
 ## Differences
 

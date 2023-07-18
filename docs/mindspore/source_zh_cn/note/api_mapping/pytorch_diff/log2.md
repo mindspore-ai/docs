@@ -1,6 +1,6 @@
 # 比较与torch.log2的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/log2.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/log2.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## torch.log2
 
@@ -16,7 +16,7 @@ torch.log2(input, *, out=None) -> Tensor
 mindspore.ops.log2(input) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.log2](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.log2.html)。
+更多内容详见[mindspore.ops.log2](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.log2.html)。
 
 ## 差异对比
 
@@ -29,4 +29,4 @@ MindSpore：在CPU平台上，参数 `input` 的dtype可以是 ``float16`` ， `
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 | 参数 | 参数1 | input | input | 二者均为Tensor，torch.log2的参数 `input` 的dtype可以是 ``int`` 或 ``float`` ，mindspore.ops.log2的参数 `input` 的dtype在CPU平台上可以是 ``float16`` ， ``float32`` 或 ``float64`` ，在Ascend平台上可以是 ``float16`` 或 ``float32`` 。|
-|      | 参数2 | out | - | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|      | 参数2 | out | - | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.1/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |

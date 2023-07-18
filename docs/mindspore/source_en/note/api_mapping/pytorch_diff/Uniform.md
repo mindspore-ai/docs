@@ -1,6 +1,6 @@
 # Differences with torch.nn.init.uniform_
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Uniform.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Uniform.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.init.uniform_
 
@@ -20,7 +20,7 @@ For more information, see [torch.nn.init.uniform_](https://pytorch.org/docs/1.8.
 mindspore.ops.uniform(shape, minval, maxval, seed=None, dtype=mstype.float32) -> Tensor
 ```
 
-For more information, see [mindspore.ops.uniform](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.uniform.html).
+For more information, see [mindspore.ops.uniform](https://www.mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.uniform.html).
 
 ## Differences
 

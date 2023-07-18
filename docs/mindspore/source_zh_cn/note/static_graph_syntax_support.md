@@ -1,6 +1,6 @@
 # 静态图语法支持
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/static_graph_syntax_support.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/static_graph_syntax_support.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -8,9 +8,9 @@
 
 使用Graph模式有两种方式：一是调用`@jit`装饰器修饰函数或者类的成员方法，所修饰的函数或方法将会被编译成静态计算图；二是设置`ms.set_context(mode=ms.GRAPH_MODE)`，使用`Cell`类并且在`construct`函数中编写执行代码，此时`construct`函数的代码将会被编译成静态计算图。
 
-`jit`使用规则详见[jit API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html#mindspore.jit)。
+`jit`使用规则详见[jit API文档](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore/mindspore.jit.html#mindspore.jit)。
 
-`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
+`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/nn/mindspore.nn.Cell.html)。
 
 由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。JIT Fallback方案从图模式的角度考虑动静图的统一，扩展图模式的语法能力。借鉴传统JIT编译的思路，发现是图模式下不支持的Python语法时，Fallback到Python去解释执行。更多请参考本文的[JIT Fallback](#jit-fallback)章节。
 
@@ -697,7 +697,7 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
 
 目前已支持在网络里构造Tensor。
 
-Tensor的属性与接口详见[Tensor API文档](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor)。
+Tensor的属性与接口详见[Tensor API文档](https://mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor)。
 
 #### Primitive
 
@@ -739,7 +739,7 @@ TypeError: Only supported positional parameter type for python primitive, but go
 
 当前不支持在网络调用`Primitive`及其子类相关属性和接口。
 
-当前已定义的`Primitive`详见[Primitive API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive)。
+当前已定义的`Primitive`详见[Primitive API文档](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive)。
 
 #### Cell
 
@@ -749,13 +749,13 @@ TypeError: Only supported positional parameter type for python primitive, but go
 
 当前不支持在网络调用`Cell`及其子类相关属性和接口，除非是在`Cell`自己的`construct`中通过`self`调用。
 
-`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
+`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/nn/mindspore.nn.Cell.html)。
 
 #### Parameter
 
 `Parameter`是变量张量，代表在训练网络时，需要被更新的参数。
 
-`Parameter`的定义和使用详见[Parameter API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)。
+`Parameter`的定义和使用详见[Parameter API文档](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)。
 
 ## 原型
 
@@ -835,7 +835,7 @@ TypeError: Only supported positional parameter type for python primitive, but go
 
 `Dictionary`的索引取值请参考本文的[Dictionary](#dictionary)章节。
 
-`Tensor`的索引取详见[Tensor 索引取值文档](https://www.mindspore.cn/docs/zh-CN/master/note/index_support.html#索引取值)。
+`Tensor`的索引取详见[Tensor 索引取值文档](https://www.mindspore.cn/docs/zh-CN/r2.1/note/index_support.html#索引取值)。
 
 ### 调用
 
@@ -1182,7 +1182,7 @@ ret: 9
 
 限制：
 
-- 如果`cond`不为常量，在不同分支中同一符号被赋予的变量或者常量的数据类型应一致，如果是被赋予变量或者常量数据类型是`Tensor`，则要求`Tensor`的type和shape也应一致。shape一致性约束详见[ShapeJoin规则](https://www.mindspore.cn/tutorials/experts/zh-CN/master/network/control_flow.html#shapejoin规则)。
+- 如果`cond`不为常量，在不同分支中同一符号被赋予的变量或者常量的数据类型应一致，如果是被赋予变量或者常量数据类型是`Tensor`，则要求`Tensor`的type和shape也应一致。shape一致性约束详见[ShapeJoin规则](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/network/control_flow.html#shapejoin规则)。
 
 示例1：
 
@@ -1332,7 +1332,7 @@ ret:[[7. 7. 7.]
 
 限制：
 
-- 如果`cond`不为常量，在循环体内外同一符号被赋值的变量或者常量的数据类型应一致，如果是被赋予数据类型`Tensor`，则要求`Tensor`的type和shape也应一致。shape一致性约束详见[ShapeJoin规则](https://www.mindspore.cn/tutorials/experts/zh-CN/master/network/control_flow.html#shapejoin规则)。
+- 如果`cond`不为常量，在循环体内外同一符号被赋值的变量或者常量的数据类型应一致，如果是被赋予数据类型`Tensor`，则要求`Tensor`的type和shape也应一致。shape一致性约束详见[ShapeJoin规则](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/network/control_flow.html#shapejoin规则)。
 
 - 不支持`while...else...`语句。
 
@@ -2839,20 +2839,20 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
 
 ### 网络实例类型
 
-- 带[@jit](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html)装饰器的普通Python函数。
+- 带[@jit](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore/mindspore.jit.html)装饰器的普通Python函数。
 
-- 继承自[nn.Cell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)的Cell子类。
+- 继承自[nn.Cell](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/nn/mindspore.nn.Cell.html)的Cell子类。
 
 ### 网络构造组件
 
 | 类别                 | 内容                                                                                                                                                                                                         |
 | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Cell`实例           | [mindspore/nn/*](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。 |
+| `Cell`实例           | [mindspore/nn/*](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/nn/mindspore.nn.Cell.html)。 |
 | `Cell`实例的成员函数 | Cell的construct中可以调用其他类成员函数。                                                                                                                                                                    |
-| `jit_class`实例      | 使用[@jit_class](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit_class.html)装饰的类。                                                                                                                                                                                     |
-| `Primitive`算子      | [mindspore/ops/operations/*](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.primitive.html)                                                                                              |
-| `Composite`算子      | [mindspore/ops/composite/*](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.primitive.html)                                                                                               |
-| `constexpr`生成算子  | 使用[@constexpr](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.constexpr.html)生成的值计算算子。                                                                          |
+| `jit_class`实例      | 使用[@jit_class](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore/mindspore.jit_class.html)装饰的类。                                                                                                                                                                                     |
+| `Primitive`算子      | [mindspore/ops/operations/*](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore.ops.primitive.html)                                                                                              |
+| `Composite`算子      | [mindspore/ops/composite/*](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore.ops.primitive.html)                                                                                               |
+| `constexpr`生成算子  | 使用[@constexpr](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.constexpr.html)生成的值计算算子。                                                                          |
 | 函数                 | 自定义Python函数、前文中列举的系统函数。                                                                                                                                                                     |
 
 ### 网络使用约束
@@ -2888,7 +2888,7 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
 
 ### Jit Fallback
 
-JIT Fallback是从静态图的角度出发考虑静态图和动态图的统一。通过JIT Fallback特性，静态图可以支持尽量多的动态图语法，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。更多JIT Fallback的相关介绍可以参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)。
+JIT Fallback是从静态图的角度出发考虑静态图和动态图的统一。通过JIT Fallback特性，静态图可以支持尽量多的动态图语法，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。更多JIT Fallback的相关介绍可以参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/r2.1/note/static_graph_syntax_support.html)。
 
 为了便于用户选择是否使用JIT Fallback特性的能力，提供了JIT语法支持级别选项`jit_syntax_level`，其值必须在[STRICT(0)，COMPATIBLE(1)，LAX(2)]范围内，默认值为`LAX(2)`。全部级别都支持所有后端。可以通过设置MS_DEV_JIT_SYNTAX_LEVEL来调整JIT语法支持级别，例如：`export MS_DEV_JIT_SYNTAX_LEVEL=0`，即将JIT语法支持级别设置为`STRICT`。
 
@@ -2902,7 +2902,7 @@ JIT Fallback特性还在持续完善中，下面列举出当前通过该特性�
 
 #### 创建和使用Tensor
 
-JIT Fallback支持在静态图模式下创建和使用[Tensor](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html)。
+JIT Fallback支持在静态图模式下创建和使用[Tensor](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore/mindspore.Tensor.html)。
 
 代码用例如下，用例中的`Tensor(1, dtype=mstype.int32)`是通过JIT Fallback支持的。
 
@@ -2927,7 +2927,7 @@ print(net())
 1
 ```
 
-上述例子，使用了`Tensor`类接口创建`Tensor`，有些情况下可能会需要创建运行时的`Tensor`，即在编译时期获取不到值的`Tensor`数据，此时既可以采用上述类`ms.Tensor`接口来创建`Tensor`，也可以采用 [tensor函数接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)来创建`Tensor`，代码用例如下。
+上述例子，使用了`Tensor`类接口创建`Tensor`，有些情况下可能会需要创建运行时的`Tensor`，即在编译时期获取不到值的`Tensor`数据，此时既可以采用上述类`ms.Tensor`接口来创建`Tensor`，也可以采用 [tensor函数接口](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)来创建`Tensor`，代码用例如下。
 
 ```python
 import mindspore as ms
@@ -3158,9 +3158,9 @@ g: <class 'mindspore.common.tensor.Tensor'>
 
 #### 使用Python原生的print打印
 
-JIT Fallback支持在静态图模式下使用Python原生的`print`来打印常量，它与[Print算子](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Print.html)打印信息的时机有所不同。Python原生`print`是在编译过程中触发打印（编译时阶段打印），而Print算子是需要图编译完成后，下发到设备端运行才打印（运行时阶段打印）。
+JIT Fallback支持在静态图模式下使用Python原生的`print`来打印常量，它与[Print算子](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.Print.html)打印信息的时机有所不同。Python原生`print`是在编译过程中触发打印（编译时阶段打印），而Print算子是需要图编译完成后，下发到设备端运行才打印（运行时阶段打印）。
 
-为了便于理解，举例如下。`tensor_sum`涉及`Tensor`相加，即运行时阶段才能得到结果，在调用`print`时，实际调用的是静态图模式中的`Print`算子，参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)。而`np_num`是由两个`NumPy`常量相加得到的结果，即通过JIT Fallback支持的用法，因此在调用`print`时，使用的是Python原生`print`。由于两者的打印时机不同，最终导致显示`np_sum`在`tensor_sum`之前，即通过JIT Fallback支持的Python原生`print`的打印结果会在`Print`算子之前。
+为了便于理解，举例如下。`tensor_sum`涉及`Tensor`相加，即运行时阶段才能得到结果，在调用`print`时，实际调用的是静态图模式中的`Print`算子，参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/r2.1/note/static_graph_syntax_support.html)。而`np_num`是由两个`NumPy`常量相加得到的结果，即通过JIT Fallback支持的用法，因此在调用`print`时，使用的是Python原生`print`。由于两者的打印时机不同，最终导致显示`np_sum`在`tensor_sum`之前，即通过JIT Fallback支持的Python原生`print`的打印结果会在`Print`算子之前。
 
 ```python
 import numpy as np

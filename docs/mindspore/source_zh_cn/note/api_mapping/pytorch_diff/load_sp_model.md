@@ -1,6 +1,6 @@
 # 比较与torchtext.data.functional.load_sp_model的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/load_sp_model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/load_sp_model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## torchtext.data.functional.load_sp_model
 
@@ -18,7 +18,7 @@ torchtext.data.functional.load_sp_model(
 class mindspore.dataset.text.SentencePieceTokenizer(mode, out_type)
 ```
 
-更多内容详见[mindspore.dataset.text.SentencePieceTokenizer](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.SentencePieceTokenizer.html#mindspore.dataset.text.SentencePieceTokenizer)。
+更多内容详见[mindspore.dataset.text.SentencePieceTokenizer](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/dataset_text/mindspore.dataset.text.SentencePieceTokenizer.html#mindspore.dataset.text.SentencePieceTokenizer)。
 
 ## 使用方式
 

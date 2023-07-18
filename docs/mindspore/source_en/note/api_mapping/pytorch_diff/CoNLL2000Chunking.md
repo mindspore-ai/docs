@@ -1,6 +1,6 @@
 # Differences with torchtext.datasets.CoNLL2000Chunking
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/CoNLL2000Chunking.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/CoNLL2000Chunking.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torchtext.datasets.CoNLL2000Chunking
 
@@ -26,7 +26,7 @@ class mindspore.dataset.CoNLL2000Dataset(
     cache=None)
 ```
 
-For more information, see [mindspore.dataset.CoNLL2000Dataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.CoNLL2000Dataset.html#mindspore.dataset.CoNLL2000Dataset).
+For more information, see [mindspore.dataset.CoNLL2000Dataset](https://mindspore.cn/docs/en/r2.1/api_python/dataset/mindspore.dataset.CoNLL2000Dataset.html#mindspore.dataset.CoNLL2000Dataset).
 
 ## Differences
 

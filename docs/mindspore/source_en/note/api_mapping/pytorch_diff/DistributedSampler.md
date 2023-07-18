@@ -1,6 +1,6 @@
 # Differences with torch.utils.data.distributed.DistributedSampler
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/DistributedSampler.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/DistributedSampler.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.utils.data.distributed.DistributedSampler
 
@@ -16,7 +16,7 @@ For more information, see [torch.utils.data.distributed.DistributedSampler](http
 class mindspore.dataset.DistributedSampler(num_shards, shard_id, shuffle=True, num_samples=None, offset=-1)
 ```
 
-For more information, see [mindspore.dataset.DistributedSampler](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.DistributedSampler.html).
+For more information, see [mindspore.dataset.DistributedSampler](https://mindspore.cn/docs/en/r2.1/api_python/dataset/mindspore.dataset.DistributedSampler.html).
 
 ## Differences
 

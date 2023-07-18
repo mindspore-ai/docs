@@ -1,6 +1,6 @@
 # Differences with torch.nn.Unfold
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Unfold.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Unfold.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.Unfold
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.Unfold](https://pytorch.org/docs/1.8.1/gener
 class mindspore.nn.Unfold(ksizes, strides, rates, padding='valid')(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.Unfold](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Unfold.html).
+For more information, see [mindspore.nn.Unfold](https://mindspore.cn/docs/en/r2.1/api_python/nn/mindspore.nn.Unfold.html).
 
 ## Differences
 

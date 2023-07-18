@@ -1,6 +1,6 @@
 # Differences with torch.nn.Softmax
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/nn_Softmax.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/nn_Softmax.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.Softmax
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.Softmax](https://pytorch.org/docs/1.8.1/gene
 class mindspore.nn.Softmax(axis=-1)(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.Softmax](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Softmax.html).
+For more information, see [mindspore.nn.Softmax](https://www.mindspore.cn/docs/en/r2.1/api_python/nn/mindspore.nn.Softmax.html).
 
 ## Differences
 

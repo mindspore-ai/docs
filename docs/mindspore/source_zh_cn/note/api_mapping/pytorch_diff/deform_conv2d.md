@@ -1,6 +1,6 @@
 # 比较与torchvision.ops.deform_conv2d的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/deform_conv2d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/deform_conv2d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torchvision.ops.deform_conv2d
 
@@ -37,7 +37,7 @@ class mindspore.ops.deformable_conv2d(
 )
 ```
 
-更多内容详见[mindspore.ops.deformable_conv2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.deformable_conv2d.html).
+更多内容详见[mindspore.ops.deformable_conv2d](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.deformable_conv2d.html).
 
 ## 差异对比
 

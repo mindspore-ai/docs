@@ -1,6 +1,6 @@
 # Differences with torch.nn.functional.interpolate
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/interpolate.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/interpolate.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 The following mapping relationships can be found in this file.
 
@@ -36,7 +36,7 @@ mindspore.ops.interpolate(
     recompute_scale_factor=None) -> Tensor
 ```
 
-For more information, see [mindspore.ops.interpolate](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.interpolate.html).
+For more information, see [mindspore.ops.interpolate](https://mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.interpolate.html).
 
 ## Usage
 

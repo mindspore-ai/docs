@@ -1,6 +1,6 @@
 # 比较与torch.nn.functional.dropout的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/drop_out.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/drop_out.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## torch.nn.functional.dropout
 
@@ -16,7 +16,7 @@ torch.nn.functional.dropout(input, p=0.5, training=True, inplace=False)
 mindspore.ops.dropout(input, p=0.5, training=True, seed=None)
 ```
 
-更多内容详见[mindspore.ops.dropout](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.dropout.html)。
+更多内容详见[mindspore.ops.dropout](https://mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.dropout.html)。
 
 ## 差异对比
 

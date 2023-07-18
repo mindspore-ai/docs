@@ -1,6 +1,6 @@
 # Differences with torch.erfinv
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/erfinv.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/erfinv.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.erfinv
 
@@ -16,7 +16,7 @@ For more information, see [torch.erfinv](https://pytorch.org/docs/1.8.1/generate
 mindspore.ops.erfinv(input) -> Tensor
 ```
 
-For more information, see [mindspore.ops.erfinv](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.erfinv.html).
+For more information, see [mindspore.ops.erfinv](https://www.mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.erfinv.html).
 
 ## Differences
 
@@ -29,4 +29,4 @@ MindSpore: The dtype of the parameter `input` can be ``float16``, ``float32``, `
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 | Parameters | Parameter 1 | input | input | Both are Tensor, and the dtype of the parameter `input` in torch.erfinv can be ``int`` or ``float``. The dtype of the parameter `input` in mindspore.ops.erfinv can be ``float16``, ``float32``, ``float64``.|
-|      | Parameter 2 | out | - | For detailed, refer to [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table). |
+|      | Parameter 2 | out | - | For detailed, refer to [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.1/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table). |

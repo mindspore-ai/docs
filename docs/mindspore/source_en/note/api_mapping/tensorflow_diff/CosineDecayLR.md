@@ -1,6 +1,6 @@
 # Function Differences with tf.compat.v1.train.cosine_decay
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/CosineDecayLR.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/CosineDecayLR.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## tf.compat.v1.train.cosine_decay
 
@@ -26,7 +26,7 @@ class mindspore.nn.CosineDecayLR(
 )(global_step) -> Tensor
 ```
 
-For more information, see [mindspore.nn.CosineDecayLR](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.CosineDecayLR.html).
+For more information, see [mindspore.nn.CosineDecayLR](https://mindspore.cn/docs/en/r2.1/api_python/nn/mindspore.nn.CosineDecayLR.html).
 
 ## Differences
 

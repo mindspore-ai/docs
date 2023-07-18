@@ -1,12 +1,12 @@
 # 动态组网启动方式
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/dynamic_cluster.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/tutorials/experts/source_zh_cn/parallel/dynamic_cluster.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-出于训练时的可靠性要求，MindSpore提供了**动态组网**特性，用户能够不依赖任何第三方库(OpenMPI)来启动Ascend/GPU/CPU分布式训练任务，并且训练脚本无需做任何修改。我们建议用户优先使用此种启动方式。用户可以点击[多卡启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)查看多卡启动方式在不同平台的支持情况。
+出于训练时的可靠性要求，MindSpore提供了**动态组网**特性，用户能够不依赖任何第三方库(OpenMPI)来启动Ascend/GPU/CPU分布式训练任务，并且训练脚本无需做任何修改。我们建议用户优先使用此种启动方式。用户可以点击[多卡启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/parallel/startup_method.html)查看多卡启动方式在不同平台的支持情况。
 
-OpenMPI在分布式训练的场景中，起到在Host侧同步数据以及进程间组网的功能；而MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构**，取代了OpenMPI能力，可参考[Parameter Server模式](https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)训练教程。
+OpenMPI在分布式训练的场景中，起到在Host侧同步数据以及进程间组网的功能；而MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构**，取代了OpenMPI能力，可参考[Parameter Server模式](https://mindspore.cn/tutorials/experts/zh-CN/r2.1/parallel/parameter_server_training.html)训练教程。
 
 **动态组网**特性将多个MindSpore训练进程作为`Worker`启动，并且额外启动一个`Scheduler`负责组网和容灾恢复。用户只需对启动脚本做少量修改，即可执行分布式训练。
 
@@ -36,7 +36,7 @@ OpenMPI在分布式训练的场景中，起到在Host侧同步数据以及进程
             <ul>
                 <li>MS_SCHED: 代表Scheduler进程，一个训练任务只启动一个Scheduler，负责组网，容灾恢复等，<b>不会执行训练代码</b>。</li>
                 <li>MS_WORKER: 代表Worker进程，一般设置分布式训练进程为此角色。</li>
-                <li>MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考<a href="https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html">Parameter Server模式</a>。</li>
+                <li>MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考<a href="https://mindspore.cn/tutorials/experts/zh-CN/r2.1/parallel/parameter_server_training.html">Parameter Server模式</a>。</li>
             </ul>
         </td>
         <td align="left">Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。</td>
@@ -114,7 +114,7 @@ OpenMPI在分布式训练的场景中，起到在Host侧同步数据以及进程
 
 由于**动态组网**启动脚本在各硬件平台下能够保持一致，下面仅以GPU硬件平台下使用8卡分布式训练为例，演示如何编写启动脚本：
 
-> 样例的运行目录：[distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)。
+> 样例的运行目录：[distributed_training](https://gitee.com/mindspore/docs/tree/r2.1/docs/sample_code/distributed_training)。
 
 ### 1. 准备Python训练脚本
 
@@ -140,7 +140,7 @@ if __name__ == "__main__":
 
 `set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`
 
-> 详细参数配置说明请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)，以及本文档[安全认证](#安全认证)章节。
+> 详细参数配置说明请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)，以及本文档[安全认证](#安全认证)章节。
 
 ### 2. 准备启动脚本
 
@@ -333,7 +333,7 @@ ckpoint_cb = ModelCheckpoint(prefix='train', directory="./ckpt_of_rank_/"+str(ge
 
 每个Worker都开启保存checkpoint，并用不同的路径（如上述样例中的directory的设置使用了rank id，保证路径不会相同），防止同名checkpoint保存冲突。checkpoint用于异常进程恢复和正常进程回滚，训练的回滚是指集群中各个Worker都恢复到最新的checkpoint对应的状态，同时数据侧也回退到对应的step，然后继续训练。保存checkpoint的间隔是可配置的，这个间隔决定了容灾恢复的粒度，间隔越小，恢复到上次保存checkpoint所回退的step数就越小，但保存checkpoint频繁也可能会影响训练效率，间隔越大则效果相反。keep_checkpoint_max至少设置为2(防止checkpoint保存失败)。
 
-> 样例的运行目录：[distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)。
+> 样例的运行目录：[distributed_training](https://gitee.com/mindspore/docs/tree/r2.1/docs/sample_code/distributed_training)。
 
 涉及到的脚本有`run_gpu_cluster_recovery.sh`、`resnet50_distributed_training_gpu_recovery.py`、`resnet.py`。脚本内容`run_gpu_cluster_recovery.sh`如下：
 
@@ -431,4 +431,4 @@ Worker进程出现异常退出处理方式类似(注：Worker进程出现异常�
 - cipher_list：密码套件（支持的SSL加密类型列表）。
 - cert_expire_warning_time_in_day：证书过期的告警时间。
 
-p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)中的`client_password`以及`server_password`字段。
+p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)中的`client_password`以及`server_password`字段。

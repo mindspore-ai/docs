@@ -1,6 +1,6 @@
 # Differences with torch.bucketize
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/bucketize.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/bucketize.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.bucketize
 
@@ -16,7 +16,7 @@ For more information, see [torch.bucketize](https://pytorch.org/docs/1.8.1/torch
 class mindspore.ops.bucketize(input, boundaries, *, right=False)
 ```
 
-For more information, see [mindspore.ops.bucketize](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.bucketize.html#mindspore.ops.bucketize).
+For more information, see [mindspore.ops.bucketize](https://mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.bucketize.html#mindspore.ops.bucketize).
 
 ## Usage
 

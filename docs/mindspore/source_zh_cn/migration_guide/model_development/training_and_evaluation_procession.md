@@ -1,6 +1,6 @@
 # 推理及训练流程
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/training_and_evaluation_procession.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/migration_guide/model_development/training_and_evaluation_procession.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## 通用运行环境设置
 
@@ -65,7 +65,7 @@ device_num: 1
 device_id: 0
 ```
 
-上面这个过程只是一个最基本的运行环境配置，如需要添加一些高级的功能，请参考[set_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context)。
+上面这个过程只是一个最基本的运行环境配置，如需要添加一些高级的功能，请参考[set_context](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore/mindspore.set_context.html#mindspore.set_context)。
 
 ## 通用脚本架
 
@@ -112,9 +112,9 @@ print("result:", res, "ckpt=", config.checkpoint_path)
 
 ### 推理验证
 
-在模型分析与准备阶段，我们会拿到参考实现的训练好的参数（参考实现README里或者进行训练复现）。由于模型算法的实现是和框架没有关系的，训练好的参数可以先转换成MindSpore的[checkpoint](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html)文件加载到网络中进行推理验证。
+在模型分析与准备阶段，我们会拿到参考实现的训练好的参数（参考实现README里或者进行训练复现）。由于模型算法的实现是和框架没有关系的，训练好的参数可以先转换成MindSpore的[checkpoint](https://www.mindspore.cn/tutorials/zh-CN/r2.1/beginner/save_load.html)文件加载到网络中进行推理验证。
 
-整个推理验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html)。
+整个推理验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/r2.1/migration_guide/sample_code.html)。
 
 ## 训练流程
 
@@ -155,7 +155,7 @@ if __name__ == '__main__':
     train_net()
 ```
 
-其中checkpoint保存请参考[保存与加载](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html)。
+其中checkpoint保存请参考[保存与加载](https://www.mindspore.cn/tutorials/zh-CN/r2.1/beginner/save_load.html)。
 
 此外，可以使用函数式的方法构造训练流程，这个过程更加的灵活：
 
@@ -336,8 +336,8 @@ mpirun --allow-run-as-root -n $RANK_SIZE python ../train.py --config_path=$CONFI
 
 如果在GPU上，可以通过`export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7`来设置使用哪些卡，Ascend上目前不支持指定卡号。
 
-详情请参考[分布式案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_case.html)。
+详情请参考[分布式案例](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/parallel/distributed_case.html)。
 
 ## 离线推理
 
-除了可以在线推理外，MindSpore提供了很多离线推理的方法适用于不同的环境，详情请参考[模型推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/inference.html)。
+除了可以在线推理外，MindSpore提供了很多离线推理的方法适用于不同的环境，详情请参考[模型推理](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/infer/inference.html)。

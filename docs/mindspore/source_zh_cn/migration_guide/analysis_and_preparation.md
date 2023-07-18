@@ -1,6 +1,6 @@
 # 模型分析与准备
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/analysis_and_preparation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/migration_guide/analysis_and_preparation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## 获取参考代码
 
@@ -13,7 +13,7 @@
 
 如果参考项目中结果无法复现或者缺乏版本信息，可查看项目issue获取信息；
 
-如果是全新的论文，无可参考实现，请参考[MindSpore网络搭建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_development.html)进行开发。
+如果是全新的论文，无可参考实现，请参考[MindSpore网络搭建](https://www.mindspore.cn/docs/zh-CN/r2.1/migration_guide/model_development/model_development.html)进行开发。
 
 ## 分析算法及网络结构
 
@@ -81,20 +81,20 @@
 3. 获取一些参考数据作为MindSpore迁移过程的参考：
 
     - 获取loss下降趋势，帮助验证MindSpore上训练收敛趋势是否ok；
-    - 获取参数文件，用于进行转换，进行推理验证，详细过程参考[推理及训练流程](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_evaluation_procession.html)；
-    - 获取性能基线，在做性能优化时有一个基础目标，如需做性能优化，请参考[调试调优](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tune.html)。
+    - 获取参数文件，用于进行转换，进行推理验证，详细过程参考[推理及训练流程](https://www.mindspore.cn/docs/zh-CN/r2.1/migration_guide/model_development/training_and_evaluation_procession.html)；
+    - 获取性能基线，在做性能优化时有一个基础目标，如需做性能优化，请参考[调试调优](https://www.mindspore.cn/docs/zh-CN/r2.1/migration_guide/debug_and_tune.html)。
 
 ## 分析API满足度
 
-这里分析的API缺失专指网络执行图中的API，包含MindSpore的[算子](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.primitive.html)及高级封装API，不包括数据处理中使用的API。数据处理过程中使用的API建议使用三方的实现代替，如numpy，opencv，pandas，PIL等。
+这里分析的API缺失专指网络执行图中的API，包含MindSpore的[算子](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore.ops.primitive.html)及高级封装API，不包括数据处理中使用的API。数据处理过程中使用的API建议使用三方的实现代替，如numpy，opencv，pandas，PIL等。
 
 ### 查询API映射表
 
-以PyTorch的代码迁移为例，拿到参考代码实现后，可以通过过滤`torch`，`nn`，`ops`等关键字获取使用的API接口，如调用了其他库的方法，需要手动分析。然后对照[PyTorch与MindSpore API 映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)
-或者[API](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.primitive.html) 查找对应的API实现。
+以PyTorch的代码迁移为例，拿到参考代码实现后，可以通过过滤`torch`，`nn`，`ops`等关键字获取使用的API接口，如调用了其他库的方法，需要手动分析。然后对照[PyTorch与MindSpore API 映射](https://www.mindspore.cn/docs/zh-CN/r2.1/note/api_mapping/pytorch_api_mapping.html)
+或者[API](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore.ops.primitive.html) 查找对应的API实现。
 
-一般一个网络的训练过程包含正向计算、反向梯度计算和参数更新，在部分特殊的场景下，需要对梯度再做一次梯度计算，如[Gradient Penalty](https://arxiv.org/pdf/1704.00028.pdf)，这种称为使用了二阶梯度计算的场景。对于网络中使用了二阶梯度计算的场景需要额外分析API的二阶支持情况，需要走读代码分析网络的求导链路，在二阶求导链路内的API均需要支持二阶；二阶支持情况可以在[MindSpore梯度部分源码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/python/mindspore/ops/_grad_experimental)中查看其一阶Grad是否存在对应的bprop函数定义。
-如：网络二阶导链路中包含StridedSlice切片操作，可以在[array_ops梯度定义文件](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/_grad_experimental/grad_array_ops.py)下查找[StridedSliceGrad的反向注册代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/_grad_experimental/grad_array_ops.py#L867)，如存在则当前版本MindSpore的StridedSlice切片操作支持二阶梯度计算。
+一般一个网络的训练过程包含正向计算、反向梯度计算和参数更新，在部分特殊的场景下，需要对梯度再做一次梯度计算，如[Gradient Penalty](https://arxiv.org/pdf/1704.00028.pdf)，这种称为使用了二阶梯度计算的场景。对于网络中使用了二阶梯度计算的场景需要额外分析API的二阶支持情况，需要走读代码分析网络的求导链路，在二阶求导链路内的API均需要支持二阶；二阶支持情况可以在[MindSpore梯度部分源码](https://gitee.com/mindspore/mindspore/tree/r2.1/mindspore/python/mindspore/ops/_grad_experimental)中查看其一阶Grad是否存在对应的bprop函数定义。
+如：网络二阶导链路中包含StridedSlice切片操作，可以在[array_ops梯度定义文件](https://gitee.com/mindspore/mindspore/blob/r2.1/mindspore/python/mindspore/ops/_grad_experimental/grad_array_ops.py)下查找[StridedSliceGrad的反向注册代码](https://gitee.com/mindspore/mindspore/blob/r2.1/mindspore/python/mindspore/ops/_grad_experimental/grad_array_ops.py#L867)，如存在则当前版本MindSpore的StridedSlice切片操作支持二阶梯度计算。
 
 其他框架API的映射可以参考API命名与功能描述。注意，针对相同功能的API，MindSpore的命名可能与其他框架不同，同名API参数与功能也可能与其他框架有区别，均以官方描述为准。
 
@@ -318,9 +318,9 @@ test_compare(pred, target, weight, gamma=2.0, alpha=0.25, reduction='none', avg_
 
 #### 3. 自定义算子
 
-当有些情况无法使用已有的API进行包装，或者用Cell封装的方式性能非常差，这个时候就需要使用自定义算子，详情请参考Custom算子的[使用指南](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom.html)。
+当有些情况无法使用已有的API进行包装，或者用Cell封装的方式性能非常差，这个时候就需要使用自定义算子，详情请参考Custom算子的[使用指南](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/operation/op_custom.html)。
 
-除了可以自己迁移实现API，也可以利用`Custom`算子的`aot`开发方式调用PyTorch Aten的算子进行快速验证，请参考[基于自定义算子接口调用第三方算子库](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/use_third_party_op.html)。
+除了可以自己迁移实现API，也可以利用`Custom`算子的`aot`开发方式调用PyTorch Aten的算子进行快速验证，请参考[基于自定义算子接口调用第三方算子库](https://www.mindspore.cn/docs/zh-CN/r2.1/migration_guide/use_third_party_op.html)。
 
 **注意，PyTorch实现的算子迁移到GPU和CPU上比较方便，这里展示的也大多是GPU和CPU的，Ascend的算子由于需要使用TBE进行算子开发，门槛较高，推荐使用官方实现的算子进行包装。**
 
@@ -415,7 +415,7 @@ print(y)
 
 在这个过程其实有两个地方有动态shape，一个是`cond=True`时`masked_select`结果的shape是动态，另外是控制流，由于cond不定，控制流两个分支的shape输出不同也会造成动态shape。
 
-动态shape一般可以从算法、代码层面进行分析，也可以直接打印参考代码相关Tensor进行判断。如果存在动态shape，我们在[网络主体和loss搭建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html)篇章有规避策略的介绍。
+动态shape一般可以从算法、代码层面进行分析，也可以直接打印参考代码相关Tensor进行判断。如果存在动态shape，我们在[网络主体和loss搭建](https://www.mindspore.cn/docs/zh-CN/r2.1/migration_guide/model_development/model_and_cell.html)篇章有规避策略的介绍。
 
 #### 稀疏
 
@@ -423,12 +423,12 @@ print(y)
 
 在某些应用场景中（比如推荐系统、分子动力学、图神经网络等），数据的特征是稀疏的，若使用普通张量表征这些数据会引入大量不必要的计算、存储和通讯开销。在这种时候就可以使用稀疏张量来表征这些数据。
 
-MindSpore现在已经支持最常用的[CSR和COO两种稀疏数据格式](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/tensor.html#%E7%A8%80%E7%96%8F%E5%BC%A0%E9%87%8F)。但是由于目前支持稀疏算子有限，大部分稀疏的特性还存在限制，在此情况下，建议优先查找对应的算子是否支持稀疏计算，如不支持的话需要转换成普通算子。
-由于转换成稠密算子后使用的显存会增加，可能不能使用参考实现的batch size进行训练，此时可以使用 [梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/master/optimize/gradient_accumulation.html) 来模拟大batch训练。
+MindSpore现在已经支持最常用的[CSR和COO两种稀疏数据格式](https://www.mindspore.cn/tutorials/zh-CN/r2.1/beginner/tensor.html#%E7%A8%80%E7%96%8F%E5%BC%A0%E9%87%8F)。但是由于目前支持稀疏算子有限，大部分稀疏的特性还存在限制，在此情况下，建议优先查找对应的算子是否支持稀疏计算，如不支持的话需要转换成普通算子。
+由于转换成稠密算子后使用的显存会增加，可能不能使用参考实现的batch size进行训练，此时可以使用 [梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/optimize/gradient_accumulation.html) 来模拟大batch训练。
 
 ## MindSpore好用功能和特性推荐
 
-### [动态图与静态图](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/compute_graph.html)
+### [动态图与静态图](https://www.mindspore.cn/tutorials/zh-CN/r2.1/advanced/compute_graph.html)
 
 目前主流的深度学习框架有静态图(Graph)和动态图(PyNative)两种执行模式。
 
@@ -436,33 +436,33 @@ MindSpore现在已经支持最常用的[CSR和COO两种稀疏数据格式](https
 
 - 动态图模式下，程序按照代码的编写顺序逐行执行，在执行正向过程中根据反向传播的原理，动态生成反向执行图。这种模式下，编译器将神经网络中的各个算子逐一下发到设备进行计算操作，方便用户编写和调试神经网络模型。
 
-### [调用自定义类](https://www.mindspore.cn/tutorials/experts/zh-CN/master/network/jit_class.html)
+### [调用自定义类](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/network/jit_class.html)
 
 在静态图模式下，通过使用`jit_class`修饰自定义类，用户可以创建、调用该自定义类的实例，并且可以获取其属性和方法。
 
 `jit_class`应用于静态图模式，扩充完善静态图编译语法的支持范围。在动态图模式即PyNative模式下，`jit_class`的使用不影响PyNative模式的执行逻辑。
 
-### [自动微分](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/autograd.html)
+### [自动微分](https://www.mindspore.cn/tutorials/zh-CN/r2.1/beginner/autograd.html)
 
 自动微分能够计算可导函数在某点处的导数值，是反向传播算法的一般化。自动微分主要解决的问题是将一个复杂的数学运算分解为一系列简单的基本运算，该功能对用户屏蔽了大量的求导细节和过程，大大降低了框架的使用门槛。
 
-### [混合精度](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html)
+### [混合精度](https://www.mindspore.cn/tutorials/zh-CN/r2.1/advanced/mixed_precision.html)
 
 通常我们训练神经网络模型的时候，默认使用的数据类型为单精度FP32。近年来，为了加快训练时间、减少网络训练时候所占用的内存，并且保存训练出来的模型精度持平的条件下，业界提出越来越多的混合精度训练的方法。这里的混合精度训练是指在训练的过程中，同时使用单精度（FP32）和半精度（FP16）。
 
-### [自动数据增强](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/augment.html)
+### [自动数据增强](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/dataset/augment.html)
 
 MindSpore除了可以让用户自定义数据增强的使用，还提供了一种自动数据增强方式，可以基于特定策略自动对图像进行数据增强处理。
 
-### [梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/master/optimize/gradient_accumulation.html)
+### [梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/optimize/gradient_accumulation.html)
 
 梯度累积是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算。目的是为了解决由于内存不足，导致Batch size过大神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
 
-### [Summary](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)
+### [Summary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.1/summary_record.html)
 
 训练过程中的标量、图像、计算图、训练优化过程以及模型超参等信息记录到文件中，通过可视化界面供用户查看。
 
-### [调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html)
+### [调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.1/debugger.html)
 
 MindSpore调试器是为图模式训练提供的调试工具，可以用来查看并分析计算图节点的中间结果。
 
@@ -472,6 +472,6 @@ MindSpore Golden Stick是华为诺亚团队和华为MindSpore团队联合设计�
 
 ## 与PyTorch典型接口区别
 
-在PyTorch往MindSpore进行网络迁移时，需要注意[与PyTorch典型接口区别](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html)。
+在PyTorch往MindSpore进行网络迁移时，需要注意[与PyTorch典型接口区别](https://www.mindspore.cn/docs/zh-CN/r2.1/migration_guide/typical_api_comparision.html)。
 
 [1] Lin, T. Y. , et al. "Focal Loss for Dense Object Detection." IEEE Transactions on Pattern Analysis & Machine Intelligence PP.99(2017):2999-3007.

@@ -1,6 +1,6 @@
 # Differences with torchvision.datasets.VOCDetection
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/VOCDetection.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/VOCDetection.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torchvision.datasets.VOCDetection
 
@@ -39,7 +39,7 @@ class mindspore.dataset.VOCDataset(
     )
 ```
 
-For more information, see [mindspore.dataset.VOCDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.VOCDataset.html#mindspore.dataset.VOCDataset).
+For more information, see [mindspore.dataset.VOCDataset](https://mindspore.cn/docs/en/r2.1/api_python/dataset/mindspore.dataset.VOCDataset.html#mindspore.dataset.VOCDataset).
 
 ## Differences
 

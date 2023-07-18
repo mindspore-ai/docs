@@ -1,6 +1,6 @@
 # Differences with torchvision.ops.nms
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/nms.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/nms.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torchvision.ops.nms
 
@@ -16,7 +16,7 @@ For more information, see [torchvision.ops.nms](https://pytorch.org/vision/0.9/o
 class mindspore.ops.NMSWithMask(iou_threshold=0.5)(bboxes)
 ```
 
-For more information, see [mindspore.ops.NMSWithMask](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.NMSWithMask.html).
+For more information, see [mindspore.ops.NMSWithMask](https://mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.NMSWithMask.html).
 
 ## Differences
 

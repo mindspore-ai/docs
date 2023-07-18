@@ -1,6 +1,6 @@
 # Differences with torchaudio.transforms.SpectralCentroid
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SpectralCentroid.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SpectralCentroid.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torchaudio.transforms.SpectralCentroid
 
@@ -20,7 +20,7 @@ class mindspore.dataset.audio.SpectralCentroid(sample_rate, n_fft=400, win_lengt
                                                pad=0, window=WindowType.HANN)
 ```
 
-For more information, see [mindspore.dataset.audio.SpectralCentroid](https://mindspore.cn/docs/en/master/api_python/dataset_audio/mindspore.dataset.audio.SpectralCentroid.html#mindspore.dataset.audio.SpectralCentroid).
+For more information, see [mindspore.dataset.audio.SpectralCentroid](https://mindspore.cn/docs/en/r2.1/api_python/dataset_audio/mindspore.dataset.audio.SpectralCentroid.html#mindspore.dataset.audio.SpectralCentroid).
 
 ## Differences
 

@@ -1,6 +1,6 @@
 # Differences with torch.optim.SparseAdam
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SparseAdam.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SparseAdam.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.optim.SparseAdam
 
@@ -31,7 +31,7 @@ class mindspore.nn.LazyAdam(
 )
 ```
 
-For more information, see [mindspore.nn.LazyAdam](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.LazyAdam.html#mindspore.nn.LazyAdam).
+For more information, see [mindspore.nn.LazyAdam](https://mindspore.cn/docs/en/r2.1/api_python/nn/mindspore.nn.LazyAdam.html#mindspore.nn.LazyAdam).
 
 ## Differences
 

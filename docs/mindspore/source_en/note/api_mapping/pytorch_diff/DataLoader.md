@@ -1,6 +1,6 @@
 # Differences with torch.utils.data.DataLoader
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/DataLoader.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/DataLoader.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.utils.data.DataLoader
 
@@ -23,7 +23,7 @@ class mindspore.dataset.GeneratorDataset(
     num_shards=None, shard_id=None, python_multiprocessing=True, max_rowsize=6)
 ```
 
-For more information, see [mindspore.dataset.GeneratorDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)。
+For more information, see [mindspore.dataset.GeneratorDataset](https://mindspore.cn/docs/en/r2.1/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)。
 
 ## Difference
 

@@ -1,12 +1,12 @@
 # Dynamic Cluster Startup Method
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/dynamic_cluster.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/tutorials/experts/source_en/parallel/dynamic_cluster.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-For reliability requirements during training, MindSpore provides **dynamic cluster** features that enable users to start Ascend/GPU/CPU distributed training tasks without relying on any third-party library (OpenMPI) and without any modification to the training script. We recommend users to use this startup method in preference. Users can click [Multi-Card Startup Method](https://www.mindspore.cn/tutorials/experts/en/master/parallel/startup_method.html) to check the support of multi-card startup method on different platforms.
+For reliability requirements during training, MindSpore provides **dynamic cluster** features that enable users to start Ascend/GPU/CPU distributed training tasks without relying on any third-party library (OpenMPI) and without any modification to the training script. We recommend users to use this startup method in preference. Users can click [Multi-Card Startup Method](https://www.mindspore.cn/tutorials/experts/en/r2.1/parallel/startup_method.html) to check the support of multi-card startup method on different platforms.
 
-OpenMPI synchronizes data on the Host side and clustering between processes in a distributed training scenario. The MindSpore **Dynamic Cluster** feature replaces the OpenMPI capability by **reusing the Parameter Server mode training architecture**, which can be found in the [Parameter Server Mode](https://mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html) training tutorial.
+OpenMPI synchronizes data on the Host side and clustering between processes in a distributed training scenario. The MindSpore **Dynamic Cluster** feature replaces the OpenMPI capability by **reusing the Parameter Server mode training architecture**, which can be found in the [Parameter Server Mode](https://mindspore.cn/tutorials/experts/en/r2.1/parallel/parameter_server_training.html) training tutorial.
 
 The **Dynami Cluster** feature starts multiple MindSpore training processes as `Workers`, and starts an additional `Scheduler` for cluster and disaster recovery. The user only needs to make a few changes to the startup script to perform distributed training.
 
@@ -36,7 +36,7 @@ Several environment variables need to be exported before the training script can
             <ul>
                 <li>MS_SCHED: Represents a Scheduler process. Only one Scheduler is started for a training task, responsible for cluster, disaster recovery, etc. <b>No training code is executed</b>.</li>
                 <li>MS_WORKER: Represents the Worker process, and generally sets the distributed training process to this role.</li>
-                <li>MS_PSERVER: Represents Parameter Server process. This role is only available in Parameter Server mode. For more details, refer to <a href="https://mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html">Parameter Server Mode</a>.</li>
+                <li>MS_PSERVER: Represents Parameter Server process. This role is only available in Parameter Server mode. For more details, refer to <a href="https://mindspore.cn/tutorials/experts/en/r2.1/parallel/parameter_server_training.html">Parameter Server Mode</a>.</li>
             </ul>
         </td>
         <td align="left">The Worker and Parameter Server processes will register with the Scheduler process to complete the cluster.</td>
@@ -114,7 +114,7 @@ Several environment variables need to be exported before the training script can
 
 Since the **Dynamic Cluster** startup script can be consistent across hardware platforms, the following is an example of how to write a startup script using 8-card distributed training on a GPU hardware platform only:
 
-> The running directory of sample: [distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)
+> The running directory of sample: [distributed_training](https://gitee.com/mindspore/docs/tree/r2.1/docs/sample_code/distributed_training)
 
 ### 1. Preparing Python Training Scripts
 
@@ -140,7 +140,7 @@ Dynamic cluster also supports **secure encrypted channel** features and supports
 
 `set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`
 
-> For the detailed parameter configuration descriptions, refer to [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context) and and the [Security Authentication](#security-authentication) section of this document.
+> For the detailed parameter configuration descriptions, refer to [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/r2.1/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context) and and the [Security Authentication](#security-authentication) section of this document.
 
 ### 2. Preparing the Startup Script
 
@@ -333,7 +333,7 @@ In the above scenario, if a node is interrupted during the training process, it 
 
 Each worker is enabled to save checkpoint and use different paths (e.g., the directory in the above sample is set using rank id to ensure that the paths are not the same) to prevent conflicts in saving checkpoints with the same name. The checkpoint is used for abnormal process recovery and normal process rollback. The rollback of training means that each Worker in the cluster is restored to the state corresponding to the latest checkpoint, while the data side is also rolled back to the corresponding step, and then training continues. The interval between checkpoint saves is configurable, which determines the granularity of disaster recovery. The smaller the interval, the smaller the number of steps rolled back to the checkpoint saved last time, but frequent checkpoint saves may also affect training efficiency. The larger the interval, the opposite effect. keep_checkpoint_max is set to at least 2 (to prevent checkpoint save failures).
 
-> The running directory of sample: [distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training).
+> The running directory of sample: [distributed_training](https://gitee.com/mindspore/docs/tree/r2.1/docs/sample_code/distributed_training).
 
 The scripts involved are `run_gpu_cluster_recovery.sh`, `resnet50_distributed_training_gpu_recovery.py`, and `resnet.py`. The script contents `run_gpu_cluster_recovery.sh` are as follows:
 
@@ -431,4 +431,4 @@ To support SSL security authentication between nodes/processes, to enable securi
 - cipher_list: Cipher suite (list of supported SSL encrypted types)
 - cert_expire_warning_time_in_da: The warning time of certificate expiration.
 
-The secret key in the p12 file is stored in cipher text, and the password needs to be passed in when starting. Please refer to the Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context) for the `client_password` and `server_password` fields.
+The secret key in the p12 file is stored in cipher text, and the password needs to be passed in when starting. Please refer to the Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/r2.1/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context) for the `client_password` and `server_password` fields.

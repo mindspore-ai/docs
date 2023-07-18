@@ -1,12 +1,12 @@
 # Distributed Parallel Training Example (GPU)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/train_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/tutorials/experts/source_en/parallel/train_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
 This tutorial describes how to train a ResNet-50 network by using a CIFAR-10 dataset on a GPU processor hardware platform through MindSpore and data parallelism and automatic parallelism mode.
 
-> You can download the complete sample code here: [distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)
+> You can download the complete sample code here: [distributed_training](https://gitee.com/mindspore/docs/tree/r2.1/docs/sample_code/distributed_training)
 
 The directory structure is as follows:
 
@@ -187,7 +187,7 @@ Unlike stand-alone machines, the `num_shards` and `shard_id` parameters need to 
 
 On the GPU hardware platform, the network definition is the same as that for the Ascend 910 AI processor.
 
-In the **Data Parallelism** and **Auto Parallelism** modes, the network is defined in the same way as the stand-alone writing, see [ResNet Network Sample Script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/resnet/resnet.py).
+In the **Data Parallelism** and **Auto Parallelism** modes, the network is defined in the same way as the stand-alone writing, see [ResNet Network Sample Script](https://gitee.com/mindspore/docs/blob/r2.1/docs/sample_code/resnet/resnet.py).
 
 > - In semi-automatic parallel mode, operators without a policy configured default to data parallelism.
 > - The automatic parallel mode supports automatically obtaining efficient operator parallel policies through the policy search algorithm, and also allows users to manually configure specific parallel policies for operators.
@@ -195,7 +195,7 @@ In the **Data Parallelism** and **Auto Parallelism** modes, the network is defin
 
 ## Defining the Loss Function and Optimizer
 
-Consistent with the [Distributed Parallel Training Basics Sample](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html) on Ascend.
+Consistent with the [Distributed Parallel Training Basics Sample](https://www.mindspore.cn/tutorials/experts/en/r2.1/parallel/train_ascend.html) on Ascend.
 
 ### Defining the Loss Function
 
@@ -298,7 +298,7 @@ On GPU hardware platform, MindSpore uses `mpirun`of OpenMPI for distributed trai
 
 The following takes the distributed training script for eight devices as an example to describe how to run the script:
 
-> Obtain the running script of the example from [run_gpu.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_gpu.sh).
+> Obtain the running script of the example from [run_gpu.sh](https://gitee.com/mindspore/docs/blob/r2.1/docs/sample_code/distributed_training/run_gpu.sh).
 >
 > If the script is executed by the root user, the `--allow-run-as-root` parameter must be added to `mpirun`.
 
@@ -389,8 +389,8 @@ pytest -s -v ./resnet50_distributed_training_gpu.py > train.log 2>&1 &
 
 ## Saving and Loading the Distributed Training Model Parameter
 
-When performing distributed training on a GPU, the method of saving and loading the model parameters is the same as that on Ascend, which can be referred to [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#saving-and-loading-distributed-training-model-parameters).
+When performing distributed training on a GPU, the method of saving and loading the model parameters is the same as that on Ascend, which can be referred to [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorials/experts/en/r2.1/parallel/train_ascend.html#saving-and-loading-distributed-training-model-parameters).
 
 ## Training without Relying on OpenMPI
 
-Please refer to [Dynamic Cluster](https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html) for more details about **Training without Relying on OpenMPI**
+Please refer to [Dynamic Cluster](https://www.mindspore.cn/tutorials/experts/en/r2.1/parallel/dynamic_cluster.html) for more details about **Training without Relying on OpenMPI**

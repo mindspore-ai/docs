@@ -1,6 +1,6 @@
 # 比较与torchtext.datasets.IMDB的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/IMDB.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/IMDB.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## torchtext.datasets.IMDB
 
@@ -27,7 +27,7 @@ class mindspore.dataset.IMDBDataset(
     cache=None)
 ```
 
-更多内容详见[mindspore.dataset.IMDBDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.IMDBDataset.html#mindspore.dataset.IMDBDataset)。
+更多内容详见[mindspore.dataset.IMDBDataset](https://mindspore.cn/docs/zh-CN/r2.1/api_python/dataset/mindspore.dataset.IMDBDataset.html#mindspore.dataset.IMDBDataset)。
 
 ## 差异对比
 

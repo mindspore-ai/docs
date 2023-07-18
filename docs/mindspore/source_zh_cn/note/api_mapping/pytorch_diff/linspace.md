@@ -1,6 +1,6 @@
 # 比较与torch.linsapce的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/linspace.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/linspace.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## torch.linspace
 
@@ -28,7 +28,7 @@ mindspore.ops.linspace(start,
                       )
 ```
 
-更多内容详见[mindspore.ops.linspace](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.linspace.html)。
+更多内容详见[mindspore.ops.linspace](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.linspace.html)。
 
 ## 差异对比
 
@@ -43,11 +43,11 @@ PyTorch: 输出Tensor的dtype由参数 `dtype` 指定 。
 | 输入  | 输入 1 | start         | start     | MindSpore中参数 `start` 的数据类型为Union[Tensor, int, float],PyTorch中参数 `start` 的数据类型为float |
 |     | 输入 2 | end           | end       | MindSpore中参数 `end` 的数据类型为Union[Tensor, int, float]，PyTorch中参数 `end` 的数据类型为float |
 |     | 输入 3 | steps         | steps     | MindSpore中参数 `steps` 的数据类型为Union[Tensor, int]，PyTorch中参数 `steps` 的数据类型为int |
-|     | 输入 4 | out           | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|     | 输入 4 | out           | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.1/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 |     | 输入 5 | dtype         | -         | MindSpore输出Tensor的dtype与参数 `start`相同，PyTorch的输出Tensor的dtype由参数 `dtype`指定 |
-|     | 输入 6 | layout        | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
-|     | 输入 7 | device        | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
-|     | 输入 8 | requires_grad | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|     | 输入 6 | layout        | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.1/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|     | 输入 7 | device        | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.1/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|     | 输入 8 | requires_grad | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.1/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 
 ## 代码示例
 

@@ -1,6 +1,6 @@
 # Differences with torchvision.ops.roi_align
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/roi_align.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/roi_align.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torchvision.ops.roi_align
 
@@ -16,7 +16,7 @@ For more information, see [torchvision.ops.roi_align](https://pytorch.org/vision
 class mindspore.ops.ROIAlign(pooled_height, pooled_width, spatial_scale, sample_num=2, roi_end_mode=1)
 ```
 
-For more information, see [mindspore.ops.ROIAlign](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ROIAlign.html).
+For more information, see [mindspore.ops.ROIAlign](https://mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.ROIAlign.html).
 
 ## Differences
 

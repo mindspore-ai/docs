@@ -1,6 +1,6 @@
 # Model Compression
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/infer/model_compression.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/tutorials/experts/source_en/infer/model_compression.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 

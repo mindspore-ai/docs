@@ -1,9 +1,9 @@
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_notebook.png
-    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/tutorials/zh_cn/advanced/model/mindspore_model.ipynb
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_download_code.png
-    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/tutorials/zh_cn/advanced/model/mindspore_model.py
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/model/model.ipynb
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_notebook.png
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r2.1/tutorials/zh_cn/advanced/model/mindspore_model.ipynb
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_download_code.png
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r2.1/tutorials/zh_cn/advanced/model/mindspore_model.py
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png
+    :target: https://gitee.com/mindspore/docs/blob/r2.1/tutorials/source_zh_cn/advanced/model/model.ipynb
 
 高阶封装：Model
 ===============
@@ -23,7 +23,7 @@
 
 本文档首先对MindSpore的Model进行基本介绍，然后重点讲解如何使用\ ``Model``\ 进行模型训练、评估和推理。
 
-.. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/model/images/model.png
+.. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/tutorials/source_zh_cn/advanced/model/images/model.png
    :alt: model
 
 
@@ -39,7 +39,7 @@
 Model基本介绍
 -------------
 
-`Model <https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model>`__\ 是MindSpore提供的高阶API，可以进行模型训练、评估和推理。其接口的常用参数如下：
+`Model <https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/train/mindspore.train.Model.html#mindspore.train.Model>`__\ 是MindSpore提供的高阶API，可以进行模型训练、评估和推理。其接口的常用参数如下：
 
 -  ``network``\ ：用于训练或推理的神经网络。
 -  ``loss_fn``\ ：所使用的损失函数。

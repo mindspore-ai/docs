@@ -1,6 +1,6 @@
 # 比较与torch.distributions.laplace.Laplace的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/standard_laplace.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/standard_laplace.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## torch.distributions.laplace.Laplace
 
@@ -16,7 +16,7 @@ torch.distributions.laplace.Laplace(loc, scale) -> Class Instance
 mindspore.ops.standard_laplace(shape, seed=None) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.standard_laplace](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.standard_laplace.html)。
+更多内容详见[mindspore.ops.standard_laplace](https://mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.standard_laplace.html)。
 
 ## 差异对比
 

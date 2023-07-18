@@ -1,6 +1,6 @@
 # 比较与torch.cos的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/cos.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/cos.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## torch.cos
 
@@ -16,7 +16,7 @@ torch.cos(input, *, out=None) -> Tensor
 mindspore.ops.cos(input) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.cos](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cos.html)。
+更多内容详见[mindspore.ops.cos](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.cos.html)。
 
 ## 差异对比
 
@@ -29,4 +29,4 @@ MindSpore：参数 `input` 的dtype可以是 ``float16`` ，``float32`` ，``flo
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
 | 参数 | 参数1 | input | input | 二者均为Tensor，torch.cos的参数 `input` 的dtype可以是 ``complex``，``int`` 或 ``float`` ；mindspore.ops.cos的参数 `input` 的dtype可以是 ``float16`` ，``float32`` ，``float64`` ，``complex64`` 或 ``complex128`` 。|
-|      | 参数2 | out | - | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|      | 参数2 | out | - | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.1/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |

@@ -1,6 +1,6 @@
 # Differences with torch.utils.data.WeightedRandomSampler
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/WeightedRandomSampler.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/WeightedRandomSampler.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.utils.data.WeightedRandomSampler
 
@@ -16,7 +16,7 @@ For more information, see [torch.utils.data.WeightedRandomSampler](https://pytor
 class mindspore.dataset.WeightedRandomSampler(weights, num_samples=None, replacement=True)
 ```
 
-For more information, see [mindspore.dataset.WeightedRandomSampler](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.WeightedRandomSampler.html).
+For more information, see [mindspore.dataset.WeightedRandomSampler](https://mindspore.cn/docs/en/r2.1/api_python/dataset/mindspore.dataset.WeightedRandomSampler.html).
 
 ## Differences
 

@@ -1,6 +1,6 @@
 # Differences with torch.nn.functional.grid_sample
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/grid_sample.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/grid_sample.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.functional.grid_sample
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.functional.grid_sample](https://pytorch.org/
 mindspore.ops.grid_sample(input, grid, mode='bilinear', padding_mode='zeros', align_corners=False)
 ```
 
-For more information, see [mindspore.ops.grid_sample](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.grid_sample.html).
+For more information, see [mindspore.ops.grid_sample](https://www.mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.grid_sample.html).
 
 ## Differences
 

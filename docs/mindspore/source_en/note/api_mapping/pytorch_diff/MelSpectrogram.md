@@ -1,6 +1,6 @@
 # Differences with torchaudio.transforms.MelSpectrogram
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/MelSpectrogram.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/MelSpectrogram.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torchaudio.transforms.MelSpectrogram
 
@@ -23,7 +23,7 @@ class mindspore.dataset.audio.MelSpectrogram(sample_rate=16000, n_fft=400, win_l
                                              center=True, pad_mode=BorderType.REFLECT, onesided=True, norm=NormType.NONE, mel_scale=MelType.HTK)
 ```
 
-For more information, see [mindspore.dataset.audio.MelSpectrogram](https://mindspore.cn/docs/en/master/api_python/dataset_audio/mindspore.dataset.audio.MelSpectrogram.html#mindspore.dataset.audio.MelSpectrogram).
+For more information, see [mindspore.dataset.audio.MelSpectrogram](https://mindspore.cn/docs/en/r2.1/api_python/dataset_audio/mindspore.dataset.audio.MelSpectrogram.html#mindspore.dataset.audio.MelSpectrogram).
 
 ## Differences
 

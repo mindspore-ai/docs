@@ -1,6 +1,6 @@
 # 使用在线调试器
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/debugger_online.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindinsight/docs/source_zh_cn/debugger_online.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -33,7 +33,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 |`--enable-debugger {ENABLE_DEBUGGER}`|可选|取值为True或1, 开启MindSpore Insight侧调试器；默认为False，不开启。|Boolean|False|True/False/1/0|
 |`--debugger-port {DEBUGGER_PORT}`|可选|指定调试服务端口。|Integer|50051|1~65535|
 
-更多启动参数请参考[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)。
+更多启动参数请参考[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.1/mindinsight_commands.html)。
 
 ### 以调试模式运行训练脚本
 
@@ -65,7 +65,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 用户可以方便地执行单个节点。
 
 当一个命名空间或聚合节点的直接子节点的深度超过70时，计算图页面不支持展开该节点。
-要想看到内部的张量关系，可以通过一个与该节点相关的节点跳转到张量关系图页面，详细操作可参考[FAQ](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/faq.html) 。
+要想看到内部的张量关系，可以通过一个与该节点相关的节点跳转到张量关系图页面，详细操作可参考[FAQ](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.1/faq.html) 。
 
 ### 节点列表
 
@@ -252,6 +252,6 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 - 使用调试器时要保证MindSpore Insight和MindSpore的版本号相同。
 - 重新检查只检查当前有张量值的监测点。
-- 检查计算过程溢出需要用户开启异步Dump的全部溢出检测功能，开启方式请参照[异步Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#异步dump)
+- 检查计算过程溢出需要用户开启异步Dump的全部溢出检测功能，开启方式请参照[异步Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/debug/dump.html#异步dump)
 - 调试器展示的图是优化后的最终执行图。调用的算子可能已经与其它算子融合，或者在优化后改变了名称。
 - 开启调试器会关闭内存复用，在训练网络过大时有可能导致'out of memory'错误。

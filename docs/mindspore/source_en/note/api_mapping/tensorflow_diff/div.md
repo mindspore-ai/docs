@@ -1,6 +1,6 @@
 # Function Differences with tf.math.divide
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/div.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/div.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## tf.math.divide
 
@@ -16,7 +16,7 @@ For more information, see [tf.math.divide](https://tensorflow.google.cn/versions
 mindspore.ops.div(input, other, rounding_mode=None) -> Tensor
 ```
 
-For more information, see [mindspore.ops.div](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.div.html).
+For more information, see [mindspore.ops.div](https://mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.div.html).
 
 ## Differences
 

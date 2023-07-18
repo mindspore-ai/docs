@@ -1,6 +1,6 @@
 # Differences with torch.nn.Hardshrink
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/HShrink.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/HShrink.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.Hardshrink
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.Hardshrink](https://pytorch.org/docs/1.8.1/g
 mindspore.nn.HShrink(lambd=0.5)(input_x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.HShrink](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.HShrink.html).
+For more information, see [mindspore.nn.HShrink](https://mindspore.cn/docs/en/r2.1/api_python/nn/mindspore.nn.HShrink.html).
 
 ## Differences
 

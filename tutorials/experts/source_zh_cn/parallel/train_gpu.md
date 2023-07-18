@@ -1,11 +1,11 @@
 # 分布式并行训练基础样例（GPU）
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/train_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/tutorials/experts/source_zh_cn/parallel/train_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## 概述
 
 本篇教程我们主要讲解，如何在GPU处理器硬件平台上，利用MindSpore通过数据并行及自动并行模式，使用CIFAR-10数据集训练ResNet-50网络。
-> 完整的样例代码：[distributed_training](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)
+> 完整的样例代码：[distributed_training](https://gitee.com/mindspore/docs/tree/r2.1/docs/sample_code/distributed_training)
 
 目录结构如下：
 
@@ -92,7 +92,7 @@ if __name__ == "__main__":
 - `device_target="GPU"`: 指定设备为GPU。
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 - `get_rank()`：获得当前进程的rank号。
-- `ops.AllGather`: 在GPU上，该算子会调用NCCL的AllGather通信操作，其含义以及更多的例子可在[分布式集合通信原语](https://www.mindspore.cn/docs/zh-CN/master/api_python/samples/ops/communicate_ops.html#AllGather)中找到。
+- `ops.AllGather`: 在GPU上，该算子会调用NCCL的AllGather通信操作，其含义以及更多的例子可在[分布式集合通信原语](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/samples/ops/communicate_ops.html#AllGather)中找到。
 
 在GPU硬件平台上，MindSpore采用OpenMPI的mpirun来启动进程，通常每一个进程对应一个计算设备。
 
@@ -185,7 +185,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 ## 定义网络
 
 在GPU硬件平台上，网络的定义和Ascend 910 AI处理器一致。
-**数据并行**及**自动并行**模式下，网络定义方式与单机写法一致，可以参考 [ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/resnet/resnet.py)。
+**数据并行**及**自动并行**模式下，网络定义方式与单机写法一致，可以参考 [ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/r2.1/docs/sample_code/resnet/resnet.py)。
 
 > - 半自动并行模式时，未配置策略的算子默认以数据并行方式执行。
 > - 自动并行模式支持通过策略搜索算法自动获取高效的算子并行策略，同时也支持用户对算子手动配置特定的并行策略。
@@ -193,7 +193,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
 ## 定义损失函数及优化器
 
-与在Ascend的[分布式并行训练基础样例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)一致。
+与在Ascend的[分布式并行训练基础样例](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/parallel/train_ascend.html)一致。
 
 ### 定义损失函数
 
@@ -296,7 +296,7 @@ def test_train_cifar(epoch_size=10):
 
 下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
 
-> 样例的运行脚本：[run_gpu.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_gpu.sh)。
+> 样例的运行脚本：[run_gpu.sh](https://gitee.com/mindspore/docs/blob/r2.1/docs/sample_code/distributed_training/run_gpu.sh)。
 >
 > 如果通过root用户执行脚本，`mpirun`需要加上`--allow-run-as-root`参数。
 
@@ -387,8 +387,8 @@ pytest -s -v ./resnet50_distributed_training_gpu.py > train.log 2>&1 &
 
 ## 分布式训练模型参数保存与加载
 
-在GPU上进行分布式训练时，模型参数的保存和加载的方法与Ascend上一致，可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#分布式训练模型参数保存和加载)。
+在GPU上进行分布式训练时，模型参数的保存和加载的方法与Ascend上一致，可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/parallel/train_ascend.html#分布式训练模型参数保存和加载)。
 
 ## 不依赖OpenMPI进行训练
 
-不依赖OpenMPI进行训练请参考[动态组网启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html)
+不依赖OpenMPI进行训练请参考[动态组网启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/parallel/dynamic_cluster.html)
