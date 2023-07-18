@@ -1,6 +1,6 @@
 # Function Differences with tf.keras.Model.fit and tf.keras.Model.fit_generator
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/ModelTrain.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/ModelTrain.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## tf.keras.Model.fit
 
@@ -35,7 +35,7 @@ For more information, see [tf.keras.Model.fit_generator](https://tensorflow.goog
 mindspore.train.Model.train(epoch, train_dataset, callbacks=None, dataset_sink_mode=True, sink_size=-1)
 ```
 
-For more information, see [mindspore.train.Model.train](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html).
+For more information, see [mindspore.train.Model.train](https://www.mindspore.cn/docs/en/r2.1/api_python/train/mindspore.train.Model.html).
 
 ## Usage
 

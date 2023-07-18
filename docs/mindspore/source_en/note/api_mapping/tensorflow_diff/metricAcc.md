@@ -1,6 +1,6 @@
 # Function Differences with tf.keras.metrics.Accuracy, tf.keras.metrics.BinaryAccuracy, tf.keras.metrics.CategoricalAccuracy, and tf.keras.metrics.SparseCategoricalAccuracy
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/metricAcc.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/metricAcc.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## tf.keras.metrics.Accuracy
 
@@ -48,7 +48,7 @@ For more information, see [tf.keras.metrics.SparseCategoricalAccuracy](https://t
 mindspore.train.Accuracy(eval_type="classification")
 ```
 
-For more information, see [mindspore.train.Accuracy](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Accuracy.html#mindspore.train.Accuracy).
+For more information, see [mindspore.train.Accuracy](https://www.mindspore.cn/docs/en/r2.1/api_python/train/mindspore.train.Accuracy.html#mindspore.train.Accuracy).
 
 ## Usage
 

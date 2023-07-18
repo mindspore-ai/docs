@@ -1,6 +1,6 @@
 # Function Differences with tf.arg_max
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/TensorArgmax.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/TensorArgmax.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## tf.arg_max
 
@@ -16,7 +16,7 @@ For more information, see [tf.arg_max](https://tensorflow.google.cn/versions/r1.
 mindspore.Tensor.argmax(axis=None)
 ```
 
-For more information, see [mindspore.Tensor.argmax](https://mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.argmax.html#mindspore.Tensor.argmax).
+For more information, see [mindspore.Tensor.argmax](https://mindspore.cn/docs/en/r2.1/api_python/mindspore/Tensor/mindspore.Tensor.argmax.html#mindspore.Tensor.argmax).
 
 ## Usage
 

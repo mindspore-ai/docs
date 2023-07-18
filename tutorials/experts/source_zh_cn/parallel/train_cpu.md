@@ -1,11 +1,11 @@
 # 分布式并行训练基础样例（CPU）
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/train_cpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/tutorials/experts/source_zh_cn/parallel/train_cpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## 概述
 
 本教程主要讲解，如何在CPU平台上，使用MindSpore进行数据并行分布式训练，以提高训练效率。
-> 完整的样例代码：[distributed_training_cpu](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_cpu)
+> 完整的样例代码：[distributed_training_cpu](https://gitee.com/mindspore/docs/tree/r2.1/docs/sample_code/distributed_training_cpu)
 
 目录结构如下：
 
@@ -19,7 +19,7 @@
 
 其中，`resnet.py`和`resnet50_distributed_training.py`是训练网络定义脚本，`run.sh`是分布式训练执行脚本。
 
-> 本教程使用**动态组网**启动方式执行CPU分布式训练，详细用法请参考[动态组网启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html)
+> 本教程使用**动态组网**启动方式执行CPU分布式训练，详细用法请参考[动态组网启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/parallel/dynamic_cluster.html)
 
 ## 准备环节
 
@@ -128,9 +128,9 @@ def create_dataset(data_path, repeat_num=1, batch_size=32):
 
 ## 定义模型
 
-数据并行模式下，网络定义与单机写法一致，可参考[ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training_cpu/resnet.py)。
+数据并行模式下，网络定义与单机写法一致，可参考[ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/r2.1/docs/sample_code/distributed_training_cpu/resnet.py)。
 
-优化器、损失函数及训练模型定义可参考[训练模型定义](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/train.html)。
+优化器、损失函数及训练模型定义可参考[训练模型定义](https://www.mindspore.cn/tutorials/zh-CN/r2.1/beginner/train.html)。
 
 完整训练脚本代码参考样例，下面列出训练启动代码。
 
@@ -164,8 +164,8 @@ if __name__ == "__main__":
     train_resnet50_with_cifar10()
 ```
 
-> 脚本里`create_dataset`和`SoftmaxCrossEntropyExpand`接口引用自[distributed_training_cpu](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training_cpu/resnet50_distributed_training.py)，
-> `resnet50`接口引用自[ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training_cpu/resnet.py)。
+> 脚本里`create_dataset`和`SoftmaxCrossEntropyExpand`接口引用自[distributed_training_cpu](https://gitee.com/mindspore/docs/blob/r2.1/docs/sample_code/distributed_training_cpu/resnet50_distributed_training.py)，
+> `resnet50`接口引用自[ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/r2.1/docs/sample_code/distributed_training_cpu/resnet.py)。
 
 ## 启动训练
 
@@ -227,4 +227,4 @@ epoch: 1 step: 9, loss is 2.2922952
 
 ## 安全认证
 
-CPU安全认证可参考[动态组网安全认证](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html#安全认证)。
+CPU安全认证可参考[动态组网安全认证](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/parallel/dynamic_cluster.html#安全认证)。

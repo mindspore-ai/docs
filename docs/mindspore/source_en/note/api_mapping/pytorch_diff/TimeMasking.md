@@ -1,6 +1,6 @@
 # Differences with torchaudio.transforms.TimeMasking
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/TimeMasking.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/TimeMasking.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torchaudio.transforms.TimeMasking
 
@@ -16,7 +16,7 @@ For more information, see [torchaudio.transforms.TimeMasking](https://pytorch.or
 class mindspore.dataset.audio.TimeMasking(iid_masks=False, time_mask_param=0, mask_start=0, mask_value=0.0)
 ```
 
-For more information, see [mindspore.dataset.audio.TimeMasking](https://mindspore.cn/docs/en/master/api_python/dataset_audio/mindspore.dataset.audio.TimeMasking.html#mindspore.dataset.audio.TimeMasking).
+For more information, see [mindspore.dataset.audio.TimeMasking](https://mindspore.cn/docs/en/r2.1/api_python/dataset_audio/mindspore.dataset.audio.TimeMasking.html#mindspore.dataset.audio.TimeMasking).
 
 ## Differences
 

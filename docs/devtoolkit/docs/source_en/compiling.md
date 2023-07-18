@@ -1,6 +1,6 @@
 # Source Code Compilation Guide
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/devtoolkit/docs/source_en/compiling.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/devtoolkit/docs/source_en/compiling.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 The following describes how to compile the MindSpore Dev ToolKit project based on the IntelliJ IDEA source code.
 
@@ -33,7 +33,7 @@ The following describes how to compile the MindSpore Dev ToolKit project based o
     * Run the git command to download the package.
 
       ```
-      git clone https://gitee.com/mindspore/ide-plugin.git
+      git clone -b r2.1 https://gitee.com/mindspore/ide-plugin.git
       ```
 
 3. Use IntelliJ IDEA to open the project.

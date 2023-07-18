@@ -1,6 +1,6 @@
 # Function Differences with tf.nn.dropout
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/dropout.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/dropout.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## tf.nn.dropout
 
@@ -22,7 +22,7 @@ For more information, see [tf.nn.dropout](https://tensorflow.google.cn/versions/
 mindspore.ops.dropout(x, p=0.5, seed0=0, seed1=0) -> Tensor
 ```
 
-For more information, see [mindspore.ops.dropout](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.dropout.html).
+For more information, see [mindspore.ops.dropout](https://www.mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.dropout.html).
 
 ## Differences
 

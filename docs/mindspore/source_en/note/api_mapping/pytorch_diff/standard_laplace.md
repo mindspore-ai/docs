@@ -1,6 +1,6 @@
 # Differences with torch.distributions.laplace.Laplace
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/standard_laplace.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/standard_laplace.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.distributions.laplace.Laplace
 
@@ -16,7 +16,7 @@ For more information, see [torch.distributions.laplace.Laplace](https://pytorch.
 mindspore.ops.standard_laplace(shape, seed=None) -> Tensor
 ```
 
-For more information, see [mindspore.ops.standard_laplace](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.standard_laplace.html).
+For more information, see [mindspore.ops.standard_laplace](https://mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.standard_laplace.html).
 
 ## Differences
 

@@ -1,6 +1,6 @@
 # Differences with torch.nn.functional.fold
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/mindspore.ops.fold.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/mindspore.ops.fold.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.functional.fold
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.functional.fold](https://pytorch.org/docs/1.
 mindspore.ops.fold(input, output_size, kernel_size, dilation=1, padding=0, stride=1)
 ```
 
-For more information, see [mindspore.ops.fold](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.fold.html).
+For more information, see [mindspore.ops.fold](https://www.mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.fold.html).
 
 ## Differences
 

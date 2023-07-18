@@ -1,8 +1,8 @@
 # Method for Converting TensorFlow Models to MindSpore Models
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/tensorflow2mindspore.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/migration_guide/tensorflow2mindspore.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
-In this chapter, we will take LeNet5 network structure as an example and introduce the model weight conversion method in detail with [code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/convert_tf2ms_code).
+In this chapter, we will take LeNet5 network structure as an example and introduce the model weight conversion method in detail with [code](https://gitee.com/mindspore/docs/tree/r2.1/docs/sample_code/convert_tf2ms_code).
 
 First we need to clarify the trained TensorFlow model into a checkpoint that MindSpore can use, which basically requires the following processes:
 
@@ -100,7 +100,7 @@ def tensorflow2mindspore(tf_ckpt_dir, param_mapping_dict, ms_ckpt_path):
 ```
 
 Because the parameter name mapping of the current network is very complex, it is difficult to find the mapping relationship by parameter name, so we need to map dictionary through a parameter. When encountering simpler parameter name mappings, the
-conversion method can be found in [Convert PyTorch model file to MindSpore model file](https://www.mindspore.cn/docs/en/master/migration_guide/sample_code.html#model-validation).
+conversion method can be found in [Convert PyTorch model file to MindSpore model file](https://www.mindspore.cn/docs/en/r2.1/migration_guide/sample_code.html#model-validation).
 
 ```python
 params_mapping = {

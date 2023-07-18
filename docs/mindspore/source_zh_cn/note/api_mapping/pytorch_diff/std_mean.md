@@ -1,6 +1,6 @@
 # 比较与torch.std_mean的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/std_mean.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/std_mean.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## torch.std_mean
 
@@ -16,7 +16,7 @@ torch.std_mean(input, dim, unbiased=True, keepdim=False, *, out=None)
 mindspore.ops.std_mean(input, axis=None, ddof=0, keepdims=False)
 ```
 
-更多内容详见[mindspore.ops.std_mean](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.std_mean.html)。
+更多内容详见[mindspore.ops.std_mean](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.std_mean.html)。
 
 ## 差异对比
 

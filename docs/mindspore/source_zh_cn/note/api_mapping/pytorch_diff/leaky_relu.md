@@ -1,6 +1,6 @@
 # 比较与torch.nn.functional.leaky_relu的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/leaky_relu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/leaky_relu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## torch.nn.functional.leaky_relu
 
@@ -16,7 +16,7 @@ torch.nn.functional.leaky_relu(input, negative_slope=0.01, inplace=False) -> Ten
 mindspore.ops.leaky_relu(input, alpha=0.2) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.leaky_relu](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.leaky_relu.html#mindspore.ops.leaky_relu)。
+更多内容详见[mindspore.ops.leaky_relu](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.leaky_relu.html#mindspore.ops.leaky_relu)。
 
 ## 差异对比
 

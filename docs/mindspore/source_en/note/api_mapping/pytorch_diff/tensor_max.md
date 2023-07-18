@@ -1,6 +1,6 @@
 # Differences with torch.Tensor.max
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/tensor_max.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/tensor_max.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.Tensor.max
 
@@ -16,7 +16,7 @@ For more information, see [torch.Tensor.max](https://pytorch.org/docs/1.8.1/tens
 mindspore.Tensor.max(axis=None, keepdims=False, *, initial=None, where=True, return_indices=False)
 ```
 
-For more information, see [mindspore.Tensor.max](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.max.html).
+For more information, see [mindspore.Tensor.max](https://www.mindspore.cn/docs/en/r2.1/api_python/mindspore/Tensor/mindspore.Tensor.max.html).
 
 ## Differences
 

@@ -1,6 +1,6 @@
 # Function Differences with tf.compat.v1.scatter_mul
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/scatter_mul.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/scatter_mul.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## tf.compat.v1.scatter_mul
 
@@ -26,7 +26,7 @@ mindspore.ops.scatter_mul(
 ) -> Tensor
 ```
 
-For more information, see [mindspore.ops.scatter_mul](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.scatter_mul.html).
+For more information, see [mindspore.ops.scatter_mul](https://www.mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.scatter_mul.html).
 
 ## Usage
 

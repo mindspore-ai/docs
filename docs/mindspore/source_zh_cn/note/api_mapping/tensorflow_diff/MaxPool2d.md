@@ -1,6 +1,6 @@
 # 比较与tf.nn.max_pool2d的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/MaxPool2d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/MaxPool2d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## tf.nn.max_pool2d
 
@@ -28,7 +28,7 @@ class mindspore.nn.MaxPool2d(
 )(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.MaxPool2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool2d.html)。
+更多内容详见[mindspore.nn.MaxPool2d](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/nn/mindspore.nn.MaxPool2d.html)。
 
 ## 差异对比
 
@@ -41,7 +41,7 @@ MindSpore：MindSpore此API实现功能与TensorFlow基本一致。
 |参数 | 参数1 | input | x |功能一致，参数名不同 |
 | | 参数2 | ksize | kernel_size | 功能一致，参数名不同，TensorFlow无默认值 |
 | | 参数3 | strides | stride | 功能一致，参数名不同，TensorFlow无默认值 |
-| | 参数4 | padding | pad_mode | 功能一致，参数名不同，TensorFlow无默认值。更多内容详见[Conv 和 Pooling](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#conv-%E5%92%8C-pooling) |
+| | 参数4 | padding | pad_mode | 功能一致，参数名不同，TensorFlow无默认值。更多内容详见[Conv 和 Pooling](https://www.mindspore.cn/docs/zh-CN/r2.1/migration_guide/typical_api_comparision.html#conv-%E5%92%8C-pooling) |
 | | 参数5 | data_format | data_format | - |
 | | 参数6 | name | - | 不涉及 |
 

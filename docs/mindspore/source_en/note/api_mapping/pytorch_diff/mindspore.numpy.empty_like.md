@@ -1,6 +1,6 @@
 # Differences with torch.empty_like
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/mindspore.numpy.empty_like.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/mindspore.numpy.empty_like.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.empty_like
 
@@ -24,7 +24,7 @@ For more information, see [torch.empty_like](https://pytorch.org/docs/1.8.1/gene
 mindspore.numpy.empty_like(prototype, dtype=None, shape=None) -> Tensor
 ```
 
-For more information, see [mindspore.numpy.empty_like](https://mindspore.cn/docs/en/master/api_python/numpy/mindspore.numpy.empty_like.html).
+For more information, see [mindspore.numpy.empty_like](https://mindspore.cn/docs/en/r2.1/api_python/numpy/mindspore.numpy.empty_like.html).
 
 ## Differences
 

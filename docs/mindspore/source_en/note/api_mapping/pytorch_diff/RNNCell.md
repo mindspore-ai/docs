@@ -1,6 +1,6 @@
 # Differences with torch.nn.RNNCell
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/RNNCell.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/RNNCell.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.RNNCell
 
@@ -24,7 +24,7 @@ class mindspore.nn.RNNCell(
     nonlinearity: str = 'tanh')(x, hx) -> Tensor
 ```
 
-For more information, see [mindspore.nn.RNNCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.RNNCell.html).
+For more information, see [mindspore.nn.RNNCell](https://www.mindspore.cn/docs/en/r2.1/api_python/nn/mindspore.nn.RNNCell.html).
 
 ## Differences
 

@@ -1,6 +1,6 @@
 # 源码编译指导
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/devtoolkit/docs/source_zh_cn/compiling.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/devtoolkit/docs/source_zh_cn/compiling.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 本文档介绍如何基于IntelliJ IDEA源码编译MindSpore Dev ToolKit项目。
 
@@ -32,7 +32,7 @@
     * 使用git下载。
 
       ```
-      git clone https://gitee.com/mindspore/ide-plugin.git
+      git clone -b r2.1 https://gitee.com/mindspore/ide-plugin.git
       ```
 
 3. 使用IntelliJ IDEA打开项目。

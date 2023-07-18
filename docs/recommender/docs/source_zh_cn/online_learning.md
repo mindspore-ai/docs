@@ -1,6 +1,6 @@
 # 在线学习
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/recommender/docs/source_zh_cn/online_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/recommender/docs/source_zh_cn/online_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -16,7 +16,7 @@
 
 用户的流式训练数据推送到Kafka中，MindSpore Pandas从Kafka读取数据并进行特征工程转换，然后写入特征存储引擎中，MindData从存储引擎中读取数据作为训练数据进行训练，MindSpore作为服务常驻，持续接收数据并执行训练，整体流程如下图所示：
 
-![image.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/recommender/docs/source_zh_cn/images/online_training.png)
+![image.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/docs/recommender/docs/source_zh_cn/images/online_training.png)
 
 ## 使用约束
 

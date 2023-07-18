@@ -1,8 +1,8 @@
 分布式并行启动方式
 ============================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/startup_method.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png
+    :target: https://gitee.com/mindspore/docs/blob/r2.1/tutorials/experts/source_zh_cn/parallel/startup_method.rst
 
 .. toctree::
   :maxdepth: 1
@@ -16,9 +16,9 @@
 
 目前GPU、Ascend和CPU分别支持多种启动方式。主要有OpenMPI，动态组网和多进程启动三种方式。
 
-- 多进程启动方式。用户需要启动和卡数对应的进程，以及配置rank_table表。可以访问 `运行脚本 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#运行脚本>`_，学习如何通过多进程方式启动多卡任务。
-- OpenMPI。用户可以通过mpirun命令来启动运行脚本，此时用户需要提供host file文件。用户可以访问 `通过OpenMPI运行脚本 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#通过openmpi运行脚本>`_，学习如何使用OpenMPI启动多卡任务。
-- 动态组网。MindSpore使用内部动态组网模块，无需对外部配置文件或者模块产生依赖，帮助实现多卡任务。用户可以访问 `动态组网启动章节 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html>`_，学习如何使用动态组网方式启动多卡任务。
+- 多进程启动方式。用户需要启动和卡数对应的进程，以及配置rank_table表。可以访问 `运行脚本 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/parallel/train_ascend.html#运行脚本>`_，学习如何通过多进程方式启动多卡任务。
+- OpenMPI。用户可以通过mpirun命令来启动运行脚本，此时用户需要提供host file文件。用户可以访问 `通过OpenMPI运行脚本 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/parallel/train_ascend.html#通过openmpi运行脚本>`_，学习如何使用OpenMPI启动多卡任务。
+- 动态组网。MindSpore使用内部动态组网模块，无需对外部配置文件或者模块产生依赖，帮助实现多卡任务。用户可以访问 `动态组网启动章节 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/parallel/dynamic_cluster.html>`_，学习如何使用动态组网方式启动多卡任务。
 
 +---------------+--------------+-----------------+-------------+
 |               | GPU          | Ascend          | CPU         |

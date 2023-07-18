@@ -1,6 +1,6 @@
 # Function Differences with tf.keras.metrics.Precision
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/metricPrecision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/metricPrecision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## tf.keras.metrics.Precision
 
@@ -18,7 +18,7 @@ For more information, see [tf.keras.metrics.Precision](https://tensorflow.google
 mindspore.train.Precision(eval_type="classification")
 ```
 
-For more information, see [mindspore.train.Precision](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.Precision.html#mindspore.train.Precision).
+For more information, see [mindspore.train.Precision](https://mindspore.cn/docs/en/r2.1/api_python/train/mindspore.train.Precision.html#mindspore.train.Precision).
 
 ## Usage
 

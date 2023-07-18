@@ -1,6 +1,6 @@
 # 比较与torch.nn.TripletMarginLoss的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/TripletMarginLoss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/TripletMarginLoss.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 以下映射关系均可参考本文。
 
@@ -36,7 +36,7 @@ mindspore.nn.TripletMarginLoss(
 )(margin, x, positive, negative) -> Tensor/Scalar
 ```
 
-更多内容详见[mindspore.nn.TripletMarginLoss](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TripletMarginLoss.html)。
+更多内容详见[mindspore.nn.TripletMarginLoss](https://mindspore.cn/docs/zh-CN/r2.1/api_python/nn/mindspore.nn.TripletMarginLoss.html)。
 
 ## 差异对比
 

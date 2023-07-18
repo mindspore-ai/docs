@@ -1,6 +1,6 @@
 # mindspore
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_zh_cn/api_cpp/mindspore.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/lite/api/source_zh_cn/api_cpp/mindspore.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## 接口汇总
 
@@ -34,8 +34,8 @@
 |--------------------------------------------------|---------------------------------------------------|--------|--------|
 | [MSTensor](#mstensor)                            | MindSpore中的张量。                                    | √      | √      |
 | [QuantParam](#quantparam)                        | MSTensor中的一组量化参数。                                 | √      | √      |
-| [mindspore::DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html) | MindSpore MSTensor保存的数据支持的类型。 | √      | √      |
-| [mindspore::Format](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_format.html) | MindSpore MSTensor保存的数据支持的排列格式。 | √      | √      |
+| [mindspore::DataType](https://www.mindspore.cn/lite/api/zh-CN/r2.1/api_cpp/mindspore_datatype.html) | MindSpore MSTensor保存的数据支持的类型。 | √      | √      |
+| [mindspore::Format](https://www.mindspore.cn/lite/api/zh-CN/r2.1/api_cpp/mindspore_format.html) | MindSpore MSTensor保存的数据支持的排列格式。 | √      | √      |
 | [Allocator](#allocator-1)                          | 内存管理基类。                                           | √      | √      |
 
 ### 状态
@@ -104,7 +104,7 @@
 
 ## Context
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/context.h)&gt;
 
 Context类用于保存执行中的环境变量。
 
@@ -369,7 +369,7 @@ std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo()
 
 ## DeviceInfoContext
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/context.h)&gt;
 
 DeviceInfoContext类定义不同硬件设备的环境信息。
 
@@ -491,7 +491,7 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 ## CPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在CPU上的配置。
 
@@ -505,7 +505,7 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 ## GPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在GPU上的配置。
 
@@ -531,7 +531,7 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 ## KirinNPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在NPU上的配置。
 
@@ -547,7 +547,7 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 ## AscendDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Ascend 310、Ascend 310P上的配置。
 
@@ -583,7 +583,7 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 ## Serialization
 
-\#include &lt;[serialization.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/serialization.h)&gt;
+\#include &lt;[serialization.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/serialization.h)&gt;
 
 Serialization类汇总了模型文件读写的方法。
 
@@ -853,7 +853,7 @@ Buffer Clone() const;
 
 ## Model
 
-\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/model.h)&gt;
+\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/model.h)&gt;
 
 Model定义了MindSpore中的模型，便于计算图管理。
 
@@ -1564,7 +1564,7 @@ Status UpdateWeights(const std::vector<MSTensor> &new_weights)
 
 ## MSTensor
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/types.h)&gt;
 
 `MSTensor`定义了MindSpore中的张量。
 
@@ -2025,7 +2025,7 @@ const std::shared_ptr<Impl> impl()
 
 ## QuantParam
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/types.h)&gt;
 
 一个结构体。QuantParam定义了MSTensor的一组量化参数。
 
@@ -2073,7 +2073,7 @@ max
 
 ## MSKernelCallBack
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/types.h)&gt;
 
 ```cpp
 using MSKernelCallBack = std::function<bool(const std::vector<MSTensor> &inputs, const std::vector<MSTensor> &outputs, const MSCallBackParam &opInfo)>
@@ -2083,7 +2083,7 @@ using MSKernelCallBack = std::function<bool(const std::vector<MSTensor> &inputs,
 
 ## MSCallBackParam
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/types.h)&gt;
 
 一个结构体。MSCallBackParam定义了回调函数的输入参数。
 
@@ -2115,7 +2115,7 @@ execute_time
 
 ## Delegate
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/delegate.h)&gt;
 
 `Delegate`定义了第三方AI框架接入MindSpore Lite的代理接口。
 
@@ -2158,7 +2158,7 @@ Delegate在线构图。
 
 ## CoreMLDelegate
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/delegate.h)&gt;
 
 `CoreMLDelegate`继承自`Delegate`类，定义了CoreML框架接入MindSpore Lite的代理接口。
 
@@ -2200,7 +2200,7 @@ CoreMLDelegate在线构图，仅在内部图编译阶段调用。
 
 ## SchemaVersion
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/delegate.h)&gt;
 
 定义了MindSpore Lite执行在线推理时模型文件的版本。
 
@@ -2214,9 +2214,9 @@ typedef enum {
 
 ## KernelIter
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/delegate.h)&gt;
 
-定义了MindSpore Lite [Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#mindspore-kernel)列表的迭代器。
+定义了MindSpore Lite [Kernel](https://www.mindspore.cn/lite/api/zh-CN/r2.1/api_cpp/mindspore_kernel.html#mindspore-kernel)列表的迭代器。
 
 ```cpp
 using KernelIter = std::vector<kernel::Kernel *>::iterator;
@@ -2224,7 +2224,7 @@ using KernelIter = std::vector<kernel::Kernel *>::iterator;
 
 ## DelegateModel
 
-\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/delegate.h)&gt;
 
 `DelegateModel`定义了MindSpore Lite Delegate机制操作的的模型对象。
 
@@ -2250,7 +2250,7 @@ DelegateModel(std::vector<kernel::Kernel *> *kernels, const std::vector<MSTensor
 std::vector<kernel::Kernel *> *kernels_;
 ```
 
-[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)的列表，保存模型的所有算子。
+[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/r2.1/api_cpp/mindspore_kernel.html#kernel)的列表，保存模型的所有算子。
 
 #### inputs_
 
@@ -2258,7 +2258,7 @@ std::vector<kernel::Kernel *> *kernels_;
 const std::vector<mindspore::MSTensor> &inputs_;
 ```
 
-[**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)的列表，保存这个算子的输入tensor。
+[**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.1/api_cpp/mindspore.html#mstensor)的列表，保存这个算子的输入tensor。
 
 #### outputs_
 
@@ -2266,7 +2266,7 @@ const std::vector<mindspore::MSTensor> &inputs_;
 const std::vector<mindspore::MSTensor> &outputs;
 ```
 
-[**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)的列表，保存这个算子的输出tensor。
+[**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.1/api_cpp/mindspore.html#mstensor)的列表，保存这个算子的输出tensor。
 
 #### primitives_
 
@@ -2274,7 +2274,7 @@ const std::vector<mindspore::MSTensor> &outputs;
 const std::map<kernel::Kernel *, const schema::Primitive *> &primitives_;
 ```
 
-[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)和**schema::Primitive**的Map，保存所有算子的属性。
+[**Kernel**](https://www.mindspore.cn/lite/api/zh-CN/r2.1/api_cpp/mindspore_kernel.html#kernel)和**schema::Primitive**的Map，保存所有算子的属性。
 
 #### version_
 
@@ -2354,7 +2354,7 @@ const std::vector<mindspore::MSTensor> &inputs()
 
 - 返回值
 
-  [**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)的列表。
+  [**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.1/api_cpp/mindspore.html#mstensor)的列表。
 
 #### outputs
 
@@ -2366,7 +2366,7 @@ const std::vector<mindspore::MSTensor> &outputs()
 
 - 返回值
 
-  [**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)的列表。
+  [**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r2.1/api_cpp/mindspore.html#mstensor)的列表。
 
 #### GetVersion
 
@@ -2382,7 +2382,7 @@ const SchemaVersion GetVersion() { return version_; }
 
 ## TrainCfg
 
-\#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cfg.h)&gt;
+\#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/cfg.h)&gt;
 
 `TrainCfg`MindSpore Lite训练的相关配置参数。
 
@@ -2430,7 +2430,7 @@ bool accumulate_gradients_;
 
 ## MixPrecisionCfg
 
-\#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cfg.h)&gt;
+\#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/cfg.h)&gt;
 
 `MixPrecisionCfg`MindSpore Lite训练混合精度配置类。
 
@@ -2472,7 +2472,7 @@ bool is_raw_mix_precision_;
 
 ## AccuracyMetrics
 
-\#include &lt;[accuracy.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/metrics/accuracy.h)&gt;
+\#include &lt;[accuracy.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/metrics/accuracy.h)&gt;
 
 `AccuracyMetrics`MindSpore Lite训练精度类。
 
@@ -2507,7 +2507,7 @@ float Eval() override;
 
 ## Metrics
 
-\#include &lt;[metrics.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/metrics/metrics.h)&gt;
+\#include &lt;[metrics.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/metrics/metrics.h)&gt;
 
 `Metrics`MindSpore Lite训练指标类。
 
@@ -2554,7 +2554,7 @@ virtual void Update(std::vector<MSTensor *> inputs, std::vector<MSTensor *> outp
 
 ## TrainCallBack
 
-\#include &lt;[callback.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/callback.h)&gt;
+\#include &lt;[callback.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/callback/callback.h)&gt;
 
 `Metrics`MindSpore Lite训练回调类。
 
@@ -2653,7 +2653,7 @@ virtual void Begin(const TrainCallBackData &cb_data) {}
 
 ## TrainCallBackData
 
-\#include &lt;[callback.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/callback.h)&gt;
+\#include &lt;[callback.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/callback/callback.h)&gt;
 
 一个结构体。TrainCallBackData定义了训练回调的一组参数。
 
@@ -2693,7 +2693,7 @@ model_
 
 ## CkptSaver
 
-\#include &lt;[ckpt_saver.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/ckpt_saver.h)&gt;
+\#include &lt;[ckpt_saver.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/callback/ckpt_saver.h)&gt;
 
 `Metrics`MindSpore Lite训练模型文件保存类。
 
@@ -2706,7 +2706,7 @@ model_
 
 ## LossMonitor
 
-\#include &lt;[loss_monitor.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/loss_monitor.h)&gt;
+\#include &lt;[loss_monitor.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/callback/loss_monitor.h)&gt;
 
 `Metrics`MindSpore Lite训练损失函数类。
 
@@ -2733,7 +2733,7 @@ model_
 
 ## LRScheduler
 
-\#include &lt;[lr_scheduler.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/lr_scheduler.h)&gt;
+\#include &lt;[lr_scheduler.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/callback/lr_scheduler.h)&gt;
 
 `Metrics`MindSpore Lite训练学习率调度类。
 
@@ -2746,7 +2746,7 @@ model_
 
 ## StepLRLambda
 
-\#include &lt;[lr_scheduler.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/lr_scheduler.h)&gt;
+\#include &lt;[lr_scheduler.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/callback/lr_scheduler.h)&gt;
 
 一个结构体。StepLRLambda定义了训练学习率的一组参数。
 
@@ -2770,7 +2770,7 @@ gamma
 
 ## MultiplicativeLRLambda
 
-\#include &lt;[lr_scheduler.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/lr_scheduler.h)&gt;
+\#include &lt;[lr_scheduler.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/callback/lr_scheduler.h)&gt;
 
 每个epoch将学习率乘以一个因子。
 
@@ -2798,7 +2798,7 @@ int MultiplicativeLRLambda(float *lr, int epoch, void *multiplication)
 
 ## TimeMonitor
 
-\#include &lt;[time_monitor.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/time_monitor.h)&gt;
+\#include &lt;[time_monitor.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/callback/time_monitor.h)&gt;
 
 `Metrics`MindSpore Lite训练时间监测类。
 
@@ -2844,7 +2844,7 @@ int MultiplicativeLRLambda(float *lr, int epoch, void *multiplication)
 
 ## TrainAccuracy
 
-\#include &lt;[train_accuracy.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/train_accuracy.h)&gt;
+\#include &lt;[train_accuracy.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/callback/train_accuracy.h)&gt;
 
 `Metrics`MindSpore Lite训练学习率调度类。
 
@@ -2903,7 +2903,7 @@ std::vector<char> CharVersion()
 |-----------------------|--------|--------|
 | [std::string Version()](#version)     |    ✕    |    √    |
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/types.h)&gt;
 
 ```cpp
 std::string Version()
@@ -2917,7 +2917,7 @@ std::string Version()
 
 ## Allocator
 
-\#include &lt;[allocator.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/allocator.h)&gt;
+\#include &lt;[allocator.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/allocator.h)&gt;
 
 内存管理基类。
 
@@ -3329,7 +3329,7 @@ static inline std::string CodeAsString(enum StatusCode c)
 
 ## Graph
 
-\#include &lt;[graph.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/graph.h)&gt;
+\#include &lt;[graph.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/graph.h)&gt;
 
 ### 构造函数和析构函数
 
@@ -3385,7 +3385,7 @@ static inline std::string CodeAsString(enum StatusCode c)
 
 ## CellBase
 
-\#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cell.h)&gt;
+\#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/cell.h)&gt;
 
 ### 构造函数和析构函数
 
@@ -3410,7 +3410,7 @@ static inline std::string CodeAsString(enum StatusCode c)
 
 ## Cell
 
-\#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cell.h)&gt;
+\#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/cell.h)&gt;
 
 ### 析构函数
 
@@ -3434,7 +3434,7 @@ static inline std::string CodeAsString(enum StatusCode c)
 
 ## GraphCell
 
-\#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cell.h)&gt;
+\#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/cell.h)&gt;
 
 ### 构造函数和析构函数
 
@@ -3462,7 +3462,7 @@ static inline std::string CodeAsString(enum StatusCode c)
 
 ## RunnerConfig
 
-\#include &lt;[model_parallel_runner.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/model_parallel_runner.h)&gt;
+\#include &lt;[model_parallel_runner.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/model_parallel_runner.h)&gt;
 
 RunnerConfig定义了ModelParallelRunner中使用的配置选项参数。
 
@@ -3611,7 +3611,7 @@ std::vector<uint32_t> GetDeviceIds() const
 
 ## ModelParallelRunner
 
-\#include &lt;[model_parallel_runner.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/model_parallel_runner.h)&gt;
+\#include &lt;[model_parallel_runner.h](https://gitee.com/mindspore/mindspore/blob/r2.1/include/api/model_parallel_runner.h)&gt;
 
 ModelParallelRunner定义了MindSpore的多个Model以及并发策略，便于多个Model的调度与管理。
 

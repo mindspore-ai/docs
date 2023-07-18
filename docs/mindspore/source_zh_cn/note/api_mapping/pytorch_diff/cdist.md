@@ -1,6 +1,6 @@
 # 比较与torch.cdist的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/cdist.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/cdist.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## torch.cdist
 
@@ -16,7 +16,7 @@ torch.cdist(x1, x2, p=2.0, compute_mode='use_mm_for_euclid_dist_if_necessary')
 mindspore.ops.cdist(x1, x2, p=2.0)
 ```
 
-更多内容详见[mindspore.ops.cdist](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cdist.html)。
+更多内容详见[mindspore.ops.cdist](https://mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.cdist.html)。
 
 ## 差异对比
 

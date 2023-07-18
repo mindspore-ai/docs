@@ -7,7 +7,7 @@ MindSpore Reinforcement为编写强化学习算法提供了简洁的API抽象，
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/reinforcement/docs/source_zh_cn/images/mindspore_rl_architecture.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/docs/reinforcement/docs/source_zh_cn/images/mindspore_rl_architecture.png" width="700px" alt="" >
 
 代码仓地址： <https://github.com/mindspore-lab/mindrl>
 
@@ -34,7 +34,7 @@ MindSpore Reinforcement为编写强化学习算法提供了简洁的API抽象，
 使用MindSpore Reinforcement的典型场景
 --------------------------------------
 
-- `训练深度Q网络 <https://www.mindspore.cn/reinforcement/docs/zh-CN/master/dqn.html>`_
+- `训练深度Q网络 <https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.7/dqn.html>`_
 
   DQN算法使用经验回放技术来维护先前的观察结果，进行off-policy学习。
 

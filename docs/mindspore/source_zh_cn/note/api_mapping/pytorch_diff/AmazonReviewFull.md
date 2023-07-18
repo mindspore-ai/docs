@@ -1,6 +1,6 @@
 # 比较与torchtext.datasets.AmazonReviewFull的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/AmazonReviewFull.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/AmazonReviewFull.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## torchtext.datasets.AmazonReviewFull
 
@@ -26,7 +26,7 @@ class mindspore.dataset.AmazonReviewDataset(
     cache=None)
 ```
 
-更多内容详见[mindspore.dataset.AmazonReviewDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.AmazonReviewDataset.html#mindspore.dataset.AmazonReviewDataset)。
+更多内容详见[mindspore.dataset.AmazonReviewDataset](https://mindspore.cn/docs/zh-CN/r2.1/api_python/dataset/mindspore.dataset.AmazonReviewDataset.html#mindspore.dataset.AmazonReviewDataset)。
 
 ## 差异对比
 

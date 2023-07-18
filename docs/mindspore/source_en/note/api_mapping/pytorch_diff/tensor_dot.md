@@ -1,6 +1,6 @@
 # Differences with torch.dot
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/tensor_dot.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/tensor_dot.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.dot
 
@@ -16,7 +16,7 @@ For more information, see [torch.dot](https://pytorch.org/docs/1.8.1/generated/t
 mindspore.ops.tensor_dot(x1, x2, axes)
 ```
 
-For more information, see [mindspore.ops.tensor_dot](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.tensor_dot.html#mindspore.ops.tensor_dot).
+For more information, see [mindspore.ops.tensor_dot](https://mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.tensor_dot.html#mindspore.ops.tensor_dot).
 
 ## Differences
 
@@ -30,7 +30,7 @@ MindSpore: Calculates the dot product of two tensors on any axis. Support tensor
 | ---------- | ------------- | ------------ | ---------     | ------------- |
 | Parameters | Parameter 1   | input        | x1            | Different parameter names |
 |            | Parameter 2   | other        | x2            | Different parameter names |
-|            | Parameter 3   | out          | -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | Parameter 3   | out          | -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.1/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 |            | Parameter 4   | -            | axes          | The function of the PyTorch is the same when the input is 1D and the axis is set to 0. |
 
 ## Code Example 1

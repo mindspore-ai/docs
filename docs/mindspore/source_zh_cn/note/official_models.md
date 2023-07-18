@@ -1,6 +1,6 @@
 # 官方模型库
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/official_models.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/official_models.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## 领域套件与扩展包
 
@@ -293,7 +293,7 @@
 | [CQL](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fcql) | / | ✅ | ✅ | ✅ | ✅ | [Hopper-v0](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fhopper) |
 | [MAPPO](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fmappo)  | ✅ | / | ✅ | ✅ | ✅ | [Simple Spread](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fopenai%2Fmultiagent-particle-envs) |
 | [GAIL](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fgail) | / | ✅ | ✅ | ✅ | ✅ | [HalfCheetah-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fhalf_cheetah%2F) |
-| [MCTS](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fmcts) | ✅ | / | ✅ | ✅ | / | [Tic-Tac-Toe](https://github.com/mindspore-lab/mindrl/blob/master/mindspore_rl/environment/tic_tac_toe_environment.py) |
+| [MCTS](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fmcts) | ✅ | / | ✅ | ✅ | / | [Tic-Tac-Toe](https://github.com/mindspore-lab/mindrl/blob/r0.7/mindspore_rl/environment/tic_tac_toe_environment.py) |
 | [AWAC](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fawac) | / | ✅ | ✅ | ✅ | ✅ | [Ant-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fant) |
 | [Dreamer](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fdreamer)  | / | ✅ | / | ✅ | ✅ | [Walker-walk](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fdeepmind%2Fdm_control) |
 | [IQL](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fmindspore-lab%2Fmindrl%2Ftree%2Fmaster%2Fexample%2Fiql) | / | ✅ | ✅ | ✅ | ✅ | [Walker2d-v2](https://gitee.com/link?target=https%3A%2F%2Fwww.gymlibrary.dev%2Fenvironments%2Fmujoco%2Fwalker2d%2F) |
@@ -333,15 +333,15 @@
 | 计算生物 | [*SchNet](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/cybertron/)              |   ✅   | ✅ | Float 16/32 |
 | 计算生物 | [*MolCT](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/cybertron/)              |   ✅   | ✅ | Float 16/32 |
 | 计算生物 | [*PhysNet](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/cybertron/)              |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*FNO1D](https://gitee.com/mindspore/mindscience/tree/master/MindFlow/applications/data_driven/burgers_fno)             |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*KNO1D](https://gitee.com/mindspore/mindscience/blob/master/MindFlow/applications/data_driven/burgers_kno/README_CN.md)              |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*FNO2D](https://gitee.com/mindspore/mindscience/tree/master/MindFlow/applications/data_driven/navier_stokes_fno)              |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*KNO2D](https://gitee.com/mindspore/mindscience/blob/master/MindFlow/applications/data_driven/navier_stokes_kno/README_CN.md)             |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*ViT](https://gitee.com/mindspore/mindscience/blob/master/MindFlow/applications/data_driven/airfoil/2D_steady/README_CN.md)             |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*FNO3D](https://gitee.com/mindspore/mindscience/tree/master/MindFlow/applications/data_driven/navier_stokes_3d_fno)              |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*Burgers1D](https://gitee.com/mindspore/mindscience/blob/master/MindFlow/applications/physics_driven/cylinder_flow/README_CN.md)            |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*NavierStokes](https://gitee.com/mindspore/mindscience/blob/master/MindFlow/applications/physics_driven/cylinder_flow/README_CN.md)              |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*PDE-Net](https://gitee.com/mindspore/mindscience/blob/master/MindFlow/applications/data_mechanism_fusion/variant_linear_coe_pde_net/README_CN.md)   |   ✅   | ✅ | Float 16/32 |
+| 计算流体 | [*FNO1D](https://gitee.com/mindspore/mindscience/tree/r0.3/MindFlow/applications/data_driven/burgers_fno)             |   ✅   | ✅ | Float 16/32 |
+| 计算流体 | [*KNO1D](https://gitee.com/mindspore/mindscience/blob/r0.3/MindFlow/applications/data_driven/burgers_kno/README_CN.md)              |   ✅   | ✅ | Float 16/32 |
+| 计算流体 | [*FNO2D](https://gitee.com/mindspore/mindscience/tree/r0.3/MindFlow/applications/data_driven/navier_stokes_fno)              |   ✅   | ✅ | Float 16/32 |
+| 计算流体 | [*KNO2D](https://gitee.com/mindspore/mindscience/blob/r0.3/MindFlow/applications/data_driven/navier_stokes_kno/README_CN.md)             |   ✅   | ✅ | Float 16/32 |
+| 计算流体 | [*ViT](https://gitee.com/mindspore/mindscience/blob/r0.3/MindFlow/applications/data_driven/airfoil/2D_steady/README_CN.md)             |   ✅   | ✅ | Float 16/32 |
+| 计算流体 | [*FNO3D](https://gitee.com/mindspore/mindscience/tree/r0.3/MindFlow/applications/data_driven/navier_stokes_3d_fno)              |   ✅   | ✅ | Float 16/32 |
+| 计算流体 | [*Burgers1D](https://gitee.com/mindspore/mindscience/blob/r0.3/MindFlow/applications/physics_driven/cylinder_flow/README_CN.md)            |   ✅   | ✅ | Float 16/32 |
+| 计算流体 | [*NavierStokes](https://gitee.com/mindspore/mindscience/blob/r0.3/MindFlow/applications/physics_driven/cylinder_flow/README_CN.md)              |   ✅   | ✅ | Float 16/32 |
+| 计算流体 | [*PDE-Net](https://gitee.com/mindspore/mindscience/blob/r0.3/MindFlow/applications/data_mechanism_fusion/variant_linear_coe_pde_net/README_CN.md)   |   ✅   | ✅ | Float 16/32 |
 
 ## 大模型套件
 

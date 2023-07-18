@@ -1,12 +1,12 @@
 # 安装MindSpore Flow
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindflow/docs/source_zh_cn/mindflow_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindflow/docs/source_zh_cn/mindflow_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 确认系统环境信息
 
 - 硬件平台为Ascend、GPU。
 - 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装。
-- 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/mindscience/blob/master/MindFlow/requirements.txt)。
+- 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/mindscience/blob/r0.3/MindFlow/requirements.txt)。
 
 ## 安装方式
 
@@ -35,7 +35,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/Mi
 1. 从Gitee下载源码。
 
    ```bash
-   git clone https://gitee.com/mindspore/mindscience.git
+   git clone -b r0.3 https://gitee.com/mindspore/mindscience.git
    cd {PATH}/mindscience/MindFlow
    ```
 

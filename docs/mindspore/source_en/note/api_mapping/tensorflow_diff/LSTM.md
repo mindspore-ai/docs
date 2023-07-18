@@ -1,6 +1,6 @@
 # Function Differences with tf.keras.layers.LSTM
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/LSTM.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/LSTM.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## tf.keras.layers.LSTM
 
@@ -32,7 +32,7 @@ class mindspore.nn.LSTM(
     bidirectional=False)(x, hx, seq_length) -> Tensor
 ```
 
-For more information, see [mindspore.nn.LSTM](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.LSTM.html).
+For more information, see [mindspore.nn.LSTM](https://mindspore.cn/docs/en/r2.1/api_python/nn/mindspore.nn.LSTM.html).
 
 ## Differences
 

@@ -1,6 +1,6 @@
 # 比较与torch.diag的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/diag.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/diag.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 以下映射关系均可参考本文。
 
@@ -23,7 +23,7 @@ torch.diag(input, diagonal=0, *, out=None) -> Tensor
 mindspore.ops.diag(input) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.diag](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.diag.html)。
+更多内容详见[mindspore.ops.diag](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.diag.html)。
 
 ## 差异对比
 
@@ -37,7 +37,7 @@ MindSpore：MindSpore此API，若输入为一维张量，则实现与PyTorch相�
 | --- | --- | --- | --- |---|
 |参数 | 参数1 | input | input |- |
 | | 参数2 | diagonal | - | PyTorch中`diagonal`的取值用于控制对角线的位置，MindSpore无此参数 |
-| | 参数3 | out | - | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+| | 参数3 | out | - | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.1/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 
 ### 代码示例1
 

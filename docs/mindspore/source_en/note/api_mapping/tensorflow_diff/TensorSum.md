@@ -1,6 +1,6 @@
 # Function Differences with tf.math.reduce_sum
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/TensorSum.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/TensorSum.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## tf.math.reduce_sum
 
@@ -19,7 +19,7 @@ For more information, see [tf.math.reduce_sum](https://tensorflow.google.cn/vers
 mindspore.Tensor.sum(self, axis=None, dtype=None, keepdims=False, initial=None)
 ```
 
-For more information, see [mindspore.Tensor.sum](https://mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.sum.html#mindspore.Tensor.sum).
+For more information, see [mindspore.Tensor.sum](https://mindspore.cn/docs/en/r2.1/api_python/mindspore/Tensor/mindspore.Tensor.sum.html#mindspore.Tensor.sum).
 
 ## Usage
 

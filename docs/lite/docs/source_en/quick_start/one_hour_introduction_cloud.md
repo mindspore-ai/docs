@@ -1,6 +1,6 @@
 # Quick Start to Cloud-side Inference
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/one_hour_introduction_cloud.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/lite/docs/source_en/quick_start/one_hour_introduction_cloud.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -10,11 +10,11 @@ MindSpore Lite cloud-side inference is supported to run in Linux environment dep
 
 Before starting using MindSpore Lite in this chapter, users should have a Linux (e.g. Ubuntu/CentOS/EulerOS) environment ready to operate the verification.
 
-To experience the MindSpore Lite device-side inference process, please refer to the document [Quick Start to Device-Side Inference](https://www.mindspore.cn/lite/docs/en/master/quick_start/one_hour_introduction.html).
+To experience the MindSpore Lite device-side inference process, please refer to the document [Quick Start to Device-Side Inference](https://www.mindspore.cn/lite/docs/en/r2.1/quick_start/one_hour_introduction.html).
 
-We will demonstrate how to use MindSpore Lite distributions for integrated development and write your own inference programs, taking MindSpore Lite C++ interface for integration as an example. For detailed usage of MindSpore Lite C++ interface, users can refer to [Cloud-Side inference with C++ Interface](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_cpp.html).
+We will demonstrate how to use MindSpore Lite distributions for integrated development and write your own inference programs, taking MindSpore Lite C++ interface for integration as an example. For detailed usage of MindSpore Lite C++ interface, users can refer to [Cloud-Side inference with C++ Interface](https://www.mindspore.cn/lite/docs/en/r2.1/use/cloud_infer/runtime_cpp.html).
 
-In addition, users can use Python interface and Java interface of MindSpore Lite for integration. For details, please refer to [Cloud-side inference by using Python interface](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_python.html) and [Cloud-side inference by using Java interface](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_java.html).
+In addition, users can use Python interface and Java interface of MindSpore Lite for integration. For details, please refer to [Cloud-side inference by using Python interface](https://www.mindspore.cn/lite/docs/en/r2.1/use/cloud_infer/runtime_python.html) and [Cloud-side inference by using Java interface](https://www.mindspore.cn/lite/docs/en/r2.1/use/cloud_infer/runtime_java.html).
 
 ## Preparation
 
@@ -23,7 +23,7 @@ In addition, users can use Python interface and Java interface of MindSpore Lite
 
 2. Download distributions
 
-    Users can download the MindSpore Lite cloud-side inference package `mindspore-lite-{ version}-linux-{arch}.tar.gz` on the [download page](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) of MindSpore official website, `{arch}` for `x64` or `aarch64`. `x64` version supports Ascend, Nvidia GPU, CPU three hardware backends, `aarch64` only supports Ascend and CPU hardware backends.
+    Users can download the MindSpore Lite cloud-side inference package `mindspore-lite-{ version}-linux-{arch}.tar.gz` on the [download page](https://www.mindspore.cn/lite/docs/en/r2.1/use/downloads.html) of MindSpore official website, `{arch}` for `x64` or `aarch64`. `x64` version supports Ascend, Nvidia GPU, CPU three hardware backends, `aarch64` only supports Ascend and CPU hardware backends.
 
     The following is the contents of the `x64` tar package.
 
@@ -54,13 +54,13 @@ In addition, users can use Python interface and Java interface of MindSpore Lite
 
 3. Obtain model
 
-    MindSpore Lite cloud-side inference currently only supports MindIR model format of MindSpore. You can export MindIR model by MindSpore or get MindIR model by [model converter](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) to convert models in Tensorflow, Onnx, Caffe.
+    MindSpore Lite cloud-side inference currently only supports MindIR model format of MindSpore. You can export MindIR model by MindSpore or get MindIR model by [model converter](https://www.mindspore.cn/lite/docs/en/r2.1/use/cloud_infer/converter_tool.html) to convert models in Tensorflow, Onnx, Caffe.
 
     The model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir) can be downloaded as a sample model.
 
 4. Obtain sample
 
-    The sample code of this section is put in the directory [mindspore/lite/examples/cloud_infer/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_cpp).
+    The sample code of this section is put in the directory [mindspore/lite/examples/cloud_infer/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/r2.1/mindspore/lite/examples/cloud_infer/quick_start_cpp).
 
     ```text
     quick_start_cpp
@@ -163,7 +163,7 @@ export GLOG_v=2 # 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level
 
 We will demonstrate how to use MindSpore Lite distributions for integrated development and write your own inference programs, using MindSpore Lite C++ interface for integration as an example.
 
-Before integration, users can also directly use the [benchmark tool (benchmark)](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/benchmark_tool.html) distributed with the distribution to perform inference tests.
+Before integration, users can also directly use the [benchmark tool (benchmark)](https://www.mindspore.cn/lite/docs/en/r2.1/use/cloud_infer/benchmark_tool.html) distributed with the distribution to perform inference tests.
 
 ### Configuring CMake
 
@@ -304,7 +304,7 @@ The code function is parsed as follows:
 1. Initialize the Context configuration
 
     Context holds the relevant configurations needed for model inference, including operator preferences, number of threads, automatic concurrency, and other configurations related to the inference processor.
-    For more details about Context, please refer to [API interface description](https://mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) of Context.
+    For more details about Context, please refer to [API interface description](https://mindspore.cn/lite/api/en/r2.1/generate/classmindspore_Context.html) of Context.
     When loading the model in MindSpore Lite, an object of class `Context` must be provided, so in this example, an object `context` of class `Context` is first requested.
 
     ```cpp
@@ -332,7 +332,7 @@ The code function is parsed as follows:
 2. Load models
 
     First create the object `model` of a `Model` class, and the `Model` class defines the model in MindSpore for computational graph management.
-    For a detailed description of the `Model` class, please refer to the [API documentation](https://mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html).
+    For a detailed description of the `Model` class, please refer to the [API documentation](https://mindspore.cn/lite/api/en/r2.1/generate/classmindspore_Model.html).
 
     ```cpp
     mindspore::Model model;
@@ -348,7 +348,7 @@ The code function is parsed as follows:
 
     Before performing model inference, you need to set the input data for inference.
     In this example, all the input tensor of the model is obtained through the `Model.GetInputs` interface. The format of the individual tensor is `MSTensor`.
-    For a detailed description of the `MSTensor` tensor, please refer to the [API description](https://mindspore.cn/lite/api/en/master/generate/classmindspore_MSTensor.html) of `MSTensor`.
+    For a detailed description of the `MSTensor` tensor, please refer to the [API description](https://mindspore.cn/lite/api/en/r2.1/generate/classmindspore_MSTensor.html) of `MSTensor`.
 
     ```cpp
     auto inputs = model.GetInputs();

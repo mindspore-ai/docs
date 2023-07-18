@@ -1,6 +1,6 @@
 # Static Graph Syntax Support
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/static_graph_syntax_support.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/static_graph_syntax_support.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -8,9 +8,9 @@ In graph mode, Python code is not executed by the Python interpreter. Instead, t
 
 There are two ways to use the graph mode. The first way is to call the `@jit` decorator to modify a function or a class member method, and then the decorated function or method will be compiled into a static computation graph. The second way is to set `ms.set_context(mode=ms.GRAPH_MODE)`, then write the code in the `construct` function of the `Cell` so that the code in the `construct` function will be compiled into a static computation graph.
 
-For details about how to use `jit`, click [jit API document](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html#mindspore.jit).
+For details about how to use `jit`, click [jit API document](https://www.mindspore.cn/docs/en/r2.1/api_python/mindspore/mindspore.jit.html#mindspore.jit).
 
-For details about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html).
+For details about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/r2.1/api_python/nn/mindspore.nn.Cell.html).
 
 Due to syntax parsing restrictions, the supported data types, syntax, and related operations during graph building are not completely consistent with the Python syntax. As a result, some usage is restricted. JIT Fallback scheme considers the unification of static and dynamic graphs from the perspective of graph mode and extends the syntax capabilities of graph patterns. Borrowing the traditional JIT compilation idea, when it is found to be the Python syntax that is not supported in the graph mode, interpretation and execution are performed by Fallback. For more information, please refer to the [JIT Fallback](#jit-fallback) section.
 
@@ -697,7 +697,7 @@ Currently, MindSpore supports the following user-defined data types: `Tensor`, `
 
 Currently, tensors can be constructed in the network.
 
-For details of `Tensor`, click [Tensor API document](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor).
+For details of `Tensor`, click [Tensor API document](https://mindspore.cn/docs/en/r2.1/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor).
 
 #### Primitive
 
@@ -739,7 +739,7 @@ TypeError: Only supported positional parameter type for python primitive, but go
 
 Currently, the attributes and APIs related to `Primitive` and its subclasses cannot be called on the network.
 
-For details about the defined `Primitive`, click [Primitive API document](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive).
+For details about the defined `Primitive`, click [Primitive API document](https://www.mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive).
 
 #### Cell
 
@@ -749,13 +749,13 @@ However, during call, the parameter can be specified only in position parameter 
 
 Currently, the attributes and APIs related to `Cell` and its subclasses cannot be called on the network unless they are called through `self` in `construct` of `Cell`.
 
-For details about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html).
+For details about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/r2.1/api_python/nn/mindspore.nn.Cell.html).
 
 #### Parameter
 
 `Parameter` is a variable tensor, indicating the parameters that need to be updated during network training.
 
-For details about the definition of `Parameter`, click [Parameter API document](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter).
+For details about the definition of `Parameter`, click [Parameter API document](https://www.mindspore.cn/docs/en/r2.1/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter).
 
 ## Primaries
 
@@ -835,7 +835,7 @@ Index value of `List` refers to chapter [List](#list) of this page.
 
 Index value of `Dictionary` refers to chapter [Dictionary](#dictionary) of this page.
 
-Index value of `Tensor` refers to [Tensor index value document](https://www.mindspore.cn/docs/en/master/note/index_support.html#index-values).
+Index value of `Tensor` refers to [Tensor index value document](https://www.mindspore.cn/docs/en/r2.1/note/index_support.html#index-values).
 
 ### Calls
 
@@ -1182,7 +1182,7 @@ Parameter: `cond` -- Variables of `Bool` type and constants of `Bool`, `List`, `
 
 Restrictions:
 
-- If `cond` is not a constant, the variable or constant assigned to a same sign in different branches should have same data type. If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type. For shape consistency restrictions, please refer to [ShapeJoin Rules](https://www.mindspore.cn/tutorials/experts/en/master/network/control_flow.html#shapejoin-rules).
+- If `cond` is not a constant, the variable or constant assigned to a same sign in different branches should have same data type. If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type. For shape consistency restrictions, please refer to [ShapeJoin Rules](https://www.mindspore.cn/tutorials/experts/en/r2.1/network/control_flow.html#shapejoin-rules).
 
 Example 1:
 
@@ -1332,7 +1332,7 @@ Parameter: `cond` -- Variables of `Bool` type and constants of `Bool`, `List`, `
 
 Restrictions:
 
-- If `cond` is not a constant, the variable or constant assigned to a same sign inside body of `while` and outside body of `while` should have same data type.If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type. For shape consistency restrictions, please refer to [ShapeJoin Rules](https://www.mindspore.cn/tutorials/experts/en/master/network/control_flow.html#shapejoin-rules).
+- If `cond` is not a constant, the variable or constant assigned to a same sign inside body of `while` and outside body of `while` should have same data type.If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type. For shape consistency restrictions, please refer to [ShapeJoin Rules](https://www.mindspore.cn/tutorials/experts/en/r2.1/network/control_flow.html#shapejoin-rules).
 
 - The `while...else...` statement is not supported.
 
@@ -2839,20 +2839,20 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
 
 ### Instance Types on the Entire Network
 
-- Common Python function with the [@jit](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html) decorator.
+- Common Python function with the [@jit](https://www.mindspore.cn/docs/en/r2.1/api_python/mindspore/mindspore.jit.html) decorator.
 
-- Cell subclass inherited from [nn.Cell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html).
+- Cell subclass inherited from [nn.Cell](https://www.mindspore.cn/docs/en/r2.1/api_python/nn/mindspore.nn.Cell.html).
 
 ### Network Construction Components
 
 | Category                             | Content                                                      |
 | :----------------------------------- | :----------------------------------------------------------- |
-| `Cell` instance                      | [mindspore/nn/*](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html) and user-defined [Cell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html). |
+| `Cell` instance                      | [mindspore/nn/*](https://www.mindspore.cn/docs/en/r2.1/api_python/mindspore.nn.html) and user-defined [Cell](https://www.mindspore.cn/docs/en/r2.1/api_python/nn/mindspore.nn.Cell.html). |
 | Member function of a `Cell` instance | Member functions of other classes in the construct function of Cell can be called. |
-| `jit_class` instance                 | Class decorated with [@jit_class](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit_class.html). |
-| `Composite` operator                 | [mindspore/ops/operations/*](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.primitive.html) |
-| `Composite` operator                 | [mindspore/ops/composite/*](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.primitive.html) |
-| `constexpr` generation operator      | Value computation operator generated by [@constexpr](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.constexpr.html). |
+| `jit_class` instance                 | Class decorated with [@jit_class](https://www.mindspore.cn/docs/en/r2.1/api_python/mindspore/mindspore.jit_class.html). |
+| `Composite` operator                 | [mindspore/ops/operations/*](https://www.mindspore.cn/docs/en/r2.1/api_python/mindspore.ops.primitive.html) |
+| `Composite` operator                 | [mindspore/ops/composite/*](https://www.mindspore.cn/docs/en/r2.1/api_python/mindspore.ops.primitive.html) |
+| `constexpr` generation operator      | Value computation operator generated by [@constexpr](https://www.mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.constexpr.html). |
 | Function                             | User-defined Python functions and system functions listed in the preceding content. |
 
 ### Network Constraints
@@ -2888,7 +2888,7 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
 
 ### JIT Fallback
 
-In MindSpore static diagram mode, users need to follow MindSpore [static diagram syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html) when writing programs. Constraints exist on the use of the syntax.In dynamic graph mode, Python script code is executed according to the Python syntax, and users can use any Python syntax. It can be seen that the syntax constraint restrictions are different for static and dynamic graphs.
+In MindSpore static diagram mode, users need to follow MindSpore [static diagram syntax support](https://www.mindspore.cn/docs/en/r2.1/note/static_graph_syntax_support.html) when writing programs. Constraints exist on the use of the syntax.In dynamic graph mode, Python script code is executed according to the Python syntax, and users can use any Python syntax. It can be seen that the syntax constraint restrictions are different for static and dynamic graphs.
 
 JIT Fallback considers the unification of static and dynamic graphs from the perspective of static graphs. Through the JIT Fallback feature, static graphs can support as many dynamic diagram syntaxes as possible, making static graphs provide a syntax experience close to that of dynamic graphs, thus achieving dynamic unity. To facilitate the user's ability to choose to use the JIT Fallback feature, the JIT syntax support level option 'jit_syntax_level' is provided. The value must be in [STRICT(0), COMPATIBLE(1), LAX(2)]. Default: LAX(2). All levels support all backends.
 STRICT(0): Only basic syntax is supported, and execution performance is optimal.
@@ -2903,7 +2903,7 @@ The JIT Fallback feature is still being improved, and the following is a list of
 
 #### Creating and Using Tensor
 
-JIT Fallback supports creating and using [Tensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html) in static graph mode.
+JIT Fallback supports creating and using [Tensor](https://www.mindspore.cn/docs/en/r2.1/api_python/mindspore/mindspore.Tensor.html) in static graph mode.
 
 The code case is as follows, and `Tensor(1, dtype=mstype.int32)` is supported by JIT Fallback.
 
@@ -2931,7 +2931,7 @@ Output the result:
 
 The above example uses the interface of Tensor class to create a Tensor.
 In some cases, it may be necessary to create a Tensor at runtime.
-In this case, you can use either the aforementioned ms.Tensor interface or the [tensor function interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)to create a Tensor.
+In this case, you can use either the aforementioned ms.Tensor interface or the [tensor function interface](https://www.mindspore.cn/docs/en/r2.1/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)to create a Tensor.
 The code example is shown below.
 
 ```python
@@ -3043,9 +3043,9 @@ Output the result:
 
 #### Using Native Print Printing of Python
 
-JIT Fallback supports printing constants in static graph mode by using native print of Python, which is different from [Print operator](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Print.html) prints information at a different time. Python native print is triggered during compilation (at compiling time phase printing), while the Print operator requires the graph to be compiled and sent down to the device side to run before printing (at runtime phase printing).
+JIT Fallback supports printing constants in static graph mode by using native print of Python, which is different from [Print operator](https://www.mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.Print.html) prints information at a different time. Python native print is triggered during compilation (at compiling time phase printing), while the Print operator requires the graph to be compiled and sent down to the device side to run before printing (at runtime phase printing).
 
-For the sake of understanding, the following examples are given. tensor_sum involves Tensor summing, i.e. the runtime phase to get the result. When calling print, the actual call is the Print operator in the static graph mode. Refer to [static graph syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html). And np_num is the result of adding up two NumPy constants, i.e., the usage supported by JIT Fallback, so when calling print, the native Python print is used. Because of the different timing of the two prints, it ends up showing np_sum before tensor_sum, i.e. the print result of Python native print supported by JIT Fallback will be before the Print operator.
+For the sake of understanding, the following examples are given. tensor_sum involves Tensor summing, i.e. the runtime phase to get the result. When calling print, the actual call is the Print operator in the static graph mode. Refer to [static graph syntax support](https://www.mindspore.cn/docs/en/r2.1/note/static_graph_syntax_support.html). And np_num is the result of adding up two NumPy constants, i.e., the usage supported by JIT Fallback, so when calling print, the native Python print is used. Because of the different timing of the two prints, it ends up showing np_sum before tensor_sum, i.e. the print result of Python native print supported by JIT Fallback will be before the Print operator.
 
 ```python
 import numpy as np
@@ -3139,7 +3139,7 @@ AssertionError.
 
 #### Calling Python Built-in Functions
 
-MindSpore supports some Python built-in functions in static graph mode, including but not limited to len, isinstance, map, zip, etc. Please refer to [static graph syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html). With JIT Fallback, more uses of Python built-in functions can be supported in constant scenarios. Here is a brief example of some of the supported Python built-in functions.
+MindSpore supports some Python built-in functions in static graph mode, including but not limited to len, isinstance, map, zip, etc. Please refer to [static graph syntax support](https://www.mindspore.cn/docs/en/r2.1/note/static_graph_syntax_support.html). With JIT Fallback, more uses of Python built-in functions can be supported in constant scenarios. Here is a brief example of some of the supported Python built-in functions.
 
 ##### dict()
 

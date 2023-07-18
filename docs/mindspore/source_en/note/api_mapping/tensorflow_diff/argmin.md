@@ -1,6 +1,6 @@
 # Function Differences with tf.math.argmin
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/argmin.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/argmin.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## tf.math.argmin
 
@@ -21,7 +21,7 @@ For more information, see [tf.math.argmin](https://tensorflow.google.cn/versions
 mindspore.ops.argmin(x, axis=None, keepdims=False) -> Tensor
 ```
 
-For more information, see [mindspore.ops.argmin](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.argmin.html).
+For more information, see [mindspore.ops.argmin](https://www.mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.argmin.html).
 
 ## Differences
 
@@ -39,7 +39,7 @@ MindSpore: MindSpore API basically implements the same function as TensorFlow. T
 
 ### Code Example 1
 
-> Whne TensorFlow argmin operator does not explicitly give the axis parameter, the computation result is the index of the minimum value when axis is 0 by default, while MindSpore returns the index of the smallest value when axis is -1 by default. Therefore, in order to get the same result, the mindspore.ops.argmin operator axis is assigned to 0 before the calculation, and to ensure that the output types are the same, use [mindspore.ops.Cast](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Cast.html) operator to convert the result of MindSpore to mindspore.int64.
+> Whne TensorFlow argmin operator does not explicitly give the axis parameter, the computation result is the index of the minimum value when axis is 0 by default, while MindSpore returns the index of the smallest value when axis is -1 by default. Therefore, in order to get the same result, the mindspore.ops.argmin operator axis is assigned to 0 before the calculation, and to ensure that the output types are the same, use [mindspore.ops.Cast](https://mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.Cast.html) operator to convert the result of MindSpore to mindspore.int64.
 
 ```python
 # TensorFlow
@@ -110,7 +110,7 @@ print(ms_out_np)
 
 ### Code Example 3
 
-> The TensorFlow parameter output_type is used to specify the output data type, and the default is tf.int64. The default value of the MindSpore parameter output_type is mindspore.int32. To ensure that the two output types are the same, use the [mindspore.ops.Cast](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Cast.html) operator to convert the MindSpore into mindspore.int64. The TensorFlow parameter name is used to define the name of the executed operation and does not affect the result, while MindSpore does not have this parameter.
+> The TensorFlow parameter output_type is used to specify the output data type, and the default is tf.int64. The default value of the MindSpore parameter output_type is mindspore.int32. To ensure that the two output types are the same, use the [mindspore.ops.Cast](https://mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.Cast.html) operator to convert the MindSpore into mindspore.int64. The TensorFlow parameter name is used to define the name of the executed operation and does not affect the result, while MindSpore does not have this parameter.
 
 ```python
 # TensorFlow

@@ -1,6 +1,6 @@
 # 比较与torch.optim.Rprop的差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Rprop.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Rprop.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
 
 ## torch.optim.Rprop
 
@@ -27,7 +27,7 @@ class mindspore.nn.Rprop(
 )
 ```
 
-更多内容详见[mindspore.nn.Rprop](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Rprop.html#mindspore.nn.Rprop)。
+更多内容详见[mindspore.nn.Rprop](https://mindspore.cn/docs/zh-CN/r2.1/api_python/nn/mindspore.nn.Rprop.html#mindspore.nn.Rprop)。
 
 ## 差异对比
 

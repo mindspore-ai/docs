@@ -1,6 +1,6 @@
 # Differences with torch.isclose
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/isclose.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/isclose.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png"></a>
 
 ## torch.isclose
 
@@ -16,7 +16,7 @@ For more information, see [torch.isclose](https://pytorch.org/docs/1.8.1/generat
 mindspore.ops.isclose(x1, x2, rtol=1e-05, atol=1e-08, equal_nan=False) -> Tensor
 ```
 
-For more information, see [mindspore.ops.isclose](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.isclose.html)。
+For more information, see [mindspore.ops.isclose](https://www.mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.isclose.html)。
 
 ## Differences
 
