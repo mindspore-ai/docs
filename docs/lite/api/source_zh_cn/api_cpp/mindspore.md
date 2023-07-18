@@ -38,6 +38,12 @@
 | [mindspore::Format](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_format.html) | MindSpore MSTensor保存的数据支持的排列格式。 | √      | √      |
 | [Allocator](#allocator-1)                          | 内存管理基类。                                           | √      | √      |
 
+### 模型分组
+
+| 类名                                       | 描述                  | 云侧推理是否支持 | 端侧推理是否支持 |
+|-------------------------------------------|-------------------- --|--------|--------|
+| [ModelGroup](#modelgroup)                 | 模型分组。              |    √   |  ✕     |
+
 ### 状态
 
 | 类名                                               | 描述                                                | 云侧推理是否支持 | 端侧推理是否支持 |
@@ -3710,3 +3716,94 @@ std::vector<MSTensor> GetOutputs()
 - 返回值
 
   包含模型所有输出张量的容器类型变量。
+
+## ModelGroup
+
+\#include &lt;[model_group.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/model_group.h)&gt;
+
+ModelGroup 类定义MindSpore Lite模型分组信息，用于共享工作空间（Workspace）内存或者权重（包括常量和变量）内存。
+
+### 构造函数和析构函数
+
+```cpp
+ModelGroup(ModelGroupFlag flags = ModelGroupFlag::kShareWorkspace)
+~ModelGroup()
+```
+
+- 参数
+
+    - `flags`: 指示 ModelGroup 的类型，取值 ``ModelGroupFlag::kShareWorkspace`` ， ``ModelGroupFlag::kShareWorkspace`` 。默认 ``ModelGroupFlag::kShareWorkspace`` 。
+
+### 公有成员函数
+
+| 函数                   | 云侧推理是否支持 | 端侧推理是否支持 |
+|-------------------------------------------------------------|---------|---------|
+| [Status AddModel(const std::vector<std::string> &model_path_list)](#add_model)     |    √    |    ✕    |
+| [Status AddModel(const std::vector<std::pair<const void *, size_t>> &model_buff_list)](#add_model-1)     |    √    |    ✕    |
+| [Status AddModel(const std::vector<Model> &model_list)](#add_model-2)     |    √    |    ✕    |
+| [Status CalMaxSizeOfWorkspace(ModelType model_type, const std::shared_ptr<Context> &ms_context)](#calmaxsizeofworkspace)     |    √    |    ✕    |
+
+#### AddModel
+
+```cpp
+Status AddModel(const std::vector<std::string> &model_path_list)
+```
+
+共享工作空间内存时，添加需要共享工作空间内存的模型路径。
+
+- 参数
+
+    - `model_path_list`: 需要共享工作空间内存的模型路径。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### AddModel
+
+```cpp
+Status AddModel(const std::vector<std::pair<const void *, size_t>> &model_buff_list)
+```
+
+共享工作空间内存时，添加需要共享工作空间内存的模型缓存。
+
+- 参数
+
+    - `model_buff_list`: 需要共享工作空间内存的模型缓存。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### AddModel
+
+```cpp
+Status AddModel(const std::vector<Model> &model_list)
+```
+
+共享权重内存时，添加需要共享权重内存的模型对象。
+
+- 参数
+
+    - `model_list`: 需要共享权重内存的模型对象[Model](#model)列表。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### CalMaxSizeOfWorkspace
+
+```cpp
+Status CalMaxSizeOfWorkspace(ModelType model_type, const std::shared_ptr<Context> &ms_context)
+```
+
+共享工作空间内存时，计算最大的工作空间内存大小。
+
+- 参数
+
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR_Lite`、`ModelType::kMindIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。在端侧和云侧推理包中，端侧推理只支持`ms`模型推理，该入参值被忽略。云端推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。云侧推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行云侧推理。
+    - `model_context`: 模型[Context](#context)。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
