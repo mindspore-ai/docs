@@ -77,6 +77,8 @@ autodoc_inherit_docstrings = False
 
 autosummary_generate = True
 
+autosummary_generate_overwrite = False
+
 html_search_language = 'zh'
 
 html_search_options = {'dict': '../../../../resource/jieba.txt'}
