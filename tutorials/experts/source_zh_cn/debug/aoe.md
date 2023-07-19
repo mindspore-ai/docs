@@ -10,13 +10,23 @@ AOE（Ascend Optimization Engine）是一款自动调优工具，作用是充分
 
 1. 在线调优
 
-    在set_context接口中设置`aoe_tune_mode`，即可开启AOE工具进行在线调优。`aoe_tune_mode`的取值应为`online`。其中：
+    在set_context接口中设置`aoe_tune_mode`，即可开启AOE工具进行在线调优。`aoe_tune_mode`的取值应当在`["online", "offline"]`中。其中：
+
+    online：开启在线调优。
+
+    offline：为离线调优保存GE图。当设置了保存图的路径，图保存在指定路径的aoe_dump目录下；否则保存在当前运行目录下面的aoe_dump下。
+
+    在set_context接口中设置`aoe_config`，可设置调优配置。`job_type`是设置调优类型，取值在`["1", "2"]`中，默认值是`2`。其中：
+
+    1：表示子图调优。
+
+    2：表示算子调优。
 
     举例在线调优的使用方法：
 
     ```python
     import mindspore as ms
-    ms.set_context(aoe_tune_mode="online")
+    ms.set_context(aoe_tune_mode="online", aoe_config={"job_type": "2"})
     ....
     ```
 

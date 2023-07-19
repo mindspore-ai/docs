@@ -10,13 +10,23 @@ Ascend Optimization Engine (AOE) is an automatic tuning tool that makes full use
 
 1. Online Tune
 
-  Set `aoe_tune_mode` in set_context to turn on Online tune. The value of `auto_tune_mode` should be `online`.
+  Set `aoe_tune_mode` the set_context to enable the AOE tool for online tuning. The value of `aoe_tune_mode` should be in `["online", "offline"]`.
+
+  online: turn on online tuning.
+
+  offline：save GE graph for offline tune. Save GE graph for offline tune. When the path to save the graph is set, the graph is saved in the aoe_dump directory of the specified path; otherwise, it is saved in the aoe_dump directory under the current running directory.
+
+  Set `aoe_config` in set_context for tuning configuration. `job_type` is tuning type，and the value should be in `["1", "2"]`，default value is `2`.
+
+  1: subgraph tune.
+
+  2: operator tune.
 
   Example of online tuning:
 
   ```python
   import mindspore as ms
-  ms.set_context(aoe_tune_mode="online")
+  ms.set_context(aoe_tune_mode="online", aoe_config={"job_type": "2"})
   ....
   ```
 
