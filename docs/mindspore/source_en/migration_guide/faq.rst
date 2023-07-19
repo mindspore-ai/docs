@@ -8,7 +8,6 @@ FAQs
   :maxdepth: 1
   :hidden:
 
-  typical_api_comparision
   use_third_party_op
   tensorflow2mindspore
 
