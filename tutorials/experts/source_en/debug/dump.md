@@ -238,7 +238,7 @@ In order to better demonstrate the process of using dump to save and analyze dat
 
 After the graph corresponding to the script is saved to the disk through the Dump function, the final execution graph file `ms_output_trace_code_graph_{graph_id}.ir` will be generated. This file saves the stack information of each operator in the corresponding graph, and records the generation script corresponding to the operator.
 
-Take [AlexNet script](https://gitee.com/mindspore/docs/tree/r2.1/docs/sample_code) as an example:
+Take [AlexNet script](https://gitee.com/mindspore/docs/tree/r2.1/docs/sample_code/dump/train_alexnet.py) as an example:
 
 ```python
 ...
@@ -272,7 +272,7 @@ class AlexNet(nn.Cell):
         self.conv4 = conv(384, 384, 3, pad_mode="same")
         self.conv5 = conv(384, 256, 3, pad_mode="same")
         self.relu = nn.ReLU()
-        self.max_pool2d = ops.MaxPool(kernel_size=3, strides=2)
+        self.max_pool2d = nn.MaxPool2d(kernel_size=3, stride=2)
         self.flatten = nn.Flatten()
         self.fc1 = fc_with_initialize(6 * 6 * 256, 4096)
         self.fc2 = fc_with_initialize(4096, 4096)
