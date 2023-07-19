@@ -32,6 +32,23 @@ with open(_html_base.__file__, "r+", encoding="utf-8") as f:
     code_str = code_str.replace(old_str, new_str)
     exec(code_str, _html_base.__dict__)
 
+# Fix mathjax tags
+from sphinx.ext import mathjax as sphinx_mathjax
+
+with open(sphinx_mathjax.__file__, "r", encoding="utf-8") as f:
+    code_str = f.read()
+    old_str = r'''        if r'\\' in part:
+            self.body.append(r'\begin{split}' + part + r'\end{split}')'''
+    new_str = r'''        if r'\\' in part:
+            if r'\tag{' in part:
+                part1, part2 = part.split(r'\tag{')
+                self.body.append(r'\begin{split}' + part1 + r'\end{split}' + r'\tag{' +part2)
+            else:
+                self.body.append(r'\begin{split}' + part + r'\end{split}')'''
+    code_str = code_str.replace(old_str, new_str)
+    exec(code_str, sphinx_mathjax.__dict__)
+
+
 from sphinx import directives
 with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
     exec(f.read(), directives.__dict__)
@@ -85,21 +102,6 @@ with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
     code_str = f.read()
     exec(code_str, sphinx_autodoc.__dict__)
 
-# Fix mathjax tags
-from sphinx.ext import mathjax as sphinx_mathjax
-
-with open(sphinx_mathjax.__file__, "r", encoding="utf-8") as f:
-    code_str = f.read()
-    old_str = r'''        if r'\\' in part:
-            self.body.append(r'\begin{split}' + part + r'\end{split}')'''
-    new_str = r'''        if r'\\' in part:
-            if r'\tag{' in part:
-                part1, part2 = part.split(r'\tag{')
-                self.body.append(r'\begin{split}' + part1 + r'\end{split}' + r'\tag{' +part2)
-            else:
-                self.body.append(r'\begin{split}' + part + r'\end{split}')'''
-    code_str = code_str.replace(old_str, new_str)
-    exec(code_str, sphinx_mathjax.__dict__)
 
 # -- Project information -----------------------------------------------------
 
@@ -116,6 +118,8 @@ release = 'master'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
+
+myst_update_mathjax = False
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
@@ -125,7 +129,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
-    'sphinx_markdown_tables',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -179,7 +182,7 @@ html_search_language = 'zh'
 html_search_options = {'dict': '../../resource/jieba.txt'}
 
 sys.path.append(os.path.abspath('../../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 import nbsphinx_mod
 
 sys.path.append(os.path.abspath('../../../resource/custom_directives'))
@@ -339,9 +342,9 @@ def setup(app):
     app.add_directive('mscnnoteautosummary', MsCnNoteAutoSummary)
     app.add_config_value('rst_files', set(), False)
     app.add_directive('includecode', IncludeCodeDirective)
-    app.add_stylesheet('css/bootstrap.min.css')
-    app.add_stylesheet('css/training.css')
-    app.add_javascript('js/training.js')
+    app.add_css_file('css/bootstrap.min.css')
+    app.add_css_file('css/training.css')
+    app.add_js_file('js/training.js')
 
 
 # Convert encoding for api files.
