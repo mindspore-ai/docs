@@ -12,6 +12,132 @@
 
 本文主要介绍，在编译静态图时，支持的数据类型、语法以及相关操作，这些规则仅适用于Graph模式。
 
+## 静态图内的常量与变量
+
+在静态图中，常量与变量是理解静态图语法的一个重要概念，很多语法在常量输入和变量输入情况下支持的方法与程度是不同的。因此，在介绍静态图具体支持的语法之前，本小节先会对静态图中常量与变量的概念进行说明。
+
+在静态图模式下，一段程序的运行会被分为编译期以及执行期。 在编译期，程序会被编译成一张中间表示图，并且程序不会真正的执行，而是通过抽象推导的方式对中间表示进行静态解析。这使得在编译期时，我们无法保证能获取到所有中间表示中节点的值。 常量和变量也就是通过能否能在编译器获取到其真实值来区分的。
+
+- 常量： 编译期内可以获取到值的量。
+- 变量： 编译期内无法获取到值的量。
+
+在有些情况下，一个量是常量还是变量是很难判断的，此时我们可以通过`ops.isconstant`来判断其是否为常量。例如：
+
+```python
+from mindspore import Tensor, jit, ops
+
+a = Tensor([1])
+
+@jit
+def foo(a):
+    b = Tensor([2])
+    m = ops.isconstant(a)
+    n = ops.isconstant(b)
+    return m, n
+```
+
+上述代码中，`a`为变量，因此`m`为`False`。`b`为常量，因此`n`为`True`。
+
+### 常量产生场景
+
+- 作为图模式输入的标量，列表以及元组均为常量（在不使用mutable接口的情况下）。例如：
+
+  ```python
+  from mindspore import Tensor, jit
+
+  a = 1
+  b = [Tensor([1]), Tensor([2])]
+  c = ["a", "b", "c"]
+
+  @jit
+  def foo(a, b, c):
+      return a, b, c
+  ```
+
+上述代码中，输入`a`，`b`，`c`均为常量。
+
+- 图模式内生成的标量或者Tensor为常量。例如：
+
+  ```python
+  from mindspore import jit, Tensor
+
+  @jit
+  def foo():
+      a = 1
+      b = "2"
+      c = Tensor([1, 2, 3])
+      return a, b, c
+  ```
+
+上述代码中， `a`，`b`，`c`均为常量。
+
+- 常量运算得到的结果为常量。例如：
+
+  ```python
+  from mindspore import jit, Tensor
+
+  @jit
+  def foo():
+      a = Tensor([1, 2, 3])
+      b = Tensor([1, 1, 1])
+      c = a + b
+      return c
+  ```
+
+上述代码中，`a`、`b`均为图模式内产生的Tensor为常量，因此其计算得到的结果也是常量。但如果其中之一为变量时，其返回值也会为变量。
+
+### 变量产生场景
+
+- 所有mutable接口的返回值均为变量(无论是在图外使用mutable还是在图内使用)。例如：
+
+  ```python
+  from mindspore import Tensor, jit
+  from mindspore.common import mutable
+
+  a = mutable([Tensor([1]), Tensor([2])])
+
+  @jit
+  def foo(a):
+      b = mutable(Tensor([3]))
+      c = mutable((Tensor([1]), Tensor([2])))
+      return a, b, c
+  ```
+
+上述代码中，`a`是在图外调用mutable接口的，`b`和`c`是在图内调用mutable接口生成的，`a`、`b`、`c`均为变量。
+
+- 作为静态图的输入的Tensor都是变量。例如：
+
+  ```python
+  from mindspore import Tensor, jit
+
+  a = Tensor([1])
+  b = (Tensor([1]), Tensor([2]))
+
+  @jit
+  def foo(a, b):
+      return a, b
+  ```
+
+上述代码中，`a`是作为图模式输入的Tensor，因此其为变量。但`b`是作为图模式输入的元组，非Tensor类型，即使其内部的元素均为Tensor，`b`也是常量。
+
+- 通过变量计算得到的是变量
+
+如果一个量是算子的输出，那么其多数情况下为常量。例如：
+
+  ```python
+  from mindspore import Tensor, jit, ops
+
+  a = Tensor([1])
+  b = Tensor([2])
+
+  @jit
+  def foo(a, b):
+      c = a + b
+      return a, b
+  ```
+
+在这种情况下，`c`是`a`和`b`计算来的结果，且用来计算的输入`a`、`b`均为变量，因此`c`也是变量。
+
 ## 数据类型
 
 ### Python内置数据类型
