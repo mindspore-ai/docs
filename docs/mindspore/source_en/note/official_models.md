@@ -319,8 +319,8 @@ The following results are tested on Ascend 910 with COCO2017.
 | Computational Biology | [*ColabDesign](https://gitee.com/mindspore/mindscience/tree/r0.2.0/MindSPONGE/applications/research/Colabdesign)           |   ✅   | ✅ | Float 16/32 |
 | Computational Biology | [*DeepDR](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/DeepDR/README.md#)           |   ✅   | ✅ | Float 16/32 |
 | Computational Biology | [*DeepFRI](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/DeepFRI/README_CN.md#)      |   ✅   | ✅ | Float 16/32 |
-| Computational Biology | [*iterative Folding Assisted peak ASsignmenT](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/FAAST/README_CN.md#)          |   ✅   | ✅ | Float 16/32 |
-| Computational Biology | [*JT-VAE](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/JT-VAE/README.md#)           |   ✅   | ✅ |  Float 32  |
+| Computational Biology | [*iterative Folding Assisted peak ASsignmenT](https://gitee.com/mindspore/mindscience/blob/r0.3/MindSPONGE/applications/research/FAAST/README_CN.md#)          |   ✅   | ✅ | Float 16/32 |
+| Computational Biology | [*JT-VAE](https://gitee.com/mindspore/mindscience/blob/r0.3/MindSPONGE/applications/research/JT-VAE/README.md#)           |   ✅   | ✅ |  Float 32  |
 | Computational Biology | [*Knowledge Graph Neural Network](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/KGNN/README.md#)               |   ✅   | ✅ | Float 16/32 |
 | Computational Biology | [*MG-BERT](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/MG_BERT/README.md#)         |   ✅   | ✅ | Float 16/32 |
 | Computational Biology | [*Multimer](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/Multimer/README.md#)       |   ✅   | ✅ | Float 16/32 |

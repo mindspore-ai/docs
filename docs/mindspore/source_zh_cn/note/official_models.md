@@ -319,8 +319,8 @@
 | 计算生物 | [*ColabDesign](https://gitee.com/mindspore/mindscience/tree/r0.2.0/MindSPONGE/applications/research/Colabdesign)           |   ✅   | ✅ | Float 16/32 |
 | 计算生物 | [*DeepDR](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/DeepDR/README.md#)           |   ✅   | ✅ | Float 16/32 |
 | 计算生物 | [*DeepFRI](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/DeepFRI/README_CN.md#)      |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*iterative Folding Assisted peak ASsignmenT](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/FAAST/README_CN.md#)          |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*JT-VAE](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/JT-VAE/README.md#)           |   ✅   | ✅ |  Float 32  |
+| 计算生物 | [*iterative Folding Assisted peak ASsignmenT](https://gitee.com/mindspore/mindscience/blob/r0.3/MindSPONGE/applications/research/FAAST/README_CN.md#)          |   ✅   | ✅ | Float 16/32 |
+| 计算生物 | [*JT-VAE](https://gitee.com/mindspore/mindscience/blob/r0.3/MindSPONGE/applications/research/JT-VAE/README.md#)           |   ✅   | ✅ |  Float 32  |
 | 计算生物 | [*Knowledge Graph Neural Network](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/KGNN/README.md#)               |   ✅   | ✅ | Float 16/32 |
 | 计算生物 | [*MG-BERT](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/MG_BERT/README.md#)         |   ✅   | ✅ | Float 16/32 |
 | 计算生物 | [*Multimer](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/Multimer/README.md#)       |   ✅   | ✅ | Float 16/32 |
