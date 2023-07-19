@@ -3,7 +3,7 @@
 
 .. currentmodule:: {{ module }}
 
-{% if objname in "GraphData CelebADataset Cifar100Dataset Cifar10Dataset CocoDataset ImageFolderDataset MnistDataset VOCDataset" %}
+{% if objname in "CelebADataset Cifar100Dataset Cifar10Dataset CocoDataset ImageFolderDataset MnistDataset VOCDataset" %}
 
 {{ fullname | underline }}
 
