@@ -87,14 +87,14 @@ MindSpore安装教程请参考\ `MindSpore官网 <https://www.mindspore.cn/insta
 
   若使用传统分子动力学sponge，开启编译选项 ``t``\ 。
 
-  .. code:: bash
+  .. code::
 
       export CUDA_PATH={your_cuda_path}
       bash build.sh -e gpu -j32 -t on -c on
 
 - 安装编译所得whl包
 
-  .. code:: bash
+  .. code::
 
       cd output/
       pip install mindsponge*.whl

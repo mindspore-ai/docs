@@ -46,8 +46,8 @@ bash build.sh -I x86_64 -j8
 ```text
 MNIST_Data/
 ├── test
-│   ├── t10k-images-idx3-ubyte
-│   └── t10k-labels-idx1-ubyte
+│   ├── t10k-images-idx3-ubyte
+│   └── t10k-labels-idx1-ubyte
 └── train
     ├── train-images-idx3-ubyte
     └── train-labels-idx1-ubyte
@@ -106,18 +106,18 @@ train_lenet_java
 ├── pom.xml
 ├── prepare_and_run.sh
 ├── resources
-│   └── model
-│       └── lenet_tod.ms   # LeNet训练模型
+│   └── model
+│       └── lenet_tod.ms   # LeNet训练模型
 ├── src
-│   └── main
-│       └── java
-│           └── com
-│               └── mindspore
-│                   └── lite
-│                       ├── train_lenet
-│                       │   ├── DataSet.java      # MNIST数据集处理
-│                       │   ├── Main.java         # Main函数
-│                       │   └── NetRunner.java    # 整体训练流程
+│   └── main
+│       └── java
+│           └── com
+│               └── mindspore
+│                   └── lite
+│                       ├── train_lenet
+│                       │   ├── DataSet.java      # MNIST数据集处理
+│                       │   ├── Main.java         # Main函数
+│                       │   └── NetRunner.java    # 整体训练流程
 
 ```
 
