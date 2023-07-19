@@ -170,9 +170,9 @@ $(function() {
 			pageList += '<li class="nex"><a href="javascript:;" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>'
 			// 首页加亮显示
 			if (all_article > 0){
-				$('#pageNav').html(pageList).find('li').eq(2).addClass('active');
+				$('#pageNav').empty().append(pageList).find('li').eq(2).addClass('active');
 			}else{
-				$('#pageNav').html('<li class="disabled"><span>' + 'Total ' + all_article + ' Result(s)' +  '</span></li>');
+				$('#pageNav').empty().append('<li class="disabled"><span>' + 'Total ' + all_article + ' Result(s)' +  '</span></li>');
 			}
 			
 			// 标签页的点击事件

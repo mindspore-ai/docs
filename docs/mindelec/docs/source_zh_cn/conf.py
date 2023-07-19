@@ -72,6 +72,8 @@ autodoc_inherit_docstrings = False
 
 autosummary_generate = True
 
+autosummary_generate_overwrite = False
+
 # -- Options for HTML output -------------------------------------------------
 
 # Reconstruction of sphinx auto generated document translation.
