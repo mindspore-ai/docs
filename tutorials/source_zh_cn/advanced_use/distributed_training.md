@@ -37,8 +37,8 @@ MindSpore支持数据并行及自动并行。自动并行是MindSpore融合了�
             "group_name": "",
             "instance_count": "2",
             "instance_list": [
-                     {"devices":[{"device_id":"0","device_ip":"192.1.27.6"}],"rank_id":"0","server_id":"10.155.111.140"},
-                     {"devices":[{"device_id":"1","device_ip":"192.2.27.6"}],"rank_id":"1","server_id":"10.155.111.140"}
+                     {"devices":[{"device_id":"0","device_ip":"192.1.27.6"}],"rank_id":"0","server_id":"10.*.*.*"},
+                     {"devices":[{"device_id":"1","device_ip":"192.2.27.6"}],"rank_id":"1","server_id":"10.*.*.*"}
                ]
         }
     ],
