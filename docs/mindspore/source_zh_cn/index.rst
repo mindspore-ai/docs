@@ -52,7 +52,6 @@ MindSpore 文档
    api_python/mindspore.boost
    api_python/mindspore.numpy
    api_python/mindspore.scipy
-   C++ API↗ <https://www.mindspore.cn/lite/api/zh-CN/r2.1/api_cpp/mindspore.html>
 
 .. toctree::
    :glob:
