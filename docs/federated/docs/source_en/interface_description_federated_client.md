@@ -91,7 +91,7 @@ The sample code (basic http communication) is as follows:
    String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // Absolute path, consistent with trainModelPath
    String sslProtocol = "TLSv1.2";
    String deployEnv = "android";
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
    boolean ifUseElb = true;
    int serverNum = 4;
    int threadNum = 4;
@@ -139,7 +139,7 @@ The sample code (basic http communication) is as follows:
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      // Absolute path, consistent with trainModelPath
    String sslProtocol = "TLSv1.2";
    String deployEnv = "android";
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
    boolean ifUseElb = true;
    int serverNum = 4;
    int threadNum = 4;
@@ -299,7 +299,7 @@ The sample code is as follows:
    String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // Absolute path, consistent with trainModelPath
    String sslProtocol = "TLSv1.2";
    String deployEnv = "android";
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
    boolean ifUseElb = true;
    int serverNum = 4;
    ServerMod serverMod = ServerMod.FEDERATED_LEARNING;
@@ -328,7 +328,7 @@ The sample code is as follows:
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                             // Absolute path, consistent with trainModelPath
    String sslProtocol = "TLSv1.2";
    String deployEnv = "android";
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
    boolean ifUseElb = true;
    int serverNum = 4
    ServerMod serverMod = ServerMod.FEDERATED_LEARNING;

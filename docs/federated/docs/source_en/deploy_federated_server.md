@@ -185,7 +185,7 @@ redis-server --port 23456 --save ""
     ```python
     python run_sched.py \
     --yaml_config="yamls/lenet.yaml" \
-    --scheduler_manage_address="10.113.216.40:18019"
+    --scheduler_manage_address="10.*.*.*:18019"
     ```
 
 5. Run Server, and start one Server and the HTTP server address is `127.0.0.1:6666` by default.
@@ -193,10 +193,10 @@ redis-server --port 23456 --save ""
     ```python
     python run_server.py \
     --yaml_config="yamls/lenet.yaml" \
-    --tcp_server_ip="10.113.216.40" \
+    --tcp_server_ip="10.*.*.*" \
     --checkpoint_dir="fl_ckpt" \
     --local_server_num=1 \
-    --http_server_address="10.113.216.40:8019"
+    --http_server_address="10.*.*.*:8019"
     ```
 
 6. Stop federated learning. The current version of the federated learning cluster is a resident process, and the `finish_cloud.py` script can be executed to terminate the federated learning service. The example of executing the command is as follows, where `redis_port` is passed with the same parameters as when starting redis, representing stopping the cluster corresponding to this `Scheduler`.
@@ -231,7 +231,7 @@ The following example describes how to control scale-out and scale-in of cluster
 After the cluster starts, enter the machine where the scheduler node is deployed and make a request to the `Scheduler` to query the status and node information. A `RESTful` request can be constructed with the `curl` command.
 
 ```sh
-curl -k 'http://10.113.216.40:18015/state'
+curl -k 'http://10.*.*.*:18015/state'
 ```
 
 `Scheduler` will return query results in `json` format.
@@ -252,7 +252,7 @@ curl -k 'http://10.113.216.40:18015/state'
 You need to pull up 3 new `Server` processes and accumulate the `local_server_num` parameter to the number of scale-out, so as to ensure the correctness of the global networking information, i.e. after scale-out, the number of `local_server_num` should be 4. An example of executing the command is as follows:
 
 ```sh
-python run_server.py --yaml_config="yamls/lenet.yaml" --tcp_server_ip="10.113.216.40" --checkpoint_dir="fl_ckpt" --local_server_num=4 --http_server_address="10.113.216.40:18015"
+python run_server.py --yaml_config="yamls/lenet.yaml" --tcp_server_ip="10.*.*.*" --checkpoint_dir="fl_ckpt" --local_server_num=4 --http_server_address="10.*.*.*:18015"
 ```
 
 This command indicates starting four `Server` nodes and the total number of `Server` is 4.
@@ -263,7 +263,7 @@ Simulate the scale-in directly via kill -9 pid, construct a `RESTful` request wi
 
 ```sh
 curl -k \
-'http://10.113.216.40:18015/state'
+'http://10.*.*.*:18015/state'
 ```
 
 `Scheduler` returns the query results in `json` format.

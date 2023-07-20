@@ -185,7 +185,7 @@ redis-server --port 23456 --save ""
     ```python
     python run_sched.py \
     --yaml_config="yamls/lenet.yaml" \
-    --scheduler_manage_address="10.113.216.40:18019"
+    --scheduler_manage_address="10.*.*.*:18019"
     ```
 
 5. 运行Server，默认启动1个Server，HTTP服务器地址默认为`127.0.0.1:6666`。
@@ -193,10 +193,10 @@ redis-server --port 23456 --save ""
     ```python
     python run_server.py \
     --yaml_config="yamls/lenet.yaml" \
-    --tcp_server_ip="10.113.216.40" \
+    --tcp_server_ip="10.*.*.*" \
     --checkpoint_dir="fl_ckpt" \
     --local_server_num=1 \
-    --http_server_address="10.113.216.40:8019"
+    --http_server_address="10.*.*.*:8019"
     ```
 
 6. 停止联邦学习。当前版本联邦学习集群为常驻进程，可执行`finish_cloud.py`脚本，以终止联邦学习服务。执行指令的示例如下，其中`redis_port`传参，需与启动redis时的传参保持一致，代表停止此`Scheduler`对应的集群。
@@ -231,7 +231,7 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
 在集群启动后，进入部署scheduler节点的机器，向`Scheduler`发起请求，查询状态、节点信息.可使用`curl`指令构造`RESTful`请求。
 
 ```sh
-curl -k 'http://10.113.216.40:18015/state'
+curl -k 'http://10.*.*.*:18015/state'
 ```
 
 `Scheduler`将返回`json`格式的查询结果。
@@ -252,7 +252,7 @@ curl -k 'http://10.113.216.40:18015/state'
 需要拉起3个新的`Server`进程，并将`local_server_num`参数累加扩容的个数，从而保证全局组网信息的正确性，即扩容后，`local_server_num`的数量应为4，执行指令的示例如下：
 
 ```sh
-python run_server.py --yaml_config="yamls/lenet.yaml" --tcp_server_ip="10.113.216.40" --checkpoint_dir="fl_ckpt" --local_server_num=4 --http_server_address="10.113.216.40:18015"
+python run_server.py --yaml_config="yamls/lenet.yaml" --tcp_server_ip="10.*.*.*" --checkpoint_dir="fl_ckpt" --local_server_num=4 --http_server_address="10.*.*.*:18015"
 ```
 
 该指令代表启动四个`Server`节点，总`Server`数量为4。
@@ -263,7 +263,7 @@ python run_server.py --yaml_config="yamls/lenet.yaml" --tcp_server_ip="10.113.21
 
 ```sh
 curl -k \
-'http://10.113.216.40:18015/state'
+'http://10.*.*.*:18015/state'
 ```
 
 `Scheduler`将返回`json`格式的查询结果。
