@@ -47,7 +47,7 @@ The sample code is as follows:
    String trainModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      // Absolute path
    String inferModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      // Absolute path
    boolean useSSL = false;
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
 
    FLParameter flParameter = FLParameter.getInstance();
    flParameter.setTrainDataset(trainDataset);
@@ -75,7 +75,7 @@ The sample code is as follows:
    String trainModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      // Absolute path
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      // Absolute path
    boolean useSSL = false;
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
 
    FLParameter flParameter = FLParameter.getInstance();
    flParameter.setTrainDataset(trainDataset);
@@ -180,7 +180,7 @@ The sample code is as follows:
    String trainModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      // Absolute path
    String inferModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      // Absolute path
    boolean useSSL = false;
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
    boolean useElb = false;
    int serverNum = 1;
 
@@ -206,7 +206,7 @@ The sample code is as follows:
    String trainModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      // Absolute path
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      // Absolute path
    boolean useSSL = false;
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
    boolean useElb = false;
    int serverNum = 1;
 

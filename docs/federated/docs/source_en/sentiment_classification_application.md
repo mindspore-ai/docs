@@ -247,7 +247,7 @@ app
             String flName = "albert";
             boolean useSSL = false;
             // The url for device-cloud communication. Ensure that the Android device can access the server. Otherwise, the message "connection failed" is displayed.
-            String domainName = "http://10.113.216.106:6668";
+            String domainName = "http://10.*.*.*:6668";
             FLParameter flParameter = FLParameter.getInstance();
             flParameter.setTrainDataset(trainDataset);
             flParameter.setVocabFile(vocal_file);
