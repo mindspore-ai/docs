@@ -221,7 +221,7 @@ The basic startup instructions of the federated learning interface are as follow
  --infer_model_dir="ms" \
  --ssl_protocol="TLSv1.2" \
  --deploy_env="x86" \
- --domain_name="http://10.113.216.40:8010" \
+ --domain_name="http://10.*.*.*:8010" \
  --cert_path="CARoot.pem" --use_elb="false" \
  --server_num=1 \
  --task="train" \
