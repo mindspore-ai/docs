@@ -344,7 +344,7 @@ app
             String deployEnv = "android";
 
             // The url for device-cloud communication. Ensure that the Android device can access the server. Otherwise, the message "connection failed" is displayed.
-            String domainName = "http://10.113.216.106:6668";
+            String domainName = "http://10.*.*.*:6668";
             boolean ifUseElb = true;
             int serverNum = 4;
             int threadNum = 4;

@@ -192,7 +192,7 @@ cross_silo_femnist/
    `run_cross_silo_femnist_server.py`是为用户启动若干`Server`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Server`，其http起始端口为`5555`，`server`数量为`4`个。
 
    ```sh
-    python run_cross_silo_femnist_server.py --local_server_num=4 --http_server_address=10.113.216.40:5555
+    python run_cross_silo_femnist_server.py --local_server_num=4 --http_server_address=10.*.*.*:5555
    ```
 
    以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`5555`、`5556`、`5557`和`5558`。
@@ -202,13 +202,13 @@ cross_silo_femnist/
    `run_cross_silo_femnist_worker.py`是为用户启动若干`worker`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`worker`，其http起始端口为`5555`，`worker`数量为`4`个：
 
    ```sh
-   python run_cross_silo_femnist_worker.py --dataset_path=/data_nfs/code/fed_user_doc/federated/tests/st/cross_silo_femnist/35_7_client_img/ --http_server_address=10.113.216.40:5555
+   python run_cross_silo_femnist_worker.py --dataset_path=/data_nfs/code/fed_user_doc/federated/tests/st/cross_silo_femnist/35_7_client_img/ --http_server_address=10.*.*.*:5555
    ```
 
    当前云云联邦的`worker`节点支持单机多卡&多机多卡的分布式训练方式，`run_cross_silo_femnist_worker_distributed.py`是为用户启动`worker`节点的分布式训练而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的分布式`worker`，其中`device_num`表示`worker`集群启动的进程数目，`run_distribute`表示启动集群的分布式训练，其http起始端口为`5555`，`worker`进程数量为`4`个：
 
    ```sh
-   python run_cross_silo_femnist_worker_distributed.py --device_num=4 --run_distribute=True --dataset_path=/data_nfs/code/fed_user_doc/federated/tests/st/cross_silo_femnist/35_7_client_img/ --http_server_address=10.113.216.40:5555
+   python run_cross_silo_femnist_worker_distributed.py --device_num=4 --run_distribute=True --dataset_path=/data_nfs/code/fed_user_doc/federated/tests/st/cross_silo_femnist/35_7_client_img/ --http_server_address=10.*.*.*:5555
    ```
 
 当执行以上三个指令之后，进入当前目录下`worker_0`文件夹，通过指令`grep -rn "test acc" *`查看`worker_0`日志，可看到如下类似打印：

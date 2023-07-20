@@ -192,7 +192,7 @@ cross_silo_femnist/
    `run_cross_silo_femnist_server.py` is a Python script for the user to start a number of `Server`, and supports modify the configuration via argument passing `argparse`. The following command is executed, representing the `Server` that starts this federated learning task, with an http start port of `5555` and a number of `servers` of `4`.
 
    ```sh
-    python run_cross_silo_femnist_server.py --local_server_num=4 --http_server_address=10.113.216.40:5555
+    python run_cross_silo_femnist_server.py --local_server_num=4 --http_server_address=10.*.*.*:5555
    ```
 
    The above command is equivalent to starting four `Server` processes, each with a federal learning service port of `5555`, `5556`, `5557` and `5558`.
@@ -202,13 +202,13 @@ cross_silo_femnist/
    `run_cross_silo_femnist_worker.py` is a Python script for the user to start a number of `worker`, and supports modify the configuration via argument passing `argparse`. The following command is executed, representing the `worker` that starts this federated learning task, with an http start port of `5555` and a number of `worker` of `4`.
 
    ```sh
-   python run_cross_silo_femnist_worker.py --dataset_path=/data_nfs/code/fed_user_doc/federated/tests/st/cross_silo_femnist/35_7_client_img/ --http_server_address=10.113.216.40:5555
+   python run_cross_silo_femnist_worker.py --dataset_path=/data_nfs/code/fed_user_doc/federated/tests/st/cross_silo_femnist/35_7_client_img/ --http_server_address=10.*.*.*:5555
    ```
 
    At present, the `worker` node of the cloud federation supports the distributed training mode of single machine multi-card and multi-machine multi-card. `run_cross_silo_femnist_worker_distributed.py` is a Python script provided for users to start the distributed training of `worker` node. It also supports the configuration modification through parameter argparse. Execute the following instructions, representing the distributed `worker` that starts this federated learning task, where `device_num` represents the number of processes started by the `worker` cluster, `run_distribute` represents the distributed training started by the cluster, and its http start port is `5555`. The number of `orker` processes is `4`:
 
    ```sh
-   python run_cross_silo_femnist_worker_distributed.py --device_num=4 --run_distribute=True --dataset_path=/data_nfs/code/fed_user_doc/federated/tests/st/cross_silo_femnist/35_7_client_img/ --http_server_address=10.113.216.40:5555
+   python run_cross_silo_femnist_worker_distributed.py --device_num=4 --run_distribute=True --dataset_path=/data_nfs/code/fed_user_doc/federated/tests/st/cross_silo_femnist/35_7_client_img/ --http_server_address=10.*.*.*:5555
    ```
 
 After executing the above three commands, go to the `worker_0` folder in the current directory and check the `worker_0` log with the command `grep -rn "test acc" *` and you will see a print similar to the following:
