@@ -49,6 +49,8 @@ release = 'master'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
+
+myst_update_mathjax = False
 extensions = [
     'myst_parser',
     'nbsphinx',
@@ -73,8 +75,6 @@ highlight_language = 'python'
 
 pygments_style = 'sphinx'
 
-myst_update_mathjax = False
-
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -89,7 +89,7 @@ html_search_options = {'dict': '../../resource/jieba.txt'}
 html_static_path = ['_static']
 
 sys.path.append(os.path.abspath('../../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 import nbsphinx_mod
 
 

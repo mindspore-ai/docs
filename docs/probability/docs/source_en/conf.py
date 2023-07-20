@@ -36,6 +36,8 @@ release = 'master'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
+
+myst_update_mathjax = False
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
@@ -73,6 +75,8 @@ pygments_style = 'sphinx'
 autodoc_inherit_docstrings = False
 
 autosummary_generate = True
+
+autosummary_generate_overwrite = False
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -128,7 +132,7 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(code_str, sphinx_autodoc.__dict__)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 import nbsphinx_mod
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
