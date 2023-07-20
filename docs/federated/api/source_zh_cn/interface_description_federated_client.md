@@ -16,7 +16,7 @@
 | trainModelPath | String   | Y        | 联邦学习使用的训练模型路径，为.ms文件的绝对路径             |                                                              |
 | inferModelPath | String   | Y        | 联邦学习使用的推理模型路径，为.ms文件的绝对路径             | 有监督情感分类任务与图片分类任务均需设置为与trainModelPath相同 |
 | clientID       | String   | Y        | 用于唯一标识客户端的ID                                      |                                                              |
-| ip             | String   | Y        | Server端所启动服务的ip地址，形如“10.113.216.106”            | 后期ip+port会改为域名                                        |
+| ip             | String   | Y        | Server端所启动服务的ip地址，形如“10.*.*.*”            | 后期ip+port会改为域名                                        |
 | port           | int      | Y        | Server端所启动服务的端口号                                  | 后期ip+port会改为域名                                        |
 | useHttps       | boolean  | N        | 端云通信是否进行https通信                                   | 设置为false, 进行http通信；设置为true，进行https通信；默认为false |
 | useSSL         | boolean  | N        | 端云通信是否进行ssl证书认证，ssl证书认证只在https通信中使用 | 设置为false, 不进行ssl证书认证；设置为true，进行ssl证书认证；默认为false |
@@ -25,7 +25,7 @@
 
 ```java
 FLParameter flParameter = FLParameter.getInstance();
-String hostName  =  "10.113.216.106";
+String hostName  =  "10.*.*.*";
 String certPath  =  "client.crt";             //  给出证书绝对路径
 flParameter.setHostName(hostName);
 flParameter.setCertPath(certPath);
@@ -47,7 +47,7 @@ flParameter.setCertPath(certPath);
    String trainModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
    String inferModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
    String clientID = UUID.randomUUID().toString();
-   String ip = "10.113.216.106";
+   String ip = "10.*.*.*";
    int port = 6668;
    boolean useHttps = false;
    boolean useSSL = false;
@@ -81,7 +81,7 @@ flParameter.setCertPath(certPath);
    String trainModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
    String clientID = UUID.randomUUID().toString();
-   String ip = "10.113.216.106";
+   String ip = "10.*.*.*";
    int port = 6668;
    boolean useHttps = false;
    boolean useSSL = false;
@@ -166,7 +166,7 @@ flParameter.setCertPath(certPath);
 | flName         | String   | Y        | 联邦学习使用的模型名称                                       | 情感分类任务需设置为”albert“; lenet场景需设置为”lenet“       |
 | trainModelPath | String   | Y        | 联邦学习使用的训练模型路径，为.ms文件的绝对路径              |                                                              |
 | inferModelPath | String   | Y        | 联邦学习使用的推理模型路径，为.ms文件的绝对路径              | 有监督情感分类任务与图片分类任务均需设置为与trainModelPath相同 |
-| ip             | String   | Y        | Server端所启动服务的ip地址，形如“10.113.216.106”             | 后期ip+port会改为域名                                        |
+| ip             | String   | Y        | Server端所启动服务的ip地址，形如“10.*.*.*”             | 后期ip+port会改为域名                                        |
 | port           | int      | Y        | Server端所启动服务的端口号                                   | 后期ip+port会改为域名                                        |
 | useHttps       | boolean  | N        | 端云通信是否进行https通信                                    | 设置为false, 进行http通信；设置为true，进行https通信；默认为false |
 | useSSL         | boolean  | N        | 端云通信是否进行ssl证书认证，ssl证书认证只在https通信中使用  | 设置为false, 不进行ssl证书认证；设置为true，进行ssl证书认证；默认为false |
@@ -177,7 +177,7 @@ flParameter.setCertPath(certPath);
 
 ```java
 FLParameter flParameter = FLParameter.getInstance();
-String hostName  =  "10.113.216.106";
+String hostName  =  "10.*.*.*";
 String certPath  =  "client.crt";             //  给出证书绝对路径
 
 flParameter.setHostName(hostName);
@@ -195,7 +195,7 @@ flParameter.setCertPath(certPath);
    String flName = "albert";     // 情感分类任务场景需设置为"albert", lenet图片分类任务场景需设置为"lenet"
    String trainModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
    String inferModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
-   String ip = "10.113.216.106";
+   String ip = "10.*.*.*";
    int port = 6668;
    boolean useHttps = false;
    boolean useSSL = false;
@@ -225,7 +225,7 @@ flParameter.setCertPath(certPath);
    String flName = "lenet";     // 情感分类任务场景需设置为"albert", lenet场景需设置为"lenet"
    String trainModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
-   String ip = "10.113.216.106";
+   String ip = "10.*.*.*";
    int port = 6668
    boolean useHttps = false;
    boolean useSSL = false;

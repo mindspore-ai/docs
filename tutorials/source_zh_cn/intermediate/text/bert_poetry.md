@@ -215,7 +215,7 @@ python poetry.py --train=False  --ckpt_path=/your/ckpt/path
     可用电脑作为客户端，修改`poetry_client.py`中的url请求地址为推理服务启动的服务器IP，并确保端口与服务端`bert_flask.py`中的端口一致，例如：
 
     ```python
-    url = 'http://10.155.170.71:8080/'
+    url = 'http://10.*.*.*:8080/'
     ```
 
     运行`poetry_client.py`文件

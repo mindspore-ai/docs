@@ -267,7 +267,7 @@ The following describes how to control cluster scale-in and scale-out using the 
     '{
     "node_ids": ["40d56ffe-f8d1-4960-85fa-fdf88820402a", "1ba06348-f2e2-4ad2-be83-0d41fcb53228"]
     }' \
-    'http://10.113.216.124:11202/scalein'
+    'http://10.*.*.*:11202/scalein'
     ```
 
 > - After the cluster scale-out or scale-in is successful, the training task is automatically restored. No manual intervention is required.
