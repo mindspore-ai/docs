@@ -3,7 +3,7 @@
     "server_count": "1",
     "server_list": [
         {
-            "server_id": "10.90.41.205",
+            "server_id": "10.*.*.*",
             "device": [
                 {
                     "device_id": "0",

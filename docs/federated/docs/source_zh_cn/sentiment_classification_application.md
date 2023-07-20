@@ -333,7 +333,7 @@ app
            String deployEnv = "android";
 
            // 端云通信url，请保证Android能够访问到server，否则会出现connection failed
-           String domainName = "http://10.113.216.106:6668";
+           String domainName = "http://10.*.*.*:6668";
            boolean ifUseElb = true;
            int serverNum = 4;
            int threadNum = 4;

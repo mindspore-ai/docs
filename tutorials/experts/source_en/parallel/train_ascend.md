@@ -53,7 +53,7 @@ The following uses the Ascend 910 AI processor as an example. The JSON configura
     "server_count": "1",
     "server_list": [
         {
-            "server_id": "10.155.111.140",
+            "server_id": "10.*.*.*",
             "device": [
                 {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
                 {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
@@ -474,7 +474,7 @@ After confirming that the network of the NPU unit between the hosts is connected
     "server_count": "2",
     "server_list": [
         {
-            "server_id": "10.155.111.140",
+            "server_id": "10.*.*.*",
             "device": [
                 {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
                 {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
@@ -487,7 +487,7 @@ After confirming that the network of the NPU unit between the hosts is connected
              "host_nic_ip": "reserve"
         },
         {
-            "server_id": "10.155.111.141",
+            "server_id": "10.*.*.*",
             "device": [
                 {"device_id": "0","device_ip": "192.1.27.8","rank_id": "8"},
                 {"device_id": "1","device_ip": "192.2.27.8","rank_id": "9"},
