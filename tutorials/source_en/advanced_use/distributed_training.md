@@ -37,8 +37,8 @@ The Ascend 910 AI processor and AIServer are used as an example. The JSON config
             "group_name": "",
             "instance_count": "2",
             "instance_list": [
-                     {"devices":[{"device_id":"0","device_ip":"192.1.27.6"}],"rank_id":"0","server_id":"10.155.111.140"},
-                     {"devices":[{"device_id":"1","device_ip":"192.2.27.6"}],"rank_id":"1","server_id":"10.155.111.140"}
+                     {"devices":[{"device_id":"0","device_ip":"192.1.27.6"}],"rank_id":"0","server_id":"10.*.*.*"},
+                     {"devices":[{"device_id":"1","device_ip":"192.2.27.6"}],"rank_id":"1","server_id":"10.*.*.*"}
                ]
         }
     ],
