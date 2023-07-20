@@ -23,7 +23,7 @@
 
 ## 代码示例
 
-以ResNet-50网络为例，代码实现参考[示例]。目录结构如下所示，其中resnet.py是ResNet-50网络实现，cifa_resnet50.py是训练脚本，run.sh是执行脚本。
+以ResNet-50网络为例，代码实现参考[示例](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/memory_offload)。目录结构如下所示，其中resnet.py是ResNet-50网络实现，cifa_resnet50.py是训练脚本，run.sh是执行脚本。
 
 ```text
 └─sample_code
