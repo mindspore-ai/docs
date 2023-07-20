@@ -350,7 +350,7 @@ app
             String flName = "albert";
             boolean useSSL = false;
             // 端云通信url，请保证Android能够访问到server，否则会出现connection failed
-            String domainName = "http://10.113.216.106:6668";
+            String domainName = "http://10.*.*.*:6668";
             FLParameter flParameter = FLParameter.getInstance();
             flParameter.setTrainDataset(trainDataset);
             flParameter.setVocabFile(vocal_file);

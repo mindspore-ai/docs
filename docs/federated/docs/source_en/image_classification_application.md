@@ -631,7 +631,7 @@ You can write a Python script to call the JAR package of the federated learning 
     parser.add_argument("--train_model_path", type=str, default="ms/lenet/")    # must be absolute path of .ms files
     parser.add_argument("--infer_model_path", type=str, default="ms/lenet/")    # must be absolute path of .ms files
     parser.add_argument("--use_ssl", type=str, default="false")
-    parser.add_argument("--domain_name", type=str, default="http://10.113.216.106:6668")
+    parser.add_argument("--domain_name", type=str, default="http://10.*.*.*:6668")
     parser.add_argument("--server_num", type=int, default=0)
     parser.add_argument("--client_num", type=int, default=0)
     parser.add_argument("--if_use_elb", type=str, default="false")
@@ -830,7 +830,7 @@ You can write a Python script to call the JAR package of the federated learning 
     Run `run.py` as follows:
 
     ```sh
-    python run.py --ip=10.113.216.106 --port=6668 --server_num=8  --client_num=5 --task=train
+    python run.py --ip=10.*.*.* --port=6668 --server_num=8  --client_num=5 --task=train
     ```
 
     This command indicates that five clients are started to participate in federated learning. If the startup is successful, log files corresponding to the five clients are generated in the current folder. You can view the log files to learn the running status of each client.

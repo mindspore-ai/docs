@@ -47,7 +47,7 @@ flParameter.setCertPath(certPath);
    String trainModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
    String inferModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
    boolean useSSL = false;
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
 
    FLParameter flParameter = FLParameter.getInstance();
    flParameter.setTrainDataset(trainDataset);
@@ -75,7 +75,7 @@ flParameter.setCertPath(certPath);
    String trainModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
    boolean useSSL = false;
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
 
    FLParameter flParameter = FLParameter.getInstance();
    flParameter.setTrainDataset(trainDataset);
@@ -180,7 +180,7 @@ flParameter.setCertPath(certPath);
    String trainModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
    String inferModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
    boolean useSSL = false;
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
    boolean ifUseElb = false;
    int serverNum = 1;
 
@@ -206,7 +206,7 @@ flParameter.setCertPath(certPath);
    String trainModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
    boolean useSSL = false;
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
    boolean useElb = false;
    int serverNum = 1;
 
