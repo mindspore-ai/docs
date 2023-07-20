@@ -91,7 +91,7 @@ flParameter.setValidInterval(validIterInterval);
    String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // 绝对路径, 和trainModelPath保持一致
    String sslProtocol = "TLSv1.2";
    String deployEnv = "android";
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
    boolean ifUseElb = true;
    int serverNum = 4;
    int threadNum = 4;
@@ -139,7 +139,7 @@ flParameter.setValidInterval(validIterInterval);
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
    String sslProtocol = "TLSv1.2";
    String deployEnv = "android";
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
    boolean ifUseElb = true;
    int serverNum = 4;
    int threadNum = 4;
@@ -299,7 +299,7 @@ flParameter.setCertPath(certPath);
    String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      //绝对路径, 和trainModelPath保持一致
    String sslProtocol = "TLSv1.2";
    String deployEnv = "android";
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
    boolean ifUseElb = true;
    int serverNum = 4;
    ServerMod serverMod = ServerMod.FEDERATED_LEARNING;
@@ -328,7 +328,7 @@ flParameter.setCertPath(certPath);
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径, 和trainModelPath保持一致
    String sslProtocol = "TLSv1.2";
    String deployEnv = "android";
-   String domainName = "http://10.113.216.106:6668";
+   String domainName = "http://10.*.*.*:6668";
    boolean ifUseElb = true;
    int serverNum = 4;
    ServerMod serverMod = ServerMod.FEDERATED_LEARNING;
