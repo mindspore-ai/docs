@@ -54,7 +54,7 @@ def foo(a):
       return a, b, c
   ```
 
-上述代码中，输入`a`，`b`，`c`均为常量。
+  上述代码中，输入`a`，`b`，`c`均为常量。
 
 - 图模式内生成的标量或者Tensor为常量。例如：
 
@@ -69,7 +69,7 @@ def foo(a):
       return a, b, c
   ```
 
-上述代码中， `a`，`b`，`c`均为常量。
+  上述代码中， `a`，`b`，`c`均为常量。
 
 - 常量运算得到的结果为常量。例如：
 
@@ -84,7 +84,7 @@ def foo(a):
       return c
   ```
 
-上述代码中，`a`、`b`均为图模式内产生的Tensor为常量，因此其计算得到的结果也是常量。但如果其中之一为变量时，其返回值也会为变量。
+  上述代码中，`a`、`b`均为图模式内产生的Tensor为常量，因此其计算得到的结果也是常量。但如果其中之一为变量时，其返回值也会为变量。
 
 ### 变量产生场景
 
@@ -103,7 +103,7 @@ def foo(a):
       return a, b, c
   ```
 
-上述代码中，`a`是在图外调用mutable接口的，`b`和`c`是在图内调用mutable接口生成的，`a`、`b`、`c`均为变量。
+  上述代码中，`a`是在图外调用mutable接口的，`b`和`c`是在图内调用mutable接口生成的，`a`、`b`、`c`均为变量。
 
 - 作为静态图的输入的Tensor都是变量。例如：
 
@@ -118,11 +118,11 @@ def foo(a):
       return a, b
   ```
 
-上述代码中，`a`是作为图模式输入的Tensor，因此其为变量。但`b`是作为图模式输入的元组，非Tensor类型，即使其内部的元素均为Tensor，`b`也是常量。
+  上述代码中，`a`是作为图模式输入的Tensor，因此其为变量。但`b`是作为图模式输入的元组，非Tensor类型，即使其内部的元素均为Tensor，`b`也是常量。
 
 - 通过变量计算得到的是变量
 
-如果一个量是算子的输出，那么其多数情况下为常量。例如：
+  如果一个量是算子的输出，那么其多数情况下为常量。例如：
 
   ```python
   from mindspore import Tensor, jit, ops
@@ -136,7 +136,7 @@ def foo(a):
       return a, b
   ```
 
-在这种情况下，`c`是`a`和`b`计算来的结果，且用来计算的输入`a`、`b`均为变量，因此`c`也是变量。
+  在这种情况下，`c`是`a`和`b`计算来的结果，且用来计算的输入`a`、`b`均为变量，因此`c`也是变量。
 
 ## 数据类型
 
@@ -968,69 +968,47 @@ TypeError: Only supported positional parameter type for python primitive, but go
 
 原型代表编程语言中最紧密绑定的操作。
 
-### 属性引用与属性修改
+### 属性引用与修改
 
-属性引用是后面带有一个句点加一个名称的原型。以下两种情况的属性引用是允许进行修改的：
+属性引用是后面带有一个句点加一个名称的原型。
 
-- 被修改的属性属于本 `cell` 对象， 即必须为 `self.xxx`。 且该属性在Cell的 `__init__` 函数中完成初始化。示例如下：
+在MindSpore的Cell 实例中使用属性引用作为左值需满足如下要求：
 
-  ```python
-  import mindspore as ms
-  from mindspore import nn, set_context
-  set_context(mode=ms.GRAPH_MODE)
+- 被修改的属性属于本`cell`对象，即必须为`self.xxx`。
+- 该属性在Cell的`__init__`函数中完成初始化且其为Parameter类型。
 
-  class Net(nn.Cell):
-      def __init__(self):
-          super().__init__()
-          self.weight = ms.Parameter(ms.Tensor([1]), name="w")
-          self.m = 2
+在JIT语法支持级别选项为`LAX`时，可以支持更多情况的属性修改，具体详见[支持属性设置与修改](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/static_graph_syntax.html#支持属性设置与修改)。
 
-      def construct(self, x, y):
-          self.weight = x  # 满足条件可以修改
-          self.m = 3  # 满足条件可以修改
-          # self.a = 2 属性a未在__init__内初始化，无法进行修改。
-          return x
+示例如下：
 
-  net = Net()
-  ret = net(1, 2)
-  print('net.weight:{}'.format(net.weight))
-  print('net.m:{}'.format(net.m))
-  ```
+```python
+import mindspore as ms
+from mindspore import nn, set_context
 
-  结果如下:
+set_context(mode=ms.GRAPH_MODE)
 
-  ```text
-  net.weight:Parameter (name=w, shape=(1,), dtype=Int64, requires_grad=True)
-  net.x:3
-  ```
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.weight = ms.Parameter(ms.Tensor(3, ms.float32), name="w")
+        self.m = 2
 
-- 被修改属性的对象为全局对象，示例如下：
+    def construct(self, x, y):
+        self.weight = x  # 满足条件可以修改
+        # self.m = 3     # self.m 非Parameter类型禁止修改
+        # y.weight = x   # y不是self，禁止修改
+        return x
 
-  ```python
-  import mindspore as ms
-  from mindspore import nn, set_context
+net = Net()
+ret = net(1, 2)
+print('ret:{}'.format(ret))
+```
 
-  set_context(mode=ms.GRAPH_MODE)
+结果如下:
 
-  class AssignTarget:
-      def __init__(self):
-          self.x = 1
-
-  data_obj = AssignTarget()
-
-  @ms.jit
-  def test_assign():
-      data_obj.x = 10
-
-  test_assign()
-  print('data_obj.x:{}'.format(data_obj.x))
-  ```
-
-  结果如下:
-
-  ```text
-  data_obj.x:10
-  ```
+```text
+ret:1
+```
 
 ### 索引取值
 
@@ -1333,6 +1311,217 @@ print("res: ", res)
 ```text
 res: 2
 ```
+
+### 支持属性设置与修改
+
+在JIT语法支持级别选项为`LAX`时，静态图模式下支持对属性进行设置与修改。需要注意的是，静态图内对Parameter类型的值的设置属于图模式原生支持语法范畴，且图模式内不支持对Parameter类型对象的属性修改。且图模式内只支持对在动态图内允许被修改的对象属性进行修改。
+
+具体使用场景如下：
+
+- 对自定义类对象以及第三方类型的属性进行设置与修改
+
+  图模式下支持对自定义类对象的属性进行设置与修改，例如：
+
+  ```python
+  import mindspore import jit
+
+  class AssignClass():
+      def __init__(self):
+          self.x = 1
+
+  obj = AssignClass()
+
+  @jit
+  def foo():
+      obj.x = 100
+      return
+
+  foo()
+  print(f"obj.x is: {obj.x}")
+  ```
+
+  运行结果为：
+
+  ```Text
+  obj.x is: 100
+  ```
+
+  图模式下支持对第三方库对象的属性进行设置与修改，例如：
+
+  ```python
+  import mindspore import jit
+  import numpy as np
+
+  @jit
+  def foo():
+      a = np.array([1, 2, 3, 4])
+      a.shape = (2, 2)
+      return a.shape
+
+  shape = foo()
+  print(f"shape is {shape}")
+  ```
+
+  运行结果为：
+
+  ```Text
+  shape is (2, 2)
+  ```
+
+- 对Cell的self对象进行修改，例如：
+
+  ```python
+  import mindspore as ms
+  from mindspore import nn, set_context
+  set_context(mode=ms.GRAPH_MODE)
+
+  class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.m = 2
+
+    def construct(self):
+        self.m = 3
+        return
+
+  net = Net()
+  net()
+  print(f"net.m is {net.m}")
+  ```
+
+  运行结果为：
+
+  ```Text
+  net.m is 3
+  ```
+
+  注意，self对象只支持属性修改，而不支持属性的设置，即只支持对`__init__`函数内设置的属性进行修改。若`__init__`内没有定义某个属性，则图模式内不允许设置此属性。例如：
+
+  ```python
+  import mindspore as ms
+  from mindspore import nn, set_context
+  set_context(mode=ms.GRAPH_MODE)
+
+  class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.m = 2
+
+    def construct(self):
+        self.m2 = 3 # self.m2在__init__内没有被设置，因此无法在图模式内进行设置
+        return
+
+  net = Net()
+  net()
+  ```
+
+- 对静态图内的Cell对象以及jit_class对象进行设置与修改
+
+  支持对图模式Cell对象进行属性修改，例如：
+
+  ```python
+  import mindspore as ms
+  from mindspore import nn, set_context
+  set_context(mode=ms.GRAPH_MODE)
+
+  class InnerNet(nn.Cell):
+      def __init__(self):
+          super(InnerNet, self).__init__()
+          self.x = 10
+
+  class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.inner = InnerNet()
+
+    def construct(self):
+        self.inner.x = 100
+        return
+
+  net = Net()
+  net()
+  print(f"net.inner.x is {net.inner.x}")
+  ```
+
+  运行结果为：
+
+  ```Text
+  net.inner.x is 100
+  ```
+
+  支持对图模式jit_class对象进行属性修改，例如：
+
+  ```python
+  import mindspore as ms
+  from mindspore import nn, set_context, jit_class
+  set_context(mode=ms.GRAPH_MODE)
+
+  @jit_class
+  class InnerClass():
+      def __init__(self):
+          self.x = 10
+
+  class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.inner = InnerClass()
+
+    def construct(self):
+        self.inner.x = 100
+        return
+
+  net = Net()
+  net()
+  print(f"net.inner.x is {net.inner.x}")
+  ```
+
+  运行结果为：
+
+  ```Text
+  net.inner.x is 100
+  ```
+
+  注意，若在图模式内对Cell/jit_class对象进行属性修改前也获取了相同属性，该获取到的属性会被解析为常量。在多次运行相同网络时可能会造成问题，例如：
+
+  ```python
+  import mindspore as ms
+  from mindspore import nn, set_context
+  set_context(mode=ms.GRAPH_MODE)
+
+  class InnerNet(nn.Cell):
+      def __init__(self):
+          self.x = 1
+
+  class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.inner = InnerNet()
+
+    def construct(self):
+        a = self.inner.x
+        self.inner.x = a + 1
+        return
+
+  net = Net()
+  value0 = net.inner.x
+  net()
+  value1 = net.inner.x
+  net()
+  value2 = net.inner.x
+  print(f"value0 is {value0}")
+  print(f"value1 is {value1}")
+  print(f"value2 is {value2}")
+  ```
+
+  运行结果为：
+
+  ```Text
+  value0 is 1
+  value1 is 2
+  value2 is 2
+  ```
+
+  但是在动态图模式下，`value2`的值应该为3。但因为语句`a = self.inner.x`中的`self.inner.x`被固化为常量2，导致两次运行时`self.inner.x`被设置的值均为2。此问题将在后续版本解决。
 
 ### 支持反向求导
 
