@@ -182,7 +182,7 @@ cross_silo_femnist/
    `run_cross_silo_femnist_sched.py`是为用户启动`Scheduler`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Scheduler`，其TCP端口为`6667`，联邦学习HTTP服务端口为`6668`，`Server`数量为`4`个，集群`Scheduler`管理端口为`11202`，`--config_file_path`用于设置配置文件路径，`--dataset_path`用于设置数据集绝对路径：
 
    ```sh
-   python run_cross_silo_femnist_sched.py --scheduler_ip=10.113.216.124 --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=7 --scheduler_manage_port=11202 --config_file_path=$PWD/config.json --dataset_path=$PWD/femnist/35_7_client_img
+   python run_cross_silo_femnist_sched.py --scheduler_ip=10.*.*.* --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=7 --scheduler_manage_port=11202 --config_file_path=$PWD/config.json --dataset_path=$PWD/femnist/35_7_client_img
    ```
 
    打印如下代表启动成功：
@@ -200,7 +200,7 @@ cross_silo_femnist/
    `run_cross_silo_femnist_server.py`是为用户启动若干`Server`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Server`，其TCP端口为`6667`，联邦学习HTTP服务起始端口为`6668`，`Server`数量为`4`个，联邦学习任务正常进行需要的`worker`数量为`7`个：
 
    ```sh
-    python run_cross_silo_femnist_server.py --scheduler_ip=10.113.216.124 --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=7 --start_fl_job_threshold=7 --update_model_ratio=1 --fl_iteration_num=20 --start_fl_job_time_window=30000 --update_model_time_window=30000 --config_file_path=$PWD/config.json --dataset_path=$PWD/femnist/35_7_client_img
+    python run_cross_silo_femnist_server.py --scheduler_ip=10.*.*.* --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=7 --start_fl_job_threshold=7 --update_model_ratio=1 --fl_iteration_num=20 --start_fl_job_time_window=30000 --update_model_time_window=30000 --config_file_path=$PWD/config.json --dataset_path=$PWD/femnist/35_7_client_img
    ```
 
    以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`6668`、`6669`、`6670`和`6671`，具体实现详见[脚本run_cross_silo_femnist_server.py](https://gitee.com/mindspore/mindspore/blob/r1.7/tests/st/fl/cross_silo_femnist/run_cross_silo_femnist_server.py)。
@@ -224,7 +224,7 @@ cross_silo_femnist/
    `run_cross_silo_femnist_worker.py`是为用户启动若干`worker`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`worker`，联邦学习任务正常进行需要的`worker`数量为`7`个：
 
    ```sh
-   python run_cross_silo_femnist_worker.py --scheduler_ip=10.113.216.40 --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=7 --fl_iteration_num=20 --client_epoch_num=1 --config_file_path=$PWD/config.json --dataset_path=$PWD/femnist/35_7_client_img
+   python run_cross_silo_femnist_worker.py --scheduler_ip=10.*.*.* --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=7 --fl_iteration_num=20 --client_epoch_num=1 --config_file_path=$PWD/config.json --dataset_path=$PWD/femnist/35_7_client_img
    ```
 
 当执行以上三个指令之后，进入当前目录下`worker_0`文件夹，通过指令`grep -rn "test acc" *`查看`worker_0`日志，可看到如下类似打印：
