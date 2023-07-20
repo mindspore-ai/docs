@@ -16,7 +16,7 @@ Before calling the flJobRun() API, instantiate the parameter class FLParameter a
 | trainModelPath | String   | Y        | Path of a training model used for federated learning, which is an absolute path of the .ms file|                                                              |
 | inferModelPath | String   | Y        | Path of an inference model used for federated learning, which is an absolute path of the .ms file| The value of this parameter need to be the same as that of trainModelPath for supervised sentiment classification tasks and image classification tasks. |
 | clientID       | String   | Y        | Unique ID of a client                                      |                                                              |
-| ip             | String   | Y        | IP address of a service started on the server, for example, `10.113.216.106`| The IP address and port number will be changed to the hostname later.|
+| ip             | String   | Y        | IP address of a service started on the server, for example, `10.*.*.*`| The IP address and port number will be changed to the hostname later.|
 | port           | Integer| Y        | Port number of a service started on the server                                  | The IP address and port number will be changed to the hostname later.|
 | useHttps       | Boolean| N        | Whether to perform SSL certificate authentication for device-cloud communication                                   | The value false indicates HTTP communication, and the value true indicates HTTPS communication. The default value is false. |
 | useSSL         | Boolean| N        | Whether to perform SSL certificate authentication (which applies only to the HTTPS communication scenario) for device-cloud communication | The value false indicates that SSL certificate authentication is not performed. The value true indicates that SSL certificate authentication is performed. The default value is false. |
@@ -25,7 +25,7 @@ When `useSSL` is set to `true`, only HTTPS communication is supported. In the pr
 
 ```java
 FLParameter flParameter = FLParameter.getInstance();
-String hostName  =  "10.113.216.106";
+String hostName  =  "10.*.*.*";
 String certPath  =  "client.crt";             // Provide the absolute path of the certificate.
 flParameter.setHostName(hostName);
 flParameter.setCertPath(certPath);
@@ -47,7 +47,7 @@ The sample code is as follows:
    String trainModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      // Absolute path
    String inferModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      // Absolute path
    String clientID = UUID.randomUUID().toString();
-   String ip = "10.113.216.106";
+   String ip = "10.*.*.*";
    int port = 6668;
    boolean useHttps = false;
    boolean useSSL = false;
@@ -81,7 +81,7 @@ The sample code is as follows:
    String trainModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      // Absolute path
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      // Absolute path
    String clientID = UUID.randomUUID().toString();
-   String ip = "10.113.216.106";
+   String ip = "10.*.*.*";
    int port = 6668;
    boolean useHttps = false;
    boolean useSSL = false;
@@ -166,7 +166,7 @@ Before calling the getModel() API, instantiate the parameter class FLParameter a
 | flName         | String   | Y        | Name of the model used for federated learning                                       | Set this parameter to `albert` for sentiment classification tasks or `lenet` for the LeNet scenario.|
 | trainModelPath | String   | Y        | Path of a training model used for federated learning, which is an absolute path of the .ms file|                                                              |
 | inferModelPath | String   | Y        | Path of an inference model used for federated learning, which is an absolute path of the .ms file| The value of this parameter need to be the same as that of trainModelPath for supervised sentiment classification tasks and image classification tasks. |
-| ip             | String   | Y        | IP address of a service started on the server, for example, `10.113.216.106`| The IP address and port number will be changed to the hostname later.|
+| ip             | String   | Y        | IP address of a service started on the server, for example, `10.*.*.*`| The IP address and port number will be changed to the hostname later.|
 | port           | Integer| Y        | Port number of a service started on the server                                  | The IP address and port number will be changed to the hostname later.|
 | useHttps       | Boolean| N        | Whether to perform SSL certificate authentication for device-cloud communication                                   | The value false indicates HTTP communication, and the value true indicates HTTPS communication. The default value is false. |
 | useSSL         | Boolean| N        | Whether to perform SSL certificate authentication (which applies only to the HTTPS communication scenario) for device-cloud communication | The value false indicates that SSL certificate authentication is not performed. The value true indicates that SSL certificate authentication is performed. The default value is false. |
@@ -177,7 +177,7 @@ When `useSSL` is set to `true`, only HTTPS communication is supported. In the pr
 
 ```java
 FLParameter flParameter = FLParameter.getInstance();
-String hostName  =  "10.113.216.106";
+String hostName  =  "10.*.*.*";
 String certPath  =  "client.crt";             // Provide the absolute path of the certificate.
 
 flParameter.setHostName(hostName);
@@ -195,7 +195,7 @@ The sample code is as follows:
    String flName = "albert";     // Set this parameter to `albert` for sentiment classification tasks or `lenet` for image classification tasks.
    String trainModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      // Absolute path
    String inferModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      // Absolute path
-   String ip = "10.113.216.106";
+   String ip = "10.*.*.*";
    int port = 6668;
    boolean useHttps = false;
    boolean useSSL = false;
@@ -225,7 +225,7 @@ The sample code is as follows:
    String flName = "lenet";     // Set this parameter to `albert` for sentiment classification tasks or `lenet` for the LeNet scenario.
    String trainModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      // Absolute path
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      // Absolute path
-   String ip = "10.113.216.106";
+   String ip = "10.*.*.*";
    int port = 6668
    boolean useHttps = false;
    boolean useSSL = false;

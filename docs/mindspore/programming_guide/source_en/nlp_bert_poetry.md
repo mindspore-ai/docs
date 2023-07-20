@@ -216,7 +216,7 @@ Use MindSpore Serving to deploy the trained model as an inference service. Serve
     Use a computer as the client. Set the URL request address in `poetry_client.py` to the IP address of the server where the inference service is started, and ensure that the port number is the same as that in `bert_flask.py` on the server. For example:
 
     ```text
-    url = 'http://10.155.170.71:8080/'
+    url = 'http://10.*.*.*:8080/'
     ```
 
     Run the `poetry_client.py` file.

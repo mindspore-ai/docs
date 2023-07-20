@@ -623,7 +623,7 @@ if __name__ == "__main__":
     parser.add_argument("--flName", type=str, default="lenet")
     parser.add_argument("--train_model_path", type=str, default="ms/lenet/")    # must be absolute path of .ms files
     parser.add_argument("--infer_model_path", type=str, default="ms/lenet/")    # must be absolute path of .ms files
-    parser.add_argument("--ip", type=str, default="10.113.216.106")
+    parser.add_argument("--ip", type=str, default="10.*.*.*")
     parser.add_argument("--ssl", type=str, default="false")
     parser.add_argument("--port", type=int, default=6668)
     parser.add_argument("--server_num", type=int, default=0)
@@ -760,7 +760,7 @@ if __name__ == "__main__":
 
     - `--ip`
 
-        设置ip地址，即启动server端的服务器地址，格式为：10.113.216.106，目前云侧只支持http通信方式，默认采用http通信方式。
+        设置ip地址，即启动server端的服务器地址，格式为：10.*.*.*，目前云侧只支持http通信方式，默认采用http通信方式。
 
     - `--ssl`
 
@@ -844,7 +844,7 @@ if __name__ == "__main__":
     运行`run.py`，指令如下：
 
     ```sh
-    python run.py --ip=10.113.216.106 --port=6668 --server_num=8  --client_num=5 --task=train
+    python run.py --ip=10.*.*.* --port=6668 --server_num=8  --client_num=5 --task=train
     ```
 
     该指令代表启动5个客户端参与联邦学习，若启动成功，会在当前文件夹生成5个客户端对应的日志文件，查看日志文件内容可了解每个客户端的运行情况：
