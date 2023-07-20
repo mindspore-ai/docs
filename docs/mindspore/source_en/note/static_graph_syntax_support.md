@@ -109,7 +109,7 @@ a_after_id = id(a)
 assert a_id == a_after_id
 ```
 
-In the above sample code, through the `append`, the inplace syntax, to change the `List` object, the address of the object has not been modified. `Tuple` does not support this inplace operation. In the case of `JIT_SYNTAX_LEVEL` set to `COMPATIBLE` and `LAX`, the static graph mode can support inplace operation of some `List` objects.
+In the above sample code, through the `append`, the inplace syntax, to change the `List` object, the address of the object has not been modified. `Tuple` does not support this inplace operation. In the case of `JIT_SYNTAX_LEVEL` set to `LAX`, the static graph mode can support inplace operation of some `List` objects.
 
 MindSpore graph mode syntax extends support for `List` to facilitate network construction using `List`.
 
@@ -208,10 +208,10 @@ MindSpore graph mode syntax extends support for `List` to facilitate network con
 
 - The graph mode supports the built-in methods of List
 
-    With `JIT_SYNTAX_LEVEL` set to `COMPATIBLE` as well as `LAX`, part of the `List` built-in function in graph mode supports inplace. All methods do not support inplace operations when `JIT_SYNTAX_LEVEL` is `STRICT`.
+    With `JIT_SYNTAX_LEVEL` set to `LAX`, part of the `List` built-in function in graph mode supports inplace. All methods do not support inplace operations when `JIT_SYNTAX_LEVEL` is `STRICT`.
     The `List` built-in methods supported by the graph mode are shown in the following table:
 
-    | Method names       | Whether the inplace operation is supported （JIT_SYNTAX_LEVEL=COMPATIBLE/LAX）    |  
+    | Method names       | Whether the inplace operation is supported （JIT_SYNTAX_LEVEL=LAX）    |  
     | ----------  | ------------      |
     | Index values      | Non-inplace operations      |
     | Index assignments      | No             |
@@ -361,7 +361,7 @@ MindSpore graph mode syntax extends support for `List` to facilitate network con
 
         The types supported for `target` are `Tuple`, `List` and `Tensor`. In this case, if `target` is of type `Tensor`, the `Tensor` will be converted to `List` before insertion.
 
-        With `JIT_SYNTAX_LEVEL` set to `COMPATIBLE` as well as `LAX`, `List.extend` supports the inplace operation, which does not generate a new object after the function is run.
+        With `JIT_SYNTAX_LEVEL` set to `LAX`, `List.extend` supports the inplace operation, which does not generate a new object after the function is run.
 
         The example is as follows:
 
@@ -396,7 +396,7 @@ MindSpore graph mode syntax extends support for `List` to facilitate network con
 
         `index` is required to be a constant `int`, and when `list_object` is of length `list_obj_size`, `index` is taken in the range `[-list_obj_size, list_obj_size-1]`. A negative number for `index` represents the number of bits from back to front. When there is no `index` input, the default value is -1, which means the last element is removed.
 
-        With `JIT_SYNTAX_LEVEL` set to `COMPATIBLE` as well as `LAX`, `List.pop` supports the inplace operation, which does not generate a new object after the function is run.
+        With `JIT_SYNTAX_LEVEL` set to `LAX`, `List.pop` supports the inplace operation, which does not generate a new object after the function is run.
 
         ```python
         import mindspore as ms
@@ -425,7 +425,7 @@ MindSpore graph mode syntax extends support for `List` to facilitate network con
 
         Basic semantics: Reverse the order of the elements of the `List` object `list_object`.
 
-        With `JIT_SYNTAX_LEVEL` set to `COMPATIBLE` as well as `LAX`, `List.reverse` supports the inplace operation, which does not generate a new object after the function is run.
+        With `JIT_SYNTAX_LEVEL` set to `LAX`, `List.reverse` supports the inplace operation, which does not generate a new object after the function is run.
 
         The example is as follows:
 
@@ -456,7 +456,7 @@ MindSpore graph mode syntax extends support for `List` to facilitate network con
 
         The `index` requires to be the constant `int`. If `list_object` is of length `list_obj_size`, when `index < -list_obj_size`, insert into the first position of `List`. When `index >= -list_obj_size`, insert to the end of `List`. A negative `index` represents the number of digits from back to front.
 
-        With `JIT_SYNTAX_LEVEL` set to `COMPATIBLE` as well as `LAX`, `List.insert` supports the inplace operation, and the function runs without generating a new object.
+        With `JIT_SYNTAX_LEVEL` set to `LAX`, `List.insert` supports the inplace operation, and the function runs without generating a new object.
 
         The example is as follows:
 
@@ -1072,10 +1072,11 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
 
 In MindSpore static diagram mode, users need to follow MindSpore [static diagram syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html) when writing programs. Constraints exist on the use of the syntax.In dynamic graph mode, Python script code is executed according to the Python syntax, and users can use any Python syntax. It can be seen that the syntax constraint restrictions are different for static and dynamic graphs.
 
-JIT Fallback considers the unification of static and dynamic graphs from the perspective of static graphs. Through the JIT Fallback feature, static graphs can support as many dynamic diagram syntaxes as possible, making static graphs provide a syntax experience close to that of dynamic graphs, thus achieving dynamic unity. To facilitate the user's ability to choose to use the JIT Fallback feature, the JIT syntax support level option 'jit_syntax_level' is provided. The value must be in [STRICT(0), COMPATIBLE(1), LAX(2)]. Default: LAX(2). All levels support all backends.
-STRICT(0): Only basic syntax is supported, and execution performance is optimal.
-COMPATIBLE(1): Besides basic syntax, supports more syntax, such as operations of dict, list, and scalar.
-LAX(2): Compatible with all Python syntax as much as possible. However, execution performance may be affected and not optimal.
+JIT Fallback considers the unification of static and dynamic graphs from the perspective of static graphs. Through the JIT Fallback feature, static graphs can support as many dynamic diagram syntaxes as possible, making static graphs provide a syntax experience close to that of dynamic graphs, thus achieving dynamic unity. To facilitate the user's ability to choose to use the JIT Fallback feature, the JIT syntax support level option 'jit_syntax_level' is provided. The value must be in [STRICT, LAX]. Default: LAX. All levels support all backends.
+
+STRICT: Only basic syntax is supported, and execution performance is optimal.
+
+LAX: Compatible with all Python syntax as much as possible. However, execution performance may be affected and not optimal.
 
 This document describes the support scope and usage notes of JIT Fallback so that you can use JIT Fallback features more effectively.
 
