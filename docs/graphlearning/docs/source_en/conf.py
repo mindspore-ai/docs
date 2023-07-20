@@ -37,6 +37,8 @@ release = 'master'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
+
+myst_update_mathjax = False
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
@@ -70,6 +72,8 @@ pygments_style = 'sphinx'
 autodoc_inherit_docstrings = False
 
 autosummary_generate = True
+
+autosummary_generate_overwrite = False
 
 html_static_path = ['_static']
 
@@ -145,7 +149,7 @@ for i in os.listdir(gl_dir_msg):
         shutil.copytree(os.path.join(gl_dir_msg,i),'./'+i)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 import nbsphinx_mod
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
@@ -158,7 +162,7 @@ from myautosummary import MsPlatformAutoSummary
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
-    app.add_stylesheet('css/bootstrap.min.css')
+    app.add_css_file('css/bootstrap.min.css')
 
 src_release = os.path.join(os.getenv("GL_PATH"), 'RELEASE.md')
 des_release = "./RELEASE.md"
