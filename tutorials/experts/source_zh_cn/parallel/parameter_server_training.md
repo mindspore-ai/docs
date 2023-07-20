@@ -146,7 +146,7 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
     查看`scheduler.log`中Server与Worker通信日志：
 
     ```text
-    The server node id:b5d8a47c-46d7-49a5-aecf-d29d7f8b6124,node ip: 10.90.53.118,node port:46737 assign rank id:0
+    The server node id:b5d8a47c-46d7-49a5-aecf-d29d7f8b6124,node ip: 10.*.*.*,node port:46737 assign rank id:0
     The worker node id:55e86d4b-d717-4930-b414-ebd80082f541 assign rank id:1
     Start the scheduler node is successful！
     ```
