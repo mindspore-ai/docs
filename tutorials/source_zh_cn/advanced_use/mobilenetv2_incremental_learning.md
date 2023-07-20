@@ -56,7 +56,7 @@ Windows操作系统中使用`\`，Linux操作系统中使用`/`分割路径地�
         "server_count": "1",
         "server_list": [
             {
-                "server_id": "10.155.111.140",
+                "server_id": "10.*.*.*",
                 "device": [ba
                     {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
                     {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
