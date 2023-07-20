@@ -5,7 +5,7 @@ import argparse
 import re
 
 headers = {"content-type": "application/json"}
-url = 'http://10.155.170.71:8080/'
+url = 'http://10.*.*.*:8080/'
 
 while True:
     print("\n**********************************")
