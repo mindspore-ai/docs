@@ -25,7 +25,7 @@ This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mi
          "server_count": "1",
          "server_list": [
              {
-                 "server_id":"10.155.170.16",
+                 "server_id":"10.*.*.*",
                  "device": [
                           {"device_id":"0","device_ip":"192.1.113.246","rank_id":"0"}],
                  "host_nic_ip":"reserve"
