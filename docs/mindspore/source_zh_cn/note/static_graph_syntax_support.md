@@ -107,7 +107,7 @@ a_after_id = id(a)
 assert a_id == a_after_id
 ```
 
-上述示例代码中，通过`append`这个inplace语法更改`List`对象的时候，其对象的地址并没有被修改。而`Tuple`是不支持这种inplace操作的。在`JIT_SYNTAX_LEVEL`设置为`COMPATIBLE`以及`LAX`的情况下，静态图模式可以支持部分`List`对象的inplace操作。
+上述示例代码中，通过`append`这个inplace语法更改`List`对象的时候，其对象的地址并没有被修改。而`Tuple`是不支持这种inplace操作的。在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，静态图模式可以支持部分`List`对象的inplace操作。
 
 MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`进行网络构建。
 
@@ -206,10 +206,10 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
 
 - 图模式支持List的内置方法
 
-    在`JIT_SYNTAX_LEVEL`设置为`COMPATIBLE`以及`LAX`的情况下，图模式部分`List`内置函数支持inplace。在 `JIT_SYNTAX_LEVEL`为 `STRICT` 的情况下，所有方法均不支持inplace操作。
+    在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，图模式部分`List`内置函数支持inplace。在 `JIT_SYNTAX_LEVEL`为 `STRICT` 的情况下，所有方法均不支持inplace操作。
     图模式支持的`List`内置方法如下表所示：
 
-    | 方法名       | 是否支持inplace操作 （JIT_SYNTAX_LEVEL=COMPATIBLE/LAX）    |  
+    | 方法名       | 是否支持inplace操作 （JIT_SYNTAX_LEVEL=LAX）    |  
     | ----------  | ------------      |
     | 索引取值      | 非inplace操作      |
     | 索引赋值      | 不支持             |
@@ -358,7 +358,7 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
 
         `target`支持的类型为`Tuple`，`List`以及`Tensor`。其中，如果`target`类型为`Tensor`的情况下，会先将该`Tensor`转换为`List`，再进行插入操作。
 
-        在`JIT_SYNTAX_LEVEL`设置为`COMPATIBLE`以及`LAX`的情况下，`List.extend`支持inplace操作，函数运行后不生成新的对象。
+        在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，`List.extend`支持inplace操作，函数运行后不生成新的对象。
 
         示例如下：
 
@@ -393,7 +393,7 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
 
         `index` 要求必须为常量`int`, 当`list_object`的长度为`list_obj_size`时，`index`的取值范围为：`[-list_obj_size，list_obj_size-1]`。`index`为负数，代表从后往前的位数。当没有输入`index`时，默认值为-1，即删除最后一个元素。
 
-        在`JIT_SYNTAX_LEVEL`设置为`COMPATIBLE`以及`LAX`的情况下，`List.pop`支持inplace操作，函数运行后不生成新的对象。
+        在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，`List.pop`支持inplace操作，函数运行后不生成新的对象。
 
         ```python
         import mindspore as ms
@@ -422,7 +422,7 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
 
         基础语义：将`List`对象`list_object`的元素顺序倒转。
 
-        在`JIT_SYNTAX_LEVEL`设置为`COMPATIBLE`以及`LAX`的情况下，`List.reverse`支持inplace操作，函数运行后不生成新的对象。
+        在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，`List.reverse`支持inplace操作，函数运行后不生成新的对象。
 
         示例如下：
 
@@ -453,7 +453,7 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
 
         `index`要求必须为常量`int`。如果`list_object`的长度为`list_obj_size`。当`index < -list_obj_size`时，插入到`List`的第一位。当`index >= -list_obj_size`时，插入到`List`的最后。`index`为负数代表从后往前的位数。
 
-        在`JIT_SYNTAX_LEVEL`设置为`COMPATIBLE`以及`LAX`的情况下，`List.insert`支持inplace操作，函数运行后不生成新的对象。
+        在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，`List.insert`支持inplace操作，函数运行后不生成新的对象。
 
         示例如下：
 
@@ -1059,11 +1059,11 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
 
 JIT Fallback是从静态图的角度出发考虑静态图和动态图的统一。通过JIT Fallback特性，静态图可以支持尽量多的动态图语法，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。
 
-为了便于用户选择是否使用JIT Fallback特性的能力，提供了JIT语法支持级别选项`jit_syntax_level`，其值必须在[STRICT(0)，COMPATIBLE(1)，LAX(2)]范围内，默认值为`LAX(2)`。全部级别都支持所有后端。可以通过设置MS_DEV_JIT_SYNTAX_LEVEL来调整JIT语法支持级别，例如：`export MS_DEV_JIT_SYNTAX_LEVEL=0`，即将JIT语法支持级别设置为`STRICT`。
+为了便于用户选择是否使用JIT Fallback特性的能力，提供了JIT语法支持级别选项`jit_syntax_level`，其值必须在[STRICT，LAX]范围内，默认值为`LAX`。全部级别都支持所有后端。可以通过设置MS_DEV_JIT_SYNTAX_LEVEL来调整JIT语法支持级别，例如：`export MS_DEV_JIT_SYNTAX_LEVEL=0`，即将JIT语法支持级别设置为`STRICT`。
 
-STRICT(0): 仅支持基础语法，且执行性能最佳。
-COMPATIBLE(1): 除支持基础语法外，还支持更多语法，如`dict`，`list`，`scalar`和`None`的操作等。
-LAX(2): 最大程度地兼容Python所有语法。执行性能可能会受影响，不是最佳。
+STRICT: 仅支持基础语法，且执行性能最佳。
+
+LAX: 最大程度地兼容Python所有语法。执行性能可能会受影响，不是最佳。
 
 下面主要介绍JIT Fallback的支持范围和使用须知，以便您可以更有效地使用JIT Fallback功能。
 
@@ -1120,7 +1120,7 @@ y4 value is 2.0, dtype is Float64
 
 ### 调用第三方库
 
-在JIT语法支持级别选项为`COMPATIBLE`或者`LAX`时，JIT Fallback支持在静态图模式下调用第三方库的对象和方法。
+在JIT语法支持级别选项为`LAX`时，JIT Fallback支持在静态图模式下调用第三方库的对象和方法。
 
 调用第三方库的代码用例如下。用例调用了NumPy第三方库，其中`np.array([1, 2, 3])`和`np.array([4, 5, 6])`是通过JIT Fallback支持的。
 
