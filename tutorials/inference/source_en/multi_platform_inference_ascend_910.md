@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `Inference Application` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/inference/source_en/multi_platform_inference_ascend_910.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/inference/source_en/multi_platform_inference_ascend_910.md)
 
 ## Inference Using a Checkpoint File
 

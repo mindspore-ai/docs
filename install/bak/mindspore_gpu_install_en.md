@@ -20,7 +20,7 @@ This document describes how to quickly install MindSpore in a NVIDIA GPU environ
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/install/mindspore_gpu_install_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.0/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.0/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/install/mindspore_gpu_install_en.md)
 
 This document describes how to quickly install MindSpore in a NVIDIA GPU environment.
 

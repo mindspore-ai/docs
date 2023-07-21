@@ -3,7 +3,7 @@
 `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Model Development` `Model Training` `Model Optimization` `Enterprise` `Expert`
 
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/design/mindarmour/fuzzer_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+[![View Source On Gitee](../../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/design/mindarmour/fuzzer_design.md)
 
 ## Background
 

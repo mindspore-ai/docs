@@ -2,7 +2,7 @@
 
 `Data Processing` `Environmental Setup` `Model Export` `Model Training` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_en/network_models.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_en/network_models.md)
 
 <font size=3>**Q: After a model is trained, how do I save the model output in text or `npy` format?**</font>
 

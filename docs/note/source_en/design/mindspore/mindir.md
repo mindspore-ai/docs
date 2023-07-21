@@ -3,7 +3,7 @@
 
 `Linux` `Windows` `Framework Development` `Intermediate` `Expert` `Contributor`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/design/mindspore/mindir.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+[![View Source On Gitee](../../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/design/mindspore/mindir.md)
 
 ## Overview
 An intermediate representation (IR) is a representation of a program between the source and target languages, which facilitates program analysis and optimization for the compiler. Therefore, the IR design needs to consider the difficulty in converting the source language to the target language, as well as the ease-of-use and performance of program analysis and optimization.

@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `On Device` `Inference Application` `Intermediate` `Expert` `Contributor`
  
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/design/mindspore/architecture_lite.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+[![View Source On Gitee](../../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/design/mindspore/architecture_lite.md)
 
 The overall architecture of MindSpore Lite is as follows:
 

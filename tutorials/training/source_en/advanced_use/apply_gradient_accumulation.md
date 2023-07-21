@@ -2,7 +2,7 @@
 
 `Linux` `GPU` `Model Optimization` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/apply_gradient_accumulation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![View Source On Gitee](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/apply_gradient_accumulation.md)
 
 ## Overview
 

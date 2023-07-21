@@ -2,9 +2,9 @@
 
 `Linux` `Ascend` `GPU` `CPU` `初级` `中级` `高级` `模型导出` `模型训练`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/evaluate_the_model_during_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/evaluate_the_model_during_training.md)
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/evaluate_the_model_during_training.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+[![查看Notebook](../_static/logo_notebook.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/evaluate_the_model_during_training.ipynb)
 
 ## 概述
 

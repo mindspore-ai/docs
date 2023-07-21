@@ -1,5 +1,5 @@
 # 使用成员推理测试模型安全性
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/test_model_security_membership_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/test_model_security_membership_inference.md)&nbsp;&nbsp;
 
 ## 概述
 

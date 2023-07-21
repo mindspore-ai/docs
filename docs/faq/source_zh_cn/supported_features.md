@@ -2,7 +2,7 @@
 
 `特性优势` `端侧推理` `功能模块` `推理工具`
 
-<a href="https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_zh_cn/supported_features.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_zh_cn/supported_features.md)
 
 <font size=3>**Q：如何在训练神经网络过程中对计算损失的超参数进行改变？**</font>
 

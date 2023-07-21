@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Environmental Setup` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_en/supported_operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_en/supported_operators.md)
 
 <font size=3>**Q: Why is data loading abnormal when MindSpore1.0.1 is used in graph data offload mode?**</font>
 

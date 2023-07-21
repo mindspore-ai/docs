@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `静态图` `模型调试` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/debugger.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/debugger.md)
 
 ## 概述
 MindSpore调试器是为图模式训练提供的调试工具，可以用来查看并分析计算图节点的中间结果。
