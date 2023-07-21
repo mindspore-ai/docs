@@ -2,7 +2,7 @@
 
 `Linux` `CPU` `Inference Application` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_en/multi_platform_inference_cpu.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_en/multi_platform_inference_cpu.md)
 
 ## Inference Using a Checkpoint File
 

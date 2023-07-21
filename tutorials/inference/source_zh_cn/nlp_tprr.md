@@ -1,7 +1,7 @@
 # 多跳知识推理问答模型TPRR
 
 `Linux`  `Ascend` `模型开发`  `高级`
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_zh_cn/nlp_tprr.md" target="_blank"><img src="./_static/logo_source.png"></a>&nbsp;&nbsp;
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_zh_cn/nlp_tprr.md)&nbsp;&nbsp;
 
 ## 概述
 

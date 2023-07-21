@@ -1,6 +1,6 @@
 # 单节点数据缓存
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_zh_cn/cache.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_zh_cn/cache.md)
 
 ## 概述
 

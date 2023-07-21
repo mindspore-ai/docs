@@ -1,6 +1,6 @@
 # Automatic Differentiation
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/source_en/autograd.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/source_en/autograd.md)
 
 Backward propagation is the commonly used algorithm for training neural networks. In this algorithm, parameters (model weights) are adjusted based on a gradient of a loss function for a given parameter.
 

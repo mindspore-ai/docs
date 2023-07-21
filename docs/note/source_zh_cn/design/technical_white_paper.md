@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `CPU` `全流程` `框架开发` `中级` `高级` `贡献者`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/design/technical_white_paper.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/design/technical_white_paper.md)
 
 ## 引言
 

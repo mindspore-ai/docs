@@ -2,7 +2,7 @@
 
 `特性优势` `端侧推理` `功能模块` `推理工具`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/supported_features.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/supported_features.md)
 
 <font size=3>**Q：MindSpore serving是否支持热加载，避免推理服务中断？**</font>
 

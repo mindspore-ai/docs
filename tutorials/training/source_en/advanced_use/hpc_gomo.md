@@ -1,7 +1,7 @@
 # Implementing Regional Ocean Model GOMO
 
 `Linux` `GPU` `Model Development` `Expert`
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/hpc_gomo.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+[![View Source On Gitee](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/hpc_gomo.md)&nbsp;&nbsp;
 
 ## Overview
 

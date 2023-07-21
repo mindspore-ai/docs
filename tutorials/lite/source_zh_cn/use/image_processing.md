@@ -2,7 +2,7 @@
 
 `Windows` `Linux` `C++` `数据准备` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/use/image_processing.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/use/image_processing.md)
 
 ## 概述
 

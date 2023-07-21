@@ -1,6 +1,6 @@
 # 性能优化
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_zh_cn/performance_optimization.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_zh_cn/performance_optimization.md)
 
 MindSpore提供了多种性能优化方法，用户可根据实际情况，利用它们来提升训练和推理的性能。
 

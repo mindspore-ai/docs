@@ -2,7 +2,7 @@
 
 `数据处理` `环境准备` `模型导出` `模型训练` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/network_models.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/network_models.md)
 
 <font size=3>**Q：MindSpore中`model.train`的`dataset_sink_mode`参数该如何理解？**</font>
 
