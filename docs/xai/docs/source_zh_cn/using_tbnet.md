@@ -1,6 +1,6 @@
 # 使用 TB-Net 白盒推荐模型
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_tbnet.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_tbnet.md)
 
 ## 什么是 TB-Net
 

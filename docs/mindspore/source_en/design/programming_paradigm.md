@@ -1,6 +1,6 @@
 # Functional and Object-Oriented Fusion Programming Paradigm
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/programming_paradigm.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/programming_paradigm.md)
 
 Programming paradigm refers to the programming style or programming approach of a programming language. Typically, AI frameworks rely on the programming paradigm of the programming language used by the front-end programming interface for the construction and training of neural networks. MindSpore, as an AI+scientific computing convergence computing framework, provides object-oriented programming and functional programming support for AI and scientific computing scenarios, respectively. At the same time, in order to enhance the flexibility and ease of use of the framework, a functional + object-oriented fusion programming paradigm is proposed, which effectively reflects the advantages of functional automatic differentiation mechanism.
 

@@ -1,6 +1,6 @@
 # Horizontal Federated Device-side Deployment
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_client.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_client.md)
 
 This document describes how to compile and deploy Federated-Client.
 

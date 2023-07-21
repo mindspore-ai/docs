@@ -1,6 +1,6 @@
 # Using Delegate to Support Third-party AI Framework
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/delegate.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/delegate.md)
 
 ## Overview
 

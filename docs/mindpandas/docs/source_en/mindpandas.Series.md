@@ -1,6 +1,6 @@
 # mindpandas.Series
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_en/mindpandas.Series.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_en/mindpandas.Series.md)&nbsp;&nbsp;
 
 Series is a one-dimensional data structure with axis labels, and is a commonly-used MindSpore Pandas data structure.
 

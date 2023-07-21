@@ -1,6 +1,6 @@
 # 离线训练
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/recommender/docs/source_zh_cn/offline_learning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/recommender/docs/source_zh_cn/offline_learning.md)
 
 ## 概述
 
