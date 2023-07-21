@@ -2,8 +2,8 @@
 
 `Ascend` `GPU` `CPU` `数据准备` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/use/data_preparation/data_processing_and_augmentation.md" target="_blank"><img src="../../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/data_loading_enhance/data_loading_enhancement.ipynb" target="_blank"><img src="../../_static/logo_notebook.png"></a>
+[![查看源文件](../../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/use/data_preparation/data_processing_and_augmentation.md)&nbsp;&nbsp;
+[![查看Notebook](../../_static/logo_notebook.png)](https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/data_loading_enhance/data_loading_enhancement.ipynb)
 
 ## 概述
 

@@ -2,9 +2,9 @@
 
 `Ascend` `GPU` `CPU` `初级` `中级` `高级` `模型导出` `模型训练`
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/synchronization_training_and_evaluation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/synchronization_training_and_evaluation.md)
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/synchronization_training_and_evaluation.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+[![查看Notebook](../_static/logo_notebook.png)](https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/synchronization_training_and_evaluation.ipynb)
 
 ## 概述
 

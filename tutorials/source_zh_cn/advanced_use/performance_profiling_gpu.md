@@ -2,7 +2,7 @@
 
 `GPU` `模型调优` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/performance_profiling_gpu.md)
 
 ## 概述
 将训练过程中的算子耗时等信息记录到文件中，通过可视化界面供用户查看分析，帮助用户更高效地调试神经网络性能。
