@@ -1,6 +1,6 @@
 # 查看中间文件
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/debug/mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/debug/mindir.md)
 
 ## 概述
 

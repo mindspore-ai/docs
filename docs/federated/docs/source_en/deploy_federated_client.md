@@ -1,6 +1,6 @@
 ﻿# On-Device Deployment
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/federated/docs/source_en/deploy_federated_client.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.7/docs/federated/docs/source_en/deploy_federated_client.md)
 
 The following describes how to deploy the Federated-Client in the Android aarch and Linux x86_64 environments:
 

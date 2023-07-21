@@ -2,7 +2,7 @@
 
 Translator: [Dongdong92](https://gitee.com/zy179280)
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/migration_guide/inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/migration_guide/inference.md)
 
 For trained models, MindSpore can execute inference tasks on different hardware platforms. MindSpore also provides online inference services based on MindSpore Serving.
 

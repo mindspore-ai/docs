@@ -2,7 +2,7 @@
 
 Translator: [Wei_zz](https://gitee.com/wei-zz)
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindquantum/docs/source_en/parameterized_quantum_circuit.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.7/docs/mindquantum/docs/source_en/parameterized_quantum_circuit.md)
 
 ## Summary
 
