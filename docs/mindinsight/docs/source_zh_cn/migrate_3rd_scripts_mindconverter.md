@@ -1,6 +1,6 @@
 # 使用MindConverter迁移模型定义脚本
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/mindinsight/docs/source_zh_cn/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.10/docs/mindinsight/docs/source_zh_cn/migrate_3rd_scripts_mindconverter.md)
 
 ## 工具概述
 
