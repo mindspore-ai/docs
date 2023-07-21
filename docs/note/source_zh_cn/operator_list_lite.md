@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `端侧` `推理应用` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/operator_list_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/operator_list_lite.md)
 
 | 操作名                   | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int8 | CPU<br/>UInt8 | GPU<br/>FP16 | GPU<br/>FP32 | 支持的Tensorflow<br/>Lite算子 | 支持的Caffe<br/>Lite算子 | 支持的Onnx<br/>Lite算子 |
 |-----------------------|----------|----------|----------|-----------|----------|-------------------|----------|----------|---------|

@@ -1,6 +1,6 @@
 ﻿# 使用TimeProfiler进行耗时分析
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_zh_cn/use/timeprofiler_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_zh_cn/use/timeprofiler_tool.md)
 
 ## 概述
 

@@ -2,8 +2,8 @@
 
 `Linux` `Ascend` `GPU` `模型训练` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/enable_mixed_precision.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/mixed_precision.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/enable_mixed_precision.md)&nbsp;&nbsp;
+[![查看Notebook](../_static/logo_notebook.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/mixed_precision.ipynb)
 
 ## 概述
 

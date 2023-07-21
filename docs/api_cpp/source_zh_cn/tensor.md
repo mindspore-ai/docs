@@ -1,6 +1,6 @@
 # mindspore::tensor
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/api_cpp/source_zh_cn/tensor.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/docs/api_cpp/source_zh_cn/tensor.md)
 
 \#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/lite/include/ms_tensor.h)&gt;
 

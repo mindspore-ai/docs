@@ -2,7 +2,7 @@
 
 `Ascend` `CPU` `GPU` `环境准备` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_zh_cn/supported_operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_zh_cn/supported_operators.md)
 
 <font size=3>**Q：使用MindSpore-1.0.1版本在图数据下沉模式加载数据异常是什么原因？**</font>
 

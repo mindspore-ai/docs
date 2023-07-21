@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `Environment Preparation`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/faq/source_en/mindinsight_use.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/docs/faq/source_en/mindinsight_use.md)
 
 <font size=3>**Q: What can I do if the error message `ImportError: libcrypto.so.1.0.0: cannot open shared object file: No such file or directory` is displayed in the MindInsight running logs after MindInsight failed to start?**</font>
 

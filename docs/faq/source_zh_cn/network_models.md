@@ -2,7 +2,7 @@
 
 `数据处理` `环境准备` `模型导出` `模型训练` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_zh_cn/network_models.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_zh_cn/network_models.md)
 
 <font size=3>**Q：模型已经训练好，如何将模型的输出结果保存为文本或者`npy`的格式？**</font>
 

@@ -2,7 +2,7 @@
 
 `Python` `支持计划`
 
-<a href="https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_zh_cn/programming_language_extensions.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_zh_cn/programming_language_extensions.md)
 
 <font size=3>**Q：最近出来的taichi编程语言有Python扩展，类似`import taichi as ti`就能直接用了，MindSpore是否也支持？**</font>
 

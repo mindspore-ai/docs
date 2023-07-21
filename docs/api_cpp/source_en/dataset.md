@@ -1,6 +1,6 @@
 # mindspore::dataset
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/api_cpp/source_en/dataset.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/docs/api_cpp/source_en/dataset.md)
 
 \#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;  
 \#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;

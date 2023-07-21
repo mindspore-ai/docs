@@ -2,7 +2,7 @@
 
 `Linux` `CPU` `推理应用` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/inference/source_zh_cn/multi_platform_inference_cpu.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/inference/source_zh_cn/multi_platform_inference_cpu.md)
 
 ## 使用checkpoint格式文件推理
 与在Ascend 910 AI处理器上推理一样。

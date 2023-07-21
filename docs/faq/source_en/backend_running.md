@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Environmental Setup` `Operation Mode` `Model Training` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_en/backend_running.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_en/backend_running.md)
 
 <font size=3>**Q: What can I do if the network performance is abnormal and weight initialization takes a long time during training after MindSpore is installed?**</font>
 

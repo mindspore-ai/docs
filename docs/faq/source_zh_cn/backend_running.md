@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `环境准备` `运行模式` `模型训练` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_zh_cn/backend_running.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_zh_cn/backend_running.md)
 
 <font size=3>**Q：MindSpore安装完成，执行训练时发现网络性能异常，权重初始化耗时过长，怎么办？**</font>  
 

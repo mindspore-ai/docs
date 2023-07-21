@@ -4,9 +4,9 @@
 
 `Linux` `Windows` `Ascend` `CPU` `GPU` `全流程` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/quick_start/linear_regression.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/quick_start/linear_regression.md)
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/linear_regression.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+[![查看Notebook](../_static/logo_notebook.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/linear_regression.ipynb)
 
 ## 概述
 

@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `Whole Process` `Framework Development` `Intermediate` `Expert` `Contributor`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/roadmap.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/roadmap.md)
 
 MindSpore's top priority plans in the year are displayed as follows. We will continuously adjust the priority based on user feedback.
 

@@ -1,7 +1,7 @@
 # Using Runtime for Model Inference
 
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_en/use/runtime.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![View Source On Gitee](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_en/use/runtime.md)
 
 ## Overview
 

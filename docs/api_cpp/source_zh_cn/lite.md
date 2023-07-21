@@ -1,6 +1,6 @@
 # mindspore::lite
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/api_cpp/source_zh_cn/lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/docs/api_cpp/source_zh_cn/lite.md)
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/lite/include/context.h)&gt;
 

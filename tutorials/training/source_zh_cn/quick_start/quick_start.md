@@ -2,11 +2,9 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `全流程` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/quick_start/quick_start.md)
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/quick_start.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
-&nbsp;&nbsp;
-<a href="https://www.huaweicloud.com/ascend/codeLab_MindSpore/MindSpore" target="_blank"><img src="../_static/logo_online_experience.png"></a>
+[![查看Notebook](../_static/logo_notebook.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/quick_start.ipynb)
 
 ## 概述
 

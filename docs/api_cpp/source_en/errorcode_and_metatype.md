@@ -1,6 +1,6 @@
 # ErrorCode and MetaType
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/api_cpp/source_en/errorcode_and_metatype.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/docs/api_cpp/source_en/errorcode_and_metatype.md)
 
 Description of error code and meta type supported in MindSpore Lite.
 

@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `CPU` `数据准备` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/use/load_dataset_image.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/use/load_dataset_image.md)
 
 ## 概述
 
