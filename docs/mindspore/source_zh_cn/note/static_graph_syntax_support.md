@@ -223,19 +223,9 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
 #### List
 
-列表`List`以及元组`Tuple`是Python中最基本的序列内置类型，`List`与`Tuple`最核心的区别是`List`是可以改变的对象，而`Tuple`是不可以更改的。这意味着`Tuple`一旦被创建，就不可以在对象地址不变的情况下更改。而`List`则可以通过一系列inplace操作，在不改变对象地址的情况下，对对象进行修改。例如：
+在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，静态图模式可以支持部分`List`对象的inplace操作，具体介绍详见[支持列表就地修改操作](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/static_graph_syntax.html#支持列表就地修改操作)。
 
-```python
-a = [1, 2, 3, 4]
-a_id = id(a)
-a.append(5)
-a_after_id = id(a)
-assert a_id == a_after_id
-```
-
-上述示例代码中，通过`append`这个inplace语法更改`List`对象的时候，其对象的地址并没有被修改。而`Tuple`是不支持这种inplace操作的。在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，静态图模式可以支持部分`List`对象的inplace操作。
-
-MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`进行网络构建。
+`List`的基础使用场景如下：
 
 - 图模式支持图内创建`List`
 
@@ -250,8 +240,7 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
     a = [1, 2, 3, 4]
     b = ["1", "2", "a"]
     c = [ms.Tensor([1]), ms.Tensor([2])]
-    d = [np.array([1, 2, 3]), np.array(["1, 2, 3"])]
-    d = [a, b, c, d, (4, 5)]
+    d = [a, b, c, (4, 5)]
     return d
   ```
 
@@ -276,8 +265,6 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
 
 - 图模式支持从全局变量中获取`List`对象
 
-  在下面示例中，静态图获取到`List`对象，并在原有对象上进行了图模式支持的inplace操作`list.reverse()`, 并将原有对象返回。可以看到图模式返回的对象与原有的全局变量对象id相同，即两者为同一对象。若`JIT_SYNTAX_LEVEL`设置为`STRICT`选项，则返回的`List`对象与全局对象为两个不同的对象。
-
   ```python
   import mindspore as ms
 
@@ -289,8 +276,9 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
       return global_list
 
   output = list_func()  # output: [4, 3, 2, 1]
-  assert id(global_list) == id(output)
   ```
+
+  需要注意的是，在基础场景下图模式返回的列表与全局变量的列表不是同一个对象，当`JIT_SYNTAX_LEVEL`设置为`LAX`时，返回的对象与全局对象为统一对象。
 
 - 图模式支持以`List`作为输入
 
@@ -308,43 +296,9 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
   output = list_func()  # output: [1, 2, 3, 4]
   ```
 
-  `List` 作为静态图输入存在两点注意事项：
-
-  1）`List`作为静态图输入时，无论其内部的元素是什么类型，一律被视为常量。
-
-  2）`List`作为静态图输入时，会对该`List`对象进行一次复制，并使用该复制对象进行后续的计算，因此无法对原输入对象进行inplace操作。例如：
-
-  ```python
-  import mindspore as ms
-
-  list_input = [1, 2, 3, 4]
-
-  @ms.jit
-  def list_func(x):
-      x.reverse()
-      return x
-
-  output = list_func()  # output: [4, 3, 2, 1]  list_input: [1, 2, 3, 4]
-  assert id(output) != id(list_input)
-  ```
-
-  如上述用例所示，`List`对象作为图模式输入时无法在原有对象上进行inplace操作。图模式返回的对象与输入的对象id不同，为不同对象。
+  需要注意的是，`List`作为静态图输入时，无论其内部的元素是什么类型，一律被视为常量。
 
 - 图模式支持List的内置方法
-
-    在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，图模式部分`List`内置函数支持inplace。在 `JIT_SYNTAX_LEVEL`为 `STRICT` 的情况下，所有方法均不支持inplace操作。
-    图模式支持的`List`内置方法如下表所示：
-
-    | 方法名       | 是否支持inplace操作 （JIT_SYNTAX_LEVEL=LAX）    |  
-    | ----------  | ------------      |
-    | 索引取值      | 非inplace操作      |
-    | 索引赋值      | 不支持             |
-    | append      | 不支持             |
-    | clear       | 不支持             |
-    | extend      | 支持               |
-    | pop         | 支持               |
-    | reverse     | 支持               |
-    | insert      | 支持               |
 
     `List` 内置方法的详细介绍如下：
 
@@ -484,8 +438,6 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
 
         `target`支持的类型为`Tuple`，`List`以及`Tensor`。其中，如果`target`类型为`Tensor`的情况下，会先将该`Tensor`转换为`List`，再进行插入操作。
 
-        在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，`List.extend`支持inplace操作，函数运行后不生成新的对象。
-
         示例如下：
 
         ```python
@@ -519,8 +471,6 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
 
         `index` 要求必须为常量`int`, 当`list_object`的长度为`list_obj_size`时，`index`的取值范围为：`[-list_obj_size，list_obj_size-1]`。`index`为负数，代表从后往前的位数。当没有输入`index`时，默认值为-1，即删除最后一个元素。
 
-        在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，`List.pop`支持inplace操作，函数运行后不生成新的对象。
-
         ```python
         import mindspore as ms
 
@@ -547,8 +497,6 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
         基础语法：```list_object.reverse()```。
 
         基础语义：将`List`对象`list_object`的元素顺序倒转。
-
-        在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，`List.reverse`支持inplace操作，函数运行后不生成新的对象。
 
         示例如下：
 
@@ -578,8 +526,6 @@ MindSpore图模式语法扩展了对`List`的支持，方便用户使用`List`�
         基础语义：将`target_obj`插入到`list_object`的第`index`位。
 
         `index`要求必须为常量`int`。如果`list_object`的长度为`list_obj_size`。当`index < -list_obj_size`时，插入到`List`的第一位。当`index >= -list_obj_size`时，插入到`List`的最后。`index`为负数代表从后往前的位数。
-
-        在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，`List.insert`支持inplace操作，函数运行后不生成新的对象。
 
         示例如下：
 
@@ -1311,6 +1257,82 @@ print("res: ", res)
 ```text
 res: 2
 ```
+
+### 支持列表就地修改操作
+
+列表`List`以及元组`Tuple`是Python中最基本的序列内置类型，`List`与`Tuple`最核心的区别是`List`是可以改变的对象，而`Tuple`是不可以更改的。这意味着`Tuple`一旦被创建，就不可以在对象地址不变的情况下更改。而`List`则可以通过一系列inplace操作，在不改变对象地址的情况下，对对象进行修改。例如：
+
+```python
+a = [1, 2, 3, 4]
+a_id = id(a)
+a.append(5)
+a_after_id = id(a)
+assert a_id == a_after_id
+```
+
+上述示例代码中，通过`append`这个inplace语法更改`List`对象的时候，其对象的地址并没有被修改。而`Tuple`是不支持这种inplace操作的。在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，静态图模式可以支持部分`List`对象的inplace操作。
+
+具体使用场景如下：
+
+- 支持从全局变量中获取原`List`对象
+
+  在下面示例中，静态图获取到`List`对象，并在原有对象上进行了图模式支持的inplace操作`list.reverse()`, 并将原有对象返回。可以看到图模式返回的对象与原有的全局变量对象id相同，即两者为同一对象。若`JIT_SYNTAX_LEVEL`设置为`STRICT`选项，则返回的`List`对象与全局对象为两个不同的对象。
+
+  ```python
+  import mindspore as ms
+
+  global_list = [1, 2, 3, 4]
+
+  @ms.jit
+  def list_func():
+      global_list.reverse()
+      return global_list
+
+  output = list_func()  # output: [4, 3, 2, 1]
+  assert id(global_list) == id(output)
+  ```
+
+- 不支持对输入`List`对象进行inplace操作
+
+  `List`作为静态图输入时，会对该`List`对象进行一次复制，并使用该复制对象进行后续的计算，因此无法对原输入对象进行inplace操作。例如：
+
+  ```python
+  import mindspore as ms
+
+  list_input = [1, 2, 3, 4]
+
+  @ms.jit
+  def list_func(x):
+      x.reverse()
+      return x
+
+  output = list_func()  # output: [4, 3, 2, 1]  list_input: [1, 2, 3, 4]
+  assert id(output) != id(list_input)
+  ```
+
+  如上述用例所示，`List`对象作为图模式输入时无法在原有对象上进行inplace操作。图模式返回的对象与输入的对象id不同，为不同对象。
+
+- 支持部分`List`内置函数的就地修改操作
+
+  在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，图模式部分`List`内置函数支持inplace。在 `JIT_SYNTAX_LEVEL`为 `STRICT` 的情况下，所有方法均不支持inplace操作。
+
+  目前，图模式支持的`List`就地修改内置方法有`extend`、`pop`、`reverse`以及`insert`。内置方法`append`、`clear`以及索引赋值暂不支持就地修改，后续版本将会支持。
+
+  示例如下：
+
+  ```python
+  import mindspore as ms
+
+  list_input = [1, 2, 3, 4]
+
+  @ms.jit
+  def list_func():
+      list_input.reverse()
+      return list_input
+
+  output = list_func()  # output: [4, 3, 2, 1]  list_input: [4, 3, 2, 1]
+  assert id(output) == id(list_input)
+  ```
 
 ### 支持属性设置与修改
 
