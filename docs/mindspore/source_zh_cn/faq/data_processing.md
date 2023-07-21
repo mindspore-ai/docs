@@ -1,6 +1,6 @@
 # 数据处理
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/faq/data_processing.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.11/docs/mindspore/source_zh_cn/faq/data_processing.md)
 
 <font size=3>**Q: 请问如果不使用高阶API，怎么实现数据下沉？**</font>
 
