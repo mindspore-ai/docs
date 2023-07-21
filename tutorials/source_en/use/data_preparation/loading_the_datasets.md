@@ -1,6 +1,6 @@
 # Loading the Dataset
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/use/data_preparation/loading_the_datasets.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+[![View Source On Gitee](../../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/use/data_preparation/loading_the_datasets.md)
 
 ## Overview
 

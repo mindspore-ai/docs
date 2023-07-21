@@ -1,6 +1,6 @@
 # Getting Started with Parallel Distributed Training
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/advanced_use/distributed_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![View Source On Gitee](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/advanced_use/distributed_training.md)
 
 ## Overview
 In deep learning, the increasing number of datasets and parameters prolongs the training time and requires more hardware resources, becoming a training bottleneck. Parallel distributed training is an important optimization method for training, which can reduce requirements on hardware, such as memory and computing performance. Based on different parallel principles and modes, parallelism is generally classified into the following types:

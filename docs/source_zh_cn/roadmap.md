@@ -10,7 +10,7 @@
 
 热忱希望各位在用户社区加入讨论，并贡献您的建议。
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.5/docs/source_zh_cn/roadmap.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.5/docs/source_zh_cn/roadmap.md)
 
 ## 预置模型
 * CV：目标检测、GAN、图像分割、姿态识别等场景经典模型。

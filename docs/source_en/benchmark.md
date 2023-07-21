@@ -1,6 +1,6 @@
 # Benchmarks
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.5/docs/source_en/benchmark.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.5/docs/source_en/benchmark.md)
 
 This document describes the MindSpore benchmarks. 
 For details about the MindSpore pre-trained model, see [Model Zoo](https://gitee.com/mindspore/mindspore/tree/r0.5/model_zoo).
