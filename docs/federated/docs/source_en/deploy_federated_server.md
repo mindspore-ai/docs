@@ -1,6 +1,6 @@
 ﻿# Cloud-based Deployment
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/federated/docs/source_en/deploy_federated_server.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.7/docs/federated/docs/source_en/deploy_federated_server.md)
 
 The following uses LeNet as an example to describe how to use MindSpore to deploy a federated learning cluster.
 

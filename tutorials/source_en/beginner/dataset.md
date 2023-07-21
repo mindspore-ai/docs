@@ -1,6 +1,6 @@
 # Data Processing
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/dataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/dataset.md)
 
 Data is the foundation of deep learning, and high-quality data input is beneficial to the entire deep neural network.
 

@@ -1,6 +1,6 @@
 # 算子调优工具
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/debug/auto_tune.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/debug/auto_tune.md)&nbsp;&nbsp;
 
 ## 概述
 

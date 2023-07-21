@@ -1,6 +1,6 @@
 # Building a Neural Network
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/model.md)
 
 A neural network model consists of multiple data operation layers. `mindspore.nn` provides various basic network modules. The following uses LeNet-5 as an example to first describe how to build a neural network model by using `mindspore.nn`, and then describes how to build a LeNet-5 model by using `mindvision.classification.models`.
 
