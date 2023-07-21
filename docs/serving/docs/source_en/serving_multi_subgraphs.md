@@ -1,6 +1,6 @@
 ﻿# Service Deployment with Multiple Subgraphs and Stateful Model
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/serving/docs/source_en/serving_multi_subgraphs.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/serving/docs/source_en/serving_multi_subgraphs.md)
 
 ## Overview
 

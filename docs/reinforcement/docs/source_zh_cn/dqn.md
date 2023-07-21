@@ -1,6 +1,6 @@
 # 使用MindSpore Reinforcement实现深度Q学习（DQN）
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/reinforcement/docs/source_zh_cn/dqn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/reinforcement/docs/source_zh_cn/dqn.md)
 &nbsp;&nbsp;
 
 ## 摘要

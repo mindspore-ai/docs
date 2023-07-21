@@ -1,6 +1,6 @@
 # MindSpore Operator List
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/note/source_en/operator_list_ms.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/note/source_en/operator_list_ms.md)
 
 You can choose the operators that are suitable for your hardware platform for building the network model according to your needs.
 

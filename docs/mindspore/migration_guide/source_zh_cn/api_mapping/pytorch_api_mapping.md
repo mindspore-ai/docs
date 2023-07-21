@@ -1,6 +1,6 @@
 # PyTorch与MindSpore
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_api_mapping.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_api_mapping.md)
 
 由社区提供的PyTorch APIs和MindSpore APIs之间的映射，可能在参数、输入、输出、逻辑功能和特定场景等方面存在差异，可详见各API描述或已提供的差异对比。
 

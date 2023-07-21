@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Beginner` `Data Preparation`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/tutorials/source_en/dataset.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.6/tutorials/source_en/dataset.md)
 
 MindSpore provides APIs for loading common datasets and datasets in standard formats. You can directly use the corresponding dataset loading class in mindspore.dataset to load data. The dataset class provides common data processing APIs for users to quickly process data.
 

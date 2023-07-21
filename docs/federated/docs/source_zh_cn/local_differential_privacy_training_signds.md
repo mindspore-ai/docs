@@ -1,6 +1,6 @@
 # 局部差分隐私SignDS训练
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_zh_cn/local_differential_privacy_training_signds.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_zh_cn/local_differential_privacy_training_signds.md)
 
 ## 隐私保护背景
 

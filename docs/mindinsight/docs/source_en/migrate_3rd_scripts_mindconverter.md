@@ -1,6 +1,6 @@
 # Migrating From Third Party Frameworks With MindConverter
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_en/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_en/migrate_3rd_scripts_mindconverter.md)
 
 ## Overview
 

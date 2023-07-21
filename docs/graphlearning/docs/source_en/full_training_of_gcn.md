@@ -1,6 +1,6 @@
 # Entire Graph Training Using Graph Convolutional Network (GCN)
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/graphlearning/docs/source_en/full_training_of_gcn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/graphlearning/docs/source_en/full_training_of_gcn.md)
 &nbsp;&nbsp;
 
 ## Overview

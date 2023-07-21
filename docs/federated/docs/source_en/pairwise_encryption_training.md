@@ -1,6 +1,6 @@
 ﻿# Pairwise encryption training
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_en/pairwise_encryption_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_en/pairwise_encryption_training.md)
 
 During federated learning, user data is used only for local device training and does not need to be uploaded to the central server. This prevents personal data leakage.
 However, in the conventional federated learning framework, models are migrated to the cloud in plaintext. There is still a risk of indirect disclosure of user privacy.
