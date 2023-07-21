@@ -1,6 +1,6 @@
 # Glossary
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/mindspore/source_en/design/glossary.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.8/docs/mindspore/source_en/design/glossary.md)
 
 |  Acronym and Abbreviation  |  Description  |
 | -----    | -----    |

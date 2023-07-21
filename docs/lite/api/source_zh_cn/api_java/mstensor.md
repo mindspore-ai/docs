@@ -1,6 +1,6 @@
 # MSTensor
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/lite/api/source_zh_cn/api_java/mstensor.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.8/docs/lite/api/source_zh_cn/api_java/mstensor.md)
 
 ```java
 import com.mindspore.MSTensor;

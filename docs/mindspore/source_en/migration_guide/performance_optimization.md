@@ -1,6 +1,6 @@
 # Performance Profiling
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/mindspore/source_en/migration_guide/performance_optimization.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.8/docs/mindspore/source_en/migration_guide/performance_optimization.md)
 
 Profiler provides performance tuning ability for MindSpore, and provides easy-to-use and rich debugging functions in operator performance, data processing performance, etc., helping users quickly locate and solve performance problems.
 

@@ -1,6 +1,6 @@
 # 图像分割模型
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/lite/docs/source_zh_cn/image_segmentation_lite.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.8/docs/lite/docs/source_zh_cn/image_segmentation_lite.md)
 
 ## 图像分割介绍
 

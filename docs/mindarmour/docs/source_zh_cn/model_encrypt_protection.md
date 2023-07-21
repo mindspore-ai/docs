@@ -1,6 +1,6 @@
 # 模型加密保护
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/mindarmour/docs/source_zh_cn/model_encrypt_protection.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.8/docs/mindarmour/docs/source_zh_cn/model_encrypt_protection.md)
 
 ## 概述
 
