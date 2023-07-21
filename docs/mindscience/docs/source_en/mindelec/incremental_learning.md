@@ -1,6 +1,6 @@
 # Incremental Training for Solving a Family of Maxwell's Equation
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindscience/docs/source_en/mindelec/incremental_learning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/mindscience/docs/source_en/mindelec/incremental_learning.md)&nbsp;&nbsp;
 
 ## Overview
 

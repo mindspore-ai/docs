@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Beginner` `Model Export` `Model Loading`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_en/save_load_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_en/save_load_model.md)
 
 In the previous tutorial, you learn how to train the network. In this tutorial, you will learn how to save and load a model, and how to export a saved model in a specified format to different platforms for inference.
 

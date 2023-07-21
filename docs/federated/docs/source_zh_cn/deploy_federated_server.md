@@ -1,6 +1,6 @@
 # 云侧部署
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/federated/docs/source_zh_cn/deploy_federated_server.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/federated/docs/source_zh_cn/deploy_federated_server.md)
 
 本文档以LeNet网络为例，讲解如何使用MindSpore来部署联邦学习集群。
 

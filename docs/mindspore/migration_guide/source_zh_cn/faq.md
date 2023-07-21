@@ -1,6 +1,6 @@
 # 常见问题
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/migration_guide/source_zh_cn/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/migration_guide/source_zh_cn/faq.md)
 
 从其他框架迁移到MindSpore框架的过程中，可能会遇到各种各样的问题，下面将迁移过程中的常见问题及其解决方法汇总如下：
 

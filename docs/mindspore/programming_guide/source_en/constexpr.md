@@ -1,7 +1,7 @@
 # Construct Constants In the Network
 
 `Ascend` `GPU` `CPU` `Model Development`
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_en/constexpr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_en/constexpr.md)
 Overview
 
 A @constexpr python decorator is provided in `mindspore.ops.constexpr`,which can be used to decorate a function.The function will be executed by the Python interpreter in the compiling stage, and finally this function will be changed to a ValueNode of ANF graph after the inference state of MindSpore.

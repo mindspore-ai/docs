@@ -2,7 +2,7 @@
 
 `Linux` `环境准备` `模型导出` `模型转换` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/docs/source_zh_cn/use/converter_train.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/docs/source_zh_cn/use/converter_train.md)
 
 ## 概述
 

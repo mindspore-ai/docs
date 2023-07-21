@@ -1,6 +1,6 @@
 # Static Graph Syntax Support
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/note/source_en/static_graph_syntax_support.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/note/source_en/static_graph_syntax_support.md)
 
 ## Overview
 

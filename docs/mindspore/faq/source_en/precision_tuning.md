@@ -1,6 +1,6 @@
 ﻿# Precision Tuning
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/faq/source_en/precision_tuning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/faq/source_en/precision_tuning.md)
 
 <font size=3>**Q: Why is the loss value not converged or why does the accuracy not meet the requirement? How can I locate and optimize the loss value?**</font>
 

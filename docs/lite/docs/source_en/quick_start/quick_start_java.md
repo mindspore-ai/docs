@@ -2,7 +2,7 @@
 
 `Linux` `x86` `Java` `Whole Process` `Inference Application` `Data Preparation` `Beginner`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/docs/source_en/quick_start/quick_start_java.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/docs/source_en/quick_start/quick_start_java.md)
 
 ## Overview
 

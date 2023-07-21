@@ -1,6 +1,6 @@
 # 发布模型
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/hub/docs/source_zh_cn/publish_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/hub/docs/source_zh_cn/publish_model.md)
 
 ## 概述
 
