@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型开发` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_zh_cn/operator_list_ms.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_zh_cn/operator_list_ms.md)
 
 您可根据需要，选择适用于您硬件平台的算子，构建网络模型。
 

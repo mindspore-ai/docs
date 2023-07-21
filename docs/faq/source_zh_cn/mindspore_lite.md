@@ -1,6 +1,6 @@
 # 端侧使用类
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_zh_cn/mindspore_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_zh_cn/mindspore_lite.md)
 
 <font size=3>**Q：NPU推理存在什么限制？**</font>
 

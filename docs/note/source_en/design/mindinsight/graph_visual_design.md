@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_en/design/mindinsight/graph_visual_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+[![View Source On Gitee](../../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_en/design/mindinsight/graph_visual_design.md)
 
 ## Background
 

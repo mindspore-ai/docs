@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `模型训练` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/apply_parameter_server_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/apply_parameter_server_training.md)
 
 ## 概述
 

@@ -1,7 +1,7 @@
 # 实现区域海洋模型GOMO
 
 `Linux`  `GPU` `模型开发`  `高级`
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/hpc_gomo.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/hpc_gomo.md)&nbsp;&nbsp;
 
 ## 概述
 

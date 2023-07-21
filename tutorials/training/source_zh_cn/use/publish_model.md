@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `模型发布` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/use/publish_model.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/use/publish_model.md)
 
 ## 概述
 

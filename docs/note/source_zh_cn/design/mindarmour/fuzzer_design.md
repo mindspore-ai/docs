@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `CPU` `数据准备` `模型开发` `模型训练` `模型调优` `企业` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_zh_cn/design/mindarmour/fuzzer_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+[![查看源文件](../../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_zh_cn/design/mindarmour/fuzzer_design.md)
 
 ## 背景
 

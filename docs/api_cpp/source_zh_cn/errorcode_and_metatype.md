@@ -1,6 +1,6 @@
 # 错误码及元类型
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/api_cpp/source_zh_cn/errorcode_and_metatype.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/docs/api_cpp/source_zh_cn/errorcode_and_metatype.md)
 
 ## 1.0.1
 

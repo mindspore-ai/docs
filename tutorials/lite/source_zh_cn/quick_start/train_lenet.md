@@ -2,7 +2,7 @@
 
 `Linux` `Android` `全流程` `模型导出` `模型转换` `模型训练` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_zh_cn/quick_start/train_lenet.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_zh_cn/quick_start/train_lenet.md)
 
 ## 概述
 

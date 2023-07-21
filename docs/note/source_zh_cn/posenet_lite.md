@@ -1,6 +1,6 @@
 # 骨骼检测模型支持（Lite）
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_zh_cn/posenet_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_zh_cn/posenet_lite.md)
 
 ## 骨骼检测介绍
 
