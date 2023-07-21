@@ -179,6 +179,7 @@ from sphinx.builders import html as sphinx_builder_html
 
 with open("../_custom/sphinx_builder_html", "r", encoding="utf8") as f:
     source_code = f.read()
+    source_code = source_code.replace('样例', 'Example')
 
 exec(source_code, sphinx_builder_html.__dict__)
 
