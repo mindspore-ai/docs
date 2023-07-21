@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `联邦学习` `分布式应用` `中级` `高级` `贡献者`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/summarize_federated.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/summarize_federated.md)
 
 MindSpore Federated是一款开源联邦学习框架，支持面向千万级无状态终端设备的商用化部署，可在用户数据不出本地的前提下，使能全场景智能应用。
 

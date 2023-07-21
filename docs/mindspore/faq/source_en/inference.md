@@ -1,6 +1,6 @@
 ﻿# Inference
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/faq/source_en/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/faq/source_en/inference.md)
 
 <font size=3>**Q: MindSpore 1.3 is installed on the Ascend 310 hardware platform. When I run the `add_model.py` sample in mindspore_serving, an error message is displayed. Why?**</font>
 

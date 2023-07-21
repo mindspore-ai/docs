@@ -1,6 +1,6 @@
 ﻿# 推理
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/faq/source_zh_cn/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/faq/source_zh_cn/inference.md)
 
 <font size=3>**Q: 在Ascend310硬件平台安装了MindSpore1.3版本，运行mindspore_serving中的`add_model.py`样例出现报错？**</font>
 

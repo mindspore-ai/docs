@@ -4,7 +4,7 @@
 
 Translator: [Wei_zz](https://gitee.com/wei-zz)
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/dataset_introduction.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/dataset_introduction.md)
 
 Data is the foundation of deep learning, and high-quality data input will play a positive role in the entire deep neural network.
 In the network training and inference process, the original data is generally stored in a disk or a database, and it needs to be first read into the memory space through the data loading step, converted into the framework's common tensor (Tensor) format, and then processed and enhanced by the data step, map it to a feature space that is easier to learn, while increasing the number of samples and generalization, and finally input to the network for calculation.

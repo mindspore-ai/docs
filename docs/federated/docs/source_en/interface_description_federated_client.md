@@ -1,6 +1,6 @@
 # Examples
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_en/interface_description_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_en/interface_description_federated_client.md)
 
 Note that before using the following interfaces, you can first refer to the document [on-device deployment](https://www.mindspore.cn/federated/docs/en/r1.6/deploy_federated_client.html) to deploy related environments.
 

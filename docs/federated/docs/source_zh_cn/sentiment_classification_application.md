@@ -1,6 +1,6 @@
 # 实现一个情感分类应用(Android)
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_zh_cn/sentiment_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_zh_cn/sentiment_classification_application.md)
 
 通过端云协同的联邦学习建模方式，可以充分发挥端侧数据的优势，避免用户敏感数据直接上传云侧。由于用户在使用输入法时，十分重视所输入文字的隐私，且输入法的智慧功能对提升用户体验非常需要。因此，联邦学习天然适用于输入法应用场景。
 

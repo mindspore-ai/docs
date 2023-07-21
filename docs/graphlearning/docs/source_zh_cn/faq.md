@@ -1,6 +1,6 @@
 ﻿# FAQ
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/graphlearning/docs/source_zh_cn/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/graphlearning/docs/source_zh_cn/faq.md)
 
 <font size=3>**Q：命令行执行GNNCell报错`OSError: could not get source code`怎么办？**</font>
 

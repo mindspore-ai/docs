@@ -1,6 +1,6 @@
 ﻿# 比较与torchtext.data.functional.sentencepiece_numericalizer的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/SentencePieceTokenizer_Out_INT.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/SentencePieceTokenizer_Out_INT.md)
 
 ## torchtext.data.functional.sentencepiece_numericalizer
 

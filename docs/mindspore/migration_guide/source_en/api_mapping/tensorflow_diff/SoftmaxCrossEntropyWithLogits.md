@@ -1,6 +1,6 @@
 # Function Differences with tf.nn.softmax_cross_entropy_with_logits
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/tensorflow_diff/SoftmaxCrossEntropyWithLogits.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/tensorflow_diff/SoftmaxCrossEntropyWithLogits.md)
 
 ## tf.nn.softmax_cross_entropy_with_logits
 

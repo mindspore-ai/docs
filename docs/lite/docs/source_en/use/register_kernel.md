@@ -2,7 +2,7 @@
 
 `Windows` `Linux` `Android` `C++` `Inference Application` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_en/use/register_kernel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_en/use/register_kernel.md)
 
 ## Implementing Custom Operators
 

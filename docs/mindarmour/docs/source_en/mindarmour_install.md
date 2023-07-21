@@ -1,6 +1,6 @@
 # MindArmour Installation
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindarmour/docs/source_en/mindarmour_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/mindarmour/docs/source_en/mindarmour_install.md)&nbsp;&nbsp;
 
 ## System Environment Information Confirmation
 

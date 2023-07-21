@@ -1,6 +1,6 @@
 # mindspore::converter
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/api/source_zh_cn/api_cpp/mindspore_converter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/api/source_zh_cn/api_cpp/mindspore_converter.md)
 
 以下描述了Mindspore Lite转换支持的模型类型及用户扩展所需的必要信息。
 

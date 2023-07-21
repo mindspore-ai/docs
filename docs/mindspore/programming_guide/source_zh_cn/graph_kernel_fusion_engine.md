@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `扩展功能`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/graph_kernel_fusion_engine.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/graph_kernel_fusion_engine.md)
 
 ## 背景
 

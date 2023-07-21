@@ -2,7 +2,7 @@
 
 `Windows` `Linux` `Mac` `Android` `iOS` `环境准备` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_zh_cn/use/build.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_zh_cn/use/build.md)
 
 本章节介绍如何快速编译出MindSpore Lite。
 

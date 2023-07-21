@@ -1,6 +1,6 @@
 # 查看溯源和对比看板
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_zh_cn/lineage_and_scalars_comparison.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_zh_cn/lineage_and_scalars_comparison.md)
 
 ## 概述
 
