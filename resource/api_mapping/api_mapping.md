@@ -1,6 +1,6 @@
 # PyTorch与MindSpore
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/resource/api_mapping/api_mapping.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/resource/api_mapping/api_mapping.md)
 
 由社区提供的PyTorch APIs和MindSpore APIs之间的映射。
 

@@ -1,6 +1,6 @@
 # 自定义算子
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_zh_cn/intermediate/custom/operator.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_zh_cn/intermediate/custom/operator.md)
 
 ## 自定义算子开发
 

@@ -1,6 +1,6 @@
 # WithLossCell
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/withlosscell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/withlosscell.md)
 
 `WithLossCell` is essentially a `Cell` that contains the loss function. To build `WithLossCell`, you need to define the network and loss function in advance.
 

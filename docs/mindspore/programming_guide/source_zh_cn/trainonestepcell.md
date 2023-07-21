@@ -1,6 +1,6 @@
 # TrainOneStepCell
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/trainonestepcell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/trainonestepcell.md)
 
 `TrainOneStepCell`功能是执行网络的单步训练，返回每次训练结果后的loss结果。
 

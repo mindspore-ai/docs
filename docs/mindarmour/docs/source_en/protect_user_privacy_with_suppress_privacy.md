@@ -4,7 +4,7 @@ Translator: [翁炜华](https://gitee.com/weng-weihua)
 
 `Linux` `Ascend` `Model Training` `Model Optimization` `Enterprise` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindarmour/docs/source_en/protect_user_privacy_with_suppress_privacy.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindarmour/docs/source_en/protect_user_privacy_with_suppress_privacy.md)
 
 ## Overview
 

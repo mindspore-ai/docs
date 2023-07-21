@@ -1,7 +1,7 @@
 # Model Encryption Protection
 
 `Linux` `Ascend` `GPU` `CPU` `Model Protection` `Enterprise` `Expert`
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindarmour/docs/source_en/model_encrypt_protection.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindarmour/docs/source_en/model_encrypt_protection.md)&nbsp;&nbsp;
 
 ## Overview
 

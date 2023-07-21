@@ -4,7 +4,7 @@ Translator: [Wei_zz](https://gitee.com/wei-zz)
 
 `Linux` `CPU` `Whole Process` `Beginner` `Intermediate` `Advanced`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindquantum/docs/source_en/parameterized_quantum_circuit.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindquantum/docs/source_en/parameterized_quantum_circuit.md)
 
 ## Summary
 

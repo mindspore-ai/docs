@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `Model Training` `Intermediae` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/note/source_en/benchmark.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/note/source_en/benchmark.md)
 
 This document describes the MindSpore benchmarks.
 For details about the MindSpore networks, see [Model Zoo](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo).

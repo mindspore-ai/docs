@@ -2,7 +2,7 @@
 
 `Android` `Java` `Whole Process` `Model Conversion` `Model Loading` `Inference Application` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_en/quick_start/image_segmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_en/quick_start/image_segmentation.md)
 
 ## Overview
 

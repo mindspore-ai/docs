@@ -1,9 +1,9 @@
 # 使用成员推理测试模型安全性
 
 `Linux` `Ascend` `GPU` `CPU` `模型评测` `企业` `高级`
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindarmour/docs/source_zh_cn/test_model_security_membership_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.3/notebook/mindspore_test_model_security_membership_inference.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
-<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV90ZXN0X21vZGVsX3NlY3VyaXR5X21lbWJlcnNoaXBfaW5mZXJlbmNlLmlweW5i&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_modelarts.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindarmour/docs/source_zh_cn/test_model_security_membership_inference.md)&nbsp;&nbsp;
+[![查看notebook](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_notebook.png)](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.3/notebook/mindspore_test_model_security_membership_inference.ipynb)&nbsp;&nbsp;
+[![在线运行](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_modelarts.png)](https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV90ZXN0X21vZGVsX3NlY3VyaXR5X21lbWJlcnNoaXBfaW5mZXJlbmNlLmlweW5i&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c)
 
 ## 概述
 

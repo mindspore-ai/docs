@@ -3,7 +3,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `Framework Development` `Intermediate` `Model Development` `Expert` `Contributor`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/note/source_en/design/mindir.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/note/source_en/design/mindir.md)
 
 ## Overview
 

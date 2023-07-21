@@ -4,7 +4,7 @@ Translator: [xiaoxiaozhang](https://gitee.com/xiaoxinniuniu)
 
 `Linux` `Ascend` `Serving` `Intermediate` `Senior`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/serving/docs/source_en/serving_distributed_example.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/serving/docs/source_en/serving_distributed_example.md)
 
 ## Overview
 

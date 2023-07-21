@@ -1,6 +1,6 @@
 # MindSpore Hub Installation
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/hub/docs/source_en/hub_installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/hub/docs/source_en/hub_installation.md)
 
 - [MindSpore Hub Installation](#mindspore-hub-installation)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)

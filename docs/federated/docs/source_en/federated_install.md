@@ -2,7 +2,7 @@
 
 `MindSpore Federated` `Installation`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/federated/docs/source_en/federated_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/federated/docs/source_en/federated_install.md)
 
 ## Installation Overview
 

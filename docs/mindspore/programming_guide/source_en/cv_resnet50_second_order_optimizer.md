@@ -1,7 +1,7 @@
 # ResNet-50 Second-Order Optimization Practice
 
 `Linux` `Ascend` `GPU` `Model Development` `Model Optimization` `Expert`
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/cv_resnet50_second_order_optimizer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/cv_resnet50_second_order_optimizer.md)&nbsp;&nbsp;
 
 ## Overview
 
