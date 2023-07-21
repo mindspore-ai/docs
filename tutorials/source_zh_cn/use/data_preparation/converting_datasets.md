@@ -1,6 +1,6 @@
 # 将数据集转换为MindSpore数据格式
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_zh_cn/use/data_preparation/converting_datasets.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+[![查看源文件](../../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_zh_cn/use/data_preparation/converting_datasets.md)
 
 ## 概述
 

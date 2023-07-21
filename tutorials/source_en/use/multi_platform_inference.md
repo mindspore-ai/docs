@@ -1,6 +1,6 @@
 # Multi-platform Inference
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/use/multi_platform_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![View Source On Gitee](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/use/multi_platform_inference.md)
 
 ## Overview
 
