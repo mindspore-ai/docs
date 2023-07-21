@@ -1,6 +1,6 @@
 # Graph Data Loading and Processing
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/dataset/augment_graph_data.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/dataset/augment_graph_data.md)
 
 The `mindspore.dataset` module provided by MindSpore helps users build dataset objects and read text data in batches. In addition, data processing and tokenization operators are built in each dataset class. In this way, data can continuously flow to the training system during training, improving the data training effect.
 

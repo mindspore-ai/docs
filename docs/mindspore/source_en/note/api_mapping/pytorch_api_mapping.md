@@ -1,6 +1,6 @@
 # PyTorch and MindSpore API Mapping Table
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/api_mapping/pytorch_api_mapping.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.9/docs/mindspore/source_en/note/api_mapping/pytorch_api_mapping.md)
 
 Mapping between TensorFlow APIs and MindSpore APIs, which is provided by the community. There may be differences in parameters, inputs, outputs, logic functions, and specific scenarios. For details, see the description of each API or the difference comparison provided.
 
