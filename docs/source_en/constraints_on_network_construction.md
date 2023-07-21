@@ -1,6 +1,6 @@
 # Constraints on Network Construction Using Python
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.3/docs/source_en/constraints_on_network_construction.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.3/docs/source_en/constraints_on_network_construction.md)
 
 ## Overview
   MindSpore can compile user source code based on the Python syntax into computational graphs, and can convert common functions or instances inherited from nn.Cell into computational graphs. Currently, MindSpore does not support conversion of any Python source code into computational graphs. Therefore, there are constraints on source code compilation, including syntax constraints and network definition constraints. As MindSpore evolves, the constraints may change.

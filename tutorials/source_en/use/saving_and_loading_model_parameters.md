@@ -1,6 +1,6 @@
 # Saving and Loading Model Parameters
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_en/use/saving_and_loading_model_parameters.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![View Source On Gitee](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_en/use/saving_and_loading_model_parameters.md)
 
 ## Overview
 
