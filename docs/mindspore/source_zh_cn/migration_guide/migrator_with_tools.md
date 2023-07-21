@@ -15,8 +15,8 @@
 | 工具      | 工具说明         | 网络迁移用途         |
 | --------------------- | -------------------- | --------------------- |
 | [MindSpore Dev Toolkit](https://www.mindspore.cn/devtoolkit/docs/zh-CN/r2.1/index.html) | MindSpore Dev Toolkit是一款支持MindSpore开发的多平台Python IDE插件，提供创建项目、智能补全、API互搜和文档搜索等功能。 | 通过API扫描等能力，能够提升用户的网络迁移开发效率。          |
-| [TroubleShooter](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)   | TroubleShooter 是MindSpore 网络开发调试工具包，用于提供便捷、易用的调试能力。 | 网络调试工具集（如：网络权重迁移、精度比对、代码跟踪、报错分析、执行跟踪等功能），帮助用户提高迁移调试效率。 |
-| [Profiler](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.1/performance_profiling.html)     | Profiler可将训练过程中的算子耗时等信息记录到文件中，通过可视化界面供用户查看分析，帮助用户更高效地调试神经网络性能。 | 网络迁移后，如果执行性能不佳，可用Profiler进行性分析，Profiler提供框架的host执行、以及算子执行的Profiler分析功能。 |
+| [TroubleShooter](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)   | TroubleShooter 是MindSpore网络开发调试工具包，用于提供便捷、易用的调试能力。 | 网络调试工具集（如：网络权重迁移、精度比对、代码跟踪、报错分析、执行跟踪等功能），帮助用户提高迁移调试效率。 |
+| [Profiler](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.1/performance_profiling.html)     | Profiler可将训练过程中的算子耗时等信息记录到文件中，通过可视化界面供用户查看分析，帮助用户更高效地调试神经网络性能。 | 网络迁移后，如果执行性能不佳，可用Profiler进行性能分析，Profiler提供框架的host执行、以及算子执行的Profiler分析功能。 |
 | [Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/debug/dump.html)                  | 提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件。 | 一般用于网络迁移复杂问题定位（例如：算子溢出等）可以dump出算子级别的数据。 |
 
 ## 网络迁移工具应用实例
@@ -35,7 +35,7 @@
 
 例如：`torch.cat`接口：
 
-在“说明”的URL（PyTorch与MindSpore API映射表），中可见如下API差异。
+在“说明”的URL（PyTorch与MindSpore API映射表）中可见如下API差异。
 
 ![img](images/api_diff.jpg)
 
@@ -187,7 +187,7 @@ def run_pt_net(args):
     images = torch.tensor(np.load('/mindspore_model/vit/v1/pytorch_org/vision_transformer/0_images.npy'))
     # 3）保存权重和转换映射，用于在MindSpore加载
     ts.migrator.save_net_and_weight_params(model, path="/mindspore_model/vit/v1/temp_data/pt_net_info/")
-    # 4） 执行网络并保存正向结果，使用ts.save接口保存网络执行结果
+    # 4）执行网络并保存正向结果，使用ts.save接口保存网络执行结果
     pred = model(images.to(device))
     ts.save("/mindspore_model/vit/v1/temp_data/pt/npy/pred.npy", pred)
 ```
@@ -258,11 +258,11 @@ def auto_run_ms_net(args):
 
 ![](images/image5.png)
 
-> 说明：当结果不一致时候，可通过[ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#)接口，二分或逐层导出网络各层API的输出，并通过[ts.migrator.compare_npy_dir](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/compare_npy_dir.md#)接口批量比对，来定位到问题引入的API。
+> 说明：当结果不一致的时候，可通过[ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#)接口，二分或逐层导出网络各层API的输出，并通过[ts.migrator.compare_npy_dir](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/compare_npy_dir.md#)接口批量比对，来定位到问题引入的API。
 
 ### 网络loss结果验证
 
-loss与的验证方案，与正向结果的半自动验证方案类似，在满足比对的三个前提条件基础上，通过手工指定要保存的loss并使用ts.save接口进行保存，并使用[ts.migrator.compare_npy_dir](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/compare_npy_dir.md#)进行批量比对完成loss的结果验证，具体步骤参考正向结果的半自动验证方案即可。
+loss的验证方案，与正向结果的半自动验证方案类似，在满足比对的三个前提条件基础上，通过手工指定要保存的loss并使用ts.save接口进行保存，并使用[ts.migrator.compare_npy_dir](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/compare_npy_dir.md#)进行批量比对完成loss的结果验证，具体步骤参考正向结果的半自动验证方案即可。
 
 ### 反向结果验证(含梯度、权重参数的比对)
 
@@ -276,7 +276,7 @@ loss与的验证方案，与正向结果的半自动验证方案类似，在满�
 def train_one_step(args):
     # 1）固定随机性
     ts.widget.fix_random(16)
-    # 2） 训练网络的创建流程
+    # 2）训练网络的创建流程
     device = torch.device(args.device if torch.cuda.is_available() else "cpu")
     model = create_model(num_classes=args.num_classes, has_logits=False).to(device)
     loss_function = torch.nn.CrossEntropyLoss()
@@ -326,7 +326,7 @@ def train_one_step_ms(args):
     ts.migrator.convert_weight_and_load(weight_map_path="/mindspore_model/vit/v1/temp_data/pt_net_info/torch_net_map.json",
                                         pt_file_path="/mindspore_model/vit/v1/temp_data/pt_net_info/torch_troubleshooter_create.pth",
                                         net=model)
-    # 4) 加载与PT相同的数据样本和标签
+    # 4）加载与PT相同的数据样本和标签
     data = mindspore.Tensor(np.load('/mindspore_model/vit/v1/pytorch_org/vision_transformer/1_None.npy'))
     label = mindspore.Tensor(np.load('/mindspore_model/vit/v1/pytorch_org/vision_transformer/0_None.npy'))
     # 5）执行训练过程
@@ -334,7 +334,7 @@ def train_one_step_ms(args):
     # 6）保存梯度
     ts.save("/mindspore_model/vit/v1/temp_data/ms/grads/grads.npy", grads)
     optimizer(grads)
-    # 7) 保存权重参数pth
+    # 7）保存权重参数pth
     mindspore.save_checkpoint(model,"/mindspore_model/vit/v1/temp_data/ms/ms_result.ckpt")
 ```
 
@@ -454,7 +454,7 @@ ts.migrator.compare_npy_dir('/mindspore_model/vit/v1/temp_data/pt/npy',
 
 #### 网络权重迁移
 
-在迁移推理网络或微调网络训练等场景中，通常需要将PyTroch的权重迁移到MindSpore中。此时可以使用TroubleShooter的权重迁移工具，先调用[ts.migrator.get_weight_map](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/get_weight_map.md#)获取权重映射文件，再调用[ts.migrator.convert_weight](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/convert_weight.md#)完成权重自动化迁移，以下为基本样例。需要自定义等复杂场景可参考[TroubleShooter  pth到ckpt权重自动转换](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF1pth%E5%88%B0ckpt%E6%9D%83%E9%87%8D%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2)。
+在迁移推理网络或微调网络训练等场景中，通常需要将PyTroch的权重迁移到MindSpore中。此时可以使用TroubleShooter的权重迁移工具，先调用[ts.migrator.get_weight_map](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/get_weight_map.md#)获取权重映射文件，再调用[ts.migrator.convert_weight](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/convert_weight.md#)完成权重自动化迁移，以下为基本样例。需要自定义等复杂场景可参考[TroubleShooter pth到ckpt权重自动转换](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF1pth%E5%88%B0ckpt%E6%9D%83%E9%87%8D%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2)。
 
 ```python
 import troubleshooter as ts
