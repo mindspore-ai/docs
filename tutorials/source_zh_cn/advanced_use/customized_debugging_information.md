@@ -1,8 +1,8 @@
 # 自定义调试信息
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/customized_debugging_information.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/customized_debugging_information.md)
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/notebook/customized_debugging_information.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+[![查看Notebook](../_static/logo_notebook.png)](https://gitee.com/mindspore/docs/blob/r0.6/tutorials/notebook/customized_debugging_information.ipynb)
 
 ## 概述
 

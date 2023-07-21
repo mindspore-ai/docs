@@ -2,7 +2,7 @@
 
 # 手动设置并行场景模型参数的保存和加载
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/checkpoint_for_hybrid_parallel.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/checkpoint_for_hybrid_parallel.md)
 
 ## 概述
 

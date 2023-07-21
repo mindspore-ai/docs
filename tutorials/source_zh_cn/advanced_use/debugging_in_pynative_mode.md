@@ -1,8 +1,8 @@
 # 使用PyNative模式调试
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/debugging_in_pynative_mode.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/debugging_in_pynative_mode.md)
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/notebook/debugging_in_pynative_mode.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+[![查看Notebook](../_static/logo_notebook.png)](https://gitee.com/mindspore/docs/blob/r0.6/tutorials/notebook/debugging_in_pynative_mode.ipynb)
 
 ## 概述
 
