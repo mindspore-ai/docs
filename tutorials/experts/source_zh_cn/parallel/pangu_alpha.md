@@ -1,6 +1,6 @@
 # 鹏程·盘古模型网络多维度混合并行解析
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.1/tutorials/experts/source_zh_cn/parallel/pangu_alpha.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.1/tutorials/experts/source_zh_cn/parallel/pangu_alpha.md)
 
 ## 概述
 

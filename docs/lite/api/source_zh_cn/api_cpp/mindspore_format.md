@@ -1,6 +1,6 @@
 # mindspore::Format
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.1/docs/lite/api/source_zh_cn/api_cpp/mindspore_format.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.1/docs/lite/api/source_zh_cn/api_cpp/mindspore_format.md)
 
 以下表格描述了MindSpore MSTensor保存的数据支持的排列格式。
 
