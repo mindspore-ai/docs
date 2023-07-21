@@ -1,6 +1,6 @@
 # Physics Data Fusion
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_en/intro/physics_plus_data_driven.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_en/intro/physics_plus_data_driven.md)
 
 The following table shows some of the most popular molecular dynamics simulation software.
 

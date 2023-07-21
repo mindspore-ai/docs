@@ -1,6 +1,6 @@
 # Static Graph Syntax —— Python Built-in Functions
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/static_graph_syntax/python_builtin_functions.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/static_graph_syntax/python_builtin_functions.md)
 
 ## int
 

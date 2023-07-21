@@ -1,6 +1,6 @@
 # nn接口动态shape支持情况
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/dynamic_shape_nn.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/dynamic_shape_nn.md)
 
 > 以下列表列举了PYNATIVE模式下支持动态shape功能的nn接口。其中部分nn接口可能会存在数据类型支持不全的问题，如遇到此类问题，可以通过主动插入[Cast](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Cast.html)算子解决。
 >

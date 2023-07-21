@@ -1,6 +1,6 @@
 # Quantum Approximate Optimization Algorithm
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/quantum_approximate_optimization_algorithm.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/quantum_approximate_optimization_algorithm.md)
 
 ## Overview
 

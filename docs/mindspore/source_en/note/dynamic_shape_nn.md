@@ -1,6 +1,6 @@
 # Dynamic Shape Support Status of nn Interface
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/dynamic_shape_nn.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/dynamic_shape_nn.md)
 
 > The following list provides nn interfaces that support dynamic shape functionality in PYNATIVE mode. However, some nn interfaces may have incomplete data type support. If you encounter such issues, you can resolve them by manually incorporating the [Cast](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Cast.html) operator.
 >
