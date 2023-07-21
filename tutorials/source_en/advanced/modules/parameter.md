@@ -1,6 +1,6 @@
 # Network Arguments
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/modules/parameter.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.9/tutorials/source_en/advanced/modules/parameter.md)
 
 MindSpore provides initialization modules for parameters and network arguments. You can initialize network arguments by encapsulating operators to call character strings, Initializer subclasses, or customized tensors.
 

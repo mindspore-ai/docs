@@ -2,7 +2,7 @@
 
 Translator: [xiaoxiaozhang](https://gitee.com/xiaoxinniuniu)
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/serving/docs/source_en/serving_distributed_example.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.9/docs/serving/docs/source_en/serving_distributed_example.md)
 
 ## Overview
 

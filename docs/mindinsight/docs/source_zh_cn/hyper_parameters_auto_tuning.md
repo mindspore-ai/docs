@@ -1,6 +1,6 @@
 # 使用mindoptimizer进行超参调优
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindinsight/docs/source_zh_cn/hyper_parameters_auto_tuning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.9/docs/mindinsight/docs/source_zh_cn/hyper_parameters_auto_tuning.md)&nbsp;&nbsp;
 
 ## 概述
 

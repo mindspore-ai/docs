@@ -1,6 +1,6 @@
 # 基于Java接口实现端侧训练
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/lite/docs/source_zh_cn/quick_start/train_lenet_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.9/docs/lite/docs/source_zh_cn/quick_start/train_lenet_java.md)
 
 ## 概述
 

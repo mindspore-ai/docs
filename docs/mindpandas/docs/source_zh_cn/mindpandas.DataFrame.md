@@ -1,6 +1,6 @@
 # mindpandas.DataFrame
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/mindpandas/docs/source_zh_cn/mindpandas.DataFrame.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.9/docs/mindpandas/docs/source_zh_cn/mindpandas.DataFrame.md)&nbsp;&nbsp;
 
 DataFrame是一个具有行、列索引的二维表数据结构，是MindPandas主要的数据结构之一。
 

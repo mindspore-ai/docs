@@ -1,6 +1,6 @@
 # 类列表
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/lite/api/source_zh_cn/api_java/class_list.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.9/docs/lite/api/source_zh_cn/api_java/class_list.md)
 
 | 包                        | 类                                                           | 描述                                                         |
 | ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |

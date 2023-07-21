@@ -1,6 +1,6 @@
 # 应用SLB算法
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.9/docs/golden_stick/docs/source_zh_cn/quantization/slb.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.9/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.9/docs/golden_stick/docs/source_zh_cn/quantization/slb.md)
 
 ## 背景
 
