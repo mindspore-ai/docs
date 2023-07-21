@@ -1,6 +1,6 @@
 # Visualizing Electromagnetic Simulation Results
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindelec/docs/source_en/visualization.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r2.0/docs/mindelec/docs/source_en/visualization.md)&nbsp;&nbsp;
 
 ## Overview
 

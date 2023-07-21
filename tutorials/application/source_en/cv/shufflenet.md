@@ -1,6 +1,6 @@
 # ShuffleNet for Image Classification
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/application/source_en/cv/shufflenet.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r2.0/tutorials/application/source_en/cv/shufflenet.md)
 
 > The current case does not support the static graph mode on the GPU device. Other modes are supported.
 

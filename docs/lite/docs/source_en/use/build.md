@@ -1,6 +1,6 @@
 # Building Device-side MindSpore Lite
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/use/build.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_en/use/build.md)
 
 This chapter introduces how to quickly compile MindSpore Lite, which includes the following modules:
 

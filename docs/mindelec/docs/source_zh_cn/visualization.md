@@ -1,6 +1,6 @@
 # 电磁仿真结果可视化
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindelec/docs/source_zh_cn/visualization.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.0/docs/mindelec/docs/source_zh_cn/visualization.md)&nbsp;&nbsp;
 
 ## 概述
 

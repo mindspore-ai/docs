@@ -1,6 +1,6 @@
 # 源码编译指导
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/devtoolkit/docs/source_zh_cn/compiling.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.0/docs/devtoolkit/docs/source_zh_cn/compiling.md)
 
 本文档介绍如何基于IntelliJ IDEA源码编译MindSpore Dev ToolKit项目。
 

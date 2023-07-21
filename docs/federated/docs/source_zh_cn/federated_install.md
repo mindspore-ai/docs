@@ -1,6 +1,6 @@
 # 获取MindSpore Federated
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/federated/docs/source_zh_cn/federated_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.0/docs/federated/docs/source_zh_cn/federated_install.md)
 
 [MindSpore Federated](https://gitee.com/mindspore/federated)框架代码现已独立建仓，分为端侧和云侧，其云侧能力依赖MindSpore和MindSpore Federated，利用MindSpore进行云侧集群聚合训练以及与端侧进行通信，因此需要分别获取MindSpore whl包和MindSpore Federated whl包。端侧能力依赖MindSpore Lite和MindSpore Federated java包，其中MindSpore Federated java主要负责数据预处理、调用MindSpore Lite进行模型训练和推理以及利用隐私保护机制和云侧进行模型相关的上传和下载。
 
