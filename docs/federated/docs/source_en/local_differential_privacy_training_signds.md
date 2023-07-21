@@ -1,6 +1,6 @@
 # Horizontal FL-Local Differential Privacy SignDS training
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/federated/docs/source_en/local_differential_privacy_training_signds.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r2.0/docs/federated/docs/source_en/local_differential_privacy_training_signds.md)
 
 ## Privacy Protection Background
 

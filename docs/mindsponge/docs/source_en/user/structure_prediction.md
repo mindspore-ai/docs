@@ -1,6 +1,6 @@
 # Molecular Structure Prediction
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindsponge/docs/source_en/user/structure_prediction.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r2.0/docs/mindsponge/docs/source_en/user/structure_prediction.md)
 
 The acquisition of molecular structure, especially the structure of biomacromolecules (DNA, RNA and protein), is an important issue in the field of biopharmaceutical research and has a wide range of uses. The MindSpore SPONGE biological computing toolkit provides a series of calculation tools for molecular structure prediction, helping researchers to acquire high-precision molecular structure efficiently.
 

@@ -1,6 +1,6 @@
 # Inference Model Overview
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/infer/inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/infer/inference.md)
 
 MindSpore can execute inference tasks on different hardware platforms based on trained models.
 

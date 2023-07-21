@@ -1,6 +1,6 @@
 # 集成Ascend使用说明
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_zh_cn/use/ascend_info.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.0/docs/lite/docs/source_zh_cn/use/ascend_info.md)
 
 > - 端侧推理集成Ascend后端版本将于后续弃用，Ascend后端相关使用请参考云侧推理版本文档。
 > - [云侧推理版本编译](https://mindspore.cn/lite/docs/zh-CN/r2.0/use/cloud_infer/build.html)

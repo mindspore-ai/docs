@@ -1,6 +1,6 @@
 # Installing MindSpore Golden Stick
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/golden_stick/docs/source_en/install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r2.0/docs/golden_stick/docs/source_en/install.md)
 
 ## Environmental Restrictions
 

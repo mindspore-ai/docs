@@ -1,6 +1,6 @@
 # mindpandas.GroupBy
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/docs/mindpandas/docs/source_zh_cn/mindpandas.Groupby.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.0/docs/mindpandas/docs/source_zh_cn/mindpandas.Groupby.md)&nbsp;&nbsp;
 
 GroupBy将需要分组的DataFrame或Series按数值分组，并返回DataFrameGroupBy或SeriesGroupBy类。
 

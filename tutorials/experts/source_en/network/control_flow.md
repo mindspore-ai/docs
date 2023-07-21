@@ -1,6 +1,6 @@
 # Process Control Statements
 
-<a href="https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/network/control_flow.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r2.0/tutorials/experts/source_en/network/control_flow.md)
 
 Currently, there are two execution modes of a mainstream deep learning framework: a static graph mode (`GRAPH_MODE`) and a dynamic graph mode (`PYNATIVE_MODE`).
 
