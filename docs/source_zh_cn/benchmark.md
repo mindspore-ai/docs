@@ -2,7 +2,7 @@
 
 `Ascend` `模型训练` `中级` `高级`
         
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/docs/source_zh_cn/benchmark.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.7/docs/source_zh_cn/benchmark.md)
 
 本文介绍MindSpore的基准性能。MindSpore网络定义可参考[Model Zoo](https://gitee.com/mindspore/mindspore/tree/r0.7/model_zoo)。
 

@@ -2,7 +2,7 @@
 
 `Ascend` `Model Optimization` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/performance_profiling.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![View Source On Gitee](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/performance_profiling.md)
 
 ## Overview
 Performance data like operators' execution time is recorded in files and can be viewed on the web page, this can help the user optimize the performance of neural networks.

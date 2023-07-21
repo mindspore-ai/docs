@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/computer_vision_application.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![View Source On Gitee](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/computer_vision_application.md)
 
 ## Overview
 

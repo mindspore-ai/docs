@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `推理应用` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/use/multi_platform_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/use/multi_platform_inference.md)
 
 ## 概述
 

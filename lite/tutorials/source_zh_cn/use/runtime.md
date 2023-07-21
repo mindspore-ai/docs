@@ -1,6 +1,6 @@
 # Runtime使用指南
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_zh_cn/use/runtime.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_zh_cn/use/runtime.md)
 
 ## 概述
 

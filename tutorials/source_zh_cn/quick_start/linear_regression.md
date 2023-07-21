@@ -4,9 +4,9 @@
 
 作者：[杨奕](https://github.com/helloyesterday)&nbsp;&nbsp;&nbsp;&nbsp;编辑：[吕明赋](https://gitee.com/lvmingfu)
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/quick_start/linear_regression.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/quick_start/linear_regression.md)
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/linear_regression.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+[![查看Notebook](../_static/logo_notebook.png)](https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/linear_regression.ipynb)
 
 ## 概述
 

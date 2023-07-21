@@ -2,7 +2,7 @@
 
 `Ascend` `模型开发` `模型调优` `企业` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/differential_privacy.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/differential_privacy.md)
 
 ## 概述
 

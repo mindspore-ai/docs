@@ -1,6 +1,6 @@
 # Build
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_en/build.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_en/build.md)
 
 This chapter introduces how to quickly compile MindSpore Lite, which includes the following modules:
 

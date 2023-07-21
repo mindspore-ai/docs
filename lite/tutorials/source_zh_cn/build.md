@@ -1,6 +1,6 @@
 # 编译
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_zh_cn/build.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_zh_cn/build.md)
 
 本章节介绍如何快速编译出MindSpore Lite，其包含的模块如下：
 

@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/docs/source_en/operator_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.7/docs/source_en/operator_list.md)
 
 ## mindspore.nn
 

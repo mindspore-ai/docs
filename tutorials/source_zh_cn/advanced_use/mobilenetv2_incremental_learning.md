@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `CPU` `Ascend` `GPU` `模型开发` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/mobilenetv2_incremental_learning.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/mobilenetv2_incremental_learning.md)&nbsp;&nbsp;
 
 ## 概述
 
