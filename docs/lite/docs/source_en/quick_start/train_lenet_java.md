@@ -1,6 +1,6 @@
 # Implement Device Training Based On Java Interface
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.10/docs/lite/docs/source_en/quick_start/train_lenet_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.10/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.10/docs/lite/docs/source_en/quick_start/train_lenet_java.md)
 
 ## Overview
 
