@@ -1,6 +1,6 @@
 # 使用CV类解释器
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.8/docs/xai/docs/source_zh_cn/using_cv_explainers.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.8/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.8/docs/xai/docs/source_zh_cn/using_cv_explainers.md)
 
 ## 什么是CV类解释器
 
