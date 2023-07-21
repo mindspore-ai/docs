@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Beginner` `Whole Process`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_en/quick_start.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_en/quick_start.md)
 
 The following describes the basic functions of MindSpore to implement common tasks in deep learning. For details, see links in each section.
 

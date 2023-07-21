@@ -1,6 +1,6 @@
 # 使用 MindInsight 可视化
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/xai/docs/source_zh_cn/using_mindinsight.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/xai/docs/source_zh_cn/using_mindinsight.md)
 
 ## 操作流程
 

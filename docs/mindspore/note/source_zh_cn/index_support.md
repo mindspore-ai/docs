@@ -1,6 +1,6 @@
 # Tensor索引支持
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/note/source_zh_cn/index_support.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/note/source_zh_cn/index_support.md)
 
 Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动态图(PyNative)以及静态图(Graph)模式。
 

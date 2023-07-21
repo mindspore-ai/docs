@@ -1,6 +1,6 @@
 ﻿# Implement Problem
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/faq/source_en/implement_problem.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/faq/source_en/implement_problem.md)
 
 <font size=3>**Q: How do I use MindSpore to implement multi-scale training?**</font>
 

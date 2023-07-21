@@ -1,6 +1,6 @@
 # 基于MindSpore Serving部署分布式推理服务
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/serving/docs/source_zh_cn/serving_distributed_example.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/serving/docs/source_zh_cn/serving_distributed_example.md)
 
 ## 概述
 

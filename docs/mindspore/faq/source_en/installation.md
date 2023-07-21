@@ -1,6 +1,6 @@
 # Installation
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/faq/source_en/installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/faq/source_en/installation.md)
 
 ## Installing Using pip
 

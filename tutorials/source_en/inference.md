@@ -2,7 +2,7 @@
 
 `Ascend` `Device` `Beginner` `Inference Application`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_en/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_en/inference.md)
 
 This is the last tutorial. Introduction to inference is classified into Ascend AI Processor.
 

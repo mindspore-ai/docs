@@ -1,6 +1,6 @@
 # 基准性能
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/note/source_zh_cn/benchmark.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/note/source_zh_cn/benchmark.md)
 
 本文介绍MindSpore的基准性能。MindSpore网络定义可参考[Model Zoo](https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo)。
 

@@ -1,6 +1,6 @@
 # mindspore
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/api/source_zh_cn/api_cpp/mindspore.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/api/source_zh_cn/api_cpp/mindspore.md)
 
 ## 接口汇总
 

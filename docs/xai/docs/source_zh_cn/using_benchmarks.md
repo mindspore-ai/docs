@@ -1,6 +1,6 @@
 # 使用度量方法
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/xai/docs/source_zh_cn/using_benchmarks.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/xai/docs/source_zh_cn/using_benchmarks.md)
 
 ## 什么是度量方法
 

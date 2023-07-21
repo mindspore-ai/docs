@@ -1,6 +1,6 @@
 # 使用示例
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/federated/api/source_zh_cn/interface_description_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/federated/api/source_zh_cn/interface_description_federated_client.md)
 
 注意，在使用以下接口前，可先参照文档[端侧部署](https://www.mindspore.cn/federated/docs/zh-CN/r1.5/deploy_federated_client.html)进行相关环境的部署。
 
