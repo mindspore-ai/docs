@@ -1,6 +1,6 @@
 # 分布式并行训练基础样例（GPU）
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.11/tutorials/experts/source_zh_cn/parallel/train_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.11/tutorials/experts/source_zh_cn/parallel/train_gpu.md)
 
 ## 概述
 

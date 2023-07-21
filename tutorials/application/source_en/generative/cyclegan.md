@@ -1,6 +1,6 @@
 # CycleGAN for Image Style Migration
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.11/tutorials/application/source_en/generative/cyclegan.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.11/tutorials/application/source_en/generative/cyclegan.md)
 
 > Running this case requires a large amount of memory. You are advised to run this case on Ascend or GPU.
 

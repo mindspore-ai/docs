@@ -1,4 +1,4 @@
-<a href="https://gitee.com/mindspore/docs/blob/r1.11/tutorials/source_en/beginner/model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png"></a>
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.11/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.11/tutorials/source_en/beginner/model.md)
 
 [Introduction](https://www.mindspore.cn/tutorials/en/r1.11/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r1.11/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r1.11/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r1.11/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r1.11/beginner/transforms.html) || **Model** || [Autograd](https://www.mindspore.cn/tutorials/en/r1.11/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r1.11/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r1.11/beginner/save_load.html)
 
