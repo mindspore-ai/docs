@@ -2,6 +2,8 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/static_graph_syntax/python_builtin_functions.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
+Python built-in functions supported by the current static graph mode include: `int`, `float`, `bool`, `str`, `tuple`, `list`, `dict`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `any`, `round`, `max`, `min`, `sum`, `abs`, `map`, `zip` 、`range`、`enumerate`、`super`、`pow`、`print`、`filter`、`type`。 The use of built-in functions in graph mode is similar to the corresponding Python built-in functions.
+
 ## int
 
 Function: Return the integer value based on the input number or string.
@@ -22,20 +24,23 @@ For example:
 import mindspore as ms
 
 @ms.jit
-def func():
+def func(x):
    a = int(3)
    b = int(3.6)
    c = int('12', 16)
    d = int('0xa', 16)
    e = int('10', 8)
-   return a, b, c, d, e
+   f = int(x)
+   return a, b, c, d, e, f
 
-a, b, c, d, e = func()
+x = ms.Tensor([-1.0], ms.float32)
+a, b, c, d, e, f = func(x)
 print("a: ", a)
 print("b: ", b)
 print("c: ", c)
 print("d: ", d)
 print("e: ", e)
+print("f: ", f)
 ```
 
 The result is as follows:
@@ -46,6 +51,7 @@ b: 3
 c: 18
 d: 10
 e: 8
+f: -1
 ```
 
 ## float
@@ -72,8 +78,8 @@ def func(x):
    e = float(x.asnumpy())
    return a, b, c, d, e
 
-x = ms.Tensor([-1.0], ms.float32)
-a, b, c, d, e = func()
+x = ms.Tensor([-1], ms.int32)
+a, b, c, d, e = func(x)
 print("a: ", a)
 print("b: ", b)
 print("c: ", c)
@@ -112,7 +118,7 @@ def func():
    b = bool(0)
    c = bool("abc")
    d = bool([1, 2, 3, 4])
-   e = bool(ms.Tensor([10]))
+   e = bool(ms.Tensor([10]).asnumpy())
    return a, b, c, d, e
 
 a, b, c, d, e = func()
@@ -150,25 +156,20 @@ import numpy as np
 import mindspore as ms
 
 @ms.jit
-def func(x):
+def func():
    a = str()
    b = str(0)
    c = str([1, 2, 3, 4])
    d = str(ms.Tensor([10]))
    e = str(np.array([1, 2, 3, 4]))
-   f = str(x.asnumpy())
-   g = str(2 * x)
-   return a, b, c, d, e, f, g
+   return a, b, c, d, e
 
-x = ms.Tensor([-1.0], ms.float32)
-a, b, c, d, e, f, g = func(x)
+a, b, c, d, e = func()
 print("a: ", a)
 print("b: ", b)
 print("c: ", c)
 print("d: ", d)
 print("e: ", e)
-print("f: ", f)
-print("g: ", g)
 ```
 
 The result is as follows:
@@ -179,8 +180,6 @@ b: 0
 c: [1, 2, 3, 4]
 d: Tensor(shape=[1], dtype=Int64, value=[10])
 e: [1 2 3 4]
-f: [-1.0]
-g: [-2.0]
 ```
 
 ## tuple
@@ -307,17 +306,18 @@ Calling: `getattr(x, attr, default)`.
 
 Input parameter:
 
-- `x` -- The object to get attribute, `x` can be all types that graph mode supports. `x` can not be third-party object.
+- `x` -- The object to get attribute, `x` can be all types that graph mode supports. Third-party library types are also supported when the JIT syntax support level option is 'Lax'.
 
 - `attr` -- The name of the attribute, the type of `attr` should be `str`.
 
-- `default` -- Optional input. If `x` do not have `attr`, `default` will be returned. `default` can be all types that graph mode supports but can not be third-party object. If `default` is not set and `x` does not have attribute `attr`, AttributeError will be raised.
+- `default` -- Optional input. If `x` do not have `attr`, `default` will be returned. `default` can be all types that graph mode supports. Third-party library types are also supported when the JIT syntax support level option is 'Lax'. If `default` is not set and `x` does not have attribute `attr`, AttributeError will be raised.
 
 Return value: Target attribute or `default`.
 
 For example:
 
 ```python
+import numpy as np
 import mindspore as ms
 
 @ms.jit_class
@@ -328,24 +328,30 @@ class MSClass1:
 ms_obj = MSClass1()
 
 @ms.jit
-def func():
-   a = getattr(ms_obj, 'num0')
-   b = getattr(ms_obj, 'num1', 2)
-   return a, b
+def func(x):
+  a = getattr(ms_obj, 'num0')
+  b = getattr(ms_obj, 'num1', 2)
+  c = getattr(x.asnumpy(), "shape", np.array([0, 1, 2, 3, 4]))
+  return a, b, c
 
-a, b = func()
+x = ms.Tensor([-1.0], ms.float32)
+a, b, c = func(x)
 print("a: ", a)
 print("b: ", b)
+print("c: ", c)
 ```
 
 The result is as follows:
 
 ```text
-a: 0
-b: 2
+a:  0
+b:  2
+c:  (1,)
 ```
 
 The attribute of object in graph mode may be different from that in pynative mode. It is suggested to use `default` input or call `hasattr` before using `getattr` to avoid AttributeError.
+
+'getattr(x.asnumpy(), "shape", np.array([0, 1, 2, 3, 4]))' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
 
 ## hasattr
 
@@ -355,7 +361,7 @@ Calling: `hasattr(x, attr)`.
 
 Input parameter:
 
-- `x` -- The object to get attribute, `x` can be all types that graph mode supports and also can be third-party object.
+- `x` -- The object to get attribute, `x` can be all types that graph mode supports. Third-party library types are also supported when the JIT syntax support level option is 'Lax'.
 
 - `attr` -- The name of the attribute, the type of `attr` should be `str`.
 
@@ -364,7 +370,9 @@ Return value: boolean value indicates whether `x` has `attr`.
 For example:
 
 ```python
+import numpy as np
 import mindspore as ms
+from mindspore import Tensor
 
 @ms.jit_class
 class MSClass1:
@@ -377,11 +385,13 @@ ms_obj = MSClass1()
 def func():
    a = hasattr(ms_obj, 'num0')
    b = hasattr(ms_obj, 'num1')
-   return a, b
+   c = hasattr(Tensor(np.array([1, 2, 3, 4])).asnumpy(), "__len__")
+   return a, b, c
 
-a, b = func()
+a, b, c = func()
 print("a: ", a)
 print("b: ", b)
+print("c: ", c)
 ```
 
 The result is as follows:
@@ -389,7 +399,10 @@ The result is as follows:
 ```text
 a: True
 b: False
+c: True
 ```
+
+'hasattr(Tensor(np.array([1, 2, 3, 4])).asnumpy(), "__len__")' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
 
 ## len
 
@@ -404,8 +417,8 @@ Return value: length of the sequence, which is of the `int` type. If the input p
 For example:
 
 ```python
-import mindspore as ms
 import numpy as np
+import mindspore as ms
 
 z = ms.Tensor(np.ones((6, 4, 5)))
 
@@ -423,7 +436,7 @@ def test(w):
     w_len = len(w.asnumpy())
     return x_len, y_len, d_len, z_len, n_len, w_len
 
-input_x = Tensor([1, 2, 3, 4])
+input_x = ms.Tensor([1, 2, 3, 4])
 x_len, y_len, d_len, z_len, n_len, w_len = test(input_x)
 print('x_len:{}'.format(x_len))
 print('y_len:{}'.format(y_len))
@@ -441,8 +454,10 @@ y_len:3
 d_len:2
 z_len:6
 z_len:4
-w_len:1
+w_len:4
 ```
+
+'len(w.asnumpy())' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
 
 ## isinstance
 
@@ -476,7 +491,7 @@ def test(w):
     w_is_ndarray = isinstance(w.asnumpy(), np.ndarray)
     return x_is_tuple, y_is_list, z_is_tensor, w_is_ndarray
 
-w = Tensor(np.array([-1, 2, 4]))
+w = ms.Tensor(np.array([-1, 2, 4]))
 x_is_tuple, y_is_list, z_is_tensor, w_is_ndarray = test(w)
 print('x_is_tuple:{}'.format(x_is_tuple))
 print('y_is_list:{}'.format(y_is_list))
@@ -492,6 +507,8 @@ y_is_list:True
 z_is_tensor:True
 w_is_ndarray:True
 ```
+
+'isinstance(w.asnumpy(), np.ndarray)' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
 
 ## all
 
@@ -550,6 +567,8 @@ h: True
 i: False
 ```
 
+'all(x.asnumpy())' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
+
 ## any
 
 Function: Judge whether any of the elements in the input is true.
@@ -578,7 +597,7 @@ def func():
    g = any([])
    h = any(())
    x = Tensor(np.array([0, 1, 2, 3]))
-   i = all(x.asnumpy())
+   i = any(x.asnumpy())
    return a, b, c, d, e, f, g, h, i
 
 a, b, c, d, e, f, g, h, i = func()
@@ -825,16 +844,19 @@ For example:
 
 ```python
 import mindspore as ms
+from mindspore import Tensor
 
 @ms.jit
 def func():
    a = abs(-45)
    b = abs(100.12)
-   return a, b
+   c = abs(Tensor([-1, 2]).asnumpy())
+   return a, b, c
 
-a, b = func()
+a, b, c = func()
 print("a: ", a)
 print("b: {:.2f}".format(b))
+print("c: ", c)
 ```
 
 The result is as follows:
@@ -842,7 +864,10 @@ The result is as follows:
 ```text
 a: 45
 b: 100.12
+c: [1 2]
 ```
+
+'abs(Tensor([-1, 2]).asnumpy())' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
 
 ## map
 
@@ -1148,9 +1173,9 @@ Tensor(shape=[3], dtype=Int32, value= [1 2 3])
 Tensor(shape=[], dtype=Int32, value=3)
 ```
 
-JIT Fallback supports printing constants in static graph mode by using native print of Python, which is different from [Print operator](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Print.html) prints information at a different time. Python native print is triggered during compilation (at compiling time phase printing), while the Print operator requires the graph to be compiled and sent down to the device side to run before printing (at runtime phase printing).
+Support for printing constants in static graph mode by using native print of Python, which is different from [Print operator](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Print.html) prints information at a different time. Python native print is triggered during compilation (at compiling time phase printing), while the Print operator requires the graph to be compiled and sent down to the device side to run before printing (at runtime phase printing).
 
-For the sake of understanding, the following examples are given. tensor_sum involves Tensor summing, i.e. the runtime phase to get the result. When calling print, the actual call is the Print operator in the static graph mode. Refer to [static graph syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html). And np_num is the result of adding up two NumPy constants, i.e., the usage supported by JIT Fallback, so when calling print, the native Python print is used. Because of the different timing of the two prints, it ends up showing np_sum before tensor_sum, i.e. the print result of Python native print supported by JIT Fallback will be before the Print operator.
+For the sake of understanding, the following examples are given. tensor_sum involves Tensor summing, i.e. the runtime phase to get the result. When calling print, the actual call is the Print operator in the static graph mode. And np_num is the result of adding up two NumPy constants, so when calling print, the native Python print is used. Because of the different timing of the two prints, it ends up showing np_sum before tensor_sum, i.e. the print result of Python native print supported by JIT Fallback will be before the Print operator.
 
 ```python
 import numpy as np
@@ -1180,8 +1205,9 @@ net()
 Output the result:
 
 ```text
-np_sum: [2 4 6 8 10]
-tensor_sum: (2, 4, 6, 8, 10)
+np_sum:  [ 2  4  6  8 10]
+tensor_sum:
+Tensor(shape=[5], dtype=Int64, value=[ 2  4  6  8 10])
 ```
 
 ## filter
@@ -1224,7 +1250,7 @@ print('ret2:{}'.format(ret2))
 The result is as follows:
 
 ```text
-ret1:(1, 3, 5)
+ret1:[1, 3, 5]
 ret2:[7, 9]
 ```
 
@@ -1232,7 +1258,7 @@ ret2:[7, 9]
 
 Function: Output the type of the input parameter.
 
-Valid inputs: number, list, tuples, dict, np.array, constant Tensor.
+Valid inputs: number, list, tuples, dict, numpy.ndarray, constant Tensor.
 
 Examples of code usage are as follows:
 

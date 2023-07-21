@@ -89,7 +89,7 @@ ret = net(10)
 print("ret:", ret)
 ```
 
- The result is as follows:
+The result is as follows:
 
 ```text
 ret: 50.625
@@ -115,6 +115,12 @@ class Net(nn.Cell):
 net = Net()
 ret = net(10)
 print("ret:", ret)
+```
+
+The result is as follows:
+
+```text
+ret: 10
 ```
 
 As above, there can be multiple `return` statements in a control flow scenario statement. If there is no `return` statement in a function, the None object is returned by default, as in the following use case:
@@ -529,7 +535,7 @@ n:7
 
 ### List Comprehension and Generator Expression
 
-Support for List Comprehension and Generator Expression. Support for constructing a new sequence. List Comprehension is used to generate a new list `List` and Generator Expression is used to generate a new tuple `Tuple`.
+Support for List Comprehension and Generator Expression. Support for constructing a new sequence.
 
 #### List Comprehension
 
@@ -541,11 +547,11 @@ The example is as follows:
 import mindspore as ms
 
 @ms.jit()
-def test(x, y):
+def test():
     l = [x * x for x in range(1, 11) if x % 2 == 0]
     return l
 
-ret = test(1, 5)
+ret = test()
 print('ret:{}'.format(ret))
 ```
 
@@ -581,11 +587,11 @@ For example:
 import mindspore as ms
 
 @ms.jit()
-def test(x, y):
+def test():
     l = (x * x for x in range(1, 11) if x % 2 == 0)
     return l
 
-ret = test(1, 5)
+ret = test()
 print('ret:{}'.format(ret))
 ```
 

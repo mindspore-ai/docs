@@ -8,11 +8,16 @@
 
 使用Graph模式有两种方式：一是调用`@jit`装饰器修饰函数或者类的成员方法，所修饰的函数或方法将会被编译成静态计算图。`jit`使用规则详见[jit API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html#mindspore.jit)。二是设置`ms.set_context(mode=ms.GRAPH_MODE)`，使用`Cell`类并且在`construct`函数中编写执行代码，此时`construct`函数的代码将会被编译成静态计算图。`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
 
-由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。JIT Fallback方案从图模式的角度考虑动静图的统一，扩展图模式的语法能力。借鉴传统JIT编译的思路，发现是图模式下不支持的Python语法时，Fallback到Python去解释执行。更多请参考本文的[JIT Fallback](#jit-fallback)章节。
+由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。借鉴传统JIT编译的思路，从图模式的角度考虑动静图的统一，扩展图模式的语法能力，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。为了便于用户选择是否扩展静态图语法，提供了JIT语法支持级别选项`jit_syntax_level`，其值必须在[STRICT，LAX]范围内，选择`STRICT`则认为使用基础语法，不扩展静态图语法。默认值为`LAX`，更多请参考本文的[扩展语法（LAX级别）](#扩展语法lax级别)章节。全部级别都支持所有后端。
+
+- STRICT: 仅支持基础语法，且执行性能最佳。
+- LAX: 支持更多基础数据类型（如`dict`，`list`和`None`的操作），最大程度地兼容Python所有语法。
 
 本文主要介绍，在编译静态图时，支持的数据类型、语法以及相关操作，这些规则仅适用于Graph模式。
 
-## 静态图内的常量与变量
+## 基础语法（STRICT级别）
+
+### 静态图内的常量与变量
 
 在静态图中，常量与变量是理解静态图语法的一个重要概念，很多语法在常量输入和变量输入情况下支持的方法与程度是不同的。因此，在介绍静态图具体支持的语法之前，本小节先会对静态图中常量与变量的概念进行说明。
 
@@ -38,7 +43,7 @@ def foo(a):
 
 上述代码中，`a`为变量，因此`m`为`False`。`b`为常量，因此`n`为`True`。
 
-### 常量产生场景
+#### 常量产生场景
 
 - 作为图模式输入的标量，列表以及元组均为常量（在不使用mutable接口的情况下）。例如：
 
@@ -86,7 +91,7 @@ def foo(a):
 
   上述代码中，`a`、`b`均为图模式内产生的Tensor为常量，因此其计算得到的结果也是常量。但如果其中之一为变量时，其返回值也会为变量。
 
-### 变量产生场景
+#### 变量产生场景
 
 - 所有mutable接口的返回值均为变量(无论是在图外使用mutable还是在图内使用)。例如：
 
@@ -133,18 +138,18 @@ def foo(a):
   @jit
   def foo(a, b):
       c = a + b
-      return a, b
+      return c
   ```
 
   在这种情况下，`c`是`a`和`b`计算来的结果，且用来计算的输入`a`、`b`均为变量，因此`c`也是变量。
 
-## 数据类型
+### 数据类型
 
-### Python内置数据类型
+#### Python内置数据类型
 
 当前支持的`Python`内置数据类型包括：`Number`、`String`、`List`、`Tuple`和`Dictionary`。
 
-#### Number
+##### Number
 
 支持`int`（整型）、`float`（浮点型）、`bool`（布尔类型），不支持`complex`（复数）。
 
@@ -173,7 +178,7 @@ print("res[2]:", res[2])
 
 ```text
 res[0]: 11
-res[0]: 10
+res[1]: 10
 res[2]: 2
 ```
 
@@ -194,9 +199,9 @@ print(res)
 3
 ```
 
-#### String
+##### String
 
-支持在网络里构造`String`，即支持使用引号（`'`或`"`）来创建字符串，如`x = 'abcd'`或`y = "efgh"`。可以通过str()的方式进行将常量转换成字符串。支持对字符串连接，截取，以及使用成员运算符（`in`或`not in`）判断字符串是否包含指定的字符。支持格式化字符串的输出，将一个值插入到一个有字符串格式符`%s`的字符串中。支持使用格式化字符串函数str.format()。
+支持在网络里构造`String`，即支持使用引号（`'`或`"`）来创建字符串，如`x = 'abcd'`或`y = "efgh"`。可以通过`str()`的方式进行将常量转换成字符串。支持对字符串连接，截取，以及使用成员运算符（`in`或`not in`）判断字符串是否包含指定的字符。支持格式化字符串的输出，将一个值插入到一个有字符串格式符`%s`的字符串中。支持在常量场景下使用格式化字符串函数`str.format()`。
 
 例如：
 
@@ -221,7 +226,7 @@ print("res:", res)
 res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is MindSpore!', 'string is 123')
 ```
 
-#### List
+##### List
 
 在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，静态图模式可以支持部分`List`对象的inplace操作，具体介绍详见[支持列表就地修改操作](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/static_graph_syntax.html#支持列表就地修改操作)。
 
@@ -362,14 +367,14 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
             x[0][1] = 88
             return x
 
-        output = test_index()
+        output = test_setitem_func()
         print('output:{}'.format(output))
         ```
 
         结果如下：
 
         ```text
-        output:[[0, 88], 10, "ok", (1, 2, 3)]
+        output:[[0, 88], 10, 'ok', (1, 2, 3)]
         ```
 
     - List.append
@@ -446,9 +451,9 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
         @ms.jit()
         def test_list_extend():
             x1 = [1, 2, 3]
-            x1.extends((4, "a"))
+            x1.extend((4, "a"))
             x2 = [1, 2, 3]
-            x2.extends(ms.Tensor([4, 5]))
+            x2.extend(ms.Tensor([4, 5]))
             return x1, x2
 
         output1, output2 = test_list_extend()
@@ -459,7 +464,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
         结果如下：
 
         ```text
-        output1:[1, 2, 3, 4, "a"]
+        output1:[1, 2, 3, 4, 'a']
         output2:[1, 2, 3, Tensor(shape=[1], dtype=Int64, value= [4]), Tensor(shape=[1], dtype=Int64, value= [5])]
         ```
 
@@ -548,7 +553,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
         output:[1, 2, 3, 4]
         ```
 
-#### Tuple
+##### Tuple
 
 支持在网络里构造元组`Tuple`，使用小括号包含元素，即支持语法`y = (1, 2, 3)`。元组`Tuple`的元素不能修改，但支持索引访问元组`Tuple`中的元素，支持对元组进行连接组合。
 
@@ -567,6 +572,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
   `int`、`slice`索引示例如下：
 
   ```python
+  import numpy as np
   import mindspore as ms
 
   t = ms.Tensor(np.array([1, 2, 3]))
@@ -634,7 +640,6 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
   ```python
   import mindspore as ms
-  import numpy as np
 
   @ms.jit()
   def test_index():
@@ -654,7 +659,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
   out2:(1, 2, 3, 1, 2, 3)
   ```
 
-#### Dictionary
+##### Dictionary
 
 支持在网络里构造字典`Dictionary`，每个键值`key:value`用冒号`:`分割，每个键值对之间用逗号`,`分割，整个字典使用大括号`{}`包含键值对，即支持语法`y = {"a": 1, "b": 2}`。
 
@@ -678,7 +683,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
   `fromkeys`：`dict.fromkeys(seq([, value]))`用于创建新的`Dictionary`，以序列`seq`中的元素做`Dictionary`的`key`，`value`为所有`key`对应的初始值。
 
-  示例如下：
+  示例如下，其中返回值中的`x`和`new_dict`是一个`Dictionary`，在图模式JIT语法支持级别选项为LAX下扩展支持，更多Dictionary的高阶使用请参考本文的[支持Dictionary的高阶用法](#支持dictionary的高阶用法)章节。
 
   ```python
   import mindspore as ms
@@ -720,88 +725,15 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
   new_dict:{'a': 123, 'b': 123, 'c': 123, 'd': 123}
   ```
 
-- 支持索引取值和赋值
-
-  示例如下：
-
-  ```python
-  import mindspore as ms
-  import numpy as np
-
-  x = {"a": ms.Tensor(np.array([1, 2, 3])), "b": ms.Tensor(np.array([4, 5, 6])), "c": ms.Tensor(np.array([7, 8, 9]))}
-
-  @ms.jit()
-  def test_dict():
-      y = x["b"]
-      x["a"] = (2, 3, 4)
-      return x, y
-
-  out1, out2 = test_dict()
-  print('out1:{}'.format(out1))
-  print('out2:{}'.format(out2))
-  ```
-
-  结果如下：
-
-  ```text
-  out1:{'a': (2, 3, 4), 'b': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'c': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
-  out2:[4 5 6]
-  ```
-
-- 支持计算图返回`Dictionary`
-
-  示例如下：
-
-  ```python
-  import mindspore as ms
-
-  @ms.jit()
-  def test_dict():
-      x = {'a': 'a', 'b': 'b'}
-      y = x.get('a')
-      z = dict(y=y)
-      return z
-
-  out = test_dict()
-  print("out:", out)
-  ```
-
-  结果如下：
-
-  ```text
-  out:{'y': 'a'}
-  ```
-
-#### None
-
-支持使用和返回None。
-
-示例如下：
-
-```python
-import mindspore as ms
-
-@ms.jit
-def test_return_none():
-    return 1, "a", None
-
-res = test_return_none()
-print(res)
-```
-
-```text
-(1, 'a', None)
-```
-
-### MindSpore自定义数据类型
+#### MindSpore自定义数据类型
 
 当前MindSpore自定义数据类型包括：`Tensor`、`Primitive`、`Cell`和`Parameter`。
 
-#### Tensor
+##### Tensor
 
 Tensor的属性与接口详见[Tensor API文档](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor)。
 
-支持在静态图模式下创建和使用Tensor。代码用例如下，用例中的`Tensor(1, dtype=mstype.int32)`是通过JIT Fallback支持的。
+支持在静态图模式下创建和使用Tensor。代码用例如下，用例中的`Tensor(1, dtype=mstype.int32)`是在图模式JIT语法支持级别选项为LAX下扩展支持。
 
 ```python
 import mindspore.nn as nn
@@ -848,7 +780,7 @@ print(net(x))
 1.0
 ```
 
-#### Primitive
+##### Primitive
 
 当前支持在construct里构造`Primitive`及其子类的实例。
 
@@ -890,7 +822,7 @@ TypeError: Only supported positional parameter type for python primitive, but go
 
 当前已定义的`Primitive`详见[Primitive API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive)。
 
-#### Cell
+##### Cell
 
 当前支持在网络里构造`Cell`及其子类的实例，即支持语法`cell = Cell(args...)`。
 
@@ -900,21 +832,21 @@ TypeError: Only supported positional parameter type for python primitive, but go
 
 `Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
 
-#### Parameter
+##### Parameter
 
 `Parameter`是变量张量，代表在训练网络时，需要被更新的参数。
 
 `Parameter`的定义和使用详见[Parameter API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)。
 
-## 运算符
+### 运算符
 
 算术运算符和赋值运算符支持`Number`和`Tensor`运算，也支持不同`dtype`的`Tensor`运算。详见[运算符](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/operators.html)。
 
-## 原型
+### 原型
 
 原型代表编程语言中最紧密绑定的操作。
 
-### 属性引用与修改
+#### 属性引用与修改
 
 属性引用是后面带有一个句点加一个名称的原型。
 
@@ -956,7 +888,7 @@ print('ret:{}'.format(ret))
 ret:1
 ```
 
-### 索引取值
+#### 索引取值
 
 对序列`Tuple`、`List`、`Dictionary`、`Tensor`的索引取值操作(Python称为抽取)。
 
@@ -968,7 +900,7 @@ ret:1
 
 `Tensor`的索引取详见[Tensor 索引取值文档](https://www.mindspore.cn/docs/zh-CN/master/note/index_support.html#索引取值)。
 
-### 调用
+#### 调用
 
 所谓调用就是附带可能为空的一系列参数来执行一个可调用对象(例如：`Cell`、`Primitive`)。
 
@@ -1003,17 +935,17 @@ print('ret:{}'.format(ret))
 ret:[[3. 3. 3. 3.]]
 ```
 
-## 语句
+### 语句
 
 当前静态图模式支持部分Python语句，包括raise语句、assert语句、pass语句、return语句、break语句、continue语句、if语句、for语句、while语句、with语句、列表生成式、生成器表达式、函数定义语句等，详见[Python语句](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/statements.html)。
 
-## Python内置函数
+### Python内置函数
 
 当前静态图模式支持部分Python内置函数，其使用方法与对应的Python内置函数类似，详见[Python内置函数](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/python_builtin_functions.html)。
 
-## 网络定义
+### 网络定义
 
-### 网络入参
+#### 网络入参
 
 整网（最外层网络）入参仅支持`bool`、`int`、`float`、`Tensor`、`None`、`mstype.number(mstype.bool_、mstype.int、mstype.float、mstype.uint)`，以及只包含这些类型对象的`list`或者`tuple`，和`value`值是这些类型的`Dictionary`。
 
@@ -1074,7 +1006,7 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
 
 整网入参`x`和`z`是`Tensor`，`y`是`int`数，`grad_net`在对整网入参`(x, y, z)`求梯度时，会自动忽略`y`的梯度，只计算`x`和`z`的梯度，`ret = (grad_x, grad_z)`。
 
-### 网络使用约束
+#### 网络使用约束
 
 1. 当`construct`函数里，使用未定义的类成员时，将抛出`AttributeError`异常。
 
@@ -1105,81 +1037,21 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
 
 2. `nn.Cell`不支持`classmethod`修饰的类方法。
 
-## JIT Fallback
+## 扩展语法（LAX级别）
 
-JIT Fallback是从静态图的角度出发考虑静态图和动态图的统一。通过JIT Fallback特性，静态图可以支持尽量多的动态图语法，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。
-
-为了便于用户选择是否使用JIT Fallback特性的能力，提供了JIT语法支持级别选项`jit_syntax_level`，其值必须在[STRICT，LAX]范围内，默认值为`LAX`。全部级别都支持所有后端。可以通过设置MS_DEV_JIT_SYNTAX_LEVEL来调整JIT语法支持级别，例如：`export MS_DEV_JIT_SYNTAX_LEVEL=0`，即将JIT语法支持级别设置为`STRICT`。
-
-STRICT: 仅支持基础语法，且执行性能最佳。
-
-LAX: 最大程度地兼容Python所有语法。执行性能可能会受影响，不是最佳。
-
-下面主要介绍JIT Fallback的支持范围和使用须知，以便您可以更有效地使用JIT Fallback功能。
-
-JIT Fallback特性还在持续完善中，下面列举出当前通过该特性已经支持的静态图编译语法。
-
-### Annotation 标记
-
-对于运行时的JIT Fallback支持，会产生一些无法被类型推导出的节点，这种类型称为`Any`类型。因为该类型无法在编译时推导出正确的类型，所以这种`Any`将会以一种默认最大精度`Float64`进行运算，防止其精度丢失。为了能更好的优化相关性能，需要减少`Any`类型数据的产生。当用户可以明确知道当前通过JIT Fallback支持的语句会产生具体类型的时候，我们推荐使用`Annotation @jit.typing:`的方式进行指定对应Python语句类型，从而确定解释节点的类型避免`Any`类型的生成。
-
-例如，上述例子`Tensor`类和`tensor`接口的区别就在于在`tensor`接口内部运用了Annotation机制。当`tensor`函数的`dtype`确定时，函数内部会利用`Annotation`指定输出类型从而避免`Any`类型的产生。`Annotation`的使用只需要在对应Python语句上面或者后面加上注释 `# @jit.typing: () -> tensor_type[float32]` 即可，其中 `->` 后面的 `tensor_type[float32]` 指示了被注释的语句输出类型。
-
-代码用例如下。
-
-```python
-import mindspore as ms
-import mindspore.nn as nn
-from mindspore import ops, Tensor
-
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.abs = ops.Abs()
-
-    @ms.jit
-    def construct(self, x, y):
-        y1 = ms.tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32)
-        y2 = ms.Tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32) # @jit.typing: () -> tensor_type[float32]
-        y3 = Tensor(x.asnumpy() + y.asnumpy())
-        y4 = Tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32)
-        return self.abs(y1), self.abs(y2), self.abs(y3), self.abs(y4)
-
-ms.set_context(mode=ms.GRAPH_MODE)
-net = Net()
-x = ms.Tensor(-1, dtype=ms.int32)
-y = ms.Tensor(-1, dtype=ms.float32)
-y1, y2, y3, y4 = net(x, y)
-
-print(f"y1 value is {y1}, dtype is {y1.dtype}")
-print(f"y2 value is {y2}, dtype is {y2.dtype}")
-print(f"y3 value is {y3}, dtype is {y3.dtype}")
-print(f"y4 value is {y4}, dtype is {y4.dtype}")
-```
-
-```Text
-y1 value is 2.0, dtype is Float32
-y2 value is 2.0, dtype is Float32
-y3 value is 2.0, dtype is Float64
-y4 value is 2.0, dtype is Float64
-```
-
-上述例子，可以看到利用JIT Fallback运行时创建了`Tensor`的相关区别。对于`y3`、`y4`，因为`Tensor`类没有增加`Annotation`指示，`y3`、`y4`没有办法推出正确的类型，导致只能按照最高精度`Float64`进行运算。
-对于`y2`，由于创建`Tensor`时，通过`Annotation`指定了JIT Fallback的对应类型，使得其类型可以按照指定类型进行运算。
-对于`y1`，由于使用了`tensor`函数接口创建`Tensor`，传入的`dtype`参数作为`Annotation`的指定类型，所以也避免了`Any`类型的产生。
+下面主要介绍当前扩展支持的静态图语法。
 
 ### 调用第三方库
 
-在JIT语法支持级别选项为`LAX`时，JIT Fallback支持在静态图模式下调用第三方库的对象和方法。
+支持在静态图模式下调用第三方库的对象和方法。
 
-调用第三方库的代码用例如下。用例调用了NumPy第三方库，其中`np.array([1, 2, 3])`和`np.array([4, 5, 6])`是通过JIT Fallback支持的。
+如下用例调用了NumPy第三方库。
 
 ```python
 import numpy as np
 import mindspore as ms
 import mindspore.nn as nn
 
-# pylint: disable= W0235
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
@@ -1201,16 +1073,12 @@ print(net())
 
 ### 支持自定义类的使用
 
-在JIT语法支持级别选项为`LAX`时，使用Fallback特性支持在图模式下使用用户自定义的类，可以对类进行实例化，使用对象的属性及方法。
+支持在图模式下使用用户自定义的类，可以对类进行实例化，使用对象的属性及方法。
 
-例如下面的例子，其中`GetattrClass`是用户自定义的类，没有使用`@ms_class`修饰，也没有继承`nn.Cell`。在图模式下这种情况下的类的使用需要依赖Fallback特性。
+例如下面的例子，其中`GetattrClass`是用户自定义的类，没有使用`@ms_class`修饰，也没有继承`nn.Cell`。
 
 ```python
-import pytest
-import numpy as np
 import mindspore as ms
-from mindspore import ops
-from mindspore import mutable
 
 ms.set_context(mode=ms.GRAPH_MODE)
 
@@ -1235,40 +1103,21 @@ out = net()
 assert out == 100
 ```
 
-### 支持控制流
+### 基础类型
 
-为了提高Python标准语法支持度，实现动静统一，通过JIT Fallback实现控制流语句的使用。控制流语句是指`if`、`for`、`while`等流程控制语句。理论上，通过JIT Fallback支持的语法，在控制流场景中也支持。代码用例如下：
+扩展对Python原生数据类型`List`、`Dictionary`、`None`的支持。
 
-```python
-import numpy as np
-import mindspore as ms
-
-@ms.jit
-def func():
-    x = np.array(1)
-    if x <= 1:
-        x += 1
-    return ms.Tensor(x)
-
-res = func()
-print("res: ", res)
-```
-
-```text
-res: 2
-```
-
-### 支持列表就地修改操作
+#### 支持列表就地修改操作
 
 列表`List`以及元组`Tuple`是Python中最基本的序列内置类型，`List`与`Tuple`最核心的区别是`List`是可以改变的对象，而`Tuple`是不可以更改的。这意味着`Tuple`一旦被创建，就不可以在对象地址不变的情况下更改。而`List`则可以通过一系列inplace操作，在不改变对象地址的情况下，对对象进行修改。例如：
 
-```python
-a = [1, 2, 3, 4]
-a_id = id(a)
-a.append(5)
-a_after_id = id(a)
-assert a_id == a_after_id
-```
+ ```python
+ a = [1, 2, 3, 4]
+ a_id = id(a)
+ a.append(5)
+ a_after_id = id(a)
+ assert a_id == a_after_id
+ ```
 
 上述示例代码中，通过`append`这个inplace语法更改`List`对象的时候，其对象的地址并没有被修改。而`Tuple`是不支持这种inplace操作的。在`JIT_SYNTAX_LEVEL`设置为`LAX`的情况下，静态图模式可以支持部分`List`对象的inplace操作。
 
@@ -1334,9 +1183,165 @@ assert a_id == a_after_id
   assert id(output) == id(list_input)
   ```
 
-### 支持属性设置与修改
+#### 支持Dictionary的高阶用法
 
-在JIT语法支持级别选项为`LAX`时，静态图模式下支持对属性进行设置与修改。需要注意的是，静态图内对Parameter类型的值的设置属于图模式原生支持语法范畴，且图模式内不支持对Parameter类型对象的属性修改。且图模式内只支持对在动态图内允许被修改的对象属性进行修改。
+##### 支持顶图返回Dictionary
+
+示例如下：
+
+```python
+import mindspore as ms
+
+@ms.jit()
+def test_dict():
+    x = {'a': 'a', 'b': 'b'}
+    y = x.get('a')
+    z = dict(y=y)
+    return z
+
+out = test_dict()
+print("out:", out)
+```
+
+结果如下：
+
+```text
+out:{'y': 'a'}
+```
+
+##### 支持Dictionary索引取值和赋值
+
+示例如下：
+
+```python
+import mindspore as ms
+import numpy as np
+
+x = {"a": ms.Tensor(np.array([1, 2, 3])), "b": ms.Tensor(np.array([4, 5, 6])), "c": ms.Tensor(np.array([7, 8, 9]))}
+
+@ms.jit()
+def test_dict():
+    y = x["b"]
+    x["a"] = (2, 3, 4)
+    return x, y
+
+out1, out2 = test_dict()
+print('out1:{}'.format(out1))
+print('out2:{}'.format(out2))
+```
+
+结果如下：
+
+```text
+out1:{'a': (2, 3, 4), 'b': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'c': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
+out2:[4 5 6]
+```
+
+#### 支持使用None
+
+`None`是Python中的一个特殊值，表示空，可以赋值给任何变量。对于没有返回值语句的函数认为返回`None`。同时也支持`None`作为顶图或者子图的入参或者返回值。支持`None`作为切片的下标，作为`List`、`Tuple`、`Dictionary`的输入。
+
+示例如下：
+
+```python
+import mindspore as ms
+
+@ms.jit
+def test_return_none():
+    return 1, "a", None
+
+res = test_return_none()
+print(res)
+```
+
+输出结果：
+
+```text
+(1, 'a', None)
+```
+
+对于没有返回值的函数，默认返回`None`对象。
+
+```python
+import mindspore as ms
+
+@ms.jit
+def foo():
+    x = 3
+    print("x:", x)
+
+res = foo()
+assert res is None
+```
+
+如下面例子，`None`作为顶图的默认入参。
+
+```python
+import mindspore as ms
+
+@ms.jit
+def foo(x, y=None):
+    if y is not None:
+        print("y:", y)
+    else:
+        print("y is None")
+    print("x:", x)
+    return y
+
+x = [1, 2]
+res = foo(x)
+assert res is None
+```
+
+### 内置函数支持更多数据类型
+
+扩展内置函数的支持范围。Python内置函数完善支持更多输入类型，例如第三方库数据类型。
+
+例如下面的例子，`x.asnumpy()`和`np.ndarray`均是扩展支持的类型。更多内置函数的支持情况可见[Python内置函数](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/python_builtin_functions.html)章节。
+
+```python
+import numpy as np
+import mindspore as ms
+import mindspore.nn as nn
+
+ms.set_context(mode=ms.GRAPH_MODE)
+
+class Net(nn.Cell):
+    def construct(self, x):
+        return isinstance(x.asnumpy(), np.ndarray)
+
+x = Tensor(np.array([-1, 2, 4]))
+net = Net()
+out = net(x)
+assert out
+```
+
+### 支持控制流
+
+为了提高Python标准语法支持度，实现动静统一，扩展支持更多数据类型在控制流语句的使用。控制流语句是指`if`、`for`、`while`等流程控制语句。理论上，通过扩展支持的语法，在控制流场景中也支持。代码用例如下：
+
+```python
+import numpy as np
+import mindspore as ms
+
+@ms.jit
+def func():
+    x = np.array(1)
+    if x <= 1:
+        x += 1
+    return ms.Tensor(x)
+
+res = func()
+print("res: ", res)
+```
+
+结果如下：
+
+```text
+res: 2
+```
+
+### 支持属性设置与修改
 
 具体使用场景如下：
 
@@ -1545,9 +1550,9 @@ assert a_id == a_after_id
 
   但是在动态图模式下，`value2`的值应该为3。但因为语句`a = self.inner.x`中的`self.inner.x`被固化为常量2，导致两次运行时`self.inner.x`被设置的值均为2。此问题将在后续版本解决。
 
-### 支持反向求导
+### 支持求导
 
-使用Fallback特性打通的语法，同样支持其在反向求导中使用，例如：
+扩展支持的静态图语法，同样支持其在求导中使用，例如：
 
 ```python
 import mindspore as ms
@@ -1562,34 +1567,83 @@ out = ops.grad(dict_net)(ms.Tensor([1]))
 assert out == 2
 ```
 
-### 使用须知
+### Annotation 标记
 
-在使用JIT Fallback时，请注意以下几点：
+对于运行时的扩展支持的语法，会产生一些无法被类型推导出的节点，这种类型称为`Any`类型。因为该类型无法在编译时推导出正确的类型，所以这种`Any`将会以一种默认最大精度`Float64`进行运算，防止其精度丢失。为了能更好的优化相关性能，需要减少`Any`类型数据的产生。当用户可以明确知道当前通过扩展支持的语句会产生具体类型的时候，我们推荐使用`Annotation @jit.typing:`的方式进行指定对应Python语句类型，从而确定解释节点的类型避免`Any`类型的生成。
 
-1.JIT Fallback对标动态图的支持能力，须在动态图语法范围内，包括但不限于数据类型等。
+例如，上述例子`Tensor`类和`tensor`接口的区别就在于在`tensor`接口内部运用了Annotation机制。当`tensor`函数的`dtype`确定时，函数内部会利用`Annotation`指定输出类型从而避免`Any`类型的产生。`Annotation`的使用只需要在对应Python语句上面或者后面加上注释 `# @jit.typing: () -> tensor_type[float32]` 即可，其中 `->` 后面的 `tensor_type[float32]` 指示了被注释的语句输出类型。
 
-2.当前常量控制流场景中暂不支持对Numpy Array数据的取下标赋值，错误的代码用例如下：
+代码用例如下。
 
 ```python
-
-import numpy as np
 import mindspore as ms
+import mindspore.nn as nn
+from mindspore import ops, Tensor
 
-@ms.jit
-def func():
-    x = np.array([1, 2, 3])
-    x[0] += 1
-    return ms.Tensor(x)
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.abs = ops.Abs()
 
-res = func()
-print("res: ", res)
+    @ms.jit
+    def construct(self, x, y):
+        y1 = ms.tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32)
+        y2 = ms.Tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32) # @jit.typing: () -> tensor_type[float32]
+        y3 = Tensor(x.asnumpy() + y.asnumpy())
+        y4 = Tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32)
+        return self.abs(y1), self.abs(y2), self.abs(y3), self.abs(y4)
 
+ms.set_context(mode=ms.GRAPH_MODE)
+net = Net()
+x = ms.Tensor(-1, dtype=ms.int32)
+y = ms.Tensor(-1, dtype=ms.float32)
+y1, y2, y3, y4 = net(x, y)
+
+print(f"y1 value is {y1}, dtype is {y1.dtype}")
+print(f"y2 value is {y2}, dtype is {y2.dtype}")
+print(f"y3 value is {y3}, dtype is {y3.dtype}")
+print(f"y4 value is {y4}, dtype is {y4.dtype}")
 ```
 
-报错信息如下:
-
-```text
-
-RuntimeError: For operation 'setitem', current input arguments types are <External, Number, Number>. The 1-th argument type 'External' is not supported now.
-
+```Text
+y1 value is 2.0, dtype is Float32
+y2 value is 2.0, dtype is Float32
+y3 value is 2.0, dtype is Float64
+y4 value is 2.0, dtype is Float64
 ```
+
+上述例子，可以看到创建了`Tensor`的相关区别。对于`y3`、`y4`，因为`Tensor`类没有增加`Annotation`指示，`y3`、`y4`没有办法推出正确的类型，导致只能按照最高精度`Float64`进行运算。
+对于`y2`，由于创建`Tensor`时，通过`Annotation`指定了对应类型，使得其类型可以按照指定类型进行运算。
+对于`y1`，由于使用了`tensor`函数接口创建`Tensor`，传入的`dtype`参数作为`Annotation`的指定类型，所以也避免了`Any`类型的产生。
+
+### 使用须知
+
+在使用静态图扩展支持语法时，请注意以下几点：
+
+1. 对标动态图的支持能力，即：须在动态图语法范围内，包括但不限于数据类型等。
+
+2. 在扩展静态图语法时，支持了更多的语法，但执行性能可能会受影响，不是最佳。
+
+3. 在扩展静态图语法时，支持了更多的语法，由于使用Python的能力，不能使用MindIR导入导出的能力。
+
+4. 当前不支持对Numpy Array数据的取下标赋值，错误的代码用例如下：
+
+  ```python
+  import numpy as np
+  import mindspore as ms
+
+  @ms.jit
+  def func():
+      x = np.array([1, 2, 3])
+      x[0] += 1
+      return ms.Tensor(x)
+
+  res = func()
+  print("res: ", res)
+  ```
+
+  报错信息如下:
+
+  ```text
+  RuntimeError: For operation 'setitem', current input arguments types are <External, Number, Number>. The 1-th argument type 'External' is not supported now.
+  ```

@@ -8,17 +8,146 @@ In graph mode, Python code is not executed by the Python interpreter. Instead, t
 
 There are two ways to use the graph mode. The first way is to call the `@jit` decorator to modify a function or a class member method, and then the decorated function or method will be compiled into a static computation graph. For details about how to use `jit`, click [jit API document](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html#mindspore.jit). The second way is to set `ms.set_context(mode=ms.GRAPH_MODE)`, then write the code in the `construct` function of the `Cell` so that the code in the `construct` function will be compiled into a static computation graph. For details about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html).
 
-Due to syntax parsing restrictions, the supported data types, syntax, and related operations during graph building are not completely consistent with the Python syntax. As a result, some usage is restricted. JIT Fallback scheme considers the unification of static and dynamic graphs from the perspective of graph mode and extends the syntax capabilities of graph patterns. Borrowing the traditional JIT compilation idea, when it is found to be the Python syntax that is not supported in the graph mode, interpretation and execution are performed by Fallback. For more information, please refer to the [JIT Fallback](#jit-fallback) section.
+Due to syntax parsing restrictions, the supported data types, syntax, and related operations during graph building are not completely consistent with the Python syntax. As a result, some usage is restricted. Borrowing the traditional JIT compilation idea, considers the unification of static and dynamic graphs from the perspective of graph mode and extends the syntax capabilities of graph patterns. The static graph provides a syntax experience close to that of the dynamic graph, so as to realize the unity of dynamic and static. In order to facilitate users to choose whether to extend the static graph syntax, the JIT syntax support level option 'jit_syntax_level' is provided, and its value must be in the range of [STRICT,LAX], and selecting 'STRICT' is considered to use the basic syntax and do not extend the static graph syntax. The default value is 'LAX', please refer to the [Extended Syntaxes (LAX level)](#extended-syntaxes-lax-level) section of this article for more information. All backends are supported at all levels.
+
+- STRICT: Only basic syntax is supported, and execution performance is optimal.
+- LAX: supports more syntax(such as operations of dict, list, and None.), compatible with all Python syntax as much as possible.
 
 The following describes the data types, syntax, and related operations supported during static graph building. These rules apply only to graph mode.
 
-## Data Types
+## Basic Syntaxes (STRICT Level)
 
-### Built-in Python Data Types
+### Constants and Variables Within Static Graphs
+
+In static graphs, constants and variables are an important concept for understanding static graph syntax, and many syntaxes support different methods and degrees in the case of constant input and variable input. Therefore, before introducing the specific syntax supported by static graphs, this section first explains the concepts of constants and variables in static graphs.
+
+In static graph mode, the operation of a program is divided into compilation period and execution period. During compilation, the program is compiled into an intermediate representation graph, and the program does not actually execute, but statically parses the intermediate representation through abstract deduction. This makes it impossible to guarantee that we will get the values of all intermediate representation nodes at compile time. Constants and variables are distinguished by their true values in the compiler.
+
+- Constant: The amount of value that can be obtained during compilation.
+- Variable: The amount of value that cannot be obtained during compilation.
+
+In some cases, it is difficult to determine whether a quantity is a constant or a variable, and we can use 'ops.isconstant' to determine whether it is a constant or not. For example:
+
+```python
+from mindspore import Tensor, jit, ops
+
+a = Tensor([1])
+
+@jit
+def foo(a):
+    b = Tensor([2])
+    m = ops.isconstant(a)
+    n = ops.isconstant(b)
+    return m, n
+```
+
+In the above code, 'a' is the variable, so 'm' is 'false'. 'b' is a constant, so 'n' is 'True'.
+
+#### Constants Generate Scenes
+
+- Scalars, lists, and tuples entered as graph mode are constants (without using the mutable interface). For example:
+
+  ```python
+  from mindspore import Tensor, jit
+
+  a = 1
+  b = [Tensor([1]), Tensor([2])]
+  c = ["a", "b", "c"]
+
+  @jit
+  def foo(a, b, c):
+      return a, b, c
+  ```
+
+  In the above code, enter 'a', 'b', 'c' are constants.
+
+- The result of the constant operation is constant. For example:
+
+  ```python
+  from mindspore import jit, Tensor
+
+  @jit
+  def foo():
+      a = 1
+      b = "2"
+      c = Tensor([1, 2, 3])
+      return a, b, c
+  ```
+
+  In the above code, enter 'a', 'b', 'c' are constants.
+
+  ```python
+  from mindspore import jit, Tensor
+
+  @jit
+  def foo():
+      a = Tensor([1, 2, 3])
+      b = Tensor([1, 1, 1])
+      c = a + b
+      return c
+  ```
+
+  In the above code, 'a' and 'b' are constants of Tensor generated in the graph mode, so the result of their calculation is also constant. However, if one of them is a variable, its return value will also be a variable.
+
+#### Variables Generate Scenes
+
+- The return value of all mutable interfaces is a variable (whether mutable is used outside the graph or inside the diagram). For example:
+
+  ```python
+  from mindspore import Tensor, jit
+  from mindspore.common import mutable
+
+  a = mutable([Tensor([1]), Tensor([2])])
+
+  @jit
+  def foo(a):
+      b = mutable(Tensor([3]))
+      c = mutable((Tensor([1]), Tensor([2])))
+      return a, b, c
+  ```
+
+  In the above code, 'a' is generated by calling the mutable interface outside the graph, 'b' and 'c' are generated by calling the mutable interface inside the graph, and 'a', 'b', and 'c' are variables.
+
+- Tensors that are inputs to static graphs are variables. For example:
+
+  ```python
+  from mindspore import Tensor, jit
+
+  a = Tensor([1])
+  b = (Tensor([1]), Tensor([2]))
+
+  @jit
+  def foo(a, b):
+      return a, b
+  ```
+
+  In the above code, 'a' is the Tensor input as the graph pattern, so it is a variable. But 'b' is a tuple that is input to the graph schema, not a Tensor type, and even if its internal elements are Tensor, 'b' is a constant.
+
+- What is calculated by variables is the variable
+
+  If a quantity is the output of an operator, then it is in most cases constant. For example:
+
+  ```python
+  from mindspore import Tensor, jit, ops
+
+  a = Tensor([1])
+  b = Tensor([2])
+
+  @jit
+  def foo(a, b):
+      c = a + b
+      return c
+  ```
+
+  In this case , 'c' is the result of calculations of 'a' and 'b' , and the inputs 'a' and 'b' used for the calculation are variables , so 'c' is also a variable.
+
+### Data Types
+
+#### Built-in Python Data Types
 
 Currently, the following built-in `Python` data types are supported: `Number`, `String`, `List`, `Tuple`, and `Dictionary`.
 
-#### Number
+##### Number
 
 Supports `int`, `float`, and `bool`, but does not support `complex` numbers.
 
@@ -47,7 +176,7 @@ The result is as follows:
 
 ```text
 res[0]: 11
-res[0]: 10
+res[1]: 10
 res[2]: 2
 ```
 
@@ -70,9 +199,9 @@ Output the results:
 3
 ```
 
-#### String
+##### String
 
-`String` can be constructed on the network, i.e., support for using quotes (`'` or `"`) to create strings such as `x = 'abcd'` or `y = "efgh"`. Convert constants to strings by means of str(). Support string concatenation, truncation, and the use of membership operators (`in` or `not in`) to determine whether a string contains the specified character. Support for formatting string output by inserting a value into a string with the string format `%s`. Support for using the format string function str.format().
+`String` can be constructed on the network, i.e., support for using quotes (`'` or `"`) to create strings such as `x = 'abcd'` or `y = "efgh"`. Convert constants to strings by means of `str()`. Support string concatenation, truncation, and the use of membership operators (`in` or `not in`) to determine whether a string contains the specified character. Support for formatting string output by inserting a value into a string with the string format `%s`. Support for using the format string function `str.format()` in constant scenarios.
 
 For example:
 
@@ -97,21 +226,11 @@ The result is as follows:
 res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is MindSpore!', 'string is 123')
 ```
 
-#### List
+##### List
 
-The `List` and the `Tuple` are the most basic sequence built-in types in Python, and the core difference between `List` and `Tuple` is that `List` is an object that can be changed, while `Tuple` is not, which means that `Tuple`, once created, cannot be changed without the address of the object remaining the same and a `List` can be modified without changing the address of the object through a series of inplace operations. For example:
+When 'JIT_SYNTAX_LEVEL' is set to 'LAX', static graph mode can support the inplace operation of some 'List' objects, see [Supports List Inplace Modification operations](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supports-List-inplace-modification-operations).
 
-```python
-a = [1, 2, 3, 4]
-a_id = id(a)
-a.append(5)
-a_after_id = id(a)
-assert a_id == a_after_id
-```
-
-In the above sample code, through the `append`, the inplace syntax, to change the `List` object, the address of the object has not been modified. `Tuple` does not support this inplace operation. In the case of `JIT_SYNTAX_LEVEL` set to `LAX`, the static graph mode can support inplace operation of some `List` objects.
-
-MindSpore graph mode syntax extends support for `List` to facilitate network construction using `List`.
+The basic usage scenarios of 'List' are as follows:
 
 - The graph mode supports creating `Lists` in graph.
 
@@ -126,8 +245,7 @@ MindSpore graph mode syntax extends support for `List` to facilitate network con
     a = [1, 2, 3, 4]
     b = ["1", "2", "a"]
     c = [ms.Tensor([1]), ms.Tensor([2])]
-    d = [np.array([1, 2, 3]), np.array(["1, 2, 3"])]
-    d = [a, b, c, d, (4, 5)]
+    d = [a, b, c, (4, 5)]
     return d
   ```
 
@@ -152,8 +270,6 @@ MindSpore graph mode syntax extends support for `List` to facilitate network con
 
 - The graph mode supports obtaining `List` objects from global variables
 
-  In the following example, the static graph obtains the `List` object, performs the replace operation `list.reverse()` supported by the graph mode on the original object, and returns the original object. You can see that the object returned by the graph mode has the same id as the original global variable object, i.e. they are the same object. If `JIT_SYNTAX_LEVEL` is set to the `STRICT` option, the returned `List` object and the global object are two different objects.
-
   ```python
   import mindspore as ms
 
@@ -165,8 +281,9 @@ MindSpore graph mode syntax extends support for `List` to facilitate network con
       return global_list
 
   output = list_func()  # output: [4, 3, 2, 1]
-  assert id(global_list) == id(output)
   ```
+
+  It should be noted that the list returned in the following pattern in the basic scenario is not the same object as the list of global variables, and when 'JIT_SYNTAX_LEVEL' is set to 'LAX', the returned object and the global object are unified objects.
 
 - Graph mode supports `List` as input
 
@@ -184,302 +301,259 @@ MindSpore graph mode syntax extends support for `List` to facilitate network con
   output = list_func()  # output: [1, 2, 3, 4]
   ```
 
-  Two precautions exist for `List` as static graph input:
+  It should be noted that when 'List' is input as a static graph, it is always treated as a constant, regardless of the type of element inside it.
 
-  1. A `List`, as static graph input, is treated as a constant regardless of the type of the elements inside it.
+- Graph mode supports built-in methods for List
 
-  2. A `List`, as static graph input, copies `List` object for one time, and subsequent calculations are performed using that copied object, so it is not possible to perform an inplace operation on the original input object. For example:
+  The 'List' built-in method is described in detail below:
 
-  ```python
-  import mindspore as ms
+    - List Index Value
 
-  list_input = [1, 2, 3, 4]
+      Basic syntax: '''element = list_object[index]'''.
 
-  @ms.jit
-  def list_func(x):
-      x.reverse()
-      return x
+      Basic semantics: Extract the element in the 'List' object in the 'index' bit ('index' starts at 0). Supports multi-level index values.
 
-  output = list_func()  # output: [4, 3, 2, 1]  list_input: [1, 2, 3, 4]
-  assert id(output) != id(list_input)
-  ```
+      Index value 'index' supported types include 'int', 'Tensor', and 'slice'. Among them, inputs of type 'int' and 'Tensor' can support constants and variables, and 'slice' internal data must be constants that can be determined at compile time.
 
-  As shown in the above use case, the `List` object cannot perform inplace operation on the original object when it is graph mode input. The object returned by the graph mode is different from the input object id, which is a different object.
+      Examples are as follows:
 
-- The graph mode supports the built-in methods of List
+      ```python
+      import mindspore as ms
+      @ms.jit()
+      def list_getitem_func():
+          x = [[1, 2], 3, 4]
+          a = x[0]
+          b = x[0][ms.Tensor([1])]
+          c = x[1:3:1]
+          return a, b, c
 
-    With `JIT_SYNTAX_LEVEL` set to `LAX`, part of the `List` built-in function in graph mode supports inplace. All methods do not support inplace operations when `JIT_SYNTAX_LEVEL` is `STRICT`.
-    The `List` built-in methods supported by the graph mode are shown in the following table:
+      a, b, c = list_getitem_func()
+      print('a:{}'.format(a))
+      print('b:{}'.format(b))
+      print('c:{}'.format(c))
+      ```
 
-    | Method names       | Whether the inplace operation is supported （JIT_SYNTAX_LEVEL=LAX）    |  
-    | ----------  | ------------      |
-    | Index values      | Non-inplace operations      |
-    | Index assignments      | No             |
-    | append      | No             |
-    | clear       | No             |
-    | extend      | Yes               |
-    | pop         | Yes               |
-    | reverse     | Yes               |
-    | insert      | Yes               |
+      The results are as follows:
 
-    The details of the `List` built-in methods are described below:
+      ```text
+      a:[1, 2]
+      b:2
+      c:[3, 4]
+      ```
 
-    - List index values
+    - List index assignment
 
-        Basic syntax: ```element = list_object[index]```.
+      Basic syntax: '''list_object[index] = target_element'''.
 
-        Basic semantics: Extract the element at the `index` position in a `List` object (`index` starts at 0). Support multiple levels of index values.
+      Basic semantics: Assign the element in the 'List' object at bit 'index' to 'target_element' ('index' starts at 0). Support for multi-tier index assignment.
 
-        The index value `index` supports types `int`, `Tensor` and `slice`. Of these, inputs of type `int` and `Tensor` can support constants as well as variables, and the internal data of `slice` must be a constant that can be determined at compile time.
+      Index value 'index' supported types include 'int', 'Tensor', and 'slice'. Among them, inputs of type 'int' and 'Tensor' can support constants and variables, and the internal data of 'slice' must be constant that can be determined at compile time.
 
-        The example is as follows:
+      The index assignment object 'target_element' supports all data types supported by graph modes.
 
-        ```python
-        import mindspore as ms
-        @ms.jit()
-        def list_getitem_func():
-            x = [[1, 2], 3, 4]
-            a = x[0]
-            b = x[0][ms.Tensor([1])]
-            c = x[1:3:1]
-            return a, b, c
+      Currently, the 'List' index assignment does not support the inplace operation, and a new object will be generated after the index is assigned. This operation will support the inplace operation in the future.
 
-        a, b, c = list_getitem_func()
-        print('a:{}'.format(a))
-        print('b:{}'.format(b))
-        print('c:{}'.format(c))
-        ```
+      Examples are as follows:
 
-        The result is as follows:
+      ```python
+      import mindspore as ms
 
-        ```text
-        a:[1, 2]
-        b:2
-        c:[3, 4]
-        ```
+      @ms.jit()
+      def test_setitem_func():
+          x = [[0, 1], 2, 3, 4]
+          x[1] = 10
+          x[2] = "ok"
+          x[3] = (1, 2, 3)
+          x[0][1] = 88
+          return x
 
-    - List index assignments
+      output = test_setitem_func()
+      print('output:{}'.format(output))
+      ```
 
-        Basic syntax: ```list_object[index] = target_element```.
+      The results are as follows:
 
-        Basic semantics: Assigns the element at `index` in a `List` object to `target_element` (`index` starts at 0). Multiple levels of index assignment are supported.
-
-        The index value `index` supports the types `int`, `Tensor` and `slice`. Of these, inputs of type `int` and `Tensor` can support constants as well as variables, and the internal data of `slice` must be a constant that can be determined at compile time.
-
-        The index assignment object `target_element` supports all data types supported by the graph mode.
-
-        Currently, `List` index assignment does not support inplace operation, and a new object will be created after index assignment. This operation will be supported later.
-
-        The example is as follows:
-
-        ```python
-        import mindspore as ms
-        import numpy as np
-
-        @ms.jit()
-        def test_setitem_func():
-            x = [[0, 1], 2, 3, 4]
-            x[1] = 10
-            x[2] = "ok"
-            x[3] = (1, 2, 3)
-            x[0][1] = 88
-            return x
-
-        output = test_index()
-        print('output:{}'.format(output))
-        ```
-
-        The result is as follows:
-
-        ```text
-        output:[[0, 88], 10, "ok", (1, 2, 3)]
-        ```
+      ```text
+      output:[[0, 88], 10, 'ok', (1, 2, 3)]
+      ```
 
     - List.append
 
-        Basic syntax: ```list_object.append(target_element)```.
+      Basic syntax: ''list_object.append(target_element)'''.
 
-        Basic semantics: Appends element `target_element` to the end of `list` object `list_object`.
+      Basic semantics: Append the element 'target_element' to the last list_object' of the 'List' object.
 
-        Currently, `List.append` does not support the inplace operation, and a new object will be created after the index assignment. This operation will be supported later.
+      Currently, 'List.append' does not support the inplace operation, and a new object will be generated after index assignment. This operation will support the inplace operation in the future.
 
-        The example is as follows:
+      Examples are as follows:
 
-        ```python
-        import mindspore as ms
+      ```python
+      import mindspore as ms
 
-        @ms.jit()
-        def test_list():
-            x = [1, 2, 3]
-            x.append(4)
-            return x
+      @ms.jit()
+      def test_list():
+          x = [1, 2, 3]
+          x.append(4)
+          return x
 
-        x = test_list()
-        print('x:{}'.format(x))
-        ```
+      x = test_list()
+      print('x:{}'.format(x))
+      ```
 
-        The result is as follows:
+      The results are as follows:
 
-        ```text
-        x:[1, 2, 3, 4]
-        ```
+      ```text
+      x:[1, 2, 3, 4]
+      ```
 
     - List.clear
 
-        Basic syntax: ```list_object.clear()```.
+      Basic syntax: ''list_object.clear()'''.
 
-        Basic semantics: Clear the elements contained in the `List` object `list_object`.
+      Base semantics: Empty the elements contained in the 'List' object 'list_object'.
 
-        Currently, `List.clear` does not support inplace, and a new object will be created after the index assignment. This operation will support inplace in the future.
+      Currently, 'List.clear' does not support inplace, and a new object will be generated after index assignment. This operation will support inplace in the future.
 
-        The example is as follows:
+      Examples are as follows:
 
-        ```python
-        import mindspore as ms
+      ```python
+      import mindspore as ms
 
-        @ms.jit()
-        def test_list_clear():
-            x = [1, 3, 4]
-            x.clear()
-            return x
+      @ms.jit()
+      def test_list_clear():
+          x = [1, 3, 4]
+          x.clear()
+          return x
 
-        x = test_list_clear()
-        print('x:{}'.format(x))
-        ```
+      x = test_list_clear()
+      print('x:{}'.format(x))
+      ```
 
-        The result is as follows:
+      The results are as follows:
 
-        ```text
-        x:[]
-        ```
+      ```text
+      x:[]
+      ```
 
     - List.extend
 
-        Basic syntax: ```list_object.extend(target)```.
+      Basic syntax: ''list_object.extend(target)'''.
 
-        Basic semantics: Insert all elements within `target` in order to the end of the `List` object `list_object`.
+      Basic semantics: Insert all elements inside the 'target' to the end of the 'List' object 'list_object'.
 
-        The types supported for `target` are `Tuple`, `List` and `Tensor`. In this case, if `target` is of type `Tensor`, the `Tensor` will be converted to `List` before insertion.
+      The supported types for 'target' are 'Tuple', 'List', and 'Tensor'. Among them, if the 'target' type is 'Tensor', the 'Tensor' will be converted to 'List' before inserting it.
 
-        With `JIT_SYNTAX_LEVEL` set to `LAX`, `List.extend` supports the inplace operation, which does not generate a new object after the function is run.
+      Examples are as follows:
 
-        The example is as follows:
+      ```python
+      import mindspore as ms
 
-        ```python
-        import mindspore as ms
+      @ms.jit()
+      def test_list_extend():
+          x1 = [1, 2, 3]
+          x1.extend((4, "a"))
+          x2 = [1, 2, 3]
+          x2.extend(ms.Tensor([4, 5]))
+          return x1, x2
 
-        @ms.jit()
-        def test_list_extend():
-            x1 = [1, 2, 3]
-            x1.extends((4, "a"))
-            x2 = [1, 2, 3]
-            x2.extends(ms.Tensor([4, 5]))
-            return x1, x2
+      output1, output2 = test_list_extend()
+      print('output1:{}'.format(output1))
+      print('output2:{}'.format(output2))
+      ```
 
-        output1, output2 = test_list_extend()
-        print('output1:{}'.format(output1))
-        print('output2:{}'.format(output2))
-        ```
+      The results are as follows:
 
-        The result is as follows:
-
-        ```text
-        output1:[1, 2, 3, 4, "a"]
-        output2:[1, 2, 3, Tensor(shape=[1], dtype=Int64, value= [4]), Tensor(shape=[1], dtype=Int64, value= [5])]
-        ```
+      ```text
+      output1:[1, 2, 3, 4, 'a']
+      output2:[1, 2, 3, Tensor(shape=[1], dtype=Int64, value= [4]), Tensor(shape=[1], dtype=Int64, value= [5])]
+      ```
 
     - List.pop
 
-        Basic syntax: ```pop_element = list_object.pop(index=-1)```.
+      Basic syntax: '''pop_element = list_object.pop(index=-1)'''.
 
-        Basic semantics: Remove the `index` element of the `List` object `list_object` from `list_object` and return that element.
+      Basic semantics: Remove the 'index' element of the 'List' object 'list_object' from the 'list_object' and return the element.
 
-        `index` is required to be a constant `int`, and when `list_object` is of length `list_obj_size`, `index` is taken in the range `[-list_obj_size, list_obj_size-1]`. A negative number for `index` represents the number of bits from back to front. When there is no `index` input, the default value is -1, which means the last element is removed.
+      The 'index' requires that it must be a constant 'int', and when 'list_object' has a length of 'list_obj_size', 'index' has a value range of '[-list_obj_size,list_obj_size-1]'. 'index' is a negative number representing the number of digits from back to front. When no 'index' is entered, the default value is -1, i.e. the last element is removed.
 
-        With `JIT_SYNTAX_LEVEL` set to `LAX`, `List.pop` supports the inplace operation, which does not generate a new object after the function is run.
+      ```python
+      import mindspore as ms
 
-        ```python
-        import mindspore as ms
+      @ms.jit()
+      def test_list_pop():
+          x = [1, 2, 3]
+          b = x.pop()
+          return b, x
 
-        @ms.jit()
-        def test_list_pop():
-            x = [1, 2, 3]
-            b = x.pop()
-            return b, x
+      pop_element, res_list = test_list_pop()
+      print('pop_element:{}'.format(pop_element))
+      print('res_list:{}'.format(res_list))
+      ```
 
-        pop_element, res_list = test_list_pop()
-        print('pop_element:{}'.format(pop_element))
-        print('res_list:{}'.format(res_list))
-        ```
+      The results are as follows:
 
-        The result is as follows:
-
-        ```text
-        pop_element:3
-        res_list:[1, 2]
-        ```
+      ```text
+      pop_element:3
+      res_list:[1, 2]
+      ```
 
     - List.reverse
 
-        Basic syntax: ```list_object.reverse()```.
+      Basic syntax: '''list_object.reverse()'''.
 
-        Basic semantics: Reverse the order of the elements of the `List` object `list_object`.
+      Basic semantics: Reverse the order of the elements of the 'List' object 'list_object'.
 
-        With `JIT_SYNTAX_LEVEL` set to `LAX`, `List.reverse` supports the inplace operation, which does not generate a new object after the function is run.
+      Examples are as follows:
 
-        The example is as follows:
+      ```python
+      import mindspore as ms
 
-        ```python
-        import mindspore as ms
+      @ms.jit()
+      def test_list_reverse():
+          x = [1, 2, 3]
+          x.reverse()
+          return x
 
-        @ms.jit()
-        def test_list_reverse():
-            x = [1, 2, 3]
-            x.reverse()
-            return x
+      output = test_list_reverse()
+      print('output:{}'.format(output))
+      ```
 
-        output = test_list_reverse()
-        print('output:{}'.format(output))
-        ```
+      The results are as follows:
 
-        The result is as follows:
-
-        ```text
-        output1:[3, 2, 1]
-        ```
+      ```text
+      output1:[3, 2, 1]
+      ```
 
     - List.insert
 
-        Basic syntax: ```list_object.insert(index, target_obj)```.
+      Basic syntax: ''list_object.insert(index, target_obj)'''.
 
-        Basic semantics: Insert `target_obj` into the `index` position of `list_object`.
+      Basic semantics: insert 'target_obj' into the 'index' bit of 'list_object'.
 
-        The `index` requires to be the constant `int`. If `list_object` is of length `list_obj_size`, when `index < -list_obj_size`, insert into the first position of `List`. When `index >= -list_obj_size`, insert to the end of `List`. A negative `index` represents the number of digits from back to front.
+      The 'index' requirement must be a constant 'int'. If the length of 'list_object' is 'list_obj_size'. When 'index < -list_obj_size', insert the first place in 'List'. When 'index >= -list_obj_size', insert at the end of 'List'. A negative 'index' represents the number of digits from back to front.
 
-        With `JIT_SYNTAX_LEVEL` set to `LAX`, `List.insert` supports the inplace operation, and the function runs without generating a new object.
+      Examples are as follows:
 
-        The example is as follows:
+      ```python
+      import mindspore as ms
 
-        ```python
-        import mindspore as ms
+      @ms.jit()
+      def test_list_insert():
+          x = [1, 2, 3]
+          x.insert(3, 4)
+          return x
 
-        @ms.jit()
-        def test_list_insert():
-            x = [1, 2, 3]
-            x.insert(3, 4)
-            return x
+      output = test_list_insert()
+      print('output:{}'.format(output))
+      ```
 
-        output = test_list_insert()
-        print('output:{}'.format(output))
-        ```
+      The results are as follows:
 
-        The result is as follows:
+      ```text
+      output:[1, 2, 3, 4]
+      ```
 
-        ```text
-        output:[1, 2, 3, 4]
-        ```
-
-#### Tuple
+##### Tuple
 
 `Tuple` can be constructed on the network, that is, the syntax `y = (1, 2, 3)` is supported. The elements of the tuple `Tuple` cannot be modified, but indexed access to elements in the tuple `Tuple` is supported, and concatenated combinations of tuples are supported.
 
@@ -498,8 +572,8 @@ MindSpore graph mode syntax extends support for `List` to facilitate network con
   An example of the `int` and `slice` indexes is as follows:
 
   ```python
-  import mindspore as ms
   import numpy as np
+  import mindspore as ms
 
   t = ms.Tensor(np.array([1, 2, 3]))
 
@@ -585,7 +659,7 @@ MindSpore graph mode syntax extends support for `List` to facilitate network con
   out2:(1, 2, 3, 1, 2, 3)
   ```
 
-#### Dictionary
+##### Dictionary
 
 `Dictionary` can be constructed on the network. Each key value `key:value` is separated by a colon `:`, and each key value pair is separated by a comma `,`. The entire dictionary contains the key-value pairs using curly braces `{}`. That is, the syntax `y = {"a": 1, "b": 2}` is supported.
 
@@ -609,7 +683,7 @@ The `key` is unique, and if there are multiple identical `keys` in the dictionar
 
   `fromkeys`: `dict.fromkeys(seq([, value]))` is used to create a new `Dictionary`, using the elements in the sequence `seq` as the `key` of the `Dictionary`, and the `value` is initial value corresponding to all `key`.
 
-  For example:
+  The example is as follows, where the 'x' and 'new_dict' in the return value are a 'Dictionary', and the support is extended under the JIT syntax support level option LAX in graph mode, for more advanced use of Dictionary, please refer to the [Supports the high-level usage of Dictionary](#supports-the-high-level-usage-of-dictionary) section of this article.
 
   ```python
   import mindspore as ms
@@ -651,92 +725,15 @@ The `key` is unique, and if there are multiple identical `keys` in the dictionar
   new_dict:{'a': 123, 'b': 123, 'c': 123, 'd': 123}
   ```
 
-- Supported index values and value assignment
-
-  For example:
-
-  ```python
-  import mindspore as ms
-  import numpy as np
-
-  x = {"a": ms.Tensor(np.array([1, 2, 3])), "b": ms.Tensor(np.array([4, 5, 6])), "c": ms.Tensor(np.array([7, 8, 9]))}
-
-  @ms.jit()
-  def test_dict():
-      y = x["b"]
-      x["a"] = (2, 3, 4)
-      return x, y
-
-  out1, out2 = test_dict()
-  print('out1:{}'.format(out1))
-  print('out2:{}'.format(out2))
-  ```
-
-  The result is as follows:
-
-  ```text
-  out1:{'a': (2, 3, 4), 'b': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'c': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
-  out2:[4 5 6]
-  ```
-
-- Supported calculation graph return `Dictionary`
-
-  For example:
-
-  ```python
-  import mindspore as ms
-
-  @ms.jit()
-  def test_dict():
-      x = {'a': 'a', 'b': 'b'}
-      y = x.get('a')
-      z = dict(y=y)
-      return z
-
-  out = test_dict()
-  print("out:", out)
-  ```
-
-  The result is as follows:
-
-  ```text
-  out:{'y': 'a'}
-  ```
-
-#### None
-
-Support using and returning None.
-
-For example:
-
-```python
-import mindspore as ms
-
-@ms.jit
-def test_return_none():
-    return 1, "a", None
-
-res = test_return_none()
-print(res)
-```
-
-Output the results:
-
-```text
-(1, 'a', None)
-```
-
-### MindSpore User-defined Data Types
+#### MindSpore User-defined Data Types
 
 Currently, MindSpore supports the following user-defined data types: `Tensor`, `Primitive`, and `Cell`.
 
-#### Tensor
+##### Tensor
 
 For details of `Tensor`, click [Tensor API document](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor).
 
-JIT Fallback supports creating and using [Tensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html) in static graph mode.
-
-The code case is as follows, and `Tensor(1, dtype=mstype.int32)` is supported by JIT Fallback.
+Supports creating and using Tensor. The code case is as follows, `Tensor(1, dtype=mstype.int32)` is extended support under the graph mode JIT syntax support level option LAX.
 
 ```python
 import mindspore.nn as nn
@@ -750,20 +747,16 @@ class Net(nn.Cell):
         return ms.Tensor(1, dtype=ms.int32)
 
 ms.set_context(mode=ms.GRAPH_MODE)
+
 net = Net()
 print(net())
 ```
-
-Output the result:
 
 ```text
 1
 ```
 
-The above example uses the interface of Tensor class to create a Tensor.
-In some cases, it may be necessary to create a Tensor at runtime.
-In this case, you can use either the aforementioned ms.Tensor interface or the [tensor function interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)to create a Tensor.
-The code example is shown below.
+The above example uses the interface of Tensor class to create a Tensor. In some cases, it may be necessary to create a runtime 'Tensor', that is, the 'Tensor' data that cannot get the value at compile time, in which case you can use the above class 'ms.Tensor' interface to create 'Tensor', or [tensor function interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)to create a Tensor. The code example is shown below.
 
 ```python
 import mindspore as ms
@@ -783,13 +776,11 @@ x = ms.Tensor(1, dtype=ms.int32)
 print(net(x))
 ```
 
-Output the result:
-
 ```text
 1.0
 ```
 
-#### Primitive
+##### Primitive
 
 Currently, `Primitive` and its subclass instances can be constructed in construct.
 
@@ -831,7 +822,7 @@ Currently, the attributes and APIs related to `Primitive` and its subclasses can
 
 For details about the defined `Primitive`, click [Primitive API document](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive).
 
-#### Cell
+##### Cell
 
 Currently, `Cell` and its subclass instances can be constructed on the network. That is, the syntax `cell = Cell(args...)` is supported.
 
@@ -841,85 +832,63 @@ Currently, the attributes and APIs related to `Cell` and its subclasses cannot b
 
 For details about the definition of `Cell`, click [Cell API document](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html).
 
-#### Parameter
+##### Parameter
 
 `Parameter` is a variable tensor, indicating the parameters that need to be updated during network training.
 
 For details about the definition of `Parameter`, click [Parameter API document](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter).
 
-## Operators
+### Operators
 
 Arithmetic operators and assignment operators support the `Number` and `Tensor` operations, as well as the `Tensor` operations of different `dtype`. For more details, please refer to [Operators](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax/operators.html)
 
-## Primaries
+### Primaries
 
 Primaries represent the most tightly bound operations of the language.
 
-### Attribute References and Attribute Modification
+#### Attribute References and Attribute Modification
 
-An attribute reference is a primary followed by a period and a name. The following two cases of attribute references are allowed to be modified:
+An attribute reference is a primary followed by a period and a name.
 
-- The modified attribute belongs to this `cell` object, i.e. it must be `self.xxx`. The attribute is initialized in the Cell's `__init__` function. For example:
+Using attribute references as l-values in Cell instances of MindSpore requires the following requirements:
 
-  ```python
-  import mindspore as ms
-  from mindspore import nn, set_context
-  set_context(mode=ms.GRAPH_MODE)
+- The modified attribute belongs to this `cell` object, i.e. it must be `self.xxx`.
+- The attribute is initialized in Cell's '__init__' function and is of type Parameter.
 
-  class Net(nn.Cell):
-      def __init__(self):
-          super().__init__()
-          self.weight = ms.Parameter(ms.Tensor([1]), name="w")
-          self.m = 2
+When the JIT syntax support level option is 'LAX', can support attribute modification in more situations, see [Support Attribute Setting and Modification] (https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/static_graph_syntax.html#Support Attribute Setting and Modification).
 
-      def construct(self, x, y):
-          self.weight = x  # modified if conditions are met
-          self.m = 3  # modified if conditions are met
-          # self.a = 2 Attribute a is not initialized within __init__ and cannot be modified.
-          return x
+Examples are as follows:
 
-  net = Net()
-  ret = net(1, 2)
-  print('net.weight:{}'.format(net.weight))
-  print('net.m:{}'.format(net.m))
-  ```
+```python
+import mindspore as ms
+from mindspore import nn, set_context
 
-  The result is as follows:
+set_context(mode=ms.GRAPH_MODE)
 
-  ```text
-  net.weight:Parameter (name=w, shape=(1,), dtype=Int64, requires_grad=True)
-  net.x:3
-  ```
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.weight = ms.Parameter(ms.Tensor(3, ms.float32), name="w")
+        self.m = 2
 
-- The object whose attributes are modified is a global object, as exemplified by the following:
+    def construct(self, x, y):
+        self.weight = x  # 满足条件可以修改
+        # self.m = 3     # self.m 非Parameter类型禁止修改
+        # y.weight = x   # y不是self，禁止修改
+        return x
 
-  ```python
-  import mindspore as ms
-  from mindspore import nn, set_context
+net = Net()
+ret = net(1, 2)
+print('ret:{}'.format(ret))
+```
 
-  set_context(mode=ms.GRAPH_MODE)
+The results are as follows:
 
-  class AssignTarget:
-      def __init__(self):
-          self.x = 1
+```text
+ret:1
+```
 
-  data_obj = AssignTarget()
-
-  @ms.jit
-  def test_assign():
-      data_obj.x = 10
-
-  test_assign()
-  print('data_obj.x:{}'.format(data_obj.x))
-  ```
-
-  The result is as follows:
-
-  ```text
-  data_obj.x:10
-  ```
-
-### Index Value
+#### Index Value
 
 Index value of  a sequence `Tuple`, `List`, `Dictionary`, `Tensor` which called subscription in Python.
 
@@ -931,7 +900,7 @@ Index value of `Dictionary` refers to chapter [Dictionary](#dictionary) of this 
 
 Index value of `Tensor` refers to [Tensor index value document](https://www.mindspore.cn/docs/en/master/note/index_support.html#index-values).
 
-### Calls
+#### Calls
 
 A call calls a callable object (e.g., `Cell` or `Primitive`) with a possibly empty series of arguments.
 
@@ -966,17 +935,17 @@ The result is as follows:
 ret:[[3. 3. 3. 3.]]
 ```
 
-## Statements
+### Statements
 
 Currently supported Python statements include raise statement, assert statement, pass statement, return statement, break statement, continue statement, if statement, for statement, while statement, with statement, list comprehension, generator expression and function definition statement. For more details, please refer to [Statements](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax/statements.html)
 
-## Python Built-in Functions
+### Python Built-in Functions
 
 Currently supported Python built-in functions include `int`, `float`, `bool`, `str`, `list`, `tuple`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `any`, `round`, `max`, `min` , `sum`, `abs`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, `filter`. The use of built-in functions in graph mode is similar to the corresponding Python built-in functions. For more details, please refer to [Python Built-in Functions](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax/python_builtin_functions.html)
 
-## Network Definition
+### Network Definition
 
-### Network Input parameters
+#### Network Input parameters
 
 The input parameters of the outermost network only can be `lool`, `int`, `float`, `Tensor`, `None`, `mstype.number(mstype.bool, mstype.int, mstype.float, mstype.uint)`, `List` or `Tuple` that contains these types, and `Dictionary` whose values are these types.
 
@@ -1037,7 +1006,7 @@ In the `Net` defined above,  `string` flag is transferred during initialization 
 
 The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` calculates gradient of the input parameters `(x, y, z)` for the outermost network, gradient of `y` is automatically ignored, only the gradient of `x` and `z` is calculated, `ret = (grad_x, grad_z)`.
 
-### Network Constraints
+#### Network Constraints
 
 1. When an undefined class member is used in the `construct` function, `AttributeError` exception will be thrown.
 
@@ -1068,25 +1037,541 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
 
 2. Class methods modified by `classmethod` in `nn.Cell` are not supported.
 
-## JIT Fallback
+## Extended Syntaxes (LAX level)
 
-In MindSpore static diagram mode, users need to follow MindSpore [static diagram syntax support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html) when writing programs. Constraints exist on the use of the syntax.In dynamic graph mode, Python script code is executed according to the Python syntax, and users can use any Python syntax. It can be seen that the syntax constraint restrictions are different for static and dynamic graphs.
+The following mainly introduces the static graph syntax supported by the current extension.
 
-JIT Fallback considers the unification of static and dynamic graphs from the perspective of static graphs. Through the JIT Fallback feature, static graphs can support as many dynamic diagram syntaxes as possible, making static graphs provide a syntax experience close to that of dynamic graphs, thus achieving dynamic unity. To facilitate the user's ability to choose to use the JIT Fallback feature, the JIT syntax support level option 'jit_syntax_level' is provided. The value must be in [STRICT, LAX]. Default: LAX. All levels support all backends.
+### Calling the Third-party Libraries
 
-STRICT: Only basic syntax is supported, and execution performance is optimal.
+Objects and methods of third-party libraries can be called in static graph mode.
 
-LAX: Compatible with all Python syntax as much as possible. However, execution performance may be affected and not optimal.
+The following case calls the NumPy third-party library.
 
-This document describes the support scope and usage notes of JIT Fallback so that you can use JIT Fallback features more effectively.
+```python
+import numpy as np
+import mindspore as ms
+import mindspore.nn as nn
 
-The JIT Fallback feature is still being improved, and the following is a list of static graph compilation syntaxes that are currently supported by this feature.
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+
+    def construct(self):
+        a = np.array([1, 2, 3])
+        b = np.array([4, 5, 6])
+        c = a + b
+        return ms.Tensor(c)
+
+ms.set_context(mode=ms.GRAPH_MODE)
+net = Net()
+print(net())
+```
+
+```text
+[5 7 9]
+```
+
+### Supports the Use of Custom Classes
+
+Custom classes can be used in graph mode, and classes can be instantiated and object properties and methods can be used.
+
+For example, where 'GetattrClass' is a user-defined class that does not use the '@ms_class' decoration and does not inherit 'nn. Cell`。
+
+```python
+import mindspore as ms
+
+ms.set_context(mode=ms.GRAPH_MODE)
+
+class GetattrClass():
+    def __init__(self):
+        self.attr1 = 99
+        self.attr2 = 1
+
+    def method1(self, x):
+        return x + self.attr2
+
+class GetattrClassNet(ms.nn.Cell):
+    def __init__(self):
+        super(GetattrClassNet, self).__init__()
+        self.cls = GetattrClass()
+
+    def construct(self):
+        return self.cls.method1(self.cls.attr1)
+
+net = GetattrClassNet()
+out = net()
+assert out == 100
+```
+
+### Base Type
+
+Use the JIT Fallback feature to extend support for Python's native data types 'List', 'Dictionary', 'None'.
+
+#### Supports List Inplace Modification operations
+
+The list 'List' and tuple 'Tuple' are the most basic sequential built-in types in Python, and the core difference between 'List' and 'Tuple' is that 'List' is an object that can be changed, while 'Tuple' cannot be changed. This means that once 'Tuple' is created, it cannot be changed without changing the object address. 'List', on the other hand, can modify an object without changing its address through a series of inplace operations. For example:
+
+```python
+a = [1, 2, 3, 4]
+a_id = id(a)
+a.append(5)
+a_after_id = id(a)
+assert a_id == a_after_id
+```
+
+In the above example code, when you change the 'List' object through the 'append' inplace syntax, the address of the object is not changed. 'Tuple' does not support this kind of inplace. With 'JIT_SYNTAX_LEVEL' set to 'LAX', static graph mode can support the inplace operation of some 'List' objects.
+
+The specific usage scenarios are as follows:
+
+- Support for getting the original 'List' object from a global variable
+
+  In the following example, the static graph gets the 'List' object, performs the inplace operation 'list.reverse()' supported by graph mode on the original object, and returns the original object. It can be seen that the object returned by the graph mode has the same ID as the original global variable object, that is, the two are the same object. If 'JIT_SYNTAX_LEVEL' is set to the 'STRICT' option, the returned 'List' object and the global object are two different objects.
+
+  ```python
+  import mindspore as ms
+
+  global_list = [1, 2, 3, 4]
+
+  @ms.jit
+  def list_func():
+      global_list.reverse()
+      return global_list
+
+  output = list_func()  # output: [4, 3, 2, 1]
+  assert id(global_list) == id(output)
+  ```
+
+- Inplace operations on input 'List' objects are not supported
+
+  When List' is imported as a static graph, the 'List' object is copied once, and subsequent calculations are performed using the copied object, so it is not possible to perform an inplace operation on the original input object. For example:
+
+  ```python
+  import mindspore as ms
+
+  list_input = [1, 2, 3, 4]
+
+  @ms.jit
+  def list_func(x):
+      x.reverse()
+      return x
+
+  output = list_func()  # output: [4, 3, 2, 1]  list_input: [1, 2, 3, 4]
+  assert id(output) != id(list_input)
+  ```
+
+  As shown in the above use case, the 'List' object cannot be inplaced on the original object when input as a graph mode. The object returned by the graph mode is different from the object ID entered.
+
+- Support for in-place modification of some 'List' built-in functions
+
+  With 'JIT_SYNTAX_LEVEL' set to 'LAX', the graph mode section 'List' built-in function supports inplace. In cases where 'JIT_SYNTAX_LEVEL' is 'STRICT', none of the methods support the inplace operation.
+
+  Currently, the built-in methods for 'List' in-place modification supported by graph mode are 'extend', 'pop', 'reverse', and 'insert'. The built-in methods 'append', 'clear' and index assignment do not support in-place modification at the moment, and will be supported in subsequent versions.
+
+  Examples are as follows:
+
+  ```python
+  import mindspore as ms
+
+  list_input = [1, 2, 3, 4]
+
+  @ms.jit
+  def list_func():
+      list_input.reverse()
+      return list_input
+
+   output = list_func()  # output: [4, 3, 2, 1]  list_input: [4, 3, 2, 1]
+   assert id(output) == id(list_input)
+   ```
+
+#### Supports the High-Level Usage of Dictionary
+
+##### Supports Top Graph Return Dictionary
+
+Examples are as follows:
+
+```python
+import mindspore as ms
+
+@ms.jit()
+def test_dict():
+    x = {'a': 'a', 'b': 'b'}
+    y = x.get('a')
+    z = dict(y=y)
+    return z
+
+out = test_dict()
+print("out:", out)
+```
+
+The results are as follows:
+
+```text
+out:{'y': 'a'}
+```
+
+##### Supports Dictionary Index Value Retrieval and Assignment
+
+Examples are as follows:
+
+```python
+import mindspore as ms
+import numpy as np
+
+x = {"a": ms.Tensor(np.array([1, 2, 3])), "b": ms.Tensor(np.array([4, 5, 6])), "c": ms.Tensor(np.array([7, 8, 9]))}
+
+@ms.jit()
+def test_dict():
+    y = x["b"]
+    x["a"] = (2, 3, 4)
+    return x, y
+
+out1, out2 = test_dict()
+print('out1:{}'.format(out1))
+print('out2:{}'.format(out2))
+```
+
+The results are as follows:
+
+```text
+out1:{'a': (2, 3, 4), 'b': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'c': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
+out2:[4 5 6]
+```
+
+#### Supports Using None
+
+'None' is a special value in Python that represents null and can be assigned to any variable. Functions that do not have a return value statement are considered to return 'None'. At the same time, 'None' is also supported as the input parameter or return value of the top graph or subgraph. Support 'None' as a subscript of a slice as input to 'List', 'Tuple', 'Dictionary'.
+
+Examples are as follows:
+
+```python
+import mindspore as ms
+
+@ms.jit
+def test_return_none():
+    return 1, "a", None
+
+res = test_return_none()
+print(res)
+```
+
+The results are as follows:
+
+```text
+(1, 'a', None)
+```
+
+For functions with no return value, the 'None' object is returned by default.
+
+```python
+import mindspore as ms
+
+@ms.jit
+def foo():
+    x = 3
+    print("x:", x)
+
+res = foo()
+assert res is None
+```
+
+As in the example below, 'None' is used as the default input parameter for the top graph.
+
+```python
+import mindspore as ms
+
+@ms.jit
+def foo(x, y=None):
+    if y is not None:
+        print("y:", y)
+    else:
+        print("y is None")
+    print("x:", x)
+    return y
+
+x = [1, 2]
+res = foo(x)
+assert res is None
+```
+
+### Built-in Functions Support More Data Types
+
+Extend the support for built-in functions. Python built-in functions perfectly support more input types, such as third-party library data types.
+
+For example, in the following example, 'x.asnumpy()' and 'np.ndarray' are both types supported by extensions. More support for built-in functions can be found in the [Python built-in functions](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax/python_builtin_functions.html) section.
+
+```python
+import numpy as np
+import mindspore as ms
+import mindspore.nn as nn
+
+ms.set_context(mode=ms.GRAPH_MODE)
+
+class Net(nn.Cell):
+    def construct(self, x):
+        return isinstance(x.asnumpy(), np.ndarray)
+
+x = Tensor(np.array([-1, 2, 4]))
+net = Net()
+out = net(x)
+assert out
+```
+
+### Supports Control Flow
+
+In order to improve the support of Python standard syntax, realize dynamic and static unification, and extend the support for more data types in the use of control flow statements. Control flow statements refer to flow control statements such as 'if', 'for', and 'while'. Theoretically, by extending the supported syntax, it is also supported in control flow scenarios. The code use cases are as follows:
+
+```python
+import numpy as np
+import mindspore as ms
+
+@ms.jit
+def func():
+    x = np.array(1)
+    if x <= 1:
+        x += 1
+    return ms.Tensor(x)
+
+res = func()
+print("res: ", res)
+```
+
+The results are as follows:
+
+```text
+res: 2
+```
+
+### Support property setting and modification
+
+The specific usage scenarios are as follows:
+
+- Set and modify properties of custom class objects and third-party types
+
+In graph mode, you can set and modify the properties of custom class objects, such as:
+
+```python
+import mindspore import jit
+
+class AssignClass():
+    def __init__(self):
+        self.x = 1
+
+obj = AssignClass()
+
+@jit
+def foo():
+    obj.x = 100
+    return
+
+foo()
+print(f"obj.x is: {obj.x}")
+```
+
+The result is:
+
+```Text
+obj.x is: 100
+```
+
+In graph mode, you can set and modify the properties of third-party library objects, such as:
+
+```python
+import mindspore import jit
+import numpy as np
+
+@jit
+def foo():
+    a = np.array([1, 2, 3, 4])
+    a.shape = (2, 2)
+    return a.shape
+
+shape = foo()
+print(f"shape is {shape}")
+```
+
+The result is:
+
+```Text
+shape is (2, 2)
+```
+
+- Make changes to the Cell's self object, for example:
+
+```python
+import mindspore as ms
+from mindspore import nn, set_context
+set_context(mode=ms.GRAPH_MODE)
+
+class Net(nn.Cell):
+def __init__(self):
+    super().__init__()
+    self.m = 2
+
+def construct(self):
+    self.m = 3
+    return
+
+net = Net()
+net()
+print(f"net.m is {net.m}")
+```
+
+The result is:
+
+```Text
+net.m is 3
+```
+
+Note that the self object only supports property modification, not property setting, that is, only supports modifying the properties set in the '__init__' function. If no attribute is defined in '__init__', it is not allowed to be set in graph mode. For example:
+
+```python
+import mindspore as ms
+from mindspore import nn, set_context
+set_context(mode=ms.GRAPH_MODE)
+
+class Net(nn.Cell):
+def __init__(self):
+    super().__init__()
+    self.m = 2
+
+def construct(self):
+    self.m2 = 3 # self.m2 is not set in the __init__, so it cannot be set in graph mode
+    return
+
+net = Net()
+net()
+```
+
+- Set and modify Cell objects and jit_class objects in the static graph
+
+  Supports modifying the properties of the graph mode Cell object, such as:
+
+  ```python
+  import mindspore as ms
+  from mindspore import nn, set_context
+  set_context(mode=ms.GRAPH_MODE)
+
+  class InnerNet(nn.Cell):
+      def __init__(self):
+          super(InnerNet, self).__init__()
+          self.x = 10
+
+  class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.inner = InnerNet()
+
+    def construct(self):
+        self.inner.x = 100
+        return
+
+  net = Net()
+  net()
+  print(f"net.inner.x is {net.inner.x}")
+  ```
+
+  The result is:
+
+  ```Text
+  net.inner.x is 100
+  ```
+
+  Supports property modification of objects jit_class graph mode, such as:
+
+  ```python
+  import mindspore as ms
+  from mindspore import nn, set_context, jit_class
+  set_context(mode=ms.GRAPH_MODE)
+
+  @jit_class
+  class InnerClass():
+      def __init__(self):
+          self.x = 10
+
+  class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.inner = InnerClass()
+
+    def construct(self):
+        self.inner.x = 100
+        return
+
+  net = Net()
+  net()
+  print(f"net.inner.x is {net.inner.x}")
+  ```
+
+  The result is:
+
+  ```Text
+  net.inner.x is 100
+  ```
+
+  Note that if the same property is obtained before modifying the properties of the Cell/jit_class object in the graph mode, the obtained properties will be parsed as constants. This can cause problems when running the same network multiple times, such as:
+
+  ```python
+  import mindspore as ms
+  from mindspore import nn, set_context
+  set_context(mode=ms.GRAPH_MODE)
+
+  class InnerNet(nn.Cell):
+      def __init__(self):
+          self.x = 1
+
+  class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.inner = InnerNet()
+
+    def construct(self):
+        a = self.inner.x
+        self.inner.x = a + 1
+        return
+
+  net = Net()
+  value0 = net.inner.x
+  net()
+  value1 = net.inner.x
+  net()
+  value2 = net.inner.x
+  print(f"value0 is {value0}")
+  print(f"value1 is {value1}")
+  print(f"value2 is {value2}")
+  ```
+
+  The result is:
+
+  ```Text
+  value0 is 1
+  value1 is 2
+  value2 is 2
+  ```
+
+  But in dynamic graph mode, the value of 'value2' should be 3. However, because 'self.inner.x' in the statement 'a = self.inner.x' is solidified as a constant 2, the value of 'self.inner.x' is set to 2 both times. This issue will be resolved in a subsequent release.
+
+### Supports Derivation
+
+The static graph syntax supported by the extension also supports its use in derivation, such as:
+
+```python
+import mindspore as ms
+from mindspore import ops
+
+@ms.jit
+def dict_net(a):
+    x = {'a': a, 'b': 2}
+    return a, (x, (1, 2))
+
+out = ops.grad(dict_net)(ms.Tensor([1]))
+assert out == 2
+```
 
 ### Annotation
 
-For JIT fallback support at runtime, nodes are generated that cannot be derived by type and are called Any types. Since the correct type cannot be inferred at compile time, Any types will be operated with a default maximum precision of Float64 to prevent loss of precision. To optimize performance, it is recommended to minimize the generation of Any types. When the user knows exactly what type of statement will be generated through JIT fallback support, it is recommended to use `Annotation @jit.typing:` to specify the corresponding Python statement type, thereby determining the type of the interpretation node and avoiding the generation of Any types.
+For the syntax supported by the runtime extensions, nodes are generated that cannot be derived by type and are called 'Any' types. Since the type cannot derive the correct type at compile time, this 'Any' will be operated with a default maximum precision 'Float64' to prevent loss of precision. To optimize performance, it is recommended to minimize the generation of 'Any' types. When the user knows exactly what type of statement will be generated through the extension,  it is recommended to use `Annotation @jit.typing:` to specify the corresponding Python statement type, thereby determining the type of the interpretation node and avoiding the generation of 'Any' types.
 
-For example, the difference between the Tensor class and the tensor interface in the above example is that the annotation mechanism is used within the tensor interface. When the dtype of the tensor function is determined, the function will use annotations to specify the output type and avoid the generation of Any types. To use annotations, simply add a comment above or below the corresponding Python statement, such as # @jit.typing: () -> tensor_type[float32], where -> tensor_type[float32] indicates the output type of the annotated statement.
+For example, the difference between the Tensor class and the tensor interface in the above example is that the annotation mechanism is used within the tensor interface. When the dtype of the tensor function is determined, the function will use annotations to specify the output type and avoid the generation of 'Any' types. To use annotations, simply add a comment above or below the corresponding Python statement, such as # @jit.typing: () -> tensor_type[float32], where -> tensor_type[float32] indicates the output type of the annotated statement.
 
 The code example is as follows.
 
@@ -1120,8 +1605,6 @@ print(f"y3 value is {y3}, dtype is {y3.dtype}")
 print(f"y4 value is {y4}, dtype is {y4.dtype}")
 ```
 
-Output the result:
-
 ```text
 y1 value is 2.0, dtype is Float32
 y2 value is 2.0, dtype is Float32
@@ -1129,100 +1612,21 @@ y3 value is 2.0, dtype is Float64
 y4 value is 2.0, dtype is Float64
 ```
 
-"The above examples show the differences in creating Tensors using JIT Fallback Runtime. Due to the lack of Annotation indication in the Tensor class, y3 and y4 cannot infer the correct type and can only perform operations in the highest precision Float64. For y2, the corresponding type for JIT Fallback was specified through Annotation during Tensor creation, allowing it to perform operations according to the specified type. y1 created the Tensor using the tensor function interface and passed the dtype parameter as an Annotation indication, avoiding the generation of Any type."
-
-### Calling the Third-party Libraries
-
-JIT Fallback supports calling objects and methods of third-party libraries in the static graph mode.
-
-It should be noted that for methods with return values, you need to use variables to save their results, otherwise an error may be reported. This usage will be supported in subsequent versions.
-
-An code example to call a third-party library is shown below. The use case calls the NumPy third-party library, where `np.array([1, 2, 3])` and `np.array([4, 5, 6])` are supported via JIT Fallback.
-
-```python
-import numpy as np
-import mindspore as ms
-import mindspore.nn as nn
-
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-
-    def construct(self):
-        a = np.array([1, 2, 3])
-        b = np.array([4, 5, 6])
-        c = a + b
-        return ms.Tensor(c)
-
-ms.set_context(mode=ms.GRAPH_MODE)
-net = Net()
-print(net())
-```
-
-Output the result:
-
-```text
-[5 7 9]
-```
-
-### Supporting Control Flow
-
-In order to improve Python standard syntax support and achieve dynamic unification, the use of control flow statements is achieved through JIT Fallback. Control flow statements are process control statements such as if, for, and while. The JIT Fallback feature supports creating and using Tensor in static graph mode, calling third-party libraries such as Numpy to create and use constants and variables, and supporting some of Python built-in functions. In theory, the syntax supported by JIT Fallback is also supported in control flow scenarios.
-
-Examples of code usage are as follows:
-
-```python
-import numpy as np
-import mindspore as ms
-
-@ms.jit
-def func():
-    x = np.array(1)
-    if x <= 1:
-        x += 1
-    return ms.Tensor(x)
-
-res = func()
-print("res: ", res)
-```
-
-Output the result:
-
-```text
-res: 2
-```
-
-### Support JIT Fallback in the Runtime Phase
-
-When JIT Fallback handles unsupported syntax expressions, it will generate corresponding nodes, and constants will derive values at compile time, otherwise these nodes will be passed to the backend runtime, where the result is obtained through capable execution of Python. The sample code is as follows. `np.add(x, y)` will generate the corresponding node, and the node, as the return value of the function, will be passed to the runtime. Currently, JIT Fallback for the runtime phase in some scenarios is supported.
-
-```python
-import numpy as np
-import mindspore as ms
-
-@ms.jit
-def test_np_add():
-    x = np.array([1, 2, 3, 4, 5])
-    y = np.array([1, 2, 3, 4, 5])
-    return np.add(x, y)
-
-np_add_res = test_np_add()
-print(np_add_res)
-```
-
-Output the result:
-
-```text
-[ 2  4  6  8  10]
-```
+In the above example, you can see the difference related to creating 'Tensor'. Due to the lack of Annotation indication in the Tensor class, y3 and y4 cannot infer the correct type and can only perform operations in the highest precision Float64.
+For y2, the corresponding type for JIT Fallback was specified through Annotation during Tensor creation, allowing it to perform operations according to the specified type.
+y1 created the Tensor using the tensor function interface and passed the dtype parameter as an Annotation indication, avoiding the generation of 'Any' type.
 
 ### Instructions for Use
 
-When using JIT Fallback, please note the following points:
+When using the static graph extension support syntax, note the following points:
 
-1. The ability of JIT Fallback to support scalar dynamic graphs shall be within the scope of dynamic graph syntax, including but not limited to data types.
+1. In order to match the support capability of the dynamic graph. That is, it must be within the scope of dynamic graph syntax, including but not limited to data types.
 
-2. The current constant control flow scenario does not support the assignment of subscripts to Numpy Array data at this time, and the wrong code example is as follows:
+2. When extending the static graph syntax, more syntax is supported, but the execution performance may be affected and is not optimal.
+
+3. When extending the static graph syntax, more syntax is supported, and the ability to import and export cannot be used with MindIR due to use Python.
+
+4. It is not supported that the assignment of subscripts to Numpy Array data at this time, and the wrong code example is as follows:
 
    ```python
    import numpy as np
