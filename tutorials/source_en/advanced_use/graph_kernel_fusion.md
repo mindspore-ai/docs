@@ -1,6 +1,6 @@
 # Graph Kernel Fusion
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_en/advanced_use/graph_kernel_fusion.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![View Source On Gitee](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_en/advanced_use/graph_kernel_fusion.md)
 
 ## Overview
 

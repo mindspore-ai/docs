@@ -1,8 +1,8 @@
 # 将数据集转换为MindSpore数据格式
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/use/data_preparation/converting_datasets.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+[![查看源文件](../../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/use/data_preparation/converting_datasets.md)
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/notebook/convert_dataset_to_mindspore_data_format/convert_dataset_to_mindspore_data_format.ipynb" target="_blank"><img src="../../_static/logo_notebook.png"></a>
+[![查看Notebook](../../_static/logo_notebook.png)](https://gitee.com/mindspore/docs/blob/r0.6/tutorials/notebook/convert_dataset_to_mindspore_data_format/convert_dataset_to_mindspore_data_format.ipynb)
 
 ## 概述
 

@@ -1,6 +1,6 @@
 # Host+Device混合训练
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/host_device_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/host_device_training.md)
 
 ## 概述
 

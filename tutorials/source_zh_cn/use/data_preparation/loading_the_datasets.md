@@ -1,7 +1,7 @@
 # 加载数据集
 
-<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/use/data_preparation/loading_the_datasets.md" target="_blank"><img src="../../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/notebook/loading_dataset.ipynb" target="_blank"><img src="../../_static/logo_notebook.png"></a>
+[![查看源文件](../../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/use/data_preparation/loading_the_datasets.md)&nbsp;&nbsp;
+[![查看Notebook](../../_static/logo_notebook.png)](https://gitee.com/mindspore/docs/blob/r0.6/tutorials/notebook/loading_dataset.ipynb)
 
 ## 概述
 
