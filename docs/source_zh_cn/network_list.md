@@ -1,6 +1,6 @@
 # 网络支持
 
-<a href="https://gitee.com/mindspore/docs/tree/r0.3/docs/source_zh_cn/network_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/tree/r0.3/docs/source_zh_cn/network_list.md)
 
 |  领域 | 子领域    | 网络                                   | Ascend | GPU | CPU 
 |:------   |:------| :-----------                               |:------   |:------  |:-----
