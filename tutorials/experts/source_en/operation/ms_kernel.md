@@ -9,6 +9,7 @@ The syntax of MindSpore Hybrid DSL is similar to Python syntax, such as function
 ```python
 import numpy as np
 import mindspore as ms
+import mindspore.ops as ops
 from mindspore.ops import kernel
 
 @kernel
