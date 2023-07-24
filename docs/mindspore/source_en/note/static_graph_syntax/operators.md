@@ -73,7 +73,7 @@ Constraints:
 | :----------- |:--------|
 | `and` |`String`,  `Number`,  `Tuple`, `List` , `Dict`, `None`, `Scalar`, `Tensor`.|
 | `or` |`String`,  `Number`,  `Tuple`, `List` , `Dict`, `None`, `Scalar`, `Tensor`.|
-| `not` |`Number`, `Tuple`, `List` and `Tensor`  with only one element.|
+| `not` |`Number`, `tuple`, `List` and `Tensor`  with only one element.|
 
 Restrictions:
 

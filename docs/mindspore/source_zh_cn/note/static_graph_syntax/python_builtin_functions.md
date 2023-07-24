@@ -2,6 +2,8 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/static_graph_syntax/python_builtin_functions.md)
 
+当前静态图模式支持的Python内置函数包括：`int`、`float`、`bool`、`str`、`tuple`、`list`、`dict`、`getattr`、`hasattr`、`len`、`isinstance`、`all`、`any`、`round`、`max`、`min`、`sum`、`abs`、`map`、`zip`、`range`、`enumerate`、`super`、`pow`、`print`、`filter`、`type`。图模式下内置函数的使用方法与对应的Python内置函数类似。
+
 ## int
 
 功能：返回一个基于数字或字符串构造的整数对象。
@@ -22,20 +24,23 @@
 import mindspore as ms
 
 @ms.jit
-def func():
+def func(x):
    a = int(3)
    b = int(3.6)
    c = int('12', 16)
    d = int('0xa', 16)
    e = int('10', 8)
-   return a, b, c, d, e
+   f = int(x)
+   return a, b, c, d, e, f
 
-a, b, c, d, e = func()
+x = ms.Tensor([-1.0], ms.float32)
+a, b, c, d, e, f = func(x)
 print("a: ", a)
 print("b: ", b)
 print("c: ", c)
 print("d: ", d)
 print("e: ", e)
+print("f: ", f)
 ```
 
 输出结果：
@@ -46,6 +51,7 @@ b: 3
 c: 18
 d: 10
 e: 8
+f: -1
 ```
 
 ## float
@@ -72,8 +78,8 @@ def func(x):
    e = float(x.asnumpy())
    return a, b, c, d, e
 
-x = ms.Tensor([-1.0], ms.float32)
-a, b, c, d, e = func()
+x = ms.Tensor([-1], ms.int32)
+a, b, c, d, e = func(x)
 print("a: ", a)
 print("b: ", b)
 print("c: ", c)
@@ -112,7 +118,7 @@ def func():
    b = bool(0)
    c = bool("abc")
    d = bool([1, 2, 3, 4])
-   e = bool(ms.Tensor([10]))
+   e = bool(ms.Tensor([10]).asnumpy())
    return a, b, c, d, e
 
 a, b, c, d, e = func()
@@ -150,25 +156,20 @@ import numpy as np
 import mindspore as ms
 
 @ms.jit
-def func(x):
+def func():
    a = str()
    b = str(0)
    c = str([1, 2, 3, 4])
    d = str(ms.Tensor([10]))
    e = str(np.array([1, 2, 3, 4]))
-   f = str(x.asnumpy())
-   g = str(2 * x)
-   return a, b, c, d, e, f, g
+   return a, b, c, d, e
 
-x = ms.Tensor([-1.0], ms.float32)
-a, b, c, d, e, f, g = func(x)
+a, b, c, d, e = func()
 print("a: ", a)
 print("b: ", b)
 print("c: ", c)
 print("d: ", d)
 print("e: ", e)
-print("f: ", f)
-print("g: ", g)
 ```
 
 输出结果：
@@ -179,8 +180,6 @@ b: 0
 c: [1, 2, 3, 4]
 d: Tensor(shape=[1], dtype=Int64, value=[10])
 e: [1 2 3 4]
-f: [-1.0]
-g: [-2.0]
 ```
 
 ## tuple
@@ -301,17 +300,18 @@ d: {'one': 1, 'two': 2, 'three': 3}
 
 入参：
 
-- `x` -- 需要被获取属性的对象，可以为任意的图模式支持类型，不支持第三方库类型。
+- `x` -- 需要被获取属性的对象，可以为任意的图模式支持类型；在JIT语法支持级别选项为`Lax`时，也支持第三方库类型。
 
 - `attr` -- 需要获取的属性，需要为`str`。
 
-- `default` -- 可选参数。若`x`没有`attr`，则返回`default`，可以为任意的图模式支持类型，不支持第三方库类型。若未输入`default`，且`x`没有属性`attr`，则会抛出AttributeError。
+- `default` -- 可选参数。若`x`没有`attr`，则返回`default`，可以为任意的图模式支持类型；在JIT语法支持级别选项为`Lax`时，也支持第三方库类型。若未输入`default`，且`x`没有属性`attr`，则会抛出AttributeError。
 
 返回值：目标属性或者`default`。
 
 代码用例如下：
 
 ```python
+import numpy as np
 import mindspore as ms
 
 @ms.jit_class
@@ -322,24 +322,30 @@ class MSClass1:
 ms_obj = MSClass1()
 
 @ms.jit
-def func():
-   a = getattr(ms_obj, 'num0')
-   b = getattr(ms_obj, 'num1', 2)
-   return a, b
+def func(x):
+  a = getattr(ms_obj, 'num0')
+  b = getattr(ms_obj, 'num1', 2)
+  c = getattr(x.asnumpy(), "shape", np.array([0, 1, 2, 3, 4]))
+  return a, b, c
 
-a, b = func()
+x = ms.Tensor([-1.0], ms.float32)
+a, b, c = func(x)
 print("a: ", a)
 print("b: ", b)
+print("c: ", c)
 ```
 
 输出结果:
 
 ```text
-a: 0
-b: 2
+a:  0
+b:  2
+c:  (1,)
 ```
 
 在静态图模式下对象的属性可能会和动态图模式下有区别，建议使用`default`输入，或者在使用`getattr`前先使用`hasattr`进行校验。
+
+其中`getattr(x.asnumpy(), "shape", np.array([0, 1, 2, 3, 4]))`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/r2.1/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
 
 ## hasattr
 
@@ -349,16 +355,18 @@ b: 2
 
 入参：
 
-- `x` -- 需要被判断是否具有某属性的对象，可以为任意的图模式支持类型，也可以为第三方库类型。
+- `x` -- 需要被判断是否具有某属性的对象，可以为任意的图模式支持类型；在JIT语法支持级别选项为`Lax`时，也支持第三方库类型。
 
-- `attr` -- 属性名， 需要为`str`。
+- `attr` -- 属性名，需要为`str`。
 
 返回值：布尔值，表示是否具有该属性。
 
 代码用例如下：
 
 ```python
+import numpy as np
 import mindspore as ms
+from mindspore import Tensor
 
 @ms.jit_class
 class MSClass1:
@@ -371,11 +379,13 @@ ms_obj = MSClass1()
 def func():
    a = hasattr(ms_obj, 'num0')
    b = hasattr(ms_obj, 'num1')
-   return a, b
+   c = hasattr(Tensor(np.array([1, 2, 3, 4])).asnumpy(), "__len__")
+   return a, b, c
 
-a, b = func()
+a, b, c = func()
 print("a: ", a)
 print("b: ", b)
+print("c: ", c)
 ```
 
 输出结果:
@@ -383,7 +393,10 @@ print("b: ", b)
 ```text
 a: True
 b: False
+c: True
 ```
+
+其中`hasattr(Tensor(np.array([1, 2, 3, 4])).asnumpy(), "__len__")`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/r2.1/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
 
 ## len
 
@@ -398,8 +411,8 @@ b: False
 示例如下：
 
 ```python
-import mindspore as ms
 import numpy as np
+import mindspore as ms
 
 z = ms.Tensor(np.ones((6, 4, 5)))
 
@@ -417,7 +430,7 @@ def test(w):
     w_len = len(w.asnumpy())
     return x_len, y_len, d_len, z_len, n_len, w_len
 
-input_x = Tensor([1, 2, 3, 4])
+input_x = ms.Tensor([1, 2, 3, 4])
 x_len, y_len, d_len, z_len, n_len, w_len = test(input_x)
 print('x_len:{}'.format(x_len))
 print('y_len:{}'.format(y_len))
@@ -435,8 +448,10 @@ y_len:3
 d_len:2
 z_len:6
 z_len:4
-w_len:1
+w_len:4
 ```
+
+其中`len(w.asnumpy())`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/r2.1/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
 
 ## isinstance
 
@@ -470,7 +485,7 @@ def test(w):
     w_is_ndarray = isinstance(w.asnumpy(), np.ndarray)
     return x_is_tuple, y_is_list, z_is_tensor, w_is_ndarray
 
-w = Tensor(np.array([-1, 2, 4]))
+w = ms.Tensor(np.array([-1, 2, 4]))
 x_is_tuple, y_is_list, z_is_tensor, w_is_ndarray = test(w)
 print('x_is_tuple:{}'.format(x_is_tuple))
 print('y_is_list:{}'.format(y_is_list))
@@ -486,6 +501,8 @@ y_is_list:True
 z_is_tensor:True
 w_is_ndarray:True
 ```
+
+其中`isinstance(w.asnumpy(), np.ndarray)`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/r2.1/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
 
 ## all
 
@@ -544,6 +561,8 @@ h: True
 i: False
 ```
 
+其中`all(x.asnumpy())`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/r2.1/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
+
 ## any
 
 功能：判断输入中的元素是存在为真值。
@@ -572,7 +591,7 @@ def func():
    g = any([])
    h = any(())
    x = Tensor(np.array([0, 1, 2, 3]))
-   i = all(x.asnumpy())
+   i = any(x.asnumpy())
    return a, b, c, d, e, f, g, h, i
 
 a, b, c, d, e, f, g, h, i = func()
@@ -819,16 +838,19 @@ f:  [[ 4  6]
 
 ```python
 import mindspore as ms
+from mindspore import Tensor
 
 @ms.jit
 def func():
    a = abs(-45)
    b = abs(100.12)
-   return a, b
+   c = abs(Tensor([-1, 2]).asnumpy())
+   return a, b, c
 
-a, b = func()
+a, b, c = func()
 print("a: ", a)
 print("b: {:.2f}".format(b))
+print("c: ", c)
 ```
 
 输出结果：
@@ -836,7 +858,10 @@ print("b: {:.2f}".format(b))
 ```text
 a: 45
 b: 100.12
+c: [1 2]
 ```
+
+其中`abs(Tensor([-1, 2]).asnumpy())`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/r2.1/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
 
 ## map
 
@@ -1142,9 +1167,9 @@ Tensor(shape=[3], dtype=Int32, value= [1 2 3])
 Tensor(shape=[], dtype=Int32, value=3)
 ```
 
-JIT Fallback支持在静态图模式下使用Python原生的`print`来打印常量，它与[Print算子](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.Print.html)打印信息的时机有所不同。Python原生`print`是在编译过程中触发打印（编译时阶段打印），而Print算子是需要图编译完成后，下发到设备端运行才打印（运行时阶段打印）。
+支持在静态图模式下使用Python原生的`print`来打印常量，它与[Print算子](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.Print.html)打印信息的时机有所不同。Python原生`print`是在编译过程中触发打印（编译时阶段打印），而Print算子是需要图编译完成后，下发到设备端运行才打印（运行时阶段打印）。
 
-为了便于理解，举例如下。`tensor_sum`涉及`Tensor`相加，即运行时阶段才能得到结果，在调用`print`时，实际调用的是静态图模式中的`Print`算子，参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/r2.1/note/static_graph_syntax_support.html)。而`np_num`是由两个`NumPy`常量相加得到的结果，即通过JIT Fallback支持的用法，因此在调用`print`时，使用的是Python原生`print`。由于两者的打印时机不同，最终导致显示`np_sum`在`tensor_sum`之前，即通过JIT Fallback支持的Python原生`print`的打印结果会在`Print`算子之前。
+为了便于理解，举例如下。`tensor_sum`涉及`Tensor`相加，即运行时阶段才能得到结果，在调用`print`时，实际调用的是静态图模式中的`Print`算子，而`np_num`是由两个`NumPy`常量相加得到的结果，即调用`print`时，使用的是Python原生`print`。由于两者的打印时机不同，最终导致显示`np_sum`在`tensor_sum`之前，即使用Python原生`print`的打印结果会在`Print`算子之前。
 
 ```python
 import numpy as np
@@ -1173,8 +1198,9 @@ net()
 ```
 
 ```Text
-np_sum: [2 4 6 8 10]
-tensor_sum: (2, 4, 6, 8, 10)
+np_sum:  [ 2  4  6  8 10]
+tensor_sum:
+Tensor(shape=[5], dtype=Int64, value=[ 2  4  6  8 10])
 ```
 
 ## filter
@@ -1217,7 +1243,7 @@ print('ret2:{}'.format(ret2))
 结果如下：
 
 ```text
-ret1:(1, 3, 5)
+ret1:[1, 3, 5]
 ret2:[7, 9]
 ```
 
@@ -1225,7 +1251,7 @@ ret2:[7, 9]
 
 功能：输出入参的类型。
 
-有效输入：Number、list、tuple、dict、np.array、常量Tensor。
+有效输入：Number、list、tuple、dict、numpy.ndarray、常量Tensor。
 
 代码用例如下：
 
