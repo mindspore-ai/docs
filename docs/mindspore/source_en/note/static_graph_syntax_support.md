@@ -949,28 +949,55 @@ Currently supported Python built-in functions include `int`, `float`, `bool`, `s
 
 The input parameters of the outermost network only can be `lool`, `int`, `float`, `Tensor`, `None`, `mstype.number(mstype.bool, mstype.int, mstype.float, mstype.uint)`, `List` or `Tuple` that contains these types, and `Dictionary` whose values are these types.
 
-While calculating gradient for outermost network, only `Tensor` input could be calculated, input of other type will be ignored. For example, input parameter `(x, y,  z)` of outermost network, `x` and `z` are `Tensor` type, `y` is other type. While calculating gradient for the network, only gradients of `x` and `z` are calculated, and `(grad_x, grad_y)` is returned.
-
 If you want to use other types of input for the network, please transfer them to the network while initializing network, and save them as network attributes, then use  in the `construct`. The input parameters of inner network do not have this restriction.
 
-For example:
+The code example is shown below. In the defined `Net` network, a flag parameter of `string` type is transferred as the network attribute `self.flag` during initialization, and then the attribute `self.flag` is used in the `construct`.
 
 ```python
 import mindspore as ms
-from mindspore import nn, ops, set_context
-import numpy as np
+from mindspore import nn
 
-set_context(mode=ms.GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self, flag):
         super(Net, self).__init__()
         self.flag = flag
 
-    def construct(self, x, y, z):
+    def construct(self, x):
         if self.flag == "ok":
-            return x + y + z
-        return x - y - z
+            return x + 1
+        return x - 1
+
+flag = "ok"
+net = Net(flag)
+ret = net(ms.Tensor([5]))
+print('ret:{}'.format(ret))
+```
+
+The result is as follows:
+
+```text
+ret:[6]
+```
+
+While calculating gradient for outermost network, only `Tensor` input could be calculated, input of other type will be ignored.
+
+The code example is shown below. Among the input parameter `(x, y,  z)` of outermost network, `x` and `z` are `Tensor` type but `y` is not. While `grad_net` calculating gradient of the input parameters `(x, y, z)` for the network, gradient of `y` is automatically ignored. Only gradients of `x` and `z` are calculated, and `(grad_x, grad_y)` is returned.
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import nn
+
+ms.set_context(mode=ms.GRAPH_MODE)
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+
+    def construct(self, x, y, z):
+        return x + y + z
 
 class GradNet(nn.Cell):
     def __init__(self, net):
@@ -980,31 +1007,21 @@ class GradNet(nn.Cell):
     def construct(self, x, y, z):
         return ms.grad(self.forward_net, grad_position=(0, 1, 2))(x, y, z)
 
-flag = "ok"
-input_x = ms.Tensor(np.ones((2, 3)).astype(np.float32))
+input_x = ms.Tensor([1])
 input_y = 2
-input_z = ms.Tensor(np.ones((2, 3)).astype(np.float32) * 2)
+input_z = ms.Tensor([3])
 
-net = Net(flag)
+net = Net()
 grad_net = GradNet(net)
 ret = grad_net(input_x, input_y, input_z)
-
 print('ret:{}'.format(ret))
 ```
 
 The result is as follows:
 
 ```text
-ret:(Tensor(shape=[2, 3], dtype=Float32, value=
-[[ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00],
- [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00]]), Tensor(shape=[2, 3], dtype=Float32, value=
-[[ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00],
- [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00]]))
+ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, value= [1]))
 ```
-
-In the `Net` defined above,  `string` flag is transferred during initialization and saved as attribute `self.flag`, then used in the `construct`.
-
-The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` calculates gradient of the input parameters `(x, y, z)` for the outermost network, gradient of `y` is automatically ignored, only the gradient of `x` and `z` is calculated, `ret = (grad_x, grad_z)`.
 
 #### Network Constraints
 
@@ -1043,33 +1060,99 @@ The following mainly introduces the static graph syntax supported by the current
 
 ### Calling the Third-party Libraries
 
-Objects and methods of third-party libraries can be called in static graph mode.
+- Supports data types of third-party libraries (such as NumPy and SciPy), allowing calling and returning objects of third-party libraries.
 
-The following case calls the NumPy third-party library.
+  The code example is as follows.
 
-```python
-import numpy as np
-import mindspore as ms
-import mindspore.nn as nn
+  ```python
+  import numpy as np
+  import mindspore as ms
 
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
+  @ms.jit
+  def func():
+      a = np.array([1, 2, 3])
+      b = np.array([4, 5, 6])
+      out = a + b
+      return out
 
-    def construct(self):
-        a = np.array([1, 2, 3])
-        b = np.array([4, 5, 6])
-        c = a + b
-        return ms.Tensor(c)
+  print(func())
+  ```
 
-ms.set_context(mode=ms.GRAPH_MODE)
-net = Net()
-print(net())
-```
+  The result is as follows:
 
-```text
-[5 7 9]
-```
+  ```Text
+  [5 7 9]
+  ```
+
+- Supports calling methods of third-party libraries.
+
+  The code example is as follows.
+
+  ```python
+  from scipy import linalg
+  import mindspore as ms
+
+  @ms.jit
+  def func():
+      x = [[1, 2], [3, 4]]
+      return linalg.qr(x)
+
+  out = func()
+  print(out[0].shape)
+  ```
+
+  The result is as follows:
+
+  ```Text
+  (2, 2)
+  ```
+
+- Supports creating Tensor instances by using the data types of the third-party library NumPy.
+
+  The code example is as follows.
+
+  ```python
+  import numpy as np
+  import mindspore as ms
+
+  @ms.jit
+  def func():
+      x = np.array([1, 2, 3])
+      out = ms.Tensor(x) + 1
+      return out
+
+  print(func())
+  ```
+
+  The result is as follows:
+
+  ```Text
+  [2, 3, 4]
+  ```
+
+- The assignment of subscripts for data types in third-party libraries is not currently supported.
+
+  The code example is as follows.
+
+   ```python
+   import numpy as np
+   import mindspore as ms
+
+   @ms.jit
+   def func():
+       x = np.array([1, 2, 3])
+       x[0] += 1
+       return ms.Tensor(x)
+
+   res = func()
+   print("res: ", res)
+   ```
+
+   The error message is reported as follows:
+
+   ```text
+   RuntimeError: For operation 'setitem', current input arguments types are <External, Number, Number>. The 1-th argument type 'External' is not supported now.
+   ```
 
 ### Supports the Use of Custom Classes
 
@@ -1626,24 +1709,4 @@ When using the static graph extension support syntax, note the following points:
 
 3. When extending the static graph syntax, more syntax is supported, and the ability to import and export cannot be used with MindIR due to use Python.
 
-4. It is not supported that the assignment of subscripts to Numpy Array data at this time, and the wrong code example is as follows:
-
-   ```python
-   import numpy as np
-   import mindspore as ms
-
-   @ms.jit
-   def func():
-       x = np.array([1, 2, 3])
-       x[0] += 1
-       return ms.Tensor(x)
-
-   res = func()
-   print("res: ", res)
-   ```
-
-   The error message is reported as follows:
-
-   ```text
-   RuntimeError: For operation 'setitem', current input arguments types are <External, Number, Number>. The 1-th argument type 'External' is not supported now.
-   ```
+4. JIT Fallback does not currently support the repeated definition of global variables with the same name across Python files, and these global variables are used in the network.

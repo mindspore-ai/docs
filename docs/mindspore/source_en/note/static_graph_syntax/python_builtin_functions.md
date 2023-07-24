@@ -1,6 +1,6 @@
 # Static Graph Syntax —— Python Built-in Functions
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/static_graph_syntax/python_builtin_functions.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/static_graph_syntax/python_builtin_functions.md)
 
 Python built-in functions supported by the current static graph mode include: `int`, `float`, `bool`, `str`, `tuple`, `list`, `dict`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `any`, `round`, `max`, `min`, `sum`, `abs`, `map`, `zip` 、`range`、`enumerate`、`super`、`pow`、`print`、`filter`、`type`。 The use of built-in functions in graph mode is similar to the corresponding Python built-in functions.
 
