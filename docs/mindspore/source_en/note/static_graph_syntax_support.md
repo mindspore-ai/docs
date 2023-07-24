@@ -872,9 +872,9 @@ class Net(nn.Cell):
         self.m = 2
 
     def construct(self, x, y):
-        self.weight = x  # 满足条件可以修改
-        # self.m = 3     # self.m 非Parameter类型禁止修改
-        # y.weight = x   # y不是self，禁止修改
+        self.weight = x  # The conditions are met, they can be modified
+        # self.m = 3     # self.m is not of type Parameter and modification is prohibited
+        # y.weight = x   # y is not self, modification is prohibited
         return x
 
 net = Net()
