@@ -49,6 +49,8 @@ release = 'master'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
+
+myst_update_mathjax = False
 extensions = [
     'myst_parser',
     'nbsphinx',
@@ -92,7 +94,7 @@ html_search_language = 'en'
 html_static_path = ['_static']
 
 sys.path.append(os.path.abspath('../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 import nbsphinx_mod
 
 
@@ -104,7 +106,7 @@ from custom_directives import IncludeCodeDirective
 
 def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
-    app.add_stylesheet('css/bootstrap.min.css')
-    app.add_stylesheet('css/training.css')
-    app.add_javascript('js/training.js')
+    app.add_css_file('css/bootstrap.min.css')
+    app.add_css_file('css/training.css')
+    app.add_js_file('js/training.js')
 
