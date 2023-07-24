@@ -21,7 +21,7 @@ MindSpore整体架构分为四层：
 
 1. 模型层，为用户提供开箱即用的功能，该层主要包含预置的模型和开发套件，以及图神经网络（GNN）、深度概率编程、科学计算库等热点研究领域拓展库；
 2. 表达层 （MindExpression），为用户提供AI模型开发、训练、推理的接口，支持用户用原生 Python语法开发和调试神经网络，其特有的动静态图统一能力使开发者可以兼顾开发效率和执行性能，同时该层在生产和部署阶段提供全场景统一的C++/Python接口；
-3. 编译优化（MindCompiler），作为AI框架的核心，以全场景统一中间表达（[MindIR](https://mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#mindir)）为媒介，将前端表达编译成执行效率更高的底层语言，同时进行全局性能优化，包括自动微分、代数化简等硬件无关优化，以及图算融合、算子生成等硬件相关优化；
+3. 编译优化（MindCompiler），作为AI框架的核心，以全场景统一中间表达（[MindIR](https://mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir)）为媒介，将前端表达编译成执行效率更高的底层语言，同时进行全局性能优化，包括自动微分、代数化简等硬件无关优化，以及图算融合、算子生成等硬件相关优化；
 4. 运行时，按照上层编译优化的结果对接并调用底层硬件算子，同时通过“端-边-云”统一的运行时架构，支持包括联邦学习在内的“端-边-云”AI协同。
 
 ![arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/introduction2.png)

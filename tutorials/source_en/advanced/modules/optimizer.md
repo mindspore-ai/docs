@@ -286,7 +286,7 @@ opt = Momentum(net.trainable_params(), 0.01)
 
 In addition to the optimizer within the `mindspore.nn.optim` module mentioned above, MindSpore also provides an experimental optimizer module, `mindspore.nn.optim_ex`, which is designed to extend the function of the optimizer.
 
-> The `mindspore.nn.optim_ex` module is still under development. Currently the optimizer for this module is only available for functional programming scenarios and only adapts to the dynamic learning rate class under [mindspore.nn.lr_scheduler](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#lrscheduler).
+> The `mindspore.nn.optim_ex` module is still under development. Currently the optimizer for this module is only available for functional programming scenarios and only adapts to the dynamic learning rate class under [mindspore.nn.lr_scheduler](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#lrscheduler-class).
 
 Usage differences:
 
@@ -317,7 +317,7 @@ The dynamic learning rate module is provided under `mindspore.nn.lr_scheduler` f
 
 `mindspore.nn.optim`: Pass a list or instance of dynamic learning rates to the optimizer input `learning_rate`, as used in [DynamicLR function](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#dynamic-lr-function) and [LearningRateSchedule class](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#learningrateschedule-class).
 
-`mindspore.nn.optim_ex`: Pass the optimizer instance to the input `optimizer` of the dynamic learning rate class, as used in [LRScheduler class](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#lrscheduler).
+`mindspore.nn.optim_ex`: Pass the optimizer instance to the input `optimizer` of the dynamic learning rate class, as used in [LRScheduler class](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#lrscheduler-class).
 
 The `LRScheduler` also provides two ways of obtaining the learning rate:
 
