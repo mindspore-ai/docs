@@ -1,6 +1,6 @@
 # 基于MindSpore Serving部署推理服务
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_zh_cn/intermediate/inference/mindspore_serving_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_zh_cn/intermediate/inference/mindspore_serving_inference.md)
 
 MindSpore Serving是一个轻量级、高性能的推理服务模块，旨在帮助MindSpore开发者在生产环境中高效部署在线推理服务。当用户使用MindSpore完成模型训练后，导出MindSpore模型，即可使用MindSpore Serving创建该模型的推理服务。
 

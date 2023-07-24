@@ -1,6 +1,6 @@
 # 基本介绍
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_zh_cn/introduction.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_zh_cn/introduction.md)
 
 本节将会对华为AI全栈进行整体介绍，并介绍MindSpore在其中的位置，对MindSpore感兴趣的开发者，最后可以参与MindSpore的[社区](https://gitee.com/mindspore/mindspore)并一键三连[（Watch/Star/Fork）](https://gitee.com/mindspore/mindspore)。
 

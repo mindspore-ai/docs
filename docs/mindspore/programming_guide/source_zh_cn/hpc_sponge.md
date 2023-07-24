@@ -1,7 +1,7 @@
 # SPONGE分子模拟实践
 
 `Linux` `GPU` `模型开发` `高级`
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/hpc_sponge.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/hpc_sponge.md)&nbsp;&nbsp;
 
 ## 概述
 

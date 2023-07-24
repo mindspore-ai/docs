@@ -1,6 +1,6 @@
 # Quick Start for Beginners
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_en/quick_start.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_en/quick_start.md)
 
 The following describes the basic functions of MindSpore to implement common tasks in deep learning. For details, see links in each section.
 

@@ -1,6 +1,6 @@
 # PyTorch and MindSpore
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/resource/api_mapping/api_mapping_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/resource/api_mapping/api_mapping_en.md)
 
 Mapping between TensorFlow APIs and MindSpore APIs, which is provided by the community.
 

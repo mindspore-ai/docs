@@ -1,6 +1,6 @@
 # 实现一个图像分类应用(x86)
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/federated/docs/source_zh_cn/image_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/federated/docs/source_zh_cn/image_classification_application.md)
 
 在动手进行实践之前，确保，你已经正确安装了MindSpore。如果没有，可以参考[MindSpore安装页面](https://www.mindspore.cn/install)完成安装。
 

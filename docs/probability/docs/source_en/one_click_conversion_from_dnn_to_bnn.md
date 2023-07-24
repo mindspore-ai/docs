@@ -1,6 +1,6 @@
 # One-click Conversion from DNN to BNN
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/probability/docs/source_en/one_click_conversion_from_dnn_to_bnn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/probability/docs/source_en/one_click_conversion_from_dnn_to_bnn.md)
 
 ## One-click Conversion from DNN to BNN
 

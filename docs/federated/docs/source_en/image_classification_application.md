@@ -1,6 +1,6 @@
 ﻿# Implementing an Image Classification Application (x86)
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/federated/docs/source_en/image_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/federated/docs/source_en/image_classification_application.md)
 
 Before you start, check whether MindSpore has been correctly installed. If not, install MindSpore on your computer by referring to [Install](https://www.mindspore.cn/install/en) on the MindSpore website.
 

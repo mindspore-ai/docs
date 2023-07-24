@@ -1,6 +1,6 @@
 # TrainOneStepCell
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/trainonestepcell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/trainonestepcell.md)
 
 `TrainOneStepCell` is used to perform single-step training of the network and return the loss result after each training result.
 

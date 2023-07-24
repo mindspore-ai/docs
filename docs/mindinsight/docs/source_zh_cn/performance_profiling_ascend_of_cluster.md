@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `集群调优` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_zh_cn/performance_profiling_ascend_of_cluster.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_zh_cn/performance_profiling_ascend_of_cluster.md)
 
 ## 概述
 

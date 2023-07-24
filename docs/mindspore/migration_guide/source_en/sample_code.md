@@ -2,7 +2,7 @@
 
 Translator: [AQUA](https://gitee.com/Liu-HongYe)
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_en/sample_code.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_en/sample_code.md)
 
 This chapter will introduce the basic steps of network migration, common tools, ideas for locating problems and solutions with use cases.
 

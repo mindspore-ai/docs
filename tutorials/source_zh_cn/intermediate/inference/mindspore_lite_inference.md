@@ -1,6 +1,6 @@
 # MindSpore Lite推理流程
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_zh_cn/intermediate/inference/mindspore_lite_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_zh_cn/intermediate/inference/mindspore_lite_inference.md)
 
 本文将会以图像分割Demo为例讲解如何使用MindSpore Lite进行推理。
 
