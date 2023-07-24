@@ -2,7 +2,7 @@
 
 `数据处理` `环境准备` `模型导出` `模型训练` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_zh_cn/network_models.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_zh_cn/network_models.md)
 
 <font size=3>**Q：使用MindSpore进行模型训练时，`CTCLoss`的输入参数有四个：`inputs`, `labels_indices`, `labels_values`, `sequence_length`，如何使用`CTCLoss`进行训练？**</font>
 

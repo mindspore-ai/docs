@@ -4,7 +4,7 @@ Translator: [JuLyAi](https://gitee.com/julyai)
 
 `Linux` `CPU` `model developing` `advanced_use`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/custom_operator_cpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![View Source On Gitee](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/custom_operator_cpu.md)
 
 ## Overview
 

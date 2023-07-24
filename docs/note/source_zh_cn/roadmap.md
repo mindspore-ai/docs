@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `全流程` `框架开发` `中级` `高级` `贡献者`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_zh_cn/roadmap.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_zh_cn/roadmap.md)
 
 以下将展示MindSpore近一年的高阶计划，我们会根据用户的反馈诉求，持续调整计划的优先级。
 

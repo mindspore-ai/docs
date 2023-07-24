@@ -2,7 +2,7 @@
 
 `Windows` `Linux` `Android` `C++` `Whole Process` `Model Converting` `Model Loading` `Inference` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_en/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![View Source On Gitee](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_en/quick_start/quick_start.md)
 
 ## Overview
 

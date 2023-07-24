@@ -1,7 +1,7 @@
 # 使用fuzz testing模块测试模型安全性
 
 `Linux` `Ascend` `GPU` `CPU` `模型评测` `企业` `高级`
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/test_model_security_fuzzing.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/test_model_security_fuzzing.md)&nbsp;&nbsp;
 
 ## 概述
 

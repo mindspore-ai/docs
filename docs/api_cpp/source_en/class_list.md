@@ -1,6 +1,6 @@
 # Class List
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/api_cpp/source_en/class_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/docs/api_cpp/source_en/class_list.md)
 
 Here is a list of all classes with links to the namespace documentation for each member in MindSpore Lite:
 
