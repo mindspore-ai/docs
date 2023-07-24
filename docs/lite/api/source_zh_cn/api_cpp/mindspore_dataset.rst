@@ -31,14 +31,14 @@ Vision
 
     * - :doc:`Function mindspore::dataset::Album <../generate/function_mindspore_dataset_Album-1>`
       - 读取和解析Album数据集的源数据集，
-        并返回一个 :doc:`Class AlbumDataset <.../generate/classmindspore_dataset_AlbumDataset>` 的对象。
+        并返回一个 :doc:`Class AlbumDataset <../generate/classmindspore_dataset_AlbumDataset>` 的对象。
       - :doc:`Function mindspore::dataset::Album (raw ptr Sampler) <../generate/function_mindspore_dataset_Album-2>`
 
         :doc:`Function mindspore::dataset::Album (reference Sampler) <../generate/function_mindspore_dataset_Album-3>`
 
     * - :doc:`Function mindspore::dataset::Mnist <../generate/function_mindspore_dataset_Mnist-1>`
       - 读取和解析MNIST数据集的源数据集，
-        并返回一个 :doc:`Class MnistDataset <.../generate/classmindspore_dataset_MnistDataset>` 的对象。
+        并返回一个 :doc:`Class MnistDataset <../generate/classmindspore_dataset_MnistDataset>` 的对象。
       - :doc:`Function mindspore::dataset::Mnist (raw ptr Sampler) <../generate/function_mindspore_dataset_Mnist-2>`
 
         :doc:`Function mindspore::dataset::Mnist (reference Sampler) <../generate/function_mindspore_dataset_Mnist-3>`
