@@ -60,8 +60,6 @@ MindSpore通过统一IR定义了网络的逻辑结构和算子的属性，将Min
 
 ## model.eval模型验证
 
-### 模型已保存在本地
-
 首先构建模型，然后使用`mindspore`模块的`load_checkpoint`和`load_param_into_net`从本地加载模型与参数，传入验证数据集后即可进行模型推理，验证数据集的处理方式与训练数据集相同。
 
 ```python
@@ -82,26 +80,6 @@ print("============== {} ==============".format(acc))
 `model.eval`为模型验证接口，对应接口说明[mindspore.train.Model.eval](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/train/mindspore.train.Model.html#mindspore.train.Model.eval)。
 
 > 推理样例代码[eval.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/eval.py)。
-
-### 使用MindSpore Hub从华为云加载模型
-
-首先构建模型，然后使用`mindspore_hub.load`从云端加载模型参数，传入验证数据集后即可进行推理，验证数据集的处理方式与训练数据集相同。
-
-```python
-model_uid = "mindspore/1.9/googlenet_cifar10"  # using GoogleNet as an example.
-network = mindspore_hub.load(model_uid, num_classes=10)
-net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-model = Model(network, net_loss, metrics={"Accuracy": Accuracy()})
-
-print("============== Starting Testing ==============")
-dataset = create_dataset(os.path.join(args.data_path, "test"),
-                            cfg.batch_size,)
-acc = model.eval(dataset, dataset_sink_mode=args.dataset_sink_mode)
-print("============== {} ==============".format(acc))
-```
-
-其中，  
-`mindspore_hub.load`为加载模型参数接口，对应接口说明[mindspore_hub.load](https://www.mindspore.cn/hub/docs/zh-CN/r1.9/hub.html#mindspore_hub.load)。
 
 ## 使用`model.predict`接口进行推理操作
 
