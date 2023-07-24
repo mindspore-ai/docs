@@ -117,6 +117,12 @@ ret = net(10)
 print("ret:", ret)
 ```
 
+输出结果:
+
+```text
+ret: 10
+```
+
 如上，在控制流场景语句中，可以有多个`return`语句。如果一个函数中没有`return`语句，则默认返回None对象，如下用例：
 
 ```python
@@ -425,7 +431,7 @@ ret:15
 
 #### def关键字
 
-`def`用于定义函数，后接函数标识符名称和原括号`（）`，括号中可以包含函数的参数。
+`def`用于定义函数，后接函数标识符名称和原括号`()`，括号中可以包含函数的参数。
 使用方式：`def function_name(args): statements...`。
 
 示例如下：
@@ -529,7 +535,7 @@ n:7
 
 ### 列表生成式和生成器表达式
 
-支持列表生成式（List Comprehension）和生成器表达式（Generator Expression）。支持构建一个新的序列。列表生成式用于生成一个新的列表`List`，生成器表达式用于生成一个新的元组`Tuple`。
+支持列表生成式（List Comprehension）和生成器表达式（Generator Expression）。支持构建一个新的序列。
 
 #### 列表生成式
 
@@ -541,11 +547,11 @@ n:7
 import mindspore as ms
 
 @ms.jit()
-def test(x, y):
+def test():
     l = [x * x for x in range(1, 11) if x % 2 == 0]
     return l
 
-ret = test(1, 5)
+ret = test()
 print('ret:{}'.format(ret))
 ```
 
@@ -581,11 +587,11 @@ TypeError:  The `generators` supports one `comprehension` in ListComp/GeneratorE
 import mindspore as ms
 
 @ms.jit()
-def test(x, y):
+def test():
     l = (x * x for x in range(1, 11) if x % 2 == 0)
     return l
 
-ret = test(1, 5)
+ret = test()
 print('ret:{}'.format(ret))
 ```
 

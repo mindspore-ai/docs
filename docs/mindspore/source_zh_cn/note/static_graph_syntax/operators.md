@@ -83,7 +83,7 @@
 
 | 比较运算符 | 支持类型                                                     |
 | :--------- | :----------------------------------------------------------- |
-| `in`       | `Number` in `tuple`、`String` in `tuple`、`Tensor` in `Tuple`、`Number` in `List`、`String` in `List`、`Tensor` in `List`、`String` in `Dictionary`、`Number` in `Dictionary`、常量`Tensor` in `Dictionary`、 `Tuple` in `Dictionary`|
+| `in`       | `Number` in `Tuple`、`String` in `Tuple`、`Tensor` in `Tuple`、`Number` in `List`、`String` in `List`、`Tensor` in `List`、`String` in `Dictionary`、`Number` in `Dictionary`、常量`Tensor` in `Dictionary`、 `Tuple` in `Dictionary`。|
 | `not in`   | 与`in`相同。                                                 |
 | `is`       | 仅支持判断是`None`、 `True`或者`False`。                     |
 | `is not`   | 仅支持判断不是`None`、 `True`或者`False`。                   |
