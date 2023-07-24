@@ -10,6 +10,12 @@
 
 2. The following figure is an example of a scan that generates the analysis results of the use of the torch.Tensor interface in this file, including "PyTorch APIs that can be transformed", "Probably the result of torch.Tensor API" and "PyTorch API that does not provide a direct mapping relationship at this time".
 
+   where
+
+   - "PyTorch APIs that can be transformed" means PyTorch APIs used in the Documentation can be converted to MindSpore APIs.
+   - "Probably the result of torch.Tensor API" means APIs with the same name as torch.Tensor, which may be torch.Tensor APIs and can be converted to MindSpore APIs.
+   - "PyTorch API that does not provide a direct mapping relationship at this time" means APIs that are PyTorch APIs or possibly torch.Tensor APIs, but don't directly correspond to MindSpore APIs.
+
    ![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/devtoolkit/docs/source_zh_cn/images/clip_image117.jpg)
 
 ## Multi-file Analysis
