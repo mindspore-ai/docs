@@ -949,28 +949,55 @@ ret:[[3. 3. 3. 3.]]
 
 整网（最外层网络）入参仅支持`bool`、`int`、`float`、`Tensor`、`None`、`mstype.number(mstype.bool_、mstype.int、mstype.float、mstype.uint)`，以及只包含这些类型对象的`list`或者`tuple`，和`value`值是这些类型的`Dictionary`。
 
-在对整网入参求梯度的时候，会忽略非`Tensor`的入参，只计算`Tensor`入参的梯度。例如整网入参`(x, y, z)`中，`x`和`z`是`Tensor`，`y`是非`Tensor`时，在对整网入参求梯度的时候，只会计算`x`和`z`的梯度，返回`(grad_x, grad_z)`。
-
 如果网络里要使用其他类型，可在初始化网络的时候，传入该类型对象，作为网络属性保存起来，然后在`construct`里使用。内层调用的网络入参无此限制。
 
-示例如下：
+示例如下。定义的Net网络里，在初始化时传入一个`string`类型的flag参数，作为网络属性`self.flag`，然后在`construct`里使用`self.flag`这个属性。
 
 ```python
 import mindspore as ms
-from mindspore import nn, ops, set_context
-import numpy as np
+from mindspore import nn
 
-set_context(mode=ms.GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self, flag):
         super(Net, self).__init__()
         self.flag = flag
 
-    def construct(self, x, y, z):
+    def construct(self, x):
         if self.flag == "ok":
-            return x + y + z
-        return x - y - z
+            return x + 1
+        return x - 1
+
+flag = "ok"
+net = Net(flag)
+ret = net(ms.Tensor([5]))
+print('ret:{}'.format(ret))
+```
+
+结果如下：
+
+```text
+ret:[6]
+```
+
+在对整网入参求梯度的时候，会忽略非`Tensor`的入参，只计算`Tensor`入参的梯度。
+
+示例如下。整网入参`(x, y, z)`中，`x`和`z`是`Tensor`，`y`是非`Tensor`。因此，`grad_net`在对整网入参`(x, y, z)`求梯度的时候，会自动忽略`y`的梯度，只计算`x`和`z`的梯度，返回`(grad_x, grad_z)`。
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import nn
+
+ms.set_context(mode=ms.GRAPH_MODE)
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+
+    def construct(self, x, y, z):
+        return x + y + z
 
 class GradNet(nn.Cell):
     def __init__(self, net):
@@ -980,31 +1007,21 @@ class GradNet(nn.Cell):
     def construct(self, x, y, z):
         return ms.grad(self.forward_net, grad_position=(0, 1, 2))(x, y, z)
 
-flag = "ok"
-input_x = ms.Tensor(np.ones((2, 3)).astype(np.float32))
+input_x = ms.Tensor([1])
 input_y = 2
-input_z = ms.Tensor(np.ones((2, 3)).astype(np.float32) * 2)
+input_z = ms.Tensor([3])
 
-net = Net(flag)
+net = Net()
 grad_net = GradNet(net)
 ret = grad_net(input_x, input_y, input_z)
-
 print('ret:{}'.format(ret))
 ```
 
 结果如下：
 
 ```text
-ret:(Tensor(shape=[2, 3], dtype=Float32, value=
-[[ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00],
- [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00]]), Tensor(shape=[2, 3], dtype=Float32, value=
-[[ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00],
- [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00]]))
+ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, value= [1]))
 ```
-
-上面定义的Net网络里，在初始化时传入一个`string`flag，作为网络的属性保存起来，然后在`construct`里使用`self.flag`这个属性。
-
-整网入参`x`和`z`是`Tensor`，`y`是`int`数，`grad_net`在对整网入参`(x, y, z)`求梯度时，会自动忽略`y`的梯度，只计算`x`和`z`的梯度，`ret = (grad_x, grad_z)`。
 
 #### 网络使用约束
 
@@ -1043,33 +1060,99 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
 
 ### 调用第三方库
 
-支持在静态图模式下调用第三方库的对象和方法。
+- 支持第三方库(如NumPy、SciPy等)的数据类型，允许调用和返回第三方库的对象。
 
-如下用例调用了NumPy第三方库。
+  示例如下：
 
-```python
-import numpy as np
-import mindspore as ms
-import mindspore.nn as nn
+  ```python
+  import numpy as np
+  import mindspore as ms
 
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
+  @ms.jit
+  def func():
+      a = np.array([1, 2, 3])
+      b = np.array([4, 5, 6])
+      out = a + b
+      return out
 
-    def construct(self):
-        a = np.array([1, 2, 3])
-        b = np.array([4, 5, 6])
-        c = a + b
-        return ms.Tensor(c)
+  print(func())
+  ```
 
-ms.set_context(mode=ms.GRAPH_MODE)
-net = Net()
-print(net())
-```
+  结果如下：
 
-```Text
-[5 7 9]
-```
+  ```Text
+  [5 7 9]
+  ```
+
+- 支持调用第三方库的方法。
+
+  示例如下：
+
+  ```python
+  from scipy import linalg
+  import mindspore as ms
+
+  @ms.jit
+  def func():
+      x = [[1, 2], [3, 4]]
+      return linalg.qr(x)
+
+  out = func()
+  print(out[0].shape)
+  ```
+
+  结果如下：
+
+  ```Text
+  (2, 2)
+  ```
+
+- 支持使用NumPy第三方库数据类型创建Tensor对象。
+
+  示例如下：
+
+  ```python
+  import numpy as np
+  import mindspore as ms
+
+  @ms.jit
+  def func():
+      x = np.array([1, 2, 3])
+      out = ms.Tensor(x) + 1
+      return out
+
+  print(func())
+  ```
+
+  结果如下：
+
+  ```Text
+  [2, 3, 4]
+  ```
+
+- 暂不支持对第三方库数据类型的下标索引赋值。
+
+  示例如下：
+
+  ```python
+  import numpy as np
+  import mindspore as ms
+
+  @ms.jit
+  def func():
+      x = np.array([1, 2, 3])
+      x[0] += 1
+      return ms.Tensor(x)
+
+  res = func()
+  print("res: ", res)
+  ```
+
+  报错信息如下:
+
+  ```text
+  RuntimeError: For operation 'setitem', current input arguments types are <External, Number, Number>. The 1-th argument type 'External' is not supported now.
+  ```
 
 ### 支持自定义类的使用
 
@@ -1626,24 +1709,4 @@ y4 value is 2.0, dtype is Float64
 
 3. 在扩展静态图语法时，支持了更多的语法，由于使用Python的能力，不能使用MindIR导入导出的能力。
 
-4. 当前不支持对Numpy Array数据的取下标赋值，错误的代码用例如下：
-
-  ```python
-  import numpy as np
-  import mindspore as ms
-
-  @ms.jit
-  def func():
-      x = np.array([1, 2, 3])
-      x[0] += 1
-      return ms.Tensor(x)
-
-  res = func()
-  print("res: ", res)
-  ```
-
-  报错信息如下:
-
-  ```text
-  RuntimeError: For operation 'setitem', current input arguments types are <External, Number, Number>. The 1-th argument type 'External' is not supported now.
-  ```
+4. JIT Fallback暂不支持跨Python文件重复定义同名的全局变量，且这些全局变量在网络中会被用到。
