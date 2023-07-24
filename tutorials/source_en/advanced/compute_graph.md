@@ -79,7 +79,7 @@ ms.set_context(mode=ms.GRAPH_MODE)
 
 ### Graph Compilation Based on Source Code Conversion
 
-In static graph mode, MindSpore converts Python source code into Intermediate Representation IR (IR) by means of source code conversion, and based on this, optimizes the IR graph, and finally executes the optimized graph on hardware devices. MindSpore uses a functional IR based on graph representation, called MindIR. For details, see [Intermediate Representation MindIR](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindir).
+In static graph mode, MindSpore converts Python source code into Intermediate Representation IR (IR) by means of source code conversion, and based on this, optimizes the IR graph, and finally executes the optimized graph on hardware devices. MindSpore uses a functional IR based on graph representation, called MindIR. For details, see [Intermediate Representation MindIR](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir).
 
 MindSpore static graph execution process actually consists of two steps, corresponding to the Define and Run phases of the static graph. However, in practice, it is not sensed when the instantiated Cell object is called. MindSpore encapsulates both phases in the `__call__` method of the Cell, so the actual calling process is as follows:
 
