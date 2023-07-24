@@ -1186,6 +1186,50 @@ out = net()
 assert out == 100
 ```
 
+### ### Basic Operators Support More Data Type
+
+In the syntax of graph mode, the following basic operators in the list is overloaded: ['+', '-', '*', '/', '//', '%', '**', '<<', '>>', '&', '|', '^', 'not', '==', '!=', '<', '>', '<=', '>=', 'in', 'not in', 'y=x[0]']. For more details, please refer to [Operators](https://www.mindspore.cn/docs/en/r2.1/note/static_graph_syntax/operators.html). When getting unsupported input type, those operators need to use extended static graph syntax to support, and make the output consistent with the output in the pynative mode.
+
+The code example is as follows.
+
+```python
+import mindspore as ms
+import mindspore.nn as nn
+from mindspore import Tensor
+ms.set_context(mode=ms.GRAPH_MODE)
+
+class InnerClass(nn.Cell):
+    def construct(self, x, y):
+        return x.asnumpy() + y.asnumpy()
+
+net = InnerClass()
+ret = net(Tensor([4, 5]), Tensor([1, 2]))
+print(ret)
+```
+
+```Text
+[5 7]
+```
+
+In the example above, since the output of `x.asnumpy()` is `numpy.ndarray` and is an unsupported input type of `+` in the graph mode, `x.asnumpy() + y.asnumpy()` will be supported by static graph syntax.
+
+In another example:
+
+```python
+class InnerClass(nn.Cell):
+    def construct(self):
+        return (None, 1) in ((None, 1), 1, 2, 3)
+
+net = InnerClass()
+print(net())
+```
+
+```Text
+True
+```
+
+`tuple` in `tuple`is an unsupported operation in original graph mode，and will be supported by static graph syntax.
+
 ### Base Type
 
 Use the JIT Fallback feature to extend support for Python's native data types 'List', 'Dictionary', 'None'.
