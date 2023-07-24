@@ -1186,6 +1186,50 @@ out = net()
 assert out == 100
 ```
 
+### 基础运算符支持更多数据类型
+
+在静态图语法重载了以下运算符: ['+', '-', '*', '/', '//', '%', '**', '<<', '>>', '&', '|', '^', 'not', '==', '!=', '<', '>', '<=', '>=', 'in', 'not in', 'y=x[0]']。图模式重载的运算符详见[运算符](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/operators.html)。列表中的运算符在输入图模式中不支持的输入类型时将使用扩展静态图语法支持，并使输出结果与动态图模式下的输出结果一致。
+
+代码用例如下。
+
+```python
+import mindspore as ms
+import mindspore.nn as nn
+from mindspore import Tensor
+ms.set_context(mode=ms.GRAPH_MODE)
+
+class InnerClass(nn.Cell):
+    def construct(self, x, y):
+        return x.asnumpy() + y.asnumpy()
+
+net = InnerClass()
+ret = net(Tensor([4, 5]), Tensor([1, 2]))
+print(ret)
+```
+
+```Text
+[5 7]
+```
+
+上述例子中，`.asnumpy()`输出的数据类型:  `numpy.ndarray`为运算符`+`在图模式中不支持的输入类型。因此`x.asnumpy() + y.asnumpy()`将使用扩展语法支持。
+
+在另一个用例中：
+
+```python
+class InnerClass(nn.Cell):
+    def construct(self):
+        return (None, 1) in ((None, 1), 1, 2, 3)
+
+net = InnerClass()
+print(net())
+```
+
+```Text
+True
+```
+
+`tuple` in `tuple`在原本的图模式中是不支持的运算，现已使用扩展静态图语法支持。
+
 ### 基础类型
 
 扩展对Python原生数据类型`List`、`Dictionary`、`None`的支持。
