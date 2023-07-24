@@ -11,6 +11,12 @@
 2. 以下图为例，扫描后，生成该文件中torch.Tensor接口使用分析结果，包括“可以转化的PyTorch API”、“可能是torch.Tensor API的结果”、
    “暂未提供直接映射关系的PyTorch API”三种分析结果。
 
+   其中：
+
+   - "可以转换的PyTorch API"指在文件中被使用的且可以转换为MindSpore API的PyTorch API
+   - "可能是torch.Tensor API"指名字和torch.Tensor的API名字相同，可能是torch.Tensor的API且可以转换为MindSpore API的API
+   - "暂未提供直接映射关系的PyTorch API"指虽然是PyTorch API或可能是torch.Tensor的API，但是暂时没有直接对应为MindSpore API的API
+
    ![img](./images/clip_image117.jpg)
 
 ## 多文件分析
