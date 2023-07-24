@@ -41,6 +41,10 @@ This chapter will introduce some methods of debugging and tuning from three aspe
 
 This chapter contains a complete network migration sample. From the analysis and replication of the benchmark network, it details the steps of script development and precision debugging and tuning, and finally lists the common problems and corresponding optimization methods during the migration process, framework performance issues.
 
+## [Network Migration Tool Application Practice](https://www.mindspore.cn/docs/en/master/migration_guide/migrator_with_tools.html)
+
+This chapter describes how to apply various migration-related tools to improve the migration efficiency when migrating neural networks from other machine learning frameworks to MindSpore, focusing on describing how to tightly integrate migration tools with the migration process.
+
 ## [FAQs](https://www.mindspore.cn/docs/en/master/migration_guide/faq.html)
 
 This chapter lists the frequently-asked questions and corresponding solutions.
