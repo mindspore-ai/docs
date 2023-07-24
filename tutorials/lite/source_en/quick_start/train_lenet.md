@@ -2,7 +2,7 @@
 
 `Linux` `Android` `Whole Process` `Model Export` `Model Converting` `Model Training` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_en/quick_start/train_lenet.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![View Source On Gitee](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_en/quick_start/train_lenet.md)
 
 ## Overview
 

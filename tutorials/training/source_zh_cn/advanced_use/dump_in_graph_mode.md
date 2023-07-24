@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/dump_in_graph_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/dump_in_graph_mode.md)
 
 ## 概述
 

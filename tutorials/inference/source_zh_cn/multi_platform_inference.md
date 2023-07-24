@@ -2,7 +2,7 @@
 
  `Linux` `Ascend` `GPU` `CPU` `推理应用` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_zh_cn/multi_platform_inference.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_zh_cn/multi_platform_inference.md)
 
 MindSpore可以基于训练好的模型，在不同的硬件平台上执行推理任务。
 

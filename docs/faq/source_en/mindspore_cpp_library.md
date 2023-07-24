@@ -1,6 +1,6 @@
 ﻿# MindSpore C++ Library Use
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_en/mindspore_cpp_library.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_en/mindspore_cpp_library.md)
 
 <font size=3>**Q：What should I do when error `/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found` prompts during application compiling?**</font>
 

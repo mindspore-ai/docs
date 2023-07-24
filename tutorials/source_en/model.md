@@ -1,6 +1,6 @@
 # Building a Neural Network
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/source_en/model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/source_en/model.md)
 
 A neural network model consists of multiple data operation layers. `mindspore.nn` provides various basic network modules.
 

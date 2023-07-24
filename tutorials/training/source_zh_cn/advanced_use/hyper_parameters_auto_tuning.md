@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/hyper_parameters_auto_tuning.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/hyper_parameters_auto_tuning.md)&nbsp;&nbsp;
 
 ## 概述
 

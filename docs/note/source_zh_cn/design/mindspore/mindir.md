@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `框架开发` `中级` `模型开发` `高级` `贡献者`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/design/mindspore/mindir.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+[![查看源文件](../../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/design/mindspore/mindir.md)
 
 ## 简介
 

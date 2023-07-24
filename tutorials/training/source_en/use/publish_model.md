@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `Model Publishing` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/use/publish_model.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![View Source On Gitee](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/use/publish_model.md)
 
 ## Overview
 

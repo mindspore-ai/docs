@@ -1,6 +1,6 @@
 ﻿# C++接口使用类
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/mindspore_cpp_library.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/mindspore_cpp_library.md)
 
 <font size=3>**Q：编译应用时报错`/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found`怎么办？**</font>
 

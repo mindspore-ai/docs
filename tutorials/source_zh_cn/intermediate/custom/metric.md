@@ -1,7 +1,7 @@
 
 # 自定义评价指标
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/source_zh_cn/intermediate/custom/metric.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/source_zh_cn/intermediate/custom/metric.md)
 
 评价指标（Metrics）可以用来评估模型结果的可信度。
 

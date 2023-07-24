@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `硬件支持` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/platform_and_system.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/platform_and_system.md)
 
 <font size=3>**Q:PyNative模式和Graph模式的区别？**</font>
 

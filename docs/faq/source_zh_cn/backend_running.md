@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `环境准备` `运行模式` `模型训练` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/backend_running.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/backend_running.md)
 
 <font size=3>**Q：请问`c_transforms`和`py_transforms`有什么区别，比较推荐使用哪个？**</font>
 

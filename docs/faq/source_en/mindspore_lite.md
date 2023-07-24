@@ -1,6 +1,6 @@
 # MindSpore Lite Use
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_en/mindspore_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_en/mindspore_lite.md)
 
 <br/>
 

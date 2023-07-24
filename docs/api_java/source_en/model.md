@@ -1,6 +1,6 @@
 # Model
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/api_java/source_en/model.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/api_java/source_en/model.md)
 
 ```java
 import com.mindspore.lite.Model;

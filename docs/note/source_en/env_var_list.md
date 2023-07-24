@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_en/env_var_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_en/env_var_list.md)
 
 MindSpore environment variables are as follows:
 

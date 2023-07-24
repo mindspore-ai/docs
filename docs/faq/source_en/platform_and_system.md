@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `Hardware Support` `Beginner` `Intermediate`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_en/platform_and_system.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_en/platform_and_system.md)
 
 <font size=3>**Q: What is the difference between the PyNative and Graph modes?**</font>
 

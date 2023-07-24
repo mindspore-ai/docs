@@ -1,6 +1,6 @@
 # Tensor
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/source_en/tensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png"></a>
+[![View Source On Gitee](https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/source_en/tensor.md)
 
 Tensor is a basic data structure in the MindSpore network computing.
 

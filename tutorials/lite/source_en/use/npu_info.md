@@ -2,7 +2,7 @@
 
 `NPU` `Android` `Linux` `Environment Preparation` `Operators Supported` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_en/use/npu_info.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![View Source On Gitee](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_en/use/npu_info.md)
 
 ## Steps
 

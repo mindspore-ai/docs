@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `环境准备`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/mindinsight_use.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![查看源文件](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/mindinsight_use.md)
 
 <font size=3>**Q：MindInsight启动失败并且提示:`ImportError: libcrypto.so.1.0.0: cannot open shared object file: No such file or directory` 如何处理？**</font>
 

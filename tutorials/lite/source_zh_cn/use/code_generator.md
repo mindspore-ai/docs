@@ -2,7 +2,7 @@
 
 `Linux` `IoT` `C++` `模型代码生成` `推理应用` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/use/code_generator.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/use/code_generator.md)
 
 ## 概述
 

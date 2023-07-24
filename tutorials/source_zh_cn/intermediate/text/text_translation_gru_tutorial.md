@@ -1,6 +1,6 @@
 # 序列到序列（seq2seq）模型实现文本翻译
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/source_zh_cn/intermediate/text/text_translation_gru_tutorial.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png"></a>
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/source_zh_cn/intermediate/text/text_translation_gru_tutorial.md)
 
 本教程通过Multi30k数据集来训练序列到序列（seq2seq）模型，以此实现将德语句子翻译成英语的功能。该教程包含以下三个方面：
 

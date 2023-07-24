@@ -2,7 +2,7 @@
 
 `Characteristic Advantages` `On-device Inference` `Functional Module` `Reasoning Tools`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_en/supported_features.md" target="_blank"><img src="./_static/logo_source.png"></a>
+[![View Source On Gitee](./_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_en/supported_features.md)
 
 <font size=3>**Q: Does MindSpore Serving support hot loading to avoid inference service interruption?**</font>
 

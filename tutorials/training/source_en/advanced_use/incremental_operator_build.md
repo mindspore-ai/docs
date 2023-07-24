@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `Model Training` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/incremental_operator_build.md" target="_blank"><img src="../_static/logo_source.png"></a>
+[![View Source On Gitee](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/incremental_operator_build.md)
 
 ## Overview
 

@@ -2,7 +2,7 @@
 
 `Linux` `Serving` `Ascend` `GPU` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_en/serving_restful.md" target="_blank"><img src="_static/logo_source.png"></a>
+[![View Source On Gitee](_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_en/serving_restful.md)
 
 ## Overview
 
