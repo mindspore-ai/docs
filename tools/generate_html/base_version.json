@@ -1,254 +1,174 @@
 [
     {
-        "version" : "",
-        "label" : {
+        "version": "r2.1",
+        "versionAlias": "",
+        "label": {
             "zh": "MindSpore",
             "en": "MindSpore"
         },
-        "repo_name" : "mindspore"
-    }, 
+        "repo_name": "mindspore",
+        "theme": "theme-docs"
+    },
     {
-        "version" : "",
-        "label" : {
+        "version": "r2.1",
+        "versionAlias" : "",
+        "label": {
             "zh": "教程",
             "en": "Tutorials"
         },
-        "repo_name" : "tutorials",
+        "repo_name": "tutorials",
         "submenu": {
             "zh": [
                 {
                     "label": "初学入门",
-                    "url": "/tutorials/zh-CN/master/index.html"
+                    "url": "/tutorials/zh-CN/r2.1/index.html"
                 },
                 {
                     "label": "应用实践",
-                    "url": "/tutorials/application/zh-CN/master/index.html"
+                    "url": "/tutorials/application/zh-CN/r2.1/index.html"
                 },
                 {
                     "label": "深度开发",
-                    "url": "/tutorials/experts/zh-CN/master/index.html"
+                    "url": "/tutorials/experts/zh-CN/r2.1/index.html"
                 }
             ],
             "en": [
                 {
                     "label": "Quickstart",
-                    "url": "/tutorials/en/master/index.html"
+                    "url": "/tutorials/en/r2.1/index.html"
                 },
                 {
                     "label": "Application",
-                    "url": "/tutorials/application/en/master/index.html"
+                    "url": "/tutorials/application/en/r2.1/index.html"
                 },
                 {
                     "label": "Experts",
-                    "url": "/tutorials/experts/en/master/index.html"
+                    "url": "/tutorials/experts/en/r2.1/index.html"
                 }
             ]
-        }
+        },
+        "theme": "theme-tutorials"
     },
     {
-        "version" : "",
-        "label" : {
+        "version": "r2.1",
+        "versionAlias" : "",
+        "label": {
             "zh": "MindSpore Lite",
             "en": "MindSpore Lite"
         },
-        "repo_name" : "lite",
+        "repo_name": "lite",
         "submenu": {
             "zh": [
                 {
                     "label": "概述",
-                    "url": "/lite?version=/master/"
+                    "url": "/lite?version=/r2.1/"
                 },
                 {
                     "label": "下载",
-                    "url": "/lite/docs/zh-CN/master/use/downloads.html"
+                    "url": "/lite/docs/zh-CN/r2.1/use/downloads.html"
                 },
                 {
                     "label": "文档",
-                    "url": "/lite/docs/zh-CN/master/index.html"
+                    "url": "/lite/docs/zh-CN/r2.1/index.html"
                 },
                 {
                     "label": "API",
-                    "url": "/lite/api/zh-CN/master/index.html"
+                    "url": "/lite/api/zh-CN/r2.1/index.html"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/lite/faq/zh-CN/master/faq.html"
+                    "url": "/lite/faq/zh-CN/r2.1/faq.html"
                 },
                 {
                     "label": "示例",
-                    "url": "/lite/examples?version=/master/"
+                    "url": "/lite/examples?version=/r2.1/"
                 },
                 {
                     "label": "模型",
-                    "url": "/lite/models"
+                    "url": "/lite/models?version=/r2.1/"
                 }
             ],
             "en": [
                 {
                     "label": "Overview",
-                    "url": "/lite/en?version=/master/"
+                    "url": "/lite/en?version=/r2.1/"
                 },
                 {
                     "label": "Downloads",
-                    "url": "/lite/docs/en/master/use/downloads.html"
+                    "url": "/lite/docs/en/r2.1/use/downloads.html"
                 },
                 {
                     "label": "Docs",
-                    "url": "/lite/docs/en/master/index.html"
+                    "url": "/lite/docs/en/r2.1/index.html"
                 },
                 {
                     "label": "API",
-                    "url": "/lite/api/en/master/index.html"
+                    "url": "/lite/api/en/r2.1/index.html"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/lite/faq/en/master/faq.html"
+                    "url": "/lite/faq/en/r2.1/faq.html"
                 },
                 {
                     "label": "Examples",
-                    "url": "/lite/examples/en?version=/master/"
+                    "url": "/lite/examples/en?version=/r2.1/"
                 },
                 {
                     "label": "Models",
-                    "url": "/lite/models/en"
+                    "url": "/lite/models/en?version=/r2.1/"
                 }
             ]
-        }
-    },
-    {
-        "version" : "",
-        "label" : {
-            "zh": "MindSpore Pandas",
-            "en": "MindSpore Pandas"
         },
-        "repo_name" : "mindpandas"
+        "theme": "theme-lite"
     },
     {
-        "version" : "",
-        "label" : {
+        "version": "r2.1",
+        "versionAlias" : "",
+        "label": {
             "zh": "MindSpore Insight",
             "en": "MindSpore Insight"
         },
-        "repo_name" : "mindinsight"
+        "repo_name": "mindinsight",
+        "theme": "theme-docs"
     },
     {
-        "version" : "",
-        "label" : {
-            "zh": "MindSpore Armour",
-            "en": "MindSpore Armour"
-        },
-        "repo_name" : "mindarmour"
-    },
-    {
-        "version" : "",
-        "label" : {
-            "zh": "MindSpore Serving",
-            "en": "MindSpore Serving"
-        },
-        "repo_name" : "serving"
-    },
-    {
-        "version" : "",
-        "label" : {
-            "zh": "MindSpore Federated",
-            "en": "MindSpore Federated"
-        },
-        "repo_name" : "federated"
-    },
-    {
-        "version" : "",
-        "label" : {
-            "zh": "MindSpore Golden Stick",
-            "en": "MindSpore Golden Stick"
-        },
-        "repo_name" : "golden_stick"
-    },
-    {
-        "version" : "",
-        "label" : {
-            "zh": "MindSpore XAI",
-            "en": "MindSpore XAI"
-        },
-        "repo_name" : "xai"
-    },
-    {
-        "version" : "",
-        "label" : {
-            "zh": "MindSpore Dev Toolkit",
-            "en": "MindSpore Dev Toolkit"
-        },
-        "repo_name" : "devtoolkit"
-    },
-    {
-        "version" : "",
-        "label" : {
-            "zh": "MindSpore Graph Learning",
-            "en": "MindSpore Graph Learning"
-        },
-        "repo_name" : "graphlearning"
-    },
-    {
-        "version" : "",
-        "label" : {
+        "version": "r0.7",
+        "versionAlias" : "",
+        "label": {
             "zh": "MindSpore Reinforcement",
             "en": "MindSpore Reinforcement"
         },
-        "repo_name" : "reinforcement"
+        "repo_name": "reinforcement",
+        "theme": "theme-docs"
     },
     {
-        "version" : "",
-        "label" : {
-            "zh": "MindSpore Probability",
-            "en": "MindSpore Probability"
-        },
-        "repo_name" : "probability"
-    },
-    {
-        "version" : "",
-        "label" : {
-            "zh": "MindSpore Hub",
-            "en": "MindSpore Hub"
-        },
-        "repo_name" : "hub"
-    },
-    {
-        "version" : "",
-        "label" : {
-            "zh": "MindSpore Elec",
-            "en": "MindSpore Elec"
-        },
-        "repo_name" : "mindelec"
-    },
-    {
-        "version" : "",
-        "label" : {
-            "zh": "MindSpore SPONGE",
-            "en": "MindSpore SPONGE"
-        },
-        "repo_name" : "mindsponge"
-    },
-    {
-        "version" : "",
-        "label" : {
+        "version": "r0.1",
+        "versionAlias" : "",
+        "label": {
             "zh": "MindSpore Flow",
             "en": "MindSpore Flow"
         },
-        "repo_name" : "mindflow"
+        "repo_name": "mindflow",
+        "theme": "theme-docs"
     },
     {
-        "version" : "",
-        "label" : {
-            "zh": "MindSpore Quantum",
-            "en": "MindSpore Quantum"
-        },
-        "repo_name" : "mindquantum"
-    },
-    {
-        "version" : "",
-        "label" : {
+        "version": "r0.3",
+        "versionAlias" : "",
+        "label": {
             "zh": "MindSpore Recommender",
             "en": "MindSpore Recommender"
         },
-        "repo_name" : "recommender"
+        "repo_name": "recommender",
+        "theme": "theme-docs"
+    },
+    {
+        "version": "r2.1",
+        "versionAlias" : "",
+        "label": {
+            "zh": "MindSpore Dev Toolkit",
+            "en": "MindSpore Dev Toolkit"
+        },
+        "repo_name": "devtoolkit",
+        "theme": "theme-docs"
     }
 ]

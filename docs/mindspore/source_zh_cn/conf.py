@@ -116,6 +116,8 @@ release = 'master'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
+
+myst_update_mathjax = False
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
@@ -152,6 +154,8 @@ autodoc_inherit_docstrings = False
 
 autosummary_generate = True
 
+autosummary_generate_overwrite = False
+
 html_static_path = ['_static']
 
 # -- Options for HTML output -------------------------------------------------
@@ -178,7 +182,7 @@ html_search_language = 'zh'
 html_search_options = {'dict': '../../resource/jieba.txt'}
 
 sys.path.append(os.path.abspath('../../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 import nbsphinx_mod
 
 sys.path.append(os.path.abspath('../../../resource/custom_directives'))
@@ -346,9 +350,9 @@ def setup(app):
     app.add_directive('mscnnoteautosummary', MsCnNoteAutoSummary)
     app.add_config_value('rst_files', set(), False)
     app.add_directive('includecode', IncludeCodeDirective)
-    app.add_stylesheet('css/bootstrap.min.css')
-    app.add_stylesheet('css/training.css')
-    app.add_javascript('js/training.js')
+    app.add_css_file('css/bootstrap.min.css')
+    app.add_css_file('css/training.css')
+    app.add_js_file('js/training.js')
 
 
 # Convert encoding for api files.

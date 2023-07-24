@@ -37,6 +37,8 @@ release = 'master'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
+
+myst_update_mathjax = False
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
@@ -71,6 +73,8 @@ autodoc_inherit_docstrings = False
 
 autosummary_generate = True
 
+autosummary_generate_overwrite = False
+
 # -- Options for HTML output -------------------------------------------------
 
 # Reconstruction of sphinx auto generated document translation.
@@ -86,10 +90,6 @@ html_theme = 'sphinx_rtd_theme'
 html_search_language = 'zh'
 
 html_search_options = {'dict': '../../../resource/jieba.txt'}
-
-sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import anchor_mod
-import nbsphinx_mod
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
@@ -175,7 +175,7 @@ rename_include(present_path)
 import mindflow
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 import nbsphinx_mod
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
