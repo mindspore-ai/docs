@@ -60,8 +60,6 @@ MindSpore defines logical network structures and operator attributes through a u
 
 ## model.eval Model Validation
 
-### Model Saved Locally
-
 First build the model, then use the `mindspore` module's `load_checkpoint` and `load_param_into_net` to load the model and parameters from the local, and pass in the validation dataset to perform model inference. The validation dataset is processed in the same way as the training dataset.
 
 ```python
@@ -83,27 +81,6 @@ Where
 `model.eval` is the model validation interface, and corresponding interface description is as follows: [mindspore.train.Model](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model).
 
 > Inference sample code: [eval.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/eval.py).
-
-### Using MindSpore Hub to Load Models from HUAWEI CLOUD
-
-First build the model, then use `mindspore_hub.load` to load the model parameters from the cloud, and pass in the validation dataset to infer. The validation dataset is processed in the same way as the training dataset.
-
-```python
-model_uid = "mindspore/1.9/googlenet_cifar10"  # using GoogleNet as an example.
-network = mindspore_hub.load(model_uid, num_classes=10)
-net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-model = Model(network, net_loss, metrics={"Accuracy": Accuracy()})
-
-print("============== Starting Testing ==============")
-dataset = create_dataset(os.path.join(args.data_path, "test"),
-                            cfg.batch_size,)
-acc = model.eval(dataset, dataset_sink_mode=args.dataset_sink_mode)
-print("============== {} ==============".format(acc))
-```
-
-Where
-
-`mindspore_hub.load` is the interface for loading model parameter, and corresponding interface description is as follows: [mindspore_hub.load](https://www.mindspore.cn/hub/docs/en/master/hub.html#mindspore_hub.load).
 
 ## Using the `model.predict` Interface for Inference Operations
 
