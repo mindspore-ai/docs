@@ -39,6 +39,9 @@ release = 'master'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
+
+myst_update_mathjax = False
+
 extensions = [
     'breathe',
     'exhale',
@@ -50,7 +53,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
-    'sphinx_markdown_tables',
     'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
@@ -152,7 +154,7 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(code_str, sphinx_autodoc.__dict__)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import anchor_mod
+# import anchor_mod
 
 # Tell sphinx what the primary language being documented is.
 # primary_domain = 'cpp'
@@ -268,6 +270,7 @@ from sphinx.builders import html as sphinx_builder_html
 
 with open("../_custom/sphinx_builder_html", "r", encoding="utf8") as f:
     source_code = f.read()
+    source_code = source_code.replace('样例', 'Example')
 
 exec(source_code, sphinx_builder_html.__dict__)
 
