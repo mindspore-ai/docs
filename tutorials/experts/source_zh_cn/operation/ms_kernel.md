@@ -9,6 +9,7 @@ MindSpore Hybrid DSL的语法与Python语法类似，例如函数定义、缩进
 ```python
 import numpy as np
 import mindspore as ms
+import mindspore.ops as ops
 from mindspore.ops import kernel
 
 @kernel
