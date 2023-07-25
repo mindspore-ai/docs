@@ -328,8 +328,8 @@ Restrictions:
 Example:
 
 ```python
-import mindspore as ms
 import numpy as np
+import mindspore as ms
 
 z = ms.Tensor(np.ones((2, 3)))
 

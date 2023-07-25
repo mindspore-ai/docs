@@ -32,6 +32,7 @@
 | `^`     | `Number` ^ `Number`、`Tensor` ^ `Tensor`、`Number` ^ `Tensor`、`Tensor` ^ `Number`。                                                                                                                                                                  |
 | `<<`    | `Number` << `Number`。                                                                                                                                                                                                                             |
 | `>>`    | `Number` >> `Number`。                                                                                                                                                                                                                             |
+| `@`     | `Tensor` @ `Tensor`。                                                                                                                                                                                                                             |
 
 限制：
 
@@ -56,6 +57,7 @@
 | `^=`     | `Number` ^= `Number`、`Tensor` ^= `Tensor`、`Number` ^= `Tensor`、`Tensor` ^= `Number`。                                                                                                                                                                              |
 | `<<=`    | `Number` <<= `Number`。                                                                                                                                                                                                                                         |
 | `>>=`    | `Number` >>= `Number`。                                                                                                                                                                                                                                         |
+| `@=`     | `Tensor` @= `Tensor`。                                                                                                                                                                                                                                         |
 
 限制：
 
