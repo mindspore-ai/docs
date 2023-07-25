@@ -855,7 +855,7 @@ TypeError: Only supported positional parameter type for python primitive, but go
 - 被修改的属性属于本`cell`对象，即必须为`self.xxx`。
 - 该属性在Cell的`__init__`函数中完成初始化且其为Parameter类型。
 
-在JIT语法支持级别选项为`LAX`时，可以支持更多情况的属性修改，具体详见[支持属性设置与修改](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/static_graph_syntax.html#支持属性设置与修改)。
+在JIT语法支持级别选项为`LAX`时，可以支持更多情况的属性修改，具体详见[支持属性设置与修改](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#支持属性设置与修改)。
 
 示例如下：
 

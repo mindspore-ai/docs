@@ -76,6 +76,8 @@ In the above code, 'a' is the variable, so 'm' is 'false'. 'b' is a constant, so
 
   In the above code, enter 'a', 'b', 'c' are constants.
 
+- Constant operations obtain a constant result. For example:
+
   ```python
   from mindspore import jit, Tensor
 
@@ -193,8 +195,6 @@ res = test_return_scalar(ms.mutable(1), ms.mutable(2))
 print(res)
 ```
 
-Output the results:
-
 ```text
 3
 ```
@@ -309,7 +309,7 @@ The basic usage scenarios of 'List' are as follows:
 
     - List Index Value
 
-      Basic syntax: '''element = list_object[index]'''.
+      Basic syntax: ```element = list_object[index]```.
 
       Basic semantics: Extract the element in the 'List' object in the 'index' bit ('index' starts at 0). Supports multi-level index values.
 
@@ -343,7 +343,7 @@ The basic usage scenarios of 'List' are as follows:
 
     - List index assignment
 
-      Basic syntax: '''list_object[index] = target_element'''.
+      Basic syntax: ```list_object[index] = target_element```.
 
       Basic semantics: Assign the element in the 'List' object at bit 'index' to 'target_element' ('index' starts at 0). Support for multi-tier index assignment.
 
@@ -379,7 +379,7 @@ The basic usage scenarios of 'List' are as follows:
 
     - List.append
 
-      Basic syntax: ''list_object.append(target_element)'''.
+      Basic syntax: ```list_object.append(target_element)```.
 
       Basic semantics: Append the element 'target_element' to the last list_object' of the 'List' object.
 
@@ -408,7 +408,7 @@ The basic usage scenarios of 'List' are as follows:
 
     - List.clear
 
-      Basic syntax: ''list_object.clear()'''.
+      Basic syntax: ```list_object.clear()```.
 
       Base semantics: Empty the elements contained in the 'List' object 'list_object'.
 
@@ -437,7 +437,7 @@ The basic usage scenarios of 'List' are as follows:
 
     - List.extend
 
-      Basic syntax: ''list_object.extend(target)'''.
+      Basic syntax: ```list_object.extend(target)```.
 
       Basic semantics: Insert all elements inside the 'target' to the end of the 'List' object 'list_object'.
 
@@ -470,7 +470,7 @@ The basic usage scenarios of 'List' are as follows:
 
     - List.pop
 
-      Basic syntax: '''pop_element = list_object.pop(index=-1)'''.
+      Basic syntax: ```pop_element = list_object.pop(index=-1)```.
 
       Basic semantics: Remove the 'index' element of the 'List' object 'list_object' from the 'list_object' and return the element.
 
@@ -499,7 +499,7 @@ The basic usage scenarios of 'List' are as follows:
 
     - List.reverse
 
-      Basic syntax: '''list_object.reverse()'''.
+      Basic syntax: ```list_object.reverse()```.
 
       Basic semantics: Reverse the order of the elements of the 'List' object 'list_object'.
 
@@ -526,7 +526,7 @@ The basic usage scenarios of 'List' are as follows:
 
     - List.insert
 
-      Basic syntax: ''list_object.insert(index, target_obj)'''.
+      Basic syntax: ```list_object.insert(index, target_obj)```.
 
       Basic semantics: insert 'target_obj' into the 'index' bit of 'list_object'.
 
@@ -855,7 +855,7 @@ Using attribute references as l-values in Cell instances of MindSpore requires t
 - The modified attribute belongs to this `cell` object, i.e. it must be `self.xxx`.
 - The attribute is initialized in Cell's '__init__' function and is of type Parameter.
 
-When the JIT syntax support level option is 'LAX', can support attribute modification in more situations, see [Support Attribute Setting and Modification] (https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/static_graph_syntax.html#Support Attribute Setting and Modification).
+When the JIT syntax support level option is 'LAX', can support attribute modification in more situations, see [Support Attribute Setting and Modification] (https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supporting-property-setting-and-modification).
 
 Examples are as follows:
 
@@ -1468,7 +1468,7 @@ The results are as follows:
 res: 2
 ```
 
-### Support property setting and modification
+### Supporting Property Setting and Modification
 
 The specific usage scenarios are as follows:
 

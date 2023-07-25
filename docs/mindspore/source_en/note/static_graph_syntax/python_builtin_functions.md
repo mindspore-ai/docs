@@ -265,10 +265,6 @@ d_t: [Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, val
 
 Function: Used to create a dictionary.
 
-Valid input: The Key of the dictionary supports only String type. The Value supports only constants, and does not support custom classes.
-
-Looping over dictionaries created by `dict()` is not supported yet, including `dict.keys()`, `dict.values()` and `dict.items()`.
-
 Examples of code usage are as follows:
 
 ```python
@@ -288,8 +284,6 @@ print("b: ", b)
 print("c: ", c)
 print("d: ", d)
 ```
-
-Output the result:
 
 ```text
 a: {}
@@ -1182,6 +1176,7 @@ import numpy as np
 import mindspore as ms
 import mindspore.nn as nn
 
+# pylint: disable= W0235
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
@@ -1201,8 +1196,6 @@ ms.set_context(mode=ms.GRAPH_MODE)
 net = Net()
 net()
 ```
-
-Output the result:
 
 ```text
 np_sum:  [ 2  4  6  8 10]
@@ -1286,8 +1279,6 @@ print("e: ", e)
 print("f: ", f)
 print("g: ", g)
 ```
-
-Output the result:
 
 ```text
 a: <class 'int'>
