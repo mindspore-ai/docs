@@ -32,6 +32,7 @@ notes:
 | `^`     | `Number` ^ `Number`、`Tensor` ^ `Tensor`、`Number` ^ `Tensor`、`Tensor` ^ `Number`.                                                                                                                                                                  |
 | `<<`    | `Number` << `Number`.                                                                                                                                                                                                                             |
 | `>>`    | `Number` >> `Number`.                                                                                                                                                                                                                             |
+| `@`    | `Tensor` @ `Tensor`.                                                                                                                                                                                                                             |
 
 Restrictions:
 
@@ -56,6 +57,7 @@ Restrictions:
 | `^=`     | `Number` ^= `Number`、`Tensor` ^= `Tensor`、`Number` ^= `Tensor`、`Tensor` ^= `Number`.                                                                                                                                                                              |
 | `<<=`    | `Number` <<= `Number`.                                                                                                                                                                                                                                         |
 | `>>=`    | `Number` >>= `Number`.                                                                                                                                                                                                                                         |
+| `@=`    | `Tensor` @= `Tensor`.                                                                                                                                                                                                                                         |
 
 Constraints:
 
