@@ -46,6 +46,7 @@ Typical Application Scenarios
    advanced_operations_of_quantum_circuit
    quantum_measurement
    noise
+   noise_simulator
    bloch_sphere
 
 .. toctree::

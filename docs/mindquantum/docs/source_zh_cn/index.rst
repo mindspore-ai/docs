@@ -46,6 +46,7 @@ MindSpore Quantum聚焦于NISQ阶段的算法实现与落地。结合HiQ高性�
    advanced_operations_of_quantum_circuit
    quantum_measurement
    noise
+   noise_simulator
    bloch_sphere
 
 .. toctree::
