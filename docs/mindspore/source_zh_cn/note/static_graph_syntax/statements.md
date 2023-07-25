@@ -334,13 +334,13 @@ import mindspore as ms
 z = ms.Tensor(np.ones((2, 3)))
 
 @ms.jit()
-def test_for_cond():
+def test_cond():
     x = (1, 2, 3)
     for i in x:
         z += i
     return z
 
-ret = test_for_cond()
+ret = test_cond()
 print('ret:{}'.format(ret))
 ```
 
