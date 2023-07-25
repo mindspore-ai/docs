@@ -51,16 +51,18 @@
    git clone https://gitee.com/mindspore/federated.git
    ```
 
-5. 安装MindSpore Federated依赖Python库，请参考[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)。
+5. 下载TEE所依赖的4个库文件：[libsgx_0.so](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/tutorials-develop/federated/libsgx_0.so)、[libsecgear.so](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/tutorials-develop/federated/libsecgear.so)、[enclave.signed.so](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/tutorials-develop/federated/enclave.signed.so)和[libcsecure_channel_static.a](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/tutorials-develop/federated/libcsecure_channel_static.a)，并将这4个文件放至`mindspore_federated/fl_arch/ccsrc/armour/lib`路径下（需新建文件夹）。
 
-6. 为TEE编译安装MindSpore Federated（需要加入额外编译选项，表示是否使用SGX）：
+6. 安装MindSpore Federated依赖Python库，请参考[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)。
+
+7. 为TEE编译安装MindSpore Federated（需要加入额外编译选项，表示是否使用SGX）：
 
    ```sh
    sh federated/build.sh -s on
    pip install federated/build/packages/mindspore_federated-XXXXX.whl
    ```
 
-7. 准备criteo数据集，请参考[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)。
+8. 准备criteo数据集，请参考[Wide&Deep纵向联邦学习案例](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo)。
 
 ### 启动脚本
 

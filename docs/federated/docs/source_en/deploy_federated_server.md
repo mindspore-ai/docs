@@ -71,6 +71,8 @@ from mindspore_federated import FLServerJob
 
 Federated Learning relies on [Redis Server](https://gitee.com/link?target=https%3A%2F%2Fredis.io%2F) as the cached data middleware by default. To run the Federated Learning service, a Redis server needs to be installed and run.
 
+> User must check the security of the Redis to be used. Some versions may have security vulnerabilities.
+
 Install Redis server:
 
 ```bash
