@@ -80,7 +80,7 @@ Where
 
 `model.eval` is the model validation interface, and corresponding interface description is as follows: [mindspore.train.Model](https://www.mindspore.cn/docs/en/r2.1/api_python/train/mindspore.train.Model.html#mindspore.train.Model).
 
-> Inference sample code: [eval.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/eval.py).
+> Inference sample code: [eval.py](https://gitee.com/mindspore/models/blob/r2.1/research/cv/lenet/eval.py).
 
 ## Using the `model.predict` Interface for Inference Operations
 
