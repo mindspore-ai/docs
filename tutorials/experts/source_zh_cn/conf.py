@@ -50,6 +50,8 @@ release = 'master'
 myst_enable_extensions = ["dollarmath", "amsmath"]
 
 myst_update_mathjax = False
+
+myst_heading_anchors = 4
 extensions = [
     'myst_parser',
     'nbsphinx',
@@ -73,8 +75,6 @@ exclude_patterns = []
 highlight_language = 'python'
 
 pygments_style = 'sphinx'
-
-myst_update_mathjax = False
 
 nbsphinx_allow_errors = True
 
