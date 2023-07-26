@@ -51,16 +51,18 @@ We use the local case in [Wide&Deep Vertical Federated Learning Case](https://gi
    git clone https://gitee.com/mindspore/federated.git
    ```
 
-5. For installing MindSpore Federated relies on Python libraries, see [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo).
+5. Download four lib files as TEE dependencies: [libsgx_0.so](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/tutorials-develop/federated/libsgx_0.so), [libsecgear.so](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/tutorials-develop/federated/libsecgear.so), [enclave.signed.so](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/tutorials-develop/federated/enclave.signed.so) and [libcsecure_channel_static.a](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/tutorials-develop/federated/libcsecure_channel_static.a). Put them into `mindspore_federated/fl_arch/ccsrc/armour/lib` (make new directory required).
 
-6. Install MindSpore Federated for TEE compilation (need to additionally set compiler options to indicate whether to use SGX or not).
+6. For installing MindSpore Federated relies on Python libraries, see [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo).
+
+7. Install MindSpore Federated for TEE compilation (need to additionally set compiler options to indicate whether to use SGX or not).
 
    ```sh
    sh federated/build.sh -s on
    pip install federated/build/packages/mindspore_federated-XXXXX.whl
    ```
 
-7. To prepare the criteo dataset, please refer to [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo).
+8. To prepare the criteo dataset, please refer to [Wide&Deep Vertical Federated Learning Case](https://gitee.com/mindspore/federated/tree/master/example/splitnn_criteo).
 
 ### Starting the Script
 

@@ -71,6 +71,8 @@ from mindspore_federated import FLServerJob
 
 联邦学习默认依赖[Redis服务器](https://gitee.com/link?target=https%3A%2F%2Fredis.io%2F)作为缓存数据中间件，运行联邦学习业务，需要安装和运行Redis服务器。
 
+> 用户需自行检查Redis版本的安全性，某些Redis版本可能存在漏洞。
+
 安装Redis服务器：
 
 ```bash
