@@ -42,6 +42,8 @@ myst_enable_extensions = ["dollarmath", "amsmath"]
 
 myst_update_mathjax = False
 
+myst_heading_anchors = 4
+
 extensions = [
     'breathe',
     'exhale',
