@@ -758,6 +758,8 @@ print(net())
 
 上述例子，使用了`Tensor`类接口创建`Tensor`，有些情况下可能会需要创建运行时的`Tensor`，即在编译时期获取不到值的`Tensor`数据，此时既可以采用上述类`ms.Tensor`接口来创建`Tensor`，也可以采用 [tensor函数接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)来创建`Tensor`，代码用例如下。
 
+其与Tensor类接口的区别在于，其内部增加了[Annotation Type](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#annotation-type)的标记，在设定了dtype的情况下，在类型推导阶段能够指定其输出的Tensor dtype，从而避免AnyType的产生。在需要动态地创建运行时的Tensor时，我们推荐使用这种方式来进行Tensor创建，并希望用户能够传入期待的dtype类型。以此避免AnyType的产生。
+
 ```python
 import mindspore as ms
 import mindspore.nn as nn
@@ -1694,11 +1696,11 @@ out = ops.grad(dict_net)(ms.Tensor([1]))
 assert out == 2
 ```
 
-### Annotation 标记
+### Annotation Type
 
-对于运行时的扩展支持的语法，会产生一些无法被类型推导出的节点，这种类型称为`Any`类型。因为该类型无法在编译时推导出正确的类型，所以这种`Any`将会以一种默认最大精度`Float64`进行运算，防止其精度丢失。为了能更好的优化相关性能，需要减少`Any`类型数据的产生。当用户可以明确知道当前通过扩展支持的语句会产生具体类型的时候，我们推荐使用`Annotation @jit.typing:`的方式进行指定对应Python语句类型，从而确定解释节点的类型避免`Any`类型的生成。
+对于运行时的扩展支持的语法，会产生一些无法被类型推导出的节点，比如动态创建Tensor等。这种类型称为`Any`类型。因为该类型无法在编译时推导出正确的类型，所以这种`Any`将会以一种默认最大精度`Float64`进行运算，防止其精度丢失。为了能更好的优化相关性能，需要减少`Any`类型数据的产生。当用户可以明确知道当前通过扩展支持的语句会产生具体类型的时候，我们推荐使用`Annotation @jit.typing:`的方式进行指定对应Python语句类型，从而确定解释节点的类型避免`Any`类型的生成。
 
-例如，上述例子`Tensor`类和`tensor`接口的区别就在于在`tensor`接口内部运用了Annotation机制。当`tensor`函数的`dtype`确定时，函数内部会利用`Annotation`指定输出类型从而避免`Any`类型的产生。`Annotation`的使用只需要在对应Python语句上面或者后面加上注释 `# @jit.typing: () -> tensor_type[float32]` 即可，其中 `->` 后面的 `tensor_type[float32]` 指示了被注释的语句输出类型。
+例如，[Tensor](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor)类和[tensor](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)接口的区别就在于在`tensor`接口内部运用了Annotation Type机制。当`tensor`函数的`dtype`确定时，函数内部会利用`Annotation`指定输出类型从而避免`Any`类型的产生。`Annotation Type`的使用只需要在对应Python语句上面或者后面加上注释 `# @jit.typing: () -> tensor_type[float32]` 即可，其中 `->` 后面的 `tensor_type[float32]` 指示了被注释的语句输出类型。
 
 代码用例如下。
 
