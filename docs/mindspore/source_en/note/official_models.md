@@ -310,7 +310,7 @@ The following results are tested on Ascend 910 with COCO2017.
 | General Physics  | [*Physics Informed Neural Networks (pinns)](https://gitee.com/mindspore/models/blob/master/research/hpc/pinns/README_CN.md#)             |        |  ✅  |  Float 32   |
 | Marine Physics  | [*Finite Differential Method for PDEs (ocean_model)](https://gitee.com/mindspore/models/blob/master/research/hpc/ocean_model/README.md#) |        |  ✅  |  Float 32   |
 | Electromagnetics   | [*PINNs with Incremental Learning (incremental_learning)](https://gitee.com/mindspore/mindscience/blob/master/MindElec/examples/physics_driven/incremental_learning/README_CN.md#)        |   ✅    |  ✅  | Float 16/32 |
-| Electromagnetics   | [*Multi-scale PINNs (pinn_fwi)](https://gitee.com/mindspore/mindscience/blob/master/MindElec/examples/physics_driven/pinnFWI/README.md#)                                                  |   ✅    |  ✅  | Float 16/32 |
+| Electromagnetics   | [*Multi-scale PINNs (pinn_fwi)](https://gitee.com/mindspore/mindscience/blob/master/MindElec/examples/physics_driven/pinn_fwi/README.md#)                                                  |   ✅    |  ✅  | Float 16/32 |
 | Electromagnetics   | [*PINNs for Maxwell Equation (time_domain_maxwell)](https://gitee.com/mindspore/mindscience/blob/master/MindElec/examples/physics_driven/time_domain_maxwell/README_CN.md#)               |   ✅    |  ✅  | Float 16/32 |
 | Computational Biology | [*MEGA-Fold](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README_CN.md#)         |   ✅   | ✅ | Float 16/32 |
 | Computational Biology | [*MEGA-EvoGen](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README_CN.md#)       |   ✅   | ✅ | Float 16/32 |
