@@ -293,11 +293,11 @@ Usage differences:
 | Parameters   | nn.optim | nn.optim_ex | Functions    |
 |-------|----------| ------------|-------|
 | Parameter configuration (hyperparameter not grouped) | Configure input to be `params` | Configure input to be `params`  | The configuration and function is the same in normal scenarios, and passing in `net.trainable_params` is sufficient.|
-| Learning rate   | Configure input to be `learning_rate` | Configure input to be `lr` |  For configuration and function difference for dynamic learning rate scenarios, see [Dynamic Learning Rate](#learning-late-1) for details|
+| Learning rate   | Configure input to be `learning_rate` | Configure input to be `lr` |  For configuration and function difference for dynamic learning rate scenarios, see [Dynamic Learning Rate](#learning-rate-1) for details|
 | Weight decay  | Configure input to be `weight_decay` | Configure input to be `weight_decay` | For different dynamic weight_decay scenarios configuration, see [weight_decay](#weight-decay-1) for details.|
 | Hyperparameter grouping  | Configure input to be `params`, passing in the set of parameters dict | Configure input to be `params`, passing in the set of parameters dict | In the grouping scenario, i.e., when `params` is a dict, the functions are different, see [hyperparameter grouping](#hyperparameter-grouping-1) for details.|
 
-In addition to the above similarities and differences, `mindspore.nn.optim_ex` also supports [Viewing Parameter Groups](#viewing-optimizer-configuration), [Modifying Optimizer Parameters during Running](#modifying-optimizer-parameters-dring-running), and other features, as detailed below.
+In addition to the above similarities and differences, `mindspore.nn.optim_ex` also supports [Viewing Parameter Groups](#viewing-optimizer-configuration), [Modifying Optimizer Parameters during Running](#modifying-optimizer-parameters-during-running), and other features, as detailed below.
 
 ### Configuring Optimizer
 
@@ -384,7 +384,7 @@ print(optimizer.param_groups)
 [{'params': [Parameter (name=conv.weight, shape=(6, 1, 5, 5), dtype=Float32, requires_grad=True)], 'weight_decay': 0.01, 'lr': Parameter (name=learning_rate_group_0, shape=(), dtype=Float32, requires_grad=True), 'amsgrad': True, 'betas': (0.9, 0.999), 'eps': 1e-08, 'maximize': False, 'grad_centralization': False}, {'params': [Parameter (name=param, shape=(1,), dtype=Float32, requires_grad=True)], 'lr': Parameter (name=learning_rate_group_1, shape=(), dtype=Float32, requires_grad=True), 'eps': 1e-06, 'betas': (0.8, 0.88), 'weight_decay': 0.0, 'amsgrad': False, 'maximize': False, 'grad_centralization': False}]
 ```
 
-As you can see from the above output, the learning rate in the optimizer parameter group is `Parameter`. `Parameter` in mindspore does not display the parameter value natively, and you can view the parameter value by using `.value()`. It can use `get_lr` of `mindspore.nn.LRScheduler` from [Dynamic Learning Rate Module](#dynamic-learning-rate-1) `mindspore.nn.LRScheduler` as described above or set `verbose=True`.
+As you can see from the above output, the learning rate in the optimizer parameter group is `Parameter`. `Parameter` in mindspore does not display the parameter value natively, and you can view the parameter value by using `.value()`. It can use `get_lr` of `mindspore.nn.LRScheduler` from Dynamic Learning Rate Module `mindspore.nn.LRScheduler` as described above or set `verbose=True`.
 
 ```python
 print(optimizer.param_groups[1]["lr"].value())
