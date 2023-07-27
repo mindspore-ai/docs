@@ -36,7 +36,7 @@ Cloud-side MindSpore Lite contains modules:
     - [NumPy](https://numpy.org/) >= 1.17.0 (If installation with pip fails, please upgrade the pip version first: `python -m pip install -U pip`)
     - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 (If installation with pip fails, please upgrade the pip version first: `python -m pip install -U pip`)
 - Compilation dependency for AKG (optional, compiled by default), which is not compiled if LLVM-12 or Python3 is not installed. To compile the AKG for the Ascend backend, git-lfs must be installed.
-    - [llvm](#Installing-LLVM) == 12.0.1
+    - [llvm](#installing-llvm-optional) == 12.0.1
     - [git-lfs](https://git-lfs.com/)
 
 > Gradle recommends using [gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all), and configuring other versions of gradle will use the gradle wrapper mechanism to automatically download ` gradle-6.6.1-complete`.
