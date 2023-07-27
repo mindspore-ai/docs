@@ -50,6 +50,8 @@ pygments_style = 'sphinx'
 
 myst_update_mathjax = False
 
+myst_heading_anchors = 4
+
 # -- Options for HTML output -------------------------------------------------
 
 language = "zh_CN"

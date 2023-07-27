@@ -63,6 +63,8 @@ pygments_style = 'sphinx'
 
 myst_update_mathjax = False
 
+myst_heading_anchors = 4
+
 # -- Options for HTML output -------------------------------------------------
 
 # Reconstruction of sphinx auto generated document translation.
