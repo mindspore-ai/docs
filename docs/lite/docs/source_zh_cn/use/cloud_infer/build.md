@@ -36,7 +36,7 @@
     - [NumPy](https://numpy.org/) >= 1.17.0 (如果用pip安装失败，请先升级pip版本：`python -m pip install -U pip`)
     - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 (如果用pip安装失败，请先升级pip版本：`python -m pip install -U pip`)
 - AKG（可选，默认编译），未安装LLVM-12或者Python3则不编译akg，未安装git-lfs则无法编译ascend后端的akg。
-  - [llvm](#安装LLVM-12) == 12.0.1
+  - [llvm](#安装llvm-可选) == 12.0.1
   - [git-lfs](https://git-lfs.com/)
 
 > Gradle建议采用[gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all)版本，配置其他版本gradle将会采用gradle wrapper机制自动下载`gradle-6.6.1-complete`。
