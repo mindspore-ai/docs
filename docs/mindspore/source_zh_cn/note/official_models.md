@@ -301,47 +301,6 @@
 | [Policy Gradient](https://github.com/mindspore-lab/mindrl/tree/master/example/pg) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://www.gymlibrary.dev/environments/classic_control/cart_pole/) | 195 |
 | [Dueling DQN](https://github.com/mindspore-lab/mindrl/tree/master/example/dueling_dqn) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://www.gymlibrary.dev/environments/classic_control/cart_pole/) | 195 |
 
-## 科学计算套件
-
-| 领域    | 网络                                                                                                                                      | Ascend | GPU |    数据类型     |
-|-------|-----------------------------------------------------------------------------------------------------------------------------------------|:------:|:---:|:-----------:|
-| 通用物理  | [*Deep Learning for High-Dimensional PDEs (deepbsde)](https://gitee.com/mindspore/models/blob/r2.1/research/hpc/deepbsde/README.md#)   |        |  ✅  |  Float 32   |
-| 通用物理  | [*Penalty-free Neural Networks (pfnn)](https://gitee.com/mindspore/models/blob/r2.1/research/hpc/pfnn/README_CN.md#)                   |        |  ✅  |  Float 32   |
-| 通用物理  | [*Physics Informed Neural Networks (pinns)](https://gitee.com/mindspore/models/blob/r2.1/research/hpc/pinns/README_CN.md#)             |        |  ✅  |  Float 32   |
-| 海洋物理  | [*Finite Differential Method for PDEs (ocean_model)](https://gitee.com/mindspore/models/blob/r2.1/research/hpc/ocean_model/README.md#) |        |  ✅  |  Float 32   |
-| 电磁学   | [*PINNs with Incremental Learning (incremental_learning)](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindElec/examples/physics_driven/incremental_learning/README_CN.md#)        |   ✅    |  ✅  | Float 16/32 |
-| 电磁学   | [*Multi-scale PINNs (pinn_fwi)](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindElec/examples/physics_driven/pinn_fwi/README.md#)                                                  |   ✅    |  ✅  | Float 16/32 |
-| 电磁学   | [*PINNs for Maxwell Equation (time_domain_maxwell)](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindElec/examples/physics_driven/time_domain_maxwell/README_CN.md#)               |   ✅    |  ✅  | Float 16/32 |
-| 计算生物 | [*MEGA-Fold](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/MEGAProtein/README_CN.md#)         |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*MEGA-EvoGen](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/MEGAProtein/README_CN.md#)       |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*MEGA-Assessment](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/MEGAProtein/README_CN.md#)   |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*ColabDesign](https://gitee.com/mindspore/mindscience/tree/r0.2.0/MindSPONGE/applications/research/Colabdesign)           |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*DeepDR](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/DeepDR/README.md#)           |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*DeepFRI](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/DeepFRI/README_CN.md#)      |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*iterative Folding Assisted peak ASsignmenT](https://gitee.com/mindspore/mindscience/blob/r0.3/MindSPONGE/applications/research/FAAST/README_CN.md#)          |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*JT-VAE](https://gitee.com/mindspore/mindscience/blob/r0.3/MindSPONGE/applications/research/JT-VAE/README.md#)           |   ✅   | ✅ |  Float 32  |
-| 计算生物 | [*Knowledge Graph Neural Network](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/KGNN/README.md#)               |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*MG-BERT](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/MG_BERT/README.md#)         |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*Multimer](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/Multimer/README.md#)       |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*ProteinMPNN](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/ProteinMPNN/README.md#) |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*UFold](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/UFold/README_CN.md#)          |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*ESM-IF1](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/esm/README_CN.md#)              |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*ESM2]()              |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*GROVER](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/grover/README.md#)           |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*pafnucy](https://gitee.com/mindspore/mindscience/blob/r0.2.0/MindSPONGE/applications/research/pafnucy/README.md#)         |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*SchNet](https://gitee.com/mindspore/mindscience/tree/r0.2.0/MindSPONGE/cybertron/)              |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*MolCT](https://gitee.com/mindspore/mindscience/tree/r0.2.0/MindSPONGE/cybertron/)              |   ✅   | ✅ | Float 16/32 |
-| 计算生物 | [*PhysNet](https://gitee.com/mindspore/mindscience/tree/r0.2.0/MindSPONGE/cybertron/)              |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*FNO1D](https://gitee.com/mindspore/mindscience/tree/r0.3/MindFlow/applications/data_driven/burgers_fno)             |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*KNO1D](https://gitee.com/mindspore/mindscience/blob/r0.3/MindFlow/applications/data_driven/burgers_kno/README_CN.md)              |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*FNO2D](https://gitee.com/mindspore/mindscience/tree/r0.3/MindFlow/applications/data_driven/navier_stokes_fno)              |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*KNO2D](https://gitee.com/mindspore/mindscience/blob/r0.3/MindFlow/applications/data_driven/navier_stokes_kno/README_CN.md)             |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*ViT](https://gitee.com/mindspore/mindscience/blob/r0.3/MindFlow/applications/data_driven/airfoil/2D_steady/README_CN.md)             |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*FNO3D](https://gitee.com/mindspore/mindscience/tree/r0.3/MindFlow/applications/data_driven/navier_stokes_3d_fno)              |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*Burgers1D](https://gitee.com/mindspore/mindscience/blob/r0.3/MindFlow/applications/physics_driven/cylinder_flow/README_CN.md)            |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*NavierStokes](https://gitee.com/mindspore/mindscience/blob/r0.3/MindFlow/applications/physics_driven/cylinder_flow/README_CN.md)              |   ✅   | ✅ | Float 16/32 |
-| 计算流体 | [*PDE-Net](https://gitee.com/mindspore/mindscience/blob/r0.3/MindFlow/applications/data_mechanism_fusion/variant_linear_coe_pde_net/README_CN.md)   |   ✅   | ✅ | Float 16/32 |
-
 ## 大模型套件
 
 ### Transformers
