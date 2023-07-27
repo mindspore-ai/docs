@@ -244,7 +244,7 @@ Have to change the current directory to `xai/models/whitebox/tbnet` first.
 python infer.py --checkpoint_id 19
 ```
 
-The last checkpoint `./checkpoints/steam/tbnet_epoch19.ckpt` from [Running train.py](#running-train-py) will be used to infer on `./data/steam/infer.csv`. 3 recommended items with 3 relation path explanations each will be given.
+The last checkpoint `./checkpoints/steam/tbnet_epoch19.ckpt` from [Running train.py](https://www.mindspore.cn/xai/docs/en/master/using_tbnet.html#running-train-py) will be used to infer on `./data/steam/infer.csv`. 3 recommended items with 3 relation path explanations each will be given.
 
 ## Exporting Trained Model
 

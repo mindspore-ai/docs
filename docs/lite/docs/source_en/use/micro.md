@@ -330,7 +330,7 @@ At present, this function is only enabled when the `target` is configured as x86
 
 In MCU scenarios such as Cortex-M, limited by the memory size and computing power of the device, Int8 quantization operators are usually used for deployment inference to reduce the runtime memory size and speed up operations.
 
-If the user already has an Int8 full quantitative model, you can refer to the section on [Generating Inference Code by Running converter_lite](#generating-inference-code-by-running-converter-lite) to try to generate Int8 quantitative inference code directly without reading this chapter.
+If the user already has an Int8 full quantitative model, you can refer to the section on [Generating Inference Code by Running converter_lite](https://www.mindspore.cn/lite/docs/en/master/use/micro.html#generating-inference-code-by-running-converter-lite) to try to generate Int8 quantitative inference code directly without reading this chapter.
 In general, the user has only one trained Float32 model. To generate Int8 quantitative inference code at this time, it is necessary to cooperate with the post quantization function of the conversion tool to generate code. See the following for specific steps.
 
 #### Configuration

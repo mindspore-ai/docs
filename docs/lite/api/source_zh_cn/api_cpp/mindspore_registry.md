@@ -7,22 +7,22 @@
 | 类名 | 描述 |
 | --- | --- |
 | [NodeParserRegistry](#nodeparserregistry) | 扩展Node解析的注册类。|
-| [REG_NODE_PARSER](#reg-node-parser) | 注册扩展Node解析。|
+| [REG_NODE_PARSER](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#reg-node-parser) | 注册扩展Node解析。|
 | [ModelParserRegistry](#modelparserregistry) | 扩展Model解析的注册类。|
-| [REG_MODEL_PARSER](#reg-model-parser) | 注册扩展Model解析。|
+| [REG_MODEL_PARSER](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#reg-model-parser) | 注册扩展Model解析。|
 | [PassBase](#passbase) | Pass的基类。|
 | [PassPosition](#passposition) | 扩展Pass的运行位置。|
 | [PassRegistry](#passregistry) | 扩展Pass注册构造类。|
-| [REG_PASS](#reg-pass) | 注册扩展Pass。|
-| [REG_SCHEDULED_PASS](#reg-scheduled-pass) | 注册扩展Pass的调度顺序。|
+| [REG_PASS](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#reg-pass) | 注册扩展Pass。|
+| [REG_SCHEDULED_PASS](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#reg-scheduled-pass) | 注册扩展Pass的调度顺序。|
 | [RegisterKernel](#registerkernel) | 算子注册实现类。|
 | [KernelReg](#kernelreg) | 算子注册构造类。|
-| [REGISTER_KERNEL](#register-kernel) | 注册算子。|
-| [REGISTER_CUSTOM_KERNEL](#register-custom-kernel) | 注册Custom算子注册。|
+| [REGISTER_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-kernel) | 注册算子。|
+| [REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel) | 注册Custom算子注册。|
 | [RegisterKernelInterface](#registerkernelinterface) | 算子扩展能力注册实现类。|
 | [KernelInterfaceReg](#kernelinterfacereg) | 算子扩展能力注册构造类。|
-| [REGISTER_KERNEL_INTERFACE](#register-kernel-interface) | 注册算子扩展能力。|
-| [REGISTER_CUSTOM_KERNEL_INTERFACE](#register-custom-kernel-interface) | 注册Custom算子扩展能力。|
+| [REGISTER_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-kernel-interface) | 注册算子扩展能力。|
+| [REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel-interface) | 注册Custom算子扩展能力。|
 
 ## NodeParserRegistry
 
