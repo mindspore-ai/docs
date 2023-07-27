@@ -86,6 +86,8 @@ pygments_style = 'sphinx'
 
 myst_update_mathjax = False
 
+myst_heading_anchors = 4
+
 autodoc_inherit_docstrings = False
 
 autosummary_generate = True

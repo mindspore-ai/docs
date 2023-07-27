@@ -75,6 +75,8 @@ pygments_style = 'sphinx'
 
 myst_update_mathjax = False
 
+myst_heading_anchors = 4
+
 nbsphinx_allow_errors = True
 
 # -- Options for HTML output -------------------------------------------------
