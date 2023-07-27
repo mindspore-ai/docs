@@ -1197,7 +1197,7 @@ net = Net()
 net()
 ```
 
-```Text
+```text
 np_sum:  [ 2  4  6  8 10]
 tensor_sum:
 Tensor(shape=[5], dtype=Int64, value=[ 2  4  6  8 10])
