@@ -2189,7 +2189,7 @@ class ExhaleRoot(object):
 
             for parent,dirnames,filenames in os.walk(dirE):
                 for filename in filenames:
-                    if filename != "lite_c_example":
+                    if filename != "lite_c_example.rst":
                         cresult.append("   api_c/"+filename.split(".")[0]+"\n")
             cresult.sort()
 
