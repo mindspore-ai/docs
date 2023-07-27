@@ -752,7 +752,7 @@ net = Net()
 print(net())
 ```
 
-```Text
+```text
 1
 ```
 
@@ -778,7 +778,7 @@ x = ms.Tensor(1, dtype=ms.int32)
 print(net(x))
 ```
 
-```Text
+```text
 1.0
 ```
 
@@ -1050,7 +1050,7 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
 
    结果报错如下：
 
-   ```Text
+   ```text
    AttributeError: External object has no attribute y
    ```
 
@@ -1082,7 +1082,7 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
 
   结果如下：
 
-  ```Text
+  ```text
   [5 7 9]
   ```
 
@@ -1105,7 +1105,7 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
 
   结果如下：
 
-  ```Text
+  ```text
   (2, 2)
   ```
 
@@ -1128,7 +1128,7 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
 
   结果如下：
 
-  ```Text
+  ```text
   [2, 3, 4]
   ```
 
@@ -1209,7 +1209,7 @@ ret = net(Tensor([4, 5]), Tensor([1, 2]))
 print(ret)
 ```
 
-```Text
+```text
 [5 7]
 ```
 
@@ -1226,7 +1226,7 @@ net = InnerClass()
 print(net())
 ```
 
-```Text
+```text
 True
 ```
 
@@ -1498,7 +1498,7 @@ res: 2
 
   运行结果为：
 
-  ```Text
+  ```text
   obj.x is: 100
   ```
 
@@ -1520,7 +1520,7 @@ res: 2
 
   运行结果为：
 
-  ```Text
+  ```text
   shape is (2, 2)
   ```
 
@@ -1547,7 +1547,7 @@ res: 2
 
   运行结果为：
 
-  ```Text
+  ```text
   net.m is 3
   ```
 
@@ -1601,7 +1601,7 @@ res: 2
 
   运行结果为：
 
-  ```Text
+  ```text
   net.inner.x is 100
   ```
 
@@ -1633,7 +1633,7 @@ res: 2
 
   运行结果为：
 
-  ```Text
+  ```text
   net.inner.x is 100
   ```
 
@@ -1671,7 +1671,7 @@ res: 2
 
   运行结果为：
 
-  ```Text
+  ```text
   value0 is 1
   value1 is 2
   value2 is 2
@@ -1734,7 +1734,7 @@ print(f"y3 value is {y3}, dtype is {y3.dtype}")
 print(f"y4 value is {y4}, dtype is {y4.dtype}")
 ```
 
-```Text
+```text
 y1 value is 2.0, dtype is Float32
 y2 value is 2.0, dtype is Float32
 y3 value is 2.0, dtype is Float64
