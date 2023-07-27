@@ -1082,7 +1082,7 @@ The following mainly introduces the static graph syntax supported by the current
 
   The result is as follows:
 
-  ```Text
+  ```text
   [5 7 9]
   ```
 
@@ -1105,7 +1105,7 @@ The following mainly introduces the static graph syntax supported by the current
 
   The result is as follows:
 
-  ```Text
+  ```text
   (2, 2)
   ```
 
@@ -1128,7 +1128,7 @@ The following mainly introduces the static graph syntax supported by the current
 
   The result is as follows:
 
-  ```Text
+  ```text
   [2, 3, 4]
   ```
 
@@ -1209,7 +1209,7 @@ ret = net(Tensor([4, 5]), Tensor([1, 2]))
 print(ret)
 ```
 
-```Text
+```text
 [5 7]
 ```
 
@@ -1226,7 +1226,7 @@ net = InnerClass()
 print(net())
 ```
 
-```Text
+```text
 True
 ```
 
@@ -1498,7 +1498,7 @@ print(f"obj.x is: {obj.x}")
 
 The result is:
 
-```Text
+```text
 obj.x is: 100
 ```
 
@@ -1520,7 +1520,7 @@ print(f"shape is {shape}")
 
 The result is:
 
-```Text
+```text
 shape is (2, 2)
 ```
 
@@ -1547,7 +1547,7 @@ print(f"net.m is {net.m}")
 
 The result is:
 
-```Text
+```text
 net.m is 3
 ```
 
@@ -1601,7 +1601,7 @@ net()
 
   The result is:
 
-  ```Text
+  ```text
   net.inner.x is 100
   ```
 
@@ -1633,7 +1633,7 @@ net()
 
   The result is:
 
-  ```Text
+  ```text
   net.inner.x is 100
   ```
 
@@ -1671,7 +1671,7 @@ net()
 
   The result is:
 
-  ```Text
+  ```text
   value0 is 1
   value1 is 2
   value2 is 2
