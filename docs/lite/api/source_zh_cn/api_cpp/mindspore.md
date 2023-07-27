@@ -133,8 +133,8 @@ Context()
 | [DelegateMode GetBuiltInDelegate() const](#getbuiltindelegate)     |    ✕    |    √    |
 | [void SetDelegate(const std::shared_ptr<Delegate> &delegate)](#setdelegate)     |    ✕    |    √    |
 | [std::shared_ptr<Delegate> GetDelegate() const](#getdelegate)     |    ✕    |    √    |
-| [void set_delegate(const std::shared_ptr<AbstractDelegate> &delegate)](#set-delegate)         | ✕      | √      |
-| [std::shared_ptr<AbstractDelegate> get_delegate() const](#get-delegate)     |    ✕    |    √    |
+| [void set_delegate(const std::shared_ptr<AbstractDelegate> &delegate)](https://www.mindspore.cn/lite/api/zh-CN/r1.11/api_cpp/mindspore.html#set-delegate)         | ✕      | √      |
+| [std::shared_ptr<AbstractDelegate> get_delegate() const](https://www.mindspore.cn/lite/api/zh-CN/r1.11/api_cpp/mindspore.html#get-delegate)     |    ✕    |    √    |
 | [void SetMultiModalHW(bool float_mode)](#setmultimodalhw)     |    ✕    |    √    |
 | [bool GetMultiModalHW() const](#getmultimodalhw)     |    ✕    |    √    |
 | [std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo()](#mutabledeviceinfo)     |    √    |    √    |
@@ -1708,9 +1708,9 @@ void DestroyTensorPtr(MSTensor *tensor) noexcept;
 | [bool IsConst() const](#isconst)     |    √    |    √    |
 | [bool IsDevice() const](#isdevice)     |    √    |    ✕    |
 | [MSTensor *Clone() const](#clone)     |    √    |    √    |
-| [bool operator==(std::nullptr_t) const](#operator==std-nullptr-t)     |    √    |    √    |
-| [bool operator!=(std::nullptr_t) const](#operator!=std-nullptr-t)     |    √    |    √    |
-| [bool operator==(const MSTensor &tensor) const](#operator==const-mstensor-tensor)     |    √    |    √    |
+| [bool operator==(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/r1.11/api_cpp/mindspore.html#operator==std-nullptr-t)     |    √    |    √    |
+| [bool operator!=(std::nullptr_t) const](https://www.mindspore.cn/lite/api/zh-CN/r1.11/api_cpp/mindspore.html#operator!=std-nullptr-t)     |    √    |    √    |
+| [bool operator==(const MSTensor &tensor) const](https://www.mindspore.cn/lite/api/zh-CN/r1.11/api_cpp/mindspore.html#operator==const-mstensor-tensor)     |    √    |    √    |
 | [void SetShape(const std::vector<int64_t> &shape)](#setshape)     |    √    |    √    |
 | [void SetDataType(enum DataType data_type)](#setdatatype)     |    √    |    √    |
 | [void SetTensorName(const std::string &name)](#settensorname)     |    √    |    √    |
