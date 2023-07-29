@@ -13,7 +13,7 @@ For more information, see [torchvision.ops.roi_align](https://pytorch.org/vision
 ## mindspore.ops.ROIAlign
 
 ```python
-class mindspore.ops.ROIAlign(pooled_height, pooled_width, spatial_scale, sample_num=2, roi_end_mode=1)
+class mindspore.ops.ROIAlign(pooled_height, pooled_width, spatial_scale, sample_num=2, roi_end_mode=1)(features, rois)
 ```
 
 For more information, see [mindspore.ops.ROIAlign](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ROIAlign.html).
