@@ -17,6 +17,13 @@
 
 2. 右边栏会自动弹出，展示扫描出的API，并展示包含名称，网址等信息的详细列表。若本文件中未扫描到API，则不会弹出窗口。
 
+   其中：
+
+   - "可以转换为MindSpore API的PyTorch/TensorFlow API"指在文件中被使用的且可以转换为MindSpore API的PyTorch或TensorFlow API
+   - "暂时不能转换的API"指虽然是PyTorch或TensorFlow API的API，但是暂时没有直接对应为MindSpore API的API
+   - "可能是PyTorch/TensorFlow API的情况"指因为链式调用的原因，有可能是PyTorch或TensorFlow的API的可转换情况
+   - TensorFlow API扫描是实验性功能
+   
    ![img](./images/clip_image101.jpg)
 
 3. 蓝色字体的部分均可以点击，会自动在上方再打开一栏，展示网页。
