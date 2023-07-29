@@ -17,6 +17,13 @@
 
 2. The right sidebar will automatically pop up to show the scanned operator and display a detailed list containing the name, URL and other information. If no operator is scanned in this document, no pop-up window will appear.
 
+   where:
+
+   - "PyTorch/TensorFlow APIs that can be converted to MindSpore APIs" means PyTorch or TensorFlow APIs used in the Documentation that can be converted to MindSpore APIs.
+   - "APIs that cannot be converted at this time" means APIs that are PyTorch or TensorFlow APIs but do not have a direct equivalent to MindSpore APIs.
+   - "Possible PyTorch/TensorFlow API" refers to a convertible case where there is a possible PyTorch or TensorFlow API because of chained calls.
+   - TensorFlow API scanning is an experimental feature.
+
    ![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/devtoolkit/docs/source_zh_cn/images/clip_image101.jpg)
 
 3. Click the blue words, and another column will automatically open at the top to show the page.
