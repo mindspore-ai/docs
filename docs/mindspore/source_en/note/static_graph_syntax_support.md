@@ -1400,9 +1400,9 @@ The specific usage scenarios are as follows:
       list_input.reverse()
       return list_input
 
-   output = list_func()  # output: [4, 3, 2, 1]  list_input: [4, 3, 2, 1]
-   assert id(output) == id(list_input)
-   ```
+  output = list_func()  # output: [4, 3, 2, 1]  list_input: [4, 3, 2, 1]
+  assert id(output) == id(list_input)
+  ```
 
 #### Supporting the High-Level Usage of Dictionary
 
@@ -1618,50 +1618,50 @@ shape is (2, 2)
 
 - Make changes to the Cell's self object, for example:
 
-```python
-import mindspore as ms
-from mindspore import nn, set_context
-set_context(mode=ms.GRAPH_MODE)
+  ```python
+  import mindspore as ms
+  from mindspore import nn, set_context
+  set_context(mode=ms.GRAPH_MODE)
 
-class Net(nn.Cell):
-def __init__(self):
-    super().__init__()
-    self.m = 2
+  class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.m = 2
 
-def construct(self):
-    self.m = 3
-    return
+    def construct(self):
+        self.m = 3
+        return
 
-net = Net()
-net()
-print(f"net.m is {net.m}")
-```
+  net = Net()
+  net()
+  print(f"net.m is {net.m}")
+  ```
 
-The result is:
+  The result is:
 
-```Text
-net.m is 3
-```
+  ```Text
+  net.m is 3
+  ```
 
-Note that the self object only supports property modification, not property setting, that is, only supports modifying the properties set in the '__init__' function. If no attribute is defined in '__init__', it is not allowed to be set in graph mode. For example:
+  Note that the self object only supports property modification, not property setting, that is, only supports modifying the properties set in the '__init__' function. If no attribute is defined in '__init__', it is not allowed to be set in graph mode. For example:
 
-```python
-import mindspore as ms
-from mindspore import nn, set_context
-set_context(mode=ms.GRAPH_MODE)
+  ```python
+  import mindspore as ms
+  from mindspore import nn, set_context
+  set_context(mode=ms.GRAPH_MODE)
 
-class Net(nn.Cell):
-def __init__(self):
-    super().__init__()
-    self.m = 2
+  class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.m = 2
 
-def construct(self):
-    self.m2 = 3 # self.m2 is not set in the __init__, so it cannot be set in graph mode
-    return
+    def construct(self):
+        self.m2 = 3 # self.m2 is not set in the __init__, so it cannot be set in graph mode
+        return
 
-net = Net()
-net()
-```
+  net = Net()
+  net()
+  ```
 
 - Set and modify Cell objects and jit_class objects in the static graph
 
