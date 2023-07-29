@@ -26,7 +26,7 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
 | Ascend | `mindspore/mindspore-ascend` | `x.y.z` | 已经预安装Ascend Data Center Solution 与对应的MindSpore Ascend x.y.z版本的生产环境。 |
 
-> `x.y.z`对应MindSpore版本号，例如安装2.0.0版本MindSpore时，`x.y.z`应写为2.0.0。
+> `x.y.z`对应MindSpore版本号，例如安装2.1.0版本MindSpore时，`x.y.z`应写为2.1.0。
 
 ## 确认系统环境信息
 
@@ -38,9 +38,9 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 
 昇腾软件包提供商用版和社区版两种下载途径：
 
-- 商用版下载需要申请权限，下载链接与安装方式请参考[Ascend Data Center Solution 23.0.RC1安装指引文档]。
+- 商用版下载需要申请权限，下载链接与安装方式请参考[Ascend Data Center Solution 23.0.RC2安装指引文档]。
 
-- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/software/cann/community-history)，选择`6.3.RC1.alpha003`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers?tag=community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
+- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/software/cann/community-history)，选择`6.3.RC2.alpha004`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers?tag=community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
