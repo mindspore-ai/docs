@@ -7,7 +7,7 @@
 ```python
 class torchtext.datasets.IMDB(
     root: str = '.data',
-    split: Union[List[str], str] = ('train', 'test')
+    split: Union[List[str], str] = ('train', 'test'))
 ```
 
 For more information, see [torchtext.datasets.IMDB](https://pytorch.org/text/0.9.0/datasets.html#imdb).
