@@ -7,7 +7,7 @@
 ```python
 class torchtext.datasets.PennTreebank(
     root: str = '.data',
-    split: Union[List[str], str] = ('train', 'valid', 'test')
+    split: Union[List[str], str] = ('train', 'valid', 'test'))
 ```
 
 For more information, see [torchtext.datasets.PennTreebank](https://pytorch.org/text/0.9.0/datasets.html#penntreebank).
