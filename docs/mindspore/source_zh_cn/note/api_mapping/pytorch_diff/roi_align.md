@@ -13,7 +13,7 @@ torchvision.ops.roi_align(input: torch.Tensor, boxes: torch.Tensor, output_size:
 ## mindspore.ops.ROIAlign
 
 ```python
-class mindspore.ops.ROIAlign(pooled_height, pooled_width, spatial_scale, sample_num=2, roi_end_mode=1)
+class mindspore.ops.ROIAlign(pooled_height, pooled_width, spatial_scale, sample_num=2, roi_end_mode=1)(features, rois)
 ```
 
 更多内容详见[mindspore.ops.ROIAlign](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ROIAlign.html)。
