@@ -461,6 +461,16 @@ Dump功能
 
        默认值：1
      - 
+   * - MS_JIT_MODULES
+     - 指定静态图模式下哪些模块需要JIT静态编译，其函数方法会被编译成静态计算图。
+     - String
+     - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如：`export MS_JIT_MODULES=mindflow,mindyolo`。
+     - 默认情况下，第三方库之外的模块都会进行JIT静态编译。MindSpore套件如 `mindflow`、`mindyolo` 等并不会被视作第三方库，如果有类似MindSpore套件的模块，内部存在 `nn.Cell`、`@ms.jit` 修饰函数或需要编译成静态计算图的函数方法，可以通过配置该环境变量，使该模块进行JIT静态编译而不会被当成第三方库。
+   * - MS_JIT_IGNORE_MODULES
+     - 指定静态图模式下哪些模块是第三方库，不进行JIT静态编译，其函数方法会被解释执行。
+     - String
+     - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如：`export MS_JIT_IGNORE_MODULES=numpy,scipy`。
+     - 静态图模式能够自动识别第三方库，一般情况下不需要为NumPy、SciPy这些可识别的第三方库设置该环境变量。如果 `MS_JIT_IGNORE_MODULES` 和 `MS_JIT_MODULES` 同时指定同一个模块名，前者生效，后者不生效。
    * - MS_EXCEPTION_DISPLAY_LEVEL
      - 控制异常信息显示级别
      - Integer
