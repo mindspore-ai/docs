@@ -232,7 +232,7 @@ print(out)
   [[15.99984]]]]
 ```
 
-### Static Graph Syntax Enhancement (JIT Fallback)
+### Static Graph Syntax Enhancement
 
 In the MindSpore static graph mode, users need to follow MindSpore [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.1/note/static_graph_syntax_support.html) when writing programs, and there are constraints on the use of syntax. In dynamic graph mode, Python script code will be executed according to Python syntax, and users can use any Python syntax. It can be seen that the syntax constraints of static and dynamic graphs are different.
 
