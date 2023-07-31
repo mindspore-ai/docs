@@ -204,9 +204,9 @@ def func():
    b = tuple(np.array([1, 2, 3]))
    c = tuple({'a': 1, 'b': 2, 'c': 3})
    d = tuple(ms.Tensor([1, 2, 3]))
-   return a, b, c ,d
+   return a, b, c, d
 
-a, b, c ,d = func()
+a, b, c, d = func()
 print("a: ", a)
 print("b: ", b)
 print("c: ", c)
