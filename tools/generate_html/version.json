@@ -32,7 +32,7 @@
       "id" : 7 ,
       "name" : "mindflow",
       "branch" : "r0.1",
-      "whl_path" : "2.1.0/MindScience/gpu/x86_64/cuda-10.1/",
+      "whl_path" : "2.1.0/MindScience/gpu/x86_64/cuda-11.1/",
       "whl_name" : "mindflow_gpu-0.1.0-py3-none-any.whl",
       "environ" : "MSC_PATH",
       "uninstall_name" : "mindflow_gpu"
@@ -41,8 +41,8 @@
       "id" : 8 ,
       "name" : "reinforcement",
       "branch" : "r0.7",
-      "whl_path" : "2.1.0/Reinforcement/any/",
-      "whl_name" : "mindspore_rl-0.7.0-py3-none-any.whl",
+      "whl_path" : "2.1.0/Reinforcement/x86_64/",
+      "whl_name" : "mindspore_rl-0.7.0-py3-none-linux_x86_64.whl",
       "environ" : "RM_PATH",
       "uninstall_name" : "mindspore_rl"
    },
@@ -58,7 +58,7 @@
    {
       "id" : 11 ,
       "name" : "tutorials",
-      "branch" : "r2.0",
+      "branch" : "r2.1",
       "whl_path" : "",
       "whl_name" : "",
       "environ" : "",
@@ -67,7 +67,7 @@
    {
       "id" : 13 ,
       "name" : "devtoolkit",
-      "branch" : "r2.0",
+      "branch" : "r2.1",
       "whl_path" : "",
       "whl_name" : "",
       "environ" : "DT_PATH",
