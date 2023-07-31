@@ -1154,7 +1154,15 @@ The following mainly introduces the static graph syntax supported by the current
 
 ### Calling the Third-party Libraries
 
-- Supporting data types of third-party libraries (such as NumPy and SciPy), allowing calling and returning objects of third-party libraries.
+- Third-party libraries
+
+  1. Python built-in modules and Python standard libraries, such as `os`, `sys`, `math`, `time` and other modules.
+
+  2. Third-party code libraries. Their module paths are under the `site-packages` directory of the Python installation directory, which need to be installed first and then imported, such `NumPy` and `Scipy`. It should be noted that MindSpore suites such as `mindyolo` and `mindflow` are not treated as third-party libraries.
+
+  3. Modules specified by the environment variable `MS_JIT_IGNORE_MODULES`. In contrast, there is the environment variable `MS_JIT_MODULES`. For more details, please refer to [Environment Variables](https://www.mindspore.cn/docs/en/r2.1/note/env_var_list.html).
+
+- Supporting data types of third-party libraries, allowing calling and returning objects of third-party libraries.
 
   The code example is as follows.
 
