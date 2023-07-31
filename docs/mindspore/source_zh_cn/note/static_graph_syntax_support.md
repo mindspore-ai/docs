@@ -1154,7 +1154,15 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
 
 ### 调用第三方库
 
-- 支持第三方库(如NumPy、SciPy等)的数据类型，允许调用和返回第三方库的对象。
+- 第三方库
+
+  1. Python内置模块和Python标准库。例如`os`、`sys`、`math`、`time`等模块。
+
+  2. 第三方代码库。路径在Python安装目录的`site-packages`目录下，需要先安装后导入，例如`NumPy`、`SciPy`等。需要注意的是，`mindyolo`、`mindflow`等MindSpore套件不被视作第三方库。
+
+  3. 通过环境变量`MS_JIT_IGNORE_MODULES`指定的模块。与之相对的有环境变量`MS_JIT_MODULES`，具体使用方法请参考[环境变量](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html)。
+
+- 支持第三方库的数据类型，允许调用和返回第三方库的对象。
 
   示例如下：
 
