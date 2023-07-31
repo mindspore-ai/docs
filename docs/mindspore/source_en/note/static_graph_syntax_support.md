@@ -1406,57 +1406,57 @@ The specific usage scenarios are as follows:
 
 #### Supporting the High-Level Usage of Dictionary
 
-##### Supporting Top Graph Return Dictionary
+- Support Top Graph Return Dictionary
 
-Examples are as follows:
+  Examples are as follows:
 
-```python
-import mindspore as ms
+  ```python
+  import mindspore as ms
 
-@ms.jit()
-def test_dict():
-    x = {'a': 'a', 'b': 'b'}
-    y = x.get('a')
-    z = dict(y=y)
-    return z
+  @ms.jit()
+  def test_dict():
+      x = {'a': 'a', 'b': 'b'}
+      y = x.get('a')
+      z = dict(y=y)
+      return z
 
-out = test_dict()
-print("out:", out)
-```
+  out = test_dict()
+  print("out:", out)
+  ```
 
-The results are as follows:
+  The results are as follows:
 
-```text
-out:{'y': 'a'}
-```
+  ```text
+  out:{'y': 'a'}
+  ```
 
-##### Supporting Dictionary Index Value Retrieval and Assignment
+- Support Dictionary Index Value Retrieval and Assignment
 
-Examples are as follows:
+  Examples are as follows:
 
-```python
-import mindspore as ms
-import numpy as np
+  ```python
+  import mindspore as ms
+  import numpy as np
 
-x = {"a": ms.Tensor(np.array([1, 2, 3])), "b": ms.Tensor(np.array([4, 5, 6])), "c": ms.Tensor(np.array([7, 8, 9]))}
+  x = {"a": ms.Tensor(np.array([1, 2, 3])), "b": ms.Tensor(np.array([4, 5, 6])), "c": ms.Tensor(np.array([7, 8, 9]))}
 
-@ms.jit()
-def test_dict():
-    y = x["b"]
-    x["a"] = (2, 3, 4)
-    return x, y
+  @ms.jit()
+  def test_dict():
+      y = x["b"]
+      x["a"] = (2, 3, 4)
+      return x, y
 
-out1, out2 = test_dict()
-print('out1:{}'.format(out1))
-print('out2:{}'.format(out2))
-```
+  out1, out2 = test_dict()
+  print('out1:{}'.format(out1))
+  print('out2:{}'.format(out2))
+  ```
 
-The results are as follows:
+  The results are as follows:
 
-```text
-out1:{'a': (2, 3, 4), 'b': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'c': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
-out2:[4 5 6]
-```
+  ```text
+  out1:{'a': (2, 3, 4), 'b': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'c': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
+  out2:[4 5 6]
+  ```
 
 #### Supporting the Usage of None
 
