@@ -10,8 +10,8 @@ There are two ways to use the graph mode. The first way is to call the `@jit` de
 
 Due to syntax parsing restrictions, the supported data types, syntax, and related operations during graph building are not completely consistent with the Python syntax. As a result, some usage is restricted. Borrowing the traditional JIT compilation idea, considers the unification of static and dynamic graphs from the perspective of graph mode and extends the syntax capabilities of graph patterns. The static graph provides a syntax experience close to that of the dynamic graph, so as to realize the unity of dynamic and static. In order to facilitate users to choose whether to extend the static graph syntax, the JIT syntax support level option 'jit_syntax_level' is provided, and its value must be in the range of [STRICT,LAX], and selecting 'STRICT' is considered to use the basic syntax and do not extend the static graph syntax. The default value is 'LAX', please refer to the [Extended Syntaxes (LAX level)](#extended-syntaxes-lax-level) section of this article for more information. All backends are supported at all levels.
 
-- STRICT: Only basic syntax is supported, and execution performance is optimal.
-- LAX: Supporting more syntax(such as operations of dict, list, and None.), compatible with all Python syntax as much as possible.
+- STRICT: Only basic syntaxes is supported, and execution performance is optimal.
+- LAX: Supporting more complex syntaxes, compatible with all Python syntax as much as possible.
 
 The following describes the data types, syntax, and related operations supported during static graph building. These rules apply only to graph mode.
 
