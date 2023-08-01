@@ -75,6 +75,7 @@ MindSpore Quantum聚焦于NISQ阶段的算法实现与落地。结合HiQ高性�
    :caption: API参考
 
    overview
+   mindquantum.dtype
    mindquantum.core
    mindquantum.simulator
    mindquantum.framework

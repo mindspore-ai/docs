@@ -74,6 +74,7 @@ Typical Application Scenarios
    :caption: API References
 
    overview
+   mindquantum.dtype
    mindquantum.core
    mindquantum.simulator
    mindquantum.framework
