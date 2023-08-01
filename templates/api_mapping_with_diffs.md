@@ -1,6 +1,6 @@
 # 比较与torch.where的功能差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/templates/api_mapping_with_diffs.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/templates/api_mapping_with_diffs.md)
 
 ## torch.where
 
