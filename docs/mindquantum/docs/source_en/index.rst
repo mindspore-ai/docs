@@ -47,6 +47,7 @@ Typical Application Scenarios
    quantum_measurement
    noise
    noise_simulator
+   qubit_mapping
    bloch_sphere
 
 .. toctree::
