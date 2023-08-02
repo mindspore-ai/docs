@@ -454,18 +454,24 @@ ts.migrator.compare_npy_dir('/mindspore_model/vit/v1/temp_data/pt/npy',
 
 #### 网络权重迁移
 
-在迁移推理网络或微调网络训练等场景中，通常需要将PyTroch的权重迁移到MindSpore中。此时可以使用TroubleShooter的权重迁移工具，先调用[ts.migrator.get_weight_map](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/get_weight_map.md#)获取权重映射文件，再调用[ts.migrator.convert_weight](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/convert_weight.md#)完成权重自动化迁移，以下为基本样例。需要自定义等复杂场景可参考[TroubleShooter pth到ckpt权重自动转换](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF1pth%E5%88%B0ckpt%E6%9D%83%E9%87%8D%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2)。
+在迁移推理网络或微调网络训练等场景中，通常需要将PyTroch的权重迁移到MindSpore中。此时可以使用TroubleShooter的权重迁移工具，先调用[ts.migrator.get_weight_map](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/get_weight_map.md#)获取权重映射的json文件，再调用[ts.migrator.convert_weight](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/convert_weight.md#)完成权重自动化迁移，以下为基本样例。需要添加前缀、自定义映射等复杂场景可参考[TroubleShooter pth到ckpt权重自动转换](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF1pth%E5%88%B0ckpt%E6%9D%83%E9%87%8D%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2)。
 
 ```python
 import troubleshooter as ts
 
 device = torch.device(args.device if torch.cuda.is_available() else "cpu")
+# 1）创建Torch网络
 model = create_model(num_classes=args.num_classes, has_logits=False).to(device)
-# 1）获取权重映射文件
+
+# 2）通过Torch网络，获取权重映射json文件
 ts.migrator.get_weight_map(model, weight_map_save_path="/mindspore_model/vit/v1/temp_data/pt_net_info/torch_net_map.json")
 
-# 2）权重转换
+# 3）使用2）得到的权重映射json文件，进行权重转换
 ts.migrator.convert_weight(weight_map_path="/mindspore_model/vit/v1/temp_data/pt_net_info/torch_net_map.json",
                            pt_file_path="/torch_model/vit/v1/torch_net.pth",
                            ms_file_save_path='/mindspore_model/vit/v1/ms_net.ckpt')
 ```
+
+执行`convert_weight`时会打印权重转换过程中的详细信息，包括名称、转换详情、参数的shape等信息，如下图所示。
+
+![](images/image11.png)
