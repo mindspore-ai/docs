@@ -79,7 +79,6 @@ MindSpore Insight包括以下内容：
    summary_record
    dashboard
    lineage_and_scalars_comparison
-   migrate_3rd_scripts_mindconverter
    performance_profiling
    debugger
    landscape
