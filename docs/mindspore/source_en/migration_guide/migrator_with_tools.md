@@ -454,18 +454,24 @@ ts.migrator.compare_npy_dir('/mindspore_model/vit/v1/temp_data/pt/npy',
 
 #### Network Weight Migration
 
-In scenarios such as migrating inference networks or fine-tuning network training, it is often necessary to migrate weights from PyTroch to MindSpore. At this time, you can use TroubleShooter weight migration tool, first call [ts.migrator.get_weight_map](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/get_weight_map.md#) to obtain the weight mapping file, then call [ts.migrator.convert_weight](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/convert_weight.md#) to complete the weight auto-migration. The following is the basic sample. For the complex scenarios that require customization, refer to [TroubleShooter pth to ckpt weights auto conversion](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF1pth%E5%88%B0ckpt%E6%9D%83%E9%87%8D%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2).
+In scenarios such as migrating inference networks or fine-tuning network training, it is often necessary to migrate weights from PyTroch to MindSpore. At this time, you can use TroubleShooter weight migration tool, first call [ts.migrator.get_weight_map](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/get_weight_map.md#) to obtain the weight mapping json file, then call [ts.migrator.convert_weight](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/convert_weight.md#) to complete the weight auto-migration. The following is the basic sample. For complex scenarios such as adding prefixes and custom mappings, please refer to [TroubleShooter pth to ckpt weights auto conversion](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF1pth%E5%88%B0ckpt%E6%9D%83%E9%87%8D%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2).
 
 ```python
 import troubleshooter as ts
 
 device = torch.device(args.device if torch.cuda.is_available() else "cpu")
+# 1) Create a Torch network
 model = create_model(num_classes=args.num_classes, has_logits=False).to(device)
-# 1) Obtain the weight mapping file
+
+# 2) Obtain the weight mapping json file through the Torch network
 ts.migrator.get_weight_map(model, weight_map_save_path="/mindspore_model/vit/v1/temp_data/pt_net_info/torch_net_map.json")
 
-# 2) Weight conversion
+# 3) Use the weight mapping json file obtained in 2) to perform weight conversion
 ts.migrator.convert_weight(weight_map_path="/mindspore_model/vit/v1/temp_data/pt_net_info/torch_net_map.json",
                            pt_file_path="/torch_model/vit/v1/torch_net.pth",
                            ms_file_save_path='/mindspore_model/vit/v1/ms_net.ckpt')
 ```
+
+When `convert_weight` is executed, detailed information about the weight conversion process will be printed, including name, conversion status, shape of parameters, etc., as shown in the figure below.
+
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/docs/mindspore/source_zh_cn/migration_guide/images/image11.png)
