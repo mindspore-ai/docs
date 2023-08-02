@@ -4,7 +4,7 @@
 
 ## 概述
 
-AOE（Ascend Optimization Engine）是一款自动调优工具，作用是充分利用有限的硬件资源，以满足算子和整网的性能要求。AOE工具包含在线和离线两种调优模式。有关两种调优模式的定义和详细介绍，请参考[调优模式](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha001/developmenttools/devtool/aoe_16_001.html)。本文档主要介绍如何使用AOE工具实现MindSpore训练场景下的调优。
+AOE（Ascend Optimization Engine）是一款自动调优工具，作用是充分利用有限的硬件资源，以满足算子和整网的性能要求。AOE工具的详细介绍，请参考[AOE介绍](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha001/developmenttools/devtool/aoe_16_001.html)。本文档主要介绍如何使用AOE工具实现MindSpore训练场景下的调优。
 
 ## 开启调优
 
@@ -28,7 +28,7 @@ AOE（Ascend Optimization Engine）是一款自动调优工具，作用是充分
 
 ## 查看调优结果
 
-调优开始后，会在执行调优的工作目录下生成命名为`aoe_result_opat_{timestamp}_{pidxxx}.json`的文件来记录调优过程和调优结果。该文件的具体解析请参考[调优结果文件分析](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha001/developmenttools/devtool/aoe_16_049.html)。
+调优开始后，会在执行调优的工作目录下生成命名为`aoe_result_opat_{timestamp}_{pidxxx}.json`的文件来记录调优过程和调优结果。该文件的具体解析请参考[调优结果文件分析](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha001/developmenttools/devtool/aoe_16_028.html)。
 
 调优完成后，若满足自定义知识库生成条件，则会生成自定义知识库。如果指定了知识库存储路径的环境变量`TUNE_BANK_PATH`，调优生成的知识库会在指定目录下生成，否则调优生成的知识库会在如下默认路径中`${HOME}/Ascend/latest/data/aoe/custom/graph/${soc_version}`。
 
