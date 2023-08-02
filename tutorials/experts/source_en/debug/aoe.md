@@ -4,7 +4,7 @@
 
 ## Overview
 
-Ascend Optimization Engine (AOE) is an automatic tuning tool that makes full use of limited hardware resources to meet the performance requirements of operators and the entire network. The AOE tool includes online and offline tuning modes. The more information about the online, offline, and the operators supported by the two tune mode can be got in [Tune Mode](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/developmenttools/devtool/aoe_16_001.html). This document mainly introduces how to use the AOE to tune in MindSpore training scenarios.
+Ascend Optimization Engine (AOE) is an automatic tuning tool that makes full use of limited hardware resources to meet the performance requirements of operators and the entire network. The more information about the AOE can be got in [Introduction to AOE](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/developmenttools/devtool/aoe_16_001.html). This document mainly introduces how to use the AOE to tune in MindSpore training scenarios.
 
 ## Enabling Tune
 
@@ -14,7 +14,7 @@ Ascend Optimization Engine (AOE) is an automatic tuning tool that makes full use
 
   online: turn on online tuning.
 
-  offline：save GE graph for offline tune. Save GE graph for offline tune. When the path to save the graph is set, the graph is saved in the aoe_dump directory of the specified path; otherwise, it is saved in the aoe_dump directory under the current running directory.
+  offline：save GE graph for offline tune. Save GE graph for offline tune. When the path to save the graph is set by `set_context(save_graphs=3, save_graphs_path="path/to/ir/files")`, the graph is saved in the aoe_dump directory of the specified path; otherwise, it is saved in the aoe_dump directory under the current running directory.
 
   Set `aoe_config` in set_context for tuning configuration. `job_type` is tuning type，and the value should be in `["1", "2"]`，default value is `2`.
 
@@ -38,7 +38,7 @@ Ascend Optimization Engine (AOE) is an automatic tuning tool that makes full use
 
 ## Tuning Result Viewing
 
-After the tuning starts, a file named `aoe_result_opat_{timestamp}_{pidxxx}.json` will be generated in the working directory to record the tuning process and tuning results. Please refer to [tuning result file analysis](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/developmenttools/devtool/aoe_16_041.html) for specific analysis of this file.
+After the tuning starts, a file named `aoe_result_opat_{timestamp}_{pidxxx}.json` will be generated in the working directory to record the tuning process and tuning results. Please refer to [tuning result file analysis](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/developmenttools/devtool/aoe_16_028.html) for specific analysis of this file.
 
 After the tuning is complete, the custom knowledge base will be generated if the conditions are met. If the `TUNE_BANK_PATH` (Environment variable of the knowledge base storage path) is specified, the knowledge base (generated after tuning) will be saved in the specified directory. Otherwise, the knowledge base will be in the following default path `${HOME}/Ascend/latest/data/aoe/custom/graph/${soc_version}`.
 
