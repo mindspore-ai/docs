@@ -79,7 +79,6 @@ Using MindSpore Insight to Debug the Model Accuracy
    summary_record
    dashboard
    lineage_and_scalars_comparison
-   migrate_3rd_scripts_mindconverter
    performance_profiling
    debugger
    landscape
