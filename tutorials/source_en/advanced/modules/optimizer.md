@@ -381,7 +381,7 @@ print(optimizer.param_groups)
 ```
 
 ```text
-[{'params': [Parameter (name=conv.weight, shape=(6, 1, 5, 5), dtype=Float32, requires_grad=True)], 'weight_decay': 0.01, 'lr': Parameter (name=learning_rate_group_0, shape=(), dtype=Float32, requires_grad=True), 'amsgrad': True, 'betas': (0.9, 0.999), 'eps': 1e-08, 'maximize': False, 'grad_centralization': False}, {'params': [Parameter (name=param, shape=(1,), dtype=Float32, requires_grad=True)], 'lr': Parameter (name=learning_rate_group_1, shape=(), dtype=Float32, requires_grad=True), 'eps': 1e-06, 'betas': (0.8, 0.88), 'weight_decay': 0.0, 'amsgrad': False, 'maximize': False, 'grad_centralization': False}]
+[{'params': [Parameter (name=conv.weight, shape=(6, 1, 5, 5), dtype=Float32, requires_grad=True)], 'weight_decay': 0.01, 'lr': Parameter (name=learning_rate_group_0, shape=(), dtype=Float32, requires_grad=True), 'amsgrad': True, 'betas': (0.9, 0.999), 'eps': 1e-08, 'maximize': False}, {'params': [Parameter (name=param, shape=(1,), dtype=Float32, requires_grad=True)], 'lr': Parameter (name=learning_rate_group_1, shape=(), dtype=Float32, requires_grad=True), 'eps': 1e-06, 'betas': (0.8, 0.88), 'weight_decay': 0.0, 'amsgrad': False, 'maximize': False}]
 ```
 
 As you can see from the above output, the learning rate in the optimizer parameter group is `Parameter`. `Parameter` in mindspore does not display the parameter value natively, and you can view the parameter value by using `.value()`. It can use `get_lr` of `mindspore.nn.LRScheduler` from Dynamic Learning Rate Module `mindspore.nn.LRScheduler` as described above or set `verbose=True`.
@@ -406,7 +406,6 @@ Parameter Group 0
     amsgrad: True
     betas: (0.9, 0.999)
     eps: 1e-08
-    grad_centralization: False
     lr: 0.9
     maximize: False
     weight_decay: 0.01
@@ -415,7 +414,6 @@ Parameter Group 1
     amsgrad: False
     betas: (0.8, 0.88)
     eps: 1e-06
-    grad_centralization: False
     lr: 0.66
     maximize: False
     weight_decay: 0.0
