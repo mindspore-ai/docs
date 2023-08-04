@@ -20,7 +20,7 @@ mindspore.ops.qr(input, mode='reduced') -> (Tensor, Tensor)
 
 ## 差异对比
 
-PyTorch：返回一个或多个矩阵的QR（正交三角）分解。如果 `mode` 被设为'reduced'(默认值)，则计算Q的P列，其中P是 `input` 的2个最内层维度中的最小值。如果 `some` 被设为'complete'，则计算全尺寸Q和R。
+PyTorch：返回一个或多个矩阵的QR（正交三角）分解。如果 `mode` 被设为'reduced'(默认值)，则计算Q的P列，其中P是 `input` 的2个最内层维度中的最小值。如果 `mode` 被设为'complete'，则计算全尺寸Q和R。
 
 MindSpore：MindSpore此API实现功能与PyTorch基本一致。
 
