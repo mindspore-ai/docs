@@ -179,7 +179,6 @@
 |[mindspore.ops.pow](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.pow.html)|✔️|✔️|✔️|
 |[mindspore.ops.prelu](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.prelu.html)|✔️|✔️|✔️|
 |[mindspore.ops.prod](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.prod.html)|✔️|✔️|✔️|
-|[mindspore.ops.qr](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.qr.html)|✔️|✔️|✔️|
 |[mindspore.ops.rand](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.rand.html)|✔️|✔️|✔️|
 |[mindspore.ops.rand_like](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.rand_like.html)|✔️|✔️|✔️|
 |[mindspore.ops.randint](https://www.mindspore.cn/docs/en/r2.0/api_python/ops/mindspore.ops.randint.html)|✔️|✔️|✔️|
