@@ -153,7 +153,6 @@
 |[mindspore.Polygamma](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Polygamma.html)|✔️|✔️|✔️|
 |[mindspore.Pow](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Pow.html)|✔️|✔️|✔️|
 |[mindspore.PReLU](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.PReLU.html)|✔️|✔️|✔️|
-|[mindspore.Qr](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Qr.html)|✔️|✔️|✔️|
 |[mindspore.Range](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Range.html)|✔️|✔️|✔️|
 |[mindspore.Real](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Real.html)|✔️|✔️|✔️|
 |[mindspore.RealDiv](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.RealDiv.html)|✔️|✔️|✔️|
