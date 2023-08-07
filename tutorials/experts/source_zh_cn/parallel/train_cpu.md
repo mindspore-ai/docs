@@ -12,9 +12,9 @@
 ```text
 └─sample_code
     ├─distributed_training_cpu
-    │      resnet.py
-    │      resnet50_distributed_training.py
-    │      run.sh
+       ├── resnet.py
+       ├── resnet50_distributed_training.py
+       ├── run.sh
 ```
 
 其中，`resnet.py`和`resnet50_distributed_training.py`是训练网络定义脚本，`run.sh`是分布式训练执行脚本。

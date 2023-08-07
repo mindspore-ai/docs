@@ -20,6 +20,7 @@ test_dist_8pcs()
     export RANK_SIZE=8
 }
 
+mkdir ./src_pipeline_strategys
 test_dist_${RANK_SIZE}pcs
 for((i=1;i<${RANK_SIZE};i++))
 do

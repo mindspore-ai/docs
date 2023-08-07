@@ -383,7 +383,7 @@ done
 执行下面的命令即可启动一个单机8卡的数据并行训练
 
 ```bash
-bash run_gpu_cluster_recovery.sh /path/to/recovery/
+bash run_gpu_cluster_recovery.sh /path/to/dataset/
 ```
 
 分布式训练开始，若训练过程中遇到异常，如进程异常退出，然后再重新启动对应的进程，训练流程即可恢复：

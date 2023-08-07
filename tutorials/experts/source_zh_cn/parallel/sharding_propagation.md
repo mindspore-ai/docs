@@ -67,11 +67,11 @@
 目录结构如下，其中，`rank_table_8pcs.json`是配置当前Ascend多卡环境的组网信息文件（关于该配置文件的说明，参见[这里](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#配置分布式环境变量)），`train.py`是模型定义脚本，`run.sh`是执行脚本。
 
 ```text
-└─sample_code
-    ├─sharding_propagatinon
-    │      rank_table_8pcs.json
-    │      run.sh
-    │      train.py
+└─ sample_code
+    ├─ sharding_propagatinon
+       ├── rank_table_8pcs.json
+       ├── run.sh
+       ├── train.py
     ...
 ```
 

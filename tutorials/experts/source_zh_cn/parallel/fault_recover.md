@@ -185,7 +185,7 @@ if __name__ == "__main__":
 
 ## 运行代码
 
-在准备好数据和进入代码目录后，执行保存切片权重的训练脚本。
+在准备好数据和进入代码目录后，执行保存切片权重的训练脚本。其中`DATASET_PATH`建议使用绝对路径。
 
 ```bash
 bash run_parallel_save_ckpt.sh DATASET_PATH

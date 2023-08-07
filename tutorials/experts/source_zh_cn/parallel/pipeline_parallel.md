@@ -37,14 +37,14 @@ MindSpore的流水线并行实现中对执行序进行了调整，来达到更�
 目录结构如下：
 
 ```text
-└─sample_code
-    ├─distributed_training
-    │      rank_table_16pcs.json
-    │      rank_table_8pcs.json
-    │      rank_table_2pcs.json
-    │      resnet.py
-    │      resnet50_distributed_training_pipeline.py
-    │      run_pipeline.sh
+└─ sample_code
+    ├─ distributed_training
+       ├── rank_table_16pcs.json
+       ├── rank_table_8pcs.json
+       ├── rank_table_2pcs.json
+       ├── resnet.py
+       ├── resnet50_distributed_training_pipeline.py
+       └── run_pipeline.sh
     ...
 ```
 

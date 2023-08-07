@@ -3,8 +3,9 @@
 
 echo "=============================================================================================================="
 echo "Please run the script as: "
-echo "bash transform_by_rank.sh DATA_PATH"
-echo "For example: bash run.sh /path/dataset"
+echo "bash transform_by_rank.sh SRC_STRATEGY DST_STRATEGY SRC_CHECKPOINTS DST_CHECKPOINTS"
+echo "For example: bash transform_by_rank.sh ./src_strategy.ckpt ./dst_strategy.ckpt ./src_checkpoints ./dst_checkpoints
+"
 echo "It is better to use the absolute path."
 echo "=============================================================================================================="
 set -e
@@ -23,5 +24,5 @@ do
     mkdir $DST_CHECKPOINTS_DIR/rank_$i
     echo "start transforming for rank_$i"
     python ./transform_checkpoint_by_rank.py --transform_rank=$i --src_strategy_file=${SRC_STRATEGY_FILE} --dst_strategy_file=${DST_STRATEGY_FILE} \
-    --src_checkpoints_dir=${SRC_CHECKPOINTS_DIR} --dst_checkpoints_dir=${DST_CHECKPOINTS_DIR} > transform_rank$i.log 2>&1 &
+    --src_checkpoints_dir=${SRC_CHECKPOINTS_DIR} --dst_checkpoints_dir=${DST_CHECKPOINTS_DIR} > $DST_CHECKPOINTS_DIR/rank_$i/transform_rank$i.log 2>&1 &
 done

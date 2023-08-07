@@ -25,6 +25,7 @@ from mindspore import train
 from dataset import ToyDataset, Tokenzier
 from model import Net
 
+ms.set_context(mode=ms.GRAPH_MODE)
 
 def set_weight_decay(params):
     """

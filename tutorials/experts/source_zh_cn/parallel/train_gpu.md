@@ -12,19 +12,19 @@
 ```text
 └─sample_code
     ├─distributed_training
-    │      rank_table_16pcs.json
-    │      rank_table_8pcs.json
-    │      rank_table_2pcs.json
-    │      cell_wrapper.py
-    │      model_accu.py
-    │      resnet.py
-    │      resnet50_distributed_training.py
-    │      resnet50_distributed_training_gpu.py
-    │      resnet50_distributed_training_grad_accu.py
-    │      run.sh
-    │      run_gpu.sh
-    │      run_grad_accu.sh
-    │      run_cluster.sh
+       ├── rank_table_16pcs.json
+       ├── rank_table_8pcs.json
+       ├── rank_table_2pcs.json
+       ├── cell_wrapper.py
+       ├── model_accu.py
+       ├── resnet.py
+       ├── resnet50_distributed_training.py
+       ├── resnet50_distributed_training_gpu.py
+       ├── resnet50_distributed_training_grad_accu.py
+       ├── run.sh
+       ├── run_gpu.sh
+       ├── run_grad_accu.sh
+       ├── run_cluster.sh
 ```
 
 其中，`resnet.py`和`resnet50_distributed_training_gpu.py`是定义网络结构的脚本。`run_gpu.sh`是执行脚本，其余文件为Ascend 910的样例代码。
@@ -109,7 +109,7 @@ mpirun -n DEVICE_NUM python nccl_allgather.py
  [3.]]
 ```
 
-输出日志在程序执行后，可在`log/1/rank.0`中找到。若得到以上输出，则说明OpenMPI和NCCL工作正常，进程正常启动。
+输出日志在程序执行后，可在终端中输出。若得到以上输出，则说明OpenMPI和NCCL工作正常，进程正常启动。
 
 ### 下载数据集
 

@@ -52,8 +52,8 @@ MindSpore实现的优化器参数切分还具有与算子级并行混合使用�
 目录结构如下：
 
 ```text
-└─sample_code
-    ├─distributed_optimizer_parallel
+└─ sample_code
+    ├─ distributed_optimizer_parallel
         ├── fusion_example.py
         ├── rank_table_2pcs.json
         ├── rank_table_8pcs.json

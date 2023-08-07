@@ -16,7 +16,7 @@
 Model for training transformers
 """
 from mindformers.modules import Transformer, VocabEmbedding, AttentionMask
-from mindformers.common import CrossEntropyLoss
+from mindformers.core import CrossEntropyLoss
 
 import mindspore.nn as nn
 import mindspore.ops as ops

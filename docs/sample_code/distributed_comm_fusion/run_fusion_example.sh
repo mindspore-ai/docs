@@ -2,7 +2,7 @@
 set -e
 echo "=============================================================================================================="
 echo "Please run the script as: "
-echo "bash run_fusion_example.sh DATA_PATH RANK_SIZE"
+echo "bash run_fusion_example.sh RANK_SIZE"
 echo "For example: bash run_fusion_example.sh 8"
 echo "It is better to use the absolute path."
 echo "This example is expected to run on the Ascend environment."

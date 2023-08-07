@@ -18,14 +18,14 @@
 目录结构如下：
 
 ```text
-└─sample_code
-    ├─distributed_training
-    │      rank_table_16pcs.json
-    │      rank_table_8pcs.json
-    │      rank_table_2pcs.json
-    │      resnet.py
-    │      resnet50_distributed_training_dataset_slice.py
-    │      run_dataset_slice.sh
+└─ sample_code
+    ├─ distributed_training
+       ├── rank_table_16pcs.json
+       ├── rank_table_8pcs.json
+       ├── rank_table_2pcs.json
+       ├── resnet.py
+       ├── resnet50_distributed_training_dataset_slice.py
+       ├── run_dataset_slice.sh
 ```
 
 ### 创建数据集
