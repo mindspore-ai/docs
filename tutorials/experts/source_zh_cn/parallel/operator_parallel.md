@@ -73,11 +73,11 @@ class DenseMatMulNet(nn.Cell):
 目录结构如下：
 
 ```text
-└─sample_code
-    ├─operator_parallel
-    │      rank_table_8pcs.json
-    │      train.py
-    │      run.sh
+└─ sample_code
+    ├─ operator_parallel
+       ├── rank_table_8pcs.json
+       ├── train_lenet.py
+       └── run.sh
     ...
 ```
 

@@ -18,8 +18,11 @@ Model for training transformers
 import mindspore.nn as nn
 import mindspore.ops as ops
 import mindspore as ms
-from mindspore.nn.transformer import Transformer, VocabEmbedding, AttentionMask, CrossEntropyLoss
 from mindspore.nn import Dense as Linear
+from mindformers.modules import Transformer, VocabEmbedding, AttentionMask
+from mindformers.core import CrossEntropyLoss
+
+ms.set_context(mode=ms.GRAPH_MODE)
 
 class EmbeddingLayer(nn.Cell):
     """Embedding layer including position embedding and word embedding"""

@@ -27,10 +27,11 @@
 目录结构如下：
 
 ```text
-distributed_graph_partition/
-├── lenet.py
-├── run.sh
-└── train.py
+└─ sample_code
+    ├─ distributed_graph_partition
+       ├── lenet.py
+       ├── run.sh
+       └── train.py
 ```
 
 > 此教程不涉及跨物理节点启动，所有进程都在同一节点。对MindSpore来说，节点内和跨节点分布式图切分的实现是没有区别的：通过动态组网，图切分，图编译流程后，通过Rpc通信算子进行数据交互。

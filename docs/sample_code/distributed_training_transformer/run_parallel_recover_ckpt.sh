@@ -33,7 +33,7 @@ do
     echo "start training for recover $i"
     env > env$i.log
     python ./parallel_recover_train.py --distribute=true --file_path=${DATA_PATH} --mp=4 \
-    --enable_parallel_optimizer=0 --ckpt_file=./ckpt_dir$i/test-4_77.ckpt > train.log$i 2>&1 &
+    --enable_parallel_optimizer=0 --ckpt_file=../ckpt_dir$i/test-4_77.ckpt > train.log$i 2>&1 &
     cd ../
 done
 rm -rf recover0
@@ -45,5 +45,5 @@ export RANK_ID=0
 echo "start training for recover 0"
 env > env0.log
 python ./parallel_recover_train.py --distribute=true --file_path=${DATA_PATH} --mp=4 \
---enable_parallel_optimizer=0 --ckpt_file=./ckpt_dir0/test-4_77.ckpt > train.log0 2>&1 &
+--enable_parallel_optimizer=0 --ckpt_file=../ckpt_dir0/test-4_77.ckpt > train.log0 2>&1 &
 cd ../
