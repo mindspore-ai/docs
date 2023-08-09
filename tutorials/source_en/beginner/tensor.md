@@ -41,7 +41,7 @@ There are multiple methods for creating tensors. When building a tensor, you can
 
     When `init` is used to initialize a tensor, the `init`, `shape`, and `dtype` parameters can be transferred.
 
-    - `init`: supports the subclass of [initializer](https://mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html).
+    - `init`: supports the subclass of [initializer](https://mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html). For example, [One()](https://www.mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.One) and [Normal()](https://www.mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal) below.
     - `shape`: supports `list`, `tuple`, and `int`.
     - `dtype`: supports [mindspore.dtype](https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.dtype).
 
@@ -182,7 +182,7 @@ mod: [0. 1. 0.]
 floordiv: [4. 2. 2.]
 ```
 
-`Concat` connects a series of tensors in a given dimension.
+[concat](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.concat.html) connects a series of tensors in a given dimension.
 
 ```python
 data1 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
@@ -202,7 +202,7 @@ shape:
  (4, 2)
 ```
 
-`Stack` combines two tensors from another dimension.
+[stack](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.stack.html) combines two tensors from another dimension.
 
 ```python
 data1 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
@@ -229,7 +229,7 @@ Tensor and NumPy can be converted to each other.
 
 ### Tensor to NumPy
 
-Use `asnumpy()` to convert Tensor to NumPy, which is same as tensor building.
+Use [Tensor.asnumpy()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html) to convert Tensor to NumPy, which is same as tensor building.
 
 ```python
 t = ops.ones(5, mindspore.float32)

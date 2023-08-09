@@ -33,6 +33,9 @@ b = Parameter(Tensor(np.random.randn(3,), mindspore.float32), name='b') # bias
 
 We construct the computing function based on the computing process described by the computing graphs.
 
+[binary_cross_entropy_with_logits](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.binary_cross_entropy_with_logits.html) is a loss function,
+which computes binary cross entropy between the logits and the label.
+
 ```python
 def function(x, y, w, b):
     z = ops.matmul(x, w) + b
