@@ -269,7 +269,7 @@ print("finished exporting")
 
 ### Model Transferring
 
-To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/lite/docs/en/r2.1/use/converter_train.html#creating-mindspore-lite-models), the command is:
+To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/lite/docs/en/r2.1/use/converter_train.html), the command is:
 
 ```bash
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=lenet_tod.mindir --outputFile=lenet_tod

@@ -92,7 +92,7 @@ if __name__ == "__main__":
 - `device_target="GPU"`: 指定设备为GPU。
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 - `get_rank()`：获得当前进程的rank号。
-- `ops.AllGather`: 在GPU上，该算子会调用NCCL的AllGather通信操作，其含义以及更多的例子可在[分布式集合通信原语](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/samples/ops/communicate_ops.html#AllGather)中找到。
+- `ops.AllGather`: 在GPU上，该算子会调用NCCL的AllGather通信操作，其含义以及更多的例子可在[分布式集合通信原语](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/samples/ops/communicate_ops.html#allgather)中找到。
 
 在GPU硬件平台上，MindSpore采用OpenMPI的mpirun来启动进程，通常每一个进程对应一个计算设备。
 

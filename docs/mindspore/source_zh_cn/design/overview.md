@@ -38,7 +38,7 @@ MindSpore提供面向对象和面向函数的[编程范式](https://www.mindspor
 
 同时用户也可以定义一个可被MindSpore源到源编译转换的Python纯函数，通过MindSpore提供的函数或装饰器，将其加速执行。在满足MindSpore静态语法的要求下，Python纯函数可以支持子函数嵌套、控制逻辑甚至是递归函数表达。因此基于此编程范式，用户可灵活使能一些功能特性，更易于表达业务逻辑。
 
-MindSpore实现了[函数式微分编程](https://www.mindspore.cn/docs/zh-CN/r2.1/design/programming_paradigm.html#functional-differential-programming)，对可被微分求导的函数对象，按照调用关系，基于调用链进行求导。采取这样自动微分策略更符合数学语义，与基本代数中的复合函数有直观的对应关系，只要已知基础函数的求导公式，就能推导出由任意基础函数组成的复合函数的求导公式。
+MindSpore实现了[函数式微分编程](https://www.mindspore.cn/docs/zh-CN/r2.1/design/programming_paradigm.html##函数式微分编程)，对可被微分求导的函数对象，按照调用关系，基于调用链进行求导。采取这样自动微分策略更符合数学语义，与基本代数中的复合函数有直观的对应关系，只要已知基础函数的求导公式，就能推导出由任意基础函数组成的复合函数的求导公式。
 
 同时基于函数式编程范式，MindSpore提供了丰富高阶函数如vmap、shard等内置高阶函数功能。与微分求导函数grad一样，可以让用户方便的构造一个函数或对象，作为高阶函数的参数。高阶函数经过内部编译优化，生成针对用户函数的优化版本，实现如向量化变换、分布式并行切分等特点功能。
 

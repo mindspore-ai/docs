@@ -228,7 +228,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
 ##### List
 
-When 'JIT_SYNTAX_LEVEL' is set to 'LAX', static graph mode can support the inplace operation of some 'List' objects, see [Supporting List Inplace Modification Operations](https://www.mindspore.cn/docs/en/r2.1/note/static_graph_syntax_support.html#supporting-List-inplace-modification-operations).
+When 'JIT_SYNTAX_LEVEL' is set to 'LAX', static graph mode can support the inplace operation of some 'List' objects, see [Supporting List Inplace Modification Operations](https://www.mindspore.cn/docs/en/r2.1/note/static_graph_syntax_support.html#supporting-list-inplace-modification-operations).
 
 The basic usage scenarios of 'List' are as follows:
 

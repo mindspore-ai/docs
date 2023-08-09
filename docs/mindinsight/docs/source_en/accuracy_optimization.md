@@ -261,7 +261,7 @@ Considering that the model structure is complex, it is unrealistic to find all m
 
 > MindSpore Insight allows you to view the computational graph recorded by `SummaryCollector` and the PB file computational graph exported by the `save_graphs` parameter of MindSpore context. Please refer to [Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/en/r2.1/dashboard.html#computational-graph-visualization) in our tutorial for more information.
 >
-> The script migration tool can convert models compiled under the PyTorch and TensorFlow frameworks into MindSpore scripts. For more information, visit [Migrating From Third Party Frameworks With MindConverter](https://www.mindspore.cn/mindinsight/docs/en/r2.1/migrate_3rd_scripts_mindconverter.html).
+> The script migration tool can convert models compiled under the PyTorch and TensorFlow frameworks into MindSpore scripts.
 
 #### Checking the Input Data
 
