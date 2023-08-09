@@ -11,7 +11,6 @@ MindSpore Insight包括以下内容：
 - `训练溯源及对比 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/lineage_and_scalars_comparison.html>`_
 - `性能调优 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling.html>`_
 - `精度调试 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html>`_
-- `模型迁移 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html>`_
 
 .. raw:: html
 

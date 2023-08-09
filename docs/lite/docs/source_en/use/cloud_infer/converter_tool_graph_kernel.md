@@ -6,7 +6,7 @@
 
 Graph kernel fusion is a unique network performance optimization technique in MindSpore. It can automatically analyze and optimize the existing network computational graph logic and combine with the target hardware capabilities to perform optimizations, such as computational simplification and substitution, operator splitting and fusion, operator special case compilation, to improve the utilization of device computational resources and achieve the overall optimization of network performance. Compared with traditional optimization techniques, graph kernel fusion has unique advantages such as joint optimization of multiple operators across boundaries, cross-layer collaboration with MindSpore AKG (Polyhedral-based operator compiler), and on-the-fly compilation.
 
-MindSpore Lite whl and tar packages have built-in AKG by default. For the installed MindSpore Lite via source code, make sure you have [installed llvm 12.0.1](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/build.html#installing-LLVM). Installing the ascend backend via source code requires an additional installation of [git-lfs](https://git-lfs.com/).
+MindSpore Lite whl and tar packages have built-in AKG by default. For the installed MindSpore Lite via source code, make sure you have [installed llvm 12.0.1](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/build.html#installing-llvm-optional). Installing the ascend backend via source code requires an additional installation of [git-lfs](https://git-lfs.com/).
 
 ## AKG Installation
 

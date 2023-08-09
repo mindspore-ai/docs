@@ -263,7 +263,7 @@ MindSpore Insight可以辅助用户对超参做检查，大多数情况下，`Su
 
 > MindSpore Insight支持查看`SummaryCollector`记录的计算图和MindSpore context的`save_graphs`参数导出的pb文件计算图。请参考我们教程中的[计算图可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)部分了解更多信息。
 >
-> 脚本迁移工具可以将PyTorch、TensorFlow框架下编写的模型转换为MindSpore脚本，请访问教程[使用工具迁移模型定义脚本](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html)以了解更多信息。
+> 脚本迁移工具可以将PyTorch、TensorFlow框架下编写的模型转换为MindSpore脚本。
 
 #### 检查输入数据
 
