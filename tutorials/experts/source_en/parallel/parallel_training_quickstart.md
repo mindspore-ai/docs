@@ -115,7 +115,7 @@ class Net(Cell):
         return out
 ```
 
-where the `shard()` method is described in detail in [Principles of Automatic Parallelism](https://www.mindspore.cn/docs/en/r2.0/design/distributed_training_design.html#principle-of-automatic-parallelism). The inference introduction is in [functional operator sharding](https://www.mindspore.cn/tutorials/experts/en/r2.0/parallel/pynative_shard_function_parallel.html)
+where the `shard()` method is described in detail in [Principles of Automatic Parallelism](https://www.mindspore.cn/docs/en/r2.0/design/distributed_training_design.html#fully-automatic-parallelism). The inference introduction is in [functional operator sharding](https://www.mindspore.cn/tutorials/experts/en/r2.0/parallel/pynative_shard_function_parallel.html)
 
 For the parallel sharding strategy set in the above example, the `matmul` operator computation process for the forward propagation process in a single-machine 8-card environment is schematically shown as follows:
 
