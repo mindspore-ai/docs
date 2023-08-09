@@ -6,3 +6,4 @@ numpy
 nbsphinx == 0.8.11
 IPython
 jieba
+descriptastorus == 2.6.0
