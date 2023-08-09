@@ -290,7 +290,7 @@ Extend the support for built-in functions. Python built-in functions perfectly s
 
 #### Supporting Control Flow
 
-In order to improve the support of Python standard syntax, realize dynamic and static unification, and extend the support for more data types in the use of control flow statements. Control flow statements refer to flow control statements such as 'if', 'for', and 'while'. Theoretically, by extending the supported syntax, it is also supported in control flow scenarios. For more usage, please refer to the [Supports Control Flow](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supports-control-flow) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+In order to improve the support of Python standard syntax, realize dynamic and static unification, and extend the support for more data types in the use of control flow statements. Control flow statements refer to flow control statements such as 'if', 'for', and 'while'. Theoretically, by extending the supported syntax, it is also supported in control flow scenarios. For more usage, please refer to the [Supports Control Flow](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supporting-control-flow) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
 
 #### Support Property Setting and Modification
 
