@@ -39,6 +39,8 @@
 
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。如果没有安装，可以使用`pip install wheel` 进行安装。
 
+- 确认安装[autoconf](https://ftp.gnu.org/gnu/autoconf/)。如果没有安装，可以使用`brew install autoconf` 进行安装。
+
 ## 从代码仓下载源码
 
 ```bash
