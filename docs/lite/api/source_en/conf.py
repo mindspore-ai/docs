@@ -16,6 +16,7 @@ import sys
 import textwrap
 import shutil
 import glob
+import sphinx
 from sphinx.ext import autodoc as sphinx_autodoc
 import sphinx.ext.autosummary.generate as g
 
@@ -298,6 +299,23 @@ for i in os.listdir(src_dir):
 lite_dir = './mindspore_lite'
 if os.path.exists(lite_dir):
     shutil.rmtree(lite_dir)
+
+# Repair error content defined in mindspore_lite.
+try:
+    decorator_list = [("mindspore_lite/model.py","del decorator",
+                       "@set_env","# generate api by del decorator set_env.")]
+
+    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+    for i in decorator_list:
+        with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
+            content = f.read()
+            if i[2] in content:
+                content = content.replace(i[2], i[3])
+                f.seek(0)
+                f.truncate()
+                f.write(content)
+except:
+    pass
 
 import mindspore_lite
 
