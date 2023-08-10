@@ -15,7 +15,7 @@ Currently MindSpore also provides distributed parallel training, which supports 
 
     - `dynamic_programming`: Dynamic programming strategy search algorithm. Capable of searching the optimal strategy inscribed by the cost model, but time consuming in searching parallel strategy for huge network models. Its cost model models training time based on the memory-based computational overhead and communication overhead of the Ascend 910 chip.
     - `recursive_programming`: Double recursive strategy search algorithm. The optimal strategy can be generated instantaneously for huge networks and large-scale multi-card slicing. Its cost model based on symbolic operations can be freely adapted to different accelerator clusters.
-    - `sharding_propagation`: Sharding strategy propagation algorithm. The parallel strategy are propagated from operators configured with parallel strategy to operators that are not configured. When propagating, the algorithm tries to select the strategy that triggers the least amount of tensor rescheduling communication. For the parallel strategy configuration and tensor rescheduling of the operator, refer to this [design document](https://www.mindspore.cn/docs/en/r2.0/design/distributed_training_design.html#principle-of-automatic-parallelism).
+    - `sharding_propagation`: Sharding strategy propagation algorithm. The parallel strategy are propagated from operators configured with parallel strategy to operators that are not configured. When propagating, the algorithm tries to select the strategy that triggers the least amount of tensor rescheduling communication. For the parallel strategy configuration and tensor rescheduling of the operator, refer to this [design document](https://www.mindspore.cn/docs/en/r2.0/design/distributed_training_design.html#fully-automatic-parallelism).
 
 - `SEMI_AUTO_PARALLEL`: Semi-automatic parallel mode, compared to automatic parallel, requires the user to manually configure the shard strategy for the operator to achieve parallelism.
 - `HYBRID_PARALLEL`: In MindSpore, it refers specifically to scenarios where the user achieves hybrid parallel by manually slicing the model.
@@ -98,7 +98,7 @@ model.train(*args, **kwargs)
 
 ### Semi-automatic Parallism
 
-Compared to automatic parallelism, the semi-automatic parallel mode requires the user to manually configure the shard **strategy** for the operator to achieve parallelism. For the operator parallel strategy definition, refer to this [design document](https://www.mindspore.cn/docs/en/r2.0/design/distributed_training_design.html#principle-of-automatic-parallelism).
+Compared to automatic parallelism, the semi-automatic parallel mode requires the user to manually configure the shard **strategy** for the operator to achieve parallelism. For the operator parallel strategy definition, refer to this [design document](https://www.mindspore.cn/docs/en/r2.0/design/distributed_training_design.html#fully-automatic-parallelism).
 
 - When starting semi-automatic and automatic modes for training, training **must** be performed via the `model.train(*args, **kwargs)` interface. Custom loops for network training are not supported.
 
@@ -154,7 +154,7 @@ Compared to automatic parallelism, the semi-automatic parallel mode requires the
     model.train(*args, **kwargs)
     ```
 
-In case the device matrices of the preceding and following operators do not match, a [rescheduling](https://www.mindspore.cn/docs/en/r2.0/design/distributed_training_design.html#principle-of-automatic-parallelism) is automatically inserted to ensure that the shard state of `tensor` matches the next operator input requirement. For example, the following example code is used in the training of single machine eight-card：
+In case the device matrices of the preceding and following operators do not match, a [rescheduling](https://www.mindspore.cn/docs/en/r2.0/design/distributed_training_design.html#fully-automatic-parallelism) is automatically inserted to ensure that the shard state of `tensor` matches the next operator input requirement. For example, the following example code is used in the training of single machine eight-card：
 
 ```python
 import numpy as np
