@@ -76,7 +76,7 @@ train_dataset = datapipe(train_dataset, 64)
 test_dataset = datapipe(test_dataset, 64)
 ```
 
-Use `create_tuple_iterator` or `create_dict_iterator` to iterate over the dataset.
+[create_tuple_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_tuple_iterator.html) or [create_dict_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html) could be used to iterate over the dataset, printing the shape and dtype for `image` and `label`.
 
 ```python
 for image, label in test_dataset.create_tuple_iterator():
@@ -148,12 +148,6 @@ For more detailed information, see [Model](https://www.mindspore.cn/tutorials/en
 
 ## Training Model
 
-```python
-# Instantiate loss function and optimizer
-loss_fn = nn.CrossEntropyLoss()
-optimizer = nn.SGD(model.trainable_params(), 1e-2)
-```
-
 In model training, a complete training process (step) requires the following three steps:
 
 1. **Forward calculation**: model predicts results (logits) and finds the prediction loss (loss) with the correct label (label).
@@ -163,20 +157,24 @@ In model training, a complete training process (step) requires the following thr
 MindSpore uses a functional automatic differentiation mechanism, implemented through the steps above:
 
 1. Define forward calculation function.
-2. Obtain the gradient calculation function by function transformation.
-3. Define training functions, and perform forward computation, back propagation and parameter optimization.
+2. Obtain the gradient calculation function by function transformation, calling [value_and_grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.value_and_grad.html) for details.
+3. Define training functions, set to training mode by calling [set_train](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_train) for setting of training mode, and perform forward computation, back propagation and parameter optimization.
 
 ```python
-# Define forward function
+# Instantiate loss function and optimizer
+loss_fn = nn.CrossEntropyLoss()
+optimizer = nn.SGD(model.trainable_params(), 1e-2)
+
+# 1. Define forward function
 def forward_fn(data, label):
     logits = model(data)
     loss = loss_fn(logits, label)
     return loss, logits
 
-# Get gradient function
+# 2. Get gradient function
 grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
 
-# Define function of one-step training
+# 3. Define function of one-step training
 def train_step(data, label):
     (loss, _), grads = grad_fn(data, label)
     optimizer(grads)
