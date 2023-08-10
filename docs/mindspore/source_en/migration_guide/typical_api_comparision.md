@@ -725,7 +725,7 @@ torch.nn.init.uniform_(x)
 
 After running the code above, x is no longer an uninitialized Tensor, and its elements will follow the uniform distribution.
 
-### mindspore.copmmon.initializer
+### mindspore.common.initializer
 
 `mindspore.common.initializer` is used for delayed initialization in parallel mode. Only after calling `init_data()`, the elements will be assigned based on its `init`.
 Every Tensor could only use `init_data` once.

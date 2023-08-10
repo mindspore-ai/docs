@@ -37,14 +37,14 @@ In MindSpore's pipeline parallel implementation, the execution order has been ad
 The directory structure is as follows:
 
 ```text
-└─sample_code
-    ├─distributed_training
-    │      rank_table_16pcs.json
-    │      rank_table_8pcs.json
-    │      rank_table_2pcs.json
-    │      resnet.py
-    │      resnet50_distributed_training_pipeline.py
-    │      run_pipeline.sh
+└─ sample_code
+    ├─ distributed_training
+       ├── rank_table_16pcs.json
+       ├── rank_table_8pcs.json
+       ├── rank_table_2pcs.json
+       ├── resnet.py
+       ├── resnet50_distributed_training_pipeline.py
+       └── run_pipeline.sh
     ...
 ```
 

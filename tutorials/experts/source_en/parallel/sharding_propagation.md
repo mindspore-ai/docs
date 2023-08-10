@@ -67,11 +67,11 @@ The following figure illustrates an example process of applying Sharding Propaga
 The directory structure is as follows, where `rank_table_8pcs.json` is the IP configuration for Ascend devices (see [here]( https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#configuring-distributed-environment-variables) for the explanation), `train.py` is the model definition, and `run.sh` is the execution script.
 
 ```text
-└─sample_code
-    ├─sharding_propagatinon
-    │      rank_table_8pcs.json
-    │      run.sh
-    │      train.py
+└─ sample_code
+    ├─ sharding_propagatinon
+       ├── rank_table_8pcs.json
+       ├── run.sh
+       ├── train.py
     ...
 ```
 

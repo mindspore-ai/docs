@@ -184,7 +184,7 @@ where,
 
 ## Running the Code
 
-After preparing the dataset and entering the code directory, execute the training script that saves the slice weights.
+After preparing the dataset and entering the code directory, execute the training script that saves the slice weights. `DATASET_PATH` recommends using an absolute path.
 
 ```bash
 bash run_parallel_save_ckpt.sh DATASET_PATH

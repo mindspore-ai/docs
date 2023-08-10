@@ -64,11 +64,11 @@ The following is an illustration of operator-level parallelism by taking an Asce
 The directory structure is as follows:
 
 ```text
-└─sample_code
-    ├─operator_parallel
-    │      rank_table_8pcs.json
-    │      train.py
-    │      run.sh
+└─ sample_code
+    ├─ operator_parallel
+       ├── rank_table_8pcs.json
+       ├── train_lenet.py
+       └── run.sh
     ...
 ```
 

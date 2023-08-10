@@ -52,8 +52,8 @@ Optimizer parameter slicing implemented by MindSpore also has the advantage of b
 The directory structure is as follows:
 
 ```text
-└─sample_code
-    ├─distributed_optimizer_parallel
+└─ sample_code
+    ├─ distributed_optimizer_parallel
         ├── fusion_example.py
         ├── rank_table_2pcs.json
         ├── rank_table_8pcs.json

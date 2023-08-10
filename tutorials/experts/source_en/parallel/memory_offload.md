@@ -26,11 +26,11 @@ Through heterogeneous storage management, parameters or intermediate results tha
 Taking the ResNet-50 network as an example, for the code implementation, refers to [example](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/memory_offload). The directory structure is shown below, where resnet.py is the ResNet-50 network implementation, cifa_resnet50.py is the training script, and run.sh is the execution script.
 
 ```text
-└─sample_code
-    ├─memory_offload
-    │      resnet.py
-    │      cifa_resnet50.py
-    │      run.sh
+└─ sample_code
+    ├─ memory_offload
+       ├── resnet.py
+       ├── cifa_resnet50.py
+       ├── run.sh
     ...
 ```
 

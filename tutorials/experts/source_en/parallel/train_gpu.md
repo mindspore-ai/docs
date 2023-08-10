@@ -13,19 +13,19 @@ The directory structure is as follows:
 ```text
 └─sample_code
     ├─distributed_training
-    │      rank_table_16pcs.json
-    │      rank_table_8pcs.json
-    │      rank_table_2pcs.json
-    │      cell_wrapper.py
-    │      model_accu.py
-    │      resnet.py
-    │      resnet50_distributed_training.py
-    │      resnet50_distributed_training_gpu.py
-    │      resnet50_distributed_training_grad_accu.py
-    │      run.sh
-    │      run_gpu.sh
-    │      run_grad_accu.sh
-    │      run_cluster.sh
+       ├── rank_table_16pcs.json
+       ├── rank_table_8pcs.json
+       ├── rank_table_2pcs.json
+       ├── cell_wrapper.py
+       ├── model_accu.py
+       ├── resnet.py
+       ├── resnet50_distributed_training.py
+       ├── resnet50_distributed_training_gpu.py
+       ├── resnet50_distributed_training_grad_accu.py
+       ├── run.sh
+       ├── run_gpu.sh
+       ├── run_grad_accu.sh
+       ├── run_cluster.sh
 ```
 
 Where `resnet.py` and `resnet50_distributed_training_gpu.py` are the scripts that define the structure of the network. `run_gpu.sh` is the execution script and the remaining files are Ascend 910.
@@ -110,7 +110,7 @@ Where the DEVICE_NUM is the number of GPUs of the machine. Taking DEVICE_NUM=4 a
  [3.]]
 ```
 
-The output log can be found in `log/1/rank.0` after the program is executed. If the above output is obtained, it means that OpenMPI and NCCL are working normally, and the process is starting normally.
+The output log can be output from the terminal after the program is executed. If the above output is obtained, it means that OpenMPI and NCCL are working normally, and the process is starting normally.
 
 ### Downloading the Dataset
 
