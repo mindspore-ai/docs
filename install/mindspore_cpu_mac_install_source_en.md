@@ -39,6 +39,8 @@ This document describes how to install MindSpore by compiling source code on mac
 
 - Ensure that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed. Use `pip install wheel` if it's not installed.
 
+- Ensure that [autoconf](https://ftp.gnu.org/gnu/autoconf/) is installed. Use `brew install autoconf` if it's not installed.
+
 ## Downloading Source Code from Code Repository
 
 ```bash
