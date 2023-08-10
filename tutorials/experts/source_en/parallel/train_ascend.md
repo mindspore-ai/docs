@@ -25,7 +25,7 @@ The directory structure is as follow:
         ├── run_dataset_slice.sh
         ├── run_gpu.sh
         ├── run_pipeline.sh
-        └── run.sh
+        ├── run.sh
     ...
 ```
 

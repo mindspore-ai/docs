@@ -12,9 +12,9 @@ The directory structure is as follows:
 ```text
 └─sample_code
     ├─distributed_training_cpu
-    │      resnet.py
-    │      resnet50_distributed_training.py
-    │      run.sh
+       ├── resnet.py
+       ├── resnet50_distributed_training.py
+       ├── run.sh
 ```
 
 where `resnet.py` and `resnet50_distributed_training.py` are the training network definition scripts and `run.sh` is the distributed training execution script.

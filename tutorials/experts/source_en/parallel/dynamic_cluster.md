@@ -383,7 +383,7 @@ Before starting Worker and Scheduler, you need to add relevant environment varia
 Execute the following command to start a single-machine 8-card data parallel training
 
 ```bash
-bash run_gpu_cluster_recovery.sh /path/to/recovery/
+bash run_gpu_cluster_recovery.sh /path/to/dataset/
 ```
 
 Distributed training starts, and if an abnormal case is encountered during training, such as a process quitting abnormally, and then restarting the corresponding process, the training process can be recovered:

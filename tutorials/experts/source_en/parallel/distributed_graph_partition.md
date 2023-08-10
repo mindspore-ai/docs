@@ -28,10 +28,11 @@ Taking LeNet training on GPU based on MNIST dataset as an example, different par
 The directory structure is as follows:
 
 ```text
-distributed_graph_partition/
-├── lenet.py
-├── run.sh
-└── train.py
+└─ sample_code
+    ├─ distributed_graph_partition
+       ├── lenet.py
+       ├── run.sh
+       └── train.py
 ```
 
 > This tutorial does not involve starting across physical nodes, where all processes are on the same node. For MindSpore, there is no difference in the implementation of intra-node and cross-node distributed graph partition: after dynamic networking, graph slicing, and graph compilation processes, data interaction is performed via Rpc communication operators.
