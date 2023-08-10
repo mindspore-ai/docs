@@ -14,9 +14,9 @@ Each process consists of the following main steps:
 
 1. Model reading: Slice and [export the distributed MindIR model](https://www.mindspore.cn/tutorials/experts/en/r2.1/parallel/distributed_inference.html#exporting-mindir-files-on-the-distributed-scenarios) via MindSpore. The number of MindIR models is the same as the number of devices for loading to each device for inference.
 2. Context creation and configuration: Create and configure the [Context](https://www.mindspore.cn/lite/api/en/r2.1/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context), and hold the distributed inference parameters to guide distributed model compilation and model execution.
-3. Model loading and compilation: Use the [Model::Build](https://www.mindspore.cn/lite/api/en/r2.1/api_cpp/mindspore.html#build-2) interface for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase optimizes the front-end computational graph into a high-performance back-end computational graph. The process is time-consuming and it is recommended to compile once and inference multiple times.
+3. Model loading and compilation: Use the [Model.build_from_file](https://www.mindspore.cn/lite/api/en/r2.1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase optimizes the front-end computational graph into a high-performance back-end computational graph. The process is time-consuming and it is recommended to compile once and inference multiple times.
 4. Model input data padding.
-5. Distributed inference execution: use the [Model::Predict](https://www.mindspore.cn/lite/api/en/r2.1/generate/classmindspore_Model.html) interface for model distributed inference.
+5. Distributed inference execution: use the [Model.predict](https://www.mindspore.cn/lite/api/en/r2.1/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.predict) interface for model distributed inference.
 6. Model output data obtaining.
 7. Multi-process execution of distributed inference programs.
 

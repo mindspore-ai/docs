@@ -11,7 +11,6 @@ MindSpore Insight provides the following functions:
 - `Training lineage and comparison <https://www.mindspore.cn/mindinsight/docs/en/r2.1/lineage_and_scalars_comparison.html>`_
 - `Performance optimization <https://www.mindspore.cn/mindinsight/docs/en/r2.1/performance_profiling.html>`_
 - `Accuracy debugging <https://www.mindspore.cn/mindinsight/docs/en/r2.1/debugger.html>`_
-- `Model migration <https://www.mindspore.cn/mindinsight/docs/en/r2.1/migrate_3rd_scripts_mindconverter.html>`_
 
 .. raw:: html
 
