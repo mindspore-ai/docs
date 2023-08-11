@@ -59,7 +59,7 @@ out:  [-1.6770952   1.5087128   0.15726662]
 
 在MindSpore中，静态图模式又被称为Graph模式，在Graph模式下，基于图优化、计算图整图下沉等技术，编译器可以针对图进行全局的优化，获得较好的性能，因此比较适合网络固定且需要高性能的场景。
 
-在静态图模式下，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。MindSpore使用基于图表示的函数式IR，称为MindIR，详情可参考[中间表示MindIR](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#mindir)。
+在静态图模式下，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。MindSpore使用基于图表示的函数式IR，称为MindIR，详情可参考[中间表示MindIR](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir)。
 
 MindSpore的静态图执行过程实际包含两步，对应静态图的Define和Run阶段，但在实际使用中，在实例化的Cell对象被调用时并不会感知，MindSpore将两阶段均封装在Cell的`__call__`方法中，因此实际调用过程为：
 
