@@ -215,7 +215,7 @@ ret: 9
 
 限制：
 
-- 如果`cond`不为常量，在不同分支中同一符号被赋予的变量或者常量的数据类型应一致，如果是被赋予变量或者常量数据类型是`Tensor`，则要求`Tensor`的type和shape也应一致。shape一致性约束详见[ShapeJoin规则](https://www.mindspore.cn/tutorials/experts/zh-CN/master/network/control_flow.html#shapejoin规则)。
+- 如果`cond`不为常量，在不同分支中同一符号被赋予的变量或者常量的数据类型应一致，如果是被赋予变量或者常量数据类型是`Tensor`，则要求`Tensor`的type和shape也应一致。
 
 示例1：
 
@@ -365,7 +365,7 @@ ret:[[7. 7. 7.]
 
 限制：
 
-- 如果`cond`不为常量，在循环体内外同一符号被赋值的变量或者常量的数据类型应一致，如果是被赋予数据类型`Tensor`，则要求`Tensor`的type和shape也应一致。shape一致性约束详见[ShapeJoin规则](https://www.mindspore.cn/tutorials/experts/zh-CN/master/network/control_flow.html#shapejoin规则)。
+- 如果`cond`不为常量，在循环体内外同一符号被赋值的变量或者常量的数据类型应一致，如果是被赋予数据类型`Tensor`，则要求`Tensor`的type和shape也应一致。
 
 - 不支持`while...else...`语句。
 
