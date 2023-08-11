@@ -4,7 +4,7 @@
 
 ## Installation Steps
 
-1. Obtain [Plug-in vsix package](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0rc1/IdePlugin/any/mindspore-dev-toolkit-2.0.0.vsix).
+1. Obtain [Plug-in vsix package](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.0/IdePlugin/any/mindspore-dev-toolkit-2.1.0.vsix).
 2. Click the fifth button on the left, "Extensions". Click the three dots in the upper right corner, and then click "Install from VSIX..."
 
    ![image-20211223175637989](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/devtoolkit/docs/source_zh_cn/images/clip_image112.jpg)
