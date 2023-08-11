@@ -247,7 +247,6 @@
 [mindspore.ops.bmm](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.bmm.html#mindspore.ops.bmm)|New|基于batch维度的两个Tensor的矩阵乘法。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.cholesky](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.cholesky.html#mindspore.ops.cholesky)|New|计算对称正定矩阵或一批对称正定矩阵的Cholesky分解。|r2.0: GPU/CPU|线性代数函数
 [mindspore.ops.cholesky_solve](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.cholesky_solve.html#mindspore.ops.cholesky_solve)|New|根据Cholesky分解因子 input2 计算一组具有正定矩阵的线性方程组的解。|r2.0: Ascend/GPU/CPU|线性代数函数
-[mindspore.ops.eig](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.eig.html#mindspore.ops.eig)|New|计算输入方阵（batch方阵）的特征值和特征向量。|r2.0: Ascend/CPU|线性代数函数
 [mindspore.ops.geqrf](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.geqrf.html#mindspore.ops.geqrf)|New|将矩阵分解为正交矩阵 Q 和上三角矩阵 R 的乘积。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.inner](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.inner.html#mindspore.ops.inner)|New|计算两个1D Tensor的点积。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.inverse](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.inverse.html#mindspore.ops.inverse)|New|计算输入矩阵的逆。|r2.0: GPU/CPU|线性代数函数
@@ -261,7 +260,6 @@
 [mindspore.ops.ormqr](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.ormqr.html#mindspore.ops.ormqr)|New|计算一个普通矩阵与Householder矩阵的乘积。|r2.0: GPU|线性代数函数
 [mindspore.ops.outer](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.outer.html#mindspore.ops.outer)|New|计算 input 和 vec2 的外积。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.pinv](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.pinv.html#mindspore.ops.pinv)|New|计算矩阵的（Moore-Penrose）伪逆。|r2.0: CPU|线性代数函数
-[mindspore.ops.qr](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.qr.html#mindspore.ops.qr)|New|返回一个或多个矩阵的QR（正交三角）分解。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.slogdet](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.slogdet.html#mindspore.ops.slogdet)|New|对一个或多个方阵行列式的绝对值取对数，返回其符号和值。|r2.0: Ascend/GPU/CPU|线性代数函数
 [mindspore.ops.svd](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.svd.html#mindspore.ops.svd)|New|计算单个或多个矩阵的奇异值分解。|r2.0: GPU/CPU|线性代数函数
 [mindspore.ops.trace](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.trace.html#mindspore.ops.trace)|New|返回input的对角线方向上的总和。|r2.0: Ascend/GPU/CPU|线性代数函数
