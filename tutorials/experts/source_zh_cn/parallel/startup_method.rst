@@ -9,30 +9,26 @@
   :hidden:
 
   dynamic_cluster
-  ms_operator
+  mpirun
+  rank_table
 
-多卡启动方式
+启动方式
 ----------------------
 
-目前GPU、Ascend和CPU分别支持多种启动方式。主要有OpenMPI，动态组网和多进程启动三种方式。
+目前GPU、Ascend和CPU分别支持多种启动方式。主要有动态组网、\ ``mpirun``\和\ ``rank table``\三种方式：
 
-- 多进程启动方式。用户需要启动和卡数对应的进程，以及配置rank_table表。可以访问 `运行脚本 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#运行脚本>`_，学习如何通过多进程方式启动多卡任务。
-- OpenMPI。用户可以通过mpirun命令来启动运行脚本，此时用户需要提供host file文件。用户可以访问 `通过OpenMPI运行脚本 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#通过openmpi运行脚本>`_，学习如何使用OpenMPI启动多卡任务。
-- 动态组网。MindSpore使用内部动态组网模块，无需对外部配置文件或者模块产生依赖，帮助实现多卡任务。用户可以访问 `动态组网启动章节 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html>`_，学习如何使用动态组网方式启动多卡任务。
+- `动态组网 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html>`_：此方式不依赖第三方库，具有容灾恢复功能，安全性好，支持三种硬件平台，建议用户优先使用此种启动方式。
+- `mpirun <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/mpirun.html>`_：此方式依赖开源库OpenMPI，启动命令简单，多机需要保证两两之间免密登录，推荐有OpenMPI使用经验的用户使用此种启动方式。
+- `rank table <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/rank_table.html>`_：此方式需要在Ascend硬件平台使用，不依赖第三方库。手动配置rank_table文件后，就可以通过脚本启动并行程序，多机脚本一致，方便批量部署。
 
-+---------------+--------------+-----------------+-------------+
-|               | GPU          | Ascend          | CPU         |
-+===============+==============+=================+=============+
-| OpenMPI       | 支持         | 支持            | 不支持      |
-+---------------+--------------+-----------------+-------------+
-| 多进程启动    | 不支持       | 支持            | 不支持      |
-+---------------+--------------+-----------------+-------------+
-| 动态组网      | 支持         | 支持            | 支持        |
-+---------------+--------------+-----------------+-------------+
+三种启动方式的硬件支持情况如下表：
 
-云上启动MindSpore分布式并行训练
------------------------------------------
-
-MindSpore Operator是MindSpore在Kubernetes上进行分布式训练的插件。CRD（Custom Resource Definition）中定义了Scheduler、PS、Worker三种角色，用户只需配置yaml文件，即可轻松实现分布式训练。
-
-当前ms-operator支持普通单Worker训练、PS模式的单Worker训练以及自动并行（例如数据并行、模型并行等）的Scheduler、Worker启动。详细流程请参考  `ms-operator <https://gitee.com/mindspore/ms-operator>`_。
++-------------------------+--------------+-----------------+-------------+
+|                         | GPU          | Ascend          | CPU         |
++=========================+==============+=================+=============+
+|    动态组网             | 支持         | 支持            | 支持        |
++-------------------------+--------------+-----------------+-------------+
+|  \ ``mpirun``\          | 支持         | 支持            | 不支持      |
++-------------------------+--------------+-----------------+-------------+
+|    \ ``rank table``\    | 不支持       | 支持            | 不支持      |
++-------------------------+--------------+-----------------+-------------+
