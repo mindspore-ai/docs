@@ -103,4 +103,3 @@ Restrictions:
 - For operators `<`, `<=`, `>`, `>=`, `!=`, `==`, if either operand is `Tensor` type, left and right operands can't both be `Bool` value.
 - For operator `==`, if all operands are `Number` type,  support both `Number` have `Bool` value, not support only one `Number` has `Bool` value.
 - For operators `!=`, `==`, all supported types but `mstype` can compare with `None`.
-- The chain comparison like: `a>b>c` is not supported.
