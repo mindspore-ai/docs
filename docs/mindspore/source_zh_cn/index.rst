@@ -52,6 +52,7 @@ MindSpore 文档
    api_python/mindspore.boost
    api_python/mindspore.numpy
    api_python/mindspore.scipy
+   api_python/mindspore.experimental
 
 .. toctree::
    :glob:
