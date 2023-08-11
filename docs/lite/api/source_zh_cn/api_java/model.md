@@ -27,6 +27,7 @@ Model定义了MindSpore中编译和运行的模型。
 | [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename)                                         | ✕      | √      |
 | [List<String\> getOutputTensorNames()](#getoutputtensornames)                                         | √      | √      |
 | [boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer,List<String\> outputTensorNames)](#export)             | ✕      | √      |
+| [boolean exportWeightsCollaborateWithMicro(String weightFile, boolean isInference,boolean enableFp16, List<String> changeableWeightNames)](#exportweightscollaboratewithmicro)             | ✕      | √      |
 | [List<MSTensor\> getFeatureMaps()](#getfeaturemaps)                                         | ✕      | √      |
 | [boolean updateFeatureMaps(List<MSTensor\> features)](#updatefeaturemaps)                                         | ✕      | √      |
 | [boolean setTrainMode(boolean isTrain)](#settrainmode)                                         | ✕      | √      |
@@ -265,6 +266,25 @@ public boolean export(String fileName, int quantizationType, boolean isOnlyExpor
 - 返回值
 
   导出模型是否成功。
+
+## exportweightscollaboratewithmicro
+
+```java
+public boolean exportWeightsCollaborateWithMicro(String weightFile, boolean isInference,boolean enableFp16, List<String> changeableWeightNames)
+```
+
+导出训练模型权重。
+
+- 参数
+
+    - `weightFile`: 模型权重文件路径名称。
+    - `isInference`: 是否导出推理图权重。当前只支持true。
+    - `enableFp16`: 是否权重保存fp16。
+    - `changeableWeightNames`: 可变shape的权重tensor名称。
+
+- 返回值
+
+  导出模型权重是否成功。
 
 ## getFeatureMaps
 

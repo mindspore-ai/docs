@@ -27,6 +27,7 @@ Model defines model in MindSpore for compiling and running.
 | [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename)                                         | ✕      | √      |
 | [List<String\> getOutputTensorNames()](#getoutputtensornames)                                         | √      | √      |
 | [boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer,List<String\> outputTensorNames)](#export)             | ✕      | √      |
+| [boolean exportWeightsCollaborateWithMicro(String weightFile, boolean isInference,boolean enableFp16, List<String> changeableWeightNames)](#exportweightscollaboratewithmicro)             | ✕      | √      |
 | [List<MSTensor\> getFeatureMaps()](#getfeaturemaps)                                         | ✕      | √      |
 | [boolean updateFeatureMaps(List<MSTensor\> features)](#updatefeaturemaps)                                         | ✕      | √      |
 | [boolean setTrainMode(boolean isTrain)](#settrainmode)                                         | ✕      | √      |
@@ -261,6 +262,25 @@ Export the model.
     - `quantization_type`: The quant type.
     - `isOnlyExportInfer`: Is only export infer.
     - `outputTensorNames`: The output tensor names for export.
+
+- Returns
+
+   Whether the export is successful.
+
+## exportweightscollaboratewithmicro
+
+```java
+public boolean exportWeightsCollaborateWithMicro(String weightFile, boolean isInference,boolean enableFp16, List<String> changeableWeightNames)
+```
+
+Export the training model weights.
+
+- Parameters
+
+    - `weightFile`: Model weight file name.
+    - `isInference`: Whether to export the weights of inference graph.
+    - `enableFp16`:  Whether to save as float16 dtype.
+    - `changeableWeightNames`: The weight tensor names whose shape is changeable.
 
 - Returns
 
