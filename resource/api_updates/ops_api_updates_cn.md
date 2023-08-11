@@ -11,7 +11,6 @@
 [mindspore.ops.Cummax](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Cummax.html#mindspore.ops.Cummax)|New|返回输入Tensor在指定轴上的累计最大值与其对应的索引。|r2.0: GPU/CPU|Array操作
 [mindspore.ops.Cummin](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Cummin.html#mindspore.ops.Cummin)|New|返回输入Tensor在指定轴上的累计最小值与其对应的索引。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.Diag](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Diag.html#mindspore.ops.Diag)|New|用给定的对角线值构造对角线Tensor。|r2.0: Ascend/GPU/CPU|Array操作
-[mindspore.ops.Eig](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Eig.html#mindspore.ops.Eig)|New|计算输入方阵（batch方阵）的特征值和特征向量。|r2.0: Ascend/CPU|Array操作
 [mindspore.ops.FillDiagonal](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.FillDiagonal.html#mindspore.ops.FillDiagonal)|New|填充至少具有二维的Tensor的主对角线。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.FillV2](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.FillV2.html#mindspore.ops.FillV2)|New|创建一个Tensor，其shape由 shape 指定，其值则由 value 进行填充。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.Fmax](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Fmax.html#mindspore.ops.Fmax)|New|逐元素计算输入Tensor的最大值。|r2.0: CPU|Array操作
