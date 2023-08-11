@@ -14,12 +14,6 @@ A: 对于语法 `is` 或 `is not` 而言，当前 `MindSpore` 仅支持与 `True
 
 <br/>
 
-<font size=3>**Q: 编译时报错“Only support comparison with 1 operator, but got 2”怎么办？**</font>
-
-A: 对于比较语句，`MindSpore` 最多支持一个操作数。例如不支持语句 `1 < x < 3`，请使用 `1 < x and x < 3` 的方式代替。
-
-<br/>
-
 <font size=3>**Q: 编译时报错“TypeError: For 'Cell', the function construct requires 1 positional argument and 0 default argument, total 1, but got 2”怎么办？**</font>
 
 A: 网络的实例被调用时，会执行 `construct` 方法，然后会检查 `construct` 方法需要的参数个数和实际传入的参数个数，如果不一致则会抛出以上异常。

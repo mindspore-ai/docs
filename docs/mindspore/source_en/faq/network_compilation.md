@@ -14,12 +14,6 @@ A: For the syntax `is` or `is not`, currently `MindSpore` only supports comparis
 
 <br/>
 
-<font size=3>**Q: What can I do if an error "Only support comparison with 1 operator, but got 2" is reported?**</font>
-
-A: For comparison statements, `MindSpore` supports at most one operator. For example, you can use `1 < x and x < 3` to take the place of `1 < x < 3`.
-
-<br/>
-
 <font size=3>**Q: What can I do if an error "TypeError: For 'Cell', the function construct requires 1 positional argument and 0 default argument, total 1, but got 2" is reported?**</font>
 
 A: When you call the instance of a network, the function `construct` will be executed. And the program will check the number of parameters required by the function `construct` and the number of parameters actually given. If they are not equal, the above exception will be thrown.
