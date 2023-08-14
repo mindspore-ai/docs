@@ -25,7 +25,7 @@ This chapter uses a network (Vision Transformer) as an example of completing a n
 
 Note: The complete sample code for migrating the network can be found at the following link
 
-<https://github.com/WZMIAOMIAO/deep-learning-for-image-processing/tree/r2.1/pytorch_classification/vision_transformer>
+<https://github.com/WZMIAOMIAO/deep-learning-for-image-processing/tree/master/pytorch_classification/vision_transformer>
 
 ### Network Migration Development
 
