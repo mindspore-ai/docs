@@ -44,12 +44,12 @@ v = torch.tensor([[3, 6, 9], [3, 6, 9]])
 out1 = torch.bucketize(v, boundaries)
 out2 = torch.bucketize(v, boundaries, right=True)
 print(out1)
-# out:
+# Out:
 # tensor([[1, 3, 4],
 #        [1, 3, 4]])
 
 print(out2)
-# out:
+# Out:
 # tensor([[2, 3, 5],
 #        [2, 3, 5]])
 
@@ -59,12 +59,12 @@ v = Tensor([[3, 6, 9], [3, 6, 9]])
 out1 = ops.bucketize(v, boundaries)
 out2 = ops.bucketize(v, boundaries, right=True)
 print(out1)
-# out:
+# Out:
 # [[1 3 4]
 #  [1 3 4]]
 
 print(out2)
-# out:
+# Out:
 # [[2 3 5]
 #  [2 3 5]]
 ```

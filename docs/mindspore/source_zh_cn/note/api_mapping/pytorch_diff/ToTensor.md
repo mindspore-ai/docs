@@ -47,17 +47,15 @@ img = Image.open('flamingos.jpg')
 to_tensor = vision.ToTensor()
 img_data = to_tensor(img)
 print("img_data shape:", img_data.shape)
-print("img_data type:", type(img_data))
-# Out:
 # img_data shape: (3, 292, 471)
+print("img_data type:", type(img_data))
 # img_data type: <class 'numpy.ndarray'>
 
 # In torch, ToTensor transforms the input to tensor.
 image_transform = transforms.Compose([transforms.ToTensor()])
 img_data = image_transform(img)
 print("img_data shape:", img_data.shape)
-print("img_data type:", type(img_data))
-# Out:
 # img_data shape: torch.Size([3, 292, 471])
+print("img_data type:", type(img_data))
 # img_data type: <class 'torch.Tensor'>
 ```
