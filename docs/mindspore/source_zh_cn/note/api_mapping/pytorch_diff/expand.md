@@ -39,13 +39,13 @@ import torch
 x = torch.tensor([1, 2, 3])
 output = x.expand(3, 3)
 print(output)
-print(value)
 # tensor([[1, 2, 3],
 #         [1, 2, 3],
 #         [1, 2, 3]])
 
 # MindSpore
 import mindspore
+import numpy as np
 from mindspore import Tensor
 
 shape = (3, 3)
