@@ -43,7 +43,6 @@
 [mindspore.ops.NanToNum](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.NanToNum.html#mindspore.ops.NanToNum)|New|将输入中的 NaN 、正无穷大和负无穷大值分别替换为 nan 、 posinf 和 neginf 指定的值。|r2.0: Ascend/CPU|Array操作
 [mindspore.ops.NonZero](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.NonZero.html#mindspore.ops.NonZero)|New|计算输入Tensor中所有非零元素的索引位置。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.ParallelConcat](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.ParallelConcat.html#mindspore.ops.ParallelConcat)|Changed|r1.10: Concats tensor in the first dimension. => r2.0: 根据第一个维度连接输入Tensor。|r1.10: Ascend => r2.0: Ascend/GPU/CPU|Array操作
-[mindspore.ops.Qr](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Qr.html#mindspore.ops.Qr)|New|返回一个或多个矩阵的QR（正交三角）分解。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.RandomShuffle](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.RandomShuffle.html#mindspore.ops.RandomShuffle)|New|沿着Tensor的第一个维度进行随机打乱操作。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.Renorm](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Renorm.html#mindspore.ops.Renorm)|New|对Tensor沿着指定维度 dim 进行重新规范化，要求每个子Tensor的 p 范数不超过 maxnorm 。|r2.0: Ascend/GPU/CPU|Array操作
 [mindspore.ops.RightShift](https://mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.RightShift.html#mindspore.ops.RightShift)|New|将Tensor input_x 的每个元素右移 Tensor input_y 中对应位数。|r2.0: Ascend/GPU/CPU|Array操作
