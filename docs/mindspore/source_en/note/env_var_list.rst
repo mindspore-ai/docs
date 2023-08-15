@@ -522,3 +522,10 @@ Other
 
        Default: 1
      -
+   * - MS_DEV_CELL_REUSE
+     - Enable the Lazy Inline function.
+     - Integer
+     - 1: Enable the Lazy Inline function. There is only inline of execution sequence in the backend. Currently we only support this level when running in Ascend 910B.
+
+       2: Enable the Lazy Inline function. The inlining will be done before the optimization of execution sequence and memory reuse. This level has better memory optimization.
+     - 

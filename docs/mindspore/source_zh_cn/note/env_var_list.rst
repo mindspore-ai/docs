@@ -519,3 +519,10 @@ Dump功能
 
        默认值：1
      -
+   * - MS_DEV_CELL_REUSE
+     - 开启Lazy Inline功能
+     - Integer
+     - 1: 开启Lazy Inline功能，后端只有执行序级别的inline。目前在Ascend 910B上只支持该级别。
+
+       2: 开启Lazy Inline功能，后端在执行序优化和内存复用前做Inline，具有更好的内存优化效果。
+     - 
