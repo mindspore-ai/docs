@@ -15,7 +15,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
 - 网络脚本
 
-  `与PyTorch典型区别 <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html>`_
+  `PyTorch对比 <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html>`_
 
   `API映射及缺失API处理策略 <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/analysis_and_preparation.html#分析api满足度>`_
 
