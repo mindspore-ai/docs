@@ -51,7 +51,7 @@ print(type(train_dataset))
 
 ## Iterating a Dataset
 
-After the dataset is loaded, the data is generally acquired in an iterative manner and then fed into the neural network for training. You can use the `create_tuple_iterator` or `create_dict_iterator` interface to create a data iterator to iteratively access data. The default type of data to be accessed is `Tensor`. If `output_numpy=True` is set, the type of data to be accessed is `Numpy`.
+After the dataset is loaded, the data is generally acquired in an iterative manner and then fed into the neural network for training. You can use the [create_tuple_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_tuple_iterator.html) or [create_dict_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html) interface to create a data iterator to iteratively access data. The default type of data to be accessed is `Tensor`. If `output_numpy=True` is set, the type of data to be accessed is `Numpy`.
 
 ```python
 def visualize(dataset):
@@ -94,7 +94,7 @@ visualize(train_dataset)
 
 ### map
 
-The `map` is the key operation of data preprocessing, which can add data transforms to a specified column of the dataset, apply data transforms to each element of the column data, and return a new dataset containing the transformed elements. Here data scaling is performed on the Mnist dataset by dividing the image uniformly by 255 and converting the data type from uint8 to float32.
+The `map` is the key operation of data preprocessing, which can add data transforms to a specified column of the dataset, apply data transforms to each element of the column data, and return a new dataset containing the transformed elements.
 
 > For the different types of transforms supported by dataset, see [Data Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html).
 
@@ -106,6 +106,8 @@ print(image.shape, image.dtype)
 ```text
 (28, 28, 1) UInt8
 ```
+
+Here data scaling is performed on the Mnist dataset by dividing the image uniformly by 255 and converting the data type from uint8 to float32.
 
 ```python
 train_dataset = train_dataset.map(vision.Rescale(1.0 / 255.0, 0), input_columns='image')

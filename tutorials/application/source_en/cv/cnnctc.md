@@ -8,7 +8,7 @@
 
 ### Text Recognition Process
 
-Text recognition refers to recognizing text from an image and converting a text area in the image into character information. Generally, a CNN is used to extract rich feature information from the image, and then recognition is performed based on the extracted feature information. Here, ResNet is used as the feature extraction network, and the connectionist temporal classification (CTC) method is used for recognition. The number of characters, character styles, and font sizes of each sample are different. As a result, the output of each column may not correspond to each character. CTC proposes a loss calculation method that does not require alignment, for network training.
+Text recognition refers to recognizing text from an image and converting a text area in the image into character information. Generally, a CNN is used to extract rich feature information from the image, and then recognition is performed based on the extracted feature information. Here, ResNet is used as the feature extraction network, and the CTC(Connectionist Temporal Classification) method is used for recognition. The number of characters, character styles, and font sizes of each sample are different. As a result, the output of each column may not correspond to each character. CTC proposes a loss calculation method that does not require alignment, for network training.
 
 To implement the model, perform the following steps:
 

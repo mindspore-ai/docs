@@ -126,11 +126,11 @@ It can be seen that each pixel value is scaled after using `Rescale`.
 
 ### Normalize
 
-The `Normalize` transform is used for normalization of the input image and consists of three parameters:
+The [Normalize](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Normalize.html) transform is used for normalization of the input image and consists of three parameters:
 
 - mean: the mean value of each channel in the image.
 - std: the standard deviation of each channel in the image.
-- is_hwc: whether the format of input image is (height, width, channel) or (channel, height, width).
+- is_hwc: bool, decide the format of input image. If True, input format is (height, width, channel), otherwise (channel, height, width).
 
 Each channel of the image will be adjusted according to `mean` and `std`, and the formula is $output_{c} = \frac{input_{c} - mean_{c}}{std_{c}}$, where $c$ represents the channel index.
 

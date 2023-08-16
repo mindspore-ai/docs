@@ -211,7 +211,7 @@ class ShuffleNetV1(nn.Cell):
 
 ## Model Training and Validation
 
-The CIFAR-10 dataset is used to pre-train ShuffleNet. To test the migration performance of the model on a dataset with a small number of samples but a large size, the flower_photos dataset is used to fine-tune the model.
+The CIFAR-10 dataset is used to pre-train ShuffleNet.
 
 ### Preparing and Loading the Training Set
 

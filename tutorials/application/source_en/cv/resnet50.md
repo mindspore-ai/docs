@@ -419,7 +419,7 @@ def _resnet(model_url: str, block: Type[Union[ResidualBlockBase, ResidualBlock]]
 
 
 def resnet50(num_classes: int = 1000, pretrained: bool = False):
-    "ResNet50 model"
+    """ResNet50 model"""
     resnet50_url = "https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/models/application/resnet50_224_new.ckpt"
     resnet50_ckpt = "./LoadPretrainedModel/resnet50_224_new.ckpt"
     return _resnet(resnet50_url, ResidualBlock, [3, 4, 6, 3], num_classes,

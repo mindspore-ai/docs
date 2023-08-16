@@ -808,9 +808,3 @@ After the inference process is completed, the inference result of the picture ca
 ## Summary
 
 This case completes the process of training, validation and inference of a ViT model on ImageNet data, in which the key ViT model structure and principles are explained. By studying this case, understanding the source code can help users to master key concepts such as Multi-Head Attention, TransformerEncoder, pos_embedding, etc. If you want to understand ViT's model principles in detail, it is recommended to read it in deeper detail based on the source code.
-
-## Works Cited
-
-[1] Dosovitskiy, Alexey, et al. \"An image is worth 16x16 words: Transformers for image recognition at scale.\" arXiv preprint arXiv:2010.11929 (2020).
-
-[2] Vaswani, Ashish, et al. \"Attention is all you need.\"Advances in Neural Information Processing Systems. (2017).

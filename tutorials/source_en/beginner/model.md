@@ -4,7 +4,7 @@
 
 # Building a Network
 
-The neural network model consists of neural network layers and Tensor operations. `mindspore.nn` provides common neural network layer implementations, and the `Cell` class in MindSpore is the base class for building all networks and is the basic unit of the network. `Cell`, a neural network model, is composed of different sub-`Cells`. Using such a nested structure, the neural network structure can be constructed and managed simply by using object-oriented programming thinking.
+The neural network model consists of neural network layers and Tensor operations. [mindspore.nn](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html) provides common neural network layer implementations, and the [Cell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html) class in MindSpore is the base class for building all networks and is the basic unit of the network. `Cell`, a neural network model, is composed of different sub-`Cells`. Using such a nested structure, the neural network structure can be constructed and managed simply by using object-oriented programming thinking.
 
 In the following we will construct a neural network model for the Mnist dataset classification.
 
