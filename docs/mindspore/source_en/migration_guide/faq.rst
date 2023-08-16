@@ -15,7 +15,7 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
 
 - Network Scripts
 
-  `Typical Differences from PyTorch <https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html>`_
+  `Differences between PyTorch and MindSpore <https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html>`_
 
   `API Mapping and Handling Strategy of Missing API <https://www.mindspore.cn/docs/en/master/migration_guide/analysis_and_preparation.html#analyzing-api-compliance>`_
 
