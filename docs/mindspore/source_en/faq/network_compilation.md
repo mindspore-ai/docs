@@ -526,6 +526,93 @@ net = Net()
 out = net(Tensor(x))
 ```
 
+3) If a function decorated with a @jit decorator is called in a custom class, an error will be reported. In this scenario, it is recommended to add @jit_class decorators to custom classes in the network and avoid the JIT Fallback feature. For more use of custom classes, please refer to [Supporting the Use of Custom Classes](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supporting-the-use-of-custom-classes). The use of jit_class decorators can be referred to [Use jit_class](https://www.mindspore.cn/tutorials/experts/zh-CN/master/optimize/static_graph_expert_programming.html#use-jit_class)
+
+```python
+import mindspore as ms
+
+ms.set_context(mode=ms.GRAPH_MODE)
+
+class InnerNet(ms.nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.value = 10
+
+    @ms.jit
+    def construct(self, x):
+        return self.value + x
+
+class CustomNet():
+    def __init__(self, model):
+        super().__init__()
+        self.model = model
+
+    def __call__(self, x):
+        return self.model(2 * x)
+
+class OutNet(ms.nn.Cell):
+    def __init__(self, net):
+        super().__init__()
+        self.net = net
+
+    def construct(self, x):
+        return self.net(x)
+
+x = ms.Tensor(2)
+call_net = InnerNet()
+custom_net = CustomNet(call_net)
+out_net = OutNet(custom_net)
+out = out_net(x)
+print("out:", out)
+```
+
+The result is as follows:
+
+```text
+Nested execution during JIT execution for 'InnerNet.construct' is not supported when 'OuterNet.construct' compile and execute.
+```
+
+It is recommended to change it to the following code:
+
+```python
+import mindspore as ms
+
+ms.set_context(mode=ms.GRAPH_MODE)
+
+class InnerNet(ms.nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.value = 10
+
+    @ms.jit
+    def construct(self, x):
+        return self.value + x
+
+@ms.jit_class
+class CustomNet():
+    def __init__(self, model):
+        super().__init__()
+        self.model = model
+
+    def __call__(self, x):
+        return self.model(2 * x)
+
+class OutNet(ms.nn.Cell):
+    def __init__(self, net):
+        super().__init__()
+        self.net = net
+
+    def construct(self, x):
+        return self.net(x)
+
+x = ms.Tensor(2)
+call_net = InnerNet()
+custom_net = CustomNet(call_net)
+out_net = OutNet(custom_net)
+out = out_net(x)
+print("out:", out)
+```
+
 <br/>
 
 <font size=3>**Q: What can I do if an error "ValueError: The value Parameter (name=name_a, shape=(1,), dtype=Float32, requires_grad=True) , its name 'name_a' already exists. Please set a unique name for the parameter." is reported? What does it mean?**</font>

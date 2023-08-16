@@ -520,6 +520,93 @@ net = Net()
 out = net(Tensor(x))
 ```
 
+3) 自定义类中调用了使用@jit装饰器修饰的函数，将会报错。这种场景建议将网络中的自定义类加上@jit_class装饰器，避免使用JIT Fallback特性。自定义类的更多使用可参考[自定义类的使用](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#支持自定义类的使用)。jit_class装饰器的使用可参考[使用jit_class](https://www.mindspore.cn/tutorials/experts/zh-CN/master/optimize/static_graph_expert_programming.html#使用jit_class)
+
+```python
+import mindspore as ms
+
+ms.set_context(mode=ms.GRAPH_MODE)
+
+class InnerNet(ms.nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.value = 10
+
+    @ms.jit
+    def construct(self, x):
+        return self.value + x
+
+class CustomNet():
+    def __init__(self, model):
+        super().__init__()
+        self.model = model
+
+    def __call__(self, x):
+        return self.model(2 * x)
+
+class OutNet(ms.nn.Cell):
+    def __init__(self, net):
+        super().__init__()
+        self.net = net
+
+    def construct(self, x):
+        return self.net(x)
+
+x = ms.Tensor(2)
+call_net = InnerNet()
+custom_net = CustomNet(call_net)
+out_net = OutNet(custom_net)
+out = out_net(x)
+print("out:", out)
+```
+
+执行结果如下：
+
+```text
+Nested execution during JIT execution for 'InnerNet.construct' is not supported when 'OuterNet.construct' compile and execute.
+```
+
+建议修改为以下代码：
+
+```python
+import mindspore as ms
+
+ms.set_context(mode=ms.GRAPH_MODE)
+
+class InnerNet(ms.nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.value = 10
+
+    @ms.jit
+    def construct(self, x):
+        return self.value + x
+
+@ms.jit_class
+class CustomNet():
+    def __init__(self, model):
+        super().__init__()
+        self.model = model
+
+    def __call__(self, x):
+        return self.model(2 * x)
+
+class OutNet(ms.nn.Cell):
+    def __init__(self, net):
+        super().__init__()
+        self.net = net
+
+    def construct(self, x):
+        return self.net(x)
+
+x = ms.Tensor(2)
+call_net = InnerNet()
+custom_net = CustomNet(call_net)
+out_net = OutNet(custom_net)
+out = out_net(x)
+print("out:", out)
+```
+
 <br/>
 
 <font size=3>**Q: 编译时报错 "ValueError: The value Parameter (name=name_a, shape=(1,), dtype=Float32, requires_grad=True) , its name 'name_a' already exists. Please set a unique name for the parameter."，是什么含义？应该怎么处理？**</font>
