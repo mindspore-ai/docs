@@ -61,8 +61,6 @@ For Experts
    :caption: Algorithm Optimization
 
    optimize/gradient_accumulation
-   optimize/adaptive_summation
-   optimize/dimention_reduce_training
    optimize/thor
 
 .. toctree::
