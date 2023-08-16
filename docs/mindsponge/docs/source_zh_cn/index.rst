@@ -166,13 +166,13 @@ SPONGE暑期学校第二季 <https://www.bilibili.com/video/BV1pB4y167yS?spm_id_
 
    mindsponge.cell
    mindsponge.common
-   mindsponge.control
-   mindsponge.core
-   mindsponge.data
+   mindsponge.data_transform
    mindsponge.metrics
-   mindsponge.optimizer
-   mindsponge.potential
-   mindsponge.system
+   sponge.control
+   sponge.core
+   sponge.optimizer
+   sponge.potential
+   sponge.system
    constant
 
 .. toctree::
