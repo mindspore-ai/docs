@@ -225,12 +225,12 @@ Log
        Default: 2.
      - After a log level is specified, output log messages greater than or equal to that level
    * - logger_backupCount
-     - Controls the number of mindspire Python module log files.
+     - Controls the number of mindspore Python module log files.
      - Integer
      - Default: 30
      - 
    * - logger_maxBytes
-     - Controls the size of the mindspire Python module log file.
+     - Controls the size of the mindspore Python module log file.
      - Integer
      - Default: 52428800 bytes
      - 
@@ -454,14 +454,14 @@ Other
 
        1: non-task sinking mode.
      - 
-   * - MS_DEV_ENABLE_FALLBACK
-     - Fallback function is enabled when the environment variable is set to a value other than 0.
+   * - MS_DEV_JIT_SYNTAX_LEVEL
+     - Fallback function is enabled when the environment variable is set to 2.
      - Integer
-     - 1: enables fallback function
+     - 2: enables fallback function
 
        0: disables fallback function
 
-       Default: 1
+       Default: 2
      - 
    * - MS_JIT_MODULES
      - Specifies which modules in static graph mode require JIT static compilation, and their functions and methods will be compiled into static calculation graphs.
@@ -508,4 +508,17 @@ Other
      - 0: print default ir file
 
        1: print deep sorted ir file
-     - 
+     -
+   * - MS_DEV_SIDE_EFFECT_LOAD_ELIM
+     - Optimize redundant memory copy operations.
+     - Integer
+     - 0: Do not do video memory optimization, occupy the most video memory.
+
+       1: Conservatively do some memory optimization.
+
+       2: Under the premise of losing a certain amount of compilation performance, optimize the video memory as much as possible.
+
+       3: The accuracy of the network is not guaranteed, and the memory consumption is minimal.
+
+       Default: 1
+     -
