@@ -39,7 +39,7 @@ For more information, see [mindspore.nn.BatchNorm1d](https://mindspore.cn/docs/e
 
 PyTorch：Batch normalization of the input 2D or 3D data.
 
-MindSpore：The implementation function of the API in MindSpore is basically the same as that of PyTorch. The default value of the momentum parameter in MindSpore is 0.9, and the momentum conversion relationship with PyTorch is 1-momentum. The behavior of the default value is the same as that of PyTorch. The parameter update strategy during training and inference is different from that of PyTorch. For details, please refer to [Differences Between MindSpore and PyTorch - nn.BatchNorm2d](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#nn-batchnorm2d).
+MindSpore：The implementation function of the API in MindSpore is basically the same as that of PyTorch. The default value of the momentum parameter in MindSpore is 0.9, and the momentum conversion relationship with PyTorch is 1-momentum. The behavior of the default value is the same as that of PyTorch. The parameter update strategy during training and inference is different from that of PyTorch. For details, please refer to [Differences between PyTorch and MindSpore - nn.BatchNorm2d](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#nn-batchnorm2d).
 
 | Categories | Subcategories   | PyTorch             | MindSpore            | Differences                                                         |
 | ---- | ------ | ------------------- | -------------------- | ------------------------------------------------------------ |
@@ -47,7 +47,7 @@ MindSpore：The implementation function of the API in MindSpore is basically the
 |      | Parameter 2  | eps                 | eps                  | -                                                            |
 |      | Parameter 3  | momentum            | momentum             | The function is the same, but the default value in PyTorch is 0.1, and in MindSpore is 0.9. The conversion relationship with PyTorch's momentum is 1-momentum, and the default value behavior is the same as PyTorch         |
 |      | Parameter 4  | affine              | affine               | -                                                            |
-|      | Parameter 5  | track_running_stats              | use_batch_statistics |    The function is the same, and different values correspond to different default methods. For details, please refer to [Typical differences with PyTorch - BatchNorm](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#nn-batchnorm2d)      |
+|      | Parameter 5  | track_running_stats              | use_batch_statistics |    The function is the same, and different values correspond to different default methods. For details, please refer to [Differences between PyTorch and MindSpore - BatchNorm](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#nn-batchnorm2d)      |
 |      | Parameter 6  | -                   | gamma_init           |    PyTorch does not have this parameter, while MindSpore can initialize the value of the parameter gamma    |
 |      | Parameter 7  | -                   | beta_init            |    PyTorch does not have this parameter, while MindSpore can initialize the value of the parameter beta     |
 |      | Parameter 8  | -                   | moving_mean_init     |    PyTorch does not have this parameter, while MindSpore can initialize the value of the parameter moving_mean   |
