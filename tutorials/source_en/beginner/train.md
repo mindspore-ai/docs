@@ -133,7 +133,7 @@ optimizer = nn.SGD(model.trainable_params(), learning_rate=learning_rate)
 
 Next, we define the `train_loop` function for training and the `test_loop` function for testing.
 
-To use functional automatic differentiation, we need to define the forward function `forward_fn` and use `mindspore.value_and_grad` to obtain the differentiation function `grad_fn`. Then, we encapsulate the execution of the differentiation function and the optimizer into the `train_step` function, and then just iterate through the dataset for training.
+To use functional automatic differentiation, we need to define the forward function `forward_fn` and use [value_and_grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.value_and_grad.html) to obtain the differentiation function `grad_fn`. Then, we encapsulate the execution of the differentiation function and the optimizer into the `train_step` function, and then just iterate through the dataset for training.
 
 ```python
 # Define forward function

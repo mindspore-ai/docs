@@ -4,7 +4,7 @@
 
 ## Model Introduction
 
-Single shot multibox detector (SSD) is an object detection algorithm proposed by Wei Liu at ECCV 2016. On the VOC 2007 test set using NVIDIA Titan X, the SSD reaches 74.3% mAP and 59 FPS for a 300 x 300 input network. For the 512 x 512 network, the SSD reaches 76.9% mAP, surpassing Faster RCNN (73.2% mAP). For details, see the paper.
+Single shot multibox detector (SSD) is an object detection algorithm proposed by Wei Liu at ECCV 2016. On the VOC 2007 test set using NVIDIA Titan X, the SSD reaches 74.3% mAP(mean Average Precision) and 59 FPS for a 300 x 300 input network. For the 512 x 512 network, the SSD reaches 76.9% mAP, surpassing Faster RCNN (73.2% mAP). For details, see the paper<sup>[1]</sup>.
 Mainstream SSD object detection algorithms are classified into the following types:
 
 1. Two-stage method: RCNN series<br>
@@ -72,7 +72,7 @@ Extracting zip file...
 Successfully downloaded / unzipped to ./
 ```
 
-We define some inputs for data processing.
+Then We define some inputs for data processing.
 
 ```python
 coco_root = "./datasets/"
@@ -1087,7 +1087,7 @@ Customize the eval_net() class to evaluate the trained model and invoke the SsdI
 
 ### Output Metrics for the Following Code Running Results
 
-- The first value is the mean average precision (mAP), that is, the average value of APs of each class.
+- The first value is the mAP(mean average precision), that is, the average value of APs of each class.
 
 - The second value is the mAP value when IoU is set to 0.5, which is the evaluation standard of VOC.
 

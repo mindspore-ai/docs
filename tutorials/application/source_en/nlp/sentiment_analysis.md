@@ -315,7 +315,7 @@ After the dataset is processed, we design the model structure for sentimental cl
 nn.Embedding -> nn.RNN -> nn.Dense
 ```
 
-The long short term memory (LSTM) variant that can avoid the RNN gradient vanishing problem is used as the feature extraction layer. The model is described as follows:
+The LSTM(Long short-term memory) variant that can avoid the RNN gradient vanishing problem is used as the feature extraction layer. The model is described as follows:
 
 ### Embedding
 
@@ -341,7 +341,7 @@ The recurrent feature of the RNN matches the sequence feature (a sentence is a s
 
 ![RNN](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/application/source_zh_cn/nlp/images/0-RNN.png)
 
-A structure of a single RNN Cell is simple, causing the gradient vanishing problem. Specifically, when a sequence in the RNN is relatively long, information of a sequence header is basically lost at a tail of the sequence. To solve this problem, the long short term memory (LSTM) is proposed. The gating mechanism is used to control the retention and discarding of information flows in each cycle. The following figure shows the disassembled LSTM structure.
+A structure of a single RNN Cell is simple, causing the gradient vanishing problem. Specifically, when a sequence in the RNN is relatively long, information of a sequence header is basically lost at a tail of the sequence. To solve this problem, the LSTM(Long short-term memory) is proposed. The gating mechanism is used to control the retention and discarding of information flows in each cycle. The following figure shows the disassembled LSTM structure.
 
 ![LSTM](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/application/source_zh_cn/nlp/images/0-LSTM.png)
 
