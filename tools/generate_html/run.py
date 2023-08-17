@@ -19,11 +19,11 @@ from lxml import etree
 
 
 # 下载仓库
-def git_clone(repo_url, repo_dir):
+def git_clone(repo_url, repo_dir, branch):
     if not os.path.exists(repo_dir):
         print("Cloning repo.....")
         os.makedirs(repo_dir, exist_ok=True)
-        Repo.clone_from(repo_url, repo_dir, branch='master')
+        Repo.clone_from(repo_url, repo_dir, branch=branch)
         print("Cloning Repo Done.")
 
 # 更新仓库
@@ -80,7 +80,7 @@ def generate_version_json(repo_name, branch, js_data, version, target_path):
 #######################################
 # 运行检测
 #######################################
-def main(version, user, pd, WGETDIR, release_url):
+def main(version, user, pd, WGETDIR, release_url, generate_list):
 
     print(f"开始构建{version}版本html....")
 
@@ -98,6 +98,9 @@ def main(version, user, pd, WGETDIR, release_url):
 
     # 开始计时
     time_start = time.perf_counter()
+
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome\
+               /115.0.0.0 Safari/537.36"}
 
     # 读取json文件数据
     if version == "daily":
@@ -117,6 +120,43 @@ def main(version, user, pd, WGETDIR, release_url):
     # 遍历json数据做好生成html前的准备
     # pylint: disable=R1702
     for i in range(len(data)):
+
+        # 克隆仓库与配置环境变量
+        repo_name = data[i]['name'].replace('_', '-')
+        repo_url = f"https://gitee.com/mindspore/{repo_name}.git"
+        repo_path = f"{REPODIR}/{data[i]['name']}"
+        branch_ = data[i]["branch"]
+        if data[i]['environ'] == "MS_PATH":
+            repo_url = "https://gitee.com/mindspore/mindspore.git"
+            repo_path = f"{REPODIR}/mindspore"
+        elif data[i]['environ'] == "MSC_PATH":
+            repo_url = "https://gitee.com/mindspore/mindscience.git"
+            repo_path = f"{REPODIR}/mindscience"
+        elif data[i]['name'] == "devtoolkit":
+            repo_url = "https://gitee.com/mindspore/ide-plugin.git"
+            repo_path = f"{REPODIR}/ide-plugin"
+        elif data[i]['name'] == "reinforcement":
+            repo_url = "https://github.com/mindspore-lab/mindrl.git"
+            repo_path = f"{REPODIR}/mindrl"
+        elif data[i]['name'] == "recommender":
+            repo_url = "https://github.com/mindspore-lab/mindrec.git"
+            repo_path = f"{REPODIR}/mindrec"
+
+        # 判断是否需要单独生成某些组件
+        if generate_list and data[i]['name'] not in generate_list:
+            continue
+        elif data[i]['environ']:
+            os.environ[data[i]['environ']] = repo_path
+            try:
+                status_code = requests.get(repo_url, headers=headers).status_code
+                if status_code == 200:
+                    if not os.path.exists(repo_path):
+                        git_clone(repo_url, repo_path, branch_)
+                    git_update(repo_path, branch_)
+                    print(f'{repo_name}仓库克隆更新成功')
+            except KeyError:
+                print(f'{repo_name}仓库克隆或更新失败')
+
         # 特殊与一般性的往ArraySource中加入键值对
         if data[i]['name'] == "lite":
             ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
@@ -135,33 +175,6 @@ def main(version, user, pd, WGETDIR, release_url):
 
         if data[i]['name'] != "mindscience":
             generate_version_json(data[i]['name'], data[i]["branch"], data_b, version, target_version)
-
-        # 克隆仓库与配置环境变量
-        repo_name = data[i]['name'].replace('_', '-')
-        repo_url = f"https://gitee.com/mindspore/{repo_name}.git"
-        repo_path = f"{REPODIR}/{data[i]['name']}"
-        branch_ = data[i]["branch"]
-        if data[i]['name'] == "devtoolkit":
-            repo_url = f"https://gitee.com/mindspore/ide-plugin.git"
-            repo_path = f"{REPODIR}/ide-plugin"
-        elif data[i]['name'] == "reinforcement":
-            repo_url = f"https://github.com/mindspore-lab/mindrl.git"
-            repo_path = f"{REPODIR}/mindrl"
-        elif data[i]['name'] == "recommender":
-            repo_url = f"https://github.com/mindspore-lab/mindrec.git"
-            repo_path = f"{REPODIR}/mindrec"
-
-        status_code = requests.get(f"{repo_url}").status_code
-        if status_code == 200:
-            try:
-                git_clone(repo_url, repo_path)
-                git_update(repo_path, branch_)
-                if data[i]['environ']:
-                    os.environ[data[i]['environ']] = repo_path
-            except KeyError:
-                print(f'{repo_name}仓库克隆或更新失败')
-        else:
-            print(f'{repo_name}对应git仓库访问错误，跳过克隆阶段。。。')
 
         # 卸载原来已有的安装包, 以防冲突
         if data[i]['uninstall_name']:
@@ -409,6 +422,7 @@ if __name__ == "__main__":
     parser.add_argument('--wgetdir', type=str, default="") # repo url
     parser.add_argument('--release_url', type=str, default="") # repo url
     parser.add_argument('--theme', type=str, default="") # theme.css/js
+    parser.add_argument('--single_generate', type=str, default="")
     args = parser.parse_args()
 
     password = args.pd
@@ -416,12 +430,18 @@ if __name__ == "__main__":
     # 替换linux下命令行不允许的类似!#前面的反斜杠
     password = password.replace('\\', '')
 
+    if args.single_generate:
+        generate_list_p = [x.strip() for x in args.single_generate.split(',')]
+    else:
+        generate_list_p = []
+
     # git 克隆仓保存路径
     REPODIR = f"{MAINDIR}/repository"
 
     # 开始执行
     try:
-        main(version=args.version, user=args.user, pd=password, WGETDIR=args.wgetdir, release_url=args.release_url)
+        main(version=args.version, user=args.user, pd=password, WGETDIR=args.wgetdir,
+             release_url=args.release_url, generate_list=generate_list_p)
         theme_list = []
         output_path = f"{MAINDIR}/{args.version}/output"
         version_path = f"{MAINDIR}/{args.version}_version/"
