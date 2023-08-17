@@ -43,14 +43,14 @@
 下面提供详细的参数说明。
 
 | 参数名            | 属性 | 功能描述                                                     | 参数类型                                                 | 默认值 | 取值范围 |
-| ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- | ---------------------------------- |
+| ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- | ------------------------------- |
 | `--modelFile=<MODELPATH>` | 必选 | 指定需要进行基准测试的MindSpore Lite模型文件路径。 | String | null  | -        |
 | `--accuracyThreshold=<ACCURACYTHRESHOLD>` | 可选 | 指定准确度阈值。 | Float           | 0.5    | -        |
 | `--cosineDistanceThreshold=<COSINEDISTANCETHRESHOLD>` | 可选 | 指定余弦距离阈值，只有指定该参数并且其值大于-1时，才会计算余弦距离。 | Float           | -1.1    | -        |
 | `--benchmarkDataFile=<CALIBDATAPATH>` | 可选 | 指定标杆数据的文件路径。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String | null | - |
 | `--benchmarkDataType=<CALIBDATATYPE>` | 可选 | 指定标杆数据类型。 | String | FLOAT | FLOAT、INT32、INT8、UINT8 |
 | `--cpuBindMode=<CPUBINDMODE>` | 可选 | 指定模型推理程序运行时绑定的CPU核类型。 | Integer | 1      | 2：表示中核<br/>1：表示大核<br/>0：表示不绑定 |
-| `--device=<DEVICE>` | 可选 | 指定模型推理程序运行的设备类型。 | String | CPU | CPU、GPU、NPU、Ascend310 |
+| `--device=<DEVICE>` | 可选 | 指定模型推理程序运行的设备类型。 | String | CPU | CPU、GPU、NPU、Ascend |
 | `--help` | 可选 | 显示`benchmark`命令的帮助信息。 | - | - | - |
 | `--inDataFile=<INDATAPATH>` | 可选 | 指定测试模型输入数据的文件路径。如果未设置，则使用随机输入。 | String | null | - |
 | `--loopCount=<LOOPCOUNT>` | 可选 | 指定Benchmark工具进行基准测试时，测试模型的前向推理运行次数，其值为正整数。 | Integer | 10 | - |

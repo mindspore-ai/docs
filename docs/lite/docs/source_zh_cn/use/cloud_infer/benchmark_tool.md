@@ -43,12 +43,12 @@
 下面提供详细的参数说明。
 
 | 参数名            | 属性 | 功能描述                                                     | 参数类型                                                 | 默认值 | 取值范围 |  备注  |
-| ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- | ---------------------------- | ---- |
+| ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- | ------------------ | ---- |
 | `--modelFile=<MODELPATH>` | 必选 | 指定需要进行基准测试的MindSpore Lite模型文件路径。 | String | null  | -        |
 | `--accuracyThreshold=<ACCURACYTHRESHOLD>` | 可选 | 指定准确度阈值。 | Float           | 0.5    | -        |
 | `--benchmarkDataFile=<CALIBDATAPATH>` | 可选 | 指定标杆数据的文件路径。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String | null | - |
 | `--benchmarkDataType=<CALIBDATATYPE>` | 可选 | 指定标杆数据类型。 | String | FLOAT | FLOAT、INT32、INT8、UINT8 |
-| `--device=<DEVICE>` | 可选 | 指定模型推理程序运行的设备类型。 | String | CPU | CPU、GPU、NPU、Ascend310、Ascend310P |
+| `--device=<DEVICE>` | 可选 | 指定模型推理程序运行的设备类型。 | String | CPU | CPU、GPU、NPU、Ascend |
 | `--help` | 可选 | 显示`benchmark`命令的帮助信息。 | - | - | - |
 | `--inDataFile=<INDATAPATH>` | 可选 | 指定测试模型输入数据的文件路径。如果未设置，则使用随机输入。 | String | null | - |
 | `--loopCount=<LOOPCOUNT>` | 可选 | 指定Benchmark工具进行基准测试时，测试模型的前向推理运行次数，其值为正整数。 | Integer | 10 | - |
