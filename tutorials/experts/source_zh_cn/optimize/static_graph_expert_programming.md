@@ -134,9 +134,253 @@ Enable comile_cache cost time: 0.09379792213439941
 
 ### 使用jit_class
 
-使用场景：定义jit_class代替自定义Class，提高执行性能。
+使用场景：使用`@jit_class`装饰器修饰自定义类，提高执行性能。jit_class应用于静态图模式，在动态图模式下，`@jit_class`会被忽略，不影响动态图模式的执行逻辑。
 
-其他内容待补充。
+#### jit_class的介绍
+
+用户在网络脚本中定义一个类时，可以写成继承于`Cell`的类、自定义类、`@jit_class`修饰的类，它们的用法和区别如下：
+
+- 继承于Cell的类
+
+  Cell是MindSpore中神经网络的基本构成单元，模型或者神经网络层应当继承该类。静态图模式下，使用`Cell`类并且在`construct`函数中编写执行代码，此时`construct`函数的代码会被编译成静态计算图。
+
+- 自定义类
+
+  定义自定义类后，可以对类进行实例化、调用类对象的属性和方法，请参考[自定义类的使用](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#支持自定义类的使用)。相比于`Cell`的类定义，自定义类更贴近用户调用Python类的使用习惯。自定义类在静态图模式下的实现方式与`Cell`不同，例如，调用自定义类对象的函数方法时，其函数方法中的代码不会被编译成静态计算图，而是通过Python解释器进行解释执行。
+
+- `@jit_class`修饰的类
+
+  为了兼顾用户的Python使用习惯和静态图编译带来的性能优势，提供了`@jit_class`装饰器。给自定义类修饰`@jit_class`装饰器后，该类的函数代码会被编译成静态计算图，基于图优化、静态图整图下沉等技术，编译器可以针对计算图进行全局的优化，从而获得较好的执行性能。
+
+在静态图模式下，通过使用`@jit_class`修饰自定义类，用户可以创建、调用该类的实例，并且可以获取其属性和方法。
+
+#### jit_class装饰器的使用
+
+jit_class装饰器仅支持修饰自定义类，不支持修饰继承于`Cell`的类。
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore as ms
+
+@ms.jit_class
+class InnerNet:
+    value = ms.Tensor(np.array([1, 2, 3]))
+
+class Net(nn.Cell):
+    def construct(self):
+        return InnerNet().value
+
+ms.set_context(mode=ms.GRAPH_MODE)
+net = Net()
+out = net()
+print(out)
+```
+
+运行结果如下：
+
+```text
+[1 2 3]
+```
+
+如果jit_class修饰继承于`Cell`的类，将会报错。
+
+```python
+import mindspore.nn as nn
+import mindspore as ms
+
+@ms.jit_class
+class Net(nn.Cell):
+    def construct(self, x):
+        return x
+
+ms.set_context(mode=ms.GRAPH_MODE)
+x = ms.Tensor(1)
+net = Net()
+net(x)
+```
+
+报错信息如下：
+
+```text
+TypeError: Decorator jit_class is used for user-defined classes and cannot be used for nn.Cell: Net<>.
+```
+
+jit_class支持自定义类嵌套使用、自定义类与`Cell`嵌套使用的场景。需要注意的是，类继承时，如果父类使用了jit_class，子类也会具有jit_class的能力。
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore as ms
+
+@ms.jit_class
+class Inner:
+    def __init__(self):
+        self.value = ms.Tensor(np.array([1, 2, 3]))
+
+@ms.jit_class
+class InnerNet:
+    def __init__(self):
+        self.inner = Inner()
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.inner_net = InnerNet()
+
+    def construct(self):
+        out = self.inner_net.inner.value
+        return out
+
+ms.set_context(mode=ms.GRAPH_MODE)
+net = Net()
+out = net()
+print(out)
+```
+
+运行结果如下：
+
+```text
+[1 2 3]
+```
+
+#### 获取类的属性和方法
+
+支持通过类名或类实例调用属性和方法。
+
+```python
+import mindspore.nn as nn
+import mindspore as ms
+
+@ms.jit_class
+class InnerNet:
+    def __init__(self, val):
+        self.number = val
+
+    def act(self, x, y):
+        return self.number * (x + y)
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.inner_net = InnerNet(2)
+
+    def construct(self, x, y):
+        return self.inner_net.number + self.inner_net.act(x, y)
+
+ms.set_context(mode=ms.GRAPH_MODE)
+x = ms.Tensor(2, dtype=ms.int32)
+y = ms.Tensor(3, dtype=ms.int32)
+net = Net()
+out = net(x, y)
+print(out)
+```
+
+运行结果如下：
+
+```text
+12
+```
+
+#### 创建类的实例
+
+对于将会被编译成静态计算图的函数，如`Cell`的`construct`函数、`@jit`修饰的函数或前两者调用的子函数，如果需要在函数内创建`@jit_class`所修饰的类的实例，参数要求为常量。
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore as ms
+
+@ms.jit_class
+class InnerNet:
+    def __init__(self, val):
+        self.number = val + 3
+
+class Net(nn.Cell):
+    def construct(self):
+        net = InnerNet(2)
+        return net.number
+
+ms.set_context(mode=ms.GRAPH_MODE)
+net = Net()
+out = net()
+print(out)
+```
+
+运行结果如下：
+
+```text
+5
+```
+
+#### 调用类的实例
+
+调用`@jit_class`所修饰的类的实例时，将会调用该类的`__call__`函数方法。
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore as ms
+
+@ms.jit_class
+class InnerNet:
+    def __init__(self, number):
+        self.number = number
+
+    def __call__(self, x, y):
+        return self.number * (x + y)
+
+class Net(nn.Cell):
+    def construct(self, x, y):
+        net = InnerNet(2)
+        out = net(x, y)
+        return out
+
+ms.set_context(mode=ms.GRAPH_MODE)
+x = ms.Tensor(2, dtype=ms.int32)
+y = ms.Tensor(3, dtype=ms.int32)
+net = Net()
+out = net(x, y)
+print(out)
+```
+
+运行结果如下：
+
+```text
+10
+```
+
+如果该类没有定义`__call__`函数，将会报错提示。
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore as ms
+
+@ms.jit_class
+class InnerNet:
+    def __init__(self, number):
+        self.number = number
+
+class Net(nn.Cell):
+    def construct(self, x, y):
+        net = InnerNet(2)
+        out = net(x, y)
+        return out
+
+ms.set_context(mode=ms.GRAPH_MODE)
+x = ms.Tensor(2, dtype=ms.int32)
+y = ms.Tensor(3, dtype=ms.int32)
+net = Net()
+out = net(x, y)
+print(out)
+```
+
+报错信息如下：
+
+```text
+RumtimeError: MsClassObject: 'InnerNet' has no __call__ function, please check the code.
+```
 
 ### 使用select算子
 
