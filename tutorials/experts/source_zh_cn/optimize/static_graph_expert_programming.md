@@ -8,7 +8,186 @@
 
 ### 使用lazy_inline装饰器
 
-文档待补充
+神经网络模型的编译过程往往采用默认inline的方式，把层级的代码表达最终展开成一张扁平的计算图，一方面寻求最大的编译优化机会，另一方面也可以简化自动微分以及执行的逻辑。inline后形成的计算图包含了所有的计算节点，可以在更大的范围内进行优化，比如常量折叠、节点融合、并行分析等，也可以更好地实现内存分配，减少内存申请和性能开销。虽然inline优化对于运行期性能提升帮助非常大，但过度inline也带来了编译期的负担。例如随着计算图节点数量膨胀，执行pass的耗时也在急剧增长。
+
+为了减轻inline对编译性能带来的损耗，对于重复调用相同计算单元的场景（典型的场景是在for循环中调用同一个Cell类的不同实例），我们提供了Lazy Inline机制来减少编译时间。
+
+#### 大模型pipeline并行场景
+
+在大模型场景中，编译耗时问题尤为突出，一是大模型的模型结构层次深，节点数多；二是大模型在训练时，由于启用pipeline并行，导致模型规模和节点数进一步加大，如果原来图的规模是O，那开启pipeline并行，单节点图的规模变为(O/X)*Y，其中X为pipeline的stage数量，Y为micro batch的数量。以盘古13B网络为例，计算图中计算节点数量达到13.5万个，单次编译时长可接近3小时。
+
+我们观察到类似盘古的大模型网络结构，是由多层layer组成的，在开启pipeline并行时，各个micro batch的layer层结构是完全一样的。当开启pipeline并行时，`PipelineCell`使用for循环的方式来多次调用相同结构的layer，代码如下所示：
+
+```python
+from mindspore import nn
+
+class PipelineCell(nn.Cell):
+    def __init__(self, network, micro_size):
+        ...
+        self.network = network
+        self.micro_size = micro_size
+        ...
+
+    def construct(self, ...):
+        ...
+        for i in range(self.micro_size):
+            output = self.network(...)
+        ...
+```
+
+如果我们把循环体看作被频繁调用的子图，通过把它标记为Lazy Inline，告知编译器推迟inline处理，那么就可以在编译的大部分阶段大幅度减少计算图节点数量，从而获得性能收益。例如上面的代码，可以保留`network`实例的子图结构，不inline或者不提前inline。对此，我们提供了`@lazy_inline`装饰器来实现延迟inline。
+
+以Pangu_alpha网络为例，`PipelineCell`函数体中处理的`network`为`PanGUAlphaWithLoss`类的实例，为实现延迟inline，我们需要对`PanGUAlphaWithLoss`类的`__init__`函数加上`@lazy_inline`装饰器，以标记`PanGUAlphaWithLoss`类的子图结构需要被保留下来，不做inline或者延迟inline。如下所示：
+
+```python
+from mindspore import nn
+from mindspore.common import lazy_inline
+
+class PanGUAlphaWithLoss(nn.Cell):
+    @lazy_inline
+    def __init__(self, ...):
+        ...
+
+    def construct(self, ...):
+```
+
+> 完整代码可以参考：[Pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha)
+
+还是以盘古13B网络为例，应用Lazy Inline方案后，计算图编译规模从13万+节点下降到2万+个节点，编译时间从3个小时下降到20分钟。
+
+#### 更加泛化的一般场景
+
+`@lazy_inline`是`Cell::__init__`的装饰器，它会以`__init__`的所有参数生成Cell的`cell_init_args`属性值，`cell_init_args`值相同表明Cell类名和初始化参数值是一样的。而对于相同Cell类的实例，它们的weights还可能是不一样的，因此对于用`construct(self, x)`定义的网络结构，在实际编译时我们可以转换为`construct(x, self.cell_init_args, self.trainable_parameters())`。对于同一个Cell类的不同实例，如果`cell_init_args`是相同的，那么这两个实例可以复用同一个网络结构，如下所示：
+
+```python
+def construct(self, x)
+    reuse_construct(x, self.trainable_parameters())
+```
+
+引入可复用计算图后，具有相同`cell_init_args`的Cell实例只需编译解析一次。所以对于更加泛化的调用同一个Cell类的不同实例的场景，只要`cell_init_args`是相同的，我们都可以加上`@lazy_inline`装饰器来加速编译。例如GPT网络：
+
+```python
+from mindspore import nn
+from mindspore.common import lazy_inline
+
+class Block(nn.Cell):
+    @lazy_inline
+    def __init__(self, config):
+        ...
+
+    def construct(self, x, attention_mask, layer_past):
+        ...
+
+class GPT_Model(nn.Cell):
+    def __init__(self, config):
+        ...
+        for i in range(config.num_layers):
+            self.blocks.append(Block(config))
+            ...
+        self.num_layers = config.num_layers
+
+    def construct(self, input_ids, input_mask, layer_past):
+        ...
+        present_layer = ()
+        for i in range(self.num_layers):
+            hidden_states, present = self.blocks[i](...)
+            present_layer = present_layer + (present,)
+        ...
+```
+
+> 完整代码可以参考：[GPT](https://gitee.com/mindspore/models/tree/master/official/nlp/GPT)
+
+GPT的网络结构由多层`Block`类的不同实例构成，这些`Block`的初始化参数都是同一个`config`，所以加上`@lazy_inline`装饰器后，这些`Block`实例都可以复用同一个网络结构，而且在大部分的编译阶段都不进行inline，从而可以大幅度减少编译时间。
+
+#### 使用步骤
+
+1. 如上面的例子，在网络脚本中，往需要延迟inline和复用子图结构的Cell类的`__init__`函数加上`@lazy_inline`装饰器。
+2. 执行训练脚本前，需要设置环境变量MS_DEV_CELL_REUSE的值为1或者2来开启Lazy Inline功能，两个级别的含义为：
+   - MS_DEV_CELL_REUSE=1，表示开启Lazy Inline功能，但是后端只有执行序级别的inline。目前在Ascend 910B上只支持该级别。
+   - MS_DEV_CELL_REUSE=2，表示开启Lazy Inline功能，后端在执行序优化和内存复用前做Inline，具有更好的内存优化效果。
+
+#### 使用限制
+
+1. Cell 是以Cell的类名和`__init__`参数值生成Cell实例标识的，这是基于`__init__`的参数确定Cell 的所有属性，以及`construct`构图开始时的Cell属性和`__init__`执行完的属性一致为假设前提，因此Cell与构图有关的属性，在`__init__`执行完后不能进行更改。例如：
+
+   ```python
+   from mindspore import nn
+   from mindspore.common import lazy_inline
+
+   class Block(nn.Cell):
+       @lazy_inline
+       def __init__(self, ...):
+           self.x = 0
+           ...
+
+       def construct(self, ...):
+           if self.x == 0:
+               ...
+           else:
+               ...
+           ...
+
+   class Model(nn.Cell):
+       def __init__(self, ...):
+           ...
+           self.num_layers = 10
+           for i in range(self.num_layers):
+               self.blocks.append(Block(...)) # 此处Block进行初始化
+               ...
+           self.blocks[0].x = 1               # 此处在Block初始化后修改Block的属性，会导致该Block无法复用同一份子图
+
+       def construct(self, ...):
+           ...
+           for i in range(self.num_layers):
+               res = self.blocks[i](...)
+           ...
+   ```
+
+   如上代码所示，网络Model中的某个`Block`实例，它的属性`x`在该实例初始化后被修改了，那么这个`Block`实例就无法准确复用同一个子图结构了。
+
+2. 一个Cell类的网络结构包含多个Cell_X类的实例，同时每个Cell_X类的网络结构又包含多个Cell_Y的实例的场景，如果往Cell_X和Cell_Y类的`__init__`函数上都加上`@lazy_inline`，那么只有最外层的Cell_X实例的网络结构被编译成可复用的计算图且被延迟inline，内层的Cell_Y实例的计算图还是会被inline。例如：
+
+   ```python
+   from mindspore import nn
+   from mindspore.common import lazy_inline
+
+   class InnerBlock(nn.Cell):
+       @lazy_inline             # InnerBlock不会被延迟inline
+       def __init__(self, ...):
+           ...
+
+       def construct(self, ...):
+           ...
+
+   class OuterBlock(nn.Cell):
+       @lazy_inline             # OuterBlock将会被延迟inline
+       def __init__(self, ...):
+           ...
+           self.num_layers = 10
+           for i in range(self.num_layers):
+               self.blocks.append(InnerBlock(...))
+
+       def construct(self, ...):
+           ...
+           for i in range(self.num_layers):
+               res = self.blocks[i](...)
+           ...
+
+   class Model(nn.Cell):
+       def __init__(self, ...):
+           ...
+           self.num_layers = 10
+           for i in range(self.num_layers):
+               self.blocks.append(OuterBlock(...))
+
+       def construct(self, ...):
+           ...
+           for i in range(self.num_layers):
+               res = self.blocks[i](...)
+           ...
+   ```
+
+   后续有计划支持这种多层级的Lazy Inline机制。
 
 ### 使用HyperMap
 
