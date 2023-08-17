@@ -170,6 +170,7 @@ SPONGE暑期学校第二季 <https://www.bilibili.com/video/BV1pB4y167yS?spm_id_
    mindsponge.metrics
    sponge.control
    sponge.core
+   sponge.function
    sponge.optimizer
    sponge.potential
    sponge.system
