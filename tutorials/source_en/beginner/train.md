@@ -13,9 +13,9 @@ Model training is generally divided into four steps:
 
 After we have the dataset and the model, we can train and evaluate the model.
 
-## Necessary Prerequisites
+## Build a Dataset
 
-First load the previous code from [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) and [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) to load the previous code.
+First load the previous code from [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) to build a dataset.
 
 ```python
 import mindspore
@@ -47,7 +47,13 @@ def datapipe(path, batch_size):
 
 train_dataset = datapipe('MNIST_Data/train', batch_size=64)
 test_dataset = datapipe('MNIST_Data/test', batch_size=64)
+```
 
+## Define a Neural Network Model
+
+Load the code from [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) to define a neural network model.
+
+```python
 class Network(nn.Cell):
     def __init__(self):
         super().__init__()
@@ -76,7 +82,9 @@ Extracting zip file...
 Successfully downloaded / unzipped to ./
 ```
 
-## Hyperparameter
+## Define the Hyperparameter, Loss Function and Optimizer
+
+### Hyperparameter
 
 Hyperparameters can be adjusted to control the model training and optimization process. Different hyperparameter values may affect the model training and convergence speed. Currently, deep learning models are optimized by using the batch stochastic gradient descent algorithm. The principle of the stochastic gradient descent algorithm is as follows:
 
@@ -95,13 +103,6 @@ epochs = 3
 batch_size = 64
 learning_rate = 1e-2
 ```
-
-## Training Process
-
-Once the hyperparameters are set, we can loop the input data to train the model. A complete iterative loop of a data set is called an epoch. Each epoch of performing training consists of two steps.
-
-1. Training: iterate over the training dataset and try to converge to the best parameters.
-2. Validation/Testing: iterate over the test dataset to check if model performance improves.
 
 ### Loss Function
 
@@ -129,7 +130,12 @@ optimizer = nn.SGD(model.trainable_params(), learning_rate=learning_rate)
 >
 > optimizer(grads)
 
-### Implementing Training and Evaluation
+## Training and Evaluation
+
+Once the hyperparameters, loss function and optimizer are set, we can loop the input data to train the model. A complete iterative loop of a data set is called an epoch. Each epoch of performing training consists of two steps.
+
+1. Training: iterate over the training dataset and try to converge to the best parameters.
+2. Validation/Testing: iterate over the test dataset to check if model performance improves.
 
 Next, we define the `train_loop` function for training and the `test_loop` function for testing.
 

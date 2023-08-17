@@ -4,7 +4,7 @@
 
 ## Overview
 
-Sequence labeling refers to the process of labeling each token for a given input sequence. Sequence labeling is usually used to extract information from text, including word segmentation, position tagging, and named entity recognition (NER). The following uses NER as an example:
+Sequence labeling refers to the process of labeling each token for a given input sequence. Sequence labeling is usually used to extract information from text, including word segmentation, part-of-speech tagging, and named entity recognition (NER). The following uses NER as an example:
 
 | Input Sequence| the | wall | street | journal | reported | today | that | apple | corporation | made | money |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
