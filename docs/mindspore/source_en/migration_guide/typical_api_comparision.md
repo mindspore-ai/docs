@@ -2,6 +2,22 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/typical_api_comparision.md)
 
+## Basic Logic
+
+The basic logic of PyTorch and MindSpore is shown below:
+
+![flowchart](./images/pytorch_mindspore_comparison_en.png)
+
+It can be seen that PyTorch and MindSpore generally require network definition, forward computation, backward computation, and gradient update steps in the implementation process.
+
+- Network definition: In the network definition, the desired forward network, loss function, and optimizer are generally defined. To define the forward network in Net(), PyTorch network inherits from nn.Module; similarly, MindSpore network inherits from nn.Cell. In MindSpore, the loss function and optimizers can be customized in addition to using those provided in MindSpore. You can refer to [Model Module Customization](https://mindspore.cn/tutorials/en/master/advanced/modules.html). Interfaces such as functional/nn can be used to splice the required forward networks, loss functions and optimizers. Detailed interface usage can be found in [API Comparison](#api-comparison).
+
+- Forward computation: Run the instantiated network to get the logit, and use the logit and target as inputs to calculate the loss. It should be noted that if the forward function has more than one output, you need to pay attention to the effect of more than one output on the result when calculating the backward function.
+
+- Backward computation: After getting the loss, we can do the backward calculation. In PyTorch the gradient can be computed using loss.backward(), and in MindSpore, the gradient can be computed by first defining the backward propagation equation net_backward using mindspore.grad(), and then passing the input into net_backward. If the forward function has more than one output, you can set has_aux to True to ensure that only the first output is involved in the derivation, and the other outputs will be returned directly in the backward calculation. For the difference in interface usage in the backward calculation, see [Automatic Differentiation](#automatic-differentiation).
+
+- Gradient update: Update the computed gradient into the Parameters of the network. Use optim.step() in PyTorch, while in MindSpore, pass the gradient of the Parameter into the defined optim to complete the gradient update.
+
 ## API Comparison
 
 ### Tensor/Parameter
@@ -239,11 +255,207 @@ MindSpore provides the [TrainOneStepCell](https://www.mindspore.cn/docs/en/maste
 
 The operator and interface differences involved in gradient derivation are mainly caused by different automatic differentiation principles of MindSpore and PyTorch.
 
+### torch.autograd.backward
+
+[torch.autograd.backward](https://pytorch.org/docs/stable/generated/torch.autograd.backward.html). For a scalar, calling its backward method automatically computes the gradient values of the leaf nodes according to the chaining law. For vectors and matrices, you need to define grad_tensor to compute the gradient of the matrix.
+Typically after calling backward once, PyTorch automatically destroys the computation graph, so to call backward repeatedly on a variable, you need to set the return_graph parameter to True.
+If you need to compute higher-order gradients, you need to set create_graph to True.
+The two expressions z.backward() and torch.autograd.backward(z) are equivalent.
+
+```python
+import torch
+print("=== tensor.backward ===")
+x = torch.tensor(1.0, requires_grad=True)
+y = torch.tensor(2.0, requires_grad=True)
+z = x**2+y
+print("x.grad before backward", x.grad)
+print("y.grad before backward", y.grad)
+z.backward()
+print("z", z)
+print("x.grad", x.grad)
+print("y.grad", y.grad)
+
+print("=== torch.autograd.backward ===")
+x = torch.tensor(1.0, requires_grad=True)
+y = torch.tensor(2.0, requires_grad=True)
+z = x**2+y
+torch.autograd.backward(z)
+print("z", z)
+print("x.grad", x.grad)
+print("y.grad", y.grad)
+```
+
+```text
+=== tensor.backward ===
+x.grad before backward None
+y.grad before backward None
+z tensor(3., grad_fn=<AddBackward0>)
+x.grad tensor(2.)
+y.grad tensor(1.)
+=== torch.autograd.backward ===
+z tensor(3., grad_fn=<AddBackward0>)
+x.grad tensor(2.)
+y.grad tensor(1.)
+```
+
+It can be seen that before calling the backward function, x.grad and y.grad functions are empty. And after the backward calculation, x.grad and y.grad represent the values after the derivative calculation, respectively.
+
+This interface is implemented in MindSpore using mindspore.grad. The above PyTorch use case can be transformed into:
+
+```python
+import mindspore
+print("=== mindspore.grad ===")
+x = mindspore.Tensor(1.0)
+y = mindspore.Tensor(2.0)
+def net(x, y):
+    return x**2+y
+out = mindspore.grad(net, grad_position=0)(x, y)
+print("out", out)
+out1 = mindspore.grad(net, grad_position=1)(x, y)
+print("out1", out1)
+```
+
+```text
+=== mindspore.grad ===
+out 2.0
+out1 1.0
+```
+
+If the above net has more than one output, you need to pay attention to the effect of multiple outputs of the network on finding the gradient.
+
+```python
+import mindspore
+print("=== mindspore.grad multiple outputs ===")
+x = mindspore.Tensor(1.0)
+y = mindspore.Tensor(2.0)
+def net(x, y):
+    return x**2+y, x
+out = mindspore.grad(net, grad_position=0)(x, y)
+print("out", out)
+out1 = mindspore.grad(net, grad_position=1)(x, y)
+print("out1", out)
+```
+
+```text
+=== mindspore.grad multiple outputs ===
+out 3.0
+out1 3.0
+```
+
+PyTorch does not support such expressions:
+
+```python
+import torch
+print("=== torch.autograd.backward does not support multiple outputs ===")
+x = torch.tensor(1.0, requires_grad=True)
+y = torch.tensor(2.0, requires_grad=True)
+z = x**2+y
+torch.autograd.backward(z)
+print("z", z)
+print("x.grad", x.grad)
+print("y.grad", y.grad)
+```
+
+```text
+=== torch.autograd.backward does not support multiple outputs ===
+z tensor(3., grad_fn=<AddBackward0>)
+x.grad tensor(2.)
+y.grad tensor(1.)
+```
+
+Therefore, to find the gradient of only the first output in MindSpore, you need to use the has_aux parameter in MindSpore.
+
+```python
+import mindspore
+print("=== mindspore.grad has_aux ===")
+x = mindspore.Tensor(1.0)
+y = mindspore.Tensor(2.0)
+def net(x, y):
+    return x**2+y, x
+grad_fcn = mindspore.grad(net, grad_position=0, has_aux=True)
+out, _ = grad_fcn(x, y)
+print("out", out)
+grad_fcn1 = mindspore.grad(net, grad_position=1, has_aux=True)
+out, _ = grad_fcn1(x, y)
+print("out", out)
+```
+
+```text
+=== mindspore.grad has_aux ===
+out 2.0
+out 1.0
+```
+
+### torch.autograd.grad
+
+[torch.autograd.grad](https://pytorch.org/docs/stable/generated/torch.autograd.grad.html). This interface is basically the same as torch.autograd.backward. The difference between the two is that the former modifies the grad attribute of each Tensor directly, while the latter returns a list of gradient values for the parameters. So when migrating to MindSpore, you can also refer to the above use case.
+
+```python
+import torch
+print("=== torch.autograd.grad ===")
+x = torch.tensor(1.0, requires_grad=True)
+y = torch.tensor(2.0, requires_grad=True)
+z = x**2+y
+out = torch.autograd.grad(z, x)
+out1 = torch.autograd.grad(z, y)
+print("out", out)
+print("out1", out1)
+```
+
+```text
+=== torch.autograd.grad ===
+out (tensor(2.),)
+out1 (tensor(1.),)
+```
+
 ### torch.no_grad
 
 In PyTorch, by default, information required for backward propagation is recorded when forward computation is performed. In the inference phase or in a network where backward propagation is not required, this operation is redundant and time-consuming. Therefore, PyTorch provides `torch.no_grad` to cancel this process.
 
 MindSpore constructs a backward graph based on the forward graph structure only when `grad` is invoked. No information is recorded during forward execution. Therefore, MindSpore does not need this interface. It can be understood that forward calculation of MindSpore is performed in `torch.no_grad` mode.
+
+```python
+import torch
+print("=== torch.no_grad ===")
+x = torch.tensor(1.0, requires_grad=True)
+y = torch.tensor(2.0, requires_grad=True)
+z = x**2+y
+print("z.requires_grad", z.requires_grad)
+with torch.no_grad():
+    z = x**2+y
+print("z.requires_grad", z.requires_grad)
+```
+
+```text
+=== torch.no_grad ===
+z.requires_grad True
+z.requires_grad False
+```
+
+### torch.enable_grad
+
+If PyTorch enables `torch.no_grad` to disable gradient computation, you can use this interface to enable it.
+
+MindSpore builds the backward graph based on the forward graph structure only when `grad` is called, and no information is logged during forward execution, so MindSpore doesn't need this interface, and it can be understood that MindSpore backward computations are performed with `torch.enable_grad`.
+
+```python
+import torch
+print("=== torch.enable_grad ===")
+x = torch.tensor(1.0, requires_grad=True)
+y = torch.tensor(2.0, requires_grad=True)
+with torch.no_grad():
+    z = x**2+y
+print("z.requires_grad", z.requires_grad)
+with torch.enable_grad():
+    z = x**2+y
+print("z.requires_grad", z.requires_grad)
+```
+
+```text
+=== torch.enable_grad ===
+z.requires_grad False
+z.requires_grad True
+```
 
 ### retain_graph
 
