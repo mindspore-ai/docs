@@ -212,6 +212,7 @@ Contribution Guide
    mindsponge.metrics
    sponge.control
    sponge.core
+   sponge.function
    sponge.optimizer
    sponge.potential
    sponge.system
