@@ -452,14 +452,14 @@ Dump功能
 
        1：执行非任务下沉
      - 
-   * - MS_DEV_ENABLE_FALLBACK
-     - 设置非0值时使能Fallback功能
+   * - MS_DEV_JIT_SYNTAX_LEVEL
+     - 设置2时使能Fallback功能
      - Integer
-     - 1: 开启Fallback功能
+     - 2: 开启Fallback功能
 
        0: 关闭Fallback功能
 
-       默认值：1
+       默认值：2
      - 
    * - MS_JIT_MODULES
      - 指定静态图模式下哪些模块需要JIT静态编译，其函数方法会被编译成静态计算图。
@@ -505,4 +505,17 @@ Dump功能
      - 0: 打印默认ir文件
 
        1: 打印异序ir文件
-     - 
+     -
+   * - MS_DEV_SIDE_EFFECT_LOAD_ELIM
+     - 优化冗余显存拷贝操作
+     - Integer
+     - 0: 不做显存优化，占用显存最多。
+
+       1: 保守地做部分显存优化。
+
+       2: 在损耗一定编译性能的前提下，尽量多地优化显存。
+
+       3: 不保证网络的精度，显存消耗最少。
+
+       默认值：1
+     -
