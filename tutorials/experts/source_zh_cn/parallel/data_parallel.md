@@ -6,9 +6,11 @@
 
 数据并行是最常用的并行训练方式，用于加速模型训练和处理大规模数据集。在数据并行模式下，训练数据被划分成多份，然后将每份数据分配到不同的计算节点上，例如多卡或者多台设备。每个节点独立地处理自己的数据子集，并使用相同的模型进行前向传播和反向传播，最终对所有节点的梯度进行同步后，进行模型参数更新。
 
+> 数据并行支持的硬件平台包括Ascend、GPU和CPU，此外还同时支持PyNative模式和Graph模式。
+
 相关接口：
 
-1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)`：设置数据并行模式；
+1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)`：设置数据并行模式。
 2. `mindspore.nn.DistributedGradReducer()`：进行多卡梯度聚合。
 
 ## 整体流程
@@ -25,11 +27,11 @@
 
 3. 网络构图
 
-    数据并行网络的书写方式与单机网络没有差别，这是因为在正反向传播（Forward propagation & Backward propagation）过程中各卡的模型间是独立执行的，只是保持了相同的网络结构。唯一需要特别注意的是为了保证各卡间训练同步，相应的网络参数初始化值应当是一致的，在`DATA_PRALLEL`模式下可以通过设置seed或通过使能`parameter_broadcast`达到多卡间权重初始化一致的目的。
+    数据并行网络的书写方式与单卡网络没有差别，这是因为在正反向传播（Forward propagation & Backward propagation）过程中各卡的模型间是独立执行的，只是保持了相同的网络结构。唯一需要特别注意的是为了保证各卡间训练同步，相应的网络参数初始化值应当是一致的，在`DATA_PRALLEL`模式下可以通过设置seed或通过使能`parameter_broadcast`达到多卡间权重初始化一致的目的。
 
 4. 梯度聚合（Gradient aggregation）
 
-    数据并行理论上应该实现和单机一致的训练效果，为了保证计算逻辑的一致性，通过调用`mindspore.nn.DistributedGradReducer()`接口，在梯度计算完成后自动插入`AllReduce`算子实现各卡间的梯度聚合操作。MindSpore设置了`mean`开关，用户可以选择是否要对求和后的梯度值进行求平均操作，也可以将其视为超参项。
+    数据并行理论上应该实现和单卡一致的训练效果，为了保证计算逻辑的一致性，通过调用`mindspore.nn.DistributedGradReducer()`接口，在梯度计算完成后自动插入`AllReduce`算子实现各卡间的梯度聚合操作。MindSpore设置了`mean`开关，用户可以选择是否要对求和后的梯度值进行求平均操作，也可以将其视为超参项。
 
 5. 参数更新（Parameter update）
 
@@ -37,7 +39,7 @@
 
 ## 操作实践
 
-下面以Ascend单机8卡为例，进行数据并行操作说明：
+下面以Ascend或者GPU单机8卡为例，进行数据并行操作说明：
 
 ### 样例代码说明
 
@@ -55,22 +57,17 @@
     ...
 ```
 
-其中，`rank_table_8pcs.json`是配置Ascend多卡环境的组网信息文件。`distributed_data_parallel.py`是定义网络结构和训练过程的脚本。`run.sh`是执行脚本。
+其中，`distributed_data_parallel.py`是定义网络结构和训练过程的脚本。`run.sh`是执行脚本。
 
 ### 配置分布式环境
 
-> 数据并行支持的硬件平台包括Ascend、GPU和CPU，此外还同时支持PyNative模式和Graph模式。
-
-通过MindSpore提供的context接口指定运行模式、运行设备、运行卡号、并行模式等，并通过init初始化HCCL通信。数据并行模式，还需要设置`parallel_mode`、`gradients_mean`。
+通过context接口可以指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为数据并行模式，并通过init初始化HCCL或NCCL通信。在数据并行模式还需要设置`gradients_mean`指定梯度聚合方式。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
-import os
 import mindspore as ms
 from mindspore.communication import init
 
-device_id = int(os.getenv('DEVICE_ID'))
-ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
-ms.set_context(device_id=device_id)
+ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 init()
 ms.set_seed(1)
@@ -91,7 +88,7 @@ rank_size = get_group_size()
 dataset = ds.MnistDataset(dataset_path, num_shards=rank_size, shard_id=rank_id)
 ```
 
-其中，与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，建议通过`mindspore.communication`接口获取：
+其中，与单卡不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，建议通过`mindspore.communication`接口获取：
 
 - `get_rank`：获取当前设备在集群中的ID。
 - `get_group_size`：获取集群数量。
@@ -101,6 +98,7 @@ dataset = ds.MnistDataset(dataset_path, num_shards=rank_size, shard_id=rank_id)
 完整的数据处理代码：
 
 ```python
+import os
 import mindspore.dataset as ds
 from mindspore.communication import get_rank, get_group_size
 
@@ -125,7 +123,7 @@ data_set = create_dataset(32)
 
 ### 定义网络
 
-数据并行模式下，网络定义方式与单机写法一致，网络的主要结构如下：
+数据并行模式下，网络定义方式与单卡网络写法一致，网络的主要结构如下：
 
 ```python
 from mindspore import nn
@@ -152,7 +150,7 @@ net = Network()
 
 ### 训练网络
 
-在这一步，我们需要定义损失函数、优化器以及训练过程。与单机不同的地方在于，数据并行模式还需要增加`mindspore.nn.DistributedGradReducer()`接口，来对所有卡的梯度进行聚合，该接口第一个参数为需要更新的网络参数：
+在这一步，我们需要定义损失函数、优化器以及训练过程。与单卡模型不同的地方在于，数据并行模式还需要增加`mindspore.nn.DistributedGradReducer()`接口，来对所有卡的梯度进行聚合，该接口第一个参数为需要更新的网络参数：
 
 ```python
 from mindspore import nn, ops
@@ -182,10 +180,6 @@ for epoch in range(10):
 ### 运行单机八卡脚本
 
 接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
-
-用户首先需要安装OpenMPI，下载OpenMPI-4.1.4源码[openmpi-4.1.4.tar.gz](https://www.open-mpi.org/software/ompi/v4.1/)。参考[OpenMPI官网教程](https://www.open-mpi.org/faq/?category=building#easy-build)安装。
-
-然后启动分布式训练脚本：
 
 ```bash
 bash run.sh
