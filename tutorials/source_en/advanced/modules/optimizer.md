@@ -284,20 +284,20 @@ opt = Momentum(net.trainable_params(), 0.01)
 
 ## nn.optim_ex
 
-In addition to the optimizer within the `mindspore.nn.optim` module mentioned above, MindSpore also provides an experimental optimizer module, `mindspore.nn.optim_ex`, which is designed to extend the function of the optimizer.
+In addition to the optimizer within the `mindspore.nn.optim` module mentioned above, MindSpore also provides an experimental optimizer module, `mindspore.experimental.optim`, which is designed to extend the function of the optimizer.
 
-> The `mindspore.nn.optim_ex` module is still under development. Currently the optimizer for this module is only available for functional programming scenarios and only adapts to the dynamic learning rate class under [mindspore.nn.lr_scheduler](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#lrscheduler-class).
+> The `mindspore.experimental.optim` module is still under development. Currently the optimizer for this module is only available for functional programming scenarios and only adapts to the dynamic learning rate class under [mindspore.experimental.lr_scheduler](https://www.mindspore.cn/docs/en/master/api_python/mindspore.experimental.html#lrscheduler-class).
 
 Usage differences:
 
-| Parameters   | nn.optim | nn.optim_ex | Functions    |
+| Parameters   | nn.optim | experimental.optim | Functions    |
 |-------|----------| ------------|-------|
 | Parameter configuration (hyperparameter not grouped) | Configure input to be `params` | Configure input to be `params`  | The configuration and function is the same in normal scenarios, and passing in `net.trainable_params` is sufficient.|
 | Learning rate   | Configure input to be `learning_rate` | Configure input to be `lr` |  For configuration and function difference for dynamic learning rate scenarios, see [Dynamic Learning Rate](#learning-rate-1) for details|
 | Weight decay  | Configure input to be `weight_decay` | Configure input to be `weight_decay` | For different dynamic weight_decay scenarios configuration, see [weight_decay](#weight-decay-1) for details.|
 | Hyperparameter grouping  | Configure input to be `params`, passing in the set of parameters dict | Configure input to be `params`, passing in the set of parameters dict | In the grouping scenario, i.e., when `params` is a dict, the functions are different, see [hyperparameter grouping](#hyperparameter-grouping-1) for details.|
 
-In addition to the above similarities and differences, `mindspore.nn.optim_ex` also supports [Viewing Parameter Groups](#viewing-optimizer-configuration), [Modifying Optimizer Parameters during Running](#modifying-optimizer-parameters-during-running), and other features, as detailed below.
+In addition to the above similarities and differences, `mindspore.experimental.optim` also supports [Viewing Parameter Groups](#viewing-optimizer-configuration), [Modifying Optimizer Parameters during Running](#modifying-optimizer-parameters-during-running), and other features, as detailed below.
 
 ### Configuring Optimizer
 
@@ -313,11 +313,11 @@ Configured in the same way as the fixed learning rates of `mindspore.nn.optim`.
 
 **Dynamic Learning Rate**:
 
-The dynamic learning rate module is provided under `mindspore.nn.lr_scheduler` for use with `mindspore.nn.optim_ex` and the usage way is different from that of `mindspore.nn.optim`:
+The dynamic learning rate module is provided under `mindspore.experimental.lr_scheduler` for use with `mindspore.experimental.optim` and the usage way is different from that of `mindspore.nn.optim`:
 
 `mindspore.nn.optim`: Pass a list or instance of dynamic learning rates to the optimizer input `learning_rate`, as used in [DynamicLR function](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#dynamic-lr-function) and [LearningRateSchedule class](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#learningrateschedule-class).
 
-`mindspore.nn.optim_ex`: Pass the optimizer instance to the input `optimizer` of the dynamic learning rate class, as used in [LRScheduler class](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#lrscheduler-class).
+`mindspore.experimental.optim`: Pass the optimizer instance to the input `optimizer` of the dynamic learning rate class, as used in [LRScheduler class](https://www.mindspore.cn/docs/en/master/api_python/mindspore.experimental.html#lrscheduler-class).
 
 The `LRScheduler` also provides two ways of obtaining the learning rate:
 
@@ -480,5 +480,5 @@ def train_step(data, label):
 
 ### Customized Optimizer
 
-In the same way as the [Customized Optimizer](#customized-optimizer) above, a custom optimizer can also inherit from the optimizer base class [nn.optim_ex.Optimizer](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.optim_ex.Optimizer.html) and override the `__init__` method and `construct` method to set your own parameter update strategy.
+In the same way as the [Customized Optimizer](#customized-optimizer) above, a custom optimizer can also inherit from the optimizer base class [experimental.optim.Optimizer](https://www.mindspore.cn/docs/en/master/api_python/experimental/optim/mindspore.experimental.optim.Optimizer.html) and override the `__init__` method and `construct` method to set your own parameter update strategy.
 
