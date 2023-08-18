@@ -256,10 +256,5 @@
   {%- endif %}
 
   {%- block footer %} {% endblock %}
-    {%- for scriptfile in script_files %}
-    {%- if "mathjax" in scriptfile.filename|string %}
-        <script async="async" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        {%- endif %}    
-    {%- endfor %}
 </body>
 </html>
