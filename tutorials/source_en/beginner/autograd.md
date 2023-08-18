@@ -46,8 +46,8 @@ def function(x, y, w, b):
 Execute the computing functions to get the calculated loss value.
 
 ```python
-z = function(x, y, w, b)
-print(z)
+loss = function(x, y, w, b)
+print(loss)
 ```
 
 ```text

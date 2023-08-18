@@ -26,6 +26,11 @@ There are multiple methods for creating tensors. When building a tensor, you can
     ```python
     data = [1, 0, 1, 0]
     x_data = Tensor(data)
+    print(x_data, x_data.shape, x_data.dtype)
+    ```
+
+    ```text
+    [1 0 1 0] (4,) Int4
     ```
 
 - **Generating a tensor from the NumPy array**
@@ -35,6 +40,11 @@ There are multiple methods for creating tensors. When building a tensor, you can
     ```python
     np_array = np.array(data)
     x_np = Tensor(np_array)
+    print(x_np, x_np.shape, x_np.dtype)
+    ```
+
+    ```text
+    [1 0 1 0] (4,) Int4
     ```
 
 - **Generating a tensor by using init**
@@ -232,15 +242,15 @@ Tensor and NumPy can be converted to each other.
 Use [Tensor.asnumpy()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html) to convert Tensor to NumPy, which is same as tensor building.
 
 ```python
-t = ops.ones(5, mindspore.float32)
-print(f"t: {t}")
+t = Tensor([1., 1., 1., 1., 1.])
+print(f"t: {t}", type(t))
 n = t.asnumpy()
-print(f"n: {n}")
+print(f"n: {n}", type(n))
 ```
 
 ```text
-t: [1. 1. 1. 1. 1.]
-n: [1. 1. 1. 1. 1.]
+t: [1. 1. 1. 1. 1.] <class 'mindspore.common.tensor.Tensor'>
+n: [1. 1. 1. 1. 1.] <class 'numpy.ndarray'>
 ```
 
 ### NumPy to Tensor
@@ -254,13 +264,13 @@ t = Tensor.from_numpy(n)
 
 ```python
 np.add(n, 1, out=n)
-print(f"t: {t}")
-print(f"n: {n}")
+print(f"n: {n}", type(n))
+print(f"t: {t}", type(t))
 ```
 
 ```text
-t: [2. 2. 2. 2. 2.]
-n: [2. 2. 2. 2. 2.]
+n: [2. 2. 2. 2. 2.] <class 'numpy.ndarray'>
+t: [2. 2. 2. 2. 2.] <class 'mindspore.common.tensor.Tensor'>
 ```
 
 ## Sparse Tensor

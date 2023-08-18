@@ -36,6 +36,16 @@ Extracting zip file...
 Successfully downloaded / unzipped to ./
 ```
 
+The directory structure of MNIST Dataset is as following：
+
+MNIST_Data
+└── train
+    ├── train-images-idx3-ubyte (60000 training images)
+    ├── train-labels-idx1-ubyte (60000 training labels)
+└── test
+    ├── t10k-images-idx3-ubyte (10000 test images)
+    ├── t10k-labels-idx1-ubyte (10000 test labels)
+
 After the data is downloaded, the dataset object is obtained.
 
 ```python

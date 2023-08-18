@@ -58,6 +58,8 @@ def visualize(dataset):
     figure = plt.figure(figsize=(4, 4))
     cols, rows = 3, 3
 
+    plt.subplots_adjust(wspace=0.5, hspace=0.5)
+
     for idx, (image, label) in enumerate(dataset.create_tuple_iterator()):
         figure.add_subplot(rows, cols, idx + 1)
         plt.title(int(label))
