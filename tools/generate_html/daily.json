@@ -96,9 +96,9 @@
     "name" : "mindsponge",
     "branch" : "master",
     "whl_path" : "/mindscience/website/gpu/x86_64/cuda-10.1/",
-    "whl_name" : "mindsponge_gpu-.*-py3-none-any.whl$",
+    "whl_name" : "mindsponge-.*-py3-none-any.whl$",
     "environ" : "MSC_PATH",
-    "uninstall_name" : "mindsponge_gpu"
+    "uninstall_name" : "mindsponge"
 },
 {
     "id" : 12 ,
