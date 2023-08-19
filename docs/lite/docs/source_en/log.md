@@ -19,3 +19,16 @@ Only server inference version and windows version support environment variables 
 - `GLOG_log_dir`
 
     The environment variable specifies the log output directory path. The config path needs to exist.
+
+## User defined GLOG options
+
+`Mindpoint lite` supports user defined configuration of `GLOG` related parameters for specific situations. Users can set `GLOG_USER_DEFINE` parameter is `on` to achieve custom configuration of logs. For specific GLOG options, you can use `FLAGS_**` Configure. Please refer to the table below for detailed configuration.
+
+| configuration item               | Parameter parsing |
+|-----------------------| :----------: |
+| FLAGS_log_prefix | use glog predefined log prefix |
+| FLAGS_logbufsecs | write log to files real-time |
+| FLAGS_v | log level |
+| FLAGS_logfile_mode | set log file mode |
+| FLAGS_max_log_size | set log file max size |
+| FLAGS_logtostderr | set print log to screen |
