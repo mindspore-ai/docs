@@ -1167,42 +1167,6 @@ Tensor(shape=[3], dtype=Int32, value= [1 2 3])
 Tensor(shape=[], dtype=Int32, value=3)
 ```
 
-支持在静态图模式下使用Python原生的`print`来打印常量，它与[Print算子](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Print.html)打印信息的时机有所不同。Python原生`print`是在编译过程中触发打印（编译时阶段打印），而Print算子是需要图编译完成后，下发到设备端运行才打印（运行时阶段打印）。
-
-为了便于理解，举例如下。`tensor_sum`涉及`Tensor`相加，即运行时阶段才能得到结果，在调用`print`时，实际调用的是静态图模式中的`Print`算子，而`np_num`是由两个`NumPy`常量相加得到的结果，即调用`print`时，使用的是Python原生`print`。由于两者的打印时机不同，最终导致显示`np_sum`在`tensor_sum`之前，即使用Python原生`print`的打印结果会在`Print`算子之前。
-
-```python
-import numpy as np
-import mindspore as ms
-import mindspore.nn as nn
-
-# pylint: disable= W0235
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-
-    def construct(self):
-        x = ms.Tensor(np.array([1, 2, 3, 4, 5]))
-        y = ms.Tensor(np.array([1, 2, 3, 4, 5]))
-        tensor_sum = x + y
-        print("tensor_sum: ", tensor_sum)
-        x = np.array([1, 2, 3, 4, 5])
-        y = np.array([1, 2, 3, 4, 5])
-        np_sum = x + y
-        print("np_sum: ", np_sum)
-        return tensor_sum, ms.Tensor(np_sum)
-
-ms.set_context(mode=ms.GRAPH_MODE)
-net = Net()
-net()
-```
-
-```text
-np_sum:  [ 2  4  6  8 10]
-tensor_sum:
-Tensor(shape=[5], dtype=Int64, value=[ 2  4  6  8 10])
-```
-
 ## filter
 
 功能：根据提供的函数对一个序列的元素做判断，每个元素依次作为参数传入函数中，将返回结果不为0或False的元素组成新的序列。
