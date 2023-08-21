@@ -71,7 +71,7 @@
 |[mindspore.Dropout3D](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Dropout3D.html)|✔️|✔️|✔️|
 |[mindspore.DynamicGRUV2](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.DynamicGRUV2.html)|✔️|✔️|✔️|
 |[mindspore.DynamicRNN](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.DynamicRNN.html)|✔️|️❌|️❌|
-|[mindspore.Einsum](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Einsum.html)|✔️|✔️|✔️|
+|[mindspore.Einsum](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Einsum.html)|❌|✔️|❌|
 |[mindspore.Elu](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Elu.html)|✔️|✔️|✔️|
 |[mindspore.Equal](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Equal.html)|✔️|✔️|✔️|
 |[mindspore.Erf](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/ops/mindspore.ops.Erf.html)|✔️|✔️|✔️|
