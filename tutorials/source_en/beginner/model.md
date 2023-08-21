@@ -65,7 +65,8 @@ We construct an input data and call the model directly to obtain a 10-dimensiona
 ```python
 X = ops.ones((1, 28, 28), mindspore.float32)
 logits = model(X)
-print(logits)
+# print logits
+logits
 ```
 
 ```text
