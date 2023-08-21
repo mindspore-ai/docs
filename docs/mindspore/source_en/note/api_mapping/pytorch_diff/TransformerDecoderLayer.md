@@ -28,11 +28,11 @@ class mindspore.nn.TransformerDecoderLayer(
     layer_norm_eps=1e-5,
     batch_first=False,
     norm_first=False,
-    dtype=mstype.float32)
+    dtype=mstype.float32
 )
 ```
 
-For more information, see [mindspore.n.TransformerDecoderLayer](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TransformerDecoderLayer.html).
+For more information, see [mindspore.nn.TransformerDecoderLayer](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TransformerDecoderLayer.html).
 
 ## Differences
 

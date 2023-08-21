@@ -32,7 +32,7 @@ class mindspore.nn.TransformerEncoderLayer(
 )
 ```
 
-For more information, see [mindspore.n.TransformerEncoderLayer](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TransformerEncoderLayer.html).
+For more information, see [mindspore.nn.TransformerEncoderLayer](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TransformerEncoderLayer.html).
 
 ## Differences
 

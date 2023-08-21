@@ -49,6 +49,14 @@ train_dataset = datapipe('MNIST_Data/train', batch_size=64)
 test_dataset = datapipe('MNIST_Data/test', batch_size=64)
 ```
 
+```text
+Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip (10.3 MB)
+
+file_sizes: 100%|██████████████████████████| 10.8M/10.8M [00:05<00:00, 2.07MB/s]
+Extracting zip file...
+Successfully downloaded / unzipped to ./
+```
+
 ## Define a Neural Network Model
 
 Load the code from [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) to define a neural network model.
@@ -72,14 +80,6 @@ class Network(nn.Cell):
         return logits
 
 model = Network()
-```
-
-```text
-Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip (10.3 MB)
-
-file_sizes: 100%|██████████████████████████| 10.8M/10.8M [00:05<00:00, 2.07MB/s]
-Extracting zip file...
-Successfully downloaded / unzipped to ./
 ```
 
 ## Define the Hyperparameter, Loss Function and Optimizer
