@@ -14,7 +14,7 @@ class torch.nn.Transformer(
     dropout=0.1,
     activation='relu',
     custom_encoder=None,
-    custom_decoder=None)
+    custom_decoder=None
 )
 ```
 
@@ -36,11 +36,11 @@ class mindspore.nn.Transformer(
     layer_norm_eps=1e-05,
     batch_first=False,
     norm_first=False,
-    dtype=mstype.float32)
+    dtype=mstype.float32
 )
 ```
 
-For more information, see [mindspore.n.Transformer](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Transformer.html).
+For more information, see [mindspore.nn.Transformer](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Transformer.html).
 
 ## Differences
 
