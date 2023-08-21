@@ -1167,42 +1167,6 @@ Tensor(shape=[3], dtype=Int32, value= [1 2 3])
 Tensor(shape=[], dtype=Int32, value=3)
 ```
 
-Support for printing constants in static graph mode by using native print of Python, which is different from [Print operator](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Print.html) prints information at a different time. Python native print is triggered during compilation (at compiling time phase printing), while the Print operator requires the graph to be compiled and sent down to the device side to run before printing (at runtime phase printing).
-
-For the sake of understanding, the following examples are given. tensor_sum involves Tensor summing, i.e. the runtime phase to get the result. When calling print, the actual call is the Print operator in the static graph mode. And np_num is the result of adding up two NumPy constants, so when calling print, the native Python print is used. Because of the different timing of the two prints, it ends up showing np_sum before tensor_sum, i.e. the print result of Python native print supported by JIT Fallback will be before the Print operator.
-
-```python
-import numpy as np
-import mindspore as ms
-import mindspore.nn as nn
-
-# pylint: disable= W0235
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-
-    def construct(self):
-        x = ms.Tensor(np.array([1, 2, 3, 4, 5]))
-        y = ms.Tensor(np.array([1, 2, 3, 4, 5]))
-        tensor_sum = x + y
-        print("tensor_sum: ", tensor_sum)
-        x = np.array([1, 2, 3, 4, 5])
-        y = np.array([1, 2, 3, 4, 5])
-        np_sum = x + y
-        print("np_sum: ", np_sum)
-        return tensor_sum, ms.Tensor(np_sum)
-
-ms.set_context(mode=ms.GRAPH_MODE)
-net = Net()
-net()
-```
-
-```text
-np_sum:  [ 2  4  6  8 10]
-tensor_sum:
-Tensor(shape=[5], dtype=Int64, value=[ 2  4  6  8 10])
-```
-
 ## filter
 
 Function: According to the provided function to judge the elements of a sequence. Each element is passed into the function as a parameter in turn, and the elements whose return result is not 0 or False form a new sequence.
