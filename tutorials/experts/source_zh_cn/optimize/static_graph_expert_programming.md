@@ -191,7 +191,7 @@ GPT的网络结构由多层`Block`类的不同实例构成，这些`Block`的初
 
 ### 使用HyperMap
 
-使用场景： 使用HyperMap替换for循环来优化编译性能。
+使用场景：使用HyperMap替换for循环来优化编译性能。
 
 `HyperMap`是一个特殊的类，类对象构造时需要传入映射函数f，调用对象时需要传入f的n个参数序列，更多使用方法见：[HyperMap](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.HyperMap.html)。映射函数f必须是`MultitypeFuncGraph`类型, 可参考[MultitypeFuncGraph](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.MultitypeFuncGraph.html)。在使用for循环批量处理列表元素时，可以通过`HyperMap`等价语义替换来优化网络编译性能。例如：
 
