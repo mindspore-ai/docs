@@ -22,22 +22,18 @@ mindspore.common.initializer.Constant(value)
 
 TensorFlow：函数入参`value`支持标量，列表，元组，数组类型。假设需要创建一个指定shape的张量，且此接口的入参`value`类型为列表或数组时，`value`包含的元素数量必须小于等于指定shape的元素数量，小于的情况下，`value`的最后一个元素值用来填充剩余的位置。
 
-MindSpore：函数入参`value`支持标量和数组类型。`value`为数组时，只能生成与`value`形状相同的张量。
+MindSpore：函数入参`value`支持标量，元素个数为1的numpy数组。
 
 ## 代码示例
 
-以输入为数组为例，代码样例如下：
+以输入为标量为例，代码样例如下：
 
 TensorFlow:
 
 ```python
-import numpy as np
 import tensorflow as tf
 
-value = np.array([0, 1, 2, 3, 4, 5, 6, 7])
-value = value.reshape([2, 4])
-
-init = tf.keras.initializers.Constant(value)
+init = tf.keras.initializers.Constant(2)
 
 x = init(shape=(2, 4))
 y = init(shape=(3, 4))
@@ -47,29 +43,25 @@ with tf.Session() as sess:
     print(y.eval())
 
 # out:
-# [[0. 1. 2. 3.]
-#  [4. 5. 6. 7.]]
+# [[2. 2. 2. 2.]
+#  [2. 2. 2. 2.]]
 
-# [[0. 1. 2. 3.]
-#  [4. 5. 6. 7.]
-#  [7. 7. 7. 7.]]
+# [[2. 2. 2. 2.]
+#  [2. 2. 2. 2.]
+#  [2. 2. 2. 2.]]
 ```
 
 MindSpore:
 
 ```python
-import numpy as np
 import mindspore as ms
 from mindspore.common.initializer import initializer, Constant
 
-value = np.array([0, 1, 2, 3, 4, 5, 6, 7])
-value = value.reshape([2, 4])
-
-x = initializer(Constant(value), shape=[2, 4], dtype=ms.float32)
+x = initializer(Constant(2), shape=[2, 4], dtype=ms.float32)
 
 print(x)
 
 # out:
-# [[0. 1. 2. 3.]
-#  [4. 5. 6. 7.]]
+# [[2. 2. 2. 2.]
+#  [2. 2. 2. 2.]]
 ```
