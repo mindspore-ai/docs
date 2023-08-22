@@ -566,7 +566,7 @@ optimizer = optim.SGD(model.parameters(), lr=0.01)
 
 PyTorch supports modifying arbitrary optimizer parameters during training, and provides `LRScheduler` for dynamically modifying the learning rate;
 
-MindSpore currently does not support modifying optimizer parameters during training, but provides a way to modify the learning rate and weight decay. See the [Learning Rate](#learning-rate) and [Weight Decay](#weight-decay) sections for details.
+MindSpore currently does not support modifying optimizer parameters during training, but provides a way to modify the learning rate and weight decay. See the [Learning Rate Strategy Comparison](#learning-rate-strategy-comparison) and [Weight Decay](#weight-decay) sections for details.
 
 ### Weight Decay
 
