@@ -22,11 +22,11 @@ For more information, see [mindspore.common.initializer.Constant](https://mindsp
 
 TensorFlow: The function input parameter `value` supports scalar, list, tuple, and array types. Suppose you need to create a tensor of the specified shape, and the input parameter `value` of this interface is a list or an array, the number of elements contained in `value` must be less than or equal to the number of elements with the specified shape. If the number of elements contained in `value` must be less than the number of elements with the specified shape, the last element of `value` is used to fill the remaining positions.
 
-MindSpore: The function input parameter `value` supports scalar and array types. When `value` is an array, only a tensor with the same shape as `value` can be generated.
+MindSpore: The function input parameter `value` supports scalar and array of one element. When `value` is an array, only a tensor with the same shape as `value` can be generated.
 
 ## Code Example
 
-As an example, if the input is an array, the code sample is as follows:
+As an example, if the input is a scalar, the code sample is as follows:
 
 TensorFlow:
 
@@ -34,10 +34,7 @@ TensorFlow:
 import numpy as np
 import tensorflow as tf
 
-value = np.array([0, 1, 2, 3, 4, 5, 6, 7])
-value = value.reshape([2, 4])
-
-init = tf.keras.initializers.Constant(value)
+init = tf.keras.initializers.Constant(2)
 
 x = init(shape=(2, 4))
 y = init(shape=(3, 4))
@@ -47,31 +44,27 @@ with tf.Session() as sess:
     print(y.eval())
 
 # out:
-# [[0. 1. 2. 3.]
-#  [4. 5. 6. 7.]]
+# [[2. 2. 2. 2.]
+#  [2. 2. 2. 2.]]
 
-# [[0. 1. 2. 3.]
-#  [4. 5. 6. 7.]
-#  [7. 7. 7. 7.]]
+# [[2. 2. 2. 2.]
+#  [2. 2. 2. 2.]
+#  [2. 2. 2. 2.]]
 ```
 
 MindSpore:
 
 ```python
-import numpy as np
 import mindspore as ms
 from mindspore.common.initializer import initializer, Constant
 
-value = np.array([0, 1, 2, 3, 4, 5, 6, 7])
-value = value.reshape([2, 4])
-
-x = initializer(Constant(value), shape=[2, 4], dtype=ms.float32)
+x = initializer(Constant(2), shape=[2, 4], dtype=ms.float32)
 
 print(x)
 
 # out:
-# [[0. 1. 2. 3.]
-#  [4. 5. 6. 7.]]
+# [[2. 2. 2. 2.]
+#  [2. 2. 2. 2.]]
 ```
 
 
