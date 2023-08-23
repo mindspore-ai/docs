@@ -15,6 +15,7 @@ import sys
 import IPython
 import re
 import sphinx
+import shutil
 sys.path.append(os.path.abspath('../_ext'))
 import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
@@ -164,7 +165,6 @@ import mindquantum
 
 # Copy source files of en python api from mindquantum repository.
 from sphinx.util import logging
-import shutil
 logger = logging.getLogger(__name__)
 
 src_dir = os.path.join(os.getenv("MQ_PATH"), 'docs/api_python_en')
