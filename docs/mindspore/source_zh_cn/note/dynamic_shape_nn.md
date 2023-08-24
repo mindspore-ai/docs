@@ -41,9 +41,9 @@
 |[mindspore.nn.GroupNorm](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GroupNorm.html)|✔️|✔️|✔️|
 |[mindspore.nn.GRU](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GRU.html)|✔️|✔️|✔️|
 |[mindspore.nn.GRUCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GRUCell.html)|✔️|✔️|✔️|
-|[mindspore.nn.InstanceNorm1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.InstanceNorm1d.html)|✔️|✔️|✔️|
-|[mindspore.nn.InstanceNorm2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.InstanceNorm2d.html)|✔️|✔️|✔️|
-|[mindspore.nn.InstanceNorm3d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.InstanceNorm3d.html)|✔️|✔️|✔️|
+|[mindspore.nn.InstanceNorm1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.InstanceNorm1d.html)|❌|✔️|❌|
+|[mindspore.nn.InstanceNorm2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.InstanceNorm2d.html)|❌|✔️|❌|
+|[mindspore.nn.InstanceNorm3d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.InstanceNorm3d.html)|❌|✔️|❌|
 |[mindspore.nn.KLDivLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.KLDivLoss.html)|✔️|✔️|✔️|
 |[mindspore.nn.L1Loss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.L1Loss.html)|✔️|✔️|✔️|
 |[mindspore.nn.LeakyReLU](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.LeakyReLU.html)|✔️|✔️|✔️|
@@ -53,12 +53,12 @@
 |[mindspore.nn.MaxPool1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool1d.html)|✔️|✔️|✔️|
 |[mindspore.nn.MaxPool2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool2d.html)|✔️|✔️|✔️|
 |[mindspore.nn.MaxPool3d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool3d.html)|✔️|✔️|✔️|
-|[mindspore.nn.MaxUnpool2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxUnpool2d.html)|✔️|✔️|✔️|
+|[mindspore.nn.MaxUnpool2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxUnpool2d.html)|❌|✔️|✔️|
 |[mindspore.nn.MSELoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MSELoss.html)|✔️|✔️|✔️|
 |[mindspore.nn.MultiLabelSoftMarginLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MultiLabelSoftMarginLoss.html)|✔️|✔️|✔️|
 |[mindspore.nn.PixelShuffle](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.PixelShuffle.html)|✔️|✔️|✔️|
 |[mindspore.nn.ReflectionPad1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ReflectionPad1d.html)|✔️|✔️|✔️|
-|[mindspore.nn.ReplicationPad2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ReplicationPad2d.html)|✔️|✔️|✔️|
+|[mindspore.nn.ReplicationPad2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ReplicationPad2d.html)|❌|✔️|❌|
 |[mindspore.nn.RNN](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.RNN.html)|✔️|❌|❌|
 |[mindspore.nn.RReLU](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.RReLU.html)|✔️|✔️|✔️|
 |[mindspore.nn.SmoothL1Loss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SmoothL1Loss.html)|✔️|✔️|✔️|
