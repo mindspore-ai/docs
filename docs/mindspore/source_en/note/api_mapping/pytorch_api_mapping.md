@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_api_mapping.md)
 
-Mapping between TensorFlow APIs and MindSpore APIs, which is provided by the community. There may be differences in parameters, inputs, outputs, logic functions, and specific scenarios. For details, see the description of each API or the difference comparison provided.
+Mapping between PyTorch APIs and MindSpore APIs, which is provided by the community. There may be differences in parameters, inputs, outputs, logic functions, and specific scenarios. For details, see the description of each API or the difference comparison provided.
 
 More MindSpore developers are also welcome to participate in improving the mapping content. For more information on the differences in framework mechanisms of PyTorch and MindSpore, see: [Optimizer Comparison](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#optimizer-comparison), [Random Number Strategy Comparison](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#random-number-strategy-comparison), and [Parameter Initialization Comparison](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#parameter-initialization-comparison).
 

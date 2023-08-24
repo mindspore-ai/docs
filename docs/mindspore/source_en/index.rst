@@ -61,7 +61,6 @@ MindSpore Documentation
    :hidden:
 
    note/api_mapping/pytorch_api_mapping
-   note/api_mapping/tensorflow_api_mapping
 
 .. toctree::
    :glob:
@@ -189,7 +188,7 @@ MindSpore Documentation
                               <span class="doc-head-content">API Mapping</span>
                            </div>
                            <div class="doc-article-desc">
-                              API mapping between PyTorch and MindSpore, TensorFlow and MindSpore provided by the community.
+                              API mapping between PyTorch and MindSpore provided by the community.
                            </div>
                         </div>
                      </a>
