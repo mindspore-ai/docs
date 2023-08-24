@@ -61,7 +61,6 @@ MindSpore 文档
    :hidden:
 
    note/api_mapping/pytorch_api_mapping
-   note/api_mapping/tensorflow_api_mapping
 
 .. toctree::
    :glob:
@@ -189,7 +188,7 @@ MindSpore 文档
                               <span class="doc-head-content">API映射</span>
                            </div>
                            <div class="doc-article-desc">
-                              由社区提供的PyTorch与MindSpore、TensorFlow与MindSpore之间的API映射。
+                              由社区提供的PyTorch与MindSpore之间的API映射。
                            </div>
                         </div>
                      </a>
