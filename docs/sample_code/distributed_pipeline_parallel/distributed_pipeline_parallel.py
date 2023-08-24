@@ -13,16 +13,16 @@
 # limitations under the License.
 # ============================================================================
 
-"""Distributed Data Parallel Example"""
+"""Distributed Pipeline Parallel Example"""
 
 import os
 import mindspore as ms
 import mindspore.dataset as ds
-from mindspore import nn, ops
-from mindspore.communication import init, get_rank, get_group_size
+from mindspore import nn, train
+from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=2)
 init()
 ms.set_seed(1)
 
@@ -31,17 +31,25 @@ class Network(nn.Cell):
     def __init__(self):
         super().__init__()
         self.flatten = nn.Flatten()
-        self.dense_relu_sequential = nn.SequentialCell(
-            nn.Dense(28*28, 512, weight_init="normal", bias_init="zeros"),
-            nn.ReLU(),
-            nn.Dense(512, 512, weight_init="normal", bias_init="zeros"),
-            nn.ReLU(),
-            nn.Dense(512, 10, weight_init="normal", bias_init="zeros")
-        )
+        self.layer1 = nn.Dense(28*28, 512)
+        self.relu1 = nn.ReLU()
+        self.layer2 = nn.Dense(512, 512)
+        self.relu2 = nn.ReLU()
+        self.layer3 = nn.Dense(512, 10)
+
+        self.layer1.pipeline_stage = 0
+        self.relu1.pipeline_stage = 0
+        self.layer2.pipeline_stage = 0
+        self.relu2.pipeline_stage = 1
+        self.layer3.pipeline_stage = 1
 
     def construct(self, x):
         x = self.flatten(x)
-        logits = self.dense_relu_sequential(x)
+        x = self.layer1(x)
+        x = self.relu1(x)
+        x = self.layer2(x)
+        x = self.relu2(x)
+        logits = self.layer3(x)
         return logits
 
 net = Network()
@@ -49,9 +57,7 @@ net = Network()
 def create_dataset(batch_size):
     """create dataset"""
     dataset_path = os.getenv("DATA_PATH")
-    rank_id = get_rank()
-    rank_size = get_group_size()
-    dataset = ds.MnistDataset(dataset_path, num_shards=rank_size, shard_id=rank_id)
+    dataset = ds.MnistDataset(dataset_path)
     image_transforms = [
         ds.vision.Rescale(1.0 / 255.0, 0),
         ds.vision.Normalize(mean=(0.1307,), std=(0.3081,)),
@@ -64,24 +70,10 @@ def create_dataset(batch_size):
     return dataset
 
 data_set = create_dataset(32)
+
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
 loss_fn = nn.CrossEntropyLoss()
-
-def forward_fn(data, target):
-    """forward propagation"""
-    logits = net(data)
-    loss = loss_fn(logits, target)
-    return loss, logits
-
-grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
-grad_reducer = nn.DistributedGradReducer(optimizer.parameters)
-
-for epoch in range(10):
-    i = 0
-    for image, label in data_set:
-        (loss_value, _), grads = grad_fn(image, label)
-        grads = grad_reducer(grads)
-        optimizer(grads)
-        if i % 10 == 0:
-            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_value))
-        i += 1
+loss_cb = train.LossMonitor()
+net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4)
+model = ms.Model(net_with_grads, optimizer=optimizer)
+model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)

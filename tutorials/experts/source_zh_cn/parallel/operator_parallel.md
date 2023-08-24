@@ -6,6 +6,19 @@
 
 随着深度学习的发展，网络模型正变得越来越大，如NLP领域已出现万亿级参数量的模型，模型容量远超单个设备的内存容量，导致单卡或数据并行均无法进行训练。算子级并行是通过将网络模型中每个算子涉及到的张量进行切分，降低单个设备的内存消耗，从而使大模型的训练成为可能。
 
+> 算子级并行模型支持的硬件平台包括Ascend、GPU，需要在Graph模式下运行。
+
+相关接口：
+
+1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)`：设置半自动并行模式，必须在初始化网络之前调用。
+
+2. `mindspore.ops.Primitive.shard()`：指定算子切分策略，详细案例请参考本章的`基本原理`。
+
+3. `mindspore.ops.Primitive.add_prim_attr()`：为满足不同场景诉求，部分算子能通过`add_prim_attr`接口对其分布式实现进行配置，这些配置仅对`SEMI_AUTO_PARALLEL`与`AUTO_PARALLEL`模式适用，例如：
+
+    - `ops.Gather().add_prim_attr("manual_split", split_tuple)`：该接口配置Gather算子的第一个输入非均匀切分，它仅对axis=0时有效。其中`split_tuple`是一个元素为int类型的元组，元素之和须等于Gather算子第一个输入的第零维的长度，元组个数须等于Gather算子第一个输入的第零维切分份数。
+    - `ops.Gather()add_prim_attr("primitive_target", "CPU")`：该接口配置Gather算子在CPU上执行，用于异构场景。
+
 ## 基本原理
 
 MindSpore对每个算子独立建模，用户可以设置正向网络中每个算子的切分策略（对于未设置的算子，默认按数据并行进行切分）。
@@ -55,78 +68,169 @@ class DenseMatMulNet(nn.Cell):
 
 ![image](images/operator_parallel_image_4_zh.png)
 
-## 特殊说明
-
-在算子级并行中，为满足不同场景诉求，部分算子能通过add_prim_attr()接口对其分布式实现进行配置，这些配置仅对`SEMI_AUTO_PARALLEL`与`AUTO_PARALLEL`模式适用：
-
-- Gather算子：add_prim_attr("manual_split", split_tuple)。该接口配置Gather算子的第一个输入非均匀切分，它仅对axis=0时有效。其中`split_tuple`是一个元素为int类型的元组，元素之和须等于Gather算子第一个输入的第零维的长度，元组个数须等于Gather算子第一个输入的第零维切分份数。
-- Gather算子：add_prim_attr("primitive_target", "CPU")。该接口配置Gather算子在CPU上执行，用于异构场景。
-
 ## 操作实践
 
-下面以Ascend单机8卡为例，进行算子级并行操作说明：
+下面以Ascend或者GPU单机8卡为例，进行算子级并行操作说明：
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/operator_parallel)。
+> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel)。
 
 目录结构如下：
 
 ```text
 └─ sample_code
-    ├─ operator_parallel
-       ├── rank_table_8pcs.json
-       ├── train_lenet.py
+    ├─ distributed_operator_parallel
+       ├── distributed_operator_parallel.py
        └── run.sh
     ...
 ```
 
-其中`rank_table_8pcs.json`是配置Ascend 8卡环境的组网信息文件，`train.py`文件是定义网络结构的脚本，`run.sh`是执行脚本。
+其中，`distributed_operator_parallel.py`是定义网络结构和训练过程的脚本。`run.sh`是执行脚本。
 
 ### 配置分布式环境
 
-分布式环境的配置可参考：[配置分布式环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#配置分布式环境变量)教程。
+通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，并通过init初始化HCCL或NCCL通信。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+
+```python
+import mindspore as ms
+from mindspore.communication import init
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
+init()
+ms.set_seed(1)
+```
+
+### 数据集加载
+
+在算子级并行场景下，数据集加载方式与单卡加载方式一致，代码如下：
+
+```python
+import os
+import mindspore.dataset as ds
+
+def create_dataset(batch_size):
+    """create dataset"""
+    dataset_path = os.getenv("DATA_PATH")
+    dataset = ds.MnistDataset(dataset_path)
+    image_transforms = [
+        ds.vision.Rescale(1.0 / 255.0, 0),
+        ds.vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        ds.vision.HWC2CHW()
+    ]
+    label_transform = ds.transforms.TypeCast(ms.int32)
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size)
+    return dataset
+
+data_set = create_dataset(32)
+```
 
 ### 定义网络
 
+在当前半自动并行模式下，仅支持对ops算子切分，所以此处需要用ops算子定义网络。用户可以在单卡网络的基础上手动配置一些算子的切分策略，其余算子的切分策略可以通过推导得到，例如配置策略后的网络结构为：
+
 ```python
-from mindspore.nn import Cell
-from mindspore.ops import operations as ops
 import mindspore as ms
-from mindspore.common.initializer import initializer
+from mindspore import nn, ops
 
-
-class Net(Cell):
+class Network(nn.Cell):
     def __init__(self):
         super().__init__()
-        self.matmul = ops.MatMul().shard(((2, 4), (4, 1)))
-        self.weight = ms.Parameter(initializer("normal", [32, 16]), "w1")
-
-        self.relu = ops.ReLU().shard(((8, 1),))
+        self.flatten = ops.Flatten()
+        self.fc1_weight = ms.Parameter(initializer("normal", [28*28, 512], ms.float32))
+        self.fc2_weight = ms.Parameter(initializer("normal", [512, 512], ms.float32))
+        self.fc3_weight = ms.Parameter(initializer("normal", [512, 10], ms.float32))
+        self.matmul1 = ops.MatMul().shard(((2, 4), (4, 1)))
+        self.relu1 = ops.ReLU().shard(((4, 1),))
+        self.matmul2 = ops.MatMul().shard(((1, 8), (8, 1)))
+        self.relu2 = ops.ReLU().shard(((8, 1),))
+        self.matmul3 = ops.MatMul()
 
     def construct(self, x):
-        out = self.matmul(x, self.weight)
-        out = self.relu(out)
-        return out
+        x = self.flatten(x)
+        x = self.matmul1(x, self.fc1_weight)
+        x = self.relu1(x)
+        x = self.matmul2(x, self.fc2_weight)
+        x = self.relu2(x)
+        logits = self.matmul3(x, self.fc3_weight)
+        return logits
+
+net = Network()
 ```
 
-以上网络有两个算子，MatMul和ReLU。
+以上网络的`ops.MatMul()`和`ops.ReLU()`算子都配置了切分策略，以`ops.MatMul().shard(((2, 4), (4, 1)))`为例，它的切分策略为：第一个输入的行切分2份，列切分4份；第二个输入的行切分4份；对于`ops.ReLU().shard(((8, 1),))`，它的切分策略为：第一个输入的行切分8份。需要注意的是，由于此处的两个`ops.ReLU()`的切分策略不同，所以要分别定义两次。
 
-其中对MatMul的切分策略为：第一个输入的行切分2份，列切分4份；第二个输入的行切分4份，列不切分。对ReLU的切分策略为：第一个输入的行切分8份，列不切分。
+### 训练网络
 
-### 运行脚本
+在这一步，我们需要定义损失函数、优化器以及训练过程，这部分与单卡写法一致：
 
-利用样例代码，可以用以下命令运行8卡的算子级并行训练脚本：
+```python
+import mindspore as ms
+from mindspore import nn, ops
+
+optimizer = nn.SGD(net.trainable_params(), 1e-2)
+loss_fn = nn.CrossEntropyLoss()
+
+def forward_fn(data, target):
+    logits = net(data)
+    loss = loss_fn(logits, target)
+    return loss, logits
+
+grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+
+@ms.jit
+def train_step(inputs, targets):
+    (loss_value, _), grads = grad_fn(inputs, targets)
+    optimizer(grads)
+    return loss_value
+
+for epoch in range(10):
+    i = 0
+    for image, label in data_set:
+        loss_output = train_step(image, label)
+        if i % 10 == 0:
+            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_output))
+        i += 1
+```
+
+### 运行单机八卡脚本
+
+接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
 
 ```bash
-sh run.sh 8
+bash run.sh
 ```
 
-执行后，可以从device0对应的日志文件中，看到以下结果：
+训练完后，日志文件保存到`log_output`目录下，其中部分文件目录结构如下：
 
-```bash
-epoch: 1 step:1, loss is 23.02248764038086
-epoch: 1 step:2, loss is 23.00420570373535
-epoch: 1 step:3, loss is 22.97960090637207
-epoch: 1 step:4, loss is 22.96306419372558
+```text
+└─ log_output
+    └─ 1
+        ├─ rank.0
+        |   └─ stdout
+        ├─ rank.1
+        |   └─ stdout
+...
 ```
+
+关于Loss部分结果保存在`log_output/1/rank.*/stdout`中，示例如下：
+
+```text
+epoch: 0, step: 0, loss is 2.3026192
+epoch: 0, step: 10, loss is 2.2928686
+epoch: 0, step: 20, loss is 2.279024
+epoch: 0, step: 30, loss is 2.2548661
+epoch: 0, step: 40, loss is 2.192434
+epoch: 0, step: 50, loss is 2.0514572
+epoch: 0, step: 60, loss is 1.7082529
+epoch: 0, step: 70, loss is 1.1759918
+epoch: 0, step: 80, loss is 0.94476485
+epoch: 0, step: 90, loss is 0.73854053
+epoch: 0, step: 100, loss is 0.71934
+...
+```
+
+其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)。

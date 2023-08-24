@@ -6,6 +6,16 @@
 
 近年来，神经网络的规模几乎是呈指数型增长。受单卡内存的限制，训练这些大模型用到的设备数量也在不断增加。受server间通信带宽低的影响，传统数据并行叠加模型并行的这种混合并行模式的性能表现欠佳，需要引入流水线并行。流水线并行能够将模型在空间上按`stage`进行切分，每个`stage`只需执行网络的一部分，大大节省了内存开销，同时缩小了通信域，缩短了通信时间。MindSpore能够根据用户的配置，将单机模型自动地转换成流水线并行模式去执行。
 
+> 流水线并行模型支持的硬件平台包括Ascend、GPU，需要在Graph模式下运行。
+
+相关接口：
+
+1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=NUM)`：设置半自动并行模式，且设置`pipeline_stages`用来表明`stage`的总数为NUM，必须在初始化网络之前调用。
+
+2. `nn.WithLossCell(backbone, loss_fn)`：流水线并行需要首先通过此接口定义损失函数的Cell，即LossCell，用于封装骨干网络和损失函数。
+
+3. `nn.PipelineCell(loss_cell, micro_size)`：流水线并行需要在LossCell外再包一层`PipelineCell`，并指定MicroBatch的size。为了提升机器的利用率，MindSpore将MiniBatch切分成了更细粒度的MicroBatch，最终的loss则是所有MicroBatch计算的loss值累加。其中，MicroBatch的size必须大于等于`stage`的数量。
+
 ## 基本原理
 
 流水线（Pipeline）并行是将神经网络中的算子切分成多个阶段（Stage），再把阶段映射到不同的设备上，使得不同设备去计算神经网络的不同部分。流水线并行适用于模型是线性的图结构。如图1所示，将4层MatMul的网络切分成4个阶段，分布到4台设备上。正向计算时，每台机器在算完本台机器上的MatMul之后将结果通过通信算子发送（Send）给下一台机器，同时，下一台机器通过通信算子接收（Receive）上一台机器的MatMul结果，同时开始计算本台机器上的MatMul；反向计算时，最后一台机器的梯度算完之后，将结果发送给上一台机器，同时，上一台机器接收最后一台机器的梯度结果，并开始计算本台机器的反向。
@@ -28,134 +38,152 @@ MindSpore的流水线并行实现中对执行序进行了调整，来达到更�
 
 ## 操作实践
 
+下面以Ascend或者GPU单机8卡为例，进行流水线并行操作说明：
+
 ### 样例代码说明
 
-> 你可以在这里下载完整的样例代码：
->
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>。
+> 下载完整的样例代码：[distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_pipeline_parallel)。
 
 目录结构如下：
 
 ```text
 └─ sample_code
-    ├─ distributed_training
-       ├── rank_table_16pcs.json
-       ├── rank_table_8pcs.json
-       ├── rank_table_2pcs.json
-       ├── resnet.py
-       ├── resnet50_distributed_training_pipeline.py
-       └── run_pipeline.sh
+    ├─ distributed_pipeline_parallel
+       ├── distributed_pipeline_parallel.py
+       └── run.sh
     ...
 ```
 
-其中，`rank_table_16pcs.json`、`rank_table_8pcs.json`、`rank_table_2pcs.json`是配置Ascend多卡环境的组网信息文件。`resnet.py`、`resnet50_distributed_training_pipeline.py`等文件是定义网络结构的脚本。`run_pipeline.sh`是执行脚本。
-
-### 下载数据集
-
-本样例采用`CIFAR-10`
-数据集，数据集的下载和加载方式可参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#下载数据集>。
+其中，`distributed_pipeline_parallel.py`是定义网络结构和训练过程的脚本。`run.sh`是执行脚本。
 
 ### 配置分布式环境
 
-> 流水线并行支持Ascend和GPU。
+通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，并通过init初始化HCCL或NCCL通信。此外，还需配置`pipeline_stages=2`指定`stage`的总数。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
 
-分布式环境的配置以及集合通信库的调用可参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#准备环节>。
+```python
+import mindspore as ms
+from mindspore.communication import init
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=2)
+init()
+ms.set_seed(1)
+```
+
+### 数据集加载
+
+在流水线并行场景下，数据集加载方式与单卡加载方式一致，代码如下：
+
+```python
+import os
+import mindspore.dataset as ds
+
+def create_dataset(batch_size):
+    dataset_path = os.getenv("DATA_PATH")
+    dataset = ds.MnistDataset(dataset_path)
+    image_transforms = [
+        ds.vision.Rescale(1.0 / 255.0, 0),
+        ds.vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        ds.vision.HWC2CHW()
+    ]
+    label_transform = ds.transforms.TypeCast(ms.int32)
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size)
+    return dataset
+
+data_set = create_dataset(32)
+```
 
 ### 定义网络
 
-网络的定义和Ascend的分布式并行训练基础样例中一致。
-
-网络、优化器、损失函数的定义可参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#定义网络>。
-
-> 流水线并行需要用户去定义并行的策略，通过调用`pipeline_stage`接口来指定每个layer要在哪个stage上去执行。`pipeline_stage`接口的粒度为`Cell`。所有包含训练参数的`Cell`都需要配置`pipeline_stage`，并且`pipeline_stage`要按照网络执行的先后顺序，从小到大进行配置。
+流水线并行网络结构与单卡网络结构基本一致，区别在于增加了流水线并行策略配置。流水线并行需要用户去定义并行的策略，通过调用`pipeline_stage`接口来指定每个layer要在哪个stage上去执行。`pipeline_stage`接口的粒度为`Cell`。所有包含训练参数的`Cell`都需要配置`pipeline_stage`，并且`pipeline_stage`要按照网络执行的先后顺序，从小到大进行配置。在单卡模型基础上，增加`pipeline_stage`配置后如下：
 
 ```python
-class ResNet(nn.Cell):
-    """ResNet"""
+from mindspore import nn
 
-    def __init__(self, block, num_classes=100, batch_size=32):
-        """init"""
-        super(ResNet, self).__init__()
-        self.batch_size = batch_size
-        self.num_classes = num_classes
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.layer1 = nn.Dense(28*28, 512)
+        self.relu1= nn.ReLU()
+        self.layer2 = nn.Dense(512, 512)
+        self.relu2= nn.ReLU()
+        self.layer3 = nn.Dense(512, 10)
 
-        self.head = Head()
-        self.layer1 = MakeLayer0(block, in_channels=64, out_channels=256, stride=1)
-        self.layer2 = MakeLayer1(block, in_channels=256, out_channels=512, stride=2)
-        self.layer3 = MakeLayer2(block, in_channels=512, out_channels=1024, stride=2)
-        self.layer4 = MakeLayer3(block, in_channels=1024, out_channels=2048, stride=2)
-
-        self.pool = ops.ReduceMean(keep_dims=True)
-        self.squeeze = ops.Squeeze(axis=(2, 3))
-        self.fc = fc_with_initialize(512 * block.expansion, num_classes)
-
-        # pipeline parallel config
-        self.head.pipeline_stage = 0
         self.layer1.pipeline_stage = 0
+        self.relu1.pipeline_stage = 0
         self.layer2.pipeline_stage = 0
+        self.relu2.pipeline_stage = 1
         self.layer3.pipeline_stage = 1
-        self.layer4.pipeline_stage = 1
-        self.fc.pipeline_stage = 1
 
     def construct(self, x):
-        """construct"""
-        x = self.head(x)
-
+        x = self.flatten(x)
         x = self.layer1(x)
+        x = self.relu1(x)
         x = self.layer2(x)
-        x = self.layer3(x)
-        x = self.layer4(x)
+        x = self.relu2(x)
+        logits = self.layer3(x)
+        return logits
 
-        x = self.pool(x, (2, 3))
-        x = self.squeeze(x)
-        x = self.fc(x)
-        return x
+net = Network()
 ```
 
 ### 训练网络
 
-为了使能流水线并行，需要在训练脚本中加一些必要的配置：
+在这一步，我们需要定义损失函数、优化器以及训练过程，与单卡模型不同，在这部分需要调用两个接口来配置流水线并行：
 
-- 在`set_auto_parallel_context`中设置`pipeline_stages`，`pipeline_stages`用来表明`stage`的总数。
-- 需要定义LossCell，本例中调用了`nn.WithLossCell`接口。
-- 目前流水线并行不支持自动混合精度特性。
-- 最后，需要在LossCell外包一层`PipelineCell`，并指定MicroBatch的size。为了提升机器的利用率，MindSpore将MiniBatch切分成了更细粒度的MicroBatch，最终的loss则是所有MicroBatch计算的loss值累加。其中，MicroBatch的size必须大于等于`stage`的数量。
+- 首先需要定义LossCell，本例中调用了`nn.WithLossCell`接口封装网络和损失函数。
+- 然后需要在LossCell外包一层`nn.PipelineCell`，并指定MicroBatch的size。详细请参考本章概述中的相关接口。
 
 ```python
 import mindspore as ms
-from mindspore.train import Model, LossMonitor
-from mindspore import nn
-from mindspore.nn import Momentum
-from resnet import resnet50
+from mindspore import nn, train
 
-
-def test_train_cifar(epoch_size=10):
-    ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
-    ms.set_auto_parallel_context(pipeline_stages=2, full_batch=True)
-    loss_cb = LossMonitor()
-    data_path = os.getenv('DATA_PATH')
-    dataset = create_dataset(data_path)
-    batch_size = 32
-    num_classes = 10
-    net = resnet50(batch_size, num_classes)
-    loss = SoftmaxCrossEntropyExpand(sparse=True)
-    net_with_loss = nn.WithLossCell(net, loss)
-    net_pipeline = nn.PipelineCell(net_with_loss, 2)
-    opt = Momentum(net.trainable_params(), 0.01, 0.9)
-    model = Model(net_pipeline, optimizer=opt)
-    model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
+optimizer = nn.SGD(net.trainable_params(), 1e-2)
+loss_fn = nn.CrossEntropyLoss()
+loss_cb = train.LossMonitor()
+net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4)
+model = ms.Model(net_with_grads, optimizer=optimizer)
+model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
+
+> 目前流水线并行不支持自动混合精度特性。
 
 ### 运行单机八卡脚本
 
-利用样例代码，Ascend可以用以下命令运行8卡，2个stage的流水线训练：
+接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
 
 ```bash
-bash run_pipeline.sh [DATA_PATH] Ascend
+bash run.sh
 ```
 
-GPU可以用以下命令运行8卡，2个stage的流水线训练：
+训练完后，日志文件保存到`log_output`目录下，其中部分文件目录结构如下：
 
-```bash
-bash run_pipeline.sh [DATA_PATH] GPU
+```text
+└─ log_output
+    └─ 1
+        ├─ rank.0
+        |   └─ stdout
+        ├─ rank.1
+        |   └─ stdout
+...
 ```
+
+结果保存在`log_output/1/rank.*/stdout`中，示例如下：
+
+```text
+epoch: 1 step: 1875, loss is 1.9490933418273926
+epoch: 2 step: 1875, loss is 0.44548869132995605
+epoch: 3 step: 1875, loss is 0.034527599811553955
+epoch: 4 step: 1875, loss is 1.0163589715957642
+epoch: 5 step: 1875, loss is 0.02109396457672119
+epoch: 6 step: 1875, loss is 0.012739777565002441
+epoch: 7 step: 1875, loss is 0.004988193511962891
+epoch: 8 step: 1875, loss is 0.10372555255889893
+epoch: 9 step: 1875, loss is 0.019182920455932617
+epoch: 10 step: 1875, loss is 0.021012544631958008
+```
+
+其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)。
