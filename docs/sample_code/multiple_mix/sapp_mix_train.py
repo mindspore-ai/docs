@@ -1,4 +1,4 @@
-# Copyright 2023 Huawei Technologies Co., Ltd
+# Copyright 2022 Huawei Technologies Co., Ltd
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-
-"""Distributed Pipeline Parallel Example"""
+"""Sharding Propagation Mix Programming Guide"""
 
 import os
 import mindspore as ms
@@ -21,8 +20,9 @@ import mindspore.dataset as ds
 from mindspore import nn, train
 from mindspore.communication import init
 
-ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=2)
+ms.set_context(mode=ms.GRAPH_MODE, save_graphs=2)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
+ms.set_auto_parallel_context(pipeline_stages=2, enable_parallel_optimizer=True)
 init()
 ms.set_seed(1)
 
@@ -47,11 +47,15 @@ class Network(nn.Cell):
         return logits
 
 net = Network()
+# 配置每一层在流水线并行中的pipeline_stage编号
 net.layer1.pipeline_stage = 0
 net.relu1.pipeline_stage = 0
-net.layer2.pipeline_stage = 0
+net.layer2.pipeline_stage = 1
 net.relu2.pipeline_stage = 1
 net.layer3.pipeline_stage = 1
+# 配置relu算子的重计算
+net.relu1.recompute()
+net.relu2.recompute()
 
 def create_dataset(batch_size):
     """create dataset"""

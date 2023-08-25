@@ -35,10 +35,10 @@ class Network(nn.Cell):
         self.fc1_weight = ms.Parameter(initializer("normal", [28*28, 512], ms.float32))
         self.fc2_weight = ms.Parameter(initializer("normal", [512, 512], ms.float32))
         self.fc3_weight = ms.Parameter(initializer("normal", [512, 10], ms.float32))
-        self.matmul1 = ops.MatMul().shard(((2, 4), (4, 1)))
-        self.relu1 = ops.ReLU().shard(((4, 1),))
-        self.matmul2 = ops.MatMul().shard(((1, 8), (8, 1)))
-        self.relu2 = ops.ReLU().shard(((8, 1),))
+        self.matmul1 = ops.MatMul()
+        self.relu1 = ops.ReLU()
+        self.matmul2 = ops.MatMul()
+        self.relu2 = ops.ReLU()
         self.matmul3 = ops.MatMul()
 
     def construct(self, x):
@@ -51,6 +51,10 @@ class Network(nn.Cell):
         return logits
 
 net = Network()
+net.matmul1.shard(((2, 4), (4, 1)))
+net.relu1.shard(((4, 1),))
+net.matmul2.shard(((1, 8), (8, 1)))
+net.relu2.shard(((8, 1),))
 
 def create_dataset(batch_size):
     """create dataset"""

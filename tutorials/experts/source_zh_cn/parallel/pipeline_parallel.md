@@ -112,12 +112,6 @@ class Network(nn.Cell):
         self.relu2= nn.ReLU()
         self.layer3 = nn.Dense(512, 10)
 
-        self.layer1.pipeline_stage = 0
-        self.relu1.pipeline_stage = 0
-        self.layer2.pipeline_stage = 0
-        self.relu2.pipeline_stage = 1
-        self.layer3.pipeline_stage = 1
-
     def construct(self, x):
         x = self.flatten(x)
         x = self.layer1(x)
@@ -128,6 +122,11 @@ class Network(nn.Cell):
         return logits
 
 net = Network()
+net.layer1.pipeline_stage = 0
+net.relu1.pipeline_stage = 0
+net.layer2.pipeline_stage = 0
+net.relu2.pipeline_stage = 1
+net.layer3.pipeline_stage = 1
 ```
 
 ### 训练网络
