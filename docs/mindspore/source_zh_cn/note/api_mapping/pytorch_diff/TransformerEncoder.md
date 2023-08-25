@@ -51,7 +51,7 @@ transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=6)
 src = torch.rand(10, 32, 512)
 out = transformer_encoder(src)
 
-# MindSpore.
+# MindSpore
 import mindspore
 from mindspore import nn
 

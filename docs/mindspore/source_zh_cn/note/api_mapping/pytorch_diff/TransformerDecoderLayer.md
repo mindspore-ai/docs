@@ -11,7 +11,7 @@ class torch.nn.TransformerDecoderLayer(
     dim_feedforward=2048,
     dropout=0.1,
     activation='relu'
-)
+)(tgt, memory, tgt_mask, memory_mask, tgt_key_padding_mask, memory_key_padding_mask)
 ```
 
 更多内容详见[torch.nn.TransformerDecoderLayer](https://pytorch.org/docs/1.8.1/generated/torch.nn.TransformerDecoderLayer.html)。
@@ -29,7 +29,7 @@ class mindspore.nn.TransformerDecoderLayer(
     batch_first=False,
     norm_first=False,
     dtype=mstype.float32=False)
-)
+)(tgt, memory, tgt_mask, memory_mask, tgt_key_padding_mask, memory_key_padding_mask)
 ```
 
 更多内容详见[mindspore.nn.TransformerDecoderLayer](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TransformerDecoderLayer.html)。
@@ -63,17 +63,19 @@ class mindspore.nn.TransformerDecoderLayer(
 import torch
 from torch import nn
 
-encoder_layer = nn.TransformerDecoderLayer(d_model=512, nhead=8)
-transformer_encoder = nn.TransformerDecoder(encoder_layer, num_layers=6)
-src = torch.rand(10, 32, 512)
-out = transformer_encoder(src)
+decoder_layer = nn.TransformerDecoderLayer(d_model=512, nhead=8)
+transformer_decoder = nn.TransformerDecoder(decoder_layer, num_layers=6)
+memory = torch.rand(10, 32, 512)
+tgt = torch.rand(20, 32, 512)
+out = transformer_decoder(tgt, memory)
 
-# MindSpore.
-import mindspore
-from mindspore import nn
+# MindSpore
+import mindspore as ms
+import numpy as np
 
-encoder_layer = nn.TransformerDecoderLayer(d_model=512, nhead=8)
-transformer_encoder = nn.TransformerDecoder(encoder_layer, num_layers=6)
-src = mindspore.numpy.rand(10, 32, 512)
-out = transformer_encoder(src)
+decoder_layer = ms.nn.TransformerDecoderLayer(d_model=512, nhead=8)
+transformer_decoder = ms.nn.TransformerDecoder(decoder_layer, num_layers=6)
+memory = ms.Tensor(np.random.rand(10, 32, 512), ms.float32)
+tgt = ms.Tensor(np.random.rand(20, 32, 512), ms.float32)
+out = transformer_decoder(tgt, memory)
 ```

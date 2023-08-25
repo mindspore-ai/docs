@@ -15,7 +15,7 @@ class torch.nn.Transformer(
     activation='relu',
     custom_encoder=None,
     custom_decoder=None
-)
+)(src, tgt, src_mask, tgt_mask, memory_mask, src_key_padding_mask, tgt_key_padding_mask, memory_key_padding_mask)
 ```
 
 更多内容详见 [torch.nn.Transformer](https://pytorch.org/docs/1.8.1/generated/torch.nn.Transformer.html).
@@ -37,7 +37,7 @@ class mindspore.nn.Transformer(
     batch_first=False,
     norm_first=False,
     dtype=mstype.float32
-)
+)(src, tgt, src_mask, tgt_mask, memory_mask, src_key_padding_mask, tgt_key_padding_mask, memory_key_padding_mask)
 ```
 
 更多内容详见 [mindspore.nn.Transformer](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Transformer.html).
@@ -82,7 +82,7 @@ src = torch.rand(10, 32, 512)
 tgt = torch.rand(10, 32, 512)
 out = transformer_model(src, tgt)
 
-# MindSpore.
+# MindSpore
 import mindspore as ms
 import numpy as np
 

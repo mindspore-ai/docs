@@ -14,7 +14,7 @@ class torch.nn.MultiheadAttention(
     add_zero_attn=False,
     kdim=None,
     vdim=None
-)
+)(query, key, value, key_padding_mask, need_weights, attn_mask)
 ```
 
 更多内容详见[torch.nn.MultiheadAttention](https://pytorch.org/docs/1.8.1/generated/torch.nn.MultiheadAttention.html)。
@@ -33,7 +33,7 @@ class mindspore.nn.MultiheadAttention(
     vdim=None,
     batch_first=False,
     dtype=mstype.float32
-)
+)(query, key, value, key_padding_mask, need_weights, attn_mask, average_attn_weights)
 ```
 
 更多内容详见[mindspore.nn.MultiheadAttention](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.MultiheadAttention.html)。
@@ -77,7 +77,7 @@ value = torch.rand(seq_length, batch_size, embed_dim)
 multihead_attn = nn.MultiheadAttention(embed_dim, num_heads)
 attn_output, attn_output_weights = multihead_attn(query, key, value)
 
-# MindSpore.
+# MindSpore
 import mindspore as ms
 import numpy as np
 
