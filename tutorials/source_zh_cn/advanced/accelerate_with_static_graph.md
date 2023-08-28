@@ -85,6 +85,12 @@ Tensor(shape=[3], dtype=Float32, value=[-3.94732714e+00 -1.46257186e+00  4.50144
 out:  [-3.9473271 -1.4625719  4.5014443]
 ```
 
+## 静态图模式的使用场景
+
+MindSpore编译器重点面向Tensor数据的计算以及其微分处理。因此使用MindSpore API以及基于Tensor对象的操作更适合使用静态图编译优化。其他操作虽然可以部分入图编译，但实际优化作用有限。另外，静态图模式先编译后执行的模式导致其存在编译耗时。因此，如果函数无需反复执行，那么使用静态图加速也可能没有价值。
+
+有关使用静态图来进行网络编译的示例，请参考[网络构建](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/model.html)。
+
 ## 静态图模式开启方式
 
 通常情况下，由于动态图的灵活性，我们会选择使用PyNative模式来进行自由的神经网络构建，以实现模型的创新和优化。但是当需要进行性能加速时，我们需要对神经网络部分或整体进行加速。MindSpore提供了两种切换为图模式的方式，分别是基于装饰器的开启方式以及基于全局context的开启方式。
@@ -163,7 +169,11 @@ ms.set_context(mode=ms.GRAPH_MODE)
 
 ## JitConfig配置选项
 
-内容待补充
+在图模式下，可以通过使用[JitConfig](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.JitConfig.html#mindspore.JitConfig)配置选项来一定程度的自定义编译流程，目前JitConfig支持的配置参数如下：
+
+- jit_level: 用于控制优化等级。
+- exec_mode: 用于控制模型执行方式。
+- jit_syntax_level: 设置静态图语法支持级别，详细介绍请见[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#概述)。
 
 ## 静态图高级编程技巧
 
