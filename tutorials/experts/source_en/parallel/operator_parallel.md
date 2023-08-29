@@ -6,6 +6,19 @@
 
 With the development of deep learning, network models are becoming larger and larger, such as trillions of parametric models have emerged in the field of NLP, and the model capacity far exceeds the memory capacity of a single device, making it impossible to train on a single card or data parallel. Operator-level parallelism is used to reduce the memory consumption of individual devices by sharding the tensor involved in each operator in the network model, thus making the training of large models possible.
 
+> Hardware platforms supported by the operator-level parallel model include Ascend, GPU, and need to be run in Graph mode.
+
+Related interfaces:
+
+1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)`: Sets the semi-automatic parallel mode, which must be called before initializing the network.
+
+2. `mindspore.ops.Primitive.shard()`: Specify the operator slicing strategy, see `Basic Principle` in this chapter for detailed examples.
+
+3. `mindspore.ops.Primitive.add_prim_attr()`: To meet different scenario requirements, some operators can be configured for their distributed implementation via the `add_prim_attr` interface, and these configurations are only available for `SEMI_AUTO_PARALLEL` and `AUTO_PARALLEL` modes, for example:
+
+    - `ops.Gather().add_prim_attr("manual_split", split_tuple)`: This interface configures the first input of the Gather operator to be non-uniformly sliced, which is only valid for axis=0. `split_tuple` is a tuple with elements of type int, the sum of the elements must be equal to the length of the 0th dimension of the first input in the Gather operator, and the number of tuples must be equal to the number of 0th dimensional slices of the first input in the Gather operator.
+    - `ops.Gather()add_prim_attr("primitive_target", "CPU")`: This interface configures the Gather operator to execute on the CPU for heterogeneous scenarios.
+
 ## Basic Principle
 
 MindSpore models each operator independently, and the user can set the shard strategy for each operator in the forward network (the unset operators are sharded by data parallelism by default).
@@ -46,78 +59,169 @@ In the above example, the user computes two consecutive two-dimensional matrix m
 
 Since the Tensor Layout output from the first operator is the 0th dimensional sliced to the cluster, while the second operator requires the first input Tensor to be replicated on the cluster. So in the graph compilation stage, the difference in Tensor Layout between the two operator outputs/inputs is automatically recognized, thus the algorithm for Tensor redistribution is automatically derived. The Tensor redistribution required for this example is an AllGather operator (note: MindSpore AllGather operator automatically merges multiple input Tensors in dimension 0)
 
-## Special Instructions
-
-In operator-level parallelism, to meet the requirements of different scenarios, some operators can configure their distributed implementations through the add_prim_attr() interface, and these configurations are only available for the `SEMI_AUTO_PARALLEL` and `AUTO_PARALLEL` modes:
-
-- Gather operator: add_prim_attr("manual_split", split_tuple). This interface configures non-uniform slicing to the first input of the Gather operator, which is only valid for axis=0. `split_tuple` is a tuple of type int. The sum of the elements must be equal to the length of the 0th dimension in the first input to the Gather operator, and the number of tuples must be equal to the number of slices of the 0th dimension in the first input to the Gather operator.
-- Gather operator: add_prim_attr("primitive_target", "CPU"). This interface configures Gather operator to execute on the CPU for heterogeneous scenarios.
-
 ## Operation Practices
 
-The following is an illustration of operator-level parallelism by taking an Ascend single 8-card as an example.
+The following is an illustration of operator-level parallelism by taking an Ascend or GPU single-machine 8-card as an example.
 
 ### Sample Code Description
 
-> Download the complete sample code here: [operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/operator_parallel).
+> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel).
 
 The directory structure is as follows:
 
 ```text
 └─ sample_code
-    ├─ operator_parallel
-       ├── rank_table_8pcs.json
-       ├── train_lenet.py
+    ├─ distributed_operator_parallel
+       ├── distributed_operator_parallel.py
        └── run.sh
     ...
 ```
 
-The `rank_table_8pcs.json` is the networking information file to configure the Ascend 8 card environment, the `train.py` file is the script to define the network structure, and `run.sh` is the execution script.
+Among them, `distributed_operator_parallel.py` is the script that defines the network structure and the training process. `run.sh` is the execution script.
 
 ### Configuring the Distributed Environment
 
-The configuration of the distributed environment can be found in: [Configuring Distributed Environment Variables](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#configuring-distributed-environment-variables) tutorial.
+Specify the run mode, run device, run card number, etc. through the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode, and initialize HCCL or NCCL communication through init. If `device_target` is not set here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
+
+```python
+import mindspore as ms
+from mindspore.communication import init
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
+init()
+ms.set_seed(1)
+```
+
+### Loading the Dataset
+
+In the operator-level parallel scenario, the dataset is loaded in the same way as single-card is loaded, with the following code:
+
+```python
+import os
+import mindspore.dataset as ds
+
+def create_dataset(batch_size):
+    """create dataset"""
+    dataset_path = os.getenv("DATA_PATH")
+    dataset = ds.MnistDataset(dataset_path)
+    image_transforms = [
+        ds.vision.Rescale(1.0 / 255.0, 0),
+        ds.vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        ds.vision.HWC2CHW()
+    ]
+    label_transform = ds.transforms.TypeCast(ms.int32)
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size)
+    return dataset
+
+data_set = create_dataset(32)
+```
 
 ### Defining the Network
 
+In the current semi-automatic parallel mode, it only supports slicing for ops operators, so here the network needs to be defined with ops operators. Users can manually configure the slicing strategy for some operators based on a single-card network, and the slicing strategy for the rest of the operators can be obtained by derivation, e.g., the network structure after configuring the strategy is:
+
 ```python
-from mindspore.nn import Cell
-from mindspore.ops import operations as ops
 import mindspore as ms
-from mindspore.common.initializer import initializer
+from mindspore import nn, ops
 
-
-class Net(Cell):
+class Network(nn.Cell):
     def __init__(self):
         super().__init__()
-        self.matmul = ops.MatMul().shard(((2, 4), (4, 1)))
-        self.weight = ms.Parameter(initializer("normal", [32, 16]), "w1")
-
-        self.relu = ops.ReLU().shard(((8, 1),))
+        self.flatten = ops.Flatten()
+        self.fc1_weight = ms.Parameter(initializer("normal", [28*28, 512], ms.float32))
+        self.fc2_weight = ms.Parameter(initializer("normal", [512, 512], ms.float32))
+        self.fc3_weight = ms.Parameter(initializer("normal", [512, 10], ms.float32))
+        self.matmul1 = ops.MatMul().shard(((2, 4), (4, 1)))
+        self.relu1 = ops.ReLU().shard(((4, 1),))
+        self.matmul2 = ops.MatMul().shard(((1, 8), (8, 1)))
+        self.relu2 = ops.ReLU().shard(((8, 1),))
+        self.matmul3 = ops.MatMul()
 
     def construct(self, x):
-        out = self.matmul(x, self.weight)
-        out = self.relu(out)
-        return out
+        x = self.flatten(x)
+        x = self.matmul1(x, self.fc1_weight)
+        x = self.relu1(x)
+        x = self.matmul2(x, self.fc2_weight)
+        x = self.relu2(x)
+        logits = self.matmul3(x, self.fc3_weight)
+        return logits
+
+net = Network()
 ```
 
-The above network has two operators, MatMul and ReLU.
+The `ops.MatMul()` and `ops.ReLU()` operators for the above networks are configured with slicing strategy, in the case of `ops.MatMul().shard(((2, 4), (4, 1)))`, which has a slicing strategy of: rows of the first input are sliced in 2 parts and columns in 4 parts; rows of the second input are sliced in 4 parts. For `ops. ReLU().shard(((8, 1),))`, its slicing strategy is: the row of the first input is sliced in 8 parts. Note that since the two `ops.ReLU()` here have different slicing strategies, have to be defined twice separately.
 
-The sharding strategy for MatMul is: The rows of the first input are sliced to 2 copies and the columns to 4 copies, while the rows of the second input are sliced to 4 copies and the columns are not sliced. The sharding strategy for ReLU is: the rows of the first input are sliced to 8 copies and the columns are not sliced.
+### Training the Network
 
-### Running the Code
+In this step, we need to define the loss function, the optimizer, and the training process, which is the same as that of the single-card:
 
-Using the sample code, an 8-card operator-level parallel training script can be run with the following command:
+```python
+import mindspore as ms
+from mindspore import nn, ops
+
+optimizer = nn.SGD(net.trainable_params(), 1e-2)
+loss_fn = nn.CrossEntropyLoss()
+
+def forward_fn(data, target):
+    logits = net(data)
+    loss = loss_fn(logits, target)
+    return loss, logits
+
+grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+
+@ms.jit
+def train_step(inputs, targets):
+    (loss_value, _), grads = grad_fn(inputs, targets)
+    optimizer(grads)
+    return loss_value
+
+for epoch in range(10):
+    i = 0
+    for image, label in data_set:
+        loss_output = train_step(image, label)
+        if i % 10 == 0:
+            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_output))
+        i += 1
+```
+
+### Running the Single-machine Eight-card Script
+
+Next, the corresponding scripts are invoked by commands, using the `mpirun` startup method and the 8-card distributed training script as an example of distributed training:
 
 ```bash
-sh run.sh 8
+bash run.sh
 ```
 
-After execution, the following results can be seen in the log file corresponding to device0:
+After training, the log files are saved to the `log_output` directory, where part of the file directory structure is as follows:
 
-```bash
-epoch: 1 step:1, loss is 23.02248764038086
-epoch: 1 step:2, loss is 23.00420570373535
-epoch: 1 step:3, loss is 22.97960090637207
-epoch: 1 step:4, loss is 22.96306419372558
+```text
+└─ log_output
+    └─ 1
+        ├─ rank.0
+        |   └─ stdout
+        ├─ rank.1
+        |   └─ stdout
+...
 ```
+
+The results on the Loss section are saved in `log_output/1/rank.*/stdout`, and example is as follows:
+
+```text
+epoch: 0, step: 0, loss is 2.3026192
+epoch: 0, step: 10, loss is 2.2928686
+epoch: 0, step: 20, loss is 2.279024
+epoch: 0, step: 30, loss is 2.2548661
+epoch: 0, step: 40, loss is 2.192434
+epoch: 0, step: 50, loss is 2.0514572
+epoch: 0, step: 60, loss is 1.7082529
+epoch: 0, step: 70, loss is 1.1759918
+epoch: 0, step: 80, loss is 0.94476485
+epoch: 0, step: 90, loss is 0.73854053
+epoch: 0, step: 100, loss is 0.71934
+...
+```
+
+Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/experts/en/master/parallel/startup_method.html).

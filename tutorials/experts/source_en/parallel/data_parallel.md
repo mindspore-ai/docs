@@ -6,6 +6,8 @@
 
 Data parallel is the most commonly used parallel training approach for accelerating model training and handling large-scale datasets. In data parallel mode, the training data is divided into multiple copies and then each copy is assigned to a different compute node, such as multiple cards or multiple devices. Each node processes its own subset of data independently and uses the same model for forward and backward propagation, and ultimately performs model parameter updates after synchronizing the gradients of all nodes.
 
+> Hardware platforms supported for data parallelism include Ascend, GPU and CPU, in addition to both PyNative and Graph modes.
+
 Related interfaces are as follows:
 
 1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)`: Set the data parallel mode.
@@ -25,11 +27,11 @@ Related interfaces are as follows:
 
 3. Network composition
 
-    The data parallel network is written in a way that does not differ from the stand-alone network, due to the fact that during forward propagation & backward propagation the models of each card are executed independently from each other, only the same network structure is maintained. The only thing we need to pay special attention to is that in order to ensure the training synchronization between cards, the corresponding network parameter initialization values should be the same. In `DATA_PRALLEL` mode, we can set seed or enable `parameter_broadcast` to achieve the same initialization of weights between multiple cards.
+    The data parallel network is written in a way that does not differ from the single-card network, due to the fact that during forward propagation & backward propagation the models of each card are executed independently from each other, only the same network structure is maintained. The only thing we need to pay special attention to is that in order to ensure the training synchronization between cards, the corresponding network parameter initialization values should be the same. In `DATA_PRALLEL` mode, we can set seed or enable `parameter_broadcast` to achieve the same initialization of weights between multiple cards.
 
 4. Gradient aggregation
 
-    Data parallel should theoretically achieve the same training effect as the stand-alone machine. In order to ensure the consistency of the computational logic, the gradient aggregation operation between cards is realized by calling the `mindspore.nn.DistributedGradReducer()` interface, which automatically inserts the `AllReduce` operator after the gradient computation is completed. MindSpore sets the `mean` switch, which allows the user to choose whether to perform an average operation on the summed gradient values, or to treat them as hyperparameters.
+    Data parallel should theoretically achieve the same training effect as the single-card machine. In order to ensure the consistency of the computational logic, the gradient aggregation operation between cards is realized by calling the `mindspore.nn.DistributedGradReducer()` interface, which automatically inserts the `AllReduce` operator after the gradient computation is completed. MindSpore sets the `mean` switch, which allows the user to choose whether to perform an average operation on the summed gradient values, or to treat them as hyperparameters.
 
 5. Parameter update
 
@@ -37,7 +39,7 @@ Related interfaces are as follows:
 
 ## Operation Practice
 
-The following is an illustration of data parallel operation using the Ascend single-machine 8-card as an example:
+The following is an illustration of data parallel operation using the Ascend or GPU single-machine 8-card as an example:
 
 ### Sample Code Description
 
@@ -55,22 +57,17 @@ The directory structure is as follows:
     ...
 ```
 
-Among them, `rank_table_8pcs.json` is the network information file to configure the Ascend multi-card environment. `distributed_data_parallel.py` is the script that defines the network structure and training process. `run.sh` is the execution script.
+Among them, `distributed_data_parallel.py` is the script that defines the network structure and training process. `run.sh` is the execution script.
 
 ### Configuring Distributed Environments
 
-> Hardware platforms supported for data parallel include Ascend, GPUs and CPUs, in addition to both PyNative and Graph modes.
-
-Specify the run mode, run device, run card number, and parallel mode through the context interface provided by MindSpore, and initialize HCCL communication through init. For data parallel mode, you also need to set `parallel_mode`, `gradients_mean`.
+The context interface allows you to specify the run mode, run device, run card number. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` for data parallel mode and initialize HCCL or NCCL communication through init. In data parallel mode, you also need to set `gradients_mean` to specify the gradient aggregation method. If `device_target` is not set here, it is automatically specified as the backend hardware device corresponding to the MindSpore package.
 
 ```python
-import os
 import mindspore as ms
 from mindspore.communication import init
 
-device_id = int(os.getenv('DEVICE_ID'))
-ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
-ms.set_context(device_id=device_id)
+ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 init()
 ms.set_seed(1)
@@ -91,7 +88,7 @@ rank_size = get_group_size()
 dataset = ds.MnistDataset(dataset_path, num_shards=rank_size, shard_id=rank_id)
 ```
 
-Unlike stand-alone, the `num_shards` and `shard_id` parameters need to be passed in the dataset interface, corresponding to the number of cards and the logical serial number, respectively, and it is recommended to obtain them through the `mindspore.communication` interface:
+Unlike single-card, the `num_shards` and `shard_id` parameters need to be passed in the dataset interface, corresponding to the number of cards and the logical serial number, respectively, and it is recommended to obtain them through the `mindspore.communication` interface:
 
 - `get_rank`: Obtain the ID of the current device in the cluster.
 - `get_group_size`: Obtain the number of clusters.
@@ -101,6 +98,7 @@ Unlike stand-alone, the `num_shards` and `shard_id` parameters need to be passed
 The complete data processing code:
 
 ```python
+import os
 import mindspore.dataset as ds
 from mindspore.communication import get_rank, get_group_size
 
@@ -125,7 +123,7 @@ data_set = create_dataset(32)
 
 ### Defining Network
 
-In data parallel mode, the network is defined in the same way as stand-alone, and the main structure of the network is as follows:
+In data parallel mode, the network is defined in the same way as single-card network, and the main structure of the network is as follows:
 
 ```python
 from mindspore import nn
@@ -152,7 +150,7 @@ net = Network()
 
 ### Training Network
 
-In this step, we need to define the loss function, the optimizer, and the training process. The difference with stand-alone is that the data parallel mode also requires the addition of the `mindspore.nn.DistributedGradReducer()` interface to aggregate the gradients of all cards. The first parameter of the network is the network parameter to be updated:
+In this step, we need to define the loss function, the optimizer, and the training process. The difference with single-card model is that the data parallel mode also requires the addition of the `mindspore.nn.DistributedGradReducer()` interface to aggregate the gradients of all cards. The first parameter of the network is the network parameter to be updated:
 
 ```python
 from mindspore import nn, ops
@@ -182,10 +180,6 @@ for epoch in range(10):
 ### Running Single-machine Eight-card Script
 
 Next, the corresponding scripts are invoked by commands, using the `mpirun` startup method and the 8-card distributed training script as an example of distributed training:
-
-Users need to install OpenMPI first, download the OpenMPI-4.1.4 source code [openmpi-4.1.4.tar.gz](https://www.open-mpi.org/software/ompi/v4.1/). Refer to [OpenMPI official website tutorial](https://www.open-mpi.org/faq/?category=building#easy-build) to install it.
-
-Then start the distributed training script:
 
 ```bash
 bash run.sh
