@@ -85,6 +85,12 @@ Tensor(shape=[3], dtype=Float32, value=[-3.94732714e+00 -1.46257186e+00  4.50144
 out:  [-3.9473271 -1.4625719  4.5014443]
 ```
 
+## Scenarios for Static Graph Mode
+
+The MindSpore compiler is focused on the computation of Tensor data and its differential processing. Therefore operations using the MindSpore API and based on Tensor objects are more suitable for static graph compilation optimization. Other operations can be partially compiled into the graph, but the actual optimization is limited. In addition, the static graph mode compiles first and then executes, resulting in compilation time consumption. As a result, there may be no need to use static graph acceleration if the function does not need to be executed repeatedly.
+
+For an example of using static graphs for network compilation, see [Network Build](https://www.mindspore.cn/tutorials/en/master/beginner/model.html).
+
 ## Static Graph Mode Startup Method
 
 Usually, due to the flexibility of dynamic graphs, we choose to use PyNative mode for free neural network construction for model innovation and optimization. But when performance acceleration is needed, we need to accelerate the neural network partially or as a whole. MindSpore provides two ways of switching to graph mode, the decorator-based startup method and the global context-based startup method.
@@ -163,7 +169,11 @@ Also, there are some special constraints when using flow control statements when
 
 ## JitConfig Configuration Option
 
-Contents to be supplemented.
+In graph mode, the compilation process can be customized by using the [JitConfig](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.JitConfig.html#mindspore.JitConfig) configuration option. Currently JitConfig supports the following configuration parameters:
+
+- jit_level: Used to control the optimization level.
+- exec_mode: Used to control the model execution.
+- jit_syntax_level: Set the static graph syntax support level. See [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#overview) for details.
 
 ## Advanced Programming Techniques for Static Graphs
 
