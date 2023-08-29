@@ -6,6 +6,16 @@
 
 In recent years, the scale of neural networks has increased exponentially. Limited by the memory on a single device, the number of devices used for training large models is also increasing. Due to the low communication bandwidth between servers, the performance of the conventional hybrid parallelism (data parallel + model parallel) is poor. Therefore, pipeline parallelism needs to be introduced. Pipeline parallel can divide a model in space based on `stage`. Each `stage` needs to execute only a part of the network, which greatly reduces memory overheads, shrinks the communication domain, and shortens the communication time. MindSpore can automatically convert a standalone model to the pipeline parallel mode based on user configurations.
 
+> Hardware platforms supported by the pipeline parallel model include Ascend, GPU, and need to be run in Graph mode.
+
+Related interfaces:
+
+1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=NUM)`: Set semi-automatic parallel mode and set `pipeline_stages` to indicate that the total number of `stages` is NUM and call it before initializing the network.
+
+2. `nn.WithLossCell(backbone, loss_fn)`: pipeline parallelism requires first defining the Cell of the loss function, i.e., LossCell, for encapsulating the backbone network and the loss function, through this interface.
+
+3. `nn.PipelineCell(loss_cell, micro_size)`: pipeline parallelism requires wrapping a layer of `PipelineCell` around the LossCell and specifying the size of the MicroBatch. In order to improve machine utilization, MindSpore slices the MiniBatch into finer-grained MicroBatches, and the final loss is the sum of the loss values computed by all MicroBatches, where the size of the MicroBatch must be greater than or equal to the number of `stages`.
+
 ## Basic Principle
 
 Pipeline parallel is the splitting of operators in a neural network into multiple stages, and then mapping the stages to different devices, so that different devices can compute different parts of the neural network. Pipeline parallel is suitable for graph structures where the model is linear. As shown in Figure 1, the network of 4 layers of MatMul is split into 4 stages and distributed to 4 devices. In forward calculations, each machine sends the result to the next machine through the communication operator after calculating the MatMul on the machine, and at the same time, the next machine receives (Receive) the MatMul result of the previous machine through the communication operator, and starts to calculate the MatMul on the machine; In reverse calculation, after the gradient of the last machine is calculated, the result is sent to the previous machine, and at the same time, the previous machine receives the gradient result of the last machine and begins to calculate the reverse of the current machine.
@@ -28,135 +38,152 @@ In MindSpore's pipeline parallel implementation, the execution order has been ad
 
 ## Operation Practices
 
+The following is an illustration of pipeline parallel operation using Ascend or GPU single-machine 8-card as an example:
+
 ### Sample Code Description
 
-> Download address of the complete sample code:
->
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>.
+> Download the complete sample code: [distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_pipeline_parallel).
 
 The directory structure is as follows:
 
 ```text
 └─ sample_code
-    ├─ distributed_training
-       ├── rank_table_16pcs.json
-       ├── rank_table_8pcs.json
-       ├── rank_table_2pcs.json
-       ├── resnet.py
-       ├── resnet50_distributed_training_pipeline.py
-       └── run_pipeline.sh
+    ├─ distributed_pipeline_parallel
+       ├── distributed_pipeline_parallel.py
+       └── run.sh
     ...
 ```
 
-`rank_table_16pcs.json`, `rank_table_8pcs.json` and `rank_table_2pcs.json` are the networking information files. `resnet.py` and `resnet50_distributed_training_pipeline.py` are the network structure files. `run_pipeline.sh` are the execute scripts.
-
-### Downloading the Dataset
-
-This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset,
-visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#downloading-the-dataset>.
+`distributed_pipeline_parallel.py` is the script that defines the network structure and training process. `run.sh` is the execution script.
 
 ### Configuring the Distributed Environment
 
-> Pipeline parallelism supports Ascend and GPU.
+Specify the run mode, run device, run card number, etc. via the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode and initialize HCCL or NCCL communication via init. In addition, `pipeline_stages=2` should be configured to specify the total number of `stages`. Not setting `device_target` here automatically specifies the backend hardware device corresponding to the MindSpore package.
 
-For details about how to configure the distributed environment and call the HCCL,
-visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#preparations>.
+```python
+import mindspore as ms
+from mindspore.communication import init
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=2)
+init()
+ms.set_seed(1)
+```
+
+### Loading the Dataset
+
+In the pipeline parallel scenario, the dataset is loaded in the same way as a single card is loaded, with the following code:
+
+```python
+import os
+import mindspore.dataset as ds
+
+def create_dataset(batch_size):
+    dataset_path = os.getenv("DATA_PATH")
+    dataset = ds.MnistDataset(dataset_path)
+    image_transforms = [
+        ds.vision.Rescale(1.0 / 255.0, 0),
+        ds.vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        ds.vision.HWC2CHW()
+    ]
+    label_transform = ds.transforms.TypeCast(ms.int32)
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size)
+    return dataset
+
+data_set = create_dataset(32)
+```
 
 ### Defining the Network
 
-The network definition is the same as that in the Parallel Distributed Training Example.
-
-For details about the definitions of the network, optimizer, and loss function,
-visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#defining-the-network>.
-
-> To implement pipeline parallelism, you need to define the parallel strategy and call the `pipeline_stage` API to specify the stage on which each layer is to be executed. The granularity of the `pipeline_stage` API is `Cell`. `pipeline_stage` must be configured for all `Cells` that contain training parameters.
+The pipeline parallel network structure is basically the same as the single-card network structure, and the difference is the addition of pipeline parallel strategy configuration. Pipeline parallel requires the user to define the parallel strategy by calling the `pipeline_stage` interface to specify the stage on which each layer is to be executed. The granularity of the `pipeline_stage` interface is `Cell`. All `Cells` containing training parameters need to be configured with `pipeline_stage`, and `pipeline_stage` should be configured in the order of network execution, from smallest to largest. After adding `pipeline_stage` configuration based on the single-card model is as follows:
 
 ```python
-class ResNet(nn.Cell):
-    """ResNet"""
+from mindspore import nn
 
-    def __init__(self, block, num_classes=100, batch_size=32):
-        """init"""
-        super(ResNet, self).__init__()
-        self.batch_size = batch_size
-        self.num_classes = num_classes
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.layer1 = nn.Dense(28*28, 512)
+        self.relu1= nn.ReLU()
+        self.layer2 = nn.Dense(512, 512)
+        self.relu2= nn.ReLU()
+        self.layer3 = nn.Dense(512, 10)
 
-        self.head = Head()
-        self.layer1 = MakeLayer0(block, in_channels=64, out_channels=256, stride=1)
-        self.layer2 = MakeLayer1(block, in_channels=256, out_channels=512, stride=2)
-        self.layer3 = MakeLayer2(block, in_channels=512, out_channels=1024, stride=2)
-        self.layer4 = MakeLayer3(block, in_channels=1024, out_channels=2048, stride=2)
-
-        self.pool = ops.ReduceMean(keep_dims=True)
-        self.squeeze = ops.Squeeze(axis=(2, 3))
-        self.fc = fc_with_initialize(512 * block.expansion, num_classes)
-
-        # pipeline parallel config
-        self.head.pipeline_stage = 0
         self.layer1.pipeline_stage = 0
+        self.relu1.pipeline_stage = 0
         self.layer2.pipeline_stage = 0
+        self.relu2.pipeline_stage = 1
         self.layer3.pipeline_stage = 1
-        self.layer4.pipeline_stage = 1
-        self.fc.pipeline_stage = 1
 
     def construct(self, x):
-        """construct"""
-        x = self.head(x)
-
+        x = self.flatten(x)
         x = self.layer1(x)
+        x = self.relu1(x)
         x = self.layer2(x)
-        x = self.layer3(x)
-        x = self.layer4(x)
+        x = self.relu2(x)
+        logits = self.layer3(x)
+        return logits
 
-        x = self.pool(x, (2, 3))
-        x = self.squeeze(x)
-        x = self.fc(x)
-        return x
+net = Network()
 ```
 
 ### Training the Network
 
-To enable pipeline parallelism, you need to add the following configurations to the training script:
+In this step, we need to define the loss function, the optimizer, and the training process, and unlike the single-card model, two interfaces need to be called in this section to configure the pipeline parallel:
 
-- Set `pipeline_stages` in `set_auto_parallel_context` to specify the total number of `stages`.
-- Define the LossCell. In this example, the `nn.WithLossCell` API is called.
-- Finally, wrap the LossCell with `PipelineCell`, and specify the Micro_batch size. To improve machine utilization, MindSpore divides Mini_batch into finer-grained Micro_batch to streamline the entire cluster. The final loss value is the sum of the loss values computed by all Micro_batch. The size of Micro_batch must be greater than or equal to the number of `stages`.
+- First define the LossCell. In this case the `nn.WithLossCell` interface is called to encapsulate the network and loss functions.
+- Finally, wrap the LossCell with `nn.PipelineCell`, and specify the size of MicroBatch. For detailed information, refer to the related interfaces in the overview.
 
 ```python
 import mindspore as ms
-from mindspore.train import Model, LossMonitor
-from mindspore import nn
-from mindspore.nn import Momentum
-from resnet import resnet50
+from mindspore import nn, train
 
-
-def test_train_cifar(epoch_size=10):
-    ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
-    ms.set_auto_parallel_context(pipeline_stages=2, full_batch=True)
-    loss_cb = LossMonitor()
-    data_path = os.getenv('DATA_PATH')
-    dataset = create_dataset(data_path)
-    batch_size = 32
-    num_classes = 10
-    net = resnet50(batch_size, num_classes)
-    loss = SoftmaxCrossEntropyExpand(sparse=True)
-    net_with_loss = nn.WithLossCell(net, loss)
-    net_pipeline = nn.PipelineCell(net_with_loss, 2)
-    opt = Momentum(net.trainable_params(), 0.01, 0.9)
-    model = Model(net_pipeline, optimizer=opt)
-    model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
+optimizer = nn.SGD(net.trainable_params(), 1e-2)
+loss_fn = nn.CrossEntropyLoss()
+loss_cb = train.LossMonitor()
+net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4)
+model = ms.Model(net_with_grads, optimizer=optimizer)
+model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
+
+> Currently pipeline parallel does not support the automatic mixed precision.
 
 ### Running the Single-host with 8 Devices Script
 
-Using the sample code, you can run a 2-stage pipeline on 8 Ascend devices by using below scripts:
+Next, the corresponding scripts are called by commands, using the `mpirun` startup method and the 8-card distributed training script as an example of distributed training:
 
 ```bash
-bash run_pipeline.sh [DATA_PATH] Ascend
+bash run.sh
 ```
 
-You can run a 2-stage pipeline on 8 GPU devices using below scripts:
+After training, the log files are saved to the `log_output` directory, where part of the file directory structure is as follows:
 
-```bash
-bash run_pipeline.sh [DATA_PATH] GPU
+```text
+└─ log_output
+    └─ 1
+        ├─ rank.0
+        |   └─ stdout
+        ├─ rank.1
+        |   └─ stdout
+...
 ```
+
+The results are saved in `log_output/1/rank.*/stdout`, and the example is as below:
+
+```text
+epoch: 1 step: 1875, loss is 1.9490933418273926
+epoch: 2 step: 1875, loss is 0.44548869132995605
+epoch: 3 step: 1875, loss is 0.034527599811553955
+epoch: 4 step: 1875, loss is 1.0163589715957642
+epoch: 5 step: 1875, loss is 0.02109396457672119
+epoch: 6 step: 1875, loss is 0.012739777565002441
+epoch: 7 step: 1875, loss is 0.004988193511962891
+epoch: 8 step: 1875, loss is 0.10372555255889893
+epoch: 9 step: 1875, loss is 0.019182920455932617
+epoch: 10 step: 1875, loss is 0.021012544631958008
+```
+
+Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/experts/en/master/parallel/startup_method.html).
