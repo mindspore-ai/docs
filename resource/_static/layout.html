@@ -23,6 +23,7 @@
   <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
   {%- endblock -%}
 
+  <script>;(()=>{const e=localStorage.getItem("ms-theme"),t=window.matchMedia("(prefers-color-scheme: dark)").matches;(e?"dark"===e:t)&&document.documentElement.setAttribute("data-o-theme","dark")})();</script>
   {#- CSS #}
   {%- if sphinx_version_info < (4, 0) -%}
     <link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" type="text/css" />
