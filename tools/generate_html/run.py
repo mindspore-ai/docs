@@ -19,11 +19,11 @@ from lxml import etree
 
 
 # 下载仓库
-def git_clone(repo_url, repo_dir, branch):
+def git_clone(repo_url, repo_dir):
     if not os.path.exists(repo_dir):
         print("Cloning repo.....")
         os.makedirs(repo_dir, exist_ok=True)
-        Repo.clone_from(repo_url, repo_dir, branch=branch)
+        Repo.clone_from(repo_url, repo_dir, branch="master")
         print("Cloning Repo Done.")
 
 # 更新仓库
@@ -151,7 +151,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 status_code = requests.get(repo_url, headers=headers).status_code
                 if status_code == 200:
                     if not os.path.exists(repo_path):
-                        git_clone(repo_url, repo_path, branch_)
+                        git_clone(repo_url, repo_path)
                     git_update(repo_path, branch_)
                     print(f'{repo_name}仓库克隆更新成功')
             except KeyError:
