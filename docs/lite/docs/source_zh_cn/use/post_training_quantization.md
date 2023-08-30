@@ -54,6 +54,25 @@ debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 enable_encode = true
 ```
 
+### 固定比特权重量化参数
+
+固定比特权重量化参数主要包括`dequant_strategy`、 `per_channel`、 `bias_correction`。参数的详细介绍如下所示：
+
+| 参数               | 属性 | 功能描述                       | 参数类型    | 默认值  | 取值范围                                |
+|------------------|----|----------------------------|---------|------|-------------------------------------|
+| dequant_strategy | 可选 | 权重量化模式                     | String  | -    | ON_THE_FLY。使能后，启用Ascend在线反量化模式。     |
+| per_channel      | 可选 | 采用PerChannel或者PerLayer量化方式 | Boolean | True | True，False。设置成False，启用PerLayer量化方式。 |
+| bias_correction  | 可选 | 是否对量化误差进行校正                |     Boolean    | True | True，False。使能后，将提升量化模型的精度。        |
+
+```ini
+[weight_quant_param]
+dequant_strategy=ON_THE_FLY
+# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
+per_channel=True
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=False
+```
+
 ### 混合比特权重量化参数
 
 混合比特权重量化参数包括`init_scale`，启用混合比特权重量化后，将会针对不同层自动搜索最优的比特数。参数的详细介绍如下所示：
@@ -210,6 +229,47 @@ bit_num=8
 min_quant_weight_size=0
 # Layers with channel size of weights exceeds threshold `min_quant_weight_channel` will be quantized.
 min_quant_weight_channel=16
+```
+
+### Ascend ON_THE_FLY量化
+
+Ascend ON_THE_FLY量化表示运行时权重反量化。现阶段仅支持MINDIR模型。
+
+Ascend ON_THE_FLY量化还需新增`[ascend_context]`相关配置，Ascend ON_THE_FLY量化配置文件如下所示：
+
+```ini
+[common_quant_param]
+quant_type=WEIGHT_QUANT
+# Weight quantization support the number of bits (0,16]
+bit_num=8
+# Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
+min_quant_weight_size=5000
+# Layers with channel size of weights exceeds threshold `min_quant_weight_channel` will be quantized.
+min_quant_weight_channel=5
+
+[weight_quant_param]
+dequant_strategy=ON_THE_FLY
+# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
+per_channel=True
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=False
+
+[ascend_context]
+# The converted model is suitable for Ascend GE processes
+provider=ge
+```
+
+Ascend ON_THE_FLY量化转换命令的一般形式为：
+
+```shell
+./converter_lite --fmk=MINDIR --optimize=ascend_oriented --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=ascend_on_the_fly_quant.cfg
+```
+
+针对Ascend910B硬件，ON_THE_FLY量化通过插入AntiQuant算子，使能反量化融合优化，提升性能。
+该场景下，ON_THE_FLY量化转换命令的一般形式为：
+
+```shell
+./converter_lite --fmk=MINDIR --optimize=ascend_oriented:910b --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=ascend_on_the_fly_quant.cfg
 ```
 
 ### 部分模型精度结果

@@ -54,6 +54,25 @@ debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 enable_encode = true
 ```
 
+### Fixed Bit Weight Quantization Parameters
+
+The fixed bit weight quantization parameters include `dequant_strategy`, `per_channel`, `bias_correction`. The detailed description of the parameters is as follows:
+
+| Parameter  | Attribute | Function Description                                | Parameter Type | Default Value | Value Range                                                                                             |
+|------------------|----|-----------------------------------------------------|---------|------|---------------------------------------------------------------------------------------------------------|
+| dequant_strategy | Optional | Weight Quantization mode                            | String  | -    | ON_THE_FLY. After this parameter is enabled, Ascend online antiquantization mode is activated.                                          |
+| per_channel      | Optional | Select PerChannel or PerLayer quantization type.    | Boolean | True | True or False. Set to false to enable Perlayer quantization.                                            |
+| bias_correction  | Optional | Indicate whether to correct the quantization error. |     Boolean    |    True  | True or False. After this parameter is enabled, the accuracy of the quantization model can be improved. |
+
+```ini
+[weight_quant_param]
+dequant_strategy=ON_THE_FLY
+# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
+per_channel=True
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=False
+```
+
 ### Mixed Bit Weight Quantization Parameter
 
 The mixed bit weight quantization parameters include `init_scale`. When enable the mixed bit weight quantization, the optimal number of bits will be automatically searched for different layers. The detailed description of the parameters is as follows:
@@ -211,6 +230,47 @@ min_quant_weight_size=0
 min_quant_weight_channel=16
 ```
 
+### Ascend On_the_fly Quantization
+
+Ascend ON_THE_FLY quantization means runtime weight dequantization. At this stage, only the MINDIR model is supported.
+
+We must add configuration about `[ascend_context]` for Ascend ON_THE_FLY quantification as follow:
+
+```ini
+[common_quant_param]
+quant_type=WEIGHT_QUANT
+# Weight quantization support the number of bits (0,16]
+bit_num=8
+# Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
+min_quant_weight_size=5000
+# Layers with channel size of weights exceeds threshold `min_quant_weight_channel` will be quantized.
+min_quant_weight_channel=5
+
+[weight_quant_param]
+dequant_strategy=ON_THE_FLY
+# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
+per_channel=True
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=False
+
+[ascend_context]
+# The converted model is suitable for Ascend GE processes
+provider=ge
+```
+
+The general form of the Ascend weight quantization conversion command is:
+
+```shell
+./converter_lite --fmk=MINDIR --optimize=ascend_oriented --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=ascend_on_the_fly_quant.cfg
+```
+
+For ascend910b hardware, ON_THE_FLY quantization inserts AntiQuant operators to enable dequantization fusion optimization and improve performance.
+In this scenario, the general form of the ON_THE_FLY quantization conversion command is:
+
+```shell
+./converter_lite --fmk=MINDIR --optimize=ascend_oriented:910b --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=ascend_on_the_fly_quant.cfg
+```
+
 ### Partial Model Accuracy Result
 
 | Model | Test Dataset | FP32 Model Accuracy | Weight Quantization Accuracy (8 bits) |
@@ -229,7 +289,7 @@ To calculate a quantization parameter of an activation value, you need to provid
 
 For image data, currently supports channel pack, normalization, resize, center crop processing. The user can set the corresponding [parameter](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html#data-preprocessing) according to the preprocessing operation requirements.
 
-Full quantization config's info must include `[common_quant_param]`, `[data_preprocess_param]`, `[full_quant_param]`。
+Full quantization config's info must include `[common_quant_param]`, `[data_preprocess_param]`, `[full_quant_param]`.
 
 The general form of the full quantization conversion command is:
 
