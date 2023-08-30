@@ -8,8 +8,6 @@ MindSpore SPONGE是一款基于MindSpore的计算生物领域套件，支持分�
 .. figure:: ./intro/images/archi_cn.png
    :alt: MindSpore SPONGE Architecture
 
-*MindSpore SPONGE Architecture*
-
 与传统分子模拟软件不同，AI分子模拟库具有全新的特性，例如：
 
 1. 自动微分技术取代手动的导数编程，为不同的能量函数或构建复杂打分函数提供了统一的编程范式；

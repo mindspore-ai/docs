@@ -13,8 +13,6 @@ The overall structure view is as follows:
 .. figure:: ./intro/images/archi.png
    :alt: MindSpore SPONGE Architecture
 
-   MindSpore SPONGE Architecture
-
 Different from traditional molecular simulation software,
 AI molecular simulation library has completely new features, such as:
 
