@@ -210,7 +210,7 @@ for epoch in range(10):
 
 #### 单机多卡
 
-单机多卡启动脚本内容[run_dynamic_cluster.sh](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method/run_dynamic_cluster.sh)如下，以单机8卡为例：
+单机多卡启动脚本内容[run_dynamic_cluster.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster.sh)如下，以单机8卡为例：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -273,7 +273,7 @@ epoch: 0, step: 90, loss is 0.88950706
 
 多机训练场景下，需拆分启动脚本。下面以执行2机8卡训练，每台机器执行启动4个Worker为例：
 
-脚本[run_dynamic_cluster_1.sh](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method/run_dynamic_cluster_1.sh)在节点1上启动1`Scheduler`和`Worker1`到`Worker4`：
+脚本[run_dynamic_cluster_1.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster_1.sh)在节点1上启动1`Scheduler`和`Worker1`到`Worker4`：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -308,7 +308,7 @@ export MS_ROLE=MS_SCHED                    # 设置启动的进程为MS_SCHED角
 python ./net.py > device/scheduler.log 2>&1 &     # 启动训练脚本
 ```
 
-脚本[run_dynamic_cluster_2.sh](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method/run_dynamic_cluster_2.sh)在节点2上启动`Worker5`到`Worker8`（无需执行Scheduler）：
+脚本[run_dynamic_cluster_2.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster_2.sh)在节点2上启动`Worker5`到`Worker8`（无需执行Scheduler）：
 
 ```bash
 EXEC_PATH=$(pwd)
