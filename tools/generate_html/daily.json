@@ -86,7 +86,7 @@
     "id" : 10 ,
     "name" : "mindelec",
     "branch" : "master",
-    "whl_path" : "/mindscience/website/x86_64",
+    "whl_path" : "/mindscience/website/mindelec/x86_64",
     "whl_name" : "mindelec_ascend-.*-cp37-cp37m-linux_x86_64.whl$",
     "environ" : "MSC_PATH",
     "uninstall_name" : "mindelec_ascend"
@@ -95,7 +95,7 @@
     "id" : 11 ,
     "name" : "mindsponge",
     "branch" : "master",
-    "whl_path" : "/mindscience/website/gpu/x86_64/cuda-10.1/",
+    "whl_path" : "/mindscience/website/mindsponge/gpu/x86_64/cuda-10.1/",
     "whl_name" : "mindsponge_gpu-.*-py3-none-any.whl$",
     "environ" : "MSC_PATH",
     "uninstall_name" : "mindsponge_gpu"
@@ -104,7 +104,7 @@
     "id" : 12 ,
     "name" : "mindflow",
     "branch" : "master",
-    "whl_path" : "mindscience/website/gpu/x86_64/cuda-11.1/",
+    "whl_path" : "mindscience/website/mindflow/gpu/x86_64/cuda-11.1/",
     "whl_name" : "mindflow_gpu-.*-py3-none-any.whl$",
     "environ" : "MSC_PATH",
     "uninstall_name" : "mindflow_gpu"
