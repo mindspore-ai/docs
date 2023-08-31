@@ -238,7 +238,7 @@
 |[mindspore.ops.triu](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.triu.html)|✔️|✔️|✔️|
 |[mindspore.ops.trunc](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.trunc.html)|✔️|✔️|✔️|
 |[mindspore.ops.unfold](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.unfold.html)|✔️|✔️|✔️|
-|[mindspore.ops.uniform](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.uniform)|❌|✔️|✔️|
+|[mindspore.ops.uniform](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.uniform.html)|❌|✔️|✔️|
 |[mindspore.ops.unique](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.unique.html)|✔️|✔️|✔️|
 |[mindspore.ops.unsorted_segment_sum](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.unsorted_segment_sum.html)|✔️|✔️|✔️|
 |[mindspore.ops.unsqueeze](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.unsqueeze.html)|✔️|✔️|✔️|
