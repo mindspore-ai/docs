@@ -1,14 +1,14 @@
-# rank table启动
+# rank table Startup
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/rank_table.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/rank_table.md)
 
-## 概述
+## Overview
 
-`rank table`启动是Ascend硬件平台独有的启动方式。该方式不依赖第三方库，采用单卡单进程运行方式，需要用户在脚本中创建与使用的卡的数量一致的进程。该方法在多机下各节点的脚本一致，方便快速批量部署。
+`rank table` startup is a startup method unique to the Ascend hardware platform. This method does not rely on third-party libraries and runs as a single process on a single card, requiring the user to create a process in the script that matches the number of cards in use. This method is consistent across nodes in multiple machines and facilitates rapid batch deployment.
 
-相关配置：
+Related Configurations:
 
-`rank table`主要需要配置rank_table文件，以2卡环境配置文件`rank_table_2pcs.json`为例：
+`rank table` mainly need to configure the rank_table file, taking the 2-card environment configuration file `rank_table_2pcs.json` as an example:
 
 ```json
 {
@@ -27,19 +27,19 @@
 }
 ```
 
-其中需要根据实际训练环境修改的参数项有：
+The parameter items that need to be modified according to the actual training environment are:
 
-- `server_count`表示参与训练的机器数量。
-- `server_id`表示当前机器的IP地址。
-- `device_id`表示卡物理序号，即卡所在机器中的实际序号。
-- `device_ip`表示集成网卡的IP地址，可以在当前机器执行指令`cat /etc/hccn.conf`，`address_x`的键值就是网卡IP地址。
-- `rank_id`表示卡逻辑序号，固定从0开始编号。
+- `server_count` represents the number of machines involved in training.
+- `server_id` represents the IP address of the current machine.
+- `device_id` represents the physical serial number of the card, i.e., the actual serial number in the machine where the card is located.
+- `device_ip` represents the IP address of the integrated NIC. You can execute the command `cat /etc/hccn.conf` on the current machine, and the key value of `address_x` is the IP address of the NIC.
+- `rank_id` represents the card logical serial number, fixed numbering from 0.
 
-## 操作实践
+## Operation Practice
 
-> 样例的运行目录：[startup_method](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method)。
+> The running directory of sample: [startup_method](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method).
 
-目录结构如下：
+The directory structure is as follows:
 
 ```text
 └─ sample_code
@@ -52,13 +52,13 @@
     ...
 ```
 
-其中，`allgather_test.py`是定义网络结构，`run_ran_table.sh`、`run_ran_table_cluster.sh`是执行脚本，`hostfile`是配置多机多卡的文件。
+`allgather_test.py` defines the network structure, `run_ran_table.sh`, `run_ran_table_cluster.sh` are executing the scripts, and `hostfile` is configuring multi-machine multi-card files.
 
-### 1. 准备Python训练脚本
+### 1. Preparing Python Training Scripts
 
-这里以数据并行为例，训练一个MNIST数据集的识别网络，网络结构和训练过程与数据并行网络一致。
+Here, as an example of data parallel, a recognition network is trained for the MNIST dataset, and the network structure and training process are consistent with that of the data parallel network.
 
-首先指定运行模式、设备ID、硬件设备等，与单卡脚本不同，并行脚本还需指定并行模式等配置项，并通过init初始化HCCL通信。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+First specify the operation mode, hardware device, etc. Unlike single card scripts, parallel scripts also need to specify configuration items such as parallel mode and initialize HCCL or NCCL communication via init. If you don't set `device_target` here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
 
 ```python
 import os
@@ -73,7 +73,7 @@ init()
 ms.set_seed(1)
 ```
 
-然后构建如下网络：
+Then build the following network:
 
 ```python
 from mindspore import nn
@@ -92,7 +92,7 @@ class Network(nn.Cell):
 net = Network()
 ```
 
-最后是数据集处理和定义训练过程：
+Finally, the dataset is processed and the training process is defined:
 
 ```python
 import os
@@ -139,11 +139,11 @@ for epoch in range(10):
         i += 1
 ```
 
-### 2. 准备启动脚本
+### 2. Preparing the Startup Script
 
-#### 单机多卡
+#### Single-Machine Multi-Card
 
-`rank table`方式采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。每个进程创建1个目录，用来保存日志信息以及算子编译信息。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
+The `rank table` method uses a single-card single-process operation, i.e., 1 process runs on each card, with the same number of processes as the number of cards in use. Each process creates a directory to store log information and operator compilation information. Below is an example of how to run a distributed training script using 8 cards:
 
 ```bash
 RANK_SIZE=8
@@ -174,19 +174,19 @@ do
 done
 ```
 
-分布式相关的环境变量有：
+Distributed-related environment variables are:
 
-- `RANK_TABLE_FILE`：组网信息文件的路径。
-- `DEVICE_ID`：当前卡在机器上的实际序号。
-- `RANK_ID`：当前卡的逻辑序号。
+- `RANK_TABLE_FILE`: Path to the networking information file.
+- `DEVICE_ID`: The actual serial number of the current card on the machine.
+- `RANK_ID`: The logical serial number of the current card.
 
-在当前路径配置好`rank_table_8pcs.json`后，执行以下指令：
+After configuring `rank_table_8pcs.json` in the current path, execute the following command:
 
 ```bash
 bash run_ran_table.sh
 ```
 
-运行结束后，日志文件保存`device0`、 `device1`等目录下，`env*.log`中记录了环境变量的相关信息，输出结果保存在`train*.log`中，示例如下：
+After running, the log files are saved in `device0`, `device1` and other directories, `env*.log` records information about environment variables, and the output is saved in `train*.log`, as shown in the example below:
 
 ```text
 epoch: 0, step: 0, loss is 2.3391366
@@ -203,11 +203,11 @@ epoch: 0, step: 100, loss is 0.53782797
 ...
 ```
 
-#### 多机多卡
+#### Multi-Machine Multi-Card
 
-在Ascend环境下，跨机器的NPU单元的通信与单机内各个NPU单元的通信一样，依旧是通过HCCL进行通信，区别在于，单机内的NPU单元天然的是互通的，而跨机器的则需要保证两台机器的网络是互通的。确认的方法如下：
+In the Ascend environment, the communication of NPU units across machines is the same as the communication of individual NPU units within a single machine, still through the HCCL. The difference is that the NPU units within a single machine are naturally interoperable, while the cross-machine ones need to ensure that the networks of the two machines are interoperable. The method of confirmation is as follows:
 
-在1号服务器执行下述命令，会为每个设备配置2号服务器对应设备的`device ip`。例如将1号服务器卡0的目标IP配置为2号服务器的卡0的ip。配置命令需要使用`hccn_tool`工具。[`hccn_tool`](https://support.huawei.com/enterprise/zh/ascend-computing/a300t-9000-pid-250702906?category=developer-documents)是一个HCCL的工具，由CANN包自带。
+Executing the following command on server 1 will configure each device with the `device ip` of the corresponding device on server 2. For example, configure the destination IP of card 0 on server 1 as the ip of card 0 on server 2. Configuration commands require the `hccn_tool` tool. The [`hccn_tool`](https://support.huawei.com/enterprise/zh/ascend-computing/a300t-9000-pid-250702906?category=developer-documents) is an HCCL tool that comes with the CANN package.
 
 ```bash
 hccn_tool -i 0 -netdetect -s address 192.*.92.131
@@ -220,9 +220,9 @@ hccn_tool -i 6 -netdetect -s address 192.*.94.141
 hccn_tool -i 7 -netdetect -s address 192.*.95.141
 ```
 
-`-i 0`指定设备ID。`-netdetect`指定网络检测对象IP属性。`-s address`表示设置属性为IP地址。`192.*.92.131`表示2号服务器的设备0的ip地址。接口命令可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/8eff627f)。
+`-i 0` specifies the device ID. `-netdetect` specifies the network detection object IP attribute. `-s address` indicates that the attribute is set to an IP address. `192.*.92.131` indicates the ip address of device 0 on server 2. The interface command can be referenced [here](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/8eff627f).
 
-在1号服务器上面执行完上述命令后，通过下述命令开始检测网络链接状态。在此使用`hccn_tool`的另一个功能，此功能的含义可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/7d059b59)。
+After executing the above command on server 1, start checking the network link status with the following command. Another function of `hccn_tool` is used here, the meaning of which can be found [here](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/7d059b59).
 
 ```bash
 hccn_tool -i 0 -net_health -g
@@ -235,19 +235,19 @@ hccn_tool -i 6 -net_health -g
 hccn_tool -i 7 -net_health -g
 ```
 
-如果连接正常，对应的输出如下：
+If the connection is successful, the corresponding output is as follows:
 
 ```bash
 net health status: Success
 ```
 
-如果连接失败，对应的输出如下：
+If the connection fails, the corresponding output is as follows:
 
 ```bash
 net health status: Fault
 ```
 
-在确认了机器之间的NPU单元的网络是通畅后，配置多机的json配置文件，本教程以16卡的配置文件为例，详细的配置文件说明可以参照本教程单机多卡部分的介绍。需要注意的是，在多机的json文件配置中，要求rank_id的排序，与server_id的字典序一致。
+After confirming that the network of the NPU units between the machines is smooth, configure the json configuration file of the multi-machine, this tutorial takes the configuration file of the 16 cards as an example. The detailed description of the configuration file can be referred to the introduction of single-machine multi-card part in this tutorial. It should be noted that in the configuration of the multi-machine json file, it is required that the order of rank_id is consistent with the dictionary order of server_id.
 
 ```json
 {
@@ -285,7 +285,7 @@ net health status: Fault
 }
 ```
 
-准备好配置文件后，可以进行分布式多机训练脚本的组织，在以2机16卡为例，两台机器上编写的脚本与单机多卡的运行脚本类似，区别在于指定不同的rank_id变量。
+After preparing the configuration file, you can carry out the organization of distributed multi-machine training scripts. In the case of 2-machine 16-card, the scripts on the two machines are similar to the scripts run on single-machine multi-card, the difference being the specification of different rank_id variables.
 
 ```bash
 RANK_SIZE=16
@@ -317,7 +317,7 @@ do
 done
 ```
 
-执行时，两台机器分别执行如下命令，其中rank_table.json按照本章节展示的16卡的分布式json文件参考配置。
+During execution, the following commands are executed on the two machines, where rank_table.json is configured according to the 16-card distributed json file reference shown in this section.
 
 ```bash
 # server0
@@ -326,4 +326,4 @@ bash run_ran_table_cluster.sh 0
 bash run_ran_table_cluster.sh 8
 ```
 
-运行结束后，日志文件保存`device_0`、 `device_1`等目录下，`env*.log`中记录了环境变量的相关信息，输出结果保存在`train*.log`中。
+After running, the log files are saved in the directories `device_0`, `device_1`. The information about the environment variables is recorded in `env*.log`, and the output is saved in `train*.log`.
