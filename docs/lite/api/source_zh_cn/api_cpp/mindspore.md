@@ -1590,7 +1590,8 @@ explicit MSTensor(std::nullptr_t)
 
 | 函数                                                                                                                                                                                                                 | 云侧推理是否支持 | 端侧推理是否支持 |
 |------------------------------------------------------------------------------------------------------------------|---------|---------|
-| [MSTensor *CreateTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape, const void *data, size_t data_len) noexcept](#createtensor)     |    √    |    √    |
+| [MSTensor *CreateTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape, const void *data, size_t data_len, const std::string &device = "", int device_id = -1) noexcept](#createtensor)     |    √    |    √    |
+| [MSTensor *CreateTensor(const std::string &name, const MSTensor &tensor, const std::string &device = "", int device_id = -1) noexcept](#createtensor)     |    √    |    √    |
 | [MSTensor *CreateRefTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape, void *data, size_t data_len) noexcept](#createreftensor)     |    √    |    √    |
 | [static inline MSTensor CreateDeviceTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape, void *data, size_t data_len) noexcept](#createdevicetensor)     |    √    |    ✕    |
 | [static inline MSTensor *CreateTensorFromFile(const std::string &file, DataType type = DataType::kNumberTypeUInt8, const std::vector<int64_t> &shape = {}) noexcept](#createtensorfromfile)     |    √    |    ✕    |
@@ -1602,7 +1603,8 @@ explicit MSTensor(std::nullptr_t)
 
 ```cpp
 MSTensor *CreateTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape,
-                       const void *data, size_t data_len) noexcept;
+                       const void *data, size_t data_len, const std::string &device = "",
+                       int device_id = -1) noexcept;
 ```
 
 创建一个`MSTensor`对象，其数据需复制后才能由`Model`访问，必须与`DestroyTensorPtr`成对使用。
@@ -1614,6 +1616,28 @@ MSTensor *CreateTensor(const std::string &name, DataType type, const std::vector
     - `shape`：张量的形状。
     - `data`：数据指针，指向一段已开辟的内存。
     - `data_len`：数据长度，以字节为单位。
+    - `device`：设备类型，表明Tensor的内存存放的位置位于设备侧。
+    - `device_id`：设备编号。
+
+- 返回值
+
+  `MStensor`指针。
+
+#### CreateTensor
+
+```cpp
+MSTensor *CreateTensor(const std::string &name, const MSTensor &tensor, const std::string &device = "",
+                       int device_id = -1) noexcept;
+```
+
+创建一个`MSTensor`对象，其数据需复制后才能由`Model`访问，必须与`DestroyTensorPtr`成对使用。
+
+- 参数
+
+    - `name`: 名称。
+    - `tensor`：用于作为拷贝的源MSTensor。
+    - `device`：设备类型，表明Tensor的内存存放的位置位于设备侧。
+    - `device_id`：设备编号。
 
 - 返回值
 
@@ -1736,6 +1760,8 @@ void DestroyTensorPtr(MSTensor *tensor) noexcept;
 | [std::shared_ptr<const void> Data() const](#data)     |    √    |    √    |
 | [void *MutableData()](#mutabledata)     |    √    |    √    |
 | [size_t DataSize() const](#datasize)     |    √    |    √    |
+| [int GetDevice() const](#getdevice)     |    √    |    ✕    |
+| [int GetDeviceId() const](#getdeviceid)     |    √    |    ✕    |
 | [bool IsConst() const](#isconst)     |    √    |    √    |
 | [bool IsDevice() const](#isdevice)     |    √    |    ✕    |
 | [MSTensor *Clone() const](#clone)     |    √    |    √    |
@@ -1839,6 +1865,30 @@ size_t DataSize() const;
 - 返回值
 
   `MSTensor`中的数据的以字节为单位的内存长度。
+
+#### GetDevice
+
+```cpp
+int GetDevice() const;
+```
+
+获取`MSTensor`所处的设备类型。
+
+- 返回值
+
+  `MSTensor`所处的设备类型。
+
+#### GetDeviceId
+
+```cpp
+int GetDeviceId() const;
+```
+
+获取`MSTensor`所处的设备编号。
+
+- 返回值
+
+  `MSTensor`所处的设备编号。
 
 #### IsConst
 
