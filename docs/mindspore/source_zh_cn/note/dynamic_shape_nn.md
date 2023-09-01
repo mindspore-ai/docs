@@ -39,7 +39,7 @@
 |[mindspore.nn.EmbeddingLookup](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.EmbeddingLookup.html)|✔️|✔️|✔️|
 |[mindspore.nn.GLU](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GLU.html)|✔️|✔️|✔️|
 |[mindspore.nn.GroupNorm](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GroupNorm.html)|✔️|✔️|✔️|
-|[mindspore.nn.GRU](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GRU.html)|✔️|✔️|✔️|
+|[mindspore.nn.GRU](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GRU.html)|❌|❌|✔️|
 |[mindspore.nn.GRUCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.GRUCell.html)|✔️|✔️|✔️|
 |[mindspore.nn.InstanceNorm1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.InstanceNorm1d.html)|❌|✔️|❌|
 |[mindspore.nn.InstanceNorm2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.InstanceNorm2d.html)|❌|✔️|❌|
@@ -57,9 +57,8 @@
 |[mindspore.nn.MSELoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MSELoss.html)|✔️|✔️|✔️|
 |[mindspore.nn.MultiLabelSoftMarginLoss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MultiLabelSoftMarginLoss.html)|✔️|✔️|✔️|
 |[mindspore.nn.PixelShuffle](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.PixelShuffle.html)|✔️|✔️|✔️|
-|[mindspore.nn.ReflectionPad1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ReflectionPad1d.html)|✔️|✔️|✔️|
+|[mindspore.nn.ReflectionPad1d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ReflectionPad1d.html)|✔️|❌|✔️|
 |[mindspore.nn.ReplicationPad2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ReplicationPad2d.html)|❌|✔️|❌|
-|[mindspore.nn.RNN](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.RNN.html)|✔️|❌|❌|
 |[mindspore.nn.RReLU](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.RReLU.html)|✔️|✔️|✔️|
 |[mindspore.nn.SmoothL1Loss](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SmoothL1Loss.html)|✔️|✔️|✔️|
 |[mindspore.nn.Softmax2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Softmax2d.html)|✔️|✔️|✔️|
