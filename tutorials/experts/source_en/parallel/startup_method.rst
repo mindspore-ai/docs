@@ -9,31 +9,27 @@ Distributed Parallel Startup Methods
   :hidden:
 
   dynamic_cluster
-  ms_operator
+  mpirun
+  rank_table
 
-Multi-card Startup Method
--------------------------
+Startup Method
+---------------
 
-Currently GPU, Ascend and CPU support multiple startup methods respectively, three of which are OpenMPI, dynamic networking and multi-process startup.
+Currently GPU, Ascend and CPU support multiple startup methods respectively, three of which are dynamic cluster, \ ``mpirun`` and \ ``rank table``:
 
-- Multi-process startup. The user needs to start the process corresponding to the number of cards, as well as configure the rank_table table. You can visit `Run Script <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#running-the-script>`_ to learn how to start multi-card tasks by multi-processing.
-- OpenMPI. The user can start running scripts via the mpirun command, at which point the user needs to provide the host file file. The user can visit `Running Scripts through OpenMPI <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#running-the-script-through-openmpi>`_ to learn how to use OpenMPI to start a multi-card task.
+- `Dynamic cluster <https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html>`_: this method does not rely on third-party libraries, has disaster recovery function, good security, and supports three hardware platforms. It is recommended that users prioritize the use of this startup method.
+- `mpirun <https://www.mindspore.cn/tutorials/experts/en/master/parallel/mpirun.html>`_: this method relies on the open source library OpenMPI, and startup command is simple. Multi-machine need to ensure two-by-two password-free login. It is recommended for users who have experience in using OpenMPI to use this startup method.
 - Dynamic cluster. MindSpore uses an internal dynamic networking module that does not require dependencies on external profiles or modules to help implement multi-card tasks. The user can visit `Dynamic Cluster <https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html>`_ to learn how to use dynamic networking way to start multi-card tasks.
+- `rank table <https://www.mindspore.cn/tutorials/experts/en/master/parallel/rank_table.html>`_: this method requires the Ascend hardware platform and does not rely on third-party library. After manually configuring the rank_table file, you can start the parallel program via a script, and the script is consistent across multiple machines for easy batch deployment.
 
-+--------------------------+-------------------+-----------------+------------------+
-|                          | GPU               | Ascend          | CPU              |
-+==========================+===================+=================+==================+
-| OpenMPI                  | Supported         | Supported       | Not supported    |
-+--------------------------+-------------------+-----------------+------------------+
-| Multi-process startup    | Not supported     | Supported       | Not supported    |
-+--------------------------+-------------------+-----------------+------------------+
-| Dynamic cluster          | Supported         | Supported       | Supported        |
-+--------------------------+-------------------+-----------------+------------------+
+The hardware support for the three startup methods is shown in the table below:
 
-Startup MindSpore Distributed Parallel Training on the Cloud
-------------------------------------------------------------
-
-MindSpore Operator is a MindSpore plugin for distributed training on Kubernetes.
-The CRD (Custom Resource Definition) defines three roles: Scheduler, PS, and Worker, and users can easily implement distributed training by simply configuring the yaml file.
-
-The current ms-operator supports normal single-Worker training, single-Worker training in PS mode, and Scheduler and Worker startup with automatic parallelism (e.g. data parallelism, model parallelism, etc.). Please refer to `ms-operator <https://gitee.com/mindspore/ms-operator>`_ for the detailed process.
++-------------------------+--------------+-----------------+-------------+
+|                         | GPU          | Ascend          | CPU         |
++=========================+==============+=================+=============+
+|    Dynamic cluster      | Support      | Support         | Support     |
++-------------------------+--------------+-----------------+-------------+
+|  \ ``mpirun``\          | Support      | Support         | Not support |
++-------------------------+--------------+-----------------+-------------+
+|    \ ``rank table``\    | Not support  | Support         | Not support |
++-------------------------+--------------+-----------------+-------------+
