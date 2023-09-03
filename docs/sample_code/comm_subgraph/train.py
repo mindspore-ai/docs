@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-"""Cell Fusion Example"""
+
+"""Subgraph Reuse Example"""
+
 import os
 import mindspore as ms
 import mindspore.dataset as ds
@@ -20,44 +22,30 @@ from mindspore import nn, ops
 from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, enable_parallel_optimizer=True)
 init()
+ms.set_seed(1)
 
-class DenseLayer(nn.Cell):
-    """A base layer with two dense layer"""
-    def __init__(self):
-        super().__init__()
-        self.input_mapping = nn.Dense(10, 32)
-        self.output_mapping = nn.Dense(32, 10)
-
-    def construct(self, x):
-        x = self.input_mapping(x)
-        return self.output_mapping(x)
-
-class Net(nn.Cell):
-    """An network with many dense layers"""
+class Network(nn.Cell):
+    """Network"""
     def __init__(self):
         super().__init__()
         self.flatten = nn.Flatten()
-        self.head = nn.Dense(28*28, 10)
-        self.layer1 = DenseLayer()
-        self.layer2 = DenseLayer()
-        self.layer3 = DenseLayer()
+        self.layer1 = nn.Dense(28*28, 512)
+        self.layer2 = nn.Dense(512, 512)
+        self.layer3 = nn.Dense(512, 10)
+        self.relu = nn.ReLU()
 
     def construct(self, x):
         x = self.flatten(x)
-        x = self.head(x)
         x = self.layer1(x)
+        x = self.relu(x)
         x = self.layer2(x)
-        x = self.layer3(x)
-        return x
+        x = self.relu(x)
+        logits = self.layer3(x)
+        return logits
 
-net = Net()
-# 配置通信融合
-net.head.set_comm_fusion(0)
-net.layer1.set_comm_fusion(1)
-net.layer2.set_comm_fusion(2)
-net.layer3.set_comm_fusion(3)
+net = Network()
 for item in net.trainable_params():
     print(f"The parameter {item.name}'s fusion id is {item.comm_fusion}")
 
@@ -95,7 +83,7 @@ def train_step(inputs, targets):
     optimizer(grads)
     return loss_value
 
-for epoch in range(10):
+for epoch in range(2):
     i = 0
     for image, label in data_set:
         loss_output = train_step(image, label)

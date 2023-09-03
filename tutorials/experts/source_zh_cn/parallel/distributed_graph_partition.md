@@ -6,6 +6,14 @@
 
 在大模型训练任务中，用户往往使用各类并行算法将计算任务分配到各个节点，以充分利用计算资源，例如通过MindSpore的`算子级并行`，`流水线并行`等特性。但是在某些场景下，用户需要根据自定义算法将图切分为多个子图，分发到不同进程分布式执行。MindSpore的`分布式图切分`特性从这一需求出发，提供了算子粒度的Python层API，让用户能自由进行图切分和构建分布式训练/推理等任务。
 
+> 分布式图切分不支持PyNative模式。
+
+相关接口：
+
+1. `mindspore.nn.Cell.place(role, rank_id)`：为该Cell中所有算子设置标签。此标签告诉MindSpore编译器此Cell在哪个进程上启动。 每个标签都由进程角色`role`和`rank_id`组成，因此，通过对不同Cell设置不同标签，这些Cell将在不同进程启动，使用户可以进行分布式训练/推理等任务。
+
+2. `mindspore.ops.Primitive.place(role, rank_id)`：为Primitive算子设置标签，作用跟`mindspore.nn.Cell.place(role, rank_id)`接口一样。
+
 ## 基本原理
 
 分布式任务需要在一个集群中执行，MindSpore为了在分布式图切分场景中拥有更好的可扩展性和可靠性，复用了MindSpore内置的`动态组网`模块，此模块在[不依赖OpenMPI进行训练](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#不依赖openmpi进行训练)和[Parameter Server模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)章节也有使用。
@@ -36,11 +44,7 @@
 
 > 此教程不涉及跨物理节点启动，所有进程都在同一节点。对MindSpore来说，节点内和跨节点分布式图切分的实现是没有区别的：通过动态组网，图切分，图编译流程后，通过Rpc通信算子进行数据交互。
 
-### 训练Python脚本准备
-
-参考<https://gitee.com/mindspore/models/tree/master/research/cv/lenet>，使用[MNIST数据集](http://yann.lecun.com/exdb/mnist/)，了解如何训练一个LeNet网络。下面按照步骤给出训练脚本各部分代码示例。
-
-#### 数据集加载
+### 数据集加载
 
 ```python
 import mindspore.dataset as ds
@@ -87,7 +91,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1
 
 以上代码创建MNIST数据集。
 
-#### 构建LeNet网络
+### 构建LeNet网络
 
 为了对一个单机单卡任务进行切图，我们需要先构造一个单机单卡副本：
 
@@ -139,24 +143,19 @@ class LeNet(nn.Cell):
         return x
 ```
 
-#### 调用接口进行分布式图切分
+### 调用接口进行分布式图切分
 
 此次训练任务我们切分`fc1`到`Worker 0`，`fc2`到`Worker 1`，fc3到`Worker 2`，`conv1`到`Worker 3`，conv2到`Worker 4`进程。
 
-在`LeNet.__init__`函数中，添加以下切图语句，即可做到分布式图切分：
+在实例化网络后，添加以下切图语句，即可做到分布式图切分：
 
 ```python
-class LeNet(nn.Cell):
-    def __init__(self, num_class=10, channel=1):
-        super(LeNet, self).__init__()
-        ...
-        self.fc1.place("MS_WORKER", 0)
-        self.fc2.place("MS_WORKER", 1)
-        self.fc3.place("MS_WORKER", 2)
-        self.conv1.place("MS_WORKER", 3)
-        self.conv2.place("MS_WORKER", 4)
-        ...
-    ...
+net = LeNet()
+net.fc1.place("MS_WORKER", 0)
+net.fc2.place("MS_WORKER", 1)
+net.fc3.place("MS_WORKER", 2)
+net.conv1.place("MS_WORKER", 3)
+net.conv2.place("MS_WORKER", 4)
 ```
 
 `place`接口第一个入参`role`为进程角色，第二个参数为进程`rank`，即代表算子在此类角色的某进程上执行。目前`place`接口只支持`MS_WORKER`角色，代表着上述的`Worker X`进程。
@@ -167,7 +166,7 @@ class LeNet(nn.Cell):
 
 **2.提供了更加通用和用户友好的接口，通过`place`接口，用户能直观的描述自己的分布式训练算法**
 
-#### 定义优化器和损失函数
+### 定义优化器和损失函数
 
 ```python
 import mindspore.nn as nn
@@ -180,7 +179,7 @@ def get_loss():
     return nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 ```
 
-#### 执行训练代码
+### 执行训练代码
 
 训练代码入口脚本train.py：
 
@@ -196,6 +195,12 @@ from mindspore.communication import init, get_rank
 ms.set_context(mode=ms.GRAPH_MODE, device_target='GPU')
 init()
 net = LeNet()
+net.fc1.place("MS_WORKER", 0)
+net.fc2.place("MS_WORKER", 1)
+net.fc3.place("MS_WORKER", 2)
+net.conv1.place("MS_WORKER", 3)
+net.conv2.place("MS_WORKER", 4)
+
 opt = get_optimizer(net)
 criterion = get_loss()
 model = Model(net, criterion, opt, metrics={"Accuracy": Accuracy()})
@@ -227,13 +232,21 @@ run.sh执行脚本如下：
 
 ```bash
 execute_path=$(pwd)
+
+if [ ! -d "${execute_path}/MNIST_Data" ]; then
+    if [ ! -f "${execute_path}/MNIST_Data.zip" ]; then
+        wget http://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip
+    fi
+    unzip MNIST_Data.zip
+fi
+
 self_path=$(dirname $0)
 
 # Set public environment.
-export MS_WORKER_NUM=5
+export MS_WORKER_NUM=8
 export MS_SCHED_HOST=127.0.0.1
 export MS_SCHED_PORT=8118
-export DATA_PATH=$1
+export DATA_PATH=${execute_path}/MNIST_Data/
 
 # Launch scheduler.
 export MS_ROLE=MS_SCHED
@@ -242,7 +255,6 @@ mkdir ${execute_path}/sched/
 cd ${execute_path}/sched/ || exit
 python ${self_path}/../train.py > sched.log 2>&1 &
 sched_pid=`echo $!`
-
 
 # Launch workers.
 export MS_ROLE=MS_WORKER
@@ -279,7 +291,7 @@ fi
 exit 0
 ```
 
-以上脚本中，`export MS_WORKER_NUM=5`代表此次分布式执行需要启动`5`个`MS_WORKER`进程；`export MS_SCHED_HOST=127.0.0.1`代表`Scheduler`的地址为`127.0.0.1`；`export MS_SCHED_PORT=8118`代表`Scheduler`开放端口为8118，所有进程会向此端口连接进行动态组网。
+以上脚本中，`export MS_WORKER_NUM=8`代表此次分布式执行需要启动`8`个`MS_WORKER`进程；`export MS_SCHED_HOST=127.0.0.1`代表`Scheduler`的地址为`127.0.0.1`；`export MS_SCHED_PORT=8118`代表`Scheduler`开放端口为8118，所有进程会向此端口连接进行动态组网。
 
 上述的环境变量对于`Worker`和`Scheduler`进程都要导出，然后分别导出对应角色，启动对应角色的进程：`export MS_ROLE=MS_SCHED`后启动Scheduler进程；`export MS_ROLE=MS_WORKER`后循环启动MS_WORKER_NUM个Worker进程。
 
@@ -288,7 +300,7 @@ exit 0
 执行指令
 
 ```bash
-bash run.sh [MNIST_DATA_PATH]
+bash run.sh
 ```
 
 ### 查看执行结果
@@ -322,4 +334,3 @@ MindSpore分布式图切分特性提供给用户算子粒度的`place`接口，�
 - 入参`role`只支持设置为`MS_WORKER`。这是因为在分布式图切分场景下每个节点都是计算节点`Worker`，设置其他角色暂不需要。
 - 无法和参数服务器，数据并行，自动并行混合使用。分布式图切分后每个进程的计算图不一致，这三种特性都存在进程间图或者算子的拷贝，与本特性叠加执行可能出现未知的错误。混合使用特性将会在后续版本中支持。
 - 控制流+分布式图切分处于有限支持状态，可能会出现未错误。此场景也会在后续版本中支持。
-- 在`Pynative`模式下不支持`place`接口。
