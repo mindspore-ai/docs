@@ -26,12 +26,10 @@
    parallel/startup_method
    parallel/parallel_mode
    parallel/model_save_load
-   parallel/recover
-   parallel/basic_cases
-   parallel/recompute
-   parallel/host_device_training
-   parallel/parameter_server_training
-   parallel/distributed_inference
+   parallel/fault_recover
+   parallel/optimize_technique
+   parallel/platform_differences
+   parallel/others
    parallel/distributed_case
 
 .. toctree::
