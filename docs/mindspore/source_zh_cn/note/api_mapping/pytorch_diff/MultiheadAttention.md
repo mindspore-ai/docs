@@ -47,7 +47,7 @@ class mindspore.nn.MultiheadAttention(
 | 参数  | 参数1  | embed_dim            | embed_dim | 功能一致                                               |
 |      | 参数2  | num_heads               | num_heads    | 功能一致                                        |
 |      | 参数3  | dropout               | dropout          | 功能一致           |
-|      | 参数4  | has_bias               | has_bias          | 功能一致           |
+|      | 参数4  | bias               | has_bias          | 功能一致           |
 |      | 参数5  | add_bias_kv               | add_bias_kv          | 功能一致           |
 |      | 参数6  | add_zero_attn        | add_zero_attn          | 功能一致 |
 |      | 参数7  | kdim                 | kdim          | 功能一致 |

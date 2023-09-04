@@ -28,7 +28,7 @@ class mindspore.nn.TransformerDecoderLayer(
     layer_norm_eps=1e-5,
     batch_first=False,
     norm_first=False,
-    dtype=mstype.float32=False)
+    dtype=mstype.float32=False
 )(tgt, memory, tgt_mask, memory_mask, tgt_key_padding_mask, memory_key_padding_mask)
 ```
 
