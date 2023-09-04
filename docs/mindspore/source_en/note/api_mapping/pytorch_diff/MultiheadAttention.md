@@ -47,7 +47,7 @@ The code implementation and parameter update logic of `mindspore.nn.MultiheadAtt
 | Parameters  | Parameter1 | embed_dim            | embed_dim | Consistent function                                               |
 |      | Parameter2 | num_heads               | num_heads    | Consistent function                                        |
 |      | Parameter3 | dropout               | dropout          | Consistent function           |
-|      | Parameter4 | has_bias               | has_bias          | Consistent function           |
+|      | Parameter4 | bias               | has_bias          | Consistent function           |
 |      | Parameter5 | add_bias_kv               | add_bias_kv          | Consistent function           |
 |      | Parameter6 | add_zero_attn        | add_zero_attn          | Consistent function |
 |      | Parameter7 | kdim                 | kdim          | Consistent function |
