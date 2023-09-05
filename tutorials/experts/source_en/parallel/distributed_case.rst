@@ -14,3 +14,4 @@ Distributed High-Level Configuration Case
   save_load
   sharding_propagation
   memory_offload
+  multiple_mix
