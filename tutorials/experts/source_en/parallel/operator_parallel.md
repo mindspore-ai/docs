@@ -121,7 +121,7 @@ data_set = create_dataset(32)
 
 ### Defining the Network
 
-In the current semi-automatic parallel mode, it only supports slicing for ops operators, so here the network needs to be defined with ops operators. Users can manually configure the slicing strategy for some operators based on a single-card network, and the slicing strategy for the rest of the operators can be obtained by derivation, e.g., the network structure after configuring the strategy is:
+In the current semi-automatic parallel mode, it only supports slicing for ops operators, so here the network needs to be defined with ops operators. Users can manually configure the slicing strategy for some operators based on a single-card network, e.g., the network structure after configuring the strategy is:
 
 ```python
 import mindspore as ms
@@ -134,10 +134,10 @@ class Network(nn.Cell):
         self.fc1_weight = ms.Parameter(initializer("normal", [28*28, 512], ms.float32))
         self.fc2_weight = ms.Parameter(initializer("normal", [512, 512], ms.float32))
         self.fc3_weight = ms.Parameter(initializer("normal", [512, 10], ms.float32))
-        self.matmul1 = ops.MatMul().shard(((2, 4), (4, 1)))
-        self.relu1 = ops.ReLU().shard(((4, 1),))
-        self.matmul2 = ops.MatMul().shard(((1, 8), (8, 1)))
-        self.relu2 = ops.ReLU().shard(((8, 1),))
+        self.matmul1 = ops.MatMul()
+        self.relu1 = ops.ReLU()
+        self.matmul2 = ops.MatMul()
+        self.relu2 = ops.ReLU()
         self.matmul3 = ops.MatMul()
 
     def construct(self, x):
@@ -150,9 +150,13 @@ class Network(nn.Cell):
         return logits
 
 net = Network()
+net.matmul1.shard(((2, 4), (4, 1)))
+net.relu1.shard(((4, 1),))
+net.matmul2.shard(((1, 8), (8, 1)))
+net.relu2.shard(((8, 1),))
 ```
 
-The `ops.MatMul()` and `ops.ReLU()` operators for the above networks are configured with slicing strategy, in the case of `ops.MatMul().shard(((2, 4), (4, 1)))`, which has a slicing strategy of: rows of the first input are sliced in 2 parts and columns in 4 parts; rows of the second input are sliced in 4 parts. For `ops. ReLU().shard(((8, 1),))`, its slicing strategy is: the row of the first input is sliced in 8 parts. Note that since the two `ops.ReLU()` here have different slicing strategies, have to be defined twice separately.
+The `ops.MatMul()` and `ops.ReLU()` operators for the above networks are configured with slicing strategy, in the case of `net.matmul1.shard(((2, 4), (4, 1)))`, which has a slicing strategy of: rows of the first input are sliced in 2 parts and columns in 4 parts; rows of the second input are sliced in 4 parts. For `net.relu2.shard(((8, 1),))`, its slicing strategy is: the row of the first input is sliced in 8 parts. Note that since the two `ops.ReLU()` here have different slicing strategies, have to be defined twice separately.
 
 ### Training the Network
 
