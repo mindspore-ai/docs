@@ -577,6 +577,48 @@ An error will be prompted:
 TypeError:  The `generators` supports one `comprehension` in ListComp/GeneratorExp, but got 2 comprehensions.
 ```
 
+#### Dict Comprehension
+
+Dict comprehension is used to generate lists. Usage: `{key, value for loop if statements}`.
+
+The example is as follows:
+
+```python
+import mindspore as ms
+
+@ms.jit()
+def test():
+    x = [('a', 1), ('b', 2), ('c', 3)]
+    res = {k: v for (k, v) in x if v > 1}
+    return res
+
+ret = test()
+print('ret:{}'.format(ret))
+```
+
+The result is as follows:
+
+```text
+ret:{'b': 2, 'c': 3}
+```
+
+Restrictions:
+
+The use of multi-layer nested iterators is not supported in graph mode.
+
+The example usage of the restriction is as follows (two levels of iterators are used):
+
+```python
+x = ({'a': 1, 'b': 2}, {'d': 1, 'e': 2}, {'g': 1, 'h': 2})
+res = {k: v for y in x for (k, v) in y.items()}
+```
+
+An error will be prompted:
+
+```text
+TypeError:  The `generators` supports one `comprehension` in DictComp/GeneratorExp, but got 2 comprehensions.
+```
+
 #### Generator Expression
 
 Generator expressions are used to generate lists. Usage: `(arg for loop if statements)`.
