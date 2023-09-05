@@ -332,7 +332,7 @@ do
     export MS_SCHED_PORT=8118                 # Set the Scheduler port
     export MS_ROLE=MS_WORKER                  # Set the startup process to the MS_WORKER role
     export MS_NODE_ID=$i                      # Set process id, optional
-    ython ./net.py > device/worker_$i.log 2>&1 &                             # Start training script
+    python ./net.py > device/worker_$i.log 2>&1 &                             # Start training script
 done
 ```
 
@@ -342,13 +342,13 @@ done
 Execute on Node 1:
 
 ```bash
-./run_gpu_cluster_1.sh /path/to/dataset/
+bash run_dynamic_cluster_1.sh
 ```
 
 Execute on Node 2:
 
 ```bash
-./run_gpu_cluster_2.sh /path/to/dataset/
+bash run_dynamic_cluster_2.sh
 ```
 
 That is, you can perform 2-machine 8-card distributed training tasks.
