@@ -130,7 +130,7 @@ data_set = create_dataset(32)
 
 ### 定义网络
 
-在当前半自动并行模式下，仅支持对ops算子切分，所以此处需要用ops算子定义网络。用户可以在单卡网络的基础上手动配置一些算子的切分策略，其余算子的切分策略可以通过推导得到，例如配置策略后的网络结构为：
+在当前半自动并行模式下，仅支持对ops算子切分，所以此处需要用ops算子定义网络。用户可以在单卡网络的基础上手动配置一些算子的切分策略，例如配置策略后的网络结构为：
 
 ```python
 import mindspore as ms
@@ -143,10 +143,10 @@ class Network(nn.Cell):
         self.fc1_weight = ms.Parameter(initializer("normal", [28*28, 512], ms.float32))
         self.fc2_weight = ms.Parameter(initializer("normal", [512, 512], ms.float32))
         self.fc3_weight = ms.Parameter(initializer("normal", [512, 10], ms.float32))
-        self.matmul1 = ops.MatMul().shard(((2, 4), (4, 1)))
-        self.relu1 = ops.ReLU().shard(((4, 1),))
-        self.matmul2 = ops.MatMul().shard(((1, 8), (8, 1)))
-        self.relu2 = ops.ReLU().shard(((8, 1),))
+        self.matmul1 = ops.MatMul()
+        self.relu1 = ops.ReLU()
+        self.matmul2 = ops.MatMul()
+        self.relu2 = ops.ReLU()
         self.matmul3 = ops.MatMul()
 
     def construct(self, x):
@@ -159,9 +159,13 @@ class Network(nn.Cell):
         return logits
 
 net = Network()
+net.matmul1.shard(((2, 4), (4, 1)))
+net.relu1.shard(((4, 1),))
+net.matmul2.shard(((1, 8), (8, 1)))
+net.relu2.shard(((8, 1),))
 ```
 
-以上网络的`ops.MatMul()`和`ops.ReLU()`算子都配置了切分策略，以`ops.MatMul().shard(((2, 4), (4, 1)))`为例，它的切分策略为：第一个输入的行切分2份，列切分4份；第二个输入的行切分4份；对于`ops.ReLU().shard(((8, 1),))`，它的切分策略为：第一个输入的行切分8份。需要注意的是，由于此处的两个`ops.ReLU()`的切分策略不同，所以要分别定义两次。
+以上网络的`ops.MatMul()`和`ops.ReLU()`算子都配置了切分策略，以`net.matmul1.shard(((2, 4), (4, 1)))`为例，它的切分策略为：第一个输入的行切分2份，列切分4份；第二个输入的行切分4份；对于`net.relu2.shard(((8, 1),))`，它的切分策略为：第一个输入的行切分8份。需要注意的是，由于此处的两个`ops.ReLU()`的切分策略不同，所以要分别定义两次。
 
 ### 训练网络
 

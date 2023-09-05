@@ -36,10 +36,6 @@ class Network(nn.Cell):
         self.layer3 = nn.Dense(512, 10)
         self.relu = nn.ReLU()
 
-        self.layer1.set_comm_fusion(0)
-        self.layer2.set_comm_fusion(1)
-        self.layer3.set_comm_fusion(2)
-
     def construct(self, x):
         x = self.flatten(x)
         x = self.layer1(x)
@@ -50,6 +46,9 @@ class Network(nn.Cell):
         return logits
 
 net = Network()
+net.layer1.set_comm_fusion(0)
+net.layer2.set_comm_fusion(1)
+net.layer3.set_comm_fusion(2)
 
 def create_dataset(batch_size):
     """create dataset"""

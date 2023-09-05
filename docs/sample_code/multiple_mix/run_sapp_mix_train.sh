@@ -2,7 +2,7 @@
 
 echo "=============================================================================================================="
 echo "Please run the script as: "
-echo "bash run.sh"
+echo "bash run_sapp_mix_train.sh"
 echo "=============================================================================================================="
 
 EXEC_PATH=$(pwd)
@@ -15,4 +15,4 @@ if [ ! -d "${EXEC_PATH}/MNIST_Data" ]; then
 fi
 export DATA_PATH=${EXEC_PATH}/MNIST_Data/train/
 
-mpirun -n 8 --output-filename log_output --merge-stderr-to-stdout python train.py
+mpirun -n 8 --output-filename log_output --merge-stderr-to-stdout python sapp_mix_train.py
