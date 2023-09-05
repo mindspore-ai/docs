@@ -36,6 +36,8 @@ docs
 |    |
 |    ├───mindarmour // MindArmour文档
 |    |
+|    ├───mindearth // MindEarth文档
+|    |
 |    ├───mindflow // MindFlow文档
 |    |
 |    ├───mindelec // MindElec文档

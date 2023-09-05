@@ -36,6 +36,8 @@ docs
 |    |
 |    ├───mindarmour // MindArmour Documents
 |    |
+|    ├───mindearth // MindEarth Documents
+|    |
 |    ├───mindflow // MindFlow Documents
 |    |
 |    ├───mindelec // MindElec Documents
