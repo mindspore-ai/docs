@@ -11,78 +11,72 @@ AI编译框架分为两种运行模式，分别是动态图模式以及静态图
 动态图的特点是计算图的构建和计算同时发生（Define by run），其符合Python的解释执行方式，在计算图中定义一个Tensor时，其值就已经被计算且确定，因此在调试模型时较为方便，能够实时得到中间结果的值，但由于所有节点都需要被保存，导致难以对整个计算图进行优化。
 
 在MindSpore中，动态图模式又被称为PyNative模式。由于动态图的解释执行特性，在脚本开发和网络流程调试过程中，推荐使用动态图模式进行调试。
-如需要手动控制框架采用PyNative模式，可以通过以下代码进行配置：
-
-```python
-import mindspore as ms
-ms.set_context(mode=ms.PYNATIVE_MODE)
-```
-
-在PyNative模式下，所有计算节点对应的底层算子均采用单Kernel执行的方式，因此可以任意进行计算结果的打印和调试，如：
+如需要手动控制框架采用PyNative模式，可以通过以下代码进行网络构建：
 
 ```python
 import numpy as np
-from mindspore import nn
-from mindspore import ops
-from mindspore import Tensor, Parameter
+import mindspore as ms
+from mindspore import nn, Tensor
+ms.set_context(mode=ms.PYNATIVE_MODE)  # 使用set_context进行动态图模式的配置
 
 class Network(nn.Cell):
     def __init__(self):
         super().__init__()
-        self.w = Parameter(Tensor(np.random.randn(5, 3), ms.float32), name='w') # weight
-        self.b = Parameter(Tensor(np.random.randn(3,), ms.float32), name='b') # bias
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
 
     def construct(self, x):
-        out = ops.matmul(x, self.w)
-        print('matmul: ', out)
-        out = out + self.b
-        print('add bias: ', out)
-        return out
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
 
 model = Network()
-x = ops.ones(5, ms.float32)
-out = model(x)
-print("out: ", out)
-```
-
-我们简单定义一个shape为(5,)的Tensor作为输入，观察输出情况。可以看到在`construct`方法中插入的`print`语句将中间结果进行实时的打印输出。
-
-```text
-matmul:  [-1.8809001   2.0400267   0.32370526]
-add bias:  [-1.6770952   1.5087128   0.15726662]
-out:  [-1.6770952   1.5087128   0.15726662]
+input = Tensor(np.ones([64, 1, 28, 28]).astype(np.float32))
+output = model(input)
+print(output)
 ```
 
 ### 静态图模式
 
-相较于动态图而言，静态图的特点是将计算图的构建和实际计算分开（Define and run）。在构建阶段，根据完整的计算流程对原始的计算图进行优化和调整，编译得到更省内存和计算量更少的计算图。由于编译之后图的结构不再改变，所以称之为 “静态图” 。在计算阶段，根据输入数据执行编译好的计算图得到计算结果。相较于动态图，静态图对全局的信息掌握更丰富，可做的优化也会更多，但是其中间过程对于用户来说是黑盒，无法像动态图一样实时拿到中间计算结果。
+相较于动态图而言，静态图的特点是将计算图的构建和实际计算分开（Define and run）。有关静态图模式的运行原理，可以参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#概述)。
 
 在MindSpore中，静态图模式又被称为Graph模式，在Graph模式下，基于图优化、计算图整图下沉等技术，编译器可以针对图进行全局的优化，获得较好的性能，因此比较适合网络固定且需要高性能的场景。
 
-在静态图模式下，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。MindSpore使用基于图表示的函数式IR，称为MindIR，详情可参考[中间表示MindIR](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir)。
-
-MindSpore的静态图执行过程实际包含两步，对应静态图的Define和Run阶段，但在实际使用中，在实例化的Cell对象被调用时并不会感知，MindSpore将两阶段均封装在Cell的`__call__`方法中，因此实际调用过程为：
-
-`model(inputs) = model.compile(inputs) + model.construct(inputs)`，其中`model`为实例化Cell对象。
-
-下面我们显式调用`compile`方法进行示例：
+如需要手动控制框架采用静态图模式，可以通过以下代码进行网络构建：
 
 ```python
+import numpy as np
+import mindspore as ms
+from mindspore import nn, Tensor
+ms.set_context(mode=ms.GRAPH_MODE)  # 使用set_context进行运行静态图模式的配置
+
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
+
+    def construct(self, x):
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
+
 model = Network()
-
-model.compile(x)
-out = model(x)
-print('out: ', out)
-```
-
-结果如下：
-
-```text
-matmul:
-Tensor(shape=[3], dtype=Float32, value=[-4.01971531e+00 -5.79053342e-01  3.41115999e+00])
-add bias:
-Tensor(shape=[3], dtype=Float32, value=[-3.94732714e+00 -1.46257186e+00  4.50144434e+00])
-out:  [-3.9473271 -1.4625719  4.5014443]
+input = Tensor(np.ones([64, 1, 28, 28]).astype(np.float32))
+output = model(input)
+print(output)
 ```
 
 ## 静态图模式的使用场景
@@ -97,59 +91,107 @@ MindSpore编译器重点面向Tensor数据的计算以及其微分处理。因�
 
 ### 基于装饰器的开启方式
 
-MindSpore提供了jit装饰器，可以通过修饰Python函数或者Python类的成员函数使其被编译成计算图，通过图优化等技术提高运行速度。此时我们可以简单的对想要进行性能优化的模块进行图编译加速，而模型其他部分，仍旧使用解释执行方式，不丢失动态图的灵活性。
+MindSpore提供了jit装饰器，可以通过修饰Python函数或者Python类的成员函数使其被编译成计算图，通过图优化等技术提高运行速度。此时我们可以简单的对想要进行性能优化的模块进行图编译加速，而模型其他部分，仍旧使用解释执行方式，不丢失动态图的灵活性。无论全局context是设置成静态图模式还是动态图模式，被jit修饰的部分始终会以静态图模式进行运行。
 
-在需要对Tensor的某些运算进行编译加速时，可以在其定义的函数上使用jit修饰器，在调用该函数时，该模块自动被编译为静态图。示例如下：
+在需要对Tensor的某些运算进行编译加速时，可以在其定义的函数上使用jit修饰器，在调用该函数时，该模块自动被编译为静态图。需要注意的是，jit装饰器只能用来修饰函数，无法对类进行修饰。jit的使用示例如下：
 
 ```python
-@ms.jit
-def mul(x, y):
-    return x * y
+import numpy as np
+import mindspore as ms
+from mindspore import nn, Tensor
+
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
+
+    def construct(self, x):
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
+
+input = Tensor(np.ones([64, 1, 28, 28]).astype(np.float32))
+
+@ms.jit  # 使用ms.jit装饰器，使被装饰的函数以静态图模式运行
+def run(x):
+    model = Network()
+    return model(x)
+
+output = run(input)
+print(output)
+```
+
+除使用修饰器外，也可使用函数变换方式调用jit方法，示例如下：
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import nn, Tensor
+
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
+
+    def construct(self, x):
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
+
+input = Tensor(np.ones([64, 1, 28, 28]).astype(np.float32))
+
+def run(x):
+    model = Network()
+    return model(x)
+
+run_with_jit = ms.jit(run)  # 通过调用jit将函数转换为以静态图方式执行
+output = run(input)
+print(output)
 ```
 
 当我们需要对神经网络的某部分进行加速时，可以直接在construct方法上使用jit修饰器，在调用实例化对象时，该模块自动被编译为静态图。示例如下：
 
 ```python
+import numpy as np
 import mindspore as ms
-from mindspore import nn
+from mindspore import nn, Tensor
 
 class Network(nn.Cell):
     def __init__(self):
         super().__init__()
-        self.fc = nn.Dense(10, 1)
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
 
-    @ms.jit
+    @ms.jit  # 使用ms.jit装饰器，使被装饰的函数以静态图模式运行
     def construct(self, x):
-        return self.fc(x)
-```
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
 
-MindSpore支持将神经网络训练的正向计算、反向传播、梯度优化更新等步骤合为一个计算图进行编译优化，此方法称为整图编译。此时，仅需将神经网络训练逻辑构造为函数，并在函数上使用jit修饰器，即可达到整图编译的效果。下面使用简单的全连接网络进行举例：
-
-```python
-network = nn.Dense(10, 1)
-loss_fn = nn.BCELoss()
-optimizer = nn.Adam(network.trainable_params(), 0.01)
-
-def forward_fn(data, label):
-    logits = network(data)
-    loss = loss_fn(logits, label)
-    return loss
-
-grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters)
-
-@ms.jit
-def train_step(data, label):
-    loss, grads = grad_fn(data, label)
-    optimizer(grads)
-    return loss
-```
-
-如上述代码所示，将神经网络正向执行与损失函数封装为forward_fn后，执行函数变换获得梯度计算函数。而后将梯度计算函数、优化器调用封装为train_step函数，并使用jit进行修饰，调用train_step函数时，会进行静态图编译，获得整图并执行。
-
-除使用修饰器外，也可使用函数变换方式调用jit方法，示例如下：
-
-```python
-train_step = ms.jit(train_step)
+input = Tensor(np.ones([64, 1, 28, 28]).astype(np.float32))
+model = Network()
+output = model(input)
+print(output)
 ```
 
 ### 基于context的开启方式
@@ -157,8 +199,32 @@ train_step = ms.jit(train_step)
 context模式是一种全局的设置模式。代码示例如下：
 
 ```python
+import numpy as np
 import mindspore as ms
-ms.set_context(mode=ms.GRAPH_MODE)
+from mindspore import nn, Tensor
+ms.set_context(mode=ms.GRAPH_MODE)  # 使用set_context进行运行静态图模式的配置
+
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
+
+    def construct(self, x):
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
+
+model = Network()
+input = Tensor(np.ones([64, 1, 28, 28]).astype(np.float32))
+output = model(input)
+print(output)
 ```
 
 ## 静态图的语法约束
