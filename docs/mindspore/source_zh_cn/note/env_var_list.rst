@@ -113,6 +113,76 @@
 
 具体用法详见 `分布式并行训练基础样例 <https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#运行脚本>`_ 。
 
+动态组网
+--------
+
+.. list-table::
+   :widths: 20 20 10 30 20
+   :header-rows: 1
+
+   * - 环境变量
+     - 功能
+     - 类型
+     - 取值
+     - 说明
+   * - MS_ROLE
+     - 指定本进程角色。
+     - String
+     - MS_SCHED: 代表Scheduler进程，一个训练任务只启动一个Scheduler，负责组网，容灾恢复等，不会执行训练代码。
+
+       MS_WORKER: 代表Worker进程，一般设置分布式训练进程为此角色。
+
+       MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考 `Parameter Server模式 <https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html>`_ 。
+     - Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。
+   * - MS_SCHED_HOST
+     - 指定Scheduler的IP地址。
+     - String
+     - 合法的IP地址。
+     - 当前版本暂不支持IPv6地址。
+   * - MS_SCHED_PORT
+     - 指定Scheduler绑定端口号。
+     - Integer
+     - 1024～65535范围内的端口号。
+     - 
+   * - MS_NODE_ID
+     - 指定本进程的ID，集群内唯一。
+     - String
+     - 代表本进程的唯一ID，默认由MindSpore自动生成。
+     - MS_NODE_ID在在以下情况需要设置，一般情况下无需设置，由MindSpore自动生成：
+
+       开启容灾场景：容灾恢复时需要获取当前进程ID，从而向Scheduler重新注册。
+
+       开启GLOG日志重定向场景：为了保证各训练进程日志独立保存，需设置进程ID，作为日志保存路径后缀。
+
+       指定进程rank id场景：用户可通过设置MS_NODE_ID为某个整数，来指定本进程的rank id。
+   * - MS_WORKER_NUM
+     - 指定角色为MS_WORKER的进程数量。
+     - Integer
+     - 大于0的整数。
+     - 用户启动的Worker进程数量应当与此环境变量值相等。若小于此数值，组网失败；若大于此数值，Scheduler进程会根据Worker注册先后顺序完成组网，多余的Worker进程会启动失败。
+   * - MS_SERVER_NUM
+     - 指定角色为MS_PSERVER的进程数量。
+     - Integer
+     - 大于0的整数。
+     - 只在Parameter Server训练模式下需要设置。
+   * - MS_ENABLE_RECOVERY
+     - 开启容灾。
+     - Integer
+     - 1代表开启，0代表关闭。默认为0。
+     - 
+   * - MS_RECOVERY_PATH
+     - 持久化路径文件夹。
+     - String
+     - 合法的用户目录。
+     - Worker和Scheduler进程在执行过程中会进行必要的持久化，如用于恢复组网的节点信息以及训练业务中间状态等，并通过文件保存。
+   * - MS_HCCL_CM_INIT
+     - 是否使用CM方式初始化HCCL。
+     - Integer
+     - 1代表是，0代表否。默认为0。
+     - 此环境变量只在Ascend硬件平台并且通信域数量较多的情况下建议开启。开启此环境变量后，能够降低HCCL集合通信库的内存占用，并且训练任务执行方式与rank table启动方式相同。
+
+具体用法详见 `动态组网 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html>`_ 。
+
 运行数据保存
 ------------
 

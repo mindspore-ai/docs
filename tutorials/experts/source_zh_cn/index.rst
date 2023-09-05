@@ -25,6 +25,8 @@
    parallel/overview
    parallel/startup_method
    parallel/parallel_mode
+   parallel/model_save_load
+   parallel/recover
    parallel/basic_cases
    parallel/recompute
    parallel/host_device_training
