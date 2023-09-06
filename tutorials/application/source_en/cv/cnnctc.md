@@ -417,7 +417,7 @@ grad_fn = ms.value_and_grad(forward_fn, None, ParameterTuple(net.trainable_param
 # Update the gradient.
 def train_step(data):
     (loss, _), grads = grad_fn(data)
-    loss = ops.depend(loss, opt(grads))
+    opt(grads)
     return loss
 
 # Train all data.
