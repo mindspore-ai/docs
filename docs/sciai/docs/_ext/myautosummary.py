@@ -85,7 +85,6 @@ class MsAutosummary(Autosummary):
 
         for name in names:
             display_name = name
-            logger.warning(name)
             if name.startswith('~'):
                 name = name[1:]
                 display_name = name.split('.')[-1]

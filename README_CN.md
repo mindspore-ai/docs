@@ -62,6 +62,8 @@ docs
 |    |
 |    ├───sample_code // 文档对应样例代码
 |    |
+|    ├───sciai // MindSpore SciAI文档
+|    |
 |    ├───serving // MindSpore Serving文档
 |    |
 |    └───xai // MindSpore XAI文档
