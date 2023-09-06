@@ -8,6 +8,12 @@ MindSpore采用反向模式的自动微分，根据正向图计算流程来自�
 
 为了解决这个问题，MindSpore提供了重计算的功能，可以不保存正向算子的计算结果，让这些内存可以被复用，然后在计算反向算子时，如果需要正向的结果，再重新计算正向算子。此教程以模型ResNet-50为例，讲解MindSpore如何配置重计算功能去训练模型。
 
+相关接口：
+
+1. `mindspore.nn.Cell.recompute()`：调用`Cell`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute)，调用该接口之后，在计算反向部分时，除了该Cell的输出算子，Cell里面其他的所有算子以及子Cell里面的所有算子都会被重新计算。
+
+2. `mindspore.ops.Primitive.recompute()`：调用`Primitive`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute)，调用该接口之后，在计算反向部分时，该算子会被重新计算。
+
 ## 基本原理
 
 MindSpore根据正向图计算流程来自动推导出反向图，正向图和反向图一起构成了完整的计算图。在计算某些反向算子时，可能需要用到某些正向算子的计算结果，导致这些正向算子的计算结果，需要驻留在内存中直到这些反向算子计算完，它们所占的内存才会被其他算子复用。而这些正向算子的计算结果，长时间驻留在内存中，会推高计算的内存占用峰值，在大规模网络模型中尤为显著。
@@ -30,108 +36,184 @@ MindSpore根据正向图计算流程来自动推导出反向图，正向图和�
 
 ## 操作实践
 
+下面以Ascend或者GPU单机8卡为例，进行重计算操作说明：
+
 ### 样例代码说明
 
-1. 准备模型代码。ResNet-50模型的代码可参见：<https://gitee.com/mindspore/models/tree/master/official/cv/ResNet>，其中，`train.py`为训练的主函数所在，`src/`目录中包含ResNet-50模型的定义和配置信息等，`script/`目录中包含一些训练和推理脚本。
-2. 准备数据集。本样例采用`CIFAR-10`数据集，数据集的下载和加载方式可参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#下载数据集>。
+> 下载完整的样例代码：[recompute](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/recompute)。
 
-### 配置重计算
+目录结构如下：
 
-我们可以通过调用两种接口去配置重计算，以`src/resnet.py`为例：
+```text
+└─ sample_code
+    ├─ recompute
+       ├── train.py
+       └── run.sh
+    ...
+```
 
-1. 调用`Primitive`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute)，调用该接口之后，在计算反向部分时，该算子会被重新计算。
+其中，`train.py`是定义网络结构和训练过程的脚本。`run.sh`是执行脚本。
 
-   ```python
-   class ResNet(nn.Cell):
-       ...
-       def __init__(self,
-                    block,
-                    layer_nums,
-                    in_channels,
-                    out_channels,
-                    strides,
-                    num_classes,
-                    use_se=False,
-                    res_base=False):
-           super(ResNet, self).__init__()
-           ...
-           self.relu = ops.ReLU()
-           self.relu.recompute()
-           ...
-   ```
+### 配置分布式环境
 
-2. 调用`Cell`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute)，调用该接口之后，在计算反向部分时，除了该Cell的输出算子，Cell里面其他的所有算子以及子Cell里面的所有算子都会被重新计算。
+首先通过context接口指定运行模式、运行设备、运行卡号等，并行模式为数据并行模式，并通过init初始化HCCL或NCCL通信。设置`save_graphs=2`可以打印出计算图结构进行对比。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
 
-   ```python
-   class ResNet(nn.Cell):
-       def __init__(self,
-                    block,
-                    layer_nums,
-                    in_channels,
-                    out_channels,
-                    strides,
-                    num_classes,
-                    use_se=False,
-                    res_base=False):
-           super(ResNet, self).__init__()
-           ...
-           self.layer1 = self._make_layer(block,
-                                          layer_nums[0],
-                                          in_channel=in_channels[0],
-                                          out_channel=out_channels[0],
-                                          stride=strides[0],
-                                          use_se=self.use_se)
+```python
+import mindspore as ms
+from mindspore.communication import init
 
-       def _make_layer(self, block, layer_num, in_channel, out_channel, stride, use_se=False, se_block=False):
-           ...
-           if se_block:
-               for _ in range(1, layer_num - 1):
-                   resnet_block = block(out_channel, out_channel, stride=1, use_se=use_se)
-                   resnet_block.recompute()
-           else:
-               for _ in range(1, layer_num):
-                   resnet_block = block(out_channel, out_channel, stride=1, use_se=use_se)
-                   resnet_block.recompute()
-           ...
+ms.set_context(mode=ms.GRAPH_MODE, save_graphs=2)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
+init()
+ms.set_seed(1)
+```
 
-   class ResidualBlock(nn.Cell):
-       def __init__(self,
-                    in_channel,
-                    out_channel,
-                    stride=1,
-                    use_se=False, se_block=False):
-           super(ResidualBlock, self).__init__()
-           ...
+### 数据集加载
 
-       def construct(self, x):
-           ...
+此处数据集加载采用数据并行模式，指定`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，代码如下：
 
-   def resnet50(class_num=10):
-       return ResNet(ResidualBlock,
-                     [3, 4, 6, 3],
-                     [64, 256, 512, 1024],
-                     [256, 512, 1024, 2048],
-                     [1, 2, 2, 2],
-                     class_num)
-   ```
+```python
+import os
+import mindspore.dataset as ds
+from mindspore import nn
 
-### 训练模型
+def create_dataset(batch_size):
+    dataset_path = os.getenv("DATA_PATH")
+    rank_id = get_rank()
+    rank_size = get_group_size()
+    dataset = ds.MnistDataset(dataset_path, num_shards=rank_size, shard_id=rank_id)
+    image_transforms = [
+        ds.vision.Rescale(1.0 / 255.0, 0),
+        ds.vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        ds.vision.HWC2CHW()
+    ]
+    label_transform = ds.transforms.TypeCast(ms.int32)
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size)
+    return dataset
 
-以GPU环境为例，使用训练脚本`scripts/run_standalone_train_gpu.sh`。执行命令：`bash scripts/run_standalone_train_gpu.sh $数据集路径 config/resnet50_cifar10_config.yaml`。
-通过在`src/train.py`中设置context：`save_graph=True`，可以打印出计算图结构进行对比。
+data_set = create_dataset(32)
+```
 
-设置重计算前：
+### 网络定义
+
+网络在单卡模型的基础上，给激活函数算子配置了重计算，以减少内存占用：
+
+```python
+from mindspore import nn, ops
+
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.layer1 = nn.Dense(28*28, 512)
+        self.relu1 = ops.ReLU()
+        self.layer2 = nn.Dense(512, 512)
+        self.relu2 = ops.ReLU()
+        self.layer3 = nn.Dense(512, 10)
+
+    def construct(self, x):
+        x = self.flatten(x)
+        x = self.layer1(x)
+        x = self.relu1(x)
+        x = self.layer2(x)
+        x = self.relu2(x)
+        logits = self.layer3(x)
+        return logits
+
+net = Network()
+# 配置relu算子的重计算
+net.relu1.recompute()
+net.relu2.recompute()
+```
+
+### 训练网络
+
+在这一步，我们需要定义损失函数、优化器以及训练过程，这个部分与数据并行模型一致：
+
+```python
+from mindspore import nn, ops
+
+optimizer = nn.SGD(net.trainable_params(), 1e-2)
+loss_fn = nn.CrossEntropyLoss()
+
+def forward_fn(data, target):
+    logits = net(data)
+    loss = loss_fn(logits, target)
+    return loss, logits
+
+grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_reducer = nn.DistributedGradReducer(optimizer.parameters)
+
+for epoch in range(1):
+    i = 0
+    for image, label in data_set:
+        (loss_value, _), grads = grad_fn(image, label)
+        grads = grad_reducer(grads)
+        optimizer(grads)
+        if i % 10 == 0:
+            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_value))
+        i += 1
+```
+
+### 运行单机8卡脚本
+
+接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
+
+```bash
+bash run.sh
+```
+
+训练完后，日志文件保存到`log_output`目录下，通过在`train.py`中设置context: `save_graphs=2`，可以打印出编译过程中的IR图，其中部分文件目录结构如下：
+
+```text
+├─ log_output
+|   └─ 1
+|       ├─ rank.0
+|       |   └─ stdout
+|       ├─ rank.1
+|       |   └─ stdout
+|       ...
+├─ rank_0
+|   ├─ xx_validate_xxx.ir
+|   ...
+├─ rank_1
+|   ├─ xx_validate_xxx.ir
+|   ...
+...
+```
+
+关于Loss部分结果保存在`log_output/1/rank.*/stdout`中，示例如下：
+
+```text
+epoch: 0, step: 0, loss is 2.2929618
+epoch: 0, step: 10, loss is 2.2396836
+epoch: 0, step: 20, loss is 2.2097976
+epoch: 0, step: 30, loss is 2.1942225
+epoch: 0, step: 40, loss is 2.0986974
+epoch: 0, step: 50, loss is 2.0612597
+...
+```
+
+计算图结果在在`xx_validate_xxx.ir`中，设置重计算前：
 
 ```text
 ...
-%56(equivoutput) = Conv2D(%53, %55) {instance name: conv2d} primitive_attrs: {pad_list: (0, 0, 0, 0), stride: (1, 1, 1, 1), pad: (0, 0, 0, 0), pad_mode: 1, out_channel: 64, kernel_size: (1, 1), input_names: [x, w], format: NCHW, groups: 1, mode: 1, group: 1, dilation: (1, 1, 1, 1), output_names: [output]}
-      : (<Tensor[Float16], (32, 256, 56, 56)>, <Tensor[Float16], (64, 256, 1, 1)>) -> (<Tensor[Float16], (32, 64, 56, 56)>)
+  %81(1285) = MatMul(%80, %11) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24422", forward_unique_id: "24422"}
+      : (<Tensor[Float32], (32, 10)>, <Tensor[Float32], (512, 10)>) -> (<Tensor[Float32], (32, 512)>)
 ...
-%61(equiv[CNode]707) = BatchNorm(%56, %57, %58, %59, %60) {instance name: bn_train} primitive_attrs: {epsilon: 0.000100, is_training: true, momentum: 0.100000, format: NCHW, output_names: [y, batch_mean, batch_variance, reserve_space_1, reserve_space_2], input_names: [x, scale, offset, mean, variance]}
-      : (<Tensor[Float16], (32, 64, 56, 56)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>) -> (<Tuple[Tensor[Float16],Tensor[Float32]*4]>)
+  %82(1286) = ReluGrad(%81, %10) primitive_attrs: {output_names: (output), input_names: (x)} cnode_primal_attrs: {forward_node_name: "ReLU_24405", forward_unique_id: "24405"}
+      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
 ...
-%927(out) = BatchNormGrad(%923, %56, %57, %924, %925, %926) primitive_attrs: {epsilon: 0.000100, format: NCHW, is_training: true} cnode_primal_attrs: {forward_node_name: BatchNorm_102499}
-      : (<Tensor[Float16], (32, 64, 56, 56)>, <Tensor[Float16], (32, 64, 56, 56)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>) -> (<Tuple[Tensor[Float16],Tensor[Float32]*2]>)
+  %83(1285) = MatMul(%82, %6) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24434", forward_unique_id: "24434"}
+      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (512, 512)>) -> (<Tensor[Float32], (32, 512)>)
+...
+  %84(1286) = ReluGrad(%83, %5) primitive_attrs: {output_names: (output), input_names: (x)} cnode_primal_attrs: {forward_node_name: "ReLU_24408", forward_unique_id: "24408"}
+      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
+...
+  %85(1285) = MatMul(%0, %84) primitive_attrs: {output_names: (output), transpose_a: Bool(1), input_names: (x1, x2), transpose_x2: Bool(0), transpose_x1: Bool(1), transpose_b: Bool(0)} cnode_primal_attrs: {forward_node_name: "MatMul_24446", forward_unique_id: "24446"}
+      : (<Tensor[Float32], (32, 784)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (784, 512)>)
 ...
 ```
 
@@ -139,18 +221,27 @@ MindSpore根据正向图计算流程来自动推导出反向图，正向图和�
 
 ```text
 ...
-%56(equivoutput) = Conv2D(%53, %55) {instance name: conv2d} primitive_attrs: {pad_list: (0, 0, 0, 0), stride: (1, 1, 1, 1), pad: (0, 0, 0, 0), pad_mode: 1, out_channel: 64, kernel_size: (1, 1), input_names: [x, w], format: NCHW, groups: 1, mode: 1, group: 1, dilation: (1, 1, 1, 1), output_names: [output]} cnode_attrs: {need_cse_after_recompute: true, recompute: true}
-      : (<Tensor[Float16], (32, 256, 56, 56)>, <Tensor[Float16], (64, 256, 1, 1)>) -> (<Tensor[Float16], (32, 64, 56, 56)>)
+  %81(1285) = MatMul(%80, %11) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24422", forward_unique_id: "24422"}
+      : (<Tensor[Float32], (32, 10)>, <Tensor[Float32], (512, 10)>) -> (<Tensor[Float32], (32, 512)>)
 ...
-%61(equiv[CNode]707) = BatchNorm(%56, %57, %58, %59, %60) {instance name: bn_train} primitive_attrs: {epsilon: 0.000100, is_training: true, momentum: 0.100000, format: NCHW, output_names: [y, batch_mean, batch_variance, reserve_space_1, reserve_space_2], input_names: [x, scale, offset, mean, variance]}
-      : (<Tensor[Float16], (32, 64, 56, 56)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>) -> (<Tuple[Tensor[Float16],Tensor[Float32]*4]>)
+  %84([CNode]1292) = ReLU(%83) {instance name: relu2} primitive_attrs: {output_names: [output], input_names: [x], recompute: Bool(1)} cnode_attrs: {recompute_sub_graph: U64(1), recompute_id: I64(2), duplicated: Bool(1), need_cse_after_recompute: Bool(1)}
+      : (<Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
+      # Scope: (Default)
+  %85([CNode]1293) = ReluGrad(%81, %84) primitive_attrs: {output_names: (output), input_names: (x)} cnode_attrs: {recompute_sub_graph: U64(1), target_grad: Bool(1)} cnode_primal_attrs: {forward_node_name: "ReLU_24405", forward_unique_id: "24405"}
+      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
 ...
-%1094([CNode]15682) = Conv2D(%1091, %1093) {instance name: conv2d} primitive_attrs: {pad_list: (1, 1, 1, 1), stride: (1, 1, 1, 1), pad: (0, 0, 0, 0), pad_mode: 1, out_channel: 64, kernel_size: (3, 3), input_names: [x, w], format: NCHW, groups: 1, mode: 1, group: 1, dilation: (1, 1, 1, 1), output_names: [output]} cnode_attrs: {need_cse_after_recompute: true, duplicated: true}
-      : (<Tensor[Float16], (32, 64, 56, 56)>, <Tensor[Float16], (64, 64, 3, 3)>) -> (<Tensor[Float16], (32, 64, 56, 56)>)
+  %86(1285) = MatMul(%85, %6) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24434", forward_unique_id: "24434"}
+      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (512, 512)>) -> (<Tensor[Float32], (32, 512)>)
 ...
-%1095([CNode]15681) = BatchNormGrad(%1085, %1094, %98, %1086, %1087, %1088) primitive_attrs: {epsilon: 0.000100, format: NCHW, is_training: true} cnode_attrs: {target_grad: true} cnode_primal_attrs: {forward_node_name: BatchNorm_102499}
-      : (<Tensor[Float16], (32, 64, 56, 56)>, <Tensor[Float16], (32, 64, 56, 56)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>) -> (<Tuple[Tensor[Float16],Tensor[Float32]*2]>)
+  %89([CNode]1296) = ReLU(%88) {instance name: relu2} primitive_attrs: {output_names: [output], input_names: [x], recompute: Bool(1)} cnode_attrs: {recompute_sub_graph: U64(0), recompute_id: I64(1), duplicated: Bool(1), need_cse_after_recompute: Bool(1)}
+      : (<Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
+      # Scope: (Default)
+  %90([CNode]1297) = ReluGrad(%86, %89) primitive_attrs: {output_names: (output), input_names: (x)} cnode_attrs: {recompute_sub_graph: U64(0), target_grad: Bool(1)} cnode_primal_attrs: {forward_node_name: "ReLU_24408", forward_unique_id: "24408"}
+      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
+...
+  %91(1285) = MatMul(%0, %90) primitive_attrs: {output_names: (output), transpose_a: Bool(1), input_names: (x1, x2), transpose_x2: Bool(0), transpose_x1: Bool(1), transpose_b: Bool(0)} cnode_primal_attrs: {forward_node_name: "MatMul_24446", forward_unique_id: "24446"}
+      : (<Tensor[Float32], (32, 784)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (784, 512)>)
 ...
 ```
 
-可见，`Conv2D`算子被复制出来了一份，作为反向算子`BatchNormGrad`的输入。
+可见，`ReLU`算子被复制出来了一份，作为反向算子`ReluGrad`的输入。

@@ -149,6 +149,8 @@ model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
 > 目前流水线并行不支持自动混合精度特性。
+>
+> 流水线并行训练更适合用`model.train`的方式，这是因为流水线并行下的TrainOneStep逻辑复杂，而`model.train`内部封装了针对流水线并行的TrainOneStepCell，易用性更好。
 
 ### 运行单机八卡脚本
 
