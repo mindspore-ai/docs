@@ -251,10 +251,7 @@ try:
 except Exception as e:
     print(e)
 
-federated_dir = './api_python/federated'
 probability_dir = './api_python/probability'
-if os.path.exists(federated_dir):
-    shutil.rmtree(federated_dir)
 if os.path.exists(probability_dir):
     shutil.rmtree(probability_dir)
 

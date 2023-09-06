@@ -62,6 +62,8 @@ docs
 |    |
 |    ├───sample_code // Document corresponding sample code
 |    |
+|    ├───sciai // MindSpore SciAI Documents
+|    |
 |    ├───serving // MindSpore Serving Documents
 |    |
 |    └───xai // MindSpore XAI Documents
