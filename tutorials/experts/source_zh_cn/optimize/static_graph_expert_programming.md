@@ -241,9 +241,13 @@ for loop cost time: 1.2634551525115967
 
 ### 使用编译缓存
 
-使用场景：在进行训练或者推理时，如果某个网络结构未作任何变更，通过使用编译缓存来缩短编译时间。
+使用场景：在进行训练或者推理时，如果编译依赖的文件未作任何变更，通过使用编译缓存来缩短编译时间。
 
-编译缓存的本质是存储了网络模型的编译中间过程文件，当网络模型不变时，生产的编译中间过程文件也是一样的，因此可以复用上一次编程产生的中间过程文件，详细使用方法可参考[设置context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html?highlight=enable_compile_cache)中的`enable_compile_cache`相关内容。
+编译缓存的本质是存储了网络模型的编译中间过程文件，当网络模型不变时，生产的编译中间过程文件也是一样的，因此可以复用上一次编程产生的中间过程文件。
+
+通过设置context中的[enable_compile_cache](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html?highlight=enable_compile_cache)或环境变量[MS_COMPILER_CACHE_ENABLE](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html?highlight=MS_COMPILER_CACHE_ENABLE)，可以指定是否保存和加载编译缓存，前者优先级更高。
+
+通过设置context中的[compile_cache_path](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html?highlight=compile_cache_path)或环境变量[MS_COMPILER_CACHE_PATH](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html?highlight=MS_COMPILER_CACHE_PATH)，可以指定MindSpore编译缓存目录，用于存储图和算子编译过程生成的缓存文件，前者优先级更高。
 
 一个通过使能编译缓存来优化编译性能的代码样例如下：
 
@@ -276,7 +280,7 @@ Disable comile_cache cost time: 0.5485098361968994
 Disable comile_cache cost time: 0.4614279270172119
 ```
 
-可以看到，关闭编译缓存时，第1次执行样例与第2次执行样例耗时基本接近。
+可以看到，关闭编译缓存时，第2次执行样例比第1次耗时少一些，这是因为算子编译缓存是默认开启的，第2次执行样例能够利用前一次的算子编译缓存。
 
 ```python
 import time
