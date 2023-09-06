@@ -24,7 +24,7 @@ MindSpore目前支持三种启动方式：
 - **自动并行模式**：融合了数据并行、算子级模型并行的分布式并行模式，可以自动建立代价模型，找到训练时间较短的并行策略，为用户选择合适的并行模式。如果您的数据集和模型参数规模都较大，且希望自动配置并行策略，您可以选择这种并行模型。参考[自动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/auto_parallel.html)教程了解更多信息。
 - **半自动并行模式**：相较于自动并行，该模式需要用户对算子手动配置切分策略实现并行。如果您数据集和模型参数规模都较大，且您对模型的结构比较熟悉，知道哪些“关键算子”容易成为计算瓶颈，为“关键算子”配置合适的切分策略可以获得更好的性能，您可以选择这种并行模式。此外该模式还可以手动配置优化器并行和流水线并行。参考[半自动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/semi_auto_parallel.html)教程了解更多信息。
 - **手动并行模式**：在手动并行模式下，您可以基于通信原语例如`AllReduce`、`AllGather`、`Broadcast`等通信算子进行数据传输，手动实现分布式系统下模型的并行通信。您可以参考[手动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/manual_parallel.html)教程了解更多信息。
-- **参数服务器模式**：相比于同步的训练方法，参数服务器具有更好的灵活性、可拓展性以及节点容灾能力。您可以参考[参数服务器](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)模式教程了解更多信息。
+- **参数服务器模式**：相比于同步的训练方法，参数服务器具有更好的灵活性、可拓展性。您可以参考[参数服务器](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)模式教程了解更多信息。
 
 ## 保存和加载模型
 
@@ -39,7 +39,7 @@ MindSpore目前支持三种启动方式：
 在分布式并行训练过程中，可能会遇到计算节点的故障或通信中断等问题。MindSpore提供了三种恢复方式以保证训练的稳定性和连续性：
 
 - **根据完整Checkpoint恢复**：在保存Checkpoint文件前，通过AllGather算子汇聚模型的完整参数，每张卡均保存了完整的模型参数文件，可以直接加载恢复。多副本提高了模型的容错性，但是对于大模型来说，汇聚的过程会导致各种资源开销过大。详细可参考[模型加载](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_loading.html)教程。
-- **动态组网场景下故障恢复**：在动态组网中，若某个进程出现故障，其他进程会进入等待状态，可以通过重新拉起故障进程使得训练任务继续进行。详细可参考[动态组网场景下故障恢复](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/disaster_recover.html)
+- **动态组网场景下故障恢复**：在动态组网中，若某个进程出现故障，其他进程会进入等待状态，可以通过重新拉起故障进程使得训练任务继续进行（目前仅支持GPU硬件平台）。和其他方式相比，该故障恢复方式无需重启集群。详细可参考[动态组网场景下故障恢复](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/disaster_recover.html)
 - **根据参数切分的冗余信息恢复**：在大模型训练中，根据数据并行的维度所划分的设备，他们的模型参数是相同的。根据这个原理，可以利用这些冗余的参数信息作为备份，在一个节点故障时，利用相同参数的另一节点就可以恢复故障的节点。详细可参考[基于冗余信息的故障恢复](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/fault_recover.html)教程。
 
 ## 优化方法
