@@ -1,6 +1,6 @@
 # 模型转换
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/model_transformation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/model_transformation.md)
 
 ## 概述
 
@@ -67,7 +67,7 @@
     ...
 ```
 
-其中，
+其中每个文件的作用如下：
 
 - `model_transformation_infer.py`：模型转换后进行推理的脚本。
 - `model_transformation_retrain.py`模型转换后进行二阶段训练的脚本。
