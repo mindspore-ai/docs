@@ -20,6 +20,7 @@ MindSpore Tutorial
    beginner/autograd
    beginner/train
    beginner/save_load
+   beginner/accelerate_with_static_graph
 
 .. toctree::
    :glob:
@@ -31,6 +32,6 @@ MindSpore Tutorial
    advanced/modules
    advanced/dataset
    advanced/derivation
-   advanced/compute_graph
+   advanced/static_graph_expert_programming
    advanced/mixed_precision
    advanced/error_analysis
