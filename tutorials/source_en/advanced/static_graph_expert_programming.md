@@ -1,6 +1,6 @@
 # Advanced Programming Techniques for Static Graphs
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/optimize/static_graph_expert_programming.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/static_graph_expert_programming.md)
 
 This chapter introduces some commonly used advanced programming techniques for static graph optimization, which can effectively improve the compilation efficiency as well as the execution efficiency of static graphs, and make the program run more stably. For a basic introduction to static graphs compilation, see [Accelerating with Static Graphs](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/accelerate_with_static_graph.md).
 

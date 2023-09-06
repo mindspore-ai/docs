@@ -9,16 +9,6 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 静态图使用规范
-
-   network/control_flow
-   network/jit_class
-   network/constexpr
-   network/dependency_control
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
    :caption: 分布式并行
    :titlesonly:
 

@@ -9,16 +9,6 @@ For Experts
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Static Graph Usage Sepecifications
-
-   network/control_flow
-   network/jit_class
-   network/constexpr
-   network/dependency_control
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
    :caption: Distributed Parallel
    :titlesonly:
 

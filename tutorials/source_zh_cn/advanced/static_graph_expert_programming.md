@@ -1,6 +1,6 @@
 # 静态图高级编程技巧
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/optimize/static_graph_expert_programming.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/static_graph_expert_programming.md)
 
 本篇章介绍一些常用的静态图优化的高级编程技巧，这些技巧能够有效地提高静态图的编译效率以及执行效率，并使程序运行地更加稳定。有关静态图编译的基础介绍，请见[使用静态图加速](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/accelerate_with_static_graph.md)。
 
