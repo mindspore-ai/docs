@@ -11,7 +11,7 @@ MindSpore SciAI是基于昇思MindSpore打造的AI4SCI高频基础模型库，�
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/sciai/docs/source_zh_cn/images/architecture_cn.jpg" width="600px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/sciai/docs/source_zh_cn/images/architecture_cn.png" width="600px" alt="" >
 
 .. toctree::
    :maxdepth: 1
