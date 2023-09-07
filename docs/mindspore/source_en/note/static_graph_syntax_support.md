@@ -949,40 +949,6 @@ Currently supported Python built-in functions include `int`, `float`, `bool`, `s
 
 #### Network Input parameters
 
-The input parameters of the outermost network only can be `lool`, `int`, `float`, `Tensor`, `None`, `mstype.number(mstype.bool, mstype.int, mstype.float, mstype.uint)`, `List` or `Tuple` that contains these types, and `Dictionary` whose values are these types.
-
-If you want to use other types of input for the network, please transfer them to the network while initializing network, and save them as network attributes, then use  in the `construct`. The input parameters of inner network do not have this restriction.
-
-The code example is shown below. In the defined `Net` network, a flag parameter of `string` type is transferred as the network attribute `self.flag` during initialization, and then the attribute `self.flag` is used in the `construct`.
-
-```python
-import mindspore as ms
-from mindspore import nn
-
-ms.set_context(mode=ms.GRAPH_MODE)
-
-class Net(nn.Cell):
-    def __init__(self, flag):
-        super(Net, self).__init__()
-        self.flag = flag
-
-    def construct(self, x):
-        if self.flag == "ok":
-            return x + 1
-        return x - 1
-
-flag = "ok"
-net = Net(flag)
-ret = net(ms.Tensor([5]))
-print('ret:{}'.format(ret))
-```
-
-The result is as follows:
-
-```text
-ret:[6]
-```
-
 While calculating gradient for outermost network, only `Tensor` input could be calculated, input of other type will be ignored.
 
 The code example is shown below. Among the input parameter `(x, y,  z)` of outermost network, `x` and `z` are `Tensor` type but `y` is not. While `grad_net` calculating gradient of the input parameters `(x, y, z)` for the network, gradient of `y` is automatically ignored. Only gradients of `x` and `z` are calculated, and `(grad_x, grad_y)` is returned.

@@ -955,40 +955,6 @@ ret:[[3. 3. 3. 3.]]
 
 #### 网络入参
 
-整网（最外层网络）入参仅支持`bool`、`int`、`float`、`Tensor`、`None`、`mstype.number(mstype.bool_、mstype.int、mstype.float、mstype.uint)`，以及只包含这些类型对象的`list`或者`tuple`，和`value`值是这些类型的`Dictionary`。
-
-如果网络里要使用其他类型，可在初始化网络的时候，传入该类型对象，作为网络属性保存起来，然后在`construct`里使用。内层调用的网络入参无此限制。
-
-示例如下。定义的Net网络里，在初始化时传入一个`string`类型的flag参数，作为网络属性`self.flag`，然后在`construct`里使用`self.flag`这个属性。
-
-```python
-import mindspore as ms
-from mindspore import nn
-
-ms.set_context(mode=ms.GRAPH_MODE)
-
-class Net(nn.Cell):
-    def __init__(self, flag):
-        super(Net, self).__init__()
-        self.flag = flag
-
-    def construct(self, x):
-        if self.flag == "ok":
-            return x + 1
-        return x - 1
-
-flag = "ok"
-net = Net(flag)
-ret = net(ms.Tensor([5]))
-print('ret:{}'.format(ret))
-```
-
-结果如下：
-
-```text
-ret:[6]
-```
-
 在对整网入参求梯度的时候，会忽略非`Tensor`的入参，只计算`Tensor`入参的梯度。
 
 示例如下。整网入参`(x, y, z)`中，`x`和`z`是`Tensor`，`y`是非`Tensor`。因此，`grad_net`在对整网入参`(x, y, z)`求梯度的时候，会自动忽略`y`的梯度，只计算`x`和`z`的梯度，返回`(grad_x, grad_z)`。
