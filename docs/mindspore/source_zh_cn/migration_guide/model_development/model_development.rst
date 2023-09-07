@@ -74,14 +74,13 @@ MindSpore网络编写注意事项
 在MindSpore网络实现过程中，有一些容易出现问题的地方，遇到问题请优先排查是否有以下情况：
 
 1. 数据处理中使用MindSpore的算子。数据处理过程一般会有多线程/多进程，此场景下数据处理使用MindSpore的算子存在限制，数据处理过程中使用的操作建议使用三方的实现代替，如numpy，opencv，pandas，PIL等。
-2. 控制流。详情请参考\ `流程控制语句 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/network/control_flow.html>`__\ 。当多层调用条件控制语句时在图模式下编译会很慢。
-3. 切片操作，当遇到对一个Tensor进行切片时需要注意，切片的下标是否是变量，当是变量时会有限制，请参考\ `网络主体和loss搭建 <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html>`__\ 对动态shape规避。
-4. 自定义混合精度和Model里的\ ``amp_level``\ 冲突，使用自定义的混合精度就不要设置Model里的\ ``amp_level``\ 。
-5. 在Ascend环境下Conv，Sort，TopK只能是float16的，注意加\ `loss
+2. 切片操作，当遇到对一个Tensor进行切片时需要注意，切片的下标是否是变量，当是变量时会有限制，请参考\ `网络主体和loss搭建 <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html>`__\ 对动态shape规避。
+3. 自定义混合精度和Model里的\ ``amp_level``\ 冲突，使用自定义的混合精度就不要设置Model里的\ ``amp_level``\ 。
+4. 在Ascend环境下Conv，Sort，TopK只能是float16的，注意加\ `loss
    scale <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html>`__\ 避免溢出。
-6. 在Ascend环境下Conv，Pooling等带有stride属性的算子对stride的长度有规定，需要规避。
-7. 在分布式环境下必须加seed，用以保证多卡的初始化的参数一致。
-8. 网络中使用Cell的list或者Parameter的list的情况，请在\ ``init``\ 里对list进行转换，转换成\ `CellList <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.CellList.html>`__\ ，\ `SequentialCell <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SequentialCell.html>`__\ ，\ `ParameterTuple <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.ParameterTuple.html>`__\ 。
+5. 在Ascend环境下Conv，Pooling等带有stride属性的算子对stride的长度有规定，需要规避。
+6. 在分布式环境下必须加seed，用以保证多卡的初始化的参数一致。
+7. 网络中使用Cell的list或者Parameter的list的情况，请在\ ``init``\ 里对list进行转换，转换成\ `CellList <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.CellList.html>`__\ ，\ `SequentialCell <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SequentialCell.html>`__\ ，\ `ParameterTuple <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.ParameterTuple.html>`__\ 。
 
 .. code:: python
 

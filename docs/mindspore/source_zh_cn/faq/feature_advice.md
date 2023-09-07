@@ -52,7 +52,7 @@ A: Ascend 310需要运行专用的OM模型，先使用MindSpore导出ONNX或AIR�
 
 <br/>
 
-<font size=3>**Q:MindSpore只能在华为自己的`Ascend`上跑么？**</font>
+<font size=3>**Q: MindSpore只能在华为自己的`Ascend`上跑么？**</font>
 
 A: MindSpore同时支持华为自己的`Ascend`、`GPU`与`CPU`，是支持异构算力的。
 

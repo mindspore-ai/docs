@@ -238,7 +238,7 @@ model.infer_predict_layout(predict_data)
     ms.transform_checkpoints(args_opt.src_checkpoints_dir, args_opt.dst_checkpoints_dir, "checkpoint_", args_opt.src_strategy_file, args_opt.dst_strategy_file)
     ```
 
-    示例代码[`model_transformation_retrain.py`](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/model_saving_loading/model_transformation_retrain.py)中采用此方法。
+    示例代码[`model_transformation_retrain.py`](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/model_saving_loading/model_transformation_retrain.py)中采用此方法。
 
 2. 调用`transform_checkpoint_by_rank`接口对当前rank对应的原始Checkpoint进行参数合并。
 
@@ -257,7 +257,7 @@ model.infer_predict_layout(predict_data)
     ms.transform_checkpoint_by_rank(get_rank(), checkpoint_file_map, save_checkpoint_path, args_opt.src_strategy_file, args_opt.dst_strategy_file)
     ```
 
-    示例代码[`model_transformation_infer.py`](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/model_saving_loading/model_transformation_infer.py)中采用此方法。
+    示例代码[`model_transformation_infer.py`](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/model_saving_loading/model_transformation_infer.py)中采用此方法。
 
 执行完后，将会生成转换后的目标Checkpoint文件目录：
 
@@ -363,7 +363,7 @@ epoch: 1, step: 100, loss is 0.07113413
 ### 流水线并行模型转换
 
 [流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/pipeline_parallel.html) 是对线性的网络进行切分，得到多个子网络，子网络之间在多卡间进行流水，因此每个子图存储下来的切分策略文件是不一致的，所有切分策略汇聚在一起才能得到完整的网络的切分信息。
-因此针对流水线并行的维度，相比于其它维度的转换，需要事先执行一次汇聚切分策略文件的操作，得到汇聚后的切分策略文件，以这一份文件作为分布式Checkpoint转换依赖的策略文件。此外，与前面的[执行分布式Checkpoint转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_transformation.html#%E6%89%A7%E8%A1%8C%E5%88%86%E5%B8%83%E5%BC%8FCheckpoint%E8%BD%AC%E6%8D%A2) 没有差异。
+因此针对流水线并行的维度，相比于其它维度的转换，需要事先执行一次汇聚切分策略文件的操作，得到汇聚后的切分策略文件，以这一份文件作为分布式Checkpoint转换依赖的策略文件。此外，与前面的[执行分布式Checkpoint转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_transformation.html#执行分布式checkpoint转换) 没有差异。
 
 相关接口：
 
@@ -371,7 +371,7 @@ epoch: 1, step: 100, loss is 0.07113413
 
 首先，执行8卡的流水线并行训练，其中pipeline并行维度为2，且开启优化器并行。
 
-训练代码在[pipeline_train.py](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/model_saving_loading/pipeline_train.py)中，网络结构在[模型保存](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_saving.html)这一章的基础上增加了流水线并行的配置，并行维度为2。
+训练代码在[pipeline_train.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/model_saving_loading/pipeline_train.py)中，网络结构在[模型保存](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_saving.html)这一章的基础上增加了流水线并行的配置，并行维度为2。
 
 核心代码为：
 
@@ -427,11 +427,11 @@ bash run_pipeline_train.sh
 ...
 ```
 
-参考[对目标网络执行编译](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_saving.html#%E5%AF%B9%E7%9B%AE%E6%A0%87%E7%BD%91%E7%BB%9C%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91) 章节，同样编译目标网络以得到目标网络的切分策略文件。
+参考[对目标网络执行编译](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_transformation.html#%E5%AF%B9%E7%9B%AE%E6%A0%87%E7%BD%91%E7%BB%9C%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91) 章节，同样编译目标网络以得到目标网络的切分策略文件。
 
 下一步展开包含pipeline并行维度的分布式Checkpoint维度转换，首先使用接口`merge_pipeline_strategys`对pipline训练得到的切分策略文件进行合并，而后使用接口`transform_checkpoints`或者`transform_checkpoint_by_rank`进行分布式Checkpoint转换。
 
-示例给出使用`transform_checkpoints`的接口，使用`transform_checkpoint_by_rank`接口请参考[执行分布式Checkpoint转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_saving.html#%E6%89%A7%E8%A1%8C%E5%88%86%E5%B8%83%E5%BC%8FCheckpoint%E8%BD%AC%E6%8D%A2) 章节的介绍。
+示例给出使用`transform_checkpoints`的接口，使用`transform_checkpoint_by_rank`接口请参考[执行分布式Checkpoint转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_transformation.html#执行分布式checkpoint转换) 章节的介绍。
 
 ```python
 import mindspore as ms
@@ -448,7 +448,7 @@ ms.transform_checkpoints(args_opt.src_checkpoints_dir, args_opt.dst_checkpoints_
 bash run_retrain_pipeline_convert.sh
 ```
 
-转换完成后，参照[加载转换得到的Checkpoint文件](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/resilience_train_and_predict.html#%E5%8A%A0%E8%BD%BD%E8%BD%AC%E6%8D%A2%E5%BE%97%E5%88%B0%E7%9A%84Checkpoint%E6%96%87%E4%BB%B6)章节，执行没有pipeline维度的分布式网络。
+转换完成后，参照[加载转换得到的Checkpoint文件](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_transformation.html#%E5%8A%A0%E8%BD%BD%E8%BD%AC%E6%8D%A2%E5%BE%97%E5%88%B0%E7%9A%84checkpoint%E6%96%87%E4%BB%B6)章节，执行没有pipeline维度的分布式网络。
 
 示例中，加载转换后的Checkpoint进行二阶段微调训练的脚本执行命令为：
 

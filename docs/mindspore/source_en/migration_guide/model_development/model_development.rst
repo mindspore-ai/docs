@@ -134,28 +134,24 @@ for the following situations:
    this scenario. It is recommended to use a three-party implemented
    operation as an alternative in the data processing process, such as
    numpy, opencv, pandas, PIL.
-2. Control flow. For details, refer to `Flow Control
-   Statements <https://www.mindspore.cn/tutorials/experts/en/master/network/control_flow.html>`__.
-   Compilation in graph mode can be slow when multiple layers of
-   conditional control statements are called.
-3. Slicing operation. When it comes to slicing a Tensor, note that
+2. Slicing operation. When it comes to slicing a Tensor, note that
    whether subscript of the slice is a variable. When it is a variable,
    there will be restrictions. Please refer to `network body and loss
    building <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html>`__
    for dynamic shape mitigation.
-4. Customized mixed precision conflicts with ``amp_level`` in Model, so
+3. Customized mixed precision conflicts with ``amp_level`` in Model, so
    don’t set ``amp_level`` in Model if you use customized mixed
    precision.
-5. In Ascend environment, Conv, Sort and TopK can only be float16, and
+4. In Ascend environment, Conv, Sort and TopK can only be float16, and
    add `loss
    scale <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html>`__
    to avoid overflow.
-6. In the Ascend environment, operators with the stride property such as
+5. In the Ascend environment, operators with the stride property such as
    Conv and Pooling have rules about the length of the stride, which
    needs to be mitigated.
-7. In a distributed environment, seed must be added to ensure that the
+6. In a distributed environment, seed must be added to ensure that the
    initialized parameters of multiple cards are consistent.
-8. In the case of using list of Cell or list of Parameter in the
+7. In the case of using list of Cell or list of Parameter in the
    network, please convert the list to
    `CellList <https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.CellList.html>`__,
    `SequentialCell <https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SequentialCell.html>`__,

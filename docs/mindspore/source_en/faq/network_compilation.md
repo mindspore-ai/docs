@@ -526,7 +526,7 @@ net = Net()
 out = net(Tensor(x))
 ```
 
-3) If a function decorated with a @jit decorator is called in a custom class, an error will be reported. In this scenario, it is recommended to add @jit_class decorators to custom classes in the network and avoid the JIT Fallback feature. For more use of custom classes, please refer to [Supporting the Use of Custom Classes](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supporting-the-use-of-custom-classes). The use of jit_class decorators can be referred to [Use jit_class](https://www.mindspore.cn/tutorials/experts/en/master/optimize/static_graph_expert_programming.html#using-jit-class)
+3) If a function decorated with a @jit decorator is called in a custom class, an error will be reported. In this scenario, it is recommended to add @jit_class decorators to custom classes in the network and avoid the JIT Fallback feature. For more use of custom classes, please refer to [Supporting the Use of Custom Classes](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supporting-the-use-of-custom-classes). The use of jit_class decorators can be referred to [Use jit_class](https://www.mindspore.cn/tutorials/en/master/advanced/static_graph_expert_programming.html#using-jit-class)
 
 ```python
 import mindspore as ms

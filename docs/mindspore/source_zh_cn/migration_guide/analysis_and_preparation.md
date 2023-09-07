@@ -428,7 +428,7 @@ MindSpore现在已经支持最常用的[CSR和COO两种稀疏数据格式](https
 
 ## MindSpore好用功能和特性推荐
 
-### [动态图与静态图](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/compute_graph.html)
+### [动态图与静态图](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/accelerate_with_static_graph.html)
 
 目前主流的深度学习框架有静态图(Graph)和动态图(PyNative)两种执行模式。
 
@@ -436,7 +436,7 @@ MindSpore现在已经支持最常用的[CSR和COO两种稀疏数据格式](https
 
 - 动态图模式下，程序按照代码的编写顺序逐行执行，在执行正向过程中根据反向传播的原理，动态生成反向执行图。这种模式下，编译器将神经网络中的各个算子逐一下发到设备进行计算操作，方便用户编写和调试神经网络模型。
 
-### [调用自定义类](https://www.mindspore.cn/tutorials/experts/zh-CN/master/network/jit_class.html)
+### [调用自定义类](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/static_graph_expert_programming.html#使用jit-class)
 
 在静态图模式下，通过使用`jit_class`修饰自定义类，用户可以创建、调用该自定义类的实例，并且可以获取其属性和方法。
 

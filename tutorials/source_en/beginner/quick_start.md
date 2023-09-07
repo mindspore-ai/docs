@@ -118,7 +118,7 @@ For more detailed information, see [Dataset](https://www.mindspore.cn/tutorials/
 
 ## Building Network
 
-`mindspore.nn` class is the base class for building all networks and is the basic unit of the network. When the user needs to customize the network, you can inherit the `nn.Cell` class and override the `__init__` method and the `construct` method. `__init__` contains the definitions of all network layers, and `construct` contains the transformation process of the data ([Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html)) (i.e. the construction process of the [computational graph](https://www.mindspore.cn/tutorials/en/master/advanced/compute_graph.html)).
+`mindspore.nn` class is the base class for building all networks and is the basic unit of the network. When the user needs to customize the network, you can inherit the `nn.Cell` class and override the `__init__` method and the `construct` method. `__init__` contains the definitions of all network layers, and `construct` contains the transformation process of the data ([Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html)).
 
 ```python
 # Define model

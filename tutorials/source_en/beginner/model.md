@@ -17,7 +17,7 @@ from mindspore import nn, ops
 
 When define a neural network, we can inherit the `nn.Cell` class, instantiate and manage the state of the sub-Cell in the `__init__` method, and implement the Tensor operation in the `construct` method.
 
-> `construct` means neural network (computational graph) construction. For more details, see [computational graph](https://www.mindspore.cn/tutorials/en/master/advanced/compute_graph.html).
+> `construct` means neural network (computational graph) construction. For more details, see [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html).
 
 ```python
 class Network(nn.Cell):

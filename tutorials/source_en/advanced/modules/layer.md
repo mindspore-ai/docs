@@ -125,7 +125,7 @@ print(net.b.asnumpy())
 
 #### Modifying Parameter Values During Runtime
 
-The main role of parameters is to update their values during model training, which involves parameter modification during runtime after backward propagation to obtain gradients, or when untrainable parameters need to be updated. Due to the compiled design of MindSpore's [computational graph](https://www.mindspore.cn/tutorials/en/master/advanced/compute_graph.html), it is necessary at this point to use the `mindspore.ops.assign` interface to assign parameters. This method is commonly used in [Custom Optimizer](https://www.mindspore.cn/tutorials/en/master/advanced/modules/optimizer.html) scenarios. The following is a simple sample modification of parameter values during runtime:
+The main role of parameters is to update their values during model training, which involves parameter modification during runtime after backward propagation to obtain gradients, or when untrainable parameters need to be updated. Due to the compiled design of MindSpore's [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html), it is necessary at this point to use the `mindspore.ops.assign` interface to assign parameters. This method is commonly used in [Custom Optimizer](https://www.mindspore.cn/tutorials/en/master/advanced/modules/optimizer.html) scenarios. The following is a simple sample modification of parameter values during runtime:
 
 ```python
 import mindspore as ms
