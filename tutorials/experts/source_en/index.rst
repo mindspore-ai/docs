@@ -15,10 +15,9 @@ For Experts
    parallel/overview
    parallel/startup_method
    parallel/parallel_mode
+   parallel/model_save_load
+   parallel/recover
    parallel/basic_cases
-   parallel/operator_parallel
-   parallel/pipeline_parallel
-   parallel/optimizer_parallel
    parallel/recompute
    parallel/host_device_training
    parallel/parameter_server_training

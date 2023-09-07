@@ -1,204 +1,219 @@
-# Distributed Fault Recovery
+# Fault Recovery Based on Redundant Information
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/fault_recover.md)
 
 ## Overview
 
 It is very common to encounter failures when performing distributed training, similar to single-card training, which can be continued by loading the saved weight information during training. Distinct from pure data parallel training, when model parallelism is applied, the weights are sliced and the weight information saved between cards may not be consistent.
-To solve this problem, one option is to aggregate the weights through the [AllGather](https://www.mindspore.cn/docs/en/master/api_python/samples/ops/communicate_ops.html#allgather) before saving the weight checkpoint file, where each card stores a complete information about the weights. This one function has been introduced in [Distributed training model parameter saving and loading](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#saving-and-loading-distributed-training-model-parameters).
+
+To solve this problem, one option is to aggregate the weights through the [AllGather](https://www.mindspore.cn/docs/en/master/api_python/samples/ops/communicate_ops.html#allgather) before saving the weight checkpoint file, where each card stores a complete information about the weights. This function is the integrated_save in the `mindspore.train.CheckpointConfig(integrated_save=True)` interface.
+
 However, for large models, the overhead of using aggregated preservation is too large for all kinds of resources, so this document presents a recovery scheme where each card only saves its own weight information. For large models, both data parallelism and model parallelism are often applied, and the devices divided by the dimensions of data parallelism, which hold exactly the same weight information, provide a redundant backup for large models. This document will also point out how to go about obtaining this redundant information.
+
 For the relationship between the parallel strategy and the slicing division of the weights, the following mapping can be performed. For more information on the concepts of data parallelism and model parallelism, please refer to [Distributed Training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html). For more information about optimizer parallelism, please refer to [Optimizer Parallelism](https://www.mindspore.cn/tutorials/experts/en/master/parallel/optimizer_parallel.html).
 
 - Data parallelism + keep optimizer parallelism off: The ranks in the parallel communication domain hold the same weight slice.
 - Model parallism: The ranks in the parallel communication domain hold different weight slices.
+- Data parallelism + keep optimizer parallelism on + the number of shards in optimizer parallelism is equal to the number of all data parallel dimensions: rank in the parallelism communication domain holds slices with different weights.
 - Data parallelism + keep optimizer parallelism on + the number of shards in optimizer parallelism is smaller than the number of all data parallel dimensions: Within the parallel communication domain, the rank within the communication domain sliced by the optimizer holds different weight slices, and the communication domain sliced by each optimizer holds the same weight slice between them.
 
-Also, it should be noted that this document introduces the distributed faults recovery scheme, which needs to be used in sink mode. This document will introduce the scheme as an example of distributed parallel training Transformer model. For detailed information of transformer, please refer to this tutorial.
+Also, it should be noted that this document introduces the distributed faults recovery scheme, which needs to be used in [sink mode](https://www.mindspore.cn/docs/en/master/design/overview.html#competitive-optimization-for-ascend-hardware).
 
-> Download the complete sample code here: [distributed_training_transformer](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_transformer)
+Related environment variables:
+
+`GROUP_INFO_FILE=./group_info.pb`: Save weights information of the slices. The file is parsed out to get a list whose values are rank_id, representing that the weights in those rank_id are the same.
+
+## Operation Practice
+
+The following is an operation illustration of fault recovery under distributed training using single-machine 8-card as an example:
+
+### Example Code Description
+
+> Download the complete example code: [fault_recover](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/fault_recover)
 
 The directory structure is as follows:
 
 ```text
-└─sample_code
-    ├─distribute_training_transformer
-        ├── dataset.py
-        ├── model.py
-        ├── rank_table_8pcs.json
-        ├── run_parallel_save_ckpt.sh
-        ├── run_parallel_recover_ckpt.sh
-        ├── parallel_save_ckpt_train.py
-        └── parallel_recover_train.py
+└─ sample_code
+    ├─ fault_recover
+        ├── train.py
+        ├── run.sh
+        └── recover.sh
 ```
 
-## Slicing Preservation Weight
+`train.py` is the script that defines the network structure and the training process. `run.sh` is the execution script and `recover.sh` is the recovery script after node failure.
 
-To save the weight information of the slices, simply configure integrated_save to False in CheckpointConfig. Also, configure the environment variable GROUP_INFO_FILE to store redundant information about the weights.
+### Configuring a Distributed Environment
+
+Specify the run mode, run device, run card number via the context interface. Unlike single card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` and initialize HCCL or NCCL communication via init. The `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
+
+```python
+import mindspore as ms
+from mindspore.communication import init, get_rank
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
+init()
+os.environ['GROUP_INFO_FILE'] = "./checkpoints/rank_{}/group_info.pb".format(get_rank())
+ms.set_seed(1)
+```
+
+> This configures the environment variable GROUP_INFO_FILE to store redundant information about weights.
+
+### Loading the Dataset
+
+In the current sample, the dataset is loaded in the same way as a single card is loaded, with the following code:
+
+```python
+import os
+import mindspore.dataset as ds
+
+def create_dataset(batch_size):
+    dataset_path = os.getenv("DATA_PATH")
+    dataset = ds.MnistDataset(dataset_path)
+    image_transforms = [
+        ds.vision.Rescale(1.0 / 255.0, 0),
+        ds.vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        ds.vision.HWC2CHW()
+    ]
+    label_transform = ds.transforms.TypeCast(ms.int32)
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size)
+    return dataset
+
+data_set = create_dataset(32)
+```
+
+### Defining the Network
+
+Here some sharding strategies are configured for the operator and the network structure after configuring the strategies is:
+
+```python
+import mindspore as ms
+from mindspore import nn, ops
+
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = ops.Flatten()
+        self.fc1_weight = ms.Parameter(initializer("normal", [28*28, 512], ms.float32))
+        self.fc2_weight = ms.Parameter(initializer("normal", [512, 512], ms.float32))
+        self.fc3_weight = ms.Parameter(initializer("normal", [512, 10], ms.float32))
+        self.matmul1 = ops.MatMul()
+        self.relu1 = ops.ReLU()
+        self.matmul2 = ops.MatMul()
+        self.relu2 = ops.ReLU()
+        self.matmul3 = ops.MatMul()
+
+    def construct(self, x):
+        x = self.flatten(x)
+        x = self.matmul1(x, self.fc1_weight)
+        x = self.relu1(x)
+        x = self.matmul2(x, self.fc2_weight)
+        x = self.relu2(x)
+        logits = self.matmul3(x, self.fc3_weight)
+        return logits
+
+net = Network()
+net.matmul1.shard(((2, 4), (4, 1)))
+net.relu1.shard(((4, 1),))
+```
+
+### Training the Network
+
+In this step, we need to define the loss function, the optimizer, and the training process:
+
+```python
+import mindspore as ms
+from mindspore import nn, train
+from mindspore.communication import get_rank
+
+optimizer = nn.SGD(net.trainable_params(), 1e-2)
+loss_fn = nn.CrossEntropyLoss()
+loss_cb = train.LossMonitor()
+ckpt_config = train.CheckpointConfig(save_checkpoint_steps=1000, keep_checkpoint_max=4, integrated_save=False)
+ckpoint_cb = train.ModelCheckpoint(prefix="checkpoint", directory="./checkpoints/rank_{}".format(get_rank()), config=ckpt_config)
+model = ms.Model(net, loss_fn=loss_fn, optimizer=optimizer)
+model.train(2, data_set, callbacks=[loss_cb, ckpoint_cb], dataset_sink_mode=True)
+```
+
+> During training, sink mode is configured by specifying dataset_sink_mode as True, and `integrated_save` needs to be configured as `False` in CheckpointConfig.
+
+### Fault Recovery
+
+Distributed fault recovery requires prior access to the information about slicing, thus, `model.infer_train_layout` needs to be called first to get the information about the sharding strategy, then the training is executed.
+
+```python
+import mindspore as ms
+from mindspore.communication import get_rank
+
+# model create
+# checkpoint load
+if bool(args_opt.is_recover):
+    param_dict = ms.load_checkpoint("./checkpoints/rank_{}/checkpoint-2_1875.ckpt".format(get_rank()))
+    model.infer_train_layout(data_set)
+    ms.load_param_into_net(net, param_dict)
+model.train(2, data_set, callbacks=[loss_cb, ckpoint_cb], dataset_sink_mode=True)
+```
+
+### Running Stand-alone 8-card Script
+
+Next, the corresponding script is called by the command. Take the `mpirun` startup method, the 8-card distributed script as an example, and run the 8-card parallel training script by the following command:
 
 ```bash
-export GROUP_INFO_FILE=./group_info.pb
+bash run.sh
 ```
 
-The code section for weight storage is as follows. Note that training is configured to sink mode by specifying dataset_sink_mode to True.
+After the training is complete, you can see the following file:
+
+```text
+├─ group_info.pb
+├─ log_output
+|   └─ 1
+|       ├─ rank.0
+|       |   └─ stdout
+|       ├─ rank.1
+|       |   └─ stdout
+|       ...
+├─ checkpoints
+|   ├─ rank_0
+|   |   ├─ checkpoint-1_1875.ckpt
+|   |   ├─ checkpoint-2_1875.ckpt
+|   |   ├─ checkpoint-graph.meta
+|   |   └─ group_info.pb
+|   ├─ rank_1
+|   |   ├─ checkpoint-1_1875.ckpt
+|   |   ...
+|   ...
+...
+```
+
+In `log_output/1/rank.*/stdout`, you can see the current trained loss value, similar to the following:
+
+```text
+epoch: 1 step: 1875, loss is 0.71328689217567444
+epoch: 2 step: 1875, loss is 0.32782320742607117
+```
+
+Read group_info.pb to get redundant information about the weights. The file will be parsed out to get a list with the value of rank_id, which means that the weight slices corresponding to the rank_id in these lists are all the same and can be replaced with each other.
+As in the following example, after the group_info.pb of 0-card is parsed, it is found that the weight slices of 0-card and 4-card are exactly the same, and when the checkpoint of 0-card is lost, 4-card checkpoint can be copied directly as the checkpoint of 0-card for recovery.
 
 ```python
 import mindspore as ms
-from mindspore.train import CheckpointConfig, ModelCheckpoint
-from mindspore.nn import PipelineCell
-
-def train():
-    # model create
-    # checkpoint save
-    ckpt_config = CheckpointConfig(save_ckpt_steps=callback_size, keep_ckpt_max=4,
-                                      integrated_save=False)
-    ckpoint_cb = ModelCheckpoint(prefix="test", config=ckpt_config)
-    callback = [ckpoint_cb]
-    model.train(4, dataset, callbacks=callback, dataset_sink_mode=True)
-```
-
-## Loading Weights to Continue Training
-
-After saving the weight slices in the previous step, the following files can be seen in the directory obtained from the training, taking the 0-card directory as an example.
-
-```text
-└─ckpt_dir0
-    ├── group_info.pb
-    ├── test-1_77.ckpt
-    └── train.log0
-```
-
-In train.log0, you can see the current loss value after training, similar to the following.
-
-```text
-epoch: 1 step: 77, loss is 7.187697
-epoch: 1 step: 77, loss is 6.612632
-epoch: 1 step: 77, loss is 6.393444
-epoch: 1 step: 77, loss is 6.271424
-```
-
-Reading group_info.pb can get the redundant information of the weights. The file will be parsed out to get a list with the value of rank_id, which means that the weight slices corresponding to the rank_id in these lists are all the same and can be replaced with each other.
-As in the following example, after the 0-card group_info.pb of is parsed, it is found that the weight slicing of 0-card and 4-card are exactly the same. When the 0-card checkpoint is lost, the 4-card checkpoint can be directly copied as the 0-card checkpoint and the 0-card checkpoint can be recovered.
-
-```python
-import mindspore as ms
-rank_list = ms.restore_group_info_list("./ckpt_dir0/group_info.pb")
+rank_list = ms.restore_group_info_list("./checkpoints/rank_0/group_info.pb")
 print(rank_list) // [0, 4]
 ```
 
-Distributed fault recovery requires prior access to the slicing scores, thus, it is necessary to first call [model.build](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.build) to compile and then perform the training.
-
-```python
-import os
-import mindspore as ms
-def recover_train():
-    # model create
-    # checkpoint load
-    if args_opt.ckpt_file:
-        param_dict = ms.load_checkpoint(args_opt.ckpt_file)
-        model.build(train_dataset=dataset, epoch=4)
-        ms.load_param_into_net(net, param_dict)
-    model.train(2, dataset, callbacks=callback, dataset_sink_mode=True)
-```
-
-## Preparation
-
-### Downloading the Dataset
-
-- [Download WMT14 En-Fr dataset](http://statmt.org/wmt14/test-full.tgz). If you download unsuccessfully to click the link, please try to download it after copying the link address.
-
-Use `newstest2014-fren-ref.en.sgm` as the training set for this task, combine and clean this dataset. Extract the dataset to the `docs/sample_code/distributed_training_transformer` directory.
-
-### Pre-processing
-
-Executing the following code to pre-process the data will generate the `output` directory in the current directory, which will produce the files `wmt14.en_fr.txt` and `wmt14.fr_en.txt`, each line of which is a sentence pair in French and English. We will use `wmt14.fr_en.txt` as the training data.
-
-```python
-python preprocess.py
-```
-
-### Configuring the Distributed Environment Variables
-
-When performing distributed training in a bare-metal environment (compared to an on-cloud environment, i.e. with Ascend 910 AI processors locally), you need to configure the networking information file for the current multi-card environment. If you use Huawei cloud environment, you can skip this subsection because the cloud service itself is well configured.
-
-Taking Ascend 910 AI processor as an example, a sample json configuration file for one 8-card environment is as follows. This sample names the configuration file as `rank_table_8pcs.json`. 2-card environment configuration can refer to the `rank_table_2pcs.json` file in the sample code.
-
-```json
-{
-    "version": "1.0",
-    "server_count": "1",
-    "server_list": [
-        {
-            "server_id": "10.*.*.*",
-            "device": [
-                {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
-                {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
-                {"device_id": "2","device_ip": "192.3.27.6","rank_id": "2"},
-                {"device_id": "3","device_ip": "192.4.27.6","rank_id": "3"},
-                {"device_id": "4","device_ip": "192.1.27.7","rank_id": "4"},
-                {"device_id": "5","device_ip": "192.2.27.7","rank_id": "5"},
-                {"device_id": "6","device_ip": "192.3.27.7","rank_id": "6"},
-                {"device_id": "7","device_ip": "192.4.27.7","rank_id": "7"}],
-             "host_nic_ip": "reserve"
-        }
-    ],
-    "status": "completed"
-}
-```
-
-Among the parameter items that need to be modified according to the actual training environment are:
-
-- `server_count` represents the number of machines involved in the training.
-- `server_id` represents IP address of the current machine.
-- `device_id` represents the physical serial number of the card, i.e. the actual serial number in the machine where the card is located.
-- `device_ip` represents the IP address of the integration NIC. You can execute the command `cat /etc/hccn.conf` on the current machine, and the key value of `address_x` is the NIC IP address.
-- `rank_id` represents the logic serial number of card, fixed numbering from 0.
-
-### Calling the Collective Communication Repository
-
-The MindSpore distributed parallel training communication uses the Huawei Collective Communication Library `Huawei Collective Communication Library` (hereinafter referred to as HCCL), which can be found in the package that accompanies the Ascend AI processor. `mindspore.communication.management` encapsulates the collective communication interface provided by HCCL to facilitate user configuration of distributed information.
-> HCCL implements multi-machine multi-card communication based on Ascend AI processor. There are some usage restrictions. We list the common ones by using distributed services, and you can check the corresponding usage documentation of HCCL for details.
->
-> - Support 1, 2, 4, 8-card device clusters in single machine scenario and 8*n-card device clusters in multi-machine scenario.
-> - 0-3 cards and 4-7 cards of each machine are consisted of two clusters respectively. 2-card and 4-card must be connected and do not support cross-group creation of clusters during training.
-> - When building a multi-machine cluster, you need to ensure that each machine uses the same switch.
-> - The server hardware architecture and operating system needs to be SMP (Symmetrical Multi-Processing) processing mode.
-
-The following is sample code for calling the collection communication repository:
-
-```python
-import os
-from mindspore.communication import init
-import mindspore as ms
-
-if __name__ == "__main__":
-    ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
-    init()
-    ...
-```
-
-where,
-
-- `mode=GRAPH_MODE`: Using distributed training requires specifying the run mode as graph mode (PyNative mode does not support parallelism).
-- `device_id`: The physical serial number of the card, i.e. the actual serial number in the machine where the card is located.
-- `init`: Enables HCCL communication and completes distributed training initialization operations.
-
-## Running the Code
-
-After preparing the dataset and entering the code directory, execute the training script that saves the slice weights. `DATASET_PATH` recommends using an absolute path.
+After that, the fault recovery training script is executed.
 
 ```bash
-bash run_parallel_save_ckpt.sh DATASET_PATH
+bash recover.sh
 ```
 
-Then, the fault recovery training script is executed.
-
-```bash
-bash run_parallel_recover_ckpt.sh DATASET_PATH
-```
-
-After the recovery training, the loss is as follows. You can see that the loss starts to drop directly from 6.465892, indicating that the loading is successful.
+At the end of the recovery training, check the LOSS as follows, indicating that the loading was successful.
 
 ```text
-epoch: 1 step: 77, loss is 6.465892
-epoch: 1 step: 77, loss is 6.239279
+epoch: 1 step: 1875, loss is 0.598689079284668
+epoch: 2 step: 1875, loss is 0.266701698332226
 ```

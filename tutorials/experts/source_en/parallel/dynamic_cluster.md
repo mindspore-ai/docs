@@ -355,7 +355,7 @@ That is, you can perform 2-machine 8-card distributed training tasks.
 
 ## Disaster Recovery
 
-Dynamic cluster supports disaster recovery under data parallel. In a parallel training scenario with multi-card data, if a process quits abnormally, the training can be continued after pulling up the corresponding script of the corresponding process again, and the accuracy convergence will not be affected. Disaster recovery configuration and samples can be found in the [Fault Recovery](https://www.mindspore.cn/tutorials/experts/en/master/parallel/fault_recover.html) tutorial.
+Dynamic cluster supports disaster recovery under data parallel. In a parallel training scenario with multi-card data, if a process quits abnormally, the training can be continued after pulling up the corresponding script of the corresponding process again, and the accuracy convergence will not be affected. Disaster recovery configuration and samples can be found in the [Disaster Recovery in Dynamic Cluster Scenarios](https://www.mindspore.cn/tutorials/experts/en/master/parallel/disaster_recover.html) tutorial.
 
 ## Security Authentication
 
