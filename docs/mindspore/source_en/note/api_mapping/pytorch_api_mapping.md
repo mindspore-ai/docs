@@ -560,6 +560,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | Descriptions                                                 |
 | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 |[torch.nn.utils.clip_grad_value_](https://pytorch.org/docs/1.8.1/generated/torch.nn.utils.clip_grad_value_.html)                   |[mindspore.ops.clip_by_value](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.clip_by_value.html)                           |  [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/clip_by_value.html)    |
+|[torch.nn.utils.clip_grad_norm_](https://pytorch.org/docs/1.8.1/generated/torch.nn.utils.clip_grad_norm_.html)                   |[mindspore.ops.clip_by_norm](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.clip_by_norm.html)                           |  [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/clip_by_norm.html)    |
 
 ### torch.Tensor
 
