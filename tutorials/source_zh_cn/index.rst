@@ -129,10 +129,10 @@ MindSpore教程
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./advanced/compute_graph.html" class="article-link">
+                     <a href="./beginner/accelerate_with_static_graph.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">计算图</span>
+                              <span class="doc-head-content">使用静态图加速</span>
                            </div>
                            <div class="doc-article-desc">
                               提供基于动态图或静态图开发的指导。

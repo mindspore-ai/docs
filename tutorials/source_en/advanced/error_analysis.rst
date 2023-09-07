@@ -134,7 +134,7 @@ Strategy Selection
 
    Dynamic diagram mode uses asynchronous execution by default in order to improve the efficiency of dynamic diagram execution, and error information are displayed at the last stage of execution. In Figure 3, you can see that the asynchronous execution method of error reporting will have alarm messages that interfere with the error reporting analysis.
 
-   MindSpore provides a way to switch synchronous execution by setting \ ``set_context(mode=mindspore.PYNATIVE_MODE, pynative_synchronize=True)`` to switch to synchronous execution. If the operator execution error occurs, the task terminates directly and displays the current error message. For details, see \ `PyNative Synchronous Execution <https://www.mindspore.cn/tutorials/en/master/advanced/compute_graph.html>`__\ .
+   MindSpore provides a way to switch synchronous execution by setting \ ``set_context(mode=mindspore.PYNATIVE_MODE, pynative_synchronize=True)`` to switch to synchronous execution. If the operator execution error occurs, the task terminates directly and displays the current error message. For details, see \ `PyNative Synchronous Execution <https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html>`__\ .
 
 -  Dichotomy Strategy
 
@@ -236,8 +236,8 @@ Network execution debugging is the corresponding debugging capability provided b
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Synchronous execution                    | In dynamic graph mode, operators are executed asynchronously                                                | `Synchronized execution of dynamic graph <https://    |
 |                           |                                          | on the device to improve performance,                                                                       | www.mindspore.cn/tutorials/en/                        |
-|                           |                                          | so operator execution errors may be displayed at the end of program execution.                              | master/advanced/compute_graph.html#dynamic-graphs>`_  |
-|                           |                                          | In this case, MindSpore provides a synchronous execution setting                                            |                                                       |
+|                           |                                          | so operator execution errors may be displayed at the end of program execution.                              | master/beginner/accelerate_with_static_graph.html     |
+|                           |                                          | In this case, MindSpore provides a synchronous execution setting                                            | #dynamic-graph-mode>`_                                |
 |                           |                                          | to control whether the arithmetic is executed asynchronously on the device.                                 |                                                       |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 

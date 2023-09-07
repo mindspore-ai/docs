@@ -167,8 +167,6 @@ ms.set_context(mode=ms.GRAPH_MODE)
 
 In Graph mode, Python code is not executed by the Python interpreter, but the code is compiled into a static computational graph and then the static computational graph is executed. As a result, the compiler cannot support the global Python syntax. MindSpore static graph compiler maintains a subset of common Python syntax to support neural network construction and training. For more details, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
 
-Also, there are some special constraints when using flow control statements when defining a network. See [flow control statements](https://mindspore.cn/tutorials/experts/en/master/network/control_flow.html) for details.
-
 ## JitConfig Configuration Option
 
 In graph mode, the compilation process can be customized by using the [JitConfig](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.JitConfig.html#mindspore.JitConfig) configuration option. Currently JitConfig supports the following configuration parameters:
@@ -179,4 +177,4 @@ In graph mode, the compilation process can be customized by using the [JitConfig
 
 ## Advanced Programming Techniques for Static Graphs
 
-Using static graph advanced programming techniques can effectively improve the compilation efficiency as well as the execution efficiency, and can make the program run more stably. For details, please refer to [Advanced Programming Techniques with Static Graphs](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/optimize/static_graph_expert_programming.md).
+Using static graph advanced programming techniques can effectively improve the compilation efficiency as well as the execution efficiency, and can make the program run more stably. For details, please refer to [Advanced Programming Techniques with Static Graphs](https://www.mindspore.cn/tutorials/en/master/advanced/static_graph_expert_programming.html).

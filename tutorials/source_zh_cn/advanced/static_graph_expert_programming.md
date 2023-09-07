@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/static_graph_expert_programming.md)
 
-本篇章介绍一些常用的静态图优化的高级编程技巧，这些技巧能够有效地提高静态图的编译效率以及执行效率，并使程序运行地更加稳定。有关静态图编译的基础介绍，请见[使用静态图加速](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/accelerate_with_static_graph.md)。
+本篇章介绍一些常用的静态图优化的高级编程技巧，这些技巧能够有效地提高静态图的编译效率以及执行效率，并使程序运行地更加稳定。有关静态图编译的基础介绍，请见[使用静态图加速](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/accelerate_with_static_graph.html)。
 
 ## 如何优化编译性能
 
@@ -569,7 +569,7 @@ RumtimeError: MsClassObject: 'InnerNet' has no __call__ function, please check t
 
 使用场景：`Select`算子来替代if控制流语句，减少静态图子图生成，提高执行性能（也可以提高编译性能）。
 
-编写网络时，会经常使用到if语句，如果if语句的条件是变量条件，每个if语句都会产生额外的子图，if语句的使用可参考：[if语句](https://mindspore.cn/tutorials/experts/zh-CN/master/network/control_flow.html#if语句)。在静态图模式下，子图数量越多，编译耗时越久，因此部分场景可以通过`Select`算子等价替换if语句来优化编译性能。
+编写网络时，会经常使用到if语句，如果if语句的条件是变量条件，每个if语句都会产生额外的子图。在静态图模式下，子图数量越多，编译耗时越久，因此部分场景可以通过`Select`算子等价替换if语句来优化编译性能。
 
 需要注意的是，使用`Select`算子替换if语句会影响网络的运行性能。一方面，`Select`算子会同时执行true分支和false分支，而if语句只执行其一个分支，因此使用if运行耗时相比使用`Select`算子耗时减少；另一方面，`Select`算子性能优于if语句产生的控制流算子，使用if运行耗时相比使用`Select`算子运行耗时增加。综合上述两种因素，最终运行性能变化情况需要结合实际情况判断。一般来讲，当分支中算子数量较少，建议使用`Select`算子；当分支中算子数量较多，建议使用if语句。
 

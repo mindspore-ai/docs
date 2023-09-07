@@ -429,7 +429,7 @@ After the operator is converted into a dense operator, the video memory used inc
 
 ## MindSpore Function and Feature Recommendation
 
-### [Dynamic and Static Graphs](https://www.mindspore.cn/tutorials/en/master/advanced/compute_graph.html)
+### [Dynamic and Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html)
 
 Currently, there are two execution modes of a mainstream deep learning framework: a static graph mode (Graph) and a dynamic graph mode (PyNative).
 
@@ -437,7 +437,7 @@ Currently, there are two execution modes of a mainstream deep learning framework
 
 - In dynamic graph mode, the program is executed line by line according to the code writing sequence. In the forward execution process, the backward execution graph is dynamically generated according to the backward propagation principle. In this mode, the compiler delivers the operators in the neural network to the device one by one for computing, facilitating users to build and debug the neural network model.
 
-### [Calling the Custom Class](https://www.mindspore.cn/tutorials/experts/en/master/network/jit_class.html)
+### [Calling the Custom Class](https://www.mindspore.cn/tutorials/en/master/advanced/static_graph_expert_programming.html#using-jit-class)
 
 In static graph mode, you can use `ms_class` to modify a custom class. You can create and call an instance of the custom class, and obtain its attributes and methods.
 
