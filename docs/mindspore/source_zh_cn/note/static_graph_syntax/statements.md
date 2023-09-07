@@ -535,7 +535,7 @@ n:7
 
 ### 列表生成式和生成器表达式
 
-支持列表生成式（List Comprehension）和生成器表达式（Generator Expression）。支持构建一个新的序列。
+支持列表生成式（List Comprehension）、字典生成式（Dict Comprehension）和生成器表达式（Generator Expression）。支持构建一个新的序列。
 
 #### 列表生成式
 
@@ -575,6 +575,48 @@ l = [y for x in ((1, 2), (3, 4), (5, 6)) for y in x]
 
 ```text
 TypeError:  The `generators` supports one `comprehension` in ListComp/GeneratorExp, but got 2 comprehensions.
+```
+
+#### 字典生成式
+
+字典生成式用于生成字典。使用方式：`{key, value for loop if statements}`。
+
+示例如下：
+
+```python
+import mindspore as ms
+
+@ms.jit()
+def test():
+    x = [('a', 1), ('b', 2), ('c', 3)]
+    res = {k: v for (k, v) in x if v > 1}
+    return res
+
+ret = test()
+print('ret:{}'.format(ret))
+```
+
+结果如下：
+
+```text
+ret:{'b': 2, 'c': 3}
+```
+
+限制：
+
+图模式下不支持多层嵌套迭代器的使用方式。
+
+限制用法示例如下（使用了两层迭代器）：
+
+```python
+x = ({'a': 1, 'b': 2}, {'d': 1, 'e': 2}, {'g': 1, 'h': 2})
+res = {k: v for y in x for (k, v) in y.items()}
+```
+
+会提示错误：
+
+```text
+TypeError:  The `generators` supports one `comprehension` in DictComp/GeneratorExp, but got 2 comprehensions.
 ```
 
 #### 生成器表达式
