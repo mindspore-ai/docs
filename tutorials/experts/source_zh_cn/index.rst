@@ -14,9 +14,13 @@
 
    parallel/overview
    parallel/startup_method
-   parallel/parallel_mode
+   parallel/data_parallel
+   parallel/semi_auto_parallel
+   parallel/auto_parallel
+   parallel/manual_parallel
+   parallel/parameter_server_training
    parallel/model_save_load
-   parallel/fault_recover
+   parallel/recover
    parallel/optimize_technique
    parallel/platform_differences
    parallel/others

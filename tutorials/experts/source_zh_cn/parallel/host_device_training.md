@@ -6,7 +6,13 @@
 
 在深度学习中，工作人员时常会遇到超大模型的训练问题，即模型参数所占内存超过了设备内存上限。为高效地训练超大模型，一种方案便是分布式并行训练，也就是将工作交由同构的多个加速器（如Ascend 910 AI处理器，GPU等）共同完成。但是这种方式在面对几百GB甚至几TB级别的模型时，所需的加速器过多。而当从业者实际难以获取大规模集群时，这种方式难以应用。另一种可行的方案是使用主机端（Host）和加速器（Device）的混合训练模式。此方案同时发挥了主机端内存大和加速器端计算快的优势，是一种解决超大模型训练较有效的方式。
 
-在MindSpore中，用户可以将待训练的参数放在主机，同时将必要算子的执行位置配置为主机，其余算子的执行位置配置为加速器，从而方便地实现混合训练。此教程以推荐模型[Wide&Deep](https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep)为例，讲解MindSpore在主机和Ascend 910 AI处理器的混合训练。
+在MindSpore中，用户可以将待训练的参数放在主机，同时将必要算子的执行位置配置为主机，其余算子的执行位置配置为加速器，从而方便地实现混合训练。
+
+相关接口：
+
+1. `mindspore.ops.Primitive.set_device()`：设置Primitive执行后端。
+
+2. `mindspore.nn.Optimizer.target`：该属性用于指定在主机（host）上还是设备（device）上更新参数。输入类型为str，只能是"CPU"，"Ascend"或"GPU"。
 
 ## 基本原理
 
@@ -24,75 +30,168 @@
 
 ## 操作实践
 
+下面以Ascend或者GPU单机8卡为例，进行Host&Device异构操作说明：
+
 ### 样例代码说明
 
-1. 准备模型代码。Wide&Deep的代码可参见：<https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep>，其中，`train_and_eval_auto_parallel.py`脚本定义了模型训练的主流程，`src/`目录中包含Wide&Deep模型的定义、数据处理和配置信息等，`script/`目录中包含不同配置下的训练脚本。
+> 下载完整的样例代码：[host_device](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/host_device)。
 
-2. 准备数据集。请参考[1]中的论文所提供的链接下载数据集，并利用脚本`src/preprocess_data.py`将数据集转换为MindRecord格式。
-
-3. 配置处理器信息。在裸机环境（即本地有Ascend 910 AI 处理器）进行分布式训练时，需要配置加速器信息文件。此样例只使用一个加速器，故只需配置包含0号卡的`rank_table_1p_0.json`文件。MindSpore提供了生成该配置文件的自动化生成脚本及相关说明，可参考[HCCL_TOOL](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools)。
-
-### 配置混合执行
-
-1. 配置混合训练标识。在`default_config.yaml`文件中，设置`host_device_mix`默认值为`1`：
-
-    ```python
-    host_device_mix: 1
-    ```
-
-2. 检查必要算子和优化器的执行位置。在`src/wide_and_deep.py`的`WideDeepModel`类中，检查`EmbeddingLookup`为主机端执行：
-
-    ```python
-    self.deep_embeddinglookup = nn.EmbeddingLookup()
-    self.wide_embeddinglookup = nn.EmbeddingLookup()
-    ```
-
-    在`src/wide_and_deep.py`文件的`class TrainStepWrap(nn.Cell)`中，检查两个优化器主机端执行的属性。
-
-    ```python
-    self.optimizer_w.target = "CPU"
-    self.optimizer_d.target = "CPU"
-    ```
-
-### 训练模型
-
-为了保存足够的日志信息，需在执行脚本前使用命令`export GLOG_v=1`将日志级别设置为INFO，且在MindSpore编译时添加-p on选项。如需了解MindSpore编译流程，可参考[编译MindSpore](https://www.mindspore.cn/install/detail?path=install/master/mindspore_ascend_install_source.md&highlight=%E7%BC%96%E8%AF%91mindspore)。
-
-使用训练脚本`script/run_auto_parallel_train.sh`。执行命令：`bash run_auto_parallel_train.sh 1 1 <DATASET_PATH> <RANK_TABLE_FILE>`。
-其中第一个`1`表示用例使用的卡数，第二`1`表示训练的epoch数，`DATASET_PATH`是数据集所在路径，`RANK_TABLE_FILE`为上述`rank_table_1p_0.json`文件所在路径。
-
-运行日志保存在`device_0`目录下，其中`loss.log`保存一个epoch内多个loss值，其值类似如下：
+目录结构如下：
 
 ```text
-epoch: 1 step: 1, wide_loss is 0.6873926, deep_loss is 0.8878349
-epoch: 1 step: 2, wide_loss is 0.6442529, deep_loss is 0.8342661
-epoch: 1 step: 3, wide_loss is 0.6227323, deep_loss is 0.80273706
-epoch: 1 step: 4, wide_loss is 0.6107221, deep_loss is 0.7813441
-epoch: 1 step: 5, wide_loss is 0.5937832, deep_loss is 0.75526017
-epoch: 1 step: 6, wide_loss is 0.5875453, deep_loss is 0.74038756
-epoch: 1 step: 7, wide_loss is 0.5798845, deep_loss is 0.7245408
-epoch: 1 step: 8, wide_loss is 0.57553077, deep_loss is 0.7123517
-epoch: 1 step: 9, wide_loss is 0.5733629, deep_loss is 0.70278376
-epoch: 1 step: 10, wide_loss is 0.566089, deep_loss is 0.6884129
+└─ sample_code
+    ├─ host_device
+       ├── train.py
+       └── run.sh
+    ...
 ```
 
-`test_deep0.log`保存pytest进程输出的详细的运行时日志，搜索关键字`EmbeddingLookup`，可找到如下信息：
+其中，`train.py`是定义网络结构和训练过程的脚本。`run.sh`是执行脚本。
+
+### 配置分布式环境
+
+首先通过context接口指定运行模式、运行设备、运行卡号等，并行模式为数据并行模式，并通过init初始化HCCL或NCCL通信。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+
+```python
+import mindspore as ms
+from mindspore.communication import init
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
+init()
+ms.set_seed(1)
+```
+
+### 数据集加载
+
+数据集加载和数据并行一致，代码如下：
+
+```python
+import os
+import mindspore.dataset as ds
+
+def create_dataset(batch_size):
+    dataset_path = os.getenv("DATA_PATH")
+    rank_id = get_rank()
+    rank_size = get_group_size()
+    dataset = ds.MnistDataset(dataset_path, num_shards=rank_size, shard_id=rank_id)
+    image_transforms = [
+        ds.vision.Rescale(1.0 / 255.0, 0),
+        ds.vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        ds.vision.HWC2CHW()
+    ]
+    label_transform = ds.transforms.TypeCast(ms.int32)
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size)
+    return dataset
+
+data_set = create_dataset(32)
+```
+
+### 网络定义
+
+网络定义与单卡网络区别在于，配置`ops.Add()`算子在主机端运行，代码如下：
+
+```python
+import mindspore as ms
+from mindspore import nn, ops
+from mindspore.common.initializer import initializer
+
+class Dense(nn.Cell):
+    def __init__(self, in_channels, out_channels):
+        super().__init__()
+        self.weight = ms.Parameter(initializer("normal", [in_channels, out_channels], ms.float32))
+        self.bias = ms.Parameter(initializer("normal", [out_channels], ms.float32))
+        self.matmul = ops.MatMul()
+        self.add = ops.Add()
+
+    def construct(self, x):
+        x = self.matmul(x, self.weight)
+        x = self.add(x, self.bias)
+        return x
+
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.layer1 = Dense(28*28, 512)
+        self.relu1 = nn.ReLU()
+        self.layer2 = Dense(512, 512)
+        self.relu2 = nn.ReLU()
+        self.layer3 = Dense(512, 10)
+
+    def construct(self, x):
+        x = self.flatten(x)
+        x = self.layer1(x)
+        x = self.relu1(x)
+        x = self.layer2(x)
+        x = self.relu2(x)
+        logits = self.layer3(x)
+        return logits
+
+net = Network()
+# 配置add算子在CPU端运行
+net.layer1.add.set_device("CPU")
+net.layer2.add.set_device("CPU")
+net.layer3.add.set_device("CPU")
+```
+
+### 训练网络
+
+损失函数、优化器以及训练过程与数据并行一致：
+
+```python
+from mindspore import nn, ops
+
+optimizer = nn.SGD(net.trainable_params(), 1e-2)
+loss_fn = nn.CrossEntropyLoss()
+
+def forward_fn(data, target):
+    logits = net(data)
+    loss = loss_fn(logits, target)
+    return loss, logits
+
+grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_reducer = nn.DistributedGradReducer(optimizer.parameters)
+
+for epoch in range(5):
+    i = 0
+    for image, label in data_set:
+        (loss_value, _), grads = grad_fn(image, label)
+        grads = grad_reducer(grads)
+        optimizer(grads)
+        if i % 100 == 0:
+            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_value))
+        i += 1
+```
+
+### 运行单机8卡脚本
+
+为了保存足够的日志信息，需在执行脚本中加入命令`export GLOG_v=1`将日志级别设置为INFO。接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
+
+```bash
+bash run.sh
+```
+
+训练完后，关于Loss部分结果保存在`log_output/1/rank.*/stdout`中，示例如下：
 
 ```text
-[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:34.928.275 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/network-VirtualDatasetCellTriple/_backbone-NetWithLossClass/network-WideDeepModel/EmbeddingLookup-op297 costs 3066 us.
-[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:34.943.896 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/network-VirtualDatasetCellTriple/_backbone-NetWithLossClass/network-WideDeepModel/EmbeddingLookup-op298 costs 15521 us.
+...
+epoch: 0, step: 0, loss is 2.3029172
+...
+epoch: 0, step: 100, loss is 2.2896261
+...
+epoch: 0, step: 200, loss is 2.2694492
+...
 ```
 
-表示`EmbeddingLookup`在主机端的执行时间。
-继续在`test_deep0.log`搜索关键字`FusedSparseFtrl`和`FusedSparseLazyAdam`，可找到如下信息：
+搜索关键字`CPU`，可找到如下信息：
 
 ```text
-[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:35.422.963 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/optimizer_w-FTRL/FusedSparseFtrl-op299 costs 54492 us.
-[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:35.565.953 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/optimizer_d-LazyAdam/FusedSparseLazyAdam-op300 costs 142865 us.
+...
+[INFO] PRE_ACT(3533591,7f5e5d1e8740,python):2023-09-01-15:14:11.164.420 [mindspore/ccsrc/backend/common/pass/convert_const_input_to_attr.cc:44] Process] primitive target does not match backend: GPU, primitive_target: CPU, node name: Default/Add-op108
+...
 ```
 
-表示两个优化器在主机端的执行时间。
-
-## 参考文献
-
-[1] Huifeng Guo, Ruiming Tang, Yunming Ye, Zhenguo Li, Xiuqiang He. [DeepFM: A Factorization-Machine based Neural Network for CTR Prediction.](https://doi.org/10.24963/ijcai.2017/239) IJCAI 2017.
+表示Add算子配置在CPU端运行。

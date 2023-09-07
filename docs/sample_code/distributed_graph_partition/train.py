@@ -25,6 +25,12 @@ from lenet import LeNet, get_optimizer, get_loss, create_dataset
 context.set_context(mode=context.GRAPH_MODE, device_target='GPU')
 init()
 net = LeNet()
+net.fc1.place("MS_WORKER", 0)
+net.fc2.place("MS_WORKER", 1)
+net.fc3.place("MS_WORKER", 2)
+net.conv1.place("MS_WORKER", 3)
+net.conv2.place("MS_WORKER", 4)
+
 opt = get_optimizer(net)
 criterion = get_loss()
 model = Model(net, criterion, opt, metrics={"Accuracy": Accuracy()})

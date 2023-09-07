@@ -152,7 +152,7 @@ model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
 >
 > 流水线并行训练更适合用`model.train`的方式，这是因为流水线并行下的TrainOneStep逻辑复杂，而`model.train`内部封装了针对流水线并行的TrainOneStepCell，易用性更好。
 
-### 运行单机八卡脚本
+### 运行单机8卡脚本
 
 接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
 

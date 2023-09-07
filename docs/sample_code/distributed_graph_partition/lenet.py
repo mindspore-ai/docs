@@ -85,12 +85,6 @@ class LeNet(nn.Cell):
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
         self.flatten = nn.Flatten()
 
-        self.fc1.place("MS_WORKER", 0)
-        self.fc2.place("MS_WORKER", 1)
-        self.fc3.place("MS_WORKER", 2)
-        self.conv1.place("MS_WORKER", 3)
-        self.conv2.place("MS_WORKER", 4)
-
     def construct(self, x):
         '''Backbone.'''
         x = self.conv1(x)

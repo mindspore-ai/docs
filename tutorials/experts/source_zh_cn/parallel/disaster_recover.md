@@ -35,7 +35,7 @@
 
 ### 网络结构
 
-网络结构和数据集加载与[动态组网启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html)中的示例一致。
+网络结构和数据集加载与[动态组网启动](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html)中的示例一致。
 
 ### 定义训练过程
 

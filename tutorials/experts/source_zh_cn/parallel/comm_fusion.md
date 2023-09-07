@@ -8,6 +8,21 @@
 
 MindSpore支持对分布式训练中三种常用通信算子（`AllReduce`、`AllGather`、`ReduceScatter`）的融合，并提供简洁易用的接口方便用户自行配置。在长稳训练任务支撑中，通信融合特性发挥了重要作用。
 
+MindSpore提供两种接口来使能通信融合，下面分别进行介绍：
+
+1. 自动并行场景下的配置
+
+    ```python
+    config = {"allreduce": {"mode": "size", "config": 32}, "allgather": {"mode": "size", "config": 32}}
+    ms.set_auto_parallel_context(comm_fusion=config)
+    ```
+
+    在自动并行或半自动并行场景下，用户在通过`set_auto_parallel_context`来配置并行策略时，可以利用该接口提供的`comm_fusion`参数来设置并行策略，输入格式为{"通信类型": {"mode":str, "config": None int 或者 list}}。具体可以参考[并行配置](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_auto_parallel_context.html)中的`comm_fusion`。在这种场景下，优先推荐此种配置方法。
+
+2. 利用`Cell`提供的接口
+
+    无论在哪种并行模式场景下，用户都可以通过`Cell.set_comm_fusion`接口为模型某layer的参数设置index，MindSpore将融合相同index的参数所对应的通信算子。
+
 ## 基本原理
 
 本节首先以数据并行为例，介绍分布式训练中计算和通信之间的关系，其次介绍通信融合在分布式训练场景下的必要性。
@@ -38,18 +53,6 @@ comm_fusion={"openstate": True, "allreduce": {"mode": "auto", "config": None}}�
 
 "index"：仅"allreduce"支持配置index，表示按照通信算子序列号进行融合的方式，配置参数"config"类型为list。例如：[20, 35]，表示将前20个AllReduce融合成1个，第20～35个AllReduce融合成1个，剩下的AllReduce融合成1个。
 
-### 通信融合的使用方法
-
-MindSpore提供两种接口来使能通信融合，下面分别进行介绍。
-
-#### 自动并行场景下的配置
-
-在自动并行或半自动并行场景下，用户在通过`set_auto_parallel_context`来配置并行策略时，可以利用该接口提供的`comm_fusion`参数来设置并行策略，用户可以指定用index方法还是fusion buffer的方法。
-
-#### 利用`Cell`提供的接口
-
-无论在哪种并行模式场景下，用户都可以通过`Cell.set_comm_fusion`接口为模型某layer的参数设置index，MindSpore将融合相同index的参数。在自动并行和半自动并行场景下，推荐优先使用`comm_fusion`参数进行配置。
-
 ## 操作实践
 
 ### 样例代码说明
@@ -64,17 +67,10 @@ MindSpore提供两种接口来使能通信融合，下面分别进行介绍。
 └─sample_code
     ├─distributed_comm_fusion
         ├── fusion_example_cell.py
-        ├── rank_table_2pcs.json
-        ├── rank_table_8pcs.json
-        └── run_fusion_example.sh
+        └── run.sh
 ```
 
-其中每个文件的作用如下：
-
-- fusion_example_cell.py：利用`Cell`提供的接口进行通信融合的示例。
-- rank_table_2pcs.json：RANK_TABLE_FILE的2卡配置文件。
-- rank_table_8pcs.json：RANK_TABLE_FILE的8卡配置文件。
-- run_fusion_example.sh：通信融合的启动脚本。
+其中`fusion_example_cell.py`为利用`Cell`提供的接口进行通信融合的示例，`run.sh`为通信融合的启动脚本。
 
 ### 配置通信融合
 
@@ -103,132 +99,142 @@ init()
 
 #### `Cell.set_comm_fusion`接口
 
-如下述代码所示，针对实例化后的DenseLayer，调用`set_comm_fusion`方法，为每一层设置fusion值。
+本示例代码`fusion_example_cell.py`中采取此方法。如下述代码所示，针对实例化后的DenseLayer，调用`set_comm_fusion`方法，为每一层设置fusion值。
 
 ```python
-"""Cell Fusion Example"""
-import os
-from mindspore.communication import init
-from mindspore import nn
 import mindspore as ms
+from mindspore import nn
+from mindspore.communication import init
 
-ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
+ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 init()
 
 class DenseLayer(nn.Cell):
-    """A base layer with two dense layer"""
     def __init__(self):
         super().__init__()
-        self.input_mapping = nn.Dense(10, 10)
-        self.output_mapping = nn.Dense(10, 10)
+        self.input_mapping = nn.Dense(10, 32)
+        self.output_mapping = nn.Dense(32, 10)
+
     def construct(self, x):
         x = self.input_mapping(x)
         return self.output_mapping(x)
 
 class Net(nn.Cell):
-    """An network with many dense layers"""
     def __init__(self):
         super().__init__()
+        self.flatten = nn.Flatten()
+        self.head = nn.Dense(28*28, 10)
         self.layer1 = DenseLayer()
         self.layer2 = DenseLayer()
         self.layer3 = DenseLayer()
-        self.layer1.set_comm_fusion(0)
-        self.layer2.set_comm_fusion(1)
-        self.layer3.set_comm_fusion(2)
+
     def construct(self, x):
+        x = self.flatten(x)
+        x = self.head(x)
         x = self.layer1(x)
         x = self.layer2(x)
         x = self.layer3(x)
         return x
 
 net = Net()
+# 配置通信融合
+net.head.set_comm_fusion(0)
+net.layer1.set_comm_fusion(1)
+net.layer2.set_comm_fusion(2)
+net.layer3.set_comm_fusion(3)
 for item in net.trainable_params():
     print(f"The parameter {item.name}'s fusion id is {item.comm_fusion}")
 ```
 
-对应的输出如下，表示了每层特定dense的fusion index值：
+### 数据集加载和训练过程
+
+数据集加载和训练过程与单卡模式一致，代码如下：
+
+```python
+import os
+import mindspore as ms
+import mindspore.dataset as ds
+from mindspore import nn, ops
+
+def create_dataset(batch_size):
+    dataset_path = os.getenv("DATA_PATH")
+    dataset = ds.MnistDataset(dataset_path)
+    image_transforms = [
+        ds.vision.Rescale(1.0 / 255.0, 0),
+        ds.vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        ds.vision.HWC2CHW()
+    ]
+    label_transform = ds.transforms.TypeCast(ms.int32)
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size)
+    return dataset
+
+data_set = create_dataset(32)
+optimizer = nn.SGD(net.trainable_params(), 1e-2)
+loss_fn = nn.CrossEntropyLoss()
+
+def forward_fn(data, target):
+    logits = net(data)
+    loss = loss_fn(logits, target)
+    return loss, logits
+
+grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+
+@ms.jit
+def train_step(inputs, targets):
+    (loss_value, _), grads = grad_fn(inputs, targets)
+    optimizer(grads)
+    return loss_value
+
+for epoch in range(10):
+    i = 0
+    for image, label in data_set:
+        loss_output = train_step(image, label)
+        if i % 10 == 0:
+            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_output))
+        i += 1
+```
+
+### 运行单机8卡脚本
+
+接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
+
+```bash
+bash run.sh
+```
+
+训练完后，日志文件保存在`log_output/1/rank.*/stdout`中，示例如下：
 
 ```text
-The parameter layer1.input_mapping.weight's fusion id is 0
-The parameter layer1.input_mapping.bias's fusion id is 0
-The parameter layer1.output_mapping.weight's fusion id is 0
-The parameter layer1.output_mapping.bias's fusion id is 0
-The parameter layer2.input_mapping.weight's fusion id is 1
-The parameter layer2.input_mapping.bias's fusion id is 1
-The parameter layer2.output_mapping.weight's fusion id is 1
-The parameter layer2.output_mapping.bias's fusion id is 1
-The parameter layer3.input_mapping.weight's fusion id is 2
-The parameter layer3.input_mapping.bias's fusion id is 2
-The parameter layer3.output_mapping.weight's fusion id is 2
-The parameter layer3.output_mapping.bias's fusion id is 2
+The parameter head.weight's fusion id is 0
+The parameter head.bias's fusion id is 0
+The parameter layer1.input_mapping.weight's fusion id is 1
+The parameter layer1.input_mapping.bias's fusion id is 1
+The parameter layer1.output_mapping.weight's fusion id is 1
+The parameter layer1.output_mapping.bias's fusion id is 1
+The parameter layer2.input_mapping.weight's fusion id is 2
+The parameter layer2.input_mapping.bias's fusion id is 2
+The parameter layer2.output_mapping.weight's fusion id is 2
+The parameter layer2.output_mapping.bias's fusion id is 2
+The parameter layer3.input_mapping.weight's fusion id is 3
+The parameter layer3.input_mapping.bias's fusion id is 3
+The parameter layer3.output_mapping.weight's fusion id is 3
+The parameter layer3.output_mapping.bias's fusion id is 3
+...
+epoch: 0, step: 0, loss is 2.3004832
+epoch: 0, step: 10, loss is 2.294562
+epoch: 0, step: 20, loss is 2.2642817
+epoch: 0, step: 30, loss is 2.1556587
+epoch: 0, step: 40, loss is 1.804863
+epoch: 0, step: 50, loss is 1.4092219
+epoch: 0, step: 60, loss is 1.231769
+epoch: 0, step: 70, loss is 1.1870081
+...
 ```
 
-### 运行代码
-
-上述代码需要在配置分布式变量后才可以运行。Ascend环境需要配置RANK_TABLE_FILE、RANK_ID和DEVICE_ID。配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#配置分布式环境变量)，GPU环境需要配置[OpenMPI](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#配置分布式环境)、NCCL和[HOST_FILE](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#多机多卡训练)，配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#配置分布式环境)。
-
-Ascend分布式相关的环境变量有：
-
-- RANK_TABLE_FILE：组网信息文件的路径。rank_table_file文件可以使用models代码仓中的hccl_tools.py生成，可以从[此处](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools)获取。
-- DEVICE_ID：当前卡在机器上的实际序号。
-- RANK_ID：当前卡的逻辑序号。
-
-GPU分布式相关的环境变量：
-
-- HOST_FILE：描述多卡训练时的设备IP和个数。文件每一行格式为[hostname] slots=[slotnum]，hostname可以是ip或者主机名。需要注意的是，不同机器上的用户名需要相同，但是hostname不可以相同。
-
-用户可以通过[此处](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel)获取上述的此文档中的脚本。执行下述的`bash`脚本即可运行程序，输出日志在device0/train.log0文件。
-
-```bash
-#!/bin/bash
-set -e
-echo "=============================================================================================================="
-echo "Please run the script as: "
-echo "bash run_fusion_example.sh DATA_PATH RANK_SIZE"
-echo "For example: bash run_fusion_example.sh 8"
-echo "It is better to use the absolute path."
-echo "This example is expected to run on the Ascend environment."
-echo "=============================================================================================================="
-RANK_SIZE=$1
-
-EXEC_PATH=$(pwd)
-
-test_dist_8pcs()
-{
-    export RANK_TABLE_FILE=${EXEC_PATH}/rank_table_8pcs.json
-    export RANK_SIZE=8
-}
-
-test_dist_2pcs()
-{
-    export RANK_TABLE_FILE=${EXEC_PATH}/rank_table_2pcs.json
-    export RANK_SIZE=2
-}
-
-test_dist_${RANK_SIZE}pcs
-
-for((i=0;i<${RANK_SIZE};i++))
-do
-    rm -rf device$i
-    mkdir device$i
-    cp ./fusion_example_cell.py ./device$i
-    cd ./device$i
-    export DEVICE_ID=$i
-    export RANK_ID=$i
-    echo "start training for device $i"
-    env > env$i.log
-    pytest -s -v ./fusion_example_cell.py > train.log$i 2>&1 &
-    cd ../
-done
-echo "The program launch succeed, the log is under device0/train.log0."
-```
-
-在当前目录下配置完RANK_TABLE_FILE之后，下述的命令要求用户拥有8张Ascend 910设备。运行命令如下：
-
-```bash
-bash run_fusion_example.sh 8
-```
+第一部分表示了每层特定dense的fusion index值，第二部分表示训练的Loss结果。
 
 ## 参考文献
 

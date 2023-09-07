@@ -3,7 +3,7 @@ set -e
 echo "=============================================================================================================="
 echo "Please run the script as: "
 echo "bash run_shard_function_example.sh RANK_SIZE RANK_TABLE_FILE"
-echo "For example: bash run_fusion_example.sh 8"
+echo "For example: bash run_fusion_example.sh 8 ../rank_table_8pcs.json"
 echo "It is better to use the absolute path."
 echo "This example is expected to run on the Ascend environment."
 echo "=============================================================================================================="
@@ -13,6 +13,16 @@ then
     echo "Usage: bash run_shasrd_function_example.sh RANK_SIZE RANK_TABLE_FILE"
 exit 1
 fi
+
+EXEC_PATH=$(pwd)
+
+if [ ! -d "${EXEC_PATH}/MNIST_Data" ]; then
+    if [ ! -f "${EXEC_PATH}/MNIST_Data.zip" ]; then
+        wget http://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip
+    fi
+    unzip MNIST_Data.zip
+fi
+export DATA_PATH=${EXEC_PATH}/MNIST_Data/train/
 
 RANK_SIZE=$1
 RANK_TABLE_FILE=$2
