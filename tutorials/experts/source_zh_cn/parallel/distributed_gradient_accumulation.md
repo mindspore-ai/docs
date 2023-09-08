@@ -22,7 +22,7 @@
 
 4. 梯度更新：在达到累加步数后，使用累加的梯度来通过优化器更新模型参数。
 
-5. 清零梯度：在梯度更新后，将梯度值清零，以便下一个累加周期的计算。
+5. 梯度清零：在梯度更新后，将梯度值清零，以便下一个累加周期的计算。
 
 ## 操作实践
 
@@ -113,6 +113,7 @@ net = Network()
 ```python
 import mindspore as ms
 from mindspore import nn, train
+from mindspore.nn.wrap.cell_wrapper import GradAccumulationCell
 
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
 loss_fn = nn.CrossEntropyLoss()

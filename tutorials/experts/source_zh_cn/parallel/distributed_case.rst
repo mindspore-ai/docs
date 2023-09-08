@@ -6,3 +6,4 @@
 
   pangu_alpha
   multiple_mix
+  ms_operator

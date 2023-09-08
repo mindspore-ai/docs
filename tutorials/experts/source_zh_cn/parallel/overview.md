@@ -38,7 +38,7 @@ MindSpore目前支持三种启动方式：
 
 在分布式并行训练过程中，可能会遇到计算节点的故障或通信中断等问题。MindSpore提供了三种恢复方式以保证训练的稳定性和连续性：
 
-- **根据完整Checkpoint恢复**：在保存Checkpoint文件前，通过AllGather算子汇聚模型的完整参数，每张卡均保存了完整的模型参数文件，可以直接加载恢复。多副本提高了模型的容错性，但是对于大模型来说，汇聚的过程会导致各种资源开销过大。详细可参考[模型加载](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_loading.html)教程。
+- **根据完整Checkpoint恢复**：在保存Checkpoint文件前，通过AllGather算子汇聚模型的完整参数，每张卡均保存了完整的模型参数文件，可以直接加载恢复。多个checkpoints副本提高了模型的容错性，但是对于大模型来说，汇聚的过程会导致各种资源开销过大。详细可参考[模型加载](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_loading.html)教程。
 - **动态组网场景下故障恢复**：在动态组网中，若某个进程出现故障，其他进程会进入等待状态，可以通过重新拉起故障进程使得训练任务继续进行（目前仅支持GPU硬件平台）。和其他方式相比，该故障恢复方式无需重启集群。详细可参考[动态组网场景下故障恢复](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/disaster_recover.html)
 - **根据参数切分的冗余信息恢复**：在大模型训练中，根据数据并行的维度所划分的设备，他们的模型参数是相同的。根据这个原理，可以利用这些冗余的参数信息作为备份，在一个节点故障时，利用相同参数的另一节点就可以恢复故障的节点。详细可参考[基于冗余信息的故障恢复](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/fault_recover.html)教程。
 
