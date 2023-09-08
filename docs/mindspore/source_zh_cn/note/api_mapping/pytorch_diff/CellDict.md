@@ -22,8 +22,8 @@ class mindspore.nn.CellDict(*args, **kwargs)
 
 PyTorch：ModuleDict是一个Module字典，可以像使用普通Python字典一样使用它。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致。MindSpore在功能上有一点与PyTorch不一致，
-相比于ModuleDict, CellDict不支持存储从Cell派生而来的CellDict、CellList以及SequentialCell。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致。CellDict支持的Cell的类型与ModuleDict有两点不一致，
+一是相比于ModuleDict, CellDict不支持存储从Cell派生而来的CellDict、CellList以及SequentialCell，详见代码示例1；二是CellDict不支持存储类型为None的Cell，详见代码示例2。
 
 | 分类 | 子类   | PyTorch | MindSpore  | 差异 |
 | ---- | ------ | -------| -----------| ------|
@@ -57,4 +57,29 @@ for item in modules:
 # ModuleList(
 #   (0): Linear(in_features=2, out_features=2, bias=True)
 # )
+```
+
+### 代码示例2
+
+```python
+# PyTorch
+from torch import nn
+
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.module_dict = nn.ModuleDict({'conv': None, 'pool': None})
+
+    def forward(self):
+        return self.module_dict.items()
+
+net = Net()
+modules = net()
+for item in modules:
+    print(item[0])
+    print(item[1])
+# conv
+# None
+# pool
+# None
 ```
