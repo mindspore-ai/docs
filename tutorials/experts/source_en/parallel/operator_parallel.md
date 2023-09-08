@@ -102,7 +102,6 @@ import os
 import mindspore.dataset as ds
 
 def create_dataset(batch_size):
-    """create dataset"""
     dataset_path = os.getenv("DATA_PATH")
     dataset = ds.MnistDataset(dataset_path)
     image_transforms = [

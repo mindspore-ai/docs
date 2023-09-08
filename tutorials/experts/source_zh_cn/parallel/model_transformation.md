@@ -70,7 +70,7 @@
 其中每个文件的作用如下：
 
 - `model_transformation_infer.py`：模型转换后进行推理的脚本。
-- `model_transformation_retrain.py`模型转换后进行二阶段训练的脚本。
+- `model_transformation_retrain.py`：模型转换后进行二阶段训练的脚本。
 - `pipeline_transformation_retrain.py`：流水线并行模型转换后二阶段训练的脚本。
 - `pipeline_train.py`：流水线并行训练网络的脚本。
 - `run_infer_convert.sh`：执行模型转换的脚本。
@@ -82,7 +82,7 @@
 
 ### 分布式模型保存
 
-首先，按照[模型保存](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_saving.html)教程执行8卡分布式训练，并行模式为`SEMI_AUTO_PARALLEL`或者`AUTO_PARALLEL`，同时通过调用`set_auto_parallel_context`接口自定义`strategy_ckpt_config`参数配置模型切分策略文件存储路径， 训练一段时间后，调用存储Checkpoint的`train.ModelCheckpoint`函数，将分布式的Checkpoint存储下来。
+首先，按照[模型保存](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_saving.html)教程执行8卡分布式训练，并行模式为`SEMI_AUTO_PARALLEL`或者`AUTO_PARALLEL`，同时通过调用`set_auto_parallel_context`接口自定义`strategy_ckpt_config`参数配置模型切分策略文件存储路径，训练一段时间后，调用存储Checkpoint的`train.ModelCheckpoint`函数，将分布式的Checkpoint存储下来。
 
 训练结束后，将会在当前路径生成源Checkpoint文件目录以及源切分策略文件：
 
@@ -118,7 +118,7 @@ src_checkpoints
 
 ### 生成目标策略文件
 
-然后需要编译新的卡数或者切分策略下的网络，生成目标网络的模型切分策略文件，本示例中，原始策略以8卡进行训练，layer1的`ops.MatMul()`算子并行策略为((2, 1), (1, 2))，不开启优化器并行，策略文件命名为src_strategy.ckpt； 目标策略以4卡进行训练，layer1的`ops.MatMul()`算子并行策略为((2, 2), (2, 1))，且开启优化器并行，策略文件命名为dst_stategy.ckpt。
+然后需要编译新的卡数或者切分策略下的网络，生成目标网络的模型切分策略文件，本示例中，原始策略以8卡进行训练，layer1的`ops.MatMul()`算子并行策略为((2, 1), (1, 2))，不开启优化器并行，策略文件命名为src_strategy.ckpt；目标策略以4卡进行训练，layer1的`ops.MatMul()`算子并行策略为((2, 2), (2, 1))，且开启优化器并行，策略文件命名为dst_stategy.ckpt。
 
 #### 配置分布式环境
 
@@ -201,7 +201,7 @@ data_set = create_dataset(32)
 
 #### 对目标网络执行编译
 
-进行分布式的Checkpoint的转换，依赖于原始的分布式策略文件与目标的分布式策略文件，执行原始的策略下的网络训练时，已经将分布式策略文件存储下来了，因此需要另外获取到目标策略下的分布式策略文件。 通过对目标策略的网络执行编译，即可获取到目标策略网络的分布式策略文件。通过`model.infer_train_layout`接口即可以单独对网络执行编译。
+进行分布式的Checkpoint的转换，依赖于原始的分布式策略文件与目标的分布式策略文件，执行原始的策略下的网络训练时，已经将分布式策略文件存储下来了，因此需要另外获取到目标策略下的分布式策略文件。通过对目标策略的网络执行编译，即可获取到目标策略网络的分布式策略文件。通过`model.infer_train_layout`接口即可以单独对网络执行编译。
 
 ```python
 import mindspore as ms
@@ -228,7 +228,7 @@ model.infer_predict_layout(predict_data)
 
 ### 执行分布式Checkpoint转换
 
-在这一步，需要调用分布式Checkpoint转换的接口进行分布式Checkpoint的转换，分布式Checkpoint提供两个接口对Checkpoint进行转换。第一个接口`transform_checkpoints`，要求用户将所有的Checkpoint放置于一个目录，并且子目录必须以”rank_0、rank_1、rank_2、…“格式进行命名。 用户调用该接口直接对整个目录进行转换。该方式使用较为方便，但是转换需要的内存开销会略高一些。第二个接口`transform_checkpoint_by_rank`，用以获取到特定的rank的Checkpoint，有更大的灵活性与更低的内存开销， 需要配合`rank_list_for_transform`接口使用，以获取本rank的目标Checkpoint需要哪些原始Checkpoint。
+在这一步，需要调用分布式Checkpoint转换的接口进行分布式Checkpoint的转换，分布式Checkpoint提供两个接口对Checkpoint进行转换。第一个接口`transform_checkpoints`，要求用户将所有的Checkpoint放置于一个目录，并且子目录必须以”rank_0、rank_1、rank_2、…“格式进行命名。用户调用该接口直接对整个目录进行转换。该方式使用较为方便，但是转换需要的内存开销会略高一些。第二个接口`transform_checkpoint_by_rank`，用以获取到特定的rank的Checkpoint，有更大的灵活性与更低的内存开销，需要配合`rank_list_for_transform`接口使用，以获取本rank的目标Checkpoint需要哪些原始Checkpoint。
 
 1. 使用接口`transform_checkpoints`。
 
@@ -363,7 +363,7 @@ epoch: 1, step: 100, loss is 0.07113413
 ### 流水线并行模型转换
 
 [流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/pipeline_parallel.html) 是对线性的网络进行切分，得到多个子网络，子网络之间在多卡间进行流水，因此每个子图存储下来的切分策略文件是不一致的，所有切分策略汇聚在一起才能得到完整的网络的切分信息。
-因此针对流水线并行的维度，相比于其它维度的转换，需要事先执行一次汇聚切分策略文件的操作，得到汇聚后的切分策略文件，以这一份文件作为分布式Checkpoint转换依赖的策略文件。此外，与前面的[执行分布式Checkpoint转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_transformation.html#执行分布式checkpoint转换) 没有差异。
+因此针对流水线并行的维度，相比于其它维度的转换，需要事先执行一次汇聚切分策略文件的操作，得到汇聚后的切分策略文件，以这一份文件作为分布式Checkpoint转换依赖的策略文件。此外，与前面的[执行分布式Checkpoint转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_transformation.html#执行分布式checkpoint转换)没有差异。
 
 相关接口：
 
@@ -427,7 +427,7 @@ bash run_pipeline_train.sh
 ...
 ```
 
-参考[对目标网络执行编译](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_transformation.html#%E5%AF%B9%E7%9B%AE%E6%A0%87%E7%BD%91%E7%BB%9C%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91) 章节，同样编译目标网络以得到目标网络的切分策略文件。
+参考[对目标网络执行编译](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_transformation.html#%E5%AF%B9%E7%9B%AE%E6%A0%87%E7%BD%91%E7%BB%9C%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91)章节，同样编译目标网络以得到目标网络的切分策略文件。
 
 下一步展开包含pipeline并行维度的分布式Checkpoint维度转换，首先使用接口`merge_pipeline_strategys`对pipline训练得到的切分策略文件进行合并，而后使用接口`transform_checkpoints`或者`transform_checkpoint_by_rank`进行分布式Checkpoint转换。
 
