@@ -288,3 +288,82 @@ def kernel_func(a, b):
     - “SyntaxError”: 写的 DSL 不符合基本 Python 语法（非上面的进阶用法中定义的MindSpore Hybrid DSL语法），由 Python 解释器本身报错；
     - “ValueError: Compile error”及“The pointer\[kernel_mod\] is null”: Python DSL符合语法但是编译失败，由 AKG 报错，具体错误原因检查 AKG 相关报错信息；
     - “Launch graph failed”: Python DSL符合语法，编译成功但是运行失败。具体原因参考硬件的报错信息。例如在昇腾芯片上遇到运行失败时，MindSpore 端会显示 “Ascend error occurred” 及对应硬件报错信息。
+
+## 开发用例：利用hybrid类型的自定义算子实现三维张量的加法函数
+
+首先，我们写一个基于MindSpore Hybrid DSL书写一个计算三维张量相加的函数。
+
+注意：
+
+- 对于输出张量使用 `output_tensor`，用法为：`output_tensor(shape, dtype)`；
+- 所有的计算需要基于标量计算，如果是Tensor对象，那么需要写清楚所有index；
+- 基本循环的写法和Python一样，循环维度的表达可以使用 `range`。
+
+```python
+import numpy as np
+from mindspore import ops
+import mindspore as ms
+from mindspore.ops import kernel
+
+ms.set_context(device_target="GPU")
+@kernel
+def tensor_add_3d(x, y):
+    result = output_tensor(x.shape, x.dtype)
+    #    1. 你需要一个三层循环
+    #    2. 第i层循环的上界可以用x.shape[i]获得
+    #    3. 你需要基于每个元素表达计算，例如加法为 x[i, j, k] + y[i, j, k]
+    for i in range(x.shape[0]):
+        for j in range(x.shape[1]):
+            for k in range(x.shape[2]):
+                result[i, j, k] = x[i, j, k] + y[i, j, k]
+
+    return result
+```
+
+下面我们用上面的函数自定义一个算子。
+
+注意到基于`kernel`的`hybrid`函数时，我们可以使用自动的形状和数据类型推导。
+
+因此我们只用给一个`func`输入（`func_type`的默认值为`"hybrid"`）。
+
+```python
+tensor_add_3d_op = ops.Custom(func = tensor_add_3d)
+input_tensor_x = ms.Tensor(np.ones([2, 3, 4]).astype(np.float32))
+input_tensor_y = ms.Tensor(np.ones([2, 3, 4]).astype(np.float32) * 2)
+result_cus = tensor_add_3d_op(input_tensor_x, input_tensor_y)
+print(result_cus)
+```
+
+同时我们可以使用`pyfunc`模式验证上面定义的正确性。
+
+这里我们不需要重新定义算子计算函数`tensor_add_3d`，直接将`func_type`改为`"pyfunc"`即可。
+
+注意`pyfunc`模式时我们需要手写类型推导函数。
+
+```python
+def infer_shape_py(x, y):
+    return x
+
+def infer_dtype_py(x, y):
+    return x
+
+tensor_add_3d_py_func = ops.Custom(func = tensor_add_3d,
+                                   out_shape = infer_shape_py,
+                                   out_dtype = infer_dtype_py,
+                                   func_type = "pyfunc")
+
+result_pyfunc = tensor_add_3d_py_func(input_tensor_x, input_tensor_y)
+print(result_pyfunc)
+```
+
+我们可以得到如下结果，即两个Tensor的和。
+
+```text
+ [[[3. 3. 3. 3.]
+  [3. 3. 3. 3.]
+  [3. 3. 3. 3.]]
+
+ [[3. 3. 3. 3.]
+  [3. 3. 3. 3.]
+  [3. 3. 3. 3.]]]
+```

@@ -286,3 +286,71 @@ To help users effectively develop and locate bugs, MindSpore Hybrid DSL provides
     - "SyntaxError": DSL does not conform to the Python syntax (not the syntax defined by MindSpore Hybrid DSL), and is reported by the Python interpreter itself
     - "ValueError: Compile error" and "The pointer\[kernel_mod\] is null": the kernel compiler fails in compiling the DSL. Check error messages from AKG for further information;
     - "Launch graph failed": The compiled kernel fails in running. Check the error message from the hardware. For example, when the kernel fails in Ascend, there will be an "Ascend error occurred" message and corresponding hareware error messages.
+
+## Example：Three Dim Tensor Add Operator Based on Hybrid
+
+Firstly we define a function for three dim tensor add with MindSpore Hybrid DSL.
+Notice that:
+
+- the output tensor is defined with the keyword `output_tensor` like `output_tensor(shape, dtype)`;
+- all the computation is scalar-based, and we need all indices for elements in tensors;
+- like Python we define a loop with the keyword `range`.
+
+```python
+@kernel
+def tensor_add_3d(x, y):
+    result = output_tensor(x.shape, x.dtype)
+    #    1. we need a three dim loops
+    #    2. the extent of i'th loop is x.shape[i]
+    #    3. we need to write the elementwise computation such as x[i, j, k] + y[i, j, k]
+    for i in range(x.shape[0]):
+        for j in range(x.shape[1]):
+            for k in range(x.shape[2]):
+                result[i, j, k] = x[i, j, k] + y[i, j, k]
+
+    return result
+```
+
+Next we define a custom op with the above function by DSL.
+Notice that the function based on `kernel`, we can use the automatic shape and data type derivation.
+Thus we give the input of `func` only with the default value of `func_type` as `"hybrid"`.
+
+```python
+tensor_add_3d_op = ops.Custom(func = tensor_add_3d)
+input_tensor_x = ms.Tensor(np.ones([2, 3, 4]).astype(np.float32))
+input_tensor_y = ms.Tensor(np.ones([2, 3, 4]).astype(np.float32) * 2)
+result_cus = tensor_add_3d_op(input_tensor_x, input_tensor_y)
+print(result_cus)
+```
+
+Meanwhile we can check the result via the mode of `pyfunc`.
+Without redefining the function of `tensor_add_3d`, we change the input of `func_type` directly to `"pyfunc"`.
+Notice that in `pyfunc` mode we need to write type derivation function.
+
+```python
+def infer_shape_py(x, y):
+    return x
+
+def infer_dtype_py(x, y):
+    return x
+
+tensor_add_3d_py_func = ops.Custom(func = tensor_add_3d,
+                                   out_shape = infer_shape_py,
+                                   out_dtype = infer_dtype_py,
+                                   func_type = "pyfunc")
+
+result_pyfunc = tensor_add_3d_py_func(input_tensor_x, input_tensor_y)
+print(result_pyfunc)
+```
+
+Then we have the following result, namely the sum of two input tensors.
+
+```text
+ [[[3. 3. 3. 3.]
+  [3. 3. 3. 3.]
+  [3. 3. 3. 3.]]
+
+ [[3. 3. 3. 3.]
+  [3. 3. 3. 3.]
+  [3. 3. 3. 3.]]]
+```

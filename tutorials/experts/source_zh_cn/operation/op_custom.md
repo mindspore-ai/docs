@@ -20,24 +20,23 @@
 - 实现了不同方式自定义算子的接口和使用统一，方便网络开发者根据需要灵活选用不同的自定义方式。
 - 新增支持hybrid等自定义算子方式，并且可以跨平台使用。
 
-## 基本用法
-
 基于[Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语的自定义算子支持的算子开发方式包括：hybrid、tbe、aicpu、aot、pyfunc、julia、akg。
 
 不同的算子开发方式差异如下：
 
 | 算子开发方式 | 开发语言              | 编译方式 | 支持平台 | 推荐场景                    |
 |:-------|:------------------|:------ |:------ |:------------------------|
+| [pyfunc](#pyfunc类型的自定义算子开发) | Python            | N/A | `CPU` | 快速算法验证、需要与Python进行交互等场景 |
 | [hybrid](#hybrid类型的自定义算子开发) | MindSpore HYBRID DSL | JIT | `Ascend` `GPU` `CPU` | 全平台通用开发和快速验证 |
 | [tbe](#tbe类型的自定义算子开发)    | TBE DSL           | JIT | `Ascend` | Ascend AICORE自定义算子场景    |
+| [akg](#akg类型的自定义算子开发)    | MindSpore AKG DSL | JIT | `Ascend` `GPU` | 用于开发验证场景，不建议普通用户使用      |
 | [aicpu](#aicpu类型的自定义算子开发)  | C/C++             | AOT | `Ascend` | Ascend AICPU自定义算子场景     |
 | [aot](#aot类型的自定义算子开发)    | C/C++/CUDA        | AOT | `GPU` `CPU` | 高性能手写、对接调用第三方算子库场景      |
-| [pyfunc](#pyfunc类型的自定义算子开发) | Python            | JIT | `CPU` | 快速算法验证、需要与Python进行交互等场景 |
-| [julia](#julia类型的自定义算子开发)  | Julia             | JIT | `CPU` | 科学计算场景、需要使用Julia编程等场景   |
-| [akg](#akg类型的自定义算子开发)    | MindSpore AKG DSL | JIT | `Ascend` `GPU` | 用于开发验证场景，不建议普通用户使用      |
+| [julia](#julia类型的自定义算子开发)  | Julia             | N/A | `CPU` | 科学计算场景、需要使用Julia编程等场景   |
 
 > - DSL全称是Domain Specific Language。
-> - AOT（Ahead Of Time）编译方式指的是，算子实现函数需提前被编译为动态链接库，然后在网络运行时由框架自动调用；JIT（Just In Time）编译方式则不需要提前编译算子实现函数，而是在网络编译或运行期间被框架直接调用。
+> - AOT（Ahead Of Time）编译方式指的是，算子实现函数需提前被编译为动态链接库，然后在网络运行时由框架自动调用；JIT（Just In Time）编译方式则不需要提前编译算子实现函数，而是在网络编译或运行期间被框架直接编译。
+> - 为了区别自定义算子的类型和编译方式，下面的文中用aot指代自定义算子的类型，用AOT指代自定义算子的编译方式。
 
 不同平台的不同场景下的推荐开发方式如下：
 
@@ -49,11 +48,98 @@
 
 > 更多示例可参考MindSpore源码中[tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom)下的用例。
 
+## 自定义算子入门：一个例子
+
+为了帮助用户快速入门自定义算子，这里以pyfunc类型自定义算子为例帮助用户理解自定义算子的定义流程。下面基于pyfunc模式定义一个实现sin计算的自定义算子。pyfunc类型的自定义算子使用原生Python语法定义算子实现函数，描述算子内部计算逻辑的实现。网络运行时框架会自动调用此函数。为了表达自定义算子的计算，我们写一个基于numpy的计算正弦函数的Python原生函数。
+
+```python
+import numpy as np
+
+def sin_by_numpy(x):
+    return np.sin(x)
+```
+
+然后我们要定义两个函数，一个是张量形状的推导函数（infer_shape），另一个是张量数据类型的推导函数（infer_dtype）。这里要注意：
+
+- 张量形状的推导函数是输入张量的形状；
+- 张量数据类型的推导函数是输入张量的数据类型。
+
+```python
+def infer_shape(x):
+
+    #    1. 这里的输入x是算子输入张量的形状
+    #    2. sin函数是逐元素计算，输入的形状和输出的一样
+    return x
+
+def infer_dtype(x):
+
+    #    1. 这里的输入x是算子输入张量的数据类型
+    #    2. sin函数输入的数据类型和输出的一样
+    return x
+
+```
+
+下面我们用上面的函数自定义一个算子，其输入包括
+
+- func：自定义算子的函数表达，这里我们用`sin_by_numpy`函数；
+- out_shape: 输出形状的推导函数，这里我们用`infer_shape`函数；
+- out_dtype: 输出数据类型的推导函数，这里我们用`infer_dtype`函数；
+- func_type: 自定义算子类型，这里我们用`"pyfunc"`。
+
+```python
+from mindspore import ops
+
+sin_by_numpy_op = ops.Custom(func = sin_by_numpy,     # 这里填入自定义算子的函数表达
+                             out_shape = infer_shape, # 这里填入输出形状的推导函数
+                             out_dtype = infer_dtype, # 这里填入输出数据类型的推导函数
+                             func_type = "pyfunc"     # 这里填入自定义算子类型
+                            )
+```
+
+加上其他环境依赖依赖和算子调用语句，我们获得完整的自定义算子用例如下。
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import ops
+
+ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
+
+def sin_by_numpy(x):
+    return np.sin(x)
+
+def infer_shape(x):
+    return x
+
+def infer_dtype(x):
+    return x
+
+sin_by_numpy_op = ops.Custom(func = sin_by_numpy,
+                             out_shape = infer_shape,
+                             out_dtype = infer_dtype,
+                             func_type = "pyfunc" )
+input_tensor = ms.Tensor([0,1, 0.2, 0.3, 0.4], dtype=ms.float32)
+result_cus = sin_by_numpy_op(input_tensor)
+print(result_cus)
+```
+
+我们可以得到结果为，即上面输入对应的sin值。
+
+```text
+[0.         0.84147096 0.19866933 0.29552022 0.38941833]
+```
+
+如此我们完成一个pyfunc类型自定义算子的定义。对于更多完整的pyfunc类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/test_custom_pyfunc.py)。
+
+## 采用JIT编译的自定义算子
+
+JIT（Just In Time）指算子在网络编译或运行期间被框架直接编译。用户可以直接用Python脚本在网络脚本中直接定义此种类型的自定义算子，然后根据算子和后端类型调用对应算子编译器自动编译。此种类型的自定义算子定义方便，而且有着更好的后端适应性。
+
 ### Hybrid类型的自定义算子开发
 
 Hybrid类型的自定义算子是自定义算子的默认定义类型。通过使用Hybrid类型的自定义算子，用户可以用类Python的语法描述算子计算逻辑，且无需关注MindSpore框架对于算子定义的工程细节，让用户专注于算法本身。
 
-Hybrid类型的自定义算子使用[MindSpore Hybrid DSL](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/ms_kernel.html#语法规则)描述算子内部计算逻辑的实现。用MindSpore Hybrid DSL定义的函数可以被[AKG算子编译器](https://gitee.com/mindspore/akg)解析进行JIT编译生成高效算子，在大规模模型的训练推理中使用。同时，用MindSpore Hybrid DSL定义的函数可以当做一个`numpy`函数直接调用，方便用户调试的同时也可以灵活的切换到[pyfunc 类型的自定义算子](#pyfunc类型的自定义算子开发)，做到一次开发，多个模式多个平台多个场景复用的自定义算子表达。
+Hybrid类型的自定义算子使用[MindSpore Hybrid DSL](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/ms_kernel.html#语法规则)描述算子内部计算逻辑的实现。用MindSpore Hybrid DSL定义的函数可以被[AKG算子编译器](https://gitee.com/mindspore/akg)解析进行JIT编译生成高效算子，在大规模模型的训练推理中使用。同时，用MindSpore Hybrid DSL定义的函数可以当做一个`numpy`函数直接调用，方便用户调试的同时也可以灵活的切换到[pyfunc 类型的自定义算子](#自定义算子入门一个例子)，做到一次开发，多个模式多个平台多个场景复用的自定义算子表达。
 
 下面用例(test_custom_hybrid.py)介绍hybrid类型的自定义算子开发流程，其中自定义算子实现两个输入张量相加的功能。
 值得注意的是，Hybrid类型的自定义算子采取源码变换的方式打通MindSpore的图编译器和算子编译器，用户可以直接使用MindSpore Hybrid DSL提供的关键词，例如下面的`output_tensor`，而无需引入对应Python函数。更多MindSpore Hybrid DSL关键词的介绍，参见[MindSpore Hybrid DSL关键词](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/ms_kernel.html#关键词)。
@@ -103,6 +189,8 @@ python test_custom_hybrid.py
 [[2. 2.]
  [4. 4.]]
 ```
+
+对于更多完整的hybrid类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/test_ms_kernel.py)。
 
 ### tbe类型的自定义算子开发
 
@@ -172,89 +260,79 @@ python test_custom_tbe.py
  [4. 4.]]
 ```
 
-### aicpu类型的自定义算子开发
+对于更多完整的tbe类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/test_custom_tbe.py)。
 
-aicpu类型的自定义算子采用AOT编译方式，要求算子开发者基于提供的特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后框架会根据开发者在算子属性中配置的动态链接库名称，找到对应动态链接库并加载算子。具体算子实现参考[CANN AICPU 自定义算子开发](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/operatordev/aicpudevg/aicpudevg_000026.html)。
+### akg类型的自定义算子开发
+
+akg类型的自定义算子使用[MindSpore AKG](https://gitee.com/mindspore/akg)算子DSL，描述算子内部计算逻辑的实现。MindSpore AKG是基于TVM（Tensor Virtual Machine）和Polyhedral技术的算子开发和编译框架，支持Hybrid、IR builder和TVM compute等多种类型的算子DSL。
 
 算子输出shape和数据类型推理可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
 
-这种类型的自定义算子需要注册算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_adv.html#算子信息注册)，aicpu类型的自定义算子，需要额外指定`attr("cust_aicpu",  "required", "str", "mindspore_aicpu_kernels")`的属性，用于MindSpore找到对应的算子实现的动态链接库。
+若算子包含属性或者只支持特定的输入输出数据类型或数据格式，则需要注册算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_adv.html#算子信息注册)。若未注册算子信息，在后端做算子选择和映射的时候，将会从当前算子的输入中推导算子信息。
 
-> - 需要注意的是，aicpu类型的自定义算子开发后编译成的动态链接库，需要存放到MindSpore的lib目录下，比如MindSpore安装在虚拟环境`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore`下，则aicpu的so文件需要放到`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore/lib/`目录下。
-> - “cust_aicpu”的值为字符串，用算子动态链接库的名字去除`lib`前缀与`.so`后缀表示，如`libmindspore_aicpu_kernels.so`则设为`"mindspore_aicpu_kernels"`即可。
+下面以test_custom_akg.py为例介绍akg类型的自定义算子开发流程，其中自定义算子实现两个输入张量相加的功能。
 
-下面以test_dropout_aicpu.py为例介绍aicpu类型的自定义算子开发流程，其中自定义算子实现了dropout的功能，并且编译好的算子动态链接库，我们命名为libmindspore_aicpu_kernels.so，并已将该动态链接库放至mindspore根目录的lib下。
-
-test_dropout_aicpu.py内容：
+test_custom_akg.py内容：
 
 ```python
 import numpy as np
 import mindspore as ms
-import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore.ops import CustomRegOp, DataType
 
-ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
+ms.set_context(device_target="GPU")
 
-# 算子实现，注册算子信息
-acos_op_info = CustomRegOp("Abs") \
-    .fusion_type("OPAQUE") \
-    .input(0, "x", "required") \
-    .output(0, "y", "required") \
-    .attr("cust_aicpu", "required", "str", "mindspore_aicpu_kernels") \
-    .dtype_format(DataType.F16_Default, DataType.F16_Default) \
-    .dtype_format(DataType.F32_Default, DataType.F32_Default) \
-    .dtype_format(DataType.F64_Default, DataType.F64_Default) \
-    .target("Ascend") \
-    .get_op_info()
-
-
-# 定义自定义算子网络
-class NetAbs(nn.Cell):
-    def __init__(self):
-        super(NetAbs, self).__init__()
-        self.op = ops.Custom("acos_aicpu", out_shape=lambda x, cust_attr: x,
-                             out_dtype=lambda x, cust_attr: x, func_type="aicpu",
-                             reg_info=acos_op_info)
-        self.cust_aicpu_so_path = "mindspore_aicpu_kernels"
-
-    def construct(self, inputs):
-        return self.op(inputs, self.cust_aicpu_so_path)
+# 算子实现，Hybrid DSL
+def add(a, b):
+    c = output_tensor(a.shape, a.dtype)
+    for i0 in range(a.shape[0]):
+        for i1 in range(a.shape[1]):
+            c[i0, i1] = a[i0, i1] + b[i0, i1]
+    return c
 
 if __name__ == "__main__":
-    # 定义aicpu类型的自定义算子
-    input_tensor = ms.Tensor(np.ones([1, 1, 2, 3]), ms.float32)
-    abs_nn = NetAbs()
-    output = abs_nn(input_tensor)
-    print("output shape: ", output.shape)
+    # 定义akg类型的自定义算子
+    op = ops.Custom(add, out_shape=lambda x, _: x, out_dtype=lambda x, _: x, func_type="akg")
+
+    x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
+    x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
+    print(output)
 ```
 
 本例中，有如下几点需要说明：
 
-- 可以用多种方式指定`Custom`原语的`out_shape`和`out_dtype`参数，可以给定类型，也可以用Python lambda函数等设置。本例中lambda函数表明输出的两个shape与输入相同，第一个输出的数据类型和输入张量的信息相同，第二个输出的数据类型为bool类型。
-- 通过`CustomRegOp`生成算子信息，并通过`Custom`的`reg_info`接口传入。
+- `set_context(device_target="GPU")`表示算子运行在GPU平台，若要运行在Ascend平台，请编译Ascend版本的MindSpore，并将device_target的值设置为"Ascend"。
+- 用Python lambda函数定义输出shape和数据类型推理函数，并分别传给`Custom`原语的`out_shape`和`out_dtype`参数。本例中lambda函数表明输出shape和数据类型和第一个输入张量的信息相同。
+- 未注册算子信息，所以自定义算子的算子信息将会从算子输入中推理。
 
 执行用例：
 
 ```bash
-python test_dropout_aicpu.py
+python test_custom_akg.py
 ```
 
-执行结果（由于dropout算子具有随机性，多次运行结果存在差异）：
+执行结果：
 
 ```text
-output shape:  (1, 1, 2, 3)
+[[2. 2.]
+ [4. 4.]]
 ```
+
+对于更多完整的akg类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/test_custom_akg.py)。
+
+## 采用AOT编译的自定义算子
+
+AOT类型的自定义算子指用户事先把算子编译成二进制文件后接入网络。通常用户通过C/C++/CUDA等编程语言手工优化算子实现，并把算子以动态库的形式接入MindSpore加速网络。如此，用户可以针对算子进行极致优化，发挥对应后端硬件的极致性能。这里我们会介绍AOT类型自定义算子的一些基础知识，对于AOT类型自定义算子的更多用法和功能，请参见[AOT类型自定义算子进阶用法](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_aot.html)
 
 ### aot类型的自定义算子开发
 
 aot类型的自定义算子采用AOT编译方式，要求网络开发者基于特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后在网络运行时框架会自动调用执行动态链接库中的函数。在算子实现的开发语言方面，GPU平台支持CUDA，CPU平台支持C和C++。源码文件中的算子实现函数的接口规范如下：
 
 ```cpp
-extern "C" int func_name(int nparam, void **params, int *ndims, int64_t **shapes, const char **dtypes, void *stream, void *extra);
+extern "C" int CustomFunc(int nparam, void **params, int *ndims, int64_t **shapes, const char **dtypes, void *stream, void *extra);
 ```
 
-其中，函数名`func_name`可替换成任意有效函数名。返回值为int类型，约定0表示正常退出，非0表示发生异常。参数列表的含义如下：
+其中，函数名`CustomFunc`可替换成任意有效函数名。返回值为int类型，约定0表示正常退出，非0表示发生异常。参数列表的含义如下：
 
 - nparam (int): 输入输出总数。比如算子有2个输入，1个输出，则nparam的值为3。
 - params (void \*\*): 输入输出指针数组。比如算子有2个输入，1个输出，params[0]指向第一个输入数据，params[1]指向第二个输入数据，params[2]指向输出数据。
@@ -263,6 +341,11 @@ extern "C" int func_name(int nparam, void **params, int *ndims, int64_t **shapes
 - dtypes (const char \*\*): 输入输出数据类型数组。dtypes里的元素取值可为："float32", "float16", "float", "float64", "int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", "bool"。
 - stream (void \*): CUDA流指针，仅定义GPU算子实现时需要。
 - extra (void \*): 用于后续扩展。
+
+在Python脚本中，`Custom`接口中的`func`输入的格式为`Path_To_Func:CustomFunc`，其中`CustomFunc`为上面函数的名字，而`Path_To_Func`为对应函数源文件或者二进制库的地址。
+
+> - MindSpore识别自动编译的方式为文件名后缀。为了使用自动编译功能，请使用后缀为`cpp`、`cc`或者`cu`的源文件。其他情况MindSpore将处理为二进制库的路径；
+> - 为了防止恶意第三方库篡改，请在环境变量`MS_CUSTOM_AOT_WHITE_LIST`设置合法第三方库的路径。只有在`MS_CUSTOM_AOT_WHITE_LIST`设置的目录及其子目录下文件才会被自定义算子调用。
 
 算子输出shape和数据类型推理可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
 
@@ -425,58 +508,89 @@ python test_custom_aot.py
  [4. 4.]]
 ```
 
-### pyfunc类型的自定义算子开发
+对于更多完整的aot类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/test_custom_aot.py)。
 
-pyfunc类型的自定义算子使用原生Python语法定义算子实现函数，描述算子内部计算逻辑的实现。网络运行时框架会自动调用此函数。
+### aicpu类型的自定义算子开发
+
+aicpu类型的自定义算子采用AOT编译方式，要求算子开发者基于提供的特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后框架会根据开发者在算子属性中配置的动态链接库名称，找到对应动态链接库并加载算子。具体算子实现参考[CANN AICPU 自定义算子开发](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/operatordev/aicpudevg/aicpudevg_000026.html)。
 
 算子输出shape和数据类型推理可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
 
-若自定义算子只支持特定的输入输出数据类型，则需要定义算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_adv.html#算子信息注册)。
+这种类型的自定义算子需要注册算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_adv.html#算子信息注册)，aicpu类型的自定义算子，需要额外指定`attr("cust_aicpu",  "required", "str", "mindspore_aicpu_kernels")`的属性，用于MindSpore找到对应的算子实现的动态链接库。
 
-下面以test_custom_pyfunc.py为例介绍pyfunc类型的自定义算子开发流程，其中自定义算子实现两个输入张量相加的功能。
+> - 需要注意的是，aicpu类型的自定义算子开发后编译成的动态链接库，需要存放到MindSpore的lib目录下，比如MindSpore安装在虚拟环境`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore`下，则aicpu的so文件需要放到`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore/lib/`目录下。
+> - “cust_aicpu”的值为字符串，用算子动态链接库的名字去除`lib`前缀与`.so`后缀表示，如`libmindspore_aicpu_kernels.so`则设为`"mindspore_aicpu_kernels"`即可。
 
-test_custom_pyfunc.py内容：
+下面以test_dropout_aicpu.py为例介绍aicpu类型的自定义算子开发流程，其中自定义算子实现了dropout的功能，并且编译好的算子动态链接库，我们命名为libmindspore_aicpu_kernels.so，并已将该动态链接库放至mindspore根目录的lib下。
+
+test_dropout_aicpu.py内容：
 
 ```python
 import numpy as np
 import mindspore as ms
+import mindspore.nn as nn
 import mindspore.ops as ops
+from mindspore.ops import CustomRegOp, DataType
 
-ms.set_context(device_target="CPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 
-def add(a, b):
-    return a + b
+# 算子实现，注册算子信息
+acos_op_info = CustomRegOp("Abs") \
+    .fusion_type("OPAQUE") \
+    .input(0, "x", "required") \
+    .output(0, "y", "required") \
+    .attr("cust_aicpu", "required", "str", "mindspore_aicpu_kernels") \
+    .dtype_format(DataType.F16_Default, DataType.F16_Default) \
+    .dtype_format(DataType.F32_Default, DataType.F32_Default) \
+    .dtype_format(DataType.F64_Default, DataType.F64_Default) \
+    .target("Ascend") \
+    .get_op_info()
+
+
+# 定义自定义算子网络
+class NetAbs(nn.Cell):
+    def __init__(self):
+        super(NetAbs, self).__init__()
+        self.op = ops.Custom("acos_aicpu", out_shape=lambda x, cust_attr: x,
+                             out_dtype=lambda x, cust_attr: x, func_type="aicpu",
+                             reg_info=acos_op_info)
+        self.cust_aicpu_so_path = "mindspore_aicpu_kernels"
+
+    def construct(self, inputs):
+        return self.op(inputs, self.cust_aicpu_so_path)
 
 if __name__ == "__main__":
-    # 定义pyfunc类型的自定义算子
-    op = ops.Custom(add, out_shape=lambda x, _: x, out_dtype=lambda x, _: x, func_type="pyfunc")
-
-    x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
-    x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(ms.Tensor(x0), ms.Tensor(x1))
-    print(output)
+    # 定义aicpu类型的自定义算子
+    input_tensor = ms.Tensor(np.ones([1, 1, 2, 3]), ms.float32)
+    abs_nn = NetAbs()
+    output = abs_nn(input_tensor)
+    print("output shape: ", output.shape)
 ```
 
 本例中，有如下几点需要说明：
 
-- 用Python lambda函数定义输出shape和数据类型推理函数，并分别传给`Custom`原语的`out_shape`和`out_dtype`参数。本例中lambda函数表明输出shape和数据类型和第一个输入张量的信息相同。
-- 未注册算子信息，所以自定义算子的算子信息将会从算子输入中推理。
+- 可以用多种方式指定`Custom`原语的`out_shape`和`out_dtype`参数，可以给定类型，也可以用Python lambda函数等设置。本例中lambda函数表明输出的两个shape与输入相同，第一个输出的数据类型和输入张量的信息相同，第二个输出的数据类型为bool类型。
+- 通过`CustomRegOp`生成算子信息，并通过`Custom`的`reg_info`接口传入。
 
 执行用例：
 
 ```bash
-python test_custom_pyfunc.py
+python test_dropout_aicpu.py
 ```
 
-执行结果：
+执行结果（由于dropout算子具有随机性，多次运行结果存在差异）：
 
 ```text
-[[2. 2.]
- [4. 4.]]
+output shape:  (1, 1, 2, 3)
 ```
+
+## 自定义算子接入第三方前端
+
+作为MindSpore未来的发展方向之一，AI和科学计算的融合越来越受到业界的重视。MindSpore自定义算子基于自身表达的灵活性，也在科学计算方面做出了探索：把面向HPC的编程前端以自定义算子的方式接入MindSpore。
 
 ### julia类型的自定义算子开发
 
+Julia是一种速度快且使用简单的高级通用编程语言，最初设计用于科学计算领域，而由于其高效而实用的特性，近些年来越来越受到用户的青睐，逐步迈向主流编程语言。
 julia类型的自定义算子使用Julia语法定义算子实现函数，描述算子内部计算逻辑的实现。网络运行时框架会自动调用执行相应的Julia函数。
 
 算子输出shape和数据类型推导可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
@@ -614,208 +728,4 @@ python test_custom_julia.py
    end
    ```
 
-### akg类型的自定义算子开发
-
-akg类型的自定义算子使用[MindSpore AKG](https://gitee.com/mindspore/akg)算子DSL，描述算子内部计算逻辑的实现。MindSpore AKG是基于TVM（Tensor Virtual Machine）和Polyhedral技术的算子开发和编译框架，支持Hybrid、IR builder和TVM compute等多种类型的算子DSL。
-
-算子输出shape和数据类型推理可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
-
-若算子包含属性或者只支持特定的输入输出数据类型或数据格式，则需要注册算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_adv.html#算子信息注册)。若未注册算子信息，在后端做算子选择和映射的时候，将会从当前算子的输入中推导算子信息。
-
-下面以test_custom_akg.py为例介绍akg类型的自定义算子开发流程，其中自定义算子实现两个输入张量相加的功能。
-
-test_custom_akg.py内容：
-
-```python
-import numpy as np
-import mindspore as ms
-import mindspore.ops as ops
-
-ms.set_context(device_target="GPU")
-
-# 算子实现，Hybrid DSL
-def add(a, b):
-    c = output_tensor(a.shape, a.dtype)
-    for i0 in range(a.shape[0]):
-        for i1 in range(a.shape[1]):
-            c[i0, i1] = a[i0, i1] + b[i0, i1]
-    return c
-
-if __name__ == "__main__":
-    # 定义akg类型的自定义算子
-    op = ops.Custom(add, out_shape=lambda x, _: x, out_dtype=lambda x, _: x, func_type="akg")
-
-    x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
-    x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(ms.Tensor(x0), ms.Tensor(x1))
-    print(output)
-```
-
-本例中，有如下几点需要说明：
-
-- `set_context(device_target="GPU")`表示算子运行在GPU平台，若要运行在Ascend平台，请编译Ascend版本的MindSpore，并将device_target的值设置为"Ascend"。
-- 用Python lambda函数定义输出shape和数据类型推理函数，并分别传给`Custom`原语的`out_shape`和`out_dtype`参数。本例中lambda函数表明输出shape和数据类型和第一个输入张量的信息相同。
-- 未注册算子信息，所以自定义算子的算子信息将会从算子输入中推理。
-
-执行用例：
-
-```bash
-python test_custom_akg.py
-```
-
-执行结果：
-
-```text
-[[2. 2.]
- [4. 4.]]
-```
-
-## 开发用例
-
-开发前，我们导入 MindSpore 的相关依赖。
-
-```python
-import numpy as np
-import mindspore as ms
-from mindspore import ops
-from mindspore.ops import kernel
-from mindspore.nn import Cell
-
-#############################################
-# 这里选用你使用的平台类型：CPU, GPU 或者 Ascend #
-#############################################
-
-ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
-# 选用CPU使用下面一行
-# ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
-# 选用Ascend使用下面一行
-# ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
-```
-
-### 用例一：基于pyfunc模式定义sin算子
-
-首先，我们写一个基于numpy的计算正弦函数的Python原生函数。
-
-```python
-def sin_by_numpy(x):
-    return np.sin(x)
-```
-
-然后我们要定义两个函数，一个是张量形状的推导函数（infer_shape），另一个是张量数据类型的推导函数（infer_dtype）。这里要注意：
-
-- 张量形状的推导函数是输入张量的形状；
-- 张量数据类型的推导函数是输入张量的数据类型。
-
-```python
-def infer_shape(x):
-
-    #    1. 这里的输入x是算子输入张量的形状
-    #    2. sin函数是逐元素计算，输入的形状和输出的一样
-    return x
-
-def infer_dtype(x):
-
-    #    1. 这里的输入x是算子输入张量的数据类型
-    #    2. sin函数输入的数据类型和输出的一样
-    return x
-
-```
-
-下面我们用上面的函数自定义一个算子，其输入包括
-
-- func：自定义算子的函数表达，这里我们用`sin_by_numpy`函数；
-- out_shape: 输出形状的推导函数，这里我们用`infer_shape`函数；
-- out_dtype: 输出数据类型的推导函数，这里我们用`infer_dtype`函数；
-- func_type: 自定义算子类型，这里我们用`"pyfunc"`。
-
-然后我们调用算子计算结果。
-
-```python
-sin_by_numpy_op = ops.Custom(func = sin_by_numpy,     # 这里填入自定义算子的函数表达
-                             out_shape = infer_shape, # 这里填入输出形状的推导函数
-                             out_dtype = infer_dtype, # 这里填入输出数据类型的推导函数
-                             func_type = "pyfunc"     # 这里填入自定义算子类型
-                            )
-input_tensor = ms.Tensor([0,1, 0.2, 0.3, 0.4], dtype=ms.float32)
-result_cus = sin_by_numpy_op(input_tensor)
-print(result_cus)
-```
-
-我们可以得到结果为，即上面输入对应的sin值。
-
-```text
-[0.         0.84147096 0.19866933 0.29552022 0.38941833]
-```
-
-### 用例二：利用hybrid类型的自定义算子实现三维张量的加法函数
-
-首先，我们写一个基于MindSpore Hybrid DSL书写一个计算三维张量相加的函数。
-
-注意：
-
-- 对于输出张量使用 `output_tensor`，用法为：`output_tensor(shape, dtype)`；
-- 所有的计算需要基于标量计算，如果是Tensor对象，那么需要写清楚所有index；
-- 基本循环的写法和Python一样，循环维度的表达可以使用 `range`。
-
-```python
-@kernel
-def tensor_add_3d(x, y):
-    result = output_tensor(x.shape, x.dtype)
-    #    1. 你需要一个三层循环
-    #    2. 第i层循环的上界可以用x.shape[i]获得
-    #    3. 你需要基于每个元素表达计算，例如加法为 x[i, j, k] + y[i, j, k]
-    for i in range(x.shape[0]):
-        for j in range(x.shape[1]):
-            for k in range(x.shape[2]):
-                result[i, j, k] = x[i, j, k] + y[i, j, k]
-
-    return result
-```
-
-下面我们用上面的函数自定义一个算子。
-
-注意到基于`kernel`的`hybrid`函数时，我们可以使用自动的形状和数据类型推导。
-
-因此我们只用给一个`func`输入（`func_type`的默认值为`"hybrid"`）。
-
-```python
-tensor_add_3d_op = ops.Custom(func = tensor_add_3d)
-input_tensor_x = ms.Tensor(np.ones([2, 3, 4]).astype(np.float32))
-input_tensor_y = ms.Tensor(np.ones([2, 3, 4]).astype(np.float32) * 2)
-result_cus = tensor_add_3d_op(input_tensor_x, input_tensor_y)
-print(result_cus)
-```
-
-同时我们可以使用`pyfunc`模式验证上面定义的正确性。
-
-这里我们不需要重新定义算子计算函数`tensor_add_3d`，直接将`func_type`改为`"pyfunc"`即可。
-
-注意`pyfunc`模式时我们需要手写类型推导函数。
-
-```python
-def infer_shape_py(x, y):
-    return x
-
-def infer_dtype_py(x, y):
-    return x
-
-tensor_add_3d_py_func = ops.Custom(func = tensor_add_3d,
-                                   out_shape = infer_shape_py,
-                                   out_dtype = infer_dtype_py,
-                                   func_type = "pyfunc")
-
-result_pyfunc = tensor_add_3d_py_func(input_tensor_x, input_tensor_y)
-print(result_pyfunc)
-```
-
-我们可以得到如下结果，即两个Tensor的和。
-
-```text
- [[[3. 3. 3. 3.]
-  [3. 3. 3. 3.]
-  [3. 3. 3. 3.]]
-
- [[3. 3. 3. 3.]
-  [3. 3. 3. 3.]
-  [3. 3. 3. 3.]]]
-```
+对于更多完整的jullia类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/test_custom_julia.py)。
