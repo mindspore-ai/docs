@@ -27,6 +27,8 @@
 
 .. include:: profiling/profiling_timeline.txt
 
+.. include:: profiling/profiling_msprof_timeline.txt
+
 .. include:: profiling/profiling_dynamic_shape.txt
 
 .. include:: profiling/profiling_msprof.txt
