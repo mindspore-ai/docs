@@ -1,4 +1,4 @@
-其他
+实验特性
 ========================
 
 .. toctree::
@@ -6,4 +6,3 @@
 
   distributed_graph_partition
   pynative_shard_function_parallel
-  ms_operator

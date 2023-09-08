@@ -6,7 +6,7 @@
 
 在分布式训练中，不同硬件平台（Ascend、CPU或者GPU）支持的特性也有所不同，用户可以根据自己的平台选择对应的分布式启动方式、并行模式和优化方法。
 
-首先是启动方式的差异：
+### 启动方式的差异
 
 - Ascend支持动态组网、mpirun以及rank table启动三种启动方式。
 - GPU支持动态组网和mpirun两种启动方式。
@@ -14,14 +14,14 @@
 
 详细过程请参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)。
 
-然后是并行方式的差异：
+### 并行方式的差异
 
 - Ascend和GPU支持所有并行方式，包括数据并行、半自动并行、自动并行等。
 - CPU仅支持数据并行。
 
 详细过程请参考[并行模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parallel_mode.html)。
 
-最后是对优化特性支持的差异：
+### 优化特性支持的差异
 
 - Ascend支持所有的优化特性。
 - GPU支持除了通信子图提取与复用以外的优化特性。
