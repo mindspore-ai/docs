@@ -75,6 +75,16 @@ virtual int ReSize()
 在用户调用`Model::Resize`接口时，或是模型推理中需要重新推理算子形状时，会调用到该接口。
 在`ReSize`函数中，若有必要，根据输入的形状态重新推理输出形状，并分配算子运算中需要的内存。
 
+### InferShape
+
+``` c++
+virtual int InferShape()
+```
+
+在用户调用`Model::Build`接口时，或是模型推理中需要推理算子形状时，会调用到该接口。
+在自定义算子场景中，用户可以覆写该接口，实现自定义算子的形状推理逻辑。详见[自定义算子章节](https://www.mindspore.cn/lite/api/zh-CN/master/use/register_kernel.html)。
+在`InferShape`函数中，一般需要实现算子的形状、数据类型和数据排布的推理逻辑。
+
 ### type
 
 ``` c++

@@ -10,7 +10,8 @@ To implement custom operators, perform the following steps:
 
 1. Determine operator types: Classify operators into common and custom operators.
 2. Implement operators: Inherit the Kernel class to implement custom operators and register them in MindSpore Lite.
-3. Implement the InferShape capability: Inherit mindspore::kernel::KernelInteface to implement the InferShape capability of custom operators and register them in MindSpore Lite.
+
+> Unlike historical versions, the InferShape logic can now be implemented directly in the [InferShape] (https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_kernel.html) interface of the Kernel. At the same time, in order to ensure compatibility, the historical way that implementing the InferShape logic of custom operators by inheriting mindspore::kernel::KernelInteface and registering into MindSpore Lite will still be retained in the next few versions, but it is marked as deprecated, and it is recommended to use the new way to implement the InferShape logic of custom operators.
 
 ### Determining Operator Types
 
@@ -40,6 +41,8 @@ class TestCustomAdd : public Kernel {
 
   int Execute() override;
 
+  int InferShape() override;
+
   int ReSize() { return kSuccess; }
 
  private:
@@ -55,6 +58,27 @@ class TestCustomAdd : public Kernel {
     return kSuccess;
   }
 };
+
+int TestCustomAdd::InferShape() {
+  if (inputs_.size() != 2) {
+    MS_LOG(ERROR) << "Add Kernel should has two input but got: " << inputs_.size();
+    return kLiteParamInvalid;
+  }
+  if (outputs_.size() != 1) {
+    MS_LOG(ERROR) << "Add Kernel should has one output but got: " << outputs_.size();
+    return kLiteParamInvalid;
+  }
+  auto *input = inputs_[0];
+  auto *output = outputs_[0];
+  if (input == nullptr || output == nullptr) {
+    MS_LOG(ERROR) << "Input tensor or Output tensor of Add Kernel is nullptr.";
+    return kLiteNullptr;
+  }
+  output.SetFormat(input.format());
+  output.SetDataType(input.DataType());
+  output.SetShape(input.Shape());
+  return kSuccess;
+}
 
 int TestCustomAdd::Execute() {
   if (inputs_.size() != 2) {
@@ -90,45 +114,6 @@ std::shared_ptr<Kernel> TestCustomAddCreator(const std::vector<tensor::MSTensor 
 const auto kFloat32 = DataType::kNumberTypeFloat32;
 
 REGISTER_KERNEL(CPU, BuiltInTest, kFloat32, PrimitiveType_AddFusion, TestCustomAddCreator)
-```
-
-#### Common Operator InferShape
-
-Reload the Infer function after inheriting KernelInterface to implement the InferShape capability. The implementation procedure is as follows:
-
-1. Inherit [KernelInterface](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_kernel_KernelInterface.html).
-2. Overload the Infer function to derive the shape, format, and data_type of the output tensor.
-
-The following uses the custom Add operator as an example:
-
-```cpp
-using mindspore::kernel::KernelInterface;
-
-class TestCustomAddInfer : public KernelInterface {
- public:
-  TestCustomAddInfer() = default;
-  ~TestCustomAddInfer() = default;
-  Status Infer(std::vector<mindspore::MSTensor *> *inputs, std::vector<mindspore::MSTensor *> *outputs,
-               const schema::Primitive *primitive) override {
-    (*outputs)[0].SetFormat((*inputs)[0].format());
-    (*outputs)[0].SetDataType((*inputs)[0].DataType());
-    (*outputs)[0].SetShape((*inputs)[0].Shape());
-    return kSuccess;
-  }
-};
-```
-
-#### Registering the Common Operator InferShape
-
-Currently, the generated macro [REGISTER_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_RegisterKernelInterface.html) is provided for registering the operator InferShape. The procedure is as follows:
-
-1. Use the CustomAddInferCreator function to create a KernelInterface instance.
-2. Call the REGISTER_KERNEL_INTERFACE macro to register the common operator InferShape. Assume that the vendor is BuiltInTest.
-
-```cpp
-std::shared_ptr<KernelInterface> CustomAddInferCreator() { return std::make_shared<TestCustomAddInfer>(); }
-
-REGISTER_KERNEL_INTERFACE(BuiltInTest, PrimitiveType_AddFusion, CustomAddInferCreator)
 ```
 
 ### Custom Operators
@@ -243,6 +228,8 @@ class TestCustomOp : public Kernel {
 
   int Execute() override;
 
+  int InferShape() override;
+
   int ReSize() override { return kSuccess; }
 
  private:
@@ -257,6 +244,27 @@ class TestCustomOp : public Kernel {
     }
     return kSuccess;
   }
+
+int TestCustomOp::InferShape() {
+  if (inputs_.size() != 2) {
+    MS_LOG(ERROR) << "Custom Add Kernel should has two input but got: " << inputs_.size();
+    return kLiteParamInvalid;
+  }
+  if (outputs_.size() != 1) {
+    MS_LOG(ERROR) << "Custom Add Kernel should has one output but got: " << outputs_.size();
+    return kLiteParamInvalid;
+  }
+  auto *input = inputs_[0];
+  auto *output = outputs_[0];
+  if (input == nullptr || output == nullptr) {
+    MS_LOG(ERROR) << "Input tensor or Output tensor of Custom Add Kernel is nullptr.";
+    return kLiteNullptr;
+  }
+  output.SetFormat(input.format());
+  output.SetDataType(input.DataType());
+  output.SetShape(input.Shape());
+  return kSuccess;
+}
 
 int TestCustomOp::Execute() {
   if (inputs_.size() != 2) {
@@ -310,41 +318,6 @@ std::shared_ptr<Kernel> TestCustomAddCreator(const std::vector<tensor::MSTensor 
 }
 constexpr auto kFloat32 = DataType::kNumberTypeFloat32;
 REGISTER_CUSTOM_KERNEL(CPU, BuiltInTest, kFloat32, Add, TestCustomAddCreator)
-```
-
-#### Custom Operator InferShape
-
-The overall implementation is the same as that of the common operator InferShape. The procedure is as follows:
-
-1. Inherit [KernelInterface](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_kernel_KernelInterface.html).
-2. Overload the Infer function to derive the shape, format, and data_type of the output tensor.
-
-```cpp
-class TestCustomOpInfer : public KernelInterface {
- public:
-  TestCustomOpInfer() = default;
-  ~TestCustomOpInfer() = default;
-  Status Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<mindspore::MSTensor> *outputs,
-             const schema::Primitive *primitive) override {
-    (*outputs)[0].SetFormat((*inputs)[0].format());
-    (*outputs)[0].SetDataType((*inputs)[0].DataType());
-    (*outputs)[0].SetShape((*inputs)[0].Shape());
-    return kSuccess;
-  }
-};
-```
-
-#### Registering the Custom Operator InferShape
-
-Currently, the generated macro [REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/en/master/generate/define_register_kernel_interface.h_REGISTER_CUSTOM_KERNEL_INTERFACE-1.html) is provided for registering the custom operator InferShape. The procedure is as follows:
-
-1. Use the CustomAddInferCreator function to create a custom KernelInterface.
-2. The macro [REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/en/master/generate/define_register_kernel_interface.h_REGISTER_CUSTOM_KERNEL_INTERFACE-1.html) is provided for registering the InferShape capability. The operator type Add must be the same as that in REGISTER_CUSTOM_KERNEL.
-
-```cpp
-std::shared_ptr<KernelInterface> CustomAddInferCreator() { return std::make_shared<TestCustomOpInfer>(); }
-
-REGISTER_CUSTOM_KERNEL_INTERFACE(BuiltInTest, Add, CustomAddInferCreator)
 ```
 
 ## Custom GPU Operators
