@@ -165,7 +165,7 @@ with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
-src_dir_mfl = os.path.join(os.getenv("MSC_PATH"), 'docs/api_python/mindflow')
+src_dir_mfl = os.path.join(os.getenv("MSC_PATH"), 'docs/api_python/mindearth')
 
 present_path = os.path.dirname(__file__)
 
@@ -184,7 +184,7 @@ from rename_include import rename_include
 
 rename_include(present_path)
 
-import mindflow
+import mindearth
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 # import anchor_mod
@@ -197,17 +197,16 @@ sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 
 rst_files = set([i.replace('.rst', '') for i in glob.glob('./**/*.rst', recursive=True)])
 
-from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnPlatformAutoSummary
+from myautosummary import MsPlatformAutoSummary, MsCnPlatformAutoSummary
 from custom_directives import IncludeCodeDirective
 
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
-    app.add_directive('msnoteautosummary', MsNoteAutoSummary)
     app.add_directive('mscnplatformautosummary', MsCnPlatformAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
     app.add_config_value('rst_files', set(), False)
 
-src_release = os.path.join(os.getenv("MSC_PATH"), 'MindFlow/RELEASE_CN.md')
+src_release = os.path.join(os.getenv("MSC_PATH"), 'MindEarth/RELEASE_CN.md')
 des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
