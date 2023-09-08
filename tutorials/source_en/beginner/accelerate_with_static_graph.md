@@ -16,75 +16,111 @@ In MindSpore, dynamic graph mode is also known as PyNative mode. Due to the inte
 If you need to manually control the framework to use PyNative mode, you can configure it with the following code:
 
 ```python
-import mindspore as ms
-ms.set_context(mode=ms.PYNATIVE_MODE)
-```
-
-In PyNative mode, the underlying operator corresponding to all computational nodes is executed using a single Kernel, so that printing and debugging of computational results can be done arbitrarily. For example:
-
-```python
 import numpy as np
-from mindspore import nn
-from mindspore import ops
-from mindspore import Tensor, Parameter
+import mindspore as ms
+from mindspore import nn, Tensor
+ms.set_context(mode=ms.PYNATIVE_MODE)  # Dynamic graph mode configuration using set_context
 
 class Network(nn.Cell):
     def __init__(self):
         super().__init__()
-        self.w = Parameter(Tensor(np.random.randn(5, 3), ms.float32), name='w') # weight
-        self.b = Parameter(Tensor(np.random.randn(3,), ms.float32), name='b') # bias
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
 
     def construct(self, x):
-        out = ops.matmul(x, self.w)
-        print('matmul: ', out)
-        out = out + self.b
-        print('add bias: ', out)
-        return out
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
 
 model = Network()
-x = ops.ones(5, ms.float32)
-out = model(x)
-print("out: ", out)
+input = Tensor(np.ones([64, 1, 28, 28]).astype(np.float32))
+output = model(input)
+print(output)
 ```
 
-We simply define a Tensor with a shape of (5,) as input and observe the output. You can see that the `print` statement inserted in the `construct` method prints out the intermediate results in real time.
-
 ```text
-matmul:  [-1.8809001   2.0400267   0.32370526]
-add bias:  [-1.6770952   1.5087128   0.15726662]
-out:  [-1.6770952   1.5087128   0.15726662]
+[[-0.00134926 -0.13563682 -0.02863023 -0.05452826  0.03290743 -0.12423715
+  -0.0582641  -0.10854103 -0.08558805  0.06099342]
+ [-0.00134926 -0.13563682 -0.02863023 -0.05452826  0.03290743 -0.12423715
+  -0.0582641  -0.10854103 -0.08558805  0.06099342]
+ [-0.00134926 -0.13563682 -0.02863023 -0.05452826  0.03290743 -0.12423715
+  -0.0582641  -0.10854103 -0.08558805  0.06099342]
+ [-0.00134926 -0.13563682 -0.02863023 -0.05452826  0.03290743 -0.12423715
+  -0.0582641  -0.10854103 -0.08558805  0.06099342]
+ [-0.00134926 -0.13563682 -0.02863023 -0.05452826  0.03290743 -0.12423715
+  -0.0582641  -0.10854103 -0.08558805  0.06099342]
+ ...
+ [-0.00134926 -0.13563682 -0.02863023 -0.05452826  0.03290743 -0.12423715
+  -0.0582641  -0.10854103 -0.08558805  0.06099342]
+ [-0.00134926 -0.13563682 -0.02863023 -0.05452826  0.03290743 -0.12423715
+  -0.0582641  -0.10854103 -0.08558805  0.06099342]
+ [-0.00134926 -0.13563682 -0.02863023 -0.05452826  0.03290743 -0.12423715
+  -0.0582641  -0.10854103 -0.08558805  0.06099342]
+ [-0.00134926 -0.13563682 -0.02863023 -0.05452826  0.03290743 -0.12423715
+  -0.0582641  -0.10854103 -0.08558805  0.06099342]]
 ```
 
 ### Static Graph Mode
 
-Compared to dynamic graphs, static graphs are characterized by separating the construction of the computational graph from the actual computation (Define and run). In the construction phase, the original computational graph is optimized and adjusted according to the complete computational flow, and compiled to obtain a more memory-saving and less computationally intensive computational graph. Since the structure of the graph does not change after compilation, it is called "static graph" . In the computation phase, the compiled computation graph is executed according to the input data to get the computation result. Compared to dynamic graphs, static graphs have richer information about the global information and more optimizations can be done, but their intermediate process is a black box for users, and they cannot get the intermediate computation results in real time like dynamic graphs.
+Compared to dynamic graphs, static graphs are characterized by separating the construction of the computational graph from the actual computation (Define and run). For more information on how the static graph model works, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#overview).
 
 In MindSpore, the static graph mode is also known as Graph mode. In Graph mode, based on techniques such as graph optimization and whole computational graph sinking, the compiler can globally optimize for graphs and obtain better performance, so it is more suitable for scenarios where the network is fixed and high performance is required.
 
-In static graph mode, MindSpore converts Python source code into Intermediate Representation (IR) by means of source conversion, and optimizes the IR graph on this basis, and finally executes the optimized graph on the hardware device.MindSpore uses functional IR based on the graph representation that is called MindIR. For more details, see [Intermediate Representation MindIR](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir).
-
-MindSpore static graph execution process actually consists of two steps, corresponding to the Define and Run phases of the static graph, but in practice, it is not perceived when the instantiated Cell object is called, and MindSpore encapsulates both phases in the Cell's `__call__` method, so the actual calling process is:
-
-`model(inputs) = model.compile(inputs) + model.construct(inputs)`, where `model` instantiates the Cell object.
-
-Below we explicitly call the `compile` method for an example:
+If you need to manually control the framework to use static graph mode, you can build the network with the following code:
 
 ```python
-model = Network()
+import numpy as np
+import mindspore as ms
+from mindspore import nn, Tensor
+ms.set_context(mode=ms.GRAPH_MODE)  # Static graph mode configuration using set_context
 
-model.compile(x)
-out = model(x)
-print('out: ', out)
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
+
+    def construct(self, x):
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
+
+model = Network()
+input = Tensor(np.ones([64, 1, 28, 28]).astype(np.float32))
+output = model(input)
+print(output)
 ```
 
-The result is as follows:
-
 ```text
-matmul:
-Tensor(shape=[3], dtype=Float32, value=[-4.01971531e+00 -5.79053342e-01  3.41115999e+00])
-add bias:
-Tensor(shape=[3], dtype=Float32, value=[-3.94732714e+00 -1.46257186e+00  4.50144434e+00])
-out:  [-3.9473271 -1.4625719  4.5014443]
+[[ 0.05363735  0.05117104 -0.03343301  0.06347139  0.07546629  0.03263091
+   0.02790363  0.06269836  0.01838502  0.04387159]
+ [ 0.05363735  0.05117104 -0.03343301  0.06347139  0.07546629  0.03263091
+   0.02790363  0.06269836  0.01838502  0.04387159]
+ [ 0.05363735  0.05117104 -0.03343301  0.06347139  0.07546629  0.03263091
+   0.02790363  0.06269836  0.01838502  0.04387159]
+ [ 0.05363735  0.05117104 -0.03343301  0.06347139  0.07546629  0.03263091
+   0.02790363  0.06269836  0.01838502  0.04387159]
+ ...
+ [ 0.05363735  0.05117104 -0.03343301  0.06347139  0.07546629  0.03263091
+   0.02790363  0.06269836  0.01838502  0.04387159]
+ [ 0.05363735  0.05117104 -0.03343301  0.06347139  0.07546629  0.03263091
+   0.02790363  0.06269836  0.01838502  0.04387159]
+ [ 0.05363735  0.05117104 -0.03343301  0.06347139  0.07546629  0.03263091
+   0.02790363  0.06269836  0.01838502  0.04387159]
+ [ 0.05363735  0.05117104 -0.03343301  0.06347139  0.07546629  0.03263091
+   0.02790363  0.06269836  0.01838502  0.04387159]]
 ```
 
 ## Scenarios for Static Graph Mode
@@ -99,59 +135,147 @@ Usually, due to the flexibility of dynamic graphs, we choose to use PyNative mod
 
 ### Decorator-based Startup Method
 
-MindSpore provides a jit decorator that can be used to modify Python functions or member functions of Python classes so that they can be compiled into computational graphs, which improves the speed of operation through graph optimization and other techniques. At this point we can simply accelerate the graph compilation for the modules we want to optimize for performance, while the rest of the model, which still uses interpreted execution, does not lose the flexibility of dynamic graphs.
+MindSpore provides a jit decorator that can be used to modify Python functions or member functions of Python classes so that they can be compiled into computational graphs, which improves the speed of operation through graph optimization and other techniques. At this point we can simply accelerate the graph compilation for the modules we want to optimize for performance, while the rest of the model, which still uses interpreted execution, does not lose the flexibility of dynamic graphs. Regardless of whether the global context is set to static graph mode or dynamic graph mode, the part modified by the jit will always run in static graph mode.
 
-When you need to accelerate the compilation of some of Tensor operations, you can use the jit decorator on the function it defines, and the module is automatically compiled into a static graph when the function is called. The example is as follows:
-
-```python
-@ms.jit
-def mul(x, y):
-    return x * y
-```
-
-When we need to accelerate a part of the neural network, we can use the jit decorator directly on the construct method, and the module is automatically compiled as a static graph when the instantiated object is called. The example is as follows:
+When you need to accelerate the compilation of some of Tensor operations, you can use the jit decorator on the function it defines, and the module is automatically compiled into a static graph when the function is called. Note that jit decorators can only be used to modify functions, not classes. The example is as follows:
 
 ```python
+import numpy as np
 import mindspore as ms
-from mindspore import nn
+from mindspore import nn, Tensor
 
 class Network(nn.Cell):
     def __init__(self):
         super().__init__()
-        self.fc = nn.Dense(10, 1)
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
 
-    @ms.jit
     def construct(self, x):
-        return self.fc(x)
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
+
+input = Tensor(np.ones([64, 1, 28, 28]).astype(np.float32))
+
+@ms.jit  # Use the ms.jit decorator to make the decorated function run in static graph mode
+def run(x):
+    model = Network()
+    return model(x)
+
+output = run(input)
+print(output)
 ```
 
-MindSpore supports combining the forward computation, backward propagation, and gradient optimization updating of neural network training into one computational graph for compilation and optimization, which is called whole graph compilation. In this case, you only need to construct the neural network training logic as a function, and use the jit decorator on the function to achieve the effect of whole graph compilation. The following is an example using a simple fully connected network:
-
-```python
-network = nn.Dense(10, 1)
-loss_fn = nn.BCELoss()
-optimizer = nn.Adam(network.trainable_params(), 0.01)
-
-def forward_fn(data, label):
-    logits = network(data)
-    loss = loss_fn(logits, label)
-    return loss
-
-grad_fn = ms.value_and_grad(forward_fn, None, optimizer.parameters)
-
-@ms.jit
-def train_step(data, label):
-    loss, grads = grad_fn(data, label)
-    optimizer(grads)
-    return loss
+```text
+[[-0.12126954  0.06986676 -0.2230821  -0.07087803 -0.01003947  0.01063392
+   0.10143848 -0.0200909  -0.09724037  0.0114444 ]
+ [-0.12126954  0.06986676 -0.2230821  -0.07087803 -0.01003947  0.01063392
+   0.10143848 -0.0200909  -0.09724037  0.0114444 ]
+ [-0.12126954  0.06986676 -0.2230821  -0.07087803 -0.01003947  0.01063392
+   0.10143848 -0.0200909  -0.09724037  0.0114444 ]
+ [-0.12126954  0.06986676 -0.2230821  -0.07087803 -0.01003947  0.01063392
+   0.10143848 -0.0200909  -0.09724037  0.0114444 ]
+ ...
+ [-0.12126954  0.06986676 -0.2230821  -0.07087803 -0.01003947  0.01063392
+   0.10143848 -0.0200909  -0.09724037  0.0114444 ]
+ [-0.12126954  0.06986676 -0.2230821  -0.07087803 -0.01003947  0.01063392
+   0.10143848 -0.0200909  -0.09724037  0.0114444 ]
+ [-0.12126954  0.06986676 -0.2230821  -0.07087803 -0.01003947  0.01063392
+   0.10143848 -0.0200909  -0.09724037  0.0114444 ]
+ [-0.12126954  0.06986676 -0.2230821  -0.07087803 -0.01003947  0.01063392
+   0.10143848 -0.0200909  -0.09724037  0.0114444 ]]
 ```
 
-As shown in the above code, after encapsulating the neural network forward execution and loss function into forward_fn, the function transformation is performed to obtain the gradient calculation function. Then encapsulate the gradient calculation function and optimizer call into train_step function, and use jit to modify it. When calling train_step function, it will perform static graph compilation, get the whole graph and execute it.
-
-In addition to using decorator, jit methods can also be called using function transformations, as shown in the following example:
+In addition to using modifiers, jit methods can also be called using function transformations, as shown in the following example:
 
 ```python
-train_step = ms.jit(train_step)
+import numpy as np
+import mindspore as ms
+from mindspore import nn, Tensor
+
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
+
+    def construct(self, x):
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
+
+input = Tensor(np.ones([64, 1, 28, 28]).astype(np.float32))
+
+def run(x):
+    model = Network()
+    return model(x)
+
+run_with_jit = ms.jit(run)  # Transforming a function to execute as a static graph by calling jit
+output = run(input)
+print(output)
+```
+
+When we need to accelerate a part of the neural network, we can use the jit modifier directly on the construct method, and the module is automatically compiled as a static graph when the instantiated object is called. The example is as follows:
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import nn, Tensor
+
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
+
+    @ms.jit  # Use the ms.jit decorator to make the decorated function run in static graph mode
+    def construct(self, x):
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
+
+input = Tensor(np.ones([64, 1, 28, 28]).astype(np.float32))
+model = Network()
+output = model(input)
+print(output)
+```
+
+```text
+[[ 0.10522258  0.06597593 -0.09440921 -0.04883489  0.07194916  0.1343117
+  -0.06813788  0.01986085  0.0216996  -0.05345828]
+ [ 0.10522258  0.06597593 -0.09440921 -0.04883489  0.07194916  0.1343117
+  -0.06813788  0.01986085  0.0216996  -0.05345828]
+ [ 0.10522258  0.06597593 -0.09440921 -0.04883489  0.07194916  0.1343117
+  -0.06813788  0.01986085  0.0216996  -0.05345828]
+ [ 0.10522258  0.06597593 -0.09440921 -0.04883489  0.07194916  0.1343117
+  -0.06813788  0.01986085  0.0216996  -0.05345828]
+ ...
+ [ 0.10522258  0.06597593 -0.09440921 -0.04883489  0.07194916  0.1343117
+  -0.06813788  0.01986085  0.0216996  -0.05345828]
+ [ 0.10522258  0.06597593 -0.09440921 -0.04883489  0.07194916  0.1343117
+  -0.06813788  0.01986085  0.0216996  -0.05345828]
+ [ 0.10522258  0.06597593 -0.09440921 -0.04883489  0.07194916  0.1343117
+  -0.06813788  0.01986085  0.0216996  -0.05345828]
+ [ 0.10522258  0.06597593 -0.09440921 -0.04883489  0.07194916  0.1343117
+  -0.06813788  0.01986085  0.0216996  -0.05345828]]
 ```
 
 ### Context-based Startup Method
@@ -159,8 +283,52 @@ train_step = ms.jit(train_step)
 The context mode is a global setting mode. The code example is as follows:
 
 ```python
+import numpy as np
 import mindspore as ms
-ms.set_context(mode=ms.GRAPH_MODE)
+from mindspore import nn, Tensor
+ms.set_context(mode=ms.GRAPH_MODE)  # Configuration for running static graph mode using set_context
+
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
+
+    def construct(self, x):
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
+
+model = Network()
+input = Tensor(np.ones([64, 1, 28, 28]).astype(np.float32))
+output = model(input)
+print(output)
+```
+
+```text
+[[ 0.08501796 -0.04404321 -0.05165704  0.00357929  0.00051521  0.00946456
+   0.02748473 -0.19415936 -0.00278988  0.04024826]
+ [ 0.08501796 -0.04404321 -0.05165704  0.00357929  0.00051521  0.00946456
+   0.02748473 -0.19415936 -0.00278988  0.04024826]
+ [ 0.08501796 -0.04404321 -0.05165704  0.00357929  0.00051521  0.00946456
+   0.02748473 -0.19415936 -0.00278988  0.04024826]
+ [ 0.08501796 -0.04404321 -0.05165704  0.00357929  0.00051521  0.00946456
+   0.02748473 -0.19415936 -0.00278988  0.04024826]
+ ...
+ [ 0.08501796 -0.04404321 -0.05165704  0.00357929  0.00051521  0.00946456
+   0.02748473 -0.19415936 -0.00278988  0.04024826]
+ [ 0.08501796 -0.04404321 -0.05165704  0.00357929  0.00051521  0.00946456
+   0.02748473 -0.19415936 -0.00278988  0.04024826]
+ [ 0.08501796 -0.04404321 -0.05165704  0.00357929  0.00051521  0.00946456
+   0.02748473 -0.19415936 -0.00278988  0.04024826]
+ [ 0.08501796 -0.04404321 -0.05165704  0.00357929  0.00051521  0.00946456
+   0.02748473 -0.19415936 -0.00278988  0.04024826]]
 ```
 
 ## Syntax Constraints for Static Graph

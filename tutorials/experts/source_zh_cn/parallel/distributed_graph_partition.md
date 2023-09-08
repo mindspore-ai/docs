@@ -10,7 +10,7 @@
 
 相关接口：
 
-1. `mindspore.nn.Cell.place(role, rank_id)`：为该Cell中所有算子设置标签。此标签告诉MindSpore编译器此Cell在哪个进程上启动。 每个标签都由进程角色`role`和`rank_id`组成，因此，通过对不同Cell设置不同标签，这些Cell将在不同进程启动，使用户可以进行分布式训练/推理等任务。
+1. `mindspore.nn.Cell.place(role, rank_id)`：为该Cell中所有算子设置标签。此标签告诉MindSpore编译器此Cell在哪个进程上启动。每个标签都由进程角色`role`和`rank_id`组成，因此，通过对不同Cell设置不同标签，这些Cell将在不同进程启动，使用户可以进行分布式训练/推理等任务。
 
 2. `mindspore.ops.Primitive.place(role, rank_id)`：为Primitive算子设置标签，作用跟`mindspore.nn.Cell.place(role, rank_id)`接口一样。
 

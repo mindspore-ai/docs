@@ -6,6 +6,14 @@
 
 In large model training tasks, users often use various types of parallel algorithms to distribute computational tasks to various nodes, to make full use of computational resources, e.g., through MindSpore `operator-level parallelism`, `pipeline parallelism` and other features. However, in some scenarios, the user needs to slice the graph into multiple subgraphs based on a custom algorithm and distribute them to different processes for distributed execution. MindSpore `distributed graph partition` feature provides an operator-granularity Python layer API to allow users to freely perform graph slicing and build distributed training/inference tasks based on custom algorithms.
 
+> Distributed graph slicing does not support PyNative mode.
+
+Related interfaces:
+
+1. `mindspore.nn.Cell.place(role, rank_id)`: Set a label for all operators in this Cell. This label tells the MindSpore compiler on which process this Cell is started. Each label consists of the process role `role` and `rank_id`, so by setting different labels for different Cells, these Cells will be started on different processes, allowing the user to perform tasks such as distributed training/inference.
+
+2. `mindspore.ops.Primitive.place(role, rank_id)`: Set labels for Primitive operator, with the same function as `mindspore.nn.Cell.place(role, rank_id)` interface.
+
 ## Basic Principle
 
 Distributed tasks need to be executed in a cluster. MindSpore reuses built-in `Dynamic Networking` module of MindSpore in order to have better scalability and reliability in distributed graph partition scenarios. This module is also used in the [Training without relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#training-without-relying-on-openmpi) and [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html) sections.
@@ -37,11 +45,7 @@ The directory structure is as follows:
 
 > This tutorial does not involve starting across physical nodes, where all processes are on the same node. For MindSpore, there is no difference in the implementation of intra-node and cross-node distributed graph partition: after dynamic networking, graph slicing, and graph compilation processes, data interaction is performed via Rpc communication operators.
 
-### Preparation for Training Python Script
-
-Refer to <https://gitee.com/mindspore/models/tree/master/research/cv/lenet>, using the [MNIST dataset](http://yann.lecun.com/exdb/mnist/), to learn how to train a LeNet network. Sample code for each part of the training script is given below according to steps.
-
-#### Loading the Dataset
+### Loading the Dataset
 
 ```python
 import mindspore.dataset as ds
@@ -88,7 +92,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1
 
 The above code creates the MNIST dataset.
 
-#### Constructing the LeNet Network
+### Constructing the LeNet Network
 
 In order to make slicing to a single-machine single-card task, we need to first construct a single-machine single-card copy:
 
@@ -140,24 +144,19 @@ class LeNet(nn.Cell):
         return x
 ```
 
-#### Calling the Interface for Distributed Graph Partition
+### Calling the Interface for Distributed Graph Partition
 
 For this training task we slice `fc1` to process `Worker 0`, `fc2` to process `Worker 1`, `fc3` to process `Worker 2`, `conv1` to process `Worker 3`, and conv2 to process `Worker 4`.
 
-Distributed graph partition can be completed by adding the following graph partition statement to the `LeNet.__init__` function.
+Distributed graph sharding can be completed by adding the following graph partition statement after initializing the network.
 
 ```python
-class LeNet(nn.Cell):
-    def __init__(self, num_class=10, channel=1):
-        super(LeNet, self).__init__()
-        ...
-        self.fc1.place("MS_WORKER", 0)
-        self.fc2.place("MS_WORKER", 1)
-        self.fc3.place("MS_WORKER", 2)
-        self.conv1.place("MS_WORKER", 3)
-        self.conv2.place("MS_WORKER", 4)
-        ...
-    ...
+net = LeNet()
+net.fc1.place("MS_WORKER", 0)
+net.fc2.place("MS_WORKER", 1)
+net.fc3.place("MS_WORKER", 2)
+net.conv1.place("MS_WORKER", 3)
+net.conv2.place("MS_WORKER", 4)
 ```
 
 The first parameter of the `place` interface, `role`, is the process role, and the second parameter is the process `rank`, which means that the operator is executed on a process of such role. Currently the `place` interface only supports the `MS_WORKER` role, which represents the `Worker X` process described above.
@@ -165,9 +164,10 @@ The first parameter of the `place` interface, `role`, is the process role, and t
 It follows that a user can quickly implement a distributed training task by simply describing a custom algorithm through a single-machine copy and then setting the label of the compute node where the operator is located through the `place` interface. The advantages of this approach are:
 
 **1.Instead of writing separate execution scripts for each compute node, users can execute distributed tasks with just one script, MindSpore.**
+
 **2.Provides a more general and user-friendly interface. Through the `place` interface, users can intuitively describe their distributed training algorithms**
 
-#### Defining the Optimizer and Loss Function
+### Defining the Optimizer and Loss Function
 
 ```python
 import mindspore.nn as nn
@@ -180,7 +180,7 @@ def get_loss():
     return nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 ```
 
-#### Executing the Training Code
+### Executing the Training Code
 
 The entry script train.py of training code:
 
@@ -196,6 +196,12 @@ from mindspore.communication import init, get_rank
 ms.set_context(mode=ms.GRAPH_MODE, device_target='GPU')
 init()
 net = LeNet()
+net.fc1.place("MS_WORKER", 0)
+net.fc2.place("MS_WORKER", 1)
+net.fc3.place("MS_WORKER", 2)
+net.conv1.place("MS_WORKER", 3)
+net.conv2.place("MS_WORKER", 4)
+
 opt = get_optimizer(net)
 criterion = get_loss()
 model = Model(net, criterion, opt, metrics={"Accuracy": Accuracy()})
@@ -227,13 +233,21 @@ The run.sh execution script is as follows:
 
 ```bash
 execute_path=$(pwd)
+
+if [ ! -d "${execute_path}/MNIST_Data" ]; then
+    if [ ! -f "${execute_path}/MNIST_Data.zip" ]; then
+        wget http://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip
+    fi
+    unzip MNIST_Data.zip
+fi
+
 self_path=$(dirname $0)
 
 # Set public environment.
-export MS_WORKER_NUM=5
+export MS_WORKER_NUM=8
 export MS_SCHED_HOST=127.0.0.1
 export MS_SCHED_PORT=8118
-export DATA_PATH=$1
+export DATA_PATH=${execute_path}/MNIST_Data/
 
 # Launch scheduler.
 export MS_ROLE=MS_SCHED
@@ -242,7 +256,6 @@ mkdir ${execute_path}/sched/
 cd ${execute_path}/sched/ || exit
 python ${self_path}/../train.py > sched.log 2>&1 &
 sched_pid=`echo $!`
-
 
 # Launch workers.
 export MS_ROLE=MS_WORKER
@@ -279,7 +292,7 @@ fi
 exit 0
 ```
 
-In the above script, `export MS_WORKER_NUM=5` means that `5` `MS_WORKER` processes need to be started for this distributed execution. `export MS_SCHED_HOST=127.0.0.1` means the address of `Scheduler` is `127.0.0.1`. `export MS_SCHED_PORT=8118` means the open port of `Scheduler` is 8118, and all processes will connect to this port for dynamic networking.
+In the above script, `export MS_WORKER_NUM=8` means that `8` `MS_WORKER` processes need to be started for this distributed execution. `export MS_SCHED_HOST=127.0.0.1` means the address of `Scheduler` is `127.0.0.1`. `export MS_SCHED_PORT=8118` means the open port of `Scheduler` is 8118, and all processes will connect to this port for dynamic networking.
 
 The above environment variables are exported for both `Worker` and `Scheduler` processes, and then the corresponding roles are exported separately to start the processes for the corresponding roles: after `export MS_ROLE=MS_SCHED`, start the Scheduler process, and after `export MS_ROLE=MS_WORKER`, start the MS_WORKER_NUM worker process cyclically.
 
@@ -288,7 +301,7 @@ The above environment variables are exported for both `Worker` and `Scheduler` p
 Executing instruction
 
 ```bash
-bash run.sh [MNIST_DATA_PATH]
+bash run.sh
 ```
 
 ### Viewing the Execution Result
@@ -322,4 +335,3 @@ The `place` interface currently has the following limitations:
 - The input parameter `role` is only supported to be set to `MS_WORKER`. This is because each node in the distributed graph partition scenario is a compute node `Worker`, and setting other roles is not required for now.
 - Unable to mix with Parameter Server, Data Parallelism, and Auto Parallelism. The compute graph of each process after distributed graph partition is not consistent, and all three features have copies of inter-process graphs or operators that may cause unknown errors when executed overlaid with this feature. Mixed-use features will be supported in subsequent releases.
 - Control flow + distributed graph partition is in a limited support state and errors may be reported. This scenario will also be supported in subsequent releases.
-- The `place` interface is not supported in `Pynative` mode.
