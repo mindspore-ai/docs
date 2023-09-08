@@ -14,14 +14,16 @@ For Experts
 
    parallel/overview
    parallel/startup_method
-   parallel/parallel_mode
+   parallel/data_parallel
+   parallel/semi_auto_parallel
+   parallel/auto_parallel
+   parallel/manual_parallel
+   parallel/parameter_server_training
    parallel/model_save_load
    parallel/recover
-   parallel/basic_cases
-   parallel/recompute
-   parallel/host_device_training
-   parallel/parameter_server_training
-   parallel/distributed_inference
+   parallel/optimize_technique
+   parallel/platform_differences
+   parallel/others
    parallel/distributed_case
 
 .. toctree::

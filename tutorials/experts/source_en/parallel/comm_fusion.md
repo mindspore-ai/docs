@@ -8,6 +8,21 @@ In distributed parallel training scenarios to train large-scale parameter models
 
 MindSpore supports the fusion of three common communication operators (`AllReduce`, `AllGather` and `ReduceScatter`) in distributed training, and provides a simple and easy-to-use interface for user configuration. The communication fusion plays an important role in the long and steady training mission support.
 
+MindSpore provides two interfaces to enable communication fusion, each of which is described below:
+
+1. Configuration in auto-parallel scenarios
+
+    ```python
+    config = {"allreduce": {"mode": "size", "config": 32}, "allgather": {"mode": "size", "config": 32}}
+    ms.set_auto_parallel_context(comm_fusion=config)
+    ```
+
+    In auto-parallel or semi-auto-parallel scenario, the user can utilize the `comm_fusion` parameter provided by this interface to set the parallel strategy when configuring the parallel strategy via `set_auto_parallel_context`, with inputs in the format {"communication_type": {"mode":str, "config": None int or list}}. For details, see `comm_fusion` in [Parallel Configuration](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_auto_parallel_context.html). This configuration method is preferred in this scenario.
+
+2. Use the interface provided by `Cell`
+
+    Regardless of the parallel mode scenarios, the user can set the index for the parameters in a layer of the model through the `Cell.set_comm_fusion` interface, and MindSpore will fuse the communication operators corresponding to parameters of the same index.
+
 ## Basic Principle
 
 This section firstly introduces the relationship between computation and communication in distributed training with the example of data parallelism, and secondly introduces the necessity of communication fusion in distributed training scenarios.
@@ -38,18 +53,6 @@ comm_fusion={"openstate": True, "allreduce": {"mode": "auto", "config": None}}, 
 
 "index": Only "allreduce" supports the configuration of index, which indicates the way of fusion according to the sequence number of communication operator, and the configuration parameter "config" is of type list. For example, [20, 35], means the first 20 AllReduce are fused into 1, the 20th to 35th AllReduce are fused into 1, and the remaining AllReduce are fused into 1.
 
-### Communication Fusion Usage
-
-MindSpore provides two interfaces to enable communication fusion, each of which is described below.
-
-#### Configuration in the Automatic Parallel Scenario
-
-In automatic parallel or semi-automatic parallel scenarios, users can use the `comm_fusion` parameter provided by this interface to set the parallel strategy when configuring the parallel strategy via `set_auto_parallel_context`. Users can specify whether to use the index method or the fusion buffer method.
-
-#### Using the Interfaces Provided by `Cell`
-
-Regardless of the parallel mode scenario, users can set the index for the parameters of a layer in the model through the `Cell.set_comm_fusion` interface, and MindSpore will fuse the parameters with the same index. In auto-parallel and semi-auto-parallel scenarios, it is recommended that the `comm_fusion` parameter be used in preference for configuration.
-
 ## Operation Practice
 
 ### Sample Code Description
@@ -64,17 +67,10 @@ The directory structure is as follows:
 └─sample_code
     ├─distributed_comm_fusion
         ├── fusion_example_cell.py
-        ├── rank_table_2pcs.json
-        ├── rank_table_8pcs.json
-        └── run_fusion_example.sh
+        └── run.sh
 ```
 
-The function of each file is as follows:
-
-- fusion_example_cell.py: Example of communication fusion by using the interface provided by `Cell`.
-- rank_table_2pcs.json: 2-card configuration file of RANK_TABLE_FILE.
-- rank_table_8pcs.json: 8-card configuration file of RANK_TABLE_FILE.
-- run_fusion_example.sh: Startup script for communication fusion.
+`fusion_example_cell.py` is an example of communication fusion using the interface provided by `Cell` and `run.sh` is the startup script for communication fusion.
 
 ### Configuring the Communication Fusion
 
@@ -103,134 +99,144 @@ For more usage, you can refer to MindSpore [test cases](https://gitee.com/mindsp
 
 #### `Cell.set_comm_fusion` Interface
 
-As shown in the following code, the `set_comm_fusion` method is called for the instantiated DenseLayer to set the fusion value for each layer.
+This method is used in this sample code `fusion_example_cell.py`. As shown in the following code, the `set_comm_fusion` method is called for the instantiated DenseLayer to set the fusion value for each layer.
 
 ```python
-"""Cell Fusion Example"""
-import os
-from mindspore.communication import init
-from mindspore import nn
 import mindspore as ms
+from mindspore import nn
+from mindspore.communication import init
 
-ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
+ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 init()
 
 class DenseLayer(nn.Cell):
-    """A base layer with two dense layer"""
     def __init__(self):
         super().__init__()
-        self.input_mapping = nn.Dense(10, 10)
-        self.output_mapping = nn.Dense(10, 10)
+        self.input_mapping = nn.Dense(10, 32)
+        self.output_mapping = nn.Dense(32, 10)
+
     def construct(self, x):
         x = self.input_mapping(x)
         return self.output_mapping(x)
 
 class Net(nn.Cell):
-    """An network with many dense layers"""
     def __init__(self):
         super().__init__()
+        self.flatten = nn.Flatten()
+        self.head = nn.Dense(28*28, 10)
         self.layer1 = DenseLayer()
         self.layer2 = DenseLayer()
         self.layer3 = DenseLayer()
-        self.layer1.set_comm_fusion(0)
-        self.layer2.set_comm_fusion(1)
-        self.layer3.set_comm_fusion(2)
+
     def construct(self, x):
+        x = self.flatten(x)
+        x = self.head(x)
         x = self.layer1(x)
         x = self.layer2(x)
         x = self.layer3(x)
         return x
 
 net = Net()
+# Configure communication fusion
+net.head.set_comm_fusion(0)
+net.layer1.set_comm_fusion(1)
+net.layer2.set_comm_fusion(2)
+net.layer3.set_comm_fusion(3)
 for item in net.trainable_params():
     print(f"The parameter {item.name}'s fusion id is {item.comm_fusion}")
 ```
 
-The corresponding output, representing the fusion index value for each layer of a particular dense, is as follows:
+### Dataset Loading and Training Process
+
+The dataset loading and training process is consistent with the single-card model, with the following code:
+
+```python
+import os
+import mindspore as ms
+import mindspore.dataset as ds
+from mindspore import nn, ops
+
+def create_dataset(batch_size):
+    dataset_path = os.getenv("DATA_PATH")
+    dataset = ds.MnistDataset(dataset_path)
+    image_transforms = [
+        ds.vision.Rescale(1.0 / 255.0, 0),
+        ds.vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        ds.vision.HWC2CHW()
+    ]
+    label_transform = ds.transforms.TypeCast(ms.int32)
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size)
+    return dataset
+
+data_set = create_dataset(32)
+optimizer = nn.SGD(net.trainable_params(), 1e-2)
+loss_fn = nn.CrossEntropyLoss()
+
+def forward_fn(data, target):
+    logits = net(data)
+    loss = loss_fn(logits, target)
+    return loss, logits
+
+grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+
+@ms.jit
+def train_step(inputs, targets):
+    (loss_value, _), grads = grad_fn(inputs, targets)
+    optimizer(grads)
+    return loss_value
+
+for epoch in range(10):
+    i = 0
+    for image, label in data_set:
+        loss_output = train_step(image, label)
+        if i % 10 == 0:
+            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_output))
+        i += 1
+```
+
+### Running Stand-alone 8-card Script
+
+Next, the corresponding script is called by the command. Take the `mpirun` startup method, the 8-card distributed training script as an example, and perform the distributed training:
+
+```bash
+bash run.sh
+```
+
+After training, the log files are saved in  `log_output/1/rank.*/stdout`, and the example is as follows:
 
 ```text
-The parameter layer1.input_mapping.weight's fusion id is 0
-The parameter layer1.input_mapping.bias's fusion id is 0
-The parameter layer1.output_mapping.weight's fusion id is 0
-The parameter layer1.output_mapping.bias's fusion id is 0
-The parameter layer2.input_mapping.weight's fusion id is 1
-The parameter layer2.input_mapping.bias's fusion id is 1
-The parameter layer2.output_mapping.weight's fusion id is 1
-The parameter layer2.output_mapping.bias's fusion id is 1
-The parameter layer3.input_mapping.weight's fusion id is 2
-The parameter layer3.input_mapping.bias's fusion id is 2
-The parameter layer3.output_mapping.weight's fusion id is 2
-The parameter layer3.output_mapping.bias's fusion id is 2
+The parameter head.weight's fusion id is 0
+The parameter head.bias's fusion id is 0
+The parameter layer1.input_mapping.weight's fusion id is 1
+The parameter layer1.input_mapping.bias's fusion id is 1
+The parameter layer1.output_mapping.weight's fusion id is 1
+The parameter layer1.output_mapping.bias's fusion id is 1
+The parameter layer2.input_mapping.weight's fusion id is 2
+The parameter layer2.input_mapping.bias's fusion id is 2
+The parameter layer2.output_mapping.weight's fusion id is 2
+The parameter layer2.output_mapping.bias's fusion id is 2
+The parameter layer3.input_mapping.weight's fusion id is 3
+The parameter layer3.input_mapping.bias's fusion id is 3
+The parameter layer3.output_mapping.weight's fusion id is 3
+The parameter layer3.output_mapping.bias's fusion id is 3
+...
+epoch: 0, step: 0, loss is 2.3004832
+epoch: 0, step: 10, loss is 2.294562
+epoch: 0, step: 20, loss is 2.2642817
+epoch: 0, step: 30, loss is 2.1556587
+epoch: 0, step: 40, loss is 1.804863
+epoch: 0, step: 50, loss is 1.4092219
+epoch: 0, step: 60, loss is 1.231769
+epoch: 0, step: 70, loss is 1.1870081
+...
 ```
 
-### Running the Code
+The first part represents the fusion index value for particular dense of each layer and the second part represents the Loss result of the training.
 
-The above code needs to be configured with distributed variables before it can run. The Ascend environment needs to be configured with RANK_TABLE_FILE, RANK_ID and DEVICE_ID. For the configuration process, refer to [here](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#configuring-distributed-environment-variables). The GPU environment needs to be configured with [OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#configuring-distributed-environment), NCCL and [HOST_FILE](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#multi-host-training). For the configuration process, refer to [here](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#configuring-distributed-environment).
-
-Environment variables related to Ascend distributed are:
-
-- RANK_TABLE_FILE: the path of networking information file. The rank_table_file file can be generated by using hccl_tools.py in the models code repository, which can be obtained from [here](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools).
-- DEVICE_ID: The actual serial number of the current card on the machine.
-- RANK_ID: The logical serial number of the current card.
-
-Environment variables related to GPU distributed are:
-
-- HOST_FILE: describes the IP and number of devices for multi-card training. Each line of the file has the format [hostname] slots=[slotnum], and hostname can be an ip or hostname. Note that the username needs to be the same on different machines, but the hostname cannot be the same.
-
-The user can access the above script in this document via [here](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel). Execute the following `bash` script to run the program and output the log in the device0/train.log0 file.
-
-```bash
-#!/bin/bash
-set -e
-echo "=============================================================================================================="
-echo "Please run the script as: "
-echo "bash run_fusion_example.sh DATA_PATH RANK_SIZE"
-echo "For example: bash run_fusion_example.sh 8"
-echo "It is better to use the absolute path."
-echo "This example is expected to run on the Ascend environment."
-echo "=============================================================================================================="
-RANK_SIZE=$1
-
-EXEC_PATH=$(pwd)
-
-test_dist_8pcs()
-{
-    export RANK_TABLE_FILE=${EXEC_PATH}/rank_table_8pcs.json
-    export RANK_SIZE=8
-}
-
-test_dist_2pcs()
-{
-    export RANK_TABLE_FILE=${EXEC_PATH}/rank_table_2pcs.json
-    export RANK_SIZE=2
-}
-
-test_dist_${RANK_SIZE}pcs
-
-for((i=0;i<${RANK_SIZE};i++))
-do
-    rm -rf device$i
-    mkdir device$i
-    cp ./fusion_example_cell.py ./device$i
-    cd ./device$i
-    export DEVICE_ID=$i
-    export RANK_ID=$i
-    echo "start training for device $i"
-    env > env$i.log
-    pytest -s -v ./fusion_example_cell.py > train.log$i 2>&1 &
-    cd ../
-done
-echo "The program launch succeed, the log is under device0/train.log0."
-```
-
-After configuring RANK_TABLE_FILE in the current directory, the following command requires the user to have 8 Ascend 910 devices. Run the command as follows:
-
-```bash
-bash run_fusion_example.sh 8
-```
-
-## References
+## Reference
 
 [1] Xu Y, Lee H J, Chen D, et al. GSPMD: general and scalable parallelization for ML computation graphs[J]. arXiv preprint arXiv:2105.04663, 2021.
 
