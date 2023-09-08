@@ -519,7 +519,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
 ## KernelInterfaceCreator
 
-> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/api/zh-CN/master/use/register_kernel.html)章节。
+> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)章节。
 
 \#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/register_kernel_interface.h)>
 
@@ -531,7 +531,7 @@ using KernelInterfaceCreator = std::function<std::shared_ptr<kernel::KernelInter
 
 ## RegisterKernelInterface
 
-> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/api/zh-CN/master/use/register_kernel.html)章节。
+> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)章节。
 
 \#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/register_kernel_interface.h)>
 
@@ -547,7 +547,7 @@ static Status CustomReg(const std::string &provider, const std::string &op_type,
 
 Custom算子的扩展能力注册。
 
-> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/api/zh-CN/master/use/register_kernel.html)章节。
+> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)章节。
 
 - 参数
 
@@ -565,7 +565,7 @@ static Status Reg(const std::string &provider, int op_type, const KernelInterfac
 
 算子的扩展能力注册。
 
-> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/api/zh-CN/master/use/register_kernel.html)章节。
+> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)章节。
 
 - 参数
 
@@ -583,7 +583,7 @@ static std::shared_ptr<kernel::KernelInterface> GetKernelInterface(const std::st
 
 获取注册的算子扩展能力。
 
-> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/api/zh-CN/master/use/register_kernel.html)章节。
+> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)章节。
 
 - 参数
 
@@ -599,7 +599,7 @@ static std::shared_ptr<kernel::KernelInterface> GetKernelInterface(const std::st
 
 算子扩展能力注册构造类。
 
-> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/api/zh-CN/master/use/register_kernel.html)章节。
+> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)章节。
 
 ### KernelInterfaceReg
 
@@ -609,7 +609,7 @@ KernelInterfaceReg(const std::string &provider, int op_type, const KernelInterfa
 
 构造函数，构造注册算子的扩展能力。
 
-> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/api/zh-CN/master/use/register_kernel.html)章节。
+> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)章节。
 
 - 参数
 
@@ -625,7 +625,7 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, cons
 
 构造函数，构造注册custom算子的扩展能力。
 
-> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/api/zh-CN/master/use/register_kernel.html)章节。
+> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)章节。
 
 - 参数
 
@@ -641,7 +641,7 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, cons
 
 注册KernelInterface的实现。
 
-> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/api/zh-CN/master/use/register_kernel.html)章节。
+> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)章节。
 
 ``` c++
 #define REGISTER_KERNEL_INTERFACE(provider, op_type, creator)
@@ -661,7 +661,7 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, cons
 
 注册Custom算子对应的KernelInterface实现。
 
-> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/api/zh-CN/master/use/register_kernel.html)章节。
+> 该接口已弃用，推荐使用 [mindspore::kernel::Kernel的InferShape接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，详情请参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)章节。
 
 ``` c++
 #define REGISTER_CUSTOM_KERNEL_INTERFACE(provider, op_type, creator)
