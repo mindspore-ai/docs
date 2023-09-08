@@ -69,6 +69,10 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 mathjax_path = 'https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
 
+mathjax_options = {
+    'async':'async'
+}
+
 exclude_patterns = []
 
 suppress_warnings = [

@@ -7,6 +7,8 @@
 A：可能与环境中使用了`scipy 1.4`系列版本有关，通过`pip list | grep scipy`命令可查看scipy版本，建议改成MindSpore要求的`scipy`版本。版本第三方库依赖可以在`requirement.txt`中查看。
 <https://gitee.com/mindspore/mindspore/blob/master/requirements.txt>
 
+<br/>
+
 <font size=3>**Q: 在昇腾芯片上进行模型训练时，如何选择batchsize达到最佳性能效果？**</font>  
 
 A：在昇腾芯片上进行模型训练时，在batchsize等于AICORE个数或倍数的情况下可以获取更好的训练性能。AICORE个数可通过链接中的命令行进行查询。
