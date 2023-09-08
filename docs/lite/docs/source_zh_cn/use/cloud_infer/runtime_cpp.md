@@ -717,3 +717,9 @@ std::vector<Model> LoadModel(const std::string &model_path0, const std::string &
 [ge_session_options]
 ge.externalWeight=1
 ```
+
+## 实验特性
+
+### 多后端异构能力
+
+MindSpore Lite云侧推理正在支持多后端异构场景，可以通过在运行期间指定环境变量‘export ENABLE_MULTI_BACKEND_RUNTIME=on’来使能该特性，其他接口的使用方式与原流程一致。当前该特性为实验特性，不保证特性的正确性，稳定性和后续的兼容性。

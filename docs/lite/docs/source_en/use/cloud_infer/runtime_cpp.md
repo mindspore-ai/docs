@@ -717,3 +717,9 @@ By default, multiple models in the above configuration only share variables. Whe
 [ge_session_options]
 ge.externalWeight=1
 ```
+
+## Experimental feature
+
+### multi-backend runtime
+
+MindSpore Lite cloud inference is supporting multi-backend heterogeneous inference, which can be enabled by specifying the environment variable 'export ENABLE_MULTI_BACKEND_RUNTIME=on' during runtime, and other interfaces are used in the same way as the original cloud inference. At present, this feature is an experimental feature, and the correctness, stability and subsequent compatibility of the feature are not guaranteed.
