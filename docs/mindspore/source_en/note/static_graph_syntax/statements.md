@@ -8,6 +8,8 @@
 
 Support the use of `raise` to trigger an exception. `raise` syntax format: `raise[Exception [, args]]`. The `Exception` in the statement is the type of the exception, and the `args` is the user-supplied argument to the exception, usually a string or other object. The following types of errors are supported: NoExceptionType, UnknownError, ArgumentError, NotSupportError, NotExistsError, DeviceProcessError, AbortedError, IndexError, ValueError, TypeError, KeyError, AttributeError, NameError, AssertionError, BaseException, KeyboardInterrupt, Exception, StopIteration, OverflowError, ZeroDivisionError, EnvironmentError, IOError, OSError, ImportError, MemoryError, UnboundLocalError, RuntimeError, NotImplementedError, IndentationError, RuntimeWarning.
 
+It is worth noting that the ability of the raise statement in the variable scenario in static graph mode is supported through extended syntax, that is, it needs to be supported only when the JIT syntax support level option 'jit_syntax_level' is 'LAX'.
+
 For example:
 
 ```python
@@ -648,6 +650,8 @@ Usage restrictions are the same as list comprehension, i.e., the use of multiple
 ### With Statement
 
 In graph mode, the `with` statement is supported with limitations. The `with` statement requires that the object must have two magic methods: `__enter__()` and `__exit__()`.
+
+It is worth noting that the class used in the with statement needs to be decorated with a decorator@ms.jit_class or inherited from nn. Cell, more on this can be found in [Calling the Custom Class](https://www.mindspore.cn/tutorials/en/master/advanced/static_graph_expert_programming.html#using-jit-class)
 
 For example:
 
