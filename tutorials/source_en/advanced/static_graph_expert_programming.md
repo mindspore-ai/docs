@@ -741,3 +741,119 @@ We provide the MS_DEV_SIDE_EFFECT_LOAD_ELIM switch to optimize the level of vide
 - When MS_DEV_SIDE_EFFECT_LOAD_ELIM is set to 1 or no value is set (i.e., default mode), it indicates that real operators are inserted conservatively for scenarios where the Load operator inside the framework may have accuracy problems and ensures that there is no problem with network accuracy.
 - When MS_DEV_SIDE_EFFECT_LOAD_ELIM is set to 2, it inserts as few real operators as possible under the premise of losing a certain compilation performance, optimizes more memory, and ensures that there is no problem with network accuracy.
 - When MS_DEV_SIDE_EFFECT_LOAD_ELIM is set to 3, no real operator is inserted. The accuracy of the network is not ensured, and the video memory is consumed the least.
+
+We can further understand this through the use case and the generated intermediate representation (IR).
+
+```python
+import numpy as np
+from mindspore.nn import Cell
+from mindspore import context, Tensor, Parameter
+from mindspore.ops import functional as F
+from mindspore.ops import composite as C
+import mindspore as ms
+
+context.set_context(mode=context.GRAPH_MODE)
+
+class ForwardNet(Cell):
+    def __init__(self):
+        super(ForwardNet, self).__init__()
+        self.weight = Parameter(Tensor(np.array(0), ms.int32), name="param")
+
+    def construct(self, x):
+        out = 0
+        i = 0
+        while i < 3:
+            F.assign(self.weight, i)
+            out = x * self.weight + out
+            i = i + 1
+        return out
+
+
+class BackwardNet(Cell):
+    def __init__(self, net):
+        super(BackwardNet, self).__init__(auto_prefix=False)
+        self.forward_net = net
+        self.grad = C.GradOperation(get_all=True)
+
+    def construct(self, *inputs):
+        grads = self.grad(self.forward_net)(*inputs)
+        return grads
+
+x = Tensor(np.array(1), ms.int32)
+graph_forword_net = ForwardNet()
+graph_backword_net = BackwardNet(graph_forword_net)
+graph_mode_grads = graph_backword_net(x)
+output_except = (Tensor(np.array(3), ms.int32),)
+assert np.all(graph_mode_grads == output_except)
+```
+
+As in the above use case, save the intermediate file through the settings: context.set_context(mode=context.GRAPH_MODE, save_graphs=True), you can get the intermediate file IR, for easy viewing, we simplify the resulting intermediate file as follows:
+
+The IR file when the real operator is not inserted into the Load operator inside the framework is as follows, and you can see that there are 3 Load operators, all of which take the value of para2_param this global variable at different times, and this global variable will modify the value through the Assign operator. That is, the values taken by the 3 Loads are different. And if we do not insert the real operator into the Load operator, that is, we do not save the value of the global variable para2_param at different times, then the final result obtained is incorrect. That is, this case is set to 3 in the MS_DEV_SIDE_EFFECT_LOAD_ELIM, which has the least memory footprint, but the result has precision problems.
+
+```text
+# IR entry: @BackwardNet_construct
+# Total subgraphs: 1
+# Total params: 2
+# Params:
+%para1_inputs0 : <Tensor[Int32], ()>
+%para2_param : <Ref[Tensor[Int32]], (), ref_key=:param>  :  has_default
+
+subgraph @BackwardNet_construct() {
+  %0 = Assign(%para2_param, Tensor(shape=[], dtype=Int32, value=0), U)
+  %1 = UpdateState(U, %0)
+  %2 = Load(%para2_param, %1)
+  %3 = UpdateState(%1, %2)
+  %4 = Assign(%para2_param, Tensor(shape=[], dtype=Int32, value=1), %3)
+  %5 = UpdateState(%3, %4)
+  %6 = Load(%para2_param, %5)
+  %7 = UpdateState(%5, %6)
+  %8 = Assign(%para2_param, Tensor(shape=[], dtype=Int32, value=2), %7)
+  %9 = UpdateState(%7, %8)
+  %10 = Load(%para2_param, %9)
+  %11 = MakeTuple(%10, %6)
+  %12 = AddN(%11)
+  %13 = MakeTuple(%12, %2)
+  %14 = AddN(%13)
+  %15 = MakeTuple(%14)
+  %16 = UpdateState(%9, %10)
+  %17 = Depend(%15, %16)
+  Return(%17)
+}
+```
+
+When the MS_DEV_SIDE_EFFECT_LOAD_ELIM is set to 0, 1, and 2, the simplified IR figure is shown below. Since the Load operators in this scenario need to insert real operators to save the values modified by each Assign operator, the IR files obtained MS_DEV_SIDE_EFFECT_LOAD_ELIM set to 0, 1, and 2 are consistent. In more complex cases, the MS_DEV_SIDE_EFFECT_LOAD_ELIM may be different when set to 0, 1, 2, and will not be expanded here.
+
+```text
+# IR entry: @BackwardNet_construct
+# Total subgraphs: 1
+# Total params: 2
+# Params:
+%para1_inputs0 : <Tensor[Int32], ()>
+%para2_param : <Ref[Tensor[Int32]], (), ref_key=:param>  :  has_default
+
+subgraph @BackwardNet_construct() {
+  %0 = Assign(%para2_param, Tensor(shape=[], dtype=Int32, value=0), U)
+  %1 = UpdateState(U, %0)
+  %2 = Load(%para2_param, %1)
+  %3 = TensorMove(%2)
+  %4 = UpdateState(%1, %3)
+  %5 = Assign(%para2_param, Tensor(shape=[], dtype=Int32, value=1), %4)
+  %6 = UpdateState(%4, %5)
+  %7 = Load(%para2_param, %6)
+  %8 = TensorMove(%7)
+  %9 = UpdateState(%6, %8)
+  %10 = Assign(%para2_param, Tensor(shape=[], dtype=Int32, value=2), %9)
+  %11 = UpdateState(%9, %10)
+  %12 = Load(%para2_param, %11)
+  %13 = TensorMove(%12)
+  %14 = MakeTuple(%13, %8)
+  %15 = AddN(%14)
+  %16 = MakeTuple(%15, %3)
+  %17 = AddN(%16)
+  %18 = MakeTuple(%17)
+  %19 = UpdateState(%11, %13, %15)
+  %20 = Depend(%18, %19)
+  Return(%20)
+}
+```
