@@ -11,7 +11,7 @@ class torch.nn.TransformerEncoderLayer(
     dim_feedforward=2048,
     dropout=0.1,
     activation='relu'
-)(src, src_mask, src_key_padding_mask)
+)(src, src_mask=None, src_key_padding_mask=None)
 ```
 
 For more information, see [torch.nn.TransformerEncoderLayer](https://pytorch.org/docs/1.8.1/generated/torch.nn.TransformerEncoderLayer.html).
@@ -29,7 +29,7 @@ class mindspore.nn.TransformerEncoderLayer(
     batch_first=False,
     norm_first=False,
     dtype=mstype.float32
-)(src, src_mask, src_key_padding_mask)
+)(src, src_mask=None, src_key_padding_mask=None)
 ```
 
 For more information, see [mindspore.nn.TransformerEncoderLayer](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TransformerEncoderLayer.html).

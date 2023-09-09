@@ -14,7 +14,7 @@ class torch.nn.MultiheadAttention(
     add_zero_attn=False,
     kdim=None,
     vdim=None
-)(query, key, value, key_padding_mask, need_weights, attn_mask)
+)(query, key, value, key_padding_mask=None, need_weights=True, attn_mask=None)
 ```
 
 更多内容详见[torch.nn.MultiheadAttention](https://pytorch.org/docs/1.8.1/generated/torch.nn.MultiheadAttention.html)。
@@ -33,10 +33,10 @@ class mindspore.nn.MultiheadAttention(
     vdim=None,
     batch_first=False,
     dtype=mstype.float32
-)(query, key, value, key_padding_mask, need_weights, attn_mask, average_attn_weights)
+)(query, key, value, key_padding_mask=None, need_weights=True, attn_mask=None, average_attn_weights=True)
 ```
 
-更多内容详见[mindspore.nn.MultiheadAttention](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.MultiheadAttention.html)。
+更多内容详见[mindspore.nn.MultiheadAttention](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MultiheadAttention.html)。
 
 ## 差异对比
 

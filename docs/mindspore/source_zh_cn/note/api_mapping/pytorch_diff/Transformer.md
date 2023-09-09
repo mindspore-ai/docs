@@ -15,7 +15,7 @@ class torch.nn.Transformer(
     activation='relu',
     custom_encoder=None,
     custom_decoder=None
-)(src, tgt, src_mask, tgt_mask, memory_mask, src_key_padding_mask, tgt_key_padding_mask, memory_key_padding_mask)
+)(src, tgt, src_mask=None, tgt_mask=None, memory_mask=None, src_key_padding_mask=None, tgt_key_padding_mask=None, memory_key_padding_mask=None)
 ```
 
 更多内容详见 [torch.nn.Transformer](https://pytorch.org/docs/1.8.1/generated/torch.nn.Transformer.html).
@@ -37,7 +37,7 @@ class mindspore.nn.Transformer(
     batch_first=False,
     norm_first=False,
     dtype=mstype.float32
-)(src, tgt, src_mask, tgt_mask, memory_mask, src_key_padding_mask, tgt_key_padding_mask, memory_key_padding_mask)
+)(src, tgt, src_mask=None, tgt_mask=None, memory_mask=None, src_key_padding_mask=None, tgt_key_padding_mask=None, memory_key_padding_mask=None)
 ```
 
 更多内容详见 [mindspore.nn.Transformer](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Transformer.html).
@@ -57,18 +57,18 @@ The code implementation and parameter update logic of `mindspore.nn.Transformer`
 |      | 参数 7 | activation        | activation | 功能一致 |
 |      | 参数 8 | custom_encoder        | custom_encoder | 功能一致 |
 |      | 参数 9 | custom_decoder        | custom_decoder | 功能一致 |
-|      | 参数10 |                | layer_norm_eps          | MindSpore可配置LayerNorm层的eps值, Pytorch没有此功能 |
-|      | 参数11 |                | batch_first          | MindSpore可配置第一维是否输出batch维度, Pytorch没有此功能 |
-|      | 参数12 |                | norm_first          | MindSpore可配置LayerNorm层是否位于Multiheadttention层和FeedForward之间或之后, Pytorch没有此功能 |
-|      | 参数13 |                     | dtype          | MindSpore可配置网络参数的dtype， PyTorch没有此功能。 |
-| 输入  | 输入1 | src            | src | 功能一致                                              |
-|     | 输入2 | tgt            | tgt | 功能一致                                              |
-|     | 输入3 | src_mask           | src_mask | 功能一致                                            |
-|     | 输入4 | tgt_mask           | tgt_mask | 功能一致                                             |
-|     | 输入5 | memory_mask           | memory_mask | 功能一致                                             |
-|     | 输入6 | src_key_padding_mask      | src_key_padding_mask | 功能一致                       |
-|     | 输入7 | tgt_key_padding_mask      | tgt_key_padding_mask | 功能一致                     |
-|     | 输入8 | memory_key_padding_mask   | memory_key_padding_mask | 功能一致                      |
+|      | 参数 10 |                | layer_norm_eps          | MindSpore可配置LayerNorm层的eps值, Pytorch没有此功能 |
+|      | 参数 11 |                | batch_first          | MindSpore可配置第一维是否输出batch维度, Pytorch没有此功能 |
+|      | 参数 12 |                | norm_first          | MindSpore可配置LayerNorm层是否位于MultiheadAttention层和FeedForward之间或之后, Pytorch没有此功能 |
+|      | 参数 13 |                     | dtype          | MindSpore可配置网络参数的dtype， PyTorch没有此功能。 |
+| 输入  | 输入 1 | src            | src | 功能一致                                              |
+|     | 输入 2 | tgt            | tgt | 功能一致                                              |
+|     | 输入 3 | src_mask           | src_mask | 功能一致                                            |
+|     | 输入 4 | tgt_mask           | tgt_mask | 功能一致                                             |
+|     | 输入 5 | memory_mask           | memory_mask | 功能一致                                             |
+|     | 输入 6 | src_key_padding_mask      | src_key_padding_mask | 功能一致                       |
+|     | 输入 7 | tgt_key_padding_mask      | tgt_key_padding_mask | 功能一致                     |
+|     | 输入 8 | memory_key_padding_mask   | memory_key_padding_mask | 功能一致                      |
 
 ## 代码示例
 
