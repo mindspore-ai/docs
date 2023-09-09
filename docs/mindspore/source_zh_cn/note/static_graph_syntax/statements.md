@@ -8,6 +8,8 @@
 
 支持使用`raise`触发异常，`raise`语法格式：`raise[Exception [, args]]`。语句中的`Exception`是异常的类型，`args`是用户提供的异常参数，通常可以是字符串或者其他对象。目前支持的异常类型有：NoExceptionType、UnknownError、ArgumentError、NotSupportError、NotExistsError、DeviceProcessError、AbortedError、IndexError、ValueError、TypeError、KeyError、AttributeError、NameError、AssertionError、BaseException、KeyboardInterrupt、Exception、StopIteration、OverflowError、ZeroDivisionError、EnvironmentError、IOError、OSError、ImportError、MemoryError、UnboundLocalError、RuntimeError、NotImplementedError、IndentationError、RuntimeWarning。
 
+值得注意的是，raise语句在静态图模式下的变量场景的能力是通过扩展语法支持，即需要在JIT语法支持级别选项`jit_syntax_level`为`LAX`时才支持。
+
 例如：
 
 ```python
@@ -648,6 +650,8 @@ ret:[4, 16, 36, 64, 100]
 ### with语句
 
 在图模式下，有限制地支持`with`语句。`with`语句要求对象必须有两个魔术方法：`__enter__()`和`__exit__()`。
+
+值得注意的是with语句中使用的类需要有装饰器@ms.jit_class修饰或者继承于nn.Cell，更多介绍可见[使用jit_class](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/static_graph_expert_programming.html#使用jit-class)。
 
 示例如下：
 

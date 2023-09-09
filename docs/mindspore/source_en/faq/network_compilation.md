@@ -724,4 +724,29 @@ res = out_net(Tensor([1], ms.float32))
 print("res:", res)
 ```
 
+In the following scenario, the bias parameter that has been defined in the network Net and the parameter with the same name are defined again in the network instantiation, which is not allowed in graph mode.
+
+```python
+import mindspore as ms
+ms.set_context(mode=context.GRAPH_MODE)
+
+class Net(ms.nn.Cell):
+    def __init__(self, net):
+        super().__init__()
+        self.net = net
+        self.bias = ms.Parameter(ms.Tensor(2.), name='bias')
+
+class SubNet(ms.nn.Cell):
+    def __init__(self):
+        super().__init__()
+
+sub = SubNet()
+net = Net(sub)
+
+net.net.bias = ms.Parameter(ms.Tensor(2.), name='bias')
+a = ms.Tensor(3.)
+grad_fn = ms.value_and_grad(net, None, net.trainable_params())
+print(grad_fn(a))
+```
+
 <br/>
