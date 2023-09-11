@@ -13,7 +13,7 @@ MindSpore Lite quantization after training is classified into two types:
 
 ## Configuration Parameter
 
-Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html). The configuration file adopts the style of `INI`, For quantization, configurable parameters include `common quantization parameter [common_quant_param]`, `mixed bit weight quantization parameter [mixed_bit_weight_quant_param]`,`full quantization parameter [full_quant_param]`, and `data preprocess parameter [data_preprocess_param]`.
+Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html). The configuration file adopts the style of `INI`, For quantization, configurable parameters include `common quantization parameter [common_quant_param]`, `fixed bit weight quantization parameter [weight_quant_param]`, `mixed bit weight quantization parameter [mixed_bit_weight_quant_param]`,`full quantization parameter [full_quant_param]`, `data preprocess parameter [data_preprocess_param]` and `dynamic quantization parameter [dynamic_quant_param]`.
 
 ### Common Quantization Parameter
 
