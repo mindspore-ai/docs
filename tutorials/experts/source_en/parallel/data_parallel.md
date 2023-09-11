@@ -177,6 +177,8 @@ for epoch in range(10):
         i += 1
 ```
 
+> This can also be trained using `Model.train`.
+
 ### Running Single-machine Eight-card Script
 
 Next, the corresponding scripts are invoked by commands, using the `mpirun` startup method and the 8-card distributed training script as an example of distributed training:

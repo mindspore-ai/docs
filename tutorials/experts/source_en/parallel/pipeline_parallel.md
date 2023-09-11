@@ -149,6 +149,8 @@ model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
 > Currently pipeline parallel does not support the automatic mixed precision.
+>
+> Pipeline parallel training is more suitable to use `model.train` approach, because the TrainOneStep logic under pipeline parallelism is complex, while `model.train` internally encapsulates the TrainOneStepCell for pipeline parallel, which is much easier to use.
 
 ### Running the Single-host with 8 Devices Script
 
