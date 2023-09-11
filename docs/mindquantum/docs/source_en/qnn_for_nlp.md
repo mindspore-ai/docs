@@ -147,7 +147,7 @@ Through the above verification, for the data with label 2, the position where th
 
 ```python
 def GenerateTrainData(sample, word_dict):
-    n_qubits = np.int(np.ceil(np.log2(1 + max(word_dict.values()))))
+    n_qubits = int(np.ceil(np.log2(1 + max(word_dict.values()))))
     data_x = []
     data_y = []
     for around, center in sample:
