@@ -13,7 +13,7 @@ MindSpore Lite训练后量化分为两类：
 
 ## 配置参数
 
-训练后量化可通过[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)配置`configFile`的方式启用训练后量化。配置文件采用`INI`的风格，针对量化场景，目前可配置的参数包括`通用量化参数[common_quant_param]`、`混合比特权重量化参数[mixed_bit_weight_quant_param]`、`全量化参数[full_quant_param]`和`数据预处理参数[data_preprocess_param]`。
+训练后量化可通过[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)配置`configFile`的方式启用训练后量化。配置文件采用`INI`的风格，针对量化场景，目前可配置的参数包括`通用量化参数[common_quant_param]`、`固定比特权重量化参数[weight_quant_param]`、`混合比特权重量化参数[mixed_bit_weight_quant_param]`、`全量化参数[full_quant_param]`、`数据预处理参数[data_preprocess_param]`和`动态量化参数[dynamic_quant_param]`。
 
 ### 通用量化参数
 
