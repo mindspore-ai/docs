@@ -297,6 +297,12 @@ Notice that:
 - like Python we define a loop with the keyword `range`.
 
 ```python
+import numpy as np
+from mindspore import ops
+import mindspore as ms
+from mindspore.ops import kernel
+
+ms.set_context(device_target="GPU")
 @kernel
 def tensor_add_3d(x, y):
     result = output_tensor(x.shape, x.dtype)
