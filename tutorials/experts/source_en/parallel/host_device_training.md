@@ -6,7 +6,13 @@
 
 In deep learning, one usually has to deal with the huge model problem, in which the total size of parameters in the model is beyond the device memory capacity. To efficiently train a huge model, one solution is to employ homogeneous accelerators (*e.g.*, Ascend 910 AI Accelerator and GPU) for distributed training. When the size of a model is hundreds of GBs or several TBs, the number of required accelerators is too overwhelming for people to access, resulting in this solution inapplicable.  One alternative is Host+Device hybrid training. This solution simultaneously leveraging the huge memory in hosts and fast computation in accelerators, is a promisingly efficient method for addressing huge model problem.
 
-In MindSpore, users can easily implement hybrid training by configuring trainable parameters and necessary operators to run on hosts, and other operators to run on accelerators. This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep) in the Host+Ascend 910 AI Accelerator mode.
+In MindSpore, users can easily implement hybrid training by configuring trainable parameters and necessary operators to run on hosts, and other operators to run on accelerators.
+
+Related interfaces:
+
+1. `mindspore.ops.Primitive.set_device()`: Set Primitive to execute the backend.
+
+2. `mindspore.nn.Optimizer.target`: This attribute specifies whether the parameter should be updated on the host or on the device. The input type is str and can only be "CPU", "Ascend" or "GPU".
 
 ## Basic Principle
 
@@ -22,78 +28,170 @@ A careful analysis of the special structure of the Wide & Deep model can be obta
 
 *Figure: Wide & Deep Heterogeneous Approach*
 
-## Practices
+## Operator Practices
+
+The following is an illustration of Host&Device heterogeneous operation using Ascend or GPU stand-alone 8-card as an example:
 
 ### Sample Code Description
 
-1. Prepare the model code. The Wide&Deep code can be found at: <https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep>, in which `train_and_eval_auto_parallel.py` defines the main function for model training, `src/` directory contains the model definition, data processing and configuration files, and `script/` directory contains the training scripts in different modes.
+> Download the complete example code: [host_device](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/host_device).
 
-2. Prepare the dataset. Please refer the link in [1] to download the dataset, and use the script `src/preprocess_data.py` to transform dataset into MindRecord format.
-
-3. Configure the device information. When performing distributed training in the bare-metal environment (That is, there is an Ascend 910 AI processor locally), the network information file needs to be configured. This example only employs one accelerator, thus `rank_table_1p_0.json` containing #0 accelerator is configured. MindSpore provides an automated build script for generating this configuration file and related instructions. For the detailed, see [HCCL_TOOL](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools).
-
-### Configuring for Hybrid Training
-
-1. Configure the flag of hybrid training. In the file `default_config.yaml`, change the default value of `host_device_mix` to be `1`:
-
-    ```python
-    host_device_mix: 1
-    ```
-
-2. Check the deployment of necessary operators and optimizers. In class `WideDeepModel` of file `src/wide_and_deep.py`, check the execution of `EmbeddingLookup` is at host:
-
-    ```python
-    self.deep_embeddinglookup = nn.EmbeddingLookup()
-    self.wide_embeddinglookup = nn.EmbeddingLookup()
-    ```
-
-   In `class TrainStepWrap(nn.Cell)` of file `src/wide_and_deep.py`, check two optimizers are also executed at host:
-
-    ```python
-    self.optimizer_w.target = "CPU"
-    self.optimizer_d.target = "CPU"
-    ```
-
-### Training the Model
-
-In order to save enough log information, use the command `export GLOG_v=1` to set the log level to INFO before executing the script, and add the `-p on` option when compiling MindSpore. For the details about compiling MindSpore, refer to [Compiling MindSpore](https://www.mindspore.cn/install/detail/en?path=install/master/mindspore_ascend_install_source_en.md&highlight=%E7%BC%96%E8%AF%91mindspore).
-
-Use the script `script/run_auto_parallel_train.sh`. Run the command `bash run_auto_parallel_train.sh 1 1 <DATASET_PATH> <RANK_TABLE_FILE>`, where the first `1` is the number of cards used in the case, the second `1` is the number of epochs, `DATASET_PATH` is the path of dataset, and `RANK_TABLE_FILE` is the path of the above `rank_table_1p_0.json` file.
-
-The running log is in the directory of `device_0`, where `loss.log` contains every loss value of every step in the epoch. Here is an example:
+The directory structure is as follows:
 
 ```text
-epoch: 1 step: 1, wide_loss is 0.6873926, deep_loss is 0.8878349
-epoch: 1 step: 2, wide_loss is 0.6442529, deep_loss is 0.8342661
-epoch: 1 step: 3, wide_loss is 0.6227323, deep_loss is 0.80273706
-epoch: 1 step: 4, wide_loss is 0.6107221, deep_loss is 0.7813441
-epoch: 1 step: 5, wide_loss is 0.5937832, deep_loss is 0.75526017
-epoch: 1 step: 6, wide_loss is 0.5875453, deep_loss is 0.74038756
-epoch: 1 step: 7, wide_loss is 0.5798845, deep_loss is 0.7245408
-epoch: 1 step: 8, wide_loss is 0.57553077, deep_loss is 0.7123517
-epoch: 1 step: 9, wide_loss is 0.5733629, deep_loss is 0.70278376
-epoch: 1 step: 10, wide_loss is 0.566089, deep_loss is 0.6884129
+└─ sample_code
+    ├─ host_device
+       ├── train.py
+       └── run.sh
+    ...
 ```
 
-`test_deep0.log` contains the runtime log.
-Search `EmbeddingLookup` in `test_deep0.log`, the following can be found:
+`train.py` is the script that defines the network structure and the training process. `run.sh` is the execution script.
+
+### Configuring a Distributed Environment
+
+Specify the run mode, run device, run card number via the context interface. Parallel mode is the data parallel mode and initialize HCCL or NCCL communication via init. The `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
+
+```python
+import mindspore as ms
+from mindspore.communication import init
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
+init()
+ms.set_seed(1)
+```
+
+### Loading the Dataset
+
+The dataset is loaded and the data is parallelized consistently with the following code:
+
+```python
+import os
+import mindspore.dataset as ds
+
+def create_dataset(batch_size):
+    dataset_path = os.getenv("DATA_PATH")
+    rank_id = get_rank()
+    rank_size = get_group_size()
+    dataset = ds.MnistDataset(dataset_path, num_shards=rank_size, shard_id=rank_id)
+    image_transforms = [
+        ds.vision.Rescale(1.0 / 255.0, 0),
+        ds.vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        ds.vision.HWC2CHW()
+    ]
+    label_transform = ds.transforms.TypeCast(ms.int32)
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size)
+    return dataset
+
+data_set = create_dataset(32)
+```
+
+### Defining the Network
+
+The network definition differs from a single-card network in that the `ops.Add()` operator is configured to run on the host side with the following code:
+
+```python
+import mindspore as ms
+from mindspore import nn, ops
+from mindspore.common.initializer import initializer
+
+class Dense(nn.Cell):
+    def __init__(self, in_channels, out_channels):
+        super().__init__()
+        self.weight = ms.Parameter(initializer("normal", [in_channels, out_channels], ms.float32))
+        self.bias = ms.Parameter(initializer("normal", [out_channels], ms.float32))
+        self.matmul = ops.MatMul()
+        self.add = ops.Add()
+
+    def construct(self, x):
+        x = self.matmul(x, self.weight)
+        x = self.add(x, self.bias)
+        return x
+
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.layer1 = Dense(28*28, 512)
+        self.relu1 = nn.ReLU()
+        self.layer2 = Dense(512, 512)
+        self.relu2 = nn.ReLU()
+        self.layer3 = Dense(512, 10)
+
+    def construct(self, x):
+        x = self.flatten(x)
+        x = self.layer1(x)
+        x = self.relu1(x)
+        x = self.layer2(x)
+        x = self.relu2(x)
+        logits = self.layer3(x)
+        return logits
+
+net = Network()
+# Configurethe add operator to run on the CPU side
+net.layer1.add.set_device("CPU")
+net.layer2.add.set_device("CPU")
+net.layer3.add.set_device("CPU")
+```
+
+### Training the Network
+
+The loss function, optimizer, and training process are consistent with those in the data parallel:
+
+```python
+from mindspore import nn, ops
+
+optimizer = nn.SGD(net.trainable_params(), 1e-2)
+loss_fn = nn.CrossEntropyLoss()
+
+def forward_fn(data, target):
+    logits = net(data)
+    loss = loss_fn(logits, target)
+    return loss, logits
+
+grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_reducer = nn.DistributedGradReducer(optimizer.parameters)
+
+for epoch in range(5):
+    i = 0
+    for image, label in data_set:
+        (loss_value, _), grads = grad_fn(image, label)
+        grads = grad_reducer(grads)
+        optimizer(grads)
+        if i % 100 == 0:
+            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_value))
+        i += 1
+```
+
+### Running Stand-alone 8-card Script
+
+In order to save enough log information, you need to set the log level to INFO by adding the command `export GLOG_v=1` to the executing script. Next, the corresponding script is called by the command, and the distributed training script with `mpirun` startup method and 8 cards is used as an example for distributed training:
+
+```bash
+bash run.sh
+```
+
+After training, the part of results about the Loss are saved in `log_output/1/rank.*/stdout`, and the example is as follows:
 
 ```text
-[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:34.928.275 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/network-VirtualDatasetCellTriple/_backbone-NetWithLossClass/network-WideDeepModel/EmbeddingLookup-op297 costs 3066 us.
-[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:34.943.896 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/network-VirtualDatasetCellTriple/_backbone-NetWithLossClass/network-WideDeepModel/EmbeddingLookup-op298 costs 15521 us.
+...
+epoch: 0, step: 0, loss is 2.3029172
+...
+epoch: 0, step: 100, loss is 2.2896261
+...
+epoch: 0, step: 200, loss is 2.2694492
+...
 ```
 
-The above shows the running time of `EmbeddingLookup` on the host.
-
-Search `FusedSparseFtrl` and `FusedSparseLazyAdam` in `test_deep0.log`, the following can be found:
+Search for the keyword `CPU` and find the following information:
 
 ```text
-[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:35.422.963 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/optimizer_w-FTRL/FusedSparseFtrl-op299 costs 54492 us.
-[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:35.565.953 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/optimizer_d-LazyAdam/FusedSparseLazyAdam-op300 costs 142865 us.
+...
+[INFO] PRE_ACT(3533591,7f5e5d1e8740,python):2023-09-01-15:14:11.164.420 [mindspore/ccsrc/backend/common/pass/convert_const_input_to_attr.cc:44] Process] primitive target does not match backend: GPU, primitive_target: CPU, node name: Default/Add-op108
+...
 ```
 
-The above shows the running time of two optimizers on the host.
-
-## Reference
-
-[1] Huifeng Guo, Ruiming Tang, Yunming Ye, Zhenguo Li, Xiuqiang He. [DeepFM: A Factorization-Machine based Neural Network for CTR Prediction.](https://doi.org/10.24963/ijcai.2017/239) IJCAI 2017.
+Indicates that the Add operator is configured to run on the CPU side.
