@@ -10,8 +10,7 @@ MindSpore Lite当前提供了一套南向的算子注册机制，如果用户想
 
 1. 确定算子类型：分为通用算子与Custom算子。
 2. 算子实现：继承Kernel类实现自定义算子，并注册进MindSpore Lite。
-
-> 不同于历史版本，算子InferShape逻辑现在可以直接实现在算子的[InferShape](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)接口中。同时为了保证兼容性，历史版本通过继承mindspore::kernel::KernelInteface实现自定义算子的InferShape能力，并注册进MindSpore Lite的方式仍然会在接下来的几个版本中保留，但是被标记为废弃，推荐使用新的方式实现自定义算子的InferShape逻辑。
+3. 算子InferShape：继承mindspore::kernel::KernelInteface实现自定义算子的InferShape能力，并注册进MindSpore Lite。
 
 ### 确定算子类型
 
@@ -41,8 +40,6 @@ class TestCustomAdd : public Kernel {
 
   int Execute() override;
 
-  int InferShape() override;
-
   int ReSize() { return kSuccess; }
 
  private:
@@ -58,27 +55,6 @@ class TestCustomAdd : public Kernel {
     return kSuccess;
   }
 };
-
-int TestCustomAdd::InferShape() {
-  if (inputs_.size() != 2) {
-    MS_LOG(ERROR) << "Add Kernel should has two input but got: " << inputs_.size();
-    return kLiteParamInvalid;
-  }
-  if (outputs_.size() != 1) {
-    MS_LOG(ERROR) << "Add Kernel should has one output but got: " << outputs_.size();
-    return kLiteParamInvalid;
-  }
-  auto *input = inputs_[0];
-  auto *output = outputs_[0];
-  if (input == nullptr || output == nullptr) {
-    MS_LOG(ERROR) << "Input tensor or Output tensor of Add Kernel is nullptr.";
-    return kLiteNullptr;
-  }
-  output.SetFormat(input.format());
-  output.SetDataType(input.DataType());
-  output.SetShape(input.Shape());
-  return kSuccess;
-}
 
 int TestCustomAdd::Execute() {
   if (inputs_.size() != 2) {
@@ -114,6 +90,45 @@ std::shared_ptr<Kernel> TestCustomAddCreator(const std::vector<tensor::MSTensor 
 const auto kFloat32 = DataType::kNumberTypeFloat32;
 
 REGISTER_KERNEL(CPU, BuiltInTest, kFloat32, PrimitiveType_AddFusion, TestCustomAddCreator)
+```
+
+#### 通用算子InferShape
+
+继承KernelInterface后重载Infer函数，实现InferShape能力。实现步骤如下：
+
+1. 继承[KernelInterface](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernelinterface)。
+2. 重载实现Infer函数，推导出output tensor的shape，format，data_type。
+
+这里以自定义Add算子为例：
+
+```cpp
+using mindspore::kernel::KernelInterface;
+
+class TestCustomAddInfer : public KernelInterface {
+ public:
+  TestCustomAddInfer() = default;
+  ~TestCustomAddInfer() = default;
+  Status Infer(std::vector<mindspore::MSTensor *> *inputs, std::vector<mindspore::MSTensor *> *outputs,
+               const schema::Primitive *primitive) override {
+    (*outputs)[0].SetFormat((*inputs)[0].format());
+    (*outputs)[0].SetDataType((*inputs)[0].DataType());
+    (*outputs)[0].SetShape((*inputs)[0].Shape());
+    return kSuccess;
+  }
+};
+```
+
+#### 通用算子InferShape注册
+
+当前有提供现成的宏[REGISTER_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-kernel-interface)可以进行算子InferShape注册，步骤如下：
+
+1. 函数CustomAddInferCreator用来创建KernelInterface实例。
+2. 调用REGISTER_KERNEL_INTERFACE宏对通用算子InferShape进行注册，这里生产商假定为BuiltInTest。
+
+```cpp
+std::shared_ptr<KernelInterface> CustomAddInferCreator() { return std::make_shared<TestCustomAddInfer>(); }
+
+REGISTER_KERNEL_INTERFACE(BuiltInTest, PrimitiveType_AddFusion, CustomAddInferCreator)
 ```
 
 ### Custom算子
@@ -228,8 +243,6 @@ class TestCustomOp : public Kernel {
 
   int Execute() override;
 
-  int InferShape() override;
-
   int ReSize() override { return kSuccess; }
 
  private:
@@ -244,27 +257,6 @@ class TestCustomOp : public Kernel {
     }
     return kSuccess;
   }
-
-int TestCustomOp::InferShape() {
-  if (inputs_.size() != 2) {
-    MS_LOG(ERROR) << "Custom Add Kernel should has two input but got: " << inputs_.size();
-    return kLiteParamInvalid;
-  }
-  if (outputs_.size() != 1) {
-    MS_LOG(ERROR) << "Custom Add Kernel should has one output but got: " << outputs_.size();
-    return kLiteParamInvalid;
-  }
-  auto *input = inputs_[0];
-  auto *output = outputs_[0];
-  if (input == nullptr || output == nullptr) {
-    MS_LOG(ERROR) << "Input tensor or Output tensor of Custom Add Kernel is nullptr.";
-    return kLiteNullptr;
-  }
-  output.SetFormat(input.format());
-  output.SetDataType(input.DataType());
-  output.SetShape(input.Shape());
-  return kSuccess;
-}
 
 int TestCustomOp::Execute() {
   if (inputs_.size() != 2) {
@@ -318,6 +310,41 @@ std::shared_ptr<Kernel> TestCustomAddCreator(const std::vector<tensor::MSTensor 
 }
 constexpr auto kFloat32 = DataType::kNumberTypeFloat32;
 REGISTER_CUSTOM_KERNEL(CPU, BuiltInTest, kFloat32, Add, TestCustomAddCreator)
+```
+
+#### Custom算子InferShape
+
+整体实现与通用算子InferShape是一样的。步骤如下：
+
+1. 继承[KernelInterface](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernelinterface)。
+2. 重载实现Infer函数，推导出output tensor的shape、format、data_type。
+
+```cpp
+class TestCustomOpInfer : public KernelInterface {
+ public:
+  TestCustomOpInfer() = default;
+  ~TestCustomOpInfer() = default;
+  Status Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<mindspore::MSTensor> *outputs,
+             const schema::Primitive *primitive) override {
+    (*outputs)[0].SetFormat((*inputs)[0].format());
+    (*outputs)[0].SetDataType((*inputs)[0].DataType());
+    (*outputs)[0].SetShape((*inputs)[0].Shape());
+    return kSuccess;
+  }
+};
+```
+
+#### Custom算子InferShape注册
+
+当前有提供的现成的宏[REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel-interface)可以进行Custom算子InferShape的注册，步骤如下：
+
+1. CustomAddInferCreator函数用于创建自定义的KernelInterface。
+2. 通过宏[REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel-interface)注册InferShape能力，这里的算子类型Add必须与REGISTER_CUSTOM_KERNEL时的算子类型一致。
+
+```cpp
+std::shared_ptr<KernelInterface> CustomAddInferCreator() { return std::make_shared<TestCustomOpInfer>(); }
+
+REGISTER_CUSTOM_KERNEL_INTERFACE(BuiltInTest, Add, CustomAddInferCreator)
 ```
 
 ## 自定义GPU算子
