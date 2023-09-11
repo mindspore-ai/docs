@@ -19,7 +19,7 @@ git clone https://gitee.com/mindspore/mindscience
 source ./mindscience/SciAI/.env
 ```
 
-After a successful clone, user can start training or evaluating according to the `Quick Start` section in the [README.md](https://gitee.com/mindspore/mindscience/tree/master/SciAI/sciai/model/cpinns/README.md)(In case of CPINNs).
+After a successful clone, user can start training or evaluating according to the `Quick Start` section in the [README.md](https://gitee.com/mindspore/mindscience/blob/master/SciAI/sciai/model/cpinns/README.md)(In case of CPINNs).
 
 ```bash
 cd ./mindscience/SciAI/sciai/model/cpinns/
@@ -28,7 +28,7 @@ source ./mindscience/SciAI/.env
 
 ## Training and Fine-tuning the Model
 
-User can run script [train.py](https://gitee.com/mindspore/mindscience/tree/master/SciAI/sciai/model/cpinns/train.py) in each model directory to train the models.
+User can run script [train.py](https://gitee.com/mindspore/mindscience/blob/master/SciAI/sciai/model/cpinns/train.py) in each model directory to train the models.
 
 ```bash
 python ./train.py [--parameters]
@@ -48,7 +48,7 @@ python ./train.py --load_ckpt true --load_ckpt_path {your_file}.ckpt [--paramete
 
 Using the optional parameter `[--parameters]`, user can configure the training process of the model, including learning rate, training epochs, data saving and loading paths and so on.
 
-For details about the configurable parameters in each model, see the `Script Parameters` section in the [README.md](https://gitee.com/mindspore/mindscience/tree/master/SciAI/sciai/model/cpinns/README.md).
+For details about the configurable parameters in each model, see the `Script Parameters` section in the [README.md](https://gitee.com/mindspore/mindscience/blob/master/SciAI/sciai/model/cpinns/README.md).
 
 ## Evaluating the Model
 

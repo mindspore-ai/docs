@@ -14,7 +14,7 @@ In this tutorial, we will demonstrate advanced features of aot-type custom opera
 - Attributes and intermediate variables of aot-type custom operators;
 - Dynamic shape support for aot-type custom operators.
 
-For the complete source code of the example, check [here](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/test_custom_aot_fused.py) in the MindSpore source code.
+For the complete source code of the example, check [here](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_aot_fused.py) in the MindSpore source code.
 
 ## The Introduction to the Advanced Usage Features of aot-type Custom Operators
 

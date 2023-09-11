@@ -129,7 +129,7 @@ print(result_cus)
 [0.         0.84147096 0.19866933 0.29552022 0.38941833]
 ```
 
-如此我们完成一个pyfunc类型自定义算子的定义。对于更多完整的pyfunc类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/test_custom_pyfunc.py)。
+如此我们完成一个pyfunc类型自定义算子的定义。对于更多完整的pyfunc类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_pyfunc.py)。
 
 ## 采用JIT编译的自定义算子
 
@@ -190,7 +190,7 @@ python test_custom_hybrid.py
  [4. 4.]]
 ```
 
-对于更多完整的hybrid类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/test_ms_kernel.py)。
+对于更多完整的hybrid类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_ms_kernel.py)。
 
 ### tbe类型的自定义算子开发
 
@@ -260,7 +260,7 @@ python test_custom_tbe.py
  [4. 4.]]
 ```
 
-对于更多完整的tbe类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/test_custom_tbe.py)。
+对于更多完整的tbe类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_tbe.py)。
 
 ### akg类型的自定义算子开发
 
@@ -318,7 +318,7 @@ python test_custom_akg.py
  [4. 4.]]
 ```
 
-对于更多完整的akg类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/test_custom_akg.py)。
+对于更多完整的akg类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_akg.py)。
 
 ## 采用AOT编译的自定义算子
 
@@ -508,7 +508,7 @@ python test_custom_aot.py
  [4. 4.]]
 ```
 
-对于更多完整的aot类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/test_custom_aot.py)。
+对于更多完整的aot类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_aot.py)。
 
 ### aicpu类型的自定义算子开发
 
@@ -728,4 +728,4 @@ python test_custom_julia.py
    end
    ```
 
-对于更多完整的jullia类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/test_custom_julia.py)。
+对于更多完整的jullia类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_julia.py)。

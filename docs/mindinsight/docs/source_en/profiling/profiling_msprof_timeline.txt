@@ -16,38 +16,38 @@ Timeline Features:
 
 How to view the timeline:
 
-- 1. Click on the download button in the Timeline section of the overview page,
-  download the timeline data(json format) locally.
+1. Click on the download button in the Timeline section of the overview page,
+   download the timeline data(json format) locally.
 
-    . figure:: ./images/timeline_option.png
-       :alt: timeline_option.png
+   .. figure:: ./images/timeline_option.png
+      :alt: timeline_option.png
 
-    *Figure：Timeline download page*
+   *Figure：Timeline download page*
 
-    As shown in the figure above:
+   As shown in the figure above:
 
-    - ranks: used for filtering and merging, default to all.
-    - subgraphs: used for filtering subgraphs, default to all.
-    - data kind: choice summary or detail, default to summary.
-    - merge multiple subgraphs: whether to merge the iteration trajectory data of multiple subgraphs.
+   - ranks: used for filtering and merging, default to all.
+   - subgraphs: used for filtering subgraphs, default to all.
+   - data kind: choice summary or detail, default to summary.
+   - merge multiple subgraphs: whether to merge the iteration trajectory data of multiple subgraphs.
 
-- 2. Open `perfetto <https://ui.perfetto.dev/>` website, drag the downloaded timeline data onto the
-  page to complete the display.
+2. Open `perfetto <https://ui.perfetto.dev/>`_ website, drag the downloaded timeline data onto the
+   page to complete the display.
 
-    . figure:: ./images/timeline_detail.png
-        :alt: timeline_detail.png
+   .. figure:: ./images/timeline_detail.png
+      :alt: timeline_detail.png
 
-    *Figure：Timeline（2 ranks）Analysis*
+   *Figure：Timeline（2 ranks）Analysis*
 
-    As shown in the figure above:
+   As shown in the figure above:
 
-    - Step Trace: Display the forward and backward time and iteration trailing time
-      of each iteration according to the dimension of graph and iteration.
-    - Overlap Analysis: Including total network computing time, communication time,
-      communication time not covered by computation, and card idle time.
-    - Ascend Hardware: Display the execution order of device side calculation operators and communication
-      operators according to the stream.
-    - HCCL: Display the execution order of communication operators according to the plane.
+   - Step Trace: Display the forward and backward time and iteration trailing time
+     of each iteration according to the dimension of graph and iteration.
+   - Overlap Analysis: Including total network computing time, communication time,
+     communication time not covered by computation, and card idle time.
+   - Ascend Hardware: Display the execution order of device side calculation operators and communication
+     operators according to the stream.
+   - HCCL: Display the execution order of communication operators according to the plane.
 
 Recommended usage of perfetto:
 
@@ -59,8 +59,8 @@ Recommended usage of perfetto:
 
 How to use timeline to solve practical problems：
 
-- Step 1. Firstly, we recommend filtering and download summary data containing all ranks and graphs,
-  Identify performance bottlenecks based on overall network execution to avoid premature optimization.
-- Step 2. Then, by filtering and downloading detailed data for certain ranks and graphs,
-  further identify performance bottlenecks at the API level and identify optimization points.
-- Step 3. After optimizing the code, repeat the step 1 and 2 above until the performance meets the requirements.
+1. Firstly, we recommend filtering and download summary data containing all ranks and graphs,
+   Identify performance bottlenecks based on overall network execution to avoid premature optimization.
+2. Then, by filtering and downloading detailed data for certain ranks and graphs,
+   further identify performance bottlenecks at the API level and identify optimization points.
+3. After optimizing the code, repeat the step 1 and 2 above until the performance meets the requirements.

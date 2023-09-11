@@ -19,7 +19,7 @@ $$
 f(x) = {x_1}^2 + sin(x_2)
 $$
 
-For the codes of this part, please refer to the [codes](https://gitee.com/mindspore/mindscience/tree/master/SciAI/tutorial/example_net.py).
+For the codes of this part, please refer to the [codes](https://gitee.com/mindspore/mindscience/blob/master/SciAI/tutorial/example_net.py).
 
 ### Setup Neural Networks
 
@@ -177,7 +177,7 @@ $$
 f(x) = \frac{x^2}{0.2 x^5 + 0.8}.
 $$
 
-For the codes of this part, please refer to [codes](https://gitee.com/mindspore/mindscience/tree/master/SciAI/tutorial/example_grad_net.py).
+For the codes of this part, please refer to [codes](https://gitee.com/mindspore/mindscience/blob/master/SciAI/tutorial/example_grad_net.py).
 
 ### Loss Definition
 

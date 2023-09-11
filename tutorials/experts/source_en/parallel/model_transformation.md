@@ -363,7 +363,7 @@ In the case of an inference task, the results are saved in `log_output/1/rank.*/
 ### Pipeline Parallel Model Transformation
 
 [Pipelining Parallel](https://www.mindspore.cn/tutorials/experts/en/master/parallel/pipeline_parallel.html) is to slice a linear network to get multiple sub-networks, which are pipelined among multiple cards. Therefore, the sharding strategy file stored for each subgraph is inconsistent, and all the sharding strategies are aggregated together to get the complete slicing information of the network.
-Therefore, for the dimension of pipeline parallel, compared to the transformation of other dimensions, it is necessary to perform an operation of aggregating the sharding strategy file before getting the aggregated sharding strategy file, and use this file as the strategy file on which the distributed Checkpoint transformation depends. In addition, there is no difference with the previous [Executing Distributed Checkpoint Transformation](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_transformation.html#executing_distributed_checkpoint_transformation).
+Therefore, for the dimension of pipeline parallel, compared to the transformation of other dimensions, it is necessary to perform an operation of aggregating the sharding strategy file before getting the aggregated sharding strategy file, and use this file as the strategy file on which the distributed Checkpoint transformation depends. In addition, there is no difference with the previous [Executing Distributed Checkpoint Transformation](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_transformation.html#executing-distributed-checkpoint-transformation).
 
 Related interfaces:
 
@@ -427,11 +427,11 @@ After execution, the source Checkpoint file directory and the source sharding st
 ...
 ```
 
-Refer to [Performing a compilation of the target network](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_transformation.html#performing_compilation_on_the_target_network) section, and similarly compile the target network in order to obtain the sharding strategy file for the target network.
+Refer to [Performing a compilation of the target network](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_transformation.html#performing-compilation-on-the-target-network) section, and similarly compile the target network in order to obtain the sharding strategy file for the target network.
 
 The next step unfolds the distributed Checkpoint dimension transformation containing pipeline parallel dimensions, first merging the sharding strategy files obtained from pipline training using interface `merge_pipeline_strategys`, and then performing the distributed Checkpoint transformation using interface `transform_checkpoints` or `transform_checkpoint_by_rank`.
 
-The example introduces an interface that uses `transform_checkpoints`, and the interface that uses `transform_checkpoint_by_rank`. Refer to [Executing Distributed Checkpoint Transformation](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_transformation.html#executing_distributed_checkpoint_transformation).
+The example introduces an interface that uses `transform_checkpoints`, and the interface that uses `transform_checkpoint_by_rank`. Refer to [Executing Distributed Checkpoint Transformation](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_transformation.html#executing-distributed-checkpoint-transformation).
 
 ```python
 import mindspore as ms
@@ -448,7 +448,7 @@ The example script execution command to transform the entire Checkpoint catalog 
 bash run_retrain_pipeline_convert.sh
 ```
 
-After the transformation is completed, refer to [Loading the Transformed Checkpoint Files](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_transformation.html#loading_the_transformed_checkpoint_files) section to execute the distributed network without pipeline dimension.
+After the transformation is completed, refer to [Loading the Transformed Checkpoint Files](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_transformation.html#loading-the-transformed-checkpoint-files) section to execute the distributed network without pipeline dimension.
 
 In the example, the script execution command for loading the transformed Checkpoint for second-stage fine-tuning training is:
 
