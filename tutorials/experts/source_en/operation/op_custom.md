@@ -26,7 +26,7 @@ The difference between these operator development methods are as follows:
 
 | Defining Methods | Development Language | Compilation Method | Supported Platforms | Recommended Scenarios                                                         |
 |:----------------:|:--------------------:| :------: | ------ |-------------------------------------------------------------------------------|
-| [pyfunc](#defining-custom-operator-of-pyfunc-type)      |        Python        |        JIT         | `CPU`                | Fast algorithm verification, need to interact with Python and other scenarios |
+| [pyfunc](#the-introduction-to-custom-operator-an-example)      |        Python        |        JIT         | `CPU`                | Fast algorithm verification, need to interact with Python and other scenarios |
 | [hybrid](#defining-custom-operator-of-hybrid-type)  | MindSpore HYBRID DSL | N/A | `Ascend` `GPU` `CPU` | General development and rapid validation for all platforms|
 | [tbe](#defining-custom-operator-of-tbe-type)       |       TBE DSL        | JIT | `Ascend` | Ascend AICORE custom the operator scenarios         |
 | [akg](#defining-custom-operator-of-akg-type) | MindSpore AKG DSL | JIT | `Ascend` `GPU` | Ascend/GPU platform general scenarios |
