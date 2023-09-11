@@ -221,7 +221,7 @@ print('result.shape:', result.shape)
 
 ### 运行代码
 
-当前MindSpore可以通过分进程启动和mpirun两种方式拉起分布式并行任务。
+当前MindSpore可以通过多进程启动和mpirun两种方式拉起分布式并行任务。
 
 #### 通过多进程启动
 
