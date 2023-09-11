@@ -11,7 +11,7 @@ class torch.nn.TransformerDecoderLayer(
     dim_feedforward=2048,
     dropout=0.1,
     activation='relu'
-)(tgt, memory, tgt_mask, memory_mask, tgt_key_padding_mask, memory_key_padding_mask)
+)(tgt, memory, tgt_mask=None, memory_mask=None, tgt_key_padding_mask=None, memory_key_padding_mask=None)
 ```
 
 更多内容详见[torch.nn.TransformerDecoderLayer](https://pytorch.org/docs/1.8.1/generated/torch.nn.TransformerDecoderLayer.html)。
@@ -29,10 +29,10 @@ class mindspore.nn.TransformerDecoderLayer(
     batch_first=False,
     norm_first=False,
     dtype=mstype.float32=False
-)(tgt, memory, tgt_mask, memory_mask, tgt_key_padding_mask, memory_key_padding_mask)
+)(tgt, memory, tgt_mask=None, memory_mask=None, tgt_key_padding_mask=None, memory_key_padding_mask=None)
 ```
 
-更多内容详见[mindspore.nn.TransformerDecoderLayer](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TransformerDecoderLayer.html)。
+更多内容详见[mindspore.nn.TransformerDecoderLayer](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TransformerDecoderLayer.html)。
 
 ## 差异对比
 

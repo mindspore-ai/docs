@@ -15,7 +15,7 @@ class torch.nn.Transformer(
     activation='relu',
     custom_encoder=None,
     custom_decoder=None
-)(src, tgt, src_mask, tgt_mask, memory_mask, src_key_padding_mask, tgt_key_padding_mask, memory_key_padding_mask)
+)(src, tgt, src_mask=None, tgt_mask=None, memory_mask=None, src_key_padding_mask=None, tgt_key_padding_mask=None, memory_key_padding_mask=None)
 ```
 
 For more information, see [torch.nn.Transformer](https://pytorch.org/docs/1.8.1/generated/torch.nn.Transformer.html).
@@ -37,7 +37,7 @@ class mindspore.nn.Transformer(
     batch_first=False,
     norm_first=False,
     dtype=mstype.float32
-)(src, tgt, src_mask, tgt_mask, memory_mask, src_key_padding_mask, tgt_key_padding_mask, memory_key_padding_mask)
+)(src, tgt, src_mask=None, tgt_mask=None, memory_mask=None, src_key_padding_mask=None, tgt_key_padding_mask=None, memory_key_padding_mask=None)
 ```
 
 For more information, see [mindspore.nn.Transformer](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Transformer.html).
@@ -59,8 +59,8 @@ The code implementation and parameter update logic of `mindspore.nn.Transformer`
 |      | Parameter 9 | custom_decoder        | custom_decoder | Consistent function |
 |      | Parameter 10 |         | layer_norm_eps | In MindSpore, the value of eps can be set in LayerNorm, PyTorch does not have this function |
 |      | Parameter 11 |         | batch_first | In MindSpore, first batch can be set as batch dimension, PyTorch does not have this function |
-|      | Parameter 12 |         | norm_first | In MindSpore, LayerNorm can be set in between Multiheadttention Layer and FeedForward Layer or after, Pytorch does not have this function |
-|      | Parameter 13 |         | dtype          | In MindSpore, dtype can be set in Parameters using 'dtype'. PyTorch does not have this function. |
+|      | Parameter 12 |         | norm_first | In MindSpore, LayerNorm can be set in between MultiheadAttention Layer and FeedForward Layer or after, Pytorch does not have this function |
+|      | Parameter 13 |         | dtype          | In MindSpore, dtype can be set for parameters using 'dtype'. PyTorch does not have this function. |
 | Input  | Input 1 | src            | src | Consistent function                                               |
 |     | Input 2 | tgt            | tgt | Consistent function                                               |
 |     | Input 3 | src_mask           | src_mask | Consistent function                                             |

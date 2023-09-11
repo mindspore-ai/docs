@@ -1,6 +1,6 @@
 # Differences between torch.nn.MultiheadAttention and mindspore.nn.MultiheadAttention
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/MultiheadAttention.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/MultiheadAttention.md)
 
 ## torch.nn.MultiheadAttention
 
@@ -14,7 +14,7 @@ class torch.nn.MultiheadAttention(
     add_zero_attn=False,
     kdim=None,
     vdim=None
-)(query, key, value, key_padding_mask, need_weights, attn_mask)
+)(query, key, value, key_padding_mask=None, need_weights=True, attn_mask=None)
 ```
 
 For more information, see [torch.nn.MultiheadAttention](https://pytorch.org/docs/1.8.1/generated/torch.nn.MultiheadAttention.html)。
@@ -33,7 +33,7 @@ class mindspore.nn.MultiheadAttention(
     vdim=None,
     batch_first=False,
     dtype=mstype.float32
-)(query, key, value, key_padding_mask, need_weights, attn_mask, average_attn_weights)
+)(query, key, value, key_padding_mask=None, need_weights=True, attn_mask=None, average_attn_weights=True)
 ```
 
 For more information, see [mindspore.nn.MultiheadAttention](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.MultiheadAttention.html)。
@@ -59,7 +59,7 @@ The code implementation and parameter update logic of `mindspore.nn.MultiheadAtt
 |      | Input3 | value      | value | Consistent function                                                |
 |      | Input4 | key_padding_mask            | key_padding_mask | Consistent function                                                |
 |      | Input5 | need_weights           | need_weights | Consistent function                                                |
-|      | Input6 | attn_mask      | attn_mask | Consistent function                                                |
+|      | Input6 | attn_mask      | attn_mask | In MindSpore, float and bool Tensors are supported. Pytorch also support byte Tensors. |
 |      | Input7 |                | average_attn_weights | If true, indicates that the returned attn_weights should be averaged across heads. Otherwise, attn_weights are provided separately per head. PyTorch does not have this function. |
 
 ### Code Example

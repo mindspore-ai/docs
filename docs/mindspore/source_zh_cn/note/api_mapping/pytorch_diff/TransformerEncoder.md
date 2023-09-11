@@ -9,7 +9,7 @@ class torch.nn.TransformerEncoder(
     encoder_layer,
     num_layers,
     norm=None
-)(src, mask, src_key_padding_mask)
+)(src, mask=None, src_key_padding_mask=None)
 ```
 
 更多内容详见[torch.nn.TransformerEncoder](https://pytorch.org/docs/1.8.1/generated/torch.nn.TransformerEncoder.html)。
@@ -21,10 +21,10 @@ class mindspore.nn.TransformerEncoder(
     encoder_layer,
     num_layers,
     norm=None
-)(src, src_mask, src_key_padding_mask)
+)(src, src_mask=None, src_key_padding_mask=None)
 ```
 
-更多内容详见[mindspore.nn.TransformerEncoder](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TransformerEncoder.html)。
+更多内容详见[mindspore.nn.TransformerEncoder](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TransformerEncoder.html)。
 
 ## 差异对比
 
