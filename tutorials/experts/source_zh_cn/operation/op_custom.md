@@ -26,7 +26,7 @@
 
 | 算子开发方式 | 开发语言              | 编译方式 | 支持平台 | 推荐场景                    |
 |:-------|:------------------|:------ |:------ |:------------------------|
-| [pyfunc](#pyfunc类型的自定义算子开发) | Python            | N/A | `CPU` | 快速算法验证、需要与Python进行交互等场景 |
+| [pyfunc](#自定义算子入门一个例子) | Python            | N/A | `CPU` | 快速算法验证、需要与Python进行交互等场景 |
 | [hybrid](#hybrid类型的自定义算子开发) | MindSpore HYBRID DSL | JIT | `Ascend` `GPU` `CPU` | 全平台通用开发和快速验证 |
 | [tbe](#tbe类型的自定义算子开发)    | TBE DSL           | JIT | `Ascend` | Ascend AICORE自定义算子场景    |
 | [akg](#akg类型的自定义算子开发)    | MindSpore AKG DSL | JIT | `Ascend` `GPU` | 用于开发验证场景，不建议普通用户使用      |
