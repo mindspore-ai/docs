@@ -166,7 +166,7 @@ register2 = range(4, 8)
 circuit = Circuit(X.on(2))  # Create a circuit where the input state is |0100⟩|0000⟩, that is, x=8, |8⟩|0⟩
 circuit += U_operator(15, 2, register1, register2)  # Apply the U operator
 
-print(circuit.get_qs('projectq', ket=True))  # Print the final state
+print(circuit.get_qs('mqvector', ket=True))  # Print the final state
 circuit.svg() # Print circuit
 ```
 
@@ -266,7 +266,7 @@ Next, execute the circuit for 100 times and record the results.
 
 ```python
 # pylint: disable=W0104
-sim = Simulator('projectq', circuit.n_qubits) # Create a quantum circuit simulator
+sim = Simulator('mqvector', circuit.n_qubits) # Create a quantum circuit simulator
 
 # Simulate the circuit 100 times, print the measurement results, set the random seed to a random integer within 100
 result = sim.sampling(circuit, shots=100, seed=np.random.randint(100))
@@ -310,7 +310,7 @@ def period_finder(N, a, q):
     circuit.barrier()  # Add barrier
     circuit += UN(Measure(), register1)  # Measure register 1
 
-    sim = Simulator('projectq', circuit.n_qubits)  # Create a quantum circuit simulator
+    sim = Simulator('mqvector', circuit.n_qubits)  # Create a quantum circuit simulator
 
     # Simulate the circuit, collect the measurement results, set the random seed to a random integer within 100
     result = sim.sampling(circuit, seed=np.random.randint(100))
