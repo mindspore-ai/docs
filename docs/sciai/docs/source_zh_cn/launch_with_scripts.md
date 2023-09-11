@@ -19,7 +19,7 @@ git clone https://gitee.com/mindspore/mindscience
 source ./mindscience/SciAI/.env
 ```
 
-克隆完成后，用户可以按照模型[README_CN.md](https://gitee.com/mindspore/mindscience/tree/master/SciAI/sciai/model/cpinns/README_CN.md)（以模型CPINNs为例）中的`快速开始`章节，使用脚本进行训练与推理。
+克隆完成后，用户可以按照模型[README_CN.md](https://gitee.com/mindspore/mindscience/blob/master/SciAI/sciai/model/cpinns/README_CN.md)（以模型CPINNs为例）中的`快速开始`章节，使用脚本进行训练与推理。
 
 ```bash
 cd ./mindscience/SciAI/sciai/model/cpinns/
@@ -27,7 +27,7 @@ cd ./mindscience/SciAI/sciai/model/cpinns/
 
 ## 训练、微调模型
 
-用户可以使用训练脚本[train.py](https://gitee.com/mindspore/mindscience/tree/master/SciAI/sciai/model/cpinns/train.py)进行网络模型训练。
+用户可以使用训练脚本[train.py](https://gitee.com/mindspore/mindscience/blob/master/SciAI/sciai/model/cpinns/train.py)进行网络模型训练。
 
 ```bash
 python ./train.py [--parameters]
@@ -47,7 +47,7 @@ python ./train.py --load_ckpt true --load_ckpt_path {your_file}.ckpt [--paramete
 
 使用可选参数`[--parameters]`可以配置模型的训练过程，包括学习率、训练周期、数据读取保存路径等。
 
-具体可配置的参数列表请参考[README_CN.md](https://gitee.com/mindspore/mindscience/tree/master/SciAI/sciai/model/cpinns/README_CN.md)中`脚本参数`章节。
+具体可配置的参数列表请参考[README_CN.md](https://gitee.com/mindspore/mindscience/blob/master/SciAI/sciai/model/cpinns/README_CN.md)中`脚本参数`章节。
 
 ## 评估模型
 

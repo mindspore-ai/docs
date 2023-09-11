@@ -19,7 +19,7 @@ $$
 f(x) = {x_1}^2 + sin(x_2)
 $$
 
-该部分完整代码请参考[代码](https://gitee.com/mindspore/mindscience/tree/master/SciAI/tutorial/example_net.py)。
+该部分完整代码请参考[代码](https://gitee.com/mindspore/mindscience/blob/master/SciAI/tutorial/example_net.py)。
 
 ### 模型搭建
 
@@ -177,7 +177,7 @@ $$
 f(x) = \frac{x^2}{0.2 x^5 + 0.8}
 $$
 
-该部分完整代码请参考[代码](https://gitee.com/mindspore/mindscience/tree/master/SciAI/tutorial/example_grad_net.py)。
+该部分完整代码请参考[代码](https://gitee.com/mindspore/mindscience/blob/master/SciAI/tutorial/example_grad_net.py)。
 
 ### 损失函数定义
 

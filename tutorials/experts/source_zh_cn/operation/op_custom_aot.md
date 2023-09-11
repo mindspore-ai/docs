@@ -12,7 +12,7 @@ aot类型的自定义算子采用预编译的方式，要求网络开发者基�
 - aot类型自定义算子的属性和中间变量；
 - aot类型自定义算子的动态shape支持。
 
-对于下面用例的完整代码，请查阅[这里](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/test_custom_aot_fused.py)。
+对于下面用例的完整代码，请查阅[这里](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_aot_fused.py)。
 
 ## aot类型自定义算子进阶用法特性简介
 
