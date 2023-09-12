@@ -196,7 +196,7 @@ epoch: 0, step: 50, loss is 2.0612597
 ...
 ```
 
-计算图结果在在`xx_validate_xxx.ir`中，设置重计算前：
+计算图结果在`xx_validate_xxx.ir`中，设置重计算前：
 
 ```text
 ...

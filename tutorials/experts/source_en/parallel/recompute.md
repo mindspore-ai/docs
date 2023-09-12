@@ -8,6 +8,12 @@ The automatic differential of MindSpore is in reverse-mode, which derives the ba
 
 In order to solve this problem, Mindspore provides the recomputation function. It will recompute the forward operators before computing the backward operators rather than storing the results of forward operators, which can help the memory be reused. This tutorial takes the model ResNet-50 for example to explain how to configure recomputation to train your model in MindSpore.
 
+Related interfaces:
+
+1. `mindspore.nn.Cell.recompute()`: Call the [recompute interface](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute). After calling this interface, when computing the reverse part, all the operators inside the Cell and all the operators inside the sub-Cells are recomputed, except for the output operator of that Cell.
+
+2. `mindspore.ops.Primitive.recompute()`: Call the [recompute interface](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute). After calling this interface, the operator is recomputed when computing the reverse part.
+
 ## Basic Principle
 
 MindSpore automatically derives the reverse graph according to the forward graph compute process, and the forward graph and the inverse graph together form a complete compute graph. When calculating some reverse operators, it may be necessary to use the compute results of some forward operators, resulting in the compute results of these forward operators, which need to reside in memory until these reverse operators are computed, and the memory they occupy will not be reused by other operators. The computational results of these forward operators, which reside in memory for a long time, push up the peak memory footprint of the computation, especially in large-scale network models.
@@ -28,129 +34,214 @@ Taking the GPT-3 model as an example, the policy is set to recalculate the cell 
 
 *Figure: Comparison of GPT-3 memory usage before and after recalculation function is enabled*
 
-## Preliminaries
+## Operation Practice
+
+The following is an illustration of the recomputation operation using an Ascend or GPU stand-alone 8-card as an example:
 
 ### Sample Code Description
 
-1. Prepare the model. The ResNet-50 code can be found at: <https://gitee.com/mindspore/models/tree/master/official/cv/ResNet>, in which `train.py` is the main function for training, `src/` directory contains the model definition and configuration files of ResNet-50, and `script/` directory contains the training and evaluation scripts.
+> Download the complete sample code: [recompute](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/recompute).
 
-2. Prepare the dataset. This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset, visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#downloading-the-dataset>.
-
-### Configuring for Recomputation
-
-We can call two kinds of interface to configure the recomputation. Take `src/resnet.py` for example:
-
-1. The [recompute api](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute) of `Primitive`. It can set an operator to be recomputed. After setting, the operator will be recomputed in the backward pass.
-
-    ```python
-    class ResNet(nn.Cell):
-        ...
-        def __init__(self,
-                     block,
-                     layer_nums,
-                     in_channels,
-                     out_channels,
-                     strides,
-                     num_classes,
-                     use_se=False,
-                     res_base=False):
-            super(ResNet, self).__init__()
-            ...
-            self.relu = ops.ReLU()
-            self.relu.recompute()
-            ...
-    ```
-
-2. Call the [recompute api](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute) of `Cell`. It can set the whole `Cell` to be recomputed. After setting, except the output of the `Cell`, all the operators in this cell and its sub `Cell` will be recomputed in the backward pass.
-
-   ```python
-   class ResNet(nn.Cell):
-       def __init__(self,
-                    block,
-                    layer_nums,
-                    in_channels,
-                    out_channels,
-                    strides,
-                    num_classes,
-                    use_se=False,
-                    res_base=False):
-           super(ResNet, self).__init__()
-           ...
-           self.layer1 = self._make_layer(block,
-                                          layer_nums[0],
-                                          in_channel=in_channels[0],
-                                          out_channel=out_channels[0],
-                                          stride=strides[0],
-                                          use_se=self.use_se)
-
-       def _make_layer(self, block, layer_num, in_channel, out_channel, stride, use_se=False, se_block=False):
-           ...
-           if se_block:
-               for _ in range(1, layer_num - 1):
-                   resnet_block = block(out_channel, out_channel, stride=1, use_se=use_se)
-                   resnet_block.recompute()
-           else:
-               for _ in range(1, layer_num):
-                   resnet_block = block(out_channel, out_channel, stride=1, use_se=use_se)
-                   resnet_block.recompute()
-           ...
-
-   class ResidualBlock(nn.Cell):
-       def __init__(self,
-                    in_channel,
-                    out_channel,
-                    stride=1,
-                    use_se=False, se_block=False):
-           super(ResidualBlock, self).__init__()
-           ...
-
-       def construct(self, x):
-           ...
-
-   def resnet50(class_num=10):
-       return ResNet(ResidualBlock,
-                     [3, 4, 6, 3],
-                     [64, 256, 512, 1024],
-                     [256, 512, 1024, 2048],
-                     [1, 2, 2, 2],
-                     class_num)
-   ```
-
-### Training the Model
-
-We take the GPU environment for example, use the script `script/run_standalone_train_gpu.sh`. Run the command `bash scripts/run_standalone_train_gpu.sh $date_set_path config/resnet50_cifar10_config.yaml`. We can set the context: `save_graph=True` in `src/train.py` to print the construction of the computation graph to do comparison.
-
-The graph before setting recomputation is as follow:
+The directory structure is as follows:
 
 ```text
-...
-%56(equivoutput) = Conv2D(%53, %55) {instance name: conv2d} primitive_attrs: {pad_list: (0, 0, 0, 0), stride: (1, 1, 1, 1), pad: (0, 0, 0, 0), pad_mode: 1, out_channel: 64, kernel_size: (1, 1), input_names: [x, w], format: NCHW, groups: 1, mode: 1, group: 1, dilation: (1, 1, 1, 1), output_names: [output]}
-      : (<Tensor[Float16], (32, 256, 56, 56)>, <Tensor[Float16], (64, 256, 1, 1)>) -> (<Tensor[Float16], (32, 64, 56, 56)>)
-...
-%61(equiv[CNode]707) = BatchNorm(%56, %57, %58, %59, %60) {instance name: bn_train} primitive_attrs: {epsilon: 0.000100, is_training: true, momentum: 0.100000, format: NCHW, output_names: [y, batch_mean, batch_variance, reserve_space_1, reserve_space_2], input_names: [x, scale, offset, mean, variance]}
-      : (<Tensor[Float16], (32, 64, 56, 56)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>) -> (<Tuple[Tensor[Float16],Tensor[Float32]*4]>)
-...
-%927(out) = BatchNormGrad(%923, %56, %57, %924, %925, %926) primitive_attrs: {epsilon: 0.000100, format: NCHW, is_training: true} cnode_primal_attrs: {forward_node_name: BatchNorm_102499}
-      : (<Tensor[Float16], (32, 64, 56, 56)>, <Tensor[Float16], (32, 64, 56, 56)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>) -> (<Tuple[Tensor[Float16],Tensor[Float32]*2]>)
+└─ sample_code
+    ├─ recompute
+       ├── train.py
+       └── run.sh
+    ...
+```
+
+`train.py` is the script that defines the network structure and inference. `run.sh` is the execution script.
+
+### Configuring a Distributed Environment
+
+Specify the run mode, run device, run card number via the context interface. The parallel mode is data parallel and HCCL or NCCL communication is initialized by init. Setting `save_graphs=2` prints out the computational graph structure for comparison. `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
+
+```python
+import mindspore as ms
+from mindspore.communication import init
+
+ms.set_context(mode=ms.GRAPH_MODE, save_graphs=2)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
+init()
+ms.set_seed(1)
+```
+
+### Loading the Dataset
+
+Here the dataset is loaded in data parallel mode, specifying the `num_shards` and `shard_id` parameters, corresponding to the number of cards and the logical serial number, respectively, with the following code:
+
+```python
+import os
+import mindspore.dataset as ds
+from mindspore import nn
+
+def create_dataset(batch_size):
+    dataset_path = os.getenv("DATA_PATH")
+    rank_id = get_rank()
+    rank_size = get_group_size()
+    dataset = ds.MnistDataset(dataset_path, num_shards=rank_size, shard_id=rank_id)
+    image_transforms = [
+        ds.vision.Rescale(1.0 / 255.0, 0),
+        ds.vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        ds.vision.HWC2CHW()
+    ]
+    label_transform = ds.transforms.TypeCast(ms.int32)
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size)
+    return dataset
+
+data_set = create_dataset(32)
+```
+
+### Network Definition
+
+The network configures the activation function operator with recomputation based on the single-card model to reduce the memory footprint:
+
+```python
+from mindspore import nn, ops
+
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.layer1 = nn.Dense(28*28, 512)
+        self.relu1 = ops.ReLU()
+        self.layer2 = nn.Dense(512, 512)
+        self.relu2 = ops.ReLU()
+        self.layer3 = nn.Dense(512, 10)
+
+    def construct(self, x):
+        x = self.flatten(x)
+        x = self.layer1(x)
+        x = self.relu1(x)
+        x = self.layer2(x)
+        x = self.relu2(x)
+        logits = self.layer3(x)
+        return logits
+
+net = Network()
+# Configure the recompute of relu operator
+net.relu1.recompute()
+net.relu2.recompute()
+```
+
+### Training the Network
+
+In this step, we need to define the loss function, the optimizer, and the training process, and this part is consistent with the data-parallel model:
+
+```python
+from mindspore import nn, ops
+
+optimizer = nn.SGD(net.trainable_params(), 1e-2)
+loss_fn = nn.CrossEntropyLoss()
+
+def forward_fn(data, target):
+    logits = net(data)
+    loss = loss_fn(logits, target)
+    return loss, logits
+
+grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_reducer = nn.DistributedGradReducer(optimizer.parameters)
+
+for epoch in range(1):
+    i = 0
+    for image, label in data_set:
+        (loss_value, _), grads = grad_fn(image, label)
+        grads = grad_reducer(grads)
+        optimizer(grads)
+        if i % 10 == 0:
+            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_value))
+        i += 1
+```
+
+### Running Stand-alone 8-card Script
+
+Next, the corresponding script is called by the command. Take the `mpirun` startup method, the 8-card distributed training script as an example, and perform the distributed training:
+
+```bash
+bash run.sh
+```
+
+After training, the log files are saved to the `log_output` directory, and by setting context: `save_graphs=2` in `train.py`, you can print out the IR graphs of the compilation process, where some of the file directories are structured as follows:
+
+```text
+├─ log_output
+|   └─ 1
+|       ├─ rank.0
+|       |   └─ stdout
+|       ├─ rank.1
+|       |   └─ stdout
+|       ...
+├─ rank_0
+|   ├─ xx_validate_xxx.ir
+|   ...
+├─ rank_1
+|   ├─ xx_validate_xxx.ir
+|   ...
 ...
 ```
 
-The graph after setting recomputation is as follow:
+The results on the Loss section are saved in `log_output/1/rank.*/stdout`, and the example is as below:
 
 ```text
-...
-%56(equivoutput) = Conv2D(%53, %55) {instance name: conv2d} primitive_attrs: {pad_list: (0, 0, 0, 0), stride: (1, 1, 1, 1), pad: (0, 0, 0, 0), pad_mode: 1, out_channel: 64, kernel_size: (1, 1), input_names: [x, w], format: NCHW, groups: 1, mode: 1, group: 1, dilation: (1, 1, 1, 1), output_names: [output]} cnode_attrs: {need_cse_after_recompute: true, recompute: true}
-      : (<Tensor[Float16], (32, 256, 56, 56)>, <Tensor[Float16], (64, 256, 1, 1)>) -> (<Tensor[Float16], (32, 64, 56, 56)>)
-...
-%61(equiv[CNode]707) = BatchNorm(%56, %57, %58, %59, %60) {instance name: bn_train} primitive_attrs: {epsilon: 0.000100, is_training: true, momentum: 0.100000, format: NCHW, output_names: [y, batch_mean, batch_variance, reserve_space_1, reserve_space_2], input_names: [x, scale, offset, mean, variance]}
-      : (<Tensor[Float16], (32, 64, 56, 56)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>) -> (<Tuple[Tensor[Float16],Tensor[Float32]*4]>)
-...
-%1094([CNode]15682) = Conv2D(%1091, %1093) {instance name: conv2d} primitive_attrs: {pad_list: (1, 1, 1, 1), stride: (1, 1, 1, 1), pad: (0, 0, 0, 0), pad_mode: 1, out_channel: 64, kernel_size: (3, 3), input_names: [x, w], format: NCHW, groups: 1, mode: 1, group: 1, dilation: (1, 1, 1, 1), output_names: [output]} cnode_attrs: {need_cse_after_recompute: true, duplicated: true}
-      : (<Tensor[Float16], (32, 64, 56, 56)>, <Tensor[Float16], (64, 64, 3, 3)>) -> (<Tensor[Float16], (32, 64, 56, 56)>)
-...
-%1095([CNode]15681) = BatchNormGrad(%1085, %1094, %98, %1086, %1087, %1088) primitive_attrs: {epsilon: 0.000100, format: NCHW, is_training: true} cnode_attrs: {target_grad: true} cnode_primal_attrs: {forward_node_name: BatchNorm_102499}
-      : (<Tensor[Float16], (32, 64, 56, 56)>, <Tensor[Float16], (32, 64, 56, 56)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>, <Tensor[Float32], (64)>) -> (<Tuple[Tensor[Float16],Tensor[Float32]*2]>)
+epoch: 0, step: 0, loss is 2.2929618
+epoch: 0, step: 10, loss is 2.2396836
+epoch: 0, step: 20, loss is 2.2097976
+epoch: 0, step: 30, loss is 2.1942225
+epoch: 0, step: 40, loss is 2.0986974
+epoch: 0, step: 50, loss is 2.0612597
 ...
 ```
 
-We can see that `Conv2D` is replicated to become the input to `BatchNormGrad`.
+Computation graph results is in `xx_validate_xxx.ir` before setting up the recomputation:
+
+```text
+...
+  %81(1285) = MatMul(%80, %11) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24422", forward_unique_id: "24422"}
+      : (<Tensor[Float32], (32, 10)>, <Tensor[Float32], (512, 10)>) -> (<Tensor[Float32], (32, 512)>)
+...
+  %82(1286) = ReluGrad(%81, %10) primitive_attrs: {output_names: (output), input_names: (x)} cnode_primal_attrs: {forward_node_name: "ReLU_24405", forward_unique_id: "24405"}
+      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
+...
+  %83(1285) = MatMul(%82, %6) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24434", forward_unique_id: "24434"}
+      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (512, 512)>) -> (<Tensor[Float32], (32, 512)>)
+...
+  %84(1286) = ReluGrad(%83, %5) primitive_attrs: {output_names: (output), input_names: (x)} cnode_primal_attrs: {forward_node_name: "ReLU_24408", forward_unique_id: "24408"}
+      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
+...
+  %85(1285) = MatMul(%0, %84) primitive_attrs: {output_names: (output), transpose_a: Bool(1), input_names: (x1, x2), transpose_x2: Bool(0), transpose_x1: Bool(1), transpose_b: Bool(0)} cnode_primal_attrs: {forward_node_name: "MatMul_24446", forward_unique_id: "24446"}
+      : (<Tensor[Float32], (32, 784)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (784, 512)>)
+...
+```
+
+After setting the recomputation:
+
+```text
+...
+  %81(1285) = MatMul(%80, %11) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24422", forward_unique_id: "24422"}
+      : (<Tensor[Float32], (32, 10)>, <Tensor[Float32], (512, 10)>) -> (<Tensor[Float32], (32, 512)>)
+...
+  %84([CNode]1292) = ReLU(%83) {instance name: relu2} primitive_attrs: {output_names: [output], input_names: [x], recompute: Bool(1)} cnode_attrs: {recompute_sub_graph: U64(1), recompute_id: I64(2), duplicated: Bool(1), need_cse_after_recompute: Bool(1)}
+      : (<Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
+      # Scope: (Default)
+  %85([CNode]1293) = ReluGrad(%81, %84) primitive_attrs: {output_names: (output), input_names: (x)} cnode_attrs: {recompute_sub_graph: U64(1), target_grad: Bool(1)} cnode_primal_attrs: {forward_node_name: "ReLU_24405", forward_unique_id: "24405"}
+      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
+...
+  %86(1285) = MatMul(%85, %6) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24434", forward_unique_id: "24434"}
+      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (512, 512)>) -> (<Tensor[Float32], (32, 512)>)
+...
+  %89([CNode]1296) = ReLU(%88) {instance name: relu2} primitive_attrs: {output_names: [output], input_names: [x], recompute: Bool(1)} cnode_attrs: {recompute_sub_graph: U64(0), recompute_id: I64(1), duplicated: Bool(1), need_cse_after_recompute: Bool(1)}
+      : (<Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
+      # Scope: (Default)
+  %90([CNode]1297) = ReluGrad(%86, %89) primitive_attrs: {output_names: (output), input_names: (x)} cnode_attrs: {recompute_sub_graph: U64(0), target_grad: Bool(1)} cnode_primal_attrs: {forward_node_name: "ReLU_24408", forward_unique_id: "24408"}
+      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
+...
+  %91(1285) = MatMul(%0, %90) primitive_attrs: {output_names: (output), transpose_a: Bool(1), input_names: (x1, x2), transpose_x2: Bool(0), transpose_x1: Bool(1), transpose_b: Bool(0)} cnode_primal_attrs: {forward_node_name: "MatMul_24446", forward_unique_id: "24446"}
+      : (<Tensor[Float32], (32, 784)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (784, 512)>)
+...
+```
+
+It can be seen that the `ReLU` operator is copied out in one copy as input to the reverse operator `ReluGrad`.
