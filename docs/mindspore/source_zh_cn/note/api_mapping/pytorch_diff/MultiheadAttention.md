@@ -57,9 +57,9 @@ class mindspore.nn.MultiheadAttention(
 | 输入  | 输入1  | query            | query | 功能一致                                               |
 |      | 输入2  | key           | key | 功能一致                                               |
 |      | 输入3  | value      | value | 功能一致                                               |
-|      | 输入4  | key_padding_mask            | key_padding_mask | 功能一致                                               |
+|      | 输入4  | key_padding_mask            | key_padding_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为byte或Bool Tensor |
 |      | 输入5  | need_weights           | need_weights | 功能一致                                               |
-|      | 输入6  | attn_mask      | attn_mask | 功能一致                                               |
+|      | 输入6  | attn_mask      | attn_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为float、byte或Bool Tensor |
 |      | 输入7  |                | average_attn_weights | 如果为 True， 则返回值 attn_output_weights 为注意力头的平均值。如果为 False，则 attn_weights 分别返回每个注意力头的值。PyTorch没有此功能。 |
 
 ### 代码示例
@@ -76,6 +76,10 @@ key = torch.rand(seq_length, batch_size, embed_dim)
 value = torch.rand(seq_length, batch_size, embed_dim)
 multihead_attn = nn.MultiheadAttention(embed_dim, num_heads)
 attn_output, attn_output_weights = multihead_attn(query, key, value)
+print(attn_output.shape)
+print(attn_output_weights.shape)
+#torch.Size([10, 8, 128])
+#torch.Size([8, 10, 10])
 
 # MindSpore
 import mindspore as ms
@@ -88,4 +92,8 @@ key = ms.Tensor(np.random.randn(seq_length, batch_size, embed_dim), ms.float32)
 value = ms.Tensor(np.random.randn(seq_length, batch_size, embed_dim), ms.float32)
 multihead_attn = ms.nn.MultiheadAttention(embed_dim, num_heads)
 attn_output, attn_output_weights = multihead_attn(query, key, value)
+print(attn_output.shape)
+print(attn_output_weights.shape)
+#(10, 8, 128)
+#(8, 10, 10)
 ```

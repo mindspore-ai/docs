@@ -57,18 +57,18 @@ The code implementation and parameter update logic of `mindspore.nn.Transformer`
 |      | 参数 7 | activation        | activation | 功能一致 |
 |      | 参数 8 | custom_encoder        | custom_encoder | 功能一致 |
 |      | 参数 9 | custom_decoder        | custom_decoder | 功能一致 |
-|      | 参数 10 |                | layer_norm_eps          | MindSpore可配置LayerNorm层的eps值, Pytorch没有此功能 |
-|      | 参数 11 |                | batch_first          | MindSpore可配置第一维是否输出batch维度, Pytorch没有此功能 |
-|      | 参数 12 |                | norm_first          | MindSpore可配置LayerNorm层是否位于MultiheadAttention层和FeedForward之间或之后, Pytorch没有此功能 |
+|      | 参数 10 |                | layer_norm_eps          | MindSpore可配置LayerNorm层的eps值, PyTorch没有此功能 |
+|      | 参数 11 |                | batch_first          | MindSpore可配置第一维是否输出batch维度, PyTorch没有此功能 |
+|      | 参数 12 |                | norm_first          | MindSpore可配置LayerNorm层是否位于MultiheadAttention层和FeedForward之间或之后, PyTorch没有此功能 |
 |      | 参数 13 |                     | dtype          | MindSpore可配置网络参数的dtype， PyTorch没有此功能。 |
 | 输入  | 输入 1 | src            | src | 功能一致                                              |
 |     | 输入 2 | tgt            | tgt | 功能一致                                              |
-|     | 输入 3 | src_mask           | src_mask | 功能一致                                            |
-|     | 输入 4 | tgt_mask           | tgt_mask | 功能一致                                             |
-|     | 输入 5 | memory_mask           | memory_mask | 功能一致                                             |
-|     | 输入 6 | src_key_padding_mask      | src_key_padding_mask | 功能一致                       |
-|     | 输入 7 | tgt_key_padding_mask      | tgt_key_padding_mask | 功能一致                     |
-|     | 输入 8 | memory_key_padding_mask   | memory_key_padding_mask | 功能一致                      |
+|     | 输入 3 | src_mask           | src_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为float、byte或Bool Tensor |
+|     | 输入 4 | tgt_mask           | tgt_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为float、byte或Bool Tensor |
+|     | 输入 5 | memory_mask           | memory_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为float、byte或Bool Tensor |
+|     | 输入 6 | src_key_padding_mask      | src_key_padding_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为byte或Bool Tensor |
+|     | 输入 7 | tgt_key_padding_mask      | tgt_key_padding_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为byte或Bool Tensor |
+|     | 输入 8 | memory_key_padding_mask   | memory_key_padding_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为byte或Bool Tensor |
 
 ## 代码示例
 
@@ -81,6 +81,8 @@ transformer_model = nn.Transformer(nhead=16, num_encoder_layers=12)
 src = torch.rand(10, 32, 512)
 tgt = torch.rand(10, 32, 512)
 out = transformer_model(src, tgt)
+print(out.shape)
+#torch.Size([10, 32, 512])
 
 # MindSpore
 import mindspore as ms
@@ -88,6 +90,8 @@ import numpy as np
 
 transformer_model = ms.nn.Transformer(nhead=16, num_encoder_layers=12)
 src = ms.Tensor(np.random.rand(10, 32, 512), ms.float32)
-tgt = ms.Tensor(np.random.rand(20, 32, 512), ms.float32)
+tgt = ms.Tensor(np.random.rand(10, 32, 512), ms.float32)
 out = transformer_model(src, tgt)
+print(out.shape)
+#(10, 32, 512)
 ```

@@ -47,11 +47,11 @@ The code implementation and parameter update logic of `mindspore.nn.TransformerE
 |      | Parameter 5 | activation        | activation | Consistent function |
 |      | Parameter 6 |         | layer_norm_eps | In MindSpore, the value of eps can be set in LayerNorm, PyTorch does not have this function |
 |      | Parameter 7 |         | batch_first | In MindSpore, first batch can be set as batch dimension, PyTorch does not have this function |
-|      | Parameter 8 |         | norm_first | In MindSpore, LayerNorm can be set in between Multiheadttention Layer and FeedForward Layer or after, Pytorch does not have this function |
+|      | Parameter 8 |         | norm_first | In MindSpore, LayerNorm can be set in between Multiheadttention Layer and FeedForward Layer or after, PyTorch does not have this function |
 |      | Parameter 9 |         | dtype          | In MindSpore, dtype can be set in Parameters using 'dtype'. PyTorch does not have this function. |
 | Input  | Input 1 | src            | src | Consistent function                                               |
-|     | Input 2 | src_mask           | src_mask | Consistent function, different parameter names                                             |
-|     | Input 3 | src_key_padding_mask      | src_key_padding_mask | Consistent function                       |
+|     | Input 2 | src_mask           | src_mask | Consistent function, different parameter names. In MindSpore, dtype can be set as float or Bool Tensor; in PyTorch dtype can be set as float, byte or Bool Tensor. |
+|     | Input 3 | src_key_padding_mask      | src_key_padding_mask | In MindSpore, dtype can be set as float or Bool Tensor; in PyTorch dtype can be set as byte or Bool Tensor. |
 
 ### Code Example
 
@@ -64,6 +64,8 @@ encoder_layer = nn.TransformerEncoderLayer(d_model=512, nhead=8)
 transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=6)
 src = torch.rand(10, 32, 512)
 out = transformer_encoder(src)
+print(out.shape)
+#torch.Size([10, 32, 512])
 
 # MindSpore
 import mindspore
@@ -73,4 +75,6 @@ encoder_layer = nn.TransformerEncoderLayer(d_model=512, nhead=8)
 transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=6)
 src = mindspore.numpy.rand(10, 32, 512)
 out = transformer_encoder(src)
+print(out.shape)
+#(10, 32, 512)
 ```

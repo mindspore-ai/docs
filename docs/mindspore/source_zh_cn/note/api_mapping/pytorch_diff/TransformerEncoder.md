@@ -37,7 +37,7 @@ class mindspore.nn.TransformerEncoder(
 |      | 参数3 | norm                     | norm          | 功能一致                                         |
 | 输入  | 输入1 | src            | src | 功能一致                                               |
 |     | 输入2 | mask           | src_mask | 功能一致，参数名不同                                               |
-|     | 输入3 | src_key_padding_mask      | src_key_padding_mask | 功能一致                                               |
+|     | 输入3 | src_key_padding_mask      | src_key_padding_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为byte或Bool Tensor |
 
 ### 代码示例
 
@@ -50,6 +50,8 @@ encoder_layer = nn.TransformerEncoderLayer(d_model=512, nhead=8)
 transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=6)
 src = torch.rand(10, 32, 512)
 out = transformer_encoder(src)
+print(out.shape)
+#torch.Size([10, 32, 512])
 
 # MindSpore
 import mindspore
@@ -59,4 +61,6 @@ encoder_layer = nn.TransformerEncoderLayer(d_model=512, nhead=8)
 transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=6)
 src = mindspore.numpy.rand(10, 32, 512)
 out = transformer_encoder(src)
+print(out.shape)
+#(10, 32, 512)
 ```
