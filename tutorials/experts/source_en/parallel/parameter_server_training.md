@@ -1,10 +1,45 @@
-# Parameter Server Mode
+# Parameter Server
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/parameter_server_training.md)
 
 ## Overview
 
-A parameter server is a widely used architecture in distributed training. Compared with the synchronous AllReduce training method, a parameter server has better flexibility, scalability, and node failover capabilities. Specifically, the parameter server supports both synchronous and asynchronous SGD(Stochastic Gradient Descent) training algorithms. In terms of scalability, model computing and update are separately deployed in the worker and server processes, so that resources of the worker and server can be independently scaled out in horizontally (add or delete resources of the worker and server). In addition, in an environment of a large-scale data center, various failures often occur in a computing device, a network, and a storage device, and consequently some nodes are abnormal. However, in an architecture of a parameter server, such a failure can be relatively easily handled without affecting a training job.
+A parameter server is a widely used architecture in distributed training. Compared with the synchronous AllReduce training method, a parameter server has better flexibility, and scalability. Specifically, the parameter server supports both synchronous and asynchronous SGD(Stochastic Gradient Descent) training algorithms. In terms of scalability, model computing and update are separately deployed in the worker and server processes, so that resources of the worker and server can be independently scaled out in horizontally (add or delete resources of the worker and server). In addition, in an environment of a large-scale data center, various failures often occur in a computing device, a network, and a storage device, and consequently some nodes are abnormal. However, in an architecture of a parameter server, such a failure can be relatively easily handled without affecting a training job.
+
+> Hardware platforms supported by the parameter server include Ascend, GPU, and `PyNative` mode is not supported.
+
+Related interfaces:
+
+1. `mindspore.set_ps_context(enable_ps=True)` enables Parameter Server training mode.
+
+    - This interface needs to be called before `mindspore.communication.init()`.
+    - If this interface is not called, the following environment variable settings will not take effect.
+    - Parameter Server training mode can be turned off by calling `mindspore.reset_ps_context()`.
+
+2. In this training mode, there are two ways to call the interface in order to control whether the training parameters are updated through the Parameter Server, and to control the parameter initialization location:
+
+    - Weights recursive settings in `nn.Cell` via `mindspore.nn.Cell.set_param_ps()`.
+    - Setting `mindspore.Parameter` weights via `mindspore.Parameter.set_param_ps()`.
+    - The size of individual weights that are set to be updated via Parameter Server must not exceed INT_MAX(2^31 - 1) bytes.
+    -The interface `set_param_ps` can take a `bool` type parameter: `init_in_server`, which indicates whether the training parameter is initialized on the Server side. The default value of `init_in_server` is `False`, which means that the training parameter is initialized on the Worker. Currently, only the training parameter `embedding_table` of `EmbeddingLookup` operator is supported to be initialized on the Server side, in order to solve the problem that the initialization of `embedding_table` of very large shape on the Worker leads to insufficient memory, and the `target` attribute of this operator needs to be set to 'CPU'. The training parameters initialized on the Server side will no longer be synchronized to the Worker, and if multi-Server training is involved and CheckPoints are saved, a CheckPoint will be saved for each Server at the end of training.
+
+3. [Optional Configuration] For `embedding_table` of very large shape, since the full amount of `embedding_table` cannot be stored on the device, the [EmbeddingLookup operator](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.EmbeddingLookup.html) with `vocab_cache_size` can be configured, which is used to turn on the cache function of `EmbeddingLookup` in Parameter Server training mode. This function uses the `vocab_cache_size` size of `embedding_table` to train on the device, the full amount of `embedding_table` is stored in Server, the `embedding_table` used for the next batch of training is swapped into the cache in advance, and when the cache can't be put into the Server, then the outdated `embedding_table` will be put back to the Server, in order to achieve the purpose of improving the performance of training. After training, CheckPoint can be exported on Server to save the full amount of `embedding_table` after training. Embedding cache supports sparse mode, and you need to set the `sparse` parameter to True for all `EmbeddingLookup` operators that have the cache turned on. The sparse mode will de-emphasize the feature ids of the input in this operator to reduce the amount of computation and communication. Refer to <https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep> for detailed network training scripts.
+
+> The `Parameter Server` model does not support control flow for now, so in `train.py`, you need to modify `model = Model(network, loss_fn, optimizer, metrics={"Accuracy": Accuracy()}, amp_level="O2")` to `model = Model(network, loss_fn, optimizer, metrics={"Accuracy": Accuracy()})`, and turn off the mixed precision `amp_level` option to eliminate the effect of control flow.
+
+Relevant environment variable configuration:
+
+MindSpore controls Parameter Server training by reading environment variables, which include the following options (`MS_SCHED_HOST` and `MS_SCHED_PORT` values need to be consistent in all scripts):
+
+```text
+export MS_SERVER_NUM=1                # Server number
+export MS_WORKER_NUM=1                # Worker number
+export MS_SCHED_HOST=XXX.XXX.XXX.XXX  # Scheduler IP address
+export MS_SCHED_PORT=XXXX             # Scheduler port
+export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
+```
+
+For more detailed instructions, see dynamic cluster environment variables in the [Environment Variables List](https://www.mindspore.cn/docs/en/master/note/env_var_list.html).
 
 ## Basic Principle
 
@@ -18,149 +53,204 @@ The ps-lite architecture consists of three independent components: server, worke
 
 - Scheduler: establishes the communication relationship between the server and worker.
 
-> Parameter Server training does not support `PyNative` mode.
-
 ## Practice
 
-The following describes how to use parameter server to train LeNet on Ascend 910:
+Parameter server supports GPU and Ascend, the following Ascend as an example for operation description:
 
-### Training Script Preparation
+### Example Code Description
 
-Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/mnist/) by referring to <https://gitee.com/mindspore/models/tree/master/research/cv/lenet>.
+> Download the complete example code: [parameter_server](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/parameter_server).
 
-### Parameter Setting
-
-1. First of all, use `mindspore.set_ps_context(enable_ps=True)` to enable Parameter Server training mode.
-
-    - This method should be called before `mindspore.communication.init()`.
-    - If you don't call this method, the [Environment Variable Setting](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html#environment-variable-setting) below will not take effect.
-    - Use `mindspore.reset_ps_context()` to disable Parameter Server training mode.
-
-2. Secondly, call `mindspore.communication.init()` to initialize distributed training, including network building for `Server`, `Worker` and `Scheduler` nodes and initializing collective communication(HCCL, NCCL).
-
-    - Launching Parameter Server training through `mpirun` is no longer supported in and after MindSpore-1.8.0 version. MindSpore uses built-in communication module to build the cluster and initialize collective communication, so `data parallel`/`auto parallel` modes are still available on `Worker` process side. Please refer to the link [Training without Relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#training-without-relying-on-openmpi) for details.
-
-3. In this training mode, you can use either of the following methods to control whether the training parameters are updated by the Parameter Server and whether the training parameters are initialized on Worker or Server:
-
-    - Use `mindspore.nn.Cell.set_param_ps()` to set all weight recursions of `nn.Cell`.
-    - Use `mindspore.Parameter.set_param_ps()` to set the weight.
-    - The size of the weight which is updated by Parameter Server should not exceed INT_MAX(2^31 - 1) bytes.
-    - The interface `set_param_ps` can receive a `bool` parameter:`init_in_server`, indicating whether this training parameter is initialized on the Server side. `init_in_server` defaults to `False`, indicating that this training parameter is initialized on Worker. Currently, only the training parameter `embedding_table` of the `EmbeddingLookup` operator is supported to be initialized on Server side to solve the problem of insufficient memory caused by the initialization of a large shape `embedding_table` on Worker. The `EmbeddingLookup` operator's `target` attribute needs to be set to 'CPU'. The training parameter initialized on the Server side will no longer be synchronized to Worker. If it involves multi-Server training and saves CheckPoint, each Server will save a CheckPoint after the training.
-
-4. On the basis of the [original training script](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/train.py), set all LeNet model weights to be trained on the Parameter Server:
-
-    ```python
-    set_ps_context(enable_ps=True)
-    init()
-    network = LeNet5(cfg.num_classes)
-    network.set_param_ps()
-    ```
-
-5. [optional configuration] For a large shape `embedding_table`, because the device can not store a full amount of `embedding_table`. You can configure the `vocab_cache_size` of [EmbeddingLookup operator](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.EmbeddingLookup.html) to enable the cache function of `EmbeddingLookup` in the Parameter Server training mode. The `vocab_cache_size` of `embedding_table` is trained on device, and a full amount of `embedding_table` is stored in the Server. The `embedding_table` of the next batch is swapped to the cache in advance, and the expired `embedding_table` is put back to the Server when the cache cannot be placed, to achieve the purpose of improving the training performance. Each Server could save a checkpoint containing the trained `embedding_table` after the training. The Embedding cache supports the sparse mode. User need to set the `sparse` parameter of all the `EmbeddingLookup` operators that enable cache to True. The sparse mode will deduplicate the input feature id of the operator to reduce the amount of calculation and communication. Detailed network training script can be referred to <https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep>.
-
-    ```python
-    set_auto_parallel_context(full_batch=True, parallel_mode=ParallelMode.AUTO_PARALLEL)
-    network = Net()
-    model = Model(network)
-    model.train(epoch, train_dataset, dataset_sink_mode=True)
-    ```
-
-    In the information:
-
-    - `dataset_sink_mode`: whether to enable the sink mode of dataset or not. When `True`, it indicates enabled, and pass the data through the dataset channel. It must be set to `True` in this scenario (The inference during training also needs to enable the sink mode of dataset).
-    - `full_batch`: whether to load the dataset in full or not. When `True`, it indicates fully load, and data of each device is the same. It must be set to `True` in the multi-workers scenario.
-    - `parallel_mode`:parallel mode, auto parallel mode must be enabled in the multi-workers scenario, please set `parallel_mode`=`ParallelMode.AUTO_PARALLEL`.
-
-> In `Parameter Server` mode, control flow is not supported. So we need to change `model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")` to `model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})` in `train.py`. This will unset `amp_level` and eliminate the impact of control flow.
-
-### Environment Variable Setting
-
-MindSpore reads environment variables to control parameter server training. The environment variables include the following options (all scripts of `MS_SCHED_HOST` and `MS_SCHED_PORT` must be consistent):
+The directory structure is as follows:
 
 ```text
-export MS_SERVER_NUM=1                # Server number
-export MS_WORKER_NUM=1                # Worker number
-export MS_SCHED_HOST=XXX.XXX.XXX.XXX  # Scheduler IP address
-export MS_SCHED_PORT=XXXX             # Scheduler port
-export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
+└─ sample_code
+    ├─ parameter_server
+       ├── train.py
+       └── run.sh
+    ...
 ```
 
-### Training
+`train.py` is the script that defines the network structure and the training process. `run.sh` is the execution script.
 
-1. Shell scripts
+### Configuring a Distributed Environment
 
-    Provide the shell scripts corresponding to the worker, server, and scheduler roles to start training:
+Specify the run mode, run device, run card number via the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode`, enable `enable_ps` to turn on the parameter server training mode, and initialize HCCL or NCCL communication via init. The `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
 
-    `Scheduler.sh`:
+```python
+import mindspore as ms
+from mindspore.communication import init
 
-    ```bash
-    #!/bin/bash
-    export MS_SERVER_NUM=8
-    export MS_WORKER_NUM=8
-    export MS_SCHED_HOST=XXX.XXX.XXX.XXX
-    export MS_SCHED_PORT=XXXX
-    export MS_ROLE=MS_SCHED
-    python train.py --device_target=Ascend --data_path=path/to/dataset > scheduler.log 2>&1 &
-    ```
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(full_batch=True, parallel_mode=ms.ParallelMode.AUTO_PARALLEL)
+ms.set_ps_context(enable_ps=True)
+init()
+ms.set_seed(1)
+```
 
-    `Server.sh`:
+- `full_batch`: Whether to import the dataset in full. A value of `True` indicates full import with the same data for each card, and must be set to `True` in multi-Worker scenarios.
+- `parallel_mode`: Parallel mode. Multi-Worker scenarios need to enable auto-parallel mode, set `parallel_mode` = `ParallelMode.AUTO_PARALLEL`.
 
-    ```bash
-    #!/bin/bash
-    export MS_SERVER_NUM=8
-    export MS_WORKER_NUM=8
-    export MS_SCHED_HOST=XXX.XXX.XXX.XXX
-    export MS_SCHED_PORT=XXXX
-    export MS_ROLE=MS_PSERVER
-    for((server_id=0;server_id<${MS_SERVER_NUM};server_id++))
-    do
-        python train.py --device_target=Ascend --data_path=path/to/dataset > server_${server_id}.log 2>&1 &
-    done
-    ```
+### Network Definition
 
-    `Worker.sh`:
+The network definition for parameter server mode is to configure net.set_param_ps() based on single card mode:
 
-    ```bash
-    #!/bin/bash
-    export MS_SERVER_NUM=8
-    export MS_WORKER_NUM=8
-    export MS_SCHED_HOST=XXX.XXX.XXX.XXX
-    export MS_SCHED_PORT=XXXX
-    export MS_ROLE=MS_WORKER
-    for((worker_id=0;worker_id<${MS_WORKER_NUM};worker_id++))
-    do
-        python train.py --device_target=Ascend --data_path=path/to/dataset > worker_${worker_id}.log 2>&1 &
-    done
-    ```
+```python
+from mindspore import nn
 
-    Run the following commands separately:
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.fc1 = nn.Dense(28*28, 10, weight_init="normal", bias_init="zeros")
+        self.relu = nn.ReLU()
+        self.fc2 = nn.Dense(10, 1, weight_init="normal", bias_init="zeros")
 
-    ```bash
-    sh Scheduler.sh
-    sh Server.sh
-    sh Worker.sh
-    ```
+    def construct(self, x):
+        x = self.flatten(x)
+        logits = self.fc2(self.relu(self.fc1(x)))
+        return logits
 
-    Start training. MindSpore launches multiple-worker and multiple-server training through the above method and has no dependency on any third-party components.
+net = Network()
+net.set_param_ps()
+```
 
-2. Viewing result
+### Loading the Dataset
 
-    Run the following command to view the communication logs between the server and worker in the `scheduler.log` file:
+The dataset is loaded in the same way as the single card model, with the following code:
 
-    ```text
-    The server node id:b5d8a47c-46d7-49a5-aecf-d29d7f8b6124,node ip: 10.*.*.*,node port:46737 assign rank id:0
-    The worker node id:55e86d4b-d717-4930-b414-ebd80082f541 assign rank id:1
-    Start the scheduler node is successful!
-    ```
+```python
+import os
+import mindspore.dataset as ds
 
-    The preceding information indicates that the communication between the server, worker, and scheduler is established successfully.
+def create_dataset(batch_size):
+    dataset_path = os.getenv("DATA_PATH")
+    dataset = ds.MnistDataset(dataset_path)
+    image_transforms = [
+        ds.vision.Rescale(1.0 / 255.0, 0),
+        ds.vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        ds.vision.HWC2CHW()
+    ]
+    label_transform = ds.transforms.TypeCast(ms.int32)
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size)
+    return dataset
 
-    Check the training result in the `worker.log` file:
+data_set = create_dataset(32)
+```
 
-    ```text
-    epoch: 1 step: 1, loss is 2.302287
-    epoch: 1 step: 2, loss is 2.304071
-    epoch: 1 step: 3, loss is 2.308778
-    epoch: 1 step: 4, loss is 2.301943
-    ...
-    ```
+### Training the Network
+
+In this section, the optimizer, loss function and training network are defined. Here the network is defined using a functional writing style and the code is consistent with the single card model:
+
+```python
+import mindspore as ms
+from mindspore import nn, ops
+
+optimizer = nn.SGD(net.trainable_params(), 1e-2)
+loss_fn = nn.MSELoss()
+
+def forward_fn(data, target):
+    logits = net(data)
+    loss = loss_fn(logits, target)
+    return loss, logits
+
+grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+
+@ms.jit
+def train_step(inputs, targets):
+    (loss_value, _), grads = grad_fn(inputs, targets)
+    optimizer(grads)
+    return loss_value
+
+for epoch in range(10):
+    i = 0
+    for image, label in data_set:
+        loss_output = train_step(image, label)
+        if i % 10 == 0:
+            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_output))
+        i += 1
+```
+
+### Running Stand-alone 8-card Script
+
+Next, the corresponding scripts are called by commands to carry out distributed training using the 8-card distributed training script as an example, and the three roles of Scheduler, Server, and Worker start the corresponding number of processes respectively. The commands are as follows:
+
+```bash
+EXEC_PATH=$(pwd)
+
+if [ ! -d "${EXEC_PATH}/MNIST_Data" ]; then
+    if [ ! -f "${EXEC_PATH}/MNIST_Data.zip" ]; then
+        wget http://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip
+    fi
+    unzip MNIST_Data.zip
+fi
+export DATA_PATH=${EXEC_PATH}/MNIST_Data/train/
+
+rm -rf output
+mkdir output
+
+# run Scheduler process
+export MS_SERVER_NUM=8
+export MS_WORKER_NUM=8
+export MS_SCHED_HOST=127.0.0.1
+export MS_SCHED_PORT=8118
+export MS_ROLE=MS_SCHED
+python train.py > output/scheduler.log 2>&1 &
+
+# run Server processes
+export MS_SERVER_NUM=8
+export MS_WORKER_NUM=8
+export MS_SCHED_HOST=127.0.0.1
+export MS_SCHED_PORT=8118
+export MS_ROLE=MS_PSERVER
+for((server_id=0;server_id<${MS_SERVER_NUM};server_id++))
+do
+    python train.py > output/server_${server_id}.log 2>&1 &
+done
+
+# run Wroker processes
+export MS_SERVER_NUM=8
+export MS_WORKER_NUM=8
+export MS_SCHED_HOST=127.0.0.1
+export MS_SCHED_PORT=8118
+export MS_ROLE=MS_WORKER
+for((worker_id=0;worker_id<${MS_WORKER_NUM};worker_id++))
+do
+    python train.py > output/worker_${worker_id}.log 2>&1 &
+done
+```
+
+Or execute directly:
+
+```bash
+bash run.sh
+```
+
+The output of each process is saved in the `output` folder, and you can view the log of Server and Worker communication in `output/scheduler.log`:
+
+```text
+...
+Assign rank id of node id: 2fa9d1ab-10b8-4a61-9acf-217a04439287, role: MS_WORKER, with host ip: 127.0.0.1, old rank id: 6, new rank id: 0
+...
+Assign rank id of node id: 02fb1169-edc3-465e-b307-ccaf62d1f0b3, role: MS_PSERVER, with host ip: 127.0.0.1, old rank id: 4, new rank id: 0
+...
+Cluster is successfully initialized.
+```
+
+The training results are saved in `output/worker_0.log` as shown in the example below:
+
+```text
+epoch: 0, step: 0, loss is 26.743706
+epoch: 0, step: 10, loss is 17.507723
+epoch: 0, step: 20, loss is 9.616591
+epoch: 0, step: 30, loss is 8.589715
+epoch: 0, step: 40, loss is 8.23479
+epoch: 0, step: 50, loss is 10.431321
+epoch: 0, step: 60, loss is 7.7080607
+epoch: 0, step: 70, loss is 8.599786
+epoch: 0, step: 80, loss is 7.669814
+epoch: 0, step: 90, loss is 8.584343
+epoch: 0, step: 100, loss is 8.803712
+```
