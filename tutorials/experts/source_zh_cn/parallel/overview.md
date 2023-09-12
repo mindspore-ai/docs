@@ -14,7 +14,7 @@ MindSpore目前支持三种启动方式：
 - **mpirun**：通过多进程通信库OpenMPI启动，支持Ascend/GPU。
 - **rank table**：配置rank_table表后，通过脚本启动和卡数对应的进程，支持Ascend。
 
-详细可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)章节。
+详细可参考[分布式并行启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)章节。
 
 ## 并行模式
 

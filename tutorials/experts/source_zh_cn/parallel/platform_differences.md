@@ -19,7 +19,7 @@
 - Ascend和GPU支持所有并行方式，包括数据并行、半自动并行、自动并行等。
 - CPU仅支持数据并行。
 
-详细过程请参考[并行模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parallel_mode.html)。
+详细过程请参考[数据并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/data_parallel.html)、[半自动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/semi_auto_parallel.html)、[自动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/auto_parallel.html)。
 
 ### 优化特性支持的差异
 
