@@ -227,7 +227,7 @@ The above code trains first and then infers, where all processes are executed in
 
 #### Starting Scheduler and Worker Processes
 
-Since multiple processes are started within a node, only one `Scheduler` process and multiple `Worker` processes need to be started via a Shell script. For the meaning of the environment variables in the script and their usage, refer to the [Environment Variables List](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/env_var_list.rst) for dynamic cluster environment variables.
+Since multiple processes are started within a node, only one `Scheduler` process and multiple `Worker` processes need to be started via a Shell script. For the meaning of the environment variables in the script and their usage, refer to the [Environment Variables List](https://www.mindspore.cn/docs/en/master/note/env_var_list.html) for dynamic cluster environment variables.
 
 The run.sh execution script is as follows:
 
