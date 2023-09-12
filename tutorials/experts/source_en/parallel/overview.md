@@ -14,7 +14,7 @@ MindSpore currently supports three startup methods:
 - **mpirun**: Start via the multi-process communication library OpenMPI, with Ascend/GPU support.
 - **rank table**: After configuring the rank_table table, Ascend is supported by start scripts and processes corresponding to the number of cards.
 
-Refer to the [Startup Methods](https://www.mindspore.cn/tutorials/experts/en/master/parallel/startup_method.html) section for details.
+Refer to the [Distributed Parallel Startup Methods](https://www.mindspore.cn/tutorials/experts/en/master/parallel/startup_method.html) section for details.
 
 ## Parallel Modes
 

@@ -19,7 +19,7 @@ For the detailed process, refer to [startup methods](https://www.mindspore.cn/tu
 - Ascend and GPUs support all methods of parallel, including data parallel, semi-automatic parallel, automatic parallel, and more.
 - CPU only supports data parallel.
 
-For the detailed process, refer to [parallel mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parallel_mode.html)
+For the detailed process, refer to [data parallel](https://www.mindspore.cn/tutorials/experts/en/master/parallel/data_parallel.html), [semi-automatic parallel](https://www.mindspore.cn/tutorials/experts/en/master/parallel/semi_auto_parallel.html), [auto-parallel](https://www.mindspore.cn/tutorials/experts/en/master/parallel/auto_parallel.html).
 
 ### Differences in Optimization Feature Support
 

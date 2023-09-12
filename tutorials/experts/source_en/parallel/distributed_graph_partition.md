@@ -16,7 +16,7 @@ Related interfaces:
 
 ## Basic Principle
 
-Distributed tasks need to be executed in a cluster. MindSpore reuses built-in `Dynamic Networking` module of MindSpore in order to have better scalability and reliability in distributed graph partition scenarios. This module is also used in the [Training without relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#training-without-relying-on-openmpi) and [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html) sections.
+Distributed tasks need to be executed in a cluster. MindSpore reuses built-in `Dynamic Networking` module of MindSpore in order to have better scalability and reliability in distributed graph partition scenarios. This module is also used in the [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html) sections.
 
 For `distributed graph partition`, each process represents a compute node (called `Worker`), and the scheduling node (called `Scheduler`) started by the `dynamic networking` module mentioned above allows discovering each compute node and thus forming a compute cluster.
 
@@ -227,7 +227,7 @@ The above code trains first and then infers, where all processes are executed in
 
 #### Starting Scheduler and Worker Processes
 
-Since multiple processes are started within a node, only one `Scheduler` process and multiple `Worker` processes need to be started via a Shell script. This dynamic networking is also described in detail and used similarly in these two sections: [Training without relying on OpenMPI](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#training-without-relying-on-openmpi) and [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html). For the meaning and usage of environment variables in the script, you can refer to the [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html) section.
+Since multiple processes are started within a node, only one `Scheduler` process and multiple `Worker` processes need to be started via a Shell script. For the meaning of the environment variables in the script and their usage, refer to the [Environment Variables List](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/env_var_list.rst) for dynamic cluster environment variables.
 
 The run.sh execution script is as follows:
 
