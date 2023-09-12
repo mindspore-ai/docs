@@ -6,7 +6,7 @@
 
 Parameter Server(参数服务器)是分布式训练中一种广泛使用的架构，相较于同步的AllReduce训练方法，Parameter Server具有更好的灵活性、可扩展性。具体来讲，参数服务器既支持同步SGD(Stochastic Gradient Descent，随机梯度下降)，也支持异步SGD的训练算法；在扩展性上，将模型的计算与模型的更新分别部署在Worker和Server两类进程中，使得Worker和Server的资源可以独立地横向扩缩(新增或者删除Worker和Server资源)；另外，在大规模数据中心的环境下，计算设备、网络以及存储经常会出现各种故障而导致部分节点异常，而在参数服务器的架构下，能够较为容易地处理此类故障而不会对训练中的任务产生影响。
 
->参数服务器支持的硬件平台包括Ascend、GPU，不支持`PyNative`模式。
+> 参数服务器支持的硬件平台包括Ascend、GPU，不支持`PyNative`模式。
 
 相关接口：
 
@@ -39,7 +39,7 @@ export MS_SCHED_PORT=XXXX             # Scheduler port
 export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
 ```
 
-更多详细说明请查看[环境变量目录](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/env_var_list.rst)中的动态组网环境变量。
+更多详细说明请查看[环境变量目录](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html)中的动态组网环境变量。
 
 ## 基本原理
 
@@ -175,7 +175,7 @@ for epoch in range(10):
 
 ### 运行单机8卡脚本
 
-接下来通过命令调用对应的脚本，以8卡的分布式训练脚本为例，进行分布式训练，Scheduler、Server和Wroker三个角色分别启动对应数量的进程。命令如下：
+接下来通过命令调用对应的脚本，以8卡的分布式训练脚本为例，进行分布式训练，Scheduler、Server和Worker三个角色分别启动对应数量的进程。命令如下：
 
 ```bash
 EXEC_PATH=$(pwd)
