@@ -8,7 +8,7 @@
 
 相关接口：
 
-`mindspore.nn.wrap.cell_wrapper.GradAccumulationCell(network, micro_size)`：用更细粒度的MicroBatch包装网络。
+`mindspore.nn.wrap.cell_wrapper.GradAccumulationCell(network, micro_size)`：用更细粒度的MicroBatch包装网络。`micro_size`是MicroBatch的大小。
 
 ## 基本原理
 
@@ -46,7 +46,7 @@
 
 ### 配置分布式环境
 
-首先通过context接口指定运行模式、运行设备、运行卡号等，并行模式为半自动并行模式，本例采用优化器并行，并通过init初始化HCCL或NCCL通信。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+首先通过context接口指定运行模式、运行设备、运行卡号等，并行模式为半自动并行模式，本例采用优化器并行，并通过init初始化HCCL或NCCL通信。
 
 ```python
 import mindspore as ms
