@@ -147,7 +147,7 @@ import shutil
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
-src_dir = os.path.join(os.getenv("MSCT_PATH"), 'docs/docs/api_python_en/sciai')
+src_dir = os.path.join(os.getenv("MSC_PATH"), 'docs/api_python_en/sciai')
 
 if not os.path.exists(src_dir):
     logger.warning("There is no source dir in sciai repository.")
