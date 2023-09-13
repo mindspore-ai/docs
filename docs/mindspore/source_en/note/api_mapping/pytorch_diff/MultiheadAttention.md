@@ -57,9 +57,9 @@ The code implementation and parameter update logic of `mindspore.nn.MultiheadAtt
 | Input  | Input1 | query            | query | Consistent function                                                |
 |      | Input2 | key           | key | Consistent function                                                |
 |      | Input3 | value      | value | Consistent function                                                |
-|      | Input4 | key_padding_mask            | key_padding_mask | Consistent function                                                |
+|      | Input4 | key_padding_mask            | key_padding_mask | In MindSpore, dtype can be set as float or Bool Tensor; in PyTorch dtype can be set as byte or Bool Tensor. |
 |      | Input5 | need_weights           | need_weights | Consistent function                                                |
-|      | Input6 | attn_mask      | attn_mask | In MindSpore, float and bool Tensors are supported. Pytorch also support byte Tensors. |
+|      | Input6 | attn_mask      | attn_mask | In MindSpore, dtype can be set as float or Bool Tensor; in PyTorch dtype can be set as float, byte or Bool Tensor. |
 |      | Input7 |                | average_attn_weights | If true, indicates that the returned attn_weights should be averaged across heads. Otherwise, attn_weights are provided separately per head. PyTorch does not have this function. |
 
 ### Code Example
@@ -76,6 +76,10 @@ key = torch.rand(seq_length, batch_size, embed_dim)
 value = torch.rand(seq_length, batch_size, embed_dim)
 multihead_attn = nn.MultiheadAttention(embed_dim, num_heads)
 attn_output, attn_output_weights = multihead_attn(query, key, value)
+print(attn_output.shape)
+print(attn_output_weights.shape)
+#torch.Size([10, 8, 128])
+#torch.Size([8, 10, 10])
 
 # MindSpore
 import mindspore as ms
@@ -88,4 +92,8 @@ key = ms.Tensor(np.random.randn(seq_length, batch_size, embed_dim), ms.float32)
 value = ms.Tensor(np.random.randn(seq_length, batch_size, embed_dim), ms.float32)
 multihead_attn = ms.nn.MultiheadAttention(embed_dim, num_heads)
 attn_output, attn_output_weights = multihead_attn(query, key, value)
+print(attn_output.shape)
+print(attn_output_weights.shape)
+#(10, 8, 128)
+#(8, 10, 10)
 ```

@@ -47,14 +47,14 @@ The code implementation and parameter update logic of `mindspore.nn.TransformerD
 |      | Parameter 5 | activation        | activation | Consistent function |
 |      | Parameter 6 |         | layer_norm_eps | In MindSpore, the value of eps can be set in LayerNorm, PyTorch does not have this function |
 |      | Parameter 7 |         | batch_first | In MindSpore, first batch can be set as batch dimension, PyTorch does not have this function |
-|      | Parameter 8 |         | norm_first | In MindSpore, LayerNorm can be set in between Multiheadttention Layer and FeedForward Layer or after, Pytorch does not have this function |
+|      | Parameter 8 |         | norm_first | In MindSpore, LayerNorm can be set in between Multiheadttention Layer and FeedForward Layer or after, PyTorch does not have this function |
 |      | Parameter 9 |         | dtype          | In MindSpore, dtype can be set in Parameters using 'dtype'. PyTorch does not have this function. |
 | Input  | Input 1 | tgt            | tgt | Consistent function                                               |
 |     | Input 2 | memory           | memory | Consistent function                                             |
-|     | Input 3 | tgt_mask      | tgt_mask | Consistent function  |
-|     | Input 4 | memory_mask      | memory_mask | Consistent function  |
-|     | Input 5 | tgt_key_padding_mask      | tgt_key_padding_mask | Consistent function  |
-|     | Input 6 | memory_key_padding_mask      | memory_key_padding_mask | Consistent function  |
+|     | Input 3 | tgt_mask      | tgt_mask | In MindSpore, dtype can be set as float or Bool Tensor; in PyTorch dtype can be set as float, byte or Bool Tensor. |
+|     | Input 4 | memory_mask      | memory_mask | In MindSpore, dtype can be set as float or Bool Tensor; in PyTorch dtype can be set as float, byte or Bool Tensor. |
+|     | Input 5 | tgt_key_padding_mask      | tgt_key_padding_mask | In MindSpore, dtype can be set as float or Bool Tensor; in PyTorch dtype can be set as byte or Bool Tensor. |
+|     | Input 6 | memory_key_padding_mask      | memory_key_padding_mask | In MindSpore, dtype can be set as float or Bool Tensor; in PyTorch dtype can be set as byte or Bool Tensor. |
 
 ### Code Example
 
@@ -68,6 +68,8 @@ transformer_decoder = nn.TransformerDecoder(decoder_layer, num_layers=6)
 memory = torch.rand(10, 32, 512)
 tgt = torch.rand(20, 32, 512)
 out = transformer_decoder(tgt, memory)
+print(out.shape)
+#torch.Size([20, 32, 512])
 
 # MindSpore
 import mindspore as ms
@@ -78,4 +80,6 @@ transformer_decoder = ms.nn.TransformerDecoder(decoder_layer, num_layers=6)
 memory = ms.Tensor(np.random.rand(10, 32, 512), ms.float32)
 tgt = ms.Tensor(np.random.rand(20, 32, 512), ms.float32)
 out = transformer_decoder(tgt, memory)
+print(out.shape)
+#(20, 32, 512)
 ```
