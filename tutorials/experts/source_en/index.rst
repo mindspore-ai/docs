@@ -62,6 +62,8 @@ For Experts
    :caption: High-level Functional Programming
 
    vmap/vmap
+   func_programming/Jacobians_Hessians
+   func_programming/per_sample_gradients
 
 .. toctree::
    :glob:

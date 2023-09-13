@@ -130,7 +130,7 @@ def attr(self, name=None, param_type=None, value_type=None, default_value=None, 
 - `tmp`为中间变量，记录加法的中间结果；
 - `axis`是类型为`int`的属性，`keep_dims`是类型为`bool`的属性。
 
-### 算子实现文件（C++/CUDA测）:kernel.cc
+### 算子实现文件（C++/CUDA）:kernel.cc
 
 为了实现算子，我们创建源文件`kernel.cc`，包括以下一个算子属性类`add_reduce_kernel_attr`和三个函数：`CustomKernelInit`、`CustomKernelInferShape`和`CustomKernel`。
 
@@ -330,7 +330,7 @@ class ReduceDynNet(Cell):
 
 上面Python文件中通过自定义算子统一接口`Custom`定义了aot类型的自定义算子：`self.program = ops.Custom("./kernel.cc:CustomKernel", None, out_types, "aot", reg_info=reduce_cpu_info)`。因为我们前面定了C++版本的shape推导函数之后，这里的`ouptut_shape`可以为`None`.
 
-值得注意的是，这里的算子定义中我们直接使用源文件名`./kernel.cc`，如此我们采用MindSpore提供的自动编译功能。注意这个时候要保证环境中存在对应的编译器（这里为g++，gpu环境的cu文件则需要nvcc)。
+值得注意的是，这里的算子定义中我们直接使用源文件名`./kernel.cc`，如此我们采用MindSpore提供的自动编译功能。注意这个时候要保证环境中存在对应的编译器（这里为g++，gpu环境的cu文件则需要nvcc）。
 
 ### 算子调用
 

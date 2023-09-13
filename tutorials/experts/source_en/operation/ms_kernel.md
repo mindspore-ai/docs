@@ -287,12 +287,13 @@ To help users effectively develop and locate bugs, MindSpore Hybrid DSL provides
     - "ValueError: Compile error" and "The pointer\[kernel_mod\] is null": the kernel compiler fails in compiling the DSL. Check error messages from AKG for further information;
     - "Launch graph failed": The compiled kernel fails in running. Check the error message from the hardware. For example, when the kernel fails in Ascend, there will be an "Ascend error occurred" message and corresponding hareware error messages.
 
-## Example：Three Dim Tensor Add Operator Based on Hybrid
+## Example：Implementation of Addition Functions for 3D Tensors Using Custom Operators of Type hybrid
 
-Firstly we define a function for three dim tensor add with MindSpore Hybrid DSL.
+Firstly we define a addition function for three dim tensor with MindSpore Hybrid DSL.
+
 Notice that:
 
-- the output tensor is defined with the keyword `output_tensor` like `output_tensor(shape, dtype)`;
+- For the output tensor use `output_tensor` as: `output_tensor(shape, dtype)`;
 - all the computation is scalar-based, and we need all indices for elements in tensors;
 - like Python we define a loop with the keyword `range`.
 
@@ -318,8 +319,10 @@ def tensor_add_3d(x, y):
 ```
 
 Next we define a custom op with the above function by DSL.
+
 Notice that the function based on `kernel`, we can use the automatic shape and data type derivation.
-Thus we give the input of `func` only with the default value of `func_type` as `"hybrid"`.
+
+Thus we give the input of `func` only with the default value as `"hybrid"`.
 
 ```python
 tensor_add_3d_op = ops.Custom(func = tensor_add_3d)
@@ -330,7 +333,9 @@ print(result_cus)
 ```
 
 Meanwhile we can check the result via the mode of `pyfunc`.
+
 Without redefining the function of `tensor_add_3d`, we change the input of `func_type` directly to `"pyfunc"`.
+
 Notice that in `pyfunc` mode we need to write type derivation function.
 
 ```python
