@@ -1,8 +1,8 @@
-# Advanced usage of aot-type custom operators
+# Advanced Usage of aot-type Custom Operators
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/operation/op_custom_aot.md)
 
-## Summary
+## Overview
 
 aot-type custom operators use a pre-compilation approach, which requires developers to write the source code files for the corresponding function based on a specific interface, and compile the source code files in advance into a dynamic link library.
 Then, during network runtime, the framework will automatically call and execute the function in the dynamic link library.
@@ -53,17 +53,17 @@ aot-type custom operators provide functionality to add attributes, and then we c
 These operators have the same computational logic but achieve different computational effects by assigning values to the attributes during operator initialization.
 Additionally, to allow MindSpore to manage memory allocation and release, aot-type custom operators provide interfaces to specify the size of intermediate variables, allowing MindSpore to allocate memory for computation.
 
-### Dynamic shape support for aot-type custom operators
+### Dynamic Shape Support for aot-type Custom Operators
 
-Dynamic Shape refers to that the shapes of inputs or outputs of an operator depends on the specific operation and that they cannot be calculated in advance at compile time.
+Dynamic Shape refers to that the shapes of inputs or outputs of an operator depends on the specific operation and cannot be calculated in advance at compile time.
 Specifically, there are two cases: the shapes of the operator's inputs are unknown at compile time, and the shapes of the operator's outputs depend on the specific input values.
 The case that the shapes of the operator's inputs are unknown at compile time is more common.
 Any operator, regardless of their own calculation logic, needs to support this case if it is used in a network that supports dynamic shape inputs.
 
 Currently, the aot type custom operators support the dynamic shape scenario when the shape of the operator's input is unknown at compile time.
-This is achieved by defining a C++ version of the shape derivation function to support type inference for custom operators in this scenario.
+This is achieved by defining a C++ version of the shape derivation function to support type derivation for custom operators in this scenario.
 
-Notice that currently custom operators do not support the dynamic shape scenario when the shape of the operator's output depends on the specific input values.
+It should be noted that custom operators do not yet support dynamic shape scenarios where the shape of the operator output depends on the value of a specific input.
 
 ## The Introduction aot-type Custom Operator Advanced Usage Interface
 
@@ -93,12 +93,12 @@ To support operator attributes and intermediate variables, we need to define an 
 extern "C" int FuncNameInit(int *ndims, int64_t **shapes, const char **dtypes, AotExtra *extra);
 ```
 
-`FuncName` in the name of the initialization function is the name of the main function above. The return value is of type int, with 0 indicating normal exit and non-zero indicating an exception. The meaning of the parameter list is as follows:
+The function name `FuncName` is the name of the operator main function. The return value is of type int, with 0 indicating normal exit and non-zero indicating an exception. The meaning of the parameter list is as follows:
 
-- `ndims` (int \*): Array of dimensions for input and output shapes.
-- `shapes` (int64_t \*\*): Array of shapes for inputs and outputs.
-- `dtypes` (const char \*\*): Array of data types for inputs and outputs.
-- `extra` (AotExtra \*): The pointer to an extension for attribute-bearing custom operators. The `AotExtra` type is defined in the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore.
+- ndims (int \*): Array of dimensions for input and output shapes.
+- shapes (int64_t \*\*): Array of shapes for inputs and outputs.
+- dtypes (const char \*\*): Array of data types for inputs and outputs.
+- extra (AotExtra \*): Custom operator extensions with attributes. The `AotExtra` type is defined in the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore.
 
 ### Shape Inference Function
 
@@ -108,7 +108,7 @@ To support dynamic shape, a C++ version of the shape inference function needs to
 extern "C" std::vector<int64_t> FuncNameInferShape(int *ndims, int64_t **shapes, AotExtra *extra)
 ```
 
-`FuncName` in the function name is the name of the main function.
+The function name `FuncName` is the name of the operator main function.
 The return value is of type `std::vector<int64_t>` and represents the output shape.
 The meaning of the parameter list is as follows:
 
@@ -116,7 +116,7 @@ The meaning of the parameter list is as follows:
 - `shapes` (int64_t \*\*): Array of shapes for inputs.
 - `extra` (AotExtra \*): Pointer to an extension for attribute-bearing custom operators. The `AotExtra` type is defined in the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore.
 
-### Operator attribute registration (Python)
+### Operator Attribute Registration (Python)
 
 The initialization of operator attributes is implemented through the operator registration function. For each attribute, we create an `attr` for the operator registration file, setting the attribute name and value. The registration function is as follows:
 
@@ -383,7 +383,7 @@ Execute the file to call the operator:
 python test_custom_aot.py
 ```
 
-Execution result:
+Execution result is as follows:
 
 ```text
 [10. 10. 10. 10.]

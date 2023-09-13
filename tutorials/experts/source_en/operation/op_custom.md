@@ -36,7 +36,7 @@ The difference between these operator development methods are as follows:
 
 > - The full name of DSL is Domain Specific Language.
 > - AOT(Ahead Of Time) compiling means the operator implementation needs to be compiled into a dynamic library in advance and then automatically called by the framework when the network is running. JIT(Just In Time) compiling does not need to compile the operator implementation in advance, the operator implementation will be directly called by the framework during network compilation or runtime.
-> - In order to distinguish between the types and compilation methods of custom operators, in the following text, the lowercase aot is used to refer to the type of the custom operator, and the uppercase AOT is used to refer to the compilation method of the custom operator.
+> - In order to distinguish the types and compilation methods of custom operators, in the following text, the lowercase aot is used to refer to the type of the custom operator, and the uppercase AOT is used to refer to the compilation method of the custom operator.
 
 The recommended methods for all platforms under different scenarios are as follows:
 
@@ -51,9 +51,9 @@ Different custom operator defining methods use different development languages t
 ## The Introduction to Custom Operator: An Example
 
 To help users quickly get started with custom operators, here is an example of a pyfunc type custom operator to help users understand the definition process of custom operators.
-Below is a pyfunc type custom operator to implement sin calculation.
+The following defines a custom operator that implements the sin calculation based on the pyfunc pattern.
 Custom operators of type pyfunc use native Python syntax to define operator implementation functions, describing the implementation of the operator's internal computational logic.
-The network runtime framework will automatically call this function. In order to express the calculation of a custom operator, we write a Python native function based on numpy to calculate the sine function.
+During the network runtime, framework will automatically call this function. In order to express the calculation of a custom operator, we write a Python native function based on numpy to calculate the sine function.
 
 ```python
 import numpy as np
@@ -64,8 +64,8 @@ def sin_by_numpy(x):
 
 Then we need to define two more functions. One is the infer shape function, while the other is the infer dtype function.
 
-- the inputs of the infer shape function are shapes of input tensors;
-- the inputs of the infer dtype function are dtypes of input tensors;
+- The derivative function of the tensor shape is the shape of the input tensor;
+- The derivative function of the tensor dtype is the dtype of the input tensor;
 
 ```python
 def infer_shape(x):
@@ -273,7 +273,7 @@ Operator output shape and data type inference can be realized by defining Python
 
 If the operator contains attributes or only supports specific input and output data types or data formats, operator information needs to be registered, and for how to generate operator information, see [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_adv.html#registering-the-operator-information). If the operator information is not registered, when operator selection and mapping are made in the backend, the operator information is derived from the input of the current operator.
 
-Takes test_custom_akg.py as an example of how to define a custom operator of akg type, where the operator computes the sum of two tensors.
+The following is an example of the development process of a custom operator of type akg in test_custom_akg.py, where the custom operator implements the addition of two input tensors.
 
 Here is the content of test_custom_akg.py:
 
@@ -323,9 +323,9 @@ The execution result is as follows:
 
 For more complete examples of akg-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_akg.py) in the MindSpore source code.
 
-## AOT Compiled Custom Operator
+## AOT-Compiled Custom Operator
 
-AOT (Ahead-of-Time) refers to the operators pre-compiled as binary files and then integrated into the network. Usually, users optimize their implementations using programming languages such as C/C++/CUDA and compile their operators as dynamic libraries to accelerate MindSpore networks. As a result, users can perform ultimate optimization on their operators and leverage the performance of the corresponding backend hardware. Here, we will introduce some basic knowledge about AOT type custom operators. For more advanced usage and functionality of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_aot.html).
+AOT type of customized operator means that the user compiles the operator into a binary file beforehand and then accesses the network. Usually, users optimize their implementations using programming languages such as C/C++/CUDA and compile their operators as dynamic libraries to accelerate MindSpore networks. As a result, users can perform ultimate optimization on their operators and leverage the performance of the corresponding backend hardware. Here, we will introduce some basic knowledge about AOT type custom operators. For more advanced usage and functionality of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_aot.html).
 
 ### Defining Custom Operator of aot Type
 
