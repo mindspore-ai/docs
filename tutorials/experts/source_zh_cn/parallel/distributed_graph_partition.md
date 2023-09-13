@@ -226,7 +226,7 @@ if get_rank() == 0:
 
 #### 启动Scheduler和Worker进程
 
-由于是在节点内启动多个进程，因此只需要通过一个Shell脚本启动一个`Scheduler`进程和多个`Worker`进程。对于脚本中的环境变量含义以及用法，可以参考[环境变量目录](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/env_var_list.rst)中的动态组网环境变量。
+由于是在节点内启动多个进程，因此只需要通过一个Shell脚本启动一个`Scheduler`进程和多个`Worker`进程。对于脚本中的环境变量含义以及用法，可以参考[环境变量目录](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html)中的动态组网环境变量。
 
 run.sh执行脚本如下：
 
