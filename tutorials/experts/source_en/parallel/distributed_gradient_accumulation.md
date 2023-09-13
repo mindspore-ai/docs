@@ -8,7 +8,7 @@ Gradient accumulation is an optimization technique that enables the use of a lar
 
 Related interfaces:
 
-`mindspore.nn.wrap.cell_wrapper.GradAccumulationCell(network, micro_size)`: Wrap the network with a finer-grained MicroBatch.
+`mindspore.nn.wrap.cell_wrapper.GradAccumulationCell(network, micro_size)`: Wrap the network with a finer-grained MicroBatch. `micro_size` is the size of the MicroBatch.
 
 ## Basic Principle
 
@@ -46,7 +46,7 @@ The directory structure is as follows:
 
 ### Configuring a Distributed Environment
 
-Specify the run mode, run device, run card number via the context interface. The parallel mode is semi-parallel mode. This example uses optimizer parallel and initializes HCCL or NCCL communication via init. The `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
+Specify the run mode, run device, run card number via the context interface. The parallel mode is semi-parallel mode. This example uses optimizer parallel and initializes HCCL or NCCL communication via init.
 
 ```python
 import mindspore as ms
