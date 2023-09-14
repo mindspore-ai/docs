@@ -8,7 +8,7 @@
 
 #### 图像分类（骨干类）
 
-以下数据基于Ascend 910A环境和ImageNet-1K数据集获得。
+以下数据基于Ascend 910环境和ImageNet-1K数据集获得。
 
 | model | acc@1 | mindcv recipe | vanilla mindspore |
 | :-:     | :-:        | :-:    | :-:  |
@@ -161,7 +161,7 @@
 
 ### 目标检测
 
-以下数据基于Ascend 910A环境和COCO2017数据集获得。
+以下数据基于Ascend 910环境和COCO2017数据集获得。
 
 #### yolo
 
