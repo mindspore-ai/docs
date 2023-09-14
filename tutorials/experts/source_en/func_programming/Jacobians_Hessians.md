@@ -150,7 +150,7 @@ perf_cmp(compute_jac_matrix_cost_time, "for loop", jacrev_cost_time, "jacrev")
 ```
 
 ```text
-Performance delta: 92.9744 percent improvement with jacrev.
+ Performance delta: 92.9744 percent improvement with jacrev.
 ```
 
 It is also possible to compute the Jacobian matrix of the output with respect to the model parameters weight and bias by specifying the parameter `grad_position` of `jacrev`.
