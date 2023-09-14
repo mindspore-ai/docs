@@ -40,8 +40,8 @@ In addition, during the calculation process of the operator, some additional mem
 The following calculation is an example. If we consider the `input_1` and `input_2` to calculate `output` as follows:
 
 ```python
-  tmp = Add(input_1, input_2)
-  output = ReduceSum(tmp, axis, keep_dims)
+tmp = Add(input_1, input_2)
+output = ReduceSum(tmp, axis, keep_dims)
 ```
 
 Here, we need to add the following intermediate variables and attributes to the operator in the computation function, including:

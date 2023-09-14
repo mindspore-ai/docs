@@ -6,11 +6,9 @@
 
 ```python
 class torch.nn.TransformerDecoder(
-    d_model,
-    nhead,
-    dim_feedforward=2048,
-    dropout=0.1,
-    activation='relu'
+    decoder_layer,
+    num_layers,
+    norm=None
 )(tgt, memory, tgt_mask=None, memory_mask=None, tgt_key_padding_mask=None, memory_key_padding_mask=None)
 ```
 
@@ -20,15 +18,9 @@ class torch.nn.TransformerDecoder(
 
 ```python
 class mindspore.nn.TransformerDecoder(
-    d_model,
-    nhead,
-    dim_feedforward=2048,
-    dropout=0.1,
-    activation='relu',
-    layer_norm_eps=1e-5,
-    batch_first=False,
-    norm_first=False,
-    dtype=mstype.float32=False
+    decoder_layer,
+    num_layers,
+    norm=None
 )(tgt, memory, tgt_mask=None, memory_mask=None, tgt_key_padding_mask=None, memory_key_padding_mask=None)
 ```
 
