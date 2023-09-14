@@ -21,6 +21,8 @@ Table 1: Configure [ascend_context] parameter
 | `fusion_switch_config_file_path` | Optional| Configure the [Fusion Switch Configuration File](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/atctool/atctool_0078.html) file path and file name. | String   | Specify the configuration file for the fusion switch      |
 | `insert_op_config_file_path` | Optional| Model insertion [AIPP](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/atctool/atctool_0018.html) operator | String  | Path of [AIPP](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/atctool/atctool_0021.html) configuration file |
 | `aoe_mode` | Optional| [AOE](https://www.hiascend.com/document/detail/en/canncommercial/601/devtools/auxiliarydevtool/aoe_16_001.html) auto-tuning mode | String  | Options: "subgraph tuning", "operator tuning" or "subgraph tuning, operator tuning". Default: Not enabled |
+| `plugin_custom_ops` | Optional | Enable Ascend backend fusion optimization to generate custom operators | String  | Options include 'All' or 'None', with the default 'None' indicating that it is not enabled |
+| `custom_fusion_pattern` | Optional | Specify custom operator structures in the enabling model | String  | `custom operator type: original operator name in the model: enabled or disabled`, which can be taken as `enable` or `disable` |
 
 Table 2:  Configure [acl_init_options] parameter
 
