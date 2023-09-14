@@ -6,6 +6,35 @@
 
 其中Linux-x86_64、Linux-aarch64的包已在Linux发行版Euleros2.0、Centos7.8、Ubuntu18.04版本上经过测试验证。
 
+## 2.1.1
+
+|  组件 | 硬件平台 |   操作系统   |   链接   |   SHA-256   |
+|   ---   |   ---   |     ---     |   ---   |     ---     |
+| 云侧推理runtime库、推理jar包、benchmark工具、converter工具 | CPU/GPU/Ascend | Linux-x86_64 | [mindspore-lite-2.1.1-linux-x64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/linux/x86_64/cloud_fusion/python37/mindspore-lite-2.1.1-linux-x64.tar.gz) | 220c3c4eecd0102c195189b28e45ef7ec86b55381eaa5a9652b45bc06155b874|
+| 云侧推理runtime库、推理jar包、benchmark工具、converter工具 | CPU/Ascend     | Linux-aarch64 | [mindspore-lite-2.1.1-linux-aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/linux/aarch64/cloud_fusion/python37/mindspore-lite-2.1.1-linux-aarch64.tar.gz) | 173a079817b1c40efbdfb5fb1249c153e7ad8236ba43e4e1b89431f39bd484a5 |
+| 推理和训练runtime库、推理和训练aar包、Micro库、benchmark工具 | CPU | Android-aarch32 | [mindspore-lite-2.1.1-android-aarch32.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/android/cpu/mindspore-lite-2.1.1-android-aarch32.tar.gz) | 27e857eb812d4190b17012fb5d0fcaf24be25000bcb9fba245bd5a390885c2b8 |
+| 推理和训练runtime库、推理和训练aar包、Micro库、benchmark工具 | CPU/GPU | Android-aarch64 | [mindspore-lite-2.1.1-android-aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/android/gpu/mindspore-lite-2.1.1-android-aarch64.tar.gz) | a2f30d23c3e44fbdec57cbcb0bf05d3f45bd3b242143a012e3aaa10a51844725 |
+| 端侧推理和训练runtime库、推理和训练jar包、Micro库、benchmark工具、converter工具、cropper工具 | CPU | Linux-x86_64 | [mindspore-lite-2.1.1-linux-x64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/linux/x86_64/mindspore-lite-2.1.1-linux-x64.tar.gz) | e06abc4fb445646e452236dd2a7aa069ebf1f251e9a6ae00021d662b09763281 |
+| 端侧推理runtime库、Micro库、benchmark工具、converter工具 | CPU     | Linux-aarch64 | [mindspore-lite-2.1.1-linux-aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/linux/aarch64/mindspore-lite-2.1.1-linux-aarch64.tar.gz) | a7e1d8027cdb00eeb7c71ee94de246b3fad3512dddde1120df14caddcd46fb41 |
+| 推理runtime库、Micro库、benchmark工具、converter工具 | CPU     | Windows-x86_64 | [mindspore-lite-2.1.1-win-x64.zip](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/windows/mindspore-lite-2.1.1-win-x64.zip) | 23eb1d185c873a1e623b259842842d2bc8e88d699cafda530e7428a6e71036bc |
+| iOS 推理runtime库 | CPU | iOS-aarch32 | [mindspore-lite-2.1.1-ios-aarch32.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/ios/mindspore-lite-2.1.1-ios-aarch32.tar.gz) | 83fb7649e1847aa4eec808364d3fc5e60c3304508644819c0c4dd3c99441eff0 |
+| iOS 推理runtime库 | CPU | iOS-aarch64 | [mindspore-lite-2.1.1-ios-aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/ios/mindspore-lite-2.1.1-ios-aarch64.tar.gz) | 6583880ad989710e41842dcc171b496e292c49b5275f5391d9e997a8e17db57b |
+| NNIE converter工具 | CPU     | Linux-x86_64 | [mindspore-lite-2.1.1-linux-x64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/linux/nnie/mindspore-lite-2.1.1-linux-x64.tar.gz) | e5d9dec0fae3c8ee149f878c42efc985a2ac35bb24ebb9db69fc4955fd4d4a47 |
+| NNIE 推理runtime库、benchmark工具 | Hi3516D | Linux-aarch32 | [mindspore-lite-2.1.1-linux-aarch32.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/linux/nnie/Hi3516D/mindspore-lite-2.1.1-linux-aarch32.tar.gz) | 576a1f5296d7e60a8d4291c9e6d5c84b6cc5f152d8747651974b3694994d998f |
+| NNIE 推理runtime库、benchmark工具 | Hi3519A | Linux-aarch32 | [mindspore-lite-2.1.1-linux-aarch32.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/linux/nnie/Hi3519A/mindspore-lite-2.1.1-linux-aarch32.tar.gz) | bdaf262d63328b4d85c87924d3d82d92d048da3ca3d1ba59e34f383b30ac4e7d |
+| NNIE 推理runtime库、benchmark工具 | Hi3559A | Linux-aarch64 | [mindspore-lite-2.1.1-linux-aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/linux/nnie/Hi3559A/mindspore-lite-2.1.1-linux-aarch64.tar.gz) | aa2e4309494eeff38e9a421639acfd0db1ebfc89359f704fbdc3f6fdc14836a6 |
+| Micro库 | Cortex-M7 | None | [mindspore-lite-2.1.1-none-cortex-m7.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/none_cortex-m/mindspore-lite-2.1.1-none-cortex-m7.tar.gz) | 552ffecedf62a064fc0e0106cfe9e237e2efa23d01627500271fa8c1ba505867 |
+
+Python 接口 Wheel安装包
+|   组件   | 硬件平台 |   操作系统   |   Python版本   |   链接   |   SHA-256   |
+|   ---   |   ---   |     ---     |   ---         |   ---   |     ---     |
+| 云侧推理runtime及converter | CPU/GPU/Ascend  | Linux-x86_64 | Python3.7 | [mindspore_lite-2.1.1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/linux/x86_64/cloud_fusion/python37/mindspore_lite-2.1.1-cp37-cp37m-linux_x86_64.whl)          | 3abc5c801572f977be172c630557788387b0ac57ea4611fdc1555a068541edba |
+| 云侧推理runtime及converter | CPU/Ascend      | Linux-aarch64 | Python3.7 | [mindspore_lite-2.1.1-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/linux/aarch64/cloud_fusion/python37/mindspore_lite-2.1.1-cp37-cp37m-linux_aarch64.whl)        | e63c7fed6462fa48ad5f147fcddef060d04bfffdd232490e12c22b9f1090c710 |
+| 云侧推理runtime及converter | CPU/GPU/Ascend  | Linux-x86_64 | Python3.8 | [mindspore_lite-2.1.1-cp38-cp38-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/linux/x86_64/cloud_fusion/python38/mindspore_lite-2.1.1-cp38-cp38-linux_x86_64.whl)          | 6336bf6197d12016c5296c58d7c5c6b23b3ad9eeaab4c2ed5e21200ded1d6bd0 |
+| 云侧推理runtime及converter | CPU/Ascend      | Linux-aarch64 | Python3.8 | [mindspore_lite-2.1.1-cp38-cp38-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/linux/aarch64/cloud_fusion/python38/mindspore_lite-2.1.1-cp38-cp38-linux_aarch64.whl)        | 3066495713c2f65c9b3c16f2a46df3502af89b211cf01df4a57526fd68335ec2 |
+| 云侧推理runtime及converter | CPU/GPU/Ascend  | Linux-x86_64 | Python3.9 | [mindspore_lite-2.1.1-cp39-cp39-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/linux/x86_64/cloud_fusion/python39/mindspore_lite-2.1.1-cp39-cp39-linux_x86_64.whl)          | 445e41dcf49f99cc1c7a4b2ddaae4b6af5a25e064ee935c2dafa3e01e287d97b |
+| 云侧推理runtime及converter | CPU/Ascend      | Linux-aarch64 | Python3.9 | [mindspore_lite-2.1.1-cp39-cp39-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/lite/release/linux/aarch64/cloud_fusion/python39/mindspore_lite-2.1.1-cp39-cp39-linux_aarch64.whl)        | 01999bd2ad6e29aee1cf1123ce601d72c75d06d2644f80b8570ff62c288c8876 |
+
 ## 2.1.0
 
 |  组件 | 硬件平台 |   操作系统   |   链接   |   SHA-256   |
