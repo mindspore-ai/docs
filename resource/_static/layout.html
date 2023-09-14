@@ -23,6 +23,7 @@
   <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
   {%- endblock -%}
 
+  <script>;(()=>{const e=localStorage.getItem("ms-theme"),t=window.matchMedia("(prefers-color-scheme: dark)").matches;(e?"dark"===e:t)&&document.documentElement.setAttribute("data-o-theme","dark")})();</script>
   {#- CSS #}
   {%- if sphinx_version_info < (4, 0) -%}
     <link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" type="text/css" />
@@ -75,7 +76,12 @@
       <script id="documentation_options" data-url_root="{{ url_root }}" src="{{ pathto('_static/documentation_options.js', 1) }}"></script>
       {%- endif -%}
       {%- for scriptfile in script_files %}
+        {%- if 'jquery.js' in scriptfile -%}
         {{ js_tag(scriptfile) }}
+        {{ js_tag('_static/js/theme.js') }}
+        {%- else -%}
+        {{ js_tag(scriptfile) }}
+        {%- endif -%}
       {%- endfor %}
     {%- else %}
       <script>
@@ -93,7 +99,6 @@
         <script src="{{ pathto(scriptfile, 1) }}"></script>
       {%- endfor %}
     {%- endif %}
-    <script src="{{ pathto('_static/js/theme.js', 1) }}"></script>
 
     {#- OPENSEARCH #}
     {%- if use_opensearch %}
@@ -256,10 +261,5 @@
   {%- endif %}
 
   {%- block footer %} {% endblock %}
-    {%- for scriptfile in script_files %}
-    {%- if "mathjax" in scriptfile.filename|string %}
-        <script async="async" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        {%- endif %}    
-    {%- endfor %}
 </body>
 </html>
