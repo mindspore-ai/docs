@@ -1,12 +1,604 @@
-# Common Data Processing Errors and Analysis Methods
+# Data Processing Debugging Strategies and Common Errors Analysis
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/error_analysis/minddata_debug.md)&nbsp;&nbsp;
 
-## Data Preparation
+## Data Processing Debugging Strategies
+
+### Debugging Strategy 1: Print Logs or Add Debug Points
+
+When using `GeneratorDataset` or `map` to load/process data, there may be syntax errors, calculation overflow and other issues that cause data errors, you can generally follow the steps below to troubleshoot and debug:
+
+1. Observe the error stack information and locate the error code block from the error stack information.
+
+2. Add a print or debugging point near the block of code where the error occurred, to further debugging.
+
+The following shows a data pipeline with syntax/value problems and how to fix the errors according to the above strategy.
+
+```python
+import mindspore.dataset as ds
+
+class Loader:
+    def __init__(self):
+        self.data = [1, 6, 0, 1, 2]
+        self.dividend = 1
+    def __getitem__(self, index):
+        a = self.dividend
+        b = self.data[index]
+        return a / b
+    def __len__(self):
+        return len(self.data)
+
+
+dataloader = ds.GeneratorDataset(Loader(), column_names=["data"])
+for data in dataloader:
+    print("data", data)
+```
+
+After running the error reported as follows, you can observe that the error message is divided into three blocks:
+
+* Dataset Pipeline Error Message: error summary, here suggests that due to the Python code execution error caused by the error exit.
+* Python Call Stack: Call information from the Python code, showing the call stack before the Python exception was generated.
+* C++ Call Stack：C++ code call information for framework developers to debug.
+
+```text
+------------------------------------------------------------------
+- Python Call Stack:
+------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/.../mindspore/dataset/engine/datasets_user_defined.py", line 99, in _cpp_sampler_fn
+    val = dataset[i]
+  File "test_cv.py", line 11, in __getitem__
+    return a / b
+ZeroDivisionError: division by zero
+
+------------------------------------------------------------------
+- Dataset Pipeline Error Message:
+------------------------------------------------------------------
+[ERROR] Execute user Python code failed, check 'Python Call Stack' above.
+
+------------------------------------------------------------------
+- C++ Call Stack: (For framework developers)
+------------------------------------------------------------------
+mindspore/ccsrc/minddata/dataset/engine/datasetops/source/generator_op.cc(247).
+```
+
+Dataset Pipeline Error Message suggests that there is an exception in running the user's Python script, add continue to check the Python Call Stack.
+According to the Python Stack information, the exception is thrown from the `__getitem__` function and suggests related code near `return a / b`. Therefore, add a print or debug point to the log near the code that prompts the error report.
+
+```python
+import mindspore.dataset as ds
+
+class Loader:
+    def __init__(self):
+        self.data = [1, 6, 0, 1, 2]
+        self.dividend = 1
+
+    def __getitem__(self, index):
+        try:
+            print(">>> debug: come into __getitem__", flush=True)
+            a = self.dividend
+            b = self.data[index]
+            print(">>> debug: a is", a, flush=True)
+            print(">>> debug: b is", b, flush=True)
+            return a / b
+        except Exception as e:
+            print("exception occurred", str(e))
+            import pdb
+            pdb.set_trace()
+            # do anything you want to check variable
+
+    def __len__(self):
+        return len(self.data)
+
+
+dataloader = ds.GeneratorDataset(Loader(), column_names=["data"])
+# Make the pipeline single-threaded before you run it
+ds.config.set_num_parallel_workers(1)
+for i, data in enumerate(dataloader):
+    print("data count", i)
+```
+
+Rerun the data pipeline with the relevant debugging information to see that the exception was caught and the pdb debugger was entered.
+At this point, you can print the relevant variables as needed (following pdb syntax) and debug, and find the 1/0 error that caused the divide-by-zero error.
+
+```text
+>>> debug: come into __getitem__
+>>> debug: a is 1
+>>> debug: b is 2
+>>> debug: come into __getitem__
+data count 0
+>>> debug: a is 1
+>>> debug: b is 0
+exception occurred division by zero
+--Return--
+> /test_cv.py(19)__getitem__()->None
+-> pdb.set_trace()
+(Pdb)
+```
+
+### Debugging Strategy 2: Testing the Input and Output of the Map Operation
+
+Embedding data augmentation transformations into the `map` operation of a data pipeline can sometimes result in errors that are not easily debugged.
+The following example shows an example of embedding a `Crop` enhancement into a `map` operation to crop data, but an error is reported due to an error in the shape of the input object.
+
+```python
+import numpy as np
+import mindspore.dataset as ds
+import mindspore.dataset.vision as vision
+
+class Loader:
+    def __init__(self):
+        self.data = [np.ones((32, 32, 3)), np.ones((3, 48, 48))]
+    def __getitem__(self, index):
+        return self.data[index]
+    def __len__(self):
+        return len(self.data)
+
+
+dataloader = ds.GeneratorDataset(Loader(), column_names=["data"])
+dataloader = dataloader.map(vision.Crop(coordinates=(0, 0), size=(8, 8)))
+for data in dataloader:
+    print("data", data)
+```
+
+When executing the above example you get the following error, but based on the error message it is more difficult to get what the input object is and what the shape is.
+
+```text
+------------------------------------------------------------------
+- Dataset Pipeline Error Message:
+------------------------------------------------------------------
+[ERROR] map operation: [Crop] failed. Crop: Crop height dimension: 8 exceeds image height: 3.
+
+------------------------------------------------------------------
+- C++ Call Stack: (For framework developers)
+------------------------------------------------------------------
+mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(34).
+```
+
+From the Dataset Pipeline Error Message, we can see that the error is thrown by `Crop` during the calculation. So you can rewrite the dataset pipeline a bit to print the input and output of `Crop` and add printing for debugging.
+
+```python
+import numpy as np
+import mindspore.dataset as ds
+import mindspore.dataset.vision as vision
+
+class Loader:
+    def __init__(self):
+        self.data = [np.ones((32, 32, 3)), np.ones((3, 48, 48))]
+
+    def __getitem__(self, index):
+        return self.data[index]
+
+    def __len__(self):
+        return len(self.data)
+
+
+def CropWrapper(data):
+    op = vision.Crop(coordinates=(0, 0), size=(8, 8))
+    print(">>> debug: before apply crop, data shape", data.shape)
+    data = op(data)
+    print(">>> debug:before apply crop, data shape", data.shape)
+    return data
+
+
+dataloader = ds.GeneratorDataset(Loader(), column_names=["data"], shuffle=False)
+dataloader = dataloader.map(CropWrapper)
+ds.config.set_num_parallel_workers(1)
+for data in dataloader:
+    print("data", data[0].shape)
+```
+
+Running it again yields the following.
+
+```text
+>>> debug: before apply crop, data shape (32, 32, 3)
+>>> debug:before apply crop, data shape (8, 8, 3)
+data (8, 8, 3)
+>>> debug: before apply crop, data shape (3, 48, 48)
+Traceback (most recent call last):
+  File "test_cv.py", line 25, in <module>
+    for data in dataloader:
+  File "/.../mindspore/python/mindspore/dataset/engine/iterators.py", line 145, in __next__
+    data = self._get_next()
+  File "/.../mindspore/mindspore/python/mindspore/dataset/engine/iterators.py", line 294, in _get_next
+    return [self._transform_md_to_output(t) for t in self._iterator.GetNextAsList()]
+RuntimeError: Exception thrown from user defined Python function in dataset.
+
+------------------------------------------------------------------
+- Dataset Pipeline Error Message:
+------------------------------------------------------------------
+[ERROR] Crop: Crop height dimension: 8 exceeds image height: 3.
+
+------------------------------------------------------------------
+- C++ Call Stack: (For framework developers)
+------------------------------------------------------------------
+mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(34).
+```
+
+According to the printed information you can see that `Crop` processed 2 samples, the first sample has a shape (32, 32, 3) which can be transformed to (8, 8, 3) normally. The second sample has a shape of (3, 48, 48), but the error is reported without printing the transformed shape. Therefore it is this sample that cannot be processed by `Crop` and the error occurs. Further, according to the Dataset Pipeline Error Message, the input sample has a height of only 3, but is expected to be cropped to a region with a high dimension of 8, hence the error is reported.
+
+Checking the [API description](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html) of `Crop` , `Crop` requires the input sample to be in shape <H, W> or <H, W, C>, so `Crop` treats (3, 48, 48) as <H, W, C>, and naturally it can't crop out the region with H=8, W=8 when H=3, W=48, C=48.
+
+To quickly fix this, we just need to adjust the input sample shape to <H, W, C>, i.e. change it to np.ones((48, 48, 3)), and run it again to find that the use case passes.
+
+```text
+>>> debug: before apply crop, data shape (32, 32, 3)
+>>> debug:before apply crop, data shape (8, 8, 3)
+data (8, 8, 3)
+>>> debug: before apply crop, data shape (48, 48, 3)
+>>> debug:before apply crop, data shape (8, 8, 3)
+data (8, 8, 3)
+```
+
+### Debugging Strategy 3: Dataset Pipline Debug Mode Debugging Input and Output of Map Operation
+
+We can also turn on the dataset pipline debug mode by calling the [set_debug_mode](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_debug_mode.html) .
+When debug mode is enabled, the random seed is set to 1 if it is not already set, so that executing the dataset pipeline in debug mode can yield deterministic results.
+
+The process is as follows:
+
+1. Print the shape and type of the input and output data for each transform op in the `map` operator.
+2. Enable the dataset pipeline debug mode and use either a predefined debug hook provided by MindData or a user-defined debug hook. It must define the class inherited from [DebugHook](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.debug.DebugHook.html).
+
+The following is a modification of the `Data Processing Debugging Strategy 2` use case, using the predefined debug hooks provided by MindData.
+
+```python
+import numpy as np
+import mindspore.dataset as ds
+import mindspore.dataset.debug as debug
+import mindspore.dataset.vision as vision
+
+class Loader:
+    def __init__(self):
+        self.data = [np.ones((32, 32, 3)), np.ones((3, 48, 48))]
+
+    def __getitem__(self, index):
+        return self.data[index]
+
+    def __len__(self):
+        return len(self.data)
+
+
+# Enable dataset pipeline debug mode and use pre-defined debug hook provided by MindData.
+ds.config.set_debug_mode(True, debug_hook_list=[debug.PrintMetaDataHook()])
+
+# Define dataset pipeline
+dataset = ds.GeneratorDataset(Loader(), column_names=["data"])
+
+# Insert debug hook after `Crop` operation.
+dataset = dataset.map([vision.Crop(coordinates=(0, 0), size=(8, 8))])
+for i, data in enumerate(dataset):
+    print("data count", i)
+```
+
+Running it yields the following correlation.
+
+```text
+[Dataset debugger] Print the [INPUT] of the operation [Crop].
+Column 0. The dtype is [float64]. The shape is [(3, 48, 48)].
+    ......
+E           RuntimeError: Exception thrown from dataset pipeline. Refer to 'Dataset Pipeline Error Message'.
+E
+E           ------------------------------------------------------------------
+E           - Dataset Pipeline Error Message:
+E           ------------------------------------------------------------------
+E           [ERROR] map operation: [Crop] failed. Crop: Crop height dimension: 8 exceeds image height: 3.
+E
+E           ------------------------------------------------------------------
+E           - C++ Call Stack: (For framework developers)
+E           ------------------------------------------------------------------
+E           mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(33).
+
+../../../mindspore/python/mindspore/dataset/engine/iterators.py:294: RuntimeError
+```
+
+Based on the printed information, we can clearly see that `Crop` has a problem when processing the input shape (3, 48, 48). Also looking at `Crop`'s [API description](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html) , we just need to adjust the input sample shape to <H, W, C>, change it to np.ones((48, 48, 3)), and run it again to see that the use case passes.
+
+```text
+[Dataset debugger] Print the [INPUT] of the operation [Crop].
+Column 0. The dtype is [float64]. The shape is [(48, 48, 3)].
+[Dataset debugger] Print the [OUTPUT] of the operation [Crop].
+Column 0. The dtype is [float64]. The shape is [(8, 8, 3)].
+******data count 0
+[Dataset debugger] Print the [INPUT] of the operation [Crop].
+Column 0. The dtype is [float64]. The shape is [(32, 32, 3)].
+[Dataset debugger] Print the [OUTPUT] of the operation [Crop].
+Column 0. The dtype is [float64]. The shape is [(8, 8, 3)].
+******data count 1
+```
+
+Alternatively, you can use a custom debug hook to manually insert, add breakpoints to the `compute` function of the `MyHook` class, and print a log to see the type and shape of the data.
+
+```python
+import numpy as np
+import mindspore.dataset as ds
+import mindspore.dataset.debug as debug
+import mindspore.dataset.vision as vision
+
+# Enable dataset pipeline debug mode and use user-defined debug hook. It must define a
+# class inherited from DebugHook.
+class MyHook(debug.DebugHook):
+    def __init__(self):
+        super().__init__()
+
+    def compute(self, *args):
+        print("come into my hook function, block with pdb", flush=True)
+        import pdb
+        pdb.set_trace()
+        return args
+
+
+class Loader:
+    def __init__(self):
+        self.data = [np.ones((32, 32, 3)), np.ones((3, 48, 48))]
+
+    def __getitem__(self, index):
+        return self.data[index]
+
+    def __len__(self):
+        return len(self.data)
+
+
+# Enable dataset pipeline debug mode and use pre-defined debug hook provided by MindData.
+ds.config.set_debug_mode(True, debug_hook_list=[MyHook()])
+
+# Define dataset pipeline
+dataset = ds.GeneratorDataset(Loader(), column_names=["data"])
+
+dataset = dataset.map([vision.Crop(coordinates=(0, 0), size=(8, 8)), MyHook()])
+```
+
+Next you can start your debugging:
+
+```text
+[Dataset debugger] Print the [INPUT] of the operation [Crop].
+come into my hook function, block with pdb
+
+>>>>>>>>>>>>>>>>>>>>>PDB set_trace>>>>>>>>>>>>>>>>>>>>>
+> /test_demo.py(17)compute
+-> return args
+(Pdb)
+```
+
+### Debugging Strategy 4: Testing Data Processing Performance
+
+When training is initiated using MindSpore and the training log keeps printing with many entries, it is likely that there is a problem with slower data processing.
+
+```text
+[WARNING] MD(90635,fffdf0ff91e0,python):2023-03-25-15:29:14.801.601 [mindspore/ccsrc/minddata/dataset/engine/datasetops/source/generator_op.cc:220] operator()] Bad performance attention,
+it takes more than 25 seconds to generator.__next__ new row, which might cause `GetNext` timeout problem when sink_mode=True.
+You can increase the parameter num_parallel_workers in GeneratorDataset / optimize the efficiency of obtaining samples in the user-defined generator function.
+```
+
+Here is a way to debug the performance of the dataset, even if the above WARNING message does not appear, as a reference
+Construct a simple lenet training network with a little bit of deliberate tinkering with the code.
+
+```python
+import time
+import mindspore as ms
+import mindspore.dataset as ds
+import mindspore.dataset.transforms as C
+import mindspore.dataset.vision as CV
+import mindspore.nn as nn
+from mindspore.common import dtype as mstype
+from mindspore.dataset.vision import Inter
+
+def create_dataset(data_path, num_parallel_workers=1):
+    mnist = ds.MnistDataset(data_path, num_samples=1000, shuffle=False)
+
+    class udf:
+        def __init__(self, dataset):
+            self.dataset = dataset
+            self.cnt = 0
+
+            self.iterator = self.dataset.create_tuple_iterator(num_epochs=1)
+            self.data = []
+            for i in range(1000):
+                self.data.append(self.iterator.__next__())
+
+        def __len__(self):
+            return 1000
+
+        def __getitem__(self, index):
+            if index >= 7:
+                time.sleep(60)
+            return self.data[index]
+
+
+    mnist_ds = ds.GeneratorDataset(udf(mnist), ["image", "label"])
+
+    resize_height, resize_width = 32, 32
+    rescale = 1.0 / 255.0
+    rescale_nml = 1 / 0.3081
+    shift_nml = -1 * 0.1307 / 0.3081
+
+    # define map operations
+    resize_op = CV.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)
+    rescale_nml_op = CV.Rescale(rescale_nml * rescale, shift_nml)
+    hwc2chw_op = CV.HWC2CHW()
+    type_cast_op = C.TypeCast(mstype.int32)
+
+    # use map operations on images
+    mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label")
+    mnist_ds = mnist_ds.map(operations=resize_op, input_columns="image")
+    mnist_ds = mnist_ds.map(operations=rescale_nml_op, input_columns="image")
+    mnist_ds = mnist_ds.map(operations=hwc2chw_op, input_columns="image")
+    mnist_ds = mnist_ds.batch(4, drop_remainder=True)
+    return mnist_ds
+
+
+class LeNet5(nn.Cell):
+    def __init__(self, num_class=10, num_channel=1):
+        super(LeNet5, self).__init__()
+        self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
+        self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
+        self.fc1 = nn.Dense(16 * 5 * 5, 120)
+        self.fc2 = nn.Dense(120, 84)
+        self.fc3 = nn.Dense(84, num_class)
+        self.relu = nn.ReLU()
+        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.flatten = nn.Flatten()
+
+    def construct(self, x):
+        x = self.conv1(x)
+        x = self.relu(x)
+        x = self.max_pool2d(x)
+        x = self.conv2(x)
+        x = self.relu(x)
+        x = self.max_pool2d(x)
+        x = self.flatten(x)
+        x = self.fc1(x)
+        x = self.relu(x)
+        x = self.fc2(x)
+        x = self.relu(x)
+        x = self.fc3(x)
+        return x
+
+
+dataset_train = create_dataset("mnist/train")
+
+ms.set_context(mode=ms.GRAPH_MODE)
+network = LeNet5(num_class=10)
+net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
+net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
+model = ms.Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'})
+model.train(10, dataset_train, callbacks=[ms.LossMonitor()])
+```
+
+While training, we will get very many WARNINGs suggesting that our dataset performance is slow, but observe that there are Epoch time, per step time messages, so the training is actually going on, just slower.
+
+```text
+[WARNING] MD(90635,fffdf0ff91e0,python):2023-03-25-15:29:14.801.601 [mindspore/ccsrc/minddata/dataset/engine/datasetops/source/generator_op.cc:220] operator()] Bad performance attention, it takes more than 25 seconds to generator.__next__ new row, which might cause `GetNext` timeout problem when sink_mode=True. You can increase the parameter num_parallel_workers in GeneratorDataset / optimize the efficiency of obtaining samples in the user-defined generator function.
+[WARNING] MD(90635,fffd72ffd1e0,python):2023-03-25-15:29:14.802.398 [mindspore/ccsrc/minddata/dataset/engine/datasetops/data_queue_op.cc:903] DetectPerBatchTime] Bad performance attention, it takes more than 25 seconds to fetch a batch of data from dataset pipeline, which might result `GetNext` timeout problem. You may test dataset processing performance(with creating dataset iterator) and optimize it.
+Epoch time: 60059.685 ms, per step time: 30029.843 ms, avg loss: 2.301
+```
+
+At this point, it is possible to iterate through the dataset individually and see the processing time for each piece of data to determine how well the dataset is performing:
+After `dataset_train = create_dataset("mnist/train")` in the above code, the following code can be added to debug the dataset
+
+```python
+import time
+
+st = time.time()
+for i, data in enumerate(dataset_train):
+    print("data step", i, ", time", time.time() - st, flush=True)
+    st = time.time()
+    if i > 50:
+        break
+```
+
+After adding the code and running it again, you will see the processing time of the dataset:
+
+```text
+data step 0 , time 0.0055468082427978516
+data step 1 , time 60.034635634525
+data step 2 , time 480.046234134121
+data step 3 , time 480.023415324343
+data step 4 , time 480.051423635473
+```
+
+As you can see, from the 2nd data, each data actually has to wait for more than 60s before processing is completed, for the above "tampered with code" is actually a good solution, check the code will find that
+
+```python
+def __getitem__(self, index):
+    if index >= 7:
+        time.sleep(60)
+    return self.data[index]
+
+```
+
+From the 7th piece of data, every piece of data will sleep 60 seconds before output, and it is here that the data processing slows down. Because the batch size is 4, so the first batch contains only the first 4 data (0,1,2,3), natural processing time is not a problem, and then to the second batch, because it contains (4,5,6,7) 4 data, so the seventh piece of data will wait an additional 60s before output, which causes that in the second batch, the data time is extended to 60s. Same for the third and fourth batch after that. So you only need to remove the logic of sleep to bring the data processing back to the normal level.
+
+In real training scenarios, there are different reasons for slow network training, but the analysis method is similar. We can iterate through the data individually to determine if the slow data processing is the cause of the low training performance.
+
+### Debugging Strategy 5: Checking For Exception Data In Data Processing
+
+In the process of processing data, abnormal result values may be generated due to computational errors, numerical overflow, etc., which can lead to problems such as operator computation overflow and abnormal weight updates when training the network. This strategy describes how to debug and check abnormal data behavior/data results.
+
+#### Turning Off Shuffling and Fixing Random Seeds to Ensure Reproductivity
+
+In some data processing scenarios, we use randomized functions as part of data operations. Due to the nature of the random operation itself, the data results are not the same in every run, so that this will most likely result in abnormal values in the results of the previous run, but in the next run, the abnormal values are not checked, then it is likely because of the effect of the random index/random computation. In this case, it is possible to turn off the shuffling option for the dataset and fix a different random seeds to look for possible introduction of random problems through multiple runs.
+
+The following example treats a random value as a divisor, which by chance will divide by zero.
+
+```python
+import numpy as np
+import mindspore as ms
+
+class Gen():
+    def __init__(self):
+        self.data = [np.array(i) / np.random.randint(0, 3) for i in range(1, 4)]
+    def __getitem__(self, index):
+        data = self.data[index]
+        return data
+    def __len__(self):
+        return len(self.data)
+
+
+dataset = ms.dataset.GeneratorDataset(Gen(), ["data"])
+for data in dataset:
+    print(data)
+```
+
+Setting the random seed with `set_seed` to produce a fixed random number to achieve a deterministic result allows further troubleshooting of the code to see if the randomization is working as expected.
+
+```python
+ms.set_seed(1)
+ms.dataset.GeneratorDataset(Loader(), ["data"], shuffle=False)
+```
+
+The results are consistent across multiple runs, as can be seen by the division by zero results that occur for the 1st and 3rd data. Indirectly, it can be shown that there is an anomaly in the computation of the 1st and 3rd data that leads to the value of inf.
+
+```text
+[Tensor(shape=[], dtype=Float64, value= inf)]
+[Tensor(shape=[], dtype=Float64, value= 1)]
+[Tensor(shape=[], dtype=Float64, value= inf)]
+```
+
+#### A Quick Check of the Results Using a Tool Such as NumPy
+
+In the previous example, the amount of data is small enough that you can basically check the code to find out where the anomalies are. For some large high-dimensional arrays, it is less convenient to check the code or print the values. At this time, you can configure MindSpoer's dataset to return data in the form of NumPy, and use some of NumPy's commonly used means of checking the contents of the array to check whether there are abnormal values in the array.
+
+The following example constructs a large, high-dimensional array and performs random operations on the values in it.
+
+```python
+import numpy as np
+import mindspore as ms
+
+class Gen():
+    def __init__(self):
+        self.data = np.random.randint(0, 255, size=(16, 50, 50))
+    def __getitem__(self, index):
+        data = self.data[index] / np.random.randint(0, 2)
+        return data
+    def __len__(self):
+        return 16
+
+
+dataset = ms.dataset.GeneratorDataset(Gen(), ["data"])
+for data in dataset:
+    print(data)
+```
+
+To check for the presence of unusual values such as nan, inf, etc. during data operations, you can specify the output of the dataset object to be of type NumPy when traversing it.
+
+After specifying the output type, each element of the printed data object is of NumPy type, based on which you can use some very convenient functions in NumPy to check whether the values are abnormal or not.
+
+```python
+for data_index, data in enumerate(dataset.create_tuple_iterator(output_numpy=True)):
+    if(np.isinf(data).any()):             # Checking for inf values
+        print("np.isinf index: ", data_index) # Prints the index of the sample if there is an inf value
+    if(np.isnan(data).any()):             # Checking for nan values
+        print("np.isinf index: ", data_index) # Prints an index of samples with nan values
+```
+
+## Analyzing Common Data Processing Problems
+
+### Data Preparation
 
 Common errors you may encounter in the data preparation phase include dataset path and MindRecord file errors when you read or save data from or to a path or when you read or write a MindRecord file.
 
-### The Dataset Path Contains Chinese Characters
+#### The Dataset Path Contains Chinese Characters
 
 Error log:
 
@@ -24,316 +616,316 @@ For details, visit the following website:
 
 [MindRecord Data Preparation - Unexpected error. Failed to open file_MindSpore](https://www.hiascend.com/forum/thread-0231107679243990127-1-1.html)
 
-### MindRecord File Error
+#### MindRecord File Error
 
-#### The Duplicate File Is Not Deleted
+* The Duplicate File Is Not Deleted
 
-Error log:
+    Error log:
 
-```text
-MRMOpenError: [MRMOpenError]: MindRecord File could not open successfully.
-```
+    ```text
+    MRMOpenError: [MRMOpenError]: MindRecord File could not open successfully.
+    ```
 
-Solution:
+    Solution:
 
-1. Add the file deletion logic to the code to ensure that the MindRecord file with the same name in the directory is deleted before the file is saved.
+    1. Add the file deletion logic to the code to ensure that the MindRecord file with the same name in the directory is deleted before the file is saved.
 
-2. In versions later than MindSpore 1.6.0, when defining the `FileWriter` object, add `overwrite=True` to implement overwriting.
+    2. In versions later than MindSpore 1.6.0, when defining the `FileWriter` object, add `overwrite=True` to implement overwriting.
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Data Preparation - MindRecord File could not open successfully](https://www.hiascend.com/forum/thread-0231107679243990127-1-1.html)
+    [MindSpore Data Preparation - MindRecord File could not open successfully](https://www.hiascend.com/forum/thread-0231107679243990127-1-1.html)
 
-#### The File Is Moved
+* The File Is Moved
 
-Error log:
+    Error log:
 
-```text
-RuntimeError: Thread ID 1 Unexpected error. Fail to open ./data/cora
-RuntimeError: Unexpected error. Invalid file, DB file can not match file
-```
+    ```text
+    RuntimeError: Thread ID 1 Unexpected error. Fail to open ./data/cora
+    RuntimeError: Unexpected error. Invalid file, DB file can not match file
+    ```
 
-When MindSpore 1.4 or an earlier version is used, in the Windows environment, after a MindRecord dataset file is generated and moved, the file cannot be loaded to MindSpore.
+    When MindSpore 1.4 or an earlier version is used, in the Windows environment, after a MindRecord dataset file is generated and moved, the file cannot be loaded to MindSpore.
 
-Solution:
+    Solution:
 
-1. Do not move the MindRecord file generated in the Windows environment.
+    1. Do not move the MindRecord file generated in the Windows environment.
 
-2. Upgrade MindSpore to 1.5.0 or a later version and regenerate a MindRecord dataset. Then, the dataset can be copied and moved properly.
+    2. Upgrade MindSpore to 1.5.0 or a later version and regenerate a MindRecord dataset. Then, the dataset can be copied and moved properly.
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Data Preparation - Invalid file,DB file can not match_MindSpore](https://www.hiascend.com/forum/thread-0229106992212728097-1-1.html)
+    [MindSpore Data Preparation - Invalid file,DB file can not match_MindSpore](https://www.hiascend.com/forum/thread-0229106992212728097-1-1.html)
 
-#### The User-defined Data Type Is Incorrect
+* The User-defined Data Type Is Incorrect
 
-Error log:
+    Error log:
 
-```text
-RuntimeError: Unexpected error. Invalid data, the number of schema should be positive but got: 0. Please check the input schema.
-```
+    ```text
+    RuntimeError: Unexpected error. Invalid data, the number of schema should be positive but got: 0. Please check the input schema.
+    ```
 
-Solution:
+    Solution:
 
-Modify the input data type to ensure that it is consistent with the type definition in the script.
+    Modify the input data type to ensure that it is consistent with the type definition in the script.
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Data Preparation - Unexpected error. Invalid data](https://www.hiascend.com/forum/thread-0231107678315400125-1-1.html)
+    [MindSpore Data Preparation - Unexpected error. Invalid data](https://www.hiascend.com/forum/thread-0231107678315400125-1-1.html)
 
-## Data Loading
+### Data Loading
 
 In the data loading phase, errors may be reported in resource configuration, `GeneratorDataset`, and iterators.
 
-### Resource Configuration
+#### Resource Configuration
 
-#### Incorrect Number of CPU Cores
+* Incorrect Number of CPU Cores
 
-Error log:
+    Error log:
 
-```text
-RuntimeError: Thread ID 140706176251712 Unexpected error. GeneratorDataset's num_workers=8, this value is not within the required range of [1, cpu_thread_cnt=2].
-```
+    ```text
+    RuntimeError: Thread ID 140706176251712 Unexpected error. GeneratorDataset's num_workers=8, this value is not within the required range of [1, cpu_thread_cnt=2].
+    ```
 
-Solution:
+    Solution:
 
-1. Add the following code to manually configure the number of CPU cores: `ds.config.set_num_parallel_workers()`
+    1. Add the following code to manually configure the number of CPU cores: `ds.config.set_num_parallel_workers()`
 
-2. Upgrade to MindSpore 1.6.0, which automatically adapts to the number of CPU cores in the hardware to prevent errors caused by insufficient CPU cores.
+    2. Upgrade to MindSpore 1.6.0, which automatically adapts to the number of CPU cores in the hardware to prevent errors caused by insufficient CPU cores.
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Data Loading - Unexpected error. GeneratorDataset's num_workers=8, this value is not within the required range of](https://www.hiascend.com/forum/thread-0215121940801939033-1-1.html)
+    [MindSpore Data Loading - Unexpected error. GeneratorDataset's num_workers=8, this value is not within the required range of](https://www.hiascend.com/forum/thread-0215121940801939033-1-1.html)
 
-#### Incorrect PageSize Setting
+* Incorrect PageSize Setting
 
-Error log:
+    Error log:
 
-```text
-RuntimeError: Syntax error. Invalid data, Page size: 1048576 is too small to save a blob row.
-```
+    ```text
+    RuntimeError: Syntax error. Invalid data, Page size: 1048576 is too small to save a blob row.
+    ```
 
-Solution:
+    Solution:
 
-Call the set_page_size API to set pagesize to a larger value. The setting method is as follows:
+    Call the set_page_size API to set pagesize to a larger value. The setting method is as follows:
 
-```python
-from mindspore.mindrecord import FileWriter
-writer = FileWriter(file_name="test.mindrecord", shard_num=1)
-writer.set_page_size(1 << 26) # 128MB
-```
+    ```python
+    from mindspore.mindrecord import FileWriter
+    writer = FileWriter(file_name="test.mindrecord", shard_num=1)
+    writer.set_page_size(1 << 26) # 128MB
+    ```
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Data Loading - Invalid data,Page size is too small"](https://www.hiascend.com/forum/thread-0231107680001698128-1-1.html)
+    [MindSpore Data Loading - Invalid data,Page size is too small"](https://www.hiascend.com/forum/thread-0231107680001698128-1-1.html)
 
-### `GeneratorDataset`
+#### `GeneratorDataset`
 
-#### Suspended `GeneratorDataset` Thread
+* Suspended `GeneratorDataset` Thread
 
-No error log is generated, and the thread is suspended.
+    No error log is generated, and the thread is suspended.
 
-During customized data processing, the `numpy.ndarray` and `mindspore.Tensor` data type are mixed and the `numpy.array(Tensor)` type is incorrectly used for conversion. As a result, the global interpreter lock (GIL) cannot be released and the `GeneratorDataset` cannot work properly.
+    During customized data processing, the `numpy.ndarray` and `mindspore.Tensor` data type are mixed and the `numpy.array(Tensor)` type is incorrectly used for conversion. As a result, the global interpreter lock (GIL) cannot be released and the `GeneratorDataset` cannot work properly.
 
-Solution:
+    Solution:
 
-1. When defining the first input parameter `source` of `GeneratorDataset`, use the `numpy.ndarray` data type if a Python function needs to be invoked.
+    1. When defining the first input parameter `source` of `GeneratorDataset`, use the `numpy.ndarray` data type if a Python function needs to be invoked.
 
-2. Use the `Tensor.asnumpy()` method to convert `Tensor` to `numpy.ndarray`.
+    2. Use the `Tensor.asnumpy()` method to convert `Tensor` to `numpy.ndarray`.
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Data Loading - Suspended GeneratorDataset Thread](https://www.hiascend.com/forum/thread-0232106992052900089-1-1.html)
+    [MindSpore Data Loading - Suspended GeneratorDataset Thread](https://www.hiascend.com/forum/thread-0232106992052900089-1-1.html)
 
-#### Incorrect User-defined Return Type
+* Incorrect User-defined Return Type
 
-Error log:
+    Error log:
 
-```python
-Unexpected error. Invalid data type.
-```
+    ```python
+    Unexpected error. Invalid data type.
+    ```
 
-Error description:
+    Error description:
 
-A user-defined `Dataset` or `map` operation returns data of the dict type, not a numpy array or a tuple consisting of numpy arrays. Data types (such as dict and object) other than numpy array or a tuple consisting of numpy arrays are not controllable and the data storage mode is unclear. As a result, the `Invalid type` error is reported.
+    A user-defined `Dataset` or `map` operation returns data of the dict type, not a numpy array or a tuple consisting of numpy arrays. Data types (such as dict and object) other than numpy array or a tuple consisting of numpy arrays are not controllable and the data storage mode is unclear. As a result, the `Invalid type` error is reported.
 
-Solution:
+    Solution:
 
-1. Check the return type of the customized data processing. The return type must be numpy array or a tuple consisting of numpy arrays.
+    1. Check the return type of the customized data processing. The return type must be numpy array or a tuple consisting of numpy arrays.
 
-2. Check the return type of the `__getitem__` function during customized data loading. The return type must be a tuple consisting of numpy arrays.
+    2. Check the return type of the `__getitem__` function during customized data loading. The return type must be a tuple consisting of numpy arrays.
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Dataset Loading - Unexpected error. Invalid data type_MindSpore](https://www.hiascend.com/forum/thread-0231107678315400125-1-1.html)
+    [MindSpore Dataset Loading - Unexpected error. Invalid data type_MindSpore](https://www.hiascend.com/forum/thread-0231107678315400125-1-1.html)
 
-#### User-defined Sampler Initialization Error
+* User-defined Sampler Initialization Error
 
-Error log:
+    Error log:
 
-```text
-AttributeError: 'IdentitySampler' object has no attribute 'child_sampler'
-```
+    ```text
+    AttributeError: 'IdentitySampler' object has no attribute 'child_sampler'
+    ```
 
-Solution:
+    Solution:
 
-In the user-defined sampler initialization method '\_\_init\_\_()', use 'super().\_\_init\_\_()' to invoke the constructor of the parent class.
+    In the user-defined sampler initialization method '\_\_init\_\_()', use 'super().\_\_init\_\_()' to invoke the constructor of the parent class.
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Dataset Loading - 'IdentitySampler' has no attribute child_sampler](https://www.hiascend.com/forum/thread-0229107679386960150-1-1.html)
+    [MindSpore Dataset Loading - 'IdentitySampler' has no attribute child_sampler](https://www.hiascend.com/forum/thread-0229107679386960150-1-1.html)
 
-#### Repeated Access Definition
+* Repeated Access Definition
 
-Error log:
+    Error log:
 
-```python
-For 'Tensor', the type of "input_data" should be one of ...
-```
+    ```python
+    For 'Tensor', the type of "input_data" should be one of ...
+    ```
 
-Solution:
+    Solution:
 
-Select a proper data input method: random access (`__getitem__`) or sequential access (iter, next).
+    Select a proper data input method: random access (`__getitem__`) or sequential access (iter, next).
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Dataset Loading - the type of `input_data` should be one of](https://www.hiascend.com/forum/thread-0229107683010760153-1-1.html)
+    [MindSpore Dataset Loading - the type of `input_data` should be one of](https://www.hiascend.com/forum/thread-0229107683010760153-1-1.html)
 
-#### Inconsistency Between the Fields Returned by the User-defined Data and the Defined Fields
+* Inconsistency Between the Fields Returned by the User-defined Data and the Defined Fields
 
-Error log:
+    Error log:
 
-```text
-RuntimeError: Exception thrown from PyFunc. Invalid python function, the 'source' of 'GeneratorDataset' should return same number of NumPy arrays as specified in column_names
-```
+    ```text
+    RuntimeError: Exception thrown from PyFunc. Invalid python function, the 'source' of 'GeneratorDataset' should return same number of NumPy arrays as specified in column_names
+    ```
 
-Solution:
+    Solution:
 
-Check whether the fields returned by `GeneratorDataset` are the same as those defined in `columns`.
+    Check whether the fields returned by `GeneratorDataset` are the same as those defined in `columns`.
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Dataset Loading -Exception thrown from PyFunc](https://www.hiascend.com/forum/thread-0232107680321371137-1-1.html)
+    [MindSpore Dataset Loading -Exception thrown from PyFunc](https://www.hiascend.com/forum/thread-0232107680321371137-1-1.html)
 
-#### Incorrect User Script
+* Incorrect User Script
 
-Error log:
+    Error log:
 
-```text
-TypeError: parse() missing 1 required positionnal argument: 'self'
-```
+    ```text
+    TypeError: parse() missing 1 required positionnal argument: 'self'
+    ```
 
-Solution:
+    Solution:
 
-Debug the code step by step and check the syntax in the script to see whether '()' is missing.
+    Debug the code step by step and check the syntax in the script to see whether '()' is missing.
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Dataset Loading - parse() missing 1 required positional](https://www.hiascend.com/forum/thread-0235121940704650030-1-1.html)
+    [MindSpore Dataset Loading - parse() missing 1 required positional](https://www.hiascend.com/forum/thread-0235121940704650030-1-1.html)
 
-#### Incorrect Use of Tensor Operations or Operators in Custom Datasets
+* Incorrect Use of Tensor Operations or Operators in Custom Datasets
 
-Error log:
+    Error log:
 
-```text
-RuntimeError: Exception thrown from PyFunc. RuntimeError: mindspore/ccsrc/pipeline/pynative/pynative_execute.cc:1116 GetOpOutput] : The pointer[cnode] is null.
-```
+    ```text
+    RuntimeError: Exception thrown from PyFunc. RuntimeError: mindspore/ccsrc/pipeline/pynative/pynative_execute.cc:1116 GetOpOutput] : The pointer[cnode] is null.
+    ```
 
-Error description:
+    Error description:
 
-Tensor operations or operators are used in custom datasets. Because data processing is performed in multi-thread parallel mode and tensor operations or operators do not support multi-thread parallel execution, an error is reported.
+    Tensor operations or operators are used in custom datasets. Because data processing is performed in multi-thread parallel mode and tensor operations or operators do not support multi-thread parallel execution, an error is reported.
 
-Solution:
+    Solution:
 
-In the user-defined Pyfunc, do not use MindSpore tensor operations or operators in `__getitem__` in the dataset. You are advised to convert the input parameters to the Numpy type and then perform Numpy operations to implement related functions.
+    In the user-defined Pyfunc, do not use MindSpore tensor operations or operators in `__getitem__` in the dataset. You are advised to convert the input parameters to the Numpy type and then perform Numpy operations to implement related functions.
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Dataset Loading - The pointer[cnode] is null](https://www.hiascend.com/forum/thread-0230106992306834091-1-1.html)
+    [MindSpore Dataset Loading - The pointer[cnode] is null](https://www.hiascend.com/forum/thread-0230106992306834091-1-1.html)
 
-#### Index Out of Range Due to Incorrect Iteration Initialization
+* Index Out of Range Due to Incorrect Iteration Initialization
 
-Error log:
+    Error log:
 
-```python
-list index out of range
-```
+    ```python
+    list index out of range
+    ```
 
-Solution:
+    Solution:
 
-Remove unnecessary `index` member variables, or set `index` to 0 before each iteration to perform the reset operation.
+    Remove unnecessary `index` member variables, or set `index` to 0 before each iteration to perform the reset operation.
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Dataset Loading - list index out of range](https://www.hiascend.com/forum/thread-0232107679694236136-1-1.html)
+    [MindSpore Dataset Loading - list index out of range](https://www.hiascend.com/forum/thread-0232107679694236136-1-1.html)
 
-#### No Iteration Initialization
+* No Iteration Initialization
 
-Error log:
+    Error log:
 
-```python
-Unable to fetch data from GeneratorDataset, try iterate the source function of GeneratorDataset or check value of num_epochs when create iterator.
-```
+    ```python
+    Unable to fetch data from GeneratorDataset, try iterate the source function of GeneratorDataset or check value of num_epochs when create iterator.
+    ```
 
-The value of `len` is inconsistent with that of `iter` because iteration initialization is not performed.
+    The value of `len` is inconsistent with that of `iter` because iteration initialization is not performed.
 
-Solution:
+    Solution:
 
-Clear the value of `iter`.
+    Clear the value of `iter`.
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Dataset Loading - Unable to fetch data from GeneratorDataset](https://www.hiascend.com/forum/thread-0215121940606533032-1-1.html)
+    [MindSpore Dataset Loading - Unable to fetch data from GeneratorDataset](https://www.hiascend.com/forum/thread-0215121940606533032-1-1.html)
 
-### Iterator
+#### Iterator
 
-#### Repeated Iterator Creation
+* Repeated Iterator Creation
 
-Error log:
+    Error log:
 
-```python
-oserror: [errno 24] too many open files
-```
+    ```python
+    oserror: [errno 24] too many open files
+    ```
 
-Error description:
+    Error description:
 
-If `iter()` is repeatedly called, iterators are repeatedly created. However, because `GeneratorDataset` loads datasets in multi-thread mode by default, the handles opened each time cannot be released before the main process stops. As a result, the number of opened handles keeps increasing.
+    If `iter()` is repeatedly called, iterators are repeatedly created. However, because `GeneratorDataset` loads datasets in multi-thread mode by default, the handles opened each time cannot be released before the main process stops. As a result, the number of opened handles keeps increasing.
 
-Solution:
+    Solution:
 
-Use the dict iterator `create_dict_iterator()` and tuple iterator `create_tuple_iterator()` provided by MindSpore.
+    Use the dict iterator `create_dict_iterator()` and tuple iterator `create_tuple_iterator()` provided by MindSpore.
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Data Loading - too many open files](https://www.hiascend.com/forum/thread-0231107678973789126-1-1.html)
+    [MindSpore Data Loading - too many open files](https://www.hiascend.com/forum/thread-0231107678973789126-1-1.html)
 
-#### Improper Data Acquisition from the Iterator
+* Improper Data Acquisition from the Iterator
 
-Error log:
+    Error log:
 
-```python
-'DictIterator' has no attribute 'get_next'
-```
+    ```python
+    'DictIterator' has no attribute 'get_next'
+    ```
 
-Solution:
+    Solution:
 
-You can obtain the next piece of data from the iterator in either of the following ways:
+    You can obtain the next piece of data from the iterator in either of the following ways:
 
-```python
-item = next(ds_test.create_dict_iterator())
+    ```python
+    item = next(ds_test.create_dict_iterator())
 
-for item in ds_test.create_dict_iterator():
-```
+    for item in ds_test.create_dict_iterator():
+    ```
 
-For details, visit the following website:
+    For details, visit the following website:
 
-[MindSpore Dataset Loading - 'DictIterator' has no attribute 'get_next'](https://www.hiascend.com/forum/thread-0230107679565465123-1-1.html)
+    [MindSpore Dataset Loading - 'DictIterator' has no attribute 'get_next'](https://www.hiascend.com/forum/thread-0230107679565465123-1-1.html)
 
-## Data Augmentation
+### Data Augmentation
 
 In the data augmentation phase, the read data is processed. Currently, MindSpore supports common data processing operations, such as shuffle, batch, repeat, and concat. You may encounter the following errors in this phase: data type errors, interface parameter type errors, consumption node conflict, data batch errors, and memory resource errors.
 
-### Incorrect Data Type for Invoking A Third-party Library API in A User-defined Data Augmentation Operation
+#### Incorrect Data Type for Invoking A Third-party Library API in A User-defined Data Augmentation Operation
 
 Error log:
 
@@ -349,7 +941,7 @@ For details, visit the following website:
 
 [MindSpore Data Augmentation - TypeError: Invalid with type](https://www.hiascend.com/forum/thread-0229107679078336149-1-1.html)
 
-### Incorrect Parameter Type in A User-defined Data Augmentation Operation
+#### Incorrect Parameter Type in A User-defined Data Augmentation Operation
 
 Error log:
 
@@ -365,7 +957,7 @@ For details, visit the following website:
 
 [MindSpore Data Augmentation - args should be Numpy narray](https://www.hiascend.com/forum/thread-0230107678833189122-1-1.html)
 
-### Consumption Node Conflict in the Dataset
+#### Consumption Node Conflict in the Dataset
 
 Error log:
 
@@ -385,7 +977,7 @@ For details, visit the following website:
 
 [MindSpore Data Augmentation - The data pipeline is not a tree](https://www.hiascend.com/forum/thread-0230107678474985121-1-1.html)
 
-### Improper Batch Operation Due to Inconsistent Data Shapes
+#### Improper Batch Operation Due to Inconsistent Data Shapes
 
 Error log:
 
@@ -403,7 +995,7 @@ For details, visit the following website:
 
 [MindSpore Data Augmentation - Unexpected error. Inconsistent batch](https://www.hiascend.com/forum/thread-0254121940499220038-1-1.html)
 
-### High Memory Usage Due to Data Augmentation
+#### High Memory Usage Due to Data Augmentation
 
 Error description:
 
