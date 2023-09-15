@@ -11,8 +11,6 @@
   disaster_recover
   fault_recover
 
-----------------------
-
 在分布式并行训练过程中，遇到计算节点的故障或通信中断等问题，MindSpore有三种恢复方式：
 
 - 模型重新加载：在训练时，通过配置参数合并保存，每张卡均保存了完整的模型参数文件，发生故障后可以直接加载之前保存的checkpoint进行恢复。详细请参考模型保存与加载中的 `模型加载 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_loading.html>`_ 。

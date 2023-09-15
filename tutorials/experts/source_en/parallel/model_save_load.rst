@@ -12,8 +12,6 @@ Model Saving and Loading
   model_loading
   model_transformation
 
-----------------------
-
 Model saving in MindSpore can be categorized into merged and non-merged saving, and model loading can also be categorized into complete loading and sliced loading. If the distributed slicing strategy or cluster card is changed after loading, the saved checkpoint file needs to be model transformed. For details, please refer to:
 
 - `Model Saving <https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_saving.html>`_
