@@ -32,7 +32,7 @@ class Network(nn.Cell):
         self.flatten = nn.Flatten()
         self.layer1 = nn.Dense(28*28, 512)
         self.layer2 = nn.Dense(512, 512)
-        self.layer3 = nn.Dense(512, 10)
+        self.layer3 = nn.Dense(512, 1)
         self.relu = nn.ReLU()
 
     def construct(self, x):
@@ -63,7 +63,7 @@ def create_dataset(batch_size):
 
 data_set = create_dataset(32)
 optimizer = nn.Momentum(net.trainable_params(), 1e-3, 0.1)
-loss_fn = nn.CrossEntropyLoss()
+loss_fn = nn.MAELoss()
 
 def forward_fn(data, target):
     """forward propagation"""

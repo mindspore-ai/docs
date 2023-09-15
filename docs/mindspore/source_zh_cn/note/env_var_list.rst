@@ -132,7 +132,7 @@
 
        MS_WORKER: 代表Worker进程，一般设置分布式训练进程为此角色。
 
-       MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考 `Parameter Server模式 <https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html>`_ 。
+       MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考 `Parameter Server模式 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html>`_ 。
      - Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。
    * - MS_SCHED_HOST
      - 指定Scheduler的IP地址。

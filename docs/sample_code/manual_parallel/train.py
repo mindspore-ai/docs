@@ -20,8 +20,12 @@ import mindspore.dataset as ds
 from mindspore import nn, ops, train
 from mindspore.communication import init, get_rank, get_group_size
 
+ms.set_context(mode=ms.GRAPH_MODE)
 init()
-ms.set_seed(1)
+cur_rank = get_rank()
+batch_size = 32
+device_num = get_group_size()
+shard_size = batch_size // device_num
 
 class Network(nn.Cell):
     """Network"""
@@ -35,7 +39,7 @@ class Network(nn.Cell):
         self.layer3 = nn.Dense(512, 10)
 
     def construct(self, x):
-        x = x[get_rank():get_rank()+32//get_group_size()]
+        x = x[cur_rank*shard_size:cur_rank*shard_size + shard_size]
         x = self.flatten(x)
         x = self.layer1(x)
         x = self.relu1(x)
@@ -46,7 +50,7 @@ class Network(nn.Cell):
 
 net = Network()
 
-def create_dataset(batch_size):
+def create_dataset():
     """create dataset"""
     dataset_path = os.getenv("DATA_PATH")
     dataset = ds.MnistDataset(dataset_path)
@@ -61,7 +65,7 @@ def create_dataset(batch_size):
     dataset = dataset.batch(batch_size)
     return dataset
 
-data_set = create_dataset(32)
+data_set = create_dataset()
 
 class ReduceLoss(nn.Cell):
     """create loss"""
@@ -71,9 +75,9 @@ class ReduceLoss(nn.Cell):
         self.all_reduce = ops.AllReduce()
 
     def construct(self, data, label):
-        label = label[get_rank():get_rank()+32//get_group_size()]
+        label = label[cur_rank*shard_size:cur_rank*shard_size + shard_size]
         loss_value = self.loss(data, label)
-        loss_value = self.all_reduce(loss_value) / get_group_size()
+        loss_value = self.all_reduce(loss_value) / device_num
         return loss_value
 
 optimizer = nn.SGD(net.trainable_params(), 1e-2)

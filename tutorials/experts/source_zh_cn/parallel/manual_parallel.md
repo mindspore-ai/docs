@@ -34,14 +34,18 @@ MindSpore的集合通信算子包括`AllReduce`、`AllGather`、`ReduceScatter`�
 
 ### 配置分布式环境
 
-通过init初始化HCCL或NCCL通信，并设置随机种子，由于是手动并行，此处不指定任何并行模式。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+通过init初始化HCCL或NCCL通信，并设置随机种子，由于是手动并行，此处不指定任何并行模式。`get_rank()`接口可以获取当前设备在通信组中的rank_id，`get_group_size()`接口获取当前通信组的设备数量，通信组默认为全局通信组，包含所有设备。
 
 ```python
 import mindspore as ms
-from mindspore.communication import init
+from mindspore.communication import init, get_rank, get_group_size
 
+ms.set_context(mode=ms.GRAPH_MODE)
 init()
-ms.set_seed(1)
+cur_rank = get_rank()
+batch_size = 32
+device_num = get_group_size()
+shard_size = batch_size // device_num
 ```
 
 ### 网络定义
@@ -63,7 +67,7 @@ class Network(nn.Cell):
         self.layer3 = nn.Dense(512, 10)
 
     def construct(self, x):
-        x = x[get_rank():get_rank()+32//get_group_size()]
+        x = x[cur_rank*shard_size:cur_rank*shard_size + shard_size]
         x = self.flatten(x)
         x = self.layer1(x)
         x = self.relu1(x)
@@ -83,7 +87,7 @@ net = Network()
 import os
 import mindspore.dataset as ds
 
-def create_dataset(batch_size):
+def create_dataset():
     dataset_path = os.getenv("DATA_PATH")
     dataset = ds.MnistDataset(dataset_path)
     image_transforms = [
@@ -97,7 +101,7 @@ def create_dataset(batch_size):
     dataset = dataset.batch(batch_size)
     return dataset
 
-data_set = create_dataset(32)
+data_set = create_dataset()
 ```
 
 ### 损失函数定义
@@ -115,9 +119,9 @@ class ReduceLoss(nn.Cell):
         self.all_reduce = ops.AllReduce()
 
     def construct(self, data, label):
-        label = label[get_rank():get_rank()+32//get_group_size()]
+        label = label[cur_rank*shard_size:cur_rank*shard_size + shard_size]
         loss_value = self.loss(data, label)
-        loss_value = self.all_reduce(loss_value) / get_group_size()
+        loss_value = self.all_reduce(loss_value) / device_num
         return loss_value
 
 loss_fn = ReduceLoss()
