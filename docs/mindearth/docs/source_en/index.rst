@@ -23,7 +23,9 @@ Code repository address: <https://gitee.com/mindspore/mindscience/tree/master/Mi
    :maxdepth: 1
    :caption: Medium-range
 
+   medium-range/FourCastNet
    medium-range/graphcast
+   medium-range/vit_kno
 
 .. toctree::
    :maxdepth: 1

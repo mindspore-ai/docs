@@ -23,7 +23,9 @@ MindSpore Earth介绍
    :maxdepth: 1
    :caption: 中期预报
 
+   medium-range/FourCastNet
    medium-range/graphcast
+   medium-range/vit_kno
 
 .. toctree::
    :maxdepth: 1
