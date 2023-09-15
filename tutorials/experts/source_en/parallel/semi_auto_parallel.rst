@@ -12,8 +12,6 @@ Semi-automatic Parallel
   optimizer_parallel
   pipeline_parallel
 
-----------------------
-
 Semi-automatic parallel supports the automatic mixing of multiple parallel modes, including:
 
 - `Operator-level parallel <https://www.mindspore.cn/tutorials/experts/en/master/parallel/operator_parallel.html>`_: Operator-level parallel refers to slicing the input tensor and model parameters into multiple devices for computation on an operator basis to improve overall speed.

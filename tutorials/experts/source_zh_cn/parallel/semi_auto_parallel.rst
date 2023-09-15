@@ -12,8 +12,6 @@
   optimizer_parallel
   pipeline_parallel
 
-----------------------
-
 半自动并行支持多种并行模式的自动混合使用，包括：
 
 - `算子级并行 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/operator_parallel.html>`_：算子级并行是指以算子为单位，把输入张量和模型参数切分到多台设备上进行计算，提升整体速度。
