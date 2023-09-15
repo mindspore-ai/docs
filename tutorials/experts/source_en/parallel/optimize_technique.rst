@@ -19,8 +19,6 @@ Optimization Techniques
   comm_fusion
   comm_subgraph
 
-----------------------
-
 Considering that in actual parallel training, there may be requirements for training performance, throughput or size, optimization can be considered in three ways: parallel strategy optimization, memory optimization and communication optimization
 
 - Parallel Strategy Optimization: parallel strategy optimization mainly includes the selection of parallel strategy, sharding technique under operator-level parallel, and multi-copy technique.

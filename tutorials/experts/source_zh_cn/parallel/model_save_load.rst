@@ -12,8 +12,6 @@
   model_loading
   model_transformation
 
-----------------------
-
 MindSpore中模型保存可以分为合并保存和非合并保存，模型的加载也可以分为完整加载和切片加载。若加载后的分布式切分策略或集群卡数改变，则需要对保存的checkpoint文件进行模型转换。详细请参考：
 
 - `模型保存 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_saving.html>`_

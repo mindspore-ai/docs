@@ -11,8 +11,6 @@ Fault Recovery
   disaster_recover
   fault_recover
 
-----------------------
-
 During the distributed parallel training process, MindSpore has three recovery methods when encountering problems such as failures of compute nodes or communication interruptions:
 
 - `Model Reloading <https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_loading.html>`_: During training, by configuring the parameters to be merged and saved, a complete model parameter file is saved for each card, which can be directly loaded for checkpoint recovery.
