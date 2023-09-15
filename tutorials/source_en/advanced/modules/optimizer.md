@@ -258,7 +258,7 @@ net = Net()
 opt = Momentum(net.trainable_params(), 0.01)
 ```
 
-`mindSpore.ops` also encapsulates optimizer operators for users to define optimizers, such as `ops.ApplyCenteredRMSProp`, `ops.ApplyMomentum`, and `ops.ApplyRMSProp`. The following example uses the `ApplyMomentum` operator to customize the optimizer Momentum:
+`mindspore.ops` also encapsulates optimizer operators for users to define optimizers, such as `ops.ApplyCenteredRMSProp`, `ops.ApplyMomentum`, and `ops.ApplyRMSProp`. The following example uses the `ApplyMomentum` operator to customize the optimizer Momentum:
 
 ```python
 class Momentum(nn.Optimizer):
@@ -282,11 +282,11 @@ net = Net()
 opt = Momentum(net.trainable_params(), 0.01)
 ```
 
-## nn.optim_ex
+## experimental.optim
 
 In addition to the optimizer within the `mindspore.nn.optim` module mentioned above, MindSpore also provides an experimental optimizer module, `mindspore.experimental.optim`, which is designed to extend the function of the optimizer.
 
-> The `mindspore.experimental.optim` module is still under development. Currently the optimizer for this module is only available for functional programming scenarios and only adapts to the dynamic learning rate class under [mindspore.experimental.lr_scheduler](https://www.mindspore.cn/docs/en/master/api_python/mindspore.experimental.html#lrscheduler-class).
+> The `mindspore.experimental.optim` module is still under development. Currently the optimizer for this module is only available for functional programming scenarios and only adapts to the dynamic learning rate class under [mindspore.experimental.optim.lr_scheduler](https://www.mindspore.cn/docs/en/master/api_python/mindspore.experimental.html#lrscheduler-class).
 
 Usage differences:
 
@@ -313,20 +313,22 @@ Configured in the same way as the fixed learning rates of `mindspore.nn.optim`.
 
 **Dynamic Learning Rate**:
 
-The dynamic learning rate module is provided under `mindspore.experimental.lr_scheduler` for use with `mindspore.experimental.optim` and the usage way is different from that of `mindspore.nn.optim`:
+The dynamic learning rate module is provided under `mindspore.experimental.optim.lr_scheduler` for use with `mindspore.experimental.optim` and the usage way is different from that of `mindspore.nn.optim`:
 
 `mindspore.nn.optim`: Pass a list or instance of dynamic learning rates to the optimizer input `learning_rate`, as used in [DynamicLR function](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#dynamic-lr-function) and [LearningRateSchedule class](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#learningrateschedule-class).
 
 `mindspore.experimental.optim`: Pass the optimizer instance to the input `optimizer` of the dynamic learning rate class, as used in [LRScheduler class](https://www.mindspore.cn/docs/en/master/api_python/mindspore.experimental.html#lrscheduler-class).
 
-The `LRScheduler` also provides two ways of obtaining the learning rate:
+Using `LRScheduler` to obtain the learning rate:
 
 `get_lr`. Taking `StepLR` as an example, the learning rate can be obtained manually using `scheduler.get_lr()` directly during the training process.
 
 ```python
+from mindspore.experimental import optim
+
 net = Net()
-optimizer = nn.optim_ex.Adam(net.trainable_params(), lr=0.1)
-scheduler = nn.StepLR(optimizer, step_size=30, gamma=0.1)
+optimizer = optim.Adam(net.trainable_params(), lr=0.1)
+scheduler = optim.StepLR(optimizer, step_size=30, gamma=0.1)
 print(scheduler.get_last_lr())
 ```
 
@@ -334,29 +336,17 @@ print(scheduler.get_last_lr())
 [Tensor(shape=[], dtype=Float32, value= 0.1)]
 ```
 
-Set the input `verbose` to True. Taking `StepLR` as an example, during the training process, when the training period reaches `step_size`, the learning rate will decay `gamma`. Assuming that the value of the learning rate after the decay becomes 0.01, "Adjusting learning rate of group 0 to 0.1." will automatically be displayed on the screen.
-
-```python
-net = Net()
-optimizer = nn.optim_ex.Adam(net.trainable_params(), lr=0.1)
-scheduler = nn.StepLR(optimizer, step_size=30, gamma=0.1, verbose=True)
-```
-
-```text
-Adjusting learning rate of group 0 to 0.1.
-```
-
 #### Weight Decay
 
 `mindspore.nn.optim`: `weight_decay` supports int and float types, and also supports Cell type for dynamic weight_decay scenarios.
 
-`mindspore.nn.optim_ex`: `weight_decay` data type only supports for int and float types, but the user is supported to manually modify the value of weight_decay in PyNative mode.
+`mindspore.experimental.optim`: `weight_decay` data type only supports for int and float types, but the user is supported to manually modify the value of weight_decay in PyNative mode.
 
 #### Hyperparameter Grouping
 
 `mindspore.nn.optim`: Specific key groupings are supported: "params", "lr", "weight_decay" and "grad_centralizaiton", see [above](#hyperparameter-grouping) for details on how to use them.
 
-`mindspore.nn.optim_ex`: Supports all optimizer parameter groupings.
+`mindspore.experimental.optim`: Supports all optimizer parameter groupings.
 
 Code Example:
 
@@ -367,7 +357,7 @@ no_conv_params = list(
 group_params = [
     {'params': conv_params, 'weight_decay': 0.01, 'lr': 0.9, "amsgrad": True},
     {'params': no_conv_params, 'lr': 0.66, "eps": 1e-6, "betas": (0.8, 0.88)}]
-optimizer = nn.optim_ex.Adam(params=group_params, lr=0.01)
+optimizer = optim.Adam(params=group_params, lr=0.01)
 ```
 
 #### Viewing Optimizer Configuration
@@ -424,15 +414,15 @@ Parameter Group 1
 
 #### Modifying Learning Rate during Running
 
-The learning rate in `mindspore.nn.optim_ex` is `Parameter`, in addition to the dynamic modification of the learning rate through the dynamic learning rate module `mindspore.nn.lr_scheduler` as described above, the modification of the learning rate using the `assign` assignment is also supported.
+The learning rate in `mindspore.experimental.optim.Optimizer` is `Parameter`, in addition to the dynamic modification of the learning rate through the dynamic learning rate module `mindspore.nn.lr_scheduler` as described above, the modification of the learning rate using the `assign` assignment is also supported.
 
 For example, in the sample below, in the training step, set the learning rate of 1st parameter group in the optimizer to be adjusted to 0.01 if the change in the loss value compared to the previous step is less than 0.1:
 
 ```python
 net = Net()
 loss_fn = nn.MAELoss()
-optimizer = nn.optim_ex.Adam(net.trainable_params(), lr=0.1)
-scheduler = nn.StepLR(optimizer, step_size=10, gamma=0.5)
+optimizer = optim.Adam(net.trainable_params(), lr=0.1)
+scheduler = optim.StepLR(optimizer, step_size=10, gamma=0.5)
 last_step_loss = 0.1
 
 def forward_fn(data, label):
@@ -459,8 +449,8 @@ In the following sample, in the training step, set the `weight_decay` of 1st par
 ```python
 net = Net()
 loss_fn = nn.MAELoss()
-optimizer = nn.optim_ex.Adam(net.trainable_params(), lr=0.1)
-scheduler = nn.StepLR(optimizer, step_size=10, gamma=0.5)
+optimizer = optim.Adam(net.trainable_params(), lr=0.1)
+scheduler = optim.StepLR(optimizer, step_size=10, gamma=0.5)
 last_step_loss = 0.1
 
 def forward_fn(data, label):
