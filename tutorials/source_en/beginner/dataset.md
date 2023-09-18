@@ -53,6 +53,8 @@ print(type(train_dataset))
 
 After the dataset is loaded, the data is generally acquired in an iterative manner and then fed into the neural network for training. You can use the [create_tuple_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_tuple_iterator.html) or [create_dict_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html) interface to create a data iterator to iteratively access data. The default type of data to be accessed is `Tensor`. If `output_numpy=True` is set, the type of data to be accessed is `Numpy`.
 
+The following defines a visualization function that iterates over 9 images for display.
+
 ```python
 def visualize(dataset):
     figure = plt.figure(figsize=(4, 4))
@@ -157,7 +159,7 @@ print(image.shape, image.dtype)
 
 ### Random-accessible Dataset
 
-A Random-accessible dataset is one that implements the `__getitem__` and `__len__` methods, which represents a map from indices/keys to data samples.
+A random-accessible dataset is one that implements the `__getitem__` and `__len__` methods, which represents a map from indices/keys to data samples.
 
 For example, when access a dataset with `dataset[idx]`, it should read the idx-th data inside the dataset content.
 
@@ -211,6 +213,8 @@ for data in dataset:
 An iterable dataset is one that implements the `__iter__` and `__next__` methods, which represents an iterator to return data samples gradually. This type of datasets is suitable for cases where random access are expensive or forbidden.
 
 For example, when access a dataset with `iter(dataset)`, it should return a stream of data from a database or a remote server.
+
+The following constructs a simple iterator and loads it into `GeneratorDataset`.
 
 ```python
 # Iterator as input source
