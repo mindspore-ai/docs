@@ -1,6 +1,6 @@
 # Generating Cartoon Head Portrait via DCGAN
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r2.1/tutorials/application/source_en/generative/dcgan.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.1/tutorials/application/source_en/generative/dcgan.md)
 
 In the following tutorial, we will use sample code to show how to set up the network, optimizer, calculate the loss function, and initialize the model weight. This [Anime Avatar Face Image Dataset](https://download.mindspore.cn/dataset/Faces/faces.zip) contains 70,171 96 x 96 anime avatar face images.
 

@@ -1,7 +1,7 @@
 Constructing MindSpore Network
 ==============================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.svg
     :target: https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/migration_guide/model_development/model_development.rst
 
 This chapter will introduce the related contents of MindSpore scripting,

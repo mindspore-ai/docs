@@ -1,6 +1,6 @@
 # Android Application Development Based on Java Interface
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r2.1/docs/lite/docs/source_en/quick_start/image_segmentation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.1/docs/lite/docs/source_en/quick_start/image_segmentation.md)
 
 ## Overview
 

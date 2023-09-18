@@ -1,6 +1,6 @@
 # Introduction to Second-order Optimizer THOR
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r2.1/tutorials/experts/source_en/optimize/thor/intro.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.1/tutorials/experts/source_en/optimize/thor/intro.md)
 
 The deep learning training process can be viewed as a loss function loss value decreasing process, and the right optimizer can make deep learning training time significantly reduced. Optimizers can be divided into first-order optimizers and second-order optimizers. The industry is still the mainstream use of the first-order optimizers, while the second-order optimizers is widely used because the single-step training time is too long. In recent years, there have been theoretical breakthroughs in applying the second-order optimization to deep learning training, and good results have been achieved.
 

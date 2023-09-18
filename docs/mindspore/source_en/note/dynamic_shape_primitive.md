@@ -1,6 +1,6 @@
 # Dynamic Shape Support Status of primitive Interface
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/dynamic_shape_primitive.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/note/dynamic_shape_primitive.md)
 
 > The following list provides primitive interfaces that support dynamic shape functionality in PYNATIVE mode. However, some primitive interfaces may have incomplete data type support. If you encounter such issues, you can resolve them by manually incorporating the [Cast](https://www.mindspore.cn/docs/en/r2.1/api_python/ops/mindspore.ops.Cast.html) operator.
 >
