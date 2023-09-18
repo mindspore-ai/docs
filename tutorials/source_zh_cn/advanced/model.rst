@@ -1,10 +1,10 @@
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_modelarts.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_modelarts.svg
     :target: https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svcjIuMS90dXRvcmlhbHMvemhfY24vYWR2YW5jZWQvbW9kZWwvbWluZHNwb3JlX21vZGVsLmlweW5i=&imageid=96a10081-8eac-4009-9b45-25a9d4f599b6
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_notebook.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_notebook.svg
     :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r2.1/tutorials/zh_cn/advanced/model/mindspore_model.ipynb
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_download_code.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_download_code.svg
     :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r2.1/tutorials/zh_cn/advanced/model/mindspore_model.py
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.svg
     :target: https://gitee.com/mindspore/docs/blob/r2.1/tutorials/source_zh_cn/advanced/model/model.ipynb
 
 高阶封装：Model

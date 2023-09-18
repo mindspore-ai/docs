@@ -1,6 +1,6 @@
 # Network Compilation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/faq/network_compilation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_en/faq/network_compilation.md)
 
 <font size=3>**Q: What can I do if an error "'self.xx' should be initialized as a 'Parameter' type in the '`__init__`' function" is reported?**</font>
 

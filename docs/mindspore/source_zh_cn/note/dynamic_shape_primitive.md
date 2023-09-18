@@ -1,6 +1,6 @@
 # 算子动态shape支持情况
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/dynamic_shape_primitive.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/note/dynamic_shape_primitive.md)
 
 > 以下列表列举了PYNATIVE模式下支持动态shape功能的算子。其中部分算子可能会存在数据类型支持不全的问题，如遇到此类问题，可以通过主动插入[Cast](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/ops/mindspore.ops.Cast.html)算子解决。
 >

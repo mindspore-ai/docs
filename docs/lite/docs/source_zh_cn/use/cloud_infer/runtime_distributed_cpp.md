@@ -1,6 +1,6 @@
 # 使用C++接口执行云侧分布式推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.1/docs/lite/docs/source_zh_cn/use/cloud_infer/runtime_distributed_cpp.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.1/docs/lite/docs/source_zh_cn/use/cloud_infer/runtime_distributed_cpp.md)
 
 ## 概述
 

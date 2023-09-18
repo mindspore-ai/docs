@@ -1,6 +1,6 @@
 # 分布式推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.1/tutorials/experts/source_zh_cn/parallel/distributed_inference.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.1/tutorials/experts/source_zh_cn/parallel/distributed_inference.md)
 
 ## 概述
 

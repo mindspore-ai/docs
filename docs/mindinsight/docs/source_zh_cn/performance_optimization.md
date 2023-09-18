@@ -1,6 +1,6 @@
 # 性能调试案例
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.1/docs/mindinsight/docs/source_zh_cn/performance_optimization.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.1/docs/mindinsight/docs/source_zh_cn/performance_optimization.md)
 
 Profiler为MindSpore提供了性能调优能力，针对算子性能、数据处理性能等提供了易用、丰富的调试功能，帮助用户快速定位、解决性能问题。
 

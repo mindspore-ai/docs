@@ -1,6 +1,6 @@
 # Viewing Lineage and Scalars Comparison
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r2.1/docs/mindinsight/docs/source_en/lineage_and_scalars_comparison.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.1/docs/mindinsight/docs/source_en/lineage_and_scalars_comparison.md)
 
 ## Overview
 

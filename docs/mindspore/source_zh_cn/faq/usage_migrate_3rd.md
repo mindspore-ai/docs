@@ -1,6 +1,6 @@
 # 第三方框架迁移使用
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/faq/usage_migrate_3rd.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.1/docs/mindspore/source_zh_cn/faq/usage_migrate_3rd.md)
 
 <font size=3>**Q: 请问想加载PyTorch预训练好的模型用于MindSpore模型finetune有什么方法？**</font>
 

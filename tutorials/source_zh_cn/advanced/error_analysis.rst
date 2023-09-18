@@ -1,7 +1,7 @@
 报错分析
 ========
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_source.svg
     :target: https://gitee.com/mindspore/docs/blob/r2.1/tutorials/source_zh_cn/advanced/error_analysis.rst
 
 .. toctree::
