@@ -163,6 +163,7 @@
 |                            |                                                                 | MacOS-x64     | Python3.7                             | [mindspore-2.1.1-cp37-cp37m-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/cpu/x86_64/mindspore-2.1.1-cp37-cp37m-macosx_10_15_x86_64.whl) | 5b4ef78cc096e17307c0965f179d9e8f106db9b26e2b130cf69733ff36b43ed4 |
 |                            |                                                                 |               | Python3.8                             | [mindspore-2.1.1-cp38-cp38-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/cpu/x86_64/mindspore-2.1.1-cp38-cp38-macosx_10_15_x86_64.whl)   | 50413f658dc457523eb7eb7a8e266d80bbe85707126223d60dee79933fa22f37 |
 |                            |                                                                 |               | Python3.9                             | [mindspore-2.1.1-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/cpu/x86_64/mindspore-2.1.1-cp39-cp39-macosx_10_15_x86_64.whl)   | fe4f4c7280a2fb9b987c36e86c901850ba90021d13f61e1b8d161c7b66d233c1 |
+|MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.1/use/downloads.html)   |      |
 
 ### 2.1.0
 
