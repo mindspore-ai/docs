@@ -1,6 +1,6 @@
 # 使用SciAI构建神经网络
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_zh_cn/build_model_with_sciai.md)&nbsp;&nbsp;
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_zh_cn/build_model_with_sciai.md)&nbsp;&nbsp;
 
 SciAI基础框架由若干基础模块构成，涵盖有神经网络搭建、训练、验证以及其他辅助函数等。
 

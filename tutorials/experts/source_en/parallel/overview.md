@@ -1,6 +1,6 @@
 # Distributed Parallelism Overview
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/overview.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/overview.md)
 
 In deep learning, as the size of the dataset and number of parameters grows, the time and hardware resources required for training will increase and eventually become a bottleneck that constrains training. Distributed parallel training, which can reduce the demand on hardware such as memory and computational performance, is an important optimization means to perform training. In addition, distributed parallel is important for large model training and inference, which provides powerful computational capabilities and performance advantages for handling large-scale data and complex models.
 

@@ -1,6 +1,6 @@
 # Efficient Data Flow
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_en/mindpandas_channel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_en/mindpandas_channel.md)
 
 In traditional machine learning scenarios, data processing is relatively independent of model training. As shown in the figure below, after the data is processed, the data needs to be persistently stored in disk. Data is read from disk again when used. As the data gets larger, io operations on hard disk will take a large amount of time. In scenarios that are sensitive to data timeliness, it will bring high latency.
 

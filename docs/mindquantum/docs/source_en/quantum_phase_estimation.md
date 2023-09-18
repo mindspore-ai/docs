@@ -2,7 +2,7 @@
 
 Translator: [unseenme](https://gitee.com/unseenme)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/quantum_phase_estimation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/quantum_phase_estimation.md)
 
 ## Overview
 

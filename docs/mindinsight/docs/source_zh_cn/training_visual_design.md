@@ -1,6 +1,6 @@
 # 训练可视总体设计
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/training_visual_design.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/training_visual_design.md)
 
 [MindSpore Insight](https://gitee.com/mindspore/mindinsight)是MindSpore的可视化调试调优组件。通过MindSpore Insight可以完成训练可视、性能调优、精度调优等任务。
 

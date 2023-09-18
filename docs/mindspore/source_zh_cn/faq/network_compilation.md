@@ -1,6 +1,6 @@
 # 网络编译
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/network_compilation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/network_compilation.md)
 
 <font size=3>**Q: 编译时报错“'self.xx' should be initialized as a 'Parameter' type in the '`__init__`' function”怎么办？**</font>
 

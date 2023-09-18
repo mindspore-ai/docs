@@ -1,6 +1,6 @@
 # 分子结构预测
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_zh_cn/user/structure_prediction.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_zh_cn/user/structure_prediction.md)
 
 获取分子结构，尤其是生物大分子（DNA、RNA、蛋白质）的结构，是生物制药领域研究的重要问题，其用途也十分广泛，MindSpore SPONGE生物计算工具包提供一系列分子结构预测的计算工具，帮助研究者高效获取高精度的分子结构。
 

@@ -1,6 +1,6 @@
 # PyCharm 插件安装
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/devtoolkit/docs/source_zh_cn/PyCharm_plugin_install.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/devtoolkit/docs/source_zh_cn/PyCharm_plugin_install.md)
 
 ## 安装步骤
 

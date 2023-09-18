@@ -1,6 +1,6 @@
 # 使用fuzz testing模块测试模型安全性
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/test_model_security_fuzzing.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/test_model_security_fuzzing.md)
 
 ## 概述
 

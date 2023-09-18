@@ -1,6 +1,6 @@
 # Class List
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_en/api_java/class_list.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_en/api_java/class_list.md)
 
 | Package                   | Class Name | Description                                              | Supported At Cloud-side Inference | Supported At Device-side Inference |
 | ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |--------|--------|

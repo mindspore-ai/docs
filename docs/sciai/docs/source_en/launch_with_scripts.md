@@ -1,6 +1,6 @@
 # Launching Model with Scripts
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_en/launch_with_scripts.md)&nbsp;&nbsp;
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_en/launch_with_scripts.md)&nbsp;&nbsp;
 
 The models in MindSpore SciAI provides users with scripts for training and evaluation.
 

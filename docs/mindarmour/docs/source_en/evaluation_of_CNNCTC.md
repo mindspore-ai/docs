@@ -1,6 +1,6 @@
 # Evaluating the Robustness of the OCR Model CNN-CTC
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/evaluation_of_CNNCTC.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/evaluation_of_CNNCTC.md)
 
 ## Overview
 

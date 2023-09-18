@@ -1,6 +1,6 @@
 # Examples
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/interface_description_federated_client.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/interface_description_federated_client.md)
 
 Note that before using the following interfaces, you can first refer to the document [on-device deployment](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html) to deploy related environments.
 

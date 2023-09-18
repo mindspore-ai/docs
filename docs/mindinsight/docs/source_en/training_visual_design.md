@@ -1,6 +1,6 @@
 # Overall Design of Training Visualization
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/training_visual_design.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/training_visual_design.md)
 
 [MindSpore Insight](https://gitee.com/mindspore/mindinsight) is a visualized debugging and tuning component of MindSpore. MindSpore Insight can be used to complete tasks such as training visualization, performance tuning, and precision tuning.
 
