@@ -31,7 +31,11 @@ To ensure ease of use and user-friendliness, MindSpore also supports users to st
 
 ## Operation Practice
 
-Taking LeNet training on GPU based on MNIST dataset as an example, different parts of the graph in the training task are split to different computational nodes for execution. You can download complete code here: <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_graph_partition>.
+Taking LeNet training on GPU based on MNIST dataset as an example, different parts of the graph in the training task are split to different computational nodes for execution.
+
+> You can download complete code here:
+>
+> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_graph_partition>.
 
 The directory structure is as follows:
 

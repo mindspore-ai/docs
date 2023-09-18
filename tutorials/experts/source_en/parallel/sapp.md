@@ -6,7 +6,7 @@
 
 The double recursive strategy search algorithm is based on Symbolic Automatic Parallel Planner (SAPP). The SAPP algorithm is able to instantly generate optimal strategy for huge networks and large-scale slicing. SAPP is modeled based on the principle of parallel, and describes the topology of hardware clusters by building an abstraction machine, and optimizes the cost model through symbolic simplicity. The cost model compares the relative costs of different parallel strategy rather than the predicted absolute delay, thus greatly compressing the search space and guaranteeing minute-level search times for 100-card clusters.
 
-> Hardware platforms supported by the double recursive strategy search algorithm include Ascend, GPU, in addition to both PyNative mode and Graph mode.
+> Hardware platforms supported by the double recursive strategy search algorithm include Ascend, GPU, and need to run in Graph mode.
 
 Related interfaces:
 
@@ -90,7 +90,7 @@ class Network(nn.Cell):
         self.flatten = nn.Flatten()
         self.layer1 = nn.Dense(28*28, 512)
         self.layer2 = nn.Dense(512, 512)
-        self.layer3 = nn.Dense(512, 10)
+        self.layer3 = nn.Dense(512, 1)
         self.relu = nn.ReLU()
 
     def construct(self, x):
@@ -105,7 +105,7 @@ class Network(nn.Cell):
 net = Network()
 
 optimizer = nn.Momentum(net.trainable_params(), 1e-3, 0.1)
-loss_fn = nn.CrossEntropyLoss()
+loss_fn = nn.MAELoss()
 
 def forward_fn(data, target):
     logits = net(data)
@@ -162,17 +162,10 @@ After training, the log files are saved to the `log_output` directory. Set conte
 The part of Loss results are saved in `log_output/1/rank.*/stdout`, and the example is as follows:
 
 ```text
-epoch: 0, step: 0, loss is 2.0924754
-epoch: 0, step: 100, loss is 1.1485384
-epoch: 0, step: 200, loss is 0.5181626
-epoch: 0, step: 300, loss is 0.3386282
-epoch: 0, step: 400, loss is 0.26848084
-epoch: 0, step: 500, loss is 0.21515897
-epoch: 0, step: 600, loss is 0.20717612
-epoch: 0, step: 700, loss is 0.16945913
-epoch: 0, step: 800, loss is 0.1535154
-epoch: 0, step: 900, loss is 0.11993752
-epoch: 0, step: 1000, loss is 0.13421981
+epoch: 0, step: 0, loss is 1.2023287
+epoch: 0, step: 100, loss is 1.1595023
+epoch: 0, step: 200, loss is 1.1859324
+epoch: 0, step: 300, loss is 0.9567921
 ...
 ```
 
