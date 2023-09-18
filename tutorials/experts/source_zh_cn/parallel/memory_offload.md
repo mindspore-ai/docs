@@ -58,7 +58,7 @@ mindspore.set_offload_context(offload_config=offload_config)
 
 ### 样例代码说明
 
-代码实现参考[示例](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/memory_offload)。
+> 下载完整的样例代码：[memory_offload](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/memory_offload)。
 
 ```text
 └─ sample_code

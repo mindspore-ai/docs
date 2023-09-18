@@ -6,7 +6,7 @@
 
 双递归策略搜索算法基于符号化自动策略生成(Symbolic Automatic Parallel Planner 缩写SAPP)。SAPP算法能够对于巨大网络以及大规模切分瞬间生成最优策略。SAPP基于并行原理建模，通过建立抽象机来描述硬件集群拓扑，通过符号化简优化代价模型。其代价模型比较的不是预估的绝对时延，而是不同并行策略的相对代价，因此能够大大压缩搜索空间，对于百卡集群能够保证分钟级的搜索时间。
 
-> 双递归策略搜索算法支持的硬件平台包括Ascend、GPU，此外还同时支持PyNative模式和Graph模式。
+> 双递归策略搜索算法支持的硬件平台包括Ascend、GPU，需要在Graph模式下运行。
 
 相关接口：
 
@@ -90,7 +90,7 @@ class Network(nn.Cell):
         self.flatten = nn.Flatten()
         self.layer1 = nn.Dense(28*28, 512)
         self.layer2 = nn.Dense(512, 512)
-        self.layer3 = nn.Dense(512, 10)
+        self.layer3 = nn.Dense(512, 1)
         self.relu = nn.ReLU()
 
     def construct(self, x):
@@ -105,7 +105,7 @@ class Network(nn.Cell):
 net = Network()
 
 optimizer = nn.Momentum(net.trainable_params(), 1e-3, 0.1)
-loss_fn = nn.CrossEntropyLoss()
+loss_fn = nn.MAELoss()
 
 def forward_fn(data, target):
     logits = net(data)
@@ -162,17 +162,10 @@ bash run.sh
 关于Loss部分结果保存在`log_output/1/rank.*/stdout`中，示例如下：
 
 ```text
-epoch: 0, step: 0, loss is 2.0924754
-epoch: 0, step: 100, loss is 1.1485384
-epoch: 0, step: 200, loss is 0.5181626
-epoch: 0, step: 300, loss is 0.3386282
-epoch: 0, step: 400, loss is 0.26848084
-epoch: 0, step: 500, loss is 0.21515897
-epoch: 0, step: 600, loss is 0.20717612
-epoch: 0, step: 700, loss is 0.16945913
-epoch: 0, step: 800, loss is 0.1535154
-epoch: 0, step: 900, loss is 0.11993752
-epoch: 0, step: 1000, loss is 0.13421981
+epoch: 0, step: 0, loss is 1.2023287
+epoch: 0, step: 100, loss is 1.1595023
+epoch: 0, step: 200, loss is 1.1859324
+epoch: 0, step: 300, loss is 0.9567921
 ...
 ```
 

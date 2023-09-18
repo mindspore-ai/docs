@@ -30,7 +30,11 @@
 
 ## 操作实践
 
-以LeNet基于MNIST数据集在GPU上训练为例，将训练任务中图的不同部分拆分到不同计算节点上执行。你可以在这里下载到完整代码：<https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_graph_partition>。
+以LeNet基于MNIST数据集在GPU上训练为例，将训练任务中图的不同部分拆分到不同计算节点上执行。
+
+> 您可以在这里下载完整的样例代码：
+>
+> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_graph_partition>。
 
 目录结构如下：
 
