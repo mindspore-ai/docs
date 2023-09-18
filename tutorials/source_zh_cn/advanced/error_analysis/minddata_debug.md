@@ -1,10 +1,10 @@
-# 数据处理调试策略与常见问题分析
+# 数据处理调试方案与常见问题分析
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/error_analysis/minddata_debug.md)&nbsp;&nbsp;
 
-## 数据处理调试策略
+## 数据处理调试方案
 
-### 调试策略1：添加打印或调试点
+### 调试方案1：添加打印或调试点
 
 使用 `GeneratorDataset` 或 `map` 进行加载/处理数据时，可能会因为语法错误、计算溢出等问题导致数据报错，一般可以按如下步骤进行排查和调试：
 
@@ -12,7 +12,7 @@
 
 2. 在出错的代码块附近添加打印或调试点，进一步调试。
 
-以下展示一个存在语法/数值问题数据pipeline，并如何按照上述的策略修复报错。
+以下展示一个存在语法/数值问题数据pipeline，并如何按照上述的方案修复报错。
 
 ```python
 import mindspore.dataset as ds
@@ -116,7 +116,7 @@ exception occurred division by zero
 (Pdb)
 ```
 
-### 调试策略2：测试map操作的输入输出
+### 调试方案2：测试map操作的输入输出
 
 将数据增强变换嵌入到数据pipeline的 `map` 操作中时，有时候会导致报错后不容易调试。
 以下例子展示了一个嵌入 `Crop` 增强到 `map` 操作中对数据进行裁剪的例子，但由于输入对象的shape有误导致报错。
@@ -230,7 +230,7 @@ data (8, 8, 3)
 data (8, 8, 3)
 ```
 
-### 调试策略3：数据集管道调试模式调试map操作的输入输出
+### 调试方案3：数据集管道调试模式调试map操作的输入输出
 
 我们还可以调用 [set_debug_mode](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.config.set_debug_mode.html) 方法开启数据集管道调试模式来进行调试。
 当启用调试模式时，如果随机种子没有被设置，则会将随机种子设置为1，以便在调试模式下执行数据集管道可以获得确定性的结果。
@@ -240,7 +240,7 @@ data (8, 8, 3)
 1. 在 `map` 算子中打印每个变换op的输入输出数据的形状和类型。
 2. 启用数据集管道调试模式，并使用MindData提供的预定义调试钩子或者用户定义的调试钩子，它必须定义继承自 [DebugHook](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.debug.DebugHook.html) 类。
 
-以下是在 `调试策略2` 的用例上做修改，使用MindData提供的预定义调试钩子。
+以下是在 `调试方案2` 的用例上做修改，使用MindData提供的预定义调试钩子。
 
 ```python
 import numpy as np
@@ -260,7 +260,7 @@ class Loader:
 
 
 # Enable dataset pipeline debug mode and use pre-defined debug hook provided by MindData.
-ds.config.set_debug_mode(True, debug_hook_list=[debug.PrintMetaDataHook()])
+ds.config.set_debug_mode(True)
 
 # Define dataset pipeline
 dataset = ds.GeneratorDataset(Loader(), column_names=["data"])
@@ -360,7 +360,7 @@ come into my hook function, block with pdb
 (Pdb)
 ```
 
-### 调试策略4：测试数据处理的性能
+### 调试方案4：测试数据处理的性能
 
 当使用MindSpore启动训练，训练日志一直打印，出现了很多条，很可能是数据处理较慢的问题。
 
@@ -512,9 +512,9 @@ def __getitem__(self, index):
 
 在真实训练场景中，也会有不同的原因导致网络训练变慢，但是分析方法也是类似的。我们可以先单独迭代数据，以定界是否为数据处理慢导致训练性能较低。
 
-### 调试策略5：检查数据处理中的异常数据
+### 调试方案5：检查数据处理中的异常数据
 
-在对数据进行处理的过程中，可能会因为计算错误、数值溢出等因素，产生了异常的结果数值，从而导致训练网络时算子计算溢出、权重更新异常等问题。此策略介绍如何调试和检查异常的数据行为/数据结果。
+在对数据进行处理的过程中，可能会因为计算错误、数值溢出等因素，产生了异常的结果数值，从而导致训练网络时算子计算溢出、权重更新异常等问题。此方案介绍如何调试和检查异常的数据行为/数据结果。
 
 #### 关闭混洗，固定随机种子，确保可重现性
 
