@@ -34,14 +34,18 @@ The directory structure is as follows:
 
 ### Configuring a Distributed Environment
 
-Initialize HCCL or NCCL communication with init and set the random seed. No parallel mode is specified here as it is manually parallelized. `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
+Initialize HCCL or NCCL communication with init and set the random seed. No parallel mode is specified here as it is manually parallelized. `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package. `get_group_size()` interface gets the number of devices in the current communication group, which is by default a global communication group containing all devices.
 
 ```python
 import mindspore as ms
-from mindspore.communication import init
+from mindspore.communication import init, get_rank, get_group_size
 
+ms.set_context(mode=ms.GRAPH_MODE)
 init()
-ms.set_seed(1)
+cur_rank = get_rank()
+batch_size = 32
+device_num = get_group_size()
+shard_size = batch_size // device_num
 ```
 
 ### Network Definition
@@ -63,7 +67,7 @@ class Network(nn.Cell):
         self.layer3 = nn.Dense(512, 10)
 
     def construct(self, x):
-        x = x[get_rank():get_rank()+32//get_group_size()]
+        x = x[cur_rank*shard_size:cur_rank*shard_size + shard_size]
         x = self.flatten(x)
         x = self.layer1(x)
         x = self.relu1(x)
@@ -83,7 +87,7 @@ Datasets are loaded in a manner consistent with a single-card network:
 import os
 import mindspore.dataset as ds
 
-def create_dataset(batch_size):
+def create_dataset():
     dataset_path = os.getenv("DATA_PATH")
     dataset = ds.MnistDataset(dataset_path)
     image_transforms = [
@@ -97,7 +101,7 @@ def create_dataset(batch_size):
     dataset = dataset.batch(batch_size)
     return dataset
 
-data_set = create_dataset(32)
+data_set = create_dataset()
 ```
 
 ### Loss Function Definition
@@ -115,9 +119,9 @@ class ReduceLoss(nn.Cell):
         self.all_reduce = ops.AllReduce()
 
     def construct(self, data, label):
-        label = label[get_rank():get_rank()+32//get_group_size()]
+        label = label[cur_rank*shard_size:cur_rank*shard_size + shard_size]
         loss_value = self.loss(data, label)
-        loss_value = self.all_reduce(loss_value) / get_group_size()
+        loss_value = self.all_reduce(loss_value) / device_num
         return loss_value
 
 loss_fn = ReduceLoss()

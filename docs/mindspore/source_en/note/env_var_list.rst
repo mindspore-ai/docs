@@ -134,7 +134,7 @@ Dynamic Networking
 
        MS_WORKER: represents the Worker process, which generally sets up the distributed training process for this role.
 
-       MS_PSERVER: represents the Parameter Server process, and this role is only valid in Parameter Server mode. Please refer to `Parameter Server mode <https://mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html>`_ .
+       MS_PSERVER: represents the Parameter Server process, and this role is only valid in Parameter Server mode. Please refer to `Parameter Server mode <https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html>`_ .
      - The Worker and Parameter Server processes register with the Scheduler process to complete the networking.
    * - MS_SCHED_HOST
      - Specifies the IP address of the Scheduler.

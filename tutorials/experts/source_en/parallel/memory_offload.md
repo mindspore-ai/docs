@@ -58,7 +58,7 @@ The following is a description of heterogeneous storage operations:
 
 ### Example Code Description
 
-For the code implementation, refers to [example](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/memory_offload).
+> Download the complete example code: [memory_offload](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/memory_offload).
 
 ```text
 └─ sample_code
