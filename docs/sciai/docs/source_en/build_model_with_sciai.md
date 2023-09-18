@@ -1,6 +1,6 @@
 # Building Neural Networks with SciAI
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_en/build_model_with_sciai.md)&nbsp;&nbsp;
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_en/build_model_with_sciai.md)&nbsp;&nbsp;
 
 SciAI base framework consists of several modules covering network setup, network training, validation and auxiliary functions.
 

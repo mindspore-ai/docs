@@ -1,6 +1,6 @@
 # Implementing the Concept Drift Detection Application of Image Data
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/concept_drift_images.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/concept_drift_images.md)
 
 ## Overview
 

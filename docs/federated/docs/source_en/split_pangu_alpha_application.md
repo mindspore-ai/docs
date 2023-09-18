@@ -1,6 +1,6 @@
 # Vertical Federated Learning Model Training - Pangu Alpha Large Model Cross-Domain Training
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/split_pangu_alpha_application.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/split_pangu_alpha_application.md)
 
 ## Overview
 

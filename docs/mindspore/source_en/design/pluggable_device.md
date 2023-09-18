@@ -1,6 +1,6 @@
 # Third-Party Hardware Interconnection
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/pluggable_device.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/pluggable_device.md)
 
 MindSpore supports plug-in, standardized, low-cost and rapid interconnection of third-party chips through an open architecture:
 

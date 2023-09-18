@@ -1,6 +1,6 @@
 # Comparing the function differences between torch.optim.lr_scheduler.CosineAnnealingLR and torch.optim.lr_scheduler.cosine_decay_lr
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/CosineDecayLr.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/CosineDecayLr.md)
 
 ## torch.optim.lr_scheduler.CosineAnnealingLR
 

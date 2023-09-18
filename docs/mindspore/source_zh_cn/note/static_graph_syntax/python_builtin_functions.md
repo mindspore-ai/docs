@@ -1,6 +1,6 @@
 # 静态图语法-Python内置函数
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/static_graph_syntax/python_builtin_functions.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/static_graph_syntax/python_builtin_functions.md)
 
 当前静态图模式支持的Python内置函数包括：`int`、`float`、`bool`、`str`、`tuple`、`list`、`dict`、`getattr`、`hasattr`、`len`、`isinstance`、`all`、`any`、`round`、`max`、`min`、`sum`、`abs`、`map`、`zip`、`range`、`enumerate`、`super`、`pow`、`print`、`filter`、`type`。图模式下内置函数的使用方法与对应的Python内置函数类似。
 

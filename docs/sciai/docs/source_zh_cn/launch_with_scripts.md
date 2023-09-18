@@ -1,6 +1,6 @@
 # 脚本启动模型
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_zh_cn/launch_with_scripts.md)&nbsp;&nbsp;
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_zh_cn/launch_with_scripts.md)&nbsp;&nbsp;
 
 MindSpore SciAI中的模型为用户提供了训练与评估的脚本文件。
 

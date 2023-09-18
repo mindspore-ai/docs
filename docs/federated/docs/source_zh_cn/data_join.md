@@ -1,6 +1,6 @@
 # 纵向联邦学习数据接入
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/data_join.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/data_join.md)
 
 和横向联邦学习不同，纵向联邦学习训练或推理时，两个参与方（leader和follower）拥有相同样本空间。因此，在纵向联邦学习的双方发起训练或推理之前，必须协同完成数据求交。双方必须读取各自的原始数据，并提取出每条数据对应的ID（每条数据的唯一标识符，且都不相同）进行求交（即求取交集）。然后，双方根据求交后的ID从原始数据中获得特征或标签等数据。最后各自导出持久化文件，并在后续训练或推理之前保序地读取数据。
 

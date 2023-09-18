@@ -1,6 +1,6 @@
 # Diffusion Model
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/application/source_en/generative/diffusion.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/application/source_en/generative/diffusion.md)
 
 This document is based on [Hugging Face: The Annotated Diffusion Model](https://huggingface.co/blog/annotated-diffusion) and [Understanding Diffusion Model](https://zhuanlan.zhihu.com/p/525106459).
 

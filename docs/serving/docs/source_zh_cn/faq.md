@@ -1,6 +1,6 @@
 # FAQ
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_zh_cn/faq.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_zh_cn/faq.md)
 
 <font size=3>**Q：MindSpore Serving是否支持热更新，避免推理服务中断？**</font>
 

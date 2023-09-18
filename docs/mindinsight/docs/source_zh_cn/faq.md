@@ -1,6 +1,6 @@
 # FAQ
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/faq.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/faq.md)
 
 <font size=3>**Q: 请问在做神经网络中间特征可视化时，输入给模型一张图片，如何获取中间层的各个输出，并进行可视化？**</font>
 

@@ -1,6 +1,6 @@
 # 调用API启动模型
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_zh_cn/launch_with_api.md)&nbsp;&nbsp;
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_zh_cn/launch_with_api.md)&nbsp;&nbsp;
 
 MindSpore SciAI为用户提供了高阶API接口`AutoModel`。借助`AutoModel`，用户可以通过一行代码完成模型的实例化。
 

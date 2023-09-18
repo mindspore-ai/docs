@@ -1,6 +1,6 @@
 # 基于可微分FDTD的贴片天线S参数仿真
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/source_zh_cn/AD_FDTD_forward.md)&nbsp;&nbsp;
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/source_zh_cn/AD_FDTD_forward.md)&nbsp;&nbsp;
 
 ## 概述
 

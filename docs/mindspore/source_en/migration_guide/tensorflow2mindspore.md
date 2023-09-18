@@ -1,6 +1,6 @@
 # Method for Converting TensorFlow Models to MindSpore Models
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/tensorflow2mindspore.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/tensorflow2mindspore.md)
 
 In this chapter, we will take LeNet5 network structure as an example and introduce the model weight conversion method in detail with [code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/convert_tf2ms_code).
 

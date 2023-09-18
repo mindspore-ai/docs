@@ -1,6 +1,6 @@
 # 比较与torch.index_select的功能差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/templates/api_mapping_no_diffs.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/templates/api_mapping_no_diffs.md)
 
 ## torch.index_select
 
