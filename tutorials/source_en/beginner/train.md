@@ -13,7 +13,7 @@ Model training is generally divided into four steps:
 
 After we have the dataset and the model, we can train and evaluate the model.
 
-## Build a Dataset
+## Building a Dataset
 
 First load the previous code from [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) to build a dataset.
 
@@ -57,7 +57,7 @@ Extracting zip file...
 Successfully downloaded / unzipped to ./
 ```
 
-## Define a Neural Network Model
+## Defining a Neural Network Model
 
 Load the code from [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) to define a neural network model.
 
@@ -82,7 +82,7 @@ class Network(nn.Cell):
 model = Network()
 ```
 
-## Define the Hyperparameter, Loss Function and Optimizer
+## Defining the Hyperparameter, Loss Function and Optimizer
 
 ### Hyperparameter
 
