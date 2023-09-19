@@ -19,7 +19,7 @@ For more information, see [torch.Tensor.repeat](https://pytorch.org/docs/1.8.1/t
 ## mindspore.Tensor.tile
 
 ```text
-mindspore.Tensor.repeat(multiples) -> Tensor
+mindspore.Tensor.tile(multiples)
 ```
 
 For more information, see [mindspore.Tensor.tile](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.tile.html).
