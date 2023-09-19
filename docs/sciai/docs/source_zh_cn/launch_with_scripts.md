@@ -4,9 +4,9 @@
 
 MindSpore SciAI中的模型为用户提供了训练与评估的脚本文件。
 
-通过模型的脚本文件，用户可以直接启动某个模型的训练与评估，并通过修改配置文件或是传入命令行参数的方式调整模型参数。[该目录](https://gitee.com/mindspore/mindscience/SciAI/sciai/model)中包含了所有支持脚本启动的模型。
+通过模型的脚本文件，用户可以直接启动某个模型的训练与评估，并通过修改配置文件或是传入命令行参数的方式调整模型参数。[该目录](https://gitee.com/mindspore/mindscience/tree/master/SciAI/sciai/model)中包含了所有支持脚本启动的模型。
 
-下面使用模型Conservative Physics-Informed Neural Networks(CPINNs)介绍使用脚本训练、评估模型的基本通用流程。CPINNs模型相关代码请参考[链接](https://gitee.com/mindspore/mindscience/SciAI/sciai/model/cpinns)。
+下面使用模型Conservative Physics-Informed Neural Networks(CPINNs)介绍使用脚本训练、评估模型的基本通用流程。CPINNs模型相关代码请参考[链接](https://gitee.com/mindspore/mindscience/tree/master/SciAI/sciai/model/cpinns)。
 
 更多关于该模型的信息，请参考[论文](https://www.sciencedirect.com/science/article/abs/pii/S0045782520302127)。
 
