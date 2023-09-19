@@ -4,9 +4,9 @@
 
 The models in MindSpore SciAI provides users with scripts for training and evaluation.
 
-User can train or evaluate any model by running scripts, and the model parameters can be adjusted either through editing the config file or passing parameters in the command line. [This folder](https://gitee.com/mindspore/mindscience/SciAI/sciai/model) contains all the models that support launching with scripts.
+User can train or evaluate any model by running scripts, and the model parameters can be adjusted either through editing the config file or passing parameters in the command line. [This folder](https://gitee.com/mindspore/mindscience/tree/master/SciAI/sciai/model) contains all the models that support launching with scripts.
 
-The following content introduces the general process of training, evaluating models with scripts, taking Conservative Physics-Informed Neural Networks(CPINNs) as an example. For the codes of CPINNs model, please refer to the [link](https://gitee.com/mindspore/mindscience/SciAI/sciai/model/cpinns).
+The following content introduces the general process of training, evaluating models with scripts, taking Conservative Physics-Informed Neural Networks(CPINNs) as an example. For the codes of CPINNs model, please refer to the [link](https://gitee.com/mindspore/mindscience/tree/master/SciAI/sciai/model/cpinns).
 
 The fundamental idea about this model can be found in this [paper](https://www.sciencedirect.com/science/article/abs/pii/S0045782520302127).
 

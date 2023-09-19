@@ -11,7 +11,7 @@ With these features, SciAI provides developers and users with an efficient and c
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/sciai/docs/source_en/images/architecture.jpg" width="600px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/sciai/docs/source_en/images/architecture.png" width="600px" alt="" >
 
 .. toctree::
    :maxdepth: 1

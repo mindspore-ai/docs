@@ -10,7 +10,7 @@ User can launch training and evaluation process with `AutoModel`.
 
 User can use the function `AutoModel.from_pretrained` to get the network models, which are supported in SciAI.
 
-Here we use the model Conservative Physics-Informed Neural Networks (CPINNs) as example. For the codes of CPINNs model, please refer to the [link](https://gitee.com/mindspore/mindscience/SciAI/sciai/model/cpinns).
+Here we use the model Conservative Physics-Informed Neural Networks (CPINNs) as example. For the codes of CPINNs model, please refer to the [link](https://gitee.com/mindspore/mindscience/tree/master/SciAI/sciai/model/cpinns).
 
 The fundamental idea about this model can be found in this [paper](https://www.sciencedirect.com/science/article/abs/pii/S0045782520302127).
 
