@@ -71,7 +71,7 @@ class Net(Cell):
         return x
 ```
 
-Use [distributed_inference.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/distributed_inference.py) to configure the distributed model. Refer to [Distributed inference](https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_inference.html)。
+Use [distributed_inference.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/distributed_inference.py) to configure the distributed model.
 
 ```python
 import numpy as np
