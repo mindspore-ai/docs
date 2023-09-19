@@ -1,10 +1,10 @@
-# Data Processing Debugging Strategies and Common Errors Analysis
+# Data Processing Debugging Schemes and Common Errors Analysis
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/error_analysis/minddata_debug.md)&nbsp;&nbsp;
 
-## Data Processing Debugging Strategies
+## Data Processing Debugging Schemes
 
-### Debugging Strategy 1: Print Logs or Add Debug Points
+### Debugging Scheme 1: Print Logs or Add Debug Points
 
 When using `GeneratorDataset` or `map` to load/process data, there may be syntax errors, calculation overflow and other issues that cause data errors, you can generally follow the steps below to troubleshoot and debug:
 
@@ -12,7 +12,7 @@ When using `GeneratorDataset` or `map` to load/process data, there may be syntax
 
 2. Add a print or debugging point near the block of code where the error occurred, to further debugging.
 
-The following shows a data pipeline with syntax/value problems and how to fix the errors according to the above strategy.
+The following shows a data pipeline with syntax/value problems and how to fix the errors according to the above scheme.
 
 ```python
 import mindspore.dataset as ds
@@ -116,7 +116,7 @@ exception occurred division by zero
 (Pdb)
 ```
 
-### Debugging Strategy 2: Testing the Input and Output of the Map Operation
+### Debugging Scheme 2: Testing the Input and Output of the Map Operation
 
 Embedding data augmentation transformations into the `map` operation of a data pipeline can sometimes result in errors that are not easily debugged.
 The following example shows an example of embedding a `Crop` enhancement into a `map` operation to crop data, but an error is reported due to an error in the shape of the input object.
@@ -230,7 +230,7 @@ data (8, 8, 3)
 data (8, 8, 3)
 ```
 
-### Debugging Strategy 3: Dataset Pipline Debug Mode Debugging Input and Output of Map Operation
+### Debugging Scheme 3: Dataset Pipline Debug Mode Debugging Input and Output of Map Operation
 
 We can also turn on the dataset pipline debug mode by calling the [set_debug_mode](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_debug_mode.html) .
 When debug mode is enabled, the random seed is set to 1 if it is not already set, so that executing the dataset pipeline in debug mode can yield deterministic results.
@@ -240,7 +240,7 @@ The process is as follows:
 1. Print the shape and type of the input and output data for each transform op in the `map` operator.
 2. Enable the dataset pipeline debug mode and use either a predefined debug hook provided by MindData or a user-defined debug hook. It must define the class inherited from [DebugHook](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.debug.DebugHook.html).
 
-The following is a modification of the `Data Processing Debugging Strategy 2` use case, using the predefined debug hooks provided by MindData.
+The following is a modification of the `Data Processing Debugging Scheme 2` use case, using the predefined debug hooks provided by MindData.
 
 ```python
 import numpy as np
@@ -260,7 +260,7 @@ class Loader:
 
 
 # Enable dataset pipeline debug mode and use pre-defined debug hook provided by MindData.
-ds.config.set_debug_mode(True, debug_hook_list=[debug.PrintMetaDataHook()])
+ds.config.set_debug_mode(True)
 
 # Define dataset pipeline
 dataset = ds.GeneratorDataset(Loader(), column_names=["data"])
@@ -360,7 +360,7 @@ come into my hook function, block with pdb
 (Pdb)
 ```
 
-### Debugging Strategy 4: Testing Data Processing Performance
+### Debugging Scheme 4: Testing Data Processing Performance
 
 When training is initiated using MindSpore and the training log keeps printing with many entries, it is likely that there is a problem with slower data processing.
 
@@ -511,9 +511,9 @@ From the 7th piece of data, every piece of data will sleep 60 seconds before out
 
 In real training scenarios, there are different reasons for slow network training, but the analysis method is similar. We can iterate through the data individually to determine if the slow data processing is the cause of the low training performance.
 
-### Debugging Strategy 5: Checking For Exception Data In Data Processing
+### Debugging Scheme 5: Checking For Exception Data In Data Processing
 
-In the process of processing data, abnormal result values may be generated due to computational errors, numerical overflow, etc., which can lead to problems such as operator computation overflow and abnormal weight updates when training the network. This strategy describes how to debug and check abnormal data behavior/data results.
+In the process of processing data, abnormal result values may be generated due to computational errors, numerical overflow, etc., which can lead to problems such as operator computation overflow and abnormal weight updates when training the network. This scheme describes how to debug and check abnormal data behavior/data results.
 
 #### Turning Off Shuffling and Fixing Random Seeds to Ensure Reproductivity
 
