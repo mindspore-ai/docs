@@ -23,7 +23,7 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 
 | 硬件平台 | Docker镜像仓库            | 标签      | 说明                                                         |
 | :------- | :------------------------ | :-------- | :----------------------------------------------------------- |
-| GPU      | `mindspore/mindspore-gpu-{cuda10.1|cuda11.1|cuda11.6}` | `x.y.z` | 已经预安装MindSpore `x.y.z` GPU版本的生产环境。(CUDA10.1或CUDA11.1或CUDA11.6后端) |
+| GPU      | `mindspore/mindspore-gpu-{cuda10.1或cuda11.1或cuda11.6}` | `x.y.z` | 已经预安装MindSpore `x.y.z` GPU版本的生产环境。(CUDA10.1或CUDA11.1或CUDA11.6后端) |
 |          | `mindspore/mindspore-gpu` | `devel`   | 提供开发环境从源头构建MindSpore（`GPU CUDA11.6`后端）。安装详情请参考<https://www.mindspore.cn/install> 。 |
 |          | `mindspore/mindspore-gpu` | `runtime` | 提供运行时环境，未安装MindSpore二进制包（`GPU CUDA11.6`后端）。 |
 
