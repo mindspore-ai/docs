@@ -40,7 +40,7 @@ To simulate the FIFO characteristics of a circular queue, we use two cursors to 
 3. After continuing to insert a batch_size of 4, the queue is full and the count is 6.
 4. After continuing to insert a batch_size of 2, overwrite updates the old data and adds 2 to the head.
 
-![insert schematic diagram](https://gitee.com/mindspore/docs/blob/r2.1/docs/reinforcement/docs/source_zh_cn/images/insert.png)
+![insert schematic diagram](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/docs/reinforcement/docs/source_zh_cn/images/insert.png)
 
 #### 2 Search
 
@@ -49,7 +49,7 @@ The search method accepts an index as an input, indicating the specific location
 1. If the UniformReplayBuffer is just full or not full, the corresponding data is found directly according to the index.
 2. For data that has been overwritten, remap it by cursors.
 
-![get_item schematic diagram](https://gitee.com/mindspore/docs/blob/r2.1/docs/reinforcement/docs/source_zh_cn/images/get.png)
+![get_item schematic diagram](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/docs/reinforcement/docs/source_zh_cn/images/get.png)
 
 #### 3 Sample
 
@@ -61,7 +61,7 @@ Assuming that batch_size is 3, a random set of indexes will be generated in the 
 
 Both approaches have a slight impact on randomness, and the default is to use no order preserving to get the best performance.
 
-![sample schematic diagram](https://gitee.com/mindspore/docs/blob/r2.1/docs/reinforcement/docs/source_zh_cn/images/sample.png)
+![sample schematic diagram](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/docs/reinforcement/docs/source_zh_cn/images/sample.png)
 
 ## UniformReplayBuffer Introduction of MindSpore Reinforcement Learning
 
