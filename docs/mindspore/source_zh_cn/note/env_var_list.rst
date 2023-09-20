@@ -596,12 +596,12 @@ Dump功能
 
        2: 开启Lazy Inline功能，后端在执行序优化和内存复用前做Inline，具有更好的内存优化效果。
      - 
-   * - MS_ASCEND_910B_CHECK_OVERFLOW_MODE
+   * - MS_ASCEND_CHECK_OVERFLOW_MODE
      - 设置Ascend 910B的溢出检测模式
      - String 
-     - "SATURATION_MODE": Ascend 910B使用饱和模式检测在训练过程中是否发生溢出。
+     - "INFNAN_MODE": Ascend 910B使用INFNAN模式（IEEE 754标准）检测在训练过程中是否发生溢出。
 
-       空值或其他值：Ascend 910B使用NAN/INF模式（IEEE 754标准）标准检测在训练过程中是否发生溢出。
+       空值或其他值：Ascend 910B使用饱和模式检测在训练过程中是否发生溢出。
 
        默认值：空值
      - 

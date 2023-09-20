@@ -599,12 +599,12 @@ Other
 
        2: Enable the Lazy Inline function. The inlining will be done before the optimization of execution sequence and memory reuse. This level has better memory optimization.
      - 
-   * - MS_ASCEND_910B_CHECK_OVERFLOW_MODE
+   * - MS_ASCEND_CHECK_OVERFLOW_MODE
      - Set the overflow detection mode for Ascend 910B.
      - String
-     - "SATURATION_MODE": Ascend 910B uses saturation mode to check overflow status during the training process.
+     - "INFNAN_MODE": Ascend 910B uses NAN/INF mode (IEEE754 criterion) to check overflow status during the training process.
 
-       Null or other values: Ascend 910B uses NAN/INF mode (IEEE754 criterion) to check overflow status during the training process.
+       Null or other values: Ascend 910B uses saturation mode to check overflow status during the training process.
 
        Default: Null
-     - 
+     -
