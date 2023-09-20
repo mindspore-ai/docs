@@ -22,7 +22,7 @@ The current support for containerized build is as follows:
 
 | Hardware   | Docker Image Hub                | Label                       | Note                                       |
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
-| GPU    | `mindspore/mindspore-gpu-{cuda10.1|cuda11.1|cuda11.6}` | `x.y.z`                  | A production environment with the MindSpore `x.y.z` GPU version pre-installed. (CUDA10.1, CUDA11.1 or CUDA11.6 backend) |
+| GPU    | `mindspore/mindspore-gpu-{cuda10.1 or cuda11.1 or cuda11.6}` | `x.y.z`                  | A production environment with the MindSpore `x.y.z` GPU version pre-installed. (CUDA10.1, CUDA11.1 or CUDA11.6 backend) |
 |        | `mindspore/mindspore-gpu` | `devel`                  | Provide a development environment to build MindSpore from the source (`GPU CUDA11.6` backend). For installation details, please refer to <https://www.mindspore.cn/install/en>. |
 |        | `mindspore/mindspore-gpu` | `runtime`                | Provide runtime environment, MindSpore binary package (`GPU CUDA11.6` backend) is not installed. |
 
