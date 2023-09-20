@@ -54,6 +54,8 @@ In MindSpore, the probability value corresponds to the `keep_prob` attribute of 
 
 In PyTorch and TensorFlow, the probability values correspond to the attributes `p` and `rate` of the Dropout operator, respectively. They indicate the probability that the input is set to 0, which is opposite to the meaning of `keep_prob` in MindSpore.nn.Dropout.
 
+In PyTorch, the network is in training mode by default, while in MindSpore, it's in inference mode by default. Therefore, by default, Dropout called by the network does not take effect and directly returns the input. Dropout can be performed only after the network is set to the training mode by using the `net.set_train()` method.
+
 For more information, visit [MindSpore Dropout](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout), [PyTorch Dropout](https://pytorch.org/docs/stable/generated/torch.nn.Dropout.html), and [TensorFlow Dropout](https://www.tensorflow.org/api_docs/python/tf/nn/dropout).
 
 #### nn.BatchNorm2d
@@ -82,6 +84,10 @@ BatchNorm is a special regularization method in the CV field. It has different c
 Compared with `torch.nn.BatchNorm2d`, `mindspore.nn.BatchNorm2d` does not have two redundant states and retains only the most commonly used training and inference states.
 
 - Difference 2
+
+In PyTorch, the network is in training mode by default, while in MindSpore, it is in inference mode by default (`is_training` is False). You need to use the `net.set_train()` method in MindSpore to switch the network to training mode. In this case, the parameters `mean` and `variance` are calculated during the training. Otherwise, in inference mode, the parameters are loaded from the checkpoint.
+
+- Difference 3
 
 The meaning of the momentum parameter of the BatchNorm series operators in MindSpore is opposite to that in PyTorch. The relationship is as follows:
 
