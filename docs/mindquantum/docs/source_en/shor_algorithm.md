@@ -396,3 +396,21 @@ q = 3
 As we can see from the results, we successfully decomposed 15 into two prime factors 3 and 5.
 
 So far, we have successfully implemented the Shor's algorithm using MindSpore Quantum.
+
+```python
+from mindquantum.utils.show_info import InfoTable
+
+InfoTable('mindquantum', 'scipy', 'numpy')
+```
+
+|       Software |                  Version |
+| -------------: | -----------------------: |
+|    mindquantum |                    0.9.0 |
+|          scipy |                   1.10.1 |
+|          numpy |                   1.23.5 |
+|         System |                     Info |
+|         Python |                   3.8.17 |
+|             OS |            Windows AMD64 |
+|         Memory |                  8.39 GB |
+| CPU Max Thread |                        8 |
+|           Date | Mon Sep 18 14:25:12 2023 |

@@ -169,6 +169,24 @@ theta_exp
 
 It can be seen that the estimated phase obtained is approximately equal to $\varphi$.
 
+```python
+from mindquantum.utils.show_info import InfoTable
+
+InfoTable('mindquantum', 'scipy', 'numpy')
+```
+
+|       Software |                  Version |
+| -------------: | -----------------------: |
+|    mindquantum |                    0.9.0 |
+|          scipy |                   1.10.1 |
+|          numpy |                   1.23.5 |
+|         System |                     Info |
+|         Python |                   3.8.17 |
+|             OS |            Windows AMD64 |
+|         Memory |                  8.39 GB |
+| CPU Max Thread |                        8 |
+|           Date | Mon Sep 18 14:24:10 2023 |
+
 ## Reference
 
 [1] Michael A. Nielsen and Isaac L. Chuang. [Quantum computation and quantum information](https://www.cambridge.org/9781107002173)

@@ -564,3 +564,21 @@ Optimized amplitudes:
 ## Summary
 
 In this case, the ground state energy of the LiH molecule is obtained by using scipy in two methods. In the first method, we use the `generate_uccsd` function packaged by MindSpore Quantum to generate a quantum neural network that can solve this problem. In the second method, we build a similar gradient operator step by step. The final results are the same.
+
+```python
+from mindquantum.utils.show_info import InfoTable
+
+InfoTable('mindquantum', 'scipy', 'numpy')
+```
+
+|       Software |                  Version |
+| -------------: | -----------------------: |
+|    mindquantum |                    0.9.0 |
+|          scipy |                   1.10.1 |
+|          numpy |                   1.23.5 |
+|         System |                     Info |
+|         Python |                   3.8.17 |
+|             OS |            Windows AMD64 |
+|         Memory |                  8.39 GB |
+| CPU Max Thread |                        8 |
+|           Date | Mon Sep 18 14:26:12 2023 |

@@ -307,3 +307,21 @@ print(circuit.get_qs(pr=rot_angle, ket=True))
 (0.7074343486186319-0.00010695972396782116j)¦0⟩
 (0.7067790538448511+√5/3906250j)¦1⟩
 ```
+
+```python
+from mindquantum.utils.show_info import InfoTable
+
+InfoTable('mindquantum', 'scipy', 'numpy')
+```
+
+|       Software |                  Version |
+| -------------: | -----------------------: |
+|    mindquantum |                    0.9.0 |
+|          scipy |                   1.10.1 |
+|          numpy |                   1.23.5 |
+|         System |                     Info |
+|         Python |                   3.8.17 |
+|             OS |            Windows AMD64 |
+|         Memory |                  8.39 GB |
+| CPU Max Thread |                        8 |
+|           Date | Mon Sep 18 11:56:00 2023 |
