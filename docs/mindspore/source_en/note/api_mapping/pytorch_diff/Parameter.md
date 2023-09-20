@@ -28,7 +28,7 @@ Furthermore, there are differences between the `requires_grad` parameter in Mind
 
 Additionally, MindSpore's Parameter has an extra `name` parameter compared to PyTorch. This parameter is strongly associated with the Parameter and is used during graph compilation in the backend or during checkpoints saving. You can specify this parameter manually, but if you don't, MindSpore will automatically name the Parameter.
 
-Finally, when directly printing a MindSpore Parameter, you cannot view the actual values contained inside it. You need to use the `Parameter.value()` method to access the actual values.
+Finally, when directly printing a MindSpore Parameter, you cannot view the actual values contained inside it. You need to use the `Parameter.asnumpy()` method to access the actual values.
 
 | Classification | Subclass  | PyTorch | MindSpore | difference |
 | ---- | ----- | ------- | --------- | -------------------- |
