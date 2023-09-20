@@ -28,7 +28,7 @@ MindSpore：MindSpore的Parameter也是一种特殊的Tensor，与PyTorch不同�
 
 此外，MindSpore的Parameter相比PyTorch多了一个name参数，该参数会作为一个属性与Parameter进行强绑定，在后端执行图编译时或者执行ckpt保存时均会使用此参数，该参数可以手动指定，若不指定，则会触发MindSpore的Parameter自动命名机制对Parameter进行命名。
 
-最后，MindSpore的Parameter直接打印时无法查看到里面实际包含的值，需要使用Parameter.value()方法来查看实际的值。
+最后，MindSpore的Parameter直接打印时无法查看到里面实际包含的值，需要使用Parameter.asnumpy()方法来查看实际的值。
 
 | 分类 | 子类 |PyTorch | MindSpore | 差异 |
 | --- | --- | --- | --- |---|
