@@ -372,6 +372,24 @@ It can be found that the above results are consistent with the previous results 
 
 We use the quantum approximation optimization algorithm to solve the Max-Cut problem and obtain the Max-Cut solution corresponding to the graph in the case.
 
+```python
+from mindquantum.utils.show_info import InfoTable
+
+InfoTable('mindquantum', 'scipy', 'numpy')
+```
+
+|       Software |                  Version |
+| -------------: | -----------------------: |
+|    mindquantum |                    0.9.0 |
+|          scipy |                   1.10.1 |
+|          numpy |                   1.23.5 |
+|         System |                     Info |
+|         Python |                   3.8.17 |
+|             OS |            Windows AMD64 |
+|         Memory |                  8.39 GB |
+| CPU Max Thread |                        8 |
+|           Date | Mon Sep 18 14:23:00 2023 |
+
 ## References
 
 [1] Edward Farhi, Jeffrey Goldstone, and Sam Gutmann. [A Quantum Approximate Optimization Algorithm](https://arxiv.org/pdf/1411.4028.pdf)
