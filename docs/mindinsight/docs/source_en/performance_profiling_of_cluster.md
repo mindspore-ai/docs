@@ -24,12 +24,6 @@ This article describes how to use MindSpore Profiler for cluster performance deb
 
 > The images in this article are from the Ascend AI processor, and the differences between devices will be explained separately.
 
-## Distributed Training
-
-For Ascend distributed training, please refer to [Distributed Training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html).
-
-For GPU distributed training, please refer to [Distributed Training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html).
-
 ## Collect Cluster Performance Data
 
 In multi-server and multi-device training, after the cluster training, the performance data is distributed in each host node. To analyze the cluster performance, we need to collect the performance data of all host nodes to one host for analysis. Considering the complexity of the cluster running environment and the related permissions and login problems, a more reasonable way is to let users collect cluster performance data. The following is the process of using a script to collect performance data after a distributed cluster training. Users can refer to this script to collect cluster performance data.

@@ -4,7 +4,7 @@
 
 ## 概述
 
-针对大规模神经网络模型参数多、无法完全加载至单设备推理的场景，可利用多设备进行分布式推理。本教程介绍如何使用[Python接口](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)执行MindSpore Lite云侧分布式推理。云侧分布式推理与[云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_python.html)流程大致相同，可以相互参考。关于分布式推理基本概念可参考[MindSpore分布式推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_inference.html)，相比之下，MindSpore Lite云侧分布式推理针对性能方面具有更多的优化。
+针对大规模神经网络模型参数多、无法完全加载至单设备推理的场景，可利用多设备进行分布式推理。本教程介绍如何使用[Python接口](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)执行MindSpore Lite云侧分布式推理。云侧分布式推理与[云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_python.html)流程大致相同，可以相互参考。关于分布式推理的相关内容可参考[MindSpore分布式推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_loading.html#推理)，相比之下，MindSpore Lite云侧分布式推理针对性能方面具有更多的优化。
 
 MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，支持的设备类型为Ascend 910和Nvidia GPU。如下图所示，当前通过多进程方式启动分布式推理，每个进程对应通信集合中的一个`Rank`，对各自已切分的模型进行加载、编译与执行，每个进程输入数据相同。
 
@@ -12,7 +12,7 @@ MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，支持�
 
 每个进程主要包括以下步骤：
 
-1. 模型读取：通过MindSpore切分并[导出分布式MindIR模型](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_inference.html#%E5%88%86%E5%B8%83%E5%BC%8F%E5%9C%BA%E6%99%AF%E5%AF%BC%E5%87%BAmindir%E6%96%87%E4%BB%B6)，MindIR模型数量与设备数相同，用于加载到各个设备进行推理。
+1. 模型读取：通过MindSpore切分并[导出分布式MindIR模型](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_loading.html#分布式场景导出mindir文件)，MindIR模型数量与设备数相同，用于加载到各个设备进行推理。
 2. 上下文创建与配置：创建并配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context)，保存分布式推理参数，用于指导分布式模型编译和模型执行。
 3. 模型加载与编译：使用[Model.build_from_file](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file)接口进行模型加载和模型编译。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段将前端计算图优化为高性能后端计算图，该过程耗时较长，建议一次编译，多次推理。
 4. 模型输入数据填充。
@@ -24,9 +24,9 @@ MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，支持�
 
 1. 下载云侧分布式推理python示例代码，请选择设备类型：[Ascend](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/ascend_ge_distributed_python)或[GPU](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/gpu_trt_distributed_python)。后文将该目录称为示例代码目录。
 
-2. 通过MindSpore切分并[导出分布式MindIR模型](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_inference.html#%E5%88%86%E5%B8%83%E5%BC%8F%E5%9C%BA%E6%99%AF%E5%AF%BC%E5%87%BAmindir%E6%96%87%E4%BB%B6)，将其存放至示例代码目录。如需快速体验，可下载已切分的两个Matmul模型文件[Matmul0.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul0.mindir)、[Matmul1.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul1.mindir)。
+2. 通过MindSpore切分并[导出分布式MindIR模型](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_loading.html#分布式场景导出mindir文件)，将其存放至示例代码目录。如需快速体验，可下载已切分的两个Matmul模型文件[Matmul0.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul0.mindir)、[Matmul1.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul1.mindir)。
 
-3. 对于Ascend设备类型，从[分布式并行训练基础样例代码](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training)中获取组网信息文件（如`rank_table_xxx.json`），或者通过[hccl_tools.py](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools)按照需要生成组网信息文件，参照[分布式并行训练基础样例说明](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)进行配置，存放至示例代码目录，并将该文件路径填入示例代码目录下配置文件`config_file.ini`中。
+3. 对于Ascend设备类型，通过hccl_tools.py按照需要生成组网信息文件，存放至示例代码目录，并将该文件路径填入示例代码目录下配置文件 `config_file.ini` 中。
 
 4. 下载MindSpore Lite云侧推理安装包[mindspore-lite-{version}-linux-{arch}.whl](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，存放至示例代码目录，并通过`pip`工具安装。
 

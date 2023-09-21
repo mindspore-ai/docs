@@ -24,12 +24,6 @@
 
 > 本文图片均来源Ascend AI处理器，不同设备展示有差异之处会另外进行说明。
 
-## 分布式训练
-
-Ascend分布式训练请参考[分布式训练教程](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)。
-
-GPU分布式训练请参考[分布式训练教程](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html)。
-
 ## 收集集群性能数据
 
 多机多卡训练的时候，一次集群训练后，性能数据分布在各个主机上（host节点）。要进行集群性能分析，需要将所有主机上的性能数据收集到一台主机上进行分析。考虑到集群运行环境的复杂以及相关的权限问题、登录问题，比较合理的方式是让用户去收集集群性能数据。
