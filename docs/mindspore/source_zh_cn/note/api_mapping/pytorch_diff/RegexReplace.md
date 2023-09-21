@@ -34,19 +34,19 @@ MindSpore：根据正则表达式对字符串内容进行正则替换。
 ## 代码示例
 
 ```python
-list_a = ["Sentencepiece encode  aS  pieces"]
-
 # PyTorch
 from torchtext.data.functional import custom_replace
 
+input_str = ["Sentencepiece encode  aS  pieces"]
 custom_replace_transform = custom_replace([(r'S', 's')])
-print(list(custom_replace_transform(list_a)))
+print(list(custom_replace_transform(input_str)))
 # Out: ['sentencepiece encode  as  pieces']
 
 # MindSpore
 import mindspore.dataset.text as text
 
+input_str = ["Sentencepiece encode  aS  pieces"]
 transform = text.RegexReplace(pattern=r'S', replace='s')
-print(transform(list_a))
+print(transform(input_str))
 # Out: ['sentencepiece encode  as  pieces']
 ```

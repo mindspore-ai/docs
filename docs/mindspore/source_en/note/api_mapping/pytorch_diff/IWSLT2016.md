@@ -58,11 +58,10 @@ MindSpore: Read the IWSLT2016 dataset. Download dataset from web is not supporte
 ```python
 # PyTorch
 import torchtext.datasets as datasets
-from torch.utils.data import DataLoader
 
 root = "/path/to/dataset_directory/"
-dataset = datasets.IWSLT2016(root, split=('train', 'valid', 'test'))
-dataloader = DataLoader(dataset)
+train_iter, valid_iter, test_iter = datasets.IWSLT2016(root, split=('train', 'valid', 'test'))
+data = next(iter(train_iter))
 
 # MindSpore
 import mindspore.dataset as ds
@@ -97,5 +96,6 @@ import mindspore.dataset as ds
 #                        └── en
 #                            └── fr-en2
 root = "/path/to/dataset_directory/"
-ms_dataloader = ds.IWSLT2016Dataset(root, usage='all')
+dataset = ds.IWSLT2016Dataset(root, usage='all')
+data = next(iter(dataset))
 ```
