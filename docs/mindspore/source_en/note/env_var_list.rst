@@ -21,7 +21,7 @@ Operators Compile
    * - MS_BUILD_PROCESS_NUM
      - Specifies the number of parallel operator build processes during Ascend backend compilation.
        
-       Note: Only Ascend backend.
+       Note: Only take effect on Ascend910 AI Processor, not effective on Ascend910B.
      - Integer
      - The number of parallel operator build processes ranges from 1 to 24.
      - 
@@ -62,7 +62,7 @@ Operators Compile
      - Turn off operator prebuild processes during Ascend backend compilation. The prebuild processing may fix the attr `fusion_type` of the operate, and then affect the operator fusion. 
        If the performance of fusion operator can not meet the expectations, try to turn on this environment variable to verify if there is the performance problem of fusion operator.
 
-       Note: Only Ascend backend.
+       Note: Only take effect on Ascend910 AI Processor, not effective on Ascend910B.
      - Boolean
      - true: turn off prebuild
 
