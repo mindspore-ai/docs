@@ -56,7 +56,7 @@ class Network(nn.Cell):
         self.relu1 = nn.ReLU()
         self.layer2 = nn.Dense(512, 512)
         self.relu2 = nn.ReLU()
-        self.layer3 = nn.Dense(512, 10)
+        self.layer3 = nn.Dense(512, 1)
 
     def construct(self, x):
         x = self.flatten(x)
@@ -113,7 +113,7 @@ import mindspore as ms
 from mindspore import nn, train
 
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
-loss_fn = nn.CrossEntropyLoss()
+loss_fn = nn.MAELoss()
 loss_cb = train.LossMonitor()
 net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4)
 model = ms.Model(net_with_grads, optimizer=optimizer)
@@ -131,14 +131,8 @@ bash run_sapp_mix_train.sh
 结果保存在`log_output/1/rank.*/stdout`中，示例如下：
 
 ```text
-epoch: 1 step: 1875, loss is 0.6961808800697327
-epoch: 2 step: 1875, loss is 0.2737872302532196
-epoch: 3 step: 1875, loss is 0.17508840560913086
-epoch: 4 step: 1875, loss is 0.5057268142700195
-epoch: 5 step: 1875, loss is 0.30770277976989746
-epoch: 6 step: 1875, loss is 0.14041686058044434
-epoch: 7 step: 1875, loss is 0.018445372581481934
-epoch: 8 step: 1875, loss is 0.00423431396484375
-epoch: 9 step: 1875, loss is 0.001628875732421875
-epoch: 10 step: 1875, loss is 0.03857862949371338
+epoch: 1 step: 1875, loss is 11.6961808800697327
+epoch: 2 step: 1875, loss is 10.2737872302532196
+epoch: 3 step: 1875, loss is 8.87508840560913086
+epoch: 4 step: 1875, loss is 8.1057268142700195
 ```

@@ -4,7 +4,7 @@
 echo "=============================================================================================================="
 echo "Please run the script as: "
 echo "bash run.sh BATCH_SIZE MEMORY_OFFLOAD"
-echo "For example: bash run.sh 128  ON"
+echo "For example: bash run.sh 96 ON"
 echo "=============================================================================================================="
 set -e
 EXEC_PATH=$(pwd)
