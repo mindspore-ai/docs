@@ -87,7 +87,7 @@ Auto-Mapping refers to automatically mapping data and instance in the execution 
 
   Next, Auto-Mapping also tries to allocate a Thread size that can be divided by the tiled data to improve the utilization of Threads, as in the following example with a Thread of 4.
 
-  ![graphkernel_mapping_tile](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/docs/mindspore/source_zh_cn/design/images/graphkernel_mapping_map.png)
+  ![graphkernel_mapping_tile](./images/graphkernel_mapping_map.png)
 
 - Optimize Block/Thread/Tile ratio
 
