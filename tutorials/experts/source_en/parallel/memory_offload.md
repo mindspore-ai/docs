@@ -54,7 +54,7 @@ Through heterogeneous storage management, parameters or intermediate results tha
 
 ## Operation Practice
 
-The following is a description of heterogeneous storage operations:
+The following is an illustration of heterogeneous storage operation using Ascend as an example:
 
 ### Example Code Description
 
@@ -80,7 +80,7 @@ from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
-ms.set_context(max_device_memory="2GB")
+ms.set_context(max_device_memory="1GB")
 if args_opt.memory_offload == "ON":
     ms.set_context(memory_offload="ON")
     offload_config = {"offload_path": args_opt.offload_path, "auto_offload": args_opt.auto_offload,
@@ -94,7 +94,7 @@ init()
 ms.set_seed(1)
 ```
 
-`offload_config` is the configuration dictionary for heterogeneous storage, and see the relevant configuration notes in the overview of this chapter for details of the configuration. Here `max_device_memory` is configured to `2GB` to trigger heterogeneous storage by preventing the video memory from loading the full network.
+`offload_config` is the configuration dictionary for heterogeneous storage, and see the relevant configuration notes in the overview of this chapter for details of the configuration. Here `max_device_memory` is configured to `1GB` to trigger heterogeneous storage by preventing the video memory from loading the full network. The "1GB" here only represents the borderline video memory we tested on the Ascend 910, which may vary from device to device.
 
 ### Loading the Dataset
 
@@ -199,23 +199,30 @@ for epoch in range(1):
 Next, the corresponding script is called by command:
 
 ```shell
-bash run.sh 128 OFF
+bash run.sh 96 OFF
 ```
 
-When training with batch_size=128 without turning on heterogeneous storage, an error 'Memory not enough' is reported due to insufficient memory space:
+When training with batch_size=96 without turning on heterogeneous storage, an error 'Memory not enough' is reported due to insufficient memory space:
 
 ```bash
-RuntimeError:
 ----------------------------------------------------
-- Memory not enough:
+- Framework Error Message:
 ----------------------------------------------------
-Device(id:0) memory isn't enough and alloc failed, kernel name: Gradients/Default/gradConv2D-expand/Conv2DBackpropInput-op174, alloc size: 411041792B.
+Out of Memory!!! Request memory size: 1088627200B, Memory Statistic:
+Device HBM memory size: 32768M
+MindSpore Used memory size: 1024M
+MindSpore memory base address: 0x124140000000
+Total Static Memory size: 56M
+Total Dynamic memory size: 0M
+Dynamic memory size of this graph: 0M
+
+Please try to reduce 'batch_size' or check whether exists extra large shape. For more details, please refer to 'Out of Memory' at https://www.mindspore.cn .
 ```
 
-After turning on heterogeneous storage, it is able to train normally with batch_size=128:
+After turning on heterogeneous storage, it is able to train normally with batch_size=96:
 
 ```bash
-bash run.sh 128 ON
+bash run.sh 96 ON
 ```
 
 ```bash
