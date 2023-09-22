@@ -103,6 +103,7 @@ class Network(nn.Cell):
         return logits
 
 net = Network()
+net.set_train()
 
 optimizer = nn.Momentum(net.trainable_params(), 1e-3, 0.1)
 loss_fn = nn.MAELoss()

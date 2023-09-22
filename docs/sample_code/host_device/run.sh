@@ -16,4 +16,4 @@ fi
 export DATA_PATH=${EXEC_PATH}/MNIST_Data/train/
 
 export GLOG_v=1
-mpirun -n 4 --output-filename log_output --merge-stderr-to-stdout python train.py
+mpirun -n 8 --output-filename log_output --merge-stderr-to-stdout python train.py

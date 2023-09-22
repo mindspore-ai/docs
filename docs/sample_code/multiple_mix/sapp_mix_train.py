@@ -35,7 +35,7 @@ class Network(nn.Cell):
         self.relu1 = nn.ReLU()
         self.layer2 = nn.Dense(512, 512)
         self.relu2 = nn.ReLU()
-        self.layer3 = nn.Dense(512, 10)
+        self.layer3 = nn.Dense(512, 1)
 
     def construct(self, x):
         x = self.flatten(x)
@@ -75,7 +75,7 @@ def create_dataset(batch_size):
 data_set = create_dataset(32)
 
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
-loss_fn = nn.CrossEntropyLoss()
+loss_fn = nn.MAELoss()
 loss_cb = train.LossMonitor()
 net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4)
 model = ms.Model(net_with_grads, optimizer=optimizer)

@@ -164,8 +164,6 @@ The parameter layer2.bias's fusion id is 1
 The parameter layer3.weight's fusion id is 1
 The parameter layer3.bias's fusion id is 1
 ...
-MAX_COMM_OP_REUSE_NUM: 3
-...
 epoch: 0, step: 0, loss is 2.3190787
 epoch: 0, step: 10, loss is 1.9131156
 epoch: 0, step: 20, loss is 1.546958
@@ -176,4 +174,14 @@ epoch: 0, step: 60, loss is 0.7244837
 ...
 ```
 
-第一部分表示每个参数的融合index，通信时将融合相同index的参数，第二部分的"MAX_COMM_OP_REUSE_NUM: 3"表示可以复用的通信算子的上限为3，第三部分为Loss的结果。
+第一部分表示每个参数的融合index，通信时将融合相同index的参数，第二部分为Loss的结果。
+
+若通过`export GLOG_v=1`开启INFO日志，会打印以下内容：
+
+```text
+...
+MAX_COMM_OP_REUSE_NUM: 3
+...
+```
+
+表示可以复用的通信算子的上限为3。

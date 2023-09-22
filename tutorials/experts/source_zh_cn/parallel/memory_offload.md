@@ -54,7 +54,7 @@ mindspore.set_offload_context(offload_config=offload_config)
 
 ## 操作实践
 
-下面进行异构存储操作说明：
+下面以Ascend为例，进行异构存储操作说明：
 
 ### 样例代码说明
 
@@ -80,7 +80,7 @@ from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
-ms.set_context(max_device_memory="2GB")
+ms.set_context(max_device_memory="1GB")
 if args_opt.memory_offload == "ON":
     ms.set_context(memory_offload="ON")
     offload_config = {"offload_path": args_opt.offload_path, "auto_offload": args_opt.auto_offload,
@@ -94,7 +94,7 @@ init()
 ms.set_seed(1)
 ```
 
-`offload_config`是异构存储的配置字典，配置内容详见本章概述中相关配置说明。此处`max_device_memory`配置为"2GB"，是为了让显存无法加载完整网络，以此触发异构存储。
+`offload_config`是异构存储的配置字典，配置内容详见本章概述中相关配置说明。此处`max_device_memory`配置为"1GB"，是为了让显存无法加载完整网络，以此触发异构存储，此处的"1GB"仅代表我们在Ascend910上测试的边界显存，不同的硬件设备可能会有所不同。
 
 ### 数据集加载
 
@@ -199,23 +199,30 @@ for epoch in range(1):
 接下来通过命令调用对应的脚本：
 
 ```shell
-bash run.sh 128 OFF
+bash run.sh 96 OFF
 ```
 
-不开启异构存储的情况下，使用batch_size=128进行训练时，由于显存空间不够，会出现'Memory not enough'报错：
+不开启异构存储的情况下，使用batch_size=96进行训练时，由于显存空间不够，会出现'Memory not enough'报错：
 
 ```bash
-RuntimeError:
 ----------------------------------------------------
-- Memory not enough:
+- Framework Error Message:
 ----------------------------------------------------
-Device(id:0) memory isn't enough and alloc failed, kernel name: Gradients/Default/gradConv2D-expand/Conv2DBackpropInput-op174, alloc size: 411041792B.
+Out of Memory!!! Request memory size: 1088627200B, Memory Statistic:
+Device HBM memory size: 32768M
+MindSpore Used memory size: 1024M
+MindSpore memory base address: 0x124140000000
+Total Static Memory size: 56M
+Total Dynamic memory size: 0M
+Dynamic memory size of this graph: 0M
+
+Please try to reduce 'batch_size' or check whether exists extra large shape. For more details, please refer to 'Out of Memory' at https://www.mindspore.cn .
 ```
 
-开启异构存储后，能够正常使用batch_size=128训练：
+开启异构存储后，能够正常使用batch_size=96训练：
 
 ```bash
-bash run.sh 128 ON
+bash run.sh 96 ON
 ```
 
 ```bash

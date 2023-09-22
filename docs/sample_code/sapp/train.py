@@ -45,6 +45,7 @@ class Network(nn.Cell):
         return logits
 
 net = Network()
+net.set_train()
 
 def create_dataset(batch_size):
     """create dataset"""

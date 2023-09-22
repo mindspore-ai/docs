@@ -131,9 +131,12 @@ class Network(nn.Cell):
         return logits
 
 net = Network()
-# 配置add算子在CPU端运行
+# 配置matmul和add算子在CPU端运行
+net.layer1.matmul.set_device("CPU")
 net.layer1.add.set_device("CPU")
+net.layer2.matmul.set_device("CPU")
 net.layer2.add.set_device("CPU")
+net.layer3.matmul.set_device("CPU")
 net.layer3.add.set_device("CPU")
 ```
 
