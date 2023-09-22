@@ -59,8 +59,8 @@ Using the Model API
 For a neural network in a simple scenario, you can specify the feedforward network ``network``, loss function ``loss_fn``, optimizer ``optimizer``,
 and evaluation function ``metrics`` when defining ``Model``.
 
-Download and Process Dataset
-----------------------------
+Downloading and Processing Dataset
+----------------------------------
 
 .. code:: python
 
@@ -89,8 +89,8 @@ Download and Process Dataset
     train_dataset = datapipe('MNIST_Data/train', 64)
     test_dataset = datapipe('MNIST_Data/test', 64)
 
-Define Model
-------------
+Defining Model
+---------------
 
 .. code:: python
 
@@ -114,8 +114,8 @@ Define Model
     
     model = Network()
 
-Define loss function and optimizer
-----------------------------------
+Defining Loss Function and Optimizer
+-------------------------------------
 
 To train neural network model, loss function and optimizer function need to be defined.
 
@@ -129,8 +129,8 @@ To train neural network model, loss function and optimizer function need to be d
     loss_fn = nn.CrossEntropyLoss()
     optimizer = nn.SGD(model.trainable_params(), 1e-2)
 
-Train and Save Model
---------------------
+Training and Saving Model
+-------------------------
 
 Before starting the training, MindSpore needs to state in advance whether the network model needs to save the intermediate process and results
 during the training process. Therefore, ``ModelCheckpoint`` is used to save the network model and parameters for subsequent fine tuning.

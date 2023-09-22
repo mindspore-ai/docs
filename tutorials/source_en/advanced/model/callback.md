@@ -14,7 +14,7 @@ When talking about callback, most users find it difficult to understand whether 
 
 Assume that function A has a parameter which is function B. After function A is executed, function B is executed. This process is called callback.
 
-The `callback` in MindSpore is actually not a function but a class. You can use the callback mechanism to observe the internal status and related information of the network during training or perform specific actions in a specific period.
+The `callback` in MindSpore is actually not a function but a class. You can use the callback mechanism to **observe the internal status and related information of the network during training or perform specific actions in a specific period**.
 
 For example, monitor the loss function, save the model parameter `ckpt`, dynamically adjust the parameter `lr`, and terminate the training task in advance. The following uses the MNIST dataset as an example to describe several common built-in callback functions and customised callback functions.
 
