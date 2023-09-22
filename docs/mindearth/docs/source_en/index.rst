@@ -28,6 +28,13 @@ Code repository address: <https://gitee.com/mindspore/mindscience/tree/master/Mi
    medium-range/vit_kno
 
 .. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: NowCasting
+
+   nowcasting/dgmr
+
+.. toctree::
    :maxdepth: 1
    :caption: API Reference
 
