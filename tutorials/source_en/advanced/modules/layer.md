@@ -97,7 +97,7 @@ b:
 
 ### Modifying the Parameter
 
-#### Modify Parameter Values Directly
+#### Modifying Parameter Values Directly
 
 Parameter is a special kind of Tensor, so its value can be modified by using the Tensor index modification.
 

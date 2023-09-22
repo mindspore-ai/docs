@@ -65,7 +65,7 @@ $$ loss= \frac{1}{m}\sum_{i=1}^m\lvert y_i-f(x_i) \rvert$$
 
 In the preceding formula, $f(x)$ indicates the predicted value, $y$ indicates the actual value of the sample, and $loss$ indicates the mean distance between the predicted value and the actual value.
 
-### `nn.Cell`-based Loss Function Build
+### Building `nn.Cell`-based Loss Function
 
 `nn.Cell` is the base class of MindSpore. It can be used to build networks and define loss functions. The process of defining a loss function using `nn.Cell` is similar to that of defining a common network. The difference is that the execution logic is to compute the error between the feedforward network output and the actual value.
 

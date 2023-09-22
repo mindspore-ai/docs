@@ -90,7 +90,7 @@ net = nn.Conv2d(3, 64, 3, weight_init=XavierNormal())
 output = net(input_data)
 ```
 
-## Cell traversal initialization
+## Cell Traversal Initialization
 
 In addition to using parameters ``weight_init``, ``bias_init``, etc., provided by ``mindspore.nn``, we are also used to constructing a complete neural network first, and then uniformly managing the ``weight``, ``bias`` and other parameters. At this time, you need to construct a network and instantiate it, then traverse the cell and assign values to parameters. Here is a simple example:
 
