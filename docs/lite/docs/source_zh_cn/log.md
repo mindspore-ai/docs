@@ -18,4 +18,17 @@
 
 - `GLOG_log_dir`
 
-    该环境变量指定日志输出的路径，用户须确保指定的路径真实存在。  
+    该环境变量指定日志输出的路径，用户须确保指定的路径真实存在。
+
+## 用户自定义设置GLOG选项
+
+针对特定情况，`mindspore lite`支持用户自定义配置GLOG相关参数。用户可以通过设置`GLOG_USER_DEFINE`参数为`on`，实现日志的自定义配置。针对特定的GLOG选项，可以通过`FLAGS_**`进行配置，详细配置见下表格。
+
+| 配置项               | 含义 |
+|-----------------------| :----------: |
+| FLAGS_log_prefix | 日志前缀 |
+| FLAGS_logbufsecs | 日志实时写入文件 |
+| FLAGS_v | 日志级别 |
+| FLAGS_logfile_mode | 日志文件权限模式 |
+| FLAGS_max_log_size | 日志文件大小 |
+| FLAGS_logtostderr | 日志是否打印到屏幕 |
