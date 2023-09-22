@@ -84,6 +84,15 @@
 },
 {
     "id" : 10 ,
+    "name" : "sciai",
+    "branch" : "master",
+    "whl_path" : "/mindscience/website/sciai/gpu/x86_64/cuda-11.1/",
+    "whl_name" : "sciai-.*-cp37-cp37m-linux_x86_64.whl$",
+    "environ" : "MSC_PATH",
+    "uninstall_name" : "sciai"
+},
+{
+    "id" : 11 ,
     "name" : "mindearth",
     "branch" : "master",
     "whl_path" : "/mindscience/website/mindearth/gpu/x86_64/cuda-11.1/",
@@ -92,7 +101,7 @@
     "uninstall_name" : "mindearth_gpu"
 },
 {
-    "id" : 11 ,
+    "id" : 12 ,
     "name" : "mindelec",
     "branch" : "master",
     "whl_path" : "/mindscience/website/mindelec/x86_64",
@@ -101,7 +110,7 @@
     "uninstall_name" : "mindelec_ascend"
 },
 {
-    "id" : 12 ,
+    "id" : 13 ,
     "name" : "mindsponge",
     "branch" : "master",
     "whl_path" : "/mindscience/website/mindsponge/gpu/x86_64/cuda-10.1/",
@@ -110,7 +119,7 @@
     "uninstall_name" : "mindsponge_gpu"
 },
 {
-    "id" : 13 ,
+    "id" : 14 ,
     "name" : "mindflow",
     "branch" : "master",
     "whl_path" : "mindscience/website/mindflow/gpu/x86_64/cuda-11.1/",
@@ -119,7 +128,7 @@
     "uninstall_name" : "mindflow_gpu"
 },
 {
-    "id" : 14 ,
+    "id" : 15 ,
     "name" : "mindpandas",
     "branch" : "master",
     "whl_path" : "/mindpandas/website/any/",
@@ -128,7 +137,7 @@
     "uninstall_name" : "mindpandas"
 },
 {
-    "id" : 15 ,
+    "id" : 16 ,
     "name" : "devtoolkit",
     "branch" : "master",
     "whl_path" : "",
@@ -137,7 +146,7 @@
     "uninstall_name" : ""
 },
 {
-    "id" : 16 ,
+    "id" : 17 ,
     "name" : "golden_stick",
     "branch" : "master",
     "whl_path" : "/golden-stick/website/any/",
@@ -146,7 +155,7 @@
     "uninstall_name" : "mindspore_gs"
 },
 {
-    "id" : 17 ,
+    "id" : 18 ,
     "name" : "mindinsight",
     "branch" : "master",
     "whl_path" : "/mindinsight/website/any",
@@ -155,7 +164,7 @@
     "uninstall_name" : "mindinsight"
 },
 {
-    "id" : 18 ,
+    "id" : 19 ,
     "name" : "tutorials",
     "branch" : "master",
     "whl_path" : "",
@@ -164,7 +173,7 @@
     "uninstall_name" : ""
 },
 {
-    "id" : 19 ,
+    "id" : 20 ,
     "name" : "federated",
     "branch" : "master",
     "whl_path" : "/federated/website/x86_64/",
@@ -173,7 +182,7 @@
     "uninstall_name" : "mindspore_federated"
 },
 {
-    "id" : 20 ,
+    "id" : 21 ,
     "name" : "recommender",
     "branch" : "master",
     "whl_path" : "/mindrec/website/any/",
@@ -182,7 +191,7 @@
     "uninstall_name" : "mindspore_rec"
 },
 {
-    "id" : 21 ,
+    "id" : 22 ,
     "name" : "probability",
     "branch" : "master",
     "whl_path" : "",
@@ -191,7 +200,7 @@
     "uninstall_name" : ""
 },
 {
-    "id" : 22 ,
+    "id" : 23 ,
     "name" : "graphlearning",
     "branch" : "master",
     "whl_path" : "/graphlearning/website/gpu/x86_64/cuda-10.1/",
