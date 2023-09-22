@@ -14,12 +14,11 @@ MindSpore和MindSpore Lite针对不同的硬件平台有不同的构建包，每
 |---------| --- | --- | -------- |
 |MindSpore| Nvidia GPU | Nvidia GPU | `MindIR` |
 |  | Ascend | Ascend 910 | `MindIR` |
-|  |  | Ascend 310P/310 | `MindIR`, `OM` |
 |MindSpore Lite| Nvidia GPU | Nvidia GPU, CPU | `MindIR_Lite` |
 |  | Ascend | Ascend 310P/310, CPU | `MindIR_Lite` |
 |  | CPU | CPU | `MindIR_Lite` |
 
-当以[MindSpore](https://www.mindspore.cn/)作为推理后端时，MindSpore Serving当前支持Ascend 910/310P/310和Nvidia GPU环境。其中Ascend 310P/310环境支持`OM`和`MindIR`两种模型格式，Ascend 910和GPU环境仅支持`MindIR`模型格式。
+当以[MindSpore](https://www.mindspore.cn/)作为推理后端时，MindSpore Serving当前支持Ascend 910和Nvidia GPU环境。Ascend 910和GPU环境仅支持`MindIR`模型格式。
 
 由于MindSpore Serving与MindSpore有依赖关系，请按照根据下表中所指示的对应关系，在[MindSpore下载页面](https://www.mindspore.cn/versions)下载并安装对应的whl包。
 

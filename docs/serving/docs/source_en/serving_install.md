@@ -14,12 +14,11 @@ MindSpore and MindSpore Lite have different build packages for different hardwar
 |---------| --- | --- | -------- |
 |MindSpore| Nvidia GPU | Nvidia GPU | `MindIR` |
 |  | Ascend | Ascend 910 | `MindIR` |
-|  |  | Ascend 310P/310 | `MindIR`, `OM` |
 |MindSpore Lite| Nvidia GPU | Nvidia GPU, CPU | `MindIR_Lite` |
 |  | Ascend | Ascend 310P/310, CPU | `MindIR_Lite` |
 |  | CPU | CPU | `MindIR_Lite` |
 
-When [MindSpore](https://www.mindspore.cn/) is used as the inference backend, MindSpore Serving supports the Ascend 910/310P/310 and Nvidia GPU environments. The Ascend 310P/310 environment supports both `OM` and `MindIR` model formats, and the Ascend 910 and GPU environment only supports the `MindIR` model format.
+When [MindSpore](https://www.mindspore.cn/) is used as the inference backend, MindSpore Serving supports the Ascend 910 and Nvidia GPU environments. Ascend 910 and GPU environment only supports the `MindIR` model format.
 
 Due to the dependency between MindSpore Serving and MindSpore, please follow the table below, download and install the corresponding MindSpore verision from [MindSpore download page](https://www.mindspore.cn/versions/en).
 
