@@ -21,7 +21,7 @@
    * - MS_BUILD_PROCESS_NUM
      - Ascend后端编译时，指定并行编译进程数。
        
-       注意：仅Ascend AI处理器环境使用。
+       注意：仅Ascend910 AI处理器环境使用，Ascend 910B上不生效。
      - Integer
      - 1~24：允许设置并行进程数取值范围
      - 
@@ -61,7 +61,7 @@
    * - MS_DEV_DISABLE_PREBUILD
      - Ascend后端编译时，关闭算子预编译，默认不设置此环境变量。算子预编译可能会修正算子注册的fusion_type属性进而影响到算子融合，如遇到融合算子性能较差时，可尝试开启此环境变量验证是否是融合算子本身问题。
 
-       注意：仅Ascend AI处理器环境使用。
+       注意：仅Ascend910 AI处理器环境使用，Ascend 910B上不生效。
      - Boolean
      - true：关闭预编译 
 
