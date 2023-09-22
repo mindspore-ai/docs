@@ -22,7 +22,6 @@
    parallel/model_save_load
    parallel/recover
    parallel/optimize_technique
-   parallel/platform_differences
    parallel/others
    parallel/distributed_case
 

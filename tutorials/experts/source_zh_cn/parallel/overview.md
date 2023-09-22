@@ -59,3 +59,31 @@ MindSpore目前支持三种启动方式：
 - **通信优化**：
     - **通信融合**：通信融合可以将相同源节点和目标节点的通信算子合并到一次通信过程，避免多次通信带来额外开销。详细可参考[通信融合](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/comm_fusion.html)。
     - **通信子图提取与复用**：通过对通信算子提取通信子图，替换原本的通信算子，可以减少通信耗时，同时减少模型编译时间。详细可参考[通信子图提取与复用](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/comm_subgraph.html)。
+
+## 不同平台差异
+
+在分布式训练中，不同硬件平台（Ascend、CPU或者GPU）支持的特性也有所不同，用户可以根据自己的平台选择对应的分布式启动方式、并行模式和优化方法。
+
+## 启动方式的差异
+
+- Ascend支持动态组网、mpirun以及rank table启动三种启动方式。
+- GPU支持动态组网和mpirun两种启动方式。
+- CPU仅支持动态组网启动。
+
+详细过程请参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)。
+
+### 并行方式的差异
+
+- Ascend和GPU支持所有并行方式，包括数据并行、半自动并行、自动并行等。
+- CPU仅支持数据并行。
+
+详细过程请参考[数据并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/data_parallel.html)、[半自动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/semi_auto_parallel.html)、[自动并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/auto_parallel.html)。
+
+### 优化特性支持的差异
+
+- Ascend支持所有的优化特性。
+- GPU支持除了通信子图提取与复用以外的优化特性。
+- CPU不支持优化特性。
+
+详细过程请参考[优化方法](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/optimize_technique.html)。
+
