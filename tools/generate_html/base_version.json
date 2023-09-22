@@ -175,6 +175,15 @@
     {
         "version": "master",
         "label": {
+            "zh": "MindSpore SciAI",
+            "en": "MindSpore SciAI"
+        },
+        "repo_name": "sciai",
+        "theme": "theme-docs"
+    },
+    {
+        "version": "master",
+        "label": {
             "zh": "MindSpore SPONGE",
             "en": "MindSpore SPONGE"
         },
