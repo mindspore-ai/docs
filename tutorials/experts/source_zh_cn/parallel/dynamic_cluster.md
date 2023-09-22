@@ -40,7 +40,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left">指定Scheduler的IP地址。</td>
         <td align="left">String</td>
         <td align="left">合法的IP地址。</td>
-        <td align="left">当前版本暂不支持IPv6地址。</td>
+        <td align="left">当前版本还支持Ascend平台下的IPv6地址。在使用IPv6地址进行组网时，环境变量<b>MS_HCCL_CM_INIT</b>必须被设置为1。</td>
     </tr>
     <tr>
         <td align="left">MS_SCHED_PORT</td>
@@ -80,6 +80,13 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left">只在Parameter Server训练模式下需要设置。</td>
     </tr>
     <tr>
+        <td align="left">MS_WORKER_IP</td>
+        <td align="left">指定当前进程和其他进程进行通信和组网使用的IP地址。</td>
+        <td align="left">String</td>
+        <td align="left">合法的IP地址。</td>
+        <td align="left">在使用IPv6地址进行组网时，此环境变量必须被设置。但当用户设置MS_SCHED_HOST为<b>::1</b>时（代表IPv6的本地回环地址），无需设置此环境变量，这是因为MindSpore会默认使用本地回环地址进行通信。</td>
+    </tr>
+    <tr>
         <td align="left">MS_ENABLE_RECOVERY</td>
         <td align="left">开启容灾。</td>
         <td align="left">Integer</td>
@@ -97,8 +104,8 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left">MS_HCCL_CM_INIT</td>
         <td align="left">是否使用CM方式初始化HCCL。</td>
         <td align="left">Integer</td>
-        <td align="left">1代表是，0代表否。默认为0。</td>
-        <td align="left">此环境变量只在<b>Ascend硬件平台并且通信域数量较多</b>的情况下建议开启。开启此环境变量后，能够降低HCCL集合通信库的内存占用，并且训练任务执行方式与`rank table`启动方式相同。</td>
+        <td align="left">1代表是，其他值代表否。默认为否。</td>
+        <td align="left">此环境变量只在<b>Ascend硬件平台并且通信域数量较多</b>的情况下建议开启。开启此环境变量后，能够降低HCCL集合通信库的内存占用，并且训练任务执行方式与<b>rank table</b>启动方式相同。</td>
     </tr>
 </table>
 

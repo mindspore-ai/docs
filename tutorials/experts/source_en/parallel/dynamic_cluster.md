@@ -40,7 +40,7 @@ The relevant environment variables:
         <td align="left">Specifies the IP address of the Scheduler.</td>
         <td align="left">String</td>
         <td align="left">Legal IP address.</td>
-        <td align="left">The current version does not support IPv6 addresses.</td>
+        <td align="left">IPv6 addresses are only supported on `Ascend` platform in current version. In IPv6 case, environment variable <b>MS_HCCL_CM_INIT</b> must be set to true.</td>
     </tr>
     <tr>
         <td align="left">MS_SCHED_PORT</td>
@@ -80,6 +80,13 @@ The relevant environment variables:
         <td align="left">Only set in Parameter Server training mode.</td>
     </tr>
     <tr>
+        <td align="left">MS_WORKER_IP</td>
+        <td align="left">Specifies the IP address used for communication and networking between processes.</td>
+        <td align="left">String</td>
+        <td align="left">Legitimate IP address.</td>
+        <td align="left">This environment variable must be set when using IPv6. But when MS_SCHED_HOST is set to <b>::1</b>(Representing local loopback interface in IPv6), there's no need to set MS_WORKER_IP because MindSpore will use local loopback interface to communicate by default.</td>
+    </tr>
+    <tr>
         <td align="left">MS_ENABLE_RECOVERY</td>
         <td align="left">Turn on disaster recovery.</td>
         <td align="left">Integer</td>
@@ -97,8 +104,8 @@ The relevant environment variables:
         <td align="left">MS_HCCL_CM_INIT</td>
         <td align="left">Whether to use the CM method to initialize the HCCL.</td>
         <td align="left">Integer</td>
-        <td align="left">1 for yes, 0 for no. The default is 0.</td>
-        <td align="left">This environment variable is only recommended to be turned on for <b>Ascend hardware platforms with a large number of communication domains</b>. Turning on this environment variable reduces the memory footprint of the HCCL collection of communication libraries, and the training tasks are executed in the same way as `rank table` startup method.</td>
+        <td align="left">1 for yes, other values for no. The default is no.</td>
+        <td align="left">This environment variable is only recommended to be turned on for <b>Ascend hardware platforms with a large number of communication domains</b>. Turning on this environment variable reduces the memory footprint of the HCCL collection of communication libraries, and the training tasks are executed in the same way as <b>rank table</b> startup method.</td>
     </tr>
 </table>
 
