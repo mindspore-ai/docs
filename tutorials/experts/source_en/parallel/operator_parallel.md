@@ -81,13 +81,14 @@ Among them, `distributed_operator_parallel.py` is the script that defines the ne
 
 ### Configuring the Distributed Environment
 
-Specify the run mode, run device, run card number, etc. through the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode, and initialize HCCL or NCCL communication through init. If `device_target` is not set here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
+Specify the run mode, run device, run card number, etc. through the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode, and initialize HCCL or NCCL communication through init. `max_device_memory` limits the maximum amount of device memory a model can have, in order to leave enough device memory for communication on the Ascend hardware platform. If `device_target` is not set here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
 
 ```python
 import mindspore as ms
 from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_context(max_device_memory="28GB")
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 init()
 ms.set_seed(1)

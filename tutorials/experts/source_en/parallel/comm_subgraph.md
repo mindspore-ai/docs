@@ -164,8 +164,6 @@ The parameter layer2.bias's fusion id is 1
 The parameter layer3.weight's fusion id is 1
 The parameter layer3.bias's fusion id is 1
 ...
-MAX_COMM_OP_REUSE_NUM: 3
-...
 epoch: 0, step: 0, loss is 2.3190787
 epoch: 0, step: 10, loss is 1.9131156
 epoch: 0, step: 20, loss is 1.546958
@@ -176,4 +174,15 @@ epoch: 0, step: 60, loss is 0.7244837
 ...
 ```
 
-The first part indicates the fusion index of each parameter, and the parameters with the same index will be fused when communicating. The second part "MAX_COMM_OP_REUSE_NUM: 3" indicates that the upper limit of the communication operator that can be multiplexed is 3, and the third part is the result of Loss.
+The first part indicates the fusion index of each parameter, and the parameters with the same index will be fused when communicating. The second part is the result of Loss.
+
+If INFO logging is turned on via `export GLOG_v=1`, the following is printed:
+
+```text
+...
+MAX_COMM_OP_REUSE_NUM: 3
+...
+```
+
+It denotes an upper bound of 3 on the number of communication operators that can be reused.
+
