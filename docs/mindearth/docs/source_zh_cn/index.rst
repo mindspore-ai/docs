@@ -28,6 +28,13 @@ MindSpore Earth介绍
    medium-range/vit_kno
 
 .. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 短临预报
+
+   nowcasting/dgmr
+
+.. toctree::
    :maxdepth: 1
    :caption: API参考
 
