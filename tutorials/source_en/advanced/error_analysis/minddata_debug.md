@@ -1,10 +1,10 @@
-# Data Processing Debugging Schemes and Common Errors Analysis
+# Data Processing Debugging Methods and Common Errors Analysis
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/error_analysis/minddata_debug.md)&nbsp;&nbsp;
 
-## Data Processing Debugging Schemes
+## Data Processing Debugging Methods
 
-### Debugging Scheme 1: Print Logs or Add Debug Points
+### Method 1: Errors in Data Processing Execution, Print Logs or Add Debug Points to Code Debugging
 
 When using `GeneratorDataset` or `map` to load/process data, there may be syntax errors, calculation overflow and other issues that cause data errors, you can generally follow the steps below to troubleshoot and debug:
 
@@ -116,17 +116,20 @@ exception occurred division by zero
 (Pdb)
 ```
 
-### Debugging Scheme 2: Testing the Input and Output of the Map Operation
+### Method 2: Data-enhanced Map Operation Error, Testing the Each Data Processing Operator in the Map Operation
 
 Embedding data augmentation transformations into the `map` operation of a data pipeline can sometimes result in errors that are not easily debugged.
-The following example shows an example of embedding a `Crop` enhancement into a `map` operation to crop data, but an error is reported due to an error in the shape of the input object.
+The following example shows an example of embedding a `RandomResize` and `Crop` enhancements into a `map` operation to crop data,
+but an error is reported due to an error in the transformed shape of the input object.
+
+#### Way One: Debugging Through the Execution of Individual Operators
 
 ```python
 import numpy as np
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 
-class Loader:
+class MyDataset:
     def __init__(self):
         self.data = [np.ones((32, 32, 3)), np.ones((3, 48, 48))]
     def __getitem__(self, index):
@@ -135,9 +138,10 @@ class Loader:
         return len(self.data)
 
 
-dataloader = ds.GeneratorDataset(Loader(), column_names=["data"])
-dataloader = dataloader.map(vision.Crop(coordinates=(0, 0), size=(8, 8)))
-for data in dataloader:
+dataset = ds.GeneratorDataset(MyDataset(), column_names=["data"])
+transforms_list = [vision.RandomResize((3, 16)), vision.Crop(coordinates=(0, 0), size=(8, 8))]
+dataset = dataset.map(operations=transforms_list)
+for data in dataset:
     print("data", data)
 ```
 
@@ -152,7 +156,7 @@ When executing the above example you get the following error, but based on the e
 ------------------------------------------------------------------
 - C++ Call Stack: (For framework developers)
 ------------------------------------------------------------------
-mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(34).
+mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(33).
 ```
 
 From the Dataset Pipeline Error Message, we can see that the error is thrown by `Crop` during the calculation. So you can rewrite the dataset pipeline a bit to print the input and output of `Crop` and add printing for debugging.
@@ -162,7 +166,7 @@ import numpy as np
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 
-class Loader:
+class MyDataset:
     def __init__(self):
         self.data = [np.ones((32, 32, 3)), np.ones((3, 48, 48))]
 
@@ -173,35 +177,32 @@ class Loader:
         return len(self.data)
 
 
-def CropWrapper(data):
-    op = vision.Crop(coordinates=(0, 0), size=(8, 8))
-    print(">>> debug: before apply crop, data shape", data.shape)
-    data = op(data)
-    print(">>> debug:before apply crop, data shape", data.shape)
+def MyWrapper(data):
+    transforms_list = [vision.RandomResize((3, 16)), vision.Crop(coordinates=(0, 0), size=(8, 8))]
+    for transforms in transforms_list:
+        print(">>> debug: apply transforms: ", type(transforms))
+        print(">>> debug: before apply transforms, data shape", data.shape)
+        data = transforms(data)
+        print(">>> debug: after apply transforms, data shape", data.shape)
     return data
 
 
-dataloader = ds.GeneratorDataset(Loader(), column_names=["data"], shuffle=False)
-dataloader = dataloader.map(CropWrapper)
+dataset = ds.GeneratorDataset(MyDataset(), column_names=["data"], shuffle=False)
+dataset = dataset.map(MyWrapper)
 ds.config.set_num_parallel_workers(1)
-for data in dataloader:
+for data in dataset:
     print("data", data[0].shape)
 ```
 
 Running it again yields the following.
 
 ```text
->>> debug: before apply crop, data shape (32, 32, 3)
->>> debug:before apply crop, data shape (8, 8, 3)
-data (8, 8, 3)
->>> debug: before apply crop, data shape (3, 48, 48)
-Traceback (most recent call last):
-  File "test_cv.py", line 25, in <module>
-    for data in dataloader:
-  File "/.../mindspore/python/mindspore/dataset/engine/iterators.py", line 145, in __next__
-    data = self._get_next()
-  File "/.../mindspore/mindspore/python/mindspore/dataset/engine/iterators.py", line 294, in _get_next
-    return [self._transform_md_to_output(t) for t in self._iterator.GetNextAsList()]
+>>> debug: apply transforms:  <class 'mindspore.dataset.vision.transforms.RandomResize'>
+>>> debug: before apply transforms, data shape (32, 32, 3)
+>>> debug: after apply transforms, data shape (3, 16, 3)
+>>> debug: apply transforms:  <class 'mindspore.dataset.vision.transforms.Crop'>
+>>> debug: before apply transforms, data shape (3, 16, 3)
+
 RuntimeError: Exception thrown from user defined Python function in dataset.
 
 ------------------------------------------------------------------
@@ -212,25 +213,33 @@ RuntimeError: Exception thrown from user defined Python function in dataset.
 ------------------------------------------------------------------
 - C++ Call Stack: (For framework developers)
 ------------------------------------------------------------------
-mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(34).
+mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(33).
 ```
 
-According to the printed information you can see that `Crop` processed 2 samples, the first sample has a shape (32, 32, 3) which can be transformed to (8, 8, 3) normally. The second sample has a shape of (3, 48, 48), but the error is reported without printing the transformed shape. Therefore it is this sample that cannot be processed by `Crop` and the error occurs. Further, according to the Dataset Pipeline Error Message, the input sample has a height of only 3, but is expected to be cropped to a region with a high dimension of 8, hence the error is reported.
+According to the printed information you can see that `Crop` processed the first sample and reported an error. The shape of the first sample (32, 32, 3), was transformed by `RandomResize` to (3, 16, 3), but the shape transformed by `Crop` did not printed and then an error is reported. So it is the fact that the shape cannot be processed by `Crop` that causes the error. Further, according to the Dataset Pipeline Error Message, the input sample has a height of only 3, but is expected to be cropped to a region with a high dimension of 8, hence the error is reported.
 
 Checking the [API description](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html) of `Crop` , `Crop` requires the input sample to be in shape <H, W> or <H, W, C>, so `Crop` treats (3, 48, 48) as <H, W, C>, and naturally it can't crop out the region with H=8, W=8 when H=3, W=48, C=48.
 
-To quickly fix this, we just need to adjust the input sample shape to <H, W, C>, i.e. change it to np.ones((48, 48, 3)), and run it again to find that the use case passes.
+To quickly fix this, We just need to change the parameter size of `RandomResize` from (3, 16) to (16, 16), and run it again to find that the use case passes.
 
 ```text
->>> debug: before apply crop, data shape (32, 32, 3)
->>> debug:before apply crop, data shape (8, 8, 3)
+>>> debug: apply transforms:  <class 'mindspore.dataset.vision.transforms.RandomResize'>
+>>> debug: before apply transforms, data shape (32, 32, 3)
+>>> debug: after apply transforms, data shape (16, 16, 3)
+>>> debug: apply transforms:  <class 'mindspore.dataset.vision.transforms.Crop'>
+>>> debug: before apply transforms, data shape (16, 16, 3)
+>>> debug: after apply transforms, data shape (8, 8, 3)
 data (8, 8, 3)
->>> debug: before apply crop, data shape (48, 48, 3)
->>> debug:before apply crop, data shape (8, 8, 3)
-data (8, 8, 3)
+>>> debug: apply transforms:  <class 'mindspore.dataset.vision.transforms.RandomResize'>
+>>> debug: before apply transforms, data shape (3, 48, 48)
+>>> debug: after apply transforms, data shape (16, 16, 48)
+>>> debug: apply transforms:  <class 'mindspore.dataset.vision.transforms.Crop'>
+>>> debug: before apply transforms, data shape (16, 16, 48)
+>>> debug: after apply transforms, data shape (8, 8, 48)
+data (8, 8, 48)
 ```
 
-### Debugging Scheme 3: Dataset Pipline Debug Mode Debugging Input and Output of Map Operation
+#### Way Two: Debugging Map Operation Through Data Pipline Debugging Mode
 
 We can also turn on the dataset pipline debug mode by calling the [set_debug_mode](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_debug_mode.html) .
 When debug mode is enabled, the random seed is set to 1 if it is not already set, so that executing the dataset pipeline in debug mode can yield deterministic results.
@@ -240,7 +249,7 @@ The process is as follows:
 1. Print the shape and type of the input and output data for each transform op in the `map` operator.
 2. Enable the dataset pipeline debug mode and use either a predefined debug hook provided by MindData or a user-defined debug hook. It must define the class inherited from [DebugHook](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.debug.DebugHook.html).
 
-The following is a modification of the `Data Processing Debugging Scheme 2` use case, using the predefined debug hooks provided by MindData.
+The following is a modification of the `Way One` use case, using the predefined debug hooks provided by MindData.
 
 ```python
 import numpy as np
@@ -248,7 +257,7 @@ import mindspore.dataset as ds
 import mindspore.dataset.debug as debug
 import mindspore.dataset.vision as vision
 
-class Loader:
+class MyDataset:
     def __init__(self):
         self.data = [np.ones((32, 32, 3)), np.ones((3, 48, 48))]
 
@@ -263,10 +272,10 @@ class Loader:
 ds.config.set_debug_mode(True)
 
 # Define dataset pipeline
-dataset = ds.GeneratorDataset(Loader(), column_names=["data"])
+dataset = ds.GeneratorDataset(MyDataset(), column_names=["data"])
 
-# Insert debug hook after `Crop` operation.
-dataset = dataset.map([vision.Crop(coordinates=(0, 0), size=(8, 8))])
+transforms_list = [vision.RandomResize((3, 16)), vision.Crop(coordinates=(0, 0), size=(8, 8))]
+dataset = dataset.map(operations=transforms_list)
 for i, data in enumerate(dataset):
     print("data count", i)
 ```
@@ -274,8 +283,10 @@ for i, data in enumerate(dataset):
 Running it yields the following correlation.
 
 ```text
-[Dataset debugger] Print the [INPUT] of the operation [Crop].
-Column 0. The dtype is [float64]. The shape is [(3, 48, 48)].
+[Dataset debugger] Print the [INPUT] of the operation [RandomResize].
+Column 0. The dtype is [float64]. The shape is [(32, 32, 3)].
+[Dataset debugger] Print the [OUTPUT] of the operation [RandomResize].
+Column 0. The dtype is [float64]. The shape is [(3, 16, 3)].
     ......
 E           RuntimeError: Exception thrown from dataset pipeline. Refer to 'Dataset Pipeline Error Message'.
 E
@@ -288,22 +299,25 @@ E           ------------------------------------------------------------------
 E           - C++ Call Stack: (For framework developers)
 E           ------------------------------------------------------------------
 E           mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(33).
-
-../../../mindspore/python/mindspore/dataset/engine/iterators.py:294: RuntimeError
 ```
 
-Based on the printed information, we can clearly see that `Crop` has a problem when processing the input shape (3, 48, 48). Also looking at `Crop`'s [API description](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html) , we just need to adjust the input sample shape to <H, W, C>, change it to np.ones((48, 48, 3)), and run it again to see that the use case passes.
+Based on the printed information, we can clearly see that `Crop` is getting an error when processing the input shape of
+(3, 16, 3). Refer to `Crop`'s [API description](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html), and we just need to change the parameter size of `RandomResize` from (3, 16) to (16, 16), and run it again to see that the use case passes.
 
 ```text
-[Dataset debugger] Print the [INPUT] of the operation [Crop].
-Column 0. The dtype is [float64]. The shape is [(48, 48, 3)].
+[Dataset debugger] Print the [INPUT] of the operation [RandomResize].
+Column 0. The dtype is [float64]. The shape is [(32, 32, 3)].
+[Dataset debugger] Print the [OUTPUT] of the operation [RandomResize].
+Column 0. The dtype is [float64]. The shape is [(16, 16, 3)].
 [Dataset debugger] Print the [OUTPUT] of the operation [Crop].
 Column 0. The dtype is [float64]. The shape is [(8, 8, 3)].
 ******data count 0
-[Dataset debugger] Print the [INPUT] of the operation [Crop].
-Column 0. The dtype is [float64]. The shape is [(32, 32, 3)].
+[Dataset debugger] Print the [INPUT] of the operation [RandomResize].
+Column 0. The dtype is [float64]. The shape is [(3, 48, 48)].
+[Dataset debugger] Print the [OUTPUT] of the operation [RandomResize].
+Column 0. The dtype is [float64]. The shape is [(16, 16, 48)].
 [Dataset debugger] Print the [OUTPUT] of the operation [Crop].
-Column 0. The dtype is [float64]. The shape is [(8, 8, 3)].
+Column 0. The dtype is [float64]. The shape is [(8, 8, 48)].
 ******data count 1
 ```
 
@@ -328,7 +342,7 @@ class MyHook(debug.DebugHook):
         return args
 
 
-class Loader:
+class MyDataset:
     def __init__(self):
         self.data = [np.ones((32, 32, 3)), np.ones((3, 48, 48))]
 
@@ -342,10 +356,12 @@ class Loader:
 # Enable dataset pipeline debug mode and use pre-defined debug hook provided by MindData.
 ds.config.set_debug_mode(True, debug_hook_list=[MyHook()])
 
-# Define dataset pipeline
-dataset = ds.GeneratorDataset(Loader(), column_names=["data"])
+# Define dataset pipeline.
+dataset = ds.GeneratorDataset(MyDataset(), column_names=["data"])
 
-dataset = dataset.map([vision.Crop(coordinates=(0, 0), size=(8, 8)), MyHook()])
+# Insert debug hook before `Crop` operation.
+transforms_list = [vision.RandomResize((3, 16)), MyHook(), vision.Crop(coordinates=(0, 0), size=(8, 8))]
+dataset = dataset.map(operations=transforms_list)
 ```
 
 Next you can start your debugging:
@@ -360,7 +376,7 @@ come into my hook function, block with pdb
 (Pdb)
 ```
 
-### Debugging Scheme 4: Testing Data Processing Performance
+### Method 3: Testing Data Processing Performance
 
 When training is initiated using MindSpore and the training log keeps printing with many entries, it is likely that there is a problem with slower data processing.
 
@@ -511,7 +527,7 @@ From the 7th piece of data, every piece of data will sleep 60 seconds before out
 
 In real training scenarios, there are different reasons for slow network training, but the analysis method is similar. We can iterate through the data individually to determine if the slow data processing is the cause of the low training performance.
 
-### Debugging Scheme 5: Checking For Exception Data In Data Processing
+### Method 4: Checking For Exception Data In Data Processing
 
 In the process of processing data, abnormal result values may be generated due to computational errors, numerical overflow, etc., which can lead to problems such as operator computation overflow and abnormal weight updates when training the network. This scheme describes how to debug and check abnormal data behavior/data results.
 
