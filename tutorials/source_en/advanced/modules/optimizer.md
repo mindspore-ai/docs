@@ -328,7 +328,7 @@ from mindspore.experimental import optim
 
 net = Net()
 optimizer = optim.Adam(net.trainable_params(), lr=0.1)
-scheduler = optim.StepLR(optimizer, step_size=30, gamma=0.1)
+scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1)
 print(scheduler.get_last_lr())
 ```
 
@@ -374,7 +374,7 @@ print(optimizer.param_groups)
 [{'params': [Parameter (name=conv.weight, shape=(6, 1, 5, 5), dtype=Float32, requires_grad=True)], 'weight_decay': 0.01, 'lr': Parameter (name=learning_rate_group_0, shape=(), dtype=Float32, requires_grad=True), 'amsgrad': True, 'betas': (0.9, 0.999), 'eps': 1e-08, 'maximize': False}, {'params': [Parameter (name=param, shape=(1,), dtype=Float32, requires_grad=True)], 'lr': Parameter (name=learning_rate_group_1, shape=(), dtype=Float32, requires_grad=True), 'eps': 1e-06, 'betas': (0.8, 0.88), 'weight_decay': 0.0, 'amsgrad': False, 'maximize': False}]
 ```
 
-As you can see from the above output, the learning rate in the optimizer parameter group is `Parameter`. `Parameter` in mindspore does not display the parameter value natively, and you can view the parameter value by using `.value()`. It can use `get_lr` of `mindspore.nn.LRScheduler` from Dynamic Learning Rate Module `mindspore.nn.LRScheduler` as described above or set `verbose=True`.
+As you can see from the above output, the learning rate in the optimizer parameter group is `Parameter`. `Parameter` in mindspore does not display the parameter value natively, and you can view the parameter value by using `.value()`. It can use `get_last_lr` of Dynamic Learning Rate Module `mindspore.experimental.optim.lr_scheduler.LRScheduler` as described above.
 
 ```python
 print(optimizer.param_groups[1]["lr"].value())
@@ -414,7 +414,7 @@ Parameter Group 1
 
 #### Modifying Learning Rate during Running
 
-The learning rate in `mindspore.experimental.optim.Optimizer` is `Parameter`, in addition to the dynamic modification of the learning rate through the dynamic learning rate module `mindspore.nn.lr_scheduler` as described above, the modification of the learning rate using the `assign` assignment is also supported.
+The learning rate in `mindspore.experimental.optim.Optimizer` is `Parameter`, in addition to the dynamic modification of the learning rate through the dynamic learning rate module `mindspore.experimental.optim.lr_scheduler` as described above, the modification of the learning rate using the `assign` assignment is also supported.
 
 For example, in the sample below, in the training step, set the learning rate of 1st parameter group in the optimizer to be adjusted to 0.01 if the change in the loss value compared to the previous step is less than 0.1:
 
@@ -422,7 +422,7 @@ For example, in the sample below, in the training step, set the learning rate of
 net = Net()
 loss_fn = nn.MAELoss()
 optimizer = optim.Adam(net.trainable_params(), lr=0.1)
-scheduler = optim.StepLR(optimizer, step_size=10, gamma=0.5)
+scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.5)
 last_step_loss = 0.1
 
 def forward_fn(data, label):
@@ -450,7 +450,7 @@ In the following sample, in the training step, set the `weight_decay` of 1st par
 net = Net()
 loss_fn = nn.MAELoss()
 optimizer = optim.Adam(net.trainable_params(), lr=0.1)
-scheduler = optim.StepLR(optimizer, step_size=10, gamma=0.5)
+scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.5)
 last_step_loss = 0.1
 
 def forward_fn(data, label):
