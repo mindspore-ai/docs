@@ -60,7 +60,7 @@ MindSpore：读取IWSLT2016数据集，不支持下载。
 # PyTorch
 import torchtext.datasets as datasets
 
-root = "/path/to/dataset_directory/"
+root = "/path/to/dataset_root/"
 train_iter, valid_iter, test_iter = datasets.IWSLT2016(root, split=('train', 'valid', 'test'))
 data = next(iter(train_iter))
 
