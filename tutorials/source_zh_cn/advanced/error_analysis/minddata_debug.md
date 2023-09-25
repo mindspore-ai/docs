@@ -1,10 +1,10 @@
-# 数据处理调试方案与常见问题分析
+# 数据处理调试方法与常见问题分析
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/error_analysis/minddata_debug.md)&nbsp;&nbsp;
 
-## 数据处理调试方案
+## 数据处理调试方法
 
-### 调试方案1：添加打印或调试点
+### 方法1：数据处理执行出错，添加打印或调试点到代码中调试
 
 使用 `GeneratorDataset` 或 `map` 进行加载/处理数据时，可能会因为语法错误、计算溢出等问题导致数据报错，一般可以按如下步骤进行排查和调试：
 
@@ -116,17 +116,19 @@ exception occurred division by zero
 (Pdb)
 ```
 
-### 调试方案2：测试map操作的输入输出
+### 方法2：数据增强map操作出错，调试map操作中各个数据处理算子
 
 将数据增强变换嵌入到数据pipeline的 `map` 操作中时，有时候会导致报错后不容易调试。
-以下例子展示了一个嵌入 `Crop` 增强到 `map` 操作中对数据进行裁剪的例子，但由于输入对象的shape有误导致报错。
+以下例子展示了一个嵌入 `RandomResize` 和 `Crop` 增强到 `map` 操作中对数据进行裁剪的例子，但由于输入对象的shape经过变换后有误导致报错。
+
+#### 方式一：通过单个算子执行的方式调试
 
 ```python
 import numpy as np
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 
-class Loader:
+class MyDataset:
     def __init__(self):
         self.data = [np.ones((32, 32, 3)), np.ones((3, 48, 48))]
     def __getitem__(self, index):
@@ -135,9 +137,10 @@ class Loader:
         return len(self.data)
 
 
-dataloader = ds.GeneratorDataset(Loader(), column_names=["data"])
-dataloader = dataloader.map(vision.Crop(coordinates=(0, 0), size=(8, 8)))
-for data in dataloader:
+dataset = ds.GeneratorDataset(MyDataset(), column_names=["data"])
+transforms_list = [vision.RandomResize((3, 16)), vision.Crop(coordinates=(0, 0), size=(8, 8))]
+dataset = dataset.map(operations=transforms_list)
+for data in dataset:
     print("data", data)
 ```
 
@@ -152,7 +155,7 @@ for data in dataloader:
 ------------------------------------------------------------------
 - C++ Call Stack: (For framework developers)
 ------------------------------------------------------------------
-mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(34).
+mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(33).
 ```
 
 从Dataset Pipeline Error Message的提示可以看到错误是由 `Crop` 在计算时抛出。因此可以稍微改写一下数据pipeline，对 `Crop` 的输入输出进行打印，并添加打印进行调试。
@@ -162,7 +165,7 @@ import numpy as np
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 
-class Loader:
+class MyDataset:
     def __init__(self):
         self.data = [np.ones((32, 32, 3)), np.ones((3, 48, 48))]
 
@@ -173,35 +176,32 @@ class Loader:
         return len(self.data)
 
 
-def CropWrapper(data):
-    op = vision.Crop(coordinates=(0, 0), size=(8, 8))
-    print(">>> debug: before apply crop, data shape", data.shape)
-    data = op(data)
-    print(">>> debug:before apply crop, data shape", data.shape)
+def MyWrapper(data):
+    transforms_list = [vision.RandomResize((3, 16)), vision.Crop(coordinates=(0, 0), size=(8, 8))]
+    for transforms in transforms_list:
+        print(">>> debug: apply transforms: ", type(transforms))
+        print(">>> debug: before apply transforms, data shape", data.shape)
+        data = transforms(data)
+        print(">>> debug: after apply transforms, data shape", data.shape)
     return data
 
 
-dataloader = ds.GeneratorDataset(Loader(), column_names=["data"], shuffle=False)
-dataloader = dataloader.map(CropWrapper)
+dataset = ds.GeneratorDataset(MyDataset(), column_names=["data"], shuffle=False)
+dataset = dataset.map(MyWrapper)
 ds.config.set_num_parallel_workers(1)
-for data in dataloader:
+for data in dataset:
     print("data", data[0].shape)
 ```
 
 再次运行得到以下相关内容:
 
 ```text
->>> debug: before apply crop, data shape (32, 32, 3)
->>> debug:before apply crop, data shape (8, 8, 3)
-data (8, 8, 3)
->>> debug: before apply crop, data shape (3, 48, 48)
-Traceback (most recent call last):
-  File "test_cv.py", line 25, in <module>
-    for data in dataloader:
-  File "/.../mindspore/python/mindspore/dataset/engine/iterators.py", line 145, in __next__
-    data = self._get_next()
-  File "/.../mindspore/mindspore/python/mindspore/dataset/engine/iterators.py", line 294, in _get_next
-    return [self._transform_md_to_output(t) for t in self._iterator.GetNextAsList()]
+>>> debug: apply transforms:  <class 'mindspore.dataset.vision.transforms.RandomResize'>
+>>> debug: before apply transforms, data shape (32, 32, 3)
+>>> debug: after apply transforms, data shape (3, 16, 3)
+>>> debug: apply transforms:  <class 'mindspore.dataset.vision.transforms.Crop'>
+>>> debug: before apply transforms, data shape (3, 16, 3)
+
 RuntimeError: Exception thrown from user defined Python function in dataset.
 
 ------------------------------------------------------------------
@@ -212,25 +212,33 @@ RuntimeError: Exception thrown from user defined Python function in dataset.
 ------------------------------------------------------------------
 - C++ Call Stack: (For framework developers)
 ------------------------------------------------------------------
-mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(34).
+mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(33).
 ```
 
-根据打印的信息可以看到 `Crop` 处理了2个样本，第一个样本的shape(32, 32, 3)，可以被正常变换为(8, 8, 3)。第二个样本的shape为(3, 48, 48)，但是没有打印变换后的shape就报错了。因此正是此样本不能被 `Crop` 处理导致错误发生。进一步根据Dataset Pipeline Error Message的提示，输入样本的高只有3，但是期望裁剪出高维8的区域，所以报错。
+根据打印的信息可以看到 `Crop` 处理第一个样本时报错，第一个样本的shape(32, 32, 3)，被 `RandomResize` 变换为(3, 16, 3)，但是没有打印 `Crop` 变换后的shape就报错了。因此正是此时的shape不能被 `Crop` 处理导致错误发生。进一步根据Dataset Pipeline Error Message的提示，输入样本的高只有3，但是期望裁剪出高维8的区域，所以报错。
 
-查看 `Crop` 的 [API说明](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop) ，`Crop` 要求输入样本的shape为 <H, W> 或 <H, W, C>，所以 `Crop` 会把(3, 48, 48)当成<H, W, C>，当H=3, W=48，C=48时自然裁剪不出H=8, W=8的区域。
+查看 `Crop` 的 [API说明](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop) ，`Crop` 要求输入样本的shape为 <H, W> 或 <H, W, C>，所以 `Crop` 会把(3, 16, 3)当成<H, W, C>，当H=3, W=16，C=3时自然裁剪不出H=8, W=8的区域。
 
-为了快速修复此问题，我们只需要把输入的样本shape调整为<H, W, C>，即改为np.ones((48, 48, 3)), 再次执行就会发现用例通过。
+为了快速修复此问题，我们只需要把 `RandomResize` 的参数size由原来的(3, 16)改为(16, 16), 再次执行就会发现用例通过。
 
 ```text
->>> debug: before apply crop, data shape (32, 32, 3)
->>> debug:before apply crop, data shape (8, 8, 3)
+>>> debug: apply transforms:  <class 'mindspore.dataset.vision.transforms.RandomResize'>
+>>> debug: before apply transforms, data shape (32, 32, 3)
+>>> debug: after apply transforms, data shape (16, 16, 3)
+>>> debug: apply transforms:  <class 'mindspore.dataset.vision.transforms.Crop'>
+>>> debug: before apply transforms, data shape (16, 16, 3)
+>>> debug: after apply transforms, data shape (8, 8, 3)
 data (8, 8, 3)
->>> debug: before apply crop, data shape (48, 48, 3)
->>> debug:before apply crop, data shape (8, 8, 3)
-data (8, 8, 3)
+>>> debug: apply transforms:  <class 'mindspore.dataset.vision.transforms.RandomResize'>
+>>> debug: before apply transforms, data shape (3, 48, 48)
+>>> debug: after apply transforms, data shape (16, 16, 48)
+>>> debug: apply transforms:  <class 'mindspore.dataset.vision.transforms.Crop'>
+>>> debug: before apply transforms, data shape (16, 16, 48)
+>>> debug: after apply transforms, data shape (8, 8, 48)
+data (8, 8, 48)
 ```
 
-### 调试方案3：数据集管道调试模式调试map操作的输入输出
+#### 方式二：通过数据管道调试模式调试map操作
 
 我们还可以调用 [set_debug_mode](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.config.set_debug_mode.html) 方法开启数据集管道调试模式来进行调试。
 当启用调试模式时，如果随机种子没有被设置，则会将随机种子设置为1，以便在调试模式下执行数据集管道可以获得确定性的结果。
@@ -240,7 +248,7 @@ data (8, 8, 3)
 1. 在 `map` 算子中打印每个变换op的输入输出数据的形状和类型。
 2. 启用数据集管道调试模式，并使用MindData提供的预定义调试钩子或者用户定义的调试钩子，它必须定义继承自 [DebugHook](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.debug.DebugHook.html) 类。
 
-以下是在 `调试方案2` 的用例上做修改，使用MindData提供的预定义调试钩子。
+以下是在 `方式一` 的用例上做修改，使用MindData提供的预定义调试钩子。
 
 ```python
 import numpy as np
@@ -248,7 +256,7 @@ import mindspore.dataset as ds
 import mindspore.dataset.debug as debug
 import mindspore.dataset.vision as vision
 
-class Loader:
+class MyDataset:
     def __init__(self):
         self.data = [np.ones((32, 32, 3)), np.ones((3, 48, 48))]
 
@@ -263,10 +271,10 @@ class Loader:
 ds.config.set_debug_mode(True)
 
 # Define dataset pipeline
-dataset = ds.GeneratorDataset(Loader(), column_names=["data"])
+dataset = ds.GeneratorDataset(MyDataset(), column_names=["data"])
 
-# Insert debug hook after `Crop` operation.
-dataset = dataset.map([vision.Crop(coordinates=(0, 0), size=(8, 8))])
+transforms_list = [vision.RandomResize((3, 16)), vision.Crop(coordinates=(0, 0), size=(8, 8))]
+dataset = dataset.map(operations=transforms_list)
 for i, data in enumerate(dataset):
     print("data count", i)
 ```
@@ -274,8 +282,10 @@ for i, data in enumerate(dataset):
 运行得到以下相关内容:
 
 ```text
-[Dataset debugger] Print the [INPUT] of the operation [Crop].
-Column 0. The dtype is [float64]. The shape is [(3, 48, 48)].
+[Dataset debugger] Print the [INPUT] of the operation [RandomResize].
+Column 0. The dtype is [float64]. The shape is [(32, 32, 3)].
+[Dataset debugger] Print the [OUTPUT] of the operation [RandomResize].
+Column 0. The dtype is [float64]. The shape is [(3, 16, 3)].
     ......
 E           RuntimeError: Exception thrown from dataset pipeline. Refer to 'Dataset Pipeline Error Message'.
 E
@@ -288,22 +298,24 @@ E           ------------------------------------------------------------------
 E           - C++ Call Stack: (For framework developers)
 E           ------------------------------------------------------------------
 E           mindspore/ccsrc/minddata/dataset/kernels/image/crop_op.cc(33).
-
-../../../mindspore/python/mindspore/dataset/engine/iterators.py:294: RuntimeError
 ```
 
-根据打印的信息我们就能很清楚的知道 `Crop` 在处理输入shape为(3, 48, 48)的时候出现了报错，同样查看 `Crop` 的 [API说明](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop) 。我们只需要把输入的样本shape调整为<H, W, C>，即改为np.ones((48, 48, 3)), 再次执行就会发现用例通过。
+根据打印的信息我们就能很清楚的知道 `Crop` 在处理输入shape为(3, 16, 3)的时候出现了报错，同样查看 `Crop` 的 [API说明](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop)。我们只需要把 `RandomResize` 的参数size由原来的(3, 16)改为(16, 16), 再次执行就会发现用例通过。
 
 ```text
-[Dataset debugger] Print the [INPUT] of the operation [Crop].
-Column 0. The dtype is [float64]. The shape is [(48, 48, 3)].
+[Dataset debugger] Print the [INPUT] of the operation [RandomResize].
+Column 0. The dtype is [float64]. The shape is [(32, 32, 3)].
+[Dataset debugger] Print the [OUTPUT] of the operation [RandomResize].
+Column 0. The dtype is [float64]. The shape is [(16, 16, 3)].
 [Dataset debugger] Print the [OUTPUT] of the operation [Crop].
 Column 0. The dtype is [float64]. The shape is [(8, 8, 3)].
 ******data count 0
-[Dataset debugger] Print the [INPUT] of the operation [Crop].
-Column 0. The dtype is [float64]. The shape is [(32, 32, 3)].
+[Dataset debugger] Print the [INPUT] of the operation [RandomResize].
+Column 0. The dtype is [float64]. The shape is [(3, 48, 48)].
+[Dataset debugger] Print the [OUTPUT] of the operation [RandomResize].
+Column 0. The dtype is [float64]. The shape is [(16, 16, 48)].
 [Dataset debugger] Print the [OUTPUT] of the operation [Crop].
-Column 0. The dtype is [float64]. The shape is [(8, 8, 3)].
+Column 0. The dtype is [float64]. The shape is [(8, 8, 48)].
 ******data count 1
 ```
 
@@ -328,7 +340,7 @@ class MyHook(debug.DebugHook):
         return args
 
 
-class Loader:
+class MyDataset:
     def __init__(self):
         self.data = [np.ones((32, 32, 3)), np.ones((3, 48, 48))]
 
@@ -342,10 +354,12 @@ class Loader:
 # Enable dataset pipeline debug mode and use pre-defined debug hook provided by MindData.
 ds.config.set_debug_mode(True, debug_hook_list=[MyHook()])
 
-# Define dataset pipeline
-dataset = ds.GeneratorDataset(Loader(), column_names=["data"])
+# Define dataset pipeline.
+dataset = ds.GeneratorDataset(MyDataset(), column_names=["data"])
 
-dataset = dataset.map([vision.Crop(coordinates=(0, 0), size=(8, 8)), MyHook()])
+# Insert debug hook before `Crop` operation.
+transforms_list = [vision.RandomResize((3, 16)), MyHook(), vision.Crop(coordinates=(0, 0), size=(8, 8))]
+dataset = dataset.map(operations=transforms_list)
 ```
 
 接下来就可以开始你的调试了：
@@ -360,7 +374,7 @@ come into my hook function, block with pdb
 (Pdb)
 ```
 
-### 调试方案4：测试数据处理的性能
+### 方法3：测试数据处理的性能
 
 当使用MindSpore启动训练，训练日志一直打印，出现了很多条，很可能是数据处理较慢的问题。
 
@@ -512,7 +526,7 @@ def __getitem__(self, index):
 
 在真实训练场景中，也会有不同的原因导致网络训练变慢，但是分析方法也是类似的。我们可以先单独迭代数据，以定界是否为数据处理慢导致训练性能较低。
 
-### 调试方案5：检查数据处理中的异常数据
+### 方法4：检查数据处理中的异常数据
 
 在对数据进行处理的过程中，可能会因为计算错误、数值溢出等因素，产生了异常的结果数值，从而导致训练网络时算子计算溢出、权重更新异常等问题。此方案介绍如何调试和检查异常的数据行为/数据结果。
 
