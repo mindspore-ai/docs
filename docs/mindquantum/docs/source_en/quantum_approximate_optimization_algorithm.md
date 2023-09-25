@@ -212,7 +212,7 @@ Build the quantum circuit corresponding to $U_C(\gamma)$:
 def build_hc(g, para):
     hc = Circuit()                  # Build quantum circuit
     for i in g.edges:
-        hc += ZZ(para).on(i)        # Act ZZ gate on each edge of the diagram
+        hc += Rzz(para).on(i)        # Act Rzz gate on each edge of the diagram
     hc.barrier()                    # Add Barrier for easy display of circuits
     return hc
 ```
