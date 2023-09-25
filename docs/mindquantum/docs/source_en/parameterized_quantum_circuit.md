@@ -262,7 +262,8 @@ q2: ──RY(theta)───────
 =========Circuit Summary=========
 |Total number of gates  : 3.    |
 |Parameter gates        : 1.    |
-|with 1 parameters are  : theta.|
+|with 1 parameters are  :       |
+|theta                        . |
 |Number qubit of circuit: 3     |
 =================================
 ```
