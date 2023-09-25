@@ -28,7 +28,7 @@ In the preceding figure, the apple image $x$ passes through the generator $G$ to
 
 ## Dataset
 
-The images in [dataset](https://people.eecs.berkeley.edu/~taesung_park/CycleGAN/datasets) used in this case come from [ImageNet](https://ieeexplore.ieee.org/document/5206848). The dataset has 17 data packages. This document uses only the **apple2orange** package. Images are scaled to 256 x 256 pixels, including 996 apple images and 1020 orange images for training and 266 apple images and 248 orange images for testing.
+The images in dataset used in this case come from [ImageNet](https://ieeexplore.ieee.org/document/5206848). The dataset has 17 data packages. This document uses only the **apple2orange** package. Images are scaled to 256 x 256 pixels, including 996 apple images and 1020 orange images for training and 266 apple images and 248 orange images for testing.
 
 Here, random cropping, horizontal random flipping, and normalization preprocessing are performed on the data. To focus on the model, the data preprocessing result is converted into data in MindRecord format to omit most data preprocessing code.
 
