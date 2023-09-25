@@ -194,7 +194,7 @@ The network structure of GPT consists of different instances of the multi-layer 
 
 Usage Scenario: Use HyperMap to replace for loop to optimize compilation performance.
 
-`HyperMap` is a special class. Class object construction needs to be passed into the mapping function f, and calling the object needs to be passed into the n parameter sequence of f. For more usage see: [HyperMap](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.HyperMap.html). The mapping function f must be of type `MultitypeFuncGraph`, see [MultitypeFuncGraph](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.MultitypeFuncGraph.html). When using for loops to batch process list elements, network compilation performance can be optimized by `HyperMap`-equivalent semantic substitution. For example:
+`HyperMap` is a special class. Class object construction needs to be passed into the mapping function f, and calling the object needs to be passed into the n parameter sequence of f. For more usage see: [HyperMap](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.HyperMap.html). The mapping function f must be of type `MultitypeFuncGraph`, see [MultitypeFuncGraph](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.MultitypeFuncGraph.html). When using for loops to batch process list elements, network compilation performance can be optimized by `HyperMap`-equivalent semantic substitution. For example (the actual time consumption is related to the hardware environment, and the following data is for reference only):
 
 ```python
 import time
@@ -232,8 +232,6 @@ for_loop_net()
 end_time = time.time()
 print("for loop cost time:", end_time - start_time)
 ```
-
-The results are as follows (the actual time consumption is related to the hardware environment, and the following data is for reference only):
 
 ```text
 hyper map cost time: 0.1894233226776123
@@ -361,8 +359,6 @@ out = net()
 print(out)
 ```
 
-The result is as follows:
-
 ```text
 [1 2 3]
 ```
@@ -422,8 +418,6 @@ out = net()
 print(out)
 ```
 
-The result is as follows:
-
 ```text
 [1 2 3]
 ```
@@ -460,8 +454,6 @@ out = net(x, y)
 print(out)
 ```
 
-The result is as follows:
-
 ```text
 12
 ```
@@ -490,8 +482,6 @@ net = Net()
 out = net()
 print(out)
 ```
-
-The result is as follows:
 
 ```text
 5
@@ -527,8 +517,6 @@ net = Net()
 out = net(x, y)
 print(out)
 ```
-
-The result is as follows:
 
 ```text
 10
@@ -612,8 +600,6 @@ end_time = time.time()
 print("select net cost time:", end_time - start_time)
 ```
 
-The running results of the above code are as follows (the actual time consumption is related to the hardware environment, and the following data is for reference only):
-
 ```text
 if net cost time: 1.1603329181671143
 select net cost time: 0.483151912689209
@@ -626,6 +612,8 @@ Usage scenario: When processing batch data without dependency and the related op
 MindSpore already supports the Vmap feature. A detailed description of Vmap can be found in [Automatic Vectorization Vmap](https://www.mindspore.cn/tutorials/experts/en/master/vmap/vmap.html).
 
 A code sample that uses Vmap to replace a for loop to process batch data to optimize compilation performance is shown below:
+
+The running results of the above code are as follows (the actual time consumption is related to the hardware environment, and the following data is for reference only):
 
 ```python
 import numpy as np
@@ -659,8 +647,6 @@ output_manually = manually_batched(x)
 end_time = time.time()
 print("for loop cost time:", end_time - start_time)
 ```
-
-The running results of the above code are as follows (the actual time consumption is related to the hardware environment, and the following data is for reference only):
 
 ```text
 Vmap cost time: 0.05766916275024414
@@ -725,8 +711,6 @@ net = Net()
 res = net(x)
 print(res)
 ```
-
-Run the script above to get:
 
 ```text
 [[10. 10. 10.]
