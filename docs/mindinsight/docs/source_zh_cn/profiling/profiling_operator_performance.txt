@@ -14,7 +14,7 @@
   算子或者不满足选择的场景下，会调用AI CPU算子。
 - HOSTCPU算子：Host侧CPU主要负责将图或者算子下发到昇腾芯片，根据实际需求也可以在Host侧CPU上开发算子。HOSTCPU算子特指运行在Host侧CPU上的算子。
 
-.. figure:: ./images/op_type_statistics.PNG
+.. figure:: ./images/op_type_statistics.png
    :alt: op_type_statistics.png
 
 *图：算子类别统计分析*
@@ -24,7 +24,7 @@
 - 可以选择饼图/柱状图展示各算子类别的时间占比，每个算子类别的执行时间会统计属于该类别的算子执行时间总和。
 - 统计前20个占比时间最长的算子类别，展示其时间所占的百分比以及具体的执行时间（微秒）。
 
-.. figure:: ./images/op_statistics.PNG
+.. figure:: ./images/op_statistics.png
    :alt: op_statistics.png
 
 *图：算子统计分析*

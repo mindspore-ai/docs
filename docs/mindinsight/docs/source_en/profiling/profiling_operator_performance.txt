@@ -24,7 +24,7 @@ run.
   host CPU operator refers to the operator running on the host side
   CPU.
 
-.. figure:: ./images/op_type_statistics.PNG
+.. figure:: ./images/op_type_statistics.png
    :alt: op_type_statistics.png
 
 *Figure:Statistics for Operator Types*
@@ -37,7 +37,7 @@ Figure above displays the statistics for the operator types, including:
 - Display top 20 operator types with the longest execution time, show
   the proportion and execution time (us) of each operator type.
 
-.. figure:: ./images/op_statistics.PNG
+.. figure:: ./images/op_statistics.png
    :alt: op_statistics.png
 
 *Figure:Statistics for Operators*
