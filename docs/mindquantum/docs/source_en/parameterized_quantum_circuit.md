@@ -180,7 +180,7 @@ $$\text{RZ}(\theta)= e^{-\frac{i\theta Z}{2}}=\cos\left(\frac{\theta}{2}\right)\
     \end{matrix}
 \right).$$
 
-We make $\theta$ be $0, \frac{\pi}{2}$ and $\pi$, respectively, and then print the matrix forms of $\text{RX}(0)$ gates, $\text{RY}(\frac{\pi}{2}$) gates and $\text{RZ}(\pi)$ gates. And we can obtain:
+We make $\theta$ be $0$ and $\pi$, respectively, and then print the matrix forms of $\text{RX}(0)$ gates, $\text{RY}(\pi)$ gates and $\text{RZ}(\pi)$ gates. And we can obtain:
 
 ```python
 rx = RX('theta')
@@ -202,7 +202,7 @@ When $\theta=0$, at this point the $\text{RX}(0)$ gate is the familiar `I` gate.
 ```python
 ry = RY('theta')
 print('Gate name:', ry)
-ry.matrix({'theta': np.pi/2})   # pi needs to be imported from np, assigning the value of theta to pi/2
+np.round(ry.matrix({'theta': np.pi}))   # pi needs to be imported from np, assigning the value of theta to pi
 ```
 
 ```text
@@ -210,11 +210,11 @@ Gate name: RY(theta)
 ```
 
 ```text
-array([[ 0.70710678+0.j, -0.70710678+0.j],
-       [ 0.70710678+0.j,  0.70710678+0.j]])
+array([[ 0.+0.j, -1.+0.j],
+       [ 1.+0.j,  0.+0.j]])
 ```
 
-When $\theta=\frac{\pi}{2}$, at this point the $\text{RY}(\frac{\pi}{2})$ gate is the familiar `H` gate.
+When $\theta=\pi$, at this point the $\text{RY}(\pi)$ gate is the familiar `Y` gate. (differing by one global phase $i$)
 
 ```python
 rz = RZ('theta')
