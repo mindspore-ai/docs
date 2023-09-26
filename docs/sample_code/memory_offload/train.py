@@ -129,12 +129,13 @@ def forward_fn(data, target):
 grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
 grad_reducer = nn.DistributedGradReducer(optimizer.parameters)
 
-for epoch in range(1):
-    i = 0
-    for image, label in data_set:
-        (loss_value, _), grads = grad_fn(image, label)
-        grads = grad_reducer(grads)
-        optimizer(grads)
-        if i % 10 == 0:
-            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_value))
-        i += 1
+i = 0
+step = 10
+for image, label in data_set:
+    (loss_value, _), grads = grad_fn(image, label)
+    grads = grad_reducer(grads)
+    optimizer(grads)
+    print("step: %s, loss is %s" % (i, loss_value))
+    if i >= step:
+        break
+    i += 1
