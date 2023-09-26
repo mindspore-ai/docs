@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2022 Huawei Technologies Co., Ltd
+# Copyright 2022-2023 Huawei Technologies Co., Ltd
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,9 +30,12 @@ python ./train_alexnet.py --device_target=${DEVICE_TARGET} --device_id=${DEVICE_
 
 # Get the tensor path
 tensor_path=$(python get_tensor_path.py --dump_config ${MINDSPORE_DUMP_CONFIG})
+wait
+
 # Convert the bin files to npy files. If you set the file_format as 'npy', this step should be skipped.
 absolute_convert_path=$(find ${run_install_path} -name "msaccucmp.py")
 python ${absolute_convert_path} "convert" -d ${tensor_path} -out ${npy_tensor_path} -f NCHW -t npy
+wait
 
 # Read the converted npy files.
 python read_npy.py --npy_files ${npy_tensor_path} > read_tensor_log.txt 2>&1 &
