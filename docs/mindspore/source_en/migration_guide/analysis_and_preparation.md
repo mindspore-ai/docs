@@ -439,9 +439,9 @@ Currently, there are two execution modes of a mainstream deep learning framework
 
 ### [Calling the Custom Class](https://www.mindspore.cn/tutorials/en/master/advanced/static_graph_expert_programming.html#using-jit-class)
 
-In static graph mode, you can use `ms_class` to modify a custom class. You can create and call an instance of the custom class, and obtain its attributes and methods.
+In static graph mode, you can use `jit_class` to modify a custom class. You can create and call an instance of the custom class, and obtain its attributes and methods.
 
-`ms_class` is applied to the static graph mode to expand the support scope of static graph compilation syntax. In dynamic graph mode, that is, PyNative mode, the use of `ms_class` does not affect the execution logic of PyNative mode.
+`jit_class` is applied to the static graph mode to expand the support scope of static graph compilation syntax. In dynamic graph mode, that is, PyNative mode, the use of `jit_class` does not affect the execution logic of PyNative mode.
 
 ### [Automatic Differential](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html)
 

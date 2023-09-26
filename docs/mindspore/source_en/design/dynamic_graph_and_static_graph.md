@@ -255,7 +255,7 @@ For more usage, please refer to the [Calling the Third-party Libraries](https://
 
 #### Supporting the Use of Custom Classes
 
-Custom classes that do not use '@ms_class' decorations and do not inherit 'nn. Cell`。 Through the JIT Fallback technical solution, static graph mode allows creating and referencing instances of custom classes, can directly obtain and call properties and methods of custom class instances, and allows modifying properties(Inplace operations).
+Custom classes that do not use '@jit_class' decorations and do not inherit 'nn. Cell`。 Through the JIT Fallback technical solution, static graph mode allows creating and referencing instances of custom classes, can directly obtain and call properties and methods of custom class instances, and allows modifying properties(Inplace operations).
 
 For more usage, please refer to the [Supporting the Use of Custom Classes](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supporting-the-use-of-custom-classes) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
 

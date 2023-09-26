@@ -1232,7 +1232,7 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
 
 支持在图模式下使用用户自定义的类，可以对类进行实例化，使用对象的属性及方法。
 
-例如下面的例子，其中`GetattrClass`是用户自定义的类，没有使用`@ms_class`修饰，也没有继承`nn.Cell`。
+例如下面的例子，其中`GetattrClass`是用户自定义的类，没有使用`@jit_class`修饰，也没有继承`nn.Cell`。
 
 ```python
 import mindspore as ms
