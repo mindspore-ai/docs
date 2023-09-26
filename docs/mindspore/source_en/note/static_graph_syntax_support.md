@@ -1232,7 +1232,7 @@ The following mainly introduces the static graph syntax supported by the current
 
 Custom classes can be used in graph mode, and classes can be instantiated and object properties and methods can be used.
 
-For example, where 'GetattrClass' is a user-defined class that does not use the '@ms_class' decoration and does not inherit 'nn. Cell`。
+For example, where 'GetattrClass' is a user-defined class that does not use the '@jit_class' decoration and does not inherit 'nn. Cell`。
 
 ```python
 import mindspore as ms
