@@ -10,7 +10,7 @@ MindSpore SPONGE Biocomputing Toolkit provides a series of molecular design tool
 
 | Function          | Model                            | Training | Inferring | Back-end       |
 | :----------- | :------------------------------ | :--- | :--- | :-------- |
-| Protein Sequence Design | [ProteinMPNN](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/ProteinMPNN/README.en.md#) | ×    | √   | GPU/Ascend |
-| Protein Sequence Design | [ESM-IF1](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/esm/README_EN.md#)          | ×    | √   | GPU/Ascend |
+| Protein Sequence Design | [ProteinMPNN](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model%20cards/ProteinMPNN.MD) | ×    | √   | GPU/Ascend |
+| Protein Sequence Design | [ESM-IF1](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model%20cards/ESM-IF1.md)          | ×    | √   | GPU/Ascend |
 
 In the future, we will also provide antibody sequence design, molecular generation and other tools. Please stay tuned.
