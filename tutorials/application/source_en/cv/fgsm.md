@@ -303,8 +303,12 @@ Observe the attack effect when $\varepsilon$ is 0:
 
 ```python
 import mindspore as ms
+import time
 
+start_time = time.perf_counter()
 advs = batch_generate(test_images, true_labels, batch_size=32, eps=0.0)
+end_time = time.perf_counter()
+t1 = end_time - start_time
 
 adv_predicts = model.predict(advs).argmax(1)
 accuracy = ops.equal(adv_predicts, true_labels).astype(ms.float32).mean()
@@ -318,15 +322,20 @@ print(accuracy)
 Set $\varepsilon$ to 0.5 and try to run the attack.
 
 ```python
+start_time = time.perf_counter()
 advs = batch_generate(test_images, true_labels, batch_size=32, eps=0.5)
+end_time = time.perf_counter()
+t2 = end_time - start_time
 
 adv_predicts = model.predict(advs).argmax(1)
 accuracy = ops.equal(adv_predicts, true_labels).astype(ms.float32).mean()
 print(accuracy)
+print("Total time (s) used for FGSM is: ", t1 + t2)
 ```
 
 ```text
 0.411258
+Total time (s) used for FGSM is: 17.139771
 ```
 
 The preceding result shows that the accuracy of the LeNet model is greatly reduced.
