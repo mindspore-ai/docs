@@ -35,6 +35,7 @@ import mindspore as ms
 from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE, save_graphs=2)
+ms.set_context(max_device_memory="25GB")
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
 ms.set_auto_parallel_context(pipeline_stages=2, enable_parallel_optimizer=True)
 init()

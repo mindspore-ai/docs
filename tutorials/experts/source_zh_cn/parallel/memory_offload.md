@@ -182,16 +182,16 @@ def forward_fn(data, target):
 grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
 grad_reducer = nn.DistributedGradReducer(optimizer.parameters)
 
-for epoch in range(1):
-    i = 0
-    for image, label in data_set:
-        (loss_value, _), grads = grad_fn(image, label)
-        grads = grad_reducer(grads)
-        optimizer(grads)
-        if i % 10 == 0:
-            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_value))
-        i += 1
-
+i = 0
+step = 10
+for image, label in data_set:
+    (loss_value, _), grads = grad_fn(image, label)
+    grads = grad_reducer(grads)
+    optimizer(grads)
+    print("step: %s, loss is %s" % (i, loss_value))
+    if i >= step:
+        break
+    i += 1
 ```
 
 ### 运行脚本
@@ -226,13 +226,11 @@ bash run.sh 96 ON
 ```
 
 ```bash
-epoch: 0, step: 0, loss is 2.3294048
-epoch: 0, step: 10, loss is 2.3190398
-epoch: 0, step: 20, loss is 2.314652
-epoch: 0, step: 30, loss is 2.3337016
-epoch: 0, step: 40, loss is 2.2817006
-epoch: 0, step: 50, loss is 2.3032906
-epoch: 0, step: 60, loss is 2.2946587
+step: 0, loss is 2.3294048
+step: 1, loss is 2.3190398
+step: 2, loss is 2.314652
+step: 3, loss is 2.3037016
+...
 ```
 
 ### 自动生成offload策略
