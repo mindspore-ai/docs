@@ -13,7 +13,7 @@ Currently, a series of tools for protein and RNA structure prediction are availa
 | Single Chain Structure Prediction | [MEGA-Fold](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README.md#)                   | √    | √   | GPU/Ascend |
 | MSA Generation/Correction    | [MEGA-EvoGen](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README.md#)               | √    | √   | GPU/Ascend |
 | Structural Quality Assessment | [MEGA-Assessment](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README.md#)       | √    | √   | GPU/Ascend |
-| Multi-chain Structure Prediction | [AlphaFold-Multimer](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/Multimer/README.md#) | ×    | √   | GPU/Ascend |
-| RNA Secondary Structure Prediction | [UFold](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/research/UFold/README.md#)                          | √    | √   | GPU/Ascend |
+| Multi-chain Structure Prediction | [AlphaFold-Multimer](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model%20cards/afmultimer.md) | ×    | √   | GPU/Ascend |
+| RNA Secondary Structure Prediction | [UFold](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model%20cards/UFold.md)                          | √    | √   | GPU/Ascend |
 
 In the future, we will further improve the function of molecular structure prediction, and introduce more tools for protein-ligand complex structure prediction and small molecule structure prediction of compounds. Stay tuned for more information.
