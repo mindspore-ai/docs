@@ -552,8 +552,6 @@ callbacks.append(ckpt_callback)
 model.train(train_epochs, dataset, callbacks=callbacks)
 ```
 
-Output:
-
 ```text
 epoch: 1 step: 1, loss is 3.0904884338378906
 epoch: 1 step: 2, loss is 3.0506458282470703
@@ -603,8 +601,6 @@ dataset = SegDataset(image_mean=IMAGE_MEAN,
 dataset_eval = dataset.get_dataset()
 model.eval(dataset_eval)
 ```
-
-Output:
 
 ```text
 {'pixel accuracy': 0.9734971889839162,

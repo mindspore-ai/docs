@@ -144,8 +144,6 @@ url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datas
 download(url, ".", kind="tar.gz", replace=True)
 ```
 
-Output:
-
 ```text
 Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cnnctc_dataset.tar.gz (545.4 MB)
 
@@ -462,8 +460,6 @@ for epoch in range(epochs):
 print("Done!")
 ```
 
-Output:
-
 ```text
 dataset_size: 57600
 batch_size: 64
@@ -495,8 +491,6 @@ During model validation, select the parameter file saved during model training a
 url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cnnctc.ckpt"
 download(url, "cnnctc.ckpt", replace=True)
 ```
-
-Output:
 
 ```text
 Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cnnctc.ckpt (169.0 MB)
@@ -608,8 +602,6 @@ print(f'accuracy: {correct_count/count:.4f}\n',
 
 ```
 
-Output:
-
 ```text
 Parameters loaded! from:  ./cnnctc.ckpt
 accuracy: 0.5214
@@ -644,8 +636,6 @@ plt.figure()
 plt.imshow(img_PIL)
 plt.show()
 ```
-
-Output:
 
 ```text
 Predict:  ['parking']
