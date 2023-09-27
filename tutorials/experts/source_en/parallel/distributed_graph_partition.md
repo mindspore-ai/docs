@@ -197,7 +197,7 @@ from mindspore.train.callback import LossMonitor, TimeMonitor
 from mindspore.communication import init, get_rank
 
 
-ms.set_context(mode=ms.GRAPH_MODE, device_target='GPU')
+ms.set_context(mode=ms.GRAPH_MODE)
 init()
 net = LeNet()
 net.fc1.place("MS_WORKER", 0)
