@@ -686,7 +686,7 @@ epoch time: 69964.226 ms, per step time: 4997.445 ms
 End of validation the best Accuracy is:  1.000, save the best ckpt file in ./BestCheckpoint/resnet50-best-freezing-param.ckpt
 ```
 
-#### Visualize Model Prediction
+#### Visualizing Model Prediction
 
 The best.ckpt file obtained by using the fixed features is used to make predictions on the wolf and dog image data of the validation set. If the prediction font is blue, the prediction is correct. If the prediction font is red, the prediction is wrong.
 
