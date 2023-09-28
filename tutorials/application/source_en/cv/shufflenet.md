@@ -28,9 +28,9 @@ The following figure shows the principle of group convolution. Compared with com
 
 > Image source: Huang G, Liu S, Van der Maaten L, et al.Condensenet: An efficient densenet using learned group convolutions[C]//Proceedings of the IEEE conference on computer vision and pattern recognition. 2018: 2752-2761.
 
-Depthwise convolution divides the *g* groups into `in_channels` that are equal to the number of input channels, and then performs a convolution operation on each `in_channels`. Each convolution kernel processes only one channel. The size of the convolution kernel is recorded as 1\*k\*k. In this case, the number of convolution kernel parameters is calculated as follows: in_channels\*k\*k. The number of obtained feature maps channels is the same as the number of input channels.
+Depthwise convolution divides the *g* groups into `in_channels` that are equal to the number of input channels, and then performs a convolution operation on each `in_channels`. Each convolution kernel processes only one channel. The size of the convolution kernel is recorded as 1\*k\*k. In this case, the number of convolution kernel parameters is calculated as follows: in_channels\*k\*k. **The number of obtained feature maps channels is the same as the number of input channels**.
 
-On the basis of group convolution, pointwise group convolution is assumed that the size of a convolution kernel of each group is $1\times 1$, and the quantity of convolution kernel parameters is (in_channels/g\*1\*1)\*out_channels.
+On the basis of group convolution, pointwise group convolution is assumed that **the size of a convolution kernel of each group is $1\times 1$**, and the quantity of convolution kernel parameters is (in_channels/g\*1\*1)\*out_channels.
 
 ```python
 from mindspore import nn
@@ -305,8 +305,6 @@ if __name__ == '__main__':
     train()
 ```
 
-Output:
-
 ```text
 model size is  2.0x
 ============== Starting Training ==============
@@ -361,8 +359,6 @@ if __name__ == '__main__':
     test()
 ```
 
-Output:
-
 ```text
 model size is  2.0x
 result:{'Loss': 1.0217913215673422, 'Top_1_Acc': 0.8152, 'Top_5_Acc': 0.975}, ckpt:'./shufflenetv1-250_391.ckpt', time: 0h 0m 21s
@@ -411,8 +407,6 @@ for image in show_images_lst:
     plt.axis("off")
 plt.show()
 ```
-
-Output:
 
 ```text
 model size is  2.0x
