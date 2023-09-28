@@ -53,7 +53,7 @@ A: 由于MindSpore推理功能统一由MindSpore核心组件 -- MindSpore lite�
 
       context构造方式改为如下，Ascend310DeviceInfo统一替换为AscendDeviceInfo
 
-      ```C++
+      ```c++
       // 原MindSpore
       - auto context = std::make_shared<Context>();
       - auto ascend310 = std::make_shared<mindspore::Ascend310DeviceInfo>();
@@ -71,7 +71,7 @@ A: 由于MindSpore推理功能统一由MindSpore核心组件 -- MindSpore lite�
 
       图编译接口调整为如下，无需构造Graph对象、序列化加载，Build接口直接传入mindir模型文件即可。
 
-      ```C++
+      ```c++
       // 原MindSpore
       -  mindspore::Graph graph;
       -  Serialization::Load(mindir_path, mindspore::kMindIR, &graph);

@@ -592,8 +592,6 @@ Finally, predict the examples in the preceding section. It shows that the model 
 predict_sentiment(model, vocab, "This film is terrible")
 ```
 
-Output:
-
 ```text
 'Negative'
 ```
@@ -601,8 +599,6 @@ Output:
 ```python
 predict_sentiment(model, vocab, "This film is great")
 ```
-
-Output:
 
 ```text
 'Positive'
