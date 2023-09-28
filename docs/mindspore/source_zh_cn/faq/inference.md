@@ -2,6 +2,87 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/inference.md)
 
+<font size=3>**Q: 原先基于MindSpore安装包进行310推理，新版本MindSpore发布包不支持Ascend 310平台的推理？如何使用Ascend 310进行推理？（MindSpore Ascend 310推理功能发布包变更说明）**</font>
+
+A: 由于MindSpore推理功能统一由MindSpore核心组件 -- MindSpore lite提供。自2.0版本起，统一由MindSpore lite发布Ascend 310推理包，并提供相关功能的持续维护演进，而MindSpore主发布包里的对应接口不再维护和演进。自2.2版本起MindSpore主发布包不再提供配套310的推理接口使能，如需使用请切换安装MindSpore Lite发布包或下载MindSpore2.0之前的版本。MindSpore lite的安装部署与用法详见 https://www.mindspore.cn/lite。
+
+昇腾（Ascend) 310是面向边缘场景的高能效高集成度AI处理器，支持对MindIR格式模型进行推理。原先MindSpore提供了两种在Ascend 310硬件上的推理使能用法：
+
+1. 由MindSpore主发布包提供配套Ascend 310的版本，支持c++推理接口。
+2. 由MindSpore Lite发布包提供配套Ascend的版本，支持c++/Java两种语言进行推理。
+
+这两种方案提供的c++ API基本一致，后续不再构建和维护两套接口，而是归一使用MindSpore Lite。
+
+原有基于MindSpore主发布包构建的310推理业务，可以少量修改切换到MindSpore Lite，示例如下：
+
+1. 编译c++工程
+
+不再使用Mindspore 安装包，需下载Mindspore Lite C++版本包并解压在任意工作目录。目录结构如下：
+
+```text
+mindspore-lite-{version}-linux-{arch}
+├── runtime
+│   ├── include
+│   ├── lib
+```
+
+编译时包含头文件路径改为include目录，链接动态库改为lib/libmindspore-lite.so，若需使用minddata，需同时链接lib/libminddata-lite.so。  
+举例，设环境变量``MINDSPORE_PATH=/path/to/mindspore-lite``，cmake改写为如下方式：
+
+```cmake
+...
+include_directories(${MINDSPORE_PATH})
+include_directories(${MINDSPORE_PATH}/include)
+...
+
+if(EXISTS ${MINDSPORE_PATH}/lib/libmindspore-lite.so)
+    message(--------------- Compile-with-MindSpore-Lite ----------------)
+    set(MS_LIB ${MINDSPORE_PATH}/lib/libmindspore-lite.so)
+    set(MD_LIB ${MINDSPORE_PATH}/lib/libminddata-lite.so)
+endif()
+
+add_executable(main src/main.cc)
+target_link_libraries(main ${MS_LIB} ${MD_LIB})
+```
+
+2. 推理
+
+除如下两类写法存在差异，其余输入输出获取、构造方式，执行推理接口等保持一致。
+
+2.1 context构造
+
+context构造方式改为如下，Ascend310DeviceInfo统一替换为AscendDeviceInfo
+
+```c++
+// 原Mindspore
+- auto context = std::make_shared<Context>();
+- auto ascend310 = std::make_shared<mindspore::Ascend310DeviceInfo>();
+- ascend310->SetDeviceID(device_id);
+- context->MutableDeviceInfo().push_back(ascend310);
+
+// MindSpore lite
++ auto context = std::make_shared<Context>();
++ auto ascend = std::make_shared<mindspore::AscendDeviceInfo>();
++ ascend->SetDeviceID(device_id);
++ context->MutableDeviceInfo().push_back(ascend);
+```
+
+2.2 图编译
+
+图编译接口调整为如下，无需构造Graph对象、序列化加载，Build接口直接传入mindir模型文件即可。
+
+```c++
+// 原Mindspore
+-  mindspore::Graph graph;
+-  Serialization::Load(mindir_path, mindspore::kMindIR, &graph);
+-  auto ret = model->Build(GraphCell(graph), context);
+
+// MindSpore lite
++  auto ret = model->Build(mindir_path, mindspore::kMindIR, context);
+```
+
+<br/>
+
 <font size=3>**Q: 编译应用时报错`/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found`怎么办？**</font>
 
 A: 寻找缺少的动态库文件所在目录，添加该路径到环境变量`LD_LIBRARY_PATH`中。
