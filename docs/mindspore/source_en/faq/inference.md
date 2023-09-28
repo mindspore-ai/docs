@@ -4,83 +4,83 @@
 
 <font size=3>**Q: In the previous version, 310 inference is performed based on the MindSpore installation package. However, the MindSpore release package of the new version does not support Ascend 310 inference. How do I use Ascend 310 for inference? (Changes in the MindSpore Ascend 310 Inference Release Package)**</font>
 
-A: The MindSpore inference function is provided by MindSpore Lite, a core component of MindSpore. Since version 2.0, the Ascend 310 inference package is released by MindSpore Lite and provides continuous maintenance and evolution of related functions. The corresponding interfaces in the MindSpore main release package are not maintained or evolved. Since version 2.2, the MindSpore main release package does not provide the inference interface enabling for the 310. If you need to use the inference interface, install the MindSpore Lite release package or download the MindSpore version earlier than 2.0. For details about how to install and use MindSpore Lite, see https://www.mindspore.cn/lite..
+A: The MindSpore inference function is provided by MindSpore Lite, a core component of MindSpore. Since version 2.0, the Ascend 310 inference package is released by MindSpore Lite and provides continuous maintenance and evolution of related functions. The corresponding interfaces in the MindSpore main release package are not maintained or evolved. Since version 2.2, the MindSpore main release package does not provide the inference interface enabling for the 310. If you need to use the inference interface, install the MindSpore Lite release package or download the MindSpore version earlier than 2.0. For details about how to install and use MindSpore Lite, see <https://www.mindspore.cn/lite>.
 
 HUAWEI Ascend 310 (Ascend) is an energy-efficient and highly integrated AI processor for edge scenarios. It supports inference on MindIR models. In the earlier version, MindSpore provides two methods for enabling inference on the Ascend 310 hardware:
 
-1. The MindSpore main release package provides the Ascend 310 version that supports C++ inference interfaces.
+1. The MindSpore main release package provides the matching Ascend 310 version that supports C++ inference interfaces.
 2. The MindSpore Lite release package provides the matching Ascend version and supports C++ and Java inference.
 
-The C++ APIs provided by the two solutions are basically the same. In the future, MindSpore Lite is used.
+The C++ APIs provided by the two solutions are basically the same. In the future, MindSpore Lite is used instead of building and maintaining two sets of interfaces.
 
 The original 310 inference service built based on the MindSpore main release package can be switched to MindSpore Lite with a few modifications. The following is an example:
 
 1. compiling a C++ Project
 
-You do not need to use the Mindspore installation package. You need to download the Mindspore Lite C++ version package and decompress it to any working directory. The directory structure is as follows:
+    You do not need to use the MindSpore installation package. You need to download the MindSpore Lite C++ version package and decompress it to any working directory. The directory structure is as follows:
 
-```text
-mindspore-lite-{version}-linux-{arch}
-├── runtime
-│   ├── include
-│   ├── lib
-```
+    ```text
+    mindspore-lite-{version}-linux-{arch}
+    ├── runtime
+    │   ├── include
+    │   ├── lib
+    ```
 
-The header file path is changed to the include directory, change the dynamic link library to lib/libmindspore-lite.so. If minddata is required, also link lib/libminddata-lite.so.
+    The path to the include header file is changed to the include directory, and the link to the dynamic library is changed to lib/libmindspore-lite.so during compilation. If minddata is required, also link lib/libminddata-lite.so.
 
-For example, assume that the environment variable``MINDSPORE_PATH=/path/to/mindspore-lite``，should be modified as follows:
+    For example, set the environment variable ``MINDSPORE_PATH=/path/to/mindspore-lite``, and cmake is rewritten in the following way:
 
-```cmake
-...
-include_directories(${MINDSPORE_PATH})
-include_directories(${MINDSPORE_PATH}/include)
-...
+    ```cmake
+    ...
+    include_directories(${MINDSPORE_PATH})
+    include_directories(${MINDSPORE_PATH}/include)
+    ...
 
-if(EXISTS ${MINDSPORE_PATH}/lib/libmindspore-lite.so)
-    message(--------------- Compile-with-MindSpore-Lite ----------------)
-    set(MS_LIB ${MINDSPORE_PATH}/lib/libmindspore-lite.so)
-    set(MD_LIB ${MINDSPORE_PATH}/lib/libminddata-lite.so)
-endif()
+    if(EXISTS ${MINDSPORE_PATH}/lib/libmindspore-lite.so)
+        message(--------------- Compile-with-MindSpore-Lite ----------------)
+        set(MS_LIB ${MINDSPORE_PATH}/lib/libmindspore-lite.so)
+        set(MD_LIB ${MINDSPORE_PATH}/lib/libminddata-lite.so)
+    endif()
 
-add_executable(main src/main.cc)
-target_link_libraries(main ${MS_LIB} ${MD_LIB})
-```
+    add_executable(main src/main.cc)
+    target_link_libraries(main ${MS_LIB} ${MD_LIB})
+    ```
 
 2. inference
 
-Except that the usage of the following two classes is different, all the methods for obtaining input and output, structuring input and output, and executing inference are the same.
+    Except that the usage of the following two classes is different, all the methods for obtaining and structuring input and output, and executing inference are the same.
 
-2.1 structuring context
+    - 2.1 structuring context
 
-The method for structuring context is modified as follows: `Ascend310DeviceInfo` is replaced with `AscendDeviceInfo`.
+      The method for structuring context is modified as follows: `Ascend310DeviceInfo` is replaced with `AscendDeviceInfo`.
 
-```c++
-// 原Mindspore
-- auto context = std::make_shared<Context>();
-- auto ascend310 = std::make_shared<mindspore::Ascend310DeviceInfo>();
-- ascend310->SetDeviceID(device_id);
-- context->MutableDeviceInfo().push_back(ascend310);
+      ```c++
+      // Original MindSpore
+      - auto context = std::make_shared<Context>();
+      - auto ascend310 = std::make_shared<mindspore::Ascend310DeviceInfo>();
+      - ascend310->SetDeviceID(device_id);
+      - context->MutableDeviceInfo().push_back(ascend310);
 
-// MindSpore lite
-+ auto context = std::make_shared<Context>();
-+ auto ascend = std::make_shared<mindspore::AscendDeviceInfo>();
-+ ascend->SetDeviceID(device_id);
-+ context->MutableDeviceInfo().push_back(ascend);
-```
+      // MindSpore lite
+      + auto context = std::make_shared<Context>();
+      + auto ascend = std::make_shared<mindspore::AscendDeviceInfo>();
+      + ascend->SetDeviceID(device_id);
+      + context->MutableDeviceInfo().push_back(ascend);
+      ```
 
-2.2 graph compilation
+    - 2.2 graph compilation
 
-The graph compilation interface is adjusted as follows: You do not need to construct and load graph objects. Instead, you can directly transfer the mindir model file through the `Build` interface.
+      The graph compilation interface is adjusted as follows: You do not need to construct and load graph objects. Instead, you can directly transfer the mindir model file through the `Build` interface.
 
-```c++
-// 原Mindspore
--  mindspore::Graph graph;
--  Serialization::Load(mindir_path, mindspore::kMindIR, &graph);
--  auto ret = model->Build(GraphCell(graph), context);
+      ```c++
+      // Original MindSpore
+      -  mindspore::Graph graph;
+      -  Serialization::Load(mindir_path, mindspore::kMindIR, &graph);
+      -  auto ret = model->Build(GraphCell(graph), context);
 
-// MindSpore lite
-+  auto ret = model->Build(mindir_path, mindspore::kMindIR, context);
-```
+      // MindSpore lite
+      +  auto ret = model->Build(mindir_path, mindspore::kMindIR, context);
+      ```
 
 <br/>
 
