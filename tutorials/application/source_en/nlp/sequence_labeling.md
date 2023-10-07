@@ -100,7 +100,7 @@ def compute_score(emissions, tags, seq_ends, mask, trans, start_trans, end_trans
 
 According to the formula $(5)$, Normalizer is the Log-Sum-Exp of scores of all possible output sequences corresponding to $x$. In this case, if the enumeration method is used for calculation, each possible output sequence score needs to be calculated, and there are $|T|^{n}$ results in total. Here, we use the dynamic programming algorithm to improve the efficiency by reusing the calculation result.
 
-Assume that you need to calculate the scores $\text{Score}{i}$ of all possible output sequences from token $0$ to token $i$. In this case, scores $\text{Score}{i-1}$ of all possible output sequences from the $0$th token to the $i-1$th token may be calculated first. Therefore, the Normalizer can be rewritten as follows:
+Assume that you need to calculate the scores $\text{Score}_{i}$ of all possible output sequences from token $0$ to token $i$. In this case, scores $\text{Score}_{i-1}$ of all possible output sequences from the $0$th token to the $i-1$th token may be calculated first. Therefore, the Normalizer can be rewritten as follows:
 
 $$log(\sum_{y'_{0,i} \in Y} \exp{(\text{Score}_i})) = log(\sum_{y'_{0,i-1} \in Y} \exp{(\text{Score}_{i-1} + h_{i} + \textbf{P}})) \qquad (6)$$
 

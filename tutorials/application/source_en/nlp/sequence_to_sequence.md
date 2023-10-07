@@ -142,8 +142,6 @@ for de, en in test_dataset:
     break
 ```
 
-Output:
-
 ```text
 de = ['ein', 'mann', 'mit', 'einem', 'orangefarbenen', 'hut', ',', 'der', 'etwas', 'anstarrt', '.']
 en = ['a', 'man', 'in', 'an', 'orange', 'hat', 'starring', 'at', 'something', '.']
@@ -214,8 +212,6 @@ vocab = Vocab(word_count, min_freq=2)
 len(vocab)
 ```
 
-Output:
-
 ```text
 7
 ```
@@ -243,8 +239,6 @@ def build_vocab(dataset):
 de_vocab, en_vocab = build_vocab(train_dataset)
 print('Unique tokens in de vocabulary:', len(de_vocab))
 ```
-
-Output:
 
 ```text
 Unique tokens in de vocabulary: 7882
@@ -838,8 +832,6 @@ for i in range(num_epochs):
         save_checkpoint(model, ckpt_file_name)
 ```
 
-Output:
-
 ```text
 Epoch: 0: 100%|██████████| 226/226 [04:17<00:00,  1.14s/it, loss=4.90]
 100%|██████████| 8/8 [00:06<00:00,  1.24it/s, loss=4.74]
@@ -917,8 +909,6 @@ print(f'src = {src}')
 print(f'trg = {trg}')
 ```
 
-Output:
-
 ```text
 src = ['ein', 'mann', 'mit', 'einem', 'orangefarbenen', 'hut', ',', 'der', 'etwas', 'anstarrt', '.']
 trg = ['a', 'man', 'in', 'an', 'orange', 'hat', 'starring', 'at', 'something', '.']
@@ -931,8 +921,6 @@ translation = translate_sentence(src, de_vocab, en_vocab, model)
 
 print(f'predicted trg = {translation}')
 ```
-
-Output:
 
 ```text
 predicted trg = ['a', 'man', 'in', 'an', 'orange', 'hat', ',', 'something', '.']
@@ -977,8 +965,6 @@ bleu_score = calculate_bleu(test_dataset, de_vocab, en_vocab, model)
 
 print(f'BLEU score = {bleu_score*100:.2f}')
 ```
-
-Output:
 
 ```text
 BLEU score = 31.54
