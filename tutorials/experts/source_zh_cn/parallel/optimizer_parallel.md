@@ -236,6 +236,13 @@ epoch: 0, step: 100, loss is 0.6854114
         ms.set_auto_parallel_context(parallel_optimizer_config={"parallel_optimizer_threshold": 24})
         ```
 
+    - `optimizer_weight_shard_size`：设置指定优化器权重切分通信域的大小。数值范围可以是(0, device_num]，若同时开启流水线并行，数值范围则为(0, device_num/stage]。如果参数的数据并行通信域大小不能被 `optimizer_weight_shard_size` 整除，那么指定的优化器权重切分通信域大小就不会生效。默认值为 ``-1`` ，表示优化器权重切片通信域大小是每个参数的数据并行通信域大小。
+
+        ```python
+        import mindspore as ms
+        ms.set_auto_parallel_context(parallel_optimizer_config={"optimizer_weight_shard_size": 2}, enable_parallel_optimizer=True)
+        ```
+
 2. `Parameter.parallel_optimizer`：用户还可以通过此接口自定义某些权重是否进行优化器切分，如下所示：
 
     ```python

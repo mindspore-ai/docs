@@ -236,6 +236,13 @@ Other startup methods such as dynamic networking and `rank table` startup can be
         ms.set_auto_parallel_context(parallel_optimizer_config={"parallel_optimizer_threshold": 24})
         ```
 
+    - `optimizer_weight_shard_size`：Set the size of the communication domain split by the optimizer weight. The numerical range can be (0, device_num]. If pipeline parallel is enabled, the numerical range is (0, device_num/stage]. If the size of data parallel communication domain of the parameter cannot be divided by `optimizer_weight_shard_size`, then the specified size of the communication domain split by the optimizer weight will not take effect. Default value is ``-1`` , which means the size of the communication domain split by the optimizer weight will be the size of data parallel communication domain of each parameter.
+
+        ```python
+        import mindspore as ms
+        ms.set_auto_parallel_context(parallel_optimizer_config={"optimizer_weight_shard_size": 2}, enable_parallel_optimizer=True)
+        ```
+
 2. `Parameter.parallel_optimizer`: This interface also allows the user to customize whether certain weights are sliced by the optimizer, as shown below:
 
     ```python
