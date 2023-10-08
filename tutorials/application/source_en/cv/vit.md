@@ -2,6 +2,8 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/application/source_en/cv/vit.md)
 
+Thanks to [ZOMI](https://gitee.com/sanjaychan) for contributing to this article.
+
 ## Introduction of ViT
 
 In recent years, the development of natural language processing models has been greatly facilitated by the development of models based on Self-Attention (SAA) structures, especially the proposal of Transformer model. Due to its computational efficiency and scalability, Transformers has been able to train models of unprecedented size with over 100B parameters.
