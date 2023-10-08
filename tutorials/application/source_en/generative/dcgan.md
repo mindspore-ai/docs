@@ -28,8 +28,6 @@ url = "https://download.mindspore.cn/dataset/Faces/faces.zip"
 path = download(url, "./faces", kind="zip", replace=True)
 ```
 
-Output:
-
 ```text
 Downloading data from https://download.mindspore.cn/dataset/Faces/faces.zip (274.6 MB)
 
@@ -236,7 +234,7 @@ optimizer_G.update_parameters_name('optim_g.')
 optimizer_D.update_parameters_name('optim_d.')
 ```
 
-### Training Mode
+### Training Model
 
 Training is divided into two parts: discriminator training and generator training.
 
@@ -250,7 +248,7 @@ Training is divided into two parts: discriminator training and generator trainin
 
 In the preceding two processes, the training loss is obtained, and statistics are collected at the end of each epoch. A batch of `fixed_noise` is pushed to the generator to intuitively trace the training progress of `G`.
 
-The training process is as follows:
+The following implements the model training forward logic:
 
 ```python
 def generator_forward(real_imgs, valid):
@@ -324,8 +322,6 @@ for epoch in range(num_epochs):
     mindspore.save_checkpoint(generator, "./generator.ckpt")
     mindspore.save_checkpoint(discriminator, "./discriminator.ckpt")
 ```
-
-Output:
 
 ```text
 [ 1/10][  1/549]   Loss_D: 0.8013  Loss_G: 0.5065
