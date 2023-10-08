@@ -558,21 +558,21 @@ class MsCnAutoSummary(Autosummary):
             real_table.append(group)
             group.append(nodes.colspec('', colwidth=10))
             group.append(nodes.colspec('', colwidth=90))
-        else:
-            table_spec['spec'] = r'\X{1}{2}\X{1}{2}\X{1}{2}'
-            if len(self.table_head) == 3:
-                group = nodes.tgroup('', cols=3)
-                real_table.append(group)
-                group.append(nodes.colspec('', colwidth=10))
-                group.append(nodes.colspec('', colwidth=60))
-                group.append(nodes.colspec('', colwidth=30))
-            elif len(self.table_head) == 4:
-                group = nodes.tgroup('', cols=4)
-                real_table.append(group)
-                group.append(nodes.colspec('', colwidth=10))
-                group.append(nodes.colspec('', colwidth=45))
-                group.append(nodes.colspec('', colwidth=25))
-                group.append(nodes.colspec('', colwidth=20))
+        elif len(self.table_head) == 3:
+            table_spec['spec'] = r'\X{2}{5}\X{2}{5}\X{1}{5}'
+            group = nodes.tgroup('', cols=3)
+            real_table.append(group)
+            group.append(nodes.colspec('', colwidth=10))
+            group.append(nodes.colspec('', colwidth=60))
+            group.append(nodes.colspec('', colwidth=30))
+        elif len(self.table_head) == 4:
+            table_spec['spec'] = r'\X{1}{3}\X{1}{3}\X{1}{6}\X{1}{6}'
+            group = nodes.tgroup('', cols=4)
+            real_table.append(group)
+            group.append(nodes.colspec('', colwidth=10))
+            group.append(nodes.colspec('', colwidth=45))
+            group.append(nodes.colspec('', colwidth=25))
+            group.append(nodes.colspec('', colwidth=20))
 
         body = nodes.tbody('')
         group.append(body)
