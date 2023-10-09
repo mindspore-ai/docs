@@ -362,9 +362,9 @@ Dump功能
      - 取值
      - 说明
    * - DATASET_ENABLE_NUMA
-     - 是否开启numa绑核功能，在大多数分布式场景下numa绑核都能提升数据处理效率和端到端性能
+     - 是否开启Dataset模块的numa绑核功能，在大多数分布式场景下numa绑核都能提升数据处理效率和端到端性能
      - String
-     - True: 开启numa绑核功能
+     - True: 开启Dataset模块的numa绑核功能
      - 与libnuma.so配合使用
    * - MS_CACHE_HOST
      - 开启cache时，cache服务所在的IP
@@ -376,6 +376,16 @@ Dump功能
      - String
      - Cache Server所在机器的端口
      - 与MS_CACHE_HOST一起使用
+   * - MS_DATASET_SINK_QUEUE
+     - 指定数据下沉队列的容量大小
+     - Integer
+     - 1~128：有效的队列容量大小设置范围
+     - 
+   * - MS_ENABLE_NUMA
+     - 是否开启全局numa绑核功能，提升端到端性能
+     - String
+     - True: 开启全局numa绑核功能
+     - 
    * - OPTIMIZE
      - 是否执行dataset数据处理 pipeline 树优化，在适合数据处理算子融合的场景下，可以提升数据处理效率
      - String

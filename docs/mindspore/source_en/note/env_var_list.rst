@@ -362,9 +362,9 @@ Data Processing
      - Value Range
      - Description
    * - DATASET_ENABLE_NUMA
-     - Determines whether to enable numa bind feature. Most of time this configuration can improve performance on distribute scenario.
+     - Determines whether to enable numa feature for dataset module. Most of time this configuration can improve performance on distribute scenario.
      - String
-     - True: Enables the numa bind feature.
+     - True: Enables the numa feature for dataset module.
      - This variable is used together with libnuma.so.
    * - MS_CACHE_HOST
      - Specifies the IP address of the host where the cache server is located when the cache function is enabled.
@@ -376,6 +376,16 @@ Data Processing
      - String
      - Port number of the host where the cache server is located.
      - This variable is used together with MS_CACHE_HOST.
+   * - MS_DATASET_SINK_QUEUE
+     - Specifies the size of data queue in sink mode.
+     - Integer
+     - 1~128: Valid range of queue size.
+     - 
+   * - MS_ENABLE_NUMA
+     - Whether to enable numa feature in global context to improve end-to-end performance.
+     - String
+     - True: Enables the numa feature in global context.
+     - 
    * - OPTIMIZE
      - Determines whether to optimize the pipeline tree for dataset during data processing. This variable can improve the data processing efficiency in the data processing operator fusion scenario.
      - String
