@@ -1014,7 +1014,7 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
    ```python
    import mindspore as ms
 
-   ms.set_context(ms.GRAPH_MODE)
+   ms.set_context(mode=ms.GRAPH_MODE)
 
    class Net(ms.nn.Cell):
        @classmethod
@@ -1032,7 +1032,7 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
     结果报错如下：
 
     ```Text
-    TypeError: too many positional arguments
+    TypeError: The parameters number of the function is 3, but the number of provided arguments is 2.
     ```
 
 3. 在图模式下，有些Python语法难以转换成图模式下的[中间表示MindIR](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir)。对标Python的关键字，存在部分关键字在图模式下是不支持的：AsyncFunctionDef、Delete、AnnAssign、AsyncFor、AsyncWith、Match、Try、Import、ImportFrom、Nonlocal、NamedExpr、Set、SetComp、Await、Yield、YieldFrom、Starred。如果在图模式下使用相关的语法，将会有相应的报错信息提醒用户。

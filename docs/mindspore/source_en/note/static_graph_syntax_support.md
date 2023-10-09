@@ -1014,7 +1014,7 @@ The execution graph in graph mode is converted from source code, and not all Pyt
    ```python
    import mindspore as ms
 
-   ms.set_context(ms.GRAPH_MODE)
+   ms.set_context(mode=ms.GRAPH_MODE)
 
    class Net(ms.nn.Cell):
        @classmethod
@@ -1032,7 +1032,7 @@ The execution graph in graph mode is converted from source code, and not all Pyt
    The result is as follows:
 
    ```Text
-   TypeError: too many positional arguments
+   TypeError: The parameters number of the function is 3, but the number of provided arguments is 2.
    ```
 
 3. In graph mode, some Python syntax is difficult to convert to [intermediate MindIR](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir) in graph mode. For Python keywords, there are some keywords that are not supported in graph mode: AsyncFunctionDef, Delete, AnnAssign, AsyncFor, AsyncWith, Match, Try, Import, ImportFrom, Nonlocal, NamedExpr, Set, SetComp, Await, Yield, YieldFrom, Starred. If the relevant syntax is used in graph mode, an error message will alert the user.
