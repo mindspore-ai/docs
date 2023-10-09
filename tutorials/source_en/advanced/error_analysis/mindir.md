@@ -192,9 +192,9 @@ Taking graph `@20_1___main___Net_construct.295` as an example:
 The `CNode` ([check the design of ANF-IR](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#syntax)) information format is as follows: from left to right, the ordinal number, node name - debug_name, operator name - op_name, input node - arg, attributes of the node - primitive_attrs, input and output specifications, source code parsing call stack and other information. Because the ANF graph is a unidirectional acyclic graph, the connection between nodes is displayed only based on the input relationship. The corresponding source code reflects the relationship between the `CNode` and the script source code. For example, line 44 is parsed from `if b`.
 
 ```text
-  %[No.]([debug_name]) = [op_name]([arg], ...) primitive_attrs: {[key]: [value], ...}
-      : (<[input data_type]x[input shape]>, ...) -> (<[output data_type]x[output shape]>, ...)
-      # Corresponding source code
+%[No.]([debug_name]) = [op_name]([arg], ...) primitive_attrs: {[key]: [value], ...}
+    : (<[input data_type]x[input shape]>, ...) -> (<[output data_type]x[output shape]>, ...)
+    # Corresponding source code
 ```
 
 About the corresponding source code:
