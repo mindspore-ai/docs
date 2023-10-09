@@ -312,82 +312,12 @@ Log
        2-WARNING
 
        3-ERROR
-       
-       SubModule: COMMON, MD, DEBUG, DEVICE, COMMON, IR...
+
      - The assignment way is:`MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`
 	 
-       The log level of the specified sub-module will override the setting of `GLOG_v` in this module, where the log level of the sub-module `LogLevel` has the same meaning as that of `GLOG_v`, and the division of MindSpore sub-module is as follows
+       The log level of the specified sub-module will override the setting of `GLOG_v` in this module, where the log level of the sub-module `LogLevel` has the same meaning as that of `GLOG_v`. For a detailed list of MindSpore sub-modules, see `sub-module_names <https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/utils/log_adapter.cc>`_.
 	   
        For example, you can set the log level of `PARSER` and `ANALYZER` modules to WARNING and the log level of other modules to INFO by `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`.
-
-The MindSpore submodules are divided by directory as follows:
-
-.. list-table::
-   :widths: 30 10
-   :header-rows: 1
-
-   * - Source Files
-     - Sub Module Name
-   * - mindspore/ccsrc/kernel
-     - KERNEL
-   * - mindspore/ccsrc/plugin/device/\*/kernel
-     - KERNEL
-   * - mindspore/ccsrc/backend/common/optimizer
-     - PRE_ACT
-   * - mindspore/ccsrc/backend/common/pass
-     - PRE_ACT
-   * - mindspore/ccsrc/plugin/device/\*/optimizer
-     - PRE_ACT
-   * - mindspore/ccsrc/backend/common/session
-     - SESSION
-   * - mindspore/ccsrc/common
-     - COMMON
-   * - mindspore/ccsrc/debug
-     - DEBUG
-   * - mindspore/ccsrc/frontend/operator
-     - ANALYZER
-   * - mindspore/ccsrc/frontend/optimizer
-     - OPTIMIZER
-   * - mindspore/ccsrc/frontend/parallel
-     - PARALLEL
-   * - mindspore/ccsrc/minddata/dataset
-     - MD
-   * - mindspore/ccsrc/minddata/mindrecord
-     - MD
-   * - mindspore/ccsrc/pipeline/jit/\*.cc
-     - PIPELINE
-   * - mindspore/ccsrc/pipeline/jit/parse
-     - PARSER
-   * - mindspore/ccsrc/pipeline/jit/static_analysis
-     - ANALYZER
-   * - mindspore/ccsrc/pipeline/pynative
-     - PYNATIVE
-   * - mindspore/ccsrc/pybind_api
-     - COMMON
-   * - mindspore/ccsrc/runtime/device
-     - DEVICE
-   * - mindspore/ccsrc/runtime/hardware
-     - DEVICE
-   * - mindspore/ccsrc/runtime/collective
-     - DEVICE
-   * - mindspore/ccsrc/runtime/pynative
-     - DEVICE
-   * - mindspore/ccsrc/runtime/addons
-     - RUNTIME_FRAMEWORK
-   * - mindspore/ccsrc/runtime/graph_scheduler
-     - RUNTIME_FRAMEWORK
-   * - mindspore/ccsrc/transform/graph_ir
-     - GE_ADPT
-   * - mindspore/ccsrc/transform/express_ir
-     - EXPRESS
-   * - mindspore/ccsrc/utils
-     - UTILS
-   * - mindspore/ccsrc/backend/graph_compiler
-     - VM
-   * - mindspore/ccsrc
-     - ME
-   * - mindspore/core
-     - CORE
 
 Note: glog does not support log file wrapping. If you need to control the log file occupation of disk space, you can use the log file management tool provided by the operating system, for example: logrotate for Linux.
 
