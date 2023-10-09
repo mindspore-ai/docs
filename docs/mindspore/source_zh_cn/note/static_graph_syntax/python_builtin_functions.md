@@ -190,7 +190,7 @@ e: [1 2 3 4]
 
 入参：`x` -- 需要被转换为元组的对象，支持类型为`list`、 `tuple`、 `dict`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
 
-返回值：按照`x`的第零纬度拆分得到的元组。
+返回值：按照`x`的第零维度拆分得到的元组。
 
 代码用例如下：
 
@@ -230,7 +230,7 @@ d: (Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value
 
 入参：`x` -- 需要被转换为列表的对象，支持类型为`list`、 `tuple`、 `dict`、`Tensor`以及第三方对象（例如`numpy.ndarray`）。
 
-返回值：按照`x`的第零纬度拆分得到的列表。
+返回值：按照`x`的第零维度拆分得到的列表。
 
 代码用例如下：
 
