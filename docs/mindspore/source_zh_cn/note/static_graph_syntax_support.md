@@ -32,23 +32,6 @@ MindSpore的静态图执行过程实际包含两步，对应静态图的Define�
 - 常量： 编译期内可以获取到值的量。
 - 变量： 编译期内无法获取到值的量。
 
-在有些情况下，一个量是常量还是变量是很难判断的，此时我们可以通过`ops.isconstant`来判断其是否为常量。例如：
-
-```python
-from mindspore import Tensor, jit, ops
-
-a = Tensor([1])
-
-@jit
-def foo(a):
-    b = Tensor([2])
-    m = ops.isconstant(a)
-    n = ops.isconstant(b)
-    return m, n
-```
-
-上述代码中，`a`为变量，因此`m`为`False`。`b`为常量，因此`n`为`True`。
-
 #### 常量产生场景
 
 - 作为图模式输入的标量，列表以及元组均为常量（在不使用mutable接口的情况下）。例如：
@@ -823,7 +806,7 @@ print('ret.shape:{}'.format(ret.shape))
 结果报错如下：
 
 ```text
-TypeError: Only supported positional parameter type for python primitive, but got keyword parameter type.
+ValueError: For 'ReduceSum', the second input type should be tensor or scalar, but got invalid abstract type:AbstractKeywordArg.
 ```
 
 当前不支持在网络调用`Primitive`及其子类相关属性和接口。
@@ -1033,18 +1016,18 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
 
    ms.set_context(ms.GRAPH_MODE)
 
-    class Net(ms.nn.Cell):
-    @classmethod
-    def func(cls, x, y):
-        return x + y
+   class Net(ms.nn.Cell):
+       @classmethod
+       def func(cls, x, y):
+           return x + y
 
-    def construct(self, x, y):
-        return self.func(x, y)
+       def construct(self, x, y):
+           return self.func(x, y)
 
-    net = Net()
-    out = net(ms.Tensor(1), ms.Tensor(2))
-    print(out)
-    ```
+   net = Net()
+   out = net(ms.Tensor(1), ms.Tensor(2))
+   print(out)
+   ```
 
     结果报错如下：
 
@@ -1052,7 +1035,7 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
     TypeError: too many positional arguments
     ```
 
-3. 在图模式下，有些Python语法难以转换成图模式下的[中间表示MindIR](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir)。对标Python的关键字，存在部分关键字在图模式下是不支持的：AsyncFunctionDef、ClassDef、Delete、AnnAssign、AsyncFor、AsyncWith、Match、Try、Import、ImportFrom、Nonlocal、NamedExpr、Set、SetComp、DictComp、Await、Yield、YieldFrom、Starred。如果在图模式下使用相关的语法，将会有相应的报错信息提醒用户。
+3. 在图模式下，有些Python语法难以转换成图模式下的[中间表示MindIR](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir)。对标Python的关键字，存在部分关键字在图模式下是不支持的：AsyncFunctionDef、Delete、AnnAssign、AsyncFor、AsyncWith、Match、Try、Import、ImportFrom、Nonlocal、NamedExpr、Set、SetComp、Await、Yield、YieldFrom、Starred。如果在图模式下使用相关的语法，将会有相应的报错信息提醒用户。
 
     如果使用Try语句，示例如下：
 
@@ -1511,7 +1494,7 @@ class Net(nn.Cell):
     def construct(self, x):
         return isinstance(x.asnumpy(), np.ndarray)
 
-x = Tensor(np.array([-1, 2, 4]))
+x = ms.Tensor(np.array([-1, 2, 4]))
 net = Net()
 out = net(x)
 assert out
@@ -1623,7 +1606,7 @@ res: 2
   net.m is 3
   ```
 
-  注意，self对象只支持属性修改，而不支持属性的设置，即只支持对`__init__`函数内设置的属性进行修改。若`__init__`内没有定义某个属性，则图模式内不允许设置此属性。例如：
+  注意，self对象支持属性修改和设置。若`__init__`内没有定义某个属性，对齐PYNATIVE模式，图模式也允许设置此属性。例如：
 
   ```python
   import mindspore as ms
@@ -1636,7 +1619,7 @@ res: 2
         self.m = 2
 
     def construct(self):
-        self.m2 = 3 # self.m2在__init__内没有被设置，因此无法在图模式内进行设置
+        self.m2 = 3
         return
 
   net = Net()
@@ -1757,7 +1740,8 @@ res: 2
 
 ```python
 import mindspore as ms
-from mindspore import ops
+from mindspore import ops, set_context
+set_context(mode=ms.GRAPH_MODE)
 
 @ms.jit
 def dict_net(a):

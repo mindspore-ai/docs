@@ -32,23 +32,6 @@ In static graph mode, the operation of a program is divided into compilation per
 - Constant: The amount of value that can be obtained during compilation.
 - Variable: The amount of value that cannot be obtained during compilation.
 
-In some cases, it is difficult to determine whether a quantity is a constant or a variable, and we can use 'ops.isconstant' to determine whether it is a constant or not. For example:
-
-```python
-from mindspore import Tensor, jit, ops
-
-a = Tensor([1])
-
-@jit
-def foo(a):
-    b = Tensor([2])
-    m = ops.isconstant(a)
-    n = ops.isconstant(b)
-    return m, n
-```
-
-In the above code, 'a' is the variable, so 'm' is 'false'. 'b' is a constant, so 'n' is 'True'.
-
 #### Constants Generate Scenes
 
 - Scalars, lists, and tuples entered as graph mode are constants (without using the mutable interface). For example:
@@ -823,7 +806,7 @@ In the network defined above, the parameters of reduce_sum(x, axis=2) cannot be 
 The error is reported as follows:
 
 ```text
-TypeError: Only supported positional parameter type for python primitive, but got keyword parameter type.
+ValueError: For 'ReduceSum', the second input type should be tensor or scalar, but got invalid abstract type:AbstractKeywordArg.
 ```
 
 Currently, the attributes and APIs related to `Primitive` and its subclasses cannot be called on the network.
@@ -1033,18 +1016,18 @@ The execution graph in graph mode is converted from source code, and not all Pyt
 
    ms.set_context(ms.GRAPH_MODE)
 
-    class Net(ms.nn.Cell):
-    @classmethod
-    def func(cls, x, y):
-        return x + y
+   class Net(ms.nn.Cell):
+       @classmethod
+       def func(cls, x, y):
+           return x + y
 
-    def construct(self, x, y):
-        return self.func(x, y)
+       def construct(self, x, y):
+           return self.func(x, y)
 
-    net = Net()
-    out = net(ms.Tensor(1), ms.Tensor(2))
-    print(out)
-    ```
+   net = Net()
+   out = net(ms.Tensor(1), ms.Tensor(2))
+   print(out)
+   ```
 
    The result is as follows:
 
@@ -1052,7 +1035,7 @@ The execution graph in graph mode is converted from source code, and not all Pyt
    TypeError: too many positional arguments
    ```
 
-3. In graph mode, some Python syntax is difficult to convert to [intermediate MindIR](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir) in graph mode. For Python keywords, there are some keywords that are not supported in graph mode: AsyncFunctionDef, ClassDef, Delete, AnnAssign, AsyncFor, AsyncWith, Match, Try, Import, ImportFrom, Nonlocal, NamedExpr, Set, SetComp, DictComp, Await, Yield, YieldFrom, Starred. If the relevant syntax is used in graph mode, an error message will alert the user.
+3. In graph mode, some Python syntax is difficult to convert to [intermediate MindIR](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir) in graph mode. For Python keywords, there are some keywords that are not supported in graph mode: AsyncFunctionDef, Delete, AnnAssign, AsyncFor, AsyncWith, Match, Try, Import, ImportFrom, Nonlocal, NamedExpr, Set, SetComp, Await, Yield, YieldFrom, Starred. If the relevant syntax is used in graph mode, an error message will alert the user.
 
    If you use the Try statement, the following example is used:
 
@@ -1511,7 +1494,7 @@ class Net(nn.Cell):
     def construct(self, x):
         return isinstance(x.asnumpy(), np.ndarray)
 
-x = Tensor(np.array([-1, 2, 4]))
+x = ms.Tensor(np.array([-1, 2, 4]))
 net = Net()
 out = net(x)
 assert out
@@ -1623,7 +1606,7 @@ shape is (2, 2)
   net.m is 3
   ```
 
-  Note that the self object only supports property modification, not property setting, that is, only supports modifying the properties set in the '__init__' function. If no attribute is defined in '__init__', it is not allowed to be set in graph mode. For example:
+  Note that the self object supports property modification and setting. If no attribute is defined in '__init__', align the PYNATIVE mode, and the graph mode also allows this attribute to be set. For example:
 
   ```python
   import mindspore as ms
@@ -1636,7 +1619,7 @@ shape is (2, 2)
         self.m = 2
 
     def construct(self):
-        self.m2 = 3 # # self.m2 is not set in the __init__, so it cannot be set in graph mode
+        self.m2 = 3
         return
 
   net = Net()
@@ -1757,7 +1740,8 @@ The static graph syntax supported by the extension also supports its use in deri
 
 ```python
 import mindspore as ms
-from mindspore import ops
+from mindspore import ops, set_context
+set_context(mode=ms.GRAPH_MODE)
 
 @ms.jit
 def dict_net(a):
