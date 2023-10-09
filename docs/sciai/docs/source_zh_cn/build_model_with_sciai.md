@@ -63,8 +63,8 @@ net_loss = ExampleLoss(net)
 from mindspore import Tensor
 
 x = Tensor([[0.5, 0.5]])
-y = Tensor([0.72942554])
-print("loss value: ", net_loss(x, y))
+y_true = Tensor([0.72942554])
+print("loss value: ", net_loss(x, y_true))
 # expected output
 ...
 loss value: 0.3026065
