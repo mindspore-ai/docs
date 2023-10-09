@@ -186,13 +186,14 @@ else:
             shutil.copytree(os.path.join(src_dir,i),'./'+i)
 
 import sciai
-from myautosummary import MsPlatformAutoSummary, MsCnPlatformAutoSummary
+from myautosummary import MsPlatformAutoSummary, MsCnPlatformAutoSummary, MsCnAutoSummary
 
 rst_files = set([i.replace('.rst', '') for i in glob.glob('./**/*.rst', recursive=True)])
 
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
     app.add_directive('mscnplatformautosummary', MsCnPlatformAutoSummary)
+    app.add_directive('mscnautosummary', MsCnAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
     app.add_config_value('rst_files', set(), False)
 
