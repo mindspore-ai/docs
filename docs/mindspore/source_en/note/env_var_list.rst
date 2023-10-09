@@ -536,3 +536,12 @@ Other
 
        Default: Null
      -
+   * - MS_PYNATIVE_GE
+     - Whether GE is executed in PyNative mode.
+     - Integer
+     - 0: GE is not executed.
+
+       1: GE is executed.
+
+       Default: 0
+     - Experimental environment variable.
