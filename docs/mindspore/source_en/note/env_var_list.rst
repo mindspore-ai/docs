@@ -555,3 +555,19 @@ Other
 
        Default: 0
      - Experimental environment variable.
+   * - GC_COLLECT_IN_CELL
+     - Whether to perform garbage collection on unused Cell objects
+     - Integer
+     - 1: Perform garbage collection on unused Cell objects
+
+       No setting or other value: not calling the garbage collection
+     - 
+   * - PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION
+     - Choose which language to use for the Protocol Buffers back-end implementation
+     - String
+     - "cpp": implementation using c++ backend
+
+       "python": implementation using python back-end
+
+       No setting or other value: implementation using python backend
+     - 
