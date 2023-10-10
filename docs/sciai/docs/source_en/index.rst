@@ -3,7 +3,7 @@ Introduction to SciAI
 
 Based on MindSpore, SciAI is a model library with 60 built-in most frequently used and cited AI4Sci(AI for Science) models, which cover SOTA models from physics-informed (PINNs, DeepRitz, PFNN, etc.) to neural operators (FNO, DeepONet, PDENet), ranking No.1 in the world in terms of coverage.
 MindSpore SciAI provides the developers and users with a high-level API (auto configuration, auto instantiation, training and fine-tuning, etc.), allowing an immediate deployment.
-With these features, SciAI provides developers and users with an efficient and convenient AI4SCI computation platform.
+With these features, MindSpore SciAI covers a wide variety of scientific computation fields, including fluid dynamics, electromagnetism, sound, heat, solid and biology, providing developers and users with an efficient and convenient AI4SCI computation platform.
 
 .. raw:: html
 
