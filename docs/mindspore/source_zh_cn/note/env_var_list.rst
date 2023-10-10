@@ -552,3 +552,19 @@ Dump功能
 
        默认值: 0
      - 实验性质的环境变量
+   * - GC_COLLECT_IN_CELL
+     - 是否对未使用的Cell对象进行垃圾回收
+     - Integer
+     - 1：对未使用的Cell对象进行垃圾回收
+
+       不设置或其他值：不会显示调用垃圾回收机制
+     - 
+   * - PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION
+     - 选择Protocol Buffers后端使用什么语言实现
+     - String
+     - "cpp"：使用c++后端实现
+
+       "python"：使用python后端实现
+
+       不设置或其他值：使用python后端实现
+     - 
