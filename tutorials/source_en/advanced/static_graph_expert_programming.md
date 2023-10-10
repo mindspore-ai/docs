@@ -101,11 +101,7 @@ The network structure of GPT consists of different instances of the multi-layer 
 
 #### Usage Steps
 
-1. As in the example above, add the `@lazy_inline` decorator to the `__init__` function of the Cell class that needs to delay the inline and reuse the subgraph structure in the network script.
-2. Before executing the training script, you need to set the environment variable MS_DEV_CELL_REUSE to 1 or 2 to enable the Lazy Inline, and the meaning of the two levels is:
-
-   - MS_DEV_CELL_REUSE=1, indicates that the Lazy Inline is enabled, but the backend only executes the inline at the ordinal level. Currently only this level is supported on the Ascend 910B.
-   - MS_DEV_CELL_REUSE=2, indicates that the Lazy Inline is enabled, and the backend executes Inline before order optimization execution and memory reuse, which has better memory optimization effect.
+As in the example above, add the `@lazy_inline` decorator to the `__init__` function of the Cell class that needs to delay the inline and reuse the subgraph structure in the network script.
 
 #### Usage Limitations
 
