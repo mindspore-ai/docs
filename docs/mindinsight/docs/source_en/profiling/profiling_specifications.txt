@@ -19,11 +19,13 @@ Specifications
 
 - Enabling the profiler has a partial performance impact on the training process. If the impact is significant, data collection items can be reduced. The following is a comparison of the performance of the Resnet network before and after enabling the profiler:
 
-  | network：Resnet | Disable profiler | Enable profiler |  Performance Comparison |
-  |:------------:|:------------------:|:------------------:|:----------:|
-  |  1P+PYNATIVE |     31.18444ms     |     31.67689ms     | +0.49245ms |
-  |   1P+GRAPH   |     30.38978ms     |     31.72489ms     | +1.33511ms |
-  |  8P+PYNATIVE |      30.046ms      |     32.38599ms     | +2.33999ms |
-  |   8P+GRAPH   |     24.06355ms     |     25.04324ms     | +0.97969ms |
+  ===============   =====================   =====================   ==========================
+  network：Resnet    Disable profiler        Enable profiler         Performance Comparison
+  ===============   =====================   =====================   ==========================
+  1P+PYNATIVE       31.18444ms              31.67689ms              +0.49245ms
+  1P+GRAPH          30.38978ms              31.72489ms              +1.33511ms
+  8P+PYNATIVE       30.046ms                32.38599ms              +2.33999ms
+  8P+GRAPH          24.06355ms              25.04324ms              +0.97969ms
+  ===============   =====================   =====================   ==========================
 
   - The performance data in the chart shows the average time spent on one step during the training process of the resnet network on Ascend 910. (Note: There are performance fluctuations in network training, and the above data is for reference only)
