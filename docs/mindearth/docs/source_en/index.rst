@@ -21,6 +21,13 @@ Code repository address: <https://gitee.com/mindspore/mindscience/tree/master/Mi
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Dem-Super-resolution
+
+   dem-super-resolution/DEMNet
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: Medium-range
 
    medium-range/FourCastNet

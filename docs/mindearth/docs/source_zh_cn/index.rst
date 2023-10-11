@@ -21,6 +21,13 @@ MindSpore Earth介绍
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: 高分辨率数字高程模型
+
+   dem-super-resolution/DEMNet
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: 中期预报
 
    medium-range/FourCastNet
