@@ -265,3 +265,5 @@ MindSpore Documentation
 				</div>
 		   </div>
 	</div>
+
+`Click to download the API documentation <https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/pdf/r2.1/en/MindSpore_API_r2.1_en.pdf>`_
