@@ -346,6 +346,16 @@ Dump Function
      - String
      - File path, only absolute path is supported.
      - This variable is used together with MINDSPORE_DUMP_CONFIG.
+   * - MS_DEV_DUMP_BPROP
+     - Dump bprop ir file in current path 
+     - String
+     - 'on', indicating that dump bprop ir file in current path
+     - Experimental environment variable.
+   * - MS_DEV_DUMP_PACK
+     - Dump trace ir file in current path 
+     - String
+     - 'on', indicating that dump trace ir file in current path
+     - Experimental environment variable.
 
 For more information, see `Using Dump in the Graph Mode <https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html>`_.
 
@@ -564,3 +574,18 @@ Other
 
        No setting or other value: implementation using python backend
      - 
+   * - MS_DEV_DISABLE_BPROP_CACHE
+     - Disable to use bprop's graph cache
+     - String
+     - 'on', indicating that disable to use bprop's graph cache
+     - Experimental environment variable. When set env on, it will slow down building bprop's graph
+   * - MS_DEV_USE_PY_BPROP
+     - The op which set by environment will use python bprop instead of cpp expander bprop
+     - String
+     - Op name, can set more than one name, split by ','
+     - Experimental environment variable. It will run fail when python bprop does not exist
+   * - MS_DEV_DISABLE_TRACE
+     - Disable trace function
+     - String
+     - 'on', indicating that disable trace function
+     - Experimental environment variable.

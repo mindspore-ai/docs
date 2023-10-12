@@ -346,6 +346,16 @@ Dump功能
      - String
      - 文件路径，只支持绝对路径
      - 与MINDSPORE_DUMP_CONFIG配合使用
+   * - MS_DEV_DUMP_BPROP
+     - 在当前路径dump算子反向图的ir文件 
+     - String
+     - "on"，表示在当前路径dump算子反向图的ir文件
+     - 实验性质的环境变量
+   * - MS_DEV_DUMP_PACK
+     - 在当前路径生成trace构图的ir文件 
+     - String
+     - "on"，表示在当前路径生成trace构图的ir文件
+     - 实验性质的环境变量
 
 具体用法详见 `Dump功能调试 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html>`_ 。
 
@@ -561,3 +571,18 @@ Dump功能
 
        不设置或其他值：使用python后端实现
      - 
+   * - MS_DEV_DISABLE_BPROP_CACHE
+     - 关闭bprop缓存图功能
+     - String
+     - "on"，表示关闭bprop缓存图功能
+     - 实验性质的环境变量，关闭缓存功能会导致构图时间延长
+   * - MS_DEV_USE_PY_BPROP
+     - 指定算子的bprop使用python版本，不使用cpp expander
+     - String
+     - 算子名称，可以指定多个算子，以","分隔
+     - 实验性质的环境变量，如果不存在python版本的bprop函数，会执行出错
+   * - MS_DEV_DISABLE_TRACE
+     - 关闭trace构图功能
+     - String
+     - "on"，表示关闭trace构图功能
+     - 实验性质的环境变量
