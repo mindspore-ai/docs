@@ -1,6 +1,6 @@
 # Single-host Distributed Training
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/graphlearning/docs/source_en/single_host_distributed_Graphsage.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/graphlearning/docs/source_en/single_host_distributed_Graphsage.md)
 &nbsp;&nbsp;
 
 ## Overview

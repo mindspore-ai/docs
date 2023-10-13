@@ -1,8 +1,8 @@
 Automatic Parallel
 ========================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/auto_parallel.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_en/parallel/auto_parallel.rst
 
 .. toctree::
   :maxdepth: 1
@@ -13,8 +13,8 @@ Automatic Parallel
 
 The auto-parallel mode allows the user to automatically build the cost model and find a parallel strategy with shorter training time without paying attention to the strategy configuration. Currently MindSpore supports the following two different auto-parallel schemes:
 
-- `Sharding Strategy Propagation Algorithm <https://www.mindspore.cn/tutorials/experts/en/master/parallel/sharding_propagation.html>`_: propagation of parallel strategy from operators configured with parallel strategy to operators not configured. When propagating, the algorithm tries to pick the strategy that triggers the least amount of tensor rearranging communication.
-- `Double Recursive Strategy Search Algorithm <https://www.mindspore.cn/tutorials/experts/en/master/parallel/sapp.html>`_: Its cost model based on symbolic operations can be freely adapted to different accelerator clusters, and can generate optimal strategy fast for huge networks and large-scale multi-card slicing.
+- `Sharding Strategy Propagation Algorithm <https://www.mindspore.cn/tutorials/experts/en/r2.2/parallel/sharding_propagation.html>`_: propagation of parallel strategy from operators configured with parallel strategy to operators not configured. When propagating, the algorithm tries to pick the strategy that triggers the least amount of tensor rearranging communication.
+- `Double Recursive Strategy Search Algorithm <https://www.mindspore.cn/tutorials/experts/en/r2.2/parallel/sapp.html>`_: Its cost model based on symbolic operations can be freely adapted to different accelerator clusters, and can generate optimal strategy fast for huge networks and large-scale multi-card slicing.
 
 Auto-parallel algorithm is the strategy search algorithm based on the operator-level model parallel, and to understand the principles, it is first necessary to understand the basic concepts in MindSpore operator-level parallel: distributed operators, tensor arranging, and tensor rearranging. Operator-level parallel is an implementation of Single Program Multiple Data (SPMD). The same program is executed on different data slices. MindSpore converts a stand-alone version of a program into a parallel version. The conversion is fine-grained, replacing each operator in the stand-alone version of the program with a distributed operator, while ensuring that the replacement is mathematically equivalent.
 

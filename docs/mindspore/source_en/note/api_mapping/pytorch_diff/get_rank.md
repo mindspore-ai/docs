@@ -1,6 +1,6 @@
 # Differences with torch.distributed.get_rank
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/get_rank.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/get_rank.md)
 
 ## torch.distributed.get_rank
 
@@ -16,7 +16,7 @@ For more information, see [torch.distributed.get_rank](https://pytorch.org/docs/
 mindspore.communication.get_rank(group=GlobalComm.WORLD_COMM_GROUP)
 ```
 
-For more information, see [mindspore.communication.get_rank](https://mindspore.cn/docs/en/master/api_python/mindspore.communication.html#mindspore.communication.get_rank).
+For more information, see [mindspore.communication.get_rank](https://mindspore.cn/docs/en/r2.2/api_python/mindspore.communication.html#mindspore.communication.get_rank).
 
 ## Differences
 

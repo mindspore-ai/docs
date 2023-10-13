@@ -1,6 +1,6 @@
 # 比较与torch.min的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/min.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/min.md)
 
 ## torch.min
 
@@ -16,7 +16,7 @@ torch.min(input, dim, keepdim=False, *, out=None)
 mindspore.ops.min(input, axis=None, keepdims=False, *, initial=None, where=None)
 ```
 
-更多内容详见[mindspore.ops.min](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.min.html)。
+更多内容详见[mindspore.ops.min](https://mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.min.html)。
 
 ## 差异对比
 

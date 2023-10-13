@@ -1,6 +1,6 @@
 # Differences between torch.nn.AdaptiveAvgPool1d
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/AdaptiveAvgPool1d.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/AdaptiveAvgPool1d.md)
 
 The following mapping relationships can be found in this file.
 
@@ -23,7 +23,7 @@ For more information, see [torch.nn.AdaptiveAvgPool1d](https://pytorch.org/docs/
 mindspore.nn.AdaptiveAvgPool1d(output_size)(input) -> Tensor
 ```
 
-For more information, see [mindspore.nn.AdaptiveAvgPool1d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.AdaptiveAvgPool1d.html).
+For more information, see [mindspore.nn.AdaptiveAvgPool1d](https://www.mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.AdaptiveAvgPool1d.html).
 
 ## Differences
 

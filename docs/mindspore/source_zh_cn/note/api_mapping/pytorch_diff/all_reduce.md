@@ -1,6 +1,6 @@
 # 比较与torch.distributed.all_reduce的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/all_reduce.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/all_reduce.md)
 
 ## torch.distributed.all_reduce
 
@@ -24,7 +24,7 @@ class mindspore.ops.AllReduce(
 )(input_x)
 ```
 
-更多内容详见[mindspore.ops.AllReduce](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AllReduce.html#mindspore.ops.AllReduce)。
+更多内容详见[mindspore.ops.AllReduce](https://mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.AllReduce.html#mindspore.ops.AllReduce)。
 
 ## 使用方式
 

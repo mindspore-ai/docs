@@ -1,12 +1,12 @@
 # 环境准备与资料获取
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/enveriment_preparation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/migration_guide/enveriment_preparation.md)
 
 网络迁移首先需要配置MindSpore的开发环境，本章会详细描述安装过程与相关资料获取。相关资料包括对MindSpore组件models 与 Hub的基本介绍，包含用途、场景与使用方法。此外还有云上训练的相关教程：使用ModelArts适配脚本，在OBS上传数据集，进行线上训练等。
 
 ## MindSpore安装
 
-[昇思MindSpore](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/introduction.html)是一个全场景深度学习框架，目前支持在[昇腾](https://e.huawei.com/cn/products/servers/ascend)、GPU、CPU等多种device上运行。其中昇腾和GPU上安装MindSpore前需要配置好对应的运行环境。
+[昇思MindSpore](https://www.mindspore.cn/tutorials/zh-CN/r2.2/beginner/introduction.html)是一个全场景深度学习框架，目前支持在[昇腾](https://e.huawei.com/cn/products/servers/ascend)、GPU、CPU等多种device上运行。其中昇腾和GPU上安装MindSpore前需要配置好对应的运行环境。
 
 > MindSpore 昇腾支持AI训练（910）、推理卡（310与310P）及训练服务器等多种Atlas系列芯片上运行，注意MindSpore版本需要和昇腾AI处理器配套软件包配套使用，如MindSpore1.8.1 必须配套昇腾软件包商业版22.0.RC2版本或者CANN社区版5.1.RC2.alpha008版本，在其他版本可能会有问题，详情请参考MindSpore Ascend版本安装指南中的“安装昇腾AI处理器配套软件包”章节。
 >

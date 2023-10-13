@@ -1,6 +1,6 @@
 # Differences with torch.Tensor.flip
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/flip.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/flip.md)
 
 ## torch.Tensor.flip
 
@@ -16,7 +16,7 @@ For more details, see [torch.Tensor.flip](https://pytorch.org/docs/1.8.1/tensors
 mindspore.Tensor.flip(dims)
 ```
 
-For more details, see [mindspore.Tensor.flip](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.flip.html).
+For more details, see [mindspore.Tensor.flip](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore/Tensor/mindspore.Tensor.flip.html).
 
 ## Differences
 

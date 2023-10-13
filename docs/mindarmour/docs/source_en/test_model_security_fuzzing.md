@@ -1,6 +1,6 @@
 # Testing Model Security Using Fuzz Testing
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/test_model_security_fuzzing.md)&nbsp;&nbsp;
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindarmour/docs/source_en/test_model_security_fuzzing.md)&nbsp;&nbsp;
 
 ## Overview
 

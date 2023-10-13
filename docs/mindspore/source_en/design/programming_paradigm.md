@@ -1,6 +1,6 @@
 # Functional and Object-Oriented Fusion Programming Paradigm
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/programming_paradigm.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/design/programming_paradigm.md)
 
 Programming paradigm refers to the programming style or programming approach of a programming language. Typically, AI frameworks rely on the programming paradigm of the programming language used by the front-end programming interface for the construction and training of neural networks. MindSpore, as an AI+scientific computing convergence computing framework, provides object-oriented programming and functional programming support for AI and scientific computing scenarios, respectively. At the same time, in order to enhance the flexibility and ease of use of the framework, a functional + object-oriented fusion programming paradigm is proposed, which effectively reflects the advantages of functional automatic differentiation mechanism.
 
@@ -383,11 +383,11 @@ class Net(nn.Cell):
 
 The structure of a forward network is:
 
-![auto-gradient-foward](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/auto_gradient_foward.png)
+![auto-gradient-foward](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/design/images/auto_gradient_foward.png)
 
 After the network is reversely differential, the resulting differential network structure is:
 
-![auto-gradient-forward2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/auto_gradient_forward2.png)
+![auto-gradient-forward2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/design/images/auto_gradient_forward2.png)
 
 ### Jacobian-Vector-Product Implementation
 
@@ -395,7 +395,7 @@ Besides `grad`, Mindspore has developed forward mode automatic differentiation m
 
 Compared to reverse mode AD, forward mode AD is more suitable for networks whose input dimension is smaller than output dimension. Mindspore forward mode AD is developed based on reversed mode Grad function.
 
-![auto-gradient-jvp](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/auto_gradient_jvp.png)
+![auto-gradient-jvp](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/design/images/auto_gradient_jvp.png)
 
 The network in black is the origin function. After the first derivative based on one input $x$, we get the network in blue. The second is the blue plot for the $v$ derivative, resulting in a yellow plot.
 

@@ -1,6 +1,6 @@
 # MindSpore RL Configuration Instruction
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_en/custom_config_info.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/reinforcement/docs/source_en/custom_config_info.md)
 &nbsp;&nbsp;
 
 ## Overview
@@ -9,7 +9,7 @@ Recent years, deep reinforcement learning is developing by leaps and bounds, new
 
 This instruction uses DQN algorithm as an example to introduce how to use this configuration API, and help users customize their algorithms.
 
-You can obtain the code of DQN algorithm from [https://github.com/mindspore-lab/mindrl/tree/master/example/dqn](https://github.com/mindspore-lab/mindrl/tree/master/example/dqn).
+You can obtain the code of DQN algorithm from [https://github.com/mindspore-lab/mindrl/tree/r0.7/example/dqn](https://github.com/mindspore-lab/mindrl/tree/r0.7/example/dqn).
 
 ## Configuration Details
 

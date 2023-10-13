@@ -1,8 +1,8 @@
 Environment Variables
 =====================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg 
-   :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/env_var_list.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg 
+   :target: https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/env_var_list.rst
 
 MindSpore environment variables are as follows:
 
@@ -27,7 +27,7 @@ Operators Compile
      - 
    * - MS_COMPILER_CACHE_ENABLE
      - Specifies whether to save or load the cache of the graph compiled by front-end. 
-       The function is the same as the `enable_compile_cache <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ in MindSpore context.
+       The function is the same as the `enable_compile_cache <https://www.mindspore.cn/docs/en/r2.2/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ in MindSpore context.
 
        Note: This environment variable has lower precedence than the context `enable_compile_cache`.
      - Integer
@@ -69,7 +69,7 @@ Operators Compile
        false: enable prebuild
      - 
 
-For more information, see `Incremental Operator Build <https://mindspore.cn/tutorials/experts/en/master/optimize/op_compilation.html>`_ and `FAQ <https://mindspore.cn/docs/en/master/faq/operators_compile.html>`_.
+For more information, see `Incremental Operator Build <https://mindspore.cn/tutorials/experts/en/r2.2/optimize/op_compilation.html>`_ and `FAQ <https://mindspore.cn/docs/en/r2.2/faq/operators_compile.html>`_.
 
 Parallel Training
 -----------------
@@ -132,7 +132,7 @@ Dynamic Networking
 
        MS_WORKER: represents the Worker process, which generally sets up the distributed training process for this role.
 
-       MS_PSERVER: represents the Parameter Server process, and this role is only valid in Parameter Server mode. Please refer to `Parameter Server mode <https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html>`_ .
+       MS_PSERVER: represents the Parameter Server process, and this role is only valid in Parameter Server mode. Please refer to `Parameter Server mode <https://www.mindspore.cn/tutorials/experts/en/r2.2/parallel/parameter_server_training.html>`_ .
      - The Worker and Parameter Server processes register with the Scheduler process to complete the networking.
    * - MS_SCHED_HOST
      - Specifies the IP address of the Scheduler.
@@ -181,7 +181,7 @@ Dynamic Networking
      - 1 for using the method, 0 for not using. The default is 0.
      - This environment variable is only recommended to be turned on for Ascend hardware platforms with a large number of communication domains. Turning on this environment variable reduces the memory footprint of the HCCL collection communication libraries, and the training tasks are executed in the same way as the rank table startup.
 
-See `Dynamic Cluster <https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html>`_ for more details.
+See `Dynamic Cluster <https://www.mindspore.cn/tutorials/experts/en/r2.2/parallel/dynamic_cluster.html>`_ for more details.
 
 Running Data Recorder
 ---------------------
@@ -219,7 +219,7 @@ Running Data Recorder
      - This variable is used together with `MS_RDR_ENABLE=1`. The final directory for recording data is `${MS_RDR_PATH}` `/rank_${RANK_ID}/rdr/`. 
        `RANK_ID` is the unique ID for multi-cards training, the single card scenario defaults to `RANK_ID=0`.
 
-For more information, see `Running Data Recorder <https://www.mindspore.cn/tutorials/experts/en/master/debug/rdr.html>`_.
+For more information, see `Running Data Recorder <https://www.mindspore.cn/tutorials/experts/en/r2.2/debug/rdr.html>`_.
 
 Log
 ---
@@ -315,7 +315,7 @@ Log
 
      - The assignment way is:`MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`
 	 
-       The log level of the specified sub-module will override the setting of `GLOG_v` in this module, where the log level of the sub-module `LogLevel` has the same meaning as that of `GLOG_v`. For a detailed list of MindSpore sub-modules, see `sub-module_names <https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/utils/log_adapter.cc>`_.
+       The log level of the specified sub-module will override the setting of `GLOG_v` in this module, where the log level of the sub-module `LogLevel` has the same meaning as that of `GLOG_v`. For a detailed list of MindSpore sub-modules, see `sub-module_names <https://gitee.com/mindspore/mindspore/blob/r2.2/mindspore/core/utils/log_adapter.cc>`_.
 	   
        For example, you can set the log level of `PARSER` and `ANALYZER` modules to WARNING and the log level of other modules to INFO by `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`.
 
@@ -334,13 +334,13 @@ Dump Function
      - Value Range
      - Description
    * - MINDSPORE_DUMP_CONFIG
-     - Specify the path of the configuration file that the `cloud-side Dump <https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#synchronous-dump>`_
-       or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#dump>`_ depends on.
+     - Specify the path of the configuration file that the `cloud-side Dump <https://www.mindspore.cn/tutorials/experts/en/r2.2/debug/dump.html#synchronous-dump>`_
+       or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/r2.2/use/benchmark_tool.html#dump>`_ depends on.
      - String
      - File path, which can be a relative path or an absolute path.
      - 
    * - MS_DIAGNOSTIC_DATA_PATH
-     - When the `cloud-side Dump <https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#synchronous-dump>`_ is enabled, 
+     - When the `cloud-side Dump <https://www.mindspore.cn/tutorials/experts/en/r2.2/debug/dump.html#synchronous-dump>`_ is enabled, 
        if the `path` field is not set or set to an empty string in the Dump configuration file, then `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump is regarded as path. 
        If the `path` field in configuration file is not empty, it is still used as the path to save Dump data.
      - String
@@ -357,7 +357,7 @@ Dump Function
      - 'on', indicating that dump trace ir file in current path
      - Experimental environment variable.
 
-For more information, see `Using Dump in the Graph Mode <https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html>`_.
+For more information, see `Using Dump in the Graph Mode <https://www.mindspore.cn/tutorials/experts/en/r2.2/debug/dump.html>`_.
 
 Data Processing
 ---------------
@@ -404,7 +404,7 @@ Data Processing
        false: disables pipeline tree optimization.
      - 
 
-For more information, see `Single-Node Data Cache <https://mindspore.cn/tutorials/experts/en/master/dataset/cache.html>`_ and `Optimizing the Data Processing <https://mindspore.cn/tutorials/experts/en/master/dataset/optimize.html>`_.
+For more information, see `Single-Node Data Cache <https://mindspore.cn/tutorials/experts/en/r2.2/dataset/cache.html>`_ and `Optimizing the Data Processing <https://mindspore.cn/tutorials/experts/en/r2.2/dataset/optimize.html>`_.
 
 Debugger
 --------
@@ -443,7 +443,7 @@ Debugger
      - Port number ranges from 1 to 65536.
      - This variable is used together with ENABLE_MS_DEBUGGER=1 and MS_DEBUGGER_HOST.
 
-For more information, see `Debugger <https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html>`_.
+For more information, see `Debugger <https://www.mindspore.cn/mindinsight/docs/en/r2.2/debugger.html>`_.
 
 Other
 -----

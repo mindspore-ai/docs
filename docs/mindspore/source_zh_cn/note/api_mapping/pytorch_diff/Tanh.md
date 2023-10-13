@@ -1,6 +1,6 @@
 # 比较与torch.nn.Tanh的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Tanh.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Tanh.md)
 
 ## torch.nn.Tanh
 
@@ -16,7 +16,7 @@ class torch.nn.Tanh()(input) -> Tensor
 class mindspore.nn.Tanh()(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.Tanh](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Tanh.html)。
+更多内容详见[mindspore.nn.Tanh](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/nn/mindspore.nn.Tanh.html)。
 
 ## 差异对比
 

@@ -1,6 +1,6 @@
 # 比较与torch.nn.RNN的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/RNN.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/RNN.md)
 
 ## torch.nn.RNN
 
@@ -16,7 +16,7 @@ class torch.nn.RNN(*args, **kwargs)(input, h_0)
 class mindspore.nn.RNN(*args, **kwargs)(x, h_x, seq_length)
 ```
 
-更多内容详见[mindspore.nn.RNN](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.RNN.html)。
+更多内容详见[mindspore.nn.RNN](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/nn/mindspore.nn.RNN.html)。
 
 ## 差异对比
 

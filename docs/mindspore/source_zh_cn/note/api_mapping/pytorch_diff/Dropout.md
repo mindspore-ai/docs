@@ -1,6 +1,6 @@
 # 比较与torch.nn.Dropout的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Dropout.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Dropout.md)
 
 ## torch.nn.Dropout
 
@@ -16,7 +16,7 @@ torch.nn.Dropout(p=0.5, inplace=False)
 mindspore.nn.Dropout(keep_prob=0.5, p=None, dtype=mstype.float32)
 ```
 
-更多内容详见[mindspore.nn.Dropout](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dropout.html)。
+更多内容详见[mindspore.nn.Dropout](https://mindspore.cn/docs/zh-CN/r2.2/api_python/nn/mindspore.nn.Dropout.html)。
 
 ## 差异对比
 

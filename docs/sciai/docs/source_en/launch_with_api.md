@@ -1,6 +1,6 @@
 # Launching Model with API
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_en/launch_with_api.md)&nbsp;&nbsp;
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/sciai/docs/source_en/launch_with_api.md)&nbsp;&nbsp;
 
 MindSpore SciAI provides users with a high order interface `AutoModel`, with which the supported model in the model library can be instantiated with one line code.
 
@@ -10,7 +10,7 @@ User can launch training and evaluation process with `AutoModel`.
 
 User can use the function `AutoModel.from_pretrained` to get the network models, which are supported in SciAI.
 
-Here we use the model Conservative Physics-Informed Neural Networks (CPINNs) as example. For the codes of CPINNs model, please refer to the [link](https://gitee.com/mindspore/mindscience/tree/master/SciAI/sciai/model/cpinns).
+Here we use the model Conservative Physics-Informed Neural Networks (CPINNs) as example. For the codes of CPINNs model, please refer to the [link](https://gitee.com/mindspore/mindscience/tree/r0.5/SciAI/sciai/model/cpinns).
 
 The fundamental idea about this model can be found in this [paper](https://www.sciencedirect.com/science/article/abs/pii/S0045782520302127).
 

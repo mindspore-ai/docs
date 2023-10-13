@@ -1,8 +1,8 @@
 性能调试（Ascend）
 ========================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-   :target: https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_profiling_ascend.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg
+   :target: https://gitee.com/mindspore/docs/blob/r2.2/docs/mindinsight/docs/source_zh_cn/performance_profiling_ascend.rst
 
 概述
 ----

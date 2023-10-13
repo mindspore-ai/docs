@@ -1,6 +1,6 @@
 # 在线学习
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/recommender/docs/source_zh_cn/online_learning.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/recommender/docs/source_zh_cn/online_learning.md)
 
 ## 概述
 
@@ -16,7 +16,7 @@
 
 用户的流式训练数据推送到Kafka中，MindSpore Pandas从Kafka读取数据并进行特征工程转换，然后写入特征存储引擎中，MindData从存储引擎中读取数据作为训练数据进行训练，MindSpore作为服务常驻，持续接收数据并执行训练，整体流程如下图所示：
 
-![image.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/recommender/docs/source_zh_cn/images/online_training.png)
+![image.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/recommender/docs/source_zh_cn/images/online_training.png)
 
 ## 使用约束
 
@@ -33,7 +33,7 @@ kafka-python v2.0.2
 
 ## 使用样例
 
-下面以Criteo数据集训练Wide&Deep为例，介绍一下在线学习的流程，样例代码位于[在线学习](https://github.com/mindspore-lab/mindrec/tree/master/examples/online_learning)。
+下面以Criteo数据集训练Wide&Deep为例，介绍一下在线学习的流程，样例代码位于[在线学习](https://github.com/mindspore-lab/mindrec/tree/r0.3/examples/online_learning)。
 
 MindSpore Recommender为在线学习提供了专门的算法模型`RecModel`，搭配实时数据源Kafka数据读取与特征处理的MindSpore Pandas即可实现一个简单的在线学习流程。
 首先自定义一个实时数据处理的数据集，其中的构造函数参数`receiver`是MindPands中的`DataReceiver`类型，用于接收实时数据，`__getitem__`表示一次读取一条数据。
@@ -156,11 +156,11 @@ python consumer.py  --num_shards=$DEVICE_NUM  --address=$LOCAL_HOST_IP  --datase
 # --map_dict： 稀疏特征列的字典
 ```
 
-consumer为criteo数据集进行特征工程需要3个数据集相关文件：`all_val_max_dict.pkl`、`all_val_min_dict.pkl`和`cat2id_dict.pkl`。`$PATH_TO_VAL_MAX_DICT`、`$PATH_TO_VAL_MIN_DICT`和`$PATH_TO_CAT_TO_ID_DICT` 分别为这些文件在环境上的绝对路径。这3个pkl文件具体生产方法可以参考[process_data.py](https://github.com/mindspore-lab/mindrec/blob/master/datasets/criteo_1tb/process_data.py)，对原始criteo数据集做转换生成对应的.pkl文件。
+consumer为criteo数据集进行特征工程需要3个数据集相关文件：`all_val_max_dict.pkl`、`all_val_min_dict.pkl`和`cat2id_dict.pkl`。`$PATH_TO_VAL_MAX_DICT`、`$PATH_TO_VAL_MIN_DICT`和`$PATH_TO_CAT_TO_ID_DICT` 分别为这些文件在环境上的绝对路径。这3个pkl文件具体生产方法可以参考[process_data.py](https://github.com/mindspore-lab/mindrec/blob/r0.3/datasets/criteo_1tb/process_data.py)，对原始criteo数据集做转换生成对应的.pkl文件。
 
 ### 启动在线训练
 
-config采用yaml的形式，见[default_config.yaml](https://github.com/mindspore-lab/mindrec/blob/master/examples/online_learning/default_config.yaml)。
+config采用yaml的形式，见[default_config.yaml](https://github.com/mindspore-lab/mindrec/blob/r0.3/examples/online_learning/default_config.yaml)。
 
 单卡训练：
 

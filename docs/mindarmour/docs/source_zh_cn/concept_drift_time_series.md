@@ -1,6 +1,6 @@
 # 实现时序数据概念漂移检测应用
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/concept_drift_time_series.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindarmour/docs/source_zh_cn/concept_drift_time_series.md)
 
 ## 概述
 

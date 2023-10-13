@@ -1,6 +1,6 @@
 # MindSpore Elec介绍和安装
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/source_zh_cn/intro_and_install.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindelec/docs/source_zh_cn/intro_and_install.md)
 
 ## MindSpore Elec介绍
 
@@ -8,7 +8,7 @@
 
 MindSpore Elec是基于MindSpore开发的AI电磁仿真工具包，由数据构建及转换、仿真计算、以及结果可视化组成。可以支持端到端的AI电磁仿真。目前已在华为终端手机容差场景中取得阶段性成果，相比商业仿真软件，AI电磁仿真的S参数误差在2%左右，端到端仿真速度提升10+倍。
 
-MindSpore Elec中包含了多个AI电磁仿真案例，更多详情，请点击查看[案例](https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples)。
+MindSpore Elec中包含了多个AI电磁仿真案例，更多详情，请点击查看[案例](https://gitee.com/mindspore/mindscience/tree/r0.5/MindElec/examples)。
 
 未来，MindSpore Elec中将包含更多结合AI算法的电磁仿真案例，欢迎大家的关注和支持。
 
@@ -18,7 +18,7 @@ MindSpore Elec中包含了多个AI电磁仿真案例，更多详情，请点击�
 
 - 硬件平台为Ascend。
 - 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装。  
-- 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/mindscience/blob/master/MindElec/requirements.txt)。
+- 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/mindscience/blob/r0.5/MindElec/requirements.txt)。
 
 ### 安装方式
 
@@ -30,7 +30,7 @@ MindSpore Elec中包含了多个AI电磁仿真案例，更多详情，请点击�
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/mindscience/{arch}/mindscience_mindelec_ascend-{me_version}-{python_version}-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - 在联网状态下，安装whl包时会自动下载MindSpore Elec安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindscience/blob/master/MindElec/setup.py)），点云数据采样依赖[pythonocc](https://github.com/tpaviot/pythonocc-core)，需自行安装。
+> - 在联网状态下，安装whl包时会自动下载MindSpore Elec安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindscience/blob/r0.5/MindElec/setup.py)），点云数据采样依赖[pythonocc](https://github.com/tpaviot/pythonocc-core)，需自行安装。
 > - `{arch}`表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为x86_64。如果系统是ARM架构64位，则写为aarch64。
 > - `{ms_version}`表示与MindSpore Elec匹配的MindSpore版本号，例如下载0.1.0版本MindSpore Elec时，`{ms_version}`应写为1.5.0。
 > - `{me_version}`表示MindSpore Elec版本号，例如下载0.1.0版本MindSpore Elec时，`{me_version}`应写为0.1.0。

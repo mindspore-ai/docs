@@ -1,6 +1,6 @@
 # Differences with torch.nn.functional.avg_pool1d
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/avg_pool1d.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/avg_pool1d.md)
 
 The following mapping relationships can be found in this file.
 
@@ -24,7 +24,7 @@ For more information, see [torch.nn.functional.avg_pool1d](https://pytorch.org/d
 mindspore.ops.avg_pool1d(input_x, kernel_size=1, stride=1, padding=0, ceil_mode=False, count_include_pad=True)
 ```
 
-For more information, see [mindspore.ops.avg_pool1d](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.avg_pool1d.html).
+For more information, see [mindspore.ops.avg_pool1d](https://mindspore.cn/docs/en/r2.2/api_python/ops/mindspore.ops.avg_pool1d.html).
 
 ## Differences
 

@@ -1,6 +1,6 @@
 # Differences with torch.var
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/var.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/var.md)
 
 The following mapping relationships can be found in this file.
 
@@ -23,7 +23,7 @@ For more information, see [torch.var](https://pytorch.org/docs/1.8.1/generated/t
 mindspore.ops.var(input, axis=None, ddof=0, keepdims=False)
 ```
 
-For more information, see [mindspore.ops.var](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.var.html).
+For more information, see [mindspore.ops.var](https://www.mindspore.cn/docs/en/r2.2/api_python/ops/mindspore.ops.var.html).
 
 ## Differences
 

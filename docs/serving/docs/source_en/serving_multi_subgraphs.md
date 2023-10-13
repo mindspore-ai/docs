@@ -1,6 +1,6 @@
 # Service Deployment with Multiple Subgraphs and Stateful Model
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/serving_multi_subgraphs.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/serving/docs/source_en/serving_multi_subgraphs.md)
 
 ## Overview
 
@@ -82,7 +82,7 @@ if __name__ == "__main__":
 ```
 
 To use MindSpore for neural network definition, inherit `mindspore.nn.Cell`. (A `Cell` is a base class of all neural networks.) Define each layer of a neural network in the `__init__` method in advance, and then define the `construct` method to complete the forward construction of the neural network. Use `export` of the `mindspore` module to export the model file.
-For more detailed examples, see [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html).
+For more detailed examples, see [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/r2.2/beginner/quick_start.html).
 
 Execute the `export_matmul.py` script to generate the `matmul_0.mindir` and `matmul_1.mindir` files. The inputs shapes of these subgraphs are [128,96] and [8,96].
 

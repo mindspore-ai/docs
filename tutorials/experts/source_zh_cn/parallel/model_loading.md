@@ -1,14 +1,14 @@
 # 模型加载
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/model_loading.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_zh_cn/parallel/model_loading.md)
 
 ## 概述
 
-分布式下的模型加载主要是指分布式推理，即推理阶段采用多卡进行推理。如果训练时采用数据并行或者模型参数是合并保存，那么每张卡均持有完整的权重，每张卡推理自身的输入数据，推理方式与[单卡推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/inference.html#modeleval模型验证)一致，只需要注意每卡加载同样的CheckPoint文件进行推理。
+分布式下的模型加载主要是指分布式推理，即推理阶段采用多卡进行推理。如果训练时采用数据并行或者模型参数是合并保存，那么每张卡均持有完整的权重，每张卡推理自身的输入数据，推理方式与[单卡推理](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/infer/inference.html#modeleval模型验证)一致，只需要注意每卡加载同样的CheckPoint文件进行推理。
 本篇教程主要介绍在多卡训练过程中，每张卡上保存模型的切片，在推理阶段采用多卡形式，按照推理策略重新加载模型进行推理的过程。针对超大规模神经网络模型的参数个数过多，模型无法完全加载至单卡中进行推理的问题，可利用多卡进行分布式推理。
 
-> - 当模型非常大，本教程中使用[load_distributed_checkpoint](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.load_distributed_checkpoint.html)接口主机内存不足情况下，可以参考[模型转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_transformation.html) 章节，采用每张卡加载自身对应的切片Checkpoint的方式。
-> - 若采用流水线分布式推理，则训练也必须采用流水线并行训练，并且流水线并行训练和推理所用的`device_num`以及`pipeline_stages`必须相同。流水线并行推理时，`micro_batch`为1，不需要调用`PipelineCell`，每个`stage`只需要加载本`stage`的Checkpoint文件。参考[流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/pipeline_parallel.html)训练教程。
+> - 当模型非常大，本教程中使用[load_distributed_checkpoint](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore/mindspore.load_distributed_checkpoint.html)接口主机内存不足情况下，可以参考[模型转换](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/model_transformation.html) 章节，采用每张卡加载自身对应的切片Checkpoint的方式。
+> - 若采用流水线分布式推理，则训练也必须采用流水线并行训练，并且流水线并行训练和推理所用的`device_num`以及`pipeline_stages`必须相同。流水线并行推理时，`micro_batch`为1，不需要调用`PipelineCell`，每个`stage`只需要加载本`stage`的Checkpoint文件。参考[流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/pipeline_parallel.html)训练教程。
 
 相关接口：
 
@@ -31,7 +31,7 @@
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[model_saving_loading](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/model_saving_loading)。
+> 下载完整的样例代码：[model_saving_loading](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/model_saving_loading)。
 
 目录结构如下：
 
@@ -46,7 +46,7 @@
 
 其中，`test_loading.py`是定义网络结构和推理的脚本。`run_loading.sh`是执行脚本。
 
-用户首先需要按照[模型保存](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_saving.html)教程执行8卡分布式训练，训练结束后将会在当前路径生成Checkpoint文件目录以及切分策略文件：
+用户首先需要按照[模型保存](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/model_saving.html)教程执行8卡分布式训练，训练结束后将会在当前路径生成Checkpoint文件目录以及切分策略文件：
 
 ```text
 src_checkpoints/

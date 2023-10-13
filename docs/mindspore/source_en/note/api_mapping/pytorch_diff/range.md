@@ -1,6 +1,6 @@
 # Differences with torch.range
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/range.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/range.md)
 
 ## torch.range
 
@@ -28,7 +28,7 @@ mindspore.ops.range(start,
                     )
 ```
 
-For more information, see [mindspore.ops.range](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.range.html).
+For more information, see [mindspore.ops.range](https://www.mindspore.cn/docs/en/r2.2/api_python/ops/mindspore.ops.range.html).
 
 ## Differences
 
@@ -43,11 +43,11 @@ PyTorch: the dtype of output Tensor is determined by the parameter `dtype`.
 | input      | input 1       | start         | start     | The data type of `start` parameter in MindSpore is Tensor and the `start` has no default value, while the data type of `start` parameter in PyTorch is float and the default value is 0 |
 |            | input 2       | end           | end       | The data type of `end` parameter in MindSpore is Tensor, while the data type of `end` parameter in PyTorch is float |
 |            | input 3       | step          | step      | The data type of `step` parameter in MindSpore is Tensor and the `step` has no default value, while the data type of `step` parameter in PyTorch is float and the default value is 0 |
-|            | input 4       | out           | -         | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | input 4       | out           | -         | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.2/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 |            | input 5       | dtype         | -         | The dtype of output Tensor in MindSpore is the same as input Tensor，while the dtype of output Tensor in PyTorch is determined by the parameter `dtype` |
-|            | input 6       | layout        | -         | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
-|            | input 7       | device        | -         | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
-|            | input 8       | requires_grad | -         | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | input 6       | layout        | -         | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.2/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | input 7       | device        | -         | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.2/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | input 8       | requires_grad | -         | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.2/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
 ## Code Example
 

@@ -1,6 +1,6 @@
 # Horizontal Federated-Local Differential Privacy Inference Result Protection
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/local_differential_privacy_eval_laplace.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/federated/docs/source_en/local_differential_privacy_eval_laplace.md)
 
 ## Privacy Protection Background
 
@@ -86,7 +86,7 @@ $\epsilon=2.3026E^5$
 
 When the privacy budget takes this value, the Laplace probability density function is as follows:
 
-![laplace](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_zh_cn/images/laplace_pdf.png)
+![laplace](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/federated/docs/source_zh_cn/images/laplace_pdf.png)
 
 ### Impact Analysis of Clustering Evaluation Indicators
 
@@ -130,7 +130,7 @@ Taking **SILHOUETTE SCORE** as an example, the process of calculating this evalu
 
 2. Calculate the average distance $b_{ij}$ of sample $i$ to all samples of some other cluster $C_j$, which is called the dissimilarity of sample $i$ to cluster $C_j$. The inter-cluster dissimilarity of sample $i$ is defined as: $b_i = min(b_{i1}, b_{i2}, ..., b_{ik})$. The larger the value is, the less the sample $i$ should belong to this cluster.
 
-![flow](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_zh_cn/images/two_cluster.png)
+![flow](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/federated/docs/source_zh_cn/images/two_cluster.png)
 
 $s_i=(b_i-a_i) / max(a_i, b_i)$.
 
@@ -196,7 +196,7 @@ float genLaplaceNoise(SecureRandom secureRandom, float beta) {
 
 After obtaining a new round of model on the end-side, the inference calculation is executed immediately. After the training, the inference results after privacy protection are uploaded to the cloud side together with the new model, and the cloud side finally performs operations such as clustering and score calculation. The flow is shown in the following figure, where the red part is the output result of privacy protection processing:
 
-![flow](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_zh_cn/images/eval_flow.png)
+![flow](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/federated/docs/source_zh_cn/images/eval_flow.png)
 
 ## Get Familiar
 
@@ -231,6 +231,6 @@ unsupervised:
 
 We can see that the relationship between $loss$ and the score under the `LAPLACE` mechanism by using `NOT_ENCRYPT` and using `laplace_eval_eps=230260` is shown in the figure:
 
-![flow](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_zh_cn/images/SILHOUETTE.png)
+![flow](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/federated/docs/source_zh_cn/images/SILHOUETTE.png)
 
 The red dashed line shows the SILHOUETTE scores after the Laplace mechanism is used to protect the inference results. Since the model contains $dropout$ and Gaussian input, the $loss$ of the two trainings are slightly different and the scores obtained based on different models are slightly different. However, the overall trend remains consistent and can assist $loss$ together to detect the model training progress.

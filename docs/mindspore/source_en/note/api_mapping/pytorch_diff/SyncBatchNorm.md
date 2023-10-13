@@ -1,6 +1,6 @@
 # Differences with torch.nn.SyncBatchNorm
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SyncBatchNorm.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SyncBatchNorm.md)
 
 ## torch.nn.SyncBatchNorm
 
@@ -34,13 +34,13 @@ class mindspore.nn.SyncBatchNorm(
 )(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.SyncBatchNorm](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SyncBatchNorm.html).
+For more information, see [mindspore.nn.SyncBatchNorm](https://mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.SyncBatchNorm.html).
 
 ## Differences
 
 PyTorch: Perform cross-device synchronous batch normalization of input data.
 
-MindSpore: MindSpore API is basically the same as PyTorch, and the MindSpore input only supports 2D and 4D. The default value of momentum in MindSpore is 0.9, and the conversion relationship with PyTorch momentum is 1-momentum, with the same default behavior as PyTorch. The training and the parameter update strategy during inference are different from PyTorch. Please refer to [Differences between PyTorch and MindSpore - BatchNorm](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#nn-batchnorm2d).
+MindSpore: MindSpore API is basically the same as PyTorch, and the MindSpore input only supports 2D and 4D. The default value of momentum in MindSpore is 0.9, and the conversion relationship with PyTorch momentum is 1-momentum, with the same default behavior as PyTorch. The training and the parameter update strategy during inference are different from PyTorch. Please refer to [Differences between PyTorch and MindSpore - BatchNorm](https://www.mindspore.cn/docs/en/r2.2/migration_guide/typical_api_comparision.html#nn-batchnorm2d).
 
 | Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
 | ---------- | ------------- | ------------ | ---------     | ------------- |
@@ -48,7 +48,7 @@ MindSpore: MindSpore API is basically the same as PyTorch, and the MindSpore inp
 |      | Parameter 2  | eps                 | eps                  | -                                                            |
 |      | Parameter 3  | momentum            | momentum             | Consistent functionality, but the default value is 0.1 in PyTorch and 0.9 in MindSpore. The conversion relationship with PyTorch momentum is 1-momentum with the same default behavior as PyTorch        |
 |      | Parameter 4  | affine              | affine               | -                                                            |
-|      | Parameter 5  | track_running_stats              | use_batch_statistics               | Consistent function. Different values correspond to different default methods. Please refer to [Differences between PyTorch and MindSpore - nn.BatchNorm2d](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html#nn-batchnorm2d) for detailed differences comparison                               |
+|      | Parameter 5  | track_running_stats              | use_batch_statistics               | Consistent function. Different values correspond to different default methods. Please refer to [Differences between PyTorch and MindSpore - nn.BatchNorm2d](https://www.mindspore.cn/docs/en/r2.2/migration_guide/typical_api_comparision.html#nn-batchnorm2d) for detailed differences comparison                               |
 |      | Parameter 6  | -                   | gamma_init           |    PyTorch does not have this parameter, and MindSpore can initialize the value of the parameter gamma    |
 |      | Parameter 7  | -                   | beta_init            |    PyTorch does not have this parameter, and MindSpore can initialize the value of the parameter beta     |
 |      | Parameter 8  | -                   | moving_mean_init     |    PyTorch does not have this parameter, and MindSpore can initialize the value of the parameter moving_mean    |

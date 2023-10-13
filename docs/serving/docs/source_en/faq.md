@@ -1,6 +1,6 @@
 # FAQ
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/faq.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/serving/docs/source_en/faq.md)
 
 <font size=3>**Q: Does MindSpore Serving support hot update to avoid inference service interruption?**</font>
 
@@ -38,7 +38,7 @@ A: Check whether MindSpore that MindSpore Serving depends on is installed. In Se
 
 <font size=3>**Q：How to control the output of Serving log?**</font>
 
-A：MindSpore Serving uses glog to output logs, for more details, please refer to [Log-related Environment Variables and Configurations](https://www.mindspore.cn/docs/en/master/note/env_var_list.html). On this basis, additional supplementary contents are as follows:
+A：MindSpore Serving uses glog to output logs, for more details, please refer to [Log-related Environment Variables and Configurations](https://www.mindspore.cn/docs/en/r2.2/note/env_var_list.html). On this basis, additional supplementary contents are as follows:
 
 - MS_SUBMODULE_LOG_v
 

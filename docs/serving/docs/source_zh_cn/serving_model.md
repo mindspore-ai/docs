@@ -1,6 +1,6 @@
 # 通过配置模型提供Servable
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_zh_cn/serving_model.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/serving/docs/source_zh_cn/serving_model.md)
 
 ## 概述
 

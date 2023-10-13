@@ -1,6 +1,6 @@
 # 流水线并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/pipeline_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_zh_cn/parallel/pipeline_parallel.md)
 
 ## 概述
 
@@ -42,7 +42,7 @@ MindSpore的流水线并行实现中对执行序进行了调整，来达到更�
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_pipeline_parallel)。
+> 下载完整的样例代码：[distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/distributed_pipeline_parallel)。
 
 目录结构如下：
 
@@ -187,4 +187,4 @@ epoch: 9 step: 1875, loss is 0.019182920455932617
 epoch: 10 step: 1875, loss is 0.021012544631958008
 ```
 
-其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)。
+其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/startup_method.html)。

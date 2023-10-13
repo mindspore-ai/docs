@@ -15,7 +15,7 @@ MindSpore Serving supports:
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/serving/docs/source_en/images/serving_en.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/serving/docs/source_en/images/serving_en.png" width="700px" alt="" >
 
 Code repository address: <https://gitee.com/mindspore/serving>
 

@@ -1,6 +1,6 @@
 # Differences between torch.nn.TransformerEncoder and mindspore.nn.TransformerEncoder
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/TransformerEncoder.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/TransformerEncoder.md)
 
 ## torch.nn.TransformerEncoder
 
@@ -24,7 +24,7 @@ class mindspore.nn.TransformerEncoder(
 )(src, src_mask=None, src_key_padding_mask=None)
 ```
 
-For more information, see [mindspore.nn.TransformerEncoder](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TransformerEncoder.html).
+For more information, see [mindspore.nn.TransformerEncoder](https://mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.TransformerEncoder.html).
 
 ## Differences
 

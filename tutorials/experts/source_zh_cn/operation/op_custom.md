@@ -1,10 +1,10 @@
 # 自定义算子（基于Custom表达）
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/operation/op_custom.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_zh_cn/operation/op_custom.md)
 
 ## 概述
 
-当开发网络遇到内置算子不足以满足需求时，你可以利用MindSpore的Python API中的[Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语方便快捷地进行不同类型自定义算子的定义和使用。
+当开发网络遇到内置算子不足以满足需求时，你可以利用MindSpore的Python API中的[Custom](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语方便快捷地进行不同类型自定义算子的定义和使用。
 
 传统的添加一个自定义算子的方式，需要完成算子原语注册、算子实现、算子信息注册三部分工作。
 
@@ -20,7 +20,7 @@
 - 实现了不同方式自定义算子的接口和使用统一，方便网络开发者根据需要灵活选用不同的自定义方式。
 - 新增支持hybrid等自定义算子方式，并且可以跨平台使用。
 
-基于[Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语的自定义算子支持的算子开发方式包括：hybrid、tbe、aicpu、aot、pyfunc、julia、akg。
+基于[Custom](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语的自定义算子支持的算子开发方式包括：hybrid、tbe、aicpu、aot、pyfunc、julia、akg。
 
 不同的算子开发方式差异如下：
 
@@ -46,7 +46,7 @@
 
 不同的开发方式使用不同的开发语言实现算子计算逻辑，但是自定义算子的开发流程是一致的，包括算子实现、算子输出shape和数据类型推理和算子信息注册（可选）。网络开发者可以根据需要选用不同的自定义算子开发方式。下面分别介绍这几种自定义算子开发方式，每种开发方式均提供示例。
 
-> 更多示例可参考MindSpore源码中[tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom)下的用例。
+> 更多示例可参考MindSpore源码中[tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/r2.2/tests/st/ops/graph_kernel/custom)下的用例。
 
 ## 自定义算子入门：一个例子
 
@@ -129,7 +129,7 @@ print(result_cus)
 [0.         0.84147096 0.19866933 0.29552022 0.38941833]
 ```
 
-如此我们完成一个pyfunc类型自定义算子的定义。对于更多完整的pyfunc类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_pyfunc.py)。
+如此我们完成一个pyfunc类型自定义算子的定义。对于更多完整的pyfunc类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/test_custom_pyfunc.py)。
 
 ## 采用JIT编译的自定义算子
 
@@ -139,10 +139,10 @@ JIT（Just In Time）指算子在网络编译或运行期间被框架直接编�
 
 Hybrid类型的自定义算子是自定义算子的默认定义类型。通过使用Hybrid类型的自定义算子，用户可以用类Python的语法描述算子计算逻辑，且无需关注MindSpore框架对于算子定义的工程细节，让用户专注于算法本身。
 
-Hybrid类型的自定义算子使用[MindSpore Hybrid DSL](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/ms_kernel.html#语法规则)描述算子内部计算逻辑的实现。用MindSpore Hybrid DSL定义的函数可以被[AKG算子编译器](https://gitee.com/mindspore/akg)解析进行JIT编译生成高效算子，在大规模模型的训练推理中使用。同时，用MindSpore Hybrid DSL定义的函数可以当做一个`numpy`函数直接调用，方便用户调试的同时也可以灵活的切换到[pyfunc 类型的自定义算子](#自定义算子入门一个例子)，做到一次开发，多个模式多个平台多个场景复用的自定义算子表达。
+Hybrid类型的自定义算子使用[MindSpore Hybrid DSL](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/operation/ms_kernel.html#语法规则)描述算子内部计算逻辑的实现。用MindSpore Hybrid DSL定义的函数可以被[AKG算子编译器](https://gitee.com/mindspore/akg)解析进行JIT编译生成高效算子，在大规模模型的训练推理中使用。同时，用MindSpore Hybrid DSL定义的函数可以当做一个`numpy`函数直接调用，方便用户调试的同时也可以灵活的切换到[pyfunc 类型的自定义算子](#自定义算子入门一个例子)，做到一次开发，多个模式多个平台多个场景复用的自定义算子表达。
 
 下面用例(test_custom_hybrid.py)介绍hybrid类型的自定义算子开发流程，其中自定义算子实现两个输入张量相加的功能。
-值得注意的是，Hybrid类型的自定义算子采取源码变换的方式打通MindSpore的图编译器和算子编译器，用户可以直接使用MindSpore Hybrid DSL提供的关键词，例如下面的`output_tensor`，而无需引入对应Python函数。更多MindSpore Hybrid DSL关键词的介绍，参见[MindSpore Hybrid DSL关键词](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/ms_kernel.html#关键词)。
+值得注意的是，Hybrid类型的自定义算子采取源码变换的方式打通MindSpore的图编译器和算子编译器，用户可以直接使用MindSpore Hybrid DSL提供的关键词，例如下面的`output_tensor`，而无需引入对应Python函数。更多MindSpore Hybrid DSL关键词的介绍，参见[MindSpore Hybrid DSL关键词](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/operation/ms_kernel.html#关键词)。
 
 ```python
 import numpy as np
@@ -174,7 +174,7 @@ if __name__ == "__main__":
 本例中，有如下几点需要说明：
 
 - Hybrid类型是Custom的默认类型。
-- Hybrid类型自定义算子的输入必须是一个带有[`@kernel`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.kernel.html)的函数。
+- Hybrid类型自定义算子的输入必须是一个带有[`@kernel`](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.kernel.html)的函数。
 - Hybrid类型自定义算子定义时可以使用自带的自动shape/dtype推导函数，也可以手动输入shape/dtype推导函数。
 
 执行用例：
@@ -190,7 +190,7 @@ python test_custom_hybrid.py
  [4. 4.]]
 ```
 
-对于更多完整的hybrid类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_ms_kernel.py)。
+对于更多完整的hybrid类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/test_ms_kernel.py)。
 
 ### tbe类型的自定义算子开发
 
@@ -198,7 +198,7 @@ tbe类型的自定义算子使用TBE（Tensor Boost Engine）算子DSL，描述�
 
 算子输出shape和数据类型推理可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
 
-这种类型的自定义算子需要注册算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_adv.html#算子信息注册)。
+这种类型的自定义算子需要注册算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/operation/op_custom_adv.html#算子信息注册)。
 
 下面以test_custom_tbe.py为例介绍tbe类型的自定义算子开发流程，其中自定义算子实现两个输入张量相加的功能。
 
@@ -260,7 +260,7 @@ python test_custom_tbe.py
  [4. 4.]]
 ```
 
-对于更多完整的tbe类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_tbe.py)。
+对于更多完整的tbe类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/test_custom_tbe.py)。
 
 ### akg类型的自定义算子开发
 
@@ -268,7 +268,7 @@ akg类型的自定义算子使用[MindSpore AKG](https://gitee.com/mindspore/akg
 
 算子输出shape和数据类型推理可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
 
-若算子包含属性或者只支持特定的输入输出数据类型或数据格式，则需要注册算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_adv.html#算子信息注册)。若未注册算子信息，在后端做算子选择和映射的时候，将会从当前算子的输入中推导算子信息。
+若算子包含属性或者只支持特定的输入输出数据类型或数据格式，则需要注册算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/operation/op_custom_adv.html#算子信息注册)。若未注册算子信息，在后端做算子选择和映射的时候，将会从当前算子的输入中推导算子信息。
 
 下面以test_custom_akg.py为例介绍akg类型的自定义算子开发流程，其中自定义算子实现两个输入张量相加的功能。
 
@@ -318,11 +318,11 @@ python test_custom_akg.py
  [4. 4.]]
 ```
 
-对于更多完整的akg类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_akg.py)。
+对于更多完整的akg类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/test_custom_akg.py)。
 
 ## 采用AOT编译的自定义算子
 
-AOT类型的自定义算子指用户事先把算子编译成二进制文件后接入网络。通常用户通过C/C++/CUDA等编程语言手工优化算子实现，并把算子以动态库的形式接入MindSpore加速网络。如此，用户可以针对算子进行极致优化，发挥对应后端硬件的极致性能。这里我们会介绍AOT类型自定义算子的一些基础知识，对于AOT类型自定义算子的更多用法和功能，请参见[AOT类型自定义算子进阶用法](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_aot.html)
+AOT类型的自定义算子指用户事先把算子编译成二进制文件后接入网络。通常用户通过C/C++/CUDA等编程语言手工优化算子实现，并把算子以动态库的形式接入MindSpore加速网络。如此，用户可以针对算子进行极致优化，发挥对应后端硬件的极致性能。这里我们会介绍AOT类型自定义算子的一些基础知识，对于AOT类型自定义算子的更多用法和功能，请参见[AOT类型自定义算子进阶用法](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/operation/op_custom_aot.html)
 
 ### aot类型的自定义算子开发
 
@@ -349,7 +349,7 @@ extern "C" int CustomFunc(int nparam, void **params, int *ndims, int64_t **shape
 
 算子输出shape和数据类型推理可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
 
-若自定义算子只支持特定的输入输出数据类型，则需要定义算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_adv.html#算子信息注册)。
+若自定义算子只支持特定的输入输出数据类型，则需要定义算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/operation/op_custom_adv.html#算子信息注册)。
 
 下面通过例子介绍GPU平台和CPU平台上aot类型的自定义算子开发流程，其中自定义算子实现两个输入张量相加的功能。
 
@@ -508,7 +508,7 @@ python test_custom_aot.py
  [4. 4.]]
 ```
 
-对于更多完整的aot类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_aot.py)。
+对于更多完整的aot类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/test_custom_aot.py)。
 
 ### aicpu类型的自定义算子开发
 
@@ -516,7 +516,7 @@ aicpu类型的自定义算子采用AOT编译方式，要求算子开发者基于
 
 算子输出shape和数据类型推理可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
 
-这种类型的自定义算子需要注册算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_adv.html#算子信息注册)，aicpu类型的自定义算子，需要额外指定`attr("cust_aicpu",  "required", "str", "mindspore_aicpu_kernels")`的属性，用于MindSpore找到对应的算子实现的动态链接库。
+这种类型的自定义算子需要注册算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/operation/op_custom_adv.html#算子信息注册)，aicpu类型的自定义算子，需要额外指定`attr("cust_aicpu",  "required", "str", "mindspore_aicpu_kernels")`的属性，用于MindSpore找到对应的算子实现的动态链接库。
 
 > - 需要注意的是，aicpu类型的自定义算子开发后编译成的动态链接库，需要存放到MindSpore的lib目录下，比如MindSpore安装在虚拟环境`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore`下，则aicpu的so文件需要放到`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore/lib/`目录下。
 > - “cust_aicpu”的值为字符串，用算子动态链接库的名字去除`lib`前缀与`.so`后缀表示，如`libmindspore_aicpu_kernels.so`则设为`"mindspore_aicpu_kernels"`即可。
@@ -595,7 +595,7 @@ julia类型的自定义算子使用Julia语法定义算子实现函数，描述�
 
 算子输出shape和数据类型推导可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
 
-若自定义算子只支持特定的输入输出数据类型，则需要定义算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_adv.html#算子信息注册)。
+若自定义算子只支持特定的输入输出数据类型，则需要定义算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/operation/op_custom_adv.html#算子信息注册)。
 
 下面以两个输入张量相加为例，介绍julia类型的自定义算子开发流程:
 
@@ -728,4 +728,4 @@ python test_custom_julia.py
    end
    ```
 
-对于更多完整的jullia类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_julia.py)。
+对于更多完整的jullia类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/test_custom_julia.py)。

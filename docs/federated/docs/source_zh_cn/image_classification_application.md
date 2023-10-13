@@ -1,6 +1,6 @@
 # 实现一个端云联邦的图像分类应用(x86)
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/image_classification_application.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/federated/docs/source_zh_cn/image_classification_application.md)
 
 根据参与客户端的类型，联邦学习可分为云云联邦学习（cross-silo）和端云联邦学习（cross-device）。在云云联邦学习场景中，参与联邦学习的客户端是不同的组织（例如，医疗或金融）或地理分布的数据中心，即在多个数据孤岛上训练模型。在端云联邦学习场景中，参与的客户端为大量的移动或物联网设备。本框架将介绍如何在MindSpore端云联邦框架上使用网络LeNet实现一个图片分类应用，并提供在x86环境中模拟启动多客户端参与联邦学习的相关教程。
 
@@ -14,7 +14,7 @@
 
 1. 定义网络和训练过程。
 
-   具体网络和训练过程的定义可参考[快速入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html#网络构建)。
+   具体网络和训练过程的定义可参考[快速入门](https://www.mindspore.cn/tutorials/zh-CN/r2.2/beginner/quick_start.html#网络构建)。
 
 2. 将模型导出为MindIR格式文件。
 
@@ -108,7 +108,7 @@
 
 3. 将MindIR文件转化为联邦学习端侧框架可用的ms文件。
 
-   模型转换可参考[训练模型转换教程](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html )。
+   模型转换可参考[训练模型转换教程](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/use/converter_tool.html )。
 
    模型转换示例如下：
 

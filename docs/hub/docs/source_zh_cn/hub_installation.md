@@ -7,7 +7,7 @@
         - [源码安装](#源码安装)
     - [验证是否成功安装](#验证是否成功安装)
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_zh_cn/hub_installation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/hub/docs/source_zh_cn/hub_installation.md)
 
 ## 确认系统环境信息
 

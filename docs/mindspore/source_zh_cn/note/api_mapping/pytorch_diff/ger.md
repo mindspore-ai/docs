@@ -1,6 +1,6 @@
 # 比较与torch.ger的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/ger.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/ger.md)
 
 以下映射关系均可参考本文。
 
@@ -23,7 +23,7 @@ torch.ger(input, vec2, *, out=None)
 mindspore.ops.ger(input, other)
 ```
 
-更多内容详见[mindspore.ops.ger](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ger.html)。
+更多内容详见[mindspore.ops.ger](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.ger.html)。
 
 ## 差异对比
 
@@ -39,7 +39,7 @@ MindSpore: 参数 `input` 和 `other` 的数据类型支持float16/32/64，必�
 | ---------- | ------------ | ------------ | ---------      | ------------- |
 | 参数       | 参数 1       | input         | input          | PyTorch支持uint、int和float下的所有数据类型，MindSpore仅支持float16/32/64。 |
 |            | 参数 2       | vec2          | other         | PyTorch支持uint、int和float下的所有数据类型，MindSpore仅支持float16/32/64。 |
-|            | 参数 3       | out           | -             | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|            | 参数 3       | out           | -             | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.2/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 
 ## 代码示例 1
 

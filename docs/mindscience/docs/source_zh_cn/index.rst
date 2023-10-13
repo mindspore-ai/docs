@@ -5,14 +5,14 @@ MindScience是基于昇思MindSpore融合架构打造的科学计算行业套件
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindscience/docs/source_zh_cn/images/mindscience_cn.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindscience/docs/source_zh_cn/images/mindscience_cn.png" width="700px" alt="" >
 
 代码仓地址： <https://gitee.com/mindspore/mindscience>
 
 使用MindScience的典型场景
 ------------------------------
 
-1. `计算生物 <https://www.mindspore.cn/mindsponge/docs/zh-CN/master/index.html>`_
+1. `计算生物 <https://www.mindspore.cn/mindsponge/docs/zh-CN/r1.0rc2/index.html>`_
 
 2. `电磁仿真 <https://www.mindspore.cn/mindelec/docs/zh-CN/master/index.html>`_
 

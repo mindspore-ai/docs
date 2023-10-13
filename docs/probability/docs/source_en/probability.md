@@ -1,6 +1,6 @@
 # Deep Probabilistic Programming Library
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/probability.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/probability/docs/source_en/probability.md)
 
 MindSpore deep probabilistic programming is to combine Bayesian learning with deep learning, including probability distribution, probability distribution mapping, deep probability network, probability inference algorithm, Bayesian layer, Bayesian conversion, and Bayesian toolkit. For professional Bayesian learning users, it provides probability sampling, inference algorithms, and model build libraries. On the other hand, advanced APIs are provided for users who are unfamiliar with Bayesian deep learning, so that they can use Bayesian models without changing the deep learning programming logic.
 

@@ -1,6 +1,6 @@
 # Incremental Training for Solving a Family of Maxwell's Equation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/source_en/incremental_learning.md)&nbsp;&nbsp;
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindelec/docs/source_en/incremental_learning.md)&nbsp;&nbsp;
 
 ## Overview
 
@@ -9,7 +9,7 @@ The Physics-Informed Neural Networks (PINNs) is unable to solve parametric Parti
 This tutorial focuses on how to use Physics-Informed Auto-Decoder (PIAD) based on the MindSpore Elec toolkit to solve the parametric Maxwell’s equations with incremental training, which reduces the training time significantly.
 
 > This current sample is for Ascend 910 AI processor. You can find the complete executable code at
-> <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/physics_driven/incremental_learning>
+> <https://gitee.com/mindspore/mindscience/tree/r0.5/MindElec/examples/physics_driven/incremental_learning>
 
 ## Problem Description
 

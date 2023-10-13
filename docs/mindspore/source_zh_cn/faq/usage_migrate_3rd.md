@@ -1,6 +1,6 @@
 # 第三方框架迁移使用
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/usage_migrate_3rd.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/faq/usage_migrate_3rd.md)
 
 <font size=3>**Q: 请问想加载PyTorch预训练好的模型用于MindSpore模型finetune有什么方法？**</font>
 
@@ -57,4 +57,4 @@ dataset = dataset.batch(batch_size, drop_remainder=True)
 
 <font size=3>**Q: 其他框架的脚本或者模型怎么迁移到MindSpore？**</font>
 
-A: 关于脚本或者模型迁移，可以查询MindSpore官网中关于[迁移指南](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/overview.html)的介绍。
+A: 关于脚本或者模型迁移，可以查询MindSpore官网中关于[迁移指南](https://www.mindspore.cn/docs/zh-CN/r2.2/migration_guide/overview.html)的介绍。

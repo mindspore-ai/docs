@@ -1,6 +1,6 @@
 # Differences with torch.ger
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/to.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/to.md)
 
 ## torch.Tensor.to
 
@@ -18,7 +18,7 @@ For more information, see [torch.Tensor.to](https://pytorch.org/docs/1.8.1/tenso
 mindspore.Tensor.to(dtype)
 ```
 
-For more information, see [mindspore.Tensor.to](https://mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.to.html).
+For more information, see [mindspore.Tensor.to](https://mindspore.cn/docs/en/r2.2/api_python/mindspore/Tensor/mindspore.Tensor.to.html).
 
 ## Differences
 
@@ -39,7 +39,7 @@ MindSpore：Only the `dtype` parameter is supported, which returns Tensor of the
 |            | Parameter 3   | other        | -             | PyTorch specifies the Tensor used, which MindSpore does not support. |
 |            | Parameter 4   | non_blocking | -          | PyTorch uses this for asynchronous copying between the CPU and GPU, which MindSpore does not support. |
 |            | Parameter 5   | copy         | -             | PyTorch uses this to force the creation of new Tensors, which MindSpore does not support. |
-|            | Parameter 6   | memory_format| -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | Parameter 6   | memory_format| -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.2/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
 ## Code Example 1
 

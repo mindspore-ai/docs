@@ -1,4 +1,4 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/modules/layer.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/source_en/advanced/modules/layer.md)
 
 # Cell and Parameter
 
@@ -112,7 +112,7 @@ print(net.b.asnumpy())
 
 #### Overriding the Modified Parameter Values
 
-The `Parameter.set_data` method can be called to override the Parameter by using a Tensor with the same Shape. This method is commonly used for [Cell traversal initialization](https://www.mindspore.cn/tutorials/en/master/advanced/modules/initializer.html) by using Initializer.
+The `Parameter.set_data` method can be called to override the Parameter by using a Tensor with the same Shape. This method is commonly used for [Cell traversal initialization](https://www.mindspore.cn/tutorials/en/r2.2/advanced/modules/initializer.html) by using Initializer.
 
 ```python
 net.b.set_data(Tensor([3, 4, 5]))
@@ -125,7 +125,7 @@ print(net.b.asnumpy())
 
 #### Modifying Parameter Values During Runtime
 
-The main role of parameters is to update their values during model training, which involves parameter modification during runtime after backward propagation to obtain gradients, or when untrainable parameters need to be updated. Due to the compiled design of MindSpore's [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html), it is necessary at this point to use the `mindspore.ops.assign` interface to assign parameters. This method is commonly used in [Custom Optimizer](https://www.mindspore.cn/tutorials/en/master/advanced/modules/optimizer.html) scenarios. The following is a simple sample modification of parameter values during runtime:
+The main role of parameters is to update their values during model training, which involves parameter modification during runtime after backward propagation to obtain gradients, or when untrainable parameters need to be updated. Due to the compiled design of MindSpore's [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.2/beginner/accelerate_with_static_graph.html), it is necessary at this point to use the `mindspore.ops.assign` interface to assign parameters. This method is commonly used in [Custom Optimizer](https://www.mindspore.cn/tutorials/en/r2.2/advanced/modules/optimizer.html) scenarios. The following is a simple sample modification of parameter values during runtime:
 
 ```python
 import mindspore as ms
@@ -316,7 +316,7 @@ hook_fn print grad_out: (Tensor(shape=[], dtype=Float32, value= 2),)
 output: (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 4))
 ```
 
-For more descriptions of the HookBackward operator, refer to the [API documentation](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.HookBackward.html).
+For more descriptions of the HookBackward operator, refer to the [API documentation](https://mindspore.cn/docs/en/r2.2/api_python/ops/mindspore.ops.HookBackward.html).
 
 ### register_forward_pre_hook Function in Cell Object
 
@@ -420,7 +420,7 @@ forward inputs:  (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]),)
 
 To avoid running failure when scripts switch to graph mode, it is not recommended to call the `register_forward_pre_hook` function and the `remove()` function of the `handle` object in the `construct` function of the Cell object. In dynamic graph mode, if the `register_forward_pre_hook` function is called in the `construct` function of the Cell object, the Cell object will register a new Hook function every time it runs.
 
-For more information about the `register_forward_pre_hook` function of the Cell object, refer to the [API documentation](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_forward_pre_hook).
+For more information about the `register_forward_pre_hook` function of the Cell object, refer to the [API documentation](https://mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_forward_pre_hook).
 
 ### register_forward_hook Function of Cell Object
 
@@ -485,7 +485,7 @@ forward outputs:  [2.]
 If the user returns the newly created data directly in the Hook function, instead of returning new output data that is obtained after the original output data is calculated, then the back propagation of the gradient will cut off on that Cell object, which can be seen in the use case illustration of the `register_forward_pre_hook` function.
 To avoid running failure when the script switches to graph mode, it is not recommended to call the `register_forward_hook` function in the `construct` function of the Cell object and the `remove()` function of the `handle` object. In dynamic graph mode, if the `register_forward_hook` function is called in the `construct` function of the Cell object, the Cell object will register a new Hook function every time it runs.
 
-For more information about the `register_forward_hook` function of the Cell object, please refer to the [API documentation](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_forward_hook).
+For more information about the `register_forward_hook` function of the Cell object, please refer to the [API documentation](https://mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_forward_hook).
 
 ### register_backward_hook Function of Cell Object
 
@@ -611,4 +611,4 @@ Here `grad_input` is the gradient passed to `self.relu` when the gradient is bac
 
 To avoid running failure when the scripts switch to graph mode, it is not recommended to call the `register_backward_hook` function and the `remove()` function of the `handle` object in the `construct` function of the Cell object. In PyNative mode, if the `register_backward_hook` function is called in the `construct` function of the Cell object, the Cell object will register a new Hook function every time it runs.
 
-For more information about the `register_backward_hook` function of the Cell object, please refer to the [API documentation](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
+For more information about the `register_backward_hook` function of the Cell object, please refer to the [API documentation](https://mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).

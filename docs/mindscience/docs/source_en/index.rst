@@ -5,14 +5,14 @@ MindScience is scientific computing kits for various industries based on the con
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindscience/docs/source_en/images/mindscience_en.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindscience/docs/source_en/images/mindscience_en.png" width="700px" alt="" >
 
 Code repository address: <https://gitee.com/mindspore/mindscience>
 
 Typical MindScience Application Scenarios
 ------------------------------------------
 
-1. `Computational Biology <https://www.mindspore.cn/mindsponge/docs/en/master/index.html>`_
+1. `Computational Biology <https://www.mindspore.cn/mindsponge/docs/en/r1.0rc2/index.html>`_
 
 2. `Electromagnetic simulation <https://www.mindspore.cn/mindelec/docs/en/master/index.html>`_
 

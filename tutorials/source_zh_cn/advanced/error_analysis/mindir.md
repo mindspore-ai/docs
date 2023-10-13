@@ -1,13 +1,13 @@
 # IR文件分析
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/error_analysis/mindir.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/source_zh_cn/advanced/error_analysis/mindir.md)
 
 ## 概述
 
 在图模式`set_context(mode=GRAPH_MODE)`下运行用MindSpore编写的模型时，若配置中设置了`set_context(save_graphs=2)`，运行时会输出一些图编译过程中生成的中间文件，我们称为IR文件。当前主要有两种格式的IR文件：
 
 - ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。可以通过设置环境变量`export MS_DEV_SAVE_GRAPHS_SORT_MODE=1`打印异序排序方式的ir文件。异序ir文件将按照图的调用顺序打印ir图。可以通过将该环境变量设置为`export MS_DEV_SAVE_GRAPHS_SORT_MODE=0`来切换为打印原来的排序方式的ir文件。
-- dot后缀结尾的IR文件：若在配置中设置了`set_context(save_graphs=3)`, 运行时会输出后缀为dot的ir文件。该文件描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
+- dot后缀结尾的IR文件：若在配置中设置了`set_context(save_graphs=3)`, 运行时会输出后缀为dot的ir文件。该文件描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/dashboard.html#计算图可视化)对计算图进行可视化。
 
 ## 如何保存IR
 
@@ -189,7 +189,7 @@ print(out)
 
 - 第13-49行展示了图结构的信息，图中含有若干个节点，即`CNode`。该图包含`Sub`、`Add`、`Mul`这些在网路所调用的接口中所用到的算子。
 
-`CNode`（[ANF-IR的设计请查看](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#文法定义)）的信息遵循如下格式，从左到右分别为序号、节点名称-debug_name、算子名称-op_name、输入节点-arg、节点的属性-primitive_attrs、输入和输出的规格、源码解析调用栈等信息。
+`CNode`（[ANF-IR的设计请查看](https://www.mindspore.cn/docs/zh-CN/r2.2/design/all_scenarios.html#文法定义)）的信息遵循如下格式，从左到右分别为序号、节点名称-debug_name、算子名称-op_name、输入节点-arg、节点的属性-primitive_attrs、输入和输出的规格、源码解析调用栈等信息。
 由于ANF图为单向无环图，所以此处仅根据输入关系来体现节点与节点的连接关系。关联代码行则体现了`CNode`与脚本源码之间的关系，例如第44行表明该节点是由脚本中`if b`这一行解析而来。
 
 ```text
@@ -320,7 +320,7 @@ dot -Tpng -o 04_abstract_specialize_0014.png 04_abstract_specialize_0014.dot
 
 ![04_abstract_specialize_0014.png](./images/dot_to_png.png)
 
-对于算子比较多的模型，图片会过于庞大，推荐使用可视化组件[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
+对于算子比较多的模型，图片会过于庞大，推荐使用可视化组件[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/dashboard.html#计算图可视化)对计算图进行可视化。
 
 ## 如何根据analyze_fail.ir文件分析图推导失败的原因
 

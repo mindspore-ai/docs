@@ -11,7 +11,7 @@ The architecture diagram of MindSpore Pandas is shown below:
 
 .. raw:: html
 
-    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_en/images/mindpandas_architecture.png" width="700px" alt="" >
+    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindpandas/docs/source_en/images/mindpandas_architecture.png" width="700px" alt="" >
 
 1. The top layer provides an API that is compatible with Pandas. You can switch to MindSpore Pandas for distributed execution by modifying a small amount of code based on the existing Pandas script.
 
@@ -36,13 +36,13 @@ Design Features
 
    .. raw:: html
 
-       <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_en/images/mindpandas_multicore.png" width="700px" alt="" >
+       <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindpandas/docs/source_en/images/mindpandas_multicore.png" width="700px" alt="" >
 
    MindSpore Pandas can be extended to the entire cluster, utilizing the memory as well as CPU resources of the entire cluster. The usages are as below:
 
    .. raw:: html
 
-       <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_en/images/cluster.png" width="700px" alt="" >
+       <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindpandas/docs/source_en/images/cluster.png" width="700px" alt="" >
 
 2. MindSpore Pandas is consistent with the native Pandas API in terms of interface usage. You can run scripts by setting the back-end running mode of MindSpore Pandas. Just replace the import of pandas with:
 
@@ -118,13 +118,13 @@ Test scenarios:
 
 .. raw:: html
 
-    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_en/images/performance_compare.png" width="700px" alt="" >
+    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindpandas/docs/source_en/images/performance_compare.png" width="700px" alt="" >
 
 With the increase of data size, MindSpore Pandas provides more advantages for distributed parallel processing. The following figure shows the performance comparison for different data volumes:
 
 .. raw:: html
 
-    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindpandas/docs/source_en/images/mindpandas_fillna.png" width="700px" alt="" >
+    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindpandas/docs/source_en/images/mindpandas_fillna.png" width="700px" alt="" >
 
 Note: MindSpore Pandas is set to multiprocess mode and uses a 32-core CPU.
 

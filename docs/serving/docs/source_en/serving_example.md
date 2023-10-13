@@ -1,6 +1,6 @@
 # MindSpore Serving-based Inference Service Deployment
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/serving_example.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/serving/docs/source_en/serving_example.md)
 
 ## Overview
 
@@ -65,7 +65,7 @@ if __name__ == "__main__":
 ```
 
 To use MindSpore for neural network definition, inherit `mindspore.nn.Cell`. (A `Cell` is a base class of all neural networks.) Define each layer of a neural network in the `__init__` method in advance, and then define the `construct` method to complete the forward construction of the neural network. Use `export` of the `mindspore` module to export the model file.
-For more detailed examples, see [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html).
+For more detailed examples, see [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/r2.2/beginner/quick_start.html).
 
 Execute the `add_model.py` script to generate the `tensor_add.mindir` file. The input of the model is two 2D tensors with shape [2,2], and the output is the sum of the two input tensors.
 

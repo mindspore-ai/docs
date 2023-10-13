@@ -1,6 +1,6 @@
 # 基于MindSpore Serving部署推理服务
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_zh_cn/serving_example.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/serving/docs/source_zh_cn/serving_example.md)
 
 ## 概述
 
@@ -66,7 +66,7 @@ if __name__ == "__main__":
 ```
 
 使用MindSpore定义神经网络需要继承`mindspore.nn.Cell`。Cell是所有神经网络的基类。神经网络的各层需要预先在`__init__`方法中定义，然后通过定义`construct`方法来完成神经网络的前向构造。使用`mindspore`模块的`export`即可导出模型文件。
-更为详细完整的示例可以参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html)。
+更为详细完整的示例可以参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.2/beginner/quick_start.html)。
 
 执行`add_model.py`脚本，生成`tensor_add.mindir`文件，该模型的输入为两个shape为[2,2]的二维Tensor，输出结果是两个输入Tensor之和。
 

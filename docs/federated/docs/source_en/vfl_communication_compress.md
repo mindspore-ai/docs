@@ -1,6 +1,6 @@
 # Vertical Federated Learning Communication Compression
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/vfl_communication_compress.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/federated/docs/source_en/vfl_communication_compress.md)
 
 Vertical federated learning traffic affects user experience (user traffic, communication latency, federated learning training efficiency) and is limited by performance constraints (memory, bandwidth, CPU usage). Small amount of communication helps a lot to improve user experience and reduce performance bottlenecks, so it needs to be compressed. MindSpore Federated implements bi-directional communication compression between Leader and Follower in a vertical federated application scenario.
 

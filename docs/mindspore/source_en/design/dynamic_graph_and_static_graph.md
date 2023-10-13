@@ -1,6 +1,6 @@
 # Combination of Dynamic and Static Graphs
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/dynamic_graph_and_static_graph.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/design/dynamic_graph_and_static_graph.md)
 
 ## The Concept of Static and Dynamic Graphs
 
@@ -49,7 +49,7 @@ print(net(x, y))
 
 ### Graph Mode Auto-differentiation Principle
 
-In MindSpore, the principle of auto-differentiation in Graph mode can be found in [Auto-differentiation](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html).
+In MindSpore, the principle of auto-differentiation in Graph mode can be found in [Auto-differentiation](https://www.mindspore.cn/tutorials/en/r2.2/beginner/autograd.html).
 
 ## MindSpore Dynamic Graph
 
@@ -59,7 +59,7 @@ In MindSpore, dynamic graph mode is also known as PyNative mode, which can be se
 
 In PyNative mode, users can use the full Python API. In addition, for using the API provided by MindSpore, the framework will execute the operations of the operator API on the corresponding hardware platform according to the hardware platform (Ascend, GPU, CPU) selected by the user and return the corresponding results. The overall execution process of the framework is as follows:
 
-![process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/framework.png)
+![process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/design/images/framework.png)
 
 Through the front-end Python API, call to the framework layer, and finally to the corresponding hardware devices to perform calculations. For example, to complete an addition
 
@@ -179,11 +179,11 @@ In MindSpore, we can switch the execution between using dynamic or static graphs
 ms.set_context(mode=ms.PYNATIVE_MODE)
 ```
 
-Since there are restrictions on Python syntax under static graphs, switching from dynamic to static graphs requires compliance with the syntax restrictions of static graphs in order to execute correctly by using static graphs. For more syntax restrictions for static graphs, refer to [Static Graph Syntax Restrictions](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+Since there are restrictions on Python syntax under static graphs, switching from dynamic to static graphs requires compliance with the syntax restrictions of static graphs in order to execute correctly by using static graphs. For more syntax restrictions for static graphs, refer to [Static Graph Syntax Restrictions](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html).
 
 ### Combination of Static and Dynamic
 
-MindSpore supports mixed execution by using static compilation under dynamic graphs. The function objects that need to be executed with static graphs by using jit modification, and in this way you can achieve mixed execution of dynamic and static graphs. For more use of jit, refer to [jit documentation](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html#decorator-based-startup-method).
+MindSpore supports mixed execution by using static compilation under dynamic graphs. The function objects that need to be executed with static graphs by using jit modification, and in this way you can achieve mixed execution of dynamic and static graphs. For more use of jit, refer to [jit documentation](https://www.mindspore.cn/tutorials/en/r2.2/beginner/accelerate_with_static_graph.html#decorator-based-startup-method).
 
 For example:
 
@@ -234,11 +234,11 @@ print(out)
 
 ### Static Graph Syntax Enhancement
 
-In the MindSpore static graph mode, users need to follow MindSpore [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html) when writing programs, and there are constraints on the use of syntax. In dynamic graph mode, Python script code will be executed according to Python syntax, and users can use any Python syntax. It can be seen that the syntax constraints of static and dynamic graphs are different.
+In the MindSpore static graph mode, users need to follow MindSpore [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html) when writing programs, and there are constraints on the use of syntax. In dynamic graph mode, Python script code will be executed according to Python syntax, and users can use any Python syntax. It can be seen that the syntax constraints of static and dynamic graphs are different.
 
 JIT Fallback considers the unification of static and dynamic graphs from the perspective of static graphs. When an unsupported syntax is found during compilation, the syntax is Fallback to the Python interpreter for interpretation execution. Through the JIT Fallback feature, static graphs can support as much dynamic graph syntax as possible, so that static graphs provide a syntax experience close to dynamic graphs, so as to achieve dynamic and static unity.
 
-In the graph mode scenario, the MindSpore framework will report an error when it encounters unsupported syntax or symbols during graph compilation, mostly in the type inference stage. In the graph compilation stage, the Python source code written by the user is parsed, and then subsequent static analysis, type derivation, optimization and other steps are performed. Therefore, the JIT Fallback feature needs to be pre-detected for unsupported syntax. Common unsupported syntax mainly includes: calling methods of third-party libraries, calling class names to create objects, calling unsupported Python built-in functions, etc. Interpret execution of unsupported syntax Fallback to the Python interpreter. Since the graph mode uses [MindSpore IR (MindIR)](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir), it is necessary to convert the statement executed by the interpretation to the intermediate representation and record the information required by the interpreter.
+In the graph mode scenario, the MindSpore framework will report an error when it encounters unsupported syntax or symbols during graph compilation, mostly in the type inference stage. In the graph compilation stage, the Python source code written by the user is parsed, and then subsequent static analysis, type derivation, optimization and other steps are performed. Therefore, the JIT Fallback feature needs to be pre-detected for unsupported syntax. Common unsupported syntax mainly includes: calling methods of third-party libraries, calling class names to create objects, calling unsupported Python built-in functions, etc. Interpret execution of unsupported syntax Fallback to the Python interpreter. Since the graph mode uses [MindSpore IR (MindIR)](https://www.mindspore.cn/docs/en/r2.2/design/all_scenarios.html#mindspore-ir-mindir), it is necessary to convert the statement executed by the interpretation to the intermediate representation and record the information required by the interpreter.
 
 The following mainly introduces the static graph syntax supported using the JIT Fallback extension. The default value of the JIT syntax support level option jit_syntax_level is 'LAX', extending the static graph syntax with the ability of JIT Fallback.
 
@@ -251,23 +251,23 @@ Complete support for third-party libraries such as NumPy and SciPy. The static g
 - Supporting creating Tensor instances by using the data types of the third-party library NumPy.
 - The assignment of subscripts for data types in third-party libraries is not currently supported.
 
-For more usage, please refer to the [Calling the Third-party Libraries](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#calling-the-third-party-libraries) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+For more usage, please refer to the [Calling the Third-party Libraries](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html#calling-the-third-party-libraries) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html).
 
 #### Supporting the Use of Custom Classes
 
 Custom classes that do not use '@jit_class' decorations and do not inherit 'nn. Cell`。 Through the JIT Fallback technical solution, static graph mode allows creating and referencing instances of custom classes, can directly obtain and call properties and methods of custom class instances, and allows modifying properties(Inplace operations).
 
-For more usage, please refer to the [Supporting the Use of Custom Classes](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supporting-the-use-of-custom-classes) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+For more usage, please refer to the [Supporting the Use of Custom Classes](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html#supporting-the-use-of-custom-classes) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html).
 
 #### Basic Operators Support More Data Type
 
-In the syntax of graph mode, the following basic operators in the list is overloaded: ['+', '-', '*', '/', '//', '%', '**', '<<', '>>', '&', '|', '^', 'not', '==', '!=', '<', '>', '<=', '>=', 'in', 'not in', 'y=x[0]']. For more details, please refer to [Operators](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax/operators.html). When getting unsupported input type, those operators need to use extended static graph syntax to support, and make the output consistent with the output in the pynative mode.
+In the syntax of graph mode, the following basic operators in the list is overloaded: ['+', '-', '*', '/', '//', '%', '**', '<<', '>>', '&', '|', '^', 'not', '==', '!=', '<', '>', '<=', '>=', 'in', 'not in', 'y=x[0]']. For more details, please refer to [Operators](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax/operators.html). When getting unsupported input type, those operators need to use extended static graph syntax to support, and make the output consistent with the output in the pynative mode.
 
-For more usage, please refer to the [Basic Operators Support More Data Type](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#basic-operators-support-more-data-type) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+For more usage, please refer to the [Basic Operators Support More Data Type](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html#basic-operators-support-more-data-type) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html).
 
 #### Base Type
 
-Use the JIT Fallback feature to extend support for Python's native data types 'List', 'Dictionary', 'None'. For more usage, please refer to the [Base Type](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#base-type) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+Use the JIT Fallback feature to extend support for Python's native data types 'List', 'Dictionary', 'None'. For more usage, please refer to the [Base Type](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html#base-type) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html).
 
 ##### Supporting List Inplace Modification Operations
 
@@ -286,15 +286,15 @@ Use the JIT Fallback feature to extend support for Python's native data types 'L
 
 #### Built-in Functions Support More Data Types
 
-Extend the support for built-in functions. Python built-in functions perfectly support more input types, such as third-party library data types. More support for built-in functions can be found in the [Python built-in functions](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax/python_builtin_functions.html) section.
+Extend the support for built-in functions. Python built-in functions perfectly support more input types, such as third-party library data types. More support for built-in functions can be found in the [Python built-in functions](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax/python_builtin_functions.html) section.
 
 #### Supporting Control Flow
 
-In order to improve the support of Python standard syntax, realize dynamic and static unification, and extend the support for more data types in the use of control flow statements. Control flow statements refer to flow control statements such as 'if', 'for', and 'while'. Theoretically, by extending the supported syntax, it is also supported in control flow scenarios. For more usage, please refer to the [Supports Control Flow](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supporting-control-flow) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+In order to improve the support of Python standard syntax, realize dynamic and static unification, and extend the support for more data types in the use of control flow statements. Control flow statements refer to flow control statements such as 'if', 'for', and 'while'. Theoretically, by extending the supported syntax, it is also supported in control flow scenarios. For more usage, please refer to the [Supports Control Flow](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html#supporting-control-flow) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html).
 
 #### Support Property Setting and Modification
 
-More types of inplace operations are supported. The previous version only supported value modification of the Parameter type through the Inplace operator, and in the static graph mode of MindSpore version 2.1, the properties of custom classes, Cell subclasses, and jit_class classes were supported. In addition to supporting changing the properties of class self and global variables, it also supports inplace operations such as extend(), reverse(), insert(), pop() of the List type. For more usage, please refer to the [Supporting Property Setting and Modification](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supporting-property-setting-and-modification) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+More types of inplace operations are supported. The previous version only supported value modification of the Parameter type through the Inplace operator, and in the static graph mode of MindSpore version 2.1, the properties of custom classes, Cell subclasses, and jit_class classes were supported. In addition to supporting changing the properties of class self and global variables, it also supports inplace operations such as extend(), reverse(), insert(), pop() of the List type. For more usage, please refer to the [Supporting Property Setting and Modification](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html#supporting-property-setting-and-modification) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html).
 
 - Set and modify properties of custom class objects and third-party types.
 - Make changes to the Cell's self object.
@@ -302,11 +302,11 @@ More types of inplace operations are supported. The previous version only suppor
 
 #### Supporting Derivation
 
-The static graph syntax supported by JIT Fallback also supports its use in derivation. For more usage, please refer to the [Supporting Derivation](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supporting-derivation) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+The static graph syntax supported by JIT Fallback also supports its use in derivation. For more usage, please refer to the [Supporting Derivation](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html#supporting-derivation) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html).
 
 #### Annotation Type
 
-For the syntax supported by the runtime extensions, nodes are generated that cannot be derived by type and are called 'Any' types. Since the type cannot derive the correct type at compile time, this 'Any' will be operated with a default maximum precision 'Float64' to prevent loss of precision. To optimize performance, it is recommended to minimize the generation of 'Any' types. When the user knows exactly what type of statement will be generated through the extension, it is recommended to use `Annotation @jit.typing:` to specify the corresponding Python statement type, thereby determining the type of the interpretation node and avoiding the generation of 'Any' types. For more usage, please refer to the [Annotation Type](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#annotation-type) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+For the syntax supported by the runtime extensions, nodes are generated that cannot be derived by type and are called 'Any' types. Since the type cannot derive the correct type at compile time, this 'Any' will be operated with a default maximum precision 'Float64' to prevent loss of precision. To optimize performance, it is recommended to minimize the generation of 'Any' types. When the user knows exactly what type of statement will be generated through the extension, it is recommended to use `Annotation @jit.typing:` to specify the corresponding Python statement type, thereby determining the type of the interpretation node and avoiding the generation of 'Any' types. For more usage, please refer to the [Annotation Type](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html#annotation-type) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html).
 
 #### Instructions for Use
 

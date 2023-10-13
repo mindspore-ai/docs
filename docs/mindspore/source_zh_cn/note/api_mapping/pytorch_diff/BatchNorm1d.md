@@ -1,6 +1,6 @@
 # 比较与torch.nn.BatchNorm1d的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/BatchNorm1d.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/BatchNorm1d.md)
 
 ## torch.nn.BatchNorm1d
 
@@ -33,13 +33,13 @@ class mindspore.nn.BatchNorm1d(
 )(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.BatchNorm1d](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm1d.html)。
+更多内容详见[mindspore.nn.BatchNorm1d](https://mindspore.cn/docs/zh-CN/r2.2/api_python/nn/mindspore.nn.BatchNorm1d.html)。
 
 ## 差异对比
 
 PyTorch：对输入的二维或三维数据进行批归一化。
 
-MindSpore：MindSpore此API实现功能与PyTorch基本一致。MindSpore中momentum参数默认值为0.9，与PyTorch的momentum转换关系为1-momentum，默认值行为与PyTorch相同；训练以及推理时的参数更新策略和PyTorch有所不同，详细区别请参考[PyTorch对比-BatchNorm](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#nn.BatchNorm2d)。
+MindSpore：MindSpore此API实现功能与PyTorch基本一致。MindSpore中momentum参数默认值为0.9，与PyTorch的momentum转换关系为1-momentum，默认值行为与PyTorch相同；训练以及推理时的参数更新策略和PyTorch有所不同，详细区别请参考[PyTorch对比-BatchNorm](https://www.mindspore.cn/docs/zh-CN/r2.2/migration_guide/typical_api_comparision.html#nn.BatchNorm2d)。
 
 | 分类 | 子类   | PyTorch             | MindSpore            | 差异                                                         |
 | ---- | ------ | ------------------- | -------------------- | ------------------------------------------------------------ |
@@ -47,7 +47,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。MindSpore中mome
 |      | 参数2  | eps                 | eps                  | -                                                            |
 |      | 参数3  | momentum            | momentum             | 功能一致，但PyTorch中的默认值是0.1，MindSpore中是0.9，与PyTorch的momentum转换关系为1-momentum，默认值行为与PyTorch相同        |
 |      | 参数4  | affine              | affine               | -                                                            |
-|      | 参数5  | track_running_stats              | use_batch_statistics               | 功能一致，不同值对应的默认方式不同，详细区别请参考[PyTorch对比-nn.BatchNorm2d](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/typical_api_comparision.html#nn.BatchNorm2d)                                |
+|      | 参数5  | track_running_stats              | use_batch_statistics               | 功能一致，不同值对应的默认方式不同，详细区别请参考[PyTorch对比-nn.BatchNorm2d](https://www.mindspore.cn/docs/zh-CN/r2.2/migration_guide/typical_api_comparision.html#nn.BatchNorm2d)                                |
 |      | 参数6  | -                   | gamma_init           |    PyTorch无此参数，MindSpore可以初始化参数gamma的值    |
 |      | 参数7  | -                   | beta_init            |    PyTorch无此参数，MindSpore可以初始化参数beta的值     |
 |      | 参数8  | -                   | moving_mean_init     |    PyTorch无此参数，MindSpore可以初始化参数moving_mean的值    |

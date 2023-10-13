@@ -1,6 +1,6 @@
 # 离线训练
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/recommender/docs/source_zh_cn/offline_learning.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/recommender/docs/source_zh_cn/offline_learning.md)
 
 ## 概述
 
@@ -10,8 +10,8 @@
 
 针对推荐模型中大规模特征向量的训练架构如下图所示，其中核心采用了分布式多级Embedding Cache的技术方案，同时基于模型并行的多机多卡分布式并行技术，实现了大规模低成本的推荐大模型训练。
 
-![image.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/recommender/docs/source_zh_cn/images/offline_training.png)
+![image.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/recommender/docs/source_zh_cn/images/offline_training.png)
 
 ## 使用样例
 
-[Wide&Deep 分布式训练](https://github.com/mindspore-lab/mindrec/tree/master/models/wide_deep)
+[Wide&Deep 分布式训练](https://github.com/mindspore-lab/mindrec/tree/r0.3/models/wide_deep)

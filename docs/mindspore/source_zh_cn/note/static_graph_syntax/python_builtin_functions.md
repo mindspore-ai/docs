@@ -1,6 +1,6 @@
 # 静态图语法-Python内置函数
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/static_graph_syntax/python_builtin_functions.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/static_graph_syntax/python_builtin_functions.md)
 
 当前静态图模式支持的Python内置函数包括：`int`、`float`、`bool`、`str`、`tuple`、`list`、`dict`、`getattr`、`hasattr`、`len`、`isinstance`、`all`、`any`、`round`、`max`、`min`、`sum`、`abs`、`map`、`zip`、`range`、`enumerate`、`super`、`pow`、`print`、`filter`、`type`。图模式下内置函数的使用方法与对应的Python内置函数类似。
 
@@ -345,7 +345,7 @@ c:  (1,)
 
 在静态图模式下对象的属性可能会和动态图模式下有区别，建议使用`default`输入，或者在使用`getattr`前先使用`hasattr`进行校验。
 
-其中`getattr(x.asnumpy(), "shape", np.array([0, 1, 2, 3, 4]))`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
+其中`getattr(x.asnumpy(), "shape", np.array([0, 1, 2, 3, 4]))`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/r2.2/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
 
 ## hasattr
 
@@ -396,7 +396,7 @@ b: False
 c: True
 ```
 
-其中`hasattr(Tensor(np.array([1, 2, 3, 4])).asnumpy(), "__len__")`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
+其中`hasattr(Tensor(np.array([1, 2, 3, 4])).asnumpy(), "__len__")`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/r2.2/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
 
 ## len
 
@@ -451,7 +451,7 @@ z_len:4
 w_len:4
 ```
 
-其中`len(w.asnumpy())`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
+其中`len(w.asnumpy())`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/r2.2/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
 
 ## isinstance
 
@@ -502,7 +502,7 @@ z_is_tensor:True
 w_is_ndarray:True
 ```
 
-其中`isinstance(w.asnumpy(), np.ndarray)`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
+其中`isinstance(w.asnumpy(), np.ndarray)`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/r2.2/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
 
 ## all
 
@@ -561,7 +561,7 @@ h: True
 i: False
 ```
 
-其中`all(x.asnumpy())`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
+其中`all(x.asnumpy())`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/r2.2/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
 
 ## any
 
@@ -861,7 +861,7 @@ b: 100.12
 c: [1 2]
 ```
 
-其中`abs(Tensor([-1, 2]).asnumpy())`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
+其中`abs(Tensor([-1, 2]).asnumpy())`属于高阶用法，更多介绍可见[扩展语法（LAX级别）](https://www.mindspore.cn/docs/zh-CN/r2.2/note/static_graph_syntax_support.html#扩展语法lax级别)章节。
 
 ## map
 

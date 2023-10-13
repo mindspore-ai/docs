@@ -1,6 +1,6 @@
 # Differences with torch.nn.AvgPool3d
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/AvgPool3d.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/AvgPool3d.md)
 
 ## torch.nn.AvgPool3d
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.AvgPool3d](https://pytorch.org/docs/1.8.1/ge
 mindspore.nn.AvgPool3d(kernel_size=1, stride=1, pad_mode='valid', padding=0, ceil_mode=False, count_include_pad=True, divisor_override=None)(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.AvgPool3d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.AvgPool3d.html).
+For more information, see [mindspore.nn.AvgPool3d](https://www.mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.AvgPool3d.html).
 
 ## Differences
 

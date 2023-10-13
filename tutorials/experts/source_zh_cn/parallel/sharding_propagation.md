@@ -1,6 +1,6 @@
 # 切分策略传播算法
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/sharding_propagation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_zh_cn/parallel/sharding_propagation.md)
 
 ## 概述
 
@@ -36,7 +36,7 @@
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[sharding_propagation](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/sharding_propagation)。
+> 下载完整的样例代码：[sharding_propagation](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/sharding_propagation)。
 
 目录结构如下：
 
@@ -277,7 +277,7 @@ epoch: 0, step: 1000, loss is 0.46586612
 
 对于第一个MatMul算子，其输入根据策略((2, 1), (1, 4))切分后，第一、第二个输入的shape分别从原来的(256, 784)、(784, 64)切分为(128, 784)、(784, 16)，因此得到输出的shape为(128, 16)。
 
-其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)。
+其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/startup_method.html)。
 
 ### 配置算子切分策略的经验性原则
 

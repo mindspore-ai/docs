@@ -1,6 +1,6 @@
 # 手动并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/manual_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_zh_cn/parallel/manual_parallel.md)
 
 ## 概述
 
@@ -10,7 +10,7 @@
 
 MindSpore的集合通信算子包括`AllReduce`、`AllGather`、`ReduceScatter`、`Broadcast`、`NeighborExchange`、`NeighborExchangeV2`、`AlltoAll`，这些算子是分布式训练中集合通信的基本组成单元。所谓集合通信是指模型切分后，通过集合通信算子来实现不同模型切片之间的数据交互。用户可以手动调用这些算子进行数据传输，实现分布式训练。
 
-集合通信算子的详细介绍参见[分布式集合通信原语](https://www.mindspore.cn/docs/zh-CN/master/api_python/samples/ops/communicate_ops.html)。
+集合通信算子的详细介绍参见[分布式集合通信原语](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/samples/ops/communicate_ops.html)。
 
 ## 操作实践
 
@@ -18,7 +18,7 @@ MindSpore的集合通信算子包括`AllReduce`、`AllGather`、`ReduceScatter`�
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[manual_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/manual_parallel)。
+> 下载完整的样例代码：[manual_parallel](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/manual_parallel)。
 
 目录结构如下：
 

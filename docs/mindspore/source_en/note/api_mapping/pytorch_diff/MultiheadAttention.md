@@ -1,6 +1,6 @@
 # Differences between torch.nn.MultiheadAttention and mindspore.nn.MultiheadAttention
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/MultiheadAttention.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/MultiheadAttention.md)
 
 ## torch.nn.MultiheadAttention
 
@@ -36,7 +36,7 @@ class mindspore.nn.MultiheadAttention(
 )(query, key, value, key_padding_mask=None, need_weights=True, attn_mask=None, average_attn_weights=True)
 ```
 
-For more information, see [mindspore.nn.MultiheadAttention](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.MultiheadAttention.html)。
+For more information, see [mindspore.nn.MultiheadAttention](https://mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.MultiheadAttention.html)。
 
 ## Differences
 

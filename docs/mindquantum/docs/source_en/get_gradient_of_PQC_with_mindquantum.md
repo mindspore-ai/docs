@@ -2,7 +2,7 @@
 
 Translator: [unseenme](https://gitee.com/unseenme)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/get_gradient_of_PQC_with_mindquantum.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindquantum/docs/source_en/get_gradient_of_PQC_with_mindquantum.md)
 
 In MindSpore Quantum, we can obtain the gradient of a variable quantum circuit by the get_expectation_with_grad method of the Simulator class. In this tutorial, we will further introduce other functions of this method to help you achieve more advanced usage methods.
 

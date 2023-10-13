@@ -1,6 +1,6 @@
 # Heterogeneous Storage
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/memory_offload.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_en/parallel/memory_offload.md)
 
 ## Overview
 
@@ -50,7 +50,7 @@ During training, the main stored data consists of parameters and intermediate re
 
 Through heterogeneous storage management, parameters or intermediate results that do not need to participate in computation temporarily can be copied to the memory of Host side or even hard disk storage during the training process, and then copied and restored to the device side when the data is needed to participate in computation. By the above means, the model size that can be trained by the same hardware device can be increased.
 
-![image.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/parallel/images/memory_offload.png)
+![image.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/tutorials/experts/source_zh_cn/parallel/images/memory_offload.png)
 
 ## Operation Practice
 
@@ -58,7 +58,7 @@ The following is an illustration of heterogeneous storage operation using Ascend
 
 ### Example Code Description
 
-> Download the complete example code: [memory_offload](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/memory_offload).
+> Download the complete example code: [memory_offload](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/memory_offload).
 
 ```text
 └─ sample_code

@@ -40,7 +40,7 @@
    :maxdepth: 1
    :caption: 性能优化
 
-   Profiling↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling.html>
+   Profiling↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/performance_profiling.html>
    optimize/execution_opt
    optimize/graph_fusion_engine
    optimize/op_compilation

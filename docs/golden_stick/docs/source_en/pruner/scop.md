@@ -1,6 +1,6 @@
 # Applying the SCOP Algorithm
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/golden_stick/docs/source_en/pruner/scop.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/golden_stick/docs/source_en/pruner/scop.md)
 
 ## Background
 
@@ -210,7 +210,7 @@ if __name__ == "__main__":
     export(network, inputs, file_name="ResNet_SCOP", file_format='MINDIR')
 ```
 
-After the pruned model is exported, [use MindSpore for inference](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html).
+After the pruned model is exported, [use MindSpore for inference](https://www.mindspore.cn/tutorials/experts/en/r2.2/infer/inference.html).
 
 ## Summary
 

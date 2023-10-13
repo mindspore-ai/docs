@@ -1,6 +1,6 @@
 # 比较与torch.cat的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/cat.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/cat.md)
 
 ## torch.cat
 
@@ -21,7 +21,7 @@ torch.cat(
 mindspore.ops.cat(tensors, axis=0) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.cat](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.cat.html)。
+更多内容详见[mindspore.ops.cat](https://mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.cat.html)。
 
 ## 差异对比
 
@@ -35,7 +35,7 @@ MindSpore：当前要求输入Tensors的数据类型及精度保持一致。在�
 | --- | --- | --- | --- |---|
 | 输入 | 单输入 | tensors  | tensors | MindSpore中tensors序列中的各Tensor精度必须保持一致，PyTorch中tensors序列中的各Tensor的精度可以不同 |
 |参数 | 参数1 | dim | axis | 参数名不一致 |
-|  | 参数2  | out | - | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|  | 参数2  | out | - | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.2/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 
 ### 代码示例
 

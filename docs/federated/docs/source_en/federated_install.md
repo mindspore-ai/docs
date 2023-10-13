@@ -1,6 +1,6 @@
 # Obtaining MindSpore Federated
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/federated_install.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/federated/docs/source_en/federated_install.md)
 
 Currently, the [MindSpore Federated](https://gitee.com/mindspore/federated) framework code has been built independently, divided into device-side and cloud-side. Its cloud-side capability relies on MindSpore and MindSpore Federated, using MindSpore for cloud-side cluster aggregation training and communication with device-side, so it needs to get MindSpore whl package and MindSpore Federated whl package respectively. The device-side capability relies on MindSpore Lite and MindSpore Federated java packages, where MindSpore Federated java is mainly responsible for data pre-processing, model training and inference by calling MindSpore Lite for, as well as model-related uploads and downloads by using privacy protection mechanisms and the cloud side.
 
@@ -10,7 +10,7 @@ You can use the source code or download the release version to install MindSpore
 
 ## Obtaining the MindSpore Lite Java Package
 
-You can use the source code or download the release version. Currently, only the Linux and Android platforms are supported, and only the CPU hardware architecture is supported. For details about the installation process, see [Downloading MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) and [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/build.html).
+You can use the source code or download the release version. Currently, only the Linux and Android platforms are supported, and only the CPU hardware architecture is supported. For details about the installation process, see [Downloading MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.2/use/downloads.html) and [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.2/use/build.html).
 
 ## Obtaining MindSpore Federated WHL Package
 
@@ -22,4 +22,4 @@ You can use the source code or download the release version. Currently, MindSpor
 
 ## Requirements for Building the Linux Environment
 
-Currently, the source code build is supported only in the Linux environment. For details about the environment requirements, see [MindSpore Source Code Build](https://www.mindspore.cn/install/en) and [MindSpore Lite Source Code Build](https://www.mindspore.cn/lite/docs/en/master/use/build.html).
+Currently, the source code build is supported only in the Linux environment. For details about the environment requirements, see [MindSpore Source Code Build](https://www.mindspore.cn/install/en) and [MindSpore Lite Source Code Build](https://www.mindspore.cn/lite/docs/en/r2.2/use/build.html).

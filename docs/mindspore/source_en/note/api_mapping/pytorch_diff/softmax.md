@@ -1,6 +1,6 @@
 # Differences with torch.nn.functional.softmax
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/softmax.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/softmax.md)
 
 ## torch.nn.functional.softmax
 
@@ -24,7 +24,7 @@ class mindspore.ops.softmax(
 )
 ```
 
-For more information, see [mindspore.ops.softmax](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.softmax.html#mindspore.ops.softmax).
+For more information, see [mindspore.ops.softmax](https://mindspore.cn/docs/en/r2.2/api_python/ops/mindspore.ops.softmax.html#mindspore.ops.softmax).
 
 ## Differences
 

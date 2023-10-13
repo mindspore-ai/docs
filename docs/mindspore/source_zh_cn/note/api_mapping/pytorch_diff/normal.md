@@ -1,6 +1,6 @@
 # 比较与torch.normal的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/normal.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/normal.md)
 
 ## torch.normal
 
@@ -19,7 +19,7 @@ torch.normal(mean, std, size, *, out=None)
 mindspore.ops.normal(shape, mean, stddev, seed=None)
 ```
 
-更多内容详见[mindspore.ops.normal](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.normal.html)。
+更多内容详见[mindspore.ops.normal](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.normal.html)。
 
 ## 差异对比
 
@@ -40,8 +40,8 @@ MindSpore: `mean` 和 `std` 支持的数据类型是Tensor，返回值的shape�
 |            | 参数 2       | mean          | mean          | MindSpore下支持的数据类型是Tensor。PyTorch下支持Tensor、float，对应不同用法 |
 |            | 参数 3       | std           | stddev        | MindSpore下支持的数据类型是Tensor。PyTorch下支持Tensor、float，对应不同用法 |
 |            | 参数 4       | generator     | seed          | MindSpore使用随机数种子生成随机数 |
-|            | 参数 5       | size          | -             | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
-|            | 参数 6       | out           | -             | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|            | 参数 5       | size          | -             | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.2/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|            | 参数 6       | out           | -             | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.2/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 
 ## 代码示例 1
 

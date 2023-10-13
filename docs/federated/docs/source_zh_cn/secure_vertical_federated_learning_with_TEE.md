@@ -1,6 +1,6 @@
 # 纵向联邦-基于可信执行环境的特征保护
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/secure_vertical_federated_learning_with_TEE.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/federated/docs/source_zh_cn/secure_vertical_federated_learning_with_TEE.md)
 
 注：这是一个实验特性，未来有可能被修改或删除。
 
@@ -130,7 +130,7 @@ TEE层的正向传播、反向传播都需要调用它自己的函数而非通�
 
 #### 正向传播
 
-和通常的vFL训练相同，使用者需要基于MindSpore提供的`nn.Cell`（参见[mindspore.nn.Cell](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore-nn-cell)）来开发训练网络。不同点则在于，在TEE所在的这一层，使用者需要在该类的`construct`函数中调用TEE前向传播的函数：
+和通常的vFL训练相同，使用者需要基于MindSpore提供的`nn.Cell`（参见[mindspore.nn.Cell](https://mindspore.cn/docs/zh-CN/r2.2/api_python/nn/mindspore.nn.Cell.html#mindspore-nn-cell)）来开发训练网络。不同点则在于，在TEE所在的这一层，使用者需要在该类的`construct`函数中调用TEE前向传播的函数：
 
 ```python
 from mindspore_federated._mindspore_federated import init_tee_cut_layer, backward_tee_cut_layer, \

@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_win_install_source.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/install/mindspore_gpu_win_install_source.md)
 
 本文档介绍如何在GPU环境的Windows系统上，使用源码编译方法快速安装MindSpore。
 
@@ -31,7 +31,7 @@
 ## 从代码仓下载源码
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone -b r2.2 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## 编译MindSpore

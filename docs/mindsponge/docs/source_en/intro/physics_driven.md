@@ -1,6 +1,6 @@
 # Physics Driven
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_en/intro/physics_driven.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindsponge/docs/source_en/intro/physics_driven.md)
 
 Traditional molecular dynamics simulations mainly use physical knowledge to perform computational simulations of molecular systems.
 

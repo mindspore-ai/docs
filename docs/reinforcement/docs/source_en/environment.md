@@ -1,6 +1,6 @@
 # Reinforcement Learning Environment Access
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_en/environment.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/reinforcement/docs/source_en/environment.md)
 
 ## Overview
 
@@ -39,7 +39,7 @@ print('type: {}, shape: {}, dtype: {}'.format(type(state), state.dtype, state.sh
 - `in_types` and `in_shapes` specify the input data types and dimensions. `env.reset` has no input, so it fills in an empty list.
 - `out_types`, `out_shapes` specify the data types and dimensions of the returned values. From the previous execution, it can be seen that `env.reset()` returns a numpy array with data type and dimension `np.float64` and `(4,)` respectively, so `[ms.float64,]` and `[(4,),]` are filled in.
 - `PyFunc` returns tuple(Tensor).
-- For more detailed instructions, refer to the [reference](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/operations/other_ops.py).
+- For more detailed instructions, refer to the [reference](https://gitee.com/mindspore/mindspore/blob/r2.2/mindspore/python/mindspore/ops/operations/other_ops.py).
 
 ## Decoupling Environment and Algorithms
 
@@ -73,7 +73,7 @@ class Environment(nn.Cell):
         pass
 ```
 
-`Environment` needs to provide methods such as `action_space` and `observation_space`, in addition to interfaces for interacting with the environment, such as `reset` and `step`, which return [Space](https://mindspore.cn/reinforcement/docs/en/master/reinforcement.html#mindspore_rl.environment.Space) type. The algorithm can achieve the following operations based on the `Space` information:
+`Environment` needs to provide methods such as `action_space` and `observation_space`, in addition to interfaces for interacting with the environment, such as `reset` and `step`, which return [Space](https://mindspore.cn/reinforcement/docs/en/r0.7/reinforcement.html#mindspore_rl.environment.Space) type. The algorithm can achieve the following operations based on the `Space` information:
 
 - obtain the dimensions of the state space and action space in the environment, which used to construct the neural network.
 - read the range of legal actions, and scale and crop the actions given by the policy network.

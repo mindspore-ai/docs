@@ -1,6 +1,6 @@
 # 比较与torch.nn.Transformer
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Transformer.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Transformer.md)
 
 ## torch.nn.Transformer
 
@@ -40,7 +40,7 @@ class mindspore.nn.Transformer(
 )(src, tgt, src_mask=None, tgt_mask=None, memory_mask=None, src_key_padding_mask=None, tgt_key_padding_mask=None, memory_key_padding_mask=None)
 ```
 
-更多内容详见 [mindspore.nn.Transformer](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Transformer.html).
+更多内容详见 [mindspore.nn.Transformer](https://mindspore.cn/docs/zh-CN/r2.2/api_python/nn/mindspore.nn.Transformer.html).
 
 ## 差异对比
 

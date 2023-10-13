@@ -1,6 +1,6 @@
 # 强化学习配置说明
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_zh_cn/custom_config_info.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/reinforcement/docs/source_zh_cn/custom_config_info.md)
 &nbsp;&nbsp;
 
 ## 概述
@@ -9,7 +9,7 @@
 
 本文以DQN算法为例介绍如何使用MindSpore Reinforcement算法和训练参数配置接口，帮助用户快速定制和调整强化学习算法。
 
-您可以从[https://github.com/mindspore-lab/mindrl/tree/master/example/dqn](https://github.com/mindspore-lab/mindrl/tree/master/example/dqn)获取DQN算法代码。
+您可以从[https://github.com/mindspore-lab/mindrl/tree/r0.7/example/dqn](https://github.com/mindspore-lab/mindrl/tree/r0.7/example/dqn)获取DQN算法代码。
 
 ## 算法相关参数配置
 

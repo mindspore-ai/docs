@@ -1,6 +1,6 @@
 # Communication Subgraph Extraction and Reuse
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/comm_subgraph.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_en/parallel/comm_subgraph.md)
 
 ## Overview
 
@@ -50,7 +50,7 @@ The following is an illustration of the communication subgraph extraction and mu
 
 ### Example Code Description
 
-> Download the complete example code: [comm_subgraph](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/comm_subgraph)
+> Download the complete example code: [comm_subgraph](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/comm_subgraph)
 
 The directory structure is as follows:
 
