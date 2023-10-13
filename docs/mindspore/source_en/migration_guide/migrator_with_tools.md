@@ -1,6 +1,6 @@
 # Application Practice Guide for Network Migration Tool
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/migrator_with_tools.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/migration_guide/migrator_with_tools.md)
 
 ## Overview
 
@@ -14,10 +14,10 @@ This guide describes how to apply various migration-related tools to improve the
 
 | Tools      | Tool Description         | Applications to network migration         |
 | --------------------- | -------------------- | --------------------- |
-| [MindSpore Dev Toolkit](https://www.mindspore.cn/devtoolkit/docs/en/master/index.html) | MindSpore Dev Toolkit is a development kit supporting the cross-platform Python IDE plug-in developed by MindSpore, and provides functions such as Project creation, intelligent supplement, API search, and Document search. | With capabilities such as API search, it is possible to improve the efficiency of users network migration development.          |
+| [MindSpore Dev Toolkit](https://www.mindspore.cn/devtoolkit/docs/en/r2.2/index.html) | MindSpore Dev Toolkit is a development kit supporting the cross-platform Python IDE plug-in developed by MindSpore, and provides functions such as Project creation, intelligent supplement, API search, and Document search. | With capabilities such as API search, it is possible to improve the efficiency of users network migration development.          |
 | [TroubleShooter](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)   | TroubleShooter is a MindSpore web development debugging toolkit designed to provide convenient, easy-to-use debugging capabilities. | Network debugging toolset (e.g., network weight migration, accuracy comparison, code tracing, error reporting analysis, execution tracking and other functions) to help users improve migration debugging efficiency. |
-| [Profiler](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling.html)     | Profiler can record information such as operator time consumption during the training process into a file, which can be viewed and analyzed by the user through a visual interface, helping the user to debug neural network performance more efficiently. | After the network migration, if the execution performance is not good, you can use Profiler to analyze the performance. Profiler provides Profiler analysis of the host execution of the framework, as well as the execution of the operator. |
-| [Dump](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html)                  | The Dump function is provided to save the graphs from model training and the input and output data of the operators to a disk file. | Generally used for network migration complex problem localization (eg: operator overflow, etc.) and can dump out the operator-level data. |
+| [Profiler](https://www.mindspore.cn/mindinsight/docs/en/r2.2/performance_profiling.html)     | Profiler can record information such as operator time consumption during the training process into a file, which can be viewed and analyzed by the user through a visual interface, helping the user to debug neural network performance more efficiently. | After the network migration, if the execution performance is not good, you can use Profiler to analyze the performance. Profiler provides Profiler analysis of the host execution of the framework, as well as the execution of the operator. |
+| [Dump](https://www.mindspore.cn/tutorials/experts/en/r2.2/debug/dump.html)                  | The Dump function is provided to save the graphs from model training and the input and output data of the operators to a disk file. | Generally used for network migration complex problem localization (eg: operator overflow, etc.) and can dump out the operator-level data. |
 
 ## Examples of Network Migration Tool Applications
 
@@ -29,9 +29,9 @@ Note: The complete sample code for migrating the network can be found at the fol
 
 ### Network Migration Development
 
-The API scanning function of [MindSpore Dev Toolkit](https://www.mindspore.cn/devtoolkit/docs/en/master/index.html) scans the mapping between APIs in PyTorch network and MindSpore APIs. The API scanning function scans the mapping between the APIs in PyTorch network and MindSpore APIs, and opens the "Description" URL for API differences, which gives a detailed analysis of the APIs and helps users to quickly build the network code for MindSpore.
+The API scanning function of [MindSpore Dev Toolkit](https://www.mindspore.cn/devtoolkit/docs/en/r2.2/index.html) scans the mapping between APIs in PyTorch network and MindSpore APIs. The API scanning function scans the mapping between the APIs in PyTorch network and MindSpore APIs, and opens the "Description" URL for API differences, which gives a detailed analysis of the APIs and helps users to quickly build the network code for MindSpore.
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/api_scan.jpg)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/migration_guide/images/api_scan.jpg)
 
 For example, the `torch.cat` interface:
 
@@ -91,13 +91,13 @@ The following file can be found under the configured path.
 -rw-r--r-- 1 root root     14013 Jul  5 20:26 mindspore_net_architecture.txt  （Network structure information, the same as printing the contents of a model object with python print）
 ```
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/image2.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/migration_guide/images/image2.png)
 
 **Step 3: Compare the network infrastructure through net_architecture.txt**
 
 Tools such as Beyond Compare can be used to quickly compare the network structure (i.e., mindspore_net_architecture.txt vs. torch_net_architecture.txt), and the following can be used to preliminarily determine that the network structure hierarchies are basically aligned, and that there are a number of natural API as well as parameter differences, for example: Dense and Linear are in the normal range.
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/image3.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/migration_guide/images/image3.png)
 
 **Step 4: Further compare the network structure by comparing the weight parameters**
 
@@ -112,7 +112,7 @@ ts.migrator.compare_pth_and_ckpt(
     compare_value=False)
 ```
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/image4.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/migration_guide/images/image4.png)
 
 ### Network Forward Result Verification
 
@@ -228,7 +228,7 @@ The orig dir: /mnt/sdb2/mindspore_model/vit/v1/temp_data/pt/npy
 The target dir: /mnt/sdb2/mindspore_model/vit/v1/temp_data/ms/npy
 ```
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/image6.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/migration_guide/images/image6.png)
 
 #### Fully-automatic Verification Scheme
 
@@ -256,7 +256,7 @@ def auto_run_ms_net(args):
 
 After the interface is run, it prints some logs of the execution process, and finally prints the comparison results of the network forward output.
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/image5.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/migration_guide/images/image5.png)
 
 > Note: When the results are inconsistent, the API output of each layer in the network can be exported dichotomously or layer-by-layer via the [ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#) interface and batch comparison is performed via the [ts.migrator.compare_npy_dir](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/compare_npy_dir.md#) interface to localize to the API where the problem was introduced.
 
@@ -352,7 +352,7 @@ The orig dir: /mindspore_model/vit/v1/temp_data/pt/grads
 The target dir: /mindspore_model/vit/v1/temp_data/ms/grads
 ```
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/image8.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/migration_guide/images/image8.png)
 
 **Step 4: Compare weighting parameters**
 
@@ -366,11 +366,11 @@ ts.migrator.compare_pth_and_ckpt(weight_map_path="/mindspore_model/vit/v1/temp_d
 
 Obtain the comparison result to the weight parameter shape.
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/image9.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/migration_guide/images/image9.png)
 
 Obtain the comparison result to the weight parameter value.
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/image10.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/migration_guide/images/image10.png)
 
 > Note: If the comparison results are inconsistent, you can go backward to see if the gradients are consistent. If the gradients are consistent, you can check if the optimizer is used correctly, and you can refer to the section on Network Layer-by-Layer Difference Check for a layer-by-layer problem delimitation and exclusion.
 
@@ -450,7 +450,7 @@ ts.migrator.compare_npy_dir('/mindspore_model/vit/v1/temp_data/pt/npy',
                             '/mindspore_model/vit/v1/temp_data/ms/npy')
 ```
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/image7.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/migration_guide/images/image7.png)
 
 #### Network Weight Migration
 
@@ -474,4 +474,4 @@ ts.migrator.convert_weight(weight_map_path="/mindspore_model/vit/v1/temp_data/pt
 
 When `convert_weight` is executed, detailed information about the weight conversion process will be printed, including name, conversion status, shape of parameters, etc., as shown in the figure below.
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/image11.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/migration_guide/images/image11.png)

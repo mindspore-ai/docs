@@ -10,9 +10,9 @@ MindSpore Probability 概率编程主要包括以下几部分：
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/probability/docs/source_zh_cn/probability_cn.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/probability/docs/source_zh_cn/probability_cn.png" width="700px" alt="" >
 
-代码仓地址： <https://gitee.com/mindspore/mindspore/tree/master/mindspore/python/mindspore/nn/probability>
+代码仓地址： <https://gitee.com/mindspore/mindspore/tree/r2.2/mindspore/python/mindspore/nn/probability>
 
 使用概率编程的典型场景
 -----------------------

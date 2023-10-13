@@ -7,7 +7,7 @@ MindSpore SciAI应用领域覆盖到了流体、电磁、声、热、固体、�
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/sciai/docs/source_zh_cn/images/architecture_cn.png" width="600px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/sciai/docs/source_zh_cn/images/architecture_cn.png" width="600px" alt="" >
 
 .. toctree::
    :maxdepth: 1

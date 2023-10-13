@@ -1,6 +1,6 @@
 # 使用 TB-Net 白盒推荐模型
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_tbnet.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/xai/docs/source_zh_cn/using_tbnet.md)
 
 ## 什么是 TB-Net
 
@@ -267,7 +267,7 @@ file_name = os.path.realpath(args.file_name)
 ms.export(network, *inputs, file_name=file_name, file_format=args.file_format)
 ```
 
-从以上的 [export.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/export.py) 可见，使用 [mindspore.export](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.export.html#mindspore.export) 导出已训练模型是十分简单直接的。
+从以上的 [export.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/export.py) 可见，使用 [mindspore.export](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore/mindspore.export.html#mindspore.export) 导出已训练模型是十分简单直接的。
 
 ### 执行 export.py
 

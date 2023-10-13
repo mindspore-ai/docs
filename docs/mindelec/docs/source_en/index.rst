@@ -9,9 +9,9 @@ Currently, Huawei has achieved phase achievements in the tolerance scenario of H
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindelec/docs/source_en/images/MindElec-architecture-en.jpg" width="600px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindelec/docs/source_en/images/MindElec-architecture-en.jpg" width="600px" alt="" >
 
-Code repository address: <https://gitee.com/mindspore/mindscience/tree/master/MindElec>
+Code repository address: <https://gitee.com/mindspore/mindscience/tree/r0.5/MindElec>
 
 Data Building and Conversion
 ------------------------------

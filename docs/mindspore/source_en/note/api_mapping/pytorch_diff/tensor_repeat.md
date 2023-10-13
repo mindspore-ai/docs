@@ -1,6 +1,6 @@
 # Differences with torch.Tensor.repeat
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/tensor_repeat.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/tensor_repeat.md)
 
 The following mapping relationships can be found in this file.
 
@@ -22,7 +22,7 @@ For more information, see [torch.Tensor.repeat](https://pytorch.org/docs/1.8.1/t
 mindspore.Tensor.tile(multiples)
 ```
 
-For more information, see [mindspore.Tensor.tile](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.tile.html).
+For more information, see [mindspore.Tensor.tile](https://www.mindspore.cn/docs/en/r2.2/api_python/mindspore/Tensor/mindspore.Tensor.tile.html).
 
 ## Differences
 

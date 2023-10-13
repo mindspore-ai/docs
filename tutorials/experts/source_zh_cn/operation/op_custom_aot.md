@@ -1,10 +1,10 @@
 # aot类型自定义算子进阶用法
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/operation/op_custom_aot.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_zh_cn/operation/op_custom_aot.md)
 
 ## 概述
 
-aot类型的自定义算子采用预编译的方式，要求网络开发者基于特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后在网络运行时框架会自动调用执行动态链接库中的函数。aot类型的自定义算子支持GPU平台的CUDA语言，和CPU平台的C和C++语言。关于aot类型的自定义算子开发的基础知识请参考[基础教程](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom.html#aot类型的自定义算子开发)。
+aot类型的自定义算子采用预编译的方式，要求网络开发者基于特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后在网络运行时框架会自动调用执行动态链接库中的函数。aot类型的自定义算子支持GPU平台的CUDA语言，和CPU平台的C和C++语言。关于aot类型的自定义算子开发的基础知识请参考[基础教程](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/operation/op_custom.html#aot类型的自定义算子开发)。
 
 本教程中，我们将展示aot类型自定义算子的进阶功能，包括
 
@@ -12,7 +12,7 @@ aot类型的自定义算子采用预编译的方式，要求网络开发者基�
 - aot类型自定义算子的属性和中间变量；
 - aot类型自定义算子的动态shape支持。
 
-对于下面用例的完整代码，请查阅[这里](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_aot_fused.py)。
+对于下面用例的完整代码，请查阅[这里](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/test_custom_aot_fused.py)。
 
 ## aot类型自定义算子进阶用法特性简介
 
@@ -85,7 +85,7 @@ extern "C" int FuncNameInit(int *ndims, int64_t **shapes, const char **dtypes, A
 - ndims (int \*): 输入输出shape维度数组。
 - shapes (int64_t \*\*): 输入输出shape数组。
 - dtypes (const char \*\*): 输入输出数据类型数组。
-- extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
+- extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
 
 ### Shape推导函数
 
@@ -99,7 +99,7 @@ extern "C" std::vector<int64_t> FuncNameInferShape(int *ndims, int64_t **shapes,
 
 - ndims (int \*): 输入shape维度数组。
 - shapes (int64_t \*\*): 输入shape数组。
-- extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
+- extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
 
 ### 算子属性注册（Python）
 
@@ -109,7 +109,7 @@ extern "C" std::vector<int64_t> FuncNameInferShape(int *ndims, int64_t **shapes,
 def attr(self, name=None, param_type=None, value_type=None, default_value=None, **kwargs)
 ```
 
-其参数含义参见[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)相关接口文档。其中，在aot类型自定义算子注册时，我们注册时需要注意一下四个参数：
+其参数含义参见[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)相关接口文档。其中，在aot类型自定义算子注册时，我们注册时需要注意一下四个参数：
 
 - name: aot类型自定义算子的属性的名称；
 - param_type: 属性的参数类型。对于aot类型自定义算子的属性，这个输入固定为”required“，即必选参数；
@@ -136,7 +136,7 @@ output = ReduceSum(tmp, axis, keep_dims)
 
 #### 算子属性类
 
-首先我们定义一个数据结构贮存算子属性，该数据接口继承自`AotKernelData`。`AotKernelData`是自定义算子属性数据结构的统一基类，通过下载MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h)放在源文件同一目录下并在文件前`#include "custom_aot_extra.h"`便可以使用相关接口。
+首先我们定义一个数据结构贮存算子属性，该数据接口继承自`AotKernelData`。`AotKernelData`是自定义算子属性数据结构的统一基类，通过下载MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h)放在源文件同一目录下并在文件前`#include "custom_aot_extra.h"`便可以使用相关接口。
 
 ```c++
 #include <vector>
@@ -320,7 +320,7 @@ class ReduceDynNet(Cell):
 
 #### 算子注册
 
-算子属性的在初始化时的赋值通过算子注册文件实现。关于自定义算子注册的函数，参见[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)相关文档。对于每一个属性，我们为算子注册文件`reduce_cpu_info`创建一个`attr`，设置属性名和属性的值。
+算子属性的在初始化时的赋值通过算子注册文件实现。关于自定义算子注册的函数，参见[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)相关文档。对于每一个属性，我们为算子注册文件`reduce_cpu_info`创建一个`attr`，设置属性名和属性的值。
 
 这里每一个`attr`项有四个输入：第一个为名字，如`"axis"`或`"keep_dim"`；中间两个为`"required"`和`"all"`；最后一个输入需要指定输入名为`value=`，输入的值为属性的值，例如这里`value=axis`和`value=keep_dim`。这里我们从网络的输入确定这两个参数的值，这两个值应该和上面初始化函数和shape推导函数中使用的`extra->Attr<T>`模板接口的类型匹配。
 

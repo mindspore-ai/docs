@@ -1,6 +1,6 @@
 # Optimizer Parallel
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/optimizer_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_en/parallel/optimizer_parallel.md)
 
 ## Overview
 
@@ -33,7 +33,7 @@ In a training iteration, the data parallelism introduces a communication operati
 
 If you want to implement parallel computing for the optimizer, there are two implementation ideas, weights grouping and weights sharding. One of the weights grouping is to do inter-layer division of the parameters and gradients within the optimizer, and the general training flow is shown in Figure 1. The parameters and gradients are grouped onto different cards to be updated, and then the updated weights are shared among devices through a communication broadcast operation. The memory and performance gains of the solution depend on the group with the largest proportion of parameters. When the parameters are divided evenly, the theoretical positive gains are N-1/N of optimizer runtime and dynamic memory, and N-1/N of memory size for optimizer state parameters, where N denotes the number of devices. And the negative gain introduced is the communication time that comes when sharing network weights.
 
-![images](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/parallel/images/optimizer_parallel_image_0_zh.png)
+![images](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/tutorials/experts/source_zh_cn/parallel/images/optimizer_parallel_image_0_zh.png)
 
 *Figure 1: Schematic diagram of the parameter grouping training process*
 
@@ -41,7 +41,7 @@ Another way to implement parameter slicing is to do intra-layer division of para
 
 First, slice the weights in the network can further reduce static memory. However, this also requires performing the shared weight operation at the end of the iteration before the forward start of the next iteration, ensuring that the original tensor shape remains the same after going into the forward and backward operations. In addition, the main negative gain from the parallel operation of the optimizer is the communication time of the shared weights, which can bring a performance gain if we can reduce or hide it. One advantage of communication cross-iteration execution is that communication operations can be executed interleaved with the forward network by fusing the communication operators in appropriate groups, thus hiding the communication time consumption as much as possible. The communication time consumption is also related to the communication volume. For the network involving mixed precision, if we can use fp16 communication, the communication volume will be reduced by half compared to fp32. Combining the above characteristics, the implementation scheme of parameter slicing is shown in Figure 2.
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/parallel/images/optimizer_parallel_image_1_zh.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/tutorials/experts/source_zh_cn/parallel/images/optimizer_parallel_image_1_zh.png)
 
 *Figure 2: Schematic diagram of the parameter slicing training process*
 
@@ -55,7 +55,7 @@ The following is an illustration of optimizer parallel operation using an Ascend
 
 ### Sample Code Description
 
-> Download the full sample code: [distributed_optimizer_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel).
+> Download the full sample code: [distributed_optimizer_parallel](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/distributed_optimizer_parallel).
 
 The directory structure is as follows:
 
@@ -140,7 +140,7 @@ net.layer2.set_comm_fusion(1)
 net.layer3.set_comm_fusion(2)
 ```
 
-> Here communication fusion is configured for different layers in order to reduce the communication cost. Details can be found in [Communication Operator Fusion](https://www.mindspore.cn/tutorials/experts/en/master/parallel/comm_fusion.html).
+> Here communication fusion is configured for different layers in order to reduce the communication cost. Details can be found in [Communication Operator Fusion](https://www.mindspore.cn/tutorials/experts/en/r2.2/parallel/comm_fusion.html).
 
 ### Training the Network
 
@@ -212,7 +212,7 @@ epoch: 0, step: 100, loss is 0.6854114
 ...
 ```
 
-Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/experts/en/master/parallel/startup_method.html).
+Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/experts/en/r2.2/parallel/startup_method.html).
 
 ## Advanced Interfaces
 

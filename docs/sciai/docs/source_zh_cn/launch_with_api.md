@@ -1,6 +1,6 @@
 # 调用API启动模型
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_zh_cn/launch_with_api.md)&nbsp;&nbsp;
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/sciai/docs/source_zh_cn/launch_with_api.md)&nbsp;&nbsp;
 
 MindSpore SciAI为用户提供了高阶API接口`AutoModel`。借助`AutoModel`，用户可以通过一行代码完成模型的实例化。
 
@@ -10,7 +10,7 @@ MindSpore SciAI为用户提供了高阶API接口`AutoModel`。借助`AutoModel`�
 
 用户可以使用`AutoModel.from_pretrained`接口获取已支持的网络模型。
 
-这里使用Conservatice Physics-Informed Neural Networks (CPINNs) 作为教学案例。CPINNs模型相关代码请参考[链接](https://gitee.com/mindspore/mindscience/tree/master/SciAI/sciai/model/cpinns)。
+这里使用Conservatice Physics-Informed Neural Networks (CPINNs) 作为教学案例。CPINNs模型相关代码请参考[链接](https://gitee.com/mindspore/mindscience/tree/r0.5/SciAI/sciai/model/cpinns)。
 
 更多关于该模型的信息，请参考[论文](https://www.sciencedirect.com/science/article/abs/pii/S0045782520302127)。
 

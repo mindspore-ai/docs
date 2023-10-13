@@ -1,6 +1,6 @@
 # 模型动态混淆
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/dynamic_obfuscation_protection.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindarmour/docs/source_zh_cn/dynamic_obfuscation_protection.md)
 
 ## 概述
 
@@ -11,7 +11,7 @@ MindSpore框架提供通过动态混淆对MindIR模型进行保护的功能，�
 
 以下通过示例来介绍导出和加载混淆模型的方法。
 
-> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dynamic_obfuscation/test_dynamic_obfuscation.py>
+> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/r2.2/docs/sample_code/dynamic_obfuscation/test_dynamic_obfuscation.py>
 
 ## 使用 `export()` 接口导出混淆模型及部署推理
 

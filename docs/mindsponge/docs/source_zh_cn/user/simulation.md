@@ -1,6 +1,6 @@
 # 分子模拟
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_zh_cn/user/simulation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindsponge/docs/source_zh_cn/user/simulation.md)
 
 MindSpore SPONGE采取了一种独一无二的 “类AI”分子模拟程序架构：
 
@@ -221,7 +221,7 @@ MindSpore SPONGE采用H5MD作为记录模拟轨迹的默认文件格式。H5MD (
 
 ## 使用教程
 
-使用MindSpore SPONGE进行分子动力学模拟的教程可在[MindScience仓库](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/tutorials/basic)进行查看。
+使用MindSpore SPONGE进行分子动力学模拟的教程可在[MindScience仓库](https://gitee.com/mindspore/mindscience/tree/r0.5/MindSPONGE/tutorials/basic)进行查看。
 
 ## 参考文献
 

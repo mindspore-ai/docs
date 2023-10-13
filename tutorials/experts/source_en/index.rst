@@ -40,7 +40,7 @@ For Experts
    :maxdepth: 1
    :caption: Performance Optimization
 
-   Profiling↗ <https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling.html>
+   Profiling↗ <https://www.mindspore.cn/mindinsight/docs/en/r2.2/performance_profiling.html>
    optimize/execution_opt
    optimize/graph_fusion_engine
    optimize/op_compilation

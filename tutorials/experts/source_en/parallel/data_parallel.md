@@ -1,6 +1,6 @@
 # Data Parallel
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/data_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_en/parallel/data_parallel.md)
 
 ## Overview
 
@@ -15,7 +15,7 @@ Related interfaces are as follows:
 
 ## Overall Process
 
-![Overall Process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/data_parallel.png)
+![Overall Process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/design/images/data_parallel.png)
 
 1. Environmental dependencies
 
@@ -45,7 +45,7 @@ The following is an illustration of data parallel operation using the Ascend or 
 
 > You can download the full sample code here:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_data_parallel>。
+> <https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/distributed_data_parallel>。
 
 The directory structure is as follows:
 
@@ -209,4 +209,4 @@ epoch: 0 step: 30, loss is 2.2938071
 ...
 ```
 
-Other startup methods such as dynamic network and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/experts/en/master/parallel/startup_method.html).
+Other startup methods such as dynamic network and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/experts/en/r2.2/parallel/startup_method.html).

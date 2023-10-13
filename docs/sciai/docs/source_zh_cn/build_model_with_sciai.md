@@ -1,17 +1,17 @@
 # 使用SciAI构建神经网络
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_zh_cn/build_model_with_sciai.md)&nbsp;&nbsp;
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/sciai/docs/source_zh_cn/build_model_with_sciai.md)&nbsp;&nbsp;
 
 SciAI基础框架由若干基础模块构成，涵盖有神经网络搭建、训练、验证以及其他辅助函数等。
 
 如下的示例展示了使用SciAI构建神经网络模型并进行训练的流程。
 
 > 你可以在这里下载完整的样例代码：
-> <https://gitee.com/mindspore/mindscience/tree/master/SciAI/tutorial>
+> <https://gitee.com/mindspore/mindscience/tree/r0.5/SciAI/tutorial>
 
 ## 模型构建基础
 
-使用SciAI基础框架创建神经网络的原理与[使用MindSpore构建网络](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/model.html)一致，但过程将会十分简便。
+使用SciAI基础框架创建神经网络的原理与[使用MindSpore构建网络](https://www.mindspore.cn/tutorials/zh-CN/r2.2/beginner/model.html)一致，但过程将会十分简便。
 
 本章节以一个多层感知器为例，介绍了使用SciAI训练并求解如下方程。
 
@@ -19,7 +19,7 @@ $$
 f(x) = {x_1}^2 + sin(x_2)
 $$
 
-该部分完整代码请参考[代码](https://gitee.com/mindspore/mindscience/blob/master/SciAI/tutorial/example_net.py)。
+该部分完整代码请参考[代码](https://gitee.com/mindspore/mindscience/blob/r0.5/SciAI/tutorial/example_net.py)。
 
 ### 模型搭建
 
@@ -34,11 +34,11 @@ net = MLP(layers=[2, 5, 5, 1], weight_init=XavierTruncNormal(), bias_init='zeros
 
 `MLP`将默认使用正态分布随机生成网络权重，偏差`bias`默认为0，激活函数默认为`tanh`。
 
-`MLP`同时接受多样化的初始化方式和MindSpore提供的所有[激活函数](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html)，以及专为科学计算设计的激活函数。
+`MLP`同时接受多样化的初始化方式和MindSpore提供的所有[激活函数](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore.nn.html)，以及专为科学计算设计的激活函数。
 
 ### 损失函数定义
 
-损失函数定义为[Cell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell)的子类， 并将损失的计算方法写在方法`construct`中。
+损失函数定义为[Cell](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell)的子类， 并将损失的计算方法写在方法`construct`中。
 
 ```python
 from mindspore import nn
@@ -76,7 +76,7 @@ loss value: 0.3026065
 在本案例中，我们对方程进行随机采样，生成数据集`x_train`与`y_true`进行训练。
 
 模型训练部分代码如下所示，其中主要展示了SciAI若干功能。
-模型训练类`TrainCellWithCallBack`，其与[MindSpore.nn.TrainOneStepCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TrainOneStepCell.html#mindspore.nn.TrainOneStepCell)功能基本一致，
+模型训练类`TrainCellWithCallBack`，其与[MindSpore.nn.TrainOneStepCell](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/nn/mindspore.nn.TrainOneStepCell.html#mindspore.nn.TrainOneStepCell)功能基本一致，
 需要提供网络`net_loss`与优化器作为参数，并为科学计算功能增加了回调功能。
 回调包括打印训练`loss`值、训练时间、自动保存`ckpt`文件。
 如下的案例代码将会每100个训练周期打印`loss`值与训练时间，并在每1000个训练周期保存当前模型参数为`ckpt`文件。
@@ -177,11 +177,11 @@ $$
 f(x) = \frac{x^2}{0.2 x^5 + 0.8}
 $$
 
-该部分完整代码请参考[代码](https://gitee.com/mindspore/mindscience/blob/master/SciAI/tutorial/example_grad_net.py)。
+该部分完整代码请参考[代码](https://gitee.com/mindspore/mindscience/blob/r0.5/SciAI/tutorial/example_grad_net.py)。
 
 ### 损失函数定义
 
-与上一章中损失函数定义基本一致，需要定义损失为[Cell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell)的子类。
+与上一章中损失函数定义基本一致，需要定义损失为[Cell](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell)的子类。
 
 不同的是在该损失函数中，需要计算原函数的偏导。
 SciAI为此提供了便捷的工具`operators.grad`，通过设置网络输入与输出的索引，可以计算某个输入对某个输出的偏导值。

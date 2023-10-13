@@ -1,6 +1,6 @@
 # Host&Device异构
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/host_device_training.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_zh_cn/parallel/host_device_training.md)
 
 ## 概述
 
@@ -34,7 +34,7 @@
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[host_device](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/host_device)。
+> 下载完整的样例代码：[host_device](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/host_device)。
 
 目录结构如下：
 

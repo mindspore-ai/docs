@@ -1,6 +1,6 @@
 # Horizontal FL-Local Differential Privacy SignDS training
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/local_differential_privacy_training_signds.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/federated/docs/source_en/local_differential_privacy_training_signds.md)
 
 ## Privacy Protection Background
 
@@ -18,7 +18,7 @@ SignDS [2] is the abbreviation of Sign Dimension Select, and the processing obje
 
 One sentence summarizes the algorithm: Each participant only uploads information about the important dimensions, including their gradient directions and privacy-preserving steps, which corresponds to the SignDS and MagRR (Magnitude Random Response) modules in the figure below, respectively.
 
-![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_zh_cn/images/signds_framework.png)
+![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/federated/docs/source_zh_cn/images/signds_framework.png)
 
 Here is an example: there are 3 clients Client1, 2, 3, whose `update` is a $d=8$-dimensional vector after flattening and expanding, and the Server calculates the `avg` of these 3 clients Client and updates the global model with the value, that is, completes a round of federated learning.
 
@@ -49,7 +49,7 @@ Client selects dimensions uniformly and randomly according to the number of dime
 
 The Server receives the dimension direction from the client, but it is not clear what the step size to update in that direction is. Generally speaking, the step length tends to be large at the beginning of training, and shrinks as the training gradually converges. The general trend of step length change is shown in the following figure:
 
-![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_zh_cn/images/signds_step_length.png)
+![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/federated/docs/source_zh_cn/images/signds_step_length.png)
 
 The Server wants to estimate a dynamic range $[0,2∗r_{est}]$ for the actual step $r$, and thus compute the global learning rate $lr_{global}=2∗r_{est}*num_{clients}$.
 
@@ -97,7 +97,7 @@ The Server constructs `update` with privacy protection based on the dimension se
 
 The SignDS scheme enables the device-side client to upload only a list of dimensional ordinal numbers of type int output by the algorithm, a random Sign value of type boolean and feedback results on the estimated value to the cloud side, which significantly reduces the communication overhead compared to uploading tens of thousands of float-level complete model weights or gradients in a common scenario. From the perspective of the actual reconstruction attack, the cloud side only obtains the dimension serial number, a Sign value representing the direction of gradient update and the step estimation feedback value for privacy protection, and the attack is more difficult to achieve. The data flow fields of the overall scheme are shown in the following figure:
 
-![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_zh_cn/images/signds_flow.png)
+![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/federated/docs/source_zh_cn/images/signds_flow.png)
 
 ## Privacy Protection Certificate
 

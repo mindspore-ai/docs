@@ -1,8 +1,8 @@
 环境变量
 ========
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg 
-   :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/env_var_list.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg 
+   :target: https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/env_var_list.rst
 
 本文介绍MindSpore的环境变量。
 
@@ -26,7 +26,7 @@
      - 1~24：允许设置并行进程数取值范围
      - 
    * - MS_COMPILER_CACHE_ENABLE
-     - 指定是否保存和加载前端的图编译缓存。该功能与 mindspore context 中的 `enable_compile_cache <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ 相同。
+     - 指定是否保存和加载前端的图编译缓存。该功能与 mindspore context 中的 `enable_compile_cache <https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ 相同。
 
        注意：该环境变量优先级低于 `enable_compile_cache` context。
      - Integer
@@ -68,7 +68,7 @@
        false：使能预编译
      - 
 
-具体用法详见 `算子增量编译 <https://mindspore.cn/tutorials/experts/zh-CN/master/optimize/op_compilation.html>`_ ，常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/master/faq/operators_compile.html>`_ 。
+具体用法详见 `算子增量编译 <https://mindspore.cn/tutorials/experts/zh-CN/r2.2/optimize/op_compilation.html>`_ ，常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/r2.2/faq/operators_compile.html>`_ 。
 
 并行训练
 --------
@@ -130,7 +130,7 @@
 
        MS_WORKER: 代表Worker进程，一般设置分布式训练进程为此角色。
 
-       MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考 `Parameter Server模式 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html>`_ 。
+       MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考 `Parameter Server模式 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/parameter_server_training.html>`_ 。
      - Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。
    * - MS_SCHED_HOST
      - 指定Scheduler的IP地址。
@@ -179,7 +179,7 @@
      - 1代表是，0代表否。默认为0。
      - 此环境变量只在Ascend硬件平台并且通信域数量较多的情况下建议开启。开启此环境变量后，能够降低HCCL集合通信库的内存占用，并且训练任务执行方式与rank table启动方式相同。
 
-具体用法详见 `动态组网 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html>`_ 。
+具体用法详见 `动态组网 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/dynamic_cluster.html>`_ 。
 
 运行数据保存
 ------------
@@ -216,7 +216,7 @@
      - 配合 `MS_RDR_ENABLE=1` 使用，最终RDR文件将 `${MS_RDR_PATH}` `/rank_${RANK_ID}/rdr/` 目录下。
        其中 `RANK_ID` 为多卡训练场景中的卡号，单卡场景默认 `RANK_ID=0` 。
 
-具体用法详见 `Running Data Recorder <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/rdr.html#running-data-recorder>`_ 。
+具体用法详见 `Running Data Recorder <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/debug/rdr.html#running-data-recorder>`_ 。
 
 日志
 ----
@@ -314,7 +314,7 @@
 	 
        其中被指定子模块的日志级别将覆盖 `GLOG_v` 在此模块内的设置，
        此处子模块的日志级别 `LogLevel` 与 `GLOG_v` 的日志级别含义相同，
-       MindSpore子模块列表详见 `sub-module_names <https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/utils/log_adapter.cc>`_。
+       MindSpore子模块列表详见 `sub-module_names <https://gitee.com/mindspore/mindspore/blob/r2.2/mindspore/core/utils/log_adapter.cc>`_。
 	   
        例如可以通过 `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"` 
        把 `PARSER` 和 `ANALYZER` 模块的日志级别设为WARNING，其他模块的日志级别设为INFO
@@ -334,13 +334,13 @@ Dump功能
      - 取值
      - 说明
    * - MINDSPORE_DUMP_CONFIG
-     - 指定 `云侧Dump功能 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#同步dump>`_ 
-       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
+     - 指定 `云侧Dump功能 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/debug/dump.html#同步dump>`_ 
+       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/r2.2/use/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
      - String
      - 文件路径，支持相对路径与绝对路径
      - 
    * - MS_DIAGNOSTIC_DATA_PATH
-     - 使用 `云侧Dump功能 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#同步dump>`_ 时，
+     - 使用 `云侧Dump功能 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/debug/dump.html#同步dump>`_ 时，
        如果Dump配置文件没有设置 `path` 字段或者设置为空字符串，则 `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump` 就会被当做path的值。
        若Dump配置文件中设置了 `path` 字段，则仍以该字段的实际取值为准。
      - String
@@ -357,7 +357,7 @@ Dump功能
      - "on"，表示在当前路径生成trace构图的ir文件
      - 实验性质的环境变量
 
-具体用法详见 `Dump功能调试 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html>`_ 。
+具体用法详见 `Dump功能调试 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/debug/dump.html>`_ 。
 
 数据处理性能
 ------------
@@ -404,8 +404,8 @@ Dump功能
        false: 关闭pipeline树优化
      - 
 
-具体用法详见 `单节点数据缓存 <https://mindspore.cn/tutorials/experts/zh-CN/master/dataset/cache.html>`_
-和 `数据处理性能优化 <https://mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html>`_ 。
+具体用法详见 `单节点数据缓存 <https://mindspore.cn/tutorials/experts/zh-CN/r2.2/dataset/cache.html>`_
+和 `数据处理性能优化 <https://mindspore.cn/tutorials/experts/zh-CN/r2.2/dataset/optimize.html>`_ 。
 
 调试器
 ------
@@ -444,7 +444,7 @@ Dump功能
      - 1~65536，连接MindSpore Insight Debugger Server的端口
      - 与ENABLE_MS_DEBUGGER=1、MS_DEBUGGER_HOST一起使用
 
-具体用法详见 `调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html>`_ 。
+具体用法详见 `调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/debugger.html>`_ 。
 
 其他
 ----

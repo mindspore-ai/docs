@@ -1,6 +1,6 @@
 # Loading the Model from Hub
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_en/loading_model_from_hub.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/hub/docs/source_en/loading_model_from_hub.md)
 
 ## Overview
 
@@ -39,7 +39,7 @@ This document demonstrates the use of the models provided by MindSpore Hub for b
 
    ```
 
-3. After loading the model, you can use MindSpore to do inference. You can refer to [Multi-Platform Inference Overview](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html).
+3. After loading the model, you can use MindSpore to do inference. You can refer to [Multi-Platform Inference Overview](https://www.mindspore.cn/tutorials/experts/en/r2.2/infer/inference.html).
 
 ## For Transfer Training
 

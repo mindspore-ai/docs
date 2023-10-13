@@ -1,6 +1,6 @@
 # Molecular Simulation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_en/user/simulation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindsponge/docs/source_en/user/simulation.md)
 
 MindSpore SPONGE has adopted a unique "AI-like" molecular simulation program architecture:
 
@@ -222,7 +222,7 @@ Thanks to the multi-tiered data structure of HDF5, H5MD itself is highly scalabl
 
 ## Tutorial
 
-A tutorial on molecular dynamics simulations using the MindSpore SPONGE is available at [MindScience](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/tutorials/basic).
+A tutorial on molecular dynamics simulations using the MindSpore SPONGE is available at [MindScience](https://gitee.com/mindspore/mindscience/tree/r0.5/MindSPONGE/tutorials/basic).
 
 ## Reference
 

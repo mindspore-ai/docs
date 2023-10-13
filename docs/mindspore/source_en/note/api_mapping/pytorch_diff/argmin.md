@@ -1,6 +1,6 @@
 # Differences with torch.argmin
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/argmin.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/argmin.md)
 
 The following mapping relationships can be found in this file.
 
@@ -23,7 +23,7 @@ For more information, see [torch.argmin](https://pytorch.org/docs/1.8.1/generate
 mindspore.ops.argmin(input, axis=None, keepdims=False) -> Tensor
 ```
 
-For more information, see [mindspore.ops.argmin](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.argmin.html).
+For more information, see [mindspore.ops.argmin](https://www.mindspore.cn/docs/en/r2.2/api_python/ops/mindspore.ops.argmin.html).
 
 ## Differences
 
@@ -31,7 +31,7 @@ PyTorch: Return the index of the minimum value of the Tensor flattened or along 
 
 MindSpore: The implementation function of API in MindSpore is basically the same as that of PyTorch, and the return value type is int32.
 
-To ensure that the two output types are identical, use the [mindspore.ops.Cast](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Cast.html) operator to convert the result of MindSpore to mindspore.int64, which is done in each of the following examples.
+To ensure that the two output types are identical, use the [mindspore.ops.Cast](https://mindspore.cn/docs/en/r2.2/api_python/ops/mindspore.ops.Cast.html) operator to convert the result of MindSpore to mindspore.int64, which is done in each of the following examples.
 
 | Categories | Subcategories   | PyTorch     | MindSpore   | Differences   |
 | ---- | ----- | ------- | --------- | --------------------- |
@@ -41,7 +41,7 @@ To ensure that the two output types are identical, use the [mindspore.ops.Cast](
 
 ### Code Example 1
 
-> For a zero-dimensional Tensor, PyTorch supports any combination of None/-1/0 for the dim parameter and True/False for the keepdim parameter, and the computation results are all consistent, all being a zero-dimensional Tensor. MindSpore version 1.8.1 does not support handling zero-dimensional Tensor at the moment, and you need to use [mindspore.ops.ExpandDims](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ExpandDims.html) to expand the Tensor to one dimension, and then follow the default parameter computation of the mindspore.ops.argmin operator.
+> For a zero-dimensional Tensor, PyTorch supports any combination of None/-1/0 for the dim parameter and True/False for the keepdim parameter, and the computation results are all consistent, all being a zero-dimensional Tensor. MindSpore version 1.8.1 does not support handling zero-dimensional Tensor at the moment, and you need to use [mindspore.ops.ExpandDims](https://mindspore.cn/docs/en/r2.2/api_python/ops/mindspore.ops.ExpandDims.html) to expand the Tensor to one dimension, and then follow the default parameter computation of the mindspore.ops.argmin operator.
 
 ```python
 # PyTorch
@@ -115,7 +115,7 @@ print(ms_out_np)
 
 ### Code Example 3
 
-> The PyTorch operator has a keepdim parameter. When set to True, it serves to keep the dimension for which aggregation is performed and is set to 1. MindSpore keepdims parameter is consistent with its function. To achieve the same result, after the calculation is done, use the [mindspore.ops.ExpandDims](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ExpandDims.html) operator to expand the dimensionality.
+> The PyTorch operator has a keepdim parameter. When set to True, it serves to keep the dimension for which aggregation is performed and is set to 1. MindSpore keepdims parameter is consistent with its function. To achieve the same result, after the calculation is done, use the [mindspore.ops.ExpandDims](https://mindspore.cn/docs/en/r2.2/api_python/ops/mindspore.ops.ExpandDims.html) operator to expand the dimensionality.
 
 ```python
 # PyTorch

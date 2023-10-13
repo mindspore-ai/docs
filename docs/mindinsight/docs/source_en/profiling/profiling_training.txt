@@ -12,7 +12,7 @@ Add the MindSpore Profiler interface to the training script.
 
   .. note::
      The parameters of Profiler are as follows:
-     `Profiler API <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ .
+     `Profiler API <https://www.mindspore.cn/docs/en/r2.2/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler>`_ .
      Before initializing the Profiler, you need to determine the device_id.
 
 - At the end of the training, ``Profiler.analyse()`` should be called to finish profiling and generate the performance analyse results.
@@ -25,7 +25,7 @@ the other is through Callback based on step or epoch to open and close Profiler.
 
 - Custom training:
 
-  The MindSpore functional programming use case uses profilers for custom training by turning Profiler performance data on or off during a specified step interval or epoch interval. `Enable Profiler's complete code sample based on step <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_step.py>`_.
+  The MindSpore functional programming use case uses profilers for custom training by turning Profiler performance data on or off during a specified step interval or epoch interval. `Enable Profiler's complete code sample based on step <https://gitee.com/mindspore/docs/blob/r2.2/docs/sample_code/mindinsight/profiler/profiling_step.py>`_.
 
   .. code:: python
 
@@ -43,7 +43,7 @@ the other is through Callback based on step or epoch to open and close Profiler.
 
 - User-defined Callback
 
-  - For data non-sink mode, there is only an opportunity to turn on and off CANN at the end of each step, so whether the CANN is turned on or off is based on the step. A custom Callback opens the Profiler's `complete code sample based on step <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_feed_step.py>`_ .
+  - For data non-sink mode, there is only an opportunity to turn on and off CANN at the end of each step, so whether the CANN is turned on or off is based on the step. A custom Callback opens the Profiler's `complete code sample based on step <https://gitee.com/mindspore/docs/blob/r2.2/docs/sample_code/mindinsight/profiler/profiling_feed_step.py>`_ .
 
     .. code:: python
 
@@ -96,7 +96,7 @@ the other is through Callback based on step or epoch to open and close Profiler.
 ** Unconditional Open example: **
 
 - Example 1: In the MindSpore functional Programming use case, Profiler is used to collect performance data. Part of the sample code is shown below.
-  `Complete code sample <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/profiler/profiling_sample.py>`_ .
+  `Complete code sample <https://gitee.com/mindspore/docs/blob/r2.2/docs/sample_code/mindinsight/profiler/profiling_sample.py>`_ .
 
   .. code:: python
 

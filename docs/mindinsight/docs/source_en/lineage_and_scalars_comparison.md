@@ -1,6 +1,6 @@
 # Viewing Lineage and Scalars Comparison
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/lineage_and_scalars_comparison.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindinsight/docs/source_en/lineage_and_scalars_comparison.md)
 
 ## Overview
 
@@ -64,7 +64,7 @@ Figure 7 shows the data processing and augmentation information of all model tra
 
 ## Scalars Comparison
 
-Scalars Comparison can be used to compare scalar curves and loss graph between multiple trainings. For the detailed information of loss graph comparison, please refer to [Training Optimization Process Visualization](https://www.mindspore.cn/mindinsight/docs/en/master/landscape.html).
+Scalars Comparison can be used to compare scalar curves and loss graph between multiple trainings. For the detailed information of loss graph comparison, please refer to [Training Optimization Process Visualization](https://www.mindspore.cn/mindinsight/docs/en/r2.2/landscape.html).
 
 ![multi_scalars.png](./images/multi_scalars.png)
 

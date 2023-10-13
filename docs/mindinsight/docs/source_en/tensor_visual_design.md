@@ -1,6 +1,6 @@
 # Tensor Visualization Design
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/tensor_visual_design.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindinsight/docs/source_en/tensor_visual_design.md)
 
 ## Background
 
@@ -41,7 +41,7 @@ Figure 2 shows tensors recorded by a user in a form of a histogram.
 
 ### API Design
 
-In tensor visualization, there are file API and RESTful API. The file API is the [summary.proto](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/utils/summary.proto) file, which is used for data interconnection between MindSpore Insight and MindSpore. RESTful API is an internal API used for data interaction between the MindSpore Insight frontend and backend.
+In tensor visualization, there are file API and RESTful API. The file API is the [summary.proto](https://gitee.com/mindspore/mindspore/blob/r2.2/mindspore/ccsrc/utils/summary.proto) file, which is used for data interconnection between MindSpore Insight and MindSpore. RESTful API is an internal API used for data interaction between the MindSpore Insight frontend and backend.
 
 #### File API Design
 
@@ -88,4 +88,4 @@ The `summary.proto` file is the main entry. TensorProto data is stored in the su
 }
 ```
 
-TensorProto is defined in the [anf_ir.proto](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/utils/anf_ir.proto) file.
+TensorProto is defined in the [anf_ir.proto](https://gitee.com/mindspore/mindspore/blob/r2.2/mindspore/ccsrc/utils/anf_ir.proto) file.

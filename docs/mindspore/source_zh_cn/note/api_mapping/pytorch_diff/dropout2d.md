@@ -1,6 +1,6 @@
 # 比较与torch.nn.functional.dropout2d的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/dropout2d.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/dropout2d.md)
 
 ## torch.nn.functional.dropout2d
 
@@ -16,7 +16,7 @@ torch.nn.functional.dropout2d(input, p=0.5, training=True, inplace=False) -> Ten
 mindspore.ops.dropout2d(input, p=0.5, training=True) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.dropout2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.dropout2d.html)。
+更多内容详见[mindspore.ops.dropout2d](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.dropout2d.html)。
 
 ## 差异对比
 

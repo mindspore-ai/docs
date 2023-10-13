@@ -1,6 +1,6 @@
 # FAQ
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_zh_cn/faq.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/serving/docs/source_zh_cn/faq.md)
 
 <font size=3>**Q：MindSpore Serving是否支持热更新，避免推理服务中断？**</font>
 
@@ -38,7 +38,7 @@ A：首先，需要确认是否安装MindSpore Serving所依赖的MindSpore；�
 
 <font size=3>**Q：如何控制Serving日志输出？**</font>
 
-A：MindSpore Serving采用glog来输出日志，详细可参考[日志相关的环境变量和配置](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html)，在此基础上，额外补充的内容：
+A：MindSpore Serving采用glog来输出日志，详细可参考[日志相关的环境变量和配置](https://www.mindspore.cn/docs/zh-CN/r2.2/note/env_var_list.html)，在此基础上，额外补充的内容：
 
 - MS_SUBMODULE_LOG_v
 

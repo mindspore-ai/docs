@@ -1,6 +1,6 @@
 # Differences with torch.nn.TripletMarginLoss
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/TripletMarginLoss.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/TripletMarginLoss.md)
 
 The following mapping relationships can be found in this file.
 
@@ -36,7 +36,7 @@ mindspore.nn.TripletMarginLoss(
 )(margin, x, positive, negative) -> Tensor/Scalar
 ```
 
-For more information, see [mindspore.nn.TripletMarginLoss](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TripletMarginLoss.html).
+For more information, see [mindspore.nn.TripletMarginLoss](https://mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.TripletMarginLoss.html).
 
 ## Differences
 

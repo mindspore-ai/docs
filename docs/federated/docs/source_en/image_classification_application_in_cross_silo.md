@@ -1,6 +1,6 @@
 # Implementing a Cloud-Slio Federated Image Classification Application (x86)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/image_classification_application_in_cross_silo.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/federated/docs/source_en/image_classification_application_in_cross_silo.md)
 
 Based on the type of participating clients, federated learning can be classified into cross-silo federated learning and cross-device federated learning. In a cross-silo federated learning scenario, the clients involved in federated learning are different organizations (e.g., healthcare or finance) or geographically distributed data centers, i.e., training models on multiple data silos. In the cross-device federated learning scenario, the participating clients are a large number of mobile or IoT devices. This framework will describe how to implement an image classification application by using the network LeNet on the MindSpore Federated cross-silo federated framework.
 
@@ -141,13 +141,13 @@ The following directory structure of the folder `cross_silo_femnist/femnist/35_7
 
 We choose the relatively simple LeNet network, which has seven layers without the input layer: two convolutional layers, two downsampling layers (pooling layers), and three fully connected layers. Each layer contains a different number of training parameters, as shown in the following figure:
 
-![LeNet5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_zh_cn/images/LeNet_5.jpg)
+![LeNet5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/federated/docs/source_zh_cn/images/LeNet_5.jpg)
 
 > More information about LeNet network is not described herein. For more details, please refer to <http://yann.lecun.com/exdb/lenet/>.
 
 The network used for this task can be found in the script [test_cross_silo_femnist.py](https://gitee.com/mindspore/federated/blob/master/example/cross_silo_femnist/test_cross_silo_femnist.py).
 
-For a specific understanding of the network definition process in MindSpore, please refer to [quick start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html#building-network).
+For a specific understanding of the network definition process in MindSpore, please refer to [quick start](https://www.mindspore.cn/tutorials/en/r2.2/beginner/quick_start.html#building-network).
 
 ## Launching the Cross-Silo Federated Task
 

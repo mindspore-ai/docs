@@ -1,6 +1,6 @@
 # Implementing an Image Classification Application of Cross-device Federated Learning (x86)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/image_classification_application.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/federated/docs/source_en/image_classification_application.md)
 
 Federated learning can be divided into cross-silo federated learning and cross-device federated learning according to different participating clients. In the cross-silo federated learning scenario, the clients participating in federated learning are different organizations (for example, medical or financial) or data centers geographically distributed, that is, training models on multiple data islands. The clients participating in the cross-device federated learning scenario are a large number of mobiles or IoT devices. This framework will introduce how to use the network LeNet to implement an image classification application on the MindSpore cross-silo federated framework, and provides related tutorials for simulating to start multi-client participation in federated learning in the x86 environment.
 
@@ -14,7 +14,7 @@ We provide [Federated Learning Image Classification Dataset FEMNIST](https://min
 
 1. Define the network and training process.
 
-    For the definition of the specific network and training process, please refer to [Beginners Getting Started](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html).
+    For the definition of the specific network and training process, please refer to [Beginners Getting Started](https://www.mindspore.cn/tutorials/en/r2.2/beginner/quick_start.html).
 
 2. Export a model as a MindIR file.
 
@@ -108,7 +108,7 @@ We provide [Federated Learning Image Classification Dataset FEMNIST](https://min
 
 3. Convert the MindIR file into an .ms file that can be used by the federated learning device-side framework.
 
-    For details about model conversion, see [Training Model Conversion Tutorial](https://www.mindspore.cn/lite/docs/en/master/use/converter_train.html).
+    For details about model conversion, see [Training Model Conversion Tutorial](https://www.mindspore.cn/lite/docs/en/r2.2/use/converter_train.html).
 
     The following is an example of model conversion:
 

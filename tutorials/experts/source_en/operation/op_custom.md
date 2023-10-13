@@ -1,10 +1,10 @@
 # Custom Operators (Custom-based)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/operation/op_custom.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_en/operation/op_custom.md)
 
 ## Overview
 
-When built-in operators cannot meet requirements during network development, you can call the Python API [Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive defined in MindSpore to quickly create different types of custom operators for use.
+When built-in operators cannot meet requirements during network development, you can call the Python API [Custom](https://www.mindspore.cn/docs/en/r2.2/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive defined in MindSpore to quickly create different types of custom operators for use.
 
 Traditional methods to add a custom operator need three steps: registering the operator primitive, implementing the operator, and registering the operator information.
 
@@ -20,7 +20,7 @@ Compared with traditional custom operator creating methods, creating custom oper
 - It unifies the interface and usage for different kinds of custom operators, which is convenient for network developers to flexibly choose which kind of custom operator to use according to their needs.
 - Supports defining custom operators with hybrid expression, which can be used across platforms.
 
-The operator development methods supported by custom operator based on the [Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive include: hybrid, tbe, aot, pyfunc, julia, and akg.
+The operator development methods supported by custom operator based on the [Custom](https://www.mindspore.cn/docs/en/r2.2/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive include: hybrid, tbe, aot, pyfunc, julia, and akg.
 
 The difference between these operator development methods are as follows:
 
@@ -46,7 +46,7 @@ The recommended methods for all platforms under different scenarios are as follo
 
 Different custom operator defining methods use different development languages to implement the operator, but the development process is the same, including operator implementation, operator output shape, data type inference, and operator information registration (optional). You can choose which one to use based on needs. The defining methods of these custom operators will be introduced here, and examples are provided for each method.
 
-> More examples can be found in the MindSpore source code [tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom).
+> More examples can be found in the MindSpore source code [tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/r2.2/tests/st/ops/graph_kernel/custom).
 
 ## The Introduction to Custom Operator: An Example
 
@@ -132,7 +132,7 @@ Then we have the following results as sin values of above inputs.
 [0.         0.84147096 0.19866933 0.29552022 0.38941833]
 ```
 
-Then we have completed the definition of a custom operator of type pyfunc. For more complete examples of pyfunc-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_pyfunc.py) in the MindSpore source code.
+Then we have completed the definition of a custom operator of type pyfunc. For more complete examples of pyfunc-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/test_custom_pyfunc.py) in the MindSpore source code.
 
 ## JIT Compiled Custom Operator
 
@@ -142,10 +142,10 @@ JIT (Just In Time) refers to operators compiled directly by the framework during
 
 A custom operator of Hybrid type is the default defined type of a custom operator. By using a custom operator of the Hybrid type, users can describe the operator calculation logic in Python-like syntax without paying attention to the engineering details defined by the operator for the MindSpore framework, allowing the user to focus on the algorithm itself.
 
-Custom operators of Hybrid type use [MindSpore Hybrid DSL](https://www.mindspore.cn/tutorials/experts/en/master/operation/ms_kernel.html#syntax-specification) to describe the implementation of the calculation logic inside the operator. Functions defined with MindSpore Hybrid DSL can be parsed by the [AKG Operator Compiler](https://gitee.com/mindspore/akg) for JIT compilation to generate efficient operators for use in training reasoning for large-scale models. At the same time, the function defined by MindSpore Hybrid DSL can be called directly as a `numpy` function, which is convenient for users to debug and flexibly switch to [pyfunc type custom operator](#the-introduction-to-custom-operator-an-example), so that when developed, custom operator expressions are reused for multiple modes, multiple platforms and multiple scenes.
+Custom operators of Hybrid type use [MindSpore Hybrid DSL](https://www.mindspore.cn/tutorials/experts/en/r2.2/operation/ms_kernel.html#syntax-specification) to describe the implementation of the calculation logic inside the operator. Functions defined with MindSpore Hybrid DSL can be parsed by the [AKG Operator Compiler](https://gitee.com/mindspore/akg) for JIT compilation to generate efficient operators for use in training reasoning for large-scale models. At the same time, the function defined by MindSpore Hybrid DSL can be called directly as a `numpy` function, which is convenient for users to debug and flexibly switch to [pyfunc type custom operator](#the-introduction-to-custom-operator-an-example), so that when developed, custom operator expressions are reused for multiple modes, multiple platforms and multiple scenes.
 
 The following example (test_custom_hybrid.py) shows how to write a custom operator of the hybrid type. The operator computes the sum of two tensors.
-Notice that custom operators of Hybrid type use the source to source transformation method to connect the graph compiler and the operator compiler. Users can use the keywords of MindSpore Hybrid DSL directly in the script, such as `output_tensor` below, without importing any Python modules. For more information about the keywords, refer [MindSpore Hybrid DSL Keywords](https://www.mindspore.cn/tutorials/experts/en/master/operation/ms_kernel.html#keywords).
+Notice that custom operators of Hybrid type use the source to source transformation method to connect the graph compiler and the operator compiler. Users can use the keywords of MindSpore Hybrid DSL directly in the script, such as `output_tensor` below, without importing any Python modules. For more information about the keywords, refer [MindSpore Hybrid DSL Keywords](https://www.mindspore.cn/tutorials/experts/en/r2.2/operation/ms_kernel.html#keywords).
 
 ```python
 import numpy as np
@@ -177,7 +177,7 @@ if __name__ == "__main__":
 In this case,
 
 - The Hybrid type is the default type for Custom.
-- The input of custom operators with Hybrid type must be a function with [`@kernel`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.kernel.html).
+- The input of custom operators with Hybrid type must be a function with [`@kernel`](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.kernel.html).
 - When defining a custom operator for the Hybrid type, you can use the built-in automatic shape/dtype derivation function, or you can manually enter the shape/dtype deduction function.
 
 Execute case:
@@ -193,7 +193,7 @@ The execution result is as follows:
  [4. 4.]]
 ```
 
-For more complete examples of hybrid-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_ms_kernel.py) in the MindSpore source code.
+For more complete examples of hybrid-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/test_ms_kernel.py) in the MindSpore source code.
 
 ### Defining Custom Operator of tbe Type
 
@@ -201,7 +201,7 @@ The custom operator of tbe type uses the TBE(Tensor Boost Engine) operator DSL t
 
 Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic.
 
-Operator information needs to be registered. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_adv.html#registering-the-operator-information).
+Operator information needs to be registered. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/r2.2/operation/op_custom_adv.html#registering-the-operator-information).
 
 Takes test_custom_tbe.py as an example to introduce how to define a custom operator of tbe type, where the custom operator implements the function of adding two input tensors.
 
@@ -263,7 +263,7 @@ The execution result is as follows:
  [4. 4.]]
 ```
 
-For more complete examples of tbe-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_tbe.py) in the MindSpore source code.
+For more complete examples of tbe-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/test_custom_tbe.py) in the MindSpore source code.
 
 ### Defining Custom Operator of akg Type
 
@@ -271,7 +271,7 @@ The custom operator of akg type uses the [MindSpore AKG](https://gitee.com/minds
 
 Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic of operator output shape and data type.
 
-If the operator contains attributes or only supports specific input and output data types or data formats, operator information needs to be registered, and for how to generate operator information, see [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_adv.html#registering-the-operator-information). If the operator information is not registered, when operator selection and mapping are made in the backend, the operator information is derived from the input of the current operator.
+If the operator contains attributes or only supports specific input and output data types or data formats, operator information needs to be registered, and for how to generate operator information, see [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/r2.2/operation/op_custom_adv.html#registering-the-operator-information). If the operator information is not registered, when operator selection and mapping are made in the backend, the operator information is derived from the input of the current operator.
 
 The following is an example of the development process of a custom operator of type akg in test_custom_akg.py, where the custom operator implements the addition of two input tensors.
 
@@ -321,11 +321,11 @@ The execution result is as follows:
  [4. 4.]]
 ```
 
-For more complete examples of akg-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_akg.py) in the MindSpore source code.
+For more complete examples of akg-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/test_custom_akg.py) in the MindSpore source code.
 
 ## AOT-Compiled Custom Operator
 
-AOT type of customized operator means that the user compiles the operator into a binary file beforehand and then accesses the network. Usually, users optimize their implementations using programming languages such as C/C++/CUDA and compile their operators as dynamic libraries to accelerate MindSpore networks. As a result, users can perform ultimate optimization on their operators and leverage the performance of the corresponding backend hardware. Here, we will introduce some basic knowledge about AOT type custom operators. For more advanced usage and functionality of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_aot.html).
+AOT type of customized operator means that the user compiles the operator into a binary file beforehand and then accesses the network. Usually, users optimize their implementations using programming languages such as C/C++/CUDA and compile their operators as dynamic libraries to accelerate MindSpore networks. As a result, users can perform ultimate optimization on their operators and leverage the performance of the corresponding backend hardware. Here, we will introduce some basic knowledge about AOT type custom operators. For more advanced usage and functionality of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/tutorials/experts/en/r2.2/operation/op_custom_aot.html).
 
 ### Defining Custom Operator of aot Type
 
@@ -352,7 +352,7 @@ In the Python script, the format for the `func` input in `Custom` is `Path_To_Fu
 
 Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic.
 
-If the operator only supports some specific input and output data types, the operator information needs to be registered. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_adv.html#registering-the-operator-information).
+If the operator only supports some specific input and output data types, the operator information needs to be registered. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/r2.2/operation/op_custom_adv.html#registering-the-operator-information).
 
 The following examples introduce the development process of aot type custom operator on GPU platform and CPU platform, where the custom operator implements the function of adding two input tensors.
 
@@ -511,7 +511,7 @@ The execution result is as follows:
  [4. 4.]]
 ```
 
-For more complete examples of aot-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_aot.py) in the MindSpore source code.
+For more complete examples of aot-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/test_custom_aot.py) in the MindSpore source code.
 
 ### Defining Custom Operator of aicpu Type
 
@@ -519,7 +519,7 @@ The custom operator of the aicpu type adopts the AOT compilation method, which r
 
 Operator output shape and data type inference can be implemented by defining Python functions that describe the derivation logic of operator output shape and data type.
 
-This type of custom operator needs to register operator information, and for operator information generation method, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_adv.html#registering-the-operator-information). For a custom operator of type aicpu, you need to specify the attributes of `attr("cust_aicpu", "required", "str", "mindspore_aicpu_kernels")` for MindSpore to find the dynamic link library corresponding to the operator implementation.
+This type of custom operator needs to register operator information, and for operator information generation method, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/r2.2/operation/op_custom_adv.html#registering-the-operator-information). For a custom operator of type aicpu, you need to specify the attributes of `attr("cust_aicpu", "required", "str", "mindspore_aicpu_kernels")` for MindSpore to find the dynamic link library corresponding to the operator implementation.
 
 > - It should be noted that the dynamic link library compiled after the development of a custom operator of aicpu type needs to be stored in the lib directory of MindSpore. For example, If MindSpore is installed in the virtual environment `/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore`, the aicpu so file needs to be placed in `/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore/lib/` directory.
 >
@@ -599,7 +599,7 @@ The custom operator of julia type uses Julia to describe the internal calculatio
 
 Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic of the operator output shape and the data type.
 
-If the custom operator only supports specific input and output data types, you need to define the operator information. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_adv.html#registering-the-operator-information).
+If the custom operator only supports specific input and output data types, you need to define the operator information. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/r2.2/operation/op_custom_adv.html#registering-the-operator-information).
 
 Takes the function of adding two input tensors as an example to introduce how to define a custom operator of julia type.
 
@@ -731,4 +731,4 @@ function foo!(x, y, z)
 end
 ```
 
-For more complete examples of julia-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_julia.py) in the MindSpore source code.
+For more complete examples of julia-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/st/ops/graph_kernel/custom/test_custom_julia.py) in the MindSpore source code.

@@ -1,10 +1,10 @@
 # 网络编译
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/network_compilation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/faq/network_compilation.md)
 
 <font size=3>**Q: 编译时报错“'self.xx' should be initialized as a 'Parameter' type in the '`__init__`' function”怎么办？**</font>
 
-A: 在 `construct` 函数内，如果想对类成员 `self.xx` 赋值，那么 `self.xx` 必须已经在 `__init__` 函数中被定义为 [Parameter](<https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html>) 类型，其他类型则不支持。局部变量 `xx` 不受这个限制。
+A: 在 `construct` 函数内，如果想对类成员 `self.xx` 赋值，那么 `self.xx` 必须已经在 `__init__` 函数中被定义为 [Parameter](<https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore/mindspore.Parameter.html>) 类型，其他类型则不支持。局部变量 `xx` 不受这个限制。
 
 <br/>
 
@@ -31,7 +31,7 @@ A: MindSpore在静态图模式下不支持 `yield` 语法。
 
 A: 在前端编译的推理阶段，会对节点的抽象类型(包含 `type`、`shape` 等)进行推导，常见抽象类型包括 `AbstractScalar`、`AbstractTensor`、`AbstractFunction`、`AbstractTuple`、`AbstractList` 等。在一些场景比如多分支场景，会对不同分支返回值的抽象类型进行 `join` 合并，推导出返回结果的抽象类型。如果抽象类型不匹配，或者 `type`/`shape` 不一致，则会抛出以上异常。
 
-当出现类似“Type Join Failed: dtype1 = Float32, dtype2 = Float16”的报错时，说明数据类型不一致，导致抽象类型合并失败。根据提供的数据类型和代码行信息，可以快速定位出错范围。此外，报错信息中提供了具体的抽象类型信息、节点信息，可以通过 `analyze_fail.ir` 文件查看MindIR信息，定位解决问题。关于MindIR的具体介绍，可以参考[MindSpore IR（MindIR）](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir)。代码样例如下：
+当出现类似“Type Join Failed: dtype1 = Float32, dtype2 = Float16”的报错时，说明数据类型不一致，导致抽象类型合并失败。根据提供的数据类型和代码行信息，可以快速定位出错范围。此外，报错信息中提供了具体的抽象类型信息、节点信息，可以通过 `analyze_fail.ir` 文件查看MindIR信息，定位解决问题。关于MindIR的具体介绍，可以参考[MindSpore IR（MindIR）](https://www.mindspore.cn/docs/zh-CN/r2.2/design/all_scenarios.html#中间表示mindir)。代码样例如下：
 
 ```python
 import numpy as np
@@ -289,7 +289,7 @@ A: 首先检查导出参数和导入执行的参数个数是否是匹配的。�
 
 因为导出数据输入为非Tensor时，该导出的输入将会变成常量固化到MindIR中，使MindIR中的输入要少于网络构建的Construct入参。
 
-如果是标量类型，可以将标量转成Tensor类型导出。如果是Tuple或者List类型.可以使用[mutable](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.mutable.html)接口进行包装后及进行导出。
+如果是标量类型，可以将标量转成Tensor类型导出。如果是Tuple或者List类型.可以使用[mutable](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore/mindspore.mutable.html)接口进行包装后及进行导出。
 
 <br/>
 
@@ -400,7 +400,7 @@ A: “External” 类型表示在图模式中使用了无法原生支持的对�
 
 <font size=3>**Q: 编译时报错"Nested execution during JIT execution for 'xxx' is not supported when 'xxx' compile and execute."怎么办？**</font>
 
-A: 当触发编译流程，即代码编译成静态计算图时，见[Graph模式执行原理](https://www.mindspore.cn/docs/zh-CN/master/design/dynamic_graph_and_static_graph.html)，同时在默认使用JIT Fallback特性时，再次进入编译流程时，则会抛出以上异常。
+A: 当触发编译流程，即代码编译成静态计算图时，见[Graph模式执行原理](https://www.mindspore.cn/docs/zh-CN/r2.2/design/dynamic_graph_and_static_graph.html)，同时在默认使用JIT Fallback特性时，再次进入编译流程时，则会抛出以上异常。
 
 下面以JIT Fallback支持调用第三方库的对象和方法为例：
 
@@ -520,7 +520,7 @@ net = Net()
 out = net(Tensor(x))
 ```
 
-3) 自定义类中调用了使用@jit装饰器修饰的函数，将会报错。这种场景建议将网络中的自定义类加上@jit_class装饰器，避免使用JIT Fallback特性。自定义类的更多使用可参考[自定义类的使用](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#支持自定义类的使用)。jit_class装饰器的使用可参考[使用jit_class](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/static_graph_expert_programming.html#使用jit-class)
+3) 自定义类中调用了使用@jit装饰器修饰的函数，将会报错。这种场景建议将网络中的自定义类加上@jit_class装饰器，避免使用JIT Fallback特性。自定义类的更多使用可参考[自定义类的使用](https://www.mindspore.cn/docs/zh-CN/r2.2/note/static_graph_syntax_support.html#支持自定义类的使用)。jit_class装饰器的使用可参考[使用jit_class](https://www.mindspore.cn/tutorials/zh-CN/r2.2/advanced/static_graph_expert_programming.html#使用jit-class)
 
 ```python
 import mindspore as ms

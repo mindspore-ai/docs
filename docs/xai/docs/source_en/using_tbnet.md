@@ -1,6 +1,6 @@
 # Using TB-Net Whitebox Recommendation Model
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_tbnet.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/xai/docs/source_en/using_tbnet.md)
 
 ## What is TB-Net
 
@@ -270,7 +270,7 @@ file_name = os.path.realpath(args.file_name)
 ms.export(network, *inputs, file_name=file_name, file_format=args.file_format)
 ```
 
-The above code snap of [export.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/export.py) shows it is straightforward with [mindspore.export](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.export.html#mindspore.export).
+The above code snap of [export.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/export.py) shows it is straightforward with [mindspore.export](https://www.mindspore.cn/docs/en/r2.2/api_python/mindspore/mindspore.export.html#mindspore.export).
 
 ### Running export.py
 

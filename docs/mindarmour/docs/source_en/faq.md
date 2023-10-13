@@ -1,6 +1,6 @@
 # FAQ
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/faq.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindarmour/docs/source_en/faq.md)
 
 <font size=3>**Q: What should I do when FastGradientSignMethod does not specify loss_fn, it reports an error: `Function construct_wrapper, the number of parameters of this function is 9, but the number of provided arguments is 10.`**</font>
 

@@ -1,6 +1,6 @@
 # Inference
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/inference.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/faq/inference.md)
 
 <font size=3>**Q: In the previous version, 310 inference is performed based on the MindSpore installation package. However, the MindSpore release package of the new version does not support Ascend 310 inference. How do I use Ascend 310 for inference? (Changes in the MindSpore Ascend 310 Inference Release Package)**</font>
 

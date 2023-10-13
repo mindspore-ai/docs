@@ -1,6 +1,6 @@
 # AI Electromagnetic Simulation based on Parameterization Method
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/source_en/parameterization.md)&nbsp;&nbsp;
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindelec/docs/source_en/parameterization.md)&nbsp;&nbsp;
 
 ## Overview
 
@@ -14,7 +14,7 @@ MindSpore Elec use AI model to directly obtain the S-parameters of the target to
 - The point cloud solution implements the mapping from the sampling point cloud of the antenna/phone to the simulation result. In this solution, the structure file of the mobile phone is converted into the point cloud tensor data, and the convolutional neural network is used to extract the structure features. Then, the final simulation result (S-parameters) are obtained through the mapping of multiple full-connected layers. The advantage of this solution is that it is applicable to complex working conditions where the number or types of structural parameters may change.
 
 > This current sample is for Ascend 910 AI processor. You can find the complete executable code at
-> <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/data_driven/parameterization>
+> <https://gitee.com/mindspore/mindscience/tree/r0.5/MindElec/examples/data_driven/parameterization>
 
 ## Target Scenario
 
@@ -40,7 +40,7 @@ There are 495 pairs of parameter-S11 samples. The training set and testing set a
 
 The data have been provided as .npy files, which can be downloaded from the following address:
 
-<https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/data_driven/parameterization/dataset>
+<https://gitee.com/mindspore/mindscience/tree/r0.5/MindElec/examples/data_driven/parameterization/dataset>
 
 ## Parameterized Electromagnetic Simulation
 

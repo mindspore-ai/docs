@@ -1,6 +1,6 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/transforms.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/source_en/beginner/transforms.md)
 
-[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || **Transforms** || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/r2.2/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.2/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.2/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r2.2/beginner/dataset.html) || **Transforms** || [Model](https://www.mindspore.cn/tutorials/en/r2.2/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.2/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.2/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.2/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.2/beginner/accelerate_with_static_graph.html)
 
 # Transforms
 
@@ -71,7 +71,7 @@ print(image.shape)
 (1, 28, 28)
 ```
 
-For more common Transforms, see [mindspore.dataset.transforms](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html).
+For more common Transforms, see [mindspore.dataset.transforms](https://www.mindspore.cn/docs/en/r2.2/api_python/mindspore.dataset.transforms.html).
 
 ## Vision Transforms
 
@@ -104,7 +104,7 @@ print(random_np)
  [152 241 105 ... 187  45  43]]
 ```
 
-To present a more visual comparison of the data before and after Transform, we use [Eager mode](https://mindspore.cn/tutorials/en/master/advanced/dataset/eager.html) demo of Transforms. First instantiate the Transform object, and then call the object for data processing.
+To present a more visual comparison of the data before and after Transform, we use [Eager mode](https://mindspore.cn/tutorials/en/r2.2/advanced/dataset/eager.html) demo of Transforms. First instantiate the Transform object, and then call the object for data processing.
 
 ```python
 rescale = vision.Rescale(1.0 / 255.0, 0)
@@ -126,7 +126,7 @@ It can be seen that each pixel value is scaled after using `Rescale`.
 
 ### Normalize
 
-The [Normalize](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Normalize.html) transform is used for normalization of the input image and consists of three parameters:
+The [Normalize](https://www.mindspore.cn/docs/en/r2.2/api_python/dataset_vision/mindspore.dataset.vision.Normalize.html) transform is used for normalization of the input image and consists of three parameters:
 
 - mean: the mean value of each channel in the image.
 - std: the standard deviation of each channel in the image.
@@ -173,7 +173,7 @@ print(hwc_image.shape, chw_image.shape)
 (48, 48, 1) (1, 48, 48)
 ```
 
-For more Vision Transforms, see [mindspore.dataset.vision](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision).
+For more Vision Transforms, see [mindspore.dataset.vision](https://mindspore.cn/docs/en/r2.2/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision).
 
 ## Text Transforms
 
@@ -234,7 +234,7 @@ print(next(test_dataset.create_tuple_iterator()))
 [Tensor(shape=[3], dtype=Int32, value= [1, 2, 0])]
 ```
 
-For more Text Transforms, see [mindspore.dataset.text](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text).
+For more Text Transforms, see [mindspore.dataset.text](https://mindspore.cn/docs/en/r2.2/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text).
 
 ## Lambda Transforms
 

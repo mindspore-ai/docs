@@ -1,6 +1,6 @@
 # Differences with torch.nn.LSTMCell
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/LSTMCell.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/LSTMCell.md)
 
 ## torch.nn.LSTMCell
 
@@ -22,7 +22,7 @@ class mindspore.nn.LSTMCell(
     has_bias=True)(x, hx) -> Tensor
 ```
 
-For more information, see [mindspore.nn.LSTMCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.LSTMCell.html).
+For more information, see [mindspore.nn.LSTMCell](https://www.mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.LSTMCell.html).
 
 ## Differences
 

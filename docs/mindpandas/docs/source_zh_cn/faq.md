@@ -1,6 +1,6 @@
 # FAQ
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindpandas/docs/source_zh_cn/faq.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindpandas/docs/source_zh_cn/faq.md)
 
 <font size=3>**Q：请问部署多进程计算引擎时遇到“Error: exit status 1”或“Failed to deploy basic model”报错，需要检查哪些内容？**</font>
 

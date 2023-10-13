@@ -1,6 +1,6 @@
 # Differences with torch.Tensor.item
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/item.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/item.md)
 
 ## torch.Tensor.item
 
@@ -16,7 +16,7 @@ For more information, see [torch.Tensor.item](https://pytorch.org/docs/1.8.1/ten
 mindspore.Tensor.item(index=None)
 ```
 
-For more information, see [mindspore.Tensor.item](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.item.html#mindspore.Tensor.item).
+For more information, see [mindspore.Tensor.item](https://www.mindspore.cn/docs/en/r2.2/api_python/mindspore/Tensor/mindspore.Tensor.item.html#mindspore.Tensor.item).
 
 ## Differences
 

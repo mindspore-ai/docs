@@ -1,6 +1,6 @@
 # 剪枝算法概述
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/golden_stick/docs/source_zh_cn/pruner/overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/golden_stick/docs/source_zh_cn/pruner/overview.md)
 
 本文是在介绍具体的剪枝算法之前，介绍一些剪枝算法的基本概念，帮助用户理解。如果已经对剪枝算法有较深的理解，可以直接跳转到[示例](#示例)小节。
 

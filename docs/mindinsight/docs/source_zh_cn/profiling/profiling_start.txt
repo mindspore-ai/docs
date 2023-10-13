@@ -2,4 +2,4 @@
 -----------------------
 
 启动命令请参考：
-`MindSpore Insight相关命令 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html>`_ 。
+`MindSpore Insight相关命令 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/mindinsight_commands.html>`_ 。

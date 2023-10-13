@@ -1,6 +1,6 @@
 # Differences with torch.nn.NLLLoss
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/NLLLoss.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/NLLLoss.md)
 
 ## torch.nn.NLLLoss
 
@@ -26,7 +26,7 @@ class mindspore.nn.NLLLoss(
 )(logits, labels)
 ```
 
-For more information, see [mindspore.nn.NLLLoss](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.NLLLoss.html).
+For more information, see [mindspore.nn.NLLLoss](https://www.mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.NLLLoss.html).
 
 ## Differences
 

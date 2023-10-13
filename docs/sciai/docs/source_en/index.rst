@@ -7,7 +7,7 @@ With these features, MindSpore SciAI covers a wide variety of scientific computa
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/sciai/docs/source_en/images/architecture.png" width="600px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/sciai/docs/source_en/images/architecture.png" width="600px" alt="" >
 
 .. toctree::
    :maxdepth: 1

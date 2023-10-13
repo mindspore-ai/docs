@@ -1,10 +1,10 @@
 # Network Compilation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/network_compilation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/faq/network_compilation.md)
 
 <font size=3>**Q: What can I do if an error "'self.xx' should be initialized as a 'Parameter' type in the '`__init__`' function" is reported?**</font>
 
-A: If you want to assign for a class member such as `self.xx` in the function `construct`, `self.xx` must have been defined as a [Parameter](<https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html>) type in the `__init__` function while the other types are not supported. But the local variable `xx` is not under the regulation.
+A: If you want to assign for a class member such as `self.xx` in the function `construct`, `self.xx` must have been defined as a [Parameter](<https://www.mindspore.cn/docs/en/r2.2/api_python/mindspore/mindspore.Parameter.html>) type in the `__init__` function while the other types are not supported. But the local variable `xx` is not under the regulation.
 
 <br/>
 
@@ -31,7 +31,7 @@ A: MindSpore does not support the `yield` syntax in graph mode.
 
 A: In the inference stage of front-end compilation, the abstract types of nodes, including `type` and `shape`, will be inferred. Common abstract types include `AbstractScalar`, `AbstractTensor`, `AbstractFunction`, `AbstractTuple`, `AbstractList`, etc. In some scenarios, such as multi-branch scenarios, the abstract types of the return values of different branches will be `join` to infer the abstract type of the returned result. If these abstract types do not match, or `type`/`shape` are inconsistent, the above exception will be thrown.
 
-When an error similar to "Type Join Failed: dtype1 = Float32, dtype2 = Float16" appears, it means that the data types are inconsistent, resulting in an exception when joining abstract. According to the provided data types and code line, the error can be quickly located. In addition, the specific abstract information and node information are provided in the error message. You can view the MindIR information through the `analyze_fail.ir` file to locate and solve the problem. For specific introduction of MindIR, please refer to [MindSpore IR (MindIR)](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir). The code sample is as follows:
+When an error similar to "Type Join Failed: dtype1 = Float32, dtype2 = Float16" appears, it means that the data types are inconsistent, resulting in an exception when joining abstract. According to the provided data types and code line, the error can be quickly located. In addition, the specific abstract information and node information are provided in the error message. You can view the MindIR information through the `analyze_fail.ir` file to locate and solve the problem. For specific introduction of MindIR, please refer to [MindSpore IR (MindIR)](https://www.mindspore.cn/docs/en/r2.2/design/all_scenarios.html#mindspore-ir-mindir). The code sample is as follows:
 
 ```python
 import numpy as np
@@ -294,7 +294,7 @@ When the exported data input is a non-Tensor, the exported input will be solidif
  making the input in MindIR less than the Construct input for network construction.
 
 If the data is a scalar type, you can export the scalar to Tensor type, and if the data is Tuple or List type,
- you can use the [mutable](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.mutable.html) interface to encapsulate it and export it.
+ you can use the [mutable](https://www.mindspore.cn/docs/en/r2.2/api_python/mindspore/mindspore.mutable.html) interface to encapsulate it and export it.
 
 <br/>
 
@@ -406,7 +406,7 @@ A: The "External" type indicates that an object that cannot be natively supporte
 <font size=3>**Q: What can I do if an error "Nested execution during JIT execution for 'xxx' is not supported when 'xxx' compile and execute." is reported?**</font>
 
 A: When the compilation process is triggered, that is, when the code is compiled into a static computational diagram
-, see [Graph Mode Execution Principle](https://www.mindspore.cn/docs/en/master/design/dynamic_graph_and_static_graph.html), using the JIT Fallback feature by default, the above exception will be thrown when entering the compilation process again.
+, see [Graph Mode Execution Principle](https://www.mindspore.cn/docs/en/r2.2/design/dynamic_graph_and_static_graph.html), using the JIT Fallback feature by default, the above exception will be thrown when entering the compilation process again.
 
 Taking JIT Fallback support for calling objects and methods from third-party libraries as an example:
 
@@ -526,7 +526,7 @@ net = Net()
 out = net(Tensor(x))
 ```
 
-3) If a function decorated with a @jit decorator is called in a custom class, an error will be reported. In this scenario, it is recommended to add @jit_class decorators to custom classes in the network and avoid the JIT Fallback feature. For more use of custom classes, please refer to [Supporting the Use of Custom Classes](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supporting-the-use-of-custom-classes). The use of jit_class decorators can be referred to [Use jit_class](https://www.mindspore.cn/tutorials/en/master/advanced/static_graph_expert_programming.html#using-jit-class)
+3) If a function decorated with a @jit decorator is called in a custom class, an error will be reported. In this scenario, it is recommended to add @jit_class decorators to custom classes in the network and avoid the JIT Fallback feature. For more use of custom classes, please refer to [Supporting the Use of Custom Classes](https://www.mindspore.cn/docs/en/r2.2/note/static_graph_syntax_support.html#supporting-the-use-of-custom-classes). The use of jit_class decorators can be referred to [Use jit_class](https://www.mindspore.cn/tutorials/en/r2.2/advanced/static_graph_expert_programming.html#using-jit-class)
 
 ```python
 import mindspore as ms

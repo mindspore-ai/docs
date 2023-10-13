@@ -1,6 +1,6 @@
 # Differences with torch.nn.MaxPool1d
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/MaxPool1d.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/note/api_mapping/pytorch_diff/MaxPool1d.md)
 
 ## torch.nn.MaxPool1d
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.MaxPool1d](https://pytorch.org/docs/1.8.1/ge
 mindspore.nn.MaxPool1d(kernel_size=1, stride=1, pad_mode="valid", padding=0, dilation=1, return_indices=False, ceil_mode=False)(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.MaxPool1d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.MaxPool1d.html).
+For more information, see [mindspore.nn.MaxPool1d](https://www.mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.MaxPool1d.html).
 
 ## Differences
 

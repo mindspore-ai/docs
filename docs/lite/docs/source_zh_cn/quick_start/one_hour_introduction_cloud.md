@@ -1,6 +1,6 @@
 # 云侧推理快速入门
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/one_hour_introduction_cloud.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/lite/docs/source_zh_cn/quick_start/one_hour_introduction_cloud.md)
 
 ## 概述
 
@@ -9,11 +9,11 @@
 MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310/310P/910、Nvidia GPU和CPU硬件后端。
 在开始本章的MindSpore Lite使用之旅之前，用户需拥有一个Linux（如Ubuntu/CentOS/EulerOS）的环境，以便随时操作验证。
 
-如需体验MindSpore Lite端侧推理流程，请参考文档[端侧推理快速入门](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/one_hour_introduction.html)。
+如需体验MindSpore Lite端侧推理流程，请参考文档[端侧推理快速入门](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/quick_start/one_hour_introduction.html)。
 
-我们将以使用MindSpore Lite的C++接口进行集成为例，演示如何使用MindSpore Lite的发布件，进行集成开发，编写自己的推理程序。MindSpore Lite的C++接口的详细用法用户可参考[使用C++接口进行云侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_cpp.html)。
+我们将以使用MindSpore Lite的C++接口进行集成为例，演示如何使用MindSpore Lite的发布件，进行集成开发，编写自己的推理程序。MindSpore Lite的C++接口的详细用法用户可参考[使用C++接口进行云侧推理](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/use/cloud_infer/runtime_cpp.html)。
 
-另外，用户可以使用MindSpore Lite的Python接口Java接口进行集成。详情可参考[使用Python接口进行云侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_python.html)和[使用Java接口进行云侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_java.html)。
+另外，用户可以使用MindSpore Lite的Python接口Java接口进行集成。详情可参考[使用Python接口进行云侧推理](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/use/cloud_infer/runtime_python.html)和[使用Java接口进行云侧推理](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/use/cloud_infer/runtime_java.html)。
 
 ## 准备工作
 
@@ -22,7 +22,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310
 
 2. 下载发布件
 
-    用户可在MindSpore官网[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载MindSpore Lite云侧推理包`mindspore-lite-{version}-linux-{arch}.tar.gz`，`{arch}`为`x64`或者`aarch64`，`x64`版本支持Ascend、Nvidia GPU、CPU三个硬件后端，`aarch64`仅支持Ascend、CPU硬件后端。
+    用户可在MindSpore官网[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/use/downloads.html)下载MindSpore Lite云侧推理包`mindspore-lite-{version}-linux-{arch}.tar.gz`，`{arch}`为`x64`或者`aarch64`，`x64`版本支持Ascend、Nvidia GPU、CPU三个硬件后端，`aarch64`仅支持Ascend、CPU硬件后端。
 
     以下为`x64`云侧推理包内容。
 
@@ -53,13 +53,13 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310
 
 3. 获取模型
 
-    MindSpore Lite云侧推理当前仅支持MindSpore的MindIR模型格式，可以通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)转换Tensorflow、Onnx、Caffe等格式的模型获得MindIR模型。
+    MindSpore Lite云侧推理当前仅支持MindSpore的MindIR模型格式，可以通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/use/cloud_infer/converter_tool.html)转换Tensorflow、Onnx、Caffe等格式的模型获得MindIR模型。
 
     可下载模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)作为样例模型。
 
 4. 获取样例
 
-    本节样例代码放置在[mindspore/lite/examples/cloud_infer/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_cpp)目录。
+    本节样例代码放置在[mindspore/lite/examples/cloud_infer/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/r2.2/mindspore/lite/examples/cloud_infer/quick_start_cpp)目录。
 
     ```text
     quick_start_cpp
@@ -162,7 +162,7 @@ export GLOG_v=2 # 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level
 
 我们将以使用MindSpore Lite的C++接口进行集成为例，演示如何使用MindSpore Lite的发布件，进行集成开发，编写自己的推理程序。
 
-在进行集成前，用户也可以直接使用随发布件发布的[基准测试工具（benchmark）](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/benchmark_tool.html)来进行推理测试。
+在进行集成前，用户也可以直接使用随发布件发布的[基准测试工具（benchmark）](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/use/cloud_infer/benchmark_tool.html)来进行推理测试。
 
 ### 配置CMake
 
@@ -303,7 +303,7 @@ int main(int argc, const char **argv) { return QuickStart(argc, argv); }
 1. 初始化Context配置
 
     Context保存了模型推理时所需的相关配置，包括算子偏好、线程数、自动并发以及推理处理器相关的其他配置。
-    关于Context的详细说明，请参考Context的[API接口说明](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)。
+    关于Context的详细说明，请参考Context的[API接口说明](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore.html#context)。
     在MindSpore Lite加载模型时，必须提供一个`Context`类的对象，所以在本例中，首先申请了一个`Context`类的对象`context`。
 
     ```cpp
@@ -331,7 +331,7 @@ int main(int argc, const char **argv) { return QuickStart(argc, argv); }
 2. 加载模型
 
     首先创建一个`Model`类对象`model`，`Model`类定义了MindSpore中的模型，用于计算图管理。
-    关于`Model`类的详细说明，可参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)。
+    关于`Model`类的详细说明，可参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore.html#model)。
 
     ```cpp
     mindspore::Model model;
@@ -347,7 +347,7 @@ int main(int argc, const char **argv) { return QuickStart(argc, argv); }
 
     在执行模型推理前，需要设置推理的输入数据。
     此例，通过`Model.GetInputs`接口，获取模型的所有输入张量。单个张量的格式为`MSTensor`。
-    关于`MSTensor`张量的详细说明，请参考`MSTensor`的[API说明](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    关于`MSTensor`张量的详细说明，请参考`MSTensor`的[API说明](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore.html#mstensor)。
 
     ```cpp
     auto inputs = model.GetInputs();

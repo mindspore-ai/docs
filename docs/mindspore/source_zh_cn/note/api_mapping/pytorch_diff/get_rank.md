@@ -1,6 +1,6 @@
 # 比较与torch.distributed.get_rank的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/get_rank.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/get_rank.md)
 
 ## torch.distributed.get_rank
 
@@ -16,7 +16,7 @@ torch.distributed.get_rank(group=None)
 mindspore.communication.get_rank(group=GlobalComm.WORLD_COMM_GROUP)
 ```
 
-更多内容详见[mindspore.communication.get_rank](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.communication.html#mindspore.communication.get_rank)。
+更多内容详见[mindspore.communication.get_rank](https://mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore.communication.html#mindspore.communication.get_rank)。
 
 ## 使用方式
 

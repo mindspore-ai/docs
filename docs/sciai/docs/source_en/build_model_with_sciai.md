@@ -1,17 +1,17 @@
 # Building Neural Networks with SciAI
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_en/build_model_with_sciai.md)&nbsp;&nbsp;
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/sciai/docs/source_en/build_model_with_sciai.md)&nbsp;&nbsp;
 
 SciAI base framework consists of several modules covering network setup, network training, validation and auxiliary functions.
 
 The following examples indicates the fundamental processes in using SciAI to build a neural network model.
 
 > You can download the full sample code here:
-> <https://gitee.com/mindspore/mindscience/tree/master/SciAI/tutorial>
+> <https://gitee.com/mindspore/mindscience/tree/r0.5/SciAI/tutorial>
 
 ## Model Building Basics
 
-The principle of setting up a neural network in ScAI is the same as in [MindSpore](https://www.mindspore.cn/tutorials/en/master/beginner/model.html), but in SciAI it is much easier.
+The principle of setting up a neural network in ScAI is the same as in [MindSpore](https://www.mindspore.cn/tutorials/en/r2.2/beginner/model.html), but in SciAI it is much easier.
 
 This chapter takes a Multi-Layer Percetron(MLP) as example, introduces how to train a network to solve the following equation.
 
@@ -19,7 +19,7 @@ $$
 f(x) = {x_1}^2 + sin(x_2)
 $$
 
-For the codes of this part, please refer to the [codes](https://gitee.com/mindspore/mindscience/blob/master/SciAI/tutorial/example_net.py).
+For the codes of this part, please refer to the [codes](https://gitee.com/mindspore/mindscience/blob/r0.5/SciAI/tutorial/example_net.py).
 
 ### Setup Neural Networks
 
@@ -34,11 +34,11 @@ net = MLP(layers=[2, 5, 5, 1], weight_init=XavierTruncNormal(), bias_init='zeros
 
 `MLP` will use normal distribution to initialize the weights, and initialize bias with zeros by default. The activation function is `tanh` by default.
 
-At meantime, `MLP` accepts various initialization method and all [activation functions](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html) provided by MindSpore, as well as those designed for scientific computing.
+At meantime, `MLP` accepts various initialization method and all [activation functions](https://www.mindspore.cn/docs/en/r2.2/api_python/mindspore.nn.html) provided by MindSpore, as well as those designed for scientific computing.
 
 ### Loss Definition
 
-We define the loss function as a sub-class of [Cell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html), and calculate the loss in method `construct`.
+We define the loss function as a sub-class of [Cell](https://www.mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.Cell.html), and calculate the loss in method `construct`.
 
 ```python
 from mindspore import nn
@@ -76,7 +76,7 @@ Then, by creating instance of trainer class provided by SciAI, we can start trai
 In this case, we randomly sample the equation mentioned above to generate dataset `x_train` and `y_true` for training.
 
 The code segment for training is given as follows, indicating several abilities of SciAI.
-The trainer class `TrainCellWithCallBack` is similar to [MindSpore.nn.TrainOneStepCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TrainOneStepCell.html),
+The trainer class `TrainCellWithCallBack` is similar to [MindSpore.nn.TrainOneStepCell](https://www.mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.TrainOneStepCell.html),
 which needs network `net_loss` and optimizer as parameters and provides callbacks for scientific computation.
 Callbacks include printing loss values and time consumption during training and automatic `ckpt` files saving.
 The following code wll print the `loss` and time consumption every 100 epochs and save the current model as `ckpt` file every 1000 epochs.
@@ -177,11 +177,11 @@ $$
 f(x) = \frac{x^2}{0.2 x^5 + 0.8}.
 $$
 
-For the codes of this part, please refer to [codes](https://gitee.com/mindspore/mindscience/blob/master/SciAI/tutorial/example_grad_net.py).
+For the codes of this part, please refer to [codes](https://gitee.com/mindspore/mindscience/blob/r0.5/SciAI/tutorial/example_grad_net.py).
 
 ### Loss Definition
 
-Similar to the loss definition in the last chapter, the loss should be defined as a child class of [Cell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html).
+Similar to the loss definition in the last chapter, the loss should be defined as a child class of [Cell](https://www.mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.Cell.html).
 
 The difference is that in this loss function, the partial derivative of the original function needs to be calculated.
 SciAI provides tool `operators.grad` for this situation. Through setting the input and output index, we can calculate the derivative of certain inputs w.r.t. certain output.

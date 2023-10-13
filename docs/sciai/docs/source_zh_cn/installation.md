@@ -1,13 +1,13 @@
 # MindSpore SciAI安装
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/sciai/docs/source_zh_cn/installation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/sciai/docs/source_zh_cn/installation.md)
 &nbsp;&nbsp;
 
 ## 确认系统环境信息
 
 - 硬件平台为Ascend或GPU。
 - 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装。
-- 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/mindscience/blob/master/SciAI/requirements.txt)。
+- 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/mindscience/blob/r0.5/SciAI/requirements.txt)。
 
 ## 安装方式
 

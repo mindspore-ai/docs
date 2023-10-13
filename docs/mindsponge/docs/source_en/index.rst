@@ -44,7 +44,7 @@ and application scenarios, such as:
 - High throughput molecular simulation;
 - Molecular design, etc.
 
-Code repository address: <https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE>
+Code repository address: <https://gitee.com/mindspore/mindscience/tree/r0.5/MindSPONGE>
 
 Installation
 ------------
@@ -178,7 +178,7 @@ Contribution Guide
 ------------------
 
 -  Please click here to see how to contribute your code:\ `Contribution
-   Guide <https://gitee.com/mindspore/mindscience/blob/master/CONTRIBUTION.md#>`__
+   Guide <https://gitee.com/mindspore/mindscience/blob/r0.5/CONTRIBUTION.md#>`__
 
 .. toctree::
    :glob:

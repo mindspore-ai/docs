@@ -1,6 +1,6 @@
 # 比较与torch.randint的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/randint.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/randint.md)
 
 ## torch.randint
 
@@ -16,7 +16,7 @@ torch.randint(low=0, high, size, *, generator=None, out=None, dtype=None, layout
 mindspore.ops.randint(low, high, size, seed=None, *, dtype=None)
 ```
 
-更多内容详见[mindspore.ops.randint](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.randint.html#mindspore.ops.randint)。
+更多内容详见[mindspore.ops.randint](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.randint.html#mindspore.ops.randint)。
 
 ## 差异对比
 

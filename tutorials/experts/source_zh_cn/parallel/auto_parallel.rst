@@ -1,8 +1,8 @@
 自动并行
 ========================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/auto_parallel.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_zh_cn/parallel/auto_parallel.rst
 
 .. toctree::
   :maxdepth: 1
@@ -13,8 +13,8 @@
 
 自动并行模式让用户无需关心策略配置，自动地建立代价模型，找到训练时间较短的并行策略。当前MindSpore支持如下两种不同的自动并行方案：
 
-- `切分策略传播算法 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/sharding_propagation.html>`_：由配置并行策略的算子向未配置的算子传播并行策略。在传播时，算法会尽量选取引发张量重排布通信最少的策略。
-- `双递归策略搜索算法 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/sapp.html>`_：其基于符号运算的代价模型可以自由适配不同的加速器集群，对于巨大网络以及大规模多卡切分能够保证瞬间生成最优策略。
+- `切分策略传播算法 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/sharding_propagation.html>`_：由配置并行策略的算子向未配置的算子传播并行策略。在传播时，算法会尽量选取引发张量重排布通信最少的策略。
+- `双递归策略搜索算法 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/sapp.html>`_：其基于符号运算的代价模型可以自由适配不同的加速器集群，对于巨大网络以及大规模多卡切分能够保证瞬间生成最优策略。
 
 自动并行算法是基于算子级模型并行的策略搜索算法，要了解其原理，首先需要了解MindSpore算子级并行中的基本概念：分布式算子、张量排布和张量重排布。算子级并行属于“单程序多数据”（Single Program Multiple Data，SPMD）的一种实现。同一段程序执行在不同数据分片上。MindSpore将单机版本的程序转换成并行版本的程序。该转换是细粒度的，会将单机版本程序中每个算子替换成分布式算子，同时保证替换是数学等价的。
 

@@ -1,6 +1,6 @@
 # 比较与torch.optim.RMSProp的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/RMSProp.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/RMSProp.md)
 
 ## torch.optim.RMSProp
 
@@ -34,7 +34,7 @@ class mindspore.nn.RMSProp(
 )
 ```
 
-更多内容详见[mindspore.nn.RMSProp](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.RMSProp.html#mindspore.nn.RMSProp)。
+更多内容详见[mindspore.nn.RMSProp](https://mindspore.cn/docs/zh-CN/r2.2/api_python/nn/mindspore.nn.RMSProp.html#mindspore.nn.RMSProp)。
 
 ## 差异对比
 

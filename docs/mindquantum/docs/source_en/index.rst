@@ -7,7 +7,7 @@ MindSpore Quantum focuses on the implementation of NISQ algorithms. It combines 
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindquantum/docs/source_en/images/mindquantum_en.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindquantum/docs/source_en/images/mindquantum_en.png" width="700px" alt="" >
 
 Code repository address: <https://gitee.com/mindspore/mindquantum>
 

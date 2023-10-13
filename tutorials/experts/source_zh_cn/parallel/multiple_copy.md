@@ -1,6 +1,6 @@
 # 多副本并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/multiple_copy.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_zh_cn/parallel/multiple_copy.md)
 
 ## 概述
 
@@ -18,7 +18,7 @@
 
 将输入模型的数据按照batchsize维度进行切分，从而将现有的单副本形式修改成多副本的形式，使其底层在通信的时候，另一副本进行计算操作，无需等待，这样就能保证多副本的计算和通信的时间相互互补，提升模型性能，同时将数据拆成多副本的形式还能减少算子输入的参数量，从而减少单个算子的计算时间，对提升模型性能有很大帮助。
 
-![多副本并行](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/multi_copy.png)
+![多副本并行](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/docs/mindspore/source_zh_cn/design/images/multi_copy.png)
 
 ## 操作实践
 
@@ -26,7 +26,7 @@
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[multiple_copy](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/multiple_copy)。
+> 下载完整的样例代码：[multiple_copy](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/multiple_copy)。
 
 目录结构如下：
 

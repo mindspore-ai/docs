@@ -1,6 +1,6 @@
 # 双递归策略搜索算法
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/sapp.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_zh_cn/parallel/sapp.md)
 
 ## 概述
 
@@ -30,7 +30,7 @@
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[sapp](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/sapp)。
+> 下载完整的样例代码：[sapp](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/sapp)。
 
 目录结构如下：
 
@@ -234,4 +234,4 @@ input_names: [x1, x2], transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b
 
 对于第一个MatMul算子，其两个输入从原来的(256, 784)、(512, 784)被切分为(64, 392)、(512, 392)，第二个输入转置后，算子的输出为(64, 512)。
 
-其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)。
+其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/startup_method.html)。

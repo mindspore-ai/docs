@@ -1,6 +1,6 @@
 # ShuffleNet for Image Classification
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/application/source_en/cv/shufflenet.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/application/source_en/cv/shufflenet.md)
 
 > The current case does not support the static graph mode on the GPU device. Other modes are supported.
 
@@ -12,7 +12,7 @@ ShuffleNetV1 is a computing-efficient CNN model proposed by Face++. Similar to M
 
 As shown in the following figure, ShuffleNet almost minimizes the number of parameters while maintaining the accuracy. Therefore, ShuffleNet has a fast calculation speed, and the number of parameters per unit contributes greatly to the model accuracy.
 
-![shufflenet1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/application/source_zh_cn/cv/images/shufflenet_1.png)
+![shufflenet1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/tutorials/application/source_zh_cn/cv/images/shufflenet_1.png)
 
 > Image source: Bianco S, Cadene R, Celona L, et al.Benchmark analysis of representative deep neural network architectures[J]. IEEE access, 2018, 6: 64270-64277.
 
@@ -24,7 +24,7 @@ The most prominent feature of ShuffleNet is that different channels are rearrang
 
 The following figure shows the principle of group convolution. Compared with common convolution, the size of the convolution kernel in each group is in_channels/g\*k\*k. There are *g* groups in total with (in_channels/g\*k\*k)\*out_channels parameters which is 1/g of the normal convolution parameters. In group convolution, each convolution kernel processes only some channels of the input feature map. **An advantage is that the quantity of parameters is reduced, but the quantity of output channels is still equal to that of convolution kernels.**
 
-![shufflenet2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/application/source_zh_cn/cv/images/shufflenet_2.png)
+![shufflenet2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/tutorials/application/source_zh_cn/cv/images/shufflenet_2.png)
 
 > Image source: Huang G, Liu S, Van der Maaten L, et al.Condensenet: An efficient densenet using learned group convolutions[C]//Proceedings of the IEEE conference on computer vision and pattern recognition. 2018: 2752-2761.
 
@@ -63,11 +63,11 @@ The disadvantage of group convolution is that channels of different groups canno
 
 To solve the preceding problem, ShuffleNet optimizes a large number of dense 1x1 convolutions (the computing usage reaches 93.4%) and introduces the channel shuffle mechanism. This operation is to **evenly distribute and reassemble** different group channels so that the network can process the information of different groups of channels at the next layer.
 
-![shufflenet3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/application/source_zh_cn/cv/images/shufflenet_3.png)
+![shufflenet3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/tutorials/application/source_zh_cn/cv/images/shufflenet_3.png)
 
 As shown in the following figure, for *g* groups, each group has a feature map with *n* channels. First, reshape the feature map into a matrix with *g* rows and *n* columns, then transpose the matrix into *n* rows and *g* columns, and finally perform the flatten operation to obtain a new arrangement. These operations are differential and easy to calculate, which solves the problem of information interaction and complies with the lightweight feature of ShuffleNet lightweight network design.
 
-![shufflenet4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/application/source_zh_cn/cv/images/shufflenet_4.png)
+![shufflenet4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/tutorials/application/source_zh_cn/cv/images/shufflenet_4.png)
 
 For ease of reading, the code implementation of channel shuffle is placed in the code of the ShuffleNet modules below.
 
@@ -81,7 +81,7 @@ As shown in the following figure, ShuffleNet changes the Bottleneck structure in
 
 3. In the downsampling module, set the step of $3 \times 3$ depth wise convolution to 2, and reduce the length and width to half of the original values. Therefore, $3\times 3$ mean-pooling with the step of 2 is used in shortcut, and the addition is changed to concatenation.
 
-![shufflenet5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/application/source_zh_cn/cv/images/shufflenet_5.png)
+![shufflenet5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/tutorials/application/source_zh_cn/cv/images/shufflenet_5.png)
 
 ```python
 class ShuffleV1Block(nn.Cell):
@@ -146,7 +146,7 @@ class ShuffleV1Block(nn.Cell):
 
 The following figure shows the ShuffleNet structure. The following uses the input image $224 \times 224$ and three groups (g = 3) as an example. First, pass through 24 convolutional layers whose convolution kernel size is $3 \times 3$ and stride is 2. The size of the output feature map is $112 \times 112$, and the channel is 24. Then, pass through the maximum pooling layer whose stride is 2. The size of the output feature map is $56 \times 56$, and the number of channels remains unchanged. Stack three ShuffleNet modules (stage 2, stage 3, and stage 4). The three modules are repeated four times, eight times, and four times respectively. Each module starts to pass through the downsampling module (that is, (c) in the preceding figure) to halve the length and width of the feature map and double the number of channels (except the downsampling module in stage 2, which changes the number of channels from 24 to 240). After the global mean-pooling is passed through, the output size is $1 \times 1 \times 960$. Then, the fully-connected layer and softmax are passed through to obtain the classification probability.
 
-![shufflenet6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/application/source_zh_cn/cv/images/shufflenet_6.png)
+![shufflenet6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/tutorials/application/source_zh_cn/cv/images/shufflenet_6.png)
 
 ```python
 class ShuffleNetV1(nn.Cell):

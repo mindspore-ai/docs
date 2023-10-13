@@ -1,6 +1,6 @@
 # Visual Studio Code 插件安装
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/devtoolkit/docs/source_zh_cn/VSCode_plugin_install.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/devtoolkit/docs/source_zh_cn/VSCode_plugin_install.md)
 
 ## 安装步骤
 

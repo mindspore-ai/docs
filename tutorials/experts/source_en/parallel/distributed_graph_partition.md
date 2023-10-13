@@ -1,6 +1,6 @@
 # Distributed Graph Partition
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/distributed_graph_partition.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_en/parallel/distributed_graph_partition.md)
 
 ## Overview
 
@@ -16,14 +16,14 @@ Related interfaces:
 
 ## Basic Principle
 
-Distributed tasks need to be executed in a cluster. MindSpore reuses built-in `Dynamic Networking` module of MindSpore in order to have better scalability and reliability in distributed graph partition scenarios. This module is also used in the [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html) sections.
+Distributed tasks need to be executed in a cluster. MindSpore reuses built-in `Dynamic Networking` module of MindSpore in order to have better scalability and reliability in distributed graph partition scenarios. This module is also used in the [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/r2.2/parallel/parameter_server_training.html) sections.
 
 For `distributed graph partition`, each process represents a compute node (called `Worker`), and the scheduling node (called `Scheduler`) started by the `dynamic networking` module mentioned above allows discovering each compute node and thus forming a compute cluster.
 
-After `dynamic networking`, MindSpore assigns `role` and `rank`, the `role` and `id` of each process, based on the user startup configuration, both of which form a unique `tag` for each process and are input to the Python layer API `place`. With the correspondence, the user can set process labels for any operator by calling the `place` interface, and the MindSpore graph compiler module processes it to slice the computed graph into multiple subgraphs for distribution to different processes for execution. For the detailed use, please refer to [Primitive.place](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.place) and [Cell.place](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.place) interface document.
+After `dynamic networking`, MindSpore assigns `role` and `rank`, the `role` and `id` of each process, based on the user startup configuration, both of which form a unique `tag` for each process and are input to the Python layer API `place`. With the correspondence, the user can set process labels for any operator by calling the `place` interface, and the MindSpore graph compiler module processes it to slice the computed graph into multiple subgraphs for distribution to different processes for execution. For the detailed use, please refer to [Primitive.place](https://www.mindspore.cn/docs/en/r2.2/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.place) and [Cell.place](https://www.mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.place) interface document.
 As an example, the compute topology after distributed graph partition might be as follows:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/parallel/images/distributed_graph_partition.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/tutorials/experts/source_zh_cn/parallel/images/distributed_graph_partition.png)
 
 As shown in the figure above, each `Worker` has a portion of subgraphs that have been sliced by the user, with their own weights and inputs, and each `Worker` interacts with each other through the built-in `Rpc communication operator` for data interaction.
 
@@ -35,7 +35,7 @@ Taking LeNet training on GPU based on MNIST dataset as an example, different par
 
 > You can download complete code here:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_graph_partition>.
+> <https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/distributed_graph_partition>.
 
 The directory structure is as follows:
 
@@ -231,7 +231,7 @@ The above code trains first and then infers, where all processes are executed in
 
 #### Starting Scheduler and Worker Processes
 
-Since multiple processes are started within a node, only one `Scheduler` process and multiple `Worker` processes need to be started via a Shell script. For the meaning of the environment variables in the script and their usage, refer to the [Environment Variables List](https://www.mindspore.cn/docs/en/master/note/env_var_list.html) for dynamic cluster environment variables.
+Since multiple processes are started within a node, only one `Scheduler` process and multiple `Worker` processes need to be started via a Shell script. For the meaning of the environment variables in the script and their usage, refer to the [Environment Variables List](https://www.mindspore.cn/docs/en/r2.2/note/env_var_list.html) for dynamic cluster environment variables.
 
 The run.sh execution script is as follows:
 
