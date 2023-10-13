@@ -1,7 +1,7 @@
 环境变量
 ========
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg 
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/env_var_list.rst
 
 本文介绍MindSpore的环境变量。
@@ -20,11 +20,11 @@
      - 说明
    * - MS_BUILD_PROCESS_NUM
      - Ascend后端编译时，指定并行编译进程数。
-       
+
        注意：仅Ascend910 AI处理器环境使用，Ascend 910B上不生效。
      - Integer
      - 1~24：允许设置并行进程数取值范围
-     - 
+     -
    * - MS_COMPILER_CACHE_ENABLE
      - 指定是否保存和加载前端的图编译缓存。该功能与 mindspore context 中的 `enable_compile_cache <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ 相同。
 
@@ -40,7 +40,7 @@
      - MindSpore编译缓存目录，存储图和算子编译过程生成的缓存文件，如 `graph_cache` , `kernel_meta` , `somas_meta` 等
      - String
      - 缓存文件路径，支持相对路径与绝对路径
-     - 
+     -
    * - MS_COMPILER_OP_LEVEL
      - Ascend后端编译时，开启debug功能，生成TBE指令映射文件。
 
@@ -48,9 +48,9 @@
      - Integer
      - 0~4，允许设置级别取值范围。
 
-       0：不开启算子debug功能，删除算子编译缓存文件 
+       0：不开启算子debug功能，删除算子编译缓存文件
 
-       1：生成TBE指令映射文件 `*.cce` 和python-cce映射文件 `*_loc.json` ，开启debug功能 
+       1：生成TBE指令映射文件 `*.cce` 和python-cce映射文件 `*_loc.json` ，开启debug功能
 
        2：生成TBE指令映射文件 `*.cce` 和python-cce映射文件 `*_loc.json` ，开启debug功能，关闭编译优化开关，开启ccec调试功能（ccec编译器选项设置为-O0-g）
 
@@ -63,10 +63,42 @@
 
        注意：仅Ascend910 AI处理器环境使用，Ascend 910B上不生效。
      - Boolean
-     - true：关闭预编译 
+     - true：关闭预编译
 
        false：使能预编译
-     - 
+     -
+   * - MS_COMPILER_OP_DEBUG_CONFIG
+     - 设置tbe（含ccec）编译选项
+     - string
+     - oom：算子执行过程中，检测Global Memory是否内存越界。
+
+       默认：不设置。
+     - 实验性质的环境变量。
+   * - MINDSPORE_OP_INFO_PATH
+     - 指定算子信息库加载文件路径
+     - string
+     - 文件绝对路径
+
+       默认：不设置。
+     - 仅推理使用
+   * - PARA_DEBUG_PATH
+     - dump算子json文件，生成在tune_dump目录
+     - Integer
+     - 1：使能dump算子json文件功能。
+
+       不设置或设置其它值：不使能此功能。
+
+       默认：不设置。
+     -
+   * - ENV_FUSION_CLEAR
+     - Ascend下编译时，指定atomic算子是否融合
+     - Integer
+     - 0：关闭atomic融合功能。
+
+       1：开启atomic融合功能。
+
+       默认：不设置。
+     - 仅Ascend AI处理器环境下使用。开启atomic能够提升模型执行性能，但是有时候容易引入精度问题，在极致性能场景开启。实验性质的环境变量。
 
 具体用法详见 `算子增量编译 <https://mindspore.cn/tutorials/experts/zh-CN/master/optimize/op_compilation.html>`_ ，常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/master/faq/operators_compile.html>`_ 。
 
@@ -86,7 +118,7 @@
      - 指定深度学习时调用Ascend AI处理器的逻辑ID。
      - Integer
      - 0~7，多机并行时不同server中DEVICE_ID会有重复，使用RANK_ID可以避免这个问题（多机并行时 RANK_ID = SERVER_ID * DEVICE_NUM + DEVICE_ID）
-     - 
+     -
    * - RANK_SIZE
      - 指定深度学习时调用Ascend AI处理器的数量。
 
@@ -94,7 +126,7 @@
      - Integer
      - 1~8，调用Ascend AI处理器的数量
      - 与RANK_TABLE_FILE配合使用
-   * - RANK_TABLE_FILE
+   * - RANK_TABLE_FILE 或 MINDSPORE_HCCL_CONFIG_PATH
      - 路径指向文件，包含指定多Ascend AI处理器环境中Ascend AI处理器的 `device_id` 对应的 `device_ip` 。
 
        注意：Ascend AI处理器，使用多卡执行分布式用例时，由用户指定。
@@ -109,6 +141,27 @@
      - -1或正整数：使能通信子图复用，-1表示使用框架默认值，其他正整数表示用户指定值
 
        不设置或其他值：关闭通信子图复用
+     -
+   * - HCCL_ALGO
+     - 用于配置集合通信Server间跨机通信算法。
+     - String
+     - ring：基于环结构的并行调度算法，当集群中Server个数为非2的整数次幂时，配置为此算法可提升通信性能。
+
+       H-D_R：递归二分和倍增算法（Halving-doubling Recursive），当集群中Server个数为2的整数次幂时，配置为此算法具有较好的亲和性，有助于通信性能提升。
+     - 配置示例： HCCL_ALGO="level0:NA;level1:ring"
+       “level0”代表Server内通信算法，当前版本仅支持配置为NA。
+       “level1”代表Server间通信算法，支持配置为“ring”或者“H-D_R”。
+   * - HCCL_FLAG
+     - 是否使能HCCL。
+     - Integer
+     - 1：使能HCCL_ALGO
+
+       0：不使能HCCL_ALGO
+     - 仅限Ascend AI处理器GE流程中使用。一般无需用户配置。
+   * - DEVICE_ID
+     - 昇腾AI处理器的ID，即Device在AI server上的序列号。
+     - Integer
+     - 昇腾AI处理器的ID，取值范围：[0, 实际Device数量-1]。
      -
 
 动态组网
@@ -141,7 +194,7 @@
      - 指定Scheduler绑定端口号。
      - Integer
      - 1024～65535范围内的端口号。
-     - 
+     -
    * - MS_NODE_ID
      - 指定本进程的ID，集群内唯一。
      - String
@@ -167,7 +220,7 @@
      - 开启容灾。
      - Integer
      - 1代表开启，0代表关闭。默认为0。
-     - 
+     -
    * - MS_RECOVERY_PATH
      - 持久化路径文件夹。
      - String
@@ -197,7 +250,7 @@
      - 是否开启程序运行数据记录器（RDR），如果MindSpore出现了运行异常，会自动导出MindSpore中预先记录的数据以辅助定位运行异常的原因
      - Integer
      - 1：开启RDR功能
-       
+
        0：关闭RDR功能
      - 配合 `MS_RDR_MODE` 与 `MS_RDR_PATH` 使用
    * - MS_RDR_MODE
@@ -206,7 +259,7 @@
      - 1：仅在训练进程异常终止时导出数据
 
        2：训练进程异常终止或正常结束时导出数据
-       
+
        默认值：1
      - 配合 `MS_RDR_ENABLE=1` 使用
    * - MS_RDR_PATH
@@ -235,17 +288,17 @@
      - String
      - 文件路径，支持相对路径与绝对路径
      - 与 `GLOG_logtostderr` 一起使用
-	 
+
        若 `GLOG_logtostderr` 的值为0，则必须设置此变量
-	   
+
        若指定了 `GLOG_log_dir` 且 `GLOG_logtostderr` 的值为1时，则日志输出到屏幕，不输出到文件
-	 
-       日志保存路径为： `指定的路径/rank_${rank_id}/logs/` ，非分布式训练场景下， `rank_id` 为0；分布式训练场景下， `rank_id` 为当前设备在集群中的ID	  
+
+       日志保存路径为： `指定的路径/rank_${rank_id}/logs/` ，非分布式训练场景下， `rank_id` 为0；分布式训练场景下， `rank_id` 为当前设备在集群中的ID
 
        C++和Python的日志会被输出到不同的文件中，C++日志的文件名遵从 `GLOG` 日志文件的命名规则，这里是 `mindspore.机器名.用户名.log.日志级别.时间戳.进程ID` ，Python日志的文件名为 `mindspore.log.进程ID`
-	   
+
        `GLOG_log_dir` 只能包含大小写字母、数字、"-"、"_"、"/"等字符
-   * - GLOG_log_max
+   * - GLOG_max_log_size
      - 控制MindSpore C++模块日志单文件大小，可以通过该环境变量更改日志文件默认的最大值
      - Integer
      - 正整数，默认值：50MB
@@ -254,7 +307,7 @@
      - 控制日志的输出方式
      - Integer
      - 1:日志输出到屏幕
-       
+
        0:日志输出到文件
 
        默认值：1
@@ -263,28 +316,28 @@
      - 日志模块在将日志输出到文件的同时也会将日志打印到屏幕，GLOG_stderrthreshold用于控制此情况下打印到屏幕的日志级别
      - Integer
      - 0-DEBUG
-       
+
        1-INFO
 
        2-WARNING
 
        3-ERROR
-	   
+
        4-CRITICAL
 
        默认值：2
-     - 
+     -
    * - GLOG_v
      - 控制日志的级别
      - Integer
      - 0-DEBUG
-       
+
        1-INFO
 
        2-WARNING
 
        3-ERROR，表示程序执行出现报错，输出错误日志，程序可能不会终止
-	   
+
        4-CRITICAL，表示程序执行出现异常，将会终止执行程序
 
        默认值：2
@@ -293,17 +346,17 @@
      - 用于控制MindSpore Python模块日志文件数量
      - Integer
      - 默认值：30
-     - 
+     -
    * - logger_maxBytes
      - 用于控制MindSpore Python模块日志单文件大小
      - Integer
      - 默认值：52428800 bytes
-     - 
+     -
    * - MS_SUBMODULE_LOG_v
      - 指定MindSpore C++各子模块的日志级别
      - Dict {String:Integer...}
      - 0-DEBUG
-       
+
        1-INFO
 
        2-WARNING
@@ -311,13 +364,18 @@
        3-ERROR
 
      - 赋值方式为：`MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`
-	 
+
        其中被指定子模块的日志级别将覆盖 `GLOG_v` 在此模块内的设置，
        此处子模块的日志级别 `LogLevel` 与 `GLOG_v` 的日志级别含义相同，
        MindSpore子模块列表详见 `sub-module_names <https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/utils/log_adapter.cc>`_。
-	   
-       例如可以通过 `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"` 
+
+       例如可以通过 `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`
        把 `PARSER` 和 `ANALYZER` 模块的日志级别设为WARNING，其他模块的日志级别设为INFO
+   * - GLOG_logfile_mode
+     - 用于控制MindSpore中GLOG日志文件的权限，是GLOG的环境变量
+     - 八进制数字
+     - 可参考Linux文件权限设置的数字表示，默认值：0640(取值)
+     -
 
 注意：glog不支持日志文件的绕接，如果需要控制日志文件对磁盘空间的占用，可选用操作系统提供的日志文件管理工具，例如：Linux的logrotate。
 
@@ -334,11 +392,11 @@ Dump功能
      - 取值
      - 说明
    * - MINDSPORE_DUMP_CONFIG
-     - 指定 `云侧Dump功能 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#同步dump>`_ 
+     - 指定 `云侧Dump功能 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#同步dump>`_
        或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
      - String
      - 文件路径，支持相对路径与绝对路径
-     - 
+     -
    * - MS_DIAGNOSTIC_DATA_PATH
      - 使用 `云侧Dump功能 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#同步dump>`_ 时，
        如果Dump配置文件没有设置 `path` 字段或者设置为空字符串，则 `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump` 就会被当做path的值。
@@ -347,15 +405,33 @@ Dump功能
      - 文件路径，只支持绝对路径
      - 与MINDSPORE_DUMP_CONFIG配合使用
    * - MS_DEV_DUMP_BPROP
-     - 在当前路径dump算子反向图的ir文件 
+     - 在当前路径dump算子反向图的ir文件
      - String
      - "on"，表示在当前路径dump算子反向图的ir文件
      - 实验性质的环境变量
    * - MS_DEV_DUMP_PACK
-     - 在当前路径生成trace构图的ir文件 
+     - 在当前路径生成trace构图的ir文件
      - String
      - "on"，表示在当前路径生成trace构图的ir文件
      - 实验性质的环境变量
+   * - MS_ACL_DUMP_CFG_PATH
+     - ACL模式下，指向acl算子dump配置文件的绝对路径
+     - String
+     - 文件路径，只支持绝对路径
+     - acl算子dump配置文件 `参考示例 <https://gitee.com/mindspore/mindspore/blob/master/config/acl_dump_cfg.json>`_，
+       其中json文件各个字段含义：
+       "dump_list": dump的算子列表，取值为空list时，dump所有算子。
+
+       "dump_path": dump算子数据的存放路径。
+
+       "dump_mode": dump数据模式，取值范围：input、output和all，默认取值：output。可选。
+           output：dump算子的输出数据。
+           input：dump算子的输入数据。
+           all：dump算子的输入、输出数据。
+
+       "dump_op_switch": 单算子模型dump数据开关。取值范围：on和off。默认取值：off。可选。
+           off：关闭单算子模型dump。
+           on：开启单算子模型dump。
 
 具体用法详见 `Dump功能调试 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html>`_ 。
 
@@ -390,19 +466,19 @@ Dump功能
      - 指定数据下沉队列的容量大小
      - Integer
      - 1~128：有效的队列容量大小设置范围
-     - 
+     -
    * - MS_ENABLE_NUMA
      - 是否开启全局numa绑核功能，提升端到端性能
      - String
      - True: 开启全局numa绑核功能
-     - 
+     -
    * - OPTIMIZE
      - 是否执行dataset数据处理 pipeline 树优化，在适合数据处理算子融合的场景下，可以提升数据处理效率
      - String
      - true: 开启pipeline树优化
 
        false: 关闭pipeline树优化
-     - 
+     -
 
 具体用法详见 `单节点数据缓存 <https://mindspore.cn/tutorials/experts/zh-CN/master/dataset/cache.html>`_
 和 `数据处理性能优化 <https://mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html>`_ 。
@@ -437,7 +513,7 @@ Dump功能
      - 1：开启Debugger选中节点的内存复用
 
        0：关闭Debugger选中节点的内存复用
-     - 
+     -
    * - MS_DEBUGGER_PORT
      - 连接MindSpore Insight Debugger Server的端口
      - Integer
@@ -462,14 +538,14 @@ Dump功能
      - 指定通信域信息存储路径
      - String
      - 通信域信息文件路径，支持相对路径与绝对路径
-     - 
+     -
    * - GRAPH_OP_RUN
      - 图模式下以任务下沉方式运行pipeline大网络模型时，可能会由于流资源限制而无法正常启动，此环境变量可以指定图模式的执行方式，配置为0表示任务下沉，是默认执行方式；1则表示非任务下沉方式，该方式没有流的限制，但性能有所下降。
      - Integer
      - 0：执行任务下沉
 
        1：执行非任务下沉
-     - 
+     -
    * - MS_DEV_JIT_SYNTAX_LEVEL
      - 设置2时使能Fallback功能
      - Integer
@@ -478,7 +554,7 @@ Dump功能
        0: 关闭Fallback功能
 
        默认值：2
-     - 
+     -
    * - MS_JIT_MODULES
      - 指定静态图模式下哪些模块需要JIT静态编译，其函数方法会被编译成静态计算图。
      - String
@@ -497,17 +573,17 @@ Dump功能
        1: 显示与模型开发者相关的异常信息
 
        默认值：0
-     - 
+     -
    * - MS_OM_PATH
      - 配置task异常时dump数据路径以及图编译出错时dump的analyze_fail.ir文件的保存目录，保存路径为：指定的路径/rank_${rand_id}/om
      - String
      - 文件路径，支持相对路径与绝对路径
-     - 
+     -
    * - OPTION_PROTO_LIB_PATH
      - RPOTO依赖库库路径
      - String
      - 目录路径，支持相对路径与绝对路径
-     - 
+     -
    * - MS_KERNEL_LAUNCH_SKIP
      - 指定执行过程中需要跳过的算子或者子图
      - String
@@ -516,7 +592,7 @@ Dump功能
        算子名字（如ReLU）：跳过所有ReLU算子的执行
 
        子图名字（如kernel_graph_1）：跳过子图kernel_graph_1的执行，用于子图下沉模式
-     - 
+     -
    * - MS_DEV_SAVE_GRAPTHS_SORT_MODE
      - 选择生成ir文件的图打印排序方式
      - Integer
@@ -539,13 +615,13 @@ Dump功能
      -
    * - MS_ASCEND_CHECK_OVERFLOW_MODE
      - 设置Ascend 910B的溢出检测模式
-     - String 
+     - String
      - "INFNAN_MODE": Ascend 910B使用INFNAN模式（IEEE 754标准）检测在训练过程中是否发生溢出。
 
        空值或其他值：Ascend 910B使用饱和模式检测在训练过程中是否发生溢出。
 
        默认值：空值
-     - 
+     -
    * - MS_PYNATIVE_GE
      - 设置动态图模式下是否执行GE
      - Integer
@@ -561,7 +637,7 @@ Dump功能
      - 1：对未使用的Cell对象进行垃圾回收
 
        不设置或其他值：不会显示调用垃圾回收机制
-     - 
+     -
    * - PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION
      - 选择Protocol Buffers后端使用什么语言实现
      - String
@@ -570,7 +646,7 @@ Dump功能
        "python"：使用python后端实现
 
        不设置或其他值：使用python后端实现
-     - 
+     -
    * - MS_DEV_DISABLE_BPROP_CACHE
      - 关闭bprop缓存图功能
      - String
@@ -586,3 +662,118 @@ Dump功能
      - String
      - "on"，表示关闭trace构图功能
      - 实验性质的环境变量
+   * - MS_ENABLE_FORMAT_MODE
+     - 设置Ascend GE流程的默认优选格式，整网设置为ND格式
+     - Integer
+     - 1: 使能此功能。
+
+       空值或其他值：不使能。
+
+       默认值：空值
+     - 仅限Ascend AI处理器环境GE流程使用，开启此功能可以优化性能，减少内存，实验性质的环境变量。
+   * - MS_FEA_REFRESHABLE
+     - 开启图内task地址刷新模式标记
+     - Integer
+     - 1: 使能此功能。
+
+       空值或其他值：不使能。
+
+       默认值：空值
+     - 仅限Ascend AI处理器环境GE流程使用，开启此功能可以减少内存，实验性质的环境变量。
+   * - MS_ENABLE_IO_REUSE
+     - 开启图输入输出内存复用标志
+     - Integer
+     - 1: 使能此功能。
+
+       空值或其他值：不使能。
+
+       默认值：空值
+     - 仅限Ascend AI处理器环境GE流程使用，开启此功能必须开启MS_FEA_REFRESHABLE，开启此功能可以减少内存，实验性质的环境变量。
+   * - MS_DEV_FORCE_ACL
+     - 指定PyNative模式下是否生效ACL算子
+     - Integer
+     - 0: 使能TBE算子编译，当前PyNative静态shape默认tbe算子编译，开启环境变量使能ACL算子。
+
+       1：使能默认ACL算子编译。
+
+       2：使能非特殊格式ACL算子编译。
+
+     - 仅限Ascend AI处理器环境，PyNative模式下使用。此环境变量后续将删除。实验性质的环境变量。
+   * - DISABLE_REUSE_MEMORY
+     - 内存复用开关
+     - Integer
+     - 0: 开启内存复用。
+
+       1：关闭内存复用。
+
+       默认值：0。
+
+     - 仅限Ascend AI处理器环境GE流程使用。实验性质的环境变量。
+   * - GE_USE_STATIC_MEMORY
+     - GE流程网络运行时使用的内存分配方式
+     - Integer
+     - 0: 动态分配内存，即按照实际大小动态分配。
+
+       2：动态扩展内存。训练与在线推理场景下，可以通过此取值实现同一session中多张图之间的内存复用，即以最大图所需内存进行分配。
+          例如，假设当前执行图所需内存超过前一张图的内存时，直接释放前一张图的内存，按照当前图所需内存重新分配。
+
+       默认值：2。
+
+     - 仅限Ascend AI处理器环境GE流程使用。实验性质的环境变量。
+   * - MS_ENABLE_GE
+     - 使能GE流程
+     - Integer
+     - 0: 不使能GE流程。
+
+       1：使能GE流程。
+
+       默认值：0。
+     - 仅限Ascend AI处理器环境使用。实验性质的环境变量。
+   * - MS_DEV_ASCEND_FUSION_SWITCH
+     - mindspore pass的LICENSE开关
+     - String
+     - OFF/off/0: 关闭
+
+       ON/on/1：开启
+
+       默认值：1。
+     -
+   * - ENABLE_DEVICE_COPY
+     - 使能device-to-device拷贝
+     - Integer
+     - 1：开启device-to-device拷贝
+
+       0：不开启device-to-device拷贝
+
+       默认值：0
+     - 仅限Ascend AI处理器环境使用。
+   * - ASCEND_OPP_PATH
+     - OPP包安装路径
+     - String
+     - OPP包安装的绝对路径
+     - 仅限Ascend AI处理器环境需要，一般提供给用户的环境已配置好，无需关心。
+   * - ASCEND_AICPU_PATH
+     - AICPU包安装路径
+     - String
+     - AICPU包安装的绝对路径
+     - 仅限Ascend AI处理器环境需要，一般提供给用户的环境已配置好，无需关心。
+   * - ASCEND_CUSTOM_OPP_PATH
+     - 自定义算子包安装路径
+     - String
+     - 自定义算子包安装的绝对路径
+     - 仅限Ascend AI处理器环境需要，一般提供给用户的环境已配置好，无需关心。
+   * - ASCEND_TOOLKIT_PATH
+     - TOOLKIT包安装路径
+     - String
+     - 自定义算子包安装的绝对路径
+     - 仅限Ascend AI处理器环境需要，一般提供给用户的环境已配置好，无需关心。
+   * - CUDA_HOME
+     - CUDA安装路径
+     - String
+     - CUDA包安装的绝对路径
+     - 仅限GPU环境需要，一般无需设置，如在GPU环境中安装了多种版本的CUDA，为了避免混淆，建议配置此环境变量。
+   * - JOB_ID
+     - 训练任务ID，用户自定义。
+     - String
+     - 训练任务ID，用户自定义。仅支持大小写字母，数字，中划线，下划线。不建议使用以0开始的纯数字作为JOB_ID。
+     - 仅限Ascend AI处理器环境GE流程使用。
