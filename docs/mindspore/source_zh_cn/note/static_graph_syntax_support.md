@@ -722,32 +722,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
 Tensor的属性与接口详见[Tensor API文档](https://mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor)。
 
-支持在静态图模式下创建和使用Tensor。
-
-```python
-import mindspore.nn as nn
-import mindspore as ms
-
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-
-    def construct(self):
-        return ms.Tensor(1, dtype=ms.int32)
-
-ms.set_context(mode=ms.GRAPH_MODE)
-
-net = Net()
-print(net())
-```
-
-```text
-1
-```
-
-上述例子，使用了`Tensor`类接口创建`Tensor`，有些情况下可能会需要创建运行时的`Tensor`，即在编译时期获取不到值的`Tensor`数据，即需要在图模式JIT语法支持级别选项为LAX下扩展支持。此时既可以采用上述类`ms.Tensor`接口来创建`Tensor`，也可以采用 [tensor函数接口](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)来创建`Tensor`，代码用例如下。
-
-其与`Tensor`类接口的区别在于，其内部增加了[Annotation Type](#annotation-type)的标记，在设定了`dtype`的情况下，在类型推导阶段能够指定其输出的`Tensor dtype`，从而避免`AnyType`的产生。在需要动态地创建运行时的`Tensor`时，我们推荐使用这种方式来进行`Tensor`创建，并希望用户能够传入期待的dtype类型。以此避免`AnyType`的产生。
+支持在静态图模式下创建和使用Tensor。创建方式有使用[tensor函数接口](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)和使用`Tensor`类接口。推荐使用tensor函数接口，用户可以使用指定所需要的dtype类型。代码用例如下。
 
 ```python
 import mindspore as ms
