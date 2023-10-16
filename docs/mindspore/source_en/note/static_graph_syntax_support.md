@@ -722,32 +722,7 @@ Currently, MindSpore supports the following user-defined data types: `Tensor`, `
 
 For details of `Tensor`, click [Tensor API document](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor).
 
-Supporting creating and using Tensor. The code case is as follows, `Tensor(1, dtype=mstype.int32)` is extended support under the graph mode JIT syntax support level option LAX.
-
-```python
-import mindspore.nn as nn
-import mindspore as ms
-
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-
-    def construct(self):
-        return ms.Tensor(1, dtype=ms.int32)
-
-ms.set_context(mode=ms.GRAPH_MODE)
-
-net = Net()
-print(net())
-```
-
-```text
-1
-```
-
-The above example uses the interface of 'Tensor' class to create a 'Tensor'. In some cases, it may be necessary to create a runtime 'Tensor', that is, the 'Tensor' data that cannot get the value at compile time, in which case you can use the above class 'ms.Tensor' interface to create 'Tensor', or [tensor function interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)to create a Tensor. The code example is shown below.
-
-The difference between it and the 'Tensor' class interface lies in the addition of the [Annotation Type](#annotation-type) tag inside, which can specify the output 'Tensor dtype' during type inference stage to avoid the generation of 'AnyType', with dtype set. When dynamically creating 'Tensor' at runtime, we recommend using this method to create 'Tensor' and hope that users can pass in the expected dtype type to avoid the generation of 'AnyType'.
+Supporting creating and using Tensor. The ways to create a `Tensor` include using [tensor function interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.tensor.html#mindspore.tensor) and using the class 'ms.Tensor' interface. It is recommended to use the former because users can specify the required dtype. The code case is as follows.
 
 ```python
 import mindspore as ms
