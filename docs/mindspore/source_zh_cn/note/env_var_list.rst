@@ -148,7 +148,7 @@
      - ring：基于环结构的并行调度算法，当集群中Server个数为非2的整数次幂时，配置为此算法可提升通信性能。
 
        H-D_R：递归二分和倍增算法（Halving-doubling Recursive），当集群中Server个数为2的整数次幂时，配置为此算法具有较好的亲和性，有助于通信性能提升。
-     - 配置示例： HCCL_ALGO="level0:NA;level1:ring"
+     - 配置示例：HCCL_ALGO="level0:NA;level1:ring"
        “level0”代表Server内通信算法，当前版本仅支持配置为NA。
        “level1”代表Server间通信算法，支持配置为“ring”或者“H-D_R”。
    * - HCCL_FLAG
@@ -745,7 +745,7 @@ Dump功能
 
        0：不开启device-to-device拷贝
 
-       默认值：0
+       默认值：0。
      - 仅限Ascend AI处理器环境使用。
    * - ASCEND_OPP_PATH
      - OPP包安装路径
