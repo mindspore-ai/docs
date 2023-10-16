@@ -8,24 +8,24 @@ The following describes the Huawei AI full-stack solution and the position of Mi
 
 ## Introduction to MindSpore
 
-MindSpore is a deep learning framework in all scenarios, aiming to achieve easy development, efficient execution, and all-scenario coverage.
+MindSpore is a deep learning framework in all scenarios, aiming to achieve easy development, efficient execution, and unified deployment for all scenarios.
 
-Easy development features user-friendly APIs and low debugging difficulty. Efficient execution is reflected in computing, data preprocessing, and distributed training. All-scenario coverage means that the framework supports cloud, edge, and device scenarios.
+Easy development features user-friendly APIs and low debugging difficulty. Efficient execution is reflected in computing, data preprocessing, and distributed training. Unified deployment for all scenarios means that the framework supports cloud, edge, and device scenarios.
 
 The following figure shows the overall MindSpore architecture:
 
 ![MindSpore-arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/tutorials/source_en/beginner/images/introduction2.png)
 
 - **ModelZoo**: provides available deep learning algorithm networks, and more developers are welcome to contribute new networks. ([ModelZoo](https://gitee.com/mindspore/models))
-- **Extend**: The MindSpore expansion package supports new domain scenarios, such as GNN, deep probabilistic programming, and reinforcement learning. More developers are expected to contribute and build the library.
-- **Science**: MindScience is a scientific computing kit for various industries based on the converged MindSpore framework. It contains the industry-leading datasets, basic network structures, high-precision pre-trained models, and pre-and post-processing tools that accelerate application development of the scientific computing.
-- **Expression**: Python-based front-end expression and programming interface that supports two fusions (function/OOP programming paradigm fusion and AI+ numerical computation expression fusion) and two unifications (dynamic expression unification and single-computer distributed expression unification).
-- **Third-party front-end**: support for third-party multilingual front-end expression, the future plans to successively provide C/C++, Huawei self-developed programming language front-end - Cangjie (currently still in the pre-research stage) and other third-party front-end docking work, and the introduction of more third-party ecology.
-- **Data**: provides functions such as efficient data processing, common dataset loading and programming interfaces, and allows users to flexibly define processing registration and pipeline parallel optimization.
-- **Compiler**: The core compiler of the layer, which implements three major functions based on the unified device-cloud MindIR, including hardware-independent optimization (type derivation, automatic differentiation, and expression simplification), hardware-related optimization (automatic parallelism, memory optimization, graph kernel fusion, and pipeline execution), and optimization related to deployment and inference (quantification and pruning).
-- **Runtime**: MindSpore runtime system, including the runtime system on the cloud host, runtime system on the device, and lightweight runtime system of the IoT platform.
-- **Insight**: MindSpore visualized debugging and tuning tool, allowing users to debug and tune the training network ([More Information](https://mindspore.cn/mindinsight/docs/en/r2.2/index.html)).
-- **Armour**: For enterprise-level applications, provides enhanced functions related to security and privacy protection, such as anti-robustness, model security testing, differential privacy training, privacy leakage risk assessment, and data drift detection ([More Information](https://mindspore.cn/mindarmour/docs/en/master/index.html)).
+- **MindSpore Extend**: The MindSpore expansion package supports new domain scenarios, such as GNN, deep probabilistic programming, and reinforcement learning. More developers are expected to contribute and build the library.
+- **MindSpore Science**: MindScience is a scientific computing kit for various industries based on the converged MindSpore framework. It contains the industry-leading datasets, basic network structures, high-precision pre-trained models, and pre-and post-processing tools that accelerate application development of the scientific computing.
+- **MindExpression**: Python-based front-end expression and programming interface that supports two fusions (function/OOP programming paradigm fusion and AI+ numerical computation expression fusion) and two unifications (dynamic expression unification and single-computer distributed expression unification).
+- **Third-party front-end**: support for third-party multilingual front-end expression, the future plans to successively provide C/C++ and other third-party front-end docking work, and the introduction of more third-party ecology.
+- **MindSpore Data**: provides functions such as efficient data processing, common dataset loading and programming interfaces, and allows users to flexibly define processing registration and pipeline parallel optimization.
+- **MindCompiler**: The core compiler of the layer, which implements three major functions based on the unified device-cloud MindIR, including hardware-independent optimization (type derivation, automatic differentiation, and expression simplification), hardware-related optimization (automatic parallelism, memory optimization, graph kernel fusion, and pipeline execution), and optimization related to deployment and inference (quantification and pruning).
+- **MindRT**: MindSpore runtime system, including the runtime system on the cloud host, runtime system on the device, and lightweight runtime system of the IoT platform.
+- **MindSpore Insight**: MindSpore visualized debugging and tuning tool, allowing users to debug and tune the training network ([More Information](https://mindspore.cn/mindinsight/docs/en/r2.2/index.html)).
+- **MindSpore Armour**: For enterprise-level applications, provides enhanced functions related to security and privacy protection, such as anti-robustness, model security testing, differential privacy training, privacy leakage risk assessment, and data drift detection ([More Information](https://mindspore.cn/mindarmour/docs/en/master/index.html)).
 
 ### Execution Process
 
@@ -47,7 +47,7 @@ After the neural network model is trained, you can export the model or load the 
 
 ### Design Philosophy
 
-- Supporting full-scenario collaboration
+- Supporting unified deployment for all scenarios
 
     MindSpore is derived from industry-wide best practices. It provides unified model training, inference, and export APIs for data scientists and algorithm engineers. It supports flexible deployment in different scenarios such as the device, edge, and cloud, and promotes the prosperity of domains such as deep learning and scientific computing.
 
@@ -62,11 +62,11 @@ After the neural network model is trained, you can export the model or load the 
 
     For example, set `set_context(mode=PYNATIVE_MODE)` to switch to the dynamic graph mode, or set `set_context(mode=GRAPH_MODE)` to switch to the static graph mode.
 
-- Using functional differentiable programming architecture and allowing users to focus on the mathematical native expression of model algorithms
+- Using AI and scientific computing fusion programming and allowing users to focus on the mathematical native expression of model algorithms
 
-    Neural network models are usually trained based on gradient descent algorithms, but the manual derivation process is complicated and the results are prone to errors. The Automatic Differentiation mechanism based on Source Code Transformation (SCT) of MindSpore adopts a functional differentiable programming architecture, and provides a Python programming interface at the interface layer, including the expression of control flow. Users can focus on the mathematically native expression of the model algorithm without manual derivation.
+    On the basis of support for AI model training and inference programming, it extends the support for flexible automatic differential programming capability, supports differential derivation in the case of function and control flow expression, and supports various kinds of advanced differential capabilities, such as forward differentiation and higher-order differentiation, based on which users can realize the programming expression of differential functions commonly used in scientific computation, so as to support the fusion programming and development of AI and scientific computation.
 
-- Unifying the coding method of single device and distributed training
+- Distributed training native
 
     As a scale of neural network models and datasets continuously increases, parallel distributed training becomes a common practice of neural network training. However, the strategy selection and compilation of parallel distributed training are very complex, which severely restricts training efficiency of a deep learning model and hinders development of deep learning. MindSpore unifies the coding methods of single device and distributed training. Developers do not need to write complex distributed strategies. They can implement distributed training by adding a small amount of code to the single device code, which improves the efficiency of neural network training, greatly reduces the threshold of AI development, and enables users to quickly implement model ideas.
 
@@ -96,14 +96,16 @@ Ascend computing is a full-stack AI computing infrastructure and application bas
 
 Huawei Atlas AI computing solution is based on Ascend series AI processors and uses various product forms such as modules, cards, edge stations, servers, and clusters to build an all-scenario AI infrastructure solution oriented to device, edge, and cloud. It covers data center and intelligent edge solutions, as well as the entire inference and training processes in the deep learning field.
 
+Th Ascend AI full stack is shown below:
+
+![Ascend full stack](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/tutorials/source_en/beginner/images/introduction1.png)
+
 The functions of each module are described as follows:
 
-- **Atlas series**: provides AI training, inference cards, and training servers ([learn more](https://www.hiascend.com/en/ecosystem/industry)).
-- **CANN at heterogeneous computing architecture**: a driver layer that enables chips ([learn more](https://www.hiascend.com/en/software/cann)).
-- **MindSpore**: all-scenario AI framework ([learn more](https://www.mindspore.cn/en)).
-- **MindX SDK (Ascend SDK)**: provides the application solution ([learn more](https://www.hiascend.com/en/software/mindx-sdk)).
-- **ModelArts**: HUAWEI CLOUD AI development platform ([learn more](https://www.huaweicloud.com/product/modelarts.html)).
-- **MindStudio**: E2E development toolchain that provides one-stop IDE for AI development ([learn more](https://www.hiascend.com/en/software/mindstudio)).
+- **Ascend Application Enablement**: AI platform or service capabilities provided by Huawei major product lines based on MindSpore.
+- **MindSpore**: Support for device-edge-cloud-independent and collaborative unified training and inference frameworks.
+- **CANN**: A driver layer that enables Ascend chips ([learn more](https://www.hiascend.com/en/software/cann)).
+- **Compute Resources**: Ascend serialized IP, chips and servers.
 
 For details, click [Huawei Ascend official website](https://e.huawei.com/en/products/servers/ascend).
 
