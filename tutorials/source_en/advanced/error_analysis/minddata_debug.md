@@ -338,6 +338,7 @@ class MyHook(debug.DebugHook):
     def compute(self, *args):
         print("come into my hook function, block with pdb", flush=True)
         import pdb
+        print("the input shape is: ", args[0][0].shape, flush=True)
         pdb.set_trace()
         return args
 
@@ -362,16 +363,19 @@ dataset = ds.GeneratorDataset(MyDataset(), column_names=["data"])
 # Insert debug hook before `Crop` operation.
 transforms_list = [vision.RandomResize((3, 16)), MyHook(), vision.Crop(coordinates=(0, 0), size=(8, 8))]
 dataset = dataset.map(operations=transforms_list)
+for i, data in enumerate(dataset):
+    print("data count", i)
 ```
 
-Next you can start your debugging:
+As above, the problem can be localized by looking at the input shape step-by-step, and next you can start your debugging:
 
 ```text
-[Dataset debugger] Print the [INPUT] of the operation [Crop].
+[Dataset debugger] Print the [INPUT] of the operation [RandomResize].
 come into my hook function, block with pdb
+the input shape is:  (3, 48, 48)
 
 >>>>>>>>>>>>>>>>>>>>>PDB set_trace>>>>>>>>>>>>>>>>>>>>>
-> /test_demo.py(17)compute
+> /test_demo.py(18)compute
 -> return args
 (Pdb)
 ```
