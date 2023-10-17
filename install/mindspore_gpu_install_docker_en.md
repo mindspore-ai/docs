@@ -22,7 +22,7 @@ The current support for containerized build is as follows:
 
 | Hardware   | Docker Image Hub                | Label                       | Note                                       |
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
-| GPU    | `mindspore/mindspore-gpu-{cuda10.1 or cuda11.1 or cuda11.6}` | `x.y.z`                  | A production environment with the MindSpore `x.y.z` GPU version pre-installed. (CUDA10.1, CUDA11.1 or CUDA11.6 backend) |
+| GPU    | `mindspore/mindspore-gpu-{cuda11.1 or cuda11.6}` | `x.y.z`                  | A production environment with the MindSpore `x.y.z` GPU version pre-installed. (CUDA11.1 or CUDA11.6 backend) |
 |        | `mindspore/mindspore-gpu` | `devel`                  | Provide a development environment to build MindSpore from the source (`GPU CUDA11.6` backend). For installation details, please refer to <https://www.mindspore.cn/install/en>. |
 |        | `mindspore/mindspore-gpu` | `runtime`                | Provide runtime environment, MindSpore binary package (`GPU CUDA11.6` backend) is not installed. |
 
@@ -80,7 +80,7 @@ docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_versi
 of which,
 
 - `{version}` corresponds to MindSpore version, e.g. 1.5.0.
-- `{cuda_version}` corresponds to CUDA version that MindSpore depends on, including `cuda10.1`, `cuda11.1` and `cuda11.6`.
+- `{cuda_version}` corresponds to CUDA version that MindSpore depends on, including `cuda11.1` and `cuda11.6`.
 
 If you wish to obtain a build environment or runtime environment:
 
@@ -105,7 +105,7 @@ of which,
 - `-v /dev/shm:/dev/shm` mounts the directory where the NCCL shared memory segment is located into the container;
 - `--runtime=nvidia` is used to specify the container runtime as `nvidia-container-runtime`;
 - `{tag}` corresponds to the label in the above table.
-- `{cuda_version}` corresponds to CUDA version that MindSpore depends on, including `cuda10.1`, `cuda11.1` and `cuda11.6`.
+- `{cuda_version}` corresponds to CUDA version that MindSpore depends on, including `cuda11.1` and `cuda11.6`.
 
 If you want to use the visual debugging tuning tool MindSpore Insight, you need to set the `--network` parameter to `host` mode, for example:
 
