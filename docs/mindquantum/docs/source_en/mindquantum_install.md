@@ -5,7 +5,7 @@
 ## Confirming System Environment Information
 
 - Refer to [MindSpore Installation Guide](https://www.mindspore.cn/install/en), install MindSpore, version 1.4.0 or later is required.
-- See [setup.py](https://gitee.com/mindspore/mindquantum/blob/master/setup.py) for the remaining dependencies.
+- See [setup.py](https://gitee.com/mindspore/mindquantum/blob/r0.9/setup.py) for the remaining dependencies.
 
 ## Installation Methods
 
@@ -45,4 +45,4 @@ python -c 'import mindquantum'
 
 ## Install with Docker
 
-Mac or Windows users can install MindSpore Quantum through Docker. Please refer to [Docker installation guide](https://gitee.com/mindspore/mindquantum/blob/master/install_with_docker_en.md#).
+Mac or Windows users can install MindSpore Quantum through Docker. Please refer to [Docker installation guide](https://gitee.com/mindspore/mindquantum/blob/r0.9/install_with_docker_en.md#).
