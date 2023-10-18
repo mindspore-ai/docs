@@ -245,7 +245,7 @@ Simulator.get_expectation_with_grad(ham,
 This function is suitable for computing the following models: $E=\left<0\right|U^\dagger_l(\theta) H U_r(\theta)\left|0\right>$ Where `circ_right` is `Ur`, `circ_left` is `Ul`, when not provided, the default is the same circuit as `circ_right`,
 `parallel_worker` specifies the number of parallels. When the classical data to be encoded is a batch, setting this parameter reasonably can improve the calculation efficiency.
 
-(2) MindSpore is a full-scene deep learning framework, aiming to achieve three goals of easy development, efficient execution, and full-scene coverage, provides tensor-differentiable programmability that supports heterogeneous acceleration, supports cloud, server, edge and end multiple hardware platforms.
+(2) MindSpore is a full-scene deep learning framework, aiming to achieve three goals of easy development, efficient execution, and unified deployment for all scenarios, provides tensor-differentiable programmability that supports heterogeneous acceleration, supports cloud, server, edge and end multiple hardware platforms.
 
 ## Building a quantum neural network
 

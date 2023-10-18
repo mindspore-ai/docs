@@ -334,7 +334,7 @@ As can be seen from the above printing, we have successfully built a quantum mac
 
 Note:
 
-MindSpore is an all-scenario deep learning framework that aims to achieve the three goals of easy development, efficient execution, and full-scenario coverage. It provides tensor differentiable programming capabilities that support heterogeneous acceleration, and also supports cloud, server, edge and end multiple hardware platforms.
+MindSpore is an all-scenario deep learning framework that aims to achieve the three goals of easy development, efficient execution, and unified deployment for all scenarios. It provides tensor differentiable programming capabilities that support heterogeneous acceleration, and also supports cloud, server, edge and end multiple hardware platforms.
 
 ## Training
 

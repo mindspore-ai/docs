@@ -28,7 +28,7 @@ MindSpore整体架构分为四层：
 
 ## 设计理念
 
-MindSpore为用户提供Python等语言的编程范式。基于源码转换，用户可以使用原生Python控制语法和其他一些高级API，如元组（Tuple）、列表（List）和Lambda表达。
+昇思MindSpore是一个全场景深度学习框架，旨在实现易开发、高效执行、全场景统一部署三大目标。其中易开发表现为API友好，调试难度低；高效执行包括计算效率、数据预处理效率和分布式训练效率；全场景则指框架同时支持云、边缘以及端侧场景。
 
 ### 函数式和对象式融合编程范式
 
@@ -42,12 +42,6 @@ MindSpore实现了[函数式微分编程](https://www.mindspore.cn/docs/zh-CN/ma
 
 同时基于函数式编程范式，MindSpore提供了丰富高阶函数如vmap、shard等内置高阶函数功能。与微分求导函数grad一样，可以让用户方便的构造一个函数或对象，作为高阶函数的参数。高阶函数经过内部编译优化，生成针对用户函数的优化版本，实现如向量化变换、分布式并行切分等特点功能。
 
-### [端边云全场景](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html)
-
-MindSpore是训推一体的AI框架，同时支持训练和推理等功能。同时MindSpore支持CPU、GPU、NPU等多种芯片，并且在不同芯片上提供统一的编程使用接口以及可生成在多种硬件上加载执行的离线模型。
-
-MindSpore按照实际执行环境和业务需求，提供多种规格的版本形态，支持部署在云端、服务器端、手机等嵌入式设备端以及耳机等超轻量级设备端上的部署执行。
-
 ### [动静统一的编程体验](https://www.mindspore.cn/docs/zh-CN/master/design/dynamic_graph_and_static_graph.html)
 
 传统AI框架主要有两种编程执行形态，静态图模式和动态图模式。
@@ -58,13 +52,9 @@ MindSpore按照实际执行环境和业务需求，提供多种规格的版本�
 
 动态图模式，能有效解决静态图的编程较复杂问题，但由于程序按照代码的编写顺序执行，不做整图编译优化，导致相对性能优化空间较少，特别是面向DSA等专有硬件的优化比较难于使能。
 
-MindSpore基于原生Python构建神经网络的图结构，相比于传统的静态图模式，能有更易用、更灵活的表达能力。同时也能更好地兼容动态图和静态图的编程接口，比如面向控制流，动态图可以直接基于Python的控制流关键字编程。而静态图需要基于特殊的控制流算子编程或者需要用户编程指示控制流执行分支，这导致了动态图和静态图编程差异大。
+MindSpore基于原生Python构建神经网络的图结构，相比于传统的静态图模式，能有更易用、更灵活的表达能力。MindSpore创新性的构建源码转换能力，基于Python语句提取AST进行计算图构建，因此可以支持用户使用的Python原生控制语法（条件语句，循环语句等）和其他一些高级API，如元组（Tuple）、列表（List）和Lambda表达构建计算图，并对计算图进行自动微分。因此也能更好地兼容动态图和静态图的编程接口，比如面向控制流写法保持一致等。
 
 原生Python表达可基于Python控制流关键字，直接使能静态图模式的执行，使得动静态图的编程统一性更高。同时用户基于MindSpore的接口，可以灵活的对Python代码片段进行动静态图模式控制。即可以将程序局部函数以静态图模式执行而同时其他函数按照动态图模式执行。从而使得在与常用Python库、自定义Python函数进行穿插执行使用时，用户可以灵活指定函数片段进行静态图优化加速，而不牺牲穿插执行的编程易用性。
-
-### [三方硬件接入](https://www.mindspore.cn/docs/zh-CN/master/design/pluggable_device.html)
-
-MindSpore基于统一MindIR构建了开放式AI架构，支持第三方芯片插件化、标准化、低成本快速对接，可接入GPU系列芯片亦可接入各类DSA芯片。MindSpore提供Kernel模式对接和Graph模式对接两种芯片接入方式，芯片产商可根据自身特点进行接入方式选择。
 
 ### [分布式并行](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html)
 
@@ -109,6 +99,16 @@ Host侧CPU负责将图或算子下发到昇腾芯片。昇腾芯片由于具备�
 #### 算法优化
 
 算法优化包括二阶优化、boost优化等。
+
+### [全场景统一部署](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html)
+
+MindSpore是训推一体的AI框架，同时支持训练和推理等功能。同时MindSpore支持CPU、GPU、NPU等多种芯片，并且在不同芯片上提供统一的编程使用接口以及可生成在多种硬件上加载执行的离线模型。
+
+MindSpore按照实际执行环境和业务需求，提供多种规格的版本形态，支持部署在云端、服务器端、手机等嵌入式设备端以及耳机等超轻量级设备端上的部署执行。
+
+### [三方硬件接入](https://www.mindspore.cn/docs/zh-CN/master/design/pluggable_device.html)
+
+MindSpore基于统一MindIR构建了开放式AI架构，支持第三方芯片插件化、标准化、低成本快速对接，可接入GPU系列芯片亦可接入各类DSA芯片。MindSpore提供Kernel模式对接和Graph模式对接两种芯片接入方式，芯片产商可根据自身特点进行接入方式选择。
 
 ### [安全可信](https://www.mindspore.cn/mindarmour/docs/zh-CN/master/design.html)
 
