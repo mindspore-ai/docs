@@ -10,7 +10,7 @@ A：MindSpore Serving当前不支持热更新，需要用户重启；当前建�
 
 <font size=3>**Q：MindSpore Serving是否支持一个模型启动多个Worker，以支持多卡单模型并发？**</font>
 
-A：MindSpore Serving1.3版本后支持一个模型在多卡部署多个副本，实现多卡单模型并发执行。详细可以参考[Add样例](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_server.py)。
+A：MindSpore Serving1.3版本后支持一个模型在多卡部署多个副本，实现多卡单模型并发执行。详细可以参考[Add样例](https://gitee.com/mindspore/serving/blob/r2.0/example/tensor_add/serving_server.py)。
 
 <br/>
 

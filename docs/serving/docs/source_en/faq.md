@@ -10,7 +10,7 @@ A: MindSpore Serving does not support hot update. You need to restart MindSpore 
 
 <font size=3>**Q: Does MindSpore Serving allow multiple workers to be started for one model to support multi-device and single-model concurrency?**</font>
 
-A: After MindSpore Serving version 1.3, it supports the deployment of multiple copies of a model in multiple cards to achieve concurrent execution of multiple cards and single models. For details, please refer to [Add Sample](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_server.py).
+A: After MindSpore Serving version 1.3, it supports the deployment of multiple copies of a model in multiple cards to achieve concurrent execution of multiple cards and single models. For details, please refer to [Add Sample](https://gitee.com/mindspore/serving/blob/r2.0/example/tensor_add/serving_server.py).
 
 <br/>
 
