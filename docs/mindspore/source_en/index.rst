@@ -14,12 +14,12 @@ MindSpore Documentation
 
    design/overview
    design/programming_paradigm
-   design/all_scenarios
    design/dynamic_graph_and_static_graph
-   design/pluggable_device
    design/distributed_training_design
-   design/graph_fusion_engine
    design/data_engine
+   design/all_scenarios
+   design/graph_fusion_engine
+   design/pluggable_device
    design/glossary
 
 .. toctree::
