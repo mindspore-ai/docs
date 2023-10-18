@@ -28,7 +28,7 @@ The overall MindSpore architecture is divided into four layers:
 
 ## Design Concept
 
-MindSpore provides users with programming paradigms for languages such as Python. Based on source code conversion, users can use native Python control syntax and other advanced APIs such as Tuple, List, and Lambda expressions.
+MindSpore is a full-scenario deep learning framework that aims to achieve three goals: easy development, efficient execution, and unified deployment for all scenarios. Ease of development is characterized by a friendly API and low debugging difficulty; efficient execution includes computational efficiency, data preprocessing efficiency, and distributed training efficiency; and full-scenario means that the framework supports cloud, edge, and device-side scenarios at the same time.
 
 ### Programming Paradigm
 
@@ -42,12 +42,6 @@ MindSpore implements [functional differential programming](https://www.mindspore
 
 Also based on the functional programming paradigm, MindSpore provides a wealth of higher-order functions such as vmap, shard, and other built-in higher-order functions. Like the differential derivative function grad, it allows the user to conveniently construct a function or an object that can be used as an argument to a higher-order function. Higher-order functions are internally compiled and optimized to generate optimized versions of user-specific functions, implementing features such as vectorized transformations, distributed parallel slicing, and other functions.
 
-### [Device-edge-cloud Full Scenarios](https://www.mindspore.cn/docs/en/r2.2/design/all_scenarios.html)
-
-MindSpore is an all-in-one AI framework that supports both training and inference. MindSpore also supports CPU, GPU, NPU and other chips, and provides a unified programming interface on different chips and generates offline models that can be loaded and executed on multiple hardware.
-
-MindSpore provides a variety of versions according to the actual execution environment and business requirements, supports deployment and execution on embedded devices such as cloud, server, and cell phones, and ultra-lightweight devices such as headsets.
-
 ### [Unified Programming Experience with Dynamic Graph and Static Graph](https://www.mindspore.cn/docs/en/r2.2/design/dynamic_graph_and_static_graph.html)
 
 Traditional AI frameworks have two main forms of programming execution, static graph mode and dynamic graph mode.
@@ -58,13 +52,9 @@ The static graph mode can effectively perceive the relationship situation betwee
 
 Dynamic graph mode can effectively solve the more complex problems of programming static graphs. However, because the program is executed in the order in which the code is written, no integral-graph compilation optimization is done, resulting in less room for relative performance optimization, especially for proprietary hardware such as DSA, which is more difficult to enable.
 
-MindSpore builds the graph structure of neural networks based on the native Python, which can be more easily and flexibly expressed than the traditional static graph model. It is also better compatible with programming interfaces for dynamic and static graphs, such as for control flow, and dynamic graphs can be programmed directly based on Python control flow keyword. Static graphs require programming based on special control flow operators or require user programming to instruct the control flow execution branches, which results in large programming differences between dynamic and static graphs.
+MindSpore builds the graph structure of neural networks based on the native Python, which can be more easily and flexibly expressed than the traditional static graph model. MindSpore's innovative build source conversion capability extracts ASTs for computational graph construction based on python statements, so it can support users to construct computational graphs using python's native control syntax (conditional statements, loops, etc.) and some other advanced APIs such as tuples, lists, and Lambda expressions, and perform automatic differentiation of computational graphs. As a result, there is also better compatibility between the programming interfaces for dynamic and static graphs, e.g., consistent control-flow oriented writing.
 
 The native Python expression enables the execution of static graph mode directly based on the Python control flow keyword, making the programming of dynamic and static graphs more uniform. At the same time, users can flexibly control the dynamic and static graph mode of Python code fragments based on interfaces of MindSpore. That is, it is possible to execute the local functions of the program in static graph mode while the other functions are executed in dynamic graph mode. Thus, when interleaved with common Python libraries and custom Python functions, users have the flexibility to specify function fragments for static graph optimization acceleration without sacrificing the ease of programming for interleaved execution.
-
-### [Third-Party Hardware Access](https://www.mindspore.cn/docs/en/r2.2/design/pluggable_device.html)
-
-MindSpore builds an open AI architecture based on the unified MindIR, which supports plug-in, standardization and low-cost access of third-party chips, and can access GPU series chips as well as various DSA chips. MindSpore provides two kinds of chip access methods, Kernel mode access and Graph mode access, and chip makers can choose the access method according to their own characteristics.
 
 ### [Distributed Parallism](https://www.mindspore.cn/docs/en/r2.2/design/distributed_training_design.html)
 
@@ -110,7 +100,17 @@ Data sink means that the data is transferred directly to the Device through the 
 
 The algorithm optimization includes second-order optimization, boost optimization, etc.
 
-### [Overall Security and Trustworthiness Design](https://www.mindspore.cn/mindarmour/docs/en/master/design.html)
+### [Unified Deployment for All Scenarios](https://www.mindspore.cn/docs/en/r2.2/design/all_scenarios.html)
+
+MindSpore is an all-in-one AI framework that supports both training and inference. MindSpore also supports CPU, GPU, NPU and other chips, and provides a unified programming interface on different chips and generates offline models that can be loaded and executed on multiple hardware.
+
+MindSpore provides a variety of versions according to the actual execution environment and business requirements, supports deployment and execution on embedded devices such as cloud, server, and cell phones, and ultra-lightweight devices such as headsets.
+
+### [Third-Party Hardware Access](https://www.mindspore.cn/docs/en/r2.2/design/pluggable_device.html)
+
+MindSpore builds an open AI architecture based on the unified MindIR, which supports plug-in, standardization and low-cost access of third-party chips, and can access GPU series chips as well as various DSA chips. MindSpore provides two kinds of chip access methods, Kernel mode access and Graph mode access, and chip makers can choose the access method according to their own characteristics.
+
+### [Overall Security and Trustworthiness Design](https://www.mindspore.cn/mindarmour/docs/en/r2.2/design.html)
 
 MindSpore takes into account the rich need for security and trustworthiness when deployed by enterprises. In the continuous evolution and refinement of various technologies geared towards secure and trustworthy directions, with built-in frameworks:
 
