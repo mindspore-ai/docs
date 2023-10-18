@@ -32,7 +32,7 @@
       "id" : 5 ,
       "name" : "mindquantum",
       "branch" : "r0.9",
-      "whl_path" : "2.2.0/MindQuantum/x86_64/",
+      "whl_path" : "2.2.0/MindQuantum/gpu/x86_64/cuda-11.1/",
       "whl_name" : "mindquantum-0.9.0-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MQ_PATH",
       "uninstall_name" : "mindquantum"
@@ -41,8 +41,8 @@
       "id" : 6 ,
       "name" : "mindearth",
       "branch" : "r0.1",
-      "whl_path" : "2.2.0/MindScience/gpu/x86_64/cuda-10.1/",
-      "whl_name" : "mindearth_gpu-0.1.0rc2-py3-none-any.whl",
+      "whl_path" : "2.2.0/MindScience/mindearth/gpu/x86_64/cuda-11.1/",
+      "whl_name" : "mindearth_gpu-0.1.0-py3-none-any.whl",
       "environ" : "MSC_PATH",
       "uninstall_name" : "mindearth_gpu"
    },
@@ -50,8 +50,8 @@
       "id" : 7 ,
       "name" : "sciai",
       "branch" : "r0.1",
-      "whl_path" : "2.2.0/MindScience/gpu/x86_64/cuda-10.1/",
-      "whl_name" : "sciai-0.1.0rc2-py3-none-any.whl",
+      "whl_path" : "2.2.0/MindScience/sciai/gpu/x86_64/cuda-11.1/",
+      "whl_name" : "sciai-0.1.0-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MSC_PATH",
       "uninstall_name" : "sciai"
    },
@@ -85,7 +85,7 @@
    {
       "id" : 11 ,
       "name" : "serving",
-      "branch" : "r2.0.2",
+      "branch" : "r2.0",
       "whl_path" : "2.2.0/Serving/x86_64/",
       "whl_name" : "mindspore_serving-2.0.2-cp37-cp37m-linux_x86_64.whl",
       "environ" : "SV_PATH",
