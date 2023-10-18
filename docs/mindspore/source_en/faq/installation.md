@@ -293,6 +293,60 @@ A: There are 2 common reasons: an incorrect version of Ascend AI processor softw
 
 ## Verifying the Installation
 
+<font size=3>**Q: In Ascend910B environment, using MindSpore version 2.1 to execute the Installation Verification Sample from the Installation Guide, an error: `RuntimeError: GE backend is not supported in PyNative RunOp!` is reported. What is the reason?**</font>
+
+A: MindSpore 2.1 is not officially supported on Ascend 910B devices, and there are some limitations on usage. Some known issues are:
+
+- Calling mindspore.run_check() is not supported.
+- PyNative mode is not supported, and Graph mode can be used.
+- Direct execution or calling a single operator (e.g. ops.add(x, y)) in Cell __init__ function is not supported, and can be replaced by executing the operator inside Cell construct function.
+- Direct execution or calling Tensor member functions (e.g. tensor.view()) from Cell __init__ function is not supported and can be replaced with numpy functions.
+
+The Ascend 910B environment using MindSpore 2.1 requires the following environment variables to be set:
+
+```bash
+export MS_ENABLE_GE=1
+export MS_GE_TRAIN=1 # not setting by default. The training network needs to be set to 1
+```
+
+Once the Ascend 910B package has been installed, the following use case can be used to verify that the environment was installed successfully:
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import ops, nn
+ms.set_context(device_target="Ascend", mode=ms.GRAPH_MODE)
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+    def construct(self, x, y):
+        return ops.add(x, y)
+x = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
+y = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
+net = Net()
+print(net(x, y))
+```
+
+The outputs should be the same as:
+
+```text
+[[[[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]
+
+  [[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]
+
+  [[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]]]
+```
+
+It means MindSpore has been installed successfully.
+
+<br/>
+
 <font size=3>**Q: Does MindSpore of the GPU version have requirements on the computing capability of devices?**</font>
 
 A: Currently, MindSpore supports only devices with the computing capability version greater than 5.3.

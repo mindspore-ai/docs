@@ -291,6 +291,60 @@ A: 常见原因有两种: Ascend AI处理器配套软件包或固件/驱动包�
 
 ## 安装验证
 
+<font size=3>**Q: 在Ascend910B环境中使用2.1版本的MindSpore执行“安装指南”的安装验证样例报错：`RuntimeError: GE backend is not support in PyNative RunOp!` 是什么原因？**</font>
+
+A: MindSpore 2.1未正式支持Ascend 910B设备，存在一些使用上的限制，已知的部分问题：
+
+- 不支持调用mindspore.run_check()。
+- 不支持PyNative模式，可以使用Graph模式。
+- 不支持直接执行或在Cell的__init__函数调用单算子（例如ops.add(x, y)），可以改为在Cell的construct函数内执行算子。
+- 不支持直接执行或在Cell的__init__函数调用Tensor成员函数（例如tensor.view()），可以使用numpy函数替换。
+
+Ascend 910B环境使用MindSpore 2.1需要设置以下环境变量：
+
+```bash
+export MS_ENABLE_GE=1
+export MS_GE_TRAIN=1 # 默认可以不设置，训练网络需设置为1
+```
+
+Ascend 910B的软件包安装完成后，可以使用如下用例验证环境是否安装成功：
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import ops, nn
+ms.set_context(device_target="Ascend", mode=ms.GRAPH_MODE)
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+    def construct(self, x, y):
+        return ops.add(x, y)
+x = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
+y = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
+net = Net()
+print(net(x, y))
+```
+
+如果输出：
+
+```text
+[[[[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]
+
+  [[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]
+
+  [[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]]]
+```
+
+说明MindSpore安装成功了。
+
+<br/>
+
 <font size=3>**Q: MindSpore的GPU版本对设备的计算能力有限制吗？**</font>
 
 A: 目前MindSpore仅支持计算能力大于5.3的设备。

@@ -124,6 +124,8 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 至此，你已经成功通过Docker方式安装了MindSpore Ascend 910版本。
 
+> Ascend 910B不支持该验证方式。
+
 方法二：
 
 ```python
@@ -155,9 +157,57 @@ print(ops.add(x, y))
 
 至此，你已经成功通过Docker方式安装了MindSpore Ascend 910版本。
 
+> Ascend 910B不支持该验证方式。
+
 验证MindSpore Insight安装：
 
 输入```mindinsight start --port 8080```, 如提示启动status为success，则安装成功。
+
+当前版本未在Ascend 910B上充分验证，如果要使用Ascend 910B验证是否安装成功，建议按以下步骤执行，详细原因可参考[FAQ](https://www.mindspore.cn/docs/zh-CN/r2.1/faq/installation.html#安装验证)。
+
+1. 配置以下环境变量：
+
+    ```bash
+    export MS_ENABLE_GE=1
+    export MS_GE_TRAIN=1 # 默认可以不设置，训练网络需设置为1
+    ```
+
+2. 执行如下样例：
+
+    ```python
+    import numpy as np
+    import mindspore as ms
+    from mindspore import ops, nn
+
+    ms.set_context(device_target="Ascend", mode=ms.GRAPH_MODE)
+    class Net(nn.Cell):
+        def __init__(self):
+            super(Net, self).__init__()
+        def construct(self, x, y):
+            return ops.add(x, y)
+    x = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
+    y = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
+    net = Net()
+    print(net(x, y))
+    ```
+
+    如果输出：
+
+    ```text
+    [[[[2. 2. 2. 2.]
+    [2. 2. 2. 2.]
+    [2. 2. 2. 2.]]
+
+    [[2. 2. 2. 2.]
+    [2. 2. 2. 2.]
+    [2. 2. 2. 2.]]
+
+    [[2. 2. 2. 2.]
+    [2. 2. 2. 2.]
+    [2. 2. 2. 2.]]]]
+    ```
+
+    说明MindSpore安装成功了。
 
 ## 升级MindSpore版本
 
