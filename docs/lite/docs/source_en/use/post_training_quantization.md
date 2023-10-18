@@ -258,12 +258,6 @@ bias_correction=False
 provider=ge
 ```
 
-The general form of the Ascend weight quantization conversion command is:
-
-```shell
-./converter_lite --fmk=MINDIR --optimize=ascend_oriented --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=ascend_on_the_fly_quant.cfg
-```
-
 For ascend910b hardware, ON_THE_FLY quantization inserts AntiQuant operators to enable dequantization fusion optimization and improve performance.
 In this scenario, the general form of the ON_THE_FLY quantization conversion command is:
 
