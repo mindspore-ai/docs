@@ -9,7 +9,7 @@ API 映射指PyTorch API与MindSpore API的映射关系。
 
 ## API映射数据版本切换
 
-1. 插件启动时，默认使用与插件目前版本相同的API映射数据版本。 API映射数据版本在右下显示，此版本号仅影响本章节的API映射功能，不会改变环境中的MindSpore版本。
+1. 插件启动时，默认使用与插件目前版本相同的API映射数据版本。API映射数据版本在右下显示，此版本号仅影响本章节的API映射功能，不会改变环境中的MindSpore版本。
 
    ![img](./images/clip_image137.jpg)
 
