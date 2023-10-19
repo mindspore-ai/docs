@@ -1,4 +1,4 @@
-# Native Distributed Parallel Architecture
+# Distributed Parallel Native
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/distributed_training_design.md)
 
