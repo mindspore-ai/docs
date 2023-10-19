@@ -316,10 +316,20 @@ des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
-    content = re.findall("(## [\s\S\n]*?)\n## ", data)
+    content = re.findall("(\n## [\s\S\n]*?)\n## ", data)
+    version_line = re.findall("\n## .*\n", data)[0]
+    version = re.findall("[0-9]+?\.[0-9]+?\.([0-9]+?) ", version_line)[0]
+    if version != '0':
+        content_new = ''
+        for i in range(int(version)+1):
+            content_new += content[i]
+        content = content_new
+    else:
+        content = content[0]
 else:
-    content = re.findall("(## [\s\S\n]*)", data)
+    content = re.findall("(\n## [\s\S\n]*)", data)
+    content = content[0]
 #result = content[0].replace('# MindSpore', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes"+"\n\n")
-    p.write(content[0])
+    p.write("# Release Notes"+"\n")
+    p.write(content)
