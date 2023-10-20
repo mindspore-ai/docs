@@ -110,7 +110,7 @@ MindSpore provides a variety of versions according to the actual execution envir
 
 MindSpore builds an open AI architecture based on the unified MindIR, which supports plug-in, standardization and low-cost access of third-party chips, and can access GPU series chips as well as various DSA chips. MindSpore provides two kinds of chip access methods, Kernel mode access and Graph mode access, and chip makers can choose the access method according to their own characteristics.
 
-### [Overall Security and Trustworthiness Design](https://www.mindspore.cn/mindarmour/docs/en/r2.2/design.html)
+### [Overall Security and Trustworthiness Design](https://www.mindspore.cn/mindarmour/docs/en/r2.0/design.html)
 
 MindSpore takes into account the rich need for security and trustworthiness when deployed by enterprises. In the continuous evolution and refinement of various technologies geared towards secure and trustworthy directions, with built-in frameworks:
 
