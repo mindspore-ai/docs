@@ -35,6 +35,7 @@ System Requirements
    PyCharm_plugin_install
    compiling
    smart_completion
+   PyCharm_change_version
    api_search
    api_scanning
    knowledge_search
@@ -48,6 +49,8 @@ System Requirements
 
    VSCode_plugin_install
    VSCode_smart_completion
+   VSCode_change_version
+   VSCode_api_search
    VSCode_api_scan
 
 .. toctree::

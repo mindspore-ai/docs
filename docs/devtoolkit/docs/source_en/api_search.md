@@ -1,4 +1,4 @@
-# API Search
+# API Mapping - API Search
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/devtoolkit/docs/source_en/api_search.md)
 
@@ -6,6 +6,7 @@
 
 * You can quickly search for MindSpore APIs and view API details in the sidebar.
 * If you use other machine learning frameworks, you can search for APIs of other mainstream frameworks to match MindSpore APIs.
+* The data version of API mapping supports switching, and please refer to the section [API Mapping - Version Switching](https://www.mindspore.cn/devtoolkit/docs/en/r2.2/Pycharm_change_version.html) for details.
 
 ## Procedure
 
