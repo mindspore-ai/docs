@@ -6,7 +6,7 @@
 
 * 快速搜索MindSpore API，在侧边栏直接展示API详情。
 * 为方便其他机器学习框架用户，通过搜索其他主流框架API，联想匹配对应MindSpore API。
-* API映射的数据版本支持切换，详情请参考[API映射-版本切换](https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/Pycharm_change_version.html)章节。
+* API映射的数据版本支持切换，详情请参考[API映射-版本切换](https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/PyCharm_change_version.html)章节。
 
 ## 使用步骤
 

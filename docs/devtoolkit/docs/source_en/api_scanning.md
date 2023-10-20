@@ -6,7 +6,7 @@
 
 * Quickly scan the APIs in the code and display the API details directly in the sidebar.
 * For the convenience of other machine learning framework users, by scanning the mainstream framework APIs that appear in the code, associative matching the corresponding MindSpore API.
-* The data version of API mapping supports switching, and please refer to the section [API Mapping - Version Switching](https://www.mindspore.cn/devtoolkit/docs/en/master/Pycharm_change_version.html) for details.
+* The data version of API mapping supports switching, and please refer to the section [API Mapping - Version Switching](https://www.mindspore.cn/devtoolkit/docs/en/master/PyCharm_change_version.html) for details.
 
 ## Usage Steps
 
