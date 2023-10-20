@@ -110,7 +110,7 @@ MindSpore按照实际执行环境和业务需求，提供多种规格的版本�
 
 MindSpore基于统一MindIR构建了开放式AI架构，支持第三方芯片插件化、标准化、低成本快速对接，可接入GPU系列芯片亦可接入各类DSA芯片。MindSpore提供Kernel模式对接和Graph模式对接两种芯片接入方式，芯片产商可根据自身特点进行接入方式选择。
 
-### [安全可信](https://www.mindspore.cn/mindarmour/docs/zh-CN/r2.2/design.html)
+### [安全可信](https://www.mindspore.cn/mindarmour/docs/zh-CN/r2.0/design.html)
 
 MindSpore考虑到企业部署使用时，对安全可信的丰富需求。在不断演进和完善各种面向安全可信方向的技术，并内置框架：
 

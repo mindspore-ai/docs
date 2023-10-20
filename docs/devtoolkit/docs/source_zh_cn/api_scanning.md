@@ -6,7 +6,7 @@
 
 * 快速扫描代码中出现的API，在侧边栏直接展示API详情。
 * 为方便其他机器学习框架用户，通过扫描代码中出现的主流框架API，联想匹配对应MindSpore API。
-* API映射的数据版本支持切换，详情请参考[API映射-版本切换](https://www.mindspore.cn/devtoolkit/docs/zh-CN/r2.2/Pycharm_change_version.html)章节。
+* API映射的数据版本支持切换，详情请参考[API映射-版本切换](https://www.mindspore.cn/devtoolkit/docs/zh-CN/r2.2/PyCharm_change_version.html)章节。
 
 ## 使用步骤
 
