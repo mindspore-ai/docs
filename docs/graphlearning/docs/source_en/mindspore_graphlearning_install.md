@@ -1,12 +1,5 @@
 # Install Graph Learning
 
-- [Installation](#installation)
-    - [System Environment Information Confirmation](#system-environment-information-confirmation)
-    - [Installation Methods](#installation-methods)
-        - [Installation by pip](#installation-by-pip)
-        - [Installation by Source Code](#installation-by-source-code)
-    - [Installation Verification](#installation-verification)
-
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r2.0/docs/graphlearning/docs/source_en/mindspore_graphlearning_install.md)&nbsp;&nbsp;
 
 ## Installation
