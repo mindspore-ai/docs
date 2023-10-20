@@ -1,6 +1,6 @@
 # API Mapping - API Version Switching
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/devtoolkit/docs/source_en/Pycharm_change_version.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/devtoolkit/docs/source_en/PyCharm_change_version.md)
 
 ## Overview
 
