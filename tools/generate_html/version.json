@@ -102,15 +102,6 @@
    },
    {
       "id" : 12 ,
-      "name" : "serving",
-      "branch" : "r2.0",
-      "whl_path" : "2.0.0rc1/Serving/x86_64/",
-      "whl_name" : "mindspore_serving-2.0.0-cp37-cp37m-linux_x86_64.whl",
-      "environ" : "SV_PATH",
-      "uninstall_name" : "mindspore_serving"
-   },
-   {
-      "id" : 13 ,
       "name" : "devtoolkit",
       "branch" : "r2.0",
       "whl_path" : "",
@@ -119,7 +110,7 @@
       "uninstall_name" : ""
   },
   {
-     "id" : 14 ,
+     "id" : 13 ,
      "name" : "mindarmour",
      "branch" : "r2.0",
      "whl_path" : "2.0.0rc1/MindArmour/any/",
@@ -128,7 +119,7 @@
      "uninstall_name" : "mindarmour"
   },
   {
-      "id" : 15 ,
+      "id" : 14 ,
       "name" : "federated",
       "branch" : "r0.1",
       "whl_path" : "2.0.0rc1/Federated/x86_64/",
@@ -137,7 +128,7 @@
       "uninstall_name" : "mindspore_federated"
   },
   {
-     "id" : 16 ,
+     "id" : 15 ,
      "name" : "mindpandas",
      "branch" : "r0.2",
      "whl_path" : "2.0.0rc1/MindPandas/any/",
@@ -146,7 +137,7 @@
      "uninstall_name" : "mindpandas"
   },
   {
-      "id" : 17 ,
+      "id" : 16 ,
       "name" : "recommender",
       "branch" : "r0.2",
       "whl_path" : "2.0.0rc1/Recommender/any/",
