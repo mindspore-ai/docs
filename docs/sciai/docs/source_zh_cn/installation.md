@@ -18,7 +18,7 @@
 此方式不用克隆源码编译，而是自动下载安装MindSpore官方提供的whl包。
 
 ```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/mindscience/{arch}/sciai-{version}-cp3-cp3m-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindScience/sciai/gpu/{arch}/cuda-11.1/sciai-{version}-cp37-cp37m-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 > - 在联网状态下，安装whl包时会自动下载SciAI安装包的依赖项（依赖项详情参见setup.py）。
@@ -27,11 +27,11 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/mindscienc
 
 下表提供了各架构和Python版本对应的安装命令。
 
-| 设备     | 架构      | Python      | 安装命令                                                                                                                                                                           |
-|--------|---------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Ascend | x86_64  | Python>=3.7 | `pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/mindscience/x86_64/sciai-0.1.0-cp3-cp3m-linux_x86_64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple`   |
-|        | aarch64 | Python>=3.7 | `pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/mindscience/aarch64/sciai-0.1.0-cp3-cp3m-linux_aarch64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple` |
-| GPU    | x86_64  | Python>=3.7 | `pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/mindscience/x86_64/sciai-0.1.0-cp3-cp3m-linux_x86_64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple`   |
+| 设备     | 架构      | Python     | 安装命令                                                                                                                                                                                               |
+|--------|---------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Ascend | x86_64  | Python=3.7 | `pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindScience/sciai/gpu/x86_64/cuda-11.1/sciai-0.1.0-cp37-cp37m-linux_x86_64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple` |
+|        | aarch64 | Python=3.7 | `pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindScience/sciai/ascend/aarch64/sciai-0.1.0-cp37-cp37m-linux_aarch64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple`      |
+| GPU    | x86_64  | Python=3.7 | `pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindScience/sciai/gpu/x86_64/cuda-11.1/sciai-0.1.0-cp37-cp37m-linux_x86_64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple` |
 
 注意：如果您的conda或python env中已经安装了其他MindScience套件，如`MindElec`，`MindFlow`，`MindSponge`， 请先卸载环境中的MindScience套件避免pip行为冲突。
 
