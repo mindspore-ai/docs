@@ -119,6 +119,14 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
     flush(WHLDIR)
     # 遍历json数据做好生成html前的准备
     # pylint: disable=R1702
+    msc_branch = ''
+
+    # 单独生成时提取msc仓的分支
+    if generate_list:
+        for i in range(len(data)):
+            if data[i]['name'] == 'mindscience':
+                msc_branch = data[i]["branch"]
+
     for i in range(len(data)):
 
         # 克隆仓库与配置环境变量
@@ -126,6 +134,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         repo_url = f"https://gitee.com/mindspore/{repo_name}.git"
         repo_path = f"{REPODIR}/{data[i]['name']}"
         branch_ = data[i]["branch"]
+
         if data[i]['environ'] == "MS_PATH":
             repo_url = "https://gitee.com/mindspore/mindspore.git"
             repo_path = f"{REPODIR}/mindspore"
@@ -145,14 +154,20 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         # 判断是否需要单独生成某些组件
         if generate_list and data[i]['name'] not in generate_list:
             continue
-        elif data[i]['environ']:
+        if data[i]['environ']:
             os.environ[data[i]['environ']] = repo_path
             try:
                 status_code = requests.get(repo_url, headers=headers).status_code
                 if status_code == 200:
                     if not os.path.exists(repo_path):
                         git_clone(repo_url, repo_path)
-                    git_update(repo_path, branch_)
+                    if data[i]['environ'] == "MSC_PATH":
+                        if data[i]['name'] == "mindscience":
+                            git_update(repo_path, branch_)
+                        elif msc_branch:
+                            git_update(repo_path, msc_branch)
+                    else:
+                        git_update(repo_path, branch_)
                     print(f'{repo_name}仓库克隆更新成功')
             except KeyError:
                 print(f'{repo_name}仓库克隆或更新失败')

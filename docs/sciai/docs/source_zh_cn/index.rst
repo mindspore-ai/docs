@@ -43,3 +43,10 @@ MindSpore SciAI应用领域覆盖到了流体、电磁、声、热、固体、�
    sciai.context
    sciai.operators
    sciai.utils
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE

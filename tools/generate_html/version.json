@@ -18,9 +18,9 @@
       "whl_name" : "mindspore-2.2.0-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MS_PATH",
       "uninstall_name" : "mindspore"
-   }, 
+   },
    {
-      "id" : 4 ,
+      "id" : 3 ,
       "name" : "mindscience",
       "branch" : "r0.5",
       "whl_path" : "",
@@ -29,7 +29,7 @@
       "uninstall_name" : ""
    },
    {
-      "id" : 5 ,
+      "id" : 4 ,
       "name" : "mindquantum",
       "branch" : "r0.9",
       "whl_path" : "2.2.0/MindQuantum/gpu/x86_64/cuda-11.1/",
@@ -38,7 +38,7 @@
       "uninstall_name" : "mindquantum"
    },
    {
-      "id" : 6 ,
+      "id" : 5 ,
       "name" : "mindearth",
       "branch" : "r0.1",
       "whl_path" : "2.2.0/MindScience/mindearth/gpu/x86_64/cuda-11.1/",
@@ -47,7 +47,7 @@
       "uninstall_name" : "mindearth_gpu"
    },
    {
-      "id" : 7 ,
+      "id" : 6 ,
       "name" : "sciai",
       "branch" : "r0.1",
       "whl_path" : "2.2.0/MindScience/sciai/gpu/x86_64/cuda-11.1/",
@@ -56,7 +56,7 @@
       "uninstall_name" : "sciai"
    },
    {
-      "id" : 8 ,
+      "id" : 7 ,
       "name" : "mindinsight",
       "branch" : "r2.2",
       "whl_path" : "2.2.0/MindInsight/any/",
@@ -65,7 +65,7 @@
       "uninstall_name" : "mindinsight"
    },
    {
-      "id" : 9 ,
+      "id" : 8 ,
       "name" : "tutorials",
       "branch" : "r2.2",
       "whl_path" : "",
@@ -74,16 +74,7 @@
       "uninstall_name" : ""
    },
    {
-      "id" : 10 ,
-      "name" : "devtoolkit",
-      "branch" : "r2.2",
-      "whl_path" : "",
-      "whl_name" : "",
-      "environ" : "DT_PATH",
-      "uninstall_name" : ""
-   },
-   {
-      "id" : 11 ,
+      "id" : 9 ,
       "name" : "serving",
       "branch" : "r2.0",
       "whl_path" : "2.2.0/Serving/x86_64/",

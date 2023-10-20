@@ -43,3 +43,10 @@ With these features, MindSpore SciAI covers a wide variety of scientific computa
    sciai.context
    sciai.operators
    sciai.utils
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE
