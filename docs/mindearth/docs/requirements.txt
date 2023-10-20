@@ -7,3 +7,4 @@ nbsphinx == 0.8.11
 IPython
 jieba
 mistune == 2.0.4
+h5py
