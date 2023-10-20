@@ -1,16 +1,5 @@
 # 安装 Graph Learning
 
-- [安装教程](#安装教程)
-    - [确认系统环境信息](#确认系统环境信息)
-    - [安装方式](#安装方式)
-        - [pip安装](#pip安装)
-        - [源码安装](#源码安装)
-    - [验证是否成功安装](#验证是否成功安装)
-- [社区](#社区)
-    - [治理](#治理)
-- [贡献](#贡献)
-- [许可证](#许可证)
-
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.0/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.0/docs/graphlearning/docs/source_zh_cn/mindspore_graphlearning_install.md)&nbsp;&nbsp;
 
 ## 安装指南
