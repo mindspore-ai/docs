@@ -265,3 +265,5 @@ MindSpore 文档
 				</div>
 		   </div>
 	</div>
+
+`点击下载API文档 <https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/pdf/r2.2/zh/MindSpore_API_r2.2_zh.pdf>`_
