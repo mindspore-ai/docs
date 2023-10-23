@@ -1,4 +1,4 @@
-MindSpore网络搭建
+网络搭建对比
 =================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
@@ -43,13 +43,13 @@ MindSpore网络搭建
 
 -  metrics；当训练任务结束，常常需要评价指标（Metrics）评估函数来评估模型的好坏。常用的评价指标有混淆矩阵、准确率
    Accuracy、精确率 Precision、召回率
-   Recall等。mindspore.nn模块提供了常见的\ `评估函数 <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.train.html#评价指标>`__
+   Recall等。mindspore.nn模块提供了常见的 `评估函数 <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.train.html#评价指标>`__
    ，用户也可以根据需要自行定义评估指标。自定义Metrics函数需要继承train.Metric父类，并重新实现父类中的clear方法、update方法和eval方法。
 
 网络搭建
 --------
 
-了解了网络训练和推理的过程后，下面介绍以下如何在MindSpore上实现网络训练和推理的过程。
+了解了网络训练和推理的过程后，下面介绍在MindSpore上实现网络训练和推理的过程。
 
 .. toctree::
   :maxdepth: 1
@@ -58,7 +58,7 @@ MindSpore网络搭建
   model_and_cell
   learning_rate_and_optimizer
   gradient
-  training_and_evaluation_procession
+  training_and_evaluation
 
 .. note::
 
@@ -67,6 +67,82 @@ MindSpore网络搭建
    -  比起训练，推理过程是固定的，能够与参考实现进行对比；
    -  比起训练，推理需要的时间极少，能够快速验证网络结构和推理流程的正确性；
    -  训练完的结果需要使用推理过程来验证模型的结果，需要优先保证推理的正确才能证明训练的有效。
+
+在实践网络搭建之前，请先了解MindSpore和PyTorch在数据对象、网络搭建接口、指定后端设备代码上的差别：
+
+- Tensor/Parameter
+
+  在PyTorch中，可以存储数据的对象总共有四种，分别是 `Tensor`、 `Variable` 、 `Parameter` 、 `Buffer` 。这四种对象的默认行为均不相同，当我们不需要求梯度时，通常使用 `Tensor`和 `Buffer` 两类数据对象，当我们需要求梯度时，通常使用 `Variable` 和 `Parameter` 两类对象。PyTorch 在设计这四种数据对象时，功能上存在冗余（ `Variable` 后续会被废弃也说明了这一点）。
+
+  MindSpore优化了数据对象的设计逻辑，仅保留了两种数据对象： `Tensor` 和 `Parameter`，其中 `Tensor` 对象仅参与运算，并不需要对其进行梯度求导和参数更新，而 `Parameter` 数据对象和PyTorch的 `Parameter` 意义相同，会根据其属性 `requires_grad` 来决定是否对其进行梯度求导和参数更新。在网络迁移时，只要是在PyTorch中未进行参数更新的数据对象，均可在MindSpore中声明为 `Tensor`。
+
+- nn.Module/nn.Cell
+
+  使用PyTorch构建网络结构时，我们会用到 `nn.Module` 类，通常将网络中的元素定义在 `__init__` 函数中并对其初始化，将网络的图结构表达定义在 `forward` 函数中，通过调用这些类的对象完成整个模型的构建和训练。 `nn.Module` 不仅为我们提供了构建图接口，它还为我们提供了一些常用的 `Module API <https://pytorch.org/docs/stable/generated/torch.nn.Module.html>`_，来帮助我们执行更复杂逻辑。
+
+  MindSpore中的 `nn.Cell` 类发挥着和PyTorch中 `nn.Module` 相同的作用，都是用来构建图结构的模块，MindSpore也同样提供了丰富的 `Cell API <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html>`_ 供开发者使用，虽然名字不能一一对应，但 `nn.Module` 中常用的功能都可以在 `nn.Cell` 中找到映射。 `nn.Cell` 默认情况下是推理模式。对于继承 `nn.Cell` 的类，如果训练和推理具有不同结构，子类会默认执行推理分支。PyTorch的 `nn.Module` 默认情况下是训练模式。
+
+  以几个常用方法为例:
+
+  .. list-table::
+     :widths: 30 30 30
+     :header-rows: 1
+
+     * - 常用方法
+       - nn.Module
+       - nn.Cell
+     * - 获取子元素
+       - named_children
+       - cells_and_names
+     * - 添加子元素
+       - add_module
+       - insert_child_to_cell
+     * - 获取元素的参数
+       - parameters
+       - get_parameters
+
+- device设置
+
+  PyTorch在构建模型时，通常会利用 `torch.device` 指定模型和数据绑定的设备，是在CPU还是GPU上，如果支持多GPU，还可以指定具体的GPU序号。绑定相应的设备后，需要将模型和数据部署到对应设备，代码如下：
+
+  .. code-block::
+
+      import os
+      import torch
+      from torch import nn
+
+      # bind to the GPU 0 if GPU is available, otherwise bind to CPU
+      device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu") # 单 GPU 或者 CPU
+      # deploy model to specified hardware
+      model.to(device)
+      # deploy data to specified hardware
+      data.to(device)
+
+      # distribute training on multiple GPUs
+      if torch.cuda.device_count() > 1:
+          model = nn.DataParallel(model, device_ids=[0,1,2])
+          model.to(device)
+
+          # set available device
+          os.environ['CUDA_VISIBLE_DEVICE']='1'
+          model.cuda()
+
+  而在MindSpore中，我们通过 `context` 中 的 `device_target` 参数 指定模型绑定的设备， `device_id` 指定设备的序号。与PyTorch不同的是，一旦设备设置成功，输入数据和模型会默认拷贝到指定的设备中执行，不需要也无法再改变数据和模型所运行的设备类型。代码如下：
+
+  .. code-block::
+
+      import mindspore as ms
+      ms.set_context(device_target='Ascend', device_id=0)
+
+      # define net
+      Model = ..
+      # define dataset
+      dataset = ..
+      # training, automatically deploy to Ascend according to device_target
+      Model.train(1, dataset)
+
+  此外，网络运行后返回的 `Tensor` 默认均拷贝到CPU设备，可以直接对该 `Tensor` 进行访问和修改，包括转成 `numpy` 格式，无需像PyTorch一样需要先执行 `tensor.cpu` 再转换成numpy格式。
+
 
 MindSpore网络编写注意事项
 -------------------------

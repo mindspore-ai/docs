@@ -4,47 +4,39 @@
 
 This migration guide contains the complete steps for migrating neural networks to MindSpore from other machine learning frameworks, mainly PyTorch.
 
-The following figure shows the migration process.:
+```mermaid
+graph LR
+A(Overview)-->B(<font color=blue>migration process</font>)
+B-->|Step 1|E(<font color=blue>Environmental Preparation</font>)
+E-.-text1(MindSpore Installation)
+E-.-text2(AI Platform ModelArts)
+B-->|Step 2|F(<font color=blue>Model Analysis and Preparation</font>)
+F-.-text3(Analyzing API Compliance using MindSpore Dev Toolkit)
+B-->|Step 3|G(<font color=blue>Network Constructing Comparison</font>)
+G-->I(<font color=blue>Dataset</font>)
+G-->J(<font color=blue>Network Constructing</font>)
+G-->K(<font color=blue>Learning Rate and Optimizer</font>)
+G-->L(<font color=blue>Gradient</font>)
+G-->M(<font color=blue>Training and Evaluation Process</font>)
+B-->|Step 4|H(<font color=blue>Debug and Tuning</font>)
+H-.-text4(Some methods of debugging and tuning from three aspects: function, precision and performance.)
+A-->C(<font color=blue>A Migration Sample</font>)
+C-.-text5(The network migration sample, taking ResNet50 as an example.)
+A-->D(<font color=blue>FAQs</font>)
+D-.-text6(Provides the frequently-asked questions and corresponding solutions)
 
-1. Configure the MindSpore development environment
-2. Analyze the network model to be migrated and acquire basic data
-3. MindSpore reproduction. It is recommended to use PYNATIVE mode to debug the model during the functional debugging stage and switch to GRAPH mode after the functional debugging is completed. After the model development is completed, it is recommended to reproduce the inference process first and the training process later.
-4. Debugging and tuning for function, precision and performance.
+click B "https://www.mindspore.cn/docs/en/master/migration_guide/migration_process.html"
+click C "https://www.mindspore.cn/docs/en/master/migration_guide/sample_code.html"
+click D "https://www.mindspore.cn/docs/en/master/migration_guide/faq.html"
 
-In this process, we have a relatively complete description of each link. We hope that through the migration guide, developers can quickly migrate the existing code of other frameworks to MindSpore.
+click E "https://www.mindspore.cn/docs/en/master/migration_guide/enveriment_preparation.html"
+click F "https://www.mindspore.cn/docs/en/master/migration_guide/analysis_and_preparation.html"
+click G "https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_development.html"
+click H "https://www.mindspore.cn/docs/en/master/migration_guide/debug_and_tune.html"
 
-![flowchart](./images/flowchart.PNG "Migration Process")
-
-## [Environmental Preparation and Information Acquisition](https://www.mindspore.cn/docs/en/master/migration_guide/enveriment_preparation.html)
-
-Network migration starts with configuring the MindSpore development environment, and this chapter describes the installation process and knowledge preparation in detail. The knowledge preparation includes a basic introduction to the MindSpore components models and hub, including the purpose, scenarios and usage. There are also tutorials on training on the cloud: using ModelArts to adapt scripts, uploading datasets in OBS, and training online.
-
-## [Model analysis and preparation](https://www.mindspore.cn/docs/en/master/migration_guide/analysis_and_preparation.html)
-
-Before doing formal development, some analysis preparation work needs to be done on the network/algorithm to be migrated, including:
-
-- Reading papers and reference codes to understand algorithms and network structures
-- Reproducing the results of the paper, obtaining the base model (ckpt), benchmark accuracy and performance
-- Analyzing the APIs and functions used in the network.
-
-When migrating networks from PyTorch to MindSpore, users need to be aware of [differences from typical PyTorch interfaces](https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html).
-
-## [MindSpore model implementation](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_development.html)
-
-After the preliminary analysis preparation, you can develop the new network by using MindSpore. This chapter will introduce the knowledge of MindSpore network construction and the process of training and inference, starting from the basic modules during inference and training, and using one or two examples to illustrate how to build the network in special scenarios.
-
-## [Debugging and Tuning](https://www.mindspore.cn/docs/en/master/migration_guide/debug_and_tune.html)
-
-This chapter will introduce some methods of debugging and tuning from three aspects: function, precision and performance.
-
-## [Example of Network Migration Debugging](https://www.mindspore.cn/docs/en/master/migration_guide/sample_code.html)
-
-This chapter contains a complete network migration sample. From the analysis and replication of the benchmark network, it details the steps of script development and precision debugging and tuning, and finally lists the common problems and corresponding optimization methods during the migration process, framework performance issues.
-
-## [Network Migration Tool Application Practice](https://www.mindspore.cn/docs/en/master/migration_guide/migrator_with_tools.html)
-
-This chapter describes how to apply various migration-related tools to improve the migration efficiency when migrating neural networks from other machine learning frameworks to MindSpore, focusing on describing how to tightly integrate migration tools with the migration process.
-
-## [FAQs](https://www.mindspore.cn/docs/en/master/migration_guide/faq.html)
-
-This chapter lists the frequently-asked questions and corresponding solutions.
+click I "https://www.mindspore.cn/docs/en/master/migration_guide/model_development/dataset.html"
+click J "https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html"
+click K "https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_development/learning_rate_and_optimizer.html"
+click L "https://www.mindspore.cn/docs/en/master/migration_guide/model_development/gradient.html"
+click M "https://www.mindspore.cn/docs/en/master/migration_guide/model_development/training_and_evaluation.html"
+```

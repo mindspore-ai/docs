@@ -9,29 +9,24 @@ FAQs
   :hidden:
 
   use_third_party_op
-  tensorflow2mindspore
 
 MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.html>`_ during using MindSpore. This chapter also collates the solutions to the set of common problems mentioned in the migration documentation.
 
 - Network Scripts
 
-  `Differences between PyTorch and MindSpore <https://www.mindspore.cn/docs/en/master/migration_guide/typical_api_comparision.html>`_
-
   `API Mapping and Handling Strategy of Missing API <https://www.mindspore.cn/docs/en/master/migration_guide/analysis_and_preparation.html#analyzing-api-compliance>`_
 
-  `Dynamic Shape Analysis <https://www.mindspore.cn/docs/en/master/migration_guide/analysis_and_preparation.html#dynamic-shape>`_ and `Mitigation Program <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html#dynamic-shape-workarounds>`_
+  `Dynamic Shape Analysis <https://www.mindspore.cn/docs/en/master/migration_guide/dynamic_shape.html>`_ and `Mitigation Program <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html#dynamic-shape-workarounds>`_
 
-  `Mitigation Program for Sparse Characteristic <https://www.mindspore.cn/docs/en/master/migration_guide/analysis_and_preparation.html#sparsity>`_
+  `Mitigation Program for Sparse Characteristic <https://www.mindspore.cn/docs/en/master/migration_guide/sparsity.html>`_
 
-  `Common Syntax Restrictions and Handling Strategies for Static Graphs <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html#common-restrictions>`_
-
-  `Using Third-party Operator Libraries Based on Customized Interfaces <https://www.mindspore.cn/docs/en/master/migration_guide/use_third_party_op.html>`_
+  `Common Syntax Restrictions and Handling Strategies for Static Graphs <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html#dynamic-and-static-graphs>`_
 
   `Notes for MindSpore Network Writing <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_development.html#considerations-for-mindspore-network-authoring>`_
 
-  `Method for Converting PyTorch Models to MindSpore Models <https://www.mindspore.cn/docs/en/master/migration_guide/sample_code.html#model-validation>`_
+  `Using Third-party Operator Libraries Based on Customized Interfaces <https://www.mindspore.cn/docs/en/master/migration_guide/use_third_party_op.html>`_
 
-  `Method for Converting TensorFlow Models to MindSpore Models <https://www.mindspore.cn/docs/en/master/migration_guide/tensorflow2mindspore.html>`_
+  `Method for Converting PyTorch Models to MindSpore Models <https://www.mindspore.cn/docs/en/master/migration_guide/sample_code.html#model-validation>`_
 
 - Network Debugging
 

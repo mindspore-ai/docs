@@ -18,7 +18,7 @@ The whole basic process of data construction consists of two main aspects: datas
 
 ### Loading Dataset
 
-MindSpore provides interfaces for loading many common datasets. The most used ones are as follows:
+MindSpore provides [interfaces](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html) for loading common datasets. The most used ones are as follows:
 
 | Data Interfaces | Introduction |
 | -------| ---- |
@@ -103,6 +103,8 @@ print(dataset.get_dataset_size())
 # 1000 / 8 = 125
 ```
 
+Outputs:
+
 ```text
 1000
 3
@@ -145,6 +147,8 @@ print(dataset.get_dataset_size())
 # ceil(1000 / 32) = 32
 ```
 
+Outputs:
+
 ```text
 31
 32
@@ -170,6 +174,8 @@ for data_dict in iterator:
         print(name, data_dict[name].shape)
     print("="*20)
 ```
+
+Outputs:
 
 ```text
 image (10, 32, 32, 3)
@@ -197,6 +203,8 @@ for data_tuple in iterator:
     print("="*20)
 ```
 
+Outputs:
+
 ```text
 (10, 32, 32, 3)
 (10,)
@@ -220,6 +228,8 @@ for data in dataset:
         print(data.shape)
     print("="*20)
 ```
+
+Outputs:
 
 ```text
 (10, 32, 32, 3)

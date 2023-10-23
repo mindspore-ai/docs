@@ -347,6 +347,8 @@ ts.migrator.compare_grads_dir('/mindspore_model/vit/v1/temp_data/pt/grads',
                               '/mindspore_model/vit/v1/temp_data/ms/grads')
 ```
 
+Outputs:
+
 ```text
 The orig dir: /mindspore_model/vit/v1/temp_data/pt/grads
 The target dir: /mindspore_model/vit/v1/temp_data/ms/grads

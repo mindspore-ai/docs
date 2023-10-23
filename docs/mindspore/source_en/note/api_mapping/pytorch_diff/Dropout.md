@@ -31,6 +31,14 @@ MindSpore: MindSpore API implements much the same functionality as PyTorch. `kee
 |      | Parameter 3 |   inplace   | - | MindSpore does not have this parameter |
 |      | Parameter 4 |   -   | dtype | MindSpore discard parameter |
 
+Dropout is often used to prevent training overfitting. It has an important probability value parameter. The meaning of this parameter in MindSpore is completely opposite to that in PyTorch and TensorFlow.
+
+In MindSpore, the probability value corresponds to the `keep_prob` attribute of the Dropout operator, indicating the probability that the input is retained. `1-keep_prob` indicates the probability that the input is set to 0.
+
+In PyTorch and TensorFlow, the probability values correspond to the attributes `p` and `rate` of the Dropout operator, respectively. They indicate the probability that the input is set to 0, which is opposite to the meaning of `keep_prob` in MindSpore.nn.Dropout.
+
+In PyTorch, the network is in training mode by default, while in MindSpore, it's in inference mode by default. Therefore, by default, Dropout called by the network does not take effect and directly returns the input. Dropout can be performed only after the network is set to the training mode by using the `net.set_train()` method.
+
 ### Code Example
 
 > When the inplace input is False, both APIs achieve the same function.

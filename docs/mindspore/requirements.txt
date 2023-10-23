@@ -8,3 +8,4 @@ IPython
 jieba
 chardet
 jinja2 < 3.1
+sphinxcontrib-mermaid
