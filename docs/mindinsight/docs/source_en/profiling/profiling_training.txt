@@ -181,8 +181,6 @@ Before running the network script, configure Profiler configuration items.
 
 Note：
 
-- This feature does not yet support the Ascend 910B chip scenario. Stay tuned.
-
 - To enable using environment variables, please set the device ID through the environment variables before the script starts executing. Prohibit using the set_context function to set the device ID in the script.
 
 .. code-block:: shell
