@@ -124,8 +124,6 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 So far, it means MindSpore Ascend 910 has been installed by Docker successfully.
 
-> The Ascend 910B does not support this verification method.
-
 ii:
 
 ```python
@@ -160,54 +158,6 @@ So far, it means MindSpore Ascend 910 has been installed by Docker successfully.
 If you need to verify the MindSpore Insight installation:
 
 Enter ```mindinsight start --port 8080```, if it prompts that the startup status is successful, it means MindSpore Insight has been installed successfully.
-
-> The Ascend 910B does not support this verification method.
-
-The current version is not fully verified on Ascend 910B. If you want to use Ascend 910B to verify whether the installation is successful, it is recommended to perform the following steps, and the detailed reasons can be found in [FAQ](https://www.mindspore.cn/docs/en/r2.1/faq/installation.html#verifying-the-installation).
-
-1. Configure the following environment variables:
-
-    ```bash
-    export MS_ENABLE_GE=1
-    export MS_GE_TRAIN=1 # not setting by default. The training network needs to be set to 1
-    ```
-
-2. Execute the following sample:
-
-    ```python
-    import numpy as np
-    import mindspore as ms
-    from mindspore import ops, nn
-
-    ms.set_context(device_target="Ascend", mode=ms.GRAPH_MODE)
-    class Net(nn.Cell):
-        def __init__(self):
-            super(Net, self).__init__()
-        def construct(self, x, y):
-            return ops.add(x, y)
-    x = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
-    y = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
-    net = Net()
-    print(net(x, y))
-    ```
-
-    The outputs should be the same as:
-
-    ```text
-    [[[[2. 2. 2. 2.]
-    [2. 2. 2. 2.]
-    [2. 2. 2. 2.]]
-
-    [[2. 2. 2. 2.]
-    [2. 2. 2. 2.]
-    [2. 2. 2. 2.]]
-
-    [[2. 2. 2. 2.]
-    [2. 2. 2. 2.]
-    [2. 2. 2. 2.]]]]
-    ```
-
-    It means MindSpore has been installed successfully.
 
 ## Version Update
 
