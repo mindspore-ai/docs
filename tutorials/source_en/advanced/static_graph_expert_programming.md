@@ -51,7 +51,7 @@ class PanGUAlphaWithLoss(nn.Cell):
     def construct(self, ...):
 ```
 
-> The full code can be found at: [Pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha)
+> The full code can be found at: [Pangu_alpha](https://gitee.com/mindspore/models/tree/r2.2/official/nlp/Pangu_alpha)
 
 Still taking the Pangu 13B network as an example, after applying the Lazy Inline scheme, the compute graph compilation size drops from 130,000+ nodes to 20,000+ nodes, and the compilation time drops from 3 hours to 20 minutes.
 
@@ -95,7 +95,7 @@ class GPT_Model(nn.Cell):
         ...
 ```
 
-> The full code can be found at: [GPT](https://gitee.com/mindspore/models/tree/master/official/nlp/GPT)
+> The full code can be found at: [GPT](https://gitee.com/mindspore/models/tree/r2.2/official/nlp/GPT)
 
 The network structure of GPT consists of different instances of the multi-layer `Block` class, which are all initialized with the same `config` parameter, so with the addition of the `@lazy_inline` decorator, all of these `Block` instances can reuse the same network structure and are not inlined for most of the compilation phase, which can drastically reduce compilation time.
 

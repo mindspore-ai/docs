@@ -19,7 +19,7 @@ Code repository address: <https://gitee.com/mindspore/mindspore/tree/r2.2/mindsp
 Typical MindSpore Probability Application Scenarios
 ----------------------------------------------------
 
-1. `Building the Bayesian Neural Network <https://www.mindspore.cn/probability/docs/en/master/using_bnn.html>`_
+1. `Building the Bayesian Neural Network <https://www.mindspore.cn/probability/docs/en/r1.7/using_bnn.html>`_
 
    Use the Bayesian neural network to classify images.
 
