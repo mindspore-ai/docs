@@ -193,6 +193,21 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+# replace py_files that have too many errors.
+try:
+    decorator_list = [("mindspore/context.py","mindspore/python/mindspore/context.py"),
+                      ("mindspore/dataset/vision/transforms.py","mindspore/python/mindspore/dataset/vision/transforms.py"),
+                      ("mindspore/ops/operations/custom_ops.py","mindspore/python/mindspore/ops/operations/custom_ops.py"),
+                      ("mindspore/ops/operations/nn_ops.py","mindspore/python/mindspore/ops/operations/nn_ops.py")]
+
+    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+    for i in decorator_list:
+        if os.path.exists(os.path.join(base_path, os.path.normpath(i[0]))):
+            os.remove(os.path.join(base_path, os.path.normpath(i[0])))
+            shutil.copy(os.path.join(os.getenv("MS_PATH"), i[1]),os.path.join(base_path, os.path.normpath(i[0])))
+except:
+    pass
+
 # Repair error decorators defined in mindspore.
 try:
     decorator_list = [("mindspore/common/_decorator.py", "deprecated",
