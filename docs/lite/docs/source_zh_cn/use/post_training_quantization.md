@@ -259,13 +259,6 @@ bias_correction=False
 provider=ge
 ```
 
-针对Ascend910B硬件，ON_THE_FLY量化通过插入AntiQuant算子，使能反量化融合优化，提升性能。
-该场景下，ON_THE_FLY量化转换命令的一般形式为：
-
-```shell
-./converter_lite --fmk=MINDIR --optimize=ascend_oriented:910b --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=ascend_on_the_fly_quant.cfg
-```
-
 ### 部分模型精度结果
 
 |  模型                |  测试数据集        |  FP32模型精度    |  权重量化精度（8bit） |

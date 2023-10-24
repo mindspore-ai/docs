@@ -258,13 +258,6 @@ bias_correction=False
 provider=ge
 ```
 
-For ascend910b hardware, ON_THE_FLY quantization inserts AntiQuant operators to enable dequantization fusion optimization and improve performance.
-In this scenario, the general form of the ON_THE_FLY quantization conversion command is:
-
-```shell
-./converter_lite --fmk=MINDIR --optimize=ascend_oriented:910b --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=ascend_on_the_fly_quant.cfg
-```
-
 ### Partial Model Accuracy Result
 
 | Model | Test Dataset | FP32 Model Accuracy | Weight Quantization Accuracy (8 bits) |
