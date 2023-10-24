@@ -233,7 +233,7 @@ The above code needs to be configured with distributed variables before it can r
 
 Ascend Distributed related environment variables are:
 
-- RANK_TABLE_FILE: Path to the grouping information file. rank_table_file files can be generated using hccl_tools.py in the models code repository, which can be obtained from [here](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools).
+- RANK_TABLE_FILE: Path to the grouping information file. rank_table_file files can be generated using hccl_tools.py in the models code repository, which can be obtained from [here](https://gitee.com/mindspore/models/tree/r2.2/utils/hccl_tools).
 - DEVICE_ID: the actual serial number of the current card on the machine.
 - RANK_ID: logical serial number of the current card.
 

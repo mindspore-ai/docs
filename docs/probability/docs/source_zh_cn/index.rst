@@ -17,7 +17,7 @@ MindSpore Probability 概率编程主要包括以下几部分：
 使用概率编程的典型场景
 -----------------------
 
-1. `构建贝叶斯神经网络 <https://www.mindspore.cn/probability/docs/zh-CN/master/using_bnn.html>`_
+1. `构建贝叶斯神经网络 <https://www.mindspore.cn/probability/docs/zh-CN/r1.7/using_bnn.html>`_
    
    利用贝叶斯神经网络实现图片分类应用。
 
