@@ -196,7 +196,8 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
 # replace py_files that have too many errors.
 try:
     decorator_list = [("mindspore/ops/operations/math_ops.py","mindspore/python/mindspore/ops/operations/math_ops.py"),
-                      ("mindspore/ops/operations/nn_ops.py","mindspore/python/mindspore/ops/operations/nn_ops.py")]
+                      ("mindspore/ops/operations/nn_ops.py","mindspore/python/mindspore/ops/operations/nn_ops.py"),
+                      ("mindspore/context.py","mindspore/python/mindspore/context.py")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
