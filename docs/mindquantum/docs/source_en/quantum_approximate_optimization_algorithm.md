@@ -76,7 +76,7 @@ $$
 
 ```python
 from mindquantum.core.circuit import Circuit, UN
-from mindquantum.core.gates import H, ZZ, RX
+from mindquantum.core.gates import H, Rzz, RX
 from mindquantum.core.operators import Hamiltonian, QubitOperator
 from mindquantum.framework import MQAnsatzOnlyLayer
 from mindquantum.simulator import Simulator
@@ -204,7 +204,7 @@ $$
 |\psi(\gamma,\beta)\rangle=\prod^p_{l=1}e^{-i\beta_l H_B}e^{-i\gamma_l H_C}|\psi_{in}\rangle
 $$
 
-Thus the ansatz line we need to build consists of $U_C(\gamma)$ and $U_B(\beta)$ which alternate the two unitary transformations, where $U_C(\gamma)=e^{-i\gamma \sum_{\langle i,j\rangle}Z_i Z_j}$ can be implemented by the `ZZ` gate. $U_B(\beta)=e^{-i\beta \sum_i X_i}$ is then equivalent to acting a `RX` revolving gate on each quantum bit, with $\gamma$ and $\beta$ as trainable parameters.
+Thus the ansatz line we need to build consists of $U_C(\gamma)$ and $U_B(\beta)$ which alternate the two unitary transformations, where $U_C(\gamma)=e^{-i\gamma \sum_{\langle i,j\rangle}Z_i Z_j}$ can be implemented by the [ZZ](https://www.mindspore.cn/mindquantum/docs/en/r0.9/mindquantum.core.gates.Rzz.html#mindquantum.core.gates.Rzz) gate. $U_B(\beta)=e^{-i\beta \sum_i X_i}$ is then equivalent to acting a [RX](https://www.mindspore.cn/mindquantum/docs/en/r0.9/mindquantum.core.gates.RX.html#mindquantum.core.gates.RX) revolving gate on each quantum bit, with $\gamma$ and $\beta$ as trainable parameters.
 
 Build the quantum circuit corresponding to $U_C(\gamma)$:
 
@@ -289,7 +289,7 @@ circ.svg()
 
 ### Building a Quantum Neural Network to Be Trained
 
-This problem does not require a coding-layer quantum circuit, so we use `MQAnsatzOnlyLayer` as a quantum neural network to be trained and an `Adam` optimizer.
+This problem does not require a coding-layer quantum circuit, so we use [MQAnsatzOnlyLayer](https://www.mindspore.cn/mindquantum/docs/en/r0.9/layer/mindquantum.framework.MQAnsatzOnlyLayer.html#mindquantum.framework.MQAnsatzOnlyLayer) as a quantum neural network to be trained and an [Adam](https://www.mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.Adam.html) optimizer.
 
 ```python
 import mindspore as ms
