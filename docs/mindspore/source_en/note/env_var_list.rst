@@ -20,8 +20,7 @@ Operators Compile
      - Description
    * - MS_BUILD_PROCESS_NUM
      - Specifies the number of parallel operator build processes during Ascend backend compilation.
-       
-       Note: Only take effect on Ascend910 AI Processor, not effective on Ascend910B.
+
      - Integer
      - The number of parallel operator build processes ranges from 1 to 24.
      - 
@@ -62,7 +61,6 @@ Operators Compile
      - Turn off operator prebuild processes during Ascend backend compilation. The prebuild processing may fix the attr `fusion_type` of the operate, and then affect the operator fusion. 
        If the performance of fusion operator can not meet the expectations, try to turn on this environment variable to verify if there is the performance problem of fusion operator.
 
-       Note: Only take effect on Ascend910 AI Processor, not effective on Ascend910B.
      - Boolean
      - true: turn off prebuild
 
@@ -539,15 +537,6 @@ Other
        3: The accuracy of the network is not guaranteed, and the memory consumption is minimal.
 
        Default: 1
-     -
-   * - MS_ASCEND_CHECK_OVERFLOW_MODE
-     - Set the overflow detection mode for Ascend 910B.
-     - String
-     - "INFNAN_MODE": Ascend 910B uses NAN/INF mode (IEEE754 criterion) to check overflow status during the training process.
-
-       Null or other values: Ascend 910B uses saturation mode to check overflow status during the training process.
-
-       Default: Null
      -
    * - MS_PYNATIVE_GE
      - Whether GE is executed in PyNative mode.

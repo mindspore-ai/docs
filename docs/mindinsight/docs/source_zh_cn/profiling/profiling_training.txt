@@ -180,8 +180,6 @@
 
 说明：
 
-- 该功能尚未支持Ascend 910B芯片场景，敬请期待。
-
 - 使用环境变量使能方式，请在脚本开始执行之前通过环境变量设置好device id。禁止在脚本中通过set_context函数设置device id。
 
 .. code-block:: shell
