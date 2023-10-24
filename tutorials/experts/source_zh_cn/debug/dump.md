@@ -16,7 +16,7 @@
 
 #### 数据准备
 
-数据准备阶段使用同步Dump或异步Dump来生成Dump数据。使用方法详见[同步Dump操作步骤](#同步dump操作步骤)和[异步Dump操作步骤](#异步dump操作步骤)。对于Ascend910B硬件平台，只支持异步Dump。
+数据准备阶段使用同步Dump或异步Dump来生成Dump数据。使用方法详见[同步Dump操作步骤](#同步dump操作步骤)和[异步Dump操作步骤](#异步dump操作步骤)。
 
 在准备数据时，您可以参考以下最佳实践：
 
@@ -25,17 +25,13 @@
 
 #### 数据分析
 
-如果用户已经安装了MindSpore Insight, 可以使用MindSpore Insight的离线调试器来分析。离线调试器的使用方法详见[使用离线调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_offline.html) 。对于Ascend910B硬件平台，由于保存的异步Dump数据结构有些特殊，暂时不支持使用离线调试器分析。
+如果用户已经安装了MindSpore Insight, 可以使用MindSpore Insight的离线调试器来分析。离线调试器的使用方法详见[使用离线调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_offline.html) 。
 
 如果没有安装MindSpore Insight，需要通过以下步骤来分析数据。
 
 1. 从脚本找到对应的算子
 
     使用Dump功能将自动生成最终执行图的IR文件（IR文件中包含了算子全名，和算子在计算图中输入和输出的依赖，也包含从算子到相应脚本代码的Trace信息），IR文件可以用`vi`命令查看，Dump功能的配置见[同步Dump操作步骤](#同步dump操作步骤)和[异步Dump操作步骤](#异步dump操作步骤)，Dump输出的目录结构见[同步Dump数据对象目录](#同步dump数据对象目录)和[异步Dump数据对象目录](#异步dump数据对象目录)。然后通过图文件找到脚本中代码对应的算子，参考[同步Dump数据分析样例](#同步dump数据分析样例)和[异步Dump数据分析样例](#异步dump数据分析样例)。
-
-    对于Ascend910B硬件平台，Dump不会自动保存图文件，需要手动设置保存图的环境变量，具体请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/70RC1alpha002/ref/envref/envref_07_0006.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/70RC1alpha002/ref/envref/envref_07_0007.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/70RC1alpha002/ref/envref/envref_07_0008.html) 。
-
-    Ascend910B硬件平台上保存的图文件有pbtxt格式和txt格式，可以用`vi`命令查看，pbtxt格式还可以用Netron软件打开。Ascend910B硬件平台上保存的图文件不包含从算子到相应脚本代码的Trace信息。
 
 2. 从算子到Dump数据
 
@@ -69,7 +65,6 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 不同模式所需要的配置文件和dump出来的数据格式不同：
 
 - 在Ascend上开启同步Dump的时候，待Dump的算子会自动关闭内存复用。
-- 同步Dump目前支持Ascend910A硬件平台、GPU和CPU上的图模式，不支持Ascend910B硬件平台，暂不支持PyNative模式。
 - 异步Dump全量功能只支持Ascend上的图模式，异步Dump溢出检测功能只支持Ascend上的图模式和PyNative模式。开启异步Dump的时候不会关闭内存复用。
 - 默认使用用异步Dump模式，如果要使用同步Dump模式，需要在配置文件中设置"e2e_dump_settings"。
 - Dump暂不支持异构训练，如果在异构训练场景启用Dump，生成的Dump数据对象目录可能不符合预期的目录结构。
@@ -403,17 +398,16 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
     }
     ```
 
-    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据，在Ascend910B硬件平台上，不支持指定算子类型；设置成2，表示Dump脚本中通过`set_dump`指定的算子数据，`set_dump`的使用详见[mindspore.set_dump](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_dump.html) ，在Ascend910B硬件平台上不支持设置成2。开启溢出检测时，此字段的设置失效，Dump只会保存溢出节点的数据。
+    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据；设置成2，表示Dump脚本中通过`set_dump`指定的算子数据，`set_dump`的使用详见[mindspore.set_dump](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_dump.html) 。开启溢出检测时，此字段的设置失效，Dump只会保存溢出节点的数据。
     - `path`：Dump保存数据的绝对路径。
-    - `net_name`：自定义的网络名称，例如："ResNet50"。在Ascend910B硬件平台上无效。
+    - `net_name`：自定义的网络名称，例如："ResNet50"。
     - `iteration`：指定需要Dump的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。PyNative模式开启溢出检测时，必须设置为"all"。
     - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。异步Dump统计信息只有在`file_format`设置为`npy`时可以成功，若在`file_format`设置为`bin`时选"statistic"或"full"便会错误退出。默认取值为"tensor"。
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
     - `kernels`：该项可以配置两种格式：
         1. 算子的名称列表。开启IR保存开关`set_context(save_graphs=2)`并执行用例，从生成的IR文件`trace_code_graph_{graph_id}`中获取算子名称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/mindir.html#如何保存ir)。
         需要注意的是，是否设置`set_context(save_graphs=2)`可能会导致同一个算子的id不同，所以在Dump指定算子时要在获取算子名称之后保持这一项设置不变。或者也可以在Dump保存的`ms_output_trace_code_graph_{graph_id}.ir`文件中获取算子名称，参考[同步Dump数据对象目录](#同步dump数据对象目录)。
-        在Ascend910B硬件平台上，指定算子需要先设置保存图文件的环境变量来保存图，再从保存的图文件中获取算子名称。保存图文件的环境变量请请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/70RC1alpha002/ref/envref/envref_07_0006.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/70RC1alpha002/ref/envref/envref_07_0007.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/70RC1alpha002/ref/envref/envref_07_0008.html) 。
-        2. 还可以指定算子类型。当字符串中不带算子scope信息和算子id信息时，后台则认为其为算子类型，例如："conv"。算子类型的匹配规则为：当发现算子名中包含算子类型字符串时，则认为匹配成功（不区分大小写），例如："conv" 可以匹配算子 "Conv2D-op1234"、"Conv3D-op1221"。在Ascend910B硬件平台上，不支持指定算子类型。
+        2. 还可以指定算子类型。当字符串中不带算子scope信息和算子id信息时，后台则认为其为算子类型，例如："conv"。算子类型的匹配规则为：当发现算子名中包含算子类型字符串时，则认为匹配成功（不区分大小写），例如："conv" 可以匹配算子 "Conv2D-op1234"、"Conv3D-op1221"。
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
     - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成1，表示开启AiCore溢出检测；设置成2，表示开启Atomic溢出检测；设置成3，表示开启全部溢出检测功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子的数据。
     - `file_format`: dump数据的文件类型，只支持`npy`和`bin`两种取值。设置成`npy`，则dump出的算子张量数据将为host侧格式的npy文件；设置成`bin`，则dump出的数据将为device侧格式的protobuf文件，需要借助转换工具进行处理，详细步骤请参考[异步Dump数据分析样例](#异步dump数据分析样例)。默认取值为`bin`。
@@ -453,7 +447,7 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 
 若未配置`file_format`值或`file_format`值为`bin`，数据对象目录为以下结构。
 
-在Ascend910A硬件平台上，异步Dump保存的数据对象包括了最终执行图（`ms_output_trace_code_graph_{graph_id}.ir`文件）以及图中算子的输入和输出数据。 如果开启溢出检测，还会在检测到溢出时保存溢出文件（`Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}`文件）。
+在Ascend910硬件平台上，异步Dump保存的数据对象包括了最终执行图（`ms_output_trace_code_graph_{graph_id}.ir`文件）以及图中算子的输入和输出数据。 如果开启溢出检测，还会在检测到溢出时保存溢出文件（`Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}`文件）。
 
 图模式的Dump目录结构如下所示：
 
@@ -531,45 +525,6 @@ PyNative模式的Dump目录结构如下所示：
 对于PyNative模式，由于没有前向图，只保存了反向图和优化图，可能出现溢出节点找不到对应的图文件的情况。
 
 PyNative模式下，由于没有前向图，也没有iteration_id，前向节点的graph_id和iteration_id取值为0，不是实际值。对反向节点或者优化器中的节点，数据文件保存在对应的{graph_id}/{iteration_id}目录下，其对应的溢出文件保存在debug_files/0目录下。
-
-在Ascend910B硬件平台上，Dump的目录结构和Ascend910A硬件平台的目录结构不一样。图模式的Dump目录结构如下所示：
-
-```text
-{path}/
-    - {time}/
-        - {device_id}/
-            - {model_name}/
-                - {model_id}/
-                    - {iteration_id}/
-                        statistic.csv
-                        {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
-                        Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
-                        mapping.csv
-```
-
-在Ascend910B硬件平台上的Pynative模式只支持溢出检测，目录结构如下所示：
-
-```text
-{path}/
-    - {time}/
-        - {device_id}/
-            statistic.csv
-            {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
-            Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
-            mapping.csv
-```
-
-- `path`：`data_dump.json`配置文件中设置的绝对路径。
-- `time`： dump目录的创建时间。
-- `device_id`: 卡号。
-- `model_name`：模型名称，由MindSpore生成。
-- `model_id`：模型标号。
-- `iteration_id`：训练的轮次。
-- `op_type`：算子类型。
-- `op_name`：算子名称。
-- `task_id`：任务标号。
-- `stream_id`：流标号。
-- `timestamp`：时间戳。
 
 ### 异步Dump数据文件介绍
 

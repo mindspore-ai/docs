@@ -63,7 +63,7 @@ MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户
 | `--configFile=<CONFIGFILE>` | 否 | 1）可作为训练后量化配置文件路径；2）可作为扩展功能配置文件路径。  | - | - | - |
 | `--inputShape=<INPUTSHAPE>` | 否 | 设定模型输入的维度，输入维度的顺序和原始模型保持一致。对某些特定的模型可以进一步优化模型结构，但是转化后的模型将可能失去动态shape的特性。多个输入用`;`分割，同时加上双引号`""`。 | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - | - |
 | `--saveType=<SAVETYPE>` | 否 | 设定导出的模型为`mindir`模型或者`ms`模型。 | MINDIR、MINDIR_LITE | MINDIR | 云侧推理版本只有设置为MINDIR转出的模型才可以推理 |
-| `--optimize=<OPTIMIZE>` | 否 | 设定转换模型的过程所完成的优化。 | none、general、gpu_oriented、ascend_oriented、ascend_oriented:910b| general | - |
+| `--optimize=<OPTIMIZE>` | 否 | 设定转换模型的过程所完成的优化。 | none、general、gpu_oriented、ascend_oriented| general | - |
 | `--decryptKey=<DECRYPTKEY>` | 否 | 设定用于加载密文MindIR时的密钥，密钥用十六进制表示，只对`fmk`为MINDIR时有效。 | - | - | - |
 | `--decryptMode=<DECRYPTMODE>` | 否 | 设定加载密文MindIR的模式，只在指定了decryptKey时有效。 | AES-GCM、AES-CBC | AES-GCM | - |
 | `--encryptKey=<ENCRYPTKEY>` | 否 | 设定导出加密`mindir`模型的密钥，密钥用十六进制表示。仅支持 AES-GCM，密钥长度仅支持16Byte。 | - | - | - |
@@ -80,13 +80,13 @@ MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户
 - 参数名和参数值之间用等号连接，中间不能有空格。
 - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 - `configFile`配置文件采用`key=value`的方式定义相关参数。
-- `--optimize`该参数是用来设定在离线转换的过程中需要完成哪些特定的优化。如果该参数设置为none，那么在模型的离线转换阶段将不进行相关的图优化操作，相关的图优化操作将会在执行推理阶段完成。该参数的优点在于转换出来的模型由于没有经过特定的优化，可以直接部署到CPU/GPU/Ascend任意硬件后端；而带来的缺点是推理执行时模型的初始化时间增长。如果设置成general，表示离线转换过程会完成通用优化，包括常量折叠，算子融合等（转换出的模型只支持CPU/GPU后端，不支持Ascend后端）。如果设置成gpu_oriented，表示转换过程中会完成通用优化和针对GPU后端的额外优化（转换出来的模型只支持GPU后端）。如果设置成ascend_oriented、ascend_oriented:910b，表示转换过程中只完成针对Ascend后端的优化（转换出来的模型只支持Ascend后端）。如果设置成ascend_oriented:910b，Ascend910b后端的优化（转换出来的模型只支持Ascend910b后端）。
+- `--optimize`该参数是用来设定在离线转换的过程中需要完成哪些特定的优化。如果该参数设置为none，那么在模型的离线转换阶段将不进行相关的图优化操作，相关的图优化操作将会在执行推理阶段完成。该参数的优点在于转换出来的模型由于没有经过特定的优化，可以直接部署到CPU/GPU/Ascend任意硬件后端；而带来的缺点是推理执行时模型的初始化时间增长。如果设置成general，表示离线转换过程会完成通用优化，包括常量折叠，算子融合等（转换出的模型只支持CPU/GPU后端，不支持Ascend后端）。如果设置成gpu_oriented，表示转换过程中会完成通用优化和针对GPU后端的额外优化（转换出来的模型只支持GPU后端）。如果设置成ascend_oriented，表示转换过程中只完成针对Ascend后端的优化（转换出来的模型只支持Ascend后端）。
 - 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/build.html)时设置为`MSLITE_ENABLE_MODEL_ENCRYPTION=on`时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如密钥定义为`b'0123456789ABCDEF'`对应的十六进制表示为`30313233343536373839414243444546`，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。需要注意的是，加解密算法在1.7版本进行了更新，导致新版的Python接口不支持对1.6及其之前版本的MindSpore Lite加密导出的模型进行转换。
 - 针对MindSpore模型，由于已经是`mindir`模型，建议两种做法：
 
     不需要经过离线转换，直接进行推理执行。
 
-    使用离线转换，CPU/GPU后端设置--optimize为general（使能通用优化），GPU后端设置--optimize为gpu_oriented（在通用优化的基础上，使能针对GPU的额外优化），NPU后端设置--optimize为ascend_oriented、ascend_oriented:910b，在离线阶段完成相关优化，减少推理执行的初始化时间。
+    使用离线转换，CPU/GPU后端设置--optimize为general（使能通用优化），GPU后端设置--optimize为gpu_oriented（在通用优化的基础上，使能针对GPU的额外优化），NPU后端设置--optimize为ascend_oriented，在离线阶段完成相关优化，减少推理执行的初始化时间。
 
 ### 使用示例
 
