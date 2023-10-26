@@ -18,6 +18,7 @@ import sys
 import glob
 import IPython
 import shutil
+import regex
 import sphinx
 
 # Fix some dl-label lack class='simple'
@@ -395,16 +396,13 @@ des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
-    content = re.findall("(\n## [\s\S\n]*?)\n## ", data)
-    version_line = re.findall("\n## .*\n", data)[0]
-    version = re.findall("[0-9]+?\.[0-9]+?\.([0-9]+?) ", version_line)[0]
-    if version != '0':
-        content_new = ''
-        for i in range(int(version)+1):
-            content_new += content[i]
-        content = content_new
-    else:
-        content = content[0]
+    content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
+    version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
+    content_new = ''
+    for i in content:
+        if re.findall(f"\n## MindSpore ({version[0]}\.[0-9]+?)[ -]", i):
+            content_new += i
+    content = content_new
 else:
     content = re.findall("(\n## [\s\S\n]*)", data)
     content = content[0]
