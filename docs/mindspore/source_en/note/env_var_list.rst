@@ -110,6 +110,11 @@ Parallel Training
 
        if not set: communication subgraph extraction and reuse is turned off.
      -
+   * - DEVICE_ID
+     - The ID of the Ascend AI processor, which is the Device serial number on the AI server.
+     - Integer
+     - The ID of the Ascend AI processor. Value range: [0, number of actual Devices-1].
+     -
 
 Dynamic Networking
 ------------------
