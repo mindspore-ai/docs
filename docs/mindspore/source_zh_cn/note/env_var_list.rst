@@ -108,6 +108,11 @@
 
        不设置或其他值：关闭通信子图复用
      -
+   * - DEVICE_ID
+     - 昇腾AI处理器的ID，即Device在AI server上的序列号。
+     - Integer
+     - 昇腾AI处理器的ID，取值范围：[0, 实际Device数量-1]。
+     -
 
 动态组网
 --------
