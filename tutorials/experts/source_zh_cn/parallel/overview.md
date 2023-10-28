@@ -49,7 +49,7 @@ MindSpore目前支持三种启动方式：
 - **并行策略优化**：
     - **策略选择**：根据您的模型规模和数据量大小，您可以参考[策略选择](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/strategy_select.html)教程来选择不同的并行策略，以提高训练效率和资源利用率。
     - **切分技巧**：切分技巧也是实现高效并行计算的关键，在[切分技巧](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/split_technique.html)教程中，您可以通过具体案例了解到如何应用各种切分技巧来提升效率。
-    - **多副本并行**：在现有的单副本模式下，某些底层算子在进行通信的时候，无法同时进行计算，从而导致资源浪费。多副本并行通过对数据按照batchsize维度进行切分为多个副本，可以使一个副本在通信时，另一副本进行计算操作，提升了资源利用率，详细可参考[多副本并行](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/multiple_copy.html)教程。
+    - **多副本并行**：在现有的单副本模式下，某些底层算子在进行通信的时候，无法同时进行计算，从而导致资源浪费。多副本并行通过对数据按照Batch Size维度进行切分为多个副本，可以使一个副本在通信时，另一副本进行计算操作，提升了资源利用率，详细可参考[多副本并行](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/multiple_copy.html)教程。
 - **内存优化**：
     - **梯度累加**：梯度累加通过在多个MicroBatch上计算梯度并将它们累加起来，然后一次性应用这个累积梯度来更新神经网络的参数。通过这种方法少量设备也能训练大Batch Size，有效减低内存峰值，详细可参考[梯度累加](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/distributed_gradient_accumulation.html)教程。
     - **重计算**：重计算通过不保存某些正向算子的计算结果，以节省内存空间，在计算反向算子时，需要用到正向结果再重新计算正向算子。详细可参考[重计算](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/recompute.html)教程。
