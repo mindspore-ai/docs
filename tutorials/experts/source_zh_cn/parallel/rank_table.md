@@ -207,7 +207,7 @@ epoch: 0, step: 100, loss is 0.53782797
 
 在Ascend环境下，跨机器的NPU单元的通信与单机内各个NPU单元的通信一样，依旧是通过HCCL进行通信，区别在于，单机内的NPU单元天然的是互通的，而跨机器的则需要保证两台机器的网络是互通的。确认的方法如下：
 
-在1号服务器执行下述命令，会为每个设备配置2号服务器对应设备的`device ip`。例如将1号服务器卡0的目标IP配置为2号服务器的卡0的ip。配置命令需要使用`hccn_tool`工具。[`hccn_tool`](https://support.huawei.com/enterprise/zh/ascend-computing/a300t-9000-pid-250702906?category=developer-documents)是一个HCCL的工具，由CANN包自带。
+在1号服务器执行下述命令，会为每个设备配置2号服务器对应设备的`device ip`。例如将1号服务器卡0的目标IP配置为2号服务器的卡0的IP。配置命令需要使用`hccn_tool`工具。[`hccn_tool`](https://support.huawei.com/enterprise/zh/ascend-computing/a300t-9000-pid-250702906?category=developer-documents)是一个HCCL的工具，由CANN包自带。
 
 ```bash
 hccn_tool -i 0 -netdetect -s address 192.*.92.131
@@ -220,7 +220,7 @@ hccn_tool -i 6 -netdetect -s address 192.*.94.141
 hccn_tool -i 7 -netdetect -s address 192.*.95.141
 ```
 
-`-i 0`指定设备ID。`-netdetect`指定网络检测对象IP属性。`-s address`表示设置属性为IP地址。`192.*.92.131`表示2号服务器的设备0的ip地址。接口命令可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/8eff627f)。
+`-i 0`指定设备ID。`-netdetect`指定网络检测对象IP属性。`-s address`表示设置属性为IP地址。`192.*.92.131`表示2号服务器的设备0的IP地址。接口命令可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/8eff627f)。
 
 在1号服务器上面执行完上述命令后，通过下述命令开始检测网络链接状态。在此使用`hccn_tool`的另一个功能，此功能的含义可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100251947/7d059b59)。
 
@@ -285,7 +285,7 @@ net health status: Fault
 }
 ```
 
-准备好配置文件后，可以进行分布式多机训练脚本的组织，在以2机16卡为例，两台机器上编写的脚本与单机多卡的运行脚本类似，区别在于指定不同的rank_id变量。
+准备好配置文件后，可以进行分布式多机训练脚本的组织，以2机16卡为例，两台机器上编写的脚本与单机多卡的运行脚本类似，区别在于指定不同的rank_id变量。
 
 ```bash
 RANK_SIZE=16
