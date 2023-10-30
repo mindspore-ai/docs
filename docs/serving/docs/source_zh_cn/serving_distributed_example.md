@@ -213,7 +213,7 @@ if __name__ == '__main__':
 - `model_files`为模型文件路径的列表。
 - `group_config_files`为模型分组配置文件路径的列表。
 - `agent_start_port`表示`Agent`占用的起始端口，默认为7000。
-- `agent_ip`为`Agent`的ip地址，默认为None。`Agent`与`Distributed Worker`通信的ip默认会从rank_table获取，如果该ip地址不可用，则需要同时设置`agent_ip`与`rank_start`。
+- `agent_ip`为`Agent`的IP地址，默认为None。`Agent`与`Distributed Worker`通信的IP默认会从rank_table获取，如果该IP地址不可用，则需要同时设置`agent_ip`与`rank_start`。
 - `rank_start`为当前机器起始的rank_id，默认为None。
 
 ### 执行推理
