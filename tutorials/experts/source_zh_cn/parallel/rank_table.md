@@ -37,7 +37,7 @@
 
 ## 操作实践
 
-> 样例的运行目录：[startup_method](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/startup_method)。
+> 您可以在这里下载完整的样例代码：[startup_method](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/startup_method)。
 
 目录结构如下：
 
