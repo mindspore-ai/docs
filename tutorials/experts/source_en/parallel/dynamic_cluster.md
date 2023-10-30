@@ -115,7 +115,7 @@ The relevant environment variables:
 
 Dynamic cluster startup scripts are consistent across hardware platforms. The following is an example of how to write a startup script for Ascend:
 
-> The running directory of sample: [startup_method](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/startup_method).
+> You can download the full sample code here: [startup_method](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/startup_method).
 
 The directory structure is as follows:
 

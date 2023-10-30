@@ -115,7 +115,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
 
 动态组网启动脚本在各硬件平台下一致，下面以Ascend为例演示如何编写启动脚本：
 
-> 样例的运行目录：[startup_method](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/startup_method)。
+> 您可以在这里下载完整的样例代码：[startup_method](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/startup_method)。
 
 目录结构如下：
 

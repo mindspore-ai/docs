@@ -32,7 +32,7 @@ Related commands:
 
 The `mpirun` startup script is consistent across Ascend and GPU hardware platforms. Below is a demonstration of how to write a startup script using Ascend as an example:
 
-> The running directory of sample: [startup_method](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/startup_method).
+> You can download the full sample code here: [startup_method](https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/startup_method).
 
 The directory structure is as follows:
 
