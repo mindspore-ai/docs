@@ -37,7 +37,7 @@ The parameter items that need to be modified according to the actual training en
 
 ## Operation Practice
 
-> The running directory of sample: [startup_method](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method).
+> You can download the full sample code here: [startup_method](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method).
 
 The directory structure is as follows:
 
