@@ -21,9 +21,9 @@
 
 相关接口：
 
-1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, enable_parallel_optimizer=True)`：设置半自动并行模式，且开启优化器并行，必须在初始化网络之前调用。`enable_parallel_optimizer`开启后，默认对所有**占用内存不小于64KB**的参数进行优化器切分，请参考本章的`高级接口`。
+1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, enable_parallel_optimizer=True)`：设置半自动并行模式，且开启优化器并行，必须在初始化网络之前调用。`enable_parallel_optimizer`开启后，默认对所有**占用内存不小于64KB**的参数进行优化器切分，请参考本章的[高级接口](#高级接口)。
 
-2. `Cell.set_comm_fusion(NUM)`：在全/半自动模式下，每个参数都会产生一个对应的AllGather操作和ReduceScatter操作。这些通信算子是自动并行框架自动插入的。然而，随着参数量增多，对应的通信算子也会增多，通信操作产生的算子调度和启动都会产生更多的开销。因此，可以通过`cell`提供的`set_comm_fusion`方法，手动对每个`cell`内的参数对应的AllGather和ReduceScatter操作配置融合标记NUM，以提高通信效率。Mindspore将融合相同NUM参数对应的通信算子，以减少通信开销。
+2. `Cell.set_comm_fusion(NUM)`：在自动/半自动模式下，每个参数都会产生一个对应的AllGather操作和ReduceScatter操作。这些通信算子是自动并行框架自动插入的。然而，随着参数量增多，对应的通信算子也会增多，通信操作产生的算子调度和启动都会产生更多的开销。因此，可以通过`Cell`提供的`set_comm_fusion`方法，手动对每个`Cell`内的参数对应的AllGather和ReduceScatter操作配置融合标记NUM，以提高通信效率。MindSpore将融合相同NUM参数对应的通信算子，以减少通信开销。
 
 ## 基本原理
 
@@ -225,7 +225,7 @@ epoch: 0, step: 100, loss is 0.6854114
         ms.set_auto_parallel_context(parallel_optimizer_config={"gradient_accumulation_shard": True}, enable_parallel_optimizer=True)
         ```
 
-    - `parallel_optimizer_threshold(int)`：该值表示切分参数时，要求目标参数所占内存的最小值。当目标参数小于该值时，将不会被切分。
+    - `parallel_optimizer_threshold(int)`：该值表示切分参数时，要求目标参数所占内存的最小值。当目标参数小于该值时，将不会被切分。默认值为64，单位为KB。
 
         ```python
         import numpy as np
@@ -250,7 +250,7 @@ epoch: 0, step: 100, loss is 0.6854114
     import mindspore as ms
     param = ms.Parameter(ms.Tensor(np.ones((10, 2))), name='weight1', parallel_optimizer=True)
 
-    # Another way to set the parallel_optimizer attribute
+    # 设置 parallel_optimizer 属性的另一种方法
     param2 = ms.Parameter(ms.Tensor(np.ones((10, 2))), name='weight2')
     param2.parallel_optimizer = False
     ```
