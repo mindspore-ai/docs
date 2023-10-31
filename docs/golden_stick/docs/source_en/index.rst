@@ -89,6 +89,8 @@ The current release version of MindSpore Golden Stick provides a stable API and 
 
    pruner/overview
    pruner/scop
+   pruner/lrp
+   pruner/lrp_tutorial
 
 .. toctree::
    :glob:
