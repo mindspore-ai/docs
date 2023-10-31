@@ -12,12 +12,12 @@
 
 1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)`：设置半自动并行模式，必须在初始化网络之前调用。
 
-2. `mindspore.ops.Primitive.shard()`：指定算子切分策略，详细案例请参考本章的`基本原理`。
+2. `mindspore.ops.Primitive.shard()`：指定算子切分策略，详细案例请参考本章的[基本原理](#基本原理)。
 
 3. `mindspore.ops.Primitive.add_prim_attr()`：为满足不同场景诉求，部分算子能通过`add_prim_attr`接口对其分布式实现进行配置，这些配置仅对`SEMI_AUTO_PARALLEL`与`AUTO_PARALLEL`模式适用，例如：
 
     - `ops.Gather().add_prim_attr("manual_split", split_tuple)`：该接口配置Gather算子的第一个输入非均匀切分，它仅对axis=0时有效。其中`split_tuple`是一个元素为int类型的元组，元素之和须等于Gather算子第一个输入的第零维的长度，元组个数须等于Gather算子第一个输入的第零维切分份数。
-    - `ops.Gather()add_prim_attr("primitive_target", "CPU")`：该接口配置Gather算子在CPU上执行，用于异构场景。
+    - `ops.Gather().add_prim_attr("primitive_target", "CPU")`：该接口配置Gather算子在CPU上执行，用于异构场景。
 
 ## 基本原理
 
@@ -40,9 +40,10 @@ Tensor Redistribution用于处理不同Tensor Layout之间的转换，它能在�
 *图：Tensor切分到两个节点的重排*
 
 ![image](images/operator_parallel_image_3_zh.png)
+
 *图：Tensor切分到四个节点的重排*
 
-用户可以使用shard()接口来设置算子的切分策略，该接口可以描述算子的每个输入张量的每个维度如何切分。比如MatMul.shard(((a, b), (b, c)))表示MatMul有两个输入张量，对第一个输入张量的行均匀切分a份，列均匀切分b份；对第二个输入张量的行均匀切分b份，列均匀切分a份。
+用户可以使用shard()接口来设置算子的切分策略，该接口可以描述算子的每个输入张量的每个维度如何切分。比如MatMul.shard(((a, b), (b, c)))表示MatMul有两个输入张量，对第一个输入张量的行均匀切分a份，列均匀切分b份；对第二个输入张量的行均匀切分b份，列均匀切分c份。
 
 ```python
 import mindspore.nn as nn

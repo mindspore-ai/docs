@@ -177,7 +177,7 @@ for epoch in range(10):
         i += 1
 ```
 
-> 此处也可以用`Model.train`的方式进行训练。
+> 此处也可以用[Model.train](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train)的方式进行训练。
 
 ### 运行单机8卡脚本
 
