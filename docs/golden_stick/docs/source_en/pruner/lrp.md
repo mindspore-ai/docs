@@ -184,7 +184,7 @@ The function has an option to get another parameter:
 
 ### BERT on MNLI
 
-We provide a code example for LRP pruning of Bert model in [run_sample_bert.py](https://gitee.com/mindspore/golden-stick/tree/master/mindspore_gs/pruner/heads/lrp/bert/samples/run_sample_bert.py) file. It can be run using the following shell command
+We provide a code example for LRP pruning of Bert model in [run_sample_bert.py](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/heads/lrp/bert/samples/run_sample_bert.py) file. It can be run using the following shell command
 
 ```bash
 export DEVICE_TARGET = "GPU"

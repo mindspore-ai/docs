@@ -31,7 +31,7 @@ A single Concrete-Gate class is in charge of all the gates within a single Atten
 * get_penalty
     * calculating a penalty term to be added to the final loss
 
-ConcreteGate code from [utils.py](https://gitee.com/mindspore/golden-stick/tree/master/mindspore_gs/pruner/heads/lrp/utils.py) file as follows.
+ConcreteGate code from [utils.py](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/heads/lrp/utils.py) file as follows.
 
 ```python
  class ConcreteGate(nn.Cell):
@@ -120,7 +120,7 @@ To enable these abilities, we distinguish between three types of classes – the
 
 We introduce two attributes to the class - a “ConcreteGate” class type attribute that is named “gate”, and a Boolean type attribute named “has_gate”. The first is obviously the added gate, and the second is an indicator of whether to address or ignore the gate. These two attributes are defined in the __init__ method of the class
 
-Code example from [gated_bert_model.py](https://gitee.com/mindspore/golden-stick/tree/master/mindspore_gs/pruner/heads/lrp/bert/archs/gated_bert_model.py):
+Code example from [gated_bert_model.py](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/heads/lrp/bert/archs/gated_bert_model.py):
 
 ```python
 BertAttention.__init__()
@@ -129,7 +129,7 @@ BertAttention.__init__()
     self.gate = ConcreteGate(shape=[1, self.num_attention_heads, 1, 1])
 ```
 
-Another example is given for GPT model in [gated_transformer.py](https://gitee.com/mindspore/golden-stick/tree/master/mindspore_gs/pruner/heads/lrp/gpt/archs/gated_transformer.py):
+Another example is given for GPT model in [gated_transformer.py](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/heads/lrp/gpt/archs/gated_transformer.py):
 
 ```python
 MultiHeadAttention.__init__()
@@ -140,7 +140,7 @@ MultiHeadAttention.__init__()
 
 While performing the forward path of the class, if the gates are enabled, we apply the gates and calculate the contribution of the Attention to the penalty term. These two actions are performed just before we multiply the Attention probabilities by the “values vectors” of the Attention mechanism
 
-Code example from BertAttention forward function in [gated_bert_model.py](https://gitee.com/mindspore/golden-stick/tree/master/mindspore_gs/pruner/heads/lrp/bert/archs/gated_bert_model.py):
+Code example from BertAttention forward function in [gated_bert_model.py](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/heads/lrp/bert/archs/gated_bert_model.py):
 
 ```python
 BertAttention.construct()
@@ -156,7 +156,7 @@ BertAttention.construct()
 
 Finally, we need to output the calculated the penalty term so it could climb up to the loss level
 
-Code example from BertAttention forward function in [gated_bert_model.py](https://gitee.com/mindspore/golden-stick/tree/master/mindspore_gs/pruner/heads/lrp/bert/archs/gated_bert_model.py):
+Code example from BertAttention forward function in [gated_bert_model.py](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/heads/lrp/bert/archs/gated_bert_model.py):
 
 ```python
 BertAttention.construct()
@@ -183,7 +183,7 @@ Thus, a class that only transfers the penalty onward needs no additional code li
 
 Overall, the second type classes need an attribute “has_gate”, similar to the Attention level class, and some additions to the forward path
 
-Code example from BertTransformer in [gated_bert_model.py](https://gitee.com/mindspore/golden-stick/tree/master/mindspore_gs/pruner/heads/lrp/bert/archs/gated_bert_model.py):
+Code example from BertTransformer in [gated_bert_model.py](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/heads/lrp/bert/archs/gated_bert_model.py):
 
 ```python
 BertTransformer.__init__()
@@ -209,7 +209,7 @@ BertTransformer.construct()
 
 The total_reg that comes back from the model is added to Loss calculation.
 
-From Bert code example in [bert_pretrain_gates_sample.py](https://gitee.com/mindspore/golden-stick/tree/master/mindspore_gs/pruner/heads/lrp/bert/samples/bert_pretrain_gates_sample.py)
+From Bert code example in [bert_pretrain_gates_sample.py](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/heads/lrp/bert/samples/bert_pretrain_gates_sample.py)
 
 ```python
 BertPreTrainingForGates.construct()
@@ -227,7 +227,7 @@ BertPreTrainingForGates.construct()
 The pruning of the model is done according to the values of the trained gates. The values of the gates are stored at the Attention level, and to get them we need to transfer this request from the external class of the gated model down to the attention class. This is done using the functions get_gate_values
 Another two functions that transfer instruction from the external class of the model down to its components are “apply_gates” and “remove_gates”, that enable and disable the gate using the attributes “has_gate” in the internal classes.
 
-Code additions to BertAttention as can be seen in [gated_bert_model.py](https://gitee.com/mindspore/golden-stick/tree/master/mindspore_gs/pruner/heads/lrp/bert/archs/gated_bert_model.py):
+Code additions to BertAttention as can be seen in [gated_bert_model.py](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/heads/lrp/bert/archs/gated_bert_model.py):
 
 ```text
 class BertAttention
