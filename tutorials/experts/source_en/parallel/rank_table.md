@@ -52,7 +52,7 @@ The directory structure is as follows:
     ...
 ```
 
-`allgather_test.py` defines the network structure, `run_ran_table.sh`, `run_ran_table_cluster.sh` are executing the scripts, and `hostfile` is configuring multi-machine multi-card files.
+`allgather_test.py` defines the network structure, `run_ran_table.sh`, and `run_ran_table_cluster.sh` are executing the scripts.
 
 ### 1. Preparing Python Training Scripts
 
