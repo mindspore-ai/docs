@@ -339,7 +339,7 @@ def net(x, y):
 out = mindspore.grad(net, grad_position=0)(x, y)
 print("out", out)
 out1 = mindspore.grad(net, grad_position=1)(x, y)
-print("out1", out)
+print("out1", out1)
 ```
 
 ```text
