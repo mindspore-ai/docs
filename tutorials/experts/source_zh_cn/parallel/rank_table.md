@@ -52,7 +52,7 @@
     ...
 ```
 
-其中，`allgather_test.py`是定义网络结构，`run_ran_table.sh`、`run_ran_table_cluster.sh`是执行脚本，`hostfile`是配置多机多卡的文件。
+其中，`allgather_test.py`是定义网络结构，`run_ran_table.sh`、`run_ran_table_cluster.sh`是执行脚本。
 
 ### 1. 准备Python训练脚本
 
