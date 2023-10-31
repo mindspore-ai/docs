@@ -177,7 +177,7 @@ for epoch in range(10):
         i += 1
 ```
 
-> This can also be trained using `Model.train`.
+> This can also be trained using [Model.train](https://www.mindspore.cn/docs/en/r2.2/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train).
 
 ### Running Single-machine Eight-card Script
 
