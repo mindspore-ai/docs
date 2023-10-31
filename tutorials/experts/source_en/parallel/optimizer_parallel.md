@@ -6,14 +6,14 @@
 
 When performing data parallel training, the parameter update part of the model is computed redundantly across cards. Optimizer parallelism can effectively reduce memory consumption and improve network performance on large-scale networks (e.g., Bert, GPT) by spreading the computation of the optimizer to the cards of the data parallel dimension.
 
-In data parallel mode to enable optimizer parallelism, the framework will spread the parameters to be updated to different cards, and then do weight sharing among clusters by Broadcast operator after each update. It should be noted that the number of parameters should be greater than the number of machines, and currently only Lamb and AdamWeightDecay optimizers are supported.
+In DATA_PARALLEL mode to enable optimizer parallelism, the framework will spread the parameters to be updated to different cards, and then do weight sharing among clusters by Broadcast operator after each update. It should be noted that the number of parameters should be greater than the number of machines, and currently only Lamb and AdamWeightDecay optimizers are supported.
 
 In AUTO_PARALLEL or SEMI_AUTO_PARALLEL mode to enable optimizer parallelism, if the parameters after slicing strategy have duplicate slices between machines and the highest dimension of the shape is divisible by the cardinality of the duplicate slices, the framework saves the parameters as minimal slices and updates them in the optimizer. All optimizers are supported in this mode.
 
 | Parallel mode      | Parameter update mode                                        | Optimizer support            | Backend support      |
 | ------------- | --------------------------------------------------- | --------------------- | --------|
 | Data parallelism      | The parameter groups are updated, then are broadcasted to all cards                      | Lamb, AdamWeightDecay和AdaFactor | Ascend |
-| Full/semi-automatic parallel | The parameters are sliced into N copies according to data parallelism, and each card updates the parameters on the current card | all optimizers            | Ascend, GPU |
+| Automatic/semi-automatic parallel | The parameters are sliced into N copies according to data parallelism, and each card updates the parameters on the current card | all optimizers            | Ascend, GPU |
 
 In either mode, the optimizer parallelism does not affect the compute graph of the original forward and backward network, but only the compute volume and compute logic of the parameter updates.
 
