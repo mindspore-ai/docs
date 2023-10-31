@@ -12,12 +12,12 @@ Related interfaces:
 
 1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)`: Sets the semi-automatic parallel mode, which must be called before initializing the network.
 
-2. `mindspore.ops.Primitive.shard()`: Specify the operator slicing strategy, see `Basic Principle` in this chapter for detailed examples.
+2. `mindspore.ops.Primitive.shard()`: Specify the operator slicing strategy, see [Basic Principle](#basic-principle) in this chapter for detailed examples.
 
 3. `mindspore.ops.Primitive.add_prim_attr()`: To meet different scenario requirements, some operators can be configured for their distributed implementation via the `add_prim_attr` interface, and these configurations are only available for `SEMI_AUTO_PARALLEL` and `AUTO_PARALLEL` modes, for example:
 
     - `ops.Gather().add_prim_attr("manual_split", split_tuple)`: This interface configures the first input of the Gather operator to be non-uniformly sliced, which is only valid for axis=0. `split_tuple` is a tuple with elements of type int, the sum of the elements must be equal to the length of the 0th dimension of the first input in the Gather operator, and the number of tuples must be equal to the number of 0th dimensional slices of the first input in the Gather operator.
-    - `ops.Gather()add_prim_attr("primitive_target", "CPU")`: This interface configures the Gather operator to execute on the CPU for heterogeneous scenarios.
+    - `ops.Gather().add_prim_attr("primitive_target", "CPU")`: This interface configures the Gather operator to execute on the CPU for heterogeneous scenarios.
 
 ## Basic Principle
 
@@ -35,7 +35,7 @@ Tensor Redistribution is used to handle the conversion between different Tensor 
 
 *Figure: Tensor is sliced to redistribution of four nodes*
 
-Users can set the sharding strategy of the operator by using the shard() interface, which describes how each dimension of each input tensor of the operator is sliced. For example, MatMul.shard(((a, b), (b, c))) means that MatMul has two input tensors, and the rows of the first input tensor are uniformly sliced in a copies and the columns are uniformly sliced in b copies. The rows of the second input tensor are uniformly sliced in b copies and the columns are uniformly sliced in a copies.
+Users can set the sharding strategy of the operator by using the shard() interface, which describes how each dimension of each input tensor of the operator is sliced. For example, MatMul.shard(((a, b), (b, c))) means that MatMul has two input tensors, and the rows of the first input tensor are uniformly sliced in a copies and the columns are uniformly sliced in b copies. The rows of the second input tensor are uniformly sliced in b copies and the columns are uniformly sliced in c copies.
 
 ```python
 import mindspore.nn as nn
