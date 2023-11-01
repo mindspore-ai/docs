@@ -17,7 +17,7 @@ import sys
 # -- Project information -----------------------------------------------------
 
 project = 'MindInsight'
-copyright = '2023, MindInsight'
+copyright = 'MindSpore'
 author = 'MindInsight'
 
 # The full version, including alpha/beta/rc tags
