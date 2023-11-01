@@ -36,7 +36,7 @@ with open(sphinx_mathjax.__file__, "r", encoding="utf-8") as f:
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore'
-copyright = '2023, MindSpore'
+copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
