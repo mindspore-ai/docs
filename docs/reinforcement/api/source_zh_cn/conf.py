@@ -25,7 +25,7 @@ import mindspore_rl
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore Reinforcement Learning'
-copyright = '2021, MindSpore'
+copyright = '2023, MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
