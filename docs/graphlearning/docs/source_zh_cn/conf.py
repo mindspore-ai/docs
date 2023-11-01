@@ -31,7 +31,7 @@ with open('../_ext/overwriteviewcode.txt', 'r', encoding="utf8") as f:
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore'
-copyright = '2022, MindSpore'
+copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags

@@ -106,7 +106,7 @@ with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore'
-copyright = '2022, MindSpore'
+copyright = 'MindSpore'
 author = 'MindSpore'
 # language = 'cn'
 # The full version, including alpha/beta/rc tags
