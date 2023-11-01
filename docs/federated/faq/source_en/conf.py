@@ -17,7 +17,7 @@ import sys
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore Federated'
-copyright = '2023, MindSpore Federated'
+copyright = 'MindSpore'
 author = 'MindSpore Federated'
 
 # The full version, including alpha/beta/rc tags
