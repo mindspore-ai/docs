@@ -26,7 +26,7 @@ import mindspore
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore'
-copyright = '2023, MindSpore'
+copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
