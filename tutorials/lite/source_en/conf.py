@@ -17,7 +17,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore Lite'
-copyright = '2020, MindSpore Lite'
+copyright = '2023, MindSpore Lite'
 author = 'MindSpore Lite'
 
 # The full version, including alpha/beta/rc tags
