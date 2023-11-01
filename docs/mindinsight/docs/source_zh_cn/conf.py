@@ -36,7 +36,7 @@ import mindinsight
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore'
-copyright = '2022, MindSpore'
+copyright = 'MindSpore'
 author = 'MindSpore'
 language = 'cn'
 
