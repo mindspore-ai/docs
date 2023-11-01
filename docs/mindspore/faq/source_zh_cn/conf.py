@@ -18,7 +18,7 @@ from sphinx import errors as searchtools_path
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore'
-copyright = '2023, MindSpore'
+copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
