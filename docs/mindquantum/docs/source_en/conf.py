@@ -23,7 +23,7 @@ import mindquantum
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore'
-copyright = '2022, MindSpore'
+copyright = 'MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
