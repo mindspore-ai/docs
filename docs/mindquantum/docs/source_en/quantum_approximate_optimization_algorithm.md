@@ -204,7 +204,7 @@ $$
 |\psi(\gamma,\beta)\rangle=\prod^p_{l=1}e^{-i\beta_l H_B}e^{-i\gamma_l H_C}|\psi_{in}\rangle
 $$
 
-Thus the ansatz line we need to build consists of $U_C(\gamma)$ and $U_B(\beta)$ which alternate the two unitary transformations, where $U_C(\gamma)=e^{-i\gamma \sum_{\langle i,j\rangle}Z_i Z_j}$ can be implemented by the [Rzz](https://www.mindspore.cn/mindquantum/docs/en/master/mindquantum.core.gates.Rzz.html#mindquantum.core.gates.Rzz) gate. $U_B(\beta)=e^{-i\beta \sum_i X_i}$ is then equivalent to acting a [RX](https://www.mindspore.cn/mindquantum/docs/en/master/mindquantum.core.gates.RX.html#mindquantum.core.gates.RX) revolving gate on each quantum bit, with $\gamma$ and $\beta$ as trainable parameters.
+Thus the ansatz line we need to build consists of $U_C(\gamma)$ and $U_B(\beta)$ which alternate the two unitary transformations, where $U_C(\gamma)=e^{-i\gamma \sum_{\langle i,j\rangle}Z_i Z_j}$ can be implemented by the [Rzz](https://www.mindspore.cn/mindquantum/docs/en/master/core/mindquantum.core.gates.Rzz.html#mindquantum.core.gates.Rzz) gate. $U_B(\beta)=e^{-i\beta \sum_i X_i}$ is then equivalent to acting a [RX](https://www.mindspore.cn/mindquantum/docs/en/master/core/mindquantum.core.gates.RX.html#mindquantum.core.gates.RX) revolving gate on each quantum bit, with $\gamma$ and $\beta$ as trainable parameters.
 
 Build the quantum circuit corresponding to $U_C(\gamma)$:
 
