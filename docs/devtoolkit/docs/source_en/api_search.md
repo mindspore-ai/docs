@@ -6,7 +6,7 @@
 
 * You can quickly search for MindSpore APIs and view API details in the sidebar.
 * If you use other machine learning frameworks, you can search for APIs of other mainstream frameworks to match MindSpore APIs.
-* The data version of API mapping supports switching, and please refer to the section [API Mapping - Version Switching](https://www.mindspore.cn/devtoolkit/docs/en/r2.2/Pycharm_change_version.html) for details.
+* The data version of API mapping supports switching, and please refer to the section [API Mapping - Version Switching](https://www.mindspore.cn/devtoolkit/docs/en/r2.2/PyCharm_change_version.html) for details.
 
 ## Procedure
 
