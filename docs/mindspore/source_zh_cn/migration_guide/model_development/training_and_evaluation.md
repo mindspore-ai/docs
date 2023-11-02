@@ -1,26 +1,26 @@
-# Inference and Training Process
+# 训练及推理流程
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/training_and_evaluation_procession.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/training_and_evaluation.md)
 
-## General Operating Environment Settings
+## 通用运行环境设置
 
-We generally need to set up the operating environment before network training and inference, and a general operating environment configuration is given here.
+我们在进行网络训练和推理前，一般需要先进行运行环境设置，这里给出一个通用的运行环境配置：
 
 ```python
 import mindspore as ms
 from mindspore.communication.management import init, get_rank, get_group_size
 
 def init_env(cfg):
-    """Initialize the operating environment."""
+    """初始化运行时环境."""
     ms.set_seed(cfg.seed)
-    # If device_target is set to None, use the framework to get device_target automatically, otherwise use the set one.
+    # 如果device_target设置是None，利用框架自动获取device_target，否则使用设置的。
     if cfg.device_target != "None":
         if cfg.device_target not in ["Ascend", "GPU", "CPU"]:
             raise ValueError(f"Invalid device_target: {cfg.device_target}, "
                              f"should be in ['None', 'Ascend', 'GPU', 'CPU']")
         ms.set_context(device_target=cfg.device_target)
 
-    # Configure operation mode, and support graph mode and PYNATIVE mode
+    # 配置运行模式，支持图模式和PYNATIVE模式
     if cfg.context_mode not in ["graph", "pynative"]:
         raise ValueError(f"Invalid context_mode: {cfg.context_mode}, "
                          f"should be in ['graph', 'pynative']")
@@ -28,18 +28,18 @@ def init_env(cfg):
     ms.set_context(mode=context_mode)
 
     cfg.device_target = ms.get_context("device_target")
-    # If running on CPU, not configure multiple-cards environment
+    # 如果是CPU上运行的话，不配置多卡环境
     if cfg.device_target == "CPU":
         cfg.device_id = 0
         cfg.device_num = 1
         cfg.rank_id = 0
 
-    # Set the card to be used at runtime
+    # 设置运行时使用的卡
     if hasattr(cfg, "device_id") and isinstance(cfg.device_id, int):
         ms.set_context(device_id=cfg.device_id)
 
     if cfg.device_num > 1:
-        # The init method is used to initialize multiple cards, and does not distinguish between Ascend and GPU. get_group_size and get_rank can only be used after init
+        # init方法用于多卡的初始化，不区分Ascend和GPU，get_group_size和get_rank方法只能在init后使用
         init()
         print("run distribute!", flush=True)
         group_size = get_group_size()
@@ -55,7 +55,7 @@ def init_env(cfg):
         print("run standalone!", flush=True)
 ```
 
-cfg is the parameter configuration file. Using this template requires at least the following parameters to be configured.
+其中cfg是参数配置文件，使用此通用模板至少需要配置以下参数：
 
 ```yaml
 seed: 1
@@ -65,20 +65,20 @@ device_num: 1
 device_id: 0
 ```
 
-The above procedure is just a basic configuration of the operating environment. If you need to add some advanced features, please refer to [set_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context).
+上面这个过程只是一个最基本的运行环境配置，如需要添加一些高级的功能，请参考[set_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context)。
 
-## Generic Scripting Framework
+## 通用脚本架
 
-A generic [script rack](https://gitee.com/mindspore/models/tree/master/utils/model_scaffolding) provided by the models bin is used for:
+models仓提供的一个通用的[脚本架](https://gitee.com/mindspore/models/tree/master/utils/model_scaffolding)用于：
 
-1. yaml parameter file parsing, parameter obtaining
-2. ModelArts unified tool both on the cloud and on-premise
+1. yaml参数文件解析，参数获取
+2. ModelArts云上云下统一工具
 
-The python files in the src directory are placed in the model_utils directory for use, e.g. [resnet](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet/src/model_utils).
+一般会将src目录下的python文件放到model_utils目录下进行使用，如[resnet](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet/src/model_utils)。
 
-## Inference Process
+## 推理流程
 
-A generic inference process is as follows:
+一个通用的推理流程如下：
 
 ```python
 import mindspore as ms
@@ -89,36 +89,36 @@ from src.dataset import create_dataset
 from src.utils import init_env
 from src.model_utils.config import config
 
-# Initialize the operating environment
+# 初始化运行时环境
 init_env(config)
-# Constructing dataset objects
+# 构造数据集对象
 dataset = create_dataset(config, is_train=False)
-# Network model, task-related
+# 网络模型，和任务有关
 net = Net()
-# Loss function, task-related
+# 损失函数，和任务有关
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-# Load the trained parameters
+# 加载训练好的参数
 ms.load_checkpoint(config.checkpoint_path, net)
-# Encapsulation into Model
+# 封装成Model
 model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
-# Model inference
+# 模型推理
 res = model.eval(dataset)
 print("result:", res, "ckpt=", config.checkpoint_path)
 ```
 
-Generally, the source code for network construction and data processing will be placed in the `src` directory, and the scripting framework will be placed in the `src.model_utils` directory. For example, you can refer to the implementation in [MindSpore models](https://gitee.com/mindspore/models).
+一般网络构造，数据处理等源代码会放到`src`目录下，脚本架会放到`src.model_utils`目录下，具体示例可以参考[MindSpore models](https://gitee.com/mindspore/models)里的实现。
 
-The inference process cannot be encapsulated into a Model for operation sometimes, and then the inference process can be expanded into the form of a for loop. See [ssd inference](https://gitee.com/mindspore/models/blob/master/official/cv/SSD/eval.py).
+有的时候推理流程无法包成Model进行操作，这时可以将推理流程展开成for循环的形式，可以参考[ssd 推理](https://gitee.com/mindspore/models/blob/master/official/cv/SSD/eval.py)。
 
-### Inference Verification
+### 推理验证
 
-In the model analysis and preparation phase, we get the trained parameters of the reference implementation (in the reference implementation README or for training replication). Since the implementation of the model algorithm is not related to the framework, the trained parameters can be first converted into MindSpore [checkpoint](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) and loaded into the network for inference verification.
+在模型分析与准备阶段，我们会拿到参考实现的训练好的参数（参考实现README里或者进行训练复现）。由于模型算法的实现是和框架没有关系的，训练好的参数可以先转换成MindSpore的[checkpoint](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html)文件加载到网络中进行推理验证。
 
-Please refer to [resnet network migration](https://www.mindspore.cn/docs/en/master/migration_guide/sample_code.html) for the whole process of inference verification.
+整个推理验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html)。
 
-## Training Process
+## 训练流程
 
-A general training process is as follows:
+一个通用的训练流程如下：
 
 ```python
 import mindspore as ms
@@ -132,32 +132,32 @@ from src.model_utils.moxing_adapter import moxing_wrapper
 
 @moxing_wrapper()
 def train_net():
-    # Initialize the operating environment
+    # 初始化运行时环境
     init_env(config)
-    # Constructing dataset objects
+    # 构造数据集对象
     dataset = create_dataset(config, is_train=False)
-    # Network model, task-related
+    # 网络模型，和任务有关
     net = Net()
-    # Loss function, task-related
+    # 损失函数，和任务有关
     loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-    # Optimizer implementation, task-related
+    # 优化器实现，和任务有关
     optimizer = nn.Adam(net.trainable_params(), config.lr, weight_decay=config.weight_decay)
-    # Encapsulation into Model
+    # 封装成Model
     model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
-    # checkpoint saving
+    # checkpoint保存
     config_ck = CheckpointConfig(save_checkpoint_steps=dataset.get_dataset_size(),
                                          keep_checkpoint_max=5)
     ckpt_cb = ModelCheckpoint(prefix="resnet", directory="./checkpoint", config=config_ck)
-    # Model training
+    # 模型训练
     model.train(config.epoch, dataset, callbacks=[LossMonitor(), TimeMonitor()])
 
 if __name__ == '__main__':
     train_net()
 ```
 
-Please refer to [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) for checkpoint saving.
+其中checkpoint保存请参考[保存与加载](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html)。
 
-In addition, the training process can be constructed through a functional approach, which is more flexible:
+此外，可以使用函数式的方法构造训练流程，这个过程更加的灵活：
 
 ```python
 import mindspore as ms
@@ -165,19 +165,19 @@ from mindspore import ops, nn
 from mindspore.amp import StaticLossScaler, all_finite
 
 class Trainer:
-    """A training example with two losses"""
+    """一个有两个loss的训练示例"""
     def __init__(self, net, loss1, loss2, optimizer, train_dataset, loss_scale=1.0, eval_dataset=None, metric=None):
         self.net = net
         self.loss1 = loss1
         self.loss2 = loss2
         self.opt = optimizer
         self.train_dataset = train_dataset
-        self.train_data_size = self.train_dataset.get_dataset_size()    # Get the number of training set batches
+        self.train_data_size = self.train_dataset.get_dataset_size()    # 获取训练集batch数
         self.weights = self.opt.parameters
-        # Note that the first parameter of value_and_grad needs to be a graph that needs to be gradient-derived, typically containing a network and a loss. Here it can be a function, or a Cell
+        # 注意value_and_grad的第一个参数需要是需要做梯度求导的图，一般包含网络和loss。这里可以是一个函数，也可以是Cell
         self.value_and_grad = ms.value_and_grad(self.forward_fn, None, weights=self.weights, has_aux=True)
 
-        # Use in the distributed scenario
+        # 分布式场景使用
         self.grad_reducer = self.get_grad_reducer()
         self.loss_scale = StaticLossScaler(loss_scale)
         self.run_eval = eval_dataset is not None
@@ -189,14 +189,14 @@ class Trainer:
     def get_grad_reducer(self):
         grad_reducer = ops.identity
         parallel_mode = ms.get_auto_parallel_context("parallel_mode")
-        # Determine whether it is a distributed scenario, and refer to the above generic runtime environment settings for the distributed scenario settings
+        # 判断是否是分布式场景，分布式场景的设置参考上面通用运行环境设置
         reducer_flag = (parallel_mode != ms.ParallelMode.STAND_ALONE)
         if reducer_flag:
             grad_reducer = nn.DistributedGradReducer(self.weights)
         return grad_reducer
 
     def forward_fn(self, inputs, labels):
-        """Positive network construction. Note that the first output must be the one that requires the gradient at the end"""
+        """正向网络构建，注意第一个输出必须是最后需要求梯度的那个输出"""
         logits = self.net(inputs)
         loss1 = self.loss1(logits, labels)
         loss2 = self.loss2(logits, labels)
@@ -204,7 +204,7 @@ class Trainer:
         loss = self.loss_scale.scale(loss)
         return loss, loss1, loss2
 
-    @ms.jit    # jit acceleration, need to meet the requirements of graph mode build, otherwise it will report an error
+    @ms.jit    # jit加速，需要满足图模式构建的要求，否则会报错
     def train_single(self, inputs, labels):
         (loss, loss1, loss2), grads = self.value_and_grad(inputs, labels)
         loss = self.loss_scale.unscale(loss)
@@ -220,13 +220,13 @@ class Trainer:
         train_dataset = self.train_dataset.create_dict_iterator()
         self.net.set_train(True)
         for epoch in range(epochs):
-            # Training an epoch
+            # 训练一个epoch
             for batch, data in enumerate(train_dataset):
                 loss, loss1, loss2 = self.train_single(data["image"], data["label"])
                 if batch % 100 == 0:
                     print(f"step: [{batch} /{self.train_data_size}] "
                           f"loss: {loss}, loss1: {loss1}, loss2: {loss2}", flush=True)
-            # Reason and save the best checkpoint
+            # 推理并保存最好的那个checkpoint
             if self.run_eval:
                 eval_dataset = self.eval_dataset.create_dict_iterator(num_epochs=1)
                 self.net.set_train(False)
@@ -237,16 +237,16 @@ class Trainer:
                 accuracy = self.metric.eval()
                 print(f"epoch {epoch}, accuracy: {accuracy}", flush=True)
                 if accuracy >= self.best_acc:
-                    # Save the best checkpoint
+                    # 保存最好的那个checkpoint
                     self.best_acc = accuracy
                     ms.save_checkpoint(self.net, "best.ckpt")
                     print(f"Updata best acc: {accuracy}")
                 self.net.set_train(True)
 ```
 
-### Distributed Training
+### 分布式训练
 
-The multi-card distributed training process is the same as the single-card training process, except for the distributed-related configuration items and gradient aggregation. It should be noted that multi-card parallelism actually starts multiple python processes on MindSpore, and before MindSpore version 1.8, on Ascend environment, multiple processes need to be started manually.
+多卡分布式训练除了分布式相关的配置项和梯度聚合外，其他部分和单卡的训练流程是一样的。需要注意的是多卡并行其实在MindSpore上是起多个python的进程执行的，在MindSpore1.8版本以前，在Ascend环境上，需要手动起多个进程：
 
 ```shell
 if [ $# != 4 ]
@@ -301,7 +301,7 @@ do
 done
 ```
 
-After MindSpore 1.8, it can be launched with mpirun as well as the GPU.
+MindSpore1.8之后，可以和GPU一样使用mpirun启动：
 
 ```shell
 if [ $# != 2 ]
@@ -334,10 +334,10 @@ cd $BASE_PATH
 mpirun --allow-run-as-root -n $RANK_SIZE python ../train.py --config_path=$CONFIG_FILE --device_num=$RANK_SIZE > log.txt 2>&1 &
 ```
 
-If on the GPU, you can set which cards to use by `export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7`. Specifying the card number is not currently supported on Ascend.
+如果在GPU上，可以通过`export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7`来设置使用哪些卡，Ascend上目前不支持指定卡号。
 
-Please refer to [Distributed Case](https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_case.html) for more details.
+详情请参考[分布式案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_case.html)。
 
-## Offline Inference
+## 离线推理
 
-In addition to the possibility of online reasoning, MindSpore provides many offline inference methods for different environments. Please refer to [Model Inference](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html) for details.
+除了可以在线推理外，MindSpore提供了很多离线推理的方法适用于不同的环境，详情请参考[模型推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/inference.html)。

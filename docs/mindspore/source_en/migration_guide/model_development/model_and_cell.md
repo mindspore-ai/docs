@@ -4,6 +4,22 @@
 
 Before reading this section, read the tutorials [Loss Function](https://www.mindspore.cn/tutorials/en/master/advanced/modules/loss.html) on the MindSpore official website first.
 
+## Basic Logic
+
+The basic logic of PyTorch and MindSpore is shown below:
+
+![flowchart](./images/pytorch_mindspore_comparison_en.png)
+
+It can be seen that PyTorch and MindSpore generally require network definition, forward computation, backward computation, and gradient update steps in the implementation process.
+
+- Network definition: In the network definition, the desired forward network, loss function, and optimizer are generally defined. To define the forward network in Net(), PyTorch network inherits from nn.Module; similarly, MindSpore network inherits from nn.Cell. In MindSpore, the loss function and optimizers can be customized in addition to using those provided in MindSpore. You can refer to [Model Module Customization](https://mindspore.cn/tutorials/en/master/advanced/modules.html). Interfaces such as functional/nn can be used to splice the required forward networks, loss functions and optimizers.
+
+- Forward computation: Run the instantiated network to get the logit, and use the logit and target as inputs to calculate the loss. It should be noted that if the forward function has more than one output, you need to pay attention to the effect of more than one output on the result when calculating the backward function.
+
+- Backward computation: After getting the loss, we can do the backward calculation. In PyTorch the gradient can be computed using loss.backward(), and in MindSpore, the gradient can be computed by first defining the backward propagation equation net_backward using mindspore.grad(), and then passing the input into net_backward. If the forward function has more than one output, you can set has_aux to True to ensure that only the first output is involved in the derivation, and the other outputs will be returned directly in the backward calculation. For the difference in interface usage in the backward calculation, see [Automatic Differentiation](./gradient.md).
+
+- Gradient update: Update the computed gradient into the Parameters of the network. Use optim.step() in PyTorch, while in MindSpore, pass the gradient of the Parameter into the defined optim to complete the gradient update.
+
 ## Network Basic Unit: Cell
 
 MindSpore uses [Cell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell) to construct graphs. You need to define a class that inherits the `Cell` base class, declare the required APIs and submodules in `init`, and perform calculation in `construct`. `Cell` compiles a computational graph in `GRAPH_MODE` (static graph mode). It is used as the basic module of neural network in `PYNATIVE_MODE` (dynamic graph mode). The basic `Cell` setup process is as follows:
@@ -27,6 +43,8 @@ my_net = MyCell(inner_net)
 print(my_net.trainable_params())
 ```
 
+Outputs:
+
 ```text
 [Parameter (name=net.weight, shape=(240, 120, 4, 4), dtype=Float32, requires_grad=True)]
 ```
@@ -35,7 +53,7 @@ A parameter name is generally formed based on an object name defined by `__init_
 
 The cell provides the `auto_prefix` interface to determine whether to add object names to parameter names in the cell. The default value is `True`, that is, object names should be added. If `auto_prefix` is set to `False`, the `name` of `Parameter` printed in the preceding example is `weight`. In general, the backbone network should be set to True. The cell for training, such as optimizer and :class:`mindspore.nn.TrainOneStepCell`, should be set to False, to avoid the parameter name in backbone be changed by mistake.
 
-### Unit Test
+## Unit Test
 
 After the `Cell` is set up, you are advised to build a unit test method for each `Cell` and compare it with the benchmarking code. In the preceding example, the PyTorch build code is as follows:
 
@@ -57,6 +75,8 @@ pt_net = MyCell_pt(inner_net_pt)
 for i in pt_net.parameters():
     print(i.shape)
 ```
+
+Outputs:
 
 ```text
 torch.Size([240, 120, 4, 4])
@@ -117,17 +137,19 @@ diff = np.max(np.abs(y_ms.asnumpy() - y_pt.detach().numpy()))
 print(diff)
 ```
 
+Outputs:
+
 ```text
 2.9355288e-06
 ```
 
 The overall error is about 0.01%, which basically meets the expectation. **During cell migration, you are advised to perform a unit test on each cell to ensure migration consistency.**
 
-### Common Methods of Cells
+## Common Methods of Cells
 
 `Cell` is the basic unit of the neural network in MindSpore. It provides many flag setting and easy-to-use methods. The following describes some common methods.
 
-#### Manual Mixed-precision
+### Manual Mixed-precision
 
 MindSpore provides an auto mixed precision method. For details, see the amp_level attribute in [Model](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model).
 
@@ -179,6 +201,70 @@ net_with_loss = nn.WithLossCell(net, loss_fn=loss)
 ```
 
 The customized `to_float` conflicts with the `amp_level` in the model. If the customized mixing precision is used, do not set the `amp_level` in the model.
+
+### Parameters Initialization
+
+#### Different Default Weight Initialization
+
+We know that weight initialization is very important for network training. Generally, each nn interface has an implicit declaration weight. In different frameworks, the implicit declaration weight may be different. Even if the operator functions are the same, if the implicitly declared weight initialization mode distribution is different, the training process is affected or even cannot be converged.
+
+Common nn interfaces that implicitly declare weights include Conv, Dense(Linear), Embedding, and LSTM. The Conv and Dense operators differ greatly. The Conv and Dense operators of MindSpore and PyTorch have the same distribution of weight and bias initialization methods for implicit declarations.
+
+- Conv2d
+
+    - mindspore.nn.Conv2d (weight: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$, bias: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$)
+    - torch.nn.Conv2d (weight: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$, bias: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$)
+    - tf.keras.Layers.Conv2D (weight: glorot_uniform, bias: zeros)
+
+    In the preceding information, $k=\frac{groups}{c_{in}*\prod_{i}^{}{kernel\_size[i]}}$
+
+- Dense(Linear)
+
+    - mindspore.nn.Dense (weight: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$, bias: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$)
+    - torch.nn.Linear (weight: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$, bias: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$)
+    - tf.keras.Layers.Dense (weight: glorot_uniform, bias: zeros)
+
+    In the preceding information, $k=\frac{groups}{in\_features}$
+
+For a network without normalization, for example, a GAN network without the BatchNorm operator, the gradient is easy to explode or disappear. Therefore, weight initialization is very important. Developers should pay attention to the impact of weight initialization.
+
+#### Parameter Initializations APIs Comparison
+
+Every API from `torch.nn.init` could correspond to MindSpore, except `torch.nn.init.calculate_gain()`. For more information, please refer to [PyTorch and MindSpore API Mapping Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html).
+
+> `gain` is used to describe the influence of the non-linearity to the standard deviation of the data. Because non-linearity will affect the standard deviation, the gradient may explode or vanish.
+
+- torch.nn.init
+
+  `torch.nn.init` takes a Tensor as input, and the input Tensor will be changed to the target in-place.
+
+  ```python
+
+  import torch
+
+  x = torch.empty(2, 2)
+  torch.nn.init.uniform_(x)
+
+  ```
+
+  After running the code above, x is no longer an uninitialized Tensor, and its elements will follow the uniform distribution.
+
+- mindspore.common.initializer
+
+  `mindspore.common.initializer` is used for delayed initialization in parallel mode. Only after calling `init_data()`, the elements will be assigned based on its `init`.
+  Every Tensor could only use `init_data` once.
+
+  ```python
+
+  import mindspore
+  from mindspore.common initialzier import initializer, Uniform
+
+  x = initializer(Uniform(), [1, 2, 3], mindspore.float32)
+
+  ```
+
+  After running the code above, `x` is still not fully initialized. If it is used for further calculation, 0 will be used. However, when printing the Tensor, `init_data()`
+  will be called automatically.
 
 #### Customizing Initialization Parameters
 
@@ -241,7 +327,7 @@ for _, cell in net.cells_and_names():
         cell.bias.set_data(ms.common.initializer.initializer("zeros", cell.bias.shape, cell.bias.dtype))
 ```
 
-#### Freezing Parameters
+### Freezing Parameters
 
 `Parameter` has a `requires_grad` attribute to determine whether to update parameters. When `requires_grad=False`, `Parameter` is equivalent to the `buffer` object of PyTorch.
 
@@ -266,6 +352,8 @@ for param in net.trainable_params():
 print(net.trainable_params())
 ```
 
+Outputs:
+
 ```text
 [Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True), Parameter (name=bias, shape=(1,), dtype=Float32, requires_grad=True)]
 [Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True)]
@@ -289,7 +377,7 @@ a = ops.stop_gradient(a)
 y = B(a)
 ```
 
-#### Saving and Loading Parameters
+### Saving and Loading Parameters
 
 MindSpore provides the `load_checkpoint` and `save_checkpoint` methods for saving and loading parameters. Note that when a parameter is saved, the parameter list is saved. When a parameter is loaded, the object must be a cell.
 When loading parameters, you may need to modify the parameter names. In this case, you can directly construct a new parameter list for the `load_checkpoint` to load the parameter list to the cell.
@@ -316,6 +404,8 @@ for param in net.get_parameters():
     print(param.name, param.data.asnumpy())
 ```
 
+Outputs:
+
 ```text
 weight [[-0.0042482  -0.00427286]]
 bias [0.]
@@ -326,15 +416,13 @@ weight [[1. 1.]]
 bias [1.]
 ```
 
-### Dynamic and Static Graphs
+## Dynamic and Static Graphs
 
 For `Cell`, MindSpore provides two image modes: `GRAPH_MODE` (static image) and `PYNATIVE_MODE` (dynamic image). For details, see [Dynamic Image and Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html).
 
 The **inference** behavior of the model in `PyNative` mode is the same as that of common Python code. However, during training, **once a tensor is converted into NumPy for other operations, the gradient of the network is truncated, which is equivalent to detach of PyTorch**.
 
 When `GRAPH_MODE` is used, syntax restrictions usually occur. In this case, graph compilation needs to be performed on the Python code. However, MindSpore does not support the complete Python syntax set. Therefore, there are some restrictions on compiling the `construct` function. For details about the restrictions, see [MindSpore Static Graph Syntax](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
-
-#### Common Restrictions
 
 Compared with the detailed syntax description, the common restrictions are as follows:
 
@@ -353,7 +441,7 @@ Compared with the detailed syntax description, the common restrictions are as fo
     Restriction: Do not perform multi-thread or multi-process processing on data during image composition.
     Measure: Avoid multi-thread processing on the network.
 
-### Customized Backward Network Construction
+## Customized Backward Network Construction
 
 Sometimes, MindSpore does not support some processing and needs to use some third-party library methods. However, we do not want to truncate the network gradient. In this case, what should we do? This section describes how to customize backward network construction to avoid this problem in `PYNATIVE_MODE`.
 
@@ -404,6 +492,8 @@ grad = ms.grad(sampler, grad_position=0)(x)
 print("dx", grad)
 ```
 
+Outputs:
+
 ```text
 x [[1.2510660e+00 2.1609735e+00 3.4312444e-04 9.0699774e-01 4.4026768e-01]
  [2.7701578e-01 5.5878061e-01 1.0366821e+00 1.1903024e+00 1.6164502e+00]]
@@ -432,6 +522,8 @@ pos_values, pos_indices = sampler(x)
 grad = ms.grad(sampler, grad_position=0)(x)
 print("dx", grad)
 ```
+
+Outputs:
 
 ```text
 x [[1.2519144  1.6760695  0.42116082 0.59430444 2.4022336 ]
@@ -504,6 +596,8 @@ grad = ms.grad(sampler, grad_position=0)(x)
 print("dx", grad)
 ```
 
+Outputs:
+
 ```text
 x [[1.2510660e+00 2.1609735e+00 3.4312444e-04 9.0699774e-01 4.4026768e-01]
  [2.7701578e-01 5.5878061e-01 1.0366821e+00 1.1903024e+00 1.6164502e+00]]
@@ -523,7 +617,7 @@ dx (Tensor(shape=[2, 5], dtype=Float32, value=
 The `bprop` method is added to the `MySampler` class. The input of this method is forward input (expanded write), forward output (a tuple), and output gradient (a tuple). In this method, a gradient-to-input backward propagation process is constructed.
 In batch 0, the values at positions 3, 1, and 3 are randomly selected. The output gradient is 1, and the reverse gradient is `[0.00000000e+000, 1.00000000e+000, 0.00000000e+000, 2.00000000e+000, 0.00000000e+000]`, which meets the expectation.
 
-### Dynamic Shape Workarounds
+## Dynamic Shape Workarounds
 
 Generally, dynamic shape is introduced due to the following reasons:
 
@@ -533,7 +627,7 @@ Generally, dynamic shape is introduced due to the following reasons:
 
 Now, let's look at some workarounds for these scenarios.
 
-#### Input Shape Not Fixed
+### Input Shape Not Fixed
 
 1. You can add pads to the input data to a fixed shape. For example, [Data Processing](https://gitee.com/mindspore/models/blob/master/official/audio/DeepSpeech2/src/dataset.py#L153) of deep_speechv2 specifies the maximum length of `input_length`. Short `input_length` are padded with 0s, and long `input_length` are randomly truncated. Note that this method may affect the training accuracy. Therefore, the training accuracy and training performance need to be balanced.
 
@@ -541,7 +635,7 @@ Now, let's look at some workarounds for these scenarios.
 
 Currently, the support for completely random input shapes is limited and needs to be supported in the new version.
 
-#### Operations that Cause Shape Changes During Network Execution
+### Operations that Cause Shape Changes During Network Execution
 
 In the scenario where tensors with unfixed shapes are generated during network running, the most common method is to construct a mask to filter out values in invalid positions. For example, in the detection scenario, some boxes need to be selected based on the iou results of the prediction box and real box.
 The PyTorch implementation is as follows:
@@ -580,6 +674,8 @@ iou_score = np.random.uniform(0, 1, (3,)).astype(np.float32)
 print("box_select_ms", box_select_ms(ms.Tensor(box), ms.Tensor(iou_score)))
 print("box_select_torch", box_select_torch(torch.from_numpy(box), torch.from_numpy(iou_score)))
 ```
+
+Outputs:
 
 ```text
 box_select_ms [0.14675589 0.09233859 0.18626021 0.34556073]
@@ -664,6 +760,8 @@ cls_loss_ms = m_loss(ms.Tensor(pred), ms.Tensor(label))
 print("cls_loss_ms", cls_loss_ms)
 ```
 
+Outputs:
+
 ```text
 pred [[4.17021990e-01 7.20324516e-01]
  [1.14374816e-04 3.02332580e-01]
@@ -675,7 +773,7 @@ cls_loss_pt tensor(0.7207)
 cls_loss_ms 0.7207259
 ```
 
-#### Shape Changes Introduced by Different Branches of Control Flows
+### Shape Changes Introduced by Different Branches of Control Flows
 
 The following is an example in the model analysis and preparation section:
 
@@ -695,6 +793,8 @@ print(x)
 print(cond)
 print(y)
 ```
+
+Outputs:
 
 ```text
 [4.17021990e-01 7.20324516e-01 1.14374816e-04 3.02332580e-01
@@ -724,6 +824,8 @@ print(cond)
 print(y)
 ```
 
+Outputs:
+
 ```text
 [4.17021990e-01 7.20324516e-01 1.14374816e-04 3.02332580e-01
  1.46755889e-01 9.23385918e-02 1.86260208e-01 3.45560730e-01
@@ -734,3 +836,40 @@ True
 ```
 
 Note that if y is subsequently involved in other calculations, it needs to be passed in mask to do filtering on the valid positions.
+
+## Random Number Strategy Comparison
+
+### Random Number APIs Comparison
+
+There is no difference between the APIs, except that MindSpore is missing `Tensor.random_`, because MindSpore does not support in-place manipulations.
+
+### seed & generator
+
+MindSpore uses `seed` to control the generation of a random number while PyTorch uses `torch.generator`.
+
+1. There are 2 levels of random seed, graph-level and op-level. Graph-level seed is used as a global variable, and in most cases, users do not have to set the graph-level seed, they only care about the op-level seed (the parameter `seed` in the APIs, are all op-level seeds). If a program uses a random generator algorithm twice, the results are different even thought they are using the same seed. Nevertheless, if the user runs the script again, the same results should be obtained. For example:
+
+    ```python
+    # If a random op is called twice within one program, the two results will be different:
+    import mindspore as ms
+    from mindspore import Tensor, ops
+
+    minval = Tensor(1.0, ms.float32)
+    maxval = Tensor(2.0, ms.float32)
+    print(ops.uniform((1, 4), minval, maxval, seed=1))  # generates 'A1'
+    print(ops.uniform((1, 4), minval, maxval, seed=1))  # generates 'A2'
+    # If the same program runs again, it repeat the results:
+    print(ops.uniform((1, 4), minval, maxval, seed=1))  # generates 'A1'
+    print(ops.uniform((1, 4), minval, maxval, seed=1))  # generates 'A2'
+    ```
+
+2. torch.Generator is often used as a key argument. A default generator will be used (torch.default_generator), when the user does not assign one to the function. torch.Generator.seed could be set with the following code:
+
+    ```python
+    G = torch.Generator()
+    G.manual_seed(1)
+    ```
+
+    It is the same as using the default generator with seed=1. e.g.: torch.manual_seed(1).
+
+    The state of a generator in PyTorch is a Tensor of 5056 elements with dtype=uint8. When using the same generator in the script, the state of the generator will be changed. With 2 or more generators, i.e. g1 and g2, user can set g2.set_state(g1.get_state()) to make g2 have the exact same state as g1. In other words, using g2 is the same as using the g1 of that state. If g1 and g2 have the same seed and state, the random number generated by those generator are the same.

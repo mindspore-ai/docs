@@ -31,6 +31,14 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。`keep_prob` 是�
 |      | 参数3 | inplace |  -  | MindSpore无此参数 |
 |      | 参数4 | - |  dtype  | MindSpore废弃参数 |
 
+Dropout 常用于防止训练过拟合，有一个重要的 **概率值** 参数，该参数在 MindSpore 中的意义与 PyTorch 和 TensorFlow 中的意义完全相反。
+
+在 MindSpore 中，概率值对应 Dropout 算子的属性 `keep_prob`，是指输入被保留的概率，`1-keep_prob`是指输入被置 0 的概率。
+
+在 PyTorch 和 TensorFlow 中，概率值分别对应 Dropout 算子的属性 `p`和 `rate`，是指输入被置 0 的概率，与 MindSpore.nn.Dropout 中的 `keep_prob` 意义相反。
+
+在PyTorch中，网络默认是训练模式，而MindSpore默认是推理模式，因此默认情况下网络调用Dropout不会生效，会直接返回输入，需要通过 `net.set_train()` 方法将网络调整为训练模式后，才能真正执行Dropout。
+
 ### 代码示例
 
 > 当inplace输入为False时，两API实现相同的功能。

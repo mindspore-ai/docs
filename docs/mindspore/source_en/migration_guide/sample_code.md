@@ -62,28 +62,28 @@ You can download training logs and saved parameter files from [resnet_pytorch_re
 
 - API analysis
 
-| PyTorch API      | MindSpore API| Different or Not|
-| ---------------------- | ------------------ | ------|
-| `nn.Conv2D`            | `nn.Conv2d`        | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Conv2d.html)|
-| `nn.BatchNorm2D`       | `nn.BatchNom2d`    | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/BatchNorm2d.html)|
-| `nn.ReLU`              | `nn.ReLU`          | No|
-| `nn.MaxPool2D`         | `nn.MaxPool2d`     | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/MaxPool2d.html)|
-| `nn.AdaptiveAvgPool2D` | `nn.AdaptiveAvgPool2D` |  No |
-| `nn.Linear`            | `nn.Dense`         | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Dense.html)|
-| `torch.flatten`        | `nn.Flatten`       | No|
+  | PyTorch API      | MindSpore API| Different or Not|
+  | ---------------------- | ------------------ | ------|
+  | `nn.Conv2D`            | `nn.Conv2d`        | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Conv2d.html)|
+  | `nn.BatchNorm2D`       | `nn.BatchNom2d`    | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/BatchNorm2d.html)|
+  | `nn.ReLU`              | `nn.ReLU`          | No|
+  | `nn.MaxPool2D`         | `nn.MaxPool2d`     | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/MaxPool2d.html)|
+  | `nn.AdaptiveAvgPool2D` | `nn.AdaptiveAvgPool2D` |  No |
+  | `nn.Linear`            | `nn.Dense`         | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Dense.html)|
+  | `torch.flatten`        | `nn.Flatten`       | No|
 
-By checking [PyTorch API Mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html), we find that four APIs are different.
+  By using [MindSpore Dev Toolkit](https://www.mindspore.cn/docs/en/master/migration_guide/migrator_with_tools.html#network-migration-development) tool or checking [PyTorch API Mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html), we find that four APIs are different.
 
 - Function analysis
 
-| PyTorch Function         | MindSpore Function                   |
-| ------------------------- | ------------------------------------- |
-| `nn.init.kaiming_normal_` | `initializer(init='HeNormal')`        |
-| `nn.init.constant_`       | `initializer(init='Constant')`        |
-| `nn.Sequential`           | `nn.SequentialCell`                   |
-| `nn.Module`               | `nn.Cell`                             |
-| `nn.distibuted`           | `set_auto_parallel_context`   |
-| `torch.optim.SGD`         | `nn.optim.SGD` or `nn.optim.Momentum` |
+  | PyTorch Function         | MindSpore Function                   |
+  | ------------------------- | ------------------------------------- |
+  | `nn.init.kaiming_normal_` | `initializer(init='HeNormal')`        |
+  | `nn.init.constant_`       | `initializer(init='Constant')`        |
+  | `nn.Sequential`           | `nn.SequentialCell`                   |
+  | `nn.Module`               | `nn.Cell`                             |
+  | `nn.distibuted`           | `set_auto_parallel_context`   |
+  | `torch.optim.SGD`         | `nn.optim.SGD` or `nn.optim.Momentum` |
 
 (The interface design of MindSpore is different from that of PyTorch. Therefore, only the comparison of key functions is listed here.)
 
@@ -93,35 +93,7 @@ After API and function analysis, we find that there are no missing APIs and func
 
 ### Datasets
 
-The CIFAR-10 dataset of PyTorch is processed as follows:
-
-```python
-import torch
-import torchvision.transforms as trans
-import torchvision
-
-train_transform = trans.Compose([
-    trans.RandomCrop(32, padding=4),
-    trans.RandomHorizontalFlip(0.5),
-    trans.Resize(224),
-    trans.ToTensor(),
-    trans.Normalize([0.4914, 0.4822, 0.4465], [0.2023, 0.1994, 0.2010]),
-])
-test_transform = trans.Compose([
-    trans.Resize(224),
-    trans.RandomHorizontalFlip(0.5),
-    trans.ToTensor(),
-    trans.Normalize([0.4914, 0.4822, 0.4465], [0.2023, 0.1994, 0.2010]),
-])
-train_set = torchvision.datasets.CIFAR10(root='./data', train=True, transform=train_transform)
-train_loader = torch.utils.data.DataLoader(train_set, batch_size=32, shuffle=True)
-test_set = torchvision.datasets.CIFAR10(root='./data', train=False, transform=test_transform)
-test_loader = torch.utils.data.DataLoader(test_set, batch_size=1, shuffle=False)
-```
-
-If the CIFAR-10 dataset does not exist on the local host, you can add `download=True` when using `torchvision.datasets.CIFAR10` to automatically download the dataset.
-
-The CIFAR-10 dataset directory is organized as follows:
+The CIFAR-10 dataset is as follows:
 
 ```text
 └─dataset_path
@@ -135,18 +107,68 @@ The CIFAR-10 dataset directory is organized as follows:
         ├─ test_batch.bin
 ```
 
-This operation is implemented on MindSpore as follows:
+This operation is implemented on PyTorch/MindSpore as follows:
+
+<table>
+<tr>
+<td style="text-align:center"> PyTorch Dataset Processing </td> <td style="text-align:center"> MindSpore Dataset Processing </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+```python
+import torch
+import torchvision.transforms as trans
+import torchvision
+
+train_transform = trans.Compose([
+    trans.RandomCrop(32, padding=4),
+    trans.RandomHorizontalFlip(0.5),
+    trans.Resize(224),
+    trans.ToTensor(),
+    trans.Normalize([0.4914, 0.4822, 0.4465],
+                    [0.2023, 0.1994, 0.2010]),
+])
+
+test_transform = trans.Compose([
+    trans.Resize(224),
+    trans.RandomHorizontalFlip(0.5),
+    trans.ToTensor(),
+    trans.Normalize([0.4914, 0.4822, 0.4465],
+                    [0.2023, 0.1994, 0.2010]),
+])
+# If there is no CIFAR10 dataset locally, set download=True to automatically download
+train_set = torchvision.datasets.CIFAR10(root='./data',
+                                         train=True,
+                                         transform=train_transform)
+train_loader = torch.utils.data.DataLoader(train_set,
+                                           batch_size=32,
+                                           shuffle=True)
+test_set = torchvision.datasets.CIFAR10(root='./data',
+                                        train=False,
+                                        transform=test_transform)
+test_loader = torch.utils.data.DataLoader(test_set,
+                                          batch_size=1,
+                                          shuffle=False)
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 import mindspore as ms
 import mindspore.dataset as ds
 from mindspore.dataset import vision
-from mindspore.dataset.transforms.transforms import TypeCast
+from mindspore.dataset.transforms import TypeCast
 
-def create_cifar_dataset(dataset_path, do_train, batch_size=32, image_size=(224, 224), rank_size=1, rank_id=0):
-    dataset = ds.Cifar10Dataset(dataset_path, shuffle=do_train,
-                                num_shards=rank_size, shard_id=rank_id)
-
+def create_cifar_dataset(dataset_path, do_train, batch_size=32,
+                         image_size=(224, 224),
+                         rank_size=1, rank_id=0):
+    dataset = ds.Cifar10Dataset(dataset_path,
+                                shuffle=do_train,
+                                num_shards=rank_size,
+                                shard_id=rank_id)
     # define map operations
     trans = []
     if do_train:
@@ -154,30 +176,41 @@ def create_cifar_dataset(dataset_path, do_train, batch_size=32, image_size=(224,
             vision.RandomCrop((32, 32), (4, 4, 4, 4)),
             vision.RandomHorizontalFlip(prob=0.5)
         ]
-
     trans += [
         vision.Resize(image_size),
         vision.Rescale(1.0 / 255.0, 0.0),
-        vision.Normalize([0.4914, 0.4822, 0.4465], [0.2023, 0.1994, 0.2010]),
+        vision.Normalize([0.4914, 0.4822, 0.4465],
+                         [0.2023, 0.1994, 0.2010]),
         vision.HWC2CHW()
     ]
-
     type_cast_op = TypeCast(ms.int32)
-
-    data_set = dataset.map(operations=type_cast_op, input_columns="label")
-    data_set = data_set.map(operations=trans, input_columns="image")
-
+    data_set = dataset.map(operations=type_cast_op,
+                           input_columns="label")
+    data_set = data_set.map(operations=trans,
+                            input_columns="image")
     # apply batch operations
-    data_set = data_set.batch(batch_size, drop_remainder=do_train)
+    data_set = data_set.batch(batch_size,
+                              drop_remainder=do_train)
     return data_set
 ```
+
+</pre>
+</td>
+</tr>
+</table>
 
 ### Network Model Implementation
 
 By referring to [PyTorch ResNet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py), we have implemented [MindSpore ResNet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py). The comparison tool shows that the implementation is different in the following aspects:
 
+<table>
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
 ```python
-# Conv2d PyTorch
 nn.Conv2d(
     in_planes,
     out_planes,
@@ -188,9 +221,13 @@ nn.Conv2d(
     bias=False,
     dilation=dilation,
 )
-##########################################
+```
 
-# Conv2d MindSpore
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
 nn.Conv2d(
     in_planes,
     out_planes,
@@ -204,138 +241,291 @@ nn.Conv2d(
 )
 ```
 
+</pre>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
 ```python
-# PyTorch
 nn.Module
-############################################
-# MindSpore
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
 nn.Cell
 ```
 
+</pre>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
 ```python
-# PyTorch
 nn.ReLU(inplace=True)
-############################################
-# MindSpore
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
 nn.ReLU()
 ```
+
+</pre>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
 # PyTorch graph construction
 forward
-############################################
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
 # MindSpore graph construction
 construct
 ```
 
+</pre>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
 ```python
 # PyTorch MaxPool2d with padding
-maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
-############################################
+maxpool = nn.MaxPool2d(kernel_size=3,
+                       stride=2,
+                       padding=1)
+
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
 # MindSpore MaxPool2d with padding
 maxpool = nn.SequentialCell([
-              nn.Pad(paddings=((0, 0), (0, 0), (1, 1), (1, 1)), mode="CONSTANT"),
+              nn.Pad(paddings=((0, 0), (0, 0), (1, 1), (1, 1)),
+                     mode="CONSTANT"),
               nn.MaxPool2d(kernel_size=3, stride=2)])
 ```
 
+</pre>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
 ```python
 # PyTorch AdaptiveAvgPool2d
+
 avgpool = nn.AdaptiveAvgPool2d((1, 1))
-############################################
-# When PyTorch AdaptiveAvgPool2d output shape is set to 1, MindSpore ReduceMean functions the same with higher speed.
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+# When PyTorch AdaptiveAvgPool2d output shape is set to 1,
+# MindSpore ReduceMean functions the same with higher speed.
 mean = ops.ReduceMean(keep_dims=True)
 ```
 
+</pre>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
 ```python
-# PyTorch full connection
+# PyTorch Full Connection
 fc = nn.Linear(512 * block.expansion, num_classes)
-############################################
-# MindSpore full connection
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+# MindSpore Full Connection
 fc = nn.Dense(512 * block.expansion, num_classes)
 ```
+
+</pre>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
 # PyTorch Sequential
 nn.Sequential
-############################################
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
 # MindSpore SequentialCell
 nn.SequentialCell
 ```
 
+</pre>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
 ```python
-# PyTorch initialization
+# PyTorch Initialization
 for m in self.modules():
     if isinstance(m, nn.Conv2d):
-        nn.init.kaiming_normal_(m.weight, mode="fan_out", nonlinearity="relu")
+        nn.init.kaiming_normal_(
+            m.weight,
+            mode="fan_out",
+            nonlinearity="relu")
     elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
-        nn.init.constant_(m.weight, 1)
-        nn.init.constant_(m.bias, 0)
+        nn.init.constant_(
+            m.weight,
+            1)
+        nn.init.constant_(
+            m.bias,
+            0)
 
 # Zero-initialize the last BN in each residual branch,
-# so that the residual branch starts with zeros, and each residual block behaves like an identity.
-# This improves the model by 0.2~0.3% according to https://arxiv.org/abs/1706.02677
+# so that the residual branch starts with zeros,
+# and each residual block behaves like an identity.
+# This improves the model by 0.2~0.3%.
+# Reference: https://arxiv.org/abs/1706.02677
+
 if zero_init_residual:
     for m in self.modules():
-        if isinstance(m, Bottleneck) and m.bn3.weight is not None:
-            nn.init.constant_(m.bn3.weight, 0)  # type: ignore[arg-type]
-        elif isinstance(m, BasicBlock) and m.bn2.weight is not None:
-            nn.init.constant_(m.bn2.weight, 0)  # type: ignore[arg-type]
+        is_bottleneck = isinstance(m, Bottleneck)
+        is_basicblock = isinstance(m, BasicBlock)
+        if is_bottleneck and m.bn3.weight is not None:
+            # type: ignore[arg-type]
+            nn.init.constant_(m.bn3.weight, 0)
+        elif is_basicblock and m.bn2.weight is not None:
+            # type: ignore[arg-type]
+            nn.init.constant_(m.bn2.weight, 0)
+```
 
-############################################
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
-# MindSpore initialization
+```python
+# MindSpore Initialization
+from mindspore import common.initializer
+
 for _, cell in self.cells_and_names():
     if isinstance(cell, nn.Conv2d):
-        cell.weight.set_data(ms.common.initializer.initializer(
-            ms.common.initializer.HeNormal(negative_slope=0, mode='fan_out', nonlinearity='relu'),
+        cell.weight.set_data(initializer.initializer(
+            initializer.HeNormal(negative_slope=0, mode='fan_out',
+                                 nonlinearity='relu'),
             cell.weight.shape, cell.weight.dtype))
     elif isinstance(cell, (nn.BatchNorm2d, nn.GroupNorm)):
-        cell.gamma.set_data(ms.common.initializer.initializer("ones", cell.gamma.shape, cell.gamma.dtype))
-        cell.beta.set_data(ms.common.initializer.initializer("zeros", cell.beta.shape, cell.beta.dtype))
+        cell.gamma.set_data(
+            initializer.initializer("ones", cell.gamma.shape,
+                                    cell.gamma.dtype))
+        cell.beta.set_data(
+            initializer.initializer("zeros", cell.beta.shape,
+                                    cell.beta.dtype))
     elif isinstance(cell, (nn.Dense)):
-        cell.weight.set_data(ms.common.initializer.initializer(
-            ms.common.initializer.HeUniform(negative_slope=math.sqrt(5)),
+        cell.weight.set_data(initializer.initializer(
+            initializer.HeUniform(negative_slope=math.sqrt(5)),
             cell.weight.shape, cell.weight.dtype))
-        cell.bias.set_data(ms.common.initializer.initializer("zeros", cell.bias.shape, cell.bias.dtype))
+        cell.bias.set_data(
+            initializer.initializer("zeros", cell.bias.shape,
+                                    cell.bias.dtype))
 
-# Zero-initialize the last BN in each residual branch,
-# so that the residual branch starts with zeros, and each residual block behaves like an identity.
-# This improves the model by 0.2~0.3% according to https://arxiv.org/abs/1706.02677
 if zero_init_residual:
     for _, cell in self.cells_and_names():
-        if isinstance(cell, Bottleneck) and cell.bn3.gamma is not None:
-            cell.bn3.gamma.set_data("zeros", cell.bn3.gamma.shape, cell.bn3.gamma.dtype)
-        elif isinstance(cell, BasicBlock) and cell.bn2.weight is not None:
-            cell.bn2.gamma.set_data("zeros", cell.bn2.gamma.shape, cell.bn2.gamma.dtype)
+        is_bottleneck = isinstance(cell, Bottleneck)
+        is_basicblock = isinstance(cell, BasicBlock)
+        if is_bottleneck and cell.bn3.gamma is not None:
+            cell.bn3.gamma.set_data("zeros", cell.bn3.gamma.shape,
+                                    cell.bn3.gamma.dtype)
+        elif is_basicblock and cell.bn2.weight is not None:
+            cell.bn2.gamma.set_data("zeros", cell.bn2.gamma.shape,
+                                    cell.bn2.gamma.dtype)
 ```
+
+</pre>
+</td>
+</tr>
+</table>
 
 ### Loss Function
 
-PyTorch:
+<table>
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
 net_loss = torch.nn.CrossEntropyLoss()
 ```
 
-MindSpore:
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 ```
 
+</pre>
+</td>
+</tr>
+</table>
+
 ### Learning Rate and Optimizer
 
-PyTorch:
+<table>
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
-net_opt = torch.optim.Adam(net.parameters(), 0.001, weight_decay=1e-5)
+net_opt = torch.optim.Adam(net.parameters(),
+                           0.001,
+                           weight_decay=1e-5)
 ```
 
-MindSpore:
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
-optimizer = nn.Adam(resnet.trainable_params(), 0.001, weight_decay=1e-5)
+optimizer = ms.nn.Adam(resnet.trainable_params(),
+                    0.001,
+                    weight_decay=1e-5)
 ```
+
+</pre>
+</td>
+</tr>
+</table>
 
 ## Model Validation
 
@@ -350,9 +540,16 @@ The following steps are required:
 
 ### Printing Parameters
 
+<table>
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
 ```python
-import torch
-# Print the parameter names and shapes of all parameters in the PyTorch parameter file and return the parameter dictionary.
+# Print the names and shapes of all parameters in the PyTorch cell
+# Return the parameter dictionary
 def pytorch_params(pth_file):
     par_dict = torch.load(pth_file, map_location='cpu')
     pt_params = {}
@@ -362,28 +559,12 @@ def pytorch_params(pth_file):
         pt_params[name] = parameter.numpy()
     return pt_params
 
-# Print the names and shapes of all parameters in the MindSpore cell and return the parameter dictionary.
-def mindspore_params(network):
-    ms_params = {}
-    for param in network.get_parameters():
-        name = param.name
-        value = param.data.asnumpy()
-        print(name, value.shape)
-        ms_params[name] = value
-    return ms_params
-```
-
-Run the following code:
-
-```python
-from resnet_ms.src.resnet import resnet50 as ms_resnet50
 pth_path = "resnet.pth"
 pt_param = pytorch_params(pth_path)
 print("="*20)
-ms_param = mindspore_params(ms_resnet50(num_classes=10))
 ```
 
-You can obtain the following result:
+Result:
 
 ```text
 conv1.weight (64, 3, 7, 7)
@@ -393,16 +574,44 @@ bn1.running_mean (64,)
 bn1.running_var (64,)
 bn1.num_batches_tracked ()
 layer1.0.conv1.weight (64, 64, 1, 1)
-......
-===========================================
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+# Print the names and shapes of all parameters in the MindSpore cell
+# Return the parameter dictionary
+def mindspore_params(network):
+    ms_params = {}
+    for param in network.get_parameters():
+        name = param.name
+        value = param.data.asnumpy()
+        print(name, value.shape)
+        ms_params[name] = value
+    return ms_params
+
+from resnet_ms.src.resnet import resnet50 as ms_resnet50
+ms_param = mindspore_params(ms_resnet50(num_classes=10))
+print("="*20)
+```
+
+Result:
+
+```text
 conv1.weight (64, 3, 7, 7)
 bn1.moving_mean (64,)
 bn1.moving_variance (64,)
 bn1.gamma (64,)
 bn1.beta (64,)
 layer1.0.conv1.weight (64, 64, 1, 1)
-......
 ```
+
+</pre>
+</td>
+</tr>
+</table>
 
 ### Parameter Mapping and Checkpoint Saving
 
@@ -480,7 +689,7 @@ param = {
 }
 ```
 
-Then, you can obtain the parameter file based on the `param_convert` process. For the case where the network model is TensorFlow, please refer to [File Method for Converting TensorFlow Models to MindSpore Models](https://www.mindspore.cn/docs/en/master/migration_guide/tensorflow2mindspore.html).
+Then, you can obtain the parameter file based on the `param_convert` process.
 
 ### Unit Test
 
@@ -551,7 +760,12 @@ The final result is similar and basically meets the expectation. If the result d
 
 ## Inference Process
 
-PyTorch inference:
+<table>
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
 import torch
@@ -567,12 +781,16 @@ def test_epoch(model, device, data_loader):
     with torch.no_grad():
         for data, target in data_loader:
             output = model(data.to(device))
-            test_loss += F.nll_loss(output, target.to(device), reduction='sum').item() # sum up batch loss
-            pred = output.max(1)[1] # get the index of the max log-probability
+            # sum up batch loss
+            test_loss += F.nll_loss(output, target.to(device),
+                                    reduction='sum').item()
+            # get the index of the max log-probability
+            pred = output.max(1)
+            pred = pred[1]
             correct += pred.eq(target.to(device)).sum().item()
 
     test_loss /= len(data_loader.dataset)
-    print('\nTest set: Average loss: {:.4f}, Accuracy: {:.0f}%\n'.format(
+    print('\nLoss: {:.4f}, Accuracy: {:.0f}%\n'.format(
         test_loss, 100. * correct / len(data_loader.dataset)))
 
 use_cuda = torch.cuda.is_available()
@@ -581,21 +799,27 @@ test_transform = trans.Compose([
     trans.Resize(224),
     trans.RandomHorizontalFlip(0.5),
     trans.ToTensor(),
-    trans.Normalize([0.4914, 0.4822, 0.4465], [0.2023, 0.1994, 0.2010]),
+    trans.Normalize([0.4914, 0.4822, 0.4465],
+                    [0.2023, 0.1994, 0.2010]),
 ])
-test_set = torchvision.datasets.CIFAR10(root='./data', train=False, transform=test_transform)
-test_loader = torch.utils.data.DataLoader(test_set, batch_size=1, shuffle=False)
+test_set = torchvision.datasets.CIFAR10(
+    root='./data', train=False, transform=test_transform)
+test_loader = torch.utils.data.DataLoader(
+    test_set, batch_size=1, shuffle=False)
+
 # 2. define forward network
-net = resnet50(num_classes=10).cuda() if use_cuda else resnet50(num_classes=10)
+if use_cuda:
+    net = resnet50(num_classes=10).cuda()
+else:
+    resnet50(num_classes=10)
+
 net.load_state_dict(torch.load("./resnet.pth", map_location='cpu'))
 test_epoch(net, device, test_loader)
 ```
 
-```text
-Test set: Average loss: -9.7075, Accuracy: 91%
-```
-
-MindSpore implements this process:
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 import numpy as np
@@ -606,7 +830,6 @@ from src.model_utils.moxing_adapter import moxing_wrapper
 from src.model_utils.config import config
 from src.utils import init_env
 from src.resnet import resnet50
-
 
 def test_epoch(model, data_loader, loss_func):
     model.set_train(False)
@@ -619,37 +842,68 @@ def test_epoch(model, data_loader, loss_func):
         correct += (pred == target.asnumpy()).sum()
     dataset_size = data_loader.get_dataset_size()
     test_loss /= dataset_size
-    print('\nTest set: Average loss: {:.4f}, Accuracy: {:.0f}%\n'.format(
+    print('\nLoss: {:.4f}, Accuracy: {:.0f}%\n'.format(
         test_loss, 100. * correct / dataset_size))
-
 
 @moxing_wrapper()
 def test_net():
     init_env(config)
-    eval_dataset = create_dataset(config.dataset_name, config.data_path, False, batch_size=1,
-                                  image_size=(int(config.image_height), int(config.image_width)))
+    eval_dataset = create_dataset(
+        config.dataset_name,
+        config.data_path,
+        False, batch_size=1,
+        image_size=(int(config.image_height),
+        int(config.image_width)))
     resnet = resnet50(num_classes=config.class_num)
     ms.load_checkpoint(config.checkpoint_path, resnet)
-    loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
+    loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True,
+                                            reduction='mean')
     test_epoch(resnet, eval_dataset, loss)
-
 
 if __name__ == '__main__':
     test_net()
 ```
 
-Run the following command:
+</pre>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+Execute:
 
 ```shell
 python test.py --data_path data/cifar10/ --checkpoint_path resnet.ckpt
 ```
 
-You can obtain the following inference accuracy result:
+</pre>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+Result:
+
+```text
+Loss: -9.7075, Accuracy: 91%
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+Result:
 
 ```text
 run standalone!
-Test set: Average loss: 0.3240, Accuracy: 91%
+Loss: 0.3240, Accuracy: 91%
 ```
+
+</pre>
+</td>
+</tr>
+</table>
 
 The inference accuracy is the same.
 

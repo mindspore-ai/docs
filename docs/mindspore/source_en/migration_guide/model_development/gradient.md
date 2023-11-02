@@ -2,6 +2,309 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/gradient.md)
 
+## Automatic Differentiation
+
+Both MindSpore and PyTorch provide the automatic differentiation function. After the forward network is defined, automatic backward propagation and gradient update can be implemented through simple interface invoking. However, it should be noted that MindSpore and PyTorch use different logic to build backward graphs. This difference also brings differences in API design.
+
+<table>
+<tr>
+<td style="text-align:center"> PyTorch Automatic Differentiation </td> <td style="text-align:center"> MindSpore Automatic Differentiation </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+```python
+# Note: The feedback of PyTorch is cumulative, and after updating, the optimizer needs to be cleared.
+
+import torch
+from torch.autograd import Variable
+
+x = Variable(torch.ones(2, 2), requires_grad=True)
+x = x * 2
+y = x - 1
+y.backward(x)
+
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+# ms.grad: forward graph as input, backward graph as output.
+
+import mindspore as ms
+from mindspore import nn
+
+class GradNetWrtX(nn.Cell):
+    def __init__(self, net):
+        super(GradNetWrtX, self).__init__()
+        self.net = net
+
+    def construct(self, x, y):
+        gradient_function = ms.grad(self.net)
+        return gradient_function(x, y)
+```
+
+</pre>
+</td>
+</tr>
+</table>
+
+### PyTorch Automatic Differentiation
+
+As we know, PyTorch is an automatic differentiation based on computation path tracing. After a network structure is defined, no backward graph is created. Instead, during the execution of the forward graph, `Variable` or `Parameter` records the backward function corresponding to each forward computation and generates a dynamic computational graph, it is used for subsequent gradient calculation. When `backward` is called at the final output, the chaining rule is applied to calculate the gradient from the root node to the leaf node. The nodes stored in the dynamic computational graph of PyTorch are actually `Function` objects. Each time an operation is performed on `Tensor`, a `Function` object is generated, which records necessary information in backward propagation. During backward propagation, the `autograd` engine calculates gradients in backward order by using the `backward` of the `Function`. You can view this point through the hidden attribute of the `Tensor`.
+
+### MindSpore Automatic Differentiation
+
+In graph mode, MindSpore's automatic differentiation is based on the graph structure. Different from PyTorch, MindSpore does not record any information during forward computation and only executes the normal computation process (similar to PyTorch in PyNative mode). Then the question comes. If the entire forward computation is complete and MindSpore does not record any information, how does MindSpore know how backward propagation is performed?
+
+When MindSpore performs automatic differentiation, the forward graph structure needs to be transferred. The automatic differentiation process is to obtain backward propagation information by analyzing the forward graph. The automatic differentiation result is irrelevant to the specific value in the forward computation and is related only to the forward graph structure. Through the automatic differentiation of the forward graph, the backward propagation process is obtained. The backward propagation process is expressed through a graph structure, that is, the backward graph. The backward graph is added after the user-defined forward graph to form a final computational graph. However, the backward graph and backward operators added later are not aware of and cannot be manually added. They can only be automatically added through the interface provided by MindSpore. In this way, errors are avoided during backward graph build.
+
+Finally, not only the forward graph is executed, but also the graph structure contains both the forward operator and the backward operator added by MindSpore. That is, MindSpore adds an invisible `Cell` after the defined forward graph, the `Cell` is a backward operator derived from the forward graph.
+
+The interface that helps us build the backward graph is [grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.grad.html).
+
+After that, for any group of data you enter, it can calculate not only the positive output, but also the gradient of ownership weight. Because the graph structure is fixed and does not save intermediate variables, the graph structure can be invoked repeatedly.
+
+Similarly, when we add an optimizer structure to the network, the optimizer also adds optimizer-related operators. That is, we add optimizer operators that are not perceived to the computational graph. Finally, the computational graph is built.
+
+In MindSpore, most operations are finally converted into real operator operations and finally added to the computational graph. Therefore, the number of operators actually executed in the computational graph is far greater than the number of operators defined at the beginning.
+
+MindSpore provides the [TrainOneStepCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TrainOneStepCell.html) and [TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html) APIs to package the entire training process. If other operations, such as gradient cropping, specification, and intermediate variable return, are performed in addition to the common training process, you need to customize the training cell. For details, see [Inference and Training Process](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/training_and_evaluation.html).
+
+### Gradient Derivation
+
+The operator and interface differences involved in gradient derivation are mainly caused by different automatic differentiation principles of MindSpore and PyTorch.
+
+### torch.autograd.backward
+
+[torch.autograd.backward](https://pytorch.org/docs/stable/generated/torch.autograd.backward.html). For a scalar, calling its backward method automatically computes the gradient values of the leaf nodes according to the chaining law. For vectors and matrices, you need to define grad_tensor to compute the gradient of the matrix.
+Typically after calling backward once, PyTorch automatically destroys the computation graph, so to call backward repeatedly on a variable, you need to set the return_graph parameter to True.
+If you need to compute higher-order gradients, you need to set create_graph to True.
+The two expressions z.backward() and torch.autograd.backward(z) are equivalent.
+
+```python
+import torch
+print("=== tensor.backward ===")
+x = torch.tensor(1.0, requires_grad=True)
+y = torch.tensor(2.0, requires_grad=True)
+z = x**2+y
+print("x.grad before backward", x.grad)
+print("y.grad before backward", y.grad)
+z.backward()
+print("z", z)
+print("x.grad", x.grad)
+print("y.grad", y.grad)
+
+print("=== torch.autograd.backward ===")
+x = torch.tensor(1.0, requires_grad=True)
+y = torch.tensor(2.0, requires_grad=True)
+z = x**2+y
+torch.autograd.backward(z)
+print("z", z)
+print("x.grad", x.grad)
+print("y.grad", y.grad)
+```
+
+Outputs:
+
+```text
+=== tensor.backward ===
+x.grad before backward None
+y.grad before backward None
+z tensor(3., grad_fn=<AddBackward0>)
+x.grad tensor(2.)
+y.grad tensor(1.)
+=== torch.autograd.backward ===
+z tensor(3., grad_fn=<AddBackward0>)
+x.grad tensor(2.)
+y.grad tensor(1.)
+```
+
+It can be seen that before calling the backward function, x.grad and y.grad functions are empty. And after the backward calculation, x.grad and y.grad represent the values after the derivative calculation, respectively.
+
+This interface is implemented in MindSpore using mindspore.grad. The above PyTorch use case can be transformed into:
+
+```python
+import mindspore
+print("=== mindspore.grad ===")
+x = mindspore.Tensor(1.0)
+y = mindspore.Tensor(2.0)
+def net(x, y):
+    return x**2+y
+out = mindspore.grad(net, grad_position=0)(x, y)
+print("out", out)
+out1 = mindspore.grad(net, grad_position=1)(x, y)
+print("out1", out1)
+```
+
+Outputs:
+
+```text
+=== mindspore.grad ===
+out 2.0
+out1 1.0
+```
+
+If the above net has more than one output, you need to pay attention to the effect of multiple outputs of the network on finding the gradient.
+
+```python
+import mindspore
+print("=== mindspore.grad multiple outputs ===")
+x = mindspore.Tensor(1.0)
+y = mindspore.Tensor(2.0)
+def net(x, y):
+    return x**2+y, x
+out = mindspore.grad(net, grad_position=0)(x, y)
+print("out", out)
+out1 = mindspore.grad(net, grad_position=1)(x, y)
+print("out1", out)
+```
+
+Outputs:
+
+```text
+=== mindspore.grad multiple outputs ===
+out 3.0
+out1 3.0
+```
+
+PyTorch does not support such expressions:
+
+```python
+import torch
+print("=== torch.autograd.backward does not support multiple outputs ===")
+x = torch.tensor(1.0, requires_grad=True)
+y = torch.tensor(2.0, requires_grad=True)
+z = x**2+y
+torch.autograd.backward(z)
+print("z", z)
+print("x.grad", x.grad)
+print("y.grad", y.grad)
+```
+
+Outputs:
+
+```text
+=== torch.autograd.backward does not support multiple outputs ===
+z tensor(3., grad_fn=<AddBackward0>)
+x.grad tensor(2.)
+y.grad tensor(1.)
+```
+
+Therefore, to find the gradient of only the first output in MindSpore, you need to use the has_aux parameter in MindSpore.
+
+```python
+import mindspore
+print("=== mindspore.grad has_aux ===")
+x = mindspore.Tensor(1.0)
+y = mindspore.Tensor(2.0)
+def net(x, y):
+    return x**2+y, x
+grad_fcn = mindspore.grad(net, grad_position=0, has_aux=True)
+out, _ = grad_fcn(x, y)
+print("out", out)
+grad_fcn1 = mindspore.grad(net, grad_position=1, has_aux=True)
+out, _ = grad_fcn1(x, y)
+print("out", out)
+```
+
+Outputs:
+
+```text
+=== mindspore.grad has_aux ===
+out 2.0
+out 1.0
+```
+
+### torch.autograd.grad
+
+[torch.autograd.grad](https://pytorch.org/docs/stable/generated/torch.autograd.grad.html). This interface is basically the same as torch.autograd.backward. The difference between the two is that the former modifies the grad attribute of each Tensor directly, while the latter returns a list of gradient values for the parameters. So when migrating to MindSpore, you can also refer to the above use case.
+
+```python
+import torch
+print("=== torch.autograd.grad ===")
+x = torch.tensor(1.0, requires_grad=True)
+y = torch.tensor(2.0, requires_grad=True)
+z = x**2+y
+out = torch.autograd.grad(z, x)
+out1 = torch.autograd.grad(z, y)
+print("out", out)
+print("out1", out1)
+```
+
+Outputs:
+
+```text
+=== torch.autograd.grad ===
+out (tensor(2.),)
+out1 (tensor(1.),)
+```
+
+### torch.no_grad
+
+In PyTorch, by default, information required for backward propagation is recorded when forward computation is performed. In the inference phase or in a network where backward propagation is not required, this operation is redundant and time-consuming. Therefore, PyTorch provides `torch.no_grad` to cancel this process.
+
+MindSpore constructs a backward graph based on the forward graph structure only when `grad` is invoked. No information is recorded during forward execution. Therefore, MindSpore does not need this interface. It can be understood that forward calculation of MindSpore is performed in `torch.no_grad` mode.
+
+```python
+import torch
+print("=== torch.no_grad ===")
+x = torch.tensor(1.0, requires_grad=True)
+y = torch.tensor(2.0, requires_grad=True)
+z = x**2+y
+print("z.requires_grad", z.requires_grad)
+with torch.no_grad():
+    z = x**2+y
+print("z.requires_grad", z.requires_grad)
+```
+
+Outputs:
+
+```text
+=== torch.no_grad ===
+z.requires_grad True
+z.requires_grad False
+```
+
+### torch.enable_grad
+
+If PyTorch enables `torch.no_grad` to disable gradient computation, you can use this interface to enable it.
+
+MindSpore builds the backward graph based on the forward graph structure only when `grad` is called, and no information is logged during forward execution, so MindSpore doesn't need this interface, and it can be understood that MindSpore backward computations are performed with `torch.enable_grad`.
+
+```python
+import torch
+print("=== torch.enable_grad ===")
+x = torch.tensor(1.0, requires_grad=True)
+y = torch.tensor(2.0, requires_grad=True)
+with torch.no_grad():
+    z = x**2+y
+print("z.requires_grad", z.requires_grad)
+with torch.enable_grad():
+    z = x**2+y
+print("z.requires_grad", z.requires_grad)
+```
+
+Outputs:
+
+```text
+=== torch.enable_grad ===
+z.requires_grad False
+z.requires_grad True
+```
+
+### retain_graph
+
+PyTorch is function-based automatic differentiation. Therefore, by default, the recorded information is automatically cleared after each backward propagation is performed for the next iteration. As a result, when we want to reuse the backward graph and gradient information, the information fails to be obtained because it has been deleted. Therefore, PyTorch provides `backward(retain_graph=True)` to proactively retain the information.
+
+MindSpore does not require this function. MindSpore is an automatic differentiation based on the computational graph. The backward graph information is permanently recorded in the computational graph after `grad` is invoked. You only need to invoke the computational graph again to obtain the gradient information.
+
+### High-order Derivatives
+
+Automatic differentiation based on computational graphs also has an advantage that we can easily implement high-order derivation. After the `GradOperation` operation is performed on the forward graph for the first time, a first-order derivative may be obtained. In this case, the computational graph is updated to a backward graph structure of the forward graph + the first-order derivative. However, after the `GradOperation` operation is performed on the updated computational graph again, a second-order derivative may be obtained, and so on. Through automatic differentiation based on computational graph, we can easily obtain the higher order derivative of a network.
+
 ## Automatic Differentiation Interfaces
 
 After the forward network is constructed, MindSpore provides an interface to [automatic differentiation](https://mindspore.cn/tutorials/en/master/beginner/autograd.html) to calculate the gradient results of the model.
@@ -67,6 +370,8 @@ print("=== output ===")
 print(loss, logits)
 ```
 
+Outputs:
+
 ```text
 === weight ===
 name: fc.weight data: [[2. 3. 4.]]
@@ -84,6 +389,8 @@ print("grad", grad)
 print("logit", logit)
 ```
 
+Outputs:
+
 ```text
 === grads 1 ===
 grad [[4. 6. 8.]]
@@ -100,6 +407,8 @@ print("grad", grad)
 print("logit", logit)
 ```
 
+Outputs:
+
 ```text
 === grads 2 ===
 grad -2.0
@@ -115,6 +424,8 @@ grad, logit = grad_func(x, y)
 print("grad", grad)
 print("logit", logit)
 ```
+
+Outputs:
 
 ```text
 === grads 3 ===
@@ -133,6 +444,8 @@ print("grad", grad)
 print("logits", logit)
 ```
 
+Outputs:
+
 ```text
 === grads 4 ===
 grad (Tensor(shape=[1, 3], dtype=Float32, value=
@@ -149,6 +462,8 @@ grad, logit = grad_func(x, y)
 print("grad", grad)
 print("logit", logit)
 ```
+
+Outputs:
 
 ```text
 === grads 5 ===
@@ -168,6 +483,8 @@ print("grad", grad)
 print("logit", logit)
 ```
 
+Outputs:
+
 ```text
 === grads 6 ===
 grad ((Tensor(shape=[1, 3], dtype=Float32, value=
@@ -184,6 +501,8 @@ grad_func = ms.grad(net, grad_position=0, weights=None, has_aux=False)
 grad = grad_func(x, y)  # Only one output
 print("grad", grad)
 ```
+
+Outputs:
 
 ```text
 === grads 7 ===
@@ -210,6 +529,8 @@ grads = ms.grad(net2, grad_position=0, weights=None, has_aux=False)
 grad = grads(x, y)  # Only one output
 print("grad", grad)
 ```
+
+Outputs:
 
 ```text
 grad [[ 6.  9. 12.]]
@@ -249,6 +570,8 @@ value, grad = value_and_grad_func(x, y)
 print("value", value)
 print("grad", grad)
 ```
+
+Outputs:
 
 ```text
 === value and grad ===
@@ -302,6 +625,8 @@ print("grad", grad)
 state = all_finite(grad)
 print(state)
 ```
+
+Outputs:
 
 ```text
 loss 1.0

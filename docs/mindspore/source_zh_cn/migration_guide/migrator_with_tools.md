@@ -10,7 +10,7 @@
 
 ### 迁移路径工具地图
 
-![](images/map.png)
+![map](images/map.png)
 
 | 工具      | 工具说明         | 网络迁移用途         |
 | --------------------- | -------------------- | --------------------- |
@@ -346,6 +346,8 @@ def train_one_step_ms(args):
 ts.migrator.compare_grads_dir('/mindspore_model/vit/v1/temp_data/pt/grads',
                               '/mindspore_model/vit/v1/temp_data/ms/grads')
 ```
+
+运行结果：
 
 ```text
 The orig dir: /mindspore_model/vit/v1/temp_data/pt/grads
