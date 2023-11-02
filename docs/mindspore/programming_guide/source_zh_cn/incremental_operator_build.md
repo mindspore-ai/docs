@@ -282,7 +282,7 @@ output: [1. 16. 81.]
 
 - `rank_0`是在环境变量`RANK_ID`为空的情况下的默认值，如果该环境变量的值不为空，则会生成相应`RANK_ID`号的路径。如`RANK_ID=3`，则生成`rank_3/kernel_meta`。
 
-- `kernel_meta`生成的路径可以通过环境变量`MS_COMPILER_CACHE_PATH`指定，例如`export MS_COMPILER_CACHE_PATH=/home/zhang_san/`，`export RANK_ID=2`，则算子编译缓存文件位于`/home/zhang_san/rank_2/kernel_meta/`。
+- `kernel_meta`生成的路径可以通过环境变量`MS_COMPILER_CACHE_PATH`指定，例如`export MS_COMPILER_CACHE_PATH=/home/workspace/`，`export RANK_ID=2`，则算子编译缓存文件位于`/home/workspace/rank_2/kernel_meta/`。
 
 - 在多卡运行时，执行网络模型将会在多个`device`目录下均生成`rank_{ID}/kernel_meta`文件夹（`ID`为环境变量`RANK_ID`的值）。
 
