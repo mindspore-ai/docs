@@ -81,5 +81,14 @@
       "whl_name" : "mindspore_serving-2.0.2-cp37-cp37m-linux_x86_64.whl",
       "environ" : "SV_PATH",
       "uninstall_name" : "mindspore_serving"
+   },
+   {
+      "id" : 10 ,
+      "name" : "devtoolkit",
+      "branch" : "r2.2",
+      "whl_path" : "",
+      "whl_name" : "",
+      "environ" : "DT_PATH",
+      "uninstall_name" : ""
    }
 ]
