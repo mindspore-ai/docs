@@ -216,7 +216,7 @@ In `xx_validate_xxx.ir`, you can see that the input and output tensor of each op
   %14(equiv[CNode]4) = MatMul(%12, %13) {instance name: matmul} primitive_attrs: {output_names: [output], transpose_a: Bool(0), input_names: [x1, x2], transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_attrs: {related_comm_node_id: "37501"} cnode_primal_attrs: {unique_id: "37896", related_fusion_key: "all_reduce_4-5226697808808137312_1", related_node_id: "34001"} {in_strategy: ((4, 2), (1, 2))}
       : (<Tensor[Float32], (64, 392)>, <Tensor[Float32], (512, 392)>) -> (<Tensor[Float32], (64, 512)>)
       # Scope: (Default)
-      # In file /home/liguanxin/anaconda3/envs/py38/lib/python3.8/site-packages/mindspore/nn/layer/basic.py:625/        x = self.matmul(x, self.weight)/
+      # In file /home/workspace/anaconda3/envs/py38/lib/python3.8/site-packages/mindspore/nn/layer/basic.py:625/        x = self.matmul(x, self.weight)/
   %15(equiv[CNode]2229) = AllReduce(%14) {instance name: forward_op_15773666391001111732} primitive_attrs: {comm_reuse: Bool(1), group: "2-5004544844489628105", fusion: I64(0), op: "sum", rank_list: (0, 1), group_ranks: "0-1", index: I64(0), group_rank_ids: (0, 1), no_eliminate: Bool(1)} cnode_primal_attrs: {unique_id: "38092", forward_comm_node_unique_id: "37499"}
       : (<Tensor[Float32], (64, 512)>) -> (<Tensor[Float32], (64, 512)>)
       # Scope: (Default)
@@ -226,7 +226,7 @@ In `xx_validate_xxx.ir`, you can see that the input and output tensor of each op
   %17(equiv[CNode]4) = BiasAdd(%15, %16) {instance name: bias_add} primitive_attrs: {output_names: [output], format: "NCHW", input_names: [x, b], data_format: "NCHW"} cnode_attrs: {related_comm_node_id: "37503"} cnode_primal_attrs: {unique_id: "37916", related_fusion_key: "all_reduce_nccl_world_group_1", related_node_id: "33999"} {in_strategy: ((4, 1), (1))}
       : (<Tensor[Float32], (64, 512)>, <Tensor[Float32], (512)>) -> (<Tensor[Float32], (64, 512)>)
       # Scope: (Default)
-      # In file /home/liguanxin/anaconda3/envs/py38/lib/python3.8/site-packages/mindspore/nn/layer/basic.py:627/            x = self.bias_add(x, self.bias)/
+      # In file /home/workspace/anaconda3/envs/py38/lib/python3.8/site-packages/mindspore/nn/layer/basic.py:627/            x = self.bias_add(x, self.bias)/
   %18(equiv[CNode]4) = ReLU(%17) {instance name: relu} primitive_attrs: {output_names: [output], input_names: [x]} cnode_primal_attrs: {unique_id: "37878"} {in_strategy: ((4, 1))}
       : (<Tensor[Float32], (64, 512)>) -> (<Tensor[Float32], (64, 512)>)
 ...
