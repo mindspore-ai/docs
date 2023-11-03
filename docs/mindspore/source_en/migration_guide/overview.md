@@ -4,9 +4,9 @@
 
 This migration guide contains the complete steps for migrating neural networks to MindSpore from other machine learning frameworks, mainly PyTorch.
 
-```mermaid
+```{mermaid}
 graph LR
-A(Overview)-->B(<font color=blue>migration process</font>)
+A(Overview)-->B(migration process)
 B-->|Step 1|E(<font color=blue>Environmental Preparation</font>)
 E-.-text1(MindSpore Installation)
 E-.-text2(AI Platform ModelArts)
@@ -25,7 +25,6 @@ C-.-text5(The network migration sample, taking ResNet50 as an example.)
 A-->D(<font color=blue>FAQs</font>)
 D-.-text6(Provides the frequently-asked questions and corresponding solutions)
 
-click B "https://www.mindspore.cn/docs/en/master/migration_guide/migration_process.html"
 click C "https://www.mindspore.cn/docs/en/master/migration_guide/sample_code.html"
 click D "https://www.mindspore.cn/docs/en/master/migration_guide/faq.html"
 
@@ -36,7 +35,7 @@ click H "https://www.mindspore.cn/docs/en/master/migration_guide/debug_and_tune.
 
 click I "https://www.mindspore.cn/docs/en/master/migration_guide/model_development/dataset.html"
 click J "https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html"
-click K "https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_development/learning_rate_and_optimizer.html"
+click K "https://www.mindspore.cn/docs/en/master/migration_guide/model_development/learning_rate_and_optimizer.html"
 click L "https://www.mindspore.cn/docs/en/master/migration_guide/model_development/gradient.html"
 click M "https://www.mindspore.cn/docs/en/master/migration_guide/model_development/training_and_evaluation.html"
 ```

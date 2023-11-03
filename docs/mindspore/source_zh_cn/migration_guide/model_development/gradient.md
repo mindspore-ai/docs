@@ -14,7 +14,8 @@ MindSpore 和 PyTorch 都提供了自动微分功能，让我们在定义了正�
 <td style="vertical-align:top"><pre>
 
 ```python
-# 注意：PyTorch的backward是累计的，更新完之后需要清空optimizer
+# 注意：
+# PyTorch的backward是累计的，更新完之后需清空optimizer
 
 import torch
 from torch.autograd import Variable
@@ -31,10 +32,9 @@ y.backward(x)
 <td style="vertical-align:top"><pre>
 
 ```python
-# 使用grad接口，输入正向图，输出反向图
+# ms.grad: 使用grad接口，输入正向图，输出反向图
 import mindspore as ms
 from mindspore import nn
-
 class GradNetWrtX(nn.Cell):
     def __init__(self, net):
         super(GradNetWrtX, self).__init__()

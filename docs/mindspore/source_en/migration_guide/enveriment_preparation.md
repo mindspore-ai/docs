@@ -8,7 +8,7 @@ Network migration starts with the configuration of the MindSpore development env
 
 [MindSpore](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) currently supports running on [Ascend](https://e.huawei.com/cn/products/servers/ascend), GPU, CPU and other kinds of devices.
 
-> Note that when training on Ascend, MindSpore version needs to be used with Ascend AI processor package. Please refer to [Installing Ascend AI Processor Package](https://www.mindspore.cn/install/en#installing-ascend-ai-processor-software-package) section in the MindSpore Ascend Version Installation Guide for more details. And refer to [FAQ](https://www.mindspore.cn/docs/en/master/faq/installation.html) when encountering problems.
+> Note that when training on Ascend, MindSpore version needs to be used with Ascend AI processor package. Please refer to [Installing Ascend AI Processor Package](https://www.mindspore.cn/install/en) section in the MindSpore Ascend Version Installation Guide for more details. And refer to [FAQ](https://www.mindspore.cn/docs/en/master/faq/installation.html) when encountering problems.
 
 After the package is installed, install the corresponding version of MindSpore following the [MindSpore Installation Guide](https://www.mindspore.cn/install/en) and verify to experience.
 

@@ -276,7 +276,7 @@
 
   如果是MindSpore自动生成的转换算子过多，可能是MindSpore框架针对某些特殊情况没有充分优化，可联系 [MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈。
 
-  [动态shape场景](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/analysis_and_preparation.html#动态shape)目前需要不断的编图，可能会造成端到端的训练时间较长，建议优先[规避动态shape](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html#动态shape规避策略)。
+  [动态shape场景](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/dynamic_shape.html)目前需要不断的编图，可能会造成端到端的训练时间较长，建议优先[规避动态shape](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html#动态shape规避策略)。
 
 #### 多机同步性能优化
 

@@ -8,7 +8,7 @@ Before reading this section, read the tutorials [Loss Function](https://www.mind
 
 The basic logic of PyTorch and MindSpore is shown below:
 
-![flowchart](./images/pytorch_mindspore_comparison_en.png)
+![flowchart](../images/pytorch_mindspore_comparison_en.png)
 
 It can be seen that PyTorch and MindSpore generally require network definition, forward computation, backward computation, and gradient update steps in the implementation process.
 
