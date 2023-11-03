@@ -45,7 +45,7 @@ The following is an illustration of data parallel operation using the Ascend or 
 
 > You can download the full sample code here:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_data_parallel>。
+> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_data_parallel>.
 
 The directory structure is as follows:
 
