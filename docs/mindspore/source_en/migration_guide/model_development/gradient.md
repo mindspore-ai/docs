@@ -14,7 +14,8 @@ Both MindSpore and PyTorch provide the automatic differentiation function. After
 <td style="vertical-align:top"><pre>
 
 ```python
-# Note: The feedback of PyTorch is cumulative, and after updating, the optimizer needs to be cleared.
+# Note: The feedback of PyTorch is cumulative,
+# and after updating, the optimizer needs to be cleared.
 
 import torch
 from torch.autograd import Variable
@@ -32,10 +33,8 @@ y.backward(x)
 
 ```python
 # ms.grad: forward graph as input, backward graph as output.
-
 import mindspore as ms
 from mindspore import nn
-
 class GradNetWrtX(nn.Cell):
     def __init__(self, net):
         super(GradNetWrtX, self).__init__()

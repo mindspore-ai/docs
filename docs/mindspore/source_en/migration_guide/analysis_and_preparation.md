@@ -53,7 +53,7 @@ Refer to [Missing API Processing Policy](https://www.mindspore.cn/docs/en/master
 
 ## Analyzing Function Compliance
 
-During continuous delivery of MindSpore, some functions are restricted. If restricted functions are involved during network migration, some measures can be taken to avoid the impact of function restrictions, such as [dynamic_shape](https://www.mindspore.cn/docs/en/master/migration_guide/dynamic_shape.html) and [sparsity](https://www.mindspore.cn/docs/en/master/migration_guide/sparsity.html), etc.
+During continuous delivery of MindSpore, some functions are restricted. If restricted functions are involved during network migration, some measures can be taken to avoid the impact of function restrictions, such as [dynamic shape](https://www.mindspore.cn/docs/en/master/migration_guide/dynamic_shape.html) and [sparsity](https://www.mindspore.cn/docs/en/master/migration_guide/sparsity.html), etc.
 
 ## MindSpore Function and Feature Recommendation
 

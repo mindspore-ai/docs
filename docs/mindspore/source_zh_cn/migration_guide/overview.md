@@ -6,7 +6,7 @@
 
 ```{mermaid}
 graph LR
-A(总览)-->B(<font color=blue>迁移流程</font>)
+A(总览)-->B(迁移流程)
 B-->|Step 1|E(<font color=blue>环境准备</font>)
 E-.-text1(本地安装MindSpore)
 E-.-text2(在线使用ModelArts)
@@ -25,7 +25,6 @@ C-.-text5(以ReNet50为例的网络迁移样例)
 A-->D(<font color=blue>FAQs</font>)
 D-.-text6(一些常见问题与相应解决方法)
 
-click B "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/migration_process.html"
 click C "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html"
 click D "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/faq.html"
 
@@ -36,7 +35,7 @@ click H "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tu
 
 click I "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/dataset.html"
 click J "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html"
-click K "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_development/learning_rate_and_optimizer.html"
+click K "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/learning_rate_and_optimizer.html"
 click L "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/gradient.html"
 click M "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_evaluation.html"
 ```

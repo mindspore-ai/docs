@@ -4,7 +4,7 @@
 
 Mapping between PyTorch APIs and MindSpore APIs, which is provided by the community. There may be differences in parameters, inputs, outputs, logic functions, and specific scenarios. For details, see the description of each API or the difference comparison provided.
 
-More MindSpore developers are also welcome to participate in improving the mapping content. For more information on the differences in framework mechanisms of PyTorch and MindSpore, see: [Optimizer Comparison](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/learning_rate_and_optimizer.html#optimizer-comparison), [Random Number Strategy Comparison](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html#random-number-strategy-comparison), and [Parameter Initialization Comparison](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html#parameter-initialization).
+More MindSpore developers are also welcome to participate in improving the mapping content. For more information on the differences in framework mechanisms of PyTorch and MindSpore, see: [Optimizer Comparison](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/learning_rate_and_optimizer.html#optimizer-comparison), [Random Number Strategy Comparison](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html#random-number-strategy-comparison), and [Parameter Initialization Comparison](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html#parameter-initializations-apis-comparison).
 
 ## API Mapping Consistency Criteria and Exceptions
 

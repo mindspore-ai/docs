@@ -8,7 +8,7 @@
 
 [MindSpore](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/introduction.html)目前支持在[昇腾](https://e.huawei.com/cn/products/servers/ascend)、GPU、CPU等多种device上运行。
 
-> 在昇腾上运行时，注意MindSpore版本需要和昇腾AI处理器配套软件包配套使用，详情请参考[安装昇腾AI处理器配套软件包](https://www.mindspore.cn/install/#%E5%AE%89%E8%A3%85%E6%98%87%E8%85%BEai%E5%A4%84%E7%90%86%E5%99%A8%E9%85%8D%E5%A5%97%E8%BD%AF%E4%BB%B6%E5%8C%85)。遇见问题参考[FAQ](https://www.mindspore.cn/docs/zh-CN/master/faq/installation.html)。
+> 在昇腾上运行时，注意MindSpore版本需要和昇腾AI处理器配套软件包配套使用，详情请参考[安装昇腾AI处理器配套软件包](https://www.mindspore.cn/install/)。遇见问题参考[FAQ](https://www.mindspore.cn/docs/zh-CN/master/faq/installation.html)。
 
 在配套软件包安装齐全的基础上，再根据[MindSpore安装指引](https://www.mindspore.cn/install)，安装对应版本并进行验证，即可体验。
 
