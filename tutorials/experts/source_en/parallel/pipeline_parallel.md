@@ -187,4 +187,4 @@ epoch: 9 step: 1875, loss is 0.019182920455932617
 epoch: 10 step: 1875, loss is 0.021012544631958008
 ```
 
-Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/experts/en/r2.2/parallel/startup_method.html).
+Other startup methods such as dynamic cluster and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/experts/en/r2.2/parallel/startup_method.html).
