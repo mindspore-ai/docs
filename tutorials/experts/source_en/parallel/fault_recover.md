@@ -211,7 +211,7 @@ After that, the fault recovery training script is executed.
 bash recover.sh
 ```
 
-At the end of the recovery training, check the LOSS as follows, indicating that the loading was successful.
+At the end of the recovery training, check the loss as follows, indicating that the loading was successful.
 
 ```text
 epoch: 1 step: 1875, loss is 0.598689079284668
