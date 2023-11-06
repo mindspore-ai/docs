@@ -67,7 +67,6 @@ release = 'master'
 # ones.
 myst_enable_extensions = ["dollarmath", "amsmath"]
 
-myst_update_mathjax = False
 
 myst_heading_anchors = 4
 extensions = [
@@ -96,10 +95,17 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-mathjax_path = 'https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathjax/MathJax-3.2.2/es5/tex-mml-chtml.js'
 
 mathjax_options = {
     'async':'async'
+}
+
+nbsphinx_requirejs_path = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js'
+
+nbsphinx_requirejs_options = {
+    "crossorigin": "anonymous",
+    "integrity": "sha256-1fEPhSsRKlFKGfK3eO710tEweHh1fwokU5wFGDHO+vg="
 }
 
 exclude_patterns = []
@@ -146,9 +152,6 @@ def setup(app):
     app.add_directive('msplatwarnautosummary', MsPlatWarnAutoSummary)
     app.add_directive('msnoteautosummary', MsNoteAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
-    app.add_css_file('css/bootstrap.min.css')
-    app.add_css_file('css/training.css')
-    app.add_js_file('js/training.js')
 
 # Modify regex for sphinx.ext.autosummary.generate.find_autosummary_in_lines.
 gfile_abs_path = os.path.abspath(g.__file__)
