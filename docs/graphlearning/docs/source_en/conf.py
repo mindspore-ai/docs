@@ -50,7 +50,6 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
     'myst_parser',
-    'nbsphinx',
     'sphinx.ext.mathjax',
     'IPython.sphinxext.ipython_console_highlighting'
 ]
@@ -70,13 +69,6 @@ mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathj
 
 mathjax_options = {
     'async':'async'
-}
-
-nbsphinx_requirejs_path = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js'
-
-nbsphinx_requirejs_options = {
-    "crossorigin": "anonymous",
-    "integrity": "sha256-1fEPhSsRKlFKGfK3eO710tEweHh1fwokU5wFGDHO+vg="
 }
 
 exclude_patterns = []
@@ -183,7 +175,6 @@ from myautosummary import MsPlatformAutoSummary
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
-    app.add_css_file('css/bootstrap.min.css')
 
 src_release = os.path.join(os.getenv("GL_PATH"), 'RELEASE.md')
 des_release = "./RELEASE.md"
