@@ -49,7 +49,7 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-mathjax_path = 'https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+mathjax_path = 'https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/mathjax/MathJax-3.2.2/es5/tex-mml-chtml.js'
 
 mathjax_options = {
     'async':'async'
@@ -59,7 +59,6 @@ exclude_patterns = []
 
 pygments_style = 'sphinx'
 
-myst_update_mathjax = False
 
 myst_heading_anchors = 4
 
