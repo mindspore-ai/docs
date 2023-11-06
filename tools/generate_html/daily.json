@@ -3,18 +3,18 @@
     "id" : 1 ,
     "name" : "lite",
     "branch" : "master",
-    "whl_path" : "/mindspore/website/lite/centos_x86/cloud_fusion/python37",
+    "whl_path" : "/mindspore/website/master/lite/centos_x86/cloud_fusion/python37",
     "whl_name" : "mindspore_lite-.*-cp37-cp37m-linux_x86_64.whl$",
     "environ" : "MS_PATH",
     "uninstall_name" : "mindspore_lite",
-    "tar_path" : "/mindspore/website/lite/centos_x86/cloud_fusion/python37",
+    "tar_path" : "/mindspore/website/master/lite/centos_x86/cloud_fusion/python37",
     "tar_name" : "mindspore-lite-.*-linux-x64.tar.gz$"
 },
 {
     "id" : 2 ,
     "name" : "mindspore",
     "branch" : "master",
-    "whl_path" : "/mindspore/website/cpu/x86_64",
+    "whl_path" : "/mindspore/website/master/cpu/x86_64",
     "whl_name" : "mindspore-.*-cp37-cp37m-linux_x86_64.whl$",
     "environ" : "MS_PATH",
     "uninstall_name" : "mindspore"
