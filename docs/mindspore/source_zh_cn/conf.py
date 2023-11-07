@@ -365,9 +365,6 @@ def setup(app):
     app.add_directive('mscnnoteautosummary', MsCnNoteAutoSummary)
     app.add_config_value('rst_files', set(), False)
     app.add_directive('includecode', IncludeCodeDirective)
-    app.add_css_file('css/bootstrap.min.css')
-    app.add_css_file('css/training.css')
-    app.add_js_file('js/training.js')
 
 
 # Convert encoding for api files.
