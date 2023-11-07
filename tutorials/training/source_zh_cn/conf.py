@@ -71,8 +71,3 @@ html_search_language = 'zh'
 html_search_options = {'dict': '../../resource/jieba.txt'}
 
 html_static_path = ['_static']
-
-def setup(app):
-    app.add_css_file('css/bootstrap.min.css')
-    app.add_css_file('css/training.css')
-    app.add_js_file('js/training.js')
