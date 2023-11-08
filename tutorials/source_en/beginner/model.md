@@ -101,7 +101,7 @@ print(input_image.shape)
 
 ### nn.Flatten
 
-Initialize the `nn.Flatten` layer and convert a 28x28 2D tensor into a contiguous array of size 784.
+Initialize the [nn.Flatten](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Flatten.html) layer and convert a 28x28 2D tensor into a contiguous array of size 784.
 
 ```python
 flatten = nn.Flatten()
@@ -115,7 +115,7 @@ print(flat_image.shape)
 
 ### nn.Dense
 
-`nn.Dense` is the fully connected layer, which linearly transforms the input by using weights and deviations.
+[nn.Dense](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dense.html) is the fully connected layer, which linearly transforms the input by using weights and deviations.
 
 ```python
 layer1 = nn.Dense(in_channels=28*28, out_channels=20)
@@ -129,7 +129,7 @@ print(hidden1.shape)
 
 ### nn.ReLU
 
-`nn.ReLU` layer adds a nonlinear activation function to the network, to help the neural network learn various complex features.
+[nn.ReLU](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ReLU.html) layer adds a nonlinear activation function to the network, to help the neural network learn various complex features.
 
 ```python
 print(f"Before ReLU: {hidden1}\n\n")
@@ -168,7 +168,7 @@ After ReLU: [[0.         0.2939465  0.         0.         0.         0.
 
 ### nn.SequentialCell
 
-`nn.SequentialCell` is an ordered Cell container. The input Tensor will pass through all the Cells in the defined order, and we can use `SequentialCell` to construct a neural network model quickly.
+[nn.SequentialCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SequentialCell.html) is an ordered Cell container. The input Tensor will pass through all the Cells in the defined order, and we can use `SequentialCell` to construct a neural network model quickly.
 
 ```python
 seq_modules = nn.SequentialCell(
@@ -188,7 +188,7 @@ print(logits.shape)
 
 ### nn.Softmax
 
-Finally, the value of logits returned by the last fully-connected layer of the neural network is scaled to \[0, 1\] by using `nn.Softmax`, indicating the predicted probability of each category. The dimensional values specified by `axis` sum to 1.
+Finally, the value of logits returned by the last fully-connected layer of the neural network is scaled to \[0, 1\] by using [nn.Softmax](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Softmax.html), indicating the predicted probability of each category. The dimensional values specified by `axis` sum to 1.
 
 ```python
 softmax = nn.Softmax(axis=1)
