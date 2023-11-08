@@ -62,7 +62,7 @@ def sin_by_numpy(x):
     return np.sin(x)
 ```
 
-Then we need to define two more functions. One is the infer shape function, while the other is the infer dtype function.
+Then we need to define two more functions. One is the infer shape function, while the other is the infer dtype function. Here's something to keep in mind:
 
 - The derivative function of the tensor shape is the shape of the input tensor;
 - The derivative function of the tensor dtype is the dtype of the input tensor;
@@ -145,7 +145,7 @@ A custom operator of Hybrid type is the default defined type of a custom operato
 Custom operators of Hybrid type use [MindSpore Hybrid DSL](https://www.mindspore.cn/tutorials/experts/en/r2.2/operation/ms_kernel.html#syntax-specification) to describe the implementation of the calculation logic inside the operator. Functions defined with MindSpore Hybrid DSL can be parsed by the [AKG Operator Compiler](https://gitee.com/mindspore/akg) for JIT compilation to generate efficient operators for use in training reasoning for large-scale models. At the same time, the function defined by MindSpore Hybrid DSL can be called directly as a `numpy` function, which is convenient for users to debug and flexibly switch to [pyfunc type custom operator](#the-introduction-to-custom-operator-an-example), so that when developed, custom operator expressions are reused for multiple modes, multiple platforms and multiple scenes.
 
 The following example (test_custom_hybrid.py) shows how to write a custom operator of the hybrid type. The operator computes the sum of two tensors.
-Notice that custom operators of Hybrid type use the source to source transformation method to connect the graph compiler and the operator compiler. Users can use the keywords of MindSpore Hybrid DSL directly in the script, such as `output_tensor` below, without importing any Python modules. For more information about the keywords, refer [MindSpore Hybrid DSL Keywords](https://www.mindspore.cn/tutorials/experts/en/r2.2/operation/ms_kernel.html#keywords).
+Notice that custom operators of Hybrid type use the source to source transformation method to connect the graph compiler and the operator compiler. Users can use the keywords of MindSpore Hybrid DSL directly in the script, such as `output_tensor` below, without importing any Python modules. For more information about the keywords, refer to [MindSpore Hybrid DSL Keywords](https://www.mindspore.cn/tutorials/experts/en/r2.2/operation/ms_kernel.html#keywords).
 
 ```python
 import numpy as np
@@ -575,7 +575,7 @@ In this example, there are the following points to explain:
 - The `out_shape` and `out_dtype` parameters of the `Custom` primitive can be specified in a variety of ways, either given a type or set with a Python lambda function. In this example, the lambda function indicates that the two shapes of the output are the same as the input, the data type of the first output and the information of the input tensor are the same, and the data type of the second output is the bool type.
 - Operator information is generated via `CustomRegOp` and operator information is registered via the `reg_info` input of the `Custom`.
 
-Executing cash:
+Execute case:
 
 ```bash
 python test_dropout_aicpu.py

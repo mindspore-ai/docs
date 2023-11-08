@@ -38,6 +38,17 @@ out = test_op_akg(input_x, input_y)
 print(out)
 ```
 
+```text
+[[-0.7582229   1.9742808  -1.5035899   1.6295254 ]
+ [ 0.18717238 -1.1390371  -0.92540735  0.25755903]
+ [-0.75234073  0.2182185   0.9805498   0.27473617]
+ [ 0.7546873  -0.8488003   0.58964515 -0.23971215]]
+[[-0.758223    1.9742805  -1.5035899   1.6295254 ]
+ [ 0.18717244 -1.1390371  -0.9254071   0.2575591 ]
+ [-0.7523403   0.21821874  0.9805499   0.27473587]
+ [ 0.75468683 -0.84879947  0.5896454  -0.23971221]]
+```
+
 ## Syntax Specification
 
 ### Variables
@@ -101,7 +112,7 @@ Unlike native Python language, once a variable is defined, we can't change its `
 MindSpore Hybrid DSL supports basic math operators, including `+, -, *, /`, as well as self-assign operators, including `=, +=, -=, *=, /=`.
 Users can write codes like writing Python expressions.
 
-**All the expressions must be based on scalars. Computation for the tensors must include all indices, such as `C[i, j] = A[i, j] + B[i, j]`. Currently, tensorized codes such as `C = A + B` are not supported.**
+All the expressions must be based on scalars. Computation for the tensors must include all indices, such as `C[i, j] = A[i, j] + B[i, j]`. Currently, tensorized codes such as `C = A + B` are not supported.
 
 When writing assignment expressions, users must take care of the dtype of the expression and make them consistent on both sides of the equality. Otherwise, the error might be thrown on the stage of **operator compilation**. Any integer numbers in the expression will be treated as int32, while float numbers will be treated as float32. There is no implicit dtype casting in MindSpore Hybrid DSL, and all dtype casting must be written with dtype names as casting functions, including:
 
