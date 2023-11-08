@@ -89,6 +89,7 @@ MindSpore Insight包括以下内容：
 
    accuracy_problem_preliminary_location
    accuracy_optimization
+   fixing_randomness
    performance_tuning_guide
    performance_optimization
 

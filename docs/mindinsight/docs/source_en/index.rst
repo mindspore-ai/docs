@@ -89,6 +89,7 @@ Using MindSpore Insight to Debug the Model Accuracy
 
    accuracy_problem_preliminary_location
    accuracy_optimization
+   fixing_randomness
    performance_tuning_guide
    performance_optimization
 
