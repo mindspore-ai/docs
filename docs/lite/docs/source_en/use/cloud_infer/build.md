@@ -100,9 +100,9 @@ git clone https://gitee.com/mindspore/mindspore.git
 
     - The Ascend package is available in both commercial and community versions.
 
-        1. Please refer to the [Ascend Data Center Solution 22.0.RC3 Installation Guide document](https://support.huawei.com/enterprise/en/doc/EDOC1100280094) for the download link and installation method of the commercial version.
+        1. Please refer to the [Ascend Data Center Solution 23.0.RC3 Installation Guide document](https://support.huawei.com/enterprise/en/doc/EDOC1100336282) for the download link and installation method of the commercial version.
 
-        2. There is no restriction on downloading the Community Edition. Please go to [CANN Community Edition](https://www.hiascend.com/software/cann/community-history), select `5.1.RC2.alpha007` version, and get the corresponding firmware and driver installation packages from the [Firmware and Driver](https://www.hiascend.com/hardware/firmware-drivers?tag=community). For package selection and installation, please refer to the commercial version installation guide document above.
+        2. There is no restriction on downloading the Community Edition. Please go to [CANN Community Edition](https://www.hiascend.com/developer/download/community/result?module=cann), select `7.0.RC1.beta1` version, and get the corresponding firmware and driver installation packages from the [Firmware and Driver](https://www.hiascend.com/hardware/firmware-drivers?tag=community). For package selection and installation, please refer to the commercial version installation guide document above.
     - The default installation path for the installation package is `/usr/local/Ascend`. After installation, make sure the current user has permission to access the installation path of the Ascend AI processor companion package. If you don't have permission, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
     - Install the whl package included with the Ascend AI processor companion software. If you have previously installed the package included with the Ascend AI processor, you need to uninstall the corresponding whl package first by using the following command.
 
