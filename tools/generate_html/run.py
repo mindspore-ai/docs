@@ -488,6 +488,11 @@ if __name__ == "__main__":
                 try:
                     static_path_css = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/theme.css")[0]
                     static_path_js = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/theme.js")[0]
+                    static_path_jquery = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/jquery.js")[0]
+                    static_path_underscore = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/underscore.js")[0]
+                    static_path_jquery_ = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/jquery-3.5.1.js")[0]
+                    static_path_underscore_ = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/underscore-1.13.1.js")
+                    static_path_underscore_ = static_path_underscore_[0]
                     static_path_version = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/")[0]
                     static_path_version = os.path.join(static_path_version, "version.json")
                     if 'lite' in out_name or 'tutorials' in out_name:
@@ -498,6 +503,8 @@ if __name__ == "__main__":
                         js_path = "theme-docs/theme.js"
                     static_path_new_css = os.path.join(theme_path, css_path)
                     static_path_new_js = os.path.join(theme_path, js_path)
+                    static_path_new_jquery = os.path.join(theme_path, "update_js", "jquery.js")
+                    static_path_new_underscore = os.path.join(theme_path, "update_js", "underscore.js")
                     out_name_1 = out_name.split('/')[0]
                     static_path_new_version = os.path.join(version_path, f"{out_name_1}_version.json")
                     fonts_dir_1 = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/fonts/")
@@ -515,6 +522,16 @@ if __name__ == "__main__":
                     if os.path.exists(static_path_version):
                         os.remove(static_path_version)
                     shutil.copy(static_path_new_version, static_path_version)
+                    if os.path.exists(static_path_jquery):
+                        os.remove(static_path_jquery)
+                    shutil.copy(static_path_new_jquery, static_path_jquery)
+                    if os.path.exists(static_path_underscore):
+                        os.remove(static_path_underscore)
+                    shutil.copy(static_path_new_underscore, static_path_underscore)
+                    if os.path.exists(static_path_jquery):
+                        os.remove(static_path_jquery_)
+                    if os.path.exists(static_path_underscore_):
+                        os.remove(static_path_underscore_)
                 # pylint: disable=W0702
                 # pylint: disable=W0703
                 except Exception as e:
