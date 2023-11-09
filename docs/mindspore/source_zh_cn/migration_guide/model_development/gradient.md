@@ -1,6 +1,6 @@
 # 梯度求导
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/gradient.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/migration_guide/model_development/gradient.md)
 
 ## 自动微分对比
 
@@ -64,7 +64,7 @@ MindSpore 在做自动微分时，通过对正向图的分析得到反向传播�
 
 最终，我们看似仅执行了正向图，其实图结构里既包含了正向算子，又包含了 MindSpore 为我们添加的反向算子，也就是说，MindSpore 在我们定义的正向图后面又新加了一个看不见的  `Cell`，这个  `Cell` 里都是根据正向图推导出来的反向算子。
 
-而这个帮助我们构建反向图的接口就是 [grad](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.grad.html) 。
+而这个帮助我们构建反向图的接口就是 [grad](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.grad.html) 。
 
 通过`grad`接口得到反向图之后，对于输入的任何一组数据，不仅能计算正向输出，还能计算所有权重的梯度。由于图结构固定，不保存中间变量，所以这个新计算图可以被反复调用。
 
@@ -72,7 +72,7 @@ MindSpore 在做自动微分时，通过对正向图的分析得到反向传播�
 
 在 MindSpore 中，大部分操作都会最终转换成真实的算子操作，最终加入到计算图中，因此，我们实际执行的计算图中算子的数量远多于我们最初定义的计算图中算子的数量。
 
-在MindSpore中，提供了[TrainOneStepCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TrainOneStepCell.html)和[TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html)这两个接口来包装整个训练流程，如果在常规的训练流程外有其他的操作，如梯度裁剪、规约、中间变量返回等，需要自定义训练的Cell，详情请参考[训练及推理流程](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_evaluation.html)。
+在MindSpore中，提供了[TrainOneStepCell](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.TrainOneStepCell.html)和[TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html)这两个接口来包装整个训练流程，如果在常规的训练流程外有其他的操作，如梯度裁剪、规约、中间变量返回等，需要自定义训练的Cell，详情请参考[训练及推理流程](https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/training_and_evaluation.html)。
 
 ### 接口对比
 
@@ -302,12 +302,12 @@ z.requires_grad True
 
 ## MindSpore自动微分接口
 
-本节介绍MindSpore提供的三种[自动微分](https://mindspore.cn/tutorials/zh-CN/master/beginner/autograd.html)接口用以计算模型的梯度结果。
-在[自动求导](https://mindspore.cn/tutorials/zh-CN/master/advanced/derivation.html)的教程中，对各种梯度计算的场景做了一些介绍。
+本节介绍MindSpore提供的三种[自动微分](https://mindspore.cn/tutorials/zh-CN/r2.3/beginner/autograd.html)接口用以计算模型的梯度结果。
+在[自动求导](https://mindspore.cn/tutorials/zh-CN/r2.3/advanced/derivation.html)的教程中，对各种梯度计算的场景做了一些介绍。
 
 ### mindspore.grad
 
-[mindspore.grad](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.grad.html)这个API有四个可以配置的参数：
+[mindspore.grad](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.grad.html)这个API有四个可以配置的参数：
 
 - fn (Union[Cell, Function]) - 待求导的函数或网络（Cell）。
 
@@ -544,7 +544,7 @@ print("logit", logit)
 
 ### mindspore.value_and_grad
 
-[mindspore.value_and_grad](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.value_and_grad.html)这个接口和上面的grad的参数是一样的，只不过这个接口可以一次性计算网络的正向结果和梯度。
+[mindspore.value_and_grad](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.value_and_grad.html)这个接口和上面的grad的参数是一样的，只不过这个接口可以一次性计算网络的正向结果和梯度。
 
 | grad_position | weights | output |
 | ------------- | ------- | ------ |
@@ -576,7 +576,7 @@ grad ((Tensor(shape=[1, 3], dtype=Float32, value=
 
 ### mindspore.ops.GradOperation
 
-[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html)一个高阶函数，为输入函数生成梯度函数。
+[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.GradOperation.html)一个高阶函数，为输入函数生成梯度函数。
 
 由 GradOperation 高阶函数生成的梯度函数可以通过构造参数自定义。
 
@@ -586,9 +586,9 @@ grad ((Tensor(shape=[1, 3], dtype=Float32, value=
 
 由于在混合精度的场景，在求梯度的过程中可能会遇到梯度下溢，一般我们会使用loss scale配套梯度求导使用。
 
-> 在Ascend上因为Conv、Sort、TopK等算子只能是float16的，MatMul由于性能问题最好也是float16的，所以建议loss scale操作作为网络训练的标配。[Ascend 上只支持float16的算子列表](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tune.html#4%E8%AE%AD%E7%BB%83%E7%B2%BE%E5%BA%A6)。
+> 在Ascend上因为Conv、Sort、TopK等算子只能是float16的，MatMul由于性能问题最好也是float16的，所以建议loss scale操作作为网络训练的标配。[Ascend 上只支持float16的算子列表](https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/debug_and_tune.html#4%E8%AE%AD%E7%BB%83%E7%B2%BE%E5%BA%A6)。
 >
-> 溢出可以通过MindSpore Insight的[调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html)或者[dump数据](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)获取到溢出算子信息。
+> 溢出可以通过MindSpore Insight的[调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html)或者[dump数据](https://mindspore.cn/tutorials/experts/zh-CN/r2.3/debug/dump.html)获取到溢出算子信息。
 >
 > 一般溢出表现为loss Nan/INF，loss突然变得很大等。
 
@@ -654,4 +654,4 @@ grad = ops.clip_by_global_norm(grad)
 
 梯度累积是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算，用以解决由于内存不足，导致Batch size过大，神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
 
-详情请参考[梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/master/optimize/gradient_accumulation.html)。
+详情请参考[梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/optimize/gradient_accumulation.html)。

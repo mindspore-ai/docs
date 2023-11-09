@@ -1,6 +1,6 @@
 # Differences with torch.deg2rad
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/deg2rad.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/deg2rad.md)
 
 ## torch.deg2rad
 
@@ -16,7 +16,7 @@ For more information, see [torch.deg2rad](https://pytorch.org/docs/1.8.1/generat
 mindspore.ops.deg2rad(x) -> Tensor
 ```
 
-For more information, see [mindspore.ops.deg2rad](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.deg2rad.html).
+For more information, see [mindspore.ops.deg2rad](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.deg2rad.html).
 
 ## Differences
 
@@ -29,4 +29,4 @@ MindSpore: The dtype of the parameter `x` can be ``float16``, ``float32``, or ``
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 | Parameters | Parameter 1 | input | x | The parameter names are different. Both are Tensor, and the dtype of the parameter `input` can be ``int`` or ``float``. The dtype of the parameter `x` can be ``float16``, ``float32`` or ``float64``.|
-|      | Parameter 2 | out | - | For detailed, refer to [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table). |
+|      | Parameter 2 | out | - | For detailed, refer to [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.3/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table). |

@@ -1,6 +1,6 @@
 # Lite Operator List
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/operator_list_lite.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/lite/docs/source_en/operator_list_lite.md)
 
 This article lists the operators supported by MindSpore Lite.
 
@@ -212,4 +212,4 @@ This article lists the operators supported by MindSpore Lite.
 
 [3] Sum and Max: Only support 2 inputs.
 
-[4] Operators supported by [converter](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) but do not require specific implementation. Generally, such operators are optimized by the conversion tool, such as being merged or replaced by other operators.
+[4] Operators supported by [converter](https://www.mindspore.cn/lite/docs/en/r2.3/use/converter_tool.html) but do not require specific implementation. Generally, such operators are optimized by the conversion tool, such as being merged or replaced by other operators.

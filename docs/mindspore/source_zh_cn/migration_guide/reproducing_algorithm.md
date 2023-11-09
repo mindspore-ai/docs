@@ -1,6 +1,6 @@
 # 复现算法实现
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/reproducing_algorithm.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/migration_guide/reproducing_algorithm.md)
 
 ## 获取参考代码
 
@@ -13,7 +13,7 @@
 
 如果参考项目中结果无法复现或者缺乏版本信息，可查看项目issue获取信息；
 
-如果是全新的论文，无可参考实现，请参考[MindSpore网络搭建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_development.html)进行开发。
+如果是全新的论文，无可参考实现，请参考[MindSpore网络搭建](https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/model_development.html)进行开发。
 
 ## 分析算法及网络结构
 
@@ -81,5 +81,5 @@
 3. 获取一些参考数据作为MindSpore迁移过程的参考：
 
     - 获取loss下降趋势，帮助验证MindSpore上训练收敛趋势是否ok；
-    - 获取参数文件，用于进行转换，进行推理验证，详细过程参考[推理及训练流程](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_evaluation.html)；
-    - 获取性能基线，在做性能优化时有一个基础目标，如需做性能优化，请参考[调试调优](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tune.html)。
+    - 获取参数文件，用于进行转换，进行推理验证，详细过程参考[推理及训练流程](https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/training_and_evaluation.html)；
+    - 获取性能基线，在做性能优化时有一个基础目标，如需做性能优化，请参考[调试调优](https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/debug_and_tune.html)。

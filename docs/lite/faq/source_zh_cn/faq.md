@@ -1,6 +1,6 @@
 # FAQ
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/faq/source_zh_cn/faq.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/lite/faq/source_zh_cn/faq.md)
 
 <br/>
 
@@ -18,7 +18,7 @@ A：目前NPU仅支持在系统ROM版本EMUI>=11、芯片支持包括Kirin 9000�
 
 <font size=3>**Q：为什么使用裁剪工具裁剪后的静态库在集成时存在编译失败情况？**</font>
 
-A：目前裁剪工具仅支持CPU和GPU的库，具体使用请查看[使用裁剪工具降低库文件大小](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cropper_tool.html)文档。
+A：目前裁剪工具仅支持CPU和GPU的库，具体使用请查看[使用裁剪工具降低库文件大小](https://www.mindspore.cn/lite/docs/zh-CN/r2.3/use/cropper_tool.html)文档。
 
 <br/>
 

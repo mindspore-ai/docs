@@ -1,6 +1,6 @@
 # 比较与torch.nn.BatchNorm1d的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/BatchNorm1d.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/BatchNorm1d.md)
 
 ## torch.nn.BatchNorm1d
 
@@ -33,7 +33,7 @@ class mindspore.nn.BatchNorm1d(
 )(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.BatchNorm1d](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm1d.html)。
+更多内容详见[mindspore.nn.BatchNorm1d](https://mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.BatchNorm1d.html)。
 
 ## 差异对比
 

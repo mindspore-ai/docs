@@ -1,6 +1,6 @@
 # Dynamic shape
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/dynamic_shape.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/migration_guide/dynamic_shape.md)
 
 To know dynamic shape, you need to know what is a static shape.
 Static shape indicates that the shape of a tensor does not change during network execution.
@@ -87,4 +87,4 @@ print(y)
 
 In this process, there are two dynamic shapes. One is that the shape of the `masked_select` result is dynamic if `cond=True`. The other is the control flow. Because `cond` is uncertain, the shape output of the two branches of the control flow is different, which also causes the dynamic shape.
 
-Generally, the dynamic shape can be analyzed at the algorithm and code layers, or the tensor related to the reference code can be directly printed for judgment. If dynamic shape exists, we will introduce the workaround in [Network Body and Loss Setup](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html).
+Generally, the dynamic shape can be analyzed at the algorithm and code layers, or the tensor related to the reference code can be directly printed for judgment. If dynamic shape exists, we will introduce the workaround in [Network Body and Loss Setup](https://www.mindspore.cn/docs/en/r2.3/migration_guide/model_development/model_and_cell.html).

@@ -1,23 +1,23 @@
 # 基于冗余信息的故障恢复
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/fault_recover.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_zh_cn/parallel/fault_recover.md)
 
 ## 概述
 
 在进行分布式训练时，遇到故障是非常普遍的，类似于单卡训练，可以通过加载训练过程中保存的权重信息继续进行训练。区别于纯数据并行训练，当应用了模型并行后，权重是进行了切分的，卡与卡之间保存的权重信息可能不一致。
 
-为了解决这个问题，一个方案是在保存权重checkpoint文件前，就将权重通过[AllGather](https://www.mindspore.cn/docs/zh-CN/master/api_python/samples/ops/communicate_ops.html#allgather) 算子进行汇聚，每张卡均存储一个完整的权重信息，这一个功能即`mindspore.train.CheckpointConfig(integrated_save=True)`接口中的合并保存。
+为了解决这个问题，一个方案是在保存权重checkpoint文件前，就将权重通过[AllGather](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/samples/ops/communicate_ops.html#allgather) 算子进行汇聚，每张卡均存储一个完整的权重信息，这一个功能即`mindspore.train.CheckpointConfig(integrated_save=True)`接口中的合并保存。
 
 但是，对于大模型来说，使用汇聚保存对各种资源的开销都过于巨大，因此，本文档介绍的是每张卡仅仅保存自身的权重信息的恢复方案。对于大模型来说，往往会同时应用上数据并行与模型并行，而数据并行的维度所划分的设备，它们持有的权重信息是完全一致的，这也为大模型提供了冗余的备份，本文档也将指出如何去获取这个冗余信息。
 
-关于并行策略与权重的切片划分的关系，可以进行如下映射。关于数据并行，模型并行的概念，请参考[数据并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/data_parallel.html) 、关于优化器并行，请参考[优化器并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/optimizer_parallel.html)。
+关于并行策略与权重的切片划分的关系，可以进行如下映射。关于数据并行，模型并行的概念，请参考[数据并行](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/data_parallel.html) 、关于优化器并行，请参考[优化器并行](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/optimizer_parallel.html)。
 
 - 数据并行 + 不开启优化器并行：并行通信域内的rank持有相同权重切片。
 - 模型并行：并行通信域内的rank持有不同权重切片。
 - 数据并行 + 开启优化器并行 + 优化器并行切满所有数据并行维度：并行通信域内的rank持有不同权重切片。
 - 数据并行 + 开启优化器并行 + 优化器并行不切满所有数据并行维度：并行通信域内，优化器切分的通信域内的rank持有不同的权重切片，每个优化器切分的通信域之间持有相同的权重切片。
 
-另外，需要注意的是，本文档介绍分布式故障恢复方案，需要在[下沉模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/optimize/execution_opt.html) 下使用。
+另外，需要注意的是，本文档介绍分布式故障恢复方案，需要在[下沉模式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/optimize/execution_opt.html) 下使用。
 
 相关环境变量：
 
@@ -29,7 +29,7 @@
 
 ### 样例代码说明
 
->下载完整的样例代码：[fault_recover](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/fault_recover)
+>下载完整的样例代码：[fault_recover](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/fault_recover)
 
 目录结构如下：
 

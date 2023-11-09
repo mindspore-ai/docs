@@ -1,6 +1,6 @@
 # 比较与torch.renorm的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/renorm.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/renorm.md)
 
 以下映射关系均可参考本文。
 
@@ -23,7 +23,7 @@ torch.renorm(input, p, dim, maxnorm, *, out=None) -> Tensor
 mindspore.ops.renorm(input, p, axis, maxnorm)
 ```
 
-更多内容详见[mindspore.ops.renorm](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.renorm.html)。
+更多内容详见[mindspore.ops.renorm](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.renorm.html)。
 
 ## 差异对比
 
@@ -39,7 +39,7 @@ MindSpore：参数 `p` 的数据类型是 ``int`` 。
 | | 参数2 | p | p | PyTorch支持的数据类型是 ``float`` ，MindSpore支持的数据类型是 ``int`` |
 |  | 参数3 | dim        | axis |  参数名不同 |
 | | 参数4 | maxnorm | maxnorm |  - |
-| | 参数5 | out | - | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+| | 参数5 | out | - | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 
 ### 代码示例
 

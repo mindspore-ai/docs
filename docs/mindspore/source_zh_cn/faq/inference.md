@@ -1,6 +1,6 @@
 # 推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/inference.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/faq/inference.md)
 
 <font size=3>**Q: 原先基于MindSpore安装包进行310推理，新版本MindSpore发布包不支持Ascend 310平台的推理？如何使用Ascend 310进行推理？（MindSpore Ascend 310推理功能发布包变更说明）**</font>
 

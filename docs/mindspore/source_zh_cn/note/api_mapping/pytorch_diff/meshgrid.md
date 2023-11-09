@@ -1,6 +1,6 @@
 # 比较与torch.meshgrid的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/meshgrid.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/meshgrid.md)
 
 ## torch.meshgrid
 
@@ -17,7 +17,7 @@ torch.meshgrid(
 mindspore.ops.meshgrid(*inputs, indexing='xy')
 ```
 
-更多内容详见[mindspore.ops.meshgrid](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.meshgrid.html)。
+更多内容详见[mindspore.ops.meshgrid](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.meshgrid.html)。
 
 ## 差异对比
 

@@ -1,6 +1,6 @@
 # Differences between torch.nn.TransformerDecoderLayer and mindspore.nn.TransformerDecoderLayer
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/TransformerDecoderLayer.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/TransformerDecoderLayer.md)
 
 ## torch.nn.TransformerDecoderLayer
 
@@ -32,7 +32,7 @@ class mindspore.nn.TransformerDecoderLayer(
 )(tgt, memory, tgt_mask=None, memory_mask=None, tgt_key_padding_mask=None, memory_key_padding_mask=None)
 ```
 
-For more information, see [mindspore.nn.TransformerDecoderLayer](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TransformerDecoderLayer.html).
+For more information, see [mindspore.nn.TransformerDecoderLayer](https://mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.TransformerDecoderLayer.html).
 
 ## Differences
 

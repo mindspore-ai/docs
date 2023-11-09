@@ -1,6 +1,6 @@
 # Comparing the function difference with torch.optim.lr_scheduler.ExponentialLR
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/ExponentialDecayLR.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/ExponentialDecayLR.md)
 
 ## torch.optim.lr_scheduler.ExponentialLR
 
@@ -28,7 +28,7 @@ mindspore.nn.exponential_decay_lr(
 )
 ```
 
-For more information, see [mindspore.nn.exponential_decay_lr](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.exponential_decay_lr.html#mindspore.nn.exponential_decay_lr).
+For more information, see [mindspore.nn.exponential_decay_lr](https://mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.exponential_decay_lr.html#mindspore.nn.exponential_decay_lr).
 
 ## mindspore.nn.ExponentialDecayLR
 
@@ -41,7 +41,7 @@ mindspore.nn.ExponentialDecayLR(
 )
 ```
 
-For more information, see [mindspore.nn.ExponentialDecayLR](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ExponentialDecayLR.html#mindspore.nn.ExponentialDecayLR).
+For more information, see [mindspore.nn.ExponentialDecayLR](https://www.mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.ExponentialDecayLR.html#mindspore.nn.ExponentialDecayLR).
 
 ## Differences
 

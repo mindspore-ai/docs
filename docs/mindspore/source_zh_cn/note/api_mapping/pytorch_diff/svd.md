@@ -1,6 +1,6 @@
 # 比较与torch.svd的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/svd.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/svd.md)
 
 以下映射关系均可参考本文。
 
@@ -23,7 +23,7 @@ torch.svd(input, some=True, compute_uv=True, *, out=None)
 mindspore.ops.svd(input, full_matrices=False, compute_uv=True)
 ```
 
-更多内容详见[mindspore.ops.svd](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.svd.html)。
+更多内容详见[mindspore.ops.svd](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.svd.html)。
 
 ## 差异对比
 
@@ -54,7 +54,7 @@ MindSpore:
 | 参数       | 参数 1       | input         | input         | 一致           |
 |            | 参数 2       | some          | full_matrices | 若要返回缩减后的奇异值分解结果，MindSpore配置 `full_matrices` 为False，PyTorch配置 `some` 为True |
 |            | 参数 3       | compute_uv    | compute_uv    | 如果参数 `compute_uv` 为False，MindSpore只有一个输出值 s，PyTorch有三个输出值 u，s，v，其中 u 和 v 的值是全0的矩阵。如果 `compute_uv` 为True，MindSpore的输出值的顺序是 s，u，v，PyTorch的输出值的顺序是 u，s，v。 |
-|            | 参数 4       | out           | -             | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|            | 参数 4       | out           | -             | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 
 ## 代码示例 1
 

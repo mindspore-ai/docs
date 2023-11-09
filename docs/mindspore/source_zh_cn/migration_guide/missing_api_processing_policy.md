@@ -1,6 +1,6 @@
 # 缺失API处理策略
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/missing_api_processing_policy.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/migration_guide/missing_api_processing_policy.md)
 
 有以下方法来处理缺失API的情况。
 
@@ -218,9 +218,9 @@ test_compare(pred, target, weight, gamma=2.0, alpha=0.25, reduction='none', avg_
 
 ## 3. 自定义算子
 
-当有些情况无法使用已有的API进行包装，或者用Cell封装的方式性能非常差，这个时候就需要使用自定义算子，详情请参考Custom算子的[使用指南](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom.html)。
+当有些情况无法使用已有的API进行包装，或者用Cell封装的方式性能非常差，这个时候就需要使用自定义算子，详情请参考Custom算子的[使用指南](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/operation/op_custom.html)。
 
-除了可以自己迁移实现API，也可以利用`Custom`算子的`aot`开发方式调用PyTorch Aten的算子进行快速验证，请参考[基于自定义算子接口调用第三方算子库](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/use_third_party_op.html)。
+除了可以自己迁移实现API，也可以利用`Custom`算子的`aot`开发方式调用PyTorch Aten的算子进行快速验证，请参考[基于自定义算子接口调用第三方算子库](https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/use_third_party_op.html)。
 
 **注意，PyTorch实现的算子迁移到GPU和CPU上比较方便，这里展示的也大多是GPU和CPU的，Ascend的算子由于需要使用TBE进行算子开发，门槛较高，推荐使用官方实现的算子进行包装。**
 

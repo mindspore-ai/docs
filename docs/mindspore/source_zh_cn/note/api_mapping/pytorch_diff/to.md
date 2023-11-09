@@ -1,6 +1,6 @@
 # 比较与torch.Tensor.to的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/to.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/to.md)
 
 ## torch.Tensor.to
 
@@ -18,7 +18,7 @@ torch.Tensor.to(other, non_blocking=False, copy=False) -> Tensor
 mindspore.Tensor.to(dtype)
 ```
 
-更多内容详见[mindspore.Tensor.to](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.to.html)。
+更多内容详见[mindspore.Tensor.to](https://mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.to.html)。
 
 ## 使用方式
 
@@ -39,7 +39,7 @@ MindSpore：仅支持 `dtype` 参数，返回指定数据类型的Tensor。
 |            | 参数 3       | other         | -         | PyTorch指定使用的Tensor，MindSpore不支持该功能 |
 |            | 参数 4       | non_blocking  | -         | PyTorch用于CPU和GPU之间的异步拷贝，MindSpore不支持该功能 |
 |            | 参数 5       | copy          | -         | PyTorch用于强制创建新的Tensor，MindSpore不支持该功能 |
-|            | 参数 6       | memory_format | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|            | 参数 6       | memory_format | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 
 ## 代码示例 1
 

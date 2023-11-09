@@ -1,6 +1,6 @@
 # Model Saving
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/model_saving.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_en/parallel/model_saving.md)
 
 ## Overview
 
@@ -23,7 +23,7 @@ The following is an illustration of saving the model files in the distributed tr
 
 ### Example Code Description
 
-> Download the complete example code: [model_saving_loading](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/model_saving_loading).
+> Download the complete example code: [model_saving_loading](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/model_saving_loading).
 
 The directory structure is as follows:
 

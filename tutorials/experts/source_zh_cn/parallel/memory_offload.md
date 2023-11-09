@@ -1,6 +1,6 @@
 # 异构存储
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/memory_offload.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_zh_cn/parallel/memory_offload.md)
 
 ## 概述
 
@@ -58,7 +58,7 @@ mindspore.set_offload_context(offload_config=offload_config)
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[memory_offload](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/memory_offload)。
+> 下载完整的样例代码：[memory_offload](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/memory_offload)。
 
 ```text
 └─ sample_code

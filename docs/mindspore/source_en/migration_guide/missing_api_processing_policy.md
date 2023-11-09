@@ -1,6 +1,6 @@
 # Missing API Processing Policy
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/missing_api_processing_policy.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/migration_guide/missing_api_processing_policy.md)
 
 You can use the following methods to process the missing API:
 
@@ -218,9 +218,9 @@ The final error is less than 1e-5, which is a reasonable accuracy error.
 
 ## 3. Customize operators
 
-When existing APIs cannot be used for packaging, or the performance of cell encapsulation is poor, you need to customize operators. For details, see [Custom Operators](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom.html).
+When existing APIs cannot be used for packaging, or the performance of cell encapsulation is poor, you need to customize operators. For details, see [Custom Operators](https://www.mindspore.cn/tutorials/experts/en/r2.3/operation/op_custom.html).
 
-In addition to migrating APIs, you can also use the `aot` development mode of the `Custom` operator to call the PyTorch Aten operator for quick verification. For details, see [Using Third-party Operator Libraries Based on Customized Interfaces](https://www.mindspore.cn/docs/en/master/migration_guide/use_third_party_op.html).
+In addition to migrating APIs, you can also use the `aot` development mode of the `Custom` operator to call the PyTorch Aten operator for quick verification. For details, see [Using Third-party Operator Libraries Based on Customized Interfaces](https://www.mindspore.cn/docs/en/r2.3/migration_guide/use_third_party_op.html).
 
 **Note that it is convenient to migrate operators implemented by PyTorch to the GPU and CPU. Most of the operators displayed here are GPU and CPU operators. Ascend operators need to use the TBE for operator development, which has high requirements. Therefore, you are advised to use officially implemented operators for packaging.**
 

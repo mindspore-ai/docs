@@ -1,6 +1,6 @@
 # 网络迁移工具应用实践指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/migrator_with_tools.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/migration_guide/migrator_with_tools.md)
 
 ## 概述
 
@@ -17,7 +17,7 @@
 | [MindSpore Dev Toolkit](https://www.mindspore.cn/devtoolkit/docs/zh-CN/master/index.html) | MindSpore Dev Toolkit是一款支持MindSpore开发的多平台Python IDE插件，提供创建项目、智能补全、API互搜和文档搜索等功能。 | 通过API扫描等能力，能够提升用户的网络迁移开发效率。          |
 | [TroubleShooter](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)   | TroubleShooter 是MindSpore网络开发调试工具包，用于提供便捷、易用的调试能力。 | 网络调试工具集（如：网络权重迁移、精度比对、代码跟踪、报错分析、执行跟踪等功能），帮助用户提高迁移调试效率。 |
 | [Profiler](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling.html)     | Profiler可将训练过程中的算子耗时等信息记录到文件中，通过可视化界面供用户查看分析，帮助用户更高效地调试神经网络性能。 | 网络迁移后，如果执行性能不佳，可用Profiler进行性能分析，Profiler提供框架的host执行、以及算子执行的Profiler分析功能。 |
-| [Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)                  | 提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件。 | 一般用于网络迁移复杂问题定位（例如：算子溢出等）可以dump出算子级别的数据。 |
+| [Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/debug/dump.html)                  | 提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件。 | 一般用于网络迁移复杂问题定位（例如：算子溢出等）可以dump出算子级别的数据。 |
 
 ## 网络迁移工具应用实例
 

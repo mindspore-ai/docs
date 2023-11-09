@@ -1,6 +1,6 @@
 # 比较与torch.any的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/any.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/any.md)
 
 以下映射关系均可参考本文。
 
@@ -23,7 +23,7 @@ torch.any(input, dim, keepdim=False, *, out=None) -> Tensor
 mindspore.ops.any(x, axis=(), keep_dims=False) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.any](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.any.html)。
+更多内容详见[mindspore.ops.any](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.any.html)。
 
 ## 差异对比
 

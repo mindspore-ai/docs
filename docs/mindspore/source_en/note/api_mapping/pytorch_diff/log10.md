@@ -1,6 +1,6 @@
 # Differences with torch.log10
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/log10.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/log10.md)
 
 ## torch.log10
 
@@ -16,7 +16,7 @@ For more information, see [torch.log10](https://pytorch.org/docs/1.8.1/generated
 mindspore.ops.log10(input) -> Tensor
 ```
 
-For more information, see [mindspore.ops.log10](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.log10.html).
+For more information, see [mindspore.ops.log10](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.log10.html).
 
 ## Differences
 
@@ -29,4 +29,4 @@ MindSpore: The dtype of the parameter `input` can be ``float16``, ``float32`` or
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 | Parameters | Parameter 1 | input | input | Both are Tensor, and the dtype of the parameter `input` in torch.log10 can be ``int`` or ``float``. The dtype of the parameter `input` in mindspore.ops.log10 can be ``float16``, ``float32``, ``float64`` on GPU and CPU platforms, while ``float16`` or ``float32`` on Ascend platform.|
-|      | Parameter 2 | out | - | For detailed, refer to [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table). |
+|      | Parameter 2 | out | - | For detailed, refer to [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.3/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table). |

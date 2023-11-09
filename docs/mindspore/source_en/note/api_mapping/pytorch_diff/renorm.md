@@ -1,6 +1,6 @@
 # Differences with torch.renorm
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/renorm.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/renorm.md)
 
 The following mapping relationships can be found in this file.
 
@@ -23,7 +23,7 @@ For more information, see [torch.renorm](https://pytorch.org/docs/1.8.1/generate
 mindspore.ops.renorm(input, p, axis, maxnorm)
 ```
 
-For more information, see [mindspore.ops.renorm](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.renorm.html).
+For more information, see [mindspore.ops.renorm](https://mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.renorm.html).
 
 ## Differences
 
@@ -39,7 +39,7 @@ MindSpore: The data type of parameter `p` is ``int`` .
 | | Parameter 2 | p | p | The data type supported by PyTorch is ``float`` , the data type supported by MindSpore is ``int`` . |
 |  | Parameter 3 | dim        | axis | Different parameter names  |
 | | Parameter 4 | maxnorm | maxnorm |  - |
-| | Parameter 5 | out | - | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+| | Parameter 5 | out | - | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.3/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
 ### Code Example
 

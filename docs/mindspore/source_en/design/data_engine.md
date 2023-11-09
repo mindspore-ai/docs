@@ -1,6 +1,6 @@
 # High Performance Data Processing Engine
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/data_engine.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/design/data_engine.md)
 
 ## Background Introduction
 
@@ -22,7 +22,7 @@ MindSpore training data engine also provides efficient loading and sampling capa
 
 The design of MindSpore considers the efficiency, flexibility and adaptability of data processing in different scenarios. The whole data processing subsystem is divided into the following modules:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/data/architecture.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/docs/mindspore/source_zh_cn/design/images/data/architecture.png)
 
 - API: The data processing process is represented in MindSpore in the form of a graph, called a data graph. MindSpore provides Python API to define data graphs externally and implement graph optimization and graph execution internally.
 - Data Processing Pipeline: Data loading and pre-processing multi-step parallel pipeline, which consists of the following components.

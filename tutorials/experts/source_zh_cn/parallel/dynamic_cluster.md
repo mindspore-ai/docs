@@ -1,12 +1,12 @@
 # 动态组网启动
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/dynamic_cluster.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_zh_cn/parallel/dynamic_cluster.md)
 
 ## 概述
 
 出于训练时的可靠性要求，MindSpore提供了**动态组网**特性，用户能够不依赖任何第三方库(OpenMPI)来启动Ascend/GPU/CPU分布式训练任务，并且训练脚本无需做任何修改。我们建议用户优先使用此种启动方式。
 
-MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构**，取代了OpenMPI能力，可参考[Parameter Server模式](https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)训练教程。
+MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构**，取代了OpenMPI能力，可参考[Parameter Server模式](https://mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/parameter_server_training.html)训练教程。
 
 **动态组网**特性将多个MindSpore训练进程作为`Worker`启动，并且额外启动一个`Scheduler`负责组网和容灾恢复。用户只需对启动脚本做少量修改，即可执行分布式训练。
 
@@ -30,7 +30,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
             <ul>
                 <li>MS_SCHED: 代表Scheduler进程，一个训练任务只启动一个Scheduler，负责组网，容灾恢复等，<b>不会执行训练代码</b>。</li>
                 <li>MS_WORKER: 代表Worker进程，一般设置分布式训练进程为此角色。</li>
-                <li>MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考<a href="https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html">Parameter Server模式</a>。</li>
+                <li>MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考<a href="https://mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/parameter_server_training.html">Parameter Server模式</a>。</li>
             </ul>
         </td>
         <td align="left">Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。</td>
@@ -115,7 +115,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
 
 动态组网启动脚本在各硬件平台下一致，下面以Ascend为例演示如何编写启动脚本：
 
-> 您可以在这里下载完整的样例代码：[startup_method](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method)。
+> 您可以在这里下载完整的样例代码：[startup_method](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/startup_method)。
 
 目录结构如下：
 
@@ -217,7 +217,7 @@ for epoch in range(10):
 
 #### 单机多卡
 
-单机多卡启动脚本内容[run_dynamic_cluster.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster.sh)如下，以单机8卡为例：
+单机多卡启动脚本内容[run_dynamic_cluster.sh](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/startup_method/run_dynamic_cluster.sh)如下，以单机8卡为例：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -280,7 +280,7 @@ epoch: 0, step: 90, loss is 0.88950706
 
 多机训练场景下，需拆分启动脚本。下面以执行2机8卡训练，每台机器执行启动4个Worker为例：
 
-脚本[run_dynamic_cluster_1.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster_1.sh)在节点1上启动1`Scheduler`和`Worker1`到`Worker4`：
+脚本[run_dynamic_cluster_1.sh](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/startup_method/run_dynamic_cluster_1.sh)在节点1上启动1`Scheduler`和`Worker1`到`Worker4`：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -315,7 +315,7 @@ export MS_ROLE=MS_SCHED                    # 设置启动的进程为MS_SCHED角
 python ./net.py > device/scheduler.log 2>&1 &     # 启动训练脚本
 ```
 
-脚本[run_dynamic_cluster_2.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster_2.sh)在节点2上启动`Worker5`到`Worker8`（无需执行Scheduler）：
+脚本[run_dynamic_cluster_2.sh](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/startup_method/run_dynamic_cluster_2.sh)在节点2上启动`Worker5`到`Worker8`（无需执行Scheduler）：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -362,7 +362,7 @@ bash run_dynamic_cluster_2.sh
 
 ## 容灾恢复
 
-动态组网支持数据并行下容灾恢复。在多卡数据并行训练场景下，发生进程异常退出，重新拉起对应进程对应的脚本后训练可继续，并且不影响精度收敛。容灾恢复配置和样例可参考[动态组网场景下故障恢复](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/disaster_recover.html)教程。
+动态组网支持数据并行下容灾恢复。在多卡数据并行训练场景下，发生进程异常退出，重新拉起对应进程对应的脚本后训练可继续，并且不影响精度收敛。容灾恢复配置和样例可参考[动态组网场景下故障恢复](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/disaster_recover.html)教程。
 
 ## 安全认证
 
@@ -390,4 +390,4 @@ bash run_dynamic_cluster_2.sh
 - `cipher_list`：密码套件（支持的SSL加密类型列表）。
 - `cert_expire_warning_time_in_day`：证书过期的告警时间。
 
-p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)中的`client_password`以及`server_password`字段。
+p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)中的`client_password`以及`server_password`字段。

@@ -1,6 +1,6 @@
 # Differences with torch.distributed.init_process_group
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/init.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/init.md)
 
 ## torch.distributed.init_process_group
 
@@ -24,7 +24,7 @@ For more information, see [torch.distributed.init_process_group](https://pytorch
 mindspore.communication.init(backend_name=None)
 ```
 
-For more information, see [mindspore.communication.init](https://mindspore.cn/docs/en/master/api_python/mindspore.communication.html#mindspore.communication.init).
+For more information, see [mindspore.communication.init](https://mindspore.cn/docs/en/r2.3/api_python/mindspore.communication.html#mindspore.communication.init).
 
 ## Differences
 

@@ -1,6 +1,6 @@
 # 比较与torch.dot的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/tensor_dot.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/tensor_dot.md)
 
 ## torch.dot
 
@@ -16,7 +16,7 @@ torch.dot(input, other, *, out=None)
 mindspore.ops.tensor_dot(x1, x2, axes)
 ```
 
-更多内容详见[mindspore.ops.tensor_dot](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.tensor_dot.html#mindspore.ops.tensor_dot)。
+更多内容详见[mindspore.ops.tensor_dot](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.tensor_dot.html#mindspore.ops.tensor_dot)。
 
 ## 使用方式
 
@@ -30,7 +30,7 @@ MindSpore：计算两个tensor在任意轴上的点乘，支持任意维度的te
 | ---------- | ------------ | ------------ | ---------  | ------------- |
 | 参数       | 参数 1       | input         | x1        | 参数名不同     |
 |            | 参数 2       | other         | x2        | 参数名不同     |
-|            | 参数 3       | out           | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表)  |
+|            | 参数 3       | out           | -         | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#通用差异参数表)  |
 |            | 参数 4       | -             | axes      | 当输入为1D，axes设定为1时，和PyTorch的功能一致 |
 
 ## 代码示例 1

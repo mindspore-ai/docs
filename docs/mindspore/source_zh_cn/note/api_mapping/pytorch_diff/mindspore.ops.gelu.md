@@ -1,6 +1,6 @@
 # 比较与torch.nn.functional.gelu的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/mindspore.ops.gelu.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/mindspore.ops.gelu.md)
 
 ## torch.nn.functional.gelu
 
@@ -16,7 +16,7 @@ torch.nn.functional.gelu(input) -> Tensor
 mindspore.ops.gelu(input_x, approximate='none')
 ```
 
-更多内容详见[mindspore.ops.gelu](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.gelu.html)。
+更多内容详见[mindspore.ops.gelu](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.gelu.html)。
 
 ## 差异对比
 

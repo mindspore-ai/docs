@@ -1,14 +1,14 @@
 # Environment Preparation and Information Acquisition
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/enveriment_preparation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/migration_guide/enveriment_preparation.md)
 
 Network migration starts with the configuration of the MindSpore development environment. This chapter introduces the installation process of installing MindSpore locally and the tutorial for using the online development environment, ModelArts.
 
 ## Installing MindSpore
 
-[MindSpore](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) currently supports running on [Ascend](https://e.huawei.com/cn/products/servers/ascend), GPU, CPU and other kinds of devices.
+[MindSpore](https://www.mindspore.cn/tutorials/en/r2.3/beginner/introduction.html) currently supports running on [Ascend](https://e.huawei.com/cn/products/servers/ascend), GPU, CPU and other kinds of devices.
 
-> Note that when training on Ascend, MindSpore version needs to be used with Ascend AI processor package. Please refer to [Installing Ascend AI Processor Package](https://www.mindspore.cn/install/en) section in the MindSpore Ascend Version Installation Guide for more details. And refer to [FAQ](https://www.mindspore.cn/docs/en/master/faq/installation.html) when encountering problems.
+> Note that when training on Ascend, MindSpore version needs to be used with Ascend AI processor package. Please refer to [Installing Ascend AI Processor Package](https://www.mindspore.cn/install/en) section in the MindSpore Ascend Version Installation Guide for more details. And refer to [FAQ](https://www.mindspore.cn/docs/en/r2.3/faq/installation.html) when encountering problems.
 
 After the package is installed, install the corresponding version of MindSpore following the [MindSpore Installation Guide](https://www.mindspore.cn/install/en) and verify to experience.
 

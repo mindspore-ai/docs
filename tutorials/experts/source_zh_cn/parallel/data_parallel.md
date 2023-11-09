@@ -1,6 +1,6 @@
 # 数据并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/data_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_zh_cn/parallel/data_parallel.md)
 
 ## 概述
 
@@ -15,7 +15,7 @@
 
 ## 整体流程
 
-![整体流程](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/data_parallel.png)
+![整体流程](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/docs/mindspore/source_zh_cn/design/images/data_parallel.png)
 
 1. 环境依赖
 
@@ -45,7 +45,7 @@
 
 > 您可以在这里下载完整的样例代码：
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_data_parallel>。
+> <https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/distributed_data_parallel>。
 
 目录结构如下：
 
@@ -177,7 +177,7 @@ for epoch in range(10):
         i += 1
 ```
 
-> 此处也可以用[Model.train](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train)的方式进行训练。
+> 此处也可以用[Model.train](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train)的方式进行训练。
 
 ### 运行单机8卡脚本
 
@@ -209,4 +209,4 @@ epoch: 0 step: 30, loss is 2.2938071
 ...
 ```
 
-其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)。
+其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/startup_method.html)。

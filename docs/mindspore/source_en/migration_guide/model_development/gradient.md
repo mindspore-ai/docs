@@ -1,6 +1,6 @@
 # Gradient Derivation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/gradient.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/migration_guide/model_development/gradient.md)
 
 ## Automatic Differentiation
 
@@ -62,7 +62,7 @@ When MindSpore performs automatic differentiation, the forward graph structure n
 
 Finally, not only the forward graph is executed, but also the graph structure contains both the forward operator and the backward operator added by MindSpore. That is, MindSpore adds an invisible `Cell` after the defined forward graph, the `Cell` is a backward operator derived from the forward graph.
 
-The interface that helps us build the backward graph is [grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.grad.html).
+The interface that helps us build the backward graph is [grad](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.grad.html).
 
 After that, for any group of data you enter, it can calculate not only the positive output, but also the gradient of ownership weight. Because the graph structure is fixed and does not save intermediate variables, the graph structure can be invoked repeatedly.
 
@@ -70,7 +70,7 @@ Similarly, when we add an optimizer structure to the network, the optimizer also
 
 In MindSpore, most operations are finally converted into real operator operations and finally added to the computational graph. Therefore, the number of operators actually executed in the computational graph is far greater than the number of operators defined at the beginning.
 
-MindSpore provides the [TrainOneStepCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TrainOneStepCell.html) and [TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html) APIs to package the entire training process. If other operations, such as gradient cropping, specification, and intermediate variable return, are performed in addition to the common training process, you need to customize the training cell. For details, see [Inference and Training Process](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/training_and_evaluation.html).
+MindSpore provides the [TrainOneStepCell](https://www.mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.TrainOneStepCell.html) and [TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html) APIs to package the entire training process. If other operations, such as gradient cropping, specification, and intermediate variable return, are performed in addition to the common training process, you need to customize the training cell. For details, see [Inference and Training Process](https://www.mindspore.cn/docs/en/r2.3/migration_guide/model_development/training_and_evaluation.html).
 
 ### Gradient Derivation
 
@@ -306,14 +306,14 @@ Automatic differentiation based on computational graphs also has an advantage th
 
 ## Automatic Differentiation Interfaces
 
-After the forward network is constructed, MindSpore provides an interface to [automatic differentiation](https://mindspore.cn/tutorials/en/master/beginner/autograd.html) to calculate the gradient results of the model.
-In the tutorial of [automatic derivation](https://mindspore.cn/tutorials/en/master/advanced/derivation.html), some descriptions of various gradient calculation scenarios are given.
+After the forward network is constructed, MindSpore provides an interface to [automatic differentiation](https://mindspore.cn/tutorials/en/r2.3/beginner/autograd.html) to calculate the gradient results of the model.
+In the tutorial of [automatic derivation](https://mindspore.cn/tutorials/en/r2.3/advanced/derivation.html), some descriptions of various gradient calculation scenarios are given.
 
 There are three MindSpore interfaces for finding gradients currently.
 
 ### mindspore.grad
 
-There are four configurable parameters in [mindspore.grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.grad.html):
+There are four configurable parameters in [mindspore.grad](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.grad.html):
 
 - fn (Union[Cell, Function]) - The function or network (Cell) to be derived.
 
@@ -550,7 +550,7 @@ print("logit", logit)
 
 ### mindspore.value_and_grad
 
-The parameters of the interface [mindspore.value_and_grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.value_and_grad.html) is the same as that of the above grad, except that this interface calculates the forward result and gradient of the network at once.
+The parameters of the interface [mindspore.value_and_grad](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.value_and_grad.html) is the same as that of the above grad, except that this interface calculates the forward result and gradient of the network at once.
 
 | grad_position | weights | output |
 | ------------- | ------- | ------ |
@@ -582,7 +582,7 @@ grad ((Tensor(shape=[1, 3], dtype=Float32, value=
 
 ### mindspore.ops.GradOperation
 
-[mindspore.ops.GradOperation](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.GradOperation.html), a higher-order function that generates a gradient function for the input function.
+[mindspore.ops.GradOperation](https://mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.GradOperation.html), a higher-order function that generates a gradient function for the input function.
 
 The gradient function generated by the GradOperation higher-order function can be customized by the construction parameters.
 
@@ -592,9 +592,9 @@ This function is similar to the function of grad, and it is not recommended in t
 
 Since the gradient overflow may be encountered in the process of finding the gradient in the mixed accuracy scenario, we generally use the loss scale to accompany the gradient derivation.
 
-> On Ascend, because operators such as Conv, Sort, and TopK can only be float16, and MatMul is preferably float16 due to performance issues, it is recommended that loss scale operations be used as standard for network training. [List of operators on Ascend only support float16][https://www.mindspore.cn/docs/en/master/migration_guide/debug_and_tune.html#4-training-accuracy].
+> On Ascend, because operators such as Conv, Sort, and TopK can only be float16, and MatMul is preferably float16 due to performance issues, it is recommended that loss scale operations be used as standard for network training. [List of operators on Ascend only support float16][https://www.mindspore.cn/docs/en/r2.3/migration_guide/debug_and_tune.html#4-training-accuracy].
 >
-> The overflow can obtain overflow operator information via MindSpore Insight [debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html) or [dump data](https://mindspore.cn/tutorials/experts/en/master/debug/dump.html).
+> The overflow can obtain overflow operator information via MindSpore Insight [debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html) or [dump data](https://mindspore.cn/tutorials/experts/en/r2.3/debug/dump.html).
 >
 > General overflow manifests itself as loss Nan/INF, loss suddenly becomes large, etc.
 
@@ -660,4 +660,4 @@ grad = ops.clip_by_global_norm(grad)
 
 Gradient accumulation is a way that data samples of a kind of training neural network is split into several small Batches by Batch, and then calculated in order to solve the OOM (Out Of Memory) problem that due to the lack of memory, resulting in too large Batch size, the neural network can not be trained or the network model is too large to load.
 
-For detailed, refer to [Gradient Accumulation](https://www.mindspore.cn/tutorials/experts/en/master/optimize/gradient_accumulation.html).
+For detailed, refer to [Gradient Accumulation](https://www.mindspore.cn/tutorials/experts/en/r2.3/optimize/gradient_accumulation.html).

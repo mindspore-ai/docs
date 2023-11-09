@@ -1,6 +1,6 @@
 # Differences with torch.nn.Tanh
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Tanh.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Tanh.md)
 
 ## torch.nn.Tanh
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.Tanh](https://pytorch.org/docs/1.8.1/generat
 class mindspore.nn.Tanh()(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.Tanh](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Tanh.html).
+For more information, see [mindspore.nn.Tanh](https://www.mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.Tanh.html).
 
 ## Differences
 

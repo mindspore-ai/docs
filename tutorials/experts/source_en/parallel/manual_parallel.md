@@ -1,6 +1,6 @@
 # Manually Parallelism
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/manual_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_en/parallel/manual_parallel.md)
 
 ## Overview
 
@@ -10,7 +10,7 @@ In addition to the automatic and semi-automatic parallelism provided by MindSpor
 
 MindSpore aggragation communication operators include `AllReduce`, `AllGather`, `ReduceScatter`, `Broadcast`, `NeighborExchange`, `NeighborExchangeV2`, and `AlltoAll`, which are the basic building blocks of aggragation communication in distributed training. The so-called aggragation communication refers to the data interaction between different model slices through aggragation communication operators after model slicing. Users can manually call these operators for data transfer to realize distributed training.
 
-For a detailed description of the aggragation communication operator, see [Distributed Set Communication Primitive](https://www.mindspore.cn/docs/en/master/api_python/samples/ops/communicate_ops.html).
+For a detailed description of the aggragation communication operator, see [Distributed Set Communication Primitive](https://www.mindspore.cn/docs/en/r2.3/api_python/samples/ops/communicate_ops.html).
 
 ## Operation Practice
 
@@ -18,7 +18,7 @@ The following is an illustration of manual data parallel operation using an Asce
 
 ### Example Code Description
 
-> Download the complete example code: [manual_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/manual_parallel).
+> Download the complete example code: [manual_parallel](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/manual_parallel).
 
 The directory structure is as follows:
 

@@ -1,6 +1,6 @@
 # Inference and Training Process
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/training_and_evaluation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/migration_guide/model_development/training_and_evaluation.md)
 
 ## General Operating Environment Settings
 
@@ -65,7 +65,7 @@ device_num: 1
 device_id: 0
 ```
 
-The above procedure is just a basic configuration of the operating environment. If you need to add some advanced features, please refer to [set_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context).
+The above procedure is just a basic configuration of the operating environment. If you need to add some advanced features, please refer to [set_context](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.set_context.html#mindspore.set_context).
 
 ## Generic Scripting Framework
 
@@ -112,9 +112,9 @@ The inference process cannot be encapsulated into a Model for operation sometime
 
 ### Inference Verification
 
-In the model analysis and preparation phase, we get the trained parameters of the reference implementation (in the reference implementation README or for training replication). Since the implementation of the model algorithm is not related to the framework, the trained parameters can be first converted into MindSpore [checkpoint](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) and loaded into the network for inference verification.
+In the model analysis and preparation phase, we get the trained parameters of the reference implementation (in the reference implementation README or for training replication). Since the implementation of the model algorithm is not related to the framework, the trained parameters can be first converted into MindSpore [checkpoint](https://www.mindspore.cn/tutorials/en/r2.3/beginner/save_load.html) and loaded into the network for inference verification.
 
-Please refer to [resnet network migration](https://www.mindspore.cn/docs/en/master/migration_guide/sample_code.html) for the whole process of inference verification.
+Please refer to [resnet network migration](https://www.mindspore.cn/docs/en/r2.3/migration_guide/sample_code.html) for the whole process of inference verification.
 
 ## Training Process
 
@@ -155,7 +155,7 @@ if __name__ == '__main__':
     train_net()
 ```
 
-Please refer to [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) for checkpoint saving.
+Please refer to [Save and Load](https://www.mindspore.cn/tutorials/en/r2.3/beginner/save_load.html) for checkpoint saving.
 
 In addition, the training process can be constructed through a functional approach, which is more flexible:
 
@@ -336,8 +336,8 @@ mpirun --allow-run-as-root -n $RANK_SIZE python ../train.py --config_path=$CONFI
 
 If on the GPU, you can set which cards to use by `export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7`. Specifying the card number is not currently supported on Ascend.
 
-Please refer to [Distributed Case](https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_case.html) for more details.
+Please refer to [Distributed Case](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/distributed_case.html) for more details.
 
 ## Offline Inference
 
-In addition to the possibility of online reasoning, MindSpore provides many offline inference methods for different environments. Please refer to [Model Inference](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html) for details.
+In addition to the possibility of online reasoning, MindSpore provides many offline inference methods for different environments. Please refer to [Model Inference](https://www.mindspore.cn/tutorials/experts/en/r2.3/infer/inference.html) for details.

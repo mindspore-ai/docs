@@ -1,6 +1,6 @@
 # 迁移指南概述
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/migration_guide/overview.md)
 
 本迁移指导包含以PyTorch为主的其他机器学习框架将神经网络迁移到MindSpore的完整步骤。
 
@@ -25,17 +25,17 @@ C-.-text5(以ReNet50为例的网络迁移样例)
 A-->D(<font color=blue>FAQs</font>)
 D-.-text6(一些常见问题与相应解决方法)
 
-click C "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html"
-click D "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/faq.html"
+click C "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/sample_code.html"
+click D "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/faq.html"
 
-click E "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/enveriment_preparation.html"
-click F "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/analysis_and_preparation.html"
-click G "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_development.html"
-click H "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tune.html"
+click E "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/enveriment_preparation.html"
+click F "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/analysis_and_preparation.html"
+click G "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/model_development.html"
+click H "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/debug_and_tune.html"
 
-click I "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/dataset.html"
-click J "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html"
-click K "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/learning_rate_and_optimizer.html"
-click L "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/gradient.html"
-click M "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_evaluation.html"
+click I "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/dataset.html"
+click J "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/model_and_cell.html"
+click K "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/learning_rate_and_optimizer.html"
+click L "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/gradient.html"
+click M "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/training_and_evaluation.html"
 ```

@@ -1,6 +1,6 @@
 # 比较与torch.nn.functional.avg_pool1d的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/avg_pool1d.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/avg_pool1d.md)
 
 以下映射关系均可参考本文。
 
@@ -24,7 +24,7 @@ torch.nn.functional.avg_pool1d(input, kernel_size, stride=None, padding=0, ceil_
 mindspore.ops.avg_pool1d(input_x, kernel_size=1, stride=1, padding=0, ceil_mode=False, count_include_pad=True)
 ```
 
-更多内容详见[mindspore.ops.avg_pool1d](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.avg_pool1d.html)。
+更多内容详见[mindspore.ops.avg_pool1d](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.avg_pool1d.html)。
 
 ## 差异对比
 

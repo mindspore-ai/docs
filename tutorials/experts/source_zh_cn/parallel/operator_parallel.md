@@ -1,10 +1,10 @@
 # 算子级并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/operator_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_zh_cn/parallel/operator_parallel.md)
 
 ## 概述
 
-随着深度学习的发展，网络模型正变得越来越大，如NLP领域已出现万亿级参数量的模型，模型容量远超单个设备的内存容量，导致单卡或数据并行均无法进行训练。算子级并行是通过将网络模型中每个算子涉及到的张量进行切分，当仅切分数据维度时，为逻辑上的数据并行，当仅切分模型维度时，为逻辑上的模型并行，通过降低单个设备的内存消耗，从而使大模型的训练成为可能。目前支持并行的算子列表，可以参考[算子级并行使用约束](https://www.mindspore.cn/docs/zh-CN/master/note/operator_list_parallel.html)。
+随着深度学习的发展，网络模型正变得越来越大，如NLP领域已出现万亿级参数量的模型，模型容量远超单个设备的内存容量，导致单卡或数据并行均无法进行训练。算子级并行是通过将网络模型中每个算子涉及到的张量进行切分，当仅切分数据维度时，为逻辑上的数据并行，当仅切分模型维度时，为逻辑上的模型并行，通过降低单个设备的内存消耗，从而使大模型的训练成为可能。目前支持并行的算子列表，可以参考[算子级并行使用约束](https://www.mindspore.cn/docs/zh-CN/r2.3/note/operator_list_parallel.html)。
 
 > 算子级并行模型支持的硬件平台包括Ascend、GPU，需要在Graph模式下运行。
 
@@ -75,7 +75,7 @@ class DenseMatMulNet(nn.Cell):
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel)。
+> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/distributed_operator_parallel)。
 
 目录结构如下：
 
@@ -238,4 +238,4 @@ epoch: 0, step: 100, loss is 0.71934
 ...
 ```
 
-其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)。
+其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/startup_method.html)。

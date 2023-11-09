@@ -1,6 +1,6 @@
 # Differences with torch.nn.utils.clip_grad_norm_
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/clip_by_norm.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/clip_by_norm.md)
 
 ## torch.nn.utils.clip_grad_norm_
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.utils.clip_grad_norm_](https://pytorch.org/d
 mindspore.ops.clip_by_norm(x, max_norm, norm_type=2.0, error_if_nonfinite=False)
 ```
 
-For more information, see [mindspore.ops.clip_by_norm](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.clip_by_norm.html).
+For more information, see [mindspore.ops.clip_by_norm](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.clip_by_norm.html).
 
 ## Differences
 
@@ -24,18 +24,18 @@ The gradient in PyTorch is a property of the Tensor and can be made to have a gr
 
 PyTorch: Gradient cropping can be implemented by directly passing in a Tensor with a gradient.
 
-MindSpore: Due to the different framework mechanism, to implement gradient cropping, it is necessary to obtain the gradient first and then cropping the gradient. You can use methods such as `mindspore.grad` to obtain the gradient. For details, please refer to [gradient derivation](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/gradient.html#gradient-derivation).
+MindSpore: Due to the different framework mechanism, to implement gradient cropping, it is necessary to obtain the gradient first and then cropping the gradient. You can use methods such as `mindspore.grad` to obtain the gradient. For details, please refer to [gradient derivation](https://www.mindspore.cn/docs/en/r2.3/migration_guide/model_development/gradient.html#gradient-derivation).
 
 | Categories | Subcategories | PyTorch | MindSpore | Differences   |
 | ---- | ----- | ------- | --------- | -------------- |
-| Parameters | Parameter 1 | parameters   | x        | The gradient mechanism is different. PyTorch can crop the gradient by passing in the Tensor, while MindSpore needs to pass in the gradient Tensor. Please refer to [gradient derivation](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/gradient.html#gradient-derivation) for how to obtain the gradient. |
+| Parameters | Parameter 1 | parameters   | x        | The gradient mechanism is different. PyTorch can crop the gradient by passing in the Tensor, while MindSpore needs to pass in the gradient Tensor. Please refer to [gradient derivation](https://www.mindspore.cn/docs/en/r2.3/migration_guide/model_development/gradient.html#gradient-derivation) for how to obtain the gradient. |
 |      | Parameter 2 | max_norm   | max_norm        |Consistent |
 |      | Parameter 3 | norm_type| norm_type   | Consistent |
 |      | Parameter 4 | -| error_if_nonfinite   |  PyTorch 1.12 version adds new parameters, with the same functionality as 1.12 |
 
 ### Code Example
 
-> Due to the different mechanism, before implementing gradient cropping, MindSpore needs to use [mindspore.grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.grad.html) and other methods to obtain the gradient first, (For more methods to obtain the gradient, please refer to [gradient derivation](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/gradient.html#gradient-derivation)), and then crop the gradient. The example code is as follows.
+> Due to the different mechanism, before implementing gradient cropping, MindSpore needs to use [mindspore.grad](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.grad.html) and other methods to obtain the gradient first, (For more methods to obtain the gradient, please refer to [gradient derivation](https://www.mindspore.cn/docs/en/r2.3/migration_guide/model_development/gradient.html#gradient-derivation)), and then crop the gradient. The example code is as follows.
 
 ```python
 import numpy as np

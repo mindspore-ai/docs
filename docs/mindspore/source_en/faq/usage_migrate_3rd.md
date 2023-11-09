@@ -1,6 +1,6 @@
 # Migration from a Third-party Framework
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/usage_migrate_3rd.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/faq/usage_migrate_3rd.md)
 
 <font size=3>**Q: How do I load a pre-trained PyTorch model for fine-tuning on MindSpore?**</font>
 
@@ -57,4 +57,4 @@ dataset = dataset.batch(batch_size, drop_remainder=True)
 
 <font size=3>**Q: How do I migrate scripts or models of other frameworks to MindSpore?**</font>
 
-A: For details about script or model migration, please visit the [Migration Guide](https://www.mindspore.cn/docs/en/master/migration_guide/overview.html) in MindSpore official website.
+A: For details about script or model migration, please visit the [Migration Guide](https://www.mindspore.cn/docs/en/r2.3/migration_guide/overview.html) in MindSpore official website.

@@ -1,6 +1,6 @@
 # Distributed Training Communication Fusion
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/comm_fusion.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_en/parallel/comm_fusion.md)
 
 ## Overview
 
@@ -17,7 +17,7 @@ MindSpore provides two interfaces to enable communication fusion, each of which 
     ms.set_auto_parallel_context(comm_fusion=config)
     ```
 
-    In auto-parallel or semi-auto-parallel scenario, the user can utilize the `comm_fusion` parameter provided by this interface to set the parallel strategy when configuring the parallel strategy via `set_auto_parallel_context`, with inputs in the format {"communication_type": {"mode":str, "config": None int or list}}. For details, see `comm_fusion` in [Parallel Configuration](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_auto_parallel_context.html). This configuration method is preferred in this scenario.
+    In auto-parallel or semi-auto-parallel scenario, the user can utilize the `comm_fusion` parameter provided by this interface to set the parallel strategy when configuring the parallel strategy via `set_auto_parallel_context`, with inputs in the format {"communication_type": {"mode":str, "config": None int or list}}. For details, see `comm_fusion` in [Parallel Configuration](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.set_auto_parallel_context.html). This configuration method is preferred in this scenario.
 
 2. Use the interface provided by `Cell`
 
@@ -33,7 +33,7 @@ The whole process of distributed training can be roughly divided into two proces
 
 As shown in the figure below, each node backs up the complete neural network model and uses the local dataset partition to train a mini-batch for forward and backward computation. The gradient obtained from the backward computation is synchronized across the nodes, and the training of the next mini-batch continues after synchronization, and so on, until the accuracy/loss reaches a threshold, or a certain number of epochs are trained. It can be seen that computation and communication alternate in the distributed training process. Work has been done on how to do pipelining of interdependent computation and transmission to reduce the percentage of cross-node data synchronization in the overall training duration [5-6], which will not be repeated here.
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/parallel/images/data_parallel.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/tutorials/experts/source_zh_cn/parallel/images/data_parallel.png)
 
 ### The Necessity of Communication Fusion
 
@@ -59,7 +59,7 @@ comm_fusion={"openstate": True, "allreduce": {"mode": "auto", "config": None}}, 
 
 > You can download the full sample code here:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_comm_fusion>.
+> <https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/distributed_comm_fusion>.
 
 The directory structure is as follows:
 
@@ -93,7 +93,7 @@ If all similar communication operators are fused into one operator, in the curre
 
 In order to avoid the above problem, the network parameters can be fused in groups: while the next group of parameters is computed, the communication of the previous group of parameters is carried out, so that the computation and communication can be hidden from each other, to perform group fusion either by limiting the size of the fusion buffer, or by index partitioning.
 
-For more usage, you can refer to MindSpore [test cases](https://gitee.com/mindspore/mindspore/blob/master/tests/ut/python/parallel/test_comm_fusion.py).
+For more usage, you can refer to MindSpore [test cases](https://gitee.com/mindspore/mindspore/blob/r2.3/tests/ut/python/parallel/test_comm_fusion.py).
 
 > Users can try the size and index modes of `comm_fusion` on their own, which are essentially methods of the fusion buffer class.
 

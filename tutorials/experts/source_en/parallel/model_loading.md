@@ -1,14 +1,14 @@
 # Model Loading
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/model_loading.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_en/parallel/model_loading.md)
 
 ## Overview
 
-Model loading under distribution mainly refers to distributed inference, i.e., the inference phase is performed using multi-card. If data parallel is used for training or model parameters are saved in merge, then each card holds full weights and each card infers about its own input data in the same way as [single-card inference](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html#model-eval-model-validation). It should be noted that each card loads the same CheckPoint file for inference.
+Model loading under distribution mainly refers to distributed inference, i.e., the inference phase is performed using multi-card. If data parallel is used for training or model parameters are saved in merge, then each card holds full weights and each card infers about its own input data in the same way as [single-card inference](https://www.mindspore.cn/tutorials/experts/en/r2.3/infer/inference.html#model-eval-model-validation). It should be noted that each card loads the same CheckPoint file for inference.
 This tutorial focuses on the process of saving slices of the model on each card during the multi-card training process, and reloading the model for inference according to the inference strategy in the inference phase using the multi-card format. For the problem that the number of parameters in the ultra-large-scale neural network model is too large and the model cannot be fully loaded into single card for inference, distributed inference can be performed using multiple cards.
 
-> - When the model is very large and the [load_distributed_checkpoint](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.load_distributed_checkpoint.html) interface that is used in this tutorials has insufficient host memory, refer to the [model transformation](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_transformation.html) section to use the way that each card loads its own corresponding sliced checkpoint.
-> - If pipeline distributed inference is used, pipeline parallel training must also be used during training, and the `device_num` and `pipeline_stages` used for pipeline parallel training and inference must be the same. For pipeline parallel inference, `micro_batch` is 1, there is no need to call `PipelineCell`, and each `stage` only needs to load the Checkpoint file for this `stage`. Refer to the [Pipeline Parallel](https://www.mindspore.cn/tutorials/experts/en/master/parallel/pipeline_parallel.html) training tutorial.
+> - When the model is very large and the [load_distributed_checkpoint](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.load_distributed_checkpoint.html) interface that is used in this tutorials has insufficient host memory, refer to the [model transformation](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/model_transformation.html) section to use the way that each card loads its own corresponding sliced checkpoint.
+> - If pipeline distributed inference is used, pipeline parallel training must also be used during training, and the `device_num` and `pipeline_stages` used for pipeline parallel training and inference must be the same. For pipeline parallel inference, `micro_batch` is 1, there is no need to call `PipelineCell`, and each `stage` only needs to load the Checkpoint file for this `stage`. Refer to the [Pipeline Parallel](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/pipeline_parallel.html) training tutorial.
 
 Related interfaces:
 
@@ -31,7 +31,7 @@ The following is an illustration of distributed inference, using a single-machin
 
 ### Example Code Description
 
-> Download the complete example code: [model_saving_loading](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/model_saving_loading).
+> Download the complete example code: [model_saving_loading](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/model_saving_loading).
 
 The directory structure is as follows:
 
@@ -46,7 +46,7 @@ The directory structure is as follows:
 
 `test_loading.py` is the script that defines the network structure and inference. `run_loading.sh` is the execution script.
 
-The user first needs to follow the [Model Saving](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_saving.html) tutorial to perform the 8-card distributed training, which will generate Checkpoint file directory as well as the cut-point strategy file in the current path at the end of training:
+The user first needs to follow the [Model Saving](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/model_saving.html) tutorial to perform the 8-card distributed training, which will generate Checkpoint file directory as well as the cut-point strategy file in the current path at the end of training:
 
 ```text
 src_checkpoints/

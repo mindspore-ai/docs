@@ -1,18 +1,18 @@
 # 静态图语法支持
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/static_graph_syntax_support.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/static_graph_syntax_support.md)
 
 ## 概述
 
 在Graph模式下，Python代码并不是由Python解释器去执行，而是将代码编译成静态计算图，然后执行静态计算图。
 
-在静态图模式下，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。MindSpore使用基于图表示的函数式IR，称为MindIR，详情可参考[中间表示MindIR](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir)。
+在静态图模式下，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。MindSpore使用基于图表示的函数式IR，称为MindIR，详情可参考[中间表示MindIR](https://www.mindspore.cn/docs/zh-CN/r2.3/design/all_scenarios.html#中间表示mindir)。
 
 MindSpore的静态图执行过程实际包含两步，对应静态图的Define和Run阶段，但在实际使用中，在实例化的Cell对象被调用时用户并不会分别感知到这两阶段，MindSpore将两阶段均封装在Cell的`__call__`方法中，因此实际调用过程为：
 
 `model(inputs) = model.compile(inputs) + model.construct(inputs)`，其中`model`为实例化Cell对象。
 
-使用Graph模式有两种方式：一是调用`@jit`装饰器修饰函数或者类的成员方法，所修饰的函数或方法将会被编译成静态计算图。`jit`使用规则详见[jit API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html#mindspore.jit)。二是设置`ms.set_context(mode=ms.GRAPH_MODE)`，使用`Cell`类并且在`construct`函数中编写执行代码，此时`construct`函数的代码将会被编译成静态计算图。`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
+使用Graph模式有两种方式：一是调用`@jit`装饰器修饰函数或者类的成员方法，所修饰的函数或方法将会被编译成静态计算图。`jit`使用规则详见[jit API文档](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.jit.html#mindspore.jit)。二是设置`ms.set_context(mode=ms.GRAPH_MODE)`，使用`Cell`类并且在`construct`函数中编写执行代码，此时`construct`函数的代码将会被编译成静态计算图。`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.Cell.html)。
 
 由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。借鉴传统JIT编译的思路，从图模式的角度考虑动静图的统一，扩展图模式的语法能力，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。为了便于用户选择是否扩展静态图语法，提供了JIT语法支持级别选项`jit_syntax_level`，其值必须在[STRICT，LAX]范围内，选择`STRICT`则认为使用基础语法，不扩展静态图语法。默认值为`LAX`，更多请参考本文的[扩展语法（LAX级别）](#扩展语法lax级别)章节。全部级别都支持所有后端。
 
@@ -720,9 +720,9 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
 ##### Tensor
 
-Tensor的属性与接口详见[Tensor API文档](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor)。
+Tensor的属性与接口详见[Tensor API文档](https://mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.Tensor.html#mindspore-tensor)。
 
-支持在静态图模式下创建和使用Tensor。创建方式有使用[tensor函数接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)和使用`Tensor`类接口。推荐使用tensor函数接口，用户可以使用指定所需要的dtype类型。代码用例如下。
+支持在静态图模式下创建和使用Tensor。创建方式有使用[tensor函数接口](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)和使用`Tensor`类接口。推荐使用tensor函数接口，用户可以使用指定所需要的dtype类型。代码用例如下。
 
 ```python
 import mindspore as ms
@@ -786,7 +786,7 @@ ValueError: For 'ReduceSum', the second input type should be tensor or scalar, b
 
 当前不支持在网络调用`Primitive`及其子类相关属性和接口。
 
-当前已定义的`Primitive`详见[Primitive API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive)。
+当前已定义的`Primitive`详见[Primitive API文档](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive)。
 
 ##### Cell
 
@@ -796,17 +796,17 @@ ValueError: For 'ReduceSum', the second input type should be tensor or scalar, b
 
 当前不支持在网络调用`Cell`及其子类相关属性和接口，除非是在`Cell`自己的`construct`中通过`self`调用。
 
-`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
+`Cell`定义详见[Cell API文档](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.Cell.html)。
 
 ##### Parameter
 
 `Parameter`是变量张量，代表在训练网络时，需要被更新的参数。
 
-`Parameter`的定义和使用详见[Parameter API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)。
+`Parameter`的定义和使用详见[Parameter API文档](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)。
 
 ### 运算符
 
-算术运算符和赋值运算符支持`Number`和`Tensor`运算，也支持不同`dtype`的`Tensor`运算。详见[运算符](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/operators.html)。
+算术运算符和赋值运算符支持`Number`和`Tensor`运算，也支持不同`dtype`的`Tensor`运算。详见[运算符](https://www.mindspore.cn/docs/zh-CN/r2.3/note/static_graph_syntax/operators.html)。
 
 ### 原型
 
@@ -864,7 +864,7 @@ ret:1
 
 `Dictionary`的索引取值请参考本文的[Dictionary](#dictionary)章节。
 
-`Tensor`的索引取详见[Tensor 索引取值文档](https://www.mindspore.cn/docs/zh-CN/master/note/index_support.html#索引取值)。
+`Tensor`的索引取详见[Tensor 索引取值文档](https://www.mindspore.cn/docs/zh-CN/r2.3/note/index_support.html#索引取值)。
 
 #### 调用
 
@@ -903,11 +903,11 @@ ret:[[3. 3. 3. 3.]]
 
 ### 语句
 
-当前静态图模式支持部分Python语句，包括raise语句、assert语句、pass语句、return语句、break语句、continue语句、if语句、for语句、while语句、with语句、列表生成式、生成器表达式、函数定义语句等，详见[Python语句](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/statements.html)。
+当前静态图模式支持部分Python语句，包括raise语句、assert语句、pass语句、return语句、break语句、continue语句、if语句、for语句、while语句、with语句、列表生成式、生成器表达式、函数定义语句等，详见[Python语句](https://www.mindspore.cn/docs/zh-CN/r2.3/note/static_graph_syntax/statements.html)。
 
 ### Python内置函数
 
-当前静态图模式支持部分Python内置函数，其使用方法与对应的Python内置函数类似，详见[Python内置函数](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/python_builtin_functions.html)。
+当前静态图模式支持部分Python内置函数，其使用方法与对应的Python内置函数类似，详见[Python内置函数](https://www.mindspore.cn/docs/zh-CN/r2.3/note/static_graph_syntax/python_builtin_functions.html)。
 
 ### 网络定义
 
@@ -957,7 +957,7 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
 
 ## 基础语法的语法约束
 
-图模式下的执行图是从源码转换而来，并不是所有的Python语法都能支持。下面介绍在基础语法下存在的一些语法约束。更多网络编译问题可见[网络编译](https://www.mindspore.cn/docs/zh-CN/master/faq/network_compilation.html)。
+图模式下的执行图是从源码转换而来，并不是所有的Python语法都能支持。下面介绍在基础语法下存在的一些语法约束。更多网络编译问题可见[网络编译](https://www.mindspore.cn/docs/zh-CN/r2.3/faq/network_compilation.html)。
 
 1. 当`construct`函数里，使用未定义的类成员时，将抛出`AttributeError`异常。示例如下：
 
@@ -1010,7 +1010,7 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
     TypeError: The parameters number of the function is 3, but the number of provided arguments is 2.
     ```
 
-3. 在图模式下，有些Python语法难以转换成图模式下的[中间表示MindIR](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir)。对标Python的关键字，存在部分关键字在图模式下是不支持的：AsyncFunctionDef、Delete、AnnAssign、AsyncFor、AsyncWith、Match、Try、Import、ImportFrom、Nonlocal、NamedExpr、Set、SetComp、Await、Yield、YieldFrom、Starred。如果在图模式下使用相关的语法，将会有相应的报错信息提醒用户。
+3. 在图模式下，有些Python语法难以转换成图模式下的[中间表示MindIR](https://www.mindspore.cn/docs/zh-CN/r2.3/design/all_scenarios.html#中间表示mindir)。对标Python的关键字，存在部分关键字在图模式下是不支持的：AsyncFunctionDef、Delete、AnnAssign、AsyncFor、AsyncWith、Match、Try、Import、ImportFrom、Nonlocal、NamedExpr、Set、SetComp、Await、Yield、YieldFrom、Starred。如果在图模式下使用相关的语法，将会有相应的报错信息提醒用户。
 
     如果使用Try语句，示例如下：
 
@@ -1038,7 +1038,7 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
 
 4. 对标Python内置数据类型，除去当前图模式下支持的[Python内置数据类型](#python内置数据类型)，复数`complex`和集合`set`类型是不支持的。列表`list`和字典`dictionary`的一些高阶用法在基础语法场景下是不支持的，需要在JIT语法支持级别选项`jit_syntax_level`为`LAX`时才支持，更多请参考本文的[扩展语法（LAX级别）](#扩展语法lax级别)章节。
 
-5. 对标Python的内置函数，在基础语法场景下，除去当前图模式下支持的[Python内置函数](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/python_builtin_functions.html)，仍存在部分内置函数在图模式下是不支持的，例如：basestring、bin、bytearray、callable、chr、cmp、compile、 delattr、dir、divmod、eval、execfile、file、frozenset、hash、hex、id、input、issubclass、iter、locals、long、memoryview、next、object、oct、open、ord、property、raw_input、reduce、reload、repr、reverse、set、slice、sorted、unichr、unicode、vars、xrange、\_\_import\_\_。
+5. 对标Python的内置函数，在基础语法场景下，除去当前图模式下支持的[Python内置函数](https://www.mindspore.cn/docs/zh-CN/r2.3/note/static_graph_syntax/python_builtin_functions.html)，仍存在部分内置函数在图模式下是不支持的，例如：basestring、bin、bytearray、callable、chr、cmp、compile、 delattr、dir、divmod、eval、execfile、file、frozenset、hash、hex、id、input、issubclass、iter、locals、long、memoryview、next、object、oct、open、ord、property、raw_input、reduce、reload、repr、reverse、set、slice、sorted、unichr、unicode、vars、xrange、\_\_import\_\_。
 
 6. Python提供了很多第三方库，通常需要通过import语句调用。在图模式下JIT语法支持级别为STRICT时，不能直接使用第三方库。如果需要在图模式下使用第三方库的数据类型或者调用第三方库的方法，需要在JIT语法支持级别选项`jit_syntax_level`为`LAX`时才支持，更多请参考本文的[扩展语法（LAX级别）](#扩展语法lax级别)中的[调用第三方库](#调用第三方库)章节。
 
@@ -1090,7 +1090,7 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
 
   2. 第三方代码库。路径在Python安装目录的`site-packages`目录下，需要先安装后导入，例如`NumPy`、`SciPy`等。需要注意的是，`mindyolo`、`mindflow`等MindSpore套件不被视作第三方库。
 
-  3. 通过环境变量`MS_JIT_IGNORE_MODULES`指定的模块。与之相对的有环境变量`MS_JIT_MODULES`，具体使用方法请参考[环境变量](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html)。
+  3. 通过环境变量`MS_JIT_IGNORE_MODULES`指定的模块。与之相对的有环境变量`MS_JIT_MODULES`，具体使用方法请参考[环境变量](https://www.mindspore.cn/docs/zh-CN/r2.3/note/env_var_list.html)。
 
 - 支持第三方库的数据类型，允许调用和返回第三方库的对象。
 
@@ -1220,7 +1220,7 @@ assert out == 100
 
 ### 基础运算符支持更多数据类型
 
-在静态图语法重载了以下运算符: ['+', '-', '*', '/', '//', '%', '**', '<<', '>>', '&', '|', '^', 'not', '==', '!=', '<', '>', '<=', '>=', 'in', 'not in', 'y=x[0]']。图模式重载的运算符详见[运算符](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/operators.html)。列表中的运算符在输入图模式中不支持的输入类型时将使用扩展静态图语法支持，并使输出结果与动态图模式下的输出结果一致。
+在静态图语法重载了以下运算符: ['+', '-', '*', '/', '//', '%', '**', '<<', '>>', '&', '|', '^', 'not', '==', '!=', '<', '>', '<=', '>=', 'in', 'not in', 'y=x[0]']。图模式重载的运算符详见[运算符](https://www.mindspore.cn/docs/zh-CN/r2.3/note/static_graph_syntax/operators.html)。列表中的运算符在输入图模式中不支持的输入类型时将使用扩展静态图语法支持，并使输出结果与动态图模式下的输出结果一致。
 
 代码用例如下。
 
@@ -1456,7 +1456,7 @@ assert res is None
 
 扩展内置函数的支持范围。Python内置函数完善支持更多输入类型，例如第三方库数据类型。
 
-例如下面的例子，`x.asnumpy()`和`np.ndarray`均是扩展支持的类型。更多内置函数的支持情况可见[Python内置函数](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax/python_builtin_functions.html)章节。
+例如下面的例子，`x.asnumpy()`和`np.ndarray`均是扩展支持的类型。更多内置函数的支持情况可见[Python内置函数](https://www.mindspore.cn/docs/zh-CN/r2.3/note/static_graph_syntax/python_builtin_functions.html)章节。
 
 ```python
 import numpy as np
@@ -1731,7 +1731,7 @@ assert out == 2
 
 对于运行时的扩展支持的语法，会产生一些无法被类型推导出的节点，比如动态创建Tensor等。这种类型称为`Any`类型。因为该类型无法在编译时推导出正确的类型，所以这种`Any`将会以一种默认最大精度`Float64`进行运算，防止其精度丢失。为了能更好的优化相关性能，需要减少`Any`类型数据的产生。当用户可以明确知道当前通过扩展支持的语句会产生具体类型的时候，我们推荐使用`Annotation @jit.typing:`的方式进行指定对应Python语句类型，从而确定解释节点的类型避免`Any`类型的生成。
 
-例如，[Tensor](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor)类和[tensor](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)接口的区别就在于在`tensor`接口内部运用了Annotation Type机制。当`tensor`函数的`dtype`确定时，函数内部会利用`Annotation`指定输出类型从而避免`Any`类型的产生。`Annotation Type`的使用只需要在对应Python语句上面或者后面加上注释 `# @jit.typing: () -> tensor_type[float32]` 即可，其中 `->` 后面的 `tensor_type[float32]` 指示了被注释的语句输出类型。
+例如，[Tensor](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor)类和[tensor](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.tensor.html#mindspore.tensor)接口的区别就在于在`tensor`接口内部运用了Annotation Type机制。当`tensor`函数的`dtype`确定时，函数内部会利用`Annotation`指定输出类型从而避免`Any`类型的产生。`Annotation Type`的使用只需要在对应Python语句上面或者后面加上注释 `# @jit.typing: () -> tensor_type[float32]` 即可，其中 `->` 后面的 `tensor_type[float32]` 指示了被注释的语句输出类型。
 
 代码用例如下。
 

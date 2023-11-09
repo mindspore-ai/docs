@@ -1,6 +1,6 @@
 # Differences with torch.svd
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/svd.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/svd.md)
 
 The following mapping relationships can be found in this file.
 
@@ -23,7 +23,7 @@ For more information, see [torch.svd](https://pytorch.org/docs/1.8.1/generated/t
 mindspore.ops.svd(input, full_matrices=False, compute_uv=True)
 ```
 
-For more information, see [mindspore.ops.svd](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.svd.html).
+For more information, see [mindspore.ops.svd](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.svd.html).
 
 ## Differences
 
@@ -52,7 +52,7 @@ MindSpore:
 | Parameters | Parameter 1   | input        | input         | Consistent    |
 |            | Parameter 2   | some         | full_matrices | To return the reduced singular value decomposition, MindSpore should set `full_matrices` to False, and PyTorch should set `some` to True |
 |            | Parameter 3   | compute_uv   | compute_uv    | If `compute_uv` is False, MindSpore has only one output value s, and PyTorch has three output values u, s, v, where the values of u and v are zero-filled matrices. If `compute_uv` is True, the order of MindSpore's output values is s, u, v, and the order of PyTorch's output values is u, s, v. |
-|            | Parameter 4   | out          | -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|            | Parameter 4   | out          | -             | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.3/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
 ## Code Example 1
 
