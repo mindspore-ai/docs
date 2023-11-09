@@ -1,6 +1,6 @@
 # benchmark
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/cloud_infer/benchmark_tool.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/lite/docs/source_en/use/cloud_infer/benchmark_tool.md)
 
 ## Overview
 
@@ -12,9 +12,9 @@ Before performing inference after converting the model, you can use the Benchmar
 
 To use the Benchmark tool, you need to do the following environment preparation work.
 
-- Compile: The Benchmark tool code is in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. Refer to the build documentation for [Environment requirements](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/build.html#environment-requirements) and [Compilation Examples](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/build.html#compilation-examples) in the build documentation to perform the compilation.
+- Compile: The Benchmark tool code is in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. Refer to the build documentation for [Environment requirements](https://www.mindspore.cn/lite/docs/en/r2.3/use/cloud_infer/build.html#environment-requirements) and [Compilation Examples](https://www.mindspore.cn/lite/docs/en/r2.3/use/cloud_infer/build.html#compilation-examples) in the build documentation to perform the compilation.
 
-- Run: Refer to [compilation output](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/build.html#directory-structure) in the build documentation to get the `benchmark` tool from the compiled package.
+- Run: Refer to [compilation output](https://www.mindspore.cn/lite/docs/en/r2.3/use/cloud_infer/build.html#directory-structure) in the build documentation to get the `benchmark` tool from the compiled package.
 
 - Add the dynamic link libraries needed for inference to the environment variable LD_LIBRARY_PATH.
 

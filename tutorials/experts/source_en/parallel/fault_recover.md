@@ -1,23 +1,23 @@
 # Fault Recovery Based on Redundant Information
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/fault_recover.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_en/parallel/fault_recover.md)
 
 ## Overview
 
 It is very common to encounter failures when performing distributed training, similar to single-card training, which can be continued by loading the saved weight information during training. Distinct from pure data parallel training, when model parallelism is applied, the weights are sliced and the weight information saved between cards may not be consistent.
 
-To solve this problem, one option is to aggregate the weights through the [AllGather](https://www.mindspore.cn/docs/en/master/api_python/samples/ops/communicate_ops.html#allgather) before saving the weight checkpoint file, where each card stores a complete information about the weights. This function is the integrated_save in the `mindspore.train.CheckpointConfig(integrated_save=True)` interface.
+To solve this problem, one option is to aggregate the weights through the [AllGather](https://www.mindspore.cn/docs/en/r2.3/api_python/samples/ops/communicate_ops.html#allgather) before saving the weight checkpoint file, where each card stores a complete information about the weights. This function is the integrated_save in the `mindspore.train.CheckpointConfig(integrated_save=True)` interface.
 
 However, for large models, the overhead of using aggregated preservation is too large for all kinds of resources, so this document presents a recovery scheme where each card only saves its own weight information. For large models, both data parallelism and model parallelism are often applied, and the devices divided by the dimensions of data parallelism, which hold exactly the same weight information, provide a redundant backup for large models. This document will also point out how to go about obtaining this redundant information.
 
-For the relationship between the parallel strategy and the slicing division of the weights, the following mapping can be performed. For the concept of data parallelism, model parallelism, please refer to [data parallelism](https://www.mindspore.cn/tutorials/experts/en/master/parallel/data_parallel.html). For more information about optimizer parallelism, please refer to [Optimizer Parallelism](https://www.mindspore.cn/tutorials/experts/en/master/parallel/optimizer_parallel.html).
+For the relationship between the parallel strategy and the slicing division of the weights, the following mapping can be performed. For the concept of data parallelism, model parallelism, please refer to [data parallelism](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/data_parallel.html). For more information about optimizer parallelism, please refer to [Optimizer Parallelism](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/optimizer_parallel.html).
 
 - Data parallelism + keep optimizer parallelism off: The ranks in the parallel communication domain hold the same weight slice.
 - Model parallism: The ranks in the parallel communication domain hold different weight slices.
 - Data parallelism + keep optimizer parallelism on + the number of shards in optimizer parallelism is equal to the number of all data parallel dimensions: rank in the parallelism communication domain holds slices with different weights.
 - Data parallelism + keep optimizer parallelism on + the number of shards in optimizer parallelism is smaller than the number of all data parallel dimensions: Within the parallel communication domain, the rank within the communication domain sliced by the optimizer holds different weight slices, and the communication domain sliced by each optimizer holds the same weight slice between them.
 
-Also, it should be noted that this document introduces the distributed faults recovery scheme, which needs to be used in [sink mode](https://www.mindspore.cn/tutorials/experts/en/master/optimize/execution_opt.html).
+Also, it should be noted that this document introduces the distributed faults recovery scheme, which needs to be used in [sink mode](https://www.mindspore.cn/tutorials/experts/en/r2.3/optimize/execution_opt.html).
 
 Related environment variables:
 
@@ -29,7 +29,7 @@ The following is an operation illustration of fault recovery under distributed t
 
 ### Example Code Description
 
-> Download the complete example code: [fault_recover](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/fault_recover)
+> Download the complete example code: [fault_recover](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/fault_recover)
 
 The directory structure is as follows:
 

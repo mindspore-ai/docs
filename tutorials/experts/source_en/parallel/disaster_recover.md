@@ -1,6 +1,6 @@
 # Disaster Recovery in Dynamic Cluster Scenarios
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/disaster_recover.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_en/parallel/disaster_recover.md)
 
 ## Overview
 
@@ -10,7 +10,7 @@ Specifically, in the graph mode, the data sink mode is used for training, and th
 
 > Disaster recovery in dynamic cluster scenarios only supports GPUs and needs to run in Graph mode.
 
-For more detailed instructions, see dynamic cluster environment variables in the [Environment Variables List](https://www.mindspore.cn/docs/en/master/note/env_var_list.html).
+For more detailed instructions, see dynamic cluster environment variables in the [Environment Variables List](https://www.mindspore.cn/docs/en/r2.3/note/env_var_list.html).
 
 ## Operation Practice
 
@@ -18,7 +18,7 @@ The following is an example of how to do this with Ascend:
 
 ### Sample Code Description
 
-> Download the full sample code: [disaster_recover](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/disaster_recover).
+> Download the full sample code: [disaster_recover](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/disaster_recover).
 
 The directory structure is as follows:
 
@@ -35,7 +35,7 @@ The directory structure is as follows:
 
 ### Network Structure
 
-The network structure and dataset loading is consistent with the example in [Dynamic Cluster Startup Method](https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html).
+The network structure and dataset loading is consistent with the example in [Dynamic Cluster Startup Method](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/dynamic_cluster.html).
 
 ### Defining the Training Process
 

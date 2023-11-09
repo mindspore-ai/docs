@@ -1,12 +1,12 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/tensor.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/source_en/beginner/tensor.md)
 
-[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || **Tensor** || [Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/r2.3/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.3/beginner/quick_start.html) || **Tensor** || [Dataset](https://www.mindspore.cn/tutorials/en/r2.3/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r2.3/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.3/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.3/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.3/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.3/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.3/beginner/accelerate_with_static_graph.html)
 
 # Tensor
 
 Tensor is a multilinear function that can be used to represent linear relationships between vectors, scalars, and other tensors. The basic examples of these linear relations are the inner product, the outer product, the linear map, and the Cartesian product. In the $n$ dimensional space, its coordinates have $n^{r}$ components. Each component is a function of coordinates, and these components are also linearly transformed according to certain rules when the coordinates are transformed. $r$ is called the rank or order of this tensor (not related to the rank or order of the matrix).
 
-A tensor is a special data structure that is similar to arrays and matrices. [Tensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html) is the basic data structure in MindSpore network operations. This tutorial describes the attributes and usage of tensors and sparse tensors.
+A tensor is a special data structure that is similar to arrays and matrices. [Tensor](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.Tensor.html) is the basic data structure in MindSpore network operations. This tutorial describes the attributes and usage of tensors and sparse tensors.
 
 ```python
 import numpy as np
@@ -51,9 +51,9 @@ There are multiple methods for creating tensors. When building a tensor, you can
 
     When `init` is used to initialize a tensor, the `init`, `shape`, and `dtype` parameters can be transferred.
 
-    - `init`: supports the subclass of [initializer](https://mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html). For example, [One()](https://www.mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.One) and [Normal()](https://www.mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal) below.
+    - `init`: supports the subclass of [initializer](https://mindspore.cn/docs/en/r2.3/api_python/mindspore.common.initializer.html). For example, [One()](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore.common.initializer.html#mindspore.common.initializer.One) and [Normal()](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal) below.
     - `shape`: supports `list`, `tuple`, and `int`.
-    - `dtype`: supports [mindspore.dtype](https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.dtype).
+    - `dtype`: supports [mindspore.dtype](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore.html#mindspore.dtype).
 
     ```python
     from mindspore.common.initializer import One, Normal
@@ -192,7 +192,7 @@ mod: [0. 1. 0.]
 floordiv: [4. 2. 2.]
 ```
 
-[concat](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.concat.html) connects a series of tensors in a given dimension.
+[concat](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.concat.html) connects a series of tensors in a given dimension.
 
 ```python
 data1 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
@@ -212,7 +212,7 @@ shape:
  (4, 2)
 ```
 
-[stack](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.stack.html) combines two tensors from another dimension.
+[stack](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.stack.html) combines two tensors from another dimension.
 
 ```python
 data1 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
@@ -239,7 +239,7 @@ Tensor and NumPy can be converted to each other.
 
 ### Tensor to NumPy
 
-Use [Tensor.asnumpy()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html) to convert Tensor to NumPy, which is same as tensor building.
+Use [Tensor.asnumpy()](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html) to convert Tensor to NumPy, which is same as tensor building.
 
 ```python
 t = Tensor([1., 1., 1., 1., 1.])
@@ -295,7 +295,7 @@ The compressed sparse row (`CSR`) is efficient in both storage and computation. 
 
 - `shape`: indicates the shape of a compressed sparse tensor. The data type is `Tuple`. Currently, only 2-D `CSRTensor` is supported.
 
-> For details about `CSRTensor`, see [mindspore.CSRTensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.CSRTensor.html).
+> For details about `CSRTensor`, see [mindspore.CSRTensor](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.CSRTensor.html).
 
 The following are some examples of using the CSRTensor:
 
@@ -336,7 +336,7 @@ The `COO` (Coordinate Format) sparse tensor format is used to represent a collec
 
 - `shape`: indicates the shape of a compressed sparse tensor. Currently, only 2-D `COOTensor` is supported.
 
-> For details about `COOTensor`, see [mindspore.COOTensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.COOTensor.html).
+> For details about `COOTensor`, see [mindspore.COOTensor](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.COOTensor.html).
 
 The following are some examples of using COOTensor:
 

@@ -1,6 +1,6 @@
 # Differences with torch.nn.ConvTranspose2d
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Conv2dTranspose.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Conv2dTranspose.md)
 
 ## torch.nn.ConvTranspose2d
 
@@ -39,7 +39,7 @@ class mindspore.nn.Conv2dTranspose(
 )(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.Conv2dTranspose](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Conv2dTranspose.html).
+For more information, see [mindspore.nn.Conv2dTranspose](https://www.mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.Conv2dTranspose.html).
 
 ## Differences
 
@@ -47,7 +47,7 @@ PyTorch: Computing a two-dimensional transposed convolution can be thought of as
 $H_{out}=(H_{in}−1)×stride[0]−2×padding[0]+dilation[0]×(kernel\underline{ }size[0]−1)+output\underline{ }padding[0]+1$ and
 $W_{out}=(W_{in}−1)×stride[1]−2×padding[1]+dilation[1]×(kernel\underline{ }size[1]−1)+output\underline{ }padding[1]+1$
 
-MindSpore: MindSpore API implements basically the same function as PyTorch, but with the new "pad_mode" parameter. When "pad_mode" = "pad", it is the same as the PyTorch default, and the weight_init and bias_init parameters can be used to configure the initialization method. In addition, torch.nn.ConvTranspose2d has an output_padding parameter that functions as a one-sided zero-padding (right and bottom side) of the feature map after deconvolution, which is currently not available in mindspore.nn.Conv2dTranspose and can be used for the output result by using [nn.Pad] (https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad) for the output to perform the complementary dimensioning instead.
+MindSpore: MindSpore API implements basically the same function as PyTorch, but with the new "pad_mode" parameter. When "pad_mode" = "pad", it is the same as the PyTorch default, and the weight_init and bias_init parameters can be used to configure the initialization method. In addition, torch.nn.ConvTranspose2d has an output_padding parameter that functions as a one-sided zero-padding (right and bottom side) of the feature map after deconvolution, which is currently not available in mindspore.nn.Conv2dTranspose and can be used for the output result by using [nn.Pad] (https://mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad) for the output to perform the complementary dimensioning instead.
 
 ### Weight Initialization Difference
 
@@ -182,7 +182,7 @@ print(output.shape)
 
 ### Code Example 4
 
-> The following example implements the deconvolution of the input tensor and outputs the size of the deconvolved feature map, where PyTorch can set the value of output_padding to make up for the lack of stride greater than 1 by adding right-side and lower-side dimensionality to the output image after deconvolution. MindSpore does not support output_padding parameter for now, and you need to use [nn.Pad](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad) again for the output result for one-sided dimensioning.
+> The following example implements the deconvolution of the input tensor and outputs the size of the deconvolved feature map, where PyTorch can set the value of output_padding to make up for the lack of stride greater than 1 by adding right-side and lower-side dimensionality to the output image after deconvolution. MindSpore does not support output_padding parameter for now, and you need to use [nn.Pad](https://mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad) again for the output result for one-sided dimensioning.
 
 ```python
 # PyTorch

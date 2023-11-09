@@ -1,6 +1,6 @@
 # 比较与torch.optim.lr_scheduler.StepLR和torch.optim.lr_scheduler.MultiStepLR的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/PiecewiseConstantLR.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/PiecewiseConstantLR.md)
 
 ## torch.optim.lr_scheduler.StepLR
 
@@ -39,7 +39,7 @@ mindspore.nn.piecewise_constant_lr(
 )
 ```
 
-更多内容详见[mindspore.nn.piecewise_constant_lr](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.piecewise_constant_lr.html#mindspore.nn.piecewise_constant_lr)。
+更多内容详见[mindspore.nn.piecewise_constant_lr](https://mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.piecewise_constant_lr.html#mindspore.nn.piecewise_constant_lr)。
 
 ## 差异对比
 

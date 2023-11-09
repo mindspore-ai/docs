@@ -1,6 +1,6 @@
 # 网络搭建
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/model_and_cell.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/migration_guide/model_development/model_and_cell.md)
 
 ## 基础逻辑
 
@@ -10,7 +10,7 @@ PyTorch和MindSpore的基础逻辑如下图所示：
 
 可以看到，PyTorch和MindSpore在实现流程中一般都需要网络定义、正向计算、反向计算、梯度更新等步骤。
 
-- 网络定义：在网络定义中，一般会定义出需要的前向网络，损失函数和优化器。在Net()中定义前向网络，PyTorch的网络继承nn.Module；类似地，MindSpore的网络继承nn.Cell。在MindSpore中，损失函数和优化器除了使用MindSpore中提供的外，用户还可以使用自定义的优化器。可参考[模型模块自定义](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules.html)。可以使用functional/nn等接口拼接需要的前向网络、损失函数和优化器。
+- 网络定义：在网络定义中，一般会定义出需要的前向网络，损失函数和优化器。在Net()中定义前向网络，PyTorch的网络继承nn.Module；类似地，MindSpore的网络继承nn.Cell。在MindSpore中，损失函数和优化器除了使用MindSpore中提供的外，用户还可以使用自定义的优化器。可参考[模型模块自定义](https://mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules.html)。可以使用functional/nn等接口拼接需要的前向网络、损失函数和优化器。
 
 - 正向计算：运行实例化后的网络，可以得到logit，将logit和target作为输入计算loss。需要注意的是，如果正向计算的函数有多个输出，在反向计算时需要注意多个输出对于计算结果的影响。
 
@@ -20,7 +20,7 @@ PyTorch和MindSpore的基础逻辑如下图所示：
 
 ## 网络基本构成单元 Cell
 
-MindSpore的网络搭建主要使用[Cell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell)进行图的构造，用户需要定义一个类继承 `Cell` 这个基类，在 `init` 里声明需要使用的API及子模块，在 `construct` 里进行计算， `Cell` 在 `GRAPH_MODE` (静态图模式)下将编译为一张计算图，在 `PYNATIVE_MODE` (动态图模式)下作为神经网络的基础模块。一个基本的 `Cell` 搭建过程如下所示：
+MindSpore的网络搭建主要使用[Cell](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell)进行图的构造，用户需要定义一个类继承 `Cell` 这个基类，在 `init` 里声明需要使用的API及子模块，在 `construct` 里进行计算， `Cell` 在 `GRAPH_MODE` (静态图模式)下将编译为一张计算图，在 `PYNATIVE_MODE` (动态图模式)下作为神经网络的基础模块。一个基本的 `Cell` 搭建过程如下所示：
 
 ```python
 import mindspore.nn as nn
@@ -104,7 +104,7 @@ print(diff)
 
 可以发现MindSpore和PyTorch的输出不一样，什么原因呢？
 
-查询[API差异文档](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/Conv2d.html)发现，`Conv2d`的默认参数在MindSpore和PyTorch上有区别，
+查询[API差异文档](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/Conv2d.html)发现，`Conv2d`的默认参数在MindSpore和PyTorch上有区别，
 MindSpore默认使用`same`模式，PyTorch默认使用`pad`模式，迁移时需要改一下MindSpore `Conv2d`的`pad_mode`：
 
 ```python
@@ -147,9 +147,9 @@ print(diff)
 
 ### 手动混合精度
 
-MindSpore提供了一种自动混合精度的方法，详见[Model](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model)的amp_level属性。
+MindSpore提供了一种自动混合精度的方法，详见[Model](https://www.mindspore.cn/docs/en/r2.3/api_python/train/mindspore.train.Model.html#mindspore.train.Model)的amp_level属性。
 
-但是有的时候开发网络时希望混合精度策略更加的灵活，MindSpore也提供了[to_float](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.to_float)的方法手动地添加混合精度。
+但是有的时候开发网络时希望混合精度策略更加的灵活，MindSpore也提供了[to_float](https://mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.to_float)的方法手动地添加混合精度。
 
 `to_float(dst_type)`: 在`Cell`和所有子`Cell`的输入上添加类型转换，以使用特定的浮点类型运行。
 
@@ -226,7 +226,7 @@ net_with_loss = nn.WithLossCell(net, loss_fn=loss)
 
 #### 参数初始化API对比
 
-每个 `torch.nn.init` 的API都可以和MindSpore一一对应，除了 `torch.nn.init.calculate_gain()` 之外。更多信息，请查看[PyTorch与MindSpore API映射表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)。
+每个 `torch.nn.init` 的API都可以和MindSpore一一对应，除了 `torch.nn.init.calculate_gain()` 之外。更多信息，请查看[PyTorch与MindSpore API映射表](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html)。
 
 > `gain` 用来衡量非线性关系对于数据标准差的影响。由于非线性会影响数据的标准差，可能会导致梯度爆炸或消失。
 
@@ -265,15 +265,15 @@ torch.nn.init.uniform_(x)
 
 #### 自定义初始化参数
 
-MindSpore封装的高阶API里一般会给参数一个默认的初始化，当这个初始化分布与需要使用的初始化、PyTorch的初始化不一致，此时需要进行自定义初始化。[网络参数初始化](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/initializer.html#自定义参数初始化)介绍了一种在使用API属性进行初始化的方法，这里介绍一种利用Cell进行参数初始化的方法。
+MindSpore封装的高阶API里一般会给参数一个默认的初始化，当这个初始化分布与需要使用的初始化、PyTorch的初始化不一致，此时需要进行自定义初始化。[网络参数初始化](https://mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/initializer.html#自定义参数初始化)介绍了一种在使用API属性进行初始化的方法，这里介绍一种利用Cell进行参数初始化的方法。
 
-参数的相关介绍请参考[网络参数](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/initializer.html)，本节主要以`Cell`为切入口，举例获取`Cell`中的所有参数，并举例说明怎样给`Cell`里的参数进行初始化。
+参数的相关介绍请参考[网络参数](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/initializer.html)，本节主要以`Cell`为切入口，举例获取`Cell`中的所有参数，并举例说明怎样给`Cell`里的参数进行初始化。
 
-> 注意本节的方法不能在`construct`里执行，在网络中修改参数的值请使用[assign](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.assign.html)。
+> 注意本节的方法不能在`construct`里执行，在网络中修改参数的值请使用[assign](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.assign.html)。
 
-[set_data(data, slice_shape=False)](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html?highlight=set_data#mindspore.Parameter.set_data)设置参数数据。
+[set_data(data, slice_shape=False)](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.Parameter.html?highlight=set_data#mindspore.Parameter.set_data)设置参数数据。
 
-MindSpore支持的参数初始化方法参考[mindspore.common.initializer](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.common.initializer.html)，当然也可以直接传入一个定义好的[Parameter](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)对象。
+MindSpore支持的参数初始化方法参考[mindspore.common.initializer](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.common.initializer.html)，当然也可以直接传入一个定义好的[Parameter](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)对象。
 
 ```python
 import math
@@ -359,7 +359,7 @@ print(net.trainable_params())
 
 除了使用给参数设置`requires_grad=False`来不更新参数外，还可以使用`stop_gradient`来阻断梯度计算以达到冻结参数的作用。那什么时候使用`requires_grad=False`，什么时候使用`stop_gradient`呢？
 
-![parameter-freeze](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/model_development/images/parameter_freeze.png)
+![parameter-freeze](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/docs/mindspore/source_zh_cn/migration_guide/model_development/images/parameter_freeze.png)
 
 如上图所示，`requires_grad=False`不更新部分参数，但是反向的梯度计算还是正常执行的；
 `stop_gradient`会直接截断反向梯度，当需要冻结的参数之前没有需要训练的参数时，两者在功能上是等价的。
@@ -414,11 +414,11 @@ bias [1.]
 
 ## 动态图与静态图
 
-对于`Cell`，MindSpore提供`GRAPH_MODE`（静态图）和`PYNATIVE_MODE`（动态图）两种模式，详情请参考[动态图和静态图](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/accelerate_with_static_graph.html)。
+对于`Cell`，MindSpore提供`GRAPH_MODE`（静态图）和`PYNATIVE_MODE`（动态图）两种模式，详情请参考[动态图和静态图](https://www.mindspore.cn/tutorials/zh-CN/r2.3/beginner/accelerate_with_static_graph.html)。
 
 `PyNative`模式下模型进行**推理**的行为与一般Python代码无异。但是在训练过程中，注意**一旦将Tensor转换成numpy做其他的运算后将会截断网络的梯度，相当于PyTorch的detach**。
 
-而在使用`GRAPH_MODE`时，通常会出现语法限制。在这种情况下，需要对Python代码进行图编译操作，而这一步操作中MindSpore目前还未能支持完整的Python语法全集，所以`construct`函数的编写会存在部分限制。具体限制内容可以参考[MindSpore静态图语法](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)。
+而在使用`GRAPH_MODE`时，通常会出现语法限制。在这种情况下，需要对Python代码进行图编译操作，而这一步操作中MindSpore目前还未能支持完整的Python语法全集，所以`construct`函数的编写会存在部分限制。具体限制内容可以参考[MindSpore静态图语法](https://www.mindspore.cn/docs/zh-CN/r2.3/note/static_graph_syntax_support.html)。
 
 相较于详细的语法说明，常见的限制可以归结为以下几点：
 
@@ -533,7 +533,7 @@ dx (Tensor(shape=[2, 5], dtype=Float32, value=
  [0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000]]),)
 ```
 
-下面，我们来演示下如何[自定义反向](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/layer.html#自定义cell反向)：
+下面，我们来演示下如何[自定义反向](https://mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/layer.html#自定义cell反向)：
 
 ```python
 import numpy as np

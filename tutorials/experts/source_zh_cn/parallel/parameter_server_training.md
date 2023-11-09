@@ -1,6 +1,6 @@
 # 参数服务器
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/parameter_server_training.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_zh_cn/parallel/parameter_server_training.md)
 
 ## 概述
 
@@ -23,7 +23,7 @@ Parameter Server(参数服务器)是分布式训练中一种广泛使用的架�
     - 被设置为通过Parameter Server更新的单个权重大小不得超过INT_MAX(2^31 - 1)字节。
     - 接口`set_param_ps`可接收一个`bool`型参数：`init_in_server`，表示该训练参数是否在Server端初始化，`init_in_server`默认值为`False`，表示在Worker上初始化该训练参数；当前仅支持`EmbeddingLookup`算子的训练参数`embedding_table`在Server端初始化，以解决超大shape的`embedding_table`在Worker上初始化导致内存不足的问题，该算子的`target`属性需要设置为'CPU'。在Server端初始化的训练参数将不再同步到Worker上，如果涉及到多Server训练并保存CheckPoint，则训练结束后每个Server均会保存一个CheckPoint。
 
-3. [可选配置]针对超大shape的`embedding_table`，由于设备上存放不下全量的`embedding_table`，可以配置[EmbeddingLookup算子](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.EmbeddingLookup.html)的`vocab_cache_size`，用于开启Parameter Server训练模式下`EmbeddingLookup`的cache功能，该功能使用`vocab_cache_size`大小的`embedding_table`在设备上训练，全量`embedding_table`存储在Server，将下批次训练用到的`embedding_table`提前换入到cache上，当cache放不下时则将过期的`embedding_table`放回到Server，以达到提升训练性能的目的；训练结束后，可在Server上导出CheckPoint，保存训练后的全量`embedding_table`。Embedding cache支持sparse模式，需要将所有开启cache的`EmbeddingLookup`算子的`sparse`参数都设为True，sparse模式会对该算子输入的特征id做去重处理，以降低计算与通信量。详细网络训练脚本参考<https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep>。
+3. [可选配置]针对超大shape的`embedding_table`，由于设备上存放不下全量的`embedding_table`，可以配置[EmbeddingLookup算子](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.EmbeddingLookup.html)的`vocab_cache_size`，用于开启Parameter Server训练模式下`EmbeddingLookup`的cache功能，该功能使用`vocab_cache_size`大小的`embedding_table`在设备上训练，全量`embedding_table`存储在Server，将下批次训练用到的`embedding_table`提前换入到cache上，当cache放不下时则将过期的`embedding_table`放回到Server，以达到提升训练性能的目的；训练结束后，可在Server上导出CheckPoint，保存训练后的全量`embedding_table`。Embedding cache支持sparse模式，需要将所有开启cache的`EmbeddingLookup`算子的`sparse`参数都设为True，sparse模式会对该算子输入的特征id做去重处理，以降低计算与通信量。详细网络训练脚本参考<https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep>。
 
 > `Parameter Server`模式暂时不支持控制流，因此在`train.py`中，需要将`model = Model(network, loss_fn, optimizer, metrics={"Accuracy": Accuracy()}, amp_level="O2")`修改为`model = Model(network, loss_fn, optimizer, metrics={"Accuracy": Accuracy()})`，将混合精度`amp_level`选项关闭，消除控制流的影响。
 
@@ -39,7 +39,7 @@ export MS_SCHED_PORT=XXXX             # Scheduler port
 export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
 ```
 
-更多详细说明请查看[动态组网环境变量](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html#动态组网)。
+更多详细说明请查看[动态组网环境变量](https://www.mindspore.cn/docs/zh-CN/r2.3/note/env_var_list.html#动态组网)。
 
 ## 基本原理
 
@@ -59,7 +59,7 @@ MindSpore的参数服务器采用了自研的通信框架作为基础架构，�
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[parameter_server](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/parameter_server)。
+> 下载完整的样例代码：[parameter_server](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/parameter_server)。
 
 目录结构如下：
 

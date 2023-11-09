@@ -1,6 +1,6 @@
 # Parameter Server
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/parameter_server_training.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_en/parallel/parameter_server_training.md)
 
 ## Overview
 
@@ -23,7 +23,7 @@ Related interfaces:
     - The size of individual weights that are set to be updated via Parameter Server must not exceed INT_MAX(2^31 - 1) bytes.
     -The interface `set_param_ps` can take a `bool` type parameter: `init_in_server`, which indicates whether the training parameter is initialized on the Server side. The default value of `init_in_server` is `False`, which means that the training parameter is initialized on the Worker. Currently, only the training parameter `embedding_table` of `EmbeddingLookup` operator is supported to be initialized on the Server side, in order to solve the problem that the initialization of `embedding_table` of very large shape on the Worker leads to insufficient memory, and the `target` attribute of this operator needs to be set to 'CPU'. The training parameters initialized on the Server side will no longer be synchronized to the Worker, and if multi-Server training is involved and CheckPoints are saved, a CheckPoint will be saved for each Server at the end of training.
 
-3. [Optional Configuration] For `embedding_table` of very large shape, since the full amount of `embedding_table` cannot be stored on the device, the [EmbeddingLookup operator](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.EmbeddingLookup.html) with `vocab_cache_size` can be configured, which is used to turn on the cache function of `EmbeddingLookup` in Parameter Server training mode. This function uses the `vocab_cache_size` size of `embedding_table` to train on the device, the full amount of `embedding_table` is stored in Server, the `embedding_table` used for the next batch of training is swapped into the cache in advance, and when the cache can't be put into the Server, then the outdated `embedding_table` will be put back to the Server, in order to achieve the purpose of improving the performance of training. After training, CheckPoint can be exported on Server to save the full amount of `embedding_table` after training. Embedding cache supports sparse mode, and you need to set the `sparse` parameter to True for all `EmbeddingLookup` operators that have the cache turned on. The sparse mode will de-emphasize the feature ids of the input in this operator to reduce the amount of computation and communication. Refer to <https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep> for detailed network training scripts.
+3. [Optional Configuration] For `embedding_table` of very large shape, since the full amount of `embedding_table` cannot be stored on the device, the [EmbeddingLookup operator](https://www.mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.EmbeddingLookup.html) with `vocab_cache_size` can be configured, which is used to turn on the cache function of `EmbeddingLookup` in Parameter Server training mode. This function uses the `vocab_cache_size` size of `embedding_table` to train on the device, the full amount of `embedding_table` is stored in Server, the `embedding_table` used for the next batch of training is swapped into the cache in advance, and when the cache can't be put into the Server, then the outdated `embedding_table` will be put back to the Server, in order to achieve the purpose of improving the performance of training. After training, CheckPoint can be exported on Server to save the full amount of `embedding_table` after training. Embedding cache supports sparse mode, and you need to set the `sparse` parameter to True for all `EmbeddingLookup` operators that have the cache turned on. The sparse mode will de-emphasize the feature ids of the input in this operator to reduce the amount of computation and communication. Refer to <https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep> for detailed network training scripts.
 
 > The `Parameter Server` model does not support control flow for now, so in `train.py`, you need to modify `model = Model(network, loss_fn, optimizer, metrics={"Accuracy": Accuracy()}, amp_level="O2")` to `model = Model(network, loss_fn, optimizer, metrics={"Accuracy": Accuracy()})`, and turn off the mixed precision `amp_level` option to eliminate the effect of control flow.
 
@@ -39,7 +39,7 @@ export MS_SCHED_PORT=XXXX             # Scheduler port
 export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
 ```
 
-For more detailed instructions, see [dynamic cluster environment variables](https://www.mindspore.cn/docs/en/master/note/env_var_list.html#dynamic-networking).
+For more detailed instructions, see [dynamic cluster environment variables](https://www.mindspore.cn/docs/en/r2.3/note/env_var_list.html#dynamic-networking).
 
 ## Basic Principle
 
@@ -59,7 +59,7 @@ Parameter server supports GPU and Ascend, the following Ascend as an example for
 
 ### Example Code Description
 
-> Download the complete example code: [parameter_server](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/parameter_server).
+> Download the complete example code: [parameter_server](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/parameter_server).
 
 The directory structure is as follows:
 

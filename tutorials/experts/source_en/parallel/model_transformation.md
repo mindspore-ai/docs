@@ -1,6 +1,6 @@
 # Model Transformation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/model_transformation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_en/parallel/model_transformation.md)
 
 ## Overview
 
@@ -45,7 +45,7 @@ It should be noted that loading distributed Checkpoint requires compiling the ne
 
 ### Example Code Description
 
-> Download the complete example code: [model_saving_loading](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/model_saving_loading).
+> Download the complete example code: [model_saving_loading](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/model_saving_loading).
 
 The directory structure is as follows:
 
@@ -82,7 +82,7 @@ The functions of each file are as follows:
 
 ### Saving the Distributed Model
 
-First, follow the [Model Saving](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_saving.html) tutorial to perform 8-card distributed training with a parallel mode of `SEMI_AUTO_ PARALLEL` or `AUTO_PARALLEL`, while customizing the `strategy_ckpt_config` parameter by calling the `set_auto_parallel_context` interface to configure the model sharding strategy file storage path. After training for a period of time, call the `train.ModelCheckpoint` function of storage Checkpoint to store the distributed checkpoint.
+First, follow the [Model Saving](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/model_saving.html) tutorial to perform 8-card distributed training with a parallel mode of `SEMI_AUTO_ PARALLEL` or `AUTO_PARALLEL`, while customizing the `strategy_ckpt_config` parameter by calling the `set_auto_parallel_context` interface to configure the model sharding strategy file storage path. After training for a period of time, call the `train.ModelCheckpoint` function of storage Checkpoint to store the distributed checkpoint.
 
 At the end of the training, the source Checkpoint file directory as well as the source sharding strategy file will be generated at the current path:
 
@@ -238,7 +238,7 @@ In this step, you need to call the distributed Checkpoint transformation interfa
     ms.transform_checkpoints(args_opt.src_checkpoints_dir, args_opt.dst_checkpoints_dir, "checkpoint_", args_opt.src_strategy_file, args_opt.dst_strategy_file)
     ```
 
-    The method is used in the example code [`model_transformation_retrain.py`](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/model_saving_loading/model_transformation_retrain.py).
+    The method is used in the example code [`model_transformation_retrain.py`](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/model_saving_loading/model_transformation_retrain.py).
 
 2. Call the `transform_checkpoint_by_rank` interface to perform a parameter merge on the original Checkpoint corresponding to the current rank.
 
@@ -257,7 +257,7 @@ In this step, you need to call the distributed Checkpoint transformation interfa
     ms.transform_checkpoint_by_rank(get_rank(), checkpoint_file_map, save_checkpoint_path, args_opt.src_strategy_file, args_opt.dst_strategy_file)
     ```
 
-    The method is used in the example code [`model_transformation_infer.py`](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/model_saving_loading/model_transformation_infer.py).
+    The method is used in the example code [`model_transformation_infer.py`](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/model_saving_loading/model_transformation_infer.py).
 
 After execution, a directory of transformed target Checkpoint files will be generated:
 
@@ -362,8 +362,8 @@ In the case of an inference task, the results are saved in `log_output/1/rank.*/
 
 ### Pipeline Parallel Model Transformation
 
-[Pipelining Parallel](https://www.mindspore.cn/tutorials/experts/en/master/parallel/pipeline_parallel.html) is to slice a linear network to get multiple sub-networks, which are pipelined among multiple cards. Therefore, the sharding strategy file stored for each subgraph is inconsistent, and all the sharding strategies are aggregated together to get the complete slicing information of the network.
-Therefore, for the dimension of pipeline parallel, compared to the transformation of other dimensions, it is necessary to perform an operation of aggregating the sharding strategy file before getting the aggregated sharding strategy file, and use this file as the strategy file on which the distributed Checkpoint transformation depends. In addition, there is no difference with the previous [Executing Distributed Checkpoint Transformation](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_transformation.html#executing-distributed-checkpoint-transformation).
+[Pipelining Parallel](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/pipeline_parallel.html) is to slice a linear network to get multiple sub-networks, which are pipelined among multiple cards. Therefore, the sharding strategy file stored for each subgraph is inconsistent, and all the sharding strategies are aggregated together to get the complete slicing information of the network.
+Therefore, for the dimension of pipeline parallel, compared to the transformation of other dimensions, it is necessary to perform an operation of aggregating the sharding strategy file before getting the aggregated sharding strategy file, and use this file as the strategy file on which the distributed Checkpoint transformation depends. In addition, there is no difference with the previous [Executing Distributed Checkpoint Transformation](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/model_transformation.html#executing-distributed-checkpoint-transformation).
 
 Related interfaces:
 
@@ -371,7 +371,7 @@ Related interfaces:
 
 First, 8-card pipeline parallel training is executed, where pipeline parallel dimension is 2 and optimizer parallelism is turned on.
 
-The training code is in [pipeline_train.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/model_saving_loading/pipeline_train.py). The network structure adds a pipeline parallel configuration based on the chapter [Model Saving](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_saving.html) with parallel dimension 2.
+The training code is in [pipeline_train.py](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/model_saving_loading/pipeline_train.py). The network structure adds a pipeline parallel configuration based on the chapter [Model Saving](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/model_saving.html) with parallel dimension 2.
 
 The core code is:
 
@@ -427,11 +427,11 @@ After execution, the source Checkpoint file directory and the source sharding st
 ...
 ```
 
-Refer to [Performing a compilation of the target network](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_transformation.html#performing-compilation-on-the-target-network) section, and similarly compile the target network in order to obtain the sharding strategy file for the target network.
+Refer to [Performing a compilation of the target network](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/model_transformation.html#performing-compilation-on-the-target-network) section, and similarly compile the target network in order to obtain the sharding strategy file for the target network.
 
 The next step unfolds the distributed Checkpoint dimension transformation containing pipeline parallel dimensions, first merging the sharding strategy files obtained from pipline training using interface `merge_pipeline_strategys`, and then performing the distributed Checkpoint transformation using interface `transform_checkpoints` or `transform_checkpoint_by_rank`.
 
-The example introduces an interface that uses `transform_checkpoints`, and the interface that uses `transform_checkpoint_by_rank`. Refer to [Executing Distributed Checkpoint Transformation](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_transformation.html#executing-distributed-checkpoint-transformation).
+The example introduces an interface that uses `transform_checkpoints`, and the interface that uses `transform_checkpoint_by_rank`. Refer to [Executing Distributed Checkpoint Transformation](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/model_transformation.html#executing-distributed-checkpoint-transformation).
 
 ```python
 import mindspore as ms
@@ -448,7 +448,7 @@ The example script execution command to transform the entire Checkpoint catalog 
 bash run_retrain_pipeline_convert.sh
 ```
 
-After the transformation is completed, refer to [Loading the Transformed Checkpoint Files](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_transformation.html#loading-the-transformed-checkpoint-files) section to execute the distributed network without pipeline dimension.
+After the transformation is completed, refer to [Loading the Transformed Checkpoint Files](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/model_transformation.html#loading-the-transformed-checkpoint-files) section to execute the distributed network without pipeline dimension.
 
 In the example, the script execution command for loading the transformed Checkpoint for second-stage fine-tuning training is:
 

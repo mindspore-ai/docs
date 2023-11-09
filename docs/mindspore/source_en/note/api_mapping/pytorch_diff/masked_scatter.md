@@ -1,6 +1,6 @@
 # Differences with torch.Tensor.masked_scatter
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/masked_scatter.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/masked_scatter.md)
 
 ## torch.Tensor.masked_scatter
 
@@ -16,7 +16,7 @@ For more information, see [torch.Tensor.masked_scatter](https://pytorch.org/docs
 mindspore.Tensor.masked_scatter(mask, tensor) -> Tensor
 ```
 
-For more information, see [mindspore.Tensor.masked_scatter](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.masked_scatter.html).
+For more information, see [mindspore.Tensor.masked_scatter](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.masked_scatter.html).
 
 ## Differences
 

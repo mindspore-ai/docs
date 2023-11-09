@@ -1,4 +1,4 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/dataset/sampler.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/source_en/advanced/dataset/sampler.md)
 
 # Data Sampling
 
@@ -6,13 +6,13 @@ To meet training requirements and solve problems such as too large datasets or u
 
 MindSpore provides multiple samplers, such as `RandomSampler`, `WeightedRandomSampler`, and `SubsetRandomSampler`. In addition, users can customize sampler classes as required.
 
-> For details about how to use the sampler, see [Sampler API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#sampler).
+> For details about how to use the sampler, see [Sampler API](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore.dataset.html#sampler).
 
 ## Samplers
 
 The following uses the CIFAR-10 dataset as an example to describe how to use several common MindSpore samplers.
 
-![cifar10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/dataset/images/cifar10.jpg)
+![cifar10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/tutorials/source_zh_cn/advanced/dataset/images/cifar10.jpg)
 
 > The sample code in this section relies on `matplotlib`, which can be installed with the command `pip install matplotlib`. If the code is run in Notebook, you need to restart the kernel after the installation to execute the subsequent code.
 

@@ -1,6 +1,6 @@
 # 静态图语法-Python语句
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/static_graph_syntax/statements.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/static_graph_syntax/statements.md)
 
 ## 简单语句
 
@@ -651,7 +651,7 @@ ret:[4, 16, 36, 64, 100]
 
 在图模式下，有限制地支持`with`语句。`with`语句要求对象必须有两个魔术方法：`__enter__()`和`__exit__()`。
 
-值得注意的是with语句中使用的类需要有装饰器@ms.jit_class修饰或者继承于nn.Cell，更多介绍可见[使用jit_class](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/static_graph_expert_programming.html#使用jit-class)。
+值得注意的是with语句中使用的类需要有装饰器@ms.jit_class修饰或者继承于nn.Cell，更多介绍可见[使用jit_class](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/static_graph_expert_programming.html#使用jit-class)。
 
 示例如下：
 

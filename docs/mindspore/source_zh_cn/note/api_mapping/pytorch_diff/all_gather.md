@@ -1,6 +1,6 @@
 # 比较与torch.distributed.all_gather的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/all_gather.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/all_gather.md)
 
 ## torch.distributed.all_gather
 
@@ -21,7 +21,7 @@ torch.distributed.all_gather(
 class mindspore.ops.AllGather(group=GlobalComm.WORLD_COMM_GROUP)(input_x)
 ```
 
-更多内容详见[mindspore.ops.AllGather](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AllGather.html#mindspore.ops.AllGather)。
+更多内容详见[mindspore.ops.AllGather](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.AllGather.html#mindspore.ops.AllGather)。
 
 ## 使用方式
 

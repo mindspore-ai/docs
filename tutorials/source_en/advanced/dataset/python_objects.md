@@ -1,4 +1,4 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/dataset/python_objects.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/source_en/advanced/dataset/python_objects.md)
 
 # Supporting Python Objects in Dataset Pipeline
 
@@ -214,7 +214,7 @@ Output:
 
 In the model training/inference scenario, there are the following constraints when obtaining `dict` data from the data pipeline.
 
-- In [data sink mode](https://mindspore.cn/tutorials/experts/en/master/optimize/execution_opt.html#data-sinking), since the data sink channel currently cannot support dictionary type data, sending dictionary type data to it will cause errors. Therefore, it is suggested to consider turning off the data sink mode (`dataset_sink_mode=False`), or expanding dictionary type data into list or tuple type data at the last data processing node, for example:
+- In [data sink mode](https://mindspore.cn/tutorials/experts/en/r2.3/optimize/execution_opt.html#data-sinking), since the data sink channel currently cannot support dictionary type data, sending dictionary type data to it will cause errors. Therefore, it is suggested to consider turning off the data sink mode (`dataset_sink_mode=False`), or expanding dictionary type data into list or tuple type data at the last data processing node, for example:
 
   ```python
   import numpy as np

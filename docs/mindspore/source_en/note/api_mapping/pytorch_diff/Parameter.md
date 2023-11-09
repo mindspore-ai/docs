@@ -1,6 +1,6 @@
 # # Differences with torch.nn.parameter.Parameter
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Parameter.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Parameter.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg"></a>
 
 ## torch.nn.parameter.Parameter
 
@@ -16,7 +16,7 @@ For more details, see [torch.nn.parameter.Parameter](https://pytorch.org/docs/1.
 mindspore.Parameter(default_input, name=None, requires_grad=True, layerwise_parallel=False, parallel_optimizer=True)
 ```
 
-For more details, see [mindspore.Parameter](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter).
+For more details, see [mindspore.Parameter](https://mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter).
 
 ## Differences
 

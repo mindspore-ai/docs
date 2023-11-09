@@ -1,10 +1,10 @@
 # Operator-level Parallelism
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/operator_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_en/parallel/operator_parallel.md)
 
 ## Overview
 
-With the development of deep learning, network models are becoming larger and larger, such as trillions of parametric models have emerged in the field of NLP, and the model capacity far exceeds the memory capacity of a single device, making it impossible to train on a single card or data parallel. Operator-level parallelism is achieved by slicing the tensor involved in each operator in the network model. Logical data parallelism is used when only the data dimension is sliced, while logical model parallelism is used when only the model dimension is silced. The training of large models is enabled by reducing the memory consumption of a single device. For a list of operators that currently support parallelism, see [Usage Constraints During Operator Parallel](https://www.mindspore.cn/docs/en/master/note/operator_list_parallel.html).
+With the development of deep learning, network models are becoming larger and larger, such as trillions of parametric models have emerged in the field of NLP, and the model capacity far exceeds the memory capacity of a single device, making it impossible to train on a single card or data parallel. Operator-level parallelism is achieved by slicing the tensor involved in each operator in the network model. Logical data parallelism is used when only the data dimension is sliced, while logical model parallelism is used when only the model dimension is silced. The training of large models is enabled by reducing the memory consumption of a single device. For a list of operators that currently support parallelism, see [Usage Constraints During Operator Parallel](https://www.mindspore.cn/docs/en/r2.3/note/operator_list_parallel.html).
 
 > Hardware platforms supported by the operator-level parallel model include Ascend, GPU, and need to be run in Graph mode.
 
@@ -65,7 +65,7 @@ The following is an illustration of operator-level parallelism by taking an Asce
 
 ### Sample Code Description
 
-> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel).
+> Download the complete sample code here: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/distributed_operator_parallel).
 
 The directory structure is as follows:
 
@@ -228,4 +228,4 @@ epoch: 0, step: 100, loss is 0.71934
 ...
 ```
 
-Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/experts/en/master/parallel/startup_method.html).
+Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/startup_method.html).

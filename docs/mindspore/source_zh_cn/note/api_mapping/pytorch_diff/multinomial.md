@@ -1,6 +1,6 @@
 # 比较与torch.multinomial的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/multinomial.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/multinomial.md)
 
 以下映射关系均可参考本文。
 
@@ -23,7 +23,7 @@ torch.multinomial(input, num_samples, replacement=False, *, generator=None, out=
 mindspore.ops.multinomial(input, num_samples, replacement=True, seed=None)
 ```
 
-更多内容详见[mindspore.ops.multinomial](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.multinomial.html)。
+更多内容详见[mindspore.ops.multinomial](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.multinomial.html)。
 
 ## 差异对比
 
@@ -38,8 +38,8 @@ PyTorch: 参数 `replacement` 的默认值为 ``False`` ，即每次采样后不
 | 参数       | 参数 1       | input         | input         | 一致           |
 |            | 参数 2       | num_samples   | num_samples   | 一致           |
 |            | 参数 3       | replacement   | replacement   | PyTorch的默认值为 ``False`` ，MindSpore的默认值为 ``True`` |
-|            | 参数 4       | generator     | seed          | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
-|            | 参数 5       | out           | -             | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|            | 参数 4       | generator     | seed          | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
+|            | 参数 5       | out           | -             | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 
 ## 代码示例
 

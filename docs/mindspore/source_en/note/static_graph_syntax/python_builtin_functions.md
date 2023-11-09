@@ -1,6 +1,6 @@
 # Static Graph Syntax - Python Built-in Functions
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/static_graph_syntax/python_builtin_functions.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/static_graph_syntax/python_builtin_functions.md)
 
 Python built-in functions supported by the current static graph mode include: `int`, `float`, `bool`, `str`, `tuple`, `list`, `dict`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `any`, `round`, `max`, `min`, `sum`, `abs`, `map`, `zip` 、`range`、`enumerate`、`super`、`pow`、`print`、`filter`、`type`。 The use of built-in functions in graph mode is similar to the corresponding Python built-in functions.
 
@@ -345,7 +345,7 @@ c:  (1,)
 
 The attribute of object in graph mode may be different from that in pynative mode. It is suggested to use `default` input or call `hasattr` before using `getattr` to avoid AttributeError.
 
-'getattr(x.asnumpy(), "shape", np.array([0, 1, 2, 3, 4]))' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
+'getattr(x.asnumpy(), "shape", np.array([0, 1, 2, 3, 4]))' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
 
 ## hasattr
 
@@ -396,7 +396,7 @@ b: False
 c: True
 ```
 
-'hasattr(Tensor(np.array([1, 2, 3, 4])).asnumpy(), "__len__")' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
+'hasattr(Tensor(np.array([1, 2, 3, 4])).asnumpy(), "__len__")' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
 
 ## len
 
@@ -451,7 +451,7 @@ z_len:4
 w_len:4
 ```
 
-'len(w.asnumpy())' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
+'len(w.asnumpy())' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
 
 ## isinstance
 
@@ -502,7 +502,7 @@ z_is_tensor:True
 w_is_ndarray:True
 ```
 
-'isinstance(w.asnumpy(), np.ndarray)' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
+'isinstance(w.asnumpy(), np.ndarray)' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
 
 ## all
 
@@ -561,7 +561,7 @@ h: True
 i: False
 ```
 
-'all(x.asnumpy())' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
+'all(x.asnumpy())' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
 
 ## any
 
@@ -861,7 +861,7 @@ b: 100.12
 c: [1 2]
 ```
 
-'abs(Tensor([-1, 2]).asnumpy())' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
+'abs(Tensor([-1, 2]).asnumpy())' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
 
 ## map
 

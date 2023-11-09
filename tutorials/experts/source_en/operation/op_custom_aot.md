@@ -1,12 +1,12 @@
 # Advanced Usage of aot-type Custom Operators
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/operation/op_custom_aot.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_en/operation/op_custom_aot.md)
 
 ## Overview
 
 aot-type custom operators use a pre-compilation approach, which requires developers to write the source code files for the corresponding function based on a specific interface, and compile the source code files in advance into a dynamic link library.
 Then, during network runtime, the framework will automatically call and execute the function in the dynamic link library.
-aot-type custom operators support CUDA language for GPU platforms and C and C++ languages for CPU platforms. For basic knowledge of developing aot-type custom operators, please refer to [basic tutorial](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom.html#defining-custom-operator-of-aot-type).
+aot-type custom operators support CUDA language for GPU platforms and C and C++ languages for CPU platforms. For basic knowledge of developing aot-type custom operators, please refer to [basic tutorial](https://www.mindspore.cn/tutorials/experts/en/r2.3/operation/op_custom.html#defining-custom-operator-of-aot-type).
 
 In this tutorial, we will demonstrate advanced features of aot-type custom operators, including:
 
@@ -14,7 +14,7 @@ In this tutorial, we will demonstrate advanced features of aot-type custom opera
 - Attributes and intermediate variables of aot-type custom operators;
 - Dynamic shape support for aot-type custom operators.
 
-For the complete source code of the example, check [here](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_aot_fused.py) in the MindSpore source code.
+For the complete source code of the example, check [here](https://gitee.com/mindspore/mindspore/blob/r2.3/tests/st/ops/graph_kernel/custom/test_custom_aot_fused.py) in the MindSpore source code.
 
 ## The Introduction to the Advanced Usage Features of aot-type Custom Operators
 
@@ -98,7 +98,7 @@ The function name `FuncName` is the name of the operator main function. The retu
 - ndims (int \*): Array of dimensions for input and output shapes.
 - shapes (int64_t \*\*): Array of shapes for inputs and outputs.
 - dtypes (const char \*\*): Array of data types for inputs and outputs.
-- extra (AotExtra \*): Custom operator extensions with attributes. The `AotExtra` type is defined in the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore.
+- extra (AotExtra \*): Custom operator extensions with attributes. The `AotExtra` type is defined in the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/r2.3/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore.
 
 ### Shape Inference Function
 
@@ -114,7 +114,7 @@ The meaning of the parameter list is as follows:
 
 - `ndims` (int \*): Array of dimensions for input shapes.
 - `shapes` (int64_t \*\*): Array of shapes for inputs.
-- `extra` (AotExtra \*): Pointer to an extension for attribute-bearing custom operators. The `AotExtra` type is defined in the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore.
+- `extra` (AotExtra \*): Pointer to an extension for attribute-bearing custom operators. The `AotExtra` type is defined in the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/r2.3/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore.
 
 ### Operator Attribute Registration (Python)
 
@@ -124,7 +124,7 @@ The initialization of operator attributes is implemented through the operator re
 def attr(self, name=None, param_type=None, value_type=None, default_value=None, **kwargs)
 ```
 
-Please refer to the [CustomRegOp](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop) interface documentation for the meaning of each parameter. When registering a custom operator of Aot type, we set the following four parameters:
+Please refer to the [CustomRegOp](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop) interface documentation for the meaning of each parameter. When registering a custom operator of Aot type, we set the following four parameters:
 
 - `name`: the name of the attribute of the aot-type custom operator;
 - `param_type`: the parameter type of the attribute. For attributes of aot-type custom operators, this input is fixed to be "required", which means it is a required parameter;
@@ -153,7 +153,7 @@ To implement the operator, we create a source file named `kernel.cc`, which incl
 
 First, we define a data structure to store operator attributes, which inherits from `AotKernelData`.
 `AotKernelData` is the base class for custom operator attribute data structures.
-By downloading the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore and placing it in the same directory as the source file, we can use the related interfaces by including it with `#include "custom_aot_extra.h"` at the beginning of the file.
+By downloading the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/r2.3/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore and placing it in the same directory as the source file, we can use the related interfaces by including it with `#include "custom_aot_extra.h"` at the beginning of the file.
 
 ```c++
 #include <vector>
@@ -341,7 +341,7 @@ The `ReduceDynNet` in this file includes two parts: the operator registration fu
 #### Operator Registration
 
 The assignment of operator attributes during initialization is implemented through the operator registration function.
-For the function of custom operator registration, please refer to the relevant documentation of [CustomRegOp](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop).
+For the function of custom operator registration, please refer to the relevant documentation of [CustomRegOp](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop).
 For each attribute, we create an `attr` for the operator registration file `reduce_cpu_info`, setting the attribute name and value.
 
 Each `attr` item here has four inputs: the first is the name, such as `"axis"` or `"keep_dim"`; the middle two are `"required"` and `"all"`; the last input needs to specify the input name as `value=`, and the input value is the value of the attribute, for example, `value=axis` and `value=keep_dim` here.

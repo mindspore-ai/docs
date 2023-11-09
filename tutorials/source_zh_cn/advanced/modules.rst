@@ -1,9 +1,9 @@
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_notebook.svg
-    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/tutorials/zh_cn/advanced/modules/mindspore_cell.ipynb
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_download_code.svg
-    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/tutorials/zh_cn/advanced/modules/mindspore_cell.py
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/modules/cell.ipynb
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_notebook.svg
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r2.3/tutorials/zh_cn/advanced/modules/mindspore_cell.ipynb
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_download_code.svg
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r2.3/tutorials/zh_cn/advanced/modules/mindspore_cell.py
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.3/tutorials/source_zh_cn/advanced/modules/cell.ipynb
 
 模型模块自定义
 ==============
@@ -22,7 +22,7 @@
 
 神经网络模型由各种层(Layer)构成，MindSpore提供构造神经网络层的基础单元Cell，基于Cell进行神经网络封装。下面使用Cell构造经典模型AlexNet。
 
-.. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/modules/images/AlexNet.ppm
+.. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/tutorials/source_zh_cn/advanced/modules/images/AlexNet.ppm
    :alt: alextnet
 
 如图所示，AlexNet由5个卷积层与3个全连接层串联构成，我们使用\ ``mindspore.nn``\ 提供的神经网络层接口进行构造。
@@ -75,7 +75,7 @@
 
 在定义模型的过程中，\ ``construct``\ 方法内可使用Python语法进行模型结构的任意构造，如条件、循环等控制流语句。但在进行即时编译(Just
 In
-Time)时，需通过编译器进行语法解析，此时存在语法限制，具体参考：\ `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html>`__\ 。
+Time)时，需通过编译器进行语法解析，此时存在语法限制，具体参考：\ `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/r2.3/note/static_graph_syntax_support.html>`__\ 。
 
 完成模型构造后，我们构造一个单样本数据，将其送入实例化的AlexNet中，即可求得正向结果。
 
@@ -106,7 +106,7 @@ Time)时，需通过编译器进行语法解析，此时存在语法限制，具
 
 除基础的网络结构构造外，我们分别对神经网络层(Layer)、损失函数(Loss)和优化器(Optimizer)，神经网络层需要的参数(Parameter)及其初始化方法(Initializer)的构造等场景进行详细介绍。
 
--  `Cell与参数 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/layer.html>`__
--  `参数初始化 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/initializer.html>`__
--  `损失函数 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/loss.html>`__
--  `优化器 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/optimizer.html>`__
+-  `Cell与参数 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/layer.html>`__
+-  `参数初始化 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/initializer.html>`__
+-  `损失函数 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/loss.html>`__
+-  `优化器 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/optimizer.html>`__

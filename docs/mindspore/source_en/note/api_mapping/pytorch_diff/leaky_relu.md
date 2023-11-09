@@ -1,6 +1,6 @@
 # Differences with torch.nn.functional.leaky_relu
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/leaky_relu.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/leaky_relu.md)
 
 ## torch.nn.functional.leaky_relu
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.functional.leaky_relu](https://pytorch.org/d
 mindspore.ops.leaky_relu(input, alpha=0.2) -> Tensor
 ```
 
-For more information, see [mindspore.ops.leaky_relu](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.leaky_relu.html#mindspore.ops.leaky_relu).
+For more information, see [mindspore.ops.leaky_relu](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.leaky_relu.html#mindspore.ops.leaky_relu).
 
 ## Differnnces
 

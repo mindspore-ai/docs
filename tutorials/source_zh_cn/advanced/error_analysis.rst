@@ -1,8 +1,8 @@
 报错分析
 ========
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced/error_analysis.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.3/tutorials/source_zh_cn/advanced/error_analysis.rst
 
 .. toctree::
   :maxdepth: 1
@@ -90,7 +90,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
    Traceback of Net Construct Code”部分内容，分析报错位置。
 4) 基于可能的报错问题场景以及类型，假设导致报错问题的可能原因。
 
-具体如何基于不同场景进行错误分析请参考\ `错误分析 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/error_scenario_analysis.html>`__\ 。
+具体如何基于不同场景进行错误分析请参考\ `错误分析 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/error_analysis/error_scenario_analysis.html>`__\ 。
 
 错误搜索
 ^^^^^^^^
@@ -101,7 +101,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
    MindSpore提供常见报错问题FAQ，包括数据处理、编译执行、分布式并行等场景。可根据错误分析中得出的问题场景，使用报错描述信息进行问题搜索。
 
-   搜索地址：\ `FAQ <https://www.mindspore.cn/docs/zh-CN/master/faq/installation.html>`__\ 。
+   搜索地址：\ `FAQ <https://www.mindspore.cn/docs/zh-CN/r2.3/faq/installation.html>`__\ 。
 
 -  报错案例
 
@@ -144,7 +144,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
    动态图模式为提高动态图执行效率，默认使用异步执行方式，错误信息在执行的最后阶段显示。在图3中可以看到异步执行方式报错信息会有告警信息，对报错分析造成干扰。
 
    MindSpore提供切换同步执行的方法，通过设置\ ``set_context(mode=mindspore.PYNATIVE_MODE, pynative_synchronize=True)``
-   切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考\ `PyNative同步执行 <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/accelerate_with_static_graph.html>`__\ 。
+   切换到同步方式执行，如果算子执行错误时，任务直接终止并显示当前错误信息。具体内容可参考\ `PyNative同步执行 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/beginner/accelerate_with_static_graph.html>`__\ 。
 
 -  二分法策略
 
@@ -175,7 +175,7 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 
    1. ops.print\_接口
 
-      静态图模式下，MindSpore提供 `ops.print_ <https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.print_.html>`_ 接口，用于打印计算图中Tensor信息或字符串信息。默认打印在屏幕上，也可以保存在文件中。
+      静态图模式下，MindSpore提供 `ops.print_ <https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.print_.html>`_ 接口，用于打印计算图中Tensor信息或字符串信息。默认打印在屏幕上，也可以保存在文件中。
 
    2. 调试器
 

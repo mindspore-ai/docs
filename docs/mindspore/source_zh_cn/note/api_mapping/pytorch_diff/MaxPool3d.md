@@ -1,6 +1,6 @@
 # 比较与torch.nn.MaxPool3d的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/MaxPool3d.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/MaxPool3d.md)
 
 ## torch.nn.MaxPool3d
 
@@ -16,7 +16,7 @@ torch.nn.MaxPool3d(kernel_size, stride=None, padding=0, dilation=1, return_indic
 mindspore.nn.MaxPool3d(kernel_size=1, stride=1, pad_mode="valid", padding=0, dilation=1, return_indices=False, ceil_mode=False)(x) -> Tensor
 ```
 
-更多内容详见[mindspore.nn.MaxPool3d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool3d.html)。
+更多内容详见[mindspore.nn.MaxPool3d](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.MaxPool3d.html)。
 
 ## 使用方式
 

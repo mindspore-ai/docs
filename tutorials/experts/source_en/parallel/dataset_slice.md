@@ -1,6 +1,6 @@
 # Dataset Slicing
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/dataset_slice.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_en/parallel/dataset_slice.md)
 
 ## Overview
 
@@ -10,7 +10,7 @@ When performing distributed training, taking image data as an example, when the 
 
 Related interfaces:
 
-1. `mindspore.dataset.vision.SlicePatches(num_height=1, num_width=1)`: Slices the Tensor into multiple blocks horizontally and vertically. Suitable for scenarios where the Tensor has a large height and width. `num_height` is the number of slices in vertical direction and `num_width` is the number of slices in horizontal direction. More parameters can be found in [SlicePatches](https://www.mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.SlicePatches.html).
+1. `mindspore.dataset.vision.SlicePatches(num_height=1, num_width=1)`: Slices the Tensor into multiple blocks horizontally and vertically. Suitable for scenarios where the Tensor has a large height and width. `num_height` is the number of slices in vertical direction and `num_width` is the number of slices in horizontal direction. More parameters can be found in [SlicePatches](https://www.mindspore.cn/docs/en/r2.3/api_python/dataset_vision/mindspore.dataset.vision.SlicePatches.html).
 
 2. `mindspore.set_auto_parallel_context(dataset_strategy=((1, 1, 1, 8), (8,))))`: indicates dataset slicing strategy. The `dataset_strategy` interface has the following limitations:
 
@@ -22,7 +22,7 @@ Related interfaces:
 
 ### Sample Code Description
 
-> Download the full sample code here: [dataset_slice](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dataset_slice).
+> Download the full sample code here: [dataset_slice](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/dataset_slice).
 
 The directory structure is as follows:
 

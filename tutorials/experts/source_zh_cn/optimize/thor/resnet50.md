@@ -1,6 +1,6 @@
 # 在ResNet-50网络上应用二阶优化实践
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/optimize/thor/resnet50.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_zh_cn/optimize/thor/resnet50.md)
 
 ## 概述
 
@@ -70,11 +70,11 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 
 #### Ascend 910
 
-Ascend 910 AI处理器的分布式环境变量配置参考[rank table启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/rank_table.html)。
+Ascend 910 AI处理器的分布式环境变量配置参考[rank table启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/rank_table.html)。
 
 #### GPU
 
-GPU的分布式环境配置参考[mpirun启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/mpirun.html)。
+GPU的分布式环境配置参考[mpirun启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/mpirun.html)。
 
 ## 加载处理数据集
 
@@ -168,7 +168,7 @@ def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target=
     return data_set
 ```
 
-> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)和[数据增强](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)章节。
+> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/dataset.html)和[数据增强](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/dataset.html)章节。
 
 ## 定义网络
 
@@ -245,7 +245,7 @@ $$ \theta^{t+1} = \theta^t + \alpha F^{-1}\nabla E$$
 
 从参数更新公式中可以看出，THOR优化器需要额外计算的是每一层的FIM矩阵。FIM矩阵可以对每一层参数更新的步长和方向进行自适应的调整，加速收敛的同时可以降低调参的复杂度。
 
-在调用MindSpore封装的二阶优化器THOR时，优化器会自动调用转换接口，把之前定义好的ResNet50网络中的Conv2d层和Dense层分别转换成对应的[Conv2dThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/nn/layer/thor_layer.py)和[DenseThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/nn/layer/thor_layer.py)。
+在调用MindSpore封装的二阶优化器THOR时，优化器会自动调用转换接口，把之前定义好的ResNet50网络中的Conv2d层和Dense层分别转换成对应的[Conv2dThor](https://gitee.com/mindspore/mindspore/blob/r2.3/mindspore/python/mindspore/nn/layer/thor_layer.py)和[DenseThor](https://gitee.com/mindspore/mindspore/blob/r2.3/mindspore/python/mindspore/nn/layer/thor_layer.py)。
 而在Conv2dThor和DenseThor中可以完成二阶信息矩阵的计算和存储。
 
 > THOR优化器转换前后的网络backbone一致，网络参数保持不变。
@@ -298,7 +298,7 @@ if __name__ == "__main__":
 
 ### 配置训练网络
 
-通过MindSpore提供的`model.train`接口可以方便地进行网络的训练。THOR优化器通过降低二阶矩阵更新频率，来减少计算量，提升计算速度，故重新定义一个[ModelThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/train/train_thor/model_thor.py)类，继承MindSpore提供的Model类。在ModelThor类中获取THOR的二阶矩阵更新频率控制参数，用户可以通过调整该参数，优化整体的性能。
+通过MindSpore提供的`model.train`接口可以方便地进行网络的训练。THOR优化器通过降低二阶矩阵更新频率，来减少计算量，提升计算速度，故重新定义一个[ModelThor](https://gitee.com/mindspore/mindspore/blob/r2.3/mindspore/python/mindspore/train/train_thor/model_thor.py)类，继承MindSpore提供的Model类。在ModelThor类中获取THOR的二阶矩阵更新频率控制参数，用户可以通过调整该参数，优化整体的性能。
 MindSpore提供Model类向ModelThor类的一键转换接口。
 
 ```python

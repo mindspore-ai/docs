@@ -1,12 +1,12 @@
 # Dynamic Cluster Startup
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/dynamic_cluster.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_en/parallel/dynamic_cluster.md)
 
 ## Overview
 
 For reliability requirements during training, MindSpore provides **dynamic cluster** features that enable users to start Ascend/GPU/CPU distributed training tasks without relying on any third-party library (OpenMPI) and without any modification to the training script. We recommend users to use this startup method in preference.
 
-The MindSpore **Dynamic Cluster** feature replaces the OpenMPI capability by **reusing the Parameter Server mode training architecture**, which can be found in the [Parameter Server Mode](https://mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html) training tutorial.
+The MindSpore **Dynamic Cluster** feature replaces the OpenMPI capability by **reusing the Parameter Server mode training architecture**, which can be found in the [Parameter Server Mode](https://mindspore.cn/tutorials/experts/en/r2.3/parallel/parameter_server_training.html) training tutorial.
 
 The **Dynamic Cluster** feature starts multiple MindSpore training processes as `Workers`, and starts an additional `Scheduler` for cluster and disaster recovery. The user only needs to make a few changes to the startup script to perform distributed training.
 
@@ -30,7 +30,7 @@ The relevant environment variables:
             <ul>
                 <li>MS_SCHED: represents the Scheduler process. A training task starts only one Scheduler, which is responsible for networking, disaster recovery, etc., and <b>does not execute training code</b>.</li>
                 <li>MS_WORKER: Represents the Worker process, which generally sets up the distributed training process for this role.</li>
-                <li>MS_PSERVER: represents the Parameter Server process. Only in Parameter Server mode this role is effective. Please refer to <a href="https://mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html">Parameter Server Mode</a>.</li>
+                <li>MS_PSERVER: represents the Parameter Server process. Only in Parameter Server mode this role is effective. Please refer to <a href="https://mindspore.cn/tutorials/experts/en/r2.3/parallel/parameter_server_training.html">Parameter Server Mode</a>.</li>
             </ul>
         </td>
         <td align="left">The Worker and Parameter Server processes register with the Scheduler process to complete the networking.</td>
@@ -115,7 +115,7 @@ The relevant environment variables:
 
 Dynamic cluster startup scripts are consistent across hardware platforms. The following is an example of how to write a startup script for Ascend:
 
-> You can download the full sample code here: [startup_method](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method).
+> You can download the full sample code here: [startup_method](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/startup_method).
 
 The directory structure is as follows:
 
@@ -217,7 +217,7 @@ for epoch in range(10):
 
 #### Single-Machine Multi-Card
 
-The content of the single-machine multi-card startup script [run_dynamic_cluster.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster.sh) is as follows. Taking the single-machine 8-card as an example:
+The content of the single-machine multi-card startup script [run_dynamic_cluster.sh](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/startup_method/run_dynamic_cluster.sh) is as follows. Taking the single-machine 8-card as an example:
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -280,7 +280,7 @@ epoch: 0, step: 90, loss is 0.88950706
 
 The startup script needs to be split in the multi-machine training scenario. The following is an example of performing 2-machine 8-card training, with each machine executing the startup 4 Worker:
 
-The script [run_dynamic_cluster_1.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster_1.sh) starts 1 `Scheduler` and `Worker1` to `Worker4` on node 1:
+The script [run_dynamic_cluster_1.sh](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/startup_method/run_dynamic_cluster_1.sh) starts 1 `Scheduler` and `Worker1` to `Worker4` on node 1:
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -315,7 +315,7 @@ export MS_ROLE=MS_SCHED                       # Set the startup process to the M
 python ./net.py > device/scheduler.log 2>&1 &    # Start training script
 ```
 
-The script [run_dynamic_cluster_2.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster_2.sh) starts `Worker5` to `Worker8` on node 2 (without executing Scheduler):
+The script [run_dynamic_cluster_2.sh](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/startup_method/run_dynamic_cluster_2.sh) starts `Worker5` to `Worker8` on node 2 (without executing Scheduler):
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -362,7 +362,7 @@ That is, you can perform 2-machine 8-card distributed training tasks.
 
 ## Disaster Recovery
 
-Dynamic cluster supports disaster recovery under data parallel. In a parallel training scenario with multi-card data, if a process quits abnormally, the training can be continued after pulling up the corresponding script of the corresponding process again, and the accuracy convergence will not be affected. Disaster recovery configuration and samples can be found in the [Disaster Recovery in Dynamic Cluster Scenarios](https://www.mindspore.cn/tutorials/experts/en/master/parallel/disaster_recover.html) tutorial.
+Dynamic cluster supports disaster recovery under data parallel. In a parallel training scenario with multi-card data, if a process quits abnormally, the training can be continued after pulling up the corresponding script of the corresponding process again, and the accuracy convergence will not be affected. Disaster recovery configuration and samples can be found in the [Disaster Recovery in Dynamic Cluster Scenarios](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/disaster_recover.html) tutorial.
 
 ## Security Authentication
 
@@ -390,4 +390,4 @@ The `config.json` configuration file specified by `config_file_path` needs to ad
 - `cipher_list`: Cipher suite (list of supported SSL encrypted types)
 - `cert_expire_warning_time_in_da`: The warning time of certificate expiration.
 
-The secret key in the p12 file is stored in cipher text, and the password needs to be passed in when starting. Please refer to the Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context) for the `client_password` and `server_password` fields.
+The secret key in the p12 file is stored in cipher text, and the password needs to be passed in when starting. Please refer to the Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context) for the `client_password` and `server_password` fields.

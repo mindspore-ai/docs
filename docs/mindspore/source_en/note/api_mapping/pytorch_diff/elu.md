@@ -1,6 +1,6 @@
 # Differences with torch.nn.functional.elu
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/elu.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/elu.md)
 
 ## torch.nn.functional.elu
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.functional.elu](https://pytorch.org/docs/1.8
 mindspore.ops.elu(input_x, alpha=1.0) -> Tensor
 ```
 
-For more information, see [mindspore.ops.elu](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.elu.html).
+For more information, see [mindspore.ops.elu](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.elu.html).
 
 ## Differences
 

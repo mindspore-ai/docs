@@ -1,6 +1,6 @@
 # Differences with torch.cat
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/cat.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/cat.md)
 
 ## torch.cat
 
@@ -21,7 +21,7 @@ For more information, see [torch.cat](https://pytorch.org/docs/1.8.1/generated/t
 mindspore.ops.cat(tensors, axis=0) -> Tensor
 ```
 
-For more information, see [mindspore.ops.cat](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.cat.html).
+For more information, see [mindspore.ops.cat](https://mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.cat.html).
 
 ## Differences
 
@@ -35,7 +35,7 @@ MindSpore: Currently, the data type and precision of the the input Tensors are r
 | --- | --- | --- | --- |---|
 | Input | Single input | tensors  | tensors | The data type and precision of the `tensors` in MindSpore are required to remain the same, while the precision of the `tensors` in PyTorch can be different |
 |Parameters | Parameter 1 | dim | axis | Different parameter names |
-|  | Parameter 2  | out | - | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
+|  | Parameter 2  | out | - | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.3/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 
 ### Code Example
 

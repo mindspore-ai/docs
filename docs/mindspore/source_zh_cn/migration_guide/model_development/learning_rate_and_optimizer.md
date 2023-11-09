@@ -1,8 +1,8 @@
 # 学习率与优化器
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/learning_rate_and_optimizer.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/migration_guide/model_development/learning_rate_and_optimizer.md)
 
-在阅读本章节之前，请先阅读MindSpore官网教程[优化器](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/optimizer.html)。
+在阅读本章节之前，请先阅读MindSpore官网教程[优化器](https://mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/optimizer.html)。
 
 这里就MindSpore的优化器的一些特殊使用方式和学习率衰减策略的原理做一个介绍。
 
@@ -10,7 +10,7 @@
 
 ### 优化器支持差异
 
-PyTorch和MindSpore同时支持的优化器异同比较详见[API映射表](https://mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#torch-optim)。MindSpore暂不支持的优化器：LBFGS，NAdam，RAdam。
+PyTorch和MindSpore同时支持的优化器异同比较详见[API映射表](https://mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#torch-optim)。MindSpore暂不支持的优化器：LBFGS，NAdam，RAdam。
 
 ### 优化器的执行和使用差异
 
@@ -78,7 +78,7 @@ optimizer = optim.SGD(model.parameters(), lr=0.01)
     `params` 入参支持类型不同： PyTorch入参类型为 `iterable(Tensor)` 和 `iterable(dict)`，支持迭代器类型；
 MindSpore入参类型为 `list(Parameter)`，`list(dict)`，不支持迭代器。
 
-    其他超参配置及支持差异详见[API映射表](https://mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html#torch-optim)。
+    其他超参配置及支持差异详见[API映射表](https://mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#torch-optim)。
 
 - 参数分组：
 
@@ -202,7 +202,7 @@ for epoch in range(20):
     scheduler.step()
 ```
 
-MindSpore中的动态学习率有 `Cell` 和 `list` 两种实现方式，两种类型的动态学习率使用方式一致，都是在实例化完成之后传入优化器，前者在内部的 `construct` 中进行每一步学习率的计算，后者直接按照计算逻辑预生成学习率列表，训练过程中内部实现学习率的更新。具体请参考[动态学习率](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#%E5%8A%A8%E6%80%81%E5%AD%A6%E4%B9%A0%E7%8E%87)。
+MindSpore中的动态学习率有 `Cell` 和 `list` 两种实现方式，两种类型的动态学习率使用方式一致，都是在实例化完成之后传入优化器，前者在内部的 `construct` 中进行每一步学习率的计算，后者直接按照计算逻辑预生成学习率列表，训练过程中内部实现学习率的更新。具体请参考[动态学习率](https://mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.nn.html#%E5%8A%A8%E6%80%81%E5%AD%A6%E4%B9%A0%E7%8E%87)。
 
 ```python
 polynomial_decay_lr = nn.PolynomialDecayLR(learning_rate=0.1, end_learning_rate=0.01, decay_steps=4, power=0.5)
@@ -285,7 +285,7 @@ PyTorch提供了`torch.optim.lr_scheduler`包用于动态修改lr，使用的时
 
 MindSpore：
 
-MindSpore的学习率是包到优化器里面的，每调用一次优化器，学习率更新的step会自动更新一次，详情请参考[学习率与优化器](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/learning_rate_and_optimizer.html)。
+MindSpore的学习率是包到优化器里面的，每调用一次优化器，学习率更新的step会自动更新一次，详情请参考[学习率与优化器](https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/learning_rate_and_optimizer.html)。
 
 ## 参数分组
 
@@ -374,17 +374,17 @@ opt = nn.Momentum(group_param, learning_rate=1e-3, weight_decay=0.0, momentum=0.
 
 ## MindSpore的学习率衰减策略
 
-在训练过程中，MindSpore的学习率是以参数的形式存在于网络里的，在执行优化器更新网络可训练参数前，MindSpore会调用[get_lr](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer.get_lr)
+在训练过程中，MindSpore的学习率是以参数的形式存在于网络里的，在执行优化器更新网络可训练参数前，MindSpore会调用[get_lr](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer.get_lr)
 方法获取到当前step需要的学习率的值。
 
 MindSpore的学习率支持静态、动态、分组三种，其中静态学习率在网络里是一个float32类型的Tensor。
 
-动态学习率有两种，一种在网络里是一个长度为训练总的step数，float32类型的Tensor，如[Dynamic LR函数](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#dynamic-lr%E5%87%BD%E6%95%B0)。在优化器里有一个`global_step`的参数，每经过一次优化器更新参数会+1，MindSpore内部会根据`global_step`和`learning_rate`这两个参数来获取当前step的学习率的值；
-另一种是通过构图来生成学习率的值的，如[LearningRateSchedule类](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#learningrateschedule%E7%B1%BB)。
+动态学习率有两种，一种在网络里是一个长度为训练总的step数，float32类型的Tensor，如[Dynamic LR函数](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.nn.html#dynamic-lr%E5%87%BD%E6%95%B0)。在优化器里有一个`global_step`的参数，每经过一次优化器更新参数会+1，MindSpore内部会根据`global_step`和`learning_rate`这两个参数来获取当前step的学习率的值；
+另一种是通过构图来生成学习率的值的，如[LearningRateSchedule类](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.nn.html#learningrateschedule%E7%B1%BB)。
 
 分组学习率如上一小节参数分组中介绍的。
 
-因为MindSpore的学习率是参数，我们也可以通过给`learning_rate`参数赋值的方式修改训练过程中学习率的值，如[LearningRateScheduler Callback](https://www.mindspore.cn/docs/zh-CN/master/_modules/mindspore/train/callback/_lr_scheduler_callback.html#LearningRateScheduler)，这种方法只支持优化器中传入静态的学习率。关键代码如下：
+因为MindSpore的学习率是参数，我们也可以通过给`learning_rate`参数赋值的方式修改训练过程中学习率的值，如[LearningRateScheduler Callback](https://www.mindspore.cn/docs/zh-CN/r2.3/_modules/mindspore/train/callback/_lr_scheduler_callback.html#LearningRateScheduler)，这种方法只支持优化器中传入静态的学习率。关键代码如下：
 
 ```python
 import mindspore as ms

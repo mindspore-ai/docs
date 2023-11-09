@@ -1,6 +1,6 @@
 # Recomputation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/recompute.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_en/parallel/recompute.md)
 
 ## Overview
 
@@ -10,9 +10,9 @@ In order to solve this problem, Mindspore provides the recomputation function. I
 
 Related interfaces:
 
-1. `mindspore.nn.Cell.recompute()`: Call the [recompute interface](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute). After calling this interface, when computing the reverse part, all the operators inside the Cell and all the operators inside the sub-Cells are recomputed, except for the output operator of that Cell.
+1. `mindspore.nn.Cell.recompute()`: Call the [recompute interface](https://www.mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute). After calling this interface, when computing the reverse part, all the operators inside the Cell and all the operators inside the sub-Cells are recomputed, except for the output operator of that Cell.
 
-2. `mindspore.ops.Primitive.recompute()`: Call the [recompute interface](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute). After calling this interface, the operator is recomputed when computing the reverse part.
+2. `mindspore.ops.Primitive.recompute()`: Call the [recompute interface](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute). After calling this interface, the operator is recomputed when computing the reverse part.
 
 ## Basic Principle
 
@@ -22,7 +22,7 @@ In order to reduce memory peaks, the recompute technique can not save the comput
 
 The recompute function is implemented as a forward operator that is recomputed according to the user's specified needs, copies the same operator, outputs it to the reverse operator, and deletes the continuous edge relationship between the original forward operator and the reverse operator. In addition, we need to ensure that the copied operator only begins to be evaluated when the corresponding inverse part is computed, so we need to insert control dependencies to ensure the order in which the operators are executed. As shown in the following figure:
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/parallel/images/recompute_image_0_zh.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/tutorials/experts/source_zh_cn/parallel/images/recompute_image_0_zh.png)
 
 *Figure: Forward and reverse diagram before and after the recompute function is enabled*
 
@@ -30,7 +30,7 @@ For user convenience, MindSpore currently provides not only a recompute interfac
 
 Taking the GPT-3 model as an example, the policy is set to recalculate the cell corresponding to the layerer for each layer, and then the output operator of the layerer is set to non-recompute. The effect of recompute on the 72-layer GPT-3 network is shown in the following figure:
 
-![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/parallel/images/recompute_image_1_zh.png)
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/tutorials/experts/source_zh_cn/parallel/images/recompute_image_1_zh.png)
 
 *Figure: Comparison of GPT-3 memory usage before and after recalculation function is enabled*
 
@@ -40,7 +40,7 @@ The following is an illustration of the recomputation operation using an Ascend 
 
 ### Sample Code Description
 
-> Download the complete sample code: [recompute](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/recompute).
+> Download the complete sample code: [recompute](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/recompute).
 
 The directory structure is as follows:
 

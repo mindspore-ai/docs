@@ -1,12 +1,12 @@
 # Using Third-party Operator Libraries Based on Customized Interfaces
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/use_third_party_op.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/migration_guide/use_third_party_op.md)
 
 ## Overview
 
-When lacking of the built-in operators during developing a network, you can use the primitive in [Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) to easily and quickly define and use different types of customized operators.
+When lacking of the built-in operators during developing a network, you can use the primitive in [Custom](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) to easily and quickly define and use different types of customized operators.
 
-Developers can choose different customized operator development methods according to their needs. For details, please refer to the [Usage Guide](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom.html) of Custom operator.
+Developers can choose different customized operator development methods according to their needs. For details, please refer to the [Usage Guide](https://www.mindspore.cn/tutorials/experts/en/r2.3/operation/op_custom.html) of Custom operator.
 
 One of the development methods for customized operators, the `aot` method, has its own special use. The `aot` can call the corresponding `cpp`/`cuda` functions by loading a pre-compiled `so`. Therefore. When a third-party library provides `API`, a `cpp`/`cuda` function, you can try to call its function interface in `so`, which is described below by taking `Aten` library in PyTorch as an example.
 

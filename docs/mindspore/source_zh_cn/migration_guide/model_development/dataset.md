@@ -1,16 +1,16 @@
 # 数据处理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/dataset.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/migration_guide/model_development/dataset.md)
 
 本章节主要对网络迁移中数据处理相关的注意事项加以说明，基础的数据处理概念请参考：
 
-[数据处理](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html)
+[数据处理](https://www.mindspore.cn/tutorials/zh-CN/r2.3/beginner/dataset.html)
 
-[自动数据增强](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/augment.html)
+[自动数据增强](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/dataset/augment.html)
 
-[轻量化数据处理](https://mindspore.cn/tutorials/zh-CN/master/advanced/dataset/eager.html)
+[轻量化数据处理](https://mindspore.cn/tutorials/zh-CN/r2.3/advanced/dataset/eager.html)
 
-[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html)
+[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/dataset/optimize.html)
 
 ## 数据构建基本流程
 
@@ -20,16 +20,16 @@
 
 #### 常用数据集接口
 
-MindSpore提供了很多不同领域的[常见数据集的加载接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.html)，比如：
+MindSpore提供了很多不同领域的[常见数据集的加载接口](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.dataset.html)，比如：
 
 | 数据接口 | 介绍 |
 | -------| ---- |
-| [Cifar10Dataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset) | Cifar10 数据集读入接口（需要自行下载Cifar10的原始bin文件） |
-| [MNIST](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.MnistDataset.html#mindspore.dataset.MnistDataset) | Minist 手写数字识别数据集（需要自行下载原始文件） |
-| [ImageFolderDataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.ImageFolderDataset.html) | 以文件目录作为分类的数据组织格式的数据集读取方式（ImageNet常用） |
-| [MindDataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.MindDataset.html#mindspore.dataset.MindDataset) | MindRecord数据读入接口 |
-| [GeneratorDataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html) | 用户自定义数据接口 |
-| [FakeImageDataset](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.FakeImageDataset.html) | 构造一个假的图像数据集 |
+| [Cifar10Dataset](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset) | Cifar10 数据集读入接口（需要自行下载Cifar10的原始bin文件） |
+| [MNIST](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/dataset/mindspore.dataset.MnistDataset.html#mindspore.dataset.MnistDataset) | Minist 手写数字识别数据集（需要自行下载原始文件） |
+| [ImageFolderDataset](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/dataset/mindspore.dataset.ImageFolderDataset.html) | 以文件目录作为分类的数据组织格式的数据集读取方式（ImageNet常用） |
+| [MindDataset](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/dataset/mindspore.dataset.MindDataset.html#mindspore.dataset.MindDataset) | MindRecord数据读入接口 |
+| [GeneratorDataset](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/dataset/mindspore.dataset.GeneratorDataset.html) | 用户自定义数据接口 |
+| [FakeImageDataset](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/dataset/mindspore.dataset.FakeImageDataset.html) | 构造一个假的图像数据集 |
 
 #### 自定义数据集 GeneratorDataset
 
@@ -113,7 +113,7 @@ print(dataset.get_dataset_size())
 
 ### 数据处理及增强
 
-MindSpore的dataset对象使用map接口进行数据增强。我们一起来看下[map接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.map.html#mindspore.dataset.Dataset.map)：
+MindSpore的dataset对象使用map接口进行数据增强。我们一起来看下[map接口](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.map.html#mindspore.dataset.Dataset.map)：
 
 ```text
 map(operations, input_columns=None, output_columns=None, column_order=None, num_parallel_workers=None, **kwargs)
@@ -126,12 +126,12 @@ map(operations, input_columns=None, output_columns=None, column_order=None, num_
 最后一个数据增强的输出列的列名由 `output_columns` 指定，如果没有指定 `output_columns` ，输出列名与 `input_columns` 一致。
 
 上面的介绍可能比较繁琐，简单来说 `map` 就是在数据集的某些列上做 `operations` 里规定的操作。这里的`operations`可以是MindSpore提供的数据增强操作：
-[audio](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst#音频)、[text](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst#文本)、[vision](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst#视觉)、[通用](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.transforms.html)。详情请参考[数据变换 Transforms](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/transforms.html)
+[audio](https://gitee.com/mindspore/mindspore/blob/r2.3/docs/api/api_python/mindspore.dataset.transforms.rst#音频)、[text](https://gitee.com/mindspore/mindspore/blob/r2.3/docs/api/api_python/mindspore.dataset.transforms.rst#文本)、[vision](https://gitee.com/mindspore/mindspore/blob/r2.3/docs/api/api_python/mindspore.dataset.transforms.rst#视觉)、[通用](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.dataset.transforms.html)。详情请参考[数据变换 Transforms](https://www.mindspore.cn/tutorials/zh-CN/r2.3/beginner/transforms.html)
 也可以是python的方法，里面可以用 opencv，PIL，pandas 等一些三方的方法，和数据集加载一样，**不要使用MindSpore的算子**。
 
-MindSpore也提供了一些常用的随机增强方法：[自动数据增强](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/augment.html)，在具体使用数据增强时最好先阅读[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html)，按照推荐的顺序进行处理。
+MindSpore也提供了一些常用的随机增强方法：[自动数据增强](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/dataset/augment.html)，在具体使用数据增强时最好先阅读[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/dataset/optimize.html)，按照推荐的顺序进行处理。
 
-在数据增强结束后，可以使用batch操作将数据集中连续 `batch_size` 条数据合并为一个批处理数据。详情请参考[batch](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/dataset_method/batch/mindspore.dataset.Dataset.batch.html#mindspore.dataset.Dataset.batch)。其中需要注意 `drop_remainder` 这个参数，当训练的时候需要设置成True，推理时设置成False。
+在数据增强结束后，可以使用batch操作将数据集中连续 `batch_size` 条数据合并为一个批处理数据。详情请参考[batch](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/dataset/dataset_method/batch/mindspore.dataset.Dataset.batch.html#mindspore.dataset.Dataset.batch)。其中需要注意 `drop_remainder` 这个参数，当训练的时候需要设置成True，推理时设置成False。
 
 ```python
 import mindspore.dataset as ds
@@ -160,7 +160,7 @@ batch操作也可以使用一些batch内的增强操作，详情可参考[YOLOv3
 
 MindSpore的数据对象有以下几种方式迭代获取。
 
-### [create_dict_iterator](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html#mindspore.dataset.Dataset.create_dict_iterator)
+### [create_dict_iterator](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html#mindspore.dataset.Dataset.create_dict_iterator)
 
 基于数据集对象创建迭代器，输出的数据为字典类型。
 
@@ -186,7 +186,7 @@ label (10,)
 ====================
 ```
 
-### [create_tuple_iterator](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_tuple_iterator.html#mindspore.dataset.Dataset.create_tuple_iterator)
+### [create_tuple_iterator](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_tuple_iterator.html#mindspore.dataset.Dataset.create_tuple_iterator)
 
 基于数据集对象创建迭代器，输出数据为 `numpy.ndarray` 组成的列表。
 

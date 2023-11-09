@@ -1,6 +1,6 @@
 # 比较与torch.optim.Adam的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Adam.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Adam.md)
 
 ## torch.optim.Adam
 
@@ -35,7 +35,7 @@ class mindspore.nn.Adam(
 )
 ```
 
-更多内容详见[mindspore.nn.Adam](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Adam.html#mindspore.nn.Adam)。
+更多内容详见[mindspore.nn.Adam](https://mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.Adam.html#mindspore.nn.Adam)。
 
 ## 差异对比
 
