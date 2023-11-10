@@ -167,6 +167,10 @@ autosummary_generate_overwrite = False
 
 html_static_path = ['_static']
 
+mermaid_version = ""
+
+mermaid_init_js = ""
+
 # -- Options for HTML output -------------------------------------------------
 
 # Reconstruction of sphinx auto generated document translation.
