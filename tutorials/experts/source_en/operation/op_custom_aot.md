@@ -112,15 +112,9 @@ The function name `FuncName` is the name of the operator main function.
 The return value is of type `std::vector<int64_t>` and represents the output shape.
 The meaning of the parameter list is as follows:
 
-<<<<<<< HEAD
 - `ndims` (int \*): Array of dimensions for input shapes.
 - `shapes` (int64_t \*\*): Array of shapes for inputs.
 - `extra` (AotExtra \*): Pointer to an extension for attribute-bearing custom operators. The `AotExtra` type is defined in the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore.
-=======
-- ndims (int \*): Array of dimensions for input shapes.
-- shapes (int64_t \*\*): Array of shapes for inputs.
-- extra (AotExtra \*): Pointer to an extension for attribute-bearing custom operators. The `AotExtra` type is defined in the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/r2.3/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore.
->>>>>>> 8ac99e278f (modify the inconsistence in files 2.3)
 
 ### Operator Attribute Registration (Python)
 
