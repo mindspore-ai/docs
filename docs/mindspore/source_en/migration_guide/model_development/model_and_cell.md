@@ -76,10 +76,8 @@ for i in pt_net.parameters():
     print(i.shape)
 ```
 
-Outputs:
-
 ```text
-torch.Size([240, 120, 4, 4])
+    torch.Size([240, 120, 4, 4])
 ```
 
 With the script for building the `Cell`, you need to use the same input data and parameters to compare the output.
@@ -234,37 +232,38 @@ Every API from `torch.nn.init` could correspond to MindSpore, except `torch.nn.i
 
 > `gain` is used to describe the influence of the non-linearity to the standard deviation of the data. Because non-linearity will affect the standard deviation, the gradient may explode or vanish.
 
-- torch.nn.init
+<table>
+<tr>
+<td style="text-align:center"> mindspore.common.initializer </td> <td style="text-align:center"> torch.nn.init </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
-  `torch.nn.init` takes a Tensor as input, and the input Tensor will be changed to the target in-place.
+```python
+import mindspore
+from mindspore.common.initializer import initializer, Uniform
 
-  ```python
+x = initializer(Uniform(), [1, 2, 3], mindspore.float32)
+```
 
-  import torch
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
-  x = torch.empty(2, 2)
-  torch.nn.init.uniform_(x)
+```python
+import torch
 
-  ```
+x = torch.empty(2, 2)
+torch.nn.init.uniform_(x)
+```
 
-  After running the code above, x is no longer an uninitialized Tensor, and its elements will follow the uniform distribution.
+</pre>
+</td>
+</tr>
+</table>
 
-- mindspore.common.initializer
-
-  `mindspore.common.initializer` is used for delayed initialization in parallel mode. Only after calling `init_data()`, the elements will be assigned based on its `init`.
-  Every Tensor could only use `init_data` once.
-
-  ```python
-
-  import mindspore
-  from mindspore.common initialzier import initializer, Uniform
-
-  x = initializer(Uniform(), [1, 2, 3], mindspore.float32)
-
-  ```
-
-  After running the code above, `x` is still not fully initialized. If it is used for further calculation, 0 will be used. However, when printing the Tensor, `init_data()`
-  will be called automatically.
+- `mindspore.common.initializer` is used for delayed initialization in parallel mode. Only after calling `init_data()`, the elements will be assigned based on its `init`. Every Tensor could only use `init_data` once. After running the code above, `x` is still not fully initialized. If it is used for further calculation, 0 will be used. However, when printing the Tensor, `init_data()` will be called automatically.
+- `torch.nn.init` takes a Tensor as input, and the input Tensor will be changed to the target in-place. After running the code above, x is no longer an uninitialized Tensor, and its elements will follow the uniform distribution.
 
 #### Customizing Initialization Parameters
 
