@@ -74,7 +74,7 @@ for i in pt_net.parameters():
     print(i.shape)
 ```
 
-```python
+```text
     torch.Size([240, 120, 4, 4])
 ```
 
