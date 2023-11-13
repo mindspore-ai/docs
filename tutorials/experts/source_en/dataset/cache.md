@@ -28,7 +28,7 @@ Before using the cache service, you need to install MindSpore and set the releva
 
 > At present, data cache can only be performed in the Linux environment. Ubuntu, EulerOS and CentOS can refer to the [relevant tutorials](https://help.ubuntu.com/community/SwapFaq#How_do_I_add_a_swap_file.3F) to learn how to increase the swap memory space. In addition, since the use of cache may cause the server's memory shortage, it is recommended that users increase the server's swap memory space to more than 100GB before using the cache.
 
-### 1. Start the cache server
+### 1. Start the Cache Server
 
 Before using the single-node cache serve, you need to enter the following command at the command line to start the cache server:
 
@@ -79,7 +79,7 @@ The cache server log file is named in the format "cache_server.\<host name>.\<us
 
 When `GLOG_v=0`, DEBUG log may be displayed on the screen.
 
-### 2. Create the cache session
+### 2. Create the Cache Session
 
 If there is no cache session in the cache server, you need to create a cache session and get the cache session id:
 
@@ -115,7 +115,7 @@ Output parameters description:
 - `Avg cache size`: the average size of each row of data currently cached.
 - `Numa hit`: the number of **Numa** hits. The higher value will get the better time performance.
 
-### 3. Create a cache instance
+### 3. Create a Cache Instance
 
 In the Python training script, use the `DatasetCache` API to define a cache instance named `test_cache`, and put a cache session ID created in the previous step to the `session_id` parameter.
 
@@ -152,7 +152,7 @@ Users can also manually set `size` to a proper value based on the idle memory of
 
 If a dataset that does not support random access (such as `TFRecordDataset`) is used to load data and the cache service is enabled, ensure that the entire dataset is stored locally. In this scenario, if the local memory space is insufficient to store all data, spilling must be enabled to spill data to disks.
 
-### 4. Insert a cache instance
+### 4. Insert a Cache Instance
 
 Currently, the cache service can be used to cache both original datasets and datasets processed by argumentation. The following example shows two usage methods.
 
@@ -193,7 +193,7 @@ The directory structure of the extracted dataset file is as follows:
     └── data_batch_5.bin
 ```
 
-#### Cache the original dataset data
+#### Caching the Original Dataset Data
 
 Cache the original dataset, and the datat is loaded by the MindSpore system.
 
@@ -230,7 +230,7 @@ Listing sessions for server on port 50052
    780643335  2044459912           4         n/a            3226         4
 ```
 
-#### Cache the data processed by argumentation
+#### Caching the Data Processed by Argumentation
 
 Cache data after data enhancement processing `transforms`.
 
@@ -276,7 +276,7 @@ Listing sessions for server on port 50052
    780643335  2044459912           4         n/a            3226         4
 ```
 
-### 5. Destroy the cache session
+### 5. Destroy the Cache Session
 
 After the training is complete, you can destroy the current cache and release the memory.
 
@@ -296,7 +296,7 @@ The preceding command is used to destroy the cache with the session ID 145641666
 
 If you choose not to destroy the cache, the cached data still exists in the cache session. You can use the cache when starting the training script next time.
 
-### 6. Stop the cache server
+### 6. Stop the Cache Server
 
 After using the cache server, you can stop it. This operation will destroy all cache sessions on the current server and release the memory.
 
