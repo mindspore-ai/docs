@@ -285,6 +285,123 @@ if os.path.exists(des_sir):
     shutil.rmtree(des_sir)
 shutil.copytree(src_dir_en, des_sir)
 
+ops_adjust = [
+"mindspore.ops.Argmax",
+"mindspore.ops.Argmin",
+"mindspore.ops.AvgPool",
+"mindspore.ops.BiasAdd",
+"mindspore.ops.CeLU",
+"mindspore.ops.Cholesky",
+"mindspore.ops.Concat",
+"mindspore.ops.CumProd",
+"mindspore.ops.CumSum",
+"mindspore.ops.Cummax",
+"mindspore.ops.Cummin",
+"mindspore.ops.Elu",
+"mindspore.ops.FFTWithSize",
+"mindspore.ops.Gather",
+"mindspore.ops.GridSampler2D",
+"mindspore.ops.GridSampler3D",
+"mindspore.ops.HShrink",
+"mindspore.ops.InplaceUpdate",
+"mindspore.ops.LayerNorm",
+"mindspore.ops.LogSoftmax",
+"mindspore.ops.Logit",
+"mindspore.ops.MaxPoolWithArgmax",
+"mindspore.ops.NLLLoss",
+"mindspore.ops.NanToNum",
+"mindspore.ops.OneHot",
+"mindspore.ops.RandpermV2",
+"mindspore.ops.Range",
+"mindspore.ops.ReduceAll",
+"mindspore.ops.ReduceAny",
+"mindspore.ops.ReduceMax",
+"mindspore.ops.ReduceMean",
+"mindspore.ops.ReduceMin",
+"mindspore.ops.ReduceProd",
+"mindspore.ops.ReduceSum",
+"mindspore.ops.ResizeBicubic",
+"mindspore.ops.ResizeBilinearV2",
+"mindspore.ops.ResizeNearestNeighbor",
+"mindspore.ops.ReverseV2",
+"mindspore.ops.Softmax",
+"mindspore.ops.Split"]
+
+func_adjust = [
+"mindspore.ops.abs",
+"mindspore.ops.acos",
+"mindspore.ops.acosh",
+"mindspore.ops.add",
+"mindspore.ops.asin",
+"mindspore.ops.asinh",
+"mindspore.ops.assign",
+"mindspore.ops.atan",
+"mindspore.ops.atanh",
+"mindspore.ops.bias_add",
+"mindspore.ops.ceil",
+"mindspore.ops.conj",
+"mindspore.ops.cos",
+"mindspore.ops.cosh",
+"mindspore.ops.cummax",
+"mindspore.ops.deepcopy",
+"mindspore.ops.diag",
+"mindspore.ops.equal",
+"mindspore.ops.erf",
+"mindspore.ops.erfc",
+"mindspore.ops.erfinv",
+"mindspore.ops.exp",
+"mindspore.ops.expand_dims",
+"mindspore.ops.fast_gelu",
+"mindspore.ops.floor",
+"mindspore.ops.floor_div",
+"mindspore.ops.gather",
+"mindspore.ops.gcd",
+"mindspore.ops.geqrf",
+"mindspore.ops.greater",
+"mindspore.ops.greater_equal",
+"mindspore.ops.less",
+"mindspore.ops.less_equal",
+"mindspore.ops.log_softmax",
+"mindspore.ops.logit",
+"mindspore.ops.masked_fill",
+"mindspore.ops.maximum",
+"mindspore.ops.minimum",
+"mindspore.ops.mul",
+"mindspore.ops.not_equal",
+"mindspore.ops.pow",
+"mindspore.ops.prelu",
+"mindspore.ops.range",
+"mindspore.ops.rank",
+"mindspore.ops.relu",
+"mindspore.ops.round",
+"mindspore.ops.rsqrt",
+"mindspore.ops.scatter_nd",
+"mindspore.ops.sigmoid",
+"mindspore.ops.trace",
+"mindspore.ops.transpose"]
+
+
+def ops_interface_name():
+    dir_list = ['mindspore.ops.primitive.rst', 'mindspore.ops.rst']
+    for i in dir_list:
+        target_path = os.path.join(des_sir, i)
+        with open(target_path,'r+',encoding='utf8') as f:
+            content =  f.read()
+            new_content = content
+            if 'primitive' in i:
+                for name in ops_adjust:
+                    new_content = new_content.replace('    ' + name + '\n', '')
+            else:
+                for name in func_adjust:
+                    new_content = new_content.replace('    ' + name + '\n', '')
+
+            if new_content != content:
+                f.seek(0)
+                f.truncate()
+                f.write(new_content)
+
+ops_interface_name()
+
 Tensor_list_path = "./api_python/Tensor_list.rst"
 dataset_list_path = "./api_python/dataset_list.rst"
 classtemplate_path = "./_templates/classtemplate.rst"
