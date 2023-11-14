@@ -77,13 +77,13 @@ extern "C" int FuncName(int nparam, void **params, int *ndims, int64_t **shapes,
 
 The function name `FuncName` can be replaced with any valid function name. The return value is of type int, with 0 indicating normal exit and non-zero indicating an exception. The meaning of the parameter list is as follows:
 
-- `nparam` (int): The total number of inputs, outputs, and intermediate variables. For example, if the operator has 2 inputs, 1 output, and 1 intermediate variable, then `nparam` is 4.
-- `params` (void \*\*): An array of pointers to inputs, outputs, and intermediate variables. For example, if the operator has 2 inputs, 1 output, and 1 intermediate variable, then `params[0]` points to the memory of the first input data, `params[1]` points to the memory of the second input data, `params[2]` points to the memory of the output data, and `params[3]` points to the memory of the intermediate variable.
-- `ndims` (int \*): An array of dimensions for inputs, output,s and intermediate variables. For example, if `params[i]` is a tensor with shape [1024, 1024], then `ndims[i]` is 2.
-- `shapes` (int64_t \*\*): An array of shapes for inputs, outputs, and intermediate variables. For example, if `params[i]` is a tensor with shape [1024, 1024], then `shapes[i][0]` is 1024 and `shapes[i][1]` is 1024.
-- `dtypes` (const char \*\*): An array of data types for inputs, outputs, and intermediate variables. The elements in `dtypes` can take values among the list "float32", "float16", "float", "float64", "int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", and "bool".
-- `stream` (void \*): The pointer to a CUDA stream, only required for GPU operator implementation.
-- `extra_void` (void \*): The pointer to a data structure related to attributes.
+- nparam (int): The total number of inputs, outputs, and intermediate variables. For example, if the operator has 2 inputs, 1 output, and 1 intermediate variable, then `nparam` is 4.
+- params (void \*\*): An array of pointers to inputs, outputs, and intermediate variables. For example, if the operator has 2 inputs, 1 output, and 1 intermediate variable, then `params[0]` points to the memory of the first input data, `params[1]` points to the memory of the second input data, `params[2]` points to the memory of the output data, and `params[3]` points to the memory of the intermediate variable.
+- ndims (int \*): An array of dimensions for inputs, output,s and intermediate variables. For example, if `params[i]` is a tensor with shape [1024, 1024], then `ndims[i]` is 2.
+- shapes (int64_t \*\*): An array of shapes for inputs, outputs, and intermediate variables. For example, if `params[i]` is a tensor with shape [1024, 1024], then `shapes[i][0]` is 1024 and `shapes[i][1]` is 1024.
+- dtypes (const char \*\*): An array of data types for inputs, outputs, and intermediate variables. The elements in `dtypes` can take values among the list "float32", "float16", "float", "float64", "int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", and "bool".
+- stream (void \*): The pointer to a CUDA stream, only required for GPU operator implementation.
+- extra_void (void \*): The pointer to a data structure related to attributes.
 
 ### Initialization Function
 
@@ -203,9 +203,8 @@ In addition, we need to obtain the values of two attributes, `axis` and `keep_di
 
 1. Create a pointer to an `add_reduce_kernel_attr` object: `add_reduce_kernel_attr *kernel_ptr = new add_reduce_kernel_attr`.
 2. Retrieve the attribute values from `extra` and store them in the member variables of `kernel_ptr`: `kernel_data_ptr->axis = extra->Attr<int64_t>("axis"); kernel_data_ptr->keep_dim = extra->Attr<bool>("keep_dim");`. Here, `reduce_axis` and `keep_dim` are of type `int` and `bool` respectively. We use the corresponding template function of `extra->Attr<T>(std::string name)` to obtain the value of the attribute with the given type.
+    - The supported types for `T` in step 2 are `bool`, `string`, `int64_t`, `float`, `std::vector<int64_t>`, `std::vector<float>`, `std::vector<std::vector<int64_t>>`, and `std::vector<std::vector<float>>`.
 3. Store `kernel_ptr` in `extra` for use during operator calculation: `extra->SetKernelData(kernel_ptr)`.
-
-Note: The supported types for `T` in step 2 are `bool`, `string`, `int64_t`, `float`, `std::vector<int64_t>`, `std::vector<float>`, `std::vector<std::vector<int64_t>>`, and `std::vector<std::vector<float>>`.
 
 #### Operator Shape Inference Function
 

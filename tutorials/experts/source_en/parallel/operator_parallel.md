@@ -42,7 +42,7 @@ import mindspore.nn as nn
 from mindspore import ops
 import mindspore as ms
 
-ms.set_auto_parallel_context(parallel_mode="semi_auto_parallel", device_num=4)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, device_num=4)
 
 class DenseMatMulNet(nn.Cell):
     def __init__(self):

@@ -75,31 +75,31 @@ optimizer = optim.SGD(model.parameters(), lr=0.01)
 
 - The parameters are not grouped:
 
-  The data types of the `params` different: input types in PyTorch are `iterable(Tensor)` and `iterable(dict)`, which support iterator types, while input types in MindSpore are `list(Parameter)`, `list(dict)`, which do not support iterators.
+    The data types of the `params` different: input types in PyTorch are `iterable(Tensor)` and `iterable(dict)`, which support iterator types, while input types in MindSpore are `list(Parameter)`, `list(dict)`, which do not support iterators.
 
-  Other hyperparameter configurations and support differences are detailed in the [API mapping table](https://mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#torch-optim).
+    Other hyperparameter configurations and support differences are detailed in the [API mapping table](https://mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#torch-optim).
 
 - The parameters are grouped:
 
-  PyTorch supports all parameter groupings:
+    PyTorch supports all parameter groupings:
 
-  ```python
-  optim.SGD([
-              {'params': model.base.parameters()},
-              {'params': model.classifier.parameters(), 'lr': 1e-3}
-          ], lr=1e-2, momentum=0.9)
-  ```
+   ```python
+    optim.SGD([
+                {'params': model.base.parameters()},
+                {'params': model.classifier.parameters(), 'lr': 1e-3}
+            ], lr=1e-2, momentum=0.9)
+    ```
 
-  MindSpore supports certain key groupings: "params", "lr", "weight_decay", "grad_centralization", "order_params".
+    MindSpore supports certain key groupings: "params", "lr", "weight_decay", "grad_centralization", "order_params".
 
-  ```python
-  conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
-  no_conv_params = list(filter(lambda x: 'conv' not in x.name, net.trainable_params()))
-  group_params = [{'params': conv_params, 'weight_decay': 0.01, 'lr': 0.02},
-          {'params': no_conv_params}]
+    ```python
+    conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
+    no_conv_params = list(filter(lambda x: 'conv' not in x.name, net.trainable_params()))
+    group_params = [{'params': conv_params, 'weight_decay': 0.01, 'lr': 0.02},
+            {'params': no_conv_params}]
 
-  optim = nn.Momentum(group_params, learning_rate=0.1, momentum=0.9)
-  ```
+    optim = nn.Momentum(group_params, learning_rate=0.1, momentum=0.9)
+    ```
 
 #### Runtime Hyperparameter Modification
 
