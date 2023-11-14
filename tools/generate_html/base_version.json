@@ -1,6 +1,6 @@
 [
     {
-        "version": "r2.3",
+        "version": "master",
         "label": {
             "zh": "MindSpore",
             "en": "MindSpore"
@@ -9,7 +9,7 @@
         "theme": "theme-docs"
     },
     {
-        "version": "r2.3",
+        "version": "master",
         "label": {
             "zh": "教程",
             "en": "Tutorials"
@@ -48,7 +48,7 @@
         "theme": "theme-tutorials"
     },
     {
-        "version": "r2.3",
+        "version": "master",
         "label": {
             "zh": "MindSpore Lite",
             "en": "MindSpore Lite"

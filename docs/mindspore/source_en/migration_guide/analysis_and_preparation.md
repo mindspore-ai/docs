@@ -98,7 +98,3 @@ The MindSpore debugger is a debugging tool provided for graph mode training. It 
 ### [Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/master/index.html)
 
 MindSpore Golden Stick is a model compression algorithm set jointly designed and developed by Huawei Noah's team and Huawei MindSpore team. It contains basic quantization and pruning methods.
-
-## Differences Between MindSpore and PyTorch APIs
-
-When migrating the network from PyTorch to MindSpore, pay attention to the differences between MindSpore.

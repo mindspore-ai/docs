@@ -18,6 +18,8 @@ The whole basic process of data construction consists of two main aspects: datas
 
 ### Loading Dataset
 
+#### Common Dataset Interfaces
+
 MindSpore provides [interfaces](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html) for loading common datasets. The most used ones are as follows:
 
 | Data Interfaces | Introduction |
