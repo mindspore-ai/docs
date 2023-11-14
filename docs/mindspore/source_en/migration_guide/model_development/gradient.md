@@ -50,11 +50,13 @@ class GradNetWrtX(nn.Cell):
 </tr>
 </table>
 
-### PyTorch Automatic Differentiation
+### Principle Comparison
+
+#### PyTorch Automatic Differentiation
 
 As we know, PyTorch is an automatic differentiation based on computation path tracing. After a network structure is defined, no backward graph is created. Instead, during the execution of the forward graph, `Variable` or `Parameter` records the backward function corresponding to each forward computation and generates a dynamic computational graph, it is used for subsequent gradient calculation. When `backward` is called at the final output, the chaining rule is applied to calculate the gradient from the root node to the leaf node. The nodes stored in the dynamic computational graph of PyTorch are actually `Function` objects. Each time an operation is performed on `Tensor`, a `Function` object is generated, which records necessary information in backward propagation. During backward propagation, the `autograd` engine calculates gradients in backward order by using the `backward` of the `Function`. You can view this point through the hidden attribute of the `Tensor`.
 
-### MindSpore Automatic Differentiation
+#### MindSpore Automatic Differentiation
 
 In graph mode, MindSpore's automatic differentiation is based on the graph structure. Different from PyTorch, MindSpore does not record any information during forward computation and only executes the normal computation process (similar to PyTorch in PyNative mode). Then the question comes. If the entire forward computation is complete and MindSpore does not record any information, how does MindSpore know how backward propagation is performed?
 
@@ -72,11 +74,9 @@ In MindSpore, most operations are finally converted into real operator operation
 
 MindSpore provides the [TrainOneStepCell](https://www.mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.TrainOneStepCell.html) and [TrainOneStepWithLossScaleCell](https://www.mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html) APIs to package the entire training process. If other operations, such as gradient cropping, specification, and intermediate variable return, are performed in addition to the common training process, you need to customize the training cell. For details, see [Inference and Training Process](https://www.mindspore.cn/docs/en/r2.3/migration_guide/model_development/training_and_evaluation.html).
 
-### Gradient Derivation
+### Interface Comparison
 
-The operator and interface differences involved in gradient derivation are mainly caused by different automatic differentiation principles of MindSpore and PyTorch.
-
-### torch.autograd.backward
+#### torch.autograd.backward
 
 [torch.autograd.backward](https://pytorch.org/docs/stable/generated/torch.autograd.backward.html). For a scalar, calling its backward method automatically computes the gradient values of the leaf nodes according to the chaining law. For vectors and matrices, you need to define grad_tensor to compute the gradient of the matrix.
 Typically after calling backward once, PyTorch automatically destroys the computation graph, so to call backward repeatedly on a variable, you need to set the return_graph parameter to True.
@@ -217,7 +217,7 @@ out 2.0
 out 1.0
 ```
 
-### torch.autograd.grad
+#### torch.autograd.grad
 
 [torch.autograd.grad](https://pytorch.org/docs/stable/generated/torch.autograd.grad.html). This interface is basically the same as torch.autograd.backward. The difference between the two is that the former modifies the grad attribute of each Tensor directly, while the latter returns a list of gradient values for the parameters. So when migrating to MindSpore, you can also refer to the above use case.
 
@@ -241,7 +241,7 @@ out (tensor(2.),)
 out1 (tensor(1.),)
 ```
 
-### torch.no_grad
+#### torch.no_grad
 
 In PyTorch, by default, information required for backward propagation is recorded when forward computation is performed. In the inference phase or in a network where backward propagation is not required, this operation is redundant and time-consuming. Therefore, PyTorch provides `torch.no_grad` to cancel this process.
 
@@ -267,7 +267,7 @@ z.requires_grad True
 z.requires_grad False
 ```
 
-### torch.enable_grad
+#### torch.enable_grad
 
 If PyTorch enables `torch.no_grad` to disable gradient computation, you can use this interface to enable it.
 
@@ -294,22 +294,16 @@ z.requires_grad False
 z.requires_grad True
 ```
 
-### retain_graph
+#### retain_graph
 
 PyTorch is function-based automatic differentiation. Therefore, by default, the recorded information is automatically cleared after each backward propagation is performed for the next iteration. As a result, when we want to reuse the backward graph and gradient information, the information fails to be obtained because it has been deleted. Therefore, PyTorch provides `backward(retain_graph=True)` to proactively retain the information.
 
 MindSpore does not require this function. MindSpore is an automatic differentiation based on the computational graph. The backward graph information is permanently recorded in the computational graph after `grad` is invoked. You only need to invoke the computational graph again to obtain the gradient information.
 
-### High-order Derivatives
-
-Automatic differentiation based on computational graphs also has an advantage that we can easily implement high-order derivation. After the `GradOperation` operation is performed on the forward graph for the first time, a first-order derivative may be obtained. In this case, the computational graph is updated to a backward graph structure of the forward graph + the first-order derivative. However, after the `GradOperation` operation is performed on the updated computational graph again, a second-order derivative may be obtained, and so on. Through automatic differentiation based on computational graph, we can easily obtain the higher order derivative of a network.
-
 ## Automatic Differentiation Interfaces
 
 After the forward network is constructed, MindSpore provides an interface to [automatic differentiation](https://mindspore.cn/tutorials/en/r2.3/beginner/autograd.html) to calculate the gradient results of the model.
 In the tutorial of [automatic derivation](https://mindspore.cn/tutorials/en/r2.3/advanced/derivation.html), some descriptions of various gradient calculation scenarios are given.
-
-There are three MindSpore interfaces for finding gradients currently.
 
 ### mindspore.grad
 
