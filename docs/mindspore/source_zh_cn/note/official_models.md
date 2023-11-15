@@ -371,7 +371,6 @@
 | gpt2_52b                         | wikitext-2  | - | - | [config](https://gitee.com/mindspore/mindformers/blob/dev/configs/gpt2/run_gpt2_52b.yaml)                                                  |
 | llama_7b                         | alpac       | - | - | [config](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama/run_llama_7b.yaml)                                                 |
 | llama_13b                        | alpac       | - | - | [config](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama/run_llama_13b.yaml)                                                |
-| llama_65b                        | alpac       | - | - | [config](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama/run_llama_65b.yaml)                                                |
 | mae_vit_base_p16                 | ImageNet-1K | - | - | [config](https://gitee.com/mindspore/mindformers/blob/dev/configs/mae/run_mae_vit_base_p16_224_800ep.yaml)                                 |
 | vit_base_p16                     | ImageNet-1K | Accuracy                             | 83.71%                      | [config](https://gitee.com/mindspore/mindformers/blob/dev/configs/vit/run_vit_base_p16_224_100ep.yaml)                                     |
 | pangualpha_2_6b                  | 悟道数据集       | - | - | [config](https://gitee.com/mindspore/mindformers/blob/dev/configs/pangualpha/run_pangualpha_2_6b.yaml)                                     |
