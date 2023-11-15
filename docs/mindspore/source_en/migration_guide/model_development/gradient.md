@@ -447,7 +447,7 @@ logits (Tensor(shape=[], dtype=Float32, value= 20),)
 ```
 
 ```python
-# Find the gradient for the first output and weights
+# Find the gradient for the first input and weights
 
 print("=== grads 5 ===")
 grad_func = ms.grad(net, grad_position=0, weights=net.trainable_params(), has_aux=True)
@@ -595,7 +595,7 @@ Since the gradient overflow may be encountered in the process of finding the gra
 ```python
 from mindspore.amp import StaticLossScaler, all_finite
 
-loss_scale = StaticLossScaler(1024.)  # 静态lossscale
+loss_scale = StaticLossScaler(1024.)  #  Static lossscale
 
 def forward_fn(x, y):
     loss, logits = net(x, y)

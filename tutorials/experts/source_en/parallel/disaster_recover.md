@@ -10,7 +10,7 @@ Specifically, in the graph mode, the data sink mode is used for training, and th
 
 > Disaster recovery in dynamic cluster scenarios only supports GPUs and needs to run in Graph mode.
 
-For more detailed instructions, see dynamic cluster environment variables in the [Environment Variables List](https://www.mindspore.cn/docs/en/r2.3/note/env_var_list.html).
+For more detailed instructions, see dynamic cluster environment variables in the [dynamic cluster environment variables](https://www.mindspore.cn/docs/en/r2.3/note/env_var_list.html#dynamic-networking).
 
 ## Operation Practice
 

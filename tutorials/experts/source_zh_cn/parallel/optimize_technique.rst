@@ -27,7 +27,7 @@
   - `切分技巧 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/split_technique.html>`_：切分技巧是指通过手动配置某些关键算子的切分策略，减少张量重排布来提升训练效率。
   - `多副本 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/multiple_copy.html>`_：多副本是指在一个迭代步骤中，将一个训练batch拆分成多个，将模型并行通信与计算进行并发，提升资源利用率。
 
-- 内存优化：内存优化包括重计算、数据集切分、Host&Device异构和异构存储，主要目标是节省内存空间。
+- 内存优化：内存优化包括梯度累加、重计算、数据集切分、Host&Device异构和异构存储，主要目标是节省内存空间。
   
   - `梯度累加 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/distributed_gradient_accumulation.html>`_：梯度累加通过在多个MicroBatch上计算梯度并将它们累加起来，然后一次性应用这个累积梯度来更新神经网络的参数。通过这种方法少量设备也能训练大Batch，有效减低内存峰值。
   - `重计算 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/recompute.html>`_：重计算是一种以时间换空间的技术，通过不保存某些正向算子的计算结果，以节省内存空间，在计算反向算子时，需要用到正向结果再重新计算正向算子。
