@@ -37,7 +37,7 @@ MindSpore: Performs a random perspective transformation of the given image with 
 from download import download
 from PIL import Image
 
-url = "https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/flamingos.jpg"
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/flamingos.jpg"
 download(url, './flamingos.jpg', replace=True)
 orig_img = Image.open('flamingos.jpg')
 
