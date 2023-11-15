@@ -20,7 +20,7 @@ Using a combination of the two approaches, the customized operator can call the 
 
 ### 1. Downloading Project Files
 
-The project files can be downloaded [here](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/migration_guide/test_custom_pytorch.tar).
+The project files can be downloaded [here](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/migration_guide/test_custom_pytorch.tar).
 
 Use the following command to extract the zip package and get the folder `test_custom_pytorch`.
 

@@ -43,12 +43,12 @@ The following sample code downloads the image data to the specified location.
 ```python
 from download import download
 
-url = "https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/banana.jpg"
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/banana.jpg"
 download(url, './banana.jpg', replace=True)
 ```
 
 ```text
-Downloading data from https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/banana.jpg (17 kB)
+Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/banana.jpg (17 kB)
 
 file_sizes: 100%|███████████████████████████| 17.1k/17.1k [00:00<00:00, 883kB/s]
 Successfully downloaded file to ./banana.jpg
