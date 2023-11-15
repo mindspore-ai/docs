@@ -109,7 +109,7 @@ MindSpore currently does not support modifying optimizer parameters during train
 
 ### Weight Decay
 
-Modify weight decay in PyTorch:
+Modify `weight_decay` in PyTorch:
 
 ```python
 from torch.nn import optim
@@ -126,7 +126,7 @@ def train_step(data, label):
         param_group["weight_decay"] *= decay_factor
 ```
 
-Implement dynamic weight decay in MindSpore: Users can inherit the class of 'Cell' custom dynamic weight decay and pass it into the optimizer.
+Implement dynamic weight decay in MindSpore: Users can inherit the class of `Cell` custom dynamic weight decay and pass it into the optimizer.
 
 ```python
 class ExponentialWeightDecay(Cell):
@@ -282,7 +282,7 @@ PyTorch:
 
 PyTorch provides the `torch.optim.lr_scheduler` package for dynamically modifying LR. When using the package, you need to explicitly call `optimizer.step()` and `scheduler.step()` to update LR. For details, see [How Do I Adjust the Learning Rate](https://pytorch.org/docs/1.12/optim.html#how-to-adjust-learning-rate).
 
- MindSpore:
+MindSpore:
 
 The learning rate of MindSpore is packaged in the optimizer. Each time the optimizer is invoked, the learning rate update step is automatically updated. For details, see [Learning Rate and Optimizer](https://www.mindspore.cn/docs/en/r2.3/migration_guide/model_development/learning_rate_and_optimizer.html).
 
