@@ -13,7 +13,6 @@
 
    cv/resnet50
    cv/transfer_learning
-   cv/fgsm
    cv/vit
    cv/cnnctc
    cv/fcn8s
