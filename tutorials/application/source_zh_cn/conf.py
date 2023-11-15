@@ -102,6 +102,9 @@ html_search_options = {'dict': '../../resource/jieba.txt'}
 
 html_static_path = ['_static']
 
+locale_dirs = ['../../../resource/locale/']
+gettext_compact = False
+
 sys.path.append(os.path.abspath('../../../resource/sphinx_ext'))
 # import anchor_mod
 import nbsphinx_mod
