@@ -14,10 +14,10 @@ When using MindSpore for distributed training, it is often necessary to transfor
 
 If you encounter the following scenario, refer to this tutorial operation for resilience training and inference:
 
-Scenario 1: Using M cards for training, and using N cards for fine-tuning training, where M and N can have no multiplicative relationship.
-Scenario 2: Training is divided into multiple phases, each with a different cluster size.
-Scenario 3: Using M cards for training, and using N cards for inference, where M and N can have no multiplicative relationship.
-Scenario 4: Changes need to be made to the network sharding strategy.
+- Scenario 1: Using M cards for training, and using N cards for fine-tuning training, where M and N can have no multiplicative relationship.
+- Scenario 2: Training is divided into multiple phases, each with a different cluster size.
+- Scenario 3: Using M cards for training, and using N cards for inference, where M and N can have no multiplicative relationship.
+- Scenario 4: Changes need to be made to the network sharding strategy.
 
 Related interfaces:
 
@@ -41,7 +41,7 @@ As an example of training on an Ascend 8-card and fine-tuning on 4-card, the ove
 
 5. Execute the fine-tuned network.
 
-It should be noted that loading distributed Checkpoint requires compiling the network first.
+It should be noted that loading distributed Checkpoint requires [compiling the network](#performing-compilation-on-the-target-network) first.
 
 ### Example Code Description
 
@@ -118,7 +118,7 @@ src_checkpoints
 
 ### Generating Target Strategy Files
 
-Then the network under the new card or sharding strategy needs to be compiled to generate the model sharding strategy file for the target network. In this example, the original strategy is trained with 8 cards, the `ops.MatMul()` operator parallel strategy of layer1 is ((2, 1), (1, 2)), the optimizer parallel is not turned on, and the strategy file is named as src_strategy.ckpt. The target strategy is trained with 4 cards, the `ops.MatMul()` operator parallel strategy of layer1 is ((2, 2), (2, 1)) and optimizer parallel is turned on, the strategy file is named as dst_stategy.ckpt.
+Then the network under the new card or sharding strategy needs to be compiled to generate the model sharding strategy file for the target network. In this example, the original strategy is trained with 8 cards, the `ops.MatMul()` operator parallel strategy of layer1 is ((2, 1), (1, 2)), the optimizer parallel is not turned on, and the strategy file is named as src_strategy.ckpt. The target strategy is trained with 4 cards, the `ops.MatMul()` operator parallel strategy of layer1 is ((2, 2), (2, 1)) and optimizer parallel is turned on, the strategy file is named as dst_strategy.ckpt.
 
 #### Configuring Distributed Environment
 
@@ -213,7 +213,7 @@ model = ms.Model(net, loss_fn=loss_fn, optimizer=optimizer)
 model.infer_train_layout(data_set)
 ```
 
-When the target network is to perform inference, `model.infer_train_layout` is replaced with `model.infer_preict_layout` to perform compilation:
+When the target network is to perform inference, `model.infer_train_layout` is replaced with `model.infer_predict_layout` to perform compilation:
 
 ```python
 import numpy as np
@@ -228,7 +228,11 @@ After compilation, you can get the target sharding strategy file `dst_strategy.c
 
 ### Executing Distributed Checkpoint Transformation
 
-In this step, you need to call the distributed Checkpoint transformation interface for distributed Checkpoint transformation. Distributed Checkpoint provides two interfaces for Checkpoint transformation. The first interface, `transform_checkpoints`, requires the user to place all checkpoints in a single directory, and the subdirectories must be named in the format "rank_0, rank_1, rank_2, ...". The user calls this interface to transform the entire directory directly, which is easier to use, but the transformation requires a slightly higher memory overhead. The second interface, `transform_checkpoint_by_rank`, is used to get the checkpoints for a particular rank, which has more flexibility and lower memory overhead, and needs to be used in conjunction with the `rank_list_for_transform` interface to determine original Checkpoints are needed to get the target checkpoints for this rank.
+In this step, you need to call the distributed Checkpoint transformation interface for distributed Checkpoint transformation. Distributed Checkpoint provides two interfaces for Checkpoint transformation.
+
+The first interface, `transform_checkpoints`, requires the user to place all checkpoints in a single directory, and the subdirectories must be named in the format "rank_0, rank_1, rank_2, ...". The user calls this interface to transform the entire directory directly, which is easier to use, but the transformation requires a slightly higher memory overhead.
+
+The second interface, `transform_checkpoint_by_rank`, is used to get the checkpoints for a particular rank, which has more flexibility and lower memory overhead, and needs to be used in conjunction with the `rank_list_for_transform` interface to determine original Checkpoints are needed to get the target checkpoints for this rank.
 
 1. Use the interface `transform_checkpoints`.
 

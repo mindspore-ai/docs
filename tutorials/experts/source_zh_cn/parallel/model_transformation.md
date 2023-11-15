@@ -6,18 +6,18 @@
 
 ### 背景
 
-在使用MindSpore进行分布式训练时，常常需要对训练得到的分布式Checkpoint进行转换以进行下一步工作，如推理、微调、多阶段训练等。本教程将介绍如何将分布式训练得到的Checkpoint进行转换以开展分布式策略与集群卡数改变的弹性训练与推理。
+在使用MindSpore进行分布式训练时，常常需要对训练得到的分布式Checkpoint进行转换，以进行下一步工作，如推理、微调、多阶段训练等。本教程将介绍如何将分布式训练得到的Checkpoint进行转换，以开展分布式策略与集群卡数改变的弹性训练与推理。
 
-> 本功能仅支持SEMI_AUTO_PARALLEL和AUTO_PARALLEL模式。
+> 本功能仅支持半自动并行（SEMI_AUTO_PARALLEL）和自动并行（AUTO_PARALLEL）模式。
 
 ### 使用场景
 
 如果您遇到如下场景，需要参考本教程操作，进行弹性训练与推理：
 
-场景1：M卡训练，N卡微调训练，M与N可以没有倍数关系。
-场景2：训练分为多阶段，每个阶段的集群大小不一样。
-场景3：M卡训练，N卡推理，M与N可以没有倍数关系。
-场景4：需要对网络的切分策略进行变更。
+- 场景1：M卡训练，N卡微调训练，M与N可以没有倍数关系。
+- 场景2：训练分为多阶段，每个阶段的集群大小不一样。
+- 场景3：M卡训练，N卡推理，M与N可以没有倍数关系。
+- 场景4：需要对网络的切分策略进行变更。
 
 相关接口：
 
@@ -41,7 +41,7 @@
 
 5. 执行微调网络。
 
-需要注意，加载分布式的Checkpoint，要求对网络进行编译后才可以加载。
+需要注意，加载分布式的Checkpoint，要求[对网络进行编译](#对目标网络执行编译)后才可以加载。
 
 ### 样例代码说明
 
@@ -118,7 +118,7 @@ src_checkpoints
 
 ### 生成目标策略文件
 
-然后需要编译新的卡数或者切分策略下的网络，生成目标网络的模型切分策略文件，本示例中，原始策略以8卡进行训练，layer1的`ops.MatMul()`算子并行策略为((2, 1), (1, 2))，不开启优化器并行，策略文件命名为src_strategy.ckpt；目标策略以4卡进行训练，layer1的`ops.MatMul()`算子并行策略为((2, 2), (2, 1))，且开启优化器并行，策略文件命名为dst_stategy.ckpt。
+然后需要编译新的卡数或者切分策略下的网络，生成目标网络的模型切分策略文件，本示例中，原始策略以8卡进行训练，layer1的`ops.MatMul()`算子并行策略为((2, 1), (1, 2))，不开启优化器并行，策略文件命名为src_strategy.ckpt；目标策略以4卡进行训练，layer1的`ops.MatMul()`算子并行策略为((2, 2), (2, 1))，且开启优化器并行，策略文件命名为dst_strategy.ckpt。
 
 #### 配置分布式环境
 
@@ -213,7 +213,7 @@ model = ms.Model(net, loss_fn=loss_fn, optimizer=optimizer)
 model.infer_train_layout(data_set)
 ```
 
-当目标网络是进行推理时，则将`model.infer_train_layout`更换为`model.infer_preict_layout`以执行编译：
+当目标网络是进行推理时，则将`model.infer_train_layout`更换为`model.infer_predict_layout`以执行编译：
 
 ```python
 import numpy as np
@@ -228,7 +228,11 @@ model.infer_predict_layout(predict_data)
 
 ### 执行分布式Checkpoint转换
 
-在这一步，需要调用分布式Checkpoint转换的接口进行分布式Checkpoint的转换，分布式Checkpoint提供两个接口对Checkpoint进行转换。第一个接口`transform_checkpoints`，要求用户将所有的Checkpoint放置于一个目录，并且子目录必须以”rank_0、rank_1、rank_2、…“格式进行命名。用户调用该接口直接对整个目录进行转换。该方式使用较为方便，但是转换需要的内存开销会略高一些。第二个接口`transform_checkpoint_by_rank`，用以获取到特定的rank的Checkpoint，有更大的灵活性与更低的内存开销，需要配合`rank_list_for_transform`接口使用，以获取本rank的目标Checkpoint需要哪些原始Checkpoint。
+在这一步，需要调用分布式Checkpoint转换的接口进行分布式Checkpoint的转换，分布式Checkpoint提供两个接口对Checkpoint进行转换。
+
+第一个接口`transform_checkpoints`，要求用户将所有的Checkpoint放置于一个目录，并且子目录必须以”rank_0、rank_1、rank_2、…“格式进行命名。用户调用该接口直接对整个目录进行转换。该方式使用较为方便，但是转换需要的内存开销会略高一些。
+
+第二个接口`transform_checkpoint_by_rank`，用以获取到特定的rank的Checkpoint，有更大的灵活性与更低的内存开销，需要配合`rank_list_for_transform`接口使用，以获取本rank的目标Checkpoint需要哪些原始Checkpoint。
 
 1. 使用接口`transform_checkpoints`。
 
