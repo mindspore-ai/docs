@@ -31,8 +31,6 @@ MindSpore provides [interfaces](https://www.mindspore.cn/docs/en/master/api_pyth
 | [GeneratorDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html) | customized data interface |
 | [FakeImageDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.FakeImageDataset.html) | Constructing a fake image dataset |
 
-For common dataset interfaces in different fields, refer to [Loading interfaces to common datasets](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html).
-
 #### GeneratorDataset, A Custom Dataset
 
 The basic process for constructing a custom Dataset object is as follows:
