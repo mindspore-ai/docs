@@ -23,7 +23,7 @@ import mindspore.dataset.vision.py_transforms as P
 ```
 
 ```bash
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/banana.jpg --no-check-certificate
+wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/banana.jpg --no-check-certificate
 ```
 
 ```python
