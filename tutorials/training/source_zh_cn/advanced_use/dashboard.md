@@ -3,7 +3,7 @@
 `Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
 
 [![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/dashboard.md)&nbsp;&nbsp;
-[![查看Notebook](../_static/logo_notebook.png)](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.2/mindinsight_dashboard.ipynb)
+[![查看Notebook](../_static/logo_notebook.png)](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r1.2/mindinsight_dashboard.ipynb)
 
 ## 概述
 

@@ -3,7 +3,7 @@
 `Linux` `GPU` `CPU` `全流程` `初级` `中级` `高级`
 
 [![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/nlp_sentimentnet.md)&nbsp;&nbsp;
-[![查看notebook](../_static/logo_notebook.png)](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.2/mindspore_nlp_application.ipynb)&nbsp;&nbsp;
+[![查看notebook](../_static/logo_notebook.png)](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r1.2/mindspore_nlp_application.ipynb)&nbsp;&nbsp;
 [![在线运行](../_static/logo_modelarts.png)](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9ubHBfYXBwbGljYXRpb24uaXB5bmI=&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c)
 
 ## 概述
