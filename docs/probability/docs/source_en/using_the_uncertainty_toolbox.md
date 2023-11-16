@@ -159,7 +159,7 @@ MindSpore uses the Uncertainty Toolbox `UncertaintyEvaluation` interface to meas
 In this example, the corresponding model weight parameter file `checkpoint_lenet.ckpt` has been prepared. This parameter file is the weight parameter file saved after training for 5 epochs in [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/r1.7/beginner/quick_start.html), execute the following command to download:
 
 ```bash
-download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/models/checkpoint_lenet.ckpt", ".")
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/checkpoint_lenet.ckpt", ".")
 ```
 
 ### Completing the Initialization

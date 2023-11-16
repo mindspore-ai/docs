@@ -20,7 +20,7 @@ PyTorch提供了一种方式可以支持引入PyTorch的头文件，从而使用
 
 ### 1. 下载工程文件
 
-工程文件可以通过[这里](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/migration_guide/test_custom_pytorch.tar)下载。
+工程文件可以通过[这里](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/migration_guide/test_custom_pytorch.tar)下载。
 
 使用以下命令解压压缩包，得到文件夹`test_custom_pytorch`。
 
