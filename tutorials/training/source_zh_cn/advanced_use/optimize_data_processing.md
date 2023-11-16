@@ -3,7 +3,7 @@
 `Linux` `Ascend` `GPU` `CPU` `数据准备` `中级` `高级`
 
 [![查看源文件](../_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/optimize_data_processing.md)&nbsp;&nbsp;
-[![查看notebook](../_static/logo_notebook.png)](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/optimize_the_performance_of_data_preparation/mindspore_optimize_the_performance_of_data_preparation.ipynb)
+[![查看notebook](../_static/logo_notebook.png)](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r1.1/optimize_the_performance_of_data_preparation/mindspore_optimize_the_performance_of_data_preparation.ipynb)
 &nbsp;&nbsp;
 [![在线运行](../_static/logo_modelarts.png)](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9vcHRpbWl6ZV90aGVfcGVyZm9ybWFuY2Vfb2ZfZGF0YV9wcmVwYXJhdGlvbi5pcHluYg==&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c)
 
