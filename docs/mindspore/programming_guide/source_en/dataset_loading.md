@@ -250,7 +250,7 @@ Manifest is a data format file supported by Huawei ModelArts. For details, see [
 In this example, you need to download the test data `test_manifest.zip` and unzip it to the specified location, and execute the following command:
 
 ```python
-download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_manifest.zip", "./datasets/mindspore_dataset_loading/test_manifest/")
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/test_manifest.zip", "./datasets/mindspore_dataset_loading/test_manifest/")
 ```
 
 ```text
@@ -296,7 +296,7 @@ MindRecord is a data format defined by MindSpore. Using MindRecord can improve p
 Before executing this example, you need to download the corresponding test data `test_mindrecord.zip` and unzip it to the specified location, The following example code downloads and unzips the dataset to the specified location.
 
 ```python
-download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_mindrecord.zip", "./datasets/mindspore_dataset_loading/")
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/test_mindrecord.zip", "./datasets/mindspore_dataset_loading/")
 ```
 
 ```text
@@ -334,7 +334,7 @@ The following example uses the `TFRecordDataset` API to load TFRecord files and 
 Download the `tfrecord` test data `test_tftext.zip` and unzip it to the specified location, execute the following command:
 
 ```python
-download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_tftext.zip", "./datasets/mindspore_dataset_loading/test_tfrecord/")
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/test_tftext.zip", "./datasets/mindspore_dataset_loading/test_tfrecord/")
 ```
 
 ```text
@@ -457,7 +457,7 @@ The following example uses `CSVDataset` to load CSV dataset files, and displays 
 Download the test data `test_csv.zip` and unzip it to the specified location, execute the following command:
 
 ```python
-download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_csv.zip", "./datasets/mindspore_dataset_loading/test_csv/")
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/test_csv.zip", "./datasets/mindspore_dataset_loading/test_csv/")
 ```
 
 ```text
