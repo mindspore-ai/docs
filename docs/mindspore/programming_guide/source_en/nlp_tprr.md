@@ -72,7 +72,7 @@ The overall execution process is as follows:
 
 ### Preparing Data
 
-The data used in this tutorial is the preprocessed [en-Wikipedia](https://github.com/AkariAsai/learning_to_retrieve_reasoning_paths/tree/master/retriever) and [HotpotQA Development datasets](https://hotpotqa.github.io/). Please download the [preprocessed data](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/tprr/data.zip) first.
+The data used in this tutorial is the preprocessed [en-Wikipedia](https://github.com/AkariAsai/learning_to_retrieve_reasoning_paths/tree/master/retriever) and [HotpotQA Development datasets](https://hotpotqa.github.io/). Please download the [preprocessed data](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/tprr/data.zip) first.
 
 ## Loading Data
 

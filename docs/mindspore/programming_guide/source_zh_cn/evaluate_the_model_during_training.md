@@ -3,8 +3,8 @@
 `Ascend` `GPU` `CPU` `模型运行`
 
 [![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_modelarts.png)](https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9ldmFsdWF0ZV90aGVfbW9kZWxfZHVyaW5nX3RyYWluaW5nLmlweW5i&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c)&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.5/notebook/mindspore_evaluate_the_model_during_training.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.5/notebook/mindspore_evaluate_the_model_during_training.py"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
+<a href="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r1.5/notebook/mindspore_evaluate_the_model_during_training.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
+<a href="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r1.5/notebook/mindspore_evaluate_the_model_during_training.py"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
 [![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/evaluate_the_model_during_training.md)
 
 ## 概述

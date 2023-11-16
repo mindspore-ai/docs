@@ -1,7 +1,7 @@
 # 使用fuzz testing模块测试模型安全性
 
 [![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_modelarts.png)](https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbWFzdGVyL25vdGVib29rL21pbmRzcG9yZV90ZXN0X21vZGVsX3NlY3VyaXR5X2Z1enppbmcuaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c)&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.5/notebook/mindspore_test_model_security_fuzzing.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.5/notebook/mindspore_test_model_security_fuzzing.py"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
+<a href="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r1.5/notebook/mindspore_test_model_security_fuzzing.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;<a href="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r1.5/notebook/mindspore_test_model_security_fuzzing.py"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
 [![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/mindarmour/docs/source_zh_cn/test_model_security_fuzzing.md)
 
 ## 概述

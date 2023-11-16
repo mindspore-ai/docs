@@ -1,7 +1,7 @@
 ﻿# 收集Summary数据
 
-[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_notebook.png)](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.5/notebook/mindspore_mindinsight_dashboard.ipynb)&nbsp;&nbsp;
-[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_download_code.png)](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.5/notebook/mindspore_mindinsight_dashboard.py)&nbsp;&nbsp;
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_notebook.png)](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r1.5/notebook/mindspore_mindinsight_dashboard.ipynb)&nbsp;&nbsp;
+[![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_download_code.png)](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r1.5/notebook/mindspore_mindinsight_dashboard.py)&nbsp;&nbsp;
 [![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/mindinsight/docs/source_zh_cn/summary_record.md)
 
 ## 概述
