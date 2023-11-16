@@ -3,7 +3,7 @@
 `Linux` `Ascend` `GPU` `CPU` `数据准备` `中级` `高级`
 
 [![查看源文件](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/enable_cache.md)&nbsp;&nbsp;
-[![查看notebook](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_notebook.png)](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.3/notebook/mindspore_enable_cache.ipynb)&nbsp;&nbsp;
+[![查看notebook](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_notebook.png)](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r1.3/notebook/mindspore_enable_cache.ipynb)&nbsp;&nbsp;
 [![在线运行](https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_modelarts.png)](https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9lbmFibGVfY2FjaGUuaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c)
 
 ## 概述

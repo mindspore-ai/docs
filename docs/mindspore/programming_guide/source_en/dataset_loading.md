@@ -208,7 +208,7 @@ MindRecord is a data format defined by MindSpore. Using MindRecord can improve p
 Before executing this example, you need to download the corresponding test data `test_mindrecord.zip` and unzip it to the specified location, execute the following command in jupyter notebook:
 
 ```bash
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_mindrecord.zip --no-check-certificate
+wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/test_mindrecord.zip --no-check-certificate
 unzip -o ./test_mindrecord.zip -d ./datasets/mindspore_dataset_loading/
 tree ./datasets/mindspore_dataset_loading/
 ```
@@ -246,7 +246,7 @@ Manifest is a data format file supported by Huawei ModelArts. For details, see [
 In this example, you need to download the test data `test_manifest.zip` and unzip it to the specified location, and execute the following command:
 
 ```bash
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_manifest.zip --no-check-certificate
+wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/test_manifest.zip --no-check-certificate
 unzip -o ./test_manifest.zip -d ./datasets/mindspore_dataset_loading/test_manifest/
 tree ./datasets/mindspore_dataset_loading/test_manifest/
 ```
@@ -290,7 +290,7 @@ The following example uses the `TFRecordDataset` API to load TFRecord files and 
 Download the `tfrecord` test data `test_tftext.zip` and unzip it to the specified location, execute the following command:
 
 ```bash
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_tftext.zip --no-check-certificate
+wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/test_tftext.zip --no-check-certificate
 unzip -o ./test_tftext.zip -d ./datasets/mindspore_dataset_loading/test_tfrecord/
 tree ./datasets/mindspore_dataset_loading/test_tfrecord/
 ```
@@ -487,7 +487,7 @@ The following example uses `CSVDataset` to load CSV dataset files, and displays 
 Download the test data `test_csv.zip` and unzip it to the specified location, execute the following command:
 
 ```bash
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_csv.zip --no-check-certificate
+wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/test_csv.zip --no-check-certificate
 unzip -o ./test_csv.zip -d ./datasets/mindspore_dataset_loading/test_csv/
 tree ./datasets/mindspore_dataset_loading/test_csv/
 ```
