@@ -11,7 +11,7 @@ If the input shape may no+t be `224*224`, the shape of the output tensor of the 
 2. APIs that cause shape changes during network execution.
 3. Shape changes introduced by different branches of control flows.
 
-## Input shape not fixed
+## Input shape not Fixed
 
 For example, the input image has different shapes, and the audio label has different lengths. In this case, dynamic shapes are introduced.
 
@@ -23,7 +23,7 @@ for batch_idx, (data, target) in enumerate(data_loader):
     print("="*20)
 ```
 
-## APIs that cause shape changes during network execution
+## APIs that Cause Shape Changes During Network Execution
 
 During network execution, some operations may cause tensor shape changes.
 
@@ -58,7 +58,7 @@ print(x[:k].shape)
 
 During network training, there is a slicing operation `x[:k]`. Here, k is not a constant. As a result, the shape of `x[:k]` changes with the value of k, and the shape of all subsequent operations related to `x[:k]` is uncertain.
 
-## Shape changes introduced by different branches of control flows
+## Shape Changes Introduced by Different Branches of Control Flows
 
 The output of some control flows on the network may be different. When the condition control items of the control flows are not fixed, dynamic shape may be triggered. For example:
 
