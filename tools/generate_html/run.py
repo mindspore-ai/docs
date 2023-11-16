@@ -493,6 +493,13 @@ if __name__ == "__main__":
                     static_path_jquery_ = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/jquery-3.5.1.js")[0]
                     static_path_underscore_ = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/underscore-1.13.1.js")
                     static_path_underscore_ = static_path_underscore_[0]
+
+                    static_path_css_badge = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/css/badge_only.css")[0]
+                    static_path_js_badge = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/badge_only.js")[0]
+                    static_path_js_html5p = \
+                    glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/html5shiv-printshiv.min.js")[0]
+                    static_path_js_html5 = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/html5shiv.min.js")[0]
+
                     static_path_version = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/")[0]
                     static_path_version = os.path.join(static_path_version, "version.json")
                     if 'lite' in out_name or 'tutorials' in out_name:
@@ -532,6 +539,14 @@ if __name__ == "__main__":
                         os.remove(static_path_jquery_)
                     if os.path.exists(static_path_underscore_):
                         os.remove(static_path_underscore_)
+                    if os.path.exists(static_path_css_badge):
+                        os.remove(static_path_css_badge)
+                    if os.path.exists(static_path_js_badge):
+                        os.remove(static_path_js_badge)
+                    if os.path.exists(static_path_js_html5p):
+                        os.remove(static_path_js_html5p)
+                    if os.path.exists(static_path_js_html5):
+                        os.remove(static_path_js_html5)
                 # pylint: disable=W0702
                 # pylint: disable=W0703
                 except Exception as e:
