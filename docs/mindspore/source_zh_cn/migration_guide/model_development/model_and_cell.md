@@ -441,7 +441,7 @@ bias [1.]
 
 但是有的时候MindSpore不支持某些处理，需要使用一些三方的库的方法，但是我们又不想截断网络的梯度，这时该怎么办呢？这里介绍一种在`PYNATIVE_MODE`模式下，通过自定义反向规避此问题的方法：
 
-有这么一个场景，需要随机有放回的选取大于0.5的值，且每个batch的shape固定是max_num。但是这个随机有放回的操作目前没有MindSpore的API支持，这时我们在`PYNATIVE_MODE`下使用numpy的方法来计算，然后自己构造一个梯度传播的过程。
+有这么一个场景，需要随机有放回的选取大于0.5的值，且每个batch的shape固定是`max_num`。但是这个随机有放回的操作目前没有MindSpore的API支持，这时我们在`PYNATIVE_MODE`下使用numpy的方法来计算，然后自己构造一个梯度传播的过程。
 
 ```python
 import numpy as np
@@ -642,7 +642,7 @@ def box_select_torch(box, iou_score):
     return box[mask]
 ```
 
-当前MindSpore1.8之后全场景支持了masked_select，在MindSpore上可以这样实现：
+当前MindSpore1.8之后全场景支持了`masked_select`，在MindSpore上可以这样实现：
 
 ```python
 import mindspore as ms
@@ -800,7 +800,7 @@ True
 [0.7203245  0.53881675]
 ```
 
-在`cond=True`的时最大的shape和x一样大，根据上面的加mask方法，可以写成：
+在`cond=True`时，最大的shape和x一样大，根据上面的加mask方法，可以写成：
 
 ```python
 import numpy as np
@@ -841,9 +841,9 @@ PyTorch与MindSpore在接口名称上无差异，MindSpore由于不支持原地�
 
 ### 随机种子和生成器
 
-MindSpore使用seed控制随机数的生成，而PyTorch使用torch.Generator进行随机数的控制。
+MindSpore使用`seed`控制随机数的生成，而PyTorch使用`torch.Generator`进行随机数的控制。
 
-1. MindSpore的seed分为两个等级，graph-level和op-level。graph-level下seed作为全局变量，绝大多数情况下无需用户设置，用户只需调整op-level seed。（API中涉及的seed参数，均为op-level）如果一段程序中两次使用了同一个随机数算法，那么两次的结果是不同的（尽管设置了相同的随机种子）；如果重新运行脚本，那么第二次运行的结果应该与第一次保持一致。示例如下：
+1. MindSpore的seed分为两个等级，graph-level和op-level。graph-level下seed作为全局变量，绝大多数情况下无需用户设置，用户只需调整op-level seed。（API中涉及的`seed`参数，均为op-level）如果一段程序中两次使用了同一个随机数算法，那么两次的结果是不同的（尽管设置了相同的随机种子）；如果重新运行脚本，那么第二次运行的结果应该与第一次保持一致。示例如下：
 
     ```python
     # If a random op is called twice within one program, the two results will be different:

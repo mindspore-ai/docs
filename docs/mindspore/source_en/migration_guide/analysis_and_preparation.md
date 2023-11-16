@@ -18,7 +18,7 @@ The API missing analysis here refers to APIs in the network execution diagram, i
 
 There are two methods to analyze API compliance:
 
-1. Scanning API by MindSpore Dev Toolkit.
+1. Scanning API by MindSpore Dev Toolkit (recommended).
 2. Querying the API Mapping Table.
 
 ### Scanning API by Toolkit
@@ -55,7 +55,7 @@ Refer to [Missing API Processing Policy](https://www.mindspore.cn/docs/en/master
 
 During continuous delivery of MindSpore, some functions are restricted. If restricted functions are involved during network migration, some measures can be taken to avoid the impact of function restrictions, such as [dynamic shape](https://www.mindspore.cn/docs/en/master/migration_guide/dynamic_shape.html) and [sparsity](https://www.mindspore.cn/docs/en/master/migration_guide/sparsity.html), etc.
 
-## MindSpore Function and Feature Recommendation
+## Recommended Functions and Features for Migration Scenarios
 
 ### [Dynamic and Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html)
 

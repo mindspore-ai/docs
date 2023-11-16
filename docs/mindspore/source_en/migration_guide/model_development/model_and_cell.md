@@ -2,8 +2,6 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/model_and_cell.md)
 
-Before reading this section, read the tutorials [Loss Function](https://www.mindspore.cn/tutorials/en/master/advanced/modules/loss.html) on the MindSpore official website first.
-
 ## Basic Logic
 
 The basic logic of PyTorch and MindSpore is shown below:
@@ -222,7 +220,7 @@ Common nn interfaces that implicitly declare weights include Conv, Dense(Linear)
     - torch.nn.Linear (weight: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$, bias: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$)
     - tf.keras.Layers.Dense (weight: glorot_uniform, bias: zeros)
 
-    In the preceding information, $k=\frac{groups}{in\_features}$
+In the preceding information, $k=\frac{groups}{in\_features}$
 
 For a network without normalization, for example, a GAN network without the BatchNorm operator, the gradient is easy to explode or disappear. Therefore, weight initialization is very important. Developers should pay attention to the impact of weight initialization.
 
@@ -714,7 +712,7 @@ class ClassLoss_pt(torch_nn.Module):
         return loss.mean()
 ```
 
-`torch.topk` is used to obtain the first 70% positive sample data. Currently, MindSpore does not support K as a variable. Therefore, you need to convert the method to obtain the Kth largest value and then obtain the mask of the top K based on the value. The MindSpore implementation is as follows:
+`torch.topk` is used to obtain the first 70% positive sample data. Currently, MindSpore does not support K as a variable. Therefore, you need to convert the method to obtain the Kth largest value and then obtain the mask of topk based on the value. The MindSpore implementation is as follows:
 
 ```python
 import mindspore as ms
