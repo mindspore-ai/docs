@@ -170,7 +170,7 @@ plt.show()
 
 ## Training the Models
 
-This chapter uses the ResNet50 model for training. After building the model framework, the [pre-trained model for ResNet50](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/models/application/resnet50_224_new.ckpt) is downloaded by setting the `pretrained` parameter to True and loading the weight parameters into the network.
+This chapter uses the ResNet50 model for training. After building the model framework, the [pre-trained model for ResNet50](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/application/resnet50_224_new.ckpt) is downloaded by setting the `pretrained` parameter to True and loading the weight parameters into the network.
 
 ### Constructing Resnet50 Network
 
@@ -355,7 +355,7 @@ def _resnet(model_url: str, block: Type[Union[ResidualBlockBase, ResidualBlock]]
 
 def resnet50(num_classes: int = 1000, pretrained: bool = False):
     "ResNet50 model"
-    resnet50_url = "https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/models/application/resnet50_224_new.ckpt"
+    resnet50_url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/application/resnet50_224_new.ckpt"
     resnet50_ckpt = "./LoadPretrainedModel/resnet50_224_new.ckpt"
     return _resnet(resnet50_url, ResidualBlock, [3, 4, 6, 3], num_classes,
                    pretrained, resnet50_ckpt, 2048)
