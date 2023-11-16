@@ -96,6 +96,8 @@ The training process of the whole network consists of 3 modules:
 Constructing Network
 --------------------
 
+After understanding the process of network training and inference, the following describes the process of implementing network training and inference on MindSpore.
+
 .. toctree::
   :maxdepth: 1
 
@@ -165,7 +167,7 @@ Before constructing a network, please first understand the differences between M
       from torch import nn
 
       # bind to the GPU 0 if GPU is available, otherwise bind to CPU
-      device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu") # 单 GPU 或者 CPU
+      device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu") # single GPU or CPU
       # deploy model to specified hardware
       model.to(device)
       # deploy data to specified hardware
@@ -180,7 +182,7 @@ Before constructing a network, please first understand the differences between M
           os.environ['CUDA_VISIBLE_DEVICE']='1'
           model.cuda()
 
-  In MindSpore, the `device_target` parameter in context specifies the device bound to the model, and the `device_id parameter` specifies the device sequence number. Different from PyTorch, once the device is successfully set, the input data and model are copied to the specified device for execution by default. You do not need to and cannot change the type of the device where the data and model run. The sample code is as follows:
+  In MindSpore, the `device_target` parameter in `context` specifies the device bound to the model, and the `device_id parameter` specifies the device sequence number. Different from PyTorch, once the device is successfully set, the input data and model are copied to the specified device for execution by default. You do not need to and cannot change the type of the device where the data and model run. The sample code is as follows:
 
   .. code-block::
 
