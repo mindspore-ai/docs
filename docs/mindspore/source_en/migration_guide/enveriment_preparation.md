@@ -1,8 +1,8 @@
-# Environment Preparation and Information Acquisition
+# Environment Preparation
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/migration_guide/enveriment_preparation.md)
 
-Network migration starts with the configuration of the MindSpore development environment. This chapter introduces the installation process of installing MindSpore locally and the tutorial for using the online development environment, ModelArts.
+Network migration starts with the configuration of the MindSpore development environment. This chapter introduces the installation process of installing MindSpore locally and the tutorial for using the online development environment.
 
 ## Installing MindSpore
 
