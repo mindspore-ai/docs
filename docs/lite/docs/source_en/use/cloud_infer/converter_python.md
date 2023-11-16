@@ -155,7 +155,7 @@ The following selects common examples to illustrate the use of the conversion co
         converter = mslite.Converter()
         converter.save_type = mslite.ModelType.MINDIR
         converter.optimize = "general"
-        converter.converter(fmk_type=mslite.FmkType.MINDIR, model_file="model.mindir",output_file="model")
+        converter.convert(fmk_type=mslite.FmkType.MINDIR, model_file="model.mindir",output_file="model")
         ```
 
     - TensorFlow Lite model `model.tflite`
@@ -165,7 +165,7 @@ The following selects common examples to illustrate the use of the conversion co
         converter = mslite.Converter()
         converter.save_type = mslite.ModelType.MINDIR
         converter.optimize = "none"
-        converter.converter(fmk_type=mslite.FmkType.TFLITE, model_file="model.tflite",output_file="model")
+        converter.convert(fmk_type=mslite.FmkType.TFLITE, model_file="model.tflite",output_file="model")
         ```
 
     - TensorFlow model `model.pb`
@@ -175,7 +175,7 @@ The following selects common examples to illustrate the use of the conversion co
         converter = mslite.Converter()
         converter.save_type = mslite.ModelType.MINDIR
         converter.optimize = "none"
-        converter.converter(fmk_type=mslite.FmkType.TF, model_file="model.pb", output_file="model")
+        converter.convert(fmk_type=mslite.FmkType.TF, model_file="model.pb", output_file="model")
         ```
 
     - ONNX model `model.onnx`
@@ -185,7 +185,7 @@ The following selects common examples to illustrate the use of the conversion co
         converter = mslite.Converter()
         converter.save_type = mslite.ModelType.MINDIR
         converter.optimize = "none"
-        converter.converter(fmk_type=mslite.FmkType.ONNX, model_file="model.onnx", output_file="model")
+        converter.convert(fmk_type=mslite.FmkType.ONNX, model_file="model.onnx", output_file="model")
         ```
 
     In all of the above cases, the following conversion success message is displayed and the `model.mindir` target file is obtained at the same time.

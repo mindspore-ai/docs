@@ -155,7 +155,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
         converter = mslite.Converter()
         converter.save_type = mslite.ModelType.MINDIR
         converter.optimize = "general"
-        converter.converter(fmk_type=mslite.FmkType.MINDIR, model_file="model.mindir",output_file="model")
+        converter.convert(fmk_type=mslite.FmkType.MINDIR, model_file="model.mindir",output_file="model")
         ```
 
     - TensorFlow Lite模型`model.tflite`
@@ -165,7 +165,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
         converter = mslite.Converter()
         converter.save_type = mslite.ModelType.MINDIR
         converter.optimize = "none"
-        converter.converter(fmk_type=mslite.FmkType.TFLITE, model_file="model.tflite",output_file="model")
+        converter.convert(fmk_type=mslite.FmkType.TFLITE, model_file="model.tflite",output_file="model")
         ```
 
     - TensorFlow模型`model.pb`
@@ -175,7 +175,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
         converter = mslite.Converter()
         converter.save_type = mslite.ModelType.MINDIR
         converter.optimize = "none"
-        converter.converter(fmk_type=mslite.FmkType.TF, model_file="model.pb", output_file="model")
+        converter.convert(fmk_type=mslite.FmkType.TF, model_file="model.pb", output_file="model")
         ```
 
     - ONNX模型`model.onnx`
@@ -185,7 +185,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
         converter = mslite.Converter()
         converter.save_type = mslite.ModelType.MINDIR
         converter.optimize = "none"
-        converter.converter(fmk_type=mslite.FmkType.ONNX, model_file="model.onnx", output_file="model")
+        converter.convert(fmk_type=mslite.FmkType.ONNX, model_file="model.onnx", output_file="model")
         ```
 
     以上几种情况下，均显示如下转换成功提示，且同时获得`model.mindir`目标文件。
