@@ -23,7 +23,7 @@ Using a combination of the two methods, the customized operator can call the PyT
 
 ### 1. Downloading the Project files
 
-User can download the project files from [here](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/migration_guide/test_custom_pytorch.tar).
+User can download the project files from [here](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/migration_guide/test_custom_pytorch.tar).
 
 Use the following command to extract files and find the folder `test_custom_pytorch`:
 
