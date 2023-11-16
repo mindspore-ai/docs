@@ -128,7 +128,7 @@ Create a folder directory `./datasets/convert_dataset_to_mindrecord/datas_to_min
 Create a folder directory `./datasets/convert_dataset_to_mindrecord/images/` to store the downloaded image data.
 
 ```bash
-!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/transform.jpg
+!wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/transform.jpg
 !mkdir -p ./datasets/convert_dataset_to_mindrecord/datas_to_mindrecord/
 !mkdir -p ./datasets/convert_dataset_to_mindrecord/images/
 !mv -f ./transform.jpg ./datasets/convert_dataset_to_mindrecord/images/
