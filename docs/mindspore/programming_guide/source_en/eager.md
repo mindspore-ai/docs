@@ -63,7 +63,7 @@ def download_dataset(dataset_url, path):
                 f.write(chunk)
     print("The {} file is downloaded and saved in the path {} after processing".format(os.path.basename(dataset_url), path))
 
-download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/banana.jpg", ".")
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/banana.jpg", ".")
 ```
 
 ### vision

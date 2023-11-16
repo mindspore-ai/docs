@@ -162,8 +162,8 @@ def download_dataset(dataset_url, path):
             if chunk:
                 f.write(chunk)
 
-download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/hmm_model.utf8", "./datasets/tokenizer/")
-download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/jieba.dict.utf8", "./datasets/tokenizer/")
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/hmm_model.utf8", "./datasets/tokenizer/")
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/jieba.dict.utf8", "./datasets/tokenizer/")
 ```
 
 ```text
@@ -216,7 +216,7 @@ The output is as follows:
 Download the text dataset file `botchan.txt` and place it in the specified location.
 
 ```python
-download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/botchan.txt", "./datasets/tokenizer/")
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/botchan.txt", "./datasets/tokenizer/")
 ```
 
 ```text
