@@ -1,7 +1,7 @@
 # 查看溯源和对比看板
 
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.5/notebook/mindspore_lineage_and_scalars_comparison.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.5/notebook/mindspore_lineage_and_scalars_comparison.py"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
+<a href="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r1.5/notebook/mindspore_lineage_and_scalars_comparison.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
+<a href="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r1.5/notebook/mindspore_lineage_and_scalars_comparison.py"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
 [![查看源文件](https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r1.5/docs/mindinsight/docs/source_zh_cn/lineage_and_scalars_comparison.md)
 
 ## 概述
