@@ -161,7 +161,7 @@ It can be seen that reversing the input to Mul requires backward propagation gra
 
 Similarly for the input y derivation, the same procedure can be used for the derivation.
 
-### Control flow in PyNative Mode
+### Control Flow in PyNative Mode
 
 In the PyNative mode, scripts are executed according to the Python syntax, so in MindSpore, there is no special treatment for the control flow syntax, which is directly expanded and executed according to the Python syntax, and automatic differentiation is performed on the expanded execution operator. For example, for a for loop, the statements in the for loop are continuously executed under PyNative and automatic differentiation is performed on the operators according to the specific number of loops.
 
@@ -181,7 +181,7 @@ ms.set_context(mode=ms.PYNATIVE_MODE)
 
 Since there are restrictions on Python syntax under static graphs, switching from dynamic to static graphs requires compliance with the syntax restrictions of static graphs in order to execute correctly by using static graphs. For more syntax restrictions for static graphs, refer to [Static Graph Syntax Restrictions](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html).
 
-### Combination of Static and Dynamic
+### Combination of Static and Dynamic Graphs
 
 MindSpore supports mixed execution by using static compilation under dynamic graphs. The function objects that need to be executed with static graphs by using jit modification, and in this way you can achieve mixed execution of dynamic and static graphs. For more use of jit, refer to [jit documentation](https://www.mindspore.cn/tutorials/en/r2.3/beginner/accelerate_with_static_graph.html#decorator-based-startup-method).
 
@@ -292,7 +292,7 @@ Extend the support for built-in functions. Python built-in functions perfectly s
 
 In order to improve the support of Python standard syntax, realize dynamic and static unification, and extend the support for more data types in the use of control flow statements. Control flow statements refer to flow control statements such as 'if', 'for', and 'while'. Theoretically, by extending the supported syntax, it is also supported in control flow scenarios. For more usage, please refer to the [Supports Control Flow](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#supporting-control-flow) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html).
 
-#### Support Property Setting and Modification
+#### Supporting Property Setting and Modification
 
 More types of inplace operations are supported. The previous version only supported value modification of the Parameter type through the Inplace operator, and in the static graph mode of MindSpore version 2.1, the properties of custom classes, Cell subclasses, and jit_class classes were supported. In addition to supporting changing the properties of class self and global variables, it also supports inplace operations such as extend(), reverse(), insert(), pop() of the List type. For more usage, please refer to the [Supporting Property Setting and Modification](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#supporting-property-setting-and-modification) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html).
 

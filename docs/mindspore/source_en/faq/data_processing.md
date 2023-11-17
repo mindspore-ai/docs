@@ -237,11 +237,11 @@ A: Firstly, above error refers to failed sending data to the device through the 
 
 <font size=3>**Q: Can the py_transforms and c_transforms operations be used together? If yes, how should I use them?**</font>
 
-A: To ensure high performance, you are not advised to use the py_transforms and c_transforms operations together. For details, see [Image Data Processing and Enhancement](https://www.mindspore.cn/tutorials/en/r2.3/advanced/dataset.html). However, if the main consideration is to streamline the process, the performance can be compromised more or less. If you cannot use all the c_transforms operations, that is, corresponding certain c_transforms operations are not available, the py_transforms operations can be used instead. In this case, the two operations are used together.
+A: To ensure high performance, you are not advised to use the py_transforms and c_transforms operations together. However, if the main consideration is to streamline the process, the performance can be compromised more or less. If you cannot use all the c_transforms operations, that is, corresponding certain c_transforms operations are not available, the py_transforms operations can be used instead. In this case, the two operations are used together.
 Note that the c_transforms operation usually outputs numpy array, and the py_transforms operation outputs PIL Image. For details, check the operation description. The common method to use them together is as follows:
 
-- c_transforms operation + ToPIL operation + py_transforms operation + ToTensor operation
-- py_transforms operation + ToTensor operation + c_transforms operation
+- c_transforms operation + ToPIL operation + py_transforms operation + ToNumpy operation
+- py_transforms operation + ToNumpy operation + c_transforms operation
 
 ```python
 # example that using c_transforms and py_transforms operations together
@@ -303,7 +303,7 @@ dataset2 = dataset1.map(***)
 dataset3 = dataset1.map(***)
 ```
 
- The correct format is as follows. dataset3 is obtained by performing data enhancement on dataset2 rather than dataset1.
+The correct format is as follows. dataset3 is obtained by performing data enhancement on dataset2 rather than dataset1.
 
 ```python
 dataset2 = dataset1.map(***)
