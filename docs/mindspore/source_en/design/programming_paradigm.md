@@ -317,7 +317,7 @@ For each subgraph of origin function, we will create an `DFunctor` object, for m
 `MapObject` implements the mapping of the original function node to the gradient function node, including the mapping of free variables, parameter nodes, and ValueNode.
 
 ```c++
-MapFvObject(); // map free vriabels
+MapFvObject(); // map free variables
 MapParamObject(); // map parameters
 MapValueObject(); // map ValueNodes
 ```
@@ -389,7 +389,7 @@ After the network is reversely differential, the resulting differential network 
 
 ![auto-gradient-forward2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/docs/mindspore/source_zh_cn/design/images/auto_gradient_forward2.png)
 
-### Jacobian-Vector-Product Implementation
+### Forward Automatic Differentiation Implementation
 
 Besides `grad`, Mindspore has developed forward mode automatic differentiation method `jvp` (Jacobian-Vector-Product).
 
@@ -453,4 +453,4 @@ for i in range(epochs):
 
 As in the above example, object-oriented programming is used in the construction of the neural network, and the neural network layers are constructed in a manner consistent with the conventions of AI programming. When performing forward computation and backward propagation, MindSpore uses functional programming to construct the forward computation as a function, then obtain `grad_fn` by function transformation, and finally obtain the gradient corresponding to the weights by executing `grad_fn`.
 
-The functional + object-oriented fusion programming  ensures the ease of use of neural network construction and improves the flexibility of training processes such as forward computation and backward propagation, which is the default programming paradigm recommended by MindSpore.
+The functional + object-oriented fusion programming ensures the ease of use of neural network construction and improves the flexibility of training processes such as forward computation and backward propagation, which is the default programming paradigm recommended by MindSpore.
