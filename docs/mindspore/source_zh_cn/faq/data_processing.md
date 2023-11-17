@@ -209,11 +209,11 @@ A: MindSpore Dataset模块使得用户很简便地定义数据预处理Pipeline�
 
 <font size=3>**Q: 网络训练时出现报错提示数据下发失败“TDT Push data into device Failed”，如何定位原因？**</font>
 
-A: 首先上述报错指的是通过训练数据下发通道（TDT，train data transfer)发送数据到卡（device）上失败，导致这一报错的原因可能有多种，因此日志中给出了相应的检查建议，具体而言:
+A: 首先上述报错指的是通过训练数据下发通道（TDT，train data transfer）发送数据到卡（device）上失败，导致这一报错的原因可能有多种，因此日志中给出了相应的检查建议，具体而言:
 
-1. 通常我们会找到日志中最先抛出的错误（第一个ERROR级别的错误）或报错堆栈（TraceBack)，并尝试从中找到有助于定位错误原因的信息。
+1. 通常我们会找到日志中最先抛出的错误（第一个ERROR级别的错误）或报错堆栈（TraceBack），并尝试从中找到有助于定位错误原因的信息。
 
-2. **在图编译阶段，训练还没开始报错时**（例如日志中还没打印loss)，请先检查下报错（ERROR）日志中是否有网络中涉及的相关算子报错或涉及环境没配置好导致的报错（如hccl.json不对导致多卡通信初始化异常）。
+2. **在图编译阶段，训练还没开始报错时**（例如日志中还没打印loss），请先检查下报错（ERROR）日志中是否有网络中涉及的相关算子报错或涉及环境没配置好导致的报错（如hccl.json不对导致多卡通信初始化异常）。
 
 3. **在中间训练过程中报错时**，通常为下发的数据量（batch数）与网络训练需要的数据量（step数）不匹配导致的，可以通过`get_dataset_size`接口打印一个epoch中包含的batch数，导致异常的部分可能原因如下：
 
@@ -321,7 +321,7 @@ A：如果将DataLoader考虑为接收自定义Dataset的API接口，MindSpore�
 
 <font size=3>**Q: 自定义的Dataset出现错误时，应该如何调试？**</font>
 
-A：自定义的Dataset通常会传入到GeneratorDataset，在使用过程中错误指向了自定义的Dataset时，可通过一些方式进行调试（如增加打印信息，打印返回值的shape、dtype等），自定义Dataset通常要保持中间处理结果为numpy array，且不建议与MindSpore网络计算的算子混合使用。此外针对自定义的Dataset如下面的MyDataset，初始化后也可直接进行如下遍历（主要为简化调试，分析原始Dataset中的问题，可不传入GeneratorDataset)，调试遵循常规的Python语法规则。
+A：自定义的Dataset通常会传入到GeneratorDataset，在使用过程中错误指向了自定义的Dataset时，可通过一些方式进行调试（如增加打印信息，打印返回值的shape、dtype等），自定义Dataset通常要保持中间处理结果为numpy array，且不建议与MindSpore网络计算的算子混合使用。此外针对自定义的Dataset如下面的MyDataset，初始化后也可直接进行如下遍历（主要为简化调试，分析原始Dataset中的问题，可不传入GeneratorDataset），调试遵循常规的Python语法规则。
 
 ```python
 Dataset = MyDataset()
