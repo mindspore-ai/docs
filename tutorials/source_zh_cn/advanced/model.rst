@@ -1,5 +1,5 @@
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_modelarts.svg
-    :target: https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svcjIuMS90dXRvcmlhbHMvemhfY24vYWR2YW5jZWQvbW9kZWwvbWluZHNwb3JlX21vZGVsLmlweW5i=&imageid=96a10081-8eac-4009-9b45-25a9d4f599b6
+    :target: https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9taW5kc3BvcmUtd2Vic2l0ZS5vYnMuY24tbm9ydGgtNC5teWh1YXdlaWNsb3VkLmNvbS9ub3RlYm9vay9yMi4xL3R1dG9yaWFscy96aF9jbi9hZHZhbmNlZC9tb2RlbC9taW5kc3BvcmVfbW9kZWwuaXB5bmI==&imageid=96a10081-8eac-4009-9b45-25a9d4f599b6
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_notebook.svg
     :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r2.1/tutorials/zh_cn/advanced/model/mindspore_model.ipynb
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.1/resource/_static/logo_download_code.svg
