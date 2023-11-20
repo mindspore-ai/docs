@@ -16,9 +16,10 @@ No additional configuration is required for the double recursive strategy search
 
 ## Basic Principles
 
-The double recursive strategy search algorithm is a fully automatic operator-level strategy search scheme, where the user does not need to configure the model in any way, and the algorithm automatically searches for parallel policies that minimize the communication cost. 
+The double recursive strategy search algorithm is a fully automatic operator-level strategy search scheme, where the user does not need to configure the model in any way, and the algorithm automatically searches for parallel policies that minimize the communication cost.
 
 There are two core shortcomings of traditional automatic operator-level strategy search.
+
 1. the exponential slicing entail a large search space and traversing these potential search space is time-consuming. 
 2. it is necessary to conduct profiling in order to construct cost model and analyze different sharding strategies. However, profiling and analyzing profiling results will cost extra time.
 
