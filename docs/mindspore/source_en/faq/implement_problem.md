@@ -8,9 +8,9 @@ A: During multi-scale training, when different `shape` are used to call `Cell` o
 
 <br/>
 
-<font size=3>**Q: If a `tensor` of MindSpore whose `requirements_grad` is set to `False` is converted into `numpy` for processing and then converted into `tensor`, will the computational graph and backward propagation be affected?**</font>
+<font size=3>**Q: If a `tensor` of MindSpore whose `requires_grad=False` is set to `False` is converted into `numpy` for processing and then converted into `tensor`, will the computational graph and backward propagation be affected?**</font>
 
-A: In PyNative mode, if `numpy` is used for computation, gradient transfer will be interrupted. In the scenario where `requirements_grad` is set to `False`, if the backward propagation of `tensor` is not transferred to other parameters, there is no impact. If `requirements_grad` is set to `True`, there is an impact.
+A: In PyNative mode, if `numpy` is used for computation, gradient transfer will be interrupted. In the scenario where `requires_grad=False` is set to `False`, if the backward propagation of `tensor` is not transferred to other parameters, there is no impact. If `requires_grad=False` is set to `True`, there is an impact.
 
 <br/>
 
@@ -100,8 +100,7 @@ def count_params(net):
 
 <font size=3>**Q: How do I monitor the `loss` during training and save the training parameters when the `loss` is the lowest?**</font>
 
-A: You can customize the `callback` method to implement the early stopping function.
-Example: When the loss value decreases to a certain value, the training stops.
+A: You can customize the `Callback` method. Refer to the `ModelCheckpoint` writeup, and in addition add the logic to determine the `loss`.
 
 ```python
 class EarlyStop(Callback):
@@ -124,7 +123,7 @@ model.train(epoch_size, ds_train, callbacks=[stop_cb])
 
 <font size=3>**Q: How do I obtain  `feature map` with the expected size when `nn.Conv2d` is used?**</font>
 
-A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the `Conv2d shape` derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
+A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d). Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the `Conv2d shape` derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
 
 <br/>
 
@@ -150,7 +149,7 @@ A: You can refer to [EarlyStopping](https://www.mindspore.cn/docs/en/master/api_
 
 <font size=3>**Q: After a model is trained, how do I save the model output in text or `npy` format?**</font>
 
-A: The network output is `Tensor`. You need to use the `asnumpy()` method to convert the `Tensor` to `NumPy` and then save the data. For details, see the following:
+A: The network output is `Tensor`. You need to use the `asnumpy()` method to convert the `Tensor` to `numpy` and then save the data. For details, see the following:
 
 ```python
 out = net(x)

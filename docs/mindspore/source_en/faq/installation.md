@@ -50,7 +50,7 @@ A: It is generally a proxy configuration problem. You can use `export http_proxy
 
 <br/>
 
-<font size=3>**Q: What should I do when an error prompts during installing by using  pip?**</font>
+<font size=3>**Q: What should I do when an error prompts during installing by using pip?**</font>
 
 A: Please execute `pip -V` to check if pip is linked to Python3.7+. If not, we recommend you use `python3.7 -m pip install` instead of `pip install` command.
 
@@ -215,13 +215,13 @@ If you want to run on a GPU+Windows environment, you can try to use WSL+docker, 
 
 2. For installing Nvidia drivers that support WSL and deploying in environments where containers run on WSL, refer to [WSL User Guide](https://docs.nvidia.com/cuda/wsl-user-guide/index.html).
 
->Since CUDA on WSL is still a preview feature, pay attention to the description of the Windows version requirements in the reference link, and the version is not enough to be upgraded.
+    > Since CUDA on WSL is still a preview feature, pay attention to the description of the Windows version requirements in the reference link, and the version is not enough to be upgraded.
 
 3. Referring to [Docker Image](https://gitee.com/mindspore/mindspore/blob/master/README.md#docker-image), take MindSpore-GPU images. For example, take the MindSpore1.0.0 version container, and execute `docker pull mindspore/mindspore-gpu:1.0.0` to execute the container in WSL Ubuntu18.04:
 
-```docker
-docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash
-```
+    ```docker
+    docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash
+    ```
 
 The detailed steps can refer to the practice provided by the community [Zhang Xiaobai teaches you to install the GPU driver (CUDA and cuDNN)](https://www.hiascend.com/forum/thread-0235122004927955034-1-1.html). Thanks to the community member [Zhang Hui](https://www.hiascend.com/forum/otheruser?uid=110545f972cf4903b3deba9cfaac7fc8) for sharing.
 
