@@ -402,6 +402,8 @@ A：传入GeneratorDataset的自定义Dataset，在接口内部（如`__getitem_
 
 A: 主要原因是在使用`**Dataset`、`.map(...)`和`.batch(...)`时，参数`num_parallel_workers`配置过大，用户进程数达到最大，可以通过`ulimit -u 最大进程数`来增加用户最大进程数范围，或者将`num_parallel_workers`配置减小。
 
+<br/>
+
 <font size=3>**Q: 在使用`GeneratorDataset`加载数据时，报错`RuntimeError: Failed to copy data into tensor.`，怎么解决？**</font>
 
 A: 在使用`GeneratorDataset`加载Pyfunc返回的Numpy array时，MindSpore框架将执行Numpy array到MindSpore Tensor的转换，假设Numpy array所指向的内存被释放，可能会发生内存拷贝的错误。举例如下：
