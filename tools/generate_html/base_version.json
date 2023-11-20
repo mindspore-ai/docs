@@ -58,7 +58,7 @@
             "zh": [
                 {
                     "label": "概述",
-                    "url": "/lite?version=/master/"
+                    "url": "/lite?version=master"
                 },
                 {
                     "label": "下载",
@@ -78,17 +78,17 @@
                 },
                 {
                     "label": "示例",
-                    "url": "/lite/examples?version=/master/"
+                    "url": "/lite/examples?version=master"
                 },
                 {
                     "label": "模型",
-                    "url": "/lite/models?version=/master/"
+                    "url": "/lite/models?version=master"
                 }
             ],
             "en": [
                 {
                     "label": "Overview",
-                    "url": "/lite/en?version=/master/"
+                    "url": "/lite/en?version=master"
                 },
                 {
                     "label": "Downloads",
@@ -108,11 +108,11 @@
                 },
                 {
                     "label": "Examples",
-                    "url": "/lite/examples/en?version=/master/"
+                    "url": "/lite/examples/en?version=master"
                 },
                 {
                     "label": "Models",
-                    "url": "/lite/models/en?version=/master/"
+                    "url": "/lite/models/en?version=master"
                 }
             ]
         },
