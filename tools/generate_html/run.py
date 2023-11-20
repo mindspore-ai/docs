@@ -54,7 +54,7 @@ def flush(dir_path):
         shutil.rmtree(dir_path)
     os.makedirs(dir_path)
 
-def generate_version_json(repo_name, branch, js_data, version, target_path):
+def generate_version_json(repo_name, branch, js_data, version_flag, target_path):
     """
     基于base_version.json文件给每个组件生成对应的version.json文件。
     """
@@ -68,7 +68,7 @@ def generate_version_json(repo_name, branch, js_data, version, target_path):
                 filename = js_data[d]['repo_name']
             else:
                 filename = "docs"
-            if version != "daily" and "submenu" in write_content.keys():
+            if not version_flag and "submenu" in write_content.keys():
                 for url in write_content["submenu"]["zh"]:
                     url["url"] = url["url"].replace('/master/', f'/{branch}/')
                 for url in write_content["submenu"]["en"]:
@@ -103,10 +103,12 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                /115.0.0.0 Safari/537.36"}
 
     # 读取json文件数据
-    if version == "daily":
-        with open(os.path.join(os.path.dirname(__file__), "daily.json"), 'r+', encoding='utf-8') as f:
+    if version == "daily" or not os.path.exists(os.path.join(os.path.dirname(__file__), "version.json")):
+        flag_dev = 1
+        with open(os.path.join(os.path.dirname(__file__), "daily_dev.json"), 'r+', encoding='utf-8') as f:
             data = json.load(f)
     else:
+        flag_dev = 0
         with open(os.path.join(os.path.dirname(__file__), "version.json"), 'r+', encoding='utf-8') as f:
             data = json.load(f)
 
@@ -189,7 +191,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
 
         if data[i]['name'] != "mindscience":
-            generate_version_json(data[i]['name'], data[i]["branch"], data_b, version, target_version)
+            generate_version_json(data[i]['name'], data[i]["branch"], data_b, flag_dev, target_version)
 
         # 卸载原来已有的安装包, 以防冲突
         if data[i]['uninstall_name']:
@@ -199,7 +201,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         os.chdir(WHLDIR)
 
         # 从网站下载各个组件需要的whl包或tar包
-        if version == "daily":
+        if version == "daily" or flag_dev:
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
             s = requests.session()
             if data[i]['name'] == "reinforcement" or data[i]['name'] == "recommender":
