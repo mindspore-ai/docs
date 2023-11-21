@@ -460,7 +460,7 @@ ret:6
 
 Instructions:
 
-- The defined function supported has no `return` statement. That means the return value of default functions is None.
+- Functions can support no return value, and no return value means that the default function return value is None.
 - `Construct` function of the outermost network and the inner network function is support kwargs, like:`def construct(**kwargs):`.
 - Mixed use of variable argument and non-variable argument is supported, like:`def function(x, y, *args)` and `def function(x = 1, y = 1, **kwargs)`.
 
@@ -651,7 +651,7 @@ Usage restrictions are the same as list comprehension, i.e., the use of multiple
 
 In graph mode, the `with` statement is supported with limitations. The `with` statement requires that the object must have two magic methods: `__enter__()` and `__exit__()`.
 
-It is worth noting that the class used in the with statement needs to be decorated with a decorator@ms.jit_class or inherited from nn. Cell, more on this can be found in [Calling the Custom Class](https://www.mindspore.cn/tutorials/en/master/advanced/static_graph_expert_programming.html#using-jit-class)
+It is worth noting that the class used in the with statement needs to be decorated with a decorator@ms.jit_class or inherited from nn. Cell, and more on this can be found in [Calling the Custom Class](https://www.mindspore.cn/tutorials/en/master/advanced/static_graph_expert_programming.html#using-jit-class).
 
 For example:
 
