@@ -33,6 +33,7 @@ For more information, see [mindspore.dataset.AGNewsDataset](https://mindspore.cn
 PyTorch: Read the AG News dataset.
 
 MindSpore: Read the AG News dataset. Download dataset from web is not supported.
+
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |
