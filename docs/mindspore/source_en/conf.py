@@ -271,8 +271,6 @@ try:
 except:
     pass
 
-import mindspore
-
 sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
 
@@ -416,6 +414,35 @@ if os.path.exists(Tensor_list_path):
     os.remove(Tensor_list_path)
 if os.path.exists(dataset_list_path):
     os.remove(dataset_list_path)
+
+# modify urls
+re_url = r"(((gitee.com/mindspore/(mindspore|docs))|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+for cur, _, files in os.walk(des_sir):
+    for i in files:
+        if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
+            with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                content = f.read()
+                new_content = re.sub(re_url, r'\1/r2.3', content)
+                if new_content != content:
+                    f.seek(0)
+                    f.truncate()
+                    f.write(new_content)
+
+base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
+    for i in files:
+        if i.endswith('.py'):
+            with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                content = f.read()
+                new_content = re.sub(re_url, r'\1/r2.3', content)
+                if new_content != content:
+                    f.seek(0)
+                    f.truncate()
+                    f.write(new_content)
+
+import mindspore
 
 # Copy images from mindspore repo.
 import imghdr

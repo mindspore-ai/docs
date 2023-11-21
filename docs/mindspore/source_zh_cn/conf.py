@@ -461,6 +461,24 @@ ops_interface_name()
 nn_interface_name()
 tensor_interface_name()
 
+# modify urls
+re_url = r"(((gitee.com/mindspore/(mindspore|docs))|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+for cur, _, files in os.walk(des_sir):
+    for i in files:
+        if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
+            try:
+                with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                    content = f.read()
+                    new_content = re.sub(re_url, r'\1/r2.3', content)
+                    if new_content != content:
+                        f.seek(0)
+                        f.truncate()
+                        f.write(new_content)
+            except Exception:
+                print(f'打开{i}文件失败')
+
 from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnPlatWarnAutoSummary
 
 rst_files = set([i.replace('.rst', '') for i in glob.glob('api_python/**/*.rst', recursive=True)])
