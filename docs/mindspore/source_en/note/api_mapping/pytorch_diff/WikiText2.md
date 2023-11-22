@@ -32,7 +32,7 @@ For more information, see [mindspore.dataset.WikiTextDataset](https://mindspore.
 
 PyTorch: Read the WikiText2 dataset.
 
-MindSpore: Read the WikiText2 dataset. Download dataset from web is not supported.
+MindSpore: Read the WikiText2 dataset. Downloading dataset from web is not supported.
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |

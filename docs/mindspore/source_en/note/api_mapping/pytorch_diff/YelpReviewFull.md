@@ -32,7 +32,7 @@ For more information, see [mindspore.dataset.YelpReviewDataset](https://mindspor
 
 PyTorch: Read the YelpReviewFull dataset.
 
-MindSpore: Read the YelpReviewFull dataset. Download dataset from web is not supported.
+MindSpore: Read the YelpReviewFull dataset. Downloading dataset from web is not supported.
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |

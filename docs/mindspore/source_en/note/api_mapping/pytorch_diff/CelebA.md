@@ -40,7 +40,7 @@ For more information, see [mindspore.dataset.CelebADataset](https://mindspore.cn
 
 PyTorch: Read the CelebA (CelebFaces Attributes) dataset. API integrates the transformation operations for image and label.
 
-MindSpore: Read the CelebA (CelebFaces Attributes) dataset. Download dataset from web is not supported. Transforms for image and label depends on `mindshare.dataset.map` operation.
+MindSpore: Read the CelebA (CelebFaces Attributes) dataset. Downloading dataset from web is not supported. Transforms for image and label depends on `mindshare.dataset.map` operation.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

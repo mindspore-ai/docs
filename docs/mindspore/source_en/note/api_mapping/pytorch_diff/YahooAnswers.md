@@ -32,7 +32,7 @@ For more information, see [mindspore.dataset.YahooAnswersDataset](https://mindsp
 
 PyTorch: Read the YahooAnswers dataset.
 
-MindSpore: Read the YahooAnswers dataset. Download dataset from web is not supported.
+MindSpore: Read the YahooAnswers dataset. Downloading dataset from web is not supported.
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |

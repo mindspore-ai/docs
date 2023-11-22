@@ -36,7 +36,7 @@ For more information, see [mindspore.dataset.GTZANDataset](https://mindspore.cn/
 
 PyTorch: Read the GTZAN dataset.
 
-MindSpore: Read the GTZAN dataset. Download dataset from web is not supported.
+MindSpore: Read the GTZAN dataset. Downloading dataset from web is not supported.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

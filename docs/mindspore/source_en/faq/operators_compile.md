@@ -46,7 +46,7 @@ A: Yes. For details, see [mindspore.ops.Transpose](https://www.mindspore.cn/docs
 
 <font size=3>**Q: Can MindSpore calculate the variance of any `tensor`?**</font>
 
-A: You can use the mindspore.Tensor.var interface to calculate the variance of a Tensor. You can refer to [mindspore.Tensor.var(axis=None, ddof=0, keepdims=False)](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.var.html#mindspore.Tensor.var) to realize it.
+A: You can use the mindspore.Tensor.var interface to calculate the variance of a Tensor. You can refer to [mindspore.Tensor.var(axis=None, ddof=0, keepdims=False)](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.var.html#mindspore.Tensor.var) to realize it.
 
 <br/>
 

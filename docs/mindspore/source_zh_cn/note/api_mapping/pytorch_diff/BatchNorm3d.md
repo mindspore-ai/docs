@@ -75,7 +75,7 @@ BatchNorm是CV领域比较特殊的正则化方法，它在训练和推理的过
   |Fasle|期望中推理的状态，BN 使用 moving_mean 和 moving_var 做归一化，并且不会对其进行更新。
   |None|自动设置 use_batch_statistics。如果是训练，use_batch_statistics=True，如果是推理，use_batch_statistics=False。
 
-  通过比较可以发现，`mindspore.nn.BatchNorm3d`  相比 `torch.nn.BatchNorm3d`，少了两种冗余的状态，仅保留了最常用的训练和推理两种状态。
+  通过比较可以发现，`mindspore.nn.BatchNorm3d` 相比 `torch.nn.BatchNorm3d`，少了两种冗余的状态，仅保留了最常用的训练和推理两种状态。
 
 - 差异二
 

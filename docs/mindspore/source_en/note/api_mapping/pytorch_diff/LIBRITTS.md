@@ -35,7 +35,7 @@ For more information, see [mindspore.dataset.LibriTTSDataset](https://mindspore.
 
 PyTorch: Read the LibriTTS dataset.
 
-MindSpore: Read the LibriTTS dataset. Download dataset from web is not supported.
+MindSpore: Read the LibriTTS dataset. Downloading dataset from web is not supported.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

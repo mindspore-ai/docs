@@ -36,23 +36,23 @@ For more information, see [mindspore.dataset.Cifar10Dataset](https://mindspore.c
 
 PyTorch: Read the CIFAR-10 dataset(only support CIFAR-10 python version). API integrates the transformation operations for image and label.
 
-MindSpore: Read the CIFAR-10 dataset(only support CIFAR-10 binary version). Download dataset from web is not supported. Transforms for image and label depends on `mindshare.dataset.map` operation.
+MindSpore: Read the CIFAR-10 dataset(only support CIFAR-10 binary version). Downloading dataset from web is not supported. Transforms for image and label depends on `mindshare.dataset.map` operation.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |
-|     | Parameter2 | train      | -    | Usage of this dataset，supported by `usage` in MindSpore |
+|     | Parameter2 | train      | -    | Specify whether it is the training set，supported by `usage` in MindSpore |
 |     | Parameter3 | transform    | -   | Supported by `mindspore.dataset.map` operation |
 |     | Parameter4 | target_transform    | -   | Supported by `mindspore.dataset.map` operation |
 |     | Parameter5 | download    | -   | Not supported by MindSpore |
-|     | Parameter6 | -    | usage | Usage of this dataset |
+|     | Parameter6 | -    | usage | Specify a subset of the dataset |
 |     | Parameter7 | -    | num_samples | The number of images to be included in the dataset. |
 |     | Parameter8 | -    | num_parallel_workers | Number of worker threads to read the data |
 |     | Parameter9 | -    | shuffle  | Whether to perform shuffle on the dataset |
 |     | Parameter10 | -    | sampler  | Object used to choose samples from the dataset |
 |     | Parameter11 | -    | num_shards | Number of shards that the dataset will be divided into |
-|     | Parameter12 | -    | shard_id | The shard ID within num_shards |
-|     | Parameter13 | -    | cache | Use tensor caching service to speed up dataset processing |
+|     | Parameter12 | -    | shard_id | The shard ID used in distributed training |
+|     | Parameter13 | -    | cache | Specify single-node data caching service |
 
 ## Code Example
 

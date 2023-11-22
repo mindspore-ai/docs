@@ -32,7 +32,8 @@ For more information, see [mindspore.dataset.DBpediaDataset](https://mindspore.c
 
 PyTorch: Read the DBpedia dataset.
 
-MindSpore: Read the DBpedia dataset. Download dataset from web is not supported.
+MindSpore: Read the DBpedia dataset. Downloading dataset from web is not supported.
+
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |
