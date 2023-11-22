@@ -32,7 +32,7 @@ For more information, see [mindspore.dataset.PennTreebankDataset](https://mindsp
 
 PyTorch: Read the PennTreebank dataset.
 
-MindSpore: Read the PennTreebank dataset. Download dataset from web is not supported.
+MindSpore: Read the PennTreebank dataset. Downloading dataset from web is not supported.
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |

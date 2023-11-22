@@ -36,7 +36,7 @@ For more information, see [mindspore.dataset.Cifar100Dataset](https://mindspore.
 
 PyTorch: Read the CIFAR-100 dataset(only support CIFAR-10 python version). API integrates the transformation operations for image and label.
 
-MindSpore: Read the CIFAR-100 dataset(only support CIFAR-10 binary version). Download dataset from web is not supported. Transforms for image and label depends on `mindshare.dataset.map` operation.
+MindSpore: Read the CIFAR-100 dataset(only support CIFAR-10 binary version). Downloading dataset from web is not supported. Transforms for image and label depends on `mindshare.dataset.map` operation.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

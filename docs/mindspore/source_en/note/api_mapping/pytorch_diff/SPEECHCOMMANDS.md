@@ -36,7 +36,7 @@ For more information, see [mindspore.dataset.SpeechCommandsDataset](https://mind
 
 PyTorch: Read the SpeechCommands dataset.
 
-MindSpore: Read the SpeechCommands dataset. Download dataset from web is not supported.
+MindSpore: Read the SpeechCommands dataset. Downloading dataset from web is not supported.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

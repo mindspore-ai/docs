@@ -32,7 +32,7 @@ For more information, see [mindspore.dataset.AmazonReviewDataset](https://mindsp
 
 PyTorch: Read the AmazonReviewFull dataset.
 
-MindSpore: Read the AmazonReviewFull dataset. Download dataset from web is not supported.
+MindSpore: Read the AmazonReviewFull dataset. Downloading dataset from web is not supported.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

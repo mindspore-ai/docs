@@ -58,20 +58,20 @@ MindSpore (mindspore.nn.exponential_decay_lr): The calculating method is $lr * d
 |      | Parameter 5 |  | learning_rate | MindSpore sets the initial value of the learning rate. |
 |      | Parameter 6 |  | total_step | Total number of steps in MindSpore |
 |      | Parameter 7 |  | step_per_epoch | The number of steps per epoch in MindSpore |
-|      | Parameter 8 |       |  decay_steps   | The number of decay steps performed by MindSpore |
-|      | Parameter 9 |       |  is_stair   | When MindSpore `is_stair` is True, the learning rate decays once every `decay_steps`. |
+|      | Parameter 8 |  -    |  decay_steps   | The number of decay steps performed by MindSpore |
+|      | Parameter 9 |   -   |  is_stair   | When MindSpore `is_stair` is True, the learning rate decays once every `decay_steps`. |
 
 MindSpore (mindspore.nn.ExponentialDecayLR): The calculating method is $lr * decay\_rate^{p}$ . `ExponentialDecayLR` is passed in the optimizer for training in the way of the computational graph.
 
 | Categories | Subcategories  | PyTorch | MindSpore | Differences                |
 | ---- | ----- | ------- | --------- | -------------------- |
-| Parameter  | Parameter 1 | optimizer   |        | Optimizer for PyTorch applications. MindSpore does not have this Parameter  |
+| Parameter  | Parameter 1 | optimizer   |   -    | Optimizer for PyTorch applications. MindSpore does not have this Parameter  |
 |      | Parameter 2 | gamma |   decay_rate   | Parameter of decay learning rate, same function, different Parameter name |
-|      | Parameter 3 | last_epoch |   | MindSpore does not have this Parameter.  |
-|      | Parameter 4 | verbose |        | PyTorch `verbose` prints information about each update when it is True. MindSpore does not have this Parameter. |
+|      | Parameter 3 | last_epoch | - | MindSpore does not have this Parameter.  |
+|      | Parameter 4 | verbose |    -   | PyTorch `verbose` prints information about each update when it is True. MindSpore does not have this Parameter. |
 |      | Parameter 5 |  | learning_rate | MindSpore sets the initial value of the learning rate. |
-|      | Parameter 6 |       |  decay_steps   | The number of decay steps performed by MindSpore |
-|      | Parameter 7 |       |  is_stair   | When MindSpore `is_stair` is True, the learning rate decays once every `decay_steps`. |
+|      | Parameter 6 |   -   |  decay_steps   | The number of decay steps performed by MindSpore |
+|      | Parameter 7 |   -   |  is_stair   | When MindSpore `is_stair` is True, the learning rate decays once every `decay_steps`. |
 
 ## Code Example
 

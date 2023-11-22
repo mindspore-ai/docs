@@ -33,7 +33,7 @@ For more information, see [mindspore.dataset.IMDBDataset](https://mindspore.cn/d
 
 PyTorch: Read the IMDB dataset.
 
-MindSpore: Read the IMDB dataset. Download dataset from web is not supported.
+MindSpore: Read the IMDB dataset. Downloading dataset from web is not supported.
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |

@@ -35,7 +35,7 @@ For more information, see [mindspore.dataset.CMUArcticDataset](https://mindspore
 
 PyTorch: Read the CMU Arctic dataset.
 
-MindSpore: Read the CMU Arctic dataset. Download dataset from web is not supported.
+MindSpore: Read the CMU Arctic dataset. Downloading dataset from web is not supported.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

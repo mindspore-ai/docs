@@ -34,7 +34,7 @@ For more information, see [mindspore.dataset.LJSpeechDataset](https://mindspore.
 
 PyTorch: Read the LJSpeech dataset.
 
-MindSpore: Read the LJSpeech dataset. Download dataset from web is not supported.
+MindSpore: Read the LJSpeech dataset. Downloading dataset from web is not supported.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
