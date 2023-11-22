@@ -20,7 +20,7 @@ For more information, see [mindspore.ops.grid_sample](https://www.mindspore.cn/d
 
 ## Differences
 
-PyTorch: Given an input and a flow-field grid, computes the output using input values and pixel locations from grid. Only spatial (4-D) and volumetric (5-D) input is supported.
+PyTorch: Given an input and a flow-field grid, computes the output using input values and pixel locations from grid. Only 4-D (GridSampler2D) and 5-D (GridSampler3D) inputs are supported.
 
 MindSpore: MindSpore API implements functions basically same as PyTorch, but the mode of "bicubic" is not supported yet in MindSpore.
 

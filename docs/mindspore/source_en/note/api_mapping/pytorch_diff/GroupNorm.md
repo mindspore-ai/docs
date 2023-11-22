@@ -43,7 +43,7 @@ MindSpore: MindSpore API implements basically the same function as PyTorch. Mind
 |      | Parameter 3 | eps          | eps          | -|
 |      | Parameter 4 | affine       | affine       | -|
 |      | Parameter 5 | -            | gamma_init   | Initialize the radial transform parameter gamma used for learning in the formula. The default is 'ones', while PyTorch cannot be set additionally, can only be 'ones'. |
-|      | Parameter 6 | -           | beta_init    | Initialize the radial transform parameter beta used for learning in the formula. The default is 'ones', while PyTorch cannot be set additionally, can only be 'ones'. |
+|      | Parameter 6 | -           | beta_init    | Initialize the radial transform parameter beta used for learning in the formula. The default is 'zeros', while PyTorch cannot be set additionally, can only be 'zeros'. |
 | Input | Single input | input        | x            | Interface input, same function, different parameter names          |
 
 ## Code Example 1

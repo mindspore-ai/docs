@@ -66,7 +66,7 @@ MindSpore：与PyTorch实现的功能基本一致，但存在偏置差异和填�
 
     由padding_mode决定填充方式后，padding参数则用于控制填充的数量与位置。针对Conv2d，padding指定为int的时候，会在输入的上下左右进行padding次的填充(若为默认值0则代表不进行填充)；padding指定为tuple的时候，会按照tuple的输入在上下左右进行指定次数的填充；padding设置为‘valid’模式时，不进行填充，只会在不超出特征图的范围内进行卷积；padding设置为‘same’ 模式时，若需要padding的元素个数为偶数个，padding的元素则会均匀的分布在特征图的上下左右，若需要padding的元素个数为奇数个，PyTorch则会优先填充特征图的左侧和上侧。
 
-2. MindSpore的参数pad_mode可选项有‘same’， ‘valid’， ‘pad’， 参数padding只能输入int， 填充参数的详细意义如下：
+2. MindSpore的参数pad_mode可选项有‘same’， ‘valid’， ‘pad’，参数padding只能输入int，填充参数的详细意义如下：
 
     pad_mode设置为‘pad’的时候，MindSpore可以设置padding参数为大于等于0的正整数，会在输入的上下左右进行padding次的0填充(若为默认值0则代表不进行填充)；pad_mode为另外两种模式时，padding参数必须只能设置为0，pad_mode设置为‘valid’模式时，不进行填充，只会在不超出特征图的范围内进行卷积；pad_mode设置为‘same’模式时，若需要padding的元素个数为偶数个，padding的元素则会均匀的分布在特征图的上下左右，若需要padding的元素个数为奇数个，MindSpore则会优先填充特征图的右侧和下侧(与PyTorch不同，类似TensorFlow)。
 
