@@ -8,7 +8,7 @@
 class torch.nn.Softmax(dim=None)(input) -> Tensor
 ```
 
-For more information, see [torch.nn.Softmax](https://pytorch.org/docs/1.8.1/generated/torch.nn.Softmax.html.
+For more information, see [torch.nn.Softmax](https://pytorch.org/docs/1.8.1/generated/torch.nn.Softmax.html).
 
 ## mindspore.nn.Softmax
 
