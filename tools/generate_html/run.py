@@ -316,6 +316,15 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 if os.path.exists(nodes_target):
                     os.remove(nodes_target)
                 shutil.copy(nodes_src, nodes_target)
+
+                html_base_target = os.path.join(os.path.dirname(nodes.__file__), 'writers/_html_base.py')
+                with open(html_base_target, 'r+', encoding='utf-8') as h:
+                    html_base_content = h.read()
+                    html_base_content = html_base_content.replace(
+                        'self.meta = [self.generator % docutils.__version__]', 'self.meta = []')
+                    h.seek(0)
+                    h.truncate()
+                    h.write(html_base_content)
                 replace_flag = 0
         except ModuleNotFoundError:
             pass
