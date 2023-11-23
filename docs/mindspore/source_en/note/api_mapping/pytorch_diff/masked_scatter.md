@@ -20,7 +20,7 @@ For more information, see [mindspore.Tensor.masked_scatter](https://www.mindspor
 
 ## Differences
 
-PyTorch: Returns a Tensor. Updates the value in the "self Tensor" with the `tensor` value according to the mask.
+PyTorch: Returns a Tensor. Updates the value in the "self Tensor" with the `tensor` value according to the `mask`.
 
 MindSpore: MindSpore API Basically achieves the same function as PyTorch. But PyTorch supports bidirectional broadcast of `mask` and "self Tensor", MindSpore only supports `mask` broadcasting to "self Tensor".
 

@@ -39,6 +39,7 @@ For more information, see [mindspore.dataset.IWSLT2016Dataset](https://mindspore
 PyTorch: Read the IWSLT2016 dataset.
 
 MindSpore: Read the IWSLT2016 dataset. Downloading dataset from web is not supported.
+
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |

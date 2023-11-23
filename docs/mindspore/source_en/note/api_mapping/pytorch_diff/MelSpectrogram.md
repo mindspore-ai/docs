@@ -41,7 +41,7 @@ MindSpore：Create MelSpectrogram for a raw audio signal.
 |     | Parameter6 | f_max   | f_max    | - |
 |     | Parameter7 | pad   | pad  | - |
 |     | Parameter8 | n_mels    | n_mels     | - |
-|     | Parameter9 | window_fn    | window      | MindSpore only support 5 window functions |
+|     | Parameter9 | window_fn    | window      | MindSpore only supports 5 window functions |
 |     | Parameter10 | power    | power     | - |
 |     | Parameter11 | normalized   | normalized     | - |
 |     | Parameter12 | wkwargs    | -     | Arguments for window function, not supported by MindSpore |
