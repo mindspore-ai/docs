@@ -312,7 +312,10 @@ ops_adjust = [
 "mindspore.ops.ResizeNearestNeighbor",
 "mindspore.ops.ReverseV2",
 "mindspore.ops.Softmax",
-"mindspore.ops.Split"]
+"mindspore.ops.Split",
+"mindspore.ops.BatchNorm",
+"mindspore.ops.Tile"]
+
 func_adjust = [
 "mindspore.ops.abs",
 "mindspore.ops.acos",
