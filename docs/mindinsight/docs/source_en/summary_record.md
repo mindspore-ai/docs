@@ -45,8 +45,7 @@ def train(ds_train):
 
 ```
 
-> 1. When using summary, it is recommended that you set `dataset_sink_mode` argument of `model.train` to `False`. Please see notices for more information.
-> 2. When using summary, you need to run the code in `if __name__ == "__main__"`. For more detail, refer to [Python tutorial](https://docs.python.org/3.7/library/multiprocessing.html#multiprocessing-programming).
+> When using summary, it is recommended that you set `dataset_sink_mode` argument of `model.train` to `False`. Please see notices for more information.
 
 ### Method two: Custom collection of network data with summary APIs and SummaryCollector
 
@@ -372,35 +371,3 @@ For more parameter Settings, see the [MindSpore Insight related commands](https:
 5. The maximum amount of data saved per step is 2147483647 Bytes. If this limit is exceeded, data for the step cannot be recorded and an error occurs.
 
 6. In PyNative mode, the `SummaryCollector` can be used properly, but the computational graph can not be recorded.
-
-7. When using summary, the code lines to be executed need to be put into `if __name__ == '__main__':`, otherwise the unknown error may occur.
-
-    Correct code:
-
-    ```python
-    import mindspore as ms
-    from mindspore.communication.management import init
-
-
-    if __name__ == '__main__':
-        ms.set_context(mode=ms.GRAPH_MODE, device_target='GPU')
-        init('nccl')
-        with ms.SummaryRecord(log_dir='./summary_dir') as summary_record:
-            pass
-    ```
-
-    Wrong code:
-
-    ```python
-    import mindspore as ms
-    from mindspore.communication.management import init
-
-
-    ms.set_context(mode=ms.GRAPH_MODE, device_target='GPU')
-    init('nccl')
-
-
-    if __name__ == '__main__':
-        with ms.SummaryRecord(log_dir='./summary_dir') as summary_record:
-            pass
-    ```
