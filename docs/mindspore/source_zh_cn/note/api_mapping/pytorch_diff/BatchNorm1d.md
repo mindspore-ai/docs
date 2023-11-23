@@ -56,7 +56,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致。MindSpore中mome
 | 输入 | 单输入 | input               | x                    | 接口输入，功能一致，仅参数名不同 |
 
 详细区别如下：
-BatchNorm是CV领域比较特殊的正则化方法，它在训练和推理的过程中有着不同计算流程，通常由算子属性控制。MindSpore和PyTorch的 BatchNorm在这一点上使用了两种不同的参数组。
+BatchNorm是CV领域比较特殊的正则化方法，它在训练和推理的过程中有着不同计算流程，通常由算子属性控制。MindSpore和PyTorch的BatchNorm在这一点上使用了两种不同的参数组。
 
 - 差异一
 

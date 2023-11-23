@@ -32,17 +32,18 @@ For more information, see [mindspore.dataset.AmazonReviewDataset](https://mindsp
 
 PyTorch: Read the AmazonReviewFull dataset.
 
-MindSpore: Read the AmazonReviewFull dataset. Download dataset from web is not supported.
+MindSpore: Read the AmazonReviewFull dataset. Downloading dataset from web is not supported.
+
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |
 |     | Parameter2 | split      | usage    |- |
-|     | Parameter3 | -    | num_samples | The number of images to be included in the dataset |
-|     | Parameter4 | -    | num_parallel_workers | Number of worker threads to read the data |
+|     | Parameter3 | -    | num_samples | Specify the number of samples to read from the dataset |
+|     | Parameter4 | -    | num_parallel_workers | Specify the number of worker threads to read from the dataset|
 |     | Parameter5 | -    | shuffle  | Whether to perform shuffle on the dataset |
-|     | Parameter6 | -    | num_shards | Number of shards that the dataset will be divided into |
-|     | Parameter7 | -    | shard_id | The shard ID within num_shards |
-|     | Parameter8 | -    | cache | Use tensor caching service to speed up dataset processing |
+|     | Parameter6 | -    | num_shards | Number of shards that the dataset will be divided into during the distributed training |
+|     | Parameter7 | -    | shard_id | Specify the shard ID to be used for distributed training |
+|     | Parameter8 | -    | cache | Specify single node data caching service |
 
 ## Code Example
 

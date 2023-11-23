@@ -12,7 +12,7 @@ Related interfaces:
 
 1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, search_mode="sharding_propagation")`: Set the parallel mode to auto-parallel and the search mode to the sharding strategy propagation algorithm.
 
-2. `mindspore.nn.Cell.shard()` and `mindspore.ops.Primitive.shard()`: Specifies the operator sharding strategy, and the strategy for the rest of the operators is derived by the propagation algorithm. Currently the `mindspore.nn.Cell.shard()` interface needs to be used in PyNative mode.
+2. `mindspore.nn.Cell.shard()` and `mindspore.ops.Primitive.shard()`: Specifies the operator sharding strategy, and the strategy for the rest of the operators is derived by the propagation algorithm. Currently the `mindspore.nn.Cell.shard()` interface can only be used in PyNative mode; The `mindspore.ops.Primitive.shard()` interface can only be used in Graph mode.
 
 In summary, the sharding strategy propagation algorithm requires the user to manually configure the sharding strategy of the key operator.
 
@@ -285,7 +285,7 @@ Given a new model with numerous operators, from the user's perspective, a key pr
 
 #### Configuring Parameter-involved Operators
 
-The sharding strategies for parameters are important especially for large models, since parameter-induced memory consumption is the majority of total memory consumption. Therefore, parameter-involved operators usually need to explicitly configure the sharding strategies. In the following examples in the figure, Gather and MatMul involving weights are configured shardings, while other operators are not. These correspond the data-parallel Embedding layer and hybrid-parallel FeedForward Layer in [mindformers](https://gitee.com/mindspore/mindformers/tree/master/mindformers/modules), respectively.
+The sharding strategies for parameters are important especially for large models, since parameter-induced memory consumption is the majority of total memory consumption. Therefore, parameter-involved operators usually need to explicitly configure the sharding strategies. In the following examples in the figure, Gather and MatMul involving weights are configured shardings, while other operators are not. These correspond the data-parallel VocabEmbedding layer and hybrid-parallel FeedForward Layer in [mindformers](https://gitee.com/mindspore/mindformers/blob/master/mindformers/modules/transformer/transformer.py), respectively.
 
 ![sp_case1](./images/sp_case1.png "Configure parameter-involved operators")
 

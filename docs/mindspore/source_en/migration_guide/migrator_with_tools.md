@@ -414,7 +414,7 @@ class Mlp(nn.Module):
         return x
 ```
 
-**Step 1: Save the API output of MindSpore network part**
+**Step 2: Save the API output of MindSpore network part**
 
 In the network, use [ts.save](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/save.md#) to save the output of the API for checking network differences introduction points.
 

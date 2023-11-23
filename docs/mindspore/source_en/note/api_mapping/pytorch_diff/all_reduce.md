@@ -30,11 +30,11 @@ For more information, see [mindspore.ops.AllReduce](https://mindspore.cn/docs/en
 
 PyTorch: The inputs are the tensor broadcasted by the current process `tensor`, the AllReduce operation `op`, the communication group `group` and the async op flag `async_op`. After the AllReduce operation, the output is written back to `tensor`. The return is a async work handle if `async_op=True`, otherwise is `None`.
 
-MindSpore: The input of this interface is `input_x` that is a `tensor`. The output `tensor` has the same shape as `input_x`, after the AllReduce operation configured by `op` in the communication group `group`. This interface currently not support the configuration of `async_op`.
+MindSpore: The input of this interface is `input_x` that is a `tensor`. The output `tensor` has the same shape as `input_x`, and is generated after the AllReduce operation configured by `op` in the communication group `group`. This interface currently not support the configuration of `async_op`.
 
 | Class | Sub-class |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
-|Param | Param 1 | tensor | - |PyTorch: the input tensor, and the output is written back to it. MindSpore does not have this parameter|
+|Param | Param 1 | tensor | - |PyTorch: the input tensor, and the output is written back to it after AllReduce operation. MindSpore does not have this parameter|
 | | Param 2 | op | op |No difference|
 | | Param 3 | group | group |No difference|
 | | Param 4 | async_op | - |PyTorch: the async op flag. MindSpore does not have this parameter|

@@ -32,7 +32,8 @@ For more information, see [mindspore.dataset.CoNLL2000Dataset](https://mindspore
 
 PyTorch: Read the CoNLL2000 dataset.
 
-MindSpore: Read the CoNLL2000 dataset. Download dataset from web is not supported.
+MindSpore: Read the CoNLL2000 dataset. Downloading dataset from web is not supported.
+
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |

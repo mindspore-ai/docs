@@ -233,6 +233,8 @@ Currently there are the following two scenarios where the message will print:
 
 > One task may trigger multiple compilation processes.
 
+<br/>
+
 <font size=3>**Q: What does it mean when a warning "On the Ascend platform, if you read-only access to the parameter, you can take the value of the parameter, so that the system can do more optimization." is reported?**</font>
 
 A: Since the Ascend platform cannot actually return a memory address, in the whole graph sinking mode, there will be some problems when there are parameters in the return value in the control flow scenario. In order to avoid problems, switch to the unified runtime mode for this scenario, and switch from the whole graph sinking mode to the unified runtime mode, the network performance may be degraded. If the return value of the control flow subgraph only uses the value of the parameter, you can obtain the  parameter value through the value interface of the parameter to avoid performance degradation caused by mode switching.
@@ -290,11 +292,9 @@ is reported when loading a MindIR?**</font>
 A: First, check whether the number of exported parameters and the number of imported parameters match.
 If the match, you need to check if a non-Tensor scenario in the exported parameters.
 
-When the exported data input is a non-Tensor, the exported input will be solidified into MindIR as a constant,
- making the input in MindIR less than the Construct input for network construction.
+When the exported data input is a non-Tensor, the exported input will be solidified into MindIR as a constant, making the input in MindIR less than the Construct input for network construction.
 
-If the data is a scalar type, you can export the scalar to Tensor type, and if the data is Tuple or List type,
- you can use the [mutable](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.mutable.html) interface to encapsulate it and export it.
+If the data is a scalar type, you can export the scalar to Tensor type, and if the data is Tuple or List type, you can use the [mutable](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.mutable.html) interface to encapsulate it and export it.
 
 <br/>
 

@@ -43,7 +43,7 @@ MindSpore: MindSpore implements the same function as PyTorch, and the target val
 |      | Parameter 4 | reduce | - | PyTorch has deprecated this parameter, function taken over by reduction |
 |      | Parameter 5 | reduction    | reduction       | - |
 |      | Parameter 6 |     -     | label_smoothing | Label smoothing value, used as a regularization means to prevent overfitting of the model when calculating Loss. The range of values is [0.0, 1.0]. Default value: 0.0. |
-| Input | Input 1 | input    | logits | Same function, different parameter names    |
+| Inputs | Input 1 | input    | logits | Same function, different parameter names    |
 |      | Input 2| target   | labels  | Same function, different parameter names   |
 
 ### Code Example

@@ -34,7 +34,7 @@ For more information, see [mindspore.nn.AdamWeightDecay](https://mindspore.cn/do
 
 ## Differences
 
-The code implementation and parameter update logic of `mindspore.nn.AdamWeightDecay` optimizer is different from `torch.optim.AdamW`. For more information, please refer to the docs of official website.
+Optimizers in PyTorch and MindSpore implement different algorithms. Please refer to the official website for more details on the formulas.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

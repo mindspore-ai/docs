@@ -53,38 +53,39 @@ MindSpore：The function of this API is basically the same as that of PyTorch, w
 | | Parameter 9 | - | moving_var_init |Initialization method of dynamic variance, default value: "ones". |
 | Input | Single input | input | x | Interface input, same function, only different parameter names |
 
+The detailed differences are as follows:
 BatchNorm is a special regularization method in the CV field. It has different computation processes during training and inference and is usually controlled by operator attributes. BatchNorm of MindSpore and PyTorch uses two different parameter groups at this point.
 
 - Difference 1
 
-`torch.nn.BatchNorm3d` status under different parameters
+  `torch.nn.BatchNorm3d` status under different parameters
 
-|training|track_running_stats|Status|
-|:----|:----|:--------------------------------------|
-|True|True|Expected training status. `running_mean` and `running_var` trace the statistical features of the batch in the entire training process. Each group of input data is normalized based on the mean and var statistical features of the current batch, and then `running_mean` and `running_var` are updated.|
-|True|False|Each group of input data is normalized based on the statistics feature of the current batch, but the `running_mean` and `running_var` parameters do not exist.|
-|False|True|Expected inference status. The BN uses `running_mean` and `running_var` for normalization and does not update them.|
-|False|False|The effect is the same as that of the second status. The only difference is that this is the inference status and does not learn the weight and bias parameters. Generally, this status is not used.|
+  |training|track_running_stats|Status|
+  |:----|:----|:--------------------------------------|
+  |True|True|Expected training status. `running_mean` and `running_var` trace the statistical features of the batch in the entire training process. Each group of input data is normalized based on the mean and var statistical features of the current batch, and then `running_mean` and `running_var` are updated.|
+  |True|False|Each group of input data is normalized based on the statistics feature of the current batch, but the `running_mean` and `running_var` parameters do not exist.|
+  |False|True|Expected inference status. The BN uses `running_mean` and `running_var` for normalization and does not update them.|
+  |False|False|The effect is the same as that of the second status. The only difference is that this is the inference status and does not learn the weight and bias parameters. Generally, this status is not used.|
 
-`mindspore.nn.BatchNorm3d` status under different parameters
+  `mindspore.nn.BatchNorm3d` status under different parameters
 
-|use_batch_statistics|Status|
-|:----|:--------------------------------------|
-|True|Expected training status. `moving_mean` and `moving_var` trace the statistical features of the batch in the entire training process. Each group of input data is normalized based on the mean and var statistical features of the current batch, and then `moving_mean` and `moving_var` are updated.
-|Fasle|Expected inference status. The BN uses `moving_mean` and `moving_var` for normalization and does not update them.
-|None|`use_batch_statistics` is automatically set. For training, set `use_batch_statistics` to `True`. For inference, `set use_batch_statistics` to `False`.
+  |use_batch_statistics|Status|
+  |:----|:--------------------------------------|
+  |True|Expected training status. `moving_mean` and `moving_var` trace the statistical features of the batch in the entire training process. Each group of input data is normalized based on the mean and var statistical features of the current batch, and then `moving_mean` and `moving_var` are updated.
+  |Fasle|Expected inference status. The BN uses `moving_mean` and `moving_var` for normalization and does not update them.
+  |None|`use_batch_statistics` is automatically set. For training, set `use_batch_statistics` to `True`. For inference, set `use_batch_statistics` to `False`.
 
-Compared with `torch.nn.BatchNorm3d`, `mindspore.nn.BatchNorm3d` does not have two redundant states and retains only the most commonly used training and inference states.
+  Compared with `torch.nn.BatchNorm3d`, `mindspore.nn.BatchNorm3d` does not have two redundant states and retains only the most commonly used training and inference states.
 
 - Difference 2
 
-In PyTorch, the network is in training mode by default, while in MindSpore, it is in inference mode by default (`is_training` is False). You need to use the `net.set_train()` method in MindSpore to switch the network to training mode. In this case, the parameters `mean` and `variance` are calculated during the training. Otherwise, in inference mode, the parameters are loaded from the checkpoint.
+  In PyTorch, the network is in training mode by default, while in MindSpore, it is in inference mode by default (`is_training` is False). You need to use the `net.set_train()` method in MindSpore to switch the network to training mode. In this case, the parameters `mean` and `variance` are calculated during the training. Otherwise, in inference mode, the parameters are loaded from the checkpoint.
 
 - Difference 3
 
-The meaning of the momentum parameter of the BatchNorm series operators in MindSpore is opposite to that in PyTorch. The relationship is as follows:
+  The meaning of the momentum parameter of the BatchNorm series operators in MindSpore is opposite to that in PyTorch. The relationship is as follows:
 
-$$momentum_{pytorch} = 1 - momentum_{mindspore}$$
+  $$momentum_{pytorch} = 1 - momentum_{mindspore}$$
 
 ### Code Example
 

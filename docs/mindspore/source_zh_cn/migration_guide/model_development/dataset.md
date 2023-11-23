@@ -126,6 +126,7 @@ map(operations, input_columns=None, output_columns=None, column_order=None, num_
 最后一个数据增强的输出列的列名由 `output_columns` 指定，如果没有指定 `output_columns` ，输出列名与 `input_columns` 一致。
 
 上面的介绍可能比较繁琐，简单来说 `map` 就是在数据集的某些列上做 `operations` 里规定的操作。这里的`operations`可以是MindSpore提供的数据增强操作：
+
 [audio](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst#音频)、[text](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst#文本)、[vision](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst#视觉)、[通用](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.transforms.html)。详情请参考[数据变换 Transforms](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/transforms.html)
 也可以是python的方法，里面可以用 opencv，PIL，pandas 等一些三方的方法，和数据集加载一样，**不要使用MindSpore的算子**。
 

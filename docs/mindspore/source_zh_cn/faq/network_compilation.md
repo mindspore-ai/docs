@@ -232,6 +232,8 @@ A: 当需要加速执行时，MindSpore会将Python源码转换成一种基于�
 
 > 一次任务中有可能会触发多次编译流程。
 
+<br/>
+
 <font size=3>**Q: 编译时报出告警:“On the Ascend platform, if you read-only access to the parameter, you can take the value of the parameter, so that the system can do more optimization.”，是什么意思？**</font>
 
 A: 由于Ascend平台不能真正返回一个内存地址，导致在整图下沉模式下，对于控制流场景中返回值存在参数的情况，会存在一些问题。为了避免出现问题，会对这种场景切换到统一运行时模式，从整图下沉模式切换到统一运行时模式，网络性能可能会劣化。如果控制流子图的返回值仅使用参数的值，可以通过参数的value接口获取参数的值，从而避免模式切换导致的性能劣化。
@@ -289,7 +291,7 @@ A: 首先检查导出参数和导入执行的参数个数是否是匹配的。�
 
 因为导出数据输入为非Tensor时，该导出的输入将会变成常量固化到MindIR中，使MindIR中的输入要少于网络构建的Construct入参。
 
-如果是标量类型，可以将标量转成Tensor类型导出。如果是Tuple或者List类型.可以使用[mutable](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.mutable.html)接口进行包装后及进行导出。
+如果是标量类型，可以将标量转成Tensor类型导出。如果是Tuple或者List类型，可以使用[mutable](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.mutable.html)接口进行包装后及进行导出。
 
 <br/>
 

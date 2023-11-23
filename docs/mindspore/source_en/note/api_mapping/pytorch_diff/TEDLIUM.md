@@ -38,7 +38,7 @@ For more information, see [mindspore.dataset.TedliumDataset](https://mindspore.c
 
 PyTorch: Read the Tedlium dataset.
 
-MindSpore: Read the Tedlium dataset. Download dataset from web is not supported.
+MindSpore: Read the Tedlium dataset. Downloading dataset from web is not supported.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

@@ -43,7 +43,7 @@ For more information, see [mindspore.dataset.CityscapesDataset](https://www.mind
 
 PyTorch: Read the Cityscapes dataset.
 
-MindSpore: Read the Cityscapes dataset. Download dataset from web is not supported.
+MindSpore: Read the Cityscapes dataset. Downloading dataset from web is not supported.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

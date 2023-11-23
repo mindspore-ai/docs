@@ -22,7 +22,7 @@ For more information, see [mindspore.nn.AvgPool3d](https://www.mindspore.cn/docs
 
 PyTorch: Perform averaging pooling operations on a one-dimensional plane on the input multidimensional data.
 
-MindSpore: This API implementation function of MindSpore is compatible with TensorFlow and PyTorch, When `pad_mode` is "valid" or "same", the function is consistent with TensorFlow, and when `pad_mode` is "pad", the function is consistent with PyTorch, compared with PyTorch 1.8.1, MindSpore additionally supports 4D input, which is consistent with PyTorch 1.12.
+MindSpore: This API implementation function of MindSpore is compatible with TensorFlow and PyTorch. When `pad_mode` is "valid" or "same", the function is consistent with TensorFlow, and when `pad_mode` is "pad", the function is consistent with PyTorch. Compared with PyTorch 1.8.1, MindSpore additionally supports 4D input, which is consistent with PyTorch 1.12.
 
 | Categories | Subcategories   | PyTorch     | MindSpore   | Differences   |
 | ---- | ----- | ------- | --------- | -------------- |

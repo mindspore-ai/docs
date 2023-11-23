@@ -34,7 +34,7 @@ For more information, see [mindspore.dataset.YesNoDataset](https://mindspore.cn/
 
 PyTorch: Read the YesNo dataset.
 
-MindSpore: Read the YesNo dataset. Download dataset from web is not supported.
+MindSpore: Read the YesNo dataset. Downloading dataset from web is not supported.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

@@ -1003,7 +1003,7 @@ Input parameters:
 
 - `start` -- Start position of the subscript. The type is `int`. The default value is 0.
 
-Return value: A `Tuple`
+Return value: A `Tuple`.
 
 For example:
 

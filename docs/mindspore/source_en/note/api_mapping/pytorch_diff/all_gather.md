@@ -27,12 +27,12 @@ For more information, see [mindspore.ops.AllGather](https://mindspore.cn/docs/en
 
 PyTorch: The inputs are the tensor broadcasted by the current process `tensor`, the communication group `group` and the async op flag `async_op`. The output is `tensor_list` after AllGather op, whose type is `list[Tensor]` and the length is the number of devices in the communication group. The return is a async work handle if `async_op=True`, otherwise is `None`.
 
-MindSpore: The input of this interface is `input_x` that is a `tensor`. The output is a `tensor`, whose first dimension equals the number of devices in the communication group. This interface currently does not support the configuration of `async_op`.
+MindSpore: This interface input is tensor input_x and the output is tensor. The first dimension is the number of devices N in the communication domain, and the rest of the dimensions is the same as the input tensor, rather than outputting list[Tensor] as the PyTorch interface does. This interface currently does not support the configuration of `async_op`.
 
 | Class | Sub-class |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
 |Param | Param 1 | tensor_list | - |PyTorch: the output after AllGather. MindSpore does not have this parameter|
 | | Param 2 | tensor | - |PyTorch: the tensor broadcasted by the current process. MindSpore does not have this parameter |
-| | Param 3 | group | group |No dfference|
+| | Param 3 | group | group |-|
 | | Param 4 | async_op | - |PyTorch: the async op flag. MindSpore does not have this parameter|
 | Input | Single input | - | input_x | PyTorch: not applied. MindSpore: the input tensor of AllGather. |
