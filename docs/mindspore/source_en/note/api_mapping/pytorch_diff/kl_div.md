@@ -20,16 +20,16 @@ For more information, see [mindspore.ops.kl_div](https://www.mindspore.cn/docs/e
 
 ## Differnnces
 
-PyTorch: Compute the KL divergence of  `logits` 和 `labels`, `log_target` is the flag Indicates whether the `target` is passed to the log space.
+PyTorch: Compute the KL divergence of `logits` and `labels`, `log_target` is the flag Indicates whether the `target` is passed to the log space.
 
 MindSpore: MindSpore API basically implements the same function as PyTorch, but the `log_target` is not defined.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | ---- | ----- | ------- | --------- | ------------- |
-| Parameters | Parameter 1 | input | logits  | Same function, different parameter names          |
-|      | Parameter 2 | target | labels | Same function, different parameter names |
-|      | Parameter 3 | size_average    | -    | PyTorch deprecated parameters, functionally replaced by the reduction parameter          |
-|      | Parameter 4 | reduce    | -    | PyTorch deprecated parameters, functionally replaced by the reduction parameter        |
+| Parameters | Parameter 1 | input | logits  | both are input Tensors         |
+|      | Parameter 2 | target | labels | both are input Tensors       |
+|      | Parameter 3 | size_average    | -    | Same function. PyTorch has deprecated this parameter, and MindSpore does not have this parameter.      |
+|      | Parameter 4 | reduce    | -    | Same function. PyTorch has deprecated this parameter, and MindSpore does not have this parameter.     |
 |      | Parameter 5 | reduction | reduction | Same function, different default values. |
 |      | Parameter 6| log_target    | -    | parameter not defined    |
 

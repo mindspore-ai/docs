@@ -34,6 +34,7 @@ For more information, see [mindspore.dataset.IMDBDataset](https://mindspore.cn/d
 PyTorch: Read the IMDB dataset.
 
 MindSpore: Read the IMDB dataset. Downloading dataset from web is not supported.
+
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |
@@ -41,7 +42,7 @@ MindSpore: Read the IMDB dataset. Downloading dataset from web is not supported.
 |     | Parameter3 | -    | num_samples | The number of images to be included in the dataset |
 |     | Parameter4 | -    | num_parallel_workers | Number of worker threads to read the data |
 |     | Parameter5 | -    | shuffle  | Whether to perform shuffle on the dataset |
-|     | Parameter6 | -    | sampler  | Object used to choose samples from the dataset |
+|     | Parameter6 | -    | sampler  | Specify the sampler |
 |     | Parameter7 | -    | num_shards | Number of shards that the dataset will be divided into |
 |     | Parameter8 | -    | shard_id | The shard ID within num_shards |
 |     | Parameter9 | -    | cache | Use tensor caching service to speed up dataset processing |

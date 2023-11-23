@@ -38,7 +38,7 @@ MindSpore: Look up a word into an id according to the input vocabulary table.
 |     | Parameter2 | iterator   |-     | Strings to be tokenized, see usage below in MindSpore |
 |     | Parameter3 | removed_tokens    |-     | Removed tokens from output dataset, not support by MindSpore |
 |     | Parameter4 | -   |unknown_token    | Word is used in case of the target word is out of vocabulary |
-|     | Parameter5 | -   |data_type    | The data type that lookup |
+|     | Parameter5 | -   |data_type    | The data type output by lookup |
 
 ## Code Example
 

@@ -36,7 +36,7 @@ For more information, see [mindspore.dataset.MnistDataset](https://mindspore.cn/
 
 PyTorch: Read the MNIST dataset. API integrates the transformation operations for image and label.
 
-MindSpore: Read the MNIST dataset. Downloading dataset from web is not supported. Transforms for image and label depends on `mindshare.dataset.map` operation.
+MindSpore: Read the MNIST dataset. Downloading dataset from web is not supported. Transforms for image and label depends on `mindspore.dataset.map` operation.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
