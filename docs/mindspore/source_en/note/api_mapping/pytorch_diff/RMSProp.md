@@ -45,12 +45,12 @@ PyTorch and MindSpore implement different algorithms for this optimizer. Please 
 | Parameters | Parameter 1 | params       | params        | Consistent function           |
 |      | Parameter 2 | lr           | learning_rate | Consistent function, different parameter names and default values                                     |
 |      | Parameter 3 | alpha        | decay             | Consistent function, different parameter names and default values                                     |
-|      | Parameter 6 | eps          | epsilon             | Consistent function, different parameter names and default values                                     |
-|      | Parameter 4 | weight_decay | weight_decay             | Consistent function                                               |
-|      | Parameter 5 | momentum     | momentum             | Consistent function                                               |
+|      | Parameter 4 | eps          | epsilon             | Consistent function, different parameter names and default values                                     |
+|      | Parameter 5 | weight_decay | weight_decay             | Consistent function                                               |
+|      | Parameter 6 | momentum     | momentum             | Consistent function                                               |
 |      | Parameter 7 | centered     | centered             | Consistent function                                               |
 |      | Parameter 8 | -            | use_locking             | MindSpore `use_locking` controls whether to update the network weights, and PyTorch does not have this parameter|
-|      | Parameter 8 | -            | loss_scale             | MindSpore `loss_scale` is the gradient scaling factor, and PyTorch does not have this parameter       |
+|      | Parameter 9 | -            | loss_scale             | MindSpore `loss_scale` is the gradient scaling factor, and PyTorch does not have this parameter       |
 
 ### Code Example
 

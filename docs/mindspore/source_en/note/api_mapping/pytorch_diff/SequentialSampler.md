@@ -22,13 +22,13 @@ For more information, see [mindspore.dataset.SequentialSampler](https://mindspor
 
 PyTorch: Samples elements sequentially.
 
-MindSpore: Samples elements sequentially.
+MindSpore: Samples elements sequentially. Support for specifying sequential indexing and sample size.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | data_source | -  | Dataset object to be sampled. MindSpore does not need this parameter. |
 |     | Parameter2 | -   | start_index  | Index to start sampling at |
-|     | Parameter3 | -   | num_samples  | Number of elements to sample |
+|     | Parameter3 | -   | num_samples  | Specify the number of samples returned by the sampler |
 
 ## Code Example
 
