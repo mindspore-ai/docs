@@ -42,7 +42,7 @@ MindSpore: The shape of `index` must be the same as the shape of `src` , i.e. al
 
 ## Code Example 1
 
-> Scatter operation on part of `src` data.
+> Perform scatter operation on part of `src` data.
 
 ```python
 # PyTorch
@@ -64,8 +64,7 @@ print(out)
 
 ## Code Example 2
 
-> Scatter operation on all of `src` data.
-> The output values of singular value decomposition are not unique.
+> Perform scatter operation on all of `src` data.
 
 ```python
 import torch
