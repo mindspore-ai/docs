@@ -338,10 +338,10 @@ with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
     content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
-    version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
+    repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
     content_new = ''
     for i in content:
-        if re.findall(f"\n## MindSpore ({version[0]}\.[0-9]+?)[ -]", i):
+        if re.findall(f"\n## MindSpore ({repo_version[0]}\.[0-9]+?)[ -]", i):
             content_new += i
     content = content_new
 else:
