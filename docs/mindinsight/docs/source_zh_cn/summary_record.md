@@ -48,8 +48,7 @@ def train(ds_train):
 
 ```
 
-> 1. 使用summary功能时，建议将`model.train`的`dataset_sink_mode`参数设置为`False`。请参考文末的注意事项。
-> 2. 使用summary功能时，需要将代码放置到`if __name__ == "__main__"`中运行。详情请[参考Python官网介绍](https://docs.python.org/zh-cn/3.7/library/multiprocessing.html#multiprocessing-programming)。
+> 使用summary功能时，建议将`model.train`的`dataset_sink_mode`参数设置为`False`。请参考文末的注意事项。
 
 ### 方式二：结合Summary API和SummaryCollector，自定义收集网络中的数据
 
@@ -375,35 +374,3 @@ mindinsight stop
 5. 每个step保存的数据量，最大限制为2147483647Bytes。如果超出该限制，则无法记录该step的数据，并出现错误。
 
 6. PyNative模式下，`SummaryCollector` 能够正常使用，但不支持记录计算图。
-
-7. 使用Summary时，需要把要执行的代码放在 `if __name__ == '__main__':` 中，否则可能会发生未知错误。
-
-    正确代码:
-
-    ```python
-    import mindspore as ms
-    from mindspore.communication.management import init
-
-
-    if __name__ == '__main__':
-        ms.set_context(mode=ms.GRAPH_MODE, device_target='GPU')
-        init('nccl')
-        with ms.SummaryRecord(log_dir='./summary_dir') as summary_record:
-            pass
-    ```
-
-    错误代码：
-
-    ```python
-    import mindspore as ms
-    from mindspore.communication.management import init
-
-
-    ms.set_context(mode=ms.GRAPH_MODE, device_target='GPU')
-    init('nccl')
-
-
-    if __name__ == '__main__':
-        with ms.SummaryRecord(log_dir='./summary_dir') as summary_record:
-            pass
-    ```
