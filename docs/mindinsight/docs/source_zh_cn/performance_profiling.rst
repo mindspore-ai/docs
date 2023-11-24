@@ -1,6 +1,9 @@
 性能调试 
 ==================================
 
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.2/docs/mindinsight/docs/source_zh_cn/performance_profiling.rst
+
 性能调试模块可将训练过程中的算子耗时等信息记录到文件中，通过可视化界面供用户查看分析，帮助用户更高效地调试神经网络性能。
 
 .. toctree::
