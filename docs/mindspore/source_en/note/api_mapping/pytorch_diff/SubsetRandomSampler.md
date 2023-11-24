@@ -28,7 +28,7 @@ MindSpore: Samples the elements randomly from a sequence of indices, random gene
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter 1 | indices  | indices | - |
 |     | Parameter 2 | generator  | -  | Specifies sampling logic. MindSpore uses global random sampling. |
-|     | Parameter 3 | -   | num_samples  | The number of samples obtained, which can be used to partially obtain the samples obtained by sampling |
+|     | Parameter 3 | -   | num_samples  | Specify the number of samples returned by the sampler |
 
 ## Code Example
 

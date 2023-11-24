@@ -33,6 +33,7 @@ For more information, see [mindspore.dataset.SogouNewsDataset](https://mindspore
 PyTorch: Read the Sogou News dataset.
 
 MindSpore: Read the Sogou News dataset. Downloading dataset from web is not supported.
+
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |
