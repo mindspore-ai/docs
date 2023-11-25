@@ -4,7 +4,7 @@
 
 ## Overview
 
-Gradient accumulation is an optimization technique that enables the use of a larger Batch Size to train a network when memory is limited. Typically, training large neural networks requires a large amount of memory because calculating the gradient on each Batch and updating the model parameters requires saving the gradient values. Larger Batch Size requires more memory, which may lead to out of memory problems. Gradient accumulation works by summing the gradient values of multiple MicroBatches, thus allowing the model to be trained with a larger Batch Size without increasing memory requirements.
+Gradient accumulation is an optimization technique that enables the use of a larger Batch Size to train a network when memory is limited. Typically, training large neural networks requires a large amount of memory because calculating the gradient on each Batch and updating the model parameters requires saving the gradient values. Larger Batch Size requires more memory, which may lead to out of memory problems. Gradient accumulation works by summing the gradient values of multiple MicroBatches, thus allowing the model to be trained with a larger Batch Size without increasing memory requirements. This article focuses on gradient accumulation in distributed scenarios.
 
 Related interfaces:
 

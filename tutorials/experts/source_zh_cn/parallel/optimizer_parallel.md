@@ -218,7 +218,7 @@ epoch: 0, step: 100, loss is 0.6854114
 
 1. `parallel_optimizer_config`：优化器并行特性还提供了配置字典`parallel_optimizer_config={}`。通过在`mindspore.set_auto_parallel_context()`中配置不同的键值，可以达到不同的效果：
 
-    - `gradient_accumulation_shard`：如果为True，则累积梯度变量将在数据并行维度上进行分片。在累积梯度时，每个累积迭代中将会引入额外的通信(ReduceScatter)以保证计算的一致性，但节省了大量的计算设备内存(例如GPU显存)，因此可以使模型以更大的批量进行训练。仅当模型在流水线并行训练或梯度累积中设置此配置，并且具有数据并行维度时，此配置才会有效。默认值为True。
+    - `gradient_accumulation_shard`：如果为True，则累加梯度变量将在数据并行维度上进行分片。在累加梯度时，每个累加迭代中将会引入额外的通信(ReduceScatter)以保证计算的一致性，但节省了大量的计算设备内存(例如GPU显存)，因此可以使模型以更大的批量进行训练。仅当模型在流水线并行训练或梯度累加中设置此配置，并且具有数据并行维度时，此配置才会有效。默认值为True。
 
         ```python
         import mindspore as ms

@@ -150,7 +150,7 @@ class LeNet(nn.Cell):
 
 ### Calling the Interface for Distributed Graph Partition
 
-For this training task we slice `fc1` to process `Worker 0`, `fc2` to process `Worker 1`, `fc3` to process `Worker 2`, `conv1` to process `Worker 3`, and conv2 to process `Worker 4`.
+For this training task we slice `fc1` to process `Worker 0`, `fc2` to process `Worker 1`, `fc3` to process `Worker 2`, `conv1` to process `Worker 3`, and `conv2` to process `Worker 4`.
 
 Distributed graph sharding can be completed by adding the following graph partition statement after initializing the network.
 
@@ -231,7 +231,7 @@ The above code trains first and then infers, where all processes are executed in
 
 #### Starting Scheduler and Worker Processes
 
-Since multiple processes are started within a node, only one `Scheduler` process and multiple `Worker` processes need to be started via a Shell script. For the meaning of the environment variables in the script and their usage, refer to the [Environment Variables List](https://www.mindspore.cn/docs/en/r2.3/note/env_var_list.html) for dynamic cluster environment variables.
+Since multiple processes are started within a node, only one `Scheduler` process and multiple `Worker` processes need to be started via a Shell script. For the meaning of the environment variables in the script and their usage, refer to the [dynamic cluster environment variables](https://www.mindspore.cn/docs/en/r2.3/note/env_var_list.html#dynamic-networking).
 
 The run.sh execution script is as follows:
 

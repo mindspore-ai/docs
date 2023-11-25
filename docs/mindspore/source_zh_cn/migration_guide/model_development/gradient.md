@@ -650,8 +650,8 @@ from mindspore import ops
 grad = ops.clip_by_global_norm(grad)
 ```
 
-## 梯度累积
+## 梯度累加
 
-梯度累积是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算，用以解决由于内存不足，导致Batch size过大，神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
+梯度累加是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算，用以解决由于内存不足，导致Batch size过大，神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
 
-详情请参考[梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/optimize/gradient_accumulation.html)。
+详情请参考[梯度累加](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/optimize/gradient_accumulation.html)。

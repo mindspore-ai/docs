@@ -4,7 +4,7 @@
 
 ## 概述
 
-近几年基于Transformer的大模型在nlp和视觉的各个下游任务上取得了快速发展，往往模型越大，下游任务取得的精度越高。模型规模从亿级到千亿级发展，然而大模型训练需要消耗大量的计算存储资源，训练开销巨大。
+近几年基于Transformer的大模型在自然语言处理和计算机视觉的各个下游任务上取得了快速发展，往往模型越大，下游任务取得的精度越高。模型规模从亿级到千亿级发展，然而大模型训练需要消耗大量的计算存储资源，训练开销巨大。
 
 大模型训练受显存大小限制，在单卡上能够存储的模型参数量有限。通过模型并行，我们可以将大模型拆分到不同的机器上，在引入必要的进程间通信后，进行集群协同训练，模型规模跟机器规模成正比。同时模型规模超过单机显存容量时，模型并行进行跨机通信的开销将越来越大，资源利用率将会显著下降，如何在单机上训练更大的模型，避免模型并行跨机通信成为大模型训练性能提升的关键。
 
@@ -34,7 +34,7 @@ mindspore.set_offload_context(offload_config=offload_config)
 - `offload_config` 是异构存储的配置选项，其中：
 
     - `"offload_param": "cpu"` 设置模型的参数被存储于cpu内存上，仅在训练过程中需要使用数据时加载至设备侧，使用完成后随即卸载至cpu内存。
-    - `"auto_offload": False` 设置关闭自动offload策略，parameter数据将严格安装上一条配置选项执行。
+    - `"auto_offload": False` 设置关闭自动offload策略，parameter数据将严格按照上一条配置选项执行。
     - `"offload_cpu_size": "512GB", "offload_disk_size": "1024GB"` 分别设置了可用于offload的cpu内存和磁盘大小。
     - `"offload_path": "./offload/"` 设置用于offload的磁盘文件路径。
     - `"enable_pinned_mem": True` 设置开启锁页，开启后可加速HBM-CPU内存之间的拷贝。
@@ -235,7 +235,7 @@ step: 3, loss is 2.3037016
 
 ### 自动生成offload策略
 
-除了严格安装用户`"offload_param"`的配置进行数据拷贝，MindSpore还支持自动生成异构存储策略。MindSpore可以通过分析网络的显存使用信息，并结合用户配置的`"max_device_memory"`、`"offload_cpu_size"`、`"offload_disk_size"`、`"hbm_ratio"`、`"cpu_ratio"`等参数生成异构存储策略，并按照既定策略在多种存储介质中进行数据搬移。
+除了严格按照用户`"offload_param"`的配置进行数据拷贝，MindSpore还支持自动生成异构存储策略。MindSpore可以通过分析网络的显存使用信息，并结合用户配置的`"max_device_memory"`、`"offload_cpu_size"`、`"offload_disk_size"`、`"hbm_ratio"`、`"cpu_ratio"`等参数生成异构存储策略，并按照既定策略在多种存储介质中进行数据搬移。
 
 ```python
 import mindspore
