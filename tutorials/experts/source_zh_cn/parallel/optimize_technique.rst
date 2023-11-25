@@ -3,6 +3,7 @@
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg
     :target: https://gitee.com/mindspore/docs/blob/r2.2/tutorials/experts/source_zh_cn/parallel/optimize_technique.rst
+    :alt: 查看源文件
 
 .. toctree::
   :maxdepth: 1
