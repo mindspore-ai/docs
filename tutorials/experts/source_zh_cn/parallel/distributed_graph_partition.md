@@ -149,7 +149,7 @@ class LeNet(nn.Cell):
 
 ### 调用接口进行分布式图切分
 
-此次训练任务我们切分`fc1`到`Worker 0`，`fc2`到`Worker 1`，fc3到`Worker 2`，`conv1`到`Worker 3`，conv2到`Worker 4`进程。
+此次训练任务我们切分`fc1`到`Worker 0`，`fc2`到`Worker 1`，`fc3`到`Worker 2`，`conv1`到`Worker 3`，`conv2`到`Worker 4`进程。
 
 在实例化网络后，添加以下切图语句，即可做到分布式图切分：
 
@@ -230,7 +230,7 @@ if get_rank() == 0:
 
 #### 启动Scheduler和Worker进程
 
-由于是在节点内启动多个进程，因此只需要通过一个Shell脚本启动一个`Scheduler`进程和多个`Worker`进程。对于脚本中的环境变量含义以及用法，可以参考[环境变量目录](https://www.mindspore.cn/docs/zh-CN/r2.2/note/env_var_list.html)中的动态组网环境变量。
+由于是在节点内启动多个进程，因此只需要通过一个Shell脚本启动一个`Scheduler`进程和多个`Worker`进程。对于脚本中的环境变量含义以及用法，可以参考[动态组网环境变量](https://www.mindspore.cn/docs/zh-CN/r2.2/note/env_var_list.html#动态组网)。
 
 run.sh执行脚本如下：
 
