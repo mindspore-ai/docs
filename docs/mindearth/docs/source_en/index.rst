@@ -23,7 +23,7 @@ Code repository address: <https://gitee.com/mindspore/mindscience/tree/master/Mi
    :maxdepth: 1
    :caption: Dem-Super-resolution
 
-   dem-super-resolution/DEMNet
+   dem-super-resolution/DEM-SRNet
 
 .. toctree::
    :glob:
