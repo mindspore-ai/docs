@@ -2482,7 +2482,7 @@ MixPrecisionCfg mix_precision_cfg_;
 bool accumulate_gradients_;
 ```
 
-是否累积梯度。
+是否累加梯度。
 
 ## MixPrecisionCfg
 

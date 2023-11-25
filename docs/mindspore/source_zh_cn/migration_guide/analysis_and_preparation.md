@@ -85,7 +85,7 @@ MindSpore除了可以让用户自定义数据增强的使用，还提供了一�
 
 ### [梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/master/optimize/gradient_accumulation.html)
 
-梯度累积是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算。目的是为了解决由于内存不足，导致Batch size过大神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
+梯度累加是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算。目的是为了解决由于内存不足，导致Batch size过大神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
 
 ### [Summary](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)
 

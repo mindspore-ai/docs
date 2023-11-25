@@ -120,7 +120,7 @@ MindSpore AKG基于**Polyhedral技术**来实现**基于多层Buffer结构的DMA
 
 - **规约计算 Reduction**
 
-  规约计算，即对Tensor的选定维度或所有维度做累积操作，常见的算子有Sum、ReduceMax/Min、ReduceAnd/Or等。
+  规约计算，即对Tensor的选定维度或所有维度做累加操作，常见的算子有Sum、ReduceMax/Min、ReduceAnd/Or等。
   大shape的Reduction场景通常分为两步：
 
   1. 将数据分成小块，分别对各小块进行规约；
