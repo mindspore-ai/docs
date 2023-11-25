@@ -6,7 +6,7 @@
 
 在分布式模型训练中，针对不同的模型规模和数据量大小，可以选择不同的并行策略来提高训练效率和资源利用率。以下是不同并行策略的解释和适用情况：
 
-1. [数据并行](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/data_parallel.html)：数据并行是指在训练过程中，将不同的训练样本分布到不同的设备（如Ascend或GPU）上，每个设备计算其分配的样本的梯度。然后通过梯度的平均或累积来更新模型的参数。数据并行适用于数据量较大，而模型参数量较少，可以在单个设备上加载的情况。数据并行能够充分利用多个设备的计算能力，加速训练过程。
+1. [数据并行](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/data_parallel.html)：数据并行是指在训练过程中，将不同的训练样本分布到不同的设备（如Ascend或GPU）上，每个设备计算其分配的样本的梯度。然后通过梯度的平均或累加来更新模型的参数。数据并行适用于数据量较大，而模型参数量较少，可以在单个设备上加载的情况。数据并行能够充分利用多个设备的计算能力，加速训练过程。
 
 2. [算子级并行](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/operator_parallel.html)：算子级并行是指以算子为单位，把输入张量和模型参数切分到多台设备上进行计算，每个设备负责计算模型的一部分，提升整体速度。算子级并行又分为需要手动配置切分策略的[半自动并行模式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/semi_auto_parallel.html)以及只需配置少部分甚至无需配置切分策略的[自动并行模式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/auto_parallel.html)。算子级并行适用于模型架构较大，无法完全载入单个设备内存的情况。
 

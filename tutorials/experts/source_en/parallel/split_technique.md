@@ -8,7 +8,7 @@ Given a new model, from the user's perspective, the key issue is to configure wh
 
 ### Configuring Operators Involving Weights
 
-The sharding strategy for parameter weights is very important, especially for large models, as the memory consumption caused by parameter weights accounts for a large portion of the total memory consumption for model training. Therefore, operators involving weights usually need to explicitly configure the sharding strategy. In the two examples below, the Gather and MatMul operators involving weights are configured with sharding strategy, while the other operators are not. This corresponds to the data-parallel Embedding layer and the hybrid-parallel FeedForward layer in [mindformers](https://gitee.com/mindspore/mindformers/tree/master/mindformers/modules), respectively.
+The sharding strategy for parameter weights is very important, especially for large models, as the memory consumption caused by parameter weights accounts for a large portion of the total memory consumption for model training. Therefore, operators involving weights usually need to explicitly configure the sharding strategy. In the two examples below, the Gather and MatMul operators involving weights are configured with sharding strategy, while the other operators are not. These correspond the data-parallel VocabEmbedding layer and hybrid-parallel FeedForward Layer in [mindformers](https://gitee.com/mindspore/mindformers/blob/master/mindformers/modules/transformer/transformer.py), respectively.
 
 ![sp_case1_zh](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/tutorials/experts/source_zh_cn/parallel/images/sp_case1_zh.png "Configuring Operators Involving Weights")
 
