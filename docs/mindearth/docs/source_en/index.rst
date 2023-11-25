@@ -39,7 +39,7 @@ Code repository address: <https://gitee.com/mindspore/mindscience/tree/master/Mi
    :maxdepth: 1
    :caption: NowCasting
 
-   nowcasting/dgmr
+   nowcasting/DgmrNet
 
 .. toctree::
    :maxdepth: 1

@@ -39,7 +39,7 @@ MindSpore Earth介绍
    :maxdepth: 1
    :caption: 短临预报
 
-   nowcasting/dgmr
+   nowcasting/DgmrNet
 
 .. toctree::
    :maxdepth: 1
