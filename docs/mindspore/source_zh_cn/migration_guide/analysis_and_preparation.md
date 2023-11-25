@@ -424,7 +424,7 @@ print(y)
 在某些应用场景中（比如推荐系统、分子动力学、图神经网络等），数据的特征是稀疏的，若使用普通张量表征这些数据会引入大量不必要的计算、存储和通讯开销。在这种时候就可以使用稀疏张量来表征这些数据。
 
 MindSpore现在已经支持最常用的[CSR和COO两种稀疏数据格式](https://www.mindspore.cn/tutorials/zh-CN/r2.2/beginner/tensor.html#%E7%A8%80%E7%96%8F%E5%BC%A0%E9%87%8F)。但是由于目前支持稀疏算子有限，大部分稀疏的特性还存在限制，在此情况下，建议优先查找对应的算子是否支持稀疏计算，如不支持的话需要转换成普通算子。
-由于转换成稠密算子后使用的显存会增加，可能不能使用参考实现的batch size进行训练，此时可以使用 [梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/optimize/gradient_accumulation.html) 来模拟大batch训练。
+由于转换成稠密算子后使用的显存会增加，可能不能使用参考实现的batch size进行训练，此时可以使用 [梯度累加](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/optimize/gradient_accumulation.html) 来模拟大batch训练。
 
 ## MindSpore好用功能和特性推荐
 
@@ -454,9 +454,9 @@ MindSpore现在已经支持最常用的[CSR和COO两种稀疏数据格式](https
 
 MindSpore除了可以让用户自定义数据增强的使用，还提供了一种自动数据增强方式，可以基于特定策略自动对图像进行数据增强处理。
 
-### [梯度累积](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/optimize/gradient_accumulation.html)
+### [梯度累加](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/optimize/gradient_accumulation.html)
 
-梯度累积是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算。目的是为了解决由于内存不足，导致Batch size过大神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
+梯度累加是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算。目的是为了解决由于内存不足，导致Batch size过大神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
 
 ### [Summary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/summary_record.html)
 
