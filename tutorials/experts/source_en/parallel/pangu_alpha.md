@@ -12,7 +12,7 @@ In the training entry script train.py, the semi-automatic parallel mode `SEMI_AU
 
 ## Embedding Layer
 
-In language model training, the input data are sentences composed of words, and we usually use the embedding algorithm to implement word vectorization, which maps the words and their location information into word vectors of size dimension `config.hidden_size`. The Embedding layer in the PanGu model consists of two parts, location encoding and word embedding, and implements basic data parallelism and model parallelism logic through `mindformers.modules.VocabEmbedding`.
+In language model training, the input data are sentences composed of words, and we usually use the Embedding algorithm to implement word vectorization, which maps the words and their location information into word vectors of size dimension `config.hidden_size`. The Embedding layer in the PanGu model consists of two parts, location encoding and word embedding, and implements basic data parallelism and model parallelism logic through `mindformers.modules.VocabEmbedding`.
 
 The following code shows that the `Gather` operator takes two inputs and finds the corresponding vectors in the lookup table `embedding_table` according to the index `input_ids`. The lookup table is a parameter to be learned during training and statically occupies memory resources on the card. We can decide to use a data parallel strategy for the `Gather` operator to slice the index batch dimension or a model parallel strategy to row slice the lookup table depending on the size of the lookup table. When the word list range `config.vocab_size` is large, it is recommended to choose a model parallel strategy for `word_embedding`, and the framework will automatically introduce computation and communication operators to handle out-of-bounds lookup cases.
 
@@ -95,7 +95,7 @@ The key difficulty in training large-scale Transformer networks is how to solve 
 
 ### Self-Attention
 
-Self-Attention can be implemented directly via `mindformers.modules.MultiHeadAttention`. In the process of computing Attention, the input vector needs to be projected to the Query, Key, and Value vectors, and then the output of attention needs to be passed through the Dense layer again after the calculation of attention is completed. The following describes the strategy configuration of these three sections respectively.
+Self-Attention can be implemented directly via `mindformers.modules.MultiHeadAttention`. In the process of computing Attention, the input vector needs to be projected to the Query, Key, and Value vectors, and then the output of Attention needs to be passed through the Dense layer again after the calculation of Attention is completed. The following describes the strategy configuration of these three sections respectively.
 
 - Three Dense Matrix Multiplication
 
@@ -118,7 +118,7 @@ Self-Attention can be implemented directly via `mindformers.modules.MultiHeadAtt
 
 - `Softmax` and `BatchMatMul`
 
-  The matrix multiplication of Query and Key vectors is implemented by `BatchMatMul` in the process of computing Attention. Here the input shape of `softmax` is `[batch, sequence_length, num_heads, size_per_head]`. Because each `head` is independent from each other in computing the attention score, the `softmax` operator can be sliced in the `batch` dimension and the `heads` dimension.
+  The matrix multiplication of Query and Key vectors is implemented by `BatchMatMul` in the process of computing Attention. Here the input shape of `softmax` is `[batch, sequence_length, num_heads, size_per_head]`. Because each `head` is independent from each other in computing the Attention score, the `softmax` operator can be sliced in the `batch` dimension and the `heads` dimension.
 
   ```python
   self.softmax = nn.Softmax()
@@ -130,7 +130,7 @@ Self-Attention can be implemented directly via `mindformers.modules.MultiHeadAtt
 
 - Projection Layer
 
-  Projection projects the output of attention once. The relevant dimension in the `MatMul` operator is sliced.
+  Projection projects the output of Attention once. The relevant dimension in the `MatMul` operator is sliced.
 
   ```python
   self.projection = nn.Dense(hidden_size,
@@ -140,7 +140,7 @@ Self-Attention can be implemented directly via `mindformers.modules.MultiHeadAtt
 
 ### FeedForward
 
-FeedForward can be implemented by calling `mindformers.modules.FeedForward` directly. The FeedForward network layer consists of two matrix multiplications. The first matrix multiplication slices in the same way as attention, outputting matrix rows and sliced columns, i.e., in the `batch` dimension and the `output dimension`. In order to avoid introducing redistribution communication between operators, the second matrix multiplication slices the input_channel dimension of the weights, i.e. `matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), ( parallel_config.model_parallel, 1)))`. The framework automatically inserts the `AllReduce` operator when the relevant dimension is sliced, and accumulates the slicing results in the model parallel dimension. The output matrix is sliced in the `batch` dimension only, plus the bias term `add.shard(((parallel_config.data_parallel, 1), (1,)))`.
+FeedForward can be implemented by calling `mindformers.modules.FeedForward` directly. The FeedForward network layer consists of two matrix multiplications. The first matrix multiplication slices in the same way as Attention, outputting matrix rows and sliced columns, i.e., in the `batch` dimension and the `output dimension`. In order to avoid introducing redistribution communication between operators, the second matrix multiplication slices the input_channel dimension of the weights, i.e. `matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), ( parallel_config.model_parallel, 1)))`. The framework automatically inserts the `AllReduce` operator when the relevant dimension is sliced, and accumulates the slicing results in the model parallel dimension. The output matrix is sliced in the `batch` dimension only, plus the bias term `add.shard(((parallel_config.data_parallel, 1), (1,)))`.
 
 ```python
 from mindspore.common.initializer import initializer
@@ -288,7 +288,7 @@ layernorm1.shard(((parallel_config.data_parallel, 1),))
 
 ## Prediction Layer
 
-A fully-connected layer is needed to map the output features from `config.hidden_size` back to the `config.vocab_size` dimension to get logits before calculating the loss. Here the fully-connected layer and the `word_embedding` operation share weights, so the slicing of the fully connected layer weights is required to be consistent with that of the embedding layer.
+A fully-connected layer is needed to map the output features from `config.hidden_size` back to the `config.vocab_size` dimension to get logits before calculating the loss. Here the fully-connected layer and the `word_embedding` operation share weights, so the slicing of the fully connected layer weights is required to be consistent with that of the Embedding layer.
 
 ```python
 import mindspore.ops as ops
@@ -300,7 +300,7 @@ class PanguAlpha_Head(nn.Cell):
         config(PanguAlphaConfig): the config of network
     Inputs:
         state: the output of the backbone
-        embedding_table: the embedding table of the vocabulary
+        embedding_table: the Embedding table of the vocabulary
     Returns:
         logits: Tensor, the logits of the corresponding inputs
     """
@@ -323,7 +323,7 @@ class PanguAlpha_Head(nn.Cell):
         return logits
 ```
 
-In this article, we learn how to quickly implement distributed training of Transformer-like networks on the basis of a stand-alone script by configuring an operator sharding strategy. When specific to the network structure, embedding layer, decoder layer, residual layer and linear layer all have their own slicing features, and users can improve the distributed training and tuning efficiency by mastering the operator strategy configuration method.
+In this article, we learn how to quickly implement distributed training of Transformer-like networks on the basis of a stand-alone script by configuring an operator sharding strategy. When specific to the network structure, Embedding layer, Decoder layer, Residual layer and Linear layer all have their own slicing features, and users can improve the distributed training and tuning efficiency by mastering the operator strategy configuration method.
 
 ## References
 
