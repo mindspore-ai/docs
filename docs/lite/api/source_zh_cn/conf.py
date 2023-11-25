@@ -176,17 +176,72 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
 from sphinx.util import logging
 import shutil
 logger = logging.getLogger(__name__)
-src_dir = os.path.join(os.getenv("MS_PATH"), 'docs/api/lite_api_python')
+
+copy_path = 'docs/api/lite_api_python'
+src_dir = os.path.join(os.getenv("MS_PATH"), copy_path)
+
+copy_list = []
+
+present_path = os.path.dirname(__file__)
 
 for i in os.listdir(src_dir):
     if os.path.isfile(os.path.join(src_dir,i)):
         if os.path.exists('./'+i):
             os.remove('./'+i)
         shutil.copy(os.path.join(src_dir,i),'./'+i)
+        copy_list.append(os.path.join(present_path,i))
     else:
         if os.path.exists('./'+i):
             shutil.rmtree('./'+i)
         shutil.copytree(os.path.join(src_dir,i),'./'+i)
+        copy_list.append(os.path.join(present_path,i))
+
+# add view
+import json
+
+if os.path.exists('../../../../tools/generate_html/version.json'):
+    with open('../../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily_dev.json'):
+    with open('../../../../tools/generate_html/daily_dev.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily.json'):
+    with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+
+if os.getenv("MS_PATH").split('/')[-1]:
+    copy_repo = os.getenv("MS_PATH").split('/')[-1]
+else:
+    copy_repo = os.getenv("MS_PATH").split('/')[-2]
+
+branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
+
+re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{branch}/" + \
+          f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
+
+for cur, _, files in os.walk(present_path):
+    for i in files:
+        flag_copy = 0
+        if i.endswith('.rst'):
+            for j in copy_list:
+                if j in cur:
+                    flag_copy = 1
+                    break
+            if os.path.join(cur, i) in copy_list or flag_copy:
+                try:
+                    with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                        content = f.read()
+                        new_content = content
+                        if 'autosummary::' not in content and "\n=====" in content:
+                            re_view_ = re_view + copy_path + cur.split(present_path)[-1] + '/' + i + \
+                                       '\n    :alt: 查看源文件\n\n'
+                            new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
+                        if new_content != content:
+                            f.seek(0)
+                            f.truncate()
+                            f.write(new_content)
+                except Exception:
+                    print(f'打开{i}文件失败')
 
 # modify urls
 re_url = r"(((gitee.com/mindspore/(mindspore|docs))|(github.com/mindspore-ai/(mindspore|docs))|" + \
