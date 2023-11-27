@@ -2,7 +2,8 @@
 ========
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-   :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/env_var_list.rst
+    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/env_var_list.rst
+    :alt: 查看源文件
 
 本文介绍MindSpore的环境变量。
 

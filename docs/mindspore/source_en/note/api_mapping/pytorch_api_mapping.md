@@ -10,7 +10,7 @@ More MindSpore developers are also welcome to participate in improving the mappi
 
 API mapping consistency criteria: consistent API function, consistent number or sequence of parameters, consistent parameter data type, consistent default value, consistent parameter name. Satisfying all the consistency conditions at the same time is considered as consistent API mapping.
 
-The following exceptions are also considered to be consistent the API mapping:
+The API mapping is also consistent in the following exception scenarios:
 
 **Exception Scenario 1**: Compared to the API mapping consistency criteria, only the input data types of API parameters are not supported in the same range, including the following 3 sub-scenarios:
 

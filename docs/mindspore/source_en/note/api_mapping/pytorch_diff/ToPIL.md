@@ -28,7 +28,7 @@ MindSpore: Convert a Numpy array in <H, W, C> format (such as decoded image) int
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
-|Parameter | Parameter1 | mode    | -    | Color space and pixel depth of input data |
+|Parameter | Parameter1 | mode    | -    | Color space of input data |
 
 ## Code Example
 

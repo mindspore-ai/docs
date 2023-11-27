@@ -36,7 +36,7 @@ For more information, see [mindspore.nn.TransformerDecoderLayer](https://mindspo
 
 ## Differences
 
-The code implementation and parameter update logic of `mindspore.nn.TransformerDecoderLayer` optimizer is mostly the same with `torch.nn.TransformerDecoderLayer`.
+The usage of `mindspore.nn.TransformerDecoderLayer` is mostly the same with that of `torch.nn.TransformerDecoderLayer`.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

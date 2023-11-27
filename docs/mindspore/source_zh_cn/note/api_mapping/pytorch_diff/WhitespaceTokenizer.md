@@ -8,7 +8,7 @@
 torchtext.data.functional.simple_space_split(iterator)
 ```
 
-更多内容详见[torchtext.data.functional.simple_space_split](https://pytorch.org/text/0.9.0/data_functional.html#load-sp-model)。
+更多内容详见[torchtext.data.functional.simple_space_split](https://pytorch.org/text/0.9.0/data_functional.html#torchtext.data.functional.simple_space_split)。
 
 ## mindspore.dataset.text.WhitespaceTokenizer
 

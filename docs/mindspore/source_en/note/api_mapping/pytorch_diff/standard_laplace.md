@@ -26,8 +26,8 @@ MindSpore: Generates random numbers that match the standard Laplace (mean=0, lam
 
 | Categories | Subcategories | PyTorch | MindSpore | Differences   |
 | ---- | ----- | ------- | --------- | -------------- |
-| Parameters | Parameter 1 | loc   | -         | MindSpore doesn't have this parameter, it implements the same functionality as loc in PyTorch equals 0   |
-|      | Parameter 2 | scale   | -      |  MindSpore doesn't have this parameter, it implements the same functionality as scale in PyTorch equals 1  |
+| Parameters | Parameter 1 | loc   | -         | MindSpore does not have this parameter and implements loc=0 in PyTorch by default   |
+|      | Parameter 2 | scale   | -      |  MindSpore does not have this parameter and implements scale=1 in PyTorch by default |
 |      | Parameter 3 | -   | shape | This parameter in PyTorch is passed in when the sample interface is called |
 |      | Parameter 4 | -   | seed        | Random seeds for the operator layer. PyTorch does not have this parameter |
 
