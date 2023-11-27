@@ -56,6 +56,7 @@ MindSpore: MindSpore API is basically the same as PyTorch, and the MindSpore inp
 |      | Parameter 10  | process_group        | process_groups      |    -     |
 | Input | Single input | input               | x                    | Interface input. MindSpore only supports 2-D and 4-D input |
 
+The detailed differences are as follows:
 BatchNorm is a special regularization method in the CV field. It has different computation processes during training and inference and is usually controlled by operator attributes. BatchNorm of MindSpore and PyTorch uses two different parameter groups at this point.
 
 - Difference 1

@@ -20,7 +20,7 @@ For more information, see [mindspore.Tensor.min](https://www.mindspore.cn/docs/e
 
 ## Differences
 
-MindSpore is compatible with Numpy parameters `initial` and `where` based on PyTorch, added parameter return_ Indicators are used to control whether indexes are returned.
+MindSpore is compatible with Numpy parameters `initial` and `where` based on PyTorch, added parameter return_indices is used to control whether indexes are returned.
 
 | Categories | Subcategories | PyTorch | MindSpore | Differences  |
 | --- |---------------|---------| --- |-------------|

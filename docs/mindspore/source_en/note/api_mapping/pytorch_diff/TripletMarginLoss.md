@@ -56,7 +56,7 @@ MindSpore:
 
 - The input parameter `x` of MindSpore corresponds to the input parameter `anchor` of PyTorch.
 
-- MindSpore's initialization parameters 'swap' and 'eps' are positioned in a different order than PyTorch.
+- MindSpore's initialization parameters `swap`and `eps` are positioned in a different order than PyTorch.
 
 | Categories | Subcategories | PyTorch      | MindSpore   | Differences   |
 | ---------- | ------------- | ------------ | ---------   | ------------- |
