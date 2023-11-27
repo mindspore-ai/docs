@@ -33,6 +33,7 @@ For more information, see [mindspore.dataset.SQuADDataset](https://mindspore.cn/
 PyTorch: Read the SQuAD1 dataset.
 
 MindSpore: Read the SQuAD1 dataset. Downloading dataset from web is not supported.
+
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |

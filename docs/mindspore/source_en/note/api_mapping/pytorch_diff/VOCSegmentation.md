@@ -45,7 +45,7 @@ For more information, see [mindspore.dataset.VOCDataset](https://mindspore.cn/do
 
 PyTorch: Pascal VOC Segmentation Dataset.
 
-MindSpore: A source dataset for reading and parsing VOC dataset. The generated dataset with different task settings has different output columns.
+MindSpore: A source dataset for reading and parsing VOC dataset.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

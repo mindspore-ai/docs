@@ -22,7 +22,7 @@ For more information, see [mindspore.Tensor.sum](https://www.mindspore.cn/docs/e
 
 MindSpore API has the same function as that of PyTorch, but the number and order of parameters are not the same.
 
-PyTorch: No parameter `initial`. The relative order of parameters `keepdim` and `dtype` is different from MindSpore.
+PyTorch: No parameter `initial`. The relative order of parameters `keepdim` and `dtype` is different from that of MindSpore.
 
 MindSpore: The starting value of the summation can be configured with the parameter `initial`. The relative order of the parameters `keepdim` and `dtype` differs from that of PyTorch.
 

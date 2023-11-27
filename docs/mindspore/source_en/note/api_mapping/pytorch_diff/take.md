@@ -20,9 +20,11 @@ For more information, see [mindspore.Tensor.take](https://www.mindspore.cn/docs/
 
 ## Usage
 
-MindSpore API function is basically the same as pytorch
+MindSpore API function is basically the same as pytorch.
 
-PyTorch: Obtain the elements in the Tensor. No dimension can be specified, and use the expanded input array. Throws an exception if the index is out of range. If the index is out of range: throw an exception if mode is 'raise'; wrap if mode is 'wrap'; crop to range if mode is 'raise'.
+PyTorch: Obtain the elements in the Tensor. No dimension can be specified, and use the expanded input array. Throws an exception if the index is out of range.
+
+MindsPore: Obtain the elements in the Tensor in the specified dimension. The dimension can be specified, and the expanded input array is used by default. If the index is out of range: throw an exception if mode is 'raise'; wrap if mode is 'wrap'; crop to range if mode is 'raise'.
 
 | Categories | Subcategories| PyTorch | MindSpore |Differences |
 | ---- | ----- | ------- | --------- |------------------ |

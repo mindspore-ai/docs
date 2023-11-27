@@ -5,12 +5,10 @@
 ## torchtext.data.functional.simple_space_split
 
 ```python
-torchtext.data.functional.simple_space_split(
-    spm
-)
+torchtext.data.functional.simple_space_split(iterator)
 ```
 
-For more information, see [torchtext.data.functional.simple_space_split](https://pytorch.org/text/0.9.0/data_functional.html#load-sp-model).
+For more information, see [torchtext.data.functional.simple_space_split](https://pytorch.org/text/0.9.0/data_functional.html#torchtext.data.functional.simple_space_split).
 
 ## mindspore.dataset.text.WhitespaceTokenizer
 
@@ -28,7 +26,7 @@ MindSpore: Tokenize a string on with whitespaces.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
-|Parameter | Parameter1 | -    | with_offsets     | Whether or not output offsets of tokens |
+|Parameter | Parameter1 | -    | with_offsets     | Whether to output offsets of tokens |
 
 ## Code Example
 
