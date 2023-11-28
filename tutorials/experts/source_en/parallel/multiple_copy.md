@@ -10,9 +10,7 @@ Usage Scenario: When there is model parallel in semi-automatic mode as well as i
 
 Related interfaces:
 
-1. `nn.WithLossCell(backbone, loss_fn)`: Multi-copy parallel requires first defining the Cell of the network and loss function through this interface, i.e., LossCell, which is used to wrap the backbone network and loss function.
-
-2. `mindspore.nn.MicroBatchInterleaved(cell_network, interleave_num=2)`: This function serves to split the input into `interleave_num` parts in the zeroth dimension, and then performs the computation of the wrapped cell.
+- `mindspore.nn.MicroBatchInterleaved(cell_network, interleave_num=2)`: This function serves to split the input into `interleave_num` parts in the zeroth dimension, and then performs the computation of the wrapped cell.
 
 ## Basic Principle
 
