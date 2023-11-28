@@ -57,9 +57,9 @@ comm_fusion={"openstate": True, "allreduce": {"mode": "auto", "config": None}}�
 
 ### 样例代码说明
 
->你可以在这里下载完整的样例代码：
+> 你可以在这里下载完整的样例代码：
 >
-><https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/distributed_comm_fusion>。
+> <https://gitee.com/mindspore/docs/tree/r2.2/docs/sample_code/distributed_comm_fusion>。
 
 目录结构如下：
 
@@ -95,7 +95,7 @@ init()
 
 更多使用方法，可以参考MindSpore的[测试用例](https://gitee.com/mindspore/mindspore/blob/r2.2/tests/ut/python/parallel/test_comm_fusion.py)。
 
->用户可以自行尝试`comm_fusion`的size和index模式，本质上都是fusion buffer类的方法。
+> 用户可以自行尝试`comm_fusion`的size和index模式，本质上都是fusion buffer类的方法。
 
 #### `Cell.set_comm_fusion`接口
 

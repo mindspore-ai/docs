@@ -27,7 +27,7 @@
 
 3. 网络构图
 
-    数据并行网络的书写方式与单卡网络没有差别，这是因为在正反向传播（Forward propagation & Backward propagation）过程中各卡的模型间是独立执行的，只是保持了相同的网络结构。唯一需要特别注意的是为了保证各卡间训练同步，相应的网络参数初始化值应当是一致的，在`DATA_PRALLEL`模式下可以通过设置seed或通过使能`parameter_broadcast`达到多卡间权重初始化一致的目的。
+    数据并行网络的书写方式与单卡网络没有差别，这是因为在正反向传播（Forward propagation & Backward propagation）过程中各卡的模型间是独立执行的，只是保持了相同的网络结构。唯一需要特别注意的是为了保证各卡间训练同步，相应的网络参数初始化值应当是一致的，在`DATA_PARALLEL`模式下可以通过设置seed或通过使能`parameter_broadcast`达到多卡间权重初始化一致的目的。
 
 4. 梯度聚合（Gradient aggregation）
 
