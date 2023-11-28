@@ -227,7 +227,8 @@ import search_code
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
-src_dir = os.path.join(os.getenv("MS_PATH"), 'docs/api/api_python')
+copy_path = 'docs/api/api_python'
+src_dir = os.path.join(os.getenv("MS_PATH"), copy_path)
 des_sir = "./api_python"
 
 if not exists(src_dir):
@@ -235,31 +236,6 @@ if not exists(src_dir):
 if os.path.exists(des_sir):
     shutil.rmtree(des_sir)
 shutil.copytree(src_dir, des_sir)
-
-# rename file name to solve Case sensitive.
-target_dir_ops="./api_python/ops/"
-try:
-    for filename in os.listdir(target_dir_ops):
-        newname = filename.replace("func_",'')
-        os.rename(os.path.join(target_dir_ops, filename),os.path.join(target_dir_ops, newname))
-except Exception as e:
-    print(e)
-
-target_dir_mindspore="./api_python/mindspore/"
-try:
-    for filename in os.listdir(target_dir_mindspore):
-        newname = filename.replace("func_",'')
-        os.rename(os.path.join(target_dir_mindspore, filename),os.path.join(target_dir_mindspore, newname))
-except Exception as e:
-    print(e)
-
-target_dir_tensor="./api_python/mindspore/Tensor/"
-try:
-    for filename in os.listdir(target_dir_tensor):
-        newname = filename.replace("method_",'')
-        os.rename(os.path.join(target_dir_tensor, filename),os.path.join(target_dir_tensor, newname))
-except Exception as e:
-    print(e)
 
 probability_dir = './api_python/probability'
 if os.path.exists(probability_dir):
@@ -344,6 +320,77 @@ def tensor_interface_name():
                     extra_write_list.append(k)
             g.write(str(extra_write_list))
 
+# Rename .rst file to .txt file for include directive.
+from rename_include import rename_include
+
+rename_include('api_python')
+
+# modify urls
+import json
+
+if os.path.exists('../../../tools/generate_html/version.json'):
+    with open('../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../tools/generate_html/daily_dev.json'):
+    with open('../../../tools/generate_html/daily_dev.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../tools/generate_html/daily.json'):
+    with open('../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+
+if os.getenv("MS_PATH").split('/')[-1]:
+    copy_repo = os.getenv("MS_PATH").split('/')[-1]
+else:
+    copy_repo = os.getenv("MS_PATH").split('/')[-2]
+
+branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
+docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
+
+re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/" + \
+          f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
+
+for cur, _, files in os.walk(des_sir):
+    for i in files:
+        if i.endswith('.rst'):
+            try:
+                with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                    content = f.read()
+                    new_content = content
+                    if 'autosummary::' not in content and "\n=====" in content:
+                        re_view_ = re_view + copy_path + cur.split('api_python')[-1] + '/' + i +'\n    :alt: 查看源文件\n\n'
+                        new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
+                    if new_content != content:
+                        f.seek(0)
+                        f.truncate()
+                        f.write(new_content)
+            except Exception:
+                print(f'打开{i}文件失败')
+
+# rename file name to solve Case sensitive.
+target_dir_ops="./api_python/ops/"
+try:
+    for filename in os.listdir(target_dir_ops):
+        newname = filename.replace("func_",'')
+        os.rename(os.path.join(target_dir_ops, filename),os.path.join(target_dir_ops, newname))
+except Exception as e:
+    print(e)
+
+target_dir_mindspore="./api_python/mindspore/"
+try:
+    for filename in os.listdir(target_dir_mindspore):
+        newname = filename.replace("func_",'')
+        os.rename(os.path.join(target_dir_mindspore, filename),os.path.join(target_dir_mindspore, newname))
+except Exception as e:
+    print(e)
+
+target_dir_tensor="./api_python/mindspore/Tensor/"
+try:
+    for filename in os.listdir(target_dir_tensor):
+        newname = filename.replace("method_",'')
+        os.rename(os.path.join(target_dir_tensor, filename),os.path.join(target_dir_tensor, newname))
+except Exception as e:
+    print(e)
+
 ops_interface_name()
 nn_interface_name()
 tensor_interface_name()
@@ -384,11 +431,6 @@ for root, dirs, files in os.walk(api_file_dir, topdown=True):
     for file_ in files:
         if '.rst' in file_ or '.txt' in file_:
             convert2utf8(os.path.join(root, file_))
-
-# Rename .rst file to .txt file for include directive.
-from rename_include import rename_include
-
-rename_include('api_python')
 
 src_release = os.path.join(os.getenv("MS_PATH"), 'RELEASE_CN.md')
 des_release = "./RELEASE.md"
