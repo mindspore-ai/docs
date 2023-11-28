@@ -40,7 +40,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 |       out       |                 Indicates the output Tensor                  |Assign the operation result to the out parameter, not supported in MindSpore.|
 |     layout      |          Indicates the memory distribution strategy          |PyTorch supports torch.striped and torch.split_coo, not supported in MindSpore.|
 |     device      |            Indicates the Tensor storage location             |Including device type and optional device number, MindSpore currently supports operator or network-level device scheduling.|
-|  requires_grad  |           Indicates whether to update the gradient           |MindSpore can be accessed through the `Parameters.requires_grad` attribute to control.|
+|  requires_grad  |           Indicates whether to update the gradient           |MindSpore can be accessed through the `Parameter.requires_grad` attribute to control.|
 |    generator    |        Indicates a generator for pseudorandom number         |In MindSpore, replaced with the parameter `seed` of the APIs of random number.|
 |   pin_memeory   |         Indicates whether to use locking page memory         |Not supported in MindSpore.|
 |  memory_format  |          Indicates the memory format of the Tensor           |Not supported in MindSpore.|

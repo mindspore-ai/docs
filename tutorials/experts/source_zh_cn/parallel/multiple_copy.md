@@ -10,9 +10,7 @@
 
 相关接口：
 
-1. `nn.WithLossCell(backbone, loss_fn)`：多副本并行需要首先通过此接口定义网络和损失函数的Cell，即LossCell，用于封装骨干网络和损失函数。
-
-2. `mindspore.nn.MicroBatchInterleaved(cell_network, interleave_num=2)`：这个函数的作用是将输入在第零维度拆成 `interleave_num`份，然后执行包裹的cell的计算。
+- `mindspore.nn.MicroBatchInterleaved(cell_network, interleave_num=2)`：这个函数的作用是将输入在第零维度拆成 `interleave_num`份，然后执行包裹的cell的计算。
 
 ## 基本原理
 
