@@ -5,12 +5,10 @@
 ## torchtext.data.functional.simple_space_split
 
 ```python
-torchtext.data.functional.simple_space_split(
-    spm
-)
+torchtext.data.functional.simple_space_split(iterator)
 ```
 
-For more information, see [torchtext.data.functional.simple_space_split](https://pytorch.org/text/0.9.0/data_functional.html#load-sp-model).
+For more information, see [torchtext.data.functional.simple_space_split](https://pytorch.org/text/0.9.0/data_functional.html#torchtext.data.functional.simple_space_split).
 
 ## mindspore.dataset.text.WhitespaceTokenizer
 
