@@ -20,3 +20,29 @@ FP16 format has 5 bits of exponent and 10 bits of mantissa, while BF16 has 8 bit
 |[mindspore.amp.custom_mixed_precision](https://www.mindspore.cn/docs/en/r2.3/api_python/amp/mindspore.amp.custom_mixed_precision.html)|✔️|When using the custom-mixed-precision interface, you can specify bfloat16 as the low-precision data type.|
 |[mindspore.save_mindir](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.save_mindir.html)|✔️|When saving a MindIR file, the bfloat16 data type is supported in the network.|
 |[mindspore.load_mindir](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.load_mindir.html)|✔️|When loading a MindIR file, the bfloat16 data type is supported in the network.|
+|[mindspore.ops.Add](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Add.html)|✔️||
+|[mindspore.ops.AddN](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.AddN.html)|✔️||
+|[mindspore.ops.AssignAdd](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.AssignAdd.html)|✔️||
+|[mindspore.ops.BatchMatMul](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.BatchMatMul.html)|✔️||
+|[mindspore.ops.Cast](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Cast.html)|✔️||
+|[mindspore.ops.Equal](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Equal.html)|✔️||
+|[mindspore.ops.Exp](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Exp.html)|✔️||
+|[mindspore.ops.FastGeLU](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.FastGeLU.html)|✔️||
+|[mindspore.ops.GreaterEqual](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.GreaterEqual.html)|✔️||
+|[mindspore.ops.LayerNorm](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.LayerNorm.html)|✔️||
+|[mindspore.ops.LessEqual](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.LessEqual.html)|✔️||
+|[mindspore.ops.MatMul](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.MatMul.html)|✔️||
+|[mindspore.ops.Maximum](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Maximum.html)|✔️||
+|[mindspore.ops.Minimum](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Minimum.html)|✔️||
+|[mindspore.ops.Mul](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Mul.html)|✔️||
+|[mindspore.ops.NotEqual](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.NotEqual.html)|✔️||
+|[mindspore.ops.RealDiv](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.RealDiv.html)|✔️||
+|[mindspore.ops.ReduceMean](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ReduceMean.html)|✔️||
+|[mindspore.ops.ReduceSum](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ReduceSum.html)|✔️||
+|[mindspore.ops.Select](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Select.html)|✔️||
+|[mindspore.ops.Softmax](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Softmax.html)|✔️||
+|[mindspore.ops.Sqrt](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Sqrt.html)|✔️||
+|[mindspore.ops.Square](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Square.html)|✔️||
+|[mindspore.ops.Sub](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Sub.html)|✔️||
+|[mindspore.ops.Tile](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Tile.html)|✔️||
+|[mindspore.ops.Transpose](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Transpose.html)|✔️||
