@@ -128,7 +128,7 @@ model = ms.Model(net)
 predict_layout = model.infer_predict_layout(predict_data)
 # Create checkpoint list
 ckpt_file_list = ["./src_checkpoints/rank_{}/checkpoint-10_1875.ckpt".format(i) for i in range(0, get_group_size())]
-# Load the distributed Parameter
+# Load the distributed parameter
 ms.load_distributed_checkpoint(net, ckpt_file_list, predict_layout)
 predict_result = model.predict(predict_data)
 print(predict_result)
