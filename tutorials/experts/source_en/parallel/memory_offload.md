@@ -10,7 +10,7 @@ Large model training is limited by the size of the video memory, and the number 
 
 Heterogeneous storage management enables 10x to 100x storage expansion of model parameters, thus breaking the memory limitation of large model training and realizing low-cost large model training. This tutorial will explain the basic principles of heterogeneous storage management and introduce the related configuration parameters and their use. With this feature, developers can use the same hardware to train larger models.
 
-The related configuration and switch cide;
+The related configuration and switch code;
 
 ```python
 import mindspore
