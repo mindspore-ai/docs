@@ -145,36 +145,82 @@ from sphinx.util import logging
 import shutil
 logger = logging.getLogger(__name__)
 
-src_dir_api = os.path.join(os.getenv("SV_PATH"), 'docs/api/api_python')
-des_sir = "./api_python"
+copy_path = 'docs/api/api_python'
+src_dir = os.path.join(os.getenv("SV_PATH"), copy_path)
 
-if not exists(src_dir_api):
-    logger.warning(f"不存在目录：{src_dir_api}！")
-if os.path.exists(des_sir):
-    shutil.rmtree(des_sir)
-shutil.copytree(src_dir_api, des_sir)
+copy_list = []
 
-    # Rename .rst file to .txt file for include directive.
+present_path = os.path.dirname(__file__)
+
+for i in os.listdir(src_dir):
+    if os.path.isfile(os.path.join(src_dir,i)):
+        if os.path.exists('./'+i):
+            os.remove('./'+i)
+        shutil.copy(os.path.join(src_dir,i),'./'+i.split('.',1)[-1])
+        copy_list.append(os.path.join(present_path,i.split('.',1)[-1]))
+    else:
+        if os.path.exists('./'+i):
+            shutil.rmtree('./'+i)
+        shutil.copytree(os.path.join(src_dir,i),'./'+i)
+        copy_list.append(os.path.join(present_path,i))
+
+# Rename .rst file to .txt file for include directive.
 from rename_include import rename_include
 
-rename_include('api_python')
+rename_include(present_path)
 
-src_dir = os.path.join(os.path.dirname(__file__),'api_python')
-try:
-    for root,dirs,files in os.walk(src_dir):
-        for dir in dirs:
-            if os.path.exists('./' + dir):
-                shutil.rmtree('./' + dir)
-            if root == src_dir:
-                shutil.copytree(os.path.join(root,dir), './' + dir)
-        for file in files:
-            if root == src_dir:
-                if os.path.exists('./' + file.split('.',1)[-1]):
-                    os.remove('./' + file.split('.',1)[-1])
-                shutil.copy(os.path.join(root,file), './' + file.split('.',1)[-1])
-    shutil.rmtree(des_sir)
-except Exception as e:
-    logger.warning(f'{e}')
+# add view
+import json
+
+if os.path.exists('../../../../tools/generate_html/version.json'):
+    with open('../../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily_dev.json'):
+    with open('../../../../tools/generate_html/daily_dev.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily.json'):
+    with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+
+if os.getenv("SV_PATH").split('/')[-1]:
+    copy_repo = os.getenv("SV_PATH").split('/')[-1]
+else:
+    copy_repo = os.getenv("SV_PATH").split('/')[-2]
+
+branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
+docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
+
+re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/" + \
+          f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
+
+for cur, _, files in os.walk(present_path):
+    for i in files:
+        flag_copy = 0
+        if i.endswith('.rst'):
+            for j in copy_list:
+                if j in cur:
+                    flag_copy = 1
+                    break
+            if os.path.join(cur, i) in copy_list or flag_copy:
+                try:
+                    with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                        content = f.read()
+                        new_content = content
+                        if 'autosummary::' not in content and "\n=====" in content:
+                            if cur == present_path:
+                                re_view_ = re_view + copy_path + cur.split(present_path)[-1] + '/' + \
+                                        'mindspore_serving.' + i + '\n    :alt: 查看源文件\n\n'
+                                new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
+                            else:
+                                re_view_ = re_view + copy_path + cur.split(present_path)[-1] + '/' + i + \
+                                        '\n    :alt: 查看源文件\n\n'
+                                new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
+                        if new_content != content:
+                            f.seek(0)
+                            f.truncate()
+                            f.write(new_content)
+                except Exception:
+                    print(f'打开{i}文件失败')
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 # import anchor_mod
