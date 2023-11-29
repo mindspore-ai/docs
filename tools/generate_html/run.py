@@ -291,6 +291,12 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             else:
                 os.environ["LITE_PACKAGE_PATH"] = os.path.join(WHLDIR, i)
 
+    # 安装mistune额外依赖
+    cmd = ["pip", "install", "mistune==2.0.4"]
+    process_1 = subprocess.Popen(cmd, stderr=subprocess.PIPE, encoding="utf-8")
+    process_1.communicate()
+    process_1.wait()
+
     ERRORLOGDIR = f"{WORKDIR}/errorlog/"
 
 
