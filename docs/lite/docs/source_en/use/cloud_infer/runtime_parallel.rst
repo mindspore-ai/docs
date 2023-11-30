@@ -1,8 +1,8 @@
 Performing Concurrent Inference
 ===============================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.3/docs/lite/docs/source_en/use/cloud_infer/runtime_parallel.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
+    :target: https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/cloud_infer/runtime_parallel.rst
     :alt: View Source on Gitee
 
 .. toctree::

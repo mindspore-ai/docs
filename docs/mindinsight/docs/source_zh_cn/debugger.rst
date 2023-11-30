@@ -1,8 +1,8 @@
 调试器
 ==================================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.3/docs/mindinsight/docs/source_zh_cn/debugger.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/debugger.rst
     :alt: 查看源文件
 
 MindSpore调试器是为图模式训练提供的调试工具，可以用来查看并分析计算图节点的中间结果。

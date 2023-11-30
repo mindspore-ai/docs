@@ -1,8 +1,8 @@
 Debugger
 ==================================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.3/docs/mindinsight/docs/source_en/debugger.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
+    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/debugger.rst
     :alt: View Source on Gitee
 
 MindSpore Debugger is a debugging tool for training in Graph Mode. It can be applied to visualize and analyze the intermediate computation results of the computational graph.

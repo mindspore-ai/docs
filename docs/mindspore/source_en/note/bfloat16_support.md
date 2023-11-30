@@ -1,6 +1,6 @@
 # bfloat16 Datatype Support Status
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/bfloat16_support.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/bfloat16_support.md)
 
 ## Overview
 
@@ -15,11 +15,11 @@ FP16 format has 5 bits of exponent and 10 bits of mantissa, while BF16 has 8 bit
 
 |API Name|Ascend|Descriptions|
 |:----|:---------|:----|
-|[mindspore.Tensor.asnumpy](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html)|❌|Since numpy does not support bfloat16 data type, it is not possible to convert a tensor of bfloat16 type to numpy type.|
-|[mindspore.amp.auto_mixed_precision](https://www.mindspore.cn/docs/en/r2.3/api_python/amp/mindspore.amp.auto_mixed_precision.html)|✔️|When using the auto-mixed-precision interface, you can specify bfloat16 as the low-precision data type.|
-|[mindspore.amp.custom_mixed_precision](https://www.mindspore.cn/docs/en/r2.3/api_python/amp/mindspore.amp.custom_mixed_precision.html)|✔️|When using the custom-mixed-precision interface, you can specify bfloat16 as the low-precision data type.|
-|[mindspore.save_mindir](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.save_mindir.html)|✔️|When saving a MindIR file, the bfloat16 data type is supported in the network.|
-|[mindspore.load_mindir](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.load_mindir.html)|✔️|When loading a MindIR file, the bfloat16 data type is supported in the network.|
+|[mindspore.Tensor.asnumpy](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html)|❌|Since numpy does not support bfloat16 data type, it is not possible to convert a tensor of bfloat16 type to numpy type.|
+|[mindspore.amp.auto_mixed_precision](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.auto_mixed_precision.html)|✔️|When using the auto-mixed-precision interface, you can specify bfloat16 as the low-precision data type.|
+|[mindspore.amp.custom_mixed_precision](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.custom_mixed_precision.html)|✔️|When using the custom-mixed-precision interface, you can specify bfloat16 as the low-precision data type.|
+|[mindspore.save_mindir](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.save_mindir.html)|✔️|When saving a MindIR file, the bfloat16 data type is supported in the network.|
+|[mindspore.load_mindir](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.load_mindir.html)|✔️|When loading a MindIR file, the bfloat16 data type is supported in the network.|
 |[mindspore.ops.Add](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Add.html)|✔️||
 |[mindspore.ops.AddN](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.AddN.html)|✔️||
 |[mindspore.ops.AssignAdd](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.AssignAdd.html)|✔️||
