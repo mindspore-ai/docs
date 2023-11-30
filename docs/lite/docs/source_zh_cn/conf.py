@@ -14,6 +14,7 @@ import os
 import shutil
 import sys
 import re
+import regex
 from sphinx.search import jssplitter as sphinx_split
 from sphinx import errors as searchtools_path
 
@@ -101,7 +102,18 @@ src_release = os.path.join(os.getenv("MS_PATH"), 'RELEASE_CN.md')
 des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
-content = re.findall("(## MindSpore Lite[\s\S\n]*?\n)## ", data)
+if len(re.findall("\n## (.*?)\n",data)) > 1:
+    content = regex.findall("(\n## MindSpore Lite [\s\S\n]*?)\n## ", data, overlapped=True)
+    version = re.findall("\n## MindSpore Lite ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
+    content_new = ''
+    for i in content:
+        if re.findall(f"\n## MindSpore Lite ({version[0]}\.[0-9]+?)[ -]", i):
+            content_new += i
+    content = content_new
+else:
+    content = re.findall("(\n## [\s\S\n]*)", data)
+    content = content[0]
+#result = content[0].replace('# MindSpore', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes"+"\n\n")
-    p.write(content[0])
+    p.write("# Release Notes"+"\n")
+    p.write(content)
