@@ -14,6 +14,7 @@
 import os
 import re
 import sys
+import regex
 import sphinx
 import shutil
 import IPython
@@ -336,10 +337,17 @@ des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
-    content = re.findall("(## [\s\S\n]*?)\n## ", data)
+    content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
+    version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
+    content_new = ''
+    for i in content:
+        if re.findall(f"\n## MindSpore ({version[0]}\.[0-9]+?)[ -]", i):
+            content_new += i
+    content = content_new
 else:
-    content = re.findall("(## [\s\S\n]*)", data)
+    content = re.findall("(\n## [\s\S\n]*)", data)
+    content = content[0]
 #result = content[0].replace('# MindSpore', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes"+"\n\n")
-    p.write(content[0])
+    p.write("# Release Notes"+"\n")
+    p.write(content)
