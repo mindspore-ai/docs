@@ -28,7 +28,7 @@ For more information, see [mindspore.nn.TransformerEncoder](https://mindspore.cn
 
 ## Differences
 
-The code implementation and parameter update logic of `mindspore.nn.TransformerEncoder` optimizer is mostly the same with `torch.nn.TransformerEncoder`.
+The usage of `mindspore.nn.TransformerEncoder` is mostly the same with that of `torch.nn.TransformerEncoder`.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

@@ -36,7 +36,7 @@ class mindspore.nn.TransformerDecoderLayer(
 
 ## 差异对比
 
-`torch.nn.TransformerDecoder` 和 `mindspore.nn.TransformerDecoder` 用法基本一致。
+`torch.nn.TransformerDecoderLayer` 和 `mindspore.nn.TransformerDecoderLayer` 用法基本一致。
 
 | 分类  | 子类  | PyTorch                  | MindSpore     | 差异                                                 |
 | ---- |-----  |------------------------- |-------------  |----------------------------------------------------|

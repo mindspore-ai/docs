@@ -29,7 +29,7 @@ For more information, see [mindspore.ops.log_softmax](https://mindspore.cn/docs/
 
 PyTorch: Support the use of `dim` parameters and `input` input to implement functions that take the logits of the softmax result.
 
-MindSpore: Support the use of `axis` parameters and `input` input to implement functions that take the logits of the softmax result.
+MindSpore: Support the use of `axis` parameters and `logits` input to implement functions that take the logits of the softmax result.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|

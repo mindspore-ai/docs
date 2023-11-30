@@ -12,7 +12,7 @@
 
 ## Embedding层
 
-在语言类模型训练中，输入的数据是由单词组成的句子，我们通常使用embedding算法实现词的向量化，将单词及其位置信息映射为`config.hidden_size`大小维度的词向量。盘古模型中的Embedding层由位置编码和词嵌入两个部分组成，通过`mindformers.modules.VocabEmbedding`实现基本的数据并行和模型并行逻辑。
+在语言类模型训练中，输入的数据是由单词组成的句子，我们通常使用Embedding算法实现词的向量化，将单词及其位置信息映射为`config.hidden_size`大小维度的词向量。盘古模型中的Embedding层由位置编码和词嵌入两个部分组成，通过`mindformers.modules.VocabEmbedding`实现基本的数据并行和模型并行逻辑。
 
 如下代码所示，其中`Gather`算子接收两个输入，根据索引`input_ids`在查找表`embedding_table`中查找对应向量。查找表是在训练中需要学习的参数，静态占用卡上内存资源，我们可以根据查找表的大小决定对`Gather`算子采用数据并行策略切分索引batch维度，或者模型并行策略对查找表进行行切。当词表范围`config.vocab_size`较大时，建议对`word_embedding`选择模型并行策略，框架会自动引入计算和通信算子处理越界查找情况。
 
@@ -95,7 +95,7 @@ class EmbeddingLayer(nn.Cell):
 
 ### Self-Attention
 
-Self-Attention可以直接通过`mindformers.modules.MultiHeadAttention`实现。在计算Attention的过程中，需要将输入向量投影到Query、Key、Value三个向量，然后在attention计算完成之后，需要将attention的输出再经过Dense层。下面分别介绍这三个部分的策略配置。
+Self-Attention可以直接通过`mindformers.modules.MultiHeadAttention`实现。在计算Attention的过程中，需要将输入向量投影到Query、Key、Value三个向量，然后在Attention计算完成之后，需要将Attention的输出再经过Dense层。下面分别介绍这三个部分的策略配置。
 
 - 三个Dense矩阵乘法
 
@@ -118,7 +118,7 @@ Self-Attention可以直接通过`mindformers.modules.MultiHeadAttention`实现�
 
 - `Softmax`以及`BatchMatMul`
 
-  在计算Attention的过程中，通过`BatchMatMul`实现Query和Key向量的矩阵乘法。此处，`softmax`的输入shape为`[batch, sequence_length, num_heads, size_per_head]`。因为每个`head`之间在计算attention score时是独立的，所以可以在`batch`维度和`heads`维度对`softmax`算子进行切分。
+  在计算Attention的过程中，通过`BatchMatMul`实现Query和Key向量的矩阵乘法。此处，`softmax`的输入shape为`[batch, sequence_length, num_heads, size_per_head]`。因为每个`head`之间在计算Attention score时是独立的，所以可以在`batch`维度和`heads`维度对`softmax`算子进行切分。
 
   ```python
   self.softmax = nn.Softmax()
@@ -130,7 +130,7 @@ Self-Attention可以直接通过`mindformers.modules.MultiHeadAttention`实现�
 
 - Projection层
 
-  Projection负责将attention的输出结果进行一次投影。在`MatMul`算子的相关维度进行切分。
+  Projection负责将Attention的输出结果进行一次投影。在`MatMul`算子的相关维度进行切分。
 
   ```python
   self.projection = nn.Dense(hidden_size,
@@ -140,7 +140,7 @@ Self-Attention可以直接通过`mindformers.modules.MultiHeadAttention`实现�
 
 ### FeedForward
 
-FeedForward可以直接调用`mindformers.modules.FeedForward`实现。FeedForward网络层由两个矩阵乘组成，第一个矩阵乘切分方式和attention一致，输出矩阵行、列均切，即在`batch`维度和`输出维度`进行切分。为了避免引入算子间的重排布通信，第二个矩阵乘对权重的input_channel维度切分，即`matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), (parallel_config.model_parallel, 1)))`，相关维切分时框架会自动插入`AllReduce`算子，在模型并行维度上累加切片结果。输出矩阵仅在`batch`维度切分，再加上偏置项`add.shard(((parallel_config.data_parallel, 1), (1,)))`。
+FeedForward可以直接调用`mindformers.modules.FeedForward`实现。FeedForward网络层由两个矩阵乘组成，第一个矩阵乘切分方式和Attention一致，输出矩阵行、列均切，即在`batch`维度和`输出维度`进行切分。为了避免引入算子间的重排布通信，第二个矩阵乘对权重的input_channel维度切分，即`matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), (parallel_config.model_parallel, 1)))`，相关维切分时框架会自动插入`AllReduce`算子，在模型并行维度上累加切片结果。输出矩阵仅在`batch`维度切分，再加上偏置项`add.shard(((parallel_config.data_parallel, 1), (1,)))`。
 
 ```python
 from mindspore.common.initializer import initializer
@@ -288,7 +288,7 @@ layernorm1.shard(((parallel_config.data_parallel, 1),))
 
 ## 预测层
 
-计算loss前需要经过一个全连接层将输出特征从`config.hidden_size`映射回`config.vocab_size`维度得到logits。这里全连接层和`word_embedding`操作共享权重，所以要求全连接层权重的切分方式与embedding层保持一致。
+计算loss前需要经过一个全连接层将输出特征从`config.hidden_size`映射回`config.vocab_size`维度得到logits。这里全连接层和`word_embedding`操作共享权重，所以要求全连接层权重的切分方式与Embedding层保持一致。
 
 ```python
 import mindspore.ops as ops
@@ -300,7 +300,7 @@ class PanguAlpha_Head(nn.Cell):
         config(PanguAlphaConfig): the config of network
     Inputs:
         state: the output of the backbone
-        embedding_table: the embedding table of the vocabulary
+        embedding_table: the Embedding table of the vocabulary
     Returns:
         logits: Tensor, the logits of the corresponding inputs
     """
@@ -323,7 +323,7 @@ class PanguAlpha_Head(nn.Cell):
         return logits
 ```
 
-在这篇文章中，我们了解到如何通过配置算子切分策略的方式在单机脚本基础上快速实现Transformer类网络的分布式训练。具体到网络结构，embedding层、decorder层、residual层和linear层都有各自的切分特点，用户可以通过掌握算子策略配置方法，提升分布式训练、调优效率。
+在这篇文章中，我们了解到如何通过配置算子切分策略的方式在单机脚本基础上快速实现Transformer类网络的分布式训练。具体到网络结构，Embedding层、Decoder层、Residual层和Linear层都有各自的切分特点，用户可以通过掌握算子策略配置方法，提升分布式训练、调优效率。
 
 ## 参考文献
 

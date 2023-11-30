@@ -91,8 +91,8 @@ from torch import optim
 model = torch.nn.Sequential(torch.nn.Linear(20, 1))
 optimizer = optim.SGD(model.parameters(), 0.1)
 
-# step_lr
+# Use step_lr
 step_lr = optim.lr_scheduler.StepLR(optimizer, step_size=2, gamma=0.9)
-# multi_step_lr
+# Use multi_step_lr
 multi_step_lr = optim.lr_scheduler.MultiStepLR(optimizer, milestones=[30, 80], gamma=0.9)
 ```

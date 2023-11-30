@@ -33,6 +33,7 @@ For more information, see [mindspore.dataset.YelpReviewDataset](https://mindspor
 PyTorch: Read the YelpReviewPolarity dataset.
 
 MindSpore: Read the YelpReviewPolarity dataset. Downloading dataset from web is not supported.
+
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |

@@ -35,7 +35,7 @@ MindSpore：Compute the spectral centroid for each channel along the time axis.
 |     | Parameter3 | win_length  | win_length    | - |
 |     | Parameter4 | hop_length  | hop_length    | - |
 |     | Parameter5 | pad    | pad   |  |
-|     | Parameter6 | window_fn   | window     | MindSpore only support 5 window functions |
+|     | Parameter6 | window_fn   | window     | MindSpore only supports 5 window functions |
 |     | Parameter7 | wkwargs  | -    | Arguments for window function, not supported by MindSpore |
 
 ## Code Example

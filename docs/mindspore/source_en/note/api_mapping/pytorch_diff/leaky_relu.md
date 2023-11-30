@@ -18,7 +18,7 @@ mindspore.ops.leaky_relu(input, alpha=0.2) -> Tensor
 
 For more information, see [mindspore.ops.leaky_relu](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.leaky_relu.html#mindspore.ops.leaky_relu).
 
-## Differnnces
+## Differences
 
 PyTorch: The leaky_relu activation function. Elements that are less than 0 in `input` are multiplied by `negative_slope`.
 

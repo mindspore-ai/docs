@@ -20,9 +20,9 @@ For more information, see [mindspore.dataset.WeightedRandomSampler](https://mind
 
 ## Differences
 
-PyTorch: Samples the elements from [0, len(weights) - 1] randomly with the given weights (probabilities), random generator can be set manually.
+PyTorch: Given a weight list for a sample, the sample is sampled according to the magnitude of the weights. Specifying sampling logic is supported.
 
-MindSpore: Samples the elements from [0, len(weights) - 1] randomly with the given weights (probabilities), random generator is not supported.
+MindSpore: Given a weight list for a sample, the sample is sampled according to the magnitude of the weights. Specifying sampling logic is not supported.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |

@@ -4,13 +4,13 @@
 
 ## Overview
 
-In recent years Transformer-based large models have made rapid progress in various downstream tasks in nlp and vision, and often the larger the model, the higher the accuracy achieved in downstream tasks. The model size develops from hundreds of millions to hundreds of billions, however, large model training consumes a large amount of computational storage resources and the training overhead is huge.
+In recent years Transformer-based large models have made rapid progress in various downstream tasks in Natural Language Processing and Computer Vision, and often the larger the model, the higher the accuracy achieved in downstream tasks. The model size develops from hundreds of millions to hundreds of billions, however, large model training consumes a large amount of computational storage resources and the training overhead is huge.
 
 Large model training is limited by the size of the video memory, and the number of model parameters that can be stored on a single card is limited. With model parallel, we can split large models into different machines, and after introducing the necessary inter-process communication, we can conduct collaborative training in clusters, where the model size is proportional to the machine size. At the same time, when the model size exceeds the memory capacity of a single machine, the overhead of inter-machine communication in model parallel will become larger, and the resource utilization will decrease significantly. How to train larger models on a single machine and avoid inter-machine communication in model parallel has become the key to improve the performance of large model training.
 
 Heterogeneous storage management enables 10x to 100x storage expansion of model parameters, thus breaking the memory limitation of large model training and realizing low-cost large model training. This tutorial will explain the basic principles of heterogeneous storage management and introduce the related configuration parameters and their use. With this feature, developers can use the same hardware to train larger models.
 
-The related configuration and switch cide;
+The related configuration and switch code;
 
 ```python
 import mindspore
@@ -34,7 +34,7 @@ mindspore.set_offload_context(offload_config=offload_config)
 - `offload_config` is a configuration option for heterogeneous storage where:
 
     - `"offload_param": "cpu"`: The parameters of the setup model are stored on the cpu memory and loaded to the device side only when the data needs to be used during the training process, and then unloaded to the cpu memory once the use is complete.
-    - `"auto_offload": False`: set off the auto-offload strategy, parameter data will be strictly installed with the previous configuration option enforced.
+    - `"auto_offload": False`: set off the auto-offload strategy, parameter data will strictly follow the previous configuration option.
     - `"offload_cpu_size": "512GB", "offload_disk_size": "1024GB"`: The cpu memory and disk size available for offload are set respectively.
     - `"offload_path": "./offload/"`: sets the path to the disk file to be used for offload.
     - `"enable_pinned_mem": True`: set to turn on page locking, which when turned on speeds up copying between HBM-CPU memory.
@@ -235,7 +235,7 @@ step: 3, loss is 2.3037016
 
 ### Automatically Generating offload Strategies
 
-In addition to strictly installing the user `"offload_param"` configuration for data copying, MindSpore also supports automatic generation of heterogeneous storage strategies. MindSpore can analyze the network video memory usage information and combine the user-configured `"max_device_memory"`, `"offload_cpu_size"`, `"offload_disk_size"`, `"hbm_ratio"`, and `"cpu_ratio"` to generate eterogeneous storage strategies, and then follow the established strategy to move data across multiple storage media.
+In addition to copying data strictly according to the user `"offload_param"` configuration, MindSpore also supports automatic generation of heterogeneous storage strategies. MindSpore can analyze the network video memory usage information and combine the user-configured `"max_device_memory"`, `"offload_cpu_size"`, `"offload_disk_size"`, `"hbm_ratio"`, and `"cpu_ratio"` to generate eterogeneous storage strategies, and then follow the established strategy to move data across multiple storage media.
 
 ```python
 import mindspore

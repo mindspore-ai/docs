@@ -22,9 +22,9 @@ For more information, see [mindspore.dataset.vision.ToTensor](https://mindspore.
 
 ## Differences
 
-PyTorch: Convert the PIL Image or Numpy array to tensor. The input Numpy array is usually in the format of <H, W, C> and the value is in the range of [0, 255], and the output is <C, H, W > Torch Tensor with format and value in [0.0, 1.0].
+PyTorch: Convert the PIL Image or Numpy array to tensor. The input Numpy array is usually in the format of <H, W, C> and the value is in the range of [0, 255], and the output is the torch tensor with format of <C, H, W > in the range of [0.0, 1.0].
 
-MindSpore: The input is an image of PIL type or a Numpy array with a value in the range of [0, 255] in the format of <H, W, C>, and the output is in the range of [0.0, 1.0] with <C, H, W> Format Numpy array; it is equivalent to two operations of channel conversion and pixel value normalization on the original input image.
+MindSpore: The input is an image of PIL type or a Numpy array with a value in the range of [0, 255] in the format of <H, W, C>, and the output is a Numpy array in the range of [0.0, 1.0] with the format of <C, H, W>; it is equivalent to two operations of channel conversion and pixel value normalization on the original input image.
 
 | Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
 | ---------- | ------------- | ------------ | ---------     | ------------- |

@@ -27,7 +27,7 @@ Related interfaces are as follows:
 
 3. Network composition
 
-    The data parallel network is written in a way that does not differ from the single-card network, due to the fact that during forward propagation & backward propagation the models of each card are executed independently from each other, only the same network structure is maintained. The only thing we need to pay special attention to is that in order to ensure the training synchronization between cards, the corresponding network parameter initialization values should be the same. In `DATA_PRALLEL` mode, we can set seed or enable `parameter_broadcast` to achieve the same initialization of weights between multiple cards.
+    The data parallel network is written in a way that does not differ from the single-card network, due to the fact that during forward propagation & backward propagation the models of each card are executed independently from each other, only the same network structure is maintained. The only thing we need to pay special attention to is that in order to ensure the training synchronization between cards, the corresponding network parameter initialization values should be the same. In `DATA_PARALLEL` mode, we can set seed or enable `parameter_broadcast` to achieve the same initialization of weights between multiple cards.
 
 4. Gradient aggregation
 

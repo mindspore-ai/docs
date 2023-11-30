@@ -67,7 +67,7 @@ print(result)
 
 ### Code Example 2
 
-> Use pad mode to ensure functional consistency.
+> Use `pad` mode to ensure functional consistency.
 
 ```python
 import mindspore as ms

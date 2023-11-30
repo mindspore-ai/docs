@@ -37,7 +37,7 @@ MindSpore: This API implementation function of MindSpore is compatible with Tens
 
 ## Code Example
 
-> Use pad mode to ensure functional consistency.
+> Use `pad` mode to ensure functional consistency.
 
 ```python
 import mindspore as ms

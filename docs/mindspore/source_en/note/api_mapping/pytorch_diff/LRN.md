@@ -46,7 +46,7 @@ MindSpore: It implements the same functionality as PyTorch, but with different p
 
 ### Code Example 1
 
-> The`depth_radius` in MindSpore corresponds to `size` in PyTorch with its value halved, it is necessary to set `depth_radius` as half of `size` to achieve the same function.
+> The`depth_radius` in MindSpore corresponds to `size` in PyTorch with its value halved. It is necessary to set `depth_radius` as half of `size` to achieve the same function.
 
 ```python
 # PyTorch

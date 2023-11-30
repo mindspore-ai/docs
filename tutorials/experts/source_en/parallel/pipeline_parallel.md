@@ -12,9 +12,7 @@ Related interfaces:
 
 1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=NUM)`: Set semi-automatic parallel mode and set `pipeline_stages` to indicate that the total number of stages is NUM and call it before initializing the network.
 
-2. `nn.WithLossCell(backbone, loss_fn)`: pipeline parallelism requires first defining the Cell of the loss function, i.e., LossCell, for encapsulating the backbone network and the loss function, through this interface.
-
-3. `nn.PipelineCell(loss_cell, micro_size)`: pipeline parallelism requires wrapping a layer of `PipelineCell` around the LossCell and specifying the size of the MicroBatch. In order to improve machine utilization, MindSpore slices the MiniBatch into finer-grained MicroBatches, and the final loss is the sum of the loss values computed by all MicroBatches, where the size of the MicroBatch must be greater than or equal to the number of stages.
+2. `nn.PipelineCell(loss_cell, micro_size)`: pipeline parallelism requires wrapping a layer of `PipelineCell` around the LossCell and specifying the size of the MicroBatch. In order to improve machine utilization, MindSpore slices the MiniBatch into finer-grained MicroBatches, and the final loss is the sum of the loss values computed by all MicroBatches, where the size of the MicroBatch must be greater than or equal to the number of stages.
 
 ## Basic Principle
 

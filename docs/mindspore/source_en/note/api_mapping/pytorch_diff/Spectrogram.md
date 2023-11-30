@@ -26,9 +26,9 @@ For more information, see [mindspore.dataset.audio.Spectrogram](https://mindspor
 
 ## Differences
 
-PyTorch：Compute waveform from a linear scale magnitude spectrogram using the Griffin-Lim transformation. Customized window function and different parameter configs for window function are both supported.
+PyTorch：Compute waveform from a linear scale magnitude spectrogram. Customized window function and different parameter configs for window function are both supported.
 
-MindSpore：Compute waveform from a linear scale magnitude spectrogram using the Griffin-Lim transformation.
+MindSpore：Compute waveform from a linear scale magnitude spectrogram.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
@@ -36,7 +36,7 @@ MindSpore：Compute waveform from a linear scale magnitude spectrogram using the
 |     | Parameter2 | win_length     | win_length    | - |
 |     | Parameter3 | hop_length   | hop_length    | - |
 |     | Parameter4 | pad   | pad    | - |
-|     | Parameter5 | window_fn    | window    | MindSpore only support 5 window functions |
+|     | Parameter5 | window_fn    | window    | MindSpore only supports 5 window functions |
 |     | Parameter6 | power  | power    | - |
 |     | Parameter7 | normalized  | normalized   | - |
 |     | Parameter8 | wkwargs   | -     | Arguments for window function, not supported by MindSpore |

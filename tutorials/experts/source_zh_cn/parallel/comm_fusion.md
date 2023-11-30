@@ -31,7 +31,7 @@ MindSpore提供两种接口来使能通信融合，下面分别进行介绍：
 
 分布式训练的整个过程可以粗略地分为本地模型计算和跨设备的网络数据交互两个过程，下面以数据并行[2]为例来介绍整体训练流程，其它并行方式，如模型并行[3]，流水线并行[4]等，请读者参考相关论文。
 
-如下图所示，每个节点备份完整的神经网络模型，并利用本地的数据集分区训练一个mini-batch，进行前向和反向计算，反向计算得到的梯度跨节点进行同步，同步后继续下一个mini-batch的训练，如此循环迭代，直到accuracy/loss达到阈值，或者训练完一定数目的epoch。由此可见，在分布式训练过程中，计算和通信交替进行，目前已有工作研究如何将相互不依赖的计算和传输做流水化，以降低跨节点数据同步在整体训练时长中的占比[5-6]，这里不再赘述。
+如下图所示，每个节点备份完整的神经网络模型，并利用本地的数据集分区训练一个mini-batch，进行前向和反向计算，反向计算得到的梯度跨节点进行同步，同步后继续下一个mini-batch的训练，如此循环迭代，直到accuracy/loss达到阈值，或者训练完一定数目的epoch。由此可见，在分布式训练过程中，计算和通信交替进行，目前已有工作研究如何将相互不依赖的计算和传输做流水化，以降低跨节点数据同步在整体训练时长中的占比[5][6]，这里不再赘述。
 
 ![image](images/data_parallel.png)
 
@@ -57,9 +57,9 @@ comm_fusion={"openstate": True, "allreduce": {"mode": "auto", "config": None}}�
 
 ### 样例代码说明
 
->你可以在这里下载完整的样例代码：
+> 你可以在这里下载完整的样例代码：
 >
-><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_comm_fusion>。
+> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_comm_fusion>。
 
 目录结构如下：
 
@@ -95,7 +95,7 @@ init()
 
 更多使用方法，可以参考MindSpore的[测试用例](https://gitee.com/mindspore/mindspore/blob/master/tests/ut/python/parallel/test_comm_fusion.py)。
 
->用户可以自行尝试`comm_fusion`的size和index模式，本质上都是fusion buffer类的方法。
+> 用户可以自行尝试`comm_fusion`的size和index模式，本质上都是fusion buffer类的方法。
 
 #### `Cell.set_comm_fusion`接口
 

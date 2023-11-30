@@ -33,6 +33,7 @@ For more information, see [mindspore.dataset.UDPOSDataset](https://mindspore.cn/
 PyTorch: Read the UDPOS dataset.
 
 MindSpore: Read the UDPOS dataset. Downloading dataset from web is not supported.
+
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
 |Parameter | Parameter1 | root    | dataset_dir    | - |

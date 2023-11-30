@@ -12,9 +12,7 @@
 
 1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=NUM)`：设置半自动并行模式，且设置`pipeline_stages`用来表明Stage的总数为NUM，必须在初始化网络之前调用。
 
-2. `nn.WithLossCell(backbone, loss_fn)`：流水线并行需要首先通过此接口定义损失函数的Cell，即LossCell，用于封装骨干网络和损失函数。
-
-3. `nn.PipelineCell(loss_cell, micro_size)`：流水线并行需要在LossCell外再包一层`PipelineCell`，并指定MicroBatch的size。为了提升机器的利用率，MindSpore将MiniBatch切分成了更细粒度的MicroBatch，最终的loss则是所有MicroBatch计算的loss值累加。其中，MicroBatch的size必须大于等于Stage的数量。
+2. `nn.PipelineCell(loss_cell, micro_size)`：流水线并行需要在LossCell外再包一层`PipelineCell`，并指定MicroBatch的size。为了提升机器的利用率，MindSpore将MiniBatch切分成了更细粒度的MicroBatch，最终的loss则是所有MicroBatch计算的loss值累加。其中，MicroBatch的size必须大于等于Stage的数量。
 
 ## 基本原理
 
