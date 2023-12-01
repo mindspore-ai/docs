@@ -83,7 +83,7 @@ Specifying the output arrangement for data parallel and repeated calculations is
 ms.set_auto_parallel_context(dataset_strategy="full_batch")  # The dataset is not sliced and the output tensor of the shard is not sliced; (default configuration)
 ms.set_auto_parallel_context(dataset_strategy="data_parallel")  # The dataset is sliced in a data-parallel fashion, and the output tensor of the shard is also sliced in a data-parallel fashion
 
-# 通过full_batch设置，该属性即将弃用
+# This attribute is about to be deprecated through the full_batch setting
 ms.set_auto_parallel_context(full_batch=True)   # The dataset is not sliced and the output tensor of the shard is not sliced; (default configuration)
 ms.set_auto_parallel_context(full_batch=False)  # The dataset is sliced in a data-parallel fashion, and the output tensor of the shard is also sliced in a data-parallel fashion
 ```
