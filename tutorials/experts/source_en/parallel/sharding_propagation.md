@@ -30,7 +30,7 @@ The following figure illustrates an example process of applying Sharding Propaga
 
 ![sharding_propagation](./images/sharding_propagation.png "An example process of applying Sharding Propagation.")
 
-## How to use Sharding Propagation in MindSpore
+## Operation Practice
 
 The following is an illustration of the sharding strategy propagation operation using an Ascend or GPU stand-alone 8-card example:
 
