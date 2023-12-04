@@ -114,7 +114,7 @@ mindinsight stop [-h] [--port PORT]
 mindinsight stop --port 8000
 ```
 
-如果出现以下提示，说明启动成功：
+如果出现以下提示，说明停止成功：
 
 ```text
 Stop mindinsight service successfully
