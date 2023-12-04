@@ -479,7 +479,6 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
                                                imported_members, app, entry.recursive, context,
                                                modname, qualname)
         cst_api = get_api(name)
-        logger.warning(name)
         try:
             py_source = inspect.getsourcefile(cst_api)
         except TypeError:
