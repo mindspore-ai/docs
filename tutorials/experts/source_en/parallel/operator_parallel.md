@@ -46,7 +46,7 @@ ms.set_auto_parallel_context(parallel_mode="semi_auto_parallel", device_num=4)
 
 class DenseMatMulNet(nn.Cell):
     def __init__(self):
-        super(DenseMutMulNet, self).__init__()
+        super(DenseMatMulNet, self).__init__()
         self.matmul1 = ops.MatMul.shard(((4, 1), (1, 1)))
         self.matmul2 = ops.MatMul.shard(((1, 1), (1, 4)))
     def construct(self, x, w, v):
