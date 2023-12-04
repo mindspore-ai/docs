@@ -230,7 +230,8 @@ net_with_loss = nn.WithLossCell(net, loss_fn=loss)
 
 > `gain` 用来衡量非线性关系对于数据标准差的影响。由于非线性会影响数据的标准差，可能会导致梯度爆炸或消失。
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> mindspore.common.initializer </td> <td style="text-align:center"> torch.nn.init </td>
 </tr>
@@ -259,6 +260,7 @@ torch.nn.init.uniform_(x)
 </td>
 </tr>
 </table>
+</div>
 
 - `mindspore.common.initializer` 用于在并行模式中延迟Tensor的数据的初始化。只有在调用了 `init_data()` 之后，才会使用指定的 `init` 来初始化Tensor的数据。每个Tensor只能使用一次 `init_data()` 。在运行以上代码之后，`x` 其实尚未完成初始化。如果此时 `x` 被用来计算，将会作为0来处理。然而，在打印时，会自动调用 `init_data()` 。
 - `torch.nn.init` 需要一个Tensor作为输入，将输入的Tensor原地修改为目标结果，运行上述代码之后，x将不再是非初始化状态，其元素将服从均匀分布。
@@ -690,8 +692,15 @@ def box_select_ms2(box, iou_score):
 
 对于求loss时对feature做选取，导致获取到不固定shape的Tensor的场景，处理方式基本和网络运行过程中不固定shape的处理方式相同，只是loss部分后续可能没有其他的操作，不需要返回mask。
 
-举个例子，我们想选取前70%的正样本的值求loss。
-PyTorch的实现如下：
+举个例子，我们想选取前70%的正样本的值求loss。实现如下：
+
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
 import torch
@@ -702,6 +711,7 @@ class ClassLoss_pt(torch_nn.Module):
         super(ClassLoss_pt, self).__init__()
         self.con_loss = torch_nn.CrossEntropyLoss(reduction='none')
 
+    # 使用 torch.topk 来获取前70%的正样本数据
     def forward(self, pred, label):
         mask = label > 0
         vaild_label = label * mask
@@ -711,19 +721,20 @@ class ClassLoss_pt(torch_nn.Module):
         return loss.mean()
 ```
 
-在里面使用了`torch.topk`来获取前70%的正样本数据，在MindSpore里目前不支持TopK的K是变量，所以需要转换下思路，获取到第K大的值，然后通过这个值获取到topk的mask，MindSpore的实现方式如下：
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 import mindspore as ms
 from mindspore import ops
 from mindspore import nn as ms_nn
-
 class ClassLoss_ms(ms_nn.Cell):
     def __init__(self):
         super(ClassLoss_ms, self).__init__()
         self.con_loss = ms_nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="none")
         self.sort_descending = ops.Sort(descending=True)
-
+    # MindSpore目前不支持TopK的K是变量，转换思路，获取到第K大的值，然后通过该值获取到topk的mask
     def construct(self, pred, label):
         mask = label > 0
         vaild_label = label * mask
@@ -735,6 +746,12 @@ class ClassLoss_ms(ms_nn.Cell):
         loss = con * con_mask
         return loss.sum() / con_mask.sum()
 ```
+
+</pre>
+</td>
+</tr>
+</table>
+</div>
 
 我们来看一下实验结果：
 

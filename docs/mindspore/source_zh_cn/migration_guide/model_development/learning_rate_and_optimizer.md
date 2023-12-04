@@ -16,6 +16,16 @@ PyTorch和MindSpore同时支持的优化器异同比较详见[API映射表](http
 
 PyTorch单步执行优化器时，一般需要手动执行 `zero_grad()` 方法将历史梯度设置为0(或None)，然后使用 `loss.backward()` 计算当前训练step的梯度，最后调用优化器的 `step()` 方法实现网络权重的更新；
 
+MindSpore中优化器的使用，只需要直接对梯度进行计算，然后使用 `optimizer(grads)` 执行网络权重的更新。
+
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
 ```python
 optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
 scheduler = ExponentialLR(optimizer, gamma=0.9)
@@ -30,7 +40,9 @@ for epoch in range(20):
     scheduler.step()
 ```
 
-MindSpore中优化器的使用，只需要直接对梯度进行计算，然后使用 `optimizer(grads)` 执行网络权重的更新。
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 import mindspore
@@ -44,6 +56,12 @@ def train_step(data, label):
     return loss
 ```
 
+</pre>
+</td>
+</tr>
+</table>
+</div>
+
 ### 超参差异
 
 #### 超参名称
@@ -55,7 +73,23 @@ def train_step(data, label):
 | 网络权重 | params  | params      | 参数名相同 |
 | 学习率  | lr      | learning_rate      | 参数名不同 |
 
-MindSpore：
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+```python
+from torch import optim
+
+optimizer = optim.SGD(model.parameters(), lr=0.01)
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 from mindspore import nn
@@ -63,13 +97,11 @@ from mindspore import nn
 optimizer = nn.SGD(model.trainable_params(), learning_rate=0.01)
 ```
 
-PyTorch：
-
-```python
-from torch import optim
-
-optimizer = optim.SGD(model.parameters(), lr=0.01)
-```
+</pre>
+</td>
+</tr>
+</table>
+</div>
 
 #### 超参配置方式
 
@@ -82,16 +114,26 @@ MindSpore入参类型为 `list(Parameter)`，`list(dict)`，不支持迭代器�
 
 - 参数分组：
 
-   PyTorch支持所有参数分组：
+    PyTorch支持所有参数分组；MindSpore仅支持特定key分组："params"，"lr"，"weight_decay"，"grad_centralization"，"order_params"。
 
-   ```python
+    <div class="wy-table-responsive">
+    <table class="colwidths-auto docutils align-default">
+    <tr>
+    <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+    </tr>
+    <tr>
+    <td style="vertical-align:top"><pre>
+
+    ```python
     optim.SGD([
                 {'params': model.base.parameters()},
                 {'params': model.classifier.parameters(), 'lr': 1e-3}
             ], lr=1e-2, momentum=0.9)
     ```
 
-    MindSpore仅支持特定key分组："params"，"lr"，"weight_decay"，"grad_centralization"，"order_params"。
+    </pre>
+    </td>
+    <td style="vertical-align:top"><pre>
 
     ```python
     conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
@@ -102,6 +144,12 @@ MindSpore入参类型为 `list(Parameter)`，`list(dict)`，不支持迭代器�
     optim = nn.Momentum(group_params, learning_rate=0.1, momentum=0.9)
     ```
 
+    </pre>
+    </td>
+    </tr>
+    </table>
+    </div>
+
 #### 运行时超参修改
 
 PyTorch支持在训练过程中修改任意的优化器参数，并提供了 `LRScheduler` 用于动态修改学习率；
@@ -110,7 +158,17 @@ MindSpore当前不支持训练过程中修改优化器参数，但提供了修�
 
 ### 权重衰减
 
-PyTorch中修改 `weight_decay`：
+PyTorch中修改 `weight_decay` 示例如下；
+
+MindSpore中实现动态weight decay：用户可以继承 `Cell` 自定义动态weight decay的类，传入优化器中。
+
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
 from torch.nn import optim
@@ -127,7 +185,9 @@ def train_step(data, label):
         param_group["weight_decay"] *= decay_factor
 ```
 
-MindSpore中实现动态weight decay：用户可以继承 `Cell` 自定义动态weight decay的类，传入优化器中。
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 class ExponentialWeightDecay(Cell):
@@ -146,47 +206,83 @@ weight_decay = ExponentialWeightDecay(weight_decay=0.1, decay_rate=0.1, decay_st
 optimizer = nn.SGD(net.trainable_params(), weight_decay=weight_decay)
 ```
 
+</pre>
+</td>
+</tr>
+</table>
+</div>
+
 ### 优化器状态的保存与加载
 
 PyTorch的优化器模块提供了 `state_dict()` 用于优化器状态的查看及保存，`load_state_dict` 用于优化器状态的加载。
 
-- 优化器保存，可以使用 `torch.save()` 把获取到的 `state_dict` 保存到pkl文件中：
-
-    ```python
-    optimizer = optim.SGD(param_groups, lr=0.01)
-    torch.save(optimizer.state_dict(), save_path)
-    ```
-
-- 优化器加载，可以使用 `torch.load()` 加载保存的 `state_dict`，然后使用 `load_state_dict` 将获取到的 `state_dict` 加载到优化器中：
-
-    ```python
-    optimizer = optim.SGD(param_groups, lr=0.01)
-    state_dict = torch.load(save_path)
-    optimizer.load_state_dict(state_dict)
-    ```
-
 MindSpore的优化器模块继承自 `Cell`，优化器的保存与加载和网络的保存与加载方式相同，通常情况下配合 `save_checkpoint` 与`load_checkpoint` 使用。
 
-- 优化器保存，可以使用 `mindspore.save_checkpoint()` 将优化器实例保存到ckpt文件中：
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
-    ```python
-    optimizer = nn.SGD(param_groups, lr=0.01)
-    state_dict = mindspore.save_checkpoint(opt, save_path)
-    ```
+```python
+# 优化器保存：
+# 使用torch.save()把获取到的state_dict保存到pkl文件中
+optimizer = optim.SGD(param_groups, lr=0.01)
+torch.save(optimizer.state_dict(), save_path)
+```
 
-- 优化器加载，可以使用 `mindspore.load_checkpoint()` 加载保存的ckpt文件，然后使用 `load_param_into_net` 将获取到的 `param_dict` 加载到优化器中：
+```python
+# 优化器加载：
+# 使用torch.load()加载保存的state_dict，
+# 然后使用load_state_dict将获取到的state_dict加载到优化器中
+optimizer = optim.SGD(param_groups, lr=0.01)
+state_dict = torch.load(save_path)
+optimizer.load_state_dict(state_dict)
+```
 
-    ```python
-    optimizer = nn.SGD(param_groups, lr=0.01)
-    param_dict = mindspore.load_checkpoint(save_path)
-    mindspore.load_param_into_net(opt, param_dict)
-    ```
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+# 优化器保存：
+# 使用mindspore.save_checkpoint()将优化器实例保存到ckpt文件中
+optimizer = nn.SGD(param_groups, lr=0.01)
+state_dict = mindspore.save_checkpoint(opt, save_path)
+```
+
+```python
+# 优化器加载：
+# 使用mindspore.load_checkpoint()加载保存的ckpt文件，
+# 然后使用load_param_into_net将获取到的param_dict加载到优化器中
+optimizer = nn.SGD(param_groups, lr=0.01)
+param_dict = mindspore.load_checkpoint(save_path)
+mindspore.load_param_into_net(opt, param_dict)
+```
+
+</pre>
+</td>
+</tr>
+</table>
+</div>
 
 ## 学习率策略对比
 
 ### 动态学习率差异
 
 PyTorch中定义了 `LRScheduler` 类用于对学习率进行管理。使用动态学习率时，将 `optimizer` 实例传入 `LRScheduler` 子类中，通过循环调用 `scheduler.step()` 执行学习率修改，并将修改同步至优化器中。
+
+MindSpore中的动态学习率有 `Cell` 和 `list` 两种实现方式，两种类型的动态学习率使用方式一致，都是在实例化完成之后传入优化器，前者在内部的 `construct` 中进行每一步学习率的计算，后者直接按照计算逻辑预生成学习率列表，训练过程中内部实现学习率的更新。具体请参考[动态学习率](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#%E5%8A%A8%E6%80%81%E5%AD%A6%E4%B9%A0%E7%8E%87)。
+
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
 optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
@@ -202,7 +298,9 @@ for epoch in range(20):
     scheduler.step()
 ```
 
-MindSpore中的动态学习率有 `Cell` 和 `list` 两种实现方式，两种类型的动态学习率使用方式一致，都是在实例化完成之后传入优化器，前者在内部的 `construct` 中进行每一步学习率的计算，后者直接按照计算逻辑预生成学习率列表，训练过程中内部实现学习率的更新。具体请参考[动态学习率](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#%E5%8A%A8%E6%80%81%E5%AD%A6%E4%B9%A0%E7%8E%87)。
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 polynomial_decay_lr = nn.PolynomialDecayLR(learning_rate=0.1, end_learning_rate=0.01, decay_steps=4, power=0.5)
@@ -215,9 +313,25 @@ def train_step(data, label):
     return loss
 ```
 
+</pre>
+</td>
+</tr>
+</table>
+</div>
+
 ### 自定义学习率差异
 
 PyTorch的动态学习率模块 `LRScheduler` 提供了`LambdaLR` 接口供用户自定义学习率调整规则，用户通过传入lambda表达式或自定义函数实现学习率指定。
+
+MindSpore未提供类似的lambda接口，自定义学习率调整策略可以通过自定义函数或自定义 `LearningRateSchedule` 来实现。
+
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
 optimizer = optim.SGD(model.parameters(), lr=0.01)
@@ -230,11 +344,12 @@ for epoch in range(20):
     scheduler.step()
 ```
 
-MindSpore未提供类似的lambda接口，自定义学习率调整策略可以通过自定义函数或自定义 `LearningRateSchedule` 来实现。
-
-方式一：定义python函数指定计算逻辑，返回学习率列表：
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
+# 方式一：定义python函数指定计算逻辑，返回学习率列表
 def dynamic_lr(lr, total_step, step_per_epoch):
     lrs = []
     for i in range(total_step):
@@ -247,9 +362,8 @@ decay_lr = dynamic_lr(lr=0.01, total_step=200, step_per_epoch=10)
 optim = nn.SGD(params, learning_rate=decay_lr)
 ```
 
-方式二：继承 `LearningRateSchedule`，在 `construct` 方法中定义变化策略:
-
 ```python
+# 方式二：继承LearningRateSchedule，在construct方法中定义变化策略
 class DynamicDecayLR(LearningRateSchedule):
     def __init__(self, lr, step_per_epoch):
         super(DynamicDecayLR, self).__init__()
@@ -264,6 +378,12 @@ class DynamicDecayLR(LearningRateSchedule):
 decay_lr = DynamicDecayLR(lr=0.01, step_per_epoch=10)
 optim = nn.SGD(params, learning_rate=decay_lr)
 ```
+
+</pre>
+</td>
+</tr>
+</table>
+</div>
 
 ### 学习率获取
 
@@ -285,7 +405,7 @@ PyTorch提供了`torch.optim.lr_scheduler`包用于动态修改lr，使用的时
 
 MindSpore：
 
-MindSpore的学习率是包到优化器里面的，每调用一次优化器，学习率更新的step会自动更新一次，详情请参考[学习率与优化器](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/learning_rate_and_optimizer.html)。
+MindSpore的学习率是包到优化器里面的，每调用一次优化器，学习率更新的step会自动更新一次。
 
 ## 参数分组
 

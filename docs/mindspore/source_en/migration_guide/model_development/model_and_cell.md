@@ -230,7 +230,8 @@ Every API from `torch.nn.init` could correspond to MindSpore, except `torch.nn.i
 
 > `gain` is used to describe the influence of the non-linearity to the standard deviation of the data. Because non-linearity will affect the standard deviation, the gradient may explode or vanish.
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> mindspore.common.initializer </td> <td style="text-align:center"> torch.nn.init </td>
 </tr>
@@ -259,6 +260,7 @@ torch.nn.init.uniform_(x)
 </td>
 </tr>
 </table>
+</div>
 
 - `mindspore.common.initializer` is used for delayed initialization in parallel mode. Only after calling `init_data()`, the elements will be assigned based on its `init`. Every Tensor could only use `init_data` once. After running the code above, `x` is still not fully initialized. If it is used for further calculation, 0 will be used. However, when printing the Tensor, `init_data()` will be called automatically.
 - `torch.nn.init` takes a Tensor as input, and the input Tensor will be changed to the target in-place. After running the code above, x is no longer an uninitialized Tensor, and its elements will follow the uniform distribution.
@@ -691,8 +693,15 @@ In subsequent computation, if some box operations are involved, check whether th
 
 If a tensor with an unfixed shape is obtained due to feature selection during loss computation, the processing method is basically the same as that during network running. The only difference is that the loss part may not have other operations and the mask does not need to be returned.
 
-For example, we want to select the values of the first 70% positive samples to compute the loss.
-The PyTorch implementation is as follows:
+For example, we want to select the values of the first 70% positive samples to compute the loss. The implementation is as follows:
+
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
 import torch
@@ -703,6 +712,7 @@ class ClassLoss_pt(torch_nn.Module):
         super(ClassLoss_pt, self).__init__()
         self.con_loss = torch_nn.CrossEntropyLoss(reduction='none')
 
+    # `torch.topk` is used to obtain the first 70% positive sample data.
     def forward(self, pred, label):
         mask = label > 0
         vaild_label = label * mask
@@ -712,19 +722,21 @@ class ClassLoss_pt(torch_nn.Module):
         return loss.mean()
 ```
 
-`torch.topk` is used to obtain the first 70% positive sample data. Currently, MindSpore does not support K as a variable. Therefore, you need to convert the method to obtain the Kth largest value and then obtain the mask of topk based on the value. The MindSpore implementation is as follows:
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 import mindspore as ms
 from mindspore import ops
 from mindspore import nn as ms_nn
-
 class ClassLoss_ms(ms_nn.Cell):
     def __init__(self):
         super(ClassLoss_ms, self).__init__()
         self.con_loss = ms_nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="none")
         self.sort_descending = ops.Sort(descending=True)
-
+    # Currently, MindSpore does not support K as a variable.
+    # Therefore, obtain the Kth largest value and then obtain the mask of topk based on the value.
     def construct(self, pred, label):
         mask = label > 0
         vaild_label = label * mask
@@ -736,6 +748,12 @@ class ClassLoss_ms(ms_nn.Cell):
         loss = con * con_mask
         return loss.sum() / con_mask.sum()
 ```
+
+</pre>
+</td>
+</tr>
+</table>
+</div>
 
 Let's look at the test result.
 

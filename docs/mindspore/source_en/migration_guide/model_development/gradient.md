@@ -6,7 +6,8 @@
 
 Both MindSpore and PyTorch provide the automatic differentiation function. After the forward network is defined, automatic backward propagation and gradient update can be implemented through simple interface invoking. However, it should be noted that MindSpore and PyTorch use different logic to build backward graphs. This difference also brings differences in API design.
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch Automatic Differentiation </td> <td style="text-align:center"> MindSpore Automatic Differentiation </td>
 </tr>
@@ -14,8 +15,9 @@ Both MindSpore and PyTorch provide the automatic differentiation function. After
 <td style="vertical-align:top"><pre>
 
 ```python
-# Note: The feedback of PyTorch is cumulative,
-# and after updating, the optimizer needs to be cleared.
+# torch.autograd:
+# The backward is cumulative, and the optimizer
+# needs to be cleared after updating.
 
 import torch
 from torch.autograd import Variable
@@ -32,7 +34,8 @@ y.backward(x)
 <td style="vertical-align:top"><pre>
 
 ```python
-# ms.grad: forward graph as input, backward graph as output.
+# ms.grad:
+# The forward graph as input, backward graph as output.
 import mindspore as ms
 from mindspore import nn
 class GradNetWrtX(nn.Cell):
@@ -49,6 +52,7 @@ class GradNetWrtX(nn.Cell):
 </td>
 </tr>
 </table>
+</div>
 
 ### Principle Comparison
 
@@ -83,7 +87,21 @@ Typically after calling backward once, PyTorch automatically destroys the comput
 If you need to compute higher-order gradients, you need to set create_graph to True.
 The two expressions z.backward() and torch.autograd.backward(z) are equivalent.
 
+This interface is implemented in MindSpore using mindspore.grad. The above PyTorch use case can be transformed into:
+
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
 ```python
+# Before calling the backward function,
+# x.grad and y.grad functions are empty.
+# After backward, x.grad and y.grad represent the
+# values after derivative calculation, respectively.
 import torch
 print("=== tensor.backward ===")
 x = torch.tensor(1.0, requires_grad=True)
@@ -95,7 +113,6 @@ z.backward()
 print("z", z)
 print("x.grad", x.grad)
 print("y.grad", y.grad)
-
 print("=== torch.autograd.backward ===")
 x = torch.tensor(1.0, requires_grad=True)
 y = torch.tensor(2.0, requires_grad=True)
@@ -105,6 +122,29 @@ print("z", z)
 print("x.grad", x.grad)
 print("y.grad", y.grad)
 ```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+import mindspore
+print("=== mindspore.grad ===")
+x = mindspore.Tensor(1.0)
+y = mindspore.Tensor(2.0)
+def net(x, y):
+    return x**2+y
+out = mindspore.grad(net, grad_position=0)(x, y)
+print("out", out)
+out1 = mindspore.grad(net, grad_position=1)(x, y)
+print("out1", out1)
+```
+
+</pre>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 Outputs:
 
@@ -121,22 +161,9 @@ x.grad tensor(2.)
 y.grad tensor(1.)
 ```
 
-It can be seen that before calling the backward function, x.grad and y.grad functions are empty. And after the backward calculation, x.grad and y.grad represent the values after the derivative calculation, respectively.
-
-This interface is implemented in MindSpore using mindspore.grad. The above PyTorch use case can be transformed into:
-
-```python
-import mindspore
-print("=== mindspore.grad ===")
-x = mindspore.Tensor(1.0)
-y = mindspore.Tensor(2.0)
-def net(x, y):
-    return x**2+y
-out = mindspore.grad(net, grad_position=0)(x, y)
-print("out", out)
-out1 = mindspore.grad(net, grad_position=1)(x, y)
-print("out1", out1)
-```
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 Outputs:
 
@@ -146,9 +173,40 @@ out 2.0
 out1 1.0
 ```
 
+</pre>
+</td>
+</tr>
+</table>
+</div>
+
 If the above net has more than one output, you need to pay attention to the effect of multiple outputs of the network on finding the gradient.
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
+# not support multiple outputs
+import torch
+print("=== torch.autograd.backward does not support multiple outputs ===")
+x = torch.tensor(1.0, requires_grad=True)
+y = torch.tensor(2.0, requires_grad=True)
+z = x**2+y
+torch.autograd.backward(z)
+print("z", z)
+print("x.grad", x.grad)
+print("y.grad", y.grad)
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+# support multiple outputs
 import mindspore
 print("=== mindspore.grad multiple outputs ===")
 x = mindspore.Tensor(1.0)
@@ -161,27 +219,11 @@ out1 = mindspore.grad(net, grad_position=1)(x, y)
 print("out1", out)
 ```
 
-Outputs:
-
-```text
-=== mindspore.grad multiple outputs ===
-out 3.0
-out1 3.0
-```
-
-PyTorch does not support such expressions:
-
-```python
-import torch
-print("=== torch.autograd.backward does not support multiple outputs ===")
-x = torch.tensor(1.0, requires_grad=True)
-y = torch.tensor(2.0, requires_grad=True)
-z = x**2+y
-torch.autograd.backward(z)
-print("z", z)
-print("x.grad", x.grad)
-print("y.grad", y.grad)
-```
+</pre>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 Outputs:
 
@@ -191,6 +233,24 @@ z tensor(3., grad_fn=<AddBackward0>)
 x.grad tensor(2.)
 y.grad tensor(1.)
 ```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+Outputs:
+
+```text
+=== mindspore.grad multiple outputs ===
+out 3.0
+out1 3.0
+```
+
+</pre>
+</td>
+</tr>
+</table>
+</div>
 
 Therefore, to find the gradient of only the first output in MindSpore, you need to use the has_aux parameter in MindSpore.
 
@@ -347,7 +407,6 @@ class Net(nn.Cell):
         logits = self.fc(x).squeeze()
         loss = self.loss(logits, y)
         return loss, logits
-
 
 net = Net(3, 1)
 net.fc.weight.set_data(ms.Tensor([[2, 3, 4]], ms.float32))   # Set a fixed value for fully connected weight

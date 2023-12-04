@@ -109,7 +109,8 @@ The CIFAR-10 dataset is as follows:
 
 This operation is implemented on PyTorch/MindSpore as follows:
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch Dataset Processing </td> <td style="text-align:center"> MindSpore Dataset Processing </td>
 </tr>
@@ -198,12 +199,14 @@ def create_cifar_dataset(dataset_path, do_train, batch_size=32,
 </td>
 </tr>
 </table>
+</div>
 
 ### Network Model Implementation
 
 By referring to [PyTorch ResNet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py), we have implemented [MindSpore ResNet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py). The comparison tool shows that the implementation is different in the following aspects:
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
 </tr>
@@ -470,10 +473,12 @@ if zero_init_residual:
 </td>
 </tr>
 </table>
+</div>
 
 ### Loss Function
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
 </tr>
@@ -496,10 +501,12 @@ loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 </td>
 </tr>
 </table>
+</div>
 
 ### Learning Rate and Optimizer
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
 </tr>
@@ -526,6 +533,7 @@ optimizer = ms.nn.Adam(resnet.trainable_params(),
 </td>
 </tr>
 </table>
+</div>
 
 ## Model Validation
 
@@ -540,7 +548,8 @@ The following steps are required:
 
 ### Printing Parameters
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
 </tr>
@@ -612,6 +621,7 @@ layer1.0.conv1.weight (64, 64, 1, 1)
 </td>
 </tr>
 </table>
+</div>
 
 ### Parameter Mapping and Checkpoint Saving
 
@@ -760,7 +770,8 @@ The final result is similar and basically meets the expectation. If the result d
 
 ## Inference Process
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
 </tr>
@@ -904,6 +915,7 @@ Loss: 0.3240, Accuracy: 91%
 </td>
 </tr>
 </table>
+</div>
 
 The inference accuracy is the same.
 
