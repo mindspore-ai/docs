@@ -109,7 +109,8 @@ Finished Training
 
 PyTorch和MindSpore的数据集处理代码如下：
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch 数据集处理 </td> <td style="text-align:center"> MindSpore 数据集处理 </td>
 </tr>
@@ -200,12 +201,14 @@ def create_cifar_dataset(dataset_path, do_train, batch_size=32,
 </td>
 </tr>
 </table>
+</div>
 
 ### 网络模型实现
 
 参考[PyTorch resnet](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py)，我们实现了一版[MindSpore resnet](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py)，通过比较工具发现，实现只有几个地方有差别：
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
 </tr>
@@ -470,10 +473,12 @@ if zero_init_residual:
 </td>
 </tr>
 </table>
+</div>
 
 ### Loss函数
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
 </tr>
@@ -496,10 +501,12 @@ loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 </td>
 </tr>
 </table>
+</div>
 
 ### 学习率与优化器
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
 </tr>
@@ -526,6 +533,7 @@ optimizer = ms.nn.Adam(resnet.trainable_params(),
 </td>
 </tr>
 </table>
+</div>
 
 ## 模型验证
 
@@ -540,7 +548,8 @@ optimizer = ms.nn.Adam(resnet.trainable_params(),
 
 ### 打印参数
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
 </tr>
@@ -610,6 +619,7 @@ layer1.0.conv1.weight (64, 64, 1, 1)
 </td>
 </tr>
 </table>
+</div>
 
 ### 参数映射及checkpoint保存
 
@@ -760,7 +770,8 @@ diff 2.861023e-06
 
 ## 推理流程
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
 </tr>
@@ -904,6 +915,7 @@ Loss: 0.3240, Accuracy: 91%
 </td>
 </tr>
 </table>
+</div>
 
 推理精度一致。
 
