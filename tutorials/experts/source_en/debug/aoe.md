@@ -54,6 +54,6 @@ Pay attention to the following points when using the AOE tool:
 
 2. Ensure that the available disk space in the home directory of the user who performs tuning in the operating environment is at least 20 GB.
 
-3. The AOE tool depends on some third-party software `pciutils`.
+3. The AOE tool depends on third-party software `pciutils`.
 
 4. After the tuning tool is turned on, it is obvious that the compilation time of the perception operator becomes longer.

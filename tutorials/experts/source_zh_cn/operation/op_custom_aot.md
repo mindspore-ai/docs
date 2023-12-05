@@ -178,7 +178,7 @@ extern "C" int CustomKernelInit(int *ndims, int64_t **shapes, const char **dtype
 
 这里我们需要一个中间变量`workspace`记录加法的中间结果，操作方式如下：
 
-1. 计算`workspace`需要的内存大小：这里`workspace`的shape和第一个输入一样，因此先用`workspace_size *= shapes[0][i]`计算出`workspace`中元素的个数，再用`workspace_size * sizeof(float)`计算内存大小（这里默认元素类型为float);
+1. 计算`workspace`需要的内存大小：这里`workspace`的shape和第一个输入一样，因此先用`workspace_size *= shapes[0][i]`计算出`workspace`中元素的个数，再用`workspace_size * sizeof(float)`计算内存大小（这里默认元素类型为float）;
 2. 把所有中间变量的内存大小储存在一个`std::vector<size_t>`类型的对象内：`std::vector<size_t> workspace = {workspace_size * sizeof(float)};`。这里因为只有一个中间变量，该向量只有一个元素；
 3. 通过`AotExtra *extra`的`SetWorkSpace`设置中间变量内存大小：`extra->SetWorkSpace(workspace)`。
 
