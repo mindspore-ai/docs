@@ -279,7 +279,7 @@ Since the gradient overflow may be encountered in the process of finding the gra
 ```python
 from mindspore.amp import StaticLossScaler, all_finite
 
-loss_scale = StaticLossScaler(1024.)  # 静态lossscale
+loss_scale = StaticLossScaler(1024.)  # static lossscale
 
 def forward_fn(x, y):
     loss, logits = net(x, y)

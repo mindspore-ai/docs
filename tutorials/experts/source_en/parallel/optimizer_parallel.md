@@ -12,7 +12,7 @@ In AUTO_PARALLEL or SEMI_AUTO_PARALLEL mode to enable optimizer parallelism, if 
 
 | Parallel mode      | Parameter update mode                                        | Optimizer support            | Backend support      |
 | ------------- | --------------------------------------------------- | --------------------- | --------|
-| Data parallelism      | The parameter groups are updated, then are broadcasted to all cards                      | Lamb, AdamWeightDecay和AdaFactor | Ascend |
+| Data parallelism      | The parameter groups are updated, then are broadcasted to all cards                      | Lamb, AdamWeightDecay and AdaFactor | Ascend |
 | Automatic/semi-automatic parallel | The parameters are sliced into N copies according to data parallelism, and each card updates the parameters on the current card | all optimizers            | Ascend, GPU |
 
 In either mode, the optimizer parallelism does not affect the compute graph of the original forward and backward network, but only the compute volume and compute logic of the parameter updates.
