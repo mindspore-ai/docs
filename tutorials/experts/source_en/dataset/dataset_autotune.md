@@ -21,7 +21,7 @@ If not, Dataset AutoTune will also try to reduce the memory usage of the dataset
 
 ## Enabling Dataset AutoTune
 
-To enable Dataset AutoTune and not save the more efficient dataset pipeline:
+To enable Dataset AutoTune (without saving the recommended configuration after tuning):
 
 ```python
 import mindspore.dataset as ds
@@ -61,7 +61,7 @@ print("tuning interval:", ds.config.get_autotune_interval())
 - If the Dataset pipeline consists of a node that does not support deserialization (e.g. user-defined Python functions, GeneratorDataset), any attempt to deserialize the saved and improved dataset pipeline configuration file will report an error. In this case, it is recommended to manually modify the dataset pipeline script based on the contents of the tuning configuration file to achieve the purpose of a more efficient dataset pipeline.
 - In the distributed training scenario, `set_enable_autotune()` must be called after cluster communication has been initialized (mindspore.communication.management.init()), otherwise AutoTune can only detect device with id 0 and create only one tuned file (the number of expected tuned files equal to the number of devices). See the following example:
 
-    Code in distributed training scenario must be:
+    In distributed multi-card training scenarios, Dataset AutoTune needs to be enabled only after cluster initialization is complete:
 
     ```python
     import mindspore.dataset as ds
@@ -109,7 +109,7 @@ def create_dataset(...)
     # enable Dataset AutoTune
     ds.config.set_enable_autotune(True, "/path/to/autotune_out")
 
-    # define dataset
+    # no changes required for other dataset codes
     data_set = ds.Cifar10Dataset(data_path)
     ...
 ```
@@ -171,7 +171,7 @@ Some analysis to explain the meaning of the log information:
   [WARNING] [auto_tune.cc:236 IsDSaBottleneck] Utilization: 2.24% < 75% threshold, dataset pipeline performance needs tuning.
   ```
 
-  Then, Dataset AutoTune increases the number of parallel workers from 2 to 4 for MapOp(ID:3) and increases the prefetch size from 1 to 5 for BatchOp(ID:2).
+  The reason is mainly that the data processing pipeline generates data slowly and the network side reads the generated data very quickly. Based on this, Dataset AutoTune module adjusts the number of working threads ("num_parallel_workers") of MapOp(ID:3) and the depth of internal queue ("prefetch_size") of BatchOp(ID:2) operation.
 
   ```text
   [WARNING] [auto_tune.cc:297 Analyse] Op (MapOp(ID:3)) is slow, input connector utilization=0.975806, output connector utilization=0.298387, diff= 0.677419 > 0.35 threshold.
@@ -210,7 +210,7 @@ Since Dataset AutoTune was enabled to generate a more efficient dataset pipeline
 
 After passing string to `filepath_prefix`, AutoTune will automatically generate JSON files corresponding to the device number according to the current training mode in a standalone or distributed environment.
 
-For example, let `filepath_prefix='autotune_out'`.
+For example, configure `filepath_prefix='autotune_out'`.
 
 - In distributed training on 4 devices, AutoTune will generate 4 tuning files: autotune_out_0.json, autotune_out_1.json, autotune_out_2.json, autotune_out_3.json, corresponding to the configuration of the dataset pipeline of the 4 devices.
 - In a standalone training on 1 device, AutoTune will generate autotune_out_0.json, which corresponds to the configuration of the dataset pipeline on this device.
