@@ -24,7 +24,19 @@
 
 Focal Loss[1]是一种用来处理单阶段目标检测器训练过程中出现的正负样本、难易样本不平衡问题的方法。
 
-常用的sigmoid focal loss的API接口是MMDetection的实现，我们来看一下使用PyTorch是怎么实现的：
+常用的sigmoid focal loss的API接口是MMDetection的实现，PyTorch实现代码参考下方左侧。
+
+参考API映射表，可以看到PyTorch代码中使用的API在MindSpore上都有对应实现，没有缺失。
+
+根据PyTorch的实现，MindSpore的版本参考下方右侧。
+
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
 import torch.nn.functional as F
@@ -49,7 +61,6 @@ def reduce_loss(loss, reduction):
 def weight_reduce_loss(loss, weight=None, reduction='mean', avg_factor=None):
     if weight is not None:
         loss = loss * weight
-
     # if avg_factor is not specified, just reduce the loss
     if avg_factor is None:
         loss = reduce_loss(loss, reduction)
@@ -62,14 +73,8 @@ def weight_reduce_loss(loss, weight=None, reduction='mean', avg_factor=None):
             raise ValueError('avg_factor can not be used with reduction="sum"')
     return loss
 
-
-def py_sigmoid_focal_loss(pred,
-                          target,
-                          weight=None,
-                          gamma=2.0,
-                          alpha=0.25,
-                          reduction='mean',
-                          avg_factor=None):
+def py_sigmoid_focal_loss(pred, target, weight=None, gamma=2.0, alpha=0.25,
+                          reduction='mean', avg_factor=None):
     """PyTorch version of `Focal Loss <https://arxiv.org/abs/1708.02002>`_.
     Args:
         pred (torch.Tensor): The prediction with shape (N, C), C is the
@@ -87,8 +92,10 @@ def py_sigmoid_focal_loss(pred,
     """
     pred_sigmoid = pred.sigmoid()
     target = target.type_as(pred)
-    pt = (1 - pred_sigmoid) * target + pred_sigmoid * (1 - target)
-    focal_weight = (alpha * target + (1 - alpha) *
+    pt = (1 - pred_sigmoid) * target +
+          pred_sigmoid * (1 - target)
+    focal_weight = (alpha * target +
+                    (1 - alpha) *
                     (1 - target)) * pt.pow(gamma)
     loss = F.binary_cross_entropy_with_logits(
         pred, target, reduction='none') * focal_weight
@@ -110,9 +117,9 @@ def py_sigmoid_focal_loss(pred,
     return loss
 ```
 
-参考API映射表，可以看到代码中使用的API MindSpore上都有对应实现，没有缺失。
-
-参考上面的PyTorch代码，实现下MindSpore的版本：
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 import mindspore as ms
@@ -159,21 +166,26 @@ class SigmoidFoaclLoss(nn.Cell):
     def construct(self, pred, target):
         pred_sigmoid = self.sigmoid(pred)
         target = ops.cast(target, pred.dtype)
-        pt = (1 - pred_sigmoid) * target + pred_sigmoid * (1 - target)
-        focal_weight = (self.alpha * target + (1 - self.alpha) * (1 - target)) * ops.pow(pt, self.gamma)
+
+        pt = (1 - pred_sigmoid) * target +
+              pred_sigmoid * (1 - target)
+        focal_weight = (self.alpha * target +
+                        (1 - self.alpha) *
+                        (1 - target)) * ops.pow(pt, self.gamma)
         loss = self.binary_cross_entropy_with_logits(pred, target) * focal_weight
+
         if self.is_weight:
             weight = self.weight
             if self.weight.shape != loss.shape:
                 if self.weight.shape[0] == loss.shape[0]:
                     # For most cases, weight is of shape (num_priors, ),
-                    #  which means it does not have the second axis num_class
+                    # which means it does not have the second axis num_class
                     weight = self.weight.view(-1, 1)
                 elif self.weight.size == loss.size:
-                    # Sometimes, weight per anchor per class is also needed. e.g.
-                    #  in FSAF. But it may be flattened of shape
-                    #  (num_priors x num_class, ), while loss is still of shape
-                    #  (num_priors, num_class).
+                    # Sometimes, weight per anchor per class is also needed.
+                    # e.g. in FSAF. But it may be flattened of shape
+                    # (num_priors x num_class, ), while loss is still of shape
+                    # (num_priors, num_class).
                     weight = self.weight.view(loss.shape[0], -1)
                 elif self.weight.ndim != loss.ndim:
                     raise ValueError(f"weight shape {self.weight.shape} is not match to loss shape {loss.shape}")
@@ -181,6 +193,12 @@ class SigmoidFoaclLoss(nn.Cell):
         loss = self.weight_reduce_loss(loss)
         return loss
 ```
+
+</pre>
+</td>
+</tr>
+</table>
+</div>
 
 然后我们做个测试：
 

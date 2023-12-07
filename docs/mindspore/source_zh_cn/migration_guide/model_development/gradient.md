@@ -6,7 +6,8 @@
 
 MindSpore 和 PyTorch 都提供了自动微分功能，让我们在定义了正向网络后，可以通过简单的接口调用实现自动反向传播以及梯度更新。但需要注意的是，MindSpore 和 PyTorch 构建反向图的逻辑是不同的，这个差异也会带来 API 设计上的不同。
 
-<table>
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch的自动微分 </td> <td style="text-align:center"> MindSpore的自动微分 </td>
 </tr>
@@ -14,13 +15,14 @@ MindSpore 和 PyTorch 都提供了自动微分功能，让我们在定义了正�
 <td style="vertical-align:top"><pre>
 
 ```python
-# 注意：
-# PyTorch的backward是累计的，更新完之后需清空optimizer
+# torch.autograd:
+# backward是累计的，更新完之后需清空optimizer
 
 import torch
 from torch.autograd import Variable
 
-x = Variable(torch.ones(2, 2), requires_grad=True)
+x = Variable(torch.ones(2, 2),
+             requires_grad=True)
 x = x * 2
 y = x - 1
 y.backward(x)
@@ -32,7 +34,8 @@ y.backward(x)
 <td style="vertical-align:top"><pre>
 
 ```python
-# ms.grad: 使用grad接口，输入正向图，输出反向图
+# ms.grad:
+# 使用grad接口，输入正向图，输出反向图
 import mindspore as ms
 from mindspore import nn
 class GradNetWrtX(nn.Cell):
@@ -49,6 +52,7 @@ class GradNetWrtX(nn.Cell):
 </td>
 </tr>
 </table>
+</div>
 
 ### 原理对比
 
@@ -83,7 +87,19 @@ MindSpore 在做自动微分时，通过对正向图的分析得到反向传播�
 若需要计算更高阶的梯度，需要将create_graph设置为True。
 z.backward()和torch.autograd.backward(z)两种表达等价。
 
+该接口在MindSpore中用mindspore.grad实现。上述PyTorch用例可转化为：
+
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
 ```python
+# 在调用backward函数之前，x.grad和y.grad函数为空
+# backward计算过后，x.grad和y.grad分别代表导数计算后的值
 import torch
 print("=== tensor.backward ===")
 x = torch.tensor(1.0, requires_grad=True)
@@ -95,7 +111,6 @@ z.backward()
 print("z", z)
 print("x.grad", x.grad)
 print("y.grad", y.grad)
-
 print("=== torch.autograd.backward ===")
 x = torch.tensor(1.0, requires_grad=True)
 y = torch.tensor(2.0, requires_grad=True)
@@ -105,6 +120,29 @@ print("z", z)
 print("x.grad", x.grad)
 print("y.grad", y.grad)
 ```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+import mindspore
+print("=== mindspore.grad ===")
+x = mindspore.Tensor(1.0)
+y = mindspore.Tensor(2.0)
+def net(x, y):
+    return x**2+y
+out = mindspore.grad(net, grad_position=0)(x, y)
+print("out", out)
+out1 = mindspore.grad(net, grad_position=1)(x, y)
+print("out1", out1)
+```
+
+</pre>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 运行结果：
 
@@ -121,22 +159,9 @@ x.grad tensor(2.)
 y.grad tensor(1.)
 ```
 
-可以看到，在调用backward函数之前，x.grad和y.grad函数为空。而backward计算过后，x.grad和y.grad分别代表导数计算后的值。
-
-该接口在MindSpore中用mindspore.grad实现。上述PyTorch用例可转化为：
-
-```python
-import mindspore
-print("=== mindspore.grad ===")
-x = mindspore.Tensor(1.0)
-y = mindspore.Tensor(2.0)
-def net(x, y):
-    return x**2+y
-out = mindspore.grad(net, grad_position=0)(x, y)
-print("out", out)
-out1 = mindspore.grad(net, grad_position=1)(x, y)
-print("out1", out1)
-```
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 运行结果：
 
@@ -146,9 +171,42 @@ out 2.0
 out1 1.0
 ```
 
+</pre>
+</td>
+</tr>
+</table>
+</div>
+
 若上述net有多个输出，需要注意网络多输出对于求梯度的影响。
 
+<div class="wy-table-responsive">
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
 ```python
+# 不支持多个输出
+import torch
+print("=== torch.autograd.backward 不支持多个output ===")
+x = torch.tensor(1.0, requires_grad=True)
+y = torch.tensor(2.0, requires_grad=True)
+z = x**2+y
+torch.autograd.backward(z)
+
+print("z", z)
+print("x.grad", x.grad)
+print("y.grad", y.grad)
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+# 支持多个输出
 import mindspore
 print("=== mindspore.grad 多个output ===")
 x = mindspore.Tensor(1.0)
@@ -161,27 +219,11 @@ out1 = mindspore.grad(net, grad_position=1)(x, y)
 print("out1", out)
 ```
 
-运行结果：
-
-```text
-=== mindspore.grad 多个output ===
-out 3.0
-out1 3.0
-```
-
-PyTorch不支持此种表达：
-
-```python
-import torch
-print("=== torch.autograd.backward 不支持多个output ===")
-x = torch.tensor(1.0, requires_grad=True)
-y = torch.tensor(2.0, requires_grad=True)
-z = x**2+y
-torch.autograd.backward(z)
-print("z", z)
-print("x.grad", x.grad)
-print("y.grad", y.grad)
-```
+</pre>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 运行结果：
 
@@ -191,6 +233,24 @@ z tensor(3., grad_fn=<AddBackward0>)
 x.grad tensor(2.)
 y.grad tensor(1.)
 ```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+运行结果：
+
+```text
+=== mindspore.grad 多个output ===
+out 3.0
+out1 3.0
+```
+
+</pre>
+</td>
+</tr>
+</table>
+</div>
 
 因此， 若要在MindSpore只对第一个输出求梯度，在MindSpore中需要使用has_aux参数。
 
@@ -347,7 +407,6 @@ class Net(nn.Cell):
         logits = self.fc(x).squeeze()
         loss = self.loss(logits, y)
         return loss, logits
-
 
 net = Net(3, 1)
 net.fc.weight.set_data(ms.Tensor([[2, 3, 4]], ms.float32))   # 给全连接的weight设置固定值
