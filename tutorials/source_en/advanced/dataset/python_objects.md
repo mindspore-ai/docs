@@ -2,7 +2,7 @@
 
 # Supporting Python Objects in Dataset Pipeline
 
-Dataset pipeline accepts any Python type as input for some operations(such as `GeneratorDataset`、user defined `map` operation、`batch(per_batch_map=...)`). To achieve this feature, Dataset pipeline uses Python `dict` to manager different types. The main difference compared to other data types is that Python `dict` will not be converted to a C++ type, and instead a reference will be maintained in the pipeline.
+Dataset pipeline accepts any Python type as input for some operations(such as user-defined dataset `GeneratorDataset`、user-defined `map` augmentation operation、`batch(per_batch_map=...)`). To achieve this feature, Dataset pipeline uses Python `dict` to manager different types. The main difference compared to other data types is that Python `dict` will not be converted to a C++ type, and instead a reference will be maintained in the pipeline.
 
 Note that while currently Dataset pipeline supports to recognize `dict` objects, you can also wrap other Python types inside a dictionary and send them to Dataset pipeline to achieve the same behavior. This article describes how to construct dictionary type to Dataset pipeline and acquire through iterator.
 
@@ -14,7 +14,7 @@ Sending Python `dict` objects to the Dataset pipeline is possible through differ
 2. within a Python callable object used in a `map` operation, the user can customize it to return a `dict` object, or
 3. similarly, customize the `per_batch_map` function of a `batch` operation to return a `dict` object.
 
-### Process `dict` with GeneratorDataset
+### Processing `dict` with GeneratorDataset
 
 Here is an example of sending `dict` objects to the Dataset pipeline using `GeneratorDataset`.
 
@@ -45,7 +45,7 @@ Output:
 {'col1': {'number': array(4), 'square': array(16)}, 'col2': array(4, dtype=int64)}
 ```
 
-### Process `dict` with Map Operation
+### Processing `dict` with Map Operation
 
 Similar to `GeneratorDataset`, each `dict` object is treated as one data column and there is no limitation on its content.
 
@@ -81,7 +81,7 @@ Output:
 {'col1': {'original_col1': array(4), 'square': array(16)}}
 ```
 
-### Process `dict` with Batch Operation
+### Processing `dict` with Batch Operation
 
 When `batch` operation is invoked on a dataset with a column containing dictionary objects, Dataset pipeline attempts to group corresponding values with the same keys inside the dictionaries together. Thus, it is necessary for all the dictionaries to have identical keys.
 
@@ -259,4 +259,4 @@ In the model training/inference scenario, there are the following constraints wh
   [Tensor(shape=[], dtype=Int64, value= 4), Tensor(shape=[], dtype=Int64, value= 5)]
   ```
 
-- In non data sink mode, there is no limit, just pay attention to whether the types stored in the dictionary can be recognized and processed by the model.
+- In non data sink mode, there is no limit. Pay attention to whether the types stored in the dictionary can be recognized and processed by the model.
