@@ -78,6 +78,7 @@ class DummyApplication:
         self.config.add('giturl', '', True, None)
         self.config.add('repo_whl', '', True, None)
         self.config.add('ops_yaml', '', True, None)
+        self.config.add('ops_yaml_list', [], True, None)
         self.config.init_values()
 
     def emit_firstresult(self, *args: Any) -> None:
@@ -487,13 +488,19 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
             except TypeError:
                 py_source = ''
         if 'mindspore/ops/auto_generate/' in py_source:
-            py_source = app.config.ops_yaml + name.split('.')[-1] + '_doc.yaml'
+            if name.split('.')[-1] + '_doc.yaml' not in app.config.ops_yaml_list:
+                for f_yaml in app.config.ops_yaml_list:
+                    if re.findall(f"{name.split('.')[-1]}_v[0-9]+_doc.yaml", f_yaml):
+                        py_source = app.config.ops_yaml + re.findall(f"{name.split('.')[-1]}_v[0-9]+_doc.yaml", f_yaml)[0]
+                        break
+            else:
+                py_source = app.config.ops_yaml + name.split('.')[-1] + '_doc.yaml'
             re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
                 f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
                 f"{app.config.copy_repo}/blob/{app.config.branch}/" + \
                 py_source + '\n    :alt: View Source On Gitee\n\n'
 
-            if re_view not in content:
+            if re_view not in content and name == name.lower():
                 content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
 
         elif py_source:

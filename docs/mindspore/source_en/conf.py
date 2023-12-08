@@ -507,6 +507,11 @@ cst_module_name = 'mindspore'
 repo_whl = 'mindspore/python/mindspore'
 giturl = 'https://gitee.com/mindspore/'
 ops_yaml = 'mindspore/core/ops/ops_def/'
+try:
+    ops_yaml_list = [i for i in os.path.join(os.getenv("MS_PATH"), 'core/ops/ops_def') if i.endswith('_doc.yaml') and '_grad' not in i]
+except:
+    ops_yaml_list = []
+
 
 re_url = r"(((gitee.com/mindspore/(mindspore|docs))|(github.com/mindspore-ai/(mindspore|docs))|" + \
          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
@@ -558,6 +563,7 @@ def setup(app):
     app.add_config_value('giturl', '', True)
     app.add_config_value('repo_whl', '', True)
     app.add_config_value('ops_yaml', '', True)
+    app.add_config_value('ops_yaml_list', [], True)
 
 # Copy images from mindspore repo.
 import imghdr
