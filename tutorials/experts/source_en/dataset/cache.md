@@ -113,7 +113,7 @@ Output parameters description:
 - `Mem cached`: the amount of data cached in memory.
 - `Disk cached`: the amount of data cached in disk.
 - `Avg cache size`: the average size of each row of data currently cached.
-- `Numa hit`: the number of **Numa** hits. The higher value will get the better time performance.
+- `Numa hit`: the number of Numa hits. The higher value will get the better time performance.
 
 ### 3. Create a Cache Instance
 
@@ -158,7 +158,7 @@ Currently, the cache service can be used to cache both original datasets and dat
 
 Note that both examples need to create a cache instance according to the method in step 3, and pass in the created `test_cache` as `cache` parameters in the dataset load or map operation.
 
-CIFAR-10 dataset is used in the following two examples.
+CIFAR-10 dataset is used in the following examples.
 
 ```python
 from download import download
@@ -328,7 +328,7 @@ During the single-node multi-device distributed training, the cache operation al
 
 2. Create a cache session.
 
-    Create the shell script `cache.sh` for starting Python training and run the following command to generate a cache session ID:
+    Create the Shell script `cache.sh` for starting Python training and run the following command to generate a cache session ID:
 
     ```shell
     #!/bin/bash
@@ -356,7 +356,7 @@ During the single-node multi-device distributed training, the cache operation al
 
 3. Pass the cache session id to the training script.
 
-    Continue to write the shell script and add the following command to pass `session_id` and other parameters when the Python training is started:
+    Continue to write the Shell script and add the following command to pass `session_id` and other parameters when the Python training is started:
 
     ```bash
     # make the session_id available to the python scripts
@@ -414,7 +414,7 @@ During the single-node multi-device distributed training, the cache operation al
 
 5. Execute the training script.
 
-    Execute the shell script `cache.sh` to enable distributed training.
+    Execute the Shell script `cache.sh` to enable distributed training.
 
     ```bash
     $ sh cache.sh cifar-10-batches-bin/

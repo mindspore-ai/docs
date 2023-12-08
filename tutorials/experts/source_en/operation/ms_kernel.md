@@ -55,7 +55,7 @@ print(out)
 
 There are two kinds of variables in MindSpore Hybrid DSL: tensor variables and scalar variables.
 
-Tensor variables, besides those in the inputs of the function, must be declared with `shape`和 `dtype` before use.
+Tensor variables, besides those in the inputs of the function, must be declared with `shape` and `dtype` before use.
 
 - declare a output tensor by `output_tensor`, such as `output_tensor(shape, dtype)`.
 - declare an intermediate tensor by `allocate`, such as `allocate(shape, dtype)`.
@@ -105,7 +105,7 @@ def kernel_func(a):
     return c
 ```
 
-Unlike native Python language, once a variable is defined, we can't change its `shape`和 `dtype`.
+Unlike native Python language, once a variable is defined, we can't change its `shape` and `dtype`.
 
 ### Expressions
 
@@ -180,7 +180,7 @@ def kernel_func(a, b):
 
 Then the expression inside loops is equivalent to `out[i, j, k] = a[i, j, k] + b[i]`.
 
-### Scheduling keywords
+### Scheduling Keywords
 
 From version 1.8, MindSpore Hybrid DSL provides scheduling keywords to describe the type of loops. On the Ascend backend, scheduling keywords will help the new DSA polyhedron scheduler generate codes. The scheduling keywords include `serial`, `vectorize`, `parallel`, and `reduce`.
 

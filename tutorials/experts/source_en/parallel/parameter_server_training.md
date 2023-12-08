@@ -45,13 +45,13 @@ For more detailed instructions, see [dynamic cluster environment variables](http
 
 In the parameter server implementation of MindSpore, the self-developed communication framework (core) is used as the basic architecture. Based on the remote communication capability provided by the core and abstract Send/Broadcast primitives, the distributed training algorithm of the synchronous SGD is implemented. In addition, with the high-performance collective communication library in Ascend and GPU(HCCL and NCCL), MindSpore also provides the hybrid training mode of parameter server and AllReduce. Some weights can be stored and updated through the parameter server, and other weights are still trained through the AllReduce algorithm.
 
-The ps-lite architecture consists of three independent components: server, worker, and scheduler. Their functions are as follows:
+The ps-lite architecture consists of three independent components: Server, Worker, and Scheduler. Their functions are as follows:
 
-- Server: saves model weights and backward computation gradients, and updates the model using gradients pushed by workers.
+- Server: saves model weights and backward computation gradients, and updates the model using gradients pushed by Workers.
 
 - Worker: performs forward and backward computation on the network. The gradient value for backward computation is uploaded to a server through the `Push` API, and the model updated by the server is downloaded to the worker through the `Pull` API.
 
-- Scheduler: establishes the communication relationship between the server and worker.
+- Scheduler: establishes the communication relationship between the Server and Worker.
 
 ## Practice
 
