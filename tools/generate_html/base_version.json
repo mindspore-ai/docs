@@ -180,5 +180,15 @@
         },
         "repo_name": "mindquantum",
         "theme": "theme-docs"
+    },
+    {
+        "version": "r1.0.0-rc2",
+        "versionAlias" : "",
+        "label": {
+            "zh": "MindSpore SPONGE",
+            "en": "MindSpore SPONGE"
+        },
+        "repo_name": "mindsponge",
+        "theme": "theme-docs"
     }
 ]

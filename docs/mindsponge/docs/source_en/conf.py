@@ -12,13 +12,13 @@
 #
 import os
 import shutil
+import sys
 import IPython
 import re
-import sys
-import regex
+import sphinx
+sys.path.append(os.path.abspath('../_ext'))
+import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
-
-import mindinsight
 
 # -- Project information -----------------------------------------------------
 
@@ -41,6 +41,7 @@ myst_enable_extensions = ["dollarmath", "amsmath"]
 myst_heading_anchors = 5
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
@@ -75,6 +76,10 @@ pygments_style = 'sphinx'
 
 autodoc_inherit_docstrings = False
 
+autosummary_generate = True
+
+autosummary_generate_overwrite = False
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -89,11 +94,22 @@ if os.path.exists(layout_target):
     os.remove(layout_target)
 shutil.copy(layout_src, layout_target)
 
+html_search_language = 'en'
+
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
     'python': ('https://docs.python.org/', '../../../../resource/python_objects.inv'),
     'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../../resource/numpy_objects.inv'),
 }
+
+# Modify regex for sphinx.ext.autosummary.generate.find_autosummary_in_lines.
+gfile_abs_path = os.path.abspath(g.__file__)
+autosummary_re_line_old = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+autosummary::\s*')"
+autosummary_re_line_new = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+(ms[a-z]*)?autosummary::\s*')"
+with open(gfile_abs_path, "r+", encoding="utf8") as f:
+    data = f.read()
+    data = data.replace(autosummary_re_line_old, autosummary_re_line_new)
+    exec(data, g.__dict__)
 
 # Modify default signatures for autodoc.
 autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
@@ -126,35 +142,52 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+# Copy source files of chinese python api from mindscience repository.
+from sphinx.util import logging
+logger = logging.getLogger(__name__)
+
+src_dir_msg = os.path.join(os.getenv("MSC_PATH"), 'MindSPONGE/docs/api/api_python_en')
+
+present_path = os.path.dirname(__file__)
+
+for i in os.listdir(src_dir_msg):
+    if os.path.isfile(os.path.join(src_dir_msg,i)):
+        if os.path.exists('./'+i):
+            os.remove('./'+i)
+        shutil.copy(os.path.join(src_dir_msg,i),'./'+i)
+    else:
+        if os.path.exists('./'+i):
+            shutil.rmtree('./'+i)
+        shutil.copytree(os.path.join(src_dir_msg,i),'./'+i)
+
+import mindsponge
+
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 # import anchor_mod
 import nbsphinx_mod
+
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
 
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
+from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary
 
 def setup(app):
+    app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
+    app.add_directive('msnoteautosummary', MsNoteAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
 
-src_release = os.path.join(os.getenv("MI_PATH"), 'RELEASE.md')
+src_release = os.path.join(os.getenv("MSC_PATH"), 'MindSPONGE/RELEASE.md')
 des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
-    content = regex.findall("(\n## MindSpore Insight [\s\S\n]*?)\n## ", data, overlapped=True)
-    repo_version = re.findall("\n## MindSpore Insight ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
-    content_new = ''
-    for i in content:
-        if re.findall(f"\n## MindSpore Insight ({repo_version[0]}\.[0-9]+?)[ -]", i):
-            content_new += i
-    content = content_new
+    content = re.findall("(## [\s\S\n]*?)\n## ", data)
 else:
-    content = re.findall("(\n## [\s\S\n]*)", data)
-    content = content[0]
-#result = content[0].replace('# MindSpore', '#', 1)
+    content = re.findall("(## [\s\S\n]*)", data)
+#result = content[0].replace('# MindSPONGE', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes"+"\n")
-    p.write(content)
+    p.write("# Release Notes"+"\n\n")
+    p.write(content[0])

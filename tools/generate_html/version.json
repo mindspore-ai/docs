@@ -3,19 +3,19 @@
       "id" : 1 ,
       "name" : "lite",
       "branch" : "r2.2",
-      "whl_path" : "2.2.0/MindSpore/lite/release/linux/x86_64/cloud_fusion/python37/",
-      "whl_name" : "mindspore_lite-2.2.0-cp37-cp37m-linux_x86_64.whl",
+      "whl_path" : "2.2.1/MindSpore/lite/release/linux/x86_64/cloud_fusion/python37/",
+      "whl_name" : "mindspore_lite-2.2.1-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MS_PATH",
       "uninstall_name" : "mindspore_lite",
-      "tar_path" : "2.2.0/MindSpore/lite/release/linux/x86_64/cloud_fusion/python37/",
-      "tar_name" : "mindspore-lite-2.2.0-linux-x64.tar.gz"
+      "tar_path" : "2.2.1/MindSpore/lite/release/linux/x86_64/cloud_fusion/python37/",
+      "tar_name" : "mindspore-lite-2.2.1-linux-x64.tar.gz"
    },
    {
       "id" : 2 ,
       "name" : "mindspore",
       "branch" : "r2.2",
-      "whl_path" : "2.2.0/MindSpore/unified/x86_64/",
-      "whl_name" : "mindspore-2.2.0-cp37-cp37m-linux_x86_64.whl",
+      "whl_path" : "2.2.1/MindSpore/unified/x86_64/",
+      "whl_name" : "mindspore-2.2.1-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MS_PATH",
       "uninstall_name" : "mindspore"
    },
@@ -59,8 +59,8 @@
       "id" : 7 ,
       "name" : "mindinsight",
       "branch" : "r2.2",
-      "whl_path" : "2.2.0/MindInsight/any/",
-      "whl_name" : "mindinsight-2.2.0-py3-none-any.whl",
+      "whl_path" : "2.2.1/MindInsight/any/",
+      "whl_name" : "mindinsight-2.2.1-py3-none-any.whl",
       "environ" : "MI_PATH",
       "uninstall_name" : "mindinsight"
    },
@@ -90,5 +90,14 @@
       "whl_name" : "",
       "environ" : "DT_PATH",
       "uninstall_name" : ""
+   },
+   {
+      "id" : 11 ,
+      "name" : "mindsponge",
+      "branch" : "r1.0.0-rc2",
+      "whl_path" : "2.2.1/MindScience/mindsponge/gpu/x86_64/cuda-10.1/",
+      "whl_name" : "mindsponge_gpu-1.0.0rc2-py3-none-any.whl",
+      "environ" : "MSC_PATH",
+      "uninstall_name" : "mindsponge_gpu"
    }
 ]

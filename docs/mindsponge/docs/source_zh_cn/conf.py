@@ -10,29 +10,16 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+import glob
 import os
+import shutil
+import sys
 import IPython
 import re
-import sys
-import regex
-
-from sphinx import directives
-with open('../_ext/overwriteobjectiondirective.txt', 'r') as f:
-    exec(f.read(), directives.__dict__)
-
-from sphinx.ext import viewcode
-with open('../_ext/overwriteviewcode.txt', 'r', encoding="utf8") as f:
-    exec(f.read(), viewcode.__dict__)
-
-from docutils import statemachine
-
-with open(statemachine.__file__, 'r') as g:
-    code = g.read().replace("assert len(self.data) == len(self.items), 'data mismatch'", "#assert len(self.data) == len(self.items), 'data mismatch'")
-    exec(code, statemachine.__dict__)
-
+import sphinx
+sys.path.append(os.path.abspath('../_ext'))
+import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
-
-import mindinsight
 
 # -- Project information -----------------------------------------------------
 
@@ -42,7 +29,6 @@ author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
 release = 'master'
-
 
 # -- General configuration ---------------------------------------------------
 
@@ -55,6 +41,7 @@ myst_enable_extensions = ["dollarmath", "amsmath"]
 myst_heading_anchors = 5
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
@@ -89,6 +76,10 @@ pygments_style = 'sphinx'
 
 autodoc_inherit_docstrings = False
 
+autosummary_generate = True
+
+autosummary_generate_overwrite = False
+
 # -- Options for HTML output -------------------------------------------------
 
 # Reconstruction of sphinx auto generated document translation.
@@ -105,15 +96,32 @@ html_search_language = 'zh'
 
 html_search_options = {'dict': '../../../resource/jieba.txt'}
 
+sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
+# import anchor_mod
+import nbsphinx_mod
+
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
     'python': ('https://docs.python.org/', '../../../../resource/python_objects.inv'),
     'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../../resource/numpy_objects.inv'),
 }
 
-sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-# import anchor_mod
-import nbsphinx_mod
+from sphinx import directives
+with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), directives.__dict__)
+
+from sphinx.ext import viewcode
+with open('../_ext/overwriteviewcode.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), viewcode.__dict__)
+
+# Modify regex for sphinx.ext.autosummary.generate.find_autosummary_in_lines.
+gfile_abs_path = os.path.abspath(g.__file__)
+autosummary_re_line_old = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+autosummary::\s*')"
+autosummary_re_line_new = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+(ms[a-z]*)?autosummary::\s*')"
+with open(gfile_abs_path, "r+", encoding="utf8") as f:
+    data = f.read()
+    data = data.replace(autosummary_re_line_old, autosummary_re_line_new)
+    exec(data, g.__dict__)
 
 # Modify default signatures for autodoc.
 autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
@@ -146,19 +154,12 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
-sys.path.append(os.path.abspath('../../../../resource/search'))
-import search_code
-
-sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
-from custom_directives import IncludeCodeDirective
-
-# Copy source files of chinese python api from mindinsight repository.
-import shutil
+# Copy source files of chinese python api from mindscience repository.
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
-copy_path = 'docs/api_python'
-src_dir = os.path.join(os.getenv("MI_PATH"), copy_path)
+copy_path = 'MindSPONGE/docs/api/api_python'
+src_dir = os.path.join(os.getenv("MSC_PATH"), copy_path)
 
 copy_list = []
 
@@ -189,10 +190,10 @@ elif os.path.exists('../../../../tools/generate_html/daily.json'):
     with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
         version_inf = json.load(f)
 
-if os.getenv("MI_PATH").split('/')[-1]:
-    copy_repo = os.getenv("MI_PATH").split('/')[-1]
+if os.getenv("MSC_PATH").split('/')[-1]:
+    copy_repo = os.getenv("MSC_PATH").split('/')[-1]
 else:
-    copy_repo = os.getenv("MI_PATH").split('/')[-2]
+    copy_repo = os.getenv("MSC_PATH").split('/')[-2]
 
 branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
@@ -224,25 +225,33 @@ for cur, _, files in os.walk(present_path):
                 except Exception:
                     print(f'打开{i}文件失败')
 
-def setup(app):
-    app.add_directive('includecode', IncludeCodeDirective)
+import mindsponge
 
-src_release = os.path.join(os.getenv("MI_PATH"), 'RELEASE_CN.md')
+sys.path.append(os.path.abspath('../../../../resource/search'))
+import search_code
+
+sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
+from custom_directives import IncludeCodeDirective
+from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnPlatformAutoSummary
+
+rst_files = set([i.replace('.rst', '') for i in glob.glob('./**/*.rst', recursive=True)])
+
+def setup(app):
+    app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
+    app.add_directive('msnoteautosummary', MsNoteAutoSummary)
+    app.add_directive('mscnplatformautosummary', MsCnPlatformAutoSummary)
+    app.add_directive('includecode', IncludeCodeDirective)
+    app.add_config_value('rst_files', set(), False)
+
+src_release = os.path.join(os.getenv("MSC_PATH"), 'MindSPONGE/RELEASE_CN.md')
 des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
-    content = regex.findall("(\n## MindSpore Insight [\s\S\n]*?)\n## ", data, overlapped=True)
-    repo_version = re.findall("\n## MindSpore Insight ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
-    content_new = ''
-    for i in content:
-        if re.findall(f"\n## MindSpore Insight ({repo_version[0]}\.[0-9]+?)[ -]", i):
-            content_new += i
-    content = content_new
+    content = re.findall("(## [\s\S\n]*?)\n## ", data)
 else:
-    content = re.findall("(\n## [\s\S\n]*)", data)
-    content = content[0]
-#result = content[0].replace('# MindSpore', '#', 1)
+    content = re.findall("(## [\s\S\n]*)", data)
+#result = content[0].replace('# MindSPONGE', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes"+"\n")
-    p.write(content)
+    p.write("# Release Notes"+"\n\n")
+    p.write(content[0])
