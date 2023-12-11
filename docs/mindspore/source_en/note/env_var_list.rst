@@ -584,3 +584,12 @@ Other
      - String
      - 'on', indicating that disable trace function
      - Experimental environment variable.
+   * - MS_ENABLE_GE
+     - Enabling the GE Process
+     - Integer
+     - 0: not enable the GE process.
+
+       1: Enabling the GE Process.
+
+       Default value: 0.
+     - For use in Ascend 910 AI processor environments only. Experimental environment variables.

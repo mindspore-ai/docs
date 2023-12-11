@@ -581,3 +581,12 @@ Dump功能
      - String
      - "on"，表示关闭trace构图功能
      - 实验性质的环境变量
+   * - MS_ENABLE_GE
+     - 使能GE流程
+     - Integer
+     - 0: 不使能GE流程。
+
+       1：使能GE流程。
+
+       默认值：0。
+     - 仅限Ascend 910 AI处理器环境使用。实验性质的环境变量。
