@@ -356,11 +356,15 @@ re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.
 
 for cur, _, files in os.walk(des_sir):
     for i in files:
-        if i.endswith('.rst'):
+        if i.endswith('.rst') or i.endswith('.md'):
             try:
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                     content = f.read()
                     new_content = content
+                    if i.endswith('.md'):
+                        md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
+                        if 'resource/_static/logo_source' not in new_content:
+                            new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
                     if 'autosummary::' not in content and "\n=====" in content:
                         re_view_ = re_view + copy_path + cur.split('api_python')[-1] + '/' + i +'\n    :alt: 查看源文件\n\n'
                         new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
