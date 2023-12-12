@@ -73,10 +73,10 @@ class DummyApplication:
         self.config.add('autosummary_ignore_module_all', True, 'env', bool)
         self.config.add('docs_branch', '', True, None)
         self.config.add('branch', '', True, None)
-        self.config.add('cst_module_name', '', True, None)
+        self.config.add('cst_module_name', [], True, None)
         self.config.add('copy_repo', '', True, None)
         self.config.add('giturl', '', True, None)
-        self.config.add('repo_whl', '', True, None)
+        self.config.add('repo_whl', [], True, None)
         self.config.init_values()
 
     def emit_firstresult(self, *args: Any) -> None:
@@ -486,13 +486,22 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
             except TypeError:
                 py_source = ''
 
-        re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
-          f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
-          f"{app.config.copy_repo}/blob/{app.config.branch}/" + app.config.repo_whl + \
-          py_source.split(app.config.cst_module_name)[-1] + '\n    :alt: View Source On Gitee\n\n'
+        if app.config.cst_module_name[0] in name:
+            re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
+                f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
+                f"{app.config.copy_repo}/blob/{app.config.branch}/" + app.config.repo_whl[0] + \
+                py_source.split(app.config.cst_module_name[0])[-1] + '\n    :alt: View Source On Gitee\n\n'
 
-        if re_view not in content and py_source:
-            content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
+            if re_view not in content and py_source:
+                content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
+        elif app.config.cst_module_name[1] in name:
+            re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
+                f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
+                f"{app.config.copy_repo}/blob/{app.config.branch}/" + app.config.repo_whl[1] + \
+                py_source.split(app.config.cst_module_name[1])[-1] + '\n    :alt: View Source On Gitee\n\n'
+
+            if re_view not in content and py_source:
+                content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
         filename = os.path.join(path, filename_map.get(name, name) + suffix)
         if os.path.isfile(filename):
             with open(filename, encoding=encoding) as f:

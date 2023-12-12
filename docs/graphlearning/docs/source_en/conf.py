@@ -103,14 +103,9 @@ intersphinx_mapping = {
     'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../../resource/numpy_objects.inv'),
 }
 
-# Modify regex for sphinx.ext.autosummary.generate.find_autosummary_in_lines.
-gfile_abs_path = os.path.abspath(g.__file__)
-autosummary_re_line_old = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+autosummary::\s*')"
-autosummary_re_line_new = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+(ms[a-z]*)?autosummary::\s*')"
-with open(gfile_abs_path, "r+", encoding="utf8") as f:
-    data = f.read()
-    data = data.replace(autosummary_re_line_old, autosummary_re_line_new)
-    exec(data, g.__dict__)
+# overwriteautosummary_generate add view source for api.
+with open('../_ext/overwriteautosummary_generate.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), g.__dict__)
 
 # Modify default signatures for autodoc.
 autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
@@ -161,6 +156,30 @@ for i in os.listdir(gl_dir_msg):
             shutil.rmtree('./'+i)
         shutil.copytree(os.path.join(gl_dir_msg,i),'./'+i)
 
+# get params for add view source
+import json
+
+if os.path.exists('../../../../tools/generate_html/version.json'):
+    with open('../../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily_dev.json'):
+    with open('../../../../tools/generate_html/daily_dev.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily.json'):
+    with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+
+if os.getenv("GL_PATH").split('/')[-1]:
+    copy_repo = os.getenv("GL_PATH").split('/')[-1]
+else:
+    copy_repo = os.getenv("GL_PATH").split('/')[-2]
+
+branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
+docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
+cst_module_name = 'mindspore_gl'
+repo_whl = 'mindspore_gl'
+giturl = 'https://gitee.com/mindspore/'
+
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 # import anchor_mod
 import nbsphinx_mod
@@ -175,6 +194,12 @@ from myautosummary import MsPlatformAutoSummary
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
+    app.add_config_value('docs_branch', '', True)
+    app.add_config_value('branch', '', True)
+    app.add_config_value('cst_module_name', '', True)
+    app.add_config_value('copy_repo', '', True)
+    app.add_config_value('giturl', '', True)
+    app.add_config_value('repo_whl', '', True)
 
 src_release = os.path.join(os.getenv("GL_PATH"), 'RELEASE.md')
 des_release = "./RELEASE.md"
