@@ -87,7 +87,7 @@
 
 ## 动态shape配置
 
-在某些推理场景，如检测出目标后再执行目标识别网络，由于目标个数不固定导致目标识别网络输入BatchSize不固定。如果每次推理都按照最大的BatchSize或最大分辨率进行计算，会造成计算资源浪费。因此，推理需要支持动态BatchSize和动态分辨率的场景，Lite在Ascend上推理支持动态BatchSize和动态分辨率场景，在convert阶段通过congFile配置[ascend_context]中dynamic_dims动态参数，推理时使用model的[Resize](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_cpp.html#%E5%8A%A8%E6%80%81shape%E8%BE%93%E5%85%A5)功能，改变输入shape。
+在某些推理场景，如检测出目标后再执行目标识别网络，由于目标个数不固定导致目标识别网络输入BatchSize不固定。如果每次推理都按照最大的BatchSize或最大分辨率进行计算，会造成计算资源浪费。因此，推理需要支持动态BatchSize和动态分辨率的场景，Lite在Ascend上推理支持动态BatchSize和动态分辨率场景，在convert阶段通过configFile配置[ascend_context]中dynamic_dims动态参数，推理时使用model的[Resize](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_cpp.html#%E5%8A%A8%E6%80%81shape%E8%BE%93%E5%85%A5)功能，改变输入shape。
 
 ### 动态Batch size
 

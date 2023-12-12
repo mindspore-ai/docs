@@ -24,6 +24,12 @@
 
     其中${PACKAGE_ROOT_PATH}是编译得到的包解压后的根目录。
 
+- 如果基于Ascend进行基准测试，使用如下命令切换：
+
+    ```bash
+    export ASCEND_DEVICE_ID=$RANKK_ID
+    ```
+
 ### 参数说明
 
 使用编译好的Benchmark工具进行模型的基准测试时，其命令格式如下所示。
