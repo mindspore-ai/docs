@@ -30,7 +30,6 @@ Focal Loss[1]是一种用来处理单阶段目标检测器训练过程中出现�
 
 根据PyTorch的实现，MindSpore的版本参考下方右侧。
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -198,7 +197,6 @@ class SigmoidFoaclLoss(nn.Cell):
 </td>
 </tr>
 </table>
-</div>
 
 然后我们做个测试：
 
