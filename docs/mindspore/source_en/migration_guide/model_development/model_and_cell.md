@@ -230,7 +230,6 @@ Every API from `torch.nn.init` could correspond to MindSpore, except `torch.nn.i
 
 > `gain` is used to describe the influence of the non-linearity to the standard deviation of the data. Because non-linearity will affect the standard deviation, the gradient may explode or vanish.
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> mindspore.common.initializer </td> <td style="text-align:center"> torch.nn.init </td>
@@ -260,7 +259,6 @@ torch.nn.init.uniform_(x)
 </td>
 </tr>
 </table>
-</div>
 
 - `mindspore.common.initializer` is used for delayed initialization in parallel mode. Only after calling `init_data()`, the elements will be assigned based on its `init`. Every Tensor could only use `init_data` once. After running the code above, `x` is still not fully initialized. If it is used for further calculation, 0 will be used. However, when printing the Tensor, `init_data()` will be called automatically.
 - `torch.nn.init` takes a Tensor as input, and the input Tensor will be changed to the target in-place. After running the code above, x is no longer an uninitialized Tensor, and its elements will follow the uniform distribution.
@@ -695,7 +693,6 @@ If a tensor with an unfixed shape is obtained due to feature selection during lo
 
 For example, we want to select the values of the first 70% positive samples to compute the loss. The implementation is as follows:
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -753,7 +750,6 @@ class ClassLoss_ms(ms_nn.Cell):
 </td>
 </tr>
 </table>
-</div>
 
 Let's look at the test result.
 
