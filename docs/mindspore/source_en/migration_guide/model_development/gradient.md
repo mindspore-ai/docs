@@ -6,7 +6,6 @@
 
 Both MindSpore and PyTorch provide the automatic differentiation function. After the forward network is defined, automatic backward propagation and gradient update can be implemented through simple interface invoking. However, it should be noted that MindSpore and PyTorch use different logic to build backward graphs. This difference also brings differences in API design.
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch Automatic Differentiation </td> <td style="text-align:center"> MindSpore Automatic Differentiation </td>
@@ -52,7 +51,6 @@ class GradNetWrtX(nn.Cell):
 </td>
 </tr>
 </table>
-</div>
 
 ### Principle Comparison
 
@@ -89,7 +87,6 @@ The two expressions z.backward() and torch.autograd.backward(z) are equivalent.
 
 This interface is implemented in MindSpore using mindspore.grad. The above PyTorch use case can be transformed into:
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -177,10 +174,8 @@ out1 1.0
 </td>
 </tr>
 </table>
-</div>
 
 If the above net has more than one output, you need to pay attention to the effect of multiple outputs of the network on finding the gradient.
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -250,7 +245,6 @@ out1 3.0
 </td>
 </tr>
 </table>
-</div>
 
 Therefore, to find the gradient of only the first output in MindSpore, you need to use the has_aux parameter in MindSpore.
 

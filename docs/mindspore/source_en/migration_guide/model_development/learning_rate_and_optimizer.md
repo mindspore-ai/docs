@@ -18,7 +18,6 @@ When PyTorch executes the optimizer in a single step, it is usually necessary to
 
 The use of the optimizer in MindSpore requires only a direct calculation of the gradients and then uses `optimizer(grads)` to perform the update of the network weights.
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -60,7 +59,6 @@ def train_step(data, label):
 </td>
 </tr>
 </table>
-</div>
 
 ### Hyperparameter Differences
 
@@ -73,7 +71,6 @@ Similarities and differences between network weight and learning rate parameter 
 | network weight | params  | params      | The parameters are the same |
 | learning rate  | lr      | learning_rate      | The parameters are different |
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -101,7 +98,6 @@ optimizer = nn.SGD(model.trainable_params(), learning_rate=0.01)
 </td>
 </tr>
 </table>
-</div>
 
 #### Hyperparameter Configuration Methods
 
@@ -161,7 +157,6 @@ Modify `weight_decay` in PyTorch is as below.
 
 Implement dynamic weight decay in MindSpore: Users can inherit the class of `Cell` custom dynamic weight decay and pass it into the optimizer.
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -209,7 +204,6 @@ optimizer = nn.SGD(net.trainable_params(), weight_decay=weight_decay)
 </td>
 </tr>
 </table>
-</div>
 
 ### Saving and Loading Optimizer State
 
@@ -217,7 +211,6 @@ PyTorch optimizer module provides `state_dict()` for viewing and saving the opti
 
 MindSpore optimizer module is inherited from `Cell`. The optimizer is saved and loaded in the same way as the network is saved and loaded, usually in conjunction with `save_checkpoint` and `load_checkpoint`.
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -265,7 +258,6 @@ mindspore.load_param_into_net(opt, param_dict)
 </td>
 </tr>
 </table>
-</div>
 
 ## Learning Rate Strategy Comparison
 
@@ -275,7 +267,6 @@ The `LRScheduler` class is defined in PyTorch to manage the learning rate. To us
 
 There are two implementations of dynamic learning rates in MindSpore, `Cell` and `list`. Both types of dynamic learning rates are used in the same way and are passed into the optimizer after instantiation is complete. The former computes the learning rate at each step in the internal `construct`, while the latter pre-generates the learning rate list directly according to the computational logic, and updates the learning rate internally during the training process. Please refer to [Dynamic Learning Rate](https://mindspore.cn/docs/en/r2.3/api_python/mindspore.nn.html#dynamic-learning-rate) for details.
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -316,7 +307,6 @@ def train_step(data, label):
 </td>
 </tr>
 </table>
-</div>
 
 ### Custom Learning Rate Differences
 
@@ -324,7 +314,6 @@ PyTorch dynamic learning rate module, `LRScheduler`, provides a `LambdaLR` inter
 
 MindSpore does not provide a similar lambda interface. Custom learning rate adjustment rules can be implemented through custom functions or custom `LearningRateSchedule`.
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -384,7 +373,6 @@ optim = nn.SGD(params, learning_rate=decay_lr)
 </td>
 </tr>
 </table>
-</div>
 
 ### Obatining the Learning Rate
 

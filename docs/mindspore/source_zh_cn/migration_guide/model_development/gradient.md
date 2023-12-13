@@ -6,7 +6,6 @@
 
 MindSpore 和 PyTorch 都提供了自动微分功能，让我们在定义了正向网络后，可以通过简单的接口调用实现自动反向传播以及梯度更新。但需要注意的是，MindSpore 和 PyTorch 构建反向图的逻辑是不同的，这个差异也会带来 API 设计上的不同。
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch的自动微分 </td> <td style="text-align:center"> MindSpore的自动微分 </td>
@@ -52,7 +51,6 @@ class GradNetWrtX(nn.Cell):
 </td>
 </tr>
 </table>
-</div>
 
 ### 原理对比
 
@@ -89,7 +87,6 @@ z.backward()和torch.autograd.backward(z)两种表达等价。
 
 该接口在MindSpore中用mindspore.grad实现。上述PyTorch用例可转化为：
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -175,11 +172,9 @@ out1 1.0
 </td>
 </tr>
 </table>
-</div>
 
 若上述net有多个输出，需要注意网络多输出对于求梯度的影响。
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -250,7 +245,6 @@ out1 3.0
 </td>
 </tr>
 </table>
-</div>
 
 因此， 若要在MindSpore只对第一个输出求梯度，在MindSpore中需要使用has_aux参数。
 

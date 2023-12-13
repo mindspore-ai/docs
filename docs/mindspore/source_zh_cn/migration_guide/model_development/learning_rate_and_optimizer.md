@@ -18,7 +18,6 @@ PyTorch单步执行优化器时，一般需要手动执行 `zero_grad()` 方法�
 
 MindSpore中优化器的使用，只需要直接对梯度进行计算，然后使用 `optimizer(grads)` 执行网络权重的更新。
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -60,7 +59,6 @@ def train_step(data, label):
 </td>
 </tr>
 </table>
-</div>
 
 ### 超参差异
 
@@ -73,7 +71,6 @@ def train_step(data, label):
 | 网络权重 | params  | params      | 参数名相同 |
 | 学习率  | lr      | learning_rate      | 参数名不同 |
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -101,7 +98,6 @@ optimizer = nn.SGD(model.trainable_params(), learning_rate=0.01)
 </td>
 </tr>
 </table>
-</div>
 
 #### 超参配置方式
 
@@ -162,7 +158,6 @@ PyTorch中修改 `weight_decay` 示例如下；
 
 MindSpore中实现动态weight decay：用户可以继承 `Cell` 自定义动态weight decay的类，传入优化器中。
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -210,7 +205,6 @@ optimizer = nn.SGD(net.trainable_params(), weight_decay=weight_decay)
 </td>
 </tr>
 </table>
-</div>
 
 ### 优化器状态的保存与加载
 
@@ -218,7 +212,6 @@ PyTorch的优化器模块提供了 `state_dict()` 用于优化器状态的查看
 
 MindSpore的优化器模块继承自 `Cell`，优化器的保存与加载和网络的保存与加载方式相同，通常情况下配合 `save_checkpoint` 与`load_checkpoint` 使用。
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -266,7 +259,6 @@ mindspore.load_param_into_net(opt, param_dict)
 </td>
 </tr>
 </table>
-</div>
 
 ## 学习率策略对比
 
@@ -276,7 +268,6 @@ PyTorch中定义了 `LRScheduler` 类用于对学习率进行管理。使用动�
 
 MindSpore中的动态学习率有 `Cell` 和 `list` 两种实现方式，两种类型的动态学习率使用方式一致，都是在实例化完成之后传入优化器，前者在内部的 `construct` 中进行每一步学习率的计算，后者直接按照计算逻辑预生成学习率列表，训练过程中内部实现学习率的更新。具体请参考[动态学习率](https://mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.nn.html#%E5%8A%A8%E6%80%81%E5%AD%A6%E4%B9%A0%E7%8E%87)。
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -317,7 +308,6 @@ def train_step(data, label):
 </td>
 </tr>
 </table>
-</div>
 
 ### 自定义学习率差异
 
@@ -325,7 +315,6 @@ PyTorch的动态学习率模块 `LRScheduler` 提供了`LambdaLR` 接口供用�
 
 MindSpore未提供类似的lambda接口，自定义学习率调整策略可以通过自定义函数或自定义 `LearningRateSchedule` 来实现。
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -383,7 +372,6 @@ optim = nn.SGD(params, learning_rate=decay_lr)
 </td>
 </tr>
 </table>
-</div>
 
 ### 学习率获取
 

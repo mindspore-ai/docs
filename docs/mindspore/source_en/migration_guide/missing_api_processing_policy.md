@@ -30,7 +30,6 @@ According to the API mapping table, the APIs used in the code have corresponding
 
 Implement the MindSpore version by referring to the preceding PyTorch code.
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -198,7 +197,6 @@ class SigmoidFoaclLoss(nn.Cell):
 </td>
 </tr>
 </table>
-</div>
 
 Then, perform a test.
 
