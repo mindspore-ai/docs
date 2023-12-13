@@ -24,6 +24,12 @@ To use the Benchmark tool, you need to prepare the environment as follows:
 
     ${PACKAGE_ROOT_PATH} is the compiled inference package path after decompressing.
 
+- If you're running this benchmark based on Ascend, use the following command to switch:
+
+    ```bash
+    export ASCEND_DEVICE_ID=$RANK_ID
+    ```
+
 ### Parameter Description
 
 The command used for benchmark testing based on the compiled Benchmark tool is as follows:
