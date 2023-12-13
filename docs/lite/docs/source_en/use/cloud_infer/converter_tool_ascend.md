@@ -87,7 +87,7 @@ Table 3: Configure [acl_build_options] parameter
 
 ## Dynamic Shape Configuration
 
-In some inference scenarios, such as detecting a target and then executing the target recognition network, the number of targets is not fixed resulting in a variable input BatchSize for the target recognition network. If each inference is computed at the maximum BatchSize or maximum resolution, it will result in wasted computational resources. Therefore, it needs to support dynamic BatchSize and dynamic resolution scenarios during inference. Lite inference on Ascend supports dynamic BatchSize and dynamic resolution scenarios. The dynamic_dims dynamic parameter in [ascend_context] is configured via congFile in the convert phase, and the model [Resize](https://www.mindspore.cn/lite/docs/en/r2.2/use/cloud_infer/runtime_cpp.html#dynamic-shape-input) is used during inference, to change the input shape.
+In some inference scenarios, such as detecting a target and then executing the target recognition network, the number of targets is not fixed resulting in a variable input BatchSize for the target recognition network. If each inference is computed at the maximum BatchSize or maximum resolution, it will result in wasted computational resources. Therefore, it needs to support dynamic BatchSize and dynamic resolution scenarios during inference. Lite inference on Ascend supports dynamic BatchSize and dynamic resolution scenarios. The dynamic_dims dynamic parameter in [ascend_context] is configured via configFile in the convert phase, and the model [Resize](https://www.mindspore.cn/lite/docs/en/r2.2/use/cloud_infer/runtime_cpp.html#dynamic-shape-input) is used during inference, to change the input shape.
 
 ### Dynamic Batch Size
 
