@@ -365,6 +365,8 @@ for cur, _, files in os.walk(des_sir):
                         md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
                         if 'resource/_static/logo_source' not in new_content:
                             new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
+                    if '.. include::' in content and '.. automodule::' in content:
+                            continue
                     if 'autosummary::' not in content and "\n=====" in content:
                         re_view_ = re_view + copy_path + cur.split('api_python')[-1] + '/' + i +'\n    :alt: 查看源文件\n\n'
                         new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
