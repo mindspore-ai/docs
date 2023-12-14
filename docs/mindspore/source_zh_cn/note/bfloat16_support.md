@@ -20,8 +20,11 @@ FP16 格式有 5 位指数和 10 位尾数，而 BF16 有 8 位指数和 7 位�
 |[mindspore.amp.custom_mixed_precision](https://www.mindspore.cn/docs/zh-CN/master/api_python/amp/mindspore.amp.custom_mixed_precision.html)|✔️|使用自定义混合精度接口时，支持将低精度的数据类型指定为bfloat16。|
 |[mindspore.ops.Add](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Add.html)|✔️||
 |[mindspore.ops.AddN](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AddN.html)|✔️||
+|[mindspore.ops.AllGather](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AllGather.html)|✔️||
+|[mindspore.ops.AllReduce](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AllReduce.html)|✔️||
 |[mindspore.ops.AssignAdd](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AssignAdd.html)|✔️||
 |[mindspore.ops.BatchMatMul](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.BatchMatMul.html)|✔️||
+|[mindspore.ops.Broadcast](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Broadcast.html)|✔️||
 |[mindspore.ops.Cast](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Cast.html)|✔️||
 |[mindspore.ops.Equal](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Equal.html)|✔️||
 |[mindspore.ops.Exp](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Exp.html)|✔️||
@@ -36,6 +39,7 @@ FP16 格式有 5 位指数和 10 位尾数，而 BF16 有 8 位指数和 7 位�
 |[mindspore.ops.NotEqual](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.NotEqual.html)|✔️||
 |[mindspore.ops.RealDiv](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.RealDiv.html)|✔️||
 |[mindspore.ops.ReduceMean](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceMean.html)|✔️||
+|[mindspore.ops.ReduceScatter](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceScatter.html)|✔️||
 |[mindspore.ops.ReduceSum](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceSum.html)|✔️||
 |[mindspore.ops.Select](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Select.html)|✔️||
 |[mindspore.ops.Softmax](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Softmax.html)|✔️||
