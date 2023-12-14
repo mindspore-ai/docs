@@ -13,17 +13,22 @@ FP16 格式有 5 位指数和 10 位尾数，而 BF16 有 8 位指数和 7 位�
 - 当使用bfloat16数据类型的Tensor进行计算时，所用到的算子也需支持bfloat16数据类型。当前仅在Ascend后端存在适配的算子。
 - bfloat16数据类型暂不支持隐式类型转换，即当参数数据类型不一致时，bfloat16精度类型不会被自动转换成较高精度类型。
 
-|API名称|Ascend|说明|
-|:----|:---------|:---------|
-|[mindspore.Tensor.asnumpy](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html)|❌|由于numpy不支持bfloat16数据类型，无法将bfloat16类型的Tensor转换为numpy类型。|
-|[mindspore.amp.auto_mixed_precision](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/amp/mindspore.amp.auto_mixed_precision.html)|✔️|使用自动混合精度接口时，支持将低精度的数据类型指定为bfloat16。|
-|[mindspore.amp.custom_mixed_precision](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/amp/mindspore.amp.custom_mixed_precision.html)|✔️|使用自定义混合精度接口时，支持将低精度的数据类型指定为bfloat16。|
-|[mindspore.ops.Cast](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.Cast.html)|✔️||
-|[mindspore.ops.LayerNorm](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.LayerNorm.html)|✔️||
-|[mindspore.ops.Mul](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.Mul.html)|✔️||
-|[mindspore.ops.ReduceSum](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.ReduceSum.html)|✔️||
-|[mindspore.ops.Sub](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.Sub.html)|✔️||
-|[mindspore.ops.Softmax](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.Softmax.html)|✔️||
-|[mindspore.ops.Transpose](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.Transpose.html)|✔️||
+|API名称|Ascend|说明|版本|
+|:----|:---------|:---------|:---------|
+|[mindspore.Tensor.asnumpy](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html)|❌|由于numpy不支持bfloat16数据类型，无法将bfloat16类型的Tensor转换为numpy类型。||
+|[mindspore.amp.auto_mixed_precision](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/amp/mindspore.amp.auto_mixed_precision.html)|✔️|使用自动混合精度接口时，支持将低精度的数据类型指定为bfloat16。||
+|[mindspore.amp.custom_mixed_precision](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/amp/mindspore.amp.custom_mixed_precision.html)|✔️|使用自定义混合精度接口时，支持将低精度的数据类型指定为bfloat16。||
+|[mindspore.ops.AllGather](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.AllGather.html)|✔️||2.2.10|
+|[mindspore.ops.AllReduce](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.AllReduce.html)|✔️||2.2.10|
+|[mindspore.ops.BatchMatMul](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.BatchMatMul.html)|✔️||2.2.10|
+|[mindspore.ops.Broadcast](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.Broadcast.html)|✔️||2.2.10|
+|[mindspore.ops.Cast](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.Cast.html)|✔️|2.2.0|
+|[mindspore.ops.LayerNorm](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.LayerNorm.html)|✔️|2.2.0|
+|[mindspore.ops.Mul](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.Mul.html)|✔️|2.2.0|
+|[mindspore.ops.ReduceScatter](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.ReduceScatter.html)|✔️||2.2.10|
+|[mindspore.ops.ReduceSum](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.ReduceSum.html)|✔️|2.2.0|
+|[mindspore.ops.Sub](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.Sub.html)|✔️|2.2.0|
+|[mindspore.ops.Softmax](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.Softmax.html)|✔️|2.2.0|
+|[mindspore.ops.Transpose](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/ops/mindspore.ops.Transpose.html)|✔️|2.2.0|
 
 目前整体bfloat16数据类型能力已支持，后续将持续补充更多的算子支持bfloat16数据类型。
