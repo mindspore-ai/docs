@@ -14,6 +14,7 @@ import os
 import shutil
 import sys
 import re
+import regex
 from sphinx.search import jssplitter as sphinx_split
 from sphinx import errors as searchtools_path
 
@@ -97,14 +98,46 @@ def setup(app):
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
 
+import json
+
+if os.path.exists('../../../../tools/generate_html/version.json'):
+    with open('../../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily_dev.json'):
+    with open('../../../../tools/generate_html/daily_dev.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily.json'):
+    with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+
+if os.getenv("MS_PATH").split('/')[-1]:
+    copy_repo = os.getenv("MS_PATH").split('/')[-1]
+else:
+    copy_repo = os.getenv("MS_PATH").split('/')[-2]
+
+branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
+docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
+
 try:
     src_release = os.path.join(os.getenv("MS_PATH"), 'RELEASE_CN.md')
     des_release = "./RELEASE.md"
+    release_source = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE_CN.md)\n'
     with open(src_release, "r", encoding="utf-8") as f:
         data = f.read()
-    content = re.findall("(## MindSpore Lite[\s\S\n]*?\n)## ", data)
+    if len(re.findall("\n## (.*?)\n",data)) > 1:
+        content = regex.findall("(\n## MindSpore Lite [\s\S\n]*?)\n## ", data, overlapped=True)
+        repo_version = re.findall("\n## MindSpore Lite ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
+        content_new = ''
+        for i in content:
+            if re.findall(f"\n## MindSpore Lite ({repo_version[0]}\.[0-9]+?)[ -]", i):
+                content_new += i
+        content = content_new
+    else:
+        content = re.findall("(\n## [\s\S\n]*)", data)
+        content = content[0]
+    #result = content[0].replace('# MindSpore', '#', 1)
     with open(des_release, "w", encoding="utf-8") as p:
-        p.write("# Release Notes"+"\n\n")
-        p.write(content[0])
+        p.write("# Release Notes" + "\n\n" + release_source)
+        p.write(content)
 except Exception as e:
     print(e)
