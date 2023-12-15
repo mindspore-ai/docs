@@ -4,7 +4,7 @@
 
 ## Overview
 
-MindSpore Lite provides a multi-model concurrent inference interface [ModelParallelRunner](https://mindspore.cn/lite/api/en/r2.3/mindspore_lite/mindspore_lite.ModelParallelRunner.html), multi-model concurrent inference now supports Ascend 310/310P/910, Nvidia GPU, CPU backends.
+MindSpore Lite provides a multi-model concurrent inference interface [ModelParallelRunner](https://mindspore.cn/lite/api/en/r2.3/mindspore_lite/mindspore_lite.ModelParallelRunner.html), multi-model concurrent inference now supports Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), Atlas training series, Nvidia GPU, CPU backends.
 
 After exporting the `mindir` model by MindSpore or converting it by [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.3/use/cloud_infer/converter_tool.html) to obtain the ` mindir` model, the concurrent inference process of the model can be executed in Runtime. This tutorial describes how to use the [Python interface](https://mindspore.cn/lite/api/en/r2.3/mindspore_lite.html) to perform concurrent inference with multiple models.
 

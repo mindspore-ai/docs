@@ -6,7 +6,7 @@
 
 本文通过使用MindSpore Lite执行云侧推理为例，向大家介绍MindSpore Lite的基础功能和用法。
 
-MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310/310P/910、Nvidia GPU和CPU硬件后端。
+MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/300/500推理产品、Atlas推理系列产品（配置Ascend310P AI 处理器）、Atlas训练系列产品、Nvidia GPU和CPU硬件后端。
 在开始本章的MindSpore Lite使用之旅之前，用户需拥有一个Linux（如Ubuntu/CentOS/EulerOS）的环境，以便随时操作验证。
 
 如需体验MindSpore Lite端侧推理流程，请参考文档[端侧推理快速入门](https://www.mindspore.cn/lite/docs/zh-CN/r2.3/quick_start/one_hour_introduction.html)。

@@ -4,9 +4,9 @@
 
 MindSpore可以基于训练好的模型，在不同的硬件平台上执行推理任务。
 
-Ascend 310是面向边缘场景的高能效高集成度AI处理器，支持对MindIR格式模型进行推理。
+Atlas 200/300/500推理产品是面向边缘场景的高能效高集成度AI处理器，支持对MindIR格式模型进行推理。
 
-MindIR格式可由MindSpore CPU、GPU、Ascend 910导出，可运行在GPU、Ascend 910、Ascend 310上，推理前不需要手动执行模型转换，推理时需要安装MindSpore Lite，调用MindSpore Lite C++ API进行推理。
+MindIR格式可由MindSpore CPU、GPU、Atlas训练系列产品导出，可运行在GPU、Atlas训练系列产品、Atlas 200/300/500推理产品上，推理前不需要手动执行模型转换，推理时需要安装MindSpore Lite，调用MindSpore Lite C++ API进行推理。
 
 ## 模型文件
 

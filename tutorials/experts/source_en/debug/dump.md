@@ -447,7 +447,7 @@ If set `file_format` to `npy`, see [Synchronous Dump Data Object Directory](#syn
 
 If the `file_format` value or the `file_format` value is `bin` is not configured, the data object directory is structured as follows.
 
-On the Ascend910 hardware platform, the data objects saved by asynchronous Dump include the final execution graph (`ms_output_trace_code_graph_{graph_id}.ir` file) and the input and output data of the operators in the graph. If overflow detection is enabled, the overflow file (file `Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}`) will also be saved when overflow is detected.
+On the Atlas training series platform, the data objects saved by asynchronous Dump include the final execution graph (`ms_output_trace_code_graph_{graph_id}.ir` file) and the input and output data of the operators in the graph. If overflow detection is enabled, the overflow file (file `Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}`) will also be saved when overflow is detected.
 
 The directory structure of graph mode is as follows:
 

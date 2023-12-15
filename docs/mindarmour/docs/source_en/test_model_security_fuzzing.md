@@ -10,7 +10,7 @@ The fuzz testing module of MindSpore Armour uses the neuron coverage rate as the
 
 The LeNet model and MNIST dataset are used as an example to describe how to use Fuzz testing.
 
-> This example is for CPUs, GPUs, and Ascend 910 AI processors. Currently only supports GRAPH_MODE. You can download the complete sample code at <https://gitee.com/mindspore/mindarmour/blob/master/examples/ai_fuzzer/lenet5_mnist_fuzzing.py>.
+> This example is for CPUs, GPUs, and Atlas training series. Currently only supports GRAPH_MODE. You can download the complete sample code at <https://gitee.com/mindspore/mindarmour/blob/master/examples/ai_fuzzer/lenet5_mnist_fuzzing.py>.
 
 ## Implementation
 

@@ -188,7 +188,7 @@ When the backend that needs to be executed is the heterogeneous inference based 
 
 ### Configuring the ASCEND Backend
 
-If the backend to be executed is Ascend(only support ASCEND310), you need to set [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3/generate/classmindspore_AscendDeviceInfo.html#class-documentation) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference. Use `SetDeviceID` to set ascend device id.
+If the backend to be executed is Ascend(only support Atlas 200/300/500 inference product), you need to set [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3/generate/classmindspore_AscendDeviceInfo.html#class-documentation) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference. Use `SetDeviceID` to set ascend device id.
 
 The following sample code shows how to create the CPU and ASCEND heterogeneous inference backend and set ascend device id to 0.
 
@@ -199,17 +199,17 @@ if (context == nullptr) {
 }
 auto &device_list = context->MutableDeviceInfo();
 
-// Set Ascend310 device first, make Ascend310 preferred backend.
+// Set Atlas 200/300/500 inference product device first, make Atlas 200/300/500 inference product preferred backend.
 auto ascend_device_info = std::make_shared<mindspore::AscendDeviceInfo>();
 if (ascend_device_info == nullptr) {
   std::cerr << "New AscendDeviceInfo failed." << std::endl;
 }
-// Ascend310 set device id to be 0.
+// Atlas 200/300/500 inference product set device id to be 0.
 ascend_device_info->SetDeviceId(0);
-// The ascend310 device context needs to be push_back into device_list to work.
+// The Atlas 200/300/500 inference product device context needs to be push_back into device_list to work.
 device_list.push_back(ascend_device_info);
 
-// Set CPU device after Ascend310 as second choice.
+// Set CPU device after Atlas 200/300/500 inference product as second choice.
 auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
 if (cpu_device_info == nullptr) {
   std::cerr << "New CPUDeviceInfo failed." << std::endl;

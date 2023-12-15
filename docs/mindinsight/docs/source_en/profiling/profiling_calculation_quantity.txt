@@ -6,7 +6,7 @@ quantity data, including calculation quantity data for operator
 granularity and model granularity. The actual
 calculation quantity refers to the amount of calculation that is running
 on the device, which is different from the theoretical calculation
-quantity. For example, the matrix computing unit on the Ascend910 device
+quantity. For example, the matrix computing unit on the Atlas training series device
 is dealing with a matrix of 16x16 size, so in the runtime, the original
 matrix will be padded to 16x16. Only calculation quantity on AICORE
 devices is supported currently. The information about calculation

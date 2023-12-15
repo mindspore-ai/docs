@@ -311,7 +311,7 @@ A: Sorry, this function is not available yet. You can find the optimal hyperpara
 
 <font size=3>**Q: What should I do when error `error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory` is displayed during application running?**</font>
 
-A: While installing Ascend 310 AI Processor software packages depended by MindSpore, the `CANN` package should install the full-featured `toolkit` version instead of the `nnrt` version.
+A: While installing Atlas 200/300/500 inference product software packages depended by MindSpore, the `CANN` package should install the full-featured `toolkit` version instead of the `nnrt` version.
 
 <br/>
 

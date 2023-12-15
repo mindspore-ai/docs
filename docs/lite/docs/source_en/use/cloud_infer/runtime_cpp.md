@@ -6,7 +6,7 @@
 
 This tutorial describes how to perform cloud-side inference with MindSpore Lite by using the [C++ interface](https://www.mindspore.cn/lite/api/en/r2.3/index.html).
 
-MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Ascend 310/310P/910, Nvidia GPU and CPU hardware backends are supported.
+MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), Atlas training series, Nvidia GPU and CPU hardware backends are supported.
 
 To experience the MindSpore Lite device-side inference process, please refer to the document [Using C++ Interface to Perform Cloud-side Inference](https://www.mindspore.cn/lite/docs/en/r2.3/use/runtime_cpp.html).
 
@@ -134,7 +134,7 @@ Whether the `SetEnableFP16` is set successfully depends on the [CUDA computing p
 
 ### Configuring Using Ascend Backend
 
-When the backend to be executed is Ascend (Ascend 310/310P/910 are currently supported), you need to set [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3/generate/classmindspore_AscendDeviceInfo.html#class-ascenddeviceinfo) as the inference backend. AscendDeviceInfo sets the device ID by `SetDeviceID`. Ascend enables Float16 precision by default, and the precision mode can be changed by `AscendDeviceInfo.SetPrecisionMode`.
+When the backend to be executed is Ascend (Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), or Atlas training series are currently supported), you need to set [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3/generate/classmindspore_AscendDeviceInfo.html#class-ascenddeviceinfo) as the inference backend. AscendDeviceInfo sets the device ID by `SetDeviceID`. Ascend enables Float16 precision by default, and the precision mode can be changed by `AscendDeviceInfo.SetPrecisionMode`.
 
 The following sample code demonstrates how to create Ascend inference backend while the device ID is set to 0:
 
@@ -146,13 +146,13 @@ if (context == nullptr) {
 }
 auto &device_list = context->MutableDeviceInfo();
 
-// for Ascend 310/310P/910
+// for Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), and Atlas training series
 auto device_info = std::make_shared<mindspore::AscendDeviceInfo>();
 if (device_info == nullptr) {
   std::cerr << "New AscendDeviceInfo failed." << std::endl;
   return nullptr;
 }
-// Set Ascend 310/310P/910 device id.
+// Set Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), and Atlas training series device id.
 device_info->SetDeviceID(device_id);
 // The Ascend device context needs to be push_back into device_list to work.
 device_list.push_back(device_info);
@@ -344,7 +344,7 @@ After successful compilation, you can get the `runtime_cpp` executable in the `b
 
 Lite cloud-side inference framework supports dynamic shape input for models. GPU and Ascend hardware backend needs to be configured with dynamic input information during model conversion and model inference.
 
-The configuration of dynamic input information is related to offline and online scenarios. For offline scenarios, the model conversion tool parameter `--optimize=general`, `--optimize=gpu_oriented` or `--optimize=ascend_oriented`, i.e. experiencing the hardware-related fusion and optimization. The generated MindIR model can only run on the corresponding hardware backend. For example, in Ascend 310 environment, if the model conversion tool specifies `--optimize=ascend_oriented`, the generated model will only support running on Ascend 310. If `--optimize=general` is specified, running on GPU and CPU is supported. For online scenarios, the loaded MindIR has not experienced hardware-related fusion and optimization, supports running on Ascend, GPU, and CPU. The model conversion tool parameter `--optimize=none`, or the MindSpore-exported MindIR model has not been processed by the conversion tool.
+The configuration of dynamic input information is related to offline and online scenarios. For offline scenarios, the model conversion tool parameter `--optimize=general`, `--optimize=gpu_oriented` or `--optimize=ascend_oriented`, i.e. experiencing the hardware-related fusion and optimization. The generated MindIR model can only run on the corresponding hardware backend. For example, in Atlas 200/300/500 inference product environment, if the model conversion tool specifies `--optimize=ascend_oriented`, the generated model will only support running on Atlas 200/300/500 inference product. If `--optimize=general` is specified, running on GPU and CPU is supported. For online scenarios, the loaded MindIR has not experienced hardware-related fusion and optimization, supports running on Ascend, GPU, and CPU. The model conversion tool parameter `--optimize=none`, or the MindSpore-exported MindIR model has not been processed by the conversion tool.
 
 Ascend hardware backend offline scenarios require dynamic input information to be configured during the model conversion phase. Ascend hardware backend online scenarios, as well as GPU hardware backend offline and online scenarios, require dynamic input information to be configured during the model loading phase via the [LoadConfig](https://www.mindspore.cn/lite/api/en/r2.3/api_cpp/mindspore.html# loadconfig) interface.
 
@@ -596,7 +596,7 @@ if (device_info == nullptr) {
   std::cerr << "New AscendDeviceInfo failed." << std::endl;
   return -1;
 }
-// Set Ascend 910 device id， rank id and provider.
+// Set Atlas training series device id， rank id and provider.
 device_info->SetDeviceID(0);
 device_info->SetRankID(0);
 device_info->SetProvider("ge");
