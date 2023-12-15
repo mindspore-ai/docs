@@ -376,7 +376,7 @@
      - 可参考Linux文件权限设置的数字表示，默认值：0640(取值)
      -
 
-注意：glog不支持日志文件的绕接，如果需要控制日志文件对磁盘空间的占用，可选用操作系统提供的日志文件管理工具，例如：Linux的logrotate。
+注意：glog不支持日志文件的绕接，如果需要控制日志文件对磁盘空间的占用，可选用操作系统提供的日志文件管理工具，例如：Linux的logrotate。请在 `import mindspore` 之前设置日志相关环境变量。
 
 Dump功能
 --------
@@ -520,6 +520,13 @@ Dump功能
      - 与ENABLE_MS_DEBUGGER=1、MS_DEBUGGER_HOST一起使用
 
 具体用法详见 `调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html>`_ 。
+
+
+CANN
+--------
+
+CANN的环境变量详见 `昇腾社区 <https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/reference/envvar/envref_07_0001.html>`_ 。请在 `import mindspore` 之前设置CANN的环境变量。
+
 
 其他
 ----

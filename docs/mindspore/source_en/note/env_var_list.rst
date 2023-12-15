@@ -376,7 +376,7 @@ Log
      - Refer to the numerical representation of the Linux file permission setting, default value: 0640 (value taken)
      -
 
-Note: glog does not support log file wrapping. If you need to control the log file occupation of disk space, you can use the log file management tool provided by the operating system, for example: logrotate for Linux.
+Note: glog does not support log file wrapping. If you need to control the log file occupation of disk space, you can use the log file management tool provided by the operating system, for example: logrotate for Linux. Please set the log environment variables before `import mindspore` .
 
 Dump Function
 -------------
@@ -519,6 +519,11 @@ Debugger
      - This variable is used together with ENABLE_MS_DEBUGGER=1 and MS_DEBUGGER_HOST.
 
 For more information, see `Debugger <https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html>`_.
+
+CANN
+-----
+
+For more information about CANN's environment variables, see `Ascend community <https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/reference/envvar/envref_07_0001.html>`_ . Please set the environment variables for CANN before `import mindspore` .
 
 Other
 -----
