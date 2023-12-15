@@ -323,7 +323,7 @@ Log
 	   
        For example, you can set the log level of `PARSER` and `ANALYZER` modules to WARNING and the log level of other modules to INFO by `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`.
 
-Note: glog does not support log file wrapping. If you need to control the log file occupation of disk space, you can use the log file management tool provided by the operating system, for example: logrotate for Linux.
+Note: glog does not support log file wrapping. If you need to control the log file occupation of disk space, you can use the log file management tool provided by the operating system, for example: logrotate for Linux. Please set the log environment variables before `import mindspore` .
 
 Dump Function
 -------------
@@ -448,6 +448,11 @@ Debugger
      - This variable is used together with ENABLE_MS_DEBUGGER=1 and MS_DEBUGGER_HOST.
 
 For more information, see `Debugger <https://www.mindspore.cn/mindinsight/docs/en/r2.2/debugger.html>`_.
+
+CANN
+-----
+
+For more information about CANN's environment variables, see `Ascend community <https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/reference/envvar/envref_07_0001.html>`_ . Please set the environment variables for CANN before `import mindspore` .
 
 Other
 -----
