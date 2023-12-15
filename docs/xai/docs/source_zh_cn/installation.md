@@ -5,7 +5,7 @@
 ## 系統要求
 
 - 操作系統: EulerOS-aarch64、CentOS-aarch64、CentOS-x86、Ubuntu-aarch64 或 Ubuntu-x86
-- 硬件平台: Ascend 910 或 GPU CUDA 10.1、11.1
+- 硬件平台: Atlas训练系列产品 或 GPU CUDA 10.1、11.1
 - Python 3.7.5 或 3.9.0
 - MindSpore 1.7 或以上
 

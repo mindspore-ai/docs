@@ -187,7 +187,7 @@ device_list.push_back(cpu_device_info);
 
 ### 配置使用Ascend后端
 
-当需要执行的后端为Ascend时(目前支持Ascend310)，需要设置[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)为次选后端，排在Ascend后，以保证泛化模型的推理。其中Ascend310DeviceInfo通过`SetDeviceID`来设置设备ID。
+当需要执行的后端为Ascend时(目前支持Atlas 200/300/500推理产品)，需要设置[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)为次选后端，排在Ascend后，以保证泛化模型的推理。其中Ascend310DeviceInfo通过`SetDeviceID`来设置设备ID。
 
 下面[示例代码]如何创建CPU与Ascend异构推理后端，同时设备ID设置为0：
 
@@ -198,17 +198,17 @@ if (context == nullptr) {
 }
 auto &device_list = context->MutableDeviceInfo();
 
-// Set Ascend310 device first, make Ascend310 preferred backend.
+// Set Atlas 200/300/500 inference product device first, make Atlas 200/300/500 inference product preferred backend.
 auto ascend_device_info = std::make_shared<mindspore::AscendDeviceInfo>();
 if (ascend_device_info == nullptr) {
   std::cerr << "New AscendDeviceInfo failed." << std::endl;
 }
-// Ascend310 set device id to be 0.
+// Atlas 200/300/500 inference product set device id to be 0.
 ascend_device_info->SetDeviceID(0);
-// The ascend310 device context needs to be push_back into device_list to work.
+// The Atlas 200/300/500 inference product device context needs to be push_back into device_list to work.
 device_list.push_back(ascend_device_info);
 
-// Set CPU device after Ascend310 as second choice.
+// Set CPU device after Atlas 200/300/500 inference product as second choice.
 auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
 if (cpu_device_info == nullptr) {
   std::cerr << "New CPUDeviceInfo failed." << std::endl;

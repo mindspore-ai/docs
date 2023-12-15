@@ -311,7 +311,7 @@ A: 您好，很抱歉暂时还未有这样的功能。目前只能通过训练--
 
 <font size=3>**Q: 运行应用时报错`error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory`怎么办？**</font>
 
-A: 安装MindSpore所依赖的Ascend 310 AI处理器配套软件包时，`CANN`包不能安装`nnrt`版本，而是需要安装功能完整的`toolkit`版本。
+A: 安装MindSpore所依赖的Atlas 200/300/500推理产品配套软件包时，`CANN`包不能安装`nnrt`版本，而是需要安装功能完整的`toolkit`版本。
 
 <br/>
 

@@ -254,7 +254,7 @@ LeNet5应用感知量化训练后精度未下降。
 
 ARMCPU指Arm64架构的CPU。ARMCPU部署测试使用的代码为：[MindSpore Lite](https://gitee.com/mindspore/mindspore/commit/1674f3f666997f49346c27c322ecac1bb7979ffa)。
 
-| 算法     | 网络      | 数据集       | ARMCPU模型大小 | ARMCPU Top1Acc | ARMCPU性能 | CUDA11模型大小 | CUDA11 Top1Acc | CUDA11性能 | Ascend310模型大小 | Ascend310 Top1Acc | Ascend310性能 |
+| 算法     | 网络      | 数据集       | ARMCPU模型大小 | ARMCPU Top1Acc | ARMCPU性能 | CUDA11模型大小 | CUDA11 Top1Acc | CUDA11性能 | Atlas 200/300/500推理产品模型大小 | Atlas 200/300/500推理产品 Top1Acc | Atlas 200/300/500推理产品性能 |
 | -------- | -------- | ------------ | ------------- | -------------- | ---------- | ------------- | -------------- | ---------- | ---------------- | ----------------- | ------------- |
 | baseline | lenet    | MNIST        |     245kB     |     98.83%     |    87us    |        -      |       -        |     -      |         -        |          -        |        -      |
 | SimQAT   | lenet    | MNIST        |     241kB     |     98.95%     |    89us    |       NS      |       NS       |     NS     |        NS        |         NS        |       NS      |

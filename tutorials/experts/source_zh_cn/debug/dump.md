@@ -447,7 +447,7 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 
 若未配置`file_format`值或`file_format`值为`bin`，数据对象目录为以下结构。
 
-在Ascend910硬件平台上，异步Dump保存的数据对象包括了最终执行图（`ms_output_trace_code_graph_{graph_id}.ir`文件）以及图中算子的输入和输出数据。 如果开启溢出检测，还会在检测到溢出时保存溢出文件（`Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}`文件）。
+在Atlas训练系列产品平台上，异步Dump保存的数据对象包括了最终执行图（`ms_output_trace_code_graph_{graph_id}.ir`文件）以及图中算子的输入和输出数据。 如果开启溢出检测，还会在检测到溢出时保存溢出文件（`Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}`文件）。
 
 图模式的Dump目录结构如下所示：
 

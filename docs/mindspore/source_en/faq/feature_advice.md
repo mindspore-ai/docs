@@ -46,9 +46,9 @@ A: The formats of  `ckpt` of MindSpore and `ckpt`of TensorFlow are not generic. 
 
 <br/>
 
-<font size=3>**Q: How do I use models trained by MindSpore on Ascend 310? Can they be converted to models used by HiLens Kit?**</font>
+<font size=3>**Q: How do I use models trained by MindSpore on Atlas 200/300/500 inference product? Can they be converted to models used by HiLens Kit?**</font>
 
-A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same, which both need to convert as OM model. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html).
+A: Yes. HiLens Kit uses Atlas 200/300/500 inference product as the inference core. Therefore, the two questions are essentially the same, which both need to convert as OM model. Atlas 200/300/500 inference product requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Atlas 200/300/500 inference product. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html).
 
 <br/>
 
@@ -58,9 +58,9 @@ A: MindSpore supports Huawei's own `Ascend`, `GPU` and `CPU` at the same time, a
 
 <br/>
 
-<font size=3>**Q: Can MindSpore be converted to an AIR model on Ascend 310?**</font>
+<font size=3>**Q: Can MindSpore be converted to an AIR model on Atlas 200/300/500 inference product?**</font>
 
-A: An AIR cannot be exported from the Ascend 310. You need to load a trained checkpoint on the Ascend 910, export an AIR model, and then convert the AIR model into an OM model for inference on the Ascend 310. For details about the Ascend 910 installation, see the MindSpore Installation Guide at [here](https://www.mindspore.cn/install/en).
+A: An AIR cannot be exported from the Atlas 200/300/500 inference product. You need to load a trained checkpoint on the Atlas training series, export an AIR model, and then convert the AIR model into an OM model for inference on the Atlas 200/300/500 inference product. For details about the Atlas training series installation, see the MindSpore Installation Guide at [here](https://www.mindspore.cn/install/en).
 
 <br/>
 
@@ -126,7 +126,7 @@ A: MindSpore is a unified cloud-edge-device training and inference framework, wh
 
 <font size=3>**Q: How does MindSpore support automatic parallelism?**</font>
 
-A: Automatic parallelism on CPUs and GPUs are being improved. You are advised to use the automatic parallelism on the Ascend 910 AI processor. Follow our open source community and apply for a MindSpore developer experience environment for trial use.
+A: Automatic parallelism on CPUs and GPUs are being improved. You are advised to use the automatic parallelism on the Atlas training series. Follow our open source community and apply for a MindSpore developer experience environment for trial use.
 
 <br/>
 

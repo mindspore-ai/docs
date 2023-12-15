@@ -21,7 +21,7 @@ Currently, the distributed model has the following restrictions:
 - The model of the first stage receives the same input data.
 - The models of other stages do not receive data.
 - All models of the latter stage return the same data.
-- Only Ascend 910 inference is supported.
+- Only Atlas training series inference is supported.
 
 The following uses a simple distributed network MatMul as an example to demonstrate the deployment process.
 

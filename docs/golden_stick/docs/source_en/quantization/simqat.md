@@ -254,7 +254,7 @@ Use the network trained on the CUDA11 for deployment test on different backends.
 
 ARMCPU means the CPU of the Arm64 architecture. ARMCPU deployment test based on [MindSpore Lite](https://gitee.com/mindspore/mindspore/commit/1674f3f666997f49346c27c322ecac1bb7979ffa).
 
-| algorithm| network  | dataset      |ARMCPU model size|ARMCPU Top1Acc|ARMCPU Performance|CUDA11 model size|CUDA11 Top1Acc|CUDA11 Performance|Ascend310 model size|Ascend310 Top1Acc|Ascend310 Performance|
+| algorithm| network  | dataset      |ARMCPU model size|ARMCPU Top1Acc|ARMCPU Performance|CUDA11 model size|CUDA11 Top1Acc|CUDA11 Performance|Atlas 200/300/500 inference product model size|Atlas 200/300/500 inference product Top1Acc|Atlas 200/300/500 inference product Performance|
 | -------- | -------- | ------------ | --------------- | ------------ | ---------------- | --------------- | ------------ | ---------------- | ------------------ | --------------- | ------------------- |
 | baseline | lenet    | MNIST        |      245kB      |    98.83%    |       87us       |         -       |      -       |        -         |          -         |        -        |          -          |
 | SimQAT   | lenet    | MNIST        |      241kB      |    98.95%    |       89us       |        NS       |      NS      |        NS        |         NS         |       NS        |         NS          |

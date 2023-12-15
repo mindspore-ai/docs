@@ -10,7 +10,7 @@ MindSpore Armour的fuzz_testing模块以神经元覆盖率作为测试评价准�
 
 这里以LeNet模型，MNIST数据集为例，说明如何使用Fuzzer。
 
-> 本例面向CPU、GPU、Ascend 910 AI处理器，目前仅支持GRAPH_MODE。你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/ai_fuzzer/lenet5_mnist_fuzzing.py>
+> 本例面向CPU、GPU、Atlas训练系列产品，目前仅支持GRAPH_MODE。你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/ai_fuzzer/lenet5_mnist_fuzzing.py>
 
 ## 实现阶段
 

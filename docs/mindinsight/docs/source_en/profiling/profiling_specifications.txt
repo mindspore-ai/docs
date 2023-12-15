@@ -28,4 +28,4 @@ Specifications
   8P+GRAPH          24.06355ms              25.04324ms              +0.97969ms
   ===============   =====================   =====================   ==========================
 
-  - The performance data in the chart shows the average time spent on one step during the training process of the resnet network on Ascend 910. (Note: There are performance fluctuations in network training, and the above data is for reference only)
+  - The performance data in the chart shows the average time spent on one step during the training process of the resnet network on Atlas training series. (Note: There are performance fluctuations in network training, and the above data is for reference only)

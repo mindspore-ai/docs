@@ -14,7 +14,7 @@ Suppress-Privacy, a Suppress-Privacy module in MindSpore Armour, implements a su
 
 Here is an example showing that how to train a neural network model in MindSpore using the LeNet model, MNIST dataset, and the SuppressourPrivacy optimizer.
 
-> This example is for the Ascend 910 AI processor and you can download the full sample code at <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/sup_privacy/sup_privacy.py>
+> This example is for the Atlas training series and you can download the full sample code at <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/sup_privacy/sup_privacy.py>
 
 ## Implementation
 

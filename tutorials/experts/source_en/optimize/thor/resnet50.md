@@ -6,9 +6,9 @@
 
 Common optimization algorithms can be divided into first-order optimization algorithms and second-order optimization algorithms. Classical first-order optimization algorithms, such as SGD, have small volume of computation, with fast computation speed, but converge slowly and require many iterations. The second-order optimization algorithms use the second-order derivative of the objective function to accelerate the convergence, which can converge to the optimal value of the model faster and requires fewer iterations. However, the overall execution time of the second-order optimization algorithms is still slower than the first-order optimization algorithms due to its high computational cost, so the application of the second-order optimization algorithm in deep neural network training is not common at present. The main computational cost of the second-order optimization algorithms lies in the inverse operation of the second-order information matrix (Hessian matrix, [FIM matrix](https://arxiv.org/pdf/1808.07172.pdf), etc.), with a time complexity of about $O(n^3)$.
 
-Based on the existing natural gradient algorithm, the MindSpore development team has developed a usable second-order optimizer THOR by using approximations, tiles and other optimization accelerations for the FIM matrix, which greatly reduces the computational complexity of the inverse matrix. Using eight Ascend 910 AI processors, THOR can complete training the ResNet50-v1.5 network and ImageNet dataset in 72min, nearly doubling the speed compared to SGD+Momentum.
+Based on the existing natural gradient algorithm, the MindSpore development team has developed a usable second-order optimizer THOR by using approximations, tiles and other optimization accelerations for the FIM matrix, which greatly reduces the computational complexity of the inverse matrix. Using eight Atlas training series, THOR can complete training the ResNet50-v1.5 network and ImageNet dataset in 72min, nearly doubling the speed compared to SGD+Momentum.
 
-This tutorial will focus on how to train ResNet50-v1.5 network and ImageNet dataset on Ascend 910 and GPU using THOR, a second-order optimizer provided by MindSpore.
+This tutorial will focus on how to train ResNet50-v1.5 network and ImageNet dataset on Atlas training series and GPU using THOR, a second-order optimizer provided by MindSpore.
 > Download the complete sample code: [Resnet](https://gitee.com/mindspore/models/tree/master/official/cv/ResNet).
 
 The directory structure of sample code:
@@ -17,8 +17,8 @@ The directory structure of sample code:
 ├── resnet
     ├── README.md
     ├── scripts
-        ├── run_distribute_train.sh         # launch distributed training for Ascend 910
-        ├── run_eval.sh                     # launch inference for Ascend 910
+        ├── run_distribute_train.sh         # launch distributed training for Atlas training series
+        ├── run_eval.sh                     # launch inference for Atlas training series
         ├── run_distribute_train_gpu.sh     # launch distributed training for GPU
         ├── run_eval_gpu.sh                 # launch inference for GPU
     ├── src
@@ -68,9 +68,9 @@ The directory structure is as follows:
 
 ### Configuring Distributed Environment Variables
 
-#### Ascend 910
+#### Atlas Training Series
 
-Refer to [rank table Startup](https://www.mindspore.cn/tutorials/experts/en/master/parallel/rank_table.html) for the configuration of distributed environment variables for the Ascend 910 AI processor.
+Refer to [rank table Startup](https://www.mindspore.cn/tutorials/experts/en/master/parallel/rank_table.html) for the configuration of distributed environment variables for the Atlas training series.
 
 #### GPU
 
@@ -324,7 +324,7 @@ if __name__ == "__main__":
 
 After the training script is defined, call the shell script in the `scripts` directory and start the distributed training process.
 
-#### Ascend 910
+#### Atlas Training Series
 
 The current MindSpore distributed executes in the running mode of single-card, single-process on Ascend, i.e., 1 process running on each card, with the number of processes matching the number of used cards. The processes are executed in the background and each process creates a directory called `train_parallel` + `device_id` to store log information, operator compilation information and training checkpoint files. The following is an example of a distributed training script by using 8 cards to demonstrate how to run the script.
 
@@ -472,9 +472,9 @@ if __name__ == "__main__":
 
 After the inference network is defined, the shell script in the `scripts` directory is called for inference.
 
-#### Ascend 910
+#### Atlas Training Series
 
-On the Ascend 910 hardware platform, the inference execution command is as follows:
+On the Atlas training series platform, the inference execution command is as follows:
 
 ```bash
 bash run_eval.sh <DATASET_PATH> <CHECKPOINT_PATH> <CONFIG_PATH>

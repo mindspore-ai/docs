@@ -6,7 +6,7 @@
 
 针对大规模神经网络模型参数多、无法完全加载至单设备推理的场景，可利用多设备进行分布式推理。本教程介绍如何使用[C++接口](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)执行MindSpore Lite云侧分布式推理。云侧分布式推理与[云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_cpp.html)流程大致相同，可以相互参考。关于分布式推理的相关内容可参考[MindSpore分布式推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_loading.html#推理)，相比之下，MindSpore Lite云侧分布式推理针对性能方面具有更多的优化。
 
-MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，支持的设备类型为Ascend 910和Nvidia GPU。如下图所示，当前通过多进程方式启动分布式推理，每个进程对应通信集合中的一个`Rank`，对各自已切分的模型进行加载、编译与执行，每个进程输入数据相同。
+MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，支持的设备类型为Atlas训练系列产品和Nvidia GPU。如下图所示，当前通过多进程方式启动分布式推理，每个进程对应通信集合中的一个`Rank`，对各自已切分的模型进行加载、编译与执行，每个进程输入数据相同。
 
 ![img](./images/lite_runtime_distributed.png)
 
@@ -50,16 +50,16 @@ auto &device_list = context->MutableDeviceInfo();
 
 ### 配置Ascend设备上下文
 
-当设备类型为Ascend时(目前分布式推理支持Ascend910)，新建[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)，并通过[AscendDeviceInfo::SetDeviceID](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)、[AscendDeviceInfo::SetRankID](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)分别设置`DeviceID`、`RankID`。由于Ascend提供多个推理引擎后端，当前仅`ge`后端支持分布式推理，通过[DeviceInfoContext::SetProvider](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#deviceinfocontext)指定Ascend推理引擎后端为`ge`。示例代码如下。
+当设备类型为Ascend时(目前分布式推理支持Atlas训练系列产品)，新建[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)，并通过[AscendDeviceInfo::SetDeviceID](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)、[AscendDeviceInfo::SetRankID](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)分别设置`DeviceID`、`RankID`。由于Ascend提供多个推理引擎后端，当前仅`ge`后端支持分布式推理，通过[DeviceInfoContext::SetProvider](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#deviceinfocontext)指定Ascend推理引擎后端为`ge`。示例代码如下。
 
 ```c++
-// for Ascend 910
+// for Atlas training series
 auto device_info = std::make_shared<mindspore::AscendDeviceInfo>();
 if (device_info == nullptr) {
   std::cerr << "New AscendDeviceInfo failed." << std::endl;
   return nullptr;
 }
-// Set Ascend 910 device id， rank id and provider.
+// Set Atlas training series device id， rank id and provider.
 device_info->SetDeviceID(device_id);
 device_info->SetRankID(rank_id);
 device_info->SetProvider("ge");
@@ -92,7 +92,7 @@ device_list.push_back(device_info);
 
 ```c++
 mindspore::Model model;
-// Load config file for Ascend910
+// Load config file for Atlas training series
 if (!config_path.empty()) {
   if (model.LoadConfig(config_path) != mindspore::kSuccess) {
     std::cerr << "Failed to load config file " << config_path << std::endl;

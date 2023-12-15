@@ -12,7 +12,7 @@ MindSpore Armour的抑制隐私模块Suppress-Privacy，实现了抑制隐私优
 
 这里以LeNet模型，MNIST 数据集为例，说明如何在MindSpore上使用抑制隐私优化器训练神经网络模型。
 
-> 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/sup_privacy/sup_privacy.py>
+> 本例面向Atlas训练系列产品，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/sup_privacy/sup_privacy.py>
 
 ## 实现阶段
 
