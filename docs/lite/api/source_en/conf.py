@@ -108,24 +108,9 @@ intersphinx_mapping = {
     'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../../resource/numpy_objects.inv'),
 }
 
-from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary
-
-sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
-from custom_directives import IncludeCodeDirective
-
-def setup(app):
-    app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
-    app.add_directive('msnoteautosummary', MsNoteAutoSummary)
-    app.add_directive('includecode', IncludeCodeDirective)
-
-# Modify regex for sphinx.ext.autosummary.generate.find_autosummary_in_lines.
-gfile_abs_path = os.path.abspath(g.__file__)
-autosummary_re_line_old = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+autosummary::\s*')"
-autosummary_re_line_new = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+(ms[a-z]*)?autosummary::\s*')"
-with open(gfile_abs_path, "r+", encoding="utf8") as f:
-    data = f.read()
-    data = data.replace(autosummary_re_line_old, autosummary_re_line_new)
-    exec(data, g.__dict__)
+# Example configuration for intersphinx: refer to the Python standard library.
+with open('../_ext/overwriteautosummary_generate.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), g.__dict__)
 
 # Modify default signatures for autodoc.
 autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
@@ -321,7 +306,47 @@ try:
 except:
     pass
 
+# modify urls
+import json
+
+if os.path.exists('../../../../tools/generate_html/version.json'):
+    with open('../../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily_dev.json'):
+    with open('../../../../tools/generate_html/daily_dev.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily.json'):
+    with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+
+if os.getenv("MS_PATH").split('/')[-1]:
+    copy_repo = os.getenv("MS_PATH").split('/')[-1]
+else:
+    copy_repo = os.getenv("MS_PATH").split('/')[-2]
+
+branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
+docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
+cst_module_name = 'mindspore_lite'
+repo_whl = 'mindspore/lite/python/api'
+giturl = 'https://gitee.com/mindspore/'
+
 import mindspore_lite
+
+from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary
+
+sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
+from custom_directives import IncludeCodeDirective
+
+def setup(app):
+    app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
+    app.add_directive('msnoteautosummary', MsNoteAutoSummary)
+    app.add_directive('includecode', IncludeCodeDirective)
+    app.add_config_value('docs_branch', '', True)
+    app.add_config_value('branch', '', True)
+    app.add_config_value('cst_module_name', '', True)
+    app.add_config_value('copy_repo', '', True)
+    app.add_config_value('giturl', '', True)
+    app.add_config_value('repo_whl', '', True)
 
 des_sir = "../include"
 if os.path.exists(des_sir):
@@ -397,6 +422,14 @@ for file_name in fileList:
     with open(file_name, 'r', encoding='utf-8') as f:
         data = f.read()
         data = re.sub(r'/\*\*([\s\n\S]*?)\*/', '', data)
+    with open(file_name, 'w', encoding='utf-8') as p:
+        p.write(data)
+
+for file_name in fileList:
+    file_data = ''
+    with open(file_name, 'r', encoding='utf-8') as f:
+        data = f.read()
+        data = re.sub(r'.*//.*?910B.*\n', '', data)
     with open(file_name, 'w', encoding='utf-8') as p:
         p.write(data)
 
