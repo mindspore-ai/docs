@@ -27,7 +27,7 @@ To use the Benchmark tool, you need to prepare the environment as follows:
 - If you're running this benchmark based on Ascend, use the following command to switch:
 
     ```bash
-    export ASCEND_DEVICE_ID=$RANKK_ID
+    export ASCEND_DEVICE_ID=$RANK_ID
     ```
 
 ### Parameter Description

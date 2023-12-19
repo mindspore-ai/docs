@@ -230,7 +230,6 @@ net_with_loss = nn.WithLossCell(net, loss_fn=loss)
 
 > `gain` 用来衡量非线性关系对于数据标准差的影响。由于非线性会影响数据的标准差，可能会导致梯度爆炸或消失。
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> mindspore.common.initializer </td> <td style="text-align:center"> torch.nn.init </td>
@@ -260,7 +259,6 @@ torch.nn.init.uniform_(x)
 </td>
 </tr>
 </table>
-</div>
 
 - `mindspore.common.initializer` 用于在并行模式中延迟Tensor的数据的初始化。只有在调用了 `init_data()` 之后，才会使用指定的 `init` 来初始化Tensor的数据。每个Tensor只能使用一次 `init_data()` 。在运行以上代码之后，`x` 其实尚未完成初始化。如果此时 `x` 被用来计算，将会作为0来处理。然而，在打印时，会自动调用 `init_data()` 。
 - `torch.nn.init` 需要一个Tensor作为输入，将输入的Tensor原地修改为目标结果，运行上述代码之后，x将不再是非初始化状态，其元素将服从均匀分布。
@@ -694,7 +692,6 @@ def box_select_ms2(box, iou_score):
 
 举个例子，我们想选取前70%的正样本的值求loss。实现如下：
 
-<div class="wy-table-responsive">
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
@@ -751,7 +748,6 @@ class ClassLoss_ms(ms_nn.Cell):
 </td>
 </tr>
 </table>
-</div>
 
 我们来看一下实验结果：
 

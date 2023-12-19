@@ -212,6 +212,8 @@ for cur, _, files in os.walk(present_path):
                         new_content = content
                         if '.. include::' in content and '.. automodule::' in content:
                             continue
+                        elif '.. include::' in content and not re.findall('\.\. py:.*?::', content):
+                            continue
                         if 'autosummary::' not in content and "\n=====" in content:
                             re_view_ = re_view + copy_path + cur.split(present_path)[-1] + '/' + i + \
                                        '\n    :alt: 查看源文件\n\n'
