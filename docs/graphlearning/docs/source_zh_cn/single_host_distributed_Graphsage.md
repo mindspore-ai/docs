@@ -38,7 +38,7 @@ echo "start training"
 mpirun --allow-run-as-root -n ${CUDA_NUM} python3 ./distributed_trainval_reddit.py --data-path ${DATA_PATH} --epochs 5 > train.log 2>&1 &
 ```
 
-MindSpore分布式并行训练的通信使用了华为集合通信库Huawei Collective Communication Library（以下简称HCCL），可以在Ascend AI处理器配套的软件包中找到。同时mindspore.communication.management中封装了HCCL提供的集合通信接口，方便用户配置分布式信息。
+MindSpore分布式并行训练的通信使用了华为集合通信库Huawei Collective Communication Library（以下简称HCCL），可以在Atlas 200/300/500推理产品配套的软件包中找到。同时mindspore.communication.management中封装了HCCL提供的集合通信接口，方便用户配置分布式信息。
 
 ```bash
 # Ascend

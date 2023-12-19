@@ -2,18 +2,18 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/faq/inference.md)
 
-<font size=3>**Q: In the previous version, 310 inference is performed based on the MindSpore installation package. However, the MindSpore release package of the new version does not support Ascend 310 inference. How do I use Ascend 310 for inference? (Changes in the MindSpore Ascend 310 Inference Release Package)**</font>
+<font size=3>**Q: In the previous version, Atlas 200/300/500 inference product inference is performed based on the MindSpore installation package. However, the MindSpore release package of the new version does not support Atlas 200/300/500 inference product inference. How do I use Atlas 200/300/500 inference product for inference? (Changes in the MindSpore Atlas 200/300/500 Inference Product Inference Release Package)**</font>
 
-A: The MindSpore inference function is provided by MindSpore Lite, a core component of MindSpore. Since version 2.0, the Ascend 310 inference package is released by MindSpore Lite and provides continuous maintenance and evolution of related functions. The corresponding interfaces in the MindSpore main release package are not maintained or evolved. Since version 2.2, the MindSpore main release package does not provide the inference interface enabling for the 310. If you need to use the inference interface, install the MindSpore Lite release package or download the MindSpore version earlier than 2.0. For details about how to install and use MindSpore Lite, see <https://www.mindspore.cn/lite/en>.
+A: The MindSpore inference function is provided by MindSpore Lite, a core component of MindSpore. Since version 2.0, the Atlas 200/300/500 inference product inference package is released by MindSpore Lite and provides continuous maintenance and evolution of related functions. The corresponding interfaces in the MindSpore main release package are not maintained or evolved. Since version 2.2, the MindSpore main release package does not provide the inference interface enabling for the Atlas 200/300/500 inference product. If you need to use the inference interface, install the MindSpore Lite release package or download the MindSpore version earlier than 2.0. For details about how to install and use MindSpore Lite, see <https://www.mindspore.cn/lite/en>.
 
-HUAWEI Ascend 310 (Ascend) is an energy-efficient and highly integrated AI processor for edge scenarios. It supports inference on MindIR models. In the earlier version, MindSpore provides two methods for enabling inference on the Ascend 310 hardware:
+HUAWEI Atlas 200/300/500 inference product is an energy-efficient and highly integrated AI processor for edge scenarios. It supports inference on MindIR models. In the earlier version, MindSpore provides two methods for enabling inference on the Atlas 200/300/500 inference product hardware:
 
-1. The MindSpore main release package provides the matching Ascend 310 version that supports C++ inference interfaces.
+1. The MindSpore main release package provides the matching Atlas 200/300/500 inference product version that supports C++ inference interfaces.
 2. The MindSpore Lite release package provides the matching Ascend version and supports C++ and Java inference.
 
 The C++ APIs provided by the two solutions are basically the same. In the future, MindSpore Lite is used instead of building and maintaining two sets of interfaces.
 
-The original 310 inference service built based on the MindSpore main release package can be switched to MindSpore Lite with a few modifications. The following is an example:
+The original Atlas 200/300/500 inference product inference service built based on the MindSpore main release package can be switched to MindSpore Lite with a few modifications. The following is an example:
 
 1. compiling a C++ Project
 
@@ -98,7 +98,7 @@ A: MindSpore 2.0 has unified the installation packages of various platforms and 
 
 <font size=3>**Q: What should I do when error `error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory` prompts during application running?**</font>
 
-A: While Ascend 310 AI Processor software packages relied by MindSpore is installed, the `CANN` package should install the full-featured `toolkit` version instead of the `nnrt` version.
+A: While Atlas 200/300/500 inference product software packages relied by MindSpore is installed, the `CANN` package should install the full-featured `toolkit` version instead of the `nnrt` version.
 
 <br/>
 

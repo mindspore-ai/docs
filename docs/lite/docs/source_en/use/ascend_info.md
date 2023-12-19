@@ -7,7 +7,7 @@
 > - [Cloud-side Model Converter](https://mindspore.cn/lite/docs/en/r2.3/use/cloud_infer/converter.html)
 > - [Cloud-side Benchmark Tool](https://mindspore.cn/lite/docs/en/r2.3/use/cloud_infer/benchmark.html)
 
-This document describes how to use MindSpore Lite to perform inference and use the dynamic shape function on Linux in the Ascend environment. Currently, MindSpore Lite supports the Ascend 310 and 310P AI processor.
+This document describes how to use MindSpore Lite to perform inference and use the dynamic shape function on Linux in the Ascend environment. Currently, MindSpore Lite supports the Atlas 200/300/500 inference product and Atlas inference series (with Ascend 310P AI processor).
 
 ## Environment Preparation
 
@@ -170,7 +170,7 @@ For details about the inference tool, see [benchmark](https://www.mindspore.cn/l
 
 ### Dynamic Shape
 
-The batch size is not fixed in certain scenarios. For example, in the target detection+facial recognition cascade scenario, the number of detected targets is subject to change, which means that the batch size of the targeted recognition input is dynamic. It would be a great waste of compute resources to perform inferences using the maximum batch size or image size. Thanks to Lite's support for dynamic batch size and dynamic image size on the Ascend 310, you can configure the [acl_option_cfg_param] dynamic parameter through configFile to convert a model into an `ms` model, and then use the [resize](https://www.mindspore.cn/lite/docs/en/r2.3/use/runtime_cpp.html#resizing-the-input-dimension) function of the model to change the input shape during inference.
+The batch size is not fixed in certain scenarios. For example, in the target detection+facial recognition cascade scenario, the number of detected targets is subject to change, which means that the batch size of the targeted recognition input is dynamic. It would be a great waste of compute resources to perform inferences using the maximum batch size or image size. Thanks to Lite's support for dynamic batch size and dynamic image size on the Atlas 200/300/500 inference product, you can configure the [acl_option_cfg_param] dynamic parameter through configFile to convert a model into an `ms` model, and then use the [resize](https://www.mindspore.cn/lite/docs/en/r2.3/use/runtime_cpp.html#resizing-the-input-dimension) function of the model to change the input shape during inference.
 
 #### Dynamic Batch Size
 

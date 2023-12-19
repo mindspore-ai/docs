@@ -10,7 +10,7 @@ In machine learning and deep learning, if an attacker has some access permission
 
 The following uses a VGG16 model and CIFAR-100 dataset as an example to describe how to use membership inference to perform model privacy security evaluation. This tutorial uses pre-trained model parameters for demonstration. This following describes only the model structure, parameter settings, and dataset preprocessing method.
 
-> This example is for the Ascend 910 AI Processor. You can download the complete sample code in the following link:
+> This example is for the Atlas training series. You can download the complete sample code in the following link:
 >
 > <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/membership_inference/example_vgg_cifar.py>
 

@@ -94,7 +94,7 @@ init()
 ms.set_seed(1)
 ```
 
-`offload_config` is the configuration dictionary for heterogeneous storage, and see the relevant configuration notes in the overview of this chapter for details of the configuration. Here `max_device_memory` is configured to `1GB` to trigger heterogeneous storage by preventing the video memory from loading the full network. The "1GB" here only represents the borderline video memory we tested on the Ascend 910, which may vary from device to device.
+`offload_config` is the configuration dictionary for heterogeneous storage, and see the relevant configuration notes in the overview of this chapter for details of the configuration. Here `max_device_memory` is configured to `1GB` to trigger heterogeneous storage by preventing the video memory from loading the full network. The "1GB" here only represents the borderline video memory we tested on the Atlas training series, which may vary from device to device.
 
 ### Loading the Dataset
 

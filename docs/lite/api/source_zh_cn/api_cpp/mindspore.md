@@ -19,7 +19,7 @@
 | [CPUDeviceInfo](#cpudeviceinfo)                  | 模型运行在CPU上的配置。                   | √      | √      |
 | [GPUDeviceInfo](#gpudeviceinfo)                  | 模型运行在GPU上的配置。                                     | √      | √      |
 | [KirinNPUDeviceInfo](#kirinnpudeviceinfo)        | 模型运行在NPU上的配置。                   | ✕      | √      |
-| [AscendDeviceInfo](#ascenddeviceinfo)            | 模型运行在Ascend 310/310P上的配置。                               | √      | √      |
+| [AscendDeviceInfo](#ascenddeviceinfo)            | 模型运行在Atlas 200/300/500推理产品、Atlas推理系列产品（配置Ascend310P AI 处理器）上的配置。                               | √      | √      |
 
 ### 并发推理
 
@@ -555,7 +555,7 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r2.3/include/api/context.h)&gt;
 
-派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Ascend 310、Ascend 310P上的配置。
+派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Atlas 200/300/500推理产品、Atlas推理系列产品（配置Ascend310P AI 处理器）上的配置。
 
 ### 公有成员函数
 

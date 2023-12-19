@@ -190,7 +190,7 @@ The training optimization process visualization can show the optimization space 
 
 ## Notices
 
-1. Currently MindSpore supports recording computational graph after operator fusion for Ascend 910 AI processor only.
+1. Currently MindSpore supports recording computational graph after operator fusion for Atlas training series only.
 
 2. When using the Summary operator to collect data in training, 'HistogramSummary' operator will affect performance, so please use as few as possible.
 

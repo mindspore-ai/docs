@@ -10,7 +10,7 @@
 
 这里以VGG16模型，CIFAR-100数据集为例，说明如何使用MembershipInference进行模型隐私安全评估。本教程使用预训练的模型参数进行演示，这里仅给出模型结构、参数设置和数据集预处理方式。
 
->本例面向Ascend 910处理器，您可以在这里下载完整的样例代码：
+>本例面向Atlas训练系列产品，您可以在这里下载完整的样例代码：
 >
 ><https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/membership_inference/example_vgg_cifar.py>
 

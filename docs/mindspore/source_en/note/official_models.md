@@ -8,7 +8,7 @@
 
 #### Image Classification（backbone）
 
-The following results are tested on Ascend 910 with ImageNet-1K.
+The following results are tested on Atlas training series with ImageNet-1K.
 
 | model | acc@1 | mindcv recipe | vanilla mindspore |
 | :-:     | :-:        | :-:    | :-:  |
@@ -161,7 +161,7 @@ The following results are tested on Ascend 910 with ImageNet-1K.
 
 ### Object Detection
 
-The following results are tested on Ascend 910 with COCO2017.
+The following results are tested on Atlas training series with COCO2017.
 
 #### yolo
 

@@ -8,7 +8,7 @@ The Physics-Informed Neural Networks (PINNs) is unable to solve parametric Parti
 
 This tutorial focuses on how to use Physics-Informed Auto-Decoder (PIAD) based on the MindSpore Elec toolkit to solve the parametric Maxwell’s equations with incremental training, which reduces the training time significantly.
 
-> This current sample is for Ascend 910 AI processor. You can find the complete executable code at
+> This current sample is for Atlas training series. You can find the complete executable code at
 > <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/physics_driven/incremental_learning>
 
 ## Problem Description

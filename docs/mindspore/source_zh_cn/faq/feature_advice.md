@@ -46,9 +46,9 @@ A: MindSpore的`ckpt`和TensorFlow的`ckpt`格式是不通用的，虽然都是�
 
 <br/>
 
-<font size=3>**Q: 用MindSpore训练出的模型如何在Ascend 310上使用？可以转换成适用于HiLens Kit用的吗？**</font>
+<font size=3>**Q: 用MindSpore训练出的模型如何在Atlas 200/300/500推理产品上使用？可以转换成适用于HiLens Kit用的吗？**</font>
 
-A: Ascend 310需要运行专用的OM模型，先使用MindSpore导出ONNX或AIR模型，再转化为Ascend 310支持的OM模型。可以，HiLens Kit是以Ascend 310为推理核心，所以前后两个问题本质上是一样的，需要转换为OM模型。
+A: Atlas 200/300/500推理产品需要运行专用的OM模型，先使用MindSpore导出ONNX或AIR模型，再转化为Atlas 200/300/500推理产品支持的OM模型。可以，HiLens Kit是以Atlas 200/300/500推理产品为推理核心，所以前后两个问题本质上是一样的，需要转换为OM模型。
 
 <br/>
 
@@ -58,9 +58,9 @@ A: MindSpore同时支持华为自己的`Ascend`、`GPU`与`CPU`，是支持异�
 
 <br/>
 
-<font size=3>**Q: MindSpore在Ascend 310上是否可以转AIR模型？**</font>
+<font size=3>**Q: MindSpore在Atlas 200/300/500推理产品上是否可以转AIR模型？**</font>
 
-A: Ascend 310不能导出AIR，需要在Ascend 910加载训练好的checkpoint后，导出AIR，然后在Ascend 310转成OM模型进行推理。Ascend 910的安装方法可以参考官网MindSpore[安装指南](https://www.mindspore.cn/install)。
+A: Atlas 200/300/500推理产品不能导出AIR，需要在Atlas训练系列产品加载训练好的checkpoint后，导出AIR，然后在Atlas 200/300/500推理产品转成OM模型进行推理。Atlas训练系列产品的安装方法可以参考官网MindSpore[安装指南](https://www.mindspore.cn/install)。
 
 <br/>
 
@@ -126,7 +126,7 @@ A: MindSpore是端边云统一的训练和推理框架，支持将云侧训练�
 
 <font size=3>**Q: MindSpore自动并行支持情况如何？**</font>
 
-A: 自动并行特性对CPU GPU的支持还在完善中。推荐用户在Ascend 910 AI处理器上使用自动并行，可以关注开源社区，申请MindSpore开发者体验环境进行试用。
+A: 自动并行特性对CPU GPU的支持还在完善中。推荐用户在Atlas训练系列产品上使用自动并行，可以关注开源社区，申请MindSpore开发者体验环境进行试用。
 
 <br/>
 

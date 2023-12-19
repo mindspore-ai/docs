@@ -6,7 +6,7 @@
 
 This article introduces you to the basic functions and usage of MindSpore Lite by using MindSpore Lite to perform cloud-side inference as an example.
 
-MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Ascend 310/310P/910, Nvidia GPU and CPU hardware backends are supported.
+MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), Atlas training series, Nvidia GPU and CPU hardware backends are supported.
 
 Before starting using MindSpore Lite in this chapter, users should have a Linux (e.g. Ubuntu/CentOS/EulerOS) environment ready to operate the verification.
 
