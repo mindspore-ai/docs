@@ -357,6 +357,8 @@ for cur, _, files in os.walk(des_sir):
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                     content = f.read()
                     new_content = content
+                    if '.. include::' in content and '.. automodule::' in content:
+                        continue
                     if 'autosummary::' not in content and "\n=====" in content:
                         re_view_ = re_view + copy_path + cur.split('api_python')[-1] + '/' + i +'\n    :alt: 查看源文件\n\n'
                         new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
