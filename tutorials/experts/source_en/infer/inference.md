@@ -6,7 +6,7 @@ MindSpore can execute inference tasks on different hardware platforms based on t
 
 Atlas 200/300/500 inference product is an energy-efficient, highly integrated AI processor for edge scenarios that supports inference in Both MindIR format models.
 
-MindIR format can be exported by MindSpore CPU, GPU, Ascend 910, can be run on GPU, Ascend 910, Atlas 200/300/500 inference product, no need to manually perform model conversion before inference. Inference needs to install MindSpore Lite, and call MindSpore Lite C++ API.
+MindIR format can be exported by MindSpore CPU, GPU, Atlas training series, can be run on GPU, Atlas training series, Atlas 200/300/500 inference product, no need to manually perform model conversion before inference. Inference needs to install MindSpore Lite, and call MindSpore Lite C++ API.
 
 ## Model Files
 
