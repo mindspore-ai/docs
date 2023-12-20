@@ -92,7 +92,7 @@ Consistent with [MindSpore Lite Cloud-side Single Card Inference](https://www.mi
 
 ```c++
 mindspore::Model model;
-// Load config file for Ascend910
+// Load config file for Atlas training series
 if (!config_path.empty()) {
   if (model.LoadConfig(config_path) != mindspore::kSuccess) {
     std::cerr << "Failed to load config file " << config_path << std::endl;
