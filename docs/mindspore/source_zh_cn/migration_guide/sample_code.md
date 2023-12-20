@@ -756,7 +756,8 @@ tensor([[-15.1945,  -5.6529,   6.5738,   9.7807,  -2.4615,   3.0365,  -4.7216,
 diff 2.861023e-06
 ```
 
-可以看到最后的结果差不大，基本符合预期。当结果差很大时需要逐层对比下输出，这里不多做说明。
+可以看到最后的结果差不大，基本符合预期。
+当结果差很大时，可在完成参数映射后，固定PyTorch和MindSpore的随机性，再使用工具：[TroubleShooter API级别网络结果自动比较](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api_compare.md)进行网络正向和反向的结果对比，提升定位效率。
 
 ## 推理流程
 
@@ -906,6 +907,8 @@ Loss: 0.3240, Accuracy: 91%
 </table>
 
 推理精度一致。
+
+当推理结果不一致时，这里可借助工具[TroubleShooter比较MindSpore和PyTorch网络输出是否一致](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF5%E6%AF%94%E8%BE%83mindspore%E5%92%8Cpytorch%E7%BD%91%E7%BB%9C%E8%BE%93%E5%87%BA%E6%98%AF%E5%90%A6%E4%B8%80%E8%87%B4)比较PyTorch和MindSpore网络的推理结果，定位网络输出哪里开始不一致，提升迁移效率。
 
 ## 训练流程
 
