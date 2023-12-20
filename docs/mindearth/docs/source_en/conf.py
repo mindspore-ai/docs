@@ -213,6 +213,7 @@ import search_code
 
 src_release = os.path.join(os.getenv("MSC_PATH"), 'MindEarth/RELEASE.md')
 des_release = "./RELEASE.md"
+release_source = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'MindEarth/RELEASE.md)\n\n'
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
@@ -221,5 +222,5 @@ else:
     content = re.findall("(## [\s\S\n]*)", data)
 #result = content[0].replace('# MindFlow', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes"+"\n\n")
+    p.write("# Release Notes"+"\n\n" + release_source)
     p.write(content[0])

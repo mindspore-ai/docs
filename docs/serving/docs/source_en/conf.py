@@ -140,8 +140,30 @@ from custom_directives import IncludeCodeDirective
 def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
 
+# get params for add view source
+import json
+
+if os.path.exists('../../../../tools/generate_html/version.json'):
+    with open('../../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily_dev.json'):
+    with open('../../../../tools/generate_html/daily_dev.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily.json'):
+    with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+
+if os.getenv("SV_PATH").split('/')[-1]:
+    copy_repo = os.getenv("SV_PATH").split('/')[-1]
+else:
+    copy_repo = os.getenv("SV_PATH").split('/')[-2]
+
+branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
+docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
+
 src_release = os.path.join(os.getenv("SV_PATH"), 'RELEASE.md')
 des_release = "./RELEASE.md"
+release_source = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n\n'
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
@@ -150,5 +172,5 @@ else:
     content = re.findall("(## [\s\S\n]*)", data)
 #result = content[0].replace('# MindSpore', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes\n\n")
+    p.write("# Release Notes\n\n" + release_source)
     p.write(content[0])
