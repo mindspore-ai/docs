@@ -73,9 +73,9 @@ python -m pip install -U pip
 
 昇腾软件包提供商用版和社区版两种下载途径：
 
-- 商用版下载需要申请权限，下载链接与安装方式请参考[Ascend Training Solution 23.0.RC3 安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100336282)。
+- 商用版下载需要申请权限，下载链接即将发布。
 
-- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，选择`7.0.RC1.beta1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
+- 社区版下载不受限制，下载链接即将发布。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
@@ -232,4 +232,4 @@ pip install --upgrade mindspore-dev=={version}
 
 其中：
 
-- 升级到rc版本时，需要手动指定`{version}`为rc版本号，例如2.2.0.dev20221109；如果升级到正式版本，`=={version}`字段可以缺省。
+- 升级到rc版本时，需要手动指定`{version}`为rc版本号，例如2.2.10.dev20221109；如果升级到正式版本，`=={version}`字段可以缺省。
