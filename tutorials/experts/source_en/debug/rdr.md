@@ -47,7 +47,7 @@ Enable RDR by `export MS_RDR_ENABLE=1`, set the export data mode by `export MS_R
 
 ### Exception Handling
 
-Suppose we train with MindSpore on Ascend 910, the training throws a `Run task error` exception.
+Suppose we train with MindSpore on Atlas training series, the training throws a `Run task error` exception.
 
 At this point we go to the export directory of the RDR file and we can see that there are several files, each representing a type of data. For example, `hwopt_d_before_graph_0.ir` is a computational graph file. Open the file using the text tool to view the calculation diagram and analyze whether it meets expectations.
 
