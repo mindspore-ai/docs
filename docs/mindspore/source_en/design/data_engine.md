@@ -14,7 +14,7 @@ The core of MindSpore training data processing engine is to efficiently and flex
 - Provide an automatic data augmentation mode, and perform automatic data augmentation on images based on specific strategies.
 - Provide single-node data caching capability to solve the problem of repeated loading and processing of data, reduce data processing overhead, and improve device-to-device training efficiency.
 
-MindSpore training data engine also provides efficient loading and sampling capabilities of datasets in fields, such as scientific computing - electromagnetic simulation, remote sensing large-format image processing, helping MindSpore achieve full-scene support.
+MindSpore training data engine also provides efficient loading and sampling capabilities of datasets in fields, such as scientific computing-electromagnetic simulation, remote sensing large-format image processing, helping MindSpore achieve full-scene support.
 
 ## Data Processing Engine Design
 
@@ -93,7 +93,7 @@ Users often have diverse needs for data processing, and processing logic that is
 
     For the ImageNet dataset, the automatic data augmentation strategy finally searched by the AutoAugment method contains 25 substrategy combinations. Each substrategy contains 2 transformations, and one substrategy combination is randomly selected for each image in the actual training. A certain probability is used to decide whether to execute each transformation in the substrategy. The flow is shown in the figure below.
 
-    To support AutoAugment, an automatic data augmentation strategy, MindSpore provides the following interface.
+    To support AutoAugment, an automatic data augmentation strategy, MindSpore provides the following interfaces.
 
     - RandomChoice, or random selection, allows the user to define a list of data augmentation operations, and the data processing process will select one data augmentation operation from the list with equal probability for each image.
 
