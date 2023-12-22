@@ -13,6 +13,20 @@ FAQs
 
 MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.html>`_ during using MindSpore. This chapter also collates the solutions to the set of common problems mentioned in the migration documentation.
 
+- Constructing Dataset
+
+  `Load & Process Data With Dataset Pipeline <https://www.mindspore.cn/docs/en/master/api_python/samples/dataset/dataset_gallery.html>`_
+
+  `Transforms for Image Data <https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html#vision-transforms>`_
+
+  `Transforms for Text Data <https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html#text-transforms>`_
+
+  `Transforms for Audio Data <https://www.mindspore.cn/docs/en/master/api_python/samples/dataset/audio_gallery.html>`_
+
+  `Data Pre-Processing Differences Between MindSpore And PyTorch <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/dataset.html#comparison-of-data-processing-differences>`_
+
+  `Data Pre-Processing Debugging Methods <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html#data-processing-debugging-methods>`_
+
 - Network Scripts
 
   `API Mapping and Handling Strategy of Missing API <https://www.mindspore.cn/docs/en/master/migration_guide/analysis_and_preparation.html#analyzing-api-compliance>`_
@@ -36,3 +50,4 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
   `Precision Debugging <https://www.mindspore.cn/docs/en/master/migration_guide/debug_and_tune.html#accuracy-debugging>`_
 
   `Performance Debugging <https://www.mindspore.cn/docs/en/master/migration_guide/debug_and_tune.html#performance-tuning>`_
+

@@ -13,6 +13,20 @@
 
 MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://mindspore.cn/docs/zh-CN/master/faq/installation.html>`_ ，本章也整理了一下在迁移文档中提及的常见问题集解决方法。
 
+- 数据处理
+
+  `使用数据Pipeline加载 & 处理数据集 <https://www.mindspore.cn/docs/zh-CN/master/api_python/samples/dataset/dataset_gallery.html>`_
+
+  `图像数据变换 <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/transforms.html#vision-transforms>`_
+
+  `文本数据变换 <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/transforms.html#text-transforms>`_
+
+  `音频数据变换 <https://www.mindspore.cn/docs/zh-CN/master/api_python/samples/dataset/audio_gallery.html>`_
+
+  `MindSpore和PyTorch的数据处理差异 <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/dataset.html#数据处理差异对比>`_
+
+  `数据处理调试方法 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/minddata_debug.html#数据处理调试方法>`_
+
 - 网络脚本
 
   `API映射及缺失API处理策略 <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/analysis_and_preparation.html#分析api满足度>`_
@@ -36,3 +50,4 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
   `精度调试 <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tune.html#精度调试>`_
 
   `性能调优 <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tune.html#性能调优>`_
+
