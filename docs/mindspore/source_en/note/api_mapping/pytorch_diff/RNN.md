@@ -55,8 +55,11 @@ print(output)
 # tensor([[[0.0000, 0.4771, 0.8548]]], grad_fn=<StackBackward0>)
 print(hx_n)
 # tensor([[[0.0000, 0.5015, 0.0000]],
+#
 #        [[2.3183, 0.0000, 1.7400]],
+#
 #        [[2.0082, 0.0000, 1.4658]],
+#
 #        [[0.0000, 0.4771, 0.8548]]], grad_fn=<StackBackward0>)
 
 # MindSpore
