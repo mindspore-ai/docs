@@ -27,11 +27,11 @@
 
 3. 网络构图
 
-    数据并行网络的书写方式与单卡网络没有差别，这是因为在正反向传播（Forward propagation & Backward propagation）过程中各卡的模型间是独立执行的，只是保持了相同的网络结构。唯一需要特别注意的是为了保证各卡间训练同步，相应的网络参数初始化值应当是一致的，在`DATA_PARALLEL`模式下可以通过设置seed或通过使能`parameter_broadcast`达到多卡间权重初始化一致的目的。
+    数据并行网络的书写方式与单卡网络没有差别，这是因为在正反向传播（Forward propagation & Backward propagation）过程中各卡的模型间是独立执行的，只是保持了相同的网络结构。唯一需要特别注意的是为了保证各卡间训练同步，相应的网络参数初始化值应当是一致的，在`DATA_PARALLEL`模式下可以通过`mindspore.set_seed`接口来设置seed或通过使能`mindspore.set_auto_parallel_context`中的`parameter_broadcast`达到多卡间权重初始化一致的目的。
 
 4. 梯度聚合（Gradient aggregation）
 
-    数据并行理论上应该实现和单卡一致的训练效果，为了保证计算逻辑的一致性，通过调用`mindspore.nn.DistributedGradReducer()`接口，在梯度计算完成后自动插入`AllReduce`算子实现各卡间的梯度聚合操作。MindSpore设置了`mean`开关，用户可以选择是否要对求和后的梯度值进行求平均操作，也可以将其视为超参项。
+    数据并行理论上应该实现和单卡一致的训练效果，为了保证计算逻辑的一致性，通过调用`mindspore.nn.DistributedGradReducer()`接口，在梯度计算完成后自动插入`AllReduce`算子实现各卡间的梯度聚合操作。`DistributedGradReducer()`接口中提供了`mean`开关，用户可以选择是否要对求和后的梯度值进行求平均操作，也可以将其视为超参项。
 
 5. 参数更新（Parameter update）
 
@@ -61,7 +61,8 @@
 
 ### 配置分布式环境
 
-通过context接口可以指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为数据并行模式，并通过init初始化HCCL或NCCL通信。在数据并行模式还需要设置`gradients_mean`指定梯度聚合方式。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+通过context接口可以指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为数据并行模式，并通过init根据不同的设备需求初始化HCCL、
+NCCL或者MCCL 通信。在数据并行模式还可以设置`gradients_mean`指定梯度聚合方式。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import mindspore as ms
@@ -73,7 +74,7 @@ init()
 ms.set_seed(1)
 ```
 
-其中，`gradients_mean=True`是为了在反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行聚合，得到全局梯度值后再传入优化器中更新。默认值为`False`，设置为`True`对应聚合方式为`AllReduce.Mean`操作，`False`对应`AllReduce.Sum`操作。
+其中，`gradients_mean=True`是为了在反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行聚合，得到全局梯度值后再传入优化器中更新。首先通过AllReduce(op=ReduceOp.SUM)对梯度做规约求和，接着根据gradients_mean的值来判断是否求均值（设置为True则求均值，否则不求，默认为False）。
 
 ### 数据并行模式加载数据集
 
