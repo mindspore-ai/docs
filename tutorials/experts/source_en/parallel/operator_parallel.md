@@ -18,6 +18,8 @@ Related interfaces:
 
     - `ops.Gather().add_prim_attr("manual_split", split_tuple)`: This interface configures the first input of the Gather operator to be non-uniformly sliced, which is only valid for axis=0. `split_tuple` is a tuple with elements of type int, the sum of the elements must be equal to the length of the 0th dimension of the first input in the Gather operator, and the number of tuples must be equal to the number of 0th dimensional slices of the first input in the Gather operator.
     - `ops.Gather().add_prim_attr("primitive_target", "CPU")`: This interface configures the Gather operator to execute on the CPU for heterogeneous scenarios.
+    - `ops.Reshape()add_prim_attr("skip_redistribution")`: Do not apply tensor redistribution (For tensor redistribution, see [Basic Principle](#basic-principle)) before and after ops.Reshape.
+    - `ops.ReduceSum().add_prim_attr("cross_batch")`: This interface only supports Reduce operators. When cross_batch is configurated, if the sliced axis is same as the calculated axis of reduce ops, the synchronization will not be added to each cards, which causes different result that is different from that of single card.
 
 ## Basic Principle
 
@@ -81,7 +83,7 @@ Among them, `distributed_operator_parallel.py` is the script that defines the ne
 
 ### Configuring the Distributed Environment
 
-Specify the run mode, run device, run card number, etc. through the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode, and initialize HCCL or NCCL communication through init. `max_device_memory` limits the maximum amount of device memory a model can have, in order to leave enough device memory for communication on the Ascend hardware platform. If `device_target` is not set here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
+Specify the run mode, run device, run card number, etc. through the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode, and initialize HCCL or NCCL communication through init. `max_device_memory` limits the maximum amount of device memory a model can have, in order to leave enough device memory for communication on the Ascend hardware platform, GPU does not need to set. If `device_target` is not set here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
 
 ```python
 import mindspore as ms
@@ -121,7 +123,7 @@ data_set = create_dataset(32)
 
 ### Defining the Network
 
-In the current semi-automatic parallel mode, it only supports slicing for ops operators, so here the network needs to be defined with ops operators. Users can manually configure the slicing strategy for some operators based on a single-card network, e.g., the network structure after configuring the strategy is:
+In the current semi-automatic parallel mode, the network needs to be defined with ops operators(Primitive). Users can manually configure the slicing strategy for some operators based on a single-card network, e.g., the network structure after configuring the strategy is:
 
 ```python
 import mindspore as ms
