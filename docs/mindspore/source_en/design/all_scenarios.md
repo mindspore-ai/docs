@@ -42,7 +42,7 @@ When a model compiled using MindSpore runs in the graph mode `set_context(mode=G
 
 - By setting environment variable `export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`, an IR file with a filename extension named .ir can be generated: It has the same format as default IR file, but with different graph printing order.  
 
-- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize computing graphs.
+- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org) as thes input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize computing graphs.
 
 ### Syntax
 
@@ -194,7 +194,5 @@ In the example, `a` and `b` are free variables because the variables `a` and `b`
 [1] C. Click and M. Paleczny. A simple graph-based intermediate representation.
 SIGPLAN Not., 30:35–49, March 1995.
 
-[2] Roland Leißa, Marcel Köster, and Sebastian Hack. A graph-based higher-order intermediate
-representation. In Proceedings of the 13th Annual IEEE/ACM International Symposium on
-Code Generation and Optimization, pages 202–212. IEEE Computer Society, 2015.
+[2] Roland Leißa, Marcel Köster, and Sebastian Hack. A graph-based higher-order intermediate representation. In Proceedings of the 13th Annual IEEE/ACM International Symposium on Code Generation and Optimization, pages 202–212. IEEE Computer Society, 2015.
 

@@ -6,7 +6,7 @@
 
 本教程介绍如何使用[C++接口](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)执行MindSpore Lite云侧推理。
 
-MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Ascend 310/310P/910、Nvidia GPU和CPU硬件后端。
+MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/300/500推理产品、Atlas推理系列产品（配置Ascend310P AI 处理器）、Atlas训练系列产品、Nvidia GPU和CPU硬件后端。
 
 如需体验MindSpore Lite端侧推理流程，请参考文档[使用C++接口执行端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
 
@@ -134,7 +134,7 @@ device_list.push_back(gpu_device_info);
 
 ### 配置使用Ascend后端
 
-当需要执行的后端为Ascend时(目前支持Ascend 310/310P/910)，需要设置[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)为推理后端。其中AscendDeviceInfo通过`SetDeviceID`来设置设备ID。Ascend默认使能Float16精度，可通过`AscendDeviceInfo.SetPrecisionMode`更改精度模式。
+当需要执行的后端为Ascend时(目前支持Atlas 200/300/500推理产品、Atlas推理系列产品（配置Ascend310P AI 处理器）、Atlas训练系列产品)，需要设置[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)为推理后端。其中AscendDeviceInfo通过`SetDeviceID`来设置设备ID。Ascend默认使能Float16精度，可通过`AscendDeviceInfo.SetPrecisionMode`更改精度模式。
 
 下面示例代码演示如何创建Ascend推理后端，同时设备ID设置为0：
 
@@ -146,13 +146,13 @@ if (context == nullptr) {
 }
 auto &device_list = context->MutableDeviceInfo();
 
-// for Ascend 310/310P/910
+// for Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), Atlas training series
 auto device_info = std::make_shared<mindspore::AscendDeviceInfo>();
 if (device_info == nullptr) {
   std::cerr << "New AscendDeviceInfo failed." << std::endl;
   return nullptr;
 }
-// Set Ascend 310/310P/910 device id.
+// Set Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), Atlas training series device id.
 device_info->SetDeviceID(device_id);
 // The Ascend device context needs to be push_back into device_list to work.
 device_list.push_back(device_info);
@@ -344,7 +344,7 @@ make
 
 Lite云侧推理框架支持动态shape输入的模型，GPU和Ascend硬件后端，需要在模型转换和模型推理时配置动态输入信息。
 
-动态输入信息的配置与离线和在线场景有关。离线场景，模型转换工具参数`--optimize=general`，`--optimize=gpu_oriented`或`--optimize=ascend_oriented`，即经历和硬件相关的融合和优化，产生的MindIR模型仅能在对应硬件后端上运行，比如，在Ascend 310环境上，模型转换工具指定`--optimize=ascend_oriented`，则产生的模型仅支持在Ascend 310上运行，如果指定`--optimize=general`，则支持在GPU和CPU上运行。在线场景，加载的MindIR没有经历和硬件相关的融合和优化，支持在Ascend、GPU和CPU上运行，模型转换工具参数`--optimize=none`，或MindSpore导出的MindIR模型没有经过转换工具处理。
+动态输入信息的配置与离线和在线场景有关。离线场景，模型转换工具参数`--optimize=general`，`--optimize=gpu_oriented`或`--optimize=ascend_oriented`，即经历和硬件相关的融合和优化，产生的MindIR模型仅能在对应硬件后端上运行，比如，在Atlas 200/300/500推理产品环境上，模型转换工具指定`--optimize=ascend_oriented`，则产生的模型仅支持在Atlas 200/300/500推理产品上运行，如果指定`--optimize=general`，则支持在GPU和CPU上运行。在线场景，加载的MindIR没有经历和硬件相关的融合和优化，支持在Ascend、GPU和CPU上运行，模型转换工具参数`--optimize=none`，或MindSpore导出的MindIR模型没有经过转换工具处理。
 
 Ascend硬件后端离线场景下，需要在模型转换阶段配置动态输入信息。Ascend硬件后端在线场景下，以及GPU硬件后端离线和在线场景下，需要在模型加载阶段通过[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#loadconfig)接口配置动态输入信息。
 
@@ -596,7 +596,7 @@ if (device_info == nullptr) {
   std::cerr << "New AscendDeviceInfo failed." << std::endl;
   return -1;
 }
-// Set Ascend 910 device id， rank id and provider.
+// Set Atlas training series device id, rank id and provider.
 device_info->SetDeviceID(0);
 device_info->SetRankID(0);
 device_info->SetProvider("ge");

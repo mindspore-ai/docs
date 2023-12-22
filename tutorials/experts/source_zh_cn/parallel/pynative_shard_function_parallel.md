@@ -288,7 +288,7 @@ done
 echo "The program launch succeed, the log is under device0/train.log0."
 ```
 
-在当前目录下配置完RANK_TABLE_FILE之后，下述的命令要求用户拥有8张Ascend 910设备。运行命令如下：
+在当前目录下配置完RANK_TABLE_FILE之后，下述的命令要求用户拥有8张Atlas训练系列产品设备。运行命令如下：
 
 ```bash
 bash run_shard_function_example.sh 8 ../rank_table_8pcs.json

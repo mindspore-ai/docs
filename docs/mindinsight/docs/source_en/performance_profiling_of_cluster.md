@@ -300,7 +300,7 @@ The whole network link information tab page displays the link information of all
 
 By default, communication performance data is not collected. You need to use the `profile_communication` parameter in `mindspore.Profiler` like `Profiler(profile_communication=True)` to turn on the communication performance data switch. It should be noted that only multi devices training can generate communication operator performance data. Setting this parameter in single device training scenario does not work.
 
-To use MindSpore Insight to visualize communication performance data, you need to install the communication performance data parsing WHL package provided by the supporting software package of Ascend 910 AI processor. The WHL package is released with the supporting software package. Refer to the following command to complete the installation.
+To use MindSpore Insight to visualize communication performance data, you need to install the communication performance data parsing WHL package provided by the supporting software package of Atlas training series. The WHL package is released with the supporting software package. Refer to the following command to complete the installation.
 
 ```bash
 pip install /usr/local/Ascend/latest/tools/hccl_parser-{version}-py3-none-any.whl

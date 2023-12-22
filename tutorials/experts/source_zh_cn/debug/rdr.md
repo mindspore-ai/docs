@@ -47,7 +47,7 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
 
 ### 异常处理
 
-假如在Ascend 910上使用MindSpore进行训练，训练出现了`Run task error`异常。
+假如在Atlas训练系列产品上使用MindSpore进行训练，训练出现了`Run task error`异常。
 
 这时我们到RDR文件的导出目录中，可以看到有几个文件，每一个文件都代表着一种数据。比如 `hwopt_d_before_graph_0.ir` 该文件为计算图文件。可以使用文本工具打开该文件，用以查看计算图，分析计算图是否符合预期。
 

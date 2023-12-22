@@ -286,7 +286,7 @@ done
 echo "The program launch succeed, the log is under device0/train.log0."
 ```
 
-After configuring RANK_TABLE_FILE in the current directory, the following command requires the user to have 8 Ascend 910 devices. Run the command as follows:
+After configuring RANK_TABLE_FILE in the current directory, the following command requires the user to have 8 Atlas training series devices. Run the command as follows:
 
 ```bash
 bash run_shard_function_example.sh 8 ../rank_table_8pcs.json

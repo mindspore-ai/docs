@@ -6,7 +6,7 @@
 
 For scenarios where large-scale neural network models have many parameters and cannot be fully loaded into a single device for inference, distributed inference can be performed using multiple devices. This tutorial describes how to perform MindSpore Lite cloud-side distributed inference using the [Python interface](https://www.mindspore.cn/lite/api/en/master/mindspore_lite.html). Cloud-side distributed inference is roughly the same process as [Cloud-side single-card inference](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_python.html) and can be cross-referenced. For the related contents of distributed inference, please refer to [MindSpore Distributed inference](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_loading.html#inference), and MindSpore Lite cloud-side distributed inference has more optimization for performance aspects.
 
-MindSpore Lite cloud-side distributed inference is only supported to run in Linux environment deployments with Ascend 910 and Nvidia GPU as the supported device types. As shown in the figure below, the distributed inference is currently initiated by a multi-process approach, where each process corresponds to a `Rank` in the communication set, loading, compiling and executing the respective sliced model, with the same input data for each process.
+MindSpore Lite cloud-side distributed inference is only supported to run in Linux environment deployments with Atlas training series and Nvidia GPU as the supported device types. As shown in the figure below, the distributed inference is currently initiated by a multi-process approach, where each process corresponds to a `Rank` in the communication set, loading, compiling and executing the respective sliced model, with the same input data for each process.
 
 ![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/lite/docs/source_zh_cn/use/cloud_infer/images/lite_runtime_distributed.png)
 
@@ -45,7 +45,7 @@ Ascend, Nvidia GPU are supported in distributed inference scenarios, and can be 
 
 ### Configuring Ascend Device Context
 
-When the device type is Ascend (Ascend910 is currently supported by distributed inference), set [Context.target](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context.target) to `Ascend` and set `DeviceID`, `RankID` by the following way. Since Ascend provides multiple inference engine backends, currently only the `ge` backend supports distributed inference, and the Ascend inference engine backend is specified as `ge` by via `ascend.provider`.The sample code is as follows.
+When the device type is Ascend (Atlas training series is currently supported by distributed inference), set [Context.target](https://www.mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context.target) to `Ascend` and set `DeviceID`, `RankID` by the following way. Since Ascend provides multiple inference engine backends, currently only the `ge` backend supports distributed inference, and the Ascend inference engine backend is specified as `ge` by via `ascend.provider`.The sample code is as follows.
 
 ```python
 # set Ascend target and distributed info

@@ -97,7 +97,7 @@ $$L=1-\sqrt{\frac{\lambda_{max}\ \ (\hat{A}\hat{A}^T)}{\lambda_{max}\ \ (AA^T)}}
 
 图4中的THOR，THOR_stop，THOR_NT分别表示($w_1$,$w_2$)=(0.01,0)，($w_1$,$w_2$)=(0.01,0.001)，($w_1$,$w_2$)=(0,0)，从图中可以看到THOR收敛所需迭代数大约是一阶的一半，且单step的时间与一阶相差也不大。相比一阶算法需要117min，二阶优化器端到端时间提速约40%。
 
-THOR还测试了在不同batchsize下ResNet50+ImageNet的收敛结果，结果见下图5，其中Hardware表示硬件平台，Software是指使用的深度学习框架，Batch size是每次训练的图片数量，Optimizer表示使用的优化器，Time指总体训练时间，Accuracy是指最后收敛精度。当batchsize为8192，使用256块Ascend 910时，只需2.7分钟精度即可收敛到75.9%。
+THOR还测试了在不同batchsize下ResNet50+ImageNet的收敛结果，结果见下图5，其中Hardware表示硬件平台，Software是指使用的深度学习框架，Batch size是每次训练的图片数量，Optimizer表示使用的优化器，Time指总体训练时间，Accuracy是指最后收敛精度。当batchsize为8192，使用256块Atlas训练系列产品时，只需2.7分钟精度即可收敛到75.9%。
 
 ![The large batchsize result of ResNet50](./images/thor_largebs_in_resnet.png)
 

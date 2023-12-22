@@ -19,7 +19,7 @@ According to [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754), floating-point 
 As shown in the figure, the storage space of FP16 is half that of FP32. Similarly, the storage space of FP32 is half that of FP64. Therefore, using FP16 for computing has the following advantages:
 
 - Reduce memory usage: The bit width of FP16 is half that of FP32, so the memory used for parameters such as weights is also half of the original, saving memory for larger network models or training with more data.
-- Higher computational efficiency: On special AI-accelerated chips such as Huawei Ascend 910 and 310 series, or GPUs on NVIDIA VOLTA architecture, execution performance is faster using FP16 than FP32.
+- Higher computational efficiency: On special AI-accelerated chips such as Huawei Atlas training series and Atlas 200/300/500 inference product series, or GPUs on NVIDIA VOLTA architecture, execution performance is faster using FP16 than FP32.
 - Accelerate communication efficiency: For distributed training, especially in the process of training large models, the communication overhead constrains the overall performance of network model training. Less bit-width of communication means that communication performance can be improved, waiting time can be reduced, and the flow of data can be accelerated.
 
 But the use of FP16 also poses a number of problems:
