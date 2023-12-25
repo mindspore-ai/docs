@@ -118,7 +118,7 @@ Parallel Training
      - Specifies the logical ID of the Ascend AI Processor called during deep learning.
      - Integer
      - The value ranges from 0 to 7. When multiple servers are running concurrently, `DEVICE_ID`s in different servers may be the same. 
-       RANK_ID can be used to avoid this problem. `RANK_ID = SERVER_ID * DEVICE_NUM + DEVICE_ID`
+       RANK_ID can be used to avoid this problem. `RANK_ID = SERVER_ID * DEVICE_NUM + DEVICE_ID`, and DEVICE_ID indicates the sequence number of the Ascend AI processor of the current host.
      - 
    * - RANK_SIZE
      - Specifies the number of Ascend AI Processors to be called during deep learning.
