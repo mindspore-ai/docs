@@ -1,3 +1,5 @@
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_modelarts.svg
+    :target: https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9taW5kc3BvcmUtd2Vic2l0ZS5vYnMuY24tbm9ydGgtNC5teWh1YXdlaWNsb3VkLmNvbS9ub3RlYm9vay9yMi4yL3R1dG9yaWFscy96aF9jbi9hZHZhbmNlZC9tb2RlbC9taW5kc3BvcmVfbW9kZWwuaXB5bmI=&imageid=457e7193-d3bf-4409-a754-df451bf6cb71
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_notebook.svg
     :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/r2.2/tutorials/zh_cn/advanced/model/mindspore_model.ipynb
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_download_code.svg
