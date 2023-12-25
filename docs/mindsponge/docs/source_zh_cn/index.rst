@@ -166,6 +166,7 @@ SPONGE暑期学校第二季 <https://www.bilibili.com/video/BV1pB4y167yS?spm_id_
    mindsponge.common
    mindsponge.data_transform
    mindsponge.metrics
+   sponge.colvar
    sponge.control
    sponge.core
    sponge.function
