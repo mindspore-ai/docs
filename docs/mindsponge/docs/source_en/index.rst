@@ -208,6 +208,7 @@ Contribution Guide
    mindsponge.common
    mindsponge.data_transform
    mindsponge.metrics
+   sponge.colvar
    sponge.control
    sponge.core
    sponge.function
