@@ -85,7 +85,7 @@
    * - RANK_ID
      - 指定深度学习时调用Ascend AI处理器的逻辑ID。
      - Integer
-     - 0~7，多机并行时不同server中DEVICE_ID会有重复，使用RANK_ID可以避免这个问题（多机并行时 RANK_ID = SERVER_ID * DEVICE_NUM + DEVICE_ID）
+     - 0~7，多机并行时不同server中DEVICE_ID会有重复，使用RANK_ID可以避免这个问题（多机并行时 RANK_ID = SERVER_ID * DEVICE_NUM + DEVICE_ID，DEVICE_ID指当前机器的第几个Ascend AI处理器。）
      - 
    * - RANK_SIZE
      - 指定深度学习时调用Ascend AI处理器的数量。
