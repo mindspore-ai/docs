@@ -40,7 +40,7 @@ Alternatively, the [API](https://www.mindspore.cn/docs/en/master/api_python/mind
 
 For details about the mapping of other framework APIs, see the [API naming and function description](https://www.mindspore.cn/docs/en/master/api_python/mindspore.html). For APIs with the same function, the names of MindSpore may be different from those of other frameworks. The parameters and functions of APIs with the same name may also be different from those of other frameworks. For details, see the official description.
 
-### Process Missing API
+### Processing Missing API
 
 You can use the following methods to process the missing API:
 
@@ -83,7 +83,7 @@ Generally, when a neural network model is trained, the default data type is FP32
 
 MindSpore not only allows you to customize data augmentation, but also provides an automatic data augmentation mode to automatically perform data augmentation on images based on specific policies.
 
-### [Gradient Accumulation Algorithm](https://www.mindspore.cn/tutorials/experts/en/master/optimize/gradient_accumulation.html)
+### [Gradient Accumulation](https://www.mindspore.cn/tutorials/experts/en/master/optimize/gradient_accumulation.html)
 
 Gradient accumulation is a method of splitting data samples for training neural networks into several small batches by batch and then calculating the batches in sequence. The purpose is to solve the out of memory (OOM) problem that the neural network cannot be trained or the network model cannot be loaded due to insufficient memory.
 
