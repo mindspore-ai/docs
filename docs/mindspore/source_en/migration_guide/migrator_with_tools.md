@@ -238,7 +238,7 @@ Fully-automatic verification scheme is suitable for verification of inference ne
 
 ```python
 def auto_run_ms_net(args):
-    # 1) Import pytoch script path and import pytroch model for creating PyTorch model objects
+    # 1) Import pytoch script path and import pytorch model for creating PyTorch model objects
     import sys
     sys.path.insert(0, "/mindspore_model/vit/v1/pytorch_org")
     from pytorch_org.vision_transformer.vit_model import vit_base_patch16_224_in21k as create_pt_model
@@ -454,7 +454,7 @@ ts.migrator.compare_npy_dir('/mindspore_model/vit/v1/temp_data/pt/npy',
 
 #### Network Weight Migration
 
-In scenarios such as migrating inference networks or fine-tuning network training, it is often necessary to migrate weights from PyTroch to MindSpore. At this time, you can use TroubleShooter weight migration tool, first call [ts.migrator.get_weight_map](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/get_weight_map.md#) to obtain the weight mapping json file, then call [ts.migrator.convert_weight](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/convert_weight.md#) to complete the weight auto-migration. The following is the basic sample. For complex scenarios such as adding prefixes and custom mappings, please refer to [TroubleShooter pth to ckpt weights auto conversion](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF1pth%E5%88%B0ckpt%E6%9D%83%E9%87%8D%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2).
+In scenarios such as migrating inference networks or fine-tuning network training, it is often necessary to migrate weights from PyTorch to MindSpore. At this time, you can use TroubleShooter weight migration tool, first call [ts.migrator.get_weight_map](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/get_weight_map.md#) to obtain the weight mapping json file, then call [ts.migrator.convert_weight](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/convert_weight.md#) to complete the weight auto-migration. The following is the basic sample. For complex scenarios such as adding prefixes and custom mappings, please refer to [TroubleShooter pth to ckpt weights auto conversion](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF1pth%E5%88%B0ckpt%E6%9D%83%E9%87%8D%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2).
 
 ```python
 import troubleshooter as ts
