@@ -16,7 +16,7 @@
 ### 功能调试
 
 在网络的迁移过程，建议优先使用PYNATIVE模式进行调试，在PYNATIVE模式下可以进行debug，日志打印也比较友好。在调试ok后转成图模式运行，图模式在执行性能上会更友好，也可以找到一些在编写网络中的问题，比如使用了三方的算子导致梯度截断。
-详情请参考 [错误分析](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/error_analysis/error_scenario_analysis.html)。
+详情请参考[错误分析](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/error_analysis/error_scenario_analysis.html)。
 
 ### 精度调试
 
@@ -223,7 +223,7 @@
 
 ### 性能调优
 
-首先需要做性能数据获取，具体的获取方式见[性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html)、 [性能调试（GPU）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_gpu.html)。
+首先需要做性能数据获取，具体的获取方式见[性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html)、[性能调试（GPU）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_gpu.html)。
 
 性能优化方向主要包含：
 
@@ -234,7 +234,7 @@
 
 可以参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/sample_code.html)串通整个过程。
 
-> 有的网络很大，这种情况在图模式下编译会很慢。在性能调优过程请区分图编译和网络执行，本节主要介绍网络执行阶段的性能调优策略，如果确认是图编译慢请尝试[算子增量编译](https://mindspore.cn/tutorials/experts/zh-CN/r2.3/optimize/op_compilation.html)或者联系 [MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈。
+> 有的网络很大，这种情况在图模式下编译会很慢。在性能调优过程请区分图编译和网络执行，本节主要介绍网络执行阶段的性能调优策略，如果确认是图编译慢请尝试[算子增量编译](https://mindspore.cn/tutorials/experts/zh-CN/r2.3/optimize/op_compilation.html)或者联系[MindSpore社区](https://gitee.com/mindspore/mindspore/issues)反馈。
 
 #### 算子性能优化
 
