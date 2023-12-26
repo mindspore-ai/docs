@@ -7,6 +7,7 @@
 - 硬件平台为Ascend、GPU。
 - 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装。
 - 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/mindscience/blob/r0.3/MindFlow/requirements.txt)。
+- MindSpore Flow 0.1.0版本需MindSpore版本>=2.0.0, Python版本需>=3.7。
 
 ## 安装方式
 
@@ -14,9 +15,19 @@
 
 ### pip安装
 
+安装在PyPI上的版本：
+
 ```bash
-export MS_VERSION=2.0.0a0
-export MindFlow_VERSION=0.1.0a0
+export DEVICE_NAME=gpu
+export MindFlow_VERSION=0.1.0
+pip install mindflow_${DEVICE_NAME}==${MindFlow_VERSION}
+```
+
+安装自定义版本：
+
+```bash
+export MS_VERSION=2.0.0
+export MindFlow_VERSION=0.1.0
 # gpu and ascend are supported
 export DEVICE_NAME=gpu
 # cuda-10.1 and cuda-11.1 are supported
