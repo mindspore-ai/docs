@@ -21,7 +21,8 @@ Both MindSpore and PyTorch provide the automatic differentiation function. After
 import torch
 from torch.autograd import Variable
 
-x = Variable(torch.ones(2, 2), requires_grad=True)
+x = Variable(torch.ones(2, 2),
+             requires_grad=True)
 x = x * 2
 y = x - 1
 y.backward(x)
