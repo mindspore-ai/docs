@@ -39,7 +39,7 @@ output = input.flip(1)
 print(output)
 # tensor([[[3, 4],
 #          [1, 2]],
-
+#
 #         [[7, 8],
 #          [5, 6]]])
 
@@ -52,7 +52,7 @@ output = input.flip((1, ))
 print(output)
 # [[[3 4]
 #   [1 2]]
-
+#
 #  [[7 8]
 #   [5 6]]]
 ```
