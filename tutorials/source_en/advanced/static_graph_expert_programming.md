@@ -547,7 +547,7 @@ print(out)
 The error message is as follows:
 
 ```text
-RumtimeError: MsClassObject: 'InnerNet' has no __call__ function, please check the code.
+ValueError: MsClassObject: 'InnerNet' has no __call__ function, please check the code.
 ```
 
 ### Using select Operator
