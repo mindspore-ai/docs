@@ -4,32 +4,41 @@
 
 ## 概述
 
-Parameter Server(参数服务器)是分布式训练中一种广泛使用的架构，相较于同步的AllReduce训练方法，Parameter Server具有更好的灵活性、可扩展性。具体来讲，参数服务器既支持同步SGD(Stochastic Gradient Descent，随机梯度下降)，也支持异步SGD的训练算法；在扩展性上，将模型的计算与模型的更新分别部署在Worker和Server两类进程中，使得Worker和Server的资源可以独立地横向扩缩(新增或者删除Worker和Server资源)；另外，在大规模数据中心的环境下，计算设备、网络以及存储经常会出现各种故障而导致部分节点异常，而在参数服务器的架构下，能够较为容易地处理此类故障而不会对训练中的任务产生影响。
+Parameter Server(参数服务器)是分布式训练中一种广泛使用的架构，该架构一共包含三个独立的组件，分别是 Server、Worker 和 Scheduler，作用分别是：
 
-> 参数服务器支持的硬件平台包括Ascend、GPU，不支持`PyNative`模式。
+- Server：保存模型的权重和反向计算的梯度值，并使用优化器通过 Worker 上传的梯度值对模型进行更新。
 
-相关接口：
+- Worker：执行网络的正反向计算，反向计算的梯度值通过 Push 接口上传至 Server 中，通过 Pull 接口把 Server 更新好的模型下载到 Worker 本地。
 
-1. `mindspore.set_ps_context(enable_ps=True)`开启Parameter Server训练模式。
+- Scheduler：用于建立 Server 和 Worker 的通信关系。
+
+相较于同步的 AllReduce 训练方法，Parameter Server 具有更好的灵活性、可扩展性。具体来讲，参数服务器既支持同步 SGD(Stochastic Gradient Descent，随机梯度下降)，也支持异步 SGD 的训练算法；在扩展性上，将模型的计算与模型的更新分别部署在 Worker 和 Server 两类进程中，使得 Worker 和 Server 的资源可以独立地横向扩缩(新增或者删除 Worker 和 Server 资源)；另外，在大规模数据中心的环境下，计算设备、网络以及存储经常会出现各种故障而导致部分节点异常，而在参数服务器的架构下，能够较为容易地处理此类故障而不会对训练中的任务产生影响。
+
+MindSpore 的参数服务器采用了自研的通信框架作为基础架构，基于该框架提供的远程通信能力以及抽象的 Send/Broadcast 等原语，实现了同步 SGD 的分布式训练算法，另外结合 Ascend 和 GPU 中的高性能集合通信库(HCCL 和 NCCL)，MindSpore 还提供了 Parameter Server 和 AllReduce 的混合训练模式，支持将部分权重通过参数服务器进行存储和更新，其余权重仍然通过 AllReduce 算法进行训练。
+
+> 参数服务器支持的硬件平台包括 Ascend、GPU，不支持`PyNative`模式。
+
+## 相关接口：
+
+1. `mindspore.set_ps_context(enable_ps=True)`开启 Parameter Server 训练模式。
 
     - 此接口需在`mindspore.communication.init()`之前调用。
     - 若没有调用此接口，下面的环境变量设置则不会生效。
-    - 调用`mindspore.reset_ps_context()`可以关闭Parameter Server训练模式。
+    - 调用`mindspore.reset_ps_context()`可以关闭 Parameter Server 训练模式。
 
-2. 在本训练模式下，有以下两种调用接口方式以控制训练参数是否通过Parameter Server进行更新，并且可以控制参数初始化位置：
+2. 在该训练模式下，有以下两种调用接口方式以控制训练参数是否通过 Parameter Server 进行更新，并且可以控制参数初始化位置：
 
     - 通过`mindspore.nn.Cell.set_param_ps()`对`nn.Cell`中所有权重递归设置。
     - 通过`mindspore.Parameter.set_param_ps()`对`mindspore.Parameter`权重进行设置。
-    - 被设置为通过Parameter Server更新的单个权重大小不得超过INT_MAX(2^31 - 1)字节。
-    - 接口`set_param_ps`可接收一个`bool`型参数：`init_in_server`，表示该训练参数是否在Server端初始化，`init_in_server`默认值为`False`，表示在Worker上初始化该训练参数；当前仅支持`EmbeddingLookup`算子的训练参数`embedding_table`在Server端初始化，以解决超大shape的`embedding_table`在Worker上初始化导致内存不足的问题，该算子的`target`属性需要设置为'CPU'。在Server端初始化的训练参数将不再同步到Worker上，如果涉及到多Server训练并保存CheckPoint，则训练结束后每个Server均会保存一个CheckPoint。
+    - 被设置为通过 Parameter Server 更新的单个权重大小不得超过 INT_MAX(2^31 - 1)字节。
+    - 接口`set_param_ps`可接收一个`bool`型参数：`init_in_server`，表示该训练参数是否在 Server 端初始化，`init_in_server`默认值为`False`，表示在 Worker 上初始化该训练参数。
+    - 当前仅支持`EmbeddingLookup`算子的训练参数`embedding_table`在 Server 端初始化，以解决超大 shape 的`embedding_table`在 Worker 上初始化导致内存不足的问题，该算子的`target`属性需要设置为'CPU'。在 Server 端初始化的训练参数将不再同步到 Worker 上，如果涉及到多 Server 训练并保存 CheckPoint，则训练结束后每个 Server 均会保存一个 CheckPoint。上述的`embedding_table`指的是一个用于储存和管理学习模型中使用到的嵌入向量的二维表。
 
-3. [可选配置]针对超大shape的`embedding_table`，由于设备上存放不下全量的`embedding_table`，可以配置[EmbeddingLookup算子](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.EmbeddingLookup.html)的`vocab_cache_size`，用于开启Parameter Server训练模式下`EmbeddingLookup`的cache功能，该功能使用`vocab_cache_size`大小的`embedding_table`在设备上训练，全量`embedding_table`存储在Server，将下批次训练用到的`embedding_table`提前换入到cache上，当cache放不下时则将过期的`embedding_table`放回到Server，以达到提升训练性能的目的；训练结束后，可在Server上导出CheckPoint，保存训练后的全量`embedding_table`。Embedding cache支持sparse模式，需要将所有开启cache的`EmbeddingLookup`算子的`sparse`参数都设为True，sparse模式会对该算子输入的特征id做去重处理，以降低计算与通信量。详细网络训练脚本参考<https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep>。
-
-> `Parameter Server`模式暂时不支持控制流，因此在`train.py`中，需要将`model = Model(network, loss_fn, optimizer, metrics={"Accuracy": Accuracy()}, amp_level="O2")`修改为`model = Model(network, loss_fn, optimizer, metrics={"Accuracy": Accuracy()})`，将混合精度`amp_level`选项关闭，消除控制流的影响。
+3. [可选配置] 针对超大 shape 的`embedding_table`，由于设备上存放不下全量的`embedding_table`，可以配置[EmbeddingLookup 算子](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.EmbeddingLookup.html)的`vocab_cache_size`参数，用于开启 Parameter Server 训练模式下`EmbeddingLookup`的**分布式特征缓存功能**，该功能将在设备使用一块`vocab_cache_size`大小的独占空间作为缓存 (Embedding Cache)，供部分`embedding_table`在设备上训练，以达到提升训练性能的目的，而全量`embedding_table`仍旧存储在 Server 上。在训练过程中，将下批次训练用到的`embedding_table`提前换入到 Embedding Cache ，当 Embedding Cache 放不下时，则过期的`embedding_table`将会被放回到 Server。训练结束后，可在 Server 上导出 CheckPoint，保存训练后的全量`embedding_table`。Embedding Cache 支持 sparse 模式，但需要将所有配置了`vocab_cache_size`的`EmbeddingLookup`算子的`sparse`参数都设为 True，sparse 模式会对该算子输入的特征 id 做去重处理，以降低计算与通信量。关于详细网络训练脚本及**分布式缓存特征**请参考<https://github.com/mindspore-lab/mindrec>。
 
 相关环境变量配置：
 
-MindSpore通过读取环境变量，控制Parameter Server训练，环境变量包括以下选项(所有脚本中的`MS_SCHED_HOST`及`MS_SCHED_PORT`值需保持一致)：
+MindSpore 通过读取环境变量，控制 Parameter Server 训练，环境变量包括以下选项(所有脚本中的`MS_SCHED_HOST`及`MS_SCHED_PORT`值需保持一致)：
 
 ```text
 export MS_SERVER_NUM=1                # Server number
@@ -41,21 +50,9 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
 
 更多详细说明请查看[动态组网环境变量](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html#动态组网)。
 
-## 基本原理
-
-MindSpore的参数服务器采用了自研的通信框架作为基础架构，基于该框架提供的远程通信能力以及抽象的Send/Broadcast等原语，实现了同步SGD的分布式训练算法，另外结合Ascend和GPU中的高性能集合通信库(HCCL和NCCL)，MindSpore还提供了Parameter Server和AllReduce的混合训练模式，支持将部分权重通过参数服务器进行存储和更新，其余权重仍然通过AllReduce算法进行训练。
-
-在参数服务器的架构设计中，一共包含三个独立的组件，分别是Server、Worker和Scheduler，作用分别是：
-
-- Server：保存模型的权重和反向计算的梯度值，并使用优化器通过Worker上传的梯度值对模型进行更新。
-
-- Worker：执行网络的正反向计算，反向计算的梯度值通过Push接口上传至Server中，通过Pull接口把Server更新好的模型下载到Worker本地。
-
-- Scheduler：用于建立Server和Worker的通信关系。
-
 ## 操作实践
 
-参数服务器支持GPU和Ascend，下面以Ascend为例进行操作说明：
+参数服务器支持 GPU 和 Ascend，下面以 Ascend 为例进行操作说明：
 
 ### 样例代码说明
 
@@ -75,7 +72,7 @@ MindSpore的参数服务器采用了自研的通信框架作为基础架构，�
 
 ### 配置分布式环境
 
-通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`，使能`enable_ps`开启参数服务器训练模式，并通过init初始化HCCL或NCCL通信。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+通过 context 接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`，使能`enable_ps`开启参数服务器训练模式，并通过 init 初始化 HCCL 或 NCCL 通信。`device_target`会自动指定为 MindSpore 包对应的后端硬件设备。
 
 ```python
 import mindspore as ms
@@ -88,12 +85,12 @@ init()
 ms.set_seed(1)
 ```
 
-- `full_batch`：是否全量导入数据集，为`True`时表示全量导入，每卡的数据相同，在多Worker场景中必须设置为`True`。
-- `parallel_mode`：并行模式，多Worker场景需要开启自动并行模式，设置`parallel_mode`=`ParallelMode.AUTO_PARALLEL`。
+- `full_batch`：是否全量导入数据集，为`True`时表示全量导入，每卡的数据相同，在多 Worker 场景中必须设置为`True`。
+- `parallel_mode`：并行模式，多 Worker 场景需要开启自动并行模式，设置`parallel_mode`=`ParallelMode.AUTO_PARALLEL`。
 
 ### 网络定义
 
-参数服务器模式的网络定义是在单卡模式的基础上配置net.set_param_ps()：
+参数服务器模式的网络定义是在单卡模式的基础上配置 net.set_param_ps()：
 
 ```python
 from mindspore import nn
@@ -173,9 +170,9 @@ for epoch in range(10):
         i += 1
 ```
 
-### 运行单机8卡脚本
+### 运行单机 8 卡脚本
 
-接下来通过命令调用对应的脚本，以8卡的分布式训练脚本为例，进行分布式训练，Scheduler、Server和Worker三个角色分别启动对应数量的进程。命令如下：
+接下来通过命令调用对应的脚本，以 8 卡的分布式训练脚本为例，进行分布式训练，Scheduler、Server 和 Worker 三个角色分别启动对应数量的进程。命令如下：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -228,7 +225,7 @@ done
 bash run.sh
 ```
 
-每个进程的输出结果保存在`output`文件夹中，可以在`output/scheduler.log`中查看Server与Worker通信日志：
+每个进程的输出结果保存在`output`文件夹中，可以在`output/scheduler.log`中查看 Server 与 Worker 通信日志：
 
 ```text
 ...
