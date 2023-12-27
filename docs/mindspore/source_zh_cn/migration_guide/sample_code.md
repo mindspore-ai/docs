@@ -31,7 +31,7 @@
 
 ### 复现参考实现
 
-下载PyTorch的代码，cifar10的数据集，对网络进行训练：
+下载PyTorch的代码，CIFAR-10的数据集，对网络进行训练：
 
 ```text
 Train Epoch: 89 [0/1563 (0%)]    Loss: 0.010917
@@ -93,7 +93,7 @@ Finished Training
 
 ### 数据集
 
-以cifar10数据集为例，其目录组织参考：
+以CIFAR-10数据集为例，其目录组织参考：
 
 ```text
 └─dataset_path
@@ -909,7 +909,7 @@ Loss: 0.3240, Accuracy: 91%
 
 ## 训练流程
 
-PyTorch的训练流程参考[pytoch resnet50 cifar10的示例代码](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，日志文件和训练好的pth保存在[resnet_pytorch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytorch_res.zip)。
+PyTorch的训练流程参考[pytoch resnet50 CIFAR-10的示例代码](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch)，日志文件和训练好的pth保存在[resnet_pytorch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytorch_res.zip)。
 
 对应的MindSpore代码：
 
@@ -1032,13 +1032,13 @@ MindSpore Insight性能分析的界面如图所示（此分析是在Ascend环境
 
 ![resnet_profiler2](images/resnet_profiler2.png)
 
-上半部分是各个AICore算子占总时间的比例图，下半部分是每个算子详细的情况：
+上半部分是各个AI Core算子占总时间的比例图，下半部分是每个算子详细的情况：
 
 ![resnet_profiler3](images/resnet_profiler3.png)
 
 点击进去，可以获取每个算子的执行时间，算子的scope信息，算子的shape和type信息。
 
-除了AICore算子，网络中还可能有AICPU算子和HOST CPU算子，这些算子相比与AICore算子会占用更多的时间，可以通过点击上方的页签查看：
+除了AI Core算子，网络中还可能有AI CPU算子和HOST CPU算子，这些算子相比与AI Core算子会占用更多的时间，可以通过点击上方的页签查看：
 
 ![resnet_profiler4](images/resnet_profiler4.png)
 
@@ -1046,7 +1046,7 @@ MindSpore Insight性能分析的界面如图所示（此分析是在Ascend环境
 
 ![resnet_profiler5](images/resnet_profiler5.png)
 
-进入`profiler_v1/profiler/`目录，点击查看`aicore_intermediate_0_type.csv`文件可以查看每个算子的统计数据，共30个AICore算子，总执行时间：37.526ms
+进入`profiler_v1/profiler/`目录，点击查看`aicore_intermediate_0_type.csv`文件可以查看每个算子的统计数据，共30个AI Core算子，总执行时间：37.526ms
 
 ![resnet_profiler6](images/resnet_profiler6.png)
 
