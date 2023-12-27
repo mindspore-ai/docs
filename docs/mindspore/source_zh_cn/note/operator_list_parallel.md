@@ -100,7 +100,6 @@
 | [mindspore.ops.NotEqual](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.NotEqual.html) | 无                                                           |
 | [mindspore.ops.OneHot](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.OneHot.html) | 仅支持输入（indices）是一维的Tensor，切分策略要配置输出的切分策略，以及第1和第2个输入的切分策略 |
 | [mindspore.ops.OnesLike](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.OnesLike.html) | 无                                                           |
-| [mindspore.ops.PadV3] |  1. 输入的被补pad的维度不能切分；<br />2. paddings不能切分。|
 | [mindspore.ops.Pow](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.Pow.html) | 无                                                           |
 | [mindspore.ops.PReLU](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.PReLU.html) | weight的shape在非[1]的情况下，输入（input_x）的Channel维要和weight的切分方式一致 |
 | [mindspore.ops.RandomChoiceWithMask](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.RandomChoiceWithMask.html) | 不支持切分，仅支持全1策略                                    |
