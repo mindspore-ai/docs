@@ -14,7 +14,11 @@
 
 ### pip安装
 
-即将到来 ...
+```bash
+# gpu and ascend are supported
+export DEVICE_NAME=gpu
+pip install mindearth_${DEVICE_NAME}
+```
 
 ### 源码安装
 
