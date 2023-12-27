@@ -14,7 +14,11 @@ You can install MindSpore Earth either by pip or by source code.
 
 ### Installation by pip
 
-Coming soon ...
+```bash
+# gpu and ascend are supported
+export DEVICE_NAME=gpu
+pip install mindearth_${DEVICE_NAME}
+```
 
 ### Installation by Source Code
 
