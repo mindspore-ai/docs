@@ -190,49 +190,7 @@ As in the example above, add the `@lazy_inline` decorator to the `__init__` func
 
 Usage Scenario: Use HyperMap to replace for loop to optimize compilation performance.
 
-`HyperMap` is a special class. Class object construction needs to be passed into the mapping function f, and calling the object needs to be passed into the n parameter sequence of f. For more usage see: [HyperMap](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.HyperMap.html). The mapping function f must be of type `MultitypeFuncGraph`, see [MultitypeFuncGraph](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.MultitypeFuncGraph.html). When using for loops to batch process list elements, network compilation performance can be optimized by `HyperMap`-equivalent semantic substitution. For example (the actual time consumption is related to the hardware environment, and the following data is for reference only):
-
-```python
-import time
-from mindspore.ops import MultitypeFuncGraph, HyperMap
-from mindspore import ops, Tensor
-import mindspore as ms
-
-add = MultitypeFuncGraph('add')
-@add.register("Tensor", "Tensor")
-def add_Tensor(x, y):
-    return ops.add(x, y)
-
-add_map = HyperMap(add)
-list1 = [Tensor(i) for i in range(200)]
-list2 = [Tensor(i) for i in range(200)]
-@ms.jit
-def hyper_map_net():
-    output = add_map(list1, list2)
-    return output
-
-start_time = time.time()
-output = hyper_map_net()
-end_time = time.time()
-print("hyper map cost time:", end_time - start_time)
-
-@ms.jit
-def for_loop_net():
-    out = []
-    for i in range(200):
-        out.append(i+i)
-    return out
-
-start_time = time.time()
-for_loop_net()
-end_time = time.time()
-print("for loop cost time:", end_time - start_time)
-```
-
-```text
-hyper map cost time: 0.1894233226776123
-for loop cost time: 1.2634551525115967
-```
+`HyperMap` is a special class. Class object construction needs to be passed into the mapping function f, and calling the object needs to be passed into the n parameter sequence of f. For more usage see: [HyperMap](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.HyperMap.html). The mapping function f must be of type `MultitypeFuncGraph`, see [MultitypeFuncGraph](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.MultitypeFuncGraph.html). When using for loops to batch process list elements, network compilation performance can be optimized by `HyperMap`-equivalent semantic substitution.
 
 ### Using the Compilation Cache
 
