@@ -101,7 +101,6 @@ None                                                         |
 | [mindspore.ops.NotEqual](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.NotEqual.html) | None                                                         |
 | [mindspore.ops.OneHot](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.OneHot.html) | Only support 1-dim indices. Must configure strategy for the output and the first and second inputs. |
 | [mindspore.ops.OnesLike](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.OnesLike.html) | None                                                         |
-| [mindspore.ops.PadV3] | 1. The dimensions of input being padded can not be split;<br />2. The paddings can not be split. |
 | [mindspore.ops.Pow](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Pow.html) | None                                                         |
 | [mindspore.ops.PReLU](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.PReLU.html) | When the shape of weight is not [1], the shard strategy in channel dimension of input_x should be consistent with weight. |
 | [mindspore.ops.RandomChoiceWithMask](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.RandomChoiceWithMask.html) | Only the all-1 strategy is supported.                        |
