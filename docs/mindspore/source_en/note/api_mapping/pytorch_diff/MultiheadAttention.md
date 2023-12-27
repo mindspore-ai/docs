@@ -93,7 +93,7 @@ value = ms.Tensor(np.random.randn(seq_length, batch_size, embed_dim), ms.float32
 multihead_attn = ms.nn.MultiheadAttention(embed_dim, num_heads)
 attn_output, attn_output_weights = multihead_attn(query, key, value)
 print(attn_output.shape)
-print(attn_output_weights.shape)
 #(10, 8, 128)
+print(attn_output_weights.shape)
 #(8, 10, 10)
 ```
