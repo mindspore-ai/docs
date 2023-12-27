@@ -137,12 +137,12 @@ After the inference verification is complete, the basic model, data processing, 
 
   | type | operators |
   | ------  | ------ |
-  | Pool    | AdaptiveMaxPool2D，AvgPool3D，AvgPool，MaxPool，MaxPoolWithArgmax，Pooling |
-  | RNN     | LSTM，DynamicRNN，GRUV2 |
-  | Conv    | Conv2D，Conv2DTranspose，Conv3D，Conv3DTranspose，DepthwiseConv2dNative |
-  | Matmul (float32 is too slow and needs to be cast to float16) | MatMul，BatchMatMul |
-  | Sort | Sort，TopK |
-  | Others | BoundingBoxEncode，ExtractImagePatches，ExtractVolumePatches，FusedDbnDw，IOU，NewIm2Col，NMSWithMask |
+  | Pool    | AdaptiveMaxPool2D, AvgPool3D, AvgPool, MaxPool, MaxPoolWithArgmax, Pooling |
+  | RNN     | LSTM, DynamicRNN, GRUV2 |
+  | Conv    | Conv2D, Conv2DTranspose, Conv3D, Conv3DTranspose, DepthwiseConv2dNative |
+  | Matmul (float32 is too slow and needs to be cast to float16) | MatMul, BatchMatMul |
+  | Sort | Sort, TopK |
+  | Others | BoundingBoxEncode, ExtractImagePatches, ExtractVolumePatches, FusedDbnDw, IOU, NewIm2Col, NMSWithMask |
 
   ```python
   import mindspore as ms
@@ -251,17 +251,17 @@ If you find an operator with poor performance, you are advised to contact [MindS
 
 - Using the Static Graph Mode
 
-  Generally, MindSpore in static graph mode is much faster than that in PyNative mode. It is recommended that training and inference be performed in static graph mode. For details, see [Combination of Dynamic and Static Graphs](https://mindspore.cn/docs/zh-CN/master/design/dynamic_graph_and_static_graph.html).
+  Generally, MindSpore in static graph mode is much faster than that in PyNative mode. It is recommended that training and inference be performed in static graph mode. For details, see [Combination of Dynamic and Static Graphs](https://mindspore.cn/docs/en/master/design/dynamic_graph_and_static_graph.html).
 
 - On-device Execution
 
-  MindSpore provides an [on-device execution method](https://www.mindspore.cn/docs/zh-CN/master/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `False` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
+  MindSpore provides an [on-device execution method](https://www.mindspore.cn/docs/en/master/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `False` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
 
 - Using Automatic Mixed Precision
 
   The mixed precision training method accelerates the deep neural network training process by mixing the single-precision floating-point data format and the half-precision floating-point data format without compromising the network accuracy. Mixed precision training can accelerate the computing process, reduce memory usage and retrieval, and enable a larger model or batch size to be trained on specific hardware.
 
-  For details, see [Mixed Precision Tutorial](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html).
+  For details, see [Mixed Precision Tutorial](https://www.mindspore.cn/tutorials/en/master/advanced/mixed_precision.html).
 
 - Enabling Graph Kernel Fusion
 
@@ -269,7 +269,7 @@ If you find an operator with poor performance, you are advised to contact [MindS
 
   Graph kernel fusion applies to scenarios that have high requirements on network execution time. Basic operators are combined to implement customized combination operators and these basic operators are automatically fused to improve the performance of the customized combination operators.
 
-  For details, see [Graph Kernel Fusion Tutorial](https://mindspore.cn/docs/zh-CN/master/design/graph_fusion_engine.html).
+  For details, see [Graph Kernel Fusion Tutorial](https://mindspore.cn/docs/en/master/design/graph_fusion_engine.html).
 
 - Others
 

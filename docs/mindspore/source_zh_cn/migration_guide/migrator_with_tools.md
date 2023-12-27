@@ -238,7 +238,7 @@ The target dir: /mnt/sdb2/mindspore_model/vit/v1/temp_data/ms/npy
 
 ```python
 def auto_run_ms_net(args):
-    # 1）导入pytoch脚本路径，并import pytroch的model，用于创建PyTorch模型对象
+    # 1）导入pytoch脚本路径，并import pytorch的model，用于创建PyTorch模型对象
     import sys
     sys.path.insert(0, "/mindspore_model/vit/v1/pytorch_org")
     from pytorch_org.vision_transformer.vit_model import vit_base_patch16_224_in21k as create_pt_model
@@ -456,7 +456,7 @@ ts.migrator.compare_npy_dir('/mindspore_model/vit/v1/temp_data/pt/npy',
 
 #### 网络权重迁移
 
-在迁移推理网络或微调网络训练等场景中，通常需要将PyTroch的权重迁移到MindSpore中。此时可以使用TroubleShooter的权重迁移工具，先调用[ts.migrator.get_weight_map](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/get_weight_map.md#)获取权重映射的json文件，再调用[ts.migrator.convert_weight](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/convert_weight.md#)完成权重自动化迁移，以下为基本样例。需要添加前缀、自定义映射等复杂场景可参考[TroubleShooter pth到ckpt权重自动转换](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF1pth%E5%88%B0ckpt%E6%9D%83%E9%87%8D%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2)。
+在迁移推理网络或微调网络训练等场景中，通常需要将PyTorch的权重迁移到MindSpore中。此时可以使用TroubleShooter的权重迁移工具，先调用[ts.migrator.get_weight_map](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/get_weight_map.md#)获取权重映射的json文件，再调用[ts.migrator.convert_weight](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api/migrator/convert_weight.md#)完成权重自动化迁移，以下为基本样例。需要添加前缀、自定义映射等复杂场景可参考[TroubleShooter pth到ckpt权重自动转换](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF1pth%E5%88%B0ckpt%E6%9D%83%E9%87%8D%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2)。
 
 ```python
 import troubleshooter as ts

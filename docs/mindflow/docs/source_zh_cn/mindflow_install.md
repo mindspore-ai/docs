@@ -7,6 +7,7 @@
 - 硬件平台为Ascend、GPU。
 - 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装。
 - 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/mindscience/blob/master/MindFlow/requirements.txt)。
+- MindSpore Flow需MindSpore版本>=2.0.0(建议2.2.10), Python版本需>=3.7。
 
 ## 安装方式
 
@@ -15,19 +16,9 @@
 ### pip安装
 
 ```bash
-export MS_VERSION=2.0.0a0
-export MindFlow_VERSION=0.1.0a0
 # gpu and ascend are supported
 export DEVICE_NAME=gpu
-# cuda-10.1 and cuda-11.1 are supported
-export CUDA_VERSION=cuda-11.1
-
-# Python3.7
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindScience/${DEVICE_NAME}/x86_64/${CUDA_VERSION}/mindflow_${DEVICE_NAME}-${MindFlow_VERSION}-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
-# Python3.8
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindScience/${DEVICE_NAME}/x86_64/${CUDA_VERSION}/mindflow_${DEVICE_NAME}-${MindFlow_VERSION}-cp38-cp38-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
-# Python3.9
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindScience/${DEVICE_NAME}/x86_64/${CUDA_VERSION}/mindflow_${DEVICE_NAME}-${MindFlow_VERSION}-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install mindflow_${DEVICE_NAME}
 ```
 
 ### 源码安装

@@ -397,8 +397,6 @@ class LinearAttention(nn.Cell):
 
 DDPM authors normalize convolution/attention layers and groups of U-Net ([Wu et al., 2018](https://arxiv.org/abs/1803.08494)). Define a `PreNorm` class that will be used to apply groupnorm before the attention layer.
 
-Note that there is a [debate](https://tnq177.github.io/data/transformers_without_tears.pdf) about whether to apply normalization before or after attention in Transformers.
-
 ```python
 class PreNorm(nn.Cell):
     def __init__(self, dim, fn):

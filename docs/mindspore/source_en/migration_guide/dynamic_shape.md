@@ -11,7 +11,7 @@ If the input shape may no+t be `224*224`, the shape of the output tensor of the 
 2. APIs that cause shape changes during network execution.
 3. Shape changes introduced by different branches of control flows.
 
-## Input shape not Fixed
+## Input Shape not Fixed
 
 For example, the input image has different shapes, and the audio label has different lengths. In this case, dynamic shapes are introduced.
 

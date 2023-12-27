@@ -27,11 +27,11 @@ Related interfaces are as follows:
 
 3. Network composition
 
-    The data parallel network is written in a way that does not differ from the single-card network, due to the fact that during forward propagation & backward propagation the models of each card are executed independently from each other, only the same network structure is maintained. The only thing we need to pay special attention to is that in order to ensure the training synchronization between cards, the corresponding network parameter initialization values should be the same. In `DATA_PARALLEL` mode, we can set seed or enable `parameter_broadcast` to achieve the same initialization of weights between multiple cards.
+    The data parallel network is written in a way that does not differ from the single-card network, due to the fact that during forward propagation & backward propagation the models of each card are executed independently from each other, only the same network structure is maintained. The only thing we need to pay special attention to is that in order to ensure the training synchronization between cards, the corresponding network parameter initialization values should be the same. In `DATA_PARALLEL` mode, we can use `mindspore.set_seed` to set the seed or enable `parameter_broadcast` in `mindspore.set_auto_parallel_context` to achieve the same initialization of weights between multiple cards.
 
 4. Gradient aggregation
 
-    Data parallel should theoretically achieve the same training effect as the single-card machine. In order to ensure the consistency of the computational logic, the gradient aggregation operation between cards is realized by calling the `mindspore.nn.DistributedGradReducer()` interface, which automatically inserts the `AllReduce` operator after the gradient computation is completed. MindSpore sets the `mean` switch, which allows the user to choose whether to perform an average operation on the summed gradient values, or to treat them as hyperparameters.
+    Data parallel should theoretically achieve the same training effect as the single-card machine. In order to ensure the consistency of the computational logic, the gradient aggregation operation between cards is realized by calling the `mindspore.nn.DistributedGradReducer()` interface, which automatically inserts the `AllReduce` operator after the gradient computation is completed. `DistributedGradReducer()` provides the `mean` switch, which allows the user to choose whether to perform an average operation on the summed gradient values, or to treat them as hyperparameters.
 
 5. Parameter update
 
@@ -61,7 +61,7 @@ Among them, `distributed_data_parallel.py` is the script that defines the networ
 
 ### Configuring Distributed Environments
 
-The context interface allows you to specify the run mode, run device, run card number. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` for data parallel mode and initialize HCCL or NCCL communication through init. In data parallel mode, you also need to set `gradients_mean` to specify the gradient aggregation method. If `device_target` is not set here, it is automatically specified as the backend hardware device corresponding to the MindSpore package.
+The context interface allows you to specify the run mode, run device, run card number. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` for data parallel mode and initialize HCCL, NCCL or MCCL communication through init according to different device targets. In data parallel mode, you also can set `gradients_mean` to specify the gradient aggregation method. If `device_target` is not set here, it is automatically specified as the backend hardware device corresponding to the MindSpore package.
 
 ```python
 import mindspore as ms
@@ -73,7 +73,7 @@ init()
 ms.set_seed(1)
 ```
 
-`gradients_mean=True` is for the fact that during the backward computation, the framework internally aggregates the gradient values of the data parallel parameters scattered across multiple machines to get the global gradient values before passing them into the optimizer for updating. The default value is `False`. Setting it to `True` corresponds to the aggregation method being an `AllReduce.Mean` operation, and `False` corresponds to an `AllReduce.Sum` operation.
+`gradients_mean=True` is for the fact that during the backward computation, the framework internally aggregates the gradient values of the data parallel parameters scattered across multiple machines to get the global gradient values before passing them into the optimizer for updating. Framework will do the reduce sum for gradient by using `AllReduce(op=ReduceOp.SUM)`, then calculate the mean value in terms of the value of `gradients_mean`. (If it is set to true, the mean value is calculated, otherwise, the mean value is not calculated. Default: False).
 
 ### Data Parallel Mode Loads Datasets
 
