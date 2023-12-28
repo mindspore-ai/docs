@@ -630,7 +630,7 @@ y = Depend(y, a)
 b = B(y)
 ```
 
-It is worth stating that the particular set of operators used for floating-point overflow state detection have implicit side effects, but are not IO side effects or memory side effects. In addition, there are strict order requirements for their use, i.e., you need to ensure that NPUAllocFloatStatus has been executed before using the NPUClearFloatStatus operator, and ensure that NPUClearFloatStatus has been executed before using the NPUGetFloatStatus operator. Because these operators are used less, the current scheme is to keep their definitions in a side-effect free form to ensure the order of execution with Depend.
+It is worth stating that the particular set of operators used for floating-point overflow state detection have implicit side effects, but are not IO side effects or memory side effects. In addition, there are strict order requirements for their use, i.e., you need to ensure that NPUAllocFloatStatus has been executed before using the NPUClearFloatStatus operator, and ensure that NPUClearFloatStatus has been executed before using the NPUGetFloatStatus operator. Because these operators are used less, the current scheme is to keep their definitions in a side-effect free form to ensure the order of execution with Depend. Note: the operators used for floating-point overflow state detection is only supported on the Ascend platform.
 
 ```python
 import numpy as np
