@@ -84,7 +84,7 @@ A: MindSpore provides pluggable device management interface, so that developer c
 
 <font size=3>**Q: What is the relationship between MindSpore and ModelArts? Can we use MindSpore in ModelArts?**</font>
 
-A: ModelArts is Huawei public cloud online training and inference platform, and MindSpore is Huawei deep learning framework. The tutorial shows how users can use ModelArts to train ModelsSpore models in detail.
+A: ModelArts is Huawei public cloud online training and inference platform, and MindSpore is Huawei deep learning framework.
 
 <br/>
 

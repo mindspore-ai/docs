@@ -171,7 +171,7 @@ A: When Exceed function call depth limit 1000 is displayed, this indicates that 
 
 At this time, you can set `set_context(max_call_depth = value)` to change the maximum depth of the stack, and consider simplifying the code logic or checking whether there is infinite recursion or loop in the code.
 
-Otherwise, set max_call_depth can change the recursive depth of MindSpore, and it may also cause exceed the maximum depth of the system stack and cause segment fault. At this time, you may also need to set the system stack depth.
+Otherwise, setting max_call_depth can change the recursive depth of MindSpore, and it may also cause exceed the maximum depth of the system stack and cause segment fault. At this time, you may also need to set the system stack depth.
 
 <br/>
 
@@ -286,8 +286,7 @@ out: (Tensor(shape=[], dtype=Int64, value=8), Tensor(shape=[], dtype=Int64, valu
 
 <br/>
 
-<font size=3>**Q:What can I do if an error "The input number of parameters is not Compatible."
-is reported when loading a MindIR?**</font>
+<font size=3>**Q:What can I do if an error "The input number of parameters is not Compatible." is reported when loading a MindIR?**</font>
 
 A: First, check whether the number of exported parameters and the number of imported parameters match.
 If the match, you need to check if a non-Tensor scenario in the exported parameters.
@@ -526,7 +525,7 @@ net = Net()
 out = net(Tensor(x))
 ```
 
-3) If a function decorated with a @jit decorator is called in a custom class, an error will be reported. In this scenario, it is recommended to add @jit_class decorators to custom classes in the network and avoid the JIT Fallback feature. For more use of custom classes, please refer to [Supporting the Use of Custom Classes](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#supporting-the-use-of-custom-classes). The use of jit_class decorators can be referred to [Use jit_class](https://www.mindspore.cn/tutorials/en/r2.3/advanced/static_graph_expert_programming.html#using-jit-class)
+3) If a function decorated with a @jit decorator is called in a custom class, an error will be reported. In this scenario, it is recommended to add @jit_class decorators to custom classes in the network and avoid the JIT Fallback feature. For more use of custom classes, please refer to [Supporting the Use of Custom Classes](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#supporting-the-use-of-custom-classes). The use of jit_class decorators can be referred to [Use jit_class](https://www.mindspore.cn/tutorials/en/r2.3/advanced/static_graph_expert_programming.html#using-jit-class).
 
 ```python
 import mindspore as ms

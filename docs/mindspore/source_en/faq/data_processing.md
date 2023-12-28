@@ -12,7 +12,7 @@ A: You can implement by referring to the [test_tdt_data_transfer.py](https://git
 
 A: You can refer to the following steps to reduce the memory occupation, which may also reduce the efficiency of data processing.
 
-1. Before defining the dataset `**Dataset` object, set the prefetch size of `Dataset`  data processing, `ds.config.set_prefetch_size(2)`.
+1. Before defining the dataset `**Dataset` object, set the prefetch size of `Dataset` data processing, `ds.config.set_prefetch_size(2)`.
 
 2. When defining the `**Dataset` object, set its parameter `num_parallel_workers` as 1.
 
@@ -36,7 +36,7 @@ A: You can refer to the following steps to reduce CPU consumption (mainly due to
 
 <br/>
 
-<font size=3>**Q:  Why there is no difference between the parameter `shuffle` in `GeneratorDataset`, and `shuffle=True` and `shuffle=False`  when the task is run?**</font>
+<font size=3>**Q:  Why there is no difference between the parameter `shuffle` in `GeneratorDataset`, and `shuffle=True` and `shuffle=False` when the task is run?**</font>
 
 A: If `shuffle` is enabled, the input `Dataset` must support random access (for example, the user-defined `Dataset` has the `getitem` method). If data is returned in `yeild` mode in the user-defined `Dataset`, random access is not supported. For details, see section [Loading Dataset Overview](https://www.mindspore.cn/tutorials/en/r2.3/advanced/dataset.html) in the tutorial.
 
@@ -55,13 +55,13 @@ def combine(x, y):
 dataset = dataset.map(operations=combine, input_columns=["data", "data2"], output_columns=["data"])
 ```
 
-Note: The `shapes`of the two `columns` are different. Therefore, you need to `flatten` them before combining.
+Note: The `shapes` of the two `columns` are different. Therefore, you need to `flatten` them before combining.
 
 <br/>
 
 <font size=3>**Q: Does `GeneratorDataset` support `ds.PKSampler` sampling?**</font>
 
-A: The user-defined dataset`GeneratorDataset` does not support `PKSampler` sampling logic. The main reason is that the customizing data operation is too flexible. The built-in `PKSampler` cannot be universal. Therefore, a message is displayed at the API layer, indicating that the operation is not supported. However, for `GeneratorDataset`, you can easily define the required `Sampler` logic. That is, you can define specific `sampler` rules in the `__getitem__` function of the `ImageDataset` class and return the required data.
+A: The user-defined dataset `GeneratorDataset` does not support `PKSampler` sampling logic. The main reason is that the customizing data operation is too flexible. The built-in `PKSampler` cannot be universal. Therefore, a message is displayed at the API layer, indicating that the operation is not supported. However, for `GeneratorDataset`, you can easily define the required `Sampler` logic. That is, you can define specific `sampler` rules in the `__getitem__` function of the `ImageDataset` class and return the required data.
 
 <br/>
 
@@ -81,7 +81,7 @@ Data augmentation APIs are unified in MindSpore 1.8. Transformations of `c_trans
 
 <br/>
 
-<font size=3>**Q: A piece of data contains multiple images which have different widths and heights. I need to perform the `map` operation on the data in mindrecord format. However, the data I read from `record` is in `np.ndarray` format. My `operations`  of data processing are for the image format. How can I preprocess the generated data in mindrecord format?**</font>
+<font size=3>**Q: A piece of data contains multiple images which have different widths and heights. I need to perform the `map` operation on the data in mindrecord format. However, the data I read from `record` is in `np.ndarray` format. My `operations` of data processing are for the image format. How can I preprocess the generated data in mindrecord format?**</font>
 
 A: You are advised to perform the following operations:
 
@@ -291,7 +291,7 @@ dataset1 = dataset1.shuffle(...)
 dataset1 = dataset1.batch(...)
 ```
 
-However, in the following exception scenario, `dataset1` has two consumption nodes `dataset2` and `dataset3`. As a result, the direction of data flow from `dataset1` is undefined, thus the pipeline definition is invalid.
+However, in the following exception scenario, dataset1 has two consumption nodes dataset2 and dataset3. As a result, the direction of data flow from dataset1 is undefined, thus the pipeline definition is invalid.
 
 ```python
 # pipeline definition:

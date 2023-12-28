@@ -4,7 +4,7 @@
 
 <font size=3>**Q: 原先基于MindSpore安装包进行Atlas 200/300/500推理产品推理，新版本MindSpore发布包不支持Atlas 200/300/500推理产品平台的推理？如何使用Atlas 200/300/500推理产品进行推理？（MindSpore Atlas 200/300/500推理产品推理功能发布包变更说明）**</font>
 
-A: 由于MindSpore推理功能统一由MindSpore核心组件 -- MindSpore lite提供。自2.0版本起，统一由MindSpore lite发布Atlas 200/300/500推理产品推理包，并提供相关功能的持续维护演进，而MindSpore主发布包里的对应接口不再维护和演进。自2.2版本起MindSpore主发布包不再提供配套Atlas 200/300/500推理产品的推理接口使能，如需使用请切换安装MindSpore Lite发布包或下载MindSpore2.0之前的版本。MindSpore lite的安装部署与用法详见 <https://www.mindspore.cn/lite>。
+A: 由于MindSpore推理功能统一由MindSpore核心组件 -- MindSpore lite提供。自2.0版本起，统一由MindSpore lite发布Atlas 200/300/500推理产品推理包，并提供相关功能的持续维护演进，而MindSpore主发布包里的对应接口不再维护和演进。自2.2版本起MindSpore主发布包不再提供配套Atlas 200/300/500推理产品的推理接口使能，如需使用请切换安装MindSpore Lite发布包或下载MindSpore 2.0之前的版本。MindSpore lite的安装部署与用法详见 <https://www.mindspore.cn/lite>。
 
 Atlas 200/300/500推理产品是面向边缘场景的高能效高集成度AI处理器，支持对MindIR格式模型进行推理。原先MindSpore提供了两种在Atlas 200/300/500推理产品硬件上的推理使能用法：
 

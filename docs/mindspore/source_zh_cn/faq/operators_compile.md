@@ -22,7 +22,7 @@ A: 建议使用`ops.clip_by_value`接口，把负数全变成0来进行计算。
 
 <font size=3>**Q: `TransData`算子的功能是什么，能否优化性能？**</font>
 
-A: `TransData`算子出现的场景是: 如果网络中相互连接的算子使用的数据格式不一致（如NC1HWC0），框架就会自动插入`transdata`算子使其转换成一致的数据格式，然后再进行计算。 华为Ascend支持5D格式运算，通过`transdata`算子将数据由4D转为5D以提升性能。
+A: `TransData`算子出现的场景是: 如果网络中相互连接的算子使用的数据格式不一致（如NC1HWC0），框架就会自动插入`transdata`算子使其转换成一致的数据格式，然后再进行计算。华为Ascend支持5D格式运算，通过`transdata`算子将数据由4D转为5D以提升性能。
 
 <br/>
 
