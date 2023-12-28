@@ -40,7 +40,7 @@ A: Add the `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com` paramete
 
 <font size=3>**Q: Any specific requirements for Protobuf version when use MindSpore?**</font>
 
-A: MindSpore installs version 3.13.0 of Protobuf by default.  If it is not the version, there will be many warnings in the log when using pytest to test the code.  It is recommended that you use the command 'pip install protobuf==3.13.0' to reinstall version 3.13.0.
+A: MindSpore installs version 3.13.0 of Protobuf by default. If it is not the version, there will be many warnings in the log when using pytest to test the code.  It is recommended that you use the command 'pip install protobuf==3.13.0' to reinstall version 3.13.0.
 
 <br/>
 
@@ -74,7 +74,7 @@ A: All versions of MindSpore are installed in the directory named `mindspore`, a
 
 <br/>
 
-<font size=3>**Q: What should I do if error message `Could not find a version that satisfies the requirement` is displayed when I install MindSpore on an ARM architecture systemby using pip?**</font>
+<font size=3>**Q: What should I do if error message `Could not find a version that satisfies the requirement` is displayed when I install MindSpore on an ARM architecture system by using pip?**</font>
 
 A: The version of pip installed on your system is most likely lower than 19.3, which is too low to recognize `manylinux2014` label. Wrong versions of python packages such as `numpy` or `scipy` are downloaded in the pip install stage, and the issue of not being able to find build dependencies is raised. As such, please upgrade pip in the environment to a later version higher than 19.3 by typing `pip install --upgrade pip`, and then try installing MindSpore again.
 
@@ -138,7 +138,7 @@ A: MindSpore imports the third party dependency package through the submodule me
 
 <br/>
 
-<font size=3>**Q: What should I do when the error message`MD5 does not match` is displayed when the source code is compiled?**</font>
+<font size=3>**Q: What should I do when the error message `MD5 does not match` is displayed when the source code is compiled?**</font>
 
 A: This error may be due to network problems at the time of compilation caused by some third-party library download interruption. After recompiling, the file exists but is incomplete, failed to verify MD5. The solution is to delete the relevant third-party libraries in the .mslib cache path, and then recompile.
 
@@ -197,7 +197,7 @@ A: Currently, MindSpore only provides version matching relationships, which requ
 
 <br/>
 
-<font size=3>**Q: What should I do when the error message`No module named 'mindpore.version` is displayed when the use case is executed?**</font>
+<font size=3>**Q: What should I do when the error message `No module named 'mindpore.version` is displayed when the use case is executed?**</font>
 
 A: When there is such an error, it is possible to execute a use case in the path that created the same name as the MindSpore installation package, causing Python to preferentially find the current directory when importing the package, and the current directory does not version.py the file. The solution is to rename the directory or exit the one- or multi-level directory upwards.
 
@@ -227,7 +227,7 @@ The detailed steps can refer to the practice provided by the community [Zhang Xi
 
 <br/>
 
-## Uninstall
+## Uninstalling
 
 <font size=3>**Q: How to uninstall MindSpore?**</font>
 
