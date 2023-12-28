@@ -39,7 +39,7 @@ A: In this scenario, the abnormal process exits due to various problems, and the
 
 In this step, the `NCCL` interface `ncclCommInitRank` is called, which blocks until all processes agree. So if a process doesn't call `ncclCommInitRank`, it will cause the process to block.
 We have reported this issue to the `NCCL` community, and the community developers are designing a solution. The latest version has not been fixed, see [issue link](https://github.com/NVIDIA/nccl/issues/593#issuecomment-965939279).
-Solution: Manually `kill` the training process. According to the error log, set the correct card number, and then restart the training task.
+Solution: Manually `kill` the training process and then restart the training task.
 
 <br/>
 
@@ -93,7 +93,7 @@ export HOSTNAME=node_ip_address
 
 <br/>
 
-<font size=3>**Q: What can we do when performing multi-machine multi-card training via OpenMPI, the NCCL error message displays that the network is not working.?**</font>
+<font size=3>**Q: What can we do when performing multi-machine multi-card training via OpenMPI, the NCCL error message displays that the network is not working?**</font>
 
 ```text
 include/socket.h:403 NCCL WARN Connect to XXX failed: Network is unreachable

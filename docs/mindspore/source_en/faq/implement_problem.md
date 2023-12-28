@@ -129,7 +129,7 @@ A: For details about how to derive the `Conv2d shape`, click [here](https://www.
 
 <font size=3>**Q: Can MindSpore be used to customize a loss function that can return multiple values?**</font>
 
-A: After customizing the `loss function`, you need to customize `TrainOneStepCell`. The number of `sens` for implementing gradient calculation is the same as the number of `network` outputs. For details, see the following:
+A: After customizing the `loss function`, you need to customize `TrainOneStepCell`. The number of `sens` for implementing gradient calculation is the same as that of `network` outputs. For details, see the following:
 
 ```python
 net = Net()
@@ -287,7 +287,7 @@ A: Use the msnpureport tool to set the on-device log level. The tool is stored i
 /usr/local/Ascend/latest/driver/tools/msnpureport -d 1 -g warning
 ```
 
-Assume that the value range of deviceID is [0, 7], and `devices 0–3` and `devices 4–7` are on the same OS. `devices 0` to `device3` share the same log configuration file and `device4`-`device7` shares the same configuration file. In this way, changing any log level in `devices 0` to `device3` will change that of other `device`. This rule also applies to `device4`-`device7` .
+Assume that the value range of deviceID is [0, 7], and `devices 0–3` and `devices 4–7` are on the same OS. `devices 0` to `device3` share the same log configuration file and `device4` to `device7` share the same configuration file. In this way, changing any log level in `devices 0` to `device3` will change that of other `device`. This rule also applies to `device4` to `device7` .
 
 After the `Driver` package is installed (assuming that the installation path is /usr/local/HiAI and the execution file `msnpureport.exe` is in the C:\ProgramFiles\Huawei\Ascend\Driver\tools\ directory on Windows), suppose the user executes the command line directly in the /home/shihangbo/directory, the Device side logs are exported to the current directory and stored in a timestamp-named folder.
 
@@ -321,13 +321,13 @@ A: In MindSpore Ascend mode, if init is called first, all processes will be allo
 
 <br/>
 
-<font size=3>**Q: Why report the error `Stream isn't enough` when executing the model on the Ascend platform?**</font>
+<font size=3>**Q: What should I do when an error `Stream isn't enough` is displayed during executing the model on the Ascend platform?**</font>
 
 A: When resnet50 training is performed on the CPU ARM, some operators are implemented based on the oneDNN library, and the oneDNN library achieves multi-threaded parallelism based on the libgomp library. Currently, there is a problem in libgomp where the number of threads configured for multiple parallel domains is different and the memory consumption continues to grow. The continuous growth of the memory can be controlled by configuring a uniform number of threads globally. For comprehensive performance considerations, it is recommended to configure a unified configuration to 1/4 of the number of physical cores, such as `export OMP_NUM_THREADS=32`.
 
 <br/>
 
-<font size=3>**Q: Why report an error that the stream exceeds the limit when executing the model on the Ascend platform？**</font>
+<font size=3>**Q: What should I do when an error `Stream isn't enough` is displayed during executing the model on the Ascend platform？**</font>
 
 A: Stream represents an operation queue. Tasks on the same stream are executed in sequence, and different streams can be executed in parallel. Various operations in the network generate tasks and are assigned to streams to control the concurrent mode of task execution. Ascend platform has a limit on the number of tasks on the same stream, and tasks that exceed the limit will be assigned to new streams. The multiple parallel methods of MindSpore will also be assigned to new streams, such as parallel communication operators. Therefore, when the number of assigned streams exceeds the resource limit of the Ascend platform, an error will be reported. Reference solution:
 
@@ -446,7 +446,7 @@ Therefore, in the scenario where the subsequent operator clearly needs to use in
 
 A: In order to be compatible with more GPU architectures, NVCC compiles CUDA files into PTX files first, and compiles them into binary executable files when using them for the first time. Therefore, compilation time will be consumed.
 Compared with the previous version, version 1.8 has added many CUDA operators, resulting in an increase in the compilation time of this part (The time varies according to the equipment. For example, the first compilation time on V100 is about 5 minutes).
-This compilation will generate a cache file (taking the Ubuntu system as an example, the cache file is located in `~/.nv/computecache`), and the cache file will be directly loaded during subsequent execution.
+This compilation will generate a cache file (taking the Ubuntu system as an example, the cache file is located in `~/.nv/ComputeCache`), and the cache file will be directly loaded during subsequent execution.
 Therefore, it will be stuck for several minutes during the first use, and the subsequent use will be a normal time consumption.
 
 Subsequent versions will be pre-compiled and optimized.
@@ -499,9 +499,9 @@ In addition, CANN may throw some Inner Errors, for example, the error code is "E
 
 <br/>
 
-<font size=3>**Q: How to control the Tensor value printed by the 'print' method?**</font>
+<font size=3>**Q: How to control the Tensor value printed by the `print` method?**</font>
 
-A: In PyNative dynamic graph mode, you can use numpy native methods such as ` set_ Printoptions ` Control the output value. In the Graph static graph mode, because the 'print' method needs to be converted into an operator, the output value cannot be controlled temporarily. For specific usage of print operator, see [Reference](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.Print.html)。
+A: In PyNative dynamic graph mode, you can use numpy native methods such as ` set_ Printoptions ` to control the output value. In the Graph static graph mode, because the `print` method needs to be converted into an operator, the output value cannot be controlled temporarily. For specific usage of print operator, see [Reference](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.Print.html)。
 <br/>
 
 <font size=3>**Q: How does `Tensor.asnumpy()` share the underlying storage with Tensor?**</font>

@@ -241,9 +241,9 @@ print(network.layers)
 
 <br/>
 
-<font size=3>**Q: 使用MindSpore进行模型训练时，`CTCLoss`的输入参数有四个: `inputs`, `labels_indices`, `labels_values`, `sequence_length`，如何使用`CTCLoss`进行训练？**</font>
+<font size=3>**Q: 使用MindSpore进行模型训练时，`CTCLoss`的输入参数有四个: `inputs`、`labels_indices`、`labels_values`、`sequence_length`，如何使用`CTCLoss`进行训练？**</font>
 
-A: 定义的`model.train`接口里接收的`dataset`可以是多个数据组成，形如(`data1`, `data2`, `data3`, ...)，所以`dataset`是可以包含`inputs`,`labels_indices`,`labels_values`,`sequence_length`的信息的。只需要定义好相应形式的`dataset`，传入`model.train`里就可以。具体的可以了解下相应的[数据处理接口](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/dataset.html)
+A: 定义的`model.train`接口里接收的`dataset`可以是多个数据组成，形如(`data1`、`data2`、`data3`...)，所以`dataset`是可以包含`inputs`、`labels_indices`、`labels_values`、`sequence_length`的信息的。只需要定义好相应形式的`dataset`，传入`model.train`里就可以。具体的可以了解下相应的[数据处理接口](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/dataset.html)。
 
 <br/>
 
@@ -373,7 +373,7 @@ ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Exp
 
 解决方案:
 
-方法一: 重新安装numpy及gensim, 执行命令: `pip uninstall gensim numpy -y && pip install numpy gensim` ；
+方法一: 重新安装numpy及gensim，执行命令: `pip uninstall gensim numpy -y && pip install numpy gensim` ；
 
 方法二: 如果还是有问题，请删除wheel安装包的缓存文件，然后执行方法一（wheel安装包缓存目录为: `~/.cache/pip/wheels`）。
 
@@ -383,8 +383,7 @@ ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Exp
 
 A: 首先确认是否安装`matplotlib`，如果没有安装，可以在命令行中执行`pip install matplotlib`进行安装。
 
-其次由于`matplotlib.pyplot.show()`的作用是以图形化方式展示，所以需要运行系统支持图形展示功能，如果系统不能支持图形展示，需要将该
-图形展示的命令行注释后再运行，不影响整体代码的运行结果。
+其次由于`matplotlib.pyplot.show()`的作用是以图形化方式展示，所以需要运行系统支持图形展示功能，如果系统不能支持图形展示，需要将该图形展示的命令行注释后再运行，不影响整体代码的运行结果。
 
 <br/>
 
