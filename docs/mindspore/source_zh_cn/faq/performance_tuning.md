@@ -11,5 +11,5 @@ A：可能与环境中使用了`scipy 1.4`系列版本有关，通过`pip list |
 
 <font size=3>**Q: 在昇腾芯片上进行模型训练时，如何选择batchsize达到最佳性能效果？**</font>  
 
-A：在昇腾芯片上进行模型训练时，在batchsize等于AICORE个数或倍数的情况下可以获取更好的训练性能。AICORE个数可通过链接中的命令行进行查询。
+A：在昇腾芯片上进行模型训练时，在batchsize等于AI CORE个数或倍数的情况下可以获取更好的训练性能。AI CORE个数可通过链接中的命令行进行查询。
 <https://support.huawei.com/enterprise/zh/doc/EDOC1100206828/eedfacda>

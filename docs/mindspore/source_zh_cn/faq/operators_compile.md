@@ -63,7 +63,7 @@ A: `Tile`算子的`multiples input`必须是一个常量（该值不能直接或
 
 <br/>
 
-<font size=3>**Q: 使用conv2d算子将卷积核设置为(3,10),Tensor设置为[2,2,10,10]，在ModelArts上利用Ascend跑，报错: `FM_W+pad_left+pad_right-KW>=strideW`，CPU下不报错。**</font>
+<font size=3>**Q: 使用conv2d算子将卷积核设置为(3,10)，Tensor设置为[2,2,10,10]，在ModelArts上利用Ascend跑，报错: `FM_W+pad_left+pad_right-KW>=strideW`，CPU下不报错。**</font>
 
 A: TBE(Tensor Boost Engine)算子是华为自研的Ascend算子开发工具，在TVM框架基础上扩展，进行自定义算子开发。上述问题是这个TBE算子的限制，x的width必须大于kernel的width。CPU的这个算子没有这个限制，所以不报错。
 
@@ -112,7 +112,7 @@ A: 这边的问题是选择了Graph模式却使用了PyNative的写法，所以�
 
 A: Ascend后端，算子有AI CORE算子和AI CPU算子之分，部分算子AI CORE支持，部分算子AI CPU支持，部分算子两者同时支持。根据报错信息：
 
-1. 如果`AI CORE`候选算子信息为空，则可能是在算子`check support`阶段，所有的算子信息均校验未通过。可以在日志中搜索关键字`CheckSupport`找到未通过的原因，根据具体信息修改shape或data type, 或者找开发人员进一步定位；
+1. 如果`AI CORE`候选算子信息为空，则可能是在算子`check support`阶段，所有的算子信息均校验未通过。可以在日志中搜索关键字`CheckSupport`找到未通过的原因，根据具体信息修改shape或data type，或者找开发人员进一步定位；
 2. 如果`AI CPU`候选算子信息不为空，或者`AI CORE`和`AI CPU`候选算子信息都不为空，则可能是用户给到该算子的输入数据类型不在候选列表中，在选择阶段被过滤掉导致，可以根据候选列表尝试修改该算子的输入data type。
 
 用户可以参考[官网教程](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/accelerate_with_static_graph.html)选择合适、统一的模式和写法来完成训练。
