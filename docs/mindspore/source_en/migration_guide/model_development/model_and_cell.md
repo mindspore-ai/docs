@@ -220,7 +220,7 @@ Common nn interfaces that implicitly declare weights include Conv, Dense(Linear)
     - torch.nn.Linear (weight: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$, bias: $\mathcal{U} (-\sqrt{k},\sqrt{k} )$)
     - tf.keras.Layers.Dense (weight: glorot_uniform, bias: zeros)
 
-In the preceding information, $k=\frac{groups}{in\_features}$
+In the preceding information, $k=\frac{groups}{in\_features}$.
 
 For a network without normalization, for example, a GAN network without the BatchNorm operator, the gradient is easy to explode or disappear. Therefore, weight initialization is very important. Developers should pay attention to the impact of weight initialization.
 
@@ -534,7 +534,7 @@ dx (Tensor(shape=[2, 5], dtype=Float32, value=
  [0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000]]),)
 ```
 
-Now, let's see how to [customize backward network construction](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/layer.html#自定义cell反向).
+Now, let's see how to [customize backward network construction](https://www.mindspore.cn/tutorials/en/master/advanced/modules/layer.html#custom-cell-reverse).
 
 ```python
 import numpy as np
