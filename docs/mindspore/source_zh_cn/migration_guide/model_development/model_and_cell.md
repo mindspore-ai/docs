@@ -850,7 +850,7 @@ True
 
 ### 随机数API对比
 
-PyTorch与MindSpore在接口名称上无差异，MindSpore由于不支持原地修改，所以缺少Tensor.random_接口。其余接口均可和PyTorch一一对应。
+PyTorch与MindSpore在接口名称上无差异，MindSpore由于不支持原地修改，所以缺少`Tensor.random_`接口。其余接口均可和PyTorch一一对应。
 
 ### 随机种子和生成器
 
