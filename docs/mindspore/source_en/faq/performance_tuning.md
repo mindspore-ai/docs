@@ -9,5 +9,5 @@ A: The `scipy 1.4` series versions may be used in the environment. Run the `pip 
 
 <font size=3>**Q: How to choose the batchsize to achieve the best performance when training models on the Ascend chip?**</font>
 
-A: When training the model on the Ascend chip, better training performance can be obtained when the batchsize is equal to the number of aicore or multiples. The number of Aicore can be queried via the command line in the link.
+A: When training the model on the Ascend chip, better training performance can be obtained when the batchsize is equal to the number of AI CORE or multiples. The number of AI CORE can be queried via the command line in the link.
 <https://support.huawei.com/enterprise/zh/doc/EDOC1100206828/eedfacda>

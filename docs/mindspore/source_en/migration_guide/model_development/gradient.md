@@ -15,8 +15,7 @@ Both MindSpore and PyTorch provide the automatic differentiation function. After
 
 ```python
 # torch.autograd:
-# The backward is cumulative, and the optimizer
-# needs to be cleared after updating.
+# The backward is cumulative, and the optimizer needs to be cleared after updating.
 
 import torch
 from torch.autograd import Variable
@@ -177,6 +176,7 @@ out1 1.0
 </table>
 
 If the above net has more than one output, you need to pay attention to the effect of multiple outputs of the network on finding the gradient.
+
 <table class="colwidths-auto docutils align-default">
 <tr>
 <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
