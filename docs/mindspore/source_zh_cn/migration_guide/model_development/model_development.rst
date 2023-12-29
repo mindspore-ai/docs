@@ -128,7 +128,7 @@
           os.environ['CUDA_VISIBLE_DEVICE']='1'
           model.cuda()
 
-  而在MindSpore中，我们通过 `context` 中 的 `device_target` 参数 指定模型绑定的设备， `device_id` 指定设备的序号。与PyTorch不同的是，一旦设备设置成功，输入数据和模型会默认拷贝到指定的设备中执行，不需要也无法再改变数据和模型所运行的设备类型。代码如下：
+  而在MindSpore中，我们通过 `context` 中的 `device_target` 参数指定模型绑定的设备， `device_id` 指定设备的序号。与PyTorch不同的是，一旦设备设置成功，输入数据和模型会默认拷贝到指定的设备中执行，不需要也无法再改变数据和模型所运行的设备类型。代码如下：
 
   .. code-block::
 

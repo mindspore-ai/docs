@@ -340,4 +340,4 @@ Please refer to [Distributed Case](https://www.mindspore.cn/tutorials/experts/en
 
 ## Offline Inference
 
-In addition to the possibility of online reasoning, MindSpore provides many offline inference methods for different environments. Please refer to [Model Inference](https://www.mindspore.cn/tutorials/experts/en/r2.3/infer/inference.html) for details.
+In addition to the possibility of online inference, MindSpore provides many offline inference methods for different environments. Please refer to [Model Inference](https://www.mindspore.cn/tutorials/experts/en/r2.3/infer/inference.html) for details.
