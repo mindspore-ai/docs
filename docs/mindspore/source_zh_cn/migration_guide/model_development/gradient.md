@@ -64,7 +64,7 @@ class GradNetWrtX(nn.Cell):
 
 MindSpore 在做自动微分时，通过对正向图的分析得到反向传播信息，其结果与正向计算中具体的数值无关，仅和正向图结构有关。通过对正向图的自动微分，我们得到了反向图。将反向图添加到用户定义的正向图之后，组成一个最终的计算图。不过后添加的反向图和其中的反向算子我们并不感知，也无法手动添加，只能通过 MindSpore 为我们提供的接口自动添加，这样做也避免了我们在反向构图时引入错误。
 
-最终，我们看似仅执行了正向图，其实图结构里既包含了正向算子，又包含了 MindSpore 为我们添加的反向算子，也就是说，MindSpore 在我们定义的正向图后面又新加了一个看不见的  `Cell`，这个  `Cell` 里都是根据正向图推导出来的反向算子。
+最终，我们看似仅执行了正向图，其实图结构里既包含了正向算子，又包含了 MindSpore 为我们添加的反向算子，也就是说，MindSpore 在我们定义的正向图后面又新加了一个看不见的 `Cell`，这个 `Cell` 里都是根据正向图推导出来的反向算子。
 
 而这个帮助我们构建反向图的接口就是 [grad](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.grad.html) 。
 
@@ -246,7 +246,7 @@ out1 3.0
 </tr>
 </table>
 
-因此， 若要在MindSpore只对第一个输出求梯度，在MindSpore中需要使用has_aux参数。
+因此，若要在MindSpore只对第一个输出求梯度，在MindSpore中需要使用has_aux参数。
 
 ```python
 import mindspore

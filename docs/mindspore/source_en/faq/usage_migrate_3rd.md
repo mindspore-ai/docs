@@ -15,7 +15,7 @@ import torch
 import mindspore as ms
 
 def pytorch2mindspore(default_file = 'torch_resnet.pth'):
-    """read pth file"""
+    # read pth file
     par_dict = torch.load(default_file)['state_dict']
     params_list = []
     for name in par_dict:

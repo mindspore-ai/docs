@@ -64,7 +64,7 @@ You can see the following differences between MindSpore and PyTorch in reading c
 
    The batch operation can also use some augmentation operations within batch, see [YOLOv3](https://gitee.com/mindspore/models/blob/master/official/cv/YOLOv3/src/yolo_dataset.py#L177) for details.
 
-   As mentioned above, **the dataset loading API contains the same parameters**, here are some common ones:
+   As mentioned above, **the dataset loading API contains the same parameters**. Here are some common ones:
 
    | Attributes | Introduction |
    | ---- | ---- |
@@ -75,7 +75,7 @@ You can see the following differences between MindSpore and PyTorch in reading c
    | shard_id(int) | For distributed scenarios, taking nth data (n ranges from 0 to n-1, and n is the set `num_shards`), used in conjunction with `num_shards` |
    | num_parallel_workers(int) | Number of threads in parallel configuration |
 
-   Here is an example of FakeImageDataset:
+   Here is an example of `FakeImageDataset`:
 
    ```python
    import mindspore.dataset as ds
@@ -174,7 +174,7 @@ You can see the following differences between MindSpore and PyTorch in defining 
    ```
 
    When PyTorch uses the `torch` operator for data processing, MindSpore cannot directly use the corresponding `ops` operator
-   (for details, please refer to [PyTorch and MindSpore API Mapping Table](https://www.mindspore.cn/docs/en/r2.3/note/api_mapping/pytorch_api_mapping.html)), which needs to be replaced with a third party library or method such as numpy, opencv, PIL, pandas, etc. Generally speaking MindSpore's operators can find corresponding methods in numpy, if the function of the corresponding method is inconsistent, you can give feedback to [MindSpore community](https://gitee.com/mindspore/mindspore/issues).
+   (for details, please refer to [PyTorch and MindSpore API Mapping Table](https://www.mindspore.cn/docs/en/r2.3/note/api_mapping/pytorch_api_mapping.html)), which needs to be replaced with a third party library or method such as numpy, opencv, PIL, pandas, etc. Generally speaking, MindSpore's operators can find corresponding methods in numpy, if the function of the corresponding method is inconsistent, you can give feedback to [MindSpore community](https://gitee.com/mindspore/mindspore/issues).
 
 3. Different data processing formats:
 
