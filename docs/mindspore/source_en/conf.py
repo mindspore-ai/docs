@@ -263,9 +263,12 @@ src_dir_en = os.path.join(os.getenv("MS_PATH"), copy_path)
 
 des_sir = "./api_python"
 
-if os.path.exists(des_sir):
-    shutil.rmtree(des_sir)
-shutil.copytree(src_dir_en, des_sir)
+def copy_source(sourcedir, des_sir):
+    if os.path.exists(des_sir):
+        shutil.rmtree(des_sir)
+    shutil.copytree(sourcedir, des_sir)
+
+copy_source(src_dir_en, des_sir)
 
 Tensor_list_path = "./api_python/Tensor_list.rst"
 dataset_list_path = "./api_python/dataset_list.rst"

@@ -38,13 +38,13 @@ A: 可以参考如下几个步骤来降低CPU占用，进一步提升性能，�
 
 <font size=3>**Q: 在`GeneratorDataset`中，看到有参数`shuffle`，在跑任务时发现`shuffle=True`和`shuffle=False`，两者没有区别，这是为什么？**</font>
 
-A: 开启`shuffle`,需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yeild`方式返回回来的数据，是不支持随机访问的，具体可查看教程中的[自定义数据集](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#自定义数据集)章节。
+A: 开启`shuffle`，需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yeild`方式返回回来的数据，是不支持随机访问的，具体可查看教程中的[自定义数据集](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#自定义数据集)章节。
 
 <br/>
 
 <font size=3>**Q: 请问`Dataset`如何把两个`columns`合并成一个`column`？**</font>
 
-A: 可以添加如下操作把 两个字段合成一个。
+A: 可以添加如下操作把两个字段合成一个。
 
 ```python
 def combine(x, y):
@@ -138,7 +138,7 @@ A: 可能是你数据中`ndarray`的`dtype`是`int8`，因为`[158400]`和`[1980
 
 <font size=3>**Q: 想要保存生成的图片，代码运行完毕以后在相应目录找不到图片。相似的，在JupyterLab中生成数据集用于训练，训练时可以在相应路径读取到数据，但是自己却无法在路径中找到图片或数据集？**</font>
 
-A: 可能是JumperLab生成的图片或者数据集都是在Docker内，`moxing`下载的数据只能训练进程的Docker内看见，训练完成后这些数据就随着Docker释放了。 可以试试在训练任务中将需要`download`的数据再通过`moxing`传回`obs`，然后再在`obs`里面下载到你本地。
+A: 可能是JumperLab生成的图片或者数据集都是在Docker内，`moxing`下载的数据只能训练进程的Docker内看见，训练完成后这些数据就随着Docker释放了。可以试试在训练任务中将需要`download`的数据再通过`moxing`传回`obs`，然后再在`obs`里面下载到你本地。
 
 <br/>
 
@@ -152,7 +152,7 @@ A: 当`dataset_sink_mode=True`时，数据处理会和网络计算构成Pipeline
 
 <font size=3>**Q: MindSpore能否支持按批次对不同尺寸的图片数据进行训练？**</font>
 
-A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放,脚本见[yolo_dataset](https://gitee.com/mindspore/models/blob/master/official/cv/YOLOv3/src/yolo_dataset.py)。
+A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放，脚本见[yolo_dataset](https://gitee.com/mindspore/models/blob/master/official/cv/YOLOv3/src/yolo_dataset.py)。
 
 <br/>
 
@@ -190,7 +190,7 @@ ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
 
 A: 数据Schema可以按如下方式定义: `cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
-说明: label是一个数组，numpy类型，这里面可以存 1， 1，0，1， 0， 1 这么多label值，这些label值对应同一个data，即: 同一个图像的二进制值。
+说明: label是一个数组，numpy类型，这里面可以存 1，1，0，1，0，1 这么多label值，这些label值对应同一个data，即: 同一个图像的二进制值。
 可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset/record.html#转换成record格式)教程。
 
 <br/>
@@ -221,7 +221,7 @@ A: 首先上述报错指的是通过训练数据下发通道（TDT，train data 
 
         ```python
         ...
-        dataset = dataset.create_tuple_iteator(num_epochs=-1) # 此处如果要返回一个迭代器则num_epochs应该给1, 但建议直接返回dataset
+        dataset = dataset.create_tuple_iteator(num_epochs=-1) # 此处如果要返回一个迭代器则num_epochs应该给1，但建议直接返回dataset
         return dataset
         ```
 
@@ -346,7 +346,7 @@ A：.db文件为MindRecord文件对应的索引文件，缺少.db文件通常会
 
 <font size=3>**Q: 自定义Dataset中如何进行图像读取并进行Decode操作？**</font>
 
-A：传入GeneratorDataset的自定义Dataset，在接口内部（如`__getitem__`函数）进行图像读取后可以直接返回bytes类型的数据、numpy array类型的数组或已经做了解码操作的numpy array, 具体如下所示：
+A：传入GeneratorDataset的自定义Dataset，在接口内部（如`__getitem__`函数）进行图像读取后可以直接返回bytes类型的数据、numpy array类型的数组或已经做了解码操作的numpy array，具体如下所示：
 
 - 读取图像后直接返回bytes类型的数据
 
@@ -389,7 +389,7 @@ A：传入GeneratorDataset的自定义Dataset，在接口内部（如`__getitem_
 - 读取图像后直接进行Decode操作
 
     ```python
-    # 依据上面的用例，对__getitem__函数可进行如下修改, 直接返回Decode之后的数据，此后可以不需要通过map执行Decode操作
+    # 依据上面的用例，对__getitem__函数可进行如下修改，直接返回Decode之后的数据，此后可以不需要通过map执行Decode操作
     def __getitem__(self, index):
         # use Image.Open to open file, and convert to RGC
         img_rgb = Image.Open(self.data[index]).convert("RGB")
@@ -485,7 +485,7 @@ A: 在使用数据下沉模式（此时 `数据预处理` -> `发送队列` -> `
     2022-05-09-11:36:01.893.412 -> 2022-05-09-11:36:02.006.771
     ```
 
-    改进方法：查看最后一条 `push_end_time` 时间 与 GetNext报错时间，如果超过默认GetNext超时时间（默认：1900s，且可通过 `mindspore.set_context(op_timeout=xx)` 来进行修改），说明数据预处理性能差，可参考 [数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html) 对数据预处理部分进行优化。
+    改进方法：查看最后一条 `push_end_time` 时间与GetNext报错时间，如果超过默认GetNext超时时间（默认：1900s，且可通过 `mindspore.set_context(op_timeout=xx)` 来进行修改），说明数据预处理性能差，可参考 [数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html) 对数据预处理部分进行优化。
 
 4. 当日志输出类似如下时，表示数据预处理产生了182条数据，正在向设备发送第183条数据。
 

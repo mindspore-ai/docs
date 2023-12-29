@@ -137,7 +137,7 @@ test_transform = trans.Compose([
     trans.Normalize([0.4914, 0.4822, 0.4465],
                     [0.2023, 0.1994, 0.2010]),
 ])
-# If there is no CIFAR10 dataset locally, set download=True to automatically download
+# If necessary, you can set download=True in the datasets.CIFAR10 interface to download automatically.
 train_set = torchvision.datasets.CIFAR10(root='./data',
                                          train=True,
                                          transform=train_transform)
@@ -728,6 +728,8 @@ check_res(pth_path, ckpt_path)
 
 During the unit test, you need to add training or inference labels to cells. PyTorch training uses `.train()` and inference uses `.eval()`, MindSpore training uses `.set_train()` and inference uses `.set_train(False)`.
 
+Result:
+
 ```text
 ========= pt_resnet conv1.weight ==========
 [ 1.091892e-40 -1.819391e-39  3.509566e-40 -8.281730e-40  1.207908e-39
@@ -1032,13 +1034,13 @@ The second part is the forward and backward network execution time, where you ca
 
 ![resnet_profiler2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler2.png)
 
-The upper part shows the proportion of each AI CORE operator to the total time, and the lower part shows the details of each operator.
+The upper part shows the proportion of each AI Core operator to the total time, and the lower part shows the details of each operator.
 
 ![resnet_profiler3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler3.png)
 
 You can click an operator to obtain the execution time, scope, shape, and type of the operator.
 
-In addition to the AI CORE operators, there may be AI CPU and HOST CPU operators on the network. These operators take more time than the AI CORE operators. You can click the tabs to view the time.
+In addition to the AI Core operators, there may be AI CPU and HOST CPU operators on the network. These operators take more time than the AI Core operators. You can click the tabs to view the time.
 
 ![resnet_profiler4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler4.png)
 
