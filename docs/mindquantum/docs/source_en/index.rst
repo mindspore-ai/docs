@@ -69,6 +69,7 @@ Typical Application Scenarios
    quantum_phase_estimation
    grover_search_algorithm
    shor_algorithm
+   hhl_algorithm
 
 .. toctree::
    :maxdepth: 1
