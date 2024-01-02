@@ -224,6 +224,27 @@ GPU场景下，CPU利用率分析的使用方法和Ascend场景相同。
 
 可参考：[使用方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#cpu利用率分析)。
 
+### 规格
+
+- 为了控制性能测试时生成数据的大小，大型网络建议性能调试的step数目限制在10以内。
+
+  控制step数目可以通过控制训练数据集的大小来实现，如`mindspore.dataset.MindDataset`类中的`num_samples`参数可以控制数据集大小，详情参考：
+
+  [dataset API](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.MindDataset.html)。
+
+- Timeline数据的解析比较耗时，且一般几个step的数据即足够分析出结果。出于数据解析和UI展示性能的考虑，Profiler最多展示20M数据（对大型网络20M可以显示10+条step的信息）。
+
+- 开启Profiler对训练过程有部分性能影响，如果感觉影响较大可减少数据采集项，以下是Resnet网络开启Profiler前后性能对比：
+
+  | 网络：Resnet   | 未开启Profiler性能 | 开启Profiler性能 | 性能对比     |
+  |-------------|---------------|--------------|----------|
+  | 1P+PYNATIVE | 38.507ms      | 39.461ms     | +0.954ms |
+  | 1P+GRAPH    | 38.153ms      | 38.467ms     | +0.314ms |
+  | 8P+PYNATIVE | 29.771ms      | 31.953ms     | +2.181ms |
+  | 8P+GRAPH    | 29.791ms      | 30.386ms     | +0.594ms |
+
+  表中性能数据为Resnet网络在GPU上训练过程中，一个step的平均耗时。（注：网络训练存在性能波动，以上数据仅供参考）
+
 ## 注意事项
 
 - 训练加推理过程暂不支持性能调试，目前支持单独训练或推理的性能调试。
