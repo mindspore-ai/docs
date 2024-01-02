@@ -43,9 +43,9 @@ In addition, due to the limited resources of device-side scenarios, MindSpore pr
 
 - Multi-stage data processing pipeline
 
-    Unlike TensorFlow and PyTorch, MindSpore uses ，multi-stage parallel pipeline to build data processing Pipeline, which can plan the use of computational resources in a more fine-grained way. As shown above, each dataset operation contains an output Connector, which is an order-preserving buffer queue consisting of a set of blocking queues and counters. Each dataset operation takes cached data from the Connector of the upstream operation for processing, and then pushes this cache back to its own output Connector, and so on. The advantages of this mechanism include:
+    Unlike TensorFlow and PyTorch, MindSpore uses multi-stage parallel pipeline to build data processing Pipeline, which can plan the use of computational resources in a more fine-grained way. As shown above, each dataset operation contains an output Connector, which is an order-preserving buffer queue consisting of a set of blocking queues and counters. Each dataset operation takes cached data from the Connector of the upstream operation for processing, and then pushes this cache back to its own output Connector, and so on. The advantages of this mechanism include:
 
-    - The dataset loading, `map`, `batch` and other operations are driven by a task scheduling mechanism. Tasks for each operation are independent of each other, and the contexts are linked through Connectors.
+    - The dataset loading, `map`, `batch` and other operations are driven by a task scheduling mechanism. Tasks for each operation are independent of each other, and the contexts are linked through Connector.
     - Each operation can be implemented with fine-grained multi-threaded or multi-process parallel acceleration. Data framework provides the interfaces for users to adjust the number of threads of operation and control of multi-process processing, and users can flexibly control the processing speed of each node, and thus achieve optimal performance of the entire data processing Pipeline.
     - Support users to set the size of the Connector, which to a certain extent, can effectively control the memory utilization, and adapt to different network requirements for data processing performance.
 
