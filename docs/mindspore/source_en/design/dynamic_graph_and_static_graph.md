@@ -18,7 +18,7 @@ In MindSpore, the static graph mode, also known as Graph mode, can be set to sta
 
 In Graph mode, MindSpore converts Python source code into IR by means of source code conversion, then performs relevant graph optimization based on this, and finally executes the optimized graph on hardware devices. MindSpore uses a functional IR based on graph representation, i.e. MindIR, by using a semantics close to the ANF functional style. The Graph mode is compiled and optimized based on MindIR. To use the Graph mode, you need to use the `nn.Cell` class and write the execution code in the `construct` function or call the `@jit` decorator.
 
-An code example for the Graph model is shown below:
+A code example for the Graph model is shown below:
 
 ```python
 import numpy as np
@@ -259,9 +259,9 @@ Custom classes that do not use '@jit_class' decorations and do not inherit 'nn. 
 
 For more usage, please refer to the [Supporting the Use of Custom Classes](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#supporting-the-use-of-custom-classes) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html).
 
-#### Basic Operators Support More Data Type
+#### Basic Operators Support More Data Types
 
-In the syntax of graph mode, the following basic operators in the list is overloaded: ['+', '-', '*', '/', '//', '%', '**', '<<', '>>', '&', '|', '^', 'not', '==', '!=', '<', '>', '<=', '>=', 'in', 'not in', 'y=x[0]']. For more details, please refer to [Operators](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax/operators.html). When getting unsupported input type, those operators need to use extended static graph syntax to support, and make the output consistent with the output in the pynative mode.
+In the syntax of graph mode, the following basic operators in the list are overloaded: ['+', '-', '*', '/', '//', '%', '**', '<<', '>>', '&', '|', '^', 'not', '==', '!=', '<', '>', '<=', '>=', 'in', 'not in', 'y=x[0]']. For more details, please refer to [Operators](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax/operators.html). When getting unsupported input type, those operators need to use extended static graph syntax to support, and make the output consistent with the output in the pynative mode.
 
 For more usage, please refer to the [Basic Operators Support More Data Type](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#basic-operators-support-more-data-type) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html).
 
@@ -271,18 +271,18 @@ Use the JIT Fallback feature to extend support for Python's native data types 'L
 
 ##### Supporting List Inplace Modification Operations
 
-- Support for getting the original 'List' object from a global variable.
-- Inplace operations on input 'List' objects are not supported.
-- Support for in-place modification of some 'List' built-in functions.
+- Support for getting the original `List` object from a global variable.
+- Inplace operations on input `List` objects are not supported.
+- Support for in-place modification of some `List` built-in functions.
 
 ##### Supporting the High-Level Usage of Dictionary
 
-- Supporting Top Graph Return Dictionary
-- Supporting Dictionary Index Value Retrieval and Assignment
+- Supporting Top Graph Return Dictionary.
+- Supporting Dictionary Index Value Retrieval and Assignment.
 
 ##### Supporting the Usage of None
 
-'None' is a special value in Python that represents null and can be assigned to any variable. Functions that do not have a return value statement are considered to return 'None'. At the same time, 'None' is also supported as the input parameter or return value of the top graph or subgraph. Support 'None' as a subscript of a slice as input to 'List', 'Tuple', 'Dictionary'.
+`None` is a special value in Python that represents null and can be assigned to any variable. Functions that do not have a return value statement are considered to return `None`. At the same time, `None` is also supported as the input parameter or return value of the top graph or subgraph. Support `None` as a subscript of a slice as input to `List`, `Tuple`, `Dictionary`.
 
 #### Built-in Functions Support More Data Types
 
@@ -290,7 +290,7 @@ Extend the support for built-in functions. Python built-in functions perfectly s
 
 #### Supporting Control Flow
 
-In order to improve the support of Python standard syntax, realize dynamic and static unification, and extend the support for more data types in the use of control flow statements. Control flow statements refer to flow control statements such as 'if', 'for', and 'while'. Theoretically, by extending the supported syntax, it is also supported in control flow scenarios. For more usage, please refer to the [Supports Control Flow](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#supporting-control-flow) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html).
+In order to improve the support of Python standard syntax, realize dynamic and static unification, and extend the support for more data types in the use of control flow statements. Control flow statements refer to flow control statements such as 'if', 'for', and 'while'. Theoretically, by extending the supported syntax, it is also supported in control flow scenarios. For more usage, please refer to [Supporting Control Flow](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#supporting-control-flow) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html).
 
 #### Supporting Property Setting and Modification
 
@@ -306,7 +306,7 @@ The static graph syntax supported by JIT Fallback also supports its use in deriv
 
 #### Annotation Type
 
-For the syntax supported by the runtime extensions, nodes are generated that cannot be derived by type and are called 'Any' types. Since the type cannot derive the correct type at compile time, this 'Any' will be operated with a default maximum precision 'Float64' to prevent loss of precision. To optimize performance, it is recommended to minimize the generation of 'Any' types. When the user knows exactly what type of statement will be generated through the extension, it is recommended to use `Annotation @jit.typing:` to specify the corresponding Python statement type, thereby determining the type of the interpretation node and avoiding the generation of 'Any' types. For more usage, please refer to the [Annotation Type](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#annotation-type) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html).
+For the syntax supported by the runtime extensions, nodes are generated that cannot be derived by type and are called `Any` types. Since the type cannot derive the correct type at compile time, this `Any` will be operated with a default maximum precision 'Float64' to prevent loss of precision. To optimize performance, it is recommended to minimize the generation of `Any` types. When the user knows exactly what type of statement will be generated through the extension, it is recommended to use `Annotation @jit.typing:` to specify the corresponding Python statement type, thereby determining the type of the interpretation node and avoiding the generation of `Any` types. For more usage, please refer to the [Annotation Type](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html#annotation-type) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html).
 
 #### Instructions for Use
 

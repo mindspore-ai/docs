@@ -31,8 +31,8 @@ MindSpore: This interface input is tensor input_x and the output is tensor. The 
 
 | Class | Sub-class |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
-|Param | Param 1 | tensor_list | - |PyTorch: the output after AllGather. MindSpore does not have this parameter|
-| | Param 2 | tensor | - |PyTorch: the tensor broadcasted by the current process. MindSpore does not have this parameter |
-| | Param 3 | group | group |-|
-| | Param 4 | async_op | - |PyTorch: the async op flag. MindSpore does not have this parameter|
+|Parameters | Parameter 1 | tensor_list | - |PyTorch: the output after AllGather. MindSpore does not have this parameter|
+| | Parameter 2 | tensor | - |PyTorch: the tensor broadcasted by the current process. MindSpore does not have this parameter |
+| | Parameter 3 | group | group |-|
+| | Parameter 4 | async_op | - |PyTorch: the async op flag. MindSpore does not have this parameter|
 | Input | Single input | - | input_x | PyTorch: not applied. MindSpore: the input tensor of AllGather. |
