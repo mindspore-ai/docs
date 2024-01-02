@@ -114,7 +114,7 @@ In a MindIR, a function graph (FuncGraph) indicates the definition of a common f
 
 In the ANF, each expression is bound as a variable by using the let expression, and the dependency on the expression output is represented by referencing the variable. In the MindIR, each expression is bound as a node, and the dependency is represented by using the directed edges between nodes.
 
-### Function-style Semantics
+### Function-Style Semantics
 
 Compared with traditional computational graphs, MindIR can not only express data dependency between operators, but also express rich function-style semantics.
 

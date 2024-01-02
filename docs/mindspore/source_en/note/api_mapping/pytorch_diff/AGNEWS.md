@@ -36,12 +36,12 @@ MindSpore: Read the AG News dataset. Downloading dataset from web is not support
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
-|Parameter | Parameter1 | root    | dataset_dir    | - |
+|Parameters | Parameter1 | root    | dataset_dir    | - |
 |     | Parameter2 | split      | usage    |- |
 |     | Parameter3 | -    | num_samples | The number of images to be included in the dataset |
-|     | Parameter4 | -    | num_parallel_workers | Number of worker threads to read the data |
+|     | Parameter4 | -    | num_parallel_workers | The number of worker threads to read the data |
 |     | Parameter5 | -    | shuffle  | Whether to perform shuffle on the dataset |
-|     | Parameter6 | -    | num_shards | Number of shards that the dataset will be divided into |
+|     | Parameter6 | -    | num_shards | The number of shards that the dataset will be divided into |
 |     | Parameter7 | -    | shard_id | The shard ID within num_shards |
 |     | Parameter8 | -    | cache | Use tensor caching service to speed up dataset processing |
 
