@@ -49,7 +49,7 @@ The training process of the whole network consists of 5 modules:
    details and procedures and greatly reduces the threshold of
    framework. When you need to customize the gradient, MindSpore also
    provides
-   `interface <https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/layer.html#自定义cell反向>`__
+   `interface <https://www.mindspore.cn/tutorials/en/master/advanced/modules/layer.html#custom-cell-reverse>`__
    to freely implement the gradient calculation.
 
 -  Optimizer: used to calculate and update network parameters during
@@ -218,7 +218,7 @@ for the following situations:
    building <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html>`__
    for dynamic shape mitigation.
 3. Customized mixed precision conflicts with ``amp_level`` in Model, so
-   don’t set ``amp_level`` in Model if you use customized mixed
+   don't set ``amp_level`` in Model if you use customized mixed
    precision.
 4. In Ascend environment, Conv, Sort and TopK can only be float16, and
    add `loss

@@ -36,7 +36,7 @@ MindSpore: Read the AmazonReviewFull dataset. Downloading dataset from web is no
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | ---   | ---   | ---        |---  |
-|Parameter | Parameter1 | root    | dataset_dir    | - |
+|Parameters | Parameter1 | root    | dataset_dir    | - |
 |     | Parameter2 | split      | usage    |- |
 |     | Parameter3 | -    | num_samples | Specify the number of samples to read from the dataset |
 |     | Parameter4 | -    | num_parallel_workers | Specify the number of worker threads to read from the dataset|

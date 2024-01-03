@@ -36,14 +36,14 @@ By following these steps, we can obtain two aspects of performance gains:
 
 As mentioned earlier, in scenarios such as HPC and deep neural network training, graph-kernel fusion optimization can bring exponential performance improvements. However, with the increasing capability of graph-kernel fusion, the development of fusion operator becomes a bottleneck point to continue to improve the graph-kernel fusion capability. The automatic generation technology of fusion operators can solve the problem of high programming threshold for developing fusion operators based on DSA, allowing programmers to focus on the implementation logic of operators during operator development without focusing on back-end optimization, which greatly improves their development efficiency. Especially for scenarios with complex back-end hardware architectures and the presence of complex operators and fusion operators, automatic operator generation techniques are more critical.
 
-Therefore, **MindSpore AKG accelerates optimization and automatic generation of fusion operator based on Polyhedral Compilation Technology (Polyhedral Model)**, can help fused operators optimized by MindSpore graph-kernel fusion module to automatically generate high-performance kernel on **heterogeneous hardware platforms** (GPU/Ascend) and improve MindSpore's training performance.
+Therefore, **MindSpore AKG accelerates optimization and automatic generation of fusion operator based on Polyhedral Compilation Technology (Polyhedral Model)**, can help fused operators optimized by MindSpore graph-kernel fusion module to automatically generate high-performance kernel on **heterogeneous hardware platforms** (GPU/Ascend) and improve MindSpore training performance.
 
 ### Architecture and Overall Process
 
 The overall framework of MindSpore AKG is shown in the figure above:
 
 - IR Normalization
-    - The input of MindSpore AKG is the fused subgraph optimized by MindSpore graph-kernel fusion module, and the operator in the subgraph is expressed by various descriptions such as TVM's Compute / IR Builder / Hybrid. The DSL is then converted to Halide IR ([Halide](https://halide-lang.org/), a common language used to develop high-performance image processing and Array computation, which can be used as an intermediate expression for decoupling algorithms and optimization) and IR normalization.
+    - The input of MindSpore AKG is the fused subgraph optimized by MindSpore graph-kernel fusion module, and the operator in the subgraph is expressed by various descriptions such as TVM's Compute/IR Builder/Hybrid. The DSL is then converted to Halide IR ([Halide](https://halide-lang.org/), a common language used to develop high-performance image processing and Array computation, which can be used as an intermediate expression for decoupling algorithms and optimization) and IR normalization.
     - After the initial simplification and optimization is completed, the Halide IR is transformed into the scheduling tree required by the Poly module.
 - Poly module scheduling optimization
     - Using the Pluto scheduling algorithm in Polyhedral technology to achieve automatic fusion of loops, automatic rearrangement and other transformations to automatically generate an initial schedule that satisfies parallelism and data locality for the fusion operator.
