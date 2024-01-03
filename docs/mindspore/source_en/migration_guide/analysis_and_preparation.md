@@ -5,7 +5,7 @@
 ## Reproducing Algorithm Implementation
 
 1. Obtain the PyTorch reference code.
-2. Analyzing the algorithm, network structure, and tricks in the original code, including the method of data augmentation, learning rate attenuation policy, optimizer parameters, and the initialization method of training parameters, etc.
+2. Analyze the algorithm, network structure, and tricks in the original code, including the method of data augmentation, learning rate attenuation policy, optimizer parameters, and the initialization method of training parameters, etc.
 3. Reproduce the accuracy of the reference implementation, obtain the performance data of the reference implementation, and identify some issues in advance.
 
 Please refer to [Details of Reproducing Algorithm Implementation](https://www.mindspore.cn/docs/en/master/migration_guide/reproducing_algorithm.html).
@@ -29,7 +29,7 @@ Refer to [PyCharm API Scanning](https://www.mindspore.cn/devtoolkit/docs/en/mast
 
 ![api_scan_pycharm](./images/api_scan_pycharm.jpg)
 
-Refer to [Visual Studio Code API Scanning](https://www.mindspore.cn/devtoolkit/docs/en/master/VSCode_api_scan.html) for the tutorials of Dev Toolkit in PyCharm.
+Refer to [Visual Studio Code API Scanning](https://www.mindspore.cn/devtoolkit/docs/en/master/VSCode_api_scan.html) for the tutorials of Dev Toolkit in Visual Studio Code.
 
 ![api_scan_pycharm](./images/api_scan_vscode.jpg)
 
