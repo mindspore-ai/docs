@@ -177,7 +177,7 @@ if os.getenv("GS_PATH").split('/')[-1]:
 else:
     copy_repo = os.getenv("GS_PATH").split('/')[-2]
 
-branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
+branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo.replace('-','_')][0]
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
 cst_module_name = 'mindspore_gs'
 repo_whl = 'mindspore_gs'
