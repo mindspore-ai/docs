@@ -229,7 +229,7 @@ Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/per
   training dataset. For example, the `num_samples` parameter in
   `mindspore.dataset.MindDataset` can control the size of the
   dataset. For details, please refer to:
-  [dataset API](https://www.mindspore.cn/docs/en/r2.3/api_python/dataset/mindspore.dataset.MindDataset.html).
+  [dataset API](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MindDataset.html).
 
 - The parsing of Timeline data is time consuming, and usually the data of
 
