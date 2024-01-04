@@ -2,13 +2,13 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/lite/docs/source_en/scene_detection_lite.md)
 
-## Scene dectectin introduction
+## Scene Detection Introduction
 
 Scene detection can identify the type of scene in the device's camera.
 
 Using MindSpore Lite to implement scene detection [example](https://gitee.com/mindspore/models/tree/master/official/lite/scene_detection).
 
-## Scene detection model list
+## Scene Detection Model List
 
 The following table shows the data of some scene detection models using MindSpore Lite inference.
 

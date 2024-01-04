@@ -49,7 +49,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     [mindspore/lite/tools/converter/parser/caffe/caffe_model_parser.cc:**] ConvertLayers] parse node **** failed.
     ```
 
-    - Analysis: The converter supports the operator conversion, but does not support a special attribute or parameter of the operator. As a result, the model conversion fails. (The following uses Caffe as an example. The log information of other frameworks is the same.)
+    - Analysis: The converter supports the operator conversion, but does not support a special attribute or parameter of the operator. As a result, the model conversion fails. (The following uses caffe as an example. The log information of other frameworks is the same.)
     - Solution: Add the custom operator parsers by inheriting the API [NodeParser](https://mindspore.cn/lite/api/en/r2.3/generate/classmindspore_converter_NodeParser.html) and register the parsers by using [NodeParserRegistry](https://mindspore.cn/lite/api/en/r2.3/generate/classmindspore_registry_NodeParserRegistry.html). Alternatively, commit an [issue](https://gitee.com/mindspore/mindspore/issues) to MindSpore Lite developers in the community.
 
 ## Post-training Quantization Conversion Failed
@@ -329,7 +329,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 
 ## Issues Related to Using Visual Studio
 
-1. When the static library is used, an error message is displayed, indicating that the Creator function of the parameter cannot be found. The following error information is displayed in logs:
+1. When the static library is used, an error message is displayed, indicating that the Creator function of the Parameter cannot be found. The following error information is displayed in logs:
 
     ```text
     ERROR [mindspore\lite\src\ops\populate\populate_register.h:**] GetParameterCreator] Unsupported parameter type in Create : **
@@ -339,7 +339,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ERROR [mindspore\lite\src\lite_session.cc:**] CompileGraph] Schedule kernels failed: -500
     ```
 
-    - Analysis: When the static library is linked, not all symbols in the static library are imported by default. The Creator function of parameter is registered with the singleton object through the global static object.
+    - Analysis: When the static library is linked, not all symbols in the static library are imported by default. The Creator function of Parameter is registered with the singleton object through the global static object.
 
     - Solution: When linking the static library built by Visual Studio, choose "Properties > Linker > Command Line > Additional Options" and add /WHOLEARCHIVE:libmindspore-lite.lib.
 
