@@ -30,7 +30,7 @@ The overall MindSpore architecture is divided into four layers:
 
 MindSpore is a full-scenario deep learning framework that aims to achieve three goals: easy development, efficient execution, and unified deployment for all scenarios. Ease of development is characterized by a friendly API and low debugging difficulty; efficient execution includes computational efficiency, data preprocessing efficiency, and distributed training efficiency; and full-scenario means that the framework supports cloud, edge, and device-side scenarios at the same time.
 
-### Programming Paradigm
+### Functional and Object Fusion Programming Paradigm
 
 MindSpore offers both object-oriented and function-oriented [programming paradigms](https://www.mindspore.cn/docs/en/r2.3/design/programming_paradigm.html), both of which can be used to build network algorithms and training processes.
 
@@ -74,7 +74,7 @@ MindSpore offers some more distinctive techniques in addition to the usual optim
 
 #### [Graph-kernel Fusion](https://www.mindspore.cn/docs/en/r2.3/design/graph_fusion_engine.html)
 
-Mainstream AI computing frameworks such as MindSpore provide operators to users that is usually defined in terms of understandable and easy use for user. Each operator carries a different amount of computation and varies in computational complexity. However, from the hardware execution point of view, this natural, user perspective-based division of operator computation volume is not efficient and does not fully utilize the computational power of hardware resources, which is mainly reflected in the following aspects:
+Mainstream AI computing frameworks such as MindSpore provide operators to users that are usually defined in terms of understandable and easy use for user. Each operator carries a different amount of computation and varies in computational complexity. However, from the hardware execution point of view, this natural, user perspective-based division of operator computation volume is not efficient and does not fully utilize the computational power of hardware resources, which is mainly reflected in the following aspects:
 
 1. Computationally overloaded and overly complex operators, which usually makes it difficult to generate well-cut high-performance operator, thereby reducing equipment utilization.
 2. Operators that are too small in computation may also cause latency in computation and thus reduce equipment utilization, as the computation cannot effectively hide the data moving overhead.
@@ -86,7 +86,7 @@ MindSpore has adopted the technique of graph kernel fusion to better solve this 
 
 #### Competitive Optimization for Ascend Hardware
 
-The Device in On Device usually refers to the Ascend AI processor. The AICORE, AICPU and CPU are integrated on the Ascend chip, where the AICORE is responsible for large Tensor Vector operations, the AICPU is responsible for scalar operations, and the CPU is responsible for logic control and task distribution.
+The Device in On Device usually refers to the Ascend AI processor. The AI CORE, AICPU and CPU are integrated on the Ascend chip, where the AI CORE is responsible for large Tensor Vector operations, the AI CPU is responsible for scalar operations, and the CPU is responsible for logic control and task distribution.
 
 The CPU on the Host side is responsible for sending the graph or operator down to the Ascend chip. With the functions of computing, logic control and task distribution, the Ascend chip does not need to interact frequently with the CPU on the Host side, but only needs to return the final result after computation to the Host side to realize the whole graph sinking to the Device for execution, avoiding frequent Host-Device interaction and reducing the overhead.
 

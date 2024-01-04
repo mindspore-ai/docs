@@ -10,7 +10,7 @@ The following describes each of the three types of programming paradigms support
 
 Object-oriented programming (OOP) is a programming method that decomposes programs into modules (classes) that encapsulate data and related operations, with objects being instances of classes. Object-oriented programming uses objects as the basic unit of a program, encapsulating the program and data in order to improve the reusability, flexibility and extensibility of the software, and the program in the object can access and often modify the data associated with the object.
 
-In a general programming scenario, code and data are the two core components. Object-oriented programming is to design data structures for specific objects to define classes (Class). The class usually consists of the following two parts, corresponding to code and data, respectively:
+In a general programming scenario, code and data are the two core components. Object-oriented programming is to design data structures for specific objects to define classes. The class usually consists of the following two parts, corresponding to code and data, respectively:
 
 - Methods
 - Attributes
@@ -260,7 +260,7 @@ $$
 \tag{10}
 $$
 
-### `grad`
+### `grad` Implementation
 
 `grad` uses reverse mode AD, which calcultes gradients from network outputs.
 
@@ -296,7 +296,7 @@ F(v): {
 }
 ```
 
-#### `grad` Implementation
+#### `grad` Algorithm Implementation
 
 In `grad` process, the function that needs to calculate gradient will be taken out and used as the input of automatic differentiation module.
 
@@ -451,6 +451,6 @@ for i in range(epochs):
         loss = train_step(inputs, targets)
 ```
 
-As in the above example, object-oriented programming is used in the construction of the neural network, and the neural network layers are constructed in a manner consistent with the conventions of AI programming. When performing forward computation and backward propagation, MindSpore uses functional programming to construct the forward computation as a function, then obtain `grad_fn` by function transformation, and finally obtain the gradient corresponding to the weights by executing `grad_fn`.
+As in the above example, object-oriented programming is used in the construction of the neural network, and the neural network layers are constructed in a manner consistent with the conventions of AI programming. When performing forward computation and backward propagation, MindSpore uses functional programming to construct the forward computation as a function, then obtains `grad_fn` by function transformation, and finally obtains the gradient corresponding to the weights by executing `grad_fn`.
 
 The functional + object-oriented fusion programming ensures the ease of use of neural network construction and improves the flexibility of training processes such as forward computation and backward propagation, which is the default programming paradigm recommended by MindSpore.

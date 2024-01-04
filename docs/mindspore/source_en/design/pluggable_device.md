@@ -54,6 +54,6 @@ If the chip vendor's software stack can provide completely high level APIs, or i
 
 - Graph compilation. The third-party chip vendor needs to transform MindSpore Anf IR into a third-party IR graph representation and perform a third-party graph compilation process to compile the graph to an executable ready state.
 
-- Graph execution. The third-party chip vendor needs to understand MindSpore's Tensor format or transform it into a format that can be understood, and call the execution of the ready graph and transform the result of the execution into MindSpore Tensor format.
+- Graph execution. The third-party chip vendor needs to understand MindSpore Tensor format or transform it into a format that can be understood, and call the execution of the ready graph and transform the result of the execution into MindSpore Tensor format.
 
 ![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/docs/mindspore/source_zh_cn/design/images/pluggable_device_graph.png)
