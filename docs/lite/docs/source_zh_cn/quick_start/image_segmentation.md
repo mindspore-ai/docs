@@ -10,7 +10,7 @@
 
 ## 选择模型
 
-  选择图像分割模型。
+选择图像分割模型。
 
 >你可以在这里找到[Android图像分割模型](https://download.mindspore.cn/model_zoo/official/lite/mobile_segment_lite/segment_model.ms)。
 >
@@ -46,7 +46,7 @@
 
     Android Studio连接设备调试操作，可参考<https://developer.android.com/studio/run/device?hl=zh-cn>。
 
-    手机需开启“USB调试模式”，Android Studio才能识别到手机。 华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
+    手机需开启“USB调试模式”，Android Studio才能识别到手机。华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
 
 3. 在Android设备上，点击“继续安装”，安装完即可查看到本地相册以及设备摄像头拍照的头像图片进行分割推理的结果。
 
@@ -107,7 +107,7 @@ Android调用MindSpore Android AAR时，需要相关库文件支持。可通过M
 
 本示例中，build过程由`app/download.gradle`文件自动下载MindSpore Lite版本文件，并放置在`app/libs`目录下。
 
-注： 若自动下载失败，请手动下载相关库文件[mindspore-lite-{version}-android-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，解压后将其放在对应位置。
+注：若自动下载失败，请手动下载相关库文件[mindspore-lite-{version}-android-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，解压后将其放在对应位置。
 
 ### 下载及部署模型文件
 

@@ -185,7 +185,7 @@
     ```
 
     - 问题分析：TensorRT GPU 构图暂不支持有动态 shape 的模型，具体情况为模型的输入 shape 包含-1，或者模型中包含 shape 算子。
-    - 解决方法：在使用 converter 将模型转换成ms时，需要在[转换命令](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)上设置`--inputShape=<INPUTSHAPE>`，指定输入 tensor 的 shape 信息。如需在推理时改变输入 shape，使用 benchmark 工具时可通过设置[inputShapes](https://mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#参数说明) 参数指定，使用 MindSpore Lite 集成开发时可通过调用[Resize](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize) 方法设置。注意： [Resize](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize)输入的 shape 维度必须要小于等于 [Build](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)模型的维度。
+    - 解决方法：在使用 converter 将模型转换成ms时，需要在[转换命令](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)上设置`--inputShape=<INPUTSHAPE>`，指定输入 tensor 的 shape 信息。如需在推理时改变输入 shape，使用 benchmark 工具时可通过设置[inputShapes](https://mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#参数说明) 参数指定，使用 MindSpore Lite 集成开发时可通过调用[Resize](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize) 方法设置。注意：[Resize](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize)输入的 shape 维度必须要小于等于 [Build](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)模型的维度。
 
 #### 图执行失败
 
