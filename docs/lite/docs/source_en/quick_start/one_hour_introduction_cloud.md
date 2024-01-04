@@ -23,7 +23,7 @@ In addition, users can use Python interface and Java interface of MindSpore Lite
 
 2. Download distributions
 
-    Users can download the MindSpore Lite cloud-side inference package `mindspore-lite-{ version}-linux-{arch}.tar.gz` on the [download page](https://www.mindspore.cn/lite/docs/en/r2.3/use/downloads.html) of MindSpore official website, `{arch}` for `x64` or `aarch64`. `x64` version supports Ascend, Nvidia GPU, CPU three hardware backends, `aarch64` only supports Ascend and CPU hardware backends.
+    Users can download the MindSpore Lite cloud-side inference package `mindspore-lite-{version}-linux-{arch}.tar.gz` on the [download page](https://www.mindspore.cn/lite/docs/en/r2.3/use/downloads.html) of MindSpore official website, `{arch}` for `x64` or `aarch64`. `x64` version supports Ascend, Nvidia GPU, CPU three hardware backends, `aarch64` only supports Ascend and CPU hardware backends.
 
     The following is the contents of the `x64` tar package.
 

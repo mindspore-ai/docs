@@ -10,7 +10,7 @@ This tutorial demonstrates the on-device deployment process based on the image s
 
 ## Selecting a Model
 
-  Select an image segmentation model.
+Select an image segmentation model.
 
 > Click [here](https://download.mindspore.cn/model_zoo/official/lite/mobile_segment_lite/segment_model.ms) to download the Android image segmentation model.
 >
@@ -46,13 +46,13 @@ The following describes how to build and execute an on-device image segmentation
 
     For details about how to connect the Android Studio to a device for debugging, see <https://developer.android.com/studio/run/device>.
 
-    Android Studio can identify the mobile phone only when USB debugging mode is enabled on the mobile phone.  For Huawei phones, enable USB debugging mode by choosing Settings > System & updates > Developer options > USB debugging.
+    Android Studio can identify the mobile phone only when USB debugging mode is enabled on the mobile phone. For Huawei phones, enable USB debugging mode by choosing `Settings > System & updates > Developer options > USB debugging`.
 
 3. On the Android device, click Continue. After the installation is complete, you can view the local album and the segmentation result of the image taken by the camera.
 
     ![install](../images/lite_segmentation_quick_start_install.png)
 
-    The running result is shown in the following figure. (A portrait in the album is used as an example.)
+    The running result is shown in the following figure (A portrait in the album is used as an example).
 
     ![result1](../images/segmentation1.png)
 

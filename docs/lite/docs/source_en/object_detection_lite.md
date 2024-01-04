@@ -2,9 +2,9 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/lite/docs/source_en/object_detection_lite.md)
 
-## Object dectectin introduction
+## Object Detection Introduction
 
-Object detection can identify the object in the image and its position in the image. For the following figure, the output of the object detection model is shown in the following table. The rectangular box is used to identify the position of the object in the graph and the probability of the object category is marked. The four numbers in the coordinates are Xmin, Ymin, Xmax, Ymax; the probability represents the probility of the detected object.
+Object detection can identify the object in the image and its position in the image. For the following figure, the output of the object detection model is shown in the following table. The rectangular box is used to identify the position of the object in the graph and to mark the probability of the object category. The four numbers in the coordinates are Xmin, Ymin, Xmax, Ymax; the probability represents the probility of the detected object.
 
 ![object_detectiontion](images/object_detection.png)
 
@@ -14,7 +14,7 @@ Object detection can identify the object in the image and its position in the im
 
 Using MindSpore Lite to implement object detection [example](https://gitee.com/mindspore/models/tree/master/official/lite/object_detection).
 
-## Object detection model list
+## Object Detection Model List
 
 The following table shows the data of some object detection models using MindSpore Lite inference.
 

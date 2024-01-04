@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/lite/docs/source_en/style_transfer_lite.md)
 
-## Style transfer introduction
+## Style Transfer Introduction
 
 The style transfer model can change the artistic style of the user's target image according to the standard image built in this demo, and display it in the App image preview interface. Users can save the style transfer result or restore the original form of the target image.
 
