@@ -1,79 +1,62 @@
 MindSpore Quantum文档
 =========================
 
-MindSpore Quantum是基于MindSpore的新一代量子计算领域套件，支持多种量子神经网络的训练和推理。
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 初级使用教程
+   :hidden:
 
-MindSpore Quantum聚焦于NISQ阶段的算法实现与落地。结合HiQ高性能量子计算模拟器和昇思MindSpore并行自动微分能力，MindSpore Quantum有着极简的开发模式和极致的性能体验，能够高效处理量子机器学习、量子化学模拟和量子组合优化等问题，为广大科研人员、老师和学生提供快速设计和验证量子算法的高效平台，让量子计算触手可及。
-
-.. raw:: html
-
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindquantum/docs/source_zh_cn/images/mindquantum_cn.png" width="700px" alt="" >
-
-代码仓地址： <https://gitee.com/mindspore/mindquantum>
-
-使用MindSpore Quantum的典型场景
---------------------------------
-
-1. `量子机器学习 <https://www.mindspore.cn/mindquantum/docs/zh-CN/master/qnn_for_nlp.html>`_
-
-   将量子神经网络加入训练过程，提高收敛精度。
-
-2. `量子化学模拟 <https://www.mindspore.cn/mindquantum/docs/zh-CN/master/vqe_for_quantum_chemistry.html>`_
-
-   使用量子变分求解器，求解分子体系基态能量。
-
-3. `量子组合优化 <https://www.mindspore.cn/mindquantum/docs/zh-CN/master/quantum_approximate_optimization_algorithm.html>`_
-
-   利用QAOA算法来解决最大割问题。
+   beginner/beginner
+   beginner/parameterized_quantum_circuit
+   beginner/quantum_simulator
+   beginner/quantum_measurement
+   beginner/advanced_operations_of_quantum_circuit
+   beginner/bloch_sphere
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 安装部署
+   :caption: 中级使用教程
+   :hidden:
 
-   mindquantum_install
-
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 基础使用指南
-
-   parameterized_quantum_circuit
-   quantum_simulator
-   initial_experience_of_quantum_neural_network
-   get_gradient_of_PQC_with_mindquantum
-   advanced_operations_of_quantum_circuit
-   quantum_measurement
-   noise
-   noise_simulator
-   qubit_mapping
-   bloch_sphere
+   middle_level/middle_level
+   middle_level/noise
+   middle_level/noise_simulator
+   middle_level/qubit_mapping
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 变分量子算法
+   :caption: 高级使用教程
+   :hidden:
 
-   classification_of_iris_by_qnn
-   quantum_approximate_optimization_algorithm
-   qnn_for_nlp
-   vqe_for_quantum_chemistry
-   equivalence_checking_of_PQC
+   advanced/advanced
+   advanced/get_gradient_of_PQC_with_mindquantum
+   advanced/initial_experience_of_quantum_neural_network
+   advanced/equivalence_checking_of_PQC
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 通用量子算法
+   :caption: 案例库
+   :hidden:
 
-   quantum_phase_estimation
-   grover_search_algorithm
-   shor_algorithm
-   hhl_algorithm
+   case_library/case_library
+   case_library/grover_search_algorithm
+   case_library/shor_algorithm
+   case_library/hhl_algorithm
+   case_library/quantum_phase_estimation
+   case_library/quantum_approximate_optimization_algorithm
+   case_library/classification_of_iris_by_qnn
+   case_library/vqe_for_quantum_chemistry
+   case_library/qnn_for_nlp
 
 .. toctree::
+   :glob:
    :maxdepth: 1
-   :caption: API参考
+   :caption: API
+   :hidden:
 
    overview
    mindquantum.dtype
@@ -89,6 +72,164 @@ MindSpore Quantum聚焦于NISQ阶段的算法实现与落地。结合HiQ高性�
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: 论文复现代码
+   :hidden:
+
+   paper_with_code
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: RELEASE NOTES
+   :hidden:
 
    RELEASE
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 安装指南
+   :hidden:
+
+   mindquantum_install
+
+.. raw:: html
+
+   <div class="container">
+			<div class="row">
+            <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./mindquantum_install.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">安装指南</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              了解如何在不同系统中安装MindSpore Quantum，或者以开发者身份本地化快速编译并调试MindSpore Quantum。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+					</div>
+				</div>
+				<div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./beginner/beginner.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">初级使用教程</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              了解 MindSpore Quantum 的基本组成元素，包括<b style="color: #3366FF">量子门</b>、<b style="color: #3366FF">量子线路</b>、<b style="color: #3366FF">哈密顿量</b>和<b style="color: #3366FF">量子模拟器</b>的生成与使用。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+					</div>
+				</div>
+         </div>
+         <div class="row">
+            <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./middle_level/middle_level.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">中级使用教程</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              了解 MindSpore Quantum 在<b style="color: #3366FF">含噪声量子模拟</b>、<b style="color: #3366FF">量子线路编译</b>、<b style="color: #3366FF">比特映射</b>等更贴近真实量子芯片场景的应用。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+					</div>
+				</div>
+            <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./advanced/advanced.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">高级使用教程</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              了解 MindSpore Quantum 针对 NISQ 算法的设计与使用，特别是如何设计<b style="color: #3366FF">变分量子算法</b>以及与 MindSpore 协同完成<b style="color: #3366FF">量子-经典混合算法</b>的训练。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+					</div>
+				</div>
+         </div>
+         <div class="row">
+            <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./case_library/case_library.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">案例库</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              介绍 MindSpore Quantum 在<b style="color: #3366FF">通用量子算法</b>与<b style="color: #3366FF">变分量子算法</b>领域的完整案例教程，快速入门相关研究领域。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+					</div>
+				</div>
+            <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./overview.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">API</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              MindSpore Quantum API说明列表。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+					</div>
+				</div>
+		   </div>
+         <div class="row">
+            <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./paper_with_code.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">论文复现代码</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              开源贡献者以及官方基于学术论文的复现代码。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+					</div>
+				</div>
+            <div class="col-md-6">
+               <div class="doc-article-list">
+                  <div class="doc-article-item">
+                     <a href="./RELEASE.html" class="article-link">
+                        <div>
+                           <div class="doc-article-head">
+                              <span class="doc-head-content">RELEASE NOTES</span>
+                           </div>
+                           <div class="doc-article-desc">
+                              包含发布版本的主要特性和增强，API变更等信息。
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+					</div>
+				</div>
+		   </div>
+	</div>
