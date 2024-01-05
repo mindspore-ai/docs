@@ -6,7 +6,7 @@
 
 ## Overview
 
-Here we will demonstrate the code that trains a LeNet model using MindSpore Training-on-Device infrastructure. The code segments that are given below are provided fully in [train_lenet_cpp](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet_cpp/).
+This tutorial is based on [LeNet training example code](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet_cpp) and demonstrates training a LeNet on an Android device .
 
 The completed training procedure is as follows:
 
@@ -22,7 +22,7 @@ Ubuntu 18.04 64-bit operating system on x86 platform is recommended.
 
 ### Environment Requirements
 
-- The compilation environment supports Linux x86_64 only. Ubuntu 18.04.02 LTS is recommended.
+- The compilation environment supports Linux x86_64 only. Ubuntu 18.04.02LTS is recommended.
 
 - Software dependency
 
@@ -35,7 +35,7 @@ Ubuntu 18.04 64-bit operating system on x86 platform is recommended.
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
         - Configure environment variables: `export ANDROID_NDK=NDK path`.
 
-### DataSet
+### Downloading the Dataset
 
 The `MNIST` dataset used in this example consists of 10 classes of 28 x 28 pixels grayscale images. It has a training set of 60,000 examples, and a test set of 10,000 examples.
 
@@ -68,9 +68,9 @@ git clone https://gitee.com/mindspore/mindspore.git -b {version}
 cd ./mindspore
 ```
 
-The `mindspore/lite/examples/train_lenet_cpp` directory relative to the MindSpore Lite source code contains this demo's source code. The version is consistent with that of [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html) below. If -b the master is specified, you need to obtain the corresponding installation package through [compile from source](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html).
+The `mindspore/lite/examples/train_lenet_cpp` directory relative to the MindSpore Lite source code contains this demo's source code. The version is consistent with that of [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) below. If -b the master is specified, you need to obtain the corresponding installation package through [compile from source](https://www.mindspore.cn/lite/docs/en/master/use/build.html).
 
-Go to the [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html) to download the mindspore-lite-{version}-linux-x64.tar.gz and mindspore-lite-{version}-android-aarch64.tar.gz. The mindspore-lite-{version}-linux-x64.tar.gz is the MindSpore Lite install package for x86 platform, it contains the converter tool `converter_lite`, this demo uses it to converte `MIDIR` model to `.ms` which is supported by MindSpore Lite; The mindspore-lite-{version}-android-aarch64.tar.gz is the MindSpore Lite install package for Android, it contains training runtime library `libmindspore-lite.so`, this demo uses it to train model. Then put the files to the `output` directory relative to MindSpore Lite source code（if there is no `output` directory，you should create it).
+Go to the [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) to download the mindspore-lite-{version}-linux-x64.tar.gz and mindspore-lite-{version}-android-aarch64.tar.gz. The mindspore-lite-{version}-linux-x64.tar.gz is the MindSpore Lite install package for x86 platform, it contains the converter tool `converter_lite`, this demo uses it to converte `MIDIR` model to `.ms` which is supported by MindSpore Lite; The mindspore-lite-{version}-android-aarch64.tar.gz is the MindSpore Lite install package for Android, it contains training runtime library `libmindspore-lite.so`, this demo uses it to train model. Then put the files to the `output` directory relative to MindSpore Lite source code (if there is no `output` directory，you should create it).
 
 Suppose these packags are downloaded in `/Downloads` directory, `Linux` commands for operations above is as follows:
 
@@ -80,13 +80,15 @@ cp /Downloads/mindspore-lite-{version}-linux-x64.tar.gz output/mindspore-lite-{v
 cp /Downloads/mindspore-lite-{version}-android-aarch64.tar.gz output/mindspore-lite-{version}-android-aarch64.tar.gz
 ```
 
-You can also [compile from source](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html) to generate the training package for x86 platform mindspore-lite-{version}-linux-x64.tar.gz and for Andorid platform mindspore-lite-{version}-android-aarch64.tar.gz. These packages will directly generated in `output` directory and you should make sure that in the `output` directory both the two packages exist.
+You can also [compile from source](https://www.mindspore.cn/lite/docs/en/master/use/build.html) to generate the training package for x86 platform mindspore-lite-{version}-linux-x64.tar.gz and for Andorid platform mindspore-lite-{version}-android-aarch64.tar.gz. These packages will directly generated in `output` directory and you should make sure that in the `output` directory both the two packages exist.
 
 ### Connecting Android Device
 
-Turning on the 'USB debugging' mode of your Android device and connect it with your PC by using `adb` debugging tool (run`sudo apt install adb` in Ubuntu OS command line).
+Prepare an Android device and connect it properly to the working computer via USB. The phone needs to turn on "USB debugging mode", and Huawei phone usually turns on "USB debugging mode" in `Settings->System and Updates->Developer Options->USB debugging`.
 
-## Training and Evaluation
+This example uses the [adb](https://developer.android.google.cn/studio/command-line/adb) tool to communicate with an Android device to remotely control the mobile device from a work computer. If you don't have the `adb` tool installed, you can run `apt install adb`.
+
+## Model Training and Evaluation
 
 Enter the target directory and run the training bash script. The `Linux` command is as follows:
 
@@ -179,11 +181,9 @@ The predicted classes are:
 
 > If the Android device is not available on your hand, you could also exectute `bash prepare_and_run.sh -D /PATH/MNIST_Data -t x86` and run it on the x86 platform.
 
-## Details
+## Demo Project Details
 
-### Folder Structure
-
-The demo project folder structure:
+### Demo Project Folder Structure
 
 ```text
 train_lenet_cpp/
@@ -214,7 +214,7 @@ train_lenet_cpp/
 
 Whether it is an off-the-shelf prepared model, or a custom written model, the model needs to be exported to a `.mindir` file. Here we use the already-implemented [LeNet model](https://gitee.com/mindspore/models/tree/master/research/cv/lenet).
 
-Import and instantiate a LeNet5 model and set the model to train mode:
+> This summary is exported using the MindSpore cloud side feature. For more information, please refer to [MindSpore Tutorial](https://www.mindspore.cn/tutorials/experts/en/master/index.html).
 
 ```python
 import numpy as np
@@ -227,9 +227,7 @@ n.set_train()
 ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU", save_graphs=False)
 ```
 
-Set MindSpore context and initialize the data and label tensors. In this case we use a MindSpore that was compiled for CPU. We define a batch size of 32 and initialize the tensors according to MNIST data -- single channel 32x32 images.
-
-The tensors does not need to be loaded with relevant data, but the shape and type must be correct. Note also, that this export code runs on the server, and in this case uses the CPU device. However, the Training on Device will run according to the [context](https://www.mindspore.cn/lite/docs/en/master/use/runtime_train_cpp.html#creating-contexts)
+Then define the input and label tensor sizes:
 
 ```python
 BATCH_SIZE = 32
@@ -238,7 +236,7 @@ label = ms.Tensor(np.zeros([BATCH_SIZE]).astype(np.int32))
 net = TrainWrap(n)
 ```
 
-Wrapping the network with a loss layer and an optimizer and `export` it to a `MindIR` file. `TrainWrap` is provided in the example as:
+Define the loss function, network trainable parameters, optimizer, and enable single-step training, implemented by the `TrainWrap` function.
 
 ```python
 from mindspore import nn
@@ -260,22 +258,26 @@ def train_wrap(net, loss_fn=None, optimizer=None, weights=None):
     return train_net
 ```
 
-Finally, exporting the defined model.
+Wrapping the network with a loss layer and an optimizer and `export` it to a `MindIR` file. `TrainWrap` is provided in the example as:
 
 ```python
 ms.export(net, x, label, file_name="lenet_tod", file_format='MINDIR')
 print("finished exporting")
 ```
 
+If the output `finished exporting` indicates that the export was successful, the generated `lenet_tod.mindir` file is in the `... /train_lenet_cpp/model` directory. See `lenet_export.py` and `train_utils.py` for the complete code.
+
 ### Model Transferring
 
-To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/lite/docs/en/master/use/converter_train.html), the command is:
+Convert `lenet_tod.mindir` to `ms` model file using MindSpore Lite `converter_lite` tool in `prepare_model.sh` by executing the command as follows:
 
 ```bash
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=lenet_tod.mindir --outputFile=lenet_tod
 ```
 
-The exported file `lenet_tod.ms` is under the folder `./train_lenet_cpp/model`.
+After successful conversion, the `lenet_tod.ms` model file is generated in the current directory.
+
+> See [training model conversion](https://www.mindspore.cn/lite/docs/en/master/use/converter_train.html) for more usage.
 
 ### Model Training
 
@@ -377,7 +379,7 @@ int NetRunner::Main() {
 
 3. Execute Training
 
-    The `TrainLoop` method is the core of the training procedure. We first display its code then review it.
+    First create pointers to an array of training callback class objects (e.g., `LRScheduler`, `LossMonitor`, `TrainAccuracy`, and `CkptSaver`); then call the `Train` function of the `TrainLoop` class to set the model into training mode; and finally iterate through the execution of functions corresponding to the callback class objects during training and outputs the training log. `CkptSaver` saves the `CheckPoint` model for the current session according to the set training step value. The `CheckPoint` model contains the updated weights, so that the `CheckPoint` model can be loaded directly when the application crashes or the device malfunctions, and training can continue.
 
     ```cpp
     int NetRunner::TrainLoop() {

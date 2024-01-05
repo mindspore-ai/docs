@@ -308,15 +308,15 @@ call benchmark.exe [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRES
 
 - 使用随机输入，其他参数使用默认值。
 
-  ```bat
-  call benchmark.exe  --modelFile=/path/to/model.ms
-  ```
+    ```bat
+    call benchmark.exe  --modelFile=/path/to/model.ms
+    ```
 
 - 使用随机输入，`timeProfiling`设为true，其他参数使用默认值。
 
-  ```bat
-  call benchmark.exe --modelFile=/path/to/model.ms --timeProfiling=true
-  ```
+    ```bat
+    call benchmark.exe --modelFile=/path/to/model.ms --timeProfiling=true
+    ```
 
 #### 精度测试
 
@@ -324,21 +324,21 @@ call benchmark.exe [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRES
 
 - 指定了准确度阈值为3%。
 
-```bat
-call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --accuracyThreshold=3
-```
+    ```bat
+    call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --accuracyThreshold=3
+    ```
 
 - 指定模型推理程序在CPU上运行。
 
-```bat
-call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --device=CPU
-```
+    ```bat
+    call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --device=CPU
+    ```
 
 - 指定输入数据的维度。
 
-```bat
-call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --inputShapes=1,32,32,1
-```
+    ```bat
+    call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --inputShapes=1,32,32,1
+    ```
 
 ### Dump功能
 
