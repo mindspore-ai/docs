@@ -12,7 +12,7 @@ The same as `benchmark`, you can use the `benchmark_train` tool to perform bench
 
 To use the `benchmark_train` tool, you need to prepare the environment as follows:
 
-- Compilation: Install build dependencies and build the MindSpore Lite training framework. The code of the `benchmark_train` tool is stored in the `mindspore/lite/tools/benchmark_train` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r2.3/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r2.3/use/build.html#compilation-example) in the build document.
+- Compilation: The code of the `benchmark_train` tool is stored in the `mindspore/lite/tools/benchmark_train` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r2.3/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r2.3/use/build.html#compilation-example) in the build document.
 
 - Configure environment variables: For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/r2.3/use/build.html#directory-structure-1) in the build document. Suppose the absolute path of MindSpore Lite training package you build is `/path/mindspore-lite-{version}-{os}-{arch}.tar.gz`, the commands to extract the package and configure the LD_LIBRARY_PATH variable are as follows:
 
@@ -114,7 +114,7 @@ total time :     2.90800 ms,    kernel cost : 2.74851 ms
 
 #### Accuracy Test
 
-The accuracy test performed by the Benchmark tool aims to verify the accuracy of the MinSpore model output by setting benchmark data (the default input and benchmark data type are float32). In an accuracy test, in addition to the `modelFile` parameter, the `benchmarkDataFile` parameter must be set. For example:
+The accuracy test performed by the Benchmark tool aims to verify the accuracy of the MinSpore model output by setting benchmark data (the default input and benchmark data type are float32). In an accuracy test, in addition to the `modelFile` parameter, the `inDataFile` and `expectedDataFile` parameters must be set. For example:
 
 ```bash
 ./benchmark_train --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --accuracyThreshold=3 --expectedDataFile=./output/test_benchmark.out
@@ -133,4 +133,4 @@ Mean bias of all nodes: 0%
 
 ### Dump
 
-For specific usage, please refer to [Dump](https://www.mindspore.cn/lite/docs/en/r2.3/use/benchmark_tool.html#dump).
+For specific usage, please refer to [Dump](https://www.mindspore.cn/lite/docs/en/r2.3/use/benchmark_tool.html#dump) of `benchmark` tool.

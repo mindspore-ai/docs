@@ -30,7 +30,7 @@ MindSpore Lite包含模块：
         - 配置环境变量：`export ANDROID_NDK=NDK路径`
     - [OpenHarmony_NDK](http://ci.openharmony.cn/workbench/cicd/dailybuild/dailylist)
         - 下载OpenHarmony NDK：前往OpenHarmony的每日构建，选择"形态组件"为"ohos-sdk"，任选一个成功构建的包进行下载。下载之后解压压缩包，其中以native开头的文件即为OpenHarmony NDK。
-        - 配置环境变量：`export OHOS_NDK=NDK路径`, `export TOOLCHAIN_NAME=ohos`
+        - 配置环境变量：`export OHOS_NDK=NDK路径`、`export TOOLCHAIN_NAME=ohos`
 - Java API模块的编译依赖（可选），未设置JAVA_HOME环境变量则不编译该模块。
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
         - 配置环境变量：`export GRADLE_HOME=GRADLE路径`和`export GRADLE_USER_HOME=GRADLE路径`
