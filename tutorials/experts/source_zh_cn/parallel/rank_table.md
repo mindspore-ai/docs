@@ -52,11 +52,11 @@
     ...
 ```
 
-其中，`allgather_test.py`是定义网络结构，`run_ran_table.sh`、`run_ran_table_cluster.sh`是执行脚本。
+其中，`allgather_test.py`是定义网络结构，`run_ran_table.sh`、`run_ran_table_cluster.sh`是执行脚本。`rank_table_8pcs.json`、`rank_table_16pcs.json`分别是8卡、16卡rank_table配置文件。
 
 ### 1. 准备Python训练脚本
 
-这里以数据并行为例，训练一个MNIST数据集的识别网络，网络结构和训练过程与数据并行网络一致。
+这里以数据并行为例，训练一个MNIST数据集的识别网络。
 
 首先指定运行模式、设备ID、硬件设备等，与单卡脚本不同，并行脚本还需指定并行模式等配置项，并通过init初始化HCCL通信。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
 
