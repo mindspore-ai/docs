@@ -8,7 +8,7 @@ For reliability requirements during training, MindSpore provides **dynamic clust
 
 The MindSpore **Dynamic Cluster** feature replaces the OpenMPI capability by **reusing the Parameter Server mode training architecture**, which can be found in the [Parameter Server Mode](https://mindspore.cn/tutorials/experts/en/master/parallel/parameter_server_training.html) training tutorial.
 
-The **Dynamic Cluster** feature starts multiple MindSpore training processes as `Workers`, and starts an additional `Scheduler` for cluster and disaster recovery. The user only needs to make a few changes to the startup script to perform distributed training.
+The **Dynamic Cluster** feature starts multiple MindSpore training processes as `Workers`, and starts an additional `Scheduler` for cluster and disaster recovery, thus, distributed training can be achieved without the need for OpenMPI's message passing mechanism. The user only needs to make a few changes to the startup script to perform distributed training.
 
 > Dynamic cluster supports Ascend, GPU and CPU, so the dynamic cluster startup script can be quickly migrated between multiple hardware platforms without additional modifications. In addition, dynamic cluster needs to run in Graph mode.
 
@@ -133,9 +133,9 @@ The directory structure is as follows:
 
 ### 1. Preparing Python Training Scripts
 
-Here, as an example of data parallel, a recognition network is trained for the MNIST dataset, and the network structure and training process are consistent with that of the data parallel network.
+Here, as an example of data parallel, a recognition network is trained for the MNIST dataset.
 
-First specify the operation mode, hardware device, etc. Unlike single card scripts, parallel scripts also need to specify configuration items such as parallel mode and initialize HCCL or NCCL communication via init. If you don't set `device_target` here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
+First specify the operation mode, hardware device, etc. Unlike single card scripts, parallel scripts also need to specify configuration items such as parallel mode and initialize HCCL, NCCL or MCCL communication via `init()`. If you don't set `device_target` here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
 
 ```python
 import mindspore as ms
@@ -280,7 +280,7 @@ epoch: 0, step: 90, loss is 0.88950706
 
 The startup script needs to be split in the multi-machine training scenario. The following is an example of performing 2-machine 8-card training, with each machine executing the startup 4 Worker:
 
-The script [run_dynamic_cluster_1.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster_1.sh) starts 1 `Scheduler` and `Worker1` to `Worker4` on node 1:
+The script [run_dynamic_cluster_1.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/run_dynamic_cluster_1.sh) starts 1 `Scheduler` process and 4 `Worker` processes on node 1:
 
 ```bash
 EXEC_PATH=$(pwd)
