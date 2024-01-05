@@ -52,11 +52,11 @@ The directory structure is as follows:
     ...
 ```
 
-`allgather_test.py` defines the network structure, `run_ran_table.sh`, and `run_ran_table_cluster.sh` are executing the scripts.
+`allgather_test.py` defines the network structure, `run_ran_table.sh`, and `run_ran_table_cluster.sh` are executing the scripts. `rank_table_8pcs.json`, `rank_table_16pcs.json` are 8 cards and 16 cards rank_table config file.
 
 ### 1. Preparing Python Training Scripts
 
-Here, as an example of data parallel, a recognition network is trained for the MNIST dataset, and the network structure and training process are consistent with that of the data parallel network.
+Here, as an example of data parallel, a recognition network is trained for the MNIST dataset.
 
 First specify the operation mode, hardware device, etc. Unlike single card scripts, parallel scripts also need to specify configuration items such as parallel mode and initialize HCCL or NCCL communication via init. If you don't set `device_target` here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
 

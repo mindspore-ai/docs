@@ -164,7 +164,7 @@ Table 1: converter_lite parameters
 | --------------------------- | ------------------- | ----------------------------------------------------------- | ------------------------------- |
 | `--fmk=<FMK>`               | Yes| Original format of the model to be converted.| MINDIR, CAFFE, TFLITE, TF, or ONNX|
 | `--modelFile=<MODELFILE>`   | Yes| Path of the model to be converted.| -                               |
-| `--outputFile=<OUTPUTFILE>` | Yes| Path and name of the converted model. The suffix .ms is automatically generated.| -                               |
+| `--outputFile=<OUTPUTFILE>` | Yes| Path and name of the converted model. The suffix `.ms` is automatically generated.| -                               |
 | `--weightFile=<WEIGHTFILE>` | Yes for Caffe model conversion| Path of the input model weight file.| -                               |
 
 > - The parameter name and value are separated by an equal sign (=) and no space is allowed between them.
@@ -198,7 +198,7 @@ In this example, we use `Netron` on a browser to visualize the `mobilenetv2.ms` 
 
         *Figure 2 Model input and output nodes*
 
-        `MODEL PROPERTIES` indicates the model attribute. The model format `MindSpore Lite v1.6.0` indicates that the model is converted by the converter 1.6.
+        `MODEL PROPERTIES` in the upper column indicates the model attribute. The model format `MindSpore Lite v1.6.0` indicates that the model is converted by the converter 1.6.
 
         In the `INPUTS` field, there is an input node, indicating that the model has an input. The input node name is `x` and the data type is `float32[1,224,224,3]`, that is, the `1x224x224x3` tensor of `float32`.
 

@@ -228,8 +228,9 @@ GPU场景下，CPU利用率分析的使用方法和Ascend场景相同。
 
 - 为了控制性能测试时生成数据的大小，大型网络建议性能调试的step数目限制在10以内。
 
-  控制step数目可以通过控制训练数据集的大小来实现，如``mindspore.dataset.MindDataset``类中的``num_samples``参数可以控制数据集大小，详情参考：
-  [``dataset API``](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.MindDataset.html)。
+  控制step数目可以通过控制训练数据集的大小来实现，如`mindspore.dataset.MindDataset`类中的`num_samples`参数可以控制数据集大小，详情参考：
+
+  [dataset API](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.MindDataset.html)。
 
 - Timeline数据的解析比较耗时，且一般几个step的数据即足够分析出结果。出于数据解析和UI展示性能的考虑，Profiler最多展示20M数据（对大型网络20M可以显示10+条step的信息）。
 

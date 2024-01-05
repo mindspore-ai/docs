@@ -226,14 +226,16 @@ Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/per
   less than 10.
 
   The number of steps can be controlled by controlling the size of
-  training dataset. For example, the ``num_samples`` parameter in
-  ``mindspore.dataset.MindDataset`` can control the size of the
+  training dataset. For example, the `num_samples` parameter in
+  `mindspore.dataset.MindDataset` can control the size of the
   dataset. For details, please refer to:
-  (``dataset API``) (https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MindDataset.html>).
+  [dataset API](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MindDataset.html).
 
-- The parse of Timeline data is time consuming, and usually the data of
+- The parsing of Timeline data is time consuming, and usually the data of
+
   a few steps is enough to analyze the results. In order to speed up
-  the data parse and UI display, Profiler will show at most 20M data
+  the data parsing and UI display, Profiler will show at most 20M data
+
   (Contain 10+ step information for large networks).
 
 - Enabling the Profiler has a partial performance impact on the training process. If the impact is significant, data collection items can be reduced. The following is a comparison of the performance of the Resnet network before and after enabling the Profiler:

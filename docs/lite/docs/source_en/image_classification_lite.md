@@ -2,9 +2,9 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/image_classification_lite.md)
 
-## Image classification introduction
+## Image Classification Introduction
 
-Image classification is to identity what an image represents, to predict the object list and the probabilities. For example，the following table shows the classification results after mode inference.
+Image classification model is to identity what an image represents, to predict the object list and the probabilities. For example, the following table shows the classification results after mode inference.
 
 ![image_classification](images/image_classification_result.png)
 
@@ -15,9 +15,9 @@ Image classification is to identity what an image represents, to predict the obj
 | Petal       | 0.7893 |
 | Flowerpot   | 0.6171 |
 
-Using MindSpore Lite to realize image classification [example](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification).
+Use MindSpore Lite to realize image classification [example](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification).
 
-## Image classification model list
+## Image Classification Model List
 
 The following table shows the data of some image classification models using MindSpore Lite inference.
 

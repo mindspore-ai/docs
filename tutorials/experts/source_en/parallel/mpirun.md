@@ -54,7 +54,7 @@ Download the OpenMPI-4.1.4 source code [openmpi-4.1.4.tar.gz] (https://www.open-
 
 ### 2. Preparing Python Training Scripts
 
-Here, as an example of data parallel, a recognition network is trained for the MNIST dataset, and the network structure and training process are consistent with that of the data parallel network.
+Here, as an example of data parallel, a recognition network is trained for the MNIST dataset.
 
 First specify the operation mode, hardware device, etc. Unlike single card scripts, parallel scripts also need to specify configuration items such as parallel mode and initialize HCCL or NCCL communication via init. If you don't set `device_target` here, it will be automatically specified as the backend hardware device corresponding to the MindSpore package.
 
