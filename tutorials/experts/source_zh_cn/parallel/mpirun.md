@@ -54,7 +54,7 @@ OpenMPI（Open Message Passing Interface）是一个开源的、高性能的消�
 
 ### 2. 准备Python训练脚本
 
-这里以数据并行为例，训练一个MNIST数据集的识别网络，网络结构和训练过程与数据并行网络一致。
+这里以数据并行为例，训练一个MNIST数据集的识别网络。
 
 首先指定运行模式、硬件设备等，与单卡脚本不同，并行脚本还需指定并行模式等配置项，并通过init初始化HCCL或NCCL通信。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
 
