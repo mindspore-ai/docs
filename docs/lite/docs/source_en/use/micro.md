@@ -159,7 +159,7 @@ Table 1: micro_param Parameter Definition
 
 2. Set the Micro configuration item
 
-   Create the micro.cfg file in the current directory. The file content is as follows:
+   Create the `micro.cfg` file in the current directory. The file content is as follows:
 
     ```text
     [micro_param]
@@ -284,7 +284,7 @@ In the usual Linux-x86/android scenario, with multi-core CPUs, Micro multi-threa
 #### Configuration
 
 By setting the `support_parallel` to true in the configuration file, the code supporting multi-threaded inference will be generated. Please refer to Table 1 for the meaning of each option in the configuration file.
-An example of a 'x86' multithreaded code generation configuration file is as follows:
+An example of a `x86` multithreaded code generation configuration file is as follows:
 
 ```text
 [micro_param]
@@ -408,7 +408,7 @@ For preparing environment section, refer to the [above](#preparing-environment),
 
 2. Set the Micro configuration item
 
-    Create the micro.cfg file in the current directory. The file content is as follows:
+    Create the `micro.cfg` file in the current directory. The file content is as follows:
 
     ```text
     [micro_param]
@@ -780,7 +780,7 @@ This chapter uses the STM32F767 startup project as an example to describe how to
 
 - Click `GENERATE CODE` above to generate code
 
-- On the PC where the `IAR` is installed, double-click `Project.eww` in the `EWARM` directory of the generated project to open the IAR project
+- Execute `make` in the generated project directory to test if the code compiles successfully.
 
 #### Integrating Model Inference Code and `Micro` Lib
 
@@ -1168,7 +1168,7 @@ Except for MCU, micro inference is a inference model that separates model struct
 
     Next, we will provide a detailed introduction to eace step and its precautions
 
-### Export inference model
+### Exporting Inference Model
 
 Users can directly refer to [Device-side training](https://www.mindspore.cn/lite/docs/en/master/use/runtime_train_cpp.html).
 
