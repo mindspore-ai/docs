@@ -66,13 +66,6 @@
 
        false：使能预编译
      -
-   * - MS_COMPILER_OP_DEBUG_CONFIG
-     - 设置tbe（含ccec）编译选项
-     - string
-     - oom：算子执行过程中，检测Global Memory是否内存越界。
-
-       默认：不设置。
-     - 实验性质的环境变量。
    * - MINDSPORE_OP_INFO_PATH
      - 指定算子信息库加载文件路径
      - string
@@ -80,24 +73,6 @@
 
        默认：不设置。
      - 仅推理使用
-   * - PARA_DEBUG_PATH
-     - dump算子json文件，生成在tune_dump目录
-     - Integer
-     - 1：使能dump算子json文件功能。
-
-       不设置或设置其它值：不使能此功能。
-
-       默认：不设置。
-     -
-   * - ENV_FUSION_CLEAR
-     - Ascend下编译时，指定atomic算子是否融合
-     - Integer
-     - 0：关闭atomic融合功能。
-
-       1：开启atomic融合功能。
-
-       默认：不设置。
-     - 仅Ascend AI处理器环境下使用。开启atomic能够提升模型执行性能，但是有时候容易引入精度问题，在极致性能场景开启。实验性质的环境变量。
 
 具体用法详见 `算子增量编译 <https://mindspore.cn/tutorials/experts/zh-CN/master/optimize/op_compilation.html>`_ ，常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/master/faq/operators_compile.html>`_ 。
 
@@ -141,22 +116,6 @@
 
        不设置或其他值：关闭通信子图复用
      -
-   * - HCCL_ALGO
-     - 用于配置集合通信Server间跨机通信算法。
-     - String
-     - ring：基于环结构的并行调度算法，当集群中Server个数为非2的整数次幂时，配置为此算法可提升通信性能。
-
-       H-D_R：递归二分和倍增算法（Halving-doubling Recursive），当集群中Server个数为2的整数次幂时，配置为此算法具有较好的亲和性，有助于通信性能提升。
-     - 配置示例：HCCL_ALGO="level0:NA;level1:ring"
-       “level0”代表Server内通信算法，当前版本仅支持配置为NA。
-       “level1”代表Server间通信算法，支持配置为“ring”或者“H-D_R”。
-   * - HCCL_FLAG
-     - 是否使能HCCL。
-     - Integer
-     - 1：使能HCCL_ALGO
-
-       0：不使能HCCL_ALGO
-     - 仅限Ascend AI处理器GE流程中使用。一般无需用户配置。
    * - DEVICE_ID
      - 昇腾AI处理器的ID，即Device在AI server上的序列号。
      - Integer
@@ -413,24 +372,6 @@ Dump功能
      - String
      - "on"，表示在当前路径生成trace构图的ir文件
      - 实验性质的环境变量
-   * - MS_ACL_DUMP_CFG_PATH
-     - ACL模式下，指向acl算子dump配置文件的绝对路径
-     - String
-     - 文件路径，只支持绝对路径
-     - acl算子dump配置文件 `参考示例 <https://gitee.com/mindspore/mindspore/blob/master/config/acl_dump_cfg.json>`_，
-       其中json文件各个字段含义：
-       "dump_list": dump的算子列表，取值为空list时，dump所有算子。
-
-       "dump_path": dump算子数据的存放路径。
-
-       "dump_mode": dump数据模式，取值范围：input、output和all，默认取值：output。可选。
-           output：dump算子的输出数据。
-           input：dump算子的输入数据。
-           all：dump算子的输入、输出数据。
-
-       "dump_op_switch": 单算子模型dump数据开关。取值范围：on和off。默认取值：off。可选。
-           off：关闭单算子模型dump。
-           on：开启单算子模型dump。
 
 具体用法详见 `Dump功能调试 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html>`_ 。
 
@@ -618,7 +559,7 @@ CANN的环境变量详见 `昇腾社区 <https://www.hiascend.com/document/detai
        3: 不保证网络的精度，显存消耗最少。
 
        默认值：1
-     - 
+     -
    * - MS_PYNATIVE_GE
      - 设置动态图模式下是否执行GE
      - Integer
@@ -659,91 +600,52 @@ CANN的环境变量详见 `昇腾社区 <https://www.hiascend.com/document/detai
      - String
      - "on"，表示关闭trace构图功能
      - 实验性质的环境变量
-   * - MS_ENABLE_FORMAT_MODE
+   * - MS_FORMAT_MODE
      - 设置Ascend GE流程的默认优选格式，整网设置为ND格式
      - Integer
-     - 1: 使能此功能。
+     - 1: 算子优先选择ND格式。
 
-       空值或其他值：不使能。
+       0：算子优先选择私有格式。
 
-       默认值：空值
-     - 仅限Ascend AI处理器环境GE流程使用，开启此功能可以优化性能，减少内存，实验性质的环境变量。
-   * - MS_FEA_REFRESHABLE
-     - 开启图内task地址刷新模式标记
-     - Integer
-     - 1: 使能此功能。
+       默认值：1。
+     - 此环境变量影响算子的format选择，从而对网络执行性能和内存占用产生影响，可通过设置此选项测试得到性能和内存更优的算子格式选择。
 
-       空值或其他值：不使能。
-
-       默认值：空值
-     - 仅限Ascend AI处理器环境GE流程使用，开启此功能可以减少内存，实验性质的环境变量。
+       仅限Ascend AI处理器环境GE流程使用。
    * - MS_ENABLE_IO_REUSE
      - 开启图输入输出内存复用标志
      - Integer
      - 1: 使能此功能。
 
-       空值或其他值：不使能。
+       0：不使能。
 
-       默认值：空值
-     - 仅限Ascend AI处理器环境GE流程使用，开启此功能必须开启MS_FEA_REFRESHABLE，开启此功能可以减少内存，实验性质的环境变量。
-   * - MS_DEV_FORCE_ACL
-     - 指定PyNative模式下是否生效ACL算子
-     - Integer
-     - 0: 使能TBE算子编译，当前PyNative静态shape默认tbe算子编译，开启环境变量使能ACL算子。
-
-       1：使能默认ACL算子编译。
-
-       2：使能非特殊格式ACL算子编译。
-
-     - 仅限Ascend AI处理器环境，PyNative模式下使用。此环境变量后续将删除。实验性质的环境变量。
-   * - DISABLE_REUSE_MEMORY
-     - 内存复用开关
-     - Integer
-     - 0: 开启内存复用。
-
-       1：关闭内存复用。
-
-       默认值：0。
-
-     - 仅限Ascend AI处理器环境GE流程使用。实验性质的环境变量。
-   * - GE_USE_STATIC_MEMORY
-     - GE流程网络运行时使用的内存分配方式
-     - Integer
-     - 0: 动态分配内存，即按照实际大小动态分配。
-
-       2：动态扩展内存。训练与在线推理场景下，可以通过此取值实现同一session中多张图之间的内存复用，即以最大图所需内存进行分配。
-          例如，假设当前执行图所需内存超过前一张图的内存时，直接释放前一张图的内存，按照当前图所需内存重新分配。
-
-       默认值：2。
-
-     - 仅限Ascend AI处理器环境GE流程使用。实验性质的环境变量。
-   * - MS_ENABLE_GE
-     - 使能GE流程
-     - Integer
-     - 0: 不使能GE流程。
-
-       1：使能GE流程。
-
-       默认值：0。
-     - 仅限Ascend AI处理器环境使用。实验性质的环境变量。
-   * - MS_DEV_ASCEND_FUSION_SWITCH
-     - mindspore pass的LICENSE开关
+       默认值：0
+     - 仅限Ascend AI处理器环境GE流程使用。
+   * - MS_ASCEND_CHECK_OVERFLOW_MODE
+     - 设置浮点计算结果输出模式
      - String
-     - OFF/off/0: 关闭
+     - SATURATION_MODE: 饱和模式。
 
-       ON/on/1：开启
+       INFNAN_MODE: INF/NAN模式。
 
-       默认值：1。
-     -
-   * - ENABLE_DEVICE_COPY
-     - 使能device-to-device拷贝
+       默认值: INFNAN_MODE。
+
+     - 饱和模式：计算出现溢出时，饱和为浮点数极值（+-MAX）。
+
+       INF/NAN模式：遵循IEEE 754标准，根据定义输出INF/NAN的计算结果。
+
+       仅限Atlas A2训练系列产品使用。
+   * - MS_DISABLE_REF_MODE
+     - 设置强制关闭ref模式
      - Integer
-     - 1：开启device-to-device拷贝
+     - 0: 不关闭ref模式。
 
-       0：不开启device-to-device拷贝
+       1: 强制关闭ref模式。
 
-       默认值：0。
-     - 仅限Ascend AI处理器环境使用。
+       默认值: 0。
+
+     - 此环境变量后续将删除，不建议使用。
+
+       仅限Ascend AI处理器环境GE流程使用。
    * - ASCEND_OPP_PATH
      - OPP包安装路径
      - String
@@ -769,8 +671,3 @@ CANN的环境变量详见 `昇腾社区 <https://www.hiascend.com/document/detai
      - String
      - CUDA包安装的绝对路径
      - 仅限GPU环境需要，一般无需设置，如在GPU环境中安装了多种版本的CUDA，为了避免混淆，建议配置此环境变量。
-   * - JOB_ID
-     - 训练任务ID，用户自定义。
-     - String
-     - 训练任务ID，用户自定义。仅支持大小写字母，数字，中划线，下划线。不建议使用以0开始的纯数字作为JOB_ID。
-     - 仅限Ascend AI处理器环境GE流程使用。
