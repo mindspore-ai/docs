@@ -62,7 +62,7 @@ Modules in MindSpore Lite:
 
 The script `build.sh` in the root directory of MindSpore can be used to compile MindSpore Lite.
 
-#### Instructions for parameters of `build.sh`
+#### Instructions for Parameters of `build.sh`
 
 | Parameter  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
@@ -77,7 +77,7 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 > - When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
 > - When compiling the AAR package, the `-A on` parameter must be added, and there is no need to add the `-I` parameter.
 
-#### Module build compilation options
+#### Module Build Compilation Options
 
 The construction of modules is controlled by environment variables. Users can control the modules built by compiling by declaring relevant environment variables. After the compilation option is modified, in order to make the option effective, the `-i` parameter cannot be added for incremental compilation when compiling with the `build.sh` script.
 
@@ -107,7 +107,7 @@ The construction of modules is controlled by environment variables. Users can co
 
 - Runtime feature compilation options
 
-If the user is sensitive to the package size of the framework, the following options can be configured to reduce the package size by reducing the function of the runtime model reasoning framework. Then, the user can further reduce the package size by operator reduction through the [reduction tool](https://www.mindspore.cn/lite/docs/en/r2.3/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r2.3/use/cropper_tool.html).
+If the user is sensitive to the package size of the framework, the following options can be configured to reduce the package size by reducing the function of the runtime model reasoning framework. Then, the user can further reduce the package size by operator reduction through the [cropper tool](https://www.mindspore.cn/lite/docs/en/r2.3/use/cropper_tool.html).
 
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
@@ -296,14 +296,14 @@ After successful installation, you can use the command of `pip show mindspore_li
 
 The script `build.bat` in the root directory of MindSpore can be used to compile MindSpore Lite.
 
-#### The compilation parameter of `build.bat`
+#### The Compilation Parameter of `build.bat`
 
 | Parameter  |  Parameter Description   | Mandatory or Not |
 | -------- | ----- | ---- |
 | lite | Set this parameter to compile the MindSpore Lite project. | Yes |
 | [n] | Set the number of threads used during compilation, otherwise the default is set to 6 threads.  | No |
 
-#### The options of `mindspore/lite/CMakeLists.txt`
+#### The Options of `mindspore/lite/CMakeLists.txt`
 
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
@@ -398,14 +398,14 @@ Finally, the following files will be generated in the `output/` directory:
 
 The script `build.sh` in the root directory of MindSpore can be used to compile MindSpore Lite.
 
-#### The compilation parameter of `build.sh`
+#### The Compilation Parameter of `build.sh`
 
 | Parameter  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
 | -I | Selects an applicable architecture. | arm64, arm32 | None |
 | -j[n] | Sets the number of threads used during compilation. Otherwise, the number of threads is set to 8 by default. | Integer | 8 |
 
-#### The options of `mindspore/lite/CMakeLists.txt`
+#### The Options of `mindspore/lite/CMakeLists.txt`
 
 | Option               | Parameter Description            | Value Range | Defaults |
 |----------------------|----------------------------------| ---- | ---- |

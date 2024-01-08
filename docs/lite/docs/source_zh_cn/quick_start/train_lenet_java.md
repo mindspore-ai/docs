@@ -4,7 +4,7 @@
 
 ## 概述
 
-本教程通过构建并部署Java版本的LeNet网络的训练，演示MindSpore Lite端侧训练Java接口的使用。 首先指导您在本地成功训练LeNet模型，然后讲解示例代码。
+本教程通过构建并部署Java版本的LeNet网络的训练，演示MindSpore Lite端侧训练Java接口的使用。首先指导您在本地成功训练LeNet模型，然后讲解示例代码。
 
 ## 准备
 
