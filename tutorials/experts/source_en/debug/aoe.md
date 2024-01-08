@@ -4,7 +4,7 @@
 
 ## Overview
 
-Ascend Optimization Engine (AOE) is an automatic tuning tool that makes full use of limited hardware resources to meet the performance requirements of operators and the entire network. The more information about the AOE can be got in [Introduction to AOE](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/developmenttools/devtool/aoe_16_001.html). This document mainly introduces how to use the AOE to tune in MindSpore training scenarios.
+Ascend Optimization Engine (AOE) is an automatic tuning tool that makes full use of limited hardware resources to meet the performance requirements of operators and the entire network. The more information about the AOE can be got in [Introduction to AOE](https://www.hiascend.com/document/detail/en/canncommercial/601/devtools/auxiliarydevtool/aoe_16_001.html). This document mainly introduces how to use the AOE to tune in MindSpore training scenarios.
 
 ## Enabling Tune
 
@@ -24,17 +24,17 @@ Ascend Optimization Engine (AOE) is an automatic tuning tool that makes full use
 
 2. Offline Tune
 
-  The Offline Tune is using the dump data (The output description file, and the binary file of operators) of network model (Generate when training network) to tune the operators. The method of Offline Tune and related environment variables can be found in [Offline Tune](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/developmenttools/devtool/aoe_16_023.html) in `CANN` development tool guide, which is not described here.
+  The Offline Tune is using the dump data (The output description file, and the binary file of operators) of network model (Generate when training network) to tune the operators. The method of Offline Tune and related environment variables can be found in [Offline Tune](https://www.hiascend.com/document/detail/en/canncommercial/601/devtools/auxiliarydevtool/aoe_16_024.html) in `CANN` development tool guide, which is not described here.
 
 ## Tuning Result Viewing
 
-After the tuning starts, a file named `aoe_result_opat_{timestamp}_{pidxxx}.json` will be generated in the working directory to record the tuning process and tuning results. Please refer to [tuning result file analysis](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/developmenttools/devtool/aoe_16_028.html) for specific analysis of this file.
+After the tuning starts, a file named `aoe_result_opat_{timestamp}_{pidxxx}.json` will be generated in the working directory to record the tuning process and tuning results. Please refer to [tuning result file analysis](https://www.hiascend.com/document/detail/en/canncommercial/601/devtools/auxiliarydevtool/aoe_16_028.html) for specific analysis of this file.
 
 After the tuning is complete, the custom knowledge base will be generated if the conditions are met. If the `TUNE_BANK_PATH` (Environment variable of the knowledge base storage path) is specified, the knowledge base (generated after tuning) will be saved in the specified directory. Otherwise, the knowledge base will be in the following default path `${HOME}/Ascend/latest/data/aoe/custom/graph/${soc_version}`.
 
 ## Merging Knowledge Base
 
-After operator tuning, the generated tuning knowledge base supports merging, which is convenient for re-executing, or the other models.(Only the same Ascend AI Processor can be merged). The more specific merging methods can be found in [merging knowledge base](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/developmenttools/devtool/aoepar_16_055.html).
+After operator tuning, the generated tuning knowledge base supports merging, which is convenient for re-executing, or the other models.(Only the same Ascend AI Processor can be merged). The more specific merging methods can be found in [merging knowledge base](https://www.hiascend.com/document/detail/en/canncommercial/601/devtools/auxiliarydevtool/aoepar_16_055.html).
 
 ## Notice
 
