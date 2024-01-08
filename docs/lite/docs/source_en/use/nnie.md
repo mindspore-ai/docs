@@ -89,7 +89,7 @@ If the user needs to turn off the specified operator fusions, the fusion configu
 
 ```ini
 [registry]
-# When parameter `disable_fusion` is configured as `off`, the user can turn off the specified operator fusions by configuring parameter `fusion_blacklists`. While parameter `disable_fusion` is configured as `on`, the parameter  `fusion_blacklists` does not work.
+# When parameter `disable_fusion` is configured as `off`, the user can turn off the specified operator fusions by configuring parameter `fusion_blacklists`. While parameter `disable_fusion` is configured as `on`, the parameter `fusion_blacklists` does not work.
 disable_fusion=off
 fusion_blacklists=ConvActivationFusion,MatMulActivationFusion
 ```
@@ -327,16 +327,16 @@ For the integrated use of NNIE, there are the following precautions:
     MindSpore Lite provides `mindspore::Model::LoadConfig` and `mindspore::Model::UpdateConfig` interfaces to receive configuration parameters or configuration files, so that users can pass configuration items to all operators (including custom operators) through them.
     `NNIE Custom Operators` opens four configuration items, as shown below:
 
-    - KeepOriginalOutput ：Keep the original NNIE hardware inference output results.
+    - KeepOriginalOutput：Keep the original NNIE hardware inference output results.
 
         The output of NNIE hardware chip inference is quantized int32 data (actual value multiplied by 4096). When the model output is given, the chip inference result will be inversely quantized to the real float value output. When this option is configured as `on`, the output of the model will remain quantized int32 output. By default, this option is `off`.
 
-    - MaxROINum ：Maximum number of ROIs supported by a single image. The value is a positive integer. The default value is 300.
+    - MaxROINum：Maximum number of ROIs supported by a single image. The value is a positive integer. The default value is 300.
 
         If the user model contains the proposal operator, configure the MAX_ROI_NUM environment variable based on the implementation of the proposal operator.
         If the user model doesn't contain the proposal operator, you don't need to configure the environment.
 
-    - TimeStep ：Number of steps for loop or LSTM network running. The value is a positive integer. The default value is 1.
+    - TimeStep：Number of steps for loop or LSTM network running. The value is a positive integer. The default value is 1.
 
         If the user model is a loop or LSTM network, you need to configure the TIME_STEP environment variable based on the actual network running status.
         If the user model is not a loop or LSTM network, you don't need to configure the TIME_STEP environment varialbe.
@@ -393,13 +393,13 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
 
   You only need to provide image_list whose quantity is the same as that of model inputs. If the model contains the ROI pooling or PSROI pooling layer, you need to provide roi_coordinate_file, the quantity and sequence correspond to the number and sequence of the ROI pooling or PSROI pooling layer in the .prototxt file.
 
-### Suffix cpu of the Node Name in the prototxt File
+### Suffix _cpu of the Node Name in the prototxt File
 
-  In the .prototxt file, you can add _cpu to the end of the node name to declare CPU custom operator. The_cpu suffix is ignored in MindSpore Lite and is not supported. If you want to redefine the implementation of an existing operator or add an operator, you can register the operator in custom operator mode.
+  In the .prototxt file, you can add _cpu to the end of the node name to declare CPU custom operator. The_cpu suffix is ignored in MindSpore Lite and is not supported. If you want to redefine the implementation of an existing operator or add an operator, you can register the operator in [custom operator](https://www.mindspore.cn/lite/docs/en/r2.3/use/register_kernel.html) mode.
 
 ### Custom Operator in the prototxt File
 
-  In the SVP tool chain, the custom layer is declared in the .prototxt file to implement inference by segment and implement the CPU code by users. In MindSpore Lite, you need to add the op_type attribute to the custom layer and register the online inference code in custom operator mode.
+  In the SVP tool chain, the custom layer is declared in the .prototxt file to implement inference by segment and implement the CPU code by users. In MindSpore Lite, you need to add the op_type attribute to the custom layer and register the online inference code in [custom operator](https://www.mindspore.cn/lite/docs/en/r2.3/use/register_kernel.html) mode.
 
   An example of modifying the custom layer is as follows:
 
@@ -423,7 +423,7 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
 
   In this example, a custom operator of the MY_CUSTOM type is defined. During inference, you need to register a custom operator of the MY_CUSTOM type.
 
-### Suffix report of the Top Domain in the prototxt File
+### Suffix _report of the Top Domain in the prototxt File
 
   When converting the NNIE model, MindSpore Lite fuses most operators into the binary file for NNIE running. Users cannot view the output of the intermediate operators. In this case, you can add the _report suffix to the top domain, during image composition conversion, the output of the intermediate operator is added to the output of the fused layer. If the operator has output (not fused), the output remains unchanged.
 
@@ -456,7 +456,7 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
 
 ### Proposal Operator Usage Description
 
-  MindSpore Lite provides the sample code of the proposal operator. In this sample, the proposal operator and its infer shape are registered in custom operator mode. You can change it to the implementation that matches your own model, and then perform [integration](#integration).
+  MindSpore Lite provides the sample code of the proposal operator. In this sample, the proposal operator and its infer shape are registered in [custom operator](https://www.mindspore.cn/lite/docs/en/r2.3/use/register_kernel.html) mode. You can change it to the implementation that matches your own model, and then perform integration.
   > Download address of the complete sample code:
   >
   > <https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/nnie_proposal>

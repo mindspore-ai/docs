@@ -6,8 +6,8 @@
 
 Creating your MindSpore Lite(Train on Device) model is a two step procedure:
 
-- In the first step the model is defined and the layers that should be trained must be declared. This is being done on the server, using a MindSpore-based [Python code](https://www.mindspore.cn/tutorials/en/r2.3/beginner/save_load.html). The model is then <b>exported</b> into a protobuf format, which is called MINDIR.
-- In the seconde step this `.mindir` model is <b>converted</b> into a `.ms` format that can be loaded onto an embedded device and can be trained using the MindSpore Lite framework. The converted `.ms` models can be used for both training and inference.
+- In the first step, create a network model based on the MindSpore architecture using Python and export it as a `.mindir` file. See [saving model](https://www.mindspore.cn/tutorials/en/r2.3/beginner/save_load.html#saving-and-loading-mindir) in the cloud.
+- In the seconde step, this `.mindir` model is <b>converted</b> into a `.ms` format that can be loaded onto an embedded device and can be trained using the MindSpore Lite framework.
 
 ## Linux Environment
 
@@ -35,7 +35,7 @@ The table below shows the parameters used in the MindSpore Lite model training t
 | `--modelFile=<MODELFILE>`   | yes      | Path of the input model.                                                   | -           | -             |
 | `--outputFile=<OUTPUTFILE>` | yes      | Path of the output model. The suffix `.ms` can be automatically generated. | -           | -             |
 | `--trainModel=true`         | no       | If the original model is a training model, the value must be true.         | true, false | false         |
-| `--configFile=<CONFIGFILE>` | No       | 1) Configure quantization parameter; 2) Profile path for extension.        | - | - |
+| `--configFile=<CONFIGFILE>` | No       | 1. Configure quantization parameter; 2. Profile path for extension.        | - | - |
 
 > The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 >
