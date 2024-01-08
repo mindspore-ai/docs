@@ -74,10 +74,6 @@ The following section describes how to build and execute an on-device image clas
 
 3. Continue the installation on the Android device. After the installation is complete, you can view the content captured by a camera and the inference result.
 
-    ![install](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/lite/docs/source_zh_cn/images/lite_quick_start_install.png)
-
-    The recognition result is shown below.
-
     ![result](../images/lite_quick_start_app_result.png)
 
 ## Detailed Description of the Sample Program  
