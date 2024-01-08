@@ -126,7 +126,7 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
    cd ${PACKAGE_ROOT_PATH}/tools/converter/converter
    ```
 
-3. 创建converter的配置文件（converter.cfg)，文件内容如下：
+3. 创建converter的配置文件（converter.cfg），文件内容如下：
 
    ```text
    [registry]
@@ -145,4 +145,4 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
    ./converter_lite --fmk=TFLITE --modelFile=add.tflite --configFile=converter.cfg --outputFile=add_extend
    ```
 
-执行完后，将生成名为`add_extend.ms`的模型文件,文件路径由参数`outputFile`决定。
+执行完后，将生成名为`add_extend.ms`的模型文件，文件路径由参数`outputFile`决定。
