@@ -65,7 +65,7 @@ class myCallback(Callback):
         self.epoch_num = 0
         self.break_epoch_num = break_epoch_num
 
-    def epoch_end(self, run_context):
+    def on_train_epoch_end(self, run_context):
         self.epoch_num += 1
         if self.epoch_num == self.break_epoch_num:
             raise Exception("Some errors happen.")
