@@ -2,7 +2,7 @@
 
 <!-- TOC -->
 
-- [pip方式安装MindSpore Ascend 910版本](#pip方式安装mindspore-ascend-910版本)
+- [pip方式安装MindSpore Ascend版本](#pip方式安装mindspore-ascend版本)
     - [自动安装](#自动安装)
     - [手动安装](#手动安装)
         - [安装Python](#安装python)
