@@ -17,13 +17,13 @@ def shard(fn, in_strategy, out_strategy=None, parameter_plan=None, device="Ascen
 
 `in_strategy(tuple)`：指定输入`Tensor`的切分策略，每个元素为元组，表示对应输入`Tensor`的切分策略，每个元组的长度要与对应`Tensor`的维度相等，表示每个维度如何切分，可以传入`None`，对应的切分策略将自动推导生成。
 
-`out_strategy(None, tuple)`：指定输出`Tensor`的切分策略，用法和`in_strategy`相同，默认值为None，目前尚未使能，后续会开放。在深度学习模型中，输出策略会根据full_batch的值，被替换为数据并行(False)和重复计算(True)。
+`out_strategy(None, tuple)`：指定输出`Tensor`的切分策略，用法和`in_strategy`相同，默认值为None，目前尚未使能，后续会开放。在深度学习模型中，输出策略会根据`set_auto_parallel_context`里`full_batch`的取值，被替换为数据并行(False)和重复计算(True)。
 
 `parameter_plan(None, dict)`：指定各参数的切分策略，传入字典时，键是str类型的参数名，值是一维整数tuple表示相应的切分策略，如果参数名错误或对应参数已经设置了切分策略，该参数的设置会被跳过。默认值：None，表示不设置。
 
-`device(string)`：指定执行的设备，可选范围`Ascend`、`GPU`和`CPU`，默认为`Ascend`，目前尚未使能，后续会开放。
+`device(string)`：指定执行的设备，可选范围`Ascend`、`GPU`和`CPU`，默认为`Ascend`。这是个预留参数，目前未使用。
 
-`level(int)`：指定全部算子搜索策略，输入输出`Tensor`的切分策略由用户指定，其余算子的切分策略会由框架搜索得到，此参数指定搜索时的目标函数，可选范围为0、1、2，分别代表最大化计算通信比、内存消耗最小、最大化运行速度，默认为0，目前尚未使能，后续会开放。
+`level(int)`：指定全部算子搜索策略，输入输出`Tensor`的切分策略由用户指定，其余算子的切分策略会由框架搜索得到，此参数指定搜索时的目标函数，可选范围为0、1、2，分别代表最大化计算通信比、内存消耗最小、最大化运行速度，默认为0。这是个预留参数，目前未使用。
 
 ## 基本原理
 
@@ -78,7 +78,7 @@ ms.set_seed(1)
 
 ### 指定输出排布
 
-当前支持指定输出排布为数据并行和重复计算，可通过auto_parallel_context里的`dataset_strategy`或`full_batch`属性控制，具体设置方法如下：
+当前支持指定输出排布为数据并行和重复计算，可通过`dataset_strategy`或`full_batch`属性控制，具体设置方法如下：
 
 ```python
 # 通过dataset_strategy设置，推荐此方式
@@ -221,11 +221,11 @@ print('result.shape:', result.shape)
 
 ### 运行代码
 
-当前MindSpore可以通过多进程启动和mpirun两种方式拉起分布式并行任务。
+当前MindSpore可以通过rank table启动和mpirun两种方式拉起分布式并行任务。
 
-#### 通过多进程启动
+#### 通过rank table启动
 
-在Ascend上执行，且不存在子Group通信时，可以通过多进程的方式启动分布式并行。
+在Ascend上执行，且不存在子Group通信时，可以通过rank table的方式启动分布式并行。
 
 > 当某个对象存在维度未切满或对至少切分了两个维度时，模型并行会产生子Group通信。
 >

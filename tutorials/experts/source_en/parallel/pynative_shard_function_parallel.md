@@ -17,13 +17,13 @@ def shard(fn, in_strategy, out_strategy=None, parameter_plan=None, device="Ascen
 
 `in_strategy(tuple)`: Specify the sharding strategy of the input `Tensor`, each element is a tuple indicating the sharding strategy of the corresponding input `Tensor`, the length of each tuple should be equal to the dimension of the corresponding `Tensor`, indicating how each dimension is sliced. You can pass in `None`, the corresponding sharding strategy will be automatically deduced and generated.
 
-`out_strategy(None, tuple)`: Specify the sharding strategy for the output `Tensor`, used in the same way as `in_strategy`, with a default value of None, which is not yet enabled and will be opened later. In deep learning models, the output strategy is replaced with data parallel (False) and repeated computation (True) depending on the value of full_batch.
+`out_strategy(None, tuple)`: Specify the sharding strategy for the output `Tensor`, used in the same way as `in_strategy`, with a default value of None, which is not yet enabled and will be opened later. In deep learning models, the output strategy is replaced with data parallel (False) and repeated computation (True) based on the value of `full_batch` in `set_auto_parallel_context`.
 
 `parameter_plan(None, dict)`: Specify the sharding strategy of each parameter, when passed into the dictionary, the key is the parameter name of type str, the value is a one-dimensional integer tuple indicating the corresponding sharding strategy. If the parameter name is wrong or the corresponding parameter has already set the sharding strategy, the setting of this parameter will be skipped. Default: None, means not set.
 
-`device(string)`: Specify the device for execution, optional range `Ascend`, `GPU` and `CPU`, default is `Ascend`, which is not enabled yet, and will be opened later.
+`device(string)`: Specify the device for execution, optional range `Ascend`, `GPU` and `CPU`, default is `Ascend`. This is a reserved parameter and is not used currently.
 
-`level(int)`: Specify the search strategy for all operators, the cut strategy for input and output `Tensor` is specified by the user, and the cut strategy for the rest of operators will be obtained by the framework search, this parameter specifies the objective function for searching, with the optional range of 0, 1, 2, which represent maximizing the computational communication ratio, minimizing memory consumption, and maximizing the operation speed. The default is 0, which is currently not yet enabled, and will be opened later.
+`level(int)`: Specify the search strategy for all operators, the cut strategy for input and output `Tensor` is specified by the user, and the cut strategy for the rest of operators will be obtained by the framework search, this parameter specifies the objective function for searching, with the optional range of 0, 1, 2, which represent maximizing the computational communication ratio, minimizing memory consumption, and maximizing the operation speed. The default is 0. This is a reserved parameter and is not used currently.
 
 ## Basic Principle
 
@@ -76,7 +76,7 @@ ms.set_seed(1)
 
 ### Specifying Output Arrangement
 
-Specifying the output arrangement for data parallel and repeated calculations is currently supported, and can be controlled by the `dataset_strategy` or `full_batch` attributes in auto_parallel_context, which are set as follows:
+Specifying the output arrangement for data parallel and repeated calculations is currently supported, and can be controlled by the `dataset_strategy` or `full_batch`, which are set as follows:
 
 ```python
 # Set via dataset_strategy, recommended
@@ -219,11 +219,11 @@ print('result.shape:', result.shape)
 
 ### Running the Code
 
-Currently MindSpore can pull up distributed parallel tasks through both multi-process startup and mpirun.
+Currently MindSpore can pull up distributed parallel tasks through both rank table startup and mpirun.
 
-#### Multi-process Startup
+#### rank table Startup
 
-Distributed parallelism can be initiated by multi-process when executing on Ascend and there is no subGroup communication.
+Distributed parallelism can be initiated by rank table when executing on Ascend and there is no subGroup communication.
 
 > Model parallelism generates sub-Group communication when there are dimensions of an object that are not sliced full or for which at least two dimensions are sliced.
 >
