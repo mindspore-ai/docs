@@ -7,7 +7,7 @@
 ### 环境准备
 
 在基本的[环境准备](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)之外，使用NPU需要集成HUAWEI HiAI DDK。
-DDK包含了使用NPU的对外接口（包括模型构建、加载，计算等），以及封装成动态库的接口实现（名为libhiai*.so)。
+DDK包含了使用NPU的对外接口（包括模型构建、加载，计算等），以及封装成动态库的接口实现（名为libhiai*.so）。
 下载[DDK 100.510.010.010版本](https://developer.huawei.com/consumer/cn/doc/development/hiai-Library/ddk-download-0000001053590180)，
 并将压缩包解压后的目录设置为环境变量`${HWHIAI_DDK}`。构建脚本将使用这个环境变量寻找DDK。
 
@@ -31,7 +31,7 @@ bash build.sh -I arm64 -j8
     - 在代码中[配置NPU后端](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#配置使用npu后端)，
     有关使用Runtime执行推理详情见[使用Runtime执行推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
     - 编译执行可执行程序。如采用动态加载方式，参考[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)中编译选项为`-I arm64`或`-I arm32`时的内容，
-    配置好环境变量，将会动态加载libhiai.so, libhiai_ir.so, libhiai_ir_build.so, libhiai_hcl_model_runtime.so。例如：
+    配置好环境变量，将会动态加载libhiai.so、libhiai_ir.so、libhiai_ir_build.so、libhiai_hcl_model_runtime.so。例如：
 
     ```bash
     export LD_LIBRARY_PATH=mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/:$LD_LIBRARY_PATH
