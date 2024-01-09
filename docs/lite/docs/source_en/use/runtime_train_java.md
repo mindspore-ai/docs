@@ -50,7 +50,7 @@ Model liteModel = new Model();
 liteModel.build(g, context, cfg);
 ```
 
-> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ## Data Processing
 
@@ -100,7 +100,7 @@ Currently, java does not provide data processing API such as C++ `Dataset` class
     }
 ```
 
-> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ## Execute Training
 
@@ -137,7 +137,7 @@ for (int i = 0; i < cycles; i++) {
 }
 ```
 
-> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ### Evaluating
 

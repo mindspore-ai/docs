@@ -74,7 +74,7 @@ int TestCustomAdd::Execute() {
 
 #### Registering Common Operators
 
-Currently, the generated macro [REGISTER_KERNEL](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_RegisterKernel.html） is provided for operator registration. The implementation procedure is as follows:
+Currently, the generated macro [REGISTER_KERNEL](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_RegisterKernel.html) is provided for operator registration. The implementation procedure is as follows:
 
 1. The TestCustomAddCreator function is used to create a kernel.
 2. Use the macro REGISTER_KERNEL to register the kernel. Assume that the vendor is BuiltInTest.
