@@ -681,7 +681,7 @@ if (build_ret != mindspore::kSuccess) {
 
 If the model is encrypted by the [converter_lite tool](https://mindspore.cn/mindarmour/docs/en/master/model_encrypt_protection.html#on-device-model-protection)，the decryption key and decryption library are necessary to pass into the program. The `dec_key` should be the same as the encryption key used in converter_lite tool，which both are hexadecimal character strings, for example, the hexadecimal string corresponding to b'0123456789ABCDEF is 30313233343536373839414243444546. On the Linux platform, you can use the xxd tool to convert the key represented by bytes to a hexadecimal string. The `crypto_lib_path` is the path for the installed OpenSSL library, for example, "/home/root/openssl".
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.3/mindspore/lite/examples/runtime_cpp/main.cc) demonstrates how to load graph and build model separately.：
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r2.3/mindspore/lite/examples/runtime_cpp/main.cc) demonstrates how to load graph and build model separately：
 
 ```cpp
 int RunEncryptedInfer(const char *model_path, const std::string dec_key_str,
@@ -772,7 +772,7 @@ The chapter only provides instruction in the Linux System.
 
 #### Operator InferShape Extension
 
-The users need to inherit the basic class [KernelInterface](https://www.mindspore.cn/lite/api/en/r2.3/generate/classmindspore_kernel_KernelInterface.html), and override the interface function Infer.
+The users need to inherit the basic class [KernelInterface](https://www.mindspore.cn/lite/api/en/r2.3/generate/classmindspore_kernel_KernelInterface.html), and override the interface function [Infer](https://www.mindspore.cn/lite/api/en/r2.3/generate/classmindspore_kernel_KernelInterface.html).
 
 ```cpp
 Status CheckInputs(const std::vector<mindspore::MSTensor> &inputs) {         // check function when compiling, to judge the shape of input tensor is valid or not
@@ -875,7 +875,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
      bash build.sh
      ```
 
-     > If the automatic download is failed, users can download the specified package manually. The hardware platform is CPU and the system is Ubuntu-x64 [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/r2.3/use/downloads.html), After unzipping, please copy the dynamic library `libmindspore-lite.so` in the directory of `runtime/lib` to the directory of `mindspore/lite/examples/runtime_extend/lib` and copy the directory of `runtime/include` to the directory of `mindspore/lite/examples/runtime_extend`.
+     > If the automatic download is failed, users can download the specified package manually. The hardware platform is CPU and the system is Ubuntu-x64 [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/r2.3/use/downloads.html). After unzipping, please copy the dynamic library `libmindspore-lite.so` in the directory of `runtime/lib` to the directory of `mindspore/lite/examples/runtime_extend/lib` and copy the directory of `runtime/include` to the directory of `mindspore/lite/examples/runtime_extend`.
      >
      > If the model `add_extend.ms` is failed to download, please download [add_extend.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add_extend.ms) manually, and copy to the directory of `mindspore/lite/examples/runtime_extend/model`.
      >

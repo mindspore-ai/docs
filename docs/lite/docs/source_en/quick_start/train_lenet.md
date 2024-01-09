@@ -57,7 +57,7 @@ The directory structure is as follows:
 
 ### Installing MindSpore
 
-MindSpore can be installed by source code or using `pip`. Refer [MindSpore installation guide](https://gitee.com/mindspore/docs/blob/r2.3/install/mindspore_cpu_install_pip_en.md#) for more details.
+MindSpore can be installed by source code or using `pip`. Refer to [MindSpore installation guide](https://gitee.com/mindspore/docs/blob/r2.3/install/mindspore_cpu_install_pip_en.md#) for more details.
 
 ### Downloading and Installing MindSpore Lite
 
