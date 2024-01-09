@@ -34,20 +34,16 @@ For more information about compilation, see [Linux Environment Compilation](http
     - [Configure the NPU backend](https://www.mindspore.cn/lite/docs/en/r2.3/use/runtime_cpp.html#configuring-the-npu-backend).
      For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/r2.3/use/runtime_cpp.html).
 
-    - Compile and execute the binary. If you use dynamic linking, please set environment variables to dynamically link libhiai.so, libhiai_ir.so, libhiai_ir_build.so, and libhiai_hcl_model_runtime.so.
-    For example,
+    - Compile and execute the binary. If you use dynamic linking, refer to [compile output](https://www.mindspore.cn/lite/docs/en/r2.3/use/build.html) when the compile option is `-I arm64` or `-I arm32`.
+    Configured environment variables will dynamically load libhiai.so, libhiai_ir.so, libhiai_ir_build.so, libhiai_hcl_model_runtime.so. For example,
 
         ```bash
         export LD_LIBRARY_PATH=mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/:$LD_LIBRARY_PATH
         ```
 
-      For more information about compilation, please refer to [Compilation Output](https://www.mindspore.cn/lite/docs/en/r2.3/use/build.html#directory-structure)
-    with compilation option `-I arm64` or `-I arm32`.
-
 - Using Benchmark testing NPU inference
 
-    Users can also test NPU inference using MindSpore Lite's Benchmark tool. Pass the build package to the `/data/local/tmp/` directory of an Android phone equipped with NPU chips and test NPU inference using the Benchmark tool
-on the phone, as shown in the example below:
+    Users can also test NPU inference using MindSpore Lite's Benchmark tool. Pass the build package to the `/data/local/tmp/` directory of an Android phone equipped with NPU chips and test NPU inference using the Benchmark tool on the phone, as shown in the example below:
 
     - Test performance
 
