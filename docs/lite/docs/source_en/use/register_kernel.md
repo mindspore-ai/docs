@@ -817,108 +817,108 @@ By overloading `Execute`, you can customize the computation operations of the op
 
 1. Call the `ReSize` function to support shape changes during running.
 
-  In this example, `PreProcess` is called to prepare for the computation.
-  In `PreProcess()`, call the `ReSize` function first. This function is the runtime shape change adaptation API that needs to be overloaded.
-  In the `ReSize` function, call `CheckOutputs` to check whether the shape of the output tensor of the operator contains invalid values to determine whether shape inference needs to be performed again. If no, the function returns directly.
-  When shape inference is required, call `registry::RegisterKernelInterface::GetKernelInterface` to obtain the shape inference function registered by the operator. The obtained function is the InferShape function implemented and registered by the user in this routine.
-  After re-inference, call the previously implemented `Prepare` API to re-apply for and allocate the memory and related variables required for operator computation.
+    In this example, `PreProcess` is called to prepare for the computation.
+    In `PreProcess()`, call the `ReSize` function first. This function is the runtime shape change adaptation API that needs to be overloaded.
+    In the `ReSize` function, call `CheckOutputs` to check whether the shape of the output tensor of the operator contains invalid values to determine whether shape inference needs to be performed again. If no, the function returns directly.
+    When shape inference is required, call `registry::RegisterKernelInterface::GetKernelInterface` to obtain the shape inference function registered by the operator. The obtained function is the InferShape function implemented and registered by the user in this routine.
+    After re-inference, call the previously implemented `Prepare` API to re-apply for and allocate the memory and related variables required for operator computation.
 
-  ```cpp
-  int ReSize() override {
-    if (CheckOutputs(outputs_) == kSuccess) {
-      return kSuccess;
+    ```cpp
+    int ReSize() override {
+        if (CheckOutputs(outputs_) == kSuccess) {
+        return kSuccess;
+        }
+        auto status =
+        registry::RegisterKernelInterface::GetKernelInterface("", primitive_)->Infer(&inputs_, &outputs_, primitive_);
+        if (status != kSuccess) {
+        std::cerr << "infer failed." << std::endl;
+        return kLiteError;
+        }
+        ret = Prepare();
+        if (ret != kSuccess) {
+        std::cerr << "ReSize failed for kernel prepare!";
+        return ret;
+        }
+        return kSuccess;
     }
-    auto status =
-      registry::RegisterKernelInterface::GetKernelInterface("", primitive_)->Infer(&inputs_, &outputs_, primitive_);
-    if (status != kSuccess) {
-      std::cerr << "infer failed." << std::endl;
-      return kLiteError;
-    }
-    ret = Prepare();
-    if (ret != kSuccess) {
-      std::cerr << "ReSize failed for kernel prepare!";
-      return ret;
-    }
-    return kSuccess;
-  }
 
-  int PreProcess() {
-     int ret;
-     ret = ReSize();
-     if (ret != kSuccess) {
-       return ret;
-     }
-     ...
-   }
-
-  int Execute() override {
-    if (inputs_.size() != 2) {
-      return kLiteParamInvalid;
+    int PreProcess() {
+        int ret;
+        ret = ReSize();
+        if (ret != kSuccess) {
+        return ret;
+        }
+        ...
     }
-    PreProcess();
-    ...
-  }
-  ```
+
+    int Execute() override {
+        if (inputs_.size() != 2) {
+        return kLiteParamInvalid;
+        }
+        PreProcess();
+        ...
+    }
+    ```
 
 2. Allocate memory for the output tensor.
 
-  Before running the operator, you need to apply for GPU memory for the output tensor. Due to the limitation of the framework, the GPU memory needs to be hosted by the framework for management and cannot be manually released. The process is as follows:
+    Before running the operator, you need to apply for GPU memory for the output tensor. Due to the limitation of the framework, the GPU memory needs to be hosted by the framework for management and cannot be manually released. The process is as follows:
 
-  1. Call the `allocator()` API of the output tensor to obtain the memory allocator that manages the tensor in the framework. In the GPU registration operator, the memory allocator is responsible for allocating the GPU memory.
-  2. Compute the size of the memory to be allocated. In this example, the `GpuTensorInfo` function is used to compute the size of the memory to be allocated.
-  3. Apply for memory by using the `Malloc` API of the memory allocator. You can obtain the memory in image or buffer format by using the `void *Malloc(size_t weight, size_t height, DataType type)` and `void *Malloc(size_t size)` APIs.
-  4. Use the `SetData` API to assign the requested memory to the tensor. After that, the memory is managed by the framework in a unified manner and cannot be manually released.
+    1. Call the `allocator()` API of the output tensor to obtain the memory allocator that manages the tensor in the framework. In the GPU registration operator, the memory allocator is responsible for allocating the GPU memory.
+    2. Compute the size of the memory to be allocated. In this example, the `GpuTensorInfo` function is used to compute the size of the memory to be allocated.
+    3. Apply for memory by using the `Malloc` API of the memory allocator. You can obtain the memory in image or buffer format by using the `void *Malloc(size_t weight, size_t height, DataType type)` and `void *Malloc(size_t size)` APIs.
+    4. Use the `SetData` API to assign the requested memory to the tensor. After that, the memory is managed by the framework in a unified manner and cannot be manually released.
 
-  ```cpp
-  int PreProcess() {
-    ...
-    for (auto i = 0; i < outputs_.size(); ++i) {
-      auto *output = &outputs_.at(i);
-      auto img_info = GpuTensorInfo(output, &opencl_runtime_);
-      auto allocator = output->allocator();
-      if (allocator == nullptr) {
-        std::cerr << "The output tensor of OpenCL kernel must have an allocator.";
-        return kLiteError;
-      }
-      auto data_ptr = allocator->Malloc(img_info.width, img_info.height, output->DataType());
-      if (data_ptr == nullptr) {
-        std::cerr << "Malloc data failed";
-        return kLiteError;
-      }
-      output->SetData(data_ptr);
+    ```cpp
+    int PreProcess() {
+        ...
+        for (auto i = 0; i < outputs_.size(); ++i) {
+        auto *output = &outputs_.at(i);
+        auto img_info = GpuTensorInfo(output, &opencl_runtime_);
+        auto allocator = output->allocator();
+        if (allocator == nullptr) {
+            std::cerr << "The output tensor of OpenCL kernel must have an allocator.";
+            return kLiteError;
+        }
+        auto data_ptr = allocator->Malloc(img_info.width, img_info.height, output->DataType());
+        if (data_ptr == nullptr) {
+            std::cerr << "Malloc data failed";
+            return kLiteError;
+        }
+        output->SetData(data_ptr);
+        }
+        return kSuccess;
     }
-    return kSuccess;
-  }
-  ```
+    ```
 
 3. Run the OpenCL kernel.
 
-  The `SetKernelArg` API is used to set parameters for running the OpenCL kernel, and the `RunKernel` API is used to run the OpenCL kernel.
+    The `SetKernelArg` API is used to set parameters for running the OpenCL kernel, and the `RunKernel` API is used to run the OpenCL kernel.
 
-  ```cpp
-  int Execute() override {
-    ...
-    std::cout << this->name() << " Running!" << std::endl;
-    auto input_0_ptr = weight_ptrs_[0] == nullptr ? inputs_[0].MutableData() : weight_ptrs_[0];
-    auto input_1_ptr = weight_ptrs_[1] == nullptr ? inputs_[1].MutableData() : weight_ptrs_[1];
-    int arg_idx = 0;
-    if (opencl_runtime_->SetKernelArg(kernel_, arg_idx++, input_0_ptr) != kSuccess) {
-      std::cerr << "Set kernel arg" << arg_idx - 1 << "failed.";
-      return kLiteError;
-    }
-    if (opencl_runtime_->SetKernelArg(kernel_, arg_idx++, input_1_ptr) != kSuccess) {
-      std::cerr << "Set kernel arg" << arg_idx - 1 << "failed.";
-      return kLiteError;
-    }
-    if (opencl_runtime_->SetKernelArg(kernel_, arg_idx++, outputs_[0].MutableData()) != kSuccess) {
-      std::cerr << "Set kernel arg" << arg_idx - 1 << "failed.";
-      return kLiteError;
-    }
-    if (opencl_runtime_->RunKernel(kernel_, global_range_, local_range_, nullptr, &event_) != kSuccess) {
-      std::cerr << "Run kernel failed.";
-      return kLiteError;
-    }
+    ```cpp
+    int Execute() override {
+        ...
+        std::cout << this->name() << " Running!" << std::endl;
+        auto input_0_ptr = weight_ptrs_[0] == nullptr ? inputs_[0].MutableData() : weight_ptrs_[0];
+        auto input_1_ptr = weight_ptrs_[1] == nullptr ? inputs_[1].MutableData() : weight_ptrs_[1];
+        int arg_idx = 0;
+        if (opencl_runtime_->SetKernelArg(kernel_, arg_idx++, input_0_ptr) != kSuccess) {
+        std::cerr << "Set kernel arg" << arg_idx - 1 << "failed.";
+        return kLiteError;
+        }
+        if (opencl_runtime_->SetKernelArg(kernel_, arg_idx++, input_1_ptr) != kSuccess) {
+        std::cerr << "Set kernel arg" << arg_idx - 1 << "failed.";
+        return kLiteError;
+        }
+        if (opencl_runtime_->SetKernelArg(kernel_, arg_idx++, outputs_[0].MutableData()) != kSuccess) {
+        std::cerr << "Set kernel arg" << arg_idx - 1 << "failed.";
+        return kLiteError;
+        }
+        if (opencl_runtime_->RunKernel(kernel_, global_range_, local_range_, nullptr, &event_) != kSuccess) {
+        std::cerr << "Run kernel failed.";
+        return kLiteError;
+        }
 
-    return kSuccess;
-  }
-  ```
+        return kSuccess;
+    }
+    ```

@@ -491,7 +491,7 @@ MindSpore Insight可以为用户记录每次训练的精度结果。在`model.tr
 
 #### 权重初始值的选择和优化
 
-权重初始值对训练效果的影响较大，在MindSpore的模型交付实践中， 常常有因为权重初始值引起的精度差异。在有标杆脚本时，应该确保MindSpore脚本的权重初始化方式和标杆脚本的权重初始化方式一致。特别要小心未指定权重初始化方式的场景，此时使用的是各个框架的默认初始化方式，而MindSpore、PyTorch、TensorFlow等框架的默认权重初始化方式常常不同。
+权重初始值对训练效果的影响较大，在MindSpore的模型交付实践中，常常有因为权重初始值引起的精度差异。在有标杆脚本时，应该确保MindSpore脚本的权重初始化方式和标杆脚本的权重初始化方式一致。特别要小心未指定权重初始化方式的场景，此时使用的是各个框架的默认初始化方式，而MindSpore、PyTorch、TensorFlow等框架的默认权重初始化方式常常不同。
 
 常见的权重初始化方式包括：
 
@@ -549,7 +549,7 @@ batch size是指一次训练，也即一次前向传播、反向传播、权重�
 
 #### 动量值的选择和优化
 
-当使用带有动量的优化器（例如[Momentum](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)）时，动量和学习率一般应朝相反的方向调整，不同动量下的最佳学习率不同。当使用循环学习率时，同样推荐按照相反的方向循环变化动量值 ，也即，当学习率从大到小变化时，动量应从小到大变化。当学习率固定时，动量值也应保持固定。
+当使用带有动量的优化器（例如[Momentum](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)）时，动量和学习率一般应朝相反的方向调整，不同动量下的最佳学习率不同。当使用循环学习率时，同样推荐按照相反的方向循环变化动量值，也即，当学习率从大到小变化时，动量应从小到大变化。当学习率固定时，动量值也应保持固定。
 
 #### 权重衰减参数的选择和优化
 

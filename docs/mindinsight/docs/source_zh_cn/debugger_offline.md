@@ -8,7 +8,7 @@
 
 ## 操作流程
 
-1. 准备Dump数据。Dump的使用方式详见[使用Dump功能在Graph模式调试](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html) ；
+1. 准备Dump数据。Dump的使用方式详见[使用Dump功能在Graph模式调试](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)；
 2. 使用离线调试器进行调试分析。
 
    如果需要UI页面，可以通过MindSpore Insight的离线调试器入口启动调试器。操作流程为：
@@ -17,7 +17,7 @@
 
     2）从训练列表中找到离线调试器入口，点击“离线调试器”，进入调试器页面，开始进行调试分析。
 
-   如果不需要UI页面，也可以通过离线调试器的API接口来分析。离线调试器的API详见[mindinsight.debugger](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight.debugger.html) 。操作流程为：
+   如果不需要UI页面，也可以通过离线调试器的API接口来分析。离线调试器的API详见[mindinsight.debugger](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight.debugger.html)。操作流程为：
 
     1）通过`mindinsight.debugger.DumpAnalyzer`实例化离线调试器，将dump_dir指定为某一次训练的dump路径（dump配置中的{path}）；
 
@@ -27,7 +27,7 @@
 
 ## 离线调试器环境准备
 
-使用MindSpore的Dump功能准备离线数据。Dump的使用方式详见[使用Dump功能在Graph模式调试](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html) 。
+使用MindSpore的Dump功能准备离线数据。Dump的使用方式详见[使用Dump功能在Graph模式调试](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)。
 
 需要注意的是，一个summary-dir目录下只能存放一个dump目录。例如，某一次训练的Dump配置文件中的path为“/home/workspace/data/dump_dir”，那么本次训练dump数据保存以后，再启动其它训练时，Dump配置文件中的path就不能指定为“/home/workspace/data”的子目录。
 
@@ -54,11 +54,11 @@ mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-
 
 ![debugger_offline_entry](images/debugger_offline_entry.png)
 
-*图1： 离线调试器入口*
+*图1：离线调试器入口*
 
 ## 离线调试器页面介绍
 
-离线调试器界面与在线调试器大致相同。在线调试器的页面介绍详见[在线调试器页面介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#调试器页面介绍) 。不同的是，离线调试器会在计算图的上方显示图执行历史，并且可以重置训练轮次。
+离线调试器界面与在线调试器大致相同。在线调试器的页面介绍详见[在线调试器页面介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#调试器页面介绍)。不同的是，离线调试器会在计算图的上方显示图执行历史，并且可以重置训练轮次。
 
 ### 图执行历史
 
@@ -74,7 +74,7 @@ mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-
 
 ![debugger_offline_reset](images/debugger_offline_reset.png)
 
-*图3： 重置训练轮次*
+*图3：重置训练轮次*
 
 ![debugger_offline_edit](images/debugger_offline_edit.png)
 
@@ -90,7 +90,7 @@ mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-
 
     此时，调试器处于加载离线数据的状态。
 
-2. 稍等片刻，在MindSpore Insight UI上可以看到弹窗，提示选择是否使用推荐监测点，接下来的使用步骤与在线调试相同。[使用调试器进行调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#使用调试器进行调试) 。
+2. 稍等片刻，在MindSpore Insight UI上可以看到弹窗，提示选择是否使用推荐监测点，接下来的使用步骤与在线调试相同。[使用调试器进行调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#使用调试器进行调试)。
 
 3. 如果需要重置训练轮次，可以参考[训练轮次重置](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_offline.html#训练轮次重置) 来重置训练轮次。每个轮次的数据保存情况可以参考[图执行历史](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_offline.html#图执行历史) 来查看。
 
@@ -141,4 +141,4 @@ if __name__ == "__main__":
 - 重新检查只检查当前有张量值的监测点。
 - 调试器展示的图是优化后的最终执行图。调用的算子可能已经与其它算子融合，或者在优化后改变了名称。
 - 如果Dump数据对象为Ascend异步Dump产生的bin文件，则解析过程中会产生npy文件，占用磁盘空间。
-- 如果使用Ascend场景下的异步Dump数据，可以使用MindSpore Insight的数据解析工具DumpParser的`convert_all_data_to_host`接口将异步Dump数据转换为`.npy`文件，从而提高数据分析效率。DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/parser) 。
+- 如果使用Ascend场景下的异步Dump数据，可以使用MindSpore Insight的数据解析工具DumpParser的`convert_all_data_to_host`接口将异步Dump数据转换为`.npy`文件，从而提高数据分析效率。DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/parser)。

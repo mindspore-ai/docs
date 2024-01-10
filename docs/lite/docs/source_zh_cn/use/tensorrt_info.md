@@ -58,7 +58,7 @@ bash build.sh -I x86_64
 
 - 模型序列化
 
-    TensorRT推理支持将已构建的TensorRT模型（Engine)序列化为二进制文件保存在本地，下次使用时即可从本地反序列化加载模型，避免重新构建，降低开销。支持此功能，用户需要在代码中使用[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_cpp/mindspore.html#loadconfig)接口加载配置文件，配置文件中须指定序列化文件保存路径：
+    TensorRT推理支持将已构建的TensorRT模型（Engine）序列化为二进制文件保存在本地，下次使用时即可从本地反序列化加载模型，避免重新构建，降低开销。支持此功能，用户需要在代码中使用[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_cpp/mindspore.html#loadconfig)接口加载配置文件，配置文件中须指定序列化文件保存路径：
 
     ```
     [ms_cache]
@@ -67,7 +67,7 @@ bash build.sh -I x86_64
 
 - 模型动态输入
 
-    默认情况下，TensorRT根据定义模型的输入形状(批大小、图像大小等)优化模型。但是，可以通过配置profile在运行时调整输入维度，在profile中可以设置每个动态输入的最小、动态以及最优形状，TensorRT会根据用户设置的profile创建一个优化引擎，并选择最优最快的内核, 并且在profile中支持一个输入配置多个输入维度。支持此功能，用户需要在代码中使用[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_cpp/mindspore.html#loadconfig)接口加载配置文件。
+    默认情况下，TensorRT根据定义模型的输入形状(批大小、图像大小等)优化模型。但是，可以通过配置profile在运行时调整输入维度，在profile中可以设置每个动态输入的最小、动态以及最优形状，TensorRT会根据用户设置的profile创建一个优化引擎，并选择最优最快的内核，并且在profile中支持一个输入配置多个输入维度。支持此功能，用户需要在代码中使用[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_cpp/mindspore.html#loadconfig)接口加载配置文件。
 
     如果min、opt 和 max 是最小、最优和最大维度，并且real_shape是输入张量的形状，则以下条件必须成立：
 
