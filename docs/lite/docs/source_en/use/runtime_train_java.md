@@ -24,7 +24,7 @@ The following figure shows the detailed training process:
 
 ### Reading Models
 
-A Model file is flatbuffer-serialized file which was converted using the [MindSpore Model Converter Tool](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Serialization.html). These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [Graph]((https://www.mindspore.cn/lite/api/en/master/api_java/graph.html#graph) class which holds the model data such as the network structure, weights data and operators attributes.
+A Model file is flatbuffer-serialized file which was converted using the MindSpore Model Converter Tool. These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [Graph](https://www.mindspore.cn/lite/api/en/master/api_java/graph.html#graph) class which holds the model data such as the network structure, weights data and operators attributes.
 
 ### Creating Contexts
 
@@ -35,7 +35,7 @@ Currently, only CPU device is supported in training.
 
 Users can create the object of the class `Model` by using the function `Build` to call MindData APIs. The member function `Build` of the class `Model`, its prototype is as follows:
 
-  `public boolean build(Graph graph, MSContext context, TrainCfg cfg);`
+`public boolean build(Graph graph, MSContext context, TrainCfg cfg);`
 
 The following codes show how to create a training session based on the multi-threads CPU by using the class `Model`.
 
@@ -61,8 +61,6 @@ Currently, java does not provide data processing API such as C++ `Dataset` class
 ### Example
 
 The following codes shows the Mnist data reading and data preprocessing process:
-
-Currently, java does not provide data processing API such as C++ `Dataset` class and its extended classes. Users need to define the data preprocessing process by themselves. After processing the image or text data into byte data, copy it to the input of the model.
 
 ```java
     public void readMNISTFile(String inputFileName, String labelFileName, Vector<DataLabelTuple> dataset) {
@@ -107,8 +105,6 @@ Currently, java does not provide data processing API such as C++ `Dataset` class
 MindSpore Lite java interface can obtain the output of the model through the interface provided by the `Model` class. In the training mode, the output of the model is loss, and in the inference mode, the output of the model is the predicted value. The training and inference modes can be switched through the `setTrainMode` interface. Execute the model through the `runStep` interface.
 
 ### Training
-
-Create the objects of the off-the-shelf functions and call the Train function of the class Model to train:
 
 ```java
 model.setTrainMode(true);
@@ -166,7 +162,7 @@ public boolean setTrainMode(boolean isTrain)
 
 ### Resizing the Input Dimension
 
-When MindSpore Lite is used for inference, if the input shape needs to be resized, you can call the Resize API of [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) to resize the shape of the input tensor after a model is created and built.
+When MindSpore Lite is used for inference, if you need to Resize the input shape, you can call [resize](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#resize) of Model after you have finished creating [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) and have completed model compilation [build](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#build), to resize the shape of the input Tensor.
 
 > Some networks do not support variable dimensions. As a result, an error message is displayed and the model exits unexpectedly. For example, the model contains the MatMul operator, one input tensor of the MatMul operator is the weight, and the other input tensor is the input. If a variable dimension API is called, the input tensor does not match the shape of the weight tensor. As a result, the training fails.
 
@@ -183,7 +179,7 @@ bool ret = model.resize(inputs, dims);
 Before graph execution, whether it is during training or inference, the input data must be filled-in into the model input tensors.
 MindSpore Lite provides the following methods to obtain model input tensors:
 
-1. Use the `getInputByTensorName` method to obtain model input tensors that are connected to the model input node based on the tensor name.
+1. Use the [getInputsByTensorName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getinputsbytensorname) method to obtain model input tensors that are connected to the model input node based on the tensor name.
 
     ```java
      /**
@@ -195,7 +191,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     public MSTensor getInputByTensorName(String tensorName);
     ```
 
-2. Use the `getInputs` method to directly obtain the vectors of all model input tensors.
+2. Use the [getInputs](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getinputs) method to directly obtain the vectors of all model input tensors.
 
     ```java
     /**
@@ -213,6 +209,8 @@ MindSpore Lite provides the following methods to obtain model input tensors:
 
     After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html#mstensor) API documentation.
 
+    The following sample code shows how to get the complete graph input tensor from `Model` and how to convert the model input data to `MSTensor` type.
+
     ```java
     // Assuming model is a valid instance of Model
     List<MSTensor> inputs = model.getInputs();
@@ -223,11 +221,9 @@ MindSpore Lite provides the following methods to obtain model input tensors:
 
 ### Obtaining Output Tensors
 
-After each execution of the graph, the user might want to read the model's outputs, whether it is the loss in the case of training mode, or the predicted output in the case of evaluation mode.
+MindSpore Lite provides the following methods to obtain the output tensor of a model:
 
-MindSpore Lite provides the following methods to obtain the model's output `MSTensor`.
-
-1. Use the `getOutputsByNodeName` method to obtain the output tensors that belong to a certain node:
+1. Use the [getOutputsByNodeName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getoutputsbynodename) method to obtain the output tensors that belong to a certain node:
 
     ```java
     /**
@@ -239,7 +235,7 @@ MindSpore Lite provides the following methods to obtain the model's output `MSTe
     public List<MSTensor> getOutputsByNodeName(String nodeName);
     ```
 
-2. Use the `getOutputByTensorName` method to obtain an output tensor, based on the tensor name.
+2. Use the [getOutputByTensorName](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getoutputbytensorname) method to obtain an output tensor, based on the tensor name.
 
     ```java
           /**
@@ -250,7 +246,7 @@ MindSpore Lite provides the following methods to obtain the model's output `MSTe
         public MSTensor getOutputByTensorName(String tensorName);
     ```
 
-3. Use the `getOutputs` method to obtain all the output tensors, ordered by their tensor names.
+3. Use the [getOutputs](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#getoutputs) method to obtain all the output tensors, ordered by their tensor names.
 
     ```java
         /**
@@ -278,4 +274,4 @@ MindSpore Lite provides the `export` interface to save the model, the prototype 
     public boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer,List<String> outputTensorNames);
 ```
 
-You can load the saved model to perform re-training or inference.
+You can load the saved model to perform training or inference.

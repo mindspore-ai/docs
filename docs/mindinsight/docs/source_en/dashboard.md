@@ -8,6 +8,8 @@ Training dashboard is an important part of MindSpore Insight's visualization com
 
 Access the Training Dashboard by selecting a specific training from the training list.
 
+> The method of collecting visualization data and accessing the training Kanban board can be found in [Collecting Summary Data](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html).
+
 ## Scalar Visualization
 
 Scalar visualization is used to display the change trend of scalars during training.

@@ -41,7 +41,7 @@ Run the training script in debug mode, you need to set `export ENABLE_MS_DEBUGGE
 `export MS_DEBUGGER_HOST=127.0.0.1` (the service address must be consistent with MindSpore Insight host address);
 `export MS_DEBUGGER_PORT=50051` (the port must be consistent with MindSpore Insight debugger-port).
 
-If the memory space of your equipment is limited, you can use the partial memory reuse mode before starting the training to reduce the running space: `export MS_DEBUGGER_PARTIAL_MEM=1`。
+If the memory space of your equipment is limited, you can use the partial memory reuse mode before starting the training to reduce the running space: `export MS_DEBUGGER_PARTIAL_MEM=1`.
 
 In addition, do not use data offload mode during training (you need to set `dataset_sink_mode` in `model.train` to `False`) to ensure that the debugger can obtain the training information of each step.
 
@@ -83,9 +83,6 @@ You can filter nodes by `Graph File` and `Node Type` under `Node List`, as shown
 After clicking a graph node, you can view its detailed information in the lower part of the UI, including the output and input, training steps (`Step`), as well as data types (`DType`), shapes (`Shape`), and values (`Value`) of a tensor, as shown in Figure 2. After clicking the `Download` in the `Value` column, tensor values can be download as `.npy` file, the default directory is `Downloads` folder.
 
 In the GPU environment, select and right-click an executable graph node, and choose `Run to This Node` from the shortcut menu to run the training script to the selected node (no more than one step).
-
-When the depth of the direct child node of a namespace or an aggregation node exceeds 70, the graph node page does not support expanding the node.
-To see the tensor relationship inside the node, you can turn to the tensor relationship diagram page via a node related to it, refer to the [FAQ](https://www.mindspore.cn/mindinsight/docs/en/master/faq.html) for details.
 
 ### Anomaly Check List
 
@@ -230,7 +227,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 
 4. Later, you can see that the computational graph is displayed on the Debugger UI, as shown in Figure 1.
 
-5. Set watchpoints.
+5. Set watchpoints, as shown in Figure 4.
 
     Select the watchpoint conditions, as shown in Figure 4. Select or deselect certain nodes as shown in Figure 3. The debugger monitors whether outputs that meet the watchpoint conditions exist during the node computation process.
     After setting the watchpoints, you can set `step` and click `OK`, or just click `CONTINUE` to continue the training.

@@ -29,7 +29,7 @@ class XXXDelegate : public Delegate {
   Status Init() = 0;
 
   Status Build(DelegateModel *model) = 0;
-};
+}
 ```
 
 ### Implementing the Init
