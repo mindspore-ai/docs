@@ -60,7 +60,7 @@ dependencies {
 
 MindSpore Lite进行模型推理时，需要先从文件系统中加载模型转换工具转换后的`.ms`模型，并进行模型解析。
 
-下面[示例代码]从指定的文件路径读取模型文件。
+下面示例代码从指定的文件路径读取模型文件。
 
 ```java
 // Load the .ms model.
@@ -125,7 +125,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 使用MindSpore Lite执行推理时，[Model](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/model.html#model)是推理的主入口，通过Model可以实现模型加载、模型编译和模型执行。采用上一步创建得到的[MSContext](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#init)，调用Model的复合[build](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/model.html#build)接口来实现模型加载与模型编译。
 
-下面[示例代码]演示了Model创建、加载与编译的过程：
+下面示例代码演示了Model创建、加载与编译的过程：
 
 ```java
 Model model = new Model();

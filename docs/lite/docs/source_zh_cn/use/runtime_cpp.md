@@ -486,7 +486,7 @@ MindSpore Lite 支持 OpenGL纹理输入，进行端到端的GPU同构推理，�
 
 1. 配置 Context
 
-    用户需要将 Context 中的 devgpu_device_info_中的 SetEnableGLTexture 属性设置为 true，并且将用户当前的OpenGL EGLContext 、EGLDisplay分别通过SetGLContext接口和SetGLDisplay接口进行配置。
+    用户需要将 Context 中的 devgpu_device_info_中的 SetEnableGLTexture 属性设置为 true，并且将用户当前的OpenGL EGLContext、EGLDisplay分别通过SetGLContext接口和SetGLDisplay接口进行配置。
 
     ```cpp
     const std::shared_ptr<mindspore::Context> context;
@@ -812,7 +812,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 >
 > 静态推断：
 >
-> 1. `CheckInputs`失败或者当前节点需要动态推断的情形下，需将输出张量的shape设为{-1}，以便在图运行时的识别标识,且返回码需设置为`kLiteInferInvalid`。
+> 1. `CheckInputs`失败或者当前节点需要动态推断的情形下，需将输出张量的shape设为{-1}，以便在图运行时的识别标识，且返回码需设置为`kLiteInferInvalid`。
 > 2. 其他情形下，返回其他错误码，程序将会停止，请进行必要的检查。
 >
 > 动态推断：
@@ -841,7 +841,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
     - ReSize：此接口用于在图输入shape变化的情形下，当前算子所需的相应变动。
 
-    - 属性解析： 用户需自行提供对算子属性的解析，可参考[ParseAttrData](https://gitee.com/mindspore/mindspore/blob/r2.3/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc)。
+    - 属性解析：用户需自行提供对算子属性的解析，可参考[ParseAttrData](https://gitee.com/mindspore/mindspore/blob/r2.3/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc)。
 
 2. 算子注册，API接口可参考[REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_cpp/mindspore_registry.html#register-custom-kernel)。
 
