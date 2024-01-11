@@ -347,7 +347,7 @@ Figure 10: Loss Graphic Comparison-3D Map-Overlay-ResNet network overlapped by d
 
 ![loss_landscape_result_3](./images/loss_landscape_result_3.png)
 
-Figure 11:  Loss Graphic Comparison-Isoline Map-Comparison of different widths of ResNet network（left-widths 4，right-widths 1）
+Figure 11: Loss Graphic Comparison-Isoline Map-Comparison of different widths of ResNet network（left-widths 4，right-widths 1）
 
 By comparing the Loss Graph in Figure 10 with that in Figure 11, it can be seen that when training the same epoch, the convergence point of the network with wider width is more flat and broad, and the experiment shows that the generalization ability is also stronger.
 

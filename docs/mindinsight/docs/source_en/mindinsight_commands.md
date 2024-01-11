@@ -2,19 +2,19 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/mindinsight_commands.md)
 
-## View the Command Help Information
+## Viewing the Command Help Information
 
 ```bash
 mindinsight --help
 ```
 
-## View the Version Information
+## Viewing the Version Information
 
 ```bash
 mindinsight --version
 ```
 
-## Start the Service
+## Starting the Service
 
 > MindSpore Insight service only supports local access by default. For remote access, please modify the configuration file `mindinsight\conf\constants.py`.
 > Modify the `HOST` in the file to the server IP, and make sure that the startup port has been opened or the firewall has been closed.
@@ -80,7 +80,7 @@ Web address: http://127.0.0.1:8000
 service start state: success
 ```
 
-## View the Service Process Information
+## Viewing the Service Process Information
 
 MindSpore Insight provides user with web services. Run the following command to view the running web service process:
 
@@ -100,7 +100,7 @@ Output the working directory `WORKSPACE` as follows:
 gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>/log/gunicorn/access.log
 ```
 
-## Stop the Service
+## Stopping the Service
 
 ```text
 mindinsight stop [-h] [--port PORT]
@@ -125,7 +125,7 @@ The shutdown is successful if it prompts as follows:
 Stop mindinsight service successfully
 ```
 
-## Parse Summary
+## Parsing Summary
 
 MindSpore Insight provides tools for parsing summary log files. Users can save the scalars in the summary log file into a csv file and the images into a png file through the commands, which is convenient for viewing and further processing.
 
@@ -164,7 +164,7 @@ In which,
 
 - scalar.csv is the file which save scalars (encoding: 'utf-8').
 
-## Use Mindoptimizer to Tune Hyperparameters
+## Using Mindoptimizer to Tune Hyperparameters
 
 MindSpore Insight provides parameters tuning command. The command-line interface (CLI) provides the following commands:
 

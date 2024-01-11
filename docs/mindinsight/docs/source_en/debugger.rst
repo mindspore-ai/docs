@@ -14,7 +14,7 @@ In `Graph Mode` training, the computation results of intermediate nodes in the c
 - Visualize and analyze the change of parameters, such as weights.
 - Visualize the nodes and code mapping relationship.
 
-Debugger can be used in two modes: online mode and offline mode. Online Debugger can visualize the training during the training process, which is easy to use, and can visualize the results of every step in the training. It is available for small and medium sized, too large network may lead to out of memory. The offline debugger can connect to offline dump data for visualized analysis. It solves the out of memory problem in online debugger when the training network is too large. Dump data of specified steps need to be prepared in advance，and  then the data of these steps can be analysed.
+Debugger can be used in two modes: online mode and offline mode. Online Debugger can visualize the training during the training process, which is easy to use, and can visualize the results of every step in the training. It is available for small and medium sized, too large network may lead to out of memory. The offline debugger can connect to offline dump data for visualized analysis. It solves the out of memory problem in online debugger when the training network is too large. Dump data of specified steps need to be prepared in advance, and then the data of these steps can be analysed.
 
 .. toctree::
    :maxdepth: 1

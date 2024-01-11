@@ -68,12 +68,12 @@ There are two ways to collect neural network performance data. You can enable Pr
 
     For example: `export MS_PROFILER_OPTIONS='{"start": true, "output_path": "/XXX", "sync_enable": true}'`
 
-    - `op_time` (bool, optional) - Whether to collect operators performance data. Default value: true.
     - `start`(bool, mandatory) - If this parameter is set to true, Profiler is enabled. If the parameter is set to false, the performance data collection is disabled. Default value: false.
     - `output_path`(str, optional) - This parameter must be set to the absolute path. If this parameter is not set to the absolute path, the data directory is created in the current path to store performance data by default.
     - `sync_enable`(bool, optional) - Whether the profiler collects operator time taken in a synchronous way. When using this parameter, op_time must be set to true. Default value: true.
     - `timeline_limit`(int, optional) - Set the maximum storage size of the timeline file (unit M). When using this parameter, op_time must be set to true. Default value: 500.
     - `data_process`(bool, optional) - Indicates whether to collect data to prepare performance data. Default value: true.
+    - `op_time` (bool, optional) - Whether to collect operators performance data. Default value: true.
     - `profile_framework`(str, optional) - Whether to collect host memory and time, it must be one of ["all", "time", "memory", null]. Default: "all".
 
 ## Launching MindSpore Insight
@@ -162,7 +162,7 @@ Description:
 - In heterogeneous scenarios, the CPU performance data fields (`op_occurrences`, `op_total_time(us)`, `op_avg_time(us)`) came from the information (`op_occurrences(times)`, `op_total_time(us)`, `op_avg_time(us/time)`) on the HOST CPU page. The difference is that the CPU operator performance data obtained by using the operator performance interface is summarized according to the type of the operator (Primitive operator type) and distinguished according to the input tensor information of the operator. To view specific operator information, launch MindSpore Insight to view detailed CPU kernel performance data.
 - For the `op_analyse()` interface, the device_id parameter is used to specify which card's operator performance data to parse, which defaults to `device_id=0` when the interface is parsing based on offline data.
 
-### Dynamic shape iterative analysis
+### Dynamic Shape Iterative Analysis
 
 When the training network is a dynamic shape network, the operator performance in the operation process of MindSpore can be analyzed by combining the iterative trajectory module and the operator time consumption (by iteration) analysis component. The operator time consumption (by iteration) analysis component displays the execution time of each type of operator in different iterations, including GPU operator information, kernel information, and HOSTCPU operator information, so as to quickly understand the detailed time consumption of each type of operator in each iteration.
 
@@ -172,7 +172,7 @@ When the training network is a dynamic shape network, the operator performance i
 
 Figure 4 shows the statistical analysis results of operator category time consumption, including the following contents:
 
-- You can filter operator types through the filter to see the iteration time curve for the operator of a specified type. (The time shown here is the average time for the execution of different operator types.)
+- You can filter operator types through the filter to see the iteration time curve for the operator of a specified type (The time shown here is the average time for the execution of different operator types).
 - You can use the `operator/kernel` switcher to switch the dimensions. The operator dimension displays information about various types of GPU operators (including the time consumption of various types of CPU operators in heterogeneous cases), while the kernel dimension displays information about the GPU kernel.
 
 ![profiler_dynamic_detail_op_type_table.png](./images/profiler_dynamic_detail_op_type_table.png)
@@ -195,13 +195,13 @@ Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/per
 
 The usage is almost the same as that in Ascend. (**Note that step trace do not support heterogeneous training scene.**)
 
-Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#step-trace-analysis)
+Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#step-trace-analysis).
 
 ### Data Preparation Analysis
 
 The usage is almost the same as that in Ascend.
 
-Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis)
+Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis).
 
 ## Resource Utilization
 
@@ -217,13 +217,12 @@ Overview of resource utilization：Including CPU utilization analysis. You can v
 
 The usage is almost the same as that in Ascend.
 
-Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#cpu-utilization-analysis)
+Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#cpu-utilization-analysis).
 
 ### Specifications
 
 - To limit the data size generated by the Profiler, MindSpore Insight
-  suggests that for large neural network, the profiled steps should be
-  less than 10.
+  suggests that for large neural network, the profiled steps should be less than 10.
 
   The number of steps can be controlled by controlling the size of
   training dataset. For example, the `num_samples` parameter in
@@ -231,12 +230,7 @@ Refer to [Method of use](https://www.mindspore.cn/mindinsight/docs/en/master/per
   dataset. For details, please refer to:
   [dataset API](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MindDataset.html).
 
-- The parsing of Timeline data is time consuming, and usually the data of
-
-  a few steps is enough to analyze the results. In order to speed up
-  the data parsing and UI display, Profiler will show at most 20M data
-
-  (Contain 10+ step information for large networks).
+- The parsing of Timeline data is time consuming, and usually the data of a few steps is enough to analyze the results. In order to speed up the data parsing and UI display, Profiler will show at most 20M data (Contain 10+ step information for large networks).
 
 - Enabling the Profiler has a partial performance impact on the training process. If the impact is significant, data collection items can be reduced. The following is a comparison of the performance of the Resnet network before and after enabling the Profiler:
 

@@ -16,17 +16,17 @@
 
    需要固定的随机数种子包括MindSpore全局随机数种子[mindspore.set_seed(1)](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html#mindspore.set_seed)；numpy等三方库的全局随机数种子`numpy.random.seed(1)`；Python随机数种子`random.seed(1)`等。样例代码如下：
 
-    ```python
-    import random
+   ```python
+   import random
 
-    import numpy
+   import numpy
 
-    import mindspore
+   import mindspore
 
-    mindspore.set_seed(1)
-    numpy.random.seed(1)
-    random.seed(1)
-    ```
+   mindspore.set_seed(1)
+   numpy.random.seed(1)
+   random.seed(1)
+   ```
 
 2. 固定超参。
 
@@ -38,7 +38,7 @@
 
 4. 固定数据处理方法和数据顺序。
 
-   （1）删除或替换所有随机数据处理操作（例如 删除[RandomHorizontalFlip](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomHorizontalFlip.html#mindspore.dataset.vision.RandomHorizontalFlip)、将[RandomCrop](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomCrop.html#mindspore.dataset.vision.RandomCrop)替换为[Crop](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop)等）。随机操作指所有名称中带有Random的数据处理操作。
+   （1）删除或替换所有随机数据处理操作（例如删除[RandomHorizontalFlip](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomHorizontalFlip.html#mindspore.dataset.vision.RandomHorizontalFlip)、将[RandomCrop](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomCrop.html#mindspore.dataset.vision.RandomCrop)替换为[Crop](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop)等）。随机操作指所有名称中带有Random的数据处理操作。
 
    （2）设置`shuffle=False`以关闭shuffle功能。不要使用数据集的sampler。
 
@@ -47,12 +47,12 @@
    （4）如果需要从某个迭代开始训练，可以使用`dataset.skip()`接口跳过之前迭代的数据。
    样例代码如下：
 
-    ```python
-    import mindspore.dataset as ds
+   ```python
+   import mindspore.dataset as ds
 
-    data_set = ds.Cifar10Dataset(dataset_path, num_parallel_workers=1, shuffle=False)
-    data_set.map(operations=trans, input_columns="image", num_parallel_workers=1)
-    ```
+   data_set = ds.Cifar10Dataset(dataset_path, num_parallel_workers=1, shuffle=False)
+   data_set.map(operations=trans, input_columns="image", num_parallel_workers=1)
+   ```
 
 5. 固定网络。
 
@@ -72,7 +72,7 @@
 
    若不能同时满足以上两个条件，应检查上述固定随机性的步骤是否都做到位了。如果固定随机性的操作均做到了，但是两次运行脚本，前两个迭代的loss值还是不一致，请[新建issue向MindSpore求助](https://gitee.com/mindspore/mindspore/issues/new)。
 
-我们提供了一个成功固定随机性的[样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/fix_randomness/fix_randomness.py)，该样例代码执行了2个迭代的训练，两次运行此代码可以看到，两次训练的第一个迭代的loss值满足numpy.allclose()函数，且两次训练的第二个迭代的loss值满足numpy.allclose()函数，说明网络的随机性得到了固定。
+   我们提供了一个成功固定随机性的[样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/fix_randomness/fix_randomness.py)，该样例代码执行了2个迭代的训练，两次运行此代码可以看到，两次训练的第一个迭代的loss值满足numpy.allclose()函数，且两次训练的第二个迭代的loss值满足numpy.allclose()函数，说明网络的随机性得到了固定。
 
 ## 备注
 
@@ -96,6 +96,6 @@
     - ReduceMinD：当您在网络中使用[ReduceMin](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceMin.html#mindspore.ops.ReduceMin)算子时，正向计算中可能会使用ReduceMinD算子。
     - ReduceProdD：当您在网络中使用[ReduceProd](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceProd.html#mindspore.ops.ReduceProd)算子时，正向计算中可能会使用ReduceProdD算子。
     - ReduceSum、ReduceSumD：当您在网络中使用[ReduceSum](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceSum.html#mindspore.ops.ReduceSum)算子时，正向计算中可能会使用ReduceSum或ReduceSumD算子。
-    - RoiAlignGrad：当您在网络中使用[ROIAlign](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ROIAlign.html#mindspore.ops.ROIAlign)算子时，反向计算中会使用StridedSliceGrad算子。
+    - RoiAlignGrad：当您在网络中使用[ROIAlign](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ROIAlign.html#mindspore.ops.ROIAlign)算子时，反向计算中会使用RoiAlignGrad算子。
     - SquareSum：当您在网络中使用[SquareSumAll](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.SquareSumAll.html#mindspore.ops.SquareSumAll)算子时，正向计算中会使用SquareSum算子。
     - StridedSliceGrad：当您在网络中使用[StridedSlice](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.StridedSlice.html#mindspore.ops.StridedSlice)算子时，反向计算中会使用StridedSliceGrad算子。

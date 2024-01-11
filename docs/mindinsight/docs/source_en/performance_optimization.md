@@ -95,7 +95,7 @@ Open the details page of Operator Time Consumption Ranking, and we find that Mat
 
 *Figure 6: Finding operators that can be optimized via the details page of Operator Time Consumption Ranking*
 
-For Operator Time Consumption optimization, usually float16 type with the less computating amount can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to [Enabling Mixed Precision](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html ) to improve operators performance.
+For Operator Time Consumption optimization, usually float16 type with the less computating amount can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to [Enabling Mixed Precision](https://www.mindspore.cn/tutorials/en/master/advanced/mixed_precision.html) to improve operators performance.
 
 Optimization code is shown below:
 
@@ -113,7 +113,7 @@ After the float16 format is set, the inference script is run. From the MindSpore
 
 ### Case 3: Optimize The Step Tail
 
-We run ResNet50 training script with 8 processes in MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md#) , set batch size to 32, and each step cost about 23.6ms. We still want to improve each step time consumption.
+We run ResNet50 training script with 8 processes in MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md#), set batch size to 32, and each step cost about 23.6ms. We still want to improve each step time consumption.
 
 As we observed the step trace on the MindSpore Insight UI page, step interval and FP/BP interval can not be improved more, so we try to optimize step tail.
 
@@ -123,7 +123,7 @@ As we observed the step trace on the MindSpore Insight UI page, step interval an
 
 Step Tail duration contains AllReduce gradient synchronization, parameter update and other operations. Normally, AllReduce gradient synchronization waits until all the inverse operators are finished, i.e., all the gradients of all weights are computed before synchronizing the gradients of all machines at once. With AllReduce tangent, we can synchronize the gradients of some weights as soon as they are computed, so that the gradient synchronization and the gradient computation of the remaining operators can be performed in parallel, hiding this part of the AllReduce gradient synchronization time.
 
-The tangent strategy is usually a manual attempt to find an optimal solution (supporting slicing greater than two segments). As an example, ResNet50 network has 160 weights, and [85, 160] indicates that the gradient synchronization is performed immediately after the gradient is calculated for the 0th to 85th weights, and the gradient synchronization is performed after the gradient is calculated for the 86th to 160th weights. Here there are two segments, therefore the gradient synchronization is required to perform twice.
+The sharding strategy is usually a manual attempt to find an optimal solution (supporting slicing greater than two segments). As an example, ResNet50 network has 160 weights, and [85, 160] indicates that the gradient synchronization is performed immediately after the gradient is calculated for the 0th to 85th weights, and the gradient synchronization is performed after the gradient is calculated for the 86th to 160th weights. Here there are two segments, therefore the gradient synchronization is required to perform twice.
 
 Optimization code is shown below:
 
