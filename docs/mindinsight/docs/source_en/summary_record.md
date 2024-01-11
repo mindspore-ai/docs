@@ -142,7 +142,7 @@ class MyCallback(Callback):
         # else your training script will not exit from training.
         self.summary_record.close()
 
-    def step_end(self, run_context):
+    def on_train_step_end(self, run_context):
         cb_params = run_context.original_args()
 
         # create a confusion matric image, and record it to summary file
