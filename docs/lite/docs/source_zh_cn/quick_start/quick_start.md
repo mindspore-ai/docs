@@ -6,7 +6,7 @@
 
 我们推荐你从端侧Android图像分类demo入手，了解MindSpore Lite应用工程的构建、依赖项配置以及相关API的使用。
 
-本教程基于MindSpore团队提供的Android“端侧图像分类”示例程序，演示了端侧部署的流程。  
+本教程基于MindSpore团队提供的Android“端侧图像分类”示例程序，演示了端侧部署的流程。
 
 1. 选择图像分类模型。
 2. 将模型转换成MindSpore Lite模型格式。
@@ -22,13 +22,13 @@
 
 ## 选择模型
 
-MindSpore团队提供了一系列预置终端模型，你可以在应用程序中使用这些预置的终端模型。  
+MindSpore团队提供了一系列预置终端模型，你可以在应用程序中使用这些预置的终端模型。
 可下载[MindSpore Model Zoo中图像分类模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5/mobilenetv2.ms)。
 同时，你也可以使用预置模型做迁移学习，以实现自己的图像分类任务。
 
 ## 转换模型
 
-如果预置模型已经满足你要求，请跳过本章节。 如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html#保存和加载mindir)。然后使用MindSpore Lite[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)将.mindir格式转换成.ms格式。
+如果预置模型已经满足你要求，请跳过本章节。如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html#保存和加载mindir)。然后使用MindSpore Lite[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)将.mindir格式转换成.ms格式。
 
 以mobilenetv2模型为例，如下脚本将其转换为MindSpore Lite模型用于端侧推理。
 
@@ -70,7 +70,7 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 
     Android Studio连接设备调试操作，可参考<https://developer.android.com/studio/run/device?hl=zh-cn>。
 
-    手机需开启“USB调试模式”，Android Studio才能识别到手机。 华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
+    手机需开启“USB调试模式”，Android Studio才能识别到手机。华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
 
 3. 在Android设备上，点击“继续安装”，安装完即可查看到设备摄像头捕获的内容和推理结果。
 
@@ -211,7 +211,7 @@ target_link_libraries( # Specifies the target library.
 
 推理代码流程如下，完整代码请参见[MindSporeNetnative.cpp](https://gitee.com/mindspore/models/blob/master/official/lite/image_classification/app/src/main/cpp/MindSporeNetnative.cpp)。
 
-1. 加载MindSpore Lite模型文件，构建上下文、会话以及用于推理的计算图。  
+1. 加载MindSpore Lite模型文件，构建上下文、会话以及用于推理的计算图。
 
     - 加载模型文件：
 
@@ -305,7 +305,7 @@ target_link_libraries( # Specifies the target library.
                 inputDims.channel * inputDims.width * inputDims.height * sizeof(float));
         ```
 
-       调整输入图片的尺寸，以及数据处理详细算法。
+    - 调整输入图片的尺寸，以及数据处理详细算法。
 
         ```cpp
         bool PreProcessImageData(const LiteMat &lite_mat_bgr, LiteMat *lite_norm_mat_ptr) {
@@ -361,7 +361,7 @@ target_link_libraries( # Specifies the target library.
         return (env)->NewStringUTF(resultCharData);
         ```
 
-     输出数据的后续处理。通过`msOutputs`获取输出对象`outputTensor`，并和事物类别数组`labels_name_map`解析得到每个元素的训练的得分数组`scores[]`。 设置可信度阀值为`unifiedThre`，根据训练数据统计可信度阀值。高于阀值，归属于这个类型。反之，则不是。最终返回一个对应事物类别名称和对应得分的数据`categoryScore`。
+     输出数据的后续处理。通过`msOutputs`获取输出对象`outputTensor`，并和事物类别数组`labels_name_map`解析得到每个元素的训练的得分数组`scores[]`。设置可信度阀值为`unifiedThre`，根据训练数据统计可信度阀值。高于阀值，归属于这个类型。反之，则不是。最终返回一个对应事物类别名称和对应得分的数据`categoryScore`。
 
         ```cpp
         std::string ProcessRunnetResult(const int RET_CATEGORY_SUM, const char *const labels_name_map[],

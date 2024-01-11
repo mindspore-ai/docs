@@ -50,7 +50,7 @@ The following section describes how to build and execute an on-device image clas
 
 ### Building and Running
 
-1. Load the [sample source code](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification) to Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
+1. Load the [sample source code](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification) to Android Studio and install the corresponding SDK (After the SDK version is specified, Android Studio automatically installs the SDK).
 
     ![start_home](../images/lite_quick_start_home.png)
 
@@ -118,13 +118,13 @@ app
 
 ### Configuring MindSpore Lite Dependencies
 
-When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/lite/docs/en/master/use/build.html) to generate the MindSpore Lite version. In this case, you need to use the compile command of generate with image preprocessing module.
-
-In this example, the build process automatically downloads the `mindspore-lite-{version}-android-{arch}.tar.gz` by the `app/download.gradle` file and saves in the `app/src/main/cpp` directory.
+When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/lite/docs/en/master/use/build.html) to generate the `mindspore-lite-{version}-android-{arch}.tar.gz` library package and extract it (contains the `libmindspore-lite.so` library file and related header files). In this case, you need to use the compile command of generate with image preprocessing module.
 
 > version: Version number of the .tar package, which is the same as the version of the compiled branch code.
 >
 > arch: Operating system arm64 or arm32.
+
+In this example, the build process automatically downloads the MindSpore Lite version file by the `app/download.gradle` file and saves in the `app/src/main/cpp` directory.
 
 Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-{version}-android-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html). After decompression, copy the `mindspore-lite-{version}-android-{arch}` folder to the directory of `src/main/cpp`.
 
@@ -211,7 +211,7 @@ The inference process code is as follows. For details about the complete code, s
 
     - Load model file:
 
-       Read the model file in the Java layer of Android and convert it into a ByteBuffer type file `model _ Buffer`, which is transferred to C++ layer by calling JNI. Finally, the `model_ Buffer` is converted to char type file `modelbuffer`.
+       Read the model file in the Java layer of Android and convert it into a ByteBuffer type file `model_buffer`, which is transferred to C++ layer by calling JNI. Finally, the `model_buffer` is converted to char type file `modelBuffer`.
 
         ```cpp
         // Buffer is the model data passed in by the Java layer

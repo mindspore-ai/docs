@@ -118,7 +118,8 @@ net = Network()
 In this step, the loss function, the optimizer, and the training process need to be defined, and this example is written in a functional way, which is partially consistent with the single-card model:
 
 ```python
-from mindspore import nn, ops
+from mindspore import nn
+import mindspore as ms
 
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
 loss_fn = nn.CrossEntropyLoss()
@@ -128,7 +129,7 @@ def forward_fn(data, target):
     loss = loss_fn(logits, target)
     return loss, logits
 
-grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
 
 for epoch in range(1):
     i = 0

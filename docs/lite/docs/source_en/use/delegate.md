@@ -29,7 +29,7 @@ class XXXDelegate : public Delegate {
   Status Init() = 0;
 
   Status Build(DelegateModel *model) = 0;
-};
+}
 ```
 
 ### Implementing the Init
@@ -45,11 +45,11 @@ Status XXXDelegate::Init() {
 
 ### Implementing the Build
 
-The input parameter of the [Build(DelegateModel *model)](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Delegate.html) interface is [DelegateModel](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DelegateModel.html#template-class-delegatemodel)。
+The input parameter of the [Build(DelegateModel *model)](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Delegate.html) interface is [DelegateModel](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DelegateModel.html#template-class-delegatemodel).
 
-> `std::vector<kernel::Kernel *> *kernels_`: A list of kernels that have been selected by MindSpore Lite and topologically sorted.
+> [std::vector<kernel::Kernel *> *kernels_](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_kernel_Kernel.html): A list of kernels that have been selected by MindSpore Lite and topologically sorted.
 >
-> `const std::map<kernel::Kernel *, const schema::Primitive *> primitives_`: A map of kernel and its attribute `schema::Primitive`, which is used to analyze the original attribute information.
+> [const std::map<kernel::Kernel *, const schema::Primitive *> primitives_](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DelegateModel.html): A map of kernel and its attribute `schema::Primitive`, which is used to analyze the original attribute information.
 
 [Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Delegate.html) will be called during the [Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) process of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model). The specific location is in the [Schedule::Schedule](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/litert/scheduler.cc#L132) function of MindSpore Lite internal process. At this time, the inner kernels have been selected by MindSpore Lite. The following steps should be implemented in Build function:
 
@@ -280,6 +280,31 @@ kernel::Kernel *NPUDelegate::CreateNPUGraph(const std::vector<NPUOp *> &ops) {
 ### Adding the NPUGraph Class
 
 [NPUGraph](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/litert/delegate/npu/npu_graph.h#L29) inherits from [Kernel](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_kernel_Kernel.html#class-kernel). And we need to rewrite the Prepare, Execute, and ReSize interfaces.
+
+```cpp
+class NPUGraph : public kernel::Kernel {
+ public:
+  NPUGraph(std::vector<NPUOp *> npu_ops, NPUManager *npu_manager, const std::vector<tensor::MSTensor *> &inputs,
+           const std::vector<tensor::MSTensor *> &outputs)
+      : kernel::Kernel(inputs, outputs, nullptr, nullptr), npu_ops_(std::move(npu_ops)), npu_manager_(npu_manager) {}
+
+  ~NPUGraph() override;
+
+  int Prepare() override;
+
+  int Execute() override;
+
+  int ReSize() override {               // NPU does not support dynamic shapes.
+    MS_LOG(ERROR) << "NPU does not support the resize function temporarily.";
+    return lite::RET_ERROR;
+  }
+
+ protected:
+  std::vector<NPUOp *> npu_ops_{};
+  NPUManager *npu_manager_ = nullptr;  
+  NPUExecutor *executor_ = nullptr;     // NPU inference executor.
+};
+```
 
 [NPUGraph::Prepare](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/litert/delegate/npu/npu_graph.cc#L306) mainly implements:
 

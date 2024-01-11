@@ -140,7 +140,7 @@ net.dense1.matmul.shard(((2, 1), (1, 4)))
 
 ```python
 import mindspore as ms
-from mindspore import nn, ops
+from mindspore import nn
 
 optimizer = nn.Momentum(net.trainable_params(), 1e-3, 0.1)
 loss_fn = nn.CrossEntropyLoss()
@@ -150,7 +150,7 @@ def forward_fn(data, target):
     loss = loss_fn(logits, target)
     return loss, logits
 
-grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
 
 @ms.jit
 def train_step(inputs, targets):

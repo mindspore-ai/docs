@@ -133,7 +133,8 @@ net.relu2.recompute()
 在这一步，我们需要定义损失函数、优化器以及训练过程，这个部分与数据并行模型一致：
 
 ```python
-from mindspore import nn, ops
+from mindspore import nn
+import mindspore as ms
 
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
 loss_fn = nn.CrossEntropyLoss()
@@ -143,7 +144,7 @@ def forward_fn(data, target):
     loss = loss_fn(logits, target)
     return loss, logits
 
-grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
 grad_reducer = nn.DistributedGradReducer(optimizer.parameters)
 
 for epoch in range(1):

@@ -308,6 +308,7 @@ Many accuracy problems are found during network training. The common problems or
 7. Gradient explosion and disappearance.
 8. The number of training epochs is insufficient.
 9. The API computation results include NaN and INF.
+10. API computational process overflow (overflow during computation is not always harmful), etc.
 
 Some of the preceding problems or symptoms can be reflected by loss, and some are difficult to observe. MindSpore Insight provides targeted functions to observe the preceding symptoms and automatically check problems, helping you quickly locate root causes. For example:
 

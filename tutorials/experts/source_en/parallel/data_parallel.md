@@ -153,7 +153,8 @@ net = Network()
 In this step, we need to define the loss function, the optimizer, and the training process. The difference with single-card model is that the data parallel mode also requires the addition of the `mindspore.nn.DistributedGradReducer()` interface to aggregate the gradients of all cards. The first parameter of the network is the network parameter to be updated:
 
 ```python
-from mindspore import nn, ops
+from mindspore import nn
+import mindspore as ms
 
 loss_fn = nn.CrossEntropyLoss()
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
@@ -163,7 +164,7 @@ def forward_fn(data, label):
     loss = loss_fn(logits, label)
     return loss, logits
 
-grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
 grad_reducer = nn.DistributedGradReducer(optimizer.parameters)
 
 for epoch in range(10):

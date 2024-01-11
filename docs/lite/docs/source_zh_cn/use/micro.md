@@ -509,8 +509,8 @@ mindspore-lite-{version}-linux-x64
 |------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 创建 Model                           | MSModelHandle MSModelCreate()                                                                                                                                               |
 | 销毁 Model                           | void MSModelDestroy(MSModelHandle *model)                                                                                                                                   |
-| 计算 Model 运行时所需的缓存大小（仅支持Cortex-M平台) | size_t MSModelCalcWorkspaceSize(MSModelHandle model)                                                                                                                        |
-| 设置 Model 运行时的缓存（仅支持Cortex-M平台)     | void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)                                                                                       |
+| 计算 Model 运行时所需的缓存大小（仅支持Cortex-M平台） | size_t MSModelCalcWorkspaceSize(MSModelHandle model)                                                                                                                        |
+| 设置 Model 运行时的缓存（仅支持Cortex-M平台）     | void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)                                                                                       |
 | 编译 Model                           | MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)                           |
 | 推理 Model                           | MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs, const MSKernelCallBackC before, const MSKernelCallBackC after) |
 | 获取所有输入 Tensor                      | MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)                                                                                                             |
@@ -1119,9 +1119,7 @@ name: int8toft32_Softmax-7_post0/output-0, DataType: 43, Elements: 10, Shape: [1
 上一步会在用户指定路径下生成源码目录，其有一个名为`src/registered_kernel.h`的头文件指定了custom算子的函数声明：
 
 ``` C++
-
 int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_num, CustomParameter *param);
-
 ```
 
 用户需要提供该函数的实现，并将相关源码或者库集成到生成代码的cmake工程中。例如，我们提供了支持海思NNIE的custom kernel示例动态库libmicro_nnie.so，该文件包含在[官网下载页](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)“NNIE 推理runtime库、benchmark工具”组件中。用户需要修改生成代码的CMakeLists.txt，添加链接的库名称和路径。例如：

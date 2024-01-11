@@ -53,25 +53,25 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ![debugger_init_page](images/debugger_init_page.png)
 
-*图1： 调试器初始页面*
+*图1：调试器初始页面*
 
 ### 计算图
 
 调试器将优化后的最终执行图展示在UI的中上位置，用户可以双击打开图上的方框 (代表一个`scope`) 将计算图进一步展开，查看`scope`中的节点信息。
 
-面板的最上方展示了`训练端地址`（训练脚本所在进程的地址和端口），训练使用的`卡号`, 训练的`当前轮次`等元信息。
+面板的最上方展示了`训练端地址`（训练脚本所在进程的地址和端口），训练使用的`卡号`，训练的`当前轮次`等元信息。
 
 在GPU环境下，训练执行图面板的右上角会有`当前节点`和`下一个节点`两个按钮，分别用于回到当前执行节点和执行下一个节点。
 用户可以方便地执行单个节点。
 
 当一个命名空间或聚合节点的直接子节点的深度超过70时，计算图页面不支持展开该节点。
-要想看到内部的张量关系，可以通过一个与该节点相关的节点跳转到张量关系图页面，详细操作可参考[FAQ](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/faq.html) 。
+要想看到内部的张量关系，可以通过一个与该节点相关的节点跳转到张量关系图页面，详细操作可参考[FAQ](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/faq.html)。
 
 ### 节点列表
 
 ![debugger_search_node_type](images/debugger_search_node_type.png)
 
-*图2： 节点列表按节点类型过滤*
+*图2：节点列表按节点类型过滤*
 
 如图1所示，在UI的左侧会展示计算图`节点列表`，可以将计算图中的节点按`scope`分层展开。点击`节点列表`中的节点，计算图也会联动展开到选中节点的位置。
 用户也可以使用`节点列表`上方的`图文件`以及`节点类型`对节点按图文件和类型进行过滤，如图2所示。用户还可以使用`节点类型`下方的搜索框按名称进行节点的搜索。
@@ -88,7 +88,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ![debugger_set_watch_point](images/debugger_watch_point_list.png)
 
-*图3： 异常现象检查列表*
+*图3：异常现象检查列表*
 
 如图3所示，异常现象检查列表位于页面的左下方。监测点列表上方的三个按钮从左到右依次为`重新检查`、`清空监测点`和`创建监测点`。
 
@@ -96,7 +96,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ![debugger_set_watch_point](images/debugger_set_watch_point.png)
 
-*图4： 创建监测点*
+*图4：创建监测点*
 
 为了方便地对节点的计算结果进行监测分析，用户可以给计算图中的节点设置监测点。图4展示了监测点的设置方法，用户首先点击监测点列表右上角的 `+` 按钮新增监测点并选择检查条件，比如检查过大张量，选择一个要检查的条件并输入阈值，点击“确定”以创建监测点。
 监测点创建后，请手动勾选要检查的节点，最后点击监测点旁边的`√`确认。如果创建监测点时，选择的检查对象为“检查权重”、“检查梯度”、“检查激活”，则监测点创建时，会自动勾选权重、梯度、激活节点，用户可以在点击“确定”后手动修改节点勾选状态。
@@ -135,7 +135,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ![debugger_watch_point_hit](images/debugger_watch_point_hit.png)
 
-*图5： 查看触发的监测节点*
+*图5：查看触发的监测节点*
 
 图5展示了触发了监测点的节点列表，该页面和`节点列表`所在位置相同。如果设置了多个监测点，可以在监测点的下拉框中选择监测点id号，就会只展示触发了选中监测点的节点列表。
 如果是多子图的网络，还可以在图文件的下拉框中选择图名称，就会只展示选中的子图中触发了监测点的节点列表。
@@ -154,7 +154,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ![debugger_stack_list](images/debugger_stack_list.png)
 
-*图6： 堆栈列表*
+*图6：堆栈列表*
 
 ### 堆栈信息
 
@@ -164,7 +164,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ![debugger_stack_info](images/debugger_stack_info.png)
 
-*图7： 堆栈信息*
+*图7：堆栈信息*
 
 注意：有部分算子由框架生成，例如`TupleGetItem`、`Depend`、`UpdateState`等，可能关联到框架本身的代码，或者没有代码可以关联，均为正常现象。
 
@@ -193,7 +193,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ![debugger_tensor_view](images/debugger_tensor_view.png)
 
-*图9： 查看张量值*
+*图9：查看张量值*
 
 在张量检查视图，用户可以进行`维度选择`，点击`显示当前step`，`显示上一step`和`显示对比结果`对张量进行显示和对比（当前仅支持参数节点与上一轮次对比）。此外，用户可以设置切片进行`维度选择`来显示相应维度的`张量`。
 
@@ -209,7 +209,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
     ![debugger_waiting](images/debugger_waiting.png)
 
-    *图10： 调试器等待训练连接*
+    *图10：调试器等待训练连接*
 
     此时，调试器处于等待训练启动和连接的状态。
 
@@ -219,7 +219,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
     ![debugger_ask_recommend](images/debugger_ask_recommend.png)
 
-    *图11： 等待用户选择是否使用推荐监测点*
+    *图11：等待用户选择是否使用推荐监测点*
 
 4. 稍后可以看到计算图显示在调试器界面，见图1。
 
@@ -252,6 +252,6 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 - 使用调试器时要保证MindSpore Insight和MindSpore的版本号相同。
 - 重新检查只检查当前有张量值的监测点。
-- 检查计算过程溢出需要用户开启异步Dump的全部溢出检测功能，开启方式请参照[异步Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#异步dump)
+- 检查计算过程溢出需要用户开启异步Dump的全部溢出检测功能，开启方式请参照[异步Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#异步dump)。
 - 调试器展示的图是优化后的最终执行图。调用的算子可能已经与其它算子融合，或者在优化后改变了名称。
 - 开启调试器会关闭内存复用，在训练网络过大时有可能导致'out of memory'错误。

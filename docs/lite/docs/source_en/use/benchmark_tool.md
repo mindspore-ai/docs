@@ -14,7 +14,7 @@ To use the Benchmark tool, you need to prepare the environment as follows:
 
 - Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/master/use/build.html#compilation-example) in the build document.
 
-- Run: Obtain the `Benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) in the build document.
+- Run: Obtain the `benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) in the build document.
 
 - Add the path of dynamic library required by the inference code to the environment variables LD_LIBRARY_PATH.
 
@@ -244,7 +244,7 @@ Benchmark tool provides Dump function (currently only supports `CPU` and mobile 
 
     - The environment variables need to be set before the benchmark is executed. The settings will not take effect during the execution of the benchmark.
 
-#### Dump Data Directory Dtructure
+#### Dump Data Directory Structure
 
 ```text
 {path}/
@@ -308,15 +308,15 @@ When using the Benchmark tool to perform benchmark testing on different MindSpor
 
 - Use a random input and default values for other parameters.
 
-```bat
-call benchmark.exe --modelFile=/path/to/model.ms
-```
+    ```bat
+    call benchmark.exe --modelFile=/path/to/model.ms
+    ```
 
 - set `timeProfiling=true`, use a random input and default values for other parameters.
 
-```bat
-call benchmark.exe --modelFile=/path/to/model.ms --timeProfiling=true
-```
+    ```bat
+    call benchmark.exe --modelFile=/path/to/model.ms --timeProfiling=true
+    ```
 
 #### Accuracy Test
 
@@ -324,21 +324,21 @@ call benchmark.exe --modelFile=/path/to/model.ms --timeProfiling=true
 
 - Set the accuracy threshold to 3%.
 
-```bat
-call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --accuracyThreshold=3
-```
+    ```bat
+    call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --accuracyThreshold=3
+    ```
 
 - Run on the CPU.
 
-```bat
-call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --device=CPU
-```
+    ```bat
+    call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --device=CPU
+    ```
 
 - Set specified input shapes.
 
-```bat
-call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --inputShapes=1,32,32,1
-```
+    ```bat
+    call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --inputShapes=1,32,32,1
+    ```
 
 ### Dump
 

@@ -20,7 +20,7 @@
 
 ## 使用方式
 
-ms模型的支持代码已经合入官方库。`Netron`的下载地址为 <https://github.com/lutzroeder/netron/releases/latest>, 作者不定期更新并发布Release版本。用户按照以下方式安装`Netron`，将模型拖入窗口即可打开。
+ms模型的支持代码已经合入官方库。`Netron`的下载地址为 <https://github.com/lutzroeder/netron/releases/latest>，作者不定期更新并发布Release版本。用户按照以下方式安装`Netron`，将模型拖入窗口即可打开。
 
 - macOS: 下载`.dmg`文件或者执行`brew cask install netron`
 
@@ -44,4 +44,4 @@ ms模型的支持代码已经合入官方库。`Netron`的下载地址为 <https
 
 ### 使用Javacript调试模型
 
-在调试模型时，在`netron`文件夹下，先在./test/models.json中添加调试模型的信息，然后使用node.js调试./test/model.js脚本即可。
+在调试模型时，在`netron`文件夹下，先在`./test/models.json`中添加调试模型的信息，然后使用`node.js`调试`./test/model.js`脚本即可。

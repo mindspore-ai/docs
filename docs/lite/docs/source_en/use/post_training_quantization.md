@@ -4,7 +4,7 @@
 
 ## Overview
 
-Converting a trained `float32` model into an `int8` model through quantization after training can reduce the model size and improve the inference performance. In MindSpore Lite, this function is integrated into the model conversion tool `converter_lite`. You can add command line parameters to convert a model into a quantization model.
+Converting a trained `float32` model into an `int8` model through quantization after training can reduce the model size and improve the inference performance. In MindSpore Lite, this function is integrated into the model conversion tool `converter_lite`. The quantized model can be transformed by configuring a `quantization profile`.
 
 MindSpore Lite quantization after training is classified into two types:
 
@@ -113,8 +113,8 @@ For the image calibration dataset, post training quantization provides data prep
 | ------------------ | --------- | ------------------------------------------------------------ | -------------- | ------------- | ------------------------------------------------------------ |
 | calibrate_path     | Mandatory | The directory where the calibration dataset is stored; if the model has multiple inputs, please fill in the directory where the corresponding data is located one by one, and separate the directory paths with `,` | String         | -             | input_name_1:/mnt/image/input_1_dir,input_name_2:input_2_dir |
 | calibrate_size     | Mandatory | Calibration data size                                        | Integer        | -             | [1, 65535]                                                   |
-| input_type         | Mandatory | Correction data file format type                             | String         | -             | IMAGE、BIN <br>IMAGE：image file data <br>BIN：binary `.bin` file data |
-| image_to_format    | Optional  | Image format conversion                                      | String         | -             | RGB、GRAY、BGR                                               |
+| input_type         | Mandatory | Correction data file format type                             | String         | -             | IMAGE, BIN <br>IMAGE：image file data <br>BIN：binary `.bin` file data |
+| image_to_format    | Optional  | Image format conversion                                      | String         | -             | RGB, GRAY, BGR                                               |
 | normalize_mean     | Optional  | Normalized mean<br/>dst = (src - mean) / std                 | Vector         | -             | Channel 3: [mean_1, mean_2, mean_3] <br/>Channel 1: [mean_1] |
 | normalize_std      | Optional  | Normalized standard deviation<br/>dst = (src - mean) / std   | Vector         | -             | Channel 3: [std_1, std_2, std_3] <br/>Channel 1: [std_1]     |
 | resize_width       | Optional  | Resize width                                                 | Integer        | -             | [1, 65535]                                                   |
@@ -230,7 +230,7 @@ min_quant_weight_size=0
 min_quant_weight_channel=16
 ```
 
-### Ascend On_the_fly Quantization
+### Ascend ON_THE_FLY Quantization
 
 Ascend ON_THE_FLY quantization means runtime weight dequantization. At this stage, only the MINDIR model is supported.
 
@@ -278,6 +278,10 @@ For image data, currently supports channel pack, normalization, resize, center c
 
 Full quantization config's info must include `[common_quant_param]`, `[data_preprocess_param]`, `[full_quant_param]`.
 
+Note:
+
+- The model calibration data must be co-distributed with the training data, and the Format of the calibration data and the inputs of the exported floating-point model need to be consistent.
+
 The general form of the full quantization conversion command is:
 
 ```bash
@@ -286,31 +290,7 @@ The general form of the full quantization conversion command is:
 
 ### CPU
 
-The full quantization parameter (PerChannel quantization type) configuration is as follows:
-
-```ini
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Whether to correct the quantization error. Recommended to set to true.
-bias_correction=true
-# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
-per_channel=true
-```
-
-The full quantization parameter (PerLayer quantization type) configuration is as follows:
-
-```ini
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Whether to correct the quantization error. Recommended to set to true.
-bias_correction=true
-# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
-per_channel=false
-```
-
-The full quantization profile is as follows:
+The full CPU quantization complete configuration file is shown below:
 
 ```ini
 [common_quant_param]
@@ -351,7 +331,31 @@ activation_quant_method=MAX_MIN
 bias_correction=true
 ```
 
-> Full quantification needs to perform inference, and the waiting time may be longer. If you need to view the log, you can set export GLOG_v=1 before the execution to print the relevant Info level log.
+> Full quantization requires the execution of inference, and the waiting time may be long. If you need to view the log, you can set export GLOG_v=1 before execution for printing the related Info level log.
+
+The full quantization parameter (PerLayer quantization type) `[full_quant_param]` configuration is as follows:
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=true
+# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
+per_channel=false
+```
+
+The full quantization parameter (PerLayer quantization type) `[full_quant_param]` configuration is as follows:
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=true
+# If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
+per_channel=false
+```
 
 Partial Model Accuracy Result
 
@@ -365,16 +369,12 @@ Partial Model Accuracy Result
 
 ### NVDIA
 
-NVIDIA GPU full quantization parameter configuration only need add `target_device=NVGPU` to `[full_quant_param]` likes as follows:
+NVIDIA GPU full quantization parameter configuration. Just add a new configuration `target_device=NVGPU` to `[full_quant_param]`:
 
 ```ini
 [full_quant_param]
 # Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
 activation_quant_method=MAX_MIN
-# Whether to correct the quantization error. Recommended to set to true.
-bias_correction=true
-# Whether to support PerChannel quantization strategy. Recommended to set to true.
-per_channel=true
 # Supports specific hardware backends
 target_device=NVGPU
 ```
@@ -447,7 +447,7 @@ Ascend quantization also support dynamic shape. It is worth noting that the conv
 
 In NLP scenarios where the model running speed needs to be improved and the model running power consumption needs to be reduced, the dynamic quantization after training can be used. The following describes how to use dynamic quantization and its effects.
 
-In Dynamic quantization, the weights are quantized at the convert, and the activation are quantized at the runtime. Compared to static quantization, no calibration dataset is required.
+In dynamic quantization, the weights are quantized at the convert, and the activation are quantized at the runtime. Compared to static quantization, no calibration dataset is required.
 
 The general form of the dynamic quantization conversion command is:
 
@@ -550,7 +550,7 @@ The quantization parameter report `quant_param.csv` contains the quantization pa
 
 > Mixed bit quantization is non-standard quantization, the quantization parameter file may not exist.
 
-### Skip Quantization Node
+### Skipping Quantization Node
 
 Quantization is to convert the Float32 operator to the Int8 operator. The current quantization strategy is to quantify all the nodes contained in a certain type of operator that can be supported, but there are some nodes that are more sensitive and will cause larger errors after quantization. At the same time, the inference speed of some layers after quantization is much lower than that of Float16. It supports non-quantization of the specified layer, which can effectively improve the accuracy and inference speed.
 

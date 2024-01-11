@@ -100,7 +100,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
 5. 配置configFile(可选)
 
-    用户可以通过此选项配置用于转模型时的Ascend Option选项， 配置文件采用INI的风格，针对Ascend场景，可配置的参数为[acl_option_cfg_param]，参数的详细介绍如下表1所示，针对Ascend初始化可以通过[acl_init_options](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/infacldevg/graphdevg/atlasgeapi_07_0100.html)参数进行配置，针对Ascend构图可以通过[acl_build_options](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/infacldevg/graphdevg/atlasgeapi_07_0101.html)参数进行配置。
+    用户可以通过此选项配置用于转模型时的Ascend Option选项，配置文件采用INI的风格，针对Ascend场景，可配置的参数为[acl_option_cfg_param]，参数的详细介绍如下表1所示，针对Ascend初始化可以通过[acl_init_options](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/infacldevg/graphdevg/atlasgeapi_07_0100.html)参数进行配置，针对Ascend构图可以通过[acl_build_options](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/infacldevg/graphdevg/atlasgeapi_07_0101.html)参数进行配置。
 
 6. 执行converter，生成Ascend`ms`模型
 
@@ -183,7 +183,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 
 - 取值
 
-    最多支持100档配置，每一档通过英文逗号分隔，每个档位数值限制为：[1~2048]。 例如配置文件中参数配置如下：
+    最多支持100档配置，每一档通过英文逗号分隔，每个档位数值限制为：[1~2048]。例如配置文件中参数配置如下：
 
     ```cpp
     [acl_option_cfg_param]
@@ -206,7 +206,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 
 - 注意事项
 
-    1）若用户执行推理业务时，每次处理的图片数量不固定，则可以通过配置该参数来动态分配每次处理的图片数量。例如用户执行推理业务时需要每次处理2张，4张，8张图片，则可以配置为2,4,8，申请了档位后，模型推理时会根据实际档位申请内存。<br/>
+    1）若用户执行推理业务时，每次处理的图片数量不固定，则可以通过配置该参数来动态分配每次处理的图片数量。例如用户执行推理业务时需要每次处理2张，4张，8张图片，则可以配置为2，4，8，申请了档位后，模型推理时会根据实际档位申请内存。<br/>
     2）如果用户设置的档位数值过大或档位过多，可能会导致模型编译失败，此时建议用户减少档位或调低档位数值。<br/>
     3）如果用户设置的档位数值过大或档位过多，在运行环境执行推理时，建议执行swapoff -a命令关闭swap交换区间作为内存的功能，防止出现由于内存不足，将swap交换空间作为内存继续调用，导致运行环境异常缓慢的情况。<br/>
 
@@ -222,7 +222,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 
 - 取值
 
-    最多支持100档配置，每一档通过英文分号分隔。 例如： "imagesize1_height,imagesize1_width;imagesize2_height,imagesize2_width"，指定的参数必须放在双引号中，每一组参数中间使用英文分号分隔。 例如配置文件中参数配置如下：
+    最多支持100档配置，每一档通过英文分号分隔。例如： "imagesize1_height,imagesize1_width;imagesize2_height,imagesize2_width"，指定的参数必须放在双引号中，每一组参数中间使用英文分号分隔。例如配置文件中参数配置如下：
 
     ```cpp
     [acl_option_cfg_param]
@@ -238,7 +238,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
     ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --inputShape="input:2,3,96,96" --configFile=./config.txt --outputFile=${model_name}
     ```
 
-    说明： 使能动态BatchSize时， 需要指定inputShape，值为最大档位对应的shape，即上节中档位1的值；同时通过configFile配置[acl_option_cfg_param]动态分辨率，即上节示例中配置内容。
+    说明：使能动态BatchSize时，需要指定inputShape，值为最大档位对应的shape，即上节中档位1的值；同时通过configFile配置[acl_option_cfg_param]动态分辨率，即上节示例中配置内容。
 
 - 推理
 

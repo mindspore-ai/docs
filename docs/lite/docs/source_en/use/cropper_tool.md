@@ -4,9 +4,9 @@
 
 ## Overview
 
-MindSpore Lite provides the `libmindspore-lite.a` static library cropping tool for runtime, which can filter out the operators in the `ms` model, crop the static library files, and effectively reduce the size of the library files.
+MindSpore Lite provides the `libmindspore-lite.a` static library cropping tool for runtime, which can filter out the operators in the `ms` model, crop the static library files. If the size requirement is still not met after operator cropping, you can [recompile](https://www.mindspore.cn/lite/docs/en/master/use/build.html) the inference framework package and use the `Framework Function Cropping Compile Option` at compile time to crop the framework function, and then use the tool to perform the operator cropping afterwards.
 
-The operating environment of the library cutting tool is x86_64, and currently supports the cropping of CPU or GPU operators, and the GPU library supports setting CMAKE's MSLITE_GPU_BACKEND to opencl.
+The operating environment of the library cropping tool is x86_64, and currently supports the cropping of CPU or GPU operators, and the GPU library supports setting CMAKE's MSLITE_GPU_BACKEND to opencl. After cropping the operator, the cropped static libraries can be compiled into dynamic libraries to suit different needs.
 
 ## Environment Preparation
 

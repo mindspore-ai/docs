@@ -16,13 +16,15 @@ The following figure shows the detailed training process:
 
 ![img](../images/side_train_sequence_unify_api.png)
 
+> For the detailed C++ API description, refer to [API document](https://www.mindspore.cn/lite/api/en/master/index.html).
+
 ## Model Creating Loading and Building
 
 [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-documentation) is the main entrance of the MindSpore Lite framework. We can compile and execute graph models through `Model` class.
 
 ### Reading Models
 
-A Model file is flatbuffer-serialized file which was converted using the [MindSpore Model Converter Tool](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Serialization.html). These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [Serialization](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html) class which holds the model data such as the network structure, weights data and operators attributes.
+A Model file is flatbuffer-serialized file which was converted using the MindSpore Model Converter Tool. These files have a `.ms` extension. Before model training or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [Serialization](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html) class which holds the model data such as the network structure, weights data and operators attributes.
 
 ### Creating Contexts
 
@@ -74,11 +76,11 @@ int CreateSession() {
 
 ### Data Reading Pipeline
 
-The class `Dataset` and its extension class (e.g., `MnistDataset` and `AlbumDataset`) have provided abundant data procssing API. Users only need to specify the dataset path and set the data processing operations for the model training by using the shared pointers from the related API. Reading pipeline will decode and load dataset during model training. Refer [Dataset](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_dataset.html) for more detials.
+The class `Dataset` and its extension class (e.g., `MnistDataset` and `AlbumDataset`) have provided abundant data procssing API. Users only need to specify the dataset path and set the data processing operations for the model training by using the shared pointers from the related API. Reading pipeline will decode and load dataset during model training. Refer to [Dataset](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_dataset.html) for more detials.
 
 ### Data Preprocessing Pipeline
 
-The class `TensorTransform` has provided abundant data preprocssing API and has the same function as the cloud side, (e.g., Dimension reshaping, data type casting and one-hot coding). The users only need to create the objects of the extension classes of `TensorTransform` and transfer them to the function `Map`. Refer [Vision](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_dataset_vision.html) for more detials.
+The class `TensorTransform` has provided abundant data preprocssing API and has the same function as the cloud side, (e.g., Dimension reshaping, data type casting and one-hot coding). The users only need to create the objects of the extension classes of `TensorTransform` and transfer them to the function `Map`. Refer to [Vision](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_dataset_vision.html) for more detials.
 
 ### Example
 
@@ -107,13 +109,15 @@ int DataSetPipeline() {
 }
 ```
 
-## Execute Training
+The example allows the user to define the training data processing flow by calling existing functions of the `Dataset` class and the `TensorTransform` class via the shared pointer of the `MnistDataset` class returned by the Mnist function.
+
+## Executing Training
 
 MindSpore has provided some off-the-shelf callback classes for users (e.g., `AccuracyMetrics`, `CkptSaver`, `TrainAccuracy`, `LossMonitor` and `Metrics`). The function `Train` and `Evaluate` of the class `Model` can set the model to the training or evaluation mode separately, specify the methods of the data processing and monitor the session status.
 
 ### Training
 
-Create the objects of the off-the-shelf functions and call the Train function of the class Model to training:
+Create the objects of the off-the-shelf functions and call the `Train` function of the class `Model` to training:
 
 ```cpp
 int Train() {
@@ -169,7 +173,7 @@ float Evaluate() {
 
 ### Session Mode Switching
 
-The functions `Train` and `Evaluate`  in the class `Model` are called by the functions `Train` and `Evaluate` in the class `Model` . User can switch session mode by calling the two functions directly, the prototypes are as follows:
+The function prototypes for `Train` and `Evaluate` in the `Model` class are as follows:
 
 ```cpp
 /// \brief Set model to train mode
@@ -270,8 +274,6 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     void *MutableData();
     ```
 
-4. Example
-
     The following sample code shows how to obtain the entire graph input `MSTensor` from `Model` and enter the model input data to `MSTensor`.
 
     ```cpp
@@ -314,8 +316,6 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     > - The Tensors returned by `GetInputs` and `GetInputByTensorName` methods shuold not be released by users.
 
 ### Obtaining Output Tensors
-
-After each execution of the graph, the user might want to read the model's outputs, whether it is the loss in the case of training mode, or the predicted output in the case of evaluation mode.
 
 MindSpore Lite provides the following methods to obtain the model's output `MSTensor`.
 
@@ -423,7 +423,7 @@ MindSpore Lite provides the following methods to obtain the model's output `MSTe
 
     > Note that the vectors or map returned by the `GetOutputsByNodeName`, `GetOutputByTensorName` and `GetOutputs` methods do not need to be released by users.
 
-### Execute Callback
+### Executing Callback
 
 MindSpore Lite framework allows the user to set two callback functions that will be called before and after running each node. Such functions can assist the developer in tracing the network, debugging it and measuring how long it took run each node. The callback parameters are as follows:
 
@@ -476,7 +476,7 @@ if (ret != RET_OK) {
 
 ### Saving Model
 
-The function `Serialization` calls the function `ExportModel` actually. The user can also call `ExportModel` directly to save the trained model.
+The function `Serialization` calls the function `ExportModel` actually. The `ExportModel` prototype is as follows:
 
 ```cpp
   static Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file,
@@ -484,6 +484,6 @@ The function `Serialization` calls the function `ExportModel` actually. The user
                             std::vector<std::string> output_tensor_name = {});
 ```
 
-You can load the saved model to do re-training or inference.
+You can load the saved model to perform training or inference.
 
 > Please use [benchmark_train](https://www.mindspore.cn/lite/docs/en/master/use/benchmark_train_tool.html) to measure the performance and accuarcy of the trained models.

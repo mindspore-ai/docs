@@ -8,7 +8,7 @@ MindSpore Lite provides a tool for offline model conversion. It supports convers
 
 Currently, the following input formats are supported: MindSpore, TensorFlow Lite, Caffe, TensorFlow, ONNX, and PyTorch.
 
-The ms model converted by the conversion tool supports the conversion tool and the higher version of the Runtime framework to perform inference.
+The `ms` model converted by the conversion tool supports the conversion tool and the higher version of the Runtime framework to perform inference.
 
 ## Linux Environment Instructions
 
@@ -58,7 +58,7 @@ The following describes the parameters in detail.
 | `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - | - |
 | `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. The suffix `.ms` can be automatically generated. | - | - | - |
 | `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - | - |
-| `--configFile=<CONFIGFILE>` | No | 1) Configure quantization parameter; 2) Profile path for extension. | - | - | - |
+| `--configFile=<CONFIGFILE>` | No | 1. Configure quantization parameter; 2. Profile path for extension. | - | - | - |
 | `--fp16=<FP16>` | No | Serialize const tensor in Float16 data type, only effective for const tensor in Float32 data type. | on or off | off | - |
 | `--inputShape=<INPUTSHAPE>` | No | Set the dimension of the model input, the order of input dimensions is consistent with the original model. For some models, the model structure can be further optimized, but the transformed model may lose the characteristics of dynamic shape. Multiple inputs are separated by `;`, and surround with `""` | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - | - |
 | `--saveType=<SAVETYPE>` | No | Set the exported model as `mindir` model or `ms` model. | MINDIR, MINDIR_LITE | MINDIR_LITE | This device-side version can only be reasoned with models turned out by setting to MINDIR_LITE | - | - |
@@ -70,11 +70,11 @@ The following describes the parameters in detail.
 | `--outputDataType=<OUTPUTDATATYPE>` | No | Set data type of output tensor of quantized model. Only valid for output tensor which has quantization parameters(scale and zero point). Keep same with the data type of output tensor of origin model by default. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT | - |
 | `--outputDataFormat=<OUTPUTDATAFORMAT>` | No | Set the output format of exported model. Only valid for 4-dimensional outputs. | NHWC, NCHW | - | - |
 | `--encryptKey=<ENCRYPTKEY>` | No              | Set the key for exporting encrypted `ms` models. The key is expressed in hexadecimal. Only AES-GCM is supported, and the key length is only 16Byte. | - | - | - |
-| `--encryption=<ENCRYPTION>` | No | Set whether to encrypt when exporting the `ms` model. Exporting encryption can protect the integrity of the model, but it will increase the runtime initialization time. | true、false | true | - |
-| `--infer=<INFER>` | No | Set whether to pre-inference when conversion is complete. | true、false | false | - |
+| `--encryption=<ENCRYPTION>` | No | Set whether to encrypt when exporting the `ms` model. Exporting encryption can protect the integrity of the model, but it will increase the runtime initialization time. | true, false | true | - |
+| `--infer=<INFER>` | No | Set whether to pre-inference when conversion is complete. | true, false | false | - |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
-> - Because the compilation option that supports the conversion of PyTorch models is turned off by default, the downloaded installation package does not support the conversion of PyTorch models. You need to open the specified compilation option to compile locally. The following preconditions must be met for converting PyTorch models:`export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on` before compiling. Add the environment variable of libtorch before conversion: `export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"`。 Users can download [CPU version libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-2.0.1%2Bcpu.zip)Then unzip it to the directory `/home/user/libtorch`.
+> - Because the compilation option that supports the conversion of PyTorch models is turned off by default, the downloaded installation package does not support the conversion of PyTorch models. You need to open the specified compilation option to compile locally. The following preconditions must be met for converting PyTorch models:`export MSLITE_ENABLE_CONVERT_PYTORCH_MODEL = on` before compiling. Add the environment variable of libtorch before conversion: `export LD_LIBRARY_PATH="/home/user/libtorch/lib:${LD_LIBRARY_PATH}" && export LIB_TORCH_PATH="/home/user/libtorch"`。 Users can download [CPU version libtorch](https://download.pytorch.org/libtorch/cpu/libtorch-shared-with-deps-2.0.1%2Bcpu.zip). Then unzip it to the directory `/home/user/libtorch`.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
 > - The priority of `--fp16` option is very low. For example, if quantization is enabled, `--fp16` will no longer take effect on const tensors that have been quantized. All in all, this option only takes effect on const tensors of Float32 when serializing model.
 > - `inputDataFormat`: generally, in the scenario of integrating third-party hardware of NCHW specification([Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html#usage-description-of-the-integrated-nnie)), designated as NCHW will have a significant performance improvement over NHWC. In other scenarios, users can also set as needed.
@@ -258,8 +258,8 @@ Several common examples are selected below to illustrate the use of conversion c
       call converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
       ```
 
-   In the above cases, the following conversion success prompt is displayed, and the `model.ms` target file is obtained at the same time.
+  In the above cases, the following conversion success prompt is displayed, and the `model.ms` target file is obtained at the same time.
 
-   ```text
-   CONVERT RESULT SUCCESS:0
-   ```
+  ```text
+  CONVERT RESULT SUCCESS:0
+  ```
