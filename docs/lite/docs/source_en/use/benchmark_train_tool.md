@@ -133,8 +133,4 @@ Mean bias of all nodes: 0%
 
 ### Dump
 
-<<<<<<< HEAD
-For specific usage, please refer to [Dump](https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#dump).
-=======
 For specific usage, please refer to [Dump](https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#dump) of `benchmark` tool.
->>>>>>> 81c23e7c7e (modify the inconsistence of lite files 2.3)

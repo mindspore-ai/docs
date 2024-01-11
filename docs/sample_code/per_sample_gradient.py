@@ -7,12 +7,13 @@ This sample code is applicable to CPU and GPU.
 import os
 import time
 import argparse
+import mindspore as ms
 import mindspore.ops as ops
 import mindspore.numpy as mnp
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
 import mindspore.dataset.transforms as trans
-from mindspore import context, Tensor, ms_function, nn, vmap, dtype as mstype
+from mindspore import Tensor, ms_function, nn, vmap, dtype as mstype
 from mindspore.dataset.vision import Inter
 from mindspore.common.initializer import TruncatedNormal
 from download import download
@@ -137,7 +138,7 @@ class LeNet5(nn.Cell):
 
 
 def main():
-    context.set_context(mode=context.GRAPH_MODE)
+    ms.set_context(mode=ms.GRAPH_MODE)
     args = parse_args()
     if args.micro_batches and args.batch_size % args.micro_batches != 0:
         raise ValueError("Number of micro_batches should divide evenly batch_size")
@@ -158,7 +159,7 @@ def main():
 
     def clip_grad(data, labels):
         # calculate loss and grad
-        loss, record_grad = ops.value_and_grad(model, grad_position=None, weights=weights)(data, labels)
+        loss, record_grad = ms.value_and_grad(model, grad_position=None, weights=weights)(data, labels)
 
         # calculate the norm of the gradient
         square_sum = Tensor(0, mstype.float32)

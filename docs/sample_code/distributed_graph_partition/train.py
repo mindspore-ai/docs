@@ -14,7 +14,7 @@
 # ============================================================================
 '''Distributed graph partition'''
 import os
-import mindspore.context as context
+import mindspore as ms
 from mindspore.train import Accuracy
 from mindspore.train import Model
 from mindspore.train import LossMonitor, TimeMonitor
@@ -22,7 +22,7 @@ from mindspore.communication import init, get_rank
 from lenet import LeNet, get_optimizer, get_loss, create_dataset
 
 
-context.set_context(mode=context.GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 init()
 net = LeNet()
 net.fc1.place("MS_WORKER", 0)

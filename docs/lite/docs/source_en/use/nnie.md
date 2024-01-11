@@ -395,11 +395,11 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
 
 ### Suffix _cpu of the Node Name in the prototxt File
 
-  In the .prototxt file, you can add _cpu to the end of the node name to declare CPU custom operator. The_cpu suffix is ignored in MindSpore Lite and is not supported. If you want to redefine the implementation of an existing operator or add an operator, you can register the operator in [custom operator](https://www.mindspore.cn/lite/docs/en/r2.3/use/register_kernel.html) mode.
+  In the .prototxt file, you can add _cpu to the end of the node name to declare CPU custom operator. The_cpu suffix is ignored in MindSpore Lite and is not supported. If you want to redefine the implementation of an existing operator or add an operator, you can register the operator in [custom operator](https://www.mindspore.cn/lite/docs/en/master/use/register_kernel.html) mode.
 
 ### Custom Operator in the prototxt File
 
-  In the SVP tool chain, the custom layer is declared in the .prototxt file to implement inference by segment and implement the CPU code by users. In MindSpore Lite, you need to add the op_type attribute to the custom layer and register the online inference code in [custom operator](https://www.mindspore.cn/lite/docs/en/r2.3/use/register_kernel.html) mode.
+  In the SVP tool chain, the custom layer is declared in the .prototxt file to implement inference by segment and implement the CPU code by users. In MindSpore Lite, you need to add the op_type attribute to the custom layer and register the online inference code in [custom operator](https://www.mindspore.cn/lite/docs/en/master/use/register_kernel.html) mode.
 
   An example of modifying the custom layer is as follows:
 
@@ -456,7 +456,7 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
 
 ### Proposal Operator Usage Description
 
-  MindSpore Lite provides the sample code of the proposal operator. In this sample, the proposal operator and its infer shape are registered in [custom operator](https://www.mindspore.cn/lite/docs/en/r2.3/use/register_kernel.html) mode. You can change it to the implementation that matches your own model, and then perform integration.
+  MindSpore Lite provides the sample code of the proposal operator. In this sample, the proposal operator and its infer shape are registered in [custom operator](https://www.mindspore.cn/lite/docs/en/master/use/register_kernel.html) mode. You can change it to the implementation that matches your own model, and then perform integration.
   > Download address of the complete sample code:
   >
   > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/nnie_proposal>
