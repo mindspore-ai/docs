@@ -108,7 +108,7 @@ class EarlyStop(Callback):
         super(EarlyStop, self).__init__()
         self._control_loss = control_loss
 
-    def step_end(self, run_context):
+    def on_train_step_end(self, run_context):
         cb_params = run_context.original_args()
         loss = cb_params.net_outputs
         if loss.asnumpy() < self._control_loss:
