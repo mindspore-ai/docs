@@ -8,7 +8,7 @@
 
 ![gradi_descent.png](./images/gradient_descent.png)
 
-图1 梯度下降方法（图片来源<https://www.pianshen.com/article/81321136968/>）
+图1 梯度下降方法（[图片来源](https://www.pianshen.com/article/81321136968/)）
 
 ## 使用步骤
 
@@ -145,13 +145,13 @@
 
    summary_dir设置了参数的保存路径。summary_collector为初始化的SummaryCollector实例。其中collector_specified_data中的collect_landscape以字典的形式包含了绘制地形图所需要的所有参数设置：
 
-   - `landscape_size`： 表示地形图的分辨率。10表示地形图的分辨率是10*10。分辨率越大，地形图纹理越细致，同时计算消耗时间也会越久。默认为40。
+   - `landscape_size`：表示地形图的分辨率。10表示地形图的分辨率是10*10。分辨率越大，地形图纹理越细致，同时计算消耗时间也会越久。默认为40。
 
    - `unit`: 表示训练过程中保存参数的间隔单位，分为`epoch`/`step`。使用`step`时，须在`model.train`中设置`dataset_sink_model=False`。默认为`step`。
 
    - `create_landscape`: 表示绘制地形图的方式，目前支持训练过程地形图(带训练轨迹)与训练结果地形图(不带轨迹)。默认`{’train‘: True, ’result‘: True}`
 
-   - `num_samples`:  表示绘制地形图数据集的样本数量。512表示地形图所需样本是512。样本数越大，地形图越精确，同时计算消耗时间也会越久。默认为2048。
+   - `num_samples`: 表示绘制地形图数据集的样本数量。512表示地形图所需样本是512。样本数越大，地形图越精确，同时计算消耗时间也会越久。默认为2048。
 
    - `intervals`: 表示绘制地形图的区间。如`interval_1`表示绘制带训练轨迹1-5 epoch地形图。
 
