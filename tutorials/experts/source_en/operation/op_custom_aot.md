@@ -311,9 +311,10 @@ To add aot-type custom operator to a MindSpore network using the above functions
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import Tensor
 from mindspore.common import dtype as mstype
 from mindspore.nn import Cell
+import mindspore as ms
 import mindspore.ops as ops
 from mindspore.ops import DataType, CustomRegOp
 
@@ -364,7 +365,7 @@ if __name__ == "__main__":
     shape = (4, 5)
     axis = 1
     keep_dim = False
-    context.set_context(device_target="CPU")
+    ms.set_context(device_target="CPU")
 
     input_x = np.ones(shape).astype(np.float32)
     input_y = np.ones(shape).astype(np.float32)

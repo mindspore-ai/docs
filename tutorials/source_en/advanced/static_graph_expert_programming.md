@@ -731,12 +731,12 @@ We can further understand this through the use case and the generated intermedia
 ```python
 import numpy as np
 from mindspore.nn import Cell
-from mindspore import context, Tensor, Parameter
+from mindspore import Tensor, Parameter
 from mindspore.ops import functional as F
 from mindspore.ops import composite as C
 import mindspore as ms
 
-context.set_context(mode=context.GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 
 class ForwardNet(Cell):
     def __init__(self):
@@ -771,7 +771,7 @@ output_except = (Tensor(np.array(3), ms.int32),)
 assert np.all(graph_mode_grads == output_except)
 ```
 
-As in the above use case, save the intermediate file through the settings: context.set_context(mode=context.GRAPH_MODE, save_graphs=True), you can get the intermediate file IR, for easy viewing, we simplify the resulting intermediate file as follows:
+As in the above use case, save the intermediate file through the settings: ms.set_context(mode=ms.GRAPH_MODE, save_graphs=True), you can get the intermediate file IR, for easy viewing, we simplify the resulting intermediate file as follows:
 
 The IR file when the real operator is not inserted into the Load operator inside the framework is as follows, and you can see that there are 3 Load operators, all of which take the value of para2_param this global variable at different times, and this global variable will modify the value through the Assign operator. That is, the values taken by the 3 Loads are different. And if we do not insert the real operator into the Load operator, that is, we do not save the value of the global variable para2_param at different times, then the final result obtained is incorrect. That is, this case is set to 3 in the MS_DEV_SIDE_EFFECT_LOAD_ELIM, which has the least memory footprint, but the result has precision problems.
 

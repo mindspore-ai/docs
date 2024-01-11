@@ -14,8 +14,9 @@
 # ============================================================================
 """LeNet."""
 import numpy as np
+import mindspore as ms
 import mindspore.nn as nn
-from mindspore import Tensor, load_checkpoint, load_param_into_net, context
+from mindspore import Tensor, load_checkpoint, load_param_into_net
 from mindspore.common.initializer import One
 
 
@@ -60,7 +61,7 @@ class LeNet5(nn.Cell):
 
 
 def mindspore_running(ckpt_path):
-    context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
     np_in = Tensor(np.ones([8, 1, 32, 32]).astype(np.float32))
     network = LeNet5()
     params_dict = load_checkpoint(ckpt_path)

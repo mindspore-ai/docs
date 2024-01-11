@@ -18,7 +18,7 @@
 import os
 import mindspore as ms
 import mindspore.dataset as ds
-from mindspore import nn, ops
+from mindspore import nn
 from mindspore.communication import init, get_rank, get_group_size
 
 ms.set_context(mode=ms.GRAPH_MODE)
@@ -73,7 +73,7 @@ def forward_fn(data, target):
     loss = loss_fn(logits, target)
     return loss, logits
 
-grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
 grad_reducer = nn.DistributedGradReducer(optimizer.parameters)
 
 for epoch in range(10):

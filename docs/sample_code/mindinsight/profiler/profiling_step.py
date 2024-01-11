@@ -64,7 +64,7 @@ def train(epochs, model, dataset, loss_fn, optimizer):
         loss = loss_fn(logits, label)
         return loss, logits
 
-    grad_fn = ops.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
+    grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
 
     @mindspore.jit
     def train_step(data, label):
