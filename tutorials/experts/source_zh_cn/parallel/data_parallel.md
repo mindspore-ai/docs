@@ -154,7 +154,8 @@ net = Network()
 在这一步，我们需要定义损失函数、优化器以及训练过程。与单卡模型不同的地方在于，数据并行模式还需要增加`mindspore.nn.DistributedGradReducer()`接口，来对所有卡的梯度进行聚合，该接口第一个参数为需要更新的网络参数：
 
 ```python
-from mindspore import nn, ops
+from mindspore import nn
+import mindspore as ms
 
 loss_fn = nn.CrossEntropyLoss()
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
@@ -164,7 +165,7 @@ def forward_fn(data, label):
     loss = loss_fn(logits, label)
     return loss, logits
 
-grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
 grad_reducer = nn.DistributedGradReducer(optimizer.parameters)
 
 for epoch in range(10):

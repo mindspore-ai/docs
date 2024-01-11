@@ -133,7 +133,8 @@ net.relu2.recompute()
 In this step, we need to define the loss function, the optimizer, and the training process, and this part is consistent with the data-parallel model:
 
 ```python
-from mindspore import nn, ops
+from mindspore import nn
+import mindspore as ms
 
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
 loss_fn = nn.CrossEntropyLoss()
@@ -143,7 +144,7 @@ def forward_fn(data, target):
     loss = loss_fn(logits, target)
     return loss, logits
 
-grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
 grad_reducer = nn.DistributedGradReducer(optimizer.parameters)
 
 for epoch in range(1):

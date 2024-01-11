@@ -118,7 +118,8 @@ net = Network()
 在这一步，需要定义损失函数、优化器以及训练过程，本例采用函数式方式编写，这部分与单卡模型一致：
 
 ```python
-from mindspore import nn, ops
+from mindspore import nn
+import mindspore as ms
 
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
 loss_fn = nn.CrossEntropyLoss()
@@ -128,7 +129,7 @@ def forward_fn(data, target):
     loss = loss_fn(logits, target)
     return loss, logits
 
-grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
 
 for epoch in range(1):
     i = 0

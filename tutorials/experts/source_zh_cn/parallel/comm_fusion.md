@@ -155,7 +155,7 @@ for item in net.trainable_params():
 import os
 import mindspore as ms
 import mindspore.dataset as ds
-from mindspore import nn, ops
+from mindspore import nn
 
 def create_dataset(batch_size):
     dataset_path = os.getenv("DATA_PATH")
@@ -180,7 +180,7 @@ def forward_fn(data, target):
     loss = loss_fn(logits, target)
     return loss, logits
 
-grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
 
 @ms.jit
 def train_step(inputs, targets):

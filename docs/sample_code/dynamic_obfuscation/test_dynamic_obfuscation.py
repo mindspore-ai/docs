@@ -21,7 +21,7 @@ import mindspore.ops as ops
 import mindspore.nn as nn
 from mindspore.common.initializer import TruncatedNormal
 
-ms.context.set_context(mode=ms.context.GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 
 
 def weight_variable():
