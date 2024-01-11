@@ -15,7 +15,7 @@
 """PyNative Shard Function Parallel Example"""
 import os
 import mindspore as ms
-from mindspore import nn, ops
+from mindspore import nn
 import mindspore.dataset as ds
 from mindspore.communication import init
 
@@ -100,7 +100,7 @@ def forward_fn(data, target):
     loss = loss_fn(logits, target)
     return loss, logits
 
-grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
 
 for epoch in range(5):
     i = 0

@@ -91,7 +91,8 @@ net = Network()
 
 ```python
 import os
-from mindspore import nn, ops
+from mindspore import nn
+import mindspore as ms
 import mindspore.dataset as ds
 from mindspore.communication import get_rank, get_group_size
 
@@ -120,7 +121,7 @@ def forward_fn(data, label):
     loss = loss_fn(logits, label)
     return loss, logits
 
-grad_fn = ops.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
+grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
 grad_reducer = nn.DistributedGradReducer(optimizer.parameters)
 
 for epoch in range(10):
