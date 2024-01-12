@@ -48,11 +48,9 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 | size_average  |                  PyTorch废弃参数                   |                MindSpore中可以使用`reduction`参数替代                 |
 |    reduce     |                  PyTorch废弃参数                   |                MindSpore中可以使用`reduction`参数替代                 |
 
-## PyTorch 1.8.1
+## torch
 
-### torch
-
-| PyTorch 1.8.1 APIs                                                                           | MindSpore APIs                                                                                                                                                          | 说明                                                                                                                     |
+| PyTorch 1.8.1 APIs     | MindSpore APIs    | 说明   |
 | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | [torch.abs](https://pytorch.org/docs/1.8.1/generated/torch.abs.html)                             | [mindspore.ops.abs](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.abs.html)                                                 | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景)        |
 | [torch.absolute](https://pytorch.org/docs/1.8.1/generated/torch.absolute.html)                             | [mindspore.ops.absolute](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.absolute.html)                                                 |   [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景)             |
@@ -163,7 +161,6 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 | [torch.gt](https://pytorch.org/docs/1.8.1/generated/torch.gt.html)                 | [mindspore.ops.gt](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.gt.html)                       |    功能一致，参数名不同                   |
 | [torch.hann_window](https://pytorch.org/docs/1.8.1/generated/torch.hann_window.html)                     | [mindspore.ops.hann_window](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.hann_window.html)                                         |  [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
 | [torch.heaviside](https://pytorch.org/docs/1.8.1/generated/torch.heaviside.html) | [mindspore.ops.heaviside](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.heaviside.html) | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
-| [torch.hsplit](https://pytorch.org/docs/1.12/generated/torch.hsplit.html)                         | [mindspore.ops.hsplit](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.hsplit.html)                         | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
 | [torch.hstack](https://pytorch.org/docs/1.8.1/generated/torch.hstack.html) | [mindspore.ops.hstack](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.hstack.html) | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
 | [torch.histc](https://pytorch.org/docs/1.8.1/generated/torch.histc.html) | [mindspore.ops.histc](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.histc.html) | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
 | [torch.hypot](https://pytorch.org/docs/1.8.1/generated/torch.hypot.html) | [mindspore.ops.hypot](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.hypot.html) | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
@@ -250,7 +247,6 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 | [torch.orgqr](https://pytorch.org/docs/1.8.1/generated/torch.orgqr.html) | [mindspore.ops.orgqr](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.orgqr.html) | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
 | [torch.ormqr](https://pytorch.org/docs/1.8.1/generated/torch.ormqr.html) | [mindspore.ops.ormqr](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.ormqr.html) | 功能一致，参数名不同 |
 | [torch.outer](https://pytorch.org/docs/1.8.1/generated/torch.outer.html)                         | [mindspore.ops.outer](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.outer.html) | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
-| [torch.permute](https://pytorch.org/docs/1.12/generated/torch.permute.html)                         | [mindspore.ops.permute](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.permute.html) |  [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
 | [torch.poisson](https://pytorch.org/docs/1.8.1/generated/torch.poisson.html) | [mindspore.ops.random_poisson](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.random_poisson.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/poisson.html) |
 | [torch.polar](https://pytorch.org/docs/1.8.1/generated/torch.polar.html)                         | [mindspore.ops.polar](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.polar.html) |  [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
 | [torch.polygamma](https://pytorch.org/docs/1.8.1/generated/torch.polygamma.html)                         | [mindspore.ops.polygamma](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.polygamma.html) | [功能一致，参数数据类型不一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/polygamma.html) |
@@ -324,20 +320,25 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 | [torch.var](https://pytorch.org/docs/1.8.1/generated/torch.var.html#torch.var) | [mindspore.ops.var](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.var.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/var.html) |
 | [torch.var_mean](https://pytorch.org/docs/1.8.1/generated/torch.var_mean.html#torch.var_mean) | [mindspore.ops.var_mean](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.var_mean.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/var_mean.html) |
 | [torch.view_as_real](https://pytorch.org/docs/1.8.1/generated/torch.view_as_real.html)                           | [mindspore.ops.view_as_real](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.view_as_real.html)                            | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
-| [torch.vsplit](https://pytorch.org/docs/1.12/generated/torch.vsplit.html)                      | [mindspore.ops.vsplit](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.vsplit.html)                        | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景)|
 | [torch.vstack](https://pytorch.org/docs/1.8.1/generated/torch.vstack.html)                     | [mindspore.ops.vstack](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.vstack.html)                                         |  功能一致，参数名不同 |
 | [torch.where](https://pytorch.org/docs/1.8.1/generated/torch.where.html) | [mindspore.ops.where](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.where.html) | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
 | [torch.xlogy](https://pytorch.org/docs/1.8.1/generated/torch.xlogy.html) | [mindspore.ops.xlogy](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.xlogy.html) | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景)|
 | [torch.zeros](https://pytorch.org/docs/1.8.1/generated/torch.zeros.html) | [mindspore.ops.zeros](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.zeros.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/zeros.html)|
 | [torch.zeros_like](https://pytorch.org/docs/1.8.1/torch.html#torch.zeros_like) | [mindspore.ops.zeros_like](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.zeros_like.html) | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
 
-### torch.distributions
+| PyTorch 1.12 APIs     | MindSpore APIs    | 说明   |
+| ------------- | ---------------- | ----------------- |
+| [torch.hsplit](https://pytorch.org/docs/1.12/generated/torch.hsplit.html)                         | [mindspore.ops.hsplit](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.hsplit.html)                         | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
+| [torch.permute](https://pytorch.org/docs/1.12/generated/torch.permute.html)                         | [mindspore.ops.permute](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.permute.html) |  [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
+| [torch.vsplit](https://pytorch.org/docs/1.12/generated/torch.vsplit.html)                      | [mindspore.ops.vsplit](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.vsplit.html)                        | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景)|
+
+## torch.distributions
 
 | PyTorch 1.8.1 APIs                                                                                                   | MindSpore APIs                                                                                                                | 说明 |
 | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---- |
 | [torch.distributions.laplace.Laplace](https://pytorch.org/docs/1.8.1/distributions.html#torch.distributions.laplace.Laplace) | [mindspore.ops.standard_laplace](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.standard_laplace.html) |   [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/standard_laplace.html)   |
 
-### torch.distributed
+## torch.distributed
 
 | PyTorch 1.8.1 APIs                                                                                                           | MindSpore APIs                                                                                                                                                  | 说明                                                                                                              |
 | ---------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -347,7 +348,7 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 | [torch.distributed.init_process_group](https://pytorch.org/docs/1.8.1/distributed.html#torch.distributed.init_process_group) | [mindspore.communication.init](https://mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.communication.html#mindspore.communication.init)                 | [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/init.html)         |
 | [torch.distributed.new_group](https://pytorch.org/docs/1.8.1/distributed.html#torch.distributed.new_group)                   | [mindspore.communication.create_group](https://mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.communication.html#mindspore.communication.create_group) | [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/create_group.html) |
 
-### torch.nn
+## torch.nn
 
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | 说明                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -469,7 +470,7 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 | [torch.nn.Upsample](https://pytorch.org/docs/1.8.1/generated/torch.nn.Upsample.html#torch.nn.Upsample) | [mindspore.nn.Upsample](https://mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.Upsample.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/interpolate.html) |
 | [torch.nn.ZeroPad2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.ZeroPad2d.html) | [mindspore.nn.ZeroPad2d](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.ZeroPad2d.html) | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
 
-### torch.nn.functional
+## torch.nn.functional
 
 | PyTorch 1.8.1 APIs                                                                                                                       | MindSpore APIs                                                                                                                                                                                    | 说明                                                                                                                   |
 | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -551,22 +552,22 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 | [torch.nn.functional.unfold](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.unfold) | [mindspore.ops.unfold](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.unfold.html) | 一致 |
 | [torch.nn.functional.upsample](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.upsample) | [mindspore.ops.upsample](https://mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.upsample.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/interpolate.html) |
 
-### torch.nn.Module
+## torch.nn.Module
 
 | PyTorch 1.8.1 APIs                                                                                                                       | MindSpore APIs                                                                                                                                                                                    | 说明                                                                                                                   |
 | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | [torch.nn.Module.apply](https://pytorch.org/docs/1.8.1/generated/torch.nn.Module.html#torch.nn.Module.apply) | [mindspore.nn.Cell.apply](https://mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.apply) |         一致        |
 
-### torch.nn.utils
+## torch.nn.utils
 
 | PyTorch 1.8.1 APIs                                                                                                                       | MindSpore APIs                                                                                                                                                                                    | 说明                                                                                                                   |
 | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 |[torch.nn.utils.clip_grad_value_](https://pytorch.org/docs/1.8.1/generated/torch.nn.utils.clip_grad_value_.html)                   |[mindspore.ops.clip_by_value](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.clip_by_value.html)                           |             [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/clip_by_value.html)        |
 |[torch.nn.utils.clip_grad_norm_](https://pytorch.org/docs/1.8.1/generated/torch.nn.utils.clip_grad_norm_.html)                   |[mindspore.ops.clip_by_norm](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.clip_by_norm.html)                           |             [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/clip_by_norm.html)        |
 
-### torch.Tensor
+## torch.Tensor
 
-| PyTorch 1.8.1 APIs                                                                                           | MindSpore APIs                                                                                                                                       | 说明                                         |
+| PyTorch 1.8.1 APIs      | MindSpore APIs        | 说明         |
 |--------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------|
 | [torch.Tensor.abs](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.abs)                              | [mindspore.Tensor.abs](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.abs.html)                       |   [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景)|
 | [torch.Tensor.absolute](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.absolute)  | [mindspore.Tensor.absolute](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.absolute.html)  |   [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景)|
@@ -664,7 +665,6 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 | [torch.Tensor.hardshrink](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.hardshrink) | [mindspore.Tensor.hardshrink](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.hardshrink.html) | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
 | [torch.Tensor.heaviside](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.heaviside)                       | [mindspore.Tensor.heaviside](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.heaviside.html)                       | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景)                                       |
 | [torch.Tensor.histc](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.histc)                       | [mindspore.Tensor.histc](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.histc.html)                       | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景)                                       |
-| [torch.Tensor.hsplit](https://pytorch.org/docs/1.12/generated/torch.Tensor.hsplit.html)                         | [mindspore.Tensor.hsplit](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.hsplit.html)                         | 功能一致，参数名不同|
 | [torch.Tensor.hypot](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.hypot)                       | [mindspore.Tensor.hypot](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.hypot.html)                       | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景)                                       |
 | [torch.Tensor.i0](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.i0) | [mindspore.Tensor.i0](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.i0.html) | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景)                                       |
 | [torch.Tensor.igamma](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.igamma)| [mindspore.Tensor.igamma](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.igamma.html)|[一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景)|
@@ -820,11 +820,15 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 | [torch.Tensor.var](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.var) | [mindspore.Tensor.var](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.var.html) | [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/var.html) |
 | [torch.Tensor.view](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.view) | [mindspore.Tensor.view](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.view.html) | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
 | [torch.Tensor.view_as](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.view_as) | [mindspore.Tensor.view_as](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.view_as.html) | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
-| [torch.Tensor.vsplit](https://pytorch.org/docs/1.12/generated/torch.Tensor.vsplit.html)                         | [mindspore.Tensor.vsplit](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.vsplit.html)                         | 功能一致，参数名不同|
 | [torch.Tensor.where](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.where) | [mindspore.Tensor.where](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.where.html) | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
 | [torch.Tensor.xlogy](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.xlogy)                 | [mindspore.Tensor.xlogy](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.xlogy.html)                 | 功能一致，参数名不同|
 
-### torch.optim
+| PyTorch 1.12 APIs      | MindSpore APIs        | 说明         |
+|--------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------|
+| [torch.Tensor.hsplit](https://pytorch.org/docs/1.12/generated/torch.Tensor.hsplit.html)                         | [mindspore.Tensor.hsplit](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.hsplit.html)                         | 功能一致，参数名不同|
+| [torch.Tensor.vsplit](https://pytorch.org/docs/1.12/generated/torch.Tensor.vsplit.html)                         | [mindspore.Tensor.vsplit](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/Tensor/mindspore.Tensor.vsplit.html)                         | 功能一致，参数名不同|
+
+## torch.optim
 
 | PyTorch 1.8.1 APIs                                                                                                                                     | MindSpore APIs                                                                                                                                                            | 说明                                                                                                                     |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
@@ -844,7 +848,7 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 | [torch.optim.lr_scheduler.MultiStepLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.MultiStepLR)                                 | [mindspore.nn.piecewise_constant_lr](https://mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.piecewise_constant_lr.html#mindspore.nn.piecewise_constant_lr) | [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/PiecewiseConstantLR.html) |
 | [torch.optim.lr_scheduler.StepLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.StepLR)                                           | [mindspore.nn.piecewise_constant_lr](https://mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.piecewise_constant_lr.html#mindspore.nn.piecewise_constant_lr) |  [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_diff/PiecewiseConstantLR.html) |
 
-### torch.optim
+## torch.optim
 
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | 说明                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -852,7 +856,7 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 | [torch.optim.AdamW](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.AdamW)                                                     | [mindspore.experimental.optim.AdamW](https://mindspore.cn/docs/zh-CN/r2.3/api_python/experimental/optim/mindspore.experimental.optim.AdamW.html)                                                     | 一致 |
 | [torch.optim.SGD](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.SGD)                                                     | [mindspore.experimental.optim.SGD](https://mindspore.cn/docs/zh-CN/r2.3/api_python/experimental/optim/mindspore.experimental.optim.SGD.html)                                                     | 一致 |
 
-### torch.optim.lr_scheduler
+## torch.optim.lr_scheduler
 
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | 说明                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -871,7 +875,7 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 | [torch.optim.lr_scheduler.SequentialLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.SequentialLR)      | [mindspore.experimental.optim.lr_scheduler.SequentialLR](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/experimental/optim/mindspore.experimental.optim.lr_scheduler.SequentialLR.html#mindspore.experimental.optim.lr_scheduler.SequentialLR)                                                     | 无 `verbose` 入参，其余功能一致 |
 | [torch.optim.lr_scheduler.StepLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.StepLR)      | [mindspore.experimental.optim.lr_scheduler.StepLR](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/experimental/optim/mindspore.experimental.optim.lr_scheduler.StepLR.html#mindspore.experimental.optim.lr_scheduler.StepLR)                                                     | 无 `verbose` 入参，其余功能一致 |
 
-### torch.utils
+## torch.utils
 
 | PyTorch 1.8.1 APIs | MindSpore APIs  | 说明   |
 | ------------------ | --------------- | ------ |
