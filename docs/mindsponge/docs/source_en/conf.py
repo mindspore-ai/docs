@@ -124,7 +124,7 @@ def get_param_func(func):
         if func.__doc__:
             source_code = source_code.replace(func.__doc__, '')
         all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
-        all_params = re.sub("(self|cls)(,|, )?", '', all_params_str[0][0].replace("\n", "").replace("'", "\""))
+        all_params = re.sub("(self,)|(self, )|(cls,)|(cls, )", '', all_params_str[0][0].replace("\n", "").replace("'", "\""))
         return all_params
     except:
         return ''
@@ -141,6 +141,23 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
+
+# Repair error content defined in mindsponge.
+try:
+    decorator_list = [("sponge/optimizer/updater.py","del decorator",
+                       "@opt_init_args_register","# generate api by del decorator.")]
+
+    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+    for i in decorator_list:
+        with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
+            content = f.read()
+            if i[2] in content:
+                content = content.replace(i[2], i[3])
+                f.seek(0)
+                f.truncate()
+                f.write(content)
+except:
+    pass
 
 # Copy source files of chinese python api from mindscience repository.
 from sphinx.util import logging
