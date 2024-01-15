@@ -10,7 +10,7 @@ The Timeline component can display:
   device.
 - The step number of training (Currently dynamic shape scene,
   multi-graph scene and heterogeneous training scene are not supported,
-  steps data may be inaccurate in these scene.).
+  steps data may be inaccurate in these scene).
 - ``Scope Name`` of the operator, the number of each operator’s
   ``Scope Name`` could be selected and download corresponding timeline
   file. For example, the full name of one operator is
@@ -74,10 +74,10 @@ The Timeline consists of the following parts:
     - Pure Communication Op: pure communication time (the timeline of
       the communication operator after removing the overlap with the
       computation operator time).
-    - Free Time: there is no communication operator and calculation
-      operator in the execution timeline.
+    - Free Time: free time (there is no communication operator and calculation
+      operator in the execution timeline).
 
 - The Operator Information: When we click one task, the corresponding
-  operator of this task will be shown at the bottom.
+  operator of this task will be shown at the bottom, including name and type.
 
 W/A/S/D can be applied to zoom in and out of the Timeline graph.

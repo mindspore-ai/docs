@@ -6,7 +6,7 @@
 
 本教程主要演示利用自然扰动serving服务，对OCR模型CNN-CTC做一个简单的鲁棒性评测。先基于serving生成多种自然扰动样本数据集，然后根据CNN-CTC模型在自然扰动样本数据集上的表现来评估模型的鲁棒性。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindarmour/tree/master/examples/natural_robustness/ocr_evaluate> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindarmour/tree/master/examples/natural_robustness/ocr_evaluate>。
 
 ## 环境要求
 

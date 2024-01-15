@@ -17,7 +17,7 @@ Step Trace Analysis
 
 *Figure:Step Trace Analysis*
 
-Figure above displays the Step Trace page. The Step Trace detail will show
+The above figure displays the Step Trace page. The Step Trace detail will show
 the start/finish time for each stage. By default, it shows the average
 time for all the steps. Users can also choose a specific step to see its
 step trace statistics.

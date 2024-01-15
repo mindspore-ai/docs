@@ -18,7 +18,7 @@
 3. 调用故障注入模块。
 4. 查看结果。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/reliability/model_fault_injection.py> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/reliability/model_fault_injection.py>。
 
 ## 准备环节
 
@@ -119,7 +119,7 @@ fi = FaultInjector(model=model, fi_type=fi_type, fi_mode=fi_mode, fi_size=fi_siz
     - `anti_activation`: 反激活，反转原始数值符号。
     - `precision_loss`: 原始数值保留一位小数。
 - `fi_mode(list)`：故障注入的模式，有两种可选模式，分别是`single_layer` 随机一层注入故障或者`all_layer`每层都注入故障。
-- `fi_size(list)`：每次注入故障的具体数量，对于`zeros`, `anti_activation` 和 `precision_loss` 类型故障则代表为张量元素总量的百分比。
+- `fi_size(list)`：每次注入故障的具体数量，对于`zeros`、`anti_activation` 和 `precision_loss` 类型故障则代表为张量元素总量的百分比。
 
 ## 评估模型的容错性
 
@@ -173,7 +173,7 @@ all_layer_SDC_mean:0.398713 all_layer_SDC_max:0.822316 all_layer_SDC_min:0.00020
 
 - `original_acc`: 模型原始准确率。
 - `SDC(Silent Data Corruption)`: 代表性能下降值，为原始准确率减去当前故障准确率。
-- `single_layer_acc_mean/max/min`: 单层故障模式下， 准确率的均值/最大值/最小值。
-- `single_layer_SDC_mean/max/min`: 单层故障模式下， SDC的均值/最大值/最小值。
-- `all_layer_acc_mean/max/min`: 每层故障模式下， 准确率的均值/最大值/最小值。
-- `all_layer_SDC_mean/max/min`: 每层故障模式下， SDC的均值/最大值/最小值。
+- `single_layer_acc_mean/max/min`: 单层故障模式下，准确率的均值/最大值/最小值。
+- `single_layer_SDC_mean/max/min`: 单层故障模式下，SDC的均值/最大值/最小值。
+- `all_layer_acc_mean/max/min`: 每层故障模式下，准确率的均值/最大值/最小值。
+- `all_layer_SDC_mean/max/min`: 每层故障模式下，SDC的均值/最大值/最小值。

@@ -18,7 +18,7 @@ run.
 
 *Figure:Statistics for Operator Types*
 
-Figure above displays the statistics for the operator types, including:
+The above figure displays the statistics for the operator types, including:
 
 - Choose pie or bar graph to show the proportion time occupied by each
   operator type. The time of one operator type is calculated by
@@ -31,7 +31,7 @@ Figure above displays the statistics for the operator types, including:
 
 *Figure:Statistics for Operators*
 
-Figure above displays the statistics table for the operators, including:
+The above figure displays the statistics table for the operators, including:
 
 - Choose All: Display statistics for the operators, including operator
   name, type, execution time, subgraph, full name. The

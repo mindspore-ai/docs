@@ -147,7 +147,7 @@ def opaque_predicate(x, y):
     return False
 ```
 
-If x and y are integers, opaque_predicate(x, y) is always False. You can refer to [manufacturing cheap, resilient, and stealthy opaque constructs](https://dl.acm.org/doi/epdf/10.1145/268946.268962) or other literature to learn more about opaque predicates.
+If x and y are integers, `opaque_predicate(x, y)` is always False. You can refer to [manufacturing cheap, resilient, and stealthy opaque constructs](https://dl.acm.org/doi/epdf/10.1145/268946.268962) or other literature to learn more about opaque predicates.
 
 After the `customized_func` is ready, you can export the obfuscated model as follows:
 
