@@ -48,9 +48,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 |  size_average   |             The deprecated parameter in PyTorch              |The `reduction` parameter can be used instead.|
 |     reduce      |             The deprecated parameter in PyTorch              |The `reduction` parameter can be used instead.|
 
-## PyTorch 1.8.1
-
-### torch
+## torch
 
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | Descriptions                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -163,7 +161,6 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.gt](https://pytorch.org/docs/1.8.1/generated/torch.gt.html) | [mindspore.ops.gt](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.gt.html) | The functions are consistent, but the parameter names are inconsistent.   |
 | [torch.hann_window](https://pytorch.org/docs/1.8.1/generated/torch.hann_window.html) | [mindspore.ops.hann_window](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.hann_window.html) |   [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions)|
 | [torch.heaviside](https://pytorch.org/docs/1.8.1/generated/torch.heaviside.html)          | [mindspore.ops.heaviside](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.heaviside.html)   | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
-| [torch.hsplit](https://pytorch.org/docs/1.12/generated/torch.hsplit.html)                      | [mindspore.ops.hsplit](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.hsplit.html)                        | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions)|
 | [torch.hstack](https://pytorch.org/docs/1.8.1/generated/torch.hstack.html)          | [mindspore.ops.hstack](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.hstack.html)   | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
 | [torch.histc](https://pytorch.org/docs/1.8.1/generated/torch.histc.html)          | [mindspore.ops.histc](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.histc.html)   | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
 | [torch.hypot](https://pytorch.org/docs/1.8.1/generated/torch.hypot.html)          | [mindspore.ops.hypot](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.hypot.html)   | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
@@ -250,7 +247,6 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.orgqr](https://pytorch.org/docs/1.8.1/generated/torch.orgqr.html) | [mindspore.ops.orgqr](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.orgqr.html) | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions)|
 | [torch.ormqr](https://pytorch.org/docs/1.8.1/generated/torch.ormqr.html) | [mindspore.ops.ormqr](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ormqr.html) | The functions are consistent, but the parameter names are inconsistent. |
 | [torch.outer](https://pytorch.org/docs/1.8.1/generated/torch.outer.html) | [mindspore.ops.outer](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.outer.html) | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions)|
-| [torch.permute](https://pytorch.org/docs/1.12/generated/torch.permute.html) | [mindspore.ops.permute](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.permute.html) |   [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions)|
 | [torch.poisson](https://pytorch.org/docs/1.8.1/generated/torch.poisson.html) | [mindspore.ops.random_poisson](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.random_poisson.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/poisson.html) |
 | [torch.polar](https://pytorch.org/docs/1.8.1/generated/torch.polar.html) | [mindspore.ops.polar](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.polar.html) |   [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions)|
 | [torch.polygamma](https://pytorch.org/docs/1.8.1/generated/torch.polygamma.html) | [mindspore.ops.polygamma](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.polygamma.html) | [The functions are consistent, but the parameter data types are inconsistent.](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/polygamma.html) |
@@ -324,20 +320,25 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.var](https://pytorch.org/docs/1.8.1/generated/torch.var.html#torch.var) | [mindspore.ops.var](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.var.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/var.html) |
 | [torch.var_mean](https://pytorch.org/docs/1.8.1/generated/torch.var_mean.html#torch.var_mean) | [mindspore.ops.var_mean](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.var_mean.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/var_mean.html) |
 | [torch.view_as_real](https://pytorch.org/docs/1.8.1/generated/torch.view_as_real.html)                        | [mindspore.ops.view_as_real](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.view_as_real.html)                         | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
-| [torch.vsplit](https://pytorch.org/docs/1.12/generated/torch.vsplit.html)                      | [mindspore.ops.vsplit](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.vsplit.html)                        | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions)|
 | [torch.vstack](https://pytorch.org/docs/1.8.1/generated/torch.vstack.html) | [mindspore.ops.vstack](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.vstack.html) |   The functions are consistent, but the parameter names are inconsistent.|
 | [torch.where](https://pytorch.org/docs/1.8.1/generated/torch.where.html) | [mindspore.ops.where](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.where.html) | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
 | [torch.xlogy](https://pytorch.org/docs/1.8.1/generated/torch.xlogy.html) | [mindspore.ops.xlogy](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.xlogy.html) | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions)|
 | [torch.zeros](https://pytorch.org/docs/1.8.1/generated/torch.zeros.html) | [mindspore.ops.zeros](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.zeros.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/zeros.html) |
 | [torch.zeros_like](https://pytorch.org/docs/1.8.1/torch.html#torch.zeros_like) | [mindspore.ops.zeros_like](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.zeros_like.html) | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
 
-### torch.distributions
+| PyTorch 1.12 APIs                                           | MindSpore APIs                                               | Descriptions                                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [torch.hsplit](https://pytorch.org/docs/1.12/generated/torch.hsplit.html)                      | [mindspore.ops.hsplit](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.hsplit.html)                        | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions)|
+| [torch.permute](https://pytorch.org/docs/1.12/generated/torch.permute.html) | [mindspore.ops.permute](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.permute.html) |   [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions)|
+| [torch.vsplit](https://pytorch.org/docs/1.12/generated/torch.vsplit.html)                      | [mindspore.ops.vsplit](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.vsplit.html)                        | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions)|
+
+## torch.distributions
 
 | PyTorch 1.8.1 APIs                                                                                                   | MindSpore APIs                                                                                          | Descriptions |
 | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---- |
 | [torch.distributions.laplace.Laplace](https://pytorch.org/docs/1.8.1/distributions.html#torch.distributions.laplace.Laplace) | [mindspore.ops.standard_laplace](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.standard_laplace.html) |   [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/standard_laplace.html)   |
 
-### torch.distributed
+## torch.distributed
 
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | Descriptions                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -347,7 +348,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.distributed.init_process_group](https://pytorch.org/docs/1.8.1/distributed.html#torch.distributed.init_process_group) | [mindspore.communication.init](https://mindspore.cn/docs/en/master/api_python/mindspore.communication.html#mindspore.communication.init) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/init.html) |
 | [torch.distributed.new_group](https://pytorch.org/docs/1.8.1/distributed.html#torch.distributed.new_group) | [mindspore.communication.create_group](https://mindspore.cn/docs/en/master/api_python/mindspore.communication.html#mindspore.communication.create_group) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/create_group.html) |
 
-### torch.nn
+## torch.nn
 
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | Descriptions                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -469,7 +470,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.nn.Upsample](https://pytorch.org/docs/1.8.1/generated/torch.nn.Upsample.html) | [mindspore.nn.Upsample](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Upsample.html)| [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/interpolate.html) |
 | [torch.nn.ZeroPad2d](https://pytorch.org/docs/1.8.1/generated/torch.nn.ZeroPad2d.html) | [mindspore.nn.ZeroPad2d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ZeroPad2d.html) | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
 
-### torch.nn.functional
+## torch.nn.functional
 
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | Descriptions                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -551,20 +552,20 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.nn.functional.unfold](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.unfold) | [mindspore.ops.unfold](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.unfold.html) | Consistent |
 | [torch.nn.functional.upsample](https://pytorch.org/docs/1.8.1/nn.functional.html#torch.nn.functional.upsample) | [mindspore.ops.upsample](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.upsample.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/interpolate.html) |
 
-### torch.nn.Module
+## torch.nn.Module
 
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | Descriptions                                                 |
 | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | [torch.nn.Module.apply](https://pytorch.org/docs/1.8.1/generated/torch.nn.Module.html#torch.nn.Module.apply) | [mindspore.nn.Cell.apply](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.apply) |      Consistent     |
 
-### torch.nn.utils
+## torch.nn.utils
 
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | Descriptions                                                 |
 | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 |[torch.nn.utils.clip_grad_value_](https://pytorch.org/docs/1.8.1/generated/torch.nn.utils.clip_grad_value_.html)                   |[mindspore.ops.clip_by_value](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.clip_by_value.html)                           |  [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/clip_by_value.html)    |
 |[torch.nn.utils.clip_grad_norm_](https://pytorch.org/docs/1.8.1/generated/torch.nn.utils.clip_grad_norm_.html)                   |[mindspore.ops.clip_by_norm](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.clip_by_norm.html)                           |  [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/clip_by_norm.html)    |
 
-### torch.Tensor
+## torch.Tensor
 
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | Descriptions                                |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |---------------------------------------------|
@@ -664,7 +665,6 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.Tensor.hardshrink](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.hardshrink) | [mindspore.Tensor.hardshrink](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.hardshrink.html) | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
 | [torch.Tensor.heaviside](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.heaviside)                       | [mindspore.Tensor.heaviside](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.heaviside.html)                       | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
 | [torch.Tensor.histc](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.histc)                       | [mindspore.Tensor.histc](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.histc.html)                       | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
-| [torch.Tensor.hsplit](https://pytorch.org/docs/1.12/generated/torch.Tensor.hsplit.html)                         | [mindspore.Tensor.hsplit](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.hsplit.html)                         | The functions are consistent, but the parameter names are inconsistent. |
 | [torch.Tensor.hypot](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.hypot)                       | [mindspore.Tensor.hypot](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.hypot.html)                       | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
 | [torch.Tensor.i0](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.i0)| [mindspore.Tensor.i0](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.i0.html)| [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions)|
 | [torch.Tensor.igamma](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.igamma)| [mindspore.Tensor.igamma](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.igamma.html)| [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions)|
@@ -820,11 +820,15 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.Tensor.var](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.var) | [mindspore.Tensor.var](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.var.html) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/var.html) |
 | [torch.Tensor.view](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.view) | [mindspore.Tensor.view](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.view.html) | The functions are consistent |
 | [torch.Tensor.view_as](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.view_as) | [mindspore.Tensor.view_as](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.view_as.html) | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
-| [torch.Tensor.vsplit](https://pytorch.org/docs/1.12/generated/torch.Tensor.vsplit.html)                         | [mindspore.Tensor.vsplit](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.vsplit.html)                         | The functions are consistent, but the parameter names are inconsistent. |
 | [torch.Tensor.where](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.where) | [mindspore.Tensor.where](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.where.html) | [Consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions) |
 | [torch.Tensor.xlogy](https://pytorch.org/docs/1.8.1/tensors.html#torch.Tensor.xlogy)                 | [mindspore.Tensor.xlogy](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.xlogy.html)                 | The functions are consistent, but the parameter names are inconsistent.|
 
-### torch.optim
+| PyTorch 1.12 APIs                                           | MindSpore APIs                                               | Descriptions                                |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |---------------------------------------------|
+| [torch.Tensor.hsplit](https://pytorch.org/docs/1.12/generated/torch.Tensor.hsplit.html)                         | [mindspore.Tensor.hsplit](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.hsplit.html)                         | The functions are consistent, but the parameter names are inconsistent. |
+| [torch.Tensor.vsplit](https://pytorch.org/docs/1.12/generated/torch.Tensor.vsplit.html)                         | [mindspore.Tensor.vsplit](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.vsplit.html)                         | The functions are consistent, but the parameter names are inconsistent. |
+
+## torch.optim
 
 | PyTorch 1.8.1 APIs                                                                                                                 | MindSpore APIs                                                                                                                                                     | Descriptions                                                                          |
 |------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
@@ -844,7 +848,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.optim.lr_scheduler.MultiStepLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.MultiStepLR)             | [mindspore.nn.piecewise_constant_lr](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.piecewise_constant_lr.html#mindspore.nn.piecewise_constant_lr) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/PiecewiseConstantLR.html) |
 | [torch.optim.lr_scheduler.StepLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.StepLR)                       | [mindspore.nn.piecewise_constant_lr](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.piecewise_constant_lr.html#mindspore.nn.piecewise_constant_lr) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/PiecewiseConstantLR.html) |
 
-### torch.optim
+## torch.optim
 
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | Descriptions                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -852,7 +856,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.optim.AdamW](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.AdamW)                                                     | [mindspore.experimental.optim.AdamW](https://mindspore.cn/docs/en/master/api_python/experimental/optim/mindspore.experimental.optim.AdamW.html)                                                     | Consistent |
 | [torch.optim.SGD](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.SGD)                                                     | [mindspore.experimental.optim.SGD](https://mindspore.cn/docs/en/master/api_python/experimental/optim/mindspore.experimental.optim.SGD.html)                                                     | Consistent |
 
-### torch.optim.lr_scheduler
+## torch.optim.lr_scheduler
 
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | Descriptions                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -871,7 +875,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.optim.lr_scheduler.SequentialLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.SequentialLR)      | [mindspore.experimental.optim.lr_scheduler.SequentialLR](https://www.mindspore.cn/docs/en/master/api_python/experimental/optim/mindspore.experimental.optim.lr_scheduler.SequentialLR.html#mindspore.experimental.optim.lr_scheduler.SequentialLR)                                                     | No `verbose` input param, other functions are consistent |
 | [torch.optim.lr_scheduler.StepLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.StepLR)      | [mindspore.experimental.optim.lr_scheduler.StepLR](https://www.mindspore.cn/docs/en/master/api_python/experimental/optim/mindspore.experimental.optim.lr_scheduler.StepLR.html#mindspore.experimental.optim.lr_scheduler.StepLR)                                                     | No `verbose` input param, other functions are consistent |
 
-### torch.utils
+## torch.utils
 
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | Descriptions                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |

@@ -10,7 +10,9 @@ Scalars, images, computational graphs, training optimization process, and model 
 
 - Prepare a training script, specify scalars, images, computational graphs, training optimization process, and model hyperparameters in the training script, record them in the summary log file, and run the training script.
 - Start MindSpore Insight and specify the summary log file directory using startup parameters. After MindSpore Insight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
-- During the training, when data is written into the summary log file, you can view the data on the web page.
+- During the training, when data is written into the summary log file, you can view the [visualized data in Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html) on the web page.
+
+> To view visualized data in ModelArts, see [managing visualized Jobs on ModelArts](https://support.huaweicloud.com/develop-modelarts/develop-modelarts-0067.html).
 
 ## Preparing The Training Script
 
@@ -22,7 +24,7 @@ MindSpore currently supports multiple ways to record data into summary log files
 
 The `Callback` mechanism in MindSpore provides a quick and easy way to collect common information, including the calculational graph, loss value, learning rate, parameter weights, etc. It is named 'SummaryCollector'.
 
-When you write a training script, you just instantiate the `SummaryCollector` and apply it to either `model.train` or `model.eval`. You can automatically collect some common summary data. The detailed usage of `SummaryCollector` can refer to the `API` document [mindspore.SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector) .
+When you write a training script, you just instantiate the `SummaryCollector` and apply it to either `model.train` or `model.eval`. You can automatically collect some common summary data. The detailed usage of `SummaryCollector` can refer to the `API` document [mindspore.SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector).
 
 The sample code snippet is shown as follows. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_1.py) is put on gitee.
 
@@ -92,8 +94,7 @@ class AlexNet(nn.Cell):
         return x
 ```
 
-> 1. In the same Summary API, the name given to the data must not be repeated, otherwise the data collection and presentation will have unexpected behavior.
-> For example, if two `ScalarSummary` APIs are used to collect scalar data, two scalars cannot be given the same name.
+> 1. In the same Summary API, the name given to the data must not be repeated, otherwise the data collection and presentation will have unexpected behavior. For example, if two `ScalarSummary` APIs are used to collect scalar data, two scalars cannot be given the same name.
 > 2. Summary API needs to be used in `construct` of `nn.Cell`.
 
 Step 2: In the training script, instantiate the `SummaryCollector` and apply it to `model.train`.
@@ -118,12 +119,11 @@ def train(ds_train):
 
 ### Method three: Custom callback recording data
 
-MindSpore supports customized callback and supports to record data into summary log file
-in custom callback, and display the data by the web page.
+MindSpore supports customized callback and supports to record data into summary log file in custom callback, and display the data by the web page.
 
 The following pseudocode is shown in the CNN network, where developers can use the network output with the original tag and the prediction tag to generate the image of the confusion matrix.
 It is then recorded into the summary log file through the `SummaryRecord` module.
-The detailed usage of `SummaryRecord` can refer to the `API` document [mindspore.SummaryRecord](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryRecord.html#mindspore.SummaryRecord) .
+The detailed usage of `SummaryRecord` can refer to the `API` document [mindspore.SummaryRecord](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryRecord.html#mindspore.SummaryRecord).
 
 The sample code snippet is as follows. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_3.py) is put on gitee.
 
@@ -142,7 +142,7 @@ class MyCallback(Callback):
         # else your training script will not exit from training.
         self.summary_record.close()
 
-    def step_end(self, run_context):
+    def on_train_step_end(self, run_context):
         cb_params = run_context.original_args()
 
         # create a confusion matric image, and record it to summary file
@@ -175,7 +175,7 @@ If you are not using the `Model` interface provided by MindSpore, you can implem
 
 The following code snippet demonstrates how to record data in a custom training cycle using the summary API and the `add_value` interface of `SummaryRecord`. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_4.py) is put on gitee.
 
-For more tutorials about `SummaryRecord`, [refer to the Python API documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryRecord.html#mindspore.SummaryRecord). Please note that `SummaryRecord` will not record computational graph automatically. If you need to record the computational graph, please manually pass the instance of network that inherits from Cell. The recorded computational graph only includes the code and functions used in the construct method.
+For more tutorials about `SummaryRecord`, refer to the [Python API documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryRecord.html#mindspore.SummaryRecord). Please note that `SummaryRecord` will not record computational graph automatically. If you need to record the computational graph, please manually pass the instance of network that inherits from Cell. The recorded computational graph only includes the code and functions used in the construct method.
 
 ```python
 def train(ds_train):
@@ -276,7 +276,7 @@ def train(ds_train):
                 dataset_sink_mode=False)
 ```
 
-## Run MindSpore Insight
+## Running MindSpore Insight
 
 After completing the data collection in the tutorial above, you can start MindSpore Insight to visualize the collected data. When start MindSpore Insight, you need to specify the summary log file directory with the `--summary-base-dir` parameter.
 
@@ -366,7 +366,7 @@ For more parameter Settings, see the [MindSpore Insight related commands](https:
 
 3. In each Summary log file directory, only one training data should be placed. If a summary log directory contains summary data from multiple training, MindSpore Insight will overlay the summary data from these training when visualizing the data, which may not be consistent with the expected visualizations.
 
-4. When using summary, it is recommended that you set `dataset_sink_mode` argument of `model.train` to `False`, so that the unit of `collect_freq` is `step`. When `dataset_sink_mode` was `True`, the unit of `collect_freq` would be `epoch` and it is recommended that you set `collect_freq` manually.
+4. When using summary, it is recommended that you set `dataset_sink_mode` argument of `model.train` to `False`, so that the unit of `collect_freq` is `step`. When `dataset_sink_mode` was `True`, the unit of `collect_freq` would be `epoch` and it is recommended that you set `collect_freq` manually. The default value of the `collect_freq` parameter is `10`.
 
 5. The maximum amount of data saved per step is 2147483647 Bytes. If this limit is exceeded, data for the step cannot be recorded and an error occurs.
 

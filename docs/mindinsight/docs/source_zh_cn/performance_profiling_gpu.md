@@ -24,13 +24,13 @@
 
 - 方式一：修改训练脚本
 
-    在训练脚本中添加MindSpore Profiler相关接口。  
+    在训练脚本中添加MindSpore Profiler相关接口。
 
     - `set_context`之后，初始化MindSpore `Profiler`对象，Profiler开启收集性能数据。
 
       > GPU多卡场景需要在`set_auto_parallel_context`之后初始化`Profiler`对象。
       >
-      > Profiler支持的参数可以参考： [Profiler API](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler)。
+      > Profiler支持的参数可以参考：[Profiler API](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler)。
 
     - 在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
 
@@ -50,19 +50,19 @@
             self.stop_step = stop_step
             self.profiler = Profiler(start_profile=False)
 
-        def step_begin(self, run_context):
+        def on_train_step_begin(self, run_context):
             cb_params = run_context.original_args()
             step_num = cb_params.cur_step_num
             if step_num == self.start_step:
                 self.profiler.start()
 
-        def step_end(self, run_context):
+        def on_train_step_end(self, run_context):
             cb_params = run_context.original_args()
             step_num = cb_params.cur_step_num
             if step_num == self.stop_step:
                 self.profiler.stop()
 
-        def end(self, run_context):
+        def on_train_end(self, run_context):
             self.profiler.analyse()
     ```
 
@@ -77,7 +77,7 @@
     - `start`（bool, 必选）- 设置为true，表示使能Profiler；设置成false，表示关闭性能数据收集，默认值：false。
     - `output_path`（str, 可选）- 需要设置为绝对路径，不设置则默认在当前路径创建data目录存储性能数据。
     - `sync_enable`（bool, 可选）- Profiler是否用同步的方式收集算子耗时。使用此参数时，op_time必须设置成true，默认值：true。
-    - `timeline_limit`（int, 可选) - 设置限制timeline文件存储上限大小（单位M）。使用此参数时，op_time必须设置成true，默认值：500。
+    - `timeline_limit`（int, 可选） - 设置限制timeline文件存储上限大小（单位M）。使用此参数时，op_time必须设置成true，默认值：500。
     - `data_process`（bool, 可选）- 表示是否收集数据准备性能数据，默认值：true。
     - `op_time`（bool, 可选）- 表示是否收集算子性能数据，默认值：true。
     - `profile_framework`（str, 可选）- 是否需要收集Host侧的内存和时间，可选参数为["all", "time", "memory", null]。默认值："all"。

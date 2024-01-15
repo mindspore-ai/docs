@@ -65,7 +65,7 @@ The interaction process of each module is as follows:
 #### Description
 
 ProfilerAPI provides an entry API in the training script for users to start performance collection and analyze performance data.
-ProfilerAPI delivers commands through Controller to control the startup of ada/CUPTI.
+ProfilerAPI starts the performance data collection module by issuing commands through the Controller.
 
 #### Design
 
@@ -102,7 +102,7 @@ Parser is a module for parsing original performance data which is collected on t
 
 *Figure 4 Parser module*
 
-As shown in the preceding figure, there are HWTS Parser, AI CPU Parser, Framework Parser, and Training Trace Parser modules. Each module parses a type of original data to obtain the intermediate file that can be read by users.
+As shown in the preceding figure, there are HWTS Parser, AI CPU Parser, Framework Parser, and Training Trace Parser modules. Each module parses a type of original data to obtain the intermediate file that can be read by users. Ascend mainly uses HWTS Parser, AI CPU Parser, Framework Parser, Step Trace Parser, and GPU mainly uses Step Trace Parser.
 
 Ascend:
 

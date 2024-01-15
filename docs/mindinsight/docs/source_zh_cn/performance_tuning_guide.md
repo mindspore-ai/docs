@@ -37,7 +37,7 @@ MindSpore Insight在性能调优的单卡页面为用户提供了`迭代轨迹`�
 
 ![minddata_profile.png](images/data_profile.png)
 
-*图2： 数据准备页面*
+*图2：数据准备页面*
 
 #### 非数据下沉模式
 

@@ -22,7 +22,7 @@ MindSpore目前支持多种方式将数据记录到summary日志文件中。
 
 ### 方式一：通过SummaryCollector自动收集
 
-在MindSpore中通过 `Callback` 机制提供支持快速简易地收集一些常见的信息，包括计算图，损失值，学习率，参数权重等信息的 `Callback`, 叫做 `SummaryCollector`。
+在MindSpore中通过 `Callback` 机制提供支持快速简易地收集一些常见的信息，包括计算图，损失值，学习率，参数权重等信息的 `Callback`，叫做 `SummaryCollector`。
 
 在编写训练脚本时，仅需要实例化 `SummaryCollector`，并将其应用到 `model.train` 或者 `model.eval` 中，
 即可自动收集一些常见信息。`SummaryCollector` 详细的用法可以参考 `API` 文档中 [mindspore.SummaryCollector](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector) 。
@@ -121,11 +121,10 @@ def train(ds_train):
 
 ### 方式三：自定义Callback记录数据
 
-MindSpore支持自定义Callback, 并允许在自定义Callback中将数据记录到summary日志文件中，
-并通过可视化页面进行查看。
+MindSpore支持自定义Callback, 并允许在自定义Callback中将数据记录到summary日志文件中，并通过可视化页面进行查看。
 
 下面的样例代码则展示在自定义Callback函数中通过 `SummaryRecord` 模块记录网络输入到summary日志文件中。
-`SummaryRecord` 详细的用法可以参考 `API` 文档中 [mindspore.SummaryRecord](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryRecord.html#mindspore.SummaryRecord) 。
+`SummaryRecord` 详细的用法可以参考 `API` 文档中 [mindspore.SummaryRecord](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryRecord.html#mindspore.SummaryRecord)。
 
 下面展示了自定义Callback记录数据的关键样例代码，[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_3.py) 可以到gitee下载。
 
@@ -144,7 +143,7 @@ class MyCallback(Callback):
         # else your training script will not exit from training.
         self.summary_record.close()
 
-    def step_end(self, run_context):
+    def on_train_step_end(self, run_context):
         cb_params = run_context.original_args()
 
         # create a confusion matric image, and record it to summary file
@@ -167,7 +166,7 @@ def train(ds_train):
 ```
 
 上面的三种方式，支持记录计算图, 损失值等多种数据。除此以外，MindSpore还支持保存训练中其他阶段的计算图，通过
-将训练脚本中 `set_context` 的 `save_graphs` 选项设置为 `True`, 可以记录其他阶段的计算图，其中包括API融合后的计算图。
+将训练脚本中 `set_context` 的 `save_graphs` 选项设置为 `True`，可以记录其他阶段的计算图，其中包括API融合后的计算图。
 
 在保存的文件中，`ms_output_after_hwopt.pb` 即为API融合后的计算图，可以使用可视化页面对其进行查看。
 
@@ -331,7 +330,7 @@ mindinsight stop
 
 1. 为了控制列出summary文件目录的用时，MindSpore Insight最多支持发现999个summary文件目录。
 
-2. 不能同时使用多个 `SummaryRecord` 实例 （`SummaryCollector` 中使用了 `SummaryRecord`）。
+2. 不能同时使用多个 `SummaryRecord` 实例（`SummaryCollector` 中使用了 `SummaryRecord`）。
 
     如果在 `model.train` 或者 `model.eval` 的callback列表中使用两个及以上的 `SummaryCollector` 实例，则视为同时使用 `SummaryRecord`，可能导致记录数据失败。
 
@@ -371,6 +370,6 @@ mindinsight stop
 
 4. 使用summary功能时，建议将`model.train`方法的`dataset_sink_mode`参数设置为`False`，从而以`step`作为`collect_freq`参数的单位收集数据。当`dataset_sink_mode`为`True`时，将以`epoch`作为`collect_freq`的单位，此时建议手动设置`collect_freq`参数。`collect_freq`参数默认值为`10`。
 
-5. 每个step保存的数据量，最大限制为2147483647Bytes。如果超出该限制，则无法记录该step的数据，并出现错误。
+5. 每个step保存的数据量，最大限制为2147483647 Bytes。如果超出该限制，则无法记录该step的数据，并出现错误。
 
 6. PyNative模式下，`SummaryCollector` 能够正常使用，但不支持记录计算图。
