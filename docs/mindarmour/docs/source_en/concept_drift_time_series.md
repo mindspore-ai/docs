@@ -5,7 +5,7 @@
 ## Overview
 
 Concept drift is an important data phenomenon in the AI learning field, representing that the online inference data (real-time distribution) is inconsistent with the training data (historical distribution).
- The concept drift detection can detect data distribution changes in time and identify model failure symptoms in advance, which is significant for timely adjustment of AI models.
+The concept drift detection can detect data distribution changes in time and identify model failure symptoms in advance, which is significant for timely adjustment of AI models.
 
 The concept drift detection is essentially used to detect data distribution changes. The following example provides a method for detecting data changes to check whether the features of data in the new window deviate from those in the historical window. If the deviation degree is greater than a threshold, the concept drift occurs.
 

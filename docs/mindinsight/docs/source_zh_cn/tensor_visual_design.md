@@ -41,7 +41,7 @@ Tensor可视支持1-N维的Tensor以表格或直方图的形式展示，对于�
 
 ### 接口设计
 
-在张量可视中，主要有文件接口和RESTful API接口，其中文件接口为[summary.proto](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/utils/summary.proto)文件，是MindSpore Insight和MindSpore进行数据对接的接口。 RESTful API接口是MindSpore Insight前后端进行数据交互的接口，是内部接口。
+在张量可视中，主要有文件接口和RESTful API接口，其中文件接口为[summary.proto](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/utils/summary.proto)文件，是MindSpore Insight和MindSpore进行数据对接的接口。RESTful API接口是MindSpore Insight前后端进行数据交互的接口，是内部接口。
 
 #### 文件接口设计
 

@@ -5,10 +5,8 @@
 (两次step执行的间隔时间)、前向与反向执行、all
 reduce、参数更新等几个阶段，并显示出每个阶段的时长，帮助用户定界出性能瓶颈所在的执行阶段。
 
-
 .. note::
    迭代轨迹目前仅支持Graph模式单图场景，暂不支持PyNative、异构、多子图等场景。
-
 
 .. figure:: ./images/step_trace.png
    :alt: step_trace.png

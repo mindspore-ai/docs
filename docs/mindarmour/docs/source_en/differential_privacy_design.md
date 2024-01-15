@@ -10,7 +10,7 @@ The Differential-Privacy module of MindSpore Armour implements the differential 
 
 *<center>Figure 1 Overall design of differential privacy</center>*
 
-Figure 1 shows an overall design of differential privacy training, and mainly including differential privacy noise mechanisms (DP mechanisms), a differential privacy optimizer (DP optimizer), and a privacy monitor.
+Figure 1 shows an overall design of differential privacy training, and mainly includes differential privacy noise mechanisms (DP mechanisms), a differential privacy optimizer (DP optimizer), and a privacy monitor.
 
 ### DP Optimizer
 
@@ -26,7 +26,7 @@ The noise mechanism is a basis for building a differential privacy training capa
 
 ### Monitor
 
-Monitor provides callback functions such as Rényi differential privacy (RDP) and zero-concentrated differential privacy (ZCDP) to monitor the differential privacy budget of the model.
+Monitor provides callback functions such as RDP and ZCDP to monitor the differential privacy budget of the model.
 
 - ZCDP<sup>[1]</sup>
 

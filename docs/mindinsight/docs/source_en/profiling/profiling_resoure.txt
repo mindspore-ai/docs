@@ -10,8 +10,8 @@ analysis.
 *Figure:Overview of resource utilization*
 
 Overview of resource utilization：Including CPU utilization analysis and
-memory usage analysis. You can view the details by clicking the View
-Details button in the upper right corner.
+memory usage analysis. You can view the details by clicking the \ ``View
+Details``\ button in the upper right corner.
 
 CPU Utilization Analysis
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -80,8 +80,8 @@ Memory Analysis
 ~~~~~~~~~~~~~~~
 
 This page is used to show the memory usage of the neural network model
-on the **device**, which is an **ideal prediction** based on the
-theoretical calculation results. The content of the page includes:
+on the **device**, which is an **ideal prediction based on the
+theoretical calculation results**. The content of the page includes:
 
 - An overview of the memory usage of the model, including the total
   available memory, peak memory and other information.
@@ -102,21 +102,19 @@ Users can obtain the summary of memory usage via the
 ``Memory Allocation Overview``. In addition, they can obtain more
 detailed information from ``Memory Usage``, including:
 
-- **Line Chart**: Changes in model memory usage, including static
-  memory, total occupied memory and total available memory.
-- **Zooming**: There is a zoom scroll bar under the line chart. Users
+- Zooming: There is a zoom scroll bar under the line chart. Users
   can zoom in or out the line chart by adjusting its size to observe
   more details.
-- **FP/BP**: The execution positions of the start of
+- FP/BP: The execution positions of the start of
   ``Forward Propagation`` and the end of ``Backward Propagation`` of
   the model on the line chart.
-- **Details of Nodes**: Hovering over the line chart, the information
+- Details of Nodes: Hovering over the line chart, the information
   of the corresponding execution operator is shown, including the
   execution order of the operator, the name of the operator, the memory
   occupied by the operator, the total memory occupied by the model in
   the current position, and the relative memory change compared with
   the previous execution position.
-- **Memory Decomposition**: Left clicking a position on the line chart,
+- Memory Decomposition: Left clicking a position on the line chart,
   the memory breakdowns of the execution position is shown in the table
   below the line chart, called ``Operator Memory Allocation``. The
   table shows the memory decomposition of the corresponding execution

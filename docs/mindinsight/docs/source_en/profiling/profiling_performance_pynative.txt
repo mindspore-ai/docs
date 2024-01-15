@@ -10,7 +10,7 @@ link.
 
 *Figure:Overall Performance*
 
-Figure above displays the overall performance of the training, including the
+The above figure displays the overall performance of the training, including the
 Operator Performance, Data Preparation Performance and Timeline.
 The data shown in these components include:
 
@@ -25,6 +25,6 @@ The data shown in these components include:
   performance page will show the statistics for streams and tasks.
 
 Users can click the detail link to see the details of each components.
-Besides, MindSpore Insight Profiler will try to analyse the performance data,
+Besides, MindSpore Insight will try to analyse the performance data,
 the assistant on the left will show performance tuning suggestions for
 this training.
