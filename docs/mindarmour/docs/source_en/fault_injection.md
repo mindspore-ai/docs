@@ -63,7 +63,7 @@ from examples.common.networks.lenet5.lenet5_net import LeNet5
 from examples.common.dataset.data_processing import generate_mnist_dataset
 ```
 
-## Construct the Dataset and Model
+## Constructing the Dataset and Model
 
 Take MNIST dataset and LeNet5 as an example.
 
@@ -148,7 +148,7 @@ Return:
 - `results(list)`: The Evaluation results of each parameter.
 - `result_summary(list)`: Summary results are counted according to the fi_mode.
 
-## View the Result
+## Viewing the Result
 
 ```python
 for result in results:

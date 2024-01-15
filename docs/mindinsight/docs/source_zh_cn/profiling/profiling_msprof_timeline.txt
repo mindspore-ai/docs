@@ -1,4 +1,4 @@
-Timeline (大模型场景，多卡、多图、多迭代)分析
+Timeline（大模型场景，多卡、多图、多迭代）分析
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Timeline组件功能点：
@@ -11,7 +11,7 @@ Timeline组件功能点：
 
 如何查看时间线：
 
-1. 点击总览页面Timeline部分的下载按钮，将Timeline数据文件(json格式) 保存至本地。
+1. 点击总览页面Timeline部分的下载按钮，将Timeline数据文件（json格式）保存至本地。
 
    .. figure:: ./images/timeline_option.png
       :alt: timeline_option.png
