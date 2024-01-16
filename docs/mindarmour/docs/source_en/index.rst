@@ -38,6 +38,10 @@ Typical Application Scenarios
 
    Uses the symmetric encryption algorithm to encrypt the parameter files or inference models to protect the model files. Directly loads the ciphertext model to implement inference or incremental training when using the algorithm.
 
+7. `Model Dynamic Obfuscation <https://www.mindspore.cn/mindarmour/docs/en/master/dynamic_obfuscation_protection.html>`_
+
+   The structure of the AI model is transformed and obfuscated using a control flow obfuscation algorithm, so that the obfuscated model will not reveal the real structure and weights even if it is stolen. When loading the obfuscated model, as long as the correct password or custom function is passed in, the model can be used normally for inference, and the accuracy of the inference results is not compromised.
+
 .. toctree::
    :glob:
    :maxdepth: 1

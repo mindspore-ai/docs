@@ -10,7 +10,7 @@ MindSpore Armour的fuzz_testing模块以神经元覆盖率作为测试评价准�
 
 这里以LeNet模型，MNIST数据集为例，说明如何使用Fuzzer。
 
-> 本例面向CPU、GPU、Atlas训练系列产品，目前仅支持GRAPH_MODE。你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/ai_fuzzer/lenet5_mnist_fuzzing.py>
+> 本例面向CPU、GPU、Atlas训练系列产品，目前仅支持GRAPH_MODE。你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/ai_fuzzer/lenet5_mnist_fuzzing.py>。
 
 ## 实现阶段
 
@@ -171,16 +171,16 @@ ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
    KMNC of initial seeds is:  0.3152149321266968
    ```
 
-4. Fuzz测试。
+5. Fuzz测试。
 
    ```python
    model_fuzz_test = Fuzzer(model)
    fuzz_samples, true_labels, fuzz_preds, fuzz_strategies, metrics_report = model_fuzz_test.fuzzing(mutate_config, initial_seeds, coverage, evaluate=True, max_iters=10,mutate_num_per_seed=20)
    ```
 
-5. 实验结果。
+6. 实验结果。
 
-   fuzzing的返回结果中包含了5个数据：fuzz生成的样本fuzz_samples、生成样本的真实标签true_labels、被测模型对于生成样本的预测值fuzz_preds、 生成样本使用的变异方法fuzz_strategies、fuzz testing的评估报告metrics_report。用户可使用这些返回结果进一步的分析模型的鲁棒性。这里只展开metrics_report，查看fuzz testing后的各个评估指标。
+   fuzzing的返回结果中包含了5个数据：fuzz生成的样本fuzz_samples、生成样本的真实标签true_labels、被测模型对于生成样本的预测值fuzz_preds、生成样本使用的变异方法fuzz_strategies、fuzz testing的评估报告metrics_report。用户可使用这些返回结果进一步的分析模型的鲁棒性。这里只展开metrics_report，查看fuzz testing后的各个评估指标。
 
    ```python
    if metrics:

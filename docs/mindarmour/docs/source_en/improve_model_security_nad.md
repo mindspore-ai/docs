@@ -12,7 +12,7 @@ At the beginning of AI algorithm design, related security threats are sometimes 
 - The adversarial example detection and defense modules allow users to detect and filter adversarial examples and enhance the robustness of AI models to adversarial examples.
 - The evaluation module provides multiple metrics to comprehensively evaluate the attack and defense performance of adversarial examples.
 
-This section describes how to use MindSpore Armour in adversarial attack and defense by taking the Fast Gradient Sign Method (FGSM) attack algorithm and Natural Adversarial Defense (NAD) algorithm as examples.
+This section describes how to use MindSpore Armour in adversarial attack and defense on image classification tasks by taking the Fast Gradient Sign Method (FGSM) attack algorithm and Natural Adversarial Defense (NAD) algorithm as examples.
 
 > The current sample is for CPU, GPU and Atlas training series. You can find the complete executable sample code at
 > <https://gitee.com/mindspore/mindarmour/blob/master/examples/model_security/model_defenses/mnist_defense_nad.py>

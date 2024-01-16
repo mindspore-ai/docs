@@ -16,9 +16,9 @@ The LeNet model and MNIST dataset are used as an example to describe how to use 
 
 ### Importing Library Files
 
-The following lists the required common modules, MindSpore-related modules, Fuzz testing feature modules, and configuration log labels and log levels.
+The following lists the required common modules, MindSpore-related modules, fuzz_testing feature modules, and configuration log labels and log levels.
 
-Here, we use `KMultisectionNeuronCoverage` as fuzzing guide, you can also choose other supported neuron coverage metrics: `NeuronCoverage`, `TopKNeuronCoverage`, `NeuronBoundsCoverage`, `SuperNeuronActivateCoverage`.
+Here, we use `KMultisectionNeuronCoverage` as fuzzing guide, and you can also choose other supported neuron coverage metrics: `NeuronCoverage`, `TopKNeuronCoverage`, `NeuronBoundsCoverage`, `SuperNeuronActivateCoverage`.
 
 ```python
 import numpy as np
@@ -179,17 +179,7 @@ For details about the API configuration, see the `set_context`.
 
 6. Experiment results.
 
-   The results of fuzz testing contains five aspect data:
-
-   - fuzz_samples: mutated samples in fuzz testing.
-   - true_labels: the ground truth labels of fuzz_samples.
-   - fuzz_pred: predictions of tested model about fuzz_samples.
-   - fuzz_strategies: the methods used to mutate fuzz_samples.
-   - metrics_report: metrics report of fuzz testing.
-
-   The first 4 returns can be used to further calculated complex metrics and analyze the robustness of the model.
-
-   Run the following command to view the result:
+   The return result of fuzzing contains five pieces of data: fuzz generated samples fuzz_samples, true labels of the generated samples true_labels, predicted values of the model under test for the generated samples fuzz_preds, variations used for the generated samples fuzz_strategies, and the evaluation report of the fuzz test metrics_report. The user can use these returns to further analyze the robustness of the model. Here we only expand metrics_report and view the evaluation metrics after the fuzz testing.
 
    ```python
    if metrics:
