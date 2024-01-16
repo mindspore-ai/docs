@@ -397,7 +397,7 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
 
     我们用matplotlib画出原始图像以及用逆向攻击还原出来的图像，并且调用`inversion_attack`的`evaluate`方法进行定量评估，
     `evaluate`方法会返回`avg_l2_dis`，`avg_ssim`和`avg_confi`，分别表示原图与逆向还原的图像之间的平均L2
-   范数距离和平均结构相似性，以及逆向还原出来的图片在一个新模型上的推理结果（在其真实标签上的平均置信度）。
+    范数距离和平均结构相似性，以及逆向还原出来的图片在一个新模型上的推理结果（在其真实标签上的平均置信度）。
     一般来说，`avg_l2_dis`越小、`avg_ssim`越大，则代表inversion_images与original_images越接近；而新的神经网络模型可以替代人眼对图片的可识别度做一个定量的评估（即`avg_confi`越高，说明inversion_image包含的语义信息与原图更为接近）。
 
     ```python

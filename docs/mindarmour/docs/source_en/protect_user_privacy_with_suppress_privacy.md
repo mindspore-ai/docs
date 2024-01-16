@@ -70,7 +70,7 @@ TAG = 'Lenet5_Suppress_train'
 
    For detailed interface configuration information, see the `set_context` interface description.
 
-### Preprocessed Datasets
+### Preprocessing Datasets
 
 Load the dataset and convert it into MindSpore data format.
 
@@ -398,7 +398,7 @@ The principle of this attack method can be found in <https://arxiv.org/pdf/1412.
 
     We use matplotlib to draw the original image and the image restored with the inverse attack, and call the `evaluate` method of `inversion_attack` for quantitative evaluation.
     The `evaluate` method returns `avg_l2_dis`, `avg_ssim` and `avg_confi`, which denote the average L2 parametric distance and average structural similarity, as well as the inference result of the reverse-reduced image on a new model (average confidence on its true label).
-    In general, the smaller `avg_l2_dis` and the larger `avg_ssim` represent the closer the inversion_images are to the original_images; and the new neural network model can replace the human vision to make a quantitative assessment of the recognizability of the images (i.e., the higher `avg_confi` indicates that the inversion _image contains semantic information that is closer to the original image).
+    In general, the smaller `avg_l2_dis` and the larger `avg_ssim` represent the closer the inversion_images are to the original_images; and the new neural network model can replace the human vision to make a quantitative assessment of the recognizability of the images (i.e., the higher `avg_confi` indicates that the inversion_image contains semantic information that is closer to the original image).
 
     ```python
     plot_num = min(sample_num, 10)
