@@ -155,7 +155,7 @@ def predict(x):
 
 #### Starting Serving Server
 
-Use [serving_server.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_server.py) to call `distributed.start_servable` method to deploy the serving sever, including the `Main` and `Distributed Worker` processes.
+Use [serving_server.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_server.py) to call `distributed.start_servable` method to deploy the serving sever.
 
 ```python
 import os
