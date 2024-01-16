@@ -14,8 +14,8 @@ MindSpore和MindSpore Lite针对不同的硬件平台有不同的构建包，每
 |---------| --- | --- | -------- |
 |MindSpore| Nvidia GPU | Nvidia GPU | `MindIR` |
 |  | Ascend |Atlas训练系列产品 | `MindIR` |
-|MindSpore Lite| Nvidia GPU | Nvidia GPU, CPU | `MindIR_Lite` |
-|  | Ascend | Atlas 200/300/500推理产品, Atlas推理系列产品（配置Ascend310P AI 处理器）, CPU | `MindIR_Lite` |
+|MindSpore Lite| Nvidia GPU | Nvidia GPU、CPU | `MindIR_Lite` |
+|  | Ascend | Atlas 200/300/500推理产品、Atlas推理系列产品（配置Ascend310P AI 处理器）、CPU | `MindIR_Lite` |
 |  | CPU | CPU | `MindIR_Lite` |
 
 当以[MindSpore](https://www.mindspore.cn/)作为推理后端时，MindSpore Serving当前支持Atlas训练系列产品和Nvidia GPU环境。Atlas训练系列产品和GPU环境仅支持`MindIR`模型格式。
