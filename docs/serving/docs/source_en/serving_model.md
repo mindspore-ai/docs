@@ -149,7 +149,7 @@ In the preceding code:
 
 5. If you want to configure run-time parameters about model and the device information, you can use the argument `context` and `config_file` of `declare_model`. You can refer to [API document](https://www.mindspore.cn/serving/docs/en/master/server.html#mindspore_serving.server.register.declare_model).
 
-For distributed model, the only difference compared with non-distributed single model configuration is declaration, you need to use `mindspore_serving.server.distributed.declare_servable` method, `rank_size` is the number of devices used in the model, `stage_size` is the number of stages in the pipeline.
+For distributed model, the only difference compared with non-distributed single model configuration is declaration, you need to use `mindspore_serving.server.distributed.declare_servable` method, `rank_size` is the number of devices used in the model, `stage_size` is the number of stages in the pipeline. Refer to [Distributed Inference Service Deployment](https://www.mindspore.cn/serving/docs/en/master/serving_distributed_example.html).
 
 ```python
 from mindspore_serving.server import distributed
@@ -165,7 +165,7 @@ An example of the method definition is as follows:
 from mindspore_serving.server import register
 
 @register.register_method(output_names=["label"])
-def classify_top1(image):
+def classify_top1(image):  # pipeline: preprocess_eager/postprocess_top1, model
     """Define method `classify_top1` for servable `resnet50`.
      The input is `image` and the output is `label`."""
     x = register.add_stage(preprocess_eager, image, outputs_count=1)
@@ -240,7 +240,9 @@ Take an OCR service as an example, which involves two models: Deeptext and CRNN.
 
 ![image](images/ocr_example.png)
 
- The number of stages in a method is not limited, and each stage can be a Python function or a model. We can use `add_stage` multiple times to define services composed of multiple models.
+The number of stages in a method is not limited, and each stage can be a Python function or a model. We can use `add_stage` multiple times to define services composed of multiple models.
+
+Note that due to the Python GIL, it is not the case that the more `Stages` of Python tasks the better the performance. In MindSpore Serving Server, all Python tasks are scheduled for execution in a single Python thread. If you need to improve the throughput of Python tasks, see [Multiprocess Concurrency](#multi-process-concurrency) below.
 
 The two model files must exist in each model version directory. If there is only version 1, the model configuration file directory is as follows:
 

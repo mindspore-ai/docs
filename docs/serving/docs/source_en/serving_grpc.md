@@ -90,7 +90,7 @@ Details are described as follows:
          {'y': array([[6., 6.], [6., 6.]], dtype=float32)}]
         ```
 
-   - If certain errors occur in all instances , a dict containing `error` is returned. In the example, `add_common` is changed to `add_common2`, and the returned result is as follows:
+   - If certain errors occur in all instances, a dict containing `error` is returned. In the example, `add_common` is changed to `add_common2`, and the returned result is as follows:
 
         ```text
         {'error', 'Request Servable(add) method(add_common2), method is not available'}
@@ -139,7 +139,7 @@ if __name__ == '__main__':
     run_classify_top1()
 ```
 
-The preceding `classify_top1` method requires users to input `image` (the image binary data) in each instance.
+The `classify_top1` method provided by Servable `resnet50` requires the user to provide the input `image`, which in the above example is the binary data of the image for each instance.
 If the execution is properly completed, the following information is displayed:
 
 ```text
@@ -317,7 +317,7 @@ openssl req -new -key client.key -out client.csr -subj "/C=XX/ST=MyST/L=XX/O=HW/
 openssl x509 -req -in client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out client.crt -days 365 -sha256
 ```
 
-We got `client.key`and`cleint.crt`.
+We got `client.key` and `cleint.crt`.
 
 - Server:
 
