@@ -44,6 +44,7 @@ MindSpore 文档
    api_python/mindspore.train
    api_python/mindspore.communication
    api_python/mindspore.common.initializer
+   api_python/mindspore.hal
    api_python/mindspore.dataset
    api_python/mindspore.dataset.transforms
    api_python/mindspore.mindrecord
