@@ -233,11 +233,11 @@ The response format is the same as the request format. The information in the `J
    | `string` | json str | String data is represented as json string | "news_car"  |
    | `bytes` | base64 object | Bytes data is represented as a base64 object | {"b64":"AQACAAIAAwADAAQA"}  |
 
-## Accessing SSL or TLS enabled Serving RESTful service
+## Accessing SSL or TLS Enabled Serving RESTful Service
 
 MindSpore Serving supports `SSL/TLS` enabled `RESTful` service. Here's an example of starting and accessing `RESTful` service with one-way authentication.
 
-Setting `verify_client` to `False` indicates one-way authentication, in order to enable `SSL/TLS`, pass  `mindspore_serving.server.SSLConfig` object to`ssl_config`. You can refer to  [Accessing SSL or TLS enabled Serving service](https://www.mindspore.cn/serving/docs/en/master/serving_grpc.html#accessing-ssl-or-tls-enabled-serving-service) for other details.
+Setting `verify_client` to `False` indicates one-way authentication, in order to enable `SSL/TLS`, pass `mindspore_serving.server.SSLConfig` object to `ssl_config`. You can refer to [Accessing SSL or TLS enabled Serving service](https://www.mindspore.cn/serving/docs/en/master/serving_grpc.html#accessing-ssl-or-tls-enabled-serving-service) for other details.
 
 ```python
 import os

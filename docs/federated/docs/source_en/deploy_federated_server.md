@@ -224,7 +224,7 @@ redis-server --port 23456 --save ""
 
 ## Auto Scaling
 
-MindSpore federal learning framework supports `Server` auto scaling and provides `RESTful` services externally through the `Scheduler` management port, enabling users to dynamically schedule hardware resources without interrupting training tasks.
+MindSpore federated learning framework supports `Server` auto scaling and provides `RESTful` services externally through the `Scheduler` management port, enabling users to dynamically schedule hardware resources without interrupting training tasks.
 
 The following example describes how to control scale-out and scale-in of cluster through APIs.
 
@@ -293,7 +293,7 @@ curl -k \
 
 ## Security
 
-MindSpore Federal Learning Framework supports SSL security authentication of `Server`. To enable security authentication, you need to add `enable_ssl=True` to the startup command, and the config.json configuration file specified by config_file_path needs to add the following fields:
+MindSpore federated Learning Framework supports SSL security authentication of `Server`. To enable security authentication, you need to add `enable_ssl=True` to the startup command, and the config.json configuration file specified by config_file_path needs to add the following fields:
 
 ```json
 {
@@ -314,4 +314,4 @@ MindSpore Federal Learning Framework supports SSL security authentication of `Se
 - cipher_list: Cipher suite.
 - cert_expire_warning_time_in_day: Alarm time of certificate expiration.
 
-The key in the p12 file is stored in cipher text. You need to pass in the password when starting. Please refer to the `client_password` and `server_password` fields in the Python API `mindspore.set_fl_context` for the specific parameters.
+The key in the p12 file is stored in cipher text.

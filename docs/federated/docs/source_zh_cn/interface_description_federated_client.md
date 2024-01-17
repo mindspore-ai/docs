@@ -10,7 +10,7 @@
 
 | 参数名称             | 参数类型                   | 是否必须 | 描述信息                                                     | 备注                                                         |
 | -------------------- | -------------------------- | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| dataMap              | Map<RunType, List<String/>/> | Y        | 联邦学习数据集路径                                           | Map<RunType, List<String/>/>类型的数据集，map中key为RunType枚举类型，value为对应的数据集列表，key为RunType.TRAINMODE时代表对应的value为训练相关的数据集列表，key为RunType.EVALMODE时代表对应的value为验证相关的数据集列表， key为RunType.INFERMODE时代表对应的value为推理相关的数据集列表。 |
+| dataMap              | Map<RunType, List<String/>/> | Y        | 联邦学习数据集路径                                           | Map<RunType, List<String/>/>类型的数据集，map中key为RunType枚举类型，value为对应的数据集列表，key为RunType.TRAINMODE时代表对应的value为训练相关的数据集列表，key为RunType.EVALMODE时代表对应的value为验证相关的数据集列表，key为RunType.INFERMODE时代表对应的value为推理相关的数据集列表。 |
 | flName               | String                     | Y        | 联邦学习使用的模型脚本包路径                                 | 我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)）、[LeNet图片分类任务](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)），对于有监督情感分类任务，该参数可设置为所提供的脚本文件[AlBertClient.java](https://gitee.com/mindspore/federated/blob/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert/AlbertClient.java) 的包路径`com.mindspore.flclient.demo.albert.AlbertClient`；对于LeNet图片分类任务，该参数可设置为所提供的脚本文件[LenetClient.java](https://gitee.com/mindspore/federated/blob/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet/LenetClient.java) 的包路径`com.mindspore.flclient.demo.lenet.LenetClient`。同时，用户可参考这两个类型的模型脚本，自定义模型脚本，然后将该参数设置为自定义的模型文件ModelClient.java（需继承于类[Client.java](https://gitee.com/mindspore/federated/blob/master/mindspore_federated/device_client/src/main/java/com/mindspore/flclient/model/Client.java)）的包路径即可。 |
 | trainModelPath       | String                     | Y        | 联邦学习使用的训练模型路径，为.ms文件的绝对路径              | 建议将路径设置到训练App自身目录下，保护模型本身的数据访问安全性。 |
 | inferModelPath       | String                     | Y        | 联邦学习使用的推理模型路径，为.ms文件的绝对路径              | 对于普通联邦学习模式（训练和推理使用同一个模型），该参数需设置为与trainModelPath相同；对于混合学习模式（训练和推理使用不同的模型，且云侧也包含训练过程），该参数设置为实际的推理模型路径。建议将路径设置到训练App自身目录下，保护模型本身的数据访问安全性。 |
@@ -88,7 +88,7 @@ flParameter.setValidInterval(validIterInterval);
 
    String flName = "com.mindspore.flclient.demo.albert.AlbertClient";                             // AlBertClient.java 包路径
    String trainModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // 绝对路径
-   String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // 绝对路径, 和trainModelPath保持一致
+   String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // 绝对路径，和trainModelPath保持一致
    String sslProtocol = "TLSv1.2";
    String deployEnv = "android";
    String domainName = "http://10.*.*.*:6668";
@@ -167,12 +167,12 @@ flParameter.setValidInterval(validIterInterval);
 
 ## 多条数据输入推理接口modelInference()
 
-调用modelInference()接口前，需先实例化参数类FLParameter，进行相关参数设置， 相关参数如下：
+调用modelInference()接口前，需先实例化参数类FLParameter，进行相关参数设置，相关参数如下：
 
 | 参数名称       | 参数类型                   | 是否必须 | 描述信息                                               | 适应API版本                                                  |
 | -------------- | -------------------------- | -------- | ------------------------------------------------------ | ------------------------------------------------------------ |
 | flName         | String                     | Y        | 联邦学习使用的模型脚本包路径                           | 我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)），对于有监督情感分类任务，该参数可设置为所提供的脚本文件[AlBertClient.java](https://gitee.com/mindspore/federated/blob/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert/AlbertClient.java) 的包路径`com.mindspore.flclient.demo.albert.AlbertClient`；对于LeNet图片分类任务，该参数可设置为所提供的脚本文件[LenetClient.java](https://gitee.com/mindspore/federated/blob/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet/LenetClient.java) 的包路径`com.mindspore.flclient.demo.lenet.LenetClient`。同时，用户可参考这两个类型的模型脚本，自定义模型脚本，然后将该参数设置为自定义的模型文件ModelClient.java（需继承于类[Client.java](https://gitee.com/mindspore/federated/blob/master/mindspore_federated/device_client/src/main/java/com/mindspore/flclient/model/Client.java)）的包路径即可。 |
-| dataMap        | Map<RunType, List<String/>/> | Y        | 联邦学习数据集路径                                     | Map<RunType, List<String/>/>类型的数据集，map中key为RunType枚举类型，value为对应的数据集列表，key为RunType.TRAINMODE时代表对应的value为训练相关的数据集列表，key为RunType.EVALMODE时代表对应的value为验证相关的数据集列表， key为RunType.INFERMODE时代表对应的value为推理相关的数据集列表。 |
+| dataMap        | Map<RunType, List<String/>/> | Y        | 联邦学习数据集路径                                     | Map<RunType, List<String/>/>类型的数据集，map中key为RunType枚举类型，value为对应的数据集列表，key为RunType.TRAINMODE时代表对应的value为训练相关的数据集列表，key为RunType.EVALMODE时代表对应的value为验证相关的数据集列表，key为RunType.INFERMODE时代表对应的value为推理相关的数据集列表。 |
 | inferModelPath | String                     | Y        | 联邦学习推理模型路径，为.ms文件的绝对路径              | 对于普通联邦学习模式（训练和推理使用同一个模型），该参数需设置为与trainModelPath相同；对于混合学习模式（训练和推理使用不同的模型，且云侧也包含训练过程），该参数设置为实际的推理模型路径。建议将路径设置到训练App自身目录下，保护模型本身的数据访问安全性。 |
 | threadNum      | int                        | N        | 联邦学习训练和推理时使用的线程数                       | 默认值为1                                                    |
 | cpuBindMode    | BindMode                   | N        | 联邦学习训练和推理时线程所需绑定的cpu内核              | BindMode枚举类型，其中BindMode.NOT_BINDING_CORE代表不绑定内核，由系统自动分配，BindMode.BIND_LARGE_CORE代表绑定大核，BindMode.BIND_MIDDLE_CORE代表绑定中核。默认值为BindMode.NOT_BINDING_CORE。 |
@@ -197,7 +197,7 @@ flParameter.setValidInterval(validIterInterval);
    dataMap.put(RunType.INFERMODE, inferPath);
 
    String flName = "com.mindspore.flclient.demo.albert.AlbertClient";                             // AlBertClient.java 包路径
-   String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // 绝对路径, 和trainModelPath保持一致;
+   String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // 绝对路径，和trainModelPath保持一致;
    int threadNum = 4;
    BindMode cpuBindMode = BindMode.NOT_BINDING_CORE;
    int batchSize = 32;
@@ -248,7 +248,7 @@ flParameter.setValidInterval(validIterInterval);
 
 ## 获取云侧最新模型接口getModel ()
 
-调用getModel()接口前，需先实例化参数类FLParameter，进行相关参数设置， 相关参数如下：
+调用getModel()接口前，需先实例化参数类FLParameter，进行相关参数设置，相关参数如下：
 
 | 参数名称       | 参数类型  | 是否必须 | 描述信息                                                     | 备注                                                         |
 | -------------- | --------- | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -296,7 +296,7 @@ flParameter.setCertPath(certPath);
    ```java
    String flName = "com.mindspore.flclient.demo.albert.AlbertClient";                         // AlBertClient.java 包路径
    String trainModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      //绝对路径
-   String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      //绝对路径, 和trainModelPath保持一致
+   String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      //绝对路径，和trainModelPath保持一致
    String sslProtocol = "TLSv1.2";
    String deployEnv = "android";
    String domainName = "http://10.*.*.*:6668";
@@ -325,7 +325,7 @@ flParameter.setCertPath(certPath);
    ```java
    String flName = "com.mindspore.flclient.demo.lenet.LenetClient";                         // LenetClient.java 包路径
    String trainModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
-   String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径, 和trainModelPath保持一致
+   String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径，和trainModelPath保持一致
    String sslProtocol = "TLSv1.2";
    String deployEnv = "android";
    String domainName = "http://10.*.*.*:6668";

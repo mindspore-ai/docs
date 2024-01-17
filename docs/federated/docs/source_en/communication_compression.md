@@ -6,7 +6,7 @@ During the horizontal device-side federated learning training process, the traff
 
 ## Compression Method
 
-### Upload Compression Method
+### Uploading Compression Method
 
 The upload compression method can be divided into three main parts: weight difference codec, sparse codec and quantization codec. The flowcharts on FL-Client and FL-Server are given below.
 
@@ -95,7 +95,7 @@ After the quantitative encoding, the parameters that FL-Client needs to upload a
 
 After receiving quant_data, min_val and max_val, FL-Server uses the inverse quantization formula (quant_data + 2 ^ (num_bits - 1)) * (max_val - min_val) / (2 ^ num_bits - 1) + min_val to reduce the weights.
 
-## Download Compression Method
+## Downloading Compression Method
 
 The download compression method is mainly a quantization codec operation, and the flow charts on FL-Server and FL-Client are given below.
 
@@ -117,7 +117,7 @@ To use the upload and download compression methods, first successfully complete 
 
 ## Algorithm Open Script
 
-The upload and download compression methods are currently only supported in the device-cloud federated learning scenario. The open method requires setting `upload_compress_type='DIFF_SPARSE_QUANT'` and `download_compress_type='QUANT'` in the corresponding yaml in the server startup script when starting the cloud-side service.
+The upload and download compression methods are currently only supported in the device-cloud federated learning scenario. The open method requires setting `upload_compress_type='DIFF_SPARSE_QUANT'` and `download_compress_type='QUANT'` in the corresponding yaml in the server startup script when starting the cloud-side service. The above two hyperparameters control the upload and download compression methods on and off, respectively.
 
 The relevant parameter configuration to start the algorithm is given in the cloud-side [full startup script](https://gitee.com/mindspore/federated/tree/master/tests/st/cross_device_cloud/). After determining the parameter configuration, the user needs to configure the corresponding parameters before executing the training, as follows:
 
