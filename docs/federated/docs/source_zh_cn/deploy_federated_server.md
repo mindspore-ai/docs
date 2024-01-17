@@ -230,7 +230,7 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
 
 ### 扩容
 
-在集群启动后，进入部署scheduler节点的机器，向`Scheduler`发起请求，查询状态、节点信息.可使用`curl`指令构造`RESTful`请求。
+在集群启动后，进入部署scheduler节点的机器，向`Scheduler`发起请求，查询状态、节点信息。可使用`curl`指令构造`RESTful`请求。
 
 ```sh
 curl -k 'http://10.*.*.*:18015/state'

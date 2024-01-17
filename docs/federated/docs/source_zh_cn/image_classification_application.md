@@ -108,7 +108,7 @@
 
 3. 将MindIR文件转化为联邦学习端侧框架可用的ms文件。
 
-   模型转换可参考[训练模型转换教程](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html )。
+   模型转换可参考[训练模型转换教程](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)。
 
    模型转换示例如下：
 
