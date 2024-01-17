@@ -38,6 +38,7 @@ Get client object.
 - Parameters
 
     - `name`: Client object name.
+
 - Returns
 
   Client object.

@@ -23,7 +23,7 @@ FLParameter定义联邦学习相关参数，供用户进行设置。
 | public void setCertPath(String certPath)                     |
 | public SSLSocketFactory getSslSocketFactory()                |
 | public void setSslSocketFactory(SSLSocketFactory sslSocketFactory) |
-| public X509TrustManager getX509TrustManager(                 |
+| public X509TrustManager getX509TrustManager()               |
 | public void setX509TrustManager(X509TrustManager x509TrustManager) |
 | public IFLJobResultCallback getIflJobResultCallback()        |
 | public void setIflJobResultCallback(IFLJobResultCallback iflJobResultCallback) |
@@ -92,7 +92,7 @@ public String getDeployEnv()
 public void setDeployEnv(String env)
 ```
 
-用于设置联邦学习的部署环境， 设置了白名单，目前只支持"x86", "android"。
+用于设置联邦学习的部署环境，设置了白名单，目前只支持"x86"、"android"。
 
 - 参数
 
@@ -325,7 +325,7 @@ public String getSslProtocol()
 public void setSslProtocol(String sslProtocol)
 ```
 
-用于设置端云HTTPS通信所使用的TLS协议版本， 设置了白名单，目前只支持"TLSv1.3"或者"TLSv1.2"。只在HTTPS通信场景中使用。
+用于设置端云HTTPS通信所使用的TLS协议版本，设置了白名单，目前只支持"TLSv1.3"或者"TLSv1.2"。只在HTTPS通信场景中使用。
 
 - 参数
     - `sslProtocol`: 端云HTTPS通信所使用的TLS协议版本。

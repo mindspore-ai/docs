@@ -128,9 +128,9 @@ compression:
 
 | 超参名称&参考值        | 超参描述                                                     |
 | ---------------------- | ------------------------------------------------------------ |
-| upload_compress_type   | 上传压缩类型，string类型，包括："NO_COMPRESS",   "DIFF_SPARSE_QUANT" |
+| upload_compress_type   | 上传压缩类型，string类型，包括："NO_COMPRESS"、"DIFF_SPARSE_QUANT" |
 | upload_sparse_rate     | 稀疏率，即权重保留率，float类型，定义域在(0, 1]内            |
-| download_compress_type | 下载压缩类型，string类型，包括："NO_COMPRESS", "QUANT"       |
+| download_compress_type | 下载压缩类型，string类型，包括："NO_COMPRESS"、"QUANT"       |
 
 ## ALBERT实验结果
 

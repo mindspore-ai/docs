@@ -38,6 +38,7 @@ public static Client getClient(String name)
 - 参数
 
     - `name`: Client对象名称。
+
 - 返回值
 
   Client对象。

@@ -8,7 +8,7 @@ The full script to launch cross-silo federated image classification application 
 
 ## Downloading the Dataset
 
-This example uses the federated learning dataset `FEMNIST` from [leaf dataset](https://github.com/TalwalkarLab/leaf), which contains 62 different categories of handwritten numbers and letters (numbers 0 to 9, 26 lowercase letters, 26 uppercase letters) with an image size of `28 x 28` pixels . The dataset contains handwritten digits and letters from 3500 users (up to 3500 clients can be simulated to participate in federated learning). The total data volume is 805263, the average amount of data contained per user is 226.83, and the variance of the data volume for all users is 88.94.
+This example uses the federated learning dataset `FEMNIST` from [leaf dataset](https://github.com/TalwalkarLab/leaf), which contains 62 different categories of handwritten numbers and letters (numbers 0 to 9, 26 lowercase letters, 26 uppercase letters) with an image size of `28 x 28` pixels. The dataset contains handwritten digits and letters from 3500 users (up to 3500 clients can be simulated to participate in federated learning). The total data volume is 805263, the average amount of data contained per user is 226.83, and the variance of the data volume for all users is 88.94.
 
 You can refer to [Image classfication dataset process](https://www.mindspore.cn/federated/docs/en/master/image_classfication_dataset_process.html ) in steps 1 to 7 to obtain the 3500 user datasets `3500_client_img` in the form of images.
 
@@ -68,7 +68,7 @@ if __name__ == "__main__":
 
 where `root_data_path` is the path to the original 3500 user datasets, `new_data_path` is the path to the merged dataset, `raw_user_num` specifies the total number of user datasets to be merged (needs to be <= 3500), and `new_user_num` is used to set the number of users merged by the original datasets. For example, the sample code will select the first 35 users from `cross_silo_femnist/femnist/3500_clients_img`, merge them into 7 user datasets and store them in the path `cross_silo_femnist/femnist/35_7_client_img` (the merged 7 users each contains the original 5 user dataset).
 
-The following print represents a successful merge of the data sets.
+The following print represents a successful merge of the datasets.
 
 ```sh
 ========================== combine the raw 0~4 users to the new user: dataset_0 ==========================
@@ -118,7 +118,7 @@ The following print represents a successful merge of the data sets.
 The following directory structure of the folder `cross_silo_femnist/femnist/35_7_client_img` is as follows:
 
 ```text
-35_7_client_img  # Merge the 35 users in the FeMnist dataset into 7 client data (each containing 5 user data)
+35_7_client_img  # Merge the 35 users in the FeMnist dataset into 7 client data (each containing 5 pieces of user data)
 ├── dataset_0  # The dataset of Client 0
 │   ├── train   # Training dataset
 │   │   ├── 0  # Store image data corresponding to category 0
@@ -195,7 +195,7 @@ cross_silo_femnist/
     python run_cross_silo_femnist_server.py --local_server_num=4 --http_server_address=10.*.*.*:5555
    ```
 
-   The above command is equivalent to starting four `Server` processes, each with a federal learning service port of `5555`, `5556`, `5557` and `5558`.
+   The above command is equivalent to starting four `Server` processes, each with a federated learning service port of `5555`, `5556`, `5557` and `5558`.
 
 3. Start Worker
 
@@ -219,13 +219,13 @@ local epoch: 0, loss: 3.787421340711655, trian acc: 0.05342741935483871, test ac
 
 Then it means that cross-silo federated learning is started successfully and `worker_0` is training, other workers can be viewed in a similar way.
 
-Please refer to [yaml configuration notes](https://www.mindspore.cn/federated/docs/zh-CN/master/horizontal/federated_server_yaml.html) for the description of parameter configuration in the above script.
-
 If worker has been started in distributed multi-card training mode, enter the folder `worker_distributed/log_output/` in the current directory, and run the command `grep -rn "test acc" *` to view the log of `worker` distributed cluster. You can see the following print:
 
 ```text
 local epoch: 0, loss: 2.3467453340711655, trian acc: 0.06532451988877687, test acc: 0.076
 ```
+
+Please refer to [yaml configuration notes](https://www.mindspore.cn/federated/docs/zh-CN/master/horizontal/federated_server_yaml.html) for the description of parameter configuration in the above script.
 
 ### Viewing Log
 

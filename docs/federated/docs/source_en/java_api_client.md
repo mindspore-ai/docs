@@ -33,8 +33,8 @@ Initialize the callback list.
 
 - Parameters
 
-    - `runType`: Define run phase.
-    - `dataSet`: DataSet.
+    - `runType`: RunType class, identify whether the training, evaluation or prediction phase.
+    - `dataSet`: DataSet class, identify whether the training, evaluation or prediction phase datasets.
 
 - Returns
 
@@ -50,7 +50,7 @@ Initialize dataset list.
 
 - Parameters
 
-    - `files`: Data files.
+    - `files`: Data files used in the training, evaluation or prediction phase.
 
 - Returns
 
@@ -82,7 +82,7 @@ Get infer phase result.
 
 - Parameters
 
-    - `inferCallbacks`: Callback used in infer phase.
+    - `inferCallbacks`: Callback used in prediction phase.
 
 - Returns
 
