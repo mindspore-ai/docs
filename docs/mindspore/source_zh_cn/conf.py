@@ -237,11 +237,14 @@ copy_path = 'docs/api/api_python'
 src_dir = os.path.join(os.getenv("MS_PATH"), copy_path)
 des_sir = "./api_python"
 
-if not exists(src_dir):
-    logger.warning(f"不存在目录：{src_dir}！")
-if os.path.exists(des_sir):
-    shutil.rmtree(des_sir)
-shutil.copytree(src_dir, des_sir)
+def copy_source(sourcedir, des_sir):
+    if not exists(sourcedir):
+        logger.warning(f"不存在目录：{sourcedir}！")
+    if os.path.exists(des_sir):
+        shutil.rmtree(des_sir)
+    shutil.copytree(sourcedir, des_sir)
+
+copy_source(src_dir, des_sir)
 
 probability_dir = './api_python/probability'
 if os.path.exists(probability_dir):
@@ -612,9 +615,12 @@ try:
 except Exception as e:
     print(e)
 
-ops_interface_name()
-nn_interface_name()
-tensor_interface_name()
+try:
+    ops_interface_name()
+    nn_interface_name()
+    tensor_interface_name()
+except Exception as e:
+    print(e)
 
 from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnPlatWarnAutoSummary
 
