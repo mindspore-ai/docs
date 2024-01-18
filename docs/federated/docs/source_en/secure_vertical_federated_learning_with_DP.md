@@ -25,7 +25,7 @@ Our scheme is based on label differential privacy (label dp) [2], which provides
 MindSpore Federated adopt a lightweight implementation of label dp. During training, a certain percentage of the labels are randomly flipped before using the label data from the leader participants. Due to the introduction of randomness, an attacker who wants to invert the labels can at most invert the labels after the random flip or perturbation, increasing the difficulty of inverting the original labels and satisfying the differential privacy guarantee. In practical applications, we can adjust the privacy parameter `eps` (which can be interpreted as the ratio of randomly flipped labels) to meet the needs of different scenarios:
 
 - smaller `eps` (<1.0) corresponds to high privacy, low performance
-- larger `eps`  (>5.0) corresponds to high performance, low privacy
+- larger `eps` (>5.0) corresponds to high performance, low privacy
 
 ![image.png](./images/label_dp_en.png)
 
@@ -120,7 +120,7 @@ Same as [Quick Experience](#quick-experience): Install MindSpore, Install MindSp
 
 ### Option 1: Call the integrated label dp function in the FLModel class
 
-MindSpore Federated uses `FLModel` (see [Vertical Federated Learning Model Training Interface](https://www.mindspore.cn/federated/docs/en/master/vertical/vertical_federated_FLModel.html) and yaml files (see [detailed configuration items of Vertical Federated Learning yaml](https://www.mindspore.cn/federated/docs/en/master/vertical/vertical_federated_yaml.html)) to model the training process of vertical federated learning.
+MindSpore Federated uses `FLModel` (see [Vertical Federated Learning Model Training Interface](https://www.mindspore.cn/federated/docs/en/master/vertical/vertical_federated_FLModel.html)) and yaml files (see [detailed configuration items of Vertical Federated Learning yaml](https://www.mindspore.cn/federated/docs/en/master/vertical/vertical_federated_yaml.html)) to model the training process of vertical federated learning.
 
 We have integrated the label dp function in the `FLModel` class. After the normal completion of modeling the entire vertical federated learning training process (for detailed vFl training, see [Vertical Federated Learning Model Training - Pangu Alpha Large Model Cross-Domain Training](https://www.mindspore.cn/federated/docs/en/master/split_pangu_alpha_application.html)), users can simply add the `label_dp` submodule under the `privacy` module in the yaml file of the label side (or add it by user if there is no `privacy` module), and set the `eps` parameter in the `label_dp` module (differential privacy parameter $\epsilon$, the user can set the value of this parameter according to the actual needs). Let the model enjoy label dp protection:
 

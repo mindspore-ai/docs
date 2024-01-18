@@ -198,7 +198,7 @@ After obtaining a new round of model on the end-side, the inference calculation 
 
 ![flow](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_zh_cn/images/eval_flow.png)
 
-## Get Familiar
+## Quick Start
 
 ### Preparation
 

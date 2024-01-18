@@ -109,7 +109,7 @@ vertical_communicator.launch()
 result = RunPSI(input_data, comm_role, peer_comm_role, bucket_id, thread_num)
 ```
 
-- `input_data`: (list[string])； psi 一方的输入数据；
+- `input_data`: (list[string])；psi一方的输入数据；
 - `comm_role`: (string)；通讯相关参数，"server" 或 "client"。
 - `peer_comm_role`: (string)；通讯相关参数，"server" 或 "client"，与 comm_role 不同。
 - `bucket_id`: (int)；外部分桶，传入桶的序号；传入负数、小数或其他类型报`TypeError`错误；双进程通讯若双方该值不同，server 报错退出，client 阻塞等待。

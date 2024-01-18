@@ -55,7 +55,7 @@ SignDS[2]是Sign Dimension Select的缩写，处理对象是客户端Client的`u
 
 $r$的调整采用类似二分法思路。具体流程如下：
 
-1. 训练开始前，服务端初始化一个较小的$r_{est}$(不会对模型收敛方向造成过大影响）；
+1. 训练开始前，服务端初始化一个较小的$r_{est}$（不会对模型收敛方向造成过大影响）；
 2. 每轮本地训练后，参与方计算真实幅值$r$（topk维度的均值），并根据当前云侧下发的$r_{est}$将$r$以一定规则转换为$b$；
 3. 参与方对$b$进行本地差分Binary Randomized Response(BRR)扰动，并将结果上传。
 
@@ -83,7 +83,7 @@ $r$的调整采用类似二分法思路。具体流程如下：
     \end{cases}
   $$
 
-  计算$B$，若$B=0$ ，则认为目前$r_{est}$和$r$较为接近，保持$r_{est}$不变；
+  计算$B$，若$B=0$，则认为目前$r_{est}$和$r$较为接近，保持$r_{est}$不变；
   若$B=1$，则认为$r$普遍小于$r_{est}$，则将$r_{est}$减半。
 
 服务端Server根据各客户端Client上传的维度序号，sign值和$r_{est}$，构建带隐私保护的`update`，对所有`update`进行聚合平均并更新当前`oldModel`即完成一轮联邦学习。下表展示了$2∗r_{est}*num_{clients}=1$时的聚合情况。
@@ -105,7 +105,7 @@ SignDS方案使端侧client只上传算法输出的int类型维度序号列表�
 
 ### 基于指数机制的维度选择机制
 
-对于每个客户端Client的任意两个update $\Delta$ 和 $\Delta'$  ，其`topk`维度集合分别是 $S_{topk}$ ， ${S'}_{topk}$ ，该算法任意可能的输出维度集合是 ${J}\in {\mathcal{J}}$ ，记 $\nu=|{S}_{topk}\cap {J}|$ ， $\nu'=|{S'}_{topk}\cap {J}|$ 是 ${J}$ 和`topk` 集合交集的数量，算法使得以下不等式成立：
+对于每个客户端Client的任意两个update $\Delta$ 和 $\Delta'$ ，其`topk`维度集合分别是 $S_{topk}$ ， ${S'}_{topk}$ ，该算法任意可能的输出维度集合是 ${J}\in {\mathcal{J}}$ ，记 $\nu=|{S}_{topk}\cap {J}|$ ， $\nu'=|{S'}_{topk}\cap {J}|$ 是 ${J}$ 和`topk` 集合交集的数量，算法使得以下不等式成立：
 
 $$
 \frac{{Pr}[{J}|\Delta]}{{Pr}[{J}|\Delta']}=\frac{{Pr}[{J}|{S}_{topk}]}{{Pr}[{J}|{S'}_{topk}]}=\frac{\frac{{exp}(\frac{\epsilon}{\phi_u}\cdot u({S}_{topk},{J}))}{\sum_{{J'}\in {\mathcal{J}}}{exp}(\frac{\epsilon}{\phi_u}\cdot u({S}_{topk}, {J'}))}}{\frac{{exp}(\frac{\epsilon}{\phi_u}\cdot u({S'}_{topk}, {J}))}{\sum_{ {J'}\in {\mathcal{J}}}{exp}(\frac{\epsilon}{\phi_u}\cdot u( {S'}_{topk},{J'}))}}=\frac{\frac{{exp}(\epsilon\cdot \unicode{x1D7D9}(\nu \geq \nu_{th}))}{\sum_{\tau=0}^{\tau=\nu_{th}-1}\omega_{\tau} + \sum_{\tau=\nu_{th}}^{\tau=h}\omega_{\tau}\cdot {exp}(\epsilon)}}{\frac{ {exp}(\epsilon\cdot \unicode{x1D7D9}(\nu' \geq\nu_{th}))}{\sum_{\tau=0}^{\tau=\nu_{th}-1}\omega_{\tau}+\sum_{\tau=\nu_{th}}^{\tau=h}\omega_{\tau}\cdot {exp}(\epsilon)}}\\= \frac{{exp}(\epsilon\cdot \unicode{x1D7D9} (\nu \geq \nu_{th}))}{ {exp}(\epsilon\cdot \unicode{x1D7D9} (\nu' \geq \nu_{th}))} \leq \frac{{exp}(\epsilon\cdot 1)}{{exp}(\epsilon\cdot 0)} = {exp}(\epsilon),

@@ -259,6 +259,6 @@ python finish_cross_silo_fasterrcnn.py --redis_port=2345
 
 worker_0和worker_1在30个迭代的训练过程中，统计每个step的训练loss变换柱状图如下[1]和[2]：
 
-worker_0和worker_1在30个迭代的训练过程中，统计每个epoch的平均loss (一个epoch中包含的所有step的loss之和除以step数)的折线图如下[3]和[4]：
+worker_0和worker_1在30个迭代的训练过程中，统计每个epoch的平均loss（一个epoch中包含的所有step的loss之和除以step数）的折线图如下[3]和[4]：
 
 ![cross-silo_fastrcnn-2workers-loss.png](images/cross-silo_fastrcnn-2workers-loss.png)

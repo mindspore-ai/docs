@@ -36,7 +36,7 @@ Since the original COCO dataset is in json file format, the target detection scr
 
 ### Installing MindSpore and Mindspore Federated
 
-Including both downloading source code and downloading release version, supporting CPU, GPU, Ascend hardware platforms, just choose to install according to the hardware platforms.  For the installing step, refer to [MindSpore installation](https://www.mindspore.cn/install)， [Mindspore Federated installation](https://www.mindspore.cn/federated/docs/en/master/index.html).
+Including both downloading source code and downloading release version, supporting CPU, GPU, Ascend hardware platforms, just choose to install according to the hardware platforms.  For the installing step, refer to [MindSpore installation](https://www.mindspore.cn/install) and [Mindspore Federated installation](https://www.mindspore.cn/federated/docs/en/master/index.html).
 
 Currently the federated learning framework is only supported for deployment in Linux environments, and cross-silo federated learning framework requires MindSpore version number >= 1.5.0.
 
@@ -160,13 +160,13 @@ cross_silo_faster_rcnn
 
     Then it means that cross-silo federated is started successfully and `worker_0` is training. Other workers can be viewed in a similar way.
 
-    At present, the 'worker' node of Cloud Federated supports the distributed training mode of single machine multi-card and multi-machine multi-card. `run_cross_silo_fasterrcnn_worker_distributed.py` is a python script for users to start distributed training of the worker node, and supports configuration modification via argparse. Execute the following instructions, representing the distributed 'worker' that starts this federated learning task, where 'device_num' represents the number of processes started by the 'worker' cluster, 'run_distribute' represents the distributed training started by the cluster, and its http start port is '6668'. Number of 'worker' processes is '4':
+    At present, the `worker` node of Cloud Federated supports the distributed training mode of single machine multi-card and multi-machine multi-card. `run_cross_silo_fasterrcnn_worker_distributed.py` is a python script for users to start distributed training of the worker node, and supports configuration modification via argparse. Execute the following instructions, representing the distributed `worker` that starts this federated learning task, where `device_num` represents the number of processes started by the `worker` cluster, `run_distribute` represents the distributed training started by the cluster, and its http start port is `6668`. Number of `worker` processes is `4`:
 
     ```sh
     python run_cross_silo_fasterrcnn_worker_distributed.py --device_num=4 --run_distribute=True --dataset_path=/path/to/datasets/coco_split/split_100 --http_server_address=127.0.0.1:6668
     ```
 
-    Enter the 'worker_distributed/log_output/' folder in the current directory and run the 'grep -rn "epoch" *' command to view the logs of the 'worker' distributed cluster. You can see the following information:
+    Enter the `worker_distributed/log_output/` folder in the current directory and run the `grep -rn "epoch" *` command to view the logs of the `worker` distributed cluster. You can see the following information:
 
     ```sh
     epoch: 1 step: 1 total_loss: 0.613467

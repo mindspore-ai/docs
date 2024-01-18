@@ -145,7 +145,7 @@ quant_data = [127, -64, -32, 97, -97, 32, 64, -128, 0]
 
 3. 用户可根据实际情况，进行超参修改。
 
-   - compress_type：压缩类型，string类型，包括："min_max",   "bit_pack"。
+   - compress_type：压缩类型，string类型，包括："min_max"、"bit_pack"。
    - bit_num：比特数，int类型，定义域在[1, 8]内。
 
 4. 运行示例程序启动脚本。
@@ -229,4 +229,3 @@ vertical_communicator.launch()
 ```
 
 设置好通讯压缩配置以后，纵向联邦框架会在后端自动将通讯内容进行压缩。
-
