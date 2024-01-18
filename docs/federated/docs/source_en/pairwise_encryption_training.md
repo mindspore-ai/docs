@@ -1,4 +1,4 @@
-# Horizontal FL-Pairwise encryption training
+# Horizontal FL-Pairwise Encryption Training
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/pairwise_encryption_training.md)
 
@@ -41,7 +41,7 @@ If you are interested in the specific steps of the algorithm, refer to the paper
 
 ## Usage
 
-### Cross device scenario
+### Cross Device Scenario
 
 Enabling pairwise encryption training is simple. Just set the `encrypt_train_type` field to `PW_ENCRYPT` through yaml file when starting the cloud-side service.
 
@@ -56,7 +56,7 @@ When the server and client are colluded, the value of `reconstruct_secrets_thres
 
 `cipher_time_window` indicates the duration limit of each communication round for secure aggregation. It is used to ensure that the server can start a new round of iteration when some clients are offline.
 
-### Cross silo scenario
+### Cross Silo Scenario
 
 In cross silo scenario, you only need to set the `encrypt_train_type` field to `PW_ENCRYPT` through yaml file in the cloud-side startup script.
 
