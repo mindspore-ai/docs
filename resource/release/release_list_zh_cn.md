@@ -107,8 +107,8 @@
 
 | MindSpore版本 | 硬件平台       | 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
 |-------------|------------|-----------|------------------|
-| 2.2.10      | Ascend 910 | 即将发布      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.2.1       | Ascend 910 | 即将发布      | [CANN 7.0.RC1.3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| 2.2.10      | Ascend 910 | [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| 2.2.1       | Ascend 910 | [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.RC1.3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
 | 2.2.0       | Ascend 910 | [Ascend Training Solution 23.0.RC3](https://support.huawei.com/enterprise/zh/doc/EDOC1100336282) | [CANN 7.0.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
 | 2.1.1       | Ascend 910 | [Ascend Training Solution 23.0.RC2](https://support.huawei.com/enterprise/zh/doc/EDOC1100348301) | [CANN 6.3.RC2.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
 |             | Ascend 310 | [Ascend Training Solution 23.0.RC2](https://support.huawei.com/enterprise/zh/doc/EDOC1100348301) | [CANN 6.3.RC2.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
