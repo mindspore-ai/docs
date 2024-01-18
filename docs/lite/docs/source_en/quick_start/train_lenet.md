@@ -312,40 +312,40 @@ int NetRunner::Main() {
 
     ```cpp
     void NetRunner::InitAndFigureInputs() {
-    auto context = std::make_shared<mindspore::Context>();
-    auto cpu_context = std::make_shared<mindspore::CPUDeviceInfo>();
-    cpu_context->SetEnableFP16(enable_fp16_);
-    context->MutableDeviceInfo().push_back(cpu_context);
+      auto context = std::make_shared<mindspore::Context>();
+      auto cpu_context = std::make_shared<mindspore::CPUDeviceInfo>();
+      cpu_context->SetEnableFP16(enable_fp16_);
+      context->MutableDeviceInfo().push_back(cpu_context);
 
-    graph_ = new mindspore::Graph();
-    auto status = mindspore::Serialization::Load(ms_file_, mindspore::kMindIR, graph_);
-    if (status != mindspore::kSuccess) {
+      graph_ = new mindspore::Graph();
+      auto status = mindspore::Serialization::Load(ms_file_, mindspore::kMindIR, graph_);
+      if (status != mindspore::kSuccess) {
         std::cout << "Error " << status << " during serialization of graph " << ms_file_;
         MS_ASSERT(status != mindspore::kSuccess);
-    }
+      }
 
-    auto cfg = std::make_shared<mindspore::TrainCfg>();
-    if (enable_fp16_) {
+      auto cfg = std::make_shared<mindspore::TrainCfg>();
+      if (enable_fp16_) {
         cfg.get()->optimization_level_ = mindspore::kO2;
-    }
+      }
 
-    model_ = new mindspore::Model();
-    status = model_->Build(mindspore::GraphCell(*graph_), context, cfg);
-    if (status != mindspore::kSuccess) {
+      model_ = new mindspore::Model();
+      status = model_->Build(mindspore::GraphCell(*graph_), context, cfg);
+      if (status != mindspore::kSuccess) {
         std::cout << "Error " << status << " during build of model " << ms_file_;
         MS_ASSERT(status != mindspore::kSuccess);
-    }
+      }
 
-    acc_metrics_ = std::shared_ptr<AccuracyMetrics>(new AccuracyMetrics);
-    model_->InitMetrics({acc_metrics_.get()});
+      acc_metrics_ = std::shared_ptr<AccuracyMetrics>(new AccuracyMetrics);
+      model_->InitMetrics({acc_metrics_.get()});
 
-    auto inputs = model_->GetInputs();
-    MS_ASSERT(inputs.size() >= 1);
-    auto nhwc_input_dims = inputs.at(0).Shape();
+      auto inputs = model_->GetInputs();
+      MS_ASSERT(inputs.size() >= 1);
+      auto nhwc_input_dims = inputs.at(0).Shape();
 
-    batch_size_ = nhwc_input_dims.at(0);
-    h_ = nhwc_input_dims.at(1);
-    w_ = nhwc_input_dims.at(2);
+      batch_size_ = nhwc_input_dims.at(0);
+      h_ = nhwc_input_dims.at(1);
+      w_ = nhwc_input_dims.at(2);
     }
     ```
 
@@ -355,25 +355,25 @@ int NetRunner::Main() {
 
     ```cpp
     int NetRunner::InitDB() {
-    train_ds_ = Mnist(data_dir_ + "/train", "all", std::make_shared<SequentialSampler>(0, 0));
+      train_ds_ = Mnist(data_dir_ + "/train", "all", std::make_shared<SequentialSampler>(0, 0));
 
-    TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
-    Resize resize({h_, w_});
-    train_ds_ = train_ds_->Map({&resize, &typecast_f}, {"image"});
+      TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
+      Resize resize({h_, w_});
+      train_ds_ = train_ds_->Map({&resize, &typecast_f}, {"image"});
 
-    TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
-    train_ds_ = train_ds_->Map({&typecast}, {"label"});
+      TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
+      train_ds_ = train_ds_->Map({&typecast}, {"label"});
 
-    train_ds_ = train_ds_->Batch(batch_size_, true);
+      train_ds_ = train_ds_->Batch(batch_size_, true);
 
-    if (verbose_) {
+      if (verbose_) {
         std::cout << "DatasetSize is " << train_ds_->GetDatasetSize() << std::endl;
-    }
-    if (train_ds_->GetDatasetSize() == 0) {
+      }
+      if (train_ds_->GetDatasetSize() == 0) {
         std::cout << "No relevant data was found in " << data_dir_ << std::endl;
         MS_ASSERT(train_ds_->GetDatasetSize() != 0);
-    }
-    return 0;
+      }
+      return 0;
     }
     ```
 
@@ -383,22 +383,22 @@ int NetRunner::Main() {
 
     ```cpp
     int NetRunner::TrainLoop() {
-    mindspore::LossMonitor lm(100);
-    mindspore::TrainAccuracy am(1);
+      mindspore::LossMonitor lm(100);
+      mindspore::TrainAccuracy am(1);
 
-    mindspore::CkptSaver cs(kSaveEpochs, std::string("lenet"));
-    Rescaler rescale(kScalePoint);
-    Measurement measure(epochs_);
+      mindspore::CkptSaver cs(kSaveEpochs, std::string("lenet"));
+      Rescaler rescale(kScalePoint);
+      Measurement measure(epochs_);
 
-    if (virtual_batch_ > 0) {
+      if (virtual_batch_ > 0) {
         model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &measure});
-    } else {
+      } else {
         struct mindspore::StepLRLambda step_lr_lambda(1, kGammaFactor);
         mindspore::LRScheduler step_lr_sched(mindspore::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
         model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &am, &step_lr_sched, &measure});
-    }
+      }
 
-    return 0;
+      return 0;
     }
     ```
 
@@ -408,18 +408,18 @@ int NetRunner::Main() {
 
     ```cpp
     float NetRunner::CalculateAccuracy(int max_tests) {
-    test_ds_ = Mnist(data_dir_ + "/test", "all");
-    TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
-    Resize resize({h_, w_});
-    test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
+      test_ds_ = Mnist(data_dir_ + "/test", "all");
+      TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
+      Resize resize({h_, w_});
+      test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
 
-    TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
-    test_ds_ = test_ds_->Map({&typecast}, {"label"});
-    test_ds_ = test_ds_->Batch(batch_size_, true);
+      TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
+      test_ds_ = test_ds_->Map({&typecast}, {"label"});
+      test_ds_ = test_ds_->Batch(batch_size_, true);
 
-    model_->Evaluate(test_ds_, {});
-    std::cout << "Accuracy is " << acc_metrics_->Eval() << std::endl;
+      model_->Evaluate(test_ds_, {});
+      std::cout << "Accuracy is " << acc_metrics_->Eval() << std::endl;
 
-    return 0.0;
+      return 0.0;
     }
     ```
