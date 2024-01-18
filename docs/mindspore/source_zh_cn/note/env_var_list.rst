@@ -26,13 +26,13 @@
      - 1~24：允许设置并行进程数取值范围
      -
    * - MS_COMPILER_CACHE_ENABLE
-     - 指定是否保存和加载前端的图编译缓存。该功能与 mindspore context 中的 `enable_compile_cache <https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ 相同。
+     - 指定是否保存和加载编译缓存。该功能与 mindspore context 中的 `enable_compile_cache <https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ 相同。
 
        注意：该环境变量优先级低于 `enable_compile_cache` context。
      - Integer
-     - 0：关闭前端图编译缓存功能
+     - 0：关闭编译缓存功能
 
-       1：开启前端图编译缓存功能
+       1：开启编译缓存功能
      - 如果与 `MS_COMPILER_CACHE_PATH` 一起使用，编译缓存文件将保存在 `${MS_COMPILER_CACHE_PATH}` `/rank_${RANK_ID}/graph_cache/` 目录下。
 
        其中 `RANK_ID` 为多卡训练场景中的卡号，单卡场景默认 `RANK_ID=0` 。
@@ -462,6 +462,106 @@ Dump功能
 
 具体用法详见 `调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html>`_ 。
 
+网络编译
+--------
+
+.. list-table::
+   :widths: 20 20 10 30 20
+   :header-rows: 1
+
+   * - 环境变量
+     - 功能
+     - 类型
+     - 取值
+     - 说明
+   * - MS_DEV_JIT_SYNTAX_LEVEL
+     - 指定静态图模式的语法支持级别
+     - Integer
+     - 0：指定静态图模式的语法支持级别为STRICT，仅支持基础语法，且执行性能最佳。可用于MindIR导入导出。
+     
+       2：指定静态图模式的语法支持级别为LAX，支持更多复杂语法，最大程度地兼容Python所有语法。由于存在可能无法导出的语法，不能用于MindIR导入导出。
+     - 
+   * - MS_JIT_MODULES
+     - 指定静态图模式下哪些模块需要JIT静态编译，其函数方法会被编译成静态计算图
+     - String
+     - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如：`export MS_JIT_MODULES=mindflow,mindyolo`。
+     - 默认情况下，第三方库之外的模块都会进行JIT静态编译。MindSpore套件等一些模块如 `mindflow`、`mindyolo` 等并不会被视作第三方库，请参考 `调用第三方库 <https://www.mindspore.cn/docs/zh-CN/r2.3/note/static_graph_syntax_support.html#%E8%B0%83%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93>`_ 。如果有类似MindSpore套件的模块，内部存在 `nn.Cell`、`@ms.jit` 修饰函数或需要编译成静态计算图的函数方法，可以通过配置该环境变量，使该模块进行JIT静态编译而不会被当成第三方库。
+   * - MS_JIT_IGNORE_MODULES
+     - 指定静态图模式下哪些模块是第三方库，不进行JIT静态编译，其函数方法会被解释执行。
+     - String
+     - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如：`export MS_JIT_IGNORE_MODULES=numpy,scipy`。
+     - 静态图模式能够自动识别第三方库，一般情况下不需要为NumPy、SciPy这些可识别的第三方库设置该环境变量。如果 `MS_JIT_IGNORE_MODULES` 和 `MS_JIT_MODULES` 同时指定同一个模块名，前者生效，后者不生效。
+   * - MS_DEV_FALLBACK_DUMP_NODE
+     - 是否打印代码中由 `静态图语法增强技术 <https://www.mindspore.cn/docs/zh-CN/r2.3/design/dynamic_graph_and_static_graph.html#%E9%9D%99%E6%80%81%E5%9B%BE%E8%AF%AD%E6%B3%95%E5%A2%9E%E5%BC%BA%E6%8A%80%E6%9C%AF>`_ 支持的语法表达式
+     - Integer
+     - 1：开启打印功能。
+
+       不设置或其它值：关闭打印功能。
+     -
+   * - MS_JIT
+     - 是否使用JIT即时编译
+     - Integer
+     - 0：不使用JIT即时编译，网络脚本直接按照动态图（PyNative）模式执行。
+
+       不设置或其它值：根据网络脚本判断执行静态图（Graph）模式还是动态图（PyNative）模式。
+     -
+   * - MS_DEV_FORCE_USE_COMPILE_CACHE
+     - 是否直接使用编译缓存，不检查网络脚本有无被修改
+     - Integer
+     - 1：不检查网络脚本是否被修改，直接读取编译缓存。建议只在调试过程中使用，例如网络脚本只增加了print语句用于打印调试。
+
+       不设置或其它值：检测网络脚本的改动，网络没有被修改时，才读取编译缓存。
+     -
+   * - MS_DEV_SIDE_EFFECT_LOAD_ELIM
+     - 优化冗余显存拷贝操作
+     - Integer
+     - 0: 不做显存优化，占用显存最多。
+
+       1: 保守地做部分显存优化。
+
+       2: 在损耗一定编译性能的前提下，尽量多地优化显存。
+
+       3: 不保证网络的精度，显存消耗最少。
+
+       默认值：1
+     - 
+   * - MS_DEV_SAVE_GRAPHS
+     - 是否保存IR文件
+     - Integer
+     - 0：不保存IR文件。
+       
+       1：运行时会输出图编译过程中产生的一些中间文件。
+       
+       2：在等级1的基础上，生成更多后端流程相关的IR文件。
+       
+       3：在等级2的基础上，生成可视化计算图和更多详细的前端IR文件。
+     -
+   * - MS_DEV_SAVE_GRAPHS_PATH
+     - 设置保存计算图的路径
+     - String
+     - 保存计算图的路径
+     -
+   * - MS_DEV_DUMP_IR_FORMAT
+     - 配置IR图中展示哪些信息
+     - Integer
+     - 0：除return节点外，只打印节点的operator和operand，并且简化子图的打印信息。
+
+       1：打印除debug info和scope以外的所有信息。
+
+       2或不设置：打印所有信息。
+     -
+   * - MS_DEV_DUMP_IR_INTERVAL
+     - 设置间隔多少个IR文件打印保存一个IR文件，减少IR图的打印数量。
+     - Integer
+     - 1或不设置：打印保存所有IR文件。
+
+       其它数值：按照指定的间隔个数保存IR文件。
+     -
+   * - MS_DEV_DUMP_IR_PASSES
+     - 根据文件名指定保存哪些IR文件。
+     - String
+     - 文件名或文件名的一部分。如果有多个，使用逗号隔开。例如`export MS_DEV_DUMP_IR_PASSES=recompute,renormalize`。
+     -
 
 CANN
 --------
@@ -493,25 +593,6 @@ CANN的环境变量详见 `昇腾社区 <https://www.hiascend.com/document/detai
 
        1：执行非任务下沉
      -
-   * - MS_DEV_JIT_SYNTAX_LEVEL
-     - 设置2时使能Fallback功能
-     - Integer
-     - 2: 开启Fallback功能
-
-       0: 关闭Fallback功能
-
-       默认值：2
-     -
-   * - MS_JIT_MODULES
-     - 指定静态图模式下哪些模块需要JIT静态编译，其函数方法会被编译成静态计算图。
-     - String
-     - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如：`export MS_JIT_MODULES=mindflow,mindyolo`。
-     - 默认情况下，第三方库之外的模块都会进行JIT静态编译。MindSpore套件如 `mindflow`、`mindyolo` 等并不会被视作第三方库，如果有类似MindSpore套件的模块，内部存在 `nn.Cell`、`@ms.jit` 修饰函数或需要编译成静态计算图的函数方法，可以通过配置该环境变量，使该模块进行JIT静态编译而不会被当成第三方库。
-   * - MS_JIT_IGNORE_MODULES
-     - 指定静态图模式下哪些模块是第三方库，不进行JIT静态编译，其函数方法会被解释执行。
-     - String
-     - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如：`export MS_JIT_IGNORE_MODULES=numpy,scipy`。
-     - 静态图模式能够自动识别第三方库，一般情况下不需要为NumPy、SciPy这些可识别的第三方库设置该环境变量。如果 `MS_JIT_IGNORE_MODULES` 和 `MS_JIT_MODULES` 同时指定同一个模块名，前者生效，后者不生效。
    * - MS_EXCEPTION_DISPLAY_LEVEL
      - 控制异常信息显示级别
      - Integer
@@ -539,26 +620,6 @@ CANN的环境变量详见 `昇腾社区 <https://www.hiascend.com/document/detai
        算子名字（如ReLU）：跳过所有ReLU算子的执行
 
        子图名字（如kernel_graph_1）：跳过子图kernel_graph_1的执行，用于子图下沉模式
-     -
-   * - MS_DEV_SAVE_GRAPTHS_SORT_MODE
-     - 选择生成ir文件的图打印排序方式
-     - Integer
-     - 0: 打印默认ir文件
-
-       1: 打印异序ir文件
-     -
-   * - MS_DEV_SIDE_EFFECT_LOAD_ELIM
-     - 优化冗余显存拷贝操作
-     - Integer
-     - 0: 不做显存优化，占用显存最多。
-
-       1: 保守地做部分显存优化。
-
-       2: 在损耗一定编译性能的前提下，尽量多地优化显存。
-
-       3: 不保证网络的精度，显存消耗最少。
-
-       默认值：1
      -
    * - MS_PYNATIVE_GE
      - 设置动态图模式下是否执行GE
