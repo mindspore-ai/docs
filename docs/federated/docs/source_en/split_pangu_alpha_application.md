@@ -166,7 +166,7 @@ MindSpore Federated Vertical Federated Learning Framework uses FLModel (see [Ver
 
     The `hyper_parameters` field is a list of hyperparameters for the optimizer.
 
-### Defining Gradient weighting coefficient Calculation
+### Defining Gradient Weighting Coefficient Calculation
 
 According to the chain rule of gradient calculation, the subnetwork located at the backstream of the global network needs to calculate the gradient value of its output tensor relative to the input tensor, i.e., the gradient weighting coefficient or sensitivity, to be passed to the sub-network located at the upstream of the global network for its training parameter update.
 

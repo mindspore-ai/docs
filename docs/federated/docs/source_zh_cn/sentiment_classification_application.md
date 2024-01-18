@@ -301,110 +301,110 @@ app
 
 2. FlJob.java：该代码文件作用是定义训练与推理任务的内容，具体的联邦学习接口含义请参考[联邦学习接口介绍](https://www.mindspore.cn/federated/docs/zh-CN/master/interface_description_federated_client.html)。
 
-   ```java
-   import android.annotation.SuppressLint;
-   import android.os.Build;
-   import androidx.annotation.RequiresApi;
-   import com.mindspore.flAndroid.utils.AssetCopyer;
-   import com.mindspore.flclient.FLParameter;
-   import com.mindspore.flclient.SyncFLJob;
-   import java.util.Arrays;
-   import java.util.UUID;
-   import java.util.logging.Logger;
-   public class FlJob {
-       private static final Logger LOGGER = Logger.getLogger(AssetCopyer.class.toString());
-       private final String parentPath;
-       public FlJob(String parentPath) {
-           this.parentPath = parentPath;
-       }
-       // Android的联邦学习训练任务
-       @SuppressLint("NewApi")
-       @RequiresApi(api = Build.VERSION_CODES.M)
-       public void syncJobTrain() {
-           // 构造dataMap
-           String trainTxtPath = "data/albert/supervise/client/1.txt";
-           String evalTxtPath = "data/albert/supervise/eval/eval.txt";      // 非必须，getModel之后不进行验证可不设置
-           String vocabFile = "data/albert/supervise/vocab.txt";                // 数据预处理的词典文件路径
-           String idsFile = "data/albert/supervise/vocab_map_ids.txt"   // 词典的映射id文件路径
-           Map<RunType, List<String>> dataMap = new HashMap<>();
-           List<String> trainPath = new ArrayList<>();
-           trainPath.add(trainTxtPath);
-           trainPath.add(vocabFile);
-           trainPath.add(idsFile);
-           List<String> evalPath = new ArrayList<>();    // 非必须，getModel之后不进行验证可不设置
-           evalPath.add(evalTxtPath);                  // 非必须，getModel之后不进行验证可不设置
-           evalPath.add(vocabFile);                  // 非必须，getModel之后不进行验证可不设置
-           evalPath.add(idsFile);                  // 非必须，getModel之后不进行验证可不设置
-           dataMap.put(RunType.TRAINMODE, trainPath);
-           dataMap.put(RunType.EVALMODE, evalPath);      // 非必须，getModel之后不进行验证可不设置
+    ```java
+    import android.annotation.SuppressLint;
+    import android.os.Build;
+    import androidx.annotation.RequiresApi;
+    import com.mindspore.flAndroid.utils.AssetCopyer;
+    import com.mindspore.flclient.FLParameter;
+    import com.mindspore.flclient.SyncFLJob;
+    import java.util.Arrays;
+    import java.util.UUID;
+    import java.util.logging.Logger;
+    public class FlJob {
+        private static final Logger LOGGER = Logger.getLogger(AssetCopyer.class.toString());
+        private final String parentPath;
+        public FlJob(String parentPath) {
+            this.parentPath = parentPath;
+        }
+        // Android的联邦学习训练任务
+        @SuppressLint("NewApi")
+        @RequiresApi(api = Build.VERSION_CODES.M)
+        public void syncJobTrain() {
+            // 构造dataMap
+            String trainTxtPath = "data/albert/supervise/client/1.txt";
+            String evalTxtPath = "data/albert/supervise/eval/eval.txt";      // 非必须，getModel之后不进行验证可不设置
+            String vocabFile = "data/albert/supervise/vocab.txt";                // 数据预处理的词典文件路径
+            String idsFile = "data/albert/supervise/vocab_map_ids.txt"   // 词典的映射id文件路径
+            Map<RunType, List<String>> dataMap = new HashMap<>();
+            List<String> trainPath = new ArrayList<>();
+            trainPath.add(trainTxtPath);
+            trainPath.add(vocabFile);
+            trainPath.add(idsFile);
+            List<String> evalPath = new ArrayList<>();    // 非必须，getModel之后不进行验证可不设置
+            evalPath.add(evalTxtPath);                  // 非必须，getModel之后不进行验证可不设置
+            evalPath.add(vocabFile);                  // 非必须，getModel之后不进行验证可不设置
+            evalPath.add(idsFile);                  // 非必须，getModel之后不进行验证可不设置
+            dataMap.put(RunType.TRAINMODE, trainPath);
+            dataMap.put(RunType.EVALMODE, evalPath);      // 非必须，getModel之后不进行验证可不设置
 
-           String flName = "com.mindspore.flclient.demo.albert.AlbertClient";                             // AlBertClient.java 包路径
-           String trainModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // 绝对路径
-           String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // 绝对路径, 和trainModelPath保持一致
-           String sslProtocol = "TLSv1.2";
-           String deployEnv = "android";
+            String flName = "com.mindspore.flclient.demo.albert.AlbertClient";                             // AlBertClient.java 包路径
+            String trainModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // 绝对路径
+            String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // 绝对路径, 和trainModelPath保持一致
+            String sslProtocol = "TLSv1.2";
+            String deployEnv = "android";
 
-           // 端云通信url，请保证Android能够访问到server，否则会出现connection failed
-           String domainName = "http://10.*.*.*:6668";
-           boolean ifUseElb = true;
-           int serverNum = 4;
-           int threadNum = 4;
-           BindMode cpuBindMode = BindMode.NOT_BINDING_CORE;
-           int batchSize = 32;
+            // 端云通信url，请保证Android能够访问到server，否则会出现connection failed
+            String domainName = "http://10.*.*.*:6668";
+            boolean ifUseElb = true;
+            int serverNum = 4;
+            int threadNum = 4;
+            BindMode cpuBindMode = BindMode.NOT_BINDING_CORE;
+            int batchSize = 32;
 
-           FLParameter flParameter = FLParameter.getInstance();
-           flParameter.setFlName(flName);
-           flParameter.setDataMap(dataMap);
-           flParameter.setTrainModelPath(trainModelPath);
-           flParameter.setInferModelPath(inferModelPath);
-           flParameter.setSslProtocol(sslProtocol);
-           flParameter.setDeployEnv(deployEnv);
-           flParameter.setDomainName(domainName);
-           flParameter.setUseElb(ifUseElb);
-           flParameter.setServerNum(serverNum);
-           flParameter.setThreadNum(threadNum);
-           flParameter.setCpuBindMode(BindMode.valueOf(cpuBindMode));
+            FLParameter flParameter = FLParameter.getInstance();
+            flParameter.setFlName(flName);
+            flParameter.setDataMap(dataMap);
+            flParameter.setTrainModelPath(trainModelPath);
+            flParameter.setInferModelPath(inferModelPath);
+            flParameter.setSslProtocol(sslProtocol);
+            flParameter.setDeployEnv(deployEnv);
+            flParameter.setDomainName(domainName);
+            flParameter.setUseElb(ifUseElb);
+            flParameter.setServerNum(serverNum);
+            flParameter.setThreadNum(threadNum);
+            flParameter.setCpuBindMode(BindMode.valueOf(cpuBindMode));
 
-           // start FLJob
-           SyncFLJob syncFLJob = new SyncFLJob();
-           syncFLJob.flJobRun();
-       }
-       // Android的联邦学习推理任务
-       public void syncJobPredict() {
-           // 构造dataMap
-           String inferTxtPath = "data/albert/supervise/eval/eval.txt";
-           String vocabFile = "data/albert/supervise/vocab.txt";
-           String idsFile = "data/albert/supervise/vocab_map_ids.txt";
-           Map<RunType, List<String>> dataMap = new HashMap<>();
-           List<String> inferPath = new ArrayList<>();
-           inferPath.add(inferTxtPath);
-           inferPath.add(vocabFile);
-           inferPath.add(idsFile);
-           dataMap.put(RunType.INFERMODE, inferPath);
+            // start FLJob
+            SyncFLJob syncFLJob = new SyncFLJob();
+            syncFLJob.flJobRun();
+        }
+        // Android的联邦学习推理任务
+        public void syncJobPredict() {
+            // 构造dataMap
+            String inferTxtPath = "data/albert/supervise/eval/eval.txt";
+            String vocabFile = "data/albert/supervise/vocab.txt";
+            String idsFile = "data/albert/supervise/vocab_map_ids.txt";
+            Map<RunType, List<String>> dataMap = new HashMap<>();
+            List<String> inferPath = new ArrayList<>();
+            inferPath.add(inferTxtPath);
+            inferPath.add(vocabFile);
+            inferPath.add(idsFile);
+            dataMap.put(RunType.INFERMODE, inferPath);
 
-           String flName = "com.mindspore.flclient.demo.albert.AlbertClient";                             // AlBertClient.java 包路径
-           String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // 绝对路径, 和trainModelPath保持一致;
-           int threadNum = 4;
-           BindMode cpuBindMode = BindMode.NOT_BINDING_CORE;
-           int batchSize = 32;
+            String flName = "com.mindspore.flclient.demo.albert.AlbertClient";                             // AlBertClient.java 包路径
+            String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // 绝对路径, 和trainModelPath保持一致;
+            int threadNum = 4;
+            BindMode cpuBindMode = BindMode.NOT_BINDING_CORE;
+            int batchSize = 32;
 
-           FLParameter flParameter = FLParameter.getInstance();
-           flParameter.setFlName(flName);
-           flParameter.setDataMap(dataMap);
-           flParameter.setInferModelPath(inferModelPath);
-           flParameter.setThreadNum(threadNum);
-           flParameter.setCpuBindMode(cpuBindMode);
-           flParameter.setBatchSize(batchSize);
+            FLParameter flParameter = FLParameter.getInstance();
+            flParameter.setFlName(flName);
+            flParameter.setDataMap(dataMap);
+            flParameter.setInferModelPath(inferModelPath);
+            flParameter.setThreadNum(threadNum);
+            flParameter.setCpuBindMode(cpuBindMode);
+            flParameter.setBatchSize(batchSize);
 
-           // inference
-           SyncFLJob syncFLJob = new SyncFLJob();
-           int[] labels = syncFLJob.modelInference();
-           LOGGER.info("labels = " + Arrays.toString(labels));
-       }
-   }
-   ```
+            // inference
+            SyncFLJob syncFLJob = new SyncFLJob();
+            int[] labels = syncFLJob.modelInference();
+            LOGGER.info("labels = " + Arrays.toString(labels));
+        }
+    }
+    ```
 
-   上面的eval_no_label.txt是指不存在标签的文件，每一行为一条语句，格式参考如下，用户可自由设置：
+    上面的eval_no_label.txt是指不存在标签的文件，每一行为一条语句，格式参考如下，用户可自由设置：
 
     ```text
     愿以吾辈之青春 护卫这盛世之中华🇨🇳
@@ -530,7 +530,7 @@ app
 
     ![run_app](./images/start_android_project.png)
 
-2. Android Studio连接设备调试操作，可参考<https://developer.android.com/studio/run/device?hl=zh-cn>。手机需开启“USB调试模式”，Android Studio才能识别到手机。 华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
+2. Android Studio连接设备调试操作，可参考<https://developer.android.com/studio/run/device?hl=zh-cn>。手机需开启“USB调试模式”，Android Studio才能识别到手机。华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
 
 3. 在Android设备上，点击“继续安装”，安装完即可在APP启动之后执行ALBERT模型的联邦学习的训练与推理任务。
 
