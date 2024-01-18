@@ -264,6 +264,8 @@ The specific use steps are divided into two steps. Taking the classification tas
                                                                               "intervals": [interval_1, interval_2
                                                                                            ]},
                                                            device_ids=[1, 2])
+        # clean the checkpoint
+        summary_landscape.clean_ckpt()
    ```
 
    - `callback_fn`: User needs to define the function `callback_fn`, the function has no input, and returns `model(mindspore.train.Model)`, `network(mindspore.nn.Cell)`, `dataset(mindspore.dataset)`, `metrics(mindspore.train.Metrics)`.
