@@ -6,7 +6,7 @@
 
 在图模式`set_context(mode=GRAPH_MODE)`下运行用MindSpore编写的模型时，若配置中设置了`set_context(save_graphs=2)`，运行时会输出一些图编译过程中生成的中间文件，我们称为IR文件。当前主要有两种格式的IR文件：
 
-- ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。可以通过设置环境变量`export MS_DEV_SAVE_GRAPHS_SORT_MODE=1`打印异序排序方式的ir文件。异序ir文件将按照图的调用顺序打印ir图。可以通过将该环境变量设置为`export MS_DEV_SAVE_GRAPHS_SORT_MODE=0`来切换为打印原来的排序方式的ir文件。
+- ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。
 - dot后缀结尾的IR文件：若在配置中设置了`set_context(save_graphs=3)`, 运行时会输出后缀为dot的ir文件。该文件描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
 
 ## 如何保存IR
@@ -208,106 +208,6 @@ print(out)
 > - 经过编译器的若干优化处理后，节点可能经过了若干转换（如算子拆分、算子融合等），节点的源码解析调用栈信息与脚本可能无法完全一一对应，这里仅作为辅助手段。
 > - 在后端经过算子选择阶段后，输入输出规格信息（即`:`后内容）会有两行。第一行表示为`HOST`侧的规格信息，第二行为`DEVICE`侧的规格信息。
 
-### 异序ir文件介绍
-
-使用文本编辑软件（例如`vi`）打开在设置了环境变量`export MS_DEV_SAVE_GRAPHS_SORT_MODE=1`并执行样例：
-
-```text
-  1 import mindspore as ms
-  2 import mindspore.nn as nn
-  3 from mindspore import ops
-  4
-  5 ms.set_context(mode=ms.GRAPH_MODE)
-  6 ms.set_context(save_graphs=2, save_graphs_path="./ir")
-  7
-  8 class Net(nn.Cell):
-  9     def __init__(self):
- 10         super().__init__()
- 11
- 12     def func(x, y):
- 13         return ops.mul(x, y)
- 14
- 15     def construct(self, x, y):
- 16         b = self.func(x, y)
- 17         return b
- 18
- 19 input1 = ms.Tensor(3, ms.float32)
- 20 input2 = ms.Tensor(2, ms.float32)
- 21 net = Net()
- 22 out = net(input1, input2)
- 23 print(out)
-```
-
-输出的IR文件`04_abstract_specialize_0004.ir`，内容如下所示（此处版本为MindSpore 2.1，后续版本中内容可能会有一些细微变化）：
-
-```text
-  1 #IR entry      : @1___main___Net_construct.12
-  2 #Total subgraph: 3
-  3
-  4 #attrs         :
-  5 # Total params: 2
-  6 # Params:
-  7 %para1_x : <Tensor[Float32], ()>
-  8 %para2_y : <Tensor[Float32], ()>
-  9
- 10 subgraph attr:
- 11 subgraph instance: 1___main___Net_construct.12 : 0x55844586acc0
- 12 # In file t6.py:15/    def construct(self, x, y):/
- 13 subgraph @1___main___Net_construct.12() {
- 14   %0(b) = call @2_func.13(%para1_x, %para2_y)
- 15       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 16       # Scope: (Default)
- 17       # In file t6.py:16/        b = self.func(x, y)/
- 18   Return(%0)
- 19       : (<Tensor[Float32], ()>)
- 20       # Scope: (Default)
- 21       # In file t6.py:17/        return b/
- 22 }
- 23 # Order:
- 24 #   1: @1___main___Net_construct.12:b{[0]: ValueNode<FuncGraph> 2_func.13, [1]: x, [2]: y}
- 25 #   2: @1___main___Net_construct.12:[CNode]5{[0]: ValueNode<Primitive> Return, [1]: b}
- 26
- 27
- 28 subgraph attr:
- 29 undeterminate : 0
- 30 subgraph instance: 2_func.13 : 0x55844588f4d0
- 31 # In file t6.py:12/    def func(x, y):/
- 32 subgraph @2_func.13(%para3_x, %para4_y) {
- 33   %0([CNode]8) = call @3_mul.14(%para3_x, %para4_y)
- 34       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 35       # Scope: (Default)
- 36       # In file t6.py:13/        return ops.mul(x, y)/
- 37   Return(%0)
- 38       : (<Tensor[Float32], ()>)
- 39       # Scope: (Default)
- 40       # In file t6.py:13/        return ops.mul(x, y)/
- 41 }
- 42 # Order:
- 43 #   1: @2_func.13:[CNode]8{[0]: ValueNode<FuncGraph> 3_mul.14, [1]: x, [2]: y}
- 44 #   2: @2_func.13:[CNode]9{[0]: ValueNode<Primitive> Return, [1]: [CNode]8}
- 45
- 46
- 47 subgraph attr:
- 48 undeterminate : 0
- 49 subgraph instance: 3_mul.14 : 0x558445891190
- 50 # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:936/def mul(input, other):/
- 51 subgraph @3_mul.14(%para3_input, %para4_other) {
- 52   %0([CNode]10) = Mul(%para3_input, %para4_other) primitive_attrs: {output_names: [output], input_names: [x, y]}
- 53       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 54       # Scope: (Default)
- 55       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:982/    return tensor_mul(input, other)/
- 56   Return(%0)
- 57       : (<Tensor[Float32], ()>)
- 58       # Scope: (Default)
- 59       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:982/    return tensor_mul(input, other)/
- 60 }
- 61 # Order:
- 62 #   1: @3_mul.14:[CNode]10{[0]: ValueNode<PrimitivePy> Mul, [1]: input, [2]: other}
- 63 #   2: @3_mul.14:[CNode]11{[0]: ValueNode<Primitive> Return, [1]: [CNode]10}
-```
-
-以上内容，从顶图开始，以拓扑排序的方式展示了所有图的信息。图将根据调用顺序打印出来。如有需要追踪图的调用，可以使用此种排序的ir图。
-
 ### dot文件介绍
 
 可以用[graphviz](http://graphviz.org)将`dot`格式的IR文件作为输入生成图片。例如，在Linux操作系统下，可以通过以下命令转换成一张PNG图片。
@@ -445,8 +345,7 @@ MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段�
  49 # num of function graphs in stack: 1
 ```
 
-`analyze_fail.ir`文件与前文介绍过的异序ir文件格式一致，唯一有区别的地方在于`analyze_fail.ir`文件中会指出推导出错的节点所在的位置。
-即第19行的`------------------------> 0`。该箭头指向了推导出错的节点，为`%3([CNode]5) = call @func.21(%1, %1, %2) ...`，如何查看analyze_fail.ir文件前文`异序ir文件介绍`一节中已经介绍，此处不再赘述。
+`analyze_fail.ir`文件与前文介绍过的ir文件格式一致，唯一有区别的地方在于`analyze_fail.ir`文件中会指出推导出错的节点所在的位置，即第19行的`------------------------> 0`。该箭头指向了推导出错的节点，为`%3([CNode]5) = call @func.21(%1, %1, %2) ...`。
 根据`(%1, %1, %2)`可知，该节点的输入参数有三个。从源码解析调用栈中可以知道实际该函数为`self.func`，在脚本中的定义为`def dunc(x, y):...`。
 在函数定义中，只需要两个参数，故会在此处出现推导失败的报错，我们需要修改脚本中传入的参数个数以解决该问题。
 

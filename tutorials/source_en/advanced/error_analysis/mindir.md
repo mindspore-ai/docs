@@ -6,7 +6,7 @@
 
 When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and `set_context(save_graphs=2)` is set in the configuration, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. Currently, there are two IR files:
 
-- .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors. By setting environment variable `export MS_DEV_SAVE_GRAPHS_SORT_MODE=1`, an deep sorted ir can be generated. The ir graphs will be printed in calling order of them. It can be switched back to the default ir file by setting environment variable `export MS_DEV_SAVE_GRAPHS_SORT_MODE=1`.
+- .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors.
 - .dot file: When `set_context(save_graphs=3)` is set in the configuration, an IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize computing graphs.
 
 ## Saving IR
@@ -206,106 +206,6 @@ About the corresponding source code:
 > - After several optimizations by the compiler, the node may undergo several changes (such as operator splitting and operator merging). The source code parsing call stack information of the node may not be in a one-to-one correspondence with the script. This is only an auxiliary method.
 > - After the `kernel select` phase at the backend, two lines of input and output specification information (that is, the content after `:`) will appear. The first line represents the specifications on the `HOST` side, and the second line represents the specifications on the `DEVICE` side.
 
-### deep sorted ir Introduction
-
-Use a text editing software (for example, `vi`) to open the `04_abstract_specialize_0004.ir` file after setting environment variable `export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1` and run the following example:
-
-```text
-  1 import mindspore as ms
-  2 import mindspore.nn as nn
-  3 from mindspore import ops
-  4
-  5 ms.set_context(mode=ms.GRAPH_MODE)
-  6 ms.set_context(save_graphs=2, save_graphs_path="./ir")
-  7
-  8 class Net(nn.Cell):
-  9     def __init__(self):
- 10         super().__init__()
- 11
- 12     def func(x, y):
- 13         return ops.mul(x, y)
- 14
- 15     def construct(self, x, y):
- 16         b = self.func(x, y)
- 17         return b
- 18
- 19 input1 = ms.Tensor(3, ms.float32)
- 20 input2 = ms.Tensor(2, ms.float32)
- 21 net = Net()
- 22 out = net(input1, input2)
- 23 print(out)
-```
-
-The file contents are as follows (Here is MindSpore 2.1, and the content may have some imperceptible changes with the version upgrade):
-
-```text
-  1 #IR entry      : @1___main___Net_construct.12
-  2 #Total subgraph: 3
-  3
-  4 #attrs         :
-  5 # Total params: 2
-  6 # Params:
-  7 %para1_x : <Tensor[Float32], ()>
-  8 %para2_y : <Tensor[Float32], ()>
-  9
- 10 subgraph attr:
- 11 subgraph instance: 1___main___Net_construct.12 : 0x55844586acc0
- 12 # In file t6.py:15/    def construct(self, x, y):/
- 13 subgraph @1___main___Net_construct.12() {
- 14   %0(b) = call @2_func.13(%para1_x, %para2_y)
- 15       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 16       # Scope: (Default)
- 17       # In file t6.py:16/        b = self.func(x, y)/
- 18   Return(%0)
- 19       : (<Tensor[Float32], ()>)
- 20       # Scope: (Default)
- 21       # In file t6.py:17/        return b/
- 22 }
- 23 # Order:
- 24 #   1: @1___main___Net_construct.12:b{[0]: ValueNode<FuncGraph> 2_func.13, [1]: x, [2]: y}
- 25 #   2: @1___main___Net_construct.12:[CNode]5{[0]: ValueNode<Primitive> Return, [1]: b}
- 26
- 27
- 28 subgraph attr:
- 29 undeterminate : 0
- 30 subgraph instance: 2_func.13 : 0x55844588f4d0
- 31 # In file t6.py:12/    def func(x, y):/
- 32 subgraph @2_func.13(%para3_x, %para4_y) {
- 33   %0([CNode]8) = call @3_mul.14(%para3_x, %para4_y)
- 34       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 35       # Scope: (Default)
- 36       # In file t6.py:13/        return ops.mul(x, y)/
- 37   Return(%0)
- 38       : (<Tensor[Float32], ()>)
- 39       # Scope: (Default)
- 40       # In file t6.py:13/        return ops.mul(x, y)/
- 41 }
- 42 # Order:
- 43 #   1: @2_func.13:[CNode]8{[0]: ValueNode<FuncGraph> 3_mul.14, [1]: x, [2]: y}
- 44 #   2: @2_func.13:[CNode]9{[0]: ValueNode<Primitive> Return, [1]: [CNode]8}
- 45
- 46
- 47 subgraph attr:
- 48 undeterminate : 0
- 49 subgraph instance: 3_mul.14 : 0x558445891190
- 50 # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:936/def mul(input, other):/
- 51 subgraph @3_mul.14(%para3_input, %para4_other) {
- 52   %0([CNode]10) = Mul(%para3_input, %para4_other) primitive_attrs: {output_names: [output], input_names: [x, y]}
- 53       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 54       # Scope: (Default)
- 55       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:982/    return tensor_mul(input, other)/
- 56   Return(%0)
- 57       : (<Tensor[Float32], ()>)
- 58       # Scope: (Default)
- 59       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:982/    return tensor_mul(input, other)/
- 60 }
- 61 # Order:
- 62 #   1: @3_mul.14:[CNode]10{[0]: ValueNode<PrimitivePy> Mul, [1]: input, [2]: other}
- 63 #   2: @3_mul.14:[CNode]11{[0]: ValueNode<Primitive> Return, [1]: [CNode]10}
-```
-
-Above, it lists all the graphs beginning with the entry graph. The ir graphs are printed in calling order of them. If you need to trace the call of the graph,you can use this sort of graphs.
-
 ### dot Introduction
 
 We can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For example, under the Linux operating system, we can convert a PNG image by the following command.
@@ -445,8 +345,8 @@ Sometimes when the exception information is not enough easy to understand, or we
  49 # num of function graphs in stack: 1
 ```
 
-The file `analyze_fail.ir` has the same information format with deep sorted ir file. The only difference is `analyze_fail.ir` will locate the node which inferring failed.
-Searching the point by the text of `------------------------>`, we reach `------------------------> 0` at line 19. This points to the node that derives the error, which is `%3([CNode]5) = call @func.21(%1, %1, %2) ....`. How to view the deep sorted ir file has been described in the `deep sorted ir Introduction` section earlier, and will not be repeated here.
+The file `analyze_fail.ir` has the same information format with ir file. The only difference is `analyze_fail.ir` will locate the node which inferring failed.
+Searching the point by the text of `------------------------>`, we reach `------------------------> 0` at line 19. This points to the node that derives the error, which is `%3([CNode]5) = call @func.21(%1, %1, %2) ....`.
 The node at line 45 to 48 have an error. Its IR expression is `%3([CNode]5) = call @func.20(%1, %1, %2) ...`. We can know the node have 3 parameters from `(%1, %1, %2)`. From the source parsing call stack, it can be known that the function is actually `self.func`, which is defined in the script as `def dunc(x, y):...`.
 In the function definition, only two parameters are needed, so there will be a deduction failure error, and we need to modify the number of parameters passed in the script to solve the problem.
 
