@@ -190,8 +190,9 @@ The batch size is not fixed in certain scenarios. For example, in the target det
     [acl_option_cfg_param]
     input_shape_vector="[-1,32,32,4]"
     dynamic_batch_size="2,4"
-    "-1" in input_shape indicates that the batch size is dynamic. The value range is "2,4". That is, size 0: [2, 32, 32, 4] and size 1: [4, 32, 32, 4] are supported.
     ```
+
+    "-1" in input_shape indicates that the batch size is dynamic. The value range is "2,4". That is, size 0: [2, 32, 32, 4] and size 1: [4, 32, 32, 4] are supported.
 
 - converter
 
@@ -230,8 +231,9 @@ The batch size is not fixed in certain scenarios. For example, in the target det
     input_format="NCHW"
     input_shape_vector="[2,3,-1,-1]"
     dynamic_image_size="64,64;96,96"
-    "-1" in input_shape indicates that the image size is dynamic. That is, size 0 [2,3,64,64] and size 1 [2,3,96,96] are supported.
     ```
+
+    "-1" in input_shape indicates that the image size is dynamic. That is, size 0 [2,3,64,64] and size 1 [2,3,96,96] are supported.
 
 - converter
 
