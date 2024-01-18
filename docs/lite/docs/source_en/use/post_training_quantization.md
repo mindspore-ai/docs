@@ -333,8 +333,6 @@ bias_correction=true
 
 > Full quantization requires the execution of inference, and the waiting time may be long. If you need to view the log, you can set export GLOG_v=1 before execution for printing the related Info level log.
 
-The full quantization parameter (PerLayer quantization type) `[full_quant_param]` configuration is as follows:
-
 ```ini
 [full_quant_param]
 # Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
@@ -342,7 +340,7 @@ activation_quant_method=MAX_MIN
 # Whether to correct the quantization error. Recommended to set to true.
 bias_correction=true
 # If set to true, it will enable PerChannel quantization, or set to false to enable PerLayer quantization.
-per_channel=false
+per_channel=true
 ```
 
 The full quantization parameter (PerLayer quantization type) `[full_quant_param]` configuration is as follows:
