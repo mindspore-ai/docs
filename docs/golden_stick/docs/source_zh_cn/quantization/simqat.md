@@ -65,8 +65,7 @@ MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟�
 ds_train = create_dataset(os.path.join(config.data_path), config.batch_size)
 ```
 
-代码中create_dataset引用自[dataset.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/src/dataset.py)
- ，config.data_path和config.batch_size分别在[配置文件](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/golden_stick/quantization/simqat/lenet_mnist_config.yaml) 中配置，下同。
+代码中create_dataset引用自[dataset.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/src/dataset.py)，config.data_path和config.batch_size分别在[配置文件](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/golden_stick/quantization/simqat/lenet_mnist_config.yaml)中配置，下同。
 
 ### 定义原网络
 
