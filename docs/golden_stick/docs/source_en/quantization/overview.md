@@ -16,9 +16,7 @@ Due to limited hardware resources of a mobile or edge device, network need to be
 
 Quantization is a process of approximating floating-point weights and inputs to a limited number (usually int8) of discrete values at a low inference accuracy loss. It uses a data type with fewer bits to approximately represent 32-bit floating-point data with a limited range. The input and output of the network are still floating-point data. In this way, the size of network and memory consumption are reduced, and the network inference speed is accelerated.
 
-First, quantization will cause accuracy loss, which is equivalent to introducing noise to a network. However, a neural network is generally insensitive to noise. As long as a quantization degree is well controlled, impact on precision of an advanced task may be very small.
-
-Second, traditional convolution operations use FP32, which takes a lot of time to complete. However, if the weight parameters and activation are quantized to INT8 before being input to each layer, the number of bits and multiplication operations are reduced. In addition, all convolution operations are multiplication and addition operations with integers, which are much faster than floating-point operations.
+Quantization will cause accuracy loss, which is equivalent to introducing noise to a network. However, a neural network is generally insensitive to noise. As long as a quantization degree is well controlled, impact on precision of an advanced task may be very small. The performance of the quantized network can be greatly improved compared to the original network by using INT8 operations instead of the original FP32 computation in network inference.
 
 ![](../images/quantization/bit_define.png)
 

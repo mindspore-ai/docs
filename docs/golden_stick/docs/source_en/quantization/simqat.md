@@ -65,8 +65,7 @@ Load MNIST dataset using MindData:
 ds_train = create_dataset(os.path.join(config.data_path), config.batch_size)
 ```
 
-In the code, `create_dataset` is referenced from [dataset.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/src/dataset.py).
- `config.data_path` and `config.batch_size` are configured in the [configuration file](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/golden_stick/quantization/simqat/lenet_mnist_config.yaml).
+In the code, `create_dataset` is referenced from [dataset.py](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/src/dataset.py). `config.data_path` and `config.batch_size` are configured in the [configuration file](https://gitee.com/mindspore/models/blob/master/research/cv/lenet/golden_stick/quantization/simqat/lenet_mnist_config.yaml).
 
 ### Defining the Original Network
 
@@ -171,7 +170,7 @@ config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_steps,
 ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory="./ckpt", config=config_ck)
 ```
 
-### Training the network and saving the checkpoint file
+### Training the Network and Saving the checkpoint File
 
 Call `train` method of class `Model` to start training:
 
@@ -205,7 +204,7 @@ epoch:10 step: 1875, loss is 0.00027961225
 Train epoch time: 8544.641 ms, per step time: 4.552 ms
 ```
 
-### Evaluate network and comparing the accuracy
+### Evaluating Network and Comparing the Accuracy
 
 Obtain the accuracy of the common training network according to the steps in the [LeNet model repository](https://gitee.com/mindspore/models/tree/master/research/cv/lenet).
 
