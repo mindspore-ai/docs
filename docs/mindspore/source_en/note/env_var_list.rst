@@ -26,7 +26,7 @@ Operators Compile
      - The number of parallel operator build processes ranges from 1 to 24.
      -
    * - MS_COMPILER_CACHE_ENABLE
-     - Specifies whether to save or load the cache of the graph compiled by front-end. 
+     - Specifies whether to save or load the compile cache.
        The function is the same as the `enable_compile_cache <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ in MindSpore context.
 
        Note: This environment variable has lower precedence than the context `enable_compile_cache`.
@@ -520,6 +520,107 @@ Debugger
 
 For more information, see `Debugger <https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html>`_.
 
+Network Compilation
+-------------------
+
+.. list-table::
+   :widths: 20 20 10 30 20
+   :header-rows: 1
+
+   * - Environment Variable
+     - Function
+     - Type
+     - Value Range
+     - Description
+   * - MS_DEV_JIT_SYNTAX_LEVEL
+     - Specify the syntax support level of static graph mode.
+     - Integer
+     - 0: Specify the syntax support level of static graph mode as STRICT level. Only basic syntaxes is supported, and execution performance is optimal. Can be used for MindIR load and export.
+
+       2: Specify the syntax support level of static graph mode as LAX level. More complex syntaxes are supported, compatible with all Python syntax as much as possible. Cannot be used for MindIR load and export due to some syntax that may not be able to be exported.
+     - 
+   * - MS_JIT_MODULES
+     - Specify which modules in static graph mode require JIT static compilation, and their functions and methods will be compiled into static calculation graphs.
+     - String
+     - The module name, corresponding to the name of the imported top-level module. If there are more than one, separate them with commas. For example, `export MS_JIT_MODULES=mindflow,mindyolo`.
+     - By default, modules other than third-party libraries will be perform JIT static compilation, and MindSpore suites such as `mindflow` and `mindyolo` will not be treated as third-party libraries. See `Calling the Third-party Libraries <https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#calling-the-third-party-libraries>`_ for more details. If there is a module similar to MindSpore suites, which contains `nn.Cell`, `@ms.jit` decorated functions or functions to be compiled into static calculation graphs, you can configure the environment variable, so that the module will be perform JIT static compilation instead of being treated as third-party library.
+   * - MS_JIT_IGNORE_MODULES
+     - Specify which modules are treated as third-party libraries in static graph mode without JIT static compilation. Their functions and methods will be interpreted and executed.
+     - String
+     - The module name, corresponding to the name of the imported top-level module. If there are more than one, separate them with commas. For example, `export MS_JIT_IGNORE_MODULES=numpy,scipy`.
+     - Static graph mode can automatically recognize third-party libraries, and generally there is no need to set this environment variable for recognizable third-party libraries such as NumPy and Scipy. If `MS_JIT_IGNORE_MODULES` and `MS_JIT_MODULES` specify the same module name at the same time, the former takes effect and the latter does not.
+   * - MS_DEV_FALLBACK_DUMP_NODE
+     - Print syntax expressions supported by `Static Graph Syntax Enhancement <https://www.mindspore.cn/docs/en/master/design/dynamic_graph_and_static_graph.html#static-graph-syntax-enhancement>`_ in the code.
+     - Integer
+     - 1: Enable printing.
+
+       No setting or other value: Disable printing.
+     -
+   * - MS_JIT
+     - Specify whether to use just-in-time compilation.
+     - Integer
+     - 0: Do not use just-in-time compilation, and the network script is executed directly in dynamic graph (PyNative) mode.
+
+       No setting or other value: Determine whether to execute static graph (Graph) mode or dynamic graph (PyNative) mode according to the network script.
+     -
+   * - MS_DEV_FORCE_USE_COMPILE_CACHE
+     - Specify whether to use the compilation cache directly without checking whether the network script has been modified.
+     - Integer
+     - 1: Do not check whether the network script has been modified, directly use the compilation cache. It is recommended to only use it during debugging. For example, the network script only adds print statements for printing and debugging.
+
+       No setting or other value: Detect changes in network scripts, and only use the compilation cache when the network scripts have not been modified.
+     -
+   * - MS_DEV_SIDE_EFFECT_LOAD_ELIM
+     - Optimize redundant memory copy operations.
+     - Integer
+     - 0: Do not do video memory optimization, occupy the most video memory.
+
+       1: Conservatively do some memory optimization.
+
+       2: Under the premise of losing a certain amount of compilation performance, optimize the video memory as much as possible.
+
+       3: The accuracy of the network is not guaranteed, and the memory consumption is minimal.
+
+       Default: 1
+     -
+   * - MS_DEV_SAVE_GRAPHS
+     - Specify whether to save IR files.
+     - Integer
+     - 0: Disable saving IR files.
+       
+       1: Some intermediate files will be generated during graph compilation.
+       
+       2: Based on level1, generate more IR files related to backend process.
+      
+       3: Based on level2, generate visualization computing graphs and detailed frontend IR graphs.
+     -
+   * - MS_DEV_SAVE_GRAPHS_PATH
+     - Specify path to save IR files.
+     - String
+     - Path to save IR files.
+     -
+   * - MS_DEV_DUMP_IR_FORMAT
+     - Configure what information is displayed in IR graphs.
+     - Integer
+     - 0: Except for the return node, only the operator and operand of the node are displayed, and the detailed information of subgraph is simplified.
+
+       1: Display all information except debug info and scope.
+
+       2 or not set: Display all information.
+     -
+   * - MS_DEV_DUMP_IR_INTERVAL
+     - Set to save an IR file every few IR files to reduce the number of IR files. 
+     - Integer
+     - 1 or not set: Save all IR files.
+
+       Other values: Save IR files at specified intervals.
+     -
+   * - MS_DEV_DUMP_IR_PASSES
+     - Specify which IR files to save based on the file name.
+     - String
+     - Pass's name of part of its name. If there are multiple, use commas to separate them. For example, `export MS_DEV_DUMP_IR_PASSES=recompute,renormalize`.
+     -
+
 CANN
 -----
 
@@ -552,25 +653,6 @@ Other
 
        1: non-task sinking mode.
      - 
-   * - MS_DEV_JIT_SYNTAX_LEVEL
-     - Fallback function is enabled when the environment variable is set to 2.
-     - Integer
-     - 2: enables fallback function
-
-       0: disables fallback function
-
-       Default: 2
-     - 
-   * - MS_JIT_MODULES
-     - Specifies which modules in static graph mode require JIT static compilation, and their functions and methods will be compiled into static calculation graphs.
-     - String
-     - The module name, corresponding to the name of the imported top-level module. If there are more than one, separate them with commas. For example, `export MS_JIT_MODULES=mindflow,mindyolo`.
-     - By default, modules other than third-party libraries will be perform JIT static compilation, and MindSpore suites such as `mindflow` and `mindyolo` will not be treated as third-party libraries. If there is a module similar to MindSpore suites, which contains `nn.Cell`, `@ms.jit` decorated functions or functions to be compiled into static calculation graphs, you can configure the environment variable, so that the module will be perform JIT static compilation instead of being treated as third-party library.
-   * - MS_JIT_IGNORE_MODULES
-     - Specifies which modules are treated as third-party libraries in static graph mode without JIT static compilation. Their functions and methods will be interpreted and executed.
-     - String
-     - The module name, corresponding to the name of the imported top-level module. If there are more than one, separate them with commas. For example, `export MS_JIT_IGNORE_MODULES=numpy,scipy`.
-     - Static graph mode can automatically recognize third-party libraries, and generally there is no need to set this environment variable for recognizable third-party libraries such as NumPy and Scipy. If `MS_JIT_IGNORE_MODULES` and `MS_JIT_MODULES` specify the same module name at the same time, the former takes effect and the latter does not.
    * - MS_EXCEPTION_DISPLAY_LEVEL
      - Control the display level of exception information
      - Integer
@@ -600,26 +682,6 @@ Other
 
        subgraph name (such as kernel_graph_1) : skip the execution of subgraph kernel_graph_1, used for subgraph sink mode
      - 
-   * - MS_DEV_SAVE_GRAPTHS_SORT_MODE
-     - Choose the sort mode of the graphs printed in the ir files.
-     - Integer
-     - 0: print default ir file
-
-       1: print deep sorted ir file
-     -
-   * - MS_DEV_SIDE_EFFECT_LOAD_ELIM
-     - Optimize redundant memory copy operations.
-     - Integer
-     - 0: Do not do video memory optimization, occupy the most video memory.
-
-       1: Conservatively do some memory optimization.
-
-       2: Under the premise of losing a certain amount of compilation performance, optimize the video memory as much as possible.
-
-       3: The accuracy of the network is not guaranteed, and the memory consumption is minimal.
-
-       Default: 1
-     -
    * - MS_PYNATIVE_GE
      - Whether GE is executed in PyNative mode.
      - Integer

@@ -103,7 +103,7 @@ def supervise_export(args_opt):
     print('Context setting is done! Time cost: {}'.format(time() - start))
     start = time()
 
-    # Build mode
+    # Build model
     albert_model_cls = AlbertModelCLS(client_net_cfg)
     network_with_cls_loss = NetworkWithCLSLoss(albert_model_cls)
     network_with_cls_loss.set_train(True)
@@ -165,7 +165,8 @@ For details about how to generate a model file on the device, see [Implementing 
 
 ## Starting the Federated Learning Process
 
-Start the script on the server. For details, see [Cloud-based Deployment](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_server.html)
+Start the script on the server. For details, see [Cloud-based Deployment](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_server.html).
+For corresponding cloud-side configuration and model weights document, refer to [albert example](https://gitee.com/mindspore/federated/tree/master/example/cross_device_albert).
 
 Based on the training and inference tasks of the ALBERT model, the overall process is as follows:
 
@@ -191,15 +192,15 @@ Create a project in Android Studio and install the corresponding SDK. (After the
 
 1. Obtain MindSpore Lite AAR package
 
-    For details, see [Mindspore Lite](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html).
+   For details, see [Mindspore Lite](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html).
 
-    ```text
+   ```text
    mindspore-lite-full-{version}.aar
    ```
 
 2. Obtain Mindspore Federated device-side jar package
 
-    For details, see [On-Device Deployment](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html).
+   For details, see [On-Device Deployment](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html).
 
    ```text
    mindspore_federated/device_client/build/libs/jarAAR/mindspore-lite-java-flclient.jar
@@ -529,7 +530,7 @@ app
 
     ![run_app](./images/start_android_project.png)
 
-2. For details about how to connect the Android Studio to a device for debugging, see <https://developer.android.com/studio/run/device>. Android Studio can identify the mobile phone only when USB debugging mode is enabled on the mobile phone. For Huawei phones, enable USB debugging mode by choosing Settings > System & updates > Developer options > USB debugging.
+2. For details about how to connect the Android Studio to a device for debugging, see <https://developer.android.com/studio/run/device>. Android Studio can identify the mobile phone only when USB debugging mode is enabled on the mobile phone. For Huawei phones, enable USB debugging mode by choosing `Settings > System & updates > Developer options > USB debugging`.
 
 3. Continue the installation on the Android device. After the installation is complete, you can start the app to train and infer the ALBERT model for federated learning.
 

@@ -23,7 +23,7 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 | 硬件平台   | Docker镜像仓库                | 标签                       | 说明                                       |
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
 | CPU    | `mindspore/mindspore-cpu` | `x.y.z`                  | 已经预安装MindSpore `x.y.z` CPU版本的生产环境。       |
-|        |                           | `devel`                  | 提供开发环境从源头构建MindSpore（`CPU`后端）。安装详情请参考<https://www.mindspore.cn/install> 。 |
+|        |                           | `devel`                  | 提供开发环境从源头构建MindSpore（`CPU`后端）。安装详情请参考<https://www.mindspore.cn/install>。 |
 |        |                           | `runtime`                | 提供运行时环境，未安装MindSpore二进制包（`CPU`后端）。         |
 
 > `x.y.z`对应MindSpore版本号，例如安装1.1.0版本MindSpore时，`x.y.z`应写为1.1.0。

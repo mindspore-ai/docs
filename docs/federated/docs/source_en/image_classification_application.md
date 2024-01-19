@@ -163,17 +163,17 @@ Taking the LeNet network as an example, some of the input parameters in the `run
 
 - `--lite_jar_path`
 
-    For setting the path of jar package `mindspore-lite-java.jar` of mindspore lite, which is located in `mindspore-lite-{version}-linux-x64.tar.gz`. For x86 environment federated learning jar package acquisition,, see [Compile package process in device-side deployment](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html).
+    For setting the path of jar package `mindspore-lite-java.jar` of mindspore lite, which is located in `mindspore-lite-{version}-linux-x64.tar.gz`. For x86 environment federated learning jar package acquisition, see [Compile package process in device-side deployment](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html).
 
-- `--train_dataset`
+- `--train_data_dir`
 
     The root path of the training dataset in which the LeNet image classification task is stored is the training data.bin file and label.bin file for each client, e.g. `data/femnist/3500_clients_bin/`.
 
-- `--flName`
+- `--fl_name`
 
     Specifies the package path of model script used by federated learning. We provide two types of model scripts for your reference ([Supervised sentiment classification task](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [Lenet image classification task](https://gitee.com/mindspore/federated/tree/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). For supervised sentiment classification tasks, this parameter can be set to the package path of the provided script file [AlBertClient.java](https://gitee.com/mindspore/federated/blob/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert/AlbertClient.java), like as `com.mindspore.flclient.demo.albert.AlbertClient`. For Lenet image classification tasks, this parameter can be set to the package path of the provided script file [LenetClient.java](https://gitee.com/mindspore/federated/blob/master/example/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet/LenetClient.java), like as `com.mindspore.flclient.demo.lenet.LenetClient`. At the same time, users can refer to these two types of model scripts, define the model script by themselves, and then set the parameter to the package path of the customized model file ModelClient.java (which needs to inherit from the class [Client.java](https://gitee.com/mindspore/federated/blob/master/mindspore_federated/device_client/src/main/java/com/mindspore/flclient/model/Client.java)).
 
-- `--train_model_path`
+- `--train_model_dir`
 
     Specifies the training model path used for federated learning. The path is the directory where multiple .ms files copied in the preceding tutorial are stored, for example, `ms/lenet`. The path must be an absolute path.
 
@@ -300,7 +300,7 @@ For different interfaces and scenarios, you only need to modify specific paramet
     INFO: <FLClient> [getModel] get response from server ok!
     ```
 
-### Stop the client process
+### Stopping the Client Process
 
 For details, see the [finish.py](https://gitee.com/mindspore/federated/blob/master/example/cross_device_lenet_femnist/simulate_x86/finish.py) script. The details are as follows:
 

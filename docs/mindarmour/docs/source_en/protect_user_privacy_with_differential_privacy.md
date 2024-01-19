@@ -62,7 +62,7 @@ TAG = 'Lenet5_train'
 
 ### Configuring Parameters
 
-1. Set the running environment, dataset path, model training parameters, checkpoint storage parameters, and differential privacy parameters. Replace 'data_path' with your data path. For more configurations, see <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_config.py>.
+1. Set the running environment, dataset path, model training parameters, checkpoint storage parameters, and differential privacy parameters. Replace `data_path` with your data path. For more configurations, see <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_config.py>.
 
     ```python
     cfg = edict({
@@ -304,13 +304,15 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
     LOGGER.info(TAG, "============== Accuracy: %s  ==============", acc)
     ```
 
-4. Run the following command to execute the script:
+4. Run the following command
+
+    To run the script, input commands at the command line:
 
     ```bash
     python lenet5_dp.py
     ```
 
-   In the preceding command, replace `lenet5_dp.py` with the name of your script.
+   Replace `lenet5_dp.py` with the name of your script.
 
 5. Display the result.
 

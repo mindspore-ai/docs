@@ -90,7 +90,7 @@ Execute the `export_matmul.py` script to generate the `matmul_0.mindir` and `mat
 
 #### Configuring the Service
 
-Start Serving with the following files:
+To start the inference service, see [matmul_multi_subgraphs](https://gitee.com/mindspore/serving/tree/master/example/matmul_multi_subgraphs), which requires the following list of files:
 
 ```text
 matmul_multi_subgraphs

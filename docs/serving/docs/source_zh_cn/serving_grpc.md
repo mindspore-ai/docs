@@ -10,7 +10,7 @@ MindSpore Serving提供gRPC接口访问Serving服务。在Python环境下，我�
 
 ## add样例
 
-样例来源于[add example](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_client.py) ，`add` Servable提供的`add_common`方法提供两个2x2 Tensor相加功能。其中gRPC Python客户端代码如下所示，一次gRPC请求包括了三对独立的2x2 Tensor：
+样例来源于[add example](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_client.py)，`add` Servable提供的`add_common`方法提供两个2x2 Tensor相加功能。其中gRPC Python客户端代码如下所示，一次gRPC请求包括了三对独立的2x2 Tensor：
 
 ```python
 from mindspore_serving.client import Client
@@ -59,7 +59,7 @@ if __name__ == '__main__':
 
    构造`Client`时，指示Serving的网络地址，并给定Servable名称和它提供的方法。这里的Servable可以是单个模型，也可以是多个模型的组合，多个模型组合提供Servable当前尚未支持，一个Servable可以通过提供多种方法来提供不同的服务。
 
-   上面的`add`样例， Serving运行在本地（`localhost`），指定的gRPC端口号为`5500`，运行了`add` Servable，`add` Servable提供了`add_common`方法。
+   上面的`add`样例，Serving运行在本地（`localhost`），指定的gRPC端口号为`5500`，运行了`add` Servable，`add` Servable提供了`add_common`方法。
 
 2. 添加实例。
 
@@ -71,7 +71,7 @@ if __name__ == '__main__':
 
    - `numpy array`：用以表示Tensor。例如：np.ones((3,224), np.float32)。
    - `numpy number`：用以表示Scalar。例如：np.int8(5)。
-   - `python bool int float`：用以表示Scalar, 当前int将作为int64, float将作为float64。例如：32.0。
+   - `python bool int float`：用以表示Scalar，当前int将作为int64，float将作为float64。例如：32.0。
    - `python str`：用以表示字符串。例如："this is a text"。
    - `python bytes`：用以表示二进制数据。例如：图片数据。
 

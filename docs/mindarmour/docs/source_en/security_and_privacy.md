@@ -38,7 +38,7 @@ For details, see [Testing Model Security Using Fuzz Testing](https://www.mindspo
 
 For details, see [Protecting User Privacy with Differential Privacy Mechanism](https://www.mindspore.cn/mindarmour/docs/en/master/protect_user_privacy_with_differential_privacy.html).
 
-## Suppress Privacy Training
+## Suppressing Privacy Training
 
 ### SuppressModel
 

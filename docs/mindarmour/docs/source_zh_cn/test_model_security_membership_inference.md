@@ -275,7 +275,7 @@ def vgg16(num_classes=1000, args=None, phase="train"):
     ```
 
 5. 实验结果。
-    执行如下指令,开始成员推理训练和评估：
+    执行如下指令，开始成员推理训练和评估：
 
     ```bash
     python example_vgg_cifar.py --data_path ./cifar-100-binary/ --pre_trained ./VGG16-100_781.ckpt

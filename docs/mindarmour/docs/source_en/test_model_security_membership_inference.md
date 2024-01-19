@@ -259,7 +259,7 @@ def vgg16(num_classes=1000, args=None, phase="train"):
     metrics = ["precision", "accuracy", "recall"]
     ```
 
-4. Train the membership inference model.
+4. Train the membership inference model and give evaluation results.
 
     ```python
     inference = MembershipInference(model)                  # Get inference model.
@@ -274,7 +274,9 @@ def vgg16(num_classes=1000, args=None, phase="train"):
         print("Method: {}, {}".format(config[i]["method"], result[i]))
     ```
 
-5. Run the following command to start member inference training and evaluation to obtain the result:
+5. Results.
+
+    Run the following command to start member inference training and evaluation:
 
     ```bash
     python example_vgg_cifar.py --data_path ./cifar-100-binary/ --pre_trained ./VGG16-100_781.ckpt

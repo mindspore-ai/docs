@@ -13,7 +13,7 @@ Data Preparation Performance Analysis
 
 *Figure:Data Preparation Performance Analysis*
 
-Figure above displays the page of data preparation performance analysis
+The above figure displays the page of data preparation performance analysis
 component. It consists of two tabs: the step gap and the data process.
 
 The step gap page is used to analyse whether there is performance
@@ -43,7 +43,7 @@ queue graphs:
 
 *Figure:Data Process Pipeline Analysis*
 
-Figure above displays the page of data process pipeline analysis. The data
+The above figure displays the page of data process pipeline analysis. The data
 queues are used to exchange data between the data processing operations.
 The data size of the queues reflect the data consume speed of the
 operations, and can be used to infer the bottleneck operation. The queue
@@ -78,4 +78,4 @@ suggestions:
   of ``prefetch_size``.
 
 .. note::
-   To obtain data to prepare performance data, using the module of MindSpore Dataset to define data process pipeline.
+   To obtain data to prepare performance data, using the module of MindSpore Dataset to define data preprocessing pipeline.

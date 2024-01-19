@@ -45,7 +45,7 @@ AI Fuzzer主要包括三个模块：
 
 1. Natural Threat/Adversarial Example Generator（数据变异模块）：
 
-    随机选择变异方法对种子数据变异生成多个变种。支持多种样本的变异策略， 包括：
+    随机选择变异方法对种子数据变异生成多个变种。支持多种样本的变异策略，包括：
 
     1. 自然扰动样本生成方法：
       - 仿射变换类方法：Translate、Scale、Shear、Rotate、Perspective、Curve；

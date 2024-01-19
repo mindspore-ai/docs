@@ -268,6 +268,8 @@
                                                                               "intervals": [interval_1, interval_2
                                                                                            ]},
                                                            device_ids=[1, 2])
+        # clean the checkpoint
+        summary_landscape.clean_ckpt()
    ```
 
    - `callback_fn`: 用户需要定义函数`callback_fn`，该函数没有输入，返回`model(mindspore.train.Model)`，`network(mindspore.nn.Cell)`，`dataset(mindspore.dataset)`，`metrics(mindspore.train.Metrics)` 。

@@ -60,7 +60,7 @@ Recommended usage of perfetto:
 How to use timeline to solve practical problems：
 
 1. Firstly, we recommend filtering and download summary data containing all ranks and graphs,
-   Identify performance bottlenecks based on overall network execution to avoid premature optimization.
+   identify performance bottlenecks based on overall network execution to avoid premature optimization.
 2. Then, by filtering and downloading detailed data for certain ranks and graphs,
    further identify performance bottlenecks at the API level and identify optimization points.
 3. After optimizing the code, repeat the step 1 and 2 above until the performance meets the requirements.

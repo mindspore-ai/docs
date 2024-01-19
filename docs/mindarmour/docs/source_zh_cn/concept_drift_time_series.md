@@ -16,7 +16,7 @@
 3. 调用概念漂移检测函数。
 4. 查看结果。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/reliability/concept_drift_time_series.py> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/reliability/concept_drift_time_series.py>。
 
 ## 准备环节
 
@@ -58,7 +58,7 @@ DATA_FILE = r'archive/individual_stocks_5yr/individual_stocks_5yr/AEE_data.csv'
 data = np.loadtxt(DATA_FILE, str, delimiter=",")
 ```
 
-`data`数据包含包含了`date`，`open`，`high`，`low`，`close`，`volume`，`Name`列 ，其中`open`，`high`，`low`，`close`，`volume`为数值列，可以选择数值列中的某一列或某几列进行概念漂移检测。
+`data`数据包含包含了`date`，`open`，`high`，`low`，`close`，`volume`，`Name`列，其中`open`，`high`，`low`，`close`，`volume`为数值列，可以选择数值列中的某一列或某几列进行概念漂移检测。
 
 ```python
 data = data[1:, 2].astype('float64')  # 选择第2列
@@ -94,7 +94,7 @@ concept = ConceptDriftCheckTimeSeries(window_size=100, rolling_window=10, step=1
 - `rolling_window(int)`：平滑窗口。数值大小 [1, `window_size`]。默认值：10。
 - `step(int)`: 窗口滑动步长。数值范围在 [1,`window_size`]之间。默认值：10。
 - `threshold_index(float)`：阈值系数。阈值系数越高，阈值越大。默认值: 1.5。
-- `need_label(bool)`：标签需求。False或True。如果为True， 表明需要概念漂移标签。如果为False， 则不需要概念漂移标签。默认值：False。
+- `need_label(bool)`：标签需求。False或True。如果为True，表明需要概念漂移标签。如果为False，则不需要概念漂移标签。默认值：False。
 
 ## 启动概念漂移检测
 

@@ -23,7 +23,7 @@ FLParameter is used to define parameters related to federated learning.
 | public void setCertPath(String certPath)                     |
 | public SSLSocketFactory getSslSocketFactory()                |
 | public void setSslSocketFactory(SSLSocketFactory sslSocketFactory) |
-| public X509TrustManager getX509TrustManager(                 |
+| public X509TrustManager getX509TrustManager()                 |
 | public void setX509TrustManager(X509TrustManager x509TrustManager) |
 | public IFLJobResultCallback getIflJobResultCallback()        |
 | public void setIflJobResultCallback(IFLJobResultCallback iflJobResultCallback) |
@@ -51,7 +51,7 @@ FLParameter is used to define parameters related to federated learning.
 | public void setValidInterval(long validInterval)             |
 | public int getThreadNum()                                    |
 | public void setThreadNum(int threadNum)                      |
-| public int getCpuBindMode(                                   |
+| public int getCpuBindMode()                                   |
 | public void setCpuBindMode(BindMode cpuBindMode)             |
 | public List<String/> getHybridWeightName(RunType runType)    |
 | public void setHybridWeightName(List<String/> hybridWeightName, RunType runType) |
@@ -128,7 +128,7 @@ Used to set the url for device-cloud communication. Currently, https and http co
 public String getClientID()
 ```
 
-The method `getClientID` is used to obtain the unique ID of the client, the ID also can be used to generate related certificates in the device-cloud security authentication scenario.
+A clientID that uniquely identifies the client is automatically generated before each federated learning task is started (if the user needs to set the clientID, setClientID is used to set before the federated learning training task is started), and this method is used to obtain the ID, which can be used to generate the relevant certificates in the device-cloud security authentication scenarios.
 
 - Return value
 
@@ -140,7 +140,7 @@ The method `getClientID` is used to obtain the unique ID of the client, the ID a
 public void setClientID(String clientID)
 ```
 
-Each time the federated learning task is started, a unique client ID will be automatically generated in the program, if the user needs to set the clientID by himself,  he can set the ID by calling the method `setClientID` before starting the federated learning training task.
+Used to set the clientID that uniquely identifies the client.
 
 - Parameter
 
@@ -156,7 +156,7 @@ Obtains the self-signed root certificate path used for device-cloud HTTPS commun
 
 - Return value
 
-    The self-signed root certificate pat of the string type.
+    The self-signed root certificate path of the string type.
 
 ## setCertPath
 

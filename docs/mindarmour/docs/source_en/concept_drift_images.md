@@ -5,7 +5,7 @@
 ## Overview
 
 Concept drift of image data is an important data phenomenon in the AI learning field. It is also called out-of-distribution (OOD), which indicates that the image data (real-time distribution) in online inference is inconsistent with the training data (historical distribution).
- For example, if the neural network model is obtained through training based on the MNIST dataset, but the actual test data is in the CIFAR-10 data environment, the CIFAR-10 dataset is an OOD sample.
+For example, if the neural network model is obtained through training based on the MNIST dataset, but the actual test data is in the CIFAR-10 data environment, the CIFAR-10 dataset is an OOD sample.
 
 This example provides a method for detecting a distribution change of image data. An overall process is as follows:
 
@@ -84,7 +84,7 @@ The `layer` is used to name the neural network layer. You can use the following 
 
 1. Import the `TensorSummary` module.
 2. Add `self.summary = TensorSummary()` to the initialization function `__init__`.
-3. Add `self.summary(`name`, x)` after the constructor function of each layer of the neural network.
+3. Add `self.summary('name', x)` after the constructor function of each layer of the neural network.
 
 In this test case, the KMeans function in sklearn is used for feature clustering analysis. Therefore, the input data dimension of KMeans must be two-dimensional. LeNet is used as an example. The features of the fully-connected layer and ReLU layer from the bottom five layers are extracted. The data dimensions meet the KMeans requirements.
 

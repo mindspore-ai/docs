@@ -398,7 +398,7 @@ MindSpore Lite provides the following methods to obtain the model's output `MSTe
 
     The following sample code shows how to obtain the output `MSTensor` from `Model` using the `GetOutputs` method and print the first ten data or all data records of each output `MSTensor`.
 
-   ```cpp
+    ```cpp
     auto out_tensors = model->GetOutputs();
     for (auto out_tensor : out_tensors) {
       std::cout << "tensor name is:" << out_tensor.Name() << " tensor size is:" << out_tensor.DataSize()
@@ -442,8 +442,8 @@ struct CallBackParam {
 };
 
 /// \brief KernelCallBack defined the function pointer for callBack.
-using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs, std::vector<tensor::MSTensor *> outputs, const CallBackParam &opInfo)>;
-
+using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs,
+ std::vector<tensor::MSTensor *> outputs,  const CallBackParam &opInfo)>;
 ```
 
 The following sample code demonstrates how to define two callback functions, the first will be called before running each layer, and the second after running it.
@@ -452,15 +452,16 @@ The following sample code demonstrates how to define two callback functions, the
 // Assuming model is a valid instance of Model and that data was assigned to the input tensors
 
 // Definition of a callback function that will be called before forwarding operator
-bool before_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs, const std::vector<mindspore::tensor::MSTensor *> &outputs,
+bool before_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs,
+ const std::vector<mindspore::tensor::MSTensor *> &outputs,
  const mindspore::MSCallBackParam &call_param) {
     std::cout << call_param.node_name << std::endl;
     std::cout << "Before forwarding: input size is " << inputs.size() << std::endl;
     return true;
 };
-
 // Definition of callback function that will be called after forwarding operator
-bool after_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs, const std::vector<mindspore::tensor::MSTensor *> &outputs,
+bool after_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs,
+ const std::vector<mindspore::tensor::MSTensor *> &outputs,
  const mindspore::MSCallBackParam &call_param) {
     std::cout << "After forwarding: output size is " << outputs.size() << std::endl;
     return true;
@@ -469,8 +470,8 @@ bool after_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs, co
 // Hand over the callback functions to RunGraph when performing the training or inference
 ret = model_->Train(epochs_, train_ds_, {&before_callback, &after_callback});
 if (ret != RET_OK) {
-    MS_LOG(ERROR) << "Run graph failed.";
-    return RET_ERROR;
+  MS_LOG(ERROR) << "Run graph failed.";
+  return RET_ERROR;
 }
 ```
 

@@ -56,7 +56,7 @@ Wide&Deep网络原理特性的详细介绍，可参考[MindSpore ModelZoo - Wide
 
 本样例以Shell脚本拉起Python程序的形式运行。
 
-1. 参考[MindSpore官网指引](https://www.mindspore.cn/install) ，安装MindSpore 1.8.1或更高版本。
+1. 参考[MindSpore官网指引](https://www.mindspore.cn/install)，安装MindSpore 1.8.1或更高版本。
 
 2. 采用安装MindSpore Federated所依赖Python库。
 
@@ -65,7 +65,7 @@ Wide&Deep网络原理特性的详细介绍，可参考[MindSpore ModelZoo - Wide
    python -m pip install -r requirements_test.txt
    ```
 
-3. 拷贝[预处理](#数据集准备) 后的Criteo数据集至本目录下。
+3. 拷贝[预处理](#数据集准备)后的Criteo数据集至本目录下。
 
    ```shell
    cd tests/example/splitnn_criteo

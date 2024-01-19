@@ -29,7 +29,7 @@ run.
 
 *Figure:Statistics for Operator Types*
 
-Figure above displays the statistics for the operator types, including:
+The above figure displays the statistics for the operator types, including:
 
 - Choose pie or bar graph to show the proportion time occupied by each
   operator type. The time of one operator type is calculated by
@@ -42,7 +42,7 @@ Figure above displays the statistics for the operator types, including:
 
 *Figure:Statistics for Operators*
 
-Figure above displays the statistics table for the operators, including:
+The above figure displays the statistics table for the operators, including:
 
 - Choose All: Display statistics for the operators, including operator
   name, type, average execution time, execution frequency, full scope time, information, etc.
@@ -53,6 +53,3 @@ Figure above displays the statistics table for the operators, including:
   all the operators belonging to this type.
 - Search: There is a search box on the right, which can support fuzzy
   search for operators/operator types.
-
-Statistics for the information related to calculation quantity of AICORE
-operator, including operator level and model level information.

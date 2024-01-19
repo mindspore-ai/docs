@@ -8,7 +8,7 @@ MindSpore Armour的Differential-Privacy模块实现了差分隐私训练的能�
 
 ![dp_arch](./images/dp_arch.png)
 
-*<center>图1  差分隐私总体设计</center>*
+*<center>图1 差分隐私总体设计</center>*
 
 图1是差分隐私训练的总体设计，主要由差分隐私噪声机制(DP Mechanisms)、差分隐私优化器(DP Optimizer)、差分隐私监控器(Privacy Monitor)组成。
 
@@ -34,7 +34,7 @@ Monitor提供RDP、ZCDP等回调函数，用于监测模型的差分隐私预算
 
 - RDP<sup>[2]</sup>
 
-    RDP，Rényi Differential Privacy，是一种更通用的基于R'enyi散度的差分隐私定义，利用Rényi散度来度量两个相邻数据集的分布差异。
+    RDP，Rényi Differential Privacy，是一种更通用的基于Rényi散度的差分隐私定义，利用Rényi散度来度量两个相邻数据集的分布差异。
 
 相对于传统差分隐私，ZCDP和RDP都能能够提供更加严格的隐私预算上界保证。
 

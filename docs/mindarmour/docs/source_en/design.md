@@ -104,7 +104,7 @@ The differential-privacy module of MindSpore Armour implements differential priv
 ![dp_arch](./images/dp_arch.png)
 
 - DP optimizer inherits capabilities of the MindSpore optimizer and uses the DP mechanisms to scramble and protect gradients. Currently, MindSpore Armour provides three types of differential privacy optimizers: constant Gaussian optimizer, adaptive Gaussian optimizer, and adaptive clipping optimizer. Each type of differential privacy optimizer improves the differential privacy protection capabilities for common optimizers, such as SGD and Momentum, from different perspectives.
-- Differential privacy (DP) noise mechanisms are the basis for building the differential privacy training capability. Different noise mechanisms meet the requirements of different differential privacy optimizers, including constant Gaussian noise, adaptive Gaussian noise, adaptive Gaussian noise clipping, and Laplacian-based noise mechanism.
+- Noise mechanisms are the basis for building the differential privacy training capability. Different noise mechanisms meet the requirements of different differential privacy optimizers, including constant Gaussian noise, adaptive Gaussian noise, adaptive Gaussian noise clipping, and Laplacian-based noise mechanism.
 - The privacy monitor provides callback functions such as Rényi differential privacy (RDP) and zero-concentrated differential privacy (ZCDP) to monitor the differential privacy budget of the model.
 
 #### Privacy Leakage Assessment
