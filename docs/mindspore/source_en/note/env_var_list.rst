@@ -67,13 +67,6 @@ Operators Compile
 
        false: enable prebuild
      - 
-   * - MS_COMPILER_OP_DEBUG_CONFIG
-     - Setting tbe (including ccec) compilation options
-     - string
-     - oom: detects if Global Memory is out of bounds during the execution of the operator.
-
-       Default: No setting.
-     - Experimental environmental variable.
    * - MINDSPORE_OP_INFO_PATH
      - Specify the path to the operator library load file
      - string
@@ -81,24 +74,6 @@ Operators Compile
 
        Default: No setting.
      - Inference only
-   * - PARA_DEBUG_PATH
-     - dump operator json file, generated in tune_dump directory
-     - Integer
-     - 1: Enable dump operator json file function.
-
-       Do not set or set other values: do not enable this function.
-
-       Default: No setting.
-     -
-   * - ENV_FUSION_CLEAR
-     - When compiling under Ascend, specify whether atomic operators are fused
-     - Integer
-     - 0: Turn off the atomic fusion function.
-
-       1: Turn on the atomic fusion function.
-
-       Default: No setting.
-     - Used only in Ascend AI processor environments. Turning on atomic improves model execution performance, but sometimes tends to introduce accuracy issues, turn it on in extreme performance scenarios. Experimental environment variable.
 
 For more information, see `Incremental Operator Build <https://mindspore.cn/tutorials/experts/en/r2.3/optimize/op_compilation.html>`_ and `FAQ <https://mindspore.cn/docs/en/r2.3/faq/operators_compile.html>`_.
 
@@ -143,22 +118,6 @@ Parallel Training
 
        Do not set or set other values:: communication subgraph extraction and reuse is turned off.
      -
-   * - HCCL_ALGO
-     - Used to configure cross-machine communication algorithms between pooled communication Servers.
-     - String
-     - ring: a parallel scheduling algorithm based on ring structure, which is configured to improve the communication performance when the number of Servers in the cluster is not an integer power of 2.
-
-       H-D_R: Recursive Dichotomizing and Multiplying Recursive algorithm (Halving-doubling Recursive), which is configured to have a better affinity for this algorithm when the number of Servers in the cluster is an integer power of 2, which helps in the communication performance.
-     - Configuration example: HCCL_ALGO="level0:NA;level1:ring"
-       "level0" represents the intra-Server communication algorithm, and the current version only supports configuration as NA.
-       "level1" represents the inter-server communication algorithm, which supports the configuration of "ring" or "H-D_R".
-   * - HCCL_FLAG
-     - Whether to enable HCCL.
-     - Integer
-     - 1: Enable HCCL_ALGO
-
-       0: do not enable HCCL_ALGO
-     - For use in Ascend AI processor GE processes only. Generally no user configuration is required.
    * - DEVICE_ID
      - The ID of the Ascend AI processor, which is the Device's serial number on the AI server.
      - Integer
@@ -413,24 +372,6 @@ Dump Function
      - String
      - 'on', indicating that dump trace ir file in current path
      - Experimental environment variable.
-   * - MS_ACL_DUMP_CFG_PATH
-     - Absolute path to the acl operator dump configuration file in ACL mode
-     - String
-     - File paths, only absolute paths are supported
-     - acl operator dump configuration file `Reference example <https://gitee.com/mindspore/mindspore/blob/r2.3/config/acl_dump_cfg.json>`_.
-       The meaning of each field of the json file:
-       "dump_list": list of operators to dump, when value is empty list, dump all operators.
-
-       "dump_path": path where the dump operator data is stored.
-
-       "dump_mode": dump data mode. Value range: input, output and all, default value: output. Optional.
-           output: the output data of the dump operator.
-           input: the input data of the dump operator.
-           all: input and output data of the dump operator.
-
-       "dump_op_switch": single operator model dump data switch. Value range: on and off. Default value: off. Optional.
-           off: turn off single-operator model dump.
-           on: turn on single-operator model dump.
 
 For more information, see `Using Dump in the Graph Mode <https://www.mindspore.cn/tutorials/experts/en/r2.3/debug/dump.html>`_.
 
@@ -722,91 +663,52 @@ Other
      - String
      - 'on', indicating that disable trace function
      - Experimental environment variable.
-   * - MS_ENABLE_FORMAT_MODE
+   * - MS_FORMAT_MODE
      - Set the default preferred format for Ascend GE processes, with the entire network set to ND format
      - Integer
-     - 1: Enable this function.
+     - 1: The operator prioritizes the ND format.
 
-       Null or other value: not enabled.
+       0: The operator prioritizes private formats.
 
-       Default value: null
-     - Ascend AI processor environment GE process use only, turn on this feature to optimize performance, reduce memory. Experimental environment variable.
-   * - MS_FEA_REFRESHABLE
-     - Enable in-graph task address refresh mode markers
-     - Integer
-     - 1: Enable this function.
+       Default value: 1
+     - This environment variable affects the choice of format for the operator, which has an impact on network execution performance and memory usage, and can be tested by setting this option to get a better choice of operator format in terms of performance and memory.
 
-       Null or other value: not enabled.
-
-       Default value: null
-     - Ascend AI processor environment GE process use only, turn on this feature to reduce memory. Experimental environment variable.
+       Ascend AI processor environment GE processes only.
    * - MS_ENABLE_IO_REUSE
      - Turn on the graph input/output memory multiplexing flag
      - Integer
      - 1: Enable this function.
 
-       Null or other value: not enabled.
+       0: not enabled.
 
-       Default value: null
-     - Ascend AI processor environment GE process use only. Enabling this feature must enable MS_FEA_REFRESHABLE. Enabling this feature can reduce memory. Experimental environment variables.
-   * - MS_DEV_FORCE_ACL
-     - Specifies whether the ACL operator is in effect in PyNative mode.
-     - Integer
-     - 0: enable TBE operator compilation, current PyNative static shape defaults to tbe operator compilation, turn on environment variable to enable ACL operator.
-
-       1: Enable default ACL operator compilation.
-
-       2: Enable non-special format ACL operator compilation.
-
-     - Ascend AI processor environment and  PyNative mode use only. This environment variable will be removed subsequently. Experimental environment variable.
-   * - DISABLE_REUSE_MEMORY
-     - Memory Multiplexing Switch
-     - Integer
-     - 0: Turn on memory multiplexing.
-
-       1: Turn off memory multiplexing.
-
-       Default value: 0.
-
-     - Ascend AI processor environment GE process use only. Experimental  environment variable.
-   * - GE_USE_STATIC_MEMORY
-     - Memory allocation used by the GE process network runtime
-     - Integer
-     - 0: Dynamically allocated memory, i.e. dynamically allocated according to actual size.
-
-       2: Dynamic memory expansion. In training and online inference scenarios, memory multiplexing between multiple graphs in the same session can be realized by this fetch, i.e., the memory required by the largest graph is allocated.
-          For example, assuming that the memory required by the current execution graph exceeds that of the previous graph, the memory of the previous graph is directly freed and reallocated according to the memory required by the current graph.
-
-       Default value: 2.
-
-     - Ascend AI processor environment GE process use only. Experimental  environment variable.
-   * - MS_ENABLE_GE
-     - Enabling the GE Process
-     - Integer
-     - 0: not enable the GE process.
-
-       1: Enabling the GE Process.
-
-       Default value: 0.
-     - For use in Ascend AI processor environments only. Experimental environment variables.
-   * - MS_DEV_ASCEND_FUSION_SWITCH
-     - LICENSE switch of mindspore pass
+       Default value: 0
+     - Ascend AI processor environment GE process use only.
+   * - MS_ASCEND_CHECK_OVERFLOW_MODE
+     - Setting the output mode of floating-point calculation results
      - String
-     - OFF/off/0: turn off
+     - SATURATION_MODE: Saturation mode.
 
-       ON/on/1: turn on
+       INFNAN_MODE: INF/NAN mode.
 
-       Default value: 1.
-     -
-   * - ENABLE_DEVICE_COPY
-     - Enable device-to-device copying
+       Default value: INFNAN_MODE.
+
+     - Saturation mode: Saturates to floating-point extremes (+-MAX) when computation overflows.
+
+       INF/NAN mode: Follows the IEEE 754 standard and outputs INF/NAN calculations as defined.
+
+       Atlas A2 training series use only.
+   * - MS_DISABLE_REF_MODE
+     - Forcibly setting to turn off ref mode
      - Integer
-     - 1: Enable device-to-device copying
+     - 0: Does not turn off ref mode.
 
-       0: Not enable device-to-device copying
+       1: Forcibly turn off ref mode.
 
        Default value: 0.
-     - For Ascend AI processor environments only.
+
+     - This environment variable will be removed subsequently and is not recommended.
+
+       Ascend AI processor environment GE process use only.
    * - ASCEND_OPP_PATH
      - OPP package installation path
      - String
@@ -832,8 +734,3 @@ Other
      - String
      - Absolute path for CUDA package installation
      - Required for GPU environment only, generally no need to set. If multiple versions of CUDA are installed in the GPU environment, it is recommended to configure this environment variable in order to avoid confusion.
-   * - JOB_ID
-     - Training job ID, user-defined.
-     - String
-     - Training job ID, user-defined. Only upper and lower case letters, numbers, underscores and underscores are supported. It is not recommended to use plain numbers starting with 0 as JOB_ID.
-     - For Ascend AI processor environment GE process use only.
