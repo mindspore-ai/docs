@@ -31,7 +31,7 @@ mindspore_xai tabdig <real datafile> <digest file> [--bins <bins>] [--clip-sd <c
 
 `<bins>`：[可选] 数值列的离散化箱数 [2 - 32]，默认值：10。
 
-`<clip sd>`：[可选] 定义离群值的平均值偏离标准差数，离群值将被剪裁。 默认值：3，设置为 0 或以下将不会剪裁离群值。
+`<clip sd>`：[可选] 定义离群值的平均值偏离标准差数，离群值将被剪裁。默认值：3，设置为 0 或以下将不会剪裁离群值。
 
 ### 真实数据格式
 
@@ -41,7 +41,7 @@ mindspore_xai tabdig <real datafile> <digest file> [--bins <bins>] [--clip-sd <c
 
 `<col name>`：列名，允许的正则表达式： `[0-9a-zA-Z_\-]+`
 
-`<col type>`：列类型，选项：'int', 'float', 'str', 'cat'
+`<col type>`：列类型，选项：'int'、'float'、'str'、'cat'
 
 - 'int'：整数
 - 'float'：浮点数

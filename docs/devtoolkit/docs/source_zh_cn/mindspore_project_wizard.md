@@ -14,11 +14,11 @@
 
 ## 使用步骤
 
-1. 选择File -> New Project。
+1. 选择**File** > **New Project**。
 
     ![img](images/clip_image002.jpg)
 
-2. 选择MindSpore。
+2. 选择**MindSpore**。
 
     ![img](images/clip_image004.jpg)
 
@@ -32,7 +32,7 @@
 
       ![img](images/clip_image008.jpg)
 
-    3.3 点击Install按钮，等待下载安装。
+    3.3 点击**Install**按钮，等待下载安装。
 
       ![img](images/clip_image010.jpg)
 
@@ -70,9 +70,9 @@
 
       ![img](images/clip_image021.jpg)
 
-7. 点击Create按钮新建项目，等待MindSpore下载安装成功。
+7. 点击**Create**按钮新建项目，等待MindSpore下载安装成功。
 
-    7.1 点击Create按钮创建MindSpore新项目。
+    7.1 点击**Create**按钮创建MindSpore新项目。
 
       ![img](images/clip_image022.jpg)
 
@@ -90,7 +90,7 @@
 
 9. 验证MindSpore项目是否创建成功。
 
-    * 点击下方Terminal，输入 python -c "import mindspore;mindspore.run_check()" ，查看输出。  如下图，显示了版本号等，表示MindSpore环境可用。
+    * 点击下方Terminal，输入 python -c "import mindspore;mindspore.run_check()" ，查看输出。如下图，显示了版本号等，表示MindSpore环境可用。
 
       ![img](images/clip_image026.jpg)
 
