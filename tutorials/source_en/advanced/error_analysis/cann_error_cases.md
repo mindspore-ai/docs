@@ -9,7 +9,7 @@ export ASCEND_GLOBAL_LOG_LEVEL=1        # CANN log level, 0 for debug, 1 for inf
 export ASCEND_SLOG_PRINT_TO_STDOUT=1    # Configure to enable log displaying
 ```
 
-In addition, if you need to know the network structure and operator information during graph compilation, you can [View Intermediate File](https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/mindir.html) to save intermediate files such as IR graphs for viewing.
+For more CANN errors and log settings, please refer to the 'Troubleshooting' document section of [Ascend Community](https://www.hiascend.com/en/document).
 
 ## AICORE Operator Compilation Problem
 
