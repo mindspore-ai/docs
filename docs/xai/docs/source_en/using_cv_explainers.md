@@ -10,7 +10,7 @@ A saliency map overlay on top of the original image:
 
 ![saliency_overlay](./images/saliency_overlay.png)
 
-There are 2 categories of explainers: gradient based and perturbation based. The gradient based explainers rely on the backpropagation method to compute the pixel importance while the perturbation based explainers exploit random perturbations on the original images.
+There are 2 categories of explainers: gradient-based and perturbation-based. The gradient-based explainers rely on the backpropagation method to compute the pixel importance while the perturbation-based explainers exploit random perturbations on the original images.
 
 | Explainer          | Category        | PYNATIVE_MODE |     GRAPH_MODE     |
 |:------------------:|:---------------:|:-------------:|:------------------:|
@@ -24,7 +24,7 @@ There are 2 categories of explainers: gradient based and perturbation based. The
 
 ## Preparations
 
-### Downloading Data Package
+### Downloading Data Package and Model
 
 First of all, we have to download the data package and put it underneath the `xai/examples/` directory of a local XAI [source package](https://gitee.com/mindspore/xai):
 
@@ -60,14 +60,14 @@ xai/examples/
 - `common/dataset.py`: Dataset loader.
 - `common/resnet.py`: ResNet model definitions.
 - `using_cv_explainers.py`: Example of using explainers.
-- `using_rise_plus.py`: Example of using RISEPlus explainer.
+- `using_rise_plus.py`: Example of using RISEPlus explainer. The usage is different from that of other interpreters.
 - `using_cv_benchmarks.py`: Example of using benchmarks.
 
 ### Preparing Python Environment
 
 The complete code of the tutorial below is [using_cv_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_cv_explainers.py).
 
-In order to explain an image classification predication, we have to have a trained CNN network (`nn.Cell`) and an image to be examined:
+After downloading the example packet, we have to load a trained classifier and an image to be reasoned and interpreted:
 
 ```python
 # have to change the current directory to xai/examples/ first
@@ -179,7 +179,7 @@ The classifier for `OoDNet` must be a subclass of `nn.Cell`, in `__init__()` whi
 
 - defines an `int` member attribute named `num_features` as the number of feature values to be returned by the feature layer.
 
-- defines a `bool` member attribute named `output_features` with `False` as initial value, OoDNet tells the classifier to return the feature tensor in `construct()` by setting `output_features` to `True`.
+- defines a `bool` member attribute named `output_features` with `False` as initial value, `OoDNet` tells the classifier to return the feature tensor in `construct()` by setting `output_features` to `True`.
 
 A LeNet5 example of underlying classifier:
 
