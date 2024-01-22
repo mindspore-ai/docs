@@ -10,7 +10,7 @@
 
 ## Procedure
 
-1. Press **Shift** twice. The global search page is displayed.
+1. Double-click **Shift**. The global search page is displayed.
 
    ![img](images/clip_image060.jpg)
 

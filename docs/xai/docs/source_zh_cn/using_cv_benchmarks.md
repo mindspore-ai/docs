@@ -8,7 +8,7 @@
 
 ## 准备
 
-以下教程的完整代码：[using_cv_benchmarks.py](https://gitee.com/mindspore/xai/blob/master/examples/using_cv_benchmarks.py) 。
+以下教程的完整代码：[using_cv_benchmarks.py](https://gitee.com/mindspore/xai/blob/master/examples/using_cv_benchmarks.py)。
 
 请参阅 [下载教程数据集及模型](https://www.mindspore.cn/xai/docs/zh-CN/master/using_cv_explainers.html#下载教程数据集及模型) 以下载所有本教程所需的文件。
 
