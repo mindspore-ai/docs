@@ -219,8 +219,7 @@ The implementation method is similar to that of the [GCN](https://www.mindspore.
 
 ### Network Training and Validation
 
-Instantiation of the model body STGcnNet and LossNet and optimizer.
-The implementation method is similar to that of the [GCN](https://www.mindspore.cn/graphlearning/docs/en/master/full_training_of_GCN.html#network-training-and-validation-1).
+For the training and validation methods, refer to [GCN](https://www.mindspore.cn/graphlearning/docs/en/master/full_training_of_GCN.html#network-training-and-validation-1).
 
 ## Executing Jobs and Viewing Results
 
@@ -239,7 +238,7 @@ Run the [distributed_run.sh](https://gitee.com/mindspore/graphlearning/blob/mast
     bash distributed_run.sh GPU DATA_PATH
     ```
 
-    {DATA_PATH} indicates the dataset storage path.
+    `{DATA_PATH}` indicates the dataset storage path.
 
 - Ascend
 
@@ -248,9 +247,9 @@ Run the [distributed_run.sh](https://gitee.com/mindspore/graphlearning/blob/mast
     bash bash distributed_run.sh Ascend DATA_PATH RANK_START RANK_SIZE RANK_TABLE_FILE
     ```
 
-    {DATA_PATH} indicates the dataset storage path. {ANK_START} is the first Ascend device id be used. {RANK_SIZE} is numbers of Ascend device be used. {RANK_TABLE_FILE} is root path of 'rank_table_*pcs.json' file.
+    `{DATA_PATH}` indicates the dataset storage path. {ANK_START} is the first Ascend device id be used. `{RANK_SIZE}` is numbers of Ascend device be used. `{RANK_TABLE_FILE}` is root path of 'rank_table_*pcs.json' file.
 
-The training result (of the last five epochs) is as follows:
+The training result is as follows:
 
 ```bash
 ...

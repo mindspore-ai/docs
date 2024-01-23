@@ -94,7 +94,7 @@ For details about GINConv implementation, see the [API](https://gitee.com/mindsp
 
 ## Constructing a Dataset
 
-From mindspore_gl.dataset calls the dataset of IMDB-BINARY,the method can refer to [GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E6%9E%84%E9%80%A0%E6%95%B0%E6%8D%AE%E9%9B%86). Then use mindpoint_gl.dataloader.RandomBatchSampler defines a sampler and returns the sampling index.
+From mindspore_gl.dataset calls the dataset of IMDB-BINARY, the method can refer to [GCN](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/full_training_of_GCN.html#%E6%9E%84%E9%80%A0%E6%95%B0%E6%8D%AE%E9%9B%86). Then use mindpoint_gl.dataloader.RandomBatchSampler defines a sampler and returns the sampling index.
 MultiHomeGraphDataset obtains data from the dataset according to the sampling index, packages the data into a batch, and generates the dataset generator.
 After building a generator, invoke the API of mindspore.dataset.GeneratorDataset to construct a dataloader.
 
