@@ -15,17 +15,37 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
 - 数据处理
 
-  `使用数据Pipeline加载 & 处理数据集 <https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/samples/dataset/dataset_gallery.html>`_
+  **Q: 为什么在迭代数据的时候会报错：The actual amount of data read from generator xx is different from generator.len xx, you should adjust generator.len to make them match ？**
 
-  `图像数据变换 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/beginner/transforms.html#vision-transforms>`_
+  A: 在定义可随机访问数据集时， __len__ 方法返回的结果一定要是真实的数据集大小，设置大了在getitem取值时会有越界问题。如数据集大小未确定，可以使用可迭代数据集，详见 `自定义数据集 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/beginner/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86>`_ 。
 
-  `文本数据变换 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/beginner/transforms.html#text-transforms>`_
 
-  `音频数据变换 <https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/samples/dataset/audio_gallery.html>`_
+  **Q: 为什么在迭代数据的时候会报错：Invalid Python function, the 'source' of 'GeneratorDataset' should return same number of NumPy arrays as specified in column_names, the size of column_names is:xx and number of returned NumPy array is:xx ？**
 
-  `MindSpore和PyTorch的数据处理差异 <https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/dataset.html#数据处理差异对比>`_
+  A: 这是因为GeneratorDataset的 column_names 参数指定的列名数量与 source 参数输出的数据数量不匹配。
 
-  `数据处理调试方法 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/error_analysis/minddata_debug.html#数据处理调试方法>`_
+
+  **Q: 使用 GeneratorDataset 或 map 进行加载/处理数据时，可能会因为语法错误、计算溢出等问题导致数据报错，如何进行排查和调试？**
+
+  A: 观察报错栈信息，由报错栈信息大概定位到出错代码块，在出错的代码块附近添加打印或调试点，进一步调试。详细可参考 `数据处理调试方法一 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/error_analysis/minddata_debug.html#%E6%96%B9%E6%B3%951-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%89%A7%E8%A1%8C%E5%87%BA%E9%94%99%E6%B7%BB%E5%8A%A0%E6%89%93%E5%8D%B0%E6%88%96%E8%B0%83%E8%AF%95%E7%82%B9%E5%88%B0%E4%BB%A3%E7%A0%81%E4%B8%AD%E8%B0%83%E8%AF%95>`_ 。
+
+
+  **Q: 数据增强 map 操作出错，如何调试 map 操作中各个数据处理算子？**
+
+  A: 可以通过单个算子执行的方式调试或者通过数据管道调试模式调试 map 操作。详细可参考 `数据处理调试方法二 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/error_analysis/minddata_debug.html#%E6%96%B9%E6%B3%952-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BAmap%E6%93%8D%E4%BD%9C%E5%87%BA%E9%94%99%E8%B0%83%E8%AF%95map%E6%93%8D%E4%BD%9C%E4%B8%AD%E5%90%84%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%AE%97%E5%AD%90>`_ 。
+
+
+  **Q: 在训练的时候，会获得非常多warning提示我们数据集性能较慢应该怎么处理？**
+
+  A: 可以单独迭代数据集，查看每条数据的处理时间，以此判断数据集的性能如何。详细可参考 `数据处理调试方法三 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/error_analysis/minddata_debug.html#%E6%96%B9%E6%B3%953-%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9A%84%E6%80%A7%E8%83%BD>`_ 。 
+
+
+  **Q: 在对数据进行处理的过程中，如果因为计算错误、数值溢出等因素，产生了异常的结果数值，从而导致训练网络时算子计算溢出、权重更新异常等问题该怎么排查？**
+
+  A: 关闭混洗，固定随机种子，确保可重现性，然后利用NumPy等工具快速校验结果。详细可参考 `数据处理调试方法四 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/error_analysis/minddata_debug.html#%E6%96%B9%E6%B3%954-%E6%A3%80%E6%9F%A5%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%E6%95%B0%E6%8D%AE>`_ 。
+
+
+  更多数据处理常见问题请参考 `数据处理常见问题分析 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/error_analysis/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90>`_ 以及迁移中的数据处理差异请参考 `MindSpore和PyTorch的数据处理差异 <https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/dataset.html#数据处理差异对比>`_ 。
 
 - 网络脚本
 
