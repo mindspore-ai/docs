@@ -15,31 +15,37 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
 
 - Constructing Dataset
 
-  `Load & Process Data With Dataset Pipeline <https://www.mindspore.cn/docs/en/master/api_python/samples/dataset/dataset_gallery.html>`_
+  **Q: Why does it report an error when iterating over the data: The actual amount of data read from generator xx is different from generator.len xx, you should adjust generator.len to make them match ?**
 
-  `Transforms for Image Data <https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html#vision-transforms>`_
+  A: When defining a randomizable datasets, the result returned by the __len__ method must be the real dataset size, if it is set to a large size, there will be an out-of-bounds problem when getitem fetches the value. If the size of the dataset is not defined, you can use an iterable dataset, see `Customize dataset <https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html>`_ for details.
 
-  `Transforms for Text Data <https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html#text-transforms>`_
 
-  `Transforms for Audio Data <https://www.mindspore.cn/docs/en/master/api_python/samples/dataset/audio_gallery.html>`_
+  **Q: Why does it report an error when iterating over the data: Invalid Python function, the 'source' of 'GeneratorDataset' should return same number of NumPy arrays as specified in column_names, the size of column_names is:xx and number of returned NumPy array is:xx ?**
 
-  `Data Pre-Processing Differences Between MindSpore And PyTorch <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/dataset.html#comparison-of-data-processing-differences>`_
+  A: This is because the number of column names specified in the column_names parameter of GeneratorDataset does not match the number of data output by the source parameter.
 
-  `Data Pre-Processing Debugging Methods <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html#data-processing-debugging-methods>`_
 
-- Constructing Dataset
+  **Q: When using GeneratorDataset or map to load/process data, there may be syntax errors, calculation overflow and other issues that cause data errors, how to troubleshoot and debug?**
 
-  `Load & Process Data With Dataset Pipeline <https://www.mindspore.cn/docs/en/master/api_python/samples/dataset/dataset_gallery.html>`_
+  A: Observe the error stack information and locate the error code block from the error stack information, add a print or debugging point near the block of code where the error occurred, to further debugging. For details, please refer to `Data Processing Debugging Method 1 <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html#method-1-errors-in-data-processing-execution,-print-logs-or-add-debug-points-to-code-debugging>`_ .
 
-  `Transforms for Image Data <https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html#vision-transforms>`_
 
-  `Transforms for Text Data <https://www.mindspore.cn/tutorials/en/master/beginner/transforms.html#text-transforms>`_
+  **Q: How to test the each data processing operator in the map operation if data-enhanced map operation error is reported?**
 
-  `Transforms for Audio Data <https://www.mindspore.cn/docs/en/master/api_python/samples/dataset/audio_gallery.html>`_
+  A: Map operation can be debugged through the execution of individual operators or through data pipeline debugging mode. For details, please refer to `Data Processing Debugging Method 2 <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html#method-2-data-enhanced-map-operation-error,-testing-the-each-data-processing-operator-in-the-map-operation>`_ .
 
-  `Data Pre-Processing Differences Between MindSpore And PyTorch <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/dataset.html#comparison-of-data-processing-differences>`_
 
-  `Data Pre-Processing Debugging Methods <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html#data-processing-debugging-methods>`_
+  **Q: While training, we will get very many WARNINGs suggesting that our dataset performance is slow, how should we handle this?**
+  
+  A: It is possible to iterate through the dataset individually and see the processing time for each piece of data to determine how well the dataset is performing. For details, please refer to `Data Processing Debugging Method 3 <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html#method-3-testing-data-processing-performance>`_ .
+
+
+  **Q: In the process of processing data, if abnormal result values are generated due to computational errors, numerical overflow, etc., resulting in operator computation overflow and weight update anomalies during network training, how should we troubleshoot them?**
+
+  A: Turn off shuffling and fix random seeds to ensure reproductivity, and then use tools such as NumPy to quickly verify the results. For details, please refer to `Data Processing Debugging Method 4 <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html#method-4-checking-for-exception-data-in-data-processing>`_ .
+
+
+  For more common data processing problems, please refer to `Analyzing Common Data Processing Problems <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html#analyzing-common-data-processing-problems>`_ , and for differences in data processing during migration, please refer to `Data Pre-Processing Differences Between MindSpore And PyTorch <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/dataset.html#comparison-of-data-processing-differences>`_ .
 
 - Network Scripts
 
