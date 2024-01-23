@@ -26,9 +26,9 @@ A: The dot API provided by MindSpore Graph Learning is used to perform the dot m
 
 <br/>
 
-<font size=3>**Q: What should I do if the error message `TypeError: For 'tensor getitem', the types only support 'Slice', 'Ellipsis', 'None', 'Tensor', 'int', 'List', 'Tuple', 'bool', but got String.` is displayed when I call the graph API 'topk_xxx'?**</font>
+<font size=3>**Q: What should I do if the error message `TypeError: For 'tensor getitem', the types only support 'Slice', 'Ellipsis', 'None', 'Tensor', 'int', 'List', 'Tuple', 'bool', but got String.` is displayed when I call the graph API 'topk_nodes,topk_edges'?**</font>
 
-A: The topk_xxx API provided by MindSpore Graph Learning is used to obtain k nodes or edges based on node or edge feature sorting. The backend includes three steps: obtaining node or edge features, sorting, and slicing k nodes or edges. The frontend translation process does not involve build and cannot determine the input data type. The input type must meet the sorting dimension sortby and value range k of the sort and slice operators. Otherwise, an error is reported, indicating that the type is not supported.
+A: The topk_nodes API provided by MindSpore Graph Learning is used to obtain k nodes or edges based on node or edge feature sorting. The backend includes three steps: obtaining node or edge features, sorting, and slicing k nodes or edges. The frontend translation process does not involve build and cannot determine the input data type. The input type must meet the sorting dimension sortby and value range k of the sort and slice operators. Otherwise, an error is reported, indicating that the type is not supported.
 
 <br/>
 

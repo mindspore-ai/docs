@@ -2,9 +2,9 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_en/dqn.md)
 
-## summary
+## Summary
 
-To implement an reinforcement learning algorithm with MindSpore Reinforcement, a user needs to:
+To implement a reinforcement learning algorithm with MindSpore Reinforcement, a user needs to:
 
 - provide an algorithm configuration, which separates the implementation of the algorithm from its deployment details;
 - implement the algorithm based on an actor-learner-environment abstraction;
@@ -28,7 +28,7 @@ algorithm_config = {
         'policies': ['init_policy', 'collect_policy', 'evaluate_policy'],   # The policy used to choose action
     },
     'learner': {
-        'number': 1,                                                        # Number of Leaarner
+        'number': 1,                                                        # Number of Learner
         'type': DQNLearner,                                                 # The Learner class
         'params': learner_params,                                           # The parameters of Learner
         'networks': ['policy_network', 'target_network']                    # The networks which is used by Learner
@@ -66,14 +66,14 @@ Other components are defined in a similar way -- please refer to the  [complete 
 
 Note that MindSpore Reinforcement uses a single *policy* class to define all policies and neural networks used by the algorithm. In this way, it hides the complexity of data sharing and communication between policies and neural networks.
 
-In train.py, MindSpore Reinforcement executes the algorithm in the context of a *session*. A session allocates resources (on one or more cluster machines) and executes the compiled computational graph. A user passes the algorithm configuration to instantiate a Session class:
+In train.py, MindSpore Reinforcement executes the algorithm in the context of a *session*. A *Session* allocates resources (on one or more cluster machines) and executes the compiled computational graph. A user passes the algorithm configuration to instantiate a Session class:
 
 ```python
 from mindspore_rl.core import Session
 dqn_session = Session(dqn_algorithm_config)
 ```
 
-Invoke the `run` method and pass corresponding parameters  to execute the DQN algorithm. *class_type* is user-defined Trainer class, which will be described later, episode is the iteration times of the algorithm, params are the parameters that is used in the trainer class. It is written in configuration file. For more detail, please check config.py file in the code example. Callbacks define some metrics methods. It is described more detailly in Callbacks part of API documentation.
+Invoke the `run` method and pass corresponding parameters  to execute the DQN algorithm. *class_type* is user-defined Trainer class, which will be described later, episode is the iteration times of the algorithm, params are the parameters that is used in the trainer class. It is written in configuration file. For more detail, please check *config.py* file in the code example. Callbacks define some metrics methods. It is described more detailly in Callbacks part of API documentation.
 
 ```python
 from src.dqn_trainer import DQNTrainer
@@ -94,9 +94,9 @@ ms.set_context(mode=ms.GRAPH_MODE)
 
 Methods that are annotated with `@jit` will be compiled into the MindSpore computational graph for auto-parallelisation and acceleration. In this tutorial, we use this feature to implement an efficient `DQNTrainer` class.
 
-### Defining the DQNTrainer class
+### Defining the DQNTrainer Class
 
-The `DQNTrainer` class expresses how the algorithm runs.  For example, iteratively collects experience through iteracting with environment and insert to replaybuffer, then obtain the data from the replay buffer to trains the targeted models. It must inherit from the `Trainer` class, which is part of the MindSpore Reinforcement API.
+The `DQNTrainer` class expresses how the algorithm runs. For example, iteratively collects experience through iteracting with environment and insert to *ReplayBuffer*, then obtain the data from *ReplayBuffer* to trains the targeted models. It must inherit from the `Trainer` class, which is part of the MindSpore Reinforcement API.
 
 The `Trainer` base class contains an `MSRL` (MindSpore Reinforcement) object, which allows the algorithm implementation to interact with MindSpore Reinforcement to implement the training logic. The `MSRL` class instantiates the RL algorithm components based on the previously defined algorithm configuration. It provides the function handlers that transparently bind to methods of actors, learners, or the replay buffer object, as defined by users. As a result, the `MSRL` class enables users to focus on the algorithm logic, while it transparently handles object creation, data sharing and communication between different algorithmic components on one or more workers. Users instantiate the `MSRL` object by creating the previously mentioned `Session` object with the algorithm configuration.
 
@@ -187,7 +187,7 @@ The `train_one_episode` method first calls the `reset` method of environment, `s
 
 The replay buffer class, `ReplayBuffer`, is provided by MindSpore Reinforcement. It defines `insert` and `sample` methods to store and sample the experience data in a replay buffer, respectively. Please refer to the [complete DQN code example](https://github.com/mindspore-lab/mindrl/tree/master/example/dqn) for details.
 
-### Defining the DQNPolicy class
+### Defining the DQNPolicy Class
 
 To implement the neural networks and define the policies, a user defines the `DQNPolicy` class:
 
@@ -276,7 +276,7 @@ Since the above three behavioural policies are common for a range of RL algorith
 
 Note that the names of the methods and the keys of the parameter dictionary must be consistent with the algorithm configuration defined earlier.
 
-### Defining the DQNActor class
+### Defining the DQNActor Class
 
 To implement the `DQNActor`, a user defines a new actor component that inherits from the `Actor` class provided by MindSpore Reinforcement. They must then overload the methods in `Actor` class:
 
@@ -314,7 +314,11 @@ class DQNActor(Actor):
 
 The three methods act on the specified environment with different policies, which map states to actions. The methods take as input a tensor-typed value and return the trajectory from the environment.
 
-A user should implement an environment class that defines a `step` method. To interact with an environment, the actor uses the `step` method, which collects a triplet as the return value. The triplet includes a new state after applying the `action`, an obtained reward as a float, and a boolean flag to reset the environment. For example, if using the OpenAI Gym library, MindSpore Reinforcement refactors it for computational-graph acceleration and provides the class `GymEnvironment`. Users specify the used environments in the algorithm configuration.
+To interact with the environment, the Actor uses the `step(action)` method defined in the `Environment` class. For an action applied to the specified environment, this method reacts and returns a ternary. The ternary includes the new state after applying the previous action, the reward obtained as a floating-point type, and Boolean flags for terminating the episode and resetting the environment.
+
+`ReplayBuffer` defines an `insert` method, which is called by the `DQNActor` object to store the experience data in the playback buffer.
+
+`Environment` class and `ReplayBuffer` class are provided by MindSpore Reinforcement API.
 
 The constructor of the `DQNActor` class defines the environment, the reply buffer, the polices, and the networks. It takes as input the dictionary-typed parameters, which were defined in the algorithm configuration. Below, we only show the initialisation of the environment, other attributes are assigned in the similar way:
 
@@ -326,7 +330,7 @@ class DQNActor(Actor):
         ...
 ```
 
-### Defining the DQNLearner class
+### Defining the DQNLearner Class
 
 To implement the `DQNLearner`, a class must inherit from the `Learner` class in the MindSpore Reinforcement API and overload the `learn` method:
 
@@ -361,7 +365,7 @@ class DQNLearner(Learner):
         self.target_network = params['target_network']
 ```
 
-## Execute and view results
+## Executing and Viewing Results
 
 Execute script `train.py` to start DQN model training.
 

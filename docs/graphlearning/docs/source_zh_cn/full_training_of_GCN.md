@@ -21,7 +21,7 @@ Cora数据集包括2708份科学出版物，分为七类之一。引文网络由
 
 ## 定义网络结构
 
-mindspore_gl.nn实现了GCNConv，可以直接导入使用， 用户也可以自己定义卷积层。使用GCNConv实现一个两层的GCN网络代码如下：
+mindspore_gl.nn实现了GCNConv，可以直接导入使用，用户也可以自己定义卷积层。使用GCNConv实现一个两层的GCN网络代码如下：
 
 ```python
 import mindspore
@@ -85,7 +85,7 @@ LossNet和GCNNet一样继承自GNNCell。
 
 ## 构造数据集
 
-在mindspore_gl.dataset目录下提供了一些dataset类定义的参考。可以直接读入一些研究常用数据集，这里用cora数据集为例， 输入数据路径data_path即可构建数据类。
+在mindspore_gl.dataset目录下提供了一些dataset类定义的参考。可以直接读入一些研究常用数据集，这里用cora数据集为例，输入数据路径data_path即可构建数据类。
 
 ```python
 from mindspore_gl.dataset import CoraV2
@@ -135,7 +135,7 @@ net = GCNNet(data_feat_size=feature_size,
 
 ### 网络训练及验证
 
-由于是整图训练，一步训练就覆盖了整个数据集，每个epoch即为一步训练，同样验证节点通过test_mask获取，验证准确率的计算只需取出整图中的验证节点与真实值label进行比较计算： 预测值与真实值一致即为正确，正确节点数count与验证节点总数的比值即为验证准确率。
+由于是整图训练，一步训练就覆盖了整个数据集，每个epoch即为一步训练，同样验证节点通过test_mask获取，验证准确率的计算只需取出整图中的验证节点与真实值label进行比较计算：预测值与真实值一致即为正确，正确节点数count与验证节点总数的比值即为验证准确率。
 
 ```python
 for e in range(train_args.epochs):

@@ -8,12 +8,12 @@ MindSpore Reinforcement depends on the MindSpore training and inference framewor
 
 If use the pip command, download the .whl package from the [MindSpore Reinforcement page](https://www.mindspore.cn/versions/en) and install it.
 
- ```shell
+```shell
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/Reinforcement/any/mindspore_rl-{mr_version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see requ    irements.txt). In other cases, you need to manually install dependency items.
-> - `{ms_version}` refers to the MindSpore version that matches with MindSpore Reinforcement. For example, if you want to install MindSpore Reinforcement 0.1.0, then,`{ms_version}` should be 1.5.0。
+> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see requirements.txt). In other cases, you need to manually install dependency items.
+> - `{ms_version}` refers to the MindSpore version that matches with MindSpore Reinforcement. For example, if you want to install MindSpore Reinforcement 0.1.0, then `{ms_version}` should be 1.5.0。
 > - `{mr_version}` refers to the version of MindSpore Reinforcement. For example, when you are downloading MindSpore Reinforcement 0.1.0, `{mr_version}` should be 0.1.0.
 
 ## Installation by Source Code
