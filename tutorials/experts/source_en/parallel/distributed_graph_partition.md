@@ -16,7 +16,7 @@ Related interfaces:
 
 ## Basic Principle
 
-Distributed tasks need to be executed in a cluster. MindSpore reuses built-in `Dynamic Networking` module of MindSpore in order to have better scalability and reliability in distributed graph partition scenarios. This module is also used in the [Parameter Server mode](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/parameter_server_training.html) sections.
+Distributed tasks need to be executed in a cluster. MindSpore reuses built-in [Dynamic Networking module](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/dynamic_cluster.html) of MindSpore in order to have better scalability and reliability in distributed graph partition scenarios.
 
 For `distributed graph partition`, each process represents a compute node (called `Worker`), and the scheduling node (called `Scheduler`) started by the `dynamic networking` module mentioned above allows discovering each compute node and thus forming a compute cluster.
 
