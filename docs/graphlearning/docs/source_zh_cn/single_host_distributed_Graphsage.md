@@ -23,7 +23,7 @@ GraphSAGE是一个通用的归纳框架，它利用节点特征信息（例如�
 
 在不同设备上，分布式训练的方式也不相同。
 
-在GPU硬件平台上，MindSpore分布式并行训练中的通信使用的是英伟达集合通信库NVIDIA Collective Communication Library(简称为NCCL)。
+在GPU硬件平台上，MindSpore分布式并行训练中的通信使用的是英伟达集合通信库NVIDIA Collective Communication Library（简称为NCCL）。
 
 ```bash
 # GPU

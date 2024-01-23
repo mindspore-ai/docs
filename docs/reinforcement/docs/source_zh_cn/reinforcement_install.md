@@ -8,7 +8,7 @@ MindSpore Reinforcement依赖MindSpore训练推理框架，安装完[MindSpore](
 
 使用pip命令安装，请从[MindSpore Reinforcement下载页面](https://www.mindspore.cn/versions)下载并安装whl包。
 
- ```shell
+```shell
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/Reinforcement/any/mindspore_rl-{mr_version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
