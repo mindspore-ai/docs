@@ -185,21 +185,6 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
-# replace py_files that have too many errors.
-try:
-    decorator_list = [("mindspore/context.py","mindspore/python/mindspore/context.py"),
-                      ("mindspore/dataset/vision/transforms.py","mindspore/python/mindspore/dataset/vision/transforms.py"),
-                      ("mindspore/ops/operations/custom_ops.py","mindspore/python/mindspore/ops/operations/custom_ops.py"),
-                      ("mindspore/ops/operations/nn_ops.py","mindspore/python/mindspore/ops/operations/nn_ops.py")]
-
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
-    for i in decorator_list:
-        if os.path.exists(os.path.join(base_path, os.path.normpath(i[0]))):
-            os.remove(os.path.join(base_path, os.path.normpath(i[0])))
-            shutil.copy(os.path.join(os.getenv("MS_PATH"), i[1]),os.path.join(base_path, os.path.normpath(i[0])))
-except:
-    pass
-
 # Repair error decorators defined in mindspore.
 try:
     decorator_list = [("mindspore/common/_decorator.py", "deprecated",
@@ -270,185 +255,11 @@ def copy_source(sourcedir, des_sir):
 
 copy_source(src_dir_en, des_sir)
 
-ops_adjust = [
-"mindspore.ops.Abs",
-"mindspore.ops.ACos",
-"mindspore.ops.Acosh",
-"mindspore.ops.Add",
-"mindspore.ops.Addcdiv",
-"mindspore.ops.Addcmul",
-"mindspore.ops.Angle",
-"mindspore.ops.Argmax",
-"mindspore.ops.Argmin",
-"mindspore.ops.Asin",
-"mindspore.ops.Asinh",
-"mindspore.ops.Assign",
-"mindspore.ops.Atan",
-"mindspore.ops.Atan2",
-"mindspore.ops.Atanh",
-"mindspore.ops.AvgPool",
-"mindspore.ops.BatchNorm",
-"mindspore.ops.BiasAdd",
-"mindspore.ops.Ceil",
-"mindspore.ops.CeLU",
-"mindspore.ops.Cholesky",
-"mindspore.ops.Complex",
-"mindspore.ops.Concat",
-"mindspore.ops.Conj",
-"mindspore.ops.Cos",
-"mindspore.ops.Cosh",
-"mindspore.ops.Cummax",
-"mindspore.ops.Cummin",
-"mindspore.ops.CumProd",
-"mindspore.ops.CumSum",
-"mindspore.ops.Diag",
-"mindspore.ops.Div",
-"mindspore.ops.Elu",
-"mindspore.ops.Equal",
-"mindspore.ops.Erf",
-"mindspore.ops.Erfc",
-"mindspore.ops.Erfinv",
-"mindspore.ops.Exp",
-"mindspore.ops.ExpandDims",
-"mindspore.ops.Expm1",
-"mindspore.ops.Eye",
-"mindspore.ops.FastGeLU",
-"mindspore.ops.FFTWithSize",
-"mindspore.ops.Flatten",
-"mindspore.ops.Floor",
-"mindspore.ops.FloorDiv",
-"mindspore.ops.FloorMod",
-"mindspore.ops.Gather",
-"mindspore.ops.GatherD",
-"mindspore.ops.GatherNd",
-"mindspore.ops.Gcd",
-"mindspore.ops.GeLU",
-"mindspore.ops.Geqrf",
-"mindspore.ops.Greater",
-"mindspore.ops.GreaterEqual",
-"mindspore.ops.GridSampler2D",
-"mindspore.ops.GridSampler3D",
-"mindspore.ops.HShrink",
-"mindspore.ops.HSigmoid",
-"mindspore.ops.HSwish",
-"mindspore.ops.Identity",
-"mindspore.ops.InplaceUpdate",
-"mindspore.ops.LayerNorm",
-"mindspore.ops.Less",
-"mindspore.ops.LessEqual",
-"mindspore.ops.LinSpace",
-"mindspore.ops.Log",
-"mindspore.ops.Log1p",
-"mindspore.ops.LogicalAnd",
-"mindspore.ops.LogicalNot",
-"mindspore.ops.LogicalOr",
-"mindspore.ops.LogicalXor",
-"mindspore.ops.Logit",
-"mindspore.ops.LogSoftmax",
-"mindspore.ops.MaskedFill",
-"mindspore.ops.Maximum",
-"mindspore.ops.MaxPoolWithArgmax",
-"mindspore.ops.Minimum",
-"mindspore.ops.Mul",
-"mindspore.ops.NanToNum",
-"mindspore.ops.Neg",
-"mindspore.ops.NextAfter",
-"mindspore.ops.NLLLoss",
-"mindspore.ops.NonZero",
-"mindspore.ops.NotEqual",
-"mindspore.ops.OneHot",
-"mindspore.ops.OnesLike",
-"mindspore.ops.Pow",
-"mindspore.ops.PReLU",
-"mindspore.ops.RandpermV2",
-"mindspore.ops.Range",
-"mindspore.ops.Real",
-"mindspore.ops.RealDiv",
-"mindspore.ops.Reciprocal",
-"mindspore.ops.ReduceAll",
-"mindspore.ops.ReduceAny",
-"mindspore.ops.ReduceMax",
-"mindspore.ops.ReduceMean",
-"mindspore.ops.ReduceMin",
-"mindspore.ops.ReduceProd",
-"mindspore.ops.ReduceSum",
-"mindspore.ops.ReLU",
-"mindspore.ops.ReLU6",
-"mindspore.ops.Reshape",
-"mindspore.ops.ResizeBicubic",
-"mindspore.ops.ResizeBilinearV2",
-"mindspore.ops.ResizeNearestNeighbor",
-"mindspore.ops.ReverseV2",
-"mindspore.ops.RightShift",
-"mindspore.ops.Round",
-"mindspore.ops.Rsqrt",
-"mindspore.ops.ScatterNd",
-"mindspore.ops.Sigmoid",
-"mindspore.ops.Sin",
-"mindspore.ops.Sinc",
-"mindspore.ops.Sinh",
-"mindspore.ops.Softmax",
-"mindspore.ops.Split",
-"mindspore.ops.Sqrt",
-"mindspore.ops.Square",
-"mindspore.ops.TensorShape",
-"mindspore.ops.Tile",
-"mindspore.ops.Trace",
-"mindspore.ops.Transpose",
-"mindspore.ops.ZerosLike"]
+ops_adjust = ['Argmax', 'AvgPool', 'Complex', 'CumProd', 'CumSum', 'Eye', 'FFTWithSize', 'GeLU', 'GridSampler2D', 'GridSampler3D', 'LayerNorm', 'LogicalAnd', 'LogicalOr', 'LogicalXor', 'NLLLoss', 'NanToNum', 'OneHot', 'ReLU', 'ReLU6', 'RealDiv', 'Reciprocal', 'ReduceAll', 'ReduceAny', 'ResizeBicubic', 'ResizeNearestNeighbor', 'Softmax', 'Split', 'Tile', 'ZerosLike', 'NextAfter']
 
-func_adjust = [
-"mindspore.ops.abs",
-"mindspore.ops.acos",
-"mindspore.ops.acosh",
-"mindspore.ops.add",
-"mindspore.ops.asin",
-"mindspore.ops.asinh",
-"mindspore.ops.assign",
-"mindspore.ops.atan",
-"mindspore.ops.atanh",
-"mindspore.ops.bias_add",
-"mindspore.ops.ceil",
-"mindspore.ops.conj",
-"mindspore.ops.cos",
-"mindspore.ops.cosh",
-"mindspore.ops.cummax",
-"mindspore.ops.deepcopy",
-"mindspore.ops.diag",
-"mindspore.ops.equal",
-"mindspore.ops.erf",
-"mindspore.ops.erfc",
-"mindspore.ops.erfinv",
-"mindspore.ops.exp",
-"mindspore.ops.expand_dims",
-"mindspore.ops.fast_gelu",
-"mindspore.ops.floor",
-"mindspore.ops.floor_div",
-"mindspore.ops.gather",
-"mindspore.ops.gcd",
-"mindspore.ops.geqrf",
-"mindspore.ops.greater",
-"mindspore.ops.greater_equal",
-"mindspore.ops.less",
-"mindspore.ops.less_equal",
-"mindspore.ops.log_softmax",
-"mindspore.ops.logit",
-"mindspore.ops.masked_fill",
-"mindspore.ops.maximum",
-"mindspore.ops.minimum",
-"mindspore.ops.mul",
-"mindspore.ops.not_equal",
-"mindspore.ops.pow",
-"mindspore.ops.prelu",
-"mindspore.ops.range",
-"mindspore.ops.rank",
-"mindspore.ops.relu",
-"mindspore.ops.round",
-"mindspore.ops.rsqrt",
-"mindspore.ops.scatter_nd",
-"mindspore.ops.sigmoid",
-"mindspore.ops.trace",
-"mindspore.ops.transpose"]
+refer_ops_adjust = ['Maximum', 'Rank', 'Assign', 'ExpandDims', 'NonZero', 'Cos', 'LessEqual', 'ScatterNd', 'Range', 'Transpose', 'Sqrt', 'Rsqrt', 'Identity', 'AssignAdd', 'Square', 'MaskedFill', 'Add', 'PReLU', 'Mul', 'Conj', 'Cosh', 'Cummax', 'Concat', 'Minimum', 'LogSoftmax', 'ReverseV2']
+
+func_adjust = ['add', 'assign', 'assign_add', 'concat', 'conj', 'cos', 'cosh', 'cummax', 'deepcopy', 'diagonal', 'expand_dims', 'less_equal', 'log_softmax', 'masked_fill', 'maximum', 'minimum', 'mul', 'nonzero', 'prelu', 'range', 'rank', 'reverse', 'rsqrt', 'scatter_nd', 'silu', 'sqrt', 'square', 'transpose']
 
 
 def ops_interface_name():
@@ -460,10 +271,12 @@ def ops_interface_name():
             new_content = content
             if 'primitive' in i:
                 for name in ops_adjust:
-                    new_content = new_content.replace('    ' + name + '\n', '')
+                    new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
+                for name in refer_ops_adjust:
+                    new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
             else:
                 for name in func_adjust:
-                    new_content = new_content.replace('    ' + name + '\n', '')
+                    new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
 
             if new_content != content:
                 f.seek(0)
