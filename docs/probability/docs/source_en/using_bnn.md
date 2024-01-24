@@ -18,9 +18,6 @@ BNN is a basic model composed of probabilistic model and neural network. Its wei
 3. Define the loss function and optimizer.
 4. Load and train the dataset.
 
-> This example is for the GPU or Atlas training series platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/bnn_layers>.
-> BNN only supports GRAPH mode now, please set `set_context(mode=GRAPH_MODE)` in your code.
-
 ## Environment Preparation
 
 Set the training mode to graph mode and the computing platform to GPU.
@@ -64,6 +61,8 @@ download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datas
 download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte", test_path)
 download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte", test_path)
 ```
+
+The directory structure of the downloaded dataset file is as follows:
 
 ```text
 ./datasets/MNIST_Data

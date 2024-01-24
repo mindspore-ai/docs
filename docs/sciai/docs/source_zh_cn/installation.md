@@ -33,7 +33,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindScienc
 |        | aarch64 | Python=3.7 | `pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindScience/sciai/ascend/aarch64/sciai-0.1.0-cp37-cp37m-linux_aarch64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple`      |
 | GPU    | x86_64  | Python=3.7 | `pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindScience/sciai/gpu/x86_64/cuda-11.1/sciai-0.1.0-cp37-cp37m-linux_x86_64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple` |
 
-注意：如果您的conda或python env中已经安装了其他MindScience套件，如`MindElec`，`MindFlow`，`MindSponge`， 请先卸载环境中的MindScience套件避免pip行为冲突。
+注意：如果您的conda或python env中已经安装了其他MindScience套件，如`MindElec`，`MindFlow`，`MindSponge`，请先卸载环境中的MindScience套件避免pip行为冲突。
 
 ### 方式二：源码安装
 

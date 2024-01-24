@@ -58,7 +58,7 @@ Note: If you have other MindScience package(s) installed in your conda or python
     bash build.sh -j8
     ```
 
-3. Install the `.whl` package
+3. After the compilation is complete, install the compiled `.whl` package with the following command.
 
     ```bash
     bash install.sh

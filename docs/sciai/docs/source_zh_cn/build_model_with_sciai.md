@@ -38,7 +38,7 @@ net = MLP(layers=[2, 5, 5, 1], weight_init=XavierTruncNormal(), bias_init='zeros
 
 ### 损失函数定义
 
-损失函数定义为[Cell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell)的子类， 并将损失的计算方法写在方法`construct`中。
+损失函数定义为[Cell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell)的子类，并将损失的计算方法写在方法`construct`中。
 
 ```python
 from mindspore import nn
