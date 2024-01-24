@@ -26,7 +26,7 @@ The current support for containerized build options is as follows:
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
 | Ascend | `mindspore/mindspore-ascend` | `x.y.z` | The production environment of MindSpore Ascend x.y.z together with the corresponding version of Ascend Data Center Solution. |
 
-> `x.y.z` corresponds to the MindSpore version number. For example, when MindSpore version 2.2.10 is installed, `x.y.z` should be written as 2.2.10.
+> `x.y.z` corresponds to the MindSpore version number. For example, when MindSpore version 2.2.11 is installed, `x.y.z` should be written as 2.2.11.
 
 ## System Environment Information Confirmation
 

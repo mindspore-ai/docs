@@ -25,7 +25,7 @@
 首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.2.10版本为例，执行以下命令。
 
 ```bash
-set MS_VERSION=2.2.10
+set MS_VERSION=2.2.11
 ```
 
 然后根据Python版本执行如下命令安装MindSpore。
