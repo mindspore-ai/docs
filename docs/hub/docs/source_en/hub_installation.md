@@ -74,16 +74,16 @@ Checking /home/ma-user/.mscache/mindspore/1.6/lenet_mnist.md...Passed!
 
 A: Due to your network environment, for example, if you use a proxy to connect to the Internet, SSL verification failure may occur on Python because of incorrect certificate configuration. In this case, you can use either of the following methods to solve this problem:
 
-Configure the SSL certificate **(recommended)**.
-Before import mindspore_hub, please add the codes (the fastest method).
+- Configure the SSL certificate **(recommended)**.
+- Before import mindspore_hub, please add the codes (the fastest method).
 
-```python
-import ssl
-ssl._create_default_https_context = ssl._create_unverified_context
+   ```python
+   import ssl
+   ssl._create_default_https_context = ssl._create_unverified_context
 
-import mindspore_hub as mshub
-model = mshub.load("mindspore/1.6/lenet_mnist", num_classes=10)
-```
+   import mindspore_hub as mshub
+   model = mshub.load("mindspore/1.6/lenet_mnist", num_classes=10)
+   ```
 
 <font size=3>**Q: What to do when `No module named src.*` occurs**?</font>
 

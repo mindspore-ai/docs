@@ -28,7 +28,7 @@ The multi-process mode is not limited by Python's global interpreter lock (GIL) 
 
 When computing is required, the computing function is also stored in the shared memory of the distributed compute engine, and then the `object reference` corresponding to the computing function and the `object reference` corresponding to the partition is submitted to the distributed compute engine as a task. All tasks will be uniformly scheduled by the distributed compute engine and executed asynchronous parallelism and in the form of multi-process.
 
-#### Single Machine Multi-process Principle
+#### Single-machine Multi-process Principle
 
 ![multiprocess1.png](images/multiprocess1.png)
 
