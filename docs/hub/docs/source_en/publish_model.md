@@ -1,4 +1,4 @@
-# Publishing Models using MindSpore Hub
+# Publishing Models Using MindSpore Hub
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_en/publish_model.md)
 
@@ -8,7 +8,7 @@
 
 This tutorial uses GoogleNet as an example to describe how to submit models for model developers who are interested in publishing models into MindSpore Hub.
 
-## How to publish models
+## How to Publish Models
 
 You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindspore/hub) repo. Here we use GoogleNet as an example to list the steps of model submission to MindSpore Hub.
 
@@ -42,7 +42,7 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
    │       └── md_validator.py
    ```
 
-   Note that it is required to fill in the `{model_name}_{dataset}.md` template by providing `file-format`、`asset-link` and `asset-sha256` below, which refers to the model file format, model storage location from step 1 and model hash value, respectively.
+   Note that it is required to fill in the `{model_name}_{dataset}.md` template by providing `file-format`, `asset-link` and `asset-sha256` below, which refers to the model file format, model storage location from step 1 and model hash value, respectively.
 
    ```text
    file-format: ckpt

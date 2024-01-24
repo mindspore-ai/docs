@@ -131,7 +131,7 @@ Note: MindSpore Pandas is set to multiprocess mode and uses a 32-core CPU.
 Future Goals
 ----------------
 
-The initial version of MindSpore Pandas contains 100+ APIs，which can be divided into four classes, DataFrame, Series, GroupBy and Other. MindSpore Pandas will support more APIs.
+The initial version of MindSpore Pandas contains 100+ APIs, which can be divided into four classes, DataFrame, Series, GroupBy and Other. MindSpore Pandas will support more APIs.
 
 Typical scenarios using MindSpore Pandas
 -----------------------------------------

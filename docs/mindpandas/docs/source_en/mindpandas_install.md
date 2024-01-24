@@ -17,13 +17,13 @@ The following table lists the environment required for installing, compiling and
 
 ## Version Dependency
 
-### Installing from pip command
+### Installing from pip Command
 
 If you use the pip, please download the whl package from [MindSpore Pandas](https://www.mindspore.cn/versions/en) page and install it.
 
 > Installing whl package will download MindSpore Pandas dependencies automatically (detail of dependencies is shown in requirements.txt) in the networked state, and other dependencies should be installed manually.
 
-### Installing from source code
+### Installing from Source Code
 
 Download [source code](https://gitee.com/mindspore/mindpandas), then enter the `mindpandas` directory to run build.sh script.
 
