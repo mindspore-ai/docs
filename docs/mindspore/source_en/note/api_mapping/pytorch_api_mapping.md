@@ -875,6 +875,13 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torch.optim.lr_scheduler.SequentialLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.SequentialLR)      | [mindspore.experimental.optim.lr_scheduler.SequentialLR](https://www.mindspore.cn/docs/en/r2.3/api_python/experimental/optim/mindspore.experimental.optim.lr_scheduler.SequentialLR.html#mindspore.experimental.optim.lr_scheduler.SequentialLR)                                                     | No `verbose` input param, other functions are consistent |
 | [torch.optim.lr_scheduler.StepLR](https://pytorch.org/docs/1.8.1/optim.html#torch.optim.lr_scheduler.StepLR)      | [mindspore.experimental.optim.lr_scheduler.StepLR](https://www.mindspore.cn/docs/en/r2.3/api_python/experimental/optim/mindspore.experimental.optim.lr_scheduler.StepLR.html#mindspore.experimental.optim.lr_scheduler.StepLR)                                                     | No `verbose` input param, other functions are consistent |
 
+## torch.fft
+
+| PyTorch 1.11 APIs | MindSpore APIs  | Descriptions   |
+| ------------------ | --------------- | ------ |
+| [torch.fft.ifftshift](https://pytorch.org/docs/1.11/generated/torch.fft.ifftshift.html#torch.fft.ifftshift) | [mindspore.ops.ifftshift](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.ifftshift.html) |     [Consistent](https://www.mindspore.cn/docs/en/r2.3/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions)    |
+| [torch.fft.fftshift](https://pytorch.org/docs/1.11/generated/torch.fft.fftshift.html#torch.fft.fftshift) | [mindspore.ops.fftshift](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.fftshift.html) |     [Consistent](https://www.mindspore.cn/docs/en/r2.3/note/api_mapping/pytorch_api_mapping.html#api-mapping-consistency-criteria-and-exceptions)    |
+
 ## torch.utils
 
 | PyTorch 1.8.1 APIs                                           | MindSpore APIs                                               | Descriptions                                                 |
