@@ -26,12 +26,12 @@ The process for MindSpore Elec to solve the problem based on Physics-Informed Au
     ![TE_for_Maxwell](./images/piad/pretrain_model.png)
 
 - For the new equations, incrementally train latent vector and neural network to solve the new problems quickly. We provide two incremental training modes:
-    - $\textit{finetune_latent_with_model}$: this mode updates the latent vector and network structure simultaneously and only needs to load the pre-trained model for incremental training.
-    - $\textit{finetune_latent_only}$: as shown in the following figure, this mode freezes the network structure and updates the latent vector only.
+    - finetune_latent_with_model: this mode updates the latent vector and network structure simultaneously and only needs to load the pre-trained model for incremental training.
+    - finetune_latent_only: as shown in the following figure, this mode freezes the network structure and updates the latent vector only.
 
     ![TE_for_Maxwell](./images/piad/finetune_latent.png)
 
-### Importing dependency
+### Importing Dependency
 
 Import the modules on which this tutorial depends.
 
@@ -81,7 +81,7 @@ geom_dict = {src_region : ["domain", "IC"],
                 boundary : ["BC"]}
 ```
 
-The MindSpore Elec Dataset API combines different sampled data into a unified training dataset.
+MindSpore Elec provides a Dataset interface for combining different sampled data into a unified training dataset.
 
 ```python
 # create dataset for train
@@ -379,6 +379,6 @@ lr = lr_scheduler.get_lr()
 optim = nn.Adam(params, learning_rate=Tensor(lr))
 ```
 
-In this tutorial, we select the $\textit{finetune_latent_with_model}$ mode, namely, updating the latent vector and network weights simultaneously. The instantaneous electromagnetic fields compared with the reference labels are depicted in the following figure. Compared with solving a single PDE with the PINNs method, the PIAD method achieves a 10x speed-up at the same accuracy (6% relative error).
+In this tutorial, we select the finetune_latent_with_model mode, namely, updating the latent vector and network weights simultaneously. The instantaneous electromagnetic fields compared with the reference labels are depicted in the following figure. Compared with solving a single PDE with the PINNs method, the PIAD method achieves a 10x speed-up at the same accuracy (6% relative error).
 
 ![TE_for_Maxwell](./images/piad/piad_result.png)
