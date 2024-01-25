@@ -23,7 +23,6 @@ After a successful clone, user can start training or evaluating according to the
 
 ```bash
 cd ./mindscience/SciAI/sciai/model/cpinns/
-source ./mindscience/SciAI/.env
 ```
 
 ## Training and Fine-tuning the Model

@@ -53,7 +53,7 @@ python generate_cloud_point.py --stp_path STP_PATH
                                --bbox_args (-40., -80., -5., 40., 80., 5.)
 ```
 
-## Data compression
+## Data Compression
 
 If the point cloud resolution is set to a high value, the memory and computing consumption for subsequent processing of a single piece of point cloud data may be too high. Therefore, MindSpore Elec provides the data compression function. You can call the script in the `data_compression` directory to compress the original point cloud data, reducing the memory and computing consumption of subsequent processes. The compression process is divided into the following two steps:
 
@@ -76,7 +76,7 @@ SAVE_DATA_PATH = "./"
 
 During the preparation and generation of training data, data is normalized. To ensure the validity of the model, the same normalization parameters need to be used during inference and compression. These parameters are saved in the `data_config.npy` file.
 
-#### Building a compressing model
+#### Building a Compressing Model
 
 Build a compressing model by referring to `data_compression/src/model.py`. The model is trained in self-supervised learning mode. The model consists of an encoder and a decoder. During the training, the network needs to rebuild data (`decoding=True`). When the compressed data is inferred, the decompressor is omitted (`decoding=False`).
 
@@ -401,6 +401,6 @@ loss_mse, l2_s11 = res_eval["eval_mrc"]["loss_error"], res_eval["eval_mrc"]["l2_
 print('Loss_mse: ', loss_mse, ' L2_S11: ', l2_s11)
 ```
 
-Take the mobile phone S-parameters as an example, the following figure shows S-parameters calculated through this process.
+Taking the mobile phone S-parameters as an example, the following figure shows S-parameters calculated through this process.
 
 ![result_ex](./images/point_cloud/S11.JPG)

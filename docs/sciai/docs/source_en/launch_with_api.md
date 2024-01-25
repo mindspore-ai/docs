@@ -32,7 +32,7 @@ from sciai.model import AutoModel
 
 # obtain the cpinns model.
 model = AutoModel.from_pretrained("cpinns")
-# (optional) load the ckpt file and initialize the model based on the loaded parameters..
+# (optional) load the ckpt file and initialize the model based on the loaded parameters.
 model.update_config(load_ckpt=True, load_ckpt_path="./checkpoints/your_file.ckpt", epochs=500)
 # train the network with default configuration,
 # the figures, data and logs generated will be saved in your execution path.
