@@ -6,6 +6,7 @@
     - [配套资料](#配套资料)
     - [Ascend配套软件包](#ascend配套软件包)
     - [下载地址](#下载地址)
+        - [2.2.11](#2211)
         - [2.2.10](#2210)
         - [2.2.1](#221)
         - [2.2.0](#220)
@@ -172,6 +173,7 @@
 |                           |                                                                     | MacOS-x64     | Python3.7 | [mindspore-2.2.11-cp37-cp37m-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.11/MindSpore/cpu/x86_64/mindspore-2.2.11-cp37-cp37m-macosx_10_15_x86_64.whl)   | c1716836e82ca2de5785dd1d4d6bbc7fdc5f878fb0bb34929a2ca0ab7eeacadf |
 |                           |                                                                     |               | Python3.8 | [mindspore-2.2.11-cp38-cp38-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.11/MindSpore/cpu/x86_64/mindspore-2.2.11-cp38-cp38-macosx_10_15_x86_64.whl)     | 1f3ecbdf076b6ee488eeb42fedb403c9a9a7d75375d22e2ade1a5d767b6bf444 |
 |                           |                                                                     |               | Python3.9 | [mindspore-2.2.11-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.11/MindSpore/cpu/x86_64/mindspore-2.2.11-cp39-cp39-macosx_10_15_x86_64.whl)     | b3f467b46b378488e2e36f51a9fa524a9b6564d71db41bd214b67a86e914cab8 |
+|MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/use/downloads.html#2-2-11)   |      |
 | MindSpore<br>Transformers |                                                                     | any           | Python3   | [mindformers-1.0.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.11/MindFormers/any/mindformers-1.0.0-py3-none-any.whl)                                          | 851a1d4e8f2d5f6b7e4b3c4d195674d12aabf025b51dc3bfabe2bb5fe56a95a5 |
 | MindSpore<br>Quantum      | GPU CUDA 11.1<br>CPU                                                | Linux-x86_64  | Python3.7 | [mindquantum-0.9.11-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.11/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.9.11-cp37-cp37m-linux_x86_64.whl) | 9908e43308bf2fcb4164ab5462562ec065ac6391f1d468af54a279e1a9f506b6 |
 |                           |                                                                     |               | Python3.8 | [mindquantum-0.9.11-cp38-cp38-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.11/MindQuantum/gpu/x86_64/cuda-11.1/mindquantum-0.9.11-cp38-cp38-linux_x86_64.whl)   | a936570c5fdc6b1472d45148aceb979335387d57f6456246a13acb1c5758d995 |
