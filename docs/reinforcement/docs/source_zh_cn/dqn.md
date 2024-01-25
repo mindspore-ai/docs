@@ -17,7 +17,7 @@
 
 DQN算法需要两个深度神经网络，一个*策略网络*用于近似动作值函数(Q函数)，另一个*目标网络*用于稳定训练。策略网络指如何对环境采取行动的策略，DQN算法的目标是训练策略网络以获得最大的奖励。此外，DQN算法使用*经验回放*技术来维护先前的观察结果，进行off-policy学习。其中Actor使用不同的行为策略来对环境采取行动。
 
-MindSpore Reinforcement使用*算法配置*指定DQN算法所需的逻辑组件（Actor、Learner、Policy and Network、 Collect Environment、Eval Environment、Replayuffer）和关联的超参数。根据提供的配置，它使用不同的策略执行算法，以便用户可以专注于算法设计。
+MindSpore Reinforcement使用*算法配置*指定DQN算法所需的逻辑组件（Actor、Learner、Policy and Network、Collect Environment、Eval Environment、Replayuffer）和关联的超参数。根据提供的配置，它使用不同的策略执行算法，以便用户可以专注于算法设计。
 
 算法配置是一个Python字典，指定如何构造DQN算法的不同组件。每个组件的超参数在单独的Python字典中配置。DQN算法配置定义如下：
 

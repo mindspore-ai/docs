@@ -42,7 +42,7 @@ This function is implemented based on the [conda](https://conda.io). Conda is a 
 
       ![img](images/clip_image014.jpg)
 
-    3.5 Restart PyCharm as prompted or restart PyCharm later. **Note: The following steps can be performed only after PyCharm is restarted.**
+    3.5 Restart PyCharm as prompted or restart PyCharm later. ***Note: The following steps can be performed only after PyCharm is restarted.***
 
       ![img](images/clip_image015.jpg)
 

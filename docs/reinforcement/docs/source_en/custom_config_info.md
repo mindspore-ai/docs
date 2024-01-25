@@ -76,7 +76,7 @@ algorithm_config = {
 - `type` : specify the name of environment, which could be either environment from MindSpore RL, such as `GymEnvironment` or user defined environment.
 - `params` : specify the parameter that used during creating the instance of environment. One thing should be noticed is that `type` and `params` need to be matched.
 
-The following example defines the configuration of environment. Framework will create a`CartPole-v0` environment like `Environment(name='CartPole-v0')` . The configuration of `collect_environment` and `eval_environment` are the same.
+The following example defines the configuration of environment. Framework will create a `CartPole-v0` environment like `Environment(name='CartPole-v0')` . The configuration of `collect_environment` and `eval_environment` are the same.
 
 ```python
 from mindspore_rl.environment import GymEnvironment
@@ -107,7 +107,7 @@ algorithm_config = {
 
 ### Actor Configuration
 
-`Actor` is charge of interacting with environment. Generally, `Actor` interacts with `Env` through `Policy`. Some algorithms will store the experience which obtained during the interaction into `ReplayBuffer`. Therefore, `Actor` will take `Policy` , `Environment` and `ReplayBuffer`. In Actor configuration, `policies`  and `networks` need to specify the name of member variable in `Policy`.
+`Actor` is charge of interacting with environment. Generally, `Actor` interacts with `Env` through `Policy`. Some algorithms will store the experience which obtained during the interaction into `ReplayBuffer`. Therefore, `Actor` will hold the `Policy` and `Environment` and create the `ReplayBuffer` as needed. In Actor configuration, `policies`  and `networks` need to specify the name of member variable in `Policy`.
 
 The following code defines the configuration of  `DQNActor` . Framework will create the instance of Actor like `DQNActor(algorithm_config['actor'])`.
 
@@ -186,5 +186,5 @@ algorithm_config = {
 | :------: | :------------: | :------------------------------------------------: | :----------------------------------------------------------: |
 |  number  |    Integer     |                      [1, +∞)                       |          Number of Actor, currently only support 1           |
 |   type   |     Class      | The user-defined and implement subclass of learner | This type is the same name as the subclass of learner that is user-defined and implemented |
-|  params  |   Dictionary   |      Any value with key value format or None       | Customized parameter, user can input any value with key value format. |
+|  params(optional)  |   Dictionary   |      Any value with key value format or None       | Customized parameter, user can input any value with key value format. |
 | networks | List of String |   Same variable name as the user-defined network   | Every string in list must match with networks' name which is user initialized in  defined policy class |

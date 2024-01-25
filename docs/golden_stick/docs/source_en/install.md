@@ -35,8 +35,8 @@ pip install  https://ms-release.obs.cn-north-4.myhuaweicloud.com/{MindSpore_vers
 ```
 
 > - Installing whl package will download MindSpore Golden Stick dependencies automatically (detail of dependencies is shown in requirement.txt), other dependencies should install manually.
-> - `{MindSpore_version}` stands for the version of MindSpore. For the version matching relationship between MindSpore and MindSpore Golden Stick, please refer to [page](https://www.mindspore.cn/versions).
 > - `{ms_version}` stands for the version of MindSpore Golden Stick. For example, if you would like to download version 0.3.0, you should fill 2.0.0 in `{MindSpore_version}` and fill 0.3.0 in `{mg_version}`.
+> - `{mg_version}` indicates the MindSpore Golden Stick version number, for example, when downloading version 0.3.0 of MindSpore Golden Stick, `{mg_version}` should be written as 0.3.0.
 
 ## Installing from Source Code
 

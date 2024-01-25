@@ -10,7 +10,7 @@
 
 ![saliency_overlay](./images/saliency_overlay.png)
 
-解释器主要分为两大类：基于梯度的 及 基于扰动的。基于梯度的解释器依赖反向传播去计算象素的重要性，而基于扰动的解释器则是使用随机扰动原图的方法进行计算。
+解释器主要分为两大类：基于梯度的及基于扰动的。基于梯度的解释器依赖反向传播去计算象素的重要性，而基于扰动的解释器则是使用随机扰动原图的方法进行计算。
 
 | 解释器              |        类型        | PYNATIVE_MODE  |   GRAPH_MODE   |
 |:------------------:|:-----------------:|:--------------:|:--------------:|
@@ -55,17 +55,17 @@ xai/examples/
 
 - `xai_examples_data/`：解压缩后的用例数据包。
 - `xai_examples_data/ckpt/resent50.ckpt`：ResNet50 权重。
-- `xai_examples_data/test`： 测试数据。
-- `xai_examples_data/train`： 训练数据。
-- `common/dataset.py`： 数据加载器。
-- `common/resnet.py`： ResNet 模型架构。
-- `using_cv_explainers.py`： 解释器用例。
-- `using_rise_plus.py`： RISEPlus 解释器用例，它的使用方法跟其他解释器不同。
-- `using_cv_benchmarks.py`： 度量方法用例。
+- `xai_examples_data/test`：测试数据。
+- `xai_examples_data/train`：训练数据。
+- `common/dataset.py`：数据加载器。
+- `common/resnet.py`：ResNet 模型架构。
+- `using_cv_explainers.py`：解释器用例。
+- `using_rise_plus.py`：RISEPlus 解释器用例，它的使用方法跟其他解释器不同。
+- `using_cv_benchmarks.py`：度量方法用例。
 
 ### 准备 Python 环境
 
-以下教程的完整代码：[using_cv_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_cv_explainers.py) 。
+以下教程的完整代码：[using_cv_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_cv_explainers.py)。
 
 下载用例数据包后，我们要加载一个训练好的分类器和一张要进行推理及解释的图片：
 
@@ -193,8 +193,8 @@ class MyLeNet5(nn.Cell):
         super(MyLeNet5, self).__init__()
 
         # 必须定义以下两个成员
-        self.num_features = 84 # 特征值个数, int
-        self.output_features = False # 是否输出特征Tensor, bool
+        self.num_features = 84 # 特征值个数，int
+        self.output_features = False # 是否输出特征Tensor，bool
 
         self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
         self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
@@ -216,7 +216,7 @@ class MyLeNet5(nn.Cell):
         x = self.relu(self.fc1(x))
         x = self.relu(self.fc2(x))
 
-        # 如果 output_features 是 True, 返回特征Tensor
+        # 如果 output_features 是 True，返回特征Tensor
         if self.output_features:
             return x
 

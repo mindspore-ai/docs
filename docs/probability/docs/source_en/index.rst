@@ -1,9 +1,7 @@
 MindSpore Probability Documents
 ===================================
 
-MindSpore Probability is a fusion suite seamlessly integrating Bayesian learning and deep learning, which provides a comprehensive probability learning library for building probability models and applying Bayesian inference.
-
-A deep learning model has a strong fitting capability, and the Bayesian theory has a good explainability.
+MindSpore Probability is a fusion suite seamlessly integrating Bayesian learning and deep learning, which provides a comprehensive probability learning library for building probability models and applying Bayesian inference. A deep learning model has a strong fitting capability, and the Bayesian theory has a good explainability.
 
 MindSpore Probability provides the following functions:
 
@@ -27,7 +25,6 @@ Typical MindSpore Probability Application Scenarios
    :glob:
    :maxdepth: 1
    :caption: Installation
-
 
 .. toctree::
    :glob:
