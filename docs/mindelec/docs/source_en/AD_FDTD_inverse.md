@@ -47,7 +47,7 @@ The process that MindSpore Elec solves the problem is as follows:
 
 5. Train the network and evaluate the solution results.
 
-## Import Dependencies
+## Importing Dependencies
 
 Import the modules and interfaces that this tutorial depends on:
 

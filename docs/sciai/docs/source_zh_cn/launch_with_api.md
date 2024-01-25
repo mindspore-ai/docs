@@ -25,7 +25,7 @@ model = AutoModel.from_pretrained("cpinns")
 
 用户可以使用`AutoModel.train`实现模型的训练，并且在执行训练之前，
 使用`AutoModel.update_config`调整训练参数，或是加载`.ckpt`文件实现模型微调。
-接口`AutoModel.update_config`所接受的可选参数依赖于模型类型，
+接口`AutoModel.update_config`所接受的可选参数依赖于模型类型。
 
 ```python
 from sciai.model import AutoModel

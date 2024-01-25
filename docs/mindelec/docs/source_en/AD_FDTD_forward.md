@@ -264,7 +264,7 @@ def get_microstrip_filter(air_buffers, npml):
 
 It should be noted that the patch filter in this case is a two-port device, and only S11 and S21 parameters are simulated in this case. In order to calculate the multi-port S-parameters, the voltage sampling port and current sampling port need to be defined separately at each port.
 
-### Building Neural Network and Solve
+### Building Neural Network and Solving
 
 Define the differentiable FDTD network, then define the S-parameter solver object `solver` and call the `solve` interface for solving.
 
