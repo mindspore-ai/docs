@@ -12,4 +12,4 @@ Molecular property prediction is one of the most important tasks in the computer
 | Drug Disease Association Prediction | DeepDR | √    | √   | GPU/Ascend |
 | Protein-Ligand Affinity Prediction | [pafnucy](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/pafnucy.md) | √   | √   | GPU/Ascend |
 
-Molecular docking, ADMET and other molecular property prediction networks will be provided in the future, please stay tuned.
+Molecular docking, ADMET and other molecular property prediction networks will be provided in the future. Please stay tuned.

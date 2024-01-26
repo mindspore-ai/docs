@@ -77,8 +77,8 @@ Dependency
 Please refer to `MindSpore installation
 tutorial <https://www.mindspore.cn/install/en>`__.
 
-source code install
-~~~~~~~~~~~~~~~~~~~
+Source Code Installation
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: 
 
