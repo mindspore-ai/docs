@@ -22,7 +22,7 @@
 
 ## 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.2.10版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.2.11版本为例，执行以下命令。
 
 ```bash
 set MS_VERSION=2.2.11
@@ -72,4 +72,4 @@ pip install --upgrade mindspore=={version}
 
 其中：
 
-- 升级到rc版本时，需要手动指定`{version}`为rc版本号，例如2.2.10；如果升级到正式版本，`=={version}`字段可以缺省。
+- 升级到rc版本时，需要手动指定`{version}`为rc版本号，例如2.2.11；如果升级到正式版本，`=={version}`字段可以缺省。

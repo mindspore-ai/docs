@@ -31,7 +31,7 @@
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/r2.2/scripts/install/euleros-ascend-pip.sh
-# 安装MindSpore 2.2.10和Python 3.7
+# 安装MindSpore 2.2.11和Python 3.7
 # 默认LOCAL_ASCEND路径为/usr/local/Ascend
 MINDSPORE_VERSION=2.2.11 bash -i ./euleros-ascend-pip.sh
 # 如需指定Python和MindSpore版本，以Python 3.9和MindSpore 1.6.0为例
@@ -168,7 +168,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.wh
 
 ### 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.2.10版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.2.11版本为例，执行以下命令。
 
 ```bash
 export MS_VERSION=2.2.11
