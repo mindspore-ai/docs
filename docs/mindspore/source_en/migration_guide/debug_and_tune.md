@@ -235,7 +235,7 @@ The performance tuning directions are as follows:
 
 For details, see [ResNet Network Migration](https://www.mindspore.cn/docs/en/r2.3/migration_guide/sample_code.html).
 
-> Some networks are large. In this case, the build is slow in graph mode. During performance tuning, distinguish graph build from network execution. This section describes the performance tuning policies in the network execution phase. If graph build is slow, try [incremental operator build](https://mindspore.cn/tutorials/experts/en/r2.3/optimize/op_compilation.html) or contact [MindSpore community](https://gitee.com/mindspore/mindspore/issues) for feedback.
+> Some networks are large. In this case, the build is slow in graph mode. During performance tuning, distinguish graph build from network execution. This section describes the performance tuning policies in the network execution phase.
 
 #### Operator Performance Tuning
 

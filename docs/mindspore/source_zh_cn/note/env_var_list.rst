@@ -74,7 +74,7 @@
        默认：不设置。
      - 仅推理使用
 
-具体用法详见 `算子增量编译 <https://mindspore.cn/tutorials/experts/zh-CN/r2.3/optimize/op_compilation.html>`_ ，常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/r2.3/faq/operators_compile.html>`_ 。
+常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/r2.3/faq/operators_compile.html>`_ 。
 
 并行训练
 --------
