@@ -24,11 +24,11 @@ API function of MindSpore is consistent with that of PyTorch.
 
 PyTorch: The shape and data type of the return value are the same as `input`.
 
-MindSpore: `shape` determines the shape of the random number tensor sampled under each distribution, and the shape of the return value is `mindspore.concat([shape, mindspore.shape(rate)], axis=0)` . When the value of `shape` is `Tensor([])`, the shape of the return value is the same as that in PyTorch, which is the same as the shape of `rate`. The data type of the return value is determined by `dtype` .
+MindSpore: `shape` determines the shape of the random number tensor sampled under each distribution, and the shape of the return value is `mindspore.concat([shape, mindspore.shape(rate)], axis=0)` . The data type of the return value is determined by `dtype` .
 
 | Categories | Subcategories | PyTorch      | MindSpore     | Differences   |
 | ---------- | ------------- | ------------ | ---------     | ------------- |
-| Parameters | Parameter 1   | -            | shape         | The shape of the random number tensor sampled under each distribution under MindSpore, the shape of the return value is the same as PyTorch when the value `Tensor([])` |
+| Parameters | Parameter 1   | -            | shape         | The shape of the random number tensor sampled under each distribution under MindSpore |
 |            | Parameter 2   | input        | rate          | Parameters of the Poisson distribution |
 |            | Parameter 3   | generator    | seed          | For details, see [General Difference Parameter Table](https://www.mindspore.cn/docs/en/r2.3/note/api_mapping/pytorch_api_mapping.html#general-difference-parameter-table) |
 |            | Parameter 4   | -            | dtype         | The data type of the returned value in MindSpore supports int32/64, float16/32/64 |
@@ -49,9 +49,10 @@ print(output.shape)
 import mindspore as ms
 import numpy as np
 
-shape = ms.Tensor(np.array([]), ms.int32)
+shape = ms.Tensor(np.array([1]), ms.int32)
 rate = ms.Tensor(np.array([[5.0, 10.0], [5.0, 1.0]]), dtype=ms.float32)
 output = ms.ops.random_poisson(shape, rate, dtype=ms.float32)
+output = ms.ops.reshape(output, (2, 2))
 print(output.shape)
 # (2, 2)
 ```
