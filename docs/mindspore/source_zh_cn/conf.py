@@ -252,215 +252,49 @@ if os.path.exists(probability_dir):
 
 # 删除并获取ops下多余的接口文件名
 white_list = ['mindspore.ops.comm_note.rst']
-ops_adjust = [
-"mindspore.ops.Abs",
-"mindspore.ops.ACos",
-"mindspore.ops.Acosh",
-"mindspore.ops.Add",
-"mindspore.ops.Addcdiv",
-"mindspore.ops.Addcmul",
-"mindspore.ops.Angle",
-"mindspore.ops.Argmax",
-"mindspore.ops.Argmin",
-"mindspore.ops.Asin",
-"mindspore.ops.Asinh",
-"mindspore.ops.Assign",
-"mindspore.ops.Atan",
-"mindspore.ops.Atan2",
-"mindspore.ops.Atanh",
-"mindspore.ops.AvgPool",
-"mindspore.ops.BatchNorm",
-"mindspore.ops.BiasAdd",
-"mindspore.ops.Ceil",
-"mindspore.ops.CeLU",
-"mindspore.ops.Cholesky",
-"mindspore.ops.Complex",
-"mindspore.ops.Concat",
-"mindspore.ops.Conj",
-"mindspore.ops.Cos",
-"mindspore.ops.Cosh",
-"mindspore.ops.Cummax",
-"mindspore.ops.Cummin",
-"mindspore.ops.CumProd",
-"mindspore.ops.CumSum",
-"mindspore.ops.Diag",
-"mindspore.ops.Div",
-"mindspore.ops.Elu",
-"mindspore.ops.Equal",
-"mindspore.ops.Erf",
-"mindspore.ops.Erfc",
-"mindspore.ops.Erfinv",
-"mindspore.ops.Exp",
-"mindspore.ops.ExpandDims",
-"mindspore.ops.Expm1",
-"mindspore.ops.Eye",
-"mindspore.ops.FastGeLU",
-"mindspore.ops.FFTWithSize",
-"mindspore.ops.Flatten",
-"mindspore.ops.Floor",
-"mindspore.ops.FloorDiv",
-"mindspore.ops.FloorMod",
-"mindspore.ops.Gather",
-"mindspore.ops.GatherD",
-"mindspore.ops.GatherNd",
-"mindspore.ops.Gcd",
-"mindspore.ops.GeLU",
-"mindspore.ops.Geqrf",
-"mindspore.ops.Greater",
-"mindspore.ops.GreaterEqual",
-"mindspore.ops.GridSampler2D",
-"mindspore.ops.GridSampler3D",
-"mindspore.ops.HShrink",
-"mindspore.ops.HSigmoid",
-"mindspore.ops.HSwish",
-"mindspore.ops.Identity",
-"mindspore.ops.InplaceUpdate",
-"mindspore.ops.LayerNorm",
-"mindspore.ops.Less",
-"mindspore.ops.LessEqual",
-"mindspore.ops.LinSpace",
-"mindspore.ops.Log",
-"mindspore.ops.Log1p",
-"mindspore.ops.LogicalAnd",
-"mindspore.ops.LogicalNot",
-"mindspore.ops.LogicalOr",
-"mindspore.ops.LogicalXor",
-"mindspore.ops.Logit",
-"mindspore.ops.LogSoftmax",
-"mindspore.ops.MaskedFill",
-"mindspore.ops.Maximum",
-"mindspore.ops.MaxPoolWithArgmax",
-"mindspore.ops.Minimum",
-"mindspore.ops.Mul",
-"mindspore.ops.NanToNum",
-"mindspore.ops.Neg",
-"mindspore.ops.NextAfter",
-"mindspore.ops.NLLLoss",
-"mindspore.ops.NonZero",
-"mindspore.ops.NotEqual",
-"mindspore.ops.OneHot",
-"mindspore.ops.OnesLike",
-"mindspore.ops.Pow",
-"mindspore.ops.PReLU",
-"mindspore.ops.RandpermV2",
-"mindspore.ops.Range",
-"mindspore.ops.Real",
-"mindspore.ops.RealDiv",
-"mindspore.ops.Reciprocal",
-"mindspore.ops.ReduceAll",
-"mindspore.ops.ReduceAny",
-"mindspore.ops.ReduceMax",
-"mindspore.ops.ReduceMean",
-"mindspore.ops.ReduceMin",
-"mindspore.ops.ReduceProd",
-"mindspore.ops.ReduceSum",
-"mindspore.ops.ReLU",
-"mindspore.ops.ReLU6",
-"mindspore.ops.Reshape",
-"mindspore.ops.ResizeBicubic",
-"mindspore.ops.ResizeBilinearV2",
-"mindspore.ops.ResizeNearestNeighbor",
-"mindspore.ops.ReverseV2",
-"mindspore.ops.RightShift",
-"mindspore.ops.Round",
-"mindspore.ops.Rsqrt",
-"mindspore.ops.ScatterNd",
-"mindspore.ops.Sigmoid",
-"mindspore.ops.Sin",
-"mindspore.ops.Sinc",
-"mindspore.ops.Sinh",
-"mindspore.ops.Softmax",
-"mindspore.ops.Split",
-"mindspore.ops.Sqrt",
-"mindspore.ops.Square",
-"mindspore.ops.TensorShape",
-"mindspore.ops.Tile",
-"mindspore.ops.Trace",
-"mindspore.ops.Transpose",
-"mindspore.ops.ZerosLike"]
 
-func_adjust = [
-"mindspore.ops.abs",
-"mindspore.ops.acos",
-"mindspore.ops.acosh",
-"mindspore.ops.add",
-"mindspore.ops.asin",
-"mindspore.ops.asinh",
-"mindspore.ops.assign",
-"mindspore.ops.atan",
-"mindspore.ops.atanh",
-"mindspore.ops.bias_add",
-"mindspore.ops.ceil",
-"mindspore.ops.conj",
-"mindspore.ops.cos",
-"mindspore.ops.cosh",
-"mindspore.ops.cummax",
-"mindspore.ops.deepcopy",
-"mindspore.ops.diag",
-"mindspore.ops.equal",
-"mindspore.ops.erf",
-"mindspore.ops.erfc",
-"mindspore.ops.erfinv",
-"mindspore.ops.exp",
-"mindspore.ops.expand_dims",
-"mindspore.ops.fast_gelu",
-"mindspore.ops.floor",
-"mindspore.ops.floor_div",
-"mindspore.ops.gather",
-"mindspore.ops.gcd",
-"mindspore.ops.geqrf",
-"mindspore.ops.greater",
-"mindspore.ops.greater_equal",
-"mindspore.ops.less",
-"mindspore.ops.less_equal",
-"mindspore.ops.log_softmax",
-"mindspore.ops.logit",
-"mindspore.ops.masked_fill",
-"mindspore.ops.maximum",
-"mindspore.ops.minimum",
-"mindspore.ops.mul",
-"mindspore.ops.not_equal",
-"mindspore.ops.pow",
-"mindspore.ops.prelu",
-"mindspore.ops.range",
-"mindspore.ops.rank",
-"mindspore.ops.relu",
-"mindspore.ops.round",
-"mindspore.ops.rsqrt",
-"mindspore.ops.scatter_nd",
-"mindspore.ops.sigmoid",
-"mindspore.ops.trace",
-"mindspore.ops.transpose"]
+ops_adjust = ['Argmax', 'AvgPool', 'Complex', 'CumProd', 'CumSum', 'Eye', 'FFTWithSize', 'GeLU', 'GridSampler2D', 'GridSampler3D', 'LayerNorm', 'LogicalAnd', 'LogicalOr', 'LogicalXor', 'NLLLoss', 'NanToNum', 'OneHot', 'ReLU', 'ReLU6', 'RealDiv', 'Reciprocal', 'ReduceAll', 'ReduceAny', 'ResizeBicubic', 'ResizeNearestNeighbor', 'Softmax', 'Split', 'Tile', 'ZerosLike', 'NextAfter']
 
+refer_ops_adjust = ['Maximum', 'Rank', 'Assign', 'ExpandDims', 'NonZero', 'Cos', 'LessEqual', 'ScatterNd', 'Range', 'Transpose', 'Sqrt', 'Rsqrt', 'Identity', 'AssignAdd', 'Square', 'MaskedFill', 'Add', 'PReLU', 'Mul', 'Conj', 'Cosh', 'Cummax', 'Concat', 'Minimum', 'LogSoftmax', 'ReverseV2']
+
+func_adjust = ['add', 'assign', 'assign_add', 'concat', 'conj', 'cos', 'cosh', 'cummax', 'deepcopy', 'diagonal', 'expand_dims', 'less_equal', 'log_softmax', 'masked_fill', 'maximum', 'minimum', 'mul', 'nonzero', 'prelu', 'range', 'rank', 'reverse', 'rsqrt', 'scatter_nd', 'silu', 'sqrt', 'square', 'transpose']
 
 def ops_interface_name():
     dir_list = ['mindspore.ops.primitive.rst', 'mindspore.ops.rst']
     interface_name_list = []
+    all_rst = []
+
     for i in dir_list:
-        target_path = os.path.join(os.path.dirname(__file__),'api_python',i)
+        target_path = os.path.join(src_dir, i)
         with open(target_path,'r+',encoding='utf8') as f:
             content =  f.read()
-            new_content = content
-            if 'primitive' in i:
-                for name in ops_adjust:
-                    new_content = new_content.replace('    ' + name + '\n', '')
-            else:
-                for name in func_adjust:
-                    new_content = new_content.replace('    ' + name + '\n', '')
-            if interface_name_list:
-                interface_name_list = interface_name_list + re.findall("mindspore\.ops\.(\w*)", new_content)
-            else:
-                interface_name_list = re.findall("mindspore\.ops\.(\w*)", new_content)
+        new_content = content
+        if 'primitive' in i:
+            for name in ops_adjust:
+                new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
+            for name in refer_ops_adjust:
+                new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
+            primi_list = re.findall("    (mindspore\.ops\.\w*?)\n", new_content)
+            if not os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python', i)):
+                return primi_list
+        else:
+            for name in func_adjust:
+                new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
+        if interface_name_list:
+            interface_name_list = interface_name_list + re.findall("mindspore\.ops\.(\w*)", new_content)
+        else:
+            interface_name_list = re.findall("mindspore\.ops\.(\w*)", new_content)
 
-            if new_content != content:
-                f.seek(0)
-                f.truncate()
-                f.write(new_content)
+        if new_content != content and os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python', i)):
+            with open(os.path.join(os.path.dirname(__file__), 'api_python', i),'r+',encoding='utf8') as g:
 
-    all_rst = []
-    for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/ops')):
+                g.seek(0)
+                g.truncate()
+                g.write(new_content)
+
+    for j in os.listdir(os.path.join(src_dir, 'ops')):
         if j.split('.')[-1]=='rst':
-            all_rst.append(j.split('.')[-2])
+            all_rst.append(j.split('.')[-2].replace("func_",''))
 
     extra_interface_name = set(all_rst).difference(set(interface_name_list))
     print(extra_interface_name)
@@ -468,11 +302,13 @@ def ops_interface_name():
         with open(os.path.join(os.path.dirname(__file__),'extra_interface_del.txt'),'w+',encoding='utf8') as g:
             extra_write_list = []
             for k in extra_interface_name:
-                k = "mindspore.ops." + k +'.rst'
-                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/ops',k)) and k not in white_list:
-                    os.remove(os.path.join(os.path.dirname(__file__),'api_python/ops',k))
-                    extra_write_list.append(k)
+                extra_file = "mindspore.ops." + k +'.rst'
+                if os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python/ops', extra_file)) and extra_file not in white_list:
+                    os.remove(os.path.join(os.path.dirname(__file__), 'api_python/ops', extra_file))
+                    extra_write_list.append(extra_file)
             g.write(str(extra_write_list))
+
+    return primi_list
 
 # 删除并获取nn下多余的接口文件名
 def nn_interface_name():
@@ -615,12 +451,17 @@ try:
 except Exception as e:
     print(e)
 
+primitive_list = ops_interface_name()
+
 try:
-    ops_interface_name()
     nn_interface_name()
     tensor_interface_name()
 except Exception as e:
     print(e)
+
+from generate_rst_by_en import generate_rst_by_en
+
+generate_rst_by_en(primitive_list, './api_python/ops')
 
 from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnPlatWarnAutoSummary
 
