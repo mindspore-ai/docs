@@ -24,13 +24,13 @@ MindSpore此API功能与PyTorch一致。
 
 PyTorch: 返回值的shape和数据类型和 `input` 一致。
 
-MindSpore: `shape` 决定了每个分布下采样的随机数张量的形状，返回值的shape是 `mindspore.concat([shape, mindspore.shape(rate)], axis=0)` 。当 `shape` 的值为 `Tensor([])` 时，返回值的shape和PyTorch一样，与 `rate` 的shape一致。返回值的数据类型由 `dtype` 决定。
+MindSpore: `shape` 决定了每个分布下采样的随机数张量的形状，返回值的shape是 `mindspore.concat([shape, mindspore.shape(rate)], axis=0)` 。返回值的数据类型由 `dtype` 决定。
 
 功能上无差异。
 
 | 分类       | 子类         | PyTorch      | MindSpore      | 差异          |
 | ---------- | ------------ | ------------ | ---------      | ------------- |
-| 参数       | 参数 1       | -             | shape         | MindSpore下每个分布下采样的随机数张量的形状，值为 `Tensor([])` 时返回值的shape和PyTorch一样 |
+| 参数       | 参数 1       | -             | shape         | MindSpore下每个分布下采样的随机数张量的形状 |
 |        | 参数 2       | input         | rate          | 泊松分布的参数 |
 |            | 参数 3       | generator     | seed          | 详见[通用差异参数表](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#通用差异参数表) |
 |            | 参数 4       | -             | dtype         | MindSpore下返回值的数据类型，支持int32/64，float16/32/64 |
@@ -51,9 +51,10 @@ print(output.shape)
 import mindspore as ms
 import numpy as np
 
-shape = ms.Tensor(np.array([]), ms.int32)
+shape = ms.Tensor(np.array([1]), ms.int32)
 rate = ms.Tensor(np.array([[5.0, 10.0], [5.0, 1.0]]), dtype=ms.float32)
 output = ms.ops.random_poisson(shape, rate, dtype=ms.float32)
+output = ms.ops.reshape(output, (2, 2))
 print(output.shape)
 # (2, 2)
 ```
