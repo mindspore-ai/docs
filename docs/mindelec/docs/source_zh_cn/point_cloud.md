@@ -64,7 +64,7 @@ python generate_cloud_point.py --stp_path STP_PATH
 
 #### 训练数据准备
 
-压缩模型使用的训练数据是分块的点云数据。用户生成点云数据后，调用`data_compression/src/dataset.py`中的`generate_data`函数即可生成训练与推理所需数据。分块大小与数据输入输出路径通过该脚本中以下参数配置
+压缩模型使用的训练数据是分块的点云数据。用户生成点云数据后，调用`data_compression/src/dataset.py`中的`generate_data`函数即可生成训练与推理所需数据。分块大小与数据输入输出路径通过该脚本中以下参数配置：
 
 ```python
 PATCH_DIM = [25, 50, 25]

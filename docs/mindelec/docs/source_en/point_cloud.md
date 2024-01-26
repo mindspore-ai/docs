@@ -64,7 +64,7 @@ If the point cloud resolution is set to a high value, the memory and computing c
 
 #### Preparing the Training Data
 
-The training data used by the compressing model is the blocks of point cloud data. After the point cloud data is generated, the generate_data function in `data_compression/src/dataset.py` can be called to generate the data required for training and inference. The block size and data input and output paths are configured using the following parameters in the script:
+The training data used by the compressing model is the blocks of point cloud data. After the point cloud data is generated, the `generate_data` function in `data_compression/src/dataset.py` can be called to generate the data required for training and inference. The block size and data input and output paths are configured using the following parameters in the script:
 
 ```python
 PATCH_DIM = [25, 50, 25]
@@ -158,7 +158,7 @@ for epoch in range(config["epochs"] // config["eval_interval"]):
     save_checkpoint(model_net, os.path.join(opt.checkpoint_dir, 'model_last.ckpt'))
 ```
 
-### Compressing the data
+### Compressing the Inference Data
 
 During data compression, you need to set the original point cloud path and the model checkpoint file, define the compressing model based on parameters defined in `config.py`, and import the model checkpoint.
 
@@ -343,7 +343,7 @@ During the training process of the S-parameters simulation model, the prediction
 model_net = S11Predictor(config["input_channels"])
 ```
 
-Then, call the `create_dataset` function in `src/dataset` to load dataset.
+Then, call the data read interface defined in `src/dataset.py` to load the dataset:
 
 ```python
 dataset = create_dataset(input_path, label_path, config.batch_size, shuffle=True)

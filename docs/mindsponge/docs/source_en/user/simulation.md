@@ -12,7 +12,7 @@ Firstly, both MindSpore and MindSpore SPONGE require three basic cells or functi
 
 | MindSpore | | MindSpore SPONGE | |
 | :-------- | :--------- | :--------- | :--------- |
-| Model | network | System | system |
+| Model | network | Simulation System | system |
 | Loss Function | loss_fn | Potential Function | potential |
 | Optimizer | optimizer | Updater | updater |
 
@@ -52,7 +52,7 @@ md = Sponge(sim, optimizer= updater)
 # Set Callback function：
 run_info = RunInfo(10)
 cb_h5md = WriteH5MD(system, 'traj.h5md', save_freq=10)
-# Perform training process：
+# Perform simulation process：
 md.run(1000, callbacks=[run_info, cb_h5md])
 ```
 
@@ -62,18 +62,18 @@ Sponge is the top module used by MindSpore SPONGE to encapsulate the three funct
 
 After encapsulating the three basic units, MindSpore executes the training process by calling the train() function of the Model module, while MindSpore SPONGE executes the simulation process by calling the run() function of the Sponge module. In MindSpore, different callback functions can be used to process the information in the training process (without changing the calculation diagram). For example, LossMonitor() function can be used to monitor the parameter changes in the training process, and ModelCheckpoint() function can be used to save network parameters. However, MindSpore SPONGE can also use a callback function to process information during simulation. For example, RunInfo() function is used to print parameter information during training, and WriteH5MD() is used to record the changes of system coordinates during simulation as a simulation trajectory.
 
-## System(Molecule) Module
+## System (Molecule) Module
 
 The system (molecular) module is used to describe the chemical properties of the molecular system, such as chemical composition, topological information, spatial coordinates, etc. System simulation of the basic class (parent) is mindsponge system. The Molecule, it contains the main parameters are:
 
 - atom_name: Indicate the atom name of each atom in the system, which is used to distinguish different atoms
 - atom_type: Specify the atom type of each atom in the system, which is used to set force field parameters
-- Atomic mass (atom_mass) : Specify the mass of each atom in the system
+- atom_mass : Specify the mass of each atom in the system
 - atom_charge: Point charge of each atom in the system
 - coordinate: The space coordinate of the atom of the system
 - Periodic box (pbc_box) : Size of periodic boundary condition "protocell" box
 - bond: Bond connection between atoms (single and double bonds are not distinguished)
-- residue: Used to distinguish between molecular fragments in macromolecules or different molecules in the system. (The concept of residue in Molecule is similar to that of residue in the PDB document. Each residue can be used to represent not only a single amino acid residue but also a single small molecule, such as water and inorganic salt ions.)
+- residue: Used to distinguish between molecular fragments in macromolecules or different molecules in the system (The concept of residue in Molecule is similar to that of residue in the PDB document. Each residue can be used to represent not only a single amino acid residue but also a single small molecule, such as water and inorganic salt ions).
 
 The Molecule class can be initialized by passing in the above arguments artificially:
 
@@ -210,11 +210,11 @@ Currently, MindSpore SPONGE has two built-in Callback functions:
 
 - WriteH5MD: Output simulation track in H5MD format.
 
-## Simulation Track File: H5MD
+## Simulation Trajectory File: H5MD
 
-MindSpore SPONGE uses H5MD as the default file format for recording analog tracks. H5MD (HDF5 Molecular Data) is a MD simulation trajectory file Format based on HDF5 (Hierarchical Data Format 5) format proposed by Dr Pierre de Buyl and others from the Free University of Brussels in Belgium in 2014 (de Buyl, P.; Colberg, P. H.; Höfling, F. H5MD: A Structured, Efficient, and Portable File Format for Molecular Data [J]. Comput Phys Commun 2014, 185(6): 1546-1553.).
+MindSpore SPONGE uses H5MD as the default file format for recording analog tracks. H5MD (HDF5 Molecular Data) is a MD simulation trajectory file format [1] based on HDF5 (Hierarchical Data Format 5) format proposed by Dr Pierre de Buyl and others from the Free University of Brussels in Belgium in 2014.
 
-Jonas Landsgesell and Sascha Ehrhardt of the University of Stuttgart, Germany, have developed an [VMD plug-in](https://github.com/h5md/VMD-h5mdplugin) that allows us to view a simulation trace file in the H5MD format. However, this plugin is buggy and has not been updated since 2019. We forked the [original repository](https://gitee.com/helloyesterday/VMD-h5mdplugin), fixed bugs, and made some minor changes to the original program, adding functions such as unit conversion of coordinates, and changing the default file extension from.h5 to.h5MD. [MDAnalysis](https://www.mdanalysis.org/) can also be used to read the simulated trajectory information of the H5MD file.
+Jonas Landsgesell and Sascha Ehrhardt of the University of Stuttgart, Germany, have developed an [VMD plug-in](https://github.com/h5md/VMD-h5mdplugin) that allows us to view a simulation trajectory file in the H5MD format. However, this plugin has a bug and has not been updated since 2019. We forked the [original repository](https://gitee.com/helloyesterday/VMD-h5mdplugin), fixed bugs, and made some minor changes to the original program, adding functions such as unit conversion of coordinates, and changing the default file extension from.h5 to.h5MD. [MDAnalysis](https://www.mdanalysis.org/) can also be used to read the simulated trajectory information of the H5MD file.
 
 Thanks to the multi-tiered data structure of HDF5, H5MD itself is highly scalable, in addition to recording simulation tracks, and can record relevant data during simulation. MindSpore SPONGE recorded potential energy, kinetic energy, temperature, pressure and other information in the simulation process in the observables directory of H5MD file. This information can be viewed using some HDF5 readers, such as the [Silx Viewer](https://www.silx.org/doc/silx/latest/):
 
