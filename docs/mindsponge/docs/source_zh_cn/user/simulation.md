@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_zh_cn/user/simulation.md)
 
-MindSpore SPONGE采取了一种独一无二的 “类AI”分子模拟程序架构：
+MindSpore SPONGE采取了一种独一无二的“类AI”分子模拟程序架构：
 
 ![MindSpore SPONGE](./images/mindsponge.png)
 
@@ -211,7 +211,7 @@ simulation = SimulationCell(
 
 ## 模拟轨迹文件：H5MD
 
-MindSpore SPONGE采用H5MD作为记录模拟轨迹的默认文件格式。H5MD (HDF5 Molecular Data）是比利时布鲁塞尔自由大学的Pierre de Buyl博士等人于2014年提出的一种基于HDF5（Hierarchical Data Format 5）格式的MD模拟轨迹文件格式[1]。
+MindSpore SPONGE采用H5MD作为记录模拟轨迹的默认文件格式。H5MD（HDF5 Molecular Data）是比利时布鲁塞尔自由大学的Pierre de Buyl博士等人于2014年提出的一种基于HDF5（Hierarchical Data Format 5）格式的MD模拟轨迹文件格式[1]。
 
 德国斯图加特大学的Jonas Landsgesell和Sascha Ehrhardt和开发了一款[VMD插件](https://github.com/h5md/VMD-h5mdplugin)，安装后可以用VMD查看H5MD格式的模拟轨迹文件。但此插件存在Bug，且自2019以后就不再更新。我们Fork了[原版仓库](https://gitee.com/helloyesterday/VMD-h5mdplugin)，修正了bug，并在原版程序的基础上进行了小幅修改，增加了坐标的单位转换等功能，并将默认的文件扩展名由.h5改为.h5md。此外，也可以使用[MDAnalysis](https://www.mdanalysis.org/)来读取H5MD文件的模拟轨迹信息。
 

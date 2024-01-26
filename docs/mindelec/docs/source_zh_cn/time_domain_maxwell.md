@@ -110,7 +110,7 @@ train_dataset = elec_train_dataset.create_dataset(batch_size=config["train_batch
 
 ### 定义控制方程及初边值条件
 
-继承MindSpore Elec提供的Problem类，用户可以快速自定义Partial differential equation（PDE）问题。该问题类的一次实现即可以约束多个数据集。成员函数governing_equation、boundary_conditon、initial_condition以及constraint_function分别对应于控制方程、边界条件、初始条件以及有监督的标签或者函数约束。用户在构造函数中传入对应样本在数据集中的列名就可以自动实现对该类样本集的损失函数计算。以该问题为例，我们定义的PDE问题核心代码如下, 其中对于方程中的一阶微分可以调用梯度接口Grad来实现，相应的二阶微分可以调用接口SecondOrderGrad来完成。
+继承MindSpore Elec提供的Problem类，用户可以快速自定义Partial differential equation（PDE）问题。该问题类的一次实现即可以约束多个数据集。成员函数governing_equation、boundary_conditon、initial_condition以及constraint_function分别对应于控制方程、边界条件、初始条件以及有监督的标签或者函数约束。用户在构造函数中传入对应样本在数据集中的列名就可以自动实现对该类样本集的损失函数计算。以该问题为例，我们定义的PDE问题核心代码如下，其中对于方程中的一阶微分可以调用梯度接口Grad来实现，相应的二阶微分可以调用接口SecondOrderGrad来完成。
 
 ```python
 # 2d TE-mode Maxwell equation with 2nd-order Mur boundary condition and static initial electromagnetic field
