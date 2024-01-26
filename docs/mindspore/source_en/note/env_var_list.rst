@@ -75,7 +75,7 @@ Operators Compile
        Default: No setting.
      - Inference only
 
-For more information, see `Incremental Operator Build <https://mindspore.cn/tutorials/experts/en/master/optimize/op_compilation.html>`_ and `FAQ <https://mindspore.cn/docs/en/master/faq/operators_compile.html>`_.
+For more information, see `FAQ <https://mindspore.cn/docs/en/master/faq/operators_compile.html>`_.
 
 Parallel Training
 -----------------
