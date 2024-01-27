@@ -556,12 +556,12 @@ Dump功能
      - 1或不设置：打印保存所有IR文件。
 
        其它数值：按照指定的间隔个数保存IR文件。
-     -
+     - 该环境变量与MS_DEV_DUMP_IR_PASSES同时打开时，优先遵从MS_DEV_DUMP_IR_PASSES的规则，该环境变量不会生效。
    * - MS_DEV_DUMP_IR_PASSES
      - 根据文件名指定保存哪些IR文件。
      - String
      - 文件名或文件名的一部分。如果有多个，使用逗号隔开。例如`export MS_DEV_DUMP_IR_PASSES=recompute,renormalize`。
-     -
+     - 设置该环境变量时，无论MS_DEV_SAVE_GRAPHS设置为什么等级，详细的前端IR文件都会参与筛选和打印。
 
 CANN
 --------
