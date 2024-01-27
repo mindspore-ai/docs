@@ -555,12 +555,12 @@ Network Compilation
      - 1 or not set: Save all IR files.
 
        Other values: Save IR files at specified intervals.
-     -
+     - When this environment variable is enabled together with MS_DEV_DUMP_IR_PASSES, the rules of MS_DEV_DUMP_IR_PASSES take priority, and this environment variable will not take effect.
    * - MS_DEV_DUMP_IR_PASSES
      - Specify which IR files to save based on the file name.
      - String
      - Pass's name of part of its name. If there are multiple, use commas to separate them. For example, `export MS_DEV_DUMP_IR_PASSES=recompute,renormalize`.
-     -
+     - When setting this environment variable, regardless of the value of MS_DEV_SAVE_GRAPHS, detailed frontend IR files will be filtered and printed.
 
 CANN
 -----
