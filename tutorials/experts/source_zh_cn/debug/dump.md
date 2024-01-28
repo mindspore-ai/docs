@@ -610,3 +610,7 @@ Dump生成的原始数据文件也可以使用MindSpore Insight的数据解析�
     import numpy
     numpy.load("Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.0.32x256x13x13.npy")
     ```
+
+## 注意事项
+
+- `bfloat16`类型的算子保存`npy`文件时，会转换成`float32`类型。
