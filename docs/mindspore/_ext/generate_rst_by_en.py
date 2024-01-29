@@ -20,6 +20,7 @@ def get_api(fullname):
 def generate_rst_by_en(ops_list, target_path):
     """Generate the rst file by the ops list."""
 
+    exist_rst = []
     for i in ops_list:
         if i.lower() == i:
             continue
@@ -62,5 +63,8 @@ def generate_rst_by_en(ops_list, target_path):
                 all_rst_content = cn_base_rst + \
                                   py_docs_indent.replace('is equivalent to', '等价于')\
                                   .replace('Refer to', '更多详情请查看：').replace('for more details.', '。')
+                if os.path.exists(os.path.join(target_path, i + '.rst')):
+                    exist_rst.append(i)
                 with open(os.path.join(target_path, i + '.rst'), "w", encoding='utf-8') as f:
                     f.write(all_rst_content)
+    return exist_rst
