@@ -10,7 +10,7 @@
 
 > 动态组网场景下的容灾恢复仅支持GPU，需要在Graph模式下运行。
 
-更多详细说明请查看[动态组网环境变量](https://www.mindspore.cn/docs/zh-CN/r2.3/note/env_var_list.html#动态组网)。
+更多详细说明请查看[动态组网环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/dynamic_cluster.html)。
 
 ## 操作实践
 
