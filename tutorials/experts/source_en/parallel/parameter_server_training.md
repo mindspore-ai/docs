@@ -48,7 +48,7 @@ export MS_SCHED_PORT=XXXX             # Scheduler port
 export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
 ```
 
-For more detailed instructions, see [dynamic cluster environment variables](https://www.mindspore.cn/docs/en/master/note/env_var_list.html#dynamic-networking).
+For more detailed instructions, see [dynamic cluster environment variables](https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html).
 
 ## Practice
 
