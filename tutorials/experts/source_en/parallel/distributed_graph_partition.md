@@ -231,7 +231,7 @@ The above code trains first and then infers, where all processes are executed in
 
 #### Starting Scheduler and Worker Processes
 
-Since multiple processes are started within a node, only one `Scheduler` process and multiple `Worker` processes need to be started via a Shell script. For the meaning of the environment variables in the script and their usage, refer to the [dynamic cluster environment variables](https://www.mindspore.cn/docs/en/r2.3/note/env_var_list.html#dynamic-networking).
+Since multiple processes are started within a node, only one `Scheduler` process and multiple `Worker` processes need to be started via a Shell script. For the meaning of the environment variables in the script and their usage, refer to the [dynamic cluster environment variables](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/dynamic_cluster.html).
 
 The run.sh execution script is as follows:
 

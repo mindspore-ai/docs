@@ -48,7 +48,7 @@ export MS_SCHED_PORT=XXXX             # Scheduler port
 export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
 ```
 
-更多详细说明请查看[动态组网环境变量](https://www.mindspore.cn/docs/zh-CN/r2.3/note/env_var_list.html#动态组网)。
+更多详细说明请查看[动态组网环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/dynamic_cluster.html)。
 
 ## 操作实践
 

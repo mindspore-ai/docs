@@ -230,7 +230,7 @@ if get_rank() == 0:
 
 #### 启动Scheduler和Worker进程
 
-由于是在节点内启动多个进程，因此只需要通过一个Shell脚本启动一个`Scheduler`进程和多个`Worker`进程。对于脚本中的环境变量含义以及用法，可以参考[动态组网环境变量](https://www.mindspore.cn/docs/zh-CN/r2.3/note/env_var_list.html#动态组网)。
+由于是在节点内启动多个进程，因此只需要通过一个Shell脚本启动一个`Scheduler`进程和多个`Worker`进程。对于脚本中的环境变量含义以及用法，可以参考[动态组网环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/dynamic_cluster.html)。
 
 run.sh执行脚本如下：
 
