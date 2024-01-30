@@ -303,6 +303,8 @@ if os.path.exists(lite_dir):
 # Repair error content defined in mindspore_lite.
 try:
     decorator_list = [("mindspore_lite/model.py","del decorator",
+                       "@set_env","# generate api by del decorator set_env."),
+                      ("mindspore_lite/converter.py","del decorator",
                        "@set_env","# generate api by del decorator set_env.")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))

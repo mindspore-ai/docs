@@ -459,9 +459,12 @@ try:
 except Exception as e:
     print(e)
 
+# auto generate rst by en
 from generate_rst_by_en import generate_rst_by_en
 
-generate_rst_by_en(primitive_list, './api_python/ops')
+exist_rst_file = generate_rst_by_en(primitive_list, './api_python/ops')
+if exist_rst_file:
+    print(f'自动生成 ops API 中文时被覆盖的rst文件如下：\n{exist_rst_file}')
 
 from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnPlatWarnAutoSummary
 
