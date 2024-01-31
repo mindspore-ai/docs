@@ -25,7 +25,7 @@ Using MindSpore Insight to Visualize the Training Process
 
    Use SummaryCollector to record the training information in the training script and then perform the training.
 
-2. `Starting MindSpore Insight for Visualization <https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html#start-the-service>`_
+2. `Starting MindSpore Insight for Visualization <https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html#starting-the-service>`_
 
    Start the MindSpore Insight service and set the ``--summary-base-dir`` parameter to specify the directory for storing the summary log file.
 
