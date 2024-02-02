@@ -61,7 +61,7 @@ dpi = 300
 plot_s11(s11_tensor, path_image_save, legend, dpi)
 ```
 
-可视化结果（MindSpore Elec和商业软件CST结果对比）
+可视化结果（MindSpore Elec和商业软件CST结果对比）：
 
 ![S11_test_bow](./images/visualization/2D/S11_test_bow.jpg)
 

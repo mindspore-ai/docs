@@ -53,7 +53,7 @@ python generate_cloud_point.py --stp_path STP_PATH
                                --bbox_args (-40., -80., -5., 40., 80., 5.)
 ```
 
-## Data compression
+## Data Compression
 
 If the point cloud resolution is set to a high value, the memory and computing consumption for subsequent processing of a single piece of point cloud data may be too high. Therefore, MindSpore Elec provides the data compression function. You can call the script in the `data_compression` directory to compress the original point cloud data, reducing the memory and computing consumption of subsequent processes. The compression process is divided into the following two steps:
 
@@ -64,7 +64,7 @@ If the point cloud resolution is set to a high value, the memory and computing c
 
 #### Preparing the Training Data
 
-The training data used by the compressing model is the blocks of point cloud data. After the point cloud data is generated, the generate_data function in `data_compression/src/dataset.py` can be called to generate the data required for training and inference. The block size and data input and output paths are configured using the following parameters in the script:
+The training data used by the compressing model is the blocks of point cloud data. After the point cloud data is generated, the `generate_data` function in `data_compression/src/dataset.py` can be called to generate the data required for training and inference. The block size and data input and output paths are configured using the following parameters in the script:
 
 ```python
 PATCH_DIM = [25, 50, 25]
@@ -76,7 +76,7 @@ SAVE_DATA_PATH = "./"
 
 During the preparation and generation of training data, data is normalized. To ensure the validity of the model, the same normalization parameters need to be used during inference and compression. These parameters are saved in the `data_config.npy` file.
 
-#### Building a compressing model
+#### Building a Compressing Model
 
 Build a compressing model by referring to `data_compression/src/model.py`. The model is trained in self-supervised learning mode. The model consists of an encoder and a decoder. During the training, the network needs to rebuild data (`decoding=True`). When the compressed data is inferred, the decompressor is omitted (`decoding=False`).
 
@@ -158,7 +158,7 @@ for epoch in range(config["epochs"] // config["eval_interval"]):
     save_checkpoint(model_net, os.path.join(opt.checkpoint_dir, 'model_last.ckpt'))
 ```
 
-### Compressing the data
+### Compressing the Inference Data
 
 During data compression, you need to set the original point cloud path and the model checkpoint file, define the compressing model based on parameters defined in `config.py`, and import the model checkpoint.
 
@@ -343,7 +343,7 @@ During the training process of the S-parameters simulation model, the prediction
 model_net = S11Predictor(config["input_channels"])
 ```
 
-Then, call the `create_dataset` function in `src/dataset` to load dataset.
+Then, call the data read interface defined in `src/dataset.py` to load the dataset:
 
 ```python
 dataset = create_dataset(input_path, label_path, config.batch_size, shuffle=True)
@@ -401,6 +401,6 @@ loss_mse, l2_s11 = res_eval["eval_mrc"]["loss_error"], res_eval["eval_mrc"]["l2_
 print('Loss_mse: ', loss_mse, ' L2_S11: ', l2_s11)
 ```
 
-Take the mobile phone S-parameters as an example, the following figure shows S-parameters calculated through this process.
+Taking the mobile phone S-parameters as an example, the following figure shows S-parameters calculated through this process.
 
 ![result_ex](./images/point_cloud/S11.JPG)

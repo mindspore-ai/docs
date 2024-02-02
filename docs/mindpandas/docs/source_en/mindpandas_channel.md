@@ -26,4 +26,4 @@ The channel of MindSpore Pandas supports multiple DataReceivers connect to a sam
 
 For API description, please refer to [mindpandas.channel](https://www.mindspore.cn/mindpandas/docs/en/master/mindpandas.channel.html).
 
-End to end example, please to refer to [Online Learning](https://www.mindspore.cn/recommender/docs/en/master/online_learning.html#example).
+For the use example, please to refer to [Online Learning](https://www.mindspore.cn/recommender/docs/en/master/online_learning.html#example).

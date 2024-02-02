@@ -24,7 +24,7 @@
 
 MindSpore Elec提供两种自动化执行脚本，用于将cst格式文件转换为Python可读取的stp文件，使用该脚本可以实现数据批量转换，实现大规模电磁仿真：
 
-- **基于CST的VBA接口自动调用导出json文件和stp文件**：打开CST软件的VBA Macros Editor， 导入`generate_pointcloud`目录下的`export_stp.bas`文件，将json文件和stp文件路径更改为想要存放的位置，然后点击`Run`即可导出json文件和stp文件。其中，json文件中包含了模型的端口位置以及stp文件对应的材料信息。
+- **基于CST的VBA接口自动调用导出json文件和stp文件**：打开CST软件的VBA Macros Editor，导入`generate_pointcloud`目录下的`export_stp.bas`文件，将json文件和stp文件路径更改为想要存放的位置，然后点击`Run`即可导出json文件和stp文件。其中，json文件中包含了模型的端口位置以及stp文件对应的材料信息。
 - **对于CST2019或更新的版本，支持使用Python直接调用CST**：直接调用`generate_pointcloud`目录下的`export_stp.py`文件即可。
 
 ### 示例
@@ -64,7 +64,7 @@ python generate_cloud_point.py --stp_path STP_PATH
 
 #### 训练数据准备
 
-压缩模型使用的训练数据是分块的点云数据。用户生成点云数据后，调用`data_compression/src/dataset.py`中的`generate_data`函数即可生成训练与推理所需数据。分块大小与数据输入输出路径通过该脚本中以下参数配置
+压缩模型使用的训练数据是分块的点云数据。用户生成点云数据后，调用`data_compression/src/dataset.py`中的`generate_data`函数即可生成训练与推理所需数据。分块大小与数据输入输出路径通过该脚本中以下参数配置：
 
 ```python
 PATCH_DIM = [25, 50, 25]

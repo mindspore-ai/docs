@@ -8,7 +8,7 @@ Understand the basic components of MindSpore Quantum, including quantum gates, q
 
 <ul>
   <li><a href="parameterized_quantum_circuit.html">Variational Quantum Circuit</a></li>
-  <li><a href="quantum_simulator.html">Quantum simulator</a></li>
+  <li><a href="quantum_simulator.html">Quantum Simulator</a></li>
 </ul>
 
 ## Extension Tutorial

@@ -5,6 +5,7 @@
 ## Overview
 
 The rapid development of AI technology provides a new computing paradigm for scientific computing. The MindSpore Elec toolkit supports both data-driven and physics-driven AI methods to handle typical problems in the scientific computing field. The physics-driven AI method combines physical equations and initial boundary conditions to train the model. Compared with the data-driven method, the physics-driven method doesn’t require any labeled data. This tutorial focuses on physics-driven AI methods for solving point source time-domain Maxwell’s equations.
+
 > This current sample is for Atlas training series. You can find the complete executable code at
 > <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/physics_driven/time_domain_maxwell>
 
@@ -45,7 +46,7 @@ The process for MindSpore Elec to solve the problem is as follows:
 
 4. Perform network training and inference.
 
-## Dependency
+## Import Dependency
 
 Import the modules on which this tutorial depends.
 

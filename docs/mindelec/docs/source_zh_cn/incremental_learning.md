@@ -4,7 +4,7 @@
 
 ## 概述
 
-原始的PINNs（Physics-Informed Neural Networks, PINNs)方法不具备求解一类方程的能力。当方程中的特征参数（如介电系数等）发生变化时需要重新训练，增加了求解时间。
+原始的PINNs（Physics-Informed Neural Networks, PINNs）方法不具备求解一类方程的能力。当方程中的特征参数（如介电系数等）发生变化时需要重新训练，增加了求解时间。
 
 本教程重点介绍基于MindSpore Elec套件的物理信息自解码器（Physics-Informed Auto-Decoder）增量训练方法，该方法可以快速求解同一类方程，极大减少重新训练的时间。
 
