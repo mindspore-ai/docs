@@ -253,11 +253,11 @@ if os.path.exists(probability_dir):
 # 删除并获取ops下多余的接口文件名
 white_list = ['mindspore.ops.comm_note.rst']
 
-ops_adjust = ['Argmax', 'AvgPool', 'Complex', 'CumProd', 'CumSum', 'Eye', 'FFTWithSize', 'GeLU', 'GridSampler2D', 'GridSampler3D', 'LayerNorm', 'LogicalAnd', 'LogicalOr', 'LogicalXor', 'NLLLoss', 'NanToNum', 'OneHot', 'ReLU', 'ReLU6', 'RealDiv', 'Reciprocal', 'ReduceAll', 'ReduceAny', 'ResizeBicubic', 'ResizeNearestNeighbor', 'Softmax', 'Split', 'Tile', 'ZerosLike', 'NextAfter']
+ops_adjust = ['Argmax', 'GridSampler3D', 'ReLU', 'Reciprocal', 'ResizeNearestNeighbor', 'Softmax', 'Tile']
 
-refer_ops_adjust = ['Maximum', 'Rank', 'Assign', 'ExpandDims', 'NonZero', 'Cos', 'LessEqual', 'ScatterNd', 'Range', 'Transpose', 'Sqrt', 'Rsqrt', 'Identity', 'AssignAdd', 'Square', 'MaskedFill', 'Add', 'PReLU', 'Mul', 'Conj', 'Cosh', 'Cummax', 'Concat', 'Minimum', 'LogSoftmax', 'ReverseV2']
+refer_ops_adjust = ['CumProd']
 
-func_adjust = ['add', 'assign', 'assign_add', 'concat', 'conj', 'cos', 'cosh', 'cummax', 'deepcopy', 'diagonal', 'expand_dims', 'less_equal', 'log_softmax', 'masked_fill', 'maximum', 'minimum', 'mul', 'nonzero', 'prelu', 'range', 'rank', 'reverse', 'rsqrt', 'scatter_nd', 'silu', 'sqrt', 'square', 'transpose']
+func_adjust = ['acos', 'acosh', 'asin', 'asinh', 'atan', 'atan2', 'atanh', 'ceil', 'concat', 'cos', 'diag', 'equal', 'erf', 'erfinv', 'exp', 'floor', 'floor_div', 'gather', 'gcd', 'geqrf', 'greater', 'greater_equal', 'less', 'less_equal', 'logit', 'not_equal', 'pow', 'range', 'reshape', 'round', 'sigmoid', 'silu', 'trace']
 
 def ops_interface_name():
     dir_list = ['mindspore.ops.primitive.rst', 'mindspore.ops.rst']
