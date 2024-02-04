@@ -10,7 +10,7 @@ The MindSpore **Dynamic Cluster** feature replaces the OpenMPI capability by **r
 
 The **Dynamic Cluster** feature starts multiple MindSpore training processes as `Workers`, and starts an additional `Scheduler` for cluster and disaster recovery, thus, distributed training can be achieved without the need for OpenMPI's message passing mechanism. The user only needs to make a few changes to the startup script to perform distributed training.
 
-> Dynamic cluster supports Ascend, GPU and CPU, so the dynamic cluster startup script can be quickly migrated between multiple hardware platforms without additional modifications. In addition, dynamic cluster needs to run in Graph mode.
+> Dynamic cluster supports Ascend, GPU and CPU, so the dynamic cluster startup script can be quickly migrated between multiple hardware platforms without additional modifications.
 
 The relevant environment variables:
 
