@@ -257,7 +257,7 @@ copy_source(src_dir_en, des_sir)
 
 ops_adjust = ['Argmax', 'GridSampler3D', 'ReLU', 'Reciprocal', 'ResizeNearestNeighbor', 'Softmax', 'Tile']
 
-refer_ops_adjust = ['CumProd']
+refer_ops_adjust = ['CumProd', 'ACos', 'Acosh', 'Asin', 'Asinh', 'Atan', 'Atan2', 'Atanh', 'Ceil', 'Concat', 'Cos', 'Diag', 'Equal', 'Erf', 'Erfinv', 'Exp', 'Floor', 'FloorDiv', 'Gather', 'Gcd', 'Geqrf', 'Greater', 'GreaterEqual', 'Less', 'LessEqual', 'Logit', 'NotEqual', 'Ormqr', 'Pow', 'Range', 'Reshape', 'Round', 'Sigmoid', 'Trace']
 
 func_adjust = ['acos', 'acosh', 'asin', 'asinh', 'atan', 'atan2', 'atanh', 'ceil', 'concat', 'cos', 'diag', 'equal', 'erf', 'erfinv', 'exp', 'floor', 'floor_div', 'gather', 'gcd', 'geqrf', 'greater', 'greater_equal', 'less', 'less_equal', 'logit', 'not_equal', 'pow', 'range', 'reshape', 'round', 'sigmoid', 'silu', 'trace']
 
