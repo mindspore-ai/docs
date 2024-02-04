@@ -53,9 +53,118 @@ Visual Studio Code中Dev Toolkit插件使用指南请参考[Visual Studio Code A
 
 ## 分析功能满足度
 
-MindSpore仍在持续迭代中，部分功能目前存在限制，在网络迁移过程中涉及受限功能使用的情况。通过分析功能满足度，可了解功能差异，并采取正确的措施来避免功能限制的影响。如[动态shape](https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/dynamic_shape.html)特性和[稀疏](https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/sparsity.html)特性。
+MindSpore仍在持续迭代中，部分功能目前存在限制，在网络迁移过程中可能遇到受限功能使用的情况，所以在迁移之前，需要分析功能满足度。
+可从以下几个点进行分析：
+
+1. 动态shape。
+2. 稀疏。
+
+### 动态shape
+
+当前MindSpore的动态shape特性在迭代开发中，动态shape功能支持不完善。下面将给出几种引入动态shape的场景，在网络迁移过程中，如果存在以下一种情况就说明网络存在动态shape。
+
+- 引入动态shape的几种场景：
+
+    - [输入shape不固定](https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/dynamic_shape.html#%E8%BE%93%E5%85%A5shape%E4%B8%8D%E5%9B%BA%E5%AE%9A)
+    - [网络执行过程中有引发shape变化的API](https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/dynamic_shape.html#%E7%BD%91%E7%BB%9C%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%AD%E6%9C%89%E5%BC%95%E5%8F%91shape%E5%8F%98%E5%8C%96%E7%9A%84api)
+    - [控制流不同分支引入shape上的变化](https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/dynamic_shape.html#%E6%8E%A7%E5%88%B6%E6%B5%81%E4%B8%8D%E5%90%8C%E5%88%86%E6%94%AF%E5%BC%95%E5%85%A5shape%E4%B8%8A%E7%9A%84%E5%8F%98%E5%8C%96)
+
+- 动态shape的几种解决方法：
+
+    - 输入shape不固定时：
+         可通过mask机制把动态shape转换成静态shape，mask机制示例代码如下：
+
+         ```python
+         def _convert_ids_and_mask(input_tokens, seq_max_bucket_length):
+             input_ids = tokenizer.convert_tokens_to_ids(input_tokens)
+             input_mask = [1] * len(input_ids)
+             assert len(input_ids) <= max_seq_length
+
+             while len(input_ids) < seq_max_bucket_length:
+                 input_ids.append(0)
+                 input_mask.append(0)
+
+             assert len(input_ids) == seq_max_bucket_length
+             assert len(input_mask) == seq_max_bucket_length
+
+             return input_ids, input_mask
+         ```
+
+    - 网络执行过程中有引发shape变化的API时：
+         如果遇到该场景引入动态shape，本质是需要将动态变化的值修改为固定的shape来解决问题。
+         如TopK算子，若执行过程中K是变化的，则会引入动态shape。
+         解决方法：可先固定一个最大目标数，先按静态shape获取所有目标的置信度，再选择K个最高的目标作为结果输出，其他目标通过mask机制去除。示例代码如[FasterRCNN](https://gitee.com/mindspore/models/blob/master/official/cv/FasterRCNN/src/FasterRcnn/faster_rcnn.py)的multiclass_nms接口。
+
+    - 控制流不同分支引入shape上的变化时：
+         可尝试用equal、select算子替换if条件，示例代码如下：
+
+         ```python
+         引入控制流的代码示例：
+         if ms.ops.reduce_sum(object_masks)==0:
+            stage2_loss = stage2_loss.fill(0.0)
+         修改后的代码示例：
+         stage2_loss = ms.ops.select(ms.ops.equal(ms.ops.reduce_sum(object_masks), 0), stage2_loss.fill(0), stage2_loss)
+         ```
+
+### 稀疏
+
+MindSpore现在已经支持最常用的CSR和COO两种稀疏数据格式，但是由于目前支持稀疏算子有限，大部分稀疏的特性还存在限制。
+在此情况下，建议优先查找对应的算子是否支持稀疏计算，如不支持的话需要转换成普通算子。具体可查看[稀疏](https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/sparsity.html)。
 
 ## 迁移场景好用功能和特性推荐
+
+MindSpore网络迁移过程中，主要的问题为：精度问题和性能问题。下面将介绍MindSpore定位这两个问题提供的相对成熟的功能及特性。
+
+### 精度问题
+
+精度问题常用定位方法可参考：[精度问题初步定位指导](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_problem_preliminary_location.html)和[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)。
+这里主要介绍几个定位精度问题使用到的工具：
+
+1. 可视化数据集。
+2. TroubleShooter。
+3. Dump。
+
+#### 可视化数据集
+
+MindRecord是MindSpore开发的一种高效数据格式，当出现精度问题时，可先检查自己的数据是否处理正确。
+如果源数据为TFRecord，可通过[TFRecord转换成MindRecord](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/parallel_tfrecord_to_mindrecord.py)工具，将源数据转为MindRecord直接送入网络进行精度对比。
+也可通过[可视化TFRecord或MindRecord数据集](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/vis_tfrecord_or_mindrecord.py)工具，可视化数据进行数据检查。
+
+#### TroubleShooter
+
+[TroubleShooter](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)是MindSpore网络开发调试工具包，用于提供便捷、易用的调试能力。
+当前TroubleShooter支持的功能有：比较两组Tensor值(npy文件)是否相等；比较PyTorch和MindSpore的网络输出是否相等；比对MindSpore与PyTorch的ckpt/pth等。
+具体可参考[TroubleShooter的应用场景](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF)。
+
+#### Dump
+
+MindSpore提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件，一般用于网络迁移复杂问题定位（例如：算子溢出等）可以dump出算子级别的数据。
+
+获取Dump数据参考：[同步Dump数据获取介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/debug/dump.html#%E5%90%8C%E6%AD%A5dump%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4)和[异步Dump数据获取介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/debug/dump.html#%E5%BC%82%E6%AD%A5dump%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4)
+
+分析Dump数据参考：[同步Dump数据分析介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/debug/dump.html#%E5%90%8C%E6%AD%A5dump%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A0%B7%E4%BE%8B)和[异步Dump数据分析介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/debug/dump.html#%E5%BC%82%E6%AD%A5dump%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A0%B7%E4%BE%8B)
+
+具体可参考[Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/debug/dump.html)。
+
+### 性能问题
+
+性能问题常用定位方法可参考：[性能调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_tuning_guide.html)。
+这里主要介绍几个定位性能问题可用的工具：
+
+1. Profiler。
+2. MindSpore Insight。
+
+#### Profiler
+
+Profiler可将训练和推理过程中的算子耗时等信息记录到文件中，主要提供框架的host执行、以及算子执行的Profiler分析功能，帮助用户更高效地调试神经网络性能。
+当前MindSpore提供两种方式来使能Profiler：[修改脚本来获取性能数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#%E6%96%B9%E5%BC%8F%E4%B8%80-%E4%BF%AE%E6%94%B9%E8%AE%AD%E7%BB%83%E8%84%9A%E6%9C%AC)和[环境变量使能获取性能数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#%E6%96%B9%E5%BC%8F%E4%BA%8C-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%BD%BF%E8%83%BD)。
+
+#### MindSpore Insight
+
+MindSpore Insight是一款可视化调试调优工具，帮助用户获得更优的模型精度和性能。通过Profiler获取性能数据之后，可使用MindSpore Insight可视化数据，进而查看训练过程、优化模型性能、调试精度问题。
+MindSpore Insight启动等使用介绍可查看[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html#mindspore-insight%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4)。
+可视化数据之后，可通过[解析性能数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#%E8%AE%AD%E7%BB%83%E6%80%A7%E8%83%BD)进行数据分析。
+更多介绍可查看[MindSpore Insight文档](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html)。
 
 ### [动态图与静态图](https://www.mindspore.cn/tutorials/zh-CN/r2.3/beginner/accelerate_with_static_graph.html)
 

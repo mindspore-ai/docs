@@ -4,12 +4,28 @@
 
 ## 调优常见问题及解决办法
 
-- 精度调试阶段，需要进行网络逐层对比：
-
-    - 在API级别，可以通过[TroubleShooter](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)工具的Tensor保存和比较功能，使用二分法逐层保存Tensor与PyTorch进行比较；
-    - 在算子级别，可使用[Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/debug/dump.html)将模型训练中的图以及算子的输入输出数据保存到磁盘文件。用于网络迁移复杂问题定位（例如：算子溢出等）。
-
-- 性能调试阶段，可通过[Profiler](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling.html)将训练过程中的算子耗时等信息记录到文件中，提供框架的host执行、以及算子执行的Profiler分析功能，通过可视化界面供用户查看分析，帮助用户更高效地调试神经网络性能。
+- 精度调试阶段，可能会遇到以下常见问题：
+    - 第一个loss和标杆对不齐:
+         说明网络正向和标杆对不齐，可固定网络输入，关闭shuffle等随机性，在网络某些关键节点保存输出为npy，再借助[TroubleShooter比较两组Tensor值(npy文件)是否相等](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF4%E6%AF%94%E8%BE%83%E4%B8%A4%E7%BB%84tensor%E5%80%BCnpy%E6%96%87%E4%BB%B6%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89)，定位到第一个不一致的位置，再进行二分定位，分析正向哪里差异导致loss和标杆对不齐造成精度问题。
+    - 第一个loss和标杆对齐，后续loss对不齐：
+         这个大概率是网络反向出现问题。可借助[TroubleShooter比对MindSpore与PyTorch的ckpt/pth](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF2%E6%AF%94%E5%AF%B9mindspore%E4%B8%8Epytorch%E7%9A%84ckptpth)通过比较ckpt与pth的对应参数的值来检验网络反向更新的结果。
+    - loss出现NAN/INF：
+         可以通过[TroubleShooter获取INF/NAN值抛出点](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/tracker.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF2%E8%8E%B7%E5%8F%96infnan%E5%80%BC%E6%8A%9B%E5%87%BA%E7%82%B9)识别网络中第一个出现NAN或INF的位置。
+         也可通过[Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/debug/dump.html)工具进行溢出算子检测。
+- 性能调试阶段，可能会遇到以下常见问题：
+    - 第一个step耗时长
+         这个阶段主要完成图转换、图融合、图优化等操作，是生成可执行模型的过程，可参考[如何优化编译性能](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/static_graph_expert_programming.html#%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E7%BC%96%E8%AF%91%E6%80%A7%E8%83%BD)。
+    - 迭代间隙耗时长
+         这个阶段的耗时大部分来源于数据获取，可参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/dataset/optimize.html)。
+    - 前反向计算耗时长
+         这个阶段主要执行网络中的前向及反向算子，承载了一个迭代的主要计算工作。可通过[Profiler](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling.html)将训练过程中的算子耗时等信息记录到文件中。该性能数据提供框架的host执行、以及算子执行的性能数据，也可通过[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html)可视化界面供用户查看分析，帮助用户更高效地调试神经网络性能。
+    - 迭代拖尾耗时长
+         这个阶段耗时长可能是集合通信耗时长，可设置融合策略进行优化，可参考[all_reduce_fusion_config设置allreduce融合策略](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.set_auto_parallel_context.html)。
+- 显存调试阶段，可能遇到以下常见问题：
+    - Malloc device memory failed:
+         MindSpore申请device侧内存失败，原始是设备被其他进程占用，可通过ps -ef | grep "python"查看正在跑的进程。
+    - Out of Memory：
+         MindSpore申请动态内存失败，可能的原因有：batch size太大，处理数据太多导致内存占用大；通信算子占用内存太多导致整体内存复用率较低。
 
 ## MindSpore调优功能介绍
 
