@@ -4,7 +4,7 @@
 
 ## 概述
 
-`msrun`是[动态组网](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html)启动方式的封装，用户可使用`msrun`以单个命令行指令的方式在各节点拉起多进程分布式任务，并且无需手动设置[动态组网环境变量](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/dynamic_cluster.md#%E6%A6%82%E8%BF%B0)。`msrun`同时支持`Ascend`，`GPU`和`CPU`后端。与`动态组网`启动方式一样，`msrun`无需依赖第三方库以及配置文件。
+`msrun`是[动态组网](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html)启动方式的封装，用户可使用`msrun`以单个命令行指令的方式在各节点拉起多进程分布式任务，并且无需手动设置[动态组网环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html)。`msrun`同时支持`Ascend`，`GPU`和`CPU`后端。与`动态组网`启动方式一样，`msrun`无需依赖第三方库以及配置文件。
 
 > - `msrun`在用户安装MindSpore后即可使用，可使用指令`msrun --help`查看支持参数。
 > - `msrun`支持`图模式`以及`PyNative模式`。
@@ -80,7 +80,7 @@
         <td align="left">用户Python脚本。</td>
         <td align="left">String</td>
         <td align="left">合法的脚本路径。</td>
-        <td align="left">一般情况下，此参数为python脚本路径，msrun会默认以<code>python task_script task_script_args</code>方式拉起进程。<br>msrun还支持此参数为pytest，此场景下任务脚本及任务参数在参数<code>task_script_args</code>传递，</td>
+        <td align="left">一般情况下，此参数为python脚本路径，msrun会默认以<code>python task_script task_script_args</code>方式拉起进程。<br>msrun还支持此参数为pytest，此场景下任务脚本及任务参数在参数<code>task_script_args</code>传递。</td>
     </tr>
     <tr>
         <td align="left">task_script_args</td>
@@ -107,8 +107,8 @@
         <td align="left">
             当前版本<code>msrun</code>导出下面两个值：
             <ul>
-                <li>MS_SCHED: 代表Scheduler进程。</li>
-                <li>MS_WORKER: 代表Worker进程。</li>
+                <li>MS_SCHED：代表Scheduler进程。</li>
+                <li>MS_WORKER：代表Worker进程。</li>
             </ul>
         </td>
     </tr>
