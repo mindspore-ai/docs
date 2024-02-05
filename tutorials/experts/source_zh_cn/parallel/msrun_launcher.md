@@ -1,10 +1,10 @@
 # msrun启动
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_zh_cn/parallel/msrun_launcher.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/msrun_launcher.md)
 
 ## 概述
 
-`msrun`是[动态组网](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/dynamic_cluster.html)启动方式的封装，用户可使用`msrun`以单个命令行指令的方式在各节点拉起多进程分布式任务，并且无需手动设置[动态组网环境变量](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_zh_cn/parallel/dynamic_cluster.md#%E6%A6%82%E8%BF%B0)。`msrun`同时支持`Ascend`，`GPU`和`CPU`后端。与`动态组网`启动方式一样，`msrun`无需依赖第三方库以及配置文件。
+`msrun`是[动态组网](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html)启动方式的封装，用户可使用`msrun`以单个命令行指令的方式在各节点拉起多进程分布式任务，并且无需手动设置[动态组网环境变量](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/dynamic_cluster.md#%E6%A6%82%E8%BF%B0)。`msrun`同时支持`Ascend`，`GPU`和`CPU`后端。与`动态组网`启动方式一样，`msrun`无需依赖第三方库以及配置文件。
 
 > - `msrun`在用户安装MindSpore后即可使用，可使用指令`msrun --help`查看支持参数。
 > - `msrun`支持`图模式`以及`PyNative模式`。
@@ -148,7 +148,7 @@
 
 启动脚本在各硬件平台下一致，下面以Ascend为例演示如何编写启动脚本：
 
-> 您可以在这里下载完整的样例代码：[startup_method](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/startup_method)。
+> 您可以在这里下载完整的样例代码：[startup_method](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/startup_method)。
 
 目录结构如下：
 
@@ -254,7 +254,7 @@ for epoch in range(10):
 
 下面以执行2机8卡训练，每台机器执行启动4个Worker为例：
 
-脚本[msrun_1.sh](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/startup_method/msrun_1.sh)在节点1上执行，使用msrun指令拉起1个`Scheduler`进程以及4个`Worker`进程（msrun会自动检测到当前节点ip与`master_addr`匹配而拉起`Scheduler`进程）：
+脚本[msrun_1.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_1.sh)在节点1上执行，使用msrun指令拉起1个`Scheduler`进程以及4个`Worker`进程（msrun会自动检测到当前节点ip与`master_addr`匹配而拉起`Scheduler`进程）：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -273,7 +273,7 @@ echo "start training"
 msrun --worker_num=8 --local_worker_num=4 --master_addr=<node_1 ip address> --master_port=8118 --node_rank=0 --log_dir=msrun_log --join=True --cluster_time_out=300 net.py
 ```
 
-脚本[msrun_2.sh](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/startup_method/msrun_2.sh)在节点2上执行，使用msrun指令拉起4个`Worker`进程：
+脚本[msrun_2.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/startup_method/msrun_2.sh)在节点2上执行，使用msrun指令拉起4个`Worker`进程：
 
 ```bash
 EXEC_PATH=$(pwd)
