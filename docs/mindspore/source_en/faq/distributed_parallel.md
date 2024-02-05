@@ -170,3 +170,8 @@ A: This error indicates that a strategy is configured for a parameter on the net
 
 A: In the case of multi-card training and enabling graph operator fusion, the framework uses a shared memory mechanism for unified compilation of operators among multiple cards, and the shared memory is not effectively freed if the process ends unexpectedly due to internal or external exceptions during the compilation process. The ipcs command shows that nattch of the residual shared memory is 0. The framework will take over the shared memory again when the training script is re-executed, and it can be released normally as long as no exception occurs. You can also release the shared memory by ipcrm command, which will not affect the training script execution.
 
+<br/>
+
+<font size=3>**Q: I try to train a small network on Ascend platform but during initializing distributed module, `device memory not enough` exception is still thrown. How should I solve this issue?**</font>
+
+A: This is because under the Ascend platform, the MindSpore backend defaults to pre-allocate a block of memory, with approximately 80% of NPU memory occupied and the remaining 20% used for initializing the HCCL collection communication library. Each HCCL communication group occupies 200 MB memory by default, so in scenarios with more communication groups, it is easy to encounter device side memory shortage errors. The solution is to set up `HCCL_BUFFSIZE` environment variable to change communication domain memory usage. Specific configuration method can refer to [HCCL official document](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0081.html).

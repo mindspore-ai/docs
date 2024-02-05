@@ -8,8 +8,9 @@
 
 ## 启动方式
 
-MindSpore目前支持三种启动方式：
+MindSpore目前支持四种启动方式：
 
+- **msrun**：是动态组网的封装，允许用户使用单命令行指令在各节点拉起分布式任务，安装MindSpore后即可使用，不依赖外部配置或者模块，支持Ascend/GPU/CPU。
 - **动态组网**：通过MindSpore内部动态组网模块启动，不依赖外部配置或者模块，支持Ascend/GPU/CPU。
 - **mpirun**：通过多进程通信库OpenMPI启动，支持Ascend/GPU。
 - **rank table**：配置rank_table表后，通过脚本启动和卡数对应的进程，支持Ascend。
