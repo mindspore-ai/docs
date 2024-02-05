@@ -758,7 +758,8 @@ tensor([[-15.1945,  -5.6529,   6.5738,   9.7807,  -2.4615,   3.0365,  -4.7216,
 diff 2.861023e-06
 ```
 
-The final result is similar and basically meets the expectation. If the result difference is large, you need to compare the result layer by layer.
+The final result is similar and basically meets the expectation.
+When the results are very different, you can fix the randomness of PyTorch and MindSpore after completing the parameter mapping, and then use the tool: [TroubleShooter API level network results automatic comparison](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/api_compare.md) for comparing the network forward and reverse results to improve the localization efficiency.
 
 ## Inference Process
 
@@ -908,6 +909,8 @@ Loss: 0.3240, Accuracy: 91%
 </table>
 
 The inference accuracy is the same.
+
+When inference results are inconsistent, here the tool [TroubleShooter compares MindSpore and PyTorch network outputs for consistency](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF5%E6%AF%94%E8%BE%83mindspore%E5%92%8Cpytorch%E7%BD%91%E7%BB%9C%E8%BE%93%E5%87%BAE6%98%AF%E5%90%A6%E4%B8%80%E8%87%B4) compares the inference results of PyTorch and MindSpore networks to locate where the network outputs start to be inconsistent, to improve the migration efficiency.
 
 ## Training Process
 

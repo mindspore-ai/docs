@@ -4,13 +4,28 @@
 
 ## Debugging Tools
 
-- In the process of precision debugging, compare network layer-by-layer:
-
-    - At the API level, you can use [TroubleShooter](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter). The Tensor save and compare function of the tool uses the binary method to save Tensors layer by layer and compare them with PyTorch;
-
-    - At the operator level, [Dump](https://www.mindspore.cn/tutorials/experts/en/r2.3/debug/dump.html) can be used Save the graph and operator input and output data from model training to a disk file. Used for locating complex network migration problems (such as operator overflow, etc.).
-
-- In the process of performance debugging, the [Profiler](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling.html) record the operator time consumption and other information during the training process in a file, which provides the host execution of the framework and the Profiler analysis function of the operator execution, and use a visual interface for users to view and analyze, helping users debug neural network performance more efficiently.
+- The following common problems may be encountered during the accuracy commissioning phase:
+    - The first loss and the benchmark are not aligned:
+         It means that the network positive and benchmark are not aligned, you can fix the network input, turn off randomness such as shuffle, save the output as npy at some key nodes of the network, and with the help of [TroubleShooter to see if the two sets of Tensor values (npy files) are equal or not](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF4%E6%AF%94%E8%BE%83%E4%B8%A4%E7%BB84tensor%E5%80%BCnpy%E6%96%87%E4%BB%B6%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89), locate the first inconsistent position, and then bisect the position to analyze the positive where the difference leads to the loss and the benchmark misaligned to cause the accuracy problem.
+    - The first loss is aligned with the benchmark, and subsequent losses are misaligned:
+         The problem is mainly caused by the network reverse. This can be done with the help of [TroubleShooter comparing MindSpore to PyTorch ckpt/pth](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF2%E6%AF%94%E5%AF%B9mindspore%E4%B8%8Epytorch%E7%9A%84ckptpth) to check the results of the network reverse update by comparing the values of the corresponding parameters of ckpt and pth.
+    - Loss appears NAN/INF:
+         [TroubleShooter obtains INF/NAN value throw points](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/tracker.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF2%E8%8E%B7%E5%8F%96infnan%E5%80%BC%E6%8A%9B%E5%87%BA%E7%82%B9) is used to identify the first location in the network where a NAN or INF appears.
+         Overflow operator detection is also available via the [Dump](https://www.mindspore.cn/tutorials/experts/en/r2.3/debug/dump.html) tool.
+- The following common problems may be encountered during the performance debugging phase:
+    - The first step is time-consuming
+         This phase mainly completes operations such as graph conversion, graph fusion, graph optimization, etc, which is the process of generating executable models. Refer to [How to Optimize Compilation Performance](https://www.mindspore.cn/tutorials/en/r2.3/advanced/static_graph_expert_programming.html#how-to-optimize-compilation-performance).
+    - Iteration gap is time-consuming
+         Most of the time consumption in this phase comes from data acquisition, see [Data Processing Performance Optimization](https://www.mindspore.cn/tutorials/experts/en/r2.3/dataset/optimize.html).
+    - Forward and reverse computation is time-consuming
+         This phase mainly executes the forward and reverse operators in the network and carries the main computational work of an iteration. Information such as operator time consumption during training can be recorded to a file via [Profiler](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling.html). The performance data provides the performance data of the framework host execution and operator execution, which can also be viewed and analyzed by users through the [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/index.html) visualization interface, helping users to debug neural network performance more efficiently.
+    - Iteration trailing is time-consuming
+         This phase is time consuming, which may be caused by the collection communication, and you can set the fusion policy to optimize. Refer to [all_reduce_fusion_config set allreduce fusion policy](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.set_auto_parallel_context.html).
+- The following common problems may be encountered during the graphics debugging phase:
+    - Malloc device memory failed:
+         MindSpore failed to request memory on the device side, the original memory is that the device is occupied by other processes, you can check the running processes by ps -ef | grep "python".
+    - Out of Memory:
+         The possible reasons for failure to request dynamic memory are: batch size is too large, processing too much data leads to a large memory footprint; communication operators take up too much memory leading to a low overall memory reuse rate.
 
 ## Introduction of MindSpore Debugging
 
