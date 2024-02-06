@@ -117,7 +117,7 @@ cd recommender/examples/online_learning
 python kafka_client.py
 ```
 
-### Start a Distributed Computing Engine
+### Starting a Distributed Computing Engine
 
 ```bash
 yrctl start --master  --address $MASTER_HOST_IP  
@@ -136,7 +136,7 @@ python producer.py  --file1=$CRITEO_DATASET_FILE_PATH  --file2=$CRITEO_DATASET_F
 # Parameter description
 # --file1： Path to the local disk for the criteo dataset
 # --file2： Path to the local disk for the criteo dataset
-# The above files are all Criteo original dataset text files, File1 and File2 can be processed concurrently, File1 and File2 can be the same or different, if they are the same it is equivalent to each sample in the file being used twice.
+# The above files are all Criteo original dataset text files, file1 and file2 can be processed concurrently, file1 and file2 can be the same or different, if they are the same, it is equivalent to each sample in the file being used twice.
 ```
 
 ### Starting Data consumer
@@ -161,7 +161,7 @@ The consumer needs 3 dataset-related files for feature engineering of criteo dat
 
 For fhe yaml used by config, please refer to [default_config.yaml](https://github.com/mindspore-lab/mindrec/blob/master/examples/online_learning/default_config.yaml).
 
-Single-card traininf:
+Single-card training:
 
 ```bash
 python online_train.py --address=$LOCAL_HOST_IP   --dataset_name=criteo
