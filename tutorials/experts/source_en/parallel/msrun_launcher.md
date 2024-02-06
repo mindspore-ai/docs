@@ -24,21 +24,21 @@ A parameters list of command line:
         <td align="left">The total number of Worker processes participating in the distributed task.</td>
         <td align="left">Integer</td>
         <td align="left">An integer greater than 0. The default value is 8.</td>
-        <td align="left">The total number of Workers started on each node should be equal to this parameter: if the total number is greater than this parameter, the extra Worker processes will fail to register; if the total number is less than this parameter, the cluster will wait for a certain period of timeout before prompting the task to pull up the failed task and exit, and the size of the timeout window can be configured by the parameter <code>cluster_time_out</code>.</td>
+        <td align="left">The total number of Workers started on each node should be equal to this parameter:<br> if the total number is greater than this parameter, the extra Worker processes will fail to register; <br>if the total number is less than this parameter, the cluster will wait for a certain period of timeout before prompting the task to pull up the failed task and exit, <br>and the size of the timeout window can be configured by the parameter <code>cluster_time_out</code>.</td>
     </tr>
     <tr>
         <td align="left">--local_worker_num</td>
         <td align="left">The number of Worker processes pulled up on the current node.</td>
         <td align="left">Integer</td>
         <td align="left">An integer greater than 0. The default value is 8.</td>
-        <td align="left">When this parameter is consistent with <code>worker_num</code>, it means that all Worker processes are executed locally. The <code>node_rank</code> value is ignored in this scenario.</td>
+        <td align="left">When this parameter is consistent with <code>worker_num</code>, it means that all Worker processes are executed locally. <br>The <code>node_rank</code> value is ignored in this scenario.</td>
     </tr>
     <tr>
         <td align="left">--master_addr</td>
         <td align="left">Specifies the IP address of the Scheduler.</td>
         <td align="left">String</td>
         <td align="left">Legal IP address. The default is 127.0.0.1.</td>
-        <td align="left">msrun will automatically detect on which node to pull up the Scheduler process, and users do not need to care. If the corresponding address cannot be found, the training task will pull up and fail. <br>IPv6 addresses are not supported in the current version<br>The current version of msrun uses the <code>ip -j addr</code> command to query the current node address, which requires the user's environment to support this command.</td>
+        <td align="left">msrun will automatically detect on which node to pull up the Scheduler process, and users do not need to care. <br>If the corresponding address cannot be found, the training task will pull up and fail. <br>IPv6 addresses are not supported in the current version<br>The current version of msrun uses the <code>ip -j addr</code> command to query the current node address, which requires the user's environment to support this command.</td>
     </tr>
     <tr>
         <td align="left">--master_port</td>
@@ -52,14 +52,14 @@ A parameters list of command line:
         <td align="left">The index of the current node.</td>
         <td align="left">Integer</td>
         <td align="left">An integer greater than 0. The default value is -1.</td>
-        <td align="left">This parameter is ignored in single-machine multi-card scenario.<br>In multi-machine and multi-card scenarios, if this parameter is not set, the rank_id of the Worker process will be assigned automatically; if it is set, the rank_id will be assigned to the Worker process on each node according to the index.<br>If the number of Worker processes per node is different, it is recommended that this parameter not be configured to automatically assign the rank_id.</td>
+        <td align="left">This parameter is ignored in single-machine multi-card scenario.<br>In multi-machine and multi-card scenarios, if this parameter is not set, the rank_id of the Worker process will be assigned automatically; <br>if it is set, the rank_id will be assigned to the Worker process on each node according to the index.<br>If the number of Worker processes per node is different, it is recommended that this parameter not be configured to automatically assign the rank_id.</td>
     </tr>
     <tr>
         <td align="left">--log_dir</td>
         <td align="left">Worker, and Scheduler log output paths.</td>
         <td align="left">String</td>
         <td align="left">Folder path. Defaults to the current directory.</td>
-        <td align="left">If the path does not exist, msrun creates the folder recursively.<br>The log format is as follows: for the Scheduler process, the log is named <code>scheduler.log</code>; For Worker process, log name is <code>worker_[rank].log</code>, where <code>rank</code> suffix is the same as the <code>rank_id</code> assigned to the Worker, but they may be inconsistent in multiple-machine and multiple-card scenarios where <code>node_rank</code> is not set. It is recommended that <code>grep -rn "Global rank id"</code> is executed to view <code>rank_id</code> of each Worker.</td>
+        <td align="left">If the path does not exist, msrun creates the folder recursively.<br>The log format is as follows: for the Scheduler process, the log is named <code>scheduler.log</code>; <br>For Worker process, log name is <code>worker_[rank].log</code>, where <code>rank</code> suffix is the same as the <code>rank_id</code> assigned to the Worker, <br>but they may be inconsistent in multiple-machine and multiple-card scenarios where <code>node_rank</code> is not set. <br>It is recommended that <code>grep -rn "Global rank id"</code> is executed to view <code>rank_id</code> of each Worker.</td>
     </tr>
     <tr>
         <td align="left">--join</td>
@@ -73,14 +73,14 @@ A parameters list of command line:
         <td align="left">Cluster networking timeout in seconds.</td>
         <td align="left">Integer</td>
         <td align="left">Integer. Default: 600 seconds.</td>
-        <td align="left">This parameter represents the waiting time in cluster networking. If no <code>worker_num</code> number of Workers register successfully beyond this time window, the task pull-up fails.</td>
+        <td align="left">This parameter represents the waiting time in cluster networking. <br>If no <code>worker_num</code> number of Workers register successfully beyond this time window, the task pull-up fails.</td>
     </tr>
     <tr>
         <td align="left">task_script</td>
         <td align="left">User Python scripts.</td>
         <td align="left">String</td>
         <td align="left">Legal script path.</td>
-        <td align="left">Normally, this parameter is the python script path, and msrun will pull up the process as <code>python task_script task_script_args</code> by default.<br>msrun also supports this parameter as pytest. In this scenario the task script and task parameters are passed in the parameter <code>task_script_args</code>.</td>
+        <td align="left">Normally, this parameter is the python script path, and msrun will pull up the process as <code>python task_script task_script_args</code> by default.<br>msrun also supports this parameter as pytest. <br>In this scenario the task script and task parameters are passed in the parameter <code>task_script_args</code>.</td>
     </tr>
     <tr>
         <td align="left">task_script_args</td>
@@ -140,7 +140,7 @@ The following table shows the environment variables can be used in user scripts,
     <tr>
         <td align="left">RANK_ID</td>
         <td align="left">The rank_id assigned to the Worker process.</td>
-        <td align="left">In a multi-machine multi-card scenario, if the parameter <code>--node_rank</code> is not set, <code>RANK_ID</code> will only be exported after the cluster is initialized. So to use this environment variable, it is recommended to set the <code>--node_rank</code> parameter correctly.</td>
+        <td align="left">In a multi-machine multi-card scenario, if the parameter <code>--node_rank</code> is not set, <code>RANK_ID</code> will only be exported after the cluster is initialized.<br> So to use this environment variable, it is recommended to set the <code>--node_rank</code> parameter correctly.</td>
     </tr>
 </table>
 

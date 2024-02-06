@@ -24,21 +24,21 @@
         <td align="left">参与分布式任务的Worker进程总数。</td>
         <td align="left">Integer</td>
         <td align="left">大于0的整数。默认值为8。</td>
-        <td align="left">每个节点上启动的Worker总数应当等于此参数：若总数大于此参数，多余的Worker进程会注册失败；若总数小于此参数，集群会在等待一段超时时间后，提示任务拉起失败并退出，超时时间窗大小可通过参数<code>cluster_time_out</code>配置。</td>
+        <td align="left">每个节点上启动的Worker总数应当等于此参数：<br>若总数大于此参数，多余的Worker进程会注册失败；<br>若总数小于此参数，集群会在等待一段超时时间后，<br>提示任务拉起失败并退出，<br>超时时间窗大小可通过参数<code>cluster_time_out</code>配置。</td>
     </tr>
     <tr>
         <td align="left">--local_worker_num</td>
         <td align="left">当前节点上拉起的Worker进程数。</td>
         <td align="left">Integer</td>
         <td align="left">大于0的整数。默认值为8。</td>
-        <td align="left">当此参数与<code>worker_num</code>保持一致时，代表所有Worker进程在本地执行，此场景下<code>node_rank</code>值会被忽略。</td>
+        <td align="left">当此参数与<code>worker_num</code>保持一致时，代表所有Worker进程在本地执行，<br>此场景下<code>node_rank</code>值会被忽略。</td>
     </tr>
     <tr>
         <td align="left">--master_addr</td>
         <td align="left">指定Scheduler的IP地址。</td>
         <td align="left">String</td>
         <td align="left">合法的IP地址。默认为127.0.0.1。</td>
-        <td align="left">msrun会自动检测在哪个节点拉起Scheduler进程，用户无需关心。若无法查找到对应的地址，训练任务会拉起失败。<br>当前版本暂不支持IPv6地址<br>当前版本msrun使用<code>ip -j addr</code>指令查询当前节点地址，需要用户环境支持此指令。</td>
+        <td align="left">msrun会自动检测在哪个节点拉起Scheduler进程，用户无需关心。<br>若无法查找到对应的地址，训练任务会拉起失败。<br>当前版本暂不支持IPv6地址。<br>当前版本msrun使用<code>ip -j addr</code>指令查询当前节点地址，<br>需要用户环境支持此指令。</td>
     </tr>
     <tr>
         <td align="left">--master_port</td>
@@ -52,28 +52,28 @@
         <td align="left">当前节点的索引。</td>
         <td align="left">Integer</td>
         <td align="left">大于0的整数。默认值为-1。</td>
-        <td align="left">单机多卡场景下，此参数会被忽略。<br>多机多卡场景下，若不设置此参数，Worker进程的rank_id会被自动分配；若设置，则会按照索引为各节点上的Worker进程分配rank_id。<br>若每个节点Worker进程数量不同，建议不配置此参数，以自动分配rank_id。</td>
+        <td align="left">单机多卡场景下，此参数会被忽略。<br>多机多卡场景下，<br>若不设置此参数，Worker进程的rank_id会被自动分配；<br>若设置，则会按照索引为各节点上的Worker进程分配rank_id。<br>若每个节点Worker进程数量不同，建议不配置此参数，<br>以自动分配rank_id。</td>
     </tr>
     <tr>
         <td align="left">--log_dir</td>
         <td align="left">Worker以及Scheduler日志输出路径。</td>
         <td align="left">String</td>
         <td align="left">文件夹路径。默认为当前目录。</td>
-        <td align="left">若路径不存在，msrun会递归创建文件夹。<br>日志格式如下：对于Scheduler进程，日志名为<code>scheduler.log</code>；对于Worker进程，日志名为<code>worker_[rank].log</code>，其中<code>rank</code>后缀与分配给Worker的<code>rank_id</code>一致，但在未设置<code>node_rank</code>且多机多卡场景下，它们可能不一致，建议执行<code>grep -rn "Global rank id"</code>指令查看各Worker的<code>rank_id</code>。</td>
+        <td align="left">若路径不存在，msrun会递归创建文件夹。<br>日志格式如下：对于Scheduler进程，日志名为<code>scheduler.log</code>；<br>对于Worker进程，日志名为<code>worker_[rank].log</code>，<br>其中<code>rank</code>后缀与分配给Worker的<code>rank_id</code>一致，<br>但在未设置<code>node_rank</code>且多机多卡场景下，它们可能不一致。<br>建议执行<code>grep -rn "Global rank id"</code>指令查看各Worker的<code>rank_id</code>。</td>
     </tr>
     <tr>
         <td align="left">--join</td>
         <td align="left">msrun是否等待Worker以及Scheduler退出。</td>
         <td align="left">Bool</td>
         <td align="left">True或者False。默认为False。</td>
-        <td align="left">若设置为False，msrun在拉起进程后会立刻退出，查看日志确认分布式任务是否正常执行。<br>若设置为True，msrun会等待所有进程退出后，收集异常日志并退出。</td>
+        <td align="left">若设置为False，msrun在拉起进程后会立刻退出，<br>查看日志确认分布式任务是否正常执行。<br>若设置为True，msrun会等待所有进程退出后，收集异常日志并退出。</td>
     </tr>
     <tr>
         <td align="left">--cluster_time_out</td>
         <td align="left">集群组网超时时间，单位为秒。</td>
         <td align="left">Integer</td>
         <td align="left">整数。默认为600秒。</td>
-        <td align="left">此参数代表在集群组网的等待时间，若超出此时间窗口依然没有<code>worker_num</code>数量的Worker注册成功，则任务拉起失败。</td>
+        <td align="left">此参数代表在集群组网的等待时间。<br>若超出此时间窗口依然没有<code>worker_num</code>数量的Worker注册成功，则任务拉起失败。</td>
     </tr>
     <tr>
         <td align="left">task_script</td>
@@ -140,7 +140,7 @@
     <tr>
         <td align="left">RANK_ID</td>
         <td align="left">为Worker进程分配的rank_id。</td>
-        <td align="left">多机多卡场景下，若没有设置<code>--node_rank</code>参数，<code>RANK_ID</code>只会在集群初始化后被导出。因此要使用此环境变量，建议正确设置<code>--node_rank</code>参数。</td>
+        <td align="left">多机多卡场景下，若没有设置<code>--node_rank</code>参数，<code>RANK_ID</code>只会在集群初始化后被导出。<br>因此要使用此环境变量，建议正确设置<code>--node_rank</code>参数。</td>
     </tr>
 </table>
 
