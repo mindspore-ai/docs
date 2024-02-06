@@ -60,5 +60,5 @@ from mindspore import Tensor, ops
 input_x = Tensor([[[1, 2, 3, 4, 5, 6, 7]]], mindspore.float32)
 output = ops.avg_pool1d(input_x, kernel_size=3, stride=2)
 print(output)
-# tensor([[[ 2. 4. 6.]]])
+# [[[ 2. 4. 6.]]]
 ```
