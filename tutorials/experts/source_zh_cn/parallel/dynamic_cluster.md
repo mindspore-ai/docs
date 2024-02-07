@@ -23,9 +23,9 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <th align="left">说明</th>
     </tr>
     <tr>
-        <td align="left">MS_ROLE</td>
+        <td align="left" style="white-space:nowrap">MS_ROLE</td>
         <td align="left">指定本进程角色。</td>
-        <td align="left">String</td>
+        <td align="left" style="white-space:nowrap">String</td>
         <td align="left">
             <ul>
                 <li>MS_SCHED: 代表Scheduler进程，一个训练任务只启动一个Scheduler，负责组网，容灾恢复等，<b>不会执行训练代码</b>。</li>
@@ -36,23 +36,23 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left">Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。</td>
     </tr>
     <tr>
-        <td align="left">MS_SCHED_HOST</td>
+        <td align="left" style="white-space:nowrap">MS_SCHED_HOST</td>
         <td align="left">指定Scheduler的IP地址。</td>
-        <td align="left">String</td>
+        <td align="left" style="white-space:nowrap">String</td>
         <td align="left">合法的IP地址。</td>
         <td align="left">当前版本还支持Ascend平台下的IPv6地址。在使用IPv6地址进行组网时，环境变量<b>MS_HCCL_CM_INIT</b>必须被设置为1。</td>
     </tr>
     <tr>
-        <td align="left">MS_SCHED_PORT</td>
+        <td align="left" style="white-space:nowrap">MS_SCHED_PORT</td>
         <td align="left">指定Scheduler绑定端口号。</td>
-        <td align="left">Integer</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">1024～65535范围内的端口号。</td>
         <td align="left"></td>
     </tr>
     <tr>
-        <td align="left">MS_NODE_ID</td>
+        <td align="left" style="white-space:nowrap">MS_NODE_ID</td>
         <td align="left">指定本进程的ID，集群内唯一。</td>
-        <td align="left">String</td>
+        <td align="left" style="white-space:nowrap">String</td>
         <td align="left">代表本进程的唯一ID，默认由MindSpore自动生成。</td>
         <td align="left">
             MS_NODE_ID在在以下情况需要设置，一般情况下无需设置，由MindSpore自动生成：
@@ -64,48 +64,48 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         </td>
     </tr>
     <tr>
-        <td align="left">MS_WORKER_NUM</td>
+        <td align="left" style="white-space:nowrap">MS_WORKER_NUM</td>
         <td align="left">指定角色为MS_WORKER的进程数量。</td>
-        <td align="left">Integer</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">大于0的整数。</td>
         <td align="left">
             用户启动的Worker进程数量应当与此环境变量值相等。若小于此数值，组网失败；若大于此数值，Scheduler进程会根据Worker注册先后顺序完成组网，多余的Worker进程会启动失败。
         </td>
     </tr>
     <tr>
-        <td align="left">MS_SERVER_NUM</td>
+        <td align="left" style="white-space:nowrap">MS_SERVER_NUM</td>
         <td align="left">指定角色为MS_PSERVER的进程数量。</td>
-        <td align="left">Integer</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">大于0的整数。</td>
         <td align="left">只在Parameter Server训练模式下需要设置。</td>
     </tr>
     <tr>
-        <td align="left">MS_WORKER_IP</td>
+        <td align="left" style="white-space:nowrap">MS_WORKER_IP</td>
         <td align="left">指定当前进程和其他进程进行通信和组网使用的IP地址。</td>
-        <td align="left">String</td>
+        <td align="left" style="white-space:nowrap">String</td>
         <td align="left">合法的IP地址。</td>
         <td align="left">在使用IPv6地址进行组网时，此环境变量必须被设置。但当用户设置MS_SCHED_HOST为<b>::1</b>时（代表IPv6的本地回环地址），无需设置此环境变量，这是因为MindSpore会默认使用本地回环地址进行通信。</td>
     </tr>
     <tr>
-        <td align="left">MS_ENABLE_RECOVERY</td>
+        <td align="left" style="white-space:nowrap">MS_ENABLE_RECOVERY</td>
         <td align="left">开启容灾。</td>
-        <td align="left">Integer</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">1代表开启，0代表关闭。默认为0。</td>
         <td align="left"></td>
     </tr>
     <tr>
-        <td align="left">MS_RECOVERY_PATH</td>
+        <td align="left" style="white-space:nowrap">MS_RECOVERY_PATH</td>
         <td align="left">持久化路径文件夹。</td>
-        <td align="left">String</td>
+        <td align="left" style="white-space:nowrap">String</td>
         <td align="left">合法的用户目录。</td>
         <td align="left">Worker和Scheduler进程在执行过程中会进行必要的持久化，如用于恢复组网的节点信息以及训练业务中间状态等，并通过文件保存。</td>
     </tr>
     <tr>
-        <td align="left">MS_HCCL_CM_INIT</td>
+        <td align="left" style="white-space:nowrap">MS_HCCL_CM_INIT</td>
         <td align="left">是否使用CM方式初始化HCCL。</td>
-        <td align="left">Integer</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">1代表是，其他值代表否。默认为否。</td>
-        <td align="left">此环境变量只在<b>Ascend硬件平台并且通信域数量较多</b>的情况下建议开启。开启此环境变量后，能够降低HCCL集合通信库的内存占用，并且训练任务执行方式与<b>rank table</b>启动方式相同。</td>
+        <td align="left">此环境变量只在<b>Ascend硬件平台并且通信域数量较多</b>的情况下建议开启。开启此环境变量后，能够降低HCCL集合通信库的内存占用，并且训练任务执行方式与<b>rank table</b>启动方式相同<br>将此环境变量设置为1时，无法设置GRAPH_OP_RUN为1，否则MindSpore提示<code>Environment variable settings conflict</code>错误。</td>
     </tr>
 </table>
 

@@ -17,7 +17,7 @@
 启动方式
 ----------------------
 
-目前GPU、Ascend和CPU分别支持多种启动方式。主要有\ ``msrun``\、动态组网、\ ``mpirun``\和\ ``rank table``\三种方式：
+目前GPU、Ascend和CPU分别支持多种启动方式。主要有\ ``msrun``\、动态组网、\ ``mpirun``\和\ ``rank table``\四种方式：
 
 - `msrun <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/msrun_launcher.html>`_： `msrun` 是动态组网的封装，允许用户使用单命令行指令在各节点拉起分布式任务，安装MindSpore后即可使用。此方式不依赖第三方库以及配置文件，具有容灾恢复功能，安全性较好，支持三种硬件平台。建议用户优先使用此种启动方式。
 - `动态组网 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/dynamic_cluster.html>`_：动态组网需要用户手动拉起多进程以及导出环境变量，是`msrun`的具体实现，Parameter Server训练模式建议使用此方式，其余分布式场景建议使用`msrun`。
@@ -27,7 +27,7 @@
 .. warning::
     `rank_table` 启动方式将在MindSpore 2.4版本废弃。
 
-三种启动方式的硬件支持情况如下表：
+四种启动方式的硬件支持情况如下表：
 
 +-------------------------+--------------+-----------------+-------------+
 |                         | GPU          | Ascend          | CPU         |

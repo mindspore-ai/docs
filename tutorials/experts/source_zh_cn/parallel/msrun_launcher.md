@@ -20,70 +20,70 @@
         <th align="left">说明</th>
     </tr>
     <tr>
-        <td align="left">--worker_num</td>
+        <td align="left" style="white-space:nowrap">--worker_num</td>
         <td align="left">参与分布式任务的Worker进程总数。</td>
-        <td align="left">Integer</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">大于0的整数。默认值为8。</td>
         <td align="left">每个节点上启动的Worker总数应当等于此参数：<br>若总数大于此参数，多余的Worker进程会注册失败；<br>若总数小于此参数，集群会在等待一段超时时间后，<br>提示任务拉起失败并退出，<br>超时时间窗大小可通过参数<code>cluster_time_out</code>配置。</td>
     </tr>
     <tr>
-        <td align="left">--local_worker_num</td>
+        <td align="left" style="white-space:nowrap">--local_worker_num</td>
         <td align="left">当前节点上拉起的Worker进程数。</td>
-        <td align="left">Integer</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">大于0的整数。默认值为8。</td>
         <td align="left">当此参数与<code>worker_num</code>保持一致时，代表所有Worker进程在本地执行，<br>此场景下<code>node_rank</code>值会被忽略。</td>
     </tr>
     <tr>
-        <td align="left">--master_addr</td>
+        <td align="left" style="white-space:nowrap">--master_addr</td>
         <td align="left">指定Scheduler的IP地址。</td>
-        <td align="left">String</td>
+        <td align="left" style="white-space:nowrap">String</td>
         <td align="left">合法的IP地址。默认为127.0.0.1。</td>
         <td align="left">msrun会自动检测在哪个节点拉起Scheduler进程，用户无需关心。<br>若无法查找到对应的地址，训练任务会拉起失败。<br>当前版本暂不支持IPv6地址。<br>当前版本msrun使用<code>ip -j addr</code>指令查询当前节点地址，<br>需要用户环境支持此指令。</td>
     </tr>
     <tr>
-        <td align="left">--master_port</td>
+        <td align="left" style="white-space:nowrap">--master_port</td>
         <td align="left">指定Scheduler绑定端口号。</td>
-        <td align="left">Integer</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">1024～65535范围内的端口号。默认为8118。</td>
         <td align="left"></td>
     </tr>
     <tr>
-        <td align="left">--node_rank</td>
+        <td align="left" style="white-space:nowrap">--node_rank</td>
         <td align="left">当前节点的索引。</td>
-        <td align="left">Integer</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">大于0的整数。默认值为-1。</td>
         <td align="left">单机多卡场景下，此参数会被忽略。<br>多机多卡场景下，<br>若不设置此参数，Worker进程的rank_id会被自动分配；<br>若设置，则会按照索引为各节点上的Worker进程分配rank_id。<br>若每个节点Worker进程数量不同，建议不配置此参数，<br>以自动分配rank_id。</td>
     </tr>
     <tr>
-        <td align="left">--log_dir</td>
+        <td align="left" style="white-space:nowrap">--log_dir</td>
         <td align="left">Worker以及Scheduler日志输出路径。</td>
-        <td align="left">String</td>
+        <td align="left" style="white-space:nowrap">String</td>
         <td align="left">文件夹路径。默认为当前目录。</td>
         <td align="left">若路径不存在，msrun会递归创建文件夹。<br>日志格式如下：对于Scheduler进程，日志名为<code>scheduler.log</code>；<br>对于Worker进程，日志名为<code>worker_[rank].log</code>，<br>其中<code>rank</code>后缀与分配给Worker的<code>rank_id</code>一致，<br>但在未设置<code>node_rank</code>且多机多卡场景下，它们可能不一致。<br>建议执行<code>grep -rn "Global rank id"</code>指令查看各Worker的<code>rank_id</code>。</td>
     </tr>
     <tr>
-        <td align="left">--join</td>
+        <td align="left" style="white-space:nowrap">--join</td>
         <td align="left">msrun是否等待Worker以及Scheduler退出。</td>
-        <td align="left">Bool</td>
+        <td align="left" style="white-space:nowrap">Bool</td>
         <td align="left">True或者False。默认为False。</td>
         <td align="left">若设置为False，msrun在拉起进程后会立刻退出，<br>查看日志确认分布式任务是否正常执行。<br>若设置为True，msrun会等待所有进程退出后，收集异常日志并退出。</td>
     </tr>
     <tr>
-        <td align="left">--cluster_time_out</td>
+        <td align="left" style="white-space:nowrap">--cluster_time_out</td>
         <td align="left">集群组网超时时间，单位为秒。</td>
-        <td align="left">Integer</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">整数。默认为600秒。</td>
         <td align="left">此参数代表在集群组网的等待时间。<br>若超出此时间窗口依然没有<code>worker_num</code>数量的Worker注册成功，则任务拉起失败。</td>
     </tr>
     <tr>
-        <td align="left">task_script</td>
+        <td align="left" style="white-space:nowrap">task_script</td>
         <td align="left">用户Python脚本。</td>
-        <td align="left">String</td>
+        <td align="left" style="white-space:nowrap">String</td>
         <td align="left">合法的脚本路径。</td>
         <td align="left">一般情况下，此参数为python脚本路径，msrun会默认以<code>python task_script task_script_args</code>方式拉起进程。<br>msrun还支持此参数为pytest，此场景下任务脚本及任务参数在参数<code>task_script_args</code>传递。</td>
     </tr>
     <tr>
-        <td align="left">task_script_args</td>
+        <td align="left" style="white-space:nowrap">task_script_args</td>
         <td align="left">用户Python脚本的参数。</td>
         <td align="left"></td>
         <td align="left">参数列表。</td>
@@ -102,7 +102,7 @@
         <th align="left">取值</th>
     </tr>
     <tr>
-        <td align="left">MS_ROLE</td>
+        <td align="left" style="white-space:nowrap">MS_ROLE</td>
         <td align="left">本进程角色。</td>
         <td align="left">
             当前版本<code>msrun</code>导出下面两个值：
@@ -113,32 +113,32 @@
         </td>
     </tr>
     <tr>
-        <td align="left">MS_SCHED_HOST</td>
+        <td align="left" style="white-space:nowrap">MS_SCHED_HOST</td>
         <td align="left">用户指定的Scheduler的IP地址。</td>
         <td align="left">与参数<code>--master_addr</code>相同。</td>
     </tr>
     <tr>
-        <td align="left">MS_SCHED_PORT</td>
+        <td align="left" style="white-space:nowrap">MS_SCHED_PORT</td>
         <td align="left">用户指定的Scheduler绑定端口号。</td>
         <td align="left">与参数<code>--master_port</code>相同。</td>
     </tr>
     <tr>
-        <td align="left">MS_WORKER_NUM</td>
+        <td align="left" style="white-space:nowrap">MS_WORKER_NUM</td>
         <td align="left">用户指定的Worker进程总数。</td>
         <td align="left">与参数<code>--worker_num</code>相同。</td>
     </tr>
     <tr>
-        <td align="left">MS_CLUSTER_TIMEOUT</td>
+        <td align="left" style="white-space:nowrap">MS_CLUSTER_TIMEOUT</td>
         <td align="left">集群组网超时时间。</td>
         <td align="left">与参数<code>--cluster_time_out</code>相同。</td>
     </tr>
     <tr>
-        <td align="left">RANK_SIZE</td>
+        <td align="left" style="white-space:nowrap">RANK_SIZE</td>
         <td align="left">用户指定的Worker进程总数。</td>
         <td align="left">与参数<code>--worker_num</code>相同。</td>
     </tr>
     <tr>
-        <td align="left">RANK_ID</td>
+        <td align="left" style="white-space:nowrap">RANK_ID</td>
         <td align="left">为Worker进程分配的rank_id。</td>
         <td align="left">多机多卡场景下，若没有设置<code>--node_rank</code>参数，<code>RANK_ID</code>只会在集群初始化后被导出。<br>因此要使用此环境变量，建议正确设置<code>--node_rank</code>参数。</td>
     </tr>
@@ -155,13 +155,14 @@
 ```text
 └─ sample_code
     ├─ startup_method
-       ├── net.py
        ├── msrun_1.sh
        ├── msrun_2.sh
+       ├── msrun_single.sh
+       ├── net.py
     ...
 ```
 
-其中，`net.py`是定义网络结构和训练过程，`msrun_1.sh`和`msrun_2.sh`是以`msrun`启动的执行脚本，分别在不同节点上执行。
+其中，`net.py`是定义网络结构和训练过程，`msrun_single.sh`是以`msrun`启动的单机多卡执行脚本；`msrun_1.sh`和`msrun_2.sh`是以`msrun`启动的多机多卡执行脚本，分别在不同节点上执行。
 
 ### 1. 准备Python训练脚本
 
@@ -248,13 +249,58 @@ for epoch in range(10):
 
 ### 2. 准备启动脚本
 
-#### 多机多卡
+> 对于msrun来说单机多卡和多机多卡执行指令类似，单机多卡只需将参数`worker_num`和`local_worker_num`保持相同即可，且单机多卡场景下无需设置`master_addr`，默认为`127.0.0.1`。
 
-> 对于msrun来说单机多卡和多机多卡执行指令类似，单机多卡只需将参数`worker_num`和`local_worker_num`保持相同即可，因此本教程以多机多卡任务为例。
+#### 单机多卡
+
+下面以执行单机8卡训练为例：
+
+脚本[msrun_single.sh](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/startup_method/msrun_single.sh)使用msrun指令在当前节点拉起1个`Scheduler`进程以及8个`Worker`进程（无需设置`master_addr`，默认为`127.0.0.1`；单机无需设置`node_rank`）：
+
+```bash
+EXEC_PATH=$(pwd)
+if [ ! -d "${EXEC_PATH}/MNIST_Data" ]; then
+    if [ ! -f "${EXEC_PATH}/MNIST_Data.zip" ]; then
+        wget http://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip
+    fi
+    unzip MNIST_Data.zip
+fi
+export DATA_PATH=${EXEC_PATH}/MNIST_Data/train/
+
+rm -rf msrun_log
+mkdir msrun_log
+echo "start training"
+
+msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log --join=True --cluster_time_out=300 net.py
+```
+
+执行指令：
+
+```bash
+bash msrun_single.sh
+```
+
+即可执行单机8卡分布式训练任务，日志文件会保存到`./msrun_log`目录下，结果保存在`./msrun_log/worker_*.log`中，Loss结果如下：
+
+```text
+epoch: 0, step: 0, loss is 2.3499548
+epoch: 0, step: 10, loss is 1.6682479
+epoch: 0, step: 20, loss is 1.4237018
+epoch: 0, step: 30, loss is 1.0437132
+epoch: 0, step: 40, loss is 1.0643986
+epoch: 0, step: 50, loss is 1.1021575
+epoch: 0, step: 60, loss is 0.8510884
+epoch: 0, step: 70, loss is 1.0581372
+epoch: 0, step: 80, loss is 1.0076828
+epoch: 0, step: 90, loss is 0.88950706
+...
+```
+
+#### 多机多卡
 
 下面以执行2机8卡训练，每台机器执行启动4个Worker为例：
 
-脚本[msrun_1.sh](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/startup_method/msrun_1.sh)在节点1上执行，使用msrun指令拉起1个`Scheduler`进程以及4个`Worker`进程（msrun会自动检测到当前节点ip与`master_addr`匹配而拉起`Scheduler`进程）：
+脚本[msrun_1.sh](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/startup_method/msrun_1.sh)在节点1上执行，使用msrun指令拉起1个`Scheduler`进程以及4个`Worker`进程，配置`master_addr`为节点1的IP地址（msrun会自动检测到当前节点IP与`master_addr`匹配而拉起`Scheduler`进程），通过`node_rank`设置当前节点为0号节点：
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -273,7 +319,7 @@ echo "start training"
 msrun --worker_num=8 --local_worker_num=4 --master_addr=<node_1 ip address> --master_port=8118 --node_rank=0 --log_dir=msrun_log --join=True --cluster_time_out=300 net.py
 ```
 
-脚本[msrun_2.sh](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/startup_method/msrun_2.sh)在节点2上执行，使用msrun指令拉起4个`Worker`进程：
+脚本[msrun_2.sh](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/startup_method/msrun_2.sh)在节点2上执行，使用msrun指令拉起4个`Worker`进程，配置`master_addr`为节点1的IP地址，通过`node_rank`设置当前节点为1号节点：
 
 ```bash
 EXEC_PATH=$(pwd)

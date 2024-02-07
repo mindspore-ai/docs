@@ -17,7 +17,7 @@ Distributed Parallel Startup Methods
 Startup Method
 ---------------
 
-Currently GPU, Ascend and CPU support multiple startup methods respectively, three of which are \ ``msrun``, dynamic cluster, \ ``mpirun`` and \ ``rank table``:
+Currently GPU, Ascend and CPU support multiple startup methods respectively, four of which are \ ``msrun``, dynamic cluster, \ ``mpirun`` and \ ``rank table``:
 
 - `msrun <https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/msrun_launcher.html>`_: `msrun` is the capsulation of Dynamic cluster. It allows user to launch distributed jobs using one single command in each node. It could be used after MindSpore is installed. This method does not rely on third-party libraries and configuration files, has disaster recovery function, good security, and supports three hardware platforms. It is recommended that users prioritize the use of this startup method.
 - `Dynamic cluster <https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/dynamic_cluster.html>`_: dynamic cluster requires user to spawn multiple processes and export environment variables. It's the implementation of `msrun`. Use this method when running `Parameter Server` training mode. For other distributed jobs, `msrun` is recommended.
@@ -27,7 +27,7 @@ Currently GPU, Ascend and CPU support multiple startup methods respectively, thr
 .. warning::
     `rank_table` method will be deprecated in MindSpore 2.4 version.
 
-The hardware support for the three startup methods is shown in the table below:
+The hardware support for the four startup methods is shown in the table below:
 
 +-------------------------+--------------+-----------------+-------------+
 |                         | GPU          | Ascend          | CPU         |
