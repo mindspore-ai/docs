@@ -253,11 +253,11 @@ if os.path.exists(probability_dir):
 # 删除并获取ops下多余的接口文件名
 white_list = ['mindspore.ops.comm_note.rst']
 
-ops_adjust = ['Argmax', 'GridSampler3D', 'ReLU', 'Reciprocal', 'ResizeNearestNeighbor', 'Softmax', 'Tile']
+ops_adjust = []
 
-refer_ops_adjust = ['CumProd', 'ACos', 'Acosh', 'Asin', 'Asinh', 'Atan', 'Atan2', 'Atanh', 'Ceil', 'Concat', 'Cos', 'Diag', 'Equal', 'Erf', 'Erfinv', 'Exp', 'Floor', 'FloorDiv', 'Gather', 'Gcd', 'Geqrf', 'Greater', 'GreaterEqual', 'Less', 'LessEqual', 'Logit', 'NotEqual', 'Ormqr', 'Pow', 'Range', 'Reshape', 'Round', 'Sigmoid', 'Trace']
+refer_ops_adjust = ['BiasAdd', 'Equal', 'FloorDiv', 'Diag', 'Pow']
 
-func_adjust = ['acos', 'acosh', 'asin', 'asinh', 'atan', 'atan2', 'atanh', 'ceil', 'concat', 'cos', 'diag', 'equal', 'erf', 'erfinv', 'exp', 'floor', 'floor_div', 'gather', 'gcd', 'geqrf', 'greater', 'greater_equal', 'less', 'less_equal', 'logit', 'not_equal', 'pow', 'range', 'reshape', 'round', 'sigmoid', 'silu', 'trace']
+func_adjust = ['bias_add', 'floor_divide', 'equal', 'diag', 'pow']
 
 def ops_interface_name():
     dir_list = ['mindspore.ops.primitive.rst', 'mindspore.ops.rst']
