@@ -53,9 +53,118 @@ Refer to [Missing API Processing Policy](https://www.mindspore.cn/docs/en/master
 
 ## Analyzing Function Compliance
 
-During continuous delivery of MindSpore, some functions are restricted. If restricted functions are involved during network migration, some measures can be taken to avoid the impact of function restrictions, such as [dynamic shape](https://www.mindspore.cn/docs/en/master/migration_guide/dynamic_shape.html) and [sparsity](https://www.mindspore.cn/docs/en/master/migration_guide/sparsity.html), etc.
+During continuous delivery of MindSpore, some functions are restricted. If restricted functions are involved during network migration, before migration, functional compliance needs to be analyzed.
+It can be analyzed from the following points:
+
+1. Dynamic shape.
+2. Sparse.
+
+### Dynamic Shape
+
+Currently MindSpore dynamic shape feature is under iterative development, and the dynamic shape functionality is not well supported. The following will give several scenarios where dynamic shape is introduced. During network migration, the presence of one of the following scenarios indicates the presence of dynamic shape in the network.
+
+- Several scenarios that introduces dynamic shapes:
+
+    - [Input Shape is not Fixed](https://www.mindspore.cn/docs/en/master/migration_guide/dynamic_shape.html#input-shape-not-fixed)
+    - [APIs that Cause Shape Changes During Network Execution](https://www.mindspore.cn/docs/en/master/migration_guide/dynamic_shape.html#apis-that-cause-shape-changes-during-network-execution)
+    - [Shape Changes Introduced by Different Branches of Control Flows](https://www.mindspore.cn/docs/en/master/migration_guide/dynamic_shape.html#shape-changes-introduced-by-different-branches-of-control-flows)
+
+- Several solutions for dynamic shapes:
+
+    - Input shape is not fixed:
+         Dynamic shape can be converted to static shape through the mask mechanism. Mask mechanism example code is as follows:
+
+         ```python
+         def _convert_ids_and_mask(input_tokens, seq_max_bucket_length):
+             input_ids = tokenizer.convert_tokens_to_ids(input_tokens)
+             input_mask = [1] * len(input_ids)
+             assert len(input_ids) <= max_seq_length
+
+             while len(input_ids) < seq_max_bucket_length:
+                 input_ids.append(0)
+                 input_mask.append(0)
+
+             assert len(input_ids) == seq_max_bucket_length
+             assert len(input_mask) == seq_max_bucket_length
+
+             return input_ids, input_mask
+         ```
+
+    - There is an API that triggers a shape change during network execution:
+         If this scenario is encountered to introduce a dynamic shape, the essence is that the dynamically changing values need to be modified to a fixed shape to solve the problem.
+         As in the case of the TopK operator, if K is changing during execution, a dynamic shape is introduced.
+         Solution: You can fix a maximum number of targets, first get the confidence level of all targets by static shape, then choose the K number of highest targets as the result output, and other targets are removed by mask mechanism. Sample code such as the multiclass_nms interface of [FasterRCNN](https://gitee.com/mindspore/models/blob/master/official/cv/FasterRCNN/src/FasterRcnn/faster_rcnn.py).
+
+    - Different branches of the control flow introduce changes on the shape:
+         You can try to use equal, select operators to replace the if condition. Sample code is as follows:
+
+         ```python
+         # Code example for introducing control flow:
+         if ms.ops.reduce_sum(object_masks)==0:
+            stage2_loss = stage2_loss.fill(0.0)
+         # modified code example
+         stage2_loss = ms.ops.select(ms.ops.equal(ms.ops.reduce_sum(object_masks), 0), stage2_loss.fill(0), stage2_loss)
+         ```
+
+### Sparse
+
+MindSpore now supports the two most commonly used sparse data formats, CSR and COO, but due to the limited support for sparse operators at the moment, most of the sparse features are still limited.
+In this case, it is recommended to find whether the corresponding operator supports sparse computation first, and if not it needs to be converted to a normal operator. For details, see [Sparse](https://www.mindspore.cn/docs/en/master/migration_guide/sparsity.html).
 
 ## Recommended Functions and Features for Migration Scenarios
+
+The main problems in the MindSpore network migration process are: accuracy problems and performance problems. The following section describes the relatively mature functions and features provided by MindSpore to localize these two problems.
+
+### Accuracy Problem
+
+Common localization methods for accuracy problems can be found in: [Preliminary Localization Guide for Accuracy Problems](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_problem_preliminary_location.html) and [Accuracy problem detailed localization and tuning guide](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_optimization.html).
+Here are a few of the main tools used for positioning accuracy issues:
+
+1. Visualize the dataset.
+2. TroubleShooter.
+3. Dump.
+
+#### Visualizing the Dataset
+
+MindRecord is an efficient data format developed by MindSpore that allows you to first check that your data is processed correctly when accuracy issues arise.
+If the source data is TFRecord, it can be converted to MindRecord by [TFRecord to MindRecord](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/parallel_tfrecord_to_mindrecord.py) tool, and sent directly to the network for accuracy comparison.
+Use [visualize TFRecord or MindRecord datasets](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/vis_tfrecord_or_mindrecord.py) tool to visualize the data for data checking.
+
+#### TroubleShooter
+
+[TroubleShooter](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter) is a MindSpore web development debugging toolkit for providing convenient, easy-to-use debugging capabilities.
+The current functions supported by TroubleShooter are: comparing whether two sets of Tensor values (npy files) are equal; comparing whether the network outputs of PyTorch and MindSpore are equal; comparing the ckpt/pth of MindSpore and PyTorch, etc.
+See [TroubleShooter application scenarios](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF) for details.
+
+#### Dump
+
+MindSpore provides Dump function, used to model training in the graph and operator input and output data saved to disk files, generally used for network migration complex problem location (eg: operator overflow, etc). It can be dumped out of the operator level data.
+
+For getting Dump data, refer to: [Synchronous Dump Step](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#synchronous-dump-step) and [Asynchronous Dump Step](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#asynchronous-dump-step).
+
+For analyzig Dump data, refer to: [Synchronous Dump Data Analysis Sample](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#synchronous-dump-data-analysis-sample) and [Asynchronous Dump Data Analysis Sample](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#asynchronous-dump-data-analysis-sample)
+
+See [Dump](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html) for details.
+
+### Performance Issues
+
+Common methods for locating performance problems can be found in: [Performance Tuning Guide](https://www.mindspore.cn/mindinsight/docs/en/master/performance_tuning_guide.html).
+Here are a few of the main tools available for locating performance issues:
+
+1. Profiler.
+2. MindSpore Insight.
+
+#### Profiler
+
+Profiler can record information such as operator time consumption during the training and inference process into a file, and mainly provides the host execution of the framework, as well as the Profiler analysis function of operator execution to help users debug neural network performance more efficiently.
+Currently MindSpore offers two ways to enable Profiler: [Modify the script to get performance data](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#method-1-modify-the-training-script) and [Environment variables get access to performance data](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#method-2-enable-environment-variables).
+
+#### MindSpore Insight
+
+MindSpore Insight is a visual debugging and tuning tool to help users get better model accuracy and performance. After obtaining performance data through Profiler, you can use MindSpore Insight to visualize the data and then view the training process, optimize model performance, and debug accuracy issues.
+An introduction to MindSpore Insight startup and other uses can be found at [MindSpore Insight related commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html#mindspore-insight-commands).
+After visualizing the data, the data can be analyzed by [parsing performance data](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#training-performance) for data analysis.
+More introduction can be found in [MindSpore Insight documentation](https://www.mindspore.cn/mindinsight/docs/en/master/index.html).
 
 ### [Dynamic and Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html)
 
@@ -75,7 +184,7 @@ In static graph mode, you can use `jit_class` to modify a custom class. You can 
 
 Automatic differentiation can calculate a derivative value of a derivative function at a certain point, which is a generalization of backward propagation algorithms. The main problem solved by automatic differential is to decompose a complex mathematical operation into a series of simple basic operations. This function shields a large number of derivative details and processes from users, greatly reducing the threshold for using the framework.
 
-### [Mixed Precision](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html)
+### [Mixed Precision](https://www.mindspore.cn/tutorials/en/master/advanced/mixed_precision.html)
 
 Generally, when a neural network model is trained, the default data type is FP32. In recent years, to accelerate training time, reduce memory occupied during network training, and store a trained model with same precision, more and more mixed-precision training methods are proposed in the industry. The mixed-precision training herein means that both single precision (FP32) and half precision (FP16) are used in a training process.
 

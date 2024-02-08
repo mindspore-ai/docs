@@ -99,10 +99,10 @@ MindSpore仍在持续迭代中，部分功能目前存在限制，在网络迁�
          可尝试用equal、select算子替换if条件，示例代码如下：
 
          ```python
-         引入控制流的代码示例：
+         # 引入控制流的代码示例：
          if ms.ops.reduce_sum(object_masks)==0:
             stage2_loss = stage2_loss.fill(0.0)
-         修改后的代码示例：
+         # 修改后的代码示例：
          stage2_loss = ms.ops.select(ms.ops.equal(ms.ops.reduce_sum(object_masks), 0), stage2_loss.fill(0), stage2_loss)
          ```
 
