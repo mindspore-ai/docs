@@ -17,10 +17,11 @@ def get_api(fullname):
     api = eval(f"module_import.{api_name}")
     return api
 
-def generate_rst_by_en(ops_list, target_path):
+def generate_rst_by_en(ops_list, target_path, language='cn'):
     """Generate the rst file by the ops list."""
 
     exist_rst = []
+    primi_auto = []
     for i in ops_list:
         if i.lower() == i:
             continue
@@ -50,9 +51,9 @@ def generate_rst_by_en(ops_list, target_path):
             all_params = ''
 
         if 'Refer to' in py_docs.split('\n')[-1] and 'for more details.' in py_docs.split('\n')[-1]:
-            if py_docs:
+            if py_docs and language == 'cn':
                 sig_doc_str = all_params.strip()
-                cn_base_rst = i + '\n' + '=' * len(i) + '\n\n' + '.. py:class:: ' + i + '(' +sig_doc_str + ')\n\n'
+                cn_base_rst = i + '\n' + '=' * len(i) + '\n\n' + '.. py:class:: ' + i + '(' + sig_doc_str + ')\n\n'
                 py_docs_indent = ''
                 for j in py_docs.split('\n'):
                     if j != '' and j.count(' ') != len(j):
@@ -67,4 +68,6 @@ def generate_rst_by_en(ops_list, target_path):
                     exist_rst.append(i)
                 with open(os.path.join(target_path, i + '.rst'), "w", encoding='utf-8') as f:
                     f.write(all_rst_content)
-    return exist_rst
+            elif py_docs and language == 'en':
+                primi_auto.append(i)
+    return exist_rst, primi_auto

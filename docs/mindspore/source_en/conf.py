@@ -273,6 +273,7 @@ def ops_interface_name():
                     new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
                 for name in refer_ops_adjust:
                     new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
+                primi_list = re.findall("    (mindspore\.ops\.\w*?)\n", new_content)
             else:
                 for name in func_adjust:
                     new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
@@ -281,8 +282,10 @@ def ops_interface_name():
                 f.seek(0)
                 f.truncate()
                 f.write(new_content)
+    return primi_list
+
 try:
-    ops_interface_name()
+    primitive_list = ops_interface_name()
 except:
     pass
 
@@ -326,10 +329,14 @@ repo_whl = 'mindspore/python/mindspore'
 giturl = 'https://gitee.com/mindspore/'
 ops_yaml = 'mindspore/core/ops/ops_def/'
 try:
-    ops_yaml_list = [i for i in os.path.join(os.getenv("MS_PATH"), 'core/ops/ops_def') if i.endswith('_doc.yaml') and '_grad' not in i]
+    ops_yaml_list = [i for i in os.listdir(os.path.join(os.getenv("MS_PATH"), 'mindspore/core/ops/ops_def')) if i.endswith('_doc.yaml') and '_grad' not in i]
 except:
     ops_yaml_list = []
 
+# auto generate rst by en
+from generate_rst_by_en import generate_rst_by_en
+
+exist_rst_file, primi_auto = generate_rst_by_en(primitive_list, './api_python/ops', language='en')
 
 re_url = r"(((gitee.com/mindspore/(mindspore|docs))|(github.com/mindspore-ai/(mindspore|docs))|" + \
          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
@@ -382,6 +389,7 @@ def setup(app):
     app.add_config_value('repo_whl', '', True)
     app.add_config_value('ops_yaml', '', True)
     app.add_config_value('ops_yaml_list', [], True)
+    app.add_config_value('primi_auto', [], True)
 
 # Copy images from mindspore repo.
 import imghdr
