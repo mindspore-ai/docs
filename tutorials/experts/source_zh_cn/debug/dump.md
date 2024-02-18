@@ -574,7 +574,7 @@ Dump生成的原始数据文件也可以使用MindSpore Insight的数据解析�
 
     {file path of dump} 可以是单个`.bin`文件的路径，也可以是包含`.bin`文件的文件夹路径。
 
-    若需要转换数据格式，可参考使用说明链接<https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/developmenttools/devtool/atlasaccuracy_16_0060.html> 。
+    若需要转换数据格式，可参考使用说明链接<https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/devaids/auxiliarydevtool/atlasaccuracy_16_0057.html> 。
 
     如Dump生成的数据文件为：
 
