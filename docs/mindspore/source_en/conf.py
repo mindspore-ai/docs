@@ -257,9 +257,9 @@ copy_source(src_dir_en, des_sir)
 
 ops_adjust = []
 
-refer_ops_adjust = ['BiasAdd', 'Equal', 'FloorDiv', 'Diag', 'Pow']
+refer_ops_adjust = []
 
-func_adjust = ['bias_add', 'floor_divide', 'equal', 'diag', 'pow']
+func_adjust = []
 
 def ops_interface_name():
     dir_list = ['mindspore.ops.primitive.rst', 'mindspore.ops.rst']
