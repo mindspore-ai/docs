@@ -398,14 +398,14 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
     ```
 
     - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据；设置成2，表示Dump脚本中通过`set_dump`指定的算子数据，`set_dump`的使用详见[mindspore.set_dump](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.set_dump.html) 。开启溢出检测时，此字段的设置失效，Dump只会保存溢出节点的数据。
-    - `path`：Dump保存数据的绝对路径。
+    - `path`：Dump保存数据的绝对路径。在[jit_level](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level)设置为‘O0’时，MindSpore会在path目录下新建每个step的子目录。
     - `net_name`：自定义的网络名称，例如："ResNet50"。
     - `iteration`：指定需要Dump的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。PyNative模式开启溢出检测时，必须设置为"all"。
     - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。异步Dump统计信息只有在`file_format`设置为`npy`时可以成功，若在`file_format`设置为`bin`时选"statistic"或"full"便会错误退出。默认取值为"tensor"。
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
     - `kernels`：算子的名称列表。指定算子需要先设置保存图文件的环境变量来保存图，再从保存的图文件中获取算子名称。保存图文件的环境变量请请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0011.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0012.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0013.html) 。
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
-    - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成1，表示开启AiCore溢出检测；设置成2，表示开启Atomic溢出检测；设置成3，表示开启全部溢出检测功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子的数据。
+    - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成1，表示开启AiCore溢出检测；设置成2，表示开启Atomic溢出检测；设置成3，表示开启全部溢出检测功能；设置成4，表示开启轻量异常Dump功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子或异常算子的数据。
     - `file_format`: dump数据的文件类型，只支持`npy`和`bin`两种取值。设置成`npy`，则dump出的算子张量数据将为host侧格式的npy文件；设置成`bin`，则dump出的数据将为device侧格式的protobuf文件，需要借助转换工具进行处理，详细步骤请参考[异步Dump数据分析样例](#异步dump数据分析样例)。默认取值为`bin`。
 
 2. 设置数据Dump的环境变量。
@@ -452,6 +452,21 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
                         mapping.csv
 ```
 
+在[jit_level](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level)设置为‘O0’时，Dump目录结构如下所示：
+
+```text
+{path}/
+    - {step_id}/
+        - {time}/
+            - {device_id}/
+                - {model_id}/
+                    - {iteration_id}/
+                        statistic.csv
+                        {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
+                        Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
+                        mapping.csv
+```
+
 - `path`：`data_dump.json`配置文件中设置的绝对路径。
 - `time`： dump目录的创建时间。
 - `device_id`: 卡号。
@@ -463,6 +478,7 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
 - `task_id`：任务标号。
 - `stream_id`：流标号。
 - `timestamp`：时间戳。
+- `step_id`: 用户侧的训练轮次。
 
 其中，溢出文件（`Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}`文件）只会在开启溢出Dump且检测到溢出时保存。
 
