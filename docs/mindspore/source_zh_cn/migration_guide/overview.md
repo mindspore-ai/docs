@@ -15,6 +15,7 @@ F-.-text3(使用 MindSpore Dev Toolkit 工具分析API满足度)
 B-->|Step 3|G(<font color=blue>网络搭建对比</font>)
 G-->I(<font color=blue>数据处理</font>)
 G-->J(<font color=blue>网络搭建</font>)
+G-->N(<font color=blue>损失函数</font>)
 G-->K(<font color=blue>学习率与优化器</font>)
 G-->L(<font color=blue>梯度求导</font>)
 G-->M(<font color=blue>训练及推理流程</font>)
@@ -38,4 +39,5 @@ click J "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_developm
 click K "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/learning_rate_and_optimizer.html"
 click L "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/gradient.html"
 click M "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/training_and_evaluation.html"
+click N "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/model_development/loss_function.html"
 ```
