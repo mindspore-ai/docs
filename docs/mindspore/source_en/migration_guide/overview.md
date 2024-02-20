@@ -15,6 +15,7 @@ F-.-text3(Analyzing API Compliance using MindSpore Dev Toolkit)
 B-->|Step 3|G(<font color=blue>Network Constructing Comparison</font>)
 G-->I(<font color=blue>Dataset</font>)
 G-->J(<font color=blue>Network Constructing</font>)
+G-->N(<font color=blue>Loss Function</font>)
 G-->K(<font color=blue>Learning Rate and Optimizer</font>)
 G-->L(<font color=blue>Gradient</font>)
 G-->M(<font color=blue>Training and Evaluation Process</font>)
@@ -38,4 +39,5 @@ click J "https://www.mindspore.cn/docs/en/r2.3/migration_guide/model_development
 click K "https://www.mindspore.cn/docs/en/r2.3/migration_guide/model_development/learning_rate_and_optimizer.html"
 click L "https://www.mindspore.cn/docs/en/r2.3/migration_guide/model_development/gradient.html"
 click M "https://www.mindspore.cn/docs/en/r2.3/migration_guide/model_development/training_and_evaluation.html"
+click N "https://www.mindspore.cn/docs/en/r2.3/migration_guide/model_development/loss_function.html"
 ```
