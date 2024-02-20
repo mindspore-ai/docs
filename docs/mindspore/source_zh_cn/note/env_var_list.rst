@@ -396,6 +396,11 @@ Dump调试
      - String
      - 通信域信息文件路径，支持相对路径与绝对路径
      -
+   * - MS_SIMULATION_LEVEL
+     - 指定模拟编译等级。
+     - Integer
+     - 为0时只处理硬件无关编译；为1时进一步处理硬件相关编译。默认不开启。
+     - 此环境变量主要用于单卡模拟分布式多卡特定rank卡的编译情况，需要RANK_SIZE和RANK_ID配合使用。
 
 动态组网相关的具体用法详见 `动态组网 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/dynamic_cluster.html>`_ 。
 

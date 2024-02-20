@@ -400,6 +400,11 @@ Distributed Parallel
      - String
      - Communication group information file path, supporting relative path and absolute path.
      - 
+   * - MS_SIMULATION_LEVEL
+     - Specify simulation compilation level.
+     - Integer
+     - 0: Only the hardware independent compilation is processed; 1: the hardware related compilation is also processed.The default simulation compilation is turned off.
+     - This environment variable is mainly used to simulate the compilation of a specific rank card in distributed training, and requires the combination of RANK_SIZE and RANK_ID.
 
 See `Dynamic Cluster <https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/dynamic_cluster.html>`_ for more details about Dynamic Cluster.
 
