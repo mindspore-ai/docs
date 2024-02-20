@@ -112,7 +112,6 @@
 | [mindspore.ops.ReLU](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReLU.html) | 无                                                           |
 | [mindspore.ops.ReLU6](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReLU6.html) | 无                                                           |
 | [mindspore.ops.Reshape](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Reshape.html) | 不支持配置切分策略，并且，在自动并行模式下，当reshape API后接有多个API，不允许对这些API配置不同的切分策略 |
-| [mindspore.ops.ResizeBilinear](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ResizeBilinear.html) | 在GPU平台下，不支持H/W维切分；在Ascend平台下，不支持H维切分，且W维的输出shape要能被切分数整除。 |
 | [mindspore.ops.ResizeNearestNeighbor](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ResizeNearestNeighbor.html) | 在`align_corners=True`时只支持切分第一维和第二维。           |
 | [mindspore.ops.Rint](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Rint.html) | 无                                                           |
 | [mindspore.ops.ROIAlign](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ROIAlign.html) | 不支持对输入（features）的H/W维和输入（rois）的第二维进行切分 |

@@ -57,6 +57,7 @@
 
   dataset
   model_and_cell
+  loss_function
   learning_rate_and_optimizer
   gradient
   training_and_evaluation
