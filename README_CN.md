@@ -101,18 +101,31 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
    git clone https://gitee.com/mindspore/docs.git
    ```
 
-3. 进入api目录，安装该目录下`requirements.txt`文件中的依赖项。
+3. 进入API所在目录`docs/mindspore`，安装该目录下`requirements.txt`文件中的依赖项。
 
    ```bash
    cd docs/mindspore
    pip install -r requirements.txt
    ```
 
-4. 在api目录下执行如下命令，完成后会新建`build_zh_cn/html`目录，该目录中存放了生成后的文档网页，打开`build_zh_cn/html/index.html`即可查看API文档内容。
+4. 在API所在目录`docs/mindspore`下打开配置文件`Makefile`，根据要生成文档的语言进行配置。其中`SOURCEDIR`指源文件夹，`BUILDDIR`指构建完成后文档的文件夹名称。
+
+   ```text
+   SOURCEDIR     = source_zh_cn
+   BUILDDIR      = build_zh_cn
+   ```
+
+   - 构建中文文档，将`SOURCEDIR`配置成`source_zh_cn`，将`BUILDDIR`配置成`build_zh_cn`。
+   - 构建英文文档，将`SOURCEDIR`配置成`source_en`，将`BUILDDIR`配置成`build_en`。
+
+5. 文件`Makefile`配置完成后，在API所在目录`docs/mindspore`下执行如下命令进行文档构建：
 
    ```bash
    make html
    ```
+
+   - 中文构建：完成后会新建`build_zh_cn/html`目录，该目录中存放了生成后的中文文档网页，打开`build_zh_cn/html/index.html`即可查看API文档内容。
+   - 英文构建：完成后会新建`build_en/html`目录，该目录中存放了生成后的英文文档网页，打开`build_en/html/index.html`即可查看API文档内容。
 
 ### 注意事项
 
