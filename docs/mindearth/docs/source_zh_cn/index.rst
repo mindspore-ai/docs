@@ -33,6 +33,7 @@ MindSpore Earth介绍
    medium-range/FourCastNet
    medium-range/graphcast
    medium-range/vit_kno
+   medium-range/fuxi
 
 .. toctree::
    :glob:
