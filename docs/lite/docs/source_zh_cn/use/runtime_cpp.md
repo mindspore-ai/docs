@@ -43,7 +43,7 @@ if (model_buf == nullptr) {
 
 MindSpore Lite默认执行的后端是CPU，Context创建后调用[MutableDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore.html#mutabledeviceinfo)返回后端信息列表的引用，向列表中添加默认的[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore.html#cpudeviceinfo)。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.2/mindspore/lite/examples/runtime_cpp/main.cc#L250)演示了如何创建Context，配置默认的CPU后端，并设定CPU使能Float16推理。
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.2/mindspore/lite/examples/runtime_cpp/main.cc#L250)演示了如何创建Context，配置默认的CPU后端，并设定CPU使能float16推理。
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();
@@ -62,9 +62,9 @@ device_list.push_back(cpu_device_info);
 
 > `MutableDeviceInfo`中支持用户设置设备信息，包括[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore.html#cpudeviceinfo)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore.html#gpudeviceinfo)、[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore.html#kirinnpudeviceinfo)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore.html#ascenddeviceinfo)。设置的设备个数不能超过3个，推理过程按照用户设置的先后顺序选择后端设备进行部署推理。
 >
-> Float16需要CPU为ARM v8.2架构的机型才能生效，其他不支持的机型和x86平台会自动回退到Float32执行。
+> float16需要CPU为ARM v8.2架构的机型才能生效，其他不支持的机型和x86平台会自动回退到float32执行。
 >
-> 对于iOS设备,暂时只支持向`MutableDeviceInfo`添加CPU后端，且暂时不支持CPU后端Float16的执行。
+> 对于iOS设备,暂时只支持向`MutableDeviceInfo`添加CPU后端，且暂时不支持CPU后端float16的执行。
 
 [Context](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore.html#context)中包含的配置API如下：
 
@@ -98,9 +98,9 @@ context->SetEnableParallel(true);
 
 ### 配置使用GPU后端
 
-当需要执行的后端为GPU时，需要设置[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore.html#gpudeviceinfo)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore.html#cpudeviceinfo)为次选后端，排在GPU后，以保证泛化模型的推理。其中GPUDeviceInfo通过`SetEnableFP16`使能Float16推理。
+当需要执行的后端为GPU时，需要设置[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore.html#gpudeviceinfo)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore.html#cpudeviceinfo)为次选后端，排在GPU后，以保证泛化模型的推理。其中GPUDeviceInfo通过`SetEnableFP16`使能float16推理。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.2/mindspore/lite/examples/runtime_cpp/main.cc#L114)演示如何创建CPU与GPU异构推理后端，同时GPU也设定使能Float16推理：
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.2/mindspore/lite/examples/runtime_cpp/main.cc#L114)演示如何创建CPU与GPU异构推理后端，同时GPU也设定使能float16推理：
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();

@@ -394,7 +394,7 @@ std::shared_ptr<kernel::Kernel> CustomAddCreator(const std::vector<MSTensor> &in
 #### 注册算子
 
 在注册GPU算子时，必须将设备类型声明为GPU，并将上一步实现的创建算子实例函数`CustomAddCreator`传入。
-本样例注册了`Custom_Add`算子GPU内的Float32实现，注册代码如下所示，注册宏中的其他参数参考[API说明](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore_registry.html)。
+本样例注册了`Custom_Add`算子GPU内的float32实现，注册代码如下所示，注册宏中的其他参数参考[API说明](https://www.mindspore.cn/lite/api/zh-CN/r2.2/api_cpp/mindspore_registry.html)。
 
 ```cpp
 const auto kFloat32 = DataType::kNumberTypeFloat32;

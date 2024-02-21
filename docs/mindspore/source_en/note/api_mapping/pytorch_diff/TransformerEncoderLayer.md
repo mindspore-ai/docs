@@ -50,8 +50,8 @@ The code implementation and parameter update logic of `mindspore.nn.TransformerE
 |      | Parameter 8 |         | norm_first | In MindSpore, LayerNorm can be set in between Multiheadttention Layer and FeedForward Layer or after, PyTorch does not have this function |
 |      | Parameter 9 |         | dtype          | In MindSpore, dtype can be set in Parameters using 'dtype'. PyTorch does not have this function. |
 | Input  | Input 1 | src            | src | Consistent function                                               |
-|     | Input 2 | src_mask           | src_mask | Consistent function, different parameter names. In MindSpore, dtype can be set as float or Bool Tensor; in PyTorch dtype can be set as float, byte or Bool Tensor. |
-|     | Input 3 | src_key_padding_mask      | src_key_padding_mask | In MindSpore, dtype can be set as float or Bool Tensor; in PyTorch dtype can be set as byte or Bool Tensor. |
+|     | Input 2 | src_mask           | src_mask | In MindSpore, dtype can be set as float or bool Tensor; in PyTorch dtype can be set as float, byte or bool Tensor. |
+|     | Input 3 | src_key_padding_mask      | src_key_padding_mask | In MindSpore, dtype can be set as float or bool Tensor; in PyTorch dtype can be set as byte or bool Tensor. |
 
 ### Code Example
 

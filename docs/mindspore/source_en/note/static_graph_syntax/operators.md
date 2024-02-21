@@ -10,7 +10,7 @@ Arithmetic operators and assignment operators support the `Number` and `Tensor` 
 | :------------------------ | :------------------------------------------- |
 | `+`                       | `Number`, `Tensor`, taking positive values.                           |
 | `-`                       | `Number`, `Tensor`, `COOTensor`, `CSRTensor`, taking negative values. |
-| `~`                       | `Tensor` with `Bool` data type, members take negation one by one.               |
+| `~`                       | `Tensor` with `bool` data type, members take negation one by one.               |
 
 notes:
 
@@ -36,9 +36,9 @@ notes:
 
 Restrictions:
 
-- If all operands are `Number` type, operations between  `Float64` and `Int32` are not supported. Operators including `+`, `-`, `*`, `/`, `%`, `**`, `//` all support left and right operands to be `Bool` value.
-- If either operand is `Tensor` type, left and right operands can't both be `Bool` value.
-- The `*` operation on `List/Tuple` and `Number` means that `List/Tuple` is copied from `Number` and then concatenated. The data type inside `List` can be any data type supported by the graph mode, and multi-layer nesting is also supported. The data type in `Tuple` must be `Number`, `String`, `None`, and multi-layer nesting is also supported.
+- If all operands are `number` type, operations between `float64` and `int32` are not supported. Operators including `+`, `-`, `*`, `/`, `%`, `**`, `//` all support left and right operands to be `bool` value.
+- If either operand is `tensor` type, left and right operands can't both be `bool` value.
+- The `*` operation on `list/tuple` and `number` means that `list/tuple` is copied from `number` and then concatenated. The data type inside `list` can be any data type supported by the graph mode, and multi-layer nesting is also supported. The data type in `tuple` must be `number`, `string`, `none`, and multi-layer nesting is also supported.
 
 ## Assignment Operators
 
@@ -61,13 +61,13 @@ Restrictions:
 
 Constraints:
 
-- If all operands of  `AugAssign` are `Number` type, value of Number can't be `Bool`.
+- If all operands of  `AugAssign` are `number` type, value of Number can't be `bool`.
 
-- If all operands of  `AugAssign` are `Number` type, operations between  `Float64` and `Int32` are not supported.
+- If all operands of  `AugAssign` are `number` type, operations between  `float64` and `int32` are not supported.
 
-- If either operand of  `AugAssign` is `Tensor` type, left and right operands can't both be `Bool` value.
+- If either operand of  `AugAssign` is `tensor` type, left and right operands can't both be `bool` value.
 
-- The `*=` operation on `List/Tuple` and `Number` means that `List/Tuple` is copied from `Number` and then concatenated, and the elements of the object within `List/Tuple` can contain any of the types supported by the intentional pattern, and multiple levels of nesting are also supported.
+- The `*=` operation on `list/tuple` and `number` means that `list/tuple` is copied from `number` and then concatenated, and the elements of the object within `list/tuple` can contain any of the types supported by the intentional pattern, and multiple levels of nesting are also supported.
 
 ## Logical Operators
 
@@ -98,8 +98,8 @@ Restrictions:
 
 Restrictions:
 
-- For operators `<`, `<=`, `>`, `>=`, `!=`, if all operators are `Number` type, value of Number can't be `Bool`.
-- For operators `<`, `<=`, `>`, `>=`, `!=`, `==`, if all operands are `Number` type, operations between  `Float64` and `Int32` are not supported.
-- For operators `<`, `<=`, `>`, `>=`, `!=`, `==`, if either operand is `Tensor` type, left and right operands can't both be `Bool` value.
-- For operator `==`, if all operands are `Number` type,  support both `Number` have `Bool` value, not support only one `Number` has `Bool` value.
-- For operators `!=`, `==`, all supported types but `mstype` can compare with `None`.
+- For operators `<`, `<=`, `>`, `>=`, `!=`, if all operators are `number` type, value of Number can't be `bool`.
+- For operators `<`, `<=`, `>`, `>=`, `!=`, `==`, if all operands are `number` type, operations between  `float64` and `int32` are not supported.
+- For operators `<`, `<=`, `>`, `>=`, `!=`, `==`, if either operand is `tensor` type, left and right operands can't both be `bool` value.
+- For operator `==`, if all operands are `number` type,  support both `number` have `bool` value, not support only one `number` has `bool` value.
+- For operators `!=`, `==`, all supported types but `mstype` can compare with `none`.

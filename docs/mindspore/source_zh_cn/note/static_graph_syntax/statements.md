@@ -213,7 +213,7 @@ ret: 9
 
 - `x = y if (cond) else z`
 
-参数：`cond` -- 支持`Bool`类型的变量，也支持类型为`Number`、`List`、`Tuple`、`Dict`、`String`类型的常量以及`None`对象。
+参数：`cond` -- 支持`bool`类型的变量，也支持类型为`number`、`list`、`tuple`、`dict`、`string`类型的常量以及`none`对象。
 
 限制：
 
@@ -363,7 +363,7 @@ ret:[[7. 7. 7.]
 
 - `while (cond)  statements... if (cond1) continue`
 
-参数：`cond` -- 支持`Bool`类型的变量，也支持类型为`Number`、`List`、`Tuple`、`Dict`、`String`类型的常量以及`None`对象。
+参数：`cond` -- 支持`bool`类型的变量，也支持类型为`Number`、`List`、`Tuple`、`Dict`、`String`类型的常量以及`None`对象。
 
 限制：
 
