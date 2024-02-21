@@ -37,10 +37,10 @@ class mindspore.nn.TransformerDecoder(
 |      | 参数3 | norm                     | norm          | 功能一致           |
 | 输入  | 输入1 | tgt            | tgt | 功能一致                                               |
 |      | 输入2 | memory           | memory | 功能一致                                               |
-|      | 输入3 | tgt_mask      | tgt_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为float、byte或Bool Tensor |
-|      | 输入4 | memory_mask            | memory_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为float、byte或Bool Tensor |
-|      | 输入5 | tgt_key_padding_mask           | tgt_key_padding_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为byte或Bool Tensor |
-|      | 输入6 | memory_key_padding_mask      | memory_key_padding_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为byte或Bool Tensor |
+|      | 输入3 | tgt_mask      | tgt_mask | MindSpore中dtype可设置为float或bool Tensor，PyTorch中dtype可设置为float、byte或bool Tensor |
+|      | 输入4 | memory_mask            | memory_mask | MindSpore中dtype可设置为float或bool Tensor，PyTorch中dtype可设置为float、byte或bool Tensor |
+|      | 输入5 | tgt_key_padding_mask           | tgt_key_padding_mask | MindSpore中dtype可设置为float或bool Tensor，PyTorch中dtype可设置为byte或bool Tensor |
+|      | 输入6 | memory_key_padding_mask      | memory_key_padding_mask | MindSpore中dtype可设置为float或bool Tensor，PyTorch中dtype可设置为byte或bool Tensor |
 
 ### 代码示例
 

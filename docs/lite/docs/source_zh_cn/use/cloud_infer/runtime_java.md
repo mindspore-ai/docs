@@ -44,13 +44,13 @@
 
 创建配置上下文[MSContext](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#mscontext)，保存会话所需的一些基本配置参数，用于指导图编译和图执行。通过[init](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#init)接口配置线程数，线程亲和性和是否开启异构并行推理。MindSpore Lite内置一个进程共享的线程池，推理时通过`threadNum`指定线程池的最大线程数，默认为2线程。
 
-MindSpore Lite推理时的后端可调用[AddDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#adddeviceinfo)接口中的`deviceType`指定，目前支持CPU、GPU和Ascend。在进行图编译时，会根据主选后端进行算子选型调度。如果后端支持Float16，可通过设置`isEnableFloat16`为`true`后，优先使用Float16算子。
+MindSpore Lite推理时的后端可调用[AddDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#adddeviceinfo)接口中的`deviceType`指定，目前支持CPU、GPU和Ascend。在进行图编译时，会根据主选后端进行算子选型调度。如果后端支持float16，可通过设置`isEnableFloat16`为`true`后，优先使用float16算子。
 
 ### 配置使用CPU后端
 
-当需要执行的后端为CPU时，`MSContext`初始化后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#adddeviceinfo)中`DeviceType.DT_CPU`，同时CPU支持设置绑核模式以及是否优先使用Float16算子。
+当需要执行的后端为CPU时，`MSContext`初始化后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#adddeviceinfo)中`DeviceType.DT_CPU`，同时CPU支持设置绑核模式以及是否优先使用float16算子。
 
-下面演示如何创建CPU后端，同时设定线程数为2、CPU绑核模式为大核优先并且使能Float16推理，关闭并行：
+下面演示如何创建CPU后端，同时设定线程数为2、CPU绑核模式为大核优先并且使能float16推理，关闭并行：
 
 ```java
 MSContext context = new MSContext();
@@ -60,7 +60,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 ### 配置使用GPU后端
 
-当需要执行的后端为GPU时，`MSContext`创建后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#adddeviceinfo)中添加[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_cpp/mindspore.html#gpudeviceinfo)。如果使能Float16推理，GPU会优先使用Float16算子。
+当需要执行的后端为GPU时，`MSContext`创建后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#adddeviceinfo)中添加[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_cpp/mindspore.html#gpudeviceinfo)。如果使能float16推理，GPU会优先使用float16算子。
 
 下面代码演示了如何创建GPU推理后端：
 

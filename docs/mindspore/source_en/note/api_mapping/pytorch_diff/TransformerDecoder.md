@@ -37,10 +37,10 @@ The usage of `mindspore.nn.TransformerDecoder` is mostly the same with that of `
 |      | Parameter 3 | norm        | norm | Consistent function |
 | Input  | Input 1 | tgt            | tgt | Consistent function                                               |
 |     | Input 2 | memory           | memory | Consistent function                                             |
-|     | Input 3 | tgt_mask      | tgt_mask | In MindSpore, dtype can be set as float or Bool Tensor; in Pytorch dtype can be set as float, byte or Bool Tensor. |
-|     | Input 4 | memory_mask      | memory_mask | In MindSpore, dtype can be set as float or Bool Tensor; in Pytorch dtype can be set as float, byte or Bool Tensor. |
-|     | Input 5 | tgt_key_padding_mask      | tgt_key_padding_mask | In MindSpore, dtype can be set as float or Bool Tensor; in Pytorch dtype can be set as byte or Bool Tensor. |
-|     | Input 6 | memory_key_padding_mask      | memory_key_padding_mask | In MindSpore, dtype can be set as float or Bool Tensor; in Pytorch dtype can be set as byte or Bool Tensor. |
+|     | Input 3 | tgt_mask      | tgt_mask | In MindSpore, dtype can be set as float or bool Tensor; in Pytorch dtype can be set as float, byte or bool Tensor. |
+|     | Input 4 | memory_mask      | memory_mask | In MindSpore, dtype can be set as float or bool Tensor; in Pytorch dtype can be set as float, byte or bool Tensor. |
+|     | Input 5 | tgt_key_padding_mask      | tgt_key_padding_mask | In MindSpore, dtype can be set as float or bool Tensor; in Pytorch dtype can be set as byte or bool Tensor. |
+|     | Input 6 | memory_key_padding_mask      | memory_key_padding_mask | In MindSpore, dtype can be set as float or bool Tensor; in Pytorch dtype can be set as byte or bool Tensor. |
 
 ### Code Example
 

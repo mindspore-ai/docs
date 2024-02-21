@@ -44,13 +44,13 @@ To perform model inference with MindSpore Lite, you need to get the path of the 
 
 Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/r2.3/api_java/mscontext.html#mscontext) and save some basic configuration parameters required for the session, which is used to guide graph compilation and graph execution. Configure the number of threads, thread affinity and whether to enable heterogeneous parallel inference via the [init](https://www.mindspore.cn/lite/api/en/r2.3/api_java/mscontext.html#init) interface. MindSpore Lite has a built-in thread pool shared by processes. The maximum number of threads in the pool is specified by `threadNum` when inference, and the default is 2 threads.
 
-The backend of MindSpore Lite inference can call `deviceType` in the [AddDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3/api_java/mscontext.html#adddeviceinfo) interface to specify, currently supporting CPU, GPU and Ascend. When graph compilation is performed, the operator selection is scheduled based on the main selection backend. If the backend supports Float16, Float16 operator can be used in preference by setting `isEnableFloat16` to `true`.
+The backend of MindSpore Lite inference can call `deviceType` in the [AddDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3/api_java/mscontext.html#adddeviceinfo) interface to specify, currently supporting CPU, GPU and Ascend. When graph compilation is performed, the operator selection is scheduled based on the main selection backend. If the backend supports float16, float16 operator can be used in preference by setting `isEnableFloat16` to `true`.
 
 ### Configuring to Use the CPU Backend
 
-When the backend to be executed is CPU, `MSContext` needs to be initialized in `DeviceType.DT_CPU` of [addDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3/api_java/mscontext.html#adddeviceinfo), while the CPU supports setting the CPU pinning mode and whether to use Float16 operator in preference.
+When the backend to be executed is CPU, `MSContext` needs to be initialized in `DeviceType.DT_CPU` of [addDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3/api_java/mscontext.html#adddeviceinfo), while the CPU supports setting the CPU pinning mode and whether to use float16 operator in preference.
 
-The following demonstrates how to create a CPU backend, set the number of threads to 2, set the CPU pinning mode to large core priority and enable Float16 inference, and turn off parallelism:
+The following demonstrates how to create a CPU backend, set the number of threads to 2, set the CPU pinning mode to large core priority and enable float16 inference, and turn off parallelism:
 
 ```java
 MSContext context = new MSContext();
@@ -60,7 +60,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 ### Configuring to Use the GPU Backend
 
-When the backend to be executed is GPU, after `MSContext` is created, you need to add [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) in the [addDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3/api_java/mscontext.html#adddeviceinfo). If Float16 inference is enabled, the GPU will use the Float16 operator in preference.
+When the backend to be executed is GPU, after `MSContext` is created, you need to add [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) in the [addDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3/api_java/mscontext.html#adddeviceinfo). If float16 inference is enabled, the GPU will use the float16 operator in preference.
 
 The following code demonstrates how to create a GPU inference backend:
 
