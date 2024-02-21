@@ -92,7 +92,7 @@ The pruner class purpose is to supports these actions. These actions require rea
 A pruner class inherits the class “AbstructHeadPrunerLRP”, which is a class that we provide. Besides the initialization method (that is performed by the “AbstractHeadPrunerLRP”), the pruner has three more methods that are written differently depending on the model one wants to prune:
 
 * init_head
-    * The pruner is initialized with a model to prune and stored it in the attribute “original_model”. The method init_head rearrange the attribute “original_model” and adds a “head” attribute, such that “head” contains the full model and “original_model” contains only the backbone part. Additionally, the method set the value of the Boolean attribute “has_head” to be True if the received model is a full model, and False if the received model is only the backbone part - both cases are supported.
+    * The pruner is initialized with a model to prune and stored it in the attribute “original_model”. The method init_head rearrange the attribute “original_model” and adds a “head” attribute, such that “head” contains the full model and “original_model” contains only the backbone part. Additionally, the method set the value of the boolean attribute “has_head” to be True if the received model is a full model, and False if the received model is only the backbone part - both cases are supported.
 * decorate_model
     * The method creates and returns the gated version of the model (with weights copied from the received model).
 * get_penalty
@@ -118,7 +118,7 @@ To enable these abilities, we distinguish between three types of classes – the
 
 #### Attention Level Class
 
-We introduce two attributes to the class - a “ConcreteGate” class type attribute that is named “gate”, and a Boolean type attribute named “has_gate”. The first is obviously the added gate, and the second is an indicator of whether to address or ignore the gate. These two attributes are defined in the __init__ method of the class
+We introduce two attributes to the class - a “ConcreteGate” class type attribute that is named “gate”, and a boolean type attribute named “has_gate”. The first is obviously the added gate, and the second is an indicator of whether to address or ignore the gate. These two attributes are defined in the __init__ method of the class
 
 Code example from [gated_bert_model.py](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/heads/lrp/bert/archs/gated_bert_model.py):
 

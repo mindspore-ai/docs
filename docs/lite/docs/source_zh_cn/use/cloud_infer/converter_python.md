@@ -89,7 +89,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 | optimize | str | `--optimize=<OPTIMIZE>` | 设定转换模型的过程所完成的优化。 | "none"、"general"、"gpu_oriented"、"ascend_oriented" | - |
 | output_data_type | DataType | `--outputDataType=<OUTPUTDATATYPE>` | 设置量化模型输出Tensor的data type。仅当模型输出Tensor的量化参数（`scale`和`zero point`）都具备时有效。默认与原始模型输出Tensor的data type保持一致。 | DataType.FLOAT32、DataType.INT8、DataType.UINT8、DataType.UNKNOWN | - |
 | save_type | ModelType | `--saveType=<SAVETYPE>` | 设置导出模型文件的类型。| ModelType.MINDIR | MINDIR模型使用MindSpore Lite云侧推理安装包 |
-| weight_fp16 | bool | `--fp16=<FP16>` | 设置在模型序列化时是否需要将Float32数据格式的权重存储为Float16数据格式。 | True、False | - |
+| weight_fp16 | bool | `--fp16=<FP16>` | 设置在模型序列化时是否需要将float32数据格式的权重存储为float16数据格式。 | True、False | - |
 
 > - 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/build.html) 时设置为 `MSLITE_ENABLE_MODEL_ENCRYPTION=on` 时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如encrypt_key设置为"30313233343536373839414243444546"，对应的十六进制表示为 `(b)0123456789ABCDEF` ，Linux平台用户可以使用 `xxd` 工具对字节表示的密钥进行十六进制表达转换。需要注意的是，加解密算法在1.7版本进行了更新，导致新版的Python接口不支持对1.6及其之前版本的MindSpore Lite加密导出的模型进行转换。
 > `input_shape` 在以下场景下，用户可能需要设置该属性：

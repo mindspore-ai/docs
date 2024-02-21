@@ -331,7 +331,7 @@ At present, this function is only enabled when the `target` is configured as x86
 In MCU scenarios such as Cortex-M, limited by the memory size and computing power of the device, Int8 quantization operators are usually used for deployment inference to reduce the runtime memory size and speed up operations.
 
 If the user already has an Int8 full quantitative model, you can refer to the section on [Generating Inference Code by Running converter_lite](https://www.mindspore.cn/lite/docs/en/master/use/micro.html#generating-inference-code-by-running-converter-lite) to try to generate Int8 quantitative inference code directly without reading this chapter.
-In general, the user has only one trained Float32 model. To generate Int8 quantitative inference code at this time, it is necessary to cooperate with the post quantization function of the conversion tool to generate code. See the following for specific steps.
+In general, the user has only one trained float32 model. To generate Int8 quantitative inference code at this time, it is necessary to cooperate with the post quantization function of the conversion tool to generate code. See the following for specific steps.
 
 #### Configuration
 
@@ -385,7 +385,7 @@ target_device=DSP
 
 - The `target_device` of the `full quantization parameter` in the configuration file usually needs to be set to DSP to support more operators for post quantization.
 
-- At present, Micro has supported 34 Int8 quantization operators. If a related quantization operator does not support it when generating code, you can circumvent the operator through the `skip_quant_node` of the `universal quantization parameter`. The circumvented operator node still uses Float32 inference.
+- At present, Micro has supported 34 Int8 quantization operators. If a related quantization operator does not support it when generating code, you can circumvent the operator through the `skip_quant_node` of the `universal quantization parameter`. The circumvented operator node still uses float32 inference.
 
 ## Generating Model Training Code
 

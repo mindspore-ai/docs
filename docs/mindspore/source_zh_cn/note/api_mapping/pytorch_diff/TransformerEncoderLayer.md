@@ -50,8 +50,8 @@ class mindspore.nn.TransformerEncoderLayer(
 |      | 参数8 |                | norm_first          | MindSpore可配置LayerNorm层是否位于Multiheadttention层和FeedForward之间或之后, PyTorch没有此功能 |
 |      | 参数9 |                     | dtype          | MindSpore可配置网络参数的dtype， PyTorch没有此功能。 |
 | 输入  | 输入1 | src            | src | 功能一致                                               |
-|      | 输入2 | src_mask           | src_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为float、byte或Bool Tensor |
-|      | 输入3 | src_key_padding_mask      | src_key_padding_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为byte或Bool Tensor |
+|      | 输入2 | src_mask           | src_mask | MindSpore中dtype可设置为float或bool Tensor，PyTorch中dtype可设置为float、byte或bool Tensor |
+|      | 输入3 | src_key_padding_mask      | src_key_padding_mask | MindSpore中dtype可设置为float或bool Tensor，PyTorch中dtype可设置为byte或bool Tensor |
 
 ### 代码示例
 

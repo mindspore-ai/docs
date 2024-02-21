@@ -314,7 +314,7 @@ class DQNActor(Actor):
 
 The three methods act on the specified environment with different policies, which map states to actions. The methods take as input a tensor-typed value and return the trajectory from the environment.
 
-To interact with the environment, the Actor uses the `step(action)` method defined in the `Environment` class. For an action applied to the specified environment, this method reacts and returns a ternary. The ternary includes the new state after applying the previous action, the reward obtained as a floating-point type, and Boolean flags for terminating the episode and resetting the environment.
+To interact with the environment, the Actor uses the `step(action)` method defined in the `Environment` class. For an action applied to the specified environment, this method reacts and returns a ternary. The ternary includes the new state after applying the previous action, the reward obtained as a floating-point type, and boolean flags for terminating the episode and resetting the environment.
 
 `ReplayBuffer` defines an `insert` method, which is called by the `DQNActor` object to store the experience data in the playback buffer.
 

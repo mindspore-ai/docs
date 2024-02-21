@@ -386,7 +386,7 @@ Determines whether the elastic load balancing is simulated, that is, whether a c
 
 - Return value
 
-    The value is of the Boolean type. The value true indicates that the client sends requests to a random server address within a specified range. The value false indicates that the client sends a request to a fixed server address.
+    The value is of the boolean type. The value true indicates that the client sends requests to a random server address within a specified range. The value false indicates that the client sends a request to a fixed server address.
 
 ## setUseElb
 
@@ -432,7 +432,7 @@ Whether to perform device-cloud security authentication.
 
 - Return value
 
-    The value is of the Boolean type. The value true indicates that device-cloud security authentication is performed, and the value false indicates that device-cloud security authentication is not performed.
+    The value is of the boolean type. The value true indicates that device-cloud security authentication is performed, and the value false indicates that device-cloud security authentication is not performed.
 
 ## setPkiVerify
 
