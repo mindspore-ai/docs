@@ -77,13 +77,13 @@ try {
 
 创建配置上下文[MSContext](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#mscontext)，保存会话所需的一些基本配置参数，用于指导图编译和图执行。通过[init](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#init)接口配置线程数，线程亲和性和是否开启异构并行推理。MindSpore Lite内置一个进程共享的线程池，推理时通过`threadNum`指定线程池的最大线程数，默认为2线程。
 
-MindSpore Lite推理时的后端可调用[AddDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#adddeviceinfo)接口中的`deviceType`指定，目前支持CPU、GPU和NPU。在进行图编译时，会根据主选后端进行算子选型调度。如果后端支持Float16，可通过设置`isEnableFloat16`为`true`后，优先使用Float16算子。如果是NPU后端，还可以设置NPU频率值。频率值默认为3，可设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能）。
+MindSpore Lite推理时的后端可调用[AddDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#adddeviceinfo)接口中的`deviceType`指定，目前支持CPU、GPU和NPU。在进行图编译时，会根据主选后端进行算子选型调度。如果后端支持float16，可通过设置`isEnableFloat16`为`true`后，优先使用float16算子。如果是NPU后端，还可以设置NPU频率值。频率值默认为3，可设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能）。
 
 ### 配置使用CPU后端
 
-当需要执行的后端为CPU时，`MSContext`初始化后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#adddeviceinfo)中`DeviceType.DT_CPU`，同时CPU支持设置绑核模式以及是否优先使用Float16算子。
+当需要执行的后端为CPU时，`MSContext`初始化后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#adddeviceinfo)中`DeviceType.DT_CPU`，同时CPU支持设置绑核模式以及是否优先使用float16算子。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L59)演示如何创建CPU后端，同时设定线程数为2、CPU绑核模式为大核优先并且使能Float16推理，关闭并行：
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r2.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L59)演示如何创建CPU后端，同时设定线程数为2、CPU绑核模式为大核优先并且使能float16推理，关闭并行：
 
 ```java
 MSContext context = new MSContext();
@@ -91,13 +91,13 @@ context.init(2, CpuBindMode.HIGHER_CPU);
 context.addDeviceInfo(DeviceType.DT_CPU, true);
 ```
 
-> Float16需要CPU为ARM v8.2架构的机型才能生效，其他不支持的机型和x86平台会自动回退到Float32执行。
+> float16需要CPU为ARM v8.2架构的机型才能生效，其他不支持的机型和x86平台会自动回退到float32执行。
 
 ### 配置使用GPU后端
 
-当需要执行的后端为CPU和GPU的异构推理时，`MSContext`创建后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#adddeviceinfo)中先后添加[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_cpp/mindspore.html#gpudeviceinfo)和[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_cpp/mindspore.html#cpudeviceinfo)，配置后将会优先使用GPU推理。如果使能Float16推理，GPU和CPU都会优先使用Float16算子。
+当需要执行的后端为CPU和GPU的异构推理时，`MSContext`创建后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#adddeviceinfo)中先后添加[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_cpp/mindspore.html#gpudeviceinfo)和[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_cpp/mindspore.html#cpudeviceinfo)，配置后将会优先使用GPU推理。如果使能float16推理，GPU和CPU都会优先使用float16算子。
 
-下面代码演示了如何创建CPU与GPU异构推理后端，同时GPU也设定使能Float16推理：
+下面代码演示了如何创建CPU与GPU异构推理后端，同时GPU也设定使能float16推理：
 
 ```java
 MSContext context = new MSContext();
@@ -110,7 +110,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 ### 配置使用NPU后端
 
-当需要执行的后端为CPU和GPU的异构推理时，`MSContext`创建后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#adddeviceinfo)中先后添加[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_cpp/mindspore.html#kirinnpudeviceinfo)和[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_cpp/mindspore.html#cpudeviceinfo)，配置后将会优先使用NPU推理。如果使能Float16推理，NPU和CPU都会优先使用Float16算子。
+当需要执行的后端为CPU和GPU的异构推理时，`MSContext`创建后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_java/mscontext.html#adddeviceinfo)中先后添加[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_cpp/mindspore.html#kirinnpudeviceinfo)和[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3/api_cpp/mindspore.html#cpudeviceinfo)，配置后将会优先使用NPU推理。如果使能float16推理，NPU和CPU都会优先使用float16算子。
 
 下面代码演示了如何创建CPU与GPU异构推理后端，其中KirinNPUDeviceInfo可通过`NPUFrequency`来设置NPU频率。
 

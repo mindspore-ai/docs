@@ -213,7 +213,7 @@ Usage:
 
 - `x = y if (cond) else z`
 
-Parameter: `cond` -- Variables of `Bool` type and constants of `Bool`, `List`, `Tuple`, `Dict` and `String` types are supported.
+Parameter: `cond` -- Variables of `bool` type and constants of `bool`, `List`, `Tuple`, `Dict` and `String` types are supported.
 
 Restrictions:
 
@@ -363,7 +363,7 @@ Usage:
 
 - `while (cond)  statements... if (cond1) continue`
 
-Parameter: `cond` -- Variables of `Bool` type and constants of `Bool`, `List`, `Tuple`, `Dict` and `String` types are supported.
+Parameter: `cond` -- Variables of `bool` type and constants of `bool`, `list`, `tuple`, `dict` and `string` types are supported.
 
 Restrictions:
 
