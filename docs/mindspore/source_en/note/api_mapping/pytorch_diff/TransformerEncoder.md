@@ -37,7 +37,7 @@ The code implementation and parameter update logic of `mindspore.nn.TransformerE
 |      | Parameter 3 | norm        | norm | Consistent function |              |
 | Input  | Input1 | src            | src | Consistent function                                               |
 |     | Input2 | mask           | src_mask | Consistent function, different parameter names                                            |
-|     | Input3 | src_key_padding_mask      | src_key_padding_mask | In MindSpore, dtype can be set as float or Bool Tensor; in PyTorch dtype can be set as byte or Bool Tensor. |
+|     | Input3 | src_key_padding_mask      | src_key_padding_mask | In MindSpore, dtype can be set as float or bool Tensor; in PyTorch dtype can be set as byte or bool Tensor. |
 
 ### Code Example
 

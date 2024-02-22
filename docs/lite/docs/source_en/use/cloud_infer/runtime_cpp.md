@@ -47,7 +47,7 @@ Return a reference to the list of backend information for specifying the running
 
 ### Configuring to Use the CPU Backend
 
-When the backend to be executed is CPU, you need to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.2/generate/classmindspore_CPUDeviceInfo.html) as the inference backend. Enable Float16 inference by `SetEnableFP16`.
+When the backend to be executed is CPU, you need to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.2/generate/classmindspore_CPUDeviceInfo.html) as the inference backend. Enable float16 inference by `SetEnableFP16`.
 
 ```c++
 auto context = std::make_shared<mindspore::Context>();
@@ -98,7 +98,7 @@ Optionally, you can additionally set the number of threads, thread affinity, par
 
 ### Configuring Using GPU Backend
 
-When the backend to be executed is GPU, you need to set [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.2/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) as the inference backend. GPUDeviceInfo sets the device ID by `SetDeviceID` and enables Float16 inference by `SetEnableFP16` or `SetPrecisionMode`.
+When the backend to be executed is GPU, you need to set [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.2/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) as the inference backend. GPUDeviceInfo sets the device ID by `SetDeviceID` and enables float16 inference by `SetEnableFP16` or `SetPrecisionMode`.
 
 The following sample code demonstrates how to create a GPU inference backend while the device ID is set to 0:
 
@@ -125,7 +125,7 @@ device_list.push_back(gpu_device_info);
 
 Whether the `SetEnableFP16` is set successfully depends on the [CUDA computing power] of the current device (https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix).
 
-`SetPrecisionMode()` has two parameters to control Float16 inference, `SetPrecisionMode("preferred_fp16")` equals to `SetEnableFP16(true)`, vice versa.
+`SetPrecisionMode()` has two parameters to control float16 inference, `SetPrecisionMode("preferred_fp16")` equals to `SetEnableFP16(true)`, vice versa.
 
 | SetPrecisionMode() | SetEnableFP16() |
 | ------------------ | --------------- |
@@ -134,7 +134,7 @@ Whether the `SetEnableFP16` is set successfully depends on the [CUDA computing p
 
 ### Configuring Using Ascend Backend
 
-When the backend to be executed is Ascend (Ascend 310/310P/910 are currently supported), you need to set [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.2/generate/classmindspore_AscendDeviceInfo.html#class-ascenddeviceinfo) as the inference backend. AscendDeviceInfo sets the device ID by `SetDeviceID`. Ascend enables Float16 precision by default, and the precision mode can be changed by `AscendDeviceInfo.SetPrecisionMode`.
+When the backend to be executed is Ascend (Ascend 310/310P/910 are currently supported), you need to set [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.2/generate/classmindspore_AscendDeviceInfo.html#class-ascenddeviceinfo) as the inference backend. AscendDeviceInfo sets the device ID by `SetDeviceID`. Ascend enables float16 precision by default, and the precision mode can be changed by `AscendDeviceInfo.SetPrecisionMode`.
 
 The following sample code demonstrates how to create Ascend inference backend while the device ID is set to 0:
 

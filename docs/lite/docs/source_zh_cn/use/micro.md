@@ -324,18 +324,18 @@ support_parallel=true
 
 目前该功能仅在 `target` 配置为x86/ARM32/ARM64时使能，最大可设置推理线程数为4线程。
 
-### 生成Int8量化推理代码(可选)
+### 生成int8量化推理代码(可选)
 
-在Cortex-M等MCU场景下，受限于设备的内存大小及算力，通常需要使用Int8量化算子来进行部署推理以减少运行时内存大小并加速运算。
+在Cortex-M等MCU场景下，受限于设备的内存大小及算力，通常需要使用int8量化算子来进行部署推理以减少运行时内存大小并加速运算。
 
-如果用户已经有一个Int8全量化模型，可参考[执行converter_lite生成推理代码](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/use/micro.html#执行converter-lite生成推理代码)章节尝试直接生成Int8量化推理代码而不需要阅读本章内容。
-在通常的情况下，用户只有一个训练好的Float32模型，此时若要生成Int8量化推理代码，则需配合转换工具的后量化功能进行代码生成，具体步骤可参考下文。
+如果用户已经有一个int8全量化模型，可参考[执行converter_lite生成推理代码](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/use/micro.html#执行converter-lite生成推理代码)章节尝试直接生成int8量化推理代码而不需要阅读本章内容。
+在通常的情况下，用户只有一个训练好的float32模型，此时若要生成int8量化推理代码，则需配合转换工具的后量化功能进行代码生成，具体步骤可参考下文。
 
 #### 配置文件
 
-通过在配置文件中配置量化控制参数可以实现Int8量化推理代码生成，关于量化控制参数（通用量化参数`common_quant_param`和全量化参数`full_quant_param`）的说明，请参考转换工具的[训练后量化文档](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/use/post_training_quantization.html)。
+通过在配置文件中配置量化控制参数可以实现int8量化推理代码生成，关于量化控制参数（通用量化参数`common_quant_param`和全量化参数`full_quant_param`）的说明，请参考转换工具的[训练后量化文档](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/use/post_training_quantization.html)。
 
-一个 `Cortex-M` 平台的Int8量化推理代码生成配置文件的示例如下：
+一个 `Cortex-M` 平台的int8量化推理代码生成配置文件的示例如下：
 
 ```text
 [micro_param]
@@ -383,7 +383,7 @@ target_device=DSP
 
 - 配置文件中全量化参数`full_quant_param`的target_device通常需设置为DSP，以支持更多的算子进行后量化。
 
-- 目前Micro已支持34个Int8量化算子，如果在生成代码时，有相关量化算子不支持，可通过通用量化参数`common_quant_param`的`skip_quant_node`来规避该算子，被规避的算子节点仍然采用Float32推理。
+- 目前Micro已支持34个int8量化算子，如果在生成代码时，有相关量化算子不支持，可通过通用量化参数`common_quant_param`的`skip_quant_node`来规避该算子，被规避的算子节点仍然采用float32推理。
 
 ## 模型训练代码生成
 

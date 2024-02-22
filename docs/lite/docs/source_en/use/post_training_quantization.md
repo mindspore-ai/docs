@@ -552,7 +552,7 @@ The quantization parameter report `quant_param.csv` contains the quantization pa
 
 ### Skip Quantization Node
 
-Quantization is to convert the Float32 operator to the Int8 operator. The current quantization strategy is to quantify all the nodes contained in a certain type of operator that can be supported, but there are some nodes that are more sensitive and will cause larger errors after quantization. At the same time, the inference speed of some layers after quantization is much lower than that of Float16. It supports non-quantization of the specified layer, which can effectively improve the accuracy and inference speed.
+Quantization is to convert the float32 operator to the int8 operator. The current quantization strategy is to quantify all the nodes contained in a certain type of operator that can be supported, but there are some nodes that are more sensitive and will cause larger errors after quantization. At the same time, the inference speed of some layers after quantization is much lower than that of float16. It supports non-quantization of the specified layer, which can effectively improve the accuracy and inference speed.
 
 Below is an example of `conv2d_1` `add_8` `concat_1` without quantifying the three nodes:
 
