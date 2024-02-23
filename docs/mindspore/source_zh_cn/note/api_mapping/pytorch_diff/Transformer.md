@@ -63,12 +63,12 @@ The code implementation and parameter update logic of `mindspore.nn.Transformer`
 |      | 参数 13 |                     | dtype          | MindSpore可配置网络参数的dtype， PyTorch没有此功能。 |
 | 输入  | 输入 1 | src            | src | 功能一致                                              |
 |     | 输入 2 | tgt            | tgt | 功能一致                                              |
-|     | 输入 3 | src_mask           | src_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为float、byte或Bool Tensor |
-|     | 输入 4 | tgt_mask           | tgt_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为float、byte或Bool Tensor |
-|     | 输入 5 | memory_mask           | memory_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为float、byte或Bool Tensor |
-|     | 输入 6 | src_key_padding_mask      | src_key_padding_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为byte或Bool Tensor |
-|     | 输入 7 | tgt_key_padding_mask      | tgt_key_padding_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为byte或Bool Tensor |
-|     | 输入 8 | memory_key_padding_mask   | memory_key_padding_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为byte或Bool Tensor |
+|     | 输入 3 | src_mask           | src_mask | MindSpore中dtype可设置为float或bool Tensor，PyTorch中dtype可设置为float、byte或bool Tensor |
+|     | 输入 4 | tgt_mask           | tgt_mask | MindSpore中dtype可设置为float或bool Tensor，PyTorch中dtype可设置为float、byte或bool Tensor |
+|     | 输入 5 | memory_mask           | memory_mask | MindSpore中dtype可设置为float或bool Tensor，PyTorch中dtype可设置为float、byte或bool Tensor |
+|     | 输入 6 | src_key_padding_mask      | src_key_padding_mask | MindSpore中dtype可设置为float或bool Tensor，PyTorch中dtype可设置为byte或bool Tensor |
+|     | 输入 7 | tgt_key_padding_mask      | tgt_key_padding_mask | MindSpore中dtype可设置为float或bool Tensor，PyTorch中dtype可设置为byte或bool Tensor |
+|     | 输入 8 | memory_key_padding_mask   | memory_key_padding_mask | MindSpore中dtype可设置为float或bool Tensor，PyTorch中dtype可设置为byte或bool Tensor |
 
 ## 代码示例
 

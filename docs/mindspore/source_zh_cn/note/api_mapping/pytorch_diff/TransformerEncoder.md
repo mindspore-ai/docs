@@ -37,7 +37,7 @@ class mindspore.nn.TransformerEncoder(
 |      | 参数3 | norm                     | norm          | 功能一致                                         |
 | 输入  | 输入1 | src            | src | 功能一致                                               |
 |     | 输入2 | mask           | src_mask | 功能一致，参数名不同                                               |
-|     | 输入3 | src_key_padding_mask      | src_key_padding_mask | MindSpore中dtype可设置为float或Bool Tensor，PyTorch中dtype可设置为byte或Bool Tensor |
+|     | 输入3 | src_key_padding_mask      | src_key_padding_mask | MindSpore中dtype可设置为float或bool Tensor，PyTorch中dtype可设置为byte或bool Tensor |
 
 ### 代码示例
 

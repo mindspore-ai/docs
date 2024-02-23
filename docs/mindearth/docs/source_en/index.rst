@@ -33,6 +33,7 @@ Code repository address: <https://gitee.com/mindspore/mindscience/tree/master/Mi
    medium-range/FourCastNet
    medium-range/graphcast
    medium-range/vit_kno
+   medium-range/fuxi
 
 .. toctree::
    :glob:
