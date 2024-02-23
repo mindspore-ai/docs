@@ -14,6 +14,8 @@ Related interfaces:
 
 2. `nn.PipelineCell(loss_cell, micro_size)`: pipeline parallelism requires wrapping a layer of `PipelineCell` around the LossCell and specifying the size of the MicroBatch. In order to improve machine utilization, MindSpore slices the MiniBatch into finer-grained MicroBatches, and the final loss is the sum of the loss values computed by all MicroBatches, where the size of the MicroBatch must be greater than or equal to the number of stages.
 
+3. `nn.PipelineGradReducer(parameters)`: pipeline parallelism requires using `PipelineGradReducer` for gradient reduction. Because the output of pipeline parallelism is derived by the addition of several micro-batch outputs, as the gradient do.
+
 ## Basic Principle
 
 Pipeline parallel is the splitting of operators in a neural network into multiple stages, and then mapping the stages to different devices, so that different devices can compute different parts of the neural network. Pipeline parallel is suitable for graph structures where the model is linear. As shown in Figure 1, the network of 4 layers of MatMul is split into 4 stages and distributed to 4 devices. In forward calculations, each machine sends the result to the next machine through the communication operator after calculating the MatMul on the machine, and at the same time, the next machine receives (Receive) the MatMul result of the previous machine through the communication operator, and starts to calculate the MatMul on the machine; In reverse calculation, after the gradient of the last machine is calculated, the result is sent to the previous machine, and at the same time, the previous machine receives the gradient result of the last machine and begins to calculate the reverse of the current machine.
@@ -134,16 +136,38 @@ In this step, we need to define the loss function, the optimizer, and the traini
 - First define the LossCell. In this case the `nn.WithLossCell` interface is called to encapsulate the network and loss functions.
 - Finally, wrap the LossCell with `nn.PipelineCell`, and specify the size of MicroBatch. For detailed information, refer to the related interfaces in the overview.
 
+Besides, the interface `nn.PipelineGradReducer` is needed to handle gradient of pipeline parallelism, the first parameter of this interface is the network parameter to be updated.
+
 ```python
 import mindspore as ms
-from mindspore import nn, train
+from mindspore import nn, ops
 
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
 loss_fn = nn.CrossEntropyLoss()
-loss_cb = train.LossMonitor()
-net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4)
-model = ms.Model(net_with_grads, optimizer=optimizer)
-model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
+net_with_loss = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4)
+net_with_loss.set_train()
+
+def forward_fn(inputs, target):
+    loss = net_with_loss(inputs, target)
+    return loss
+
+grad_fn = ops.value_and_grad(forward_fn, None, optimizer.parameters)
+pp_grad_reducer = nn.PipelineGradReducer(optimizer.parameters)
+
+@ms.jit
+def train_one_step(inputs, target):
+    loss, grads = grad_fn(inputs, target)
+    grads = pp_grad_reducer(grads)
+    optimizer(grads)
+    return loss, grads
+
+for epoch in range(10):
+    i = 0
+    for data, label in data_set:
+        loss, grads = train_one_step(data, label)
+        if i % 10 == 0:
+            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss))
+        i += 1
 ```
 
 > Currently pipeline parallel does not support the automatic mixed precision.
@@ -173,16 +197,13 @@ After training, the log files are saved to the `log_output` directory, where par
 The results are saved in `log_output/1/rank.*/stdout`, and the example is as below:
 
 ```text
-epoch: 1 step: 1875, loss is 1.9490933418273926
-epoch: 2 step: 1875, loss is 0.44548869132995605
-epoch: 3 step: 1875, loss is 0.034527599811553955
-epoch: 4 step: 1875, loss is 1.0163589715957642
-epoch: 5 step: 1875, loss is 0.02109396457672119
-epoch: 6 step: 1875, loss is 0.012739777565002441
-epoch: 7 step: 1875, loss is 0.004988193511962891
-epoch: 8 step: 1875, loss is 0.10372555255889893
-epoch: 9 step: 1875, loss is 0.019182920455932617
-epoch: 10 step: 1875, loss is 0.021012544631958008
+epoch: 0 step: 0, loss is 9.087993
+epoch: 0 step: 10, loss is 8.575434
+epoch: 0 step: 20, loss is 8.185939
+epoch: 0 step: 30, loss is 6.7301626
+epoch: 0 step: 40, loss is 5.2246842
+epoch: 0 step: 50, loss is 3.8342278
+...
 ```
 
 Other startup methods such as dynamic cluster and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/startup_method.html).
