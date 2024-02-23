@@ -18,7 +18,7 @@
 import os
 import mindspore as ms
 import mindspore.dataset as ds
-from mindspore import nn, train
+from mindspore import nn, ops
 from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
@@ -72,7 +72,28 @@ data_set = create_dataset(32)
 
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
 loss_fn = nn.CrossEntropyLoss()
-loss_cb = train.LossMonitor()
-net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4)
-model = ms.Model(net_with_grads, optimizer=optimizer)
-model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
+
+net_with_loss = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4)
+net_with_loss.set_train()
+
+def forward_fn(inputs, target):
+    loss = net_with_loss(inputs, target)
+    return loss
+
+grad_fn = ops.value_and_grad(forward_fn, None, optimizer.parameters)
+pp_grad_reducer = nn.PipelineGradReducer(optimizer.parameters)
+
+@ms.jit
+def train_one_step(inputs, target):
+    loss, grads = grad_fn(inputs, target)
+    grads = pp_grad_reducer(grads)
+    optimizer(grads)
+    return loss, grads
+
+for epoch in range(10):
+    i = 0
+    for data, label in data_set:
+        loss_value, grads_value = train_one_step(data, label)
+        if i % 10 == 0:
+            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_value))
+        i += 1
