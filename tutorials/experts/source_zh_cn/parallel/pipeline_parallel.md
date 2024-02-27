@@ -14,6 +14,8 @@
 
 2. `nn.PipelineCell(loss_cell, micro_size)`：流水线并行需要在LossCell外再包一层`PipelineCell`，并指定MicroBatch的size。为了提升机器的利用率，MindSpore将MiniBatch切分成了更细粒度的MicroBatch，最终的loss则是所有MicroBatch计算的loss值累加。其中，MicroBatch的size必须大于等于Stage的数量。
 
+3. `nn.PipelineGradReducer(parameters)`：流水行并行需要使用`PipelineGradReducer`来完成梯度聚合。这是因为流水线并行中，其输出是由多个`micro-batch`的结果相加得到，因此其梯度也需要进行累加。
+
 ## 基本原理
 
 流水线（Pipeline）并行是将神经网络中的算子切分成多个Stage，再把Stage映射到不同的设备上，使得不同设备去计算神经网络的不同部分。流水线并行适用于模型是线性的图结构。如图1所示，将4层MatMul的网络切分成4个Stage，分布到4台设备上。正向计算时，每台机器在算完本台机器上的MatMul之后将结果通过通信算子发送（Send）给下一台机器，同时，下一台机器通过通信算子接收（Receive）上一台机器的MatMul结果，同时开始计算本台机器上的MatMul；反向计算时，最后一台机器的梯度算完之后，将结果发送给上一台机器，同时，上一台机器接收最后一台机器的梯度结果，并开始计算本台机器的反向。
@@ -134,16 +136,38 @@ net.layer3.pipeline_stage = 1
 - 首先需要定义LossCell，本例中调用了`nn.WithLossCell`接口封装网络和损失函数。
 - 然后需要在LossCell外包一层`nn.PipelineCell`，并指定MicroBatch的size。详细请参考本章概述中的相关接口。
 
+除此之外, 还需要增加 `nn.PipelineGradReducer` 接口，用于处理流水并行下的梯度，该接口的第一个参数为需要更新的网络参数。
+
 ```python
 import mindspore as ms
-from mindspore import nn, train
+from mindspore import nn, ops
 
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
 loss_fn = nn.CrossEntropyLoss()
-loss_cb = train.LossMonitor()
-net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4)
-model = ms.Model(net_with_grads, optimizer=optimizer)
-model.train(10, data_set, callbacks=[loss_cb], dataset_sink_mode=True)
+net_with_loss = nn.PipelineCell(nn.WithLossCell(net, loss_fn), 4)
+net_with_loss.set_train()
+
+def forward_fn(inputs, target):
+    loss = net_with_loss(inputs, target)
+    return loss
+
+grad_fn = ops.value_and_grad(forward_fn, None, optimizer.parameters)
+pp_grad_reducer = nn.PipelineGradReducer(optimizer.parameters)
+
+@ms.jit
+def train_one_step(inputs, target):
+    loss, grads = grad_fn(inputs, target)
+    grads = pp_grad_reducer(grads)
+    optimizer(grads)
+    return loss, grads
+
+for epoch in range(10):
+    i = 0
+    for data, label in data_set:
+        loss, grads = train_one_step(data, label)
+        if i % 10 == 0:
+            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss))
+        i += 1
 ```
 
 > 目前流水线并行不支持自动混合精度特性。
@@ -173,16 +197,13 @@ bash run.sh
 结果保存在`log_output/1/rank.*/stdout`中，示例如下：
 
 ```text
-epoch: 1 step: 1875, loss is 1.9490933418273926
-epoch: 2 step: 1875, loss is 0.44548869132995605
-epoch: 3 step: 1875, loss is 0.034527599811553955
-epoch: 4 step: 1875, loss is 1.0163589715957642
-epoch: 5 step: 1875, loss is 0.02109396457672119
-epoch: 6 step: 1875, loss is 0.012739777565002441
-epoch: 7 step: 1875, loss is 0.004988193511962891
-epoch: 8 step: 1875, loss is 0.10372555255889893
-epoch: 9 step: 1875, loss is 0.019182920455932617
-epoch: 10 step: 1875, loss is 0.021012544631958008
-```
+epoch: 0 step: 0, loss is 9.087993
+epoch: 0 step: 10, loss is 8.575434
+epoch: 0 step: 20, loss is 8.185939
+epoch: 0 step: 30, loss is 6.7301626
+epoch: 0 step: 40, loss is 5.2246842
+epoch: 0 step: 50, loss is 3.8342278
+...
+``
 
 其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/startup_method.html)。
