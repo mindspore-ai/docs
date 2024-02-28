@@ -327,9 +327,9 @@ docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if vers
 cst_module_name = 'mindspore'
 repo_whl = 'mindspore/python/mindspore'
 giturl = 'https://gitee.com/mindspore/'
-ops_yaml = 'mindspore/core/ops/ops_def/'
+ops_yaml = 'mindspore/core/ops/ops_def/doc/'
 try:
-    ops_yaml_list = [i for i in os.listdir(os.path.join(os.getenv("MS_PATH"), 'mindspore/core/ops/ops_def')) if i.endswith('_doc.yaml') and '_grad' not in i]
+    ops_yaml_list = [i for i in os.listdir(os.path.join(os.getenv("MS_PATH"), 'mindspore/core/ops/ops_def/doc')) if i.endswith('_doc.yaml') and '_grad' not in i]
 except:
     ops_yaml_list = []
 
