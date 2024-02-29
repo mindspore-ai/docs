@@ -153,7 +153,63 @@ MindSpore提供了一种自动混合精度的方法，详见[Model](https://www.
 
 `to_float(dst_type)`: 在`Cell`和所有子`Cell`的输入上添加类型转换，以使用特定的浮点类型运行。
 
-如果 `dst_type` 是 `ms.float16` ，`Cell`的所有输入(包括作为常量的input， `Parameter`， `Tensor`)都会被转换为`float16`。例如，我想将一个网络里所有的BN和loss改成`float32`类型，其余操作是`float16`类型，可以这么做：
+如果 `dst_type` 是 `ms.float16` ，`Cell`的所有输入(包括作为常量的input， `Parameter`， `Tensor`)都会被转换为`float16`。
+
+自定义的`to_float`和Model里的`amp_level`冲突，使用自定义的混合精度就不要设置Model里的`amp_level`。
+
+`torch.nn.Module` 的 `to` 接口可以实现类似功能。
+
+PyTorch和MindSpore中，将一个网络里所有的BN和loss改成`float32`类型，其余操作是`float16`类型，可以这么做：
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch 设置模型数据类型 </td> <td style="text-align:center"> MindSpore 设置模型数据类型 </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+```python
+import torch
+import torch.nn as nn
+
+class Network(nn.Module):
+    def __init__(self):
+        super(Network, self).__init__()
+        self.layer1 = nn.Sequential(
+            nn.Conv2d(3, 12, kernel_size=3, padding=1),
+            nn.BatchNorm2d(12),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        )
+        self.layer2 = nn.Sequential(
+            nn.Conv2d(12, 4, kernel_size=3, padding=1),
+            nn.BatchNorm2d(4),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        )
+        self.pool = nn.AdaptiveMaxPool2d((5, 5))
+        self.fc = nn.Linear(100, 10)
+
+    def forward(self, x):
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.pool(x)
+        x = x.view(x.size(0), -1)
+        out = self.fc(x)
+        return out
+
+net = Network()
+net = net.to(torch.float32)
+for name, module in net.named_modules():
+    if isinstance(module, (nn.BatchNorm1d, nn.BatchNorm2d, nn.BatchNorm3d)):
+        module.to(torch.float32)
+loss = nn.CrossEntropyLoss(reduction='mean')
+loss = loss.to(torch.float32)
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 import mindspore as ms
@@ -196,11 +252,210 @@ loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean').to_float(
 net_with_loss = nn.WithLossCell(net, loss_fn=loss)
 ```
 
-自定义的`to_float`和Model里的`amp_level`冲突，使用自定义的混合精度就不要设置Model里的`amp_level`。
+</pre>
+</td>
+</tr>
+</table>
 
-### 参数初始化
+### Parameter管理
 
-#### 默认权重初始化不同
+在 PyTorch 中，可以存储数据的对象总共有四种，分别时`Tensor`、`Variable`、`Parameter`、`Buffer`。这四种对象的默认行为均不相同，当用户不需要求梯度时，通常使用 `Tensor`和 `Buffer`两类数据对象，当用户需要求梯度时，通常使用 `Variable` 和 `Parameter` 两类对象。PyTorch 在设计这四种数据对象时，功能上存在冗余（`Variable` 后续会被废弃也说明了这一点）。
+
+MindSpore 优化了数据对象的设计逻辑，仅保留了两种数据对象：`Tensor` 和 `Parameter`，其中 `Tensor` 对象仅参与运算，并不需要对其进行梯度求导和Parameter更新，而 `Parameter` 数据对象和 PyTorch 的 `Parameter` 意义相同，会根据其属性`requires_grad` 来决定是否对其进行梯度求导和Parameter更新。在网络迁移时，只要是在PyTorch中未进行Parameter更新的数据对象，均可在MindSpore中声明为 `Tensor`。
+
+#### Parameter获取
+
+`mindspore.nn.Cell` 使用 `parameters_dict` 、`get_parameters` 和 `trainable_params` 接口获取 `Cell` 中的 `Parameter` 。
+
+- parameters_dict：获取网络结构中所有Parameter，返回一个以key为Parameter名，value为Parameter值的`OrderedDict`。
+
+- get_parameters：获取网络结构中的所有Parameter，返回`Cell`中`Parameter`的迭代器。
+
+- trainable_params：获取`Parameter`中`requires_grad`为`True`的属性，返回可训Parameter的列表。
+
+在定义优化器时，使用`net.trainable_params()`获取需要进行Parameter更新的Parameter列表。
+
+`torch.nn.Module` 使用 `get_parameter` 、 `named_parameters` 、 `parameters` 等接口获取 `Module` 中的 `Parameter` 。
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+```python
+import torch.nn as nn
+
+net = nn.Linear(2, 1)
+
+for name, param in net.named_parameters():
+    print("Parameter Name:", name)
+
+for name, param in net.named_parameters():
+    if "bias" in name:
+        param.requires_grad = False
+
+for name, param in net.named_parameters():
+    if param.requires_grad:
+        print("Parameter Name:", name)
+```
+
+运行结果：
+
+```text
+Parameter Name: weight
+Parameter Name: bias
+Parameter Name: weight
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+import mindspore.nn as nn
+
+net = nn.Dense(2, 1, has_bias=True)
+print(net.trainable_params())
+
+for param in net.trainable_params():
+    param_name = param.name
+    if "bias" in param_name:
+        param.requires_grad = False
+print(net.trainable_params())
+```
+
+运行结果：
+
+```text
+[Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True), Parameter (name=bias, shape=(1,), dtype=Float32, requires_grad=True)]
+[Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True)]
+```
+
+</pre>
+</td>
+</tr>
+</table>
+
+#### 梯度冻结
+
+除了使用给Parameter设置`requires_grad=False`来不更新Parameter外，还可以使用`stop_gradient`来阻断梯度计算以达到冻结Parameter的作用。那什么时候使用`requires_grad=False`，什么时候使用`stop_gradient`呢？
+
+![parameter-freeze](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/docs/mindspore/source_zh_cn/migration_guide/model_development/images/parameter_freeze.png)
+
+如上图所示，`requires_grad=False`不更新部分Parameter，但是反向的梯度计算还是正常执行的；
+`stop_gradient`会直接截断反向梯度，当需要冻结的Parameter之前没有需要训练的Parameter时，两者在功能上是等价的。
+但是`stop_gradient`会更快（少执行了一部分反向梯度计算）。
+当冻结的Parameter之前有需要训练的Parameter时，只能使用`requires_grad=False`。
+另外，`stop_gradient`需要加在网络的计算链路里，作用的对象是Tensor：
+
+```python
+a = A(x)
+a = ops.stop_gradient(a)
+y = B(a)
+```
+
+#### Parameter保存和加载
+
+MindSpore提供了`load_checkpoint`和`save_checkpoint`方法用来Parameter的保存和加载，需要注意的是Parameter保存时，保存的是Parameter列表，Parameter加载时对象必须是Cell。
+在Parameter加载时，可能Parameter名对不上需要做一些修改，可以直接构造一个新的Parameter列表给到`load_checkpoint`加载到Cell。
+
+`torch.nn.Module` 提供 `state_dict` 、 `load_state_dict` 等接口保存加载模型的Parameter。
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+```python
+import torch
+import torch.nn as nn
+
+linear_layer = nn.Linear(2, 1, bias=True)
+
+linear_layer.weight.data.fill_(1.0)
+linear_layer.bias.data.zero_()
+
+print("Original linear layer parameters:")
+print(linear_layer.weight)
+print(linear_layer.bias)
+
+torch.save(linear_layer.state_dict(), 'linear_layer_params.pth')
+
+new_linear_layer = nn.Linear(2, 1, bias=True)
+
+new_linear_layer.load_state_dict(torch.load('linear_layer_params.pth'))
+
+# 打印加载后的Parameter，应该和原始Parameter一样
+print("Loaded linear layer parameters:")
+print(new_linear_layer.weight)
+print(new_linear_layer.bias)
+```
+
+运行结果：
+
+```text
+Original linear layer parameters:
+Parameter containing:
+tensor([[1., 1.]], requires_grad=True)
+Parameter containing:
+tensor([0.], requires_grad=True)
+Loaded linear layer parameters:
+Parameter containing:
+tensor([[1., 1.]], requires_grad=True)
+Parameter containing:
+tensor([0.], requires_grad=True)
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+import mindspore as ms
+import mindspore.ops as ops
+import mindspore.nn as nn
+
+net = nn.Dense(2, 1, has_bias=True)
+for param in net.get_parameters():
+    print(param.name, param.data.asnumpy())
+
+ms.save_checkpoint(net, "dense.ckpt")
+dense_params = ms.load_checkpoint("dense.ckpt")
+print(dense_params)
+new_params = {}
+for param_name in dense_params:
+    print(param_name, dense_params[param_name].data.asnumpy())
+    new_params[param_name] = ms.Parameter(ops.ones_like(dense_params[param_name].data), name=param_name)
+
+ms.load_param_into_net(net, new_params)
+for param in net.get_parameters():
+    print(param.name, param.data.asnumpy())
+```
+
+运行结果：
+
+```text
+weight [[-0.0042482  -0.00427286]]
+bias [0.]
+{'weight': Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True), 'bias': Parameter (name=bias, shape=(1,), dtype=Float32, requires_grad=True)}
+weight [[-0.0042482  -0.00427286]]
+bias [0.]
+weight [[1. 1.]]
+bias [1.]
+```
+
+</pre>
+</td>
+</tr>
+</table>
+
+#### Parameter初始化
+
+##### 默认权重初始化不同
 
 我们知道权重初始化对网络的训练十分重要。每个nn接口一般会有一个隐式的声明权重，在不同的框架中，隐式的声明权重可能不同。即使功能一致，隐式声明的权重初始化方式分布如果不同，也会对训练过程产生影响，甚至无法收敛。
 
@@ -224,7 +479,7 @@ net_with_loss = nn.WithLossCell(net, loss_fn=loss)
 
 对于没有正则化的网络，如没有 BatchNorm 算子的 GAN 网络，梯度很容易爆炸或者消失，权重初始化就显得十分重要，各位开发者应注意权重初始化带来的影响。
 
-#### 参数初始化API对比
+##### Parameter初始化API对比
 
 每个 `torch.nn.init` 的API都可以和MindSpore一一对应，除了 `torch.nn.init.calculate_gain()` 之外。更多信息，请查看[PyTorch与MindSpore API映射表](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html)。
 
@@ -263,17 +518,17 @@ torch.nn.init.uniform_(x)
 - `mindspore.common.initializer` 用于在并行模式中延迟Tensor的数据的初始化。只有在调用了 `init_data()` 之后，才会使用指定的 `init` 来初始化Tensor的数据。每个Tensor只能使用一次 `init_data()` 。在运行以上代码之后，`x` 其实尚未完成初始化。如果此时 `x` 被用来计算，将会作为0来处理。然而，在打印时，会自动调用 `init_data()` 。
 - `torch.nn.init` 需要一个Tensor作为输入，将输入的Tensor原地修改为目标结果，运行上述代码之后，x将不再是非初始化状态，其元素将服从均匀分布。
 
-#### 自定义初始化参数
+##### 自定义初始化Parameter
 
-MindSpore封装的高阶API里一般会给参数一个默认的初始化，当这个初始化分布与需要使用的初始化、PyTorch的初始化不一致，此时需要进行自定义初始化。[网络参数初始化](https://mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/initializer.html#自定义参数初始化)介绍了一种在使用API属性进行初始化的方法，这里介绍一种利用Cell进行参数初始化的方法。
+MindSpore封装的高阶API里一般会给Parameter一个默认的初始化，当这个初始化分布与需要使用的初始化、PyTorch的初始化不一致，此时需要进行自定义初始化。[网络参数初始化](https://mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/initializer.html#自定义参数初始化)介绍了一种在使用API属性进行初始化的方法，这里介绍一种利用Cell进行Parameter初始化的方法。
 
-参数的相关介绍请参考[网络参数](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/initializer.html)，本节主要以`Cell`为切入口，举例获取`Cell`中的所有参数，并举例说明怎样给`Cell`里的参数进行初始化。
+Parameter的相关介绍请参考[网络参数](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/initializer.html)，本节主要以`Cell`为切入口，举例获取`Cell`中的所有参数，并举例说明怎样给`Cell`里的Parameter进行初始化。
 
-> 注意本节的方法不能在`construct`里执行，在网络中修改参数的值请使用[assign](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.assign.html)。
+> 注意本节的方法不能在`construct`里执行，在网络中修改Parameter的值请使用[assign](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.assign.html)。
 
-[set_data(data, slice_shape=False)](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.Parameter.html?highlight=set_data#mindspore.Parameter.set_data)设置参数数据。
+[set_data(data, slice_shape=False)](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.Parameter.html?highlight=set_data#mindspore.Parameter.set_data)设置Parameter数据。
 
-MindSpore支持的参数初始化方法参考[mindspore.common.initializer](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.common.initializer.html)，当然也可以直接传入一个定义好的[Parameter](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)对象。
+MindSpore支持的Parameter初始化方法参考[mindspore.common.initializer](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.common.initializer.html)，当然也可以直接传入一个定义好的[Parameter](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)对象。
 
 ```python
 import math
@@ -323,94 +578,169 @@ for _, cell in net.cells_and_names():
         cell.bias.set_data(ms.common.initializer.initializer("zeros", cell.bias.shape, cell.bias.dtype))
 ```
 
-### 参数冻结
+### 子模块管理
 
-`Parameter`有一个`requires_grad`的属性来判断是否需要做参数更新，当`requires_grad=False`时相当于PyTorch的`buffer`对象。
+`mindspore.nn.Cell` 中可定义其他Cell实例作为子模块。这些子模块是网络中的组成部分，自身也可能包含可学习的Parameter（如卷积层的权重和偏置）和其他子模块。这种层次化的模块结构允许用户构建复杂且可重用的神经网络架构。
 
-我们可以通过Cell的`parameters_dict`、`get_parameters`和`trainable_params`来获取`Cell`中的参数列表。
+`mindspore.nn.Cell` 提供 `cells_and_names` 、 `insert_child_to_cell` 等接口实现子模块管理功能。
 
-- parameters_dict：获取网络结构中所有参数，返回一个以key为参数名，value为参数值的`OrderedDict`。
+`torch.nn.Module` 提供 `named_modules` 、 `add_module` 等接口实现子模块管理功能。
 
-- get_parameters：获取网络结构中的所有参数，返回`Cell`中`Parameter`的迭代器。
-
-- trainable_params：获取`Parameter`中`requires_grad`为`True`的属性，返回可训参数的列表。
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
-import mindspore.nn as nn
+import torch.nn as nn
 
-net = nn.Dense(2, 1, has_bias=True)
-print(net.trainable_params())
+class MyModule(nn.Module):
+    def __init__(self):
+        super(MyModule, self).__init__()
+        self.conv1 = nn.Conv2d(1, 32, 3, 1)
+        self.conv2 = nn.Conv2d(32, 64, 3, 1)
+        # 使用add_module添加子模块
+        self.add_module('conv3', nn.Conv2d(64, 128, 3, 1))
 
-for param in net.trainable_params():
-    param_name = param.name
-    if "bias" in param_name:
-        param.requires_grad = False
-print(net.trainable_params())
+        self.sequential_block = nn.Sequential(
+            nn.ReLU(),
+            nn.Conv2d(128, 256, 3, 1),
+            nn.ReLU()
+        )
+
+    def forward(self, x):
+        x = self.conv1(x)
+        x = self.conv2(x)
+        x = self.conv3(x)
+        x = self.sequential_block(x)
+        return x
+
+module = MyModule()
+
+# 使用named_modules遍历所有子模块（包括直接和间接子模块）
+for name, module_instance in module.named_modules():
+    print(f"Module name: {name}, type: {type(module_instance)}")
 ```
 
 运行结果：
 
 ```text
-[Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True), Parameter (name=bias, shape=(1,), dtype=Float32, requires_grad=True)]
-[Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True)]
+Module name: , type: <class '__main__.MyModule'>
+Module name: conv1, type: <class 'torch.nn.modules.conv.Conv2d'>
+Module name: conv2, type: <class 'torch.nn.modules.conv.Conv2d'>
+Module name: conv3, type: <class 'torch.nn.modules.conv.Conv2d'>
+Module name: sequential_block, type: <class 'torch.nn.modules.container.Sequential'>
+Module name: sequential_block.0, type: <class 'torch.nn.modules.activation.ReLU'>
+Module name: sequential_block.1, type: <class 'torch.nn.modules.conv.Conv2d'>
+Module name: sequential_block.2, type: <class 'torch.nn.modules.activation.ReLU'>
 ```
 
-在定义优化器时，使用`net.trainable_params()`获取需要进行参数更新的参数列表。
-
-除了使用给参数设置`requires_grad=False`来不更新参数外，还可以使用`stop_gradient`来阻断梯度计算以达到冻结参数的作用。那什么时候使用`requires_grad=False`，什么时候使用`stop_gradient`呢？
-
-![parameter-freeze](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/docs/mindspore/source_zh_cn/migration_guide/model_development/images/parameter_freeze.png)
-
-如上图所示，`requires_grad=False`不更新部分参数，但是反向的梯度计算还是正常执行的；
-`stop_gradient`会直接截断反向梯度，当需要冻结的参数之前没有需要训练的参数时，两者在功能上是等价的。
-但是`stop_gradient`会更快（少执行了一部分反向梯度计算）。
-当冻结的参数之前有需要训练的参数时，只能使用`requires_grad=False`。
-另外，`stop_gradient`需要加在网络的计算链路里，作用的对象是Tensor：
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
-a = A(x)
-a = ops.stop_gradient(a)
-y = B(a)
-```
+from mindspore import nn
 
-### 参数保存和加载
+class MyCell(nn.Cell):
+    def __init__(self):
+        super(MyCell, self).__init__()
+        self.conv1 = nn.Conv2d(1, 32, 3, 1)
+        self.conv2 = nn.Conv2d(32, 64, 3, 1)
+        # 使用insert_child_to_cell添加子模块
+        self.insert_child_to_cell('conv3', nn.Conv2d(64, 128, 3, 1))
 
-MindSpore提供了`load_checkpoint`和`save_checkpoint`方法用来参数的保存和加载，需要注意的是参数保存时，保存的是参数列表，参数加载时对象必须是Cell。
-在参数加载时，可能参数名对不上需要做一些修改，可以直接构造一个新的参数列表给到`load_checkpoint`加载到Cell。
+        self.sequential_block = nn.SequentialCell(
+            nn.ReLU(),
+            nn.Conv2d(128, 256, 3, 1),
+            nn.ReLU()
+        )
 
-```python
-import mindspore as ms
-import mindspore.ops as ops
-import mindspore.nn as nn
+    def construct(self, x):
+        x = self.conv1(x)
+        x = self.conv2(x)
+        x = self.conv3(x)
+        x = self.sequential_block(x)
+        return x
 
-net = nn.Dense(2, 1, has_bias=True)
-for param in net.get_parameters():
-    print(param.name, param.data.asnumpy())
+module = MyCell()
 
-ms.save_checkpoint(net, "dense.ckpt")
-dense_params = ms.load_checkpoint("dense.ckpt")
-print(dense_params)
-new_params = {}
-for param_name in dense_params:
-    print(param_name, dense_params[param_name].data.asnumpy())
-    new_params[param_name] = ms.Parameter(ops.ones_like(dense_params[param_name].data), name=param_name)
-
-ms.load_param_into_net(net, new_params)
-for param in net.get_parameters():
-    print(param.name, param.data.asnumpy())
+# 使用cells_and_names遍历所有子模块（包括直接和间接子模块）
+for name, cell_instance in module.cells_and_names():
+    print(f"Cell name: {name}, type: {type(cell_instance)}")
 ```
 
 运行结果：
 
 ```text
-weight [[-0.0042482  -0.00427286]]
-bias [0.]
-{'weight': Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True), 'bias': Parameter (name=bias, shape=(1,), dtype=Float32, requires_grad=True)}
-weight [[-0.0042482  -0.00427286]]
-bias [0.]
-weight [[1. 1.]]
-bias [1.]
+Cell name: , type: <class '__main__.MyCell'>
+Cell name: conv1, type: <class 'mindspore.nn.layer.conv.Conv2d'>
+Cell name: conv2, type: <class 'mindspore.nn.layer.conv.Conv2d'>
+Cell name: conv3, type: <class 'mindspore.nn.layer.conv.Conv2d'>
+Cell name: sequential_block, type: <class 'mindspore.nn.layer.container.SequentialCell'>
+Cell name: sequential_block.0, type: <class 'mindspore.nn.layer.activation.ReLU'>
+Cell name: sequential_block.1, type: <class 'mindspore.nn.layer.conv.Conv2d'>
+Cell name: sequential_block.2, type: <class 'mindspore.nn.layer.activation.ReLU'>
 ```
+
+</pre>
+</td>
+</tr>
+</table>
+
+### 训练评估模式切换
+
+`torch.nn.Module` 提供 `train(mode=True)` 接口设置模型处于训练模式和 `eval` 接口设置模型处于评估模式。这两种模式的区别主要体现在Dropout和BN等层的行为以及权重更新上。
+
+- Dropout和BN层的行为：
+
+  训练模式下，Dropout层会按照设定的Parameter `p` 来随机关闭一部分神经元，这意味着在前向传播过程中，这部分神经元不会有任何贡献。BN层会继续计算均值和方差，并对数据进行相应的归一化。
+
+  评估模式下，Dropout层不会关闭任何神经元，即所有的神经元都会被用于前向传播。BN层会使用训练阶段计算得到的运行均值和运行方差。
+
+- 权重更新：
+
+  在训练模式下，模型的权重会根据反向传播的结果进行更新。这意味着在每次前向传播和反向传播之后，模型的权重都可能会发生变化。
+
+  在评估模式下，模型的权重不会被更新。即使进行了前向传播并计算了损失，也不会进行反向传播来更新权重。这是因为评估模式主要用于测试模型的性能，而不是训练模型。
+
+`mindspore.nn.Cell` 提供 `set_train(mode=True)` 接口实现模式的切换。`mode` 设置成 ``True`` 时，模型处于训练模式；`mode` 设置成 ``False`` 时，模型处于评估模式。
+
+### 设备相关
+
+`torch.nn.Module` 提供 `CPU` 、 `cuda` 、 `ipu` 等接口将模型移动到指定设备上。
+
+`mindspore.set_context()` 的 `device_target` 参数实现类似功能， `device_target` 可以指定 ``CPU`` 、 ``GPU`` 和 ``Ascend`` 设备。与PyTorch不同的是，一旦设备设置成功，输入数据和模型会默认拷贝到指定的设备中执行，不需要也无法再改变数据和模型所运行的设备类型
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+```python
+import torch
+torch_net = torch.nn.Linear(3, 4)
+torch_net.cpu()
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+import mindspore
+mindspore.set_context(device_target="CPU")
+ms_net = mindspore.nn.Dense(3, 4)
+```
+
+</pre>
+</td>
+</tr>
+</table>
 
 ## 动态图与静态图
 
@@ -714,7 +1044,7 @@ class ClassLoss_pt(torch_nn.Module):
         vaild_label = label * mask
         pos_num = torch.clamp(mask.sum() * 0.7, 1).int()
         con = self.con_loss(pred, vaild_label.long()) * mask
-        loss, _ = torch.topk(con, k=pos_num)
+        loss, unused_value = torch.topk(con, k=pos_num)
         return loss.mean()
 ```
 
@@ -737,7 +1067,7 @@ class ClassLoss_ms(ms_nn.Cell):
         vaild_label = label * mask
         pos_num = ops.maximum(mask.sum() * 0.7, 1).astype(ms.int32)
         con = self.con_loss(pred, vaild_label.astype(ms.int32)) * mask
-        con_sort, _ = self.sort_descending(con)
+        con_sort, unused_value = self.sort_descending(con)
         con_k = con_sort[pos_num - 1]
         con_mask = (con >= con_k).astype(con.dtype)
         loss = con * con_mask
