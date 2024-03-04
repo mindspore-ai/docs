@@ -264,24 +264,27 @@ func_adjust = []
 def ops_interface_name():
     dir_list = ['mindspore.ops.primitive.rst', 'mindspore.ops.rst']
     for i in dir_list:
-        target_path = os.path.join(des_sir, i)
-        with open(target_path,'r+',encoding='utf8') as f:
+        src_target_path = os.path.join(src_dir_en, i)
+        with open(src_target_path,'r+',encoding='utf8') as f:
             content =  f.read()
-            new_content = content
-            if 'primitive' in i:
-                for name in ops_adjust:
-                    new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
-                for name in refer_ops_adjust:
-                    new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
-                primi_list = re.findall("    (mindspore\.ops\.\w*?)\n", new_content)
-            else:
-                for name in func_adjust:
-                    new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
 
-            if new_content != content:
-                f.seek(0)
-                f.truncate()
-                f.write(new_content)
+        new_content = content
+        if 'primitive' in i:
+            for name in ops_adjust:
+                new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
+            for name in refer_ops_adjust:
+                new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
+            primi_list = re.findall("    (mindspore\.ops\.\w*?)\n", new_content)
+        else:
+            for name in func_adjust:
+                new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
+
+        target_path = os.path.join(des_sir, i)
+        if new_content != content and os.path.exists(target_path):
+            with open(target_path, 'r+', encoding='utf8') as g:
+                g.seek(0)
+                g.truncate()
+                g.write(new_content)
     return primi_list
 
 try:
