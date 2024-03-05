@@ -153,7 +153,63 @@ However, sometimes the hybrid precision policy is expected to be more flexible d
 
 `to_float(dst_type)`: adds type conversion to the input of the `Cell` and all child `Cell` to run with a specific floating-point type.
 
-If `dst_type` is `ms.float16`, all inputs of `Cell` (including input, `Parameter`, and `Tensor` used as constants) will be converted to `float16`. For example, if you want to change all BNs and losses in a network to the `float32` type and other operations to the `float16` type, run the following command:
+If `dst_type` is `ms.float16`, all inputs of `Cell` (including input, `Parameter`, and `Tensor` used as constants) will be converted to `float16`.
+
+Customized `to_float` conflicts with `amp_level` in Model. Don't set `amp_level` in Model if you use custom mixed precision.
+
+The `to` interface of `torch.nn.Module` accomplishes similar functions.
+
+In PyTorch and MindSpore, changing all the BNs and losses in a network to be of type `float32` and the rest of the operations to be of type `float16` can be done:
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch sets the model data type </td> <td style="text-align:center"> MindSpore sets the model data type </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+```python
+import torch
+import torch.nn as nn
+
+class Network(nn.Module):
+    def __init__(self):
+        super(Network, self).__init__()
+        self.layer1 = nn.Sequential(
+            nn.Conv2d(3, 12, kernel_size=3, padding=1),
+            nn.BatchNorm2d(12),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        )
+        self.layer2 = nn.Sequential(
+            nn.Conv2d(12, 4, kernel_size=3, padding=1),
+            nn.BatchNorm2d(4),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        )
+        self.pool = nn.AdaptiveMaxPool2d((5, 5))
+        self.fc = nn.Linear(100, 10)
+
+    def forward(self, x):
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.pool(x)
+        x = x.view(x.size(0), -1)
+        out = self.fc(x)
+        return out
+
+net = Network()
+net = net.to(torch.float32)
+for name, module in net.named_modules():
+    if isinstance(module, (nn.BatchNorm1d, nn.BatchNorm2d, nn.BatchNorm3d)):
+        module.to(torch.float32)
+loss = nn.CrossEntropyLoss(reduction='mean')
+loss = loss.to(torch.float32)
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 import mindspore as ms
@@ -196,11 +252,210 @@ loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean').to_float(
 net_with_loss = nn.WithLossCell(net, loss_fn=loss)
 ```
 
-The customized `to_float` conflicts with the `amp_level` in the model. If the customized mixing precision is used, do not set the `amp_level` in the model.
+</pre>
+</td>
+</tr>
+</table>
 
-### Parameters Initialization
+### Parameters Management
 
-#### Different Default Weight Initialization
+In PyTorch, there are a total of four types of objects that can store data, namely `Tensor`, `Variable`, `Parameter`, and `Buffer`. The default behavior of these four objects is different. `Tensor` and `Buffer` data objects is used when the user does not require gradients, and the `Variable` and `Parameter` objects is used when the user does require gradients. PyTorch was designed to be functionally redundant (`Variable` will later be deprecated as well).
+
+MindSpore optimizes the design logic of data objects by keeping only two kinds of data objects: `Tensor` and `Parameter`. The `Tensor` object only participates in arithmetic and does not need to perform gradient derivation and parameter update, and the `Parameter` data object is the same as PyTorch `Parameter` in the sense that its attribute `requires_grad` determines whether to perform gradient derivation and Parameter update. During network migration, any data object that doesn't perform Parameter update in PyTorch can be declared as a `Tensor` in MindSpore.
+
+#### Parameter Obtaining
+
+`mindspore.nn.Cell` uses the `parameters_dict`, `get_parameters`, and `trainable_params` interfaces to get the `Parameter` in `Cell`.
+
+- parameters_dict: Obtain all Parameters in the network structure, and return an `OrderedDict` with key as the Parameter name and value as the Parameter value.
+
+- get_parameters: Obtain all Parameters in the network structure, and return an iterator of `Parameter` in `Cell`.
+
+- trainable_params: Obtain the attributes of `Parameter` where `requires_grad` is `True`, and return a list of trainable Parameters.
+
+When defining the optimizer, use `net.trainable_params()` to get the list of Parameters for which Parameter updates are required.
+
+`torch.nn.Module` uses the `get_parameter`, `named_parameters`, and `parameters` interfaces to get `Parameter` in `Module`.
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+```python
+import torch.nn as nn
+
+net = nn.Linear(2, 1)
+
+for name, param in net.named_parameters():
+    print("Parameter Name:", name)
+
+for name, param in net.named_parameters():
+    if "bias" in name:
+        param.requires_grad = False
+
+for name, param in net.named_parameters():
+    if param.requires_grad:
+        print("Parameter Name:", name)
+```
+
+Outputs:
+
+```text
+Parameter Name: weight
+Parameter Name: bias
+Parameter Name: weight
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+import mindspore.nn as nn
+
+net = nn.Dense(2, 1, has_bias=True)
+print(net.trainable_params())
+
+for param in net.trainable_params():
+    param_name = param.name
+    if "bias" in param_name:
+        param.requires_grad = False
+print(net.trainable_params())
+```
+
+Outputs:
+
+```text
+[Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True), Parameter (name=bias, shape=(1,), dtype=Float32, requires_grad=True)]
+[Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True)]
+```
+
+</pre>
+</td>
+</tr>
+</table>
+
+#### Gradient Freezing
+
+In addition to using `requires_grad=False` to set the Parameter to not update the Parameter, you can also use `stop_gradient` to block the gradient calculation to freeze the Parameter. So when to use `requires_grad=False` and when to use `stop_gradient`?
+
+![parameter-freeze](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/docs/mindspore/source_en/migration_guide/model_development/images/parameter_freeze.png)
+
+As shown above, `requires_grad=False` does not update some of the Parameter, but the reverse gradient calculation is still performed normally;
+`stop_gradient` will directly truncate the reverse gradient, and the two are functionally equivalent when the Parameter to be frozen is not preceded by a Parameter to be trained.
+But `stop_gradient` will be faster (less part of the reverse gradient calculation is performed).
+Only use `requires_grad=False` when the frozen Parameter is preceded by a Parameter to be trained.
+Also, `stop_gradient` needs to be added to the computational link of the network, acting on the Tensor:
+
+```python
+a = A(x)
+a = ops.stop_gradient(a)
+y = B(a)
+```
+
+#### Parameter Saving and Loading
+
+MindSpore provides `load_checkpoint` and `save_checkpoint` methods for Parameter saving and loading. It should be noted that when Parameter is saved, the Parameter list is saved, and when Parameter is loaded, the object must be a Cell.
+When the Parameter is loaded, it is possible that the Parameter name is not correct and needs some modification, you can directly construct a new Parameter list to `load_checkpoint` to load into the Cell.
+
+`torch.nn.Module` provides interfaces such as `state_dict`, `load_state_dict` to save and load Parameter of model.
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+```python
+import torch
+import torch.nn as nn
+
+linear_layer = nn.Linear(2, 1, bias=True)
+
+linear_layer.weight.data.fill_(1.0)
+linear_layer.bias.data.zero_()
+
+print("Original linear layer parameters:")
+print(linear_layer.weight)
+print(linear_layer.bias)
+
+torch.save(linear_layer.state_dict(), 'linear_layer_params.pth')
+
+new_linear_layer = nn.Linear(2, 1, bias=True)
+
+new_linear_layer.load_state_dict(torch.load('linear_layer_params.pth'))
+
+# Print the loaded Parameter, which should be the same as the original Parameter
+print("Loaded linear layer parameters:")
+print(new_linear_layer.weight)
+print(new_linear_layer.bias)
+```
+
+Outputs:
+
+```text
+Original linear layer parameters:
+Parameter containing:
+tensor([[1., 1.]], requires_grad=True)
+Parameter containing:
+tensor([0.], requires_grad=True)
+Loaded linear layer parameters:
+Parameter containing:
+tensor([[1., 1.]], requires_grad=True)
+Parameter containing:
+tensor([0.], requires_grad=True)
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+import mindspore as ms
+import mindspore.ops as ops
+import mindspore.nn as nn
+
+net = nn.Dense(2, 1, has_bias=True)
+for param in net.get_parameters():
+    print(param.name, param.data.asnumpy())
+
+ms.save_checkpoint(net, "dense.ckpt")
+dense_params = ms.load_checkpoint("dense.ckpt")
+print(dense_params)
+new_params = {}
+for param_name in dense_params:
+    print(param_name, dense_params[param_name].data.asnumpy())
+    new_params[param_name] = ms.Parameter(ops.ones_like(dense_params[param_name].data), name=param_name)
+
+ms.load_param_into_net(net, new_params)
+for param in net.get_parameters():
+    print(param.name, param.data.asnumpy())
+```
+
+Outputs:
+
+```text
+weight [[-0.0042482  -0.00427286]]
+bias [0.]
+{'weight': Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True), 'bias': Parameter (name=bias, shape=(1,), dtype=Float32, requires_grad=True)}
+weight [[-0.0042482  -0.00427286]]
+bias [0.]
+weight [[1. 1.]]
+bias [1.]
+```
+
+</pre>
+</td>
+</tr>
+</table>
+
+#### Parameter Initialization
+
+##### Different Default Weight Initialization
 
 We know that weight initialization is very important for network training. Generally, each nn interface has an implicit declaration weight. In different frameworks, the implicit declaration weight may be different. Even if the operator functions are the same, if the implicitly declared weight initialization mode distribution is different, the training process is affected or even cannot be converged.
 
@@ -224,7 +479,7 @@ In the preceding information, $k=\frac{groups}{in\_features}$.
 
 For a network without normalization, for example, a GAN network without the BatchNorm operator, the gradient is easy to explode or disappear. Therefore, weight initialization is very important. Developers should pay attention to the impact of weight initialization.
 
-#### Parameter Initializations APIs Comparison
+##### Parameter Initializations APIs Comparison
 
 Every API from `torch.nn.init` could correspond to MindSpore, except `torch.nn.init.calculate_gain()`. For more information, please refer to [PyTorch and MindSpore API Mapping Table](https://www.mindspore.cn/docs/en/r2.3/note/api_mapping/pytorch_api_mapping.html).
 
@@ -263,7 +518,7 @@ torch.nn.init.uniform_(x)
 - `mindspore.common.initializer` is used for delayed initialization in parallel mode. Only after calling `init_data()`, the elements will be assigned based on its `init`. Every Tensor could only use `init_data` once. After running the code above, `x` is still not fully initialized. If it is used for further calculation, 0 will be used. However, when printing the Tensor, `init_data()` will be called automatically.
 - `torch.nn.init` takes a Tensor as input, and the input Tensor will be changed to the target in-place. After running the code above, x is no longer an uninitialized Tensor, and its elements will follow the uniform distribution.
 
-#### Customizing Initialization Parameters
+##### Customizing Initialization Parameters
 
 Generally, the high-level API encapsulated by MindSpore initializes parameters by default. Sometimes, the initialization distribution is inconsistent with the required initialization and PyTorch initialization. In this case, you need to customize initialization. [Initializing Network Arguments](https://mindspore.cn/tutorials/en/r2.3/advanced/modules/initializer.html#customized-parameter-initialization) describes a method of initializing parameters by using API attributes. This section describes a method of initializing parameters by using Cell.
 
@@ -308,7 +563,6 @@ class Network(nn.Cell):
         return out
 
 net = Network()
-
 for _, cell in net.cells_and_names():
     if isinstance(cell, nn.Conv2d):
         cell.weight.set_data(ms.common.initializer.initializer(
@@ -324,94 +578,169 @@ for _, cell in net.cells_and_names():
         cell.bias.set_data(ms.common.initializer.initializer("zeros", cell.bias.shape, cell.bias.dtype))
 ```
 
-### Freezing Parameters
+### Submodule Management
 
-`Parameter` has a `requires_grad` attribute to determine whether to update parameters. When `requires_grad=False`, `Parameter` is equivalent to the `buffer` object of PyTorch.
+Other Cell instances may be defined as submodules in `mindspore.nn.Cell`. These submodules are integral parts of the network and may contain learnable Parameters (e.g., weights and biases for convolutional layers) and other submodules. This hierarchical module structure allows users to build complex and reusable neural network architectures.
 
-You can obtain the parameter list in `Cell` through `parameters_dict`, `get_parameters`, and `trainable_params` of the cell.
+`mindspore.nn.Cell` provides interfaces such as `cells_and_names`, `insert_child_to_cell` to realize submodule management functions.
 
-- parameters_dict: obtains all parameters in the network structure and returns an `OrderedDict` with `key` as the parameter name and `value` as the parameter value.
+`torch.nn.Module` provides interfaces such as `named_modules`, `add_module` to realize submodule management functions.
 
-- get_parameters: obtains all parameters in the network structure and returns the iterator of the `Parameter` in the `Cell`.
-
-- trainable_params: obtains the attributes whose `requires_grad` is `True` in `Parameter` and returns the list of trainable parameters.
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
-import mindspore.nn as nn
+import torch.nn as nn
 
-net = nn.Dense(2, 1, has_bias=True)
-print(net.trainable_params())
+class MyModule(nn.Module):
+    def __init__(self):
+        super(MyModule, self).__init__()
+        self.conv1 = nn.Conv2d(1, 32, 3, 1)
+        self.conv2 = nn.Conv2d(32, 64, 3, 1)
+        # Add submodules using add_module
+        self.add_module('conv3', nn.Conv2d(64, 128, 3, 1))
 
-for param in net.trainable_params():
-    param_name = param.name
-    if "bias" in param_name:
-        param.requires_grad = False
-print(net.trainable_params())
+        self.sequential_block = nn.Sequential(
+            nn.ReLU(),
+            nn.Conv2d(128, 256, 3, 1),
+            nn.ReLU()
+        )
+
+    def forward(self, x):
+        x = self.conv1(x)
+        x = self.conv2(x)
+        x = self.conv3(x)
+        x = self.sequential_block(x)
+        return x
+
+module = MyModule()
+
+# Iterate through all submodules (both direct and indirect) using named_modules
+for name, module_instance in module.named_modules():
+    print(f"Module name: {name}, type: {type(module_instance)}")
 ```
 
-Outputs:
+Output:
 
 ```text
-[Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True), Parameter (name=bias, shape=(1,), dtype=Float32, requires_grad=True)]
-[Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True)]
+Module name: , type: <class '__main__.MyModule'>
+Module name: conv1, type: <class 'torch.nn.modules.conv.Conv2d'>
+Module name: conv2, type: <class 'torch.nn.modules.conv.Conv2d'>
+Module name: conv3, type: <class 'torch.nn.modules.conv.Conv2d'>
+Module name: sequential_block, type: <class 'torch.nn.modules.container.Sequential'>
+Module name: sequential_block.0, type: <class 'torch.nn.modules.activation.ReLU'>
+Module name: sequential_block.1, type: <class 'torch.nn.modules.conv.Conv2d'>
+Module name: sequential_block.2, type: <class 'torch.nn.modules.activation.ReLU'>
 ```
 
-When defining an optimizer, use `net.trainable_params()` to obtain the list of parameters that need to be updated.
-
-In addition to setting the parameter `requires_grad=False` not to update the parameter, you can also use `stop_gradient` to block gradient calculation to freeze the parameter. When will `requires_grad=False` and `stop_gradient` be used?
-
-![parameter-freeze](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/docs/mindspore/source_en/migration_guide/model_development/images/parameter_freeze.png)
-
-As shown in the preceding figure, the `requires_grad=False` does not update some parameters, but the backward gradient calculation is normal.
-The `stop_gradient` directly cuts off backward gradient. When there is no parameter to be trained before the parameter to be frozen, the two parameters are equivalent in function.
-However, `stop_gradient` is faster (with less backward gradient calculations).
-If there are parameters to be trained before the frozen parameters, only `requires_grad=False` can be used.
-In addition, `stop_gradient` needs to be added to the computational link of the network, acting on the Tensor.
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
-a = A(x)
-a = ops.stop_gradient(a)
-y = B(a)
+from mindspore import nn
+
+class MyCell(nn.Cell):
+    def __init__(self):
+        super(MyCell, self).__init__()
+        self.conv1 = nn.Conv2d(1, 32, 3, 1)
+        self.conv2 = nn.Conv2d(32, 64, 3, 1)
+        # Add submodules using insert_child_to_cell
+        self.insert_child_to_cell('conv3', nn.Conv2d(64, 128, 3, 1))
+
+        self.sequential_block = nn.SequentialCell(
+            nn.ReLU(),
+            nn.Conv2d(128, 256, 3, 1),
+            nn.ReLU()
+        )
+
+    def construct(self, x):
+        x = self.conv1(x)
+        x = self.conv2(x)
+        x = self.conv3(x)
+        x = self.sequential_block(x)
+        return x
+
+module = MyCell()
+
+# Iterate through all submodules (both direct and indirect) using cells_and_names
+for name, cell_instance in module.cells_and_names():
+    print(f"Cell name: {name}, type: {type(cell_instance)}")
 ```
 
-### Saving and Loading Parameters
-
-MindSpore provides the `load_checkpoint` and `save_checkpoint` methods for saving and loading parameters. Note that when a parameter is saved, the parameter list is saved. When a parameter is loaded, the object must be a cell.
-When loading parameters, you may need to modify the parameter names. In this case, you can directly construct a new parameter list for the `load_checkpoint` to load the parameter list to the cell.
-
-```python
-import mindspore as ms
-import mindspore.ops as ops
-import mindspore.nn as nn
-
-net = nn.Dense(2, 1, has_bias=True)
-for param in net.get_parameters():
-    print(param.name, param.data.asnumpy())
-
-ms.save_checkpoint(net, "dense.ckpt")
-dense_params = ms.load_checkpoint("dense.ckpt")
-print(dense_params)
-new_params = {}
-for param_name in dense_params:
-    print(param_name, dense_params[param_name].data.asnumpy())
-    new_params[param_name] = ms.Parameter(ops.ones_like(dense_params[param_name].data), name=param_name)
-
-ms.load_param_into_net(net, new_params)
-for param in net.get_parameters():
-    print(param.name, param.data.asnumpy())
-```
-
-Outputs:
+Output:
 
 ```text
-weight [[-0.0042482  -0.00427286]]
-bias [0.]
-{'weight': Parameter (name=weight, shape=(1, 2), dtype=Float32, requires_grad=True), 'bias': Parameter (name=bias, shape=(1,), dtype=Float32, requires_grad=True)}
-weight [[-0.0042482  -0.00427286]]
-bias [0.]
-weight [[1. 1.]]
-bias [1.]
+Cell name: , type: <class '__main__.MyCell'>
+Cell name: conv1, type: <class 'mindspore.nn.layer.conv.Conv2d'>
+Cell name: conv2, type: <class 'mindspore.nn.layer.conv.Conv2d'>
+Cell name: conv3, type: <class 'mindspore.nn.layer.conv.Conv2d'>
+Cell name: sequential_block, type: <class 'mindspore.nn.layer.container.SequentialCell'>
+Cell name: sequential_block.0, type: <class 'mindspore.nn.layer.activation.ReLU'>
+Cell name: sequential_block.1, type: <class 'mindspore.nn.layer.conv.Conv2d'>
+Cell name: sequential_block.2, type: <class 'mindspore.nn.layer.activation.ReLU'>
 ```
+
+</pre>
+</td>
+</tr>
+</table>
+
+### 训练评估模式切换
+
+The `torch.nn.Module` provides the `train(mode=True)` interface to set the model in training mode and the `eval` interface to set the model in evaluation mode. The difference between these two modes is mainly in the behavior of layers such as Dropout and BN, as well as weight updates.
+
+- Behavior of Dropout and BN layers:
+
+  In training mode, the Dropout layer randomly turns off a portion of neurons according to the set Parameter `p`, which means that this portion of neurons will not contribute anything during the forward propagation process. The BN layer continues to compute the mean and variance and normalize the data accordingly.
+
+  In evaluation mode, the Dropout layer does not turn off any neurons, i.e., all neurons are used for forward propagation. The BN layer uses the running mean and running variance computed during the training phase.
+
+- Weight updates:
+
+  In training mode, the weights of the model are updated based on the results of the backward propagation. This means that the weights of the model may change after each forward and backward propagation.
+
+  In evaluation mode, the weights of the model are not updated. Even if forward propagation is performed and losses are computed, backpropagation is not performed to update the weights. This is because the evaluation mode is mainly used to test the performance of the model, not to train the model.
+
+`mindspore.nn.Cell` provides the `set_train(mode=True)` interface to enable mode switching. When `mode` is set to ``True``, the model is in training mode; when `mode` is set to ``False``, the model is in evaluation mode.
+
+### Device Related
+
+`torch.nn.Module` provides interfaces such as `CPU`, `cuda`, `ipu`. to move the model to the specified device.
+
+The `device_target` parameter of `mindspore.set_context()` performs a similar function, where `device_target` specifies the ``CPU``, ``GPU`` and ``Ascend`` devices. Unlike PyTorch, once the device is set, the input data and model will be copied to the specified device by default, and there is no need or possibility to change the type of device on which the data and model will be executed.
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+```python
+import torch
+torch_net = torch.nn.Linear(3, 4)
+torch_net.cpu()
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+import mindspore
+mindspore.set_context(device_target="CPU")
+ms_net = mindspore.nn.Dense(3, 4)
+```
+
+</pre>
+</td>
+</tr>
+</table>
 
 ## Dynamic and Static Graphs
 
@@ -715,7 +1044,7 @@ class ClassLoss_pt(torch_nn.Module):
         vaild_label = label * mask
         pos_num = torch.clamp(mask.sum() * 0.7, 1).int()
         con = self.con_loss(pred, vaild_label.long()) * mask
-        loss, _ = torch.topk(con, k=pos_num)
+        loss, unused_value = torch.topk(con, k=pos_num)
         return loss.mean()
 ```
 
@@ -739,7 +1068,7 @@ class ClassLoss_ms(ms_nn.Cell):
         vaild_label = label * mask
         pos_num = ops.maximum(mask.sum() * 0.7, 1).astype(ms.int32)
         con = self.con_loss(pred, vaild_label.astype(ms.int32)) * mask
-        con_sort, _ = self.sort_descending(con)
+        con_sort, unused_value = self.sort_descending(con)
         con_k = con_sort[pos_num - 1]
         con_mask = (con >= con_k).astype(con.dtype)
         loss = con * con_mask
