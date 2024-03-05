@@ -92,7 +92,8 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
   **Q: 模型训练过程中，非首个step耗时很长，该怎么优化？**
 
   A: 模型训练过程中，非首个step的耗时包括迭代间隙、前反向计算和迭代拖尾，如果想要优化非首step的性能，需要先获取网络的迭代轨迹，再分析哪部分是性能瓶颈，最近进行性能优化。
-     详情可参考 `性能调优指南 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/performance_tuning_guide.html>`_ ；和 `性能调试案例 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/performance_optimization.html>`_ 。
+     
+  详情可参考 `性能调优指南 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/performance_tuning_guide.html>`_ ；和 `性能调试案例 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/performance_optimization.html>`_ 。
 
   **Q: 加载标杆权重进行模型推理验证正向流程时，有warning警告显示权重未加载成功，该如何解决？**
 
@@ -105,21 +106,24 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
   **Q: 迁移过程使用PyNative进行调测，流程成功，切换成Graph模式，为什么会出现一堆的报错？**
 
   A: PyNative模式下模型进行推理的行为与一般Python代码无异。但是切换成Graph模式时，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图，而这一步操作中MindSpore目前还未能支持完整的Python语法全集，所以construct函数的编写会存在部分限制。
-     如：PyNative模式下可直接判断某个Tensor值是否为0，但切换成Graph模式则会报错不支持。
-        .. code-block:: python
+  
+  如：PyNative模式下可直接判断某个Tensor值是否为0，但切换成Graph模式则会报错不支持。
 
-            if response == 0:
-              return loss
-            return loss/response
+  .. code-block:: python
 
-     遇到类似情况，可将代码修改为：
-        .. code-block:: python
+      if response == 0:
+          return loss
+      return loss/response
 
-            response_gt = max(response, ms.Tensor(1))
-            loss = loss/response_gt
-            return loss
+  遇到类似情况，可将代码修改为：
 
-     详细可参考 `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/master/note/static_Graph_syntax_support.html>`_ 。
+  .. code-block:: python
+
+      response_gt = max(response, ms.Tensor(1))
+      loss = loss/response_gt
+      return loss
+
+  详细可参考 `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/master/note/static_Graph_syntax_support.html>`_ 。
 
   **Q: 训练过程中出现报错：RuntimeError: Launch kernel failed, name:Default/...怎么办？**
 
@@ -132,13 +136,17 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
   **Q: Graph模式静态图训练过程中出现报错，该怎么有效地定位到报错原因？**
 
   A: 引发静态图报错的原因很多，一般失败会有日志打印，如果不能直观的从日志中获取报错信息，可通过export GLOG_v=1指定日志级别获取更详细的报错信息进行分析。
-     同时计算图编译发生报错时，会自动保存analyze_failed.ir文件，可帮助分析报错代码的位置。详细可参考 `静态图模式错误分析 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/error_scenario_analysis.html>`_ 。
 
-   **Q: Graph模式静态图训练过程中出现Out Of Memory报错，怎么办？**
+  同时计算图编译发生报错时，会自动保存analyze_failed.ir文件，可帮助分析报错代码的位置。详细可参考 `静态图模式错误分析 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/error_scenario_analysis.html>`_ 。
+
+  **Q: Graph模式静态图训练过程中出现Out Of Memory报错，怎么办？**
 
   A: 出现该报错可能有两个原因：1、资源被占用；2、显存不够。
-     当资源被占用时，可通过pkill -9 python释放资源，再重新训练。
-     当显存不够时，可尝试降低batch_size；分析内存查看是否通信算子太多导致整体内存复用率较低。
-     详细可参考 `资源不够问题分析 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/mindrt_debug.html#%E8%B5%84%E6%BA%90%E4%B8%8D%E8%B6%B3>`_ 。
+     
+  当资源被占用时，可通过pkill -9 python释放资源，再重新训练。
+     
+  当显存不够时，可尝试降低batch_size；分析内存查看是否通信算子太多导致整体内存复用率较低。
+     
+  详细可参考 `资源不够问题分析 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/mindrt_debug.html#%E8%B5%84%E6%BA%90%E4%B8%8D%E8%B6%B3>`_ 。
 
   更多调优常见问题请参考 `执行问题 <https://www.mindspore.cn/docs/zh-CN/master/faq/implement_problem.html#>`_ 。
