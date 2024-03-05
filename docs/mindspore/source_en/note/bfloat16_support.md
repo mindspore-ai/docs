@@ -18,6 +18,8 @@ FP16 format has 5 bits of exponent and 10 bits of mantissa, while BF16 has 8 bit
 |[mindspore.Tensor.asnumpy](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.asnumpy.html)|❌|Since numpy does not support bfloat16 data type, it is not possible to convert a tensor of bfloat16 type to numpy type.|
 |[mindspore.amp.auto_mixed_precision](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.auto_mixed_precision.html)|✔️|When using the auto-mixed-precision interface, you can specify bfloat16 as the low-precision data type.|
 |[mindspore.amp.custom_mixed_precision](https://www.mindspore.cn/docs/en/master/api_python/amp/mindspore.amp.custom_mixed_precision.html)|✔️|When using the custom-mixed-precision interface, you can specify bfloat16 as the low-precision data type.|
+|[mindspore.load_checkpoint](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.load_checkpoint.html)|✔️||
+|[mindspore.save_checkpoint](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.save_checkpoint.html)|✔️||
 |[mindspore.ops.Add](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Add.html)|✔️||
 |[mindspore.ops.AddN](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.AddN.html)|✔️||
 |[mindspore.ops.AllGather](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.AllGather.html)|✔️||
