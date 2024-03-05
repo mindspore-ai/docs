@@ -712,7 +712,7 @@ Cell name: sequential_block.2, type: <class 'mindspore.nn.layer.activation.ReLU'
 
 `torch.nn.Module` 提供 `CPU` 、 `cuda` 、 `ipu` 等接口将模型移动到指定设备上。
 
-`mindspore.set_context()` 的 `device_target` 参数实现类似功能， `device_target` 可以指定 ``CPU`` 、 ``GPU`` 和 ``Ascend`` 设备。与PyTorch不同的是，一旦设备设置成功，输入数据和模型会默认拷贝到指定的设备中执行，不需要也无法再改变数据和模型所运行的设备类型
+`mindspore.set_context()` 的 `device_target` 参数实现类似功能， `device_target` 可以指定 ``CPU`` 、 ``GPU`` 和 ``Ascend`` 设备。与PyTorch不同的是，一旦设备设置成功，输入数据和模型会默认拷贝到指定的设备中执行，不需要也无法再改变数据和模型所运行的设备类型。
 
 <table class="colwidths-auto docutils align-default">
 <tr>
