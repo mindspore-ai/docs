@@ -42,85 +42,9 @@ The accuracy debugging process is as follows:
 
 This part includes checking all parameters and the number of trainable parameters, and checking the shape of all parameters.
 
-- Obtaining MindSpore Parameters
-
-  `Parameter` is used for MindSpore trainable and untrainable parameters.
-
-  ```python
-  from mindspore import nn
-
-  class msNet(nn.Cell):
-      def __init__(self):
-          super(msNet, self).__init__()
-          self.fc = nn.Dense(1, 1, weight_init='normal')
-      def construct(self, x):
-          output = self.fc(x)
-          return output
-
-  msnet = msNet()
-  # Obtain all parameters.
-  all_parameter = []
-  for item in msnet.get_parameters():
-      all_parameter.append(item)
-      print(item.name, item.data.shape)
-  print(f"all parameter numbers: {len(all_parameter)}")
-
-  # Obtain trainable parameters.
-  trainable_params = msnet.trainable_params()
-  for item in trainable_params:
-      print(item.name, item.data.shape)
-  print(f"trainable parameter numbers: {len(trainable_params)}")
-  ```
-
-  ```text
-  fc.weight (1, 1)
-  fc.bias (1,)
-  all parameter numbers: 2
-  fc.weight (1, 1)
-  fc.bias (1,)
-  trainable parameter numbers: 2
-  ```
-
-- Obtaining PyTorch Parameters
-
-  `Parameter` is used for PyTorch trainable parameters, and `requires_grad=False` or `buffer` is used for PyTorch untrainable parameters.
-
-  ```python
-  from torch import nn
-
-  class ptNet(nn.Module):
-      def __init__(self):
-          super(ptNet, self).__init__()
-          self.fc = nn.Linear(1, 1)
-      def construct(self, x):
-          output = self.fc(x)
-          return output
-
-  ptnet = ptNet()
-  all_parameter = []
-  trainable_params = []
-  # Obtain network parameters.
-  for name, item in ptnet.named_parameters():
-      if item.requires_grad:
-          trainable_params.append(item)
-      all_parameter.append(item)
-      print(name, item.shape)
-
-  for name, buffer in ptnet.named_buffers():
-      all_parameter.append(buffer)
-      print(name, buffer.shape)
-  print(f"all parameter numbers: {len(all_parameter)}")
-  print(f"trainable parameter numbers: {len(trainable_params)}")
-  ```
-
-  ```text
-  fc.weight torch.Size([1, 1])
-  fc.bias torch.Size([1])
-  all parameter numbers: 2
-  trainable parameter numbers: 2
-  ```
-
-  The parameters of MindSpore and PyTorch are similar except BatchNorm. Note that MindSpore does not have parameters corresponding to `num_batches_tracked`. You can replace this parameter with `global_step` in the optimizer.
+- `Parameter` is used for PyTorch trainable parameters, and `requires_grad=False` or `buffer` is used for PyTorch untrainable parameters.
+- `Parameter` is used for MindSpore trainable and untrainable parameters.
+- The parameters of MindSpore and PyTorch are similar except BatchNorm. Note that MindSpore does not have parameters corresponding to `num_batches_tracked`. You can replace this parameter with `global_step` in the optimizer.
 
   | MindSpore | PyTorch |
   | --------- | --------|
@@ -129,6 +53,96 @@ This part includes checking all parameters and the number of trainable parameter
   | moving_mean | running_mean |
   | moving_variance | running_var |
   | -| num_batches_tracked |
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> Obtaining PyTorch Parameters </td> <td style="text-align:center"> Obtaining MindSpore Parameters </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+```python
+from torch import nn
+
+class ptNet(nn.Module):
+    def __init__(self):
+          super(ptNet, self).__init__()
+          self.fc = nn.Linear(1, 1)
+    def construct(self, x):
+        output = self.fc(x)
+        return output
+
+ptnet = ptNet()
+all_parameter = []
+trainable_params = []
+# Obtain network parameters.
+for name, item in ptnet.named_parameters():
+    if item.requires_grad:
+        trainable_params.append(item)
+    all_parameter.append(item)
+    print(name, item.shape)
+
+for name, buffer in ptnet.named_buffers():
+    all_parameter.append(buffer)
+    print(name, buffer.shape)
+print(f"all parameter numbers: {len(all_parameter)}")
+print(f"trainable parameter numbers: {len(trainable_params)}")
+```
+
+Outputs:
+
+```text
+fc.weight torch.Size([1, 1])
+fc.bias torch.Size([1])
+all parameter numbers: 2
+trainable parameter numbers: 2
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+from mindspore import nn
+
+class msNet(nn.Cell):
+    def __init__(self):
+        super(msNet, self).__init__()
+        self.fc = nn.Dense(1, 1, weight_init='normal')
+    def construct(self, x):
+        output = self.fc(x)
+        return output
+
+msnet = msNet()
+# Obtain all parameters.
+all_parameter = []
+for item in msnet.get_parameters():
+    all_parameter.append(item)
+    print(item.name, item.data.shape)
+print(f"all parameter numbers: {len(all_parameter)}")
+
+# Obtain trainable parameters.
+trainable_params = msnet.trainable_params()
+for item in trainable_params:
+    print(item.name, item.data.shape)
+print(f"trainable parameter numbers: {len(trainable_params)}")
+```
+
+Outputs:
+
+```text
+fc.weight (1, 1)
+fc.bias (1,)
+all parameter numbers: 2
+fc.weight (1, 1)
+fc.bias (1,)
+trainable parameter numbers: 2
+```
+
+</pre>
+</td>
+</tr>
+</table>
 
 #### 2. Model Verification
 

@@ -20,7 +20,45 @@ It can be seen that PyTorch and MindSpore generally require network definition, 
 
 ## Network Basic Unit: Cell
 
-MindSpore uses [Cell](https://www.mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell) to construct graphs. You need to define a class that inherits the `Cell` base class, declare the required APIs and submodules in `init`, and perform calculation in `construct`. `Cell` compiles a computational graph in `GRAPH_MODE` (static graph mode). It is used as the basic module of neural network in `PYNATIVE_MODE` (dynamic graph mode). The basic `Cell` setup process is as follows:
+MindSpore uses [Cell](https://www.mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell) to construct graphs. You need to define a class that inherits the `Cell` base class, declare the required APIs and submodules in `init`, and perform calculation in `construct`. `Cell` compiles a computational graph in `GRAPH_MODE` (static graph mode). It is used as the basic module of neural network in `PYNATIVE_MODE` (dynamic graph mode).
+
+The basic `Cell` setup process in PyTorch and MindSpore are as follows:
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+```python
+import torch.nn as torch_nn
+
+class MyCell_pt(torch_nn.Module):
+    def __init__(self, forward_net):
+        super(MyCell_pt, self).__init__()
+        self.net = forward_net
+        self.relu = torch_nn.ReLU()
+
+    def forward(self, x):
+        y = self.net(x)
+        return self.relu(y)
+
+inner_net_pt = torch_nn.Conv2d(120, 240, kernel_size=4, bias=False)
+pt_net = MyCell_pt(inner_net_pt)
+for i in pt_net.parameters():
+    print(i.shape)
+```
+
+Outputs:
+
+```text
+    torch.Size([240, 120, 4, 4])
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 import mindspore.nn as nn
@@ -47,36 +85,16 @@ Outputs:
 [Parameter (name=net.weight, shape=(240, 120, 4, 4), dtype=Float32, requires_grad=True)]
 ```
 
-A parameter name is generally formed based on an object name defined by `__init__` and a name used during parameter definition. For example, in the foregoing example, a convolutional parameter name is `net.weight`, where `net` is an object name in `self.net = forward_net`, and `weight` is `name`: `self.weight = Parameter(initializer(self.weight_init, shape), name='weight')` when a convolutional parameter is defined in Conv2d.
+</pre>
+</td>
+</tr>
+</table>
 
-The cell provides the `auto_prefix` interface to determine whether to add object names to parameter names in the cell. The default value is `True`, that is, object names should be added. If `auto_prefix` is set to `False`, the `name` of `Parameter` printed in the preceding example is `weight`. In general, the backbone network should be set to True. The cell for training, such as optimizer and :class:`mindspore.nn.TrainOneStepCell`, should be set to False, to avoid the parameter name in backbone be changed by mistake.
+In MindSpore, a parameter name is generally formed based on an object name defined by `__init__` and a name used during parameter definition. For example, in the foregoing example, a convolutional parameter name is `net.weight`, where `net` is an object name in `self.net = forward_net`, and `weight` is `name`: `self.weight = Parameter(initializer(self.weight_init, shape), name='weight')` when a convolutional parameter is defined in Conv2d.
+
+The cell in MindSpore provides the `auto_prefix` interface to determine whether to add object names to parameter names in the cell. The default value is `True`, that is, object names should be added. If `auto_prefix` is set to `False`, the `name` of `Parameter` printed in the preceding example is `weight`. In general, the backbone network should be set to True. The cell for training, such as optimizer and :class:`mindspore.nn.TrainOneStepCell`, should be set to False, to avoid the parameter name in backbone be changed by mistake.
 
 ## Unit Test
-
-After the `Cell` is set up, you are advised to build a unit test method for each `Cell` and compare it with the benchmarking code. In the preceding example, the PyTorch build code is as follows:
-
-```python
-import torch.nn as torch_nn
-
-class MyCell_pt(torch_nn.Module):
-    def __init__(self, forward_net):
-        super(MyCell_pt, self).__init__()
-        self.net = forward_net
-        self.relu = torch_nn.ReLU()
-
-    def forward(self, x):
-        y = self.net(x)
-        return self.relu(y)
-
-inner_net_pt = torch_nn.Conv2d(120, 240, kernel_size=4, bias=False)
-pt_net = MyCell_pt(inner_net_pt)
-for i in pt_net.parameters():
-    print(i.shape)
-```
-
-```text
-    torch.Size([240, 120, 4, 4])
-```
 
 With the script for building the `Cell`, you need to use the same input data and parameters to compare the output.
 
@@ -690,7 +708,7 @@ Cell name: sequential_block.2, type: <class 'mindspore.nn.layer.activation.ReLU'
 </tr>
 </table>
 
-### 训练评估模式切换
+### Training and Evaluation Mode Switching
 
 The `torch.nn.Module` provides the `train(mode=True)` interface to set the model in training mode and the `eval` interface to set the model in evaluation mode. The difference between these two modes is mainly in the behavior of layers such as Dropout and BN, as well as weight updates.
 
@@ -964,7 +982,14 @@ Currently, the support for completely random input shapes is limited and needs t
 ### Operations that Cause Shape Changes During Network Execution
 
 In the scenario where tensors with unfixed shapes are generated during network running, the most common method is to construct a mask to filter out values in invalid positions. For example, in the detection scenario, some boxes need to be selected based on the iou results of the prediction box and real box.
-The PyTorch implementation is as follows:
+The implementation in PyTorch and MindSpore (In versions later than MindSpore 1.8, `masked_select` is supported in all scenarios) are as follows:
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
 def box_select_torch(box, iou_score):
@@ -972,7 +997,9 @@ def box_select_torch(box, iou_score):
     return box[mask]
 ```
 
-In versions later than MindSpore 1.8, `masked_select` is supported in all scenarios. In MindSpore, `masked_select` can be implemented as follows:
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 import mindspore as ms
@@ -984,6 +1011,11 @@ def box_select_ms(box, iou_score):
     mask = (iou_score > 0.3).expand_dims(1)
     return ops.masked_select(box, mask)
 ```
+
+</pre>
+</td>
+</tr>
+</table>
 
 Let's look at the result comparison.
 

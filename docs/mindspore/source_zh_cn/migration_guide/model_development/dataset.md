@@ -104,21 +104,36 @@ MindSpore提供了很多不同领域的[常见数据集的加载接口](https://
 
 3. 数据增强操作使用的方式不同：
 
-   ```text
-   # PyTorch
-   trans = torchvision.transforms.Resize(...)
-   mnist_train = torchvision.datasets.FashionMNIST(..., transforms=trans, ...)
+    <table class="colwidths-auto docutils align-default">
+    <tr>
+    <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+    </tr>
+    <tr>
+    <td style="vertical-align:top"><pre>
 
-   # MindSpore
-   trans = mindspore.dataset.vision.Resize(...)
-   mnist_train = mindspore.dataset.FashionMnistDataset(...)
-   mnist_train = mnist_train.map(trans, ...)
-   ```
+    ```python
+    trans = torchvision.transforms.Resize(...)
+    mnist_train = torchvision.datasets.FashionMNIST(..., transforms=trans, ...)
+    ```
+
+    </pre>
+    </td>
+    <td style="vertical-align:top"><pre>
+
+    ```python
+    trans = mindspore.dataset.vision.Resize(...)
+    mnist_train = mindspore.dataset.FashionMnistDataset(...)
+    mnist_train = mnist_train.map(trans, ...)
+    ```
+
+    </pre>
+    </td>
+    </tr>
+    </table>
 
    * PyTorch在读取常见数据集时将数据增强操作作为参数传给API接口。
 
-   * MindSpore通过 [map](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.map.html) 的方式进行一系列数据增强操作。简单来说 `map` 会从上一个数据节点一条一条获取数据，并对每条数据进行指定的变换操作。传入 `map` 操作的数据增强操作可以包含MindSpore预先提供的各类数据增强方法：[audio](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.dataset.transforms.html#%E9%9F%B3%E9%A2%91)、[text](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.dataset.transforms.html#%E6%96%87%E6%9C%AC)、[vision](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.dataset.transforms.html#%E8%A7%86%E8%A7%89)、[通用](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.dataset.transforms.html)。详情请参考[数据变换 Transforms](https://www.mindspore.cn/tutorials/zh-CN/r2.3/beginner/transforms.html)。
-   也可以是Python函数，函数里可以自由使用 opencv、PIL、pandas 等一些第三方的库或方法。需要注意的是：
+   * MindSpore通过 [map](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.map.html) 的方式进行一系列数据增强操作。简单来说 `map` 会从上一个数据节点一条一条获取数据，并对每条数据进行指定的变换操作。传入 `map` 操作的数据增强操作可以包含MindSpore预先提供的各类数据增强方法：[audio](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.dataset.transforms.html#%E9%9F%B3%E9%A2%91)、[text](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.dataset.transforms.html#%E6%96%87%E6%9C%AC)、[vision](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.dataset.transforms.html#%E8%A7%86%E8%A7%89)、[通用](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.dataset.transforms.html)。详情请参考[数据变换 Transforms](https://www.mindspore.cn/tutorials/zh-CN/r2.3/beginner/transforms.html)。也可以是Python函数，函数里可以自由使用 opencv、PIL、pandas 等一些第三方的库或方法。需要注意的是：
 
    > 数据集加载和数据增强的过程中，不能使用MindSpore的ops或者nn算子，否则会产生异常。
 
@@ -149,31 +164,47 @@ PyTorch和MindSpore构造自定义 Dataset 对象的基本流程都需要创建�
 
    * MindSpore的数据增强输入的对象是 `numpy` 类型。
 
-   ```text
-   # PyTorch
-   ...
-   img_resize = torchvision.transforms.Resize(...)(input_ids)
-   img_resize = torchvision.transforms.ToTensor()(img_resize)
+    <table class="colwidths-auto docutils align-default">
+    <tr>
+    <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+    </tr>
+    <tr>
+    <td style="vertical-align:top"><pre>
 
-   tmp_tensor = torch.tensor(np.ones_like(img_resize))
-   img_resize = torch.mul(img_resize, tmp_tensor)
+    ```python
+    ...
+    img_resize = torchvision.transforms.Resize(...)(input_ids)
+    img_resize = torchvision.transforms.ToTensor()(img_resize)
 
-   img_resize = torchvision.transforms.Normalize(...)(img_resize)
-   ...
+    tmp_tensor = torch.tensor(np.ones_like(img_resize))
+    img_resize = torch.mul(img_resize, tmp_tensor)
 
-   # MindSpore
-   ...
-   img_resize = mindspore.dataset.vision.Resize(...)(input_ids)
-   img_resize = mindspore.dataset.vision.ToTensor()(img_resize)
+    img_resize = torchvision.transforms.Normalize(...)(img_resize)
+    ...
+    ```
 
-   tmp_array = np.ones_like(img_resize)
-   img_resize = np.multiply(img_resize, tmp_array)
+    </pre>
+    </td>
+    <td style="vertical-align:top"><pre>
 
-   img_resize = mindspore.dataset.vision.Normalize(...)(img_resize)
-   ...
-   ```
+    ```python
+    ...
+    img_resize = mindspore.dataset.vision.Resize(...)(input_ids)
+    img_resize = mindspore.dataset.vision.ToTensor()(img_resize)
 
-   当PyTorch使用了 `torch` 算子在数据处理中做了运算，MindSpore不能直接使用对应的 `ops` 算子(详细可参考[PyTorch与MindSpore API映射表](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html)) 对数据做运算，需要将其替换为第三方的库或方法比如 numpy、opencv、PIL、pandas等。一般来说MindSpore的算子在numpy中都能找到对应的方法，如果对应方法的功能不一致，可以向[MindSpore社区](https://gitee.com/mindspore/mindspore/issues)进行反馈。
+    tmp_array = np.ones_like(img_resize)
+    img_resize = np.multiply(img_resize, tmp_array)
+
+    img_resize = mindspore.dataset.vision.Normalize(...)(img_resize)
+    ...
+    ```
+
+    </pre>
+    </td>
+    </tr>
+    </table>
+
+    当PyTorch使用了 `torch` 算子在数据处理中做了运算，MindSpore不能直接使用对应的 `ops` 算子(详细可参考[PyTorch与MindSpore API映射表](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html)) 对数据做运算，需要将其替换为第三方的库或方法比如 numpy、opencv、PIL、pandas等。一般来说MindSpore的算子在numpy中都能找到对应的方法，如果对应方法的功能不一致，可以向[MindSpore社区](https://gitee.com/mindspore/mindspore/issues)进行反馈。
 
 3. 数据处理格式不同：
 
@@ -187,7 +218,15 @@ PyTorch和MindSpore构造自定义 Dataset 对象的基本流程都需要创建�
 
 ### 直接遍历dataset对象
 
-PyTorch的数据对象常见的用法是使用for循环对其进行遍历。
+* PyTorch的数据对象常见的用法是使用for循环对其进行遍历。
+* MindSpore也可以对数据对象直接进行遍历。注意这种写法在遍历完一次epoch后不会 `shuffle` ，在训练时这样使用可能会影响精度，训练时需要直接数据迭代时建议使用后续展示的两种方法`create_tuple_iterator`和`create_dict_iterator`。
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
 import numpy as np
@@ -209,9 +248,9 @@ for i, data in enumerate(dataloader):
 1 torch.Size([10, 32, 32, 3])
 ```
 
-MindSpore也可以对数据对象直接进行遍历。
-
-> 注意这种写法在遍历完一次epoch后不会 `shuffle` ，在训练时这样使用可能会影响精度，训练时需要直接数据迭代时建议使用下面的两种方法。
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 import numpy as np
@@ -231,6 +270,11 @@ for data in dataset:
 (10, 32, 32, 3)
 (10, 32, 32, 3)
 ```
+
+</pre>
+</td>
+</tr>
+</table>
 
 除此之外，MindSpore的数据对象还有以下几种方式迭代获取。
 
