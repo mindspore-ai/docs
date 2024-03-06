@@ -327,7 +327,7 @@ A: When resnet50 training is performed on the CPU ARM, some operators are implem
 
 <br/>
 
-## Q: What should I do when an error `Stream isn't enough` is displayed during executing the model on the Ascend platform？
+## Q: What should I do when an error `Stream isn't enough` is displayed during executing the model on the Ascend platform?
 
 A: Stream represents an operation queue. Tasks on the same stream are executed in sequence, and different streams can be executed in parallel. Various operations in the network generate tasks and are assigned to streams to control the concurrent mode of task execution. Ascend platform has a limit on the number of tasks on the same stream, and tasks that exceed the limit will be assigned to new streams. The multiple parallel methods of MindSpore will also be assigned to new streams, such as parallel communication operators. Therefore, when the number of assigned streams exceeds the resource limit of the Ascend platform, an error will be reported. Reference solution:
 
@@ -401,7 +401,7 @@ For the specific operation process, please refer to [Based on ModelArts Online E
 
 <br/>
 
-## Q: No error is reported when using result of division in GRAPH mode, but an error is reported when using result of division in PYNATIVE mode？
+## Q: No error is reported when using result of division in GRAPH mode, but an error is reported when using result of division in PYNATIVE mode?
 
 A: In GRAPH mode, since the graph compilation is used, the data type of the output result of the operator is determined at the graph compilation stage.
 
@@ -453,7 +453,7 @@ Subsequent versions will be pre-compiled and optimized.
 
 <br/>
 
-## Q: What can I do when the error message `MemoryError: std::bad_alloc` is reported during the execution of the operator？
+## Q: What can I do when the error message `MemoryError: std::bad_alloc` is reported during the execution of the operator?
 
 A: The reason for this error is that the user did not configure the operator parameters correctly, so that the memory space applied by the operator exceeded the system memory limit, and the system failed to allocate memory. The following uses mindspore.ops.UniformCandidateSampler as an example for description.
 

@@ -43,7 +43,7 @@ A：此场景下，异常进程由于各种问题退出，其余进程由于GPU�
 
 <br/>
 
-## Q：在执行GPU单机单卡的脚本时，不使用mpirun启动进程时，调用mindspore.communication.init方法可能会报错,导致执行失败，该如何处理？
+## Q：在执行GPU单机单卡的脚本时，不使用mpirun启动进程时，调用mindspore.communication.init方法可能会报错，导致执行失败，该如何处理？
 
 ```text
 [CRITICAL] DISTRIBUTED [mindspore/ccsrc/distributed/cluster/cluster_context.cc:130] InitNodeRole] Role name is invalid...
@@ -109,7 +109,7 @@ export NCCL_SOCKET_IFNAME=eth
 
 <br/>
 
-## Q：多机多卡选择特定名称的RDMA网卡(通过NCCL_SOCKET_IFNAME设置)通信后，训练仍然报错：
+## Q：多机多卡选择特定名称的RDMA网卡(通过NCCL_SOCKET_IFNAME设置)通信后，训练仍然报错。
 
 ```text
 misc/ibvwrap.cc:284 NCCL WARN Call to ibv_modify_qp failed with error Invalid argument
@@ -127,7 +127,7 @@ export NCCL_IB_HCA=mlx
 
 <br/>
 
-## Q：单机多卡训练能够成功，但是扩展脚本到多机多卡后，其他主机提示各类报错：
+## Q：单机多卡训练能够成功，但是扩展脚本到多机多卡后，其他主机提示各类报错。
 
 报错内容有多种，下面是几种典型的报错，可能有：
 
@@ -145,7 +145,7 @@ mpirun --hostfile /path/to/hostfile -n 64 -x PYTHONPATH -x GLOG_v -x LD_LIBRARY_
 
 <br/>
 
-## Q: 在Ascend上通过OpenMPI执行分布式训练时，`HcclCommInitRootInfo`报错:
+## Q: 在Ascend上通过OpenMPI执行分布式训练时，`HcclCommInitRootInfo`报错。
 
 ```text
 Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2
@@ -172,6 +172,6 @@ A: 在多卡训练并使能图算融合情况下，框架采用共享内存机�
 
 <br/>
 
-<font size=3>**Q: Ascend平台下训练较小规模网络，但在分布式模块初始化过程中，依然提示设备侧内存不足，如何解决？**</font>
+## Q: Ascend平台下训练较小规模网络，但在分布式模块初始化过程中，依然提示设备侧内存不足，如何解决？
 
 A: 这是因为在Ascend平台下，MindSpore后端默认会预分配一块内存，约80%的NPU内存会被占用，剩余的20%内存则用于HCCL集合通信库的初始化。每个HCCL通信组会默认占用200MB的内存，那么在通信组较多的场景下，就容易出现设备侧内存不足的报错。解决方法是设置`HCCL_BUFFSIZE`环境变量修改通信域内存占用，具体配置方式可参考[HCCL官方文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0081.html)。

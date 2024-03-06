@@ -75,13 +75,13 @@ A: Currently, MindSpore does not provide anti-pooling APIs but you can customize
 
 <br/>
 
-## Q: What should I do if other operations can not be performed on Ascend environment when training a model？
+## Q: What should I do if other operations can not be performed on Ascend environment when training a model？**
 
 A: It may because the computer recourses if fulled when operators compilation. Try to use the environment variable `MS_BUILD_PROCESS_NUM` to reduce the parallel number of operator compilation. For specific configuration instructions, see [Environment Variables](https://www.mindspore.cn/docs/en/master/note/env_var_list.html).
 
 <br/>
 
-## Q: The performance of some operators can not up to standard even though tuned by the operator tuning tool, what should I do？
+## Q: The performance of some operators can not up to standard even though tuned by the operator tuning tool, what should I do?
 
 A: In this case,
 

@@ -286,7 +286,7 @@ out: (Tensor(shape=[], dtype=Int64, value=8), Tensor(shape=[], dtype=Int64, valu
 
 <br/>
 
-## Q: What can I do if an error "The input number of parameters is not Compatible." is reported when loading a MindIR?
+## Q:What can I do if an error "The input number of parameters is not Compatible." is reported when loading a MindIR?
 
 A: First, check whether the number of exported parameters and the number of imported parameters match.
 If the match, you need to check if a non-Tensor scenario in the exported parameters.

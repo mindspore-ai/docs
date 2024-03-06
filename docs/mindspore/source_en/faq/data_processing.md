@@ -81,7 +81,7 @@ Data augmentation APIs are unified in MindSpore 1.8. Transformations of `c_trans
 
 <br/>
 
-## Q: A piece of data contains multiple images which have different widths and heights. I need to perform the `map` operation on the data in mindrecord format. However, the data I read from `record` is in `np.ndarray` format. My `operations`  of data processing are for the image format. How can I preprocess the generated data in mindrecord format?
+## Q: A piece of data contains multiple images which have different widths and heights. I need to perform the `map` operation on the data in mindrecord format. However, the data I read from `record` is in `np.ndarray` format. My `operations` of data processing are for the image format. How can I preprocess the generated data in mindrecord format?
 
 A: You are advised to perform the following operations:
 
