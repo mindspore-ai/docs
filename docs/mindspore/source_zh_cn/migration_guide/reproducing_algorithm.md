@@ -13,7 +13,7 @@
 
 如果参考项目中结果无法复现或者缺乏版本信息，可查看项目issue获取信息；
 
-如果是全新的论文，无可参考实现，请参考[MindSpore网络搭建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_development.html)进行开发。
+如果是全新的论文，无可参考实现，请参考[网络搭建对比](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_development.html)进行开发。
 
 ## 分析算法及网络结构
 

@@ -104,16 +104,32 @@ You can see the following differences between MindSpore and PyTorch in reading c
 
 3. Data augmentation operations use different:
 
-   ```text
-   # PyTorch
-   trans = torchvision.transforms.Resize(...)
-   mnist_train = torchvision.datasets.FashionMNIST(..., transforms=trans, ...)
+    <table class="colwidths-auto docutils align-default">
+    <tr>
+    <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+    </tr>
+    <tr>
+    <td style="vertical-align:top"><pre>
 
-   # MindSpore
-   trans = mindspore.dataset.vision.Resize(...)
-   mnist_train = mindspore.dataset.FashionMnistDataset(...)
-   mnist_train = mnist_train.map(trans, ...)
-   ```
+    ```python
+    trans = torchvision.transforms.Resize(...)
+    mnist_train = torchvision.datasets.FashionMNIST(..., transforms=trans, ...)
+    ```
+
+    </pre>
+    </td>
+    <td style="vertical-align:top"><pre>
+
+    ```python
+    trans = mindspore.dataset.vision.Resize(...)
+    mnist_train = mindspore.dataset.FashionMnistDataset(...)
+    mnist_train = mnist_train.map(trans, ...)
+    ```
+
+    </pre>
+    </td>
+    </tr>
+    </table>
 
    * PyTorch passes data augmentation operations as parameters to the API interface when reading common datasets.
 
@@ -149,32 +165,48 @@ You can see the following differences between MindSpore and PyTorch in defining 
 
    * MindSpore's data augmentation input is of type `numpy`.
 
-   ```text
-   # PyTorch
-   ...
-   img_resize = torchvision.transforms.Resize(...)(input_ids)
-   img_resize = torchvision.transforms.ToTensor()(img_resize)
+   <table class="colwidths-auto docutils align-default">
+    <tr>
+    <td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+    </tr>
+    <tr>
+    <td style="vertical-align:top"><pre>
 
-   tmp_tensor = torch.tensor(np.ones_like(img_resize))
-   img_resize = torch.mul(img_resize, tmp_tensor)
+    ```python
+    ...
+    img_resize = torchvision.transforms.Resize(...)(input_ids)
+    img_resize = torchvision.transforms.ToTensor()(img_resize)
 
-   img_resize = torchvision.transforms.Normalize(...)(img_resize)
-   ...
+    tmp_tensor = torch.tensor(np.ones_like(img_resize))
+    img_resize = torch.mul(img_resize, tmp_tensor)
 
-   # MindSpore
-   ...
-   img_resize = mindspore.dataset.vision.Resize(...)(input_ids)
-   img_resize = mindspore.dataset.vision.ToTensor()(img_resize)
+    img_resize = torchvision.transforms.Normalize(...)(img_resize)
+    ...
+    ```
 
-   tmp_array = np.ones_like(img_resize)
-   img_resize = np.multiply(img_resize, tmp_array)
+    </pre>
+    </td>
+    <td style="vertical-align:top"><pre>
 
-   img_resize = mindspore.dataset.vision.Normalize(...)(img_resize)
-   ...
-   ```
+    ```python
+    ...
+    img_resize = mindspore.dataset.vision.Resize(...)(input_ids)
+    img_resize = mindspore.dataset.vision.ToTensor()(img_resize)
 
-   When PyTorch uses the `torch` operator for data processing, MindSpore cannot directly use the corresponding `ops` operator
-   (for details, please refer to [PyTorch and MindSpore API Mapping Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html)), which needs to be replaced with a third party library or method such as numpy, opencv, PIL, pandas, etc. Generally speaking, MindSpore's operators can find corresponding methods in numpy, if the function of the corresponding method is inconsistent, you can give feedback to [MindSpore community](https://gitee.com/mindspore/mindspore/issues).
+    tmp_array = np.ones_like(img_resize)
+    img_resize = np.multiply(img_resize, tmp_array)
+
+    img_resize = mindspore.dataset.vision.Normalize(...)(img_resize)
+    ...
+    ```
+
+    </pre>
+    </td>
+    </tr>
+    </table>
+
+    When PyTorch uses the `torch` operator for data processing, MindSpore cannot directly use the corresponding `ops` operator
+    (for details, please refer to [PyTorch and MindSpore API Mapping Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html)), which needs to be replaced with a third party library or method such as numpy, opencv, PIL, pandas, etc. Generally speaking, MindSpore's operators can find corresponding methods in numpy, if the function of the corresponding method is inconsistent, you can give feedback to [MindSpore community](https://gitee.com/mindspore/mindspore/issues).
 
 3. Different data processing formats:
 
@@ -192,7 +224,15 @@ You can see the following differences between MindSpore and PyTorch in defining 
 
 ### Traversing Directly over dataset Objects
 
-A common use of PyTorch's data objects is to traverse them using a for loop.
+* A common use of PyTorch's data objects is to traverse them using a for loop.
+* MindSpore can also traverse data objects directly. Note that this writing method does not `shuffle` after traversing an epoch, so it may affect the precision when used in training. The following two methods, `create_tuple_iterator` and`create_dict_iterator`, are recommended when direct data iterations are needed during training.
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
 import numpy as np
@@ -202,6 +242,7 @@ from torch.utils.data import DataLoader
 x = np.random.randint(0, 255, size=(20, 32, 32, 3))
 tensor_x = torch.Tensor(x)
 dataloader = DataLoader(tensor_x, batch_size=10)
+
 for i, data in enumerate(dataloader):
     print(i, data.shape)
 ```
@@ -213,9 +254,9 @@ Outputs:
 1 torch.Size([10, 32, 32, 3])
 ```
 
-MindSpore can also traverse data objects directly.
-
-> Note that this writing method does not `shuffle` after traversing an epoch, so it may affect the precision when used in training. The following two methods are recommended when direct data iterations are needed during training.
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 import numpy as np
@@ -235,6 +276,11 @@ Outputs:
 (10, 32, 32, 3)
 (10, 32, 32, 3)
 ```
+
+</pre>
+</td>
+</tr>
+</table>
 
 MindSpore data objects are obtained iteratively in the following ways.
 

@@ -13,7 +13,7 @@ When you obtain a paper to implement migration on MindSpore, you need to find th
 
 If the results are not reproducible in the reference project or the version information is missing, check the project issue for information.
 
-If a new paper has no reference implementation, you can refer to [Constructing MindSpore Network](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_development.html).
+If a new paper has no reference implementation, you can refer to [Network Constructing Comparison](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_development.html).
 
 ## Analyzing Algorithm and Network Structure
 
