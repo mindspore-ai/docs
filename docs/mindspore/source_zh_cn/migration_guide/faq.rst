@@ -29,6 +29,30 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
 - 数据处理
 
+  **Q: 怎么将PyTorch的`dataset`转换成MindSpore的`dataset`？**
+
+  A: MindSpore和PyTorch的自定义数据集逻辑是比较类似的，需要用户先定义一个自己的`dataset`类，该类负责定义`__init__`、`__getitem__`、`__len__`来读取自己的数据集，然后将该类实例化为一个对象（如: `dataset/dataset_generator`），最后将这个实例化对象传入`GeneratorDataset`(mindspore用法)/`DataLoader`(pytorch用法)，至此即可以完成自定义数据集加载了。而MindSpore在`GeneratorDataset`的基础上提供了进一步的`map`->`batch`操作，可以很方便的让用户在`map`内添加一些其他的自定义操作，并将其`batch`起来。
+  对应的MindSpore的自定义数据集加载如下:
+
+  .. code-block:: python
+
+      # 1 Data enhancement,shuffle,sampler.
+      class Mydata:
+          def __init__(self):
+              np.random.seed(58)
+              self.__data = np.random.sample((5, 2))
+              self.__label = np.random.sample((5, 1))
+          def __getitem__(self, index):
+              return (self.__data[index], self.__label[index])
+          def __len__(self):
+              return len(self.__data)
+      dataset_generator = Mydata()
+      dataset = ds.GeneratorDataset(dataset_generator, ["data", "label"], shuffle=False)
+      # 2 Customized data enhancement
+      dataset = dataset.map(operations=pyFunc, {other_params})
+      # 3 batch
+      dataset = dataset.batch(batch_size, drop_remainder=True)
+
   **Q: 为什么在迭代数据的时候会报错：The actual amount of data read from generator xx is different from generator.len xx, you should adjust generator.len to make them match ？**
 
   A: 在定义可随机访问数据集时， __len__ 方法返回的结果一定要是真实的数据集大小，设置大了在getitem取值时会有越界问题。如数据集大小未确定，可以使用可迭代数据集，详见 `自定义数据集 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/beginner/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86>`_ 。
@@ -73,6 +97,31 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
 - 调试调优
 
+  **Q: 请问想加载PyTorch预训练好的模型用于MindSpore模型finetune有什么方法？**
+
+  A: 需要把PyTorch和MindSpore的参数进行一一对应，因为网络定义的灵活性，所以没办法提供统一的转化脚本。
+
+  一般情况下，CheckPoint文件中保存的就是参数名和参数值，调用相应框架的读取接口后，获取到参数名和数值后，按照MindSpore格式，构建出对象，就可以直接调用MindSpore接口保存成MindSpore格式的CheckPoint文件了。
+
+  其中主要的工作量为对比不同框架间的parameter名称，做到两个框架的网络中所有parameter name一一对应(可以使用一个map进行映射)，下面代码的逻辑转化parameter格式，不包括对应parameter name。
+
+  .. code-block:: python
+
+      import torch
+      import mindspore as ms
+
+      def pytorch2mindspore(default_file = 'torch_resnet.pth'):
+          # read pth file
+          par_dict = torch.load(default_file)['state_dict']
+          params_list = []
+          for name in par_dict:
+              param_dict = {}
+              parameter = par_dict[name]
+              param_dict['name'] = name
+              param_dict['data'] = ms.Tensor(parameter.numpy())
+              params_list.append(param_dict)
+          ms.save_checkpoint(params_list,  'ms_resnet.ckpt')
+
   **Q: loss不收敛或精度不达标，该怎么定位？**
 
   A: 精度不达标一般体现在loss不收敛，但精度达不到预期，有着很多复杂的原因和更多的可能，定位难度较大。这里提供几个指导链接供用户逐一排查问题。
@@ -87,7 +136,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 模型训练过程中，第一个step耗时很长，该怎么优化？**
 
-  A: 模型训练过程中，第一个step包含网络编译时长，如果想要优化第一个step的性能，可分析模型编译是否能进行优化。详情可参考 `静态图网络编译性能优化 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/static_Graph_expert_programming.html>`_ 。
+  A: 模型训练过程中，第一个step包含网络编译时长，如果想要优化第一个step的性能，可分析模型编译是否能进行优化。详情可参考 `静态图网络编译性能优化 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/static_graph_expert_programming.html>`_ 。
 
   **Q: 模型训练过程中，非首个step耗时很长，该怎么优化？**
 
@@ -123,7 +172,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
       loss = loss/response_gt
       return loss
 
-  详细可参考 `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/r2.3/note/static_Graph_syntax_support.html>`_ 。
+  详细可参考 `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/r2.3/note/static_graph_syntax_support.html>`_ 。
 
   **Q: 训练过程中出现报错：RuntimeError: Launch kernel failed, name:Default/...怎么办？**
 
@@ -131,7 +180,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: PyNative动态图迁移过程中出现报错，该怎么有效地定位到报错原因？**
 
-  A: A: 如果遇到动态图问题，可以设置mindspore.set_context(pynative_synchronize=True)查看报错栈协助定位。详细可参考 `pynative_synchronize说明 <https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.set_context.html?highlight=pynative_synchronize>`_ 。
+  A: 如果遇到动态图问题，可以设置mindspore.set_context(pynative_synchronize=True)查看报错栈协助定位。详细可参考 `pynative_synchronize说明 <https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.set_context.html?highlight=pynative_synchronize>`_ 。
 
   **Q: Graph模式静态图训练过程中出现报错，该怎么有效地定位到报错原因？**
 
@@ -149,4 +198,4 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
      
   详细可参考 `资源不够问题分析 <https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/error_analysis/mindrt_debug.html#%E8%B5%84%E6%BA%90%E4%B8%8D%E8%B6%B3>`_ 。
 
-  更多调优常见问题请参考 `执行问题 <https://www.mindspore.cn/docs/zh-CN/r2.3/faq/implement_problem.html#>`_ 。
+  更多调优常见问题请参考 `执行问题 <https://www.mindspore.cn/docs/zh-CN/r2.3/faq/implement_problem.html>`_ 。

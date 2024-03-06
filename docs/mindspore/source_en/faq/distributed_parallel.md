@@ -2,13 +2,13 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/faq/distributed_parallel.md)
 
-<font size=3>**Q: What should I do if the error message `Init plugin so failed, ret = 1343225860` is displayed during the HCCL distributed training?**</font>
+## Q: What should I do if the error message `Init plugin so failed, ret = 1343225860` is displayed during the HCCL distributed training?
 
 A: When the user starts distributed training on the Ascend and meets the error that HCCL fails to be initialized, the possible cause is that `rank_table.json` is incorrect. You can use the tool in [hccl_tools.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/hccl_tools.py) to generate new `rank_table.json`. Alternatively, set the environment variable `export ASCEND_SLOG_PRINT_TO_STDOUT=1` to enable the log printing function of HCCL and check the ERROR log information.
 
 <br/>
 
-<font size=3>**Q: In the GPU distributed training scenario, if the number of environment variables CUDA_VISIBLE_DEVICES set incorrectly is less than the number of processes executed, the process blocking problem may occur.**</font>
+## Q: In the GPU distributed training scenario, if the number of environment variables CUDA_VISIBLE_DEVICES set incorrectly is less than the number of processes executed, the process blocking problem may occur.
 
 A: In this scenario, some training processes will prompt the following error:
 
@@ -29,7 +29,7 @@ Solution: Manually `kill` the training process. According to the error log, set 
 
 <br/>
 
-<font size=3>**Q: What can we do when in the GPU distributed training scenario, if a process exits abnormally, it may cause other processes to block?**</font>
+## Q: What can we do when in the GPU distributed training scenario, if a process exits abnormally, it may cause other processes to block?
 
 A: In this scenario, the abnormal process exits due to various problems, and the remaining processes are executed normally to the initialization `NCCL` step due to the successful allocation of GPU resources. The log is as follows:
 
@@ -43,7 +43,7 @@ Solution: Manually `kill` the training process and then restart the training tas
 
 <br/>
 
-<font size=3>**Q: When executing a GPU stand-alone single-card script, when the process is started without mpirun, calling the mindspore.communication.init method may report an error, resulting in execution failure, how to deal with it?**</font>
+## Q: When executing a GPU stand-alone single-card script, when the process is started without mpirun, calling the mindspore.communication.init method may report an error, resulting in execution failure, how to deal with it?
 
 ```text
 [CRITICAL] DISTRIBUTED [mindspore/ccsrc/distributed/cluster/cluster_context.cc:130] InitNodeRole] Role name is invalid...
@@ -53,7 +53,7 @@ A: In the case where the user does not start the process using `mpirun` but stil
 
 <br/>
 
-<font size=3>**Q: What can we do when performing multi-machine multi-card training via OpenMPI, the prompt fails due to MPI_Allgather?**</font>
+## Q: What can we do when performing multi-machine multi-card training via OpenMPI, the prompt fails due to MPI_Allgather?
 
 ```text
 pml_ucx.c:175 Error: Failed to receive UCX worker address: Not found (-13)
@@ -78,7 +78,7 @@ The subnet range needs to include the IP addresses used by all machines.
 
 <br/>
 
-<font size=3>**Q: What can we do when performing distributed training via OpenMPI, stand-alone multi-card training is normal, but during the multi-machine multi-card training, some machines prompt the GPU device id setting to fail?**</font>
+## Q: What can we do when performing distributed training via OpenMPI, stand-alone multi-card training is normal, but during the multi-machine multi-card training, some machines prompt the GPU device id setting to fail?
 
 ```text
 [ERROR] DEVICE [mindspore/ccsrc/runtime/device/gpu/cuda_driver.cc:245] SetDevice] SetDevice for id:7 failed, ret[101], invalid device ordinal. Please make sure that the 'device_id' set in context is in the range:[0, total number of GPU). If the environment variable 'CUDA_VISIBLE_DEVICES' is set, the total number of GPU will be the number set in the environment variable 'CUDA_VISIBLE_DEVICES'. For example, if export CUDA_VISIBLE_DEVICES=4,5,6, the 'device_id' can be 0,1,2 at the moment, 'device_id' starts from 0, and 'device_id'=0 means using GPU of number 4.
@@ -93,7 +93,7 @@ export HOSTNAME=node_ip_address
 
 <br/>
 
-<font size=3>**Q: What can we do when performing multi-machine multi-card training via OpenMPI, the NCCL error message displays that the network is not working?**</font>
+## Q: What can we do when performing multi-machine multi-card training via OpenMPI, the NCCL error message displays that the network is not working?
 
 ```text
 include/socket.h:403 NCCL WARN Connect to XXX failed: Network is unreachable
@@ -109,7 +109,7 @@ The above command sets the `NCCL` to select the network card name with `eth` in 
 
 <br/>
 
-<font size=3>**Q: After selecting RDMA NIC with a specific name (set via NCCL_SOCKET_IFNAME) for communication for multiple machines and multiple cards, the training still reports an error:**</font>
+## Q: After selecting RDMA NIC with a specific name (set via NCCL_SOCKET_IFNAME) for communication for multiple machines and multiple cards, the training still reports an error:
 
 ```text
 misc/ibvwrap.cc:284 NCCL WARN Call to ibv_modify_qp failed with error Invalid argument
@@ -127,7 +127,7 @@ export NCCL_IB_HCA=mlx
 
 <br/>
 
-<font size=3>**Q：Single-machine multi-card training can be successful, but after expanding the script to multi-machine multi-card, other hosts prompt all kinds of errors:**</font>
+## Q：Single-machine multi-card training can be successful, but after expanding the script to multi-machine multi-card, other hosts prompt all kinds of errors:
 
 There are various types of errors reported. Here are a few typical ones:
 
@@ -145,7 +145,7 @@ The above command exports some environment variables that have been set on this 
 
 <br/>
 
-<font size=3>**Q: Performing the distributed training via OpenMPI on Ascend, got `HcclCommInitRootInfo` error message:**</font>
+## Q: Performing the distributed training via OpenMPI on Ascend, got `HcclCommInitRootInfo` error message:
 
 ```text
 Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2
@@ -156,7 +156,7 @@ You can set `variable_memory_max_size` in `context`to reduce variable memory for
 
 <br/>
 
-<font size=3>**Q: When executing a distributed network under `auto_parallel`, an error is reported that the tensor cannot be split by the strategy. How can I solve it?**</font>
+## Q: When executing a distributed network under `auto_parallel`, an error is reported that the tensor cannot be split by the strategy. How can I solve it?
 
 ```text
 np_tensor can not be split by strategy!
@@ -166,12 +166,12 @@ A: This error indicates that a strategy is configured for a parameter on the net
 
 <br/>
 
-<font size=3>**Q: What should I do if a process exits abnormally during the execution of multi-card training on a Linux environment and there is a shared memory residue through the ipcs command?**</font>
+## Q: What should I do if a process exits abnormally during the execution of multi-card training on a Linux environment and there is a shared memory residue through the ipcs command?
 
 A: In the case of multi-card training and enabling graph operator fusion, the framework uses a shared memory mechanism for unified compilation of operators among multiple cards, and the shared memory is not effectively freed if the process ends unexpectedly due to internal or external exceptions during the compilation process. The ipcs command shows that nattch of the residual shared memory is 0. The framework will take over the shared memory again when the training script is re-executed, and it can be released normally as long as no exception occurs. You can also release the shared memory by ipcrm command, which will not affect the training script execution.
 
 <br/>
 
-<font size=3>**Q: I try to train a small network on Ascend platform but during initializing distributed module, `device memory not enough` exception is still thrown. How should I solve this issue?**</font>
+## Q: I try to train a small network on Ascend platform but during initializing distributed module, `device memory not enough` exception is still thrown. How should I solve this issue?
 
 A: This is because under the Ascend platform, the MindSpore backend defaults to pre-allocate a block of memory, with approximately 80% of NPU memory occupied and the remaining 20% used for initializing the HCCL collection communication library. Each HCCL communication group occupies 200 MB memory by default, so in scenarios with more communication groups, it is easy to encounter device side memory shortage errors. The solution is to set up `HCCL_BUFFSIZE` environment variable to change communication domain memory usage. Specific configuration method can refer to [HCCL official document](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0081.html).

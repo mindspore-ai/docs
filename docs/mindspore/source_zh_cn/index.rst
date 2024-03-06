@@ -110,7 +110,6 @@ MindSpore 文档
    faq/implement_problem
    faq/network_compilation
    faq/operators_compile
-   faq/usage_migrate_3rd
    faq/performance_tuning
    faq/precision_tuning
    faq/distributed_parallel

@@ -2,13 +2,13 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/faq/data_processing.md)
 
-<font size=3>**Q: 请问如果不使用高阶API，怎么实现数据下沉？**</font>
+## Q: 请问如果不使用高阶API，怎么实现数据下沉？
 
 A: 可以参考此手动下沉方式的[test_tdt_data_transfer.py](https://gitee.com/mindspore/mindspore/blob/r2.3/tests/st/data_transfer/test_tdt_data_transfer.py)示例实现，不用借助`model.train`接口，目前支持：GPU和Ascend硬件使用。
 
 <br/>
 
-<font size=3>**Q: 在使用`Dataset`处理数据过程中内存占用高，怎么优化？**</font>
+## Q: 在使用`Dataset`处理数据过程中内存占用高，怎么优化？
 
 A: 可以参考如下几个步骤来降低内存占用，同时也可能会降低数据处理的效率。
 
@@ -24,7 +24,7 @@ A: 可以参考如下几个步骤来降低内存占用，同时也可能会降�
 
 <br/>
 
-<font size=3>**Q: 在使用`Dataset`处理数据过程中CPU占用高，表现为sy占用高而us占用低，怎么优化？**</font>
+## Q: 在使用`Dataset`处理数据过程中CPU占用高，表现为sy占用高而us占用低，怎么优化？
 
 A: 可以参考如下几个步骤来降低CPU占用，进一步提升性能，其主要原因是三方库多线程与数据处理多线程存在资源竞争。
 
@@ -36,13 +36,13 @@ A: 可以参考如下几个步骤来降低CPU占用，进一步提升性能，�
 
 <br/>
 
-<font size=3>**Q: 在`GeneratorDataset`中，看到有参数`shuffle`，在跑任务时发现`shuffle=True`和`shuffle=False`，两者没有区别，这是为什么？**</font>
+## Q: 在`GeneratorDataset`中，看到有参数`shuffle`，在跑任务时发现`shuffle=True`和`shuffle=False`，两者没有区别，这是为什么？
 
 A: 开启`shuffle`，需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yeild`方式返回回来的数据，是不支持随机访问的，具体可查看教程中的[自定义数据集](https://www.mindspore.cn/tutorials/zh-CN/r2.3/beginner/dataset.html#自定义数据集)章节。
 
 <br/>
 
-<font size=3>**Q: 请问`Dataset`如何把两个`columns`合并成一个`column`？**</font>
+## Q: 请问`Dataset`如何把两个`columns`合并成一个`column`？
 
 A: 可以添加如下操作把两个字段合成一个。
 
@@ -59,19 +59,19 @@ dataset = dataset.map(operations=combine, input_columns=["data", "data2"], outpu
 
 <br/>
 
-<font size=3>**Q: 请问`GeneratorDataset`支持`ds.PKSampler`采样吗？**</font>
+## Q: 请问`GeneratorDataset`支持`ds.PKSampler`采样吗？
 
 A: 自定义数据集`GeneratorDataset`不支持`PKSampler`采样逻辑。主要原因是自定义数据操作灵活度太大了，内置的`PKSampler`难以做到通用性，所以选择在接口层面直接提示不支持。但是对于`GeneratorDataset`，可以方便的定义自己需要的`Sampler`逻辑，即在`ImageDataset`类的`__getitem__`函数中定义具体的`sampler`规则，返回自己需要的数据即可。
 
 <br/>
 
-<font size=3>**Q: MindSpore如何加载已有的预训练词向量？**</font>
+## Q: MindSpore如何加载已有的预训练词向量？
 
 A: 可以在定义EmbedingLookup或者Embedding时候，把预训练的词向量传进来，把预训练的词向量封装成一个Tensor作为EmbeddingLookup初始值。
 
 <br/>
 
-<font size=3>**Q: 请问`c_transforms`和`py_transforms`有什么区别，比较推荐使用哪个？**</font>
+## Q: 请问`c_transforms`和`py_transforms`有什么区别，比较推荐使用哪个？
 
 A: 推荐使用`c_transforms`，因为纯C层执行，所以性能会更好。
 
@@ -81,7 +81,7 @@ A: 推荐使用`c_transforms`，因为纯C层执行，所以性能会更好。
 
 <br/>
 
-<font size=3>**Q: 由于我一条数据包含多个图像，并且每个图像的宽高都不一致，需要对转成mindrecord格式的数据进行`map`操作。可是我从`record`读取的数据是`np.ndarray`格式的数据，我的数据处理的`operations`是针对图像格式的。我应该怎么样才能对所生成的mindrecord的格式的数据进行预处理呢？**</font>
+## Q: 由于我一条数据包含多个图像，并且每个图像的宽高都不一致，需要对转成mindrecord格式的数据进行`map`操作。可是我从`record`读取的数据是`np.ndarray`格式的数据，我的数据处理的`operations`是针对图像格式的。我应该怎么样才能对所生成的mindrecord的格式的数据进行预处理呢？
 
 A: 建议你按照如下操作进行:
 
@@ -130,19 +130,19 @@ for item in data_set.create_dict_iterator(output_numpy=True):
 
 <br/>
 
-<font size=3>**Q: 我的自定义图像数据集转为mindrecord格式时，我的数据是`numpy.ndarray`格式的，且`shape`为[4,100,132,3]，这个`shape`的含义是四幅三通道的帧，且每个值都在0~255。可是当我查看转化成mindrecord的格式的数据时，发现是`[19800]`的`shape`，我原数据的维度全部展开有`[158400]`，请问这是为什么？**</font>
+## Q: 我的自定义图像数据集转为mindrecord格式时，我的数据是`numpy.ndarray`格式的，且`shape`为[4,100,132,3]，这个`shape`的含义是四幅三通道的帧，且每个值都在0~255。可是当我查看转化成mindrecord的格式的数据时，发现是`[19800]`的`shape`，我原数据的维度全部展开有`[158400]`，请问这是为什么？
 
 A: 可能是你数据中`ndarray`的`dtype`是`int8`，因为`[158400]`和`[19800]`刚好相差了8倍，建议将数据中`ndarray`的`dtype`指定为`float64`。
 
 <br/>
 
-<font size=3>**Q: 想要保存生成的图片，代码运行完毕以后在相应目录找不到图片。相似的，在JupyterLab中生成数据集用于训练，训练时可以在相应路径读取到数据，但是自己却无法在路径中找到图片或数据集？**</font>
+## Q: 想要保存生成的图片，代码运行完毕以后在相应目录找不到图片。相似的，在JupyterLab中生成数据集用于训练，训练时可以在相应路径读取到数据，但是自己却无法在路径中找到图片或数据集？
 
 A: 可能是JumperLab生成的图片或者数据集都是在Docker内，`moxing`下载的数据只能训练进程的Docker内看见，训练完成后这些数据就随着Docker释放了。可以试试在训练任务中将需要`download`的数据再通过`moxing`传回`obs`，然后再在`obs`里面下载到你本地。
 
 <br/>
 
-<font size=3>**Q: MindSpore中`model.train`的`dataset_sink_mode`参数该如何理解？**</font>
+## Q: MindSpore中`model.train`的`dataset_sink_mode`参数该如何理解？
 
 A: 当`dataset_sink_mode=True`时，数据处理会和网络计算构成Pipeline方式，即: 数据处理在逐步处理数据时，处理完一个`batch`的数据，会把数据放到一个队列里，这个队列用于缓存已经处理好的数据，然后网络计算从这个队列里面取数据用于训练，那么此时数据处理与网络计算就`Pipeline`起来了，整个训练耗时就是数据处理/网络计算耗时最长的那个。
 
@@ -150,13 +150,13 @@ A: 当`dataset_sink_mode=True`时，数据处理会和网络计算构成Pipeline
 
 <br/>
 
-<font size=3>**Q: MindSpore能否支持按批次对不同尺寸的图片数据进行训练？**</font>
+## Q: MindSpore能否支持按批次对不同尺寸的图片数据进行训练？
 
 A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放，脚本见[yolo_dataset](https://gitee.com/mindspore/models/blob/master/official/cv/YOLOv3/src/yolo_dataset.py)。
 
 <br/>
 
-<font size=3>**Q: 使用MindSpore做分割训练，必须将数据转为MindRecord吗？**</font>
+## Q: 使用MindSpore做分割训练，必须将数据转为MindRecord吗？
 
 A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/master/research/cv/FCN8s/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
 
@@ -166,7 +166,7 @@ A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/master/research/c
 
 <br/>
 
-<font size=3>**Q: MindSpore在Ascend硬件平台进行多卡训练，自定义数据集如何给不同卡传递不同数据？**</font>
+## Q: MindSpore在Ascend硬件平台进行多卡训练，自定义数据集如何给不同卡传递不同数据？
 
 A: 使用`GeneratorDataset`的时候，可以使用`num_shards=num_shards`,`shard_id=device_id`参数来控制不同卡读取哪个分片的数据，`__getitem__`和`__len__`按全量数据集处理即可。
 
@@ -186,7 +186,7 @@ ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
 
 <br/>
 
-<font size=3>**Q: 如何构建图像的多标签MindRecord格式数据集？**</font>
+## Q: 如何构建图像的多标签MindRecord格式数据集？
 
 A: 数据Schema可以按如下方式定义: `cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
@@ -195,19 +195,19 @@ A: 数据Schema可以按如下方式定义: `cv_schema_json = {"label": {"type":
 
 <br/>
 
-<font size=3>**Q: 请问自己制作的黑底白字`28*28`的数字图片，使用MindSpore训练出来的模型做预测，报错提示`wrong shape of image`是怎么回事？**</font>
+## Q: 请问自己制作的黑底白字`28*28`的数字图片，使用MindSpore训练出来的模型做预测，报错提示`wrong shape of image`是怎么回事？
 
 A: 首先MindSpore训练使用的灰度图MNIST数据集。所以模型使用时对数据是有要求的，需要设置为`28*28`的灰度图，就是单通道才可以。
 
 <br/>
 
-<font size=3>**Q: MindSpore设计了专门用于数据处理的框架，有相关的设计和用法介绍？**</font>
+## Q: MindSpore设计了专门用于数据处理的框架，有相关的设计和用法介绍？
 
 A: MindSpore Dataset模块使得用户很简便地定义数据预处理Pipeline，并以高效（多进程/多线程）的方式处理数据集中样本，同时MindSpore Dataset也提供了多样化的API加载和处理数据集，详细介绍请参阅[数据处理Pipeline介绍](https://mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.dataset.html#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pipeline%E4%BB%8B%E7%BB%8D)。如果想进一步对数据处理Pipeline进行性能调优，请参阅[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/dataset/optimize.html)。
 
 <br/>
 
-<font size=3>**Q: 网络训练时出现报错提示数据下发失败“TDT Push data into device Failed”，如何定位原因？**</font>
+## Q: 网络训练时出现报错提示数据下发失败“TDT Push data into device Failed”，如何定位原因？
 
 A: 首先上述报错指的是通过训练数据下发通道（TDT，train data transfer）发送数据到卡（device）上失败，导致这一报错的原因可能有多种，因此日志中给出了相应的检查建议，具体而言:
 
@@ -235,7 +235,7 @@ A: 首先上述报错指的是通过训练数据下发通道（TDT，train data 
 
 <br/>
 
-<font size=3>**Q: py_transforms 和 c_transforms 增强操作能否混合使用，如果混合使用具体需要怎么使用？**</font>
+## Q: py_transforms 和 c_transforms 增强操作能否混合使用，如果混合使用具体需要怎么使用？
 
 A: 出于高性能考虑，通常不建议将py_transforms 与 c_transforms增强操作混合使用，但若不追求极致的性能，主要考虑打通流程，在无法全部使用c_transforms增强模块（缺少对应的c_transforms增强操作）的情况下，可使用py_transforms模块中的增强操作替代，此时即存在混合使用。
 对此我们需要注意c_transforms 增强模块的输出通常是numpy array，py_transforms增强模块的输出是PIL Image，具体可查看对应的模块说明，为此通常的混合使用方法为：
@@ -278,7 +278,7 @@ data1 = data1.map(operations=transforms, input_columns=["image"])
 
 <br/>
 
-<font size=3>**Q: 当错误提示 "The data pipeline is not a tree (i.e., one node has 2 consumers)" 应该怎么检查？**</font>
+## Q: 当错误提示 "The data pipeline is not a tree (i.e., one node has 2 consumers)" 应该怎么检查？
 
 A: 上述错误通常是脚本书写错误导致。正常情况下数据处理pipeline中的操作是依次串联的，如下列定义：
 
@@ -313,13 +313,13 @@ dataset3 = dataset2.map(***)
 
 <br/>
 
-<font size=3>**Q: MindSpore中和DataLoader对应的接口是什么？**</font>
+## Q: MindSpore中和DataLoader对应的接口是什么？
 
 A：如果将DataLoader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/tutorials/zh-CN/r2.3/beginner/dataset.html#自定义数据集)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html)。
 
 <br/>
 
-<font size=3>**Q: 自定义的Dataset出现错误时，应该如何调试？**</font>
+## Q: 自定义的Dataset出现错误时，应该如何调试？
 
 A：自定义的Dataset通常会传入到GeneratorDataset，在使用过程中错误指向了自定义的Dataset时，可通过一些方式进行调试（如增加打印信息，打印返回值的shape、dtype等），自定义Dataset通常要保持中间处理结果为numpy array，且不建议与MindSpore网络计算的算子混合使用。此外针对自定义的Dataset如下面的MyDataset，初始化后也可直接进行如下遍历（主要为简化调试，分析原始Dataset中的问题，可不传入GeneratorDataset），调试遵循常规的Python语法规则。
 
@@ -331,20 +331,20 @@ for item in Dataset:
 
 <br/>
 
-<font size=3>**Q: 数据处理操作与网络计算算子能否混合使用？**</font>
+## Q: 数据处理操作与网络计算算子能否混合使用？
 
 A：通常数据处理操作与网络计算算子混合使用会导致性能有所降低，在缺少对应的数据处理操作且自定义Python操作不合适时可进行尝试。需要注意的是，因为二者需要的输入不一致，数据处理操作通常输入为numpy array 或 PIL Image，但网络计算算子输入需要是MindSpore.Tensor;
 将二者混合使用需要使上一个的输出格式和下一个所需的输入格式一致。数据处理操作指的是官网API文档中mindspore.dataset模块下的接口，如 mindspore.dataset.vision.CenterCrop，网络计算算子包含 mindspore.nn、 mindspore.ops等模块下的算子。
 
 <br/>
 
-<font size=3>**Q: MindRecord为何会生成.db文件？ 缺少.db文件时加载数据集会有什么报错？**</font>
+## Q: MindRecord为何会生成.db文件？ 缺少.db文件时加载数据集会有什么报错？
 
 A：.db文件为MindRecord文件对应的索引文件，缺少.db文件通常会在获取数据集总的数据量时报错，错误提示如：`MindRecordOp Count total rows failed`。
 
 <br/>
 
-<font size=3>**Q: 自定义Dataset中如何进行图像读取并进行Decode操作？**</font>
+## Q: 自定义Dataset中如何进行图像读取并进行Decode操作？
 
 A：传入GeneratorDataset的自定义Dataset，在接口内部（如`__getitem__`函数）进行图像读取后可以直接返回bytes类型的数据、numpy array类型的数组或已经做了解码操作的numpy array，具体如下所示：
 
@@ -398,13 +398,13 @@ A：传入GeneratorDataset的自定义Dataset，在接口内部（如`__getitem_
 
 <br/>
 
-<font size=3>**Q: 在使用`Dataset`处理数据过程中，报错`RuntimeError: can't start new thread`，怎么解决？**</font>
+## Q: 在使用`Dataset`处理数据过程中，报错`RuntimeError: can't start new thread`，怎么解决？
 
 A: 主要原因是在使用`**Dataset`、`.map(...)`和`.batch(...)`时，参数`num_parallel_workers`配置过大，用户进程数达到最大，可以通过`ulimit -u 最大进程数`来增加用户最大进程数范围，或者将`num_parallel_workers`配置减小。
 
 <br/>
 
-<font size=3>**Q: 在使用`GeneratorDataset`加载数据时，报错`RuntimeError: Failed to copy data into tensor.`，怎么解决？**</font>
+## Q: 在使用`GeneratorDataset`加载数据时，报错`RuntimeError: Failed to copy data into tensor.`，怎么解决？
 
 A: 在使用`GeneratorDataset`加载Pyfunc返回的Numpy array时，MindSpore框架将执行Numpy array到MindSpore Tensor的转换，假设Numpy array所指向的内存被释放，可能会发生内存拷贝的错误。举例如下：
 
@@ -449,7 +449,7 @@ A: 在使用`GeneratorDataset`加载Pyfunc返回的Numpy array时，MindSpore框
 
 <br/>
 
-<font size=3>**Q: 如何根据数据预处理退出状态判断GetNext超时原因？**</font>
+## Q: 如何根据数据预处理退出状态判断GetNext超时原因？
 
 A: 在使用数据下沉模式（此时 `数据预处理` -> `发送队列` -> `网络计算` 三者构成Pipeline模式）进行训练时，当出现GetNext超时报错，数据预处理模块会输出状态信息，帮助用户分析出错原因。用户可以在日志中看到如下几种情况，具体原因及改进方法可参考：
 
