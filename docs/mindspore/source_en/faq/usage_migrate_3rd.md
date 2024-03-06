@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/faq/usage_migrate_3rd.md)
 
-<font size=3>**Q: How do I load a pre-trained PyTorch model for fine-tuning on MindSpore?**</font>
+## Q: How do I load a pre-trained PyTorch model for fine-tuning on MindSpore?
 
 A: Map parameters of PyTorch and MindSpore one by one. No unified conversion script is provided due to flexible network definitions.
 
@@ -29,7 +29,7 @@ def pytorch2mindspore(default_file = 'torch_resnet.pth'):
 
 <br/>
 
-<font size=3>**Q: How do I convert a PyTorch `dataset` to a MindSpore `dataset`?**</font>
+## Q: How do I convert a PyTorch `dataset` to a MindSpore `dataset`?
 
 A: The customized dataset logic of MindSpore is similar to that of PyTorch. You need to define a `dataset` class containing `__init__`, `__getitem__`, and `__len__` to read your dataset, instantiate the class into an object (for example, `dataset/dataset_generator`), and transfer the instantiated object to `GeneratorDataset` (on MindSpore) or `DataLoader` (on PyTorch). Then, you are ready to load the customized dataset. MindSpore provides further `map`->`batch` operations based on `GeneratorDataset`. Users can easily add other customized operations to `map` and start `batch`.
 The customized dataset of MindSpore is loaded as follows:
@@ -55,6 +55,6 @@ dataset = dataset.batch(batch_size, drop_remainder=True)
 
 <br/>
 
-<font size=3>**Q: How do I migrate scripts or models of other frameworks to MindSpore?**</font>
+## Q: How do I migrate scripts or models of other frameworks to MindSpore?
 
 A: For details about script or model migration, please visit the [Migration Guide](https://www.mindspore.cn/docs/en/r2.2/migration_guide/overview.html) in MindSpore official website.

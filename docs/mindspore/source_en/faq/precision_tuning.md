@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/faq/precision_tuning.md)
 
-<font size=3>**Q: Why is the loss value not converged or why does the accuracy not meet the requirement? How can I locate and optimize the loss value?**</font>
+## Q: Why is the loss value not converged or why does the accuracy not meet the requirement? How can I locate and optimize the loss value?
 
 A: There are many causes for the non-convergence of the loss value or the accuracy problem. You are advised to check the causes one by one by referring to the following links.
 

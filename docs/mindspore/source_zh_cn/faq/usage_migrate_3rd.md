@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/faq/usage_migrate_3rd.md)
 
-<font size=3>**Q: 请问想加载PyTorch预训练好的模型用于MindSpore模型finetune有什么方法？**</font>
+## Q: 请问想加载PyTorch预训练好的模型用于MindSpore模型finetune有什么方法？
 
 A: 需要把PyTorch和MindSpore的参数进行一一对应，因为网络定义的灵活性，所以没办法提供统一的转化脚本。
 
@@ -29,7 +29,7 @@ def pytorch2mindspore(default_file = 'torch_resnet.pth'):
 
 <br/>
 
-<font size=3>**Q: 怎么将PyTorch的`dataset`转换成MindSpore的`dataset`？**</font>
+## Q: 怎么将PyTorch的`dataset`转换成MindSpore的`dataset`？
 
 A: MindSpore和PyTorch的自定义数据集逻辑是比较类似的，需要用户先定义一个自己的`dataset`类，该类负责定义`__init__`，`__getitem__`,`__len__`来读取自己的数据集，然后将该类实例化为一个对象（如: `dataset/dataset_generator`），最后将这个实例化对象传入`GeneratorDataset`(mindspore用法)/`DataLoader`(pytorch用法)，至此即可以完成自定义数据集加载了。而MindSpore在`GeneratorDataset`的基础上提供了进一步的`map`->`batch`操作，可以很方便的让用户在`map`内添加一些其他的自定义操作，并将其`batch`起来。
 对应的MindSpore的自定义数据集加载如下:
@@ -55,6 +55,6 @@ dataset = dataset.batch(batch_size, drop_remainder=True)
 
 <br/>
 
-<font size=3>**Q: 其他框架的脚本或者模型怎么迁移到MindSpore？**</font>
+## Q: 其他框架的脚本或者模型怎么迁移到MindSpore？
 
 A: 关于脚本或者模型迁移，可以查询MindSpore官网中关于[迁移指南](https://www.mindspore.cn/docs/zh-CN/r2.2/migration_guide/overview.html)的介绍。

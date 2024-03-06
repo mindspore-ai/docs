@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_zh_cn/faq/precision_tuning.md)
 
-<font size=3>**Q: 导致Loss值不收敛或者精度不达标的原因有哪些呢，应该怎样定位调优？**</font>
+## Q: 导致Loss值不收敛或者精度不达标的原因有哪些呢，应该怎样定位调优？
 
 A: 可能导致Loss值不收敛或者精度问题的原因很多，推荐参考下面总结，逐一排查问题。
 
