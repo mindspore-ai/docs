@@ -2,37 +2,37 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/faq/implement_problem.md)
 
-<font size=3>**Q: 请问使用MindSpore如何实现多尺度训练？**</font>
+## Q: 请问使用MindSpore如何实现多尺度训练？
 
 A: 在多尺度训练过程中，使用不同`shape`调用`Cell`对象的时候，会自动根据不同`shape`编译并调用不同的图，从而实现多尺度的训练。要注意多尺度训练只支持非数据下沉模式，不能支持数据下沉的训练方式。可以参考[yolov3](https://gitee.com/mindspore/models/tree/master/official/cv/YOLOv3)的多尺度训练实现。
 
 <br/>
 
-<font size=3>**Q: 如果MindSpore的`requires_grad=False`的`tensor`转化为`numpy`类型进行处理然后再转化会`tensor`，会对计算图和反向传播有影响吗？**</font>
+## Q: 如果MindSpore的`requires_grad=False`的`tensor`转化为`numpy`类型进行处理然后再转化会`tensor`，会对计算图和反向传播有影响吗？
 
 A: 在PyNative模式下，如果中间使用`numpy`计算，会导致梯度传递中断，`requires_grad=False`的场景下，如果该`tensor`的反向传播不传给其他参数使用，是没有影响的；如果`requires_grad=True`的场景下，是有影响的。
 
 <br/>
 
-<font size=3>**Q: 请问怎样实现类似`torch.nn.functional.linear()`那样能够对全连接层`weight`、`bias`进行修改，应该如何操作？**</font>
+## Q: 请问怎样实现类似`torch.nn.functional.linear()`那样能够对全连接层`weight`、`bias`进行修改，应该如何操作？
 
 A: MindSpore与`torch.nn.functional.linear()`功能最接近的接口就是`nn.Dense`了。`nn.Dense`能指定`weight`和`bias`的初始值，后续的变化是由优化器自动更新的。训练过程中，用户不需要主动修改这两个参数的值。
 
 <br/>
 
-<font size=3>**Q: 使用MindSpore在模型保存后生成的`.meta`文件作用是什么，可以用`.meta`文件导入图结构吗？**</font>
+## Q: 使用MindSpore在模型保存后生成的`.meta`文件作用是什么，可以用`.meta`文件导入图结构吗？
 
 A: 这里的`.meta`文件是编译好的图结构，但是目前并不支持直接导入这种结构。如果不知道图结构的情况下想要导入网络，还是需要用MindIR格式的文件。
 
 <br/>
 
-<font size=3>**Q: 请问`yolov4-tiny-3l.weights`模型文件可以直接转换成MindSpore模型吗？**</font>
+## Q: 请问`yolov4-tiny-3l.weights`模型文件可以直接转换成MindSpore模型吗？
 
 A: 不能的，需要把其他框架训练好的参数转换成MindSpore的格式，才能转成MindSpore的模型。
 
 <br/>
 
-<font size=3>**Q: 使用MindSpore进行`model.train`的时候进行了如下设置，为什么会报错呢？**</font>
+## Q: 使用MindSpore进行`model.train`的时候进行了如下设置，为什么会报错呢？
 
 ```python
 model.train(1, dataset, callbacks=ms.train.LossMonitor(1), dataset_sink_mode=True)
@@ -43,7 +43,7 @@ A: 因为在已经设置为下沉模式的情况下，就不能再设置为非�
 
 <br/>
 
-<font size=3>**Q: 使用MindSpore训练模型在`eval`阶段，需要注意什么？能够直接加载网络和参数吗？需要在Model中使用优化器吗？**</font>
+## Q: 使用MindSpore训练模型在`eval`阶段，需要注意什么？能够直接加载网络和参数吗？需要在Model中使用优化器吗？
 
 A: 在`eval`阶段主要看需要什么，比如图像分类任务`eval`网络的输出是各个类的概率值，与对应标签计算`acc`。
 大多数情况是可以直接复用训练的网络和参数的，需要注意的是需要设置推理模式。
@@ -63,19 +63,19 @@ res = model.eval(dataset)
 
 <br/>
 
-<font size=3>**Q: 如何使用SGD里的`param_group`来实现学习率的衰减？**</font>
+## Q: 如何使用SGD里的`param_group`来实现学习率的衰减？
 
 A: 如果需要按照`epoch`来变化，可以使用[Dynamic LR](https://mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.nn.html#dynamic-lr函数),把其中的`step_per_epoch`设置成`step_size`，如果需要按照`step`来变化，可以把其中的`step_per_epoch`设置成1，也可以用[LearningRateSchedule](https://mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.nn.html#learningrateschedule类)。
 
 <br/>
 
-<font size=3>**Q: MindSpore如何进行参数（如dropout值）修改？**</font>
+## Q: MindSpore如何进行参数（如dropout值）修改？
 
 A: 在构造网络的时候可以通过 `if self.training: x = dropput(x)`，推理时，执行前设置`network.set_train(False)`，就可以不使用dropout，训练时设置为True就可以使用dropout。
 
 <br/>
 
-<font size=3>**Q: 如何查看模型参数量？**</font>
+## Q: 如何查看模型参数量？
 
 A: 可以直接加载CheckPoint统计，可能额外统计了动量和optimizer中的变量，需要过滤下相关变量。
 您可以参考如下接口统计网络参数量:
@@ -98,7 +98,7 @@ def count_params(net):
 
 <br/>
 
-<font size=3>**Q: 如何在训练过程中监控`loss`在最低的时候并保存训练参数？**</font>
+## Q: 如何在训练过程中监控`loss`在最低的时候并保存训练参数？
 
 A: 可以自定义一个`Callback`。参考`ModelCheckpoint`的写法，此外再增加判断`loss`的逻辑:
 
@@ -121,13 +121,13 @@ model.train(epoch_size, ds_train, callbacks=[stop_cb])
 
 <br/>
 
-<font size=3>**Q: 使用`nn.Conv2d`时，怎样获取期望大小的`feature map`？**</font>
+## Q: 使用`nn.Conv2d`时，怎样获取期望大小的`feature map`？
 
 A: `Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
 
 <br/>
 
-<font size=3>**Q: 使用MindSpore可以自定义一个可以返回多个值的loss函数？**</font>
+## Q: 使用MindSpore可以自定义一个可以返回多个值的loss函数？
 
 A: 自定义`loss function`后还需自定义`TrainOneStepCell`，实现梯度计算时`sens`的个数和`network`的输出个数相同。具体可参考:
 
@@ -141,13 +141,13 @@ model = ms.train.Model(net=train_net, loss_fn=None, optimizer=None)
 
 <br/>
 
-<font size=3>**Q: MindSpore如何实现早停功能？**</font>
+## Q: MindSpore如何实现早停功能？
 
 A：可以使用[EarlyStopping 方法](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/train/mindspore.train.EarlyStopping.html)。
 
 <br/>
 
-<font size=3>**Q: 模型已经训练好，如何将模型的输出结果保存为文本或者`npy`的格式？**</font>
+## Q: 模型已经训练好，如何将模型的输出结果保存为文本或者`npy`的格式？
 
 A: 您好，我们网络的输出为`Tensor`，需要使用`asnumpy()`方法将`Tensor`转换为`numpy`，再进行下一步保存。具体可参考:
 
@@ -158,7 +158,7 @@ np.save("output.npy", out.asnumpy())
 
 <br/>
 
-<font size=3>**Q: 缓存服务器异常关闭如何处理？**</font>
+## Q: 缓存服务器异常关闭如何处理？
 
 A: 缓存服务器使用过程中，会进行IPC共享内存和socket文件等系统资源的分配。若允许溢出，在磁盘空间还会存在溢出的数据文件。一般情况下，如果通过`cache_admin --stop`命令正常关闭服务器，这些资源将会被自动清理。
 
@@ -203,7 +203,7 @@ A: 缓存服务器使用过程中，会进行IPC共享内存和socket文件等�
 
 <br/>
 
-<font size=3>**Q: 通过Hub可以使用GPU加载`vgg16`模型以及是否可以做迁移模型吗？**</font>
+## Q: 通过Hub可以使用GPU加载`vgg16`模型以及是否可以做迁移模型吗？
 
 A: 请手动修改如下两处参数即可:
 
@@ -219,7 +219,7 @@ net = Vgg(cfg['16'], num_classes=num_classes, args=args, batch_norm=args.batch_n
 
 <br/>
 
-<font size=3>**Q: 如何得到VGG模型中间层特征？**</font>
+## Q: 如何得到VGG模型中间层特征？
 
 A: 你好，获取网络中间层的特征，其实跟具体框架没有太大关系了。`torchvison`里定义的`vgg`模型，可以通过`features`字段获取"中间层特征"，`torchvison`的`vgg`源码如下:
 
@@ -241,25 +241,25 @@ print(network.layers)
 
 <br/>
 
-<font size=3>**Q: 使用MindSpore进行模型训练时，`CTCLoss`的输入参数有四个: `inputs`、`labels_indices`、`labels_values`、`sequence_length`，如何使用`CTCLoss`进行训练？**</font>
+## Q: 使用MindSpore进行模型训练时，`CTCLoss`的输入参数有四个: `inputs`、`labels_indices`、`labels_values`、`sequence_length`，如何使用`CTCLoss`进行训练？
 
 A: 定义的`model.train`接口里接收的`dataset`可以是多个数据组成，形如(`data1`、`data2`、`data3`...)，所以`dataset`是可以包含`inputs`、`labels_indices`、`labels_values`、`sequence_length`的信息的。只需要定义好相应形式的`dataset`，传入`model.train`里就可以。具体的可以了解下相应的[数据处理接口](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/dataset.html)。
 
 <br/>
 
-<font size=3>**Q: MindSpore有哪些现成的推荐类或生成类网络或模型可用？**</font>
+## Q: MindSpore有哪些现成的推荐类或生成类网络或模型可用？
 
 A: 目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/master/README_CN.md#)。
 
 <br/>
 
-<font size=3>**Q: `mindspore/tests`下怎样执行单个`ut`用例？**</font>
+## Q: `mindspore/tests`下怎样执行单个`ut`用例？
 
 A: `ut`用例通常需要基于debug版本的MindSpore包，官网并没有提供。可以基于源码使用`sh build.sh`编译，然后通过`pytest`指令执行，debug模式编包不依赖后端。编译选项`sh build.sh -t on`，用例执行可以参考`tests/runtest.sh`脚本。
 
 <br/>
 
-<font size=3>**Q: 在Ascend平台上，执行用例有时候会报错`run task error`，如何获取更详细的日志帮助问题定位？**</font>
+## Q: 在Ascend平台上，执行用例有时候会报错`run task error`，如何获取更详细的日志帮助问题定位？
 
 A: 使用msnpureport工具设置device侧日志级别，工具位置在: `/usr/local/Ascend/latest/driver/tools/msnpureport`。
 
@@ -293,7 +293,7 @@ A: 使用msnpureport工具设置device侧日志级别，工具位置在: `/usr/l
 
 <br/>
 
-<font size=3>**Q: 使用Ascend平台执行训练过程，出现报错: `Out of Memory!!! total[3212254720] (dynamic[0] memory poll[524288000]) malloc[32611480064] failed!` 如何解决？**</font>
+## Q: 使用Ascend平台执行训练过程，出现报错: `Out of Memory!!! total[3212254720] (dynamic[0] memory poll[524288000]) malloc[32611480064] failed!` 如何解决？
 
 A: 此问题属于内存占用过多导致的内存不够问题，可能原因有两种:
 
@@ -303,31 +303,31 @@ A: 此问题属于内存占用过多导致的内存不够问题，可能原因�
 
 <br/>
 
-<font size=3>**Q: 如何在训练神经网络过程中对计算损失的超参数进行改变？**</font>
+## Q: 如何在训练神经网络过程中对计算损失的超参数进行改变？
 
 A: 您好，很抱歉暂时还未有这样的功能。目前只能通过训练-->重新定义优化器-->训练，这样的过程寻找较优的超参数。
 
 <br/>
 
-<font size=3>**Q: 运行应用时报错`error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory`怎么办？**</font>
+## Q: 运行应用时报错`error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory`怎么办？
 
 A: 安装MindSpore所依赖的Atlas 200/300/500推理产品配套软件包时，`CANN`包不能安装`nnrt`版本，而是需要安装功能完整的`toolkit`版本。
 
 <br/>
 
-<font size=3>**Q: MindSpore代码里面的model_zoo/official/cv/ResNet/train.py中set_ps_context(enable_ps=True)为什么一定要在init之前设置**</font>
+## Q: MindSpore代码里面的model_zoo/official/cv/ResNet/train.py中set_ps_context(enable_ps=True)为什么一定要在init之前设置？
 
 A: MindSpore Ascend模式下，如果先调用init，那么会为所有的进程都分配卡，但是parameter server训练模式下server是不需要分配卡的，那么worker和server就会去使用同一块卡，导致会报错: Ascend kernel runtime initialization failed。
 
 <br/>
 
-<font size=3>**Q: 在CPU ARM平台上进行resnet50训练，内存持续增长怎么办？**</font>
+## Q: 在CPU ARM平台上进行resnet50训练，内存持续增长怎么办？
 
 A: 在CPU ARM上进行resnet50训练时，部分算子的实现是基于oneDNN库，oneDNN库中是基于libgomp库实现多线程并行，当前libgomp存在多个并行域配置的线程数不同时有内存占用持续增长的问题。可通过全局配置统一的线程数来控制内存的持续增长。再综合性能上的考虑，建议统一配置为物理核数的1/4，比如`export OMP_NUM_THREADS=32`。
 
 <br/>
 
-<font size=3>**Q: 为什么在Ascend平台执行模型时报错`Stream isn't enough`？**</font>
+## Q: 为什么在Ascend平台执行模型时报错`Stream isn't enough`？
 
 A: 流表示一个操作队列，同一条流上的任务按序串行执行，不同流之间可以并行执行。网络中的各种操作会生成Task并被分配到流上，以控制任务执行的并发方式。由于Ascend平台对同一条流上的的任务数存在限制，超限的任务会分配新流，且MindSpore框架的多种并行方式也会分配新流，例如通信算子并行，因此当分配流的数目超过Ascend平台的资源限制就会报流超限的错误。参考解决方案：
 
@@ -339,7 +339,7 @@ A: 流表示一个操作队列，同一条流上的任务按序串行执行，�
 
 <br/>
 
-<font size=3>**Q: 在Ascend平台上，日志中出现报错“Ascend error occurred, error message:”且跟随了一个错误码，如“E40011”，如何查找出现错误码的原因？**</font>
+## Q: 在Ascend平台上，日志中出现报错“Ascend error occurred, error message:”且跟随了一个错误码，如“E40011”，如何查找出现错误码的原因？
 
 A: 当出现“Ascend error occurred, error message:”时，说明昇腾CANN相关模块出现异常，上报了错误日志。
 
@@ -347,7 +347,7 @@ A: 当出现“Ascend error occurred, error message:”时，说明昇腾CANN相
 
 <br/>
 
-<font size=3>**Q: 训练nlp类网络，当使用第三方组件gensim时，可能会报错: ValueError，如何解决？**</font>
+## Q: 训练nlp类网络，当使用第三方组件gensim时，可能会报错: ValueError，如何解决？
 
 A: 以下为报错信息:
 
@@ -379,7 +379,7 @@ ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Exp
 
 <br/>
 
-<font size=3>**Q：运行文档示例代码的过程中，遇到`matplotlib.pyplot.show()`或`plt.show()`无法执行怎么处理？**</font>
+## Q：运行文档示例代码的过程中，遇到`matplotlib.pyplot.show()`或`plt.show()`无法执行怎么处理？
 
 A: 首先确认是否安装`matplotlib`，如果没有安装，可以在命令行中执行`pip install matplotlib`进行安装。
 
@@ -387,7 +387,7 @@ A: 首先确认是否安装`matplotlib`，如果没有安装，可以在命令�
 
 <br/>
 
-<font size=3>**Q: 使用文档中提供的在线运行时，遇到运行失败该如何处理？**</font>
+## Q: 使用文档中提供的在线运行时，遇到运行失败该如何处理？
 
 A: 需要确认有做以下准备工作。
 
@@ -401,7 +401,7 @@ A: 需要确认有做以下准备工作。
 
 <br/>
 
-<font size=3>**Q: 静态图下使用除法结果未报错，动态图下使用除法结果却报错？**</font>
+## Q: 静态图下使用除法结果未报错，动态图下使用除法结果却报错？
 
 A: 在静态图模式下，由于使用的是静态编译，对于算子输出结果的数据类型是在图编译阶段确定的。
 
@@ -442,7 +442,7 @@ print(output, type(output))
 
 <br/>
 
-<font size=3>**Q: 1.8版本首次运行GPU的脚本会卡很久？**</font>
+## Q: 1.8版本首次运行GPU的脚本会卡很久？
 
 A: 由于NVCC编译CUDA算子时为了兼容更多GPU架构，先编译成ptx文件，在首次使用时会进行JIT编译成二进制执行文件，因此会产生编译耗时。
 而1.8版本相较于前版本增加了许多CUDA算子，导致这部分编译时间增加（不同设备时间不同，如在V100上首次编译时间为5分钟左右）。
@@ -453,7 +453,7 @@ A: 由于NVCC编译CUDA算子时为了兼容更多GPU架构，先编译成ptx文
 
 <br/>
 
-<font size=3>**Q: 算子执行过程中出现报错: `MemoryError: std::bad_alloc` 如何解决？**</font>
+## Q: 算子执行过程中出现报错: `MemoryError: std::bad_alloc` 如何解决？
 
 A: 此问题的原因为：用户未正确配置算子参数，导致算子申请的内存空间超过了系统内存限制，进而系统分配内存失败。下面以算子 mindspore.ops.UniformCandidateSampler 为例进行说明：
 
@@ -465,7 +465,7 @@ A: 此问题的原因为：用户未正确配置算子参数，导致算子申�
 
 <br/>
 
-<font size=3>**Q: 如何理解报错提示中的"Ascend Error Message"？**</font>
+## Q: 如何理解报错提示中的"Ascend Error Message"？
 
  A: "Ascend Error Message"是MindSpore调用CANN(昇腾异构计算架构)接口时，CANN执行出错后抛出的故障信息，其中包含错误码和错误描述等信息，如下例子：
 
@@ -499,13 +499,13 @@ tsd client wait response fail, device response code[1]. unknown device  error.[F
 
 <br/>
 
-<font size=3>**Q: 如何控制`print`方法打印出的Tensor值？**</font>
+## Q: 如何控制`print`方法打印出的Tensor值？
 
 A: 在PyNative动态图模式下，可以使用numpy原生方法如`set_printoptions`对输出的值进行控制。在Graph静态图模式下，因为`print`方法需要转化成为算子，所以暂时无法对输出的值进行控制。print算子具体用法可[参考](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.Print.html)。
 
 <br/>
 
-<font size=3>**Q: `Tensor.asnumpy()`是怎么和Tensor共享内存地址的？**</font>
+## Q: `Tensor.asnumpy()`是怎么和Tensor共享内存地址的？
 
 A: `Tensor.asnumpy()`会将Tensor本身转换为NumPy的ndarray。这个Tensor和`Tensor.asnumpy()`返回的ndarray共享host侧的内存地址，在host侧，对Tensor本身的修改会反映到相应的ndarray上，反之亦然。需要注意的是，host侧的修改无法自动同步到device侧。如：
 

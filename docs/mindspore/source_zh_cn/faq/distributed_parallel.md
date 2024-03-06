@@ -2,13 +2,13 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/faq/distributed_parallel.md)
 
-<font size=3>**Q: 进行HCCL分布式训练出错：`Init plugin so failed, ret = 1343225860`？**</font>
+## Q: 进行HCCL分布式训练出错：`Init plugin so failed, ret = 1343225860`？
 
 A: 在Ascend进行分布式训练时初始化HCCL失败了，通常由于`rank_table.json`没写对，可以执行此文件[hccl_tools.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/hccl_tools.py)生成一个新的`rank_table.json`。或者导入环境变量`export ASCEND_SLOG_PRINT_TO_STDOUT=1`打开HCCL的日志打印，根据日志中的ERROR信息来排查问题。
 
 <br/>
 
-<font size=3>**Q：GPU分布式训练场景下，若错误设置环境变量CUDA_VISIBLE_DEVICES的个数小于执行的进程数时，可能导致进程阻塞问题。**</font>
+## Q：GPU分布式训练场景下，若错误设置环境变量CUDA_VISIBLE_DEVICES的个数小于执行的进程数时，可能导致进程阻塞问题。
 
 A：此场景下，部分训练进程会提示如下报错：
 
@@ -29,7 +29,7 @@ A：此场景下，部分训练进程会提示如下报错：
 
 <br/>
 
-<font size=3>**Q：GPU分布式训练场景下，若某进程异常退出，可能导致其余进程阻塞问题。**</font>
+## Q：GPU分布式训练场景下，若某进程异常退出，可能导致其余进程阻塞问题。
 
 A：此场景下，异常进程由于各种问题退出，其余进程由于GPU资源已分配成功，会正常执行到初始化`NCCL`步骤，日志如下：
 
@@ -43,7 +43,7 @@ A：此场景下，异常进程由于各种问题退出，其余进程由于GPU�
 
 <br/>
 
-<font size=3>**Q：在执行GPU单机单卡的脚本时，不使用mpirun启动进程时，调用mindspore.communication.init方法可能会报错,导致执行失败，该如何处理？**</font>
+## Q：在执行GPU单机单卡的脚本时，不使用mpirun启动进程时，调用mindspore.communication.init方法可能会报错，导致执行失败，该如何处理？
 
 ```text
 [CRITICAL] DISTRIBUTED [mindspore/ccsrc/distributed/cluster/cluster_context.cc:130] InitNodeRole] Role name is invalid...
@@ -53,7 +53,7 @@ A：在用户不使用`mpirun`启动进程，但是依然调用了`init()`方法
 
 <br/>
 
-<font size=3>**Q：在通过OpenMPI执行多机多卡训练时，提示由于MPI_Allgather失败。**</font>
+## Q：在通过OpenMPI执行多机多卡训练时，提示由于MPI_Allgather失败。
 
 ```text
 pml_ucx.c:175 Error: Failed to receive UCX worker address: Not found (-13)
@@ -78,7 +78,7 @@ mpirun -n process_num --mca btl tcp --mca btl_tcp_if_include 192.168.1.0/24 ./ru
 
 <br/>
 
-<font size=3>**Q：在通过OpenMPI执行分布式训练时，单机多卡训练正常，但在多机多卡训练时，某些机器提示GPU device id设置失败。**</font>
+## Q：在通过OpenMPI执行分布式训练时，单机多卡训练正常，但在多机多卡训练时，某些机器提示GPU device id设置失败。
 
 ```text
 [ERROR] DEVICE [mindspore/ccsrc/runtime/device/gpu/cuda_driver.cc:245] SetDevice] SetDevice for id:7 failed, ret[101], invalid device ordinal. Please make sure that the 'device_id' set in context is in the range:[0, total number of GPU). If the environment variable 'CUDA_VISIBLE_DEVICES' is set, the total number of GPU will be the number set in the environment variable 'CUDA_VISIBLE_DEVICES'. For example, if export CUDA_VISIBLE_DEVICES=4,5,6, the 'device_id' can be 0,1,2 at the moment, 'device_id' starts from 0, and 'device_id'=0 means using GPU of number 4.
@@ -93,7 +93,7 @@ export HOSTNAME=node_ip_address
 
 <br/>
 
-<font size=3>**Q：在通过OpenMPI执行多机多卡训练时，NCCL报错提示网络不通。**</font>
+## Q：在通过OpenMPI执行多机多卡训练时，NCCL报错提示网络不通。
 
 ```text
 include/socket.h:403 NCCL WARN Connect to XXX failed: Network is unreachable
@@ -109,7 +109,7 @@ export NCCL_SOCKET_IFNAME=eth
 
 <br/>
 
-<font size=3>**Q：多机多卡选择特定名称的RDMA网卡(通过NCCL_SOCKET_IFNAME设置)通信后，训练仍然报错：**</font>
+## Q：多机多卡选择特定名称的RDMA网卡(通过NCCL_SOCKET_IFNAME设置)通信后，训练仍然报错。
 
 ```text
 misc/ibvwrap.cc:284 NCCL WARN Call to ibv_modify_qp failed with error Invalid argument
@@ -127,7 +127,7 @@ export NCCL_IB_HCA=mlx
 
 <br/>
 
-<font size=3>**Q：单机多卡训练能够成功，但是扩展脚本到多机多卡后，其他主机提示各类报错：**</font>
+## Q：单机多卡训练能够成功，但是扩展脚本到多机多卡后，其他主机提示各类报错。
 
 报错内容有多种，下面是几种典型的报错，可能有：
 
@@ -145,7 +145,7 @@ mpirun --hostfile /path/to/hostfile -n 64 -x PYTHONPATH -x GLOG_v -x LD_LIBRARY_
 
 <br/>
 
-<font size=3>**Q: 在Ascend上通过OpenMPI执行分布式训练时，`HcclCommInitRootInfo`报错:**</font>
+## Q: 在Ascend上通过OpenMPI执行分布式训练时，`HcclCommInitRootInfo`报错。
 
 ```text
 Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2
@@ -156,7 +156,7 @@ A: OpenMPI启动时，当前版本的hccl下，创建通信域时，相应的卡
 
 <br/>
 
-<font size=3>**Q: 在自动并行下执行分布式网络时，报张量无法被当前策略完整切分的错误如下，该怎么解决？**</font>
+## Q: 在自动并行下执行分布式网络时，报张量无法被当前策略完整切分的错误如下，该怎么解决？
 
 ```text
 np_tensor can not be split by strategy!
@@ -166,12 +166,12 @@ A: 该报错表明网络中有对参数配置了切分策略，但是参数的�
 
 <br/>
 
-<font size=3>**Q: Linux环境上执行多卡训练过程中进程异常退出，通过ipcs命令看到有共享内存残留，该如何处理？**</font>
+## Q: Linux环境上执行多卡训练过程中进程异常退出，通过ipcs命令看到有共享内存残留，该如何处理？
 
 A: 在多卡训练并使能图算融合情况下，框架采用共享内存机制进行多卡间的算子统一编译，如果编译过程中遇到内外部异常导致进程意外结束，共享内存得不到有效释放。通过ipcs命令可以看到残留的共享内存的nattch为0，重新执行训练脚本时框架会重新接管共享内存，只要无异常出现就可以正常释放。也可以通过ipcrm命令释放共享内存，不会影响训练脚本执行。
 
 <br/>
 
-<font size=3>**Q: Ascend平台下训练较小规模网络，但在分布式模块初始化过程中，依然提示设备侧内存不足，如何解决？**</font>
+## Q: Ascend平台下训练较小规模网络，但在分布式模块初始化过程中，依然提示设备侧内存不足，如何解决？
 
 A: 这是因为在Ascend平台下，MindSpore后端默认会预分配一块内存，约80%的NPU内存会被占用，剩余的20%内存则用于HCCL集合通信库的初始化。每个HCCL通信组会默认占用200MB的内存，那么在通信组较多的场景下，就容易出现设备侧内存不足的报错。解决方法是设置`HCCL_BUFFSIZE`环境变量修改通信域内存占用，具体配置方式可参考[HCCL官方文档](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0081.html)。

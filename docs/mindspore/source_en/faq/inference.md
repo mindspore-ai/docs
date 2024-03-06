@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/faq/inference.md)
 
-<font size=3>**Q: In the previous version, Atlas 200/300/500 inference product inference is performed based on the MindSpore installation package. However, the MindSpore release package of the new version does not support Atlas 200/300/500 inference product inference. How do I use Atlas 200/300/500 inference product for inference? (Changes in the MindSpore Atlas 200/300/500 Inference Product Inference Release Package)**</font>
+## Q: In the previous version, Atlas 200/300/500 inference product inference is performed based on the MindSpore installation package. However, the MindSpore release package of the new version does not support Atlas 200/300/500 inference product inference. How do I use Atlas 200/300/500 inference product for inference? (Changes in the MindSpore Atlas 200/300/500 Inference Product Inference Release Package)
 
 A: The MindSpore inference function is provided by MindSpore Lite, a core component of MindSpore. Since version 2.0, the Atlas 200/300/500 inference product inference package is released by MindSpore Lite and provides continuous maintenance and evolution of related functions. The corresponding interfaces in the MindSpore main release package are not maintained or evolved. Since version 2.2, the MindSpore main release package does not provide the inference interface enabling for the Atlas 200/300/500 inference product. If you need to use the inference interface, install the MindSpore Lite release package or download the MindSpore version earlier than 2.0. For details about how to install and use MindSpore Lite, see <https://www.mindspore.cn/lite/en>.
 
@@ -84,24 +84,24 @@ The original Atlas 200/300/500 inference product inference service built based o
 
 <br/>
 
-<font size=3>**Q: What should I do when an error `/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found` prompts during application compiling?**</font>
+## Q: What should I do when an error `/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found` prompts during application compiling?
 
 A: Find the directory where the missing dynamic library file is located.
 
 <br/>
 
-<font size=3>**Q: After updating MindSpore version, the application compilation reports errors `WARNING: Package(s) not found: mindspore-ascend`, `CMake Error: The following variables are use in this project, but they are set to NOTFOUND. Please set them or make sure they are set and tested correctly in the CMake files: MS_LIB`. What should I do?**</font>
+## Q: After updating MindSpore version, the application compilation reports errors `WARNING: Package(s) not found: mindspore-ascend`, `CMake Error: The following variables are use in this project, but they are set to NOTFOUND. Please set them or make sure they are set and tested correctly in the CMake files: MS_LIB`. What should I do?
 
 A: MindSpore 2.0 has unified the installation packages of various platforms and no longer distinguishes different installation packages with suffixes such as `-ascend`, `-gpu`, etc. Therefore, the old compilation command or the old `build.sh` with ``MINDSPORE_PATH="`pip show mindspore-ascend | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`"`` needs to be modified to ``MINDSPORE_PATH="`pip show mindspore | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`"``.
 
 <br/>
 
-<font size=3>**Q: What should I do when error `error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory` prompts during application running?**</font>
+## Q: What should I do when error `error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory` prompts during application running?
 
 A: While Atlas 200/300/500 inference product software packages relied by MindSpore is installed, the `CANN` package should install the full-featured `toolkit` version instead of the `nnrt` version.
 
 <br/>
 
-<font size=3>**Q: How to configure AIPP files?**</font>
+## Q: How to configure AIPP files?
 
 A: AIPP (artistic intelligence pre-processing) AI preprocessing is used to complete image preprocessing on AI core, including changing image size, color gamut conversion (converting image format), subtracting mean / multiplication coefficient (changing image pixels). Real-time inference is performed after data processing. The related configuration introduction is complex. Please refer to [AIPP enable chapter of ATC tool](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0017.html).
