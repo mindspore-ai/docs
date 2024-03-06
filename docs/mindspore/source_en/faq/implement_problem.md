@@ -2,37 +2,37 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/docs/mindspore/source_en/faq/implement_problem.md)
 
-<font size=3>**Q: How do I use MindSpore to implement multi-scale training?**</font>
+## Q: How do I use MindSpore to implement multi-scale training?
 
 A: During multi-scale training, when different `shape` are used to call `Cell` objects, different graphs are automatically built and called based on different `shape`, to implement the multi-scale training. Note that multi-scale training supports only the non-data sink mode and does not support the data offloading mode. For details, see the multi-scale training implement of [yolov3](https://gitee.com/mindspore/models/tree/r2.2/official/cv/YOLOv3).
 
 <br/>
 
-<font size=3>**Q: If a `tensor` of MindSpore whose `requirements_grad` is set to `False` is converted into `numpy` for processing and then converted into `tensor`, will the computational graph and backward propagation be affected?**</font>
+## Q: If a `tensor` of MindSpore whose `requirements_grad` is set to `False` is converted into `numpy` for processing and then converted into `tensor`, will the computational graph and backward propagation be affected?
 
 A: In PyNative mode, if `numpy` is used for computation, gradient transfer will be interrupted. In the scenario where `requirements_grad` is set to `False`, if the backward propagation of `tensor` is not transferred to other parameters, there is no impact. If `requirements_grad` is set to `True`, there is an impact.
 
 <br/>
 
-<font size=3>**Q: How do I modify the `weight` and `bias` of the fully-connected layer like `torch.nn.functional.linear()`?**</font>
+## Q: How do I modify the `weight` and `bias` of the fully-connected layer like `torch.nn.functional.linear()`?
 
 A: The `nn.Dense` interface is similar to `torch.nn.functional.linear()`. `nn.Dense` can specify the initial values of `weight` and `bias`. Subsequent changes are automatically updated by the optimizer. During the training, you do not need to change the values of the two parameters.
 
 <br/>
 
-<font size=3>**Q: What is the function of the `.meta` file generated after the model is saved using MindSpore? Can the `.meta` file be used to import the graph structure?**</font>
+## Q: What is the function of the `.meta` file generated after the model is saved using MindSpore? Can the `.meta` file be used to import the graph structure?
 
 A: The `.meta` file is a compiled graph structure. However, this structure cannot be directly imported currently. If you do not know the graph structure, you still need to use the MindIR file to import the network.
 
 <br/>
 
-<font size=3>**Q: Can the `yolov4-tiny-3l.weights` model file be directly converted into a MindSpore model?**</font>
+## Q: Can the `yolov4-tiny-3l.weights` model file be directly converted into a MindSpore model?
 
 A: No. You need to convert the parameters trained by other frameworks into the MindSpore format, and then convert the model into a MindSpore model.
 
 <br/>
 
-<font size=3>**Q: Why an error message is displayed when MindSpore is used to set `model.train`?**</font>
+## Q: Why an error message is displayed when MindSpore is used to set `model.train`?
 
 ```python
 model.train(1, dataset, callbacks=ms.train.LossMonitor(1), dataset_sink_mode=True)
@@ -43,7 +43,7 @@ A: If the offloading mode has been set, it cannot be set to non-offloading mode,
 
 <br/>
 
-<font size=3>**Q: What should I pay attention to when using MindSpore to train a model in the `eval` phase? Can the network and parameters be loaded directly? Does the optimizer need to be used in the Model?**</font>
+## Q: What should I pay attention to when using MindSpore to train a model in the `eval` phase? Can the network and parameters be loaded directly? Does the optimizer need to be used in the Model?
 
 A: It mainly depends on what is required in the `eval` phase. For example, the output of the `eval` network of the image classification task is the probability of each class, and the `acc` is circulated with the corresponding label.
 In most cases, the training network and parameters can be directly reused. Note that the inference mode needs to be set.
@@ -63,19 +63,19 @@ res = model.eval(dataset)
 
 <br/>
 
-<font size=3>**Q: How do I use `param_group` in SGD to reduce the learning rate?**</font>
+## Q: How do I use `param_group` in SGD to reduce the learning rate?
 
 A: To change the value according to `epoch`, use [Dynamic LR Function](https://www.mindspore.cn/docs/en/r2.2/api_python/mindspore.nn.html#dynamic-lr-function) and set `step_per_epoch` to `step_size`. To change the value according to `step`, set `step_per_epoch` to 1. You can also use [LearningRateSchedule](https://www.mindspore.cn/docs/en/r2.2/api_python/mindspore.nn.html#learningrateschedule-class).
 
 <br/>
 
-<font size=3>**Q: How do I modify parameters (such as the dropout value) on MindSpore?**</font>
+## Q: How do I modify parameters (such as the dropout value) on MindSpore?
 
 A: When building a network, use `if self.training: x = dropput(x)`. When inferring, set `network.set_train(False)` before execution to disable the dropout function. During training, set `network.set_train(mode_false)` to True to enable the dropout function.
 
 <br/>
 
-<font size=3>**Q: How do I view the number of model parameters?**</font>
+## Q: How do I view the number of model parameters?
 
 A: You can load the checkpoint count directly. Variables in the momentum and optimizer may be counted, so you need to filter them out.
 You can refer to the following APIs to collect the number of network parameters:
@@ -98,7 +98,7 @@ def count_params(net):
 
 <br/>
 
-<font size=3>**Q: How do I monitor the `loss` during training and save the training parameters when the `loss` is the lowest?**</font>
+## Q: How do I monitor the `loss` during training and save the training parameters when the `loss` is the lowest?
 
 A: You can customize the `callback` method to implement the early stopping function.
 Example: When the loss value decreases to a certain value, the training stops.
@@ -122,13 +122,13 @@ model.train(epoch_size, ds_train, callbacks=[stop_cb])
 
 <br/>
 
-<font size=3>**Q: How do I obtain  `feature map` with the expected size when `nn.Conv2d` is used?**</font>
+## Q: How do I obtain  `feature map` with the expected size when `nn.Conv2d` is used?
 
 A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/docs/en/r2.2/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the `Conv2d shape` derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
 
 <br/>
 
-<font size=3>**Q: Can MindSpore be used to customize a loss function that can return multiple values?**</font>
+## Q: Can MindSpore be used to customize a loss function that can return multiple values?
 
 A: After customizing the `loss function`, you need to customize `TrainOneStepCell`. The number of `sens` for implementing gradient calculation is the same as the number of `network` outputs. For details, see the following:
 
@@ -142,13 +142,13 @@ model = ms.train.Model(net=train_net, loss_fn=None, optimizer=None)
 
 <br/>
 
-<font size=3>**Q: How does MindSpore implement the early stopping function?**</font>
+## Q: How does MindSpore implement the early stopping function?
 
 A: You can refer to [EarlyStopping](https://www.mindspore.cn/docs/en/r2.2/api_python/train/mindspore.train.EarlyStopping.html).
 
 <br/>
 
-<font size=3>**Q: After a model is trained, how do I save the model output in text or `npy` format?**</font>
+## Q: After a model is trained, how do I save the model output in text or `npy` format?
 
 A: The network output is `Tensor`. You need to use the `asnumpy()` method to convert the `Tensor` to `NumPy` and then save the data. For details, see the following:
 
@@ -159,7 +159,7 @@ np.save("output.npy", out.asnumpy())
 
 <br/>
 
-<font size=3>**Q: How to handle cache server exception shutdown?**</font>
+## Q: How to handle cache server exception shutdown?
 
 A: During the use of the cache server, system resources such as IPC share memory and socket files are allocated. If overflow is allowed, there will be overflowing data files on disk space. In general, if the server is shut down normally via the `cache_admin --stop` command, these resources will be automatically cleaned up.
 
@@ -204,7 +204,7 @@ However, if the cache server is shut down abnormally, such as the cache service 
 
 <br/>
 
-<font size=3>**Q: Can the `vgg16` model be loaded by using the GPU via Hub and whether can the migration model be done?**</font>
+## Q: Can the `vgg16` model be loaded by using the GPU via Hub and whether can the migration model be done?
 
 A: Please manually modify the following two parameters:
 
@@ -220,7 +220,7 @@ net = Vgg(cfg['16'], num_classes=num_classes, args=args, batch_norm=args.batch_n
 
 <br/>
 
-<font size=3>**Q: How to obtain middle-layer features of a VGG model?**</font>
+## Q: How to obtain middle-layer features of a VGG model?
 
 A: Obtaining the middle-layer features of a network is not closely related to the specific framework. For the `vgg` model defined in `torchvison`, the `features` field can be used to obtain the "middle-layer features". The `vgg` source code of `torchvison` is as follows:
 
@@ -242,25 +242,25 @@ print(network.layers)
 
 <br/>
 
-<font size=3>**Q: When MindSpore is used for model training, there are four input parameters for `CTCLoss`: `inputs`, `labels_indices`, `labels_values`, and `sequence_length`. How do I use `CTCLoss` for model training?**</font>
+## Q: When MindSpore is used for model training, there are four input parameters for `CTCLoss`: `inputs`, `labels_indices`, `labels_values`, and `sequence_length`. How do I use `CTCLoss` for model training?
 
 A: The `dataset` received by the defined `model.train` API can consist of multiple pieces of data, for example, (`data1`, `data2`, `data3`, ...). Therefore, the `dataset` can contain `inputs`, `labels_indices`, `labels_values`, and `sequence_length` information. You only need to define the dataset in the corresponding format and transfer it to `model.train`. For details, see [Data Processing API](https://www.mindspore.cn/tutorials/en/r2.2/advanced/dataset.html).
 
 <br/>
 
-<font size=3>**Q: What are the available recommendation or text generation networks or models provided by MindSpore?**</font>
+## Q: What are the available recommendation or text generation networks or models provided by MindSpore?
 
 A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are under development. In the natural language processing (NLP) field, Bert\_NEZHA is available and models such as MASS are under development. You can rebuild the network into a text generation network based on the scenario requirements. Please stay tuned for updates on the [MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/r2.2/README.md#).
 
 <br/>
 
-<font size=3>**Q: How do I execute a single `ut` case in `mindspore/tests`?**</font>
+## Q: How do I execute a single `ut` case in `mindspore/tests`?
 
 A: `ut` cases are usually based on the MindSpore package of the debug version, which is not provided on the official website. You can run `sh build.sh` to compile based on the source code and then run the `pytest` command. The compilation in debug mode does not depend on the backend. Compile the `sh build.sh -t on` option. For details about how to execute cases, see the `tests/runtest.sh` script.
 
 <br/>
 
-<font size=3>**Q: For Ascend users, how to get more detailed logs to help position the problems when the `run task error` is reported during executing the cases?**</font>
+## Q: For Ascend users, how to get more detailed logs to help position the problems when the `run task error` is reported during executing the cases?
 
 A: Use the msnpureport tool to set the on-device log level. The tool is stored in `/usr/local/Ascend/latest/driver/tools/msnpureport`.
 
@@ -294,7 +294,7 @@ After the `Driver` package is installed (assuming that the installation path is 
 
 <br/>
 
-<font size=3>**Q: How can I do when the error message `Out of Memory!!! total[3212254720] (dynamic[0] memory poll[524288000]) malloc[32611480064] failed!` is displayed by performing the training process using the Ascend platform?**</font>
+## Q: How can I do when the error message `Out of Memory!!! total[3212254720] (dynamic[0] memory poll[524288000]) malloc[32611480064] failed!` is displayed by performing the training process using the Ascend platform?
 
 A: This issue is a memory shortage problem caused by too much memory usage, which can be caused by two possible causes:
 
@@ -304,31 +304,31 @@ A: This issue is a memory shortage problem caused by too much memory usage, whic
 
 <br/>
 
-<font size=3>**Q: How do I change hyperparameters for calculating loss values during neural network training?**</font>
+## Q: How do I change hyperparameters for calculating loss values during neural network training?
 
 A: Sorry, this function is not available yet. You can find the optimal hyperparameters by training, redefining an optimizer, and then training.
 
 <br/>
 
-<font size=3>**Q: What should I do when error `error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory` is displayed during application running?**</font>
+## Q: What should I do when error `error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory` is displayed during application running?
 
 A: While installing Ascend 310 AI Processor software packages depended by MindSpore, the `CANN` package should install the full-featured `toolkit` version instead of the `nnrt` version.
 
 <br/>
 
-<font size=3>**Q: Why does set_ps_context(enable_ps=True) in model_zoo/official/cv/ResNet/train.py in the MindSpore code have to be set before init?**</font>
+## Q: Why does set_ps_context(enable_ps=True) in model_zoo/official/cv/ResNet/train.py in the MindSpore code have to be set before init?
 
 A: In MindSpore Ascend mode, if init is called first, all processes will be allocated cards, but in parameter server training mode, the server does not need to allocate cards, and the worker and server will use the same card, resulting in an error: Ascend kernel runtime initialization failed.
 
 <br/>
 
-<font size=3>**Q: Why report the error `Stream isn't enough` when executing the model on the Ascend platform?**</font>
+## Q: Why report the error `Stream isn't enough` when executing the model on the Ascend platform?
 
 A: When resnet50 training is performed on the CPU ARM, some operators are implemented based on the oneDNN library, and the oneDNN library achieves multi-threaded parallelism based on the libgomp library. Currently, there is a problem in libgomp where the number of threads configured for multiple parallel domains is different and the memory consumption continues to grow. The continuous growth of the memory can be controlled by configuring a uniform number of threads globally. For comprehensive performance considerations, it is recommended to configure a unified configuration to 1/4 of the number of physical cores, such as `export OMP_NUM_THREADS=32`.
 
 <br/>
 
-<font size=3>**Q: Why report an error that the stream exceeds the limit when executing the model on the Ascend platform？**</font>
+## Q: Why report an error that the stream exceeds the limit when executing the model on the Ascend platform？
 
 A: Stream represents an operation queue. Tasks on the same stream are executed in sequence, and different streams can be executed in parallel. Various operations in the network generate tasks and are assigned to streams to control the concurrent mode of task execution. Ascend platform has a limit on the number of tasks on the same stream, and tasks that exceed the limit will be assigned to new streams. The multiple parallel methods of MindSpore will also be assigned to new streams, such as parallel communication operators. Therefore, when the number of assigned streams exceeds the resource limit of the Ascend platform, an error will be reported. Reference solution:
 
@@ -340,7 +340,7 @@ A: Stream represents an operation queue. Tasks on the same stream are executed i
 
 <br/>
 
-<font size=3>**Q: On the Ascend platform, if an error "Ascend error occurred, error message:" is reported in the log and followed by an error code, such as "E40011", how to find the cause of the error code?**</font>
+## Q: On the Ascend platform, if an error "Ascend error occurred, error message:" is reported in the log and followed by an error code, such as "E40011", how to find the cause of the error code?
 
 A: When "Ascend error occurred, error message:" appears, it indicates that a module of Ascend CANN is abnormal and the error log is reported.
 
@@ -348,7 +348,7 @@ At this time, there is an error message after the error code. If you need a more
 
 <br/>
 
-<font size=3>**Q: When the third-party component gensim is used to train the NLP network, the error "ValueError" may be reported. What can I do?**</font>
+## Q: When the third-party component gensim is used to train the NLP network, the error "ValueError" may be reported. What can I do?
 
 A: The following error information is displayed:
 
@@ -380,7 +380,7 @@ Method 2: If the problem persists, delete the cache file of the wheel installati
 
 <br/>
 
-<font size=3>**Q: What should I do if I encounter `matplotlib.pyplot.show()` or `plt.show` not be executed during the documentation sample code is running?**</font>
+## Q: What should I do if I encounter `matplotlib.pyplot.show()` or `plt.show` not be executed during the documentation sample code is running?
 
 A: First confirm whether `matplotlib` is installed. If it is not installed, you can execute `pip install matplotlib` on the command line to install it.
 
@@ -388,7 +388,7 @@ Secondly, because the function of `matplotlib.pyplot.show()` is to display graph
 
 <br/>
 
-<font size=3>**Q: How to handle running failures when encountering an online runtime provided in the documentation?**</font>
+## Q: How to handle running failures when encountering an online runtime provided in the documentation?
 
 A: Need to confirm that the following preparations have been done.
 
@@ -402,7 +402,7 @@ For the specific operation process, please refer to [Based on ModelArts Online E
 
 <br/>
 
-<font size=3>**Q: No error is reported when using result of division in GRAPH mode, but an error is reported when using result of division in PYNATIVE mode？**</font>
+## Q: No error is reported when using result of division in GRAPH mode, but an error is reported when using result of division in PYNATIVE mode？
 
 A: In GRAPH mode, since the graph compilation is used, the data type of the output result of the operator is determined at the graph compilation stage.
 
@@ -443,7 +443,7 @@ Therefore, in the scenario where the subsequent operator clearly needs to use in
 
 <br/>
 
-<font size=3>**Q: Why will running the script on GPU stuck for a long time on version 1.8?**</font>
+## Q: Why will running the script on GPU stuck for a long time on version 1.8?
 
 A: In order to be compatible with more GPU architectures, NVCC compiles CUDA files into PTX files first, and compiles them into binary executable files when using them for the first time. Therefore, compilation time will be consumed.
 Compared with the previous version, version 1.8 has added many CUDA operators, resulting in an increase in the compilation time of this part (The time varies according to the equipment. For example, the first compilation time on V100 is about 5 minutes).
@@ -454,7 +454,7 @@ Subsequent versions will be pre-compiled and optimized.
 
 <br/>
 
-<font size=3>**Q: What can I do when the error message `MemoryError: std::bad_alloc` is reported during the execution of the operator？**</font>
+## Q: What can I do when the error message `MemoryError: std::bad_alloc` is reported during the execution of the operator？
 
 A: The reason for this error is that the user did not configure the operator parameters correctly, so that the memory space applied by the operator exceeded the system memory limit, and the system failed to allocate memory. The following uses mindspore.ops.UniformCandidateSampler as an example for description.
 
@@ -466,7 +466,7 @@ Therefore, the user needs to set the operator parameters appropriately to avoid 
 
 <br/>
 
-<font size=3>**Q: How do I understand the "Ascend Error Message" in the error message?**</font>
+## Q: How do I understand the "Ascend Error Message" in the error message?
 
 A: The "Ascend Error Message" is a fault message thrown after there is an error during CANN execution when CANN (Ascend Heterogeneous Computing Architecture) interface is called by MindSpore, which contains information such as error code and error description. For example:
 
@@ -500,12 +500,12 @@ In addition, CANN may throw some Inner Errors, for example, the error code is "E
 
 <br/>
 
-<font size=3>**Q: How to control the Tensor value printed by the 'print' method?**</font>
+## Q: How to control the Tensor value printed by the 'print' method?
 
 A: In PyNative dynamic graph mode, you can use numpy native methods such as ` set_ Printoptions ` Control the output value. In the Graph static graph mode, because the 'print' method needs to be converted into an operator, the output value cannot be controlled temporarily. For specific usage of print operator, see [Reference](https://www.mindspore.cn/docs/en/r2.2/api_python/ops/mindspore.ops.Print.html)。
 <br/>
 
-<font size=3>**Q: How does `Tensor.asnumpy()` share the underlying storage with Tensor?**</font>
+## Q: How does `Tensor.asnumpy()` share the underlying storage with Tensor?
 
 A: `Tensor.asnumpy()` will convert the Tensor to a NumPy ndarray. This tensor and the returned ndarray by `Tensor.asnumpy()` share the same underlying storage on the host side. On the host side, changes to Tensor will be reflected in the ndarray and vice versa. It should be noted that changes on the host side cannot be automatically synchronized to the device side. For example:
 
