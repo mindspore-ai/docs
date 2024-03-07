@@ -9,8 +9,8 @@
 相关接口：
 
 1. `mindspore.set_auto_parallel_context(strategy_ckpt_config=strategy_ckpt_dict)`：用于设置并行策略文件的配置。`strategy_ckpt_dict`是用于设置并行策略文件的配置，是字典类型。strategy_ckpt_dict = {"load_file": "./stra0.ckpt", "save_file": "./stra1.ckpt", "only_trainable_params": False}，其中：
-    - `load_file(str)`：加载并行切分策略的路径。默认值：""。
-    - `save_file(str)`：保存并行切分策略的路径，分布式训练场景中该参数必须设置。默认值：""。
+    - `load_file(str)`：加载并行切分策略的路径。默认值：`""`。
+    - `save_file(str)`：保存并行切分策略的路径，分布式训练场景中该参数必须设置。默认值：`""`。
     - `only_trainable_params(bool)`：仅保存/加载可训练参数的策略信息。默认值：`True`。
 
 2. `mindspore.train.ModelCheckpoint(prefix='CKP', directory=None, config=None)`：在训练过程中调用该接口保存网络参数。该接口中可以通过配置`config`来配置具体的策略，参见接口`mindspore.train.CheckpointConfig`，需要注意的是，并行模式下需要对每张卡上运行的脚本指定不同的checkpoint保存路径，防止读写文件时发生冲突。
