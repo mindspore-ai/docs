@@ -15,8 +15,8 @@ Related interfaces:
 1. `mindspore.set_auto_parallel_context(full_batch=True, parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)`: Set the parallel configuration, where `full_batch` indicates whether the dataset is imported in full, and `True` indicates a full import with the same data for each card, which must be set to `True` in this scenario. `parallel_mode` is the parallel mode, which must be set to auto-parallel or semi-auto-parallel in this scenario.
 
 2. `mindspore.set_auto_parallel_context(strategy_ckpt_config=strategy_ckpt_dict)`: The configuration used to set the parallel strategy file. `strategy_ckpt_dict` is used to set the configuration of the parallel strategy file and is of dictionary type. strategy_ckpt_dict = {"load_file": ". /stra0.ckpt", "save_file": ". /stra1.ckpt", "only_trainable_params": False}, where:
-    - `load_file(str)`: Path to load the parallel sharding strategy. File address of the strategy file generated in the training phase. This parameter must be set in distributed inference scenarios. Default: "".
-    - `save_file(str)`: The path where the parallel sharding strategy is saved. Default: "".
+    - `load_file(str)`: Path to load the parallel sharding strategy. File address of the strategy file generated in the training phase. This parameter must be set in distributed inference scenarios. Default: `""`.
+    - `save_file(str)`: The path where the parallel sharding strategy is saved. Default: `""`.
     - `only_trainable_params(bool)`: Save/load strategy information for trainable parameters only. Default: `True`.
 
 3. `model.infer_predict_layout(predict_data)`: Generate inference strategies based on inference data.
