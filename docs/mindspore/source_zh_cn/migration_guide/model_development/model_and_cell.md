@@ -20,7 +20,45 @@ PyTorch和MindSpore的基础逻辑如下图所示：
 
 ## 网络基本构成单元 Cell
 
-MindSpore的网络搭建主要使用[Cell](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell)进行图的构造，用户需要定义一个类继承 `Cell` 这个基类，在 `init` 里声明需要使用的API及子模块，在 `construct` 里进行计算， `Cell` 在 `GRAPH_MODE` (静态图模式)下将编译为一张计算图，在 `PYNATIVE_MODE` (动态图模式)下作为神经网络的基础模块。一个基本的 `Cell` 搭建过程如下所示：
+MindSpore的网络搭建主要使用[Cell](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell)进行图的构造，用户需要定义一个类继承 `Cell` 这个基类，在 `init` 里声明需要使用的API及子模块，在 `construct` 里进行计算， `Cell` 在 `GRAPH_MODE` (静态图模式)下将编译为一张计算图，在 `PYNATIVE_MODE` (动态图模式)下作为神经网络的基础模块。
+
+PyTorchhe 和 MindSpore 基本的 `Cell` 搭建过程如下所示：
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+```python
+import torch.nn as torch_nn
+
+class MyCell_pt(torch_nn.Module):
+    def __init__(self, forward_net):
+        super(MyCell_pt, self).__init__()
+        self.net = forward_net
+        self.relu = torch_nn.ReLU()
+
+    def forward(self, x):
+        y = self.net(x)
+        return self.relu(y)
+
+inner_net_pt = torch_nn.Conv2d(120, 240, kernel_size=4, bias=False)
+pt_net = MyCell_pt(inner_net_pt)
+for i in pt_net.parameters():
+    print(i.shape)
+```
+
+运行结果：
+
+```text
+    torch.Size([240, 120, 4, 4])
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 import mindspore.nn as nn
@@ -47,36 +85,16 @@ print(my_net.trainable_params())
 [Parameter (name=net.weight, shape=(240, 120, 4, 4), dtype=Float32, requires_grad=True)]
 ```
 
-参数的名字一般是根据`__init__`定义的对象名字和参数定义时用的名字组成的，比如上面的例子中，卷积的参数名为`net.weight`，其中，`net`是`self.net = forward_net`中的对象名，`weight`是Conv2d中定义卷积的参数时的`name`：`self.weight = Parameter(initializer(self.weight_init, shape), name='weight')`。
+</pre>
+</td>
+</tr>
+</table>
 
-Cell提供了`auto_prefix`接口用来判断Cell中的参数名是否加对象名这层信息，默认是`True`，也就是加对象名。如果`auto_prefix`设置为`False`，则上面这个例子中打印的`Parameter`的`name`是`weight`。通常骨干网络`auto_prefix`应设置为True。用于训练的优化器、 :class:`mindspore.nn.TrainOneStepCell` 等，应设置为False，以避免骨干网络的权重参数名被误改。
+MindSpore中，参数的名字一般是根据`__init__`定义的对象名字和参数定义时用的名字组成的，比如上面的例子中，卷积的参数名为`net.weight`，其中，`net`是`self.net = forward_net`中的对象名，`weight`是Conv2d中定义卷积的参数时的`name`：`self.weight = Parameter(initializer(self.weight_init, shape), name='weight')`。
+
+MindSpore的Cell提供了`auto_prefix`接口用来判断Cell中的参数名是否加对象名这层信息，默认是`True`，也就是加对象名。如果`auto_prefix`设置为`False`，则上面这个例子中打印的`Parameter`的`name`是`weight`。通常骨干网络`auto_prefix`应设置为True。用于训练的优化器、 :class:`mindspore.nn.TrainOneStepCell` 等，应设置为False，以避免骨干网络的权重参数名被误改。
 
 ## 单元测试
-
-搭建完`Cell`之后，最好对每个`Cell`构建一个单元测试方法与对标代码比较，比如上面的例子，其PyTorch的构建代码为：
-
-```python
-import torch.nn as torch_nn
-
-class MyCell_pt(torch_nn.Module):
-    def __init__(self, forward_net):
-        super(MyCell_pt, self).__init__()
-        self.net = forward_net
-        self.relu = torch_nn.ReLU()
-
-    def forward(self, x):
-        y = self.net(x)
-        return self.relu(y)
-
-inner_net_pt = torch_nn.Conv2d(120, 240, kernel_size=4, bias=False)
-pt_net = MyCell_pt(inner_net_pt)
-for i in pt_net.parameters():
-    print(i.shape)
-```
-
-```text
-    torch.Size([240, 120, 4, 4])
-```
 
 有了构建`Cell`的脚本，需要使用相同的输入数据和参数，对输出做比较：
 
@@ -964,7 +982,14 @@ dx (Tensor(shape=[2, 5], dtype=Float32, value=
 ### 网络执行过程中有引发shape变化的操作
 
 对于网络运行过程中生成不固定shape的Tensor的场景，最常用的方式是构造mask来过滤掉无效的位置的值。一个简单的例子，在检测场景下需要根据预测框和真实框的iou结果选取一些框。
-PyTorch的实现方式如下：
+PyTorch 和 MindSpore（MindSpore1.8之后全场景支持了`masked_select`） 的实现方式如下：
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch </td> <td style="text-align:center"> MindSpore </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
 
 ```python
 def box_select_torch(box, iou_score):
@@ -972,7 +997,9 @@ def box_select_torch(box, iou_score):
     return box[mask]
 ```
 
-当前MindSpore1.8之后全场景支持了`masked_select`，在MindSpore上可以这样实现：
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
 
 ```python
 import mindspore as ms
@@ -984,6 +1011,11 @@ def box_select_ms(box, iou_score):
     mask = (iou_score > 0.3).expand_dims(1)
     return ops.masked_select(box, mask)
 ```
+
+</pre>
+</td>
+</tr>
+</table>
 
 看一下结果对比：
 

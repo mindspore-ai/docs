@@ -42,85 +42,9 @@
 
 这部分包含检查所有参数和可训练参数的数量，检查所有参数的shape。
 
-- MindSpore获取参数方法
-
-  MindSpore可训练的参数和不可训练的参数都用`Parameter`。
-
-  ```python
-  from mindspore import nn
-
-  class msNet(nn.Cell):
-      def __init__(self):
-          super(msNet, self).__init__()
-          self.fc = nn.Dense(1, 1, weight_init='normal')
-      def construct(self, x):
-          output = self.fc(x)
-          return output
-
-  msnet = msNet()
-  # 获取所有参数
-  all_parameter = []
-  for item in msnet.get_parameters():
-      all_parameter.append(item)
-      print(item.name, item.data.shape)
-  print(f"all parameter numbers: {len(all_parameter)}")
-
-  # 获取可训练的参数
-  trainable_params = msnet.trainable_params()
-  for item in trainable_params:
-      print(item.name, item.data.shape)
-  print(f"trainable parameter numbers: {len(trainable_params)}")
-  ```
-
-  ```text
-  fc.weight (1, 1)
-  fc.bias (1,)
-  all parameter numbers: 2
-  fc.weight (1, 1)
-  fc.bias (1,)
-  trainable parameter numbers: 2
-  ```
-
-- PyTorch获取参数方法
-
-  PyTorch可训练的参数用`Parameter`，不可训练的参数`Parameter`的`requires_grad=False`或使用`buffer`。
-
-  ```python
-  from torch import nn
-
-  class ptNet(nn.Module):
-      def __init__(self):
-          super(ptNet, self).__init__()
-          self.fc = nn.Linear(1, 1)
-      def construct(self, x):
-          output = self.fc(x)
-          return output
-
-  ptnet = ptNet()
-  all_parameter = []
-  trainable_params = []
-  # 获取网络里的参数
-  for name, item in ptnet.named_parameters():
-      if item.requires_grad:
-          trainable_params.append(item)
-      all_parameter.append(item)
-      print(name, item.shape)
-
-  for name, buffer in ptnet.named_buffers():
-      all_parameter.append(buffer)
-      print(name, buffer.shape)
-  print(f"all parameter numbers: {len(all_parameter)}")
-  print(f"trainable parameter numbers: {len(trainable_params)}")
-  ```
-
-  ```text
-  fc.weight torch.Size([1, 1])
-  fc.bias torch.Size([1])
-  all parameter numbers: 2
-  trainable parameter numbers: 2
-  ```
-
-  MindSpore和PyTorch的参数除了BatchNorm区别大一点，其他都差不多。注意MindSpore里没有`num_batches_tracked`的对应，实际使用时这个参数可以用优化器里的`global_step`替代。
+- PyTorch可训练的参数用`Parameter`，不可训练的参数`Parameter`的`requires_grad=False`或使用`buffer`。
+- MindSpore可训练的参数和不可训练的参数都用`Parameter`。
+- MindSpore和PyTorch的参数除了BatchNorm区别大一点，其他都差不多。注意MindSpore里没有`num_batches_tracked`的对应，实际使用时这个参数可以用优化器里的`global_step`替代。
 
   | MindSpore | PyTorch |
   | --------- | --------|
@@ -129,6 +53,96 @@
   | moving_mean | running_mean |
   | moving_variance | running_var |
   | 无 | num_batches_tracked |
+
+<table class="colwidths-auto docutils align-default">
+<tr>
+<td style="text-align:center"> PyTorch 获取参数方法 </td> <td style="text-align:center"> MindSpore 获取参数方法 </td>
+</tr>
+<tr>
+<td style="vertical-align:top"><pre>
+
+```python
+from torch import nn
+
+class ptNet(nn.Module):
+    def __init__(self):
+          super(ptNet, self).__init__()
+          self.fc = nn.Linear(1, 1)
+    def construct(self, x):
+        output = self.fc(x)
+        return output
+
+ptnet = ptNet()
+all_parameter = []
+trainable_params = []
+# 获取网络里的参数
+for name, item in ptnet.named_parameters():
+    if item.requires_grad:
+        trainable_params.append(item)
+    all_parameter.append(item)
+    print(name, item.shape)
+
+for name, buffer in ptnet.named_buffers():
+    all_parameter.append(buffer)
+    print(name, buffer.shape)
+print(f"all parameter numbers: {len(all_parameter)}")
+print(f"trainable parameter numbers: {len(trainable_params)}")
+```
+
+打印结果：
+
+```text
+fc.weight torch.Size([1, 1])
+fc.bias torch.Size([1])
+all parameter numbers: 2
+trainable parameter numbers: 2
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+from mindspore import nn
+
+class msNet(nn.Cell):
+    def __init__(self):
+        super(msNet, self).__init__()
+        self.fc = nn.Dense(1, 1, weight_init='normal')
+    def construct(self, x):
+        output = self.fc(x)
+        return output
+
+msnet = msNet()
+# 获取所有参数
+all_parameter = []
+for item in msnet.get_parameters():
+    all_parameter.append(item)
+    print(item.name, item.data.shape)
+print(f"all parameter numbers: {len(all_parameter)}")
+
+# 获取可训练的参数
+trainable_params = msnet.trainable_params()
+for item in trainable_params:
+    print(item.name, item.data.shape)
+print(f"trainable parameter numbers: {len(trainable_params)}")
+```
+
+打印结果：
+
+```text
+fc.weight (1, 1)
+fc.bias (1,)
+all parameter numbers: 2
+fc.weight (1, 1)
+fc.bias (1,)
+trainable parameter numbers: 2
+```
+
+</pre>
+</td>
+</tr>
+</table>
 
 #### 2.模型验证
 
