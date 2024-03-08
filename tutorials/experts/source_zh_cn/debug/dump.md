@@ -425,6 +425,12 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
     - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
     - 在分布式场景下，Dump环境变量需要在调用`mindspore.communication.init`之前配置。
 
+   可通过配置环境变量使能ACL dump。
+
+   ```bash
+   export MS_ACL_DUMP_CFG_PATH=${Absolute path of data_dump.json}
+   ```
+
 3. 执行用例Dump数据。
 
    可以在训练脚本中设置`set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
@@ -452,19 +458,34 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
                         mapping.csv
 ```
 
-在[jit_level](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level)设置为‘O0’时，Dump目录结构如下所示：
+通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且[jit_level](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level)设置为‘O0’以外的时，Dump目录结构如下所示，主要特征为存在{step_id}目录，代表用户侧的训练轮次：
 
 ```text
 {path}/
     - {step_id}/
         - {time}/
             - {device_id}/
-                - {model_id}/
-                    - {iteration_id}/
-                        statistic.csv
-                        {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
-                        Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
-                        mapping.csv
+                - {model_name}/
+                    - {model_id}/
+                        - {iteration_id}/
+                            statistic.csv
+                            {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
+                            Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
+                            mapping.csv
+```
+
+通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且[jit_level](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level)设置为‘O0’时，Dump目录结构如下所示，主要特征为不存在{model_name}和{model_id}目录：
+
+```text
+{path}/
+    - {step_id}/
+        - {time}/
+            - {device_id}/
+                - {iteration_id}/
+                    statistic.csv
+                    {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
+                    Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
+                    mapping.csv
 ```
 
 - `path`：`data_dump.json`配置文件中设置的绝对路径。
@@ -472,7 +493,7 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
 - `device_id`: 卡号。
 - `model_name`：模型名称，由MindSpore生成。
 - `model_id`：模型标号。
-- `iteration_id`：训练的轮次。
+- `iteration_id`：GE侧训练的轮次。
 - `op_type`：算子类型。
 - `op_name`：算子名称。
 - `task_id`：任务标号。
