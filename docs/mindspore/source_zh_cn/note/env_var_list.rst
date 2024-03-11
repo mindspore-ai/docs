@@ -533,6 +533,27 @@ CANN的环境变量详见 `昇腾社区 <https://www.hiascend.com/document/detai
 
        1: 打印异序ir文件
      -
+   * - MS_DEV_DUMP_IR_FORMAT
+     - 配置IR图中展示哪些信息
+     - Integer
+     - 0：除return节点外，只打印节点的operator和节点的输入，并且简化子图的打印信息。
+
+       1：打印除debug info和scope以外的所有信息。
+
+       2或不设置：打印所有信息。
+     -
+   * - MS_DEV_DUMP_IR_INTERVAL
+     - 设置间隔多少个IR文件打印保存一个IR文件，减少IR图的打印数量。
+     - Integer
+     - 1或不设置：打印保存所有IR文件。
+
+       其它数值：按照指定的间隔个数保存IR文件。
+     - 该环境变量与MS_DEV_DUMP_IR_PASSES同时打开时，优先遵从MS_DEV_DUMP_IR_PASSES的规则，该环境变量不会生效。
+   * - MS_DEV_DUMP_IR_PASSES
+     - 根据文件名指定保存哪些IR文件。
+     - String
+     - 文件名或文件名的一部分。如果有多个，使用逗号隔开。例如`export MS_DEV_DUMP_IR_PASSES=recompute,renormalize`。
+     - 设置该环境变量时，无论MS_DEV_SAVE_GRAPHS设置为什么等级，详细的前端IR文件都会参与筛选和打印。
    * - MS_DEV_SIDE_EFFECT_LOAD_ELIM
      - 优化冗余显存拷贝操作
      - Integer
