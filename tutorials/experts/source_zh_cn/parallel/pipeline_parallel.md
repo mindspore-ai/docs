@@ -10,11 +10,13 @@
 
 相关接口：
 
-1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=NUM)`：设置半自动并行模式，且设置`pipeline_stages`用来表明Stage的总数为NUM，必须在初始化网络之前调用。
+1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=NUM, pipeline_result_broadcast=True)`：设置半自动并行模式，且设置`pipeline_stages`用来表明Stage的总数为NUM，必须在初始化网络之前调用。`pipeline_result_broadcast`表示流水线并行推理时，最后一个stage的结果是否广播给其余stage。
 
 2. `nn.PipelineCell(loss_cell, micro_size)`：流水线并行需要在LossCell外再包一层`PipelineCell`，并指定MicroBatch的size。为了提升机器的利用率，MindSpore将MiniBatch切分成了更细粒度的MicroBatch，最终的loss则是所有MicroBatch计算的loss值累加。其中，MicroBatch的size必须大于等于Stage的数量。
 
 3. `nn.PipelineGradReducer(parameters)`：流水行并行需要使用`PipelineGradReducer`来完成梯度聚合。这是因为流水线并行中，其输出是由多个`micro-batch`的结果相加得到，因此其梯度也需要进行累加。
+
+4. `mindspore.parallel.sync_pipeline_shared_parameters(net)`: 在推理场景下，用于同步不同stage之间共享权重。
 
 ## 基本原理
 
@@ -36,7 +38,7 @@ MindSpore的流水线并行实现中对执行序进行了调整，来达到更�
 
 *图3：MindSpore流水线并行执行时间线示意图*
 
-## 操作实践
+## 训练操作实践
 
 下面以Ascend或者GPU单机8卡为例，进行流水线并行操作说明：
 
@@ -204,6 +206,188 @@ epoch: 0 step: 30, loss is 6.7301626
 epoch: 0 step: 40, loss is 5.2246842
 epoch: 0 step: 50, loss is 3.8342278
 ...
-``
+```
 
 其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/startup_method.html)。
+
+## 推理操作实践
+
+下面以Ascend或者GPU单机8卡为例，进行流水线并行操作说明：
+
+### 样例代码说明
+
+> 下载完整的样例代码：[distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/distributed_pipeline_parallel)。
+
+目录结构如下：
+
+```text
+
+└─ sample_code
+    ├─ distributed_pipeline_parallel
+       ├── distributed_pipeline_parallel_inference.py
+       └── run_inference.sh
+    ...
+
+```
+
+其中，`distributed_pipeline_parallel_inference.py`是定义网络结构和推理过程的脚本。`run_inference.sh`是执行脚本。
+
+### 配置分布式环境
+
+通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，并通过init初始化HCCL或NCCL通信。此外，还需配置`pipeline_stages=2`指定Stage的总数。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。`pipeline_result_broadcast=True`表示流水线并行推理时，将最后一个stage的结果广播给其余stage，可以用于自回归推理场景。
+
+```python
+
+import mindspore as ms
+from mindspore.communication import init
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, full_batch=True,
+                             pipeline_stages=4, pipeline_result_broadcast=True)
+init()
+ms.set_seed(1)
+
+```
+
+### 定义网络
+
+流水线并行需要用户去定义并行的策略，通过调用`pipeline_stage`接口来指定每个layer要在哪个stage上去执行。`pipeline_stage`接口的粒度为`Cell`。所有包含训练参数的`Cell`都需要配置`pipeline_stage`，并且`pipeline_stage`要按照网络执行的先后顺序，从小到大进行配置。在单卡模型基础上，增加`pipeline_stage`配置后如下：
+
+```python
+
+import numpy as np
+from mindspore import lazy_inline, nn, ops, Tensor, Parameter
+from mindspore.parallel.checkpoint_transform import sync_pipeline_shared_parameters
+
+class VocabEmbedding(nn.Cell):
+    """Vocab Embedding"""
+    def __init__(self, vocab_size, embedding_size):
+        super().__init__()
+        self.embedding_table = Parameter(Tensor(np.ones([vocab_size, embedding_size]), ms.float32),
+                                         name='embedding_table')
+        self.gather = ops.Gather()
+
+    def construct(self, x):
+        output = self.gather(self.embedding_table, x, 0)
+        output = output.squeeze(1)
+        return output, self.embedding_table.value()
+
+
+class Head(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.matmul = ops.MatMul(transpose_b=True)
+
+    def construct(self, state, embed):
+        return self.matmul(state, embed)
+
+
+class Network(nn.Cell):
+    """Network"""
+    @lazy_inline
+    def __init__(self):
+        super().__init__()
+        self.word_embedding = VocabEmbedding(vocab_size=32, embedding_size=32)
+        self.layer1 = nn.Dense(32, 32)
+        self.layer2 = nn.Dense(32, 32)
+        self.head = Head()
+
+    def construct(self, x):
+        x, embed = self.word_embedding(x)
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.head(x, embed)
+        return x
+
+# Define network and set pipeline stage
+net = Network()
+net.word_embedding.pipeline_stage = 0
+net.layer1.pipeline_stage = 1
+net.layer2.pipeline_stage = 2
+net.head.pipeline_stage = 3
+
+```
+
+### 推理网络
+
+在network外包一层`PipelineCellInference`，并指定MicroBatch的size。`PipelineCellInference`中将输入切分为若干个micro batch，执行推理网络，最后将若干个micro batch推理结果通过`ops.Concat`算子沿batch轴拼接后返回。
+
+在上一步中，`embed`被`self.word_embedding`和`self.head`两层共享，并且这两层被切分到了不同的stage上。在执行推理前，先编译计算图`inference_network.compile()`，再调用`sync_pipeline_shared_parameters(inference_network)`接口，框架自动同步stage间的共享权重。
+
+```python
+
+from mindspore import nn, ops
+
+class PipelineCellInference(nn.Cell):
+    """Pipeline Cell Inference wrapper"""
+    def __init__(self, network, micro_batch_num):
+        super().__init__()
+        self.network = network
+        self.micro_batch_num = micro_batch_num
+        self.concat = ops.Concat()
+
+    def construct(self, x):
+        """Apply the pipeline inference"""
+        ret = ()
+        for i in range(self.micro_batch_num):
+            micro_batch_size = x.shape[0] // self.micro_batch_num
+            start = micro_batch_size * i
+            end = micro_batch_size * (i + 1)
+
+            micro_input = x[start:end]
+            micro_output = self.network(micro_input)
+            ret = ret + (micro_output,)
+
+        ret = self.concat(ret)
+        return ret
+
+inference_network = PipelineCellInference(network=net, micro_batch_num=4)
+inference_network.set_train(False)
+
+# Compile and synchronize shared parameter.
+input_ids = Tensor(np.random.randint(low=0, high=32, size=(8, 1)), ms.int32)
+inference_network.compile(input_ids)
+sync_pipeline_shared_parameters(inference_network)
+
+# Execute the inference network
+logits = inference_network(input_ids)
+print(logits.asnumpy())
+
+```
+
+### 运行单机8卡脚本
+
+接下来通过命令调用对应的脚本，以`msrun`启动方式，8卡的分布式推理脚本为例，进行分布式训练：
+
+```bash
+
+bash run_inference.sh
+
+```
+
+训练完后，日志文件保存到`pipeline_inference_logs`目录下，其中部分文件目录结构如下：
+
+```text
+
+└─ pipeline_inference_logs
+   ├── scheduler.log
+   ├── worker_0.log
+   ├── worker_1.log
+   ├── worker_2.log
+...
+
+```
+
+结果保存在`pipeline_inference_logs/worker_0.log`中，示例如下：
+
+```text
+
+[[0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556
+  0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556
+  0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556
+  0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556
+  0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556
+  0.01181556 0.01181556]
+  ...]
+
+```
