@@ -136,7 +136,7 @@ Graph Compilation
    * - MS_DEV_DUMP_IR_FORMAT
      - Configure what information is displayed in IR graphs.
      - Integer
-     - 0: Except for the return node, only the operator and operand of the node are displayed, and the detailed information of subgraph is simplified.
+     - 0: Except for the return node, only the operator and inputs of the node are displayed, and the detailed information of subgraph is simplified.
 
        1: Display all information except debug info and scope.
 
