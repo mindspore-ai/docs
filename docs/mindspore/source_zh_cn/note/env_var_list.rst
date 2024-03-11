@@ -137,7 +137,7 @@
    * - MS_DEV_DUMP_IR_FORMAT
      - 配置IR图中展示哪些信息
      - Integer
-     - 0：除return节点外，只打印节点的operator和operand，并且简化子图的打印信息。
+     - 0：除return节点外，只打印节点的operator和节点的输入，并且简化子图的打印信息。
 
        1：打印除debug info和scope以外的所有信息。
 
