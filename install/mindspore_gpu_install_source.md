@@ -25,7 +25,7 @@
 
 本文档介绍如何在GPU环境的Linux系统上，使用源码编译方式快速安装MindSpore。下面以Ubuntu 18.04为例说明MindSpore编译安装步骤。
 
-- 如果您想在一个全新的带有GPU的Ubuntu 18.04上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/r2.3/scripts/install/ubuntu-gpu-source.sh)进行一键式配置，参见[环境准备-自动，推荐](#环境准备-自动推荐)小节。自动安装脚本会安装编译MindSpore所需的依赖。
+- 如果您想在一个全新的带有GPU的Ubuntu 18.04上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/r2.3/scripts/install/ubuntu-gpu-source.sh)进行一键式配置，参见[环境准备-自动，推荐](#环境准备-自动-推荐)小节。自动安装脚本会安装编译MindSpore所需的依赖。
 
 - 如果您的系统已经安装了部分依赖，如CUDA，Python，GCC等，则推荐参照[环境准备-手动](#环境准备-手动)小节的安装步骤手动安装。
 
