@@ -241,7 +241,7 @@ print(network.layers)
 
 <br/>
 
-## Q: 使用MindSpore进行模型训练时，`CTCLoss`的输入参数有四个: `inputs`, `labels_indices`, `labels_values`, `sequence_length`，如何使用`CTCLoss`进行训练？
+## Q: 使用MindSpore进行模型训练时，`CTCLoss`的输入参数有四个: `inputs`、`labels_indices`、`labels_values`、`sequence_length`，如何使用`CTCLoss`进行训练？
 
 A: 定义的`model.train`接口里接收的`dataset`可以是多个数据组成，形如(`data1`、`data2`、`data3`...)，所以`dataset`是可以包含`inputs`、`labels_indices`、`labels_values`、`sequence_length`的信息的。只需要定义好相应形式的`dataset`，传入`model.train`里就可以。具体的可以了解下相应的[数据处理接口](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)。
 
@@ -315,7 +315,7 @@ A: 安装MindSpore所依赖的Atlas 200/300/500推理产品配套软件包时，
 
 <br/>
 
-## Q: MindSpore代码里面的model_zoo/official/cv/ResNet/train.py中set_ps_context(enable_ps=True)为什么一定要在init之前设置
+## Q: MindSpore代码里面的model_zoo/official/cv/ResNet/train.py中set_ps_context(enable_ps=True)为什么一定要在init之前设置？
 
 A: MindSpore Ascend模式下，如果先调用init，那么会为所有的进程都分配卡，但是parameter server训练模式下server是不需要分配卡的，那么worker和server就会去使用同一块卡，导致会报错: Ascend kernel runtime initialization failed。
 

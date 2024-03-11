@@ -15,8 +15,8 @@
 1. `mindspore.set_auto_parallel_context(full_batch=True, parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)`：设置并行配置，其中`full_batch`表示是否全量导入数据集，为`True`时表明全量导入，每卡的数据相同，该场景中必须设置为`True`。`parallel_mode`为并行模式，该场景中必须设置为自动并行或者半自动并行模式。
 
 2. `mindspore.set_auto_parallel_context(strategy_ckpt_config=strategy_ckpt_dict)`：用于设置并行策略文件的配置。`strategy_ckpt_dict`是用于设置并行策略文件的配置，是字典类型。strategy_ckpt_dict = {"load_file": "./stra0.ckpt", "save_file": "./stra1.ckpt", "only_trainable_params": False}，其中：
-    - `load_file(str)`：加载并行切分策略的路径，训练阶段生成的策略文件的文件地址，分布式推理场景中该参数必须设置。默认值：""。
-    - `save_file(str)`：保存并行切分策略的路径。默认值：""。
+    - `load_file(str)`：加载并行切分策略的路径，训练阶段生成的策略文件的文件地址，分布式推理场景中该参数必须设置。默认值：`""`。
+    - `save_file(str)`：保存并行切分策略的路径。默认值：`""`。
     - `only_trainable_params(bool)`：仅保存/加载可训练参数的策略信息。默认值：`True`。
 
 3. `model.infer_predict_layout(predict_data)`：根据推理数据生成推理策略。

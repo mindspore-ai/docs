@@ -39,6 +39,7 @@ MindSpore Documentation
    api_python/mindspore
    api_python/mindspore.nn
    api_python/mindspore.ops
+   api_python/mindspore.ops.extend
    api_python/mindspore.ops.primitive
    api_python/mindspore.amp
    api_python/mindspore.train
@@ -110,7 +111,6 @@ MindSpore Documentation
    faq/implement_problem
    faq/network_compilation
    faq/operators_compile
-   faq/usage_migrate_3rd
    faq/performance_tuning
    faq/precision_tuning
    faq/distributed_parallel

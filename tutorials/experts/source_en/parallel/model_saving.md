@@ -9,8 +9,8 @@ In this tutorial, we mainly explain how to utilize MindSpore for distributed net
 Related interfaces:
 
 1. `mindspore.set_auto_parallel_context(strategy_ckpt_config=strategy_ckpt_dict)`: The configuration used to set the parallel strategy file. `strategy_ckpt_dict` is used to set the configuration of the parallel strategy file and is of dictionary type. strategy_ckpt_dict = {"load_file": ". /stra0.ckpt", "save_file": ". /stra1.ckpt", "only_trainable_params": False}, where:
-    - `load_file(str)`: The path to load the parallel sharding strategy. Default: "".
-    - `save_file(str)`: Save the paths for the parallel sharding strategy. This parameter must be set for distributed training scenarios. Default: "".
+    - `load_file(str)`: The path to load the parallel sharding strategy. Default: `""`.
+    - `save_file(str)`: Save the paths for the parallel sharding strategy. This parameter must be set for distributed training scenarios. Default: `""`.
     - `only_trainable_params(bool)`: Save/load strategy information for trainable parameters only. Default: `True`.
 
 2. `mindspore.train.ModelCheckpoint(prefix='CKP', directory=None, config=None)`: This interface is called to save network parameters during training. Specific strategy can be configured in this interface by configuring `config`, and see interface `mindspore.train.CheckpointConfig`. It should be noted that in parallel mode you need to specify a different checkpoint save path for each script running on each card, to prevent conflicts when reading and writing files.

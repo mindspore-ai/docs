@@ -91,7 +91,7 @@ A: 遇到这种情况，
 
 <br/>
 
-## Q: 使用ExpandDims算子报错: `Pynative run op ExpandDims failed`。具体代码:
+## Q: 使用ExpandDims算子报错: `Pynative run op ExpandDims failed`。具体代码：
 
 ```python
 set_context(mode=GRAPH_MODE,device_target='Ascend')

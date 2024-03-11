@@ -240,7 +240,7 @@ A: 常用的环境变量设置写入到`~/.bash_profile` 或 `~/.bashrc`中，�
 
 <br/>
 
-### Q: 使用GPU版本MindSpore时，如何设置`DEVICE_ID`环境变量
+### Q: 使用GPU版本MindSpore时，如何设置`DEVICE_ID`环境变量？
 
 A: MindSpore GPU模式一般无需设置`DEVICE_ID`环境变量，MindSpore会根据cuda环境变量`CUDA_VISIBLE_DEVICES`，自动选择可见的GPU设备。设置`CUDA_VISIBLE_DEVICES`环境变量后，则`DEVICE_ID`环境变量代表可见GPU设备的下标:
 
