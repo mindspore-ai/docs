@@ -406,6 +406,33 @@ Dump调试
      - Integer
      - 为0时只处理硬件无关编译；为1时进一步处理硬件相关编译。默认不开启。
      - 此环境变量主要用于单卡模拟分布式多卡特定rank卡的编译情况，需要RANK_SIZE和RANK_ID配合使用。
+   * - DUMP_PARALLEL_INFO
+     - 导出自动并行/半自动并行模式下的并行相关通信信息。dump文件路径可以通过set_context(save_graphs_path="path/to/parallel_info_files")设置。
+     - Integer
+     - 1代表开启该dump功能，其他值或者不设置该环境变量代表关闭。
+     - 每张卡保存的json文件包含的字段含义如下：
+
+       hccl_algo: 集合通信算法。
+
+       op_name: 通信算子名称。
+ 
+       op_type: 通信算子类型。
+ 
+       shape: 通信算子的shape信息。
+ 
+       data_type: 通信算子的数据类型。
+ 
+       global_rank_id: 全局rank编号。
+ 
+       comm_group_name: 通信算子的通信域名称。
+
+       comm_group_rank_ids: 通信算子的通信域。
+
+       src_rank: Receive算子的对端算子。
+
+       dest_rank: 算子的对端算子。
+
+       sr_tag: src和dest相同时，不同send-receive对的标识ID。
 
 动态组网相关的具体用法详见 `动态组网 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/dynamic_cluster.html>`_ 。
 

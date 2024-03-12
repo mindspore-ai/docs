@@ -406,6 +406,36 @@ Distributed Parallel
      - 0: Only the hardware independent compilation is processed; 1: the hardware related compilation is also processed.The default simulation compilation is turned off.
      - This environment variable is mainly used to simulate the compilation of a specific rank card in distributed training, and requires the combination of RANK_SIZE and RANK_ID.
 
+   * - DUMP_PARALLEL_INFO
+     - Enable dump parallel-related communication information in auto-parallel/semi-automatic parallelism mode. The dump path can be set by set_context(save_graphs_path="path/to/parallel_info_files")
+     - Integer
+     - 1: Enable dump parallel information.
+
+       No setting or other value: Disable printing.
+     - The JSON file saved by each card contains the following fields:
+
+       hccl_algo: Ensemble communication algorithm.
+       
+       op_name: The name of the communication operator.
+        
+       op_type: The type of communication operator.
+        
+       shape: The shape information of the communication operator.
+        
+       data_type: The data type of the communication operator.
+        
+       global_rank_id: the global rank number.
+        
+       comm_group_name: the communication domain name of the communication operator.
+       
+       comm_group_rank_ids: The communication domain of the communication operator.
+       
+       src_rank: The peer operator of the Receive operator.
+       
+       dest_rank: The operator at the opposite end of the operator.
+       
+       sr_tag: The identity ID of different send-receive pairs when src and dest are the same.
+
 See `Dynamic Cluster <https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/dynamic_cluster.html>`_ for more details about Dynamic Cluster.
 
 Operators Compile
