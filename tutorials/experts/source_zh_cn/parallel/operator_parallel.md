@@ -18,7 +18,7 @@
 
     - `ops.Gather().add_prim_attr("manual_split", split_tuple)`：该接口配置Gather算子的第一个输入非均匀切分，它仅对axis=0时有效。其中`split_tuple`是一个元素为int类型的元组，元素之和须等于Gather算子第一个输入的第零维的长度，元组个数须等于Gather算子第一个输入的第零维切分份数。
     - `ops.Gather().add_prim_attr("primitive_target", "CPU")`：该接口配置Gather算子在CPU上执行，用于异构场景。
-    - `ops.Reshape()add_prim_attr("skip_redistribution")`：对于ops.Reshape的前后不进行张量重排布(张量重排布见[基本原理](#基本原理))。
+    - `ops.Reshape().add_prim_attr("skip_redistribution")`：对于ops.Reshape的前后不进行张量重排布(张量重排布见[基本原理](#基本原理))。
     - `ops.ReduceSum().add_prim_attr("cross_batch")`：该接口仅对Reduce类算子适用。当配置这个参数后，Reduce类算子如果轴被切分，则会对分片完成reduce操作后不进行多卡之间的同步，结果会和单卡不等价。
 
 ## 基本原理
