@@ -18,7 +18,7 @@ Related interfaces:
 
     - `ops.Gather().add_prim_attr("manual_split", split_tuple)`: This interface configures the first input of the Gather operator to be non-uniformly sliced, which is only valid for axis=0. `split_tuple` is a tuple with elements of type int, the sum of the elements must be equal to the length of the 0th dimension of the first input in the Gather operator, and the number of tuples must be equal to the number of 0th dimensional slices of the first input in the Gather operator.
     - `ops.Gather().add_prim_attr("primitive_target", "CPU")`: This interface configures the Gather operator to execute on the CPU for heterogeneous scenarios.
-    - `ops.Reshape()add_prim_attr("skip_redistribution")`: Do not apply tensor redistribution (For tensor redistribution, see [Basic Principle](#basic-principle)) before and after ops.Reshape.
+    - `ops.Reshape().add_prim_attr("skip_redistribution")`: Do not apply tensor redistribution (For tensor redistribution, see [Basic Principle](#basic-principle)) before and after ops.Reshape.
     - `ops.ReduceSum().add_prim_attr("cross_batch")`: This interface only supports Reduce operators. When cross_batch is configurated, if the sliced axis is same as the calculated axis of reduce ops, the synchronization will not be added to each cards, which causes different result that is different from that of single card.
 
 ## Basic Principle
