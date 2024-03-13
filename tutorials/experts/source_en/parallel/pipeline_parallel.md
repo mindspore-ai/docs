@@ -10,11 +10,13 @@ In recent years, the scale of neural networks has increased exponentially. Limit
 
 Related interfaces:
 
-1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=NUM)`: Set semi-automatic parallel mode and set `pipeline_stages` to indicate that the total number of stages is NUM and call it before initializing the network.
+1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=NUM, pipeline_result_broadcast=True)`: Set semi-automatic parallel mode and set `pipeline_stages` to indicate that the total number of stages is NUM and call it before initializing the network. `pipeline_result_broadcast`: A switch that broadcast the last stage result to all other stage in pipeline parallel inference.
 
 2. `nn.PipelineCell(loss_cell, micro_size)`: pipeline parallelism requires wrapping a layer of `PipelineCell` around the LossCell and specifying the size of the MicroBatch. In order to improve machine utilization, MindSpore slices the MiniBatch into finer-grained MicroBatches, and the final loss is the sum of the loss values computed by all MicroBatches, where the size of the MicroBatch must be greater than or equal to the number of stages.
 
 3. `nn.PipelineGradReducer(parameters)`: pipeline parallelism requires using `PipelineGradReducer` for gradient reduction. Because the output of pipeline parallelism is derived by the addition of several micro-batch outputs, as the gradient do.
+
+4. `mindspore.parallel.sync_pipeline_shared_parameters(net)`: Synchronize pipeline parallel stage shared parameters.
 
 ## Basic Principle
 
@@ -36,7 +38,7 @@ In MindSpore's pipeline parallel implementation, the execution order has been ad
 
 *Figure 3: MindSpore Pipeline Parallel Execution Timeline Diagram*
 
-## Operation Practices
+## Training Operation Practices
 
 The following is an illustration of pipeline parallel operation using Ascend or GPU single-machine 8-card as an example:
 
@@ -207,3 +209,185 @@ epoch: 0 step: 50, loss is 3.8342278
 ```
 
 Other startup methods such as dynamic cluster and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/startup_method.html).
+
+## Inference Operation Practices
+
+The following is an illustration of pipeline parallel inference operation using Ascend or GPU single-machine 8-card as an example:
+
+### Sample Code Description
+
+> Download the complete sample code: [distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/distributed_pipeline_parallel).
+
+The directory structure is as follows:
+
+```text
+
+└─ sample_code
+    ├─ distributed_pipeline_parallel
+       ├── distributed_pipeline_parallel_inference.py
+       └── run_inference.sh
+    ...
+
+```
+
+`distributed_pipeline_parallel_inference.py` is the script that defines the network structure and inference process. `run_inference.sh` is the execution script.
+
+### Configuring the Distributed Environment
+
+Specify the run mode, run device, run card number, etc. via the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode and initialize HCCL or NCCL communication via init. In addition, `pipeline_stages=2` should be configured to specify the total number of stages. Not setting `device_target` here automatically specifies the backend hardware device corresponding to the MindSpore package. `pipeline_result_broadcast=True` specifies broadcast last stage inference to other stages. It is useful during auto-regression inference.
+
+```python
+
+import mindspore as ms
+from mindspore.communication import init
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, full_batch=True,
+                             pipeline_stages=4, pipeline_result_broadcast=True)
+init()
+ms.set_seed(1)
+
+```
+
+### Defining the Network
+
+The pipeline parallel network structure is basically the same as the single-card network structure, and the difference is the addition of pipeline parallel strategy configuration. Pipeline parallel requires the user to define the parallel strategy by calling the `pipeline_stage` interface to specify the stage on which each layer is to be executed. The granularity of the `pipeline_stage` interface is `Cell`. All `Cells` containing training parameters need to be configured with `pipeline_stage`, and `pipeline_stage` should be configured in the order of network execution, from smallest to largest. Configuration after adding `pipeline_stage` based on the single-card model is as follows:
+
+```python
+
+import numpy as np
+from mindspore import lazy_inline, nn, ops, Tensor, Parameter
+from mindspore.parallel.checkpoint_transform import sync_pipeline_shared_parameters
+
+class VocabEmbedding(nn.Cell):
+    """Vocab Embedding"""
+    def __init__(self, vocab_size, embedding_size):
+        super().__init__()
+        self.embedding_table = Parameter(Tensor(np.ones([vocab_size, embedding_size]), ms.float32),
+                                         name='embedding_table')
+        self.gather = ops.Gather()
+
+    def construct(self, x):
+        output = self.gather(self.embedding_table, x, 0)
+        output = output.squeeze(1)
+        return output, self.embedding_table.value()
+
+
+class Head(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.matmul = ops.MatMul(transpose_b=True)
+
+    def construct(self, state, embed):
+        return self.matmul(state, embed)
+
+
+class Network(nn.Cell):
+    """Network"""
+    @lazy_inline
+    def __init__(self):
+        super().__init__()
+        self.word_embedding = VocabEmbedding(vocab_size=32, embedding_size=32)
+        self.layer1 = nn.Dense(32, 32)
+        self.layer2 = nn.Dense(32, 32)
+        self.head = Head()
+
+    def construct(self, x):
+        x, embed = self.word_embedding(x)
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.head(x, embed)
+        return x
+
+# Define network and set pipeline stage
+net = Network()
+net.word_embedding.pipeline_stage = 0
+net.layer1.pipeline_stage = 1
+net.layer2.pipeline_stage = 2
+net.head.pipeline_stage = 3
+
+```
+
+### Inferring the Network
+
+wrap the netork with `PipelineCellInference`, and specify the size of MicroBatch. `PipelineCellInference` splits input into several micro batch, then executes the network, and finally concats the results along the batch axis through `ops.Concat` operator.
+
+In the previous step, the parameter `embed` is shared by `self.word_embedding` and `self.head` layer, and these two layers are split into different stages. Before inference, executing `inference_network.compile()` and `sync_pipeline_shared_parameters(inference_network)`, the framework will synchronize the shared parameter automatically.
+
+```python
+
+from mindspore import nn, ops
+
+class PipelineCellInference(nn.Cell):
+    """Pipeline Cell Inference wrapper"""
+    def __init__(self, network, micro_batch_num):
+        super().__init__()
+        self.network = network
+        self.micro_batch_num = micro_batch_num
+        self.concat = ops.Concat()
+
+    def construct(self, x):
+        """Apply the pipeline inference"""
+        ret = ()
+        for i in range(self.micro_batch_num):
+            micro_batch_size = x.shape[0] // self.micro_batch_num
+            start = micro_batch_size * i
+            end = micro_batch_size * (i + 1)
+
+            micro_input = x[start:end]
+            micro_output = self.network(micro_input)
+            ret = ret + (micro_output,)
+
+        ret = self.concat(ret)
+        return ret
+
+inference_network = PipelineCellInference(network=net, micro_batch_num=4)
+inference_network.set_train(False)
+
+# Compile and synchronize shared parameter.
+input_ids = Tensor(np.random.randint(low=0, high=32, size=(8, 1)), ms.int32)
+inference_network.compile(input_ids)
+sync_pipeline_shared_parameters(inference_network)
+
+# Execute the inference network
+logits = inference_network(input_ids)
+print(logits.asnumpy())
+
+```
+
+### Running the Single-host with 8 Devices Script
+
+Next, the corresponding scripts are called by commands, using the `msrun` startup method and the 8-card distributed inference script as an example of distributed inference:
+
+```bash
+
+bash run_inference.sh
+
+```
+
+After training, the log files are saved to the `log_output` directory, where part of the file directory structure is as follows:
+
+```text
+
+└─ pipeline_inference_logs
+   ├── scheduler.log
+   ├── worker_0.log
+   ├── worker_1.log
+   ├── worker_2.log
+...
+
+```
+
+The results are saved in `pipeline_inference_logs/worker_0.log`, and the example is as below:
+
+```text
+
+[[0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556
+  0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556
+  0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556
+  0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556
+  0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556 0.01181556
+  0.01181556 0.01181556]
+  ...]
+
+```
