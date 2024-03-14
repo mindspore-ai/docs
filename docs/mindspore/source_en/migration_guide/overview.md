@@ -30,7 +30,7 @@ H-.-text10(Aligning from three aspects: function, precision and performance)
 A-->C(<font color=blue>A Migration Sample</font>)
 C-.-text11(The network migration sample, taking ResNet50 as an example.)
 A-->D(<font color=blue>FAQs</font>)
-D-.-text12(Provides the frequently-asked questions and corresponding solutions)
+D-.-text12(Provides the frequently-asked questions and corresponding solutions in migration process.)
 
 click C "https://www.mindspore.cn/docs/en/r2.3/migration_guide/sample_code.html"
 click D "https://www.mindspore.cn/docs/en/r2.3/migration_guide/faq.html"
