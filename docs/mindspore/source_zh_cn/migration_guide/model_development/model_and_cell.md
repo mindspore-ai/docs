@@ -505,20 +505,9 @@ bias [1.]
 
 <table class="colwidths-auto docutils align-default">
 <tr>
-<td style="text-align:center"> mindspore.common.initializer </td> <td style="text-align:center"> torch.nn.init </td>
+<td style="text-align:center"> torch.nn.init </td> <td style="text-align:center"> mindspore.common.initializer </td>
 </tr>
 <tr>
-<td style="vertical-align:top"><pre>
-
-```python
-import mindspore
-from mindspore.common.initializer import initializer, Uniform
-
-x = initializer(Uniform(), [1, 2, 3], mindspore.float32)
-```
-
-</pre>
-</td>
 <td style="vertical-align:top"><pre>
 
 ```python
@@ -526,6 +515,17 @@ import torch
 
 x = torch.empty(2, 2)
 torch.nn.init.uniform_(x)
+```
+
+</pre>
+</td>
+<td style="vertical-align:top"><pre>
+
+```python
+import mindspore
+from mindspore.common.initializer import initializer, Uniform
+
+x = initializer(Uniform(), [1, 2, 3], mindspore.float32)
 ```
 
 </pre>

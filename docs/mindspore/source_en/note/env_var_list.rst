@@ -136,7 +136,7 @@ Graph Compilation
    * - MS_DEV_DUMP_IR_FORMAT
      - Configure what information is displayed in IR graphs.
      - Integer
-     - 0: Except for the return node, only the operator and operand of the node are displayed, and the detailed information of subgraph is simplified.
+     - 0: Except for the return node, only the operator and inputs of the node are displayed, and the detailed information of subgraph is simplified.
 
        1: Display all information except debug info and scope.
 
@@ -400,6 +400,36 @@ Distributed Parallel
      - String
      - Communication group information file path, supporting relative path and absolute path.
      - 
+
+   * - DUMP_PARALLEL_INFO
+     - Enable dump parallel-related communication information in auto-parallel/semi-automatic parallelism mode. The dump path can be set by set_context(save_graphs_path="path/to/parallel_info_files")
+     - Integer
+     - 1: Enable dump parallel information.
+
+       No setting or other value: Disable printing.
+     - The JSON file saved by each card contains the following fields:
+
+       hccl_algo: Ensemble communication algorithm.
+       
+       op_name: The name of the communication operator.
+        
+       op_type: The type of communication operator.
+        
+       shape: The shape information of the communication operator.
+        
+       data_type: The data type of the communication operator.
+        
+       global_rank_id: the global rank number.
+        
+       comm_group_name: the communication domain name of the communication operator.
+       
+       comm_group_rank_ids: The communication domain of the communication operator.
+       
+       src_rank: The peer operator of the Receive operator.
+       
+       dest_rank: The operator at the opposite end of the operator.
+       
+       sr_tag: The identity ID of different send-receive pairs when src and dest are the same.
 
 See `Dynamic Cluster <https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html>`_ for more details about Dynamic Cluster.
 

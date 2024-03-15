@@ -105,7 +105,9 @@ The current release version of MindSpore Golden Stick provides a stable API and 
    :caption: API References
 
    mindspore_gs
+   mindspore_gs.common
    mindspore_gs.quantization
+   mindspore_gs.ptq
    mindspore_gs.pruner
 
 .. toctree::

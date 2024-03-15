@@ -1,7 +1,7 @@
 离线解析
 --------
 
-当训练进程出错导致异常退出时，性能文件不能被完全保存下来，Profiler提供了离线解析功能。目前离线解析仅支持解析Host侧内存和Host侧耗时。
+当训练进程出错导致异常退出时，性能文件不能被完全保存下来，Profiler提供了离线解析功能。
 
 例如，训练脚本的部分代码如下：
 
@@ -36,7 +36,6 @@
 
    from mindspore import Profiler
 
-   profiler = Profiler(start_profile=False)
-   profiler.analyse(offline_path='/path/to/profiler_data')
+   Profiler.offline_analyse(path='/path/to/profiler_data')
 
-离线解析之后，就可以在/path/to/profiler_data/profiler/host_info目录查看Host侧数据了。
+离线解析之后，就可以在/path/to/profiler_data/profiler目录查看性能数据了。

@@ -8,7 +8,34 @@ In the PengCheng·PanGu model [1] published by MindSpore, we see that distribute
 
 > For the complete code, refer to [pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha)
 
-In the training entry script train.py, the semi-automatic parallel mode `SEMI_AUTO_PARALLEL` is enabled by the `set_auto_parallel_context` interface, indicating that users can automatically complete the sharding with the help of the framework by configuring the sharding strategy for the operator. According to the features of operation volume and calculation methods in different network layers, choosing the appropriate sharding strategy is the focus of this paper. In addition, you can configure the optimizer parallelism and pipeline parallelism through the `enable_parallel_optimizer` and `pipeline_stages` parameters.
+The directory structure is as follows, detailed execute command please refer to README:
+
+```text
+└─ Pangu_alpha
+    ├─ docs
+    ├─ scripts
+    ├─ serving_increment
+    ├─ src
+       ├── adam.py
+       ├── generate.py
+       ├── pangu_alpha.py
+       ├── pangu_alpha_config.py
+       └── pangu_alpha_wrapcell.py
+        ...
+    ├─ train.py
+    ├─ predict.py
+    ├─ README.md
+    └─ README_CN.md
+     ...
+```
+
+- `adam.py`: Define the AdamWeightDecay optimizer.
+- `generate.py`: Define generation and sampling interface.
+- `pangu_alpha.py`: Define the PanguAlpha model. In this script, those basic building blocks of a general Transformer model, such as TransformerEncoder and TransformerEncoderLayer, are imported from MindSpore Transformers suite. See the [API Documentation](https://mindformers.readthedocs.io/zh-cn/latest/docs/api_python/README.html).
+- `pangu_alpha_config.py`: Define configurations of PanguAlpha model.
+- `pangu_alpha_wrapcell.py`: Define the one step training cell。
+- `train.py`: The training entry script. In this script, the semi-automatic parallel mode `SEMI_AUTO_PARALLEL` is enabled by the `set_auto_parallel_context` interface, indicating that users can automatically complete the sharding with the help of the framework by configuring the sharding strategy for the operator. According to the features of operation volume and calculation methods in different network layers, choosing the appropriate sharding strategy is the focus of this paper. In addition, you can configure the optimizer parallelism and pipeline parallelism through the `enable_parallel_optimizer` and `pipeline_stages` parameters.
+- `predict.py`: The predicting entry script. This script supports parallel prediction. Same as training script, the semi-automatic parallel mode `SEMI_AUTO_PARALLEL` is enabled by the `set_auto_parallel_context` interface, indicating that users can automatically complete the sharding with the help of the framework by configuring the sharding strategy for the operator. When predicting parallelly, parallel checkpoint files are required.
 
 ## Embedding Layer
 
@@ -92,6 +119,8 @@ class EmbeddingLayer(nn.Cell):
 The key difficulty in training large-scale Transformer networks is how to solve the computational and memory bottlenecks caused by the increasing number of layers, and it is especially important to choose a reasonable slicing. The main network of the PengCheng-PanGu model consists of multiple Decoders with the same structure but do not share weights, and the Decoder is composed of two parts, Self-Attention and FeedForward. The principle of slicing is to minimize the communication, and their slicing can be referred to the following figure:
 
 ![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/parallel/images/pangu_strategy.png)
+
+*Figure 6：parallel strategy of PanguAlpha（Source：[PanguAlpha Technical report](https://openi.pcl.ac.cn/PCL-Platform.Intelligence/PanGu-Alpha/src/branch/master/PANGU-%ce%b1.pdf)）*
 
 ### Self-Attention
 

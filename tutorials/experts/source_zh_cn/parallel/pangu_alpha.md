@@ -8,7 +8,34 @@
 
 > 完整代码可以参考：[pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha)
 
-在训练入口脚本train.py中，通过`set_auto_parallel_context`接口使能半自动并行模式`SEMI_AUTO_PARALLEL`，表明用户可以通过对算子配置切分策略的方式，借助框架自动完成切分。根据不同网络层运算量和计算方式的特点，选择合适的切分策略是本文关注的重点。此外，通过`enable_parallel_optimizer`和`pipeline_stages`参数可以配置优化器并行和流水线并行方式。
+目录结构如下，执行操作可详见README：
+
+```text
+└─ Pangu_alpha
+    ├─ docs
+    ├─ scripts
+    ├─ serving_increment
+    ├─ src
+       ├── adam.py
+       ├── generate.py
+       ├── pangu_alpha.py
+       ├── pangu_alpha_config.py
+       └── pangu_alpha_wrapcell.py
+        ...
+    ├─ train.py
+    ├─ predict.py
+    ├─ README.md
+    └─ README_CN.md
+     ...
+```
+
+- `adam.py`：定义AdamWeightDecay优化器。
+- `generate.py`：定义模型推理及采样算法。
+- `pangu_alpha.py`：PanguAlpha模型定义脚本。其中，Transformer模型中常用的基础构造块，如TransformerEncoder、TransformerEncoderLayer等均需要使用MindSpore Transformers套件导入，详见[API文档](https://mindformers.readthedocs.io/zh-cn/latest/docs/api_python/README.html)。
+- `pangu_alpha_config.py`：PanguAlpha模型参数定义脚本。
+- `pangu_alpha_wrapcell.py`：PanguAlpha模型单步训练Cell定义脚本。
+- `train.py`：模型训练入口脚本。通过`set_auto_parallel_context`接口使能半自动并行模式`SEMI_AUTO_PARALLEL`，表明用户可以通过对算子配置切分策略的方式，借助框架自动完成切分。根据不同网络层运算量和计算方式的特点，选择合适的切分策略是本文关注的重点。此外，通过`enable_parallel_optimizer`和`pipeline_stages`参数可以配置优化器并行和流水线并行方式。
+- `predict.py`：模型推理入口脚本。支持分布式推理，与训练脚本类似，通过`set_auto_parallel_context`接口使能半自动并行模式`SEMI_AUTO_PARALLEL`，表明用户可以通过对算子配置切分策略的方式，借助框架自动完成切分。分布式推理场景下需要加载分布式权重。
 
 ## Embedding层
 
@@ -92,6 +119,8 @@ class EmbeddingLayer(nn.Cell):
 训练大规模Transformer网络的关键困难在于如何解决随着层数增加造成的计算和内存瓶颈，选择合理的切分方式尤为重要。鹏程·盘古模型的主体网络由多个结构相同但不共享权重的Decoder组成，Decoder又由Self-Attention和FeedForward两部分构成，切分的原则是尽量减少通信，它们的切分方式可以参照下图：
 
 ![image](./images/pangu_strategy.png)
+
+*图6：PanguAlpha模型切分策略示意图（来源：[PanguAlpha技术报告](https://openi.pcl.ac.cn/PCL-Platform.Intelligence/PanGu-Alpha/src/branch/master/PANGU-%ce%b1.pdf)）*
 
 ### Self-Attention
 
