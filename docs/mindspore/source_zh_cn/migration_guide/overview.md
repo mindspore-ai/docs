@@ -29,8 +29,8 @@ B-->|Step 4|H(<font color=blue>调试调优</font>)
 H-.-text10(功能/精度/性能三方面对齐)
 A-->C(<font color=blue>网络迁移调试实例</font>)
 C-.-text11(以ReNet50为例的网络迁移样例)
-A-->D(<font color=blue>FAQs</font>)
-D-.-text12(常见问题与解决方法)
+A-->D(<font color=blue>常见问题</font>)
+D-.-text12(迁移过程中的常见问题与解决方法)
 
 click C "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/sample_code.html"
 click D "https://www.mindspore.cn/docs/zh-CN/r2.3/migration_guide/faq.html"

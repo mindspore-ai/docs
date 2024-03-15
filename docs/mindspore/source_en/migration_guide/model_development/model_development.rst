@@ -160,45 +160,21 @@ Before constructing a network, please first understand the differences between M
 
 - backend device
 
-  When building a model, PyTorch usually uses `torch.device` to specify the device to which the model and data are bound, that is, whether the device is on the CPU or GPU. If multiple GPUs are supported, you can also specify the GPU sequence number. After binding a device, you need to deploy the model and data to the device. The code is as follows:
+  - When building a model, PyTorch usually uses `torch.device` to specify the device to which the model and data are bound, that is, whether the device is on the CPU or GPU. If multiple GPUs are supported, you can also specify the GPU sequence number. After binding a device, you need to deploy the model and data to the device.
 
-  .. code-block::
+  - In MindSpore, the `device_target` parameter in `context` specifies the device bound to the model, and the `device_id parameter` specifies the device sequence number. Different from PyTorch, once the device is successfully set, the input data and model are copied to the specified device for execution by default. You do not need to and cannot change the type of the device where the data and model run.
+    In addition, the `Tensor` returned after the network runs is copied to the CPU device by default. You can directly access and modify the `Tensor`, including converting the `Tensor` to the `numpy` format. Unlike PyTorch, you do not need to run the `tensor.cpu` command and then convert the `Tensor` to the NumPy format.
 
-      import os
-      import torch
-      from torch import nn
+  The sample codes are as follows:
 
-      # bind to the GPU 0 if GPU is available, otherwise bind to CPU
-      device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu") # single GPU or CPU
-      # deploy model to specified hardware
-      model.to(device)
-      # deploy data to specified hardware
-      data.to(device)
+  .. list-table::
+     :widths: 45 45
+     :header-rows: 1
 
-      # distribute training on multiple GPUs
-      if torch.cuda.device_count() > 1:
-          model = nn.DataParallel(model, device_ids=[0,1,2])
-          model.to(device)
-
-          # set available device
-          os.environ['CUDA_VISIBLE_DEVICE']='1'
-          model.cuda()
-
-  In MindSpore, the `device_target` parameter in `context` specifies the device bound to the model, and the `device_id parameter` specifies the device sequence number. Different from PyTorch, once the device is successfully set, the input data and model are copied to the specified device for execution by default. You do not need to and cannot change the type of the device where the data and model run. The sample code is as follows:
-
-  .. code-block::
-
-      import mindspore as ms
-      ms.set_context(device_target='Ascend', device_id=0)
-
-      # define net
-      Model = ..
-      # define dataset
-      dataset = ..
-      # training, automatically deploy to Ascend according to device_target
-      Model.train(1, dataset)
-
-  In addition, the `Tensor` returned after the network runs is copied to the CPU device by default. You can directly access and modify the `Tensor`, including converting the `Tensor` to the `numpy` format. Unlike PyTorch, you do not need to run the `tensor.cpu` command and then convert the `Tensor` to the NumPy format.
+     * - PyTorch
+       - MindSpore
+     * - .. include:: device_torch.rst
+       - .. include:: device_ms.rst
 
 Considerations for MindSpore Network Authoring
 ----------------------------------------------

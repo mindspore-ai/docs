@@ -105,46 +105,21 @@
 
 - device设置
 
-  PyTorch在构建模型时，通常会利用 `torch.device` 指定模型和数据绑定的设备，是在CPU还是GPU上，如果支持多GPU，还可以指定具体的GPU序号。绑定相应的设备后，需要将模型和数据部署到对应设备，代码如下：
+  - PyTorch在构建模型时，通常会利用 `torch.device` 指定模型和数据绑定的设备，是在CPU还是GPU上，如果支持多GPU，还可以指定具体的GPU序号。绑定相应的设备后，需要将模型和数据部署到对应设备。
 
-  .. code-block::
+  - 而在MindSpore中，我们通过 `context` 中的 `device_target` 参数指定模型绑定的设备， `device_id` 指定设备的序号。与PyTorch不同的是，一旦设备设置成功，输入数据和模型会默认拷贝到指定的设备中执行，不需要也无法再改变数据和模型所运行的设备类型。
+    此外，网络运行后返回的 `Tensor` 默认均拷贝到CPU设备，可以直接对该 `Tensor` 进行访问和修改，包括转成 `numpy` 格式，无需像PyTorch一样需要先执行 `tensor.cpu` 再转换成numpy格式。
 
-      import os
-      import torch
-      from torch import nn
+  示例代码如下：
 
-      # bind to the GPU 0 if GPU is available, otherwise bind to CPU
-      device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu") # 单 GPU 或者 CPU
-      # deploy model to specified hardware
-      model.to(device)
-      # deploy data to specified hardware
-      data.to(device)
+  .. list-table::
+     :widths: 45 45
+     :header-rows: 1
 
-      # distribute training on multiple GPUs
-      if torch.cuda.device_count() > 1:
-          model = nn.DataParallel(model, device_ids=[0,1,2])
-          model.to(device)
-
-          # set available device
-          os.environ['CUDA_VISIBLE_DEVICE']='1'
-          model.cuda()
-
-  而在MindSpore中，我们通过 `context` 中的 `device_target` 参数指定模型绑定的设备， `device_id` 指定设备的序号。与PyTorch不同的是，一旦设备设置成功，输入数据和模型会默认拷贝到指定的设备中执行，不需要也无法再改变数据和模型所运行的设备类型。代码如下：
-
-  .. code-block::
-
-      import mindspore as ms
-      ms.set_context(device_target='Ascend', device_id=0)
-
-      # define net
-      Model = ..
-      # define dataset
-      dataset = ..
-      # training, automatically deploy to Ascend according to device_target
-      Model.train(1, dataset)
-
-  此外，网络运行后返回的 `Tensor` 默认均拷贝到CPU设备，可以直接对该 `Tensor` 进行访问和修改，包括转成 `numpy` 格式，无需像PyTorch一样需要先执行 `tensor.cpu` 再转换成numpy格式。
-
+     * - PyTorch
+       - MindSpore
+     * - .. include:: device_torch.rst
+       - .. include:: device_ms.rst
 
 MindSpore网络编写注意事项
 -------------------------
