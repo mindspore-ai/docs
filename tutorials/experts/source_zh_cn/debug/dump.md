@@ -458,7 +458,7 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
                         mapping.csv
 ```
 
-通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且[jit_level](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level)设置为‘O0’以外的时，Dump目录结构如下所示，主要特征为存在{step_id}目录，代表用户侧的训练轮次：
+通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且[jit_level](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level)不设置为‘O0’时，Dump目录结构如下所示，主要特征为存在{step_id}目录，代表用户侧的训练轮次：
 
 ```text
 {path}/
@@ -487,6 +487,8 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
                     Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
                     mapping.csv
 ```
+
+使能ACL dump时，除上述dump数据外，还会在{path}目录生成调用acl接口所需要的json文件，一般情况下无需关注。
 
 - `path`：`data_dump.json`配置文件中设置的绝对路径。
 - `time`： dump目录的创建时间。
