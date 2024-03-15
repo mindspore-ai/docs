@@ -35,7 +35,7 @@ The directory structure is as follows, detailed execute command please refer to 
 - `pangu_alpha_config.py`: Define configurations of PanguAlpha model.
 - `pangu_alpha_wrapcell.py`: Define the one step training cell。
 - `train.py`: The training entry script. In this script, the semi-automatic parallel mode `SEMI_AUTO_PARALLEL` is enabled by the `set_auto_parallel_context` interface, indicating that users can automatically complete the sharding with the help of the framework by configuring the sharding strategy for the operator. According to the features of operation volume and calculation methods in different network layers, choosing the appropriate sharding strategy is the focus of this paper. In addition, you can configure the optimizer parallelism and pipeline parallelism through the `enable_parallel_optimizer` and `pipeline_stages` parameters.
-- `predict.py`: The predicting entry script. This script supports parallel prediction. Same as training script, the semi-automatic parallel mode `SEMI_AUTO_PARALLEL` is enabled by the `set_auto_parallel_context` interface, indicating that users can automatically complete the sharding with the help of the framework by configuring the sharding strategy for the operator. When predicting parallelly, parallel checkpoint files are required.
+- `predict.py`: The predicting entry script. This script supports parallel prediction. Same as training script, the semi-automatic parallel mode `SEMI_AUTO_PARALLEL` is enabled by the `set_auto_parallel_context` interface, indicating that users can automatically complete the sharding with the help of the framework by configuring the sharding strategy for the operator. Distributed inference scenarios require loading distributed weights.
 
 ## Embedding Layer
 
