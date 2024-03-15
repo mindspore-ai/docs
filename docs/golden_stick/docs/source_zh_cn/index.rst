@@ -103,7 +103,9 @@ MindSpore Golden Stick初始版本包含一个稳定的API，并提供一个线�
    :caption: API参考
 
    mindspore_gs
+   mindspore_gs.common
    mindspore_gs.quantization
+   mindspore_gs.ptq
    mindspore_gs.pruner
 
 .. toctree::
