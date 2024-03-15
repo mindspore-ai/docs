@@ -5,7 +5,6 @@
 |  Acronym and Abbreviation  |  Description  |
 | -----    | -----    |
 |  ACL  |  Ascend Computer Language, for users to develop deep neural network applications, which provides the C++ API library including device management, context management, stream management, memory management, model loading and execution, operator loading and execution, media data processing, etc. |
-|  AIR  |  Ascend Intermediate Representation, such as ONNX, it is an open file format for machine learning. It is defined by Huawei and is better suited to Ascend AI processor.  |
 |  Ascend  |  Name of Huawei Ascend series chips.  |
 |  Backpropagation  |  Backpropagation, short for "backward propagation of errors"  |
 |  Batch  |  Batch means a group of training samples. |
