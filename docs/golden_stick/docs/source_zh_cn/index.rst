@@ -76,11 +76,18 @@ MindSpore Golden Stick初始版本包含一个稳定的API，并提供一个线�
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 量化算法
+   :caption: 量化感知训练算法
 
    quantization/overview
    quantization/simqat
    quantization/slb
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 训练后量化算法
+
+   ptq/round_to_nearest
 
 .. toctree::
    :glob:
