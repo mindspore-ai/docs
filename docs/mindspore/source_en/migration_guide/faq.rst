@@ -25,13 +25,15 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/r2.3/faq/installation.ht
 
   **Q: How can I see how well MindSpore supports the APIs in the migrated code?**
 
-  A: This can be analyzed automatically (recommended) using an API scanning tool, or manually by querying the API mapping table. For details, please refer to `Analyzing API Compliance <https://www.mindspore.cn/docs/en/r2.3/migration_guide/analysis_and_preparation.html#analyzing-api-compliance>`_ .
+  A: The API automated scanning tool MindSpore Dev Toolkit can be used (recommended), or we can manually query the API mapping table. For details, please refer to `Analyzing API Compliance <https://www.mindspore.cn/docs/en/r2.3/migration_guide/analysis_and_preparation.html#analyzing-api-compliance>`_ .
 
 - Constructing Dataset
 
   **Q: How do I convert a PyTorch `dataset` to a MindSpore `dataset`?**
 
-  A: The customized dataset logic of MindSpore is similar to that of PyTorch. You need to define a `dataset` class containing `__init__`, `__getitem__`, and `__len__` to read your dataset, instantiate the class into an object (for example, `dataset/dataset_generator`), and transfer the instantiated object to `GeneratorDataset` (on MindSpore) or `DataLoader` (on PyTorch). Then, you are ready to load the customized dataset. MindSpore provides further `map`->`batch` operations based on `GeneratorDataset`. Users can easily add other customized operations to `map` and start `batch`.
+  A: The customized dataset logic of MindSpore is similar to that of PyTorch. You need to define a `dataset` class containing `__init__`, `__getitem__`, and `__len__` to read your dataset, instantiate the class into an object (for example, `dataset/dataset_generator`), and transfer the instantiated object to `GeneratorDataset` (on MindSpore) or `DataLoader` (on PyTorch). Then, you are ready to load the customized dataset.
+  
+  MindSpore provides further `map`->`batch` operations based on `GeneratorDataset`. Users can easily add other customized operations to `map` and start `batch`.
   The customized dataset of MindSpore is loaded as follows:
 
   .. code-block:: python
@@ -53,12 +55,12 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/r2.3/faq/installation.ht
       # 3 batch
       dataset = dataset.batch(batch_size, drop_remainder=True)
 
-  **Q: Why does it report an error when iterating over the data: The actual amount of data read from generator xx is different from generator.len xx, you should adjust generator.len to make them match ?**
+  **Q: Why does it report an error when iterating over the data: "The actual amount of data read from generator xx is different from generator.len xx, you should adjust generator.len to make them match" ?**
 
-  A: When defining a randomizable datasets, the result returned by the __len__ method must be the real dataset size, if it is set to a large size, there will be an out-of-bounds problem when getitem fetches the value. If the size of the dataset is not defined, you can use an iterable dataset, see `Customize dataset <https://www.mindspore.cn/tutorials/en/r2.3/beginner/dataset.html>`_ for details.
+  A: When defining a randomizable datasets, the result returned by the `__len__` method must be the real dataset size, if it is set to a large size, there will be an out-of-bounds problem when `__getitem__` fetches the value. If the size of the dataset is not defined, you can use an iterable dataset, see `Customize dataset <https://www.mindspore.cn/tutorials/en/r2.3/beginner/dataset.html>`_ for details.
 
 
-  **Q: Why does it report an error when iterating over the data: Invalid Python function, the 'source' of 'GeneratorDataset' should return same number of NumPy arrays as specified in column_names, the size of column_names is:xx and number of returned NumPy array is:xx ?**
+  **Q: Why does it report an error when iterating over the data: "Invalid Python function, the 'source' of 'GeneratorDataset' should return same number of NumPy arrays as specified in column_names, the size of column_names is:xx and number of returned NumPy array is:xx" ?**
 
   A: This is because the number of column names specified in the column_names parameter of GeneratorDataset does not match the number of data output by the source parameter.
 
@@ -154,7 +156,9 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/r2.3/faq/installation.ht
 
   **Q: The migration process is tuned using PyNative, and the process is successful. When I switch to Graph mode, why do I get reported errors?**
 
-  A: The behavior of the model for inference in PyNative mode is no different from normal Python code. However, when switching to Graph mode, MindSpore converts Python source code to Intermediate Representation (IR) by means of source code conversion, and optimizes IR graphs on this basis, and finally executes the optimized graphs on hardware devices. In this step of operation, currently MindSpore does not yet support the complete Python syntax, so there are some limitations in the writing of the construct function.
+  A: The behavior of the model for inference in PyNative mode is no different from normal Python code. However, when switching to Graph mode, MindSpore converts Python source code to Intermediate Representation (IR) by means of source code conversion, and optimizes IR graphs on this basis, and finally executes the optimized graphs on hardware devices.
+  
+  In this step of operation, currently MindSpore does not yet support the complete Python syntax, so there are some limitations in the writing of the construct function.
   
   For example, PyNative mode can directly determine whether a Tensor value is 0, but switching to Graph mode will report an error that it is not supported.
 
@@ -174,7 +178,7 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/r2.3/faq/installation.ht
 
   See `Static diagram syntax support <https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html>`_ for details.
 
-  **Q: What can I do if the error is reported during training: RuntimeError: Launch kernel failed, name:Default/... What to do?**
+  **Q: What can I do if the error is reported during training: RuntimeError: "Launch kernel failed, name:Default/... What to do" ?**
 
   A: This type of error is usually because MindSpore does not support a certain operator, and may require the user to implement the operator themselves. For more details, see `PyTorch and MindSpore API mapping table <https://www.mindspore.cn/docs/en/r2.3/note/api_mapping/pytorch_api_mapping.html>`_ .
 

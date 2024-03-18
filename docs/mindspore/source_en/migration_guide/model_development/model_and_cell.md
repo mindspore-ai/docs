@@ -92,7 +92,7 @@ Outputs:
 
 In MindSpore, a parameter name is generally formed based on an object name defined by `__init__` and a name used during parameter definition. For example, in the foregoing example, a convolutional parameter name is `net.weight`, where `net` is an object name in `self.net = forward_net`, and `weight` is `name`: `self.weight = Parameter(initializer(self.weight_init, shape), name='weight')` when a convolutional parameter is defined in Conv2d.
 
-The cell in MindSpore provides the `auto_prefix` interface to determine whether to add object names to parameter names in the cell. The default value is `True`, that is, object names should be added. If `auto_prefix` is set to `False`, the `name` of `Parameter` printed in the preceding example is `weight`. In general, the backbone network should be set to True. The cell for training, such as optimizer and :class:`mindspore.nn.TrainOneStepCell`, should be set to False, to avoid the parameter name in backbone be changed by mistake.
+The cell in MindSpore provides the `auto_prefix` interface to determine whether to add object names to parameter names in the cell. The default value is `True`, that is, object names should be added. If `auto_prefix` is set to `False`, the `name` of `Parameter` printed in the preceding example is `weight`. In general, the backbone network should be set to True. The optimizer for training, such as :class:`mindspore.nn.TrainOneStepCell`, should be set to False, to avoid the parameter name in backbone be changed by mistake.
 
 ## Unit Test
 
@@ -161,7 +161,7 @@ The overall error is about 0.01%, which basically meets the expectation. **Durin
 
 ## Common Methods of Cells
 
-`Cell` is the basic unit of the neural network in MindSpore. It provides many flag setting and easy-to-use methods. The following describes some common methods.
+`Cell` is the basic unit of the neural network in MindSpore. It provides many easy-to-use methods. The following describes some common methods.
 
 ### Manual Mixed-precision
 
@@ -363,7 +363,7 @@ In addition to using `requires_grad=False` to set the Parameter to not update th
 ![parameter-freeze](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/docs/mindspore/source_en/migration_guide/model_development/images/parameter_freeze.png)
 
 As shown above, `requires_grad=False` does not update some of the Parameter, but the reverse gradient calculation is still performed normally;
-`stop_gradient` will directly truncate the reverse gradient, and the two are functionally equivalent when the Parameter to be frozen is not preceded by a Parameter to be trained.
+`stop_gradient` will directly truncate the reverse gradient, and the two are functionally equivalent when the frozen Parameter is not preceded by a Parameter to be trained.
 But `stop_gradient` will be faster (less part of the reverse gradient calculation is performed).
 Only use `requires_grad=False` when the frozen Parameter is preceded by a Parameter to be trained.
 Also, `stop_gradient` needs to be added to the computational link of the network, acting on the Tensor:
@@ -538,15 +538,15 @@ x = initializer(Uniform(), [1, 2, 3], mindspore.float32)
 
 ##### Customizing Initialization Parameters
 
-Generally, the high-level API encapsulated by MindSpore initializes parameters by default. Sometimes, the initialization distribution is inconsistent with the required initialization and PyTorch initialization. In this case, you need to customize initialization. [Initializing Network Arguments](https://mindspore.cn/tutorials/en/r2.3/advanced/modules/initializer.html#customized-parameter-initialization) describes a method of initializing parameters by using API attributes. This section describes a method of initializing parameters by using Cell.
+Generally, the high-level API encapsulated by MindSpore initializes parameters by default. Sometimes, the initialization distribution is inconsistent with the required initialization and PyTorch initialization. In this case, you need to customize initialization. [Initializing Network Arguments](https://mindspore.cn/tutorials/en/r2.3/advanced/modules/initializer.html#customized-parameter-initialization) describes a method of initializing parameters during using API attributes. This section describes a method of initializing parameters by using Cell.
 
 For details about the parameters, see [Network Parameters](https://mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/initializer.html). This section uses `Cell` as an example to describe how to obtain all parameters in `Cell` and how to initialize the parameters in `Cell`.
 
 > Note that the method described in this section cannot be performed in `construct`. To change the value of a parameter on the network, use [assign](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.assign.html).
 
-[set_data(data, slice_shape=False)](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.Parameter.html?highlight=set_data#mindspore.Parameter.set_data) sets parameter data.
-
 For details about the parameter initialization methods supported by MindSpore, see [mindspore.common.initializer](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore.common.initializer.html). You can also directly transfer a defined [Parameter](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter) object.
+
+The created Parameter can use [set_data(data, slice_shape=False)](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.Parameter.html?highlight=set_data#mindspore.Parameter.set_data) to set parameter data.
 
 ```python
 import math
@@ -789,7 +789,7 @@ Compared with the detailed syntax description, the common restrictions are as fo
 
 Sometimes, MindSpore does not support some processing and needs to use some third-party library methods. However, we do not want to truncate the network gradient. In this case, what should we do? This section describes how to customize backward network construction to avoid this problem in `PYNATIVE_MODE`.
 
-In this scenario, a value greater than 0.5 needs to be randomly selected, and the shape of each batch is fixed to `max_num`. However, the random put-back operation is not supported by MindSpore APIs. In this case, NumPy is used for computation in `PYNATIVE_MODE`, and then a gradient propagation process is constructed.
+In the following scenario, a value greater than 0.5 needs to be randomly selected, and the shape of each batch is fixed to `max_num`. However, the random put-back operation is not supported by MindSpore APIs. In this case, NumPy is used for computation in `PYNATIVE_MODE`, and then a gradient propagation process is constructed.
 
 ```python
 import numpy as np
@@ -1233,6 +1233,15 @@ MindSpore uses `seed` to control the generation of a random number while PyTorch
     # If the same program runs again, it repeat the results:
     print(ops.uniform((1, 4), minval, maxval, seed=1))  # generates 'A1'
     print(ops.uniform((1, 4), minval, maxval, seed=1))  # generates 'A2'
+    ```
+
+    Different backends generate different random numbers. Here are the results from the `CPU` backend:
+
+    ```text
+    [[1.4519546 1.242295  1.9052019 1.7309945]]
+    [[1.269552  1.6567562 1.9240322 1.7505953]]
+    [[1.8540323 1.3442079 1.074909  1.0930715]]
+    [[1.9383929 1.8798318 1.178043  1.8124416]]
     ```
 
 2. torch.Generator is often used as a key argument. A default generator will be used (torch.default_generator), when the user does not assign one to the function. torch.Generator.seed could be set with the following code:
