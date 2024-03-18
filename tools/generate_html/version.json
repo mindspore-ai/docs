@@ -14,8 +14,8 @@
       "id" : 2 ,
       "name" : "mindspore",
       "branch" : "r2.2",
-      "whl_path" : "2.2.11/MindSpore/unified/x86_64/",
-      "whl_name" : "mindspore-2.2.11-cp37-cp37m-linux_x86_64.whl",
+      "whl_path" : "2.2.12/MindSpore/unified/x86_64/",
+      "whl_name" : "mindspore-2.2.12-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MS_PATH",
       "uninstall_name" : "mindspore"
    },
@@ -39,10 +39,11 @@
    },
    {
       "id" : 5 ,
-      "name" : "mindearth",
-      "branch" : "r0.1",
-      "whl_path" : "2.2.0/MindScience/mindearth/gpu/x86_64/cuda-11.1/",
-      "whl_name" : "mindearth_gpu-0.1.0-py3-none-any.whl",
+      "name" : "mindearth_r0.2",
+      "branch" : "r0.2",
+      "clone_branch": "r0.6",
+      "whl_path" : "2.2.12/MindScience/mindearth/gpu/x86_64/cuda-11.1/",
+      "whl_name" : "mindearth_gpu-0.2.0-py3-none-any.whl",
       "environ" : "MSC_PATH",
       "uninstall_name" : "mindearth_gpu"
    },
@@ -50,6 +51,7 @@
       "id" : 6 ,
       "name" : "sciai",
       "branch" : "r0.1",
+      "clone_branch": "r0.5",
       "whl_path" : "2.2.0/MindScience/sciai/gpu/x86_64/cuda-11.1/",
       "whl_name" : "sciai-0.1.0-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MSC_PATH",
@@ -95,9 +97,20 @@
       "id" : 11 ,
       "name" : "mindsponge",
       "branch" : "r1.0.0-rc2",
+      "clone_branch": "r0.5",
       "whl_path" : "2.2.1/MindScience/mindsponge/gpu/x86_64/cuda-10.1/",
       "whl_name" : "mindsponge_gpu-1.0.0rc2-py3-none-any.whl",
       "environ" : "MSC_PATH",
       "uninstall_name" : "mindsponge_gpu"
+   },
+   {
+      "id" : 12 ,
+      "name" : "mindflow",
+      "branch" : "r0.2",
+      "clone_branch": "r0.6",
+      "whl_path" : "2.2.12/MindScience/mindflow/gpu/x86_64/cuda-11.1/",
+      "whl_name" : "mindflow_gpu-0.2.0-py3-none-any.whl",
+      "environ" : "MSC_PATH",
+      "uninstall_name" : "mindflow_gpu"
    }
 ]
