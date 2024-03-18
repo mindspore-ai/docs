@@ -10,7 +10,7 @@ PyTorch和MindSpore的基础逻辑如下图所示：
 
 可以看到，PyTorch和MindSpore在实现流程中一般都需要网络定义、正向计算、反向计算、梯度更新等步骤。
 
-- 网络定义：在网络定义中，一般会定义出需要的前向网络，损失函数和优化器。在Net()中定义前向网络，PyTorch的网络继承nn.Module；类似地，MindSpore的网络继承nn.Cell。在MindSpore中，损失函数和优化器除了使用MindSpore中提供的外，用户还可以使用自定义的优化器。可参考[模型模块自定义](https://mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules.html)。可以使用functional/nn等接口拼接需要的前向网络、损失函数和优化器。
+- 网络定义：在网络定义中，一般会定义出需要的前向网络，损失函数和优化器。在Net()中定义前向网络，PyTorch的网络继承nn.Module；类似地，MindSpore的网络继承nn.Cell。在MindSpore中，除了使用MindSpore中提供的损失函数和优化器外，用户还可以使用自定义的优化器。可参考[模型模块自定义](https://mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules.html)。可以使用functional/nn等接口拼接需要的前向网络、损失函数和优化器。
 
 - 正向计算：运行实例化后的网络，可以得到logit，将logit和target作为输入计算loss。需要注意的是，如果正向计算的函数有多个输出，在反向计算时需要注意多个输出对于计算结果的影响。
 
@@ -22,7 +22,7 @@ PyTorch和MindSpore的基础逻辑如下图所示：
 
 MindSpore的网络搭建主要使用[Cell](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell)进行图的构造，用户需要定义一个类继承 `Cell` 这个基类，在 `init` 里声明需要使用的API及子模块，在 `construct` 里进行计算， `Cell` 在 `GRAPH_MODE` (静态图模式)下将编译为一张计算图，在 `PYNATIVE_MODE` (动态图模式)下作为神经网络的基础模块。
 
-PyTorchhe 和 MindSpore 基本的 `Cell` 搭建过程如下所示：
+PyTorch 和 MindSpore 基本的 `Cell` 搭建过程如下所示：
 
 <table class="colwidths-auto docutils align-default">
 <tr>
@@ -90,9 +90,9 @@ print(my_net.trainable_params())
 </tr>
 </table>
 
-MindSpore中，参数的名字一般是根据`__init__`定义的对象名字和参数定义时用的名字组成的，比如上面的例子中，卷积的参数名为`net.weight`，其中，`net`是`self.net = forward_net`中的对象名，`weight`是Conv2d中定义卷积的参数时的`name`：`self.weight = Parameter(initializer(self.weight_init, shape), name='weight')`。
+MindSpore中，参数的名字一般是根据`__init__`定义的对象名字和参数定义时用的名字组成的，比如上面的例子中，卷积的参数名为`net.weight`，其中 `net` 是`self.net = forward_net`中的对象名，`weight`是Conv2d中定义卷积的参数时的`name`：`self.weight = Parameter(initializer(self.weight_init, shape), name='weight')`。
 
-MindSpore的Cell提供了`auto_prefix`接口用来判断Cell中的参数名是否加对象名这层信息，默认是`True`，也就是加对象名。如果`auto_prefix`设置为`False`，则上面这个例子中打印的`Parameter`的`name`是`weight`。通常骨干网络`auto_prefix`应设置为True。用于训练的优化器、 :class:`mindspore.nn.TrainOneStepCell` 等，应设置为False，以避免骨干网络的权重参数名被误改。
+MindSpore的Cell提供了`auto_prefix`接口用来判断Cell中的参数名是否加对象名这层信息，默认是`True`，也就是加对象名。如果`auto_prefix`设置为`False`，则上面这个例子中打印的`Parameter`的`name`是`weight`。通常骨干网络`auto_prefix`应设置为True。用于训练的优化器如 :class:`mindspore.nn.TrainOneStepCell` ，应设置为False，以避免骨干网络的权重参数名被误改。
 
 ## 单元测试
 
@@ -161,7 +161,7 @@ print(diff)
 
 ## Cell常用的方法介绍
 
-`Cell`是MindSpore中神经网络的基本构成单元，提供了很多设置标志位以及好用的方法，下面来介绍一些常用的方法。
+`Cell`是MindSpore中神经网络的基本构成单元，提供了很多好用的方法，下面来介绍一些常用的方法。
 
 ### 手动混合精度
 
@@ -363,7 +363,7 @@ print(net.trainable_params())
 ![parameter-freeze](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/docs/mindspore/source_zh_cn/migration_guide/model_development/images/parameter_freeze.png)
 
 如上图所示，`requires_grad=False`不更新部分Parameter，但是反向的梯度计算还是正常执行的；
-`stop_gradient`会直接截断反向梯度，当需要冻结的Parameter之前没有需要训练的Parameter时，两者在功能上是等价的。
+`stop_gradient`会直接截断反向梯度，当冻结的Parameter之前没有需要训练的Parameter时，两者在功能上是等价的。
 但是`stop_gradient`会更快（少执行了一部分反向梯度计算）。
 当冻结的Parameter之前有需要训练的Parameter时，只能使用`requires_grad=False`。
 另外，`stop_gradient`需要加在网络的计算链路里，作用的对象是Tensor：
@@ -538,15 +538,15 @@ x = initializer(Uniform(), [1, 2, 3], mindspore.float32)
 
 ##### 自定义初始化Parameter
 
-MindSpore封装的高阶API里一般会给Parameter一个默认的初始化，当这个初始化分布与需要使用的初始化、PyTorch的初始化不一致，此时需要进行自定义初始化。[网络参数初始化](https://mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/initializer.html#自定义参数初始化)介绍了一种在使用API属性进行初始化的方法，这里介绍一种利用Cell进行Parameter初始化的方法。
+MindSpore封装的高阶API里一般会给Parameter一个默认的初始化，当这个初始化分布与需要使用的初始化、PyTorch的初始化不一致时，此时需要进行自定义初始化。[网络参数初始化](https://mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/initializer.html#自定义参数初始化)介绍了一种在使用API属性时进行初始化的方法，这里介绍一种利用Cell进行Parameter初始化的方法。
 
-Parameter的相关介绍请参考[网络参数](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/initializer.html)，本节主要以`Cell`为切入口，举例获取`Cell`中的所有参数，并举例说明怎样给`Cell`里的Parameter进行初始化。
+Parameter的相关介绍请参考[网络参数](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/modules/initializer.html)，本节主要以`Cell`为切入口，举例获取`Cell`中的所有参数，并举例说明如何给`Cell`里的Parameter进行初始化。
 
 > 注意本节的方法不能在`construct`里执行，在网络中修改Parameter的值请使用[assign](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.assign.html)。
 
-[set_data(data, slice_shape=False)](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.Parameter.html?highlight=set_data#mindspore.Parameter.set_data)设置Parameter数据。
-
 MindSpore支持的Parameter初始化方法参考[mindspore.common.initializer](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore.common.initializer.html)，当然也可以直接传入一个定义好的[Parameter](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)对象。
+
+已经创建的Parameter，可以使用[set_data(data, slice_shape=False)](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.Parameter.html?highlight=set_data#mindspore.Parameter.set_data)设置Parameter数据。
 
 ```python
 import math
@@ -714,7 +714,7 @@ Cell name: sequential_block.2, type: <class 'mindspore.nn.layer.activation.ReLU'
 
 - Dropout和BN层的行为：
 
-  训练模式下，Dropout层会按照设定的Parameter `p` 来随机关闭一部分神经元，这意味着在前向传播过程中，这部分神经元不会有任何贡献。BN层会继续计算均值和方差，并对数据进行相应的归一化。
+  训练模式下，Dropout层会按照设定的参数 `p` 来随机关闭一部分神经元，这意味着在前向传播过程中，这部分神经元不会有任何贡献。BN层会继续计算均值和方差，并对数据进行相应的归一化。
 
   评估模式下，Dropout层不会关闭任何神经元，即所有的神经元都会被用于前向传播。BN层会使用训练阶段计算得到的运行均值和运行方差。
 
@@ -787,9 +787,9 @@ ms_net = mindspore.nn.Dense(3, 4)
 
 ## 自定义反向
 
-但是有的时候MindSpore不支持某些处理，需要使用一些三方的库的方法，但是我们又不想截断网络的梯度，这时该怎么办呢？这里介绍一种在`PYNATIVE_MODE`模式下，通过自定义反向规避此问题的方法：
+有时MindSpore不支持某些处理，需要使用一些第三方库的方法，但是我们又不想截断网络的梯度，这时该怎么办呢？这里介绍一种在`PYNATIVE_MODE`模式下，通过自定义反向规避此问题的方法：
 
-有这么一个场景，需要随机有放回的选取大于0.5的值，且每个batch的shape固定是`max_num`。但是这个随机有放回的操作目前没有MindSpore的API支持，这时我们在`PYNATIVE_MODE`下使用numpy的方法来计算，然后自己构造一个梯度传播的过程。
+如下面此场景，需要随机有放回的选取大于0.5的值，且每个batch的shape固定是`max_num`。但是这个随机有放回的操作目前没有MindSpore的API支持，这时我们在`PYNATIVE_MODE`下使用numpy的方法来计算，然后自己构造一个梯度传播的过程。
 
 ```python
 import numpy as np
@@ -975,7 +975,7 @@ dx (Tensor(shape=[2, 5], dtype=Float32, value=
 
 1. 可以在输入数据上加pad，pad到固定的shape。如deep_speechv2的[数据处理](https://gitee.com/mindspore/models/blob/master/official/audio/DeepSpeech2/src/dataset.py#L153) 规定`input_length`的最大长度，短的补0，长的随机截断，但是注意这种方法可能会影响训练的精度，需要平衡训练精度和训练性能。
 
-2. 可以设置一组固定的输入shape，将输入分别处理成几个固定的尺度。如YOLOv3_darknet53的[数据处理](https://gitee.com/mindspore/models/blob/master/official/cv/YOLOv3/src/yolo_dataset.py#L177)，在batch方法加处理函数`multi_scale_trans`,在其中在[MultiScaleTrans](https://gitee.com/mindspore/models/blob/master/official/cv/YOLOv3/src/transforms.py#L456)中随机选取一个shape进行处理。
+2. 可以设置一组固定的输入shape，将输入分别处理成几个固定的shape。如YOLOv3_darknet53的[数据处理](https://gitee.com/mindspore/models/blob/master/official/cv/YOLOv3/src/yolo_dataset.py#L177)，在batch方法加处理函数`multi_scale_trans` ，在[MultiScaleTrans](https://gitee.com/mindspore/models/blob/master/official/cv/YOLOv3/src/transforms.py#L456)中随机选取一个shape进行处理。
 
 目前对输入shape完全随机的情况支持有限，需要等待新版本支持。
 
@@ -1232,6 +1232,15 @@ MindSpore使用`seed`控制随机数的生成，而PyTorch使用`torch.Generator
     # If the same program runs again, it repeat the results:
     print(ops.uniform((1, 4), minval, maxval, seed=1))  # generates 'A1'
     print(ops.uniform((1, 4), minval, maxval, seed=1))  # generates 'A2'
+    ```
+
+    不同后端产生随机数不同，以下是 `CPU` 后端运行结果：
+
+    ```text
+    [[1.4519546 1.242295  1.9052019 1.7309945]]
+    [[1.269552  1.6567562 1.9240322 1.7505953]]
+    [[1.8540323 1.3442079 1.074909  1.0930715]]
+    [[1.9383929 1.8798318 1.178043  1.8124416]]
     ```
 
 2. torch.Generator常在函数中作为关键字参数传入。在未指定/实例化Generator时，会使用默认Generator (torch.default_generator)。可以使用以下代码设置指定的torch.Generator的seed：
