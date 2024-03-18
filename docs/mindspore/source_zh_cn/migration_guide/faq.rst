@@ -59,10 +59,14 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
   **Q: 为什么在迭代数据的时候会报错：“The actual amount of data read from generator xx is different from generator.len xx, you should adjust generator.len to make them match” ？**
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   A: 在定义可随机访问数据集时， __len__ 方法返回的结果一定要是真实的数据集大小，设置大了在getitem取值时会有越界问题。如数据集大小未确定，可以使用可迭代数据集，详见 `自定义数据集 <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86>`_ 。
 =======
   A: 在定义可随机访问数据集时， `__len__` 方法返回的结果一定要是真实的数据集大小，设置大了在`__getitem__`取值时会有越界问题。如数据集大小未确定，可以使用可迭代数据集，详见 `自定义数据集 <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86>`_ 。
 >>>>>>> f6ab756a87 (fix I98QJM)
+=======
+  A: 在定义可随机访问数据集时， `__len__` 方法返回的结果一定要是真实的数据集大小，设置大了在 `__getitem__`取值时会有越界问题。如数据集大小未确定，可以使用可迭代数据集，详见 `自定义数据集 <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86>`_ 。
+>>>>>>> 66010ea3ed (update te en files --pr 13721 13717)
 
 
   **Q: 为什么在迭代数据的时候会报错：“Invalid Python function, the 'source' of 'GeneratorDataset' should return same number of NumPy arrays as specified in column_names, the size of column_names is:xx and number of returned NumPy array is:xx” ？**
