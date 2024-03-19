@@ -12,6 +12,15 @@
 
 PyTorch和MindSpore同时支持的优化器异同比较详见[API映射表](https://mindspore.cn/docs/zh-CN/r2.3/note/api_mapping/pytorch_api_mapping.html#torch-optim)。MindSpore暂不支持的优化器：LBFGS，NAdam，RAdam。
 
+针对mindspore.experimental.optim内的优化器，与PyTorch通用差异参数如下：
+
+| 参数    | 参数解释    |
+|---------|-------------|
+| foreach | 若为 ``True``，会将每个group内的权重组合为List<Tensor>，调用一系列的foreach接口进行运算，可以减少cuda核调用，进行加速，会使用更多的峰值内存，MindSpore暂不支持该参数。 |
+| fused | 优化器融合实现，若为 ``True``，会将每个group内的权重组合为TensorList，所有的运算会下沉到C++侧执行，预期执行性能最快，MindSpore暂不支持该参数。 |
+| differentiable | 是否对训练中的优化器执行步骤进行自动微分，MindSpore暂不支持该参数。 |
+| capturable | 是否可以在 CUDA 图中安全地捕获该优化器实例，CUDA 图是一种优化技术，可以在 GPU 上执行计算图，提高性能。设置为 ``True`` 可以使优化器实例在 CUDA 图中捕获，但可能会降低未在图中捕获时的性能，MindSpore暂不支持该参数。 |
+
 ### 优化器的执行和使用差异
 
 PyTorch单步执行优化器时，一般需要手动执行 `zero_grad()` 方法将历史梯度设置为0(或None)，然后使用 `loss.backward()` 计算当前训练step的梯度，最后调用优化器的 `step()` 方法实现网络权重的更新；

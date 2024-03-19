@@ -12,6 +12,15 @@ Here is an introduction to some special ways of using MindSpore optimizer and th
 
 A comparison of the similarities and differences between the optimizers supported by both PyTorch and MindSpore is detailed in the [API mapping table](https://mindspore.cn/docs/en/r2.3/note/api_mapping/pytorch_api_mapping.html#torch-optim). Optimizers not supported in MindSpore at the moment: LBFGS, NAdam, RAdam.
 
+Here are the common differences between optimizers in mindspore.experimental.optim and PyTorch:
+
+| Parameter   | Explanation   |
+|---------|-------------|
+| foreach     | If set to ``True``, combines weights within each group into a List<Tensor> and uses a series of foreach interfaces for computation, reducing CUDA kernel calls for acceleration but using more peak memory; not supported in MindSpore. |
+| fused       | Enables optimizer fusion; if set to ``True``, combines weights within each group into a TensorList and sinks all computations to the C++ side for execution, expected to have the fastest execution performance; not supported in MindSpore. |
+| differentiable | Determines whether to automatically differentiate optimizer steps during training; not supported in MindSpore. |
+| capturable  | Determines whether the optimizer instance can be safely captured in a CUDA graph, which is an optimization technique for executing computation graphs on the GPU for improved performance. Setting to ``True`` allows capturing the optimizer instance in a CUDA graph but may reduce performance compared to when it's not captured in the graph; not supported in MindSpore. |
+
 ### Optimizer Execution and Usage Differences
 
 When PyTorch executes the optimizer in a single step, it is usually necessary to manually execute the `zero_grad()` method to set the historical gradient to 0 (or None), then use `loss.backward()` to calculate the gradient of the current training step, and finally call the `step()` method of the optimizer to update the network weights;
