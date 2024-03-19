@@ -44,6 +44,7 @@
     | whl_name | 组件whl安装包的名称 | 是 |
     | environ | 组件仓库需要配置的环境变量名 | 是 |
     | uninstall_name | 组件whl安装包的卸载命令名称 | 是 |
+    | clone_branch | 基于同一仓库的不同分支需求 | 否 |
     | tar_path | 组件tar包的文件夹路径 | 否 |
     | tar_name | 组件tar包的名称 | 否 |
 
