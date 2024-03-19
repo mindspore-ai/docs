@@ -132,7 +132,7 @@
         "theme": "theme-docs"
     },
     {
-        "version": "r0.1",
+        "version": "r0.2",
         "versionAlias": "",
         "label": {
             "zh": "MindSpore Earth",
@@ -189,6 +189,16 @@
             "en": "MindSpore SPONGE"
         },
         "repo_name": "mindsponge",
+        "theme": "theme-docs"
+    },
+    {
+        "version": "r0.2",
+        "versionAlias" : "",
+        "label": {
+            "zh": "MindSpore Flow",
+            "en": "MindSpore Flow"
+        },
+        "repo_name": "mindflow",
         "theme": "theme-docs"
     }
 ]

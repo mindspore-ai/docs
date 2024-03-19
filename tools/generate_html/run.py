@@ -173,23 +173,31 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 print(f'{repo_name}仓库克隆或更新失败')
 
         # 特殊与一般性的往ArraySource中加入键值对
+        clone_param = ""
+        if 'clone_branch' in data[i]:
+            clone_param = '&&' + data[i]['clone_branch'] + '&&' + repo_path
         if data[i]['name'] == "lite":
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/api'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/faq'] = data[i]["branch"]
+            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"] + clone_param
+            ArraySource[data[i]['name'] + '/api'] = data[i]["branch"] + clone_param
+            ArraySource[data[i]['name'] + '/faq'] = data[i]["branch"] + clone_param
         elif data[i]['name'] == "tutorials":
             ArraySource[data[i]['name']] = data[i]["branch"]
             ArraySource[data[i]['name'] + '/application'] = data[i]["branch"]
             ArraySource[data[i]['name'] + '/experts'] = data[i]["branch"]
         elif data[i]['name'] == "mindspore":
-            ArraySource[data[i]['name']] = data[i]["branch"]
+            ArraySource[data[i]['name']] = data[i]["branch"] + clone_param
         elif data[i]['name'] == "mindscience":
             pass
         else:
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
+            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"] + clone_param
 
         if data[i]['name'] != "mindscience":
-            generate_version_json(data[i]['name'], data[i]["branch"], data_b, version, target_version)
+            if re.findall(r'_r[0-9]\.[0-9]', data[i]['name']):
+                rep_str = re.findall(r'_r[0-9]\.[0-9]', data[i]['name'])[0]
+                generate_version_json(data[i]['name'].split(rep_str)[0], data[i]["branch"],
+                                      data_b, version, target_version)
+            else:
+                generate_version_json(data[i]['name'], data[i]["branch"], data_b, version, target_version)
 
         # 卸载原来已有的安装包, 以防冲突
         if data[i]['uninstall_name']:
@@ -329,6 +337,23 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         except ModuleNotFoundError:
             pass
 
+        # 适配不同组件使用不同分支的仓库
+        dir_branch = ArraySource[i]
+        if "&&" in ArraySource[i]:
+            dir_branch = ArraySource[i].split('&&')[0]
+            checkout_path = ArraySource[i].split('&&')[-1]
+            checkout_branch = ArraySource[i].split('&&')[1]
+            git_update(checkout_path, checkout_branch)
+
+        # 修改特殊版本组件的名称
+        repo_dir_name = i
+        if re.findall(r'_r[0-9]\.[0-9]', i):
+            rep_branch = re.findall(r'_r[0-9]\.[0-9]', i)[0]
+            if '/docs' in i:
+                repo_dir_name = i.split(rep_branch)[0] + '/docs'
+            else:
+                repo_dir_name = i.split(rep_branch)[0]
+
         # 输出英文
         if os.path.exists("source_en"):
             try:
@@ -357,11 +382,11 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                     failed_name_list.append(f'{i}的英文版本')
                 else:
                     if i == "mindspore":
-                        TARGET = f"{OUTPUTDIR}/docs/en/{ArraySource[i]}"
+                        TARGET = f"{OUTPUTDIR}/docs/en/{dir_branch}"
                         os.makedirs(os.path.dirname(TARGET), exist_ok=True)
                         shutil.copytree("build_en/html", TARGET)
                     else:
-                        TARGET = f"{OUTPUTDIR}/{i}/en/{ArraySource[i]}"
+                        TARGET = f"{OUTPUTDIR}/{repo_dir_name}/en/{dir_branch}"
                         os.makedirs(os.path.dirname(TARGET), exist_ok=True)
                         shutil.copytree("build_en/html", TARGET)
             # pylint: disable=W0702
@@ -395,11 +420,11 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                     failed_name_list.append(f'{i}的中文版本')
                 else:
                     if i == "mindspore":
-                        TARGET = f"{OUTPUTDIR}/docs/zh-CN/{ArraySource[i]}"
+                        TARGET = f"{OUTPUTDIR}/docs/zh-CN/{dir_branch}"
                         os.makedirs(os.path.dirname(TARGET), exist_ok=True)
                         shutil.copytree("build_zh_cn/html", TARGET)
                     else:
-                        TARGET = f"{OUTPUTDIR}/{i}/zh-CN/{ArraySource[i]}"
+                        TARGET = f"{OUTPUTDIR}/{repo_dir_name}/zh-CN/{dir_branch}"
                         os.makedirs(os.path.dirname(TARGET), exist_ok=True)
                         shutil.copytree("build_zh_cn/html", TARGET)
             # pylint: disable=W0702
