@@ -4,7 +4,9 @@
 
 ## Overview
 
-Multi-copy parallel refers to slicing the input data into multiple copies to hide the communication latency and improve the training speed, system throughput, and model performance by model parallel.
+In large model training, communication introduced by tensor parallel is a significant performance bottleneck. This part of communication depends on the previous calculation result and cannot be overlapped with the calculation. To solve this problem, mindspore proposes multi-copy parallel.
+
+Multi-copy parallel refers to that on the basis of data parallel, the input data on each rank is further divided into multiple copies along the batch dimension. The calculation and communication of each chunk are independent. At the same time, the calculation of one data chunk overlapes with the communication of other data copies, improving the training speed, the throughput of the system and the performance of the model.
 
 Usage Scenario: When there is model parallel in semi-automatic mode as well as in the network, the forward computation of the 1st copy of the sliced data will be performed at the same time as the 2nd copy of the data will be communicated with the parallel model as a way to achieve performance acceleration of the communication and computation concurrency.
 

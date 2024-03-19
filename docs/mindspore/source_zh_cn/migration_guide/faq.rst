@@ -17,7 +17,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 如何搭建MindSpore环境？**
 
-  A: MindSpore目前支持在昇腾、GPU、CPU等多种device上运行，但在安装过程中需要注意选择配套的硬件平台、操作系统、Python版本，否则会出现很多不可预测的报错。详细可参考 `安装指导 <https://www.mindspore.cn/install/>`_ 。
+  A: MindSpore目前支持在昇腾、GPU、CPU等多种设备上运行，但在安装过程中需要注意选择配套的硬件平台、操作系统、Python版本，否则会出现很多不可预测的报错。详细可参考 `安装指导 <https://www.mindspore.cn/install/>`_ 。
 
   更多环境准备常见问题请参考 `环境准备常见问题分析 <https://www.mindspore.cn/docs/zh-CN/master/faq/installation.html>`_ 。
 
@@ -25,13 +25,16 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 如何查看MindSpore对迁移代码中的API支持程度？**
 
-  A: 可以使用API扫描工具自动（推荐），或手动查询API映射表进行分析。详细可参考 `分析API满足度 <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/analysis_and_preparation.html#%E5%88%86%E6%9E%90api%E6%BB%A1%E8%B6%B3%E5%BA%A6>`_ 。
+  A: 可以使用API自动扫描工具MindSpore Dev Toolkit（推荐），或手动查询API映射表进行分析。详细可参考 `分析API满足度 <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/analysis_and_preparation.html#%E5%88%86%E6%9E%90api%E6%BB%A1%E8%B6%B3%E5%BA%A6>`_ 。
 
 - 数据处理
 
   **Q: 怎么将PyTorch的`dataset`转换成MindSpore的`dataset`？**
 
-  A: MindSpore和PyTorch的自定义数据集逻辑是比较类似的，需要用户先定义一个自己的`dataset`类，该类负责定义`__init__`、`__getitem__`、`__len__`来读取自己的数据集，然后将该类实例化为一个对象（如: `dataset/dataset_generator`），最后将这个实例化对象传入`GeneratorDataset`(mindspore用法)/`DataLoader`(pytorch用法)，至此即可以完成自定义数据集加载了。而MindSpore在`GeneratorDataset`的基础上提供了进一步的`map`->`batch`操作，可以很方便的让用户在`map`内添加一些其他的自定义操作，并将其`batch`起来。
+  A: MindSpore和PyTorch的自定义数据集逻辑是比较类似的，首先需要用户先定义一个自己的 `dataset` 类，该类负责定义 `__init__` 、 `__getitem__` 、 `__len__` 来读取自己的数据集，然后将该类实例化为一个对象（如: `dataset/dataset_generator` ），最后将这个实例化对象传入 `GeneratorDataset` (mindspore用法)/ `DataLoader` (pytorch用法)，至此即可以完成自定义数据集加载了。
+
+  而MindSpore在 `GeneratorDataset` 的基础上提供了进一步的 `map` -> `batch` 操作，可以很方便地让用户在 `map` 内添加一些其他的自定义操作，并将其 `batch` 起来。
+
   对应的MindSpore的自定义数据集加载如下:
 
   .. code-block:: python
@@ -53,12 +56,12 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
       # 3 batch
       dataset = dataset.batch(batch_size, drop_remainder=True)
 
-  **Q: 为什么在迭代数据的时候会报错：The actual amount of data read from generator xx is different from generator.len xx, you should adjust generator.len to make them match ？**
+  **Q: 为什么在迭代数据的时候会报错：“The actual amount of data read from generator xx is different from generator.len xx, you should adjust generator.len to make them match” ？**
 
-  A: 在定义可随机访问数据集时， __len__ 方法返回的结果一定要是真实的数据集大小，设置大了在getitem取值时会有越界问题。如数据集大小未确定，可以使用可迭代数据集，详见 `自定义数据集 <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86>`_ 。
+  A: 在定义可随机访问数据集时， `__len__` 方法返回的结果一定要是真实的数据集大小，设置大了在 `__getitem__` 取值时会有越界问题。如数据集大小未确定，可以使用可迭代数据集，详见 `自定义数据集 <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86>`_ 。
 
 
-  **Q: 为什么在迭代数据的时候会报错：Invalid Python function, the 'source' of 'GeneratorDataset' should return same number of NumPy arrays as specified in column_names, the size of column_names is:xx and number of returned NumPy array is:xx ？**
+  **Q: 为什么在迭代数据的时候会报错：“Invalid Python function, the 'source' of 'GeneratorDataset' should return same number of NumPy arrays as specified in column_names, the size of column_names is:xx and number of returned NumPy array is:xx” ？**
 
   A: 这是因为GeneratorDataset的 column_names 参数指定的列名数量与 source 参数输出的数据数量不匹配。
 
@@ -124,7 +127,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: loss不收敛或精度不达标，该怎么定位？**
 
-  A: 精度不达标一般体现在loss不收敛，但精度达不到预期，有着很多复杂的原因和更多的可能，定位难度较大。这里提供几个指导链接供用户逐一排查问题。
+  A: 精度不达标一般体现在loss不收敛上。但是有很多复杂的原因可导致精度达不到预期，定位难度较大。这里提供几个指导链接供用户逐一排查问题。
 
   `MindSpore模型精度调优实战（一）精度问题的常见现象、原因和简要调优思路 <https://www.hiascend.com/forum/thread-0215121673876901029-1-1.html>`_ 。
 
@@ -136,13 +139,13 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 模型训练过程中，第一个step耗时很长，该怎么优化？**
 
-  A: 模型训练过程中，第一个step包含网络编译时长，如果想要优化第一个step的性能，可分析模型编译是否能进行优化。详情可参考 `静态图网络编译性能优化 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/static_graph_expert_programming.html>`_ 。
+  A: 模型训练过程中，第一个step包含网络编译时长，如果想要优化第一个step的性能，可分析模型编译是否能进行优化。详细可参考 `静态图网络编译性能优化 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/static_graph_expert_programming.html>`_ 。
 
   **Q: 模型训练过程中，非首个step耗时很长，该怎么优化？**
 
   A: 模型训练过程中，非首个step的耗时包括迭代间隙、前反向计算和迭代拖尾，如果想要优化非首step的性能，需要先获取网络的迭代轨迹，再分析哪部分是性能瓶颈，最近进行性能优化。
      
-  详情可参考 `性能调优指南 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/performance_tuning_guide.html>`_ ；和 `性能调试案例 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/performance_optimization.html>`_ 。
+  详细可参考 `性能调优指南 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/performance_tuning_guide.html>`_ ；和 `性能调试案例 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/performance_optimization.html>`_ 。
 
   **Q: 加载标杆权重进行模型推理验证正向流程时，有warning警告显示权重未加载成功，该如何解决？**
 
@@ -154,7 +157,9 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 迁移过程使用PyNative进行调测，流程成功，切换成Graph模式，为什么会出现一堆的报错？**
 
-  A: PyNative模式下模型进行推理的行为与一般Python代码无异。但是切换成Graph模式时，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图，而这一步操作中MindSpore目前还未能支持完整的Python语法全集，所以construct函数的编写会存在部分限制。
+  A: PyNative模式下模型进行推理的行为与一般Python代码无异。但是切换成Graph模式时，MindSpore通过源码转换的方式，将Python的源码转换成中间表达IR（Intermediate Representation），并在此基础上对IR图进行优化，最终在硬件设备上执行优化后的图。
+
+  而这一步操作中MindSpore目前还未能支持完整的Python语法全集，所以construct函数的编写会存在部分限制。
   
   如：PyNative模式下可直接判断某个Tensor值是否为0，但切换成Graph模式则会报错不支持。
 
@@ -174,9 +179,9 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   详细可参考 `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html>`_ 。
 
-  **Q: 训练过程中出现报错：RuntimeError: Launch kernel failed, name:Default/...怎么办？**
+  **Q: 训练过程中出现报错：“RuntimeError: Launch kernel failed, name:Default/...” 怎么办？**
 
-  A: 这类报错一般是MindSpore不支持某个算子，可能需要用户自己实现该算子。详情可查看 `PyTorch与MindSpore API映射表 <https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html>`_ 。
+  A: 这类报错一般是MindSpore不支持某个算子，可能需要用户自己实现该算子。详细可参考 `PyTorch与MindSpore API映射表 <https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html>`_ 。
 
   **Q: PyNative动态图迁移过程中出现报错，该怎么有效地定位到报错原因？**
 
@@ -184,7 +189,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: Graph模式静态图训练过程中出现报错，该怎么有效地定位到报错原因？**
 
-  A: 引发静态图报错的原因很多，一般失败会有日志打印，如果不能直观的从日志中获取报错信息，可通过export GLOG_v=1指定日志级别获取更详细的报错信息进行分析。
+  A: 引发静态图报错的原因很多，一般失败会有日志打印，如果不能直观地从日志中获取报错信息，可通过export GLOG_v=1指定日志级别获取更详细的报错信息进行分析。
 
   同时计算图编译发生报错时，会自动保存analyze_failed.ir文件，可帮助分析报错代码的位置。详细可参考 `静态图模式错误分析 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/error_scenario_analysis.html>`_ 。
 

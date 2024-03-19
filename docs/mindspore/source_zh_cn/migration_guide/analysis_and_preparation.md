@@ -18,7 +18,7 @@
 
 分析API满足度有以下两种方式：
 
-1. 使用API自动扫描工具 MindSpore Dev Toolkit（推荐）。
+1. 使用API自动扫描工具MindSpore Dev Toolkit（推荐）。
 2. 手动查询API映射表进行分析。
 
 ### 工具扫描API
