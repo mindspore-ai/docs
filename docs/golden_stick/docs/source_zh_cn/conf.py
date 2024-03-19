@@ -258,6 +258,12 @@ for cur, _, files in os.walk(moment_dir):
                 except Exception:
                     print(f'打开{i}文件失败')
 
+if not os.path.exists(os.path.join(moment_dir, 'ptq')):
+    os.makedirs(os.path.join(moment_dir, 'ptq'))
+if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb')):
+    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/round_to_nearest/README.ipynb'),
+                os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb'))
+
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 # import anchor_mod
