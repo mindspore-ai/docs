@@ -76,11 +76,18 @@ The current release version of MindSpore Golden Stick provides a stable API and 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Quantization Algorithms
+   :caption: Quantization Aware Training Algorithms
 
    quantization/overview
    quantization/simqat
    quantization/slb
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Post Training Quantization Algorithms
+
+   ptq/round_to_nearest
 
 .. toctree::
    :glob:
