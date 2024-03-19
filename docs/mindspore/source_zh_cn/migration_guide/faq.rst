@@ -58,15 +58,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 为什么在迭代数据的时候会报错：“The actual amount of data read from generator xx is different from generator.len xx, you should adjust generator.len to make them match” ？**
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  A: 在定义可随机访问数据集时， __len__ 方法返回的结果一定要是真实的数据集大小，设置大了在getitem取值时会有越界问题。如数据集大小未确定，可以使用可迭代数据集，详见 `自定义数据集 <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86>`_ 。
-=======
-  A: 在定义可随机访问数据集时， `__len__` 方法返回的结果一定要是真实的数据集大小，设置大了在`__getitem__`取值时会有越界问题。如数据集大小未确定，可以使用可迭代数据集，详见 `自定义数据集 <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86>`_ 。
->>>>>>> f6ab756a87 (fix I98QJM)
-=======
-  A: 在定义可随机访问数据集时， `__len__` 方法返回的结果一定要是真实的数据集大小，设置大了在 `__getitem__`取值时会有越界问题。如数据集大小未确定，可以使用可迭代数据集，详见 `自定义数据集 <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86>`_ 。
->>>>>>> 66010ea3ed (update te en files --pr 13721 13717)
+  A: 在定义可随机访问数据集时， `__len__` 方法返回的结果一定要是真实的数据集大小，设置大了在 `__getitem__` 取值时会有越界问题。如数据集大小未确定，可以使用可迭代数据集，详见 `自定义数据集 <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86>`_ 。
 
 
   **Q: 为什么在迭代数据的时候会报错：“Invalid Python function, the 'source' of 'GeneratorDataset' should return same number of NumPy arrays as specified in column_names, the size of column_names is:xx and number of returned NumPy array is:xx” ？**
@@ -147,11 +139,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 模型训练过程中，第一个step耗时很长，该怎么优化？**
 
-<<<<<<< HEAD
-  A: 模型训练过程中，第一个step包含网络编译时长，如果想要优化第一个step的性能，可分析模型编译是否能进行优化。详情可参考 `静态图网络编译性能优化 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/static_graph_expert_programming.html>`_ 。
-=======
   A: 模型训练过程中，第一个step包含网络编译时长，如果想要优化第一个step的性能，可分析模型编译是否能进行优化。详细可参考 `静态图网络编译性能优化 <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/static_graph_expert_programming.html>`_ 。
->>>>>>> f6ab756a87 (fix I98QJM)
 
   **Q: 模型训练过程中，非首个step耗时很长，该怎么优化？**
 
@@ -193,11 +181,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 训练过程中出现报错：“RuntimeError: Launch kernel failed, name:Default/...” 怎么办？**
 
-<<<<<<< HEAD
-  A: 这类报错一般是MindSpore不支持某个算子，可能需要用户自己实现该算子。详情可查看 `PyTorch与MindSpore API映射表 <https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html>`_ 。
-=======
   A: 这类报错一般是MindSpore不支持某个算子，可能需要用户自己实现该算子。详细可参考 `PyTorch与MindSpore API映射表 <https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html>`_ 。
->>>>>>> f6ab756a87 (fix I98QJM)
 
   **Q: PyNative动态图迁移过程中出现报错，该怎么有效地定位到报错原因？**
 
