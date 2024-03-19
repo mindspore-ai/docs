@@ -185,7 +185,7 @@ import shutil
 logger = logging.getLogger(__name__)
 
 src_dir_api = os.path.join(os.getenv("GS_PATH"), 'docs/api/api_zh_cn')
-moment_dir=os.path.dirname(__file__)
+moment_dir = os.path.dirname(__file__)
 
 for root,dirs,files in os.walk(src_dir_api):
     for file in files:
@@ -201,6 +201,12 @@ for root,dirs,files in os.walk(src_dir_api):
             if os.path.exists(os.path.join(moment_dir,'quantization',file)):
                 os.remove(os.path.join(moment_dir,'quantization',file))
             shutil.copy(os.path.join(root,file),os.path.join(moment_dir,'quantization',file))
+
+if not os.path.exists(os.path.join(moment_dir, 'ptq')):
+    os.makedirs(os.path.join(moment_dir, 'ptq'))
+if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb')):
+    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/round_to_nearest/README.ipynb'),
+                os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb'))
 
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
