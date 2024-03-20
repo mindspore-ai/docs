@@ -41,7 +41,7 @@ a_strategy = layout("mp", ("sp", "dp"))
 
 注意到在张量a的"[a0, a1, a2, a3]"进行了两次切分，切分到了设备的"sp"与"mp"两个轴上，这样出来的结果才是：
 
-![image](images/advanced_operator_parallel_view1.png)
+![image](images/advanced_operator_parallel_view1.PNG)
 
 下面以一个具体的例子进行示例，用户在8个卡上计算二维矩阵乘：`Y = (X * W)` ，其中设备按照`2 * 2 * 2`进行组织，X的切分与上述的张量a切分一致：
 

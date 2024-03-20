@@ -10,6 +10,7 @@
   :hidden:
 
   operator_parallel
+  advanced_operator_parallel
   optimizer_parallel
   pipeline_parallel
 
