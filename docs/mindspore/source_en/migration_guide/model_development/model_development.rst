@@ -66,7 +66,7 @@ Principles of Network Inference
 
 The basic principles of network inference are shown in the figure above.
 
-The training process of the whole network consists of 3 modules:
+The inference process of the whole network consists of 3 modules:
 
 -  dataset: used to obtain data, including the input of the network and
    labels. Since entire inference dataset needs to be inferred during
