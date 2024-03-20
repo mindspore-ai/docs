@@ -457,7 +457,7 @@ The Dump directory structure of the graph pattern is as follows:
                         mapping.csv
 ```
 
-When [jit_level](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level) is set to 'O0', the Dump directory structure is as follows:
+When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and [jit_level](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level) is not set to 'O0', the Dump directory structure is as follows, where the main feature is the {step_id} directory, which represents user side training step id:
 
 ```text
 {path}/
@@ -470,6 +470,20 @@ When [jit_level](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mind
                         {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
                         Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
                         mapping.csv
+```
+
+When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and [jit_level](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level) is set to 'O0', the Dump directory structure is as follows, where the main feature is no {model_name} and {model_id} directory. In this scenario, the dump files for dynamic shape operators will be saved in {iteration_id} directory and the dump files for static shape operators will be saved in {device_id} directory:
+
+```text
+{path}/
+    - {step_id}/
+        - {time}/
+            - {device_id}/
+                - {iteration_id}/
+                    statistic.csv
+                    {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
+                    Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
+                    mapping.csv
 ```
 
 - `path`: the absolute path set in the `data_dump.json` configuration file.
@@ -487,7 +501,7 @@ When [jit_level](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mind
 
 The overflow file (file `Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}`) is only saved when overflow dump is enabled and overflow is detected.
 
-If set `file_format` to `npy`, the operator file will be saved as an npy format file, and the overflow file will be saved as a json format file. The file naming formats are:
+If set `file_format` to `npy`, the operator file will be saved as a npy format file, and the overflow file will be saved as a json format file. The file naming formats are:
 
 ```text
 {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
