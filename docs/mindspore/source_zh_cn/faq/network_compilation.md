@@ -2,6 +2,12 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/faq/network_compilation.md)
 
+## Q: 静态图模式支持的语法集合是什么？
+
+A: 静态图模式能够支持覆盖Python常用语法子集，以支持神经网络的构建和训练，部分Python语法暂不支持。具体支持的语法集合，请参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/r2.3/note/static_graph_syntax_support.html)。静态图模式提供了JIT语法支持级别选项，便于用户选择是否扩展静态图语法，对于一些网络场景，推荐使用基础语法（nn/ops等）而非扩展语法（例如numpy三方库）。此外，推荐使用 [静态图高级编程技巧](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/static_graph_expert_programming.html) 优化编译性能。
+
+<br/>
+
 ## Q: 编译时报错“'self.xx' should be initialized as a 'Parameter' type in the '`__init__`' function”怎么办？
 
 A: 在 `construct` 函数内，如果想对类成员 `self.xx` 赋值，那么 `self.xx` 必须已经在 `__init__` 函数中被定义为 [Parameter](<https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.Parameter.html>) 类型，其他类型则不支持。局部变量 `xx` 不受这个限制。
@@ -744,5 +750,31 @@ a = ms.Tensor(3.)
 grad_fn = ms.value_and_grad(net, None, net.trainable_params())
 print(grad_fn(a))
 ```
+
+<br/>
+
+## Q: 多次调用同一个网络时，什么情况会重新编译？
+
+A: 以下场景会触发重新编译：
+
+- Tensor的shape发生改变。
+
+- 标量值发生改变。
+
+- Tuple或List的长度发生改变。
+
+- 网络的输入是tuple[Tensor]、list[Tensor]或Dict[Tensor]，即使里面Tensor的shape和dtype没有发生变化。详情请参考 [mutable](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.mutable.html)。
+
+<br/>
+
+## Q: 静态图模式如何判断有几张图？什么情况会切分子图？多子图有什么影响？如何避免出现多子图？
+
+A: 1、子图数量可以通过查看IR文件并搜索"Total subgraphs"获取。关于如何查看分析IR文件，请参考 [IR文件分析](https://www.mindspore.cn/tutorials/zh-CN/r2.3/advanced/error_analysis/mindir.html)。
+
+2、图模式切分子图，常见于控制流场景，如if/while等。除了用户手动编写，MindSpore框架内部实现的控制流语法也可能会切分出多张子图。
+
+3、多子图可能影响网络执行性能。
+
+4、为避免出现多张子图，尽量避免出现if/while的条件依赖Tensor计算结果。
 
 <br/>
