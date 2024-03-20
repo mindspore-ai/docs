@@ -20,4 +20,6 @@
   <li><a href="classification_of_iris_by_qnn.html">通过量子神经网络对鸢尾花进行分类</a></li>
   <li><a href="vqe_for_quantum_chemistry.html">在量子化学计算中应用量子变分求解器</a></li>
   <li><a href="qnn_for_nlp.html">量子神经网络在自然语言处理中的应用</a></li>
+  <li><a href="quantum_annealing_inspired_algorithm.html">量子退火启发式算法</a></li>
 </ul>
+
