@@ -4,7 +4,7 @@
 
 ## Q: What is the set of syntaxes supported by static graph mode?
 
-A: Static graph mode can support a subset of common Python syntax to support the construction and training of neural networks. Some Python syntax is not supported yet. For more detailed supported syntax set, please refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r2.3/note/static_graph_syntax_support.html). In order to facilitate users to choose whether to extend the static graph syntax, the static graph mode provides JIT syntax support level options. For some network scenarios, it is recommended to use basic syntax (nn/ops, etc.) rather than extended syntax (such as numpy third-party library). In addition, it is recommended to use [Advanced Programming Techniques with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.3/advanced/static_graph_expert_programming.html) to optimize compilation performance.
+A: Static graph mode can support a subset of common Python syntax to support the construction and training of neural networks. Some Python syntax is not supported yet. For more detailed supported syntax set, please refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html). In order to facilitate users to choose whether to extend the static graph syntax, the static graph mode provides JIT syntax support level options. For some network scenarios, it is recommended to use basic syntax (nn/ops, etc.) rather than extended syntax (such as numpy third-party library). In addition, it is recommended to use [Advanced Programming Techniques with Static Graphs](https://www.mindspore.cn/tutorials/en/master/advanced/static_graph_expert_programming.html) to optimize compilation performance.
 
 <br/>
 
@@ -766,13 +766,13 @@ A: The following scenarios will trigger recompilation:
 
 - The length of Tuple or List changes.
 
-- When the input of network is tuple[Tensor], list[Tensor] or Dict[Tensor], even if the shape and dtype of the Tensor inside do not change. For more details, please refer to [mutable](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.mutable.html).
+- When the input of network is tuple[Tensor], list[Tensor] or Dict[Tensor], even if the shape and dtype of the Tensor inside do not change. For more details, please refer to [mutable](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.mutable.html).
 
 <br/>
 
 ## Q: How to determine how many graphs there are in static graph mode? When will the subgraph be divided? What is the impact of multiple subgraphs? How to avoid multiple subgraphs?
 
-A: 1. The number of subgraphs can be obtained by viewing the IR file and searching for "Total subgraphs". For how to view and analyze IR files, please refer to [MindSpore IR Introduction](https://www.mindspore.cn/tutorials/en/r2.3/advanced/error_analysis/mindir.html)
+A: 1. The number of subgraphs can be obtained by viewing the IR file and searching for "Total subgraphs". For how to view and analyze IR files, please refer to [MindSpore IR Introduction](https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/mindir.html)
 
 2. Subgraph segmentation in static graph mode is common in control flow scenarios, such as if/while. In addition to manual writing by users, the control flow syntax within the MindSpore may also lead to dividing into multiple subgraphs.
 
