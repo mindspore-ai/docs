@@ -34,6 +34,7 @@ Code repository address: <https://gitee.com/mindspore/mindscience/tree/r0.6/Mind
    medium-range/graphcast
    medium-range/vit_kno
    medium-range/fuxi
+   medium-range/graphcast_tp
 
 .. toctree::
    :glob:
