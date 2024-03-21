@@ -26,6 +26,8 @@ A: Compare through the following four aspects:
 
 - In terms of code debugging: since operators are executed line by line in PyNative mode, you can directly debug the Python code and view the `/api` output or execution result of the corresponding operator at any breakpoint in the code. In Graph mode, the network is built but not executed in the constructor function. Therefore, you cannot obtain the output of the corresponding operator at breakpoints in the `construct` function. You can only specify operators and print their output results, and then view the results after the network execution is completed.
 
+- In terms of syntax support: PyNative mode has dynamic syntax affinity, flexible expression, and convers almost all Python syntax. Graph mode supports a subset of common Python syntax to support the construction and training of neural networks.
+
 <br/>
 
 ## Q: Does MindSpore run only on Huawei `Ascend`?
