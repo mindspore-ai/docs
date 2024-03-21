@@ -13,6 +13,7 @@ MindSpore Documentation
    :hidden:
 
    design/overview
+   design/tensor_view
    design/programming_paradigm
    design/dynamic_graph_and_static_graph
    design/distributed_training_design
