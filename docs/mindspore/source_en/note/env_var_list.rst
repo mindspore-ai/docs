@@ -225,6 +225,15 @@ Graph Compilation
      - This environment variable will be removed subsequently and is not recommended.
 
        Ascend AI processor environment GE process use only.
+   * - MS_DEV_BOOST_INFER
+     - Compile optimization switch for graph compilation. This switch accelerates the type inference module to speed up network compilation.
+     - Integer
+     - 0: Disables the optimization.
+
+       1: Enables the optimization.
+
+       Default: 0
+     - Experimental environment variable.
 
 Dump Debugging
 ---------------
