@@ -36,7 +36,7 @@ If an exception occurs in above code during the training process, resulting in t
 
    from mindspore import Profiler
 
-   profiler.offline_analyse(path='/path/to/profiler_data')
+   Profiler.offline_analyse(path='/path/to/profiler_data')
 
 
 After offline parsing, you can view the profiling data in the directory `/path/to/profiler_data/profile` .
