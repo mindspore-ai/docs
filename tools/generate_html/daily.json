@@ -207,5 +207,14 @@
     "whl_name" : "mindspore_gl-.*-cp37-cp37m-linux_x86_64.whl$",
     "environ" : "GL_PATH",
     "uninstall_name" : "mindspore_gl"
+},
+{
+    "id" : 24 ,
+    "name" : "mindformers",
+    "branch" : "",
+    "whl_path" : "/mindformers/newest/any/",
+    "whl_name" : "mindformers-.*-py3-none-any.whl$",
+    "environ" : "",
+    "uninstall_name" : "mindformers"
 }
 ]
