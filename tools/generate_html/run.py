@@ -154,7 +154,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         # 判断是否需要单独生成某些组件
         if generate_list and data[i]['name'] not in generate_list:
             continue
-        if data[i]['environ']:
+        if data[i]['environ'] and branch_:
             os.environ[data[i]['environ']] = repo_path
             try:
                 status_code = requests.get(repo_url, headers=headers).status_code
@@ -183,12 +183,12 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             ArraySource[data[i]['name'] + '/experts'] = data[i]["branch"]
         elif data[i]['name'] == "mindspore":
             ArraySource[data[i]['name']] = data[i]["branch"]
-        elif data[i]['name'] == "mindscience":
+        elif data[i]['name'] == "mindscience" or data[i]['name'] == "mindformers":
             pass
         else:
             ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
 
-        if data[i]['name'] != "mindscience":
+        if data[i]['name'] != "mindscience" and data[i]['name'] != "mindformers":
             generate_version_json(data[i]['name'], data[i]["branch"], data_b, version, target_version)
 
         # 卸载原来已有的安装包, 以防冲突
