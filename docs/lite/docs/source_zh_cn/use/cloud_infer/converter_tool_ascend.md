@@ -20,7 +20,7 @@
 | `output_type`       | 可选 | 指定网络输出数据类型。  | String | 可选有`"FP16"`、`"FP32"`、`"UINT8"` |
 | `fusion_switch_config_file_path` | 可选 | 配置[融合规则开关配置](https://www.hiascend.com/document/detail/zh/canncommercial/601/inferapplicationdev/atctool/atctool_0078.html)文件路径及文件名。 | String   | 指定融合规则开关的配置文件      |
 | `insert_op_config_file_path` | 可选 | 模型插入[AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/601/inferapplicationdev/atctool/atctool_0018.html)算子 | String  | [AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/601/inferapplicationdev/atctool/atctool_0021.html)配置文件路径 |
-| `aoe_mode` | 可选 | [AOE](https://www.hiascend.com/document/detail/zh/canncommercial/601/devtools/auxiliarydevtool/aoe_16_001.html)自动调优模式 | String  | 可选有"subgraph tuning"、"operator tuning"或者"subgraph tuning、operator tuning"，默认不使能 |
+| `aoe_mode` | 可选 | [AOE](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha003/devaids/auxiliarydevtool/aoe_16_001.html)自动调优模式 | String  | 可选有"subgraph tuning"、"operator tuning"或者"subgraph tuning、operator tuning"，默认不使能 |
 | `plugin_custom_ops` | 可选 | 用于使能ascend后端融合优化生成自定义算子 | String  | 可选有"All"或者"None"，默认"None"表示不使能 |
 | `custom_fusion_pattern` | 可选 | 指定使能模型中的自定义算子结构 | String  | `自定义算子类型:模型中原始算子名称:是否使能`，可以取值为`enable`或者`disable` |
 
@@ -309,7 +309,7 @@ Ascend推理时，运行时指定 `provider` 为 ``ge`` 时，支持多个模型
 
 4. 动态分档
 
-    可在 `[acl_option_cfg_param]` 、`[ascend_context]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 设置动态分档信息，优先级从低到高。以下设置方式等价。 `[ascend_context]` 分档设置可参考 [动态shape配置](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool_ascend.html#%E5%8A%A8%E6%80%81shape%E9%85%8D%E7%BD%AE)。 `[acl_option_cfg_param]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 分档设置可参考 [dynamic_dims](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_015.html)、[dynamic_batch_size](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_013.html)、[dynamic_image_size](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_014.html)。注意， `[ge_graph_options]` 仅支持 `ge.dynamicDims` ，不支持类似 `dynamic_batch_size` 和 `dynamic_image_size` 的形式。 `input_format` 用于指定动态分档的输入维度排布，使用 `dynamic_image_size` 时需要指定 `input_format` 为 `NCHW` 或 `NHWC` 指示 `H` 和 `W` 维度所在位置。
+    可在 `[acl_option_cfg_param]` 、`[ascend_context]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 设置动态分档信息，优先级从低到高。以下设置方式等价。 `[ascend_context]` 分档设置可参考 [动态shape配置](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool_ascend.html#%E5%8A%A8%E6%80%81shape%E9%85%8D%E7%BD%AE)。 `[acl_option_cfg_param]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 分档设置可参考 [dynamic_dims](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha003/devaids/auxiliarydevtool/aoepar_16_013.html)、[dynamic_batch_size](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha003/devaids/auxiliarydevtool/aoepar_16_011.html)、[dynamic_image_size](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha003/devaids/auxiliarydevtool/aoepar_16_012.html)。注意， `[ge_graph_options]` 仅支持 `ge.dynamicDims` ，不支持类似 `dynamic_batch_size` 和 `dynamic_image_size` 的形式。 `input_format` 用于指定动态分档的输入维度排布，使用 `dynamic_image_size` 时需要指定 `input_format` 为 `NCHW` 或 `NHWC` 指示 `H` 和 `W` 维度所在位置。
 
     ```bash
     [ascend_context]
@@ -339,7 +339,7 @@ Ascend推理时，运行时指定 `provider` 为 ``ge`` 时，支持多个模型
 
     可在 `[acl_option_cfg_param]` 、`[ascend_context]` 、 `[ge_graph_options]` 、 `[aoe_tuning_options]` 设置模式信息，优先级从低到高。以下设置方式等价。
 
-    `[ascend_context]` 和 `[acl_option_cfg_param]` 精度模式设置可参考 [ascend_context - precision_mode](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool_ascend.html#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)。 `[ge_graph_options]` 和 `[aoe_tuning_options]` 精度模式设置可参考 [precision_mode](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/developmenttools/devtool/aoepar_16_046.html)。
+    `[ascend_context]` 和 `[acl_option_cfg_param]` 精度模式设置可参考 [ascend_context - precision_mode](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool_ascend.html#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)。 `[ge_graph_options]` 和 `[aoe_tuning_options]` 精度模式设置可参考 [precision_mode](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha003/devaids/auxiliarydevtool/aoerc_16_0053.html)。
 
     ```bash
     [ascend_context]
