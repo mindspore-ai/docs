@@ -174,3 +174,47 @@ for output in outputs:
     print(data[i], end=" ")
   print("")
 ```
+
+## 动态权重更新
+
+MindSpore Lite推理，在Ascend后端上支持动态权重更新，使用步骤如下所示:
+
+### 创建配置文件
+
+将需要更新的Matmul算子所对应的Tensor名称全部写入一个文本文件中，每个Tensor名字占一行。构建模型加载配置文件，配置文件设置，配置文件`config.ini`内容如下所示:
+
+```text
+[ascend_context]
+variable_weights_file="update_weight_name_list.txt"
+```
+
+### 模型加载
+
+```python
+import numpy as np
+import mindspore_lite as mslite
+
+# init context, and set target is gpu.
+context = mslite.Context()
+context.target = ["ascend"]
+context.gpu.device_id = 0
+
+# build model from file
+MODEL_PATH = "./SD1.5/unet.mindir"
+model = mslite.Model()
+model.build_from_file(MODEL_PATH, mslite.ModelType.MINDIR, context,  "config.ini")
+```
+
+### 构建新权重tensor
+
+将第三方框架训练导出的SaveTensor数据结构转换成MindSpore Lite能支持的Tensor格式。
+
+### 更新权重
+
+调用MindSpore Lite提供的`update_weights`接口更新权重，如下所示:
+
+```python
+new_weight = mslite.Tensor(data)
+new_weights = [new_weight]
+model.update_weights([new_weights])
+```
