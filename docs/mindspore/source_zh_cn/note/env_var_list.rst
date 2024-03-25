@@ -444,9 +444,9 @@ Dump调试
 
        comm_group_rank_ids: 通信算子的通信域。
 
-       src_rank: Receive算子的对端算子。
+       src_rank: Receive算子的对端算子的rank_id。
 
-       dest_rank: 算子的对端算子。
+       dest_rank: Send算子的对端算子的rank_id。
 
        sr_tag: src和dest相同时，不同send-receive对的标识ID。
 
