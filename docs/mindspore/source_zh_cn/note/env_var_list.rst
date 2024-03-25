@@ -498,6 +498,13 @@ CANN的环境变量详见 `昇腾社区 <https://www.hiascend.com/document/detai
      - String
      - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如：`export MS_JIT_IGNORE_MODULES=numpy,scipy`。
      - 静态图模式能够自动识别第三方库，一般情况下不需要为NumPy、SciPy这些可识别的第三方库设置该环境变量。如果 `MS_JIT_IGNORE_MODULES` 和 `MS_JIT_MODULES` 同时指定同一个模块名，前者生效，后者不生效。
+   * - MS_JIT_DISPLAY_PROGRESS
+     - 指定是否打印编译进度的信息。
+     - Integer
+     - 1：打印关键的编译进度的信息。
+
+       不设置或其它值：不打印编译进度的信息。
+     -
    * - MS_EXCEPTION_DISPLAY_LEVEL
      - 控制异常信息显示级别
      - Integer
