@@ -101,7 +101,7 @@ First, use the converter to convert a model into an `ms` model. Then, use the ru
 
 5. (Optional) Configuring configFile
 
-    You can use this option to configure the Ascend option for model conversion. The configuration file is in the INI format. For the Ascend scenario, the configurable parameter is [acl_option_cfg_param]. For details about the parameter, see the following table,  Ascend initialization can be configured through the [acl_init_options](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/infacldevg/graphdevg/atlasgeapi_07_0100.html) parameter, and Ascend composition can be configured through the [acl_build_options](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/infacldevg/graphdevg/atlasgeapi_07_0101.html) parameter.
+    You can use this option to configure the Ascend option for model conversion. The configuration file is in the INI format. For the Ascend scenario, the configurable parameter is [acl_option_cfg_param]. For details about the parameter, see the following table,  Ascend initialization can be configured through the acl_init_options parameter, and Ascend composition can be configured through the acl_build_options parameter.
 
 6. Execute the converter to generate an Ascend `ms` model.
 
@@ -140,7 +140,7 @@ Table 1 [acl_option_cfg_param] parameter configuration
 | `op_select_impl_mode`      | Optional| Configures the operator selection mode.| String | `"high_performance"` (default value) or `"high_precision"`|
 | `dynamic_batch_size`       | Optional| Specifies the [dynamic batch size](#dynamic-batch-size) parameter.| String | `"2,4"`|
 | `dynamic_image_size`       | Optional| Specifies the [dynamic image size](#dynamic-image-size) parameter.| String | `"96,96;32,32"` |
-| `fusion_switch_config_file_path` | Optional| Configure the path and name of the [fusion pattern switch](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/51RC2alpha007/infacldevg/atctool/atlasatc_16_0078.html) file.| String   | -      |
+| `fusion_switch_config_file_path` | Optional| Configure the path and name of the [fusion pattern switch](https://www.hiascend.com/document/detail/zh/canncommercial/700/devtools/auxiliarydevtool/aoepar_16_034.html) file.| String   | -      |
 | `insert_op_config_file_path` | Optional| Inserts the [AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html) operator into a model.| String  | [AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html) configuration file path|
 
 ## Runtime

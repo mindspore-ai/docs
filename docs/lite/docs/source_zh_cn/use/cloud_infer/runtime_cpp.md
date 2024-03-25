@@ -617,7 +617,7 @@ if (build_ret != mindspore::kSuccess) {
 }
 ```
 
-在配置文件中，来自 `[ge_global_options]` 、 `[ge_sesion_options]` 和 `[ge_graph_options]` 中的选项将作为GE接口的全局、Session和模型（图）级别的选项，详情可参考[GE选项](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/infacldevg/graphdevg/atlasgeapi_07_0112.html)。比如：
+在配置文件中，来自 `[ge_global_options]` 、 `[ge_sesion_options]` 和 `[ge_graph_options]` 中的选项将作为GE接口的全局、Session和模型（图）级别的选项，详情可参考[GE选项](https://www.hiascend.com/document/detail/zh/canncommercial/700/inferapplicationdev/graphdevg/atlasgeapi_07_0119.html)。比如：
 
 ```ini
 [ge_global_options]

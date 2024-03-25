@@ -617,7 +617,7 @@ if (build_ret != mindspore::kSuccess) {
 }
 ```
 
-In the configuration file, the options from `[ge_global_options]`, `[ge_sesion_options]` and `[ge_graph_options]` will be used as global, session and model (graph) level options for the GE interface. For details, please refer to [GE Options](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/infacldevg/graphdevg/atlasgeapi_07_0112.html). For example:
+In the configuration file, the options from `[ge_global_options]`, `[ge_sesion_options]` and `[ge_graph_options]` will be used as global, session and model (graph) level options for the GE interface. For details, please refer to [GE Options](https://www.hiascend.com/document/detail/zh/canncommercial/700/inferapplicationdev/graphdevg/atlasgeapi_07_0119.html). For example:
 
 ```ini
 [ge_global_options]

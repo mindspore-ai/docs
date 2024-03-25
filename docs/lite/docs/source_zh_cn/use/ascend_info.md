@@ -100,7 +100,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
 5. 配置configFile(可选)
 
-    用户可以通过此选项配置用于转模型时的Ascend Option选项，配置文件采用INI的风格，针对Ascend场景，可配置的参数为[acl_option_cfg_param]，参数的详细介绍如下表1所示，针对Ascend初始化可以通过[acl_init_options](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/infacldevg/graphdevg/atlasgeapi_07_0100.html)参数进行配置，针对Ascend构图可以通过[acl_build_options](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC1alpha002/infacldevg/graphdevg/atlasgeapi_07_0101.html)参数进行配置。
+    用户可以通过此选项配置用于转模型时的Ascend Option选项，配置文件采用INI的风格，针对Ascend场景，可配置的参数为[acl_option_cfg_param]，参数的详细介绍如下表1所示，针对Ascend初始化可以通过acl_init_options参数进行配置，针对Ascend构图可以通过acl_build_options参数进行配置。
 
 6. 执行converter，生成Ascend`ms`模型
 
@@ -139,7 +139,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 | `op_select_impl_mode`      | 可选 | 配置算子选择模式。    | String | 可选有`"high_performance"`和`"high_precision"`，默认为`"high_performance"` |
 | `dynamic_batch_size`       | 可选 | 指定[动态BatchSize](#动态batch-size)参数。 | String | `"2,4"`|
 | `dynamic_image_size`       | 可选 | 指定[动态分辨率](#动态分辨率)参数。  | String | `"96,96;32,32"` |
-| `fusion_switch_config_file_path` | 可选 | 配置[融合规则开关配置](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/51RC2alpha007/infacldevg/atctool/atlasatc_16_0078.html)文件路径及文件名。 | String   | -      |
+| `fusion_switch_config_file_path` | 可选 | 配置[融合规则开关配置](https://www.hiascend.com/document/detail/zh/canncommercial/700/devtools/auxiliarydevtool/aoepar_16_034.html)文件路径及文件名。 | String   | -      |
 | `insert_op_config_file_path` | 可选 | 模型插入[AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html)算子 | String  | [AIPP](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/inferapplicationdev/atctool/atctool_0018.html)配置文件路径 |
 
 ## 推理工具runtime
