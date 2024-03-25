@@ -446,9 +446,9 @@ Distributed Parallel
        
        comm_group_rank_ids: The communication domain of the communication operator.
        
-       src_rank: The peer operator of the Receive operator.
+       src_rank: The rank_id of peer operator of the Receive operator.
        
-       dest_rank: The operator at the opposite end of the operator.
+       dest_rank: The rank_id of peer opposite of the Send operator.
        
        sr_tag: The identity ID of different send-receive pairs when src and dest are the same.
 
