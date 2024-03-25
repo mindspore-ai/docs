@@ -141,13 +141,15 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
 表1：micro_param参数定义
 
-| 参数               | 是否必选     | 参数说明                                    | 取值范围                        | 默认值   |
-|------------------|----------|-----------------------------------------|-----------------------------|-------|
-| enable_micro     | 是        | 模型会生成代码，否则生成.ms                         | true, false                 | false |
-| target           | 是        | 生成代码针对的平台                               | x86, Cortex-M, ARM32, ARM64 | x86   |
-| support_parallel | 否        | 是否生成多线程推理代码，仅在x86、ARM32、ARM64平台可设置为true | true, false                 | false |
-| save_path        | 否（多模型参数） | 多模型生成代码文件路径                             | 无                           | 无     |
-| project_name     | 否（多模型参数） | 多模型生成代码工程名                              | 无                           | 无     |
+| 参数                 | 是否必选         | 参数说明                                    | 取值范围                        | 默认值   |
+|--------------------|--------------|-----------------------------------------|-----------------------------|-------|
+| enable_micro       | 是            | 模型会生成代码，否则生成.ms                         | true, false                 | false |
+| target             | 是            | 生成代码针对的平台                               | x86, Cortex-M, ARM32, ARM64 | x86   |
+| support_parallel   | 否            | 是否生成多线程推理代码，仅在x86、ARM32、ARM64平台可设置为true | true, false                 | false |
+| save_path          | 否（多模型参数）     | 多模型生成代码文件路径                             | 无                           | 无     |
+| project_name       | 否（多模型参数）     | 多模型生成代码工程名                              | 无                           | 无     |
+| inputs_shape       | 否（动态shape参数） | 动态shape场景下模型的输入shape信息                  | 无                           | 无     |
+| dynamic_dim_params | 否（动态shape参数）     | 动态shape场景下可变维度的取值范围                     | 无                           | 无     |
 
 ### 多模型生成推理代码
 
@@ -276,6 +278,23 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 通常在生成代码时，通过配置模型输入shape为实际推理时的输入shape，可以减少部署过程中出错的概率。
 当模型含有`Shape`算子或者原模型输入shape非固定值时，必须配置模型的输入shape值，以支持相关shape优化和代码生成。
 通过转换工具的`--inputShape=`命令可以配置生成代码的输入shape，具体参数含义，请参考[转换工具使用说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)。
+
+### 动态shape配置(可选)
+
+在某些推理场景，如检测出目标后再执行目标识别网络，由于目标个数不固定导致目标识别网络输入BatchSize不固定。如果每次推理都按照需要的BatchSize或分辨率进行重新生成和部署，会造成内存资源浪费和开发效率降低。因此，Micro需要支持动态shape能力，在convert阶段通过configFile配置`[micro_param]`中的动态参数，推理时使用[MSModelResize](#推理代码的调用接口)功能，改变输入shape。
+其中，`inputs_shape`中配置模型的所有输入shape信息，固定维度用真实数字表示，动态维度用占位符表示，目前仅支持配置2个可变维度。`dynamic_dim_params`表示可变维度的取值范围，需与`inputs_shape`配置的占位符对应；如果范围为离散值，则用`,`隔开，如果范围为连续值，则用`~`隔开。所有参数均为紧凑书写，中间不要留有空格；若存在多个输入，不同输入对应的挡位需要一致，并用`;`隔开，否则解析失败。
+
+```text
+[micro_param]
+
+# the name and shapes of model's all inputs.
+# the format is 'input1_name:[d0,d1];input2_name:[1,d0]'
+inputs_shape=input1:[d0,d1];input2:[1,d0]
+
+# the value range of dynamic dims.
+dynamic_dim_params=d0:[1,3];d1:[1~8]
+
+```
 
 ### 生成多线程并行推理代码(可选)
 
@@ -505,18 +524,19 @@ mindspore-lite-{version}-linux-x64
 
 表3：推理通用API接口
 
-| 功能                                 | 函数原型                                                                                                                                                                        |
-|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 创建 Model                           | MSModelHandle MSModelCreate()                                                                                                                                               |
-| 销毁 Model                           | void MSModelDestroy(MSModelHandle *model)                                                                                                                                   |
+| 功能                                | 函数原型                                                                                                                                                                        |
+|-----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 创建 Model                          | MSModelHandle MSModelCreate()                                                                                                                                               |
+| 销毁 Model                          | void MSModelDestroy(MSModelHandle *model)                                                                                                                                   |
 | 计算 Model 运行时所需的缓存大小（仅支持Cortex-M平台） | size_t MSModelCalcWorkspaceSize(MSModelHandle model)                                                                                                                        |
-| 设置 Model 运行时的缓存（仅支持Cortex-M平台）     | void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)                                                                                       |
-| 编译 Model                           | MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)                           |
-| 推理 Model                           | MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs, const MSKernelCallBackC before, const MSKernelCallBackC after) |
-| 获取所有输入 Tensor                      | MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)                                                                                                             |
-| 获取所有输出 Tensor                      | MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)                                                                                                            |
-| 通过名字取输入 Tensor                     | MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char *tensor_name)                                                                              |
-| 通过名字取输出 Tensor                     | MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model, const char *tensor_name)                                                                             |9
+| 设置 Model 运行时的缓存（仅支持Cortex-M平台）    | void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)                                                                                       |
+| 编译 Model                          | MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)                           |
+| 设置 Model 的输入shape                 | MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MSShapeInfo *shape_infos, size_t shape_info_num)                                              |
+| 推理 Model                          | MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs, const MSKernelCallBackC before, const MSKernelCallBackC after) |
+| 获取所有输入 Tensor                     | MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)                                                                                                             |
+| 获取所有输出 Tensor                     | MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)                                                                                                            |
+| 通过名字取输入 Tensor                    | MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char *tensor_name)                                                                              |
+| 通过名字取输出 Tensor                    | MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model, const char *tensor_name)                                                                             |
 
 ### 训练代码的调用接口
 
