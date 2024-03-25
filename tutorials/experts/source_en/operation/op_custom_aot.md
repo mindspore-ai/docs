@@ -388,3 +388,148 @@ Execution result is as follows:
 ```text
 [10. 10. 10. 10.]
 ```
+
+## Introduction to Multi-Output Custom Operators of the AOT Type
+
+Custom operators of the AOT type support multiple outputs (outputs as tuples). The definition of the operator file for a custom operator with multiple outputs is similar to that of a single-output operator, but corresponding modifications need to be made based on the multi-output scenario, including:
+
+- Operator inference function: The output of the `infer` function needs to be written in the form of a tuple;
+- Operator registration file: The names and data type information of multiple outputs need to be listed;
+- Operator computation function: It needs to identify the pointers corresponding to multiple outputs.
+
+Below, we demonstrate the method of defining a custom operator of the AOT type with multiple outputs using an example. For specific file usage, please refer to [here](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_aot.py#L405).
+
+### Operator Inference Function
+
+In the case of multiple outputs, the operator inference function should be written in the form of a tuple.
+Taking the case where the output shapes are constants as an example, the `out_shapes` in the custom operator below is `([3], [3], [3])`,
+and `out_dtypes` is `(mstype.float32, mstype.float32, mstype.float32)`, which correspond to the shapes and data types of the three outputs, respectively.
+
+```python
+self.program = ops.Custom(func, ([3], [3], [3]), (mstype.float32, mstype.float32, mstype.float32), "aot", bprop, reg)
+```
+
+### Operator Registering Function
+
+When defining multiple outputs, we need to clearly specify the names of the inputs and outputs in sequence, and indicate the corresponding data formats for both inputs and outputs in the `dtype_format` section. For example:
+
+```python
+multioutput_gpu_info = CustomRegOp() \
+    .input(0, "x1") \
+    .input(1, "x2") \
+    .output(0, "y1") \
+    .output(1, "y2") \
+    .output(2, "y3") \
+    .dtype_format(DataType.F32_Default, DataType.F32_Default,
+                  DataType.F32_Default, DataType.F32_Default, DataType.F32_Default) \
+    .target("GPU") \
+    .get_op_info()
+```
+
+Here, we define a registration file for an operator with two inputs and three outputs. Therefore, we add two `input` items and three `output` items in the registration file. Additionally, the five data formats defined in `dtype_format` correspond to the data format requirements for the two inputs and three outputs in sequence.
+
+### Operator Computation Function
+
+The following `CustomAddMulDiv` function is the computation function of the custom op.
+
+```c++
+constexpr int THREADS = 1024;
+
+__global__ void CustomAddMulDivKernel(float *input1, float *input2, float *output1, float *output2, float *output3,
+                                      size_t size) {
+  auto idx = blockIdx.x * THREADS + threadIdx.x;
+  if (idx < size) {
+    output1[idx] = input1[idx] + input2[idx];
+    output2[idx] = input1[idx] * input2[idx];
+    output3[idx] = input1[idx] / input2[idx];
+  }
+}
+
+extern "C" int CustomAddMulDiv(int nparam, void **params, int *ndims, int64_t **shapes, const char **dtypes,
+                               void *stream, void *extra) {
+  cudaStream_t custream = static_cast<cudaStream_t>(stream);
+
+  constexpr int OUTPUT_INDEX = 2;
+  constexpr int TOTAL_PARAM_NUM = 5;
+
+  // There are two inputs and three outputs, so the nparam should be 5.
+  if (nparam != TOTAL_PARAM_NUM) {
+    return 1;
+  }
+
+  // This is to check if the type of parameters the same as what the user wants.
+  for (int i = 0; i < nparam; i++) {
+    if (strcmp(dtypes[i], "float32") != 0) {
+      return 2;
+    }
+  }
+
+  // input1's index is 0, input2's index is 1, output1's index is 2, output2's index is 3 and output3's index is 4
+  void *input1 = params[0];
+  void *input2 = params[1];
+  void *output1 = params[2];
+  void *output2 = params[3];
+  void *output3 = params[4];
+  size_t size = 1;
+
+  // Cumprod of output's shape to compute elements' num
+  for (int i = 0; i < ndims[OUTPUT_INDEX]; i++) {
+    size *= shapes[OUTPUT_INDEX][i];
+  }
+  int n = size / THREADS;
+
+  // Do the computation
+  CustomAddMulDivKernel<<<n + 1, THREADS, 0, custream>>>(static_cast<float *>(input1), static_cast<float *>(input2),
+                                                         static_cast<float *>(output1), static_cast<float *>(output2),
+                                                         static_cast<float *>(output3), size);
+  // When return 0, MindSpore will continue to run if this kernel could launch successfully.
+  return 0;
+}
+```
+
+Please note that since the operator has two inputs and three outputs, `nparam` should be 5, and the five pointers in the `params` array should correspond to the two inputs and three outputs in sequence.
+Therefore, in the above code, we obtain the inputs and outputs as follows:
+
+```c++
+void *input1 = params[0];
+void *input2 = params[1];
+void *output1 = params[2];
+void *output2 = params[3];
+void *output3 = params[4];
+```
+
+For the complete operator computation file, please refer to [here](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/add_mul_div.cu).
+
+### Operator in Scripts
+
+When a custom operator with multiple outputs is involved in a net, the results can be used as a normal tuple, for example:
+
+```python
+class AOTMultiOutputNet(Cell):
+    def __init__(self, func, out_shapes, out_types, bprop=None, reg=None):
+        super(AOTMultiOutputNet, self).__init__()
+
+        self.program = ops.Custom(func, out_shapes, out_types, "aot", bprop, reg)
+        self.add = ops.Add()
+        self.mul = ops.Mul()
+
+    def construct(self, x, y):
+        aot = self.program(x, y)
+        add_res = self.add(aot[0], aot[1])
+        mul_res = self.mul(add_res, aot[2])
+        return mul_res
+
+if __name__ == "__main__":
+  x = np.array([1.0, 1.0, 1.0]).astype(np.float32)
+  y = np.array([1.0, 1.0, 1.0]).astype(np.float32)
+  net = AOTMultiOutputNet("./add_mul_div.cu:CustomAddMulDiv", ([3], [3], [3]),
+                          (mstype.float32, mstype.float32, mstype.float32), reg=multioutput_gpu_info)
+  output = test(Tensor(input_x),Tensor(input_y))
+  print(output)
+```
+
+Here `aot` as the output of the multi-output custom operator can be used as a tuple. Execution result is as follows:
+
+```text
+[3. 3. 3.]
+```
