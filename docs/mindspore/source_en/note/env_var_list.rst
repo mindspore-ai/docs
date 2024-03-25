@@ -154,6 +154,13 @@ Graph Compilation
      - String
      - Pass's name of part of its name. If there are multiple, use commas to separate them. For example, `export MS_DEV_DUMP_IR_PASSES=recompute,renormalize`.
      - When setting this environment variable, regardless of the value of MS_DEV_SAVE_GRAPHS, detailed frontend IR files will be filtered and printed.
+   * - MS_JIT_DISPLAY_PROGRESS
+     - Specify whether to print compilation progress information.
+     - Integer
+     - 1: Print main compilation progress information.
+
+       No setting or other value: Do not print compilation progress information.
+     -
    * - GRAPH_OP_RUN
      - When running the pipeline large network model in task sinking mode in graph mode, it may not be able to start as expected due to the limitation of stream resources. 
        This environment variable can specify the execution mode of the graph mode. 
