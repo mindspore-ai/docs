@@ -375,7 +375,7 @@ aot类型的自定义算子支持多输出（输出为tuple)的情况。多输�
 - 算子注册文件：需要列出多个输出的名字和数据类型信息；
 - 算子计算函数：需要识别多个输出对应的指针。
 
-下面我们用一个例子来展现多输出aot类型自定义算子的定义方法，具体的文件用例参见[这里](https://gitee.com/mindspore/mindspore/blob/r2.3/tests/st/ops/graph_kernel/custom/test_custom_aot.py#L405)。
+下面我们用一个例子来展现多输出aot类型自定义算子的定义方法，具体的文件用例参见[这里](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_aot.py#L405)。
 
 ### 算子推导文件
 
@@ -478,7 +478,7 @@ void *output2 = params[3];
 void *output3 = params[4];
 ```
 
-完整的算子计算文件参见[这里](https://gitee.com/mindspore/mindspore/blob/r2.3/tests/st/ops/graph_kernel/custom/aot_test_files/add_mul_div.cu).
+完整的算子计算文件参见[这里](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/add_mul_div.cu).
 
 ### 算子使用文件
 
