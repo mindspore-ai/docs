@@ -7,7 +7,7 @@ MindSpore Flow介绍
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindflow/docs/source_zh_cn/images/mindflow_archi_cn.png" width="1200px" alt="" style="display: inline-block">
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/docs/mindflow/docs/source_zh_cn/images/mindflow_archi_cn.png" width="1200px" alt="" style="display: inline-block">
 
 代码仓地址: <https://gitee.com/mindspore/mindscience/tree/master/MindFlow>
 
@@ -36,6 +36,10 @@ MindSpore Flow介绍
    physics_driven/poisson_geometry
    physics_driven/taylor_green2D
    physics_driven/navier_stokes_inverse
+   physics_driven/boltzmann
+   physics_driven/kovasznay
+   physics_driven/periodic_hill
+   physics_driven/poisson_point_source
 
 .. toctree::
    :glob:
@@ -47,6 +51,9 @@ MindSpore Flow介绍
    data_driven/navier_stokes_FNO2D
    data_driven/burgers_KNO1D
    data_driven/navier_stokes_KNO2D
+   data_driven/2D_unsteady
+   data_driven/flow_around_sphere
+   data_driven/navier_stokes_FNO3D
 
 .. toctree::
    :glob:
@@ -54,6 +61,8 @@ MindSpore Flow介绍
    :caption: 数据机理融合
 
    data_mechanism_fusion/pde_net
+   data_mechanism_fusion/percnn2d
+   data_mechanism_fusion/percnn3d
 
 .. toctree::
    :glob:
