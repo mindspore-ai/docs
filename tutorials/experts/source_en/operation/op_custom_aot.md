@@ -397,7 +397,7 @@ Custom operators of the AOT type support multiple outputs (outputs as tuples). T
 - Operator registration file: The names and data type information of multiple outputs need to be listed;
 - Operator computation function: It needs to identify the pointers corresponding to multiple outputs.
 
-Below, we demonstrate the method of defining a custom operator of the AOT type with multiple outputs using an example. For specific file usage, please refer to [here](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_aot.py#L405).
+Below, we demonstrate the method of defining a custom operator of the AOT type with multiple outputs using an example. For specific file usage, please refer to [here](https://gitee.com/mindspore/mindspore/blob/r2.3/tests/st/ops/graph_kernel/custom/test_custom_aot.py#L405).
 
 ### Operator Inference Function
 
@@ -498,7 +498,7 @@ void *output2 = params[3];
 void *output3 = params[4];
 ```
 
-For the complete operator computation file, please refer to [here](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/add_mul_div.cu).
+For the complete operator computation file, please refer to [here](https://gitee.com/mindspore/mindspore/blob/r2.3/tests/st/ops/graph_kernel/custom/aot_test_files/add_mul_div.cu).
 
 ### Operator in Scripts
 
