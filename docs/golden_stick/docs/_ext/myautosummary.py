@@ -462,11 +462,14 @@ class MsCnAutoSummary(Autosummary):
             body.append(row)
         append_row(*self.table_head)
         if not self.table_head:
-            for name, summary in items:
-                qualifier = 'obj'
-                col1 = ':%s:`%s <%s>`' % (qualifier, name, name)
-                col2 = summary
-                append_row(col1, col2)
+            try:
+                for name, summary in items:
+                    qualifier = 'obj'
+                    col1 = ':%s:`%s <%s>`' % (qualifier, name, name)
+                    col2 = summary
+                    append_row(col1, col2)
+            except ValueError:
+                logger.warning(items)
         else:
             for name, summary, other in items:
                 qualifier = 'obj'
