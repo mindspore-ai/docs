@@ -366,3 +366,150 @@ python test_custom_aot.py
 ```text
 [10. 10. 10. 10.]
 ```
+
+## 多输出aot类型自定义算子用法特性简介
+
+aot类型的自定义算子支持多输出（输出为tuple)的情况。多输出的aot类型的自定义算子需要定义的算子文件和单输出一样，但是需要根据多输出情况做对应修改，包括：
+
+- 算子推导函数：需要把 `infer` 函数的输出写成tuple的形式；
+- 算子注册文件：需要列出多个输出的名字和数据类型信息；
+- 算子计算函数：需要识别多个输出对应的指针。
+
+下面我们用一个例子来展现多输出aot类型自定义算子的定义方法，具体的文件用例参见[这里](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_aot.py#L405)。
+
+### 算子推导文件
+
+多输出的情况下，算子推导函数应该写成tuple的形式。
+以输出的形状为常数的情况为例，下面自定义算子中的`out_shapes`为`([3], [3], [3])`，
+并且`out_dtypes`为`(mstype.float32, mstype.float32, mstype.float32)`，
+分别对应三个输出的形状和数据类型。
+
+```python
+self.program = ops.Custom(func, ([3], [3], [3]), (mstype.float32, mstype.float32, mstype.float32), "aot", bprop, reg)
+```
+
+### 算子注册文件
+
+在定义多输出自定义算子的注册文件时，我们需要依次写清楚输入和输出的名字，并且在`dtype_format`处写清楚输入和输出对应的数据格式，例如：
+
+```python
+multioutput_gpu_info = CustomRegOp() \
+    .input(0, "x1") \
+    .input(1, "x2") \
+    .output(0, "y1") \
+    .output(1, "y2") \
+    .output(2, "y3") \
+    .dtype_format(DataType.F32_Default, DataType.F32_Default,
+                  DataType.F32_Default, DataType.F32_Default, DataType.F32_Default) \
+    .target("GPU") \
+    .get_op_info()
+```
+
+这里我们定义了一个两个输入三个输出的算子的注册文件，因此我们在注册文件中添加了两个`input`项和三个`output`项。
+此外，在`dtype_format`中定义的五个数据格式依次为两个输入和三个输出的数据格式要求。
+
+### 算子计算文件
+
+下面的`CustomAddMulDiv`定义了算子计算函数。
+
+```c++
+constexpr int THREADS = 1024;
+
+__global__ void CustomAddMulDivKernel(float *input1, float *input2, float *output1, float *output2, float *output3,
+                                      size_t size) {
+  auto idx = blockIdx.x * THREADS + threadIdx.x;
+  if (idx < size) {
+    output1[idx] = input1[idx] + input2[idx];
+    output2[idx] = input1[idx] * input2[idx];
+    output3[idx] = input1[idx] / input2[idx];
+  }
+}
+
+extern "C" int CustomAddMulDiv(int nparam, void **params, int *ndims, int64_t **shapes, const char **dtypes,
+                               void *stream, void *extra) {
+  cudaStream_t custream = static_cast<cudaStream_t>(stream);
+
+  constexpr int OUTPUT_INDEX = 2;
+  constexpr int TOTAL_PARAM_NUM = 5;
+
+  // There are two inputs and three outputs, so the nparam should be 5.
+  if (nparam != TOTAL_PARAM_NUM) {
+    return 1;
+  }
+
+  // This is to check if the type of parameters the same as what the user wants.
+  for (int i = 0; i < nparam; i++) {
+    if (strcmp(dtypes[i], "float32") != 0) {
+      return 2;
+    }
+  }
+
+  // input1's index is 0, input2's index is 1, output1's index is 2, output2's index is 3 and output3's index is 4
+  void *input1 = params[0];
+  void *input2 = params[1];
+  void *output1 = params[2];
+  void *output2 = params[3];
+  void *output3 = params[4];
+  size_t size = 1;
+
+  // Cumprod of output's shape to compute elements' num
+  for (int i = 0; i < ndims[OUTPUT_INDEX]; i++) {
+    size *= shapes[OUTPUT_INDEX][i];
+  }
+  int n = size / THREADS;
+
+  // Do the computation
+  CustomAddMulDivKernel<<<n + 1, THREADS, 0, custream>>>(static_cast<float *>(input1), static_cast<float *>(input2),
+                                                         static_cast<float *>(output1), static_cast<float *>(output2),
+                                                         static_cast<float *>(output3), size);
+  // When return 0, MindSpore will continue to run if this kernel could launch successfully.
+  return 0;
+}
+```
+
+注意到，因为算子是两个输入和三个输出，因此`nparam`应该是5，而`params`数组中的五个指针应该依次为两个输入和三个输出。
+所以上面的代码中我们获得输入和输出的方法为
+
+```c++
+void *input1 = params[0];
+void *input2 = params[1];
+void *output1 = params[2];
+void *output2 = params[3];
+void *output3 = params[4];
+```
+
+完整的算子计算文件参见[这里](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/add_mul_div.cu).
+
+### 算子使用文件
+
+多输出的自定义算子在参与计算时，结果可以当做正常tuple使用，例如
+
+```python
+class AOTMultiOutputNet(Cell):
+    def __init__(self, func, out_shapes, out_types, bprop=None, reg=None):
+        super(AOTMultiOutputNet, self).__init__()
+
+        self.program = ops.Custom(func, out_shapes, out_types, "aot", bprop, reg)
+        self.add = ops.Add()
+        self.mul = ops.Mul()
+
+    def construct(self, x, y):
+        aot = self.program(x, y)
+        add_res = self.add(aot[0], aot[1])
+        mul_res = self.mul(add_res, aot[2])
+        return mul_res
+
+if __name__ == "__main__":
+  x = np.array([1.0, 1.0, 1.0]).astype(np.float32)
+  y = np.array([1.0, 1.0, 1.0]).astype(np.float32)
+  net = AOTMultiOutputNet("./add_mul_div.cu:CustomAddMulDiv", ([3], [3], [3]),
+                          (mstype.float32, mstype.float32, mstype.float32), reg=multioutput_gpu_info)
+  output = test(Tensor(input_x),Tensor(input_y))
+  print(output)
+```
+
+此处`aot`作为自定义算子的输出，可以直接当做tuple使用进行计算。运行上面脚本，可以得到结果：
+
+```text
+[3. 3. 3.]
+```

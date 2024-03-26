@@ -174,3 +174,47 @@ for output in outputs:
     print(data[i], end=" ")
   print("")
 ```
+
+## Dynamic Weight Update
+
+MindSpore Lite inference supports dynamic weight updates on the Ascend backend. The usage steps are as follows:
+
+### Creating Config File
+
+Write all tensor names corresponding to the Matmul operators that need to be updated into a text file, with each tensor name occupying one line. Build a model to load the configuration file, set the configuration file, and the content of the configuration file `config.ini` is as follows:
+
+```text
+[ascend_context]
+variable_weights_file="update_weight_name_list.txt"
+```
+
+### Model Loading and Compilation
+
+```python
+  import numpy as np
+  import mindspore_lite as mslite
+
+# init context, and set target is gpu.
+context = mslite.Context()
+context.target = ["ascend"]
+context.gpu.device_id = 0
+
+# build model from file
+MODEL_PATH = "./SD1.5/unet.mindir"
+model = mslite.Model()
+model.build_from_file(MODEL_PATH, mslite.ModelType.MINDIR, context,  "config.ini")
+```
+
+### Building A New Weight Tensor
+
+Convert the SaveTensor data structure exported from third-party framework training to Tensor format that MindSpore Lite can support.
+
+### Update Weights
+
+Call the `update_weights` interface provided by MindSpore Lite to update weights, as shown below:
+
+```python
+new_weight = mslite.Tensor(data)
+new_weights = [new_weight]
+model.update_weights([new_weights])
+```

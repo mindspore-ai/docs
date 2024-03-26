@@ -155,6 +155,13 @@
      - String
      - 文件名或文件名的一部分。如果有多个，使用逗号隔开。例如`export MS_DEV_DUMP_IR_PASSES=recompute,renormalize`。
      - 设置该环境变量时，无论MS_DEV_SAVE_GRAPHS设置为什么等级，详细的前端IR文件都会参与筛选和打印。
+   * - MS_JIT_DISPLAY_PROGRESS
+     - 指定是否打印编译进度的信息。
+     - Integer
+     - 1：打印关键的编译进度的信息。
+
+       不设置或其它值：不打印编译进度的信息。
+     -
    * - GRAPH_OP_RUN
      - 图模式下以任务下沉方式运行pipeline大网络模型时，可能会由于流资源限制而无法正常启动，此环境变量可以指定图模式的执行方式，配置为0表示任务下沉，是默认执行方式；1则表示非任务下沉方式，该方式没有流的限制，但性能有所下降。
      - Integer
@@ -223,6 +230,15 @@
      - 此环境变量后续将删除，不建议使用。
 
        仅限Ascend AI处理器环境GE流程使用。
+   * - MS_DEV_BOOST_INFER
+     - 针对前端图编译提供编译优化开关。该开关可加速类型推导模块，以加速网络编译。
+     - Integer
+     - 0: 关闭该优化功能。
+
+       1: 打开该优化功能。
+
+       默认值: 0
+     - 实验性质的环境变量
 
 Dump调试
 --------
@@ -428,9 +444,9 @@ Dump调试
 
        comm_group_rank_ids: 通信算子的通信域。
 
-       src_rank: Receive算子的对端算子。
+       src_rank: Receive算子的对端算子的rank_id。
 
-       dest_rank: 算子的对端算子。
+       dest_rank: Send算子的对端算子的rank_id。
 
        sr_tag: src和dest相同时，不同send-receive对的标识ID。
 

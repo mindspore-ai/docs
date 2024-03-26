@@ -154,6 +154,13 @@ Graph Compilation
      - String
      - Pass's name of part of its name. If there are multiple, use commas to separate them. For example, `export MS_DEV_DUMP_IR_PASSES=recompute,renormalize`.
      - When setting this environment variable, regardless of the value of MS_DEV_SAVE_GRAPHS, detailed frontend IR files will be filtered and printed.
+   * - MS_JIT_DISPLAY_PROGRESS
+     - Specify whether to print compilation progress information.
+     - Integer
+     - 1: Print main compilation progress information.
+
+       No setting or other value: Do not print compilation progress information.
+     -
    * - GRAPH_OP_RUN
      - When running the pipeline large network model in task sinking mode in graph mode, it may not be able to start as expected due to the limitation of stream resources. 
        This environment variable can specify the execution mode of the graph mode. 
@@ -225,6 +232,15 @@ Graph Compilation
      - This environment variable will be removed subsequently and is not recommended.
 
        Ascend AI processor environment GE process use only.
+   * - MS_DEV_BOOST_INFER
+     - Compile optimization switch for graph compilation. This switch accelerates the type inference module to speed up network compilation.
+     - Integer
+     - 0: Disables the optimization.
+
+       1: Enables the optimization.
+
+       Default: 0
+     - Experimental environment variable.
 
 Dump Debugging
 ---------------
@@ -425,9 +441,9 @@ Distributed Parallel
        
        comm_group_rank_ids: The communication domain of the communication operator.
        
-       src_rank: The peer operator of the Receive operator.
+       src_rank: The rank_id of peer operator of the Receive operator.
        
-       dest_rank: The operator at the opposite end of the operator.
+       dest_rank: The rank_id of peer opposite of the Send operator.
        
        sr_tag: The identity ID of different send-receive pairs when src and dest are the same.
 
