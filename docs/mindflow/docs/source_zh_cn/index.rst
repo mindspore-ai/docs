@@ -39,7 +39,7 @@ MindSpore Flow介绍
    physics_driven/boltzmann
    physics_driven/kovasznay
    physics_driven/periodic_hill
-   physics_driven/possion_point_source
+   physics_driven/poisson_point_source
 
 .. toctree::
    :glob:
