@@ -269,6 +269,47 @@ model.infer_predict_layout(predict_data)
 dst_checkpoints/
 ```
 
+### 多进程加速转换CheckPoint
+
+在编写转换CheckPoint文件的过程中，用户通常会采用下述串行的逻辑，导致转换耗时长达几个小时。例如下述的写法会导致并行度为1，是**不推荐的写法**。
+
+```python
+import mindspore as ms
+dst_device_num = 8
+for tgt_rank in range(dst_device_num):
+    rank_list = ms.rank_list_for_transform(tgt_rank, "./src_strategy.ckpt", "./dst_strategy.ckpt")
+    checkpoint_files_map = {}
+    for rank_id in rank_list:
+        checkpoint_file_map[rank_id] = os.path.join(args_opt.src_checkpoints_dir, "rank_{}".format(rank_id), "checkpoint_{}.ckpt".format(rank_id))
+    save_checkpoint_path = os.path.join(args_opt.dst_checkpoints_dir, "rank_{}".format(get_rank()), "checkpoint_{}.ckpt".format(get_rank()))
+    ms.transform_checkpoint_by_rank(tgt_rank, checkpoint_file_map, save_checkpoint_path, args_opt.src_strategy_file, args_opt.dst_strategy_file)
+```
+
+我们可以采用**多进程**的方法进行ckpt转换加速。
+具体修改如下，每个进程根据当前的rank_id来决定自己要转换哪个目标rank权重文件。即每个进程转换一个权重文件
+
+> 请根据转换单个权重所消耗的内存和当前host内的总内存，来设置总进程数，否则就引起Host内存不足报错。
+
+```diff
+import sys
+import mindspore as ms
+
+rank_list = ms.rank_list_for_transform(get_rank(), "./src_strategy.ckpt", "./dst_strategy.ckpt")
+checkpoint_files_map = {}
+for rank_id in rank_list:
+    checkpoint_file_map[rank_id] = os.path.join(args_opt.src_checkpoints_dir, "rank_{}".format(rank_id), "checkpoint_{}.ckpt".format(rank_id))
+save_checkpoint_path = os.path.join(args_opt.dst_checkpoints_dir, "rank_{}".format(get_rank()), "checkpoint_{}.ckpt".format(get_rank()))
+ms.transform_checkpoint_by_rank(get_rank(), checkpoint_file_map, save_checkpoint_path, args_opt.src_strategy_file, args_opt.dst_strategy_file)
+```
+
+此外，需要配置下启动方式。将单进程启动改为多进程启动的方式。如下展示了一个4进程转换的方式样例。
+
+```shell
+mpirun -n 4 --output-filename log_output --merge-stderr-to-stdout python model_transformation_infer.py --only_compile=1
+```
+
+> 本教程中使用到的代码，已经按多进程启动的方式设置。本节的目的是为了强调如何解决用户日常使用场景中转换慢的场景。
+
 ### 加载转换得到的Checkpoint文件
 
 对目标策略的网络进行编译，调用`load_checkpoint`接口，从转换后的Checkpoint文件中加载模型参数数据。
