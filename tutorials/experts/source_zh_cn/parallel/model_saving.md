@@ -4,7 +4,7 @@
 
 ## 概述
 
-本篇教程我们主要讲解，如何利用MindSpore进行分布式网络训练并保存模型文件。在分布式训练场景下，模型保存可以分为合并保存和非合并保存：合并保存需要额外的通信和内存开销，每张卡保存相同的模型文件；非合并保存则只保存当前卡切分后的权重，有效减少了聚合需要的通信和内存开销。
+本篇教程我们主要讲解，如何利用MindSpore进行分布式网络训练并保存模型文件。在分布式训练场景下，模型保存可以分为合并保存和非合并保存：合并保存需要额外的通信和内存开销，每张卡保存相同的模型文件，每个模型文件都包含网络的全部权重；非合并保存则只保存当前卡切分后的权重，有效减少了聚合需要的通信和内存开销。
 
 相关接口：
 
@@ -40,7 +40,7 @@
 
 ### 配置分布式环境
 
-通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，通过`strategy_ckpt_config`配置保存分布式策略文件，并通过init初始化HCCL或NCCL通信。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，运行分布式训练的代码还需要指定并行模式，样例代码中指定并行模式`parallel_mode`为半自动并行模式，通过`strategy_ckpt_config`配置保存分布式策略文件，并通过init初始化HCCL或NCCL通信。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import mindspore as ms
@@ -151,7 +151,7 @@ model.train(10, data_set, callbacks=[loss_cb, ckpoint_cb])
 bash run_saving.sh
 ```
 
-训练完后，日志文件保存到`log_output`目录下，Checkpoint文件保存在`src_checkpoints`文件夹下，文件目录结构如下：
+训练完后，日志文件保存到`log_output`目录下，Checkpoint文件保存在`src_checkpoints`文件夹下，Checkpoint的切分策略保存在`src_strategy.ckpt`文件中，当需要进行模型加载时，需要切分策略文件以及Checkpoint文件。文件目录结构如下：
 
 ```text
 ├─ src_strategy.ckpt

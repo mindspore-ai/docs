@@ -6,7 +6,7 @@
 
 ### Background
 
-When using MindSpore for distributed training, it is often necessary to transform the distributed Checkpoint obtained from training to carry out the next steps, such as inference, fine-tuning, and multi-stage training. In this tutorial, we will introduce how to transform the Checkpoint obtained from distributed training to carry out resilient training and inference with distributed strategies and cluster card changes.
+When using MindSpore for distributed training, it is often necessary to transform the distributed Checkpoint (i.e. model transformation) obtained from training to carry out the next steps, such as inference, fine-tuning, and multi-stage training. In this tutorial, we will introduce how to transform the Checkpoint obtained from distributed training to carry out resilient training and inference with distributed strategies and cluster card changes.
 
 > This function only supports SEMI_AUTO_PARALLEL and AUTO_PARALLEL modes.
 
@@ -73,11 +73,12 @@ The functions of each file are as follows:
 - `model_transformation_retrain.py`: Scripts for second-stage training after model transformation.
 - `pipeline_transformation_retrain.py`: Scripts for second-stage training after pipeline parallel model transformation.
 - `pipeline_train.py`: Scripts for pipeline parallel training of networks.
-- `run_infer_convert.sh`: Scripts that perform model transformation.
-- `run_retrain_convert.sh`: Scripts that perform model transformation.
+- `run_infer_convert.sh`: Scripts that perform model transformation used in inference.
+- `run_retrain_convert.sh`: Scripts that perform model transformation used in second-stage training.
 - `run_retrain_pipeline_convert.sh`: Scripts that perform pipeline parallel model transformation.
 - `run_infer.sh`: Scripts that perform model inference.
 - `run_retrain.sh`: Scripts that perform second-stage training.
+- `run_pipeline_train.sh`: Scripts that perform pipeline training.
 - `run_retrain_pipeline.sh`: Scripts for executing second-stage training pipeline parallel model.
 
 ### Saving the Distributed Model

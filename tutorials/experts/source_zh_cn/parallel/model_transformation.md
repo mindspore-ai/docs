@@ -6,7 +6,7 @@
 
 ### 背景
 
-在使用MindSpore进行分布式训练时，常常需要对训练得到的分布式Checkpoint进行转换，以进行下一步工作，如推理、微调、多阶段训练等。本教程将介绍如何将分布式训练得到的Checkpoint进行转换，以开展分布式策略与集群卡数改变的弹性训练与推理。
+在使用MindSpore进行分布式训练时，常常需要对训练得到的分布式Checkpoint进行转换（即模型转换），以进行下一步工作，如推理、微调、多阶段训练等。本教程将介绍如何将分布式训练得到的Checkpoint进行转换，以开展分布式策略与集群卡数改变的弹性训练与推理。
 
 > 本功能仅支持半自动并行（SEMI_AUTO_PARALLEL）和自动并行（AUTO_PARALLEL）模式。
 
@@ -35,7 +35,7 @@
 
 2. 编译微调网络，配置分布式策略文件存储位置，自动生成模型参数切分策略文件。
 
-3. 用户对依据训练与推理涉及到的策略文件对保存的Checkpoint文件进行转换。
+3. 用户根据训练与推理涉及到的策略文件对保存的Checkpoint文件进行转换。
 
 4. 编译微调网络后，加载转换得到的分布式Checkpoint文件。
 
@@ -73,11 +73,12 @@
 - `model_transformation_retrain.py`：模型转换后进行二阶段训练的脚本。
 - `pipeline_transformation_retrain.py`：流水线并行模型转换后二阶段训练的脚本。
 - `pipeline_train.py`：流水线并行训练网络的脚本。
-- `run_infer_convert.sh`：执行模型转换的脚本。
-- `run_retrain_convert.sh`：执行模型转换的脚本。
+- `run_infer_convert.sh`：推理场景执行模型转换的脚本。
+- `run_retrain_convert.sh`：二阶段训练场景执行模型转换的脚本。
 - `run_retrain_pipeline_convert.sh`：执行流水线并行模型转换的脚本。
 - `run_infer.sh`：执行模型推理的脚本。
 - `run_retrain.sh`：执行二阶段训练的脚本。
+- `run_pipeline_train.sh`：执行流水线训练的脚本。
 - `run_retrain_pipeline.sh`：执行二阶段训练流水线并行模型的脚本。
 
 ### 分布式模型保存
