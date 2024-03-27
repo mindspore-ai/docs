@@ -88,3 +88,4 @@
    debug/aoe
    debug/rdr
    debug/fault_recover
+   debug/sdc
