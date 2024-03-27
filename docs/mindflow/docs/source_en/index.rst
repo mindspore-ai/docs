@@ -36,6 +36,10 @@ Code repository address: <https://gitee.com/mindspore/mindscience/tree/master/Mi
    physics_driven/poisson_geometry
    physics_driven/taylor_green2D
    physics_driven/navier_stokes_inverse
+   physics_driven/boltzmannD1V3
+   physics_driven/kovasznay
+   physics_driven/periodic_hill
+   physics_driven/poisson_point_source
 
 .. toctree::
    :glob:
@@ -47,6 +51,9 @@ Code repository address: <https://gitee.com/mindspore/mindscience/tree/master/Mi
    data_driven/navier_stokes_FNO2D
    data_driven/burgers_KNO1D
    data_driven/navier_stokes_KNO2D
+   data_driven/2D_unsteady
+   data_driven/flow_around_sphere
+   data_driven/navier_stokes_FNO3D
 
 .. toctree::
    :glob:
@@ -54,6 +61,8 @@ Code repository address: <https://gitee.com/mindspore/mindscience/tree/master/Mi
    :caption: Data Mechanism Fusion
 
    data_mechanism_fusion/pde_net
+   data_mechanism_fusion/percnn2d
+   data_mechanism_fusion/percnn3d
 
 .. toctree::
    :glob:

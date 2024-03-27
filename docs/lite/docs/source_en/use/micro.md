@@ -141,13 +141,15 @@ The following describes how to prepare the environment for using the conversion 
 
 Table 1: micro_param Parameter Definition
 
-| Parameter            | Mandatory or not      | Parameter Description                                                                              | Range                   | Default value    |
-| --------------- |-----------------------|----------------------------------------------------------------------------------------------------| --------------------------| --------- |
-| enable_micro    | Yes                   | The model generates code, otherwise it generates .ms.                                              | true, false                | false      |
-| target          | Yes                   | Platform for which code is generated                                                               | x86, Cortex-M, ARM32, ARM64 | x86       |
-| support_parallel | No                    | Whether to generate multi-threaded inference codes, which can be set to true only on x86/ARM32/ARM64 platforms | true, false | false       |
-| save_path      | No(Multi-model param) | The path of multi-model generated code directory                                                   |             |             |
-| project_name     | No(Multi-model param) | Multi-model generated code project name                                                            |             |             |
+| Parameter          | Mandatory or not        | Parameter Description                                                                                          | Range                   | Default value    |
+| --------------- |-------------------------|----------------------------------------------------------------------------------------------------------------| --------------------------| --------- |
+| enable_micro    | Yes                     | The model generates code, otherwise it generates .ms.                                                          | true, false                | false      |
+| target          | Yes                     | Platform for which code is generated                                                                           | x86, Cortex-M, ARM32, ARM64 | x86       |
+| support_parallel | No                      | Whether to generate multi-threaded inference codes, which can be set to true only on x86/ARM32/ARM64 platforms | true, false | false       |
+| save_path      | No(Multi-model param)   | The path of multi-model generated code directory                                                               |             |             |
+| project_name     | No(Multi-model param)   | Multi-model generated code project name                                                                        |             |             |
+| inputs_shape     | No(Dynamic shape param) | Input shape information of models in dynamic shape scenes                                                      |             |             |
+|dynamic_dim_params|  No(Dynamic shape param)    | The value range of variable dimensions in dynamic shape scenes                                                 |             |             |
 
 ### Generating Inference Code in Multi-model Scenario
 
@@ -276,6 +278,23 @@ Table 1: micro_param Parameter Definition
 Usually, when generating code, you can reduce the probability of errors in the deployment process by configuring the model input shape as the input shape for actual inference.
 When the model contains a `Shape` operator or the original model has a non-fixed input shape value, the input shape value of the model must be configured to support the relevant shape optimization and code generation.
 The `--inputShape=` command of the conversion tool can be used to configure the input shape of the generated code. For specific parameter meanings, please refer to [Conversion Tool Instructions](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html).
+
+### (Optional) Dynamic Shape Configuration
+
+In some inference scenarios, such as detecting a target and then executing the target recognition network, the number of targets is not fixed resulting in a variable input BatchSize for the target recognition network. If each inference is regenerated and deployed according to the required BatchSize or resolution, it will result in wasted memory resources and reduced development efficiency. Therefore, it needs to support dynamic shape capability for Micro. The dynamic shape parameter in `[micro_param]` is configured via configFile in the convert phase, and the [MSModelResize](#calling-interface-of-inference-code) is used during inference, to change the input shape.
+Among them, all input shape information of the configuration model in `inputs_shape` is represented by real numbers for fixed dimensions and placeholders for dynamic dimensions. Currently, only two variable dimensions are supported for configuration. `dynamic_dim_params` represents the range of variable dimension values, which needs to correspond to the placeholder configured by `inputs_shape`; If the range is a discrete value, it is separated by `,`, and if the range is a continuous value, it is separated by `~`. All parameters are written in compact format without leaving any spaces in between; If there are multiple inputs, the gear corresponding to different inputs needs to be consistent, and use `;` to separate, otherwise the parsing will fail.
+
+```text
+[micro_param]
+
+# the name and shapes of model's all inputs.
+# the format is 'input1_name:[d0,d1];input2_name:[1,d0]'
+inputs_shape=input1:[d0,d1];input2:[1,d0]
+
+# the value range of dynamic dims.
+dynamic_dim_params=d0:[1,3];d1:[1~8]
+
+```
 
 ### (Optional) Generating Multithreaded Parallel Inference Code
 
@@ -508,18 +527,19 @@ The following is the general calling interface of the inference code. For a deta
 
 Table 3: Inference Common API Interface
 
-| Function                  | Function definition                                                                                                                                                                    |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Create a model object   | MSModelHandle MSModelCreate()                                                                                                                                               |
-| Destroy the model object   | void MSModelDestroy(MSModelHandle *model)                                                                                                                                   |
-| Calculate the workspace size required for model inference, valid only on cortex-M architecture  | size_t MSModelCalcWorkspaceSize(MSModelHandle model)                       |
-| Set workspace for the model object, valid only on cortex-M architecture   | void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)                        |
-| Compile model      | MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)                           |
-| Inference model        | MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs, const MSKernelCallBackC before, const MSKernelCallBackC after) |
-| Obtain all input tensor handles of the model | MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)                                                                                                             |
-| Obtain all output tensor handles of the model | MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)                                                                                                            |
-| Obtain the input tensor handle of the model by name | MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char *tensor_name)                                                                              |
-| Obtain the output tensor handle of the model by name | MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model, const char *tensor_name)  |
+| Function                                                                                       | Function definition                                                                                                                                                                    |
+|------------------------------------------------------------------------------------------------| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Create a model object                                                                          | MSModelHandle MSModelCreate()                                                                                                                                               |
+| Destroy the model object                                                                       | void MSModelDestroy(MSModelHandle *model)                                                                                                                                   |
+| Calculate the workspace size required for model inference, valid only on cortex-M architecture | size_t MSModelCalcWorkspaceSize(MSModelHandle model)                       |
+| Set workspace for the model object, valid only on cortex-M architecture                        | void MSModelSetWorkspace(MSModelHandle model, void *workspace, size_t workspace_size)                        |
+| Compile model                                                                                  | MSStatus MSModelBuild(MSModelHandle model, const void *model_data, size_t data_size, MSModelType model_type, const MSContextHandle model_context)                           |
+| Set the input shapes of the model                                                              | MSStatus MSModelResize(MSModelHandle model, const MSTensorHandleArray inputs, MSShapeInfo *shape_infos, size_t shape_info_num)                                                                                                                                                                            |
+| Inference model                                                                                | MSStatus MSModelPredict(MSModelHandle model, const MSTensorHandleArray inputs, MSTensorHandleArray *outputs, const MSKernelCallBackC before, const MSKernelCallBackC after) |
+| Obtain all input tensor handles of the model                                                   | MSTensorHandleArray MSModelGetInputs(const MSModelHandle model)                                                                                                             |
+| Obtain all output tensor handles of the model                                                  | MSTensorHandleArray MSModelGetOutputs(const MSModelHandle model)                                                                                                            |
+| Obtain the input tensor handle of the model by name                                            | MSTensorHandle MSModelGetInputByTensorName(const MSModelHandle model, const char *tensor_name)                                                                              |
+| Obtain the output tensor handle of the model by name                                           | MSTensorHandle MSModelGetOutputByTensorName(const MSModelHandle model, const char *tensor_name)  |
 
 ### Calling Interface of Training Code
 
