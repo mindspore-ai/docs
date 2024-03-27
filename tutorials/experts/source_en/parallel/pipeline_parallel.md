@@ -101,6 +101,8 @@ data_set = create_dataset(32)
 
 The pipeline parallel network structure is basically the same as the single-card network structure, and the difference is the addition of pipeline parallel strategy configuration. Pipeline parallel requires the user to define the parallel strategy by calling the `pipeline_stage` interface to specify the stage on which each layer is to be executed. The granularity of the `pipeline_stage` interface is `Cell`. All `Cells` containing training parameters need to be configured with `pipeline_stage`, and `pipeline_stage` should be configured in the order of network execution, from smallest to largest. After adding `pipeline_stage` configuration based on the single-card model is as follows:
 
+> Under pipeline parallelism, when enabling Print/Summary/TensorDump related operators, the operator needs to be used in a Cell with the pipeline_stage attribute. Otherwise, there is a possibility that the operator will not take effect due to pipeline parallel split.
+
 ```python
 from mindspore import nn
 
@@ -234,7 +236,7 @@ The directory structure is as follows:
 
 ### Configuring the Distributed Environment
 
-Specify the run mode, run device, run card number, etc. via the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode and initialize HCCL or NCCL communication via init. In addition, `pipeline_stages=2` should be configured to specify the total number of stages. Not setting `device_target` here automatically specifies the backend hardware device corresponding to the MindSpore package. `pipeline_result_broadcast=True` specifies broadcast last stage inference to other stages. It is useful during auto-regression inference.
+Specify the run mode, run device, run card number, etc. via the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode and initialize HCCL or NCCL communication via init. In addition, `pipeline_stages=4` should be configured to specify the total number of stages. Not setting `device_target` here automatically specifies the backend hardware device corresponding to the MindSpore package. `pipeline_result_broadcast=True` specifies broadcast last stage inference to other stages. It is useful during auto-regression inference.
 
 ```python
 
@@ -242,7 +244,7 @@ import mindspore as ms
 from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, full_batch=True,
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, dataset_strategy="full_batch",
                              pipeline_stages=4, pipeline_result_broadcast=True)
 init()
 ms.set_seed(1)
