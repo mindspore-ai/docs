@@ -4,7 +4,7 @@
 
 ## Overview
 
-When performing distributed training, taking image data as an example, when the size of a single image is too large, such as large-format images of remote sensing satellites, even one image is too large, it is necessary to slice the images and read a portion of each card to perform distributed training. Scenarios that deal with dataset slicing need to be combined with model parallelism to achieve the desired effect of reducing video memory, so this feature is provided based on automatic parallelism. The sample used in this tutorial is not a large-format network, and is intended as an example only. Real-life applications to large-format networks often require detailed design of parallel strategies.
+When performing distributed training, taking image data as an example, when the size of a single image is too large, such as large-format images of remote sensing satellites, when an image is too large, it is necessary to slice the image and read a portion of each card to perform distributed training. Scenarios that deal with dataset slicing need to be combined with model parallelism to achieve the desired effect of reducing video memory, so this feature is provided based on automatic parallelism. The sample used in this tutorial is not a large-format network, and is intended as an example only. Real-life applications to large-format networks often require detailed design of parallel strategies.
 
 > Dataset sharding is only supported in fully-automatic mode and semi-automatic mode, and is not involved in data parallel mode.
 
@@ -12,11 +12,11 @@ Related interfaces:
 
 1. `mindspore.dataset.vision.SlicePatches(num_height=1, num_width=1)`: Slices the Tensor into multiple blocks horizontally and vertically. Suitable for scenarios where the Tensor has a large height and width. `num_height` is the number of slices in vertical direction and `num_width` is the number of slices in horizontal direction. More parameters can be found in [SlicePatches](https://www.mindspore.cn/docs/en/r2.3/api_python/dataset_vision/mindspore.dataset.vision.SlicePatches.html).
 
-2. `mindspore.set_auto_parallel_context(dataset_strategy=((1, 1, 1, 8), (8,))))`: indicates dataset slicing strategy. The `dataset_strategy` interface has the following limitations:
+2. `mindspore.set_auto_parallel_context(dataset_strategy=((1, 1, 1, 8), (8,)))`: indicates dataset slicing strategy. The `dataset_strategy` interface has the following limitations:
 
-    - Each input is allowed to be sliced in at most one dimension. If `set_auto_parallel_context(dataset_strategy=((1, 1, 1, 8), (8,))))` or `dataset_strategy=((1, 1, 1, 8), (1,)))` is supported, each input is sliced in just one dimension, but not `dataset_strategy=((1, 1, 4, 2), (1,))`, whose first input is sliced into two dimensions.
+    - Each input is allowed to be sliced in at most one dimension. If `set_auto_parallel_context(dataset_strategy=((1, 1, 1, 8), (8,)))` or `dataset_strategy=((1, 1, 1, 8), (1,))` is supported, each input is sliced in just one dimension at most, but not `dataset_strategy=((1, 1, 4, 2), (1,))`, whose first input is sliced into two dimensions.
 
-    - The input with the highest dimension, the number of slices, must be more than the other dimensions. If `dataset_strategy=((1, 1, 1, 8), (8,)))` or `dataset_strategy=((1, 1, 1, 1, 1), (1,)))` is supported, the input with the most dimensions is the first one, with the number of slices of 8, and the rest of the inputs have no more than 8 slices, but not `dataset_ strategy=((1, 1, 1, 1), (8,))`, whose input with the most dimensions is the first input with a slice of 1, but the second input has a cut of 8, which exceeds the slices of the first input.
+    - The input with the highest dimension, the number of slices, must be more than the other dimensions. If `dataset_strategy=((1, 1, 1, 8), (8,))` or `dataset_strategy=((1, 1, 1, 1, 1), (1,))` is supported, the input with the most dimensions is the first one, with the number of slices of 8, and the rest of the inputs have no more than 8 slices, but not `dataset_ strategy=((1, 1, 1, 1), (8,))`, whose input with the most dimensions is the first input with a slice of 1, but the second input has a cut of 8, which exceeds the slices of the first input.
 
 ## Operation Practices
 

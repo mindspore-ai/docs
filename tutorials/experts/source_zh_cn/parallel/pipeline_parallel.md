@@ -101,6 +101,8 @@ data_set = create_dataset(32)
 
 流水线并行网络结构与单卡网络结构基本一致，区别在于增加了流水线并行策略配置。流水线并行需要用户去定义并行的策略，通过调用`pipeline_stage`接口来指定每个layer要在哪个stage上去执行。`pipeline_stage`接口的粒度为`Cell`。所有包含训练参数的`Cell`都需要配置`pipeline_stage`，并且`pipeline_stage`要按照网络执行的先后顺序，从小到大进行配置。在单卡模型基础上，增加`pipeline_stage`配置后如下：
 
+> 在pipeline并行下，使能Print/Summary/TensorDump相关算子时，需要把该算子放到有pipeline_state属性的Cell中使用，否则有概率由pipeline并行切分导致算子不生效。
+
 ```python
 from mindspore import nn
 
@@ -234,7 +236,7 @@ epoch: 0 step: 50, loss is 3.8342278
 
 ### 配置分布式环境
 
-通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，并通过init初始化HCCL或NCCL通信。此外，还需配置`pipeline_stages=2`指定Stage的总数。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。`pipeline_result_broadcast=True`表示流水线并行推理时，将最后一个stage的结果广播给其余stage，可以用于自回归推理场景。
+通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，并通过init初始化HCCL或NCCL通信。此外，还需配置`pipeline_stages=4`指定Stage的总数。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。`pipeline_result_broadcast=True`表示流水线并行推理时，将最后一个stage的结果广播给其余stage，可以用于自回归推理场景。
 
 ```python
 
@@ -242,7 +244,7 @@ import mindspore as ms
 from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, full_batch=True,
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, dataset_strategy="full_batch",
                              pipeline_stages=4, pipeline_result_broadcast=True)
 init()
 ms.set_seed(1)
