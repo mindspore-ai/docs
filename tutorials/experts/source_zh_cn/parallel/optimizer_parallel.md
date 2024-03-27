@@ -6,13 +6,10 @@
 
 在进行数据并行训练时，模型的参数更新部分在各卡间存在冗余计算，优化器并行通过将优化器的计算量分散到数据并行维度的卡上，在大规模网络上（比如Bert、GPT）可以有效减少内存消耗并提升网络性能。
 
-在数据并行（DATA_PARALLEL）模式下使能优化器并行，框架会将需要更新的参数进行分散到不同卡上，各自更新后再通过Broadcast算子在集群间做权重共享。需要注意的是参数量应当大于机器数，当前只支持Lamb和AdamWeightDecay优化器。
-
 在自动并行（AUTO_PARALLEL）或者半自动并行（SEMI_AUTO_PARALLEL）模式下使能优化器并行，如果经过策略切分后的参数在机器间存在重复切片，并且shape的最高维可以被重复切片的卡数整除，框架会以最小切片的方式保存参数并在优化器中更新。该模式下支持所有优化器。
 
 | 并行模式      | 参数更新方式                                        | 优化器支持            | 后端支持      |
 | ------------- | --------------------------------------------------- | --------------------- | --------|
-| 数据并行      | 参数分组更新，然后广播到所有卡                      | Lamb、AdamWeightDecay和AdaFactor | Ascend |
 | 自动/半自动并行 | 参数按数据并行度切分成N份，每张卡更新当前卡上的参数 | 所有优化器            | Ascend、GPU |
 
 无论是哪种模式，优化器并行不会影响原有正反向网络的计算图，只会影响参数更新的计算量和计算逻辑。
@@ -23,7 +20,7 @@
 
 1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, enable_parallel_optimizer=True)`：设置半自动并行模式，且开启优化器并行，必须在初始化网络之前调用。`enable_parallel_optimizer`开启后，默认对所有**占用内存不小于64KB**的参数进行优化器切分，请参考本章的[高级接口](#高级接口)。
 
-2. `Cell.set_comm_fusion(NUM)`：在自动/半自动模式下，每个参数都会产生一个对应的AllGather操作和ReduceScatter操作。这些通信算子是自动并行框架自动插入的。然而，随着参数量增多，对应的通信算子也会增多，通信操作产生的算子调度和启动都会产生更多的开销。因此，可以通过`Cell`提供的`set_comm_fusion`方法，手动对每个`Cell`内的参数对应的AllGather和ReduceScatter操作配置融合标记NUM，以提高通信效率。MindSpore将融合相同NUM参数对应的通信算子，以减少通信开销。
+2. `Cell.set_comm_fusion(fusion_type=NUM)`：在自动/半自动模式下，每个参数都会产生一个对应的AllGather操作和ReduceScatter操作。这些通信算子是自动并行框架自动插入的。然而，随着参数量增多，对应的通信算子也会增多，通信操作产生的算子调度和启动都会产生更多的开销。因此，可以通过`Cell`提供的`set_comm_fusion`方法，手动对每个`Cell`内的参数对应的AllGather和ReduceScatter操作配置融合标记NUM，以提高通信效率。MindSpore将融合相同NUM参数对应的通信算子，以减少通信开销。
 
 ## 基本原理
 

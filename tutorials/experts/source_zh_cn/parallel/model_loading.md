@@ -7,7 +7,7 @@
 分布式下的模型加载主要是指分布式推理，即推理阶段采用多卡进行推理。如果训练时采用数据并行或者模型参数是合并保存，那么每张卡均持有完整的权重，每张卡推理自身的输入数据，推理方式与[单卡推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/inference.html#modeleval模型验证)一致，只需要注意每卡加载同样的CheckPoint文件进行推理。
 本篇教程主要介绍在多卡训练过程中，每张卡上保存模型的切片，在推理阶段采用多卡形式，按照推理策略重新加载模型进行推理的过程。针对超大规模神经网络模型的参数个数过多，模型无法完全加载至单卡中进行推理的问题，可利用多卡进行分布式推理。
 
-> - 当模型非常大，本教程中使用[load_distributed_checkpoint](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.load_distributed_checkpoint.html)接口主机内存不足情况下，可以参考[模型转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_transformation.html) 章节，采用每张卡加载自身对应的切片Checkpoint的方式。
+> - 当模型非常大，本教程中使用[load_distributed_checkpoint](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.load_distributed_checkpoint.html)接口主机内存不足情况下，可以参考[模型转换](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_transformation.html#对目标网络执行编译) 章节，先对网络执行编译，然后执行分布式Checkpoint转换，就可以让每张卡加载自身对应的切片Checkpoint。
 > - 若采用流水线分布式推理，则训练也必须采用流水线并行训练，并且流水线并行训练和推理所用的`device_num`以及`pipeline_stages`必须相同。流水线并行推理时，`micro_batch`为1，不需要调用`PipelineCell`，每个`stage`只需要加载本`stage`的Checkpoint文件。参考[流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/pipeline_parallel.html)训练教程。
 
 相关接口：
