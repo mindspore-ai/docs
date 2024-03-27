@@ -319,3 +319,31 @@ When using the static graph extension support syntax, note the following points:
 3. When extending the static graph syntax, more syntax is supported, and the ability to import and export cannot be used with MindIR due to use Python.
 
 4. It is not currently supported that the repeated definition of global variables with the same name across Python files, and these global variables are used in the network.
+
+### Conversion Technique from Dynamic Graph to Static Graph
+
+MindSpore provides PIJit, a feature that directly converts a user's dynamic graph code into a static graph without code changes. This feature balances performance and ease of use, removes the cost of switching between static and dynamic modes, and truly unifies static and dynamic modes. It is based on the analysis of Python bytecode, and captures the execution flow of Python graphs. Subgraphs that can be run as static graphs are run as static graphs, and subgraphs that are not supported by Python syntax are run as dynamic graphs, and at the same time, by modifying and adjusting the bytecode to link the static graphs, it achieves the mixed execution of static and dynamic modes. In order to meet the premise of ease of use, improve performance.
+
+#### PIJit Includes the Following Features
+
+- 1. Graph Capture: Pre-processing of bytecode, dynamically tracking the execution of the interpretation, recognizing MindSpore accessible graph operations, and providing split graph to ensure the correctness of function (bytecode) functionality.
+- 2. Bytecode Support: Currently supports Python 3.7 and Python 3.9 bytecode versions, and plans to support Python 3.8 and Python 3.10.
+- 3. Graph Optimization: Optimize the bytecode generated in the graph, including branch cropping, bytecode filtering, function bytecode inlining and other functions.
+- 4. Exception Capture Mechanism: support for with, try-except syntax.
+- 5. Support loop processing: implement features such as graph capture and split graph by simulating the operation stack of bytecode.
+- 6. UD Analysis: The method of user-def chain analysis of variables solves the problem that some parameter types cannot be used as the return value of static graphs (Function, Bool, None), and reduces the useless parameters, improves the execution efficiency of the graphs, and reduces the copying of data.
+- 7. Side effect analysis and processing: to make up for the disadvantage of side effect processing of static graphs. According to different scenarios, collect and record the variables and byte codes that generate side effects, and supplement the processing of side effects outside the static graphs on the basis of guaranteeing the semantics of the program.
+- 8. Guard: The Guard records the conditions that need to be met by the inputs for the subgraph/optimization to enter, and checks if the inputs are suitable for the corresponding subgraph optimization.
+- 9. Cache：The graph management caches the subgraph/optimization and Guard correspondences.
+- **Plan to support Symbolic Shape**
+
+#### Usage
+
+def jit(fn=None, input_signature=None, hash_args=None, jit_config=None, mode="PIJit"):
+
+The original Jit function uses mode="PSJit", the new feature PIJit uses mode="PIJit", jit_config passes a dictionary of parameters that can provide some optimization and debugging options. For example: print_after_all can print the bytecode of the graph and split graph information, loop_unrolling can provide loop unrolling function.
+
+#### Limitations
+
+- It is not supported to run a function with decoration @jit(mode=\"PIJit\") in static graph mode, in which case the decoration @jit(mode=\"PIJit\") is considered invalid.
+- Calls to functions with decoration @jit(mode=\"PIJit\") inside functions decorated with @jit(mode=\"PIJit\") are not supported, and the decorated @jit(mode=\"PIJit\") is considered invalid.
