@@ -18,6 +18,7 @@ import sys
 import glob
 import IPython
 import shutil
+import regex
 import sphinx
 
 # Fix some dl-label lack class='simple'
@@ -251,21 +252,49 @@ if os.path.exists(probability_dir):
 
 # 删除并获取ops下多余的接口文件名
 white_list = ['mindspore.ops.comm_note.rst']
+
+ops_adjust = []
+
+refer_ops_adjust = []
+
+func_adjust = []
+
 def ops_interface_name():
     dir_list = ['mindspore.ops.primitive.rst', 'mindspore.ops.rst']
     interface_name_list = []
+    all_rst = []
+
     for i in dir_list:
-        target_path = os.path.join(os.path.dirname(__file__),'api_python',i)
+        target_path = os.path.join(src_dir, i)
         with open(target_path,'r+',encoding='utf8') as f:
             content =  f.read()
-            if interface_name_list:
-                interface_name_list = interface_name_list + re.findall("mindspore\.ops\.(\w*)",content)
-            else:
-                interface_name_list = re.findall("mindspore\.ops\.(\w*)",content)
-    all_rst = []
-    for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/ops')):
-        if j.split('.')[-1]=='rst':
-            all_rst.append(j.split('.')[-2])
+        new_content = content
+        if 'primitive' in i:
+            for name in ops_adjust:
+                new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
+            for name in refer_ops_adjust:
+                new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
+            primi_list = re.findall("    (mindspore\.ops\.\w*?)\n", new_content)
+            if not os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python', i)):
+                return primi_list
+        else:
+            for name in func_adjust:
+                new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
+        if interface_name_list:
+            interface_name_list = interface_name_list + re.findall("mindspore\.ops\.(\w*)", new_content)
+        else:
+            interface_name_list = re.findall("mindspore\.ops\.(\w*)", new_content)
+
+        if new_content != content and os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python', i)):
+            with open(os.path.join(os.path.dirname(__file__), 'api_python', i),'r+',encoding='utf8') as g:
+
+                g.seek(0)
+                g.truncate()
+                g.write(new_content)
+
+    for j in os.listdir(os.path.join(src_dir, 'ops')):
+        if j.split('.')[-1]=='rst' and 'ops.extend.' not in j:
+            all_rst.append(j.split('.')[-2].replace("func_",''))
 
     extra_interface_name = set(all_rst).difference(set(interface_name_list))
     print(extra_interface_name)
@@ -273,11 +302,13 @@ def ops_interface_name():
         with open(os.path.join(os.path.dirname(__file__),'extra_interface_del.txt'),'w+',encoding='utf8') as g:
             extra_write_list = []
             for k in extra_interface_name:
-                k = "mindspore.ops." + k +'.rst'
-                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/ops',k)) and k not in white_list:
-                    os.remove(os.path.join(os.path.dirname(__file__),'api_python/ops',k))
-                    extra_write_list.append(k)
+                extra_file = "mindspore.ops." + k +'.rst'
+                if os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python/ops', extra_file)) and extra_file not in white_list:
+                    os.remove(os.path.join(os.path.dirname(__file__), 'api_python/ops', extra_file))
+                    extra_write_list.append(extra_file)
             g.write(str(extra_write_list))
+
+    return primi_list
 
 # 删除并获取nn下多余的接口文件名
 def nn_interface_name():
@@ -369,7 +400,7 @@ for cur, _, files in os.walk(des_sir):
                         if 'resource/_static/logo_source' not in new_content:
                             new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
                     if '.. include::' in content and '.. automodule::' in content:
-                            continue
+                        continue
                     if 'autosummary::' not in content and "\n=====" in content:
                         re_view_ = re_view + copy_path + cur.split('api_python')[-1] + '/' + i +'\n    :alt: 查看源文件\n\n'
                         new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
@@ -406,7 +437,7 @@ except Exception as e:
     print(e)
 
 try:
-    ops_interface_name()
+    primitive_list = ops_interface_name()
     nn_interface_name()
     tensor_interface_name()
 except Exception as e:
@@ -452,13 +483,22 @@ for root, dirs, files in os.walk(api_file_dir, topdown=True):
 
 src_release = os.path.join(os.getenv("MS_PATH"), 'RELEASE_CN.md')
 des_release = "./RELEASE.md"
+release_source = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE_CN.md)\n'
+
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
-    content = re.findall("(## [\s\S\n]*?)\n## ", data)
+    content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
+    repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
+    content_new = ''
+    for i in content:
+        if re.findall(f"\n## MindSpore ({repo_version[0]}\.[0-9]+?)[ -]", i):
+            content_new += i
+    content = content_new
 else:
-    content = re.findall("(## [\s\S\n]*)", data)
-#result = content[0].replace('# MindSpore', '#', 1)
+    content = re.findall("(\n## [\s\S\n]*)", data)
+    content = content[0]
+
 with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes"+"\n\n")
-    p.write(content[0])
+    p.write("# Release Notes" + "\n\n" + release_source)
+    p.write(content)

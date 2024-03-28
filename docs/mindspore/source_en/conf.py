@@ -185,21 +185,6 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
-# replace py_files that have too many errors.
-try:
-    decorator_list = [("mindspore/context.py","mindspore/python/mindspore/context.py"),
-                      ("mindspore/dataset/vision/transforms.py","mindspore/python/mindspore/dataset/vision/transforms.py"),
-                      ("mindspore/ops/operations/custom_ops.py","mindspore/python/mindspore/ops/operations/custom_ops.py"),
-                      ("mindspore/ops/operations/nn_ops.py","mindspore/python/mindspore/ops/operations/nn_ops.py")]
-
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
-    for i in decorator_list:
-        if os.path.exists(os.path.join(base_path, os.path.normpath(i[0]))):
-            os.remove(os.path.join(base_path, os.path.normpath(i[0])))
-            shutil.copy(os.path.join(os.getenv("MS_PATH"), i[1]),os.path.join(base_path, os.path.normpath(i[0])))
-except:
-    pass
-
 # Repair error decorators defined in mindspore.
 try:
     decorator_list = [("mindspore/common/_decorator.py", "deprecated",
@@ -308,9 +293,9 @@ docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if vers
 cst_module_name = 'mindspore'
 repo_whl = 'mindspore/python/mindspore'
 giturl = 'https://gitee.com/mindspore/'
-ops_yaml = 'mindspore/core/ops/ops_def/'
+ops_yaml = 'mindspore/core/ops/ops_def/doc/'
 try:
-    ops_yaml_list = [i for i in os.path.join(os.getenv("MS_PATH"), 'core/ops/ops_def') if i.endswith('_doc.yaml') and '_grad' not in i]
+    ops_yaml_list = [i for i in os.listdir(os.path.join(os.getenv("MS_PATH"), 'mindspore/core/ops/ops_def/doc')) if i.endswith('_doc.yaml') and '_grad' not in i]
 except:
     ops_yaml_list = []
 
@@ -388,6 +373,8 @@ copy_image(src_dir, des_dir)
 
 src_release = os.path.join(os.getenv("MS_PATH"), 'RELEASE.md')
 des_release = "./RELEASE.md"
+release_source = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
+
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
@@ -401,7 +388,7 @@ if len(re.findall("\n## (.*?)\n",data)) > 1:
 else:
     content = re.findall("(\n## [\s\S\n]*)", data)
     content = content[0]
-#result = content[0].replace('# MindSpore', '#', 1)
+
 with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes"+"\n")
+    p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content)
