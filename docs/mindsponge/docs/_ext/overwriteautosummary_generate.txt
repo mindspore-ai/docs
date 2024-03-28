@@ -47,7 +47,7 @@ from sphinx.ext.autosummary import (ImportExceptionGroup, get_documenter, import
 from sphinx.locale import __
 from sphinx.pycode import ModuleAnalyzer, PycodeError
 from sphinx.registry import SphinxComponentRegistry
-from sphinx.util import logging, rst, split_full_qualified_name
+from sphinx.util import logging, rst, split_full_qualified_name, get_full_modname
 from sphinx.util.inspect import getall, safe_getattr
 from sphinx.util.osutil import ensuredir
 from sphinx.util.template import SphinxTemplateLoader
@@ -395,19 +395,6 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
                               imported_members: bool = False, app: Any = None,
                               overwrite: bool = True, encoding: str = 'utf-8') -> None:
 
-    def get_api(fullname):
-        """Get the api module."""
-        try:
-            module_name, api_name = ".".join(fullname.split('.')[:-1]), fullname.split('.')[-1]
-            # pylint: disable=unused-variable
-            module_import = importlib.import_module(module_name)
-        except ModuleNotFoundError:
-            module_name, api_name = ".".join(fullname.split('.')[:-2]), ".".join(fullname.split('.')[-2:])
-            module_import = importlib.import_module(module_name)
-        # pylint: disable=eval-used
-        api = eval(f"module_import.{api_name}")
-        return api
-
     if builder:
         warnings.warn('builder argument for generate_autosummary_docs() is deprecated.',
                       RemovedInSphinx50Warning, stacklevel=2)
@@ -477,30 +464,27 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
         content = generate_autosummary_content(name, obj, parent, template, entry.template,
                                                imported_members, app, entry.recursive, context,
                                                modname, qualname)
-        cst_api = get_api(name)
         try:
-            py_source = inspect.getsourcefile(cst_api)
-        except TypeError:
-            try:
-                py_source = inspect.getsourcefile(inspect.getmodule(cst_api))
-            except TypeError:
-                py_source = ''
+            py_source_rel = get_full_modname(modname, qualname).replace('.', '/') + '.py'
+        except:
+            logger.warning(name)
+            py_source_rel = ''
 
         if app.config.cst_module_name[0] in name:
             re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
                 f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
                 f"{app.config.copy_repo}/blob/{app.config.branch}/" + app.config.repo_whl[0] + \
-                py_source.split(app.config.cst_module_name[0])[-1] + '\n    :alt: View Source On Gitee\n\n'
+                py_source_rel.split(app.config.cst_module_name[0])[-1] + '\n    :alt: View Source On Gitee\n\n'
 
-            if re_view not in content and py_source:
+            if re_view not in content and py_source_rel:
                 content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
         elif app.config.cst_module_name[1] in name:
             re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
                 f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
                 f"{app.config.copy_repo}/blob/{app.config.branch}/" + app.config.repo_whl[1] + \
-                py_source.split(app.config.cst_module_name[1])[-1] + '\n    :alt: View Source On Gitee\n\n'
+                py_source_rel.split(app.config.cst_module_name[1])[-1] + '\n    :alt: View Source On Gitee\n\n'
 
-            if re_view not in content and py_source:
+            if re_view not in content and py_source_rel:
                 content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
         filename = os.path.join(path, filename_map.get(name, name) + suffix)
         if os.path.isfile(filename):
