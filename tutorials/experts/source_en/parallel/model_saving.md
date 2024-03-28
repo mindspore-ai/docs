@@ -4,7 +4,7 @@
 
 ## Overview
 
-In this tutorial, we mainly explain how to utilize MindSpore for distributed network training and saving model files. In a distributed training scenario, model saving can be divided into merged and non-merged saving: merged saving requires additional communication and memory overhead, and each card saves the same model file, while non-merged saving saves only the weights of the current card slicing, which effectively reduces the communication and memory overhead required for aggregation.
+In this tutorial, we mainly explain how to utilize MindSpore for distributed network training and saving model files. In a distributed training scenario, model saving can be divided into merged and non-merged saving: merged saving requires additional communication and memory overhead, and each card saves the same model file, each model file contains all the weights of the network, while non-merged saving saves only the weights of the current card slicing, which effectively reduces the communication and memory overhead required for aggregation.
 
 Related interfaces:
 
@@ -40,7 +40,7 @@ The directory structure is as follows:
 
 ### Configuring a Distributed Environment
 
-Specify the run mode, run device, run card number via the context interface. Unlike single card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` as semi-parallel mode. Configure and save the distributed strategy file via `strategy_ckpt_config` and initialize HCCL or NCCL communication via init. The `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
+Specify the run mode, run device, run card number via the context interface. Unlike single card scripts, scripts that perform distributed training also needs to specify a parallel mode. Sample code specify the parallel mode `parallel_mode` as semi-parallel mode. Configure and save the distributed strategy file via `strategy_ckpt_config` and initialize HCCL or NCCL communication via init. The `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
 
 ```python
 import mindspore as ms
@@ -151,7 +151,7 @@ Next, the corresponding script is called by the command. Take the `mpirun` start
 bash run_saving.sh
 ```
 
-After training, the log files are saved to the `log_output` directory and the checkpoint files are saved in the `src_checkpoints` folder with the following file directory structure:
+After training, the log files are saved to the `log_output` directory and the checkpoint files are saved in the `src_checkpoints` folder. The sharding strategy of Checkpoint is saved in the `src_strategy.ckpt` file. When you want to load the model, you need the file with the sharding strategy and the Checkpoint file. With the following file directory structure:
 
 ```text
 ├─ src_strategy.ckpt
