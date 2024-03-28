@@ -42,6 +42,7 @@ Code repository address: <https://gitee.com/mindspore/mindscience/tree/r0.6/Mind
    :caption: NowCasting
 
    nowcasting/DgmrNet
+   nowcasting/Nowcastnet
 
 .. toctree::
    :maxdepth: 1
