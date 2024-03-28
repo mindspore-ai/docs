@@ -269,6 +269,46 @@ After execution, a directory of transformed target Checkpoint files will be gene
 dst_checkpoints/
 ```
 
+### CheckPoint Conversion in MultiProcessing
+
+During the process of writing code for converting the CheckPoint files, users often use the following serial logic, resulting in a conversion time of several hours. For example, the following writing method results in a parallelism of 1, which is not recommended.
+
+```python
+import mindspore as ms
+dst_device_num = 8
+for tgt_rank in range(dst_device_num):
+    rank_list = ms.rank_list_for_transform(tgt_rank, "./src_strategy.ckpt", "./dst_strategy.ckpt")
+    checkpoint_files_map = {}
+    for rank_id in rank_list:
+        checkpoint_file_map[rank_id] = os.path.join(args_opt.src_checkpoints_dir, "rank_{}".format(rank_id), "checkpoint_{}.ckpt".format(rank_id))
+    save_checkpoint_path = os.path.join(args_opt.dst_checkpoints_dir, "rank_{}".format(get_rank()), "checkpoint_{}.ckpt".format(get_rank()))
+    ms.transform_checkpoint_by_rank(tgt_rank, checkpoint_file_map, save_checkpoint_path, args_opt.src_strategy_file, args_opt.dst_strategy_file)
+```
+
+We can accelerate the procession of ckpt conversion by introducing multi-process method. The specific modification is as follows: each process determines which target rank weight file to convert based on its current rank_id. That is, each process converts only one weight file.
+
+> Please set the number of processes according to the memory consumed by converting a single weight and the total memory in the current host, otherwise it will cause a memory shortage error in the host.
+
+```diff
+import sys
+import mindspore as ms
+
+rank_list = ms.rank_list_for_transform(get_rank(), "./src_strategy.ckpt", "./dst_strategy.ckpt")
+checkpoint_files_map = {}
+for rank_id in rank_list:
+    checkpoint_file_map[rank_id] = os.path.join(args_opt.src_checkpoints_dir, "rank_{}".format(rank_id), "checkpoint_{}.ckpt".format(rank_id))
+save_checkpoint_path = os.path.join(args_opt.dst_checkpoints_dir, "rank_{}".format(get_rank()), "checkpoint_{}.ckpt".format(get_rank()))
+ms.transform_checkpoint_by_rank(get_rank(), checkpoint_file_map, save_checkpoint_path, args_opt.src_strategy_file, args_opt.dst_strategy_file)
+```
+
+In addition, you need to configure the startup method. Change the single-process startup to multi-process startup. The following shows an example of a 4-process conversion.
+
+```shell
+mpirun -n 4 --output-filename log_output --merge-stderr-to-stdout python model_transformation_infer.py --only_compile=1
+```
+
+> The code used in this tutorial already adopt the multi-process style. The purpose of this section is to emphasize how to solve the problem of slow conversion in daily use scenarios for users.
+
 ### Loading the Transformed Checkpoint Files
 
 The network for the target strategy is compiled and the `load_checkpoint` interface is called to load the model parameter data from the transformed Checkpoint file.
