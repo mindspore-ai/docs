@@ -23,7 +23,7 @@ from mindspore.parallel.checkpoint_transform import sync_pipeline_shared_paramet
 
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, full_batch=True,
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, dataset_strategy="full_batch",
                              pipeline_stages=4, pipeline_result_broadcast=True)
 init()
 ms.set_seed(1)
