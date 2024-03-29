@@ -50,7 +50,7 @@ A: The formats of  `ckpt` of MindSpore and `ckpt`of TensorFlow are not generic. 
 
 ## Q: How do I use models trained by MindSpore on Atlas 200/300/500 inference product? Can they be converted to models used by HiLens Kit?
 
-A: Yes. HiLens Kit uses Atlas 200/300/500 inference product as the inference core. Therefore, the two questions are essentially the same, which both need to convert as OM model. Atlas 200/300/500 inference product requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Atlas 200/300/500 inference product. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorials/experts/en/r2.3/infer/inference.html).
+A: Yes. HiLens Kit uses Atlas 200/300/500 inference product as the inference core. Therefore, the two questions are essentially the same, which both need to convert as OM model. Atlas 200/300/500 inference product requires a dedicated OM model. Use MindSpore to export the ONNX and convert it into an OM model supported by Atlas 200/300/500 inference product. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorials/experts/en/r2.3/infer/inference.html).
 
 <br/>
 
@@ -60,15 +60,9 @@ A: MindSpore supports Huawei's own `Ascend`, `GPU` and `CPU` at the same time, a
 
 <br/>
 
-## Q: Can MindSpore be converted to an AIR model on Atlas 200/300/500 inference product?
-
-A: An AIR cannot be exported from the Atlas 200/300/500 inference product. You need to load a trained checkpoint on the Atlas training series, export an AIR model, and then convert the AIR model into an OM model for inference on the Atlas 200/300/500 inference product. For details about the Atlas training series installation, see the MindSpore Installation Guide at [here](https://www.mindspore.cn/install/en).
-
-<br/>
-
 ## Q: Does MindSpore have any limitation on the input size of a single Tensor for exporting and loading models?
 
-A: Due to hardware limitations of Protobuf, when exporting to AIR and ONNX formats, the size of model parameters cannot exceed 2G; when exporting to MINDIR format, there is no limit to the size of model parameters. MindSpore only supports the importing of MINDIR and doesn't support the importing of AIR and ONNX formats. The importing of MINDIR does not have size limitation.
+A: Due to hardware limitations of Protobuf, when exporting to ONNX formats, the size of model parameters cannot exceed 2G; when exporting to MINDIR format, there is no limit to the size of model parameters. MindSpore only supports the importing of MINDIR and doesn't support the importing of ONNX formats. The importing of MINDIR does not have size limitation.
 
 <br/>
 
