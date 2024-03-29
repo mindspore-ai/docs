@@ -257,7 +257,7 @@ def ops_interface_name():
                 interface_name_list = re.findall("mindspore\.ops\.(\w*)",content)
     all_rst = []
     for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/ops')):
-        if j.split('.')[-1]=='rst':
+        if j.split('.')[-1]=='rst' and 'ops.extend.' not in j and 'ops.silent_check.' not in j:
             all_rst.append(j.split('.')[-2])
 
     extra_interface_name = set(all_rst).difference(set(interface_name_list))
