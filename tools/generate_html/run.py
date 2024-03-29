@@ -168,6 +168,9 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             git_update(repo_path, branch_)
                         elif msc_branch:
                             git_update(repo_path, msc_branch)
+                    # 特殊处理下golden-stick
+                    elif data[i]['name'] == "golden_stick":
+                        git_update(repo_path, 'r0.4')
                     else:
                         git_update(repo_path, branch_)
                     print(f'{repo_name}仓库克隆更新成功')

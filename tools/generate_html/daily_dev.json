@@ -27,5 +27,23 @@
     "whl_name" : "",
     "environ" : "",
     "uninstall_name" : ""
+},
+{
+    "id" : 4 ,
+    "name" : "golden_stick",
+    "branch" : "master",
+    "whl_path" : "/golden-stick/website/any/",
+    "whl_name" : "mindspore_gs-.*-py3-none-any.whl$",
+    "environ" : "GS_PATH",
+    "uninstall_name" : "mindspore_gs"
+},
+{
+    "id" : 5 ,
+    "name" : "mindformers",
+    "branch" : "",
+    "whl_path" : "/mindformers/newest/any/",
+    "whl_name" : "mindformers-.*-py3-none-any.whl$",
+    "environ" : "",
+    "uninstall_name" : "mindformers"
 }
 ]
