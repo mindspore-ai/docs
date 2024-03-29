@@ -184,23 +184,12 @@ from sphinx.util import logging
 import shutil
 logger = logging.getLogger(__name__)
 
-src_dir_api = os.path.join(os.getenv("GS_PATH"), 'docs/api/api_zh_cn')
-moment_dir = os.path.dirname(__file__)
+copy_path = 'docs/api/api_zh_cn'
+src_dir_api = os.path.join(os.getenv("GS_PATH"), copy_path)
 
-for root,dirs,files in os.walk(src_dir_api):
-    for file in files:
-        if root==src_dir_api:
-            if os.path.exists(os.path.join(moment_dir,file)):
-                os.remove(os.path.join(moment_dir,file))
-            shutil.copy(os.path.join(root,file),os.path.join(moment_dir,file))
-        if '/pruner' in root:
-            if os.path.exists(os.path.join(moment_dir,'pruner',file)):
-                os.remove(os.path.join(moment_dir,'pruner',file))
-            shutil.copy(os.path.join(root,file),os.path.join(moment_dir,'pruner',file))
-        if '/quantization' in root:
-            if os.path.exists(os.path.join(moment_dir,'quantization',file)):
-                os.remove(os.path.join(moment_dir,'quantization',file))
-            shutil.copy(os.path.join(root,file),os.path.join(moment_dir,'quantization',file))
+copy_list = []
+spec_copy = []
+moment_dir=os.path.dirname(__file__)
 
 if not os.path.exists(os.path.join(moment_dir, 'ptq')):
     os.makedirs(os.path.join(moment_dir, 'ptq'))
@@ -208,6 +197,96 @@ if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb')):
     shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/round_to_nearest/README.ipynb'),
                 os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb'))
 
+for root,dirs,files in os.walk(src_dir_api):
+    for file in files:
+        if root==src_dir_api:
+            if os.path.exists(os.path.join(moment_dir,file)):
+                os.remove(os.path.join(moment_dir,file))
+            shutil.copy(os.path.join(root,file),os.path.join(moment_dir,file))
+            copy_list.append(os.path.join(moment_dir,file))
+        if '/pruner' in root:
+            if os.path.exists(os.path.join(moment_dir,'pruner',file)):
+                os.remove(os.path.join(moment_dir,'pruner',file))
+            shutil.copy(os.path.join(root,file),os.path.join(moment_dir,'pruner',file))
+            copy_list.append(os.path.join(moment_dir,'pruner',file))
+            spec_copy.append([os.path.join(moment_dir,'pruner',file), root])
+        elif '/quantization' in root:
+            if os.path.exists(os.path.join(moment_dir,'quantization',file)):
+                os.remove(os.path.join(moment_dir,'quantization',file))
+            shutil.copy(os.path.join(root,file),os.path.join(moment_dir,'quantization',file))
+            copy_list.append(os.path.join(moment_dir,'quantization',file))
+            spec_copy.append([os.path.join(moment_dir,'quantization',file), root])
+        elif '/ptq' in root:
+            if os.path.exists(os.path.join(moment_dir,'ptq',file)):
+                os.remove(os.path.join(moment_dir,'ptq',file))
+            shutil.copy(os.path.join(root,file),os.path.join(moment_dir,'ptq',file))
+            copy_list.append(os.path.join(moment_dir,'ptq',file))
+            spec_copy.append([os.path.join(moment_dir,'ptq',file), root])
+
+for i in os.listdir(src_dir_api):
+    if os.path.isdir(os.path.join(src_dir_api,i)):
+        if i in ('pruner', 'quantization', 'ptq'):
+            continue
+        if os.path.exists('./'+i):
+            shutil.rmtree('./'+i)
+        shutil.copytree(os.path.join(src_dir_api,i),'./'+i)
+        copy_list.append(os.path.join(moment_dir,i))
+
+# add view
+import json
+
+if os.path.exists('../../../../tools/generate_html/version.json'):
+    with open('../../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily_dev.json'):
+    with open('../../../../tools/generate_html/daily_dev.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily.json'):
+    with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+
+if os.getenv("GS_PATH").split('/')[-1]:
+    copy_repo = os.getenv("GS_PATH").split('/')[-1]
+else:
+    copy_repo = os.getenv("GS_PATH").split('/')[-2]
+
+branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo.replace('-', '_')][0]
+docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
+
+re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/" + \
+          f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
+
+for cur, _, files in os.walk(moment_dir):
+    for i in files:
+        flag_copy = 0
+        if i.endswith('.rst'):
+            part_path = cur.split(moment_dir)[-1]
+            for j in copy_list:
+                if j in cur:
+                    flag_copy = 1
+                    break
+            for j in spec_copy:
+                if os.path.join(cur, i) in j[0]:
+                    flag_copy = 1
+                    part_path = j[1].split(src_dir_api)[-1]
+                    break
+            if os.path.join(cur, i) in copy_list or flag_copy:
+                try:
+                    with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                        content = f.read()
+                        new_content = content
+                        if '.. include::' in content and '.. automodule::' in content:
+                            continue
+                        if 'autosummary::' not in content and "\n=====" in content:
+                            re_view_ = re_view + copy_path + part_path + '/' + i + \
+                                       '\n    :alt: 查看源文件\n\n'
+                            new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
+                        if new_content != content:
+                            f.seek(0)
+                            f.truncate()
+                            f.write(new_content)
+                except Exception:
+                    print(f'打开{i}文件失败')
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 # import anchor_mod

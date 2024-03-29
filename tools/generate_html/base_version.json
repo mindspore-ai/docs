@@ -120,6 +120,15 @@
             ]
         },
         "theme": "theme-lite"
+    },
+    {
+        "version": "master",
+        "label": {
+            "zh": "MindSpore Golden Stick",
+            "en": "MindSpore Golden Stick"
+        },
+        "repo_name": "golden_stick",
+        "theme": "theme-docs"
     }
 ]
 
