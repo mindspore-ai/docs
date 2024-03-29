@@ -24,6 +24,7 @@ from sphinx.util import docutils, logging
 from sphinx.util.docfields import DocFieldTransformer, Field, TypedField
 from sphinx.util.docutils import SphinxDirective
 from sphinx.util.typing import OptionSpec
+from sphinx.environment.collectors.toctree import N
 
 if TYPE_CHECKING:
     from sphinx.application import Sphinx
@@ -33,8 +34,9 @@ if TYPE_CHECKING:
 nl_escape_re = re.compile(r'\\\n')
 strip_backslash_re = re.compile(r'\\(.)')
 
-T = TypeVar('T')
 logger = logging.getLogger(__name__)
+
+# T = TypeVar('T')
 
 def optional_int(argument: str) -> int:
     """
@@ -100,7 +102,7 @@ def get_platforms(name: str):
     except:
         return []
 
-class ObjectDescription(SphinxDirective, Generic[T]):
+class ObjectDescription(SphinxDirective, Generic[N]):
     """
     Directive to describe a class, function or similar object.  Not used
     directly, but subclassed (in domain-specific directives) to add custom
@@ -152,7 +154,7 @@ class ObjectDescription(SphinxDirective, Generic[T]):
         else:
             return [line.strip() for line in lines]
 
-    def handle_signature(self, sig: str, signode: desc_signature) -> T:
+    def handle_signature(self, sig: str, signode: desc_signature):
         """
         Parse the signature *sig* into individual nodes and append them to
         *signode*. If ValueError is raised, parsing is aborted and the whole
@@ -164,7 +166,7 @@ class ObjectDescription(SphinxDirective, Generic[T]):
         """
         raise ValueError
 
-    def add_target_and_index(self, name: T, sig: str, signode: desc_signature) -> None:
+    def add_target_and_index(self, name, sig: str, signode: desc_signature) -> None:
         """
         Add cross-reference IDs and entries to self.indexnode, if applicable.
 
