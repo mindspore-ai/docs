@@ -50,7 +50,7 @@ A: MindSpore的`ckpt`和TensorFlow的`ckpt`格式是不通用的，虽然都是�
 
 ## Q: 用MindSpore训练出的模型如何在Atlas 200/300/500推理产品上使用？可以转换成适用于HiLens Kit用的吗？
 
-A: Atlas 200/300/500推理产品需要运行专用的OM模型，先使用MindSpore导出ONNX或AIR模型，再转化为Atlas 200/300/500推理产品支持的OM模型。可以，HiLens Kit是以Atlas 200/300/500推理产品为推理核心，所以前后两个问题本质上是一样的，需要转换为OM模型。
+A: Atlas 200/300/500推理产品需要运行专用的OM模型，先使用MindSpore导出ONNX模型，再转化为Atlas 200/300/500推理产品支持的OM模型。可以，HiLens Kit是以Atlas 200/300/500推理产品为推理核心，所以前后两个问题本质上是一样的，需要转换为OM模型。
 
 <br/>
 
@@ -60,15 +60,9 @@ A: MindSpore同时支持华为自己的`Ascend`、`GPU`与`CPU`，是支持异�
 
 <br/>
 
-## Q: MindSpore在Atlas 200/300/500推理产品上是否可以转AIR模型？
-
-A: Atlas 200/300/500推理产品不能导出AIR，需要在Atlas训练系列产品加载训练好的checkpoint后，导出AIR，然后在Atlas 200/300/500推理产品转成OM模型进行推理。Atlas训练系列产品的安装方法可以参考官网MindSpore[安装指南](https://www.mindspore.cn/install)。
-
-<br/>
-
 ## Q: MindSpore对导出、导入模型的单个Tensor输入大小有什么限制？
 
-A: 由于Protobuf的硬件限制，导出AIR、ONNX格式时，模型参数大小不能超过2G；导出MINDIR格式时，模型参数大小没有限制，MindSpore不支持导入AIR、ONNX格式，只支持导入MINDIR。 MINDIR的导入不存在模型参数大小限制。
+A: 由于Protobuf的硬件限制，导出ONNX格式时，模型参数大小不能超过2G；导出MINDIR格式时，模型参数大小没有限制，MindSpore不支持导入ONNX格式，只支持导入MINDIR。 MINDIR的导入不存在模型参数大小限制。
 
 <br/>
 
