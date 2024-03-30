@@ -1,4 +1,4 @@
-# 比较预torch.utils.checkpoint.checkpoint的差异
+# 比较与torch.utils.checkpoint.checkpoint的差异
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/checkpoint.md)
 
@@ -13,7 +13,7 @@ torch.utils.checkpoint.checkpoint(function, preserve_rng_state=True, *args)
 ## mindspore.nn.Cell.recompute
 
 ```text
-recompute(mp_comm_recompute=True, parallel_optimizer_comm_recompute=False)
+mindspore.nn.Cell.recompute(mp_comm_recompute=True, parallel_optimizer_comm_recompute=False)
 ```
 
 更多内容详见[mindspore.nn.Cell.recompute](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute)。
