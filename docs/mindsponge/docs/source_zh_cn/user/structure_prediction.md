@@ -10,9 +10,9 @@
 
 | 功能            | 模型                                         | 训练 | 推理 | 后端       |
 | :------------- | :------------------------------------------- | :--- | :--- | :-------- |
-| 单链结构预测    | [MEGA-Fold](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README_CN.md#)                   | √    | √   | GPU/Ascend |
-| MSA生成/修正    | [MEGA-EvoGen](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README_CN.md#)               | √    | √   | GPU/Ascend |
-| 结构质量评估    | [MEGA-Assessment](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README_CN.md#)       | √    | √   | GPU/Ascend |
+| 单链结构预测    | [MEGA-Fold](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/MEGAProtein.md)                   | √    | √   | GPU/Ascend |
+| MSA生成/修正    | [MEGA-EvoGen](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/MEGAProtein.md)               | √    | √   | GPU/Ascend |
+| 结构质量评估    | [MEGA-Assessment](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/MEGAProtein.md)       | √    | √   | GPU/Ascend |
 | 多链结构预测    | [AlphaFold-Multimer](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/afmultimer.md) | ×    | √   | GPU/Ascend |
 | RNA二级结构预测 | [UFold](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/UFold.md)                          | √    | √   | GPU/Ascend |
 
