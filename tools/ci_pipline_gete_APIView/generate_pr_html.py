@@ -566,7 +566,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
 
     return generate_path, cn_flag, en_flag
 
-def make_html(generate_path, pre_path, cn_flag, en_flag, branch, md_h):
+def make_html(generate_path, pre_path, cn_flag, en_flag, branch, js_data):
     """
     generate html.
     """
@@ -597,11 +597,14 @@ def make_html(generate_path, pre_path, cn_flag, en_flag, branch, md_h):
             TARGET = os.path.join(pre_path, f"{generate_dir}/en/{branch}")
             os.makedirs(os.path.dirname(TARGET), exist_ok=True)
             shutil.copytree("build_en/html", TARGET)
-            md_h += f'\n| [English Version]({generate_dir}/en/{branch}/index.html) | SUCCESS |'
+            js_data['English']['link'] = f'{generate_dir}/en/{branch}/index.html'
+            js_data['English']['result'] = 'SUCCESS'
+            # md_h += f'\n| [English Version]({generate_dir}/en/{branch}/index.html) | SUCCESS |'
         # pylint: disable=W0702
         except:
             print(f"English Version run failed!")
-            md_h += '\n| English Version | FAILURE |'
+            js_data['English']['result'] = 'FAILURE'
+            # md_h += '\n| English Version | FAILURE |'
 
     # 输出中文
     if cn_flag:
@@ -621,12 +624,15 @@ def make_html(generate_path, pre_path, cn_flag, en_flag, branch, md_h):
             TARGET = f"{pre_path}/{generate_dir}/zh-CN/{branch}"
             os.makedirs(os.path.dirname(TARGET), exist_ok=True)
             shutil.copytree("build_zh_cn/html", TARGET)
-            md_h += f'\n| [Chinese Version]({generate_dir}/zh-CN/{branch}/index.html) | SUCCESS |'
+            js_data['Chinese']['link'] = f'{generate_dir}/zh-CN/{branch}/index.html'
+            js_data['Chinese']['result'] = 'SUCCESS'
+            # md_h += f'\n| [Chinese Version]({generate_dir}/zh-CN/{branch}/index.html) | SUCCESS |'
         # pylint: disable=W0702
         except:
             print(f"Chinese Version run failed!")
-            md_h += '\n| Chinese Version | FAILURE |'
-    return md_h, generate_dir
+            js_data['Chinese']['result'] = 'FAILURE'
+            # md_h += '\n| Chinese Version | FAILURE |'
+    return js_data, generate_dir
 
 def modify_style_files(pre_path, rp_dn, theme_p, version_p, lge_list):
     """
@@ -786,14 +792,16 @@ if __name__ == "__main__":
         pr_files_url, diff_url, repo_dir_docs, repo_dir, repo_branch)
 
     # 开始构建文档
-    md_head = '| API Documentation | Build Result |'
+    # md_head = '| API Documentation | Build Result |'
+    with open(os.path.join(present_dir_path, "api_result.json"), 'r+', encoding='utf-8') as g:
+        result_data = json.load(g)
     g_lan = []
     if cn_f:
         g_lan.append('zh-CN')
     if en_f:
         g_lan.append('en')
 
-    md_content, generate_dir_name = make_html(mk_ht_path, present_dir_path, cn_f, en_f, repo_branch, md_head)
+    js_content, generate_dir_name = make_html(mk_ht_path, present_dir_path, cn_f, en_f, repo_branch, result_data[0])
 
     # 修改样式文件
     modify_style_files(present_dir_path, generate_dir_name, theme_path, target_version, g_lan)
@@ -801,4 +809,5 @@ if __name__ == "__main__":
     cmd_tar = ["tar", "-czvf", f"{generate_dir_name}.tar.gz", f'./{generate_dir_name}']
     subprocess.run(cmd_tar)
 
-    print(md_content)
+    with open(os.path.join(present_dir_path, "api_result.json"), 'w+', encoding='utf-8') as g:
+        json.dump(js_content, g, indent=4)
