@@ -10,9 +10,9 @@ Currently, a series of tools for protein and RNA structure prediction are availa
 
 | Function       | Model                                        | Training | Inferring | Back-end   |
 | :------------- | :------------------------------------------- | :--- | :--- | :-------- |
-| Single Chain Structure Prediction | [MEGA-Fold](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README.md#)                   | √    | √   | GPU/Ascend |
-| MSA Generation/Correction    | [MEGA-EvoGen](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README.md#)               | √    | √   | GPU/Ascend |
-| Structural Quality Assessment | [MEGA-Assessment](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/MEGAProtein/README.md#)       | √    | √   | GPU/Ascend |
+| Single Chain Structure Prediction | [MEGA-Fold](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/MEGAProtein.md)                   | √    | √   | GPU/Ascend |
+| MSA Generation/Correction    | [MEGA-EvoGen](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/MEGAProtein.md)               | √    | √   | GPU/Ascend |
+| Structural Quality Assessment | [MEGA-Assessment](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/MEGAProtein.md)       | √    | √   | GPU/Ascend |
 | Multi-chain Structure Prediction | [AlphaFold-Multimer](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/afmultimer.md) | ×    | √   | GPU/Ascend |
 | RNA Secondary Structure Prediction | [UFold](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/applications/model_cards/UFold.md)                          | √    | √   | GPU/Ascend |
 
