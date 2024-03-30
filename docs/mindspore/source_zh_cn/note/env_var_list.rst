@@ -185,6 +185,47 @@
 
 具体用法详见 `动态组网 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/parallel/dynamic_cluster.html>`_ 。
 
+
+精度敏感检测
+------------
+
+.. list-table::
+   :widths: 20 20 10 30 20
+   :header-rows: 1
+
+   * - 环境变量
+     - 功能
+     - 类型
+     - 取值
+     - 说明
+   * - NPU_ASD_ENABLE
+     - 是否开启精度敏感检测功能
+     - Integer
+     - 0：关闭精度敏感检测功能
+
+       1：开启精度敏感检测功能
+     - 目前本特性仅支持Atlas A2 训练系列产品，仅支持检测Transformer类模型，bfloat16数据类型，训练过程中出现的精度异常
+   * - NPU_ASD_UPPER_THRESH
+     - 控制检测的绝对数值阈值
+     - String
+     - 格式为整型数据对，其中第一个元素控制绝对数值一级阈值，第二个元素控制绝对数值二级阈值
+       
+       减小阈值可以检出波动更小的异常数据，增加检出率，增大阈值与之相反
+       
+       在不配置该环境变量的默认情况下，`NPU_ASD_UPPER_THRESH=1000000,10000`
+     - 
+   * - NPU_ASD_SIGMA_THRESH
+     - 控制检测的相对数值阈值
+     - String
+     - 格式为整型数据对，其中第一个元素控制相对数值一级阈值，第二个元素控制相对数值二级阈值
+
+       减小阈值可以检出波动更小的异常数据，增加检出率，增大阈值与之相反
+
+       在不配置该环境变量的默认情况下，`NPU_ASD_SIGMA_THRESH=100000,5000`
+     - 
+
+精度敏感检测的更多内容详见 `精度敏感检测 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/debug/sdc.html>`_ 。
+
 运行数据保存
 ------------
 
