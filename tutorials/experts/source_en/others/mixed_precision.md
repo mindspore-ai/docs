@@ -40,7 +40,7 @@ where `b` indicates binary value, and `d` indicates decimal value.
 
 The minimum value that can be represented by FP16 is 0 00001 0000000000, which is calculated as follows:
 
-$$ (-1)^{1}\times2^{1-15}=2^{-14}=6.104×10^{-5}=-65504$$
+$$ (-1)^{1}\times2^{1-15}=-2^{-14}=-6.104×10^{-5}=-65504$$
 
 Therefore, the maximum value range of FP16 is [-65504, 65504], and the precision range is $2^{-24}$. If the value is beyond this range, the value is set to 0.
 
