@@ -157,20 +157,27 @@ def yaml_file_handle(yaml_file_list, repo_path, dict1):
                 op_content = f.read()
             class_name = re.findall(r'class:\n\s+?name:(.*)', op_content)
             func_name = re.findall(r'function:\n\s+?name:(.*)', op_content)
+            extend_str = ''
+            if '_ext_op.yaml' in op_fp:
+                extend_str = 'extend.'
             if re.findall(r'function:\n\s+?disable: True', op_content):
                 if class_name:
-                    generate_interface_list.append(
-                        f'.. autoclass:: mindspore.ops.{class_name[0].strip()}&&&{yaml_fp}')
+                    class_name = class_name[0]
                 else:
                     class_name = ''.join([i.title() for i in yaml_file.split('_')[:-1]])
-                    generate_interface_list.append(f'.. autoclass:: mindspore.ops.{class_name}&&&{yaml_fp}')
+                if class_name.endswith('_ext'):
+                    class_name = class_name.replace('_ext', '')
+                generate_interface_list.append(
+                    f'.. autoclass:: mindspore.ops.{extend_str}{class_name.strip()}&&&{yaml_fp}')
             else:
                 if func_name:
-                    generate_interface_list.append(
-                        f'.. autofunction:: mindspore.ops.{func_name[0].strip()}&&&{yaml_fp}')
+                    func_name = func_name[0]
                 else:
                     func_name = yaml_file.replace('_doc.yaml', '').replace('_op.yaml', '')
-                    generate_interface_list.append(f'.. autofunction:: mindspore.ops.{func_name}&&&{yaml_fp}')
+                if func_name.endswith('_ext'):
+                    func_name = func_name.replace('_ext', '')
+                generate_interface_list.append(
+                    f'.. autofunction:: mindspore.ops.{extend_str}{func_name.strip()}&&&{yaml_fp}')
     return list(set(generate_interface_list))
 
 
@@ -190,6 +197,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/train', 'mindspore.train'],
         ['mindspore/python/mindspore/boost', 'mindspore.boost'],
         ['mindspore/python/mindspore/ops', 'mindspore.ops'],
+        ['mindspore/python/mindspore/nn/extend', 'mindspore.nn.extend'],
         ['mindspore/python/mindspore/nn', 'mindspore.nn'],
         ['mindspore/python/mindspore/dataset/text', 'mindspore.dataset.text'],
         ['mindspore/python/mindspore/dataset/audio', 'mindspore.dataset.audio'],
@@ -200,8 +208,8 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/nn/probability/bijector', 'mindspore.nn.probability.bijector'],
         ['mindspore/python/mindspore/amp.py', 'mindspore.amp'],
         ['mindspore/python/mindspore/numpy', 'mindspore.numpy'],
-        ['mindspore/python/mindspore/experimental/optim/lr_scheduler.py', 'mindspore.optim.lr_scheduler'],
-        ['mindspore/python/mindspore/experimental/optim', 'mindspore.optim'],
+        ['mindspore/python/mindspore/experimental/optim/lr_scheduler.py', 'mindspore.experimental.optim.lr_scheduler'],
+        ['mindspore/python/mindspore/experimental/optim', 'mindspore.experimental.optim'],
         ['mindspore/python/mindspore/common/initializer.py', 'mindspore.common.initializer'],
         ['mindspore/python/mindspore/common', 'mindspore']]
 
@@ -308,11 +316,15 @@ def en_file_handle(py_file_list, repo_path, dict1):
     return list(set(generate_interface_list))
 
 
-def make_index_rst(target_path):
+def make_index_rst(target_path, language_f):
     """
     generate index.rst.
     """
-    title_content = 'PR Document preview directory'
+    if language_f == 'en':
+        title_content = 'PR Document Preview Directory'
+    else:
+        title_content = 'PR 文档预览目录'
+
     content = title_content + "\n" + '=' * \
         len(title_content) + '\n\n' + \
         '.. toctree::\n    :glob:\n    :maxdepth: 1\n\n'
@@ -353,7 +365,7 @@ def hanlde_config(pf_cn, pf_py, pf_yaml, target_path, repo_p):
 
         # 改写index.rst，使生成文档目录
         source_path = os.path.join(target_path, 'source_zh_cn')
-        make_index_rst(source_path)
+        make_index_rst(source_path, 'cn')
     if pf_py or pf_yaml:
         with open(os.path.join(target_path, 'source_en', 'conf.py'), 'r+', encoding='utf-8') as h:
             conf_content = h.read()
@@ -368,7 +380,7 @@ def hanlde_config(pf_cn, pf_py, pf_yaml, target_path, repo_p):
                 shutil.rmtree(os.path.join(target_path, 'source_en', i))
         # 改写index.rst，使生成文档目录
         source_path = os.path.join(target_path, 'source_en')
-        make_index_rst(source_path)
+        make_index_rst(source_path, 'en')
 
 def generate_version_json(rp_n, branch, js_data, target_path):
     """
@@ -597,13 +609,13 @@ def make_html(generate_path, pre_path, cn_flag, en_flag, branch, js_data):
             TARGET = os.path.join(pre_path, f"{generate_dir}/en/{branch}")
             os.makedirs(os.path.dirname(TARGET), exist_ok=True)
             shutil.copytree("build_en/html", TARGET)
-            js_data['English']['link'] = f'{generate_dir}/en/{branch}/index.html'
-            js_data['English']['result'] = 'SUCCESS'
+            js_data[0]['English']['link'] = f'{generate_dir}/en/{branch}/index.html'
+            js_data[0]['English']['result'] = 'SUCCESS'
             # md_h += f'\n| [English Version]({generate_dir}/en/{branch}/index.html) | SUCCESS |'
         # pylint: disable=W0702
         except:
             print(f"English Version run failed!")
-            js_data['English']['result'] = 'FAILURE'
+            js_data[0]['English']['result'] = 'FAILURE'
             # md_h += '\n| English Version | FAILURE |'
 
     # 输出中文
@@ -624,13 +636,13 @@ def make_html(generate_path, pre_path, cn_flag, en_flag, branch, js_data):
             TARGET = f"{pre_path}/{generate_dir}/zh-CN/{branch}"
             os.makedirs(os.path.dirname(TARGET), exist_ok=True)
             shutil.copytree("build_zh_cn/html", TARGET)
-            js_data['Chinese']['link'] = f'{generate_dir}/zh-CN/{branch}/index.html'
-            js_data['Chinese']['result'] = 'SUCCESS'
+            js_data[0]['Chinese']['link'] = f'{generate_dir}/zh-CN/{branch}/index.html'
+            js_data[0]['Chinese']['result'] = 'SUCCESS'
             # md_h += f'\n| [Chinese Version]({generate_dir}/zh-CN/{branch}/index.html) | SUCCESS |'
         # pylint: disable=W0702
         except:
             print(f"Chinese Version run failed!")
-            js_data['Chinese']['result'] = 'FAILURE'
+            js_data[0]['Chinese']['result'] = 'FAILURE'
             # md_h += '\n| Chinese Version | FAILURE |'
     return js_data, generate_dir
 
@@ -801,7 +813,7 @@ if __name__ == "__main__":
     if en_f:
         g_lan.append('en')
 
-    js_content, generate_dir_name = make_html(mk_ht_path, present_dir_path, cn_f, en_f, repo_branch, result_data[0])
+    js_content, generate_dir_name = make_html(mk_ht_path, present_dir_path, cn_f, en_f, repo_branch, result_data)
 
     # 修改样式文件
     modify_style_files(present_dir_path, generate_dir_name, theme_path, target_version, g_lan)
