@@ -337,3 +337,4 @@ epoch: 0, step: 700, loss is 0.7540306
 - The execution mode needs to be set to `PYNATIVE_MODE`, the parallel configuration to `AUTO_PARALLEL`, and the `search_mode` to `sharding_propagation`.
 - Nested `vmap` use is supported, and must be used with `shard` outside and `vmap` inside.
 - Nested use of `shard` is not supported.
+- Nested `ms.jit` with `shard` is not supported, `shard` will not take effect in this scenario.

@@ -339,3 +339,4 @@ epoch: 0, step: 700, loss is 0.7540306
 - 执行模式需设置为`PYNATIVE_MODE`，并行配置为`AUTO_PARALLEL`，`search_mode`为`sharding_propagation`。
 - 支持嵌套`vmap`使用，使用时必须`shard`在外，`vmap`在内。
 - 不支持`shard`嵌套使用。
+- 不支持`ms.jit`嵌套`shard`使用，该用法下`shard`不生效。
