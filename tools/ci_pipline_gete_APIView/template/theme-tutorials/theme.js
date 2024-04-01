@@ -5,11 +5,11 @@
 ;(function () {
   let s = document.getElementsByTagName('HEAD')[0]
   let hm = document.createElement('script')
-  hm.src = '/common.js'
+  hm.src = 'https://repo.mindspore.cn/public/mindspore/common.js'
 
   let oLink = document.createElement('link')
   oLink.rel = 'stylesheet'
-  oLink.href = '/common.css'
+  oLink.href = 'https://repo.mindspore.cn/public/mindspore/common.css'
 
   s.appendChild(hm, s)
   s.appendChild(oLink, s)
