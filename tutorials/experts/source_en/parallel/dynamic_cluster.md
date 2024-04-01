@@ -112,21 +112,21 @@ The relevant environment variables:
         <td align="left">Cluster networking phase timeout time in seconds.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">The default is 30 minutes.</td>
-        <td align="left">This value represents that all nodes can register to the scheduler within this time window. If the time window is exceeded, registration will fail and if the number of nodes does not meet the requirements, cluster networking will fail. We suggest users to configure this environment variable when the cluster is in large-scale.</td>
+        <td align="left">This value represents that all nodes can register to the Scheduler within this time window. If the time window is exceeded, registration will fail and if the number of nodes does not meet the requirements, cluster networking will fail. We suggest users to configure this environment variable when the cluster is in large-scale.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">MS_CLUSTER_RETRY_NUM</td>
         <td align="left">Number of node's retrying registration during cluster networking phase.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">The default is 610 times.</td>
-        <td align="left">This value represents the retrying number of a worker registers with the scheduler, with an interval of 3 seconds.</td>
+        <td align="left">This value represents the retrying number of a worker registers to the Scheduler, with an interval of 3 seconds.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">MS_NODE_TIMEOUT</td>
-        <td align="left">Node heartbeat timeout in seconds。</td>
+        <td align="left">Node heartbeat timeout in seconds.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">The default is 600 seconds.</td>
-        <td align="left">This value represents the heartbeat timeout time between the scheduler and the worker. If there are no heartbeat messages within this time window, the cluster will exit abnormally.</td>
+        <td align="left">This value represents the heartbeat timeout time between the Scheduler and the Worker. If there are no heartbeat messages within this time window, the cluster will exit abnormally.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">MS_RECEIVE_MSG_TIMEOUT</td>
