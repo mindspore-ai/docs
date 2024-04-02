@@ -61,10 +61,20 @@ def get_api(fullname):
 def get_example(name: str):
     try:
         api_doc = inspect.getdoc(get_api(name))
-        example_str = re.findall(r'Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
+        example_str = re.findall(r'(?<!Tutorial )Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
         if not example_str:
             return []
-        example_str = re.sub(r'\n\s+', r'\n', example_str[0][0])
+        if '.. note::' in example_str[0][0]:
+            api_doc = re.sub(r'Examples:\n    \.\. note::(?:.|\n)*?    >>>', r'Examples:\n    >>>', api_doc)
+            example_str = re.findall(r'(?<!Tutorial )Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
+            example_str = re.sub(r'\n\s+', r'\n', example_str[0][0])
+            example_str = example_str.strip()
+            example_list = example_str.split('\n')
+            return [""] + example_list + [""]
+        if '\n     ' in example_str[0][0]:
+            example_str = re.sub(r'\n    ', r'\n', example_str[0][0])
+        else:
+            example_str = re.sub(r'\n\s+', r'\n', example_str[0][0])
         example_str = example_str.strip()
         example_list = example_str.split('\n')
         return ["", "**样例：**", ""] + example_list + [""]
