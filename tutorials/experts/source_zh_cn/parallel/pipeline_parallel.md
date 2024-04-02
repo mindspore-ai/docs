@@ -101,19 +101,43 @@ data_set = create_dataset(32)
 
 流水线并行网络结构与单卡网络结构基本一致，区别在于增加了流水线并行策略配置。流水线并行需要用户去定义并行的策略，通过调用`pipeline_stage`接口来指定每个layer要在哪个stage上去执行。`pipeline_stage`接口的粒度为`Cell`。所有包含训练参数的`Cell`都需要配置`pipeline_stage`，并且`pipeline_stage`要按照网络执行的先后顺序，从小到大进行配置。在单卡模型基础上，增加`pipeline_stage`配置后如下：
 
-> 在pipeline并行下，使能Print/Summary/TensorDump相关算子时，需要把该算子放到有pipeline_state属性的Cell中使用，否则有概率由pipeline并行切分导致算子不生效。
+> 在pipeline并行下，使能Print/Summary/TensorDump相关算子时，需要把该算子放到有pipeline_stage属性的Cell中使用，否则有概率由pipeline并行切分导致算子不生效。
 
 ```python
-from mindspore import nn
+from mindspore import nn, ops, Parameter
+from mindspore.common.initializer import initializer, HeUniform
+
+import math
+
+class MatMulCell(nn.Cell):
+    """
+    MatMulCell definition.
+    """
+    def __init__(self, param=None, shape=None):
+        super().__init__()
+        if shape is None:
+            shape = [28 * 28, 512]
+        weight_init = HeUniform(math.sqrt(5))
+        self.param = Parameter(initializer(weight_init, shape), name="param")
+        if param is not None:
+            self.param = param
+        self.print = ops.Print()
+        self.matmul = ops.MatMul()
+
+    def construct(self, x):
+        out = self.matmul(x, self.param)
+        self.print("out is:", out)
+        return out
+
 
 class Network(nn.Cell):
     def __init__(self):
         super().__init__()
         self.flatten = nn.Flatten()
-        self.layer1 = nn.Dense(28*28, 512)
-        self.relu1= nn.ReLU()
+        self.layer1 = MatMulCell()
+        self.relu1 = nn.ReLU()
         self.layer2 = nn.Dense(512, 512)
-        self.relu2= nn.ReLU()
+        self.relu2 = nn.ReLU()
         self.layer3 = nn.Dense(512, 10)
 
     def construct(self, x):
@@ -124,6 +148,7 @@ class Network(nn.Cell):
         x = self.relu2(x)
         logits = self.layer3(x)
         return logits
+
 
 net = Network()
 net.layer1.pipeline_stage = 0
@@ -201,13 +226,23 @@ bash run.sh
 结果保存在`log_output/1/rank.*/stdout`中，示例如下：
 
 ```text
-epoch: 0 step: 0, loss is 9.087993
-epoch: 0 step: 10, loss is 8.575434
-epoch: 0 step: 20, loss is 8.185939
-epoch: 0 step: 30, loss is 6.7301626
-epoch: 0 step: 40, loss is 5.2246842
-epoch: 0 step: 50, loss is 3.8342278
+epoch: 0 step: 0, loss is 9.137518
+epoch: 0 step: 10, loss is 8.826559
+epoch: 0 step: 20, loss is 8.675843
+epoch: 0 step: 30, loss is 8.307994
+epoch: 0 step: 40, loss is 7.856993
+epoch: 0 step: 50, loss is 7.0662785
 ...
+```
+
+`Print` 算子的结果为:
+
+```text
+out is:
+Tensor(shape=[8, 512], dtype=Float32, value=
+[[ 4.61914062e-01 5.78613281e-01 1.34995094e-01 ... 8.54492188e-02 7.91992188e-01 2.13378906e-01]
+...
+[  4.89746094e-01 3.56689453e-01 -4.90966797e-01 ... -3.30078125e-e01 -2.38525391e-01 7.33398438e-01]])
 ```
 
 其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/startup_method.html)。
