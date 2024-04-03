@@ -11,6 +11,7 @@ import re
 import shutil
 import subprocess
 import requests
+from git import Repo
 
 # 使文件夹存在且为空
 def flush(dir_p):
@@ -20,6 +21,28 @@ def flush(dir_p):
     if os.path.exists(dir_p):
         shutil.rmtree(dir_p)
     os.makedirs(dir_p)
+
+def update_repo(clone_branch, rp_dir_docs):
+    """
+    update repo.
+    """
+
+    # docs工程运行仓克隆更新
+    if not os.path.exists(rp_dir_docs):
+        os.makedirs(rp_dir_docs, exist_ok=True)
+        Repo.clone_from("https://gitee.com/mindspore/docs.git",
+                        rp_dir_docs, branch=clone_branch)
+    else:
+        # Repo(rp_dir).git.execute(["git","pull","origin","master"])
+        repo = Repo(rp_dir_docs)
+        str1 = repo.git.execute(["git", "branch", "-a"])
+        if not re.findall(f'remotes/origin/{clone_branch}', str1):
+            if len(clone_branch.split('.')) >= 3:
+                clone_branch = '.'.join(clone_branch.split('.')[:-1])
+
+        str3 = repo.git.execute(["git", "checkout", clone_branch])
+        print(str3)
+    return clone_branch
 
 def copy_source(sourcedir, des_sir, cp_rel_path, fp_list=''):
     """
@@ -786,6 +809,9 @@ if __name__ == "__main__":
     res = requests.get(apiv5_url).text
     repo_branch = re.findall('"base":{"label":"(.+?)"', res)[0]
 
+    # 切换本地仓库分支
+    docs_branch = update_repo(repo_branch, repo_dir_docs)
+
     # 安装依赖包
     cmd_uninstall = ["pip", "uninstall", "-y", "mindspore"]
     subprocess.run(cmd_uninstall)
@@ -795,9 +821,9 @@ if __name__ == "__main__":
     # 生成version.json
     with open(os.path.join(present_dir_path, "base_version.json"), 'r+', encoding='utf-8') as g:
         data_b = json.load(g)
-    target_version = os.path.join(present_dir_path, f"{repo_branch}_version")
+    target_version = os.path.join(present_dir_path, f"{docs_branch}_version")
     flush(target_version)
-    generate_version_json(repo_name, repo_branch, data_b, target_version)
+    generate_version_json(repo_name, docs_branch, data_b, target_version)
 
     # mindspore仓pr修改准备
     mk_ht_path, cn_f, en_f = api_generate_prepare(
@@ -813,7 +839,7 @@ if __name__ == "__main__":
     if en_f:
         g_lan.append('en')
 
-    js_content, generate_dir_name = make_html(mk_ht_path, present_dir_path, cn_f, en_f, repo_branch, result_data)
+    js_content, generate_dir_name = make_html(mk_ht_path, present_dir_path, cn_f, en_f, docs_branch, result_data)
 
     # 修改样式文件
     modify_style_files(present_dir_path, generate_dir_name, theme_path, target_version, g_lan)
