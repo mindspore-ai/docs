@@ -39,9 +39,7 @@ MindSpore 文档
 
    api_python/mindspore
    api_python/mindspore.nn
-   api_python/mindspore.nn.extend
    api_python/mindspore.ops
-   api_python/mindspore.ops.extend
    api_python/mindspore.ops.primitive
    api_python/mindspore.amp
    api_python/mindspore.train
