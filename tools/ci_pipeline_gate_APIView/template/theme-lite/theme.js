@@ -4,11 +4,11 @@
 ;(function () {
   let s = document.getElementsByTagName('HEAD')[0]
   let hm = document.createElement('script')
-  hm.src = 'https://repo.mindspore.cn/public/mindspore/common.js'
+  hm.src = 'https://repo.mindspore.cn/public/mindspore/api-preview/common.js'
 
   let oLink = document.createElement('link')
   oLink.rel = 'stylesheet'
-  oLink.href = 'https://repo.mindspore.cn/public/mindspore/common.css'
+  oLink.href = 'https://repo.mindspore.cn/public/mindspore/api-preview/common.css'
 
   s.appendChild(hm, s)
   s.appendChild(oLink, s)
