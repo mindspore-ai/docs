@@ -18,5 +18,14 @@
       "whl_name" : "mindspore-2.2.13-cp37-cp37m-linux_x86_64.whl",
       "environ" : "MS_PATH",
       "uninstall_name" : "mindspore"
+   },
+   {
+      "id" : 3 ,
+      "name" : "tutorials",
+      "branch" : "r2.2",
+      "whl_path" : "",
+      "whl_name" : "",
+      "environ" : "",
+      "uninstall_name" : ""
    }
 ]
