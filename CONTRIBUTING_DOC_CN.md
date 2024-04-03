@@ -134,6 +134,21 @@ MindSpore docs仓提供了[API注释写作要求](https://gitee.com/mindspore/do
 
 MindSpore CI采用了Pylint检查工具。
 
+### 预览Python API
+
+为方便查看修改后的API在网页上的显示是否符合预期，MindSpore CI提供了``/build_api_doc``命令去构建html:
+
+```text
+# 在评论中输入如下命令即可开始构建html
+/build_api_doc
+```
+
+执行完成后会返回如下类似结果：
+
+![build_api_doc](./resource/_static/build_api_doc.png)
+
+点击``zh-CN LINK``可查看中文API构建的html页面，点击``EN LINK``可查看英文API构建的html页面。
+
 ### 确认内容
 
 PR合入后次日，即可在MindSpore官网[Python API页面](https://www.mindspore.cn/docs/zh-CN/master/index.html)中查看到新增内容。

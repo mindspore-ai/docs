@@ -294,7 +294,7 @@ def ops_interface_name():
                 g.write(new_content)
 
     for j in os.listdir(os.path.join(src_dir, 'ops')):
-        if j.split('.')[-1]=='rst' and 'ops.extend.' not in j and 'ops.silent_check.' not in j:
+        if j.split('.')[-1]=='rst' and 'ops.silent_check.' not in j:
             all_rst.append(j.split('.')[-2].replace("func_",''))
 
     extra_interface_name = set(all_rst).difference(set(interface_name_list))

@@ -213,6 +213,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
     module_path_name = [
         ['mindspore/python/mindspore/rewrite', 'mindspore.rewrite'],
         ['mindspore/python/mindspore/hal', 'mindspore.hal'],
+        ['mindspore/python/mindspore/mindrecord', 'mindspore.mindrecord'],
         ['mindspore/python/mindspore/scipy/linalg.py', 'mindspore.scipy.linalg'],
         ['mindspore/python/mindspore/scipy/optimize', 'mindspore.scipy.optimize'],
         ['mindspore/python/mindspore/scipy/fft.py', 'mindspore.scipy.fft'],
