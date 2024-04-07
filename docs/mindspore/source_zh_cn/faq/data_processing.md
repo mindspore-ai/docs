@@ -509,3 +509,104 @@ A: 在使用数据下沉模式（此时 `数据预处理` -> `发送队列` -> `
     改进方法：可以查看设备plog是否有报错信息。
 
 <br/>
+
+## Q: 数据处理阶段报错 `Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device HBM total size:65464696832 Device HBM free size:3596279808 may be other processes occupying this card, ...` 怎么办？
+
+A：通常是使用了自定义数据增强操作（其中包含了基于Ascend的数据增强操作）且使用了多进程模式，导致多进程使用同一个卡资源出现设备内存不足。
+
+报错信息如下：
+
+```python
+E    ------------------------------------------------------------------
+E    - Python Call Stack:
+E    ------------------------------------------------------------------
+E    map operation: [PyFunc] failed. The corresponding data file is: ../ut/data/dataset/testImageNetData2/train/class1/1_1.jpg. Error description:
+E    RuntimeError: Traceback (most recent call last):
+E      File "/opt/buildtools/python-3.9.11/lib/python3.9/site-packages/mindspore/dataset/transforms/py_transforms_util.py", line 199, in __call__
+E        result = self.transform(*args)
+E      File "/data/test/mindspore/tests/st/dataset/test_map_dvpp.py", line 63, in pyfunc2
+E        img_decode = vision.Decode().device("Ascend")(img_bytes)
+E      File "/opt/buildtools/python-3.9.11/lib/python3.9/site-packages/mindspore/dataset/vision/transforms.py", line 1564, in __call__
+E        return super().__call__(img)
+E      File "/opt/buildtools/python-3.9.11/lib/python3.9/site-packages/mindspore/dataset/vision/transforms.py", line 97, in __call__
+E        return super().__call__(*input_tensor_list)
+E      File "/opt/buildtools/python-3.9.11/lib/python3.9/site-packages/mindspore/dataset/transforms/transforms.py", line 105, in __call__
+E        executor = cde.Execute(self.parse())
+E    RuntimeError: Ascend kernel runtime initialization failed. The details refer to 'Ascend Error Message'.
+E
+E    ----------------------------------------------------
+E    - Ascend Error Message:
+E    ----------------------------------------------------
+E    EE1001: The argument is invalid.Reason: rtGetDevMsg execute failed, reason=[context pointer null]
+E            Solution: 1.Check the input parameter range of the function. 2.Check the function invocation relationship.
+E            TraceBack (most recent call last):
+E            ctx is NULL![FUNC:GetDevErrMsg][FILE:api_impl.cc][LINE:4692]
+E            The argument is invalid.Reason: rtGetDevMsg execute failed, reason=[context pointer null]
+E
+E    (Please search "CANN Common Error Analysis" at https://www.mindspore.cn for error code description)
+E
+E    ----------------------------------------------------
+E    - Framework Error Message:
+E    ----------------------------------------------------
+E    Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device HBM total size:65464696832 Device HBM free size:3596279808 may be other processes occupying this card, check as: ps -ef|grep python
+E
+E    ----------------------------------------------------
+E    - C++ Call Stack: (For framework developers)
+E    ----------------------------------------------------
+E    mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_kernel_runtime.cc:354 Init
+E    mindspore/ccsrc/plugin/device/ascend/hal/device/ascend_memory_adapter.cc:65 Initialize
+E
+E    ------------------------------------------------------------------
+E    - Dataset Pipeline Error Message:
+E    ------------------------------------------------------------------
+E    [ERROR] Execute user Python code failed, check 'Python Call Stack' above.
+E
+E    ------------------------------------------------------------------
+E    - C++ Call Stack: (For framework developers)
+E    ------------------------------------------------------------------
+E    mindspore/ccsrc/minddata/dataset/engine/datasetops/map_op/map_job.h(57).
+```
+
+可以通过如下方式解决，在自定义函数中设置 `ms.set_context(max_device_memory="2GB")` 减少多进程的设备内存占用。
+
+出错的脚本如下：
+
+```python
+def pyfunc(img_bytes):
+    img_decode = vision.Decode().device("Ascend")(img_bytes)
+
+    # resize(cpu)
+    img_resize = vision.Resize(size=(64, 32))(img_decode)
+
+    # normalize(dvpp)
+    mean_vec = [0.475 * 255, 0.451 * 255, 0.392 * 255]
+    std_vec = [0.275 * 255, 0.267 * 255, 0.278 * 255]
+    img_normalize = vision.Normalize(mean=mean_vec, std=std_vec).device("Ascend")(img_resize)
+    return img_normalize
+
+# multi process mode
+data2 = data2.map(pyfunc, input_columns="image", python_multiprocessing=True)
+```
+
+修复的脚本如下：
+
+```python
+def pyfunc(img_bytes):
+    ms.set_context(max_device_memory="2GB")
+
+    img_decode = vision.Decode().device("Ascend")(img_bytes)
+
+    # resize(cpu)
+    img_resize = vision.Resize(size=(64, 32))(img_decode)
+
+    # normalize(dvpp)
+    mean_vec = [0.475 * 255, 0.451 * 255, 0.392 * 255]
+    std_vec = [0.275 * 255, 0.267 * 255, 0.278 * 255]
+    img_normalize = vision.Normalize(mean=mean_vec, std=std_vec).device("Ascend")(img_resize)
+    return img_normalize
+
+# multi process mode
+data2 = data2.map(pyfunc, input_columns="image", python_multiprocessing=True)
+```
+
+<br/>
