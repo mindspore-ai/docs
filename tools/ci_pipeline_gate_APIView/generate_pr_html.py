@@ -303,6 +303,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
         if not i[1]:
             continue
 
+        print(i[1])
         # pylint: disable=R1702
         for pr_lines in i[1]:
             fit = 0
@@ -310,7 +311,9 @@ def en_file_handle(py_file_list, repo_path, dict1):
                 if fit:
                     break
                 for py_lines in v:
-                    if pr_lines[0] >= py_lines[0] and py_lines[1] >= pr_lines[1]:
+                    if pr_lines[0] > py_lines[1] or pr_lines[1] < py_lines[0]:
+                        continue
+                    else:
                         fit = 1
                         for mpn in module_path_name:
                             if mpn[0] in repo_py_path:
