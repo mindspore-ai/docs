@@ -21,29 +21,29 @@
             "zh": [
                 {
                     "label": "初学入门",
-                    "url": "/tutorials/zh-CN/r2.3/index.html"
+                    "url": "/tutorials/zh-CN/master/index.html"
                 },
                 {
                     "label": "应用实践",
-                    "url": "/tutorials/application/zh-CN/r2.3/index.html"
+                    "url": "/tutorials/application/zh-CN/master/index.html"
                 },
                 {
                     "label": "深度开发",
-                    "url": "/tutorials/experts/zh-CN/r2.3/index.html"
+                    "url": "/tutorials/experts/zh-CN/master/index.html"
                 }
             ],
             "en": [
                 {
                     "label": "Quickstart",
-                    "url": "/tutorials/en/r2.3/index.html"
+                    "url": "/tutorials/en/master/index.html"
                 },
                 {
                     "label": "Application",
-                    "url": "/tutorials/application/en/r2.3/index.html"
+                    "url": "/tutorials/application/en/master/index.html"
                 },
                 {
                     "label": "Experts",
-                    "url": "/tutorials/experts/en/r2.3/index.html"
+                    "url": "/tutorials/experts/en/master/index.html"
                 }
             ]
         },
@@ -65,19 +65,19 @@
                 },
                 {
                     "label": "下载",
-                    "url": "/lite/docs/zh-CN/r2.3/use/downloads.html"
+                    "url": "/lite/docs/zh-CN/master/use/downloads.html"
                 },
                 {
                     "label": "文档",
-                    "url": "/lite/docs/zh-CN/r2.3/index.html"
+                    "url": "/lite/docs/zh-CN/master/index.html"
                 },
                 {
                     "label": "API",
-                    "url": "/lite/api/zh-CN/r2.3/index.html"
+                    "url": "/lite/api/zh-CN/master/index.html"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/lite/faq/zh-CN/r2.3/faq.html"
+                    "url": "/lite/faq/zh-CN/master/faq.html"
                 },
                 {
                     "label": "示例",
@@ -95,19 +95,19 @@
                 },
                 {
                     "label": "Downloads",
-                    "url": "/lite/docs/en/r2.3/use/downloads.html"
+                    "url": "/lite/docs/en/master/use/downloads.html"
                 },
                 {
                     "label": "Docs",
-                    "url": "/lite/docs/en/r2.3/index.html"
+                    "url": "/lite/docs/en/master/index.html"
                 },
                 {
                     "label": "API",
-                    "url": "/lite/api/en/r2.3/index.html"
+                    "url": "/lite/api/en/master/index.html"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/lite/faq/en/r2.3/faq.html"
+                    "url": "/lite/faq/en/master/faq.html"
                 },
                 {
                     "label": "Examples",

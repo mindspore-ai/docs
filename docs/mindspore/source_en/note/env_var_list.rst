@@ -710,7 +710,7 @@ Accuracy Sensitivity Detection
        By default, if this environment variable is not configured, `NPU_ASD_SIGMA_THRESH=100000,5000`
      - 
 
-For more information on accuracy sensitivity detection, see `Accuracy Sensitivity Detection <https://www.mindspore.cn/tutorials/experts/en/r2.3/debug/sdc.html>`_.
+For more information on accuracy sensitivity detection, see `Accuracy Sensitivity Detection <https://www.mindspore.cn/tutorials/experts/en/master/debug/sdc.html>`_.
 
 
 Third-party Library

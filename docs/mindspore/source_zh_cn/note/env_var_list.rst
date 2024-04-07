@@ -714,7 +714,7 @@ RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/
        在不配置该环境变量的默认情况下，`NPU_ASD_SIGMA_THRESH=100000,5000`
      - 
 
-精度敏感检测的更多内容详见 `精度敏感检测 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/debug/sdc.html>`_ 。
+精度敏感检测的更多内容详见 `精度敏感检测 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/sdc.html>`_ 。
 
 三方库
 ------
