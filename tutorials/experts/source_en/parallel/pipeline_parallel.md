@@ -101,17 +101,43 @@ data_set = create_dataset(32)
 
 The pipeline parallel network structure is basically the same as the single-card network structure, and the difference is the addition of pipeline parallel strategy configuration. Pipeline parallel requires the user to define the parallel strategy by calling the `pipeline_stage` interface to specify the stage on which each layer is to be executed. The granularity of the `pipeline_stage` interface is `Cell`. All `Cells` containing training parameters need to be configured with `pipeline_stage`, and `pipeline_stage` should be configured in the order of network execution, from smallest to largest. After adding `pipeline_stage` configuration based on the single-card model is as follows:
 
+> Under pipeline parallelism, when enabling Print/Summary/TensorDump related operators, the operator needs to be used in a Cell with the pipeline_stage attribute. Otherwise, there is a possibility that the operator will not take effect due to pipeline parallel split.
+
 ```python
-from mindspore import nn
+from mindspore import nn, ops, Parameter
+from mindspore.common.initializer import initializer, HeUniform
+
+import math
+
+class MatMulCell(nn.Cell):
+    """
+    MatMulCell definition.
+    """
+    def __init__(self, param=None, shape=None):
+        super().__init__()
+        if shape is None:
+            shape = [28 * 28, 512]
+        weight_init = HeUniform(math.sqrt(5))
+        self.param = Parameter(initializer(weight_init, shape), name="param")
+        if param is not None:
+            self.param = param
+        self.print = ops.Print()
+        self.matmul = ops.MatMul()
+
+    def construct(self, x):
+        out = self.matmul(x, self.param)
+        self.print("out is:", out)
+        return out
+
 
 class Network(nn.Cell):
     def __init__(self):
         super().__init__()
         self.flatten = nn.Flatten()
-        self.layer1 = nn.Dense(28*28, 512)
-        self.relu1= nn.ReLU()
+        self.layer1 = MatMulCell()
+        self.relu1 = nn.ReLU()
         self.layer2 = nn.Dense(512, 512)
-        self.relu2= nn.ReLU()
+        self.relu2 = nn.ReLU()
         self.layer3 = nn.Dense(512, 10)
 
     def construct(self, x):
@@ -199,13 +225,23 @@ After training, the log files are saved to the `log_output` directory, where par
 The results are saved in `log_output/1/rank.*/stdout`, and the example is as below:
 
 ```text
-epoch: 0 step: 0, loss is 9.087993
-epoch: 0 step: 10, loss is 8.575434
-epoch: 0 step: 20, loss is 8.185939
-epoch: 0 step: 30, loss is 6.7301626
-epoch: 0 step: 40, loss is 5.2246842
-epoch: 0 step: 50, loss is 3.8342278
+epoch: 0 step: 0, loss is 9.137518
+epoch: 0 step: 10, loss is 8.826559
+epoch: 0 step: 20, loss is 8.675843
+epoch: 0 step: 30, loss is 8.307994
+epoch: 0 step: 40, loss is 7.856993
+epoch: 0 step: 50, loss is 7.0662785
 ...
+```
+
+The results of operator `Print` is:
+
+```text
+out is:
+Tensor(shape=[8, 512], dtype=Float32, value=
+[[ 4.61914062e-01 5.78613281e-01 1.34995094e-01 ... 8.54492188e-02 7.91992188e-01 2.13378906e-01]
+...
+[  4.89746094e-01 3.56689453e-01 -4.90966797e-01 ... -3.30078125e-e01 -2.38525391e-01 7.33398438e-01]])
 ```
 
 Other startup methods such as dynamic cluster and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/experts/en/master/parallel/startup_method.html).
@@ -234,7 +270,7 @@ The directory structure is as follows:
 
 ### Configuring the Distributed Environment
 
-Specify the run mode, run device, run card number, etc. via the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode and initialize HCCL or NCCL communication via init. In addition, `pipeline_stages=2` should be configured to specify the total number of stages. Not setting `device_target` here automatically specifies the backend hardware device corresponding to the MindSpore package. `pipeline_result_broadcast=True` specifies broadcast last stage inference to other stages. It is useful during auto-regression inference.
+Specify the run mode, run device, run card number, etc. via the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` to be semi-automatic parallel mode and initialize HCCL or NCCL communication via init. In addition, `pipeline_stages=4` should be configured to specify the total number of stages. Not setting `device_target` here automatically specifies the backend hardware device corresponding to the MindSpore package. `pipeline_result_broadcast=True` specifies broadcast last stage inference to other stages. It is useful during auto-regression inference.
 
 ```python
 
@@ -242,7 +278,7 @@ import mindspore as ms
 from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, full_batch=True,
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, dataset_strategy="full_batch",
                              pipeline_stages=4, pipeline_result_broadcast=True)
 init()
 ms.set_seed(1)

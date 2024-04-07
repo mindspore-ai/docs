@@ -244,7 +244,8 @@ import search_code
 
 # Copy source files of en python api from mindspore repository.
 copy_path = 'docs/api/api_python_en'
-src_dir_en = os.path.join(os.getenv("MS_PATH"), copy_path)
+repo_path = os.getenv("MS_PATH")
+src_dir_en = os.path.join(repo_path, copy_path)
 
 des_sir = "./api_python"
 
@@ -283,10 +284,10 @@ elif os.path.exists('../../../tools/generate_html/daily.json'):
     with open('../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
         version_inf = json.load(f)
 
-if os.getenv("MS_PATH").split('/')[-1]:
-    copy_repo = os.getenv("MS_PATH").split('/')[-1]
+if repo_path.split('/')[-1]:
+    copy_repo = repo_path.split('/')[-1]
 else:
-    copy_repo = os.getenv("MS_PATH").split('/')[-2]
+    copy_repo = repo_path.split('/')[-2]
 
 branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
@@ -295,7 +296,7 @@ repo_whl = 'mindspore/python/mindspore'
 giturl = 'https://gitee.com/mindspore/'
 ops_yaml = 'mindspore/core/ops/ops_def/doc/'
 try:
-    ops_yaml_list = [i for i in os.listdir(os.path.join(os.getenv("MS_PATH"), 'mindspore/core/ops/ops_def/doc')) if i.endswith('_doc.yaml') and '_grad' not in i]
+    ops_yaml_list = [i for i in os.listdir(os.path.join(repo_path, 'mindspore/core/ops/ops_def/doc')) if i.endswith('_doc.yaml') and '_grad' not in i]
 except:
     ops_yaml_list = []
 
@@ -341,7 +342,7 @@ import imghdr
 from sphinx.util import logging
 
 logger = logging.getLogger(__name__)
-src_dir = os.path.join(os.getenv("MS_PATH"), 'docs/api/api_python')
+src_dir = os.path.join(repo_path, 'docs/api/api_python')
 des_dir = "./api_python"
 image_specified = {"train/": ""}
 
@@ -371,7 +372,7 @@ def copy_image(sourcedir, des_dir):
 
 copy_image(src_dir, des_dir)
 
-src_release = os.path.join(os.getenv("MS_PATH"), 'RELEASE.md')
+src_release = os.path.join(repo_path, 'RELEASE.md')
 des_release = "./RELEASE.md"
 release_source = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
 

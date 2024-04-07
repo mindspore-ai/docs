@@ -14,8 +14,6 @@ For the relationship between the parallel strategy and the slicing division of t
 
 - Data parallelism + keep optimizer parallelism off: The ranks in the parallel communication domain hold the same weight slice.
 - Model parallism: The ranks in the parallel communication domain hold different weight slices.
-- Data parallelism + keep optimizer parallelism on + the number of shards in optimizer parallelism is equal to the number of all data parallel dimensions: rank in the parallelism communication domain holds slices with different weights.
-- Data parallelism + keep optimizer parallelism on + the number of shards in optimizer parallelism is smaller than the number of all data parallel dimensions: Within the parallel communication domain, the rank within the communication domain sliced by the optimizer holds different weight slices, and the communication domain sliced by each optimizer holds the same weight slice between them.
 
 Also, it should be noted that this document introduces the distributed faults recovery scheme, which needs to be used in [sink mode](https://www.mindspore.cn/tutorials/experts/en/master/optimize/execution_opt.html).
 
@@ -168,7 +166,6 @@ bash run.sh
 After the training is complete, you can see the following file:
 
 ```text
-├─ group_info.pb
 ├─ log_output
 |   └─ 1
 |       ├─ rank.0

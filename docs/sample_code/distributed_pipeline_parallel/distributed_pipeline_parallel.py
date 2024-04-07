@@ -16,22 +16,48 @@
 """Distributed Pipeline Parallel Example"""
 
 import os
+import math
 import mindspore as ms
 import mindspore.dataset as ds
-from mindspore import nn, ops
+from mindspore import nn, ops, Parameter
 from mindspore.communication import init
+from mindspore.common.initializer import initializer, HeUniform
+
 
 ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, pipeline_stages=2)
 init()
 ms.set_seed(1)
 
+class MatMulCell(nn.Cell):
+    """
+    MatMulCell definition.
+    """
+    def __init__(self, param=None, shape=None):
+        super().__init__()
+        if shape is None:
+            shape = [28 * 28, 512]
+        weight_init = HeUniform(math.sqrt(5))
+        self.param = Parameter(initializer(weight_init, shape), name="param")
+        if param is not None:
+            self.param = param
+        self.print = ops.Print()
+        self.matmul = ops.MatMul()
+
+    def construct(self, x):
+        out = self.matmul(x, self.param)
+        self.print("out is:", out)
+        return out
+
+
 class Network(nn.Cell):
-    """Network"""
+    """
+    Network definition.
+    """
     def __init__(self):
         super().__init__()
         self.flatten = nn.Flatten()
-        self.layer1 = nn.Dense(28*28, 512)
+        self.layer1 = MatMulCell()
         self.relu1 = nn.ReLU()
         self.layer2 = nn.Dense(512, 512)
         self.relu2 = nn.ReLU()

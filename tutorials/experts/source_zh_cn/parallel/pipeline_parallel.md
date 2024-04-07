@@ -26,7 +26,7 @@
 
 *图1：流水线并行的图切分示意图*
 
-简单地将模型切分到多设备上并不会带来性能的提升，因为模型的线性结构到时同一时刻只有一台设备在工作，而其它设备在等待，造成了资源的浪费。为了提升效率，流水线并行进一步将小批次(MiniBatch)切分成更细粒度的微批次(MicroBatch)，在微批次中采用流水线式的执行序，从而达到提升效率的目的，如图2所示。将小批次切分成4个微批次，4个微批次在4个组上执行形成流水线。微批次的梯度汇聚后用来更新参数，其中每台设备只存有并更新对应组的参数。其中白色序号代表微批次的索引。
+简单地将模型切分到多设备上并不会带来性能的提升，因为模型的线性结构在同一时刻只有一台设备在工作，而其它设备在等待，造成了资源的浪费。为了提升效率，流水线并行进一步将小批次(MiniBatch)切分成更细粒度的微批次(MicroBatch)，在微批次中采用流水线式的执行序，从而达到提升效率的目的，如图2所示。将小批次切分成4个微批次，4个微批次在4个组上执行形成流水线。微批次的梯度汇聚后用来更新参数，其中每台设备只存有并更新对应组的参数。其中白色序号代表微批次的索引。
 
 ![image](images/pipeline_parallel_image_1_zh.png)
 
@@ -101,17 +101,43 @@ data_set = create_dataset(32)
 
 流水线并行网络结构与单卡网络结构基本一致，区别在于增加了流水线并行策略配置。流水线并行需要用户去定义并行的策略，通过调用`pipeline_stage`接口来指定每个layer要在哪个stage上去执行。`pipeline_stage`接口的粒度为`Cell`。所有包含训练参数的`Cell`都需要配置`pipeline_stage`，并且`pipeline_stage`要按照网络执行的先后顺序，从小到大进行配置。在单卡模型基础上，增加`pipeline_stage`配置后如下：
 
+> 在pipeline并行下，使能Print/Summary/TensorDump相关算子时，需要把该算子放到有pipeline_stage属性的Cell中使用，否则有概率由pipeline并行切分导致算子不生效。
+
 ```python
-from mindspore import nn
+from mindspore import nn, ops, Parameter
+from mindspore.common.initializer import initializer, HeUniform
+
+import math
+
+class MatMulCell(nn.Cell):
+    """
+    MatMulCell definition.
+    """
+    def __init__(self, param=None, shape=None):
+        super().__init__()
+        if shape is None:
+            shape = [28 * 28, 512]
+        weight_init = HeUniform(math.sqrt(5))
+        self.param = Parameter(initializer(weight_init, shape), name="param")
+        if param is not None:
+            self.param = param
+        self.print = ops.Print()
+        self.matmul = ops.MatMul()
+
+    def construct(self, x):
+        out = self.matmul(x, self.param)
+        self.print("out is:", out)
+        return out
+
 
 class Network(nn.Cell):
     def __init__(self):
         super().__init__()
         self.flatten = nn.Flatten()
-        self.layer1 = nn.Dense(28*28, 512)
-        self.relu1= nn.ReLU()
+        self.layer1 = MatMulCell()
+        self.relu1 = nn.ReLU()
         self.layer2 = nn.Dense(512, 512)
-        self.relu2= nn.ReLU()
+        self.relu2 = nn.ReLU()
         self.layer3 = nn.Dense(512, 10)
 
     def construct(self, x):
@@ -122,6 +148,7 @@ class Network(nn.Cell):
         x = self.relu2(x)
         logits = self.layer3(x)
         return logits
+
 
 net = Network()
 net.layer1.pipeline_stage = 0
@@ -199,13 +226,23 @@ bash run.sh
 结果保存在`log_output/1/rank.*/stdout`中，示例如下：
 
 ```text
-epoch: 0 step: 0, loss is 9.087993
-epoch: 0 step: 10, loss is 8.575434
-epoch: 0 step: 20, loss is 8.185939
-epoch: 0 step: 30, loss is 6.7301626
-epoch: 0 step: 40, loss is 5.2246842
-epoch: 0 step: 50, loss is 3.8342278
+epoch: 0 step: 0, loss is 9.137518
+epoch: 0 step: 10, loss is 8.826559
+epoch: 0 step: 20, loss is 8.675843
+epoch: 0 step: 30, loss is 8.307994
+epoch: 0 step: 40, loss is 7.856993
+epoch: 0 step: 50, loss is 7.0662785
 ...
+```
+
+`Print` 算子的结果为:
+
+```text
+out is:
+Tensor(shape=[8, 512], dtype=Float32, value=
+[[ 4.61914062e-01 5.78613281e-01 1.34995094e-01 ... 8.54492188e-02 7.91992188e-01 2.13378906e-01]
+...
+[  4.89746094e-01 3.56689453e-01 -4.90966797e-01 ... -3.30078125e-e01 -2.38525391e-01 7.33398438e-01]])
 ```
 
 其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)。
@@ -234,7 +271,7 @@ epoch: 0 step: 50, loss is 3.8342278
 
 ### 配置分布式环境
 
-通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，并通过init初始化HCCL或NCCL通信。此外，还需配置`pipeline_stages=2`指定Stage的总数。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。`pipeline_result_broadcast=True`表示流水线并行推理时，将最后一个stage的结果广播给其余stage，可以用于自回归推理场景。
+通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，并通过init初始化HCCL或NCCL通信。此外，还需配置`pipeline_stages=4`指定Stage的总数。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。`pipeline_result_broadcast=True`表示流水线并行推理时，将最后一个stage的结果广播给其余stage，可以用于自回归推理场景。
 
 ```python
 
@@ -242,7 +279,7 @@ import mindspore as ms
 from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, full_batch=True,
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, dataset_strategy="full_batch",
                              pipeline_stages=4, pipeline_result_broadcast=True)
 init()
 ms.set_seed(1)
