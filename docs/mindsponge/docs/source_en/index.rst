@@ -215,6 +215,7 @@ Contribution Guide
    sponge.optimizer
    sponge.potential
    sponge.system
+   sponge.metrics
    constant
 
 .. toctree::
