@@ -58,4 +58,4 @@ RESTful API is used for data interaction between the MindSpore Insight frontend 
 #### File API Design
 
 Data interaction between MindSpore and MindSpore Insight uses the data format defined by [Protocol Buffer](https://developers.google.cn/protocol-buffers/docs/pythontutorial).
-The main entry is the [summary.proto file](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/datavisual/proto_files/mindinsight_summary.proto). A message object of a computational graph is defined as `GraphProto`. For details about `GraphProto`, see the [anf_ir.proto file](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/datavisual/proto_files/mindinsight_anf_ir.proto).
+The main entry is the [summary.proto file](https://gitee.com/mindspore/mindinsight/blob/r2.3/mindinsight/datavisual/proto_files/mindinsight_summary.proto). A message object of a computational graph is defined as `GraphProto`. For details about `GraphProto`, see the [anf_ir.proto file](https://gitee.com/mindspore/mindinsight/blob/r2.3/mindinsight/datavisual/proto_files/mindinsight_anf_ir.proto).

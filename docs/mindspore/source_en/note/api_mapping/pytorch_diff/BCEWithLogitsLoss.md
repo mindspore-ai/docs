@@ -1,6 +1,6 @@
 # Differences with torch.nn.BCEWithLogitsLoss
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/BCEWithLogitsLoss.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/BCEWithLogitsLoss.md)
 
 ## torch.nn.BCEWithLogitsLoss
 
@@ -26,7 +26,7 @@ class mindspore.nn.BCEWithLogitsLoss(
 )(logits, labels) -> Tensor
 ```
 
-For more information, see [mindspore.nn.BCEWithLogitsLoss](https://mindspore.cn/docs/en/r2.3/api_python/nn/mindspore.nn.BCEWithLogitsLoss.html).
+For more information, see [mindspore.nn.BCEWithLogitsLoss](https://mindspore.cn/docs/en/r2.3.0rc1/api_python/nn/mindspore.nn.BCEWithLogitsLoss.html).
 
 ## Differences
 

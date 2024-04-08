@@ -1,6 +1,6 @@
 # Differences with torchaudio.datasets.YESNO
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/YESNO.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/YESNO.md)
 
 ## torchaudio.datasets.YESNO
 
@@ -28,7 +28,7 @@ class mindspore.dataset.YesNoDataset(
     cache=None)
 ```
 
-For more information, see [mindspore.dataset.YesNoDataset](https://mindspore.cn/docs/en/r2.3/api_python/dataset/mindspore.dataset.YesNoDataset.html#mindspore.dataset.YesNoDataset).
+For more information, see [mindspore.dataset.YesNoDataset](https://mindspore.cn/docs/en/r2.3.0rc1/api_python/dataset/mindspore.dataset.YesNoDataset.html#mindspore.dataset.YesNoDataset).
 
 ## Differences
 

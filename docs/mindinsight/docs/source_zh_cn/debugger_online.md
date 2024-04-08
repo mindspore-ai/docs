@@ -33,7 +33,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 |`--enable-debugger {ENABLE_DEBUGGER}`|可选|取值为True或1, 开启MindSpore Insight侧调试器；默认为False，不开启。|Boolean|False|True/False/1/0|
 |`--debugger-port {DEBUGGER_PORT}`|可选|指定调试服务端口。|Integer|50051|1~65535|
 
-更多启动参数请参考[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)。
+更多启动参数请参考[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/mindinsight_commands.html)。
 
 ### 以调试模式运行训练脚本
 
@@ -65,7 +65,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 用户可以方便地执行单个节点。
 
 当一个命名空间或聚合节点的直接子节点的深度超过70时，计算图页面不支持展开该节点。
-要想看到内部的张量关系，可以通过一个与该节点相关的节点跳转到张量关系图页面，详细操作可参考[FAQ](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/faq.html)。
+要想看到内部的张量关系，可以通过一个与该节点相关的节点跳转到张量关系图页面，详细操作可参考[FAQ](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/faq.html)。
 
 ### 节点列表
 

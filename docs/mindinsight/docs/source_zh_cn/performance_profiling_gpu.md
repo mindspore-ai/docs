@@ -34,7 +34,7 @@
 
     - 在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
 
-    启动命令请参考[性能调试使用样例](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#准备训练脚本)。
+    启动命令请参考[性能调试使用样例](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/performance_profiling_ascend.html#准备训练脚本)。
 
     GPU场景可自定义callback方式收集性能，但数据准备阶段、数据下沉模式不支持该方式收集性能数据。
 
@@ -84,7 +84,7 @@
 
 ## 启动MindSpore Insight
 
-启动命令请参考[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)。
+启动命令请参考[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/mindinsight_commands.html)。
 
 ## 训练性能
 
@@ -194,19 +194,19 @@ print(operation_info)  # json
 
 GPU场景下，Timeline分析的使用方法和Ascend场景相同，不同之处是，GPU Timeline展示的是算子信息(包括GPU算子和CPU算子)和CUDA activity的信息。
 
-可参考：[使用方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#timeline分析)。
+可参考：[使用方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/performance_profiling_ascend.html#timeline分析)。
 
 ### 迭代轨迹分析
 
 GPU场景下，迭代轨迹分析的使用方法和Ascend场景相同。（注意：**迭代轨迹暂不支持异构训练场景**）
 
-可参考：[使用方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#迭代轨迹分析)。
+可参考：[使用方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/performance_profiling_ascend.html#迭代轨迹分析)。
 
 ### 数据准备性能分析
 
 GPU场景下，数据准备性能分析的使用方法和Ascend场景相同。
 
-可参考：[使用方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析)。
+可参考：[使用方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/performance_profiling_ascend.html#数据准备性能分析)。
 
 ## 资源利用
 
@@ -222,7 +222,7 @@ GPU场景下，数据准备性能分析的使用方法和Ascend场景相同。
 
 GPU场景下，CPU利用率分析的使用方法和Ascend场景相同。
 
-可参考：[使用方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#cpu利用率分析)。
+可参考：[使用方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/performance_profiling_ascend.html#cpu利用率分析)。
 
 ### 规格
 
@@ -230,7 +230,7 @@ GPU场景下，CPU利用率分析的使用方法和Ascend场景相同。
 
   控制step数目可以通过控制训练数据集的大小来实现，如`mindspore.dataset.MindDataset`类中的`num_samples`参数可以控制数据集大小，详情参考：
 
-  [dataset API](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/dataset/mindspore.dataset.MindDataset.html)。
+  [dataset API](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/dataset/mindspore.dataset.MindDataset.html)。
 
 - Timeline数据的解析比较耗时，且一般几个step的数据即足够分析出结果。出于数据解析和UI展示性能的考虑，Profiler最多展示20M数据（对大型网络20M可以显示10+条step的信息）。
 

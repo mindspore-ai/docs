@@ -121,7 +121,7 @@ The causes of accuracy problems can be classified into hyperparameter problems, 
 
          4. The node mode is incorrect.
 
-             If the node mode is incorrect, the training or inference mode of the node is inconsistent with the actual situation. For details about how to set the node mode, see [api.02 The mode is not set based on the training or inference scenario when the API is used.](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_problem_preliminary_location.html#api-02-the-mode-is-not-set-based-on-the-training-or-inference-scenario-when-the-api-is-used).
+             If the node mode is incorrect, the training or inference mode of the node is inconsistent with the actual situation. For details about how to set the node mode, see [api.02 The mode is not set based on the training or inference scenario when the API is used.](https://www.mindspore.cn/mindinsight/docs/en/r2.3/accuracy_problem_preliminary_location.html#api-02-the-mode-is-not-set-based-on-the-training-or-inference-scenario-when-the-api-is-used).
 
          5. The weight is improperly frozen (weights that should not be frozen are frozen).
 
@@ -197,9 +197,9 @@ The following sections describe the process.
 
     Before accuracy tuning, you need to be familiar with the model. You can accurately understand the information provided by MindSpore Insight, determine whether there are problems, and locate the problem source only after you are familiar with the model. Therefore, it is important to spend time understanding model elements such as the model algorithm and structure, functions of APIs and parameters in the model, and features of the optimizer used by the model. Before analyzing the details of accuracy problems, you are advised to deepen the understanding of these model elements with questions.
 
-2. Be familiar with the [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/master/index.html) tool.
+2. Be familiar with the [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/r2.3/index.html) tool.
 
-    During accuracy problem locating, you are advised to use the MindSpore Insight function by referring to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html) and add `SummaryCollector` to the script. As shown in the following training code segment, initialize `SummaryCollector` and add it to the `callbacks` parameter of `model.train`.
+    During accuracy problem locating, you are advised to use the MindSpore Insight function by referring to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/r2.3/summary_record.html) and add `SummaryCollector` to the script. As shown in the following training code segment, initialize `SummaryCollector` and add it to the `callbacks` parameter of `model.train`.
 
     ```python
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
@@ -214,13 +214,13 @@ The following sections describe the process.
 
     > dataset_path indicates the local path of the training dataset.
 
-    View the training process data on the [dashboard](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html).
+    View the training process data on the [dashboard](https://www.mindspore.cn/mindinsight/docs/en/r2.3/dashboard.html).
 
     ![mindinsight_dashboard](./images/mindinsight_dashboard.png)
 
     *Figure 3 Training dashboard*
 
-    To debug a model online, use the [debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html).
+    To debug a model online, use the [debugger](https://www.mindspore.cn/mindinsight/docs/en/r2.3/debugger.html).
 
 #### Checking the Code and Hyperparameters
 
@@ -259,7 +259,7 @@ After the model script is executed, you are advised to use the MindSpore Insight
 
 Considering that the model structure is complex, it is unrealistic to find all model structure problems in this step. As long as the visual model structure to deepen the understanding of the computational graph, find obvious structural problems. In the following steps, if a more specific accuracy problem is found, we will go back to this step to check and confirm the problem again.
 
-> MindSpore Insight allows you to view the computational graph recorded by `SummaryCollector` and the PB file computational graph exported by the `save_graphs` parameter of MindSpore context. Please refer to [Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) in our tutorial for more information.
+> MindSpore Insight allows you to view the computational graph recorded by `SummaryCollector` and the PB file computational graph exported by the `save_graphs` parameter of MindSpore context. Please refer to [Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/en/r2.3/dashboard.html#computational-graph-visualization) in our tutorial for more information.
 >
 > The script migration tool can convert models compiled under the PyTorch and TensorFlow frameworks into MindSpore scripts.
 
@@ -314,7 +314,7 @@ Some of the preceding problems or symptoms can be reflected by loss, and some ar
 
 - The parameter distribution histogram module of MindSpore Insight can display the change trend of model weights during the training process.
 - The Tensor Visualization module of MindSpore Insight can display the specific values of tensors and compare different tensors.
-- The [MindSpore Insight debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html) provides various built-in check capabilities to check weight problems (for example, the weight is not updated, the weight is too large, or the weight value is too large or too small) and gradient problems (for example, gradient disappearance and explosion), activation value problems (for example, the activation value is saturated or too weak), all tensors are 0, and NaN/INF problems.
+- The [MindSpore Insight debugger](https://www.mindspore.cn/mindinsight/docs/en/r2.3/debugger.html) provides various built-in check capabilities to check weight problems (for example, the weight is not updated, the weight is too large, or the weight value is too large or too small) and gradient problems (for example, gradient disappearance and explosion), activation value problems (for example, the activation value is saturated or too weak), all tensors are 0, and NaN/INF problems.
 
 ![loss](./images/loss.png)
 
@@ -326,13 +326,13 @@ In most cases, the `SummaryCollector` automatically records the loss curve of th
 
 *Figure 9 Viewing the weight changes during training through the MindSpore Insight parameter distribution chart*
 
-In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindSpore Insight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#method-two-custom-collection-of-network-data-with-summary-apis-and-summarycollector) API.
+In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindSpore Insight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/r2.3/summary_record.html#method-two-custom-collection-of-network-data-with-summary-apis-and-summarycollector) API.
 
 ![tensor](./images/tensor.png)
 
 *Figure 10 Viewing the value of a specific tensor through the tensor visualization module on the MindSpore Insight training dashboard*
 
-Tensors are not automatically recorded. To view the tensor values through MindSpore Insight, use the [TensorSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#method-two-custom-collection-of-network-data-with-summary-apis-and-summarycollector) API.
+Tensors are not automatically recorded. To view the tensor values through MindSpore Insight, use the [TensorSummary](https://www.mindspore.cn/mindinsight/docs/en/r2.3/summary_record.html#method-two-custom-collection-of-network-data-with-summary-apis-and-summarycollector) API.
 
 The following describes how to use MindSpore Insight to locate accuracy problems based on the common symptoms of the loss curve.
 
@@ -591,9 +591,9 @@ Xie, Z., Sato, I., & Sugiyama, M. (2020). A Diffusion Theory For Deep Learning D
 
 ### Visualized Debugging and Tuning Tool
 
-For details about how to collect visualized data during training, see [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html).
+For details about how to collect visualized data during training, see [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/r2.3/summary_record.html).
 
-For details about visualized data analysis during training, see [Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html) and [Viewing Lineage and Scalars Comparison](https://www.mindspore.cn/mindinsight/docs/en/master/lineage_and_scalars_comparison.html).
+For details about visualized data analysis during training, see [Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/en/r2.3/dashboard.html) and [Viewing Lineage and Scalars Comparison](https://www.mindspore.cn/mindinsight/docs/en/r2.3/lineage_and_scalars_comparison.html).
 
 ### Data Problem Handling
 
