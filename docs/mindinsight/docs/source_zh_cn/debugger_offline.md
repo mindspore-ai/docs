@@ -17,7 +17,7 @@
 
     2）从训练列表中找到离线调试器入口，点击“离线调试器”，进入调试器页面，开始进行调试分析。
 
-   如果不需要UI页面，也可以通过离线调试器的API接口来分析。离线调试器的API详见[mindinsight.debugger](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight.debugger.html)。操作流程为：
+   如果不需要UI页面，也可以通过离线调试器的API接口来分析。离线调试器的API详见[mindinsight.debugger](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/mindinsight.debugger.html)。操作流程为：
 
     1）通过`mindinsight.debugger.DumpAnalyzer`实例化离线调试器，将dump_dir指定为某一次训练的dump路径（dump配置中的{path}）；
 
@@ -48,7 +48,7 @@ mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-
 |`--offline-debugger-mem-limit <OFFLINE_DEBUGGER_MEMORY_LIMIT>`|可选|指定单个离线调试器会话内存使用上限（单位MB），当出现内存不足导致MindInght离线调试器运行问题时，需要用户根据内存情况设置。|Integer|16*1024|6*1024~int32上限|
 |`--max-offline-debugger-session-num <MAX_OFFLINE_DEBUGGER_SESSION_NUMBER>`|可选|指定离线调试器会话数上限，会话数指的是能同时使用离线调试器调试的训练作业个数。|Integer|2|1~2|
 
-更多启动参数请参考[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)。
+更多启动参数请参考[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/mindinsight_commands.html)。
 
 然后，打开MindSpore Insight页面，从离线调试器入口进入调试器界面。
 
@@ -58,7 +58,7 @@ mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-
 
 ## 离线调试器页面介绍
 
-离线调试器界面与在线调试器大致相同。在线调试器的页面介绍详见[在线调试器页面介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#调试器页面介绍)。不同的是，离线调试器会在计算图的上方显示图执行历史，并且可以重置训练轮次。
+离线调试器界面与在线调试器大致相同。在线调试器的页面介绍详见[在线调试器页面介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/debugger_online.html#调试器页面介绍)。不同的是，离线调试器会在计算图的上方显示图执行历史，并且可以重置训练轮次。
 
 ### 图执行历史
 
@@ -90,9 +90,9 @@ mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-
 
     此时，调试器处于加载离线数据的状态。
 
-2. 稍等片刻，在MindSpore Insight UI上可以看到弹窗，提示选择是否使用推荐监测点，接下来的使用步骤与在线调试相同。[使用调试器进行调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#使用调试器进行调试)。
+2. 稍等片刻，在MindSpore Insight UI上可以看到弹窗，提示选择是否使用推荐监测点，接下来的使用步骤与在线调试相同。[使用调试器进行调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/debugger_online.html#使用调试器进行调试)。
 
-3. 如果需要重置训练轮次，可以参考[训练轮次重置](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_offline.html#训练轮次重置) 来重置训练轮次。每个轮次的数据保存情况可以参考[图执行历史](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_offline.html#图执行历史) 来查看。
+3. 如果需要重置训练轮次，可以参考[训练轮次重置](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/debugger_offline.html#训练轮次重置) 来重置训练轮次。每个轮次的数据保存情况可以参考[图执行历史](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/debugger_offline.html#图执行历史) 来查看。
 
 ## 离线调试器API使用样例
 
@@ -141,4 +141,4 @@ if __name__ == "__main__":
 - 重新检查只检查当前有张量值的监测点。
 - 调试器展示的图是优化后的最终执行图。调用的算子可能已经与其它算子融合，或者在优化后改变了名称。
 - 如果Dump数据对象为Ascend异步Dump产生的bin文件，则解析过程中会产生npy文件，占用磁盘空间。
-- 如果使用Ascend场景下的异步Dump数据，可以使用MindSpore Insight的数据解析工具DumpParser的`convert_all_data_to_host`接口将异步Dump数据转换为`.npy`文件，从而提高数据分析效率。DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/parser)。
+- 如果使用Ascend场景下的异步Dump数据，可以使用MindSpore Insight的数据解析工具DumpParser的`convert_all_data_to_host`接口将异步Dump数据转换为`.npy`文件，从而提高数据分析效率。DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/r2.3/mindinsight/parser)。

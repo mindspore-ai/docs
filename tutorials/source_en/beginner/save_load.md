@@ -1,6 +1,6 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/source_en/beginner/save_load.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/tutorials/source_en/beginner/save_load.md)
 
-[Introduction](https://www.mindspore.cn/tutorials/en/r2.3/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.3/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.3/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r2.3/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r2.3/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.3/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.3/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.3/beginner/train.html) || **Save and Load** || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.3/beginner/accelerate_with_static_graph.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/r2.3.0rc1/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.3.0rc1/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.3.0rc1/beginner/tensor.html) || [Dataset](https://www.mindspore.cn/tutorials/en/r2.3.0rc1/beginner/dataset.html) || [Transforms](https://www.mindspore.cn/tutorials/en/r2.3.0rc1/beginner/transforms.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.3.0rc1/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.3.0rc1/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.3.0rc1/beginner/train.html) || **Save and Load** || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.3.0rc1/beginner/accelerate_with_static_graph.html)
 
 # Saving and Loading the Model
 
@@ -51,7 +51,7 @@ print(param_not_load)
 
 ## Saving and Loading MindIR
 
-In addition to Checkpoint, MindSpore provides a unified [Intermediate Representation (IR)](https://www.mindspore.cn/docs/en/r2.3/design/all_scenarios.html#mindspore-ir-mindir) for cloud side (training) and end side (inference). Models can be saved as MindIR directly by using the `export` interface.
+In addition to Checkpoint, MindSpore provides a unified [Intermediate Representation (IR)](https://www.mindspore.cn/docs/en/r2.3.0rc1/design/all_scenarios.html#mindspore-ir-mindir) for cloud side (training) and end side (inference). Models can be saved as MindIR directly by using the `export` interface.
 
 ```python
 model = network()

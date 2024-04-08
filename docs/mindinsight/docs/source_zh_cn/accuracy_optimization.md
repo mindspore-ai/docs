@@ -121,7 +121,7 @@
 
          4. 节点模式不正确。
 
-             节点模式不正确，是指节点所处的训练/推理模式和实际情况不一致。请参考[使用API时根据训练/推理场景对应设置模式](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_problem_preliminary_location.html#api02-使用api时未根据训练推理场景对应设置模式)以合理设置节点模式。
+             节点模式不正确，是指节点所处的训练/推理模式和实际情况不一致。请参考[使用API时根据训练/推理场景对应设置模式](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/accuracy_problem_preliminary_location.html#api02-使用api时未根据训练推理场景对应设置模式)以合理设置节点模式。
 
          5. 权重冻结错误（冻结了不应冻结的权重）。
 
@@ -199,9 +199,9 @@
 
     精度调优前，还要全面熟悉模型。只有熟悉了模型，才能准确理解MindSpore Insight提供的信息，判断是否存在问题，查找问题源头。因此，花时间理解模型算法和结构、理解模型中API的作用和参数的含义、理解模型所用优化器的特性等模型要素是很重要的。动手分析精度问题细节前，建议先带着问题加深对这些模型要素的了解。
 
-2. 熟悉[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html)工具。
+2. 熟悉[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/index.html)工具。
 
-    定位精度问题时，建议使用MindSpore Insight的[Summary训练信息收集](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)功能，在脚本中加入`SummaryCollector`。如下训练代码片段所示，初始化`SummaryCollector`并加入到`model.train`的`callbacks`参数中：
+    定位精度问题时，建议使用MindSpore Insight的[Summary训练信息收集](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/summary_record.html)功能，在脚本中加入`SummaryCollector`。如下训练代码片段所示，初始化`SummaryCollector`并加入到`model.train`的`callbacks`参数中：
 
     ```python
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
@@ -216,13 +216,13 @@
 
     > dataset_path为用户本地的训练数据集路径。
 
-    使用训练看板[可视化功能](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html)查看训练过程数据：
+    使用训练看板[可视化功能](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/dashboard.html)查看训练过程数据：
 
     ![mindinsight_dashboard](./images/mindinsight_dashboard.png)
 
     *图3 训练看板*
 
-    需要在线调试模型时，参考[使用调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html)功能。
+    需要在线调试模型时，参考[使用调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/debugger.html)功能。
 
 #### 检查代码和超参
 
@@ -261,7 +261,7 @@ MindSpore Insight可以辅助用户对超参做检查，大多数情况下，`Su
 
 考虑到模型结构一般都很复杂，期望在这一步就能发现所有的模型结构问题是不现实的。只要通过可视化的模型结构加深对计算图的理解，发现明显的结构问题即可。后面的步骤中，发现了更明确的精度问题现象后，我们还会回到这一步重新检查确认。
 
-> MindSpore Insight支持查看`SummaryCollector`记录的计算图和MindSpore context的`save_graphs`参数导出的pb文件计算图。请参考我们教程中的[计算图可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)部分了解更多信息。
+> MindSpore Insight支持查看`SummaryCollector`记录的计算图和MindSpore context的`save_graphs`参数导出的pb文件计算图。请参考我们教程中的[计算图可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/dashboard.html#计算图可视化)部分了解更多信息。
 >
 > 脚本迁移工具可以将PyTorch、TensorFlow框架下编写的模型转换为MindSpore脚本。
 
@@ -316,7 +316,7 @@ MindSpore Insight可以辅助用户对输入数据、数据处理流水线进行
 
 - MindSpore Insight的参数分布图模块可以展示模型权重随训练过程的变化趋势；
 - MindSpore Insight的张量可视模块可以展示张量的具体取值，对不同张量进行对比；
-- [MindSpore Insight调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html)内置了种类丰富，功能强大的检查能力，可以检查权重问题（例如权重不更新、权重更新过大、权重值过大/过小）、梯度问题（例如梯度消失、梯度爆炸）、激活值问题（例如激活值饱和或过弱）、张量全为0、NAN/INF、API计算过程溢出等问题。
+- [MindSpore Insight调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/debugger.html)内置了种类丰富，功能强大的检查能力，可以检查权重问题（例如权重不更新、权重更新过大、权重值过大/过小）、梯度问题（例如梯度消失、梯度爆炸）、激活值问题（例如激活值饱和或过弱）、张量全为0、NAN/INF、API计算过程溢出等问题。
 
 ![loss](./images/loss.png)
 
@@ -328,13 +328,13 @@ MindSpore Insight可以辅助用户对输入数据、数据处理流水线进行
 
 *图9 通过MindSpore Insight参数分布图可以查看训练过程中的权重变化情况*
 
-大多数情况下，`SummaryCollector`会自动记录模型参数变化情况（默认记录5个参数），可以通过MindSpore Insight的参数分布图模块查看。如果想要记录更多参数的参数分布图，请参考[SummaryCollector](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector)的`histogram_regular`参数，或参考[HistogramSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html#方式二-结合summary-api和summarycollector自定义收集网络中的数据) API。
+大多数情况下，`SummaryCollector`会自动记录模型参数变化情况（默认记录5个参数），可以通过MindSpore Insight的参数分布图模块查看。如果想要记录更多参数的参数分布图，请参考[SummaryCollector](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector)的`histogram_regular`参数，或参考[HistogramSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/summary_record.html#方式二-结合summary-api和summarycollector自定义收集网络中的数据) API。
 
 ![tensor](./images/tensor.png)
 
 *图10 通过MindSpore Insight训练看板中的张量可视模块查看特定张量的具体取值*
 
-张量不会被自动记录，如果想要通过MindSpore Insight查看张量的具体取值，请使用[TensorSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html#方式二-结合summary-api和summarycollector自定义收集网络中的数据) API。
+张量不会被自动记录，如果想要通过MindSpore Insight查看张量的具体取值，请使用[TensorSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/summary_record.html#方式二-结合summary-api和summarycollector自定义收集网络中的数据) API。
 
 下面结合loss曲线的常见现象介绍使用MindSpore Insight进行精度问题定位的思路。
 
@@ -593,9 +593,9 @@ Xie, Z., Sato, I., & Sugiyama, M. (2020). A Diffusion Theory For Deep Learning D
 
 ### 可视化调试调优工具
 
-训练过程中进行可视化数据采集时，可参考资料[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)。
+训练过程中进行可视化数据采集时，可参考资料[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/summary_record.html)。
 
-训练过程中进行可视化数据分析时，可参考资料[训练看板](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html)和[溯源和对比看板](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/lineage_and_scalars_comparison.html)。
+训练过程中进行可视化数据分析时，可参考资料[训练看板](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/dashboard.html)和[溯源和对比看板](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/lineage_and_scalars_comparison.html)。
 
 ### 数据问题处理
 

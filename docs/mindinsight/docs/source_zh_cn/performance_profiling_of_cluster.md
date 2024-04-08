@@ -198,7 +198,7 @@ done
 
 ## 启动MindSpore Insight
 
-启动命令请参考[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)。
+启动命令请参考[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/mindinsight_commands.html)。
 
 ## 训练性能
 
@@ -231,7 +231,7 @@ done
 
 *图3：单卡性能信息*
 
-图3展示集群中单卡性能信息，单卡性能信息请参考[单卡性能信息](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html)。
+图3展示集群中单卡性能信息，单卡性能信息请参考[单卡性能信息](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/performance_profiling_ascend.html)。
 
 ### 集群通信与计算重叠时间分析
 

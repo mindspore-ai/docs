@@ -197,7 +197,7 @@ Through the data conversion script, you can convert the cluster performance dire
 
 ## Launching MindSpore Insight
 
-The MindSpore Insight launch command can refer to [MindSpore Insight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html).
+The MindSpore Insight launch command can refer to [MindSpore Insight Commands](https://www.mindspore.cn/mindinsight/docs/en/r2.3/mindinsight_commands.html).
 
 ## Training Performance
 
@@ -229,7 +229,7 @@ Figure 2 shows the cluster iteration trajectory analysis page. By default, it sh
 
 *Figure 3: single device details*
 
-Figure 3 shows the performance information of a single device in the cluster. Please refer to [single device performance information](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html) for the performance information of a single device.
+Figure 3 shows the performance information of a single device in the cluster. Please refer to [single device performance information](https://www.mindspore.cn/mindinsight/docs/en/r2.3/performance_profiling_ascend.html) for the performance information of a single device.
 
 ### Cluster Communication and Computation Overlap Time Analysis
 

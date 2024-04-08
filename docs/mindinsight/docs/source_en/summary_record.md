@@ -10,13 +10,13 @@ Scalars, images, computational graphs, training optimization process, and model 
 
 - Prepare a training script, specify scalars, images, computational graphs, training optimization process, and model hyperparameters in the training script, record them in the summary log file, and run the training script.
 - Start MindSpore Insight and specify the summary log file directory using startup parameters. After MindSpore Insight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
-- During the training, when data is written into the summary log file, you can view the [visualized data in Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html) on the web page.
+- During the training, when data is written into the summary log file, you can view the [visualized data in Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/dashboard.html) on the web page.
 
 > To view visualized data in ModelArts, see [managing visualized Jobs on ModelArts](https://support.huaweicloud.com/develop-modelarts/develop-modelarts-0067.html).
 
 ## Preparing The Training Script
 
-Currently, MindSpore supports to save scalars, images, computational graph, training optimization process, and model hyperparameters to summary log file and display them on the web page. The computational graph can only be recorded in the graph mode. The detailed process of data collection and landscape drawing in the training optimization process can be referred to  [Training Optimization Process Visualization](https://www.mindspore.cn/mindinsight/docs/en/master/landscape.html).
+Currently, MindSpore supports to save scalars, images, computational graph, training optimization process, and model hyperparameters to summary log file and display them on the web page. The computational graph can only be recorded in the graph mode. The detailed process of data collection and landscape drawing in the training optimization process can be referred to  [Training Optimization Process Visualization](https://www.mindspore.cn/mindinsight/docs/en/r2.3/landscape.html).
 
 MindSpore currently supports multiple ways to record data into summary log files.
 
@@ -323,7 +323,7 @@ Stop MindSpore Insight command:
 mindinsight stop
 ```
 
-For more parameter Settings, see the [MindSpore Insight related commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html) page.
+For more parameter Settings, see the [MindSpore Insight related commands](https://www.mindspore.cn/mindinsight/docs/en/r2.3/mindinsight_commands.html) page.
 
 ## Notices
 

@@ -10,13 +10,13 @@
 
 - 准备训练脚本，并在训练脚本中指定标量、图像、计算图、训练优化过程、模型超参等信息记录到summary日志文件，接着运行训练脚本。
 - 启动MindSpore Insight，并通过启动参数指定summary日志文件目录，启动成功后，根据IP和端口访问可视化界面，默认访问地址为 `http://127.0.0.1:8080`。
-- 在训练过程中，有数据写入summary日志文件时，即可在页面中[查看训练看板中可视的数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html)。
+- 在训练过程中，有数据写入summary日志文件时，即可在页面中[查看训练看板中可视的数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/dashboard.html)。
 
 > 在ModelArts中查看可视数据，可参考[ModelArts上管理可视化作业](https://support.huaweicloud.com/develop-modelarts/develop-modelarts-0067.html)。
 
 ## 准备训练脚本
 
-当前MindSpore支持将标量、图像、计算图、训练优化过程、模型超参等信息保存到summary日志文件中，并通过可视化界面进行展示。计算图数据仅能在图模式下记录，训练优化过程数据收集及地形图绘制的详细流程可参考[训练优化过程可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/landscape.html)。
+当前MindSpore支持将标量、图像、计算图、训练优化过程、模型超参等信息保存到summary日志文件中，并通过可视化界面进行展示。计算图数据仅能在图模式下记录，训练优化过程数据收集及地形图绘制的详细流程可参考[训练优化过程可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/landscape.html)。
 
 MindSpore目前支持多种方式将数据记录到summary日志文件中。
 
@@ -324,7 +324,7 @@ mindinsight start --summary-base-dir ./summary
 mindinsight stop
 ```
 
-更多参数设置，请点击查看[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)页面。
+更多参数设置，请点击查看[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/mindinsight_commands.html)页面。
 
 ## 注意事项
 

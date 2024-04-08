@@ -1,6 +1,6 @@
 # Comparing the Function Differences with torch.distributed.new_group
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_en/note/api_mapping/pytorch_diff/create_group.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/create_group.md)
 
 ## torch.distributed.new_group
 
@@ -20,7 +20,7 @@ For more information, see [torch.distributed.new_group](https://pytorch.org/docs
 mindspore.communication.create_group(group, rank_ids)
 ```
 
-For more information, see [mindspore.communication.create_group](https://mindspore.cn/docs/en/r2.3/api_python/mindspore.communication.html#mindspore.communication.create_group).
+For more information, see [mindspore.communication.create_group](https://mindspore.cn/docs/en/r2.3.0rc1/api_python/mindspore.communication.html#mindspore.communication.create_group).
 
 ## Differences
 

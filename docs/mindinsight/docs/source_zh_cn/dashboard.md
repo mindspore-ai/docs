@@ -8,7 +8,7 @@
 
 用户从训练列表中选择指定的训练，进入训练看板。
 
-> 收集可视化数据及进入训练看板方法可参考[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)。
+> 收集可视化数据及进入训练看板方法可参考[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/summary_record.html)。
 
 ## 标量可视化
 
@@ -185,7 +185,7 @@
 
 ## 优化过程可视化
 
-优化过程可视化可以将将神经网络训练路径周围的优化空间展示出来，更多信息请查阅[训练优化过程可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/landscape.html)。
+优化过程可视化可以将将神经网络训练路径周围的优化空间展示出来，更多信息请查阅[训练优化过程可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/landscape.html)。
 
 ## 注意事项
 

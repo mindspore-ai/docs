@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/accuracy_problem_preliminary_location.md)
 
-本指南旨在为算法开发者提供一个简明扼要的精度问题初步定位指导。完整的精度问题定位和调优方法，请参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)。
+本指南旨在为算法开发者提供一个简明扼要的精度问题初步定位指导。完整的精度问题定位和调优方法，请参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/accuracy_optimization.html)。
 
 本指南适用于训练脚本能够运行到训练结束并输出每个迭代的loss值的情况。若训练中途出现中断训练的报错，则应该首先根据错误提示解决这些报错。
 
@@ -12,7 +12,7 @@
 
 ## 基于问题checklist的精度问题初步定位
 
-当出现精度问题时，您可以参考以下checklist进行检查。若通过checklist发现了可疑的问题，则您应参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)尝试修复这些可疑问题。若checklist使用完毕后，未发现可疑问题，则您应尝试其它精度问题定位和调优手段，或者参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)。如果您怀疑精度问题和MindSpore框架相关，请在向我们求助前确认不存在checklist上列出的问题，求助方法请见本文末尾。
+当出现精度问题时，您可以参考以下checklist进行检查。若通过checklist发现了可疑的问题，则您应参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/accuracy_optimization.html)尝试修复这些可疑问题。若checklist使用完毕后，未发现可疑问题，则您应尝试其它精度问题定位和调优手段，或者参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/accuracy_optimization.html)。如果您怀疑精度问题和MindSpore框架相关，请在向我们求助前确认不存在checklist上列出的问题，求助方法请见本文末尾。
 
 ### checklist使用说明
 
@@ -30,7 +30,7 @@
 
 缺失值常常以NaN，+/-Inf等形式存在，不同的数据集中使用的缺失值符号也不尽相同。检查缺失值时，首先明确每个字段使用何种方式表示缺失值，然后使用计数器对每个字段中的缺失值个数进行计数，以此来掌握数据集中缺失值的情况。
 
-若数据中存在未处理的缺失值，则此项的检查结果为“发现问题”，需要采取合适的手段处理（处理手段请参考 [精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)）
+若数据中存在未处理的缺失值，则此项的检查结果为“发现问题”，需要采取合适的手段处理（处理手段请参考 [精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/accuracy_optimization.html)）
 
 检查结论：
 
@@ -262,7 +262,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 ### 常见计算图结构问题
 
-为了检查计算图结构问题，请读者首先参考[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)，将计算图保存到summary文件中，然后使用MindSpore Insight[可视化查看计算图](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)。
+为了检查计算图结构问题，请读者首先参考[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/summary_record.html)，将计算图保存到summary文件中，然后使用MindSpore Insight[可视化查看计算图](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/dashboard.html#计算图可视化)。
 
 检查结论：
 
@@ -343,7 +343,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 检查方法：
 当使用[混合精度](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html)训练，或者是使用Ascend AI处理器训练时，建议检查是否存在溢出问题。
 
-使用GPU时，通过[调试器](https://mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#异常现象检查列表)中的“检查张量溢出”监测点可以进行溢出检查。
+使用GPU时，通过[调试器](https://mindspore.cn/mindinsight/docs/zh-CN/r2.3/debugger_online.html#异常现象检查列表)中的“检查张量溢出”监测点可以进行溢出检查。
 
 发现溢出问题后，应首先找到并分析第一个出现溢出的节点（对于Ascend的溢出数据，可以按文件名中的时间戳，找时间戳最小的一个；对于GPU上的溢出，只要找执行序中最靠前的一个），结合API的输入输出数据确定溢出原因。
 
@@ -430,7 +430,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 ## 求助方式
 
-参考上面两种初步定位方法的任意一种进行操作。若未发现可疑点，一般说明脚本不存在明显的问题，此时请参考[精度调优建议](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html#常用调优建议)进行调优。若使用基于现象对比的定位方法发现了疑点，请依据定位方法中的提示判断是需要自行定位的问题还是向MindSpore求助。若使用checklist发现了疑点或问题，请参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)进行详细定位。
+参考上面两种初步定位方法的任意一种进行操作。若未发现可疑点，一般说明脚本不存在明显的问题，此时请参考[精度调优建议](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/accuracy_optimization.html#常用调优建议)进行调优。若使用基于现象对比的定位方法发现了疑点，请依据定位方法中的提示判断是需要自行定位的问题还是向MindSpore求助。若使用checklist发现了疑点或问题，请参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/accuracy_optimization.html)进行详细定位。
 
 当您遇到精度问题，要向MindSpore求助时，提供相关材料将有助于我们更好地判断和解决您的问题。建议您提供的材料包括但不限于：
 

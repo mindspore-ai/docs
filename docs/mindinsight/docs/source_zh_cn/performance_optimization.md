@@ -10,11 +10,11 @@ Profiler为MindSpore提供了性能调优能力，针对算子性能、数据处
 
 Profiler的功能介绍及使用说明请参见教程：
 
-[性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html)
+[性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/performance_profiling_ascend.html)
 
-[性能调试（GPU）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_gpu.html)
+[性能调试（GPU）](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/performance_profiling_gpu.html)
 
-[集群性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_of_cluster.html)
+[集群性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/performance_profiling_of_cluster.html)
 
 本节将通过三个典型案例介绍Profiler工具的常见使用方式。
 

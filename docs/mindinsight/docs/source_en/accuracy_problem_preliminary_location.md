@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/accuracy_problem_preliminary_location.md)
 
-This guide aims to provide algorithm developers with a brief and concise guidance for locating accuracy problems. For details about how to locate and optimize accuracy problems, see [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_optimization.html).
+This guide aims to provide algorithm developers with a brief and concise guidance for locating accuracy problems. For details about how to locate and optimize accuracy problems, see [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/r2.3/accuracy_optimization.html).
 
 This guide is applicable to the scenario where the training script can run until the training is complete and the loss value of each training step is output. If an error occurs during training, rectify the fault based on the error information.
 
@@ -12,7 +12,7 @@ Two common methods are provided for preliminarily locating accuracy problems: ch
 
 ## Checklist-based Locating Method
 
-When an accuracy problem occurs, you can refer to the following checklist to check the accuracy. If any suspicious problems are found in the checklist, you should try to rectify the problems by referring to [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_optimization.html). If no suspicious problem is found after the checklist is used, you can use other methods to locate and optimize accuracy problems or refer to [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_optimization.html). If you suspect that the accuracy problem is related to the MindSpore framework, ensure that the problems listed in the checklist do not exist before seeking help. For details about how to seek help, see the end of this document.
+When an accuracy problem occurs, you can refer to the following checklist to check the accuracy. If any suspicious problems are found in the checklist, you should try to rectify the problems by referring to [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/r2.3/accuracy_optimization.html). If no suspicious problem is found after the checklist is used, you can use other methods to locate and optimize accuracy problems or refer to [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/r2.3/accuracy_optimization.html). If you suspect that the accuracy problem is related to the MindSpore framework, ensure that the problems listed in the checklist do not exist before seeking help. For details about how to seek help, see the end of this document.
 
 ### Instructions for Using the Checklist
 
@@ -30,7 +30,7 @@ Check method:
 
 Missing values usually exist in the form of NaN and +/-Inf. Missing value symbols used in different datasets are different. When checking missing values, you need to determine the method of representing missing values in each field, and then use a counter to count the number of missing values in each field. In this way, you can understand the missing values in the dataset.
 
-If the data contains missing values that are not processed, enter "Problem found" in the "Conclusion" field. In this case, you need to take proper measures to handle the problem. For details about the handling methods, see [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_optimization.html).
+If the data contains missing values that are not processed, enter "Problem found" in the "Conclusion" field. In this case, you need to take proper measures to handle the problem. For details about the handling methods, see [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/r2.3/accuracy_optimization.html).
 
 Conclusion:
 
@@ -262,7 +262,7 @@ Enter here.
 
 ### Common Computational Graph Structure Problems
 
-To check a computational graph structure, save the computational graph to a summary file by referring to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html), and then use [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize the computational graph.
+To check a computational graph structure, save the computational graph to a summary file by referring to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/r2.3/summary_record.html), and then use [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/r2.3/dashboard.html#computational-graph-visualization) to visualize the computational graph.
 
 Conclusion:
 
@@ -343,7 +343,7 @@ When you run a script on the Ascend backend or use the mixed precision function,
 Check method:
 When the [mixed precision](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html) or the Ascend AI processor is used for training, you are advised to check whether overflow occurs.
 
-When using the GPU, you can perform the overflow check through the check tensor overflow watchpoint in the [debugger](https://mindspore.cn/mindinsight/docs/en/master/debugger_online.html#anomaly-check-list).
+When using the GPU, you can perform the overflow check through the check tensor overflow watchpoint in the [debugger](https://mindspore.cn/mindinsight/docs/en/r2.3/debugger_online.html#anomaly-check-list).
 
 After the overflow problem is found, find and analyze the first overflow node. (For Ascend overflow data, find the node with the smallest timestamp based on the timestamp in the file name. For GPU overflow data, find the first node in the execution sequence.) Determine the overflow cause based on the input and output data of the API.
 
@@ -430,7 +430,7 @@ Note that some APIs on the Ascend AI processor do not support FP32 implementatio
 
 ## Seeking Help
 
-Use either of the preceding methods to locate the problem. If no doubtful point is found, the script does not have obvious problems. In this case, perform optimization by referring to [Accuracy Optimization Suggestions](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_optimization.html). If you find any doubt based on symptom comparison, determine whether you need to locate the problem by yourself or contact MindSpore for help based on the information in the locating method. If any doubt or problem is found in the checklist, locate the problem by referring to the [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_optimization.html).
+Use either of the preceding methods to locate the problem. If no doubtful point is found, the script does not have obvious problems. In this case, perform optimization by referring to [Accuracy Optimization Suggestions](https://www.mindspore.cn/mindinsight/docs/en/r2.3/accuracy_optimization.html). If you find any doubt based on symptom comparison, determine whether you need to locate the problem by yourself or contact MindSpore for help based on the information in the locating method. If any doubt or problem is found in the checklist, locate the problem by referring to the [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/r2.3/accuracy_optimization.html).
 
 If you encounter an accuracy problem and want to seek help from MindSpore, provide related materials to help us better determine and solve your problem. You are advised to provide the following materials:
 

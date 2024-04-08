@@ -33,7 +33,7 @@ The Debugger related parameters:
 |`--enable-debugger {ENABLE_DEBUGGER}`|Optional|Should be set to `True` or `1`, this will launch the MindSpore Insight debugger server; Default is `False`, not launch.|Boolean|False|True/False/1/0|
 |`--debugger-port {DEBUGGER_PORT}`|Optional|Specifies the port number of the debugger server.|Integer|50051|1~65535|
 
-For more launch parameters, please refer to [MindSpore Insight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html).
+For more launch parameters, please refer to [MindSpore Insight Commands](https://www.mindspore.cn/mindinsight/docs/en/r2.3/mindinsight_commands.html).
 
 ### Run the Training Script in Debug Mode
 

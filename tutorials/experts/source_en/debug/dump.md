@@ -1,6 +1,6 @@
 # Using Dump in the Graph Mode
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_en/debug/dump.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/tutorials/experts/source_en/debug/dump.md)
 
 ## Overview
 
@@ -21,11 +21,11 @@ The data preparation phase uses synchronous Dump or asynchronous Dump to generat
 When preparing data, you can refer to the following best practices:
 
 1. Set the `iteration` parameter to save only the data of the iteration with the problem and the previous iteration. For example, if the problem to be analyzed will appear in the 10th iteration (counting from 1), you can set it as follows: `"iteration": "8 | 9"`. Note that the `iteration` parameter evaluates iterations from 0. Saving the data of the above two iterations can help problem analysis under most scenarios.
-2. After the iteration with problems is completed, it is recommended that you use [run_context.request_stop()](https://www.mindspore.cn/docs/en/r2.3/api_python/train/mindspore.train.RunContext.html#mindspore.train.RunContext.request_stop) or other methods to stop the training in advance.
+2. After the iteration with problems is completed, it is recommended that you use [run_context.request_stop()](https://www.mindspore.cn/docs/en/r2.3.0rc1/api_python/train/mindspore.train.RunContext.html#mindspore.train.RunContext.request_stop) or other methods to stop the training in advance.
 
 #### Data Analysis
 
-If you have installed MindSpore Insight, you can use offline debugger of MindSpore Insight to analyze it. It only supports analyzing data saved by e2e_dump currently. See [Using the Offline Debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger_offline.html) for the usage of offline debugger.
+If you have installed MindSpore Insight, you can use offline debugger of MindSpore Insight to analyze it. It only supports analyzing data saved by e2e_dump currently. See [Using the Offline Debugger](https://www.mindspore.cn/mindinsight/docs/en/r2.3/debugger_offline.html) for the usage of offline debugger.
 
 If MindSpore Insight is not installed, you need to analyze the data through the following steps.
 
@@ -101,7 +101,7 @@ The configuration files required for different modes and the data format of dump
     - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to indicate complete tensor data Dumped, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Synchronous statistics dump is only supported on GPU. Using "statistic" or "full" on CPU or Ascend will result in exception. Default setting is "tensor".
     - `input_output`: 0: dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. This configuration parameter only supports Ascend and CPU, and GPU can only dump the output of operator.
     - `kernels`: This item can be configured in two formats:
-        1. List of operator names. Turn on the IR save switch `set_context(save_graphs=2)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/tutorials/en/r2.3/advanced/error_analysis/mindir.html#saving-ir).
+        1. List of operator names. Turn on the IR save switch `set_context(save_graphs=2)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/tutorials/en/r2.3.0rc1/advanced/error_analysis/mindir.html#saving-ir).
         Note that whether setting `set_context(save_graphs=2)` may cause the different IDs of the same operator, so when dump specified operators, keep this setting unchanged after obtaining the operator name. Or you can obtain the operator names from the file `ms_output_trace_code_graph_{graph_id}.ir` saved by Dump. Refer to [Synchronous Dump Data Object Directory](#synchronous-dump-data-object-directory).
         2. You can also specify an operator type. When there is no operator scope information or operator id information in the string, the background considers it as an operator type, such as "conv". The matching rule of operator type is: when the operator name contains an operator type string, the matching is considered successful (case insensitive). For example, "conv" can match operators "Conv2D-op1234" and "Conv3D-op1221".
     - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data. This configuration parameter is invalid on the CPU, because there is no concept of device on the CPU, but it is still need to reserve this parameter in the json file.
@@ -233,11 +233,11 @@ This file stores the list of iterations in which the graph was executed. After t
 
 ### Synchronous Dump Data Analysis Sample
 
-In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/dump) , you only need to execute `bash dump_sync_dump.sh` for synchronous dump.
+In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://gitee.com/mindspore/docs/tree/r2.3.q1/docs/sample_code/dump) , you only need to execute `bash dump_sync_dump.sh` for synchronous dump.
 
 After the graph corresponding to the script is saved to the disk through the Dump function, the final execution graph file `ms_output_trace_code_graph_{graph_id}.ir` will be generated. This file saves the stack information of each operator in the corresponding graph, and records the generation script corresponding to the operator.
 
-Take [AlexNet script](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/dump/train_alexnet.py) as an example:
+Take [AlexNet script](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/sample_code/dump/train_alexnet.py) as an example:
 
 ```python
 ...
@@ -398,8 +398,8 @@ MindSpore provides debugging capabilities for large networks through asynchronou
     }
     ```
 
-    - `dump_mode`: 0: all operator data in the network dumped out; 1: dump kernels data in kernels list; 2: dump the kernels data specified by `set_dump` in the scripts, see [mindspore.dump](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.set_dump.html) for the usage of `set_dump`. When overflow detection is enabled, the setting of this field becomes invalid, and Dump only saves the data of the overflow node.
-    - `path`: The absolute path to save Dump data. When [jit_level](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level) is set to 'O0', MindSpore will create a new subdirectory for each step in the path directory.
+    - `dump_mode`: 0: all operator data in the network dumped out; 1: dump kernels data in kernels list; 2: dump the kernels data specified by `set_dump` in the scripts, see [mindspore.dump](https://www.mindspore.cn/docs/en/r2.3.0rc1/api_python/mindspore/mindspore.set_dump.html) for the usage of `set_dump`. When overflow detection is enabled, the setting of this field becomes invalid, and Dump only saves the data of the overflow node.
+    - `path`: The absolute path to save Dump data. When [jit_level](https://www.mindspore.cn/docs/en/r2.3.0rc1/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level) is set to 'O0', MindSpore will create a new subdirectory for each step in the path directory.
     - `net_name`: The customized net name: "ResNet50".
     - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped. When overflow detection is enabled for PyNative mode, it must be set to "all".
     - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to dump tensor data, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Default setting is "tensor". Asynchronous statistics dump is only supported when `file_format` is set to `npy`, using "statistic" or "full" when `file_format` is set to `bin` will result in exception.
@@ -457,7 +457,7 @@ The Dump directory structure of the graph pattern is as follows:
                         mapping.csv
 ```
 
-When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and [jit_level](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level) is not set to 'O0', the Dump directory structure is as follows, where the main feature is the {step_id} directory, which represents user side training step id:
+When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and [jit_level](https://www.mindspore.cn/docs/en/r2.3.0rc1/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level) is not set to 'O0', the Dump directory structure is as follows, where the main feature is the {step_id} directory, which represents user side training step id:
 
 ```text
 {path}/
@@ -472,7 +472,7 @@ When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and [jit_level](https://www.
                         mapping.csv
 ```
 
-When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and [jit_level](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level) is set to 'O0', the Dump directory structure is as follows, where the main feature is no {model_name} and {model_id} directory. In this scenario, the dump files for dynamic shape operators will be saved in {iteration_id} directory and the dump files for static shape operators will be saved in {device_id} directory:
+When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and [jit_level](https://www.mindspore.cn/docs/en/r2.3.0rc1/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level) is set to 'O0', the Dump directory structure is as follows, where the main feature is no {model_name} and {model_id} directory. In this scenario, the dump files for dynamic shape operators will be saved in {iteration_id} directory and the dump files for static shape operators will be saved in {device_id} directory:
 
 ```text
 {path}/
@@ -528,7 +528,7 @@ Take the Conv2D-op12 of AlexNet network as an example: `Conv2D.Default_network-W
 
 If ".", "/", "\", and spaces appear in `op_type` and `op_name`, they will be converted to underscores.
 
-The original data file generated by dump can also be parsed by using the data parsing tool DumpParser of MindSpore Insight. Please refer to [DumpParser Introduction](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/parser/README.md#) for the usage of DumpParser. The data format parsed by MindSpore Insight is exactly the same as that of synchronous dump.
+The original data file generated by dump can also be parsed by using the data parsing tool DumpParser of MindSpore Insight. Please refer to [DumpParser Introduction](https://gitee.com/mindspore/mindinsight/blob/r2.3/mindinsight/parser/README.md#) for the usage of DumpParser. The data format parsed by MindSpore Insight is exactly the same as that of synchronous dump.
 
 If setting `file_format` to `npy`, the naming convention of data files generated by asynchronous dump is the same as those of synchronous dump. Please refer to [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file). The overflow file generated by overflow detection is in the `json` format, and the content analysis of the overflow file can refer to the [Analyzing the Data File of an Overflow/Underflow Operator](https://www.hiascend.com/document/detail/en/CANNCommunityEdition/600alphaX/infacldevg/aclcppdevg/aclcppdevg_000160.html) .
 
@@ -538,7 +538,7 @@ The constant dump file, final execution graph file and execution order file nami
 
 ### Asynchronous Dump Data Analysis Sample
 
-In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/dump) , you only need to execute `bash run_async_dump.sh` for asynchronous dump.
+In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://gitee.com/mindspore/docs/tree/r2.3.q1/docs/sample_code/dump) , you only need to execute `bash run_async_dump.sh` for asynchronous dump.
 
 Through the asynchronous Dump function, the data files generated by the operator asynchronous Dump can be obtained. If `file_format` in the Dump configure file is set to "npy", then the step 1, 2 in the follows steps can be skipped. If `file_format` is not set or set to "bin", the tensor files need to be converted to `.npy` format.
 
