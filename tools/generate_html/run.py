@@ -168,9 +168,6 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             git_update(repo_path, branch_)
                         elif msc_branch:
                             git_update(repo_path, msc_branch)
-                    # 特殊处理下golden-stick
-                    elif data[i]['name'] == "golden_stick":
-                        git_update(repo_path, 'r0.4')
                     else:
                         git_update(repo_path, branch_)
                     print(f'{repo_name}仓库克隆更新成功')
@@ -179,22 +176,22 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
 
         # 特殊与一般性的往ArraySource中加入键值对
         if data[i]['name'] == "lite":
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/api'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/faq'] = data[i]["branch"]
+            ArraySource[data[i]['name'] + '/docs'] = data[i]["html_version"]
+            ArraySource[data[i]['name'] + '/api'] = data[i]["html_version"]
+            ArraySource[data[i]['name'] + '/faq'] = data[i]["html_version"]
         elif data[i]['name'] == "tutorials":
-            ArraySource[data[i]['name']] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/application'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/experts'] = data[i]["branch"]
+            ArraySource[data[i]['name']] = data[i]["html_version"]
+            ArraySource[data[i]['name'] + '/application'] = data[i]["html_version"]
+            ArraySource[data[i]['name'] + '/experts'] = data[i]["html_version"]
         elif data[i]['name'] == "mindspore":
-            ArraySource[data[i]['name']] = data[i]["branch"]
+            ArraySource[data[i]['name']] = data[i]["html_version"]
         elif data[i]['name'] == "mindscience" or data[i]['name'] == "mindformers":
             pass
         else:
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
+            ArraySource[data[i]['name'] + '/docs'] = data[i]["html_version"]
 
         if data[i]['name'] != "mindscience" and data[i]['name'] != "mindformers":
-            generate_version_json(data[i]['name'], data[i]["branch"], data_b, flag_dev, target_version)
+            generate_version_json(data[i]['name'], data[i]["html_version"], data_b, flag_dev, target_version)
 
         # 卸载原来已有的安装包, 以防冲突
         if data[i]['uninstall_name']:
