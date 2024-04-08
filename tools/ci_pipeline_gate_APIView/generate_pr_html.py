@@ -63,6 +63,8 @@ def copy_source(sourcedir, des_sir, cp_rel_path, fp_list=''):
                 try:
                     if root == sourcedir and file.endswith('.rst') and file.startswith('mindspore.'):
                         continue
+                    elif root == sourcedir and file == 'mindspore.multiprocessing.md':
+                        continue
                     if not os.path.exists(os.path.join(des_sir, root.split(cp_rel_path)[-1])):
                         os.makedirs(os.path.join(
                             des_sir, root.split(cp_rel_path)[-1]))
@@ -112,7 +114,7 @@ def get_all_copy_list(pr_list, rp_n, branch, repo_path):
             other_file_path = re.findall('.. include:: (.*?)\n', raw_content)
             for j in other_file_path:
                 file_list.append(os.path.join(
-                    repo_path, '/'.join(i.split('/')[:-1]), j))
+                    repo_path, '/'.join(i.split('/')[:-1]), j.rstrip('\r\t')))
         file_list.append(os.path.join(repo_path, i))
 
     return file_list
@@ -135,7 +137,7 @@ def get_rst_en(en_list):
         api_name = re.findall(r'\.\. .*?:: (.*)', one_doc)[0]
         if 'nn.probability' in one_doc:
             generate_api_en_list.append(
-                [api_name + '.rst', 'nn_probability', ''])
+                [api_name + '.rst', 'nn_probability', '', two_doc])
             continue
         end_docs = ''
         currentmodule = '.'.join(api_name.split('.')[:-1])
@@ -221,6 +223,8 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/train', 'mindspore.train'],
         ['mindspore/python/mindspore/boost', 'mindspore.boost'],
         ['mindspore/python/mindspore/ops', 'mindspore.ops'],
+        ['mindspore/python/mindspore/nn/probability/distribution', 'mindspore.nn.probability.distribution'],
+        ['mindspore/python/mindspore/nn/probability/bijector', 'mindspore.nn.probability.bijector'],
         ['mindspore/python/mindspore/nn/extend', 'mindspore.nn.extend'],
         ['mindspore/python/mindspore/nn', 'mindspore.nn'],
         ['mindspore/python/mindspore/dataset/text', 'mindspore.dataset.text'],
@@ -228,8 +232,6 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/dataset/core/config.py', 'mindspore.dataset.config'],
         ['mindspore/python/mindspore/dataset', 'mindspore.dataset'],
         ['mindspore/python/mindspore/communication', 'mindspore.communication'],
-        ['mindspore/python/mindspore/nn/probability/distribution', 'mindspore.nn.probability.distribution'],
-        ['mindspore/python/mindspore/nn/probability/bijector', 'mindspore.nn.probability.bijector'],
         ['mindspore/python/mindspore/amp.py', 'mindspore.amp'],
         ['mindspore/python/mindspore/numpy', 'mindspore.numpy'],
         ['mindspore/python/mindspore/experimental/optim/lr_scheduler.py', 'mindspore.experimental.optim.lr_scheduler'],
