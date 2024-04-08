@@ -273,7 +273,7 @@ pip install -U setuptools
 ## Downloading the Source Code from the Code Repository
 
 ```bash
-git clone -b r2.3 https://gitee.com/mindspore/mindspore.git
+git clone -b r2.3.q1 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## Compiling MindSpore
