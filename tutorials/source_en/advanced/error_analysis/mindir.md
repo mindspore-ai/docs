@@ -208,7 +208,7 @@ About the corresponding source code:
 
 ### deep sorted ir Introduction
 
-Use a text editing software (for example, `vi`) to open the `04_abstract_specialize_0004.ir` file after setting environment variable `export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1` and run the following example:
+Use a text editing software (for example, `vi`) to open the `04_abstract_specialize_0004.ir` file after setting environment variable `export MS_DEV_SAVE_GRAPHS_SORT_MODE=1` and run the following example:
 
 ```text
   1 import mindspore as ms
