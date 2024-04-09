@@ -249,15 +249,24 @@ def en_file_handle(py_file_list, repo_path, dict1):
         with open(repo_py_path, 'r+', encoding='utf-8') as f:
             content = f.read()
 
-        interface_doc = re.findall(
-            r'(class|\ndef|[ ]+?def) ([^_].+?):\n.*?("""(?:.|\n|)+?)"""', content)
         interface_doc_dict = {}
+        interface_doc = re.findall(
+            r'(\nclass|\ndef|\n[ ]+?def) ([^_].+?:|[^_].+?,\n(?:.|\n|)+?)\n.*?("""(?:.|\n|)+?)"""', content)
+
         for doc in interface_doc:
-            if doc[0].startswith('\ndef'):
-                len_doc = doc[2].count('\n')
-                interface_name = doc[1].split('(')[0]
+            first_p = doc[0]
+            sec_p = doc[1]
+            third_p = doc[2]
+            if re.findall(r'(\nclass|\ndef|\n[ ]+?def) ', sec_p):
+                first_p = re.findall(r'(\nclass|\ndef|\n[ ]+?def) (.+)', sec_p)[-1][0]
+                sec_p = re.findall(r'(\nclass|\ndef|\n[ ]+?def) (.+)', sec_p)[-1][1]
+                if sec_p.startswith('_'):
+                    continue
+            if first_p.startswith('\ndef'):
+                len_doc = third_p.count('\n')
+                interface_name = sec_p.split('(')[0]
                 func_name = interface_name + '.'
-                index = content.find(doc[2])
+                index = content.find(third_p)
                 begin_line = content[:index].count('\n')
                 interface_doc_dict[func_name] = [
                     [begin_line, begin_line + len_doc + 1]]
@@ -268,10 +277,10 @@ def en_file_handle(py_file_list, repo_path, dict1):
                                 '.. autofunction:: ' + mpn[1] + '.' + func_name.replace('.', '') + f'&&&{i[0]}')
                             break
 
-            elif doc[0].startswith(' '):
-                len_doc = doc[2].count('\n')
+            elif first_p.startswith('\n '):
+                len_doc = third_p.count('\n')
                 meth_name = ""
-                index = content.find(doc[2])
+                index = content.find(third_p)
                 begin_line = content[:index].count('\n')
                 try:
                     interface_name = re.findall(
@@ -281,7 +290,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
                 except:
                     continue
                 if interface_name in ('Tensor', 'Dataset'):
-                    meth_name = doc[1].split('(')[0]
+                    meth_name = sec_p.split('(')[0]
                 if meth_name:
                     interface_doc_dict[interface_name + '.' +
                                        meth_name] = [[begin_line, begin_line + len_doc + 1]]
@@ -289,9 +298,11 @@ def en_file_handle(py_file_list, repo_path, dict1):
                     interface_doc_dict[interface_name].append(
                         [begin_line, begin_line + len_doc + 1])
             else:
-                len_doc = doc[2].count('\n')
-                interface_name = doc[1].split('(')[0]
-                index = content.find(doc[2])
+                len_doc = third_p.count('\n')
+                interface_name = sec_p.split('(')[0]
+                if interface_name.endswith(':'):
+                    interface_name = interface_name.rstrip(':')
+                index = content.find(third_p)
                 begin_line = content[:index].count('\n')
                 interface_doc_dict[interface_name] = [
                     [begin_line, begin_line + len_doc + 1]]
@@ -508,19 +519,19 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
             diff_doc = []
             if len(diff_arr_num) == 1:
                 diff_doc.append(
-                    re.findall(rf'@@ .*? \+{diff_arr_num[0][0]},{diff_arr_num[0][1]} @@ ((?:.|\n|)+)', diff_file)[0])
+                    re.findall(rf'@@ .*? \+{diff_arr_num[0][0]},{diff_arr_num[0][1]} @@((?:.|\n|)+)', diff_file)[0])
             else:
                 for k in range(len(diff_arr_num)):
                     dv = diff_arr_num[k]
                     if k+1 == len(diff_arr_num):
                         diff_doc.append(re.findall(
-                            rf'@@ .*? \+{diff_arr_num[k][0]},{diff_arr_num[k][1]} @@ ((?:.|\n|)+)', diff_file)[0])
+                            rf'@@ .*? \+{diff_arr_num[k][0]},{diff_arr_num[k][1]} @@((?:.|\n|)+)', diff_file)[0])
                     else:
                         dv1 = diff_arr_num[k+1]
-                        if re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@ ((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
+                        if re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
                                       diff_file):
                             diff_doc.append(
-                                re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@ ((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
+                                re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
                                            diff_file)[0])
                     # else:
                     #     diff_doc.append(re.findall(f'@@ .*? \+{diff_arr_num[k][0]},{diff_arr_num[k][1]} @@ ((?:.|\n|)+)', diff_file)[0])
@@ -528,6 +539,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                     # diff_doc.append(diff_file.split('@@')[-1])
 
             print(diff_arr_num)
+
             for j in range(len(diff_arr_num)):
                 diff_doc1 = diff_doc[j].replace('\\n', '//n')
                 diff_arr1 = min(diff_doc1.find('\n-'), diff_doc1.find('\n+'))
