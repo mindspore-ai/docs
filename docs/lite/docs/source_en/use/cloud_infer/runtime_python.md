@@ -191,8 +191,8 @@ variable_weights_file="update_weight_name_list.txt"
 ### Model Loading and Compilation
 
 ```python
-  import numpy as np
-  import mindspore_lite as mslite
+import numpy as np
+import mindspore_lite as mslite
 
 # init context, and set target is gpu.
 context = mslite.Context()
