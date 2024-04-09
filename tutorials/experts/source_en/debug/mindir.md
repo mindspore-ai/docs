@@ -6,7 +6,7 @@
 
 When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and `set_context(save_graphs=2)` is set in the configuration, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. Currently, there are two IR files:
 
-- .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors. By setting environment variable `export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`, an deep sorted ir can be generated. It can be switched back to the default ir file by setting environment variable `MS_DEV_SAVE_GRAPTHS_SORT_MODE` to any other value rather than 1.
+- .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors. By setting environment variable `export MS_DEV_SAVE_GRAPHS_SORT_MODE=1`, an deep sorted ir can be generated. It can be switched back to the default ir file by setting environment variable `MS_DEV_SAVE_GRAPHS_SORT_MODE` to any other value rather than 1.
 - .dot file: When `set_context(save_graphs=3)` is set in the configuration, an IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/r2.0/dashboard.html#computational-graph-visualization) to visualize computing graphs.
 
 ## Saving IR
@@ -205,7 +205,7 @@ About the corresponding source code:
 
 ### deep sorted ir Introduction
 
-Use a text editing software (for example, `vi`) to open the `04_abstract_specialize_0008.ir` file after setting environment variable `export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`. The file contents are as follows (Here is MindSpore 2.0, and the content may have some imperceptible changes with the version upgrade):
+Use a text editing software (for example, `vi`) to open the `04_abstract_specialize_0008.ir` file after setting environment variable `export MS_DEV_SAVE_GRAPHS_SORT_MODE=1`. The file contents are as follows (Here is MindSpore 2.0, and the content may have some imperceptible changes with the version upgrade):
 
 ```text
   1 #IR entry      : @1_construct.Default_wrapper.22
