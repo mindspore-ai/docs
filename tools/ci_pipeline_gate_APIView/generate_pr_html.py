@@ -519,19 +519,19 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
             diff_doc = []
             if len(diff_arr_num) == 1:
                 diff_doc.append(
-                    re.findall(rf'@@ .*? \+{diff_arr_num[0][0]},{diff_arr_num[0][1]} @@ ((?:.|\n|)+)', diff_file)[0])
+                    re.findall(rf'@@ .*? \+{diff_arr_num[0][0]},{diff_arr_num[0][1]} @@((?:.|\n|)+)', diff_file)[0])
             else:
                 for k in range(len(diff_arr_num)):
                     dv = diff_arr_num[k]
                     if k+1 == len(diff_arr_num):
                         diff_doc.append(re.findall(
-                            rf'@@ .*? \+{diff_arr_num[k][0]},{diff_arr_num[k][1]} @@ ((?:.|\n|)+)', diff_file)[0])
+                            rf'@@ .*? \+{diff_arr_num[k][0]},{diff_arr_num[k][1]} @@((?:.|\n|)+)', diff_file)[0])
                     else:
                         dv1 = diff_arr_num[k+1]
-                        if re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@ ((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
+                        if re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
                                       diff_file):
                             diff_doc.append(
-                                re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@ ((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
+                                re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
                                            diff_file)[0])
                     # else:
                     #     diff_doc.append(re.findall(f'@@ .*? \+{diff_arr_num[k][0]},{diff_arr_num[k][1]} @@ ((?:.|\n|)+)', diff_file)[0])
@@ -539,6 +539,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                     # diff_doc.append(diff_file.split('@@')[-1])
 
             print(diff_arr_num)
+
             for j in range(len(diff_arr_num)):
                 diff_doc1 = diff_doc[j].replace('\\n', '//n')
                 diff_arr1 = min(diff_doc1.find('\n-'), diff_doc1.find('\n+'))
