@@ -134,6 +134,21 @@ For details about each label, see [Checking a Document](#checking-a-document).
 
 MindSpore CI uses the Pylint check tool.
 
+### Previewing Python API
+
+To make it easier to see if the modified API displays as expected on the web page, MindSpore CI provides the ``/build_api_doc`` command to build the html.
+
+```text
+# You can start building the html by typing the following command in the comments
+/build_api_doc
+```
+
+When execution is complete, a similar result is returned as below:
+
+![build_api_doc](./resource/_static/build_api_doc.png)
+
+Click ``zh-CN LINK`` to see the html page built by Chinese API, and click ``EN LINK`` to see the html page built by English API.
+
 ### Confirming the Content
 
 On the next day after the PR is merged, you can view the new content on the [MindSpore Python API](https://www.mindspore.cn/docs/en/master/index.html) page.
