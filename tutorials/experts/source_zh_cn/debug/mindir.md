@@ -6,7 +6,7 @@
 
 在图模式`set_context(mode=GRAPH_MODE)`下运行用MindSpore编写的模型时，若配置中设置了`set_context(save_graphs=True)`，运行时会输出一些图编译过程中生成的中间文件，我们称为IR文件。当前主要有两种格式的IR文件：
 
-- ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。可以通过设置环境变量`export MS_DEV_SAVE_GRAPTHS_SORT_MODE=1`打印异序排序方式的ir文件。可以通过将该环境变量设置为其他值来切换为打印原来的排序方式的ir文件。
+- ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。可以通过设置环境变量`export MS_DEV_SAVE_GRAPHS_SORT_MODE=1`打印异序排序方式的ir文件。可以通过将该环境变量设置为其他值来切换为打印原来的排序方式的ir文件。
 - dot后缀结尾的IR文件：若在配置中设置了`set_context(save_graphs=True, save_graph_dot=True)`, 运行时会输出后缀为dot的ir文件。该文件描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0.0-alpha/dashboard.html#计算图可视化)对计算图进行可视化。
 
 ## 如何保存IR
