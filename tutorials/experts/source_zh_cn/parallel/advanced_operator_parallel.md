@@ -30,7 +30,7 @@
 in_strategy/out_strategy两个入参，都额外接收新的数量类型tuple(Layout)类型。其中[Layout](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.Layout.html) 使用设备矩阵进行初始化，同时要求给设备矩阵的每个轴取一个别名，如"layout = Layout((8, 4, 4), name = ("dp", "sp", "mp"))"，
 该设备矩阵即描述的是共有128卡，按照(8, 4, 4)的形状进行排列，而每个轴分别取了别名"dp", "sp", "mp"，而对Layout进行调用传入的则是这几个轴，每个张量按照其shape选取每个维度期望映射到设备的哪个轴，同时也确定了切分的份数，如这里"dp"就表示在设备排布的最高维度的8个设备内切分8份，而"sp"表示在设备排布的中间维度的4个设备内切分4份，"mp"表示在设备排布的最低维度的4个设备内切分为4份。特别地，张量的一个维度可以映射到设备的多个维度，以表达在一个维度进行多次切分。
 
-上述例子中"[[a0, a1, a2, a3], [a4, a5, a6, a7]]"切分到不连续的卡上，可以如下通过Layout表达
+上述例子中"[[a0, a1, a2, a3], [a4, a5, a6, a7]]"切分到不连续的卡上，可以如下通过Layout表达：
 
 ```python
 from mindspore import Layout
@@ -87,7 +87,7 @@ class DenseMatMulNet(nn.Cell):
 
 ### 配置分布式环境
 
-通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，并通过init初始化HCCL或NCCL通信。`max_device_memory`限制模型最大可以的设备内存，为了在Ascend硬件平台上给通信留下足够的设备内存，GPU则不需要预留。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为半自动并行模式，并通过init初始化HCCL或NCCL通信。`max_device_memory`限制模型最大的设备内存，为了在Ascend硬件平台上给通信留下足够的设备内存，GPU则不需要预留。此处不设置`device_target`会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
 import mindspore as ms
