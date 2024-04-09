@@ -576,7 +576,7 @@ Other
 
        subgraph name (such as kernel_graph_1) : skip the execution of subgraph kernel_graph_1, used for subgraph sink mode
      - 
-   * - MS_DEV_SAVE_GRAPTHS_SORT_MODE
+   * - MS_DEV_SAVE_GRAPHS_SORT_MODE
      - Choose the sort mode of the graphs printed in the ir files.
      - Integer
      - 0: print default ir file
