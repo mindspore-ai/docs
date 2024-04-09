@@ -229,14 +229,18 @@ from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
 copy_path = 'docs/api/api_python'
-src_dir = os.path.join(os.getenv("MS_PATH"), copy_path)
+repo_path = os.getenv("MS_PATH")
+src_dir = os.path.join(repo_path, copy_path)
 des_sir = "./api_python"
 
-if not exists(src_dir):
-    logger.warning(f"不存在目录：{src_dir}！")
-if os.path.exists(des_sir):
-    shutil.rmtree(des_sir)
-shutil.copytree(src_dir, des_sir)
+def copy_source(sourcedir, des_sir):
+    if not exists(sourcedir):
+        logger.warning(f"不存在目录：{sourcedir}！")
+    if os.path.exists(des_sir):
+        shutil.rmtree(des_sir)
+    shutil.copytree(sourcedir, des_sir)
+
+copy_source(src_dir, des_sir)
 
 probability_dir = './api_python/probability'
 if os.path.exists(probability_dir):
@@ -247,18 +251,28 @@ white_list = ['mindspore.ops.comm_note.rst']
 def ops_interface_name():
     dir_list = ['mindspore.ops.primitive.rst', 'mindspore.ops.rst']
     interface_name_list = []
+    all_rst = []
+
     for i in dir_list:
-        target_path = os.path.join(os.path.dirname(__file__),'api_python',i)
+        target_path = os.path.join(src_dir, i)
         with open(target_path,'r+',encoding='utf8') as f:
             content =  f.read()
-            if interface_name_list:
-                interface_name_list = interface_name_list + re.findall("mindspore\.ops\.(\w*)",content)
-            else:
-                interface_name_list = re.findall("mindspore\.ops\.(\w*)",content)
-    all_rst = []
-    for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/ops')):
-        if j.split('.')[-1]=='rst' and 'ops.extend.' not in j and 'ops.silent_check.' not in j:
-            all_rst.append(j.split('.')[-2])
+        new_content = content
+        if interface_name_list:
+            interface_name_list = interface_name_list + re.findall("mindspore\.ops\.(\w*)", new_content)
+        else:
+            interface_name_list = re.findall("mindspore\.ops\.(\w*)", new_content)
+
+        if new_content != content and os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python', i)):
+            with open(os.path.join(os.path.dirname(__file__), 'api_python', i),'r+',encoding='utf8') as g:
+
+                g.seek(0)
+                g.truncate()
+                g.write(new_content)
+
+    for j in os.listdir(os.path.join(src_dir, 'ops')):
+        if j.split('.')[-1]=='rst' and 'ops.silent_check.' not in j:
+            all_rst.append(j.split('.')[-2].replace("func_",''))
 
     extra_interface_name = set(all_rst).difference(set(interface_name_list))
     print(extra_interface_name)
@@ -266,10 +280,10 @@ def ops_interface_name():
         with open(os.path.join(os.path.dirname(__file__),'extra_interface_del.txt'),'w+',encoding='utf8') as g:
             extra_write_list = []
             for k in extra_interface_name:
-                k = "mindspore.ops." + k +'.rst'
-                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/ops',k)) and k not in white_list:
-                    os.remove(os.path.join(os.path.dirname(__file__),'api_python/ops',k))
-                    extra_write_list.append(k)
+                extra_file = "mindspore.ops." + k +'.rst'
+                if os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python/ops', extra_file)) and extra_file not in white_list:
+                    os.remove(os.path.join(os.path.dirname(__file__), 'api_python/ops', extra_file))
+                    extra_write_list.append(extra_file)
             g.write(str(extra_write_list))
 
 # 删除并获取nn下多余的接口文件名
@@ -339,10 +353,10 @@ elif os.path.exists('../../../tools/generate_html/daily.json'):
     with open('../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
         version_inf = json.load(f)
 
-if os.getenv("MS_PATH").split('/')[-1]:
-    copy_repo = os.getenv("MS_PATH").split('/')[-1]
+if repo_path.split('/')[-1]:
+    copy_repo = repo_path.split('/')[-1]
 else:
-    copy_repo = os.getenv("MS_PATH").split('/')[-2]
+    copy_repo = repo_path.split('/')[-2]
 
 branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
@@ -395,8 +409,12 @@ except Exception as e:
     print(e)
 
 ops_interface_name()
-nn_interface_name()
-tensor_interface_name()
+
+try:
+    nn_interface_name()
+    tensor_interface_name()
+except Exception as e:
+    print(e)
 
 from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnPlatWarnAutoSummary
 
@@ -438,6 +456,7 @@ for root, dirs, files in os.walk(api_file_dir, topdown=True):
 src_release = os.path.join(os.getenv("MS_PATH"), 'RELEASE_CN.md')
 des_release = "./RELEASE.md"
 release_source = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE_CN.md)\n'
+
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
@@ -451,7 +470,7 @@ if len(re.findall("\n## (.*?)\n",data)) > 1:
 else:
     content = re.findall("(\n## [\s\S\n]*)", data)
     content = content[0]
-#result = content[0].replace('# MindSpore', '#', 1)
+
 with open(des_release, "w", encoding="utf-8") as p:
     p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content)
