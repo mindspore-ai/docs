@@ -23,6 +23,7 @@ Table 1: Configure [ascend_context] parameter
 | `aoe_mode` | Optional| [AOE](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha003/devaids/auxiliarydevtool/aoe_16_001.html) auto-tuning mode | String  | Options: "subgraph tuning", "operator tuning" or "subgraph tuning, operator tuning". Default: Not enabled |
 | `plugin_custom_ops` | Optional | Enable Ascend backend fusion optimization to generate custom operators | String  | Options include 'All' or 'None', with the default 'None' indicating that it is not enabled |
 | `custom_fusion_pattern` | Optional | Specify custom operator structures in the enabling model | String  | `custom operator type: original operator name in the model: enabled or disabled`, which can be taken as `enable` or `disable` |
+| ` op-attrs ` | Optional | Specify custom operator attributes for fusion | String | `Custom operator name:Attribute:Value`. Currently, the operator only supports `FlashAttention`, which supports three optional configuration attributes: `input_layout`, `seq_threshold`, `inner_precise`, which respectively determine whether `FlashAttention` is fused in the form of `BNSD` (default) or `BSH`, the `seq` threshold (default `0`), and high-performance (default) or high-precision for `FlashAttention` fusion |
 
 Table 2:  Configure [acl_init_options] parameter
 
