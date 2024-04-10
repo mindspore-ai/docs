@@ -63,6 +63,8 @@ def copy_source(sourcedir, des_sir, cp_rel_path, fp_list=''):
                 try:
                     if root == sourcedir and file.endswith('.rst') and file.startswith('mindspore.'):
                         continue
+                    elif root == sourcedir and file == 'mindspore.multiprocessing.md':
+                        continue
                     if not os.path.exists(os.path.join(des_sir, root.split(cp_rel_path)[-1])):
                         os.makedirs(os.path.join(
                             des_sir, root.split(cp_rel_path)[-1]))
@@ -112,7 +114,7 @@ def get_all_copy_list(pr_list, rp_n, branch, repo_path):
             other_file_path = re.findall('.. include:: (.*?)\n', raw_content)
             for j in other_file_path:
                 file_list.append(os.path.join(
-                    repo_path, '/'.join(i.split('/')[:-1]), j))
+                    repo_path, '/'.join(i.split('/')[:-1]), j.rstrip('\r\t')))
         file_list.append(os.path.join(repo_path, i))
 
     return file_list
@@ -135,7 +137,7 @@ def get_rst_en(en_list):
         api_name = re.findall(r'\.\. .*?:: (.*)', one_doc)[0]
         if 'nn.probability' in one_doc:
             generate_api_en_list.append(
-                [api_name + '.rst', 'nn_probability', ''])
+                [api_name + '.rst', 'nn_probability', '', two_doc])
             continue
         end_docs = ''
         currentmodule = '.'.join(api_name.split('.')[:-1])
@@ -221,6 +223,8 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/train', 'mindspore.train'],
         ['mindspore/python/mindspore/boost', 'mindspore.boost'],
         ['mindspore/python/mindspore/ops', 'mindspore.ops'],
+        ['mindspore/python/mindspore/nn/probability/distribution', 'mindspore.nn.probability.distribution'],
+        ['mindspore/python/mindspore/nn/probability/bijector', 'mindspore.nn.probability.bijector'],
         ['mindspore/python/mindspore/nn/extend', 'mindspore.nn.extend'],
         ['mindspore/python/mindspore/nn', 'mindspore.nn'],
         ['mindspore/python/mindspore/dataset/text', 'mindspore.dataset.text'],
@@ -228,9 +232,8 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/dataset/core/config.py', 'mindspore.dataset.config'],
         ['mindspore/python/mindspore/dataset', 'mindspore.dataset'],
         ['mindspore/python/mindspore/communication', 'mindspore.communication'],
-        ['mindspore/python/mindspore/nn/probability/distribution', 'mindspore.nn.probability.distribution'],
-        ['mindspore/python/mindspore/nn/probability/bijector', 'mindspore.nn.probability.bijector'],
         ['mindspore/python/mindspore/amp.py', 'mindspore.amp'],
+        ['mindspore/python/mindspore/numpy/fft', 'mindspore.numpy.fft'],
         ['mindspore/python/mindspore/numpy', 'mindspore.numpy'],
         ['mindspore/python/mindspore/experimental/optim/lr_scheduler.py', 'mindspore.experimental.optim.lr_scheduler'],
         ['mindspore/python/mindspore/experimental/optim', 'mindspore.experimental.optim'],
@@ -247,15 +250,24 @@ def en_file_handle(py_file_list, repo_path, dict1):
         with open(repo_py_path, 'r+', encoding='utf-8') as f:
             content = f.read()
 
-        interface_doc = re.findall(
-            r'(class|\ndef|[ ]+?def) ([^_].+?):\n.*?("""(?:.|\n|)+?)"""', content)
         interface_doc_dict = {}
+        interface_doc = re.findall(
+            r'(\nclass|\ndef|\n[ ]+?def) ([^_].+?:|[^_].+?,\n(?:.|\n|)+?)\n.*?("""(?:.|\n|)+?)"""', content)
+
         for doc in interface_doc:
-            if doc[0].startswith('\ndef'):
-                len_doc = doc[2].count('\n')
-                interface_name = doc[1].split('(')[0]
+            first_p = doc[0]
+            sec_p = doc[1]
+            third_p = doc[2]
+            if re.findall(r'(\nclass|\ndef|\n[ ]+?def) ', sec_p):
+                first_p = re.findall(r'(\nclass|\ndef|\n[ ]+?def) (.+)', sec_p)[-1][0]
+                sec_p = re.findall(r'(\nclass|\ndef|\n[ ]+?def) (.+)', sec_p)[-1][1]
+                if sec_p.startswith('_'):
+                    continue
+            if first_p.startswith('\ndef'):
+                len_doc = third_p.count('\n')
+                interface_name = sec_p.split('(')[0]
                 func_name = interface_name + '.'
-                index = content.find(doc[2])
+                index = content.find(third_p)
                 begin_line = content[:index].count('\n')
                 interface_doc_dict[func_name] = [
                     [begin_line, begin_line + len_doc + 1]]
@@ -266,10 +278,10 @@ def en_file_handle(py_file_list, repo_path, dict1):
                                 '.. autofunction:: ' + mpn[1] + '.' + func_name.replace('.', '') + f'&&&{i[0]}')
                             break
 
-            elif doc[0].startswith(' '):
-                len_doc = doc[2].count('\n')
+            elif first_p.startswith('\n '):
+                len_doc = third_p.count('\n')
                 meth_name = ""
-                index = content.find(doc[2])
+                index = content.find(third_p)
                 begin_line = content[:index].count('\n')
                 try:
                     interface_name = re.findall(
@@ -279,7 +291,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
                 except:
                     continue
                 if interface_name in ('Tensor', 'Dataset'):
-                    meth_name = doc[1].split('(')[0]
+                    meth_name = sec_p.split('(')[0]
                 if meth_name:
                     interface_doc_dict[interface_name + '.' +
                                        meth_name] = [[begin_line, begin_line + len_doc + 1]]
@@ -287,9 +299,11 @@ def en_file_handle(py_file_list, repo_path, dict1):
                     interface_doc_dict[interface_name].append(
                         [begin_line, begin_line + len_doc + 1])
             else:
-                len_doc = doc[2].count('\n')
-                interface_name = doc[1].split('(')[0]
-                index = content.find(doc[2])
+                len_doc = third_p.count('\n')
+                interface_name = sec_p.split('(')[0]
+                if interface_name.endswith(':'):
+                    interface_name = interface_name.rstrip(':')
+                index = content.find(third_p)
                 begin_line = content[:index].count('\n')
                 interface_doc_dict[interface_name] = [
                     [begin_line, begin_line + len_doc + 1]]
@@ -303,15 +317,18 @@ def en_file_handle(py_file_list, repo_path, dict1):
         if not i[1]:
             continue
 
+        print(i[1])
         # pylint: disable=R1702
         for pr_lines in i[1]:
-            fit = 0
+            # fit = 0
             for k, v in interface_doc_dict.items():
-                if fit:
-                    break
+                # if fit:
+                #     break
                 for py_lines in v:
-                    if pr_lines[0] >= py_lines[0] and py_lines[1] >= pr_lines[1]:
-                        fit = 1
+                    if pr_lines[0] > py_lines[1] or pr_lines[1] < py_lines[0]:
+                        continue
+                    else:
+                        # fit = 1
                         for mpn in module_path_name:
                             if mpn[0] in repo_py_path:
                                 if k.endswith('.'):
@@ -335,7 +352,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
                                 generate_interface_list.append(
                                     '.. autoclass:: ' + 'mindspore' + '.' + k + f'&&&{i[0]}')
 
-                        break
+                        # break
 
     return list(set(generate_interface_list))
 
@@ -503,19 +520,19 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
             diff_doc = []
             if len(diff_arr_num) == 1:
                 diff_doc.append(
-                    re.findall(rf'@@ .*? \+{diff_arr_num[0][0]},{diff_arr_num[0][1]} @@ ((?:.|\n|)+)', diff_file)[0])
+                    re.findall(rf'@@ .*? \+{diff_arr_num[0][0]},{diff_arr_num[0][1]} @@((?:.|\n|)+)', diff_file)[0])
             else:
                 for k in range(len(diff_arr_num)):
                     dv = diff_arr_num[k]
                     if k+1 == len(diff_arr_num):
                         diff_doc.append(re.findall(
-                            rf'@@ .*? \+{diff_arr_num[k][0]},{diff_arr_num[k][1]} @@ ((?:.|\n|)+)', diff_file)[0])
+                            rf'@@ .*? \+{diff_arr_num[k][0]},{diff_arr_num[k][1]} @@((?:.|\n|)+)', diff_file)[0])
                     else:
                         dv1 = diff_arr_num[k+1]
-                        if re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@ ((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
+                        if re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
                                       diff_file):
                             diff_doc.append(
-                                re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@ ((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
+                                re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
                                            diff_file)[0])
                     # else:
                     #     diff_doc.append(re.findall(f'@@ .*? \+{diff_arr_num[k][0]},{diff_arr_num[k][1]} @@ ((?:.|\n|)+)', diff_file)[0])
@@ -523,6 +540,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                     # diff_doc.append(diff_file.split('@@')[-1])
 
             print(diff_arr_num)
+
             for j in range(len(diff_arr_num)):
                 diff_doc1 = diff_doc[j].replace('\\n', '//n')
                 diff_arr1 = min(diff_doc1.find('\n-'), diff_doc1.find('\n+'))
@@ -558,8 +576,8 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
 
         generate_pr_list_en_yaml_auto = yaml_file_handle(
             pr_file_yaml, rp_dir, split_dict)
+        print(generate_pr_list_en_yaml_auto)
         generate_apien_yaml_list = get_rst_en(generate_pr_list_en_yaml_auto)
-        print(generate_apien_yaml_list)
         for i in generate_apien_yaml_list:
             if i[2]:
                 if not os.path.exists(os.path.join(generate_path, 'source_en', 'api_python', i[1])):
@@ -570,8 +588,8 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
 
     if pr_file_py:
         generate_pr_list_en_auto = en_file_handle(pr_file_py, rp_dir, split_dict)
+        print(generate_pr_list_en_auto)
         generate_apien_list = get_rst_en(generate_pr_list_en_auto)
-        print(generate_apien_list)
         for i in generate_apien_list:
             if i[2]:
                 if not os.path.exists(os.path.join(generate_path, 'source_en', 'api_python', i[1])):

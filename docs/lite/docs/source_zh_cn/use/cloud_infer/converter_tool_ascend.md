@@ -23,6 +23,7 @@
 | `aoe_mode` | 可选 | [AOE](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha003/devaids/auxiliarydevtool/aoe_16_001.html)自动调优模式 | String  | 可选有"subgraph tuning"、"operator tuning"或者"subgraph tuning、operator tuning"，默认不使能 |
 | `plugin_custom_ops` | 可选 | 用于使能ascend后端融合优化生成自定义算子 | String  | 可选有"All"或者"None"，默认"None"表示不使能 |
 | `custom_fusion_pattern` | 可选 | 指定使能模型中的自定义算子结构 | String  | `自定义算子类型:模型中原始算子名称:是否使能`，可以取值为`enable`或者`disable` |
+| `op_attrs` | 可选 | 指定融合的自定义算子属性 | String | `自定义算子名:属性:值`，目前算子仅支持`FlashAttention`，该算子支持3种可选配置属性：`input_layout`，`seq_threshold`，`inner_precise`，分别决定`FlashAttention`以`BNSD`（默认）或`BSH`形式进行融合、融合`FlashAttention`的`seq`阈值（默认`0`）、高性能（默认）或高精度 |
 
 表2：配置[acl_init_options]参数
 

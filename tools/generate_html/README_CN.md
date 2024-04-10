@@ -40,6 +40,7 @@
     | id | 计数用 | 否 |
     | name | 组件的名称 | 是 |
     | branch | 组件的分支 | 是 |
+    | html_version | 组件在官网网址上的版本 | 是 |
     | whl_path | 组件whl安装包的文件夹路径 | 是 |
     | whl_name | 组件whl安装包的名称 | 是 |
     | environ | 组件仓库需要配置的环境变量名 | 是 |

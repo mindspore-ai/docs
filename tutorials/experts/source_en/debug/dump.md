@@ -398,7 +398,7 @@ MindSpore provides debugging capabilities for large networks through asynchronou
     }
     ```
 
-    - `dump_mode`: 0: all operator data in the network dumped out; 1: dump kernels data in kernels list; 2: dump the kernels data specified by `set_dump` in the scripts, see [mindspore.dump](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_dump.html) for the usage of `set_dump`. When overflow detection is enabled, the setting of this field becomes invalid, and Dump only saves the data of the overflow node.
+    - `dump_mode`: 0: all operator data in the network dumped out; 1: dump kernels data in kernels list. When overflow detection is enabled, the setting of this field becomes invalid, and Dump only saves the data of the overflow node.
     - `path`: The absolute path to save Dump data. When [jit_level](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level) is set to 'O0', MindSpore will create a new subdirectory for each step in the path directory.
     - `net_name`: The customized net name: "ResNet50".
     - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped. When overflow detection is enabled for PyNative mode, it must be set to "all".
