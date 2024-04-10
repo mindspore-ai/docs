@@ -647,6 +647,8 @@ def make_html(generate_path, pre_path, cn_flag, en_flag, branch, js_data):
             # pylint: disable=W0612
             _, stderr = process.communicate()
             process.wait()
+            if process.returncode != 0:
+                print(stderr)
 
             TARGET = os.path.join(pre_path, f"{generate_dir}/en/{branch}")
             os.makedirs(os.path.dirname(TARGET), exist_ok=True)
@@ -657,7 +659,6 @@ def make_html(generate_path, pre_path, cn_flag, en_flag, branch, js_data):
         # pylint: disable=W0702
         except:
             print(f"English Version run failed!")
-            print(stderr)
             js_data[0]['English']['result'] = 'FAILURE'
             # md_h += '\n| English Version | FAILURE |'
 
@@ -675,6 +676,8 @@ def make_html(generate_path, pre_path, cn_flag, en_flag, branch, js_data):
             # pylint: disable=W0612
             _, stderr = process.communicate()
             process.wait()
+            if process.returncode != 0:
+                print(stderr)
 
             TARGET = f"{pre_path}/{generate_dir}/zh-CN/{branch}"
             os.makedirs(os.path.dirname(TARGET), exist_ok=True)
@@ -685,7 +688,6 @@ def make_html(generate_path, pre_path, cn_flag, en_flag, branch, js_data):
         # pylint: disable=W0702
         except:
             print(f"Chinese Version run failed!")
-            print(stderr)
             js_data[0]['Chinese']['result'] = 'FAILURE'
             # md_h += '\n| Chinese Version | FAILURE |'
     return js_data, generate_dir
