@@ -233,6 +233,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/dataset', 'mindspore.dataset'],
         ['mindspore/python/mindspore/communication', 'mindspore.communication'],
         ['mindspore/python/mindspore/amp.py', 'mindspore.amp'],
+        ['mindspore/python/mindspore/numpy/fft', 'mindspore.numpy.fft'],
         ['mindspore/python/mindspore/numpy', 'mindspore.numpy'],
         ['mindspore/python/mindspore/experimental/optim/lr_scheduler.py', 'mindspore.experimental.optim.lr_scheduler'],
         ['mindspore/python/mindspore/experimental/optim', 'mindspore.experimental.optim'],
@@ -319,15 +320,15 @@ def en_file_handle(py_file_list, repo_path, dict1):
         print(i[1])
         # pylint: disable=R1702
         for pr_lines in i[1]:
-            fit = 0
+            # fit = 0
             for k, v in interface_doc_dict.items():
-                if fit:
-                    break
+                # if fit:
+                #     break
                 for py_lines in v:
                     if pr_lines[0] > py_lines[1] or pr_lines[1] < py_lines[0]:
                         continue
                     else:
-                        fit = 1
+                        # fit = 1
                         for mpn in module_path_name:
                             if mpn[0] in repo_py_path:
                                 if k.endswith('.'):
@@ -351,7 +352,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
                                 generate_interface_list.append(
                                     '.. autoclass:: ' + 'mindspore' + '.' + k + f'&&&{i[0]}')
 
-                        break
+                        # break
 
     return list(set(generate_interface_list))
 
@@ -519,19 +520,19 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
             diff_doc = []
             if len(diff_arr_num) == 1:
                 diff_doc.append(
-                    re.findall(rf'@@ .*? \+{diff_arr_num[0][0]},{diff_arr_num[0][1]} @@ ((?:.|\n|)+)', diff_file)[0])
+                    re.findall(rf'@@ .*? \+{diff_arr_num[0][0]},{diff_arr_num[0][1]} @@((?:.|\n|)+)', diff_file)[0])
             else:
                 for k in range(len(diff_arr_num)):
                     dv = diff_arr_num[k]
                     if k+1 == len(diff_arr_num):
                         diff_doc.append(re.findall(
-                            rf'@@ .*? \+{diff_arr_num[k][0]},{diff_arr_num[k][1]} @@ ((?:.|\n|)+)', diff_file)[0])
+                            rf'@@ .*? \+{diff_arr_num[k][0]},{diff_arr_num[k][1]} @@((?:.|\n|)+)', diff_file)[0])
                     else:
                         dv1 = diff_arr_num[k+1]
-                        if re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@ ((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
+                        if re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
                                       diff_file):
                             diff_doc.append(
-                                re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@ ((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
+                                re.findall(rf'@@ .*? \+{dv[0]},{dv[1]} @@((?:.|\n|)+?)@@ .*? \+{dv1[0]},{dv1[1]}',
                                            diff_file)[0])
                     # else:
                     #     diff_doc.append(re.findall(f'@@ .*? \+{diff_arr_num[k][0]},{diff_arr_num[k][1]} @@ ((?:.|\n|)+)', diff_file)[0])
@@ -539,6 +540,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                     # diff_doc.append(diff_file.split('@@')[-1])
 
             print(diff_arr_num)
+
             for j in range(len(diff_arr_num)):
                 diff_doc1 = diff_doc[j].replace('\\n', '//n')
                 diff_arr1 = min(diff_doc1.find('\n-'), diff_doc1.find('\n+'))
@@ -574,8 +576,8 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
 
         generate_pr_list_en_yaml_auto = yaml_file_handle(
             pr_file_yaml, rp_dir, split_dict)
+        print(generate_pr_list_en_yaml_auto)
         generate_apien_yaml_list = get_rst_en(generate_pr_list_en_yaml_auto)
-        print(generate_apien_yaml_list)
         for i in generate_apien_yaml_list:
             if i[2]:
                 if not os.path.exists(os.path.join(generate_path, 'source_en', 'api_python', i[1])):
@@ -586,8 +588,8 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
 
     if pr_file_py:
         generate_pr_list_en_auto = en_file_handle(pr_file_py, rp_dir, split_dict)
+        print(generate_pr_list_en_auto)
         generate_apien_list = get_rst_en(generate_pr_list_en_auto)
-        print(generate_apien_list)
         for i in generate_apien_list:
             if i[2]:
                 if not os.path.exists(os.path.join(generate_path, 'source_en', 'api_python', i[1])):
@@ -655,6 +657,7 @@ def make_html(generate_path, pre_path, cn_flag, en_flag, branch, js_data):
         # pylint: disable=W0702
         except:
             print(f"English Version run failed!")
+            print(stderr)
             js_data[0]['English']['result'] = 'FAILURE'
             # md_h += '\n| English Version | FAILURE |'
 
@@ -682,6 +685,7 @@ def make_html(generate_path, pre_path, cn_flag, en_flag, branch, js_data):
         # pylint: disable=W0702
         except:
             print(f"Chinese Version run failed!")
+            print(stderr)
             js_data[0]['Chinese']['result'] = 'FAILURE'
             # md_h += '\n| Chinese Version | FAILURE |'
     return js_data, generate_dir
