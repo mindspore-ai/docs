@@ -489,8 +489,6 @@ release_source = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
-    data = re.sub("\n## MindSpore 2.3.0-rc1[\s\S\n]*?\n## ", "\n## ", data)
-    data = re.sub("\n## MindSpore 2.2.13[\s\S\n]*?\n## ", "\n## ", data)
     content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
     repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
     content_new = ''
