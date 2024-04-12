@@ -664,31 +664,31 @@ def make_html(generate_path, pre_path, cn_flag, en_flag, branch, js_data):
 
     # 输出中文
     if cn_flag:
-        try:
-            with open("Makefile", "r+") as f:
-                content = f.read()
-                content_mod = content.replace("source_en", "source_zh_cn").replace("build_en", "build_zh_cn")
-                f.seek(0)
-                f.truncate()
-                f.write(content_mod)
-            cmd_make = ["make", "html"]
-            process = subprocess.Popen(cmd_make, stderr=subprocess.PIPE, encoding="utf-8")
-            # pylint: disable=W0612
-            _, stderr = process.communicate()
-            process.wait()
-            if process.returncode != 0:
-                print(stderr)
+        # try:
+        with open("Makefile", "r+") as f:
+            content = f.read()
+            content_mod = content.replace("source_en", "source_zh_cn").replace("build_en", "build_zh_cn")
+            f.seek(0)
+            f.truncate()
+            f.write(content_mod)
+        cmd_make = ["make", "html"]
+        process = subprocess.Popen(cmd_make, stderr=subprocess.PIPE, encoding="utf-8")
+        # pylint: disable=W0612
+        _, stderr = process.communicate()
+        process.wait()
+        if process.returncode != 0:
+            print(stderr)
 
-            TARGET = f"{pre_path}/{generate_dir}/zh-CN/{branch}"
-            os.makedirs(os.path.dirname(TARGET), exist_ok=True)
-            shutil.copytree("build_zh_cn/html", TARGET)
-            js_data[0]['Chinese']['link'] = f'{generate_dir}/zh-CN/{branch}/index.html'
-            js_data[0]['Chinese']['result'] = 'SUCCESS'
+        TARGET = f"{pre_path}/{generate_dir}/zh-CN/{branch}"
+        os.makedirs(os.path.dirname(TARGET), exist_ok=True)
+        shutil.copytree("build_zh_cn/html", TARGET)
+        js_data[0]['Chinese']['link'] = f'{generate_dir}/zh-CN/{branch}/index.html'
+        js_data[0]['Chinese']['result'] = 'SUCCESS'
             # md_h += f'\n| [Chinese Version]({generate_dir}/zh-CN/{branch}/index.html) | SUCCESS |'
         # pylint: disable=W0702
-        except:
-            print(f"Chinese Version run failed!")
-            js_data[0]['Chinese']['result'] = 'FAILURE'
+        # except:
+        #     print(f"Chinese Version run failed!")
+        #     js_data[0]['Chinese']['result'] = 'FAILURE'
             # md_h += '\n| Chinese Version | FAILURE |'
     return js_data, generate_dir
 
