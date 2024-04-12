@@ -74,3 +74,6 @@
     | pd | 每日构建网站的密码 | 否 | 全部 |
     | wgetdir | 每日构建网站网址 | 否 | 全部 |
     | single_generate | 单独构建某个组件 | 否 | >= r2.2 |
+
+    注意：如果单独构建某些组件时，其中的组件依赖于未构建的组件安装包，则给予single_generate参数时需要带上依赖的组件名称。
+    比如只想单独构建golden_stick组件，但是由于golden_stick依赖于mindformers，所以要写成 ``--single_generate="golden_stick, mindformers"`` 。
