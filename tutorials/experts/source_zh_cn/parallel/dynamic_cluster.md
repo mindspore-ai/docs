@@ -105,7 +105,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left">是否使用CM方式初始化HCCL。</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">1代表是，其他值代表否。默认为否。</td>
-        <td align="left">此环境变量只在<b>Ascend硬件平台并且通信域数量较多</b>的情况下建议开启。开启此环境变量后，能够降低HCCL集合通信库的内存占用，并且训练任务执行方式与<b>rank table</b>启动方式相同<br>将此环境变量设置为1时，无法设置GRAPH_OP_RUN为1，否则MindSpore提示<code>Environment variable settings conflict</code>错误。</td>
+        <td align="left">此环境变量只在<b>Ascend硬件平台并且通信域数量较多</b>的情况下建议开启。开启此环境变量后，能够降低HCCL集合通信库的内存占用，并且训练任务执行方式与<b>rank table</b>启动方式相同<br>将此环境变量设置为1时，无法设置JitConfig接口的jit_level为'O0'，否则MindSpore提示<code>Environment variable settings conflict</code>错误。</td>
     </tr>
 </table>
 

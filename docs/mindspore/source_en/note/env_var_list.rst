@@ -161,16 +161,6 @@ Graph Compilation
 
        No setting or other value: Do not print compilation progress information.
      -
-   * - GRAPH_OP_RUN
-     - When running the pipeline large network model in task sinking mode in graph mode, it may not be able to start as expected due to the limitation of stream resources. 
-       This environment variable can specify the execution mode of the graph mode. 
-       Set this variable to 0, indicating that model will be executed in non-task sinking mode which is the default execution mode. 
-       Set this variable to 1, indicating a non-task sinking mode, which has no flow restrictions, but has degraded performance.
-     - Integer
-     - 0: task sinking mode.
-
-       1: non-task sinking mode.
-     - 
    * - MS_KERNEL_LAUNCH_SKIP
      - Specifies the kernel or subgraph to skip during execution.
      - String

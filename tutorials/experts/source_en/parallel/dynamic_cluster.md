@@ -105,7 +105,7 @@ The relevant environment variables:
         <td align="left">Whether to use the CM method to initialize the HCCL.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">1 for yes, other values for no. The default is no.</td>
-        <td align="left">This environment variable is only recommended to be turned on for <b>Ascend hardware platforms with a large number of communication domains</b>. Turning on this environment variable reduces the memory footprint of the HCCL collection of communication libraries, and the training tasks are executed in the same way as <b>rank table</b> startup method.<br>When it is set to 1, GRAPH_OP_RUN can't be set to 1, otherwise <code>Environment variable settings conflict</code> exception will be thrown by MindSpore.</td>
+        <td align="left">This environment variable is only recommended to be turned on for <b>Ascend hardware platforms with a large number of communication domains</b>. Turning on this environment variable reduces the memory footprint of the HCCL collection of communication libraries, and the training tasks are executed in the same way as <b>rank table</b> startup method.<br>When it is set to 1, jit_level of JitConfig interface can't be set to 'O0', otherwise <code>Environment variable settings conflict</code> exception will be thrown by MindSpore.</td>
     </tr>
 </table>
 
