@@ -121,18 +121,30 @@ import inspect as inspect_
 def get_param_func(func):
     try:
         source_code = inspect_.getsource(func)
-        if func.__doc__:
-            source_code = source_code.replace(func.__doc__, '')
-        all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
-        if "@classmethod" in source_code:
-            all_params = re.sub("(self|cls)(,|, )?", '', all_params_str[0][0].replace("\n", ""))
+        all_params = ''
+        if hasattr(func, '__dataclass_fields__'):
+            for k, v in getattr(func, '__dataclass_fields__').items():
+                if hasattr(v, 'default'):
+                    all_params += f'{k} = {v.default}, '
+                else:
+                    all_params += f'{k}, '
+            all_params = all_params.strip(', ')
         else:
-            all_params = re.sub("(self)(,|, )?", '', all_params_str[0][0].replace("\n", ""))
+            if func.__doc__:
+                source_code = source_code.replace(func.__doc__, '')
+            all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
+            if "@classmethod" in source_code:
+                all_params = re.sub("(self|cls)(,|, )?", '', all_params_str[0][0].replace("\n", ""))
+            else:
+                all_params = re.sub("(self)(,|, )?", '', all_params_str[0][0].replace("\n", ""))
         return all_params
     except:
         return ''
 
 def get_obj(obj):
+    if getattr(obj, '__dataclass_fields__', None):
+        return obj
+
     if isinstance(obj, type):
         return obj.__init__
 
