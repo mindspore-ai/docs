@@ -173,6 +173,7 @@ SPONGE暑期学校第二季 <https://www.bilibili.com/video/BV1pB4y167yS?spm_id_
    sponge.optimizer
    sponge.potential
    sponge.system
+   sponge.metrics
    constant
 
 .. toctree::
