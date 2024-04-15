@@ -282,9 +282,9 @@ def ops_interface_name():
             for name in func_adjust:
                 new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
         if interface_name_list:
-            interface_name_list = interface_name_list + re.findall("mindspore\.ops\.(\w*)", new_content)
+            interface_name_list = interface_name_list + re.findall("(mindspore\.ops\.\w*)", new_content)
         else:
-            interface_name_list = re.findall("mindspore\.ops\.(\w*)", new_content)
+            interface_name_list = re.findall("(mindspore\.ops\.\w*)", new_content)
 
         if new_content != content and os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python', i)):
             with open(os.path.join(os.path.dirname(__file__), 'api_python', i),'r+',encoding='utf8') as g:
@@ -295,7 +295,7 @@ def ops_interface_name():
 
     for j in os.listdir(os.path.join(src_dir, 'ops')):
         if j.split('.')[-1]=='rst' and 'ops.silent_check.' not in j:
-            all_rst.append(j.split('.')[-2].replace("func_",''))
+            all_rst.append(j.replace('.rst', '').replace("func_", ''))
 
     extra_interface_name = set(all_rst).difference(set(interface_name_list))
     print(extra_interface_name)
@@ -303,7 +303,7 @@ def ops_interface_name():
         with open(os.path.join(os.path.dirname(__file__),'extra_interface_del.txt'),'w+',encoding='utf8') as g:
             extra_write_list = []
             for k in extra_interface_name:
-                extra_file = "mindspore.ops." + k +'.rst'
+                extra_file = k +'.rst'
                 if os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python/ops', extra_file)) and extra_file not in white_list:
                     os.remove(os.path.join(os.path.dirname(__file__), 'api_python/ops', extra_file))
                     extra_write_list.append(extra_file)
