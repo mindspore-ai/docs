@@ -17,7 +17,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 |     device      |            Indicates the Tensor storage location             |
 |  requires_grad  |           Indicates whether to update the gradient           |
 |    generator    |        Indicates a generator for pseudorandom number         |
-|   pin_memeory   |         Indicates whether to use locking page memory         |
+|   pin_memory   |         Indicates whether to use locking page memory         |
 |  memory_format  |          Indicates the memory format of the Tensor           |
 |     stable      |           Indicates whether the sorting is stable            |
 |     inplace     | Indicates that the value of a variable is modified directly without changing the memory address of the variable |
