@@ -40,7 +40,7 @@ Because of the framework mechanism, MindSpore does not provide the following par
 |     device      |            Indicates the Tensor storage location             |Including device type and optional device number, MindSpore currently supports operator or network-level device scheduling.|
 |  requires_grad  |           Indicates whether to update the gradient           |MindSpore can be accessed through the `Parameter.requires_grad` attribute to control.|
 |    generator    |        Indicates a generator for pseudorandom number         |In MindSpore, replaced with the parameter `seed` of the APIs of random number.|
-|   pin_memeory   |         Indicates whether to use locking page memory         |Not supported in MindSpore.|
+|   pin_memory   |         Indicates whether to use locking page memory         |Not supported in MindSpore.|
 |  memory_format  |          Indicates the memory format of the Tensor           |Not supported in MindSpore.|
 |     stable      |           Indicates whether the sorting is stable            |Generally used in the API of Sorting algorithm, not supported in MindSpore.|
 |     inplace     | Indicates that the value of a variable is modified directly without changing the memory address of the variable |MindSpore currently provides some inplace APIs, such as `assign_add`.|
