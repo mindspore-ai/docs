@@ -287,7 +287,7 @@ The basic usage scenarios of 'List' are as follows:
   def list_func(x):
       return x
 
-  output = list_func()  # output: [1, 2, 3, 4]
+  output = list_func(list_input)  # output: [1, 2, 3, 4]
   ```
 
   It should be noted that when 'List' is input as a static graph, it is always treated as a constant, regardless of the type of element inside it.
@@ -519,7 +519,7 @@ The basic usage scenarios of 'List' are as follows:
 
       Basic semantics: insert 'target_obj' into the 'index' bit of 'list_object'.
 
-      The 'index' requirement must be a constant 'int'. If the length of 'list_object' is 'list_obj_size'. When 'index < -list_obj_size', insert the first place in 'List'. When 'index >= -list_obj_size', insert at the end of 'List'. A negative 'index' represents the number of digits from back to front.
+      The 'index' requirement must be a constant 'int'. If the length of 'list_object' is 'list_obj_size'. When 'index < -list_obj_size', insert the first place in 'List'. When 'index >= list_obj_size', insert at the end of 'List'. A negative 'index' represents the number of digits from back to front.
 
       Examples are as follows:
 
@@ -1049,7 +1049,7 @@ The execution graph in graph mode is converted from source code, and not all Pyt
    ```python
    import mindspore as ms
 
-   ms.set_context(mode=ms.GRAPH_MODE)
+   ms.set_context(mode=ms.GRAPH_MODE, jit_syntax_level=ms.STRICT)
 
    class GetattrClass():
        def __init__(self):
@@ -1314,7 +1314,7 @@ The specific usage scenarios are as follows:
       x.reverse()
       return x
 
-  output = list_func()  # output: [4, 3, 2, 1]  list_input: [1, 2, 3, 4]
+  output = list_func(list_input)  # output: [4, 3, 2, 1]  list_input: [1, 2, 3, 4]
   assert id(output) != id(list_input)
   ```
 
