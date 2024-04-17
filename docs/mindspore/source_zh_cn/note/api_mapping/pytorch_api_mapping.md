@@ -17,7 +17,7 @@
 |    device     |                 表示Tensor存放位置                 |
 | requires_grad |                  表示是否更新梯度                  |
 |   generator   |                 表示伪随机数生成器                 |
-|  pin_memeory  |                表示是否使用锁页内存                |
+|  pin_memory  |                表示是否使用锁页内存                |
 | memory_format |                表示Tensor的内存格式                |
 |    stable     |                  表示是否稳定排序                  |
 |    inplace    | 表示在不更改变量内存地址的情况下，直接修改变量的值 |
