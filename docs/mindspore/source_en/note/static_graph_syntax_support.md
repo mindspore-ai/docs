@@ -287,7 +287,7 @@ The basic usage scenarios of 'List' are as follows:
   def list_func(x):
       return x
 
-  output = list_func()  # output: [1, 2, 3, 4]
+  output = list_func(list_input)  # output: [1, 2, 3, 4]
   ```
 
   It should be noted that when 'List' is input as a static graph, it is always treated as a constant, regardless of the type of element inside it.
@@ -519,7 +519,7 @@ The basic usage scenarios of 'List' are as follows:
 
       Basic semantics: insert 'target_obj' into the 'index' bit of 'list_object'.
 
-      The 'index' requirement must be a constant 'int'. If the length of 'list_object' is 'list_obj_size'. When 'index < -list_obj_size', insert the first place in 'List'. When 'index >= -list_obj_size', insert at the end of 'List'. A negative 'index' represents the number of digits from back to front.
+      The 'index' requirement must be a constant 'int'. If the length of 'list_object' is 'list_obj_size'. When 'index < -list_obj_size', insert the first place in 'List'. When 'index >= list_obj_size', insert at the end of 'List'. A negative 'index' represents the number of digits from back to front.
 
       Examples are as follows:
 
@@ -1042,42 +1042,6 @@ The execution graph in graph mode is converted from source code, and not all Pyt
 
 6. Python provides a number of third-party libraries that usually need to be called via import statements. In graph mode, when the JIT syntax support level is 'STRICT', you cannot directly use third-party libraries. If you need to use the data types of third-party libraries in graph mode or call methods of third-party libraries, you need to support them only if the JIT syntax support level option 'jit_syntax_level' is 'LAX', please refer to the [Calling the Third-party Libraries](#calling-the-third-party-libraries) section in [Extended Syntaxes (LAX level)](#extended-syntaxes-lax-level) of this article.
 
-7. In graph mode, when the JIT syntax support level is 'STRICT', you cannot directly use objects, properties, and methods of custom classes. If you need to use custom classes in graph mode, refer to the [Supporting the Use of Custom Classes](#supporting-the-use-of-custom-classes) section of [Extended Syntaxes (LAX level)](#extended-syntaxes-lax-level) in this article.
-
-   For example:
-
-   ```python
-   import mindspore as ms
-
-   ms.set_context(mode=ms.GRAPH_MODE)
-
-   class GetattrClass():
-       def __init__(self):
-           self.attr1 = 99
-           self.attr2 = 1
-
-       def method1(self, x):
-           return x + self.attr2
-
-   class GetattrClassNet(ms.nn.Cell):
-       def __init__(self):
-           super(GetattrClassNet, self).__init__()
-           self.cls = GetattrClass()
-
-       def construct(self):
-           return self.cls.method1(self.cls.attr1)
-
-   net = GetattrClassNet()
-   out = net()
-   assert out == 100
-   ```
-
-    There will be related errors:
-
-    ```Text
-    TypeError: Do not support to convert <class '__main__.GetattrClass'> object into graph node.
-    ```
-
 ## Extended Syntaxes (LAX level)
 
 The following mainly introduces the static graph syntax supported by the current extension.
@@ -1314,7 +1278,7 @@ The specific usage scenarios are as follows:
       x.reverse()
       return x
 
-  output = list_func()  # output: [4, 3, 2, 1]  list_input: [1, 2, 3, 4]
+  output = list_func(list_input)  # output: [4, 3, 2, 1]  list_input: [1, 2, 3, 4]
   assert id(output) != id(list_input)
   ```
 
