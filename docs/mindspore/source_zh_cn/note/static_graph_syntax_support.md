@@ -287,7 +287,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
   def list_func(x):
       return x
 
-  output = list_func()  # output: [1, 2, 3, 4]
+  output = list_func(list_input)  # output: [1, 2, 3, 4]
   ```
 
   需要注意的是，`List`作为静态图输入时，无论其内部的元素是什么类型，一律被视为常量。
@@ -519,7 +519,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
         基础语义：将`target_obj`插入到`list_object`的第`index`位。
 
-        `index`要求必须为常量`int`。如果`list_object`的长度为`list_obj_size`。当`index < -list_obj_size`时，插入到`List`的第一位。当`index >= -list_obj_size`时，插入到`List`的最后。`index`为负数代表从后往前的位数。
+        `index`要求必须为常量`int`。如果`list_object`的长度为`list_obj_size`。当`index < -list_obj_size`时，插入到`List`的第一位。当`index >= list_obj_size`时，插入到`List`的最后。`index`为负数代表从后往前的位数。
 
         示例如下：
 
@@ -1049,7 +1049,7 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
    ```python
    import mindspore as ms
 
-   ms.set_context(mode=ms.GRAPH_MODE)
+   ms.set_context(mode=ms.GRAPH_MODE, jit_syntax_level=ms.STRICT)
 
    class GetattrClass():
        def __init__(self):
@@ -1314,7 +1314,7 @@ True
       x.reverse()
       return x
 
-  output = list_func()  # output: [4, 3, 2, 1]  list_input: [1, 2, 3, 4]
+  output = list_func(list_input)  # output: [4, 3, 2, 1]  list_input: [1, 2, 3, 4]
   assert id(output) != id(list_input)
   ```
 
