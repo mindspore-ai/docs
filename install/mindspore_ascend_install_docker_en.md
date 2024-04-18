@@ -1,8 +1,8 @@
-# Installing MindSpore in Ascend 910 by Docker
+# Installing MindSpore in Ascend by Docker
 
 <!-- TOC -->
 
-- [Installing MindSpore in Ascend 910 by Docker](#installing-mindspore-in-ascend-910-by-docker)
+- [Installing MindSpore in Ascend by Docker](#installing-mindspore-in-ascend-by-docker)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
     - [Obtaining MindSpore Image](#obtaining-mindspore-image)
@@ -16,7 +16,7 @@
 
 [Docker](https://docs.docker.com/get-docker/) is an open source application container engine, and developers can package their applications and dependencies into a lightweight, portable container. By using Docker, MindSpore can be rapidly deployed and separated from the system environment.
 
-This document describes how to install MindSpore by Docker on Linux in an Ascend 910 environment.
+This document describes how to install MindSpore by Docker on Linux in an Ascend environment.
 
 The Docker image of MindSpore is hosted on [Huawei SWR](https://support.huaweicloud.com/swr/index.html).
 
@@ -122,7 +122,7 @@ MindSpore version: __version__
 The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
 ```
 
-So far, it means MindSpore Ascend 910 has been installed by Docker successfully.
+So far, it means MindSpore Ascend has been installed by Docker successfully.
 
 ii:
 
@@ -153,7 +153,7 @@ The outputs should be the same as:
    [2. 2. 2. 2.]]]]
 ```
 
-So far, it means MindSpore Ascend 910 has been installed by Docker successfully.
+So far, it means MindSpore Ascend has been installed by Docker successfully.
 
 If you need to verify the MindSpore Insight installation:
 

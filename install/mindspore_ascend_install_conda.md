@@ -1,8 +1,8 @@
-# Conda方式安装MindSpore Ascend 910版本
+# Conda方式安装MindSpore Ascend版本
 
 <!-- TOC -->
 
-- [Conda方式安装MindSpore Ascend 910版本](#conda方式安装mindspore-ascend-910版本)
+- [Conda方式安装MindSpore Ascend版本](#conda方式安装mindspore-ascend版本)
     - [自动安装](#自动安装)
     - [手动安装](#手动安装)
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
@@ -20,7 +20,7 @@
 
 [Conda](https://docs.conda.io/en/latest/)是一个开源跨平台语言无关的包管理与环境管理系统，允许用户方便地安装不同版本的二进制软件包与该计算平台需要的所有库。
 
-本文档介绍如何在Ascend 910环境的Linux系统上，使用Conda方式快速安装MindSpore。
+本文档介绍如何在Ascend环境的Linux系统上，使用Conda方式快速安装MindSpore。
 
 - 如果想在一个已经配置好昇腾AI处理器配套软件包的EulerOS 2.8上通过Conda安装MindSpore，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-conda.sh)进行一键式安装，参见[自动安装](#自动安装)小节。自动安装脚本会安装MindSpore及其所需的依赖。
 
