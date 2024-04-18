@@ -1,8 +1,8 @@
-# Installing MindSpore in Ascend 910 by Source Code
+# Installing MindSpore in Ascend by Source Code
 
 <!-- TOC -->
 
-- [Installing MindSpore in Ascend 910 by Source Code](#installing-mindspore-in-ascend-910-by-source-code)
+- [Installing MindSpore in Ascend by Source Code](#installing-mindspore-in-ascend-by-source-code)
     - [Environment Preparation-automatic recommended](#environment-preparation-automatic-recommended)
     - [Environment Preparation-manual](#environment-preparation-manual)
         - [Installing Python](#installing-python)
@@ -23,7 +23,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/install/mindspore_ascend_install_source_en.md)
 
-This document describes how to install MindSpore by compiling source code on Linux in an Ascend 910 environment.
+This document describes how to install MindSpore by compiling source code on Linux in an Ascend environment.
 
 - If you want to configure an environment that can compile MindSpore on EulerOS 2.8 with Ascend AI processor software package installed, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r2.3/scripts/install/euleros-ascend-source.sh) for one-click configuration, see [Environment Preparation -automatic, recommended](#environment-preparation-automatic-recommended) section. The script will automatically install the dependencies required to compile MindSpore.
 

@@ -1,8 +1,8 @@
-# Installing MindSpore in Ascend 910 by pip
+# Installing MindSpore in Ascend by pip
 
 <!-- TOC -->
 
-- [Installing MindSpore in Ascend 910 by pip](#installing-mindspore-in-ascend-910-by-pip)
+- [Installing MindSpore in Ascend by pip](#installing-mindspore-in-ascend-by-pip)
     - [Automatic Installation](#automatic-installation)
     - [Manual Installation](#manual-installation)
         - [Installing Python](#installing-python)
@@ -17,7 +17,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/install/mindspore_ascend_install_pip_en.md)
 
-This document describes how to install MindSpore by pip on Linux in an Ascend 910 environment.
+This document describes how to install MindSpore by pip on Linux in an Ascend environment.
 
 - If you want to install MindSpore by pip on EulerOS 2.8 with the configured Ascend AI processor software package. you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r2.3/scripts/install/euleros-ascend-pip.sh) for one-click installation. For details, see [Automatic Installation](#automatic-installation). The script will automatically install MindSpore and its required dependencies.
 

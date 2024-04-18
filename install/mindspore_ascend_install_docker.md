@@ -1,8 +1,8 @@
-# Docker方式安装MindSpore Ascend 910版本
+# Docker方式安装MindSpore Ascend版本
 
 <!-- TOC -->
 
-- [Docker方式安装MindSpore Ascend 910版本](#docker方式安装mindspore-ascend-910版本)
+- [Docker方式安装MindSpore Ascend版本](#docker方式安装mindspore-ascend版本)
     - [确认系统环境信息](#确认系统环境信息)
     - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
     - [获取MindSpore镜像](#获取mindspore镜像)
@@ -16,7 +16,7 @@
 
 [Docker](https://docs.docker.com/get-docker/)是一个开源的应用容器引擎，让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中。通过使用Docker，可以实现MindSpore的快速部署，并与系统环境隔离。
 
-本文档介绍如何在Ascend 910环境的Linux系统上，使用Docker方式快速安装MindSpore。
+本文档介绍如何在Ascend环境的Linux系统上，使用Docker方式快速安装MindSpore。
 
 MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/swr/index.html)上。
 
@@ -122,7 +122,7 @@ MindSpore version: 版本号
 The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
 ```
 
-至此，你已经成功通过Docker方式安装了MindSpore Ascend 910版本。
+至此，你已经成功通过Docker方式安装了MindSpore Ascend版本。
 
 方法二：
 
@@ -153,7 +153,7 @@ print(ops.add(x, y))
    [2. 2. 2. 2.]]]]
 ```
 
-至此，你已经成功通过Docker方式安装了MindSpore Ascend 910版本。
+至此，你已经成功通过Docker方式安装了MindSpore Ascend版本。
 
 验证MindSpore Insight安装：
 
