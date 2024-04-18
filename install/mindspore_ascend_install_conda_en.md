@@ -1,8 +1,8 @@
-# Installing MindSpore Ascend 910 by Conda
+# Installing MindSpore Ascend by Conda
 
 <!-- TOC -->
 
-- [Installing MindSpore Ascend 910 by Conda](#installing-mindspore-ascend-910-by-conda)
+- [Installing MindSpore Ascend by Conda](#installing-mindspore-ascend-by-conda)
     - [Automatic Installation](#automatic-installation)
     - [Manual Installation](#manual-installation)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
@@ -21,7 +21,7 @@
 
 [Conda](https://docs.conda.io/en/latest/) is an open-source, cross-platform, language-agnostic package manager and environment management system. It allows users to easily install different versions of binary software packages and any required libraries appropriate for their computing platform.
 
-This document describes how to install MindSpore by Conda on Linux in an Ascend 910 environment.
+This document describes how to install MindSpore by Conda on Linux in an Ascend environment.
 
 - If you want to install MindSpore by Conda on EulerOS 2.8 with Ascend AI processor software package installed, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-conda.sh) for one-click installation. For details, see [Automatic Installation](#automatic-installation). The script will automatically install MindSpore and its required dependencies.
 

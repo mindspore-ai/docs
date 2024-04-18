@@ -1,8 +1,8 @@
-# pip方式安装MindSpore Ascend 910 Nightly版本
+# pip方式安装MindSpore Ascend Nightly版本
 
 <!-- TOC -->
 
-- [pip方式安装MindSpore Ascend 910 Nightly版本](#pip方式安装mindspore-ascend-910-200-nightly版本)
+- [pip方式安装MindSpore Ascend Nightly版本](#pip方式安装mindspore-ascend-200-nightly版本)
     - [安装MindSpore与依赖软件](#安装mindspore与依赖软件)
         - [安装Python](#安装python)
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
@@ -18,7 +18,7 @@
 
 MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可能未经完整的测试与验证，希望体验最新功能或者问题修复的用户可以使用该版本。
 
-本文档介绍如何在Ascend 910环境的Linux系统上，使用pip方式快速安装MindSpore Nightly。
+本文档介绍如何在Ascend环境的Linux系统上，使用pip方式快速安装MindSpore Nightly。
 
 ## 安装MindSpore与依赖软件
 
