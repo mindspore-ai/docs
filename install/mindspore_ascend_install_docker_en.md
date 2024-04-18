@@ -1,8 +1,8 @@
-# Installing MindSpore in Ascend 910 by Docker
+# Installing MindSpore in Ascend by Docker
 
 <!-- TOC -->
 
-- [Installing MindSpore in Ascend 910 by Docker](#installing-mindspore-in-ascend-910-by-docker)
+- [Installing MindSpore in Ascend by Docker](#installing-mindspore-in-ascend-by-docker)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
     - [Obtaining MindSpore Image](#obtaining-mindspore-image)
@@ -16,7 +16,7 @@
 
 [Docker](https://docs.docker.com/get-docker/) is an open source application container engine, and developers can package their applications and dependencies into a lightweight, portable container. By using Docker, MindSpore can be rapidly deployed and separated from the system environment.
 
-This document describes how to install MindSpore by Docker on Linux in an Ascend 910 environment.
+This document describes how to install MindSpore by Docker on Linux in an Ascend environment.
 
 The Docker image of MindSpore is hosted on [Huawei SWR](https://support.huaweicloud.com/swr/index.html).
 
@@ -26,7 +26,7 @@ The current support for containerized build options is as follows:
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
 | Ascend | `mindspore/mindspore-ascend` | `x.y.z` | The production environment of MindSpore Ascend x.y.z together with the corresponding version of Ascend Data Center Solution. |
 
-> `x.y.z` corresponds to the MindSpore version number. For example, when MindSpore version 2.2.0 is installed, `x.y.z` should be written as 2.2.0.
+> `x.y.z` corresponds to the MindSpore version number. For example, when MindSpore version 2.3.0rc1 is installed, `x.y.z` should be written as 2.3.0rc1.
 
 ## System Environment Information Confirmation
 
@@ -38,9 +38,9 @@ The current support for containerized build options is as follows:
 
 Ascend software package provides two distributions, commercial edition and community edition:
 
-- Commercial edition needs approval from Ascend to download, for detailed installation guide, please refer to [Ascend Training Solution 23.0.RC3](https://support.huawei.com/enterprise/zh/doc/EDOC1100336282).
+- Commercial edition needs approval from Ascend to download, release date is TBD.
 
-- Community edition has no restrictions, choose `7.0.RC1.beta1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
+- Community edition has no restrictions, release date is TBD.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
@@ -122,7 +122,7 @@ MindSpore version: __version__
 The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
 ```
 
-So far, it means MindSpore Ascend 910 has been installed by Docker successfully.
+So far, it means MindSpore Ascend has been installed by Docker successfully.
 
 ii:
 
@@ -153,7 +153,7 @@ The outputs should be the same as:
    [2. 2. 2. 2.]]]]
 ```
 
-So far, it means MindSpore Ascend 910 has been installed by Docker successfully.
+So far, it means MindSpore Ascend has been installed by Docker successfully.
 
 If you need to verify the MindSpore Insight installation:
 

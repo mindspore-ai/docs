@@ -1,8 +1,8 @@
-# 源码编译方式安装MindSpore Ascend 910版本
+# 源码编译方式安装MindSpore Ascend版本
 
 <!-- TOC -->
 
-- [源码编译方式安装MindSpore Ascend 910版本](#源码编译方式安装mindspore-ascend-910版本)
+- [源码编译方式安装MindSpore Ascend版本](#源码编译方式安装mindspore-ascend版本)
     - [环境准备-自动 推荐](#环境准备-自动-推荐)
     - [环境准备-手动](#环境准备-手动)
         - [安装Python](#安装python)
@@ -23,7 +23,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/install/mindspore_ascend_install_source.md)
 
-本文档介绍如何在Ascend 910环境的Linux系统上，使用源码编译方式快速安装MindSpore。
+本文档介绍如何在Ascend环境的Linux系统上，使用源码编译方式快速安装MindSpore。
 
 - 如果您想在一个已经配置好昇腾AI处理器配套软件包的EulerOS 2.8上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/r2.3.q1/scripts/install/euleros-ascend-source.sh)进行一键式配置，参见[环境准备-自动，推荐](#环境准备-自动-推荐)小节。自动安装脚本会安装编译MindSpore所需的依赖。
 
@@ -125,9 +125,9 @@ python --version
 
 昇腾软件包提供商用版和社区版两种下载途径：
 
-- 商用版下载需要申请权限，下载链接与安装方式请参考[Ascend Training Solution 23.0.RC3 安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100336282)。
+- 商用版下载需要申请权限，下载链接即将发布。
 
-- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，选择`7.0.RC1.beta1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
+- 社区版下载不受限制，下载链接即将发布。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
