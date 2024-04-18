@@ -1,8 +1,8 @@
-# Installing MindSpore Nightly in Ascend 910 by pip
+# Installing MindSpore Nightly in Ascend by pip
 
 <!-- TOC -->
 
-- [Installing MindSpore Nightly in Ascend 910 by pip](#installing-mindspore-200-nightly-in-ascend-910-by-pip)
+- [Installing MindSpore Nightly in Ascend by pip](#installing-mindspore-200-nightly-in-ascend-by-pip)
     - [Installing MindSpore and dependencies](#installing-mindspore-and-dependencies)
         - [Installing Python](#installing-python)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
@@ -18,7 +18,7 @@
 
 MindSpore Nightly is a preview version which includes latest features and bugfixes, not fully supported and tested. Install MindSpore Nightly version if you wish to try out the latest features or bug fixes can use this version.
 
-This document describes how to install MindSpore by pip on Linux in an Ascend 910 environment.
+This document describes how to install MindSpore by pip on Linux in an Ascend environment.
 
 ## Installing MindSpore and dependencies
 
