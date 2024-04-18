@@ -1,8 +1,8 @@
-# Conda方式安装MindSpore Ascend 910版本
+# Conda方式安装MindSpore Ascend版本
 
 <!-- TOC -->
 
-- [Conda方式安装MindSpore Ascend 910版本](#conda方式安装mindspore-ascend-910版本)
+- [Conda方式安装MindSpore Ascend版本](#conda方式安装mindspore-ascend版本)
     - [自动安装](#自动安装)
     - [手动安装](#手动安装)
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
@@ -20,7 +20,7 @@
 
 [Conda](https://docs.conda.io/en/latest/)是一个开源跨平台语言无关的包管理与环境管理系统，允许用户方便地安装不同版本的二进制软件包与该计算平台需要的所有库。
 
-本文档介绍如何在Ascend 910环境的Linux系统上，使用Conda方式快速安装MindSpore。
+本文档介绍如何在Ascend环境的Linux系统上，使用Conda方式快速安装MindSpore。
 
 - 如果想在一个已经配置好昇腾AI处理器配套软件包的EulerOS 2.8上通过Conda安装MindSpore，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/r2.3.q1/scripts/install/euleros-ascend-conda.sh)进行一键式安装，参见[自动安装](#自动安装)小节。自动安装脚本会安装MindSpore及其所需的依赖。
 
@@ -84,9 +84,9 @@ conda activate mindspore_py37
 
 昇腾软件包提供商用版和社区版两种下载途径：
 
-- 商用版下载需要申请权限，下载链接与安装方式请参考[Ascend Training Solution 23.0.RC3 安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100336282)。
+- 商用版下载需要申请权限，下载链接即将发布。
 
-- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，选择`7.0.RC1.beta1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
+- 社区版下载不受限制，下载链接即将发布。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 

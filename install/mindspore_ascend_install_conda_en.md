@@ -1,8 +1,8 @@
-# Installing MindSpore Ascend 910 by Conda
+# Installing MindSpore Ascend by Conda
 
 <!-- TOC -->
 
-- [Installing MindSpore Ascend 910 by Conda](#installing-mindspore-ascend-910-by-conda)
+- [Installing MindSpore Ascend by Conda](#installing-mindspore-ascend-by-conda)
     - [Automatic Installation](#automatic-installation)
     - [Manual Installation](#manual-installation)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
@@ -21,7 +21,7 @@
 
 [Conda](https://docs.conda.io/en/latest/) is an open-source, cross-platform, language-agnostic package manager and environment management system. It allows users to easily install different versions of binary software packages and any required libraries appropriate for their computing platform.
 
-This document describes how to install MindSpore by Conda on Linux in an Ascend 910 environment.
+This document describes how to install MindSpore by Conda on Linux in an Ascend environment.
 
 - If you want to install MindSpore by Conda on EulerOS 2.8 with Ascend AI processor software package installed, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r2.3.q1/scripts/install/euleros-ascend-conda.sh) for one-click installation. For details, see [Automatic Installation](#automatic-installation). The script will automatically install MindSpore and its required dependencies.
 
@@ -85,9 +85,9 @@ The following describes how to install the third-party dependencies.
 
 Ascend software package provides two distributions, commercial edition and community edition:
 
-- Commercial edition needs approval from Ascend to download, for detailed installation guide, please refer to [Ascend Training Solution 23.0.RC3](https://support.huawei.com/enterprise/zh/doc/EDOC1100336282).
+- Commercial edition needs approval from Ascend to download, release date is TBD.
 
-- Community edition has no restrictions, choose `7.0.RC1.beta1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
+- Community edition has no restrictions, release date is TBD.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 

@@ -1,8 +1,8 @@
-# Installing MindSpore Nightly in Ascend 910 by pip
+# Installing MindSpore Nightly in Ascend by pip
 
 <!-- TOC -->
 
-- [Installing MindSpore Nightly in Ascend 910 by pip](#installing-mindspore-200-nightly-in-ascend-910-by-pip)
+- [Installing MindSpore Nightly in Ascend by pip](#installing-mindspore-200-nightly-in-ascend-by-pip)
     - [Installing MindSpore and dependencies](#installing-mindspore-and-dependencies)
         - [Installing Python](#installing-python)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
@@ -18,7 +18,7 @@
 
 MindSpore Nightly is a preview version which includes latest features and bugfixes, not fully supported and tested. Install MindSpore Nightly version if you wish to try out the latest features or bug fixes can use this version.
 
-This document describes how to install MindSpore by pip on Linux in an Ascend 910 environment.
+This document describes how to install MindSpore by pip on Linux in an Ascend environment.
 
 ## Installing MindSpore and dependencies
 
@@ -73,9 +73,9 @@ python -m pip install -U pip
 
 Ascend software package provides two distributions, commercial edition and community edition:
 
-- Commercial edition needs approval from Ascend to download, for detailed installation guide, please refer to [Ascend Training Solution 23.0.RC3](https://support.huawei.com/enterprise/zh/doc/EDOC1100336282).
+- Commercial edition needs approval from Ascend to download, release date is TBD.
 
-- Community edition has no restrictions, choose `7.0.RC1.beta1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
+- Community edition has no restrictions, release date is TBD.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 

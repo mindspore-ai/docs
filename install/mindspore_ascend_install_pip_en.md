@@ -1,8 +1,8 @@
-# Installing MindSpore in Ascend 910 by pip
+# Installing MindSpore in Ascend by pip
 
 <!-- TOC -->
 
-- [Installing MindSpore in Ascend 910 by pip](#installing-mindspore-in-ascend-910-by-pip)
+- [Installing MindSpore in Ascend by pip](#installing-mindspore-in-ascend-by-pip)
     - [Automatic Installation](#automatic-installation)
     - [Manual Installation](#manual-installation)
         - [Installing Python](#installing-python)
@@ -17,7 +17,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/install/mindspore_ascend_install_pip_en.md)
 
-This document describes how to install MindSpore by pip on Linux in an Ascend 910 environment.
+This document describes how to install MindSpore by pip on Linux in an Ascend environment.
 
 - If you want to install MindSpore by pip on EulerOS 2.8 with the configured Ascend AI processor software package. you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r2.3.q1/scripts/install/euleros-ascend-pip.sh) for one-click installation. For details, see [Automatic Installation](#automatic-installation). The script will automatically install MindSpore and its required dependencies.
 
@@ -31,9 +31,9 @@ Run the following command to obtain and run the automatic installation script. T
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/r2.3.q1/scripts/install/euleros-ascend-pip.sh
-# install MindSpore 2.2.0 and Python 3.7
+# install MindSpore 2.3.0rc1 and Python 3.7
 # the default value of LOCAL_ASCEND is /usr/local/Ascend
-MINDSPORE_VERSION=2.2.0 bash -i ./euleros-ascend-pip.sh
+MINDSPORE_VERSION=2.3.0rc1 bash -i ./euleros-ascend-pip.sh
 # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.6.0 as examples
 # and set LOCAL_ASCEND to /home/xxx/Ascend, use the following manners
 # LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.6.0 bash -i ./euleros-ascend-pip.sh
@@ -117,9 +117,9 @@ python -m pip install -U pip
 
 Ascend software package provides two distributions, commercial edition and community edition:
 
-- Commercial edition needs approval from Ascend to download, for detailed installation guide, please refer to [Ascend Training Solution 23.0.RC3](https://support.huawei.com/enterprise/zh/doc/EDOC1100336282).
+- Commercial edition needs approval from Ascend to download, release date is TBD.
 
-- Community edition has no restrictions, choose `7.0.RC1.beta1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
+- Community edition has no restrictions, release date is TBD.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
@@ -168,10 +168,10 @@ The LD_LIBRARY_PATH environment variable does not work when the installation pac
 
 ### Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.2.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.3.0rc1 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=2.2.0
+export MS_VERSION=2.3.0rc1
 ```
 
 Then run the following commands to install MindSpore according to the system architecture and Python version.
