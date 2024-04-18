@@ -287,7 +287,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
   def list_func(x):
       return x
 
-  output = list_func()  # output: [1, 2, 3, 4]
+  output = list_func(list_input)  # output: [1, 2, 3, 4]
   ```
 
   需要注意的是，`List`作为静态图输入时，无论其内部的元素是什么类型，一律被视为常量。
@@ -519,7 +519,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
         基础语义：将`target_obj`插入到`list_object`的第`index`位。
 
-        `index`要求必须为常量`int`。如果`list_object`的长度为`list_obj_size`。当`index < -list_obj_size`时，插入到`List`的第一位。当`index >= -list_obj_size`时，插入到`List`的最后。`index`为负数代表从后往前的位数。
+        `index`要求必须为常量`int`。如果`list_object`的长度为`list_obj_size`。当`index < -list_obj_size`时，插入到`List`的第一位。当`index >= list_obj_size`时，插入到`List`的最后。`index`为负数代表从后往前的位数。
 
         示例如下：
 
@@ -1042,42 +1042,6 @@ ret:(Tensor(shape=[1], dtype=Int64, value= [1]), Tensor(shape=[1], dtype=Int64, 
 
 6. Python提供了很多第三方库，通常需要通过import语句调用。在图模式下JIT语法支持级别为STRICT时，不能直接使用第三方库。如果需要在图模式下使用第三方库的数据类型或者调用第三方库的方法，需要在JIT语法支持级别选项`jit_syntax_level`为`LAX`时才支持，更多请参考本文的[扩展语法（LAX级别）](#扩展语法lax级别)中的[调用第三方库](#调用第三方库)章节。
 
-7. 在图模式下JIT语法支持级别为STRICT时，不能直接使用自定义类的对象，属性和方法。如果需要在图模式下使用自定义类的信息，更多请参考本文的[扩展语法（LAX级别）](#扩展语法lax级别)中的[支持自定义类的使用](#支持自定义类的使用)章节。
-
-   例如：
-
-   ```python
-   import mindspore as ms
-
-   ms.set_context(mode=ms.GRAPH_MODE)
-
-   class GetattrClass():
-       def __init__(self):
-           self.attr1 = 99
-           self.attr2 = 1
-
-       def method1(self, x):
-           return x + self.attr2
-
-   class GetattrClassNet(ms.nn.Cell):
-       def __init__(self):
-           super(GetattrClassNet, self).__init__()
-           self.cls = GetattrClass()
-
-       def construct(self):
-           return self.cls.method1(self.cls.attr1)
-
-   net = GetattrClassNet()
-   out = net()
-   assert out == 100
-   ```
-
-   将会有相关报错：
-
-   ```Text
-   TypeError: Do not support to convert <class '__main__.GetattrClass'> object into graph node.
-   ```
-
 ## 扩展语法（LAX级别）
 
 下面主要介绍当前扩展支持的静态图语法。
@@ -1314,7 +1278,7 @@ True
       x.reverse()
       return x
 
-  output = list_func()  # output: [4, 3, 2, 1]  list_input: [1, 2, 3, 4]
+  output = list_func(list_input)  # output: [4, 3, 2, 1]  list_input: [1, 2, 3, 4]
   assert id(output) != id(list_input)
   ```
 
