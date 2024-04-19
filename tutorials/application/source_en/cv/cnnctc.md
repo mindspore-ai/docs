@@ -2,8 +2,6 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.2/tutorials/application/source_en/cv/cnnctc.md)
 
-> You can run this case on a GPU or CPU in dynamic graph mode. Other devices and running modes will be supported in later versions.
-
 ## Model Introduction
 
 ### Text Recognition Process
