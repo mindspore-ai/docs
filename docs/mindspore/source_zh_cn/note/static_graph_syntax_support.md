@@ -1473,7 +1473,7 @@ res: 2
   图模式下支持对自定义类对象的属性进行设置与修改，例如：
 
   ```python
-  import mindspore import jit
+  from mindspore import jit
 
   class AssignClass():
       def __init__(self):
@@ -1499,7 +1499,7 @@ res: 2
   图模式下支持对第三方库对象的属性进行设置与修改，例如：
 
   ```python
-  import mindspore import jit
+  from mindspore import jit
   import numpy as np
 
   @jit
