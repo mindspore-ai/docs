@@ -1473,7 +1473,7 @@ The specific usage scenarios are as follows:
 In graph mode, you can set and modify the properties of custom class objects, such as:
 
 ```python
-import mindspore import jit
+from mindspore import jit
 
 class AssignClass():
     def __init__(self):
@@ -1499,7 +1499,7 @@ obj.x is: 100
 In graph mode, you can set and modify the properties of third-party library objects, such as:
 
 ```python
-import mindspore import jit
+from mindspore import jit
 import numpy as np
 
 @jit
