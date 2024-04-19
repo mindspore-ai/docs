@@ -100,14 +100,6 @@ MindSpore Lite Documentation
    troubleshooting_guide
    log
 
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: RELEASE NOTES
-   :hidden:
-
-   RELEASE
-
 .. raw:: html
 
     <div class="container">
