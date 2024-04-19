@@ -285,7 +285,7 @@ index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 
 （2）安装wheel 0.32.0
 
-```shel
+```shell
 ms-sd@mssd:~$ sudo pip3 install wheel==0.32.0
 ```
 
