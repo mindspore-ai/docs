@@ -15,6 +15,7 @@ import shutil
 import IPython
 import re
 import sys
+import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
 
 import mindinsight
@@ -94,6 +95,10 @@ intersphinx_mapping = {
     'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../../resource/numpy_objects.inv'),
 }
 
+# overwriteautosummary_generate add view source for api and more autosummary class availably.
+with open('../_ext/overwriteautosummary_generate.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), g.__dict__)
+
 # Modify default signatures for autodoc.
 autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
 autodoc_source_re = re.compile(r'stringify_signature\(.*?\)')
@@ -125,6 +130,30 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+# get params for add view source
+import json
+
+if os.path.exists('../../../../tools/generate_html/version.json'):
+    with open('../../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily_dev.json'):
+    with open('../../../../tools/generate_html/daily_dev.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+elif os.path.exists('../../../../tools/generate_html/daily.json'):
+    with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
+        version_inf = json.load(f)
+
+if os.getenv("MI_PATH").split('/')[-1]:
+    copy_repo = os.getenv("MI_PATH").split('/')[-1]
+else:
+    copy_repo = os.getenv("MI_PATH").split('/')[-2]
+
+branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
+docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
+cst_module_name = 'mindinsight'
+repo_whl = 'mindinsight'
+giturl = 'https://gitee.com/mindspore/'
+
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 # import anchor_mod
 import nbsphinx_mod
@@ -137,9 +166,17 @@ from custom_directives import IncludeCodeDirective
 
 def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
+    app.add_config_value('docs_branch', '', True)
+    app.add_config_value('branch', '', True)
+    app.add_config_value('cst_module_name', '', True)
+    app.add_config_value('copy_repo', '', True)
+    app.add_config_value('giturl', '', True)
+    app.add_config_value('repo_whl', '', True)
 
 src_release = os.path.join(os.getenv("MI_PATH"), 'RELEASE.md')
 des_release = "./RELEASE.md"
+release_source = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
+
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
@@ -148,5 +185,5 @@ else:
     content = re.findall("(## [\s\S\n]*)", data)
 #result = content[0].replace('# MindInsight', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes\n\n")
+    p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content[0])
