@@ -93,7 +93,7 @@ MindSpore仍在持续迭代中，部分功能目前存在限制，在网络迁�
     - 网络执行过程中有引发shape变化的API时：
          如果遇到该场景引入动态shape，本质是需要将动态变化的值修改为固定的shape来解决问题。
          如TopK算子，若执行过程中K是变化的，则会引入动态shape。
-         解决方法：可先固定一个最大目标数，先按静态shape获取所有目标的置信度，再选择K个最高的目标作为结果输出，其他目标通过mask机制去除。示例代码如[FasterRCNN](https://gitee.com/mindspore/models/blob/master/official/cv/FasterRCNN/src/FasterRcnn/faster_rcnn.py)的multiclass_nms接口。
+         解决方法：可先固定一个最大目标数，先按静态shape获取所有目标的置信度，再选择K个最高的目标作为结果输出，其他目标通过mask机制去除。示例代码如[FasterRCNN](https://gitee.com/mindspore/models/blob/r2.3/official/cv/FasterRCNN/src/FasterRcnn/faster_rcnn.py)的multiclass_nms接口。
 
     - 控制流不同分支引入shape上的变化时：
          可尝试用equal、select算子替换if条件，示例代码如下：
@@ -127,8 +127,8 @@ MindSpore网络迁移过程中，主要的问题为：精度问题和性能问�
 #### 可视化数据集
 
 MindRecord是MindSpore开发的一种高效数据格式，当出现精度问题时，可先检查自己的数据是否处理正确。
-如果源数据为TFRecord，可通过[TFRecord转换成MindRecord](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/parallel_tfrecord_to_mindrecord.py)工具，将源数据转为MindRecord直接送入网络进行精度对比。
-也可通过[可视化TFRecord或MindRecord数据集](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/vis_tfrecord_or_mindrecord.py)工具，可视化数据进行数据检查。
+如果源数据为TFRecord，可通过[TFRecord转换成MindRecord](https://gitee.com/mindspore/models/blob/r2.3/official/nlp/Bert/src/tools/parallel_tfrecord_to_mindrecord.py)工具，将源数据转为MindRecord直接送入网络进行精度对比。
+也可通过[可视化TFRecord或MindRecord数据集](https://gitee.com/mindspore/models/blob/r2.3/official/nlp/Bert/src/tools/vis_tfrecord_or_mindrecord.py)工具，可视化数据进行数据检查。
 
 #### TroubleShooter
 

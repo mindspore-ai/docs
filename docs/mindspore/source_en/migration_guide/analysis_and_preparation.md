@@ -93,7 +93,7 @@ Currently MindSpore dynamic shape feature is under iterative development, and th
     - There is an API that triggers a shape change during network execution:
          If this scenario is encountered to introduce a dynamic shape, the essence is that the dynamically changing values need to be modified to a fixed shape to solve the problem.
          As in the case of the TopK operator, if K is changing during execution, a dynamic shape is introduced.
-         Solution: You can fix a maximum number of targets, first get the confidence level of all targets by static shape, then choose the K number of highest targets as the result output, and other targets are removed by mask mechanism. Sample code such as the multiclass_nms interface of [FasterRCNN](https://gitee.com/mindspore/models/blob/master/official/cv/FasterRCNN/src/FasterRcnn/faster_rcnn.py).
+         Solution: You can fix a maximum number of targets, first get the confidence level of all targets by static shape, then choose the K number of highest targets as the result output, and other targets are removed by mask mechanism. Sample code such as the multiclass_nms interface of [FasterRCNN](https://gitee.com/mindspore/models/blob/r2.3/official/cv/FasterRCNN/src/FasterRcnn/faster_rcnn.py).
 
     - Different branches of the control flow introduce changes on the shape:
          You can try to use equal, select operators to replace the if condition. Sample code is as follows:
@@ -127,8 +127,8 @@ Here are a few of the main tools used for positioning accuracy issues:
 #### Visualizing the Dataset
 
 MindRecord is an efficient data format developed by MindSpore that allows you to first check that your data is processed correctly when accuracy issues arise.
-If the source data is TFRecord, it can be converted to MindRecord by [TFRecord to MindRecord](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/parallel_tfrecord_to_mindrecord.py) tool, and sent directly to the network for accuracy comparison.
-Use [visualize TFRecord or MindRecord datasets](https://gitee.com/mindspore/models/blob/master/official/nlp/Bert/src/tools/vis_tfrecord_or_mindrecord.py) tool to visualize the data for data checking.
+If the source data is TFRecord, it can be converted to MindRecord by [TFRecord to MindRecord](https://gitee.com/mindspore/models/blob/r2.3/official/nlp/Bert/src/tools/parallel_tfrecord_to_mindrecord.py) tool, and sent directly to the network for accuracy comparison.
+Use [visualize TFRecord or MindRecord datasets](https://gitee.com/mindspore/models/blob/r2.3/official/nlp/Bert/src/tools/vis_tfrecord_or_mindrecord.py) tool to visualize the data for data checking.
 
 #### TroubleShooter
 

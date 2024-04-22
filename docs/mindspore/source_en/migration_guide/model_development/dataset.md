@@ -62,7 +62,7 @@ You can see the following differences between MindSpore and PyTorch in reading c
    When drop_remainder=False, the last batch will not be drop, the total batch number is 32
    ```
 
-   The batch operation can also use some augmentation operations within batch, see [YOLOv3](https://gitee.com/mindspore/models/blob/master/official/cv/YOLOv3/src/yolo_dataset.py#L177) for details.
+   The batch operation can also use some augmentation operations within batch, see [YOLOv3](https://gitee.com/mindspore/models/blob/r2.3/official/cv/YOLOv3/src/yolo_dataset.py#L177) for details.
 
    As mentioned above, **the dataset loading API contains the same parameters**. Here are some common ones:
 
