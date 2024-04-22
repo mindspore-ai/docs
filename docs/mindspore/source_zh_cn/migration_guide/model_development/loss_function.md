@@ -1,6 +1,6 @@
 # 损失函数
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindspore/source_zh_cn/migration_guide/model_development/loss_function.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindspore/source_zh_cn/migration_guide/model_development/loss_function.md)
 
 在阅读本章节之前，请先阅读MindSpore官网教程[损失函数](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc1/advanced/modules/loss.html)。
 
