@@ -602,3 +602,4 @@ Dump生成的原始数据文件也可以使用MindSpore Insight的数据解析�
 - `bfloat16`类型的算子保存到`npy`文件时，会转换成`float32`类型。
 - Dump仅支持bool、int、int8、in16、int32、int64、uint、uint8、uint16、uint32、uint64、float、float16、float32、float64、bfloat16、double类型数据的保存。
 - Print算子内部有一个输入参数为string类型，string类型不属于Dump支持的数据类型，所以在脚本中包含Print算子时，会有错误日志，这不会影响其它类型数据的保存。
+- 使能ACL dump时，不支持溢出Dump。
