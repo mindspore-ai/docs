@@ -6,7 +6,7 @@
 
 在MindSpore发布的鹏程·盘古模型[1]中，我们看到借助多维度自动混合并行可以实现超大规模Transformer网络的分布式训练。这篇文章将从网络脚本出发，详解模型各个组成部分的切分方式。
 
-> 完整代码可以参考：[pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha)
+> 完整代码可以参考：[pangu_alpha](https://gitee.com/mindspore/models/tree/r2.3/official/nlp/Pangu_alpha)
 
 目录结构如下，执行操作可详见README：
 

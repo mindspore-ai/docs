@@ -6,7 +6,7 @@
 
 In the PengCheng·PanGu model [1] published by MindSpore, we see that distributed training of very large Transformer networks can be achieved with the help of multi-dimensional automatic hybrid parallelism. This article will explain the sharding method of each component in the model in detail, starting from the network script.
 
-> For the complete code, refer to [pangu_alpha](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha)
+> For the complete code, refer to [pangu_alpha](https://gitee.com/mindspore/models/tree/r2.3/official/nlp/Pangu_alpha)
 
 The directory structure is as follows, detailed execute command please refer to README:
 

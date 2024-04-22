@@ -15,7 +15,7 @@ Image classification model is to identity what an image represents, to predict t
 | Petal       | 0.7893 |
 | Flowerpot   | 0.6171 |
 
-Use MindSpore Lite to realize image classification [example](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification).
+Use MindSpore Lite to realize image classification [example](https://gitee.com/mindspore/models/tree/r2.3/official/lite/image_classification).
 
 ## Image Classification Model List
 

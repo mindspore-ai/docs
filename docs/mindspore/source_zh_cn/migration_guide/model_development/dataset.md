@@ -62,7 +62,7 @@ MindSpore提供了很多不同领域的[常见数据集的加载接口](https://
    When drop_remainder=False, the last batch will not be drop, the total batch number is 32
    ```
 
-   batch操作也可以使用一些batch内的增强操作，详情可参考[YOLOv3](https://gitee.com/mindspore/models/blob/master/official/cv/YOLOv3/src/yolo_dataset.py#L177)。
+   batch操作也可以使用一些batch内的增强操作，详情可参考[YOLOv3](https://gitee.com/mindspore/models/blob/r2.3/official/cv/YOLOv3/src/yolo_dataset.py#L177)。
 
    上面提到的**数据集加载API含有相同的参数**，在这里介绍一些常用的：
 
