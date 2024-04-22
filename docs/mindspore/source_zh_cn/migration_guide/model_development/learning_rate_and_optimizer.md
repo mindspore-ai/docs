@@ -1,6 +1,6 @@
 # 学习率与优化器
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindspore/source_zh_cn/migration_guide/model_development/learning_rate_and_optimizer.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindspore/source_zh_cn/migration_guide/model_development/learning_rate_and_optimizer.md)
 
 在阅读本章节之前，请先阅读MindSpore官网教程[优化器](https://mindspore.cn/tutorials/zh-CN/r2.3.0rc1/advanced/modules/optimizer.html)。
 

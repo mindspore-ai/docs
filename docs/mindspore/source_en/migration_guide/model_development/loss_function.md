@@ -1,6 +1,6 @@
 # Loss Function
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindspore/source_en/migration_guide/model_development/loss_function.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindspore/source_en/migration_guide/model_development/loss_function.md)
 
 Before reading this chapter, please read the MindSpore official website tutorial first[Loss Function](https://www.mindspore.cn/tutorials/en/r2.3.0rc1/advanced/modules/loss.html).
 
