@@ -284,7 +284,8 @@ import tarfile
 from sphinx.util import logging
 import shutil
 logger = logging.getLogger(__name__)
-src_dir = os.path.join(os.getenv("MS_PATH"), 'docs/api/lite_api_python_en')
+repo_path = os.getenv("MS_PATH")
+src_dir = os.path.join(repo_path, 'docs/api/lite_api_python_en')
 
 for i in os.listdir(src_dir):
     if os.path.isfile(os.path.join(src_dir,i)):
@@ -299,6 +300,23 @@ for i in os.listdir(src_dir):
 lite_dir = './mindspore_lite'
 if os.path.exists(lite_dir):
     shutil.rmtree(lite_dir)
+
+# replace py_files that have too many errors.
+decorator_list = [("mindspore_lite/converter.py", "mindspore/lite/python/api/converter.py"),
+                  ("mindspore_lite/model.py", "mindspore/lite/python/api/model.py"),
+                  ("mindspore_lite/tensor.py", "mindspore/lite/python/api/tensor.py")]
+
+base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+for i in decorator_list:
+    try:
+        if os.path.exists(os.path.join(base_path, os.path.normpath(i[0]))):
+            os.remove(os.path.join(base_path, os.path.normpath(i[0])))
+            shutil.copy(os.path.join(repo_path, i[1]),os.path.join(base_path, os.path.normpath(i[0])))
+        else:
+            print(f'{i[0]}文件不存在')
+    except:
+        print(f'{i[0]}替换失败')
+        continue
 
 # Repair error content defined in mindspore_lite.
 try:
@@ -320,31 +338,6 @@ except:
     pass
 
 # modify urls
-re_url = r"(((gitee.com/mindspore/(mindspore|docs))|(github.com/mindspore-ai/(mindspore|docs))|" + \
-         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
-         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
-
-with open(os.path.join('./mindspore_lite.rst'), 'r+', encoding='utf-8') as f:
-    content = f.read()
-    new_content = re.sub(re_url, r'\1/r2.3', content)
-    if new_content != content:
-        f.seek(0)
-        f.truncate()
-        f.write(new_content)
-
-base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
-for cur, _, files in os.walk(os.path.join(base_path, 'mindspore_lite')):
-    for i in files:
-        if i.endswith('.py'):
-            with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
-                content = f.read()
-                new_content = re.sub(re_url, r'\1/r2.3', content)
-                if new_content != content:
-                    f.seek(0)
-                    f.truncate()
-                    f.write(new_content)
-
-# modify urls
 import json
 
 if os.path.exists('../../../../tools/generate_html/version.json'):
@@ -357,10 +350,10 @@ elif os.path.exists('../../../../tools/generate_html/daily.json'):
     with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
         version_inf = json.load(f)
 
-if os.getenv("MS_PATH").split('/')[-1]:
-    copy_repo = os.getenv("MS_PATH").split('/')[-1]
+if repo_path.split('/')[-1]:
+    copy_repo = repo_path.split('/')[-1]
 else:
-    copy_repo = os.getenv("MS_PATH").split('/')[-2]
+    copy_repo = repo_path.split('/')[-2]
 
 branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
