@@ -185,6 +185,111 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+repo_path = os.getenv("MS_PATH")
+
+# replace py_files that have too many errors.
+decorator_list = [("mindspore/_extends/parse/parser.py", "mindspore/python/mindspore/_extends/parse/parser.py"),
+                  ("mindspore/amp.py", "mindspore/python/mindspore/amp.py"),
+                  ("mindspore/common/api.py", "mindspore/python/mindspore/common/api.py"),
+                  ("mindspore/common/dtype.py", "mindspore/python/mindspore/common/dtype.py"),
+                  ("mindspore/common/dump.py", "mindspore/python/mindspore/common/dump.py"),
+                  ("mindspore/common/initializer.py", "mindspore/python/mindspore/common/initializer.py"),
+                  ("mindspore/common/jit_config.py", "mindspore/python/mindspore/common/jit_config.py"),
+                  ("mindspore/common/parameter.py", "mindspore/python/mindspore/common/parameter.py"),
+                  ("mindspore/common/sparse_tensor.py", "mindspore/python/mindspore/common/sparse_tensor.py"),
+                  ("mindspore/common/tensor.py", "mindspore/python/mindspore/common/tensor.py"),
+                  ("mindspore/communication/__init__.py", "mindspore/python/mindspore/communication/__init__.py"),
+                  ("mindspore/communication/management.py", "mindspore/python/mindspore/communication/management.py"),
+                  ("mindspore/context.py", "mindspore/python/mindspore/context.py"),
+                  ("mindspore/dataset/__init__.py", "mindspore/python/mindspore/dataset/__init__.py"),
+                  ("mindspore/dataset/audio/__init__.py", "mindspore/python/mindspore/dataset/audio/__init__.py"),
+                  ("mindspore/dataset/audio/transforms.py", "mindspore/python/mindspore/dataset/audio/transforms.py"),
+                  ("mindspore/dataset/callback/ds_callback.py", "mindspore/python/mindspore/dataset/callback/ds_callback.py"),
+                  ("mindspore/dataset/engine/cache_client.py", "mindspore/python/mindspore/dataset/engine/cache_client.py"),
+                  ("mindspore/dataset/engine/datasets.py", "mindspore/python/mindspore/dataset/engine/datasets.py"),
+                  ("mindspore/dataset/engine/datasets_audio.py", "mindspore/python/mindspore/dataset/engine/datasets_audio.py"),
+                  ("mindspore/dataset/engine/datasets_standard_format.py", "mindspore/python/mindspore/dataset/engine/datasets_standard_format.py"),
+                  ("mindspore/dataset/engine/datasets_text.py", "mindspore/python/mindspore/dataset/engine/datasets_text.py"),
+                  ("mindspore/dataset/engine/datasets_user_defined.py", "mindspore/python/mindspore/dataset/engine/datasets_user_defined.py"),
+                  ("mindspore/dataset/engine/datasets_vision.py", "mindspore/python/mindspore/dataset/engine/datasets_vision.py"),
+                  ("mindspore/dataset/text/__init__.py", "mindspore/python/mindspore/dataset/text/__init__.py"),
+                  ("mindspore/dataset/text/transforms.py", "mindspore/python/mindspore/dataset/text/transforms.py"),
+                  ("mindspore/dataset/transforms/__init__.py", "mindspore/python/mindspore/dataset/transforms/__init__.py"),
+                  ("mindspore/dataset/vision/__init__.py", "mindspore/python/mindspore/dataset/vision/__init__.py"),
+                  ("mindspore/dataset/vision/transforms.py", "mindspore/python/mindspore/dataset/vision/transforms.py"),
+                  ("mindspore/dataset/vision/utils.py", "mindspore/python/mindspore/dataset/vision/utils.py"),
+                  ("mindspore/experimental/optim/adadelta.py", "mindspore/python/mindspore/experimental/optim/adadelta.py"),
+                  ("mindspore/experimental/optim/adagrad.py", "mindspore/python/mindspore/experimental/optim/adagrad.py"),
+                  ("mindspore/experimental/optim/adam.py", "mindspore/python/mindspore/experimental/optim/adam.py"),
+                  ("mindspore/experimental/optim/adamax.py", "mindspore/python/mindspore/experimental/optim/adamax.py"),
+                  ("mindspore/experimental/optim/adamw.py", "mindspore/python/mindspore/experimental/optim/adamw.py"),
+                  ("mindspore/experimental/optim/asgd.py", "mindspore/python/mindspore/experimental/optim/asgd.py"),
+                  ("mindspore/experimental/optim/lr_scheduler.py", "mindspore/python/mindspore/experimental/optim/lr_scheduler.py"),
+                  ("mindspore/experimental/optim/nadam.py", "mindspore/python/mindspore/experimental/optim/nadam.py"),
+                  ("mindspore/experimental/optim/optimizer.py", "mindspore/python/mindspore/experimental/optim/optimizer.py"),
+                  ("mindspore/experimental/optim/radam.py", "mindspore/python/mindspore/experimental/optim/radam.py"),
+                  ("mindspore/experimental/optim/rmsprop.py", "mindspore/python/mindspore/experimental/optim/rmsprop.py"),
+                  ("mindspore/experimental/optim/rprop.py", "mindspore/python/mindspore/experimental/optim/rprop.py"),
+                  ("mindspore/experimental/optim/sgd.py", "mindspore/python/mindspore/experimental/optim/sgd.py"),
+                  ("mindspore/nn/cell.py", "mindspore/python/mindspore/nn/cell.py"),
+                  ("mindspore/nn/layer/container.py", "mindspore/python/mindspore/nn/layer/container.py"),
+                  ("mindspore/nn/layer/conv.py", "mindspore/python/mindspore/nn/layer/conv.py"),
+                  ("mindspore/nn/layer/embedding.py", "mindspore/python/mindspore/nn/layer/embedding.py"),
+                  ("mindspore/nn/layer/normalization.py", "mindspore/python/mindspore/nn/layer/normalization.py"),
+                  ("mindspore/nn/optim/ada_grad.py", "mindspore/python/mindspore/nn/optim/ada_grad.py"),
+                  ("mindspore/nn/optim/adadelta.py", "mindspore/python/mindspore/nn/optim/adadelta.py"),
+                  ("mindspore/nn/optim/adam.py", "mindspore/python/mindspore/nn/optim/adam.py"),
+                  ("mindspore/nn/optim/adamax.py", "mindspore/python/mindspore/nn/optim/adamax.py"),
+                  ("mindspore/nn/optim/asgd.py", "mindspore/python/mindspore/nn/optim/asgd.py"),
+                  ("mindspore/nn/optim/lamb.py", "mindspore/python/mindspore/nn/optim/lamb.py"),
+                  ("mindspore/nn/optim/lazyadam.py", "mindspore/python/mindspore/nn/optim/lazyadam.py"),
+                  ("mindspore/nn/optim/momentum.py", "mindspore/python/mindspore/nn/optim/momentum.py"),
+                  ("mindspore/nn/optim/optimizer.py", "mindspore/python/mindspore/nn/optim/optimizer.py"),
+                  ("mindspore/nn/optim/proximal_ada_grad.py", "mindspore/python/mindspore/nn/optim/proximal_ada_grad.py"),
+                  ("mindspore/nn/optim/rmsprop.py", "mindspore/python/mindspore/nn/optim/rmsprop.py"),
+                  ("mindspore/nn/optim/rprop.py", "mindspore/python/mindspore/nn/optim/rprop.py"),
+                  ("mindspore/nn/optim/sgd.py", "mindspore/python/mindspore/nn/optim/sgd.py"),
+                  ("mindspore/nn/wrap/grad_reducer.py", "mindspore/python/mindspore/nn/wrap/grad_reducer.py"),
+                  ("mindspore/ops/function/array_func.py", "mindspore/python/mindspore/ops/function/array_func.py"),
+                  ("mindspore/ops/function/grad/grad_func.py", "mindspore/python/mindspore/ops/function/grad/grad_func.py"),
+                  ("mindspore/ops/function/linalg_func.py", "mindspore/python/mindspore/ops/function/linalg_func.py"),
+                  ("mindspore/ops/function/math_func.py", "mindspore/python/mindspore/ops/function/math_func.py"),
+                  ("mindspore/ops/function/sparse_unary_func.py", "mindspore/python/mindspore/ops/function/sparse_unary_func.py"),
+                  ("mindspore/ops/function/vmap_func.py", "mindspore/python/mindspore/ops/function/vmap_func.py"),
+                  ("mindspore/ops/op_info_register.py", "mindspore/python/mindspore/ops/op_info_register.py"),
+                  ("mindspore/ops/operations/_inner_ops.py", "mindspore/python/mindspore/ops/operations/_inner_ops.py"),
+                  ("mindspore/ops/operations/array_ops.py", "mindspore/python/mindspore/ops/operations/array_ops.py"),
+                  ("mindspore/ops/operations/comm_ops.py", "mindspore/python/mindspore/ops/operations/comm_ops.py"),
+                  ("mindspore/ops/operations/custom_ops.py", "mindspore/python/mindspore/ops/operations/custom_ops.py"),
+                  ("mindspore/ops/operations/debug_ops.py", "mindspore/python/mindspore/ops/operations/debug_ops.py"),
+                  ("mindspore/ops/operations/math_ops.py", "mindspore/python/mindspore/ops/operations/math_ops.py"),
+                  ("mindspore/ops/operations/nn_ops.py", "mindspore/python/mindspore/ops/operations/nn_ops.py"),
+                  ("mindspore/ops/primitive.py", "mindspore/python/mindspore/ops/primitive.py"),
+                  ("mindspore/parallel/algo_parameter_config.py", "mindspore/python/mindspore/parallel/algo_parameter_config.py"),
+                  ("mindspore/parallel/checkpoint_transform.py", "mindspore/python/mindspore/parallel/checkpoint_transform.py"),
+                  ("mindspore/parallel/shard.py", "mindspore/python/mindspore/parallel/shard.py"),
+                  ("mindspore/profiler/profiling.py", "mindspore/python/mindspore/profiler/profiling.py"),
+                  ("mindspore/run_check/_check_version.py", "mindspore/python/mindspore/run_check/_check_version.py"),
+                  ("mindspore/train/amp.py", "mindspore/python/mindspore/train/amp.py"),
+                  ("mindspore/train/callback/_callback.py", "mindspore/python/mindspore/train/callback/_callback.py"),
+                  ("mindspore/train/dataset_helper.py", "mindspore/python/mindspore/train/dataset_helper.py"),
+                  ("mindspore/train/metrics/metric.py", "mindspore/python/mindspore/train/metrics/metric.py"),
+                  ("mindspore/train/model.py", "mindspore/python/mindspore/train/model.py"),
+                  ("mindspore/train/serialization.py", "mindspore/python/mindspore/train/serialization.py"),
+                  ("mindspore/train/summary/summary_record.py", "mindspore/python/mindspore/train/summary/summary_record.py")]
+
+base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+for i in decorator_list:
+    try:
+        if os.path.exists(os.path.join(base_path, os.path.normpath(i[0]))):
+            os.remove(os.path.join(base_path, os.path.normpath(i[0])))
+            shutil.copy(os.path.join(repo_path, i[1]),os.path.join(base_path, os.path.normpath(i[0])))
+        else:
+            print(f'{i[0]}文件不存在')
+    except:
+        print(f'{i[0]}替换失败')
+        continue
+
 # Repair error decorators defined in mindspore.
 try:
     decorator_list = [("mindspore/common/_decorator.py", "deprecated",
@@ -244,7 +349,6 @@ import search_code
 
 # Copy source files of en python api from mindspore repository.
 copy_path = 'docs/api/api_python_en'
-repo_path = os.getenv("MS_PATH")
 src_dir_en = os.path.join(repo_path, copy_path)
 
 des_sir = "./api_python"
@@ -342,31 +446,16 @@ from generate_rst_by_en import generate_rst_by_en
 
 exist_rst_file, primi_auto = generate_rst_by_en(primitive_list, './api_python/ops', language='en')
 
-re_url = r"(((gitee.com/mindspore/(mindspore|docs))|(github.com/mindspore-ai/(mindspore|docs))|" + \
-         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
-         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
 for cur, _, files in os.walk(des_sir):
     for i in files:
         if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
-                new_content = re.sub(re_url, r'\1/r2.3', content)
+                new_content = content
                 if i.endswith('.md'):
                     md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
                     if 'resource/_static/logo_source' not in new_content:
                         new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
-                if new_content != content:
-                    f.seek(0)
-                    f.truncate()
-                    f.write(new_content)
-
-base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
-for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
-    for i in files:
-        if i.endswith('.py'):
-            with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
-                content = f.read()
-                new_content = re.sub(re_url, r'\1/r2.3', content)
                 if new_content != content:
                     f.seek(0)
                     f.truncate()

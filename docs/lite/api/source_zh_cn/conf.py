@@ -190,7 +190,8 @@ import shutil
 logger = logging.getLogger(__name__)
 
 copy_path = 'docs/api/lite_api_python'
-src_dir = os.path.join(os.getenv("MS_PATH"), copy_path)
+repo_path = os.getenv("MS_PATH")
+src_dir = os.path.join(repo_path, copy_path)
 
 copy_list = []
 
@@ -221,10 +222,10 @@ elif os.path.exists('../../../../tools/generate_html/daily.json'):
     with open('../../../../tools/generate_html/daily.json', 'r+', encoding='utf-8') as f:
         version_inf = json.load(f)
 
-if os.getenv("MS_PATH").split('/')[-1]:
-    copy_repo = os.getenv("MS_PATH").split('/')[-1]
+if repo_path.split('/')[-1]:
+    copy_repo = repo_path.split('/')[-1]
 else:
-    copy_repo = os.getenv("MS_PATH").split('/')[-2]
+    copy_repo = repo_path.split('/')[-2]
 
 branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
@@ -255,24 +256,6 @@ for cur, _, files in os.walk(present_path):
                             f.write(new_content)
                 except Exception:
                     print(f'打开{i}文件失败')
-
-# modify urls
-re_url = r"(((gitee.com/mindspore/(mindspore|docs))|(github.com/mindspore-ai/(mindspore|docs))|" + \
-         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
-         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
-for cur, _, files in os.walk('./mindspore_lite'):
-    for i in files:
-        if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
-            try:
-                with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
-                    content = f.read()
-                    new_content = re.sub(re_url, r'\1/r2.3', content)
-                    if new_content != content:
-                        f.seek(0)
-                        f.truncate()
-                        f.write(new_content)
-            except Exception:
-                print(f'打开{i}文件失败')
 
 rst_files = set([i.replace('.rst', '') for i in glob.glob('mindspore_lite/*.rst', recursive=True)])
 
