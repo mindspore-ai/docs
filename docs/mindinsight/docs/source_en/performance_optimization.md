@@ -1,6 +1,6 @@
 # Performance Debugging Cases
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_optimization.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindinsight/docs/source_en/performance_optimization.md)
 
 Profiler provides performance tuning ability for MindSpore, and provides easy-to-use and rich debugging functions in operator performance, data processing performance, etc., helping users quickly locate and solve performance problems.
 
@@ -43,7 +43,7 @@ By observing the `queue relationship between operators` in the Data Processing t
 
 *Figure 3: Data Preparation Details -- Data Processing*
 
-We can refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html ) to adjust dataset operations to improve dataset performance.
+We can refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/r2.3.0rc1/dataset/optimize.html ) to adjust dataset operations to improve dataset performance.
 
 We find that the num_parallel_workers parameter of map operation is 1(default value) by observing the code part of data processing in ResNet50, and code is shown below:
 
@@ -95,7 +95,7 @@ Open the details page of Operator Time Consumption Ranking, and we find that Mat
 
 *Figure 6: Finding operators that can be optimized via the details page of Operator Time Consumption Ranking*
 
-For Operator Time Consumption optimization, usually float16 type with the less computating amount can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to [Enabling Mixed Precision](https://www.mindspore.cn/tutorials/en/master/advanced/mixed_precision.html) to improve operators performance.
+For Operator Time Consumption optimization, usually float16 type with the less computating amount can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to [Enabling Mixed Precision](https://www.mindspore.cn/tutorials/en/r2.3.0rc1/advanced/mixed_precision.html) to improve operators performance.
 
 Optimization code is shown below:
 

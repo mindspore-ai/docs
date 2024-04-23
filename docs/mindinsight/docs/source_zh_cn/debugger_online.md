@@ -1,6 +1,6 @@
 # 使用在线调试器
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/debugger_online.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindinsight/docs/source_zh_cn/debugger_online.md)
 
 ## 概述
 
@@ -252,6 +252,6 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 - 使用调试器时要保证MindSpore Insight和MindSpore的版本号相同。
 - 重新检查只检查当前有张量值的监测点。
-- 检查计算过程溢出需要用户开启异步Dump的全部溢出检测功能，开启方式请参照[异步Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#异步dump)。
+- 检查计算过程溢出需要用户开启异步Dump的全部溢出检测功能，开启方式请参照[异步Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0rc1/debug/dump.html#异步dump)。
 - 调试器展示的图是优化后的最终执行图。调用的算子可能已经与其它算子融合，或者在优化后改变了名称。
 - 开启调试器会关闭内存复用，在训练网络过大时有可能导致'out of memory'错误。

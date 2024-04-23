@@ -1,6 +1,6 @@
 # Viewing Dashboard
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/dashboard.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindinsight/docs/source_en/dashboard.md)
 
 ## Overview
 
@@ -102,7 +102,7 @@ Figure 8 shows the readability optimization feature, which optimizes the readabi
 Note:
 
 - To get the clearest visualization of computational graph, please avoid to use public methods which cross Cell.
-- Set `jit_level` to `o0` when collecting the computational graph, please refer to the API [mindspore.train.Model.build](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.build).
+- Set `jit_level` to `o0` when collecting the computational graph, please refer to the API [mindspore.train.Model.build](https://www.mindspore.cn/docs/en/r2.3.0rc1/api_python/train/mindspore.train.Model.html#mindspore.train.Model.build).
 - In the computation graph optimization process, some operators in different namespaces may be merged with each other due to the same function, which will cause a cycle between namespaces and affect the readability.
 - The complete control flow is not supported at present. If you need, please specify the control branch in the script.
 

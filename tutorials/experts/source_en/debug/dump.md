@@ -45,7 +45,7 @@ If MindSpore Insight is not installed, you need to analyze the data through the 
 
 1. Analysis of static graph operator results.
 
-   Through the IR diagram obtained by the Dump function(Only e2e_dump support saving IR diagram), you can understand the mapping relationship between the script code and the execution operator (for details, see [MindSpore IR Introduction](https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/mindir.html#overview)). Combining the input and output data of the execution operator, it is possible to analyze possible overflow, gradient explosion and disappearance during the training process, and backtrack to the code that may have problems in the script.
+   Through the IR diagram obtained by the Dump function(Only e2e_dump support saving IR diagram), you can understand the mapping relationship between the script code and the execution operator (for details, see [MindSpore IR Introduction](https://www.mindspore.cn/tutorials/en/r2.3.0rc1/advanced/error_analysis/mindir.html#overview)). Combining the input and output data of the execution operator, it is possible to analyze possible overflow, gradient explosion and disappearance during the training process, and backtrack to the code that may have problems in the script.
 
 2. Analysis of the feature map.
 

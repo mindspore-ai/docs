@@ -14,7 +14,7 @@ MindSpore Insight包括以下内容：
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindinsight/docs/source_zh_cn/images/mindinsight.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/docs/mindinsight/docs/source_zh_cn/images/mindinsight.png" width="700px" alt="" >
 
 代码仓地址： <https://gitee.com/mindspore/mindinsight>
 

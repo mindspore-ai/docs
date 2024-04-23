@@ -14,7 +14,7 @@ MindSpore Insight provides the following functions:
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindinsight/docs/source_en/images/mindinsight_en.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/docs/mindinsight/docs/source_en/images/mindinsight_en.png" width="700px" alt="" >
 
 Code repository address: <https://gitee.com/mindspore/mindinsight>
 

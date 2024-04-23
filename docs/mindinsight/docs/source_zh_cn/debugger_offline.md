@@ -1,6 +1,6 @@
 # 使用离线调试器
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/debugger_offline.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindinsight/docs/source_zh_cn/debugger_offline.md)
 
 ## 概述
 
@@ -8,7 +8,7 @@
 
 ## 操作流程
 
-1. 准备Dump数据。Dump的使用方式详见[使用Dump功能在Graph模式调试](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)；
+1. 准备Dump数据。Dump的使用方式详见[使用Dump功能在Graph模式调试](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0rc1/debug/dump.html)；
 2. 使用离线调试器进行调试分析。
 
    如果需要UI页面，可以通过MindSpore Insight的离线调试器入口启动调试器。操作流程为：
@@ -27,7 +27,7 @@
 
 ## 离线调试器环境准备
 
-使用MindSpore的Dump功能准备离线数据。Dump的使用方式详见[使用Dump功能在Graph模式调试](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)。
+使用MindSpore的Dump功能准备离线数据。Dump的使用方式详见[使用Dump功能在Graph模式调试](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0rc1/debug/dump.html)。
 
 需要注意的是，一个summary-dir目录下只能存放一个dump目录。例如，某一次训练的Dump配置文件中的path为“/home/workspace/data/dump_dir”，那么本次训练dump数据保存以后，再启动其它训练时，Dump配置文件中的path就不能指定为“/home/workspace/data”的子目录。
 

@@ -1,6 +1,6 @@
 # 精度问题初步定位指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/accuracy_problem_preliminary_location.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindinsight/docs/source_zh_cn/accuracy_problem_preliminary_location.md)
 
 本指南旨在为算法开发者提供一个简明扼要的精度问题初步定位指导。完整的精度问题定位和调优方法，请参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/accuracy_optimization.html)。
 
@@ -128,9 +128,9 @@
 
 检查训练脚本的数据处理代码中是否使能了混洗（shuffle）功能。通过混洗，可以打乱数据顺序，有助于避免过拟合。如果未进行混洗，或者混洗不充分，会导致总是以相同的数据顺序更新模型，严重限制了梯度优化方向的可选择性，导致收敛点的选择空间变少，容易过拟合。混洗功能的常见使能方式有如下几种，使用任意一种方式来使能混洗功能均可：
 
-1. 创建数据集时，指定shuffle参数为True。例如  [mindspore.dataset.Cifar10Dataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset)中的shuffle参数。
-2. 在数据处理的过程中，使用shuffle方法，例如[mindspore.dataset.Cifar10Dataset.shuffle](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.shuffle.html#mindspore.dataset.Dataset.shuffle)。
-3. 如果使用了Sampler，还可以使能Sampler提供的shuffle功能。例如[mindspore.dataset.PKSampler](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.PKSampler.html#mindspore.dataset.PKSampler)中的shuffle参数。
+1. 创建数据集时，指定shuffle参数为True。例如  [mindspore.dataset.Cifar10Dataset](https://mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset)中的shuffle参数。
+2. 在数据处理的过程中，使用shuffle方法，例如[mindspore.dataset.Cifar10Dataset.shuffle](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.shuffle.html#mindspore.dataset.Dataset.shuffle)。
+3. 如果使用了Sampler，还可以使能Sampler提供的shuffle功能。例如[mindspore.dataset.PKSampler](https://mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/dataset/mindspore.dataset.PKSampler.html#mindspore.dataset.PKSampler)中的shuffle参数。
 
 例子：
 以ModelZoo中的resnet50为例（cifar10数据集），其在创建数据集时shuffle参数指定为True，因此检查结果为“无问题”。
@@ -220,11 +220,11 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 此处我们列举一些比较重要的差异供大家检查：
 
-1. MindSpore的[Conv2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) API，默认没有bias（has_bias=False），而PyTorch的Conv2d API，默认有bias。Conv2d API的weight默认使用 Normal(0.0, 0.01)，这一初始化方式和PyTorch（Uniform）、TensorFlow（Uniform）均不同。与PyTorch的[差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/Conv2d.html)。
-2. MindSpore的[DropOut](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout) API，参数含义为保留的概率（keep_prob），而PyTorch的DropOut API，参数含义为丢弃的概率。
-3. MindSpore的[BatchNorm2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d)中的动量默认值和PyTorch不同。PyTorch默认是0.1，MindSpore中默认值是0.9。与PyTorch的[差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/BatchNorm2d.html)。
+1. MindSpore的[Conv2d](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) API，默认没有bias（has_bias=False），而PyTorch的Conv2d API，默认有bias。Conv2d API的weight默认使用 Normal(0.0, 0.01)，这一初始化方式和PyTorch（Uniform）、TensorFlow（Uniform）均不同。与PyTorch的[差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/note/api_mapping/pytorch_diff/Conv2d.html)。
+2. MindSpore的[DropOut](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout) API，参数含义为保留的概率（keep_prob），而PyTorch的DropOut API，参数含义为丢弃的概率。
+3. MindSpore的[BatchNorm2d](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d)中的动量默认值和PyTorch不同。PyTorch默认是0.1，MindSpore中默认值是0.9。与PyTorch的[差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/note/api_mapping/pytorch_diff/BatchNorm2d.html)。
 
-较完整的API差异列表请参考 <https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html>。
+较完整的API差异列表请参考 <https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/note/api_mapping/pytorch_api_mapping.html>。
 
 例子：
 
@@ -284,9 +284,9 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 对照代码检查权重的冻结情况是否同设计一致。有两种方法可以冻结权重，这两种方法在代码中都具有明显的特征。
 
-方法一：设置[Parameter](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)的requires_grad参数为False。
+方法一：设置[Parameter](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)的requires_grad参数为False。
 
-方法二：使用[stop_gradient](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.stop_gradient.html)阻止梯度继续向后传播，阻止所有会影响权重的梯度后，该权重的更新也就事实上被阻止了。
+方法二：使用[stop_gradient](https://mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/ops/mindspore.ops.stop_gradient.html)阻止梯度继续向后传播，阻止所有会影响权重的梯度后，该权重的更新也就事实上被阻止了。
 
 检查结论：
 
@@ -341,7 +341,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 #### mp.01 训练中存在溢出问题
 
 检查方法：
-当使用[混合精度](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html)训练，或者是使用Ascend AI处理器训练时，建议检查是否存在溢出问题。
+当使用[混合精度](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc1/advanced/mixed_precision.html)训练，或者是使用Ascend AI处理器训练时，建议检查是否存在溢出问题。
 
 使用GPU时，通过[调试器](https://mindspore.cn/mindinsight/docs/zh-CN/r2.3/debugger_online.html#异常现象检查列表)中的“检查张量溢出”监测点可以进行溢出检查。
 
@@ -349,7 +349,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 出现溢出问题后常见的解决措施如下：
 
-1. 使能动态loss scale功能，或者是合理设置静态loss scale的值，请参考[LossScale](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html#损失缩放)。需要注意的是，直接将GPU场景中的静态loss scale用于Ascend上的训练时，可能会导致不期望的频繁溢出，影响收敛。loss scale使能后，可能需要多次实验以调整loss scale的初始值init_loss_scale、调整比例scale_factor、调整窗口scale_window等参数，直到训练中浮点溢出非常少，请参考[DynamicLossScaleManager](https://www.mindspore.cn/docs/zh-CN/master/api_python/amp/mindspore.amp.DynamicLossScaleManager.html)以了解这些参数的含义。
+1. 使能动态loss scale功能，或者是合理设置静态loss scale的值，请参考[LossScale](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc1/advanced/mixed_precision.html#损失缩放)。需要注意的是，直接将GPU场景中的静态loss scale用于Ascend上的训练时，可能会导致不期望的频繁溢出，影响收敛。loss scale使能后，可能需要多次实验以调整loss scale的初始值init_loss_scale、调整比例scale_factor、调整窗口scale_window等参数，直到训练中浮点溢出非常少，请参考[DynamicLossScaleManager](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/amp/mindspore.amp.DynamicLossScaleManager.html)以了解这些参数的含义。
 2. 溢出问题对精度有关键影响且无法规避的，将相应的API调整为FP32 API（调整后可能对性能有较大影响）。
 
 检查结论：
@@ -360,7 +360,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 检查方法：
 
-在使用[混合精度](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html)时，一般应确认使能了[DynamicLossScaleManager](https://www.mindspore.cn/docs/zh-CN/master/api_python/amp/mindspore.amp.DynamicLossScaleManager.html)或[FixedLossScaleManager](https://www.mindspore.cn/docs/zh-CN/master/api_python/amp/mindspore.amp.FixedLossScaleManager.html)，推荐优先使用DynamicLossScaleManager。可以先使用DynamicLossScaleManager或FixedLossScaleManager的默认参数值进行训练，若产生溢出的迭代过多，影响最终精度时，应根据主要的溢出现象，针对性调整loss_scale的值。当主要溢出现象为梯度上溢时，应减小loss_scale的值（可以尝试将原loss_scale值除以2）；当主要溢出现象为梯度下溢时，应增大loss_scale的值（可以尝试将原loss_scale值乘以2）。对于Ascend AI处理器上的训练，其在大部分情况下为混合精度训练。由于Ascend AI处理器计算特性与GPU混合精度计算特性存在差异，LossScaleManager超参也可能需要根据训练情况调整为与GPU上不同的值以保证精度。
+在使用[混合精度](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc1/advanced/mixed_precision.html)时，一般应确认使能了[DynamicLossScaleManager](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/amp/mindspore.amp.DynamicLossScaleManager.html)或[FixedLossScaleManager](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/amp/mindspore.amp.FixedLossScaleManager.html)，推荐优先使用DynamicLossScaleManager。可以先使用DynamicLossScaleManager或FixedLossScaleManager的默认参数值进行训练，若产生溢出的迭代过多，影响最终精度时，应根据主要的溢出现象，针对性调整loss_scale的值。当主要溢出现象为梯度上溢时，应减小loss_scale的值（可以尝试将原loss_scale值除以2）；当主要溢出现象为梯度下溢时，应增大loss_scale的值（可以尝试将原loss_scale值乘以2）。对于Ascend AI处理器上的训练，其在大部分情况下为混合精度训练。由于Ascend AI处理器计算特性与GPU混合精度计算特性存在差异，LossScaleManager超参也可能需要根据训练情况调整为与GPU上不同的值以保证精度。
 
 检查结论：
 
@@ -370,7 +370,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 检查方法：
 
-梯度裁剪（gradient clip）是指当梯度大于某个阈值时，强制调整梯度使其变小的技术。梯度裁剪对RNN网络中的梯度爆炸问题有较好的效果。如果同时使用了[loss scale](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html#损失缩放)和梯度裁剪，需要进行本检查。请对照代码检查确认梯度裁剪的应用对象是除以loss scale后得到的原始梯度值。
+梯度裁剪（gradient clip）是指当梯度大于某个阈值时，强制调整梯度使其变小的技术。梯度裁剪对RNN网络中的梯度爆炸问题有较好的效果。如果同时使用了[loss scale](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc1/advanced/mixed_precision.html#损失缩放)和梯度裁剪，需要进行本检查。请对照代码检查确认梯度裁剪的应用对象是除以loss scale后得到的原始梯度值。
 
 检查结论：
 
@@ -380,7 +380,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 检查方法：
 
-梯度惩罚是指将梯度添加到代价函数中，约束梯度长度的技术。如果同时使用了[loss scale](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html)和梯度惩罚（gradient penalty），需要进行本检查。检查确认计算梯度惩罚项时，输入的梯度为无loss scale的梯度。例如，可以先将代用loss scale的梯度除以loss scale，再用来计算梯度惩罚项。
+梯度惩罚是指将梯度添加到代价函数中，约束梯度长度的技术。如果同时使用了[loss scale](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc1/advanced/mixed_precision.html)和梯度惩罚（gradient penalty），需要进行本检查。检查确认计算梯度惩罚项时，输入的梯度为无loss scale的梯度。例如，可以先将代用loss scale的梯度除以loss scale，再用来计算梯度惩罚项。
 
 检查结论：
 
@@ -417,7 +417,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 5. 对比权重初始化是否一致。建议MindSpore脚本和标杆脚本加载具有相同值的checkpoint文件。网络结构一致的情况下，一般通过简单的权重名称替换即可将一个框架的checkpoint文件转换为另一个框架的checkpoint文件。
 6. 强烈建议在标杆脚本中使能混合精度。若标杆脚本使能混合精度后出现精度问题，则需要优化算法以使算法能够正常在混合精度下收敛。
 
-在对比的过程中，除了要对比脚本中写出来的参数，还要注意未写在脚本中的参数默认值。例如，MindSpore的Conv2d API，默认has_bias为False，使用Normal(0.0, 0.01)进行权重初始化，而PyTorch的Conv2d API，默认has_bias为True，初始化方式也不同。MindSpore与PyTorch的详细API差异请见 <https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html>。
+在对比的过程中，除了要对比脚本中写出来的参数，还要注意未写在脚本中的参数默认值。例如，MindSpore的Conv2d API，默认has_bias为False，使用Normal(0.0, 0.01)进行权重初始化，而PyTorch的Conv2d API，默认has_bias为True，初始化方式也不同。MindSpore与PyTorch的详细API差异请见 <https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/note/api_mapping/pytorch_api_mapping.html>。
 
 执行完上述对比和固定流程后，一般会发现若干MindSpore脚本中的不一致，修复这些不一致后，往往精度问题就解决了。若不一致之处都修复了，问题仍然存在，可以使用相同的数据集和参数分别运行MindSpore脚本和标杆脚本，对比两者的loss：
 

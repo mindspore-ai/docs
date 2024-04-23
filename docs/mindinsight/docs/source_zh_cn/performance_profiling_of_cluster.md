@@ -1,6 +1,6 @@
 # 集群性能调试
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_profiling_of_cluster.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindinsight/docs/source_zh_cn/performance_profiling_of_cluster.md)
 
 ## 概述
 
@@ -192,7 +192,7 @@ done
         |       |-- step_trace_raw_0_detail_time.csv
 ```
 
-通过数据转换脚本，可以将用户使用MindSpore Insight r1.3以及之前的版本创建的集群性能目录转换为当前支持的集群性能目录。可以从官网下载[集群目录转换脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/transform_cluster_profiler_data.py)。
+通过数据转换脚本，可以将用户使用MindSpore Insight r1.3以及之前的版本创建的集群性能目录转换为当前支持的集群性能目录。可以从官网下载[集群目录转换脚本](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/sample_code/transform_cluster_profiler_data.py)。
 
 > 以上为Ascend AI处理器关于收集集群性能数据的介绍，GPU集群训练请参考GPU分布式训练教程。
 
@@ -479,7 +479,7 @@ pip install /usr/local/Ascend/latest/tools/hccl_parser-{version}-py3-none-any.wh
 
   > 控制step数目可以通过控制训练数据集的大小来实现，如`mindspore.dataset.MindDataset`类中的`num_samples`参数可以控制数据集大小，详情参考：
   >
-  > <https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.MindDataset.html>
+  > <https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/dataset/mindspore.dataset.MindDataset.html>
 
 ## 注意事项
 
