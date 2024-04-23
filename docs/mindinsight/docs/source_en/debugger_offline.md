@@ -1,6 +1,6 @@
 # Using the Offline Debugger
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/debugger_offline.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindinsight/docs/source_en/debugger_offline.md)
 
 ## Overview
 
@@ -8,7 +8,7 @@ This article describes how to use Debugger in offline mode.
 
 ## Operation Process
 
-1. Prepare dump data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html).
+1. Prepare dump data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/tutorials/experts/en/r2.3.0rc1/debug/dump.html).
 2. Use the offline debugger for debugging and analysis.
 
    If an UI page is needed, you can start the debugger through MindSpore Insight offline debugger entry. The operation process is:
@@ -27,7 +27,7 @@ Unless otherwise specified, the offline debugger in the following refers to the 
 
 ## Environment Preparation
 
-Use the dump function of MindSpore to prepare offline data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html).
+Use the dump function of MindSpore to prepare offline data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/tutorials/experts/en/r2.3.0rc1/debug/dump.html).
 
 It should be noted that only one dump path can be included in a summary-dir. For example, if the path in the Dump configuration file is "/home/workspace/data/dump_dir" in one training, after the dump data of this training is stored,  the other trainnings cannot set the path in the Dump configuration file as the children directory of "/home/workspace/data".
 

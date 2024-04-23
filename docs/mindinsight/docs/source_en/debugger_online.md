@@ -1,6 +1,6 @@
 # Using Online Debugger
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/debugger_online.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindinsight/docs/source_en/debugger_online.md)
 
 ## Overview
 
@@ -256,7 +256,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 
 - When using the debugger, make sure that the version numbers of MindSpore Insight and MindSpore are the same.
 - Recheck only watchpoints that have tensor values.
-- To check overflow during computation, you need to enable the overflow detection function of the asynchronous dump. For details about how to enable the function, see [Asynchronous Dump](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#asynchronous-dump).
+- To check overflow during computation, you need to enable the overflow detection function of the asynchronous dump. For details about how to enable the function, see [Asynchronous Dump](https://www.mindspore.cn/tutorials/experts/en/r2.3.0rc1/debug/dump.html#asynchronous-dump).
 - The graph displayed by the debugger is the finally optimized execution graph. The called operator may have been integrated with other operators, or the name of the called operator is changed after optimization.
 - Enabling the debugger will turn off memory reuse mode, which may lead to an 'out of memory' error when the training network is too large.
 

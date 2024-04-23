@@ -1,6 +1,6 @@
 # Performance Profiling (GPU)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_profiling_gpu.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindinsight/docs/source_en/performance_profiling_gpu.md)
 
 ## Overview
 
@@ -27,7 +27,7 @@ There are two ways to collect neural network performance data. You can enable Pr
 
       > In GPU multi-card scenarios, the `Profiler` object needs to be initialized after `set_auto_parallel_context`.
       >
-      > The parameters of Profiler are as follows: [Profiler API](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler).
+      > The parameters of Profiler are as follows: [Profiler API](https://www.mindspore.cn/docs/en/r2.3.0rc1/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler).
 
     - At the end of the training, `Profiler.analyse()` should be called to finish profiling and generate the performance analysis results.
 

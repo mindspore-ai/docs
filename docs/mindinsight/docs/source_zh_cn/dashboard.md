@@ -1,6 +1,6 @@
 # 查看训练看板
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/dashboard.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindinsight/docs/source_zh_cn/dashboard.md)
 
 ## 概述
 
@@ -99,7 +99,7 @@
 注意：
 
 - 为达到最清晰的计算图可视化效果，请勿使用跨Cell的公共函数。
-- 收集计算图时设置`jit_level`为`o0`，详细请参考[mindspore.train.Model.build接口定义](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.build) 。
+- 收集计算图时设置`jit_level`为`o0`，详细请参考[mindspore.train.Model.build接口定义](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/train/mindspore.train.Model.html#mindspore.train.Model.build) 。
 - 在计算图优化时，不同命名空间中的多个算子可能会因为功能一致而融合，这种情况会导致命名空间之间的连线成环，影响可读性。
 - 暂不支持展示完整的控制流，如需展示请在脚本中指定控制分支。
 

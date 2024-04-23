@@ -1,6 +1,6 @@
 # 精度问题详细定位和调优指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/accuracy_optimization.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindinsight/docs/source_zh_cn/accuracy_optimization.md)
 
 模型训练的最终结果是为了得到一个精度达标的模型，而在AI训练过程中有时会遇到loss（模型损失值）无法下降，或者发散，metrics（模型度量指标）达不到预期等，造成无法得到一个理想精度的模型，这时候需要去进行分析训练过程中出现了什么样的问题，针对性地采用包括调整数据、调整超参、重构模型结构等方法，去解决模型精度调优过程中遇到的各种问题。
 
@@ -103,7 +103,7 @@
 
          2. 构图时未遵循MindSpore construct约束。
 
-             构图未遵循mindspore construct约束，是指图模式下的网络未遵循MindSpore静态图语法支持中声明的约束。例如，MindSpore目前不支持对带键值对参数的函数求反向。完整约束请见[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)。
+             构图未遵循mindspore construct约束，是指图模式下的网络未遵循MindSpore静态图语法支持中声明的约束。例如，MindSpore目前不支持对带键值对参数的函数求反向。完整约束请见[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/note/static_graph_syntax_support.html)。
 
     - 计算图结构问题
 
@@ -328,7 +328,7 @@ MindSpore Insight可以辅助用户对输入数据、数据处理流水线进行
 
 *图9 通过MindSpore Insight参数分布图可以查看训练过程中的权重变化情况*
 
-大多数情况下，`SummaryCollector`会自动记录模型参数变化情况（默认记录5个参数），可以通过MindSpore Insight的参数分布图模块查看。如果想要记录更多参数的参数分布图，请参考[SummaryCollector](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector)的`histogram_regular`参数，或参考[HistogramSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/summary_record.html#方式二-结合summary-api和summarycollector自定义收集网络中的数据) API。
+大多数情况下，`SummaryCollector`会自动记录模型参数变化情况（默认记录5个参数），可以通过MindSpore Insight的参数分布图模块查看。如果想要记录更多参数的参数分布图，请参考[SummaryCollector](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector)的`histogram_regular`参数，或参考[HistogramSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/summary_record.html#方式二-结合summary-api和summarycollector自定义收集网络中的数据) API。
 
 ![tensor](./images/tensor.png)
 
@@ -515,7 +515,7 @@ MindSpore Insight可以为用户记录每次训练的精度结果。在`model.tr
 
 优化器对模型精度和收敛速度（收敛所需的参数更新次数）都会有影响。通常Adam优化器是一个不错的选择。带有动量的优化器有助于提升大batch size下的训练速度。
 
-在选择优化器时，一方面要注意优化器之间有功能上的包含关系(Choi et al., 2019)。例如[RMSProp](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.RMSProp.html#mindspore.nn.RMSProp)优化器功能包含了[Momentum](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)优化器的功能。这是因为，令RMSProp中的decay参数取1，epsilon参数取0，则RMSProp即等效于动量为momentum/learning_rate的Momentum优化器。[Adam](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Adam.html#mindspore.nn.Adam)优化器同样也包含了Momentum优化器的功能。MindSpore的Momentum优化器和[SGD](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD)优化器的功能是类似的。另一方面也要注意，功能更强大的优化器，一般有更多参数，要花费更长时间才能找到合适的超参。
+在选择优化器时，一方面要注意优化器之间有功能上的包含关系(Choi et al., 2019)。例如[RMSProp](https://mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/nn/mindspore.nn.RMSProp.html#mindspore.nn.RMSProp)优化器功能包含了[Momentum](https://mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)优化器的功能。这是因为，令RMSProp中的decay参数取1，epsilon参数取0，则RMSProp即等效于动量为momentum/learning_rate的Momentum优化器。[Adam](https://mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/nn/mindspore.nn.Adam.html#mindspore.nn.Adam)优化器同样也包含了Momentum优化器的功能。MindSpore的Momentum优化器和[SGD](https://mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD)优化器的功能是类似的。另一方面也要注意，功能更强大的优化器，一般有更多参数，要花费更长时间才能找到合适的超参。
 
 #### 早停法
 
@@ -549,11 +549,11 @@ batch size是指一次训练，也即一次前向传播、反向传播、权重�
 
 #### 动量值的选择和优化
 
-当使用带有动量的优化器（例如[Momentum](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)）时，动量和学习率一般应朝相反的方向调整，不同动量下的最佳学习率不同。当使用循环学习率时，同样推荐按照相反的方向循环变化动量值，也即，当学习率从大到小变化时，动量应从小到大变化。当学习率固定时，动量值也应保持固定。
+当使用带有动量的优化器（例如[Momentum](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)）时，动量和学习率一般应朝相反的方向调整，不同动量下的最佳学习率不同。当使用循环学习率时，同样推荐按照相反的方向循环变化动量值，也即，当学习率从大到小变化时，动量应从小到大变化。当学习率固定时，动量值也应保持固定。
 
 #### 权重衰减参数的选择和优化
 
-权重衰减（weight decay）是指在在模型训练过程中对目标代价函数增加一个L2参数范数惩罚，权重衰减参数控制这一惩罚项的系数，请参考[SGD](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD)优化器的weight_decay参数。实验证明，权重衰减参数最好在训练过程中保持恒定。0.001/0.0001/0.00001都是常见的取值。当数据集较小、模型深度较浅时，推荐使用大一些的参数值，当数据集较大、模型深度较深时，推荐使用小一些的参数值。这可能是因为，较大的数据集本身便提供了某种程度的正则化，从而降低了需要权重衰减提供的正则化。
+权重衰减（weight decay）是指在在模型训练过程中对目标代价函数增加一个L2参数范数惩罚，权重衰减参数控制这一惩罚项的系数，请参考[SGD](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD)优化器的weight_decay参数。实验证明，权重衰减参数最好在训练过程中保持恒定。0.001/0.0001/0.00001都是常见的取值。当数据集较小、模型深度较浅时，推荐使用大一些的参数值，当数据集较大、模型深度较深时，推荐使用小一些的参数值。这可能是因为，较大的数据集本身便提供了某种程度的正则化，从而降低了需要权重衰减提供的正则化。
 
 ### 多卡训练调优建议
 
@@ -599,20 +599,20 @@ Xie, Z., Sato, I., & Sugiyama, M. (2020). A Diffusion Theory For Deep Learning D
 
 ### 数据问题处理
 
-对数据进行标准化、归一化、通道转换等操作，在图片数据处理上，增加随机视野图片，随机旋转度图片等，另外数据混洗、batch和数据倍增等操作，可参考[数据处理](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)、[数据增强](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)和[自动数据增强](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/augment.html)。
+对数据进行标准化、归一化、通道转换等操作，在图片数据处理上，增加随机视野图片，随机旋转度图片等，另外数据混洗、batch和数据倍增等操作，可参考[数据处理](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc1/advanced/dataset.html)、[数据增强](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc1/advanced/dataset.html)和[自动数据增强](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0rc1/dataset/augment.html)。
 
-> 如何将数据增强增强操作应用到自定义数据集中，可以参考[mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.map.html#mindspore.dataset.Dataset.map) API。
+> 如何将数据增强增强操作应用到自定义数据集中，可以参考[mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.map.html#mindspore.dataset.Dataset.map) API。
 
 ### 超参问题处理
 
-AI训练中的超参包含全局学习率，epoch和batch等，如果需要设置动态学习率超参时，可参考资料：[学习率的优化算法](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/optimizer.html#学习率)。
+AI训练中的超参包含全局学习率，epoch和batch等，如果需要设置动态学习率超参时，可参考资料：[学习率的优化算法](https://mindspore.cn/tutorials/zh-CN/r2.3.0rc1/advanced/modules/optimizer.html#学习率)。
 
 ### 模型结构问题处理
 
 一般的处理模型结构问题，需要用到的操作有：模型结构的重构，选择合适的优化器或者损失函数等。
 
-需要重构模型结构时，可参考资料：[Cell构建及其子类](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
+需要重构模型结构时，可参考资料：[Cell构建及其子类](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/nn/mindspore.nn.Cell.html)。
 
-选择合适的损失函数，可参考资料：[损失函数API支持列表](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#损失函数)。
+选择合适的损失函数，可参考资料：[损失函数API支持列表](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/mindspore.nn.html#损失函数)。
 
-选择合适的优化器时，可参考资料：[优化器API支持列表](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#优化器)。
+选择合适的优化器时，可参考资料：[优化器API支持列表](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/mindspore.nn.html#优化器)。

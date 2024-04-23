@@ -1,6 +1,6 @@
 # 性能调试（GPU）
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_profiling_gpu.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/docs/mindinsight/docs/source_zh_cn/performance_profiling_gpu.md)
 
 ## 概述
 
@@ -30,7 +30,7 @@
 
       > GPU多卡场景需要在`set_auto_parallel_context`之后初始化`Profiler`对象。
       >
-      > Profiler支持的参数可以参考：[Profiler API](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler)。
+      > Profiler支持的参数可以参考：[Profiler API](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler)。
 
     - 在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
 
