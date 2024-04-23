@@ -57,7 +57,7 @@
 
 ### 安装MindSpore
 
-你可以通过`pip`或是源码的方式安装MindSpore，详见[MindSpore官网安装教程](https://gitee.com/mindspore/docs/blob/r2.3.q1/install/mindspore_cpu_install_pip.md#)。
+你可以通过`pip`或是源码的方式安装MindSpore，详见MindSpore官网安装教程。
 
 ### 下载并安装MindSpore Lite
 
