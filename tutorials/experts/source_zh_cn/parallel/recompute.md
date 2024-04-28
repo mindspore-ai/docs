@@ -14,6 +14,8 @@ MindSpore采用反向模式的自动微分，根据正向图计算流程来自�
 
 2. `mindspore.ops.Primitive.recompute()`：调用`Primitive`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute)，调用该接口之后，在计算反向部分时，该算子会被重新计算。只支持Graph模式。
 
+3. `mindspore.recompute()`：调用`mindspore`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.recompute.html#mindspore.recompute)，调用该接口之后，网络模块会被重新计算。只支持PyNative模式。
+
 ## 基本原理
 
 MindSpore根据正向图计算流程来自动推导出反向图，正向图和反向图一起构成了完整的计算图。在计算某些反向算子时，可能需要用到某些正向算子的计算结果，导致这些正向算子的计算结果，需要驻留在内存中直到这些反向算子计算完，它们所占的内存才会被其他算子复用。而这些正向算子的计算结果，长时间驻留在内存中，会推高计算的内存占用峰值，在大规模网络模型中尤为显著。
