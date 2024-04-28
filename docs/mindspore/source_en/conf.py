@@ -271,6 +271,25 @@ if os.path.exists(Tensor_list_path):
 if os.path.exists(dataset_list_path):
     os.remove(dataset_list_path)
 
+def ops_interface_name():
+
+    src_target_path = os.path.join(src_dir_en, 'mindspore.ops.primitive.rst')
+    with open(src_target_path,'r+',encoding='utf8') as f:
+        content =  f.read()
+    primi_list = re.findall("    (mindspore\.ops\.\w*?)\n", content)
+
+    return primi_list
+
+try:
+    primitive_list = ops_interface_name()
+except:
+    pass
+
+# auto generate rst by en
+from generate_rst_by_en import generate_rst_by_en
+
+exist_rst_file, primi_auto = generate_rst_by_en(primitive_list, './api_python/ops', language='en')
+
 # modify urls
 import json
 
@@ -336,6 +355,7 @@ def setup(app):
     app.add_config_value('repo_whl', '', True)
     app.add_config_value('ops_yaml', '', True)
     app.add_config_value('ops_yaml_list', [], True)
+    app.add_config_value('primi_auto', [], True)
 
 # Copy images from mindspore repo.
 import imghdr
