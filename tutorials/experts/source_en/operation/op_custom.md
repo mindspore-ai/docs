@@ -452,7 +452,7 @@ extern "C" int CustomAdd(int nparam, void **params, int *ndims, int64_t **shapes
   float *input2 = static_cast<float *>(params[1]);
   float *output = static_cast<float *>(params[2]);
   size_t size = 1;
-  for (int i = 0; i < nparam; i++) {
+  for (int i = 0; i < ndims[2]; i++) {
     size *= shapes[2][i];
   }
   for (int i = 0; i < nparam; i++) {

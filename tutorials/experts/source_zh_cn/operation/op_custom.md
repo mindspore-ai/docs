@@ -26,7 +26,7 @@
 
 | 算子开发方式 | 开发语言              | 编译方式 | 支持平台 | 推荐场景                    |
 |:-------|:------------------|:------ |:------ |:------------------------|
-| [pyfunc](#自定义算子入门一个例子) | Python            | N/A | `CPU` | 快速算法验证、需要与Python进行交互等场景 |
+| [pyfunc](#自定义算子入门) | Python            | N/A | `CPU` | 快速算法验证、需要与Python进行交互等场景 |
 | [hybrid](#hybrid类型的自定义算子开发) | MindSpore HYBRID DSL | JIT | `Ascend` `GPU` `CPU` | 全平台通用开发和快速验证 |
 | [tbe](#tbe类型的自定义算子开发)    | TBE DSL           | JIT | `Ascend` | Ascend AICORE自定义算子场景    |
 | [akg](#akg类型的自定义算子开发)    | MindSpore AKG DSL | JIT | `Ascend` `GPU` | 用于开发验证场景，不建议普通用户使用      |
@@ -48,7 +48,7 @@
 
 > 更多示例可参考MindSpore源码中[tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/r2.2/tests/st/ops/graph_kernel/custom)下的用例。
 
-## 自定义算子入门：一个例子
+## 自定义算子入门
 
 为了帮助用户快速入门自定义算子，这里以pyfunc类型自定义算子为例帮助用户理解自定义算子的定义流程。下面基于pyfunc模式定义一个实现sin计算的自定义算子。pyfunc类型的自定义算子使用原生Python语法定义算子实现函数，描述算子内部计算逻辑的实现。网络运行时框架会自动调用此函数。为了表达自定义算子的计算，我们写一个基于numpy的计算正弦函数的Python原生函数。
 
@@ -449,7 +449,7 @@ extern "C" int CustomAdd(int nparam, void **params, int *ndims, int64_t **shapes
   float *input2 = static_cast<float *>(params[1]);
   float *output = static_cast<float *>(params[2]);
   size_t size = 1;
-  for (int i = 0; i < nparam; i++) {
+  for (int i = 0; i < ndims[2]; i++) {
     size *= shapes[2][i];
   }
   for (int i = 0; i < nparam; i++) {
