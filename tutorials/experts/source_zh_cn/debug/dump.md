@@ -398,7 +398,7 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
     ```
 
     - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据。开启溢出检测时，此字段的设置失效，Dump只会保存溢出节点的数据。
-    - `path`：Dump保存数据的绝对路径。在[jit_level](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level)设置为‘O0’时，MindSpore会在path目录下新建每个step的子目录。
+    - `path`：Dump保存数据的绝对路径。在图编译等级为O0时，MindSpore会在path目录下新建每个step的子目录。
     - `net_name`：自定义的网络名称，例如："ResNet50"。
     - `iteration`：指定需要Dump的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。PyNative模式开启溢出检测时，必须设置为"all"。
     - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。异步Dump统计信息只有在`file_format`设置为`npy`时可以成功，若在`file_format`设置为`bin`时选"statistic"或"full"便会错误退出。默认取值为"tensor"。
@@ -458,7 +458,7 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
                         mapping.csv
 ```
 
-通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且[jit_level](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level)不设置为‘O0’时，Dump目录结构如下所示，主要特征为存在{step_id}目录，代表用户侧的训练轮次：
+通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且图编译等级不为O0时，Dump目录结构如下所示，主要特征为存在{step_id}目录，代表用户侧的训练轮次：
 
 ```text
 {path}/
@@ -474,7 +474,7 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
                             mapping.csv
 ```
 
-通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且[jit_level](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level)设置为‘O0’时，Dump目录结构如下所示，主要特征为不存在{model_name}和{model_id}目录，此种场景下的动态shape算子的Dump数据会保存于{iteration_id}目录，静态shape算子的Dump数据会保存在{device_id}目录：
+通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且图编译等级为O0时，Dump目录结构如下所示，主要特征为不存在{model_name}和{model_id}目录，此种场景下的动态shape算子的Dump数据会保存于{iteration_id}目录，静态shape算子的Dump数据会保存在{device_id}目录：
 
 ```text
 {path}/

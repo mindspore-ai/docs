@@ -399,7 +399,7 @@ MindSpore provides debugging capabilities for large networks through asynchronou
     ```
 
     - `dump_mode`: 0: all operator data in the network dumped out; 1: dump kernels data in kernels list. When overflow detection is enabled, the setting of this field becomes invalid, and Dump only saves the data of the overflow node.
-    - `path`: The absolute path to save Dump data. When [jit_level](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level) is set to 'O0', MindSpore will create a new subdirectory for each step in the path directory.
+    - `path`: The absolute path to save Dump data. When the graph compilation level is O0, MindSpore will create a new subdirectory for each step in the path directory.
     - `net_name`: The customized net name: "ResNet50".
     - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped. When overflow detection is enabled for PyNative mode, it must be set to "all".
     - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to dump tensor data, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Default setting is "tensor". Asynchronous statistics dump is only supported when `file_format` is set to `npy`, using "statistic" or "full" when `file_format` is set to `bin` will result in exception.
@@ -457,7 +457,7 @@ The Dump directory structure of the graph pattern is as follows:
                         mapping.csv
 ```
 
-When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and [jit_level](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level) is not set to 'O0', the Dump directory structure is as follows, where the main feature is the {step_id} directory, which represents user side training step id:
+When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and the graph compilation level is not O0, the Dump directory structure is as follows, where the main feature is the {step_id} directory, which represents user side training step id:
 
 ```text
 {path}/
@@ -472,7 +472,7 @@ When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and [jit_level](https://www.
                         mapping.csv
 ```
 
-When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and [jit_level](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.JitConfig.html?highlight=jit_level) is set to 'O0', the Dump directory structure is as follows, where the main feature is no {model_name} and {model_id} directory. In this scenario, the dump files for dynamic shape operators will be saved in {iteration_id} directory and the dump files for static shape operators will be saved in {device_id} directory:
+When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and the graph compilation level is O0, the Dump directory structure is as follows, where the main feature is no {model_name} and {model_id} directory. In this scenario, the dump files for dynamic shape operators will be saved in {iteration_id} directory and the dump files for static shape operators will be saved in {device_id} directory:
 
 ```text
 {path}/
