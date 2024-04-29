@@ -128,7 +128,7 @@
         <td align="left">与参数<code>--worker_num</code>相同。</td>
     </tr>
     <tr>
-        <td align="left" style="white-space:nowrap">MS_CLUSTER_TIMEOUT</td>
+        <td align="left" style="white-space:nowrap">MS_TOPO_TIMEOUT</td>
         <td align="left">集群组网超时时间。</td>
         <td align="left">与参数<code>--cluster_time_out</code>相同。</td>
     </tr>
