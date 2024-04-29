@@ -112,7 +112,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left">是否使用LCCL通信库。</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">1代表开启，0代表关闭。默认为0。</td>
-        <td align="left">LCCL通信库暂只支持单机多卡，并且必须在KernelByKernel模式下执行。LCCL不支持创建子通信域。</td>
+        <td align="left">LCCL通信库暂只支持单机多卡，并且必须在图编译等级为O0时执行。LCCL不支持创建子通信域。</td>
     </tr>
 </table>
 
