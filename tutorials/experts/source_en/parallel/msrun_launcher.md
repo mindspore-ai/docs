@@ -128,7 +128,7 @@ The following table shows the environment variables can be used in user scripts,
         <td align="left">Same as parameter <code>--worker_num</code>.</td>
     </tr>
     <tr>
-        <td align="left" style="white-space:nowrap">MS_CLUSTER_TIMEOUT</td>
+        <td align="left" style="white-space:nowrap">MS_TOPO_TIMEOUT</td>
         <td align="left">Cluster Timeout Time.</td>
         <td align="left">Same as parameter <code>--cluster_time_out</code>.</td>
     </tr>
