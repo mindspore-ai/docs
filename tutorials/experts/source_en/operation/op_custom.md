@@ -11,7 +11,7 @@ Traditional methods to add a custom operator need three steps: registering the o
 The related concepts are as follows:
 
 - Operator primitive: defines the frontend API prototype of an operator on the network. It is the basic unit for forming a network model and includes the operator name, attribute (optional), input and output names, output shape inference method, and output data type inference method.
-- Operator implementation: defines a Python function (Ascend custom operators) or a C++ class (GPU and CPU custom operators), which describes the implementation of the internal computation logic of an operator.
+- Operator implementation: defines a Python function (JIT custom operators) or a C++ class (GPU and CPU custom operators), which describes the implementation of the internal computation logic of an operator.
 - Operator information: describes basic information about an operator, such as the operator name, supported input and output data types, supported input and output data formats, and attributes. It is the basis for the backend to select and map operators.
 
 Compared with traditional custom operator creating methods, creating custom operators based on `Custom` primitive has several advantages:
@@ -20,17 +20,15 @@ Compared with traditional custom operator creating methods, creating custom oper
 - It unifies the interface and usage for different kinds of custom operators, which is convenient for network developers to flexibly choose which kind of custom operator to use according to their needs.
 - Supports defining custom operators with hybrid expression, which can be used across platforms.
 
-The operator development methods supported by custom operator based on the [Custom](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive include: hybrid, tbe, aot, pyfunc, julia, and akg.
+The operator development methods supported by custom operator based on the [Custom](https://www.mindspore.cn/docs/en/r2.3/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive include: hybrid,aot, pyfunc, julia, and akg.
 
 The difference between these operator development methods are as follows:
 
 | Defining Methods | Development Language | Compilation Method | Supported Platforms | Recommended Scenarios                                                         |
 |:----------------:|:--------------------:| :------: | ------ |-------------------------------------------------------------------------------|
 | [pyfunc](#the-introduction-to-custom-operator-an-example)      |        Python        |        JIT         | `CPU`                | Fast algorithm verification, need to interact with Python and other scenarios |
-| [hybrid](#defining-custom-operator-of-hybrid-type)  | MindSpore HYBRID DSL | N/A | `Ascend` `GPU` `CPU` | General development and rapid validation for all platforms|
-| [tbe](#defining-custom-operator-of-tbe-type)       |       TBE DSL        | JIT | `Ascend` | Ascend AICORE custom the operator scenarios         |
-| [akg](#defining-custom-operator-of-akg-type) | MindSpore AKG DSL | JIT | `Ascend` `GPU` | Ascend/GPU platform general scenarios |
-| [aicpu](#defining-custom-operator-of-aicpu-type)  |        C/C++         |        AOT         | `Ascend`             | Ascend AICORE custom the operator scenarios                  |
+| [hybrid](#defining-custom-operator-of-hybrid-type)  | MindSpore HYBRID DSL | N/A | `GPU` `CPU` | General development and rapid validation for all platforms|
+| [akg](#defining-custom-operator-of-akg-type) | MindSpore AKG DSL | JIT | `GPU` | GPU platform general scenarios |
 | [aot](#defining-custom-operator-of-aot-type)        |      C/C++/CUDA      |        AOT         | `GPU` `CPU`          | high-performance scenarios / use third-party operators scenarios |
 | [julia](#defining-custom-operator-of-julia-type)       |        Julia         |        N/A         | `CPU`                | Science compute scenarios / use Julia scenarios              |
 
@@ -40,7 +38,6 @@ The difference between these operator development methods are as follows:
 
 The recommended methods for all platforms under different scenarios are as follows:
 
-- Ascend: hybrid(general purpose development), aicpu(high performance development for irregular computation);
 - GPU: hybrid(general purpose development), aot(high performance development based on CUDA);
 - CPU: hybrid(general purpose development), aot(high performance development based on C++).
 
@@ -195,76 +192,6 @@ The execution result is as follows:
 
 For more complete examples of hybrid-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/r2.3/tests/st/ops/graph_kernel/custom/test_ms_kernel.py) in the MindSpore source code.
 
-### Defining Custom Operator of tbe Type
-
-The custom operator of tbe type uses the TBE(Tensor Boost Engine) operator DSL to describe the internal calculation logic of the operator. You can refer to the [TBE document](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/operatordev/tbedevg/tbedevg_000003.html) for the implementation details.
-
-Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic.
-
-Operator information needs to be registered. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/r2.3/operation/op_custom_adv.html#registering-the-operator-information).
-
-Takes test_custom_tbe.py as an example to introduce how to define a custom operator of tbe type, where the custom operator implements the function of adding two input tensors.
-
-Here is the content of test_custom_tbe.py:
-
-```python
-import numpy as np
-import mindspore as ms
-import mindspore.ops as ops
-from mindspore.ops import DataType, CustomRegOp, custom_info_register
-
-ms.set_context(device_target="Ascend")
-
-# Operator implementation, and operator information registration
-@custom_info_register(CustomRegOp() \
-                      .input(0, "a") \
-                      .input(1, "b") \
-                      .output(0, "output") \
-                      .dtype_format(DataType.F16_Default, DataType.F16_Default, DataType.F16_Default) \
-                      .dtype_format(DataType.F32_Default, DataType.F32_Default, DataType.F32_Default) \
-                      .target("Ascend") \
-                      .get_op_info())
-def add(a, b, output, kernel_name="add"):
-    import te.lang.cce
-    from te import tvm
-    data0 = tvm.placeholder(a.get("shape"), name="data0", dtype=a.get("dtype").lower())
-    data1 = tvm.placeholder(b.get("shape"), name="data1", dtype=b.get("dtype").lower())
-    res = te.lang.cce.vadd(data0, data1)
-    with tvm.target.cce():
-        sch = te.lang.cce.auto_schedule(res)
-    config = {"print_ir": False, "name": kernel_name, "tensor_list": [data0, data1, res]}
-    te.lang.cce.cce_build_code(sch, config)
-
-if __name__ == "__main__":
-    # Define a custom operator of tbe type
-    op = ops.Custom(add, out_shape=lambda x, _: x, out_dtype=lambda x, _: x, func_type="tbe")
-
-    x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
-    x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(ms.Tensor(x0), ms.Tensor(x1))
-    print(output)
-```
-
-The following points need to be explained in this example:
-
-- Use Python lambda functions to infer the output shape and data type, and pass them to the `out_shape` and `out_dtype` parameters of the `Custom` primitive. In this example, the lambda function indicates that the output shape and data type are the same as the information of the first input tensor.
-- Use `CustomRegOp` to create the operator information and use `custom_info_register` decorator to register it.
-
-Execute case:
-
-```bash
-python test_custom_tbe.py
-```
-
-The execution result is as follows:
-
-```text
-[[2. 2.]
- [4. 4.]]
-```
-
-For more complete examples of tbe-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/r2.3/tests/st/ops/graph_kernel/custom/test_custom_tbe.py) in the MindSpore source code.
-
 ### Defining Custom Operator of akg Type
 
 The custom operator of akg type uses the [MindSpore AKG](https://gitee.com/mindspore/akg) operator DSL to describe the internal calculation logic of the operator. MindSpore AKG is an operator development and compilation framework based on TVM(Tensor Virtual Machine) and Polyhedral technology, and it supports multiple types of operator DSL, such as Hybrid, IR builder and TVM compute.
@@ -304,7 +231,7 @@ if __name__ == "__main__":
 
 The following points need to be explained in this example:
 
-- `set_context(device_target="GPU")` indicates that the operator runs on the GPU platform. To run on the Ascend platform, please compile an Ascend version of MindSpore and set the value of device_target to "Ascend".
+- `set_context(device_target="GPU")` indicates that the operator runs on the GPU platform.
 - Use Python lambda functions to infer the output shape and data type, and pass them to the `out_shape` and `out_dtype` parameters of the `Custom` primitive. In this example, the lambda function indicates that the output shape and data type are the same as the information of the first input tensor.
 - The operator information is not registered, so the operator information of the custom operator will be inferred from the inputs.
 
@@ -452,7 +379,7 @@ extern "C" int CustomAdd(int nparam, void **params, int *ndims, int64_t **shapes
   float *input2 = static_cast<float *>(params[1]);
   float *output = static_cast<float *>(params[2]);
   size_t size = 1;
-  for (int i = 0; i < nparam; i++) {
+  for (int i = 0; i < ndims[2]; i++) {
     size *= shapes[2][i];
   }
   for (int i = 0; i < nparam; i++) {
@@ -512,80 +439,6 @@ The execution result is as follows:
 ```
 
 For more complete examples of aot-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/r2.3/tests/st/ops/graph_kernel/custom/test_custom_aot.py) in the MindSpore source code.
-
-### Defining Custom Operator of aicpu Type
-
-The custom operator of the aicpu type adopts the AOT compilation method, which requires the operator developer to implement the corresponding source code file of the function based on the specific interface provided, and compiles the source code file into a dynamic link library in advance. The framework will find the corresponding dynamic link library and load the operator according to the name of the dynamic link library configured by the developer in the operator properties. Reference for specific operator implementation [CANN AICPU Custom Operator Development](https://www.hiascend.com/document/detail/zh/canncommercial/51RC2/operatordev/aicpudevg/aicpudevg_000026.html).
-
-Operator output shape and data type inference can be implemented by defining Python functions that describe the derivation logic of operator output shape and data type.
-
-This type of custom operator needs to register operator information, and for operator information generation method, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/r2.3/operation/op_custom_adv.html#registering-the-operator-information). For a custom operator of type aicpu, you need to specify the attributes of `attr("cust_aicpu", "required", "str", "mindspore_aicpu_kernels")` for MindSpore to find the dynamic link library corresponding to the operator implementation.
-
-> - It should be noted that the dynamic link library compiled after the development of a custom operator of aicpu type needs to be stored in the lib directory of MindSpore. For example, If MindSpore is installed in the virtual environment `/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore`, the aicpu so file needs to be placed in `/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore/lib/` directory.
->
-> - The value of "cust_aicpu" is a string, which is represented by the `lib` prefix and the `.so` suffix removed from the name of the operator dynamic link library. If the name of `libmindspore_aicpu_kernels.so` is removed, it can be set to `mindspore_aicpu_kernels`.
-
-The following takes test_dropout_aicpu.py as an example to introduce the development process of custom operators of type aicpu, in which the custom operator implements the function of dropout, and the compiled operator dynamic link library, we named it libmindspore_aicpu_kernels.so, and have put the dynamic link library under the lib of the mindspore root directory.
-
-The contents of test_dropout_aicpu.py are as follows:
-
-```python
-import numpy as np
-import mindspore as ms
-import mindspore.nn as nn
-import mindspore.ops as ops
-from mindspore.ops import CustomRegOp, DataType
-
-ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
-
-# Operator implementation, registering operator information
-acos_op_info = CustomRegOp("Abs") \
-    .fusion_type("OPAQUE") \
-    .input(0, "x", "required") \
-    .output(0, "y", "required") \
-    .attr("cust_aicpu", "required", "str", "mindspore_aicpu_kernels") \
-    .dtype_format(DataType.F16_Default, DataType.F16_Default) \
-    .dtype_format(DataType.F32_Default, DataType.F32_Default) \
-    .dtype_format(DataType.F64_Default, DataType.F64_Default) \
-    .target("Ascend") \
-    .get_op_info()
-
-# Define a custom operator network
-class NetAbs(nn.Cell):
-    def __init__(self):
-        super(NetAbs, self).__init__()
-        self.op = ops.Custom("acos_aicpu", out_shape=lambda x, cust_attr: x,
-                             out_dtype=lambda x, cust_attr: x, func_type="aicpu",
-                             reg_info=acos_op_info)
-        self.cust_aicpu_so_path = "mindspore_aicpu_kernels"
-
-    def construct(self, inputs):
-        return self.op(inputs, self.cust_aicpu_so_path)
-
-if __name__ == "__main__":
-    # Defines a custom operator of type aicpu
-    input_tensor = ms.Tensor(np.ones([1, 1, 2, 3]), ms.float32)
-    abs_nn = NetAbs()
-    output = abs_nn(input_tensor)
-    print("output shape: ", output.shape)
-```
-
-In this example, there are the following points to explain:
-
-- The `out_shape` and `out_dtype` parameters of the `Custom` primitive can be specified in a variety of ways, either given a type or set with a Python lambda function. In this example, the lambda function indicates that the two shapes of the output are the same as the input, the data type of the first output and the information of the input tensor are the same, and the data type of the second output is the bool type.
-- Operator information is generated via `CustomRegOp` and operator information is registered via the `reg_info` input of the `Custom`.
-
-Execute case:
-
-```bash
-python test_dropout_aicpu.py
-```
-
-The execution result is as follows (due to the random nature of the dropout operator, there is a difference in the result of multiple runs):
-
-```text
-output shape:  (1, 1, 2, 3)
-```
 
 ## Custom Operator with Third Party Frontend
 
