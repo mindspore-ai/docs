@@ -114,6 +114,27 @@ The relevant environment variables:
         <td align="left">1 for yes, other values for no. The default is no.</td>
         <td align="left">The LCCL communication library currently only supports single-machine multi-card scenario and must be executed in KernelByKernel mode. LCCL does not support creating sub communication groups.</td>
     </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">MS_TOPO_TIMEOUT</td>
+        <td align="left">Cluster networking phase timeout time in seconds.</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">The default is 30 minutes.</td>
+        <td align="left">This value represents that all nodes can register to the scheduler within this time window. If the time window is exceeded, registration will fail and if the number of nodes does not meet the requirements, cluster networking will fail. We suggest users to configure this environment variable when the cluster is in large-scale.</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">MS_NODE_TIMEOUT</td>
+        <td align="left">Node heartbeat timeout in seconds。</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">The default is 300 seconds.</td>
+        <td align="left">This value represents the heartbeat timeout time between the scheduler and the worker. If there are no heartbeat messages within this time window, the cluster will exit abnormally.</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">MS_RECEIVE_MSG_TIMEOUT</td>
+        <td align="left">Node timeout for receiving messages in seconds.</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">The default is 300 seconds.</td>
+        <td align="left">This value represents the timeout window for the node to receive messages from the other end. If there is no message response within the time window, an empty message is returned.</td>
+    </tr>
 </table>
 
 > The environment variables `MS_SCHED_HOST`, `MS_SCHED_PORT`, and `MS_WORKER_NUM` need to be consistent in their contents, or else the networking will fail due to the inconsistency in the configurations of the processes.
