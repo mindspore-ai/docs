@@ -541,7 +541,7 @@ Taking the training network used in the first part of [pipeline parallel model t
 ...
 ```
 
-Refer to [performing compilation on the target network](https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/model_transformation.html#performing-compilation-on-the-target-network) section. Compile the target network to obtain the strategy file of the target network.
+Refer to [performing compilation on the target network](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_transformation.html#performing-compilation-on-the-target-network) section. Compile the target network to obtain the strategy file of the target network.
 
 In the training parallel stratey, the pipeline parallel dimensino is 2. The network will be divided into two subnetworks. The strategy files `src_strategy_0.ckpt` and `src_strategy_4.ckpt` are used for checkpoint transformation. Using `transform_checkpoints` interface for checkpoint transformation of a single subnetwork.
 

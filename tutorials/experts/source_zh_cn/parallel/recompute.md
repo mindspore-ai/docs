@@ -16,7 +16,7 @@ MindSpore采用反向模式的自动微分，根据正向图计算流程来自�
 
 3. `mindspore.recompute()`：调用`mindspore`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.recompute.html#mindspore.recompute)，调用该接口之后，网络模块会被重新计算。只支持PyNative模式。
 
-3. `mindspore.recompute()`：调用`mindspore`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.recompute.html#mindspore.recompute)，调用该接口之后，网络模块会被重新计算。只支持PyNative模式。
+3. `mindspore.recompute()`：调用`mindspore`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.recompute.html#mindspore.recompute)，调用该接口之后，网络模块会被重新计算。只支持PyNative模式。
 
 ## 基本原理
 

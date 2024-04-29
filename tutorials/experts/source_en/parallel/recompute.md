@@ -16,7 +16,7 @@ Related interfaces:
 
 3. `mindspore.recompute(block, *args, **kwargs)`: Call the [recompute interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.recompute.html#mindspore.recompute). After calling this function interface, the block will be recomputed. Only PyNative mode is supported.
 
-3. `mindspore.recompute(block, *args, **kwargs)`: Call the [recompute interface](https://www.mindspore.cn/docs/en/r2.3/api_python/mindspore/mindspore.recompute.html#mindspore.recompute). After calling this function interface, the block will be recomputed. Only PyNative mode is supported.
+3. `mindspore.recompute(block, *args, **kwargs)`: Call the [recompute interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.recompute.html#mindspore.recompute). After calling this function interface, the block will be recomputed. Only PyNative mode is supported.
 
 ## Basic Principle
 

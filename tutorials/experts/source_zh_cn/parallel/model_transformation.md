@@ -542,7 +542,7 @@ epoch: 1, step: 120, loss is 0.10741685
 ...
 ```
 
-参考[对目标网络执行编译](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/parallel/model_transformation.html#%E5%AF%B9%E7%9B%AE%E6%A0%87%E7%BD%91%E7%BB%9C%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91)章节，同样编译目标网络以得到目标网络的切分策略文件。
+参考[对目标网络执行编译](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_transformation.html#%E5%AF%B9%E7%9B%AE%E6%A0%87%E7%BD%91%E7%BB%9C%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91)章节，同样编译目标网络以得到目标网络的切分策略文件。
 
 网络训练并行策略中流水线并行维度为2，网络将被切分为两个子网络进行训练，分别取两个子网络的策略文件`src_strategy_0.ckpt`和`src_strategy_4.ckpt`使用`transform_checkpoints`接口进行单个子网络的权重转换。
 
