@@ -107,6 +107,13 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left">1代表是，其他值代表否。默认为否。</td>
         <td align="left">此环境变量只在<b>Ascend硬件平台并且通信域数量较多</b>的情况下建议开启。开启此环境变量后，能够降低HCCL集合通信库的内存占用，并且训练任务执行方式与<b>rank table</b>启动方式相同<br>将此环境变量设置为1时，无法设置JitConfig接口的jit_level为'O0'，否则MindSpore提示<code>Environment variable settings conflict</code>错误。</td>
     </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">MS_ENABLE_LCCL</td>
+        <td align="left">是否使用LCCL通信库。</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">1代表开启，0代表关闭。默认为0。</td>
+        <td align="left">LCCL通信库暂只支持单机多卡，并且必须在KernelByKernel模式下执行。</td>
+    </tr>
 </table>
 
 > 环境变量`MS_SCHED_HOST`、`MS_SCHED_PORT`、`MS_WORKER_NUM`内容需保持一致，否则会由于各进程配置不一致导致组网失败。

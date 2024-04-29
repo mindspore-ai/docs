@@ -107,6 +107,13 @@ The relevant environment variables:
         <td align="left">1 for yes, other values for no. The default is no.</td>
         <td align="left">This environment variable is only recommended to be turned on for <b>Ascend hardware platforms with a large number of communication domains</b>. Turning on this environment variable reduces the memory footprint of the HCCL collection of communication libraries, and the training tasks are executed in the same way as <b>rank table</b> startup method.<br>When it is set to 1, jit_level of JitConfig interface can't be set to 'O0', otherwise <code>Environment variable settings conflict</code> exception will be thrown by MindSpore.</td>
     </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">MS_ENABLE_LCCL</td>
+        <td align="left">Whether to use LCCL as communication library.</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">1 for yes, other values for no. The default is no.</td>
+        <td align="left">The LCCL communication library currently only supports single-machine multi-card scenario and must be executed in KernelByKernel mode.</td>
+    </tr>
 </table>
 
 > The environment variables `MS_SCHED_HOST`, `MS_SCHED_PORT`, and `MS_WORKER_NUM` need to be consistent in their contents, or else the networking will fail due to the inconsistency in the configurations of the processes.
