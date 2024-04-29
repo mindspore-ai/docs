@@ -20,7 +20,7 @@ Compared with traditional custom operator creating methods, creating custom oper
 - It unifies the interface and usage for different kinds of custom operators, which is convenient for network developers to flexibly choose which kind of custom operator to use according to their needs.
 - Supports defining custom operators with hybrid expression, which can be used across platforms.
 
-The operator development methods supported by custom operator based on the [Custom](https://www.mindspore.cn/docs/en/r2.3.0rc2/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive include: hybrid,aot, pyfunc, julia, and akg.
+The operator development methods supported by custom operator based on the [Custom](https://www.mindspore.cn/docs/en/r2.3.0rc2/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive include: hybrid, aot, pyfunc, julia, and akg.
 
 The difference between these operator development methods are as follows:
 
