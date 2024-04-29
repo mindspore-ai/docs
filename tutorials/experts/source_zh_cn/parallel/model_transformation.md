@@ -27,6 +27,8 @@
 
 3. `mindspore.transform_checkpoint_by_rank(rank_id, checkpoint_files_map, save_checkpoint_file_name, src_strategy_file, dst_strategy_file)`：将一个分布式网络的Checkpoint由源切分策略转换到目标切分策略，对特定一个rank进行转换。其中`rank_id`为待转换得到的Checkpoint的rank号。`checkpoint_files_map`为源Checkpoint字典，其key为rank号，值为该rank号对应的Checkpoint文件路径。`save_checkpoint_file_name`为当前rank的目标Checkpoint路径以及名字。
 
+4. `mindspore.load_segmented_checkpoints(ckpt_file_dir)`：读取指定`ckpt_file_dir`路径下所有`.ckpt`权重文件并合并，返回合并后的参数字典。
+
 ## 操作实践
 
 以在Ascend 8卡上训练，并在4卡上微调为例，整体操作流程如下：
@@ -511,4 +513,71 @@ epoch: 1, step: 60, loss is 0.14676111
 epoch: 1, step: 80, loss is 0.11930083
 epoch: 1, step: 100, loss is 0.0784434
 epoch: 1, step: 120, loss is 0.10741685
+```
+
+**流水线并行单个子网络模型转换**
+
+`transform_checkpoints`接口同时支持流水线并行下以单个子网络为单位进行模型权重转换。不同于上文提到的流水线模型转换，该场景下无需事先执行一次汇聚切分策略文件的操作，而是将单个流水线子网络的策略文件作为分布式Checkpoint转换依赖的策略文件。采用单个子网络模型转换的方式，每个进程将转换得到该子网络中包含参数在所有目标rank下的权重文件，并以`_part*`后缀标识权重文件由流水线下的哪一个子网络转换得到。
+
+以[流水线并行模型转换](#流水线并行模型转换)第一部分使用的训练网络网络为例，训练脚本及使用方式不再赘述。执行后，将会生成源Checkpoint文件目录以及源切分策略文件，文件目录结构为：
+
+```text
+├─ src_checkpoints_pipeline
+|   ├─ rank_0
+|   |   ├─ checkpoint-3_1875.ckpt
+|   |   └─ checkpoint-graph.meta
+|   ├─ rank_1
+|   |   ├─ checkpoint-3_1875.ckpt
+|   |   ...
+|   ...
+├─ src_pipeline_strategys
+|   ├─ src_strategy_0.ckpt
+|   ├─ src_strategy_1.ckpt
+|   ├─ src_strategy_2.ckpt
+|   ├─ src_strategy_3.ckpt
+|   ├─ src_strategy_4.ckpt
+|   ├─ src_strategy_5.ckpt
+|   ├─ src_strategy_6.ckpt
+|   └─ src_strategy_7.ckpt
+...
+```
+
+参考[对目标网络执行编译](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/model_transformation.html#%E5%AF%B9%E7%9B%AE%E6%A0%87%E7%BD%91%E7%BB%9C%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91)章节，同样编译目标网络以得到目标网络的切分策略文件。
+
+网络训练并行策略中流水线并行维度为2，网络将被切分为两个子网络进行训练，分别取两个子网络的策略文件`src_strategy_0.ckpt`和`src_strategy_4.ckpt`使用`transform_checkpoints`接口进行单个子网络的权重转换。
+
+```python
+import mindspore as ms
+
+stage_strategy_list = ['src_strategy_0.ckpt', 'src_strategy_4.ckpt']
+for src_strategy_file in stage_strategy_list:
+  ms.transform_checkpoints(args_opt.src_checkpoints_dir, args_opt.dst_checkpoints_dir, "checkpoint_", src_strategy_file, args_opt.dst_strategy_file)
+```
+
+> 当前仅支持多卡到多卡之间的权重转换，即不支持`src_strategy_file=None`或`dst_strategy_file=None`的场景，且不支持目标并行策略为流水线并行的转换。
+
+转换后得到权重的目录结构为：
+
+```text
+├─ dst_checkpoints_dir
+|   ├─ rank_0
+|   |   ├─ checkpoint_0_part0.ckpt
+|   |   └─ checkpoint_0_part1.ckpt
+|   ├─ rank_1
+|   |   ├─ checkpoint_1_part0.ckpt
+|   |   └─ checkpoint_1_part1.ckpt
+|   ...
+```
+
+由于以子网络为单位进行权重转换，每个子网络都会转出一个目标rank对应的权重文件。目录`rank_*`下保存对应目标rank下由所有子网络转换得到的权重文件。`checkpoint_0_part0.ckpt`为由子网络0转换得到的目标rank号为0的对应权重。
+
+采用单个子网络模型转换方式得到的权重文件，在`rank_*`路径下所有的权重文件组成了目标策略该rank下完整的权重，加载时需要对路径下所有的文件进行读取。使用`load_segmented_checkpoints`接口能够读取指定路径下所有权重文件并进行汇聚，样例代码如下：
+
+```python
+import mindspore as ms
+
+net = Network()
+
+param_dict = ms.load_segmented_checkpoints(checkpoint_file_dir)
+param_not_load, _ = ms.load_param_into_net(net, param_dict)
 ```

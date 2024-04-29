@@ -27,6 +27,8 @@ Related interfaces:
 
 3. `mindspore.transform_checkpoint_by_rank(rank_id, checkpoint_files_map, save_checkpoint_file_name, src_strategy_file, dst_strategy_file)`: Transform a Checkpoint of a distributed network from a source sharding strategy to a target sharding strategy for a specific rank, where `rank_id` is the rank number of the Checkpoint to be transformed. `checkpoint_files_map` is the source Checkpoint dictionary whose key is the rank number and the value is the path to the Checkpoint file corresponding to that rank number. `save_checkpoint_file_name` is the path and name of the target Checkpoint for the current rank.
 
+4. `mindspore.load_segmented_checkpoints(ckpt_file_dir)` : Load all `.ckpt` checkpoint files in the specified `ckpt_file_dir` path. Return a combined parameter dict.
+
 ## Operation Practice
 
 As an example of training on an Ascend 8-card and fine-tuning on 4-card, the overall procedure is as follows:
@@ -510,4 +512,71 @@ epoch: 1, step: 60, loss is 0.14676111
 epoch: 1, step: 80, loss is 0.11930083
 epoch: 1, step: 100, loss is 0.0784434
 epoch: 1, step: 120, loss is 0.10741685
+```
+
+**Pipeline Parallel Subnetwork Model Transformation**
+
+The `transform_checkpoints` interface also supports checkpoint transformation of a single subnetwork when source strategy using pipeline parallel. Different from the pipeline model transformation mentioned above, the strategy file of a single pipeline subnetwork is used as the source strategy file for distributed checkpoint transformation, without performing a prior operation of aggregating and slicing policy files. Using subnetwork model transformation, each process will transform parameters in this subnetwork for all target ranks. The suffix `_part*` identifies which subnetwork under the pipeline used to convert the checkpoint file.
+
+Taking the training network used in the first part of [pipeline parallel model transformation](#pipeline-parallel-model-transformation) as an example, the training script and its use will not be described again. After execution, the source checkpoint file directory and source strategy file are generated. The file directory structure is:
+
+```text
+├─ src_checkpoints_pipeline
+|   ├─ rank_0
+|   |   ├─ checkpoint-3_1875.ckpt
+|   |   └─ checkpoint-graph.meta
+|   ├─ rank_1
+|   |   ├─ checkpoint-3_1875.ckpt
+|   |   ...
+|   ...
+├─ src_pipeline_strategys
+|   ├─ src_strategy_0.ckpt
+|   ├─ src_strategy_1.ckpt
+|   ├─ src_strategy_2.ckpt
+|   ├─ src_strategy_3.ckpt
+|   ├─ src_strategy_4.ckpt
+|   ├─ src_strategy_5.ckpt
+|   ├─ src_strategy_6.ckpt
+|   └─ src_strategy_7.ckpt
+...
+```
+
+Refer to [performing compilation on the target network](https://www.mindspore.cn/tutorials/experts/en/master/parallel/model_transformation.html#performing-compilation-on-the-target-network) section. Compile the target network to obtain the strategy file of the target network.
+
+In the training parallel stratey, the pipeline parallel dimensino is 2. The network will be divided into two subnetworks. The strategy files `src_strategy_0.ckpt` and `src_strategy_4.ckpt` are used for checkpoint transformation. Using `transform_checkpoints` interface for checkpoint transformation of a single subnetwork.
+
+```python
+import mindspore as ms
+
+stage_strategy_list = ['src_strategy_0.ckpt', 'src_strategy_4.ckpt']
+for src_strategy_file in stage_strategy_list:
+  ms.transform_checkpoints(args_opt.src_checkpoints_dir, args_opt.dst_checkpoints_dir, "checkpoint_", src_strategy_file, args_opt.dst_strategy_file)
+```
+
+> Currently, only multi-card to multi-card checkpoint transformation is supported, that is, `src_strategy_file=None` or `dst_strategy_file=None` is not supported, and the transform whose target strategy is pipeline parallel is not supported.
+
+The directory structure of the checkpoint file obtained after transformation is:
+
+```text
+├─ dst_checkpoints_dir
+|   ├─ rank_0
+|   |   ├─ checkpoint_0_part0.ckpt
+|   |   └─ checkpoint_0_part1.ckpt
+|   ├─ rank_1
+|   |   ├─ checkpoint_1_part0.ckpt
+|   |   └─ checkpoint_1_part1.ckpt
+|   ...
+```
+
+Since the checkpoint transformation is carried out in subnetworks, each subnetwork will transferom one checkpoint file corresponding to the target rank. The directory `rank_*` stores the checkpoint files fransformed by all subnetworks under the corresponding target rank. `checkpoint_0_part0.ckpt` is the checkpoint of target rank 0 transformed from subnetwork 0.
+
+The weight files are obtained by using a single subnetwork model transformation approach, and all the weight files under the `rank_*` path make up the complete weight of the target strategy under that rank, and all the files under the path need to be read when loading. Using the `load_segmented_checkpoints` interface, we can load and aggregate checkpoint files given a specified path. The example code is as follows:
+
+```python
+import mindspore as ms
+
+net = Network()
+
+param_dict = ms.load_segmented_checkpoints(checkpoint_file_dir)
+param_not_load, _ = ms.load_param_into_net(net, param_dict)
 ```
