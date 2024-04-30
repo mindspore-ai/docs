@@ -1496,28 +1496,6 @@ res: 2
   obj.x is: 100
   ```
 
-  图模式下支持对第三方库对象的属性进行设置与修改，例如：
-
-  ```python
-  from mindspore import jit
-  import numpy as np
-
-  @jit
-  def foo():
-      a = np.array([1, 2, 3, 4])
-      a.shape = (2, 2)
-      return a.shape
-
-  shape = foo()
-  print(f"shape is {shape}")
-  ```
-
-  运行结果为：
-
-  ```text
-  shape is (2, 2)
-  ```
-
 - 对Cell的self对象进行修改，例如：
 
   ```python
@@ -1565,41 +1543,7 @@ res: 2
   net()
   ```
 
-- 对静态图内的Cell对象以及jit_class对象进行设置与修改。
-
-  支持对图模式Cell对象进行属性修改，例如：
-
-  ```python
-  import mindspore as ms
-  from mindspore import nn, set_context
-  set_context(mode=ms.GRAPH_MODE)
-
-  class InnerNet(nn.Cell):
-      def __init__(self):
-          super(InnerNet, self).__init__()
-          self.x = 10
-
-  class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.inner = InnerNet()
-
-    def construct(self):
-        self.inner.x = 100
-        return
-
-  net = Net()
-  net()
-  print(f"net.inner.x is {net.inner.x}")
-  ```
-
-  运行结果为：
-
-  ```text
-  net.inner.x is 100
-  ```
-
-  支持对图模式jit_class对象进行属性修改，例如：
+- 支持对图模式jit_class对象进行属性修改，例如：
 
   ```python
   import mindspore as ms
@@ -1630,48 +1574,6 @@ res: 2
   ```text
   net.inner.x is 100
   ```
-
-  注意，若在图模式内对Cell/jit_class对象进行属性修改前也获取了相同属性，该获取到的属性会被解析为常量。在多次运行相同网络时可能会造成问题，例如：
-
-  ```python
-  import mindspore as ms
-  from mindspore import nn, set_context
-  set_context(mode=ms.GRAPH_MODE)
-
-  class InnerNet(nn.Cell):
-      def __init__(self):
-          self.x = 1
-
-  class Net(nn.Cell):
-    def __init__(self):
-        super().__init__()
-        self.inner = InnerNet()
-
-    def construct(self):
-        a = self.inner.x
-        self.inner.x = a + 1
-        return
-
-  net = Net()
-  value0 = net.inner.x
-  net()
-  value1 = net.inner.x
-  net()
-  value2 = net.inner.x
-  print(f"value0 is {value0}")
-  print(f"value1 is {value1}")
-  print(f"value2 is {value2}")
-  ```
-
-  运行结果为：
-
-  ```text
-  value0 is 1
-  value1 is 2
-  value2 is 2
-  ```
-
-  但是在动态图模式下，`value2`的值应该为3。但因为语句`a = self.inner.x`中的`self.inner.x`被固化为常量2，导致两次运行时`self.inner.x`被设置的值均为2。此问题将在后续版本解决。
 
 ### 支持求导
 

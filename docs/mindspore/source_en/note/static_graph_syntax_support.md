@@ -1496,28 +1496,6 @@ The result is:
 obj.x is: 100
 ```
 
-In graph mode, you can set and modify the properties of third-party library objects, such as:
-
-```python
-from mindspore import jit
-import numpy as np
-
-@jit
-def foo():
-    a = np.array([1, 2, 3, 4])
-    a.shape = (2, 2)
-    return a.shape
-
-shape = foo()
-print(f"shape is {shape}")
-```
-
-The result is:
-
-```text
-shape is (2, 2)
-```
-
 - Make changes to the Cell's self object, for example:
 
   ```python
@@ -1565,41 +1543,7 @@ shape is (2, 2)
   net()
   ```
 
-- Set and modify Cell objects and jit_class objects in the static graph
-
-  Supporting modifying the properties of the graph mode Cell object, such as:
-
-  ```python
-  import mindspore as ms
-  from mindspore import nn, set_context
-  set_context(mode=ms.GRAPH_MODE)
-
-  class InnerNet(nn.Cell):
-      def __init__(self):
-          super(InnerNet, self).__init__()
-          self.x = 10
-
-  class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.inner = InnerNet()
-
-    def construct(self):
-        self.inner.x = 100
-        return
-
-  net = Net()
-  net()
-  print(f"net.inner.x is {net.inner.x}")
-  ```
-
-  The result is:
-
-  ```text
-  net.inner.x is 100
-  ```
-
-  Supporting property modification of objects jit_class graph mode, such as:
+- Supporting property modification of objects jit_class graph mode, such as:
 
   ```python
   import mindspore as ms
@@ -1630,48 +1574,6 @@ shape is (2, 2)
   ```text
   net.inner.x is 100
   ```
-
-  Note that if the same property is obtained before modifying the properties of the Cell/jit_class object in the graph mode, the obtained properties will be parsed as constants. This can cause problems when running the same network multiple times, such as:
-
-  ```python
-  import mindspore as ms
-  from mindspore import nn, set_context
-  set_context(mode=ms.GRAPH_MODE)
-
-  class InnerNet(nn.Cell):
-      def __init__(self):
-          self.x = 1
-
-  class Net(nn.Cell):
-    def __init__(self):
-        super().__init__()
-        self.inner = InnerNet()
-
-    def construct(self):
-        a = self.inner.x
-        self.inner.x = a + 1
-        return
-
-  net = Net()
-  value0 = net.inner.x
-  net()
-  value1 = net.inner.x
-  net()
-  value2 = net.inner.x
-  print(f"value0 is {value0}")
-  print(f"value1 is {value1}")
-  print(f"value2 is {value2}")
-  ```
-
-  The result is:
-
-  ```text
-  value0 is 1
-  value1 is 2
-  value2 is 2
-  ```
-
-  But in dynamic graph mode, the value of 'value2' should be 3. However, because 'self.inner.x' in the statement 'a = self.inner.x' is solidified as a constant 2, the value of 'self.inner.x' is set to 2 on both runs. This issue will be resolved in a subsequent release.
 
 ### Supporting Derivation
 
