@@ -1,6 +1,6 @@
 # 比较与torch.default_generator的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/default_generator.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.0rc2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.0rc2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/default_generator.md)
 
 ## torch.default_generator
 
@@ -16,7 +16,7 @@ class torch.default_generator
 class mindspore.nn.default_generator
 ```
 
-更多内容详见[mindspore.nn.default_generator](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.default_generator.html)。
+更多内容详见[mindspore.nn.default_generator](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/api_python/nn/mindspore.nn.default_generator.html)。
 
 ## 差异对比
 

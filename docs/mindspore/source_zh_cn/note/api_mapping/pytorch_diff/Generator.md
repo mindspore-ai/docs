@@ -1,6 +1,6 @@
 # 比较与torch.Generator的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Generator.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.0rc2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.0rc2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Generator.md)
 
 ## torch.Generator
 
@@ -16,7 +16,7 @@ class torch.Generator(device='cpu')
 class mindspore.nn.Generator()
 ```
 
-更多内容详见[mindspore.nn.Generator](https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/nn/mindspore.nn.Generator.html)。
+更多内容详见[mindspore.nn.Generator](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/api_python/nn/mindspore.nn.Generator.html)。
 
 ## 差异对比
 
@@ -29,7 +29,7 @@ MindSpore：MindSpore此API实现功能与PyTorch基本一致，但用法上有�
 |   参数   | 参数1 |    device     | - | PyTorch设定生成器的后端，MindSpore无此参数 |
 | 输入 | 单输入 | -      | step           | PyTorch在后端更新 `offset`，MindSpore对 `offset` 增加 `step` 值     |
 | 方法 | - | device | - |  PyTorch返回生成器的后端，MindSpore无此方法  |
-| 方法 | - | get_state | get_state |  PyTorch返回 `ByteTensor` 类型的值 ，MindSpore返回包含 `seed` 和 `offset` 值的Tensor的tuple |
+| 方法 | - | get_state | get_state |  PyTorch返回 `ByteTensor` 类型的值，MindSpore返回包含 `seed` 和 `offset` 值的Tensor的tuple |
 | 方法 | - | initial_seed | initial_seed |  PyTorch返回int类型的 `seed` ，MindSpore返回Tensor类型的 `seed` |
 | 方法 | - | manual_seed | manual_seed | 功能一致  |
 | 方法 | - | seed | seed |  PyTorch通过c++后端随机生成int类型的 `seed` ，MindSpore 随机生成Tensor类型的 `seed` 。MindSpore通过numpy生成的随机种子，固定numpy的随机性可固定该接口的随机性 |
