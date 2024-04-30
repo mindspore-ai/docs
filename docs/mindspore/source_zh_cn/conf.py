@@ -400,6 +400,17 @@ for cur, _, files in os.walk(des_sir):
                         md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
                         if 'resource/_static/logo_source' not in new_content:
                             new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
+                    if new_content != content:
+                        f.seek(0)
+                        f.truncate()
+                        f.write(new_content)
+            except Exception:
+                print(f'打开{i}文件失败')
+        if i.endswith('.rst'):
+            try:
+                with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                    content = f.read()
+                    new_content = content
                     if '.. include::' in content and '.. automodule::' in content:
                         continue
                     if 'autosummary::' not in content and "\n=====" in content:
@@ -437,12 +448,20 @@ try:
 except Exception as e:
     print(e)
 
+primitive_list = ops_interface_name()
+
 try:
-    primitive_list = ops_interface_name()
     nn_interface_name()
     tensor_interface_name()
 except Exception as e:
     print(e)
+
+# auto generate rst by en
+from generate_rst_by_en import generate_rst_by_en
+
+exist_rst_file, primi_auto = generate_rst_by_en(primitive_list, './api_python/ops')
+if exist_rst_file:
+    print(f'自动生成 ops API 中文时被覆盖的rst文件如下：\n{exist_rst_file}')
 
 from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnPlatWarnAutoSummary
 
