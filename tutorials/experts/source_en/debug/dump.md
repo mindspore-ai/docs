@@ -1,6 +1,6 @@
 # Using Dump in the Graph Mode
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_en/debug/dump.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.0rc2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.0rc2/tutorials/experts/source_en/debug/dump.md)
 
 ## Overview
 
@@ -21,7 +21,7 @@ The data preparation phase uses synchronous Dump or asynchronous Dump to generat
 When preparing data, you can refer to the following best practices:
 
 1. Set the `iteration` parameter to save only the data of the iteration with the problem and the previous iteration. For example, if the problem to be analyzed will appear in the 10th iteration (counting from 1), you can set it as follows: `"iteration": "8 | 9"`. Note that the `iteration` parameter evaluates iterations from 0. Saving the data of the above two iterations can help problem analysis under most scenarios.
-2. After the iteration with problems is completed, it is recommended that you use [run_context.request_stop()](https://www.mindspore.cn/docs/en/r2.3/api_python/train/mindspore.train.RunContext.html#mindspore.train.RunContext.request_stop) or other methods to stop the training in advance.
+2. After the iteration with problems is completed, it is recommended that you use [run_context.request_stop()](https://www.mindspore.cn/docs/en/r2.3.0rc2/api_python/train/mindspore.train.RunContext.html#mindspore.train.RunContext.request_stop) or other methods to stop the training in advance.
 
 #### Data Analysis
 
@@ -101,7 +101,7 @@ The configuration files required for different modes and the data format of dump
     - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to indicate complete tensor data Dumped, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Synchronous statistics dump is only supported on GPU. Using "statistic" or "full" on CPU or Ascend will result in exception. Default setting is "tensor".
     - `input_output`: 0: dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. This configuration parameter only supports Ascend and CPU, and GPU can only dump the output of operator.
     - `kernels`: This item can be configured in two formats:
-        1. List of operator names. Turn on the IR save switch `set_context(save_graphs=2)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/tutorials/en/r2.3/advanced/error_analysis/mindir.html#saving-ir).
+        1. List of operator names. Turn on the IR save switch `set_context(save_graphs=2)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/tutorials/en/r2.3.0rc2/advanced/error_analysis/mindir.html#saving-ir).
         Note that whether setting `set_context(save_graphs=2)` may cause the different IDs of the same operator, so when dump specified operators, keep this setting unchanged after obtaining the operator name. Or you can obtain the operator names from the file `ms_output_trace_code_graph_{graph_id}.ir` saved by Dump. Refer to [Synchronous Dump Data Object Directory](#synchronous-dump-data-object-directory).
         2. You can also specify an operator type. When there is no operator scope information or operator id information in the string, the background considers it as an operator type, such as "conv". The matching rule of operator type is: when the operator name contains an operator type string, the matching is considered successful (case insensitive). For example, "conv" can match operators "Conv2D-op1234" and "Conv3D-op1221".
     - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data. This configuration parameter is invalid on the CPU, because there is no concept of device on the CPU, but it is still need to reserve this parameter in the json file.
@@ -233,11 +233,11 @@ This file stores the list of iterations in which the graph was executed. After t
 
 ### Synchronous Dump Data Analysis Sample
 
-In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/dump) , you only need to execute `bash dump_sync_dump.sh` for synchronous dump.
+In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://gitee.com/mindspore/docs/tree/r2.3.0rc2/docs/sample_code/dump) , you only need to execute `bash dump_sync_dump.sh` for synchronous dump.
 
 After the graph corresponding to the script is saved to the disk through the Dump function, the final execution graph file `ms_output_trace_code_graph_{graph_id}.ir` will be generated. This file saves the stack information of each operator in the corresponding graph, and records the generation script corresponding to the operator.
 
-Take [AlexNet script](https://gitee.com/mindspore/docs/blob/r2.3/docs/sample_code/dump/train_alexnet.py) as an example:
+Take [AlexNet script](https://gitee.com/mindspore/docs/blob/r2.3.0rc2/docs/sample_code/dump/train_alexnet.py) as an example:
 
 ```python
 ...
@@ -538,7 +538,7 @@ The constant dump file, final execution graph file and execution order file nami
 
 ### Asynchronous Dump Data Analysis Sample
 
-In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://gitee.com/mindspore/docs/tree/r2.3/docs/sample_code/dump) , you only need to execute `bash run_async_dump.sh` for asynchronous dump.
+In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script](https://gitee.com/mindspore/docs/tree/r2.3.0rc2/docs/sample_code/dump) , you only need to execute `bash run_async_dump.sh` for asynchronous dump.
 
 Through the asynchronous Dump function, the data files generated by the operator asynchronous Dump can be obtained. If `file_format` in the Dump configure file is set to "npy", then the step 1, 2 in the follows steps can be skipped. If `file_format` is not set or set to "bin", the tensor files need to be converted to `.npy` format.
 
