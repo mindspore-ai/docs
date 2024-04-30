@@ -1,6 +1,6 @@
 # CNN and CTC for Recognizing Text from Images
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/application/source_en/cv/cnnctc.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.0rc2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.0rc2/tutorials/application/source_en/cv/cnnctc.md)
 
 ## Model Introduction
 
