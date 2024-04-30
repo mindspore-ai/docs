@@ -60,7 +60,7 @@ class DenseMatMulNet(nn.Cell):
         layout = Layout((2, 2, 2), name = ("dp", "sp", "mp"))
         in_strategy = (layout("mp", ("sp", "dp")), layout(("sp", "dp"), "None"))
         out_strategy = (layout(("mp", "sp", "dp"), "None"), )
-        self.matmul1 = ops.MatMul.shard(in_strategy, out_strategy)
+        self.matmul1 = ops.MatMul().shard(in_strategy, out_strategy)
     def construct(self, x, w):
         y = self.matmul1(x, w)
         return y
