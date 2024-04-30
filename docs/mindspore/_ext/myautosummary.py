@@ -36,6 +36,14 @@ class MsAutosummary(Autosummary):
                 env_sum = doc[i+1][4:] # 支持平台
         return env_sum
 
+    def extract_ops_summary(self, doc: List[str]) -> str:
+        """Extract env summary from docstring."""
+        env_sum = ""
+        end_doc = doc[-2]
+        if 'Refer to' in end_doc and 'for more details' in end_doc:
+            env_sum = end_doc
+        return env_sum
+
     def extract_env_warn(self, doc: List[str]) -> str:
         """Extract env note from docstring."""
         flag_warn = 0
@@ -183,8 +191,27 @@ class MsAutosummary(Autosummary):
             # -- Grab the summary
 
             documenter.add_content(None)
-            summary = extract_summary(self.bridge.result.data[:], self.state.document)
-            env_sum = self.extract_env_summary(self.bridge.result.data[:])
+            if '.ops.' in display_name:
+                try:
+                    display_name_path = inspect.getsourcefile(get_api(display_name))
+                # pylint: disable=W0702
+                except:
+                    display_name_path = ""
+                if 'mindspore/ops/auto_generate/' in display_name_path:
+
+                    summary = self.extract_ops_summary(self.bridge.result.data[:])
+                    env_sum = self.get_refer_platform(display_name)
+
+                    if not summary:
+                        summary = extract_summary(self.bridge.result.data[:], self.state.document)
+                    if not env_sum:
+                        env_sum = self.extract_env_summary(self.bridge.result.data[:])
+                else:
+                    summary = extract_summary(self.bridge.result.data[:], self.state.document)
+                    env_sum = self.extract_env_summary(self.bridge.result.data[:])
+            else:
+                summary = extract_summary(self.bridge.result.data[:], self.state.document)
+                env_sum = self.extract_env_summary(self.bridge.result.data[:])
             env_warn = self.extract_env_warn(self.bridge.result.data[:])
             if self.fourth_title:
                 items.append((display_name, sig, summary, real_name, env_sum, env_warn))
@@ -279,6 +306,27 @@ class MsPlatWarnAutoSummary(MsAutosummary):
         self.find_doc_name = "Supported Platforms:"
         self.third_title = "**{}**".format(self.find_doc_name[:-1])
         self.default_doc = "``Ascend`` ``GPU`` ``CPU``"
+
+    def get_refer_platform(self, name=None):
+        """Get the `Supported Platforms`."""
+        if not name:
+            return []
+        try:
+            api_doc = inspect.getdoc(get_api(name))
+            if '.ops.' in name and 'Refer to' in api_doc.split('\n')[-1]:
+                new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
+                api_doc = inspect.getdoc(get_api(new_name))
+                platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
+                if not platform_str:
+                    platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
+                    if platform_str_leak:
+                        return platform_str_leak[0]
+                    logger.warning(f"not find Supported Platforms: {name}")
+                    return ""
+                return platform_str[0]
+            return ""
+        except: #pylint: disable=bare-except
+            return ""
 
 class MsNoteAutoSummary(MsAutosummary):
     """
@@ -430,7 +478,9 @@ class MsCnAutoSummary(Autosummary):
                 if content:
                     summary_str = summary_re.findall(content)
                     summary_str_spec = summary_spec_re.findall(content)
-                    if summary_str:
+                    if '.ops.' in display_name and '更多详情请查看：' in content.split('\n')[-2]:
+                        summary_str = content.split('\n')[-2].strip()
+                    elif summary_str:
                         if re.findall("[:：,，。.;；]", summary_str[0][-1]):
                             logger.warning(f"{display_name}接口的概述格式需调整")
                         summary_str = summary_str[0] + '。'
@@ -643,6 +693,9 @@ class MsCnPlatformAutoSummary(MsCnAutoSummary):
             return []
         try:
             api_doc = inspect.getdoc(get_api(name))
+            if '.ops.' in name and 'Refer to' in api_doc.split('\n')[-1]:
+                new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
+                api_doc = inspect.getdoc(get_api(new_name))
             platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
             if ['deprecated'] == platform_str:
                 return ["弃用"]
@@ -650,6 +703,7 @@ class MsCnPlatformAutoSummary(MsCnAutoSummary):
                 platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
                 if platform_str_leak:
                     return platform_str_leak
+                logger.warning(f"not find Supported Platforms: {name}")
                 return ["``Ascend`` ``GPU`` ``CPU``"]
             return platform_str
         except: #pylint: disable=bare-except
@@ -670,6 +724,9 @@ class MsCnPlatWarnAutoSummary(MsCnAutoSummary):
             return []
         try:
             api_doc = inspect.getdoc(get_api(name))
+            if '.ops.' in name and 'Refer to' in api_doc.split('\n')[-1]:
+                new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
+                api_doc = inspect.getdoc(get_api(new_name))
             platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
             if ['deprecated'] == platform_str:
                 return ["弃用"]
@@ -677,10 +734,11 @@ class MsCnPlatWarnAutoSummary(MsCnAutoSummary):
                 platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
                 if platform_str_leak:
                     return platform_str_leak
+                logger.warning(f"not find Supported Platforms: {name}")
                 return ["``Ascend`` ``GPU`` ``CPU``"]
             return platform_str
         except: #pylint: disable=bare-except
-            return []
+            return ["``Ascend`` ``GPU`` ``CPU``"]
 
     def get_fourth_column(self, name=None, content=''):
         """Get the `Warning`."""
