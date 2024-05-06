@@ -332,6 +332,18 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 | [torch.permute](https://pytorch.org/docs/1.12/generated/torch.permute.html)                         | [mindspore.ops.permute](https://mindspore.cn/docs/zh-CN/r2.3.0rc2/api_python/ops/mindspore.ops.permute.html) |  [一致](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景) |
 | [torch.vsplit](https://pytorch.org/docs/1.12/generated/torch.vsplit.html)                      | [mindspore.ops.vsplit](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/api_python/ops/mindspore.ops.vsplit.html)                        | [一致](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/note/api_mapping/pytorch_api_mapping.html#api映射一致标准及例外场景)|
 
+## torch.generator
+
+| PyTorch 1.8.1 APIs                                                                                                   | MindSpore APIs                                                                                                                | 说明 |
+| -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---- |
+| [torch.default_generator](https://pytorch.org/docs/1.8.1/torch.html#torch.torch.default_generator) | [mindspore.nn.default_generator](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/api_python/nn/mindspore.nn.default_generator.html) |   [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/note/api_mapping/pytorch_diff/default_generator.html)   |
+| [torch.get_rng_state](https://pytorch.org/docs/1.8.1/generated/torch.get_rng_state.html) | [mindspore.nn.get_rng_state](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/api_python/nn/mindspore.nn.get_rng_state.html) |   [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/note/api_mapping/pytorch_diff/get_rng_state.html)   |
+| [torch.initial_seed](https://pytorch.org/docs/1.8.1/generated/torch.initial_seed.html) | [mindspore.nn.initial_seed](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/api_python/nn/mindspore.nn.initial_seed.html) |   [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/note/api_mapping/pytorch_diff/initial_seed.html)   |
+| [torch.manual_seed](https://pytorch.org/docs/1.8.1/generated/torch.manual_seed.html) | [mindspore.nn.manual_seed](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/api_python/nn/mindspore.nn.manual_seed.html) |   一致   |
+| [torch.seed](https://pytorch.org/docs/1.8.1/generated/torch.seed.html) | [mindspore.nn.seed](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/api_python/nn/mindspore.nn.seed.html) |   [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/note/api_mapping/pytorch_diff/seed.html)   |
+| [torch.set_rng_state](https://pytorch.org/docs/1.8.1/generated/torch.set_rng_state.html) | [mindspore.nn.set_rng_state](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/api_python/nn/mindspore.nn.set_rng_state.html) |   [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/note/api_mapping/pytorch_diff/set_rng_state.html)   |
+| [torch.Generator](https://pytorch.org/docs/1.8.1/generated/torch.Generator.html) | [mindspore.nn.Generator](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/api_python/nn/mindspore.nn.Generator.html) |   [差异对比](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/note/api_mapping/pytorch_diff/Generator.html)   |
+
 ## torch.distributions
 
 | PyTorch 1.8.1 APIs                                                                                                   | MindSpore APIs                                                                                                                | 说明 |
