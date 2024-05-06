@@ -24,6 +24,7 @@ This document describes how to install MindSpore by compiling source code on Win
 - Ensure that [CMake 3.18.3](https://cmake.org/files/v3.18/cmake-3.18.3-win64-x64.msi) is installed. After installing, add the path of `cmake.exe` to the environment variable `Path`.
 - Ensure that you have Python(>=3.7.5) installed. If not installed, follow the links to [Python official website](https://www.python.org/downloads/windows/) or [Huawei Cloud](https://repo.huaweicloud.com/python/) to download and install Python.
 - Ensure that [wheel 0.32.0 and later](https://pypi.org/project/wheel/) is installed.
+- Ensure that [MSYS2 software](https://www.msys2.org/) is installed. For details, please check [Installing MSYS2 Software on Windows](https://gitee.com/mindspore/docs/blob/br_base/install/third_party/msys_software_install_en.md).
 
 ## Downloading Source Code from Code Repository
 
