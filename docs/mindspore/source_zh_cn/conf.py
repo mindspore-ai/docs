@@ -360,6 +360,30 @@ def tensor_interface_name():
                     extra_write_list.append(k)
             g.write(str(extra_write_list))
 
+# 删除并获取scipy下多余的接口文件名
+def scipy_interface_name():
+    interface_name_list = []
+    target_path = os.path.join(os.path.dirname(__file__),'api_python','mindspore.scipy.rst')
+    with open(target_path,'r+',encoding='utf8') as f:
+        content =  f.read()
+        interface_name_list = re.findall("    mindspore\.scipy\.(.*)", content)
+    all_rst = []
+    for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/scipy')):
+        if j.split('.')[-1]=='rst':
+            all_rst.append(j.split('mindspore.scipy.')[-1].replace('.rst', ''))
+
+    extra_interface_name = set(all_rst).difference(set(interface_name_list))
+    print(extra_interface_name)
+    if extra_interface_name:
+        with open(os.path.join(os.path.dirname(__file__),'extra_interface_del.txt'),'a+',encoding='utf8') as g:
+            extra_write_list = []
+            for k in extra_interface_name:
+                k = "mindspore.scipy." + k +'.rst'
+                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/scipy',k)):
+                    os.remove(os.path.join(os.path.dirname(__file__),'api_python/scipy',k))
+                    extra_write_list.append(k)
+            g.write(str(extra_write_list))
+
 # Rename .rst file to .txt file for include directive.
 from rename_include import rename_include
 
@@ -457,6 +481,7 @@ primitive_list = ops_interface_name()
 try:
     nn_interface_name()
     tensor_interface_name()
+    scipy_interface_name()
 except Exception as e:
     print(e)
 
