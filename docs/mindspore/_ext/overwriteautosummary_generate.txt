@@ -80,6 +80,7 @@ class DummyApplication:
         self.config.add('ops_yaml', '', True, None)
         self.config.add('ops_yaml_list', [], True, None)
         self.config.add('primi_auto', [], True, None)
+        self.config.add('func_name_dict', {}, True, None)
         self.config.init_values()
 
     def emit_firstresult(self, *args: Any) -> None:
@@ -497,6 +498,11 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
                     py_source_rel = ''
             else:
                 py_source_rel = app.config.ops_yaml + name1.split('.')[-1] + '_doc.yaml'
+
+            if name1.split('.')[-1] in app.config.func_name_dict and not py_source_rel:
+                logger.warning(name1)
+                py_source_rel = app.config.ops_yaml + app.config.func_name_dict[name1.split('.')[-1]] + '_doc.yaml'
+
             # 拼接源文件链接格式文档
             re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
                 f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
