@@ -54,7 +54,7 @@
 import mindspore.dataset as ds
 import mindspore.dataset.transforms as C
 import mindspore.dataset.vision as CV
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore.dataset.vision import Inter
 
 def create_dataset(data_path, batch_size=32, repeat_size=1
@@ -190,9 +190,7 @@ def get_loss():
 ```python
 import mindspore as ms
 from mindspore import set_seed
-from mindspore.train.metrics import Accuracy
-from mindspore.train import Model
-from mindspore.train.callback import LossMonitor, TimeMonitor
+from mindspore.train import Accuracy, Model, LossMonitor, TimeMonitor
 from mindspore.communication import init, get_rank
 
 

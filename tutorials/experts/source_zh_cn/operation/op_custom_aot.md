@@ -292,7 +292,7 @@ extern "C" int CustomKernel(int nparam, void **params, int *ndims, int64_t **sha
 ```python
 import numpy as np
 from mindspore import Tensor
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore.nn import Cell
 import mindspore as ms
 import mindspore.ops as ops

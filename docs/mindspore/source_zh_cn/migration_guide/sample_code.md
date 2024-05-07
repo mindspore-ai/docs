@@ -921,7 +921,7 @@ import numpy as np
 import mindspore as ms
 from mindspore.train import Model
 from mindspore import nn
-from mindspore.profiler import Profiler
+from mindspore import Profiler
 from src.dataset import create_dataset
 from src.model_utils.moxing_adapter import moxing_wrapper
 from src.model_utils.config import config
