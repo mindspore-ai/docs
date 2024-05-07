@@ -311,7 +311,7 @@ In some networks where large Embedding tables need to be checked, the Embedding 
 2. Configure related sparse optimizer of EmbeddingLookup to CPU execution
 
    ```python
-   from mindspore.nn.optim import LazyAdam
+   from mindspore.nn import LazyAdam
    net = EmbeddingLookupNet(1000, 100)
    params = net.trainable_params()
    optimizer = LazyAdam(params)

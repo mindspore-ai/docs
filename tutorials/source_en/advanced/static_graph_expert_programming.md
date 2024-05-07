@@ -41,7 +41,7 @@ Taking the Pangu_alpha network as an example, the `network` handled in the `Pipe
 
 ```python
 from mindspore import nn
-from mindspore.common import lazy_inline
+from mindspore import lazy_inline
 
 class PanGUAlphaWithLoss(nn.Cell):
     @lazy_inline
@@ -68,7 +68,7 @@ With the introduction of reusable computation graphs, Cell instances with the sa
 
 ```python
 from mindspore import nn
-from mindspore.common import lazy_inline
+from mindspore import lazy_inline
 
 class Block(nn.Cell):
     @lazy_inline
@@ -109,7 +109,7 @@ As in the example above, add the `@lazy_inline` decorator to the `__init__` func
 
    ```python
    from mindspore import nn
-   from mindspore.common import lazy_inline
+   from mindspore import lazy_inline
 
    class Block(nn.Cell):
        @lazy_inline
@@ -146,7 +146,7 @@ As in the example above, add the `@lazy_inline` decorator to the `__init__` func
 
    ```python
    from mindspore import nn
-   from mindspore.common import lazy_inline
+   from mindspore import lazy_inline
 
    class InnerBlock(nn.Cell):
        @lazy_inline             # InnerBlock does not get delayed inline

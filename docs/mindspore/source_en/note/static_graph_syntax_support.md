@@ -86,7 +86,7 @@ In static graph mode, the operation of a program is divided into compilation per
 
   ```python
   from mindspore import Tensor, jit
-  from mindspore.common import mutable
+  from mindspore import mutable
 
   a = mutable([Tensor([1]), Tensor([2])])
 
