@@ -689,9 +689,7 @@ We can further understand this through the use case and the generated intermedia
 ```python
 import numpy as np
 from mindspore.nn import Cell
-from mindspore import Tensor, Parameter
-from mindspore.ops import functional as F
-from mindspore.ops import composite as C
+from mindspore import Tensor, Parameter, ops
 import mindspore as ms
 
 ms.set_context(mode=ms.GRAPH_MODE)
@@ -705,7 +703,7 @@ class ForwardNet(Cell):
         out = 0
         i = 0
         while i < 3:
-            F.assign(self.weight, i)
+            ops.assign(self.weight, i)
             out = x * self.weight + out
             i = i + 1
         return out
@@ -715,7 +713,7 @@ class BackwardNet(Cell):
     def __init__(self, net):
         super(BackwardNet, self).__init__(auto_prefix=False)
         self.forward_net = net
-        self.grad = C.GradOperation(get_all=True)
+        self.grad = ops.GradOperation(get_all=True)
 
     def construct(self, *inputs):
         grads = self.grad(self.forward_net)(*inputs)
