@@ -1,8 +1,8 @@
 """utils implementation"""
 import os
 import mindspore as ms
-from mindspore.communication.management import init, get_rank, get_group_size
-from mindspore.parallel import set_algo_parameters
+from mindspore.communication import init, get_rank, get_group_size
+from mindspore import set_algo_parameters
 
 
 def set_graph_kernel_context(device_target, net_name):

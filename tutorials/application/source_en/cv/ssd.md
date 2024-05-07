@@ -831,7 +831,7 @@ During model training, the number of epochs for model training is set to 60, and
 import math
 import itertools as it
 
-from mindspore.common import set_seed
+from mindspore import set_seed
 
 class GeneratDefaultBoxes():
     """

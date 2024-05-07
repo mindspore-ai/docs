@@ -31,8 +31,6 @@ import os
 import numpy as np
 
 import mindspore.nn as nn
-from mindspore.common import initializer as init
-from mindspore.common.initializer import initializer
 from mindspore.train import Model
 import mindspore.dataset as ds
 import mindspore.dataset.transforms as transforms

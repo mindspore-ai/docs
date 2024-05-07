@@ -293,8 +293,7 @@ ms.set_seed(1)
 ```python
 
 import numpy as np
-from mindspore import lazy_inline, nn, ops, Tensor, Parameter
-from mindspore.parallel.checkpoint_transform import sync_pipeline_shared_parameters
+from mindspore import lazy_inline, nn, ops, Tensor, Parameter, sync_pipeline_shared_parameters
 
 class VocabEmbedding(nn.Cell):
     """Vocab Embedding"""

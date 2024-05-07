@@ -8,7 +8,7 @@
 
 ```python
 import mindspore as ms
-from mindspore.communication.management import init, get_rank, get_group_size
+from mindspore.communication import init, get_rank, get_group_size
 
 def init_env(cfg):
     """初始化运行时环境."""

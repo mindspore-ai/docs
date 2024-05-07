@@ -8,7 +8,7 @@ We generally need to set up the operating environment before network training an
 
 ```python
 import mindspore as ms
-from mindspore.communication.management import init, get_rank, get_group_size
+from mindspore.communication import init, get_rank, get_group_size
 
 def init_env(cfg):
     """Initialize the operating environment."""

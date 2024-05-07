@@ -355,9 +355,8 @@ import time
 import numpy as np
 import matplotlib.pyplot as plt
 import mindspore as ms
-from mindspore import ops, ParameterTuple, Tensor
-from mindspore.common import dtype
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import ops, ParameterTuple, Tensor, load_checkpoint, load_param_into_net
+from mindspore import dtype
 from mindspore.dataset import MindDataset
 
 device_target = 'CPU'
