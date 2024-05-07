@@ -360,8 +360,10 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             error_lists.append(deal_err(j))
                 if process.returncode != 0:
                     print(f"{i} 的 英文 版本运行失败")
+                    print(f"错误信息：\n{stderr}")
                     with open("err_cn.log", "w") as f:
                         f.write(stderr)
+                    failed_list.append(stderr)
                     failed_name_list.append(f'{i}的英文版本')
                 else:
                     if i == "mindspore":
@@ -398,7 +400,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             error_lists.append(deal_err(j))
                 if process.returncode != 0:
                     print(f"{i} 的 中文版本运行失败")
-                    print(stderr)
+                    print(f"错误信息：\n{stderr}")
                     failed_list.append(stderr)
                     failed_name_list.append(f'{i}的中文版本')
                 else:
