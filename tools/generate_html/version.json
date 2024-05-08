@@ -16,6 +16,7 @@
        "name" : "mindspore",
        "branch" : "r2.3.q1",
        "html_version" : "r2.3.0rc1",
+       "commit_id" : "24720dec357ac499235273abb06f6dae89ea77fc",
        "whl_path" : "2.3.0rc1/MindSpore/unified/x86_64/",
        "whl_name" : "mindspore-2.3.0rc1-cp37-cp37m-linux_x86_64.whl",
        "environ" : "MS_PATH",
