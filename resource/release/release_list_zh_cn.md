@@ -112,7 +112,7 @@
 
 | MindSpore版本 | 硬件平台   | 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
 |-------------|--------|-----------|------------------|
-| 2.3.0-rc1   | Ascend | TBD       | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| 2.3.0-rc1   | Ascend | TBD       | [CANN 8.0.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
 | 2.2.14      | Ascend 910 | [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
 | 2.2.13      | Ascend 910 | [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
 | 2.2.12      | Ascend 910 | [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
