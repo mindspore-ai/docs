@@ -193,7 +193,7 @@ loss_fn = nn.CrossEntropyLoss()
 optimizer = nn.SGD(model.trainable_params(), 1e-2)
 
 # Define LossScaler
-loss_scaler = DynamicLossScaler(scale_value=2**10, scale_factor=2, scale_window=50)
+loss_scaler = DynamicLossScaler(scale_value=2**16, scale_factor=2, scale_window=50)
 
 def forward_fn(data, label):
     logits = model(data)
