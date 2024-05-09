@@ -19,7 +19,7 @@ import numpy as np
 import mindspore as ms
 from mindspore import lazy_inline, nn, ops, Tensor, Parameter
 from mindspore.communication import init
-from mindspore.parallel.checkpoint_transform import sync_pipeline_shared_parameters
+from mindspore import sync_pipeline_shared_parameters
 
 
 ms.set_context(mode=ms.GRAPH_MODE)

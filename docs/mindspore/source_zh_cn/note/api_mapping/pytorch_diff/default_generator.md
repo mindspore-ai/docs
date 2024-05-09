@@ -8,7 +8,7 @@
 class torch.default_generator
 ```
 
-更多内容详见[torch.default_generator](https://pytorch.org/docs/1.8.1/torch.html#torch.torch.default_generator)。
+更多内容详见[torch.default_generator](https://pytorch.org/docs/1.8.1/torch.html#torch.default_generator)。
 
 ## mindspore.nn.default_generator
 

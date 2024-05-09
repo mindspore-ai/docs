@@ -41,7 +41,7 @@ Taking the Pangu_alpha network as an example, the `network` handled in the `Pipe
 
 ```python
 from mindspore import nn
-from mindspore.common import lazy_inline
+from mindspore import lazy_inline
 
 class PanGUAlphaWithLoss(nn.Cell):
     @lazy_inline
@@ -68,7 +68,7 @@ With the introduction of reusable computation graphs, Cell instances with the sa
 
 ```python
 from mindspore import nn
-from mindspore.common import lazy_inline
+from mindspore import lazy_inline
 
 class Block(nn.Cell):
     @lazy_inline
@@ -109,7 +109,7 @@ As in the example above, add the `@lazy_inline` decorator to the `__init__` func
 
    ```python
    from mindspore import nn
-   from mindspore.common import lazy_inline
+   from mindspore import lazy_inline
 
    class Block(nn.Cell):
        @lazy_inline
@@ -146,7 +146,7 @@ As in the example above, add the `@lazy_inline` decorator to the `__init__` func
 
    ```python
    from mindspore import nn
-   from mindspore.common import lazy_inline
+   from mindspore import lazy_inline
 
    class InnerBlock(nn.Cell):
        @lazy_inline             # InnerBlock does not get delayed inline
@@ -689,9 +689,7 @@ We can further understand this through the use case and the generated intermedia
 ```python
 import numpy as np
 from mindspore.nn import Cell
-from mindspore import Tensor, Parameter
-from mindspore.ops import functional as F
-from mindspore.ops import composite as C
+from mindspore import Tensor, Parameter, ops
 import mindspore as ms
 
 ms.set_context(mode=ms.GRAPH_MODE)
@@ -705,7 +703,7 @@ class ForwardNet(Cell):
         out = 0
         i = 0
         while i < 3:
-            F.assign(self.weight, i)
+            ops.assign(self.weight, i)
             out = x * self.weight + out
             i = i + 1
         return out
@@ -715,7 +713,7 @@ class BackwardNet(Cell):
     def __init__(self, net):
         super(BackwardNet, self).__init__(auto_prefix=False)
         self.forward_net = net
-        self.grad = C.GradOperation(get_all=True)
+        self.grad = ops.GradOperation(get_all=True)
 
     def construct(self, *inputs):
         grads = self.grad(self.forward_net)(*inputs)
