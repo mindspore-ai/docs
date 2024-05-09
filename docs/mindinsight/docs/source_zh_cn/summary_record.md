@@ -12,7 +12,7 @@
 - 启动MindSpore Insight，并通过启动参数指定summary日志文件目录，启动成功后，根据IP和端口访问可视化界面，默认访问地址为 `http://127.0.0.1:8080`。
 - 在训练过程中，有数据写入summary日志文件时，即可在页面中[查看训练看板中可视的数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/dashboard.html)。
 
-> 在ModelArts中查看可视数据，可参考[ModelArts上管理可视化作业](https://support.huaweicloud.com/develop-modelarts/develop-modelarts-0067.html)。
+> 在ModelArts中查看可视数据，请在[ModelArts文档](https://support.huaweicloud.com/intl/zh-cn/modelarts/index.html)搜索`MindInsight可视化作业`。
 
 ## 准备训练脚本
 
