@@ -250,7 +250,7 @@ Instantiate the Pix2Pix generator and discriminator.
 
 ```python
 import mindspore.nn as nn
-from mindspore.common import initializer as init
+from mindspore import initializer as init
 
 g_in_planes = 3
 g_out_planes = 3
