@@ -20,7 +20,7 @@ import mindspore as ms
 import mindspore.dataset as ds
 from mindspore import nn, train
 from mindspore.communication import init
-from mindspore.nn.wrap.cell_wrapper import GradAccumulationCell
+from mindspore.nn import GradAccumulationCell
 
 ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
