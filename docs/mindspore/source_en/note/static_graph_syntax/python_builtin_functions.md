@@ -149,7 +149,7 @@ Input parameter: `x` -- the object need to be converted to string value, the val
 
 Return value: string converted from `x`.
 
-For example:
+For example, a is an empty string:
 
 ```python
 import numpy as np
