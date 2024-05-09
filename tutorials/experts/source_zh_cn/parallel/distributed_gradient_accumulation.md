@@ -113,7 +113,7 @@ net = Network()
 ```python
 import mindspore as ms
 from mindspore import nn, train
-from mindspore.nn.wrap.cell_wrapper import GradAccumulationCell
+from mindspore.nn import GradAccumulationCell
 
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
 loss_fn = nn.CrossEntropyLoss()
