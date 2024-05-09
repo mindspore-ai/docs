@@ -12,7 +12,7 @@ Scalars, images, computational graphs, training optimization process, and model 
 - Start MindSpore Insight and specify the summary log file directory using startup parameters. After MindSpore Insight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
 - During the training, when data is written into the summary log file, you can view the [visualized data in Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html) on the web page.
 
-> To view visualized data in ModelArts, see [managing visualized Jobs on ModelArts](https://support.huaweicloud.com/develop-modelarts/develop-modelarts-0067.html).
+> To view visualized data in ModelArts, please search `MindInsight Visualization Jobs` on [ModelArts Document](https://support.huaweicloud.com/intl/en-us/modelarts/index.html).
 
 ## Preparing The Training Script
 
