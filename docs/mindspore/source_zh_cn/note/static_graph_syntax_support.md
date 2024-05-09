@@ -86,7 +86,7 @@ MindSpore的静态图执行过程实际包含两步，对应静态图的Define�
 
   ```python
   from mindspore import Tensor, jit
-  from mindspore.common import mutable
+  from mindspore import mutable
 
   a = mutable([Tensor([1]), Tensor([2])])
 
