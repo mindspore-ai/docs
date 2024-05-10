@@ -26,7 +26,11 @@
 自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要申请root权限。使用以下命令获取自动安装脚本并执行。自动安装脚本仅支持安装MindSpore>=1.6.0。
 
 ```bash
+<<<<<<< HEAD
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh
+=======
+wget https://gitee.com/mindspore/mindspore/raw/r2.3/scripts/install/ubuntu-cpu-pip.sh
+>>>>>>> b307d8cd81 (update release info for 2.3.0rc2)
 # 安装MindSpore 2.3.0rc2和Python 3.7
 MINDSPORE_VERSION=2.3.0rc2 bash ./ubuntu-cpu-pip.sh
 # 如需指定Python和MindSpore版本，以Python 3.9和MindSpore 1.6.0为例，使用以下方式
