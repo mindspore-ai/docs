@@ -320,13 +320,15 @@ except:
     pass
 
 # modify urls
-re_url = r"(((gitee.com/mindspore/(mindspore|docs))|(github.com/mindspore-ai/(mindspore|docs))|" + \
+re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
 
 with open(os.path.join('./mindspore_lite.rst'), 'r+', encoding='utf-8') as f:
     content = f.read()
     new_content = re.sub(re_url, r'\1/r2.3.0rc2', content)
+    new_content = re.sub(re_url2, r'\1/v2.3.0-rc2', new_content)
     if new_content != content:
         f.seek(0)
         f.truncate()
@@ -339,6 +341,7 @@ for cur, _, files in os.walk(os.path.join(base_path, 'mindspore_lite')):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
                 new_content = re.sub(re_url, r'\1/r2.3.0rc2', content)
+                new_content = re.sub(re_url2, r'\1/v2.3.0-rc2', new_content)
                 if new_content != content:
                     f.seek(0)
                     f.truncate()
