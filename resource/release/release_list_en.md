@@ -6,6 +6,7 @@
     - [Related Documents](#related-documents)
     - [Ascend Supporting Software Package](#ascend-supporting-software-package)
     - [Downloads](#downloads)
+        - [2.3.0-rc2](#230-rc2)
         - [2.3.0-RC1](#230-rc1)
         - [2.2.14](#2214)
         - [2.2.13](#2213)
@@ -112,7 +113,8 @@
 
 | MindSpore Version | Hardware Platform       | Commercial edition Installation Guide                                                                                                                                           | Community edition download link (refer to commercial edition for instructions)                                                                |
 |-------------|--------|-----------|------------------|
-| 2.3.0-rc1   | Ascend | TBD       | [CANN 8.0.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| 2.3.0-rc2   | Ascend | [Ascend Training Solution 24.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100373131)      | [CANN 8.0.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| 2.3.0-rc1   | Ascend | [Ascend Training Solution 24.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100373131)      | [CANN 8.0.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
 | 2.2.14      | Ascend 910 | [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
 | 2.2.13      | Ascend 910 | [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
 | 2.2.12      | Ascend 910 | [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
@@ -162,6 +164,19 @@
 |             | Ascend 310 | [Ascend Data Center Solution 21.0.1]        |
 
 ## Downloads
+
+### 2.3.0-rc2
+
+|   Module Name   |   Hardware Platform   |   Operating System   |      Python Version      |      Download Links      |        SHA-256     |
+|---------------------------|--------|---------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
+| MindSpore                 | Ascend | Linux-aarch64 | Python3.7 | [mindspore-2.3.0rc2-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.0rc2/MindSpore/unified/aarch64/mindspore-2.3.0rc2-cp37-cp37m-linux_aarch64.whl) | e27677983fedf446e31d84bf790cf91111e0fe6bf5175338035f20bdf68d03a1 |
+|                           |        |               | Python3.8 | [mindspore-2.3.0rc2-cp38-cp38-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.0rc2/MindSpore/unified/aarch64/mindspore-2.3.0rc2-cp38-cp38-linux_aarch64.whl)   | 2232908bf89dfeda60d2929459c630d30b651628d8ac6ab6f57bcca61a0dfdef |
+|                           |        |               | Python3.9 | [mindspore-2.3.0rc2-cp39-cp39-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.0rc2/MindSpore/unified/aarch64/mindspore-2.3.0rc2-cp39-cp39-linux_aarch64.whl)   | e8b3083003154ebab69af577bd9ea5b0e2fca7c31f5bd0dad21816aa5f4625db |
+|                           | Ascend | Linux-x86_64  | Python3.7 | [mindspore-2.3.0rc2-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.0rc2/MindSpore/unified/x86_64/mindspore-2.3.0rc2-cp37-cp37m-linux_x86_64.whl)    | 02764018f2762846cd69b92c7cc6802fdbdd712e48968aa2311d72ce67de7793 |
+|                           |        |               | Python3.8 | [mindspore-2.3.0rc2-cp38-cp38-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.0rc2/MindSpore/unified/x86_64/mindspore-2.3.0rc2-cp38-cp38-linux_x86_64.whl)      | b1b2c6e53a007931cfac8f62fe0bc0cc92938f4885fbcdc38cd108f34691c84b |
+|                           |        |               | Python3.9 | [mindspore-2.3.0rc2-cp39-cp39-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.0rc2/MindSpore/unified/x86_64/mindspore-2.3.0rc2-cp39-cp39-linux_x86_64.whl)      | 79f608abbd72042ad68a3727570c14d33bf4fc6fda566c7565c199bce35a1765 |
+| MindSpore<br>Insight      |        | any           | Python3   | [mindinsight-2.3.0rc2-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.0rc2/MindInsight/any/mindinsight-2.3.0rc2-py3-none-any.whl)                               | f927eece46f7f6e9dc7be78759cdbf25a98c8cd0aa01ef42a2e28445959ab96d |
+| MindSpore<br>Transformers |        | any           | Python3   | [mindformers-1.1.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.0rc2/MindFormers/any/mindformers-1.1.0-py3-none-any.whl)                                     | b2dedb2bf4c15a91f89b92c4c60eba9cf7f162a56781e31783d66832cf00e801 |
 
 ### 2.3.0-RC1
 
