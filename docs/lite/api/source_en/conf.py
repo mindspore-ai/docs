@@ -326,7 +326,7 @@ re_url = r"(((gitee.com/mindspore/(mindspore|docs))|(github.com/mindspore-ai/(mi
 
 with open(os.path.join('./mindspore_lite.rst'), 'r+', encoding='utf-8') as f:
     content = f.read()
-    new_content = re.sub(re_url, r'\1/r2.3', content)
+    new_content = re.sub(re_url, r'\1/r2.3.0rc2', content)
     if new_content != content:
         f.seek(0)
         f.truncate()
@@ -338,7 +338,7 @@ for cur, _, files in os.walk(os.path.join(base_path, 'mindspore_lite')):
         if i.endswith('.py'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
-                new_content = re.sub(re_url, r'\1/r2.3', content)
+                new_content = re.sub(re_url, r'\1/r2.3.0rc2', content)
                 if new_content != content:
                     f.seek(0)
                     f.truncate()

@@ -423,7 +423,7 @@ for cur, _, files in os.walk(des_sir):
             try:
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                     content = f.read()
-                    new_content = re.sub(re_url, r'\1/r2.3', content)
+                    new_content = re.sub(re_url, r'\1/r2.3.0rc2', content)
                     if i.endswith('.md'):
                         md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
                         if 'resource/_static/logo_source' not in new_content:
@@ -537,8 +537,6 @@ release_source = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
-    data = re.sub("\n## MindSpore 2.3.0-rc1[\s\S\n]*?\n## ", "\n## ", data)
-    data = re.sub("\n## MindSpore 2.2.13[\s\S\n]*?\n## ", "\n## ", data)
     content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
     repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
     content_new = ''
