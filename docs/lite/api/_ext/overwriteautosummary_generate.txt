@@ -465,29 +465,30 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
         content = generate_autosummary_content(name, obj, parent, template, entry.template,
                                                imported_members, app, entry.recursive, context,
                                                modname, qualname)
-        try:
-            py_source_rel = get_full_modname(modname, qualname).replace('.', '/') + '.py'
-        except:
-            logger.warning(name)
-            py_source_rel = ''
-        if 'mindspore/ops/auto_generate/' in py_source_rel:
-            py_source_rel = app.config.ops_yaml + name.split('.')[-1] + '_doc.yaml'
-            re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
-                f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
-                f"{app.config.copy_repo}/blob/{app.config.branch}/" + \
-                py_source_rel + '\n    :alt: View Source On Gitee\n\n'
+        if not app.config.branch.startswith('v'):
+            try:
+                py_source_rel = get_full_modname(modname, qualname).replace('.', '/') + '.py'
+            except:
+                logger.warning(name)
+                py_source_rel = ''
+            if 'mindspore/ops/auto_generate/' in py_source_rel:
+                py_source_rel = app.config.ops_yaml + name.split('.')[-1] + '_doc.yaml'
+                re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
+                    f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
+                    f"{app.config.copy_repo}/blob/{app.config.branch}/" + \
+                    py_source_rel + '\n    :alt: View Source On Gitee\n\n'
 
-            if re_view not in content:
-                content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
+                if re_view not in content:
+                    content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
 
-        elif py_source_rel:
-            re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
-                f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
-                f"{app.config.copy_repo}/blob/{app.config.branch}/" + app.config.repo_whl + \
-                py_source_rel.split(app.config.cst_module_name)[-1] + '\n    :alt: View Source On Gitee\n\n'
+            elif py_source_rel:
+                re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
+                    f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
+                    f"{app.config.copy_repo}/blob/{app.config.branch}/" + app.config.repo_whl + \
+                    py_source_rel.split(app.config.cst_module_name)[-1] + '\n    :alt: View Source On Gitee\n\n'
 
-            if re_view not in content:
-                content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
+                if re_view not in content:
+                    content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
         filename = os.path.join(path, filename_map.get(name, name) + suffix)
         if os.path.isfile(filename):
             with open(filename, encoding=encoding) as f:

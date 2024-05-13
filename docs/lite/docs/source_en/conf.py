@@ -112,7 +112,8 @@ docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if vers
 try:
     src_release = os.path.join(os.getenv("MS_PATH"), 'RELEASE.md')
     des_release = "./RELEASE.md"
-    release_source = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
+    # release_source = "\n\n" + f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
+    release_source = ''
     with open(src_release, "r", encoding="utf-8") as f:
         data = f.read()
     if len(re.findall("\n## (.*?)\n",data)) > 1:
@@ -128,7 +129,7 @@ try:
         content = content[0]
     #result = content[0].replace('# MindSpore', '#', 1)
     with open(des_release, "w", encoding="utf-8") as p:
-        p.write("# Release Notes" + "\n\n" + release_source)
+        p.write("# Release Notes" + release_source)
         p.write(content)
 except Exception as e:
     print(e)

@@ -357,16 +357,16 @@ re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
 
 for cur, _, files in os.walk(des_sir):
     for i in files:
-        if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
+        if i.endswith('.rst'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
                 new_content = re.sub(re_url, r'\1/r2.3.0rc2', content)
                 new_content = re.sub(re_url2, r'\1/v2.3.0-rc2', new_content)
 
-                if i.endswith('.md'):
-                    md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
-                    if 'resource/_static/logo_source' not in new_content:
-                        new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
+                # if i.endswith('.md'):
+                #     md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
+                #     if 'resource/_static/logo_source' not in new_content:
+                #         new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
                 if new_content != content:
                     f.seek(0)
                     f.truncate()
@@ -446,7 +446,9 @@ copy_image(src_dir, des_dir)
 
 src_release = os.path.join(repo_path, 'RELEASE.md')
 des_release = "./RELEASE.md"
-release_source = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
+
+# release_source = "\n\n" + f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
+release_source = ""
 
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
@@ -463,5 +465,5 @@ else:
     content = content[0]
 
 with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes" + "\n\n" + release_source)
+    p.write("# Release Notes" + release_source)
     p.write(content)
