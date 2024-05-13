@@ -420,38 +420,38 @@ re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.
 
 for cur, _, files in os.walk(des_sir):
     for i in files:
-        if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
+        if i.endswith('.rst'):
             try:
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                     content = f.read()
                     new_content = re.sub(re_url, r'\1/r2.3.0rc2', content)
                     new_content = re.sub(re_url2, r'\1/v2.3.0-rc2', new_content)
-                    if i.endswith('.md'):
-                        md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
-                        if 'resource/_static/logo_source' not in new_content:
-                            new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
+                    # if i.endswith('.md'):
+                    #     md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
+                    #     if 'resource/_static/logo_source' not in new_content:
+                    #         new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
                     if new_content != content:
                         f.seek(0)
                         f.truncate()
                         f.write(new_content)
             except Exception:
                 print(f'打开{i}文件失败')
-        if i.endswith('.rst'):
-            try:
-                with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
-                    content = f.read()
-                    new_content = content
-                    if '.. include::' in content and '.. automodule::' in content:
-                        continue
-                    if 'autosummary::' not in content and "\n=====" in content:
-                        re_view_ = re_view + copy_path + cur.split('api_python')[-1] + '/' + i +'\n    :alt: 查看源文件\n\n'
-                        new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
-                    if new_content != content:
-                        f.seek(0)
-                        f.truncate()
-                        f.write(new_content)
-            except Exception:
-                print(f'打开{i}文件失败')
+        # if i.endswith('.rst'):
+        #     try:
+        #         with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+        #             content = f.read()
+        #             new_content = content
+        #             if '.. include::' in content and '.. automodule::' in content:
+        #                 continue
+        #             if 'autosummary::' not in content and "\n=====" in content:
+        #                 re_view_ = re_view + copy_path + cur.split('api_python')[-1] + '/' + i +'\n    :alt: 查看源文件\n\n'
+        #                 new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
+        #             if new_content != content:
+        #                 f.seek(0)
+        #                 f.truncate()
+        #                 f.write(new_content)
+        #     except Exception:
+        #         print(f'打开{i}文件失败')
 
 # rename file name to solve Case sensitive.
 target_dir_ops="./api_python/ops/"
@@ -534,7 +534,9 @@ for root, dirs, files in os.walk(api_file_dir, topdown=True):
 
 src_release = os.path.join(repo_path, 'RELEASE_CN.md')
 des_release = "./RELEASE.md"
-release_source = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE_CN.md)\n'
+
+# release_source = "\n\n" + f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE_CN.md)\n'
+release_source = ""
 
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
@@ -551,5 +553,5 @@ else:
     content = content[0]
 
 with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes" + "\n\n" + release_source)
+    p.write("# Release Notes" + release_source)
     p.write(content)

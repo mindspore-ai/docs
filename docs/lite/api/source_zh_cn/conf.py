@@ -232,29 +232,29 @@ docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if vers
 re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/" + \
           f"resource/_static/logo_source.svg\n    :target: https://gitee.com/mindspore/{copy_repo}/blob/{branch}/"
 
-for cur, _, files in os.walk(present_path):
-    for i in files:
-        flag_copy = 0
-        if i.endswith('.rst'):
-            for j in copy_list:
-                if j in cur:
-                    flag_copy = 1
-                    break
-            if os.path.join(cur, i) in copy_list or flag_copy:
-                try:
-                    with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
-                        content = f.read()
-                        new_content = content
-                        if 'autosummary::' not in content and "\n=====" in content:
-                            re_view_ = re_view + copy_path + cur.split(present_path)[-1] + '/' + i + \
-                                       '\n    :alt: 查看源文件\n\n'
-                            new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
-                        if new_content != content:
-                            f.seek(0)
-                            f.truncate()
-                            f.write(new_content)
-                except Exception:
-                    print(f'打开{i}文件失败')
+# for cur, _, files in os.walk(present_path):
+#     for i in files:
+#         flag_copy = 0
+#         if i.endswith('.rst'):
+#             for j in copy_list:
+#                 if j in cur:
+#                     flag_copy = 1
+#                     break
+#             if os.path.join(cur, i) in copy_list or flag_copy:
+#                 try:
+#                     with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+#                         content = f.read()
+#                         new_content = content
+#                         if 'autosummary::' not in content and "\n=====" in content:
+#                             re_view_ = re_view + copy_path + cur.split(present_path)[-1] + '/' + i + \
+#                                        '\n    :alt: 查看源文件\n\n'
+#                             new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
+#                         if new_content != content:
+#                             f.seek(0)
+#                             f.truncate()
+#                             f.write(new_content)
+#                 except Exception:
+#                     print(f'打开{i}文件失败')
 
 # modify urls
 re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
@@ -264,7 +264,7 @@ re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
 
 for cur, _, files in os.walk('./mindspore_lite'):
     for i in files:
-        if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
+        if i.endswith('.rst'):
             try:
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                     content = f.read()
