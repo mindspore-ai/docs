@@ -350,15 +350,19 @@ from generate_rst_by_en import generate_rst_by_en
 
 exist_rst_file, primi_auto = generate_rst_by_en(primitive_list, './api_python/ops', language='en')
 
-re_url = r"(((gitee.com/mindspore/(mindspore|docs))|(github.com/mindspore-ai/(mindspore|docs))|" + \
+re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
+
 for cur, _, files in os.walk(des_sir):
     for i in files:
         if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
                 new_content = re.sub(re_url, r'\1/r2.3.0rc2', content)
+                new_content = re.sub(re_url2, r'\1/v2.3.0-rc2', new_content)
+
                 if i.endswith('.md'):
                     md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
                     if 'resource/_static/logo_source' not in new_content:
@@ -375,6 +379,7 @@ for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
                 new_content = re.sub(re_url, r'\1/r2.3.0rc2', content)
+                new_content = re.sub(re_url2, r'\1/v2.3.0-rc2', new_content)
                 if new_content != content:
                     f.seek(0)
                     f.truncate()
