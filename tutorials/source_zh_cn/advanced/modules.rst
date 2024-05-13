@@ -45,17 +45,17 @@
         def __init__(self, num_classes=1000, dropout=0.5):
             super().__init__()
             self.features = nn.SequentialCell(
-                nn.Conv2d(3, 64, kernel_size=11, stride=4, pad_mode='pad', padding=2),
+                nn.Conv2d(3, 96, kernel_size=11, stride=4, pad_mode='pad', padding=2),
                 nn.ReLU(),
                 nn.MaxPool2d(kernel_size=3, stride=2),
-                nn.Conv2d(64, 192, kernel_size=5, pad_mode='pad', padding=2),
+                nn.Conv2d(96, 256, kernel_size=5, pad_mode='pad', padding=2),
                 nn.ReLU(),
                 nn.MaxPool2d(kernel_size=3, stride=2),
-                nn.Conv2d(192, 384, kernel_size=3, pad_mode='pad', padding=1),
+                nn.Conv2d(256, 384, kernel_size=3, pad_mode='pad', padding=1),
+                nn.ReLU(),
+                nn.Conv2d(384, 384, kernel_size=3, pad_mode='pad', padding=1),
                 nn.ReLU(),
                 nn.Conv2d(384, 256, kernel_size=3, pad_mode='pad', padding=1),
-                nn.ReLU(),
-                nn.Conv2d(256, 256, kernel_size=3, pad_mode='pad', padding=1),
                 nn.ReLU(),
                 nn.MaxPool2d(kernel_size=3, stride=2),
             )
