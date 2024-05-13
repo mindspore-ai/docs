@@ -19,24 +19,40 @@ from lxml import etree
 
 
 # 下载仓库
-def git_clone(repo_url, repo_dir):
+def git_clone(repo_url, repo_dir, v_tag):
+    """
+    克隆git仓库。
+    """
     if not os.path.exists(repo_dir):
         print("Cloning repo.....")
         os.makedirs(repo_dir, exist_ok=True)
-        Repo.clone_from(repo_url, repo_dir, branch="master")
+        if v_tag:
+            Repo.clone_from(repo_url, repo_dir, branch=v_tag)
+        else:
+            Repo.clone_from(repo_url, repo_dir, branch="master")
         print("Cloning Repo Done.")
 
 # 更新仓库
-def git_update(repo_dir, branch):
+def git_update(repo_dir, branch, cmt_id, v_tag):
+    """
+    更新git仓库的信息。
+    """
     repo = Repo(repo_dir)
     str1 = repo.git.execute(["git", "clean", "-dfx"])
     print(str1)
     str2 = repo.git.execute(["git", "reset", "--hard", "HEAD"])
     print(str2)
-    str3 = repo.git.execute(["git", "checkout", branch])
-    print(str3)
-    str4 = repo.git.execute(["git", "pull", "origin", branch])
-    print(str4)
+    if v_tag:
+        str3 = repo.git.execute(["git", "checkout", v_tag])
+        print(str3)
+    else:
+        str3 = repo.git.execute(["git", "checkout", branch])
+        print(str3)
+        str4 = repo.git.execute(["git", "pull", "origin", branch])
+        print(str4)
+        if cmt_id:
+            str5 = repo.git.execute(["git", "reset", "--hard", cmt_id])
+            print(str5)
 
 pythonlib_dir = os.path.dirname(os.path.dirname(sphinx.__file__))
 
@@ -161,18 +177,21 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             try:
                 status_code = requests.get(repo_url, headers=headers).status_code
                 if status_code == 200:
+                    commit_id = ""
+                    tag = ""
+                    if 'commit_id' in data[i].keys():
+                        commit_id = data[i]['commit_id']
+                    if 'tag' in data[i].keys():
+                        tag = data[i]['tag']
                     if not os.path.exists(repo_path):
-                        git_clone(repo_url, repo_path)
+                        git_clone(repo_url, repo_path, tag)
                     if data[i]['environ'] == "MSC_PATH":
                         if data[i]['name'] == "mindscience":
-                            git_update(repo_path, branch_)
+                            git_update(repo_path, branch_, commit_id, tag)
                         elif msc_branch:
-                            git_update(repo_path, msc_branch)
-                    # 特殊处理下golden-stick
-                    elif data[i]['name'] == "golden_stick":
-                        git_update(repo_path, 'r0.4')
+                            git_update(repo_path, msc_branch, commit_id, tag)
                     else:
-                        git_update(repo_path, branch_)
+                        git_update(repo_path, branch_, commit_id, tag)
                     print(f'{repo_name}仓库克隆更新成功')
             except KeyError:
                 print(f'{repo_name}仓库克隆或更新失败')
@@ -363,8 +382,10 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             error_lists.append(deal_err(j))
                 if process.returncode != 0:
                     print(f"{i} 的 英文 版本运行失败")
+                    print(f"错误信息：\n{stderr}")
                     with open("err_cn.log", "w") as f:
                         f.write(stderr)
+                    failed_list.append(stderr)
                     failed_name_list.append(f'{i}的英文版本')
                 else:
                     if i == "mindspore":
@@ -401,7 +422,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             error_lists.append(deal_err(j))
                 if process.returncode != 0:
                     print(f"{i} 的 中文版本运行失败")
-                    print(stderr)
+                    print(f"错误信息：\n{stderr}")
                     failed_list.append(stderr)
                     failed_name_list.append(f'{i}的中文版本')
                 else:
