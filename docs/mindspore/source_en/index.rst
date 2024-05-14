@@ -41,6 +41,7 @@ MindSpore Documentation
    api_python/mindspore.nn
    api_python/mindspore.ops
    api_python/mindspore.ops.primitive
+   api_python/mindspore.mint
    api_python/mindspore.amp
    api_python/mindspore.train
    api_python/mindspore.communication
