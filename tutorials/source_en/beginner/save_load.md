@@ -47,7 +47,8 @@ print(param_not_load)
 []
 ```
 
-> `param_not_load` is an unloaded parameter list, and empty means all parameters are loaded successfully.
+> - `param_not_load` is an unloaded parameter list, and empty means all parameters are loaded successfully.
+> - When MindX DL (Ascend deep learning component) version 6.0 or later is installed in the environment, the MindIO acceleration CheckPoint function is enabled by default. For details, please refer to [MindIO Introduction](https://www.hiascend.com/document/detail/en/mindx-dl/500/mindio/mindioug/mindio_001.html). MindX DL can be downloaded [here](https://www.hiascend.com/en/software/mindx-dl/community).
 
 ## Saving and Loading MindIR
 
