@@ -26,11 +26,7 @@ This document describes how to install MindSpore by pip on Linux in a CPU enviro
 The root permission is required because the automatic installation script needs to change the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script. The automatic installation script supports only MindSpore>=1.6.0 or later.
 
 ```bash
-<<<<<<< HEAD
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh
-=======
-wget https://gitee.com/mindspore/mindspore/raw/r2.3/scripts/install/ubuntu-cpu-pip.sh
->>>>>>> b307d8cd81 (update release info for 2.3.0rc2)
 # install MindSpore 2.3.0rc2 and Python 3.7
 MINDSPORE_VERSION=2.3.0rc2 bash ./ubuntu-cpu-pip.sh
 # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.6.0 as examples, use the following manners

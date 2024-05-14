@@ -30,11 +30,7 @@
 使用以下命令获取自动安装脚本并执行。自动安装脚本仅支持安装MindSpore>=1.6.0。
 
 ```bash
-<<<<<<< HEAD
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-pip.sh
-=======
-wget https://gitee.com/mindspore/mindspore/raw/r2.3/scripts/install/euleros-ascend-pip.sh
->>>>>>> b307d8cd81 (update release info for 2.3.0rc2)
 # 安装MindSpore 2.3.0rc2和Python 3.7
 # 默认LOCAL_ASCEND路径为/usr/local/Ascend
 MINDSPORE_VERSION=2.3.0rc2 bash -i ./euleros-ascend-pip.sh
