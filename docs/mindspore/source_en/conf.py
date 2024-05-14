@@ -51,6 +51,10 @@ with open(sphinx_mathjax.__file__, "r", encoding="utf-8") as f:
     code_str = code_str.replace(old_str, new_str)
     exec(code_str, sphinx_mathjax.__dict__)
 
+from sphinx.ext import viewcode
+with open('../_ext/overwriteviewcode_en.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), viewcode.__dict__)
+
 with open('../_ext/overwriteautosummary_generate.txt', 'r', encoding="utf8") as f:
     exec(f.read(), g.__dict__)
 
@@ -152,7 +156,7 @@ intersphinx_mapping = {
 }
 
 # Modify default signatures for autodoc.
-autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
+autodoc_source_path = '../_ext/overwrite_autodoc.txt'
 autodoc_source_re = re.compile(r'stringify_signature\(.*?\)')
 get_param_func_str = r"""\
 import re
