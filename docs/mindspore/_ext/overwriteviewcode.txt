@@ -104,8 +104,15 @@ def doctree_read(app: Sphinx, doctree: Node) -> None:
             env._viewcode_modules[modname] = entry  # type: ignore
         _, tags, used, _ = entry
         if fullname in tags:
-            used[fullname] = docname
-            return True
+            if 'mindspore.mint' in refname and fullname.endswith('_ext'):
+                used[fullname[:-len('_ext')]] = docname
+                return True
+            elif 'mindspore.mint' in refname and fullname + 'Ext' in tags:
+                used[fullname+'Ext'] = docname
+                return True
+            else:
+                used[fullname] = docname
+                return True
 
         return False
 
@@ -145,11 +152,20 @@ def doctree_read(app: Sphinx, doctree: Node) -> None:
             # if fullname and modname==None:
             fullname = fullname_new
             if not has_tag(modname, fullname, env.docname, refname):
-                continue
+                if 'mindspore.mint' in refname and has_tag(modname, fullname + '_ext', env.docname, refname):
+                    fullname += '_ext'
+                else:
+                    continue
             if fullname in names:
                 # only one link per name, please
                 continue
             names.add(fullname)
+            if 'mindspore.mint' in refname:
+                entry = env._viewcode_modules.get(modname, None)  # type: ignore
+                if entry:
+                    _, tags, used, _ = entry
+                    if fullname + 'Ext' in tags:
+                        fullname += 'Ext'
             pagename = posixpath.join(OUTPUT_DIRNAME, modname.replace('.', '/'))
             signode += viewcode_anchor(reftarget=pagename, refid=fullname, refdoc=env.docname)
 
@@ -298,8 +314,13 @@ def collect_pages(app: Sphinx) -> Generator[Tuple[str, Dict[str, Any], str], Non
         # properly nested!)
         maxindex = len(lines) - 1
         for name, docname in used.items():
+            spec_name = name
+            if 'mindspore.mint' in refname and name not in tags:
+                name += '_ext'
+            elif 'mindspore.mint' in refname and name.endswith('Ext'):
+                spec_name = spec_name[:-len('Ext')]
             type, start, end = tags[name]
-            backlink = urito(pagename, docname) + '#' + refname + '.' + name
+            backlink = urito(pagename, docname) + '#' + refname + '.' + spec_name
             lines[start] = (
                 '<div class="viewcode-block" id="%s"><a class="viewcode-back" '
                 'href="%s">%s</a>' % (name, backlink, _('[文档]')) +

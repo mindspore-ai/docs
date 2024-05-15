@@ -567,7 +567,8 @@ class Documenter:
         if docstring and '.mint.' in self.fullname:
             b_name = self.fullname.split('.')[-1]
             usename = self.fullname.replace('mindspore.', '')
-            mint_doc = re.sub('(>>> from mindspore import .*?)ops', r'\1mint', docstring)
+            mint_doc = re.sub('(Supported Platforms:\n\s+?)`.*\n', r'\1``Ascend``\n', docstring)
+            mint_doc = re.sub('(>>> from mindspore import .*?)ops', r'\1mint', mint_doc)
             docstring = re.sub(f'(>>> .*?)(ops|nn)\.{b_name}(_ext)?', rf'\1{usename}', mint_doc)
         if docstring:
             tab_width = self.directive.state.document.settings.tab_width
@@ -1764,7 +1765,8 @@ class ClassDocumenter(DocstringSignatureMixin, ModuleLevelDocumenter):  # type: 
             b_name = self.fullname.split('.')[-1]
             usename = self.fullname.replace('mindspore.', '')
             for i in range(len(docstrings)):
-                mint_doc = re.sub('(>>> from mindspore import .*?)ops', r'\1mint', docstrings[i])
+                mint_doc = re.sub('(Supported Platforms:\n\s+?)`.*\n', r'\1``Ascend``\n', docstrings[i])
+                mint_doc = re.sub('(>>> from mindspore import .*?)ops', r'\1mint', mint_doc)
                 mint_doc = re.sub(f'(>>> .*?)(ops|nn)\.{b_name}(Ext)?', rf'\1{usename}', mint_doc)
                 docstrings[i] = mint_doc
 
