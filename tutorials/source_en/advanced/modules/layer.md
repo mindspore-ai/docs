@@ -323,11 +323,11 @@ For more descriptions of the HookBackward operator, refer to the [API documentat
 The user can use the `register_forward_pre_hook` function on the Cell object to register a custom Hook function to capture data that is passed to that Cell object. This function does not work in static graph mode and inside functions modified with `@jit`. The `register_forward_pre_hook` function takes the Hook function as an input and returns a `handle` object that corresponds to the Hook function. The user can remove the corresponding Hook function by calling the `remove()` function of the `handle` object. Each call to the `register_forward_pre_hook` function returns a different `handle` object. Hook functions should be defined in the following way.
 
 ```python
-def forward_pre_hook_fn(cell_id, inputs):
+def forward_pre_hook_fn(cell, inputs):
     print("forward inputs: ", inputs)
 ```
 
-Here cell_id is the name of the Cell object as well as the ID information, and inputs are the data passed forward to the Cell object. Therefore, the user can use the register_forward_pre_hook function to capture the positive input data of a particular Cell object in the network. The user can customize the operations on the input data in the Hook function, such as viewing, printing data, or returning new input data to the current Cell object. If the original input data of the Cell object is computed in the Hook function and then returned as new input data, these additional computation operations will act on the backpropagation of the gradient at the same time.
+Here cell is the Cell object, and inputs are the data passed forward to the Cell object. Therefore, the user can use the register_forward_pre_hook function to capture the positive input data of a particular Cell object in the network. The user can customize the operations on the input data in the Hook function, such as viewing, printing data, or returning new input data to the current Cell object. If the original input data of the Cell object is computed in the Hook function and then returned as new input data, these additional computation operations will act on the backpropagation of the gradient at the same time.
 
 The sample code is as follows:
 
@@ -338,7 +338,7 @@ import mindspore.nn as nn
 
 ms.set_context(mode=ms.PYNATIVE_MODE)
 
-def forward_pre_hook_fn(cell_id, inputs):
+def forward_pre_hook_fn(cell, inputs):
     print("forward inputs: ", inputs)
     input_x = inputs[0]
     return input_x
@@ -388,7 +388,7 @@ import mindspore.nn as nn
 
 ms.set_context(mode=ms.PYNATIVE_MODE)
 
-def forward_pre_hook_fn(cell_id, inputs):
+def forward_pre_hook_fn(cell, inputs):
     print("forward inputs: ", inputs)
     return ms.Tensor(np.ones([1]).astype(np.float32))
 
@@ -429,12 +429,12 @@ The user can use the `register_forward_hook` function on the Cell object to regi
 The sample code is as follows:
 
 ```python
-def forward_hook_fn(cell_id, inputs, outputs):
+def forward_hook_fn(cell, inputs, outputs):
     print("forward inputs: ", inputs)
     print("forward outputs: ", outputs)
 ```
 
-Here `cell_id` is the name of the Cell object and the ID information, `inputs` is the forward input data to the Cell object, and `outputs` is the forward output data of the Cell object. Therefore, the user can use the `register_forward_hook` function to capture the forward input data and output data of a particular Cell object in the network. Users can customize the operations on input and output data in the Hook function, such as viewing, printing data, or returning new output data. If the original output data of the Cell object is computed in the Hook function and then returned as new output data, these additional computation operations will act on the back propagation of the gradient at the same time.
+Here `cell` is the Cell object, `inputs` is the forward input data to the Cell object, and `outputs` is the forward output data of the Cell object. Therefore, the user can use the `register_forward_hook` function to capture the forward input data and output data of a particular Cell object in the network. Users can customize the operations on input and output data in the Hook function, such as viewing, printing data, or returning new output data. If the original output data of the Cell object is computed in the Hook function and then returned as new output data, these additional computation operations will act on the back propagation of the gradient at the same time.
 
 The sample code is as follows:
 
@@ -445,7 +445,7 @@ import mindspore.nn as nn
 
 ms.set_context(mode=ms.PYNATIVE_MODE)
 
-def forward_hook_fn(cell_id, inputs, outputs):
+def forward_hook_fn(cell, inputs, outputs):
     print("forward inputs: ", inputs)
     print("forward outputs: ", outputs)
     outputs = outputs + outputs
@@ -564,12 +564,12 @@ import mindspore.nn as nn
 
 ms.set_context(mode=ms.PYNATIVE_MODE)
 
-def forward_pre_hook_fn(cell_id, inputs):
+def forward_pre_hook_fn(cell, inputs):
     print("forward inputs: ", inputs)
     input_x = inputs[0]
     return input_x
 
-def forward_hook_fn(cell_id, inputs, outputs):
+def forward_hook_fn(cell, inputs, outputs):
     print("forward inputs: ", inputs)
     print("forward outputs: ", outputs)
     outputs = outputs + outputs
