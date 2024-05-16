@@ -454,13 +454,17 @@ A: When the `GeneratorDataset` is used to load Numpy array returned by Pyfunc, M
 
 ## Q: How to determine the cause of GetNext timeout based on the exit status of data preprocessing?
 
-A: When using the data sinking mode (where `data preprocessing` -> `sending queue` -> `network computing` form the pipeline mode) for training and there is a GetNext timeout error, the data preprocessing module will output status information to help users analyze the cause of the error. Users can see the following situations in the log, and for the specific reasons and improvement methods, refer to:
+A: When using the data sinking mode (where `data preprocessing` -> `sending queue` -> `network computing` form the pipeline mode) for training and there is a GetNext timeout error, the data preprocessing module will output status information to help users analyze the cause of the error. Users can enable log output through the environment variable `export MS_SUBMODULE_LOG_v={MD:1}`. `channel_name` represents the name of the data channel sent by the host to the device side, `have_sent` represents the total number of data sent to the device, `host_queue` represents the size of the host side queue for the last 10 times, `device_queue` represents the size of the device side queue for the last 10 times, `push_first_start_time` and `push_first_end_time` represent the starting time and the ending time of the first data sent by the host to the device side, and `push_start_time` and `push_end_time` represent the starting time and the ending time of the last 10 data sent by the host to the device side. Users can see the following situations in the log, and for the specific reasons and improvement methods, refer to:
 
 1. When the log output is similar to the following, it indicates that the data preprocessing has not generated any data that can be used for training.
 
     ```
-    preprocess_batch: 0;
-    batch_queue: ;
+    channel_name: 29475464-f51b-11ee-b72b-8feb6783b0c3
+    have_sent: 0;
+    host_queue: ;
+    device_queue: ;
+          push_first_start_time -> push_first_end_time
+                             -1 -> -1
                 push_start_time -> push_end_time
     ```
 
@@ -469,8 +473,12 @@ A: When using the data sinking mode (where `data preprocessing` -> `sending queu
 2. When the log output is similar to the following, it indicates that data preprocessing has generated a batch of data, but it has not been sent to the device side yet.
 
     ```
-    preprocess_batch: 0;
-    batch_queue: 1;
+    channel_name: 29475464-f51b-11ee-b72b-8feb6783b0c3
+    have_sent: 0;
+    host_queue: 1;
+    device_queue: ;
+          push_first_start_time -> push_first_end_time
+    2022-05-09-11:36:00.521.386 -> -1
                 push_start_time -> push_end_time
     2022-05-09-11:36:00.521.386 ->
     ```
@@ -480,8 +488,12 @@ A: When using the data sinking mode (where `data preprocessing` -> `sending queu
 3. When the log output is similar to the following, it indicates that data preprocessing has generated three batches of data, all of which have been sent to the device side, and the fourth batch of data is being preprocessed.
 
     ```
-    preprocess_batch: 3;
-    batch_queue: 1, 0, 1;
+    channel_name: 29475464-f51b-11ee-b72b-8feb6783b0c3
+    have_sent: 3;
+    host_queue: 1, 0, 1;
+    device_queue: 1, 2, 3;
+          push_first_start_time -> push_first_end_time
+    2022-05-09-11:36:00.521.386 -> 2022-05-09-11:36:00.782.215
                 push_start_time -> push_end_time
     2022-05-09-11:36:00.521.386 -> 2022-05-09-11:36:00.782.215
     2022-05-09-11:36:01.212.621 -> 2022-05-09-11:36:01.490.139
@@ -490,11 +502,15 @@ A: When using the data sinking mode (where `data preprocessing` -> `sending queu
 
     Improvement method: View the time difference between the last item of `push_end_time` and GetNext error reporting time. If the default GetNext timeout is exceeded (default: 1900s, and can be modified through `mindspore.set_context(op_timeout=xx)`), it indicates poor data preprocessing performance. Please refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/r2.3/dataset/optimize.html) to improve data preprocessing performance.
 
-4. When the log output is similar to the following, it indicates that data preprocessing has generated 182 batches of data and the 183st batch of data is being sent to the device.
+4. When the log output is similar to the following, it indicates that data preprocessing has generated 182 batches of data and the 183st batch of data is being sent to the device. And the `device_queue` shows that there is sufficient data cache on the device side.
 
     ```
-    preprocess_batch: 182;
-    batch_queue: 1, 0, 1, 1, 2, 1, 0, 1, 1, 0;
+    channel_name: 29475464-f51b-11ee-b72b-8feb6783b0c3
+    have_sent: 182;
+    host_queue: 1, 0, 1, 1, 2, 1, 0, 1, 1, 0;
+    device_queue: 100, 100, 99, 100, 100, 100, 100, 100, 99, 100;
+          push_first_start_time -> push_first_end_time
+    2022-05-09-13:23:00.179.611 -> 2022-05-09-13:23:00.181.784
                 push_start_time -> push_end_time
                                 -> 2022-05-09-14:31:00.603.866
     2022-05-09-14:31:00.621.146 -> 2022-05-09-14:31:01.018.964
@@ -510,6 +526,31 @@ A: When using the data sinking mode (where `data preprocessing` -> `sending queu
     ```
 
     Improvement method: You can check if the device plog has an error message.
+
+5. When the log output is similar to the following, many zeros appear in `device_queue` , indicating that data preprocessing is too slow, which can lead to slower network training.
+
+    ```
+    channel_name: 29475464-f51b-11ee-b72b-8feb6783b0c3
+    have_sent: 390;
+    host_queue: 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+    device_queue: 0, 0, 1, 0, 0, 0, 0, 0, 0, 0;
+          push_first_start_time -> push_first_end_time
+    2022-05-09-13:23:00.179.611 -> 2022-05-09-13:23:00.181.784
+                push_start_time -> push_end_time
+                                -> 2022-05-09-14:31:00.603.866
+    2022-05-09-14:31:00.621.146 -> 2022-05-09-14:31:01.018.964
+    2022-05-09-14:31:01.043.705 -> 2022-05-09-14:31:01.396.650
+    2022-05-09-14:31:01.421.501 -> 2022-05-09-14:31:01.807.671
+    2022-05-09-14:31:01.828.931 -> 2022-05-09-14:31:02.179.945
+    2022-05-09-14:31:02.201.960 -> 2022-05-09-14:31:02.555.941
+    2022-05-09-14:31:02.584.413 -> 2022-05-09-14:31:02.943.839
+    2022-05-09-14:31:02.969.583 -> 2022-05-09-14:31:03.309.299
+    2022-05-09-14:31:03.337.607 -> 2022-05-09-14:31:03.684.034
+    2022-05-09-14:31:03.717.230 -> 2022-05-09-14:31:04.038.521
+    2022-05-09-14:31:04.064.571 ->
+    ```
+
+    Improvement method: Please refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/r2.3/dataset/optimize.html) to improve data preprocessing performance.
 
 <br/>
 
