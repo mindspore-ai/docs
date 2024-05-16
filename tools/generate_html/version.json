@@ -27,8 +27,8 @@
        "name" : "mindinsight",
        "branch" : "r2.3",
        "html_version" : "r2.3",
-       "whl_path" : "2.3.0rc1/MindInsight/any/",
-       "whl_name" : "mindinsight-2.3.0rc1-py3-none-any.whl",
+       "whl_path" : "2.3.0rc2/MindInsight/any/",
+       "whl_name" : "mindinsight-2.3.0rc2-py3-none-any.whl",
        "environ" : "MI_PATH",
        "uninstall_name" : "mindinsight"
     },
