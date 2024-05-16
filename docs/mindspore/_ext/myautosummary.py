@@ -692,6 +692,8 @@ class MsCnPlatformAutoSummary(MsCnAutoSummary):
         if not name:
             return []
         try:
+            if '.mint.' in name:
+                return ["``Ascend``"]
             api_doc = inspect.getdoc(get_api(name))
             if '.ops.' in name and 'Refer to' in api_doc.split('\n')[-1]:
                 new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
@@ -723,6 +725,8 @@ class MsCnPlatWarnAutoSummary(MsCnAutoSummary):
         if not name:
             return []
         try:
+            if '.mint.' in name:
+                return ["``Ascend``"]
             api_doc = inspect.getdoc(get_api(name))
             if '.ops.' in name and 'Refer to' in api_doc.split('\n')[-1]:
                 new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
