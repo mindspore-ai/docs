@@ -67,7 +67,7 @@ def get_example(name: str):
             b_name = name.split('.')[-1]
             usename = name.replace('mindspore.', '')
             api_doc = re.sub('(>>> from mindspore import .*?)ops', r'\1mint', api_doc)
-            api_doc = re.sub(f'(>>> .*?)(ops|nn)\.{b_name}(Ext|_ext)?', rf'\1{usename}', api_doc)
+            api_doc = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext|_ext)?', rf'\1{usename}', api_doc)
         example_str = re.findall(r'(?<!Tutorial )Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
         if not example_str:
             return []
