@@ -1,5 +1,5 @@
-Timeline (Large model scenario, multi-ranks, multi-graphs, multi-iterations) Analysis
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Timeline Analysis
+~~~~~~~~~~~~~~~~~~~
 
 Timeline Features:
 
