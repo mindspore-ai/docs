@@ -8,33 +8,23 @@ AOE（Ascend Optimization Engine）是一款自动调优工具，作用是充分
 
 ## 开启调优
 
-1. 在线调优
+在set_context接口中设置`aoe_tune_mode`，即可开启AOE工具进行在线调优。`aoe_tune_mode`的取值为`"online"`， 开启在线调优。
 
-    在set_context接口中设置`aoe_tune_mode`，即可开启AOE工具进行在线调优。`aoe_tune_mode`的取值应当在`["online", "offline"]`中。其中：
+在set_context接口中设置`aoe_config`，可设置调优配置。`job_type`是设置调优类型，取值在`["1", "2"]`中，默认值是`2`。其中：
 
-    online：开启在线调优。
+1：表示子图调优。
 
-    offline：为离线调优保存GE图。当通过`set_context(save_graphs=True, save_graphs_path="path/to/ir/files")`设置了保存图的路径，图保存在指定路径的aoe_dump目录下；否则保存在当前运行目录下面的aoe_dump下。
+2：表示算子调优。
 
-    在set_context接口中设置`aoe_config`，可设置调优配置。`job_type`是设置调优类型，取值在`["1", "2"]`中，默认值是`2`。其中：
+举例在线调优的使用方法：
 
-    1：表示子图调优。
+```python
+import mindspore as ms
+ms.set_context(aoe_tune_mode="online", aoe_config={"job_type": "2"})
+....
+```
 
-    2：表示算子调优。
-
-    举例在线调优的使用方法：
-
-    ```python
-    import mindspore as ms
-    ms.set_context(aoe_tune_mode="online", aoe_config={"job_type": "2"})
-    ....
-    ```
-
-    设置好上述context之后，按照正常执行训练脚本方式即可启动调优，用例执行期间，无需任何操作，用例执行结束之后的结果即为调优之后的结果。
-
-2. 离线调优
-
-    离线调优则是使用训练脚本生成网络模型时的Dump数据（包含算子输出描述文件、算子的二进制文件等）进行算子调优。离线调优的启动方式以及相关环境变量可参考`CANN`开发工具指南的[离线调优](https://www.hiascend.com/document/detail/zh/canncommercial/700/devtools/auxiliarydevtool/aoe_16_023.html)。
+设置好上述context之后，按照正常执行训练脚本方式即可启动调优，用例执行期间，无需任何操作，用例执行结束之后的结果即为调优之后的结果。
 
 ## 查看调优结果
 
@@ -54,6 +44,4 @@ AOE调优工具在使用时，请注意以下几点：
 
 2. 请确保运行环境中执行调优用户的home目录下磁盘可用空间>=20G。
 
-3. AOE调优工具依赖部分第三方软件`pciutils`。
-
-4. 开启该调优工具后，可以明显感知算子编译时间变长，属于正常现象。
+3. 开启该调优工具后，可以明显感知算子编译时间变长，属于正常现象。
