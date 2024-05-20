@@ -152,10 +152,10 @@ from mindspore import Tensor, jit
 
 @jit
 def foo(x):
-  out1 = int(11.1)
-  out2 = int(Tensor([10]))
-  out3 = int(x.asnumpy())
-  return out1, out2, out3
+    out1 = int(11.1)
+    out2 = int(Tensor([10]))
+    out3 = int(x.asnumpy())
+    return out1, out2, out3
 
 res = foo(Tensor(2))
 print("res[0]:", res[0])
@@ -199,11 +199,11 @@ from mindspore import jit
 
 @jit
 def foo():
-  var1 = 'Hello!'
-  var2 = "MindSpore"
-  var3 = str(123)
-  var4 = "{} is {}".format("string", var3)
-  return var1[0], var2[4:9], var1 + var2, var2 * 2, "H" in var1, "My name is %s!" % var2, var4
+    var1 = 'Hello!'
+    var2 = "MindSpore"
+    var3 = str(123)
+    var4 = "{} is {}".format("string", var3)
+    return var1[0], var2[4:9], var1 + var2, var2 * 2, "H" in var1, "My name is %s!" % var2, var4
 
 res = foo()
 print("res:", res)
@@ -231,11 +231,11 @@ The basic usage scenarios of 'List' are as follows:
 
   @ms.jit
   def generate_list():
-    a = [1, 2, 3, 4]
-    b = ["1", "2", "a"]
-    c = [ms.Tensor([1]), ms.Tensor([2])]
-    d = [a, b, c, (4, 5)]
-    return d
+      a = [1, 2, 3, 4]
+      b = ["1", "2", "a"]
+      c = [ms.Tensor([1]), ms.Tensor([2])]
+      d = [a, b, c, (4, 5)]
+      return d
   ```
 
   The above sample code, all `List` objects can be created normally.

@@ -151,7 +151,7 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
       [ 6  7]]
 
      [[12 13]
-          [14 15]]]
+      [14 15]]]
     data_multi:
     [[[12 13]
      [14 15]]]
@@ -217,30 +217,30 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     ```text
     data_single:
     [[[[ 6  7  8]
-      [ 9 10 11]]
+       [ 9 10 11]]
 
-     [[12 13 14]
-      [15 16 17]]]
+      [[12 13 14]
+       [15 16 17]]]
 
 
      [[[ 0  1  2]
        [ 3  4  5]]
 
-     [[18 19 20]
-      [21 22 23]]]]
+      [[18 19 20]
+       [21 22 23]]]]
     data_multi:
     [[[[[ 6  7  8]
-     [ 9 10 11]]
+        [ 9 10 11]]
 
-     [[12 13 14]
-      [15 16 17]]]
+       [[12 13 14]
+        [15 16 17]]]
 
 
-     [[[ 6  7  8]
-     [ 9 10 11]]
+      [[[ 6  7  8]
+        [ 9 10 11]]
 
-    [[12 13 14]
-     [15 16 17]]]]]
+       [[12 13 14]
+        [15 16 17]]]]]
     ```
 
 - `List` index value
@@ -378,7 +378,7 @@ Index value assignment can be understood as assigning values to indexed position
     ```text
     tensor_x:
     [[ 0.  1.  2.]
-      [88. 88. 88.]]
+     [88. 88. 88.]]
     tensor_y:
     [[ 0.  1.  2.]
      [66. 88. 99.]]
@@ -570,7 +570,7 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_x:
     [[88. 88. 88.]
      [ 3.  4.  5.]
-      [88. 88. 88.]]
+     [88. 88. 88.]]
     tensor_y:
     [[11. 12. 13.]
      [ 3.  4.  5.]
@@ -668,7 +668,7 @@ Index value assignment can be understood as assigning values to indexed position
      [ 6.  7.  8.]]
     tensor_y:
     [[ 0.  1.  2.]
-      [88. 88.  5.]
+     [88. 88.  5.]
     [88. 88.  8.]]
     tensor_z:
     [[ 0.  1.  2.]

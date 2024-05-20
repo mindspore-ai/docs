@@ -547,7 +547,7 @@ A: 在使用数据下沉模式（此时 `数据预处理` -> `发送队列` -> `
     2022-05-09-14:31:04.064.571 ->
     ```
 
-    改进方法：可参考 [数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/dataset/optimize.html) 对数据预处理部分进行优化。
+    改进方法：可参考 [数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html) 对数据预处理部分进行优化。
 
 <br/>
 

@@ -550,7 +550,7 @@ A: When using the data sinking mode (where `data preprocessing` -> `sending queu
     2022-05-09-14:31:04.064.571 ->
     ```
 
-    Improvement method: Please refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/r2.3/dataset/optimize.html) to improve data preprocessing performance.
+    Improvement method: Please refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html) to improve data preprocessing performance.
 
 <br/>
 
