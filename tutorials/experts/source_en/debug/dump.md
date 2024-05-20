@@ -65,8 +65,8 @@ MindSpore provides two modes: synchronous Dump and asynchronous Dump:
 The configuration files required for different modes and the data format of dump are different:
 
 - When Dump is enabled on Ascend, the operator to be dumped will automatically close memory reuse.
-- Asynchronous Dump full ability only supports graph mode on Ascend, overflow detection ability only support graph mode and PyNative mode on Ascend. Memory reuse will not be turned off when asynchronous Dump is enabled.
-- Ascend only supports Asynchronous Dump mode. GPU only supports synchronous Dump mode.
+- Asynchronous Dump only supports graph mode on Ascend. Memory reuse will not be turned off when asynchronous Dump is enabled.
+- Synchronous Dump supports graph mode on GPU and graph mode whose graph compilation level is O0 on Ascend.
 - Dump does not support heterogeneous training. If Dump is enabled for heterogeneous training scenario, the generated Dump data object directory maybe not in the expected directory structure.
 
 ## Synchronous Dump
@@ -98,7 +98,7 @@ The configuration files required for different modes and the data format of dump
     - `path`: The absolute path to Dump saved data.
     - `net_name`: The customized net name: "ResNet50".
     - `iteration`: Specify the iterations of data required to be dumped, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped.
-    - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to indicate complete tensor data Dumped, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Synchronous statistics dump is only supported on GPU. Using "statistic" or "full" on CPU or Ascend will result in exception. Default setting is "tensor".
+    - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to indicate complete tensor data Dumped, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Synchronous statistics dump is only supported on GPU and Ascend. Using "statistic" or "full" on CPU will result in exception. Default setting is "tensor".
     - `input_output`: 0: dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. This configuration parameter only supports Ascend and CPU, and GPU can only dump the output of operator.
     - `kernels`: This item can be configured in two formats:
         1. List of operator names. Turn on the IR save switch `set_context(save_graphs=2)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/tutorials/en/r2.3/advanced/error_analysis/mindir.html#saving-ir).
