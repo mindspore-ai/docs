@@ -26,13 +26,21 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     tensor_x = ms.Tensor(np.arange(2 * 3 * 2).reshape((2, 3, 2)))
     data_single = tensor_x[0]
     data_multi = tensor_x[0][1]
+    print('data_single:')
+    print(data_single)
+    print('data_multi:')
+    print(data_multi)
     ```
 
     The result is as follows:
 
     ```text
-    data_single: Tensor(shape=[3, 2], dtype=Int64, value=[[0, 1], [2, 3], [4, 5]])
-    data_multi: Tensor(shape=[2], dtype=Int64, value=[2, 3])
+    data_single:
+    [[0 1]
+     [2 3]
+     [4 5]]
+    data_multi:
+    [2 3]
     ```
 
 - `bool` index value
@@ -48,16 +56,26 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
-    tensor_x = ms.Tensor(np.arange(2 * 3 ).reshape((2, 3)))
+    import mindspore as ms
+    import mindspore.numpy as np
+    tensor_x = ms.Tensor(np.arange(2 * 3).reshape((2, 3)))
     data_single = tensor_x[True]
     data_multi = tensor_x[True][True]
+    print('data_single:')
+    print(data_single)
+    print('data_multi:')
+    print(data_multi)
     ```
 
     The result is as follows:
 
     ```text
-    data_single: Tensor(shape=[1, 2, 3], dtype=Int64, value=[[[0, 1, 2], [3, 4, 5]]])
-    data_multi: Tensor(shape=[1, 1, 2, 3], dtype=Int64, value=[[[[0, 1, 2], [3 , 4, 5]]]])
+    data_single:
+    [[[0 1 2]
+      [3 4 5]]]
+    data_multi:
+    [[[[0 1 2]
+       [3 4 5]]]]
     ```
 
 - `None` index value
@@ -75,16 +93,26 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
-    tensor_x = ms.Tensor(np.arange(2 * 3 ).reshape((2, 3)))
+    import mindspore as ms
+    import mindspore.numpy as np
+    tensor_x = ms.Tensor(np.arange(2 * 3).reshape((2, 3)))
     data_single = tensor_x[...]
     data_multi = tensor_x[...][...]
+    print('data_single:')
+    print(data_single)
+    print('data_multi:')
+    print(data_multi)
     ```
 
     The result is as follows:
 
     ```text
-    data_single: Tensor(shape=[2, 3], dtype=Int64, value=[[0, 1, 2], [3, 4, 5]])
-    data_multi: Tensor(shape=[2, 3], dtype=Int64, value=[[0, 1, 2], [3, 4, 5]])
+    data_single:
+    [[0 1 2]
+     [3 4 5]]
+    data_multi:
+    [[0 1 2]
+     [3 4 5]]
     ```
 
 - `slice` index value
@@ -104,16 +132,29 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
+    import mindspore as ms
+    import mindspore.numpy as np
     tensor_x = ms.Tensor(np.arange(4 * 2 * 2).reshape((4, 2, 2)))
     data_single = tensor_x[1:4:2]
     data_multi = tensor_x[1:4:2][1:]
+    print('data_single:')
+    print(data_single)
+    print('data_multi:')
+    print(data_multi)
     ```
 
     The result is as follows:
 
     ```text
-    data_single: Tensor(shape=[2, 2, 2], dtype=Int64, value=[[[4, 5], [6, 7]], [[12, 13], [14, 15]]])
-    data_multi: Tensor(shape=[1, 2, 2], dtype=Int64, value=[[[12, 13], [14, 15]]])
+    data_single:
+    [[[ 4  5]
+      [ 6  7]]
+
+     [[12 13]
+      [14 15]]]
+    data_multi:
+    [[[12 13]
+     [14 15]]]
     ```
 
 - `Tensor` index value
@@ -137,6 +178,9 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
+    from mindspore import dtype as mstype
+    import mindspore as ms
+    import mindspore.numpy as np
     tensor_x = ms.Tensor([1, 2, 3])
     tensor_index = ms.Tensor([True, False, True], dtype=mstype.bool_)
     output = tensor_x[tensor_index]
@@ -154,18 +198,49 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
+    from mindspore import dtype as mstype
+    import mindspore as ms
+    import mindspore.numpy as np
     tensor_x = ms.Tensor(np.arange(4 * 2 * 3).reshape((4, 2, 3)))
     tensor_index0 = ms.Tensor(np.array([[1, 2], [0, 3]]), mstype.int32)
     tensor_index1 = ms.Tensor(np.array([[0, 0]]), mstype.int32)
     data_single = tensor_x[tensor_index0]
     data_multi = tensor_x[tensor_index0][tensor_index1]
+    print('data_single:')
+    print(data_single)
+    print('data_multi:')
+    print(data_multi)
     ```
 
     The result is as follows:
 
     ```text
-    data_single: Tensor(shape=[2, 2, 2, 3], dtype=Int64, value=[[[[6, 7, 8], [9, 10, 11]], [[12, 13, 14], [15, 16 ,17]]], [[[0, 1, 2], [3, 4, 5]], [[18, 19, 20], [21, 22, 23]]]])
-    data_multi: Tensor(shape=[1, 2, 2, 2, 3], dtype=Int64, value=[[[[[6, 7, 8], [9, 10, 11]], [[12, 13, 14], [15, 16 ,17]]], [[[0, 1, 2], [3, 4, 5]], [[18, 19, 20], [21, 22, 23]]]]]))
+    data_single:
+    [[[[ 6  7  8]
+       [ 9 10 11]]
+
+      [[12 13 14]
+       [15 16 17]]]
+
+
+     [[[ 0  1  2]
+       [ 3  4  5]]
+
+      [[18 19 20]
+       [21 22 23]]]]
+    data_multi:
+    [[[[[ 6  7  8]
+        [ 9 10 11]]
+
+       [[12 13 14]
+        [15 16 17]]]
+
+
+      [[[ 6  7  8]
+        [ 9 10 11]]
+
+       [[12 13 14]
+        [15 16 17]]]]]
     ```
 
 - `List` index value
@@ -185,18 +260,37 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
+    import mindspore as ms
+    import mindspore.numpy as np
     tensor_x = ms.Tensor(np.arange(4 * 2 * 3).reshape((4, 2, 3)))
     list_index0 = [1, 2, 0]
     list_index1 = [True, False, True]
     data_single = tensor_x[list_index0]
     data_multi = tensor_x[list_index0][list_index1]
+    print('data_single:')
+    print(data_single)
+    print('data_multi:')
+    print(data_multi)
     ```
 
     The result is as follows:
 
     ```text
-    data_single: Tensor(shape=[3, 2, 3], dtype=Int64, value=[[[6, 7, 8], [9, 10, 11]], [[12, 13, 14], [15, 16, 17]], [[0, 1, 2], [3, 4, 5]]])
-    data_multi: Tensor(shape=[2, 2, 3], dtype=Int64, value=[[[6, 7, 8], [9, 10, 11]], [[0, 1, 2], [3, 4, 5]]])
+    data_single:
+    [[[ 6  7  8]
+      [ 9 10 11]]
+
+    [[12 13 14]
+     [15 16 17]]
+
+    [[ 0  1  2]
+     [ 3  4  5]]]
+    data_multi:
+    [[[ 6  7  8]
+      [ 9 10 11]]
+
+     [[ 0  1  2]
+      [ 3  4  5]]]
     ```
 
 - `Tuple` index value
@@ -218,15 +312,27 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
+    from mindspore import dtype as mstype
+    import mindspore as ms
+    import mindspore.numpy as np
     tensor_x = ms.Tensor(np.arange(2 * 3 * 4).reshape((2, 3, 4)))
     tensor_index = ms.Tensor(np.array([[1, 2, 1], [0, 3, 2]]), mstype.int32)
     data = tensor_x[1, 0:1, tensor_index]
+    print('data:')
+    print(data)
     ```
 
     The result is as follows:
 
     ```text
-    data: Tensor(shape=[2, 3, 1], dtype=Int64, value=[[[13], [14], [13]], [[12], [15], [14]]])
+    data:
+    [[[13]
+      [14]
+      [13]]
+
+    [[12]
+     [15]
+     [14]]]
     ```
 
 ## Index value assignment
@@ -261,13 +367,21 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_y = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
     tensor_x[1] = 88.0
     tensor_y[1] = np.array([66, 88, 99]).astype(np.float32)
+    print('tensor_x:')
+    print(tensor_x)
+    print('tensor_y:')
+    print(tensor_y)
     ```
 
     The result is as follows:
 
     ```text
-    tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [88.0, 88.0, 88.0]])
-    tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [66.0, 88.0, 99.0]])
+    tensor_x:
+    [[ 0.  1.  2.]
+     [88. 88. 88.]]
+    tensor_y:
+    [[ 0.  1.  2.]
+     [66. 88. 99.]]
     ```
 
 - `bool` index value assignment
@@ -284,14 +398,26 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_x[True] = 88.0
     tensor_y[True]= np.array([66, 88, 99]).astype(np.float32)
     tensor_z[True] = (66, 88, 99)
+    print('tensor_x:')
+    print(tensor_x)
+    print('tensor_y:')
+    print(tensor_y)
+    print('tensor_z:')
+    print(tensor_z)
     ```
 
     The result is as follows:
 
     ```text
-    tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0]])
-    tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[66.0, 88.0, 99.0], [66.0, 88.0, 99.0]])
-    tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[66.0, 88.0, 99.0], [66.0, 88.0, 99.0]])
+    tensor_x:
+    [[88. 88. 88.]
+     [88. 88. 88.]]
+    tensor_y:
+    [[66. 88. 99.]
+     [66. 88. 99.]]
+    tensor_z:
+    [[66. 88. 99.]
+     [66. 88. 99.]]
     ```
 
 - `ellipsis` index value assignment
@@ -308,14 +434,26 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_x[...] = 88.0
     tensor_y[...] = np.array([[22, 44, 55], [22, 44, 55]])
     tensor_z[...] = ([11, 22, 33], [44, 55, 66])
+    print('tensor_x:')
+    print(tensor_x)
+    print('tensor_y:')
+    print(tensor_y)
+    print('tensor_z:')
+    print(tensor_z)
     ```
 
     The result is as follows:
 
     ```text
-    tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0]])
-    tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[22.0, 44.0, 55.0], [22.0, 44.0, 55.0]])
-    tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[11.0, 22.0, 33.0], [44.0, 55.0, 66.0]])
+    tensor_x:
+    [[88. 88. 88.]
+     [88. 88. 88.]]
+    tensor_y:
+    [[22. 44. 55.]
+     [22. 44. 55.]]
+    tensor_z:
+    [[11. 22. 33.]
+     [44. 55. 66.]]
     ```
 
 - `slice` index value assignment
@@ -334,15 +472,35 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_y[0:2] = 88.0
     tensor_z[0:2] = np.array([[11, 12, 13], [11, 12, 13]]).astype(np.float32)
     tensor_k[0:2] = ([11, 12, 13], (14, 15, 16))
+    print('tensor_x:')
+    print(tensor_x)
+    print('tensor_y:')
+    print(tensor_y)
+    print('tensor_z:')
+    print(tensor_z)
+    print('tensor_k:')
+    print(tensor_k)
     ```
 
     The result is as follows:
 
     ```text
-    tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [3.0, 4.0, 5.0], [6.0, 7.0, 8.0]])
-    tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0], [6.0, 7.0, 8.0]])
-    tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[11.0, 12.0, 13.0], [11.0, 12.0, 13.0], [6.0, 7.0, 8.0]])
-    tensor_k: Tensor(shape=[3, 3], dtype=Float32, value=[[11.0, 12.0, 13.0], [14.0, 15.0, 16.0], [6.0, 7.0, 8.0]])
+    tensor_x:
+    [[88. 88. 88.]
+     [ 3.  4.  5.]
+     [ 6.  7.  8.]]
+    tensor_y:
+    [[88. 88. 88.]
+     [88. 88. 88.]
+     [ 6.  7.  8.]]
+    tensor_z:
+    [[11. 12. 13.]
+     [11. 12. 13.]
+     [ 6.  7.  8.]]
+    tensor_k:
+    [[11. 12. 13.]
+     [14. 15. 16.]
+     [ 6.  7.  8.]]
     ```
 
 - `None` index value assignment
@@ -359,14 +517,26 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_x[None] = 88.0
     tensor_y[None]= np.array([66, 88, 99]).astype(np.float32)
     tensor_z[None] = (66, 88, 99)
+    print('tensor_x:')
+    print(tensor_x)
+    print('tensor_y:')
+    print(tensor_y)
+    print('tensor_z:')
+    print(tensor_z)
     ```
 
     The result is as follows:
 
     ```text
-    tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0]])
-    tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[66.0, 88.0, 99.0], [66.0, 88.0, 99.0]])
-    tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[66.0, 88.0, 99.0], [66.0, 88.0, 99.0]])
+    tensor_x:
+    [[88. 88. 88.]
+     [88. 88. 88.]]
+    tensor_y:
+    [[66. 88. 99.]
+     [66. 88. 99.]]
+    tensor_z:
+    [[66. 88. 99.]
+     [66. 88. 99.]]
     ```
 
 - `Tensor` index value assignment
@@ -386,19 +556,36 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_x[tensor_index] = 88.0
     tensor_y[tensor_index] = np.array([11.0, 12.0, 13.0]).astype(np.float32)
     tensor_z[tensor_index] = [11, 12, 13]
+    print('tensor_x:')
+    print(tensor_x)
+    print('tensor_y:')
+    print(tensor_y)
+    print('tensor_z:')
+    print(tensor_z)
     ```
 
     The result is as follows:
 
     ```text
-    tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [3.0, 4.0, 5.0], [88.0, 88.0, 88.0]])
-    tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[11.0, 12.0, 13.0], [3.0, 4.0, 5.0], [11.0, 12.0, 13.0]])
-    tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[11.0, 12.0, 13.0], [3.0, 4.0, 5.0], [11.0, 12.0, 13.0]])
+    tensor_x:
+    [[88. 88. 88.]
+     [ 3.  4.  5.]
+     [88. 88. 88.]]
+    tensor_y:
+    [[11. 12. 13.]
+     [ 3.  4.  5.]
+     [11. 12. 13.]]
+    tensor_z:
+    [[11. 12. 13.]
+     [ 3.  4.  5.]
+     [11. 12. 13.]]
     ```
 
     An example of the `bool` type is as follows:
 
     ```python
+    from mindspore import dtype as mstype
+    import mindspore as ms
     tensor_x = ms.Tensor([[0, 1, 2], [3, 4, 5], [6, 7, 8]], mstype.float32)
     tensor_index = ms.Tensor([True, False, True], mstype.bool_)
     tensor_x[tensor_index] = -1
@@ -428,13 +615,23 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_index = np.array([[0, 1], [1, 0]]).astype(np.int32)
     tensor_x[[0,1]] = 88.0
     tensor_y[[True, False, False]] = np.array([11, 12, 13]).astype(np.float32)
+    print('tensor_x:')
+    print(tensor_x)
+    print('tensor_y:')
+    print(tensor_y)
     ```
 
     The result is as follows:
 
     ```text
-    tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0], [6.0, 7.0, 8.0]])
-    tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[11.0, 12.0, 13.0], [3.0, 4.0, 5.0], [6.0, 7.0, 8.0]])
+    tensor_x:
+    [[88. 88. 88.]
+     [88. 88. 88.]
+     [ 6.  7.  8.]]
+    tensor_y:
+    [[11. 12. 13.]
+     [ 3.  4.  5.]
+     [ 6.  7.  8.]]
     ```
 
 - `Tuple` index value assignment
@@ -454,14 +651,29 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_x[1, 1:3] = 88.0
     tensor_y[1:3, tensor_index] = 88.0
     tensor_z[1:3, tensor_index] = np.array([11, 12]).astype(np.float32)
+    print('tensor_x:')
+    print(tensor_x)
+    print('tensor_y:')
+    print(tensor_y)
+    print('tensor_z:')
+    print(tensor_z)
     ```
 
     The result is as follows:
 
     ```text
-    tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [3.0, 88.0, 88.0], [6.0, 7.0, 8.0]])
-    tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [88.0, 88.0, 5.0], [88.0, 88.0, 8.0]])
-    tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [11.0, 12.0, 5.0], [11.0, 12.0, 8.0]])
+    tensor_x:
+    [[ 0.  1.  2.]
+     [ 3. 88. 88.]
+     [ 6.  7.  8.]]
+    tensor_y:
+    [[ 0.  1.  2.]
+     [88. 88.  5.]
+    [88. 88.  8.]]
+    tensor_z:
+    [[ 0.  1.  2.]
+     [11. 12.  5.]
+     [11. 12.  8.]]
     ```
 
 ## Index value augmented-assignment
@@ -483,15 +695,26 @@ Index value augmented-assignment can be regarded as taking the value of the posi
     For example:
 
     ```python
+    import mindspore as ms
     tensor_x = ms.Tensor(np.arange(3 * 4).reshape(3, 4).astype(np.float32))
     tensor_y = ms.Tensor(np.arange(3 * 4).reshape(3, 4).astype(np.float32))
     tensor_x[[0, 1], 1:3] += 2
     tensor_y[[1], ...] -= [4, 3, 2, 1]
+    print('tensor_x:')
+    print(tensor_x)
+    print('tensor_y:')
+    print(tensor_y)
     ```
 
     The result is as follows:
 
     ```text
-    tensor_x: Tensor(shape=[3, 4], dtype=Float32, value=[[0.0, 3.0, 4.0, 3.0], [4.0, 7.0, 8.0, 7.0], [8.0, 9.0, 10.0, 11.0]])
-    tensor_y: Tensor(shape=[3, 4], dtype=Float32, value=[[0.0, 1.0, 2.0, 3.0], [0.0, 2.0, 4.0, 6.0], [8.0, 9.0, 10.0, 11.0]])
+    tensor_x:
+    [[ 0.  3.  4.  3.]
+     [ 4.  7.  8.  7.]
+     [ 8.  9. 10. 11.]]
+    tensor_y:
+    [[ 0.  1.  2.  3.]
+     [ 0.  2.  4.  6.]
+     [ 8.  9. 10. 11.]]
     ```

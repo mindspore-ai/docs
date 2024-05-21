@@ -647,6 +647,8 @@ def make_html(generate_path, pre_path, cn_flag, en_flag, branch, js_data):
             # pylint: disable=W0612
             _, stderr = process.communicate()
             process.wait()
+            if process.returncode != 0:
+                print(f'stderr: {stderr}')
 
             TARGET = os.path.join(pre_path, f"{generate_dir}/en/{branch}")
             os.makedirs(os.path.dirname(TARGET), exist_ok=True)
@@ -654,9 +656,11 @@ def make_html(generate_path, pre_path, cn_flag, en_flag, branch, js_data):
             js_data[0]['English']['link'] = f'{generate_dir}/en/{branch}/index.html'
             js_data[0]['English']['result'] = 'SUCCESS'
             # md_h += f'\n| [English Version]({generate_dir}/en/{branch}/index.html) | SUCCESS |'
+        # pylint: disable=W0703
         # pylint: disable=W0702
-        except:
+        except Exception as e:
             print(f"English Version run failed!")
+            print(f'Exception: {e}')
             js_data[0]['English']['result'] = 'FAILURE'
             # md_h += '\n| English Version | FAILURE |'
 
@@ -674,6 +678,8 @@ def make_html(generate_path, pre_path, cn_flag, en_flag, branch, js_data):
             # pylint: disable=W0612
             _, stderr = process.communicate()
             process.wait()
+            if process.returncode != 0:
+                print(f'stderr: {stderr}')
 
             TARGET = f"{pre_path}/{generate_dir}/zh-CN/{branch}"
             os.makedirs(os.path.dirname(TARGET), exist_ok=True)
@@ -681,9 +687,11 @@ def make_html(generate_path, pre_path, cn_flag, en_flag, branch, js_data):
             js_data[0]['Chinese']['link'] = f'{generate_dir}/zh-CN/{branch}/index.html'
             js_data[0]['Chinese']['result'] = 'SUCCESS'
             # md_h += f'\n| [Chinese Version]({generate_dir}/zh-CN/{branch}/index.html) | SUCCESS |'
+        # pylint: disable=W0703
         # pylint: disable=W0702
-        except:
+        except Exception as e:
             print(f"Chinese Version run failed!")
+            print(f'Exception: {e}')
             js_data[0]['Chinese']['result'] = 'FAILURE'
             # md_h += '\n| Chinese Version | FAILURE |'
     return js_data, generate_dir

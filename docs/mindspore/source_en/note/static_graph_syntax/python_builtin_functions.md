@@ -25,13 +25,13 @@ import mindspore as ms
 
 @ms.jit
 def func(x):
-   a = int(3)
-   b = int(3.6)
-   c = int('12', 16)
-   d = int('0xa', 16)
-   e = int('10', 8)
-   f = int(x)
-   return a, b, c, d, e, f
+    a = int(3)
+    b = int(3.6)
+    c = int('12', 16)
+    d = int('0xa', 16)
+    e = int('10', 8)
+    f = int(x)
+    return a, b, c, d, e, f
 
 x = ms.Tensor([-1.0], ms.float32)
 a, b, c, d, e, f = func(x)
@@ -46,12 +46,12 @@ print("f: ", f)
 The result is as follows:
 
 ```text
-a: 3
-b: 3
-c: 18
-d: 10
-e: 8
-f: -1
+a:  3
+b:  3
+c:  18
+d:  10
+e:  8
+f:  -1
 ```
 
 ## float
@@ -71,12 +71,12 @@ import mindspore as ms
 
 @ms.jit
 def func(x):
-   a = float(1)
-   b = float(112)
-   c = float(-123.6)
-   d = float('123')
-   e = float(x.asnumpy())
-   return a, b, c, d, e
+    a = float(1)
+    b = float(112)
+    c = float(-123.6)
+    d = float('123')
+    e = float(x.asnumpy())
+    return a, b, c, d, e
 
 x = ms.Tensor([-1], ms.int32)
 a, b, c, d, e = func(x)
@@ -90,11 +90,11 @@ print("e: ", e)
 The result is as follows:
 
 ```text
-a: 1.0
-b: 112.0
-c: -123.6
-d: 123.0
-e: -1.0
+a:  1.0
+b:  112.0
+c:  -123.5999984741211
+d:  123.0
+e:  -1.0
 ```
 
 ## bool
@@ -114,12 +114,12 @@ import mindspore as ms
 
 @ms.jit
 def func():
-   a = bool()
-   b = bool(0)
-   c = bool("abc")
-   d = bool([1, 2, 3, 4])
-   e = bool(ms.Tensor([10]).asnumpy())
-   return a, b, c, d, e
+    a = bool()
+    b = bool(0)
+    c = bool("abc")
+    d = bool([1, 2, 3, 4])
+    e = bool(ms.Tensor([10]).asnumpy())
+    return a, b, c, d, e
 
 a, b, c, d, e = func()
 print("a: ", a)
@@ -132,11 +132,11 @@ print("e: ", e)
 The result is as follows:
 
 ```text
-a: False
-b: False
-c: True
-d: True
-e: True
+a:  False
+b:  False
+c:  True
+d:  True
+e:  True
 ```
 
 ## str
@@ -157,12 +157,12 @@ import mindspore as ms
 
 @ms.jit
 def func():
-   a = str()
-   b = str(0)
-   c = str([1, 2, 3, 4])
-   d = str(ms.Tensor([10]))
-   e = str(np.array([1, 2, 3, 4]))
-   return a, b, c, d, e
+    a = str()
+    b = str(0)
+    c = str([1, 2, 3, 4])
+    d = str(ms.Tensor([10]))
+    e = str(np.array([1, 2, 3, 4]))
+    return a, b, c, d, e
 
 a, b, c, d, e = func()
 print("a: ", a)
@@ -176,10 +176,10 @@ The result is as follows:
 
 ```text
 a:                                             # a is empty string
-b: 0
-c: [1, 2, 3, 4]
-d: Tensor(shape=[1], dtype=Int64, value=[10])
-e: [1 2 3 4]
+b:  0
+c:  [1, 2, 3, 4]
+d:  Tensor(shape=[1], dtype=Int64, value=[10])
+e:  [1 2 3 4]
 ```
 
 ## tuple
@@ -200,11 +200,11 @@ import mindspore as ms
 
 @ms.jit
 def func():
-   a = tuple((1, 2, 3))
-   b = tuple(np.array([1, 2, 3]))
-   c = tuple({'a': 1, 'b': 2, 'c': 3})
-   d = tuple(ms.Tensor([1, 2, 3]))
-   return a, b, c, d
+    a = tuple((1, 2, 3))
+    b = tuple(np.array([1, 2, 3]))
+    c = tuple({'a': 1, 'b': 2, 'c': 3})
+    d = tuple(ms.Tensor([1, 2, 3]))
+    return a, b, c, d
 
 a, b, c, d = func()
 print("a: ", a)
@@ -216,10 +216,10 @@ print("d: ", d)
 The result is as follows:
 
 ```text
-a: (1, 2, 3)
-b: (1, 2, 3)
-c: ('a', 'b', 'c')
-d: (Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value= 2), Tensor(shape=[], dtype=Int64, value= 3))
+a:  (1, 2, 3)
+b:  (1, 2, 3)
+c:  ('a', 'b', 'c')
+d:  (Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value= 2), Tensor(shape=[], dtype=Int64, value= 3))
 ```
 
 ## list
@@ -240,11 +240,11 @@ import mindspore as ms
 
 @ms.jit
 def func():
-   a = list((1, 2, 3))
-   b = list(np.array([1, 2, 3]))
-   c = list({'a':1, 'b':2, 'c':3})
-   d = list(ms.Tensor([1, 2, 3]))
-   return a, b, c, d
+    a = list((1, 2, 3))
+    b = list(np.array([1, 2, 3]))
+    c = list({'a':1, 'b':2, 'c':3})
+    d = list(ms.Tensor([1, 2, 3]))
+    return a, b, c, d
 a_t, b_t, c_t, d_t = func()
 print("a_t: ", a_t)
 print("b_t: ", b_t)
@@ -255,10 +255,10 @@ print("d_t: ", d_t)
 The result is as follows:
 
 ```text
-a_t: [1, 2, 3]
-b_t: [1, 2, 3]
-c_t: ['a', 'b', 'c']
-d_t: [Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value= 2), Tensor(shape=[], dtype=Int64, value= 3)]
+a_t:  [1, 2, 3]
+b_t:  [1, 2, 3]
+c_t:  ['a', 'b', 'c']
+d_t:  [Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value= 2), Tensor(shape=[], dtype=Int64, value= 3)]
 ```
 
 ## dict
@@ -286,10 +286,10 @@ print("d: ", d)
 ```
 
 ```text
-a: {}
-b: {'a': 'a', 'b': 'b', 't': 't'}
-c: {'one': 1, 'two': 2, 'three': 3}
-d: {'one': 1, 'two': 2, 'three': 3}
+a:  {}
+b:  {'a': 'a', 'b': 'b', 't': 't'}
+c:  {'one': 1, 'two': 2, 'three': 3}
+d:  {'one': 1, 'two': 2, 'three': 3}
 ```
 
 ## getattr
@@ -316,17 +316,17 @@ import mindspore as ms
 
 @ms.jit_class
 class MSClass1:
-  def __init__(self):
-    self.num0 = 0
+    def __init__(self):
+        self.num0 = 0
 
 ms_obj = MSClass1()
 
 @ms.jit
 def func(x):
-  a = getattr(ms_obj, 'num0')
-  b = getattr(ms_obj, 'num1', 2)
-  c = getattr(x.asnumpy(), "shape", np.array([0, 1, 2, 3, 4]))
-  return a, b, c
+    a = getattr(ms_obj, 'num0')
+    b = getattr(ms_obj, 'num1', 2)
+    c = getattr(x.asnumpy(), "shape", np.array([0, 1, 2, 3, 4]))
+    return a, b, c
 
 x = ms.Tensor([-1.0], ms.float32)
 a, b, c = func(x)
@@ -370,17 +370,17 @@ from mindspore import Tensor
 
 @ms.jit_class
 class MSClass1:
-  def __init__(self):
-    self.num0 = 0
+    def __init__(self):
+        self.num0 = 0
 
 ms_obj = MSClass1()
 
 @ms.jit
 def func():
-   a = hasattr(ms_obj, 'num0')
-   b = hasattr(ms_obj, 'num1')
-   c = hasattr(Tensor(np.array([1, 2, 3, 4])).asnumpy(), "__len__")
-   return a, b, c
+    a = hasattr(ms_obj, 'num0')
+    b = hasattr(ms_obj, 'num1')
+    c = hasattr(Tensor(np.array([1, 2, 3, 4])).asnumpy(), "__len__")
+    return a, b, c
 
 a, b, c = func()
 print("a: ", a)
@@ -391,9 +391,9 @@ print("c: ", c)
 The result is as follows:
 
 ```text
-a: True
-b: False
-c: True
+a:  True
+b:  False
+c:  True
 ```
 
 'hasattr(Tensor(np.array([1, 2, 3, 4])).asnumpy(), "__len__")' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
@@ -447,7 +447,7 @@ x_len:3
 y_len:3
 d_len:2
 z_len:6
-z_len:4
+n_len:4
 w_len:4
 ```
 
@@ -523,17 +523,17 @@ from mindspore import Tensor
 
 @ms.jit
 def func():
-   a = all(['a', 'b', 'c', 'd'])
-   b = all(['a', 'b', '', 'd'])
-   c = all([0, 1, 2, 3])
-   d = all(('a', 'b', 'c', 'd'))
-   e = all(('a', 'b', '', 'd'))
-   f = all((0, 1, 2, 3))
-   g = all([])
-   h = all(())
-   x = Tensor(np.array([0, 1, 2, 3]))
-   i = all(x.asnumpy())
-   return a, b, c, d, e, f, g, h, i
+    a = all(['a', 'b', 'c', 'd'])
+    b = all(['a', 'b', '', 'd'])
+    c = all([0, 1, 2, 3])
+    d = all(('a', 'b', 'c', 'd'))
+    e = all(('a', 'b', '', 'd'))
+    f = all((0, 1, 2, 3))
+    g = all([])
+    h = all(())
+    x = Tensor(np.array([0, 1, 2, 3]))
+    i = all(x.asnumpy())
+    return a, b, c, d, e, f, g, h, i
 
 a, b, c, d, e, f, g, h, i = func()
 print("a: ", a)
@@ -550,15 +550,15 @@ print("i: ", i)
 The result is as follows:
 
 ```text
-a: True
-b: False
-c: False
-d: True
-e: False
-f: False
-g: True
-h: True
-i: False
+a:  True
+b:  False
+c:  False
+d:  True
+e:  False
+f:  False
+g:  True
+h:  True
+i:  False
 ```
 
 'all(x.asnumpy())' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
@@ -582,17 +582,17 @@ from mindspore import Tensor
 
 @ms.jit
 def func():
-   a = any(['a', 'b', 'c', 'd'])
-   b = any(['a', 'b', '', 'd'])
-   c = any([0, '', False])
-   d = any(('a', 'b', 'c', 'd'))
-   e = any(('a', 'b', '', 'd'))
-   f = any((0, '', False))
-   g = any([])
-   h = any(())
-   x = Tensor(np.array([0, 1, 2, 3]))
-   i = any(x.asnumpy())
-   return a, b, c, d, e, f, g, h, i
+    a = any(['a', 'b', 'c', 'd'])
+    b = any(['a', 'b', '', 'd'])
+    c = any([0, '', False])
+    d = any(('a', 'b', 'c', 'd'))
+    e = any(('a', 'b', '', 'd'))
+    f = any((0, '', False))
+    g = any([])
+    h = any(())
+    x = Tensor(np.array([0, 1, 2, 3]))
+    i = any(x.asnumpy())
+    return a, b, c, d, e, f, g, h, i
 
 a, b, c, d, e, f, g, h, i = func()
 print("a: ", a)
@@ -609,15 +609,15 @@ print("i: ", i)
 The result is as follows:
 
 ```text
-a: True
-b: True
-c: False
-d: True
-e: True
-f: False
-g: False
-h: False
-i: True
+a:  True
+b:  True
+c:  False
+d:  True
+e:  True
+f:  False
+g:  False
+h:  False
+i:  True
 ```
 
 ## round
@@ -641,15 +641,15 @@ import mindspore as ms
 
 @ms.jit
 def func():
-   a = round(10)
-   b = round(10.123)
-   c = round(10.567)
-   d = round(10, 0)
-   e = round(10.72, -1)
-   f = round(17.12, -1)
-   g = round(10.17, 1)
-   h = round(10.12, 1)
-   return a, b, c, d, e, f, g, h
+    a = round(10)
+    b = round(10.123)
+    c = round(10.567)
+    d = round(10, 0)
+    e = round(10.72, -1)
+    f = round(17.12, -1)
+    g = round(10.17, 1)
+    h = round(10.12, 1)
+    return a, b, c, d, e, f, g, h
 
 a, b, c, d, e, f, g, h = func()
 print("a: ", a)
@@ -665,10 +665,10 @@ print("h: {:.2f}".format(h))
 The result is as follows:
 
 ```text
-a: 10
-b: 10
-c: 11
-d: 10
+a:  10
+b:  10
+c:  11
+d:  10
 e: 10.00
 f: 20.00
 g: 10.20
@@ -693,14 +693,14 @@ import mindspore as ms
 
 @ms.jit
 def func():
-   a = max([0, 1, 2, 3])
-   b = max((0, 1, 2, 3))
-   c = max({1: 10, 2: 20, 3: 3})
-   d = max(np.array([1, 2, 3, 4]))
-   e = max(('a', 'b', 'c'))
-   f = max((1, 2, 3), (1, 4))
-   g = max(ms.Tensor([1, 2, 3]))
-   return a, b, c, ms.Tensor(d), e, f, g
+    a = max([0, 1, 2, 3])
+    b = max((0, 1, 2, 3))
+    c = max({1: 10, 2: 20, 3: 3})
+    d = max(np.array([1, 2, 3, 4]))
+    e = max(('a', 'b', 'c'))
+    f = max((1, 2, 3), (1, 4))
+    g = max(ms.Tensor([1, 2, 3]))
+    return a, b, c, ms.Tensor(d), e, f, g
 
 a, b, c, d, e, f, g = func()
 print("a: ", a)
@@ -715,13 +715,13 @@ print("g: ", g)
 The result is as follows:
 
 ```text
-a: 3
-b: 3
-c: 3
-d: 4
-e: c
-f: (1, 4)
-g: 3
+a:  3
+b:  3
+c:  3
+d:  4
+e:  c
+f:  (1, 4)
+g:  3
 ```
 
 ## min
@@ -742,14 +742,14 @@ import mindspore as ms
 
 @ms.jit
 def func():
-  a = min([0, 1, 2, 3])
-  b = min((0, 1, 2, 3))
-  c = min({1: 10, 2: 20, 3: 3})
-  d = min(np.array([1, 2, 3, 4]))
-  e = min(('a', 'b', 'c'))
-  f = min((1, 2, 3), (1, 4))
-  g = min(ms.Tensor([1, 2, 3]))
-  return a, b, c, ms.Tensor(d), e, f, g
+    a = min([0, 1, 2, 3])
+    b = min((0, 1, 2, 3))
+    c = min({1: 10, 2: 20, 3: 3})
+    d = min(np.array([1, 2, 3, 4]))
+    e = min(('a', 'b', 'c'))
+    f = min((1, 2, 3), (1, 4))
+    g = min(ms.Tensor([1, 2, 3]))
+    return a, b, c, ms.Tensor(d), e, f, g
 
 a, b, c, d, e, f, g = func()
 print("a: ", a)
@@ -764,13 +764,13 @@ print("g: ", g)
 The result is as follows:
 
 ```text
-a: 0
-b: 0
-c: 1
-d: 1
-e: a
-f: (1, 2, 3)
-g: 1
+a:  0
+b:  0
+c:  1
+d:  1
+e:  a
+f:  (1, 2, 3)
+g:  1
 ```
 
 ## sum
@@ -795,13 +795,13 @@ import mindspore as ms
 
 @ms.jit
 def func():
-  a = sum([0, 1, 2])
-  b = sum((0, 1, 2), 10)
-  c = sum(np.array([1, 2, 3]))
-  d = sum(ms.Tensor([1, 2, 3]), 10)
-  e = sum(ms.Tensor([[1, 2], [3, 4]]))
-  f = sum([1, ms.Tensor([[1, 2], [3, 4]]), ms.Tensor([[1, 2], [3, 4]])], ms.Tensor([[1, 1], [1, 1]]))
-  return a, b, ms.Tensor(c), d, e, f
+    a = sum([0, 1, 2])
+    b = sum((0, 1, 2), 10)
+    c = sum(np.array([1, 2, 3]))
+    d = sum(ms.Tensor([1, 2, 3]), 10)
+    e = sum(ms.Tensor([[1, 2], [3, 4]]))
+    f = sum([1, ms.Tensor([[1, 2], [3, 4]]), ms.Tensor([[1, 2], [3, 4]])], ms.Tensor([[1, 1], [1, 1]]))
+    return a, b, ms.Tensor(c), d, e, f
 
 a, b, c, d, e, f = func()
 print("a: ", a)
@@ -821,7 +821,7 @@ c:  6
 d:  16
 e:  [4 6]
 f:  [[ 4  6]
-     [ 8 10]]
+ [ 8 10]]
 ```
 
 ## abs
@@ -842,10 +842,10 @@ from mindspore import Tensor
 
 @ms.jit
 def func():
-   a = abs(-45)
-   b = abs(100.12)
-   c = abs(Tensor([-1, 2]).asnumpy())
-   return a, b, c
+    a = abs(-45)
+    b = abs(100.12)
+    c = abs(Tensor([-1, 2]).asnumpy())
+    return a, b, c
 
 a, b, c = func()
 print("a: ", a)
@@ -856,9 +856,9 @@ print("c: ", c)
 The result is as follows:
 
 ```text
-a: 45
+a:  45
 b: 100.12
-c: [1 2]
+c:  [1 2]
 ```
 
 'abs(Tensor([-1, 2]).asnumpy())' is a high-level usage, and more introduction can be found in the [Extended Syntaxes (LAX level)](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#extended-syntaxes-lax-level) chapter.
@@ -1245,13 +1245,13 @@ print("g: ", g)
 ```
 
 ```text
-a: <class 'int'>
-b: <class 'float'>
-c: <class 'list'>
-d: <class 'tuple'>
-e: <class 'dict'>
-f: <class 'numpy.ndarray'>
-g: <class 'mindspore.common.tensor.Tensor'>
+a:  <class 'int'>
+b:  <class 'float'>
+c:  <class 'list'>
+d:  <class 'tuple'>
+e:  <class 'dict'>
+f:  <class 'numpy.ndarray'>
+g:  <class 'mindspore.common.tensor.Tensor'>
 ```
 
 > There is another way to use type as a native Python function, i.e. type(name, bases, dict) returns a class object of type name, which is not supported currently because of the low usage scenario.

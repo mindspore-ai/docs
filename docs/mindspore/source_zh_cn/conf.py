@@ -448,27 +448,17 @@ for cur, _, files in os.walk(des_sir):
                 print(f'打开{i}文件失败')
 
 # rename file name to solve Case sensitive.
-target_dir_ops="./api_python/ops/"
-try:
-    for filename in os.listdir(target_dir_ops):
-        newname = filename.replace("func_",'')
-        os.rename(os.path.join(target_dir_ops, filename),os.path.join(target_dir_ops, newname))
-except Exception as e:
-    print(e)
 
-target_dir_mindspore="./api_python/mindspore/"
-try:
-    for filename in os.listdir(target_dir_mindspore):
-        newname = filename.replace("func_",'')
-        os.rename(os.path.join(target_dir_mindspore, filename),os.path.join(target_dir_mindspore, newname))
-except Exception as e:
-    print(e)
+rename_list = [("./api_python/ops/", "func_", ""),
+               ("./api_python/mindspore/", "func_", ""),
+               ("./api_python/mindspore/Tensor/", "method_", ""),
+               ("./api_python/mint/", "func_", "")]
 
-target_dir_tensor="./api_python/mindspore/Tensor/"
 try:
-    for filename in os.listdir(target_dir_tensor):
-        newname = filename.replace("method_",'')
-        os.rename(os.path.join(target_dir_tensor, filename),os.path.join(target_dir_tensor, newname))
+    for tp in rename_list:
+        for filename in os.listdir(tp[0]):
+            newname = filename.replace(tp[1], tp[2])
+            os.rename(os.path.join(tp[0], filename),os.path.join(tp[0], newname))
 except Exception as e:
     print(e)
 

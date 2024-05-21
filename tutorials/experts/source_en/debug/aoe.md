@@ -8,33 +8,23 @@ Ascend Optimization Engine (AOE) is an automatic tuning tool that makes full use
 
 ## Enabling Tune
 
-1. Online Tune
+Set `aoe_tune_mode` the set_context to enable the AOE tool for online tuning. The value of `aoe_tune_mode` is `"online"`，which turns on online tuning.
 
-  Set `aoe_tune_mode` the set_context to enable the AOE tool for online tuning. The value of `aoe_tune_mode` should be in `["online", "offline"]`.
+Set `aoe_config` in set_context for tuning configuration. `job_type` is tuning type，and the value should be in `["1", "2"]`，default value is `2`.
 
-  online: turn on online tuning.
+1: subgraph tune.
 
-  offline：save GE graph for offline tune. Save GE graph for offline tune. When the path to save the graph is set by `set_context(save_graphs=3, save_graphs_path="path/to/ir/files")`, the graph is saved in the aoe_dump directory of the specified path; otherwise, it is saved in the aoe_dump directory under the current running directory.
+2: operator tune.
 
-  Set `aoe_config` in set_context for tuning configuration. `job_type` is tuning type，and the value should be in `["1", "2"]`，default value is `2`.
+Example of online tuning:
 
-  1: subgraph tune.
+```python
+import mindspore as ms
+ms.set_context(aoe_tune_mode="online", aoe_config={"job_type": "2"})
+....
+```
 
-  2: operator tune.
-
-  Example of online tuning:
-
-  ```python
-  import mindspore as ms
-  ms.set_context(aoe_tune_mode="online", aoe_config={"job_type": "2"})
-  ....
-  ```
-
-  After setting the above context, you can start the tuning according to the normal execution of the training script. During the execution of the use case, no operation is required. The result of the model is the result after tuning.
-
-2. Offline Tune
-
-  The Offline Tune is using the dump data (The output description file, and the binary file of operators) of network model (Generate when training network) to tune the operators. The method of Offline Tune and related environment variables can be found in [Offline Tune](https://www.hiascend.com/document/detail/en/canncommercial/601/devtools/auxiliarydevtool/aoe_16_024.html) in `CANN` development tool guide, which is not described here.
+After setting the above context, you can start the tuning according to the normal execution of the training script. During the execution of the use case, no operation is required. The result of the model is the result after tuning.
 
 ## Tuning Result Viewing
 
@@ -54,6 +44,4 @@ Pay attention to the following points when using the AOE tool:
 
 2. Ensure that the available disk space in the home directory of the user who performs tuning in the operating environment is at least 20 GB.
 
-3. The AOE tool depends on third-party software `pciutils`.
-
-4. After the tuning tool is turned on, it is obvious that the compilation time of the perception operator becomes longer.
+3. After the tuning tool is turned on, it is obvious that the compilation time of the perception operator becomes longer.

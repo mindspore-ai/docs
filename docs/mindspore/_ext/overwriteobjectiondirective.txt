@@ -63,6 +63,11 @@ def get_api(fullname):
 def get_example(name: str):
     try:
         api_doc = inspect.getdoc(get_api(name))
+        if '.mint.' in name:
+            b_name = name.split('.')[-1]
+            usename = name.replace('mindspore.', '')
+            api_doc = re.sub('(>>> from mindspore import .*?)ops', r'\1mint', api_doc)
+            api_doc = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext|_ext)?', rf'\1{usename}', api_doc)
         example_str = re.findall(r'(?<!Tutorial )Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
         if not example_str:
             return []
@@ -85,6 +90,8 @@ def get_example(name: str):
 
 def get_platforms(name: str):
     try:
+        if '.mint.' in name:
+            return ["", "支持平台：", "    ``Ascend``", ""]
         api_doc = inspect.getdoc(get_api(name))
         platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
         if not platform_str:
