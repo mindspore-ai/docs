@@ -154,7 +154,7 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
       [14 15]]]
     data_multi:
     [[[12 13]
-     [14 15]]]
+      [14 15]]]
     ```
 
 - `Tensor` index value
@@ -280,11 +280,11 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     [[[ 6  7  8]
       [ 9 10 11]]
 
-    [[12 13 14]
-     [15 16 17]]
+     [[12 13 14]
+      [15 16 17]]
 
-    [[ 0  1  2]
-     [ 3  4  5]]]
+     [[ 0  1  2]
+      [ 3  4  5]]]
     data_multi:
     [[[ 6  7  8]
       [ 9 10 11]]
@@ -330,9 +330,9 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
       [14]
       [13]]
 
-    [[12]
-     [15]
-     [14]]]
+     [[12]
+      [15]
+      [14]]]
     ```
 
 ## Index value assignment
@@ -669,7 +669,7 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_y:
     [[ 0.  1.  2.]
      [88. 88.  5.]
-    [88. 88.  8.]]
+     [88. 88.  8.]]
     tensor_z:
     [[ 0.  1.  2.]
      [11. 12.  5.]
