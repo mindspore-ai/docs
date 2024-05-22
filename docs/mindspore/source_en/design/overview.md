@@ -6,7 +6,7 @@
 
 ## Overview
 
-Artificial intelligence (AI) frameworks have been in development for nearly 10 years, and four main lines drive the evolution and development of AI frameworks:
+Artificial intelligence (AI) frameworks have been in development for more than a decade, and four main lines drive the evolution and development of AI frameworks:
 
 1. For developers: Balance efficiency and operation performance of algorithm development.
 2. For hardware: Fully utilize the performance of the chip and cluster.
