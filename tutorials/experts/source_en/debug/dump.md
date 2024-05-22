@@ -86,8 +86,7 @@ Different modes require different configuration files, and the generated data fo
             "input_output": 0,
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7],
-            "op_debug_mode": 0,
-            "statistic_category": ["max", "min", "l2norm"]
+            "op_debug_mode": 0
         },
         "e2e_dump_settings": {
             "enable": true,
@@ -111,24 +110,6 @@ Different modes require different configuration files, and the generated data fo
         2. You can also specify an operator type. When there is no operator scope information or operator id information in the string, the background considers it as an operator type, such as "conv". The matching rule of operator type is: when the operator name contains an operator type string, the matching is considered successful (case insensitive). For example, "conv" can match operators "Conv2D-op1234" and "Conv3D-op1221".
     - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data. This configuration parameter is invalid on the CPU, because there is no concept of device on the CPU, but it is still need to reserve this parameter in the json file.
     - `op_debug_mode`: This attribute is used for operator overflow or operator exception debugging. 0: save all operators or specified operators; 3: only save overflow operators; 4: only save input of the exception operator. Set it to 0 when the data is dumped. If it is not set to 0, only the data of the overflow operator or exception operator will be dumped. Default: 0.
-    - `statistic_category`: This attribute is used by users to configure the category of statistical information to be saved, and only takes effect when saving statistical information is enabled(i.e.`saved_data` is set to `statistic` or `full`). The type is a string list, where the optional values of the strings are as follows:
-
-        - "max": represents the maximum value of the elements in tensor, supporting both device and host statistics;
-        - "min": represents the minimum value of the elements in tensor, supporting both device and host statistics;
-        - "avg": represents the average value of elements in tensor, supporting device and host statistics;
-        - "count": represents the number of the elements in tensor;
-        - "negative zero count": represents the number of the elements which is less then zero in tensor;
-        - "positive zero count": represents the number of the elements which is greater then zero in tensor;
-        - "nan count": represents the number of `Nan` elements in the tensor;
-        - "negative inf count": represents the number of `-Inf` elements in the tensor;
-        - "positive inf count": represents the number of `+Inf` elements in the tensor;
-        - "zero count": represents the number of zero elements in the tensor;
-        - "md5": represents the MD5 value of the tensor;
-        - "l2norm": represents L2Norm value of the tensor, supporting both device and host statistics.
-
-      Except for those marked as supporting device statistics, other statistics can be collected only on the host.
-      This field is optional, with default values of ["max", "min", "l2norm"].
-
     - `enable`: When set to true, enable Synchronous Dump. When set to false, asynchronous dump will be used on Ascend and synchronous dump will still be used on GPU.
     - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `True`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `False`, the data format on the Device side will be retained. This configuration parameter is invalid on the CPU, because there is no format conversion on the CPU, but it is still need to reserve this parameter in the json file.
     - `stat_calc_mode`: Select the backend for statistical calculations. Options are "host" and "device". Choosing "device" enables device computation of statistics, currently only effective on Ascend, and supports only min/max/avg statistics.

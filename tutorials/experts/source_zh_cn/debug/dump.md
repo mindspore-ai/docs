@@ -230,8 +230,7 @@ MindSpore提供了两种Dump模式：
             "input_output": 0,
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7],
-            "op_debug_mode": 0,
-            "statistic_category": ["max", "min", "l2norm"]
+            "op_debug_mode": 0
         },
         "e2e_dump_settings": {
             "enable": true,
@@ -255,24 +254,6 @@ MindSpore提供了两种Dump模式：
         2. 还可以指定算子类型。当字符串中不带算子scope信息和算子id信息时，后台则认为其为算子类型，例如："conv"。算子类型的匹配规则为：当发现算子名中包含算子类型字符串时，则认为匹配成功（不区分大小写），例如："conv" 可以匹配算子 "Conv2D-op1234"、"Conv3D-op1221"。
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。该配置参数在CPU上无效，因为CPU下没有device这个概念，但是在json格式的配置文件中仍需保留该字段。
     - `op_debug_mode`：该属性用于算子溢出或算子异常调试，设置成0，表示保存所有算子或指定算子；设置成3，表示只保存溢出算子；设置成4，表示只保存异常算子的输入。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子或异常算子的数据。默认值：0。
-    - `statistic_category`: 该属性用于用户配置要保存的统计信息类别，仅在开启了保存统计信息(即`saved_data`设置为"statistic"或"full")时生效。类型为字符串列表，其中的字符串可选值如下：
-
-        - "max": 表示Tensor中元素的最大值，支持在device统计和在host统计；
-        - "min": 表示Tensor中元素的最小值，支持在device统计和在host统计；
-        - "avg": 表示Tensor中元素的平均值，支持在device统计和在host统计；
-        - "count": 表示Tensor中元素的个数；
-        - "negative zero count": 表示Tensor中小于0的元素个数；
-        - "positive zero count": 表示Tensor中大于0的元素个数；
-        - "nan count": 表示Tensor中元素的`Nan`的个数；
-        - "negative inf count": 表示Tensor中`-Inf`元素的个数；
-        - "positive inf count": 表示Tensor中`+Inf`元素的个数；
-        - "zero count": 表示Tensor中元素`0`的个数；
-        - "md5": 表示Tensor的MD5值；
-        - "l2norm": 表示Tensor的L2Norm值，支持在device统计和在host统计。
-
-      以上除了标记了支持device统计的，其它都仅支持在host统计。
-      该字段为可选，默认值为["max", "min", "l2norm"]。
-
     - `enable`：设置成true，表示开启同步Dump；设置成false时，在Ascend上会使用异步Dump，在GPU上仍然使用同步Dump。
     - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`True`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`False`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换，但是在json格式的配置文件中仍需保留该字段。
     - `stat_calc_mode`：选择统计信息计算后端，可选"host"和"device"。选择"device"后可以使能device计算统计信息，当前只在Ascend生效，只支持`min/max/avg`统计量。
