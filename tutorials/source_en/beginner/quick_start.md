@@ -330,7 +330,7 @@ for data, label in test_dataset:
 ```
 
 ```text
-Predicted: "Tensor(shape=[10], dtype=Int32, value= [3, 9, 6, 1, 6, 7, 4, 5, 2, 2])", Actual: "Tensor(shape=[10], dtype=Int32, value= [3, 9, 6, 1, 6, 7, 4, 5, 2, 2])"
+Predicted: "[3 9 6 1 6 7 4 5 2 2]", Actual: "[3 9 6 1 6 7 4 5 2 2]"
 ```
 
 For more detailed information, see [Save and Load](https://www.mindspore.cn/tutorials/en/r2.3/beginner/save_load.html).
