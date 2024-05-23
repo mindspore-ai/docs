@@ -137,7 +137,7 @@ print("Labels:", labels)
 
 ```text
 Tensor of image (18, 3, 224, 224)
-Labels: Tensor(shape=[18], dtype=Int32, value= [1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0])
+Labels: [1 0 0 0 1 1 0 0 0 1 0 0 0 0 0 0 1 0]
 ```
 
 Visualize the acquired images and label data, with the title as the name of the label corresponding to the image.
