@@ -4,7 +4,7 @@
 
 ## Introduction of ViT
 
-In recent years, the development of natural language processing models has been greatly facilitated by the development of models based on Self-Attention (SAA) structures, especially the proposal of Transformer model. Due to its computational efficiency and scalability, Transformers has been able to train models of unprecedented size with over 100B parameters.
+In recent years, the development of natural language processing models has been greatly facilitated by the development of models based on Self-Attention (SAA) structures, especially the proposal of Transformer model. Due to its computational efficiency and scalability, Transformer has been able to train models of unprecedented size with over 100B parameters.
 
 ViT is the convergence result of two fields: natural language processing and computer vision. It can still achieve good results on image classification tasks without relying on convolutional operations.
 
