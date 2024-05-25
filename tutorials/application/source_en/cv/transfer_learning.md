@@ -246,7 +246,7 @@ visualize_model('best.ckpt', dataset_val)
 
 ### Training Using Fixed Features
 
-When fixed features are used for training, all network layers except the last layer need to be frozen. You can set `requires_grad == False` to freeze parameters so that the gradient is not computed in backward propagation.
+When fixed features are used for training, all network layers except the last layer need to be frozen. You can set `requires_grad = False` to freeze parameters so that the gradient is not computed in backward propagation.
 
 ```python
 import mindspore.nn as nn
