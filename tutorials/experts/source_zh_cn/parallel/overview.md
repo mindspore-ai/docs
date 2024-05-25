@@ -67,9 +67,9 @@ MindSpore目前支持四种启动方式：
 
 ### 启动方式的差异
 
-- Ascend支持动态组网、mpirun以及rank table启动三种启动方式。
-- GPU支持动态组网和mpirun两种启动方式。
-- CPU仅支持动态组网启动。
+- Ascend支持msrun、动态组网、mpirun以及rank table启动四种启动方式。
+- GPU支持msrun、动态组网和mpirun三种启动方式。
+- CPU支持msrun和动态组网启动。
 
 详细过程请参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0rc1/parallel/startup_method.html)。
 
