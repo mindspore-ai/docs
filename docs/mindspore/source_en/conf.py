@@ -288,10 +288,25 @@ def ops_interface_name():
                 g.write(new_content)
     return primi_list
 
+nn_adjust = ['default_generator', 'get_rng_state', 'initial_seed', 'manual_seed', 'seed', 'set_rng_state', 'Generator']
+
+def nn_interface_name():
+    target_path = os.path.join(os.path.dirname(__file__),'api_python','mindspore.nn.rst')
+    with open(target_path,'r+',encoding='utf8') as f:
+        content =  f.read()
+        new_content = content
+        for name in nn_adjust:
+            new_content = new_content.replace('    mindspore.nn.' + name + '\n', '')
+        f.seek(0)
+        f.truncate()
+        f.write(new_content)
+
 try:
     primitive_list = ops_interface_name()
 except:
     pass
+
+nn_interface_name()
 
 Tensor_list_path = "./api_python/Tensor_list.rst"
 dataset_list_path = "./api_python/dataset_list.rst"

@@ -312,12 +312,21 @@ def ops_interface_name():
     return primi_list
 
 # 删除并获取nn下多余的接口文件名
+
+nn_adjust = ['default_generator', 'get_rng_state', 'initial_seed', 'manual_seed', 'seed', 'set_rng_state', 'Generator']
+
 def nn_interface_name():
     interface_name_list = []
     target_path = os.path.join(os.path.dirname(__file__),'api_python','mindspore.nn.rst')
     with open(target_path,'r+',encoding='utf8') as f:
         content =  f.read()
-        interface_name_list = re.findall("mindspore\.nn\.(\w*)",content)
+        new_content = content
+        for name in nn_adjust:
+            new_content = new_content.replace('    mindspore.nn.' + name + '\n', '')
+        interface_name_list = re.findall("mindspore\.nn\.(\w*)", new_content)
+        f.seek(0)
+        f.truncate()
+        f.write(new_content)
     all_rst = []
     for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/nn')):
         if j.split('.')[-1]=='rst':
