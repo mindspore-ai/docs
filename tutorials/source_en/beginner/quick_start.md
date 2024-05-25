@@ -53,7 +53,7 @@ print(train_dataset.get_col_names())
 ['image', 'label']
 ```
 
-Dataset in MindSpore uses the Data Processing Pipeline, which requires specifying operations such as map, batch, and shuffle. Here we use `map` to transform the image data and the label, and then pack the processed dataset into a batch of size 64.
+Dataset in MindSpore uses the Data Processing Pipeline, which requires specifying operations such as map, batch, and shuffle. Here we use map to transform the image data and labels by scaling the input image to 1/255 and normalizing it according to the mean value of 0.1307 and the standard deviation value of 0.3081, and then the processed dataset is packed into a batch of size 64.
 
 ```python
 def datapipe(dataset, batch_size):
