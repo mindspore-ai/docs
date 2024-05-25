@@ -156,7 +156,7 @@ According to the preceding result, the sampler randomly samples six samples from
 
 Samples K pieces of data from each category in the specified dataset P.
 
-The following example uses PKSampler to obtain 2 samples (up to 20 samples) from each category in the CIFAR-10 dataset, and displays shapes and labels of the read data.
+The following example uses PKSampler to obtain 2 samples (up to 10 samples) from each category in the CIFAR-10 dataset, and displays shapes and labels of the read data.
 
 ```python
 from mindspore.dataset import PKSampler
