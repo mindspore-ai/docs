@@ -67,9 +67,9 @@ In distributed training, different hardware platforms (Ascend, CPU or GPU) suppo
 
 ### Differences in Startup Methods
 
-- Ascend supports dynamic cluster, mpirun, and rank table startup.
-- GPU supports dynamic cluster and mpirun startup.
-- CPU only supports dynamic cluster startup.
+- Ascend supports msrun, dynamic cluster, mpirun, and rank table startup.
+- GPU supports msrun, dynamic cluster and mpirun startup.
+- CPU supports msrun and dynamic cluster startup.
 
 For the detailed process, refer to [startup methods](https://www.mindspore.cn/tutorials/experts/en/master/parallel/startup_method.html).
 
