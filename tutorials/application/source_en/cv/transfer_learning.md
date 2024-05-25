@@ -536,7 +536,7 @@ visualize_model(best_ckpt_path, dataset_val)
 
 ### Training with Fixed Features
 
-When training with fixed features, it is necessary to freeze all network layers except the last one. Freeze the parameters by setting `requires_grad == False` so that the gradients are not computed in the backward propagation.
+When training with fixed features, it is necessary to freeze all network layers except the last one. Freeze the parameters by setting `requires_grad = False` so that the gradients are not computed in the backward propagation.
 
 ```python
 net_work = resnet50(pretrained=True)
@@ -651,7 +651,7 @@ print(f"End of validation the best Accuracy is: {best_acc: 5.3f}, "
 
 #### Visualize Model Prediction
 
-The best.ckpt file obtained by using the fixed features is used to make predictions on the wolf and dog image data of the validation set. If the prediction font is blue, the prediction is correct. If the prediction font is red, the prediction is wrong.
+The resnet50-best-freezing-param.ckpt file obtained by using the fixed features is used to make predictions on the wolf and dog image data of the validation set. If the prediction font is blue, the prediction is correct. If the prediction font is red, the prediction is wrong.
 
 ```python
 visualize_model(best_ckpt_path, dataset_val)
