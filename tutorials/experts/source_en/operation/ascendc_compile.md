@@ -14,16 +14,15 @@ MindSpore provides an offline compilation tool for custom operators developed wi
 
 This tool is included in the MindSpore installation package and can compile the custom operator's installation package based on the source code files. The installation package is located in the `build_out` directory. Users can choose to install the custom operator package or set the environment variable `ASCEND_CUSTOM_OPP_PATH` to use the compiled custom operator.
 
-Copy the tool directory to the working directory, where the tool directory is located in the `lib/plugin/ascend/custom_compiler` folder of the MindSpore installation package, with the following command:
+Navigate to the tool directory, which is located in the `custom_compiler` folder of the MindSpore installation package, with the following command:
 
 ```shell
-cp -r {LOCATION}/mindspore/lib/plugin/ascend/custom_compiler ./
-cd custom_compiler
+cd {LOCATION}/mindspore/custom_compiler
 python setup.py
-    --op_host_path={op_host_path}
-    --op_kernel_path={op_kernel_path}
+    --host_op_path={host_op_path}
+    --kernel_op_path={kernel_op_path}
     --vendor_name={your_custom_name}
-    --ascend_cann_package_path="/usr/local/Ascend/latest"
+    --cann_package_path="/usr/local/Ascend/latest"
 ```
 
 After executing the above command, a `build_out` folder containing the compilation results of the custom operator will be generated in the current directory. Users can manually install the custom operator package:
@@ -35,7 +34,7 @@ bash build_out/*.run
 Alternatively, by setting the environment variable, find the path named with `--vendor_name` in `build_out` and add it to `ASCEND_CUSTOM_OPP_PATH`, for example:
 
 ```shell
-export ASCEND_CUSTOM_OPP_PATH={build_out_path}/build_out/_CPack_Package/Linux/External/custom_opp_euleros_aarch64.run/packages/vendors/{your_custom_name}:${ASCEND_CUSTOM_OPP_RUN}
+export ASCEND_CUSTOM_OPP_RUN={build_out_path}/build_out/_CPack_Package/Linux/External/custom_opp_euleros_aarch64.run/packages/vendors/{your_custom_name}:${ASCEND_CUSTOM_OPP_RUN}
 ```
 
 **Parameter Description**
