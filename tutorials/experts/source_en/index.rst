@@ -34,6 +34,7 @@ For Experts
    operation/ms_kernel
    operation/op_custom_adv
    operation/op_custom_aot
+   operation/ascendc_compile
 
 .. toctree::
    :glob:
