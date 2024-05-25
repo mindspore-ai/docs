@@ -91,6 +91,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
         "e2e_dump_settings": {
             "enable": true,
             "trans_flag": true,
+            "stat_calc_mode": "host",
             "save_kernel_args": false,
             "sample_mode": 0,
             "sample_num": 0
@@ -130,6 +131,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 
     - `enable`：设置成true，表示开启同步Dump；设置成false时，在Ascend上会使用异步Dump，在GPU上仍然使用同步Dump。
     - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`True`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`False`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换，但是在json格式的配置文件中仍需保留该字段。
+    - `stat_calc_mode`：选择统计信息计算后端，可选"host"和"device"。选择"device"后可以使能device计算统计信息，当前只在Ascend生效，只支持`min/max/avg`统计量。
     - `sample_mode`：设置成0，表示不开启切片dump功能；设置成1时，在图编译等级为O0的情况下开启切片dump功能。
     - `sample_num`：用于控制切片dump中切片的大小。默认值为100。
 
