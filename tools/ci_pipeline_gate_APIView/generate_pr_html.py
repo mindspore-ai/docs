@@ -473,6 +473,8 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
     # pr_file_en = []
     pr_file_yaml = []
 
+    generate_pr_list_en_sum = []
+
     # pr文件处理
     # pylint: disable=R1702
     for i in range(len(result)):
@@ -498,17 +500,50 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
             if filename.endswith('.md') or filename.endswith('.ipynb') or filename.endswith('.rst'):
                 file_data = str(requests.get(raw_url).content, 'utf-8')
                 # 通过汇总列表新增的接口（未完待续）
+                part_atsm = re.findall(r'\.\..*?autosummary::\n\s+?:toctree: (.*)\n(?:.|\n|)+?\n\n((?:.|\n|)+?)\n\n',
+                                       file_data+'\n\n')
                 if '--- /dev/null' not in diff_file and filename.endswith('.rst'):
                     if os.path.dirname(filename) + '/' == split_dict['mindspore_cn'] and 'autosummary::' in file_data:
-                    #     modify_api = re.findall(r'\+\s+?(mindspore\.[\w\.]+?)\n', diff_file)
-                    # for api_name in modify_api:
-                    #     for sum_p, api_list in re.findall(':toctree: (.*?)\n((?:.|\n|)+?)autosummary::', file_data):
-                    #         if api_name in api_list:
-                    #             pr_file_cn.append(os.path.join(split_dict['mindspore_cn'], sum_p, api_name + '.rst'))
-                    #             break
+                        modify_api = re.findall(r'\+\s+?(mindspore\.[\w\.]+?)\n', diff_file)
+                        for api_name in modify_api:
+                            for sum_p, api_list in part_atsm:
+                                if api_name in api_list:
+                                    path1 = os.path.join(rp_dir, split_dict['mindspore_cn'], sum_p, api_name+'.rst')
+                                    path2 = os.path.join(
+                                        rp_dir, split_dict['mindspore_cn'], sum_p,
+                                        '.'.join(api_name.split('.')[:-1])+'.func_'+api_name.split('.')[-1]+'.rst')
+                                    path3 = os.path.join(
+                                        rp_dir, split_dict['mindspore_cn'], sum_p,
+                                        '.'.join(api_name.split('.')[:-1])+'.func_'+api_name.split('.')[-1]+'.rst')
+                                    if os.path.exists(path1):
+                                        pr_file_cn.append(path1.split(rp_dir)[-1][1:])
+                                    elif os.path.exists(path2):
+                                        pr_file_cn.append(path2.split(rp_dir)[-1][1:])
+                                    elif os.path.exists(path3):
+                                        pr_file_cn.append(path3.split(rp_dir)[-1][1:])
+                                    break
                         continue
                 if os.path.exists(os.path.join(rp_dir, filename)) and filename not in white_list:
                     pr_file_cn.append(filename)
+        elif split_dict['mindspore_en'] in filename:
+            if not filename.split(split_dict['mindspore_en'])[-1].startswith('mindspore.'):
+                continue
+            if filename.endswith('.md') or filename.endswith('.ipynb') or filename.endswith('.rst'):
+                file_data = str(requests.get(raw_url).content, 'utf-8')
+                part_atsm = re.findall(r'\.\..*?autosummary::\n\s+?:toctree: (.*)\n(?:.|\n|)+?\n\n((?:.|\n|)+?)\n\n',
+                                       file_data+'\n\n')
+                if '--- /dev/null' not in diff_file and filename.endswith('.rst'):
+                    if os.path.dirname(filename) + '/' == split_dict['mindspore_en'] and 'autosummary::' in file_data:
+                        modify_api = re.findall(r'\+\s+?(mindspore\.[\w\.]+?)\n', diff_file)
+                        for api_name in modify_api:
+                            for sum_p, api_list in part_atsm:
+                                if api_name in api_list:
+                                    if filename.lower() != filename:
+                                        generate_pr_list_en_sum.append(f'.. autoclass:: {api_name}&&&{filename}')
+                                    else:
+                                        generate_pr_list_en_sum.append(f'.. autofunction:: {api_name}&&&{filename}')
+                                    break
+
         # 记录英文API相关文件
         elif filename.endswith('.py') and split_dict['mindspore_py'] in filename:
             diff_lines = []
@@ -573,34 +608,40 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
         return generate_path, 0, 0
 
     # 提取出修改的英文接口名
+    # yaml
     generate_pr_list_en_yaml_auto = []
+    generate_apien_yaml_list = []
     if pr_file_yaml:
-
         generate_pr_list_en_yaml_auto = yaml_file_handle(
             pr_file_yaml, rp_dir, split_dict)
-        print(generate_pr_list_en_yaml_auto)
+        print(f'从yaml中提取到api的如下：\n{generate_pr_list_en_yaml_auto}')
         generate_apien_yaml_list = get_rst_en(generate_pr_list_en_yaml_auto)
-        for i in generate_apien_yaml_list:
-            if i[2]:
-                if not os.path.exists(os.path.join(generate_path, 'source_en', 'api_python', i[1])):
-                    os.makedirs(os.path.join(generate_path, 'source_en', 'api_python', i[1]))
-                with open(os.path.join(generate_path, 'source_en', 'api_python', i[1], i[0] + '.rst'),
-                          'w+', encoding='utf-8') as f:
-                    f.write(i[2])
 
+    # py
+    generate_pr_list_en_auto = []
+    generate_apien_list = []
     if pr_file_py:
         generate_pr_list_en_auto = en_file_handle(pr_file_py, rp_dir, split_dict)
-        print(generate_pr_list_en_auto)
+        print(f'从py文件中提取到的api如下：\n{generate_pr_list_en_auto}')
         generate_apien_list = get_rst_en(generate_pr_list_en_auto)
-        for i in generate_apien_list:
+
+    # autosummary
+    print(f'从汇总页中提取到的api如下：\n{generate_pr_list_en_auto}')
+    generate_apien_sum_list = get_rst_en(generate_pr_list_en_sum)
+
+    if pr_file_py or pr_file_yaml or generate_apien_sum_list:
+        all_en_rst = generate_apien_yaml_list + generate_apien_list + generate_apien_sum_list
+        en_set = set()
+        for i in all_en_rst:
+            if i[0] in en_set:
+                continue
+            en_set.add(i[0])
             if i[2]:
                 if not os.path.exists(os.path.join(generate_path, 'source_en', 'api_python', i[1])):
                     os.makedirs(os.path.join(generate_path, 'source_en', 'api_python', i[1]))
                 with open(os.path.join(generate_path, 'source_en', 'api_python', i[1], i[0] + '.rst'),
                           'w+', encoding='utf-8') as f:
                     f.write(i[2])
-
-    if pr_file_py or pr_file_yaml:
         en_flag = 1
         copy_source(os.path.join(rp_dir, 'docs/api/api_python_en'), os.path.join(
             generate_path, 'source_en', 'api_python'), 'docs/api/api_python_en')
@@ -610,6 +651,8 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
     # 中文处理
     if pr_file_cn:
         cn_flag = 1
+        pr_file_cn = list(set(pr_file_cn))
+        print(f'涉及修改的中文api如下：\n{pr_file_cn}')
         copy_file_list = get_all_copy_list(
             pr_file_cn, re.findall('([^/]*?)/pulls/', file_url)[0], clone_branch, rp_dir)
         copy_source(os.path.join(rp_dir, 'docs/api/api_python'),
