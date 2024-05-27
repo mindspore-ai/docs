@@ -16,15 +16,15 @@ MindSpore网络搭建
 
 整个网络的训练过程包含5个模块：
 
--  dataset；用于获取数据，包含网络的输入，标签等。MindSpore提供了基本的\ `常见的数据集处理接口 <https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore.dataset.html>`__\ ，同时也支持利用python的迭代器构建数据集。
+-  dataset：用于获取数据，包含网络的输入，标签等。MindSpore提供了基本的\ `常见的数据集处理接口 <https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore.dataset.html>`__\ ，同时也支持利用python的迭代器构建数据集。
 
--  network；网络模型实现，一般使用Cell包装。在init里声明需要的模块和算子，在construct里构图实现。
+-  network：网络模型实现，一般使用Cell包装。在init里声明需要的模块和算子，在construct里构图实现。
 
--  loss；损失函数。用于衡量预测值与真实值差异的程度。深度学习中，模型训练就是通过不停地迭代来缩小损失函数值的过程，定义一个好的损失函数可以帮助损失函数值更快收敛，达到更好的精度，MindSpore提供了很多\ `常见的loss函数 <https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore.nn.html#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0>`__\ ，当然可以自己定义实现自己的loss函数。
+-  loss：损失函数。用于衡量预测值与真实值差异的程度。深度学习中，模型训练就是通过不停地迭代来缩小损失函数值的过程，定义一个好的损失函数可以帮助损失函数值更快收敛，达到更好的精度，MindSpore提供了很多\ `常见的loss函数 <https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore.nn.html#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0>`__\ ，当然可以自己定义实现自己的loss函数。
 
--  自动梯度求导；一般将network和loss一起包装成正向网络一起给到自动梯度求导模块进行梯度计算。MindSpore提供了自动的梯度求导接口，该功能对用户屏蔽了大量的求导细节和过程，大大降低了框架的使用门槛。需要自定义梯度时，MindSpore也提供了\ `接口 <https://mindspore.cn/tutorials/zh-CN/r2.0.0-alpha/advanced/modules/layer.html#自定义cell反向>`__\ 去自由实现梯度计算。
+-  自动梯度求导：一般将network和loss一起包装成正向网络一起给到自动梯度求导模块进行梯度计算。MindSpore提供了自动的梯度求导接口，该功能对用户屏蔽了大量的求导细节和过程，大大降低了框架的使用门槛。需要自定义梯度时，MindSpore也提供了\ `接口 <https://mindspore.cn/tutorials/zh-CN/r2.0.0-alpha/advanced/modules/layer.html#自定义cell反向>`__\ 去自由实现梯度计算。
 
--  优化器；优化器在模型训练过程中，用于计算和更新网络参数。MindSpore提供了许多\ `通用的优化器 <https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore.nn.html#%E4%BC%98%E5%8C%96%E5%99%A8>`__\ 供用户选择，同时也支持用户根据需要自定义优化器。
+-  优化器：优化器在模型训练过程中，用于计算和更新网络参数。MindSpore提供了许多\ `通用的优化器 <https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore.nn.html#%E4%BC%98%E5%8C%96%E5%99%A8>`__\ 供用户选择，同时也支持用户根据需要自定义优化器。
 
 网络推理原理
 ------------
