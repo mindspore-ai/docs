@@ -63,6 +63,8 @@ Model基本介绍
 下载并处理数据集
 ----------------
 
+使用download库下载数据集，通过 `vison.Rescale` 接口对图片进行缩放， `vision.Normalize` 接口对输入图片进行归一化处理， `vision.HWC2CHW` 接口对数据格式进行转换。
+
 .. code:: python
 
     # Download data from open datasets
@@ -93,6 +95,8 @@ Model基本介绍
 
 创建模型
 --------
+
+关于模型创建的讲解可以参考 `网络构建 <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/model.html>`_ 。
 
 .. code:: python
 
