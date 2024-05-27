@@ -73,7 +73,7 @@ test_dataset = datapipe('MNIST_Data/test', 64)
 
 ## Defining Model
 
-For the explanation of model creation, refer to `Network Construction <https://www.mindspore.cn/tutorials/en/r1.10/beginner/model.html>`_.
+For the explanation of model creation, refer to [Network Construction](https://www.mindspore.cn/tutorials/en/r1.10/beginner/model.html).
 
 ```python
 # Define model
