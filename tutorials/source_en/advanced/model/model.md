@@ -40,7 +40,9 @@ from mindspore.train import Model, CheckpointConfig, ModelCheckpoint, LossMonito
 
 For a neural network in a simple scenario, you can specify the feedforward network `network`, loss function `loss_fn`, optimizer `optimizer`, and evaluation function `metrics` when defining `Model`.
 
-## Download and Process Dataset
+## Downloading and Processing Dataset
+
+The dataset is downloaded using the download library, the image is scaled through the `vison.Rescale` interface, the `vision.Normalize` interface normalizes the input image, and the `vision.HWC2CHW` interface converts the data format.
 
 ```python
 # Download data from open datasets
@@ -69,7 +71,9 @@ train_dataset = datapipe('MNIST_Data/train', 64)
 test_dataset = datapipe('MNIST_Data/test', 64)
 ```
 
-## Define Model
+## Defining Model
+
+For the explanation of model creation, refer to `Network Construction <https://www.mindspore.cn/tutorials/en/r1.10/beginner/model.html>`_.
 
 ```python
 # Define model
