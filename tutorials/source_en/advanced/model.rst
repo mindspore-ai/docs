@@ -62,6 +62,8 @@ and evaluation function ``metrics`` when defining ``Model``.
 Download and Process Dataset
 ----------------------------
 
+The dataset is downloaded using the download library, the image is scaled through the `vison.Rescale` interface, the `vision.Normalize` interface normalizes the input image, and the `vision.HWC2CHW` interface converts the data format.
+
 .. code:: python
 
     # Download data from open datasets
@@ -91,6 +93,8 @@ Download and Process Dataset
 
 Define Model
 ------------
+
+For the explanation of model creation, refer to `Network Construction <https://www.mindspore.cn/tutorials/en/r2.0.0-alpha/beginner/model.html>`_.
 
 .. code:: python
 
