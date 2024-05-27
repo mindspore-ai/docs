@@ -167,7 +167,7 @@ After ReLU: [[0.         0.2939465  0.         0.         0.         0.
 
 ### nn.SequentialCell
 
-`nn.SequentialCell` is an ordered Cell container. The input Tensor will pass through all the Cells in the defined order, and we can use `SequentialCell` to construct a neural network model quickly.
+`nn.SequentialCell` is an ordered Cell container. The input Tensor will pass through all the Cells in the defined order, and we can use `nn.SequentialCell` to construct a neural network model quickly.
 
 ```python
 seq_modules = nn.SequentialCell(
