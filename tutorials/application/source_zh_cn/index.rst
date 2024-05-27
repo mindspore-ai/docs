@@ -14,7 +14,6 @@
    cv/resnet50
    cv/transfer_learning
    cv/vit
-   cv/cnnctc
    cv/fcn8s
    cv/shufflenet
    cv/ssd
