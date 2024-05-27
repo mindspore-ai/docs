@@ -58,7 +58,7 @@ Network<
   >
 ```
 
-We construct an input data and call the model directly to obtain a 10-dimensional Tensor output that contains the original predicted values for each category.
+We construct an input data and call the model directly to obtain a two-dimensional Tensor output that contains the original predicted values for each category.
 
 > The `model.construct()` method cannot be called directly.
 
