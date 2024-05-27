@@ -14,7 +14,7 @@
 
 2. `nn.PipelineCell(loss_cell, micro_size)`：流水线并行需要在LossCell外再包一层`PipelineCell`，并指定MicroBatch的size。为了提升机器的利用率，MindSpore将MiniBatch切分成了更细粒度的MicroBatch，最终的loss则是所有MicroBatch计算的loss值累加。其中，MicroBatch的size必须大于等于Stage的数量。
 
-3. `nn.PipelineGradReducer(parameters)`：流水行并行需要使用`PipelineGradReducer`来完成梯度聚合。这是因为流水线并行中，其输出是由多个`micro-batch`的结果相加得到，因此其梯度也需要进行累加。
+3. `nn.PipelineGradReducer(parameters)`：流水线并行需要使用`PipelineGradReducer`来完成梯度聚合。这是因为流水线并行中，其输出是由多个`micro-batch`的结果相加得到，因此其梯度也需要进行累加。
 
 4. `mindspore.parallel.sync_pipeline_shared_parameters(net)`: 在推理场景下，用于同步不同stage之间共享权重。
 
@@ -165,7 +165,7 @@ net.layer3.pipeline_stage = 1
 - 首先需要定义LossCell，本例中调用了`nn.WithLossCell`接口封装网络和损失函数。
 - 然后需要在LossCell外包一层`nn.PipelineCell`，并指定MicroBatch的size。详细请参考本章概述中的相关接口。
 
-除此之外, 还需要增加 `nn.PipelineGradReducer` 接口，用于处理流水并行下的梯度，该接口的第一个参数为需要更新的网络参数。
+除此之外, 还需要增加 `nn.PipelineGradReducer` 接口，用于处理流水线并行下的梯度，该接口的第一个参数为需要更新的网络参数。
 
 ```python
 import mindspore as ms
