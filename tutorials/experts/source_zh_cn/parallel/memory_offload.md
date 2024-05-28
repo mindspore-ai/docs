@@ -202,7 +202,7 @@ for image, label in data_set:
 bash run.sh 96 OFF
 ```
 
-不开启异构存储的情况下，使用batch_size=96进行训练时，由于显存空间不够，会出现'Memory not enough'报错：
+不开启异构存储的情况下，使用batch_size=96进行训练时，由于显存空间不够，会出现'Out of Memory'报错：
 
 ```bash
 ----------------------------------------------------
