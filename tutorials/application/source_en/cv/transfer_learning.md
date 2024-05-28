@@ -546,7 +546,7 @@ def visualize_model(best_ckpt_path, val_ds):
     plt.show()
 ```
 
-The best.ckpt file obtained by fine-tuning the model is used to make predictions for the wolf and dog image data in the validation set. If the prediction font is blue, it means the prediction is correct, and if the prediction font is red, it means the prediction is wrong.
+The resnet50-best.ckpt file obtained by fine-tuning the model is used to make predictions for the wolf and dog image data in the validation set. If the prediction font is blue, it means the prediction is correct, and if the prediction font is red, it means the prediction is wrong.
 
 ```python
 visualize_model(best_ckpt_path, dataset_val)
