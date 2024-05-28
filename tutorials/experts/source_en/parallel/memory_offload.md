@@ -202,7 +202,7 @@ Next, the corresponding script is called by command:
 bash run.sh 96 OFF
 ```
 
-When training with batch_size=96 without turning on heterogeneous storage, an error 'Memory not enough' is reported due to insufficient memory space:
+When training with batch_size=96 without turning on heterogeneous storage, an error 'Out of Memory' is reported due to insufficient memory space:
 
 ```bash
 ----------------------------------------------------
