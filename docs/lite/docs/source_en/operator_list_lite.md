@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/operator_list_lite.md)
 
-MindSpore Lite supports different hardware backend operator lists:
+MindSpore Lite supports operator lists for different hardware backends:
 
 | Operation <br/>                  | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int32 | CPU<br/>Int8 | CPU<br/>UInt8 | CPU<br/>Bool | Mali/Adreno GPU<br/>FP16 | Mali/Adreno GPU<br/>FP32 | Mali/Adreno GPU<br/>Int32 | Mali/Adreno GPU<br/>Int8 | Kirin NPU<br/>FP16 | Nvidia GPU<br/>FP16 | Ascend<br/>FP16 |
 | ----------------------------------- | :----------: | :----------: | ------------- | :----------: | :-----------: | ------------ | :----------------------: | :----------------------: | ------------------------- | ------------------------ | :--------------------: | :----------------: | :----------------------: |
@@ -205,7 +205,7 @@ MindSpore Lite supports different hardware backend operator lists:
 | Where                               |      ✅       |      ✅       | ✅             |              |               | ✅            |                          |                          |                           |                          |                        |                    |                          |
 | ZerosLike                           |      ✅       |      ✅       | ✅             |              |               |              |                          |                          |                           |                          |                        |                    |                          |
 
-The MindSpore Lite conversion tool supports a list of operators for third-party frameworks:
+MindSpore Lite conversion tool supports operator lists for third-party frameworks:
 
 | Operation <br/>&nbsp;                | TensorFlow Lite<br/>operators supported   | Caffe<br/>operators supported  | Onnx<br/>operators supported   | TensorFlow<br/>operators supported                                         |
 | ------------------------------------ | ------------------------------------------------------------ | ------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
