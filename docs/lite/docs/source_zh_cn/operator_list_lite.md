@@ -4,7 +4,7 @@
 
 MindSpore Lite支持不同硬件后端的算子列表：
 
-| 操作名 <br/>&nbsp;                  | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int32 | CPU<br/>Int8 | CPU<br/>UInt8 | CPU<br/>Bool | Mali/Adreno<br/>GPU FP16 | Mali/Adreno<br/>GPU FP32 | Mali/Adreno<br/>GPU Int32 | Mali/Adreno<br/>GPU Int8 | 麒麟NPU<br/>FP16 | 英伟达GPU<br/>FP16 | 昇腾<br/>FP16 |
+| 操作名 <br/>&nbsp;                  | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int32 | CPU<br/>Int8 | CPU<br/>UInt8 | CPU<br/>Bool | Mali/Adreno GPU<br/>FP16 | Mali/Adreno GPU<br/>FP32 | Mali/Adreno GPU<br/>Int32 | Mali/Adreno GPU<br/>Int8 | 麒麟NPU<br/>FP16 | 英伟达GPU<br/>FP16 | 昇腾<br/>FP16 |
 | ----------------------------------- | :----------: | :----------: | ------------- | :----------: | :-----------: | ------------ | :----------------------: | :----------------------: | ------------------------- | ------------------------ | :--------------------: | :----------------: | :----------------------: |
 | Abs                                 |      ✅       |      ✅       | ✅             |      ✅       |       ✅       |              |            ✅             |            ✅             |                           |                          |           ✅            |         ✅          |            ✅             |
 | AbsGrad                             |              |      ✅       |               |              |               |              |                          |                          |                           |                          |                        |                    |                          |

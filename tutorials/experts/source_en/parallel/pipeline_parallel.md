@@ -46,7 +46,7 @@ In MindSpore's pipeline parallel implementation, the execution order has been ad
 
 In order to improve the efficiency of pipeline parallelism and reduce the proportion of bubbles, Megatron LM proposes a new pipeline parallel scheduling called "interleaved pipeline parallelism". Traditional pipeline parallelism typically places several consecutive model layers (such as Transformer layers) on a stage, as shown in Figure 3. In the scheduling of interleaved pipelines, each stage performs interleaved calculations on non-continuous model layers to further reduce the proportion of bubbles with more communication, as shown in Figure 4. For example, in traditional pipeline parallelism, each stage has 2 model layers, namely: stage 0 has layers 0 and 1, stage 1 has layers 2 and 3, stage 3 has layers 4 and 5, and stage 4 has layers 6 and 7, while in interleaved pipeline parallelism, stage 0 has layers 0 and 4, stage 1 has layers 1 and 5, stage 2 has layers 2 and 6, and stage 3 has layers 3 and 7.
 
-![mpp2.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/experts/source_zh_cn/parallel/images/megatron.png)
+![mpp2.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/parallel/images/megatron.png)
 
 *Figure 4: Scheduler of Pipeline Interleave*
 
@@ -54,7 +54,7 @@ In order to improve the efficiency of pipeline parallelism and reduce the propor
 
 MindSpore has made memory optimization based on Megatron LM interleaved pipeline scheduling by moving some forward execution sequences back, as shown in Figure 5, which can accumulate less MicroBatch memory during memory peak hours.
 
-![mpp2.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/tutorials/experts/source_zh_cn/parallel/images/mindspore.png)
+![mpp2.png](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/experts/source_zh_cn/parallel/images/mindspore.png)
 
 *Figure 5: MindSpore Scheduler of Pipeline Interleave*
 

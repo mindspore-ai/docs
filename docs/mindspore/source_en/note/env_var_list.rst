@@ -51,13 +51,6 @@ Data Processing
 
        False: Disable the check of disk space.
      - Default: True, When creating MindRecords on shared storage using multiple concurrent operations, it is recommended to set it to False.
-   * - MS_INDEPENDENT_DATASET
-     - Whether to enable dataset independent process mode. Dataset will run in independent child processes.
-     - String
-     - True: Enable the dataset independent process mode.
-
-       False: Disable the dataset independent process mode.
-     - Default: False.
    * - OPTIMIZE
      - Determines whether to optimize the pipeline tree for dataset during data processing. This variable can improve the data processing efficiency in the data processing operator fusion scenario.
      - String

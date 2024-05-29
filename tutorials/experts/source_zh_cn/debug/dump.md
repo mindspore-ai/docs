@@ -8,7 +8,7 @@
 
 - 对于静态图模式，MindSpore提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件。
 
-- 对于动态图模式，前向过程可以使用Python原生执行能力，用户可以在网络脚本运行过程中查看记录相应的输入输出。jit以及反向过程属于图编译的部分可以使用同步Dump功能，将算子的输入输出数据保存到磁盘文件。
+- 对于动态图模式，Dump功能仅支持Ascend后端的溢出检测能力。要想查看非溢出节点，可以使用Python原生执行能力，用户可以在网络脚本运行过程中查看记录相应的输入输出。
 
 ### 调试过程
 
@@ -64,11 +64,10 @@ MindSpore提供了两种Dump模式：
 
 不同模式需要不同的配置文件，生成的数据格式也不同：
 
-- 异步Dump功能只支持Ascend上的图模式。开启异步Dump的时候不会关闭内存复用。
-- 同步Dump支持GPU上的图模式和Ascend上图编译等级为O0的图模式。Ascend上图编译等级为O0的图模式，建议使用同步dump，不建议使用异步dump。
+- GPU/CPU后端和编译等级为O0/O1下的Ascend后端，推荐使用[同步Dump](#同步dump)，具体参考[同步dump操作步骤](#同步dump操作步骤)；编译等级为O2的Ascend后端推荐使用[异步Dump](#异步dump)，具体参考[异步dump操作步骤](#异步dump操作步骤)。
 - Dump暂不支持异构训练，如果在异构训练场景启用Dump，生成的Dump数据对象目录可能不符合预期的目录结构。
 
-同步Dump支持情况如下表。
+Ascend后端同步Dump支持情况如下表（GPU/CPU后端参考 `O0/O1` 列）。
 
 <table align="center">
   <tr>
@@ -139,10 +138,10 @@ MindSpore提供了两种Dump模式：
   </tr>
 </table>
 
-> 1. 在统计信息方面，device计算速度较host快，但host统计指标比device多，详见`statistic_category`选项。
+> 1. 在统计信息方面，device计算速度较host快（目前仅支持Ascend后端），但host统计指标比device多，详见`statistic_category`选项。
 > 2. 仅支持Ascend后端。
 
-异步Dump支持情况如下表。
+Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
 
 <table align="center">
   <tr>
@@ -230,12 +229,16 @@ MindSpore提供了两种Dump模式：
             "input_output": 0,
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7],
-            "op_debug_mode": 0
+            "op_debug_mode": 0,
+            "statistic_category": ["max", "min", "l2norm"]
         },
         "e2e_dump_settings": {
             "enable": true,
             "trans_flag": true,
-            "stat_calc_mode": "host"
+            "save_kernel_args": false,
+            "stat_calc_mode": "host",
+            "sample_mode": 0,
+            "sample_num": 0
         }
     }
     ```
@@ -253,9 +256,29 @@ MindSpore提供了两种Dump模式：
         3. 算子名称的正则表达式。当字符串符合"name-regex(xxx)"格式时，后台则会将其作为正则表达式。例如，"name-regex(Default/.+)"可匹配算子名称以"Default/"开头的所有算子。
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。该配置参数在CPU上无效，因为CPU下没有device这个概念，但是在json格式的配置文件中仍需保留该字段。
     - `op_debug_mode`：该属性用于算子溢出或算子异常调试，设置成0，表示保存所有算子或指定算子；设置成3，表示只保存溢出算子；设置成4，表示只保存异常算子的输入。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子或异常算子的数据。默认值：0。
+    - `statistic_category`: 该属性用于用户配置要保存的统计信息类别，仅在开启了保存统计信息(即`saved_data`设置为"statistic"或"full")时生效。类型为字符串列表，其中的字符串可选值如下：
+
+        - "max": 表示Tensor中元素的最大值，支持在device统计和在host统计；
+        - "min": 表示Tensor中元素的最小值，支持在device统计和在host统计；
+        - "avg": 表示Tensor中元素的平均值，支持在device统计和在host统计；
+        - "count": 表示Tensor中元素的个数；
+        - "negative zero count": 表示Tensor中小于0的元素个数；
+        - "positive zero count": 表示Tensor中大于0的元素个数；
+        - "nan count": 表示Tensor中元素的`Nan`的个数；
+        - "negative inf count": 表示Tensor中`-Inf`元素的个数；
+        - "positive inf count": 表示Tensor中`+Inf`元素的个数；
+        - "zero count": 表示Tensor中元素`0`的个数；
+        - "md5": 表示Tensor的MD5值；
+        - "l2norm": 表示Tensor的L2Norm值，支持在device统计和在host统计。
+
+      以上除了标记了支持device统计的，其它都仅支持在host统计。
+      该字段为可选，默认值为["max", "min", "l2norm"]。
+
     - `enable`：设置成true，表示开启同步Dump；设置成false时，在Ascend上会使用异步Dump，在GPU上仍然使用同步Dump。
     - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`True`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`False`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换，但是在json格式的配置文件中仍需保留该字段。
-    - `stat_calc_mode`：选择统计信息计算后端，可选"host"和"device"。选择"device"后可以使能device计算统计信息，当前只在Ascend生效，只支持`min/max/avg`统计量。
+    - `stat_calc_mode`：选择统计信息计算后端，可选"host"和"device"。选择"device"后可以使能device计算统计信息，当前只在Ascend生效，只支持`min/max/avg/l2norm`统计量。
+    - `sample_mode`：设置成0，表示不开启切片dump功能；设置成1时，在图编译等级为O0的情况下开启切片dump功能。
+    - `sample_num`：用于控制切片dump中切片的大小。默认值为100。
 
 2. 设置Dump环境变量。
 
@@ -305,7 +328,6 @@ MindSpore提供了两种Dump模式：
         - {net_name}/
             - {graph_id}/
                 - {iteration_id}/
-                    {op_type}.{op_name}.json
                     statistic.csv
                     {op_type}.{op_name}.json
                     {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
@@ -349,7 +371,7 @@ MindSpore提供了两种Dump模式：
 {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
 ```
 
-同步Dump生成的常量数据文件与其他数据文件格式相同，而所有常量数据的{op_type}，{task_id}，{stream_id}，{input_output_index}，{slot}，{format}不变。注意，非Tensor类型数据不会被生成数据文件。该功能不支持Ascend场景。
+同步Dump生成的常量数据文件与其他数据文件格式相同，而所有常量数据的{op_type}，{task_id}，{stream_id}，{input_output_index}，{slot}，{format}不变。注意，非Tensor类型数据不会被生成数据文件。
 
 ```text
 Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
@@ -558,7 +580,9 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
     - `iteration`：指定需要Dump的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。PyNative模式开启溢出检测时，必须设置为"all"。
     - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。异步Dump统计信息只有在`file_format`设置为`npy`时可以成功，若在`file_format`设置为`bin`时选"statistic"或"full"便会错误退出。默认取值为"tensor"。
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
-    - `kernels`：算子的名称列表，仅支持算子全称。指定算子需要先设置保存图文件的环境变量来保存图，再从保存的图文件中获取算子名称。保存图文件的环境变量请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0011.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0012.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0013.html) 。
+    - `kernels`：该项可以配置两种格式：
+        1. 算子的名称列表。指定算子需要先设置保存图文件的环境变量来保存图，再从保存的图文件中获取算子名称。保存图文件的环境变量请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0011.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0012.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0013.html) 。
+        2. 算子名称的正则表达式。当字符串符合"name-regex(xxx)"格式时，后台则会将其作为正则表达式。例如，"name-regex(Default/.+)"可匹配算子名称以"Default/"开头的所有算子。
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
     - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成1，表示开启AiCore溢出检测；设置成2，表示开启Atomic溢出检测；设置成3，表示开启全部溢出检测功能；设置成4，表示开启轻量异常Dump功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子或异常算子的数据。
     - `statistic_category`: 该属性用于用户配置要保存的统计信息类别，仅在开启了保存统计信息(即`saved_data`设置为"statistic"或"full")时生效。类型为字符串列表，其中的字符串可选值如下：
@@ -645,17 +669,18 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
                             mapping.csv
 ```
 
-通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且图编译等级为O0时，Dump目录结构如下所示，主要特征为不存在{model_name}、{model_id}和{iteration_id}目录，此种场景算子的Dump数据会保存在{device_id}目录：
+通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且图编译等级为O0时，Dump目录结构如下所示，主要特征为不存在{model_name}和{model_id}目录，此种场景下的动态shape算子的Dump数据会保存于{iteration_id}目录，静态shape算子的Dump数据会保存在{device_id}目录：
 
 ```text
 {path}/
     - {step_id}/
         - {time}/
             - {device_id}/
-                statistic.csv
-                {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
-                Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
-                mapping.csv
+                - {iteration_id}/
+                    statistic.csv
+                    {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
+                    Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
+                    mapping.csv
 ```
 
 使能ACL dump时，除上述dump数据外，还会在{path}目录生成调用acl接口所需要的json文件，一般情况下无需关注。
@@ -668,8 +693,8 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
 - `iteration_id`：GE侧训练的轮次。
 - `op_type`：算子类型。
 - `op_name`：算子名称。
-- `task_id`：任务标号，如果获取不到，默认为65535。
-- `stream_id`：流标号，如果获取不到，默认为65535。
+- `task_id`：任务标号。
+- `stream_id`：流标号。
 - `timestamp`：时间戳。
 - `step_id`: 用户侧的训练轮次。
 
@@ -773,4 +798,4 @@ Dump生成的原始数据文件也可以使用MindSpore Insight的数据解析�
 - Dump仅支持bool、int、int8、in16、int32、int64、uint、uint8、uint16、uint32、uint64、float、float16、float32、float64、bfloat16、double、complex64、complex128类型数据的保存。
 - complex64和complex128仅支持保存为npy文件，不支持保存为统计值信息。
 - Print算子内部有一个输入参数为string类型，string类型不属于Dump支持的数据类型，所以在脚本中包含Print算子时，会有错误日志，这不会影响其它类型数据的保存。
-- 使能ACL dump时，不支持同时使用set_context(ascend_config={"exception_dump": "2")配置轻量异常dump; 支持同时使用set_context(ascend_config={"exception_dump": "1")配置全量异常dump。
+- 使能ACL dump时，不支持溢出Dump。

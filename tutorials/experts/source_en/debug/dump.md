@@ -6,7 +6,7 @@
 
 The input and output of the operator can be saved for debugging through the data dump when the training result deviates from the expectation.
 
-- For dynamic graph mode, the forward process can utilize Python's native execution capabilities, allowing users to view and record the corresponding inputs and outputs during the execution of the network script. The JIT and backward processes, which are part of graph compilation, can use synchronous dump functionality to save the input and output data of operators to disk files.
+- For the dynamic graph mode, the Dump function only support overflow detection ability on Ascend. To view those nodes which are not overflow, please use the native Python execution capabilities. Users can view and record the corresponding input and output during the running of the network script.
 
 - For the static graph mode, MindSpore provides the Dump function to save the graph and the input and output data of the operator during model training to a disk file.
 
@@ -64,10 +64,153 @@ MindSpore provides two Dump modes:
 
 Different modes require different configuration files, and the generated data formats also differ:
 
-- When Dump is enabled on Ascend, the operator to be dumped will automatically close memory reuse.
-- Asynchronous Dump only supports graph mode on Ascend. Memory reuse will not be turned off when asynchronous Dump is enabled.
-- Synchronous Dump supports graph mode on GPU and graph mode whose graph compilation level is O0 on Ascend. When using graph mode whose graph compilation level is O0 on Ascend, it is recommended to use synchronous dump instead of asynchronous dump.
-- Dump does not support heterogeneous training. If Dump is enabled for heterogeneous training scenario, the generated Dump data object directory maybe not in the expected directory structure.
+- For GPU/CPU backends and Ascend backend with compilation levels O0/O1, it is recommended to use [synchronous dump](#synchronous-dump). For details, refer to [synchronous dump step](#synchronous-dump-step). For Ascend backend with compilation level O2, it is recommended to use [asynchronous dump](#asynchronous-dump). For details, refer to [asynchronous dump step](#asynchronous-dump-step).
+- Currently, Dump does not support heterogeneous training. If Dump is enabled in a heterogeneous training scenario, the generated Dump data object directory may not match the expected directory structure.
+
+The support for Synchronous Dump on Ascend backend is shown in the table below (GPU/CPU backend refers to the `O0/O1`)
+
+<table align="center">
+  <tr>
+   <td rowspan="12" align="center">Synchronous Dump</td>
+   <td colspan="2" align="center">Feature</td>
+   <td align="center">O0/O1</td>
+   <td align="center">O2</td>
+  </tr>
+  <tr>
+   <td align="left">Full Dump</td>
+   <td align="left">Full network data dump</td>
+   <td align="left">Supported</td>
+   <td align="left">Not Supported</td>
+  </tr>
+  <tr>
+   <td rowspan="2" align="left">Partial Data Dump</td>
+   <td align="left">Statistics Dump</td>
+   <td align="left">Supports both host and device modes<sup>1</sup></td>
+   <td align="left">Not Supported</td>
+  </tr>
+  <tr>
+   <td align="left">Data Sampling Dump</td>
+   <td align="left">Supported<sup>2</sup></td>
+   <td align="left">Not Supported</td>
+  </tr>
+  <tr>
+   <td align="left">Overflow Dump</td>
+   <td align="left">Dump overflow operators</td>
+   <td align="left">Supported<sup>2</sup></td>
+   <td align="left">Not Supported</td>
+  </tr>
+  <tr>
+   <td rowspan="5" align="left">Conditional Dump</td>
+   <td align="left">Specify Operator Name</td>
+   <td align="left">Supported</td>
+   <td align="left">Not Supported</td>
+  </tr>
+  <tr>
+   <td align="left">Specify Iteration</td>
+   <td align="left">Supported</td>
+   <td align="left">Not Supported</td>
+  </tr>
+  <tr>
+   <td align="left">Specify Device</td>
+   <td align="left">Supported</td>
+   <td align="left">Not Supported</td>
+  </tr>
+  <tr>
+   <td align="left">Specify File Format</td>
+   <td align="left">Not Applicable</td>
+   <td align="left">Not Supported</td>
+  </tr>
+  <tr>
+   <td align="left">set_dump</td>
+   <td align="left">Supported<sup>2</sup></td>
+   <td align="left">Not Supported</td>
+  </tr>
+  <tr>
+   <td rowspan="2" align="left">Auxiliary Information Dump</td>
+   <td align="left">Graph IR Dump</td>
+   <td align="left">Supported</td>
+   <td align="left">Not Supported</td>
+  </tr>
+  <tr>
+   <td align="left">Execution Sequence Dump</td>
+   <td align="left">Supported</td>
+   <td align="left">Not Supported</td>
+  </tr>
+</table>
+
+> 1. In terms of statistics, the computing speed of the device is faster than that of the host(currently only supported on Ascend backend), but the host has more statistical indicators than the device. Refer to the `statistic_category` option for details.
+> 2. Only supported on the Ascend backend.
+
+The support for Asynchronous Dump on Ascend backend is shown in the table below (not supported on GPU/CPU backend).
+
+<table align="center">
+  <tr>
+   <td rowspan="12" align="center">Asynchronous Dump</td>
+   <td colspan="2" align="center">Feature</td>
+   <td align="center">O0/O1</td>
+   <td align="center">O2</td>
+  </tr>
+  <tr>
+   <td align="left">Full Dump</td>
+   <td align="left">Full network data dump</td>
+   <td align="left">Supported, but without full_name information</td>
+   <td align="left">Supported</td>
+  </tr>
+  <tr>
+   <td rowspan="2" align="left">Partial Data Dump</td>
+   <td align="left">Statistics Dump</td>
+   <td align="left">Host mode only</td>
+   <td align="left">Host mode only</td>
+  </tr>
+  <tr>
+   <td align="left">Data Sampling Dump</td>
+   <td align="left">Not Supported</td>
+   <td align="left">Not Supported</td>
+  </tr>
+  <tr>
+   <td align="left">Overflow Dump</td>
+   <td align="left">Dump overflow operators</td>
+   <td align="left">Not Supported</td>
+   <td align="left">Supported</td>
+  </tr>
+  <tr>
+   <td rowspan="5" align="left">Conditional Dump</td>
+   <td align="left">Specify Operator Name</td>
+   <td align="left">Not Supported</td>
+   <td align="left">Supported</td>
+  </tr>
+  <tr>
+   <td align="left">Specify Iteration</td>
+   <td align="left">Supported</td>
+   <td align="left">Supported</td>
+  </tr>
+  <tr>
+   <td align="left">Specify Device</td>
+   <td align="left">Supported</td>
+   <td align="left">Supported</td>
+  </tr>
+  <tr>
+   <td align="left">Specify File Format</td>
+   <td align="left">Supported</td>
+   <td align="left">Supported</td>
+  </tr>
+  <tr>
+   <td align="left">set_dump</td>
+   <td align="left">Not Supported</td>
+   <td align="left">Not Supported</td>
+  </tr>
+  <tr>
+   <td rowspan="2" align="left">Auxiliary Information Dump</td>
+   <td align="left">Graph IR Dump</td>
+   <td align="left">Not Supported</td>
+   <td align="left">Not Supported</td>
+  </tr>
+  <tr>
+   <td align="left">Execution Sequence Dump</td>
+   <td align="left">Not Supported</td>
+   <td align="left">Not Supported</td>
+  </tr>
+</table>
 
 ## Synchronous Dump
 
@@ -86,12 +229,16 @@ Different modes require different configuration files, and the generated data fo
             "input_output": 0,
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7],
-            "op_debug_mode": 0
+            "op_debug_mode": 0,
+            "statistic_category": ["max", "min", "l2norm"]
         },
         "e2e_dump_settings": {
             "enable": true,
             "trans_flag": true,
-            "stat_calc_mode": "host"
+            "save_kernel_args": false,
+            "stat_calc_mode": "host",
+            "sample_mode": 0,
+            "sample_num": 0
         }
     }
     ```
@@ -109,9 +256,29 @@ Different modes require different configuration files, and the generated data fo
         3. Regular expressions are supported. When the string conforms to the format of "name-regex(xxx)", it would be considered a regular expression. For example, "name-regex(Default/.+)" can match all operators with names starting with "Default/".
     - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data. This configuration parameter is invalid on the CPU, because there is no concept of device on the CPU, but it is still need to reserve this parameter in the json file.
     - `op_debug_mode`: This attribute is used for operator overflow or operator exception debugging. 0: save all operators or specified operators; 3: only save overflow operators; 4: only save input of the exception operator. Set it to 0 when the data is dumped. If it is not set to 0, only the data of the overflow operator or exception operator will be dumped. Default: 0.
+    - `statistic_category`: This attribute is used by users to configure the category of statistical information to be saved, and only takes effect when saving statistical information is enabled(i.e.`saved_data` is set to `statistic` or `full`). The type is a string list, where the optional values of the strings are as follows:
+
+        - "max": represents the maximum value of the elements in tensor, supporting both device and host statistics;
+        - "min": represents the minimum value of the elements in tensor, supporting both device and host statistics;
+        - "avg": represents the average value of elements in tensor, supporting device and host statistics;
+        - "count": represents the number of the elements in tensor;
+        - "negative zero count": represents the number of the elements which is less then zero in tensor;
+        - "positive zero count": represents the number of the elements which is greater then zero in tensor;
+        - "nan count": represents the number of `Nan` elements in the tensor;
+        - "negative inf count": represents the number of `-Inf` elements in the tensor;
+        - "positive inf count": represents the number of `+Inf` elements in the tensor;
+        - "zero count": represents the number of zero elements in the tensor;
+        - "md5": represents the MD5 value of the tensor;
+        - "l2norm": represents L2Norm value of the tensor, supporting both device and host statistics.
+
+      Except for those marked as supporting device statistics, other statistics can be collected only on the host.
+      This field is optional, with default values of ["max", "min", "l2norm"].
+
     - `enable`: When set to true, enable Synchronous Dump. When set to false, asynchronous dump will be used on Ascend and synchronous dump will still be used on GPU.
     - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `True`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `False`, the data format on the Device side will be retained. This configuration parameter is invalid on the CPU, because there is no format conversion on the CPU, but it is still need to reserve this parameter in the json file.
-    - `stat_calc_mode`: Select the backend for statistical calculations. Options are "host" and "device". Choosing "device" enables device computation of statistics, currently only effective on Ascend, and supports only min/max/avg statistics.
+    - `stat_calc_mode`: Select the backend for statistical calculations. Options are "host" and "device". Choosing "device" enables device computation of statistics, currently only effective on Ascend, and supports only min/max/avg/l2norm statistics.
+    - `sample_mode`: Setting it to 0 means the sample dump function is not enabled. Enable the sample dump function in graph compilation with optimization level O0.
+    - `sample_num`: Used to control the size of sample in sample dump. The default value is 100.
 
 2. Set Dump environment variable.
 
@@ -161,7 +328,6 @@ After starting the training, the data objects saved by the synchronous Dump incl
         - {net_name}/
             - {graph_id}/
                 - {iteration_id}/
-                    {op_type}.{op_name}.json
                     statistic.csv
                     {op_type}.{op_name}.json
                     {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
@@ -205,7 +371,7 @@ The data file generated by the synchronous Dump is a binary file with the suffix
 {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
 ```
 
-The constant data file generated by the synchronous Dump is in the same format as data file, whereas {op_type}, {task_id}, {stream_id}, {input_output_index}, {slot}, {format} are unchanged for all constant data. Note, non-Tensor type will not generate data file. This function is not supported in the Ascend scenario.
+The constant data file generated by the synchronous Dump is in the same format as data file, whereas {op_type}, {task_id}, {stream_id}, {input_output_index}, {slot}, {format} are unchanged for all constant data. Note, non-Tensor type will not generate data file.
 
 ```text
 Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
@@ -414,9 +580,9 @@ MindSpore provides debugging capabilities for large networks through asynchronou
     - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped. When overflow detection is enabled for PyNative mode, it must be set to "all".
     - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to dump tensor data, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Default setting is "tensor". Asynchronous statistics dump is only supported when `file_format` is set to `npy`, using "statistic" or "full" when `file_format` is set to `bin` will result in exception.
     - `input_output`: When set to 0, it means to Dump the operator's input and output; when set to 1, it means to Dump the operator's input; setting it to 2 means to Dump the output of the operator.
-    - `kernels`: List of operator names, only supports full names. Specifying operator needs to first set the environment variable for saving the graph file to save the graph, and then obtain the operator name from the saved graph file.
-        Please refer to the documentation on Ascend Developer Zone
-        [DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/graphdevg/graphdevg_000050.html) , [DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/graphdevg/graphdevg_000051.html) and [DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/graphdevg/graphdevg_000052.html) for details about the environment variable for saving the graph file.
+    - `kernels`: This item can be configured in two formats:
+        1. List of operator names. Specifying operator needs to first set the environment variable for saving the graph file to save the graph, and then obtain the operator name from the saved graph file. Please refer to the documentation on Ascend Developer Zone [DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/graphdevg/graphdevg_000050.html) , [DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/graphdevg/graphdevg_000051.html) and [DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/graphdevg/graphdevg_000052.html) for details about the environment variable for saving the graph file.
+        2. Regular expressions of operator names. When the string conforms to the format of "name-regex(xxx)", it would be considered a regular expression. For example, "name-regex(Default/.+)" can match all operators with names starting with "Default/".
     - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
     - `op_debug_mode`: This attribute is used for operator overflow debugging. 0: disable overflow check function; 1: enable AiCore overflow check; 2: enable Atomic overflow check; 3: enable all overflow check function; 4: enable the lightweight exception dump function. Set it to 0 when Dump data is processed. If it is not set to 0, only the data of the overflow operator or exception operator will be dumped.
     - `statistic_category`: This attribute is used by users to configure the category of statistical information to be saved, and only takes effect when saving statistical information is enabled(i.e.`saved_data` is set to `statistic` or `full`). The type is a string list, where the optional values of the strings are as follows:
@@ -496,17 +662,18 @@ When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and the graph compilation le
                         mapping.csv
 ```
 
-When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and the graph compilation level is O0, the Dump directory structure is as follows, where the main feature is no {model_name}, {model_id} and {iteration_id} directory. In this scenario, the dump files will be saved in {device_id} directory:
+When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and the graph compilation level is O0, the Dump directory structure is as follows, where the main feature is no {model_name} and {model_id} directory. In this scenario, the dump files for dynamic shape operators will be saved in {iteration_id} directory and the dump files for static shape operators will be saved in {device_id} directory:
 
 ```text
 {path}/
     - {step_id}/
         - {time}/
             - {device_id}/
-                statistic.csv
-                {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
-                Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
-                mapping.csv
+                - {iteration_id}/
+                    statistic.csv
+                    {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
+                    Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
+                    mapping.csv
 ```
 
 - `path`: the absolute path set in the `data_dump.json` configuration file.
@@ -517,8 +684,8 @@ When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and the graph compilation le
 - `iteration_id`: the iteration of the training.
 - `op_type`: the type of the operator.
 - `op_name`: the name of the operator.
-- `task_id`: the id of the task, if unable to fetch the value, the default is set to 65535.
-- `stream_id`: the id of the stream, if unable to fetch the value, the default is set to 65535.
+- `task_id`: the id of the task.
+- `stream_id`: the id of the stream.
 - `timestamp`: the time stamp.
 - `step_id`: user side training step id.
 
@@ -624,4 +791,4 @@ Through the asynchronous Dump function, the data files generated by the operator
 - Dump only supports saving data with type of bool, int, int8, in16, int32, int64, uint, uint8, uint16, uint32, uint64, float, float16, float32, float64, bfloat16, double, complex64 and complex128.
 - Complex64 and complex128 only support saving as npy files, not as statistics information.
 - The Print operator has an input parameter with type of string, which is not a data type supported by Dump. Therefore, when the Print operator is included in the script, there will be an error log, which will not affect the saving data of other types.
-- When ACL dump is enabled, lite exception dump is not supported by using set_context(ascend_config={"exception_dump": "2"), while full exception dump is supported by using set_context(ascend_config={"exception_dump": "1").
+- When ACL dump is enabled, overflow dump is not supported.

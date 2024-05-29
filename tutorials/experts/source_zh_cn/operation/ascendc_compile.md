@@ -14,15 +14,16 @@ MindSpore提供了基于Ascend C开发的自定义算子的离线编译工具。
 
 该工具包含在MindSpore的安装包中，可以根据自定义算子的源码文件编译出自定义算子的安装包，该安装包位于`build_out`目录中。用户可以选择安装自定义算子包，或者通过设置环境变量`ASCEND_CUSTOM_OPP_PATH`来使用编译后的自定义算子。
 
-进入工具目录，其位于MindSpore安装包的`custom_compiler`文件夹中，使用以下命令：
+拷贝工具目录到工作目录中，其位于MindSpore安装包的`lib/plugin/ascend/custom_compiler`文件夹中，使用以下命令：
 
 ```shell
-cd {LOCATION}/mindspore/custom_compiler
+cp -r {LOCATION}/mindspore/lib/plugin/ascend/custom_compiler ./
+cd custom_compiler
 python setup.py
-    --host_op_path={host_op_path}
-    --kernel_op_path={kernel_op_path}
+    --op_host_path={op_host_path}
+    --op_kernel_path={op_kernel_path}
     --vendor_name={your_custom_name}
-    --cann_package_path="/usr/local/Ascend/latest"
+    --ascend_cann_package_path="/usr/local/Ascend/latest"
 ```
 
 执行上述命令后，当前目录下将生成一个包含自定义算子编译结果的`build_out`文件夹。用户可以手动安装自定义算子包：
@@ -34,7 +35,7 @@ bash build_out/*.run
 或者通过设置环境变量的方式，在`build_out`中找到通过`--vendor_name`指定名称的路径，并添加到`ASCEND_CUSTOM_OPP_PATH`中，例如：
 
 ```shell
-export ASCEND_CUSTOM_OPP_RUN={build_out_path}/build_out/_CPack_Package/Linux/External/custom_opp_euleros_aarch64.run/packages/vendors/{your_custom_name}:${ASCEND_CUSTOM_OPP_RUN}
+export ASCEND_CUSTOM_OPP_PATH={build_out_path}/build_out/_CPack_Package/Linux/External/custom_opp_euleros_aarch64.run/packages/vendors/{your_custom_name}:$ASCEND_CUSTOM_OPP_PATH
 ```
 
 **参数说明**

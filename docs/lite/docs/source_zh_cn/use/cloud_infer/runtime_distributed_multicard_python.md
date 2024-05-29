@@ -10,11 +10,11 @@ MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，本教�
 
 ## 准备工作
 
-1. 下载云侧Ascend后端多卡/多芯推理Python[示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/ascend_parallel_python)后文将该目录称为示例代码目录。
+1. 下载云侧Ascend后端多卡/多芯推理Python[示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/ascend_parallel_python)，后文将该目录称为示例代码目录。
 
 2. 下载MindSpore Lite云侧推理安装包[mindspore-lite-{version}-linux-{arch}.whl](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，存放至示例代码目录，并通过`pip`工具安装。
 
-3. 通过[converter_lite工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)将ONNX模型转换为MindSpore的MINDIR格式模型，其中batch_size的大小设置为1，表示双芯并行推理时每个子进程推理单个batch。例如对于SD2.1模型，可以采用如下的转换命令：
+3. 通过[converter_lite工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)将ONNX模型转换为MindSpore的MINDIR格式模型，其中batch_size的大小设置为原模型的一半，用于分配到双芯或双卡上并行推理，达到与原模型一致的输出结果（若采用更多张卡并行，则需要batch size可以整除所用卡数，转换时设置为整除后的结果）。例如对于batch size = 2的模型，转换时设置其为1，表示双芯并行推理时每个子进程推理单个batch。对于SD2.1模型，可以采用如下的转换命令：
 
     ```shell
     ./converter_lite --modelFile=model.onnx --fmk=ONNX --outputFile=SD2.1_size512_bs1 --inputShape="sample:1,4,64,64;timestep:1;encoder_hidden_states:1,77,1024" --optimize=ascend_oriented
@@ -83,7 +83,34 @@ outputs = model.predict(inputs)
 
 5. 重复过程2-4，直到主进程发送退出消息（`EXIT`），子进程收到该消息后中断管道监听，正常退出。
 
-其中主进程创建、调度子进程示例代码如下：
+我们可以把上述用于管道通信的消息定义为全局变量：
+
+```python
+# define message id
+ERROR = 0
+PREDICT = 1
+REPLY = 2
+BUILD_FINISH = 3
+EXIT = 4
+```
+
+其中主进程初始化代码如下：
+
+```python
+# main process init
+def __init__(self, model_path, device_num):
+    self.model_path = model_path
+    self.device_num = device_num
+    self.pipe_parent_end = []
+    self.pipe_child_end = []
+    self.process = []
+    for _ in range(device_num):
+        pipe_end_0, pipe_end_1 = Pipe()
+        self.pipe_parent_end.append(pipe_end_0)
+        self.pipe_child_end.append(pipe_end_1)
+```
+
+主进程创建、调度子进程示例代码如下：
 
 ```python
 # create subprocess
@@ -103,6 +130,29 @@ for i in range(self.device_num):
     assert msg_type == REPLY
     result.append(msg)
 return result
+```
+
+主进程结束子进程并等待同步示例代码如下：
+
+```python
+# finalize subprocess
+for i in range(self.device_num):
+    self.pipe_parent_end[i].send((EXIT, ""))
+for i in range(self.device_num):
+    self.process[i].join()
+```
+
+子进程初始化加载模型示例代码如下：
+
+```python
+# subprocess init and build model using MSLitePredict
+try:
+    predict_worker = MSLitePredict(model_path, device_id)
+    pipe_child_end.send((BUILD_FINISH, ""))
+except Exception as e:
+    logging.exception(e)
+    pipe_child_end.send((ERROR, str(e)))
+    raise
 ```
 
 子进程推理示例代码如下：
@@ -131,7 +181,7 @@ input_data_1 = [sample[1], timestep, encoder_hidden_states[1]]
 input_data_all = [input_data_0, input_data_1]
 ```
 
-推理完成后，会打印总推理时间`Total predict time = XXX`，单位是秒。若推理成功，整个执行过程会打印如下信息。推理结果保存在变量`predict_result`中，由两个单batch模型的推理结果拼接而成，保证了与一个batch_size=2的模型结果一致。
+推理完成后，会打印总推理时间`Total predict time = XXX`，单位是秒。若推理成功，整个执行过程会打印如下信息。推理结果保存在变量`predict_result`中，包含两个单batch模型的推理结果，拼接后与一个batch_size=2的模型结果一致。
 
 ```shell
 Success to build model 0

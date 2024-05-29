@@ -24,7 +24,7 @@
 - 确认安装[CMake 3.18.3版本](https://cmake.org/files/v3.18/cmake-3.18.3-win64-x64.msi)。并将安装路径（不能出现中文等特殊字符）添加到系统环境变量`Path`中。
 - 确认安装Python（>=3.7.5）。可以从[Python官网](https://www.python.org/downloads/windows/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
-- 确认安装[MSYS2软件](https://www.msys2.org/)。详细请查看[Windows上安装MSYS2软件](https://gitee.com/mindspore/docs/blob/br_base/install/third_party/msys_software_install.md)。
+- 确认安装[MSYS2软件](https://www.msys2.org/)。详细请查看[Windows上安装MSYS2软件](https://gitee.com/mindspore/docs/blob/master/install/third_party/msys_software_install.md)。
 
 ## 从代码仓下载源码
 

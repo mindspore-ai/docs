@@ -1,10 +1,6 @@
 # 函数式算子切分
 
-<<<<<<< HEAD:tutorials/experts/source_zh_cn/parallel/pynative_shard_function_parallel.md
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/pynative_shard_function_parallel.md)
-=======
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/experts/source_zh_cn/parallel/shard_function_parallel.md)
->>>>>>> c5151c624a (cell.shard/ms.shard文档修改):tutorials/experts/source_zh_cn/parallel/shard_function_parallel.md
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/shard_function_parallel.md)
 
 ## 概述
 
@@ -49,11 +45,7 @@ MindSpore的图模式下，Shard function与Primitive.shard()类似，设置某�
 
 >你可以在这里下载完整的样例代码：
 >
-<<<<<<< HEAD:tutorials/experts/source_zh_cn/parallel/pynative_shard_function_parallel.md
-><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/pynative_shard_function_parallel>。
-=======
-><https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/shard_function_parallel>。
->>>>>>> c5151c624a (cell.shard/ms.shard文档修改):tutorials/experts/source_zh_cn/parallel/shard_function_parallel.md
+><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/shard_function_parallel>。
 
 目录结构如下：
 
