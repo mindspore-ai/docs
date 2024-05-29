@@ -497,6 +497,14 @@ try:
 except Exception as e:
     print(e)
 
+if os.path.exists('./api_python/ops/mindspore.ops.group_norm.rst'):
+    with open('./api_python/ops/mindspore.ops.group_norm.rst', 'r+', encoding='utf-8') as f:
+        content = f.read()
+        content = content.replace(":math:`\weight`", ":math:`\gamma`").replace(":math:`\\bias`", ":math:`\\beta`")
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+
 # auto generate rst by en
 from generate_rst_by_en import generate_rst_by_en
 
