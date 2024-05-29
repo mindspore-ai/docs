@@ -2,6 +2,8 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.0rc2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.0rc2/tutorials/application/source_en/nlp/sequence_labeling.md)
 
+> This case does not support running on the Windows operating system.
+
 ## Overview
 
 Sequence labeling refers to the process of labeling each token for a given input sequence. Sequence labeling is usually used to extract information from text, including word segmentation, part-of-speech tagging, and named entity recognition (NER). The following uses NER as an example:
