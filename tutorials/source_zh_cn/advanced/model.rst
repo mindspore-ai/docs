@@ -96,7 +96,7 @@ Model基本介绍
 创建模型
 --------
 
-关于模型创建的讲解可以参考 `网络构建 <https://www.mindspore.cn/tutorials/zh-CN/r2.3.q1/beginner/model.html>`_ 。
+关于模型创建的讲解可以参考 `网络构建 <https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc1/beginner/model.html>`_ 。
 
 .. code:: python
 

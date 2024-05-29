@@ -95,7 +95,7 @@ The dataset is downloaded using the download library, the image is scaled throug
 Defining Model
 ---------------
 
-For the explanation of model creation, refer to `Network Construction <https://www.mindspore.cn/tutorials/en/r2.3.q1/beginner/model.html>`_.
+For the explanation of model creation, refer to `Network Construction <https://www.mindspore.cn/tutorials/en/r2.3.0rc1/beginner/model.html>`_.
 
 .. code:: python
 
