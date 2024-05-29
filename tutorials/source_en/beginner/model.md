@@ -168,7 +168,7 @@ After ReLU: [[0.         0.2939465  0.         0.         0.         0.
 
 ### nn.SequentialCell
 
-[nn.SequentialCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SequentialCell.html) is an ordered Cell container. The input Tensor will pass through all the Cells in the defined order, and we can use `SequentialCell` to construct a neural network model quickly.
+[nn.SequentialCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SequentialCell.html) is an ordered Cell container. The input Tensor will pass through all the Cells in the defined order, and we can use `nn.SequentialCell` to construct a neural network model quickly.
 
 ```python
 seq_modules = nn.SequentialCell(
