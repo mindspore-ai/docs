@@ -48,6 +48,8 @@ The IR files starting with digits and underscores are generated during the ME gr
 
 In addition, because the backend is closer to the bottom layer, non-framework developers do not need to pay much attention to other IR files saved during the backend optimization process (such as files that begin with `hwopt`). Non-framework developers only need to look at the file named `graph_build_[Graph Sequence Number]_[IR File Sequence Number].ir`, i.e. IR after all front and back end optimizations.
 
+As the IR file number is located at the end of the file, when the files are sorted by file name, the IR files are not sorted by the sequence in which the IR files are generated. To sort IR files according to their generation order, you can utilize the Linux awk command `find . -name '*ir' | awk --field-separator="_" '{print $(NF) "--->" $0}' | sort -n`.
+
 > Multiple files may be saved because the backend is optimized on subgraphs, which is different from the mechanism by which multiple subgraphs on the front end are saved in the same file.
 
 ## IR File Contents Introduction
