@@ -4,7 +4,7 @@
 
 MindSpore Lite supports operator lists for different hardware backends:
 
-| Operation <br/>                  | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int32 | CPU<br/>Int8 | CPU<br/>UInt8 | CPU<br/>Bool | Mali/Adreno<br/>GPU FP16 | Mali/Adreno<br/>GPU FP32 | Mali/Adreno<br/>GPU Int32 | Mali/Adreno<br/>GPU Int8 | Kirin NPU<br/>FP16 | Nvidia GPU<br/>FP16 | Ascend<br/>FP16<sup>[5] |
+| Operation <br/>                  | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int32 | CPU<br/>Int8 | CPU<br/>UInt8 | CPU<br/>Bool | Mali/Adreno<br/>GPU FP16 | Mali/Adreno<br/>GPU FP32 | Mali/Adreno<br/>GPU Int32 | Mali/Adreno<br/>GPU Int8 | Kirin NPU<br/>FP16 | Nvidia GPU<br/>FP16 | Ascend<br/>FP16 |
 | ----------------------------------- | :----------: | :----------: | ------------- | :----------: | :-----------: | ------------ | :----------------------: | :----------------------: | ------------------------- | ------------------------ | :--------------------: | :----------------: | :----------------------: |
 | Abs                                 |      ✅       |      ✅       | ✅             |      ✅       |       ✅       |              |            ✅             |            ✅             |                           |                          |           ✅            |         ✅          |            ✅             |
 | AbsGrad                             |              |      ✅       |               |              |               |              |                          |                          |                           |                          |                        |                    |                          |
