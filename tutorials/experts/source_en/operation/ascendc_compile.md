@@ -19,8 +19,8 @@ Navigate to the tool directory, which is located in the `custom_compiler` folder
 ```shell
 cd {LOCATION}/mindspore/custom_compiler
 python setup.py
-    --host_op_path={host_op_path}
-    --kernel_op_path={kernel_op_path}
+    --op_host_path={op_host_path}
+    --op_kernel_path={op_kernel_path}
     --vendor_name={your_custom_name}
     --cann_package_path="/usr/local/Ascend/latest"
 ```
