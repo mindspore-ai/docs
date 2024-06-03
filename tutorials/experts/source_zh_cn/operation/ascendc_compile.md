@@ -22,7 +22,7 @@ python setup.py
     --op_host_path={op_host_path}
     --op_kernel_path={op_kernel_path}
     --vendor_name={your_custom_name}
-    --cann_package_path="/usr/local/Ascend/latest"
+    --ascend_cann_package_path="/usr/local/Ascend/latest"
 ```
 
 执行上述命令后，当前目录下将生成一个包含自定义算子编译结果的`build_out`文件夹。用户可以手动安装自定义算子包：
