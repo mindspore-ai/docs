@@ -22,7 +22,7 @@ python setup.py
     --op_host_path={op_host_path}
     --op_kernel_path={op_kernel_path}
     --vendor_name={your_custom_name}
-    --cann_package_path="/usr/local/Ascend/latest"
+    --ascend_cann_package_path="/usr/local/Ascend/latest"
 ```
 
 After executing the above command, a `build_out` folder containing the compilation results of the custom operator will be generated in the current directory. Users can manually install the custom operator package:
