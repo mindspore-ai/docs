@@ -35,11 +35,7 @@ bash build_out/*.run
 或者通过设置环境变量的方式，在`build_out`中找到通过`--vendor_name`指定名称的路径，并添加到`ASCEND_CUSTOM_OPP_PATH`中，例如：
 
 ```shell
-<<<<<<< HEAD
-export ASCEND_CUSTOM_OPP_PATH={build_out_path}/build_out/_CPack_Package/Linux/External/custom_opp_euleros_aarch64.run/packages/vendors/{your_custom_name}:$ASCEND_CUSTOM_OPP_PATH
-=======
 export ASCEND_CUSTOM_OPP_PATH={build_out_path}/build_out/_CPack_Package/Linux/External/custom_opp_euleros_aarch64.run/packages/vendors/{your_custom_name}:${ASCEND_CUSTOM_OPP_RUN}
->>>>>>> 7c1e964cea (fix custom opp env)
 ```
 
 **参数说明**
