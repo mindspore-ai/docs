@@ -8,7 +8,7 @@
         - [Installing CUDA](#installing-cuda)
         - [Installing cuDNN](#installing-cudnn)
         - [Installing Python](#installing-python)
-        - [Installing wheel and setuptools](#installing-wheel-and-setuptools)
+        - [Installing wheel setuptools and Numpy](#installing-wheel-setuptools-and-numpy)
         - [Installing GCC git and other dependencies](#installing-gcc-git-and-other-dependencies)
         - [Installing CMake](#installing-cmake)
         - [Installing LLVM-optional](#installing-llvm-optional)
@@ -80,8 +80,9 @@ The following table lists the system environment and third-party dependencies re
 |[CUDA](#installing-cuda)|10.1 or 11.1 or 11.6|parallel computing architecture for MindSpore GPU|
 |[cuDNN](#installing-cudnn)|7.6.x or 8.0.x or 8.5.x|deep neural network acceleration library used by MindSpore GPU|
 |[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends on|
-|[wheel](#installing-wheel-and-setuptools)|0.32.0 or later|Python packaging tool used by MindSpore|
-|[setuptools](#installing-wheel-and-setuptools)|44.0 or later|Python package management tool used by MindSpore|
+|[wheel](#installing-wheel-setuptools-and-numpy)|0.32.0 or later|Python packaging tool used by MindSpore|
+|[setuptools](#installing-wheel-setuptools-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
+|[Numpy](#installing-wheel-setuptools-and-numpy)|1.19.3 or later|Numpy module that Numpy-related functions in MindSpore depends on|
 |[GCC](#installing-gcc-git-and-other-dependencies)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
 |[git](#installing-gcc-git-and-other-dependencies)|-|source code management tools used by MindSpore|
 |[CMake](#installing-cmake)|3.18.3 or later|Compilation tool that builds MindSpore|
@@ -204,14 +205,17 @@ Run the following command to check the Python version.
 python --version
 ```
 
-### Installing wheel and setuptools
+### Installing wheel setuptools and Numpy
 
 After installing Python, run the following command to install them.
 
 ```bash
 pip install wheel
 pip install -U setuptools
+pip install numpy>=1.19.3
 ```
+
+The Numpy version used in the runtime environment must be no less than the Numpy version in the compilation environment to ensure the normal use of Numpy related capabilities in the framework.
 
 ### Installing GCC git and other dependencies
 
