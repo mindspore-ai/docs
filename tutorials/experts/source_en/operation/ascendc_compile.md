@@ -34,7 +34,7 @@ bash build_out/*.run
 Alternatively, by setting the environment variable, find the path named with `--vendor_name` in `build_out` and add it to `ASCEND_CUSTOM_OPP_PATH`, for example:
 
 ```shell
-export ASCEND_CUSTOM_OPP_RUN={build_out_path}/build_out/_CPack_Package/Linux/External/custom_opp_euleros_aarch64.run/packages/vendors/{your_custom_name}:${ASCEND_CUSTOM_OPP_RUN}
+export ASCEND_CUSTOM_OPP_PATH={build_out_path}/build_out/_CPack_Package/Linux/External/custom_opp_euleros_aarch64.run/packages/vendors/{your_custom_name}:${ASCEND_CUSTOM_OPP_RUN}
 ```
 
 **Parameter Description**
