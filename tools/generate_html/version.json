@@ -10,7 +10,9 @@
        "environ" : "MS_PATH",
        "uninstall_name" : "mindspore_lite",
        "tar_path" : "2.3.0rc2/MindSpore/lite/release/linux/x86_64/cloud_fusion/python37/",
-       "tar_name" : "mindspore-lite-2.3.0rc2-linux-x64.tar.gz"
+       "tar_name" : "mindspore-lite-2.3.0rc2-linux-x64.tar.gz",
+       "extra_whl_path" : "2.3.0rc2/MindSpore/unified/x86_64/",
+       "extra_whl_name" : "mindspore-2.3.0rc2-cp37-cp37m-linux_x86_64.whl"
     },
     {
        "id" : 2 ,
