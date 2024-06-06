@@ -208,11 +208,34 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 wgetdir = WGETDIR + "mindspore"
             res = s.get(wgetdir, auth=(user, pd), verify=False)
             requests.packages.urllib3.disable_warnings()
+            # 安装组件whl包
             if data[i]['whl_path'] != "":
                 url = f"{wgetdir}/{data[i]['whl_path']}"
                 if not url.endswith(".html") and not url.endswith("/"):
                     url += "/"
                 re_name = data[i]['whl_name'].replace('.whl', '\\.whl')
+                name = rf"{re_name}"
+                res = s.get(url, auth=(user, pd), verify=False)
+                html = etree.HTML(res.text, parser=etree.HTMLParser())
+                links = html.xpath("//a[@title]")
+                if links:
+                    for link_ in links:
+                        title = link_.get("title", "")
+                        href = link_.get("href", "")
+                        if re.findall(name, title):
+                            download_url = url+'/'+href
+                            dowmloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
+                            with open(title, 'wb') as fd:
+                                shutil.copyfileobj(dowmloaded.raw, fd)
+                            print(f"Download {title} success!")
+                            time.sleep(1)
+
+            # 安装其他需求的组件whl包
+            if 'extra_whl_path' in data[i] and data[i]['extra_whl_path'] != "":
+                url = f"{wgetdir}/{data[i]['extra_whl_path']}"
+                if not url.endswith(".html") and not url.endswith("/"):
+                    url += "/"
+                re_name = data[i]['extra_whl_name'].replace('.whl', '\\.whl')
                 name = rf"{re_name}"
                 res = s.get(url, auth=(user, pd), verify=False)
                 html = etree.HTML(res.text, parser=etree.HTMLParser())
@@ -258,6 +281,13 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 with open(data[i]['whl_name'], 'wb') as fd:
                     shutil.copyfileobj(dowmloaded.raw, fd)
                 print(f"Download {data[i]['whl_name']} success!")
+            if 'extra_whl_path' in data[i] and data[i]['extra_whl_path'] != "":
+                urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+                download_url = release_url + data[i]['extra_whl_path'] + data[i]['extra_whl_name']
+                dowmloaded = requests.get(download_url, stream=True, verify=False)
+                with open(data[i]['extra_whl_name'], 'wb') as fd:
+                    shutil.copyfileobj(dowmloaded.raw, fd)
+                print(f"Download {data[i]['extra_whl_name']} success!")
             if 'tar_path' in data[i].keys():
                 if data[i]['tar_path'] != '':
                     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -358,8 +388,10 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             error_lists.append(deal_err(j))
                 if process.returncode != 0:
                     print(f"{i} 的 英文 版本运行失败")
+                    print(f"错误信息：\n{stderr}")
                     with open("err_cn.log", "w") as f:
                         f.write(stderr)
+                    failed_list.append(stderr)
                     failed_name_list.append(f'{i}的英文版本')
                 else:
                     if i == "mindspore":
@@ -396,7 +428,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             error_lists.append(deal_err(j))
                 if process.returncode != 0:
                     print(f"{i} 的 中文版本运行失败")
-                    print(stderr)
+                    print(f"错误信息：\n{stderr}")
                     failed_list.append(stderr)
                     failed_name_list.append(f'{i}的中文版本')
                 else:
