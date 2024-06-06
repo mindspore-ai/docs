@@ -275,6 +275,25 @@ The `bprop` method has three separate input parameters:
 
 Generally we need to calculate the reverse result according to the reverse derivative formula based on the forward output and the reverse result of the front layer, and return it. The reverse calculation of `Dropout2d` requires masking the reverse result of the front layer based on the `mask` matrix of the forward output, and then scaling according to `keep_prob`. The final implementation can get the correct calculation result.
 
+When customizing the reverse direction of a Cell, it supports extended writing in PyNative mode and can differentiate the weights inside the Cell. The specific columns are as follows:
+
+```python
+class NetWithParam(nn.Cell):
+    def __init__(self):
+        super(NetWithParam, self).__init__()
+        self.w = Parameter(Tensor(np.array([2.0], dtype=np.float32)), name='weight')
+        self.internal_params = [self.w]
+
+    def construct(self, x):
+        output = self.w * x
+        return output
+
+    def bprop(self, *args):
+        return (self.w * args[-1],), {self.w: args[0] * args[-1]}
+```
+
+`bprop` method supports *args as an input parameter, and the last data in the args array, `args[-1]` is the gradient returned to the cell. Set the weight of differentiation through `self.internal_params`, and return a tuple and a dictionary in the `bprop` function. Return the tuple corresponding to the input gradient, as well as the dictionary corresponding to the gradient with key as the weight and value as the weight.
+
 ## Hook Function
 
 Debugging deep learning networks is a big task for every practitioner in the field of deep learning. Since the deep learning network hides the input and output data as well as the inverse gradient of the intermediate layer operators, only the gradient of the network input data (feature quantity and weight) is provided, resulting in the inability to accurately sense the data changes of the intermediate layer operators, which reduces the debugging efficiency. In order to facilitate users to debug the deep learning network accurately and quickly, MindSpore designes Hook function in dynamic graph mode. **Using Hook function can capture the input and output data of intermediate layer operators as well as the reverse gradient**.
