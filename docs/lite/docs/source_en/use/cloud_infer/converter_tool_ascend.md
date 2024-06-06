@@ -13,7 +13,7 @@ Table 1: Configure [ascend_context] parameter
 | Parameters  | Attributes  | Functions Description           | Types | Values Description |
 | -------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ |
 | `input_format`             | Optional| Specify the model input format. | String | Options: `"NCHW"`, `"NHWC"`, and `"ND"` |
-| `input_shape`       | Optional| Specify the model input Shape. input_name must be the input name in the network model before conversion, in the order of the inputs, separated by `;`. | String | Such as `"input1:[1,64,64,3];input2:[1,256,256,3]"` |
+| `input_shape`       | Optional| Specify the model input Shape. input_name must be the input name in the network model before conversion, in the order of the inputs, separated by `;`. Only works for dynamic BatchSize. For static BatchSize, use converter_lite command to specify inputShape parameter. | String | Such as `"input1:[1,64,64,3];input2:[1,256,256,3]"` |
 | `dynamic_dims`       | Optional| Specify the dynamic BatchSize and dynamic resolution parameters. | String | 见[Dynamic shape configuration](#dynamic-shape-configuration) |
 | `precision_mode`           | Optional| Configure the model accuracy mode.    | String | Options: `"enforce_fp32"`, `"preferred_fp32"`, `"enforce_fp16"`, `"enforce_origin"` or `"preferred_optimal"`. Default: `"enforce_fp16"`|
 | `op_select_impl_mode`      | Optional| Configure the operator selection mode.    | String | Optioans: `"high_performance"`, and `"high_precision"`. Default: `"high_performance"`. |
