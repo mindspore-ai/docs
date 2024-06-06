@@ -100,8 +100,6 @@ import mindspore_lite as mslite
 context = mslite.Context()
 context.target = ["ascend"]
 context.ascend.device_id = 0
-context.cpu.thread_num = 1
-context.cpu.thread_affinity_mode=2
 ```
 
 If the backend is Ascend deployed on the Elastic Cloud Server, set the `provider` to `ge`.
@@ -120,8 +118,6 @@ import mindspore_lite as mslite
 context = mslite.Context()
 context.target = ["gpu"]
 context.gpu.device_id = 0
-context.cpu.thread_num = 1
-context.cpu.thread_affinity_mode=2
 ```
 
 ### Model Loading and Compilation
