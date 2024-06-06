@@ -100,8 +100,6 @@ import mindspore_lite as mslite
 context = mslite.Context()
 context.target = ["ascend"]
 context.ascend.device_id = 0
-context.cpu.thread_num = 1
-context.cpu.thread_affinity_mode=2
 ```
 
 如果需要在Ascend弹性加速服务环境（拉远模式）推理，需要配置`provider`为`ge`。
@@ -120,8 +118,6 @@ import mindspore_lite as mslite
 context = mslite.Context()
 context.target = ["gpu"]
 context.gpu.device_id = 0
-context.cpu.thread_num = 1
-context.cpu.thread_affinity_mode=2
 ```
 
 ### 模型加载与编译
