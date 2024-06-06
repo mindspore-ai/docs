@@ -32,7 +32,9 @@
     "environ" : "MS_PATH",
     "uninstall_name" : "mindspore_lite",
     "tar_path" : "/MindSpore/lite/release/linux/x86_64/",
-    "tar_name" : "mindspore-lite-1.9.0-linux-x64.tar.gz"
+    "tar_name" : "mindspore-lite-1.9.0-linux-x64.tar.gz",
+    "extra_whl_path" : "2.3.0rc2/MindSpore/unified/x86_64/",
+    "extra_whl_name" : "mindspore-2.3.0rc2-cp37-cp37m-linux_x86_64.whl"
     ```
 
     | 键 | 值 | 必填 |
@@ -48,6 +50,8 @@
     | uninstall_name | 组件whl安装包的卸载命令名称 | 是 |
     | tar_path | 组件tar包的文件夹路径 | 否 |
     | tar_name | 组件tar包的名称 | 否 |
+    | extra_whl_path | 额外依赖组件whl安装包的文件夹路径 | 否 |
+    | extra_whl_name | 额外依赖组件whl安装包的名称 | 否 |
 
     必填键，若无对应值，其值填入空。
 
