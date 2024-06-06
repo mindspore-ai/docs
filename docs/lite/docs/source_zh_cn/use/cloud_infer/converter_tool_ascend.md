@@ -13,7 +13,7 @@
 | 参数                        | 属性  | 功能描述                                                       | 参数类型 | 取值说明 |
 | -------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ |
 | `input_format`             | 可选 | 指定模型输入format。 | String | 可选有`"NCHW"`、`"NHWC"`、`"ND"` |
-| `input_shape`       | 可选 | 指定模型输入Shape，input_name必须是转换前的网络模型中的输入名称，按输入次序排列，用`；`隔开。 | String | 例如：`"input1:[1,64,64,3];input2:[1,256,256,3]"` |
+| `input_shape`       | 可选 | 指定模型输入Shape，input_name必须是转换前的网络模型中的输入名称，按输入次序排列，用`；`隔开，仅对动态BatchSize生效，对静态BatchSize，需要converter_lite命令指定inputShape参数。 | String | 例如：`"input1:[1,64,64,3];input2:[1,256,256,3]"` |
 | `dynamic_dims`       | 可选 | 指定动态BatchSize和动态分辨率参数。 | String | 见[动态shape配置](#动态shape配置) |
 | `precision_mode`           | 可选 | 配置模型精度模式。    | String | 可选有`"enforce_fp32"`，`"preferred_fp32"`，`"enforce_fp16"`，`"enforce_origin"`或者`"preferred_optimal"`，默认为`"enforce_fp16"`|
 | `op_select_impl_mode`      | 可选 | 配置算子选择模式。    | String | 可选有`"high_performance"`和`"high_precision"`，默认为`"high_performance"` |
