@@ -30,4 +30,4 @@ MindSpore团队将持续推出体验项目，以便于用户的快速入门和�
 | 7 | 1小时入门AI开发工程师 | https://bbs.huaweicloud.com/forum/thread-103123-1-1.html | 学练结合的方式很好，学到了很多东西，超赞，而且很方便！| 贾淳 | chunjcsx20@vip.qq.com | 2021-01-22|
 | 8 | 1小时入门AI开发工程师  | https://bbs.huaweicloud.com/forum/thread-103095-1-1.html  | 文档很好，非常给力。  | 刘炳成  | xjtlbc@163.com  | 2021-01-22  |
 | 9 |1小时入门AI开发工程师 | https://bbs.huaweicloud.com/forum/thread-103299-1-1.html | 体验很有趣，可以把AI模型部署到手机上，让AI走进生活中，给自己的猫猫进行识别！而且是用华为自己的MindSpore来做的，MindSpore加油！| JinhengZhang | 931136898@qq.com | 2021-01-23|
-| 10 |1小时入门AI开发工程师 |https://bbs.huaweicloud.com/forum/thread-103198-1-1.html | 受限于硬件环境和创作条件，没能 1 小时体验完毕，除去其他干扰，可能半小时能完成，当然知识点很丰富，值得深入学习！| 胡琦 | huqi@gpdi.com | 2021-01-23|
+| 10 |1小时入门AI开发工程师 |https://bbs.huaweicloud.com/forum/thread-103198-1-1.html | 受限于硬件环境和创作条件，没能 1 小时体验完毕，除去其他干扰，可能半小时能完成，当然知识点很丰富，值得深入学习！| 胡琦 | huq1024@gmail.com | 2021-01-23|
