@@ -64,10 +64,10 @@ MindSpore提供了两种Dump模式：
 
 不同模式需要不同的配置文件，生成的数据格式也不同：
 
-- GPU/CPU后端和编译等级为O0/O1下的Ascend后端，推荐使用[同步Dump](#同步dump)，具体参考[同步dump操作步骤](#同步dump操作步骤)；编译等级为O2的Ascend后端推荐使用[异步Dump](#异步dump)，具体参考[异步dump操作步骤](#异步dump操作步骤)。
+- 在编译等级为O0/O1时，推荐使用[同步Dump](#同步dump)，具体参考[同步dump操作步骤](#同步dump操作步骤)；O2时推荐使用[异步Dump](#异步dump)，具体参考[异步dump操作步骤](#异步dump操作步骤)。
 - Dump暂不支持异构训练，如果在异构训练场景启用Dump，生成的Dump数据对象目录可能不符合预期的目录结构。
 
-Ascend后端同步Dump支持情况如下表（GPU/CPU后端参考 `O0/O1` 列）。
+同步Dump支持情况如下表。
 
 <table align="center">
   <tr>
@@ -138,10 +138,10 @@ Ascend后端同步Dump支持情况如下表（GPU/CPU后端参考 `O0/O1` 列）
   </tr>
 </table>
 
-> 1. 在统计信息方面，device计算速度较host快（目前仅支持Ascend后端），但host统计指标比device多，详见`statistic_category`选项。
+> 1. 在统计信息方面，device计算速度较host快，但host统计指标比device多，详见`statistic_category`选项。
 > 2. 仅支持Ascend后端。
 
-Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
+异步Dump支持情况如下表。
 
 <table align="center">
   <tr>

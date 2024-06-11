@@ -64,10 +64,10 @@ MindSpore provides two Dump modes:
 
 Different modes require different configuration files, and the generated data formats also differ:
 
-- For GPU/CPU backends and Ascend backend with compilation levels O0/O1, it is recommended to use [synchronous dump](#synchronous-dump). For details, refer to [synchronous dump step](#synchronous-dump-step). For Ascend backend with compilation level O2, it is recommended to use [asynchronous dump](#asynchronous-dump). For details, refer to [asynchronous dump step](#asynchronous-dump-step).
+- For compilation levels O0/O1, it is recommended to use [synchronous dump](#synchronous-dump). For details, refer to [synchronous dump step](#synchronous-dump-step). For O2, it is recommended to use [asynchronous dump](#asynchronous-dump). For details, refer to [asynchronous dump step](#asynchronous-dump-step).
 - Currently, Dump does not support heterogeneous training. If Dump is enabled in a heterogeneous training scenario, the generated Dump data object directory may not match the expected directory structure.
 
-The support for Synchronous Dump on Ascend backend is shown in the table below (GPU/CPU backend refers to the `O0/O1`)
+The support for Synchronous Dump is shown in the table below.
 
 <table align="center">
   <tr>
@@ -138,10 +138,10 @@ The support for Synchronous Dump on Ascend backend is shown in the table below (
   </tr>
 </table>
 
-> 1. In terms of statistics, the computing speed of the device is faster than that of the host(currently only supported on Ascend backend), but the host has more statistical indicators than the device. Refer to the `statistic_category` option for details.
+> 1. In terms of statistics, the computing speed of the device is faster than that of the host, but the host has more statistical indicators than the device. Refer to the `statistic_category` option for details.
 > 2. Only supported on the Ascend backend.
 
-The support for Asynchronous Dump on Ascend backend is shown in the table below (not supported on GPU/CPU backend).
+The support for Asynchronous Dump is shown in the table below.
 
 <table align="center">
   <tr>
