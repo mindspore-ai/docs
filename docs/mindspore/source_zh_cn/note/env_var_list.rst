@@ -52,12 +52,12 @@
        False: 关闭剩余磁盘空间检查
      - 默认值：True，在使用多个并发同时在共享存储上创建MindRecord时，建议设置为False。
    * - MS_INDEPENDENT_DATASET
-     - 是否开启Dataset独立进程模式，此时Dataset会运行于独立的子进程中，仅支持Linux平台
+     - 是否开启Dataset独立进程模式，此时Dataset会运行于独立的子进程中
      - String
      - True: 开启Dataset独立进程模式
 
        False: 关闭Dataset独立进程模式
-     - 默认值：False。当前功能处于Beta测试阶段，使用中遇到问题欢迎反馈。
+     - 默认值：False。
    * - OPTIMIZE
      - 是否执行dataset数据处理 pipeline 树优化，在适合数据处理算子融合的场景下，可以提升数据处理效率
      - String
