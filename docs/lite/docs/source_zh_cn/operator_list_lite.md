@@ -4,7 +4,7 @@
 
 MindSpore Lite支持不同硬件后端的算子列表：
 
-| 操作名 <br/>&nbsp;                  | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int32 | CPU<br/>Int8 | CPU<br/>UInt8 | CPU<br/>Bool | Mali/Adreno<br/>GPU FP16 | Mali/Adreno<br/>GPU FP32 | Mali/Adreno<br/>GPU Int32 | Mali/Adreno<br/>GPU Int8 | 麒麟NPU<br/>FP16 | 英伟达GPU<br/>FP16 | 昇腾<br/>FP16 |
+| 操作名 <br/>&nbsp;                  | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int32 | CPU<br/>Int8 | CPU<br/>UInt8 | CPU<br/>Bool | Mali/Adreno<br/>GPU FP16 | Mali/Adreno<br/>GPU FP32 | Mali/Adreno<br/>GPU Int32 | Mali/Adreno<br/>GPU Int8 | 麒麟NPU<br/>FP16 | 英伟达GPU<br/>FP16 | 昇腾<br/>FP16<sup>[5] |
 | ----------------------------------- | :----------: | :----------: | ------------- | :----------: | :-----------: | ------------ | :----------------------: | :----------------------: | ------------------------- | ------------------------ | :--------------------: | :----------------: | :----------------------: |
 | Abs                                 |      ✅       |      ✅       | ✅             |      ✅       |       ✅       |              |            ✅             |            ✅             |                           |                          |           ✅            |         ✅          |            ✅             |
 | AbsGrad                             |              |      ✅       |               |              |               |              |                          |                          |                           |                          |                        |                    |                          |
@@ -362,3 +362,5 @@ MindSpore Lite转换工具支持第三方框架的算子列表：
 [3] Sum与Max：仅支持输入个数为2。
 
 [4] [转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。
+
+[5] 当前支持使用环境变量export KEEP_ORIGIN_DTYPE=1来保持数据类型为int64，当使用int32数据类型存在溢出时可以考虑使用该选项，但是目前仅为实验性选项，后续将移除。

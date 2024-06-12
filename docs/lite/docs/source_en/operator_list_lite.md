@@ -4,7 +4,7 @@
 
 MindSpore Lite supports operator lists for different hardware backends:
 
-| Operation <br/>                  | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int32 | CPU<br/>Int8 | CPU<br/>UInt8 | CPU<br/>Bool | Mali/Adreno<br/>GPU FP16 | Mali/Adreno<br/>GPU FP32 | Mali/Adreno<br/>GPU Int32 | Mali/Adreno<br/>GPU Int8 | Kirin NPU<br/>FP16 | Nvidia GPU<br/>FP16 | Ascend<br/>FP16 |
+| Operation <br/>                  | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int32 | CPU<br/>Int8 | CPU<br/>UInt8 | CPU<br/>Bool | Mali/Adreno<br/>GPU FP16 | Mali/Adreno<br/>GPU FP32 | Mali/Adreno<br/>GPU Int32 | Mali/Adreno<br/>GPU Int8 | Kirin NPU<br/>FP16 | Nvidia GPU<br/>FP16 | Ascend<br/>FP16<sup>[5] |
 | ----------------------------------- | :----------: | :----------: | ------------- | :----------: | :-----------: | ------------ | :----------------------: | :----------------------: | ------------------------- | ------------------------ | :--------------------: | :----------------: | :----------------------: |
 | Abs                                 |      ✅       |      ✅       | ✅             |      ✅       |       ✅       |              |            ✅             |            ✅             |                           |                          |           ✅            |         ✅          |            ✅             |
 | AbsGrad                             |              |      ✅       |               |              |               |              |                          |                          |                           |                          |                        |                    |                          |
@@ -362,3 +362,5 @@ MindSpore Lite conversion tool supports operator lists for third-party framework
 [3] Sum and Max: Only support 2 inputs.
 
 [4] Operators supported by [converter](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) but do not require specific implementation. Generally, such operators are optimized by the conversion tool, such as being merged or replaced by other operators.
+
+[5] Currently, we support using the environment variable export KEEP_ORIGIN_DTYPE=1 to keep the data type int64, and this option can be considered when there is an overflow using int32 data type, but it is only an experimental option and will be removed later.
