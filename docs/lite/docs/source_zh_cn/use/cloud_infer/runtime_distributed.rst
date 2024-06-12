@@ -10,4 +10,5 @@
 
   runtime_distributed_cpp
   runtime_distributed_python
+  runtime_distributed_multicard_python
   
