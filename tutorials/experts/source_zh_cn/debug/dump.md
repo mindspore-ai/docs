@@ -474,18 +474,17 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
                             mapping.csv
 ```
 
-通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且图编译等级为O0时，Dump目录结构如下所示，主要特征为不存在{model_name}和{model_id}目录，此种场景下的动态shape算子的Dump数据会保存于{iteration_id}目录，静态shape算子的Dump数据会保存在{device_id}目录：
+通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且图编译等级为O0时，Dump目录结构如下所示，主要特征为不存在{model_name}、{model_id}和{iteration_id}目录，此种场景算子的Dump数据会保存在{device_id}目录：
 
 ```text
 {path}/
     - {step_id}/
         - {time}/
             - {device_id}/
-                - {iteration_id}/
-                    statistic.csv
-                    {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
-                    Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
-                    mapping.csv
+                statistic.csv
+                {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
+                Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
+                mapping.csv
 ```
 
 使能ACL dump时，除上述dump数据外，还会在{path}目录生成调用acl接口所需要的json文件，一般情况下无需关注。
@@ -602,4 +601,4 @@ Dump生成的原始数据文件也可以使用MindSpore Insight的数据解析�
 - `bfloat16`类型的算子保存到`npy`文件时，会转换成`float32`类型。
 - Dump仅支持bool、int、int8、in16、int32、int64、uint、uint8、uint16、uint32、uint64、float、float16、float32、float64、bfloat16、double类型数据的保存。
 - Print算子内部有一个输入参数为string类型，string类型不属于Dump支持的数据类型，所以在脚本中包含Print算子时，会有错误日志，这不会影响其它类型数据的保存。
-- 使能ACL dump时，不支持溢出Dump。
+- 使能ACL dump时，不支持同时使用set_context(ascend_config={"exception_dump": "2")配置轻量异常dump; 支持同时使用set_context(ascend_config={"exception_dump": "1")配置全量异常dump。
