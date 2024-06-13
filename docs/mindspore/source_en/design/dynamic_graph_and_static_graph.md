@@ -327,21 +327,23 @@ MindSpore provides PIJit, a feature that directly converts a user's dynamic grap
 #### PIJit Includes the Following Features
 
 - 1. Graph Capture: Pre-processing of bytecode, dynamically tracking the execution of the interpretation, recognizing MindSpore accessible graph operations, and providing split graph to ensure the correctness of function (bytecode) functionality.
-- 2. Bytecode Support: Currently supports Python 3.7 and Python 3.9 bytecode versions, and plans to support Python 3.8 and Python 3.10.
-- 3. Graph Optimization: Optimize the bytecode generated in the graph, including branch cropping, bytecode filtering, function bytecode inlining and other functions.
+- 2. Bytecode Support: Currently supports Python 3.7, Python 3.8, Python 3.9 and Python 3.10 version bytecode.
+- 3. Graph Optimization: Optimize the bytecode generated in the graph, including branch cropping, bytecode filtering, function bytecode inlining, constant folding and other functions.
 - 4. Exception Capture Mechanism: support for with, try-except syntax.
 - 5. Support loop processing: implement features such as graph capture and split graph by simulating the operation stack of bytecode.
 - 6. UD Analysis: The method of user-def chain analysis of variables solves the problem that some parameter types cannot be used as the return value of static graphs (Function, Bool, None), and reduces the useless parameters, improves the execution efficiency of the graphs, and reduces the copying of data.
 - 7. Side effect analysis and processing: to make up for the disadvantage of side effect processing of static graphs. According to different scenarios, collect and record the variables and byte codes that generate side effects, and supplement the processing of side effects outside the static graphs on the basis of guaranteeing the semantics of the program.
 - 8. Guard: The Guard records the conditions that need to be met by the inputs for the subgraph/optimization to enter, and checks if the inputs are suitable for the corresponding subgraph optimization.
 - 9. Cache：The graph management caches the subgraph/optimization and Guard correspondences.
-- **Plan to support Symbolic Shape**
+- 10. Dynamic Shape and Symbolic Shape: Use input_signature to support Dynamic Shape and Symbolic Shape for Tensor/Tensor List/Tensor Tuple as input prompts. Simultaneously supports automatic recognition of Dynamic Shape after multiple runs.
+- 11. Compiling by trace: Supports operator and other type derivations during tracking and bytecode analysis processes.
+- 12. Automatic mixed precision: Supports the automatic mixed precision capability of the native mindspore.nn.Cell.
 
 #### Usage
 
 def jit(fn=None, input_signature=None, hash_args=None, jit_config=None, mode="PIJit"):
 
-The original Jit function uses mode="PSJit", the new feature PIJit uses mode="PIJit", jit_config passes a dictionary of parameters that can provide some optimization and debugging options. For example: print_after_all can print the bytecode of the graph and split graph information, loop_unrolling can provide loop unrolling function.
+The original Jit function uses mode="PSJit", the new feature PIJit uses mode="PIJit", jit_config passes a dictionary of parameters that can provide some optimization and debugging options. For example: print_after_all can print the bytecode of the graph and split graph information, loop_unrolling can provide loop unrolling function, enable_dynamic_shape apply dynamic shape.
 
 #### Limitations
 
