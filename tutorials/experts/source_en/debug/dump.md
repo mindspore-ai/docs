@@ -235,7 +235,7 @@ The support for Asynchronous Dump on Ascend backend is shown in the table below 
         "e2e_dump_settings": {
             "enable": true,
             "trans_flag": true,
-            "save_kernel_args": false,
+            "save_kernel_args": true,
             "stat_calc_mode": "host",
             "save_kernel_args": false,
             "sample_mode": 0,
@@ -330,6 +330,7 @@ After starting the training, the data objects saved by the synchronous Dump incl
                 - {iteration_id}/
                     {op_type}.{op_name}.json
                     statistic.csv
+                    {op_type}.{op_name}.json
                     {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
                 - constants/
                     Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
