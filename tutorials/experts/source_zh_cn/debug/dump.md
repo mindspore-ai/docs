@@ -64,10 +64,10 @@ MindSpore提供了两种Dump模式：
 
 不同模式需要不同的配置文件，生成的数据格式也不同：
 
-- 在编译等级为O0/O1时，推荐使用[同步Dump](#同步dump)，具体参考[同步dump操作步骤](#同步dump操作步骤)；O2时推荐使用[异步Dump](#异步dump)，具体参考[异步dump操作步骤](#异步dump操作步骤)。
+- GPU/CPU后端和编译等级为O0/O1下的Ascend后端，推荐使用[同步Dump](#同步dump)，具体参考[同步dump操作步骤](#同步dump操作步骤)；编译等级为O2的Ascend后端推荐使用[异步Dump](#异步dump)，具体参考[异步dump操作步骤](#异步dump操作步骤)。
 - Dump暂不支持异构训练，如果在异构训练场景启用Dump，生成的Dump数据对象目录可能不符合预期的目录结构。
 
-同步Dump支持情况如下表。
+Ascend后端同步Dump支持情况如下表（GPU/CPU后端参考 `O0/O1` 列）。
 
 <table align="center">
   <tr>
@@ -138,10 +138,10 @@ MindSpore提供了两种Dump模式：
   </tr>
 </table>
 
-> 1. 在统计信息方面，device计算速度较host快，但host统计指标比device多，详见`statistic_category`选项。
+> 1. 在统计信息方面，device计算速度较host快（目前仅支持Ascend后端），但host统计指标比device多，详见`statistic_category`选项。
 > 2. 仅支持Ascend后端。
 
-异步Dump支持情况如下表。
+Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
 
 <table align="center">
   <tr>
@@ -403,7 +403,7 @@ ms_global_execution_order_graph_{graph_id}.csv
 
 此文件记录该图在训练过程中的执行轮次历史。图编译过程中，一张根图可能产生多张子图，但子图与根图具有相同的执行轮次历史。故与图执行序文件不同，此处仅保存根图的图执行历史文件。
 
-`.dump_metadata`记录了训练的原信息，其中`data_dump.json`保存了用户设置的dump配置。
+`.dump_metadata`记录了训练的原信息（Ascend后端无此目录），其中`data_dump.json`保存了用户设置的dump配置。
 
 ### 同步Dump数据分析样例
 
