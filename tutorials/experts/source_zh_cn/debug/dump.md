@@ -88,7 +88,8 @@ MindSpore提供了同步Dump与异步Dump两种模式：
         },
         "e2e_dump_settings": {
             "enable": true,
-            "trans_flag": true
+            "trans_flag": true,
+            "save_kernel_args": true
         }
     }
     ```
@@ -155,6 +156,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
         - {net_name}/
             - {graph_id}/
                 - {iteration_id}/
+                    {op_type}.{op_name}.json
                     statistic.csv
                     {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
                 - constants/
@@ -186,6 +188,8 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 对于多图网络，由于存在控制流，某些子图可能不会被执行，Dump只保存执行过的节点，所以graphs目录下`.pb`文件名中的{graph_id}并不一定在{net_name}下存在对应的{graph_id}目录。
 
 只当`saved_data`为"statistic"或者"full"时，才会生成`statistic.csv`，当`saved_data`为"tensor"或者"full"时，才会生成`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`命名的完整张量信息。
+
+只当`save_kernel_args`为`True`时，才会生成`{op_type}.{op_name}.json`，保存算子的初始化信息。
 
 ### 同步Dump数据文件介绍
 
