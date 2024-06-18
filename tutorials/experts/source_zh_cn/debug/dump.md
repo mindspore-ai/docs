@@ -501,8 +501,8 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
 - `iteration_id`：GE侧训练的轮次。
 - `op_type`：算子类型。
 - `op_name`：算子名称。
-- `task_id`：任务标号。
-- `stream_id`：流标号。
+- `task_id`：任务标号，如果获取不到，默认为65535。
+- `stream_id`：流标号，如果获取不到，默认为65535。
 - `timestamp`：时间戳。
 - `step_id`: 用户侧的训练轮次。
 
