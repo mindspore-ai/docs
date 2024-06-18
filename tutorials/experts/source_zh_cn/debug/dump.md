@@ -89,7 +89,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
         "e2e_dump_settings": {
             "enable": true,
             "trans_flag": true,
-            "save_kernel_args": true
+            "save_kernel_args": false
         }
     }
     ```

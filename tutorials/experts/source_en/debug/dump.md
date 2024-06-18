@@ -90,7 +90,7 @@ The configuration files required for different modes and the data format of dump
         "e2e_dump_settings": {
             "enable": true,
             "trans_flag": true,
-            "save_kernel_args": true
+            "save_kernel_args": false
         }
     }
     ```
