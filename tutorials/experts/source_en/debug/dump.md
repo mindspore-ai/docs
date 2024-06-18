@@ -497,8 +497,8 @@ When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and the graph compilation le
 - `iteration_id`: the iteration of the training.
 - `op_type`: the type of the operator.
 - `op_name`: the name of the operator.
-- `task_id`: the id of the task.
-- `stream_id`: the id of the stream.
+- `task_id`: the id of the task, if unable to fetch the value, the default is set to 65535.
+- `stream_id`: the id of the stream, if unable to fetch the value, the default is set to 65535.
 - `timestamp`: the time stamp.
 - `step_id`: user side training step id.
 
