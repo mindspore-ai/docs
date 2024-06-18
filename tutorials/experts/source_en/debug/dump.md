@@ -89,7 +89,8 @@ The configuration files required for different modes and the data format of dump
         },
         "e2e_dump_settings": {
             "enable": true,
-            "trans_flag": true
+            "trans_flag": true,
+            "save_kernel_args": true
         }
     }
     ```
@@ -156,6 +157,7 @@ After starting the training, the data objects saved by the synchronous Dump incl
         - {net_name}/
             - {graph_id}/
                 - {iteration_id}/
+                    {op_type}.{op_name}.json
                     statistic.csv
                     {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
                 - constants/
@@ -187,6 +189,8 @@ After starting the training, the data objects saved by the synchronous Dump incl
 For multi-graph networks, due to the control flow, some subgraphs may not be executed, but Dump only saves the executed nodes, so the {graph_id} in the `.pb` file name in the graphs directory does not necessarily exist in the {graph_id} directory under {net_name}.
 
 Only when `saved_data` is "statistic" or "full", `statistic.csv` is generated. Only when `saved_data` is "tensor" or "full", `{op_type}. {op_name}. {task_id}. {stream_id}. {timestamp}. {input_output_index}. {slot}. {format}.npy` named complete tensor information is generated.
+
+Only when `save_kernel_args` is `True`, `{op_type}.{op_name}.json` is generated and the params of the corresponding operators is saved.
 
 ### Introduction to Synchronous Dump Data File
 
