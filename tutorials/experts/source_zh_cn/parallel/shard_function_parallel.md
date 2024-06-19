@@ -1,12 +1,18 @@
 # 函数式算子切分
 
+<<<<<<< HEAD:tutorials/experts/source_zh_cn/parallel/pynative_shard_function_parallel.md
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/pynative_shard_function_parallel.md)
+=======
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/experts/source_zh_cn/parallel/shard_function_parallel.md)
+>>>>>>> c5151c624a (cell.shard/ms.shard文档修改):tutorials/experts/source_zh_cn/parallel/shard_function_parallel.md
 
 ## 概述
 
-动态图支持语法更丰富，使用更为灵活，但是目前MindSpore的动态图模式不支持自动并行的各种特性。我们设计了shard函数，支持在动态图模式下，指定某一部分以图模式执行，并且执行各种并行操作。
+动态图支持语法更丰富，使用更为灵活，但是目前MindSpore的动态图模式不支持自动并行的各种特性；另外静态图当前仅支持通过给算子配置策略来实现不同的并行方式。针对这些问题，我们设计了函数式算子切分`shard`函数，与已有的`Primitive.shard()`方法不同，该函数以cell或function为单位设置并行策略。
 
-> 当前函数式算子切分仅支持在并行模式为"auto_parallel"且策略搜索算法为"sharding_propagation"下使用。
+在动态图模式下，指定某一部分以图模式执行，并且执行各种并行操作；图模式下也可以使用该接口，指定某个模块的切分策略，其它未指定的模块会通过策略传播"sharding_propagation"自动配置策略。
+
+> 当前函数式算子切分仅支持""auto_parallel"与"semi_auto_parallel"，并自动将策略搜索算法设置为"sharding_propagation"。
 
 相关接口：
 
@@ -35,13 +41,19 @@ MindSpore的动态图模式下，可以通过`@jit`的装饰符，指定某一�
 
 Shard function沿用此模式，不同的是可以在图模式编译执行的环节进行算子级别的模型并行。
 
+MindSpore的图模式下，Shard function与Primitive.shard()类似，设置某个模块输入及其涉及的权重的切分策略。
+
 ## 操作实践
 
 ### 样例代码说明
 
 >你可以在这里下载完整的样例代码：
 >
+<<<<<<< HEAD:tutorials/experts/source_zh_cn/parallel/pynative_shard_function_parallel.md
 ><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/pynative_shard_function_parallel>。
+=======
+><https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/shard_function_parallel>。
+>>>>>>> c5151c624a (cell.shard/ms.shard文档修改):tutorials/experts/source_zh_cn/parallel/shard_function_parallel.md
 
 目录结构如下：
 
@@ -63,7 +75,7 @@ Shard function沿用此模式，不同的是可以在图模式编译执行的环
 
 ### 导入相关包并设定执行模式
 
-如前所述，shard function会将动态图模式下某一部分以图模式执行算子级模型并行，因此使用shard function时需要设置模式为PyNative：
+如前所述，shard function支持图模式与PyNative模式，下面以PyNative模式为例：
 
 ```python
 import mindspore as ms
@@ -122,7 +134,7 @@ class Net(nn.Cell):
         return x
 ```
 
-- 通过Cell成员方法`shard`进行自调用
+- 通过Cell成员方法`shard`进行自调用，返回分布式执行的函数fn。
 
     ```python
     class Net1(Net):
@@ -131,12 +143,15 @@ class Net(nn.Cell):
             self.flatten = nn.Flatten()
             self.layer1 = nn.Dense(28*28, 128)
             self.layer2 = nn.Dense(128, 10)
+            # 沿输入第二维进行切片，使得输出变成数据并行排布
+            self.block1_shard = self.block1.shard(in_strategy=((1, 8),),
+                                                  parameter_plan={'self.block1.dense2.weight': (8, 1)})
 
         def construct(self, x):
             x = self.flatten(x)
             x = self.layer1(x)
             # block1在图模式执行
-            x = self.block1(x)
+            x = self.block1_shard(x)
             # block2和block3在PyNative模式执行
             x = self.block2(x)
             x = self.block3(x)
@@ -144,8 +159,6 @@ class Net(nn.Cell):
             return x
 
     net = Net1()
-    # 沿输入第二维进行切片，使得输出变成数据并行排布
-    net.block1.shard(in_strategy=((1, 8),), parameter_plan={'self.block1.dense2.weight': (8, 1)})
     ```
 
 - 使用函数式接口`mindspore.shard`，由于`shard`函数的返回值为函数，使用函数式接口的时候，不能将已经实例过的类赋值为`shard`的返回值，因为MindSpore不支持将类实例赋值为其它类型
@@ -175,15 +188,15 @@ class Net(nn.Cell):
     class Net2(Net):
         def __init__(self):
             # 把Cell实例通过ms.shard后的返回值设置为不同的名称
-            self.block1_graph = ms.shard(self.block1, in_strategy=((8, 1),),
-                                          parameter_plan={'self.block1.dense2.weight': (8, 1)})
-            self.block2.shard(in_strategy=((1, 8),))
+            self.block1_shard = ms.shard(self.block1, in_strategy=((8, 1),),
+                                         parameter_plan={'self.block1.dense2.weight': (8, 1)})
+            self.block2_shard = self.block2.shard(in_strategy=((1, 8),))
 
         def construct(self, x):
             # block1在图模式下执行，且沿着第一维切片
-            x = self.block1_graph(x)
+            x = self.block1_shard(x)
             # block2也在图模式下执行
-            x = self.block2(x)
+            x = self.block2_shard(x)
             # block3在PyNative模式下执行
             x = self.block3(x)
             return x
