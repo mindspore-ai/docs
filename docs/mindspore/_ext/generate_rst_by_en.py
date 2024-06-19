@@ -17,12 +17,12 @@ def get_api(fullname):
     api = eval(f"module_import.{api_name}")
     return api
 
-def generate_rst_by_en(ops_list, target_path, language='cn'):
+def generate_rst_by_en(sum_list, target_path, language='cn'):
     """Generate the rst file by the ops list."""
 
     exist_rst = []
     primi_auto = []
-    for i in ops_list:
+    for i in sum_list:
         if i.lower() == i:
             continue
         module_api = get_api(i)
@@ -64,6 +64,17 @@ def generate_rst_by_en(ops_list, target_path, language='cn'):
                 all_rst_content = cn_base_rst + \
                                   py_docs_indent.replace('is equivalent to', '等价于')\
                                   .replace('Refer to', '更多详情请查看：').replace('for more details.', '。')
+                mint_rp = re.findall(rf':func:`[^`]+?\.ops\.(([^`]+?)(?<!_ext)(`|_ext`))', all_rst_content)
+                if mint_rp and target_path.endswith('mint'):
+                    b_name = i.split('.')[-1]
+                    usename = i.replace('mindspore.', '')
+                    all_rst_content = re.sub(rf'ops\.{b_name}(Ext)?', usename, all_rst_content)
+                    old_rp = mint_rp[0][0].replace('`', '')
+                    new_rp = mint_rp[0][1]
+                    if 'mindspore.mint.nn.functional.'+new_rp in sum_list:
+                        all_rst_content = all_rst_content.replace(f'ops.{old_rp}', 'mint.nn.functional.'+new_rp)
+                    elif 'mindspore.mint.'+new_rp in sum_list:
+                        all_rst_content = all_rst_content.replace(f'ops.{old_rp}', 'mint.'+new_rp)
                 if os.path.exists(os.path.join(target_path, i + '.rst')):
                     exist_rst.append(i)
                 with open(os.path.join(target_path, i + '.rst'), "w", encoding='utf-8') as f:

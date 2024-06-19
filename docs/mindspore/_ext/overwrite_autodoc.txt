@@ -29,7 +29,7 @@ from sphinx.ext.autodoc.importer import (get_class_members, get_object_members, 
 from sphinx.ext.autodoc.mock import ismock, mock, undecorate
 from sphinx.locale import _, __
 from sphinx.pycode import ModuleAnalyzer, PycodeError
-from sphinx.util import inspect, logging
+from sphinx.util import inspect, logging, get_full_modname
 from sphinx.util.docstrings import prepare_docstring, separate_metadata
 from sphinx.util.inspect import (evaluate_signature, getdoc, object_description, safe_getattr,
                                  stringify_signature)
@@ -564,13 +564,21 @@ class Documenter:
                           RemovedInSphinx50Warning, stacklevel=2)
         docstring = getdoc(self.object, self.get_attr, self.config.autodoc_inherit_docstrings,
                            self.parent, self.object_name)
+        spec_tp = [('ops.dense', 'ops.linear'), ('ops.inverse_ext', ['mint.linalg.inv', 'mint.inverse'])]
         if docstring and '.mint.' in self.fullname:
             b_name = self.fullname.split('.')[-1]
             usename = self.fullname.replace('mindspore.', '')
             mint_doc = re.sub('(\s+- GPU/CPU:.*\n|\s+- GPU:.*\n)', r'', docstring)
-            mint_doc = re.sub('(Alias for.*?:(func|class):`[^`]+?\.)ops\.', r'\1mint.', mint_doc)
+            mint_doc = re.sub('(Alias for.*?:(func|class):`[^`]+?\.)ops\.([^`]+?)(?<!_ext)(`|_ext`)', r'\1mint.\3`', mint_doc)
             mint_doc = re.sub('(Supported Platforms:\n\s+?)`.*\n', r'\1``Ascend``\n', mint_doc)
-            mint_doc = re.sub('(>>> from mindspore import .*?)ops', r'\1mint', mint_doc)
+            mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', mint_doc)
+            for j in spec_tp:
+                if isinstance(j[0], list) and j[0] in mint_doc and usename in j[1]:
+                    mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{usename}', mint_doc)
+                    break
+                elif isinstance(j[0], str) and j[0] in mint_doc:
+                    mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', mint_doc)
+                    break
             docstring = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext)?', rf'\1{usename}', mint_doc)
         if docstring:
             tab_width = self.directive.state.document.settings.tab_width
@@ -1763,15 +1771,33 @@ class ClassDocumenter(DocstringSignatureMixin, ModuleLevelDocumenter):  # type: 
                     docstrings = [initdocstring]
                 else:
                     docstrings.append(initdocstring)
+        spec_tp = [('ops.dense', 'ops.linear')]
         if docstrings and '.mint.' in self.fullname:
             b_name = self.fullname.split('.')[-1]
             usename = self.fullname.replace('mindspore.', '')
+            try:
+                py_source_rel = get_full_modname(self.modname, b_name).replace('.', '/') + '.py'
+            except:
+                py_source_rel = ''
             for i in range(len(docstrings)):
                 mint_doc = re.sub('(\s+- GPU/CPU:.*\n|\s+- GPU:.*\n)', r'', docstrings[i])
-                mint_doc = re.sub('(Alias for.*?:(func|class):`[^`]+?\.)ops\.', r'\1mint.', mint_doc)
+                mint_doc = re.sub('(Alias for.*?:(func|class):`[^`]+?\.)ops\.([^`]+?)(?<!_ext)(`|_ext`)', r'\1mint.\3`', mint_doc)
                 mint_doc = re.sub('(Supported Platforms:\n\s+?)`.*\n', r'\1``Ascend``\n', mint_doc)
-                mint_doc = re.sub('(>>> from mindspore import .*?)ops', r'\1mint', mint_doc)
+                mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', mint_doc)
                 mint_doc = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext)?', rf'\1{usename}', mint_doc)
+                mint_rp = ''
+                if 'mindspore/ops/auto_generate/' in py_source_rel and 'is equivalent to' in mint_doc:
+                    mint_doc = re.sub(rf'ops\.{b_name}(Ext)?', usename, mint_doc)
+                    mint_rp = re.findall(rf':func:`[^`]+?\.ops\.(([^`]+?)(?<!_ext)(`|_ext`))', mint_doc)
+                if mint_rp:
+                    old_rp = mint_rp[0][0].replace('`', '')
+                    new_rp = mint_rp[0][1]
+                    if 'mindspore.mint.nn.functional.'+new_rp in self.config.mint_sum:
+                        mint_doc = mint_doc.replace(f'ops.{old_rp}', 'mint.nn.functional.'+new_rp)
+                    elif 'mindspore.mint.'+new_rp in self.config.mint_sum:
+                        mint_doc = mint_doc.replace(f'ops.{old_rp}', 'mint.'+new_rp)
+                for j in spec_tp:
+                    mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', mint_doc)
                 docstrings[i] = mint_doc
 
         tab_width = self.directive.state.document.settings.tab_width

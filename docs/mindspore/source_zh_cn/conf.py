@@ -311,6 +311,16 @@ def ops_interface_name():
 
     return primi_list
 
+# 获取mint下汇总接口列表
+def mint_interface_name():
+    mint_p = 'mindspore.mint.rst'
+    src_target_path = os.path.join(src_dir, mint_p)
+    with open(src_target_path,'r+',encoding='utf8') as f:
+        content =  f.read()
+    mint_list = re.findall(r"    (mindspore\.mint\..*)\n", content+'\n')
+
+    return mint_list
+
 # 删除并获取nn下多余的接口文件名
 def nn_interface_name():
     interface_name_list = []
@@ -384,6 +394,28 @@ def scipy_interface_name():
                     extra_write_list.append(k)
             g.write(str(extra_write_list))
 
+# Convert encoding for api files.
+import chardet
+import codecs
+
+api_file_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'api_python')
+
+def convert2utf8(filename):
+    f = codecs.open(filename, 'rb')
+    content = f.read()
+    source_encoding = chardet.detect(content)['encoding']
+    if source_encoding == None:
+        pass
+    elif source_encoding != 'utf-8' and source_encoding != 'UTF-8-SIG':
+        content = content.decode(source_encoding, 'ignore')
+        codecs.open(filename, 'w', encoding='UTF-8-SIG').write(content)
+    f.close()
+
+for root, dirs, files in os.walk(api_file_dir, topdown=True):
+    for file_ in files:
+        if '.rst' in file_ or '.txt' in file_:
+            convert2utf8(os.path.join(root, file_))
+
 # Rename .rst file to .txt file for include directive.
 from rename_include import rename_include
 
@@ -415,7 +447,7 @@ re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.
 
 for cur, _, files in os.walk(des_sir):
     for i in files:
-        if i.endswith('.rst') or i.endswith('.md'):
+        if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
             try:
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                     content = f.read()
@@ -464,6 +496,8 @@ except Exception as e:
 
 primitive_list = ops_interface_name()
 
+mint_sum = mint_interface_name()
+
 try:
     nn_interface_name()
     tensor_interface_name()
@@ -477,6 +511,19 @@ from generate_rst_by_en import generate_rst_by_en
 exist_rst_file, primi_auto = generate_rst_by_en(primitive_list, './api_python/ops')
 if exist_rst_file:
     print(f'自动生成 ops API 中文时被覆盖的rst文件如下：\n{exist_rst_file}')
+
+exist_rst_file, mint_auto = generate_rst_by_en(mint_sum, './api_python/mint')
+if exist_rst_file:
+    print(f'自动生成 mint API 中文的rst文件如下：\n{exist_rst_file}')
+
+# auto generate rst for mint from ops
+
+from generate_ops_mint_rst import generate_ops_mint_rst
+
+try:
+    generate_ops_mint_rst(repo_path, os.path.join(src_dir, 'ops'), "./api_python/mint")
+except Exception as e:
+    print(e)
 
 from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnPlatWarnAutoSummary
 
@@ -492,29 +539,6 @@ def setup(app):
     app.add_config_value('rst_files', set(), False)
     app.add_directive('includecode', IncludeCodeDirective)
     app.add_js_file('js/mermaid-9.3.0.js')
-
-
-# Convert encoding for api files.
-import chardet
-import codecs
-
-api_file_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'api_python')
-
-def convert2utf8(filename):
-    f = codecs.open(filename, 'rb')
-    content = f.read()
-    source_encoding = chardet.detect(content)['encoding']
-    if source_encoding == None:
-        pass
-    elif source_encoding != 'utf-8' and source_encoding != 'UTF-8-SIG':
-        content = content.decode(source_encoding, 'ignore')
-        codecs.open(filename, 'w', encoding='UTF-8-SIG').write(content)
-    f.close()
-
-for root, dirs, files in os.walk(api_file_dir, topdown=True):
-    for file_ in files:
-        if '.rst' in file_ or '.txt' in file_:
-            convert2utf8(os.path.join(root, file_))
 
 src_release = os.path.join(repo_path, 'RELEASE_CN.md')
 des_release = "./RELEASE.md"
