@@ -52,7 +52,7 @@ def copy_source(sourcedir, des_sir, cp_rel_path, fp_list=''):
         for fp in fp_list:
             if not os.path.exists(os.path.split(os.path.join(des_sir, fp.split(cp_rel_path)[-1]))[0]):
                 os.makedirs(os.path.split(os.path.join(
-                    des_sir, fp.split(cp_rel_path)[-1]))[0])
+                    des_sir, fp.split(cp_rel_path)[-1]))[0], exist_ok=True)
             if not os.path.exists(os.path.join(des_sir, fp.split(cp_rel_path)[-1])):
                 shutil.copy(fp, os.path.join(
                     des_sir, fp.split(cp_rel_path)[-1]))
@@ -67,7 +67,7 @@ def copy_source(sourcedir, des_sir, cp_rel_path, fp_list=''):
                         continue
                     if not os.path.exists(os.path.join(des_sir, root.split(cp_rel_path)[-1])):
                         os.makedirs(os.path.join(
-                            des_sir, root.split(cp_rel_path)[-1]))
+                            des_sir, root.split(cp_rel_path)[-1]), exist_ok=True)
                     shutil.copy(os.path.join(root, file),
                                 os.path.join(des_sir, root.split(cp_rel_path)[-1], file))
                 # pylint: disable=W0702
@@ -108,6 +108,8 @@ def get_all_copy_list(pr_list, rp_n, branch, repo_path):
     print(pr_list, rp_n, branch, repo_path)
     file_list = []
     for i in pr_list:
+        if i == 'need_auto':
+            continue
         raw_url = f'https://gitee.com/mindspore/{rp_n}/raw/{branch}/{i}'
         if raw_url.endswith('.rst'):
             raw_content = requests.get(raw_url).text
@@ -228,6 +230,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/nn/probability/bijector', 'mindspore.nn.probability.bijector'],
         ['mindspore/python/mindspore/nn/extend', 'mindspore.nn.extend'],
         ['mindspore/python/mindspore/nn', 'mindspore.nn'],
+        ['mindspore/python/mindspore/dataset/vision', 'mindspore.dataset.vision'],
         ['mindspore/python/mindspore/dataset/text', 'mindspore.dataset.text'],
         ['mindspore/python/mindspore/dataset/audio', 'mindspore.dataset.audio'],
         ['mindspore/python/mindspore/dataset/core/config.py', 'mindspore.dataset.config'],
@@ -380,11 +383,12 @@ def make_index_rst(target_path, language_f):
                     content += f"    api_python{rt.split('api_python')[-1]}/*\n"
                     dir_set.add(rt.split('api_python')[-1])
 
+    content += "    api_python/mint/*\n"
     with open(os.path.join(target_path, 'index.rst'), 'w+', encoding='utf-8') as f:
         f.write(content)
 
 
-def hanlde_config(pf_cn, pf_py, pf_yaml, target_path, repo_p):
+def handle_config(pf_cn, pf_py, pf_yaml, pf_sum, target_path, repo_p, pr_need):
     """
     modify config content.
     """
@@ -395,7 +399,10 @@ def hanlde_config(pf_cn, pf_py, pf_yaml, target_path, repo_p):
             conf_content = conf_content.replace('\ncopy_source(', '\n# copy_source(')
             conf_content = conf_content.replace('primitive_list = ops_interface_name()',
                                                 'primitive_list = ops_interface_name()\nprimitive_list = []')
+            conf_content = conf_content.replace('mint_sum = mint_interface_name()',
+                                                f'mint_sum = mint_interface_name()\nmint_sum = {pr_need}')
             conf_content = conf_content.replace('os.getenv("MS_PATH")', f'"{repo_p}"')
+            conf_content = re.sub(r'(generate_ops_mint_rst\(.*)\)', rf'\1, pr_need={pr_need})', conf_content)
             h.seek(0)
             h.truncate()
             h.write(conf_content)
@@ -409,7 +416,7 @@ def hanlde_config(pf_cn, pf_py, pf_yaml, target_path, repo_p):
         # 改写index.rst，使生成文档目录
         source_path = os.path.join(target_path, 'source_zh_cn')
         make_index_rst(source_path, 'cn')
-    if pf_py or pf_yaml:
+    if pf_py or pf_yaml or pf_sum:
         with open(os.path.join(target_path, 'source_en', 'conf.py'), 'r+', encoding='utf-8') as h:
             conf_content = h.read()
             conf_content = conf_content.replace('\ncopy_image(', '\n# copy_image(').replace(
@@ -472,6 +479,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
     pr_file_cn = []
     # pr_file_en = []
     pr_file_yaml = []
+    auto_need = []
 
     generate_pr_list_en_sum = []
 
@@ -514,13 +522,16 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                                         '.'.join(api_name.split('.')[:-1])+'.func_'+api_name.split('.')[-1]+'.rst')
                                     path3 = os.path.join(
                                         rp_dir, split_dict['mindspore_cn'], sum_p,
-                                        '.'.join(api_name.split('.')[:-1])+'.func_'+api_name.split('.')[-1]+'.rst')
+                                        '.'.join(api_name.split('.')[:-1])+'.method_'+api_name.split('.')[-1]+'.rst')
                                     if os.path.exists(path1):
                                         pr_file_cn.append(path1.split(rp_dir)[-1][1:])
                                     elif os.path.exists(path2):
                                         pr_file_cn.append(path2.split(rp_dir)[-1][1:])
                                     elif os.path.exists(path3):
                                         pr_file_cn.append(path3.split(rp_dir)[-1][1:])
+                                    elif re.findall(r'mindspore\.mint\.(?!nn).*', api_name):
+                                        pr_file_cn.append('need_auto')
+                                        auto_need.append(api_name)
                                     break
                         continue
                 if os.path.exists(os.path.join(rp_dir, filename)) and filename not in white_list:
@@ -604,7 +615,8 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
     generate_path = rp_dir_docs + f"/docs/{re.findall('([^/]+?)/pulls/', file_url)[0]}"
 
     # 没有需要生成的API时直接退出
-    if not pr_file_yaml and not pr_file_py and not pr_file_cn:
+    if not pr_file_yaml and not pr_file_py and not pr_file_cn and not generate_pr_list_en_sum:
+        print('未检测到修改API相关内容，无生成！')
         return generate_path, 0, 0
 
     # 提取出修改的英文接口名
@@ -626,7 +638,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
         generate_apien_list = get_rst_en(generate_pr_list_en_auto)
 
     # autosummary
-    print(f'从汇总页中提取到的api如下：\n{generate_pr_list_en_auto}')
+    print(f'从汇总页中提取到的api如下：\n{generate_pr_list_en_sum}')
     generate_apien_sum_list = get_rst_en(generate_pr_list_en_sum)
 
     if pr_file_py or pr_file_yaml or generate_apien_sum_list:
@@ -661,7 +673,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
         copy_image(os.path.join(rp_dir, 'docs/api/api_python'),
                    os.path.join(generate_path, 'source_zh_cn', 'api_python'))
 
-    hanlde_config(pr_file_cn, pr_file_py, pr_file_yaml, generate_path, rp_dir)
+    handle_config(pr_file_cn, pr_file_py, pr_file_yaml, generate_apien_sum_list, generate_path, rp_dir, auto_need)
 
     return generate_path, cn_flag, en_flag
 

@@ -110,6 +110,9 @@ def doctree_read(app: Sphinx, doctree: Node) -> None:
             elif 'mindspore.mint' in refname and fullname + 'Ext' in tags:
                 used[fullname+'Ext'] = docname
                 return True
+            elif 'mindspore.mint' in refname and fullname + '_ext' in tags:
+                used[fullname+'_ext'] = docname
+                return True
             else:
                 used[fullname] = docname
                 return True
@@ -166,6 +169,8 @@ def doctree_read(app: Sphinx, doctree: Node) -> None:
                     _, tags, used, _ = entry
                     if fullname + 'Ext' in tags:
                         fullname += 'Ext'
+                    elif fullname + '_ext' in tags:
+                        fullname += '_ext'
             pagename = posixpath.join(OUTPUT_DIRNAME, modname.replace('.', '/'))
             signode += viewcode_anchor(reftarget=pagename, refid=fullname, refdoc=env.docname)
 

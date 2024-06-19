@@ -284,10 +284,21 @@ def ops_interface_name():
 
     return primi_list
 
+def mint_interface_name():
+    mint_p = 'mindspore.mint.rst'
+    src_target_path = os.path.join(src_dir_en, mint_p)
+    with open(src_target_path,'r+',encoding='utf8') as f:
+        content =  f.read()
+    mint_list = re.findall(r"    (mindspore\.mint\..*)\n", content+'\n')
+
+    return mint_list
+
 try:
     primitive_list = ops_interface_name()
 except:
     pass
+
+mint_sum = mint_interface_name()
 
 # auto generate rst by en
 from generate_rst_by_en import generate_rst_by_en
@@ -368,6 +379,7 @@ def setup(app):
     app.add_config_value('ops_yaml_list', [], True)
     app.add_config_value('primi_auto', [], True)
     app.add_config_value('func_name_dict', {}, True)
+    app.add_config_value('mint_sum', [], True)
 
 # Copy images from mindspore repo.
 import imghdr
