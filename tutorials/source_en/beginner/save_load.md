@@ -52,9 +52,10 @@ print(param_not_load)
 
 ## Saving and Loading MindIR
 
-In addition to Checkpoint, MindSpore provides a unified [Intermediate Representation (IR)](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir) for cloud side (training) and end side (inference). Models can be saved as MindIR directly by using the `export` interface.
+In addition to Checkpoint, MindSpore provides a unified [Intermediate Representation (IR)](https://www.mindspore.cn/docs/en/master/design/all_scenarios.html#mindspore-ir-mindir) for cloud side (training) and end side (inference). Models can be saved as MindIR directly by using the `export` interface (only support strict graph mode).
 
 ```python
+mindspore.set_context(mode=mindspore.GRAPH_MODE, jit_syntax_level=mindspore.STRICT)
 model = network()
 inputs = Tensor(np.ones([1, 1, 28, 28]).astype(np.float32))
 mindspore.export(model, inputs, file_name="model", file_format="MINDIR")
@@ -67,8 +68,6 @@ The existing MindIR model can be easily loaded through the `load` interface and 
 > `nn.GraphCell` only supports graph mode.
 
 ```python
-mindspore.set_context(mode=mindspore.GRAPH_MODE)
-
 graph = mindspore.load("model.mindir")
 model = nn.GraphCell(graph)
 outputs = model(inputs)
