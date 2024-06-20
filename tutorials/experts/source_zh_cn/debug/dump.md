@@ -235,6 +235,7 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
         "e2e_dump_settings": {
             "enable": true,
             "trans_flag": true,
+            "save_kernel_args": false,
             "stat_calc_mode": "host",
             "save_kernel_args": false,
             "sample_mode": 0,
