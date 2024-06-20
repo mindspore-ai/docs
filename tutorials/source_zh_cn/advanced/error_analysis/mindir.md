@@ -26,24 +26,21 @@ if __name__ == "__main__":
 
 ```text
 .
-├──00_parse_0000.ir
-├──00_parse_0001.dot
-├──01_symbol_resolve_0002.ir
-├──01_symbol_resolve_0003.dot
-├──02_combine_like_graphs_0004.ir
-├──02_combine_like_graphs_0005.dot
-├──03_inference_opt_prepare_0006.ir
-├──03_inference_opt_prepare_0007.dot
-├──04_abstract_specialize_0008.ir
-├──04_abstract_specialize_0009.dot
+├──00_bootstrap_0000.ir
+├──00_bootstrap_0001.dot
+├──01_type_inference_0002.ir
+├──01_type_inference_0003.dot
+├──02_graph_reusing_0004.ir
+├──02_graph_reusing_0005.dot
+├──03_auto_monad_0006.ir
+├──03_auto_monad_0007.dot
 ...
 ```
 
 其中以数字下划线开头的IR文件是在前端编译图过程中生成的，编译过程中各阶段分别会保存一次计算图。下面介绍图编译过程中比较重要的阶段:
 
-- `parse`阶段负责解析入口函数，该阶段会初步生成MindIR，如果查看IR文件，我们能观察到该阶段仅仅解析了顶层Cell的图信息；
-- `symbol_resolve`阶段负责进一步解析入口函数，主要是递归解析入口函数直接或间接引用到的其他函数和对象。如果使用了尚不支持的语法，一般会在此阶段出错；
-- `abstract_specialize`阶段，会根据输入信息推导出IR中所有节点的数据类型和形状信息。当需要查看IR中具体算子的形状或数据类型，可查看该IR文件；
+- `bootstrap`阶段负责解析入口函数，该阶段会初步生成MindIR，如果查看IR文件，我们能观察到该一个基础的解析节点，代表图的入口函数，以及一个相应的有必需参数的调用节点。
+- `type_inference`阶段负责类型推导和符号解析。该阶段递归地解析程序的入口函数，解析对其他函数和对象的引用，并推断所有节点的数据类型和形状信息。与不支持的语法或未解决的引用相关的错误会在这个阶段被标记出来，为开发者提供早期反馈。
 - `optimize`阶段负责硬件无关的优化，自动微分与自动并行功能也是在该阶段展开。该阶段又可细分为若干个子阶段，在IR文件列表中，其中以`opt_pass_[序号]`为前缀的文件分别是这些子阶段结束后保存的IR文件，非框架开发人员无需过多关注；
 - `validate`阶段负责校验编译出来的计算图，如果到此阶段IR中还有仅临时使用的内部算子，则会报错退出；
 - `task_emit`阶段负责将计算图传给后端进一步处理；
@@ -88,109 +85,158 @@ print(out)
 
 ### ir文件介绍
 
-使用文本编辑软件（例如`vi`）打开执行完后输出的IR文件`14_validate_0042.ir`，内容如下所示（此处版本为MindSpore 2.1，后续版本中内容可能会有一些细微变化）：
+使用文本编辑软件（例如`vi`）打开执行完后输出的IR文件`18_execute_0161.ir`，内容如下所示（此处版本为MindSpore 2.3，后续版本中内容可能会有一些细微变化）：
 
 ```text
-  1 # IR entry: @20_1___main___Net_construct.295
+  1 # IR entry: @19_1___main___Net_construct_304
   2 # Total subgraphs: 3
   3
   4 # Attrs:
-  5 check_set_strategy_valid_once_only : 1
-  6 auto_parallel_finish_pre_action : 1
-  7
-  8 # Total params: 2
-  9 # Params:
- 10 %para1_x : <Tensor[Float32], ()>
- 11 %para2_y : <Tensor[Float32], ()>
- 12
- 13 subgraph attr:
- 14 check_set_strategy_valid_once_only : 1
- 15 auto_parallel_finish_pre_action : 1
- 16 subgraph instance: 20_1___main___Net_construct.295 : 0x55da18f612a0
- 17 # In file t6.py:15/    def construct(self, x, y):/
- 18 subgraph @20_1___main___Net_construct.295() {
- 19   %0(a) = Sub(%para1_x, Tensor(shape=[], dtype=Float32, value=1)) primitive_attrs: {output_names: [output], input_names: [x, y]}
- 20       : (<Tensor[Float32], ()>, <Tensor[Float32], (), value=...>) -> (<Tensor[Float32], ()>)
- 21       # Scope: (Default)
- 22       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:839/    return tensor_sub(input, other)/
- 23   %1(b) = Add(%0, %para2_y) primitive_attrs: {output_names: [output], input_names: [x, y]}
- 24       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 25       # Scope: (Default)
- 26       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:316/    return _get_cache_prim(P.Add)()(input, other)/
- 27   %2([CNode]273) = Cast(%1, Bool) primitive_attrs: {output_names: [output], input_names: [x, dst_type], SrcT: F32, DstT: Bool}
- 28       : (<Tensor[Float32], ()>, <TypeType, NoShape>) -> (<Tensor[Bool], ()>)
- 29       # Scope: (Default)
- 30       # In file /workspace/mindspore/build/package/mindspore/_extends/parse/standard_method.py:3359/    return F.cast(x, mstype.bool_)/
- 31   %3([CNode]298) = Partial(@21_3_✓__main___Net_construct.296, %1, %0) primitive_attrs: {side_effect_propagate: I64(1)}
- 32       : (<Func, NoShape>, <Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Func, NoShape>)
- 33       # Scope: (Default)
- 34   %4([CNode]299) = Partial(@22_15_✗__main___Net_construct.297, %1) primitive_attrs: {side_effect_propagate: I64(1)}
- 35       : (<Func, NoShape>, <Tensor[Float32], ()>) -> (<Func, NoShape>)
- 36       # Scope: (Default)
- 37   %5([CNode]9) = Switch(%2, %3, %4)
- 38       : (<Tensor[Bool], ()>, <Func, NoShape>, <Func, NoShape>) -> (<Func, NoShape>)
- 39       # Scope: (Default)
- 40       # In file t6.py:18/        if b :/
- 41   %6([CNode]12) = %5[@FuncUnion(@21_3_✓__main___Net_construct.296, @22_15_✗__main___Net_construct.297)]()
- 42       : () -> (<Tensor[Float32], ()>)
- 43       # Scope: (Default)
- 44       # In file t6.py:18/        if b :/
- 45   Return(%6)
- 46       : (<Tensor[Float32], ()>)
- 47       # Scope: (Default)
- 48       # In file t6.py:18/        if b :/
- 49 }
- 50
- 51
- 52 switch_input: 1
- 53 subgraph attr:
- 54 defer_inline : 0
- 55 undeterminate : 0
- 56 subgraph instance: 21_3_✓__main___Net_construct.296 : 0x55da18f59e20
- 57 # In file t6.py:18/        if b :/
- 58 subgraph @21_3_✓__main___Net_construct.296(%para3_b, %para4_a) {
- 59   %0([CNode]8) = Div(%para4_a, %para3_b) primitive_attrs: {output_names: [output], input_names: [x, y]}
- 60       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 61       # Scope: (Default)
- 62       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:998/    output = _get_cache_prim(P.Div)()(input, other)/
- 63   %1(b) = Mul(%para3_b, %0) primitive_attrs: {output_names: [output], input_names: [x, y]}
- 64       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 65       # Scope: (Default)
- 66       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:929/    return tensor_mul(input, other)/
- 67   Return(%1)
- 68       : (<Tensor[Float32], ()>)
- 69       # Scope: (Default)
- 70       # In file t6.py:19/            b = ops.mul(b, self.func(a, b))/
- 71 }
- 72
- 73
- 74 switch_input: 1
- 75 subgraph attr:
- 76 defer_inline : 0
- 77 undeterminate : 0
- 78 subgraph instance: 22_15_✗__main___Net_construct.297 : 0x55da18f62280
- 79 # In file t6.py:18/        if b :/
- 80 subgraph @22_15_✗__main___Net_construct.297(%para5_b) {
- 81   Return(%para5_b)
- 82       : (<Tensor[Float32], ()>)
- 83       # Scope: (Default)
- 84       # In file t6.py:18/        if b :/
- 85 }
+  5 has_shard: 0
+  6 has_attached: 1
+  7 jit_level:
+  8 check_set_strategy_valid_once_only: 1
+  9 FLASH_SP_RUN_ONCE_ONLY: 1
+ 10 pynative_run_in_graph: 0
+ 11 less_bn: 0
+ 12 auto_parallel_finish_pre_action: 1
+ 13
+ 14 # Total params: 2
+ 15 # Params:
+ 16 %para1_x: <Tensor[Float32], ()> : []
+ 17 %para2_y: <Tensor[Float32], ()> : []
+ 18
+ 19 Node counting information:
+ 20 Total number of nodes: 29
+ 21 Total number of cnodes: 12
+ 22
+ 23 subgraph attr:
+ 24 has_shard: 0
+ 25 has_attached: 1
+ 26 jit_level:
+ 27 check_set_strategy_valid_once_only: 1
+ 28 FLASH_SP_RUN_ONCE_ONLY: 1
+ 29 pynative_run_in_graph: 0
+ 30 less_bn: 0
+ 31 auto_parallel_finish_pre_action: 1
+ 32 subgraph instance: 19_1___main___Net_construct_304 : 0x135400418
+ 33 # In file t6.py:15~20, 4~16/    def construct(self, x, y):/
+ 34 subgraph @19_1___main___Net_construct_304() {
+ 35   %0(CNode_310$a) = PrimFunc_Sub(%para1_x, Tensor(shape=[], dtype=Float32, value=1)) cnode_attrs: {checkpoint: Bool(1), is_dynamic_len: Bool(0)}
+ 36       : (<Tensor[Float32], ()>, <Tensor[Float32], (), value=...>) -> (<Tensor[Float32], ()>)
+ 37       # Fullname with scope: (Default/Sub-op1)
+ 38       # In file t6.py:15~20, 4~16/    def construct(self, x, y):/
+ 39       # In file t6.py:16, 12~25/        a = ops.sub(x, 1)/
+ 40       # In file t6.py:16, 12~19/        a = ops.sub(x, 1)/<~~This line of code can be shared by multiple nodes, and may be duplicated./
+ 41       # In file /workspace/mindspore/build/package/mindspore/ops/auto_generate/gen_ops_def.py:5251~5294, 0~31/def sub(input, other):/
+ 42       # In file /workspace/mindspore/build/package/mindspore/ops/auto_generate/gen_ops_def.py:5294, 11~31/    return sub_op(input, other)/
+ 43   %1(CNode_309$b) = PrimFunc_Add(%0, %para2_y) cnode_attrs: {checkpoint: Bool(1), is_dynamic_len: Bool(0)}
+ 44       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 45       # Fullname with scope: (Default/Add-op1)
+ 46       # In file t6.py:15~20, 4~16/    def construct(self, x, y):/
+ 47       # In file t6.py:17, 12~25/        b = ops.add(a, y)/
+ 48       # In file t6.py:17, 12~19/        b = ops.add(a, y)/<~~This line of code can be shared by multiple nodes, and may be duplicated./
+ 49       # In file /workspace/mindspore/build/package/mindspore/ops/auto_generate/gen_ops_def.py:183~241, 0~31/def add(input, other):/
+ 50       # In file /workspace/mindspore/build/package/mindspore/ops/auto_generate/gen_ops_def.py:241, 11~31/    return add_op(input, other)/
+ 51   %2(CNode_308) = PrimFunc_Cast(%1, I64(30)) primitive_attrs: {output_names: [output], input_names: [x, dst_type]} cnode_attrs: {checkpoint: Bool(1), is_dynamic_len: Bool(0)}
+ 52       : (<Tensor[Float32], ()>, <Int64, NoShape>) -> (<Tensor[Bool], ()>)
+ 53       # Fullname with scope: (Default/Cast-op1)
+ 54       # In file /workspace/mindspore/build/package/mindspore/_extends/parse/standard_method.py:2747~2749, 0~23/def bool_(x):/
+ 55       # In file /workspace/mindspore/build/package/mindspore/_extends/parse/standard_method.py:2749, 11~23/    return x.__bool__()/
+ 56       # In file /workspace/mindspore/build/package/mindspore/_extends/parse/standard_method.py:2749, 11~21/    return x.__bool__()/<~~This line of code can be shared by multiple nodes, and may be duplicated./
+ 57       # In file /workspace/mindspore/build/package/mindspore/_extends/parse/standard_method.py:3267~3272, 0~34/def tensor_bool(x):/
+ 58       # In file /workspace/mindspore/build/package/mindspore/_extends/parse/standard_method.py:3270~3271, 4~38/    if is_cond and F.isconstant(x):/
+ 59       # In file /workspace/mindspore/build/package/mindspore/_extends/parse/standard_method.py:3272, 11~34/    return F.cast(x, mstype.bool_)/<~~This line of code can be shared by multiple nodes, and may be duplicated./
+ 60   %3(CNode_317) = Partial(@20_4_✓__main___Net_construct_311, %1, %0) primitive_attrs: {side_effect_propagate: I64(1)} cnode_attrs: {checkpoint: Bool(1)}
+ 61       : (<Func, NoShape>, <Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Func, NoShape>)
+ 62       # Fullname with scope: (Default/Partial-op0)
+ 63   %4(CNode_316) = Partial(@21_14_✗__main___Net_construct_314, %1) primitive_attrs: {side_effect_propagate: I64(1)} cnode_attrs: {checkpoint: Bool(1)}
+ 64       : (<Func, NoShape>, <Tensor[Float32], ()>) -> (<Func, NoShape>)
+ 65       # Fullname with scope: (Default/Partial-op1)
+ 66   %5(ValueNode_307) = Switch(%2, %3, %4) cnode_attrs: {checkpoint: Bool(1)}
+ 67       : (<Tensor[Bool], ()>, <Func, NoShape>, <Func, NoShape>) -> (<Func, NoShape>)
+ 68       # Fullname with scope: (Default/Switch-op4)
+ 69       # In file t6.py:15~20, 4~16/    def construct(self, x, y):/
+ 70       # In file t6.py:18~19, 8~43/        if b :/
+ 71   %6(CNode_306) = %5[@FuncUnion(@20_4_✓__main___Net_construct_311, @21_14_✗__main___Net_construct_314)]()
+ 72       : () -> (<Tensor[Float32], ()>)
+ 73       # Fullname with scope: (5)
+ 74       # In file t6.py:15~20, 4~16/    def construct(self, x, y):/
+ 75       # In file t6.py:18~19, 8~43/        if b :/
+ 76   Return(%6) cnode_attrs: {checkpoint: Bool(1)}
+ 77       : (<Tensor[Float32], ()>)
+ 78       # Fullname with scope: (Default/Return-op19)
+ 79       # In file t6.py:15~20, 4~16/    def construct(self, x, y):/
+ 80       # In file t6.py:18~19, 8~43/        if b :/
+ 81 }
+ 82
+ 83
+ 84 indirect: 1
+ 85 subgraph attr:
+ 86 defer_inline: 0
+ 87 undeterminate: 0
+ 88 subgraph instance: 20_4_✓__main___Net_construct_311 : 0x135400a18
+ 89 # Parameters: 2, (<Tensor[Float32], ()>, <Tensor[Float32], ()>)
+ 90 # In file t6.py:15~20, 4~16/    def construct(self, x, y):/
+ 91 subgraph @20_4_✓__main___Net_construct_311(%para3_Parameter_320, %para4_Parameter_319) {
+ 92   %0(output) = PrimFunc_Div(%para4_Parameter_319, %para3_Parameter_320)
+ 93       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 94       # Fullname with scope: (Default/Div-op1)
+ 95       # In file t6.py:15~20, 4~16/    def construct(self, x, y):/
+ 96       # In file t6.py:19, 27~42/            b = ops.mul(b, self.func(a, b))/
+ 97       # In file t6.py:19, 27~36/            b = ops.mul(b, self.func(a, b))/<~~This line of code can be shared by multiple nodes, and may be duplicated./
+ 98       # In file t6.py:12~13, 4~28/    def func(x, y):/
+ 99       # In file t6.py:13, 15~28/        return ops.div(x, y)/
+100       # In file t6.py:13, 15~22/        return ops.div(x, y)/<~~This line of code can be shared by multiple nodes, and may be duplicated./
+101       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:707~766, 0~17/def div(input, other, *, rounding_mode=None):/
+102       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:762~765, 4~38/    if rounding_mode:/
+103       # In file /workspace/mindspore/build/package/mindspore/ops/function/math_func.py:765, 17~38/        output = P.Div()(input, other)/<~~This line of code can be shared by multiple nodes, and may be duplicated./
+104   %1(CNode_313$b) = PrimFunc_Mul(%para3_Parameter_320, %0) cnode_attrs: {is_dynamic_len: Bool(0)}
+105       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+106       # Fullname with scope: (Default/Mul-op1)
+107       # In file t6.py:15~20, 4~16/    def construct(self, x, y):/
+108       # In file t6.py:19, 16~43/            b = ops.mul(b, self.func(a, b))/
+109       # In file t6.py:19, 16~23/            b = ops.mul(b, self.func(a, b))/<~~This line of code can be shared by multiple nodes, and may be duplicated./
+110       # In file /workspace/mindspore/build/package/mindspore/ops/auto_generate/gen_ops_def.py:3471~3518, 0~31/def mul(input, other):/
+111       # In file /workspace/mindspore/build/package/mindspore/ops/auto_generate/gen_ops_def.py:3518, 11~31/    return mul_op(input, other)/
+112   Return(%1)
+113       : (<Tensor[Float32], ()>)
+114       # Fullname with scope: (Default/Return-op20)
+115       # In file t6.py:15~20, 4~16/    def construct(self, x, y):/
+116       # In file t6.py:19, 12~43/            b = ops.mul(b, self.func(a, b))/
+117 }
+118
+119
+120 indirect: 1
+121 subgraph attr:
+122 defer_inline: 0
+123 undeterminate: 0
+124 subgraph instance: 21_14_✗__main___Net_construct_314 : 0x1353ff218
+125 # Parameters: 1, (<Tensor[Float32], ()>)
+126 # In file t6.py:15~20, 4~16/    def construct(self, x, y):/
+127 subgraph @21_14_✗__main___Net_construct_314(%para5_Parameter_322) {
+128   Return(%para5_Parameter_322)
+129       : (<Tensor[Float32], ()>)
+130       # Fullname with scope: (Default/Return-op21)
+131       # In file t6.py:15~20, 4~16/    def construct(self, x, y):/
+132       # In file t6.py:18~19, 8~43/        if b :/
+133 }
+
 ```
 
 以上内容可分为两个部分，第一部分为图的输入信息，第二部分为图的结构信息：
 
-- 第1行告诉了我们该网络的顶图名称 `20_1___main___Net_construct.295`，也就是入口图。
-- 第2行告诉我们该网络解析出来的图的数量，该IR文件展示了三张图的信息。 分别为第13行的入口图`20_1___main___Net_construct.295`；第52行的图`21_3_✓__main___Net_construct.296`，对应着网络中if条件为true时所运行的图；第74行的图`22_15_✗__main___Net_construct.297`，即对应着网络中if条件为false时所运行的图。
-- 第8行告诉了我们该网络有多少个输入。
-- 第10-11行是输入列表，遵循`%para[序号]_[name] : <[data_type], (shape)>`的格式。
+- 第1行告诉了我们该网络的顶图名称 `@19_1___main___Net_construct_304`，也就是入口图。
+- 第2行告诉我们该网络解析出来的图的数量，该IR文件展示了三张图的信息。 分别为第23行的入口图`@19_1___main___Net_construct_304`；第84行的图`20_4_✓__main___Net_construct_311`，对应着网络中if条件为true时所运行的图；第120行的图`21_14_✗__main___Net_construct_314`，即对应着网络中if条件为false时所运行的图。
+- 第14行告诉了我们该网络有多少个输入。
+- 第16-17行是输入列表，遵循`%para[序号]_[name] : <[data_type], (shape)>`的格式。
 
-对于具体的图来说（此处我们以图`20_1___main___Net_construct.295`为例）：
+对于具体的图来说（此处我们以图`@19_1___main___Net_construct_304`为例）：
 
-- 第13-49行展示了图结构的信息，图中含有若干个节点，即`CNode`。该图包含`Sub`、`Add`、`Mul`这些在网路所调用的接口中所用到的算子。
+- 第23-81行展示了图结构的信息，图中含有若干个节点，即`CNode`。该图包含`Sub`、`Add`、`Mul`这些在网路所调用的接口中所用到的算子。
 
 `CNode`（[ANF-IR的设计请查看](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#文法定义)）的信息遵循如下格式，从左到右分别为序号、节点名称-debug_name、算子名称-op_name、输入节点-arg、节点的属性-primitive_attrs、输入和输出的规格、源码解析调用栈等信息。
-由于ANF图为单向无环图，所以此处仅根据输入关系来体现节点与节点的连接关系。关联代码行则体现了`CNode`与脚本源码之间的关系，例如第44行表明该节点是由脚本中`if b`这一行解析而来。
+由于ANF图为单向无环图，所以此处仅根据输入关系来体现节点与节点的连接关系。关联代码行则体现了`CNode`与脚本源码之间的关系，例如第75行表明该节点是由脚本中`if b`这一行解析而来。
 
 ```text
 %[序号]([debug_name]) = [op_name]([arg], ...) primitive_attrs: {[key]: [value], ...}
@@ -200,8 +246,8 @@ print(out)
 
 关于关联代码行的说明：
 
-- 代码行展示有两种模式，第一种是显示完整的调用栈，前端或后端最后生成的IR文件(如前端的`17_execute_0765.ir`和后端的`graph_build_0_136.ir`)
-  按此模式展示代码行；第二种为了减小文件的体积，只显示第一行，即省去了调用过程（如`04_abstract_specialize_0012.ir`）。
+- 代码行信息包括文件路径，代码起始位置和终止位置。例如：`# In file /workspace/mindspore/build/package/mindspore/nn/wrap/cell_wrapper.py:437~441, 8~45`，则文件路径为：`/workspace/mindspore/build/package/mindspore/nn/wrap/cell_wrapper.py`，代码起始位置为：第437行/第8列，代码终止位置为：第441行/第45列。如果代码不跨行，则不显示终止行信息，例如：`# In file /workspace/mindspore/build/package/mindspore/nn/wrap/cell_wrapper.py:418, 19~37`，只显示第418行。
+- 代码行展示有两种模式，第一种是显示完整的调用栈，第二种为了减小文件的体积，只显示第一行，即省去了调用过程。默认按第一种模式，在所有ir文件中展示完整调用栈的代码行信息。
 - 如果算子是反向传播算子，关联代码行除了会显示本身的代码，还会显示对应的正向代码，通过“Corresponding forward node candidate:”标识。
 - 如果算子是融合算子，关联代码行会显示出融合的相关代码，通过“Corresponding code candidate:”标识，其中用分隔符“-”区分不同的代码。
 
@@ -213,18 +259,18 @@ print(out)
 可以用[graphviz](http://graphviz.org)将`dot`格式的IR文件作为输入生成图片。例如，在Linux操作系统下，可以通过以下命令转换成一张PNG图片。
 
 ```shell
-dot -Tpng -o 04_abstract_specialize_0014.png 04_abstract_specialize_0014.dot
+dot -Tpng -o 01_type_inference_0003.png 01_type_inference_0003.dot
 ```
 
-转换后的图片如下所示，我们可以直观地查看模型结构。不同的黑框区分了不同的子图，图与图之间的蓝色箭头表示相互之间的调用。蓝色区域表示参数，矩形表示图的参数列表，六边形和黑色箭头表示该参数作为CNode的输入参与计算过程。黄色矩形表示CNode节点，从图中可以看出，CNode输入从下标0开始，第0个输入（即紫色或绿色区域）表示该算子将要进行怎样的计算，通过虚箭头连接。类型一般为算子原语，也可以是另一张图。下标1之后的输入则为计算所需要的参数。
+转换之后得到类似下图的模型示意图，我们可以观察构建的静态图模型结构。不同的黑框区分了不同的子图，图与图之间的蓝色箭头表示相互之间的调用。蓝色区域表示参数，矩形表示图的参数列表，六边形和黑色箭头表示该参数作为CNode的输入参与计算过程。黄色矩形表示CNode节点，从图中可以看出，CNode输入从下标0开始，第0个输入（即紫色或绿色区域）表示该算子将要进行怎样的计算，通过虚箭头连接。类型一般为算子原语，也可以是另一张图。下标1之后的输入则为计算所需要的参数。
 
-![04_abstract_specialize_0014.png](./images/dot_to_png.png)
+![01_type_inference_0003.png](./images/dot_to_png.png)
 
 对于算子比较多的模型，图片会过于庞大，推荐使用可视化组件[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
 
 ## 如何根据analyze_fail.ir文件分析图推导失败的原因
 
-MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段的图推导失败的报错，通常我们能根据报错信息以及analyze_fail.ir文件，来定位出脚本中存在的问题。
+MindSpore在编译图的过程中，经常会出现`type_inference`阶段的图推导失败的报错，通常我们能根据报错信息以及analyze_fail.ir文件，来定位出脚本中存在的问题。
 
 ### 例子1：参数数量不匹配
 
@@ -261,92 +307,161 @@ MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段�
   1 Traceback (most recent call last):
   2   File "t2.py", line 23, in <module>
   3     out = net(input1, input2)
-  4   File "/workspace/mindspore/build/package/mindspore/nn/cell.py", line 640, in __call__
+  4   File "/workspace/mindspore/build/package/mindspore/nn/cell.py", line 701, in __call__
   5     out = self.compile_and_run(*args, **kwargs)
-  6   File "/workspace/mindspore/build/package/mindspore/nn/cell.py", line 964, in compile_and_run
+  6   File "/workspace/mindspore/build/package/mindspore/nn/cell.py", line 1051, in compile_and_run
   7     self.compile(*args, **kwargs)
-  8   File "/workspace/mindspore/build/package/mindspore/nn/cell.py", line 942, in compile
-  9     jit_config_dict=self._jit_config_dict, *compile_args, **kwargs)
- 10   File "/workspace/mindspore/build/package/mindspore/common/api.py", line 1639, in compile
+  8   File "/workspace/mindspore/build/package/mindspore/nn/cell.py", line 1034, in compile
+  9     _cell_graph_executor.compile(self, *self._compile_args, phase=self.phase,
+ 10   File "/workspace/mindspore/build/package/mindspore/common/api.py", line 1815, in compile
  11     result = self._graph_executor.compile(obj, args, kwargs, phase, self._use_vm_mode())
  12 TypeError: The parameters number of the function is 2, but the number of provided arguments is 3.
- 13 FunctionGraph ID : func.21
- 14 NodeInfo: In file t2.py:12
+ 13 FunctionGraph ID : func_40
+ 14 NodeInfo: In file t2.py:12~13, 4~28
  15     def func(x, y):
  16
  17 ----------------------------------------------------
- 18 - The Traceback of Net Construct Code:
+ 18 - C++ Call Stack: (For framework developers)
  19 ----------------------------------------------------
- 20 The function call stack (See file '/workspace/mindspore/rank_0/om/analyze_fail.ir' for more details. Get instructions about `analyze_fail.ir` at https://www.mindspore.cn/search?inputValue=analyze_fail.ir):
- 21 # 0 In file t2.py:18
- 22         c = ops.mul(b, self.func(a, a, b))
- 23                        ^
- 24
- 25 ----------------------------------------------------
- 26 - C++ Call Stack: (For framework developers)
- 27 ----------------------------------------------------
- 28 mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:102 DoJump
+ 20 mindspore/ccsrc/pipeline/jit/ps/static_analysis/stack_frame.cc:104 DoJump
+ 21
+ 22 ----------------------------------------------------
+ 23 - The Traceback of Net Construct Code:
+ 24 ----------------------------------------------------
+ 25 # 0 In file t2.py:18, 23~41
+ 26         c = ops.mul(b, self.func(a, a, b))
+ 27                        ^~~~~~~~~~~~~~~~~~
+ 28  (See file '/workspace/mindspore/rank_0/om/analyze_fail.ir' for more details. Get instructions about `analyze_fail.ir` at https://www.mindspore.cn/search?inputValue=analyze_fail.ir)
 ```
 
 以上的报错信息为：“TypeError: The parameters number of the function is 2, but the number of provided arguments is 3...”。
-表明`FunctionGraph ID : func.18`只需要2个参数，但是却提供了3个参数。从“The function call stack ...”中，可以知道出错的代码为：“In file t2.py:18 ... self.func(a, a, b)”，易知是该处的函数调用传入参数的数目过多。
+表明`FunctionGraph ID : func_40`只需要2个参数，但是却提供了3个参数。从“The function call stack ...”中，可以知道出错的代码为：“In file t2.py:18 ... self.func(a, a, b)”，易知是该处的函数调用传入参数的数目过多。
 
-但如果报错信息不直观或者需要查看IR中已推导出的部分图信息，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件（第20行括号中）：`/home/workspace/mindspore/rank_0/om/analyze_fail.ir`，内容如下（此处版本为MindSpore 2.1，后续版本中内容可能会有一些细微变化）：
+但如果报错信息不直观或者需要查看IR中已推导出的部分图信息，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件（第28行括号中）：`/workspace/mindspore/rank_0/om/analyze_fail.ir`，文件中除了上述报错信息，还有如下内容（此处版本为MindSpore 2.3，后续版本中内容可能会有一些细微变化）：
 
 ```text
-  1 # 1.This file shows the parsed IR info when graph evaluating failed to help find the problem.
-  2 # 2.You can search the last `------------------------>` to the node which is inferred failed.
-  3 # 3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.ir to get more instructions.
-  4 # ===============================================================================
-  5
-  6 subgraph attr:
-  7 subgraph instance: __main___Net_construct.1 : 0x5592157f3640
-  8 # In file t2.py:15/    def construct(self, x, y):/
-  9 subgraph @__main___Net_construct.1(%para1_x, %para2_y) {
- 10   %1(a) = call @sub.19(%para1_x, I64(1))
- 11       : (<Tensor[Float32], ()>, <Int64, NoShape>) -> (<Tensor[Float32], ()>)
- 12       #scope: (Default)
- 13       # In file t2.py:16/        a = ops.sub(x, 1)/
- 14   %2(b) = call @add.20(%1, %para2_y)
- 15       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
- 16       #scope: (Default)
- 17       # In file t2.py:17/        b = ops.add(a, y)/
- 18
- 19 #------------------------> 0
- 20   %3([CNode]7) = call @func.21(%1, %1, %2)
- 21       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<null>)
- 22       #scope: (Default)
- 23       # In file t2.py:18/        c = ops.mul(b, self.func(a, a, b))/
- 24   %4(c) = call @mul.22(%2, %3)
- 25       : (<Tensor[Float32], ()>, <null>) -> (<null>)
+  1 # ===============================================================================================
+  2 # The following shows the IR when the function graphs evaluation fails to help locate the problem.
+  3 # You can search the last ------------------------> to the node which is evaluated failure.
+  4 # Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.ir to get more instructions.
+  5 # ===============================================================================================
+  6
+  7 # IR entry: @__main___Net_construct_11
+  8 # Total subgraphs: 0
+  9
+ 10 # Total params: 2
+ 11 # Params:
+ 12 %para1_x: <null>
+ 13 %para2_y: <null>
+ 14
+ 15 subgraph attr:
+ 16 subgraph instance: __main___Net_construct_11 : 0x12fb85c18
+ 17 # In file t2.py:15~18, 4~42/    def construct(self, x, y):/
+ 18 subgraph @__main___Net_construct_11() {
+ 19   %0(CNode_3) = resolve(NameSpace[Entry: '__main__.Net.construct'], __main__.Net.construct)
+ 20       : (<External, NoShape>, <External, NoShape>) -> (<Func, NoShape>)
+ 21       #scope: (Default)
+ 22
+ 23 #------------------------> 0
+ 24   %1(CNode_2) = %0(%para1_x, %para2_y)
+ 25       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<null>)
  26       #scope: (Default)
- 27       # In file t2.py:18/        c = ops.mul(b, self.func(a, a, b))/
- 28   %5([CNode]8) = StopGradient(%4)
- 29       : (<null>) -> (<null>)
- 30       #scope: (Default)
- 31   %6([CNode]9) = Depend[side_effect_propagate: I64(1)](None, %5)
- 32       : (<null>, <null>) -> (<null>)
- 33       #scope: (Default)
- 34       # In file t2.py:15/    def construct(self, x, y):/
- 35   Return(%6)
- 36       : (<null>)
- 37       #scope: (Default)
- 38       # In file t2.py:15/    def construct(self, x, y):/
- 39 }
- 40 # Order:
- 41 #   1: @__main___Net_construct.1:a{[0]: ValueNode<FuncGraph> sub.19, [1]: x, [2]: ValueNode<Int64Imm> 1}
- 42 #   2: @__main___Net_construct.1:b{[0]: ValueNode<FuncGraph> add.20, [1]: a, [2]: y}
- 43 #   3: @__main___Net_construct.1:[CNode]7{[0]: ValueNode<FuncGraph> func.21, [1]: a, [2]: a, [3]: b}
- 44 #   4: @__main___Net_construct.1:c{[0]: ValueNode<FuncGraph> mul.22, [1]: b, [2]: [CNode]7}
- 45 #   5: @__main___Net_construct.1:[CNode]18{[0]: ValueNode<Primitive> Return, [1]: [CNode]9}
- 46
- 47
- 48 #===============================================================================
- 49 # num of function graphs in stack: 1
+ 27   Return(%1)
+ 28       : (<null>)
+ 29       #scope: (Default)
+ 30       # In file t2.py:15~18, 4~42/    def construct(self, x, y):/
+ 31 }
+ 32 # Order:
+ 33 #   1: @__main___Net_construct_11:CNode_3{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> Entry: '__main__.Net.construct', [2]: ValueNode<Symbol> __main__.Net.construct}
+ 34 #   2: @__main___Net_construct_11:CNode_2{[0]: CNode_3, [1]: param_x, [2]: param_y}
+ 35 #   3: @__main___Net_construct_11:CNode_44{[0]: ValueNode<Primitive> Return, [1]: CNode_2}
+ 36
+ 37
+ 38 subgraph attr:
+ 39 subgraph instance: __main___Net_construct_11 : 0x12fac0218
+ 40 # In file t2.py:15~18, 4~42/    def construct(self, x, y):/
+ 41 subgraph @__main___Net_construct_11(%para0_x, %para0_y) {
+ 42   %0(CNode_12) = resolve(NameSpace[SymbolStr: 'Namespace:__main__'], ops)
+ 43       : (<External, NoShape>, <External, NoShape>) -> (<External, NoShape>)
+ 44       #scope: (Default)
+ 45       # In file t2.py:16, 12~15/        a = ops.sub(x, 1)/
+ 46   %1(CNode_17) = getattr(%0, "mul")
+ 47       : (<External, NoShape>, <String, NoShape>) -> (<Func, NoShape>)
+ 48       #scope: (Default)
+ 49       # In file t2.py:18, 12~19/        c = ops.mul(b, self.func(a, a, b))/
+ 50   %2(CNode_15) = getattr(%0, "add")
+ 51       : (<External, NoShape>, <String, NoShape>) -> (<Func, NoShape>)
+ 52       #scope: (Default)
+ 53       # In file t2.py:17, 12~19/        b = ops.add(a, y)/
+ 54   %3(CNode_13) = getattr(%0, "sub")
+ 55       : (<External, NoShape>, <String, NoShape>) -> (<Func, NoShape>)
+ 56       #scope: (Default)
+ 57       # In file t2.py:16, 12~19/        a = ops.sub(x, 1)/
+ 58   %4(a) = %3(%para0_x, I64(1))
+ 59       : (<Tensor[Float32], ()>, <Int64, NoShape>) -> (<Tensor[Float32], ()>)
+ 60       #scope: (Default)
+ 61       # In file t2.py:16, 12~25/        a = ops.sub(x, 1)/
+ 62   %5(b) = %2(%4, %para0_y)
+ 63       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<Tensor[Float32], ()>)
+ 64       #scope: (Default)
+ 65       # In file t2.py:17, 12~25/        b = ops.add(a, y)/
+ 66   %6(CNode_18) = resolve(NameSpace[ClassMember: 'Namespace:__main__..<Net::5265583376>'], func)
+ 67       : (<External, NoShape>, <External, NoShape>) -> (<Func, NoShape>)
+ 68       #scope: (Default)
+ 69       # In file t2.py:18, 23~32/        c = ops.mul(b, self.func(a, a, b))/
+ 70
+ 71 #------------------------> 1
+ 72   %7(CNode_19) = %6(%4, %4, %5)
+ 73       : (<Tensor[Float32], ()>, <Tensor[Float32], ()>, <Tensor[Float32], ()>) -> (<null>)
+ 74       #scope: (Default)
+ 75       # In file t2.py:18, 23~41/        c = ops.mul(b, self.func(a, a, b))/
+ 76   %8(c) = %1(%5, %7)
+ 77       : (<Tensor[Float32], ()>, <null>) -> (<null>)
+ 78       #scope: (Default)
+ 79       # In file t2.py:18, 12~42/        c = ops.mul(b, self.func(a, a, b))/
+ 80   %9(CNode_22) = StopGradient(%8)
+ 81       : (<null>) -> (<null>)
+ 82       #scope: (Default)
+ 83       # In file t2.py:15~18, 4~42/    def construct(self, x, y):/
+ 84   %10(CNode_21) = Depend(None, %9) primitive_attrs: {side_effect_propagate: I64(1)} cnode_attrs: {topo_sort_rhs_first: Bool(1)}
+ 85       : (<null>, <null>) -> (<null>)
+ 86       #scope: (Default)
+ 87       # In file t2.py:15~18, 4~42/    def construct(self, x, y):/
+ 88   Return(%10)
+ 89       : (<null>)
+ 90       #scope: (Default)
+ 91       # In file t2.py:15~18, 4~42/    def construct(self, x, y):/
+ 92 }
+ 93 # Order:
+ 94 #   1: @__main___Net_construct_11:CNode_12{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> SymbolStr: 'Namespace:__main__', [2]: ValueNode<Symbol> ops}
+ 95 #   2: @__main___Net_construct_11:CNode_13{[0]: ValueNode<Primitive> getattr, [1]: CNode_12, [2]: ValueNode<StringImm> sub}
+ 96 #   3: @__main___Net_construct_11:CNode_45{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+ 97 #   5: @__main___Net_construct_11:a{[0]: CNode_13, [1]: param_x, [2]: ValueNode<Int64Imm> 1}
+ 98 #   6: @__main___Net_construct_11:CNode_15{[0]: ValueNode<Primitive> getattr, [1]: CNode_12, [2]: ValueNode<StringImm> add}
+ 99 #   7: @__main___Net_construct_11:CNode_46{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+100 #   9: @__main___Net_construct_11:b{[0]: CNode_15, [1]: a, [2]: param_y}
+101 #  10: @__main___Net_construct_11:CNode_17{[0]: ValueNode<Primitive> getattr, [1]: CNode_12, [2]: ValueNode<StringImm> mul}
+102 #  11: @__main___Net_construct_11:CNode_18{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> ClassMember: 'Namespace:__main__..<Net::5265583376>', [2]: ValueNode<Symbol> func}
+103 #  12: @__main___Net_construct_11:CNode_47{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+104 #  14: @__main___Net_construct_11:CNode_19{[0]: CNode_18, [1]: a, [2]: a, [3]: b}
+105 #  15: @__main___Net_construct_11:CNode_48{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+106 #  17: @__main___Net_construct_11:c{[0]: CNode_17, [1]: b, [2]: CNode_19}
+107 #  19: @__main___Net_construct_11:CNode_44{[0]: ValueNode<Primitive> Return, [1]: CNode_21}
+108
+109
+110 # ===============================================================================================
+111 # The total of function graphs in evaluation stack: 2
+112 # ===============================================================================================
+113
+114
+115 # ===============================================================================================
+116 # The rest function graphs are the following:
+117 # ===============================================================================================
+118 No more function graphs.
 ```
 
-`analyze_fail.ir`文件与前文介绍过的ir文件格式一致，唯一有区别的地方在于`analyze_fail.ir`文件中会指出推导出错的节点所在的位置，即第19行的`------------------------> 0`。该箭头指向了推导出错的节点，为`%3([CNode]5) = call @func.21(%1, %1, %2) ...`。
-根据`(%1, %1, %2)`可知，该节点的输入参数有三个。从源码解析调用栈中可以知道实际该函数为`self.func`，在脚本中的定义为`def dunc(x, y):...`。
+`analyze_fail.ir`文件与前文介绍过的ir文件格式一致，唯一有区别的地方在于`analyze_fail.ir`文件中会指出推导出错的节点所在的位置，即第71行的`------------------------> 1`。该箭头指向了推导出错的节点，为`%7(CNode_19) = %6(%4, %4, %5) ...`。
+根据`(%4, %4, %5)`可知，该节点的输入参数有三个。从源码解析调用栈中可以知道实际该函数为`self.func`，在脚本中的定义为`def func(x, y):...`。
 在函数定义中，只需要两个参数，故会在此处出现推导失败的报错，我们需要修改脚本中传入的参数个数以解决该问题。
 
 ### 例子2：BiasAdd输入之间shape不匹配
@@ -382,118 +497,218 @@ MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段�
   1 Traceback (most recent call last):
   2   File "t2.py", line 21, in <module>
   3     out = net(x)
-  4   File "/workspace/mindspore/build/package/mindspore/nn/cell.py", line 640, in __call__
+  4   File "/workspace/mindspore/build/package/mindspore/nn/cell.py", line 701, in __call__
   5     out = self.compile_and_run(*args, **kwargs)
-  6   File "/workspace/mindspore/build/package/mindspore/nn/cell.py", line 964, in compile_and_run
+  6   File "/workspace/mindspore/build/package/mindspore/nn/cell.py", line 1051, in compile_and_run
   7     self.compile(*args, **kwargs)
-  8   File "/workspace/mindspore/build/package/mindspore/nn/cell.py", line 942, in compile
-  9     jit_config_dict=self._jit_config_dict, *compile_args, **kwargs)
- 10   File "/workspace/mindspore/build/package/mindspore/common/api.py", line 1639, in compile
+  8   File "/workspace/mindspore/build/package/mindspore/nn/cell.py", line 1034, in compile
+  9     _cell_graph_executor.compile(self, *self._compile_args, phase=self.phase,
+ 10   File "/workspace/mindspore/build/package/mindspore/common/api.py", line 1815, in compile
  11     result = self._graph_executor.compile(obj, args, kwargs, phase, self._use_vm_mode())
- 12 ValueError: For 'BiasAdd', bias[0] shape should be equal to input_x[1] shape when data_format is NCHW.
+ 12 ValueError: For 'BiasAdd', bias[0] shape should be equal to input_x[1] shape when data_format is 0, but got bias shape: .[const vector]{4}, input_shape: [const vector]{3, 8}.
  13
  14 ----------------------------------------------------
- 15 - The Traceback of Net Construct Code:
+ 15 - C++ Call Stack: (For framework developers)
  16 ----------------------------------------------------
- 17 The function call stack (See file '/workspace/mindspore/rank_0/om/analyze_fail.ir' for more details. Get instructions about `analyze_fail.ir` at https://www.mindspore.cn/search?inputValue=analyze_fail.ir):
- 18 # 0 In file t2.py:16
- 19         x = ops.bias_add(x, self.bias)
- 20             ^
- 21 # 1 In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:5498
- 22     return bias_add_op(input_x, bias)
- 23            ^
- 24
- 25 ----------------------------------------------------
- 26 - C++ Call Stack: (For framework developers)
- 27 ----------------------------------------------------
- 28 mindspore/core/ops/bias_add.cc:88 BiasAddInferShape
+ 17 mindspore/core/ops/ops_func_impl/bias_add.cc:71 CheckShapeValid
+ 18
+ 19 ----------------------------------------------------
+ 20 - The Traceback of Net Construct Code:
+ 21 ----------------------------------------------------
+ 22 # 0 In file t2.py:16, 11~37
+ 23        x = ops.bias_add(x, self.bias)
+ 24            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+ 25 # 1 In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:6280, 11~37
+ 26     return bias_add_op(input_x, bias)
+ 27            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+ 28  (See file '/workspace/mindspore/rank_0/om/analyze_fail.ir' for more details. Get instructions about `analyze_fail.ir` at https://www.mindspore.cn/search?inputValue=analyze_fail.ir)
 ```
 
-根据以上报错可知，是算子`BiasAdd`的第一个输入和第二个输入的`shape`不匹配导致的错误。为了进一步了解算子的`shape`是经过了什么样的变化，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件：`/home/workspace/mindspore/rank_0/om/analyze_fail.ir`，内容如下（此处版本为MindSpore 2.1，后续版本中内容可能会有一些细微变化）：
+根据以上报错可知，是算子`BiasAdd`的第一个输入和第二个输入的`shape`不匹配导致的错误。为了进一步了解算子的`shape`是经过了什么样的变化，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件：`/workspace/mindspore/rank_0/om/analyze_fail.ir`，文件中除了上述报错信息，还有如下内容（此处版本为MindSpore 2.3，后续版本中内容可能会有一些细微变化）：
 
 ```text
-  1 # 1.This file shows the parsed IR info when graph evaluating failed to help find the problem.
-  2 # 2.You can search the last `------------------------>` to the node which is inferred failed.
-  3 # 3.Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.ir to get more instructions.
-  4 # ===============================================================================
-  5
-  6 subgraph attr:
-  7 subgraph instance: __main___Net_construct.1 : 0x5629496604e0
-  8 # In file t2.py:14/    def construct(self, x1):/
-  9 subgraph @__main___Net_construct.1(%para1_x1, %para2_bias, %para3_weight) {
- 10   %1(x) = call @matmul.7(%para1_x1, %para3_weight)
- 11       : (<Tensor[Float32], (3, 32)>, <Ref[Tensor[Float32]], (32, 8)>) -> (<Tensor[Float32], (3, 8)>)
- 12       #scope: (Default)
- 13       # In file t2.py:15/        x = ops.matmul(x1, self.weight)/
- 14
- 15 #------------------------> 0
- 16   %2(x) = call @bias_add.6(%1, %para2_bias)
- 17       : (<Tensor[Float32], (3, 8)>, <Ref[Tensor[Float32]], (4)>) -> (<null>)
- 18       #scope: (Default)
- 19       # In file t2.py:16/        x = ops.bias_add(x, self.bias)/
- 20   Return(%2)
- 21       : (<null>)
+  1 # ===============================================================================================
+  2 # The following shows the IR when the function graphs evaluation fails to help locate the problem.
+  3 # You can search the last ------------------------> to the node which is evaluated failure.
+  4 # Refer to https://www.mindspore.cn/search?inputValue=analyze_fail.ir to get more instructions.
+  5 # ===============================================================================================
+  6
+  7 # IR entry: @__main___Net_construct_6
+  8 # Total subgraphs: 0
+  9
+ 10 # Total params: 3
+ 11 # Params:
+ 12 %para1_x1: <null>
+ 13 %para2_weight: <Ref[Tensor[Float32]], (32, 8), ref_key=weight>  :  has_default
+ 14 %para3_bias: <Ref[Tensor[Float32]], (4), ref_key=bias>  :  has_default
+ 15
+ 16 subgraph attr:
+ 17 subgraph instance: __main___Net_construct_6 : 0x128910818
+ 18 # In file t2.py:14~17, 4~15/    def construct(self, x1):/
+ 19 subgraph @__main___Net_construct_6() {
+ 20   %0(CNode_3) = resolve(NameSpace[Entry: '__main__.Net.construct'], __main__.Net.construct)
+ 21       : (<External, NoShape>, <External, NoShape>) -> (<Func, NoShape>)
  22       #scope: (Default)
- 23       # In file t2.py:17/        return x/
- 24 }
- 25 # Order:
- 26 #   1: @__main___Net_construct.1:x{[0]: ValueNode<FuncGraph> matmul.7, [1]: x1, [2]: weight}
- 27 #   2: @__main___Net_construct.1:x{[0]: ValueNode<FuncGraph> bias_add.6, [1]: x, [2]: bias}
- 28 #   3: @__main___Net_construct.1:[CNode]8{[0]: ValueNode<Primitive> Return, [1]: x}
- 29
- 30
- 31 subgraph attr:
- 32 subgraph instance: bias_add.6 : 0x56294970ce70
- 33 # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:5470/def bias_add(input_x, bias):/
- 34 subgraph @bias_add.6(%para4_input_x, %para5_bias) {
- 35   %1([CNode]10) = call @_get_cache_prim.9(ClassType)
- 36       : (<Func, NoShape>) -> (<Func, NoShape>)
- 37       #scope: (Default)
- 38       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:5497/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
- 39   %2([CNode]11) = S-Prim-MakeTuple("data_format")
- 40       : (<String, NoShape>) -> (<Tuple[String], TupleShape(NoShape)>)
- 41       #scope: (Default)
- 42       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:5497/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
- 43   %3([CNode]12) = S-Prim-MakeTuple("NCHW")
- 44       : (<String, NoShape>) -> (<Tuple[String], TupleShape(NoShape)>)
+ 23
+ 24 #------------------------> 0
+ 25   %1(CNode_2) = %0(%para1_x1)
+ 26       : (<Tensor[Float32], (3, 32)>) -> (<null>)
+ 27       #scope: (Default)
+ 28   Return(%1)
+ 29       : (<null>)
+ 30       #scope: (Default)
+ 31       # In file t2.py:17, 7~15/       return x/
+ 32 }
+ 33 # Order:
+ 34 #   1: @__main___Net_construct_6:CNode_3{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> Entry: '__main__.Net.construct', [2]: ValueNode<Symbol> __main__.Net.construct}
+ 35 #   2: @__main___Net_construct_6:CNode_2{[0]: CNode_3, [1]: param_x1}
+ 36 #   3: @__main___Net_construct_6:CNode_162{[0]: ValueNode<Primitive> Return, [1]: CNode_2}
+ 37
+ 38
+ 39 subgraph attr:
+ 40 subgraph instance: __main___Net_construct_6 : 0x14bb64c18
+ 41 # In file t2.py:14~17, 4~15/    def construct(self, x1):/
+ 42 subgraph @__main___Net_construct_6(%para0_x1) {
+ 43   %0(CNode_7) = resolve(NameSpace[SymbolStr: 'Namespace:__main__'], ops)
+ 44       : (<External, NoShape>, <External, NoShape>) -> (<External, NoShape>)
  45       #scope: (Default)
- 46       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:5497/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
- 47   %4([CNode]13) = S-Prim-make_dict(%2, %3)
- 48       : (<Tuple[String], TupleShape(NoShape)>, <Tuple[String], TupleShape(NoShape)>) -> (<Dictionary[[data_format,],[String]], NoShape>)
+ 46       # In file t2.py:15, 11~14/       x = ops.matmul(x1, self.weight)/
+ 47   %1(CNode_11) = getattr(%0, "bias_add")
+ 48       : (<External, NoShape>, <String, NoShape>) -> (<Func, NoShape>)
  49       #scope: (Default)
- 50       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:5497/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
- 51   %5(bias_add_op) = UnpackCall-unpack_call(%1, %4)
- 52       : (<Func, NoShape>, <Dictionary[[data_format,],[String]], NoShape>) -> (<Func, NoShape>)
+ 50       # In file t2.py:16, 11~23/       x = ops.bias_add(x, self.bias)/
+ 51   %2(CNode_8) = getattr(%0, "matmul")
+ 52       : (<External, NoShape>, <String, NoShape>) -> (<Func, NoShape>)
  53       #scope: (Default)
- 54       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:5497/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
- 55
- 56 #------------------------> 1
- 57   %6([CNode]14) = %5(%para4_input_x, %para5_bias)
- 58       : (<Tensor[Float32], (3, 8)>, <Ref[Tensor[Float32]], (4)>) -> (<null>)
- 59       #scope: (Default)
- 60       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:5498/    return bias_add_op(input_x, bias)/
- 61   Return(%6)
- 62       : (<null>)
- 63       #scope: (Default)
- 64       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:5498/    return bias_add_op(input_x, bias)/
- 65 }
- 66 # Order:
- 67 #   1: @bias_add.6:[CNode]10{[0]: ValueNode<FuncGraph> _get_cache_prim.9, [1]: ValueNode<ClassType> class 'mindspore.ops.operations.nn_ops.BiasAdd'}
- 68 #   2: @bias_add.6:[CNode]11{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<StringImm> data_format}
- 69 #   3: @bias_add.6:[CNode]12{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<StringImm> NCHW}
- 70 #   4: @bias_add.6:[CNode]13{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_dict, [1]: [CNode]11, [2]: [CNode]12}
- 71 #   5: @bias_add.6:bias_add_op{[0]: ValueNode<UnpackCall> MetaFuncGraph-unpack_call.15, [1]: [CNode]10, [2]: [CNode]13}
- 72 #   6: @bias_add.6:[CNode]14{[0]: bias_add_op, [1]: input_x, [2]: bias}
- 73 #   7: @bias_add.6:[CNode]16{[0]: ValueNode<Primitive> Return, [1]: [CNode]14}
- 74
- 75
- 76 #===============================================================================
- 77 # num of function graphs in stack: 2/3 (Ignored 1 internal frames).
+ 54       # In file t2.py:15, 11~21/       x = ops.matmul(x1, self.weight)/
+ 55   %3(CNode_9) = resolve(NameSpace[ClassMember: 'Namespace:__main__..<Net::4300844784>'], weight)
+ 56       : (<External, NoShape>, <External, NoShape>) -> (<Ref[Tensor[Float32]], (32, 8)>)
+ 57       #scope: (Default)
+ 58       # In file t2.py:15, 26~37/       x = ops.matmul(x1, self.weight)/
+ 59   %4(x) = %2(%para0_x1, %3)
+ 60       : (<Tensor[Float32], (3, 32)>, <Ref[Tensor[Float32]], (32, 8)>) -> (<Tensor[Float32], (3, 8)>)
+ 61       #scope: (Default)
+ 62       # In file t2.py:15, 11~38/       x = ops.matmul(x1, self.weight)/
+ 63   %5(CNode_12) = resolve(NameSpace[ClassMember: 'Namespace:__main__..<Net::4300844784>'], bias)
+ 64       : (<External, NoShape>, <External, NoShape>) -> (<Ref[Tensor[Float32]], (4)>)
+ 65       #scope: (Default)
+ 66       # In file t2.py:16, 27~36/       x = ops.bias_add(x, self.bias)/
+ 67
+ 68 #------------------------> 1
+ 69   %6(x) = %1(%4, %5)
+ 70       : (<Tensor[Float32], (3, 8)>, <Ref[Tensor[Float32]], (4)>) -> (<null>)
+ 71       #scope: (Default)
+ 72       # In file t2.py:16, 11~37/       x = ops.bias_add(x, self.bias)/
+ 73   Return(%6)
+ 74       : (<null>)
+ 75       #scope: (Default)
+ 76       # In file t2.py:17, 7~15/       return x/
+ 77 }
+ 78 # Order:
+ 79 #   1: @__main___Net_construct_6:CNode_7{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> SymbolStr: 'Namespace:__main__', [2]: ValueNode<Symbol> ops}
+ 80 #   2: @__main___Net_construct_6:CNode_8{[0]: ValueNode<Primitive> getattr, [1]: CNode_7, [2]: ValueNode<StringImm> matmul}
+ 81 #   3: @__main___Net_construct_6:CNode_9{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> ClassMember: 'Namespace:__main__..<Net::4300844784>', [2]: ValueNode<Symbol> weight}
+ 82 #   4: @__main___Net_construct_6:CNode_163{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+ 83 #   6: @__main___Net_construct_6:x{[0]: CNode_8, [1]: param_x1, [2]: CNode_9}
+ 84 #   7: @__main___Net_construct_6:CNode_11{[0]: ValueNode<Primitive> getattr, [1]: CNode_7, [2]: ValueNode<StringImm> bias_add}
+ 85 #   8: @__main___Net_construct_6:CNode_12{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> ClassMember: 'Namespace:__main__..<Net::4300844784>', [2]: ValueNode<Symbol> bias}
+ 86 #   9: @__main___Net_construct_6:CNode_164{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+ 87 #  11: @__main___Net_construct_6:x{[0]: CNode_11, [1]: x, [2]: CNode_12}
+ 88 #  12: @__main___Net_construct_6:CNode_162{[0]: ValueNode<Primitive> Return, [1]: x}
+ 89
+ 90
+ 91 subgraph attr:
+ 92 subgraph instance: bias_add_14 : 0x128910e18
+ 93 # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:6244~6280, 0~37/def bias_add(input_x, bias):/
+ 94 subgraph @bias_add_14(%para0_input_x, %para0_bias) {
+ 95   %0(CNode_15) = resolve(NameSpace[SymbolStr: 'Namespace:mindspore.ops.function.nn_func'], _get_cache_prim)
+ 96       : (<External, NoShape>, <External, NoShape>) -> (<Func, NoShape>)
+ 97       #scope: (Default)
+ 98       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:6279, 18~33/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+ 99   %1(CNode_16) = resolve(NameSpace[SymbolStr: 'Namespace:mindspore.ops.function.nn_func'], P)
+100       : (<External, NoShape>, <External, NoShape>) -> (<External, NoShape>)
+101       #scope: (Default)
+102       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:6279, 34~35/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+103   %2(CNode_17) = getattr(%1, "BiasAdd")
+104       : (<External, NoShape>, <String, NoShape>) -> (<Func, NoShape>)
+105       #scope: (Default)
+106       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:6279, 34~43/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+107   %3(CNode_18) = %0(%2)
+108       : (<Func, NoShape>) -> (<Func, NoShape>)
+109       #scope: (Default)
+110       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:6279, 18~44/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+111   %4(CNode_131) = resolve(NameSpace[CommonOPS: 'Namespace:mindspore._extends.parse.trope'], make_dict)
+112       : (<External, NoShape>, <External, NoShape>) -> (<Func, NoShape>)
+113       #scope: (Default)
+114       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:6279, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+115   %5(CNode_132) = resolve(NameSpace[CommonOPS: 'Namespace:mindspore._extends.parse.trope'], MakeTuple)
+116       : (<External, NoShape>, <External, NoShape>) -> (<Func, NoShape>)
+117       #scope: (Default)
+118       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:6279, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+119   %6(CNode_133) = %5("data_format")
+120       : (<String, NoShape>) -> (<Tuple[String], TupleShape(NoShape)>)
+121       #scope: (Default)
+122       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:6279, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+123   %7(CNode_135) = resolve(NameSpace[CommonOPS: 'Namespace:mindspore._extends.parse.trope'], MakeTuple)
+124       : (<External, NoShape>, <External, NoShape>) -> (<Func, NoShape>)
+125       #scope: (Default)
+126       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:6279, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+127   %8(CNode_136) = %7("NCHW")
+128       : (<String, NoShape>) -> (<Tuple[String], TupleShape(NoShape)>)
+129       #scope: (Default)
+130       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:6279, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+131   %9(CNode_21) = %4(%6, %8)
+132       : (<Tuple[String], TupleShape(NoShape)>, <Tuple[String], TupleShape(NoShape)>) -> (<Dictionary[[data_format,],[String]], NoShape>)
+133       #scope: (Default)
+134       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:6279, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+135   %10(bias_add_op) = UnpackCall_unpack_call(%3, %9)
+136       : (<Func, NoShape>, <Dictionary[[data_format,],[String]], NoShape>) -> (<Func, NoShape>)
+137       #scope: (Default)
+138       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:6279, 18~64/    bias_add_op = _get_cache_prim(P.BiasAdd)(data_format="NCHW")/
+139
+140 #------------------------> 2
+141   %11(CNode_22) = %10(%para0_input_x, %para0_bias)
+142       : (<Tensor[Float32], (3, 8)>, <Ref[Tensor[Float32]], (4)>) -> (<null>)
+143       #scope: (Default)
+144       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:6280, 11~37/    return bias_add_op(input_x, bias)/
+145   Return(%11)
+146       : (<null>)
+147       #scope: (Default)
+148       # In file /workspace/mindspore/build/package/mindspore/ops/function/nn_func.py:6280, 4~37/    return bias_add_op(input_x, bias)/
+149 }
+150 # Order:
+151 #   1: @bias_add_14:CNode_15{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> SymbolStr: 'Namespace:mindspore.ops.function.nn_func', [2]: ValueNode<Symbol> _get_cache_prim}
+152 #   2: @bias_add_14:CNode_16{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> SymbolStr: 'Namespace:mindspore.ops.function.nn_func', [2]: ValueNode<Symbol> P}
+153 #   3: @bias_add_14:CNode_17{[0]: ValueNode<Primitive> getattr, [1]: CNode_16, [2]: ValueNode<StringImm> BiasAdd}
+154 #   4: @bias_add_14:CNode_166{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+155 #   6: @bias_add_14:CNode_18{[0]: CNode_15, [1]: CNode_17}
+156 #   7: @bias_add_14:CNode_132{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+157 #   8: @bias_add_14:CNode_133{[0]: CNode_132, [1]: ValueNode<StringImm> data_format}
+158 #   9: @bias_add_14:CNode_135{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+159 #  10: @bias_add_14:CNode_136{[0]: CNode_135, [1]: ValueNode<StringImm> NCHW}
+160 #  11: @bias_add_14:CNode_131{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> make_dict}
+161 #  12: @bias_add_14:CNode_21{[0]: CNode_131, [1]: CNode_133, [2]: CNode_136}
+162 #  13: @bias_add_14:bias_add_op{[0]: ValueNode<UnpackCall> MetaFuncGraph-unpack_call.20, [1]: CNode_18, [2]: CNode_21}
+163 #  14: @bias_add_14:CNode_167{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+164 #  16: @bias_add_14:CNode_22{[0]: bias_add_op, [1]: param_input_x, [2]: param_bias}
+165 #  17: @bias_add_14:CNode_165{[0]: ValueNode<Primitive> Return, [1]: CNode_22}
+166
+167
+168 # ===============================================================================================
+169 # The total of function graphs in evaluation stack: 3/5 (Ignored 2 internal frames).
+170 # ===============================================================================================
+171
+172
+173 # ===============================================================================================
+174 # The rest function graphs are the following:
+175 # ===============================================================================================
+176 No more function graphs.
 ```
 
-搜索`------------------------>`来到第15行，即推导出错的位置。根据`...(%1, %para2_bias)    :(<Tensor[Float32], (3, 8)>, <Ref[Tensor(F32)], (4)>) -> (`<null>`)`可知，算子`BiasAdd`的输入是`%1`和`%para2_bias`这两个节点。其中，`%1`的shape是`[3, 8]`，`%para2_bias`的shape是`[4]`，不符合算子API中`BiasAdd`算子的描述`bias (Tensor) - 偏置Tensor，shape为 (C)。C必须与 input_x 的通道维度C相同...`的要求，故此处报错。
+搜索`------------------------>`来到第68行，即推导出错的位置。根据`...(%4, %5)
+      : (<Tensor[Float32], (3, 8)>, <Ref[Tensor[Float32]], (4)>) -> (`<null>`)`可知，算子`BiasAdd`的输入是`%4`和`%5`这两个节点。其中，`%4`的shape是`[3, 8]`，`%5`的shape是`[4]`，不符合算子API中`BiasAdd`算子的描述`bias (Tensor) - 偏置Tensor，shape为 (C)。C必须与 input_x 的通道维度C相同...`的要求，故此处报错。
 
-因此，为了解决该问题，我们要么修改`%1`的shape，要么修改`%para2`（即`self.bias`）的shape。
+因此，为了解决该问题，我们要么修改`%4`的shape，要么修改`%5`（即`self.bias`）的shape。
 
-- 如果修改`self.bias`的维度，只需要改成`self.bias = Parameter(initializer('zeros', [8]), name="bias")`。
-- 如果修改`%1`的shape，我们先要明白`%1`是什么。根据第10行可知，这是一个`MatMul`算子，输出shape是`[3, 8]`。该算子的输入是`(%para1_x1, %para3_weight)`，第一个输入的shape是`[3, 32]`（即我们传入的参数`x`），第二个输入shape是`[32, 8]`（即`self.weight`）。为了满足和shape为`[4]`的数据`BiasAdd`的要求，需要使得`%1`的输出shape为`[3, 4]`，因此我们修改`self.weight`为`self.weight = Parameter(initializer('normal', [32, 4]), name="weight")`。
+- 如果修改`%5`（也就是`self.bias`）的维度，只需要改成`self.bias = Parameter(initializer('zeros', [8]), name="bias")`。
+- 如果修改`%4`的shape，我们先要明白`%4`是什么。根据第59行可知，这是一个`MatMul`算子，输出shape是`[3, 8]`。该算子的输入是`(%para0_x1, %3)`，第一个输入的shape是`[3, 32]`（即我们传入的参数`x`），第二个输入shape是`[32, 8]`（即`self.weight`）。为了满足和shape为`[4]`的数据`BiasAdd`的要求，需要使得`%4`的输出shape为`[3, 4]`，因此我们修改`self.weight`为`self.weight = Parameter(initializer('normal', [32, 4]), name="weight")`。
