@@ -72,8 +72,36 @@
         <td align="left" style="white-space:nowrap">--cluster_time_out</td>
         <td align="left">集群组网超时时间，单位为秒。</td>
         <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">整数。默认为600秒。</td>
+        <td align="left">默认为600秒。</td>
         <td align="left">此参数代表在集群组网的等待时间。<br>若超出此时间窗口依然没有<code>worker_num</code>数量的Worker注册成功，则任务拉起失败。</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">--bind_core</td>
+        <td align="left">开启进程绑核。</td>
+        <td align="left" style="white-space:nowrap">Bool</td>
+        <td align="left">True或者False。默认为False。</td>
+        <td align="left">若用户配置此参数，msrun会平均分配CPU核，将其绑定到拉起的分布式进程上。</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">--sim_level</td>
+        <td align="left">设置单卡模拟编译等级。</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">默认为-1，即关闭单卡模拟编译功能。</td>
+        <td align="left">若用户配置此参数，msrun只会拉起单进程模拟编译，不做算子执行。此功能通常用于调试大规模分布式训练并行策略，在编译阶段提前发现内存和策略问题。<br>若设置为0，只做前端图编译；若设置为1，进一步执行后端图编译，在执行图阶段退出。</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">--sim_rank_id</td>
+        <td align="left">单卡模拟编译的rank_id。</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">默认为0。</td>
+        <td align="left">设置单卡模拟编译进程的rank_id。</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">--rank_table_file</td>
+        <td align="left">rank_table配置文件，只在昇腾平台下有效。</td>
+        <td align="left" style="white-space:nowrap">String</td>
+        <td align="left">rank_table配置文件路径，默认为空。</td>
+        <td align="left">此参数代表昇腾平台下的rank_table配置文件，描述当前分布式集群。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">task_script</td>

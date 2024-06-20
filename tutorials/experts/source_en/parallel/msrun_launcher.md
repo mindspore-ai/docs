@@ -72,8 +72,36 @@ A parameters list of command line:
         <td align="left" style="white-space:nowrap">--cluster_time_out</td>
         <td align="left">Cluster networking timeout in seconds.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
-        <td align="left">Integer. Default: 600 seconds.</td>
+        <td align="left">Default: 600 seconds.</td>
         <td align="left">This parameter represents the waiting time in cluster networking. <br>If no <code>worker_num</code> number of Workers register successfully beyond this time window, the task pull-up fails.</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">--bind_core</td>
+        <td align="left">Enable processes binding CPU cores.</td>
+        <td align="left" style="white-space:nowrap">Bool</td>
+        <td align="left">True or False. Default: False.</td>
+        <td align="left">If set to True, msrun will evenly allocate CPU cores and bind them to the spawned distributed processes.</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">--sim_level</td>
+        <td align="left">Set single card simulated compilation level.</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">Default: -1. Disable simulated compilation.</td>
+        <td align="left">If this parameter is set, msrun starts only a single process for simulated compilation and does not execute operators. This feature is commonly used to debug large-scale distributed training parallel strategies, and to detect memory and strategy issues in advance. <br> If set to 0, only compile the frontend graph; If set to 1, further compile backend graph compilation and exit during the execution phase</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">--sim_rank_id</td>
+        <td align="left">rank_id of the simulated process.</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">Default: 0.</td>
+        <td align="left">Set rank id of the simulated process.</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">--rank_table_file</td>
+        <td align="left">rank_table configuration. Only valid on Ascend platform.</td>
+        <td align="left" style="white-space:nowrap">String</td>
+        <td align="left">File path of rank_table configuration. Default: empty string.</td>
+        <td align="left">This parameter represents the rank_table configuration file on Ascend platform, describing current distributed cluster.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">task_script</td>
