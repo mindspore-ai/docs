@@ -573,10 +573,10 @@ class Documenter:
             mint_doc = re.sub('(Supported Platforms:\n\s+?)`.*\n', r'\1``Ascend``\n', mint_doc)
             mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', mint_doc)
             for j in spec_tp:
-                if isinstance(j[0], list) and j[0] in mint_doc and usename in j[1]:
+                if isinstance(j[1], list) and j[0] in mint_doc and usename in j[1]:
                     mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{usename}', mint_doc)
                     break
-                elif isinstance(j[0], str) and j[0] in mint_doc:
+                elif isinstance(j[1], str) and j[0] in mint_doc:
                     mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', mint_doc)
                     break
             docstring = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext)?', rf'\1{usename}', mint_doc)

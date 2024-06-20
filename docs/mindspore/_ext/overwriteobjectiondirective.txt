@@ -69,10 +69,10 @@ def get_example(name: str):
             usename = name.replace('mindspore.', '')
             api_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', api_doc)
             for j in spec_tp:
-                if isinstance(j[0], list) and j[0] in api_doc and usename in j[1]:
+                if isinstance(j[1], list) and j[0] in api_doc and usename in j[1]:
                     api_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{usename}', api_doc)
                     break
-                elif isinstance(j[0], str) and j[0] in api_doc:
+                elif isinstance(j[1], str) and j[0] in api_doc:
                     api_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', api_doc)
                     break
             api_doc = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext|_ext)?', rf'\1{usename}', api_doc)
