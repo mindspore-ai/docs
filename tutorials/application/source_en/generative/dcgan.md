@@ -299,11 +299,12 @@ D_losses = []
 image_list = []
 
 total = dataset.get_dataset_size()
+iterator = dataset.create_tuple_iterator(num_epochs=num_epochs)
 for epoch in range(num_epochs):
     generator.set_train()
     discriminator.set_train()
     # Read in data for each training round
-    for i, (imgs, ) in enumerate(dataset.create_tuple_iterator()):
+    for i, (imgs, ) in enumerate(iterator):
         g_loss, d_loss, gen_imgs = train_step(imgs)
         if i % 100 == 0 or i == total - 1:
             # Output training records

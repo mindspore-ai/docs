@@ -217,7 +217,7 @@ class Trainer:
         return loss, loss1, loss2
 
     def train(self, epochs):
-        train_dataset = self.train_dataset.create_dict_iterator()
+        train_dataset = self.train_dataset.create_dict_iterator(num_epochs=epochs)
         self.net.set_train(True)
         for epoch in range(epochs):
             # 训练一个epoch

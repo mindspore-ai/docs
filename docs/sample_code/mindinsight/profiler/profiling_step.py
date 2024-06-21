@@ -77,9 +77,10 @@ def train(epochs, model, dataset, loss_fn, optimizer):
     step = 0
     profiler = Profiler(start_profile=False, output_path='./data_step')
 
+    iterator = dataset.create_tuple_iterator(num_epochs=epochs)
     for e in range(epochs):
         print(f"Epoch {e + 1}\n-------------------------------")
-        for batch, (data, label) in enumerate(dataset.create_tuple_iterator()):
+        for batch, (data, label) in enumerate(iterator):
             step = step + 1
             step_loss = train_step(data, label)
 

@@ -450,11 +450,12 @@ save_ckpt_dir = './train_ckpt_outputs/'
 
 print('Start training!')
 
+iterator = dataset.create_dict_iterator(num_epochs=epochs)
 for epoch in range(epochs):
     g_loss = []
     d_loss = []
     start_time_e = time.time()
-    for step, data in enumerate(dataset.create_dict_iterator()):
+    for step, data in enumerate(iterator):
         start_time_s = time.time()
         img_a = data["image_A"]
         img_b = data["image_B"]
