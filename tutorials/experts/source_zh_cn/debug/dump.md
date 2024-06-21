@@ -8,7 +8,7 @@
 
 - 对于静态图模式，MindSpore提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件。
 
-- 对于动态图模式，Dump功能仅支持Ascend后端的溢出检测能力。要想查看非溢出节点，可以使用Python原生执行能力，用户可以在网络脚本运行过程中查看记录相应的输入输出。
+- 对于动态图模式，前向过程可以使用Python原生执行能力，用户可以在网络脚本运行过程中查看记录相应的输入输出。jit以及反向过程属于图编译的部分可以使用同步Dump功能，将算子的输入输出数据保存到磁盘文件。
 
 ### 调试过程
 
@@ -199,7 +199,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
 ```
 
-同步Dump生成的常量数据文件与其他数据文件格式相同，而所有常量数据的{op_type}，{task_id}，{stream_id}，{input_output_index}，{slot}，{format}不变。注意，非Tensor类型数据不会被生成数据文件。
+同步Dump生成的常量数据文件与其他数据文件格式相同，而所有常量数据的{op_type}，{task_id}，{stream_id}，{input_output_index}，{slot}，{format}不变。注意，非Tensor类型数据不会被生成数据文件。该功能不支持Ascend场景。
 
 ```text
 Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
