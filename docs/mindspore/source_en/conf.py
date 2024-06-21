@@ -237,7 +237,9 @@ try:
                       ("mindspore/common/dtype.py","del class",
                        "class QuantDtype(enum.Enum):","class QuantDtype():"),
                       ("mindspore/common/dump.py","replace err",
-                       ".. node::", ".. note::")]
+                       ".. node::", ".. note::"),
+                      ("mindspore/ops/silent_check.py","replace str",
+                       "accuracy-sensitive detection","feature value detection")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
@@ -359,6 +361,19 @@ image_specified = {"train/": ""}
 
 if not os.path.exists(src_dir):
     logger.warning(f"不存在目录：{src_dir}！")
+
+# replace str in copy dirs.
+replace_str = [('./api_python/mindspore.ops.primitive.rst', ['Accuracy-Sensitive Detection'], 'Feature Value Detection')]
+
+for i in replace_str:
+    if os.path.exists(i[0]):
+        with open(i[0], 'r+', encoding='utf-8') as f:
+            content = f.read()
+            for j in i[1]:
+                content = content.replace(j, i[2])
+            f.seek(0)
+            f.truncate()
+            f.write(content)
 
 def copy_image(sourcedir, des_dir):
     """
