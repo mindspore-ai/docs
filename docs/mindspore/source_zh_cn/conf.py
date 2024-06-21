@@ -505,6 +505,20 @@ if os.path.exists('./api_python/ops/mindspore.ops.group_norm.rst'):
         f.truncate()
         f.write(content)
 
+# 替换指定文件内错误内容
+replace_str = [('./api_python/mindspore.ops.primitive.rst', ['精度敏感检测', '精度敏感'], '特征值检测'),
+               ('./api_python/ops/mindspore.ops.silent_check.ASDBase.rst', ['精度敏感检测', '精度敏感'], '特征值检测')]
+
+for i in replace_str:
+    if os.path.exists(i[0]):
+        with open(i[0], 'r+', encoding='utf-8') as f:
+            content = f.read()
+            for j in i[1]:
+                content = content.replace(j, i[2])
+            f.seek(0)
+            f.truncate()
+            f.write(content)
+
 # auto generate rst by en
 from generate_rst_by_en import generate_rst_by_en
 
