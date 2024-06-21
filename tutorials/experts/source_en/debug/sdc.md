@@ -1,4 +1,4 @@
-# Accuracy-Sensitive Detection
+# Feature Value Detection
 
 [![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.q1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.q1/tutorials/experts/source_en/debug/sdc.md)
 
@@ -6,28 +6,28 @@
 
 ### Background
 
-During model training, processors may encounter accuracy-sensitive anomalies, resulting in computational errors without reporting. Accuracy-sensitive anomalies may seriously affect model training.
+During model training, processors may encounter feature value detection anomalies, resulting in computational errors without reporting. feature value detection anomalies may seriously affect model training.
 
 ### Solution
 
-The MindSpore framework provides a solution for accuracy-sensitive detection of Transformer structure models.
+The MindSpore framework provides a solution for feature value detection of Transformer structure models.
 
-For default feature value checkpoints, users can enable detection capability using the environment variable `NPU_ASD_ENABLE=1`, and adjust the detection intensity by configuring the environment variables `NPU_ASD_UPPER_THRESH` and `NPU_ASD_SIGMA_THRESH`.
+For default feature value detection checkpoints, users can enable detection capability using the environment variable `NPU_ASD_ENABLE=1`, and adjust the detection intensity by configuring the environment variables `NPU_ASD_UPPER_THRESH` and `NPU_ASD_SIGMA_THRESH`.
 
-In addition, the MindSpore framework supports users to customize feature value checkpoints according to their needs, further enhancing the detection capability for accuracy-sensitive anomalies.
+In addition, the MindSpore framework supports users to customize feature value detection checkpoints according to their needs, further enhancing the detection capability for feature value detection anomalies.
 
 For information on configuring related environment variables, see **Feature Switches and Configuration**.
 
-For an introduction to default feature value checkpoints, and design guidelines for custom feature value checkpoints, see **Usage Recommendations and Detection Principles**.
+For an introduction to default feature value detection checkpoints, and design guidelines for custom feature value detection checkpoints, see **Usage Recommendations and Detection Principles**.
 
 ### Usage Recommendations and Detection Principles
 
-When processors encounter accuracy-sensitive anomalies, erroneous results are calculated. Due to the structure of Transformer models, these erroneous calculation results will propagate.
+When processors encounter feature value detection anomalies, erroneous results are calculated. Due to the structure of Transformer models, these erroneous calculation results will propagate.
 
 Based on experimental results, the following empirical conclusions are drawn:
 
-* Not all accuracy-sensitive anomalies necessarily affect model convergence and performance. In fact, most accuracy-sensitive anomalies do not have observable effects on the model. See [reference](https://dl.acm.org/doi/abs/10.1145/3579371.3589105).
-* Statistically, accuracy-sensitive anomalies during the backpropagation calculation process have a much greater impact than during the forward calculation process.
+* Not all feature value detection anomalies necessarily affect model convergence and performance. In fact, most feature value detection anomalies do not have observable effects on the model. See [reference](https://dl.acm.org/doi/abs/10.1145/3579371.3589105).
+* Statistically, feature value detection anomalies during the backpropagation calculation process have a much greater impact than during the forward calculation process.
 * In parallel training scenarios, calculation error results will propagate due to parallel computation.
 * Setting too many checkpoints will affect model training performance.
 * Based on experiments on the sensitivity of calculation errors, the MindSpore framework defaults to selecting the `Norm` activation value gradient in the backpropagation calculation process as the detection feature value, with performance loss less than 2% based on **Llama 2 - 7B** testing.
@@ -38,7 +38,7 @@ The reasons for feature value anomalies can be divided into two categories: hard
 
 ### Usage Restrictions
 
-Currently, this feature only supports Atlas A2 training series products, detects Transformer-like models, and detects accuracy anomalies that occur during training with the bfloat16 data type.
+Currently, this feature only supports Atlas A2 training series products, detects abnormal feature value during the training process with Transformer model and bfloat16 data type.
 
 ## Feature Switches and Configuration
 
@@ -50,11 +50,11 @@ The environment variable `NPU_ASD_SIGMA_THRESH` controls the relative numerical 
 
 ## Use Cases
 
-> This document describes the usage methods and use cases of accuracy-sensitive detection.
+> This document describes the usage methods and use cases of feature value detection.
 
 ### Model and Dataset Preparation
 
-To provide a complete experience, here we implement the usage case of accuracy-sensitive detection based on the MindSpore Transformers Llama2 network.
+To provide a complete experience, here we implement the usage case of feature value detection based on the MindSpore Transformers Llama2 network.
 
 For the model and dataset preparation process, see [Llama 2](https://mindformers.readthedocs.io/zh-cn/latest/docs/model_cards/llama2.html).
 
@@ -70,9 +70,9 @@ If the feature switch is enabled, in `mindspore.ops.__init__`, the above operato
 
 If custom feature value detection is required beyond the default detection scenario, in addition to enabling the feature switch `NPU_ASD_ENABLE`, you also need to implement custom operators that integrate ASD detection capabilities based on `ASDBase Jit Class`.
 
-Here we use MindSpore Transformers Llama2 as an example to implement accuracy-sensitive detection of feature values in the Embedding layer.
+Here we use MindSpore Transformers Llama2 as an example to implement feature value detection of feature values in the Embedding layer.
 
-#### Confirmation of Feature Value Checkpoints
+#### Confirmation of Feature Value Detection Checkpoints
 
 Check the implementation of `llama.llama_layer.LlamaEmbedding`, where we choose to collect the gradient of the `Gather` operator during backpropagation as the detection feature value.
 
