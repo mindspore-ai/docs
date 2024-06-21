@@ -325,7 +325,7 @@ Log
 
 Note: glog does not support log file wrapping. If you need to control the log file occupation of disk space, you can use the log file management tool provided by the operating system, for example: logrotate for Linux. Please set the log environment variables before `import mindspore` .
 
-Accuracy Sensitivity Detection
+Feature Value Detection
 ------------------------------
 
 .. list-table::
@@ -338,12 +338,12 @@ Accuracy Sensitivity Detection
      - Value
      - Description
    * - NPU_ASD_ENABLE
-     - Whether to enable accuracy sensitivity detection function
+     - Whether to enable feature value detection function
      - Integer
-     - 0: Disable accuracy sensitivity detection function
+     - 0: Disable feature value detection function
 
-       1: Enable accuracy sensitivity detection function
-     - Currently, this feature only supports Atlas A2 training series products, and only detects accuracy exceptions that occur during the training of Transformer class models with bfloat16 data type
+       1: Enable feature value detection function
+     - Currently, this feature only supports Atlas A2 training series products, and only detects abnormal feature value that occur during the training of Transformer class models with bfloat16 data type
    * - NPU_ASD_UPPER_THRESH
      - Controls the absolute numerical threshold for detection
      - String
@@ -363,7 +363,7 @@ Accuracy Sensitivity Detection
        By default, if this environment variable is not configured, `NPU_ASD_SIGMA_THRESH=100000,5000`
      - 
 
-For more information on accuracy sensitivity detection, see `Accuracy Sensitivity Detection <https://www.mindspore.cn/tutorials/experts/en/r2.2/debug/sdc.html>`_.
+For more information on feature value detection, see `Feature Value Detection <https://www.mindspore.cn/tutorials/experts/en/r2.2/debug/sdc.html>`_.
 
 Dump Function
 -------------
