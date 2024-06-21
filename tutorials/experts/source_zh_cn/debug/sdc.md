@@ -1,4 +1,4 @@
-# 精度敏感检测
+# 特征值检测
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3/tutorials/experts/source_zh_cn/debug/sdc.md)
 
@@ -6,15 +6,15 @@
 
 ### 背景
 
-模型训练过程中，处理器可能发生精度敏感异常，产生计算错误且无上报。精度敏感异常可能会造成对模型训练的严重负面影响。
+模型训练过程中，处理器可能发生特征值检测异常，产生计算错误且无上报。特征值检测异常可能会造成对模型训练的严重负面影响。
 
 ### 解决方案
 
-MindSpore框架提供了对Transformer结构模型的精度敏感检测方案。
+MindSpore框架提供了对Transformer结构模型的特征值检测方案。
 
 对于默认的特征值检测点，用户可以使用环境变量 `NPU_ASD_ENABLE=1` 使能检测能力，并且通过配置环境变量 `NPU_ASD_UPPER_THRESH`, `NPU_ASD_SIGMA_THRESH`，调整检测强度。
 
-此外，MindSpore框架支持用户根据需求，自定义特征值检测点，进一步提升对于精度敏感异常的检测能力。
+此外，MindSpore框架支持用户根据需求，自定义特征值检测点，进一步提升对于特征值检测异常的检测能力。
 
 关于相关环境变量的配置，见 **特性开关及配置**。
 
@@ -22,12 +22,12 @@ MindSpore框架提供了对Transformer结构模型的精度敏感检测方案。
 
 ### 使用建议与检测原理
 
-处理器发生精度敏感异常时，计算得出错误结果。由于 Transformer 模型的结构，错误的计算结果会传播开来。
+处理器发生特征值检测异常时，计算得出错误结果。由于 Transformer 模型的结构，错误的计算结果会传播开来。
 
 通过对实验结果进行统计，作以下经验性总结。
 
-* 并非所有的精度敏感异常都一定影响模型的收敛和性能，事实上，大部分精度敏感异常对模型不产生可观测影响。 可见 [文献](https://dl.acm.org/doi/abs/10.1145/3579371.3589105)。
-* 统计学意义上，反向传播计算过程中的精度敏感异常影响远大于正向计算过程中的影响。
+* 并非所有的特征值检测异常都一定影响模型的收敛和性能，事实上，大部分特征值检测异常对模型不产生可观测影响。 可见 [文献](https://dl.acm.org/doi/abs/10.1145/3579371.3589105)。
+* 统计学意义上，反向传播计算过程中的特征值检测异常影响远大于正向计算过程中的影响。
 * 在并行训练场景下，计算误差结果会由于并行计算而发生传播。
 * 过多的检测点设置会影响模型训练性能。
 * 根据计算错误检测敏感性实验结果，MindSpore框架默认选择反向传播计算过程中的`Norm`激活值梯度作为检测特征值，基于 **Llama 2 - 7B** 测试性能损失小于 2%。
@@ -38,7 +38,7 @@ MindSpore框架提供了对Transformer结构模型的精度敏感检测方案。
 
 ### 使用限制
 
-目前本特性仅支持Atlas A2 训练系列产品，仅支持检测Transformer类模型，bfloat16数据类型，训练过程中出现的精度异常。
+目前本特性仅支持Atlas A2 训练系列产品，仅支持检测Transformer类模型，bfloat16数据类型，训练过程中出现的特征值检测异常。
 
 ## 特性开关及配置
 
@@ -50,11 +50,11 @@ MindSpore框架提供了对Transformer结构模型的精度敏感检测方案。
 
 ## 使用用例
 
-> 本文档介绍精度敏感检测的使用方法以及用例。
+> 本文档介绍特征值检测的使用方法以及用例。
 
 ### 模型与数据集准备
 
-为了提供完整的体验，这里基于 MindSpore Transformers Llama2 网络实现精度敏感检测的使用用例。
+为了提供完整的体验，这里基于 MindSpore Transformers Llama2 网络实现特征值检测的使用用例。
 
 模型与数据集准备流程可见 [Llama 2](https://mindformers.readthedocs.io/zh-cn/latest/docs/model_cards/llama2.html)。
 
@@ -70,7 +70,7 @@ MindSpore框架提供了对Transformer结构模型的精度敏感检测方案。
 
 如果需要在默认检测场景之外，对于自定义的特征值进行检测，除了开启特性开关`NPU_ASD_ENABLE`之外，还需要自行实现基于`ASDBase Jit Class`，集成ASD检测能力的自定义算子。
 
-这里使用 MindSpore Transformers Llama2 作示例，实现对 Embedding 层特征值的精度敏感检测。
+这里使用 MindSpore Transformers Llama2 作示例，实现对 Embedding 层特征值的特征值检测。
 
 #### 特征值检测点确认
 
