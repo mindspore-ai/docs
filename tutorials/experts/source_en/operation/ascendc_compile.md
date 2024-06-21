@@ -14,10 +14,11 @@ MindSpore provides an offline compilation tool for custom operators developed wi
 
 This tool is included in the MindSpore installation package and can compile the custom operator's installation package based on the source code files. The installation package is located in the `build_out` directory. Users can choose to install the custom operator package or set the environment variable `ASCEND_CUSTOM_OPP_PATH` to use the compiled custom operator.
 
-Navigate to the tool directory, which is located in the `custom_compiler` folder of the MindSpore installation package, with the following command:
+Copy the tool directory to the working directory, where the tool directory is located in the `lib/plugin/ascend/custom_compiler` folder of the MindSpore installation package, with the following command:
 
 ```shell
-cd {LOCATION}/mindspore/custom_compiler
+cp -r {LOCATION}/mindspore/lib/plugin/ascend/custom_compiler ./
+cd custom_compiler
 python setup.py
     --op_host_path={op_host_path}
     --op_kernel_path={op_kernel_path}

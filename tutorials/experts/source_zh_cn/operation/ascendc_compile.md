@@ -14,10 +14,11 @@ MindSpore提供了基于Ascend C开发的自定义算子的离线编译工具。
 
 该工具包含在MindSpore的安装包中，可以根据自定义算子的源码文件编译出自定义算子的安装包，该安装包位于`build_out`目录中。用户可以选择安装自定义算子包，或者通过设置环境变量`ASCEND_CUSTOM_OPP_PATH`来使用编译后的自定义算子。
 
-进入工具目录，其位于MindSpore安装包的`custom_compiler`文件夹中，使用以下命令：
+拷贝工具目录到工作目录中，其位于MindSpore安装包的`lib/plugin/ascend/custom_compiler`文件夹中，使用以下命令：
 
 ```shell
-cd {LOCATION}/mindspore/custom_compiler
+cp -r {LOCATION}/mindspore/lib/plugin/ascend/custom_compiler ./
+cd custom_compiler
 python setup.py
     --op_host_path={op_host_path}
     --op_kernel_path={op_kernel_path}
