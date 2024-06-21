@@ -632,9 +632,8 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
 
 4. 参考[异步Dump数据分析样例](#异步dump数据分析样例)解析Dump数据文件。
 
-注意：
-
-- 若需要dump全量或部分算子，则可以修改json配置文件中的`dump_mode`选项为0或1。
+> - 若需要dump全量或部分算子，则可以修改json配置文件中的`dump_mode`选项为0或1。
+> - 由于Dump速度较慢，在大模型场景下开启Dump会延长不同卡之间的通信间隔时间，从而导致通信算子超时。可以通过调整通信算子的超时时间来解决此问题。对于Ascend后端，可以设置HCCL_EXEC_TIMEOUT环境变量，具体设置方法请参考[昇腾CANN文档](https://www.hiascend.com/document/detail/zh/canncommercial/80RC1/apiref/envvar/envref_07_0072.html)。
 
 ### 异步Dump数据对象目录
 
