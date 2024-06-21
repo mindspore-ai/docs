@@ -336,7 +336,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `mindspore.dataset.vi
     columns = 5
     rows = 5
     fig = plt.figure(figsize=(8, 8))
-    itr = dataset.create_dict_iterator()
+    itr = dataset.create_dict_iterator(num_epochs=epochs)
 
     for ep_num in range(epochs):
         step_num = 0

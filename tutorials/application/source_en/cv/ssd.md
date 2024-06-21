@@ -975,10 +975,11 @@ def train_step(x, gt_loc, gt_label, num_matched_boxes):
     return loss
 
 print("=================== Starting Training =====================")
+iterator = dataset.create_tuple_iterator(num_epochs=60)
 for epoch in range(60):
     network.set_train(True)
     begin_time = time.time()
-    for step, (image, get_loc, gt_label, num_matched_boxes) in enumerate(dataset.create_tuple_iterator()):
+    for step, (image, get_loc, gt_label, num_matched_boxes) in enumerate(iterator):
         loss = train_step(image, get_loc, gt_label, num_matched_boxes)
     end_time = time.time()
     times = end_time - begin_time

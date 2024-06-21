@@ -234,9 +234,10 @@ def main():
 
     steps = train_dataset.get_dataset_size()
     train_begin_time = time.time()
+    iterator = train_dataset.create_dict_iterator(num_epochs=args.epochs)
     for epoch in range(args.epochs):
         step = 0
-        for d in train_dataset.create_dict_iterator():
+        for d in iterator:
             step_begin_time = time.time()
             result = train_net(d["image"], d["label"])
             step_time = time.time() - step_begin_time

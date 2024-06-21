@@ -906,9 +906,10 @@ import time
 
 epochs = 10
 
+iterator = dataset.create_tuple_iterator(num_epochs=epochs)
 for epoch in range(epochs):
     begin_time = time.time()
-    for step, batch in enumerate(dataset.create_tuple_iterator()):
+    for step, batch in enumerate(iterator):
         unet_model.set_train()
         batch_size = batch[0].shape[0]
         t = randint(0, timesteps, (batch_size,), dtype=ms.int32)
