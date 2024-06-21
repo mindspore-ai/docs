@@ -6,7 +6,7 @@
 
 ### Background
 
-During model training, processors may encounter feature value detection anomalies, resulting in computational errors without reporting. Feature value detection may seriously affect model training.
+During model training, processors may encounter feature value detection anomalies, resulting in computational errors without reporting. Feature value detection anomalies may seriously affect model training.
 
 ### Solution
 
