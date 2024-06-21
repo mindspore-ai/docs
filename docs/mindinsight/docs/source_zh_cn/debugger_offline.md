@@ -128,7 +128,7 @@ if __name__ == "__main__":
 ## 注意事项
 
 - 场景支持：
-    - 离线调试器暂不支持CPU场景。
+    - 离线调试器暂不支持CPU和Ascend场景。
     - 离线调试器支持单机多卡场景。若要分析多机多卡的场景。需要自行把多机数据汇总到一起。
     - 离线调试器暂不支持初始权重和计算过程溢出的检查。
     - 离线调试器暂不支持PyNative模式。
@@ -140,5 +140,3 @@ if __name__ == "__main__":
 - 如果同一路径下存在多个相同张量的Dump文件，离线调试器只会显示最新的张量。
 - 重新检查只检查当前有张量值的监测点。
 - 调试器展示的图是优化后的最终执行图。调用的算子可能已经与其它算子融合，或者在优化后改变了名称。
-- 如果Dump数据对象为Ascend异步Dump产生的bin文件，则解析过程中会产生npy文件，占用磁盘空间。
-- 如果使用Ascend场景下的异步Dump数据，可以使用MindSpore Insight的数据解析工具DumpParser的`convert_all_data_to_host`接口将异步Dump数据转换为`.npy`文件，从而提高数据分析效率。DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/parser)。
