@@ -636,7 +636,7 @@ dataset_infer = dataset_infer.map(operations=trans_infer,
 dataset_infer = dataset_infer.batch(1)
 ```
 
-Next, we will call the predict method of the model for the model.
+Next, we will call the predict method of the model for the model inference.
 
 In the inference process, the corresponding label can be obtained by index2label, and then the result is written on the corresponding image through the custom show_result interface.
 
