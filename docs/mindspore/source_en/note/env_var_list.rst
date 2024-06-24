@@ -234,10 +234,8 @@ Graph Compilation
      - Integer
      - 0: Disables the optimization.
 
-       1: Enables the optimization.
-
-       Default: 0
-     - Experimental environment variable.
+       No setting or other value: Enables the optimization.
+     - This environment variable will be removed subsequently.
 
 Dump Debugging
 ---------------
