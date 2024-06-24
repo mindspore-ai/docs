@@ -254,6 +254,7 @@ y = ms.Tensor([2], dtype.float32)
 start_time = time.time()
 out = func(x, y)
 end_time = time.time()
+set_context(enable_compile_cache=False)
 print("Enable comile_cache cost time:", end_time - start_time)
 ```
 
