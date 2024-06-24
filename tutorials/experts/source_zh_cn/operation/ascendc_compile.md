@@ -12,7 +12,7 @@ MindSpore提供了基于Ascend C开发的自定义算子的离线编译工具。
 
 ## 自定义算子离线编译
 
-该工具包含在MindSpore的安装包中，可以根据自定义算子的源码文件编译出自定义算子的安装包，该安装包位于`build_out`目录中。用户可以选择安装自定义算子包，或者通过设置环境变量`ASCEND_CUSTOM_OPP_PATH`来使用编译后的自定义算子。
+该工具包含在MindSpore的安装包中，可以根据自定义算子的源码文件编译出自定义算子的安装包，该安装包位于`CustomProject/build_out`目录中。用户可以选择安装自定义算子包，或者通过设置环境变量`ASCEND_CUSTOM_OPP_PATH`来使用编译后的自定义算子。
 
 拷贝工具目录到工作目录中，其位于MindSpore安装包的`lib/plugin/ascend/custom_compiler`文件夹中，使用以下命令：
 
@@ -26,7 +26,7 @@ python setup.py
     --ascend_cann_package_path="/usr/local/Ascend/latest"
 ```
 
-执行上述命令后，当前目录下将生成一个包含自定义算子编译结果的`build_out`文件夹。用户可以手动安装自定义算子包：
+执行上述命令后，当前目录下将生成一个包含自定义算子编译结果的`CustomProject/build_out`文件夹。用户可以手动安装自定义算子包：
 
 ```shell
 bash build_out/*.run
@@ -52,7 +52,7 @@ export ASCEND_CUSTOM_OPP_PATH={build_out_path}/build_out/_CPack_Package/Linux/Ex
 
 **补充说明**
 
-本工具基于CANN商业版工具msopgen开发。如果您安装的是CANN商业版，也可以直接使用msopgen工具编译自定义算子。详情请参考[基于msopgen工具创建算子工程](https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0023.html) 和 [算子编译部署](https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0031.html) 。
+本工具基于CANN msopgen工具封装， 您也可以直接使用原生msopgen工具编译自定义算子。使用说明参考详[基于msopgen工具创建算子工程](https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0023.html) 和 [算子编译部署](https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0031.html) 。
 
 ## 常见问题
 

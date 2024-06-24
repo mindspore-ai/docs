@@ -12,7 +12,7 @@ MindSpore provides an offline compilation tool for custom operators developed wi
 
 ## Custom Operator Offline Compilation
 
-This tool is included in the MindSpore installation package and can compile the custom operator's installation package based on the source code files. The installation package is located in the `build_out` directory. Users can choose to install the custom operator package or set the environment variable `ASCEND_CUSTOM_OPP_PATH` to use the compiled custom operator.
+This tool is included in the MindSpore installation package and can compile the custom operator's installation package based on the source code files. The installation package is located in the `CustomProject/build_out` directory. Users can choose to install the custom operator package or set the environment variable `ASCEND_CUSTOM_OPP_PATH` to use the compiled custom operator.
 
 Copy the tool directory to the working directory, where the tool directory is located in the `lib/plugin/ascend/custom_compiler` folder of the MindSpore installation package, with the following command:
 
@@ -26,7 +26,7 @@ python setup.py
     --ascend_cann_package_path="/usr/local/Ascend/latest"
 ```
 
-After executing the above command, a `build_out` folder containing the compilation results of the custom operator will be generated in the current directory. Users can manually install the custom operator package:
+After executing the above command, a `CutsomPorject/build_out` folder containing the compilation results of the custom operator will be generated in the current directory. Users can manually install the custom operator package:
 
 ```shell
 bash build_out/*.run
@@ -52,7 +52,7 @@ export ASCEND_CUSTOM_OPP_PATH={build_out_path}/build_out/_CPack_Package/Linux/Ex
 
 **Additional Information**
 
-This tool is based on the commercial version of the CANN tool msopgen. If you have installed the commercial version of CANN, you can also directly use the msopgen tool to compile custom operators. For more details, refer to [Creating Operator Projects with msopgen Tool](https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0023.html) and [Operator Compilation and Deployment](https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0031.html).
+This tool is encapsulated based on the CANN msopgen tool, and you can also directly use the native msopgen tool to compile custom operators. For usage instructions, please refer to [Creating Operator Projects Based on the Msopgen Tool](https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0023.html) and [Operator Compilation and Deployment](https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0031.html).
 
 ## Common Issues
 
