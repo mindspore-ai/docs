@@ -92,7 +92,9 @@ The configuration files required for different modes and the data format of dump
         "e2e_dump_settings": {
             "enable": true,
             "trans_flag": true,
-            "save_kernel_args": false
+            "save_kernel_args": false,
+            "sample_mode": 0,
+            "sample_num": 0
         }
     }
     ```
@@ -129,6 +131,8 @@ The configuration files required for different modes and the data format of dump
 
     - `enable`: When set to true, enable Synchronous Dump. When set to false, asynchronous dump will be used on Ascend and synchronous dump will still be used on GPU.
     - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `True`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `False`, the data format on the Device side will be retained. This configuration parameter is invalid on the CPU, because there is no format conversion on the CPU, but it is still need to reserve this parameter in the json file.
+    - `sample_mode`: Setting it to 0 means the sample dump function is not enabled. Enable the sample dump function in graph compilation with optimization level O0.
+    - `sample_num`: Used to control the size of sample in sample dump. The default value is 100.
 
 2. Set Dump environment variable.
 
