@@ -191,17 +191,17 @@ class MsAutosummary(Autosummary):
             # -- Grab the summary
 
             documenter.add_content(None)
-            if '.ops.' in display_name:
+            if '.ops.' in display_name or '.mint.' in display_name:
                 try:
                     display_name_path = inspect.getsourcefile(get_api(display_name))
                 # pylint: disable=W0702
                 except:
                     display_name_path = ""
                 if 'mindspore/ops/auto_generate/' in display_name_path:
-
+                    env_sum = ''
+                    if '.ops.' in display_name:
+                        env_sum = self.get_refer_platform(display_name)
                     summary = self.extract_ops_summary(self.bridge.result.data[:])
-                    env_sum = self.get_refer_platform(display_name)
-
                     if not summary:
                         summary = extract_summary(self.bridge.result.data[:], self.state.document)
                     if not env_sum:
@@ -479,6 +479,8 @@ class MsCnAutoSummary(Autosummary):
                     summary_str = summary_re.findall(content)
                     summary_str_spec = summary_spec_re.findall(content)
                     if '.ops.' in display_name and '更多详情请查看：' in content.split('\n')[-2]:
+                        summary_str = content.split('\n')[-2].strip()
+                    elif '.mint.' in display_name and '更多详情请查看：' in content.split('\n')[-2]:
                         summary_str = content.split('\n')[-2].strip()
                     elif summary_str:
                         if re.findall("[:：,，。.;；]", summary_str[0][-1]):
