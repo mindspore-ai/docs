@@ -335,7 +335,7 @@ def test():
     mindspore.set_context(mode=mindspore.GRAPH_MODE, device_target="GPU")
     dataset = get_dataset("./dataset/cifar-10-batches-bin", 128, "test")
     net = ShuffleNetV1(model_size="2.0x", n_class=10)
-    param_dict = load_checkpoint("shufflenetv1-250_391.ckpt")
+    param_dict = mindspore.load_checkpoint("shufflenetv1-250_391.ckpt")
     load_param_into_net(net, param_dict)
     net.set_train(False)
     loss = nn.CrossEntropyLoss(weight=None, reduction='mean', label_smoothing=0.1)
@@ -375,7 +375,7 @@ import mindspore.dataset as ds
 
 net = ShuffleNetV1(model_size="2.0x", n_class=10)
 show_lst = []
-param_dict = load_checkpoint("shufflenetv1-250_391.ckpt")
+param_dict = mindspore.load_checkpoint("shufflenetv1-250_391.ckpt")
 load_param_into_net(net, param_dict)
 model = Model(net)
 dataset_predict = ds.Cifar10Dataset(dataset_dir="./dataset/cifar-10-batches-bin", shuffle=False, usage="train")
