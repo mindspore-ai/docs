@@ -765,6 +765,16 @@ RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/
      - String
      - CUDA包安装的绝对路径
      - 仅限GPU环境需要，一般无需设置，如在GPU环境中安装了多种版本的CUDA，为了避免混淆，建议配置此环境变量。
+   * - MS_ENABLE_MINDIO_GRACEFUL_EXIT
+     - 使能MindIO TTP 特性
+     - String
+     - "true": 使能 MindIO TTP。 其他值：未开启MindIO TTP。  默认值：空。
+     - 仅限 Ascend GE LazyInline 模式. 同时必须设置流水线并行数大于2。
+   * - MS_MINDIO_TTP_LIB_PATH
+     - 设置MindIO TTP API 动态库路径
+     - String
+     - MindIO TTP API动态库安装的绝对路径。默认值：空。
+     - 依赖MS_ENABLE_MINDIO_GRACEFUL_EXIT的开启。
 
 CANN
 --------
