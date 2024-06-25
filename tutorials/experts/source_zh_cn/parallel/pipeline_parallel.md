@@ -26,17 +26,37 @@
 
 *图1：流水线并行的图切分示意图*
 
-简单地将模型切分到多设备上并不会带来性能的提升，因为模型的线性结构在同一时刻只有一台设备在工作，而其它设备在等待，造成了资源的浪费。为了提升效率，流水线并行进一步将小批次(MiniBatch)切分成更细粒度的微批次(MicroBatch)，在微批次中采用流水线式的执行序，从而达到提升效率的目的，如图2所示。将小批次切分成4个微批次，4个微批次在4个组上执行形成流水线。微批次的梯度汇聚后用来更新参数，其中每台设备只存有并更新对应组的参数。其中白色序号代表微批次的索引。
+### Gpipe流水线并行调度
+
+简单地将模型切分到多设备上并不会带来性能的提升，因为模型的线性结构在同一时刻只有一台设备在工作，而其它设备在等待，造成了资源的浪费。为了提升效率，流水线并行进一步将小批次(MiniBatch)切分成更细粒度的微批次(MicroBatch)，在微批次中采用流水线式的调度，从而达到提升效率的目的，如图2所示。将小批次切分成4个微批次，4个微批次在4个组上执行形成流水线。微批次的梯度汇聚后用来更新参数，其中每台设备只存有并更新对应组的参数。其中白色序号代表微批次的索引。
 
 ![image](images/pipeline_parallel_image_1_zh.png)
 
 *图2：带MicroBatch的流水线并行执行时间线示意图*
+
+### 1F1B流水线并行调度
 
 MindSpore的流水线并行实现中对执行序进行了调整，来达到更优的内存管理。如图3所示，在编号为0的MicroBatch的正向执行完后立即执行其反向，这样做使得编号为0的MicroBatch的中间结果的内存得以更早地（相较于图2）释放，进而确保内存使用的峰值比图2的方式更低。
 
 ![image](images/pipeline_parallel_image_2_zh.png)
 
 *图3：MindSpore流水线并行执行时间线示意图*
+
+### 交错式流水线并行调度
+
+为了提升流水线并行的效率，减少Bubble的占比，Megatron-LM提出了一种新的流水线并行调度：“交错式流水线并行”。传统的流水线并行通常会在一个stage上放置几个连续的模型层（如：Transformer层），如图3所示。而在交错式流水线的调度中，每个stage会对非连续的模型层进行交错式的计算，以更多的通信量来进一步降低Bubble的占比，如图4所示。例如：传统流水线并行每个stage有2个模型层，即：stage0有第0-1层，stage1有第2-3层，stage3有第4-5层，stage4有第6-7层；在交错式流水线并行中，stage0有第0层和第4层，stage1有第1层和第5层，stage2有第2层和第6层，stage3有第3层和第7层。
+
+![mpp2.png](images/megatron.png)
+
+*图4:  交错式流水线并行调度*
+
+### MindSpore交错式流水线并行调度
+
+MindSpore在Megatron-LM交错式流水线调度的基础上做了内存优化，具体做法是将部分前向的执行序往后移动，如图5所示，这样可以使得在内存峰值时刻，累积更少的MicroBatch内存。
+
+![mpp2.png](images/mindspore.png)
+
+*图5: MindSpore交错式流水线并行调度*
 
 ## 训练操作实践
 
@@ -72,6 +92,14 @@ init()
 ms.set_seed(1)
 ```
 
+如果需要跑交错式流水线并行调度，还需要配置:`pipeline_config={'pipeline_scheduler':'1f1b', 'pipeline_interleave':True}`，需要注意的是，MindSpore的交错式流水线并行调度还在完善阶段，目前在单算子模式下表现会更好。
+
+```python
+import mindspore as ms
+
+ms.set_auto_parallel_context(pipeline_config={'pipeline_scheduler':'1f1b', 'pipeline_interleave':True})
+```
+
 ### 数据集加载
 
 在流水线并行场景下，数据集加载方式与单卡加载方式一致，代码如下：
@@ -99,7 +127,7 @@ data_set = create_dataset(32)
 
 ### 定义网络
 
-流水线并行网络结构与单卡网络结构基本一致，区别在于增加了流水线并行策略配置。流水线并行需要用户去定义并行的策略，通过调用`pipeline_stage`接口来指定每个layer要在哪个stage上去执行。`pipeline_stage`接口的粒度为`Cell`。所有包含训练参数的`Cell`都需要配置`pipeline_stage`，并且`pipeline_stage`要按照网络执行的先后顺序，从小到大进行配置。在单卡模型基础上，增加`pipeline_stage`配置后如下：
+流水线并行网络结构与单卡网络结构基本一致，区别在于增加了流水线并行策略配置。流水线并行需要用户去定义并行的策略，通过调用`pipeline_stage`接口来指定每个layer要在哪个stage上去执行。`pipeline_stage`接口的粒度为`Cell`。所有包含训练参数的`Cell`都需要配置`pipeline_stage`，并且`pipeline_stage`要按照网络执行的先后顺序，从小到大进行配置。如果要使能交错式流水线并行调度，`pipeline_stage`要按照前面章节中介绍的非连续模型层进行交错式配置。在单卡模型基础上，增加`pipeline_stage`配置后如下：
 
 > 在pipeline并行下，使能Print/Summary/TensorDump相关算子时，需要把该算子放到有pipeline_stage属性的Cell中使用，否则有概率由pipeline并行切分导致算子不生效。
 

@@ -7,7 +7,7 @@
     - [环境准备-手动](#环境准备-手动)
         - [安装Python](#安装python)
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
-        - [安装wheel和setuptools](#安装wheel和setuptools)
+        - [安装wheel setuptools和Numpy](#安装wheel-setuptools和numpy)
         - [安装GCC](#安装gcc)
         - [安装git tclsh patch NUMA Flex](#安装git-tclsh-patch-numa-flex)
         - [安装git-lfs](#安装git-lfs)
@@ -78,8 +78,9 @@ conda activate mindspore_py37
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/openEuler 20.03/KylinV10 SP1|-|编译和运行MindSpore的操作系统|
 |[Python](#安装python)|3.7-3.9|MindSpore的使用依赖Python环境|
 |[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
-|[wheel](#安装wheel和setuptools)|0.32.0及以上|MindSpore使用的Python打包工具|
-|[setuptools](#安装wheel和setuptools)|44.0及以上|MindSpore使用的Python包管理工具|
+|[wheel](#安装wheel-setuptools和numpy)|0.32.0及以上|MindSpore使用的Python打包工具|
+|[setuptools](#安装wheel-setuptools和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
+|[Numpy](#安装wheel-setuptools和numpy)|1.19.3及以上|MindSpore里的Numpy相关功能依赖Numpy模块|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
 |[git](#安装git-gmp-tclsh-patch-numa-flex)|-|MindSpore使用的源代码管理工具|
 |[git-lfs](#安装git-lfs)|-|MindSpore使用的源代码管理工具|
@@ -147,14 +148,17 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.wh
 
 当默认路径存在安装包的时候，LD_LIBRARY_PATH环境变量不起作用；默认路径优先级别为：/usr/local/Ascend/nnae高于/usr/local/Ascend/ascend-toolkit；原因是MindSpore采用DT_RPATH方式支持无环境变量启动，减少用户设置；DT_RPATH优先级比LD_LIBRARY_PATH环境变量高。
 
-### 安装wheel和setuptools
+### 安装wheel setuptools和Numpy
 
 在安装完成Python后，使用以下命令安装。
 
 ```bash
 pip install wheel
 pip install -U setuptools
+pip install numpy>=1.19.3
 ```
+
+运行环境使用的Numpy版本需不小于编译环境的Numpy版本，以保证框架内Numpy相关能力的正常使用。
 
 ### 安装GCC
 

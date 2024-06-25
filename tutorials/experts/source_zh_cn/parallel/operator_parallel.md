@@ -20,6 +20,7 @@
     - `ops.Gather().add_prim_attr("primitive_target", "CPU")`：该接口配置Gather算子在CPU上执行，用于异构场景。
     - `ops.Reshape().add_prim_attr("skip_redistribution")`：对于ops.Reshape的前后不进行张量重排布(张量重排布见[基本原理](#基本原理))。
     - `ops.ReduceSum().add_prim_attr("cross_batch")`：该接口仅对Reduce类算子适用。当配置这个参数后，Reduce类算子如果轴被切分，则会对分片完成reduce操作后不进行多卡之间的同步，结果会和单卡不等价。
+    - `ops.TensorScatterUpdate().add_prim_attr("self_define_shard", True)`: 对于任意打上`self_define_shard`标签的算子，可以支持对该算子（无论是否实现过算子切分）配置输入输出Layout。但是输入输出Layout的正确性以及算子切分后的精度需要由用户保证。
 
 ## 基本原理
 

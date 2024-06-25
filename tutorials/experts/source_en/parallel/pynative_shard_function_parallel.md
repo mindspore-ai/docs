@@ -4,9 +4,13 @@
 
 ## Overview
 
-Dynamic graphs support richer syntax and more flexible use, but currently MindSpore dynamic graph mode does not support the various features of automatic parallel. We have designed the shard function to support specify a part of the graph mode execution, and perform various parallel operations in the dynamic graph mode.
+Pynative mode support richer syntax and more flexible use, but currently MindSpore pynative mode does not support the various features of automatic parallel. In addation, static graph mode currently only support different parallel modes by configuring policies for operators.
 
-> Currently, functional operator slicing is only supported in parallel mode "auto_parallel" and strategy search algorithm "sharding_propagation".
+Aiming at these problems, We design a functional operator function `shard`. Different from the existing `Primitive.shard()` method, this function sets the parallel policy for cell or function.
+
+In  pynative mode, this function specify a part of the graph mode execution, and perform various parallel operations. `shard` function can also be used in graph mode to specify the sharding_propagation policy of a module. Other unspecified modules can automatically configure the SHARDING_Propagation policy through the policy propagation.
+
+> Currently functional operator sharding supports only "auto_parallel" and "semi_auto_parallel" and automatically sets the policy search algorithm to "sharding_propagation".
 
 Related interfaces:
 
@@ -27,11 +31,13 @@ def shard(fn, in_strategy, out_strategy=None, parameter_plan=None, device="Ascen
 
 ## Basic Principle
 
-in the MindSpore dynamic graph mode, you can use the `@jit` decorator to specify a certain section to be compiled and executed in graph mode. In the forward execution at the same time, execute while the operators, subgraphs will be recorded, the forward execution is complete, will be automatically differentiated to get the whole graph to get the inverse graph. The specific process is shown in the following figure:
+In the MindSpore pynative mode, you can use the `@jit` decorator to specify a certain section to be compiled and executed in graph mode. In the forward execution at the same time, execute while the operators, subgraphs will be recorded, the forward execution is complete, will be automatically differentiated to get the whole graph to get the inverse graph. The specific process is shown in the following figure:
 
 *Figure 1: Schematic diagram of the execution of the @jit decorator*
 
 The Shard function follows this pattern, with the difference that operator-level model parallel can be performed at the link where the graph pattern is compiled and executed.
+
+In MindSpore's graph mode, the Shard function is similar to Primitive.shard() to set a distribution layout for modules input and its parameters.
 
 ## Operation Practice
 
@@ -39,7 +45,7 @@ The Shard function follows this pattern, with the difference that operator-level
 
 > You can download the complete the example code:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/pynative_shard_function_parallel>.
+> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/shard_function_parallel>.
 
 The directory structure is as follows:
 
@@ -61,7 +67,7 @@ The function of each file is as follows:
 
 ### Importing the Relevant Packages and Setting the Execution Mode
 
-As mentioned earlier, the shard function will execute a certain part of the operator-level model in graph mode in parallel with the dynamic graph mode, so you need to set the mode to PyNative when using the shard function:
+As mentioned above, the shard function supports graph mode and PyNative mode. The following takes PyNative mode as an example:
 
 ```python
 import mindspore as ms
@@ -120,7 +126,7 @@ class Net(nn.Cell):
         return x
 ```
 
-- Self-call via Cell member method `shard`
+- Self-call via Cell member method 'shard', returns distributed function fn.
 
     ```python
     class Net1(Net):
@@ -129,12 +135,15 @@ class Net(nn.Cell):
             self.flatten = nn.Flatten()
             self.layer1 = nn.Dense(28*28, 128)
             self.layer2 = nn.Dense(128, 10)
+            # Slicing along the second dimension of the input makes the output into data parallel arrangement
+            self.block1_shard = self.block1.shard(in_strategy=((1, 8),),
+                                                  parameter_plan={'self.block1.dense2.weight': (8, 1)})
 
         def construct(self, x):
             x = self.flatten(x)
             x = self.layer1(x)
             # block1 is executed in graph mode
-            x = self.block1(x)
+            x = self.block1_shard(x)
             # block2 and block3 are executed in PyNative mode
             x = self.block2(x)
             x = self.block3(x)
@@ -142,8 +151,6 @@ class Net(nn.Cell):
             return x
 
     net = Net1()
-    # Slicing along the second dimension of the input makes the output into data parallel arrangement
-    net.block1.shard(in_strategy=((1, 8),), parameter_plan={'self.block1.dense2.weight': (8, 1)})
     ```
 
 - Using the functional interface `mindspore.shard`. Since the return value of the `shard` function is a function, you can't assign an instance of a class that has already been instantiated to the return value of `shard` when using the functional interface, because MindSpore doesn't support assigning class instances to other types.
@@ -152,7 +159,7 @@ class Net(nn.Cell):
     class NetError(Net):
         def __init__(self):
             self.block1 = ms.shard(self.block1, in_strategy=((8, 1),),
-                                    parameter_plan={'self.block1.dense2.weight': (8, 1)})
+                                   parameter_plan={'self.block1.dense2.weight': (8, 1)})
 
         def construct(self, x):
             x = self.block1(x)
@@ -173,15 +180,15 @@ class Net(nn.Cell):
     class Net2(Net):
         def __init__(self):
             # Set the return value of the Cell instance after passing it through ms.shard to a different name
-            self.block1_graph = ms.shard(self.block1, in_strategy=((8, 1),),
-                                          parameter_plan={'self.block1.dense2.weight': (8, 1)})
-            self.block2.shard(in_strategy=((1, 8),))
+            self.block1_shard = ms.shard(self.block1, in_strategy=((8, 1),),
+                                         parameter_plan={'self.block1.dense2.weight': (8, 1)})
+            self.block2_shard = self.block2.shard(in_strategy=((1, 8),))
 
         def construct(self, x):
             # block1 is executed in graph mode and along the first dimensional slice
-            x = self.block1_graph(x)
+            x = self.block1_shard(x)
             # block2 is also executed in graph mode
-            x = self.block2(x)
+            x = self.block2_shard(x)
             # block3 is executed in PyNative mode
             x = self.block3(x)
             return x

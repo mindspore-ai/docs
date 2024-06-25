@@ -6,7 +6,7 @@
     - [环境准备-自动 推荐](#环境准备-自动-推荐)
     - [环境准备-手动](#环境准备-手动)
         - [安装Python](#安装python)
-        - [安装wheel和setuptools](#安装wheel和setuptools)
+        - [安装wheel setuptools和Numpy](#安装wheel-setuptools和numpy)
         - [安装GCC git tclsh patch和NUMA](#安装gcc-git-tclsh-patch和numa)
         - [安装CMake](#安装cmake)
         - [安装LLVM-可选](#安装llvm-可选)
@@ -56,8 +56,9 @@ bash ./ubuntu-cpu-source.sh
 |-|-|-|
 |Ubuntu|18.04|编译和运行MindSpore的操作系统|
 |[Python](#安装python)|3.7-3.9|MindSpore的使用依赖Python环境|
-|[wheel](#安装wheel和setuptools)|0.32.0及以上|MindSpore使用的Python打包工具|
-|[setuptools](#安装wheel和setuptools)|44.0及以上|MindSpore使用的Python包管理工具|
+|[wheel](#安装wheel-setuptools和numpy)|0.32.0及以上|MindSpore使用的Python打包工具|
+|[setuptools](#安装wheel-setuptools和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
+|[Numpy](#安装wheel-setuptools和numpy)|1.19.3及以上|MindSpore里的Numpy相关功能依赖Numpy模块|
 |[GCC](#安装gcc-git-gmp-tclsh-patch和numa)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
 |[git](#安装gcc-git-gmp-tclsh-patch和numa)|-|MindSpore使用的源代码管理工具|
 |[CMake](#安装cmake)|3.18.3及以上|编译构建MindSpore的工具|
@@ -117,14 +118,17 @@ bash ./ubuntu-cpu-source.sh
 python --version
 ```
 
-### 安装wheel和setuptools
+### 安装wheel setuptools和Numpy
 
 在安装完成Python后，使用以下命令安装。
 
 ```bash
 pip install wheel
 pip install -U setuptools
+pip install numpy>=1.19.3
 ```
+
+运行环境使用的Numpy版本需不小于编译环境的Numpy版本，以保证框架内Numpy相关能力的正常使用。
 
 ### 安装GCC git tclsh patch和NUMA
 

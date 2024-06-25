@@ -9,5 +9,5 @@
   :maxdepth: 1
 
   distributed_graph_partition
-  pynative_shard_function_parallel
+  shard_function_parallel
   support_dynamic_shape_in_parallel

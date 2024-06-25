@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-"""PyNative Shard Function Parallel Example"""
+"""Shard Function Parallel Example"""
 import os
 import mindspore as ms
 from mindspore import nn
@@ -59,12 +59,15 @@ class Net1(Net):
         self.flatten = nn.Flatten()
         self.layer1 = nn.Dense(28*28, 128)
         self.layer2 = nn.Dense(128, 10)
+        # 沿输入第二轴进行切片，使得输出变成数据并行排布
+        self.block1_shard = self.block1.shard(in_strategy=((1, 8),),
+                                              parameter_plan={'self.block1.dense2.weight': (8, 1)})
 
     def construct(self, x):
         x = self.flatten(x)
         x = self.layer1(x)
         # block1在图模式执行
-        x = self.block1(x)
+        x = self.block1_shard(x)
         # block2和block3在PyNative模式执行
         x = self.block2(x)
         x = self.block3(x)
@@ -72,8 +75,6 @@ class Net1(Net):
         return x
 
 net = Net1()
-# 沿输入第二轴进行切片，使得输出变成数据并行排布
-net.block1.shard(in_strategy=((1, 8),), parameter_plan={'self.block1.dense2.weight': (8, 1)})
 
 def create_dataset(batch_size):
     """create dataset"""
