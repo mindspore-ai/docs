@@ -57,16 +57,160 @@
 
 ## Dump功能说明
 
-MindSpore提供了同步Dump与异步Dump两种模式：
+MindSpore提供了两种Dump模式：
 
-- 同步Dump的机制是在网络训练过程中每个step执行结束后， Host侧发起Dump动作，从Device上拷贝算子地址里面的数据到Host，并保存文件。同步Dump会默认关闭算子间的内存复用，避免读到脏数据。
-- 异步Dump是专门针对Ascend整图下沉而开发的功能，可以一边执行算子一边dump数据，一个算子执行结束后立即dump数据，因此开启内存复用也可以生成正确的数据，但是相应的网络训练的速度会较慢。
+- 同步Dump：在算子下发后，Host侧执行流同步，发起对Device侧数据的拷贝，将其保存到文件中。
+- 异步Dump：专为Ascend开发，在算子执行完成后，Device侧主动发起数据落盘。
 
-不同模式所需要的配置文件和dump出来的数据格式不同：
+不同模式需要不同的配置文件，生成的数据格式也不同：
 
-- 异步Dump功能只支持Ascend上的图模式。开启异步Dump的时候不会关闭内存复用。
-- 同步Dump支持GPU上的图模式和Ascend上图编译等级为O0的图模式。
+- GPU/CPU后端和编译等级为O0/O1下的Ascend后端，推荐使用[同步Dump](#同步dump)，具体参考[同步dump操作步骤](#同步dump操作步骤)；编译等级为O2的Ascend后端推荐使用[异步Dump](#异步dump)，具体参考[异步dump操作步骤](#异步dump操作步骤)。
 - Dump暂不支持异构训练，如果在异构训练场景启用Dump，生成的Dump数据对象目录可能不符合预期的目录结构。
+
+Ascend后端同步Dump支持情况如下表（GPU/CPU后端参考 `O0/O1` 列）。
+
+<table align="center">
+  <tr>
+   <td rowspan="12" align="center">同步Dump</td>
+   <td colspan="2" align="center">功能</td>
+   <td align="center">O0/O1</td>
+   <td align="center">O2</td>
+  </tr>
+  <tr>
+   <td align="left">全量dump</td>
+   <td align="left">整网数据dump</td>
+   <td align="left">支持</td>
+   <td align="left">不支持</td>
+  </tr>
+  <tr>
+   <td rowspan="2" align="left">部分数据dump</td>
+   <td align="left">统计信息dump</td>
+   <td align="left">支持host和device模式<sup>1</sup></td>
+   <td align="left">不支持</td>
+  </tr>
+  <tr>
+   <td align="left">数据采样dump</td>
+   <td align="left">支持<sup>2</sup></td>
+   <td align="left">不支持</td>
+  </tr>
+  <tr>
+   <td align="left">溢出dump</td>
+   <td align="left">dump溢出算子</td>
+   <td align="left">支持<sup>2</sup></td>
+   <td align="left">不支持</td>
+  </tr>
+  <tr>
+   <td rowspan="5" align="left">指定条件dump</td>
+   <td align="left">指定算子名称</td>
+   <td align="left">支持</td>
+   <td align="left">不支持</td>
+  </tr>
+  <tr>
+   <td align="left">指定迭代</td>
+   <td align="left">支持</td>
+   <td align="left">不支持</td>
+  </tr>
+  <tr>
+   <td align="left">指定device</td>
+   <td align="left">支持</td>
+   <td align="left">不支持</td>
+  </tr>
+  <tr>
+   <td align="left">指定file_format</td>
+   <td align="left">不涉及</td>
+   <td align="left">不支持</td>
+  </tr>
+  <tr>
+   <td align="left">set_dump</td>
+   <td align="left">支持<sup>2</sup></td>
+   <td align="left">不支持</td>
+  </tr>
+  <tr>
+   <td rowspan="2" align="left">辅助信息dump</td>
+   <td align="left">图ir dump</td>
+   <td align="left">支持</td>
+   <td align="left">不支持</td>
+  </tr>
+  <tr>
+   <td align="left">执行序dump</td>
+   <td align="left">支持</td>
+   <td align="left">不支持</td>
+  </tr>
+</table>
+
+> 1. 在统计信息方面，device计算速度较host快（目前仅支持Ascend后端），但host统计指标比device多，详见`statistic_category`选项。
+> 2. 仅支持Ascend后端。
+
+Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
+
+<table align="center">
+  <tr>
+   <td rowspan="12" align="center">异步Dump</td>
+   <td colspan="2" align="center">功能</td>
+   <td align="center">O0/O1</td>
+   <td align="center">O2</td>
+  </tr>
+  <tr>
+   <td align="left">全量dump</td>
+   <td align="left">整网数据dump</td>
+   <td align="left">支持，但无full_name信息</td>
+   <td align="left">支持</td>
+  </tr>
+  <tr>
+   <td rowspan="2" align="left">部分数据dump</td>
+   <td align="left">统计信息dump</td>
+   <td align="left">仅支持host模式</td>
+   <td align="left">仅支持host模式</td>
+  </tr>
+  <tr>
+   <td align="left">数据采样dump</td>
+   <td align="left">不支持</td>
+   <td align="left">不支持</td>
+  </tr>
+  <tr>
+   <td align="left">溢出dump</td>
+   <td align="left">dump溢出算子</td>
+   <td align="left">不支持</td>
+   <td align="left">支持</td>
+  </tr>
+  <tr>
+   <td rowspan="5" align="left">指定条件dump</td>
+   <td align="left">指定算子名称</td>
+   <td align="left">不支持</td>
+   <td align="left">支持</td>
+  </tr>
+  <tr>
+   <td align="left">指定迭代</td>
+   <td align="left">支持</td>
+   <td align="left">支持</td>
+  </tr>
+  <tr>
+   <td align="left">指定device</td>
+   <td align="left">支持</td>
+   <td align="left">支持</td>
+  </tr>
+  <tr>
+   <td align="left">指定file_format</td>
+   <td align="left">支持</td>
+   <td align="left">支持</td>
+  </tr>
+  <tr>
+   <td align="left">set_dump</td>
+   <td align="left">不支持</td>
+   <td align="left">不支持</td>
+  </tr>
+  <tr>
+   <td rowspan="2" align="left">辅助信息dump</td>
+   <td align="left">图ir dump</td>
+   <td align="left">不支持</td>
+   <td align="left">不支持</td>
+  </tr>
+  <tr>
+   <td align="left">执行序dump</td>
+   <td align="left">不支持</td>
+   <td align="left">不支持</td>
+  </tr>
+</table>
 
 ## 同步Dump
 
@@ -91,6 +235,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
         "e2e_dump_settings": {
             "enable": true,
             "trans_flag": true,
+            "stat_calc_mode": "host",
             "save_kernel_args": false,
             "sample_mode": 0,
             "sample_num": 0
@@ -130,6 +275,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 
     - `enable`：设置成true，表示开启同步Dump；设置成false时，在Ascend上会使用异步Dump，在GPU上仍然使用同步Dump。
     - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`True`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`False`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换，但是在json格式的配置文件中仍需保留该字段。
+    - `stat_calc_mode`：选择统计信息计算后端，可选"host"和"device"。选择"device"后可以使能device计算统计信息，当前只在Ascend生效，只支持`min/max/avg/l2norm`统计量。
     - `sample_mode`：设置成0，表示不开启切片dump功能；设置成1时，在图编译等级为O0的情况下开启切片dump功能。
     - `sample_num`：用于控制切片dump中切片的大小。默认值为100。
 
@@ -257,7 +403,7 @@ ms_global_execution_order_graph_{graph_id}.csv
 
 此文件记录该图在训练过程中的执行轮次历史。图编译过程中，一张根图可能产生多张子图，但子图与根图具有相同的执行轮次历史。故与图执行序文件不同，此处仅保存根图的图执行历史文件。
 
-`.dump_metadata`记录了训练的原信息，其中`data_dump.json`保存了用户设置的dump配置。
+`.dump_metadata`记录了训练的原信息（Ascend后端无此目录），其中`data_dump.json`保存了用户设置的dump配置。
 
 ### 同步Dump数据分析样例
 
@@ -486,9 +632,8 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
 
 4. 参考[异步Dump数据分析样例](#异步dump数据分析样例)解析Dump数据文件。
 
-注意：
-
-- 若需要dump全量或部分算子，则可以修改json配置文件中的`dump_mode`选项为0或1。
+> - 若需要dump全量或部分算子，则可以修改json配置文件中的`dump_mode`选项为0或1。
+> - 由于Dump速度较慢，在大模型场景下开启Dump会延长不同卡之间的通信间隔时间，从而导致通信算子超时。可以通过调整通信算子的超时时间来解决此问题。对于Ascend后端，可以设置HCCL_EXEC_TIMEOUT环境变量，具体设置方法请参考[昇腾CANN文档](https://www.hiascend.com/document/detail/zh/canncommercial/80RC1/apiref/envvar/envref_07_0072.html)。
 
 ### 异步Dump数据对象目录
 
