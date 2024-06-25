@@ -8,7 +8,7 @@
 
 - 对于静态图模式，MindSpore提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件。
 
-- 对于动态图模式，Dump功能仅支持Ascend后端的溢出检测能力。要想查看非溢出节点，可以使用Python原生执行能力，用户可以在网络脚本运行过程中查看记录相应的输入输出。
+- 对于动态图模式，前向过程可以使用Python原生执行能力，用户可以在网络脚本运行过程中查看记录相应的输入输出。jit以及反向过程属于图编译的部分可以使用同步Dump功能，将算子的输入输出数据保存到磁盘文件。
 
 ### 调试过程
 
@@ -235,8 +235,8 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
         "e2e_dump_settings": {
             "enable": true,
             "trans_flag": true,
-            "save_kernel_args": false,
             "stat_calc_mode": "host",
+            "save_kernel_args": false,
             "sample_mode": 0,
             "sample_num": 0
         }
@@ -328,8 +328,8 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
         - {net_name}/
             - {graph_id}/
                 - {iteration_id}/
-                    statistic.csv
                     {op_type}.{op_name}.json
+                    statistic.csv
                     {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
                 - constants/
                     Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
@@ -371,7 +371,7 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
 {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
 ```
 
-同步Dump生成的常量数据文件与其他数据文件格式相同，而所有常量数据的{op_type}，{task_id}，{stream_id}，{input_output_index}，{slot}，{format}不变。注意，非Tensor类型数据不会被生成数据文件。
+同步Dump生成的常量数据文件与其他数据文件格式相同，而所有常量数据的{op_type}，{task_id}，{stream_id}，{input_output_index}，{slot}，{format}不变。注意，非Tensor类型数据不会被生成数据文件。该功能不支持Ascend场景。
 
 ```text
 Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
@@ -584,7 +584,7 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
         1. 算子的名称列表。指定算子需要先设置保存图文件的环境变量来保存图，再从保存的图文件中获取算子名称。保存图文件的环境变量请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0011.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0012.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0013.html) 。
         2. 算子名称的正则表达式。当字符串符合"name-regex(xxx)"格式时，后台则会将其作为正则表达式。例如，"name-regex(Default/.+)"可匹配算子名称以"Default/"开头的所有算子。
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
-    - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成1，表示开启AiCore溢出检测；设置成2，表示开启Atomic溢出检测；设置成3，表示开启全部溢出检测功能；设置成4，表示开启轻量异常Dump功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子或异常算子的数据。
+    - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成1，表示开启AiCore溢出检测；设置成2，表示开启Atomic溢出检测；设置成3，表示开启全部溢出检测功能；设置成4，表示开启轻量异常Dump功能（该功能仅在使用ACL dump时生效）。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子或异常算子的数据。
     - `statistic_category`: 该属性用于用户配置要保存的统计信息类别，仅在开启了保存统计信息(即`saved_data`设置为"statistic"或"full")时生效。类型为字符串列表，其中的字符串可选值如下：
 
         - "max": 表示Tensor中元素的最大值；
@@ -693,8 +693,8 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
 - `iteration_id`：GE侧训练的轮次。
 - `op_type`：算子类型。
 - `op_name`：算子名称。
-- `task_id`：任务标号。
-- `stream_id`：流标号。
+- `task_id`：任务标号，如果获取不到，默认为65535。
+- `stream_id`：流标号，如果获取不到，默认为65535。
 - `timestamp`：时间戳。
 - `step_id`: 用户侧的训练轮次。
 
@@ -798,4 +798,4 @@ Dump生成的原始数据文件也可以使用MindSpore Insight的数据解析�
 - Dump仅支持bool、int、int8、in16、int32、int64、uint、uint8、uint16、uint32、uint64、float、float16、float32、float64、bfloat16、double、complex64、complex128类型数据的保存。
 - complex64和complex128仅支持保存为npy文件，不支持保存为统计值信息。
 - Print算子内部有一个输入参数为string类型，string类型不属于Dump支持的数据类型，所以在脚本中包含Print算子时，会有错误日志，这不会影响其它类型数据的保存。
-- 使能ACL dump时，不支持溢出Dump。
+- 使能ACL dump时，不支持同时使用set_context(ascend_config={"exception_dump": "2")配置轻量异常dump; 支持同时使用set_context(ascend_config={"exception_dump": "1")配置全量异常dump。
