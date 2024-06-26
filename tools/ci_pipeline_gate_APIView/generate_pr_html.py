@@ -225,6 +225,9 @@ def en_file_handle(py_file_list, repo_path, dict1):
         ['mindspore/python/mindspore/train', 'mindspore.train'],
         ['mindspore/python/mindspore/boost', 'mindspore.boost'],
         ['mindspore/python/mindspore/mint/optim', 'mindspore.mint.optim'],
+        ['mindspore/python/mindspore/mint/nn/functional.py', 'mindspore.mint.nn.functional'],
+        ['mindspore/python/mindspore/mint/nn', 'mindspore.mint.nn'],
+        ['mindspore/python/mindspore/mint', 'mindspore.mint'],
         ['mindspore/python/mindspore/ops', 'mindspore.ops'],
         ['mindspore/python/mindspore/nn/probability/distribution', 'mindspore.nn.probability.distribution'],
         ['mindspore/python/mindspore/nn/probability/bijector', 'mindspore.nn.probability.bijector'],
@@ -512,7 +515,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                                        file_data+'\n\n')
                 if '--- /dev/null' not in diff_file and filename.endswith('.rst'):
                     if os.path.dirname(filename) + '/' == split_dict['mindspore_cn'] and 'autosummary::' in file_data:
-                        modify_api = re.findall(r'\+\s+?(mindspore\.[\w\.]+?)\n', diff_file)
+                        modify_api = re.findall(r'\+[ ]+?(mindspore\.[\w\.]+?)\n', diff_file)
                         for api_name in modify_api:
                             for sum_p, api_list in part_atsm:
                                 if api_name in api_list:
@@ -545,7 +548,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                                        file_data+'\n\n')
                 if '--- /dev/null' not in diff_file and filename.endswith('.rst'):
                     if os.path.dirname(filename) + '/' == split_dict['mindspore_en'] and 'autosummary::' in file_data:
-                        modify_api = re.findall(r'\+\s+?(mindspore\.[\w\.]+?)\n', diff_file)
+                        modify_api = re.findall(r'\+[ ]+?(mindspore\.[\w\.]+?)\n', diff_file)
                         for api_name in modify_api:
                             for sum_p, api_list in part_atsm:
                                 if api_name in api_list:
