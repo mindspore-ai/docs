@@ -6,8 +6,11 @@ import shutil
 import mindspore
 from mindspore.mint import optim
 
-def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need=''):
+def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need='all'):
     """Generate mint interface documentation that is consistent with the ops interface content."""
+    if not pr_need:
+        return 1
+
     mint_ops_dict = dict()
 
     with open(os.path.join(repo_path, 'docs/api/api_python/mindspore.mint.rst'), 'r+', encoding='utf-8') as f:
@@ -45,7 +48,7 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need=''):
                                 mint_ops_dict[modulename].append(j.strip())
 
     print('已自动生成与ops内容一致的mint接口:')
-    if pr_need:
+    if pr_need != 'all':
         os.makedirs(mint_path, exist_ok=True)
     for k, v in mint_ops_dict.items():
         if not re.findall(r'\.nn\.(?!function).*', k):
@@ -77,3 +80,5 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need=''):
                         f.truncate()
                         f.write(content)
                     print(f'{k}.{name2}')
+
+    return 1
