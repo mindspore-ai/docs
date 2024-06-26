@@ -676,7 +676,7 @@ Dump调试
 
 RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/debug/rdr.html#running-data-recorder>`_ 。
 
-精度敏感检测
+特征值检测
 ------------
 
 .. list-table::
@@ -689,12 +689,12 @@ RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/
      - 取值
      - 说明
    * - NPU_ASD_ENABLE
-     - 是否开启精度敏感检测功能
+     - 是否开启特征值检测功能
      - Integer
-     - 0：关闭精度敏感检测功能
+     - 0：关闭特征值检测功能
 
-       1：开启精度敏感检测功能
-     - 目前本特性仅支持Atlas A2 训练系列产品，仅支持检测Transformer类模型，bfloat16数据类型，训练过程中出现的精度异常
+       1：开启特征值检测功能
+     - 目前本特性仅支持Atlas A2 训练系列产品，仅支持检测Transformer类模型，bfloat16数据类型，训练过程中出现的特征值检测异常
    * - NPU_ASD_UPPER_THRESH
      - 控制检测的绝对数值阈值
      - String
@@ -714,7 +714,7 @@ RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/
        在不配置该环境变量的默认情况下，`NPU_ASD_SIGMA_THRESH=100000,5000`
      - 
 
-精度敏感检测的更多内容详见 `精度敏感检测 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/debug/sdc.html>`_ 。
+特征值检测的更多内容详见 `特征值检测 <https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3/debug/sdc.html>`_ 。
 
 三方库
 ------
