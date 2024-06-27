@@ -1122,8 +1122,6 @@ name: int8toft32_Softmax-7_post0/output-0, DataType: 43, Elements: 10, Shape: [1
 
 使用前请先参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register.html)了解基本概念。Micro目前仅支持custom类型的自定义算子注册和实现，暂不支持内建算子（比如conv2d、fc等）的注册和自定义实现。下面以海思Hi3516D开发板为例，说明如何在Micro中使用自定义算子。
 
-使用转换工具生成NNIE的自定义算子具体步骤请参考[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html)。
-
 模型生成代码方式与非自定义算子模型保持一致：
 
 ```shell
