@@ -235,10 +235,7 @@ The support for Asynchronous Dump on Ascend backend is shown in the table below 
         "e2e_dump_settings": {
             "enable": true,
             "trans_flag": true,
-            "stat_calc_mode": "host",
-            "save_kernel_args": false,
-            "sample_mode": 0,
-            "sample_num": 0
+            "stat_calc_mode": "host"
         }
     }
     ```
