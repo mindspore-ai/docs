@@ -444,18 +444,6 @@ MindSpore Lite Documentation
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-NNIE os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/nnie.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">Usage Description of the Integrated NNIE</span>
-										</div>
-										<div class="doc-article-desc">
-										This tutorial introduces instructions for using integrated NNIE.
-										</div>
-									</div>
-								</a>
-							</div>
 							<div class="doc-article-item all hardware-TensorRT os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/tensorrt_info.html" class="article-link">
 									<div>

@@ -1127,8 +1127,6 @@ Please refer to [Custom Kernel](https://www.mindspore.cn/lite/docs/en/master/use
 Micro currently only supports the registration and implementation of custom operators of custom type, and does not support the registration and custom implementation of built-in operators (such as conv2d and fc).
 We use Hi3516D board as an example to show you how to use kernel register in Micro.
 
-Please refer to [Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html) for the specific steps of using the conversion tool to generate custom operators for NNIE.
-
 The manner that the model generates code is consistent with that of the non-custom operator model.
 
 ```shell
