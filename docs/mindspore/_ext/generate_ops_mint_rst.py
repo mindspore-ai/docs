@@ -61,7 +61,7 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need='all'):
                     name2 = name
                 if f'{k}.{name2}' not in sum_list:
                     continue
-                elif pr_need and f'{k}.{name2}' not in pr_need:
+                elif pr_need != 'all' and f'{k}.{name2}' not in pr_need:
                     continue
                 if os.path.exists(os.path.join(ops_path, f'mindspore.ops.func_{name1}.rst')):
                     if os.path.exists(os.path.join(mint_path, f'{k}.{name2}.rst')):
