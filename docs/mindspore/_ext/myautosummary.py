@@ -201,6 +201,8 @@ class MsAutosummary(Autosummary):
                     env_sum = ''
                     if '.ops.' in display_name:
                         env_sum = self.get_refer_platform(display_name)
+                    if '.mint.' in display_name:
+                        env_sum = "``Ascend``"
                     summary = self.extract_ops_summary(self.bridge.result.data[:])
                     if not summary:
                         summary = extract_summary(self.bridge.result.data[:], self.state.document)
