@@ -759,6 +759,16 @@ Third-party Library
      - String
      - Absolute path for CUDA package installation
      - Required for GPU environment only, generally no need to set. If multiple versions of CUDA are installed in the GPU environment, it is recommended to configure this environment variable in order to avoid confusion.
+   * - MS_ENABLE_MINDIO_GRACEFUL_EXIT
+     - Enable MindIO TTP feature
+     - String
+     - "true": enable MindIO TTP. Default value: Empty.
+     - Required for Ascend GE lazyinline mode only. And pipeline size must greater than 2.
+   * - MS_MINDIO_TTP_LIB_PATH
+     - MindIO TTP API library path
+     - String
+     - Absolute path for MindIO TTP API library. Default Value: Empty.
+     - Required for MS_ENABLE_MINDIO_GRACEFUL_EXIT enable only.
 
 CANN
 -----
