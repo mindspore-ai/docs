@@ -223,7 +223,7 @@ def run(x):
     return model(x)
 
 run_with_jit = ms.jit(run)  # Transforming a function to execute as a static graph by calling jit
-output = run(input)
+output = run_with_jit(input)
 print(output)
 ```
 
