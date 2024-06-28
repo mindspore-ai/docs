@@ -304,10 +304,17 @@ def collect_pages(app: Sphinx) -> Generator[Tuple[str, Dict[str, Any], str], Non
         maxindex = len(lines) - 1
         for name, docname in used.items():
             spec_name = name
-            if 'mindspore.mint' in refname and name not in tags:
-                name += '_ext'
-            elif 'mindspore.mint' in refname and name.endswith('Ext'):
-                spec_name = spec_name[:-len('Ext')]
+            if 'mindspore.mint.' in docname:
+                if name not in tags:
+                    name += '_ext'
+                elif name.endswith('Ext'):
+                    spec_name = spec_name[:-len('Ext')]
+                if spec_name.endswith('_ext'):
+                    spec_name = spec_name[:-len('_ext')]
+                refname = docname.split('/')[-1].replace('.' + spec_name, '')
+            if refname != docname.split('/')[-1]:
+                if refname != docname.split('/')[-1].replace('.' + spec_name, '', 1) and '.' not in name:
+                    refname = docname.split('/')[-1].replace('.' + spec_name, '', 1)
             type, start, end = tags[name]
             backlink = urito(pagename, docname) + '#' + refname + '.' + spec_name
             lines[start] = (
