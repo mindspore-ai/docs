@@ -763,7 +763,7 @@ Third-party Library
      - Enable MindIO TTP feature
      - String
      - "true": enable MindIO TTP. Default value: Empty.
-     - Required for Ascend GE lazyinline mode only. And pipeline size must greater than 2.
+     - Required for Ascend GE lazyinline mode only. And pipeline size must greater than 1.
    * - MS_MINDIO_TTP_LIB_PATH
      - MindIO TTP API library path
      - String
