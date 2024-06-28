@@ -8,6 +8,8 @@ AOE（Ascend Optimization Engine）是一款自动调优工具，作用是充分
 
 ## 开启调优
 
+[配置环境变量](https://www.hiascend.com/document/detail/zh/canncommercial/700/devtools/auxiliarydevtool/aoe_16_060.html)。
+
 在set_context接口中设置`aoe_tune_mode`，即可开启AOE工具进行在线调优。`aoe_tune_mode`的取值为`"online"`， 开启在线调优。
 
 在set_context接口中设置`aoe_config`，可设置调优配置。`job_type`是设置调优类型，取值在`["1", "2"]`中，默认值是`2`。其中：
