@@ -61,8 +61,8 @@ Data Processing
 
 For more information, see `Single-Node Data Cache <https://mindspore.cn/tutorials/experts/en/master/dataset/cache.html>`_ and `Optimizing the Data Processing <https://mindspore.cn/tutorials/experts/en/master/dataset/optimize.html>`_.
 
-Graph Compilation
--------------------
+Graph Compilation and Execution
+---------------------------------
 
 .. list-table::
    :widths: 20 20 10 30 20
@@ -236,6 +236,40 @@ Graph Compilation
 
        No setting or other value: Enables the optimization.
      - This environment variable will be removed subsequently.
+    
+   * - MS_DEV_RUNTIME_CONF
+     - Configure the runtime environment.
+     - String
+     - Configuration items, with the format "key: value", multiple configuration items separated by commas, for example, "export MS_DEV_RUNTIME_CONF=inline:false,pipeline:false".
+
+       inline: In the scenario of sub image cell sharing, whether to enable backend inline, only effective in O0 or O1 mode, with a default value of true.
+
+       switch_inline: Whether to enable backend control flow inline, only effective in O0 or O1 mode, with a default value of true.
+
+       multi_stream: Whether to enable backend multi_stream, only effective in O0 or O1 mode, with a default value of true.
+
+       pipeline: Whether to enable runtime pipeline, only effective in O0 or O1 mode, with a default value of true.
+
+       all_finite: Whether to enable Allfitine in overflow detection, only effective in O0 or O1 mode, with a default value of true.
+
+       synchronize:  Whether to execute synchronously, only effective in O0 or O1 mode, with a default value of true.
+
+       memory_statistics: Whether to enable memory statistics, with a default value of false.
+
+       compile_statistics: Whether to enable compile statistics, with a default value of false.
+     -
+
+   * - MS_ALLOC_CONF
+     - Configure the memory allocation.
+     - String
+     - Configuration items, with the format "key: value", multiple configuration items separated by commas, for example, "export MS_ALLOC_CONF=enable_vmm:true,memory_tracker:true".
+
+       enable_vmm: Whether to enable virtual memory, only effective in O0 or O1 mode, with a default value of true.
+
+       vmm_align_size: Set the virtual memory alignment size in MB, only effective in O0 or O1 mode, with a default value of 2.
+
+       memory_tracker: Whether to enable memory tracker, with a default value of false.
+     -
 
 Dump Debugging
 ---------------
