@@ -769,7 +769,7 @@ RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/
      - 使能MindIO TTP 特性
      - String
      - "true": 使能 MindIO TTP。 其他值：未开启MindIO TTP。  默认值：空。
-     - 仅限 Ascend GE LazyInline 模式. 同时必须设置流水线并行数大于2。
+     - 仅限 Ascend GE LazyInline 模式. 同时必须设置流水线并行数大于1。
    * - MS_MINDIO_TTP_LIB_PATH
      - 设置MindIO TTP API 动态库路径
      - String
