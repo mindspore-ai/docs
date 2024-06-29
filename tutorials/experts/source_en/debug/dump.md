@@ -240,7 +240,7 @@ The support for Asynchronous Dump on Ascend backend is shown in the table below 
     }
     ```
 
-    - `dump_mode`: 0: all operator data in the network dumped out; 1: the operator data specified in Dump `"kernels"`.
+    - `dump_mode`: 0: all operator data in the network dumped out; 1: the operator data specified in Dump `"kernels"`; 2: dump target and its contents using [mindspore.set_dump](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_dump.html).
     - `path`: The absolute path to Dump saved data.
     - `net_name`: The customized net name: "ResNet50".
     - `iteration`: Specify the iterations of data required to be dumped, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped.
