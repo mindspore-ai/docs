@@ -162,6 +162,8 @@ def get_rst_en(en_list):
                 rel_path = 'dataset/dataset_method'
         elif '.Tensor.' in api_name:
             rel_path = 'mindspore/Tensor'
+        elif '.mint.' in api_name:
+            rel_path = 'mint'
         generate_api_en_list.append([api_name, rel_path, rst_docs, two_doc])
     return sorted(generate_api_en_list, key=lambda x: x[0], reverse=False)
 
@@ -184,9 +186,9 @@ def yaml_file_handle(yaml_file_list, repo_path, dict1):
                 op_content = f.read()
             class_name = re.findall(r'class:\n\s+?name:(.*)', op_content)
             func_name = re.findall(r'function:\n\s+?name:(.*)', op_content)
-            extend_str = ''
+            mint_flag = 0
             if '_ext_op.yaml' in op_fp:
-                extend_str = 'extend.'
+                mint_flag = 1
             if re.findall(r'function:\n\s+?disable: True', op_content):
                 if class_name:
                     class_name = class_name[0]
@@ -194,8 +196,12 @@ def yaml_file_handle(yaml_file_list, repo_path, dict1):
                     class_name = ''.join([i.title() for i in yaml_file.split('_')[:-1]])
                 if class_name.endswith('_ext'):
                     class_name = class_name.replace('_ext', '')
-                generate_interface_list.append(
-                    f'.. autoclass:: mindspore.ops.{extend_str}{class_name.strip()}&&&{yaml_fp}')
+                if mint_flag:
+                    generate_interface_list.append(
+                        f'.. autoclass:: mindspore.mint.{class_name.strip()}&&&{yaml_fp}')
+                else:
+                    generate_interface_list.append(
+                        f'.. autoclass:: mindspore.ops.{class_name.strip()}&&&{yaml_fp}')
             else:
                 if func_name:
                     func_name = func_name[0]
@@ -203,8 +209,12 @@ def yaml_file_handle(yaml_file_list, repo_path, dict1):
                     func_name = yaml_file.replace('_doc.yaml', '').replace('_op.yaml', '')
                 if func_name.endswith('_ext'):
                     func_name = func_name.replace('_ext', '')
-                generate_interface_list.append(
-                    f'.. autofunction:: mindspore.ops.{extend_str}{func_name.strip()}&&&{yaml_fp}')
+                if mint_flag:
+                    generate_interface_list.append(
+                        f'.. autofunction:: mindspore.mint.{func_name.strip()}&&&{yaml_fp}')
+                else:
+                    generate_interface_list.append(
+                        f'.. autofunction:: mindspore.ops.{func_name.strip()}&&&{yaml_fp}')
     return list(set(generate_interface_list))
 
 
