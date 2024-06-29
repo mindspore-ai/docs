@@ -542,7 +542,7 @@ import matplotlib.pyplot as plt
 
 
 def visualize_model(best_ckpt_path, dataset_val):
-    num_class = 10  # Perform binary classification on wolf and dog images.
+    num_class = 10
     net = resnet50(num_class)
     # Load model parameters.
     param_dict = ms.load_checkpoint(best_ckpt_path)
