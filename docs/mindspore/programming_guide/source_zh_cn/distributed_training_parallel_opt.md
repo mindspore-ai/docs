@@ -109,7 +109,7 @@ for item in net.trainable_params():
     print(f"The parameter {item.name}'s fusion id is {item.comm_fusion}")
 ```
 
-对应的输出如下，表示了每层特定dense的funsion值：
+对应的输出如下，表示了每层特定dense的fusion值：
 
 ```text
 The parameter layer1.input_mapping.weight's fusion id is 0
