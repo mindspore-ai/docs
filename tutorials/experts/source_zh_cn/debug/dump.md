@@ -650,7 +650,7 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
                         mapping.csv
 ```
 
-通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且图编译等级不为O0时，Dump目录结构如下所示，主要特征为存在{step_id}目录，代表用户侧的训练轮次：
+通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且图编译等级不为O0或O1时，Dump目录结构如下所示，主要特征为存在{step_id}目录，代表用户侧的训练轮次：
 
 ```text
 {path}/
@@ -666,18 +666,24 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
                             mapping.csv
 ```
 
-通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且图编译等级为O0时，Dump目录结构如下所示，主要特征为不存在{model_name}和{model_id}目录，此种场景下的动态shape算子的Dump数据会保存于{iteration_id}目录，静态shape算子的Dump数据会保存在{device_id}目录：
+通过MS_ACL_DUMP_CFG_PATH环境变量使能ACL dump，且图编译等级为O0或O1时，Dump目录结构如下所示，此种场景下aclop和aclnn算子的Dump数据会保存于{device_id}目录，"ReduceSum"类通信算子的Dump数据会保存在{iteration_id}目录：
 
 ```text
 {path}/
     - {step_id}/
         - {time}/
             - {device_id}/
-                - {iteration_id}/
-                    statistic.csv
-                    {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
-                    Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
-                    mapping.csv
+                - {model_name}/
+                    - {model_id}/
+                        - {iteration_id}/
+                            statistic.csv
+                            {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp} //aclop 算子
+                            {op_name}.{op_type}.{task_id}.{stream_id}.{timestamp} //aclnn 算子
+                            mapping.csv
+                statistic.csv
+                {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp} //aclop 算子
+                {op_name}.{op_type}.{task_id}.{stream_id}.{timestamp} //aclnn 算子
+                mapping.csv
 ```
 
 使能ACL dump时，除上述dump数据外，还会在{path}目录生成调用acl接口所需要的json文件，一般情况下无需关注。

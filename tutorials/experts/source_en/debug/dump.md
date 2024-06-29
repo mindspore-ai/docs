@@ -644,7 +644,7 @@ The Dump directory structure of the graph pattern is as follows:
                         mapping.csv
 ```
 
-When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and the graph compilation level is not O0, the Dump directory structure is as follows, where the main feature is the {step_id} directory, which represents user side training step id:
+When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and the graph compilation level is not O0 or O1, the Dump directory structure is as follows, where the main feature is the {step_id} directory, which represents user side training step id:
 
 ```text
 {path}/
@@ -659,18 +659,24 @@ When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and the graph compilation le
                         mapping.csv
 ```
 
-When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and the graph compilation level is O0, the Dump directory structure is as follows, where the main feature is no {model_name} and {model_id} directory. In this scenario, the dump files for dynamic shape operators will be saved in {iteration_id} directory and the dump files for static shape operators will be saved in {device_id} directory:
+When using MS_ACL_DUMP_CFG_PATH to enable ACL dump, and the graph compilation level is O0 or O1, the Dump directory structure is as follows. In this scenario, the dump files for aclop and aclnn operators will be saved in {device_id} directory, and the dump files for communication operators such as "ResuceSum" will be saved in {iteration_id} directory:
 
 ```text
 {path}/
     - {step_id}/
         - {time}/
             - {device_id}/
-                - {iteration_id}/
-                    statistic.csv
-                    {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
-                    Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
-                    mapping.csv
+                - {model_name}/
+                    - {model_id}/
+                        - {iteration_id}/
+                            statistic.csv
+                            {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp} //aclop ops
+                            {op_name}.{op_type}.{task_id}.{stream_id}.{timestamp} //aclnn ops
+                            mapping.csv
+                statistic.csv
+                {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp} //aclop ops
+                {op_name}.{op_type}.{task_id}.{stream_id}.{timestamp} //aclnn ops
+                mapping.csv
 ```
 
 - `path`: the absolute path set in the `data_dump.json` configuration file.
