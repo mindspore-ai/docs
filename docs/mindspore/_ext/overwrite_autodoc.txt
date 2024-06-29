@@ -579,7 +579,8 @@ class Documenter:
                 elif isinstance(j[1], str) and j[0] in mint_doc:
                     mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', mint_doc)
                     break
-            docstring = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext)?', rf'\1{usename}', mint_doc)
+            if not re.findall(f'>>> .*?{usename}', mint_doc):
+                docstring = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext)?', rf'\1{usename}', mint_doc)
         if docstring:
             tab_width = self.directive.state.document.settings.tab_width
             return [prepare_docstring(docstring, ignore, tab_width)]
@@ -1784,7 +1785,8 @@ class ClassDocumenter(DocstringSignatureMixin, ModuleLevelDocumenter):  # type: 
                 mint_doc = re.sub('(Alias for.*?:(func|class):`[^`]+?\.)ops\.([^`]+?)(?<!_ext)(`|_ext`)', r'\1mint.\3`', mint_doc)
                 mint_doc = re.sub('(Supported Platforms:\n\s+?)`.*\n', r'\1``Ascend``\n', mint_doc)
                 mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', mint_doc)
-                mint_doc = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext)?', rf'\1{usename}', mint_doc)
+                if not re.findall(f'>>> .*?{usename}', mint_doc):
+                    mint_doc = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext)?', rf'\1{usename}', mint_doc)
                 mint_rp = ''
                 if 'mindspore/ops/auto_generate/' in py_source_rel and 'is equivalent to' in mint_doc:
                     mint_doc = re.sub(rf'ops\.{b_name}(Ext)?', usename, mint_doc)

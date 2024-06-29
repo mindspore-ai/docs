@@ -75,7 +75,8 @@ def get_example(name: str):
                 elif isinstance(j[1], str) and j[0] in api_doc:
                     api_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', api_doc)
                     break
-            api_doc = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext|_ext)?', rf'\1{usename}', api_doc)
+            if not re.findall(f'>>> .*?{usename}', api_doc):
+                api_doc = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext|_ext)?', rf'\1{usename}', api_doc)
         example_str = re.findall(r'(?<!Tutorial )Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
         if not example_str:
             return []
