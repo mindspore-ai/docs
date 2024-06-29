@@ -62,8 +62,8 @@
 具体用法详见 `单节点数据缓存 <https://mindspore.cn/tutorials/experts/zh-CN/master/dataset/cache.html>`_
 和 `数据处理性能优化 <https://mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html>`_ 。
 
-图编译
-------
+图编译执行
+----------
 
 .. list-table::
    :widths: 20 20 10 30 20
@@ -238,6 +238,40 @@
        不设置或其他值: 打开该优化功能。
      - 此环境变量后续将删除。
 
+   * - MS_DEV_RUNTIME_CONF
+     - 设置运行时控制选项
+     - String
+     - 配置项，格式为key:value，多个配置项以逗号分隔，例如`export MS_DEV_RUNTIME_CONF=inline:false,pipeline:false`。
+
+       inline: 子图cell共享场景下，是否开启后端inline，仅在O0或O1模式下生效，默认值为true。
+
+       switch_inline: 是否开启后端控制流inline，仅在O0或O1模式下生效，默认值为true。
+
+       multi_stream: 是否使能后端多流，仅在O0或O1模式下生效，默认值为true。
+
+       pipeline: 是否使能运行时流水，仅在O0或O1模式下生效，默认值为true。
+
+       all_finite: 是否使能溢出检测大算子，仅在O0或O1模式下生效，默认值为true。
+
+       synchronize: 是否同步执行，仅在O0或O1模式下生效，默认值为false。
+
+       memory_statistics: 是否开启内存统计，默认值为false。
+
+       compile_statistics: 是否开启编译性能统计，默认值为false。
+     -
+
+   * - MS_ALLOC_CONF
+     - 设置内存策略
+     - String
+     - 配置项，格式为key:value，多个配置项以逗号分隔，例如`export MS_ALLOC_CONF=enable_vmm:true,memory_tracker:true`。
+
+       enable_vmm: 是否使能虚拟内存，仅在O0或O1模式下生效，默认值为true。
+
+       vmm_align_size: 设置虚拟内存对齐大小，单位为MB，仅在O0或O1模式下生效，默认值为2。
+
+       memory_tracker: 是否开启memory tracker，默认值为false。
+     -
+       
 Dump调试
 --------
 
