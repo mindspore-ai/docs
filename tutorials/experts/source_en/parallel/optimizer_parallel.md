@@ -155,7 +155,7 @@ for item in net.trainable_params():
     print(f"The parameter {item.name}'s fusion id is {item.comm_fusion}")
 ```
 
-The corresponding output is as follows, indicating the funsion value for each layer of the particular dense:
+The corresponding output is as follows, indicating the fusion value for each layer of the particular dense:
 
 ```text
 The parameter layer1.input_mapping.weight's fusion id is 0
