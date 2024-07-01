@@ -108,7 +108,6 @@ intersphinx_mapping = {
     'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../../resource/numpy_objects.inv'),
 }
 
-# Example configuration for intersphinx: refer to the Python standard library.
 with open('../_ext/overwriteautosummary_generate.txt', 'r', encoding="utf8") as f:
     exec(f.read(), g.__dict__)
 
@@ -304,6 +303,8 @@ if os.path.exists(lite_dir):
 # Repair error content defined in mindspore_lite.
 try:
     decorator_list = [("mindspore_lite/model.py","del decorator",
+                       "@set_env","# generate api by del decorator set_env."),
+                      ("mindspore_lite/converter.py","del decorator",
                        "@set_env","# generate api by del decorator set_env.")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
@@ -317,6 +318,34 @@ try:
                 f.write(content)
 except:
     pass
+
+# modify urls
+re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
+
+with open(os.path.join('./mindspore_lite.rst'), 'r+', encoding='utf-8') as f:
+    content = f.read()
+    new_content = re.sub(re_url, r'\1/r2.3.0', content)
+    new_content = re.sub(re_url2, r'\1/v2.3.0', new_content)
+    if new_content != content:
+        f.seek(0)
+        f.truncate()
+        f.write(new_content)
+
+base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+for cur, _, files in os.walk(os.path.join(base_path, 'mindspore_lite')):
+    for i in files:
+        if i.endswith('.py'):
+            with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                content = f.read()
+                new_content = re.sub(re_url, r'\1/r2.3.0', content)
+                new_content = re.sub(re_url2, r'\1/v2.3.0', new_content)
+                if new_content != content:
+                    f.seek(0)
+                    f.truncate()
+                    f.write(new_content)
 
 # modify urls
 import json
@@ -434,6 +463,14 @@ for file_name in fileList:
     with open(file_name, 'r', encoding='utf-8') as f:
         data = f.read()
         data = re.sub(r'/\*\*([\s\n\S]*?)\*/', '', data)
+    with open(file_name, 'w', encoding='utf-8') as p:
+        p.write(data)
+
+for file_name in fileList:
+    file_data = ''
+    with open(file_name, 'r', encoding='utf-8') as f:
+        data = f.read()
+        data = re.sub(r'.*//.*?910B.*\n', '', data)
     with open(file_name, 'w', encoding='utf-8') as p:
         p.write(data)
 
