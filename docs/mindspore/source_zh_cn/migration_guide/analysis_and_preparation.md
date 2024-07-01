@@ -61,50 +61,9 @@ MindSpore仍在持续迭代中，部分功能目前存在限制，在网络迁�
 
 ### 动态shape
 
-当前MindSpore的动态shape特性在迭代开发中，动态shape功能支持不完善。下面将给出几种引入动态shape的场景，在网络迁移过程中，如果存在以下一种情况就说明网络存在动态shape。
+当前MindSpore的动态shape特性在迭代开发中，动态shape功能支持不完善。
 
-- 引入动态shape的几种场景：
-
-    - [输入shape不固定](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/dynamic_shape.html#%E8%BE%93%E5%85%A5shape%E4%B8%8D%E5%9B%BA%E5%AE%9A)
-    - [网络执行过程中有引发shape变化的API](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/dynamic_shape.html#%E7%BD%91%E7%BB%9C%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%AD%E6%9C%89%E5%BC%95%E5%8F%91shape%E5%8F%98%E5%8C%96%E7%9A%84api)
-    - [控制流不同分支引入shape上的变化](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/dynamic_shape.html#%E6%8E%A7%E5%88%B6%E6%B5%81%E4%B8%8D%E5%90%8C%E5%88%86%E6%94%AF%E5%BC%95%E5%85%A5shape%E4%B8%8A%E7%9A%84%E5%8F%98%E5%8C%96)
-
-- 动态shape的几种解决方法：
-
-    - 输入shape不固定时：
-         可通过mask机制把动态shape转换成静态shape，mask机制示例代码如下：
-
-         ```python
-         def _convert_ids_and_mask(input_tokens, seq_max_bucket_length):
-             input_ids = tokenizer.convert_tokens_to_ids(input_tokens)
-             input_mask = [1] * len(input_ids)
-             assert len(input_ids) <= max_seq_length
-
-             while len(input_ids) < seq_max_bucket_length:
-                 input_ids.append(0)
-                 input_mask.append(0)
-
-             assert len(input_ids) == seq_max_bucket_length
-             assert len(input_mask) == seq_max_bucket_length
-
-             return input_ids, input_mask
-         ```
-
-    - 网络执行过程中有引发shape变化的API时：
-         如果遇到该场景引入动态shape，本质是需要将动态变化的值修改为固定的shape来解决问题。
-         如TopK算子，若执行过程中K是变化的，则会引入动态shape。
-         解决方法：可先固定一个最大目标数，先按静态shape获取所有目标的置信度，再选择K个最高的目标作为结果输出，其他目标通过mask机制去除。示例代码如[FasterRCNN](https://gitee.com/mindspore/models/blob/master/official/cv/FasterRCNN/src/FasterRcnn/faster_rcnn.py)的multiclass_nms接口。
-
-    - 控制流不同分支引入shape上的变化时：
-         可尝试用equal、select算子替换if条件，示例代码如下：
-
-         ```python
-         # 引入控制流的代码示例：
-         if ms.ops.reduce_sum(object_masks)==0:
-            stage2_loss = stage2_loss.fill(0.0)
-         # 修改后的代码示例：
-         stage2_loss = ms.ops.select(ms.ops.equal(ms.ops.reduce_sum(object_masks), 0), stage2_loss.fill(0), stage2_loss)
-         ```
+迁移过程中如遇到动态shape相关问题可参考[动态shape相关迁移策略](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/dynamic_shape.html)。
 
 ### 稀疏
 

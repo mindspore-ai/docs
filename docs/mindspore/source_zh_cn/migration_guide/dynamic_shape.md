@@ -1,15 +1,11 @@
-# 动态shape
+# 动态shape相关迁移策略
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/dynamic_shape.md)
 
 想要了解动态shape，需要先了解什么是静态shape。
 静态shape指在网络执行阶段Tensor的shape没有发生变化。
 比如resnet50网络如果保证图片的输入shape一直是`224*224`的，那么在网络训练阶段，四个残差模块的输出Tensor的shape分别是`B*64*56*56`，`B*128*28*28`，`B*256*14*14`，`B*512*7*7`，`B`指`BatchSize`，在训练过程中也是固定的，此时网络中全部是静态的shape，没有动态shape。
-如果输入的shape不一定是`224*224`的，那么四个残差模块输出Tensor的shape将会随输入shape变化，此时就不是静态shape，而是动态shape了。一般动态shape引入的原因有：
-
-1. 输入shape不固定；
-2. 网络执行过程中有引发shape变化的API；
-3. 控制流不同分支引入shape上的变化。
+如果输入的shape不一定是`224*224`的，那么四个残差模块输出Tensor的shape将会随输入shape变化，此时就不是静态shape，而是动态shape了。一般动态shape引入的原因和解决办法有：
 
 ## 输入shape不固定
 
@@ -21,6 +17,26 @@
 for batch_idx, (data, target) in enumerate(data_loader):
     print(batch_idx, data.shape, target.shape)
     print("="*20)
+```
+
+**解决办法**
+
+可通过mask机制把动态shape转换成静态shape，mask机制示例代码如下：
+
+```python
+def _convert_ids_and_mask(input_tokens, seq_max_bucket_length):
+    input_ids = tokenizer.convert_tokens_to_ids(input_tokens)
+    input_mask = [1] * len(input_ids)
+    assert len(input_ids) <= max_seq_length
+
+    while len(input_ids) < seq_max_bucket_length:
+        input_ids.append(0)
+        input_mask.append(0)
+
+    assert len(input_ids) == seq_max_bucket_length
+    assert len(input_mask) == seq_max_bucket_length
+
+    return input_ids, input_mask
 ```
 
 ## 网络执行过程中有引发shape变化的API
@@ -58,6 +74,12 @@ print(x[:k].shape)
 
 在网络训练时有个切片的操作`x[:k]`这里的k不是一个常量，会导致`x[:k]`的shape随k的值改变，导致后续所有和`x[:k]`相关的操作的shape不确定。
 
+**解决办法**
+
+如果遇到该场景引入动态shape，本质是需要将动态变化的值修改为固定的shape来解决问题。
+如TopK算子，若执行过程中K是变化的，则会引入动态shape。
+可先固定一个最大目标数，先按静态shape获取所有目标的置信度，再选择K个最高的目标作为结果输出，其他目标通过mask机制去除。示例代码如[FasterRCNN](https://gitee.com/mindspore/models/blob/master/official/cv/FasterRCNN/src/FasterRcnn/faster_rcnn.py)的multiclass_nms接口。
+
 ## 控制流不同分支引入shape上的变化
 
 网络中可能会有一些控制流的输出是不一样的，而当控制流的条件控制项不是固定的时，可能会引发动态shape，比如：
@@ -87,4 +109,14 @@ print(y)
 
 在这个过程其实有两个地方有动态shape，一个是`cond=True`时`masked_select`结果的shape是动态，另外是控制流，由于cond不定，控制流两个分支的shape输出不同也会造成动态shape。
 
-动态shape一般可以从算法、代码层面进行分析，也可以直接打印参考代码相关Tensor进行判断。如果存在动态shape，我们在[网络主体和loss搭建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html)篇章有规避策略的介绍。
+**解决办法**
+
+可尝试用equal、select算子替换if条件，示例代码如下：
+
+```python
+# 引入控制流的代码示例：
+if ms.ops.reduce_sum(object_masks)==0:
+    stage2_loss = stage2_loss.fill(0.0)
+# 修改后的代码示例：
+stage2_loss = ms.ops.select(ms.ops.equal(ms.ops.reduce_sum(object_masks), 0), stage2_loss.fill(0), stage2_loss)
+```
