@@ -16,6 +16,7 @@ MindSpore 文档
    design/tensor_view
    design/programming_paradigm
    design/dynamic_graph_and_static_graph
+   design/dynamic_shape
    design/distributed_training_design
    design/data_engine
    design/all_scenarios
