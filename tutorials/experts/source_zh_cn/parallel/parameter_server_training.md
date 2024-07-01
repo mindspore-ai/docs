@@ -1,6 +1,6 @@
 # 参数服务器
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/parameter_server_training.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.0/tutorials/experts/source_zh_cn/parallel/parameter_server_training.md)
 
 ## 概述
 
@@ -34,7 +34,7 @@ MindSpore 的参数服务器采用了自研的通信框架作为基础架构，�
     - 接口`set_param_ps`可接收一个`bool`型参数：`init_in_server`，表示该训练参数是否在 Server 端初始化，`init_in_server`默认值为`False`，表示在 Worker 上初始化该训练参数。
     - 当前仅支持`EmbeddingLookup`算子的训练参数`embedding_table`在 Server 端初始化，以解决超大 shape 的`embedding_table`在 Worker 上初始化导致内存不足的问题，该算子的`target`属性需要设置为'CPU'。在 Server 端初始化的训练参数将不再同步到 Worker 上，如果涉及到多 Server 训练并保存 CheckPoint，则训练结束后每个 Server 均会保存一个 CheckPoint。上述的`embedding_table`指的是一个用于储存和管理学习模型中使用到的嵌入向量的二维表。
 
-3. [可选配置] 针对超大 shape 的`embedding_table`，由于设备上存放不下全量的`embedding_table`，可以配置[EmbeddingLookup 算子](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.EmbeddingLookup.html)的`vocab_cache_size`参数，用于开启 Parameter Server 训练模式下`EmbeddingLookup`的**分布式特征缓存功能**，该功能将在设备使用一块`vocab_cache_size`大小的独占空间作为缓存 (Embedding Cache)，供部分`embedding_table`在设备上训练，以达到提升训练性能的目的，而全量`embedding_table`仍旧存储在 Server 上。在训练过程中，将下批次训练用到的`embedding_table`提前换入到 Embedding Cache ，当 Embedding Cache 放不下时，则过期的`embedding_table`将会被放回到 Server。训练结束后，可在 Server 上导出 CheckPoint，保存训练后的全量`embedding_table`。Embedding Cache 支持 sparse 模式，但需要将所有配置了`vocab_cache_size`的`EmbeddingLookup`算子的`sparse`参数都设为 True，sparse 模式会对该算子输入的特征 id 做去重处理，以降低计算与通信量。关于详细网络训练脚本及**分布式缓存特征**请参考<https://github.com/mindspore-lab/mindrec>。
+3. [可选配置] 针对超大 shape 的`embedding_table`，由于设备上存放不下全量的`embedding_table`，可以配置[EmbeddingLookup 算子](https://www.mindspore.cn/docs/zh-CN/r2.3.0/api_python/nn/mindspore.nn.EmbeddingLookup.html)的`vocab_cache_size`参数，用于开启 Parameter Server 训练模式下`EmbeddingLookup`的**分布式特征缓存功能**，该功能将在设备使用一块`vocab_cache_size`大小的独占空间作为缓存 (Embedding Cache)，供部分`embedding_table`在设备上训练，以达到提升训练性能的目的，而全量`embedding_table`仍旧存储在 Server 上。在训练过程中，将下批次训练用到的`embedding_table`提前换入到 Embedding Cache ，当 Embedding Cache 放不下时，则过期的`embedding_table`将会被放回到 Server。训练结束后，可在 Server 上导出 CheckPoint，保存训练后的全量`embedding_table`。Embedding Cache 支持 sparse 模式，但需要将所有配置了`vocab_cache_size`的`EmbeddingLookup`算子的`sparse`参数都设为 True，sparse 模式会对该算子输入的特征 id 做去重处理，以降低计算与通信量。关于详细网络训练脚本及**分布式缓存特征**请参考<https://github.com/mindspore-lab/mindrec>。
 
 相关环境变量配置：
 
@@ -48,7 +48,7 @@ export MS_SCHED_PORT=XXXX             # Scheduler port
 export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
 ```
 
-更多详细说明请查看[动态组网环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html)。
+更多详细说明请查看[动态组网环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0/parallel/dynamic_cluster.html)。
 
 ## 操作实践
 
@@ -56,7 +56,7 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[parameter_server](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/parameter_server)。
+> 下载完整的样例代码：[parameter_server](https://gitee.com/mindspore/docs/tree/r2.3.0/docs/sample_code/parameter_server)。
 
 目录结构如下：
 
