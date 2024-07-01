@@ -1,6 +1,6 @@
 # Parameter Server
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/parameter_server_training.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.0/tutorials/experts/source_en/parallel/parameter_server_training.md)
 
 ## Overview
 
@@ -34,7 +34,7 @@ Related interfaces:
     - The interface `set_param_ps` can take a `bool` type parameter: `init_in_server`, which indicates whether the training parameter is initialized on the Server side. The default value of `init_in_server` is `False`, which means that the training parameter is initialized on the Worker.
     - Currently, only the training parameter `embedding_table` of `EmbeddingLookup` operator is supported to be initialized on the Server side, in order to solve the problem that the initialization of `embedding_table` of very large shape on the Worker leads to insufficient memory, and the `target` attribute of this operator needs to be set to 'CPU'. The training parameters initialized on the Server side will no longer be synchronized to the Worker, and if multi-Server training is involved and CheckPoints are saved, a CheckPoint will be saved for each Server at the end of training. The `embedding_table` refers to a 2-dimensional table used to store and manage the embedding vectors used in learning model.
 
-3. [Optional Configuration] For `embedding_table` of very large shape, since the full amount of `embedding_table` cannot be stored on the device, the [EmbeddingLookup operator](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.EmbeddingLookup.html) with `vocab_cache_size` can be configured, which is used to turn on the **Distributed Feature Cache** function of `EmbeddingLookup` in Parameter Server training mode. This feature will allocate an exclusive space of `vocab_cache_size` on the device as a cache (Embedding Cache), which will be used for training a subset of the `embedding_table` on the device for the purpose of improving the performance of training, while the complete `embedding_table` will still be stored on the server. During the training process, the `embedding_table` used for the next batch of training is preloaded into the Embedding Cache in advance, once the Embedding Cache is full and unable to accommodate the new `embedding_table` data, the expired `embedding_table` data will be put back to the server. After training, CheckPoint can be exported on Server to save the full amount of `embedding_table` after training. Embedding cache supports sparse mode, and you need to set the `sparse` parameter to True for all `EmbeddingLookup` operators that have the cache turned on. The sparse mode will de-emphasize the feature ids of the input in this operator to reduce the amount of computation and communication. Refer to <https://github.com/mindspore-lab/mindrec> for detailed network training scripts and **Distributed Feature Cache** function.
+3. [Optional Configuration] For `embedding_table` of very large shape, since the full amount of `embedding_table` cannot be stored on the device, the [EmbeddingLookup operator](https://www.mindspore.cn/docs/en/r2.3.0/api_python/nn/mindspore.nn.EmbeddingLookup.html) with `vocab_cache_size` can be configured, which is used to turn on the **Distributed Feature Cache** function of `EmbeddingLookup` in Parameter Server training mode. This feature will allocate an exclusive space of `vocab_cache_size` on the device as a cache (Embedding Cache), which will be used for training a subset of the `embedding_table` on the device for the purpose of improving the performance of training, while the complete `embedding_table` will still be stored on the server. During the training process, the `embedding_table` used for the next batch of training is preloaded into the Embedding Cache in advance, once the Embedding Cache is full and unable to accommodate the new `embedding_table` data, the expired `embedding_table` data will be put back to the server. After training, CheckPoint can be exported on Server to save the full amount of `embedding_table` after training. Embedding cache supports sparse mode, and you need to set the `sparse` parameter to True for all `EmbeddingLookup` operators that have the cache turned on. The sparse mode will de-emphasize the feature ids of the input in this operator to reduce the amount of computation and communication. Refer to <https://github.com/mindspore-lab/mindrec> for detailed network training scripts and **Distributed Feature Cache** function.
 
 Relevant environment variable configuration:
 
@@ -48,7 +48,7 @@ export MS_SCHED_PORT=XXXX             # Scheduler port
 export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
 ```
 
-For more detailed instructions, see [dynamic cluster environment variables](https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html).
+For more detailed instructions, see [dynamic cluster environment variables](https://www.mindspore.cn/tutorials/experts/en/r2.3.0/parallel/dynamic_cluster.html).
 
 ## Practice
 
@@ -56,7 +56,7 @@ Parameter server supports GPU and Ascend, the following Ascend as an example for
 
 ### Example Code Description
 
-> Download the complete example code: [parameter_server](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/parameter_server).
+> Download the complete example code: [parameter_server](https://gitee.com/mindspore/docs/tree/r2.3.0/docs/sample_code/parameter_server).
 
 The directory structure is as follows:
 

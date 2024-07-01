@@ -1,6 +1,6 @@
 # 调试调优
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/debug_and_tune.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.0/docs/mindspore/source_zh_cn/migration_guide/debug_and_tune.md)
 
 ## 调优常见问题及解决办法
 
@@ -11,16 +11,16 @@
          这个大概率是网络反向出现问题。可借助[TroubleShooter比对MindSpore与PyTorch的ckpt/pth](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF2%E6%AF%94%E5%AF%B9mindspore%E4%B8%8Epytorch%E7%9A%84ckptpth)通过比较ckpt与pth的对应参数的值来检验网络反向更新的结果。
     - loss出现NAN/INF：
          可以通过[TroubleShooter获取INF/NAN值抛出点](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/tracker.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF2%E8%8E%B7%E5%8F%96infnan%E5%80%BC%E6%8A%9B%E5%87%BA%E7%82%B9)识别网络中第一个出现NAN或INF的位置。
-         也可通过[Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)工具进行溢出算子检测。
+         也可通过[Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0/debug/dump.html)工具进行溢出算子检测。
 - 性能调试阶段，可能会遇到以下常见问题：
     - 第一个step耗时长
-         这个阶段主要完成图转换、图融合、图优化等操作，是生成可执行模型的过程，可参考[如何优化编译性能](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/static_graph_expert_programming.html#%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E7%BC%96%E8%AF%91%E6%80%A7%E8%83%BD)。
+         这个阶段主要完成图转换、图融合、图优化等操作，是生成可执行模型的过程，可参考[如何优化编译性能](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0/advanced/static_graph_expert_programming.html#%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E7%BC%96%E8%AF%91%E6%80%A7%E8%83%BD)。
     - 迭代间隙耗时长
-         这个阶段的耗时大部分来源于数据获取，可参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html)。
+         这个阶段的耗时大部分来源于数据获取，可参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0/dataset/optimize.html)。
     - 前反向计算耗时长
-         这个阶段主要执行网络中的前向及反向算子，承载了一个迭代的主要计算工作。可通过[Profiler](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling.html)将训练过程中的算子耗时等信息记录到文件中。该性能数据提供框架的host执行、以及算子执行的性能数据，也可通过[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html)可视化界面供用户查看分析，帮助用户更高效地调试神经网络性能。
+         这个阶段主要执行网络中的前向及反向算子，承载了一个迭代的主要计算工作。可通过[Profiler](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/performance_profiling.html)将训练过程中的算子耗时等信息记录到文件中。该性能数据提供框架的host执行、以及算子执行的性能数据，也可通过[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/index.html)可视化界面供用户查看分析，帮助用户更高效地调试神经网络性能。
     - 迭代拖尾耗时长
-         这个阶段耗时长可能是集合通信耗时长，可设置融合策略进行优化，可参考[all_reduce_fusion_config设置allreduce融合策略](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_auto_parallel_context.html)。
+         这个阶段耗时长可能是集合通信耗时长，可设置融合策略进行优化，可参考[all_reduce_fusion_config设置allreduce融合策略](https://www.mindspore.cn/docs/zh-CN/r2.3.0/api_python/mindspore/mindspore.set_auto_parallel_context.html)。
 - 显存调试阶段，可能遇到以下常见问题：
     - Malloc device memory failed:
          MindSpore申请device侧内存失败，原始是设备被其他进程占用，可通过ps -ef | grep "python"查看正在跑的进程。
@@ -32,7 +32,7 @@
 ### 功能调试
 
 在网络的迁移过程，建议优先使用PYNATIVE模式进行调试，在PYNATIVE模式下可以进行debug，日志打印也比较友好。在调试ok后转成图模式运行，图模式在执行性能上会更友好，也可以找到一些在编写网络中的问题，比如使用了三方的算子导致梯度截断。
-详情请参考[错误分析](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/error_scenario_analysis.html)。
+详情请参考[错误分析](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0/advanced/error_analysis/error_scenario_analysis.html)。
 
 ### 精度调试
 
@@ -146,15 +146,15 @@ trainable parameter numbers: 2
 
 #### 2.模型验证
 
-由于模型算法的实现是和框架没有关系的，训练好的参数可以先转换成MindSpore的[checkpoint](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html)文件加载到网络中进行推理验证。
+由于模型算法的实现是和框架没有关系的，训练好的参数可以先转换成MindSpore的[checkpoint](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0/beginner/save_load.html)文件加载到网络中进行推理验证。
 
-整个模型验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html#%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81)。
+整个模型验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/r2.3.0/migration_guide/sample_code.html#%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81)。
 
 #### 3.推理验证
 
 确认模型结构完全一致后，最好再做一次推理验证。整个推理过程除了模型外还有数据集和metrics，当推理结果不一致时，可以采用控制变量法，逐步排除问题。
 
-整个推理验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html#%E6%8E%A8%E7%90%86%E6%B5%81%E7%A8%8B)。
+整个推理验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/r2.3.0/migration_guide/sample_code.html#%E6%8E%A8%E7%90%86%E6%B5%81%E7%A8%8B)。
 
 #### 4.训练精度
 
@@ -201,7 +201,7 @@ trainable parameter numbers: 2
   model = Model(network=train_net)
   ```
 
-- 排查是否溢出，添加loss scale时，默认会加上溢出检测，可以将是否溢出的结果进行监测，如果持续溢出的话建议优先排查为什么溢出，建议使用MindSpore Insight的[调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html)或者[dump数据](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)。
+- 排查是否溢出，添加loss scale时，默认会加上溢出检测，可以将是否溢出的结果进行监测，如果持续溢出的话建议优先排查为什么溢出，建议使用MindSpore Insight的[调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/debugger.html)或者[dump数据](https://mindspore.cn/tutorials/experts/zh-CN/r2.3.0/debug/dump.html)。
 
   ```python
   import numpy as np
@@ -240,7 +240,7 @@ trainable parameter numbers: 2
   ```
 
 - 排查优化器、loss和参数初始化，整个训练过程除了模型、数据集外新加的部分只有优化器、loss和参数初始化，训练有问题时需要重点排查。尤其是loss和参数初始化，出现问题的概率较大。
-- 多卡确认是否加seed保证多卡初始化一致，[自定义训练](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_evaluation.html#训练流程)确认是否进行梯度聚合。
+- 多卡确认是否加seed保证多卡初始化一致，[自定义训练](https://www.mindspore.cn/docs/zh-CN/r2.3.0/migration_guide/model_development/training_and_evaluation.html#训练流程)确认是否进行梯度聚合。
 
   ```python
   import mindspore as ms
@@ -249,11 +249,11 @@ trainable parameter numbers: 2
 
 - 排查数据处理，通过可视化等方法查看数据处理是否符合预期，重点查看数据shuffle，是否有数据不匹配的情况。
 
-更多精度调试策略请参考[精度调试](https://mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_problem_preliminary_location.html)。
+更多精度调试策略请参考[精度调试](https://mindspore.cn/mindinsight/docs/zh-CN/r2.3/accuracy_problem_preliminary_location.html)。
 
 ### 性能调优
 
-首先需要做性能数据获取，具体的获取方式见[性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html)、[性能调试（GPU）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_gpu.html)。
+首先需要做性能数据获取，具体的获取方式见[性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/performance_profiling_ascend.html)、[性能调试（GPU）](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/performance_profiling_gpu.html)。
 
 性能优化方向主要包含：
 
@@ -262,7 +262,7 @@ trainable parameter numbers: 2
 3. 多机同步性能优化
 4. 数据处理性能优化
 
-可以参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html)串通整个过程。
+可以参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/r2.3.0/migration_guide/sample_code.html)串通整个过程。
 
 > 有的网络很大，这种情况在图模式下编译会很慢。在性能调优过程请区分图编译和网络执行，本节主要介绍网络执行阶段的性能调优策略。
 
@@ -280,17 +280,17 @@ trainable parameter numbers: 2
 
 - 使用静态图模式
 
-  MindSpore一般在静态图模式下比PYNATIVE模式下快很多，最好能在静态图模式下进行训练和推理，具体原理请参考[动静态图结合](https://www.mindspore.cn/docs/zh-CN/master/design/dynamic_graph_and_static_graph.html)。
+  MindSpore一般在静态图模式下比PYNATIVE模式下快很多，最好能在静态图模式下进行训练和推理，具体原理请参考[动静态图结合](https://www.mindspore.cn/docs/zh-CN/r2.3.0/design/dynamic_graph_and_static_graph.html)。
 
 - on-device执行
 
-  MindSpore提供了一种[on-device执行](https://www.mindspore.cn/docs/zh-CN/master/design/overview.html#面向昇腾硬件的竞争力优化)的方法将数据处理和网络在device上的执行并行起来，只需要在`model.train`中设置`dataset_sink_mode=True`即可，注意这个配置默认是`False`，当打开这个配置时，一个epoch只会返回一个网络的结果，当进行调试时建议先将这个值改成`False`。
+  MindSpore提供了一种[on-device执行](https://www.mindspore.cn/docs/zh-CN/r2.3.0/design/overview.html#面向昇腾硬件的竞争力优化)的方法将数据处理和网络在device上的执行并行起来，只需要在`model.train`中设置`dataset_sink_mode=True`即可，注意这个配置默认是`False`，当打开这个配置时，一个epoch只会返回一个网络的结果，当进行调试时建议先将这个值改成`False`。
 
 - 使用自动混合精度
 
   混合精度训练方法是通过混合使用单精度和半精度数据格式来加速深度神经网络训练的过程，同时保持了单精度训练所能达到的网络精度。混合精度训练能够加速计算过程，同时减少内存使用和存取，并使得在特定的硬件上可以训练更大的模型或 batch size。
 
-  具体可参考 [混合精度教程](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html)。
+  具体可参考 [混合精度教程](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0/advanced/mixed_precision.html)。
 
 - 使能图算融合
 
@@ -298,7 +298,7 @@ trainable parameter numbers: 2
 
   图算融合的适用场景包括：对网络执行时间具有较高性能要求的场景；通过拼接基本算子实现自定义组合算子，并希望对这些基本算子进行自动融合，以提升自定义组合算子性能的场景。
 
-  具体可参考 [图算融合教程](https://www.mindspore.cn/docs/zh-CN/master/design/graph_fusion_engine.html)。
+  具体可参考 [图算融合教程](https://www.mindspore.cn/docs/zh-CN/r2.3.0/design/graph_fusion_engine.html)。
 
 - 其他
 
@@ -306,7 +306,7 @@ trainable parameter numbers: 2
 
   如果是MindSpore自动生成的转换算子过多，可能是MindSpore框架针对某些特殊情况没有充分优化，可联系 [MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈。
 
-  [动态shape场景](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/dynamic_shape.html)目前需要不断的编图，可能会造成端到端的训练时间较长，建议优先[规避动态shape](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html#动态shape规避策略)。
+  [动态shape场景](https://www.mindspore.cn/docs/zh-CN/r2.3.0/migration_guide/dynamic_shape.html)目前需要不断的编图，可能会造成端到端的训练时间较长，建议优先[规避动态shape](https://www.mindspore.cn/docs/zh-CN/r2.3.0/migration_guide/model_development/model_and_cell.html#动态shape规避策略)。
 
 #### 多机同步性能优化
 
@@ -333,7 +333,7 @@ if rank_size > 1:
     init()
 ```
 
-更多请参考[集群性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_of_cluster.html)。
+更多请参考[集群性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/performance_profiling_of_cluster.html)。
 
 #### 数据处理性能优化
 
@@ -341,6 +341,6 @@ if rank_size > 1:
 
 当数据处理速度较慢时，队列从最开始的满队列情况逐渐消耗为空队列，训练进程会开始等待空队列填入数据，一旦有新的数据填入，网络才会继续进行单Step训练。由于数据处理没有队列作为缓冲，数据处理的性能抖动直接体现在单Step的性能上，因此还会造成单Step性能抖动。
 
-关于数据的性能问题，可以参考 MindSpore Insight 组件的 [数据准备性能分析](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析)，其给出了数据性能的常见问题及解决方法。
+关于数据的性能问题，可以参考 MindSpore Insight 组件的 [数据准备性能分析](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/performance_profiling_ascend.html#数据准备性能分析)，其给出了数据性能的常见问题及解决方法。
 
-更多性能调试方法请参考[性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/optimize/execution_opt.html)。
+更多性能调试方法请参考[性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0/optimize/execution_opt.html)。
