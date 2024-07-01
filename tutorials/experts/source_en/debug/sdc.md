@@ -31,7 +31,6 @@ Based on experimental results, the following empirical conclusions are drawn:
 * In parallel training scenarios, calculation error results will propagate due to parallel computation.
 * Setting too many checkpoints will affect model training performance.
 * Based on experiments on the sensitivity of calculation errors, the MindSpore framework defaults to selecting the `Norm` activation value gradient in the backpropagation calculation process as the detection feature value, with performance loss less than 2% based on **Llama 2 - 7B** testing.
-* Currently, only feature value detection anomalies that occur during the training of Transformer structural models with data type bfloat16 can be identified.
 
 After enabling the detection switch, during the backpropagation phase of training Transformer structure models, abnormality is determined by collecting the activation value gradients of the Norm layer through modified specified network layers, calling the detection operator, and using an algorithm to determine if an anomaly exists. If an anomaly occurs, training is terminated, the NPU status on the device where the anomaly is detected is set to Warning, and a fault event is reported.
 
