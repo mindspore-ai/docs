@@ -568,9 +568,9 @@ class Documenter:
         if docstring and '.mint.' in self.fullname:
             b_name = self.fullname.split('.')[-1]
             usename = self.fullname.replace('mindspore.', '')
-            mint_doc = re.sub('(\n\s+(-|\*) GPU(/CPU)?:.*\n|\n\s+(-|\*) CPU(/GPU)?:.*\n)', '\n', docstring)
-            mint_doc = re.sub('(Alias for.*?:(func|class):`[^`]+?\.)ops\.([^`]+?)(?<!_ext)(`|_ext`)', r'\1mint.\3`', mint_doc)
-            mint_doc = re.sub('(Supported Platforms:\n\s+?)`.*\n', r'\1``Ascend``\n', mint_doc)
+            mint_doc = re.sub(r'(\n\s+(-|\*) GPU(/CPU)?:.*\n|\n\s+(-|\*) CPU(/GPU)?:.*\n)', '\n', docstring)
+            mint_doc = re.sub(r'(Alias for.*?:(func|class):`[^`]+?\.)ops\.([^`]+?)(?<!_ext)(`|_ext`)', r'\1mint.\3`', mint_doc)
+            mint_doc = re.sub(r'(Supported Platforms:\n\s+?)`.*', r'\1``Ascend``', mint_doc)
             mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', mint_doc)
             for j in spec_tp:
                 if isinstance(j[1], list) and j[0] in mint_doc and usename in j[1]:
@@ -580,7 +580,9 @@ class Documenter:
                     mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', mint_doc)
                     break
             if not re.findall(f'>>> .*?{usename}', mint_doc):
-                docstring = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext)?', rf'\1{usename}', mint_doc)
+                docstring = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext)?', rf'\1{usename}', mint_doc)
+            else:
+                docstring = mint_doc
         if docstring:
             tab_width = self.directive.state.document.settings.tab_width
             return [prepare_docstring(docstring, ignore, tab_width)]
@@ -1781,12 +1783,12 @@ class ClassDocumenter(DocstringSignatureMixin, ModuleLevelDocumenter):  # type: 
             except:
                 py_source_rel = ''
             for i in range(len(docstrings)):
-                mint_doc = re.sub('(\n\s+(-|\*) GPU(/CPU)?:.*\n|\n\s+(-|\*) CPU(/GPU)?:.*\n)', '\n', docstrings[i])
-                mint_doc = re.sub('(Alias for.*?:(func|class):`[^`]+?\.)ops\.([^`]+?)(?<!_ext)(`|_ext`)', r'\1mint.\3`', mint_doc)
-                mint_doc = re.sub('(Supported Platforms:\n\s+?)`.*\n', r'\1``Ascend``\n', mint_doc)
+                mint_doc = re.sub(r'(\n\s+(-|\*) GPU(/CPU)?:.*\n|\n\s+(-|\*) CPU(/GPU)?:.*\n)', '\n', docstrings[i])
+                mint_doc = re.sub(r'(Alias for.*?:(func|class):`[^`]+?\.)ops\.([^`]+?)(?<!_ext)(`|_ext`)', r'\1mint.\3`', mint_doc)
+                mint_doc = re.sub(r'(Supported Platforms:\n\s+?)`.*\n', r'\1``Ascend``\n', mint_doc)
                 mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', mint_doc)
                 if not re.findall(f'>>> .*?{usename}', mint_doc):
-                    mint_doc = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext)?', rf'\1{usename}', mint_doc)
+                    mint_doc = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext)?', rf'\1{usename}', mint_doc)
                 mint_rp = ''
                 if 'mindspore/ops/auto_generate/' in py_source_rel and 'is equivalent to' in mint_doc:
                     mint_doc = re.sub(rf'ops\.{b_name}(Ext)?', usename, mint_doc)
