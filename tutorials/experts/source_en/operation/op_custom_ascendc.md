@@ -1,7 +1,7 @@
 
 # Ascend C Custom Operator Development and Usage
 
-[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/operation/ascendc_compile.md)
+[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/operation/op_custom_ascendc.md)
 
 ## Overview
 
@@ -75,7 +75,7 @@ Make sure you have the following conditions to use MindSpore's Ascend C custom o
    ```
 
    **Set Environment Variables**:
-   Find the path specified by `--vendor_name` in the `build_out` directory and add it to `ASCEND_CUSTOM_OPP_PATH`, for example:
+   Find the path whose name is specified by `--vendor_name` in the `build_out` directory and add it to `ASCEND_CUSTOM_OPP_PATH`, for example:
 
    ```shell
    export ASCEND_CUSTOM_OPP_PATH={build_out_path}/build_out/_CPack_Package/Linux/External/custom_opp_euleros_aarch64.run/packages/vendors/{your_custom_name}:$ASCEND_CUSTOM_OPP_PATH
@@ -95,8 +95,8 @@ Before you begin, please make sure that the development, compilation, and deploy
 
 MindSpore's custom operator interface is [ops.Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html). When using Ascend C custom operators, you need to set the parameter `func_type` to `"aot"` and provide the `func` parameter to specify the operator name. Taking the `AddCustom` operator as an example, there are several ways to use it:
 
-- **TBE**: Specify that the underlying operator uses the TBE type, set `func="AddCustom"`.
-- **aclnn**: Specify that the underlying operator uses the aclnn type, you need to add `aclnn` in front of the operator name, for example: `func="aclnnAddCustom"`.
+- **TBE**: Specify that the underlying operator uses the TBE type, and set `func="AddCustom"`.
+- **aclnn**: Specify that the underlying operator uses the aclnn type. You need to add `aclnn` in front of the operator name, for example: `func="aclnnAddCustom"`.
 - **C++ Inference**: If the operator's infer shape is implemented in C++, pass the path of the C++ infer shape file in the `func` and separate the operator name with `:`, for example: `func="add_custom_infer.cc:aclnnAddCustom"`.
 
 **aclnn Usage Example**:
@@ -165,8 +165,7 @@ net = CustomNet()
 
 3. **Specification Consistency**: The specifications supported in the registration information must also match those defined in the source code.
 
-4. **Execution Mode Limitations**: `aclnn` can only adopt a single-operator execution mode, set to PyNative mode or specify the Graph mode with `jit_config` set to `O0` or `O1`.
-   For more information on `jit_config` configuration, refer to [set_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html).
+4. **Execution Mode Limitations**: `aclnn` can only adopt a single-operator execution mode, set to PyNative mode or specify the Graph mode with `jit_config` set to `O0` or `O1`. For more information on `jit_config` configuration, refer to [set_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html).
 
 ### Further Reading
 
@@ -209,7 +208,7 @@ net = CustomNet()
     gmake: *** No rule to make target 'package'.  Stop.
     ```
 
-   **Solution**: This is usually because the CANN package path is not set correctly, causing the compilation project to not find the dependency files. Check whether the `--cann_package_path` option has been passed and whether the path of this option is correct, and confirm whether the corresponding Ascend software development kit has been correctly installed.
+    **Solution**: This is usually because the CANN package path is not set correctly, causing the compilation project to not find the dependency files. Check whether the `--cann_package_path` option has been passed and whether the path of this option is correct, and confirm whether the corresponding Ascend software development kit has been correctly installed.
 
 2. Custom operator execution reports the following error:
 
@@ -236,7 +235,7 @@ net = CustomNet()
     [INFO] RUNTIME(45311,python):2024-05-24-21:17:48.149.244 [stream.cc:682] 45311 FreeStreamId: Free stream_id=1600.
     ```
 
-   **Solution**: The above problem is generally reported in graph mode, and the cause is the inconsistency between the registration information of the custom operator and the prototype definition in the implementation of the custom operator. For example, the prototype definition in the operator implementation is:
+    **Solution**: The above problem is generally reported in graph mode, and the cause is the inconsistency between the registration information of the custom operator and the prototype definition in the implementation of the custom operator. For example, the prototype definition in the operator implementation is:
 
     ```cpp
     class AddCustom : public OpDef {
@@ -268,8 +267,8 @@ net = CustomNet()
 
     And the registration information when using the operator is:
 
-   ```python
-   reg_info = CustomRegOp("AddCustom")
+    ```python
+    reg_info = CustomRegOp("AddCustom")
                 .input(0, "x", "required")
                 .input(1, "y", "required")
                 .output(0, "output", "required")

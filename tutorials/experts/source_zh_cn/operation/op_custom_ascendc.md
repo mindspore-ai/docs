@@ -1,6 +1,6 @@
 # Ascend C自定义算子开发与使用指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/operation/ascendc_compile.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/operation/op_custom_ascendc.md)
 
 ## 概述
 
@@ -65,7 +65,7 @@ CANN为AI开发者提供了Ascend C编程语言，这是一款专为算子开发
    | `-c`              | 是否删除编译日志和结果文件       | 不设置 | 否       |
 
 3. **安装自定义算子**：
-   编译完成后，当前目录下将生成一个包含自定义算子编译结果的`CustomProject/build_out`文件夹, 您可以选择手动安装或通过设置环境变量来使用编译后的算子。
+   编译完成后，当前目录下将生成一个包含自定义算子编译结果的`CustomProject/build_out`文件夹，您可以选择手动安装或通过设置环境变量来使用编译后的算子。
 
    **手动安装**：
 
@@ -83,7 +83,7 @@ CANN为AI开发者提供了Ascend C编程语言，这是一款专为算子开发
 ### 补充说明
 
 本工具基于CANN的`msopgen`工具封装，您也可以选择使用原生`msopgen`工具进行编译。有关更多信息，请参考[基于msopgen工具创建算子工程](https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0023.html) 和
-[算子编译部署](https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0031.html) 。
+[算子编译部署](https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0031.html)。
 
 ## MindSpore使用自定义算子
 
@@ -97,7 +97,7 @@ MindSpore的自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/z
 使用Ascend C自定义算子时，您需要设置参数`func_type`为`"aot"`，并提供`func`参数来指定算子名字。以`AddCustom`算子为例，存在以下几种使用方式：
 
 - **TBE**：指定算子底层使用TBE类型，则设置`func="AddCustom"`
-- **aclnn**：指定算子底层使用aclnn类型，则需要在算子名字前加上`aclnn`， 例如：`func="aclnnAddCustom"`
+- **aclnn**：指定算子底层使用aclnn类型，则需要在算子名字前加上`aclnn`，例如：`func="aclnnAddCustom"`
 - **c++ infer**：算子的infer shape通过c++实现，则在func中传入c++的infer shape文件路径并用`:`隔开使用的算子名字，例如：`func="add_custom_infer.cc:aclnnAddCustom`
 
 **aclnn使用样例**：
@@ -166,13 +166,13 @@ net = CustomNet()
 
 3. **规格一致性**：注册信息中支持的规格也必须与源代码中定义的规格相匹配。
 
-4. **执行模式限制**：`aclnn`只能采用单算子执行模式，设置为PyNative模式或指定Graph模式下`jit_config`为`O0`或`O1`。`jit_config`配置说明参考[set_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html)
+4. **执行模式限制**：`aclnn`只能采用单算子执行模式，设置为PyNative模式或指定Graph模式下`jit_config`为`O0`或`O1`。`jit_config`配置说明参考[set_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html)。
 
 ### 进一步阅读
 
 - **自定义算子注册**：更多关于自定义算子的注册信息和反向函数的编写，请参考 [自定义算子注册](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_adv.html) 。
-- **AOT自定义算子**：对于C++的shape推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [aot类型自定义算子进阶用法](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_aot.html) 。
-- **样例工程**：想要了解更多Ascend C自定义算子的使用方式，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/custom_ascendc) 。
+- **AOT自定义算子**：对于C++的shape推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [aot类型自定义算子进阶用法](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_aot.html)。
+- **样例工程**：想要了解更多Ascend C自定义算子的使用方式，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/custom_ascendc)。
 
 ## 常见问题
 
@@ -209,7 +209,7 @@ net = CustomNet()
     gmake: *** No rule to make target 'package'.  Stop.
     ```
 
-   **解决方案**：通常是因为未正确设置CANN包路径，导致编译工程找不到依赖文件。检查是否已传递`--cann_package_path`选项，以及该选项的路径是否正确，并确认是否已正确安装配套的昇腾软件开发包。
+    **解决方案**：通常是因为未正确设置CANN包路径，导致编译工程找不到依赖文件。检查是否已传递`--cann_package_path`选项，以及该选项的路径是否正确，并确认是否已正确安装配套的昇腾软件开发包。
 
 2. 自定义算子执行报下面的错误：
 
@@ -236,7 +236,7 @@ net = CustomNet()
     [INFO] RUNTIME(45311,python):2024-05-24-21:17:48.149.244 [stream.cc:682] 45311 FreeStreamId: Free stream_id=1600.
     ```
 
-    **解决方案**： 上述问题一般是图模式下报错，根因是自定义算子使用时的注册信息与自定义算子实现中的原型定义不一致导致的，例如算子的实现中原型定义为
+    **解决方案**：上述问题一般是图模式下报错，根因是自定义算子使用时的注册信息与自定义算子实现中的原型定义不一致导致的，例如算子的实现中原型定义为
 
     ```cpp
     class AddCustom : public OpDef {
@@ -268,8 +268,8 @@ net = CustomNet()
 
     而算子使用时的注册信息时：
 
-   ```python
-   reg_info = CustomRegOp("AddCustom") \
+    ```python
+    reg_info = CustomRegOp("AddCustom") \
                 .input(0, "x", "required") \
                 .input(1, "y", "required") \
                 .output(0, "output", "required") \
@@ -316,6 +316,4 @@ net = CustomNet()
    RuntimeError: Launch kernel failed, name:Default/Custom-op0
    ```
 
-    **解决方案**： 从报错日志分析，用户指定`AddCustom`底层使用aclnn，但是却在aclop流程报错，说明算子选择未找到aclnn对应的符号，而使用了默认的aclop，这种情况请
-   用户首先检查环境配置是否正确，包括是否正确安装自定义算子安装包或正确指定自定义算子的环境变量`ASCEND_CUSTOM_OPP_PATH`, 打开info日志，过滤`op_api_convert.h`
-   文件的日志，检查符号是否正确加载。
+    **解决方案**： 从报错日志分析，用户指定`AddCustom`底层使用aclnn，但是却在aclop流程报错，说明算子选择未找到aclnn对应的符号，而使用了默认的aclop，这种情况请用户首先检查环境配置是否正确，包括是否正确安装自定义算子安装包或正确指定自定义算子的环境变量`ASCEND_CUSTOM_OPP_PATH`，打开info日志，过滤`op_api_convert.h`文件的日志，检查符号是否正确加载。
