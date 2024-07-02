@@ -61,50 +61,9 @@ It can be analyzed from the following points:
 
 ### Dynamic Shape
 
-Currently MindSpore dynamic shape feature is under iterative development, and the dynamic shape functionality is not well supported. The following will give several scenarios where dynamic shape is introduced. During network migration, the presence of one of the following scenarios indicates the presence of dynamic shape in the network.
+Currently MindSpore dynamic shape feature is under iterative development, and the dynamic shape functionality is not well supported.
 
-- Several scenarios that introduces dynamic shapes:
-
-    - [Input Shape is not Fixed](https://www.mindspore.cn/docs/en/master/migration_guide/dynamic_shape.html#input-shape-not-fixed)
-    - [APIs that Cause Shape Changes During Network Execution](https://www.mindspore.cn/docs/en/master/migration_guide/dynamic_shape.html#apis-that-cause-shape-changes-during-network-execution)
-    - [Shape Changes Introduced by Different Branches of Control Flows](https://www.mindspore.cn/docs/en/master/migration_guide/dynamic_shape.html#shape-changes-introduced-by-different-branches-of-control-flows)
-
-- Several solutions for dynamic shapes:
-
-    - Input shape is not fixed:
-         Dynamic shape can be converted to static shape through the mask mechanism. Mask mechanism example code is as follows:
-
-         ```python
-         def _convert_ids_and_mask(input_tokens, seq_max_bucket_length):
-             input_ids = tokenizer.convert_tokens_to_ids(input_tokens)
-             input_mask = [1] * len(input_ids)
-             assert len(input_ids) <= max_seq_length
-
-             while len(input_ids) < seq_max_bucket_length:
-                 input_ids.append(0)
-                 input_mask.append(0)
-
-             assert len(input_ids) == seq_max_bucket_length
-             assert len(input_mask) == seq_max_bucket_length
-
-             return input_ids, input_mask
-         ```
-
-    - There is an API that triggers a shape change during network execution:
-         If this scenario is encountered to introduce a dynamic shape, the essence is that the dynamically changing values need to be modified to a fixed shape to solve the problem.
-         As in the case of the TopK operator, if K is changing during execution, a dynamic shape is introduced.
-         Solution: You can fix a maximum number of targets, first get the confidence level of all targets by static shape, then choose the K number of highest targets as the result output, and other targets are removed by mask mechanism. Sample code such as the multiclass_nms interface of [FasterRCNN](https://gitee.com/mindspore/models/blob/master/official/cv/FasterRCNN/src/FasterRcnn/faster_rcnn.py).
-
-    - Different branches of the control flow introduce changes on the shape:
-         You can try to use equal, select operators to replace the if condition. Sample code is as follows:
-
-         ```python
-         # Code example for introducing control flow:
-         if ms.ops.reduce_sum(object_masks)==0:
-            stage2_loss = stage2_loss.fill(0.0)
-         # modified code example
-         stage2_loss = ms.ops.select(ms.ops.equal(ms.ops.reduce_sum(object_masks), 0), stage2_loss.fill(0), stage2_loss)
-         ```
+During the migration process, if you encounter issues related to dynamic shape, you can refer to [Strategies for Migrating Dynamic Shape](https://www.mindspore.cn/docs/en/master/migration_guide/dynamic_shape.html).
 
 ### Sparse
 
