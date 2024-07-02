@@ -191,18 +191,14 @@ class MsAutosummary(Autosummary):
             # -- Grab the summary
 
             documenter.add_content(None)
-            if '.ops.' in display_name or '.mint.' in display_name:
+            if '.ops.' in display_name:
                 try:
                     display_name_path = inspect.getsourcefile(get_api(display_name))
                 # pylint: disable=W0702
                 except:
                     display_name_path = ""
                 if 'mindspore/ops/auto_generate/' in display_name_path:
-                    env_sum = ''
-                    if '.ops.' in display_name:
-                        env_sum = self.get_refer_platform(display_name)
-                    if '.mint.' in display_name:
-                        env_sum = "``Ascend``"
+                    env_sum = self.get_refer_platform(display_name)
                     summary = self.extract_ops_summary(self.bridge.result.data[:])
                     if not summary:
                         summary = extract_summary(self.bridge.result.data[:], self.state.document)
@@ -214,6 +210,8 @@ class MsAutosummary(Autosummary):
             else:
                 summary = extract_summary(self.bridge.result.data[:], self.state.document)
                 env_sum = self.extract_env_summary(self.bridge.result.data[:])
+            if '.mint.' in display_name:
+                env_sum = "``Ascend``"
             env_warn = self.extract_env_warn(self.bridge.result.data[:])
             if self.fourth_title:
                 items.append((display_name, sig, summary, real_name, env_sum, env_warn))
