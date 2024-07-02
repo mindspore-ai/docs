@@ -1,4 +1,4 @@
-# Dynamic shape
+# Strategies for Migrating Dynamic Shape
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.0/docs/mindspore/source_en/migration_guide/dynamic_shape.md)
 
@@ -6,10 +6,6 @@ To know dynamic shape, you need to know what is a static shape.
 Static shape indicates that the shape of a tensor does not change during network execution.
 For example, on the ResNet50 network, if the input shape of an image is always `224*224`, the shapes of the output Tesnor of the four residual modules are `B*64*56*56`, `B*128*28*28`, `B*256*14*14`, and `B*512*7*7` respectively in the network training phase. `B` indicates `BatchSize`, which is also fixed during the training. In this case, all shapes on the network are static and no dynamic shape is available.
 If the input shape may no+t be `224*224`, the shape of the output tensor of the four residual modules varies with the input shape. In this case, the shape is dynamic instead of static. Generally, dynamic shape is introduced due to the following reasons:
-
-1. Input shape not fixed.
-2. APIs that cause shape changes during network execution.
-3. Shape changes introduced by different branches of control flows.
 
 ## Input Shape not Fixed
 
@@ -21,6 +17,26 @@ In this scenario, you can read the code to check whether the output shape of dat
 for batch_idx, (data, target) in enumerate(data_loader):
     print(batch_idx, data.shape, target.shape)
     print("="*20)
+```
+
+**Solution**
+
+Dynamic shape can be converted to static shape through the mask mechanism. Mask mechanism example code is as follows:
+
+```python
+def _convert_ids_and_mask(input_tokens, seq_max_bucket_length):
+    input_ids = tokenizer.convert_tokens_to_ids(input_tokens)
+    input_mask = [1] * len(input_ids)
+    assert len(input_ids) <= max_seq_length
+
+    while len(input_ids) < seq_max_bucket_length:
+        input_ids.append(0)
+        input_mask.append(0)
+
+    assert len(input_ids) == seq_max_bucket_length
+    assert len(input_mask) == seq_max_bucket_length
+
+    return input_ids, input_mask
 ```
 
 ## APIs that Cause Shape Changes During Network Execution
@@ -58,6 +74,12 @@ print(x[:k].shape)
 
 During network training, there is a slicing operation `x[:k]`. Here, k is not a constant. As a result, the shape of `x[:k]` changes with the value of k, and the shape of all subsequent operations related to `x[:k]` is uncertain.
 
+**Solution**
+
+If this scenario is encountered to introduce a dynamic shape, the essence is that the dynamically changing values need to be modified to a fixed shape to solve the problem.
+As in the case of the TopK operator, if K is changing during execution, a dynamic shape is introduced.
+You can fix a maximum number of targets, first get the confidence level of all targets by static shape, then choose the K number of highest targets as the result output, and other targets are removed by mask mechanism. Sample code such as the multiclass_nms interface of [FasterRCNN](https://gitee.com/mindspore/models/blob/r2.3/official/cv/FasterRCNN/src/FasterRcnn/faster_rcnn.py).
+
 ## Shape Changes Introduced by Different Branches of Control Flows
 
 The output of some control flows on the network may be different. When the condition control items of the control flows are not fixed, dynamic shape may be triggered. For example:
@@ -87,4 +109,14 @@ print(y)
 
 In this process, there are two dynamic shapes. One is that the shape of the `masked_select` result is dynamic if `cond=True`. The other is the control flow. Because `cond` is uncertain, the shape output of the two branches of the control flow is different, which also causes the dynamic shape.
 
-Generally, the dynamic shape can be analyzed at the algorithm and code layers, or the tensor related to the reference code can be directly printed for judgment. If dynamic shape exists, we will introduce the workaround in [Network Body and Loss Setup](https://www.mindspore.cn/docs/en/r2.3.0/migration_guide/model_development/model_and_cell.html).
+**Solution**
+
+You can try to use equal, select operators to replace the if condition. Sample code is as follows:
+
+```python
+# Code example for introducing control flow:
+if ms.ops.reduce_sum(object_masks)==0:
+    stage2_loss = stage2_loss.fill(0.0)
+# modified code example
+stage2_loss = ms.ops.select(ms.ops.equal(ms.ops.reduce_sum(object_masks), 0), stage2_loss.fill(0), stage2_loss)
+```
