@@ -248,3 +248,5 @@
 |[mindspore.ops.zeros](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.zeros.html)|✔️|✔️|✔️|
 |[mindspore.ops.zeros_like](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.zeros_like.html)|✔️|✔️|✔️|
 |[mindspore.ops.zeta](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.zeta.html)|✔️|✔️|✔️|
+|[mindspore.mint](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.mint.html#mindspore-mint)|✔️|❌|❌|
+|[mindspore.mint.nn.functional](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.mint.html#mindspore-mint-nn-functional)|✔️|❌|❌|
