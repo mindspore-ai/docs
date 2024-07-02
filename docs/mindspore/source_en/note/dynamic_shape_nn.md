@@ -64,3 +64,4 @@
 |[mindspore.nn.Softmax2d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Softmax2d.html)|✔️|✔️|✔️|
 |[mindspore.nn.SoftmaxCrossEntropyWithLogits](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SoftmaxCrossEntropyWithLogits.html)|✔️|✔️|✔️|
 |[mindspore.nn.ZeroPad2d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ZeroPad2d.html)|✔️|✔️|✔️|
+|[mindspore.mint.nn](https://www.mindspore.cn/docs/en/master/api_python/mindspore.mint.html#mindspore-mint-nn)|✔️|❌|❌|
