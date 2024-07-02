@@ -39,7 +39,6 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 |    layout     |                  表示内存分布策略                  | PyTorch支持torch.strided和torch.sparse_coo两种模式, MindSpore目前无此机制 |
 |    device     |                 表示Tensor存放位置                 |            包含设备类型及可选设备号，MindSpore目前支持算子或网络级别的设备调度            |
 | requires_grad |                  表示是否更新梯度                  |           MindSpore中可以通过`Parameter.requires_grad`控制           |
-|   generator   |                 表示伪随机数生成器                 |                MindSpore中通过随机数API的seed参数进行控制                 |
 |  pin_memory  |                表示是否使用锁页内存                |                       MindSpore目前无此机制                        |
 | memory_format |                表示Tensor的内存格式                |                       MindSpore目前无此机制                        |
 |    stable     |                  表示是否稳定排序                  |                一般用在排序算法的API中，MindSpore目前无此功能                 |
