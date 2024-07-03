@@ -184,7 +184,6 @@ MindSpore Lite Documentation
 								</div>
 								<div class="col-sm-10 col-sm-pull-1">
 									<button class="doc-filter-btn doc-btn" id="hardware-NPU">NPU</button>
-									<button class="doc-filter-btn doc-btn" id="hardware-NNIE">NNIE</button>
 									<button class="doc-filter-btn doc-btn" id="hardware-TensorRT">TensorRT</button>
 									<button class="doc-filter-btn doc-btn" id="hardware-Ascend">Ascend</button>
 								</div>
