@@ -126,7 +126,7 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
    cd ${PACKAGE_ROOT_PATH}/tools/converter/converter
    ```
 
-3. 创建converter的配置文件（converter.cfg），文件内容如下：
+3. 创建converter的配置文件（converter.cfg，详细可参考[扩展配置](#扩展配置)），文件内容如下：
 
    ```text
    [registry]
@@ -146,3 +146,75 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
    ```
 
 执行完后，将生成名为`add_extend.ms`的模型文件，文件路径由参数`outputFile`决定。
+
+## 扩展配置
+
+在转换阶段，为了能够加载扩展模块，用户需要配置扩展动态库路径。扩展相关的参数有`plugin_path`，`disable_fusion`。参数的详细介绍如下所示：
+
+| 参数              | 属性 | 功能描述             | 参数类型 | 默认值 | 取值范围            |
+| ----------------- | ---- | -------------------- | -------- | ------ | ------------------- |
+| plugin_path       | 可选 | 第三方库加载路径     | String   | -      | 如有多个请用`;`分隔 |
+| disable_fusion    | 可选 | 是否关闭融合优化     | String   | off    | off、on             |
+| fusion_blacklists | 可选 | 关闭指定融合算子名称 | String   | -      | 如有多个请用`,`分隔 |
+
+发布件中已为用户生成好默认的配置文件（converter.cfg）。该配置文件内容如下：
+
+```ini
+[registry]
+plugin_path=libconverter_extend_tutorial.so      # 用户请配置动态库的正确路径
+```
+
+如果用户需要关闭指定算子融合优化，关闭指定名单融合配置如下所示：
+
+```ini
+[registry]
+# 当参数disable_fusion=off时，可通过配置fusion_blacklists关闭指定融合优化，当参数disable_fusion=on时，关闭所有融合优化，参数fusion_blacklists不生效。
+disable_fusion=off
+fusion_blacklists=ConvActivationFusion,MatMulActivationFusion
+```
+
+融合算子名单如下所示：
+
+| 序号 | 融合算子名称                         |
+| ---- | ------------------------------------ |
+| 1    | AddConcatActivationFusion            |
+| 2    | SqueezeFusion                        |
+| 3    | TransposeFusion                      |
+| 4    | ReshapeReshapeFusion                 |
+| 5    | ConvBiasaddFusion                    |
+| 6    | ConvBatchNormFusion                  |
+| 7    | ConvScaleFusion                      |
+| 8    | GroupNormFusion                      |
+| 9    | TfNormFusion                         |
+| 10   | OnnxLayerNormFusion                  |
+| 11   | OnnxLayerNormFusion2                 |
+| 12   | BatchMatMulFusion                    |
+| 13   | BatchNormToScaleFusion               |
+| 14   | SigmoidMulFusion                     |
+| 15   | ActivationFusion                     |
+| 16   | ConvActivationFusion                 |
+| 17   | ConvTupleGetItemFusion               |
+| 18   | ConvTupleActivationFusion            |
+| 19   | TfliteLstmCellFusion                 |
+| 20   | TfLstmCellFusion                     |
+| 21   | TfBidirectionGruFusion               |
+| 22   | TfGeLUFusion                         |
+| 23   | OnnxGeLUFusion                       |
+| 24   | TfliteRelPosMultiHeadAttentionFusion |
+| 25   | GLUFusion                            |
+| 26   | ConstFoldPass                        |
+| 27   | AffineFusion                         |
+| 28   | AffineActivationFusion               |
+| 29   | ConvConvFusion                       |
+| 30   | ConvPadFusion                        |
+| 31   | MatMulAddFusion                      |
+| 32   | MatMulMulFusion                      |
+| 33   | TransposeMatMulFusion                |
+| 34   | MulAddFusion                         |
+| 35   | ScaleActivationFusion                |
+| 36   | ScaleScaleFusion                     |
+| 37   | FullConnectedFusion                  |
+| 38   | FullconnectedAddFusion               |
+| 39   | TensorDotFusion                      |
+| 40   | MatMulActivationFusion               |
+
