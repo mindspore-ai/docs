@@ -11,7 +11,7 @@
 1. 打开Git Bash，下载MindSpore Docs仓代码。
 
    ```bash
-   git clone https://gitee.com/mindspore/docs.git
+   git clone -b r2.3.0 https://gitee.com/mindspore/docs.git
    ```
 
 2. 进入`tools/pic_detection`目录。
