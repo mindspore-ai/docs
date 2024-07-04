@@ -525,16 +525,6 @@ try:
 except Exception as e:
     print(e)
 
-# replace error AutoSummary
-
-with open('./api_python/mindspore.mint.rst', 'r+', encoding='utf-8') as f:
-    old_f = f.read()
-    new_f = old_f.replace('msplatformautosummary', 'mscnplatwarnautosummary')
-    if new_f != old_f:
-        f.seek(0)
-        f.truncate()
-        f.write(new_f)
-
 from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary, MsCnPlatWarnAutoSummary
 
 rst_files = set([i.replace('.rst', '') for i in glob.glob('api_python/**/*.rst', recursive=True)])
