@@ -206,7 +206,7 @@ def forward_fn(data, label):
 Next, a function transformation is performed to obtain the gradient function.
 
 ```python
-grad_fn = value_and_grad(forward_fn, None, model.trainable_params())
+grad_fn = value_and_grad(forward_fn, None, model.trainable_params(), has_aux=True)
 ```
 
 Define the training step: Calculates the current gradient value and recovers the loss. Use `all_finite` to determine if there is a gradient underflow problem. If there is no overflow, restore the gradient and update the network weight, while if there is overflow, skip this step.
