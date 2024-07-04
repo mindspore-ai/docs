@@ -343,8 +343,6 @@ When you run a script on the Ascend backend or use the mixed precision function,
 Check method:
 When the [mixed precision](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html) or the Ascend AI processor is used for training, you are advised to check whether overflow occurs.
 
-When using the GPU, you can perform the overflow check through the check tensor overflow watchpoint in the [debugger](https://mindspore.cn/mindinsight/docs/en/master/debugger_online.html#anomaly-check-list).
-
 After the overflow problem is found, find and analyze the first overflow node. (For Ascend overflow data, find the node with the smallest timestamp based on the timestamp in the file name. For GPU overflow data, find the first node in the execution sequence.) Determine the overflow cause based on the input and output data of the API.
 
 The common solutions to the overflow problem are as follows:

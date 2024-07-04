@@ -70,37 +70,8 @@ A：谷歌浏览器内核禁止将某些端口作为`HTTP`服务，你需要在�
 
 <br/>
 
-<font size=3>**Q：在Ascend机器上启动MindSpore Insight并开启调试器后，训练脚本连接调试器时，提示：`Exeption calling application: Field number 0 is illegal` 如何处理？**</font>
-
-A：说明安装的Protobuf版本错误，需要安装正确版本的Protobuf，安装方法请参照[安装python版本的proto](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/softwareinst/instg/instg_0094.html)。
-
-<br/>
-
-<font size=3>**Q: MindSpore Insight成功启动后，开启离线调试器，提示: `未找到调试器离线服务器模块` 如何处理？**</font>
-
-A: 调试器离线服务需要启用MindSpore，请安装正确版本的MindSpore，安装方法请参照[安装MindSpore](https://www.mindspore.cn/install)。
-
-<br/>
-
 <font size=3>**Q：MindSpore Insight成功启动后，在谷歌浏览器中访问失败，提示：`ERR_CONNECTION_REFUSED` 如何处理？**</font>
 
 A：检查后台服务器与网络设备的防火墙策略配置，确保浏览器与MindSpore Insight服务间的通讯连接，不受相关设备的配置规则限制。
 
 <br/>
-
-<font size=3>**Q：使用调试器时，在计算图页面点开一个命名空间或聚合节点时，出现提示：`直接子节点的深度超过70，不支持展开` 或 `节点太多，打开失败`，如何查看内部节点的输入输出关系？**</font>
-
-A：如果在调试器的计算图页面无法展开节点，仍然可以在张量关系图中查看局部节点的输入输出关系。如图1所示，Depend[8899]_42是一个内部节点数为8899个的聚合节点。用鼠标点击它的输出节点MakeTuple-op8526，然后在下方的张量信息表格中，点击数值列的`null`(如果有值，会显示`查看`，点击`查看`)，就会进入张量关系图页面。
-如图2所示，张量关系图展示了节点MakeTuple-op8526和它的输入输出节点的张量。双击它的一个输入张量，即可跳转到它的输入节点Depend-op8525的张量关系图，如图3所示。
-
-![too_many_nodes](images/Too_Many_Nodes_cn.png)
-
-*图1：节点过多的聚合节点*
-
-![Tensor_Relationship_Diagram](images/Tensor_Relationship_Diagram_cn.png)
-
-*图2：MakeTuple-op8526的张量关系图*
-
-![Tensor_Relationship_Diagram2](images/Tensor_Relationship_Diagram2_cn.png)
-
-*图3：Depend-op8525的张量关系图*

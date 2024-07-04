@@ -70,38 +70,8 @@ A: Chrome browser's kernel prohibits certain ports from being used as HTTP servi
 
 <br/>
 
-<font size=3>**Q: What can I do if the error `Exeption calling application: Field number 0 is illegal` appears on Ascend after MindSpore Insight is successfully started with debugger turning on, and the training script is trying to connecting to debugger?**</font>
-
-A: It means the wrong version of Protobuf is installed. Please install the right version, see [Installing Protobuf Python](https://www.hiascend.com/document/detail/en/canncommercial/51RC1/envdeployment/instg/instg_000068.html).
-
-<br/>
-
-<font size=3>**Q: What can I do if the error `The debugger offline server module is not found` appears after MindSpore Insight is successfully started and trying to turn on the offline debugger?**</font>
-
-A: The debugger offline service needs to import the MindSpore. Please install the correct version of MindSpore. For the installation method, please refer to [Install MindSpore](https://www.mindspore.cn/install/en).
-
-<br/>
-
 <font size=3>**Q: What can I do if the Google's Chrome browser prompts the error message `ERR_CONNECTION_REFUSED` after MindSpore Insight is successfully started?**</font>
 
 A: Check the firewall policy configuration between the backend server and network devices to ensure that the communication between the browser and MindSpore Insight is not restricted by the configuration rules of relative devices.
 
 <br/>
-
-<font size=3>**Q: When using the debugger, when you click on a namespace or an aggregation node on the graph node details page, prompt appears, show that `the direct subnode depth exceeds 70 and cannot be expanded`, or `Too many nodes to open`. How can I view the input and output relationships of the internal nodes?**</font>
-
-A: If the node cannot be expanded in the graph nodes details page of the debugger, you can still view the input and output relationships of local nodes in the tensor relationship diagram. As shown in Figure 1, Depend[8899]_42 is an aggregate node with 8899 internal nodes. Click its output node MakeTuple-op8526, and then in the tensor information table below, click `null` in the value column (if there is a value, it will display `view`, then click `view`) to enter the tensor relationship diagram page.
-
-As shown in Figure 2, the tensor relationship diagram shows the tensor of the node MakeTuple-op8526 and its input and output nodes. Double-click one of its input tensors to jump to the tensor relationship diagram of its input node Depend-op8525, as shown in Figure 3.
-
-![too_many_nodes](images/Too_Many_Nodes.png)
-
-*Figure 1: Aggregation nodes with too many subnodes*
-
-![Tensor_Relationship_Diagram](images/Tensor_Relationship_Diagram.png)
-
-*Figure 2: The relationship diagram of MakeTuple-op8526*
-
-![Tensor_Relationship_Diagram2](images/Tensor_Relationship_Diagram2.png)
-
-*Figure 3: The relationship diagram of Depend-op8525*
