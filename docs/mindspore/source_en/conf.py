@@ -122,8 +122,6 @@ autosummary_generate = True
 
 autosummary_generate_overwrite = False
 
-html_static_path = ['_static']
-
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
