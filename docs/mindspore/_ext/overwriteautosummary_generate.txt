@@ -472,7 +472,6 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
         try:
             py_source_rel = get_full_modname(modname, qualname).replace('.', '/') + '.py'
         except:
-            logger.warning(name)
             py_source_rel = ''
         # 自动生成的ops模块单独处理
         if 'mindspore/ops/auto_generate/' in py_source_rel:
