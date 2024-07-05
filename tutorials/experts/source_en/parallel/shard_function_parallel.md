@@ -159,7 +159,7 @@ class Net(nn.Cell):
     class NetError(Net):
         def __init__(self):
             self.block1 = ms.shard(self.block1, in_strategy=((8, 1),),
-                                   parameter_plan={'self.block1.dense2.weight': (8, 1)})
+                                    parameter_plan={'self.block1.dense2.weight': (8, 1)})
 
         def construct(self, x):
             x = self.block1(x)
