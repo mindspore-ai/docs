@@ -309,7 +309,7 @@ The following example defines `make_layer` to build residual blocks. The paramet
 
 + `last_out_channel`: number of output channels of the previous residual network
 + `block`: residual network type. The value can be `ResidualBlockBase` or `ResidualBlock`.
-+ `channel`: number of input channels of the residual network
++ `channel`: number of output channels of the 1*1 convolutional layer of the residual network block
 + `block_nums`: number of stacked residual network blocks
 + `stride`: stride of the convolution movement
 
