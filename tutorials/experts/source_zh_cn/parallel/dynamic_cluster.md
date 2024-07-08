@@ -135,6 +135,27 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left">默认为300秒</td>
         <td align="left">此数值代表节点接收对端消息超时时间，若时间窗口内无消息响应，则返回空消息。</td>
     </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">MS_RETRY_INTERVAL_LOWER</td>
+        <td align="left">节点间消息重试间隔下限，单位：秒。</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">默认为3秒</td>
+        <td align="left">此数值代表节点每次重试发送消息的时间间隔下限，MindSpore会随机选择<code>MS_RETRY_INTERVAL_LOWER</code>和<code>MS_RETRY_INTERVAL_UPPER</code>之间的值作为间隔时间。此变量可以控制Scheduler节点的消息并发量。</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">MS_RETRY_INTERVAL_UPPER</td>
+        <td align="left">节点间消息重试间隔上限，单位：秒。</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">默认为5秒</td>
+        <td align="left">此数值代表节点每次重试发送消息的时间间隔上限，MindSpore会随机选择<code>MS_RETRY_INTERVAL_LOWER</code>和<code>MS_RETRY_INTERVAL_UPPER</code>之间的值作为间隔时间。此变量可以控制Scheduler节点的消息并发量。</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">MS_DISABLE_HEARTBEAT</td>
+        <td align="left">关闭集群中节点间心跳业务。</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">默认开启心跳业务</td>
+        <td align="left">若设置为1，则关闭集群节点间心跳，此场景下Scheduler不会检测到Worker异常，集群不会被Scheduler控制退出。此变量可以降低Scheduler节点消息并发量。</td>
+    </tr>
 </table>
 
 > 环境变量`MS_SCHED_HOST`、`MS_SCHED_PORT`、`MS_WORKER_NUM`内容需保持一致，否则会由于各进程配置不一致导致组网失败。

@@ -135,6 +135,27 @@ The relevant environment variables:
         <td align="left">The default is 300 seconds.</td>
         <td align="left">This value represents the timeout window for the node to receive messages from the other end. If there is no message response within the time window, an empty message is returned.</td>
     </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">MS_RETRY_INTERVAL_LOWER</td>
+        <td align="left">Lower limit of message retry interval between nodes in seconds.</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">The default is 3 seconds.</td>
+        <td align="left">This value represents the lower limit of the time interval between each retry of sending a message by a node. MindSpore randomly selects the value between <code>MS_RETRY_INTERVAL_LOWER</code> and <code>MS_RETRY_INTERVAL_UPPER</code> as the interval time. This variable is used to control the message concurrency of the Scheduler.</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">MS_RETRY_INTERVAL_UPPER</td>
+        <td align="left">Upper limit of message retry interval between nodes in seconds</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">The default is 5 seconds.</td>
+        <td align="left">This value represents the upper limit of the time interval between each retry of sending a message by a node. MindSpore randomly selects the value between <code>MS_RETRY_INTERVAL_LOWER</code> and <code>MS_RETRY_INTERVAL_UPPER</code> as the interval time. This variable is used to control the message concurrency of the Scheduler.</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">MS_DISABLE_HEARTBEAT</td>
+        <td align="left">Disable the heartbeat feature between nodes in the cluster.</td>
+        <td align="left" style="white-space:nowrap">Integer</td>
+        <td align="left">Heartbeat feature is enabled by default.</td>
+        <td align="left">If set to 1, the heartbeat between cluster nodes will be disabled. In this scenario, Scheduler will not detect Workers' exception and will not control the cluster to exit. This variable can reduce the message concurrency of the Scheduler.</td>
+    </tr>
 </table>
 
 > The environment variables `MS_SCHED_HOST`, `MS_SCHED_PORT`, and `MS_WORKER_NUM` need to be consistent in their contents, or else the networking will fail due to the inconsistency in the configurations of the processes.
