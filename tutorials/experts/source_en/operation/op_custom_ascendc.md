@@ -30,7 +30,7 @@ The Ascend platform provides comprehensive tutorials for Ascend C operator devel
 Make sure you have the following conditions to use MindSpore's Ascend C custom operator offline compilation tool:
 
 - **Ascend C Source Code**: Including the implementation of host-side and kernel-side custom operators.
-- **MindSpore Installation**: Ensure that MindSpore version 2.3 or above is installed.
+- **MindSpore Installation**: Ensure that MindSpore version 2.3.0 or above is installed.
 
 ### Offline Compilation and Deployment
 
@@ -95,9 +95,11 @@ Before you begin, please make sure that the development, compilation, and deploy
 
 MindSpore's custom operator interface is [ops.Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html). When using Ascend C custom operators, you need to set the parameter `func_type` to `"aot"` and provide the `func` parameter to specify the operator name. Taking the `AddCustom` operator as an example, there are several ways to use it:
 
-- **TBE**: Specify that the underlying operator uses the TBE type, and set `func="AddCustom"`.
 - **aclnn**: Specify that the underlying operator uses the aclnn type. You need to add `aclnn` in front of the operator name, for example: `func="aclnnAddCustom"`.
 - **C++ Inference**: If the operator's infer shape is implemented in C++, pass the path of the C++ infer shape file in the `func` and separate the operator name with `:`, for example: `func="add_custom_infer.cc:aclnnAddCustom"`.
+- **TBE**: Specify that the underlying operator uses the TBE type, and set `func="AddCustom"`.
+
+> For single-operator execution mode, it is recommended to use aclnn, including in PyNative mode or Graph mode where `jit_config` is set to `O0` or `O1`.
 
 **aclnn Usage Example**:
 
@@ -113,7 +115,7 @@ class AddCustomAclnnNet(Cell):
             .target("Ascend") \
             .get_op_info()
 
-        self.custom_add = ops.Custom(func=func, out_shape=out_shape, out_type=lambda x, _: x, func_type="aot", bprop=None,
+        self.custom_add = ops.Custom(func=func, out_shape=out_shape, out_dtype=lambda x, _: x, func_type="aot", bprop=None,
                                      reg_info=aclnn_reg_info)
 
     def construct(self, x, y):
