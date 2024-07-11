@@ -38,7 +38,7 @@ import mindspore as ms
 from mindspore import nn, Tensor, Symbol
 
 class Net(nn.Cell):
-    def construct(self, x, y):
+    def construct(self, x):
         return x + x
 
 ms.context.set_context(mode=ms.context.GRAPH_MODE)
@@ -58,7 +58,7 @@ out = net(input_x2)
 
 set_inputs详细使用指导可参考[Cell.set_inputs API文档](https://www.mindspore.cn/docs/zh-CN/r2.3.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_inputs)。
 
-input_signature详细使用指导可参考[mindposre.jit API文档](https://www.mindspore.cn/docs/zh-CN/r2.3.0/api_python/mindspore/mindspore.jit.html)。
+input_signature详细使用指导可参考[mindspore.jit API文档](https://www.mindspore.cn/docs/zh-CN/r2.3.0/api_python/mindspore/mindspore.jit.html)。
 
 分布式并行场景如何使用动态shape可参考[分布式并行支持动态shape文档](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0/parallel/support_dynamic_shape_in_parallel.html)。
 
