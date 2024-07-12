@@ -29,7 +29,7 @@ CANN为AI开发者提供了Ascend C编程语言，这是一款专为算子开发
 确保您已具备以下条件以使用MindSpore的Ascend C自定义算子离线编译工具：
 
 - **Ascend C源码**: 包括host侧和kernel侧的自定义算子实现。
-- **MindSpore安装**: 确保已安装2.3及以上版本的MindSpore。
+- **MindSpore安装**: 确保已安装2.3.0及以上版本的MindSpore。
 
 ### 离线编译与部署
 
@@ -96,9 +96,11 @@ CANN为AI开发者提供了Ascend C编程语言，这是一款专为算子开发
 MindSpore的自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html) ，
 使用Ascend C自定义算子时，您需要设置参数`func_type`为`"aot"`，并提供`func`参数来指定算子名字。以`AddCustom`算子为例，存在以下几种使用方式：
 
-- **TBE**：指定算子底层使用TBE类型，则设置`func="AddCustom"`
 - **aclnn**：指定算子底层使用aclnn类型，则需要在算子名字前加上`aclnn`，例如：`func="aclnnAddCustom"`
 - **c++ infer**：算子的infer shape通过c++实现，则在func中传入c++的infer shape文件路径并用`:`隔开使用的算子名字，例如：`func="add_custom_infer.cc:aclnnAddCustom`
+- **TBE**：指定算子底层使用TBE类型，则设置`func="AddCustom"`
+
+> 单算子执行模式推荐使用aclnn，包括PyNative模式或Graph模式下`jit_config`为`O0`或`O1`。
 
 **aclnn使用样例**：
 
@@ -146,7 +148,7 @@ class CustomNet(Cell):
             .target("Ascend") \
             .get_op_info()
 
-        self.custom_add = ops.Custom(func="AddCustom", out_shape=lambda x, _: x, out_type=lambda x, _: x,
+        self.custom_add = ops.Custom(func="AddCustom", out_shape=lambda x, _: x, out_dtype=lambda x, _: x,
                                      func_type="aot",reg_info=aclop_reg_info)
 
     def construct(self, x, y):
