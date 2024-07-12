@@ -41,7 +41,7 @@ import mindspore as ms
 from mindspore import nn, Tensor, Symbol
 
 class Net(nn.Cell):
-    def construct(self, x, y):
+    def construct(self, x):
         return x + x
 
 ms.context.set_context(mode=ms.context.GRAPH_MODE)
@@ -61,7 +61,7 @@ out = net(input_x2)
 
 Detailed instructions for using set_inputs can be found in the [Cell.set_inputs API Ducumentation](https://www.mindspore.cn/docs/en/r2.3.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_inputs).
 
-Detailed instructions for using input_signature can be found in the [mindposre.jit API Ducumentation](https://www.mindspore.cn/docs/en/r2.3.0/api_python/mindspore/mindspore.jit.html).
+Detailed instructions for using input_signature can be found in the [mindspore.jit API Ducumentation](https://www.mindspore.cn/docs/en/r2.3.0/api_python/mindspore/mindspore.jit.html).
 
 Distributed parallel scenarios on how to use dynamic shapes can be found in the [Distributed Parallel Support for Dynamic Shape Documentation](https://www.mindspore.cn/tutorials/experts/en/r2.3.0/parallel/support_dynamic_shape_in_parallel.html).
 
