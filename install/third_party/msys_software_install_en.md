@@ -1,6 +1,6 @@
 # Installing MSYS2 Software on Windows
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/install/third_party/msys_software_install_en.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/install/third_party/msys_software_install_en.md)
 
 This document describes the steps on how to install the MSYS2 software on a Windows system.
 

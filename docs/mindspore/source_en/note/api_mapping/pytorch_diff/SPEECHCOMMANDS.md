@@ -1,6 +1,6 @@
 # Differences with torchaudio.datasets.SPEECHCOMMANDS
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SPEECHCOMMANDS.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SPEECHCOMMANDS.md)
 
 ## torchaudio.datasets.SPEECHCOMMANDS
 
@@ -30,7 +30,7 @@ class mindspore.dataset.SpeechCommandsDataset(
     cache=None)
 ```
 
-For more information, see [mindspore.dataset.SpeechCommandsDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.SpeechCommandsDataset.html#mindspore.dataset.SpeechCommandsDataset).
+For more information, see [mindspore.dataset.SpeechCommandsDataset](https://mindspore.cn/docs/en/br_base/api_python/dataset/mindspore.dataset.SpeechCommandsDataset.html#mindspore.dataset.SpeechCommandsDataset).
 
 ## Differences
 

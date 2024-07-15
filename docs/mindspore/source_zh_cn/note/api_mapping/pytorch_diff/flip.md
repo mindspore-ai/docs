@@ -1,6 +1,6 @@
 # 比较与torch.Tensor.flip的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/flip.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/flip.md)
 
 ## torch.Tensor.flip
 
@@ -16,7 +16,7 @@ torch.Tensor.flip(dims)
 mindspore.Tensor.flip(dims)
 ```
 
-更多内容详见[mindspore.Tensor.flip](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.flip.html)。
+更多内容详见[mindspore.Tensor.flip](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/mindspore/Tensor/mindspore.Tensor.flip.html)。
 
 ## 使用方式
 

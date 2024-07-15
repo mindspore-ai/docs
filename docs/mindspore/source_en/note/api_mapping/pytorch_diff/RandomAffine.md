@@ -1,6 +1,6 @@
 # Differences with torchvision.transforms.RandomAffine
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/RandomAffine.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_en/note/api_mapping/pytorch_diff/RandomAffine.md)
 
 ## torchvision.transforms.RandomAffine
 
@@ -16,7 +16,7 @@ For more information, see [torchvision.transforms.RandomAffine](https://pytorch.
 class mindspore.dataset.vision.RandomAffine(degrees, translate=None, scale=None, shear=None, resample=Inter.NEAREST, fill_value=0)
 ```
 
-For more information, see [mindspore.dataset.vision.RandomAffine](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomAffine.html).
+For more information, see [mindspore.dataset.vision.RandomAffine](https://mindspore.cn/docs/en/br_base/api_python/dataset_vision/mindspore.dataset.vision.RandomAffine.html).
 
 ## Differences
 

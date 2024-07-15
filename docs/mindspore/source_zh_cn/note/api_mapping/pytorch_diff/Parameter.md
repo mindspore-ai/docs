@@ -1,6 +1,6 @@
 # 比较与torch.nn.parameter.Parameter的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Parameter.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg"></a>
+<a href="https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/Parameter.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg"></a>
 
 ## torch.nn.parameter.Parameter
 
@@ -16,7 +16,7 @@ torch.nn.parameter.Parameter(data=None, requires_grad=True)
 mindspore.Parameter(default_input, name=None, requires_grad=True, layerwise_parallel=False, parallel_optimizer=True)
 ```
 
-更多内容详见[mindspore.Parameter](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)。
+更多内容详见[mindspore.Parameter](https://mindspore.cn/docs/zh-CN/br_base/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)。
 
 ## 差异对比
 

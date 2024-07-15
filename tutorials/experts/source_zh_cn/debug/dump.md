@@ -1,6 +1,6 @@
 # Dump功能调试
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/dump.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/experts/source_zh_cn/debug/dump.md)
 
 ## 概述
 
@@ -21,7 +21,7 @@
 在准备数据时，您可以参考以下最佳实践：
 
 1. 设置`iteration`参数，仅保存出现问题的迭代和前一个迭代这两个迭代的数据。例如，要分析的问题会在第10个迭代（从1开始数）出现，则可以这样设置：`"iteration": "8|9"`。请注意`iteration`参数从0开始计算迭代数。保存上述两个迭代的数据能够支撑大多数场景的问题分析。
-2. 在出现问题的迭代执行完毕后，建议您通过[run_context.request_stop()](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.RunContext.html#mindspore.train.RunContext.request_stop)等方法提前结束训练。
+2. 在出现问题的迭代执行完毕后，建议您通过[run_context.request_stop()](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/train/mindspore.train.RunContext.html#mindspore.train.RunContext.request_stop)等方法提前结束训练。
 
 #### 数据分析
 
@@ -45,7 +45,7 @@
 
 1. 静态图算子结果分析。
 
-   通过Dump功能获得的IR图（仅同步dump支持保存IR图），可以了解脚本代码与执行算子的映射关系（详情见[MindSpore IR简介](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#简介)）。结合执行算子的输入和输出数据，可以分析训练过程中可能存在的溢出、梯度爆炸与消失等问题，反向跟踪到脚本中可能存在问题的代码。
+   通过Dump功能获得的IR图（仅同步dump支持保存IR图），可以了解脚本代码与执行算子的映射关系（详情见[MindSpore IR简介](https://www.mindspore.cn/docs/zh-CN/br_base/design/all_scenarios.html#简介)）。结合执行算子的输入和输出数据，可以分析训练过程中可能存在的溢出、梯度爆炸与消失等问题，反向跟踪到脚本中可能存在问题的代码。
 
 2. 特征图分析。
 
@@ -240,14 +240,14 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
     }
     ```
 
-    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据；设置成2，表示使用[mindspore.set_dump](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_dump.html) Dump指定对象。
+    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据；设置成2，表示使用[mindspore.set_dump](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/mindspore/mindspore.set_dump.html) Dump指定对象。
     - `path`：Dump保存数据的绝对路径。
     - `net_name`：自定义的网络名称，例如："ResNet50"。
     - `iteration`：指定需要Dump数据的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。
     - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。同步Dump统计信息现只支持GPU场景和Ascend场景，CPU场景若选"statistic"或"full"便会错误退出。默认取值为"tensor"。
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
     - `kernels`：该项可以配置三种格式：
-        1. 算子的名称列表。开启IR保存开关`set_context(save_graphs=2)`并执行用例，从生成的IR文件`trace_code_graph_{graph_id}`中获取算子名称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/mindir.html#如何保存ir)。
+        1. 算子的名称列表。开启IR保存开关`set_context(save_graphs=2)`并执行用例，从生成的IR文件`trace_code_graph_{graph_id}`中获取算子名称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/tutorials/zh-CN/br_base/advanced/error_analysis/mindir.html#如何保存ir)。
         需要注意的是，是否设置`set_context(save_graphs=2)`可能会导致同一个算子的id不同，所以在Dump指定算子时要在获取算子名称之后保持这一项设置不变。或者也可以在Dump保存的`ms_output_trace_code_graph_{graph_id}.ir`文件中获取算子名称，参考[同步Dump数据对象目录](#同步dump数据对象目录)。
         2. 还可以指定算子类型。当字符串中不带算子scope信息和算子id信息时，后台则认为其为算子类型，例如："conv"。算子类型的匹配规则为：当发现算子名中包含算子类型字符串时，则认为匹配成功（不区分大小写），例如："conv" 可以匹配算子 "Conv2D-op1234"、"Conv3D-op1221"。
         3. 算子名称的正则表达式。当字符串符合"name-regex(xxx)"格式时，后台则会将其作为正则表达式。例如，"name-regex(Default/.+)"可匹配算子名称以"Default/"开头的所有算子。
@@ -405,11 +405,11 @@ ms_global_execution_order_graph_{graph_id}.csv
 
 ### 同步Dump数据分析样例
 
-为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dump) ，同步Dump只需要执行 `bash run_sync_dump.sh`。
+为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/dump) ，同步Dump只需要执行 `bash run_sync_dump.sh`。
 
 在通过Dump功能将脚本对应的图保存到磁盘上后，会产生最终执行图文件`ms_output_trace_code_graph_{graph_id}.ir`。该文件中保存了对应的图中每个算子的堆栈信息，记录了算子对应的生成脚本。
 
-以[AlexNet脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dump/train_alexnet.py)为例 ：
+以[AlexNet脚本](https://gitee.com/mindspore/docs/blob/br_base/docs/sample_code/dump/train_alexnet.py)为例 ：
 
 ```python
 ...
@@ -738,7 +738,7 @@ Dump生成的原始数据文件也可以使用MindSpore Insight的数据解析�
 
 ### 异步Dump数据分析样例
 
-为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dump) ，异步Dump执行 `bash run_async_dump.sh` 即可。用户可以自行下载体验。
+为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/br_base/docs/sample_code/dump) ，异步Dump执行 `bash run_async_dump.sh` 即可。用户可以自行下载体验。
 
 通过异步Dump的功能，获取到算子异步Dump生成的数据文件。如果异步Dump配置文件中设置的`file_format`为"npy"，可以跳过以下步骤中的1、2，如果没有设置`file_format`，或者设置为"bin"，需要先转换成`.npy`格式的文件。
 

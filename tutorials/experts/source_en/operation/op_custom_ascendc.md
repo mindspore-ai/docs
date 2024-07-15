@@ -1,7 +1,7 @@
 
 # Ascend C Custom Operator Development and Usage
 
-[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/operation/op_custom_ascendc.md)
+[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/experts/source_en/operation/op_custom_ascendc.md)
 
 ## Overview
 
@@ -91,7 +91,7 @@ Before you begin, please make sure that the development, compilation, and deploy
 
 ### Using Custom Operators
 
-MindSpore's custom operator interface is [ops.Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html). When using Ascend C custom operators, you need to set the parameter `func_type` to `"aot"` and provide the `func` parameter to specify the operator name. Taking the `AddCustom` operator as an example, there are several ways to use it:
+MindSpore's custom operator interface is [ops.Custom](https://www.mindspore.cn/docs/en/br_base/api_python/ops/mindspore.ops.Custom.html). When using Ascend C custom operators, you need to set the parameter `func_type` to `"aot"` and provide the `func` parameter to specify the operator name. Taking the `AddCustom` operator as an example, there are several ways to use it:
 
 - **aclnn**: Specify that the underlying operator uses the aclnn type. You need to add `aclnn` in front of the operator name, for example: `func="aclnnAddCustom"`.
 - **C++ Inference**: If the operator's infer shape is implemented in C++, pass the path of the C++ infer shape file in the `func` and separate the operator name with `:`, for example: `func="add_custom_infer.cc:aclnnAddCustom"`.
@@ -165,13 +165,13 @@ net = CustomNet()
 
 3. **Specification Consistency**: The specifications supported in the registration information must also match those defined in the source code.
 
-4. **Execution Mode Limitations**: `aclnn` can only adopt a single-operator execution mode, set to PyNative mode or specify the Graph mode with `jit_config` set to `O0` or `O1`. For more information on `jit_config` configuration, refer to [set_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html).
+4. **Execution Mode Limitations**: `aclnn` can only adopt a single-operator execution mode, set to PyNative mode or specify the Graph mode with `jit_config` set to `O0` or `O1`. For more information on `jit_config` configuration, refer to [set_context](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore/mindspore.set_context.html).
 
 ### Further Reading
 
-- **Custom Operator Registration**: For more information on custom operator registration and the writing of backward functions, please refer to [Custom Operator Registration](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_adv.html).
-- **AOT Custom Operators**: For the implementation of C++ shape inference functions and advanced usage of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_aot.html).
-- **Sample Projects**: To learn more about the usage of Ascend C custom operators, you can check out the [Sample Projects](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/custom_ascendc).
+- **Custom Operator Registration**: For more information on custom operator registration and the writing of backward functions, please refer to [Custom Operator Registration](https://www.mindspore.cn/tutorials/experts/en/br_base/operation/op_custom_adv.html).
+- **AOT Custom Operators**: For the implementation of C++ shape inference functions and advanced usage of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/tutorials/experts/en/br_base/operation/op_custom_aot.html).
+- **Sample Projects**: To learn more about the usage of Ascend C custom operators, you can check out the [Sample Projects](https://gitee.com/mindspore/mindspore/tree/br_base/tests/st/ops/graph_kernel/custom/custom_ascendc).
 
 ## Common Issues
 
