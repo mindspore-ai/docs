@@ -34,12 +34,12 @@
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/v2.3.0/scripts/install/euleros-ascend-conda.sh
-# 默认安装Python 3.7以及最新版本的MindSpore
+# 默认安装Python 3.9以及最新版本的MindSpore
 # 默认LOCAL_ASCEND路径为/usr/local/Ascend
-bash -i ./euleros-ascend-conda.sh
-# 如需指定Python和MindSpore版本，以Python 3.9和MindSpore 1.6.0为例
+PYTHON_VERSION=3.9 bash -i ./euleros-ascend-conda.sh
+# 如需指定Python和MindSpore版本，以Python 3.8和MindSpore 1.6.0为例
 # 且指定LOCAL_ASCEND路径为/home/xxx/Ascend，使用以下方式
-# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.6.0 bash -i ./euleros-ascend-conda.sh
+# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.8 MINDSPORE_VERSION=1.6.0 bash -i ./euleros-ascend-conda.sh
 ```
 
 该脚本会执行以下操作：
@@ -51,16 +51,16 @@ bash -i ./euleros-ascend-conda.sh
 
 在脚本执行完成后，需要重新打开终端窗口以使环境变量生效。
 
-自动安装脚本会为MindSpore创建名为`mindspore_pyXX`的虚拟环境。其中`XX`为Python版本，如Python 3.7则虚拟环境名为`mindspore_py37`。执行以下命令查看所有虚拟环境。
+自动安装脚本会为MindSpore创建名为`mindspore_pyXX`的虚拟环境。其中`XX`为Python版本，如Python 3.9则虚拟环境名为`mindspore_py39`。执行以下命令查看所有虚拟环境。
 
 ```bash
 conda env list
 ```
 
-要激活虚拟环境，以Python 3.7为例，执行以下命令。
+要激活虚拟环境，以Python 3.9为例，执行以下命令。
 
 ```bash
-conda activate mindspore_py37
+conda activate mindspore_py39
 ```
 
 现在您可以跳转到[配置环境变量](#配置环境变量)小节设置相关环境变量。
@@ -84,9 +84,9 @@ conda activate mindspore_py37
 
 昇腾软件包提供商用版和社区版两种下载途径：
 
-- 商用版下载需要申请权限，下载链接与安装方式请参考[Ascend Training Solution 24.0.RC1 安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100373131)。
+- 商用版下载需要申请权限，下载链接即将发布。
 
-- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，选择`8.0.RC1.beta1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
+- 社区版下载不受限制，下载链接即将发布。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
@@ -138,14 +138,14 @@ conda init bash
 
 根据您希望使用的Python版本创建对应的Conda虚拟环境并进入虚拟环境。
 
-如果您希望使用Python3.7.5版本：
+如果您希望使用Python3.9.11版本：
 
 ```bash
-conda create -c conda-forge -n mindspore_py37 python=3.7.5 -y
-conda activate mindspore_py37
+conda create -c conda-forge -n mindspore_py39 python=3.9.11 -y
+conda activate mindspore_py39
 ```
 
-如果希望使用其他版本Python，只需更改以上命令中的Python版本。当前支持Python 3.7，Python 3.8和Python 3.9。
+如果希望使用其他版本Python，只需更改以上命令中的Python版本。当前支持Python 3.8，Python 3.9和Python 3.10。
 
 在虚拟环境中安装昇腾AI处理器配套软件包提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
 
