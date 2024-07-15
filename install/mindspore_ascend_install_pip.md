@@ -31,12 +31,12 @@
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-pip.sh
-# 安装MindSpore 2.3.0rc2和Python 3.7
+# 安装MindSpore 2.3.0和Python 3.9
 # 默认LOCAL_ASCEND路径为/usr/local/Ascend
-MINDSPORE_VERSION=2.3.0rc2 bash -i ./euleros-ascend-pip.sh
-# 如需指定Python和MindSpore版本，以Python 3.9和MindSpore 1.6.0为例
+PYTHON_VERSION=3.9 bash -i ./euleros-ascend-pip.sh
+# 如需指定Python和MindSpore版本，以Python 3.8和MindSpore 1.6.0为例
 # 且指定LOCAL_ASCEND路径为/home/xxx/Ascend，使用以下方式
-# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.6.0 bash -i ./euleros-ascend-pip.sh
+# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.8 MINDSPORE_VERSION=1.6.0 bash -i ./euleros-ascend-pip.sh
 ```
 
 该脚本会执行以下操作：
@@ -48,16 +48,16 @@ MINDSPORE_VERSION=2.3.0rc2 bash -i ./euleros-ascend-pip.sh
 
 在脚本执行完成后，需要重新打开终端窗口以使环境变量生效。
 
-自动安装脚本会为MindSpore创建名为`mindspore_pyXX`的虚拟环境。其中`XX`为Python版本，如Python 3.7则虚拟环境名为`mindspore_py37`。执行以下命令查看所有虚拟环境。
+自动安装脚本会为MindSpore创建名为`mindspore_pyXX`的虚拟环境。其中`XX`为Python版本，如Python 3.9则虚拟环境名为`mindspore_py39`。执行以下命令查看所有虚拟环境。
 
 ```bash
 conda env list
 ```
 
-以Python 3.7为例，执行以下命令激活虚拟环境。
+以Python 3.9为例，执行以下命令激活虚拟环境。
 
 ```bash
-conda activate mindspore_py37
+conda activate mindspore_py39
 ```
 
 现在您可以跳转到[配置环境变量](#配置环境变量)小节设置相关环境变量。
@@ -71,7 +71,7 @@ conda activate mindspore_py37
 |软件名称|版本|作用|
 |-|-|-|
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/openEuler 20.03/KylinV10 SP1|-|编译和运行MindSpore的操作系统|
-|[Python](#安装python)|3.7-3.9|MindSpore的使用依赖Python环境|
+|[Python](#安装python)|3.8-3.10|MindSpore的使用依赖Python环境|
 |[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
 
@@ -94,11 +94,11 @@ conda init bash
 
 安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
 
-创建虚拟环境，以Python 3.7.5为例：
+创建虚拟环境，以Python 3.9.11为例：
 
 ```bash
-conda create -n mindspore_py37 python=3.7.5 -y
-conda activate mindspore_py37
+conda create -n mindspore_py39 python=3.9.11 -y
+conda activate mindspore_py39
 ```
 
 可以通过以下命令查看Python版本。
@@ -117,9 +117,9 @@ python -m pip install -U pip
 
 昇腾软件包提供商用版和社区版两种下载途径：
 
-- 商用版下载需要申请权限，下载链接与安装方式请参考[Ascend Training Solution 24.0.RC1 安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100373131)。
+- 商用版下载需要申请权限，下载链接即将发布。
 
-- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，选择`8.0.RC1.beta1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
+- 社区版下载不受限制，下载链接即将发布。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
@@ -168,27 +168,27 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.wh
 
 ### 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.3.0rc2版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以2.3.0版本为例，执行以下命令。
 
 ```bash
-export MS_VERSION=2.3.0rc2
+export MS_VERSION=2.3.0
 ```
 
 然后根据系统架构及Python版本执行如下命令安装MindSpore。
 
 ```bash
-# x86_64 + Python3.7
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/unified/x86_64/mindspore-${MS_VERSION/-/}-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # x86_64 + Python3.8
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/unified/x86_64/mindspore-${MS_VERSION/-/}-cp38-cp38-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # x86_64 + Python3.9
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/unified/x86_64/mindspore-${MS_VERSION/-/}-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
-# aarch64 + Python3.7
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/unified/aarch64/mindspore-${MS_VERSION/-/}-cp37-cp37m-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# x86_64 + Python3.10
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/unified/x86_64/mindspore-${MS_VERSION/-/}-cp310-cp310-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # aarch64 + Python3.8
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/unified/aarch64/mindspore-${MS_VERSION/-/}-cp38-cp38-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # aarch64 + Python3.9
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/unified/aarch64/mindspore-${MS_VERSION/-/}-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# aarch64 + Python3.10
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/unified/aarch64/mindspore-${MS_VERSION/-/}-cp310-cp310-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。

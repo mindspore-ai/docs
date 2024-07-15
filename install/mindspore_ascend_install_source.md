@@ -37,12 +37,12 @@
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
-# 默认安装Python 3.7
+# 默认安装Python 3.9
 # 默认LOCAL_ASCEND路径为/usr/local/Ascend
-bash -i ./euleros-ascend-source.sh
-# 如需指定安装Python 3.9，并且安装可选依赖Open MPI
+PYTHON_VERSION=3.9 bash -i ./euleros-ascend-source.sh
+# 如需指定安装Python 3.8，并且安装可选依赖Open MPI
 # 且指定LOCAL_ASCEND路径为/home/xxx/Ascend，使用以下方式
-# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.9 OPENMPI=on bash -i ./euleros-ascend-source.sh
+# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.8 OPENMPI=on bash -i ./euleros-ascend-source.sh
 ```
 
 该脚本会执行以下操作：
@@ -53,16 +53,16 @@ bash -i ./euleros-ascend-source.sh
 
 自动安装脚本执行完成后，需要重新打开终端窗口以使环境变量生效。
 
-自动安装脚本会为MindSpore创建名为`mindspore_pyXX`的虚拟环境。其中`XX`为Python版本，如Python 3.7则虚拟环境名为`mindspore_py37`。执行以下命令查看所有虚拟环境。
+自动安装脚本会为MindSpore创建名为`mindspore_pyXX`的虚拟环境。其中`XX`为Python版本，如Python 3.9则虚拟环境名为`mindspore_py39`。执行以下命令查看所有虚拟环境。
 
 ```bash
 conda env list
 ```
 
-以Python 3.7为例，执行以下命令激活虚拟环境。
+以Python 3.9为例，执行以下命令激活虚拟环境。
 
 ```bash
-conda activate mindspore_py37
+conda activate mindspore_py39
 ```
 
 现在您可以跳转到[从代码仓下载源码](#从代码仓下载源码)小节开始下载编译MindSpore。
@@ -76,7 +76,7 @@ conda activate mindspore_py37
 |软件名称|版本|作用|
 |-|-|-|
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/openEuler 20.03/KylinV10 SP1|-|编译和运行MindSpore的操作系统|
-|[Python](#安装python)|3.7-3.9|MindSpore的使用依赖Python环境|
+|[Python](#安装python)|3.8-3.10|MindSpore的使用依赖Python环境|
 |[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
 |[wheel](#安装wheel-setuptools和numpy)|0.32.0及以上|MindSpore使用的Python打包工具|
 |[setuptools](#安装wheel-setuptools和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
@@ -109,11 +109,11 @@ conda init bash
 
 安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
 
-创建虚拟环境，以Python 3.7.5为例：
+创建虚拟环境，以Python 3.9.11为例：
 
 ```bash
-conda create -n mindspore_py37 python=3.7.5 -y
-conda activate mindspore_py37
+conda create -n mindspore_py39 python=3.9.11 -y
+conda activate mindspore_py39
 ```
 
 可以通过以下命令查看Python版本。
@@ -126,9 +126,9 @@ python --version
 
 昇腾软件包提供商用版和社区版两种下载途径：
 
-- 商用版下载需要申请权限，下载链接与安装方式请参考[Ascend Training Solution 24.0.RC1 安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100373131)。
+- 商用版下载需要申请权限，下载链接即将发布。
 
-- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，选择`8.0.RC1.beta1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
+- 社区版下载不受限制，下载链接即将发布。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
