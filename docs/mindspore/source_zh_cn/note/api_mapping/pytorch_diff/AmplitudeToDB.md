@@ -1,6 +1,6 @@
 # 比较与torchaudio.transforms.AmplitudeToDB的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/AmplitudeToDB.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/AmplitudeToDB.md)
 
 ## torchaudio.transforms.AmplitudeToDB
 
@@ -16,7 +16,7 @@ class torchaudio.transforms.AmplitudeToDB(stype: str = 'power', top_db: Optional
 class mindspore.dataset.audio.AmplitudeToDB(stype=ScaleType.POWER, ref_value=1.0, amin=1e-10, top_db=80.0)
 ```
 
-更多内容详见[mindspore.dataset.audio.AmplitudeToDB](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_audio/mindspore.dataset.audio.AmplitudeToDB.html#mindspore.dataset.audio.AmplitudeToDB)。
+更多内容详见[mindspore.dataset.audio.AmplitudeToDB](https://mindspore.cn/docs/zh-CN/br_base/api_python/dataset_audio/mindspore.dataset.audio.AmplitudeToDB.html#mindspore.dataset.audio.AmplitudeToDB)。
 
 ## 差异对比
 

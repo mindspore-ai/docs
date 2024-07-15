@@ -1,6 +1,6 @@
 # Differences with torch.Tensor.expand
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/expand.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_en/note/api_mapping/pytorch_diff/expand.md)
 
 ## torch.Tensor.expand
 
@@ -16,7 +16,7 @@ For more information, see [torch.Tensor.expand](https://pytorch.org/docs/1.8.1/t
 mindspore.Tensor.broadcast_to(shape) -> Tensor
 ```
 
-For more information, see [mindspore.Tensor.broadcast_to](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.broadcast_to.html).
+For more information, see [mindspore.Tensor.broadcast_to](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore/Tensor/mindspore.Tensor.broadcast_to.html).
 
 ## Differences
 

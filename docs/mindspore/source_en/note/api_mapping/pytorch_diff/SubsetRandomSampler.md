@@ -1,6 +1,6 @@
 # Differences with torch.utils.data.SubsetRandomSampler
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SubsetRandomSampler.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_en/note/api_mapping/pytorch_diff/SubsetRandomSampler.md)
 
 ## torch.utils.data.SubsetRandomSampler
 
@@ -16,7 +16,7 @@ For more information, see [torch.utils.data.SubsetRandomSampler](https://pytorch
 class mindspore.dataset.SubsetRandomSampler(indices, num_samples=None)
 ```
 
-For more information, see [mindspore.dataset.SubsetRandomSampler](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.SubsetRandomSampler.html).
+For more information, see [mindspore.dataset.SubsetRandomSampler](https://mindspore.cn/docs/en/br_base/api_python/dataset/mindspore.dataset.SubsetRandomSampler.html).
 
 ## Differences
 

@@ -1,6 +1,6 @@
 # 比较与torchvision.transforms.RandomResizedCrop的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/RandomResizedCrop.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/RandomResizedCrop.md)
 
 ## torchvision.transforms.RandomResizedCrop
 
@@ -16,7 +16,7 @@ class torchvision.transforms.RandomResizedCrop(size, scale=(0.08, 1.0), ratio=(0
 class mindspore.dataset.vision.RandomResizedCrop(size, scale=(0.08, 1.0), ratio=(3. / 4., 4. / 3.), interpolation=Inter.BILINEAR, max_attempts=10)
 ```
 
-更多内容详见[mindspore.dataset.vision.RandomResizedCrop](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomResizedCrop.html)。
+更多内容详见[mindspore.dataset.vision.RandomResizedCrop](https://mindspore.cn/docs/zh-CN/br_base/api_python/dataset_vision/mindspore.dataset.vision.RandomResizedCrop.html)。
 
 ## 差异对比
 

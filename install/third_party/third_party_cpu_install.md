@@ -1,6 +1,6 @@
 # 源码编译方式安装MindSpore CPU版本（含第三方依赖）
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/install/third_party/third_party_cpu_install.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/install/third_party/third_party_cpu_install.md)
 
 作者：[damon0626](https://gitee.com/damon0626)
 

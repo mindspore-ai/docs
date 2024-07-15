@@ -1,6 +1,6 @@
 # Ascend C自定义算子开发与使用指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/operation/op_custom_ascendc.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/tutorials/experts/source_zh_cn/operation/op_custom_ascendc.md)
 
 ## 概述
 
@@ -91,7 +91,7 @@ CANN为AI开发者提供了Ascend C编程语言，这是一款专为算子开发
 
 ### 使用自定义算子
 
-MindSpore的自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html) ，
+MindSpore的自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/ops/mindspore.ops.Custom.html) ，
 使用Ascend C自定义算子时，您需要设置参数`func_type`为`"aot"`，并提供`func`参数来指定算子名字。以`AddCustom`算子为例，存在以下几种使用方式：
 
 - **aclnn**：指定算子底层使用aclnn类型，则需要在算子名字前加上`aclnn`，例如：`func="aclnnAddCustom"`
@@ -166,13 +166,13 @@ net = CustomNet()
 
 3. **规格一致性**：注册信息中支持的规格也必须与源代码中定义的规格相匹配。
 
-4. **执行模式限制**：`aclnn`只能采用单算子执行模式，设置为PyNative模式或指定Graph模式下`jit_config`为`O0`或`O1`。`jit_config`配置说明参考[set_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html)。
+4. **执行模式限制**：`aclnn`只能采用单算子执行模式，设置为PyNative模式或指定Graph模式下`jit_config`为`O0`或`O1`。`jit_config`配置说明参考[set_context](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/mindspore/mindspore.set_context.html)。
 
 ### 进一步阅读
 
-- **自定义算子注册**：更多关于自定义算子的注册信息和反向函数的编写，请参考 [自定义算子注册](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_adv.html) 。
-- **AOT自定义算子**：对于C++的shape推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [aot类型自定义算子进阶用法](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_aot.html)。
-- **样例工程**：想要了解更多Ascend C自定义算子的使用方式，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/custom_ascendc)。
+- **自定义算子注册**：更多关于自定义算子的注册信息和反向函数的编写，请参考 [自定义算子注册](https://www.mindspore.cn/tutorials/experts/zh-CN/br_base/operation/op_custom_adv.html) 。
+- **AOT自定义算子**：对于C++的shape推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [aot类型自定义算子进阶用法](https://www.mindspore.cn/tutorials/experts/zh-CN/br_base/operation/op_custom_aot.html)。
+- **样例工程**：想要了解更多Ascend C自定义算子的使用方式，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/br_base/tests/st/ops/graph_kernel/custom/custom_ascendc)。
 
 ## 常见问题
 

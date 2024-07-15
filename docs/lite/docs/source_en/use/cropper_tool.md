@@ -1,10 +1,10 @@
 # Static Library Cropper Tool
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/cropper_tool.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/lite/docs/source_en/use/cropper_tool.md)
 
 ## Overview
 
-MindSpore Lite provides the `libmindspore-lite.a` static library cropping tool for runtime, which can filter out the operators in the `ms` model, crop the static library files. If the size requirement is still not met after operator cropping, you can [recompile](https://www.mindspore.cn/lite/docs/en/master/use/build.html) the inference framework package and use the `Framework Function Cropping Compile Option` at compile time to crop the framework function, and then use the tool to perform the operator cropping afterwards.
+MindSpore Lite provides the `libmindspore-lite.a` static library cropping tool for runtime, which can filter out the operators in the `ms` model, crop the static library files. If the size requirement is still not met after operator cropping, you can [recompile](https://www.mindspore.cn/lite/docs/en/br_base/use/build.html) the inference framework package and use the `Framework Function Cropping Compile Option` at compile time to crop the framework function, and then use the tool to perform the operator cropping afterwards.
 
 The operating environment of the library cropping tool is x86_64, and currently supports the cropping of CPU or GPU operators, and the GPU library supports setting CMAKE's MSLITE_GPU_BACKEND to opencl. After cropping the operator, the cropped static libraries can be compiled into dynamic libraries to suit different needs.
 
@@ -12,9 +12,9 @@ The operating environment of the library cropping tool is x86_64, and currently 
 
 To use the Cropper tool, you need to prepare the environment as follows:
 
-- Compilation: The code of the Cropper tool is stored in the `mindspore/lite/tools/cropper` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/master/use/build.html#compilation-example) in the build document to compile version x86_64.
+- Compilation: The code of the Cropper tool is stored in the `mindspore/lite/tools/cropper` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/br_base/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/br_base/use/build.html#compilation-example) in the build document to compile version x86_64.
 
-- Run: Obtain the `cropper` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) in the build document.
+- Run: Obtain the `cropper` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/br_base/use/build.html#environment-requirements) in the build document.
 
 ## Parameter Description
 
@@ -89,7 +89,7 @@ Refer to the example steps below.
     set(CMAKE_VERBOSE_MAKEFILE on)
     ```
 
-2. Refer to the [MindSpore Lite compilation](https://www.mindspore.cn/lite/docs/en/master/use/build.html) to compile the runtime package on the specific architecture required.
+2. Refer to the [MindSpore Lite compilation](https://www.mindspore.cn/lite/docs/en/br_base/use/build.html) to compile the runtime package on the specific architecture required.
 
 3. After the compilation is completed, find the command for compiling libminspore-lite.so in the printed compilation information. The following is the print command when compiling the runtime package of arm64 architecture, where `/home/android-ndk-r20b` is the path of the installed Android SDK.
 

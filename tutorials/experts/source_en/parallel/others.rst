@@ -1,8 +1,8 @@
 Experimental Characteristics
 =============================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/others.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg
+    :target: https://gitee.com/mindspore/docs/blob/br_base/tutorials/experts/source_en/parallel/others.rst
     :alt: View Source on Gitee
 
 .. toctree::

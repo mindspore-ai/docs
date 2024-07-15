@@ -1,8 +1,8 @@
 # 损失函数
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/loss_function.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/migration_guide/model_development/loss_function.md)
 
-在阅读本章节之前，请先阅读MindSpore官网教程[损失函数](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/loss.html)。
+在阅读本章节之前，请先阅读MindSpore官网教程[损失函数](https://www.mindspore.cn/tutorials/zh-CN/br_base/advanced/modules/loss.html)。
 
 MindSpore官网教程损失函数中讲解了内置、自定义和多标签损失函数，以及在模型训练中的使用指导，这里就MindSpore的损失函数与PyTorch的损失函数在功能和接口差异方面给出差异列表。
 
@@ -10,7 +10,7 @@ MindSpore官网教程损失函数中讲解了内置、自定义和多标签损�
 | -------- | ------------------- | ------------ | ------------- | ------- |
 | torch.nn.L1Loss | torch.nn.functional.l1_loss | mindspore.nn.L1Loss| mindspore.ops.l1_loss| 一致 |
 | torch.nn.MSELoss | torch.nn.functional.mse_loss | mindspore.nn.MSELoss| mindspore.ops.mse_loss| 一致 |
-| torch.nn.CrossEntropyLoss | torch.nn.functional.cross_entropy | mindspore.nn.CrossEntropyLoss| mindspore.ops.cross_entropy| [nn接口差异](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/CrossEntropyLoss.html) |
+| torch.nn.CrossEntropyLoss | torch.nn.functional.cross_entropy | mindspore.nn.CrossEntropyLoss| mindspore.ops.cross_entropy| [nn接口差异](https://www.mindspore.cn/docs/zh-CN/br_base/note/api_mapping/pytorch_diff/CrossEntropyLoss.html) |
 | torch.nn.CTCLoss | torch.nn.functional.ctc_loss | mindspore.nn.CTCLoss| mindspore.ops.ctc_loss| 一致 |
 | torch.nn.NLLLoss | torch.nn.functional.nll_loss | mindspore.nn.NLLLoss| mindspore.ops.nll_loss| 一致 |
 | torch.nn.PoissonNLLLoss | torch.nn.functional.poisson_nll_loss | mindspore.nn.PoissonNLLLoss| - | 一致 |
@@ -27,5 +27,5 @@ MindSpore官网教程损失函数中讲解了内置、自定义和多标签损�
 | torch.nn.MultiLabelSoftMarginLoss | torch.nn.functional.multilabel_soft_margin_loss | mindspore.nn.MultiLabelSoftMarginLoss| mindspore.ops.multilabel_soft_margin_loss| 一致 |
 | torch.nn.CosineEmbeddingLoss | torch.nn.functional.cosine_embedding_loss | mindspore.nn.CosineEmbeddingLoss| mindspore.ops.cosine_embedding_loss| 一致 |
 | torch.nn.MultiMarginLoss | torch.nn.functional.multi_margin_loss | mindspore.nn.MultiMarginLoss | mindspore.ops.multi_margin_loss | 一致 |
-| torch.nn.TripletMarginLoss | torch.nn.functional.triplet_margin_loss | mindspore.nn.TripletMarginLoss| mindspore.ops.triplet_margin_loss | [功能一致，参数个数或顺序不一致](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/TripletMarginLoss.html) |
+| torch.nn.TripletMarginLoss | torch.nn.functional.triplet_margin_loss | mindspore.nn.TripletMarginLoss| mindspore.ops.triplet_margin_loss | [功能一致，参数个数或顺序不一致](https://www.mindspore.cn/docs/zh-CN/br_base/note/api_mapping/pytorch_diff/TripletMarginLoss.html) |
 | torch.nn.TripletMarginWithDistanceLoss | torch.nn.functional.triplet_margin_with_distance_loss | mindspore.nn.TripletMarginWithDistanceLoss | - | 一致 |

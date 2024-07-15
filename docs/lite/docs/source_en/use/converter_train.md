@@ -1,12 +1,12 @@
 # Converting MindSpore Lite Models
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/converter_train.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/lite/docs/source_en/use/converter_train.md)
 
 ## Overview
 
 Creating your MindSpore Lite(Train on Device) model is a two step procedure:
 
-- In the first step, create a network model based on the MindSpore architecture using Python and export it as a `.mindir` file. See [saving model](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html#saving-and-loading-mindir) in the cloud.
+- In the first step, create a network model based on the MindSpore architecture using Python and export it as a `.mindir` file. See [saving model](https://www.mindspore.cn/tutorials/en/br_base/beginner/save_load.html#saving-and-loading-mindir) in the cloud.
 - In the seconde step, this `.mindir` model is <b>converted</b> into a `.ms` format that can be loaded onto an embedded device and can be trained using the MindSpore Lite framework.
 
 ## Linux Environment
@@ -15,7 +15,7 @@ Creating your MindSpore Lite(Train on Device) model is a two step procedure:
 
 MindSpore Lite model transfer tool (only suppot Linux OS) has provided multiple parameters. The procedure is as follows:
 
-- [Compile](https://www.mindspore.cn/lite/docs/en/master/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) model transfer tool.
+- [Compile](https://www.mindspore.cn/lite/docs/en/br_base/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/br_base/use/downloads.html) model transfer tool.
 - Add the path of dynamic library required by the conversion tool to the environment variables LD_LIBRARY_PATH.
 
     ```bash
@@ -39,7 +39,7 @@ The table below shows the parameters used in the MindSpore Lite model training t
 
 > The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 >
-> The calibration dataset configuration file uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [post training quantization](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html).
+> The calibration dataset configuration file uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [post training quantization](https://www.mindspore.cn/lite/docs/en/br_base/use/post_training_quantization.html).
 
 ### Example
 

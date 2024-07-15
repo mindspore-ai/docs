@@ -1,6 +1,6 @@
 # Third-Party Hardware Interconnection
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/pluggable_device.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_en/design/pluggable_device.md)
 
 MindSpore supports plug-in, standardized, low-cost and rapid interconnection of third-party chips through an open architecture:
 
@@ -11,7 +11,7 @@ MindSpore supports plug-in, standardized, low-cost and rapid interconnection of 
 
 MindSpore overall architecture and components related to the backend are shown in the following figure:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/design/images/pluggable_device_arch.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/docs/mindspore/source_en/design/images/pluggable_device_arch.png)
 
 The overall MindSpore architecture consists of the following major components, which have interdependencies with each other:
 
@@ -46,7 +46,7 @@ The generic architecture Kernel mode requires the following aspects to be implem
 - Memory management. DeviceAddres is the abstraction of memory, and third-party chip vendors need to implement the function of copying between Host and Device. It also needs to provide memory request and destruction functions. To facilitate third-party chip vendors, MindSpore provides a set of memory pool implementations and an efficient memory reuse algorithm, SOMAS, in the Common component.
 - Stream management. If the chip to be docked has the concept of stream, it needs to provide the function of creation and destruction. and If not, it will run in single stream mode.
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/pluggable_device_kernel.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/docs/mindspore/source_zh_cn/design/images/pluggable_device_kernel.png)
 
 ## Graph Mode Interconnection
 
@@ -56,4 +56,4 @@ If the chip vendor's software stack can provide completely high level APIs, or i
 
 - Graph execution. The third-party chip vendor needs to understand MindSpore Tensor format or transform it into a format that can be understood, and call the execution of the ready graph and transform the result of the execution into MindSpore Tensor format.
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/pluggable_device_graph.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/docs/mindspore/source_zh_cn/design/images/pluggable_device_graph.png)

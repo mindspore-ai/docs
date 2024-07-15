@@ -1,6 +1,6 @@
 # 比较与torch.Tensor.size的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/shape.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/br_base/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/br_base/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/shape.md)
 
 ## torch.Tensor.size
 
@@ -16,7 +16,7 @@ torch.Tensor.size() -> Tensor
 mindspore.Tensor.shape
 ```
 
-更多内容详见[mindspore.Tensor.shape](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.shape.html)。
+更多内容详见[mindspore.Tensor.shape](https://www.mindspore.cn/docs/zh-CN/br_base/api_python/mindspore/Tensor/mindspore.Tensor.shape.html)。
 
 ## 差异对比
 
