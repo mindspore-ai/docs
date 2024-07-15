@@ -103,9 +103,9 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                /115.0.0.0 Safari/537.36"}
 
     # 读取json文件数据
-    if version == "daily":
+    if version == "daily" or not os.path.exists(os.path.join(os.path.dirname(__file__), "version.json")):
         flag_dev = 1
-        with open(os.path.join(os.path.dirname(__file__), "daily.json"), 'r+', encoding='utf-8') as f:
+        with open(os.path.join(os.path.dirname(__file__), "daily_dev.json"), 'r+', encoding='utf-8') as f:
             data = json.load(f)
     else:
         flag_dev = 0
@@ -134,7 +134,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         # 克隆仓库与配置环境变量
         repo_name = data[i]['name'].replace('_', '-')
         repo_url = f"https://gitee.com/mindspore/{repo_name}.git"
-        repo_path = f"{REPODIR}/{repo_name}"
+        repo_path = f"{REPODIR}/{data[i]['name']}"
         branch_ = data[i]["branch"]
 
         if data[i]['environ'] == "MS_PATH":
@@ -176,22 +176,22 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
 
         # 特殊与一般性的往ArraySource中加入键值对
         if data[i]['name'] == "lite":
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/api'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/faq'] = data[i]["branch"]
+            ArraySource[data[i]['name'] + '/docs'] = data[i]["html_version"]
+            ArraySource[data[i]['name'] + '/api'] = data[i]["html_version"]
+            ArraySource[data[i]['name'] + '/faq'] = data[i]["html_version"]
         elif data[i]['name'] == "tutorials":
-            ArraySource[data[i]['name']] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/application'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/experts'] = data[i]["branch"]
+            ArraySource[data[i]['name']] = data[i]["html_version"]
+            ArraySource[data[i]['name'] + '/application'] = data[i]["html_version"]
+            ArraySource[data[i]['name'] + '/experts'] = data[i]["html_version"]
         elif data[i]['name'] == "mindspore":
-            ArraySource[data[i]['name']] = data[i]["branch"]
+            ArraySource[data[i]['name']] = data[i]["html_version"]
         elif data[i]['name'] == "mindscience" or data[i]['name'] == "mindformers":
             pass
         else:
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
+            ArraySource[data[i]['name'] + '/docs'] = data[i]["html_version"]
 
         if data[i]['name'] != "mindscience" and data[i]['name'] != "mindformers":
-            generate_version_json(data[i]['name'], data[i]["branch"], data_b, flag_dev, target_version)
+            generate_version_json(data[i]['name'], data[i]["html_version"], data_b, flag_dev, target_version)
 
         # 卸载原来已有的安装包, 以防冲突
         if data[i]['uninstall_name']:

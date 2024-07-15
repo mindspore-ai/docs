@@ -321,6 +321,31 @@ except:
     pass
 
 # modify urls
+re_url = r"(((gitee.com/mindspore/(mindspore|docs))|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
+with open(os.path.join('./mindspore_lite.rst'), 'r+', encoding='utf-8') as f:
+    content = f.read()
+    new_content = re.sub(re_url, r'\1/br_base', content)
+    if new_content != content:
+        f.seek(0)
+        f.truncate()
+        f.write(new_content)
+
+base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+for cur, _, files in os.walk(os.path.join(base_path, 'mindspore_lite')):
+    for i in files:
+        if i.endswith('.py'):
+            with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                content = f.read()
+                new_content = re.sub(re_url, r'\1/br_base', content)
+                if new_content != content:
+                    f.seek(0)
+                    f.truncate()
+                    f.write(new_content)
+
+# modify urls
 import json
 
 if os.path.exists('../../../../tools/generate_html/version.json'):
@@ -436,6 +461,14 @@ for file_name in fileList:
     with open(file_name, 'r', encoding='utf-8') as f:
         data = f.read()
         data = re.sub(r'/\*\*([\s\n\S]*?)\*/', '', data)
+    with open(file_name, 'w', encoding='utf-8') as p:
+        p.write(data)
+
+for file_name in fileList:
+    file_data = ''
+    with open(file_name, 'r', encoding='utf-8') as f:
+        data = f.read()
+        data = re.sub(r'.*//.*?910B.*\n', '', data)
     with open(file_name, 'w', encoding='utf-8') as p:
         p.write(data)
 
