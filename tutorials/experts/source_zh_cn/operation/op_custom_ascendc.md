@@ -60,8 +60,6 @@ CANN为AI开发者提供了Ascend C编程语言，这是一款专为算子开发
    | `--op_kernel_path` `-k`| kernel侧算子实现路径            | 无     | 是       |
    | `--vendor_name`   | 自定义算子厂商名称               | "customize" | 否 |
    | `--ascend_cann_package_path` | CANN软件包安装路径 | 无 | 否 |
-   | `--install_path`  | 自定义算子安装路径               | 无     | 否       |
-   | `-i`              | 是否安装自定义算子               | 不设置 | 否       |
    | `-c`              | 是否删除编译日志和结果文件       | 不设置 | 否       |
 
 3. **安装自定义算子**：

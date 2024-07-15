@@ -61,8 +61,6 @@ Make sure you have the following conditions to use MindSpore's Ascend C custom o
    | `--op_kernel_path` `-k`| Kernel-side operator implementation path | None | Yes |
    | `--vendor_name`   | Custom operator vendor name | "customize" | No |
    | `--ascend_cann_package_path` | CANN software package installation path | None | No |
-   | `--install_path`  | Custom operator installation path | None | No |
-   | `-i`              | Whether to install custom operators | Not set | No |
    | `-c`              | Whether to delete compilation logs and result files | Not set | No |
 
 3. **Install Custom Operators**:
