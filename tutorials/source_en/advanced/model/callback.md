@@ -120,7 +120,7 @@ To monitor the change of the loss function value during training, set `per_print
 from mindspore.train import LossMonitor
 
 loss_monitor = LossMonitor(300)
-# Start training and load the saved model and parameter callback function. The input parameters of LossMonitor are learning rate (0.01) and stride (375).
+# Start training and load the saved model and parameter callback function. The input parameters of LossMonitor are learning rate (0.01) and stride (300).
 trainer.train(1, train_dataset, callbacks=[loss_monitor])
 ```
 
