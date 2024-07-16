@@ -24,7 +24,7 @@ import sphinx
 # Fix some dl-label lack class='simple'
 from docutils.writers import _html_base
 
-with open(_html_base.__file__, "r+", encoding="utf-8") as f:
+with open(_html_base.__file__, "r", encoding="utf-8") as f:
     code_str = f.read()
     old_str = '''        if self.is_compactable(node):
             classes.append('simple')'''
@@ -76,7 +76,7 @@ def get_obj(obj):
     return obj
 """
 
-with open(autodoc_source_path, "r+", encoding="utf8") as f:
+with open(autodoc_source_path, "r", encoding="utf8") as f:
     code_str = f.read()
     code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
@@ -222,7 +222,7 @@ intersphinx_mapping = {
 gfile_abs_path = os.path.abspath(g.__file__)
 autosummary_re_line_old = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+autosummary::\s*')"
 autosummary_re_line_new = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+(ms[a-z]*)?autosummary::\s*')"
-with open(gfile_abs_path, "r+", encoding="utf8") as f:
+with open(gfile_abs_path, "r", encoding="utf8") as f:
     data = f.read()
     data = data.replace(autosummary_re_line_old, autosummary_re_line_new)
     exec(data, g.__dict__)
