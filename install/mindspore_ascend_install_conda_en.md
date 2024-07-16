@@ -35,12 +35,12 @@ Run the following command to obtain and run the automatic installation script. T
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-conda.sh
-# install Python 3.7 and the latest MindSpore by default
+# install Python 3.9 and the latest MindSpore by default
 # the default value of LOCAL_ASCEND is /usr/local/Ascend
-bash -i ./euleros-ascend-conda.sh
-# to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.6.0 as examples
+PYTHON_VERSION=3.9 bash -i ./euleros-ascend-conda.sh
+# to specify Python and MindSpore version, taking Python 3.8 and MindSpore 1.6.0 as examples
 # and set LOCAL_ASCEND to /home/xxx/Ascend, use the following manners
-# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.6.0 bash -i ./euleros-ascend-conda.sh
+# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.8 MINDSPORE_VERSION=1.6.0 bash -i ./euleros-ascend-conda.sh
 ```
 
 This script performs the following operations:
@@ -52,16 +52,16 @@ This script performs the following operations:
 
 After the script is executed, you need to reopen the terminal window to make the environment variables take effect.
 
-The automatic installation script creates a virtual environment named `mindspore_pyXX` for MindSpore. Where `XX` is the Python version, such as Python 3.7, the virtual environment name is `mindspore_py37`. Run the following command to show all virtual environments.
+The automatic installation script creates a virtual environment named `mindspore_pyXX` for MindSpore. Where `XX` is the Python version, such as Python 3.9, the virtual environment name is `mindspore_py39`. Run the following command to show all virtual environments.
 
 ```bash
 conda env list
 ```
 
-To activate the virtual environment, take Python 3.7 as an example, execute the following command.
+To activate the virtual environment, take Python 3.9 as an example, execute the following command.
 
 ```bash
-conda activate mindspore_py37
+conda activate mindspore_py39
 ```
 
 Now you can jump to the [Configuring Environment Variables](#configuring-environment-variables) section to set the relevant environment variables.
@@ -85,9 +85,9 @@ The following describes how to install the third-party dependencies.
 
 Ascend software package provides two distributions, commercial edition and community edition:
 
-- Commercial edition needs approval from Ascend to download, for detailed installation guide, please refer to [Ascend Training Solution 24.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100373131).
+- Commercial edition needs approval from Ascend to download, release date is TBD.
 
-- Community edition has no restrictions, choose `8.0.RC1.beta1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
+- Community edition has no restrictions, release date is TBD.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
@@ -139,14 +139,14 @@ After the installation is complete, you can set up Tsinghua Source to accelerate
 
 Create a Conda virtual environment based on the Python version you want to use and activate the virtual environment.
 
-If you want to use Python 3.7.5:
+If you want to use Python 3.9.11:
 
 ```bash
-conda create -c conda-forge -n mindspore_py37 python=3.7.5 -y
-conda activate mindspore_py37
+conda create -c conda-forge -n mindspore_py39 python=3.9.11 -y
+conda activate mindspore_py39
 ```
 
-If you wish to use another version of Python, just change the Python version in the above command. Python 3.7, Python 3.8 and Python 3.9 are currently supported.
+If you wish to use another version of Python, just change the Python version in the above command. Python 3.8, Python 3.9 and Python 3.10 are currently supported.
 
 Install the .whl package provided with the Ascend AI Processor software package in the virtual environment. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.
 
