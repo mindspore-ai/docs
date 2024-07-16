@@ -113,6 +113,8 @@ nbsphinx_requirejs_options = {
     "integrity": "sha256-1fEPhSsRKlFKGfK3eO710tEweHh1fwokU5wFGDHO+vg="
 }
 
+smartquotes_action = 'De'
+
 exclude_patterns = []
 
 pygments_style = 'sphinx'
