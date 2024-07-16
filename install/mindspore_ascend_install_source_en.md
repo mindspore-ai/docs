@@ -37,12 +37,12 @@ Run the following command to obtain and run the automatic installation script. T
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/v2.3.0/scripts/install/euleros-ascend-source.sh
-# install Python 3.7 by default
+# install Python 3.9 by default
 # the default value of LOCAL_ASCEND is /usr/local/Ascend
-bash -i ./euleros-ascend-source.sh
-# to specify the Python 3.9 installation and install the optional dependencies Open MPI
+PYTHON_VERSION=3.9 bash -i ./euleros-ascend-source.sh
+# to specify the Python 3.8 installation and install the optional dependencies Open MPI
 # and set LOCAL_ASCEND to /home/xxx/Ascend, use the following manners
-# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.9 OPENMPI=on bash -i ./euleros-ascend-source.sh
+# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.8 OPENMPI=on bash -i ./euleros-ascend-source.sh
 ```
 
 This script performs the following operations:
@@ -53,16 +53,16 @@ This script performs the following operations:
 
 After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect.
 
-The automatic installation script creates a virtual environment named `mindspore_pyXX` for MindSpore. Where `XX` is the Python version, such as Python 3.7, the virtual environment name is `mindspore_py37`. Run the following command to show all virtual environments.
+The automatic installation script creates a virtual environment named `mindspore_pyXX` for MindSpore. Where `XX` is the Python version, such as Python 3.9, the virtual environment name is `mindspore_py39`. Run the following command to show all virtual environments.
 
 ```bash
 conda env list
 ```
 
-To activate the virtual environment, take Python 3.7 as an example, execute the following command.
+To activate the virtual environment, take Python 3.9 as an example, execute the following command.
 
 ```bash
-conda activate mindspore_py37
+conda activate mindspore_py39
 ```
 
 Now you can jump to the [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository) section to downloading and compiling MindSpore.
@@ -76,7 +76,7 @@ The following table lists the system environment and third-party dependencies re
 |Software|Version|Description|
 |-|-|-|
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/openEuler 20.03/KylinV10 SP1|-|OS for running MindSpore|
-|[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends on|
+|[Python](#installing-python)|3.8-3.10|Python environment that MindSpore depends on|
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
 |[wheel](#installing-wheel-setuptools-and-numpy)|0.32.0 or later|Python packaging tool used by MindSpore|
 |[setuptools](#installing-wheel-setuptools-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
@@ -109,11 +109,11 @@ conda init bash
 
 After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
-Create a virtual environment, taking Python 3.7.5 as an example:
+Create a virtual environment, taking Python 3.9.11 as an example:
 
 ```bash
-conda create -n mindspore_py37 python=3.7.5 -y
-conda activate mindspore_py37
+conda create -n mindspore_py39 python=3.9.11 -y
+conda activate mindspore_py39
 ```
 
 Run the following command to check the Python version.
@@ -126,9 +126,9 @@ python --version
 
 Ascend software package provides two distributions, commercial edition and community edition:
 
-- Commercial edition needs approval from Ascend to download, for detailed installation guide, please refer to [Ascend Training Solution 24.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100373131).
+- Commercial edition needs approval from Ascend to download, release date is TBD.
 
-- Community edition has no restrictions, choose `8.0.RC1.beta1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
+- Community edition has no restrictions, release date is TBD.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
