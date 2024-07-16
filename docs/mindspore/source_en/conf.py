@@ -25,7 +25,7 @@ from sphinx.ext import autodoc as sphinx_autodoc
 # Fix some dl-label lack class='simple'
 from docutils.writers import _html_base
 
-with open(_html_base.__file__, "r+", encoding="utf-8") as f:
+with open(_html_base.__file__, "r", encoding="utf-8") as f:
     code_str = f.read()
     old_str = '''        if self.is_compactable(node):
             classes.append('simple')'''
@@ -185,7 +185,7 @@ def get_obj(obj):
     return obj
 """
 
-with open(autodoc_source_path, "r+", encoding="utf8") as f:
+with open(autodoc_source_path, "r", encoding="utf8") as f:
     code_str = f.read()
     code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
