@@ -1,4 +1,4 @@
-# 比较与torch.linsapce的差异
+# 比较与torch.linspace的差异
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.0rc2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.0rc2/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/linspace.md)
 
