@@ -56,6 +56,8 @@ mathjax_options = {
     'async':'async'
 }
 
+smartquotes_action = 'De'
+
 exclude_patterns = []
 
 pygments_style = 'sphinx'
