@@ -332,7 +332,9 @@ try:
                       ("mindspore/common/dtype.py","del class",
                        "class QuantDtype(enum.Enum):","class QuantDtype():"),
                       ("mindspore/ops/silent_check.py","replace str",
-                       "accuracy-sensitive detection","feature value detection")]
+                       "accuracy-sensitive detection","feature value detection"),
+                      ("mindspore/parallel/checkpoint_transform.py","replace url",
+                       "https://www.mindspore.cn/tutorials/experts/en/r2.3/parallel/model_transformation.html","https://www.mindspore.cn/tutorials/experts/en/r2.3.0rc1/parallel/model_transformation.html")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:

@@ -323,7 +323,11 @@ try:
     decorator_list = [("mindspore_lite/model.py","del decorator",
                        "@set_env","# generate api by del decorator set_env."),
                       ("mindspore_lite/converter.py","del decorator",
-                       "@set_env","# generate api by del decorator set_env.")]
+                       "@set_env","# generate api by del decorator set_env."),
+                      ("mindspore_lite/context.py","replace url",
+                       "https://www.mindspore.cn/docs/zh-CN/r2.3/api_python/mindspore/mindspore.set_auto_parallel_context.html","https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/mindspore/mindspore.set_auto_parallel_context.html"),
+                      ("mindspore_lite/model.py","replace url",
+                       "https://www.mindspore.cn/lite/docs/en/r2.3/use/cloud_infer/runtime_python.html","https://www.mindspore.cn/lite/docs/en/r2.3.0rc1/use/cloud_infer/runtime_python.html")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
