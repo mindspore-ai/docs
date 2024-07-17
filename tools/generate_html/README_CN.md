@@ -61,14 +61,14 @@
     比如构建1.9.0的发布版本：
 
     ```bash
-    python run.py --version="1.9.0" --user="" --pd="" --wgetdir="" --release_url="https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.9.0" --theme="xxx/xxx"
+    python run.py --version="1.9.0" --user="" --pd="" --wgetdir="" --release_url="https://ms-release.obs.cn-north-4.myhuaweicloud.com" --theme="xxx/xxx"
     ```
 
     支持单独构建某几个组件。（该功能从r2.2分支开始支持）
     如构建2.2.0的发布版本的 ``mindspore`` , ``sciai`` 组件：
 
     ```bash
-    python run.py --version="2.2.0" --user="" --pd="" --wgetdir="" --release_url="https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0" --theme="xxx/xxx" --single_generate="mindspore,sciai"
+    python run.py --version="2.2.0" --user="" --pd="" --wgetdir="" --release_url="https://ms-release.obs.cn-north-4.myhuaweicloud.com" --theme="xxx/xxx" --single_generate="mindspore,sciai"
     ```
 
     | 参数 | 值 | 必填 | 适配分支 |

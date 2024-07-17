@@ -231,7 +231,9 @@ try:
     decorator_list = [("mindspore/common/dtype.py","del decorator",
                        "@enum.unique","# generate api by del decorator."),
                       ("mindspore/common/dtype.py","del class",
-                       "class QuantDtype(enum.Enum):","class QuantDtype():")]
+                       "class QuantDtype(enum.Enum):","class QuantDtype():"),
+                      ("mindspore/context.py","add docs",
+                       "- compute_communicate_fusion_level (int): Enable the fusion between compute and communicate.\n                Default: ``0``.","- compute_communicate_fusion_level (int): Enable the fusion between compute and communicate.\n                Default: ``0``. Note: This function must be used with Ascend Training Solution 24.0.RC2 or later.")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
@@ -306,6 +308,11 @@ mint_sum = mint_interface_name()
 from generate_rst_by_en import generate_rst_by_en
 
 exist_rst_file, primi_auto = generate_rst_by_en(primitive_list, './api_python/ops', language='en')
+
+# Rename .rst file to .txt file for include directive.
+from rename_include import rename_include
+
+rename_include('migration_guide')
 
 # modify urls
 import json
