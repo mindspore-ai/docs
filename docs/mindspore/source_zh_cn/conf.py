@@ -422,6 +422,7 @@ for root, dirs, files in os.walk(api_file_dir, topdown=True):
 from rename_include import rename_include
 
 rename_include('api_python')
+rename_include('migration_guide')
 
 # modify urls
 import json
@@ -513,6 +514,19 @@ try:
     scipy_interface_name()
 except Exception as e:
     print(e)
+
+# 替换指定文件内错误内容
+replace_str = [('./api_python/mindspore/mindspore.set_context.rst', ['控制通算融合的级别。默认值：``0``。'], '控制通算融合的级别。默认值：``0``。注：此功能需要配套Ascend Training Solution 24.0.RC2以上版本使用。')]
+
+for i in replace_str:
+    if os.path.exists(i[0]):
+        with open(i[0], 'r+', encoding='utf-8') as f:
+            content = f.read()
+            for j in i[1]:
+                content = content.replace(j, i[2])
+            f.seek(0)
+            f.truncate()
+            f.write(content)
 
 # auto generate rst by en
 from generate_rst_by_en import generate_rst_by_en
