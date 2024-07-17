@@ -307,6 +307,11 @@ from generate_rst_by_en import generate_rst_by_en
 
 exist_rst_file, primi_auto = generate_rst_by_en(primitive_list, './api_python/ops', language='en')
 
+# Rename .rst file to .txt file for include directive.
+from rename_include import rename_include
+
+rename_include('migration_guide')
+
 # modify urls
 import json
 
