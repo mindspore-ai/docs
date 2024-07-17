@@ -430,7 +430,12 @@ import json
 re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
 re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
+
+re_url3 = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+          r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+          r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(r2.3)/"
 
 if os.path.exists('../../../tools/generate_html/version.json'):
     with open('../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
@@ -459,7 +464,8 @@ for cur, _, files in os.walk(des_sir):
             try:
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                     content = f.read()
-                    new_content = re.sub(re_url, r'\1/r2.3.0', content)
+                    new_content = re.sub(re_url3, r'\1/master/', content)
+                    new_content = re.sub(re_url, r'\1/r2.3.0', new_content)
                     if i.endswith('.rst'):
                         new_content = re.sub(re_url2, r'\1/v2.3.0', new_content)
                     # if i.endswith('.md'):
