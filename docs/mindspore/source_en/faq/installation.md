@@ -369,3 +369,9 @@ A: The above issue occurs in environments with a newer version of numpy (>=1.22.
 ### Q: What should I do if an error message `AttributeError: module 'six' has no attribute 'ensure_text'` is displayed when running Mindspore?
 
 A: The reason for the above issue is that a newer version of `asttokens` (>=2.0.6) is installed, but the version of `six` on which it depends does not match. It can be solved by updating the `six` version (>=1.12.0).
+
+<br/>
+
+### Q: What should I do if an error message `ModuleNotFoundError: No module named 'requests'` is displayed when running Mindspore?
+
+A: The reason for the above issue is that python package requests is missing in current python environment, it can be solved by running `pip install requests`.

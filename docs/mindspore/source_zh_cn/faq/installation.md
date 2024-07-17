@@ -367,3 +367,9 @@ A: 上述问题出现在安装了较新版本的numpy(>=1.22.0)版本的ARM pyth
 ### Q: 运行MindSpore时出现报错 `AttributeError: module 'six' has no attribute 'ensure_text'` 应该怎么解决？
 
 A: 上述问题的原因是环境安装了较新版本的`asttokens`(>=2.0.6)，其依赖的`six`版本不匹配。更新`six`版本(>=1.12.0)即可解决。
+
+<br/>
+
+### Q: 运行MindSpore时出现报错 `ModuleNotFoundError: No module named 'requests'` 应该怎么解决？
+
+A: 上述问题的原因是当前python环境缺少requests包，pip install requests即可解决。
