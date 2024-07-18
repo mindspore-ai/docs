@@ -39,7 +39,7 @@
       "id" : 4 ,
       "name" : "mindinsight",
       "branch" : "r2.3",
-      "html_version" : "r2.3.0",
+      "html_version" : "r2.3",
       "whl_path" : "2.3.0/MindInsight/any/",
       "whl_name" : "mindinsight-2.3.0-py3-none-any.whl",
       "environ" : "MI_PATH",
