@@ -343,8 +343,6 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 检查方法：
 当使用[混合精度](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html)训练，或者是使用Ascend AI处理器训练时，建议检查是否存在溢出问题。
 
-使用GPU时，通过[调试器](https://mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#异常现象检查列表)中的“检查张量溢出”监测点可以进行溢出检查。
-
 发现溢出问题后，应首先找到并分析第一个出现溢出的节点（对于Ascend的溢出数据，可以按文件名中的时间戳，找时间戳最小的一个；对于GPU上的溢出，只要找执行序中最靠前的一个），结合API的输入输出数据确定溢出原因。
 
 出现溢出问题后常见的解决措施如下：

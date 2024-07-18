@@ -220,8 +220,6 @@ The following sections describe the process.
 
     *Figure 3 Training dashboard*
 
-    To debug a model online, use the [debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html).
-
 #### Checking the Code and Hyperparameters
 
 Code is an important source of accuracy problems. Hyperparameter problems, model structure problems, data problems, and algorithm design and implementation problems are reflected in scripts. Checking scripts is an efficient method to locate accuracy problems. Code check mainly depends on code walk-through. You are advised to use the rubber duck debugging method. During code walk-through, explain the function of each line of code to a rubber duck to inspire yourself and find code problems. When checking the script, check whether the script implementation (including data processing, model structure, loss function, and optimizer implementation) is consistent with the design. If other scripts are referenced, check whether the script implementation is consistent with other scripts. All inconsistencies must be properly justified; otherwise, modify it.
@@ -314,7 +312,6 @@ Some of the preceding problems or symptoms can be reflected by loss, and some ar
 
 - The parameter distribution histogram module of MindSpore Insight can display the change trend of model weights during the training process.
 - The Tensor Visualization module of MindSpore Insight can display the specific values of tensors and compare different tensors.
-- The [MindSpore Insight debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html) provides various built-in check capabilities to check weight problems (for example, the weight is not updated, the weight is too large, or the weight value is too large or too small) and gradient problems (for example, gradient disappearance and explosion), activation value problems (for example, the activation value is saturated or too weak), all tensors are 0, and NaN/INF problems.
 
 ![loss](./images/loss.png)
 
@@ -348,14 +345,7 @@ The following describes how to use MindSpore Insight to locate accuracy problems
 
         (3) Check whether the input data contains missing values or values that are too large or too small.
 
-    2. Observe the parameter distribution histogram on the training dashboard and check whether the parameter update is abnormal. If a parameter update exception occurs, you can use the debugger to locate the cause of the exception.
-    3. Use the debugger module to check the training site.
-
-        (1) If the value of loss is NaN or +/-INF, add a global watchpoint by checking tensor overflow. Locate the API node where NaN or +/-INF is displayed first and check whether the input data of the API causes a computation exception (for example, division by zero). If the problem is caused by the API input data, add a small value epsilon to avoid computation exceptions.
-
-        (2) If the value of loss is too large, add a global watchpoint by checking the large tensor. Locate the API node with a large value and check whether the input data of the API causes the computation exception. If the input data is abnormal, you can continue to trace the API that generates the input data until the specific cause is located.
-
-        (3) If you suspect that the parameter update or gradient is abnormal, you can set the watchpoints by using the conditions such as "Weight change above threshold", "Gradient disappearance", and "Gradient above threshold" to locate the abnormal weight or gradient. Then, check the tensor view, check suspicious forward APIs, backward APIs, and optimizer APIs layer by layer.
+    2. Observe the parameter distribution histogram on the training dashboard and check whether the parameter update is abnormal.
 
 - The loss convergence is slow.
 
@@ -369,14 +359,8 @@ The following describes how to use MindSpore Insight to locate accuracy problems
 
         (3) Check whether the range of the input data is normal, especially whether the value of the input data is too small.
 
-    2. Observe the parameter distribution histogram on the training dashboard and check whether the parameter update is abnormal. If a parameter update exception occurs, you can use the debugger to locate the cause of the exception.
-    3. Use the debugger module to check the training site process.
-
-        (1) You can use the "Weight change below threshold" and "Unchanged weight" conditions to monitor the weights that can be trained (not fixed) and check whether the weight change is too small. If the weight change is too small, check whether the learning rate is too small, whether the optimizer algorithm is correctly implemented, and whether the gradient disappears. If yes, rectify the fault accordingly.
-
-        (2) You can use the "Gradient disappearance" condition to monitor the gradient and check whether the gradient disappears. If the gradient disappears, check the cause of the gradient disappearance. For example, you can check whether the activation value is saturated or the ReLU output is 0 by using the "Activation value range" condition.
-
-    4. Other loss symptoms.
+    2. Observe the parameter distribution histogram on the training dashboard and check whether the parameter update is abnormal.
+    3. Other loss symptoms.
 
         If the loss of the training set is 0, the model is overfitting. In this case, increase the size of the training set.
 
