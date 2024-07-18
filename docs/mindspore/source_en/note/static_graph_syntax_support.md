@@ -781,7 +781,7 @@ In the network defined above, the parameters of reduce_sum(x, axis=2) cannot be 
 The error is reported as follows:
 
 ```text
-ValueError: For 'ReduceSum', the second input type should be tensor or scalar, but got invalid abstract type:AbstractKeywordArg.
+TypeError: For Primitive[ReduceSum], only positional arguments as inputs are supported, but got AbstractKeywordArg(key: axis, value: AbstractScalar(type: Int64, Value: 2, Shape: NoShape))
 ```
 
 Currently, the attributes and APIs related to `Primitive` and its subclasses cannot be called on the network.
