@@ -114,7 +114,7 @@
 
 | MindSpore Version | Hardware Platform       | Commercial edition Installation Guide                                                                                                                                           | Community edition download link (refer to commercial edition for instructions)                                                                |
 |-------------|--------|-----------|------------------|
-| 2.3.0   | Ascend | TBD      | TBD |
+| 2.3.0   | Ascend | TBD      | [CANN 8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
 | 2.3.0-rc2   | Ascend | [Ascend Training Solution 24.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100373131)      | [CANN 8.0.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
 | 2.3.0-rc1   | Ascend | [Ascend Training Solution 24.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100373131)      | [CANN 8.0.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
 | 2.2.14      | Ascend 910 | [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
