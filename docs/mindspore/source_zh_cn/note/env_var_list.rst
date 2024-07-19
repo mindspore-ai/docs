@@ -481,6 +481,23 @@ Dump调试
        dest_rank: Send算子的对端算子的rank_id。
 
        sr_tag: src和dest相同时，不同send-receive对的标识ID。
+   * - MS_CUSTOM_DEPEND_CONFIG_PATH
+     - 根据用户指定路径下的配置文件xxx.json插入控制边, 在MindSpore中使用原语ops.Depend表达依赖控制关系。
+     - String
+     - 该环境变量只在Ascend硬件平台图模式下使能。
+     - json文件包含的字段含义如下：
+       get_full_op_name_list(bool): 是否生成算子名称列表，可选，默认为false。
+
+       stage_xxx(string): 用于多卡多图场景，即不同的卡执行不同的图（如流水并行），其中stage_xxx只是一个序号标签，序号值没有实际指向意义。
+
+       graph_id(int): 用于区分子图信息，graph_id号需要与实际执行的graph_id一致, 不一致插入控制边的动作将失效。
+
+       depend_src_list(List[string])：需要插入控制边的源端算子名称列表，需要和depend_dest_list中的算子按顺序一一对应，否则插入控制边的动作将失效。
+
+       depend_dest_list(List[string])：需要插入控制边的终端端算子名称列表，需要和depend_src_list中的算子按顺序一一对应，否则插入控制边的动作将失效。
+
+       delete_depend_list(List[string])：需要被删除的算子名称列表，算子名称不存在或者和graph_id不匹配，删除节点的动作将失效。
+
 
 动态组网相关的具体用法详见 `动态组网 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html>`_ 。
 

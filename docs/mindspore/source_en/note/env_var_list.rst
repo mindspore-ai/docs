@@ -475,6 +475,23 @@ Distributed Parallel
        dest_rank: The rank_id of peer opposite of the Send operator.
        
        sr_tag: The identity ID of different send-receive pairs when src and dest are the same.
+   * - MS_CUSTOM_DEPEND_CONFIG_PATH
+     - Insert the control edge based on the configuration file xxx.json specified by the user, and use the primitive ops.Depend in MindSpore expresses the dependency control relationship.
+     - String
+     - This environment variable is only enabled in Ascend hardware platform graph mode.
+     - The fields contained in the json file have the following meanings:
+       get_full_op_name_list(bool): Whether to generate an operator name list, optional, default is false.
+
+       stage_xxx(string): used in multi-card and multi-graph scenarios, that is, different cards execute different graphs (such as pipeline parallelism), where stage_xxx is just a serial number label, and the serial number value has no actual pointing meaning.
+
+       graph_id (int): used to distinguish subgraph information. The graph_id number needs to be consistent with the actually executed graph_id. If it is inconsistent, the action of inserting control edges will be invalid.
+
+       depend_src_list(List[string]): A list of source operator names that need to be inserted into control edges. They need to correspond one-to-one with the operators in depend_dest_list in order, otherwise the action of inserting control edges will fail.
+
+       depend_dest_list(List[string]): A list of terminal operator names that need to be inserted into control edges. They need to correspond one-to-one with the operators in depend_src_list in order, otherwise the action of inserting control edges will fail.
+
+       delete_depend_list(List[string]): List of operator names that need to be deleted. If the operator name does not exist or does not match the graph_id, the action of deleting the node will be invalid.
+
 
 See `Dynamic Cluster <https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html>`_ for more details about Dynamic Cluster.
 
