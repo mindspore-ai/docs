@@ -14,6 +14,7 @@ import os
 import IPython
 import re
 import sys
+import regex
 
 from sphinx import directives
 with open('../_ext/overwriteobjectiondirective.txt', 'r') as f:
@@ -232,13 +233,22 @@ def setup(app):
 
 src_release = os.path.join(os.getenv("MI_PATH"), 'RELEASE_CN.md')
 des_release = "./RELEASE.md"
+release_source = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE_CN.md)\n'
+
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
-    content = re.findall("(## [\s\S\n]*?)\n## ", data)
+    content = regex.findall("(\n## MindSpore Insight [^L][\s\S\n]*?)\n## ", data, overlapped=True)
+    repo_version = re.findall("\n## MindSpore Insight ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
+    content_new = ''
+    for i in content:
+        if re.findall(f"\n## MindSpore Insight ({repo_version[0]}\.[0-9]+?)[ -]", i):
+            content_new += i
+    content = content_new
 else:
     content = re.findall("(## [\s\S\n]*)", data)
-#result = content[0].replace('# MindInsight', '#', 1)
+    content = content[0]
+
 with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes"+"\n\n")
-    p.write(content[0])
+    p.write("# Release Notes" + "\n\n" + release_source)
+    p.write(content)
