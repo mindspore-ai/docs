@@ -21,7 +21,7 @@ The Ascend platform provides comprehensive tutorials for Ascend C operator devel
 
 **Operator Implementation**: Focus on learning [kernel-side operator implementation](https://www.hiascend.com/document/detail/en/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0024.html) and [host-side operator implementation](https://www.hiascend.com/document/detail/en/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0024.html), learning the core logic of device-side operator execution and the implementation method of host-side operator operations.
 
-**Development Samples**: Ascend Community provides a wealth of [Ascend C Operator Development Samples](https://gitee.com/ascend/samples/tree/r2.3.0/operator), covering various types of operators, helping you quickly understand the practical application of operator development. You can also view the [AddCustom Custom Operator Development Sample](https://gitee.com/ascend/samples/tree/r2.3.0/operator/AddCustomSample/FrameworkLaunch/AddCustom), which simply shows the core work needed for custom operator development.
+**Development Samples**: Ascend Community provides a wealth of [Ascend C Operator Development Samples](https://gitee.com/ascend/samples/tree/master/operator), covering various types of operators, helping you quickly understand the practical application of operator development. You can also view the [AddCustom Custom Operator Development Sample](https://gitee.com/ascend/samples/tree/master/operator/AddCustomSample/FrameworkLaunch/AddCustom), which simply shows the core work needed for custom operator development.
 
 ## Offline Compilation and Deployment
 
@@ -171,7 +171,7 @@ net = CustomNet()
 
 - **Custom Operator Registration**: For more information on custom operator registration and the writing of backward functions, please refer to [Custom Operator Registration](https://www.mindspore.cn/tutorials/experts/en/r2.3.0/operation/op_custom_adv.html).
 - **AOT Custom Operators**: For the implementation of C++ shape inference functions and advanced usage of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/tutorials/experts/en/r2.3.0/operation/op_custom_aot.html).
-- **Sample Projects**: To learn more about the usage of Ascend C custom operators, you can check out the [Sample Projects](https://gitee.com/mindspore/mindspore/tree/r2.3.0/tests/st/ops/graph_kernel/custom/custom_ascendc).
+- **Sample Projects**: To learn more about the usage of Ascend C custom operators, you can check out the [Sample Projects](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/custom_ascendc).
 
 ## Common Issues
 

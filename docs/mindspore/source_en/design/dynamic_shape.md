@@ -67,4 +67,4 @@ Distributed parallel scenarios on how to use dynamic shapes can be found in the 
 
 ## API Support
 
-In the current version, only part of the API in MindSpore can support dynamic shape compilation and execution, and we will continue to improve the ability to support the full range of APIs. The current [mindspore.mint](https://www.mindspore.cn/docs/en/r2.3.0/api_python/mindspore.mint) interfaces support dynamic shape.
+In the current version, only part of the API in MindSpore can support dynamic shape compilation and execution, and we will continue to improve the ability to support the full range of APIs. The current [mindspore.mint](https://www.mindspore.cn/docs/en/r2.3.0/api_python/mindspore.mint.html) interfaces support dynamic shape.

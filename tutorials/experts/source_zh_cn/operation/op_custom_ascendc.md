@@ -20,7 +20,7 @@ CANN为AI开发者提供了Ascend C编程语言，这是一款专为算子开发
 
 **算子实现**：重点学习[kernel侧算子实现](https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0024.html) 和[host侧算子实现](https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0024.html) ，学习设备端执行算子的核心逻辑和主机端进行算子操作的实现方法。
 
-**开发样例**：昇腾社区提供了丰富的 [Ascend C算子开发样例](https://gitee.com/ascend/samples/tree/r2.3.0/operator) ，覆盖了多种类型算子，帮助您快速理解算子开发的实际应用。也可以查看 [AddCustom自定义算子开发样例](https://gitee.com/ascend/samples/tree/r2.3.0/operator/AddCustomSample/FrameworkLaunch/AddCustom) ，它简洁展示了一个自定义算子开发需要的核心工作。
+**开发样例**：昇腾社区提供了丰富的 [Ascend C算子开发样例](https://gitee.com/ascend/samples/tree/master/operator) ，覆盖了多种类型算子，帮助您快速理解算子开发的实际应用。也可以查看 [AddCustom自定义算子开发样例](https://gitee.com/ascend/samples/tree/master/operator/AddCustomSample/FrameworkLaunch/AddCustom) ，它简洁展示了一个自定义算子开发需要的核心工作。
 
 ## 离线编译与部署
 
@@ -172,7 +172,7 @@ net = CustomNet()
 
 - **自定义算子注册**：更多关于自定义算子的注册信息和反向函数的编写，请参考 [自定义算子注册](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0/operation/op_custom_adv.html) 。
 - **AOT自定义算子**：对于C++的shape推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [aot类型自定义算子进阶用法](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0/operation/op_custom_aot.html)。
-- **样例工程**：想要了解更多Ascend C自定义算子的使用方式，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/r2.3.0/tests/st/ops/graph_kernel/custom/custom_ascendc)。
+- **样例工程**：想要了解更多Ascend C自定义算子的使用方式，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/custom_ascendc)。
 
 ## 常见问题
 
