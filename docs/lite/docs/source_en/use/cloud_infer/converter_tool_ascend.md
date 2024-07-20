@@ -60,12 +60,12 @@ Table 3: Configure [acl_build_options] parameter
 | Parameters  | Attributes  | Functions Description           | Types | Values Description |
 | ----------------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ |
 | `input_format`                      | Optional | Specify the model input format. | String | Options: `"NCHW"`, `"NHWC"`, `"ND"` |
-| `input_shape`                       | Optional | Specify the model input shape. | String | For example: `input1:1,3,512,512;input2:1,3,224,224` |
+| `input_shape`                       | Optional | Specify the model input shape. After the model is converted, it can be obtained using the Model.get_model_info ("input_shape") method. This parameter is consistent with the command line input_shape. | String | For example: `input1:1,3,512,512;input2:1,3,224,224` |
 | `input_shape_rang`                  | Optional | Specify the model shape rang. | String | For example: `input1:[1-10,3,512,512];input2:[1-10,3,224,224]` |
 | `op_name_map`                       | Optional | Extension operator mapping configuration file path. | String | path of config file |
 | `ge.dynamicBatchSize`               | Optional | Set dynamic batch gear parameters. | String | This parameter needs to be used in conjunction with the `input_shape` parameter |
 | `ge.dynamicImageSize`               | Optional | Set dynamic resolution parameters for input images. | String | This parameter needs to be used in conjunction with the `input_shape` parameter |
-| `ge.dynamicDims`                    | Optional | Set the gear of dynamic dimensions in ND format. | String | This parameter needs to be used in conjunction with the `input_shape` parameter |
+| `ge.dynamicDims`                    | Optional | Set the gear of dynamic dimensions in ND format. After the model is converted, it can be obtained using the Model.get_model_info ("dynamic_dims") method | String | This parameter needs to be used in conjunction with the `input_shape` parameter |
 | `ge.inserOpFile`                    | Optional | Enter the configuration file path for the preprocessing operator. | String | path of config file |
 | `ge.exec.precision_mode`            | Optional | Enter the configuration file path for the preprocessing operator. | String | Options: `"force_fp32"`, `"force_fp16"`, `"allow_fp32_to_fp16"`, `"must_keep_origin_dtype"`, `"allow_mix_precision"`，Default: `"force_fp16"` |
 | `ge.exec.disableReuseMemory`        | Optional | Memory reuse switch. | String | Options: `"0"`, `"１"` |
