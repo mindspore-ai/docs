@@ -665,6 +665,27 @@ def load_model(model_path0, model_path1, config_file_0, config_file_1, rank_id, 
     return model0, model1
 ```
 
+For models on the ACL backend, weight sharing, activation sharing, and both can be shared.
+
+```python
+def load_model(model_path0, model_path1, config_file_0, config_file_1, rank_id, device_id):
+    context = mslite.Context()
+    context.ascend.device_id = device_id
+    context.ascend.rank_id = rank_id  # for distributed model
+    context.target = ["Ascend"]
+    # share weight
+    #model_group = mslite.ModelGroup(mslite.ModelGroupFlag.SHARE_WEIGHT)
+    # share workspace
+    #model_group = mslite.ModelGroup(mslite.ModelGroupFlag.SHARE_WORKSPACE)
+    # share weight and workspace
+    model_group = mslite.ModelGroup(mslite.ModelGroupFlag.SHARE_WEIGHT_WORKSPACE)
+    model_group.add_model([model_path0, model_path1])
+    model_group.cal_max_size_of_workspace(mslite.ModelType.MINDIR,context)
+    model0.build_from_file(model_path0, mslite.ModelType.MINDIR, context, config_file_0)
+    model1.build_from_file(model_path1, mslite.ModelType.MINDIR, context, config_file_1)
+    return model0, model1
+```
+
 C++ implementation:
 
 ```c++
@@ -711,12 +732,66 @@ std::vector<Model> LoadModel(const std::string &model_path0, const std::string &
 }
 ```
 
+ACL backend implementation:
+
+```c++
+std::vector<Model> LoadModel(const std::string &model_path0, const std::string &model_path1,
+                             const std::string &config_file_0, const std::string &config_file_1,
+                             uint32_t rank_id, uint32_t device_id) {
+    auto context = std::make_shared<mindspore::Context>();
+    if (context == nullptr) {
+      std::cerr << "New context failed." << std::endl;
+      return {};
+    }
+    auto &device_list = context->MutableDeviceInfo();
+    auto device_info = std::make_shared<mindspore::AscendDeviceInfo>();
+    if (device_info == nullptr) {
+      std::cerr << "New AscendDeviceInfo failed." << std::endl;
+      return {};
+    }
+    device_info->SetDeviceID(device_id);
+    device_info->SetRankID(rank_id);
+    device_info->SetProvider("ge");
+    device_list.push_back(device_info);
+
+    mindspore::Model model0;
+    mindspore::Model model1;
+    // share weight
+    mindspore::ModelGroup model_group(mindspore::ModelGroupFlag::kShareWeight);
+    // share workspace
+    //mindspore::ModelGroup model_group();
+    // share workspace and weight
+    //mindspore::ModelGroup model_group(mindspore::ModelGroupFlag::kShareWeightAndWorkspace);
+    model_group.AddModel({model_path0, model_path1});
+    model_group.CalMaxSizeOfWorkspace(mindspore::kMindIR, context);
+    if (!model0.LoadConfig(config_file_0).IsOk()) {
+      std::cerr << "Failed to load config file " << config_file_0 << std::endl;
+      return {};
+    }
+    if (!model0.Build(model_path0, mindspore::ModelType::kMindIR, context).IsOk()) {
+      std::cerr << "Failed to load model " << model_path0 << std::endl;
+      return {};
+    }
+    if (!model1.LoadConfig(config_file_1).IsOk()) {
+      std::cerr << "Failed to load config file " << config_file_1 << std::endl;
+      return {};
+    }
+    if (!model1.Build(model_path1, mindspore::ModelType::kMindIR, context).IsOk()) {
+      std::cerr << "Failed to load model " << model_path1 << std::endl;
+      return {};
+    }
+    return {model0, model1};
+}
+```
+
 By default, multiple models in the above configuration only share variables. When constants need to be shared, the weight externalization option needs to be configured in the configuration file. The configuration files are the `config_file_0` and `config_file_1` of the above examples.
 
 ```ini
 [ge_session_options]
 ge.externalWeight=1
 ```
+
+AddModel, CalMaxSizeOfWorkspace, and model.build need to be executed in child threads when the model on the ACL backend is active and shared for multithreading. ModelGroup and model need to use different contexts, and do not share the same context, That is, N contexts should be initialized for N models, and one context should be added for ModelGroup.
 
 ## Experimental feature
 
