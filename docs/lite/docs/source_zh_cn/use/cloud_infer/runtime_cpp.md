@@ -665,6 +665,28 @@ def load_model(model_path0, model_path1, config_file_0, config_file_1, rank_id, 
     return model0, model1
 ```
 
+对于acl后端的模型可以进行权重共享，激活共享以及二者同时共享
+
+```python
+def load_model(model_path0, model_path1, config_file_0, config_file_1, rank_id, device_id):
+    context = mslite.Context()
+    context.ascend.device_id = device_id
+    context.ascend.rank_id = rank_id  # for distributed model
+    context.target = ["Ascend"]
+    # 权重共享
+    #model_group = mslite.ModelGroup(mslite.ModelGroupFlag.SHARE_WEIGHT)
+    # 激活共享
+    #model_group = mslite.ModelGroup(mslite.ModelGroupFlag.SHARE_WORKSPACE)
+    # 同时共享
+    model_group = mslite.ModelGroup(mslite.ModelGroupFlag.SHARE_WEIGHT_WORKSPACE)
+    model_group.add_model([model_path0, model_path1])
+    model_group.cal_max_size_of_workspace(mslite.ModelType.MINDIR,context)
+    model0.build_from_file(model_path0, mslite.ModelType.MINDIR, context, config_file_0)
+    model1.build_from_file(model_path1, mslite.ModelType.MINDIR, context, config_file_1)
+    return model0, model1
+
+```
+
 C++实现：
 
 ```c++
@@ -711,12 +733,66 @@ std::vector<Model> LoadModel(const std::string &model_path0, const std::string &
 }
 ```
 
+acl后端c++用例：
+
+```c++
+std::vector<Model> LoadModel(const std::string &model_path0, const std::string &model_path1,
+                             const std::string &config_file_0, const std::string &config_file_1,
+                             uint32_t rank_id, uint32_t device_id) {
+    auto context = std::make_shared<mindspore::Context>();
+    if (context == nullptr) {
+      std::cerr << "New context failed." << std::endl;
+      return {};
+    }
+    auto &device_list = context->MutableDeviceInfo();
+    auto device_info = std::make_shared<mindspore::AscendDeviceInfo>();
+    if (device_info == nullptr) {
+      std::cerr << "New AscendDeviceInfo failed." << std::endl;
+      return {};
+    }
+    device_info->SetDeviceID(device_id);
+    device_info->SetRankID(rank_id);
+    device_info->SetProvider("ge");
+    device_list.push_back(device_info);
+
+    mindspore::Model model0;
+    mindspore::Model model1;
+    // share weight
+    mindspore::ModelGroup model_group(mindspore::ModelGroupFlag::kShareWeight);
+    // share workspace
+    //mindspore::ModelGroup model_group();
+    // share workspace and weight
+    //mindspore::ModelGroup model_group(mindspore::ModelGroupFlag::kShareWeightAndWorkspace);
+    model_group.AddModel({model_path0, model_path1});
+    model_group.CalMaxSizeOfWorkspace(mindspore::kMindIR, context);
+    if (!model0.LoadConfig(config_file_0).IsOk()) {
+      std::cerr << "Failed to load config file " << config_file_0 << std::endl;
+      return {};
+    }
+    if (!model0.Build(model_path0, mindspore::ModelType::kMindIR, context).IsOk()) {
+      std::cerr << "Failed to load model " << model_path0 << std::endl;
+      return {};
+    }
+    if (!model1.LoadConfig(config_file_1).IsOk()) {
+      std::cerr << "Failed to load config file " << config_file_1 << std::endl;
+      return {};
+    }
+    if (!model1.Build(model_path1, mindspore::ModelType::kMindIR, context).IsOk()) {
+      std::cerr << "Failed to load model " << model_path1 << std::endl;
+      return {};
+    }
+    return {model0, model1};
+}
+```
+
 上述配置的默认情况下多个模型仅共享了变量，共享常量时，需要在配置文件中配置权重外置选项。配置文件即上述例子的 `config_file_0` 和 `config_file_1` 。
 
 ```ini
 [ge_session_options]
 ge.externalWeight=1
 ```
+
+acl后端的模型在进行激活共享并且为多线程共享时AddModel，CalMaxSizeOfWorkspace，以及model.build需要在子线程中执行。
 
 ## 实验特性
 
