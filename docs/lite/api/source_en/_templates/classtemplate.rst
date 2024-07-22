@@ -10,6 +10,14 @@
     :exclude-members: infer_value, infer_shape, infer_dtype, construct
     :members:
 
+{% elif fullname=="mindspore_lite.Model" %}
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :inherited-members:
+    :exclude-members: infer_value, infer_shape, infer_dtype
+    :members:
+
 {% elif objname[0].istitle() %}
 {{ fullname | underline }}
 
