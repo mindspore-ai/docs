@@ -480,6 +480,7 @@ Distributed Parallel
      - String
      - This environment variable is only enabled in Ascend hardware platform graph mode.
      - The fields contained in the json file have the following meanings:
+
        get_full_op_name_list(bool): Whether to generate an operator name list, optional, default is false.
 
        stage_xxx(string): used in multi-card and multi-graph scenarios, that is, different cards execute different graphs (such as pipeline parallelism), where stage_xxx is just a serial number label, and the serial number value has no actual pointing meaning.
@@ -490,7 +491,7 @@ Distributed Parallel
 
        depend_dest_list(List[string]): A list of terminal operator names that need to be inserted into control edges. They need to correspond one-to-one with the operators in depend_src_list in order, otherwise the action of inserting control edges will fail.
 
-       delete_depend_list(List[string]): List of operator names that need to be deleted. If the operator name does not exist or does not match the graph_id, the action of deleting the node will be invalid.
+       delete_depend_list(List[string]): A list of operator names that need to be deleted. If the operator name does not exist or does not match the graph_id, the action of deleting the node will be invalid.
 
 
 See `Dynamic Cluster <https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html>`_ for more details about Dynamic Cluster.
