@@ -701,7 +701,7 @@ class MsCnPlatformAutoSummary(MsCnAutoSummary):
                 new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
                 api_doc = inspect.getdoc(get_api(new_name))
             platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
-            if ['deprecated'] == platform_str:
+            if platform_str in (['deprecated'], ['Deprecated']):
                 return ["弃用"]
             if not platform_str:
                 platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
@@ -734,7 +734,7 @@ class MsCnPlatWarnAutoSummary(MsCnAutoSummary):
                 new_name = re.findall(r'Refer to :\w+:`(.*?)` for more details.', api_doc.split('\n')[-1])[0]
                 api_doc = inspect.getdoc(get_api(new_name))
             platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
-            if ['deprecated'] == platform_str:
+            if platform_str in (['deprecated'], ['Deprecated']):
                 return ["弃用"]
             if not platform_str:
                 platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
