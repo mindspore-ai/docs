@@ -200,7 +200,7 @@ Gradient accumulation is a method of splitting data samples for training neural 
 
 Scalars, images, computational graphs, training optimization processes, and model hyperparameters during training are recorded in files and can be viewed on the web page.
 
-### [Debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html)
+### [Debugger](https://www.mindspore.cn/mindinsight/docs/en/r2.3/debugger.html)
 
 The MindSpore debugger is a debugging tool provided for graph mode training. It can be used to view and analyze the intermediate results of graph nodes.
 

@@ -181,7 +181,7 @@ Debugging Verification
 
       4. Check the correspondence between diagram nodes and source code.
 
-      For details, refer to \ `Visual Debugger <https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html>`__\ .
+      For details, refer to \ `Visual Debugger <https://www.mindspore.cn/mindinsight/docs/en/r2.3/debugger.html>`__\ .
 
 Network Execution Debugging
 ----------------------------
@@ -251,7 +251,7 @@ MindSpore provides framework developers with rich debugging tools. Debugging fea
 | Function classification | Main debugging functions |  Description of use                                           | Detailed introduction                                 |
 +=========================+==========================+===============================================================+=======================================================+
 | Process records         | Logs                     | used to record information at each stage of the framework     | `Log-related environment variables and configurations |
-|                         |                          | implementation to provide information for understanding       | <https://www.mindspore.cn/docs/en/r2.3.0rc2                |
+|                         |                          | implementation to provide information for understanding       | <https://www.mindspore.cn/docs/en/r2.3.0rc2           |
 |                         |                          | the framework implementation process or for problem diagnosis.| /note/env_var_list.html>`_                            |
 |                         |                          |                                                               |                                                       |
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+

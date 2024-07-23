@@ -25,7 +25,7 @@
 
 #### 数据分析
 
-如果用户已经安装了MindSpore Insight, 可以使用MindSpore Insight的离线调试器来分析，目前仅支持分析同步dump保存的数据。离线调试器的使用方法详见[使用离线调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_offline.html) 。
+如果用户已经安装了MindSpore Insight, 可以使用MindSpore Insight的离线调试器来分析，目前仅支持分析同步dump保存的数据。离线调试器的使用方法详见[使用离线调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/debugger_offline.html) 。
 
 如果没有安装MindSpore Insight，需要通过以下步骤来分析数据。
 

@@ -641,7 +641,7 @@ grad ((Tensor(shape=[1, 3], dtype=Float32, value=
 
 > 在Ascend上因为Conv、Sort、TopK等算子只能是float16的，MatMul由于性能问题最好也是float16的，所以建议loss scale操作作为网络训练的标配。[Ascend 上只支持float16的算子列表](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/migration_guide/debug_and_tune.html#4%E8%AE%AD%E7%BB%83%E7%B2%BE%E5%BA%A6)。
 >
-> 溢出可以通过MindSpore Insight的[调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html)或者[dump数据](https://mindspore.cn/tutorials/experts/zh-CN/r2.3.0rc2/debug/dump.html)获取到溢出算子信息。
+> 溢出可以通过MindSpore Insight的[调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/debugger.html)或者[dump数据](https://mindspore.cn/tutorials/experts/zh-CN/r2.3.0rc2/debug/dump.html)获取到溢出算子信息。
 >
 > 一般溢出表现为loss Nan/INF，loss突然变得很大等。
 
