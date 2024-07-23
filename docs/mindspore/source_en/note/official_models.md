@@ -24,18 +24,6 @@
 | [wizardcoder](https://gitee.com/mindspore/mindformers/blob/r1.1.0/research/wizardcoder/wizardcoder.md) | wizardcoder_15b |
 | [yi](https://gitee.com/mindspore/mindformers/blob/r1.1.0/research/yi/yi.md)   | yi_6b,yi_34b |
 
-### Image/Video Generative Model
-
-| model   |  supported by mindone |
-| :---   |  :--  |
-| [stable diffusion](https://github.com/mindspore-lab/mindone/blob/master/examples/stable_diffusion_v2) | sd 1.5/2.0, vanilla fine tune, lora, dreambooth |
-| [stable diffusion xl](https://github.com/mindspore-lab/mindone/blob/master/examples/stable_diffusion_xl)  | sai style(stability AI) vanilla fine tune, lora, dreambooth |
-| [dit](https://github.com/mindspore-lab/mindone/blob/master/examples/dit)     | text to image fine tune|
-| [latte](https://github.com/mindspore-lab/mindone/blob/master/examples/latte)     | uncondition text to image fine tune |
-| [hpcai open sora](https://github.com/mindspore-lab/mindone/blob/master/examples/opensora_hpcai)      | v1.0/1.1/1.2 large scale training with dp/sp/zero|
-| [pku open sora plan](https://github.com/mindspore-lab/mindone/blob/master/examples/opensora_pku) | v1.0/v1.1 large scale training with dp/sp/zero|
-| [animatediff](https://github.com/mindspore-lab/mindone/blob/master/examples/animatediff) | motion module and lora training|
-
 ### Image Classification (backbone)
 
 | model | acc@1 | supported by mindcv |
