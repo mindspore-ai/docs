@@ -181,8 +181,6 @@ Debugging Verification
 
       4. Check the correspondence between diagram nodes and source code.
 
-      For details, refer to \ `Visual Debugger <https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html>`__\ .
-
 Network Execution Debugging
 ----------------------------
 

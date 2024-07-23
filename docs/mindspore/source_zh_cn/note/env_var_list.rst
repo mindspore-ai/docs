@@ -342,7 +342,7 @@ Dump调试
      - 文件路径，支持相对路径与绝对路径
      -
 
-具体用法详见 `Dump功能调试 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html>`_ 和 `调试器 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html>`_ 。
+具体用法详见 `Dump功能调试 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html>`_ 。
 
 分布式并行
 -----------

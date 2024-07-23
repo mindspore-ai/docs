@@ -159,10 +159,6 @@ Gradient accumulation is a method of splitting data samples for training neural 
 
 Scalars, images, computational graphs, training optimization processes, and model hyperparameters during training are recorded in files and can be viewed on the web page.
 
-### [Debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html)
-
-The MindSpore debugger is a debugging tool provided for graph mode training. It can be used to view and analyze the intermediate results of graph nodes.
-
 ### [Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/master/index.html)
 
 MindSpore Golden Stick is a model compression algorithm set jointly designed and developed by Huawei Noah's team and Huawei MindSpore team. It contains basic quantization and pruning methods.
