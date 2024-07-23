@@ -25,7 +25,7 @@ When preparing data, you can refer to the following best practices:
 
 #### Data Analysis
 
-If you have installed MindSpore Insight, you can use offline debugger of MindSpore Insight to analyze it. It only supports analyzing data saved by e2e_dump currently. See [Using the Offline Debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger_offline.html) for the usage of offline debugger.
+If you have installed MindSpore Insight, you can use offline debugger of MindSpore Insight to analyze it. It only supports analyzing data saved by e2e_dump currently.
 
 If MindSpore Insight is not installed, you need to analyze the data through the following steps.
 

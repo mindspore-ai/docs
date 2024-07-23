@@ -201,7 +201,7 @@ trainable parameter numbers: 2
   model = Model(network=train_net)
   ```
 
-- 排查是否溢出，添加loss scale时，默认会加上溢出检测，可以将是否溢出的结果进行监测，如果持续溢出的话建议优先排查为什么溢出，建议使用MindSpore Insight的[调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html)或者[dump数据](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)。
+- 排查是否溢出，添加loss scale时，默认会加上溢出检测，可以将是否溢出的结果进行监测，如果持续溢出的话建议优先排查为什么溢出，建议使用MindSpore Insight的[dump数据](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)。
 
   ```python
   import numpy as np

@@ -337,7 +337,7 @@ Dump Debugging
      - File path, which can be a relative path or an absolute path.
      - 
 
-For more information, see `Using Dump in the Graph Mode <https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html>`_ and `Debugger <https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html>`_.
+For more information, see `Using Dump in the Graph Mode <https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html>`_.
 
 Distributed Parallel
 ---------------------

@@ -201,7 +201,7 @@ After the inference verification is complete, the basic model, data processing, 
   model = Model(network=train_net)
   ```
 
-- Check whether overflow occurs. When loss scale is added, overflow detection is added by default to monitor the overflow result. If overflow occurs continuously, you are advised to use the [debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html) or [dump data](https://mindspore.cn/tutorials/experts/en/master/debug/dump.html) of MindSpore Insight to check why overflow occurs.
+- Check whether overflow occurs. When loss scale is added, overflow detection is added by default to monitor the overflow result. If overflow occurs continuously, you are advised to use the [dump data](https://mindspore.cn/tutorials/experts/en/master/debug/dump.html) of MindSpore Insight to check why overflow occurs.
 
   ```python
   import numpy as np
