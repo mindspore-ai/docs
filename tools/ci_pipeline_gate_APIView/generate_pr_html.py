@@ -415,6 +415,7 @@ def handle_config(pf_cn, pf_py, pf_yaml, pf_sum, target_path, repo_p, pr_need):
             conf_content = conf_content.replace('mint_sum = mint_interface_name()',
                                                 f'mint_sum = mint_interface_name()\nmint_sum = {pr_need}')
             conf_content = conf_content.replace('os.getenv("MS_PATH")', f'"{repo_p}"')
+            conf_content = conf_content.replace('import search_code', '# import search_code')
             conf_content = re.sub(r'(generate_ops_mint_rst\(.*)\)', rf'\1, pr_need={pr_need})', conf_content)
             h.seek(0)
             h.truncate()
@@ -435,6 +436,7 @@ def handle_config(pf_cn, pf_py, pf_yaml, pf_sum, target_path, repo_p, pr_need):
             conf_content = conf_content.replace('\ncopy_image(', '\n# copy_image(').replace(
                 '\ncopy_source(', '\n# copy_source(')
             conf_content = conf_content.replace('os.getenv("MS_PATH")', f'"{repo_p}"')
+            conf_content = conf_content.replace('import search_code', '# import search_code')
             h.seek(0)
             h.truncate()
             h.write(conf_content)
