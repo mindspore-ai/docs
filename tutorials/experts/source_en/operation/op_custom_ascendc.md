@@ -61,7 +61,9 @@ Make sure you have the following conditions to use MindSpore's Ascend C custom o
    | `--op_kernel_path` `-k`| Kernel-side operator implementation path | None | Yes |
    | `--vendor_name`   | Custom operator vendor name | "customize" | No |
    | `--ascend_cann_package_path` | CANN software package installation path | None | No |
-   | `-c`              | Whether to delete compilation logs and result files | Not set | No |
+   | `--install_path`  | Custom operator installation path | None | No |
+   | `-i`              | Install the custom operator to the path specified by `--install_path`; if not specified, install to the path designated by the environment variable `ASCEND_OPP_PATH`. | Not set | No |
+   | `-c`              | Delete compilation logs and result files | Not set | No |
 
 3. **Install Custom Operators**:
    After compilation, a `CustomProject/build_out` folder containing the compilation results of the custom operators will be generated in the current directory. You can choose to install manually or use the compiled operators by setting environment variables.
@@ -98,6 +100,27 @@ MindSpore's custom operator interface is [ops.Custom](https://www.mindspore.cn/d
 - **TBE**: Specify that the underlying operator uses the TBE type, and set `func="AddCustom"`.
 
 > For single-operator execution mode, it is recommended to use aclnn, including in PyNative mode or Graph mode where `jit_config` is set to `O0` or `O1`.
+
+For a complete example of an Ascend C custom operator, you can refer to the [sample project](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc). The directory structure of the sample project is as follows:
+
+```text
+.
+├── compile_utils.py                // Custom operator compilation common file
+├── infer_file
+│   ├── add_custom_infer.cc         // Custom operator C++ side infer shape
+│   └── custom_aot_extra.h          // Custom operator infer shape compilation dependency header file
+├── op_host                         // Custom operator source code op_host
+│   ├── add_custom.cpp
+│   └── add_custom_tiling.h
+├── op_kernel                       // Custom operator source code op_kernel
+│   └── add_custom.cpp
+├── test_compile_custom.py          // Custom operator compilation test case
+├── test_custom_aclnn.py            // Custom operator aclnn usage example
+├── test_custom_aclop.py            // Custom operator tbe usage example
+└── test_custom_ascendc.py          // Custom operator startup script, including compilation and execution, can be used as an entry for reading
+```
+
+Below are several examples of how to use a custom operator.
 
 **aclnn Usage Example**:
 
@@ -171,7 +194,6 @@ net = CustomNet()
 
 - **Custom Operator Registration**: For more information on custom operator registration and the writing of backward functions, please refer to [Custom Operator Registration](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_adv.html).
 - **AOT Custom Operators**: For the implementation of C++ shape inference functions and advanced usage of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_aot.html).
-- **Sample Projects**: To learn more about the usage of Ascend C custom operators, you can check out the [Sample Projects](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc).
 
 ## Common Issues
 
