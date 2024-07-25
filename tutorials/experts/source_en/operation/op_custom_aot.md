@@ -14,7 +14,7 @@ In this tutorial, we will demonstrate advanced features of aot-type custom opera
 - Attributes and intermediate variables of aot-type custom operators;
 - Dynamic shape support for aot-type custom operators.
 
-For the complete source code of the example, check [here](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_aot_fused.py) in the MindSpore source code.
+For the complete source code of the example, check [here](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot_fused.py) in the MindSpore source code.
 
 ## The Introduction to the Advanced Usage Features of aot-type Custom Operators
 
@@ -98,7 +98,7 @@ The function name `FuncName` is the name of the operator main function. The retu
 - ndims (int \*): Array of dimensions for input and output shapes.
 - shapes (int64_t \*\*): Array of shapes for inputs and outputs.
 - dtypes (const char \*\*): Array of data types for inputs and outputs.
-- extra (AotExtra \*): Custom operator extensions with attributes. The `AotExtra` type is defined in the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore.
+- extra (AotExtra \*): Custom operator extensions with attributes. The `AotExtra` type is defined in the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore.
 
 ### Shape Inference Function
 
@@ -114,7 +114,7 @@ The meaning of the parameter list is as follows:
 
 - `ndims` (int \*): Array of dimensions for input shapes.
 - `shapes` (int64_t \*\*): Array of shapes for inputs.
-- `extra` (AotExtra \*): Pointer to an extension for attribute-bearing custom operators. The `AotExtra` type is defined in the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore.
+- `extra` (AotExtra \*): Pointer to an extension for attribute-bearing custom operators. The `AotExtra` type is defined in the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore.
 
 ### Operator Attribute Registration (Python)
 
@@ -153,7 +153,7 @@ To implement the operator, we create a source file named `kernel.cc`, which incl
 
 First, we define a data structure to store operator attributes, which inherits from `AotKernelData`.
 `AotKernelData` is the base class for custom operator attribute data structures.
-By downloading the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore and placing it in the same directory as the source file, we can use the related interfaces by including it with `#include "custom_aot_extra.h"` at the beginning of the file.
+By downloading the header file [custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h) provided by MindSpore and placing it in the same directory as the source file, we can use the related interfaces by including it with `#include "custom_aot_extra.h"` at the beginning of the file.
 
 ```c++
 #include <vector>
@@ -397,7 +397,7 @@ Custom operators of the AOT type support multiple outputs (outputs as tuples). T
 - Operator registration file: The names and data type information of multiple outputs need to be listed;
 - Operator computation function: It needs to identify the pointers corresponding to multiple outputs.
 
-Below, we demonstrate the method of defining a custom operator of the AOT type with multiple outputs using an example. For specific file usage, please refer to [here](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/test_custom_aot.py#L405).
+Below, we demonstrate the method of defining a custom operator of the AOT type with multiple outputs using an example. For specific file usage, please refer to [here](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot.py#L405).
 
 ### Operator Inference Function
 
@@ -498,7 +498,7 @@ void *output2 = params[3];
 void *output3 = params[4];
 ```
 
-For the complete operator computation file, please refer to [here](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/graph_kernel/custom/aot_test_files/add_mul_div.cu).
+For the complete operator computation file, please refer to [here](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/add_mul_div.cu).
 
 ### Operator in Scripts
 
