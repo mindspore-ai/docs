@@ -144,7 +144,7 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/br_base/faq/installation
 
   A: The time-consumption of non-first step during model training includes iteration gap, forward-backward computation and iteration trailing. If we want to optimize the performance of non-first step, we need to obtain the iteration trajectory of the network, and then analyze which part is the performance bottleneck, and optimize the performance recently.
      
-  For details, please refer to `Performance Tuning Guide <https://www.mindspore.cn/mindinsight/docs/en/r2.2/performance_tuning_guide.html>`_; and `Performance Debugging Examples <https://www.mindspore.cn/mindinsight/docs/en/r2.2/performance_optimization.html>`_ .
+  For details, please refer to `Performance Tuning Guide <https://www.mindspore.cn/mindinsight/docs/en/master/performance_tuning_guide.html>`_; and `Performance Debugging Examples <https://www.mindspore.cn/mindinsight/docs/en/master/performance_optimization.html>`_ .
 
   **Q: When loading benchmark weights for model inference to validate the forward process, there is a warning warning that the weights were not loaded successfully, how to solve it?**
 
