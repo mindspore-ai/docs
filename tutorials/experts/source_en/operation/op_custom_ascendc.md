@@ -171,7 +171,7 @@ net = CustomNet()
 
 - **Custom Operator Registration**: For more information on custom operator registration and the writing of backward functions, please refer to [Custom Operator Registration](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_adv.html).
 - **AOT Custom Operators**: For the implementation of C++ shape inference functions and advanced usage of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_aot.html).
-- **Sample Projects**: To learn more about the usage of Ascend C custom operators, you can check out the [Sample Projects](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/custom_ascendc).
+- **Sample Projects**: To learn more about the usage of Ascend C custom operators, you can check out the [Sample Projects](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc).
 
 ## Common Issues
 
