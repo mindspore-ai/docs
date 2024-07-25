@@ -1042,6 +1042,36 @@ The execution graph in graph mode is converted from source code, and not all Pyt
 
 6. Python provides a number of third-party libraries that usually need to be called via import statements. In graph mode, when the JIT syntax support level is 'STRICT', you cannot directly use third-party libraries. If you need to use the data types of third-party libraries in graph mode or call methods of third-party libraries, you need to support them only if the JIT syntax support level option 'jit_syntax_level' is 'LAX', please refer to the [Calling the Third-party Libraries](#calling-the-third-party-libraries) section in [Extended Syntaxes (LAX level)](#extended-syntaxes-lax-level) of this article.
 
+7. In graph mode, the modification of the attributes of the class outside the graph is not perceived, that is, the modification of the attributes of the class outside the graph will not take effect. For example:
+
+  ```python
+  import mindspore as ms
+  from mindspore import nn, ops, Tensor, context
+
+  class Net(nn.Cell):
+    def __init__(self):
+      super().__init__()
+      self.len = 1
+
+    def construct(self, inputs):
+      x = inputs + self.len
+      return x
+
+  context.set_context(mode=ms.GRAPH_MODE)
+  inputs = 2
+  net = Net()
+  print("out1:", net(inputs))
+  net.len = 2
+  print("out2:", net(inputs))
+  ```
+
+The result of the output will not change:
+
+  ```python
+  out1: 3
+  out2: 3
+  ```
+
 ## Extended Syntaxes (LAX level)
 
 The following mainly introduces the static graph syntax supported by the current extension.
