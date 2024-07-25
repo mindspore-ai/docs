@@ -580,7 +580,7 @@ class Documenter:
                     mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', mint_doc)
                     break
             if not re.findall(f'>>> .*?{usename}', mint_doc):
-                docstring = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext)?', rf'\1{usename}', mint_doc)
+                docstring = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext)?(?!\w)', rf'\1{usename}', mint_doc)
             else:
                 docstring = mint_doc
         if docstring:
