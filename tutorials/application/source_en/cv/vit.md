@@ -310,7 +310,7 @@ The traditional Transformer structure is mainly used to deal with Word Embedding
 
 In the ViT model:
 
-1. By dividing the input image into 16*16 patches on each channel, this step is done by a convolution operation, which can of course be done manually, but the convolution operation can also serve the purpose while still allowing for the same data processing. **For example, an input 224 x 224 image is first convolved to get 16 x 16 patches, so the size of each patch is 14 x 14.**
+1. By dividing the input image into 16 x 16 patches on each channel, this step is done by a convolution operation, which can of course be done manually, but the convolution operation can also serve the purpose while still allowing for the additional data processing. **For example, an input 224 x 224 image is first convolved to get 16 x 16 patches, so the size of each patch is 14 x 14.**
 
 2. The matrix of each patch is then stretched into a 1-dimensional vector, thus obtaining an approximate word vector stacking effect. **The 14 x 14 patch obtained in the previous step is then converted to a vector of length 196.**
 
