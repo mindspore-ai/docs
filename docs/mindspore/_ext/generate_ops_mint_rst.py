@@ -75,7 +75,7 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need='all'):
                         content = re.sub(rf'{k}.{name2}\n([=]+)', rf'{k}.{name2}\n\1'+'='*need_equal, content)
                         # 同步英文的替换部分(非支持平台、样例部分)
                         content = re.sub(r'(:(func|class):`[^`]+?)ops\.([^`]+?` 的别名)', r'\1mint.\3', content)
-                        content = re.sub(r'(\n\s+(-|\*) GPU(/CPU)?(:|：).*\n|\n\s+(-|\*) CPU(/GPU)?(:|：).*\n)',
+                        content = re.sub(r'(\n[ ]+(-|\*) GPU(/CPU)?(:|：).*\n|\n[ ]+(-|\*) CPU(/GPU)?(:|：).*\n)',
                                          r'\n', content)
                         f.seek(0)
                         f.truncate()
