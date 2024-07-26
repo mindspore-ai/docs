@@ -233,7 +233,9 @@ try:
                       ("mindspore/common/dtype.py","del class",
                        "class QuantDtype(enum.Enum):","class QuantDtype():"),
                       ("mindspore/context.py","add docs",
-                       "- compute_communicate_fusion_level (int): Enable the fusion between compute and communicate.\n                Default: ``0``.","- compute_communicate_fusion_level (int): Enable the fusion between compute and communicate.\n                Default: ``0``. Note: This function must be used with Ascend Training Solution 24.0.RC2 or later.")]
+                       "- compute_communicate_fusion_level (int): Enable the fusion between compute and communicate.\n                Default: ``0``.","- compute_communicate_fusion_level (int): Enable the fusion between compute and communicate.\n                Default: ``0``. Note: This function must be used with Ascend Training Solution 24.0.RC2 or later."),
+                      ("mindspore/nn/optim/adadelta.py","replace math",
+                       ":math:`p` represents `rho`",":math:`\\rho` represents `rho`")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
