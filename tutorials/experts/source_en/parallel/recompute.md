@@ -16,8 +16,6 @@ Related interfaces:
 
 3. `mindspore.recompute(block, *args, **kwargs)`: Call the [recompute interface](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore/mindspore.recompute.html#mindspore.recompute). After calling this function interface, the block will be recomputed. Only PyNative mode is supported.
 
-3. `mindspore.recompute(block, *args, **kwargs)`: Call the [recompute interface](https://www.mindspore.cn/docs/en/br_base/api_python/mindspore/mindspore.recompute.html#mindspore.recompute). After calling this function interface, the block will be recomputed. Only PyNative mode is supported.
-
 ## Basic Principle
 
 MindSpore automatically derives the reverse graph according to the forward graph compute process, and the forward graph and the inverse graph together form a complete compute graph. When calculating some reverse operators, it may be necessary to use the compute results of some forward operators, resulting in the compute results of these forward operators, which need to reside in memory until these reverse operators are computed, and the memory they occupy will not be reused by other operators. The computational results of these forward operators, which reside in memory for a long time, push up the peak memory footprint of the computation, especially in large-scale network models.
