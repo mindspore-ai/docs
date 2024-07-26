@@ -1044,33 +1044,33 @@ The execution graph in graph mode is converted from source code, and not all Pyt
 
 7. In graph mode, the modification of the attributes of the class outside the graph is not perceived, that is, the modification of the attributes of the class outside the graph will not take effect. For example:
 
-  ```python
-  import mindspore as ms
-  from mindspore import nn, ops, Tensor, context
+   ```python
+   import mindspore as ms
+   from mindspore import nn, ops, Tensor, context
 
-  class Net(nn.Cell):
-    def __init__(self):
-      super().__init__()
-      self.len = 1
+   class Net(nn.Cell):
+   def __init__(self):
+       super().__init__()
+       self.len = 1
 
-    def construct(self, inputs):
-      x = inputs + self.len
-      return x
+   def construct(self, inputs):
+       x = inputs + self.len
+       return x
 
-  context.set_context(mode=ms.GRAPH_MODE)
-  inputs = 2
-  net = Net()
-  print("out1:", net(inputs))
-  net.len = 2
-  print("out2:", net(inputs))
-  ```
+   context.set_context(mode=ms.GRAPH_MODE)
+   inputs = 2
+   net = Net()
+   print("out1:", net(inputs))
+   net.len = 2
+   print("out2:", net(inputs))
+   ```
 
-The result of the output will not change:
+   The result of the output will not change:
 
-  ```python
-  out1: 3
-  out2: 3
-  ```
+   ```text
+   out1: 3
+   out2: 3
+   ```
 
 ## Extended Syntaxes (LAX level)
 
