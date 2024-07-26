@@ -60,7 +60,9 @@ CANN为AI开发者提供了Ascend C编程语言，这是一款专为算子开发
    | `--op_kernel_path` `-k`| kernel侧算子实现路径            | 无     | 是       |
    | `--vendor_name`   | 自定义算子厂商名称               | "customize" | 否 |
    | `--ascend_cann_package_path` | CANN软件包安装路径 | 无 | 否 |
-   | `-c`              | 是否删除编译日志和结果文件       | 不设置 | 否       |
+   | `--install_path`  | 自定义算子安装路径               | 无     | 否       |
+   | `-i`              | 安装自定义算子到`--install_path`，否则安装到环境变量`ASCEND_OPP_PATH`指定的路径 | 不设置 | 否       |
+   | `-c`              | 删除编译日志和结果文件       | 不设置 | 否       |
 
 3. **安装自定义算子**：
    编译完成后，当前目录下将生成一个包含自定义算子编译结果的`CustomProject/build_out`文件夹，您可以选择手动安装或通过设置环境变量来使用编译后的算子。
@@ -99,6 +101,27 @@ MindSpore的自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/z
 - **TBE**：指定算子底层使用TBE类型，则设置`func="AddCustom"`
 
 > 单算子执行模式推荐使用aclnn，包括PyNative模式或Graph模式下`jit_config`为`O0`或`O1`。
+
+完整Ascend C自定义算子的样例代码，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc) ，样例工程的目录结构如下：
+
+```text
+.
+├── compile_utils.py                //自定义算子编译公共文件
+├── infer_file
+│   ├── add_custom_infer.cc         //自定义算子c++侧infer shape
+│   └── custom_aot_extra.h          //自定义算子infer shape编译依赖头文件
+├── op_host                         //自定义算子源码op_host
+│   ├── add_custom.cpp
+│   └── add_custom_tiling.h
+├── op_kernel                       //自定义算子源码op_kernel
+│   └── add_custom.cpp
+├── test_compile_custom.py          //自定义算子编译用例
+├── test_custom_aclnn.py            //自定义算子aclnn使用样例
+├── test_custom_aclop.py            //自定义算子tbe使用样例
+└── test_custom_ascendc.py          //自定义算子启动脚本，包含编译和执行，可作为阅读入口
+```
+
+下面示范自定义算子的几种使用方式。
 
 **aclnn使用样例**：
 
@@ -171,8 +194,7 @@ net = CustomNet()
 ### 进一步阅读
 
 - **自定义算子注册**：更多关于自定义算子的注册信息和反向函数的编写，请参考 [自定义算子注册](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_adv.html) 。
-- **AOT自定义算子**：对于C++的shape推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [aot类型自定义算子进阶用法](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_aot.html)。
-- **样例工程**：想要了解更多Ascend C自定义算子的使用方式，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc)。
+- **AOT自定义算子**：对于C++的shape推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [aot类型自定义算子进阶用法](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_aot.html) 。
 
 ## 常见问题
 
