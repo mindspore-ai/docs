@@ -572,6 +572,7 @@ class Documenter:
             mint_doc = re.sub(r'(Alias for.*?:(func|class):`[^`]+?\.)ops\.([^`]+?)(?<!_ext)(`|_ext`)', r'\1mint.\3`', mint_doc)
             mint_doc = re.sub(r'(Supported Platforms:\n\s+?)`.*', r'\1``Ascend``', mint_doc)
             mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', mint_doc)
+            mint_doc = mint_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint')
             for j in spec_tp:
                 if isinstance(j[1], list) and j[0] in mint_doc and usename in j[1]:
                     mint_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{usename}', mint_doc)
@@ -1788,6 +1789,7 @@ class ClassDocumenter(DocstringSignatureMixin, ModuleLevelDocumenter):  # type: 
                 mint_doc = re.sub(r'(Alias for.*?:(func|class):`[^`]+?\.)ops\.([^`]+?)(?<!_ext)(`|_ext`)', r'\1mint.\3`', mint_doc)
                 mint_doc = re.sub(r'(Supported Platforms:\n\s+?)`.*\n', r'\1``Ascend``\n', mint_doc)
                 mint_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', mint_doc)
+                mint_doc = mint_doc.replace('>>> import mindspore.ops as ops', '>>> from mindspore import mint')
                 if not re.findall(f'>>> .*?{usename}', mint_doc):
                     mint_doc = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext)?', rf'\1{usename}', mint_doc)
                 mint_rp = ''
