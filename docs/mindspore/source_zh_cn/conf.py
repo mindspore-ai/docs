@@ -522,7 +522,8 @@ except Exception as e:
     print(e)
 
 # 替换指定文件内错误内容
-replace_str = [('./api_python/mindspore/mindspore.set_context.rst', ['控制通算融合的级别。默认值：``0``。'], '控制通算融合的级别。默认值：``0``。注：此功能需要配套Ascend Training Solution 24.0.RC2以上版本使用。')]
+replace_str = [('./api_python/mindspore/mindspore.set_context.rst', ['控制通算融合的级别。默认值：``0``。'], '控制通算融合的级别。默认值：``0``。注：此功能需要配套Ascend Training Solution 24.0.RC2以上版本使用。'),
+               ('./api_python/nn/mindspore.nn.Adadelta.rst', [':math:`p` 代表 `rho`'], ':math:`\\rho` 代表 `rho`')]
 
 for i in replace_str:
     if os.path.exists(i[0]):
