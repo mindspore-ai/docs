@@ -172,7 +172,7 @@ net = CustomNet()
 
 - **自定义算子注册**：更多关于自定义算子的注册信息和反向函数的编写，请参考 [自定义算子注册](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0/operation/op_custom_adv.html) 。
 - **AOT自定义算子**：对于C++的shape推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [aot类型自定义算子进阶用法](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0/operation/op_custom_aot.html)。
-- **样例工程**：想要了解更多Ascend C自定义算子的使用方式，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom/custom_ascendc)。
+- **样例工程**：想要了解更多Ascend C自定义算子的使用方式，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/v2.3.0/tests/st/ops/graph_kernel/custom/custom_ascendc)。
 
 ## 常见问题
 
