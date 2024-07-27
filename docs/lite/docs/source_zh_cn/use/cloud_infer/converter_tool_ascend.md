@@ -60,12 +60,12 @@
 | 参数                          | 属性  | 功能描述        | 参数类型 | 取值说明 |
 | ----------------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ |
 | `input_format`                      | 可选 | 指定模型输入format。 | String | 可选有`"NCHW"`、`"NHWC"`、`"ND"` |
-| `input_shape`                       | 可选 | 模型输入shape。 | String | 例如：`input1:1,3,512,512;input2:1,3,224,224` |
+| `input_shape`                       | 可选 | 模型输入shape。模型转换后可以用Model.get_model_info("input_shpae")获取到。该参数与命令行中input_shape已统一。 | String | 例如：`input1:1,3,512,512;input2:1,3,224,224` |
 | `input_shape_rang`                  | 可选 | 指定输入的shape rang。 | String | 例如：`input1:[1-10,3,512,512];input2:[1-10,3,224,224]` |
 | `op_name_map`                       | 可选 | 扩展算子映射配置文件路径。 | String | 配置文件路径 |
 | `ge.dynamicBatchSize`               | 可选 | 设置动态batch档位参数。 | String | 该参数需要与`input_shape`参数配合使用 |
 | `ge.dynamicImageSize`               | 可选 | 设置输入图片的动态分辨率参数。 | String | 该参数需要与`input_shape`参数配合使用 |
-| `ge.dynamicDims`                    | 可选 | 设置ND格式下的动态维度的档位。 | String | 该参数需要与`input_shape`参数配合使用 |
+| `ge.dynamicDims`                    | 可选 | 设置ND格式下的动态维度的档位。模型转换后可以用Model.get_model_info("dynamic_dims")获取 | String | 该参数需要与`input_shape`参数配合使用 |
 | `ge.inserOpFile`                    | 可选 | 输入预处理算子的配置文件路径。 | String | 配置文件路径 |
 | `ge.exec.precision_mode`            | 可选 | 选择算子精度模式。 | String | 可选有`"force_fp32"`、`"force_fp16"`、`"allow_fp32_to_fp16"`、`"must_keep_origin_dtype"`、`"allow_mix_precision"`，默认为`"force_fp16"` |
 | `ge.exec.disableReuseMemory`        | 可选 | 内存复用开关。 | String | 可选有`"0"`、`"１"` |

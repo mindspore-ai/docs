@@ -792,7 +792,7 @@ std::vector<Model> LoadModel(const std::string &model_path0, const std::string &
 ge.externalWeight=1
 ```
 
-acl后端的模型在进行激活共享并且为多线程共享时AddModel，CalMaxSizeOfWorkspace，以及model.build需要在子线程中执行。
+acl后端的模型在进行激活共享并且为多线程共享时AddModel，CalMaxSizeOfWorkspace，以及model.build需要在子线程中执行。ModelGroup和model需要使用不同的context实例，不要共用一个context，即N个模型要初始化N个context用于模型，再加一个context用于ModelGroup。
 
 ## 实验特性
 

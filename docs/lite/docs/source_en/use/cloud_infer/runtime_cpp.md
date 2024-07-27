@@ -665,7 +665,7 @@ def load_model(model_path0, model_path1, config_file_0, config_file_1, rank_id, 
     return model0, model1
 ```
 
-For models on the ACL backend, weight sharing, workspace sharing, and both can be shared.
+For models on the ACL backend, weight sharing, activation sharing, and both can be shared.
 
 ```python
 def load_model(model_path0, model_path1, config_file_0, config_file_1, rank_id, device_id):
@@ -791,7 +791,7 @@ By default, multiple models in the above configuration only share variables. Whe
 ge.externalWeight=1
 ```
 
-AddModel, CalMaxSizeOfWorkspace, and model.build need to be executed in child threads when the model on the ACL backend is active and shared for multithreading.
+AddModel, CalMaxSizeOfWorkspace, and model.build need to be executed in child threads when the model on the ACL backend is active and shared for multithreading. ModelGroup and model need to use different contexts, and do not share the same context, That is, N contexts should be initialized for N models, and one context should be added for ModelGroup.
 
 ## Experimental feature
 
