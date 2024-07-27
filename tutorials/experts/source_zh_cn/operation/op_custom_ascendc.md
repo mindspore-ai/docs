@@ -137,7 +137,7 @@ class AddCustomAclnnNet(Cell):
             .target("Ascend") \
             .get_op_info()
 
-        self.custom_add = ops.Custom(func=func, out_shape=out_shape, out_type=lambda x, _: x, func_type="aot", bprop=None,
+        self.custom_add = ops.Custom(func=func, out_shape=out_shape, out_dtype=lambda x, _: x, func_type="aot", bprop=None,
                                      reg_info=aclnn_reg_info)
 
     def construct(self, x, y):

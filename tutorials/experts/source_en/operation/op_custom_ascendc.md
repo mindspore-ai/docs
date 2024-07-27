@@ -168,7 +168,7 @@ class CustomNet(Cell):
             .target("Ascend") \
             .get_op_info()
 
-        self.custom_add = ops.Custom(func="AddCustom", out_shape=lambda x, _: x, out_type=lambda x, _: x,
+        self.custom_add = ops.Custom(func="AddCustom", out_shape=lambda x, _: x, out_dtype=lambda x, _: x,
                                      func_type="aot",reg_info=aclop_reg_info)
 
     def construct(self, x, y):
