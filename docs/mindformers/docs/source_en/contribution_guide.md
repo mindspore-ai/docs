@@ -1,1 +1,0 @@
-# MindFormers Contribution Guide
