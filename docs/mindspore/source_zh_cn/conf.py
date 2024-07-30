@@ -523,7 +523,8 @@ except Exception as e:
 
 # 替换指定文件内错误内容
 replace_str = [('./api_python/mindspore/mindspore.set_context.rst', ['控制通算融合的级别。默认值：``0``。'], '控制通算融合的级别。默认值：``0``。注：此功能需要配套Ascend Training Solution 24.0.RC2以上版本使用。'),
-               ('./api_python/nn/mindspore.nn.Adadelta.rst', [':math:`p` 代表 `rho`'], ':math:`\\rho` 代表 `rho`')]
+               ('./api_python/nn/mindspore.nn.Adadelta.rst', [':math:`p` 代表 `rho`'], ':math:`\\rho` 代表 `rho`'),
+               ('./api_python/communication/mindspore.communication.comm_func.irecv.rst', ['发送张量'], '接收张量')]
 
 for i in replace_str:
     if os.path.exists(i[0]):
