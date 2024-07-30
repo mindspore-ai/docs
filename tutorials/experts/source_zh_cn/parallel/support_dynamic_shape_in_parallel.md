@@ -1,6 +1,6 @@
 # 分布式并行支持动态Shape
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/support_dynamic_shape_in_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.1/tutorials/experts/source_zh_cn/parallel/support_dynamic_shape_in_parallel.md)
 
 ## 概述
 
@@ -12,7 +12,7 @@
 
 - `class mindspore.Symbol(self, max=0, min=1, divisor=1, remainder=0, unique=False, **kawgs)`
    ：符号，用来传递张量形状的符号信息（symbolic shape）的数据结构。 对于动态shape网络，相比只设置 shape
-   的未知维度（None），提供未知维度的数学符号信息能帮助框架更好地优化计算图，提高网络执行性能。该接口详细介绍请参考[Symbol API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Symbol.html)。
+   的未知维度（None），提供未知维度的数学符号信息能帮助框架更好地优化计算图，提高网络执行性能。该接口详细介绍请参考[Symbol API文档](https://www.mindspore.cn/docs/zh-CN/r2.3.1/api_python/mindspore/mindspore.Symbol.html)。
 
 ## 基本原理
 
@@ -27,7 +27,7 @@
 
 > 您可以在这里下载完整的样例代码：
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/parallel_support_dynamic_shape>
+> <https://gitee.com/mindspore/docs/tree/r2.3.1/docs/sample_code/parallel_support_dynamic_shape>
 
 目录结构如下：
 
