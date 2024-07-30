@@ -1,8 +1,0 @@
-操作流程
---------
-
-- 准备训练脚本，并在训练脚本中调用性能调试接口，接着运行训练脚本。
-- 启动MindSpore Insight，并通过启动参数指定summary-base-dir目录(summary-base-dir是Profiler所创建目录的父目录)，例如训练时Profiler创建的文件夹绝对路径为\ ``/home/user/code/data``\ ，则summary-base-dir设为\ ``/home/user/code``\ 。启动成功后，根据IP和端口访问可视化界面，默认访问地址为
-  ``http://127.0.0.1:8080``\ 。
-- 在训练列表找到对应训练，点击性能分析，即可在页面中查看训练性能数据。
- 
