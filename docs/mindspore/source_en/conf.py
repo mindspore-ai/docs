@@ -330,16 +330,16 @@ docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if vers
 cst_module_name = 'mindspore'
 repo_whl = 'mindspore/python/mindspore'
 giturl = 'https://gitee.com/mindspore/'
-ops_yaml = 'mindspore/core/ops/ops_def/doc/'
+ops_yaml = 'mindspore/ops/op_def/yaml/doc/'
 try:
-    ops_yaml_list = [i for i in os.listdir(os.path.join(repo_path, 'mindspore/core/ops/ops_def/doc')) if i.endswith('_doc.yaml') and '_grad' not in i]
+    ops_yaml_list = [i for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/op_def/yaml/doc')) if i.endswith('_doc.yaml') and '_grad' not in i]
 except:
     ops_yaml_list = []
 
 func_name_dict = {}
-for i in os.listdir(os.path.join(repo_path, 'mindspore/core/ops/ops_def')):
+for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/op_def/yaml')):
     if i.endswith('_op.yaml') and '_grad' not in i:
-        with open(os.path.join(repo_path, 'mindspore/core/ops/ops_def', i), 'r+', encoding='utf-8') as f:
+        with open(os.path.join(repo_path, 'mindspore/ops/op_def/yaml', i), 'r+', encoding='utf-8') as f:
             op_content = f.read()
             if re.findall('function:\n\s+?name: (.*)', op_content):
                 func_name_dict[re.findall('function:\n\s+?name: (.*)', op_content)[0]] = i.replace('_op.yaml', '')
