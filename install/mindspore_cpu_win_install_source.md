@@ -29,7 +29,7 @@
 ## 从代码仓下载源码
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone -b v2.3.1 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## 编译MindSpore
