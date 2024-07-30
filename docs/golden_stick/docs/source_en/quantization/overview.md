@@ -1,6 +1,6 @@
 # Quantization Algorithm Overview
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/golden_stick/docs/source_en/quantization/overview.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.1/docs/golden_stick/docs/source_en/quantization/overview.md)
 
 The following describes some basic concepts of quantization algorithms to help users understand the quantization algorithms. If you have a deep understanding of the quantization algorithm, skip to [Examples](#examples).
 
@@ -30,5 +30,5 @@ Currently, there are two types of quantization solutions in the industry: **quan
 
 ## Examples
 
-- [SimQAT algorithm](https://www.mindspore.cn/golden_stick/docs/en/master/quantization/simqat.html): A basic quantization aware algorithm based on the fake quantization technology
-- [SLB quantization algorithm](https://www.mindspore.cn/golden_stick/docs/en/master/quantization/slb.html): A non-linear low-bit quantization aware algorithm
+- [SimQAT algorithm](https://www.mindspore.cn/golden_stick/docs/en/r0.5.0/quantization/simqat.html): A basic quantization aware algorithm based on the fake quantization technology
+- [SLB quantization algorithm](https://www.mindspore.cn/golden_stick/docs/en/r0.5.0/quantization/slb.html): A non-linear low-bit quantization aware algorithm

@@ -1,6 +1,6 @@
 # 静态图动态shape
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/dynamic_shape.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.1/docs/mindspore/source_zh_cn/design/dynamic_shape.md)
 
 ## 背景介绍
 
@@ -27,7 +27,7 @@
 
 如图，符号引擎将输入结点的shape标记为`s1`, `s2`等，在算子shape推导时，将输出shape存为基于输入shape的表达式。例如：对于`40Mul`结点，它的输出shape不再是Any，而是`max(s1,s2)`；到`104BatchMatMul`结点，基于矩阵乘的约束，可以直接设定`s4 == s6`；对于`112Add`结点，因为`s5`和`s7`都是大于1的值，可以断定此结点不存在广播场景，从而判断出`s5`与`s7`相等。通过符号shape引擎，动态shape也具备了一定的shape判断能力，框架可以在此基础上完成更多计算图优化功能。
 
-符号引擎的详细使用指导可参考[Symbol API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Symbol.html)。
+符号引擎的详细使用指导可参考[Symbol API文档](https://www.mindspore.cn/docs/zh-CN/r2.3.1/api_python/mindspore/mindspore.Symbol.html)。
 
 ## 使用方法
 
@@ -60,12 +60,12 @@ input_x2 = Tensor(np.random.randn(4, 5), dtype=ms.float32)
 out = net(input_x2)
 ```
 
-set_inputs详细使用指导可参考[Cell.set_inputs API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_inputs)。
+set_inputs详细使用指导可参考[Cell.set_inputs API文档](https://www.mindspore.cn/docs/zh-CN/r2.3.1/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_inputs)。
 
-input_signature详细使用指导可参考[mindspore.jit API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html)。
+input_signature详细使用指导可参考[mindspore.jit API文档](https://www.mindspore.cn/docs/zh-CN/r2.3.1/api_python/mindspore/mindspore.jit.html)。
 
-分布式并行场景如何使用动态shape可参考[分布式并行支持动态shape文档](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/support_dynamic_shape_in_parallel.html)。
+分布式并行场景如何使用动态shape可参考[分布式并行支持动态shape文档](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.1/parallel/support_dynamic_shape_in_parallel.html)。
 
 ## 支持情况
 
-MindSpore在当前版本仅有部分API可以支持动态shape编译执行，正在持续完善全量API的支持能力，当前阶段[mindspore.mint](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.mint.html)接口支持动态shape。
+MindSpore在当前版本仅有部分API可以支持动态shape编译执行，正在持续完善全量API的支持能力，当前阶段[mindspore.mint](https://www.mindspore.cn/docs/zh-CN/r2.3.1/api_python/mindspore.mint.html)接口支持动态shape。

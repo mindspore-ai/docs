@@ -1,6 +1,6 @@
 # 切分策略传播算法
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/sharding_propagation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.1/tutorials/experts/source_zh_cn/parallel/sharding_propagation.md)
 
 ## 概述
 
@@ -36,7 +36,7 @@
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[sharding_propagation](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/sharding_propagation)。
+> 下载完整的样例代码：[sharding_propagation](https://gitee.com/mindspore/docs/tree/r2.3.1/docs/sample_code/sharding_propagation)。
 
 目录结构如下：
 
@@ -277,8 +277,8 @@ epoch: 0, step: 1000, loss is 0.46586612
 
 对于第一个MatMul算子，其输入根据策略((2, 1), (1, 4))切分后，第一、第二个输入的shape分别从原来的(256, 784)、(784, 64)切分为(128, 784)、(784, 16)，因此得到输出的shape为(128, 16)。
 
-其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)。
+其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.1/parallel/startup_method.html)。
 
 ### 配置算子切分策略的经验性原则
 
-给定一个新模型，从用户的角度，关键问题是配置哪些算子的切分策略来获得较好的性能。由于策略传播的目标是最小化张量重排布的代价，而非最小化端到端的迭代时间，因此，为“关键算子”配置合适的切分策略是十分重要的。然而，并不存在明确的规定约束哪些算子是必须配置切分策略的。尽管如此，基于我们训练大模型的经验，确实有一些原则可以用来指导新用户配置并行策略。我们总结出3条经验性的原则供参考，详见[切分技巧](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/split_technique.html)。
+给定一个新模型，从用户的角度，关键问题是配置哪些算子的切分策略来获得较好的性能。由于策略传播的目标是最小化张量重排布的代价，而非最小化端到端的迭代时间，因此，为“关键算子”配置合适的切分策略是十分重要的。然而，并不存在明确的规定约束哪些算子是必须配置切分策略的。尽管如此，基于我们训练大模型的经验，确实有一些原则可以用来指导新用户配置并行策略。我们总结出3条经验性的原则供参考，详见[切分技巧](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.1/parallel/split_technique.html)。
