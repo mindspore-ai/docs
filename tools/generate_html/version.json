@@ -1,0 +1,57 @@
+[
+   {
+      "id" : 1 ,
+      "name" : "lite",
+      "branch" : "v2.3.1",
+      "html_version" : "r2.3.1",
+      "tag": "v2.3.1",
+      "whl_path" : "2.3.1/MindSpore/lite/release/linux/x86_64/cloud_fusion/python37/",
+      "whl_name" : "mindspore_lite-2.3.1-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "MS_PATH",
+      "uninstall_name" : "mindspore_lite",
+      "tar_path" : "2.3.1/MindSpore/lite/release/linux/x86_64/cloud_fusion/python37/",
+      "tar_name" : "mindspore-lite-2.3.1-linux-x64.tar.gz",
+      "extra_whl_path" : "2.3.1/MindSpore/unified/x86_64/",
+      "extra_whl_name" : "mindspore-2.3.1-cp37-cp37m-linux_x86_64.whl"
+   },
+   {
+      "id" : 2 ,
+      "name" : "mindspore",
+      "branch" : "v2.3.1",
+      "html_version" : "r2.3.1",
+      "tag": "v2.3.1",
+      "whl_path" : "2.3.1/MindSpore/unified/x86_64/",
+      "whl_name" : "mindspore-2.3.1-cp37-cp37m-linux_x86_64.whl",
+      "environ" : "MS_PATH",
+      "uninstall_name" : "mindspore"
+   },
+   {
+      "id" : 3 ,
+      "name" : "tutorials",
+      "branch" : "r2.3.1",
+      "html_version" : "r2.3.1",
+      "whl_path" : "",
+      "whl_name" : "",
+      "environ" : "",
+      "uninstall_name" : ""
+   },
+   {
+      "id" : 4 ,
+      "name" : "mindformers",
+      "branch" : "",
+      "whl_path" : "2.3.1/MindFormers/any/",
+      "whl_name" : "mindformers-1.2.0-py3-none-any.whl",
+      "environ" : "",
+      "uninstall_name" : "mindformers"
+  },
+  {
+      "id" : 5 ,
+      "name" : "golden_stick",
+      "branch" : "r0.5.0",
+      "html_version" : "r0.5.0",
+      "whl_path" : "2.3.1/GoldenStick/any/",
+      "whl_name" : "mindspore_gs-0.5.0-py3-none-any.whl",
+      "environ" : "GS_PATH",
+      "uninstall_name" : "mindspore_gs"
+  }
+]

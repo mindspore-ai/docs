@@ -19,24 +19,40 @@ from lxml import etree
 
 
 # 下载仓库
-def git_clone(repo_url, repo_dir):
+def git_clone(repo_url, repo_dir, v_tag):
+    """
+    克隆git仓库。
+    """
     if not os.path.exists(repo_dir):
         print("Cloning repo.....")
         os.makedirs(repo_dir, exist_ok=True)
-        Repo.clone_from(repo_url, repo_dir, branch="master")
+        if v_tag:
+            Repo.clone_from(repo_url, repo_dir, branch=v_tag)
+        else:
+            Repo.clone_from(repo_url, repo_dir, branch="master")
         print("Cloning Repo Done.")
 
 # 更新仓库
-def git_update(repo_dir, branch):
+def git_update(repo_dir, branch, cmt_id, v_tag):
+    """
+    更新git仓库的信息。
+    """
     repo = Repo(repo_dir)
     str1 = repo.git.execute(["git", "clean", "-dfx"])
     print(str1)
     str2 = repo.git.execute(["git", "reset", "--hard", "HEAD"])
     print(str2)
-    str3 = repo.git.execute(["git", "checkout", branch])
-    print(str3)
-    str4 = repo.git.execute(["git", "pull", "origin", branch])
-    print(str4)
+    if v_tag:
+        str3 = repo.git.execute(["git", "checkout", v_tag])
+        print(str3)
+    else:
+        str3 = repo.git.execute(["git", "checkout", branch])
+        print(str3)
+        str4 = repo.git.execute(["git", "pull", "origin", branch])
+        print(str4)
+        if cmt_id:
+            str5 = repo.git.execute(["git", "reset", "--hard", cmt_id])
+            print(str5)
 
 pythonlib_dir = os.path.dirname(os.path.dirname(sphinx.__file__))
 
@@ -103,9 +119,9 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                /115.0.0.0 Safari/537.36"}
 
     # 读取json文件数据
-    if version == "daily":
+    if version == "daily" or not os.path.exists(os.path.join(os.path.dirname(__file__), "version.json")):
         flag_dev = 1
-        with open(os.path.join(os.path.dirname(__file__), "daily.json"), 'r+', encoding='utf-8') as f:
+        with open(os.path.join(os.path.dirname(__file__), "daily_dev.json"), 'r+', encoding='utf-8') as f:
             data = json.load(f)
     else:
         flag_dev = 0
@@ -134,7 +150,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         # 克隆仓库与配置环境变量
         repo_name = data[i]['name'].replace('_', '-')
         repo_url = f"https://gitee.com/mindspore/{repo_name}.git"
-        repo_path = f"{REPODIR}/{repo_name}"
+        repo_path = f"{REPODIR}/{data[i]['name']}"
         branch_ = data[i]["branch"]
 
         if data[i]['environ'] == "MS_PATH":
@@ -161,37 +177,43 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             try:
                 status_code = requests.get(repo_url, headers=headers).status_code
                 if status_code == 200:
+                    commit_id = ""
+                    tag = ""
+                    if 'commit_id' in data[i].keys():
+                        commit_id = data[i]['commit_id']
+                    if 'tag' in data[i].keys():
+                        tag = data[i]['tag']
                     if not os.path.exists(repo_path):
-                        git_clone(repo_url, repo_path)
+                        git_clone(repo_url, repo_path, tag)
                     if data[i]['environ'] == "MSC_PATH":
                         if data[i]['name'] == "mindscience":
-                            git_update(repo_path, branch_)
+                            git_update(repo_path, branch_, commit_id, tag)
                         elif msc_branch:
-                            git_update(repo_path, msc_branch)
+                            git_update(repo_path, msc_branch, commit_id, tag)
                     else:
-                        git_update(repo_path, branch_)
+                        git_update(repo_path, branch_, commit_id, tag)
                     print(f'{repo_name}仓库克隆更新成功')
             except KeyError:
                 print(f'{repo_name}仓库克隆或更新失败')
 
         # 特殊与一般性的往ArraySource中加入键值对
         if data[i]['name'] == "lite":
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/api'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/faq'] = data[i]["branch"]
+            ArraySource[data[i]['name'] + '/docs'] = data[i]["html_version"]
+            ArraySource[data[i]['name'] + '/api'] = data[i]["html_version"]
+            ArraySource[data[i]['name'] + '/faq'] = data[i]["html_version"]
         elif data[i]['name'] == "tutorials":
-            ArraySource[data[i]['name']] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/application'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/experts'] = data[i]["branch"]
+            ArraySource[data[i]['name']] = data[i]["html_version"]
+            ArraySource[data[i]['name'] + '/application'] = data[i]["html_version"]
+            ArraySource[data[i]['name'] + '/experts'] = data[i]["html_version"]
         elif data[i]['name'] == "mindspore":
-            ArraySource[data[i]['name']] = data[i]["branch"]
+            ArraySource[data[i]['name']] = data[i]["html_version"]
         elif data[i]['name'] == "mindscience" or data[i]['name'] == "mindformers":
             pass
         else:
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
+            ArraySource[data[i]['name'] + '/docs'] = data[i]["html_version"]
 
         if data[i]['name'] != "mindscience" and data[i]['name'] != "mindformers":
-            generate_version_json(data[i]['name'], data[i]["branch"], data_b, flag_dev, target_version)
+            generate_version_json(data[i]['name'], data[i]["html_version"], data_b, flag_dev, target_version)
 
         # 卸载原来已有的安装包, 以防冲突
         if data[i]['uninstall_name']:
@@ -210,7 +232,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 wgetdir = WGETDIR + "mindspore"
             res = s.get(wgetdir, auth=(user, pd), verify=False)
             requests.packages.urllib3.disable_warnings()
-            # 安装组件whl包
+            # 下载组件whl包
             if data[i]['whl_path'] != "":
                 url = f"{wgetdir}/{data[i]['whl_path']}"
                 if not url.endswith(".html") and not url.endswith("/"):
@@ -232,7 +254,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             print(f"Download {title} success!")
                             time.sleep(1)
 
-            # 安装其他需求的组件whl包
+            # 下载其他需求的组件whl包
             if 'extra_whl_path' in data[i] and data[i]['extra_whl_path'] != "":
                 url = f"{wgetdir}/{data[i]['extra_whl_path']}"
                 if not url.endswith(".html") and not url.endswith("/"):
