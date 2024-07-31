@@ -1,4 +1,3 @@
-
 # Ascend C Custom Operator Development and Usage
 
 [![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.0/tutorials/experts/source_en/operation/op_custom_ascendc.md)
