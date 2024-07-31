@@ -108,13 +108,13 @@ MindSpore的自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/z
 .
 ├── compile_utils.py                //自定义算子编译公共文件
 ├── infer_file
-│   ├── add_custom_infer.cc         //自定义算子c++侧infer shape
-│   └── custom_aot_extra.h          //自定义算子infer shape编译依赖头文件
+│   ├── add_custom_infer.cc         //自定义算子c++侧infer shape
+│   └── custom_aot_extra.h          //自定义算子infer shape编译依赖头文件
 ├── op_host                         //自定义算子源码op_host
-│   ├── add_custom.cpp
-│   └── add_custom_tiling.h
+│   ├── add_custom.cpp
+│   └── add_custom_tiling.h
 ├── op_kernel                       //自定义算子源码op_kernel
-│   └── add_custom.cpp
+│   └── add_custom.cpp
 ├── test_compile_custom.py          //自定义算子编译用例
 ├── test_custom_aclnn.py            //自定义算子aclnn使用样例
 ├── test_custom_aclop.py            //自定义算子tbe使用样例
