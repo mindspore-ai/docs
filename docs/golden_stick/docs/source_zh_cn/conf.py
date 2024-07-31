@@ -209,6 +209,20 @@ for root,dirs,files in os.walk(src_dir_api):
                 os.remove(os.path.join(moment_dir,'quantization',file))
             shutil.copy(os.path.join(root,file),os.path.join(moment_dir,'quantization',file))
             copy_list.append(os.path.join(moment_dir,file))
+        elif '/ptq' in root:
+            if not os.path.exists(os.path.join(moment_dir, 'ptq')):
+                os.makedirs(os.path.join(moment_dir, 'ptq'))
+            if os.path.exists(os.path.join(moment_dir,'ptq',file)):
+                os.remove(os.path.join(moment_dir,'ptq',file))
+            shutil.copy(os.path.join(root,file),os.path.join(moment_dir,'ptq',file))
+            copy_list.append(os.path.join(moment_dir,file))
+        else:
+            if not os.path.exists('.' + root.split(copy_path)[-1]):
+                os.makedirs('.' + root.split(copy_path)[-1])
+            if os.path.exists('.'+root.split(copy_path)[-1]+'/'+file):
+                os.remove('.'+root.split(copy_path)[-1]+'/'+file)
+            shutil.copy(os.path.join(root,file),'.'+root.split(copy_path)[-1]+'/'+file)
+            copy_list.append('.'+root.split(copy_path)[-1]+'/'+file)
 
 # add view
 import json
@@ -260,8 +274,6 @@ for cur, _, files in os.walk(moment_dir):
                 except Exception:
                     print(f'打开{i}文件失败')
 
-if not os.path.exists(os.path.join(moment_dir, 'ptq')):
-    os.makedirs(os.path.join(moment_dir, 'ptq'))
 if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb')):
     shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/round_to_nearest/README.ipynb'),
                 os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb'))
