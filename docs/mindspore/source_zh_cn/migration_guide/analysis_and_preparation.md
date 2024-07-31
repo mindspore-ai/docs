@@ -99,9 +99,9 @@ MindRecord是MindSpore开发的一种高效数据格式，当出现精度问题�
 
 MindSpore提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件，一般用于网络迁移复杂问题定位（例如：算子溢出等）可以dump出算子级别的数据。
 
-获取Dump数据参考：[同步Dump数据获取介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#%E5%90%8C%E6%AD%A5dump%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4)和[异步Dump数据获取介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#%E5%BC%82%E6%AD%A5dump%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4)
+获取Dump数据参考：[同步Dump数据获取介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4)和[异步Dump数据获取介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4-1)
 
-分析Dump数据参考：[同步Dump数据分析介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#%E5%90%8C%E6%AD%A5dump%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A0%B7%E4%BE%8B)和[异步Dump数据分析介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#%E5%BC%82%E6%AD%A5dump%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A0%B7%E4%BE%8B)
+分析Dump数据参考：[同步Dump数据分析介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A0%B7%E4%BE%8B)和[异步Dump数据分析介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A0%B7%E4%BE%8B-1)
 
 具体可参考[Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)。
 
