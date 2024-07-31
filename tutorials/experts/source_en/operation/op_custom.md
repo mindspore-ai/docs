@@ -26,7 +26,7 @@ The difference between these operator development methods are as follows:
 
 | Defining Methods | Development Language | Compilation Method | Supported Platforms | Recommended Scenarios                                                         |
 |:----------------:|:--------------------:| :------: | ------ |-------------------------------------------------------------------------------|
-| [pyfunc](#the-introduction-to-custom-operator-an-example)      |        Python        |        JIT         | `CPU`                | Fast algorithm verification, need to interact with Python and other scenarios |
+| [pyfunc](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom.html#the-introduction-to-custom-operator-an-example)      |        Python        |        JIT         | `CPU`                | Fast algorithm verification, need to interact with Python and other scenarios |
 | [hybrid](#defining-custom-operator-of-hybrid-type)  | MindSpore HYBRID DSL | N/A | `GPU` `CPU` | General development and rapid validation for all platforms|
 | [akg](#defining-custom-operator-of-akg-type) | MindSpore AKG DSL | JIT | `GPU` | GPU platform general scenarios |
 | [aot](#defining-custom-operator-of-aot-type)        |      C/C++/CUDA      |        AOT         | `GPU` `CPU`          | high-performance scenarios / use third-party operators scenarios |

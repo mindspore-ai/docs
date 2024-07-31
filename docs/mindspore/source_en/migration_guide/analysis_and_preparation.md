@@ -99,9 +99,9 @@ See [TroubleShooter application scenarios](https://gitee.com/mindspore/toolkits/
 
 MindSpore provides Dump function, used to model training in the graph and operator input and output data saved to disk files, generally used for network migration complex problem location (eg: operator overflow, etc). It can be dumped out of the operator level data.
 
-For getting Dump data, refer to: [Synchronous Dump Step](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#synchronous-dump-step) and [Asynchronous Dump Step](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#asynchronous-dump-step).
+For getting Dump data, refer to: [Synchronous Dump Step](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#dump-step) and [Asynchronous Dump Step](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html##dump-step-1).
 
-For analyzig Dump data, refer to: [Synchronous Dump Data Analysis Sample](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#synchronous-dump-data-analysis-sample) and [Asynchronous Dump Data Analysis Sample](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#asynchronous-dump-data-analysis-sample)
+For analyzig Dump data, refer to: [Synchronous Dump Data Analysis Sample](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#data-analysis-sample) and [Asynchronous Dump Data Analysis Sample](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#data-analysis-sample-1)
 
 See [Dump](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html) for details.
 
