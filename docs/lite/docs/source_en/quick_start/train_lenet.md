@@ -57,14 +57,14 @@ The directory structure is as follows:
 
 ### Installing MindSpore
 
-MindSpore can be installed by source code or using `pip`. Refer to [MindSpore installation guide](https://gitee.com/mindspore/docs/blob/r2.3.1/install/mindspore_cpu_install_pip_en.md#) for more details.
+MindSpore can be installed by source code or using `pip`.
 
 ### Downloading and Installing MindSpore Lite
 
 Use `git` to clone the source code, the command in `Linux` is as follows:
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git -b {version}
+git clone -b v2.3.1 https://gitee.com/mindspore/mindspore.git
 cd ./mindspore
 ```
 
