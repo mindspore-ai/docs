@@ -225,7 +225,7 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
     - `enable`：设置成true，表示开启同步Dump；设置成false时，在Ascend上会使用异步Dump，在GPU上仍然使用同步Dump。
     - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`True`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`False`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换。默认值：true。
     - `stat_calc_mode`：选择统计信息计算后端，可选"host"和"device"。选择"device"后可以使能device计算统计信息，当前只在Ascend生效，只支持`min/max/avg/l2norm`统计量。
-    - `sample_mode`：设置成0，表示不开启切片dump功能；设置成1时，在图编译等级为O0的情况下开启切片dump功能。仅在op_debug_mode设置为0时生效，其它场景不会开启切片dump功能。
+    - `sample_mode`：设置成0，表示不开启切片dump功能；设置成1时，在图编译等级为O0或O1的情况下开启切片dump功能。仅在op_debug_mode设置为0时生效，其它场景不会开启切片dump功能。
     - `sample_num`：用于控制切片dump中切片的大小。默认值为100。
 
 2. 设置Dump环境变量。
@@ -522,7 +522,7 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
     }
     ```
 
-    - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成3，表示开启溢出检测功能；设置成4，表示开启轻量异常Dump功能（该功能仅在使用ACL dump时生效）。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子或异常算子的数据。
+    - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成3，表示开启溢出检测功能；设置成4，表示开启轻量异常Dump功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子或异常算子的数据。
     - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据。仅在op_debug_mode设置为0时支持指定算子dump。op_debug_mode设置为非0值时，此字段的设置失效，Dump只会保存溢出算子的数据或者异常算子的数据。
     - `path`：Dump保存数据的绝对路径。在图编译等级为O0时，MindSpore会在path目录下新建每个step的子目录。
     - `net_name`：自定义的网络名称，例如："ResNet50"。
@@ -594,6 +594,7 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
                             {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
                             Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
                             mapping.csv
+    acl_dump_{device_id}.json
 ```
 
 图编译等级为O0或O1时，Dump目录结构如下所示，此种场景下aclop和aclnn算子的Dump数据会保存于{device_id}目录，"ReduceSum"类通信算子的Dump数据会保存在{iteration_id}目录：
@@ -614,9 +615,8 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
                 {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp} //aclop 算子
                 {op_name}.{op_type}.{task_id}.{stream_id}.{timestamp} //aclnn 算子
                 mapping.csv
+    acl_dump_{device_id}.json
 ```
-
-使能ACL dump时，除上述dump数据外，还会在{path}目录生成调用acl接口所需要的json文件，一般情况下无需关注。
 
 - `path`：`data_dump.json`配置文件中设置的绝对路径。
 - `time`： dump目录的创建时间。
@@ -630,6 +630,8 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
 - `stream_id`：流标号，如果获取不到，默认为65535。
 - `timestamp`：时间戳。
 - `step_id`: 用户侧的训练轮次。
+
+在{path}目录的`acl_dump_{device_id}.json`文件，是异步Dump在接口调用过程中生成的中间文件，一般情况下无需关注。
 
 其中，溢出文件（`Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}`文件）只会在开启溢出Dump且检测到溢出时保存。
 
@@ -729,7 +731,7 @@ Dump生成的原始数据文件也可以使用MindSpore Insight的数据解析�
 
 在一些特殊场景下，可在开发指导下应用GE dump模式。
 
-如果要使能GE dump，除了配置环境变量MINDSPORE_DUMP_CONFIG之外，还需要另外配置环境变量ENABLE_MS_GE_DUMP=1，该方式仅支持图编译等级为O2的场景。配置文件的格式和acl dump相同，op_debug_mode字段不支持配置为4，其余各项参数和acl dump相同。
+如果要使能GE dump，除了配置环境变量MINDSPORE_DUMP_CONFIG之外，还需要另外配置环境变量ENABLE_MS_GE_DUMP=1，该方式仅支持图编译等级为O2的场景。配置文件的格式和异步Dump相同，op_debug_mode字段不支持配置为4，其余各项参数和异步Dump相同。
 
 ```bash
 export ENABLE_MS_GE_DUMP=1
@@ -750,7 +752,7 @@ GE dump的目录结构如下：
                         mapping.csv
 ```
 
-其中， `path`、`time`、`device_id`、`model_name`、`model_id`、`iteration_id`、`op_type`、`op_name`、`task_id`、`stream_id`、`timestamp`的含义和acl dump的相同。
+其中， `path`、`time`、`device_id`、`model_name`、`model_id`、`iteration_id`、`op_type`、`op_name`、`task_id`、`stream_id`、`timestamp`的含义和异步Dump的相同。
 
 该方式在将来会被废弃，不推荐使用。
 
@@ -760,4 +762,4 @@ GE dump的目录结构如下：
 - Dump仅支持bool、int、int8、in16、int32、int64、uint、uint8、uint16、uint32、uint64、float、float16、float32、float64、bfloat16、double、complex64、complex128类型数据的保存。
 - complex64和complex128仅支持保存为npy文件，不支持保存为统计值信息。
 - Print算子内部有一个输入参数为string类型，string类型不属于Dump支持的数据类型，所以在脚本中包含Print算子时，会有错误日志，这不会影响其它类型数据的保存。
-- 使能ACL dump时，不支持同时使用set_context(ascend_config={"exception_dump": "2")配置轻量异常dump; 支持同时使用set_context(ascend_config={"exception_dump": "1")配置全量异常dump。
+- 使能异步Dump时，不支持同时使用set_context(ascend_config={"exception_dump": "2")配置轻量异常dump; 支持同时使用set_context(ascend_config={"exception_dump": "1")配置全量异常dump。
