@@ -165,17 +165,17 @@ copy_list = []
 
 present_path = os.path.dirname(__file__)
 
-for i in os.listdir(src_dir):
-    if os.path.isfile(os.path.join(src_dir,i)):
-        if os.path.exists('./'+i):
-            os.remove('./'+i)
-        shutil.copy(os.path.join(src_dir,i),'./'+i)
-        copy_list.append(os.path.join(present_path,i))
-    else:
-        if os.path.exists('./'+i):
-            shutil.rmtree('./'+i)
-        shutil.copytree(os.path.join(src_dir,i),'./'+i)
-        copy_list.append(os.path.join(present_path,i))
+# for i in os.listdir(src_dir):
+#     if os.path.isfile(os.path.join(src_dir,i)):
+#         if os.path.exists('./'+i):
+#             os.remove('./'+i)
+#         shutil.copy(os.path.join(src_dir,i),'./'+i)
+#         copy_list.append(os.path.join(present_path,i))
+#     else:
+#         if os.path.exists('./'+i):
+#             shutil.rmtree('./'+i)
+#         shutil.copytree(os.path.join(src_dir,i),'./'+i)
+#         copy_list.append(os.path.join(present_path,i))
 
 # add view
 import json
