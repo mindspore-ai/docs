@@ -1,0 +1,1 @@
+# openMind Contribution Guidelines
