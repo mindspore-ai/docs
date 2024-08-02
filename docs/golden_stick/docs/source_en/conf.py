@@ -191,6 +191,11 @@ for root,dirs,files in os.walk(src_dir_api):
             os.remove(os.path.join(moment_dir,file))
         shutil.copy(os.path.join(src_dir_api,file),os.path.join(moment_dir,file))
 
+if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.md')):
+    os.makedirs(os.path.join(moment_dir, 'ptq'), exist_ok=True)
+    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/round_to_nearest/README_EN.md'),
+                os.path.join(moment_dir, 'ptq/round_to_nearest.md'))
+
 # get params for add view source
 import json
 
