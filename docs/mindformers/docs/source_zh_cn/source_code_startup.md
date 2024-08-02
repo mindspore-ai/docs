@@ -1,3 +1,0 @@
-# 调用源码启动
-
-*需要拉取MindFormers仓库代码，介绍MindFormers通过MindSpore原生msrun分布式启动特性开发的模型训推脚本，使用该脚本可以快速拉起单机多卡、多机多卡等任务*
