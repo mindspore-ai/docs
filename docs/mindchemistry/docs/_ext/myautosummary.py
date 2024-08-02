@@ -1,9 +1,8 @@
 """Customized autosummary directives for sphinx."""
-
-import importlib
-import inspect
 import os
 import re
+import inspect
+import importlib
 from typing import List, Tuple
 from docutils.nodes import Node
 from sphinx.locale import __
@@ -224,7 +223,6 @@ class MsNoteAutoSummary(MsAutosummary):
             if piece.startswith(self.find_doc_name):
                 env_sum = piece[10:]
         return env_sum
-
 
 class MsPlatformAutoSummary(MsAutosummary):
     """

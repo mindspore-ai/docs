@@ -160,7 +160,7 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
-copy_path = 'MindSPONGE/docs/api/api_python'
+copy_path = 'docs/api_python/mindchemistry'
 src_dir = os.path.join(os.getenv("MSC_PATH"), copy_path)
 
 copy_list = []
@@ -229,25 +229,24 @@ for cur, _, files in os.walk(present_path):
                 except Exception:
                     print(f'打开{i}文件失败')
 
-import mindsponge
+import mindchemistry
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
 
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
-from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnPlatformAutoSummary
+from myautosummary import MsPlatformAutoSummary, MsCnPlatformAutoSummary
 
 rst_files = set([i.replace('.rst', '') for i in glob.glob('./**/*.rst', recursive=True)])
 
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
-    app.add_directive('msnoteautosummary', MsNoteAutoSummary)
     app.add_directive('mscnplatformautosummary', MsCnPlatformAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
     app.add_config_value('rst_files', set(), False)
 
-src_release = os.path.join(os.getenv("MSC_PATH"), 'MindSPONGE/RELEASE_CN.md')
+src_release = os.path.join(os.getenv("MSC_PATH"), 'MindChemistry/RELEASE_CN.md')
 des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
