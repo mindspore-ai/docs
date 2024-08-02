@@ -49,6 +49,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
     'myst_parser',
+    'nbsphinx',
     'sphinx.ext.mathjax',
     'IPython.sphinxext.ipython_console_highlighting'
 ]
@@ -142,40 +143,21 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
-# Repair error content defined in mindsponge.
-try:
-    decorator_list = [("sponge/optimizer/updater.py","del decorator",
-                       "@opt_init_args_register","# generate api by del decorator.")]
-
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
-    for i in decorator_list:
-        with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
-            content = f.read()
-            if i[2] in content:
-                content = content.replace(i[2], i[3])
-                f.seek(0)
-                f.truncate()
-                f.write(content)
-except:
-    pass
-
 # Copy source files of chinese python api from mindscience repository.
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
-src_dir_msg = os.path.join(os.getenv("MSC_PATH"), 'MindSPONGE/docs/api/api_python_en')
+src_dir_mc = os.path.join(os.getenv("MSC_PATH"), 'docs/api_python_en/mindchemistry')
 
-present_path = os.path.dirname(__file__)
-
-for i in os.listdir(src_dir_msg):
-    if os.path.isfile(os.path.join(src_dir_msg,i)):
+for i in os.listdir(src_dir_mc):
+    if os.path.isfile(os.path.join(src_dir_mc,i)):
         if os.path.exists('./'+i):
             os.remove('./'+i)
-        shutil.copy(os.path.join(src_dir_msg,i),'./'+i)
+        shutil.copy(os.path.join(src_dir_mc,i),'./'+i)
     else:
         if os.path.exists('./'+i):
             shutil.rmtree('./'+i)
-        shutil.copytree(os.path.join(src_dir_msg,i),'./'+i)
+        shutil.copytree(os.path.join(src_dir_mc,i),'./'+i)
 
 # get params for add view source
 import json
@@ -197,11 +179,11 @@ else:
 
 branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
-cst_module_name = ['mindsponge', 'sponge']
-repo_whl = ['MindSPONGE/src/mindsponge', 'MindSPONGE/src/sponge']
+cst_module_name = 'mindchemistry'
+repo_whl = 'MindChemistry/mindchemistry'
 giturl = 'https://gitee.com/mindspore/'
 
-import mindsponge
+import mindchemistry
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 # import anchor_mod
@@ -213,20 +195,19 @@ import search_code
 
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
-from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary
+from myautosummary import MsPlatformAutoSummary
 
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
-    app.add_directive('msnoteautosummary', MsNoteAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
     app.add_config_value('docs_branch', '', True)
     app.add_config_value('branch', '', True)
-    app.add_config_value('cst_module_name', [], True)
+    app.add_config_value('cst_module_name', '', True)
     app.add_config_value('copy_repo', '', True)
     app.add_config_value('giturl', '', True)
-    app.add_config_value('repo_whl', [], True)
+    app.add_config_value('repo_whl', '', True)
 
-src_release = os.path.join(os.getenv("MSC_PATH"), 'MindSPONGE/RELEASE.md')
+src_release = os.path.join(os.getenv("MSC_PATH"), 'MindChemistry/RELEASE.md')
 des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
@@ -234,7 +215,6 @@ if len(re.findall("\n## (.*?)\n",data)) > 1:
     content = re.findall("(## [\s\S\n]*?)\n## ", data)
 else:
     content = re.findall("(## [\s\S\n]*)", data)
-#result = content[0].replace('# MindSPONGE', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
     p.write("# Release Notes"+"\n\n")
     p.write(content[0])
