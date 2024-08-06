@@ -587,12 +587,13 @@ When the graph compilation level is not O0 or O1, the Dump directory structure i
     - {step_id}/
         - {time}/
             - {device_id}/
-                - {model_id}/
-                    - {iteration_id}/
-                        statistic.csv
-                        {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
-                        Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
-                        mapping.csv
+                - {model_name}/
+                    - {model_id}/
+                        - {iteration_id}/
+                            statistic.csv
+                            {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
+                            Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}
+                            mapping.csv
     acl_dump_{device_id}.json
 ```
 
