@@ -31,7 +31,7 @@
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-pip.sh
-# 安装MindSpore 2.3.0和Python 3.9
+# 安装MindSpore 2.3.1和Python 3.9
 # 默认LOCAL_ASCEND路径为/usr/local/Ascend
 PYTHON_VERSION=3.9 bash -i ./euleros-ascend-pip.sh
 # 如需指定Python和MindSpore版本，以Python 3.8和MindSpore 1.6.0为例
