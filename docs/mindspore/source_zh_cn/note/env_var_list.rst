@@ -681,7 +681,7 @@ Dump调试
 
        其中被指定子模块的日志级别将覆盖 `GLOG_v` 在此模块内的设置，
        此处子模块的日志级别 `LogLevel` 与 `GLOG_v` 的日志级别含义相同，
-       MindSpore子模块列表详见 `sub-module_names <https://gitee.com/mindspore/mindspore/blob/v2.3.1/mindspore/core/utils/log_adapter.cc>`_。
+       MindSpore子模块列表详见 `sub-module_names <https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/core/utils/log_adapter.cc>`_。
 
        例如可以通过 `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`
        把 `PARSER` 和 `ANALYZER` 模块的日志级别设为WARNING，其他模块的日志级别设为INFO

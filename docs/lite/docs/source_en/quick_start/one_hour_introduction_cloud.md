@@ -60,7 +60,7 @@ In addition, users can use Python interface and Java interface of MindSpore Lite
 
 4. Obtain sample
 
-    The sample code of this section is put in the directory [mindspore/lite/examples/cloud_infer/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/v2.3.1/mindspore/lite/examples/cloud_infer/quick_start_cpp).
+    The sample code of this section is put in the directory [mindspore/lite/examples/cloud_infer/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/r2.3.1/mindspore/lite/examples/cloud_infer/quick_start_cpp).
 
     ```text
     quick_start_cpp

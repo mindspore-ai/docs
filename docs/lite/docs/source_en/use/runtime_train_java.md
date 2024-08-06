@@ -50,7 +50,7 @@ Model liteModel = new Model();
 liteModel.build(g, context, cfg);
 ```
 
-> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/v2.3.1/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ## Data Processing
 
@@ -98,7 +98,7 @@ The following codes shows the Mnist data reading and data preprocessing process:
     }
 ```
 
-> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/v2.3.1/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ## Execute Training
 
@@ -133,7 +133,7 @@ for (int i = 0; i < cycles; i++) {
 }
 ```
 
-> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/v2.3.1/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer to [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ### Evaluating
 

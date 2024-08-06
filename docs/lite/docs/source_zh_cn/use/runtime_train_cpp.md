@@ -69,7 +69,7 @@ int CreateSession() {
 }
 ```
 
-> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/v2.3.1/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc)获取完整代码。
+> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc)获取完整代码。
 
 ## 数据处理
 

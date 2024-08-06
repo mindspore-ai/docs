@@ -4,7 +4,7 @@
 
 ## 概述
 
-本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了利用[MindSpore Lite Java API](https://www.mindspore.cn/lite/api/zh-CN/r2.3.1/index.html)进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关Java API的使用。本教程通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，打印获得输出数据。相关代码放置在[mindspore/lite/examples/quick_start_java](https://gitee.com/mindspore/mindspore/tree/v2.3.1/mindspore/lite/examples/quick_start_java)目录。
+本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了利用[MindSpore Lite Java API](https://www.mindspore.cn/lite/api/zh-CN/r2.3.1/index.html)进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关Java API的使用。本教程通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，打印获得输出数据。相关代码放置在[mindspore/lite/examples/quick_start_java](https://gitee.com/mindspore/mindspore/tree/r2.3.1/mindspore/lite/examples/quick_start_java)目录。
 
 使用MindSpore Lite执行推理主要包括以下步骤：
 
@@ -31,7 +31,7 @@
 
 - 编译构建
 
-  在`mindspore/lite/examples/quick_start_java`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/v2.3.1/mindspore/lite/examples/quick_start_java/build.sh)，将自动下载MindSpore Lite推理框架库以及文模型文件并编译Demo。
+  在`mindspore/lite/examples/quick_start_java`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/lite/examples/quick_start_java/build.sh)，将自动下载MindSpore Lite推理框架库以及文模型文件并编译Demo。
 
   ```bash
   bash build.sh
