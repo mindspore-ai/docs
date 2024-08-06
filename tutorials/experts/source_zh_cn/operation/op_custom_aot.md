@@ -12,7 +12,7 @@ aot类型的自定义算子采用预编译的方式，要求网络开发者基�
 - aot类型自定义算子的属性和中间变量；
 - aot类型自定义算子的动态shape支持。
 
-对于下面用例的完整代码，请查阅[这里](https://gitee.com/mindspore/mindspore/blob/v2.3.1/tests/st/graph_kernel/custom/test_custom_aot_fused.py)。
+对于下面用例的完整代码，请查阅[这里](https://gitee.com/mindspore/mindspore/blob/r2.3.1/tests/st/graph_kernel/custom/test_custom_aot_fused.py)。
 
 ## aot类型自定义算子进阶用法特性简介
 
@@ -85,7 +85,7 @@ extern "C" int FuncNameInit(int *ndims, int64_t **shapes, const char **dtypes, A
 - ndims (int \*): 输入输出shape维度数组。
 - shapes (int64_t \*\*): 输入输出shape数组。
 - dtypes (const char \*\*): 输入输出数据类型数组。
-- extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/v2.3.1/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
+- extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/r2.3.1/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
 
 ### Shape推导函数
 
@@ -99,7 +99,7 @@ extern "C" std::vector<int64_t> FuncNameInferShape(int *ndims, int64_t **shapes,
 
 - ndims (int \*): 输入shape维度数组。
 - shapes (int64_t \*\*): 输入shape数组。
-- extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/v2.3.1/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
+- extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/r2.3.1/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
 
 ### 算子属性注册（Python）
 
@@ -136,7 +136,7 @@ output = ReduceSum(tmp, axis, keep_dims)
 
 #### 算子属性类
 
-首先我们定义一个数据结构贮存算子属性，该数据接口继承自`AotKernelData`。`AotKernelData`是自定义算子属性数据结构的统一基类，通过下载MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/v2.3.1/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)放在源文件同一目录下并在文件前`#include "custom_aot_extra.h"`便可以使用相关接口。
+首先我们定义一个数据结构贮存算子属性，该数据接口继承自`AotKernelData`。`AotKernelData`是自定义算子属性数据结构的统一基类，通过下载MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/r2.3.1/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)放在源文件同一目录下并在文件前`#include "custom_aot_extra.h"`便可以使用相关接口。
 
 ```c++
 #include <vector>
@@ -375,7 +375,7 @@ aot类型的自定义算子支持多输出（输出为tuple)的情况。多输�
 - 算子注册文件：需要列出多个输出的名字和数据类型信息；
 - 算子计算函数：需要识别多个输出对应的指针。
 
-下面我们用一个例子来展现多输出aot类型自定义算子的定义方法，具体的文件用例参见[这里](https://gitee.com/mindspore/mindspore/blob/v2.3.1/tests/st/graph_kernel/custom/test_custom_aot.py#L405)。
+下面我们用一个例子来展现多输出aot类型自定义算子的定义方法，具体的文件用例参见[这里](https://gitee.com/mindspore/mindspore/blob/r2.3.1/tests/st/graph_kernel/custom/test_custom_aot.py#L405)。
 
 ### 算子推导文件
 
@@ -478,7 +478,7 @@ void *output2 = params[3];
 void *output3 = params[4];
 ```
 
-完整的算子计算文件参见[这里](https://gitee.com/mindspore/mindspore/blob/v2.3.1/tests/st/graph_kernel/custom/aot_test_files/add_mul_div.cu).
+完整的算子计算文件参见[这里](https://gitee.com/mindspore/mindspore/blob/r2.3.1/tests/st/graph_kernel/custom/aot_test_files/add_mul_div.cu).
 
 ### 算子使用文件
 

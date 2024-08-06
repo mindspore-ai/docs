@@ -10,7 +10,7 @@ MindSpore Lite cloud-side distributed inference is only supported to run in Linu
 
 ## Preparations
 
-1. Download the cloud-side Ascend backend multi-card/multi-core inference Python [sample code](https://gitee.com/mindspore/mindspore/tree/v2.3.1/mindspore/lite/examples/cloud_infer/ascend_parallel_python), which will later be referred to as the sample code directory.
+1. Download the cloud-side Ascend backend multi-card/multi-core inference Python [sample code](https://gitee.com/mindspore/mindspore/tree/r2.3.1/mindspore/lite/examples/cloud_infer/ascend_parallel_python), which will later be referred to as the sample code directory.
 
 2. Download the MindSpore Lite cloud-side inference installer [mindspore-lite-{version}-linux-{arch}.whl](https://www.mindspore.cn/lite/docs/en/r2.3.1/use/downloads.html), store it to the sample code directory, and install it via the `pip` tool.
 
@@ -22,7 +22,7 @@ MindSpore Lite cloud-side distributed inference is only supported to run in Linu
 
 For more usage of the converter tool and configurable optimization points for model conversion, refer to the [Model Conversion Tool](https://www.mindspore.cn/lite/docs/en/r2.3.1/use/cloud_infer/converter.html).
 
-Subsequent chapters will describe the main steps of MindSpore Lite cloud-side distributed inference with code. Refer to [sample code](https://gitee.com/mindspore/mindspore/tree/v2.3.1/mindspore/lite/examples/cloud_infer/ascend_parallel_python).
+Subsequent chapters will describe the main steps of MindSpore Lite cloud-side distributed inference with code. Refer to [sample code](https://gitee.com/mindspore/mindspore/tree/r2.3.1/mindspore/lite/examples/cloud_infer/ascend_parallel_python).
 
 ## Inference Process
 

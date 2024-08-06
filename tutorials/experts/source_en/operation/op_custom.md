@@ -43,7 +43,7 @@ The recommended methods for all platforms under different scenarios are as follo
 
 Different custom operator defining methods use different development languages to implement the operator, but the development process is the same, including operator implementation, operator output shape, data type inference, and operator information registration (optional). You can choose which one to use based on needs. The defining methods of these custom operators will be introduced here, and examples are provided for each method.
 
-> More examples can be found in the MindSpore source code [tests/st/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/v2.3.1/tests/st/graph_kernel/custom).
+> More examples can be found in the MindSpore source code [tests/st/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/r2.3.1/tests/st/graph_kernel/custom).
 
 ## The Introduction to Custom Operator: An Example
 
@@ -129,7 +129,7 @@ Then we have the following results as sin values of above inputs.
 [0.         0.84147096 0.19866933 0.29552022 0.38941833]
 ```
 
-Then we have completed the definition of a custom operator of type pyfunc. For more complete examples of pyfunc-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/v2.3.1/tests/st/graph_kernel/custom/test_custom_pyfunc.py) in the MindSpore source code.
+Then we have completed the definition of a custom operator of type pyfunc. For more complete examples of pyfunc-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/r2.3.1/tests/st/graph_kernel/custom/test_custom_pyfunc.py) in the MindSpore source code.
 
 ## JIT Compiled Custom Operator
 
@@ -190,7 +190,7 @@ The execution result is as follows:
  [4. 4.]]
 ```
 
-For more complete examples of hybrid-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/v2.3.1/tests/st/graph_kernel/custom/test_ms_kernel.py) in the MindSpore source code.
+For more complete examples of hybrid-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/r2.3.1/tests/st/graph_kernel/custom/test_ms_kernel.py) in the MindSpore source code.
 
 ### Defining Custom Operator of akg Type
 
@@ -248,7 +248,7 @@ The execution result is as follows:
  [4. 4.]]
 ```
 
-For more complete examples of akg-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/v2.3.1/tests/st/graph_kernel/custom/test_custom_akg.py) in the MindSpore source code.
+For more complete examples of akg-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/r2.3.1/tests/st/graph_kernel/custom/test_custom_akg.py) in the MindSpore source code.
 
 ## AOT-Compiled Custom Operator
 
@@ -438,7 +438,7 @@ The execution result is as follows:
  [4. 4.]]
 ```
 
-For more complete examples of aot-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/v2.3.1/tests/st/graph_kernel/custom/test_custom_aot.py) in the MindSpore source code.
+For more complete examples of aot-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/r2.3.1/tests/st/graph_kernel/custom/test_custom_aot.py) in the MindSpore source code.
 
 ## Custom Operator with Third Party Frontend
 
@@ -586,4 +586,4 @@ function foo!(x, y, z)
 end
 ```
 
-For more complete examples of julia-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/v2.3.1/tests/st/graph_kernel/custom/test_custom_julia.py) in the MindSpore source code.
+For more complete examples of julia-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/r2.3.1/tests/st/graph_kernel/custom/test_custom_julia.py) in the MindSpore source code.

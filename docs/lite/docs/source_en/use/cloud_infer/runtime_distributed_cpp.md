@@ -22,7 +22,7 @@ Each process consists of the following main steps:
 
 ## Preparation
 
-1. To download the cloud-side distributed inference C++ sample code, please select the device type: [Ascend](https://gitee.com/mindspore/mindspore/tree/v2.3.1/mindspore/lite/examples/cloud_infer/ascend_ge_distributed_cpp) or [GPU](https://gitee.com/mindspore/mindspore/tree/v2.3.1/mindspore/lite/examples/cloud_infer/gpu_trt_distributed_cpp). The directory will be referred to later as the example code directory.
+1. To download the cloud-side distributed inference C++ sample code, please select the device type: [Ascend](https://gitee.com/mindspore/mindspore/tree/r2.3.1/mindspore/lite/examples/cloud_infer/ascend_ge_distributed_cpp) or [GPU](https://gitee.com/mindspore/mindspore/tree/r2.3.1/mindspore/lite/examples/cloud_infer/gpu_trt_distributed_cpp). The directory will be referred to later as the example code directory.
 
 2. Slice and [export the distributed MindIR model](https://www.mindspore.cn/tutorials/experts/en/r2.3.1/parallel/model_loading.html#exporting-mindir-files-in-the-distributed-scenario) via MindSpore and store it to the sample code directory. For a quick experience, you can download the two sliced Matmul model files [Matmul0.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul0.mindir), [Matmul1.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/Matmul1.mindir).
 
@@ -88,7 +88,7 @@ device_list.push_back(device_info);
 
 ## Model Creation, Loading and Compilation
 
-Consistent with [MindSpore Lite Cloud-side Single Card Inference](https://www.mindspore.cn/lite/docs/en/r2.3.1/use/cloud_infer/runtime_cpp.html), the main entry point for distributed inference is the [Model](https://www.mindspore.cn/lite/api/en/r2.3.1/generate/classmindspore_Model.html) interface for model loading, compilation and execution. For Ascend devices, use the [Model::LoadConfig](https://www.mindspore.cn/lite/api/en/r2.3.1/generate/classmindspore_Model.html) interface to load the configuration file [config_file.ini](https://gitee.com/mindspore/mindspore/blob/v2.3.1/mindspore/lite/examples/cloud_infer/ascend_ge_distributed_cpp/config_file.ini), which is not required for GPU devices. Finally, call the [Model::Build](https://www.mindspore.cn/lite/api/en/r2.3.1/generate/classmindspore_Model.html) interface to implement model loading and model compilation, and the sample code is as follows.
+Consistent with [MindSpore Lite Cloud-side Single Card Inference](https://www.mindspore.cn/lite/docs/en/r2.3.1/use/cloud_infer/runtime_cpp.html), the main entry point for distributed inference is the [Model](https://www.mindspore.cn/lite/api/en/r2.3.1/generate/classmindspore_Model.html) interface for model loading, compilation and execution. For Ascend devices, use the [Model::LoadConfig](https://www.mindspore.cn/lite/api/en/r2.3.1/generate/classmindspore_Model.html) interface to load the configuration file [config_file.ini](https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/lite/examples/cloud_infer/ascend_ge_distributed_cpp/config_file.ini), which is not required for GPU devices. Finally, call the [Model::Build](https://www.mindspore.cn/lite/api/en/r2.3.1/generate/classmindspore_Model.html) interface to implement model loading and model compilation, and the sample code is as follows.
 
 ```c++
 mindspore::Model model;

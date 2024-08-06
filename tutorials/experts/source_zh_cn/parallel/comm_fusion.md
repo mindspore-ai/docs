@@ -93,7 +93,7 @@ init()
 
 为了避免上述问题，可以将网络参数进行分组融合：在下一组参数进行的计算的同时，进行上组参数的通信，使得计算和通信能够互相隐藏，可以通过限定fusion buffer的大小，或者index分区的方法进行分组融合。
 
-更多使用方法，可以参考MindSpore的[测试用例](https://gitee.com/mindspore/mindspore/blob/v2.3.1/tests/ut/python/parallel/test_comm_fusion.py)。
+更多使用方法，可以参考MindSpore的[测试用例](https://gitee.com/mindspore/mindspore/blob/r2.3.1/tests/ut/python/parallel/test_comm_fusion.py)。
 
 > 用户可以自行尝试`comm_fusion`的size和index模式，本质上都是fusion buffer类的方法。
 

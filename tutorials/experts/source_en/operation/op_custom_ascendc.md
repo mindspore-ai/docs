@@ -100,7 +100,7 @@ MindSpore's custom operator interface is [ops.Custom](https://www.mindspore.cn/d
 
 > For single-operator execution mode, it is recommended to use aclnn, including in PyNative mode or Graph mode where `jit_config` is set to `O0` or `O1`.
 
-For a complete example of an Ascend C custom operator, you can refer to the [sample project](https://gitee.com/mindspore/mindspore/tree/v2.3.1/tests/st/graph_kernel/custom/custom_ascendc). The directory structure of the sample project is as follows:
+For a complete example of an Ascend C custom operator, you can refer to the [sample project](https://gitee.com/mindspore/mindspore/tree/r2.3.1/tests/st/graph_kernel/custom/custom_ascendc). The directory structure of the sample project is as follows:
 
 ```text
 .

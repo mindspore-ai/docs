@@ -10,7 +10,7 @@
 
 ## OpenCLRuntimeWrapper
 
-\#include <[include/registry/opencl_runtime_wrapper.h](https://gitee.com/mindspore/mindspore/blob/v2.3.1/mindspore/lite/include/registry/opencl_runtime_wrapper.h)>
+\#include <[include/registry/opencl_runtime_wrapper.h](https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/lite/include/registry/opencl_runtime_wrapper.h)>
 
 OpenCLRuntimeWrapper类包装了内部OpenCL的相关接口，用于支持南向GPU算子的开发。
 
