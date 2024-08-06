@@ -31,7 +31,7 @@ Run the following command to obtain and run the automatic installation script. T
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/v2.3.1/scripts/install/euleros-ascend-pip.sh
-# install MindSpore 2.3.0 and Python 3.9
+# install MindSpore 2.3.1 and Python 3.9
 # the default value of LOCAL_ASCEND is /usr/local/Ascend
 PYTHON_VERSION=3.9 bash -i ./euleros-ascend-pip.sh
 # to specify Python and MindSpore version, taking Python 3.8 and MindSpore 1.6.0 as examples
