@@ -40,7 +40,6 @@
 
 离线解析之后，就可以在/path/to/profiler_data/profiler目录查看性能数据了。
 
-
 目录结构
 ~~~~~~~~~~~~
 
@@ -107,7 +106,7 @@
 
 PROF_{数字}_{时间戳}_{字符串}目录下为CANN Profiling采集的性能数据，主要保存在mindstudio_profiler_output中，数据介绍可参考 `性能数据文件说明 <https://www.hiascend.com/document/detail/zh/mindstudio/70RC2/mscommandtoolug/mscommandug/atlasprofiling_16_0062.html>`_。
 
-profiler目录下包含csv、json、txt三类文件，覆盖了算子执行时间、内存占用、通信等方面的性能数据，文件说明见下表。部分文件的详细说明参考 `性能数据 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/profiler_files_description.html>`_
+profiler目录下包含csv、json、txt三类文件，覆盖了算子执行时间、内存占用、通信等方面的性能数据，文件说明见下表。部分文件的详细说明参考 `性能数据 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/profiler_files_description.html>`_。
 
   ==============================================  ==============================================================================
   文件名                                           说明

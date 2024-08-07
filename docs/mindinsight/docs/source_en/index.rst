@@ -85,6 +85,7 @@ Using MindSpore Insight to Analyze the Model Performance
    graph_visual_design
    tensor_visual_design   
    profiler_design
+   profiler_files_description
    faq
 
 .. toctree::
