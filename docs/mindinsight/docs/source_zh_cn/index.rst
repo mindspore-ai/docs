@@ -85,6 +85,7 @@ MindSpore Insight包括以下内容：
    graph_visual_design
    tensor_visual_design
    profiler_design
+   profiler_files_description
    faq
 
 .. toctree::

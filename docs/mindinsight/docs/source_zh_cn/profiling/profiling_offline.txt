@@ -39,3 +39,121 @@
    Profiler.offline_analyse(path='/path/to/profiler_data')
 
 离线解析之后，就可以在/path/to/profiler_data/profiler目录查看性能数据了。
+
+
+目录结构
+~~~~~~~~~~~~
+
+性能数据目录结构示例如下：
+
+.. code::
+
+    └──── profiler 
+        ├──── container      
+        ├──── FRAMEWORK      // 框架侧采集的原始数据
+        │   └──── op_range_*
+        ├──── host_info      // 框架profiling解析生成的结果
+        │   ├──── dataset_*.csv
+        │   ├──── host_info_*.csv
+        │   ├──── host_memory_*.csv
+        │   └──── timeline_*.json
+        ├──── PROF_{数字}_{时间戳}_{字符串}       // msprof性能数据
+        │   ├──── analyse
+        │   ├──── device_*
+        │   ├──── host
+        │   ├──── mindstudio_profiler_log
+        │   └──── mindstudio_profiler_output
+        ├──── rank_* // 内存相关的原始数据
+        │   ├──── memory_block.csv
+        │   └──── task.csv
+        ├──── rank-*_{时间戳}_ascend_ms      // MindStudio Insight可视化交付件
+        │   ├──── ASCEND_PROFILER_OUTPUT      // MindSpore Profiler接口采集的性能数据
+        │   └──── profiler_info_*.json
+        ├──── aicore_intermediate_*_detail.csv
+        ├──── aicore_intermediate_*_type.csv
+        ├──── aicpu_intermediate_*.csv
+        ├──── ascend_cluster_analyse_model-{mode}_{stage_num}_{rank_size}_*.csv
+        ├──── ascend_timeline_display_*.json
+        ├──── ascend_timeline_summary_*.json
+        ├──── cpu_framework_*.txt      // 异构场景生成
+        ├──── cpu_ms_memory_record_*.txt
+        ├──── cpu_op_detail_info_*.csv      // 异构场景生成
+        ├──── cpu_op_execute_timestamp_*.txt      // 异构场景生成
+        ├──── cpu_op_type_info_*.csv      // 异构场景生成
+        ├──── dataset_iterator_profiling_*.txt      // 数据非下沉场景生成
+        ├──── device_queue_profiling_*.txt      // 数据下沉场景生成
+        ├──── dynamic_shape_info_*.json
+        ├──── flops_*.txt
+        ├──── flops_summary_*.json
+        ├──── framework_raw_*.csv
+        ├──── hccl_raw_*.csv      // 配置profiler(profiler_communication=True)生成
+        ├──── minddata_aicpu_*.json      // 数据下沉场景生成
+        ├──── minddata_cpu_utilization_*.json
+        ├──── minddata_pipeline_raw_*.csv
+        ├──── minddata_pipeline_summary_*.csv
+        ├──── minddata_pipeline_summary_*.json
+        ├──── operator_memory_*.csv
+        ├──── output_timeline_data_*.txt
+        ├──── parallel_strategy_*.json
+        ├──── pipeline_profiling_*.json
+        ├──── profiler_info_*.json
+        ├──── step_trace_point_info_*.json
+        └──── step_trace_raw_*_detail_time.csv
+    
+- *代表rank id
+
+性能数据文件描述
+~~~~~~~~~~~~
+
+PROF_{数字}_{时间戳}_{字符串}目录下为CANN Profiling采集的性能数据，主要保存在mindstudio_profiler_output中，数据介绍可参考 `性能数据文件说明 <https://www.hiascend.com/document/detail/zh/mindstudio/70RC2/mscommandtoolug/mscommandug/atlasprofiling_16_0062.html>`_。
+
+profiler目录下包含csv、json、txt三类文件，覆盖了算子执行时间、内存占用、通信等方面的性能数据，文件说明见下表。部分文件的详细说明参考 `性能数据 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/profiler_files_description.html>`_
+
+  ==============================================  ==============================================================================
+  文件名                                           说明
+  ==============================================  ==============================================================================
+  step_trace_point_info_*.json                    step节点对应的算子信息（仅mode=GRAPH,export GRAPH_OP_RUM=0）
+  step_trace_raw_*_detail_time.csv                每个step的节点的时间信息（仅mode=GRAPH,export GRAPH_OP_RUM=0）
+
+  dynamic_shape_info_*.json                       动态shape下算子信息
+
+  pipeline_profiling_*.json                       MindSpore数据处理，采集落盘的中间文件，用于MindInsight可视化
+  minddata_pipeline_raw_*.csv                     MindSpore数据处理，采集落盘的中间文件，用于MindInsight可视化
+  minddata_pipeline_summary_*.csv                 MindSpore数据处理，采集落盘的中间文件，用于MindInsight可视化
+  minddata_pipeline_summary_*.json                MindSpore数据处理，采集落盘的中间文件，用于MindInsight可视化
+  framework_raw_*.csv                             MindSpore数据处理中AI Core算子的信息
+  device_queue_profiling_*.txt                    MindSpore数据处理，采集落盘的中间文件，用于MindInsight可视化（仅数据下沉场景）
+  minddata_aicpu_*.txt                            MindSpore数据处理中AI CPU算子的性能数据（仅数据下沉场景）
+  dataset_iterator_profiling_*.txt                MindSpore数据处理，采集落盘的中间文件，用于MindInsight可视化（仅数据非下沉场景）
+
+  aicore_intermediate_*_detail.csv                AI Core算子数据
+  aicore_intermediate_*_type.csv                  AI Core算子调用次数和耗时统计
+  aicpu_intermediate_*.csv                        AI CPU算子信息解析后耗时数据
+  flops_*.txt                                     记录AI Core算子的浮点计算次数（FLOPs）、每秒的浮点计算次数（FLOPS）
+  flops_summary_*.json                            记录所有算子的总的FLOPs、所有算子的平均FLOPs、平均的FLOPS_Utilization
+
+  ascend_timeline_display_*.json                  timeline可视化文件，用于MindStudio Insight可视化
+  ascend_timeline_summary_*.json                  timeline统计数据
+  output_timeline_data_*.txt                      算子timeline数据，只有AI Core算子数据存在时才有
+
+  cpu_ms_memory_record_*.txt                      内存profiling的原始文件
+  operator_memory_*.csv                           算子级内存信息
+
+  minddata_cpu_utilization_*.json                 CPU利用率
+
+  cpu_op_detail_info_*.csv                        CPU算子耗时数据（仅mode=GRAPH）
+  cpu_op_type_info_*.csv                          具体类别CPU算子耗时统计（仅mode=GRAPH）
+  cpu_op_execute_timestamp_*.txt                  CPU算子执行起始时间与耗时（仅mode=GRAPH）
+  cpu_framework_*.txt                             异构场景下CPU算子耗时（仅mode=GRAPH）
+
+  ascend_cluster_analyse_model-xxx.csv            在模型并行或pipeline并行模式下，计算和通信等相关数据（仅mode=GRAPH）      
+
+  hccl_raw_*.csv                                  基于卡的通信时间和通信等待时间（仅mode=GRAPH）
+
+  parallel_strategy_*.json                        算子并行策略，采集落盘中间文件，用于MindInsight可视化
+
+  profiler_info_*.json                            Profiler配置等info信息
+  ==============================================  ==============================================================================
+
+- *表示rank id
+- ascend_cluster_analyse_model-xxx_*.csv完整的文件名应该是ascend_cluster_analyse_model-{mode}_{stage_num}_{rank_size}_{rank_id}.csv，比如ascend_cluster_analyse_model-parallel_1_8_0.csv
