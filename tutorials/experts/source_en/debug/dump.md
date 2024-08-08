@@ -550,7 +550,7 @@ MindSpore provides debugging capabilities for large networks through asynchronou
 
       This field is optional, with default values of ["max", "min", "l2norm"].
 
-    - `file_format`: Dump file type. It can be either `npy` and `bin`. `npy`: data will be dumped in npy files as host format. `bin`: data will be dumped in protobuf file as device format and need to be transformed to parse using the provided data analysis tool. Please refer to [Asynchronous Dump Data Analysis Sample](#asynchronous-dump-data-analysis-sample) for details. The default value is `bin`.
+    - `file_format`: Dump file type. It can be either `npy` and `bin`. `npy`: data will be dumped in npy files as host format. `bin`: data will be dumped in protobuf file as device format and need to be transformed to parse using the provided data analysis tool. Please refer to [Asynchronous Dump Data Analysis Sample](#data-analysis-sample-1) for details. The default value is `bin`.
 
 2. Set Dump environment variable.
 
@@ -573,7 +573,7 @@ MindSpore provides debugging capabilities for large networks through asynchronou
 
     You can set `set_context(reserve_class_name_in_scope=False)` in your training script to avoid dump failure because of file name is too long.
 
-4. Refer to [Asynchronous Dump Data Analysis Sample](#asynchronous-dump-data-analysis-sample) to analyze the Dump data file.
+4. Refer to [Asynchronous Dump Data Analysis Sample](#data-analysis-sample-1) to analyze the Dump data file.
 
 > - If you need to dump all or part of the operator, you can modify the `dump_mode` option in the json configuration file to 0 or 1.
 > - Due to the slow Dump speed, enabling Dump in large model scenarios can extend the communication interval between different cards, leading to communication operator timeouts. This issue can be resolved by adjusting the timeout duration for the communication operators. For the Ascend backend, you can set the HCCL_EXEC_TIMEOUT environment variable. For detailed instructions, please refer to the [Ascend CANN documentation](https://www.hiascend.com/document/detail/zh/canncommercial/80RC1/apiref/envvar/envref_07_0072.html).
