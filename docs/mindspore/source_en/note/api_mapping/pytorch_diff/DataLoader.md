@@ -20,7 +20,7 @@ For more information, see [torch.utils.data.DataLoader](https://pytorch.org/docs
 class mindspore.dataset.GeneratorDataset(
     source, column_names=None, column_types=None, schema=None,
     num_samples=None, num_parallel_workers=1, shuffle=None, sampler=None,
-    num_shards=None, shard_id=None, python_multiprocessing=True, max_rowsize=6)
+    num_shards=None, shard_id=None, python_multiprocessing=True, max_rowsize=None)
 ```
 
 For more information, see [mindspore.dataset.GeneratorDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)。
