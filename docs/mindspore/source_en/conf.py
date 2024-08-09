@@ -256,9 +256,15 @@ src_dir_en = os.path.join(repo_path, copy_path)
 des_sir = "./api_python"
 
 def copy_source(sourcedir, des_sir):
-    if os.path.exists(des_sir):
-        shutil.rmtree(des_sir)
-    shutil.copytree(sourcedir, des_sir)
+    for i in os.listdir(sourcedir):
+        if os.path.isfile(os.path.join(src_dir_en, i)):
+            if os.path.exists(os.path.join(des_sir, i)):
+                os.remove(os.path.join(des_sir, i))
+            shutil.copy(os.path.join(src_dir_en, i), os.path.join(des_sir, i))
+        else:
+            if os.path.exists(os.path.join(des_sir, i)):
+                shutil.rmtree(os.path.join(des_sir, i))
+            shutil.copytree(os.path.join(src_dir_en, i), os.path.join(des_sir, i))
 
 copy_source(src_dir_en, des_sir)
 
@@ -439,25 +445,25 @@ def copy_image(sourcedir, des_dir):
 
 copy_image(src_dir, des_dir)
 
-src_release = os.path.join(repo_path, 'RELEASE.md')
-des_release = "./RELEASE.md"
-release_source = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
+# src_release = os.path.join(repo_path, 'RELEASE.md')
+# des_release = "./RELEASE.md"
+# release_source = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
 
-with open(src_release, "r", encoding="utf-8") as f:
-    data = f.read()
-if len(re.findall("\n## (.*?)\n",data)) > 1:
-    data = re.sub("\n## MindSpore 2.3.0 [\s\S\n]*?\n## ", "\n## ", data)
-    content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
-    repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
-    content_new = ''
-    for i in content:
-        if re.findall(f"\n## MindSpore ({repo_version[0]}\.[0-9]+?)[ -]", i):
-            content_new += i
-    content = content_new
-else:
-    content = re.findall("(\n## [\s\S\n]*)", data)
-    content = content[0]
+# with open(src_release, "r", encoding="utf-8") as f:
+#     data = f.read()
+# if len(re.findall("\n## (.*?)\n",data)) > 1:
+#     data = re.sub("\n## MindSpore 2.3.0 [\s\S\n]*?\n## ", "\n## ", data)
+#     content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
+#     repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
+#     content_new = ''
+#     for i in content:
+#         if re.findall(f"\n## MindSpore ({repo_version[0]}\.[0-9]+?)[ -]", i):
+#             content_new += i
+#     content = content_new
+# else:
+#     content = re.findall("(\n## [\s\S\n]*)", data)
+#     content = content[0]
 
-with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes" + "\n\n" + release_source)
-    p.write(content)
+# with open(des_release, "w", encoding="utf-8") as p:
+#     p.write("# Release Notes" + "\n\n" + release_source)
+#     p.write(content)

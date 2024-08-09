@@ -19,9 +19,7 @@ help:
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-EXTRADIR      = $(SOURCEDIR)/api_python
-
 .PHONY: clean
 
 clean:
-	-rm -rf $(BUILDDIR)/* $(EXTRADIR)/*
+	-rm -rf $(BUILDDIR)/*

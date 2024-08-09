@@ -1,125 +1,25 @@
 [
     {
-        "version": "br_base",
-        "versionAlias": "",
+        "version": "br_ops",
         "label": {
             "zh": "MindSpore",
             "en": "MindSpore"
         },
         "repo_name": "mindspore",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "br_base",
-        "versionAlias": "",
-        "label": {
-            "zh": "教程",
-            "en": "Tutorials"
-        },
-        "repo_name": "tutorials",
         "submenu": {
             "zh": [
                 {
-                    "label": "初学入门",
-                    "url": "/tutorials/zh-CN/br_base/index.html"
-                },
-                {
-                    "label": "应用实践",
-                    "url": "/tutorials/application/zh-CN/br_base/index.html"
-                },
-                {
-                    "label": "深度开发",
-                    "url": "/tutorials/experts/zh-CN/br_base/index.html"
+                    "label": "API文档",
+                    "url": "/docs/zh-CN/br_ops/api_python/index.html"
                 }
             ],
             "en": [
                 {
-                    "label": "Quickstart",
-                    "url": "/tutorials/en/br_base/index.html"
-                },
-                {
-                    "label": "Application",
-                    "url": "/tutorials/application/en/br_base/index.html"
-                },
-                {
-                    "label": "Experts",
-                    "url": "/tutorials/experts/en/br_base/index.html"
+                    "label": "API",
+                    "url": "/docs/en/br_ops/api_python/index.html"
                 }
             ]
         },
         "theme": "theme-tutorials"
-    },
-    {
-        "version": "br_base",
-        "versionAlias": "",
-        "label": {
-            "zh": "MindSpore Lite",
-            "en": "MindSpore Lite"
-        },
-        "repo_name": "lite",
-        "submenu": {
-            "zh": [
-                {
-                    "label": "概述",
-                    "url": "/lite?version=br_base"
-                },
-                {
-                    "label": "下载",
-                    "url": "/lite/docs/zh-CN/br_base/use/downloads.html"
-                },
-                {
-                    "label": "文档",
-                    "url": "/lite/docs/zh-CN/br_base/index.html"
-                },
-                {
-                    "label": "API",
-                    "url": "/lite/api/zh-CN/br_base/index.html"
-                },
-                {
-                    "label": "FAQ",
-                    "url": "/lite/faq/zh-CN/br_base/faq.html"
-                },
-                {
-                    "label": "示例",
-                    "url": "/lite/examples?version=br_base"
-                },
-                {
-                    "label": "模型",
-                    "url": "/lite/models?version=br_base"
-                }
-            ],
-            "en": [
-                {
-                    "label": "Overview",
-                    "url": "/lite/en?version=br_base"
-                },
-                {
-                    "label": "Downloads",
-                    "url": "/lite/docs/en/br_base/use/downloads.html"
-                },
-                {
-                    "label": "Docs",
-                    "url": "/lite/docs/en/br_base/index.html"
-                },
-                {
-                    "label": "API",
-                    "url": "/lite/api/en/br_base/index.html"
-                },
-                {
-                    "label": "FAQ",
-                    "url": "/lite/faq/en/br_base/faq.html"
-                },
-                {
-                    "label": "Examples",
-                    "url": "/lite/examples/en?version=br_base"
-                },
-                {
-                    "label": "Models",
-                    "url": "/lite/models/en?version=br_base"
-                }
-            ]
-        },
-        "theme": "theme-lite"
     }
 ]
-
