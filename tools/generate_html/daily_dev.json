@@ -1,31 +1,19 @@
 [
 {
     "id" : 1 ,
-    "name" : "lite",
-    "branch" : "br_base",
-    "html_version" : "br_base",
-    "whl_path" : "/mindspore/website/br_base/lite/centos_x86/cloud_fusion/python37",
-    "whl_name" : "mindspore_lite-.*-cp37-cp37m-linux_x86_64.whl$",
-    "environ" : "MS_PATH",
-    "uninstall_name" : "mindspore_lite",
-    "tar_path" : "/mindspore/website/br_base/lite/centos_x86/cloud_fusion/python37",
-    "tar_name" : "mindspore-lite-.*-linux-x64.tar.gz$"
-},
-{
-    "id" : 2 ,
     "name" : "mindspore",
-    "branch" : "br_base",
-    "html_version" : "br_base",
-    "whl_path" : "/mindspore/website/br_base/cpu/x86_64",
+    "branch" : "br_ops",
+    "html_version" : "br_ops",
+    "whl_path" : "/mindspore/website/br_ops/cpu/x86_64",
     "whl_name" : "mindspore-.*-cp37-cp37m-linux_x86_64.whl$",
     "environ" : "MS_PATH",
     "uninstall_name" : "mindspore"
 },
 {
-    "id" : 3 ,
+    "id" : 2 ,
     "name" : "tutorials",
-    "branch" : "br_base",
-    "html_version" : "br_base",
+    "branch" : "br_ops",
+    "html_version" : "br_ops",
     "whl_path" : "",
     "whl_name" : "",
     "environ" : "",
