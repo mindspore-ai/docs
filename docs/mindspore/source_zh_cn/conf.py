@@ -240,16 +240,20 @@ repo_path = os.getenv("MS_PATH")
 src_dir = os.path.join(repo_path, copy_path)
 des_sir = "./api_python"
 
+need_file = ['mindspore.rst', 'mindspore.ops.rst', 'mindspore.ops.primitive.rst', 'mindspore.nn.rst', 'mindspore.mint.rst']
+need_dir = ['ops', 'nn', 'mint', 'mindspore']
+
 def copy_source(sourcedir, des_sir):
     for i in os.listdir(sourcedir):
-        if os.path.isfile(os.path.join(src_dir,i)):
+        if os.path.isfile(os.path.join(sourcedir,i)) and i in need_file:
             if os.path.exists(os.path.join(des_sir, i)):
                 os.remove(os.path.join(des_sir, i))
-            shutil.copy(os.path.join(src_dir, i), os.path.join(des_sir, i))
+            shutil.copy(os.path.join(sourcedir, i), os.path.join(des_sir, i))
         else:
             if os.path.exists(os.path.join(des_sir, i)):
                 shutil.rmtree(os.path.join(des_sir, i))
-            shutil.copytree(os.path.join(src_dir,i), os.path.join(des_sir, i))
+            if i in need_dir:
+                shutil.copytree(os.path.join(sourcedir,i), os.path.join(des_sir, i))
 
 copy_source(src_dir, des_sir)
 
