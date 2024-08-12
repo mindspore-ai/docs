@@ -38,7 +38,7 @@ A: 可以参考如下几个步骤来降低CPU占用，进一步提升性能，�
 
 ## Q: 在`GeneratorDataset`中，看到有参数`shuffle`，在跑任务时发现`shuffle=True`和`shuffle=False`，两者没有区别，这是为什么？
 
-A: 开启`shuffle`，需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yeild`方式返回回来的数据，是不支持随机访问的，具体可查看教程中的[自定义数据集](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#自定义数据集)章节。
+A: 开启`shuffle`，需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yeild`方式返回回来的数据，是不支持随机访问的，具体可查看[GeneratorDataset 示例](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html)章节。
 
 <br/>
 
@@ -160,9 +160,7 @@ A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不�
 
 A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/master/research/cv/FCN8s/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
 
-[GenratorDataset 示例](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#自定义数据集)
-
-[GenratorDataset API说明](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
+[GeneratorDataset 示例](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html)
 
 <br/>
 
@@ -315,7 +313,7 @@ dataset3 = dataset2.map(***)
 
 ## Q: MindSpore中和DataLoader对应的接口是什么？
 
-A：如果将DataLoader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/dataset.html#自定义数据集)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)。
+A：如果将DataLoader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 示例](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)。
 
 <br/>
 
