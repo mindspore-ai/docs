@@ -1,131 +1,20 @@
-.. MindSpore documentation master file, created by
-   sphinx-quickstart on Thu Mar 24 11:00:00 2022.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 MindSpore 文档
 =========================
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 设计
    :hidden:
 
-   design/overview
-   design/tensor_view
-   design/programming_paradigm
-   design/dynamic_graph_and_static_graph
-   design/dynamic_shape
-   design/distributed_training_design
-   design/data_engine
-   design/all_scenarios
-   design/graph_fusion_engine
-   design/pluggable_device
-   design/glossary
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 模型库
-   :hidden:
-
-   note/official_models
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: API
-   :hidden:
-
-   api_python/mindspore
-   api_python/mindspore.nn
-   api_python/mindspore.ops
-   api_python/mindspore.ops.primitive
-   api_python/mindspore.mint
-   api_python/mindspore.amp
-   api_python/mindspore.train
-   api_python/mindspore.communication
-   api_python/mindspore.communication.comm_func
-   api_python/mindspore.common.initializer
-   api_python/mindspore.hal
-   api_python/mindspore.dataset
-   api_python/mindspore.dataset.transforms
-   api_python/mindspore.mindrecord
-   api_python/mindspore.nn.probability
-   api_python/mindspore.rewrite
-   api_python/mindspore.multiprocessing
-   api_python/mindspore.boost
-   api_python/mindspore.numpy
-   api_python/mindspore.scipy
-   api_python/mindspore.experimental
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: API映射
-   :hidden:
-
-   note/api_mapping/pytorch_api_mapping
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 迁移指南
-   :titlesonly:
-   :hidden:
-
-   migration_guide/overview
-   migration_guide/enveriment_preparation
-   migration_guide/analysis_and_preparation
-   migration_guide/model_development/model_development
-   migration_guide/debug_and_tune
-   migration_guide/sample_code
-   migration_guide/faq
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 语法支持
-   :hidden:
-
-   note/static_graph_syntax_support
-   note/static_graph_syntax/operators
-   note/static_graph_syntax/statements
-   note/static_graph_syntax/python_builtin_functions
-   note/index_support
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 环境变量
-   :hidden:
-
-   note/env_var_list
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: FAQ
-   :hidden:
-
-   faq/installation
-   faq/data_processing
-   faq/implement_problem
-   faq/network_compilation
-   faq/operators_compile
-   faq/performance_tuning
-   faq/precision_tuning
-   faq/distributed_parallel
-   faq/inference
-   faq/feature_advice
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: RELEASE NOTES
-   :hidden:
-
+   design/index
+   model_train/index
+   model_infer/index
+   migration_guide/index
+   mindformers/index
+   api_python/index
+   orange_pi/index
+   kits_tools/index
+   faq/index
    RELEASE
 
 .. raw:: html
@@ -151,7 +40,7 @@ MindSpore 文档
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./note/official_models.html" class="article-link">
+                     <a href="./kits_tools/official_models.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">模型库</span>
@@ -219,7 +108,7 @@ MindSpore 文档
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./note/static_graph_syntax_support.html" class="article-link">
+                     <a href="./model_train/program_form/static_graph.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">语法支持</span>
