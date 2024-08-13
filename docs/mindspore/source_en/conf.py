@@ -255,7 +255,8 @@ src_dir_en = os.path.join(repo_path, copy_path)
 
 des_sir = "./api_python"
 
-need_file = ['mindspore.rst', 'mindspore.ops.rst', 'mindspore.ops.primitive.rst', 'mindspore.nn.rst', 'mindspore.mint.rst', 'Tensor_list.rst', 'dataset_list.rst']
+need_file = ['mindspore.rst', 'mindspore.ops.rst', 'mindspore.ops.primitive.rst', 'mindspore.nn.rst', 'mindspore.mint.rst',
+             'Tensor_list.rst', 'dataset_list.rst', 'mindspore.amp.rst', 'mindspore.dataset.rst', 'mindspore.scipy.rst', 'mindspore.train.rst']
 
 def copy_source(sourcedir, des_sir):
     for i in os.listdir(sourcedir):
