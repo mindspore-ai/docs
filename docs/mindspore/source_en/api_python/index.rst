@@ -10,3 +10,7 @@ API
    mindspore.ops
    mindspore.ops.primitive
    mindspore.mint
+   mindspore.amp
+   mindspore.train
+   mindspore.dataset
+   mindspore.scipy
