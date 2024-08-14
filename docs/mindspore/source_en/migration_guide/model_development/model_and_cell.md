@@ -538,9 +538,9 @@ x = initializer(Uniform(), [1, 2, 3], mindspore.float32)
 
 ##### Customizing Initialization Parameters
 
-Generally, the high-level API encapsulated by MindSpore initializes parameters by default. Sometimes, the initialization distribution is inconsistent with the required initialization and PyTorch initialization. In this case, you need to customize initialization. [Initializing Network Arguments](https://mindspore.cn/tutorials/en/master/advanced/modules/initializer.html#customized-parameter-initialization) describes a method of initializing parameters during using API attributes. This section describes a method of initializing parameters by using Cell.
+Generally, the high-level API encapsulated by MindSpore initializes parameters by default. Sometimes, the initialization distribution is inconsistent with the required initialization and PyTorch initialization. In this case, you need to customize initialization. [Initializing Network Arguments](https://mindspore.cn/docs/en/master/model_train/custom_program/initializer.html#customized-parameter-initialization) describes a method of initializing parameters during using API attributes. This section describes a method of initializing parameters by using Cell.
 
-For details about the parameters, see [Network Parameters](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/initializer.html). This section uses `Cell` as an example to describe how to obtain all parameters in `Cell` and how to initialize the parameters in `Cell`.
+For details about the parameters, see [Network Parameters](https://mindspore.cn/docs/zh-CN/master/model_train/custom_program/initializer.html). This section uses `Cell` as an example to describe how to obtain all parameters in `Cell` and how to initialize the parameters in `Cell`.
 
 > Note that the method described in this section cannot be performed in `construct`. To change the value of a parameter on the network, use [assign](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.assign.html).
 
@@ -766,7 +766,7 @@ For `Cell`, MindSpore provides two image modes: `GRAPH_MODE` (static image) and 
 
 The **inference** behavior of the model in `PyNative` mode is the same as that of common Python code. However, during training, **once a tensor is converted into NumPy for other operations, the gradient of the network is truncated, which is equivalent to detach of PyTorch**.
 
-When `GRAPH_MODE` is used, syntax restrictions usually occur. In this case, graph compilation needs to be performed on the Python code. However, MindSpore does not support the complete Python syntax set. Therefore, there are some restrictions on compiling the `construct` function. For details about the restrictions, see [MindSpore Static Graph Syntax](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+When `GRAPH_MODE` is used, syntax restrictions usually occur. In this case, graph compilation needs to be performed on the Python code. However, MindSpore does not support the complete Python syntax set. Therefore, there are some restrictions on compiling the `construct` function. For details about the restrictions, see [MindSpore Static Graph Syntax](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html).
 
 Compared with the detailed syntax description, the common restrictions are as follows:
 
@@ -881,7 +881,7 @@ dx (Tensor(shape=[2, 5], dtype=Float32, value=
  [0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000]]),)
 ```
 
-Now, let's see how to [customize backward network construction](https://www.mindspore.cn/tutorials/en/master/advanced/modules/layer.html#custom-cell-reverse).
+Now, let's see how to [customize backward network construction](https://www.mindspore.cn/docs/en/master/model_train/custom_program/layer.html#custom-cell-reverse).
 
 ```python
 import numpy as np

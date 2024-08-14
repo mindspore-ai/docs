@@ -1,6 +1,6 @@
 # 优化器并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/optimizer_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/parallel/optimizer_parallel.md)
 
 ## 概述
 
@@ -137,7 +137,7 @@ net.layer2.set_comm_fusion(1)
 net.layer3.set_comm_fusion(2)
 ```
 
-> 这里为了减少通信成本，为不同层配置了通信融合，详细可以参考[通信算子融合](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/comm_fusion.html)。
+> 这里为了减少通信成本，为不同层配置了通信融合，详细可以参考[通信算子融合](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/comm_fusion.html)。
 
 ### 训练网络
 
@@ -209,7 +209,7 @@ epoch: 0, step: 100, loss is 0.6854114
 ...
 ```
 
-其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)。
+其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/startup_method.html)。
 
 ## 高级接口
 

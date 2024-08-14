@@ -1079,7 +1079,7 @@ MindSpore有三种方法使用混合精度：
 
 1. 直接使用`Cast`，将网络的输入`cast`成`float16`，将loss的输入`cast`成`float32`；
 2. 使用`Cell`的`to_float`方法，详情参考[网络搭建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html)；
-3. 使用`Model`的`amp_level`接口进行混合精度，详情参考[自动混合精度](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html#%E8%87%AA%E5%8A%A8%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6)。
+3. 使用`Model`的`amp_level`接口进行混合精度，详情参考[自动混合精度](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/mixed_precision.html#%E8%87%AA%E5%8A%A8%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6)。
 
 这里我们使用第三种方法，将`Model`中的`amp_level`设置成`O3`，看一下profiler的结果：
 
@@ -1100,7 +1100,7 @@ MindSpore有三种方法使用混合精度：
 
 ![resnet_profiler12](images/resnet_profiler12.png)
 
-每个数据处理操作的队列，发现最后一个操作，`batch`操作空的时间比较多，可以考虑增加`batch`操作的并行度。详情请参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html)。
+每个数据处理操作的队列，发现最后一个操作，`batch`操作空的时间比较多，可以考虑增加`batch`操作的并行度。详情请参考[数据处理性能优化](https://www.mindspore.cn/docs/zh-CN/master/model_train/dataset/optimize.html)。
 
 整个resnet迁移需要的代码可以在[code](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code)获取。
 

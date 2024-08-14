@@ -64,7 +64,7 @@ set_inputs详细使用指导可参考[Cell.set_inputs API文档](https://www.min
 
 input_signature详细使用指导可参考[mindspore.jit API文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html)。
 
-分布式并行场景如何使用动态shape可参考[分布式并行支持动态shape文档](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/support_dynamic_shape_in_parallel.html)。
+分布式并行场景如何使用动态shape可参考[分布式并行支持动态shape文档](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/support_dynamic_shape_in_parallel.html)。
 
 ## 支持情况
 

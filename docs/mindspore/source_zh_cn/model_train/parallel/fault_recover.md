@@ -1,6 +1,6 @@
 # 基于冗余信息的故障恢复
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/fault_recover.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/parallel/fault_recover.md)
 
 ## 概述
 
@@ -10,12 +10,12 @@
 
 但是，对于大模型来说，使用汇聚保存对各种资源的开销都过于巨大，因此，本文档介绍的是每张卡仅仅保存自身的权重信息的恢复方案。对于大模型来说，往往会同时应用上数据并行与模型并行，而数据并行的维度所划分的设备，它们持有的权重信息是完全一致的，这也为大模型提供了冗余的备份，本文档也将指出如何去获取这个冗余信息。
 
-关于并行策略与权重的切片划分的关系，可以进行如下映射。关于数据并行，模型并行的概念，请参考[算子级并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/operator_parallel.html) ；关于优化器并行，请参考[优化器并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/optimizer_parallel.html)。
+关于并行策略与权重的切片划分的关系，可以进行如下映射。关于数据并行，模型并行的概念，请参考[算子级并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/operator_parallel.html) ；关于优化器并行，请参考[优化器并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/optimizer_parallel.html)。
 
 - 数据并行 + 不开启优化器并行：并行通信域内的rank持有相同权重切片。
 - 模型并行：并行通信域内的rank持有不同权重切片。
 
-另外，需要注意的是，本文档介绍分布式故障恢复方案，需要在[下沉模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/optimize/execution_opt.html) 下使用。
+另外，需要注意的是，本文档介绍分布式故障恢复方案，需要在[下沉模式](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/train_optimize.html#下沉模式) 下使用。
 
 相关环境变量：
 

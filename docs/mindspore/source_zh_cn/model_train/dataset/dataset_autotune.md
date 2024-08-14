@@ -1,6 +1,6 @@
 # 自动数据加速
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/dataset/dataset_autotune.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/dataset/dataset_autotune.md)
 
 ## 概述
 
@@ -56,7 +56,7 @@ print("tuning interval:", ds.config.get_autotune_interval())
 ## 约束
 
 - Profiling性能分析和自动数据加速无法同时开启，因为Profilling的其他处理会干扰自动数据加速进程。如果同时开启这两个功能，则会有一条警告信息提示用户检查是否为误操作。因此在使用Dataset AutoTune时，用户需要确保关闭Profiling功能。
-- 如果同时启动了[数据异构加速](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/dataset_offload.html)和自动数据加速，当有数据节点通过AutoTune进行异构硬件加速时，自动数据加速将不能保存数据管道配置并以警告日志提醒，因为此时实际运行的数据管道并不是预先定义的数据管道。
+- 如果同时启动了[数据异构加速](https://www.mindspore.cn/docs/zh-CN/master/model_train/dataset/dataset_offload.html)和自动数据加速，当有数据节点通过AutoTune进行异构硬件加速时，自动数据加速将不能保存数据管道配置并以警告日志提醒，因为此时实际运行的数据管道并不是预先定义的数据管道。
 - 如果数据处理管道包含不支持反序列化的节点（如用户自定义Python函数、GeneratorDataset），则使用保存的优化配置文件进行反序列化时将产生错误。此时推荐用户根据调优配置文件的内容手动修改数据管道的配置已达到加速的目的。
 - 在分布式多卡训练启动自动数据加速时，`set_enable_autotune()` 需要在集群初始化完成后才能执行（mindspore.communication.management.init()），否则自动数据加速只会识别到ID为0的设备，且只会生成单个调优文件（预期生成文件数量应与设备数量相等），见以下样例：
 

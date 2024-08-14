@@ -1,10 +1,10 @@
 # aot类型自定义算子进阶用法
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/operation/op_custom_aot.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/custom_program/operation/op_custom_aot.md)
 
 ## 概述
 
-aot类型的自定义算子采用预编译的方式，要求网络开发者基于特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后在网络运行时框架会自动调用执行动态链接库中的函数。aot类型的自定义算子支持GPU平台的CUDA语言，和CPU平台的C和C++语言。关于aot类型的自定义算子开发的基础知识请参考[基础教程](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom.html#aot类型的自定义算子开发)。
+aot类型的自定义算子采用预编译的方式，要求网络开发者基于特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后在网络运行时框架会自动调用执行动态链接库中的函数。aot类型的自定义算子支持GPU平台的CUDA语言，和CPU平台的C和C++语言。关于aot类型的自定义算子开发的基础知识请参考[基础教程](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom.html#aot类型的自定义算子开发)。
 
 本教程中，我们将展示aot类型自定义算子的进阶功能，包括
 

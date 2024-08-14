@@ -1,12 +1,12 @@
 # 动态组网启动
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/dynamic_cluster.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/parallel/dynamic_cluster.md)
 
 ## 概述
 
 出于训练时的可靠性要求，MindSpore提供了**动态组网**特性，用户能够不依赖任何第三方库(OpenMPI)来启动Ascend/GPU/CPU分布式训练任务，并且训练脚本无需做任何修改。我们建议用户优先使用此种启动方式。
 
-MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构**，取代了OpenMPI能力，可参考[Parameter Server模式](https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)训练教程。
+MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构**，取代了OpenMPI能力，可参考[Parameter Server模式](https://mindspore.cn/docs/zh-CN/master/model_train/parallel/parameter_server_training.html)训练教程。
 
 **动态组网**特性将多个MindSpore训练进程作为`Worker`启动，并且额外启动一个`Scheduler`负责组网和容灾恢复，因此无需借助OpenMPI的消息传递机制即可实现分布式训练。用户只需对启动脚本做少量修改，即可执行分布式训练。
 
@@ -30,7 +30,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
             <ul>
                 <li>MS_SCHED: 代表Scheduler进程，一个训练任务只启动一个Scheduler，负责组网，容灾恢复等，<b>不会执行训练代码</b>。</li>
                 <li>MS_WORKER: 代表Worker进程，一般设置分布式训练进程为此角色。</li>
-                <li>MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考<a href="https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html">Parameter Server模式</a>。</li>
+                <li>MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考<a href="https://mindspore.cn/docs/zh-CN/master/model_train/parallel/parameter_server_training.html">Parameter Server模式</a>。</li>
             </ul>
         </td>
         <td align="left">Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。</td>
@@ -412,7 +412,7 @@ bash run_dynamic_cluster_2.sh
 
 ## 容灾恢复
 
-动态组网支持数据并行下容灾恢复。在多卡数据并行训练场景下，发生进程异常退出，重新拉起对应进程对应的脚本后训练可继续，并且不影响精度收敛。容灾恢复配置和样例可参考[动态组网场景下故障恢复](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/disaster_recover.html)教程。
+动态组网支持数据并行下容灾恢复。在多卡数据并行训练场景下，发生进程异常退出，重新拉起对应进程对应的脚本后训练可继续，并且不影响精度收敛。容灾恢复配置和样例可参考[动态组网场景下故障恢复](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/disaster_recover.html)教程。
 
 ## 安全认证
 

@@ -82,4 +82,7 @@ After obtaining the reference code, you need to reproduce the accuracy of the re
 
     - Obtain the loss decrease trend to check whether the training convergence trend on MindSpore is normal.
     - Obtain the parameter file for conversion and inference verification. For details, see [Inference and Training Process](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/training_and_evaluation.html).
-    - Obtain the performance baseline for performance tuning. For details, see [Debugging and Tuning](https://www.mindspore.cn/docs/en/master/migration_guide/debug_and_tune.html).
+    - Obtain the performance baseline for performance tuning. For details, see
+      [Function Debugging](https://www.mindspore.cn/docs/en/master/migration_guide/debug.html),
+      [Precision Tuning](https://www.mindspore.cn/docs/en/master/migration_guide/acc_debug.html),
+      [Performance Tuning](https://www.mindspore.cn/docs/en/master/migration_guide/perf_debug.html)。

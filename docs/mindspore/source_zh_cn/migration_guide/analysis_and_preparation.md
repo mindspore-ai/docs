@@ -99,11 +99,11 @@ MindRecord是MindSpore开发的一种高效数据格式，当出现精度问题�
 
 MindSpore提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件，一般用于网络迁移复杂问题定位（例如：算子溢出等）可以dump出算子级别的数据。
 
-获取Dump数据参考：[同步Dump数据获取介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4)和[异步Dump数据获取介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4-1)
+获取Dump数据参考：[同步Dump数据获取介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4)和[异步Dump数据获取介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4-1)
 
-分析Dump数据参考：[同步Dump数据分析介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A0%B7%E4%BE%8B)和[异步Dump数据分析介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A0%B7%E4%BE%8B-1)
+分析Dump数据参考：[同步Dump数据分析介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A0%B7%E4%BE%8B)和[异步Dump数据分析介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A0%B7%E4%BE%8B-1)
 
-具体可参考[Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)。
+具体可参考[Dump](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)。
 
 ### 性能问题
 
@@ -133,7 +133,7 @@ MindSpore Insight启动等使用介绍可查看[MindSpore Insight相关命令](h
 
 - 动态图模式下，程序按照代码的编写顺序逐行执行，在执行正向过程中根据反向传播的原理，动态生成反向执行图。这种模式下，编译器将神经网络中的各个算子逐一下发到设备进行计算操作，方便用户编写和调试神经网络模型。
 
-### [调用自定义类](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/static_graph_expert_programming.html#使用jit-class)
+### [调用自定义类](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html#使用jit-class)
 
 在静态图模式下，通过使用`jit_class`修饰自定义类，用户可以创建、调用该自定义类的实例，并且可以获取其属性和方法。
 
@@ -143,15 +143,15 @@ MindSpore Insight启动等使用介绍可查看[MindSpore Insight相关命令](h
 
 自动微分能够计算可导函数在某点处的导数值，是反向传播算法的一般化。自动微分主要解决的问题是将一个复杂的数学运算分解为一系列简单的基本运算，该功能对用户屏蔽了大量的求导细节和过程，大大降低了框架的使用门槛。
 
-### [混合精度](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html)
+### [混合精度](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/mixed_precision.html)
 
 通常我们训练神经网络模型的时候，默认使用的数据类型为单精度FP32。近年来，为了加快训练时间、减少网络训练时候所占用的内存，并且保存训练出来的模型精度持平的条件下，业界提出越来越多的混合精度训练的方法。这里的混合精度训练是指在训练的过程中，同时使用单精度（FP32）和半精度（FP16）。
 
-### [自动数据增强](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/augment.html)
+### [自动数据增强](https://www.mindspore.cn/docs/zh-CN/master/model_train/dataset/augment.html)
 
 MindSpore除了可以让用户自定义数据增强的使用，还提供了一种自动数据增强方式，可以基于特定策略自动对图像进行数据增强处理。
 
-### [梯度累加](https://www.mindspore.cn/tutorials/experts/zh-CN/master/optimize/gradient_accumulation.html)
+### [梯度累加](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/gradient_accumulation.html)
 
 梯度累加是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算。目的是为了解决由于内存不足，导致Batch size过大神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
 

@@ -1,6 +1,6 @@
 # Ascend C自定义算子开发与使用指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/operation/op_custom_ascendc.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/custom_program/operation/op_custom_ascendc.md)
 
 ## 概述
 
@@ -193,8 +193,8 @@ net = CustomNet()
 
 ### 进一步阅读
 
-- **自定义算子注册**：更多关于自定义算子的注册信息和反向函数的编写，请参考 [自定义算子注册](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_adv.html) 。
-- **AOT自定义算子**：对于C++的shape推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [aot类型自定义算子进阶用法](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom_aot.html) 。
+- **自定义算子注册**：更多关于自定义算子的注册信息和反向函数的编写，请参考 [自定义算子注册](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_adv.html) 。
+- **AOT自定义算子**：对于C++的shape推导函数实现，以及AOT类型自定义算子的进阶用法，请参考 [aot类型自定义算子进阶用法](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_aot.html) 。
 
 ## 常见问题
 

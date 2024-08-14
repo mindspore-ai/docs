@@ -104,7 +104,7 @@ print(random_np)
  [152 241 105 ... 187  45  43]]
 ```
 
-To present a more visual comparison of the data before and after Transform, we use [Eager mode](https://mindspore.cn/tutorials/en/master/advanced/dataset/eager.html) demo of Transforms. First instantiate the Transform object, and then call the object for data processing.
+To present a more visual comparison of the data before and after Transform, we use [Eager mode](https://mindspore.cn/docs/en/master/model_train/dataset/eager.html) demo of Transforms. First instantiate the Transform object, and then call the object for data processing.
 
 ```python
 rescale = vision.Rescale(1.0 / 255.0, 0)

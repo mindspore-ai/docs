@@ -1,16 +1,16 @@
 # 高阶算子级并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/advanced_operator_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/parallel/advanced_operator_parallel.md)
 
 ## 概述
 
-[算子级并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/operator_parallel.html) 是大模型训练推理中常用的并行技术，它可以将张量切分到多卡上，有效降低单卡上的显存。MindSpore进行算子级并行的配置是通过mindspore.ops.Primitive.shard()接口，对算子的每个输入，以tuple描述张量的切分，对于大多数场景配置简易，相应地，该种切分方式仅描述了张量切分，却向用户屏蔽了张量在设备rank上的排布，因此表达的张量切分与设备排布的映射关系有限，无法支撑一些更为复杂的场景的切分。因此，本教程将介绍开放设备排布描述的算子级并行配置方法。
+[算子级并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/operator_parallel.html) 是大模型训练推理中常用的并行技术，它可以将张量切分到多卡上，有效降低单卡上的显存。MindSpore进行算子级并行的配置是通过mindspore.ops.Primitive.shard()接口，对算子的每个输入，以tuple描述张量的切分，对于大多数场景配置简易，相应地，该种切分方式仅描述了张量切分，却向用户屏蔽了张量在设备rank上的排布，因此表达的张量切分与设备排布的映射关系有限，无法支撑一些更为复杂的场景的切分。因此，本教程将介绍开放设备排布描述的算子级并行配置方法。
 
 > 高级算子级并行模型支持的硬件平台包括Ascend、GPU，需要在Graph模式下运行。
 
 ## 背景
 
-[算子级并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/operator_parallel.html) 章节中介绍了MindSpore对张量的基本切分逻辑，但是不能表达出所有的切分场景。对于一个二维张量 "[[a0, a1, a2, a3], [a4, a5, a6, a7]]"如下图所示的张量分布：
+[算子级并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/operator_parallel.html) 章节中介绍了MindSpore对张量的基本切分逻辑，但是不能表达出所有的切分场景。对于一个二维张量 "[[a0, a1, a2, a3], [a4, a5, a6, a7]]"如下图所示的张量分布：
 
 ![image](images/advanced_operator_parallel_view1.PNG)
 
@@ -235,4 +235,4 @@ epoch: 0, step: 90, loss is 0.7807965
 ...
 ```
 
-其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/startup_method.html)。
+其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/startup_method.html)。

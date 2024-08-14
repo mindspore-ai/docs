@@ -1,6 +1,6 @@
 # Data Parallel
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/data_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/parallel/data_parallel.md)
 
 ## Overview
 
@@ -210,4 +210,4 @@ epoch: 0 step: 30, loss is 2.2938071
 ...
 ```
 
-Other startup methods such as dynamic network and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/experts/en/master/parallel/startup_method.html).
+Other startup methods such as dynamic network and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/docs/en/master/model_train/parallel/startup_method.html).

@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/learning_rate_and_optimizer.md)
 
-在阅读本章节之前，请先阅读MindSpore官网教程[优化器](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/optimizer.html)。
+在阅读本章节之前，请先阅读MindSpore官网教程[优化器](https://mindspore.cn/docs/zh-CN/master/model_train/custom_program/optimizer.html)。
 
 这里就MindSpore的优化器的一些特殊使用方式和学习率衰减策略的原理做一个介绍。
 
