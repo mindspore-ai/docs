@@ -216,10 +216,10 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | metrics        | 当训练结束后，可以使用metrics评估训练\       | `MindSpore \                      |
 |          |                | 结果的好坏。提供了多种metrics评估指标\       | metrics功能介绍 <https://ww       |
-|          |                | ，如：accuracy、loss、preci\                 | w.mindspore.cn/tutorial           |
-|          |                | sion、recall、F1                             | s/zh-CN/master/                   |
-|          |                |                                              | advanced/model/metric.html#>`_    |
-|          |                |                                              |                                   |
+|          |                | ，如：accuracy、loss、preci\                 | w.mindspore.cn/docs               |
+|          |                | sion、recall、F1                             | /zh-CN/master/model_train/        |
+|          |                |                                              | train_process/model/metric        |
+|          |                |                                              | .html#>`_                         |
 |          |                |                                              |                                   |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | print\_接口    | print\_接口可以将用户输入的Tensor或\         | `print\_接口功能介绍 <https://w   |
@@ -231,8 +231,8 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 |          |                |                                              |                                   |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 中间文件保存   | 用于保存图编译过程中生成的中间文件，我们称为\| `查看中间文件 <https://www.mi     |
-|          |                | IR文件，用于支持与图结构、图信息相关的问题\  | ndspore.cn/tutorials/zh-CN/       |
-|          |                | 诊断。                                       | master/advanced/error_            |
+|          |                | IR文件，用于支持与图结构、图信息相关的问题\  | ndspore.cn/docs/zh-CN/            |
+|          |                | 诊断。                                       | master/model_train/debug/error_   |
 |          |                |                                              | analysis/mindir.html>`_           |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | 数据Dump       | 训练网络时，若训练结果和预期有偏差，通过Du\  | `Dump功能调试 <https://www.       |
@@ -242,16 +242,16 @@ MindSpore网络训练的一般过程是数据加载与处理，网络构建与�
 +----------+----------------+----------------------------------------------+-----------------------------------+
 | 执行控制 | Callback       | 用户可以使用回调函数在特定时期执行特定动作或\| `回调机制                         |
 |          |                | 观察训练过程中网络信息，例如：保存模型参数、\| Callback <https://www.m           |
-|          |                | 监控loss、动态调整参数、提前终止训练任务\    | indspore.cn/tutorials             |
-|          |                | 等。                                         | /zh-CN/master/advanced/           |
-|          |                |                                              | model/callback.html#>`_           |
-|          |                |                                              |                                   |
+|          |                | 监控loss、动态调整参数、提前终止训练任务\    | indspore.cn/docs                  |
+|          |                | 等。                                         | /zh-CN/master/model_train/        |
+|          |                |                                              | train_process/model/              |
+|          |                |                                              | callback.html#>`_                 |
 +----------+----------------+----------------------------------------------+-----------------------------------+
 |          | Hook           | 在pynative模式使用Hook功能可以捕\            | `Hook功能 <https://www.mi         |
-|          |                | 获中间层算子的输入、输出数据以及反向梯度。已\| ndspore.cn/tutorials              |
-|          |                | 提供了四种形式的Hook功能，分别为：Hoo\       | /zh-CN/master/advanced/modules    |
-|          |                | kBackward算子和在Cell对象上进行\             | /layer.html#hook功能>`_           |
-|          |                | 注册的register_forward_pr\                   |                                   |
+|          |                | 获中间层算子的输入、输出数据以及反向梯度。已\| ndspore.cn/docs                   |
+|          |                | 提供了四种形式的Hook功能，分别为：Hoo\       | /zh-CN/master/model_train/        |
+|          |                | kBackward算子和在Cell对象上进行\             | /custom_program/hook_program      |
+|          |                | 注册的register_forward_pr\                   | .html>`_                          |
 |          |                | e_hook、register_forwar\                     |                                   |
 |          |                | d_hook、register_backwa\                     |                                   |
 |          |                | rd_hook功能。                                |                                   |

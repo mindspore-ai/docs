@@ -283,7 +283,7 @@ When a user defines a class in a network script, it can be written as a class in
 
 - a custom class
 
-  After defining a custom class, you can instantiate the class and call the attributes and methods of the class object. Please refer to [the Use of Custom Classes](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html#supporting-the-use-of-custom-classes). Compared to `Cell` class definitions, custom classes are closer to the user habits of calling Python classes. The implementation of custom classes in static graph mode is different from `Cell`, for example, when calling a function method of a custom class object, the code in its function method will not be compiled into a static computational graph but will be interpreted and executed by the Python interpreter.
+  After defining a custom class, you can instantiate the class and call the attributes and methods of the class object. Please refer to [the Use of Custom Classes](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html#supporting-the-use-of-custom-classes). Compared to `Cell` class definitions, custom classes are closer to the user habits of calling Python classes. The implementation of custom classes in static graph mode is different from `Cell`, for example, when calling a function method of a custom class object, the code in its function method will not be compiled into a static computational graph but will be interpreted and executed by the Python interpreter.
 
 - a class decorated by `@jit_class`
 

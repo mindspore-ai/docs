@@ -329,7 +329,7 @@ List
 When 'JIT_SYNTAX_LEVEL' is set to 'LAX', static graph mode can support
 the inplace operation of some 'List' objects, see `Supporting List
 Inplace Modification
-Operations <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html#supporting-list-inplace-modification-operations>`_.
+Operations <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html#supporting-list-inplace-modification-operations-1>`_.
 
 The basic usage scenarios of 'List' are as follows:
 

@@ -85,6 +85,8 @@ def replace_html_menu(html_path, hm_ds_path):
                     rp_str = rp_dict[p_key]
                     # 将每个页面的链接修正成正确的相对路径
                     for href in re.findall('href="(.*?)"', rp_str):
+                        if href.startswith('https://'):
+                            continue
                         abs_p1 = os.path.join(p_key, href)
                         if 'note/api_mapping' in p_key:
                             abs_p1 = os.path.join(html_path, 'migration_guide', href)

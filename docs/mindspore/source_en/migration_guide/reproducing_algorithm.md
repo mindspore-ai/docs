@@ -85,4 +85,4 @@ After obtaining the reference code, you need to reproduce the accuracy of the re
     - Obtain the performance baseline for performance tuning. For details, see
       [Function Debugging](https://www.mindspore.cn/docs/en/master/migration_guide/debug.html),
       [Precision Tuning](https://www.mindspore.cn/docs/en/master/migration_guide/acc_debug.html),
-      [Performance Tuning](https://www.mindspore.cn/docs/en/master/migration_guide/perf_debug.html)。
+      [Performance Tuning](https://www.mindspore.cn/docs/en/master/migration_guide/perf_debug.html).
