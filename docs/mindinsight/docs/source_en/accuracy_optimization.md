@@ -103,7 +103,7 @@ The causes of accuracy problems can be classified into hyperparameter problems, 
 
          2. The MindSpore constructor constraint is not complied with during graph construction.
 
-             The graph construction does not comply with the MindSpore construct constraints. That is, the network in graph mode does not comply with the constraints declared in the MindSpore static graph syntax support. For example, MindSpore does not support the backward computation of functions with key-value pair parameters. For details about complete constraints, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html).
+             The graph construction does not comply with the MindSpore construct constraints. That is, the network in graph mode does not comply with the constraints declared in the MindSpore static graph syntax support. For example, MindSpore does not support the backward computation of functions with key-value pair parameters. For details about complete constraints, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html).
 
     - Computational Graph Structure Problems
 

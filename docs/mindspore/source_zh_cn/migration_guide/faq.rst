@@ -180,7 +180,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
       loss = loss/response_gt
       return loss
 
-  详细可参考 `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html>`_ 。
+  详细可参考 `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph.html>`_ 。
 
   **Q: 训练过程中出现报错：“RuntimeError: Launch kernel failed, name:Default/...” 怎么办？**
 

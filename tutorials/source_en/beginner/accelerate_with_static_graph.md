@@ -68,7 +68,7 @@ print(output)
 
 ### Static Graph Mode
 
-Compared to dynamic graphs, static graphs are characterized by separating the construction of the computational graph from the actual computation (Define and run). For more information on how the static graph model works, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html#overview).
+Compared to dynamic graphs, static graphs are characterized by separating the construction of the computational graph from the actual computation (Define and run). For more information on how the static graph model works, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html#overview).
 
 In MindSpore, the static graph mode is also known as Graph mode. In Graph mode, based on techniques such as graph optimization and whole computational graph sinking, the compiler can globally optimize for graphs and obtain better performance, so it is more suitable for scenarios where the network is fixed and high performance is required.
 
@@ -353,7 +353,7 @@ print(output)
 
 ## Syntax Constraints for Static Graph
 
-In Graph mode, Python code is not executed by the Python interpreter, but the code is compiled into a static computational graph and then the static computational graph is executed. As a result, the compiler cannot support the global Python syntax. MindSpore static graph compiler maintains a subset of common Python syntax to support neural network construction and training. For more details, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html).
+In Graph mode, Python code is not executed by the Python interpreter, but the code is compiled into a static computational graph and then the static computational graph is executed. As a result, the compiler cannot support the global Python syntax. MindSpore static graph compiler maintains a subset of common Python syntax to support neural network construction and training. For more details, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html).
 
 ## Advanced Programming Techniques for Static Graphs
 

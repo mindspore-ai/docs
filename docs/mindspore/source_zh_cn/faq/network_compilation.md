@@ -4,7 +4,7 @@
 
 ## Q: 静态图模式支持的语法集合是什么？
 
-A: 静态图模式能够支持覆盖Python常用语法子集，以支持神经网络的构建和训练，部分Python语法暂不支持。具体支持的语法集合，请参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html)。静态图模式提供了JIT语法支持级别选项，便于用户选择是否扩展静态图语法，对于一些网络场景，推荐使用基础语法（nn/ops等）而非扩展语法（例如numpy三方库）。此外，推荐使用 [静态图高级编程技巧](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html) 优化编译性能。
+A: 静态图模式能够支持覆盖Python常用语法子集，以支持神经网络的构建和训练，部分Python语法暂不支持。具体支持的语法集合，请参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph.html)。静态图模式提供了JIT语法支持级别选项，便于用户选择是否扩展静态图语法，对于一些网络场景，推荐使用基础语法（nn/ops等）而非扩展语法（例如numpy三方库）。此外，推荐使用 [静态图高级编程技巧](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html) 优化编译性能。
 
 <br/>
 
@@ -528,7 +528,7 @@ net = Net()
 out = net(Tensor(x))
 ```
 
-3) 自定义类中调用了使用@jit装饰器修饰的函数，将会报错。这种场景建议将网络中的自定义类加上@jit_class装饰器，避免使用JIT Fallback特性。自定义类的更多使用可参考[自定义类的使用](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html#支持自定义类的使用)。jit_class装饰器的使用可参考[使用jit_class](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html#使用jit-class)。
+3) 自定义类中调用了使用@jit装饰器修饰的函数，将会报错。这种场景建议将网络中的自定义类加上@jit_class装饰器，避免使用JIT Fallback特性。自定义类的更多使用可参考[自定义类的使用](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph.html#支持自定义类的使用)。jit_class装饰器的使用可参考[使用jit_class](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html#使用jit-class)。
 
 ```python
 import mindspore as ms

@@ -179,7 +179,7 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
       loss = loss/response_gt
       return loss
 
-  See `Static diagram syntax support <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html>`_ for details.
+  See `Static diagram syntax support <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html>`_ for details.
 
   **Q: What can I do if the error is reported during training: RuntimeError: "Launch kernel failed, name:Default/... What to do" ?**
 

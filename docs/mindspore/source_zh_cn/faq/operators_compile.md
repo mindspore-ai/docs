@@ -59,7 +59,7 @@ A: 在PyTorch中`padding_idx`的作用是将embedding矩阵中`padding_idx`位�
 ## Q: Operations中`Tile`算子执行到`__infer__`时`value`值为`None`，丢失了数值是怎么回事？
 
 A: `Tile`算子的`multiples input`必须是一个常量（该值不能直接或间接来自于图的输入）。否则构图的时候会拿到一个`None`的数据，因为图的输入是在图执行的时候才传下去的，构图的时候拿不到图的输入数据。
-相关的资料可以看[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html)。
+相关的资料可以看[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph.html)。
 
 <br/>
 

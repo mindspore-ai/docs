@@ -257,6 +257,9 @@ probability_dir = './api_python/probability'
 if os.path.exists(probability_dir):
     shutil.rmtree(probability_dir)
 
+if os.path.exists('./model_train/program_form/static_graph_syntax/static_graph_syntax_support.ipynb'):
+    os.remove('./model_train/program_form/static_graph_syntax/static_graph_syntax_support.ipynb')
+
 # 删除并获取ops下多余的接口文件名
 white_list = ['mindspore.ops.comm_note.rst']
 
