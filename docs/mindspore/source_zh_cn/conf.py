@@ -240,8 +240,8 @@ repo_path = os.getenv("MS_PATH")
 src_dir = os.path.join(repo_path, copy_path)
 des_sir = "./api_python"
 
-need_file = ['mindspore.rst', 'mindspore.ops.rst', 'mindspore.ops.primitive.rst', 'mindspore.nn.rst', 'mindspore.mint.rst'
-             'mindspore.amp.rst', 'mindspore.dataset.rst', 'mindspore.scipy.rst', 'mindspore.train.rst']
+need_file = ['mindspore.rst', 'mindspore.ops.rst', 'mindspore.ops.primitive.rst', 'mindspore.nn.rst', 'mindspore.mint.rst',
+             'mindspore.amp.rst', 'mindspore.dataset.rst', 'mindspore.scipy.rst', 'mindspore.train.rst', 'dataset_pipeline.png']
 need_dir = ['ops', 'nn', 'mint', 'mindspore', 'images', 'amp', 'dataset', 'scipy', 'train']
 
 def copy_source(sourcedir, des_sir):
