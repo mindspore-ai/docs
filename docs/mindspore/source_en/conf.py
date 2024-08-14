@@ -256,9 +256,15 @@ src_dir_en = os.path.join(repo_path, copy_path)
 des_sir = "./api_python"
 
 def copy_source(sourcedir, des_sir):
-    if os.path.exists(des_sir):
-        shutil.rmtree(des_sir)
-    shutil.copytree(sourcedir, des_sir)
+    for i in os.listdir(sourcedir):
+        if os.path.isfile(os.path.join(sourcedir, i)):
+            if os.path.exists(os.path.join(des_sir, i)):
+                os.remove(os.path.join(des_sir, i))
+            shutil.copy(os.path.join(sourcedir, i), os.path.join(des_sir, i))
+        else:
+            if os.path.exists(os.path.join(des_sir, i)):
+                shutil.rmtree(os.path.join(des_sir, i))
+            shutil.copytree(os.path.join(sourcedir, i), os.path.join(des_sir, i))
 
 copy_source(src_dir_en, des_sir)
 

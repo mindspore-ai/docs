@@ -9,7 +9,7 @@ MindSpore教程
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 初学教程
+   :caption: 快速上手
    :hidden:
 
    beginner/introduction
@@ -22,43 +22,23 @@ MindSpore教程
    beginner/train
    beginner/save_load
    beginner/accelerate_with_static_graph
+   beginner/mixed_precision
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 进阶教程
-   :titlesonly:
+   :caption: 实践案例
    :hidden:
 
-   advanced/model
-   advanced/modules
-   advanced/dataset
-   advanced/derivation
-   advanced/static_graph_expert_programming
-   advanced/mixed_precision
-   advanced/error_analysis
+   cv
+   nlp
+   generative
 
 .. raw:: html
 
    <div class="container">
 	   <div class="row">
          <div class="col-md-6">
-               <div class="doc-article-list">
-                  <div class="doc-article-item">
-                     <a href="./beginner/introduction.html" class="article-link">
-                        <div>
-                           <div class="doc-article-head">
-                              <span class="doc-head-content">基本介绍</span>
-                           </div>
-                           <div class="doc-article-desc">
-                              整体介绍昇思MindSpore和华为昇腾AI全栈。
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-					</div>
-			</div>
-			<div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
                      <a href="./beginner/quick_start.html" class="article-link">
@@ -74,34 +54,16 @@ MindSpore教程
                   </div>
 					</div>
 			</div>
-      </div>
-      <div class="row">
-         <div class="col-md-6">
+			<div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./advanced/dataset.html" class="article-link">
+                     <a href="./cv/resnet50.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">数据处理</span>
+                              <span class="doc-head-content">计算机视觉实践案例</span>
                            </div>
                            <div class="doc-article-desc">
-                              提供数据处理、常用数据集加载等功能的进阶指导。
-                           </div>
-                        </div>
-                     </a>
-                  </div>
-					</div>
-			</div>
-         <div class="col-md-6">
-               <div class="doc-article-list">
-                  <div class="doc-article-item">
-                     <a href="./advanced/model.html" class="article-link">
-                        <div>
-                           <div class="doc-article-head">
-                              <span class="doc-head-content">高阶封装：Model</span>
-                           </div>
-                           <div class="doc-article-desc">
-                              提供评价指标、训练和评估、Model使用等功能的进阶指导。
+                              提供计算机视觉领域的典型网络实现，以及完整的训练、评估、预测流程。
                            </div>
                         </div>
                      </a>
@@ -113,13 +75,13 @@ MindSpore教程
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./advanced/modules.html" class="article-link">
+                     <a href="./nlp/sentiment_analysis.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">模块自定义</span>
+                              <span class="doc-head-content">自然语言处理实践案例</span>
                            </div>
                            <div class="doc-article-desc">
-                              提供网络参数、损失函数、优化器等功能的进阶指导。
+                              提供自然语言处理领域的典型网络实现，以及完整的训练、评估、预测流程。
                            </div>
                         </div>
                      </a>
@@ -129,13 +91,13 @@ MindSpore教程
          <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./beginner/accelerate_with_static_graph.html" class="article-link">
+                     <a href="./generative/gan.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
-                              <span class="doc-head-content">使用静态图加速</span>
+                              <span class="doc-head-content">生成式实践案例</span>
                            </div>
                            <div class="doc-article-desc">
-                              提供基于动态图或静态图开发的指导。
+                              提供生成式领域的典型网络实现，以及完整的训练、评估、预测流程。
                            </div>
                         </div>
                      </a>

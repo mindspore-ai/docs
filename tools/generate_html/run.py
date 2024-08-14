@@ -16,7 +16,7 @@ import sphinx
 import urllib3
 from git import Repo
 from lxml import etree
-
+from replace_html_menu import replace_html_menu
 
 # 下载仓库
 def git_clone(repo_url, repo_dir):
@@ -134,7 +134,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         # 克隆仓库与配置环境变量
         repo_name = data[i]['name'].replace('_', '-')
         repo_url = f"https://gitee.com/mindspore/{repo_name}.git"
-        repo_path = f"{REPODIR}/{repo_name}"
+        repo_path = f"{REPODIR}/{data[i]['name']}"
         branch_ = data[i]["branch"]
 
         if data[i]['environ'] == "MS_PATH":
@@ -181,8 +181,8 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             ArraySource[data[i]['name'] + '/faq'] = data[i]["branch"]
         elif data[i]['name'] == "tutorials":
             ArraySource[data[i]['name']] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/application'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/experts'] = data[i]["branch"]
+            # ArraySource[data[i]['name'] + '/application'] = data[i]["branch"]
+            # ArraySource[data[i]['name'] + '/experts'] = data[i]["branch"]
         elif data[i]['name'] == "mindspore":
             ArraySource[data[i]['name']] = data[i]["branch"]
         elif data[i]['name'] == "mindscience" or data[i]['name'] == "mindformers":
@@ -506,6 +506,15 @@ if __name__ == "__main__":
     try:
         main(version=args.version, user=args.user, pd=password, WGETDIR=args.wgetdir,
              release_url=args.release_url, generate_list=generate_list_p)
+
+        # 替换页面左侧目录部分
+        ms_path = f"{MAINDIR}/{args.version}/output/docs/zh-CN/master"
+        if os.path.exists(ms_path):
+            replace_html_menu(ms_path, os.path.join(DOCDIR, "../../docs/mindspore/source_zh_cn"))
+            print('docs中文目录大纲调整完成！')
+            replace_html_menu(ms_path.replace('zh-CN', 'en'), os.path.join(DOCDIR, "../../docs/mindspore/source_en"))
+            print('docs英文目录大纲调整完成！')
+
         theme_list = []
         output_path = f"{MAINDIR}/{args.version}/output"
         version_path = f"{MAINDIR}/{args.version}_version/"
@@ -515,8 +524,8 @@ if __name__ == "__main__":
             if dir_name == 'docs':
                 theme_list.append(dir_name)
             elif dir_name == 'tutorials':
-                theme_list.append(dir_name + '/application')
-                theme_list.append(dir_name + '/experts')
+                # theme_list.append(dir_name + '/application')
+                # theme_list.append(dir_name + '/experts')
                 theme_list.append(dir_name)
             elif dir_name == 'lite':
                 theme_list.append(dir_name + '/docs')
@@ -551,9 +560,12 @@ if __name__ == "__main__":
 
                     static_path_version = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/")[0]
                     static_path_version = os.path.join(static_path_version, "version.json")
-                    if 'lite' in out_name or 'tutorials' in out_name:
+                    if 'lite' in out_name:
                         css_path = f"theme-{out_name.split('/')[0]}/theme.css"
                         js_path = f"theme-{out_name.split('/')[0]}/theme.js"
+                    elif '/docs' in out_name:
+                        css_path = "theme-tutorials/theme.css"
+                        js_path = "theme-tutorials/theme.js"
                     else:
                         css_path = "theme-docs/theme.css"
                         js_path = "theme-docs/theme.js"
@@ -600,7 +612,7 @@ if __name__ == "__main__":
                 # pylint: disable=W0702
                 # pylint: disable=W0703
                 except Exception as e:
-                    print(f'替换{out_name}下的样式文件失败!\n{e}')
+                    print(f'替换{out_name}下{lg}样式文件失败!\n{e}')
                     continue
         print(f'替换样式文件成功!')
     except (KeyboardInterrupt, SystemExit):
