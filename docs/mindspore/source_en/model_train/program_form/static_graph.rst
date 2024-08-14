@@ -1,12 +1,12 @@
 Static Graph Programming
 =========================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_notebook.svg
-    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/zh_cn/model_train/program_form/static_graph_syntax/mindspore_static_graph_syntax_support.ipynb
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_download_code.svg
-    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/zh_cn/model_train/program_form/static_graph_syntax/mindspore_static_graph_syntax_support.py
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/program_form/static_graph_syntax/static_graph_syntax_support.ipynb
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_notebook_en.svg
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/en/model_train/program_form/static_graph_syntax/mindspore_static_graph_syntax_support.ipynb
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_download_code_en.svg
+    :target: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/master/en/model_train/program_form/static_graph_syntax/mindspore_static_graph_syntax_support.py
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
+    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/program_form/static_graph_syntax/static_graph_syntax_support.ipynb
     :alt: View Source On Gitee
 
 .. toctree::
