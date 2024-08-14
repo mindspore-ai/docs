@@ -1,6 +1,6 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/train_process/model/metric.md)
-
 # Evaluation Metrics
+
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/train_process/model/metric.md)
 
 When a training task is complete, an evaluation function (Metric) is often required to evaluate the quality of a model. Different training tasks usually require different metric functions. For example, for a binary classification problem, common evaluation metrics include precision, recall, and the like. For a multiclass classification task, macro and micro may be used for evaluation.
 
