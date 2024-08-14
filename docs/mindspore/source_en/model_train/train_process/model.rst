@@ -1,5 +1,5 @@
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/model.rst
+    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/train_process/model.rst
     :alt: View Source on Gitee
 
 Advanced Encapsulation: Model
@@ -24,7 +24,7 @@ Without the help of ``Model``, it takes a long time to customize these functions
 
 The following describes MindSpore models and how to use ``Model`` for model training, evaluation, and inference.
 
-.. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_en/advanced/model/images/model.png
+.. figure:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/model_train/train_process/model/images/model.png
    :alt: model
 
 .. code:: python 

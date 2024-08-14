@@ -2,7 +2,7 @@ Error Reporting Analysis
 =========================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/error_analysis.rst
+    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/debug/error_analysis.rst
     :alt: View Source on Gitee
 
 .. toctree::
@@ -53,7 +53,7 @@ Understanding the meaning of error description information plays an important ro
 MindSpore error messages are processed by using Python
 Traceback processing, including Python stack information, error types and error descriptions, error messages related to networkdevelopers, and error messages related to framework developers. As shown in the following figure:
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/advanced/images/graph_errmsg.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/model_train/debug/images/graph_errmsg.png
 
 -  Python stack information:
 
@@ -83,7 +83,7 @@ The general process of MindSpore network training is data loading and processing
 3) Analyze the location where the error is reported based on the Python call stack and the error information. In dynamic graph mode, it is easier to determine the location of the code error. In the static graph mode, you need to analyze the location of the error report according to the error message "The Traceback of Net Construct Code" part of the error message.
 4) Based on possible error problem scenarios and types, hypothesize the possible causes of the error problem.
 
-Please refer to error analysis for details on how to perform `error analysis <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/error_scenario_analysis.html>`_ based on different scenarios.
+Please refer to error analysis for details on how to perform `error analysis <https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/error_scenario_analysis.html>`_ based on different scenarios.
 
 Error Search
 ^^^^^^^^^^^^^
@@ -219,7 +219,7 @@ Network execution debugging is the corresponding debugging capability provided b
 |                           |                                          | the diagnosis of problems related to diagram structure and diagram information.                             | /mindir.html>`_                                       |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 |                           | Data Dump                                | When training the network, if the training result deviates from the expectation,                            | `Dump function debugging <https://www.mindspore.cn/   |
-|                           |                                          | the operator input and output data are saved for debugging by the Du mp function.                           | tutorials/experts/en/master/debug/dump.html>`_        |
+|                           |                                          | the operator input and output data are saved for debugging by the Du mp function.                           | docs/en/master/model_train/debug/dump.html>`_         |
 +---------------------------+------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------+
 | Execution control         | Callback                                 | Users can use callback functions to perform specific actions                                                | `Callback mechanism <https://www.                     |
 |                           |                                          | at specific times or to observe network information                                                         | mindspore.cn/tutorials                                |
@@ -255,11 +255,11 @@ MindSpore provides framework developers with rich debugging tools. Debugging fea
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+
 | Data records            | RDR                      | Running Data Recorder (RDR) provides the ability              | `Running Data Recorder                                |
 |                         |                          | to record framework execution status data                     | <https://www.mindspore.cn/                            |
-|                         |                          | while the training program is running.                        | tutorials/experts/en/master/debug/rdr.html>`_         |
+|                         |                          | while the training program is running.                        | docs/en/master/model_train/debug/rdr.html>`_          |
 |                         |                          | It can also save key frame state data, such as IR,            |                                                       |
 |                         |                          | graph execution order,                                        |                                                       |
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+
 | Specialized control     | Memory reuse             | Configure memory reuse on and off for troubleshooting         | `Memory Reuse <https://www.mindspore.cn/              |
-|                         |                          | or debugging suspected problems related to memory reuse.      | tutorials/experts/en/master/optimize                  |
+|                         |                          | or debugging suspected problems related to memory reuse.      | docs/en/master/model_train/debug                      |
 |                         |                          |                                                               | /mem_reuse.html>`_                                    |
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+

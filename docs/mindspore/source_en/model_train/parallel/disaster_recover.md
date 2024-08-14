@@ -1,6 +1,6 @@
 # Disaster Recovery in Dynamic Cluster Scenarios
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/disaster_recover.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/parallel/disaster_recover.md)
 
 ## Overview
 
@@ -10,7 +10,7 @@ Specifically, in the graph mode, the data sink mode is used for training, and th
 
 > Disaster recovery in dynamic cluster scenarios only supports GPUs and needs to run in Graph mode.
 
-For more detailed instructions, see dynamic cluster environment variables in the [dynamic cluster environment variables](https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html).
+For more detailed instructions, see dynamic cluster environment variables in the [dynamic cluster environment variables](https://www.mindspore.cn/docs/en/master/model_train/parallel/dynamic_cluster.html).
 
 ## Operation Practice
 
@@ -35,7 +35,7 @@ The directory structure is as follows:
 
 ### Network Structure
 
-The network structure and dataset loading is consistent with the example in [Dynamic Cluster Startup Method](https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html).
+The network structure and dataset loading is consistent with the example in [Dynamic Cluster Startup Method](https://www.mindspore.cn/docs/en/master/model_train/parallel/dynamic_cluster.html).
 
 ### Defining the Training Process
 

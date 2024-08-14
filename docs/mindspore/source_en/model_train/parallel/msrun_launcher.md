@@ -1,10 +1,10 @@
 # msrun Launching
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/msrun_launcher.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/parallel/msrun_launcher.md)
 
 ## Overview
 
-`msrun` is an encapsulation of the [Dynamic Cluster](https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html) startup method. Users can use `msrun` to pull multi-process distributed tasks across nodes with a single command line instruction. Users can use `msrun` to pull up multi-process distributed tasks on each node with a single command line command, and there is no need to manually set [dynamic networking environment variables](https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html). `msrun` supports both `Ascend`, `GPU` and `CPU` backends. As with the `Dynamic Cluster` startup, `msrun` has no dependencies on third-party libraries and configuration files.
+`msrun` is an encapsulation of the [Dynamic Cluster](https://www.mindspore.cn/docs/en/master/model_train/parallel/dynamic_cluster.html) startup method. Users can use `msrun` to pull multi-process distributed tasks across nodes with a single command line instruction. Users can use `msrun` to pull up multi-process distributed tasks on each node with a single command line command, and there is no need to manually set [dynamic networking environment variables](https://www.mindspore.cn/docs/en/master/model_train/parallel/dynamic_cluster.html). `msrun` supports both `Ascend`, `GPU` and `CPU` backends. As with the `Dynamic Cluster` startup, `msrun` has no dependencies on third-party libraries and configuration files.
 
 > - `msrun` is available after the user installs MindSpore, and the command `msrun --help` can be used to view the supported parameters.
 > - `msrun` supports `graph mode` as well as `PyNative mode`.

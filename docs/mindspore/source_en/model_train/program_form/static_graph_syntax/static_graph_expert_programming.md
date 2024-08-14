@@ -1,6 +1,6 @@
 # Advanced Programming Techniques for Static Graphs
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/static_graph_expert_programming.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/program_form/static_graph_syntax/static_graph_expert_programming.md)
 
 This chapter introduces some commonly used advanced programming techniques for static graph optimization, which can effectively improve the compilation efficiency as well as the execution efficiency of static graphs, and make the program run more stably. For a basic introduction to static graphs compilation, see [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html).
 
@@ -283,7 +283,7 @@ When a user defines a class in a network script, it can be written as a class in
 
 - a custom class
 
-  After defining a custom class, you can instantiate the class and call the attributes and methods of the class object. Please refer to [the Use of Custom Classes](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supporting-the-use-of-custom-classes). Compared to `Cell` class definitions, custom classes are closer to the user habits of calling Python classes. The implementation of custom classes in static graph mode is different from `Cell`, for example, when calling a function method of a custom class object, the code in its function method will not be compiled into a static computational graph but will be interpreted and executed by the Python interpreter.
+  After defining a custom class, you can instantiate the class and call the attributes and methods of the class object. Please refer to [the Use of Custom Classes](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html#supporting-the-use-of-custom-classes). Compared to `Cell` class definitions, custom classes are closer to the user habits of calling Python classes. The implementation of custom classes in static graph mode is different from `Cell`, for example, when calling a function method of a custom class object, the code in its function method will not be compiled into a static computational graph but will be interpreted and executed by the Python interpreter.
 
 - a class decorated by `@jit_class`
 
@@ -564,7 +564,7 @@ select net cost time: 0.483151912689209
 
 Usage scenario: When processing batch data without dependency and the related operator supports Vmap function, you can use Vmap to replace for loop to process batch data to optimize the execution performance (and also improve the compilation performance).
 
-MindSpore already supports the Vmap feature. A detailed description of Vmap can be found in [Automatic Vectorization Vmap](https://www.mindspore.cn/tutorials/experts/en/master/vmap/vmap.html).
+MindSpore already supports the Vmap feature. A detailed description of Vmap can be found in [Automatic Vectorization Vmap](https://www.mindspore.cn/docs/en/master/model_train/train_process/vmap/vmap.html).
 
 A code sample that uses Vmap to replace a for loop to process batch data to optimize compilation performance is shown below:
 

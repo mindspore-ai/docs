@@ -99,11 +99,11 @@ See [TroubleShooter application scenarios](https://gitee.com/mindspore/toolkits/
 
 MindSpore provides Dump function, used to model training in the graph and operator input and output data saved to disk files, generally used for network migration complex problem location (eg: operator overflow, etc). It can be dumped out of the operator level data.
 
-For getting Dump data, refer to: [Synchronous Dump Step](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#dump-step) and [Asynchronous Dump Step](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html##dump-step-1).
+For getting Dump data, refer to: [Synchronous Dump Step](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html#dump-step) and [Asynchronous Dump Step](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html##dump-step-1).
 
-For analyzig Dump data, refer to: [Synchronous Dump Data Analysis Sample](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#data-analysis-sample) and [Asynchronous Dump Data Analysis Sample](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#data-analysis-sample-1)
+For analyzig Dump data, refer to: [Synchronous Dump Data Analysis Sample](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html#data-analysis-sample) and [Asynchronous Dump Data Analysis Sample](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html#data-analysis-sample-1)
 
-See [Dump](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html) for details.
+See [Dump](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html) for details.
 
 ### Performance Issues
 
@@ -133,7 +133,7 @@ Currently, there are two execution modes of a mainstream deep learning framework
 
 - In dynamic graph mode, the program is executed line by line according to the code writing sequence. In the forward execution process, the backward execution graph is dynamically generated according to the backward propagation principle. In this mode, the compiler delivers the operators in the neural network to the device one by one for computing, facilitating users to build and debug the neural network model.
 
-### [Calling the Custom Class](https://www.mindspore.cn/tutorials/en/master/advanced/static_graph_expert_programming.html#using-jit-class)
+### [Calling the Custom Class](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html#using-jit-class)
 
 In static graph mode, you can use `jit_class` to modify a custom class. You can create and call an instance of the custom class, and obtain its attributes and methods.
 
@@ -143,15 +143,15 @@ In static graph mode, you can use `jit_class` to modify a custom class. You can 
 
 Automatic differentiation can calculate a derivative value of a derivative function at a certain point, which is a generalization of backward propagation algorithms. The main problem solved by automatic differential is to decompose a complex mathematical operation into a series of simple basic operations. This function shields a large number of derivative details and processes from users, greatly reducing the threshold for using the framework.
 
-### [Mixed Precision](https://www.mindspore.cn/tutorials/en/master/advanced/mixed_precision.html)
+### [Mixed Precision](https://www.mindspore.cn/tutorials/en/master/beginner/mixed_precision.html)
 
 Generally, when a neural network model is trained, the default data type is FP32. In recent years, to accelerate training time, reduce memory occupied during network training, and store a trained model with same precision, more and more mixed-precision training methods are proposed in the industry. The mixed-precision training herein means that both single precision (FP32) and half precision (FP16) are used in a training process.
 
-### [Auto Augmentation](https://www.mindspore.cn/tutorials/experts/en/master/dataset/augment.html)
+### [Auto Augmentation](https://www.mindspore.cn/docs/en/master/model_train/dataset/augment.html)
 
 MindSpore not only allows you to customize data augmentation, but also provides an automatic data augmentation mode to automatically perform data augmentation on images based on specific policies.
 
-### [Gradient Accumulation](https://www.mindspore.cn/tutorials/experts/en/master/optimize/gradient_accumulation.html)
+### [Gradient Accumulation](https://www.mindspore.cn/docs/en/master/model_train/train_process/optimize/gradient_accumulation.html)
 
 Gradient accumulation is a method of splitting data samples for training neural networks into several small batches by batch and then calculating the batches in sequence. The purpose is to solve the out of memory (OOM) problem that the neural network cannot be trained or the network model cannot be loaded due to insufficient memory.
 

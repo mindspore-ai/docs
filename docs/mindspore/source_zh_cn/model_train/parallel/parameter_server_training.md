@@ -1,6 +1,6 @@
 # 参数服务器
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/parameter_server_training.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/parallel/parameter_server_training.md)
 
 ## 概述
 
@@ -48,7 +48,7 @@ export MS_SCHED_PORT=XXXX             # Scheduler port
 export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
 ```
 
-更多详细说明请查看[动态组网环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html)。
+更多详细说明请查看[动态组网环境变量](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/dynamic_cluster.html)。
 
 ## 操作实践
 

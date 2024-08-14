@@ -1,6 +1,6 @@
 # Applying Second-Order Optimization Practices on the ResNet-50 Network
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/optimize/thor/resnet50.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/train_process/optimize/thor/resnet50.md)
 
 ## Overview
 
@@ -70,11 +70,11 @@ The directory structure is as follows:
 
 #### Atlas Training Series
 
-Refer to [rank table Startup](https://www.mindspore.cn/tutorials/experts/en/master/parallel/rank_table.html) for the configuration of distributed environment variables for the Atlas training series.
+Refer to [rank table Startup](https://www.mindspore.cn/docs/en/master/model_train/parallel/rank_table.html) for the configuration of distributed environment variables for the Atlas training series.
 
 #### GPU
 
-Refer to [mpirun Startup](https://www.mindspore.cn/tutorials/experts/en/master/parallel/mpirun.html) for the configuration of distributed environment variables for the GPU.
+Refer to [mpirun Startup](https://www.mindspore.cn/docs/en/master/model_train/parallel/mpirun.html) for the configuration of distributed environment variables for the GPU.
 
 ## Loading and Processing the Datasets
 

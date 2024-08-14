@@ -103,7 +103,7 @@
 
          2. 构图时未遵循MindSpore construct约束。
 
-             构图未遵循mindspore construct约束，是指图模式下的网络未遵循MindSpore静态图语法支持中声明的约束。例如，MindSpore目前不支持对带键值对参数的函数求反向。完整约束请见[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)。
+             构图未遵循mindspore construct约束，是指图模式下的网络未遵循MindSpore静态图语法支持中声明的约束。例如，MindSpore目前不支持对带键值对参数的函数求反向。完整约束请见[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html)。
 
     - 计算图结构问题
 
@@ -583,13 +583,13 @@ Xie, Z., Sato, I., & Sugiyama, M. (2020). A Diffusion Theory For Deep Learning D
 
 ### 数据问题处理
 
-对数据进行标准化、归一化、通道转换等操作，在图片数据处理上，增加随机视野图片，随机旋转度图片等，另外数据混洗、batch和数据倍增等操作，可参考[数据处理](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)、[数据增强](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)和[自动数据增强](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/augment.html)。
+对数据进行标准化、归一化、通道转换等操作，在图片数据处理上，增加随机视野图片，随机旋转度图片等，另外数据混洗、batch和数据倍增等操作，可参考[数据处理](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)、[数据增强](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)和[自动数据增强](https://www.mindspore.cn/docs/zh-CN/master/model_train/dataset/augment.html)。
 
 > 如何将数据增强增强操作应用到自定义数据集中，可以参考[mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.map.html#mindspore.dataset.Dataset.map) API。
 
 ### 超参问题处理
 
-AI训练中的超参包含全局学习率，epoch和batch等，如果需要设置动态学习率超参时，可参考资料：[学习率的优化算法](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/optimizer.html#学习率)。
+AI训练中的超参包含全局学习率，epoch和batch等，如果需要设置动态学习率超参时，可参考资料：[学习率的优化算法](https://mindspore.cn/docs/zh-CN/master/model_train/custom_program/optimizer.html#学习率)。
 
 ### 模型结构问题处理
 

@@ -1,6 +1,6 @@
 # Cell and Parameter
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/modules/layer.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/custom_program/layer.md)
 
 Cell, as the basic unit of neural network construction, corresponds to the concept of neural network layer, and the abstract encapsulation of Tensor computation operation can represent the neural network structure more accurately and clearly. In addition to the basic Tensor computation flow definition, the neural network layer contains functions such as parameter management and state management. Parameter is the core of neural network training and is usually used as an internal member variable of the neural network layer. In this section, we systematically introduce parameters, neural network layers and their related usage.
 
@@ -112,7 +112,7 @@ print(net.b.asnumpy())
 
 #### Overriding the Modified Parameter Values
 
-The `Parameter.set_data` method can be called to override the Parameter by using a Tensor with the same Shape. This method is commonly used for [Cell traversal initialization](https://www.mindspore.cn/tutorials/en/master/advanced/modules/initializer.html) by using Initializer.
+The `Parameter.set_data` method can be called to override the Parameter by using a Tensor with the same Shape. This method is commonly used for [Cell traversal initialization](https://www.mindspore.cn/docs/en/master/model_train/custom_program/initializer.html) by using Initializer.
 
 ```python
 net.b.set_data(Tensor([3, 4, 5]))
@@ -125,7 +125,7 @@ print(net.b.asnumpy())
 
 #### Modifying Parameter Values During Runtime
 
-The main role of parameters is to update their values during model training, which involves parameter modification during runtime after backward propagation to obtain gradients, or when untrainable parameters need to be updated. Due to the compiled design of MindSpore's [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html), it is necessary at this point to use the `mindspore.ops.assign` interface to assign parameters. This method is commonly used in [Custom Optimizer](https://www.mindspore.cn/tutorials/en/master/advanced/modules/optimizer.html) scenarios. The following is a simple sample modification of parameter values during runtime:
+The main role of parameters is to update their values during model training, which involves parameter modification during runtime after backward propagation to obtain gradients, or when untrainable parameters need to be updated. Due to the compiled design of MindSpore's [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html), it is necessary at this point to use the `mindspore.ops.assign` interface to assign parameters. This method is commonly used in [Custom Optimizer](https://www.mindspore.cn/docs/en/master/model_train/custom_program/optimizer.html) scenarios. The following is a simple sample modification of parameter values during runtime:
 
 ```python
 import mindspore as ms

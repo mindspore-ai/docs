@@ -11,7 +11,7 @@
          这个大概率是网络反向出现问题。可借助[TroubleShooter比对MindSpore与PyTorch的ckpt/pth](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF2%E6%AF%94%E5%AF%B9mindspore%E4%B8%8Epytorch%E7%9A%84ckptpth)通过比较ckpt与pth的对应参数的值来检验网络反向更新的结果。
     - loss出现NAN/INF：
          可以通过[TroubleShooter获取INF/NAN值抛出点](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/tracker.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF2%E8%8E%B7%E5%8F%96infnan%E5%80%BC%E6%8A%9B%E5%87%BA%E7%82%B9)识别网络中第一个出现NAN或INF的位置。
-         也可通过[Dump](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)工具进行溢出算子检测。
+         也可通过[Dump](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)工具进行溢出算子检测。
 
 ## 精度调试过程
 
@@ -180,7 +180,7 @@ trainable parameter numbers: 2
   model = Model(network=train_net)
   ```
 
-- 排查是否溢出，添加loss scale时，默认会加上溢出检测，可以将是否溢出的结果进行监测，如果持续溢出的话建议优先排查为什么溢出，建议使用MindSpore Insight的[dump数据](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)。
+- 排查是否溢出，添加loss scale时，默认会加上溢出检测，可以将是否溢出的结果进行监测，如果持续溢出的话建议优先排查为什么溢出，建议使用MindSpore Insight的[dump数据](https://mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)。
 
   ```python
   import numpy as np

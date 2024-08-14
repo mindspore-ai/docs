@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/learning_rate_and_optimizer.md)
 
-Before reading this chapter, please read the official MindSpore tutorial [Optimizer](https://mindspore.cn/tutorials/en/master/advanced/modules/optimizer.html).
+Before reading this chapter, please read the official MindSpore tutorial [Optimizer](https://mindspore.cn/docs/en/master/model_train/custom_program/optimizer.html).
 
 Here is an introduction to some special ways of using MindSpore optimizer and the principle of learning rate decay strategy.
 

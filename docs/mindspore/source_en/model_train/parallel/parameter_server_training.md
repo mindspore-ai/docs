@@ -1,6 +1,6 @@
 # Parameter Server
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/parameter_server_training.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/parallel/parameter_server_training.md)
 
 ## Overview
 
@@ -48,7 +48,7 @@ export MS_SCHED_PORT=XXXX             # Scheduler port
 export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
 ```
 
-For more detailed instructions, see [dynamic cluster environment variables](https://www.mindspore.cn/tutorials/experts/en/master/parallel/dynamic_cluster.html).
+For more detailed instructions, see [dynamic cluster environment variables](https://www.mindspore.cn/docs/en/master/model_train/parallel/dynamic_cluster.html).
 
 ## Practice
 

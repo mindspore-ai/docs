@@ -103,7 +103,7 @@ The causes of accuracy problems can be classified into hyperparameter problems, 
 
          2. The MindSpore constructor constraint is not complied with during graph construction.
 
-             The graph construction does not comply with the MindSpore construct constraints. That is, the network in graph mode does not comply with the constraints declared in the MindSpore static graph syntax support. For example, MindSpore does not support the backward computation of functions with key-value pair parameters. For details about complete constraints, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+             The graph construction does not comply with the MindSpore construct constraints. That is, the network in graph mode does not comply with the constraints declared in the MindSpore static graph syntax support. For example, MindSpore does not support the backward computation of functions with key-value pair parameters. For details about complete constraints, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html).
 
     - Computational Graph Structure Problems
 
@@ -581,13 +581,13 @@ For details about visualized data analysis during training, see [Viewing Dashboa
 
 ### Data Problem Handling
 
-Perform operations such as standardization, normalization, and channel conversion on data. For image data processing, add images with random view and rotation. For details about data shuffle, batch, and multiplication, see [Processing Data](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html), [Data Argumentation](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html), and [Auto Augmentation](https://www.mindspore.cn/tutorials/experts/en/master/dataset/augment.html).
+Perform operations such as standardization, normalization, and channel conversion on data. For image data processing, add images with random view and rotation. For details about data shuffle, batch, and multiplication, see [Processing Data](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html), [Data Argumentation](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html), and [Auto Augmentation](https://www.mindspore.cn/docs/en/master/model_train/dataset/augment.html).
 
 > For details about how to apply the data augmentation operation to a custom dataset, see the [mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/operation/mindspore.dataset.Dataset.map.html#mindspore.dataset.Dataset.map) API.
 
 ### Hyperparameter Problem Handling
 
-Hyperparameters in AI training include the global learning rate, epoch, and batch. For details about how to set the dynamic learning rate, see [Optimization Algorithm of Learning Rate](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/optimizer.html).
+Hyperparameters in AI training include the global learning rate, epoch, and batch. For details about how to set the dynamic learning rate, see [Optimization Algorithm of Learning Rate](https://mindspore.cn/docs/zh-CN/master/model_train/custom_program/optimizer.html).
 
 ### Model Structure Problem Handling
 

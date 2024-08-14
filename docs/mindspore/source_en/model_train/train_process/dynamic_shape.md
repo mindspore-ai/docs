@@ -63,7 +63,7 @@ Detailed instructions for using set_inputs can be found in the [Cell.set_inputs 
 
 Detailed instructions for using input_signature can be found in the [mindspore.jit API Ducumentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html).
 
-Distributed parallel scenarios on how to use dynamic shapes can be found in the [Distributed Parallel Support for Dynamic Shape Documentation](https://www.mindspore.cn/tutorials/experts/en/master/parallel/support_dynamic_shape_in_parallel.html).
+Distributed parallel scenarios on how to use dynamic shapes can be found in the [Distributed Parallel Support for Dynamic Shape Documentation](https://www.mindspore.cn/docs/en/master/model_train/parallel/support_dynamic_shape_in_parallel.html).
 
 ## API Support
 

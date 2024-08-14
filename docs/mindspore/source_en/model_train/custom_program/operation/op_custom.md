@@ -1,6 +1,6 @@
 # Custom Operators (Custom-based)
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/operation/op_custom.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/custom_program/operation/op_custom.md)
 
 ## Overview
 
@@ -139,10 +139,10 @@ JIT (Just In Time) refers to operators compiled directly by the framework during
 
 A custom operator of Hybrid type is the default defined type of a custom operator. By using a custom operator of the Hybrid type, users can describe the operator calculation logic in Python-like syntax without paying attention to the engineering details defined by the operator for the MindSpore framework, allowing the user to focus on the algorithm itself.
 
-Custom operators of Hybrid type use [MindSpore Hybrid DSL](https://www.mindspore.cn/tutorials/experts/en/master/operation/ms_kernel.html#syntax-specification) to describe the implementation of the calculation logic inside the operator. Functions defined with MindSpore Hybrid DSL can be parsed by the [AKG Operator Compiler](https://gitee.com/mindspore/akg) for JIT compilation to generate efficient operators for use in training reasoning for large-scale models. At the same time, the function defined by MindSpore Hybrid DSL can be called directly as a `numpy` function, which is convenient for users to debug and flexibly switch to [pyfunc type custom operator](#the-introduction-to-custom-operator-an-example), so that when developed, custom operator expressions are reused for multiple modes, multiple platforms and multiple scenes.
+Custom operators of Hybrid type use [MindSpore Hybrid DSL](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/ms_kernel.html#syntax-specification) to describe the implementation of the calculation logic inside the operator. Functions defined with MindSpore Hybrid DSL can be parsed by the [AKG Operator Compiler](https://gitee.com/mindspore/akg) for JIT compilation to generate efficient operators for use in training reasoning for large-scale models. At the same time, the function defined by MindSpore Hybrid DSL can be called directly as a `numpy` function, which is convenient for users to debug and flexibly switch to [pyfunc type custom operator](#the-introduction-to-custom-operator-an-example), so that when developed, custom operator expressions are reused for multiple modes, multiple platforms and multiple scenes.
 
 The following example (test_custom_hybrid.py) shows how to write a custom operator of the hybrid type. The operator computes the sum of two tensors.
-Notice that custom operators of Hybrid type use the source to source transformation method to connect the graph compiler and the operator compiler. Users can use the keywords of MindSpore Hybrid DSL directly in the script, such as `output_tensor` below, without importing any Python modules. For more information about the keywords, refer to [MindSpore Hybrid DSL Keywords](https://www.mindspore.cn/tutorials/experts/en/master/operation/ms_kernel.html#keywords).
+Notice that custom operators of Hybrid type use the source to source transformation method to connect the graph compiler and the operator compiler. Users can use the keywords of MindSpore Hybrid DSL directly in the script, such as `output_tensor` below, without importing any Python modules. For more information about the keywords, refer to [MindSpore Hybrid DSL Keywords](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/ms_kernel.html#keywords).
 
 ```python
 import numpy as np
@@ -198,7 +198,7 @@ The custom operator of akg type uses the [MindSpore AKG](https://gitee.com/minds
 
 Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic of operator output shape and data type.
 
-If the operator contains attributes or only supports specific input and output data types or data formats, operator information needs to be registered, and for how to generate operator information, see [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_adv.html#registering-the-operator-information). If the operator information is not registered, when operator selection and mapping are made in the backend, the operator information is derived from the input of the current operator.
+If the operator contains attributes or only supports specific input and output data types or data formats, operator information needs to be registered, and for how to generate operator information, see [Registering the Operator Information](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_adv.html#registering-the-operator-information). If the operator information is not registered, when operator selection and mapping are made in the backend, the operator information is derived from the input of the current operator.
 
 The following is an example of the development process of a custom operator of type akg in test_custom_akg.py, where the custom operator implements the addition of two input tensors.
 
@@ -252,7 +252,7 @@ For more complete examples of akg-type custom operators, see the [use cases](htt
 
 ## AOT-Compiled Custom Operator
 
-AOT type of customized operator means that the user compiles the operator into a binary file beforehand and then accesses the network. Usually, users optimize their implementations using programming languages such as C/C++/CUDA and compile their operators as dynamic libraries to accelerate MindSpore networks. As a result, users can perform ultimate optimization on their operators and leverage the performance of the corresponding backend hardware. Here, we will introduce some basic knowledge about AOT type custom operators. For more advanced usage and functionality of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_aot.html).
+AOT type of customized operator means that the user compiles the operator into a binary file beforehand and then accesses the network. Usually, users optimize their implementations using programming languages such as C/C++/CUDA and compile their operators as dynamic libraries to accelerate MindSpore networks. As a result, users can perform ultimate optimization on their operators and leverage the performance of the corresponding backend hardware. Here, we will introduce some basic knowledge about AOT type custom operators. For more advanced usage and functionality of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_aot.html).
 
 ### Defining Custom Operator of aot Type
 
@@ -279,7 +279,7 @@ In the Python script, the format for the `func` input in `Custom` is `Path_To_Fu
 
 Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic.
 
-If the operator only supports some specific input and output data types, the operator information needs to be registered. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_adv.html#registering-the-operator-information).
+If the operator only supports some specific input and output data types, the operator information needs to be registered. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_adv.html#registering-the-operator-information).
 
 The following examples introduce the development process of aot type custom operator on GPU platform and CPU platform, where the custom operator implements the function of adding two input tensors.
 
@@ -452,7 +452,7 @@ The custom operator of julia type uses Julia to describe the internal calculatio
 
 Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic of the operator output shape and the data type.
 
-If the custom operator only supports specific input and output data types, you need to define the operator information. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_adv.html#registering-the-operator-information).
+If the custom operator only supports specific input and output data types, you need to define the operator information. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_adv.html#registering-the-operator-information).
 
 Takes the function of adding two input tensors as an example to introduce how to define a custom operator of julia type.
 

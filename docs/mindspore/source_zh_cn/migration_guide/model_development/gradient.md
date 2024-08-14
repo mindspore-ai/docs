@@ -357,7 +357,7 @@ z.requires_grad True
 ## MindSpore自动微分接口
 
 本节介绍MindSpore提供的三种[自动微分](https://mindspore.cn/tutorials/zh-CN/master/beginner/autograd.html)接口用以计算模型的梯度结果。
-在[自动求导](https://mindspore.cn/tutorials/zh-CN/master/advanced/derivation.html)的教程中，对各种梯度计算的场景做了一些介绍。
+在[自动求导](https://mindspore.cn/docs/zh-CN/master/model_train/train_process/derivation.html)的教程中，对各种梯度计算的场景做了一些介绍。
 
 ### mindspore.grad
 
@@ -639,9 +639,9 @@ grad ((Tensor(shape=[1, 3], dtype=Float32, value=
 
 由于在混合精度的场景，在求梯度的过程中可能会遇到梯度下溢，一般我们会使用loss scale配套梯度求导使用。
 
-> 在Ascend上因为Conv、Sort、TopK等算子只能是float16的，MatMul由于性能问题最好也是float16的，所以建议loss scale操作作为网络训练的标配。[Ascend 上只支持float16的算子列表](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tune.html#4%E8%AE%AD%E7%BB%83%E7%B2%BE%E5%BA%A6)。
+> 在Ascend上因为Conv、Sort、TopK等算子只能是float16的，MatMul由于性能问题最好也是float16的，所以建议loss scale操作作为网络训练的标配。[Ascend 上只支持float16的算子列表](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/acc_debug.html#4%E8%AE%AD%E7%BB%83%E7%B2%BE%E5%BA%A6)。
 >
-> 溢出可以通过MindSpore Insight的[dump数据](https://mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html)获取到溢出算子信息。
+> 溢出可以通过MindSpore Insight的[dump数据](https://mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)获取到溢出算子信息。
 >
 > 一般溢出表现为loss Nan/INF，loss突然变得很大等。
 
@@ -707,4 +707,4 @@ grad = ops.clip_by_global_norm(grad)
 
 梯度累加是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算，用以解决由于内存不足，导致Batch size过大，神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
 
-详情请参考[梯度累加](https://www.mindspore.cn/tutorials/experts/zh-CN/master/optimize/gradient_accumulation.html)。
+详情请参考[梯度累加](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/gradient_accumulation.html)。

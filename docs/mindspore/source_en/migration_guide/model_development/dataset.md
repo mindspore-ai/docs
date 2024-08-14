@@ -6,11 +6,11 @@ This chapter focuses on considerations related to data processing in network mig
 
 [Data Processing](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html)
 
-[Auto Augmentation](https://www.mindspore.cn/tutorials/experts/en/master/dataset/augment.html)
+[Auto Augmentation](https://www.mindspore.cn/docs/en/master/model_train/dataset/augment.html)
 
-[Lightweight Data Processing](https://mindspore.cn/tutorials/en/master/advanced/dataset/eager.html)
+[Lightweight Data Processing](https://mindspore.cn/docs/en/master/model_train/dataset/eager.html)
 
-[Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html)
+[Optimizing the Data Processing](https://www.mindspore.cn/docs/en/master/model_train/dataset/optimize.html)
 
 ## Comparison of Data Processing Differences
 
@@ -19,7 +19,7 @@ The basic process of data construction in MindSpore and PyTorch mainly includes 
 ### Processing Common Datasets
 
 MindSpore provides [interfaces](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html) for loading common datasets from many different domains.
-In addition to the above commonly used datasets in the industry, MindSpore has also developed MindRecord data format to cope with efficient reading, mega data storage and reading scenarios, and you can refer to [MindRecord](https://www.mindspore.cn/tutorials/en/master/advanced/dataset/record.html) . Since this article is to introduce similar APIs and the differences in the writing style, so we have selected one of the more classic dataset APIs as an example of migration comparison. For other dataset interface differences, please refer to the [torchaudio](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#torchaudio), [torchtext](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#torchtext), [torchvision](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#torchvision) modules of PyTorch and MindSpore API mapping table.
+In addition to the above commonly used datasets in the industry, MindSpore has also developed MindRecord data format to cope with efficient reading, mega data storage and reading scenarios, and you can refer to [MindRecord](https://www.mindspore.cn/docs/en/master/model_train/dataset/record.html) . Since this article is to introduce similar APIs and the differences in the writing style, so we have selected one of the more classic dataset APIs as an example of migration comparison. For other dataset interface differences, please refer to the [torchaudio](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#torchaudio), [torchtext](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#torchtext), [torchvision](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html#torchvision) modules of PyTorch and MindSpore API mapping table.
 
 Here is an example of FashionMnistDataset. The following figure shows how to use the PyTorch API (left part), and how to use the MindSpore API (right part). The main reading process is: use FashionMnist API to load the source dataset, then use transforms to transform the data content, and finally according to the batch operation on the dataset. The key parts of the code on both sides are marked with color boxes.
 

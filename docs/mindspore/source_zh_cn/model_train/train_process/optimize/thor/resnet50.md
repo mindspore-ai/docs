@@ -1,6 +1,6 @@
 # 在ResNet-50网络上应用二阶优化实践
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/optimize/thor/resnet50.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/train_process/optimize/thor/resnet50.md)
 
 ## 概述
 
@@ -70,11 +70,11 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 
 #### Atlas训练系列产品
 
-Atlas训练系列产品的分布式环境变量配置参考[rank table启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/rank_table.html)。
+Atlas训练系列产品的分布式环境变量配置参考[rank table启动方式](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/rank_table.html)。
 
 #### GPU
 
-GPU的分布式环境配置参考[mpirun启动方式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/mpirun.html)。
+GPU的分布式环境配置参考[mpirun启动方式](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/mpirun.html)。
 
 ## 加载处理数据集
 

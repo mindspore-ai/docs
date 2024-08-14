@@ -6,9 +6,9 @@
 
 - 性能调试阶段，可能会遇到以下常见问题：
     - 第一个step耗时长
-         这个阶段主要完成图转换、图融合、图优化等操作，是生成可执行模型的过程，可参考[如何优化编译性能](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/static_graph_expert_programming.html#%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E7%BC%96%E8%AF%91%E6%80%A7%E8%83%BD)。
+         这个阶段主要完成图转换、图融合、图优化等操作，是生成可执行模型的过程，可参考[如何优化编译性能](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html#%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E7%BC%96%E8%AF%91%E6%80%A7%E8%83%BD)。
     - 迭代间隙耗时长
-         这个阶段的耗时大部分来源于数据获取，可参考[数据处理性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html)。
+         这个阶段的耗时大部分来源于数据获取，可参考[数据处理性能优化](https://www.mindspore.cn/docs/zh-CN/master/model_train/dataset/optimize.html)。
     - 前反向计算耗时长
          这个阶段主要执行网络中的前向及反向算子，承载了一个迭代的主要计算工作。可通过[Profiler](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling.html)将训练过程中的算子耗时等信息记录到文件中。该性能数据提供框架的host执行、以及算子执行的性能数据，也可通过[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html)可视化界面供用户查看分析，帮助用户更高效地调试神经网络性能。
     - 迭代拖尾耗时长
@@ -53,7 +53,7 @@
 
   混合精度训练方法是通过混合使用单精度和半精度数据格式来加速深度神经网络训练的过程，同时保持了单精度训练所能达到的网络精度。混合精度训练能够加速计算过程，同时减少内存使用和存取，并使得在特定的硬件上可以训练更大的模型或 batch size。
 
-  具体可参考 [混合精度教程](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html)。
+  具体可参考 [混合精度教程](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/mixed_precision.html)。
 
 - 使能图算融合
 
@@ -106,4 +106,4 @@ if rank_size > 1:
 
 关于数据的性能问题，可以参考 MindSpore Insight 组件的 [数据准备性能分析](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析)，其给出了数据性能的常见问题及解决方法。
 
-更多性能调试方法请参考[性能优化](https://www.mindspore.cn/tutorials/experts/zh-CN/master/optimize/execution_opt.html)。
+更多性能调试方法请参考[性能优化](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/train_optimize.html)。

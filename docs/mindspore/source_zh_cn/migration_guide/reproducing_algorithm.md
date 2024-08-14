@@ -82,4 +82,7 @@
 
     - 获取loss下降趋势，帮助验证MindSpore上训练收敛趋势是否ok；
     - 获取参数文件，用于进行转换，进行推理验证，详细过程参考[推理及训练流程](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_evaluation.html)；
-    - 获取性能基线，在做性能优化时有一个基础目标，如需做性能优化，请参考[调试调优](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tune.html)。
+    - 获取性能基线，在做性能优化时有一个基础目标，如需做性能优化，请参考
+      [功能调试](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug.html)、
+      [精度调优](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/acc_debug.html)、
+      [性能调优](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/perf_debug.html)。

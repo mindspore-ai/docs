@@ -1,6 +1,6 @@
 # Static Graph Syntax Support
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/static_graph_syntax_support.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/program_form/static_graph_syntax/static_graph_syntax_support.md)
 
 ## Overview
 
@@ -217,7 +217,7 @@ res: ('H', 'Spore', 'Hello!MindSpore', 'MindSporeMindSpore', True, 'My name is M
 
 ##### List
 
-When 'JIT_SYNTAX_LEVEL' is set to 'LAX', static graph mode can support the inplace operation of some 'List' objects, see [Supporting List Inplace Modification Operations](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supporting-list-inplace-modification-operations).
+When 'JIT_SYNTAX_LEVEL' is set to 'LAX', static graph mode can support the inplace operation of some 'List' objects, see [Supporting List Inplace Modification Operations](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html#supporting-list-inplace-modification-operations).
 
 The basic usage scenarios of 'List' are as follows:
 
@@ -806,7 +806,7 @@ For details about the definition of `Parameter`, click [Parameter API document](
 
 ### Operators
 
-Arithmetic operators and assignment operators support the `Number` and `Tensor` operations, as well as the `Tensor` operations of different `dtype`. For more details, please refer to [Operators](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax/operators.html)
+Arithmetic operators and assignment operators support the `Number` and `Tensor` operations, as well as the `Tensor` operations of different `dtype`. For more details, please refer to [Operators](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/operators.html)
 
 ### Primaries
 
@@ -864,7 +864,7 @@ Index value of `List` refers to chapter [List](#list) of this page.
 
 Index value of `Dictionary` refers to chapter [Dictionary](#dictionary) of this page.
 
-Index value of `Tensor` refers to [Tensor index value document](https://www.mindspore.cn/docs/en/master/note/index_support.html#index-values).
+Index value of `Tensor` refers to [Tensor index value document](https://www.mindspore.cn/docs/en/master/model_train/program_form/index_support.html#index-values).
 
 #### Calls
 
@@ -903,11 +903,11 @@ ret:[[3. 3. 3. 3.]]
 
 ### Statements
 
-Currently supported Python statements include raise statement, assert statement, pass statement, return statement, break statement, continue statement, if statement, for statement, while statement, with statement, list comprehension, generator expression and function definition statement. For more details, please refer to [Statements](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax/statements.html)
+Currently supported Python statements include raise statement, assert statement, pass statement, return statement, break statement, continue statement, if statement, for statement, while statement, with statement, list comprehension, generator expression and function definition statement. For more details, please refer to [Statements](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/statements.html)
 
 ### Python Built-in Functions
 
-Currently supported Python built-in functions include `int`, `float`, `bool`, `str`, `list`, `tuple`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `any`, `round`, `max`, `min` , `sum`, `abs`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, `filter`. The use of built-in functions in graph mode is similar to the corresponding Python built-in functions. For more details, please refer to [Python Built-in Functions](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax/python_builtin_functions.html).
+Currently supported Python built-in functions include `int`, `float`, `bool`, `str`, `list`, `tuple`, `getattr`, `hasattr`, `len`, `isinstance`, `all`, `any`, `round`, `max`, `min` , `sum`, `abs`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, `filter`. The use of built-in functions in graph mode is similar to the corresponding Python built-in functions. For more details, please refer to [Python Built-in Functions](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/python_builtin_functions.html).
 
 ### Network Definition
 
@@ -1038,7 +1038,7 @@ The execution graph in graph mode is converted from source code, and not all Pyt
 
 4. Benchmarking Python built-in data types, except for [Built-in Python Data Types](#built-in-python-data-types) supported in the current graph mode, complex 'complex' and collection 'set' types are not supported. Some high-level uses of the list 'list' and dictionary 'dictionary' are not supported in the basic syntax scenario, and need to be supported when the JIT syntax support level option 'jit_syntax_level' is 'LAX', please refer to the [Extended Syntaxes (LAX level)](#extended-syntaxes-lax-level) section of this article for more information.
 
-5. In the basic syntax scenario, in addition to the [Python Built-in Functions](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax/python_builtin_functions.html) supported in the current graph mode, there are still some built-in functions that are not supported in graph mode. For example: basestring, bin, bytearray, callable, chr, cmp, compile, delattr, dir, divmod, eval, execfile, file, frozenset, hash, hex, id, input, issubclass, iter, locals, long, memoryview, next, object, oct, open, ord, property, raw_input, reduce, reload, repr, reverse, set, slice, sorted, unichr, unicode, vars, xrange, \_\_import\_\_.
+5. In the basic syntax scenario, in addition to the [Python Built-in Functions](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/python_builtin_functions.html) supported in the current graph mode, there are still some built-in functions that are not supported in graph mode. For example: basestring, bin, bytearray, callable, chr, cmp, compile, delattr, dir, divmod, eval, execfile, file, frozenset, hash, hex, id, input, issubclass, iter, locals, long, memoryview, next, object, oct, open, ord, property, raw_input, reduce, reload, repr, reverse, set, slice, sorted, unichr, unicode, vars, xrange, \_\_import\_\_.
 
 6. Python provides a number of third-party libraries that usually need to be called via import statements. In graph mode, when the JIT syntax support level is 'STRICT', you cannot directly use third-party libraries. If you need to use the data types of third-party libraries in graph mode or call methods of third-party libraries, you need to support them only if the JIT syntax support level option 'jit_syntax_level' is 'LAX', please refer to the [Calling the Third-party Libraries](#calling-the-third-party-libraries) section in [Extended Syntaxes (LAX level)](#extended-syntaxes-lax-level) of this article.
 
@@ -1214,7 +1214,7 @@ assert out == 100
 
 ### Basic Operators Support More Data Type
 
-In the syntax of graph mode, the following basic operators in the list is overloaded: ['+', '-', '*', '/', '//', '%', '**', '<<', '>>', '&', '|', '^', 'not', '==', '!=', '<', '>', '<=', '>=', 'in', 'not in', 'y=x[0]']. For more details, please refer to [Operators](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax/operators.html). When getting unsupported input type, those operators need to use extended static graph syntax to support, and make the output consistent with the output in the pynative mode.
+In the syntax of graph mode, the following basic operators in the list is overloaded: ['+', '-', '*', '/', '//', '%', '**', '<<', '>>', '&', '|', '^', 'not', '==', '!=', '<', '>', '<=', '>=', 'in', 'not in', 'y=x[0]']. For more details, please refer to [Operators](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/operators.html). When getting unsupported input type, those operators need to use extended static graph syntax to support, and make the output consistent with the output in the pynative mode.
 
 The code example is as follows.
 
@@ -1450,7 +1450,7 @@ assert res is None
 
 Extend the support for built-in functions. Python built-in functions perfectly support more input types, such as third-party library data types.
 
-For example, in the following example, 'x.asnumpy()' and 'np.ndarray' are both types supported by extensions. More support for built-in functions can be found in the [Python built-in functions](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax/python_builtin_functions.html) section.
+For example, in the following example, 'x.asnumpy()' and 'np.ndarray' are both types supported by extensions. More support for built-in functions can be found in the [Python built-in functions](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/python_builtin_functions.html) section.
 
 ```python
 import numpy as np

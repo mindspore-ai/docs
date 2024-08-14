@@ -1,6 +1,6 @@
 # Ascend C Custom Operator Development and Usage
 
-[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/operation/op_custom_ascendc.md)
+[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/custom_program/operation/op_custom_ascendc.md)
 
 ## Overview
 
@@ -191,8 +191,8 @@ net = CustomNet()
 
 ### Further Reading
 
-- **Custom Operator Registration**: For more information on custom operator registration and the writing of backward functions, please refer to [Custom Operator Registration](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_adv.html).
-- **AOT Custom Operators**: For the implementation of C++ shape inference functions and advanced usage of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom_aot.html).
+- **Custom Operator Registration**: For more information on custom operator registration and the writing of backward functions, please refer to [Custom Operator Registration](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_adv.html).
+- **AOT Custom Operators**: For the implementation of C++ shape inference functions and advanced usage of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_aot.html).
 
 ## Common Issues
 

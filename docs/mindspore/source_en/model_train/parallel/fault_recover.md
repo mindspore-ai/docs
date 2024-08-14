@@ -1,6 +1,6 @@
 # Fault Recovery Based on Redundant Information
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/fault_recover.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/parallel/fault_recover.md)
 
 ## Overview
 
@@ -10,12 +10,12 @@ To solve this problem, one option is to aggregate the weights through the [AllGa
 
 However, for large models, the overhead of using aggregated preservation is too large for all kinds of resources, so this document presents a recovery scheme where each card only saves its own weight information. For large models, both data parallelism and model parallelism are often applied, and the devices divided by the dimensions of data parallelism, which hold exactly the same weight information, provide a redundant backup for large models. This document will also point out how to go about obtaining this redundant information.
 
-For the relationship between the parallel strategy and the slicing division of the weights, the following mapping can be performed. For the concept of data parallelism, model parallelism, please refer to [Operator-level Parallelism](https://www.mindspore.cn/tutorials/experts/en/master/parallel/operator_parallel.html). For more information about optimizer parallelism, please refer to [Optimizer Parallelism](https://www.mindspore.cn/tutorials/experts/en/master/parallel/optimizer_parallel.html).
+For the relationship between the parallel strategy and the slicing division of the weights, the following mapping can be performed. For the concept of data parallelism, model parallelism, please refer to [Operator-level Parallelism](https://www.mindspore.cn/docs/en/master/model_train/parallel/operator_parallel.html). For more information about optimizer parallelism, please refer to [Optimizer Parallelism](https://www.mindspore.cn/docs/en/master/model_train/parallel/optimizer_parallel.html).
 
 - Data parallelism + keep optimizer parallelism off: The ranks in the parallel communication domain hold the same weight slice.
 - Model parallism: The ranks in the parallel communication domain hold different weight slices.
 
-Also, it should be noted that this document introduces the distributed faults recovery scheme, which needs to be used in [sink mode](https://www.mindspore.cn/tutorials/experts/en/master/optimize/execution_opt.html).
+Also, it should be noted that this document introduces the distributed faults recovery scheme, which needs to be used in [sink mode](https://www.mindspore.cn/docs/en/master/model_train/train_process/train_optimize.html).
 
 Related environment variables:
 

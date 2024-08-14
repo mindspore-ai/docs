@@ -1,6 +1,6 @@
 # Double Recursive Strategy Search Algorithm
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/sapp.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/parallel/sapp.md)
 
 ## Overview
 
@@ -239,4 +239,4 @@ In `xx_validate_xxx.ir`, you can see that the input and output tensor of each op
 
 For the first MatMul operator, its two inputs are sliced from the original (256, 784), (512, 784) into (64, 392), (512, 392), and after the transpose of the second input, the output of the operator is (64, 512).
 
-Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/tutorials/experts/en/master/parallel/startup_method.html).
+Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/docs/en/master/model_train/parallel/startup_method.html).

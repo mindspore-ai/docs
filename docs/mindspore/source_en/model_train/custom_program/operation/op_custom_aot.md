@@ -1,12 +1,12 @@
 # Advanced Usage of aot-type Custom Operators
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/operation/op_custom_aot.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/custom_program/operation/op_custom_aot.md)
 
 ## Overview
 
 aot-type custom operators use a pre-compilation approach, which requires developers to write the source code files for the corresponding function based on a specific interface, and compile the source code files in advance into a dynamic link library.
 Then, during network runtime, the framework will automatically call and execute the function in the dynamic link library.
-aot-type custom operators support CUDA language for GPU platforms and C and C++ languages for CPU platforms. For basic knowledge of developing aot-type custom operators, please refer to [basic tutorial](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom.html#defining-custom-operator-of-aot-type).
+aot-type custom operators support CUDA language for GPU platforms and C and C++ languages for CPU platforms. For basic knowledge of developing aot-type custom operators, please refer to [basic tutorial](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom.html#defining-custom-operator-of-aot-type).
 
 In this tutorial, we will demonstrate advanced features of aot-type custom operators, including:
 

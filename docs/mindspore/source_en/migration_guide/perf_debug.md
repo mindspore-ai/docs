@@ -53,7 +53,7 @@ If you find an operator with poor performance, you are advised to contact [MindS
 
   The mixed precision training method accelerates the deep neural network training process by mixing the single-precision floating-point data format and the half-precision floating-point data format without compromising the network accuracy. Mixed precision training can accelerate the computing process, reduce memory usage and retrieval, and enable a larger model or batch size to be trained on specific hardware.
 
-  For details, see [Mixed Precision Tutorial](https://www.mindspore.cn/tutorials/en/master/advanced/mixed_precision.html).
+  For details, see [Mixed Precision Tutorial](https://www.mindspore.cn/tutorials/en/master/beginner/mixed_precision.html).
 
 - Enabling Graph Kernel Fusion
 
@@ -106,4 +106,4 @@ When the data processing speed is slow, the empty queue is gradually consumed fr
 
 For details about data performance problems, see [Data Preparation Performance Analysis](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) of MindSpore Insight. This describes common data performance problems and solutions.
 
-For more performance debugging methods, see [Performance Optimization](https://www.mindspore.cn/tutorials/experts/en/master/optimize/execution_opt.html).
+For more performance debugging methods, see [Performance Optimization](https://www.mindspore.cn/docs/en/master/model_train/train_process/train_optimize.html).

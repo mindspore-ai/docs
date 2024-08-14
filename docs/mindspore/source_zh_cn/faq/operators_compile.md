@@ -59,7 +59,7 @@ A: 在PyTorch中`padding_idx`的作用是将embedding矩阵中`padding_idx`位�
 ## Q: Operations中`Tile`算子执行到`__infer__`时`value`值为`None`，丢失了数值是怎么回事？
 
 A: `Tile`算子的`multiples input`必须是一个常量（该值不能直接或间接来自于图的输入）。否则构图的时候会拿到一个`None`的数据，因为图的输入是在图执行的时候才传下去的，构图的时候拿不到图的输入数据。
-相关的资料可以看[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)。
+相关的资料可以看[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph_syntax/static_graph_syntax_support.html)。
 
 <br/>
 
@@ -71,7 +71,7 @@ A: TBE(Tensor Boost Engine)算子是华为自研的Ascend算子开发工具，�
 
 ## Q: 请问MindSpore实现了反池化操作了吗？类似于`nn.MaxUnpool2d` 这个反池化操作？
 
-A: 目前 MindSpore 还没有反池化相关的接口。用户可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom.html)。
+A: 目前 MindSpore 还没有反池化相关的接口。用户可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom.html)。
 
 <br/>
 
