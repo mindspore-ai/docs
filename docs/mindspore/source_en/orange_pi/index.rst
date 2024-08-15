@@ -1,4 +1,4 @@
-Orange Pi Development Guidance
+Orange Pi Specialization
 ===============================
 
 .. toctree::
