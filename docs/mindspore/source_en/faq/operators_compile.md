@@ -59,7 +59,7 @@ In MindSpore, you can manually initialize the weight corresponding to the `paddi
 
 ## Q: When the `Tile` operator in operations executes `__infer__`, the `value` is `None`. Why is the value lost?
 
-A: The `multiples input` of the `Tile` operator must be a constant (The value cannot directly or indirectly come from the input of the graph). Otherwise, the `None` data will be obtained during graph composition because the graph input is transferred only during graph execution and the input data cannot be obtained during graph composition. For the detailed imformation, refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+A: The `multiples input` of the `Tile` operator must be a constant (The value cannot directly or indirectly come from the input of the graph). Otherwise, the `None` data will be obtained during graph composition because the graph input is transferred only during graph execution and the input data cannot be obtained during graph composition. For the detailed imformation, refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html).
 
 <br/>
 
@@ -71,7 +71,7 @@ A: TBE (Tensor Boost Engine) operator is Huawei's self-developed Ascend operator
 
 ## Q: Has MindSpore implemented the anti-pooling operation similar to `nn.MaxUnpool2d`?
 
-A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Customize Operators](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom.html).
+A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Customize Operators](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom.html).
 
 <br/>
 

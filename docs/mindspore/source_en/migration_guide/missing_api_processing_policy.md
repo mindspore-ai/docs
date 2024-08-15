@@ -234,7 +234,7 @@ The final error is less than 1e-5, which is a reasonable accuracy error.
 
 ## 3. Customize operators
 
-When existing APIs cannot be used for packaging, or the performance of cell encapsulation is poor, you need to customize operators. For details, see [Custom Operators](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom.html).
+When existing APIs cannot be used for packaging, or the performance of cell encapsulation is poor, you need to customize operators. For details, see [Custom Operators](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom.html).
 
 In addition to migrating APIs, you can also use the `aot` development mode of the `Custom` operator to call the PyTorch Aten operator for quick verification. For details, see [Using Third-party Operator Libraries Based on Customized Interfaces](https://www.mindspore.cn/docs/en/master/migration_guide/use_third_party_op.html).
 

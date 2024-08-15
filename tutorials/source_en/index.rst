@@ -21,17 +21,13 @@ MindSpore Tutorial
    beginner/train
    beginner/save_load
    beginner/accelerate_with_static_graph
+   beginner/mixed_precision
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Advanced
-   :titlesonly:
+   :caption: Practical Cases
 
-   advanced/model
-   advanced/modules
-   advanced/dataset
-   advanced/derivation
-   advanced/static_graph_expert_programming
-   advanced/mixed_precision
-   advanced/error_analysis
+   cv
+   nlp
+   generative

@@ -59,8 +59,8 @@
        false: 关闭pipeline树优化
      -
 
-具体用法详见 `单节点数据缓存 <https://mindspore.cn/tutorials/experts/zh-CN/master/dataset/cache.html>`_
-和 `数据处理性能优化 <https://mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize.html>`_ 。
+具体用法详见 `单节点数据缓存 <https://mindspore.cn/docs/zh-CN/master/model_train/dataset/cache.html>`_
+和 `数据处理性能优化 <https://mindspore.cn/docs/zh-CN/master/model_train/dataset/optimize.html>`_ 。
 
 图编译执行
 ----------
@@ -85,7 +85,7 @@
      - 指定静态图模式下哪些模块需要JIT静态编译，其函数方法会被编译成静态计算图
      - String
      - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如：`export MS_JIT_MODULES=mindflow,mindyolo`。
-     - 默认情况下，第三方库之外的模块都会进行JIT静态编译。MindSpore套件等一些模块如 `mindflow`、`mindyolo` 等并不会被视作第三方库，请参考 `调用第三方库 <https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html#%E8%B0%83%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93>`_ 。如果有类似MindSpore套件的模块，内部存在 `nn.Cell`、`@ms.jit` 修饰函数或需要编译成静态计算图的函数方法，可以通过配置该环境变量，使该模块进行JIT静态编译而不会被当成第三方库。
+     - 默认情况下，第三方库之外的模块都会进行JIT静态编译。MindSpore套件等一些模块如 `mindflow`、`mindyolo` 等并不会被视作第三方库，请参考 `调用第三方库 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph.html#%E8%B0%83%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93>`_ 。如果有类似MindSpore套件的模块，内部存在 `nn.Cell`、`@ms.jit` 修饰函数或需要编译成静态计算图的函数方法，可以通过配置该环境变量，使该模块进行JIT静态编译而不会被当成第三方库。
    * - MS_JIT_IGNORE_MODULES
      - 指定静态图模式下哪些模块是第三方库，不进行JIT静态编译，其函数方法会被解释执行。
      - String
@@ -285,13 +285,13 @@ Dump调试
      - 取值
      - 说明
    * - MINDSPORE_DUMP_CONFIG
-     - 指定 `云侧Dump功能 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#同步dump>`_
+     - 指定 `云侧Dump功能 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#同步dump>`_
        或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
      - String
      - 文件路径，支持相对路径与绝对路径
      -
    * - MS_DIAGNOSTIC_DATA_PATH
-     - 使用 `云侧Dump功能 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#同步dump>`_ 时，
+     - 使用 `云侧Dump功能 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#同步dump>`_ 时，
        如果Dump配置文件没有设置 `path` 字段或者设置为空字符串，则 `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump` 就会被当做path的值。
        若Dump配置文件中设置了 `path` 字段，则仍以该字段的实际取值为准。
      - String
@@ -342,7 +342,7 @@ Dump调试
      - 文件路径，支持相对路径与绝对路径
      -
 
-具体用法详见 `Dump功能调试 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html>`_ 。
+具体用法详见 `Dump功能调试 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html>`_ 。
 
 分布式并行
 -----------
@@ -396,7 +396,7 @@ Dump调试
 
        MS_WORKER: 代表Worker进程，一般设置分布式训练进程为此角色。
 
-       MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考 `Parameter Server模式 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html>`_ 。
+       MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考 `Parameter Server模式 <https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/parameter_server_training.html>`_ 。
      - Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。
    * - MS_SCHED_HOST
      - 指定Scheduler的IP地址。
@@ -500,7 +500,7 @@ Dump调试
        delete_depend_list(List[string])：需要被删除的算子名称列表，算子名称不存在或者和graph_id不匹配，删除节点的动作将失效。
 
 
-动态组网相关的具体用法详见 `动态组网 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/dynamic_cluster.html>`_ 。
+动态组网相关的具体用法详见 `动态组网 <https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/dynamic_cluster.html>`_ 。
 
 算子编译
 --------
@@ -724,7 +724,7 @@ Dump调试
 
 注意：glog不支持日志文件的绕接，如果需要控制日志文件对磁盘空间的占用，可选用操作系统提供的日志文件管理工具，例如：Linux的logrotate。请在 `import mindspore` 之前设置日志相关环境变量。
 
-RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/rdr.html#running-data-recorder>`_ 。
+RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/rdr.html#running-data-recorder>`_ 。
 
 特征值检测
 ------------
@@ -764,7 +764,7 @@ RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/
        在不配置该环境变量的默认情况下，`NPU_ASD_SIGMA_THRESH=100000,5000`
      - 
 
-特征值检测的更多内容详见 `特征值检测 <https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/sdc.html>`_ 。
+特征值检测的更多内容详见 `特征值检测 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/sdc.html>`_ 。
 
 三方库
 ------

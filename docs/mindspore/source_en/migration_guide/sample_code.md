@@ -1081,7 +1081,7 @@ MindSpore has three methods to use mixed precision:
 
 1. Use `Cast` to convert the network input `cast` into `float16` and the loss input `cast` into `float32`.
 2. Use the `to_float` method of `Cell`. For details, see [Network Construction](https://www.mindspore.cn/docs/en/master/migration_guide/model_development/model_and_cell.html).
-3. Use the `amp_level` interface of the `Model` to perform mixed precision. For details, see [Automatic Mixed-Precision](https://www.mindspore.cn/tutorials/en/master/advanced/mixed_precision.html#automatic-mix-precision).
+3. Use the `amp_level` interface of the `Model` to perform mixed precision. For details, see [Automatic Mixed-Precision](https://www.mindspore.cn/tutorials/en/master/beginner/mixed_precision.html#automatic-mix-precision).
 
 Use the third method to set `amp_level` in `Model` to `O3` and check the profiler result.
 
@@ -1102,7 +1102,7 @@ If most of the data queues are empty, you need to optimize the data performance.
 
 ![resnet_profiler12](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/migration_guide/images/resnet_profiler12.png)
 
-In the queue of each data processing operation, the last operator and the `batch` operator are empty for a long time. In this case, you can increase the degree of parallelism of the `batch` operator. For details, see [Data Processing Performance Tuning](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html).
+In the queue of each data processing operation, the last operator and the `batch` operator are empty for a long time. In this case, you can increase the degree of parallelism of the `batch` operator. For details, see [Data Processing Performance Tuning](https://www.mindspore.cn/docs/en/master/model_train/dataset/optimize.html).
 
 The code required for ResNet migration can be obtained from [code](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code).
 

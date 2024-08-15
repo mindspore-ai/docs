@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/loss_function.md)
 
-Before reading this chapter, please read the MindSpore official website tutorial first[Loss Function](https://www.mindspore.cn/tutorials/en/master/advanced/modules/loss.html).
+Before reading this chapter, please read the MindSpore official website tutorial first[Loss Function](https://www.mindspore.cn/docs/en/master/model_train/custom_program/loss.html).
 
 The MindSpore official website tutorial on loss functions explains built-in, custom, and multi label loss functions, as well as guidance on their use in model training. Here is a list of differences in functionality and interface between MindSpore's loss function and PyTorch's loss function.
 

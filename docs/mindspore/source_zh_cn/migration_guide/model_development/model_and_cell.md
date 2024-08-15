@@ -538,9 +538,9 @@ x = initializer(Uniform(), [1, 2, 3], mindspore.float32)
 
 ##### 自定义初始化Parameter
 
-MindSpore封装的高阶API里一般会给Parameter一个默认的初始化，当这个初始化分布与需要使用的初始化、PyTorch的初始化不一致，此时需要进行自定义初始化。[网络参数初始化](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/initializer.html#自定义参数初始化)介绍了一种在使用API属性进行初始化的方法，这里介绍一种利用Cell进行Parameter初始化的方法。
+MindSpore封装的高阶API里一般会给Parameter一个默认的初始化，当这个初始化分布与需要使用的初始化、PyTorch的初始化不一致，此时需要进行自定义初始化。[网络参数初始化](https://mindspore.cn/docs/zh-CN/master/model_train/custom_program/initializer.html#自定义参数初始化)介绍了一种在使用API属性进行初始化的方法，这里介绍一种利用Cell进行Parameter初始化的方法。
 
-Parameter的相关介绍请参考[网络参数](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/modules/initializer.html)，本节主要以`Cell`为切入口，举例获取`Cell`中的所有参数，并举例说明怎样给`Cell`里的Parameter进行初始化。
+Parameter的相关介绍请参考[网络参数](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/initializer.html)，本节主要以`Cell`为切入口，举例获取`Cell`中的所有参数，并举例说明怎样给`Cell`里的Parameter进行初始化。
 
 > 注意本节的方法不能在`construct`里执行，在网络中修改Parameter的值请使用[assign](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.assign.html)。
 
@@ -766,7 +766,7 @@ ms_net = mindspore.nn.Dense(3, 4)
 
 `PyNative`模式下模型进行**推理**的行为与一般Python代码无异。但是在训练过程中，注意**一旦将Tensor转换成numpy做其他的运算后将会截断网络的梯度，相当于PyTorch的detach**。
 
-而在使用`GRAPH_MODE`时，通常会出现语法限制。在这种情况下，需要对Python代码进行图编译操作，而这一步操作中MindSpore目前还未能支持完整的Python语法全集，所以`construct`函数的编写会存在部分限制。具体限制内容可以参考[MindSpore静态图语法](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)。
+而在使用`GRAPH_MODE`时，通常会出现语法限制。在这种情况下，需要对Python代码进行图编译操作，而这一步操作中MindSpore目前还未能支持完整的Python语法全集，所以`construct`函数的编写会存在部分限制。具体限制内容可以参考[MindSpore静态图语法](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/static_graph.html)。
 
 相较于详细的语法说明，常见的限制可以归结为以下几点：
 
@@ -881,7 +881,7 @@ dx (Tensor(shape=[2, 5], dtype=Float32, value=
  [0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000]]),)
 ```
 
-下面，我们来演示下如何[自定义反向](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules/layer.html#自定义cell反向)：
+下面，我们来演示下如何[自定义反向](https://mindspore.cn/docs/zh-CN/master/model_train/custom_program/layer.html#自定义cell反向)：
 
 ```python
 import numpy as np

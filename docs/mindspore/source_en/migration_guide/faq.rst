@@ -67,35 +67,35 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
 
   **Q: When using GeneratorDataset or map to load/process data, there may be syntax errors, calculation overflow and other issues that cause data errors, how to troubleshoot and debug?**
 
-  A: Observe the error stack information and locate the error code block from the error stack information, add a print or debugging point near the block of code where the error occurred, to further debugging. For details, please refer to `Data Processing Debugging Method 1 <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html#method-1-errors-in-data-processing-execution,-print-logs-or-add-debug-points-to-code-debugging>`_ .
+  A: Observe the error stack information and locate the error code block from the error stack information, add a print or debugging point near the block of code where the error occurred, to further debugging. For details, please refer to `Data Processing Debugging Method 1 <https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/minddata_debug.html#method-1-errors-in-data-processing-execution,-print-logs-or-add-debug-points-to-code-debugging>`_ .
 
 
   **Q: How to test the each data processing operator in the map operation if data-enhanced map operation error is reported?**
 
-  A: Map operation can be debugged through the execution of individual operators or through data pipeline debugging mode. For details, please refer to `Data Processing Debugging Method 2 <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html#method-2-data-enhanced-map-operation-error,-testing-the-each-data-processing-operator-in-the-map-operation>`_ .
+  A: Map operation can be debugged through the execution of individual operators or through data pipeline debugging mode. For details, please refer to `Data Processing Debugging Method 2 <https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/minddata_debug.html#method-2-data-enhanced-map-operation-error,-testing-the-each-data-processing-operator-in-the-map-operation>`_ .
 
 
   **Q: While training, we will get very many WARNINGs suggesting that our dataset performance is slow, how should we handle this?**
   
-  A: It is possible to iterate through the dataset individually and see the processing time for each piece of data to determine how well the dataset is performing. For details, please refer to `Data Processing Debugging Method 3 <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html#method-3-testing-data-processing-performance>`_ .
+  A: It is possible to iterate through the dataset individually and see the processing time for each piece of data to determine how well the dataset is performing. For details, please refer to `Data Processing Debugging Method 3 <https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/minddata_debug.html#method-3-testing-data-processing-performance>`_ .
 
 
   **Q: In the process of processing data, if abnormal result values are generated due to computational errors, numerical overflow, etc., resulting in operator computation overflow and weight update anomalies during network training, how should we troubleshoot them?**
 
-  A: Turn off shuffling and fix random seeds to ensure reproductivity, and then use tools such as NumPy to quickly verify the results. For details, please refer to `Data Processing Debugging Method 4 <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html#method-4-checking-for-exception-data-in-data-processing>`_ .
+  A: Turn off shuffling and fix random seeds to ensure reproductivity, and then use tools such as NumPy to quickly verify the results. For details, please refer to `Data Processing Debugging Method 4 <https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/minddata_debug.html#method-4-checking-for-exception-data-in-data-processing>`_ .
 
 
-  For more common data processing problems, please refer to `Analyzing Common Data Processing Problems <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/minddata_debug.html#analyzing-common-data-processing-problems>`_ , and for differences in data processing during migration, please refer to `Data Pre-Processing Differences Between MindSpore And PyTorch <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/dataset.html#comparison-of-data-processing-differences>`_ .
+  For more common data processing problems, please refer to `Analyzing Common Data Processing Problems <https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/minddata_debug.html#analyzing-common-data-processing-problems>`_ , and for differences in data processing during migration, please refer to `Data Pre-Processing Differences Between MindSpore And PyTorch <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/dataset.html#comparison-of-data-processing-differences>`_ .
 
 - Gradient Derivation
 
   **Q: How can I implement the backward computation of an operator?**
 
-  A: MindSpore provides an automated interface for gradient derivation, a feature that shields the user from a great deal of the details and process of derivation. However, if there are some special scenarios where the user needs to manually control the calculation of its backward computation, the user can also define its backward computation through the Cell.bprop interface. For details, please refer to `Customize Cell reverse <https://www.mindspore.cn/tutorials/en/master/advanced/modules/layer.html#custom-cell-reverse>`_ .
+  A: MindSpore provides an automated interface for gradient derivation, a feature that shields the user from a great deal of the details and process of derivation. However, if there are some special scenarios where the user needs to manually control the calculation of its backward computation, the user can also define its backward computation through the Cell.bprop interface. For details, please refer to `Customize Cell reverse <https://www.mindspore.cn/docs/en/master/model_train/custom_program/layer.html#custom-cell-reverse>`_ .
 
   **Q: How to deal with training instability due to gradient overflow?**
 
-  A: Network overflows are usually manifested as loss Nan/INF, the loss suddenly becomes very large. MindSpore provides `dump data <https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html>`_ to get the information about the overflow operator information. When there is gradient underflow in the network, we can use loss scale to support gradient derivation. For details, please refer to `loss scale <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/gradient.html#loss-scale>`_; When the network has gradient explosion, you can consider adding gradient trimming. For details, please refer to `gradient cropping <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/gradient.html#gradient-cropping>`_ .
+  A: Network overflows are usually manifested as loss Nan/INF, the loss suddenly becomes very large. MindSpore provides `dump data <https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html>`_ to get the information about the overflow operator information. When there is gradient underflow in the network, we can use loss scale to support gradient derivation. For details, please refer to `loss scale <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/gradient.html#loss-scale>`_; When the network has gradient explosion, you can consider adding gradient trimming. For details, please refer to `gradient cropping <https://www.mindspore.cn/docs/en/master/migration_guide/model_development/gradient.html#gradient-cropping>`_ .
 
 - Debugging and Tuning
 
@@ -134,11 +134,14 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
 
   `MindSpore Model Accuracy Tuning Practice (3): Common Accuracy Problems <https://www.hiascend.com/forum/thread-0235121941523411032-1-1.html>`_.
 
-  For more debugging and tuning FAQs, please refer to `Tuning FAQs and Solutions <https://www.mindspore.cn/docs/en/master/migration_guide/debug_and_tune.html#debugging-tools>`_ .
+  For more debugging and tuning FAQs, please refer to
+  `Function Debugging <https://www.mindspore.cn/docs/en/master/migration_guide/debug.html>`_,
+  `Precision Tuning <https://www.mindspore.cn/docs/en/master/migration_guide/acc_debug.html>`_,
+  `Performance Tuning <https://www.mindspore.cn/docs/en/master/migration_guide/perf_debug.html>`_ .
 
   **Q: During model training, the first step takes a long time, how to optimize it?**
 
-  A: During the model training process, the first step contains the network compilation time. If you want to optimize the performance of the first step, you can analyze whether the model compilation can be optimized. For details, please refer to `Static graph network compilation performance optimization <https://www.mindspore.cn/tutorials/en/master/advanced/static_graph_expert_programming.html>`_.
+  A: During the model training process, the first step contains the network compilation time. If you want to optimize the performance of the first step, you can analyze whether the model compilation can be optimized. For details, please refer to `Static graph network compilation performance optimization <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html>`_.
 
   **Q: The non-first step takes a long time during model training, how to optimize it?**
 
@@ -176,7 +179,7 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
       loss = loss/response_gt
       return loss
 
-  See `Static diagram syntax support <https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html>`_ for details.
+  See `Static diagram syntax support <https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html>`_ for details.
 
   **Q: What can I do if the error is reported during training: RuntimeError: "Launch kernel failed, name:Default/... What to do" ?**
 
@@ -190,7 +193,7 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
 
   A: There are many reasons for static graph errors, and the general failure will be printed in the log. If you can't intuitively get the error information from the log, you can analyze it by export GLOG_v=1 to specify the log level to get more detailed information about the error.
 
-  Meanwhile, when the compilation of computational graphs reports errors, it will automatically save the file analyze_failed.ir, which can help to analyze the location of the error code. For more details, please refer to `Static Graph Mode Error Analysis <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/error_scenario_analysis.html>`_.
+  Meanwhile, when the compilation of computational graphs reports errors, it will automatically save the file analyze_failed.ir, which can help to analyze the location of the error code. For more details, please refer to `Static Graph Mode Error Analysis <https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/error_scenario_analysis.html>`_.
 
   **Q: Out Of Memory error is reported during Graph mode static graph training, what should I do?**
 
@@ -200,6 +203,6 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
      
   When there is not enough memory, try lowering the batch_size; analyze the memory to see if there are too many communication operators resulting in low overall memory reuse.
      
-  For more details, please refer to `Analysis of the problem of insufficient resources <https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/mindrt_debug.html#insufficient-resources>`_ .
+  For more details, please refer to `Analysis of the problem of insufficient resources <https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/mindrt_debug.html#insufficient-resources>`_ .
 
   See `Execution Issues <https://www.mindspore.cn/docs/en/master/faq/implement_problem.html>`_ for more tuning FAQs.

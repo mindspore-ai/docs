@@ -58,7 +58,7 @@ Step 1：Please jump to the `step interval` tab on the `data preparation details
 
 - If there is no time-consuming customized logic in the script, it indicates that sending data from host to device is time-consuming, please feedback to the [MindSpore Community](https://gitee.com/mindspore/mindspore/issues).
 
-Step 2：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operation has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html) and try to optimize the data processing performance.
+Step 2：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operation has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/docs/en/master/model_train/dataset/optimize.html) and try to optimize the data processing performance.
 
 #### Data Sinking Mode
 
@@ -69,7 +69,7 @@ Step 1：Please jump to the `step interval` tab on the `data preparation details
 
 Step 2: See how the size curve changes in the host queue. If none of the size in the queue is 0, it indicates that the process by which training data is sent from host to device is a performance bottleneck, please feedback to the [MindSpore Community](https://gitee.com/mindspore/mindspore/issues). Otherwise it indicates that the data processing process is the performance bottleneck, please refer to Step 3 to continue to locate which operation of data processing has performance problems.
 
-Step 3：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operation has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html) and try to optimize the data processing performance.
+Step 3：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operation has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/docs/en/master/model_train/dataset/optimize.html) and try to optimize the data processing performance.
 
 ### Long Forward And Backward Propagation
 
@@ -125,7 +125,7 @@ Step 2：Observe the forward and backward propagation in the cluster step trace 
 Step 3: Observe the step tail in the cluster step trace page
 
 - Users should make sure if the step tail of one device is much longer than others first. If it is, it usually caused by slow node in the cluster. Users can refer to Step 1 and Step 2 to find the slow node.
-- If the step tail of all devices are essentially the same, and the phase is time-consuming, it is usually due to the long time taken by the AllReduce collective communication operators. Users can try to modify the all_reduce_fusion_config parameter to optimize the performance, and change [AllReduce Fusion Sharding Strategy](https://mindspore.cn/tutorials/experts/en/master/parallel/overview.html) to reduce the time spent in this phase.
+- If the step tail of all devices are essentially the same, and the phase is time-consuming, it is usually due to the long time taken by the AllReduce collective communication operators. Users can try to modify the all_reduce_fusion_config parameter to optimize the performance, and change [AllReduce Fusion Sharding Strategy](https://mindspore.cn/docs/en/master/model_train/parallel/overview.html) to reduce the time spent in this phase.
 
 ### Model Parallel
 
@@ -143,7 +143,7 @@ Please refer to step 2 of [Data Parallel](#data-parallel).
 Step 3: Observe the pure communication time in the cluster step trace page
 
 On the premise of confirming that there is no slow node through step 1 and step 2, the pure communication time of each card in the cluster should be basically the same. If this phase takes a short time, it means that the communication time caused by re-distribution of operators is very short, and users do not need to consider optimizing the parallel strategy. Otherwise, users need to focus on analyzing whether the parallel strategy can be optimized.
-Users need to have a certain understanding of the principle of model parallelism before continue to analyse. Please refer to [Distributed Training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/overview.html) for the basic principles. The following steps are only to assist users in rationality analysis. Whether the parallel strategy has room for optimization and how to optimize it need users to make a judgment after specific analysis of their respective networks.
+Users need to have a certain understanding of the principle of model parallelism before continue to analyse. Please refer to [Distributed Training](https://www.mindspore.cn/docs/en/master/model_train/parallel/overview.html) for the basic principles. The following steps are only to assist users in rationality analysis. Whether the parallel strategy has room for optimization and how to optimize it need users to make a judgment after specific analysis of their respective networks.
 
 - If this stage takes a long time, the user can choose any one of the devices and observe its timeline. In the timeline, MindSpore Insight marks the pure communication time, refer to `Pure Communication Op` below.
 

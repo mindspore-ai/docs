@@ -234,7 +234,7 @@ test_compare(pred, target, weight, gamma=2.0, alpha=0.25, reduction='none', avg_
 
 ## 3. 自定义算子
 
-当有些情况无法使用已有的API进行包装，或者用Cell封装的方式性能非常差，这个时候就需要使用自定义算子，详情请参考Custom算子的[使用指南](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom.html)。
+当有些情况无法使用已有的API进行包装，或者用Cell封装的方式性能非常差，这个时候就需要使用自定义算子，详情请参考Custom算子的[使用指南](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom.html)。
 
 除了可以自己迁移实现API，也可以利用`Custom`算子的`aot`开发方式调用PyTorch Aten的算子进行快速验证，请参考[基于自定义算子接口调用第三方算子库](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/use_third_party_op.html)。
 

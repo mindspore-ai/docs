@@ -189,7 +189,7 @@ ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
 A: The data schema can be defined as follows:`cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
 Note: A label is an array of the numpy type, where label values 1, 1, 0, 1, 0, 1 are stored. These label values correspond to the same data, that is, the binary value of the same image.
-For details, see [Converting Dataset to MindRecord](https://www.mindspore.cn/tutorials/en/master/advanced/dataset/record.html#converting-dataset-to-mindrecord).
+For details, see [Converting Dataset to MindRecord](https://www.mindspore.cn/docs/en/master/model_train/dataset/record.html#converting-dataset-to-mindrecord).
 
 <br/>
 
@@ -201,7 +201,7 @@ A: The MNIST gray scale image dataset is used for MindSpore training. Therefore,
 
 ## Q: Can you introduce the data processing framework in MindSpore?
 
-A: MindSpore Dataset module makes it easy for users to define data preprocessing pipelines and transform samples efficiently with multiprocessing or multithreading. MindSpore Dataset also provides variable APIs for users to load and process datasets, more introduction please refer to [MindSpore Dataset](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#introduction-to-data-processing-pipeline). If you want to further study the performance optimization of dataset pipeline, please read [Optimizing Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html).
+A: MindSpore Dataset module makes it easy for users to define data preprocessing pipelines and transform samples efficiently with multiprocessing or multithreading. MindSpore Dataset also provides variable APIs for users to load and process datasets, more introduction please refer to [MindSpore Dataset](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#introduction-to-data-processing-pipeline). If you want to further study the performance optimization of dataset pipeline, please read [Optimizing Data Processing](https://www.mindspore.cn/docs/en/master/model_train/dataset/optimize.html).
 
 <br/>
 
@@ -498,7 +498,7 @@ A: When using the data sinking mode (where `data preprocessing` -> `sending queu
     2022-05-09-11:36:01.893.412 -> 2022-05-09-11:36:02.006.771
     ```
 
-    Improvement method: View the time difference between the last item of `push_end_time` and GetNext error reporting time. If the default GetNext timeout is exceeded (default: 1900s, and can be modified through `mindspore.set_context(op_timeout=xx)`), it indicates poor data preprocessing performance. Please refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html) to improve data preprocessing performance.
+    Improvement method: View the time difference between the last item of `push_end_time` and GetNext error reporting time. If the default GetNext timeout is exceeded (default: 1900s, and can be modified through `mindspore.set_context(op_timeout=xx)`), it indicates poor data preprocessing performance. Please refer to [Optimizing the Data Processing](https://www.mindspore.cn/docs/en/master/model_train/dataset/optimize.html) to improve data preprocessing performance.
 
 4. When the log output is similar to the following, it indicates that data preprocessing has generated 182 batches of data and the 183st batch of data is being sent to the device. And the `device_queue` shows that there is sufficient data cache on the device side.
 
@@ -548,7 +548,7 @@ A: When using the data sinking mode (where `data preprocessing` -> `sending queu
     2022-05-09-14:31:04.064.571 ->
     ```
 
-    Improvement method: Please refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html) to improve data preprocessing performance.
+    Improvement method: Please refer to [Optimizing the Data Processing](https://www.mindspore.cn/docs/en/master/model_train/dataset/optimize.html) to improve data preprocessing performance.
 
 <br/>
 

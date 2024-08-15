@@ -49,7 +49,7 @@ The training process of the whole network consists of 5 modules:
    details and procedures and greatly reduces the threshold of
    framework. When you need to customize the gradient, MindSpore also
    provides
-   `interface <https://www.mindspore.cn/tutorials/en/master/advanced/modules/layer.html#custom-cell-reverse>`__
+   `interface <https://www.mindspore.cn/docs/en/master/model_train/custom_program/layer.html#custom-cell-reverse>`__
    to freely implement the gradient calculation.
 
 -  Optimizer: used to calculate and update network parameters during
@@ -199,7 +199,7 @@ for the following situations:
    precision.
 4. In Ascend environment, Conv, Sort and TopK can only be float16, and
    add `loss
-   scale <https://www.mindspore.cn/tutorials/zh-CN/master/advanced/mixed_precision.html>`__
+   scale <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/mixed_precision.html>`__
    to avoid overflow.
 5. In the Ascend environment, operators with the stride property such as
    Conv and Pooling have rules about the length of the stride, which

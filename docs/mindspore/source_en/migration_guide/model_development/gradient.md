@@ -358,7 +358,7 @@ MindSpore does not require this function. MindSpore is an automatic differentiat
 ## Automatic Differentiation Interfaces
 
 After the forward network is constructed, MindSpore provides an interface to [automatic differentiation](https://mindspore.cn/tutorials/en/master/beginner/autograd.html) to calculate the gradient results of the model.
-In the tutorial of [automatic derivation](https://mindspore.cn/tutorials/en/master/advanced/derivation.html), some descriptions of various gradient calculation scenarios are given.
+In the tutorial of [automatic derivation](https://mindspore.cn/docs/en/master/model_train/train_process/derivation.html), some descriptions of various gradient calculation scenarios are given.
 
 ### mindspore.grad
 
@@ -640,9 +640,9 @@ This function is similar to the function of grad, and it is not recommended in t
 
 Since the gradient overflow may be encountered in the process of finding the gradient in the mixed accuracy scenario, we generally use the loss scale to accompany the gradient derivation.
 
-> On Ascend, because operators such as Conv, Sort, and TopK can only be float16, and MatMul is preferably float16 due to performance issues, it is recommended that loss scale operations be used as standard for network training. [List of operators on Ascend only support float16][https://www.mindspore.cn/docs/en/master/migration_guide/debug_and_tune.html#4-training-accuracy].
+> On Ascend, because operators such as Conv, Sort, and TopK can only be float16, and MatMul is preferably float16 due to performance issues, it is recommended that loss scale operations be used as standard for network training. [List of operators on Ascend only support float16][https://www.mindspore.cn/docs/en/master/migration_guide/acc_debug.html#4-training-accuracy].
 >
-> The overflow can obtain overflow operator information via MindSpore Insight [dump data](https://mindspore.cn/tutorials/experts/en/master/debug/dump.html).
+> The overflow can obtain overflow operator information via MindSpore Insight [dump data](https://mindspore.cn/docs/en/master/model_train/debug/dump.html).
 >
 > General overflow manifests itself as loss Nan/INF, loss suddenly becomes large, etc.
 
@@ -708,4 +708,4 @@ grad = ops.clip_by_global_norm(grad)
 
 Gradient accumulation is a way that data samples of a kind of training neural network is split into several small Batches by Batch, and then calculated in order to solve the OOM (Out Of Memory) problem that due to the lack of memory, resulting in too large Batch size, the neural network can not be trained or the network model is too large to load.
 
-For detailed, refer to [Gradient Accumulation](https://www.mindspore.cn/tutorials/experts/en/master/optimize/gradient_accumulation.html).
+For detailed, refer to [Gradient Accumulation](https://www.mindspore.cn/docs/en/master/model_train/train_process/optimize/gradient_accumulation.html).

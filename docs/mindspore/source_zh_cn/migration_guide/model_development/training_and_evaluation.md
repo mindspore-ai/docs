@@ -336,8 +336,8 @@ mpirun --allow-run-as-root -n $RANK_SIZE python ../train.py --config_path=$CONFI
 
 如果在GPU上，可以通过`export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7`来设置使用哪些卡，Ascend上目前不支持指定卡号。
 
-详情请参考[分布式案例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_case.html)。
+详情请参考[分布式案例](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/distributed_case.html)。
 
 ## 离线推理
 
-除了可以在线推理外，MindSpore提供了很多离线推理的方法适用于不同的环境，详情请参考[模型推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/inference.html)。
+除了可以在线推理外，MindSpore提供了很多离线推理的方法适用于不同的环境，详情请参考[模型推理](https://www.mindspore.cn/docs/zh-CN/master/model_infer/overview.html)。

@@ -4,7 +4,7 @@
 
 ## Q: What is the set of syntaxes supported by static graph mode?
 
-A: Static graph mode can support a subset of common Python syntax to support the construction and training of neural networks. Some Python syntax is not supported yet. For more detailed supported syntax set, please refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html). In order to facilitate users to choose whether to extend the static graph syntax, the static graph mode provides JIT syntax support level options. For some network scenarios, it is recommended to use basic syntax (nn/ops, etc.) rather than extended syntax (such as numpy third-party library). In addition, it is recommended to use [Advanced Programming Techniques with Static Graphs](https://www.mindspore.cn/tutorials/en/master/advanced/static_graph_expert_programming.html) to optimize compilation performance.
+A: Static graph mode can support a subset of common Python syntax to support the construction and training of neural networks. Some Python syntax is not supported yet. For more detailed supported syntax set, please refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html). In order to facilitate users to choose whether to extend the static graph syntax, the static graph mode provides JIT syntax support level options. For some network scenarios, it is recommended to use basic syntax (nn/ops, etc.) rather than extended syntax (such as numpy third-party library). In addition, it is recommended to use [Advanced Programming Techniques with Static Graphs](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html) to optimize compilation performance.
 
 <br/>
 
@@ -531,7 +531,7 @@ net = Net()
 out = net(Tensor(x))
 ```
 
-3) If a function decorated with a @jit decorator is called in a custom class, an error will be reported. In this scenario, it is recommended to add @jit_class decorators to custom classes in the network and avoid the JIT Fallback feature. For more use of custom classes, please refer to [Supporting the Use of Custom Classes](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#supporting-the-use-of-custom-classes). The use of jit_class decorators can be referred to [Use jit_class](https://www.mindspore.cn/tutorials/en/master/advanced/static_graph_expert_programming.html#using-jit-class).
+3) If a function decorated with a @jit decorator is called in a custom class, an error will be reported. In this scenario, it is recommended to add @jit_class decorators to custom classes in the network and avoid the JIT Fallback feature. For more use of custom classes, please refer to [Supporting the Use of Custom Classes](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html#supporting-the-use-of-custom-classes). The use of jit_class decorators can be referred to [Use jit_class](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html#using-jit-class).
 
 ```python
 import mindspore as ms
@@ -772,7 +772,7 @@ A: The following scenarios will trigger recompilation:
 
 ## Q: How to determine how many graphs there are in static graph mode? When will the subgraph be divided? What is the impact of multiple subgraphs? How to avoid multiple subgraphs?
 
-A: 1. The number of subgraphs can be obtained by viewing the IR file and searching for "Total subgraphs". For how to view and analyze IR files, please refer to [MindSpore IR Introduction](https://www.mindspore.cn/tutorials/en/master/advanced/error_analysis/mindir.html)
+A: 1. The number of subgraphs can be obtained by viewing the IR file and searching for "Total subgraphs". For how to view and analyze IR files, please refer to [MindSpore IR Introduction](https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/mindir.html)
 
 2. Subgraph segmentation in static graph mode is common in control flow scenarios, such as if/while. In addition to manual writing by users, the control flow syntax within the MindSpore may also lead to dividing into multiple subgraphs.
 
