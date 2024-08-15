@@ -431,7 +431,6 @@ release_source = f'[![View Source On Gitee](https://mindspore-website.obs.cn-nor
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 if len(re.findall("\n## (.*?)\n",data)) > 1:
-    data = re.sub("\n## MindSpore 2.3.1 [\s\S\n]*?\n## ", "\n## ", data)
     content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
     repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
     content_new = ''
