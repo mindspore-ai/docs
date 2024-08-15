@@ -10,7 +10,7 @@ The basic logic of PyTorch and MindSpore is shown below:
 
 It can be seen that PyTorch and MindSpore generally require network definition, forward computation, backward computation, and gradient update steps in the implementation process.
 
-- Network definition: In the network definition, the desired forward network, loss function, and optimizer are generally defined. To define the forward network in Net(), PyTorch network inherits from nn.Module; similarly, MindSpore network inherits from nn.Cell. In MindSpore, the loss function and optimizers can be customized in addition to using those provided in MindSpore. You can refer to [Model Module Customization](https://mindspore.cn/tutorials/en/master/advanced/modules.html). Interfaces such as functional/nn can be used to splice the required forward networks, loss functions and optimizers.
+- Network definition: In the network definition, the desired forward network, loss function, and optimizer are generally defined. To define the forward network in Net(), PyTorch network inherits from nn.Module; similarly, MindSpore network inherits from nn.Cell. In MindSpore, the loss function and optimizers can be customized in addition to using those provided in MindSpore. You can refer to [Model Module Customization](https://mindspore.cn/docs/en/master/model_train/index.html). Interfaces such as functional/nn can be used to splice the required forward networks, loss functions and optimizers.
 
 - Forward computation: Run the instantiated network to get the logit, and use the logit and target as inputs to calculate the loss. It should be noted that if the forward function has more than one output, you need to pay attention to the effect of more than one output on the result when calculating the backward function.
 

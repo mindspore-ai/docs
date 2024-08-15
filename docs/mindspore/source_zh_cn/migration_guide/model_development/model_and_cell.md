@@ -10,7 +10,7 @@ PyTorch和MindSpore的基础逻辑如下图所示：
 
 可以看到，PyTorch和MindSpore在实现流程中一般都需要网络定义、正向计算、反向计算、梯度更新等步骤。
 
-- 网络定义：在网络定义中，一般会定义出需要的前向网络，损失函数和优化器。在Net()中定义前向网络，PyTorch的网络继承nn.Module；类似地，MindSpore的网络继承nn.Cell。在MindSpore中，损失函数和优化器除了使用MindSpore中提供的外，用户还可以使用自定义的优化器。可参考[模型模块自定义](https://mindspore.cn/tutorials/zh-CN/master/advanced/modules.html)。可以使用functional/nn等接口拼接需要的前向网络、损失函数和优化器。
+- 网络定义：在网络定义中，一般会定义出需要的前向网络，损失函数和优化器。在Net()中定义前向网络，PyTorch的网络继承nn.Module；类似地，MindSpore的网络继承nn.Cell。在MindSpore中，损失函数和优化器除了使用MindSpore中提供的外，用户还可以使用自定义的优化器。可参考[模型模块自定义](https://mindspore.cn/docs/zh-CN/master/model_train/index.html)。可以使用functional/nn等接口拼接需要的前向网络、损失函数和优化器。
 
 - 正向计算：运行实例化后的网络，可以得到logit，将logit和target作为输入计算loss。需要注意的是，如果正向计算的函数有多个输出，在反向计算时需要注意多个输出对于计算结果的影响。
 
