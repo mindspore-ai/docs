@@ -20,7 +20,7 @@ class torch.utils.data.DataLoader(
 class mindspore.dataset.GeneratorDataset(
     source, column_names=None, column_types=None, schema=None,
     num_samples=None, num_parallel_workers=1, shuffle=None, sampler=None,
-    num_shards=None, shard_id=None, python_multiprocessing=True, max_rowsize=6)
+    num_shards=None, shard_id=None, python_multiprocessing=True, max_rowsize=None)
 ```
 
 更多内容详见[mindspore.dataset.GeneratorDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)。
