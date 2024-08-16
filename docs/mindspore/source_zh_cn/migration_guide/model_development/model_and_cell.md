@@ -881,7 +881,7 @@ dx (Tensor(shape=[2, 5], dtype=Float32, value=
  [0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000]]),)
 ```
 
-下面，我们来演示下如何[自定义反向](https://mindspore.cn/docs/zh-CN/master/model_train/custom_program/layer.html#自定义cell反向)：
+下面，我们来演示下如何[自定义反向](https://mindspore.cn/docs/zh-CN/master/model_train/custom_program/network_custom.html#自定义cell反向)：
 
 ```python
 import numpy as np

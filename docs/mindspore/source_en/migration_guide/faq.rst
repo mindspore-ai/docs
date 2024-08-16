@@ -91,7 +91,7 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
 
   **Q: How can I implement the backward computation of an operator?**
 
-  A: MindSpore provides an automated interface for gradient derivation, a feature that shields the user from a great deal of the details and process of derivation. However, if there are some special scenarios where the user needs to manually control the calculation of its backward computation, the user can also define its backward computation through the Cell.bprop interface. For details, please refer to `Customize Cell reverse <https://www.mindspore.cn/docs/en/master/model_train/custom_program/layer.html#custom-cell-reverse>`_ .
+  A: MindSpore provides an automated interface for gradient derivation, a feature that shields the user from a great deal of the details and process of derivation. However, if there are some special scenarios where the user needs to manually control the calculation of its backward computation, the user can also define its backward computation through the Cell.bprop interface. For details, please refer to `Customize Cell reverse <https://www.mindspore.cn/docs/en/master/model_train/custom_program/network_custom.html#custom-cell-reverse>`_ .
 
   **Q: How to deal with training instability due to gradient overflow?**
 

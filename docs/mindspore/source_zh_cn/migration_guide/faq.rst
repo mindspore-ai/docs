@@ -92,7 +92,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 如何自己实现算子的反向计算？**
 
-  A: MindSpore提供了自动的梯度求导接口，该功能对用户屏蔽了大量的求导细节和过程。但如果有某些特殊场景，用户需要手动控制其反向的计算，用户也可以通过Cell.bprop接口对其反向进行定义。详细可参考 `自定义Cell反向 <https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/layer.html#%E8%87%AA%E5%AE%9A%E4%B9%89cell%E5%8F%8D%E5%90%91>`_ 。
+  A: MindSpore提供了自动的梯度求导接口，该功能对用户屏蔽了大量的求导细节和过程。但如果有某些特殊场景，用户需要手动控制其反向的计算，用户也可以通过Cell.bprop接口对其反向进行定义。详细可参考 `自定义Cell反向 <https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/network_custom.html#%E8%87%AA%E5%AE%9A%E4%B9%89cell%E5%8F%8D%E5%90%91>`_ 。
 
   **Q: 如何处理梯度溢出造成训练不稳定的问题？**
 

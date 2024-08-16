@@ -86,7 +86,7 @@ Complete support for third-party libraries such as NumPy and SciPy. The static g
 - Supporting creating Tensor instances by using the data types of the third-party library NumPy.
 - The assignment of subscripts for data types in third-party libraries is not currently supported.
 
-For more usage, please refer to the [Calling the Third-party Libraries](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html#calling-the-third-party-libraries) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html).
+For more usage, please refer to the [Calling the Third-party Libraries](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html#calling-the-third-party-libraries-1) section in [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html).
 
 ### Supporting the Use of Custom Classes
 

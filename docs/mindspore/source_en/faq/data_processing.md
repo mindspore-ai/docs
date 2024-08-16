@@ -189,7 +189,7 @@ ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
 A: The data schema can be defined as follows:`cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
 Note: A label is an array of the numpy type, where label values 1, 1, 0, 1, 0, 1 are stored. These label values correspond to the same data, that is, the binary value of the same image.
-For details, see [Converting Dataset to MindRecord](https://www.mindspore.cn/docs/en/master/model_train/dataset/record.html#converting-dataset-to-mindrecord).
+For details, see [Converting Dataset to MindRecord](https://www.mindspore.cn/docs/en/master/model_train/dataset/record.html#Converting-Dataset-to-Record-Format).
 
 <br/>
 
