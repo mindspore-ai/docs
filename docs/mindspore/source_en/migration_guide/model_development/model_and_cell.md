@@ -881,7 +881,7 @@ dx (Tensor(shape=[2, 5], dtype=Float32, value=
  [0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000]]),)
 ```
 
-Now, let's see how to [customize backward network construction](https://www.mindspore.cn/docs/en/master/model_train/custom_program/layer.html#custom-cell-reverse).
+Now, let's see how to [customize backward network construction](https://www.mindspore.cn/docs/en/master/model_train/custom_program/network_custom.html#custom-cell-reverse).
 
 ```python
 import numpy as np
