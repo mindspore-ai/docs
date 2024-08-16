@@ -17,7 +17,7 @@ def get_api(fullname):
     try:
         api = eval(f"module_import.{api_name}")
     except AttributeError:
-        print(f'failed to import {api_name}')
+        print(f'failed to {module_import}.{api_name}')
         return ''
     return api
 
