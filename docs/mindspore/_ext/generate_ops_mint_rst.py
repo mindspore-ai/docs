@@ -29,7 +29,11 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need='all'):
                     modulename += '.functional'
                 mint_ops_dict[modulename] = []
                 # pylint: disable=eval-used
-                reg_all = eval(f"{modulename}.__all__")
+                try:
+                    reg_all = eval(f"{modulename}.__all__")
+                except AttributeError as e:
+                    print(f'模块名有误：{e}')
+                    continue
                 one_p = re.findall(r'from mindspore\.(ops|nn).*?(?<!extend) import (.*?)(\n|# )', content)
                 two_p = [i[1] for i in one_p]
                 for i in two_p:

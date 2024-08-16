@@ -175,13 +175,15 @@ arXiv:2209.11807v1 [cs.LG] 23 sep 2022.
 .. toctree::
    :maxdepth: 1
    :caption: 快速入门
+   :hidden:
 
-    quick_start/quick_start
+   quick_start/quick_start
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: 使用者指南
+   :hidden:
 
    user/molecular_generation
    user/molecular_prediction
@@ -189,6 +191,7 @@ arXiv:2209.11807v1 [cs.LG] 23 sep 2022.
 .. toctree::
    :maxdepth: 1
    :caption: API参考
+   :hidden:
 
    mindchemistry.cell
    mindchemistry.e3
@@ -199,5 +202,6 @@ arXiv:2209.11807v1 [cs.LG] 23 sep 2022.
    :glob:
    :maxdepth: 1
    :caption: RELEASE NOTES
+   :hidden:
 
    RELEASE
