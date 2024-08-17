@@ -181,7 +181,8 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
             "input_output": 0,
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7],
-            "statistic_category": ["max", "min", "l2norm"]
+            "statistic_category": ["max", "min", "l2norm"],
+            "overflow_number": 0
         },
         "e2e_dump_settings": {
             "enable": true,
@@ -222,8 +223,9 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
       以上除了标记了支持device统计的，其它都仅支持在host统计。
       该字段为可选，默认值为["max", "min", "l2norm"]。
 
+    - `overflow_number`：指定溢出dump的数据个数。该字段仅在`op_debug_mode`设置为3，只保存溢出算子时需要配置，可控制溢出数据按时间序dump，到指定数值后溢出数据不再dump。默认值为0，表示dump全部溢出数据。
     - `enable`：设置成true，表示开启同步Dump；设置成false时，在Ascend上会使用异步Dump，在GPU上仍然使用同步Dump。
-    - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`True`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`False`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换。默认值：true。
+    - `trans_flag`：开启格式转换，将设备上的数据格式转换成NCHW格式。若为`True`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`False`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换。默认值：true。
     - `stat_calc_mode`：选择统计信息计算后端，可选"host"和"device"。选择"device"后可以使能device计算统计信息，当前只在Ascend生效，只支持`min/max/avg/l2norm`统计量。
     - `sample_mode`：设置成0，表示不开启切片dump功能；设置成1时，在图编译等级为O0或O1的情况下开启切片dump功能。仅在op_debug_mode设置为0时生效，其它场景不会开启切片dump功能。
     - `sample_num`：用于控制切片dump中切片的大小。默认值为100。
@@ -517,7 +519,8 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7],
             "statistic_category": ["max", "min", "l2norm"],
-            "file_format": "npy"
+            "file_format": "npy",
+            "overflow_number": 0
         }
     }
     ```
@@ -551,6 +554,7 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
       该字段为可选，默认值为["max", "min", "l2norm"]。
 
     - `file_format`: dump数据的文件类型，只支持`npy`和`bin`两种取值。设置成`npy`，则dump出的算子张量数据将为host侧格式的npy文件；设置成`bin`，则dump出的数据将为device侧格式的protobuf文件，需要借助转换工具进行处理，详细步骤请参考[异步Dump数据分析样例](#数据分析样例-1)。默认取值为`bin`。
+    - `overflow_number`：指定溢出dump的数据个数。该字段仅在`op_debug_mode`设置为3开启溢出检测功能，且`file_format`设置为`npy`时需要配置，可控制溢出数据按时间序dump，到指定数值后溢出数据不再dump。默认值为0，表示dump全部溢出数据。
 
 2. 设置数据Dump的环境变量。
 
