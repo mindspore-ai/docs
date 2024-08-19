@@ -280,9 +280,9 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
                 - {iteration_id}/
                     {op_type}.{op_name}.json
                     statistic.csv
-                    {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
+                    {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.{dtype}.npy
                 - constants/
-                    Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
+                    Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.{dtype}.npy
             ...
         - graphs/
             ms_output_trace_code_graph_{graph_id}.pb
@@ -305,31 +305,32 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
 - `input_output_index`：输入或输出标号，例如`output.0`表示该文件是该算子的第1个输出Tensor的数据。
 - `slot`：slot标号。
 - `format`: 数据格式。
+- `dtype`: 原始的数据类型。如果是`bfloat16`或`int4`类型，保存在`.npy`文件中的数据会分别被转换成`float32`或`int8`。
 - `data_id`: 常量数据标号。
 
 对于多图网络，由于存在控制流，某些子图可能不会被执行，Dump只保存执行过的节点，所以graphs目录下`.pb`文件名中的{graph_id}并不一定在{net_name}下存在对应的{graph_id}目录。
 
-只当`saved_data`为"statistic"或者"full"时，才会生成`statistic.csv`，当`saved_data`为"tensor"或者"full"时，才会生成`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`命名的完整张量信息。
+只当`saved_data`为"statistic"或者"full"时，才会生成`statistic.csv`，当`saved_data`为"tensor"或者"full"时，才会生成`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.{dtype}.npy`命名的完整张量信息。
 
 只当`save_kernel_args`为`True`时，才会生成`{op_type}.{op_name}.json`，保存算子的初始化信息。
 
 同步Dump生成的数据文件是后缀名为`.npy`的文件，文件命名格式为：
 
 ```text
-{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
+{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.{dtype}.npy
 ```
 
 同步Dump生成的常量数据文件与其他数据文件格式相同，而所有常量数据的{op_type}，{task_id}，{stream_id}，{input_output_index}，{slot}，{format}不变。注意，非Tensor类型数据不会被生成数据文件。该功能不支持Ascend场景。
 
 ```text
-Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
+Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.{dtype}.npy
 ```
 
 {iteration_id}目录下也可能会保存Parameter开头的文件（weight, bias等参数会保存成Parameter开头的文件），Ascend上不会保存Parameter文件。
 
 可以用Numpy的`numpy.load`接口读取数据。
 
-同步Dump生成的统计数据文件名为`statistic.csv`，此文件存有相同目录下所有落盘张量（文件名为`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`）的统计信息。每个张量一行，每行有张量的 Op Type，Op Name，Task ID，Stream ID，Timestamp，IO，Slot，Data Size，Data Type，Shape以及用户配置的统计信息项。注意，如果用Excel来打开此文件，数据可能无法正确显示。请用`vi`、`cat`等命令查看，或者使用Excel自文本导入csv查看。
+同步Dump生成的统计数据文件名为`statistic.csv`，此文件存有相同目录下所有落盘张量（文件名为`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.{dtype}.npy`）的统计信息。每个张量一行，每行有张量的 Op Type，Op Name，Task ID，Stream ID，Timestamp，IO，Slot，Data Size，Data Type，Shape以及用户配置的统计信息项。注意，如果用Excel来打开此文件，数据可能无法正确显示。请用`vi`、`cat`等命令查看，或者使用Excel自文本导入csv查看。
 
 同步Dump生成的最终执行图文件后缀名分别为`.pb`和`.ir`，文件命名格式为：
 
@@ -485,13 +486,13 @@ x, w],    pri_format: NC1HWC0, pad: (0, 0, 0, 0), visited: true, pad_mod: same, 
 - `slot`：0，该算子的输出只有一个slot。
 
 在Dump保存的数据对象文件目录下搜索到相应的文件名：
-`Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy`。
+`Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float16.npy`。
 
 还原数据的时候，通过执行：
 
 ```python
 import numpy
-numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
+numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float16.npy")
 ```
 
 生成numpy.array数据。
@@ -642,7 +643,7 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
 若配置文件中`file_format`值设置为`npy`，算子文件会保存成npy格式的文件，溢出文件会被保存成json格式的文件。文件命名格式分别为：
 
 ```text
-{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
+{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.{dtype}.npy
 Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}.output.0.json
 ```
 
@@ -668,7 +669,7 @@ Dump生成的原始数据文件也可以使用MindSpore Insight的数据解析�
 
 若配置`file_format`值为`npy`，则启用异步dump生成的数据文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#数据对象目录和数据文件介绍)，溢出检测生成的溢出文件是`json`格式，溢出文件内容解析可参考[解析算子溢出数据文件](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/devguide/appdevg/aclpythondevg/aclpythondevg_0078.html#ZH-CN_TOPIC_0000001781325073__section6864050111619) 。
 
-选项`saved_data`只有在`file_format`为"npy"的时候生效。如`saved_data`是"statistic"或者"full"。张量统计数据会落盘到`statistic.csv`。如`saved_data`是"tensor"或者"full"完整张量数据会落盘到`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`。`statistic.csv`的格式与同步Dump相同，可以参考[同步Dump数据文件介绍](#数据对象目录和数据文件介绍)。
+选项`saved_data`只有在`file_format`为"npy"的时候生效。如`saved_data`是"statistic"或者"full"。张量统计数据会落盘到`statistic.csv`。如`saved_data`是"tensor"或者"full"完整张量数据会落盘到`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.{dtype}.npy`。`statistic.csv`的格式与同步Dump相同，可以参考[同步Dump数据文件介绍](#数据对象目录和数据文件介绍)。
 
 ### 数据分析样例
 
