@@ -6,6 +6,8 @@
 
 The industry currently supports both dynamic and static graph modes. Dynamic graphs are executed by interpretation, with dynamic syntax affinity and flexible expression, and static graphs are executed by using jit compilation optimization, more inclined to static syntax and more restrictions in syntax. For dynamic and static graph modes, firstly MindSpore unifies the API expression, uses the same API in both modes, secondly, unifies the underlying differential mechanism of dynamic and static graphs.
 
+![dynamic](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/model_train/program_form/images/dynamic.png)
+
 ## Interconversion of Dynamic and Static Graphs
 
 In MindSpore, we can switch the execution between using dynamic or static graphs by controlling the mode input parameters. For example:
