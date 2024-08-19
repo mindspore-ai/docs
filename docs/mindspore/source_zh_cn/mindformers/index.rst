@@ -53,7 +53,7 @@
    :maxdepth: 1
    :caption: 性能调优
 
-   perf_optimize
+   perf_optimize/perf_optimize
 
 .. toctree::
    :glob:
