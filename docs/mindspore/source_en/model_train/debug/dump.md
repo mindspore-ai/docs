@@ -181,7 +181,8 @@ The support for Asynchronous Dump on Ascend backend is shown in the table below 
             "input_output": 0,
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7],
-            "statistic_category": ["max", "min", "l2norm"]
+            "statistic_category": ["max", "min", "l2norm"],
+            "overflow_number": 0
         },
         "e2e_dump_settings": {
             "enable": true,
@@ -222,6 +223,7 @@ The support for Asynchronous Dump on Ascend backend is shown in the table below 
       Except for those marked as supporting device statistics, other statistics can be collected only on the host.
       This field is optional, with default values of ["max", "min", "l2norm"].
 
+    - `overflow_number`：Specify the number of data to overflow dump. This field is required only when `op_debug_mode` is set to 3 and only the overflow operator is saved. It can control the overflow data to be dumped in chronological order until the specified value is reached, and the overflow data will no longer be dumped. The default value is 0, which means dumping all overflow data.
     - `enable`: When set to true, enable Synchronous Dump. When set to false, asynchronous dump will be used on Ascend and synchronous dump will still be used on GPU.
     - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `True`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `False`, the data format on the Device side will be retained. Default: `True`.
     - `stat_calc_mode`: Select the backend for statistical calculations. Options are "host" and "device". Choosing "device" enables device computation of statistics, currently only effective on Ascend, and supports only min/max/avg/l2norm statistics.
@@ -517,7 +519,8 @@ MindSpore provides debugging capabilities for large networks through asynchronou
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7],
             "statistic_category": ["max", "min", "l2norm"],
-            "file_format": "npy"
+            "file_format": "npy",
+            "overflow_number": 0
         }
     }
     ```
@@ -551,6 +554,7 @@ MindSpore provides debugging capabilities for large networks through asynchronou
       This field is optional, with default values of ["max", "min", "l2norm"].
 
     - `file_format`: Dump file type. It can be either `npy` and `bin`. `npy`: data will be dumped in npy files as host format. `bin`: data will be dumped in protobuf file as device format and need to be transformed to parse using the provided data analysis tool. Please refer to [Asynchronous Dump Data Analysis Sample](#data-analysis-sample-1) for details. The default value is `bin`.
+    - `overflow_number`：Specify the number of data to overflow dump. This field is required only when `op_debug_mode` is set to 3 and `file_format` is set to `npy`. It can control the overflow data to be dumped in chronological order until the specified value is reached, and the overflow data will no longer be dumped. The default value is 0, which means dumping all overflow data.
 
 2. Set Dump environment variable.
 
