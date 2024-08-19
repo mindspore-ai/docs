@@ -46,7 +46,7 @@
    :maxdepth: 1
    :caption: 精度调优
 
-   acc_optimize
+   acc_optimize/acc_optimize
 
 .. toctree::
    :glob:
