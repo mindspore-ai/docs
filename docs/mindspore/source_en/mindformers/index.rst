@@ -69,6 +69,6 @@ Large Model Specialization
    :caption: FAQ
 
    faq/model_related
-   faq/func_releated
+   faq/func_related
    faq/mindformers_contribution
    faq/openmind_contribution
