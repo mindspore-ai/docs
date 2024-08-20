@@ -14,7 +14,7 @@ In different modes, the Dump features supported by MindSpore are not entirely th
 - [Dump in Ascend O2 Mode](#dump-in-ascend-o2-mode)
 - [Dump in CPU/GPU mode](#dump-in-cpugpu-mode)
 
-> - The differences between Ascend O0, O1, and O2 modes can be found in [the parameter jit_level of the set_context method](https://www.mindspore.cn/docs/en/r2.3.1/api_python/mindspore/mindspore.set_context.html).
+> - The differences between Ascend O0, O1, and O2 modes can be found in [the parameter jit_level of the set_context method](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html).
 >
 > - Dumping constant data is only supported in CPU/GPU mode, while not supported in Ascend O0/O1/O2 mode.
 >
@@ -105,7 +105,6 @@ MindSpore supports different Dump functionalities under various modes, as shown 
 </table>
 
 > 1. In terms of statistics, the computing speed of the device is faster than that of the host(currently only supported on Ascend backend), but the host has more statistical indicators than the device. Refer to the `statistic_category` option for details.
-> 2. Only supported on the Ascend backend.
 
 ## Dump in Ascend O0/O1 Mode
 
