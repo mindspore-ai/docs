@@ -14,7 +14,7 @@ MindSpore在不同模式下支持的Dump功能不完全相同，需要的配置�
 - [Ascend下O2模式Dump](#ascend下o2模式dump)
 - [CPU/GPU模式Dump](#cpugpu-dump)
 
-> - Ascend下O0/O1/O2模式的区别请见[set_context的参数jit_level](https://www.mindspore.cn/docs/zh-CN/r2.3.1/api_python/mindspore/mindspore.set_context.html)。
+> - Ascend下O0/O1/O2模式的区别请见[set_context的参数jit_level](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html)。
 >
 > - CPU/GPU模式支持dump常量数据，Ascend O0/O1/O2模式不支持Dump常量数据。
 >
@@ -104,7 +104,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
   </tr>
 </table>
 
-> 在统计信息方面，device计算速度较host快（目前仅支持Ascend后端），但host统计指标比device多，详见`statistic_category`选项。
+> 1. 在统计信息方面，device计算速度较host快（目前仅支持Ascend后端），但host统计指标比device多，详见`statistic_category`选项。
 
 ## Ascend下O0/O1模式Dump
 
