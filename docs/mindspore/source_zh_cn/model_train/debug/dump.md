@@ -195,7 +195,7 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
     - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据；设置成2，表示使用[mindspore.set_dump](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_dump.html) Dump指定对象。仅在op_debug_mode设置为0时支持指定算子dump。
     - `path`：Dump保存数据的绝对路径。
     - `net_name`：自定义的网络名称，例如："ResNet50"。
-    - `iteration`：指定需要Dump数据的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。仅在op_debug_mode设置为0或3时支持保存指定迭代，op_debug_mode设置为4时不支持指定迭代。
+    - `iteration`：指定需要Dump数据的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个，第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。仅在op_debug_mode设置为0或3时支持保存指定迭代，op_debug_mode设置为4时不支持指定迭代。
     - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。同步Dump统计信息现只支持GPU场景和Ascend场景，CPU场景若选"statistic"或"full"便会错误退出。默认取值为"tensor"。保存统计信息仅支持op_debug_mode设置为0的场景。
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。在op_debug_mode设置为4时，只能保存算子输入。
     - `kernels`：该项可以配置三种格式：
@@ -250,10 +250,10 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
 
    则“$MS_DIAGNOSTIC_DATA_PATH/debug_dump”就会被当做`path`的值。若Dump配置文件中设置了`path`字段，则仍以该字段的实际取值为准。
 
-    注意：
+   注意：
 
-    - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
-    - 在分布式场景下，Dump环境变量需要在调用`mindspore.communication.init`之前配置。
+   - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
+   - 在分布式场景下，Dump环境变量需要在调用`mindspore.communication.init`之前配置。
 
 3. 启动网络训练脚本。
 
@@ -261,7 +261,7 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
    同步模式下，GPU环境如果要Dump数据，必须采用非数据下沉模式（设置`model.train`或`DatasetHelper`中的`dataset_sink_mode`参数为`False`），以保证可以获取每个step的Dump数据。
    若脚本中都不调用`model.train`或`DatasetHelper`，则默认为非数据下沉模式。使用Dump功能将自动生成最终执行图的IR文件。
 
-    可以在训练脚本中设置`set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
+   可以在训练脚本中设置`set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
 
 4. 通过`numpy.load`读取和解析同步Dump数据，参考[同步Dump数据文件介绍](#数据对象目录和数据文件介绍)。
 
@@ -360,7 +360,7 @@ ms_global_execution_order_graph_{graph_id}.csv
 
 在通过Dump功能将脚本对应的图保存到磁盘上后，会产生最终执行图文件`ms_output_trace_code_graph_{graph_id}.ir`。该文件中保存了对应的图中每个算子的堆栈信息，记录了算子对应的生成脚本。
 
-以[AlexNet脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dump/train_alexnet.py)为例 ：
+以[AlexNet脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dump/train_alexnet.py)为例：
 
 ```python
 ...
@@ -566,8 +566,8 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
 
    则“$MS_DIAGNOSTIC_DATA_PATH/debug_dump”就会被当做`path`的值。若Dump配置文件中设置了`path`字段，则仍以该字段的实际取值为准。
 
-    - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
-    - 在分布式场景下，Dump环境变量需要在调用`mindspore.communication.init`之前配置。
+   - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
+   - 在分布式场景下，Dump环境变量需要在调用`mindspore.communication.init`之前配置。
 
 3. 执行用例Dump数据。
 
@@ -668,7 +668,7 @@ Dump生成的原始数据文件也可以使用MindSpore Insight的数据解析�
 
 ### 数据分析样例
 
-异步Dump不会自动保存`.ir`文件，要想查看`.ir`文件，可以在执行用例前通过MindSpore的IR保存开关`set_context(save_graphs=2)`, 执行用例后查看保存的`trace_code_graph_{xxx}`文件， 可以用vi打开。文件查看方式请参考同步dump的数据分析样例。在图编译等级为O0或O1时，异步Dump保存的算子文件和图文件中的算子名不同，所以此场景不推荐使用异步Dump，建议使用同步Dump。在图编译等级为O2时，由于`.ir`文件中并不是最终执行图，不能保证算子文件和`.ir`文件中的算子名一一对应。保存最终的执行图请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0011.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0012.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0013.html) 。
+异步Dump不会自动保存`.ir`文件，要想查看`.ir`文件，可以在执行用例前通过MindSpore的IR保存开关`set_context(save_graphs=2)`，执行用例后查看保存的`trace_code_graph_{xxx}`文件，可以用vi打开。文件查看方式请参考同步dump的数据分析样例。在图编译等级为O0或O1时，异步Dump保存的算子文件和图文件中的算子名不同，所以此场景不推荐使用异步Dump，建议使用同步Dump。在图编译等级为O2时，由于`.ir`文件中并不是最终执行图，不能保证算子文件和`.ir`文件中的算子名一一对应。保存最终的执行图请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0011.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0012.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0013.html) 。
 
 通过异步Dump的功能，获取到算子异步Dump生成的数据文件。如果异步Dump配置文件中设置的`file_format`为"npy"，可以跳过以下步骤中的1、2，如果没有设置`file_format`，或者设置为"bin"，需要先转换成`.npy`格式的文件。
 

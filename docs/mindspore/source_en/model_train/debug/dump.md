@@ -2,11 +2,11 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/debug/dump.md)
 
-The input and output of the operator can be saved for debugging through the data dump when the training result deviates from the expectation.
-
-- For dynamic graph mode, the forward process can utilize Python's native execution capabilities, allowing users to view and record the corresponding inputs and outputs during the execution of the network script. The JIT and backward processes, which are part of graph compilation, can use synchronous dump functionality to save the input and output data of operators to disk files.
+In order to analyze the training process, the user needs to perceive the input and output data of the operators during the training process.
 
 - For the static graph mode, MindSpore provides the Dump function to save the graph and the input and output data of the operator during model training to a disk file.
+
+- For dynamic graph mode, the forward process can utilize Python's native execution capabilities, allowing users to view and record the corresponding inputs and outputs during the execution of the network script. The JIT and backward processes, which are part of graph compilation, can use synchronous dump functionality to save the input and output data of operators to disk files.
 
 MindSpore provides two Dump modes:
 
@@ -18,7 +18,7 @@ MindSpore provides two Dump modes:
 > - For GPU/CPU backends and Ascend backend with compilation levels O0/O1, it is recommended to use [synchronous dump](#synchronous-dump). For details, refer to [synchronous dump step](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html#dump-step). For Ascend backend with compilation level O2, it is recommended to use [asynchronous dump](#asynchronous-dump). For details, refer to [asynchronous dump step](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html#dump-step-1).
 > - Currently, Dump does not support heterogeneous training. If Dump is enabled in a heterogeneous training scenario, the generated Dump data object directory may not match the expected directory structure.
 
-The support for Synchronous Dump on Ascend backend is shown in the table below (GPU/CPU backend refers to the `O0/O1`)
+The support for Synchronous Dump on Ascend backend is shown in the table below (GPU/CPU backend refers to the `O0/O1`).
 
 <table align="center">
   <tr>
@@ -167,7 +167,7 @@ The support for Asynchronous Dump on Ascend backend is shown in the table below 
 
 ### Dump Step
 
-1. Create a configuration file in json format , and the name and location of the JSON file can be customized.
+1. Create a configuration file in json format, and the name and location of the JSON file can be customized.
 
     ```json
     {
@@ -252,8 +252,8 @@ The support for Asynchronous Dump on Ascend backend is shown in the table below 
 
    Note:
 
-    - Set the environment variables before executing the training script. Setting environment variables during training will not take effect.
-    - Dump environment variables need to be configured before calling `mindspore.communication.init`.
+   - Set the environment variables before executing the training script. Setting environment variables during training will not take effect.
+   - Dump environment variables need to be configured before calling `mindspore.communication.init`.
 
 3. Execute the training script to dump data.
 
@@ -261,7 +261,7 @@ The support for Asynchronous Dump on Ascend backend is shown in the table below 
    In synchronous mode, if you want to dump data in GPU environment, you must use the non-data sink mode (set the `dataset_sink_mode` parameter in `model.train` or `DatasetHelper` to `False`) to ensure that you can get the dump data of each step.
    If `model.train` or `DatasetHelper` is not called in the script, the default is non-data sinking mode. Using the Dump function will automatically generate the IR file of the final execution graph.
 
-    You can set `set_context(reserve_class_name_in_scope=False)` in your training script to avoid dump failure because of file name is too long.
+   You can set `set_context(reserve_class_name_in_scope=False)` in your training script to avoid dump failure because of file name is too long.
 
 4. Read and parse synchronous dump data through `numpy.load`, refer to [Introduction to Synchronous Dump Data File](#introduction-to-data-object-directory-and-data-file).
 
@@ -666,8 +666,6 @@ If setting `file_format` to `npy`, the naming convention of data files generated
 
 The `saved_data` option only takes effect when `file_format` is "npy". If `saved_data` is "statistic" or "full", tensor statistics will be dumped in `statistic.csv`. When `saved_data` is "tensor" or "full", full tensor data will be dumped in `{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`. The format of the statistic file will be the same as that of synchonous dump. Please refer to [Introduction to Synchronous Dump Data File](#introduction-to-data-object-directory-and-data-file).
 
-The constant dump file, final execution graph file and execution order file naming rules generated by asynchronous Dump are the same as that of synchronous Dump. You can refer to [Introduction to Synchronous Dump Data File](#introduction-to-data-object-directory-and-data-file).
-
 ### Data Analysis Sample
 
 Asynchronous dump does not automatically save `.ir` files. To view `.ir` files, you can use MindSpore IR save switch `set_comtext(save_graphs=2)` before executing the use case. After executing the use case, you can view the saved `tracecode_graph_ xxx}` file, which can be opened with `vi`. Please refer to the data analysis example of synchronous dump for the file viewing method. When the graph compilation level is O0 or O1, the operator files saved by asynchronous dump are different from the operator names in the graph file. Therefore, asynchronous dump is not recommended for this scenario, and synchronous dump is recommended. When the compilation level of the graph is O2, since the `.ir` file is not the final execution graph, it cannot be guaranteed that the operator names in the operator file correspond one-to-one with those in the `.ir` file. Please refer to the documentation on Ascend Developer Zone [DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/graphdevg/graphdevg_000050.html) , [DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/graphdevg/graphdevg_000051.html) and [DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/en/canncommercial/601/inferapplicationdev/graphdevg/graphdevg_000052.html) to save the final execution graph.
@@ -739,7 +737,7 @@ To enable GE dump, set the environment variable MINDSPORE_DUMP_CONFIG and ENABLE
 export ENABLE_MS_GE_DUMP=1
 ```
 
-When GE dump is enabled, and the graph compilation level is O2, the Dump directory structure of the graph pattern is as follows:
+The GE Dump directory structure is as follows:
 
 ```text
 {path}/
@@ -764,4 +762,4 @@ This method will be abandoned in the future and is not recommended for use.
 - Dump only supports saving data with type of bool, int, int8, in16, int32, int64, uint, uint8, uint16, uint32, uint64, float, float16, float32, float64, bfloat16, double, complex64 and complex128.
 - Complex64 and complex128 only support saving as npy files, not as statistics information.
 - The Print operator has an input parameter with type of string, which is not a data type supported by Dump. Therefore, when the Print operator is included in the script, there will be an error log, which will not affect the saving data of other types.
-- When asynchronous dump  is enabled, lite exception dump is not supported by using set_context(ascend_config={"exception_dump": "2"), while full exception dump is supported by using set_context(ascend_config={"exception_dump": "1").
+- When asynchronous dump is enabled, lite exception dump is not supported by using set_context(ascend_config={"exception_dump": "2"), while full exception dump is supported by using set_context(ascend_config={"exception_dump": "1").
