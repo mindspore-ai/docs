@@ -70,7 +70,7 @@ The following describes the parameters in detail.
 | `--outputDataType=<OUTPUTDATATYPE>` | No | Set data type of output tensor of quantized model. Only valid for output tensor which has quantization parameters(scale and zero point). Keep same with the data type of output tensor of origin model by default. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT | - |
 | `--outputDataFormat=<OUTPUTDATAFORMAT>` | No | Set the output format of exported model. Only valid for 4-dimensional outputs. | NHWC, NCHW | - | - |
 | `--encryptKey=<ENCRYPTKEY>` | No              | Set the key for exporting encrypted `ms` models. The key is expressed in hexadecimal. Only AES-GCM is supported, and the key length is only 16Byte. | - | - | - |
-| `--encryption=<ENCRYPTION>` | No | Set whether to encrypt when exporting the `ms` model. Exporting encryption can protect the integrity of the model, but it will increase the runtime initialization time. | true, false | true | - |
+| `--encryption=<ENCRYPTION>` | No | Set whether to encrypt when exporting the `ms` model. Exporting encryption can protect the integrity of the model, but it will increase the runtime initialization time. | true, false | false | - |
 | `--infer=<INFER>` | No | Set whether to pre-inference when conversion is complete. | true, false | false | - |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
