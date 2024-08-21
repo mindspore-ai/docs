@@ -1,4 +1,4 @@
-Large Model Specialization
+Large Model Development
 ===========================
 
 .. toctree::
