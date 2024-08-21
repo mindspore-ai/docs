@@ -86,7 +86,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
   <tr>
    <td align="left">set_dump</td>
    <td align="left">Supported</td>
-   <td align="left">Not Supported</td>
+   <td align="left">Supported</td>
    <td align="left">Not Supported</td>
   </tr>
   <tr>
@@ -477,7 +477,7 @@ Generate the numpy.array data.
     - `common_dump_settings`:
 
         - `op_debug_mode`: This attribute is used for operator overflow debugging. 0: disable overflow check function; 3: enable overflow check function; 4: enable the lightweight exception dump function. Set it to 0 when Dump data is processed. If it is not set to 0, only the data of the overflow operator or exception operator will be dumped.
-        - `dump_mode`: 0: all operator data in the network dumped out; 1: dump kernels data in kernels list. When overflow detection is enabled, the setting of this field becomes invalid, and Dump only saves the data of the overflow node. Specified data dump is supported only when "dump_mode' is set to `0`.
+        - `dump_mode`: 0: all operator data in the network dumped out; 1: dump kernels data in kernels list. When overflow detection is enabled, the setting of this field becomes invalid, and Dump only saves the data of the overflow node. 2: dump target and its contents using [mindspore.set_dump](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_dump.html). Specified data dump is supported only when "dump_mode' is set to `0`.
         - `path`: The absolute path to save Dump data.
         - `net_name`: The customized net name: "ResNet50".
         - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped. Specified iteration dump is supported only when "op_debug_mode" is set to `0`, not supported when when "op_debug_mode" is set to `3` or `4`.

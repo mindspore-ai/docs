@@ -86,7 +86,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
   <tr>
    <td align="left">set_dump</td>
    <td align="left">支持</td>
-   <td align="left">不支持</td>
+   <td align="left">支持</td>
    <td align="left">不支持</td>
   </tr>
   <tr>
@@ -466,7 +466,7 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float
     - `common_dump_settings`:
 
         - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成3，表示开启溢出检测功能；设置成4，表示开启轻量异常Dump功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子或异常算子的数据。
-        - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据。仅在op_debug_mode设置为0时支持指定算子dump。op_debug_mode设置为非0值时，此字段的设置失效，Dump只会保存溢出算子的数据或者异常算子的数据。
+        - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据。设置成2，表示使用[mindspore.set_dump](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_dump.html) Dump指定对象。仅在op_debug_mode设置为0时支持指定算子dump。op_debug_mode设置为非0值时，此字段的设置失效，Dump只会保存溢出算子的数据或者异常算子的数据。
         - `path`：Dump保存数据的绝对路径。
         - `net_name`：自定义的网络名称，例如："ResNet50"。
         - `iteration`：指定需要Dump的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。仅在op_debug_mode设置为0时支持保存指定迭代，op_debug_mode设置为3或4时不支持指定迭代。
