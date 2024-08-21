@@ -5,5 +5,5 @@
    :maxdepth: 1
 
    ../note/api_mapping/pytorch_api_mapping
-   migration_with_tools
+   migrator_with_tools
    faq
