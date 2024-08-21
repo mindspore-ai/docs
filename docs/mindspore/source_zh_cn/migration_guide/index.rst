@@ -9,9 +9,6 @@
    enveriment_preparation
    analysis_and_preparation
    model_development/model_development
-   debug
-   acc_debug
-   perf_debug
-   model_infer
+   debug_and_tune
    sample_code
    reference
