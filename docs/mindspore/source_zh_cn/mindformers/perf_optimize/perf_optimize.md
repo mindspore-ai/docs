@@ -31,14 +31,14 @@
 对于大语言模型来说，吞吐量主要是看每秒钟每张卡消耗的token数量；计算公式如下：
 
 $$
-tokens = seq\_length * (sample/s/p)
+Throughput = SeqLength * (sample/s/p)
 $$
 
 (sample/s/p)的计算结果可以直接从日志中获取，也可以从日志中分别获取对应字段再进行计算。
 
 各字段含义如下：
 
-* seq_length：指的是序列的长度，进行文本处理的时候，我们需要将输入的文本转换成数字序列，然后将这些数字序列作为模型的输入。seq_length就是指这些数字序列的长度，也就是文本的长度。在模型训练和预测的过程中，我们需要指定一个固定的seq_length，以便进行批处理和计算。较长的seq_length可以提高模型的准确性，但会增加计算量和内存消耗；而较短的seq_length则会减少计算量和内存消耗，但可能会降低模型的准确性。
+* SeqLength：指的是序列的长度，进行文本处理的时候，我们需要将输入的文本转换成数字序列，然后将这些数字序列作为模型的输入。SeqLength就是指这些数字序列的长度，也就是文本的长度。在模型训练和预测的过程中，我们需要指定一个固定的SeqLength，以便进行批处理和计算。较长的SeqLength可以提高模型的准确性，但会增加计算量和内存消耗；而较短的SeqLength则会减少计算量和内存消耗，但可能会降低模型的准确性。
 
 * sample：其值等于global_batch_size。在分布式训练中，数据被分成多个部分，每个部分被送到不同的设备上进行计算。这些设备上的batch size加起来就是全局批量大小。 全局批量大小的选择是一个重要的决策，因为它会直接影响模型的训练速度和性能。如果全局批量大小太小，每个设备上的batch size可能会太小，导致模型的收敛速度变慢。如果全局批量大小太大，每个设备上的batch size可能会太大，导致显存不足或者模型的精度下降。要找到最佳Batch Size大小值，一个好的经验法则是达到处理器对给定数据类型的内存限制，即Batch Size占满内存。
 
@@ -70,28 +70,28 @@ StepTime指在训练过程中每一步所花费的时间，HardwareCapacity则�
 
 |                          | 激活的内存占用Byte                             |
 | ------------------------ | ---------------------------------------------- |
-| 无重计算model flops      | 72 *  bLshh * [1*corr +  s/(6h) + v/(12hL)]    |
-| 选择重计算hardware flops | 72 *  bLshh * [1*corr + 4/3s/(6h) + v/(12hL)]  |
-| 完全重计算hardware flops | 72 *  bLshh * [4/3*corr+ 4/3s/(6h) + v/(12hL)] |
+| 无重计算model flops      | 72 *  bLs$h^2$ * [1*corr +  s/(6h) + v/(12hL)]    |
+| 选择重计算hardware flops | 72 *  bLs$h^2$ * [1*corr + 4/3s/(6h) + v/(12hL)]  |
+| 完全重计算hardware flops | 72 *  bLs$h^2$ * [4/3*corr+ 4/3s/(6h) + v/(12hL)] |
 
-其中corr = (60+12/q)/72，q为GQA的倍数，q=n_heads/n_kv_heads。重计算带来的增加2倍，原因是Attention中的Q、K、V的前向需要重计算。如果只有前向需要重计算，应该在非重计算 4Bssh(正向) + 8Bssh(反向) = 12Bssh 的基础上变成 4Bssh(正向) + 8Bssh(反向) + 4Bssh(正向)= 16Bssh。重计算增加的开销为16/12=4/3倍。
+其中corr = (60+12/q)/72，q为GQA的倍数，q=n_heads/n_kv_heads。重计算带来的增加2倍，原因是Attention中的Q、K、V的前向需要重计算。如果只有前向需要重计算，应该在非重计算 4b$s^2$h(正向) + 8b$s^2$h(反向) = 12b$s^2$h 的基础上变成 4b$s^2$h(正向) + 8b$s^2$h(反向) + 4b$s^2$h(正向)= 16b$s^2$h。重计算增加的开销为16/12=4/3倍。
 
 详细计算步骤为：
 
-| 模块                      | 规格                             | FLOPS                               |
-|-------------------------| -------------------------------- |-------------------------------------|
-| attention               |                                  |                                     |
-| Query, key, Value  MatMul | [b, s, h] * [h, h]               | (2+4/q)*bshh   q=n_heads/n_kv_heads |
-| QK BatchMatMul          | [b, a, s, h/a] *  [B, a, h/a, s] | 2bssh                               |
-| score \* V              | [b, a, s, s] * [B, a, s, h/a]    | 2bssh                               |
-| attention projection    | [b, s, h] * [h,h]                | 2bshh                               |
-| MLP                     |                                  |                                     |
-| MLP mapping             | [b, s, h] * [h, 4h]              | 8bshh                               |
-| MLP projection          | [b, s, 4h] * [4h, h]             | 8bshh                               |
-| LmHead                  |                                  |                                     |
-| lmHead projection       | [b, s, h] * [v, h]               | 2bshv                               |
-| Total                   |                                  | 2bshv                               |
-| GPTlayer-Total          |                                  | (20+4/q)bshh + 4bssh+2bshv          |
+| 模块                      | 规格                               | FLOPS                                  |
+|-------------------------|----------------------------------|----------------------------------------|
+| attention               |                                  |                                        |
+| Query, key, Value  MatMul | [b, s, h] * [h, h]               | (2+4/q)*bs$h^2$   q=n_heads/n_kv_heads |
+| QK BatchMatMul          | [b, a, s, h/a] *  [b, a, h/a, s] | 2b$s^2$h                               |
+| score \* V              | [b, a, s, s] * [b, a, s, h/a]    | 2b$s^2$h                                  |
+| attention projection    | [b, s, h] * [h,h]                | 2bs$h^2$                               |
+| MLP                     |                                  |                                        |
+| MLP mapping             | [b, s, h] * [h, 4h]              | 8bs$h^2$                               |
+| MLP projection          | [b, s, 4h] * [4h, h]             | 8bs$h^2$                               |
+| LmHead                  |                                  |                                        |
+| lmHead projection       | [b, s, h] * [v, h]               | 2bshv                                  |
+| Total                   |                                  | 2bshv                                  |
+| GPTlayer-Total          |                                  | (20+4/q)bs$h^2$ + 4b$s^2$h+2bshv          |
 
 各字符含义如下：
 
@@ -103,12 +103,12 @@ StepTime指在训练过程中每一步所花费的时间，HardwareCapacity则�
 
 Llama结构(gated FFN，8路GQA)稍有不同，和GPT的差别主要在于mlp层存在差异，在Llama系列中使用的GatedMLP，具体的flops计算如下：
 
-| MLP mapping      | [b, s, h] * [h, $\hat{h}$]           | 2bsh$\hat{h}$                             |
-| ---------------- | ------------------------------------ | ----------------------------------------- |
-| MLP gate         | [b, s, h] * [h, $\hat{h}$]           | 2bsh$\hat{h}$                             |
-| MLP projection   | [b, s, $\hat{h}$]  * [$\hat{h}$,  h] | 2bsh$\hat{h}$                             |
-| Total            |                                      | 6bsh$\hat{h}$                             |
-| Llamalayer-Total |                                      | (4+4/q)bshh + 4bssh+6bsh$\hat{h}$ + 2bshv |
+| MLP mapping      | [b, s, h] * [h, $\hat{h}$]           | 2bsh$\hat{h}$                                |
+| ---------------- | ------------------------------------ |----------------------------------------------|
+| MLP gate         | [b, s, h] * [h, $\hat{h}$]           | 2bsh$\hat{h}$                                |
+| MLP projection   | [b, s, $\hat{h}$]  * [$\hat{h}$,  h] | 2bsh$\hat{h}$                                |
+| Total            |                                      | 6bsh$\hat{h}$                                |
+| Llamalayer-Total |                                      | (4+4/q)bs$h^2$ + 4b$s^2$h+6bsh$\hat{h}$ + 2bshv |
 
 注：$\hat{h}$ 为 ffn hidden size
 
@@ -172,11 +172,11 @@ HFU/MFU可以用于对于训练性能tokens/s/p的评价。一般HFU>50%属于�
 | Attention部分              |                       |                |
 | Query, key, Value MatMul | x                     | 2sbh           |
 | QK BatchedMatMul         | Q, K                  | 4sbh           |
-| softmax                  | softmax  result       | 2assb          |
-| softmax dropout          | dropout  mask         | assb           |
-| prob-value BatchedMatMul | dropout  result and V | 2assb + 2sbh   |
+| softmax                  | softmax  result       | 2a$s^2$b          |
+| softmax dropout          | dropout  mask         | a$s^2$b           |
+| prob-value BatchedMatMul | dropout  result and V | 2a$s^2$b + 2sbh   |
 | attenton projection      | dropout  mask+output  | sbh + 2sbh     |
-| Totoal                   |                       | 11sbh + 5ass   |
+| Totoal                   |                       | 11sbh + 5a$s^2$   |
 | FFN部分                    |                       |                |
 | MLP  mapping             | x                     | 2sbh           |
 | MLP  activation          | hidden                | 8sbh           |
@@ -215,7 +215,7 @@ MindFormers本身集成了profiling数据采集的功能，主要步骤如下：
 
 1. 修改配置文件
 
-在模型的配置文件中（例如run_llama2_7b.yaml）开启profiling开关，需修改的参数如下：
+  在模型的配置文件中（例如run_llama2_7b.yaml）开启profiling开关，需修改的参数如下：
 
   ```yaml
   profile: True  #是否开启性能分析工具
@@ -228,13 +228,13 @@ MindFormers本身集成了profiling数据采集的功能，主要步骤如下：
 
 2. 简化模型
 
-建议将模型的层数（num_layers）改为2层，方便快速采集数据.
+  建议将模型的层数（num_layers）改为2层，方便快速采集数据.
 
 3. 查看数据
 
-采集的性能数据文件会保存到模型配置文件output_dir（默认“./output”）下创建一个profile的文件夹，按照rank id生成当前机器的每一张卡的性能数据。以rank_0为例，目录为output/profile/rank_0/profiler。
+  采集的性能数据文件会保存到模型配置文件output_dir（默认“./output”）下创建一个profile的文件夹，按照rank id生成当前机器的每一张卡的性能数据。以rank_0为例，目录为output/profile/rank_0/profiler。
 
-生成的文件及介绍参考[链接](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#目录结构)，主要收集算子、任务等运行耗时，CPU利用率，内存消耗等信息，用于性能调优分析需要的各项数据。
+  生成的文件及介绍参考[链接](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#目录结构)，主要收集算子、任务等运行耗时，CPU利用率，内存消耗等信息，用于性能调优分析需要的各项数据。
 
 #### MindStudio Insight
 
@@ -365,11 +365,11 @@ MindStudio Insight工具以时间线（Timeline）的呈现方式为用户提供
 
 ### 通信优化
 
-在半自动并行开发模式下，需要开发者配置每一个Op算子的输入输出tensor的并行切分策略，如果存在算子配置不匹配的情况，则会导致MindSpore框架在编译时插入通信算子，对tensor的进行重排布来适配后续算子的切分方式。常见的通信算子主要是关注all-gather、all-reduce等。
+在半自动并行开发模式下，需要开发者配置每一个Op算子的输入输出Tensor的并行切分策略，如果存在算子配置不匹配的情况，则会导致MindSpore框架在编译时插入通信算子，对Tensor的进行重排布来适配后续算子的切分方式。常见的通信算子主要是关注AllGather、AllReduce等。
 
 分析通信重排布是否合理是利用存IR图加Profiling采集的timeline.json进行分析，通过timeline.json进行可视化查看当前的通信空档，然后更加OP编号去IR图进行通信算子的上下文分析，从而来检查此处的通信算子是否是符合预期（与自己配置的切分策略匹配）。
 
-使用[profiler工具](#profiler工具)生成文件ascend_timeline_display_0.json，然后在chrome浏览器中输入"chrome://tracing"打开文件，也可以使用[MindStudio Insight](#mindstudio insight)打开，解析出对应的计算通信任务流的时序图。如下：
+使用[profiler工具](#profiler工具)生成文件ascend_timeline_display_0.json，然后在Chrome浏览器中输入"chrome://tracing"打开文件，也可以使用[MindStudio Insight](#mindstudio insight)打开，解析出对应的计算通信任务流的时序图。如下：
 
 ![timeline](./images/timeline.png)
 
@@ -466,7 +466,7 @@ RmsNorm一般使用float32计算，计算之前需要将输入从fp16或bf16 Cas
 
 * 模型初始化时使用了numpy初始化了超大的Tensor
 
-  模型脚本初始化时常常会用到numpy初始化的数组来初始化一个mindspore的tensor，如果这个tensor的大小很大则会导致host侧内存OOM，例如下面的代码中会申请一个seq_len*seq_len形状的tensor，对于序列长度达到128K以上时，则会容易导致Host内存OOM。
+  模型脚本初始化时常常会用到numpy初始化的数组来初始化一个MindSpore的Tensor，如果这个Tensor的大小很大则会导致host侧内存OOM，例如下面的代码中会申请一个seq_len*seq_len形状的Tensor，对于序列长度达到128K以上时，则会容易导致Host内存OOM。
 
   ```python
   class LowerTriangularMaskWithDynamic(Cell):
@@ -545,7 +545,7 @@ python run_mindformer.py --config ${CONFIG} --run_mode train > dry_run.log 2>&1 
 
 * 检查重计算生效算子
 
-  在ir图中检查是否有Cast、Silu和Mul的duplicate标签的算子，没有带标签的算子说明实际计算图没有重计算这部分算子。这里只有Cast算子带了duplicated标签。
+  在IR图中检查是否有Cast、Silu和Mul的duplicated标签的算子，没有带标签的算子说明实际计算图没有重计算这部分算子。这里只有Cast算子带了duplicated标签。
 
   ```text
   %1834(CNode_108839) = PrimFunc_Cast(%1833, I64(43)) {instance name: cast} primitive_attrs: {output_names: [output], input_names: [x, dst_type], recompute: Bool(1)} cnode_attrs: {recompute_sub_graph: U64(64), recompute_id: I64(65), duplicated: Bool(1), need_cse_after_recompute: Bool(1)} cnode_primal_attrs: {micro: I64(0)}
@@ -554,11 +554,11 @@ python run_mindformer.py --config ${CONFIG} --run_mode train > dry_run.log 2>&1 
 
 * 检查反向计算输入
 
-  在ir图中检查Silu和Mul的反向算子的输入是否符合预期，在关细粒度多副本时，Silu和Mul之间、 Mul和MatMul之间均有Reshape算子，而开开细粒度多副本时，Silu、Mul和MatMul是相连的。绘制相关流程如下：
+  在IR图中检查Silu和Mul的反向算子的输入是否符合预期，在关细粒度多副本时，Silu和Mul之间、 Mul和MatMul之间均有Reshape算子，而开细粒度多副本时，Silu、Mul和MatMul是相连的。绘制相关流程如下：
 
 ![reshape](./images/reshape.png)
 
-由此可知跟因在于，细粒度多副本场景中Linear的输入shape是二维的，而非细粒度多副本中Linear的输入shape是三维的，导致Linear和Mul之间有Reshape算子，没对这个Reshape重计算导致单纯对Silu的重计算没有用而被优化掉。额外对reshape重计算后内存可以正常减小。参考配置如下：
+由此可知跟因在于，细粒度多副本场景中Linear的输入shape是二维的，而非细粒度多副本中Linear的输入shape是三维的，导致Linear和Mul之间有Reshape算子，没对这个Reshape重计算导致单纯对Silu的重计算没有用而被优化掉。额外对Reshape重计算后内存可以正常减小。参考配置如下：
 
 ```yaml
 recompute_config:
@@ -568,17 +568,17 @@ recompute_config:
 
 #### Llama2-13B极致性能优化
 
-13B默认用单机DP: 8, MP: 1, PP: 1，开完全重计算，B1性能在1860tokens/s/p左右，MFU40%，相较于7B（MFU53%）与70B（MFU47%），性能明显偏低。
+13B默认用单机DP: 8, MP: 1, PP: 1，开完全重计算，性能在1860tokens/s/p左右，MFU40%，相较于7B（MFU53%）与70B（MFU47%），性能明显偏低。
 
 经分析，13B性能瓶颈主要在于内存，无论是单机还是多机，如果不切mp，则需要开完全重计算，对Silu和Mul做选择重计算内存依然不够；完全重计算会额外多20%到25%的计算量，导致性能偏低；对mp切分可以关闭重计算，但性能比纯dp还要低些。
 
-用双机调整切分策略为DP: 8, MP: 1, PP: 2, micro: 128，开完全重计算，B1性能提升至2136tokens/s/p。将完全重计算改为选择重计算，并精细选择算子，使每层的激活内存尽可能减少，B1性能提升至2189tokens/s/p。
+用双机调整切分策略为DP: 8, MP: 1, PP: 2, micro: 128，开完全重计算，性能提升至2136tokens/s/p。将完全重计算改为选择重计算，并精细选择算子，使每层的激活内存尽可能减少，性能提升至2189tokens/s/p。
 
 ```yaml
 select_recompute: ['feed_forward\.mul', 'feed_forward\.w1\.activation', 'feed_forward\.w1\.reshape', 'feed_forward\.w1\.matmul', 'feed_forward\.w3\.matmul', 'feed_forward\.W3\.reshape', 'feed_forward\.w2\.matmul', 'feed_forward\.w2\.reshape', 'ffn_norm\.norm', 'ffn_norm\.rcast', 'attention_norm\.norm', 'attention_norm\.rcast', 'attention\.wq\.reshape', 'attention\.wk\.reshape', 'attention\.wv\.reshape', 'attention\.wo\.matmul', 'attention\.wo\.reshape', 'attention\.merger_head_transpose', 'add', 'attention\.flash attention']
 ```
 
-调整不同stage的重计算层数，使stage1的重计算量减少，B1性能提升至2210tokens/s/p。
+调整不同stage的重计算层数，使stage1的重计算量减少，性能提升至2210tokens/s/p。
 
 ```yaml
 select_recompute:
@@ -604,7 +604,7 @@ select_recompute:
   'attention\.flash_attention': [20, 0]
 ```
 
-使用最新kbk+dvm图算融合ms包，内存有进一步优化，将大部分算子的选择重计算改为部分层的完全重计算，其余层配置Silu和Mul的选择重计算， stage0、stage1分别完全重计算13层、5层，B1性能提升至2353tokens/s/p。逐步减少stage0、stage1完全重计算至4层、0层，B1性能提升至2562tokens/s/p(max_device_memory: 57.2GB)。参考配置如下：
+使用O0/O1和dvm图算融合，内存有进一步优化，将大部分算子的选择重计算改为部分层的完全重计算，其余层配置Silu和Mul的选择重计算， stage0、stage1分别完全重计算13层、5层，性能提升至2353tokens/s/p。逐步减少stage0、stage1完全重计算至4层、0层，性能提升至2562tokens/s/p(max_device_memory: 57.2GB)。参考配置如下：
 
 ```yaml
 recompute_config:
