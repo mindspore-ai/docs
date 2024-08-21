@@ -29,11 +29,11 @@
                     "url": "/docs/zh-CN/master/api_python/index.html"
                 },
                 {
-                    "label": "大模型专项",
+                    "label": "大模型开发",
                     "url": "/docs/zh-CN/master/mindformers/index.html"
                 },
                 {
-                    "label": "香橙派专项",
+                    "label": "香橙派开发",
                     "url": "/docs/zh-CN/master/orange_pi/index.html"
                 },
                 {
@@ -71,11 +71,11 @@
                     "url": "/docs/en/master/api_python/index.html"
                 },
                 {
-                    "label": "Large Model Specialization",
+                    "label": "Large Model Development",
                     "url": "/docs/en/master/mindformers/index.html"
                 },
                 {
-                    "label": "Orange Pi Specialization",
+                    "label": "Orange Pi Development",
                     "url": "/docs/en/master/orange_pi/index.html"
                 },
                 {
