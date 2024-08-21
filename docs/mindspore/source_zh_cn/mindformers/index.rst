@@ -70,7 +70,7 @@ MindFormers以其强大的功能集，为用户提供了灵活且易于使用的
    :maxdepth: 1
    :caption: 精度调优
 
-   acc_optimize
+   acc_optimize/acc_optimize
 
 .. toctree::
    :glob:
