@@ -68,7 +68,8 @@ An example of the performance data catalog structure is shown below:
         │   └──── task.csv
         ├──── rank-*_{timestamp}_ascend_ms      // MindStudio Insight Visualization Deliverables
         │   ├──── ASCEND_PROFILER_OUTPUT      // Performance data collected by the MindSpore Profiler interface
-        │   └──── profiler_info_*.json
+        │   ├──── profiler_info_*.json
+        │   └──── profiler_metadata.json      // To record user-defined meta data, call the add_metadata or add_metadata_json interface to generate the file
         ├──── aicore_intermediate_*_detail.csv
         ├──── aicore_intermediate_*_type.csv
         ├──── aicpu_intermediate_*.csv
