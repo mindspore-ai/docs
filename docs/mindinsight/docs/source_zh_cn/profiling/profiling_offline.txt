@@ -67,7 +67,8 @@
         │   └──── task.csv
         ├──── rank-*_{时间戳}_ascend_ms      // MindStudio Insight可视化交付件
         │   ├──── ASCEND_PROFILER_OUTPUT      // MindSpore Profiler接口采集的性能数据
-        │   └──── profiler_info_*.json
+        │   ├──── profiler_info_*.json
+        │   └──── profiler_metadata.json      // 记录用户自定义的meta数据，调用add_metadata或add_metadata_json接口生成该文件
         ├──── aicore_intermediate_*_detail.csv
         ├──── aicore_intermediate_*_type.csv
         ├──── aicpu_intermediate_*.csv
