@@ -3,7 +3,7 @@
 
 MindSpore Transformers（也称MindFormers）套件的目标是构建一个大模型训练、微调、评估、推理、部署的全流程开发套件，提供业内主流的Transformer类预训练模型和SOTA下游任务应用，涵盖丰富的并行特性，期望帮助用户轻松地实现大模型训练和创新研发。
 
-如果您对MindFormers有任何建议，请通过`issue <https://gitee.com/mindspore/mindformers/issues>`_ 与我们联系，我们将及时处理。
+如果您对MindFormers有任何建议，请通过 `issue <https://gitee.com/mindspore/mindformers/issues>`_ 与我们联系，我们将及时处理。
 
 MindFormers支持一键启动任意任务的单卡/多卡训练、微调、评估、推理流程，它通过简化操作、提供灵活性和自动化流程，使得深度学习任务的执行变得更加高效和用户友好，用户可以通过以下说明文档进行使用和学习：
 
