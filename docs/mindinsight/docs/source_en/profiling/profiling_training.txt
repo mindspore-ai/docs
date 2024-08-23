@@ -207,4 +207,4 @@ Note：
 
 - `parallel_strategy` (bool, optional) - Indicates whether to collect parallel policy performance data. Default value: true.
 
-- `profile_framework` (str, optional) - Whether to collect host memory and time, it must be one of ["all", "time", "memory", null]. Default: "all".
+- `profile_framework` (str, optional) - Whether to collect host time, it must be one of ["all", "time", null]. Default: null.

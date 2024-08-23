@@ -74,7 +74,7 @@ There are two ways to collect neural network performance data. You can enable Pr
     - `timeline_limit`(int, optional) - Set the maximum storage size of the timeline file (unit M). When using this parameter, op_time must be set to true. Default value: 500.
     - `data_process`(bool, optional) - Indicates whether to collect data to prepare performance data. Default value: true.
     - `op_time` (bool, optional) - Whether to collect operators performance data. Default value: true.
-    - `profile_framework`(str, optional) - Whether to collect host memory and time, it must be one of ["all", "time", "memory", null]. Default: "all".
+    - `profile_framework`(str, optional) - Whether to collect host time, it must be one of ["all", "time", null]. Default: null.
 
 ## Launching MindSpore Insight
 
