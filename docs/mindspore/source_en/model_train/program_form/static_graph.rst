@@ -964,9 +964,6 @@ Primitive
 Currently, ``Primitive`` and its subclass instances can be constructed
 in construct.
 
-However, during call, the parameter can be specified only in position
-parameter mode, and cannot be specified in the key-value pair mode.
-
 For example:
 
 .. code:: python
@@ -979,7 +976,7 @@ For example:
 
    class Net(nn.Cell):
        def __init__(self):
-           super().__init__()
+           super(Net, self).__init__()
 
        def construct(self, x):
            reduce_sum = ops.ReduceSum(True) #`Primitive` and its subclass instances can be constructed in construct.
@@ -991,15 +988,11 @@ For example:
    ret = net(x)
    print('ret.shape:{}'.format(ret.shape))
 
-In the network defined above, the parameters of reduce_sum(x, axis=2)
-cannot be specified in the key-value pair mode. The parameter can be
-specified only in position parameter mode, that is, reduce_sum(x, 2).
-
-The error is reported as follows:
+The results are as follows:
 
 .. code:: text
 
-   ValueError: For 'ReduceSum', the second input type should be tensor or scalar, but got invalid abstract type:AbstractKeywordArg.
+   ret.shape:(3, 4, 1, 6)
 
 Currently, the attributes and APIs related to ``Primitive`` and its
 subclasses cannot be called on the network.

@@ -802,8 +802,6 @@ Primitive
 
 当前支持在construct里构造\ ``Primitive``\ 及其子类的实例。
 
-但在调用时，参数只能通过位置参数方式传入，不支持通过键值对方式传入。
-
 示例如下：
 
 .. code:: python
@@ -816,7 +814,7 @@ Primitive
 
    class Net(nn.Cell):
        def __init__(self):
-           super().__init__()
+           super(Net, self).__init__()
 
        def construct(self, x):
            reduce_sum = ops.ReduceSum(True) #支持在construct里构造`Primitive`及其子类的实例
@@ -828,15 +826,11 @@ Primitive
    ret = net(x)
    print('ret.shape:{}'.format(ret.shape))
 
-上面所定义的网络里，reduce_sum(x,
-axis=2)的参数不支持通过键值对方式传入，只能通过位置参数方式传入，即reduce_sum(x,
-2)。
-
-结果报错如下：
+运行结果如下：
 
 .. code:: text
 
-   ValueError: For 'ReduceSum', the second input type should be tensor or scalar, but got invalid abstract type:AbstractKeywordArg.
+   ret.shape:(3, 4, 1, 6)
 
 当前不支持在网络调用\ ``Primitive``\ 及其子类相关属性和接口。
 
