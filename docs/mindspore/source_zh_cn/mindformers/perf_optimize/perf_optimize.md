@@ -205,50 +205,50 @@ HFU/MFU可以用于对于训练性能tokens/s/p的评价。一般HFU>50%属于�
 
 在使用混合精度获得训练加速和内存节省的同时，需要考虑FP16引入问题的解决。Loss Scale损失缩放，FP16类型数据下溢问题的解决方案，主要思想是在计算损失值loss的时候，将loss扩大一定的倍数。根据链式法则，梯度也会相应扩大，然后在优化器更新权重时再缩小相应的倍数，从而避免了数据下溢。
 
-详细介绍参考文档自动[混合精度](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/mixed_precision.html)。
+详细介绍参考文档[自动混合精度](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/mixed_precision.html)。
 
 ### 工具介绍
 
 #### profiler工具
 
-MindFormers本身集成了profiling数据采集的功能，主要步骤如下：
+MindFormers本身集成了profiling数据采集的功能，使用步骤如下：
 
 1. 修改配置文件
 
-  在模型的配置文件中（例如run_llama2_7b.yaml）开启profiling开关，需修改的参数如下：
+   在模型的配置文件中（例如run_llama2_7b.yaml）开启profiling开关，需修改的参数如下：
 
-  ```yaml
-  profile: True  #是否开启性能分析工具
-  profile_start_step: 1  #性能分析开始的step
-  profile_stop_step: 10  #性能分析结束的step
-  init_start_profile: False  #Profiler初始化的时候开启，开启后profile_start_step将不生效。
-  profile_communication: True #是否在多设备训练中收集通信性能数据
-  profile_memory: True  #收集Tensor内存数据
-  ```
+   ```yaml
+   profile: True  #是否开启性能分析工具
+   profile_start_step: 1  #性能分析开始的step
+   profile_stop_step: 10  #性能分析结束的step
+   init_start_profile: False  #Profiler初始化的时候开启，开启后profile_start_step将不生效。
+   profile_communication: True #是否在多设备训练中收集通信性能数据
+   profile_memory: True  #收集Tensor内存数据
+   ```
 
 2. 简化模型
 
-  建议将模型的层数（num_layers）改为2层，方便快速采集数据.
+   建议将模型的层数（num_layers）改为2层，方便快速采集数据。
 
 3. 查看数据
 
-  采集的性能数据文件会保存到模型配置文件output_dir（默认“./output”）下创建一个profile的文件夹，按照rank id生成当前机器的每一张卡的性能数据。以rank_0为例，目录为output/profile/rank_0/profiler。
+   采集的性能数据文件会保存到模型配置文件output_dir（默认“./output”）下创建一个profile的文件夹，按照rank id生成当前机器的每一张卡的性能数据。以rank_0为例，目录为output/profile/rank_0/profiler。
 
-  生成的文件及介绍参考[链接](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#目录结构)，主要收集算子、任务等运行耗时，CPU利用率，内存消耗等信息，用于性能调优分析需要的各项数据。
+   生成的文件及介绍参考[profile文件介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#目录结构)，主要收集算子、任务等运行耗时，CPU利用率，内存消耗等信息，用于性能调优分析需要的各项数据。
 
 #### MindStudio Insight
 
 MindStudio Insight提供了性能数据的多种呈现形式，包括Timeline视图、通信分析、计算耗时等的可视化呈现，以便用户分析潜在的性能瓶颈，并指导如何采取措施消除或减少这些瓶颈。MindStudio Insight支持在Timeline查看集群场景下Profiling导出的数据，并以单卡为维度进行展示，可以支持20GB以上的集群性能文件分析。
 
-点击[链接](https://www.hiascend.com/zh/developer/download/commercial/result?module=sto)下载软件包，并安装。
+点击[MindStudio Insight下载链接](https://www.hiascend.com/zh/developer/download/commercial/result?module=sto)，选择合适的版本安装。
 
-打开MindStudio Insight工具，单击界面左上方工具栏中的加号，在弹窗中选择解析并导出的文件或目录，然后单击“确认”导入。
+打开MindStudio Insight工具，单击界面左上方工具栏中的“加号”，在弹窗中选择解析并导出的文件或目录，然后单击“确认”导入。
 
 MindStudio Insight工具以时间线（Timeline）的呈现方式为用户提供全流程在线推理、训练过程中的运行情况，并按照调度流程来呈现整体的运行状况，并且MindStudio Insight支持集群Timeline展示。通过分析时间线，用户可以对在线推理/训练过程进行细粒度的分析，如迭代间隙是否过长、算子执行时间等，并提供一些易用性功能辅助用户快速定位出性能瓶颈。
 
 时间线（Timeline）界面包含工具栏（区域一）、时间线树状图（区域二）、图形化窗格（区域三）和数据窗格（区域四）四个部分组成，如图所示。
 
-<img src="./images/studio.png" alt="studio" style="zoom:120%;" />
+![studio](./images/studio.png)
 
 * 区域一
 
@@ -289,25 +289,25 @@ MindStudio Insight工具以时间线（Timeline）的呈现方式为用户提供
       # Fullname with scope: (Default/network-MFPipelineWithLossScaleCell/network-_VirtualDatasetCell/_backbone-GradAccumulationCell/network-LlamaForCausalLM/model-LlamaModel/layers-CellList/0-LLamaDecodeLayer/attention-LLamaAttention/Transpose-op0)
 ```
 
-%XX 表示步骤，后面对应算子名称，括号里面则包含了入参及输出。Fullname with scope则包含了完成的class，方法名等信息。
+`%XX` 表示步骤，后面对应算子名称，括号里面则包含了入参及输出。Fullname with scope则包含了完成的class，方法名等信息。
 
-* %13
+* `%13`
 
   此步直接加载wq.weight，得到<Tensor[Float16], (512, 4096)>。
 
-* %14
+* `%14`
 
   跟前面的%12输出和上述%13输出进行MatMul，得到<Tensor[Float16], (4096, 512)>。
 
-* 15%
+* `%15`
 
   上述14%的输出，Reshape得到<Tensor[Float16], (1, 4096, 4, 128)>。
 
-* 16%
+* `%16`
 
   上述15%的输出，Transpose得到<Tensor[Float16], (1, 4, 4096, 128)>。
 
-在保存IR图时建议将模型的层数改小，减少编译存图的时间，方便快速调试。IR文件详细介绍参考[链接](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/mindir.html#ir文件介绍)，分析示例参考[链接](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/mindir.html#如何根据analyze-failir文件分析图推导失败的原因)。
+在保存IR图时建议将模型的层数改小，减少编译存图的时间，方便快速调试。详细内容参考[IR文件介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/mindir.html#ir文件介绍)和[分析示例](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/mindir.html#如何根据analyze-failir文件分析图推导失败的原因)。
 
 ## 性能调优指南
 
@@ -315,7 +315,7 @@ MindStudio Insight工具以时间线（Timeline）的呈现方式为用户提供
 
 大模型的性能优化主要依赖于profiling数据分析以及内存分析，分析当前性能的瓶颈以及与竞品的差距；MindSpore框架上的耗时主要是算子耗时以及通信耗时两部分，其中算子耗时主要是拆解出核心算子与竞品的差距，通信分析查看是否存在不合理的重排布等。
 
-完成性能数据以及内存数据采集后，整个优化的流程如下：
+完成性能数据以及内存数据采集后，整体优化的流程如下：
 
 * 分析算子性能，尽量使用融合算子替换中小算子。
 
@@ -349,7 +349,7 @@ MindStudio Insight工具以时间线（Timeline）的呈现方式为用户提供
 
 * 数据拆解关注点
 
-  上述profiler工具生产的性能数据中，分析生成数据中的如下文件：rank-*_ascend_ms/ASCEND_PROFILER_OUTPUT/kernel_details.csv。该文件按照算子类型统计某一类型的算子整体占比，可以从中得到需要优化哪一类算子从而带来性能提升。如下图所示，可以看到当前网络TOP耗时的算子是MatMulV2、FA等相关算子。
+  上述[profiler工具](#profiler工具)产生的性能数据中，分析生成数据中的如下文件：rank-*_ascend_ms/ASCEND_PROFILER_OUTPUT/kernel_details.csv。该文件按照算子类型统计某一类型的算子整体占比，可以从中得到需要优化哪一类算子从而带来性能提升。如下图所示，可以看到当前网络TOP耗时的算子是MatMulV2、FA等相关算子。
 
   ![big_op](./images/big_op.png)
 
@@ -369,7 +369,7 @@ MindStudio Insight工具以时间线（Timeline）的呈现方式为用户提供
 
 分析通信重排布是否合理是利用存IR图加Profiling采集的timeline.json进行分析，通过timeline.json进行可视化查看当前的通信空档，然后更加OP编号去IR图进行通信算子的上下文分析，从而来检查此处的通信算子是否是符合预期（与自己配置的切分策略匹配）。
 
-使用[profiler工具](#profiler工具)生成文件ascend_timeline_display_0.json，然后在Chrome浏览器中输入"chrome://tracing"打开文件，也可以使用[MindStudio Insight](#mindstudio insight)打开，解析出对应的计算通信任务流的时序图。如下：
+使用[profiler工具](#profiler工具)生成文件ascend_timeline_display_0.json，然后在Chrome浏览器中输入"chrome://tracing"打开文件，也可以使用[MindStudio Insight](#mindstudio-insight)打开，解析出对应的计算通信任务流的时序图。如下：
 
 ![timeline](./images/timeline.png)
 
@@ -424,15 +424,15 @@ wo-linear之后存在一个计算空档，结合IR图，可以看到在wo-linear
 
 * 小参数模型
 
-  模型规模较小时（7B），可使用纯数据并行+优化器并行，如果内存富裕可进一步开启梯度累积。使用8卡训练，[Llama2-7B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml)。
+  模型规模较小时（如7B），可使用纯数据并行+优化器并行，如果内存富裕可进一步开启梯度累积。使用8卡训练，[Llama2-7B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml)。
 
 * 中等参数模型
 
-  模型规模适中时（13B），可进一步使用流水线并行，并调整重计算。使用8卡训练，[Llama2-13B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_13b.yaml)。
+  模型规模适中时（如13B），可进一步使用流水线并行，并调整重计算。使用8卡训练，[Llama2-13B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_13b.yaml)。
 
 * 大参数模型
 
-  模型规模较大时（70B），需开启模型并行，同时序列并行与多副本并行也建议开启。使用64卡训练，[Llama2-70B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_70b.yaml)。
+  模型规模较大时（如70B），需开启模型并行，同时序列并行与多副本并行也建议开启。使用64卡训练，[Llama2-70B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_70b.yaml)。
 
 ### 重计算
 
@@ -554,7 +554,7 @@ python run_mindformer.py --config ${CONFIG} --run_mode train > dry_run.log 2>&1 
 
 * 检查反向计算输入
 
-  在IR图中检查Silu和Mul的反向算子的输入是否符合预期，在关细粒度多副本时，Silu和Mul之间、 Mul和MatMul之间均有Reshape算子，而开细粒度多副本时，Silu、Mul和MatMul是相连的。绘制相关流程如下：
+  在IR图中检查Silu和Mul的反向算子的输入是否符合预期，在关细粒度多副本时，Silu和Mul之间、 Mul和MatMul之间均有Reshape算子，而开启细粒度多副本时，Silu、Mul和MatMul是相连的。绘制相关流程如下：
 
 ![reshape](./images/reshape.png)
 
@@ -570,7 +570,7 @@ recompute_config:
 
 13B默认用单机DP: 8, MP: 1, PP: 1，开完全重计算，性能在1860tokens/s/p左右，MFU40%，相较于7B（MFU53%）与70B（MFU47%），性能明显偏低。
 
-经分析，13B性能瓶颈主要在于内存，无论是单机还是多机，如果不切mp，则需要开完全重计算，对Silu和Mul做选择重计算内存依然不够；完全重计算会额外多20%到25%的计算量，导致性能偏低；对mp切分可以关闭重计算，但性能比纯dp还要低些。
+经分析，13B性能瓶颈主要在于内存，无论是单机还是多机，如果不切MP，则需要开完全重计算，对Silu和Mul做选择重计算内存依然不够；完全重计算会额外多20%到25%的计算量，导致性能偏低；对MP切分可以关闭重计算，但性能比纯DP还要低些。
 
 用双机调整切分策略为DP: 8, MP: 1, PP: 2, micro: 128，开完全重计算，性能提升至2136tokens/s/p。将完全重计算改为选择重计算，并精细选择算子，使每层的激活内存尽可能减少，性能提升至2189tokens/s/p。
 
