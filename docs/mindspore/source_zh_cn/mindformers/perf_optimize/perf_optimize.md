@@ -1,5 +1,7 @@
 # 大模型性能调优指南
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/mindformers/perf_optimize/perf_optimize.md)
+
 ## 性能调优概述
 
 本文档主要介绍大语言模型的性能调优，详细介绍了性能调优相关的基础理论知识、分析思路和相关工具使用指导，以及案例分享。
