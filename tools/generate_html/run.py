@@ -38,12 +38,10 @@ def git_update(repo_dir, branch):
     str4 = repo.git.execute(["git", "pull", "origin", branch])
     print(str4)
 
-pythonlib_dir = os.path.dirname(os.path.dirname(sphinx.__file__))
-
-def deal_err(err):
+def deal_err(err, pylib_dir):
     extra_str_re = re.compile(r"\[3.*?m")
     workdir_re = re.compile(rf"{REPODIR}")
-    pythonlib_re = re.compile(rf"{pythonlib_dir}")
+    pythonlib_re = re.compile(rf"{pylib_dir}")
     err_new = extra_str_re.sub('', err)
     err_new = workdir_re.sub('', err_new)
     err_new = pythonlib_re.sub('', err_new)
@@ -95,6 +93,9 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
 
     # 各个组件安装包下载保存路径
     WHLDIR = f"{WORKDIR}/whlpkgs"
+
+    # python安装包文件夹位置
+    pythonlib_dir = os.path.dirname(os.path.dirname(sphinx.__file__))
 
     # 开始计时
     time_start = time.perf_counter()
@@ -210,7 +211,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 wgetdir = WGETDIR + "mindspore"
             res = s.get(wgetdir, auth=(user, pd), verify=False)
             requests.packages.urllib3.disable_warnings()
-            # 安装组件whl包
+            # 下载组件whl包
             if data[i]['whl_path'] != "":
                 url = f"{wgetdir}/{data[i]['whl_path']}"
                 if not url.endswith(".html") and not url.endswith("/"):
@@ -224,7 +225,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                     for link_ in links:
                         title = link_.get("title", "")
                         href = link_.get("href", "")
-                        if re.findall(name, title):
+                        if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
                             download_url = url+'/'+href
                             dowmloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
                             with open(title, 'wb') as fd:
@@ -232,7 +233,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             print(f"Download {title} success!")
                             time.sleep(1)
 
-            # 安装其他需求的组件whl包
+            # 下载其他需求的组件whl包
             if 'extra_whl_path' in data[i] and data[i]['extra_whl_path'] != "":
                 url = f"{wgetdir}/{data[i]['extra_whl_path']}"
                 if not url.endswith(".html") and not url.endswith("/"):
@@ -246,7 +247,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                     for link_ in links:
                         title = link_.get("title", "")
                         href = link_.get("href", "")
-                        if re.findall(name, title):
+                        if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
                             download_url = url+'/'+href
                             dowmloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
                             with open(title, 'wb') as fd:
@@ -363,6 +364,16 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                     h.seek(0)
                     h.truncate()
                     h.write(html_base_content)
+
+                registry_target = os.path.join(pythonlib_dir, 'sphinx', 'registry.py')
+                with open(registry_target, 'r+', encoding='utf-8') as h:
+                    registry_content = h.read()
+                    registry_content = re.sub(r'([ ]+?)except VersionRequirementError as err:\n(?:.|\n|)+?from err',
+                                              r'\1except VersionRequirementError as err:\n\1    metadata = {}',
+                                              registry_content)
+                    h.seek(0)
+                    h.truncate()
+                    h.write(registry_content)
                 replace_flag = 0
         except ModuleNotFoundError:
             pass
@@ -387,7 +398,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 if stderr:
                     for j in stderr.split("\n"):
                         if ": WARNING:" in j:
-                            error_lists.append(deal_err(j))
+                            error_lists.append(deal_err(j, pythonlib_dir))
                 if process.returncode != 0:
                     print(f"{i} 的 英文 版本运行失败")
                     print(f"错误信息：\n{stderr}")
@@ -427,7 +438,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                 if stderr:
                     for j in stderr.split("\n"):
                         if ": WARNING:" in j:
-                            error_lists.append(deal_err(j))
+                            error_lists.append(deal_err(j, pythonlib_dir))
                 if process.returncode != 0:
                     print(f"{i} 的 中文版本运行失败")
                     print(f"错误信息：\n{stderr}")

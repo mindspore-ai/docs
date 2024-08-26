@@ -333,8 +333,7 @@ else:
 
 branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
-cst_module_name = 'mindspore'
-repo_whl = 'mindspore/python/mindspore'
+repo_whl = 'mindspore/python/'
 giturl = 'https://gitee.com/mindspore/'
 ops_yaml = 'mindspore/ops/op_def/yaml/doc/'
 try:
@@ -379,7 +378,6 @@ def setup(app):
     app.add_js_file('js/mermaid-9.3.0.js')
     app.add_config_value('docs_branch', '', True)
     app.add_config_value('branch', '', True)
-    app.add_config_value('cst_module_name', '', True)
     app.add_config_value('copy_repo', '', True)
     app.add_config_value('giturl', '', True)
     app.add_config_value('repo_whl', '', True)
@@ -388,6 +386,7 @@ def setup(app):
     app.add_config_value('primi_auto', [], True)
     app.add_config_value('func_name_dict', {}, True)
     app.add_config_value('mint_sum', [], True)
+    app.add_config_value('repo_path', '', True)
 
 # Copy images from mindspore repo.
 import imghdr
