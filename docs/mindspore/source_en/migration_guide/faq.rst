@@ -135,9 +135,9 @@ MindSpore provides a `FAQ <https://mindspore.cn/docs/en/master/faq/installation.
   `MindSpore Model Accuracy Tuning Practice (3): Common Accuracy Problems <https://www.hiascend.com/forum/thread-0235121941523411032-1-1.html>`_.
 
   For more debugging and tuning FAQs, please refer to
-  `Function Debugging <https://www.mindspore.cn/docs/en/master/migration_guide/debug.html>`_,
-  `Precision Tuning <https://www.mindspore.cn/docs/en/master/migration_guide/acc_debug.html>`_,
-  `Performance Tuning <https://www.mindspore.cn/docs/en/master/migration_guide/perf_debug.html>`_ .
+  `Function Debugging <https://www.mindspore.cn/docs/en/master/migration_guide/debug_and_tune.html#function-debugging>`_,
+  `Precision Tuning <https://www.mindspore.cn/docs/en/master/migration_guide/debug_and_tune.html#precision-tuning>`_,
+  `Performance Tuning <https://www.mindspore.cn/docs/en/master/migration_guide/debug_and_tune.html#performance-tuning>`_ .
 
   **Q: During model training, the first step takes a long time, how to optimize it?**
 
