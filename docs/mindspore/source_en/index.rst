@@ -12,6 +12,5 @@ MindSpore Documentation
    mindformers/index
    api_python/index
    orange_pi/index
-   kits_tools/index
    faq/index
    RELEASE
