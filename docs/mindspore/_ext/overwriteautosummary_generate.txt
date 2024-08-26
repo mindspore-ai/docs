@@ -73,7 +73,6 @@ class DummyApplication:
         self.config.add('autosummary_ignore_module_all', True, 'env', bool)
         self.config.add('docs_branch', '', True, None)
         self.config.add('branch', '', True, None)
-        self.config.add('cst_module_name', '', True, None)
         self.config.add('copy_repo', '', True, None)
         self.config.add('giturl', '', True, None)
         self.config.add('repo_whl', '', True, None)
@@ -81,6 +80,7 @@ class DummyApplication:
         self.config.add('ops_yaml_list', [], True, None)
         self.config.add('primi_auto', [], True, None)
         self.config.add('func_name_dict', {}, True, None)
+        self.config.add('repo_path', '', True, None)
         self.config.init_values()
 
     def emit_firstresult(self, *args: Any) -> None:
@@ -474,6 +474,7 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
             py_source_rel = get_full_modname(modname, qualname).replace('.', '/') + '.py'
         except:
             py_source_rel = ''
+
         # 自动生成的ops模块单独处理
         if 'mindspore/ops/auto_generate/' in py_source_rel:
             name1 = name
@@ -515,10 +516,13 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
                 content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
 
         elif py_source_rel:
+            if not os.path.exists(os.path.join(app.config.repo_path, app.config.repo_whl, py_source_rel)):
+                py_source_rel = py_source_rel.replace('.py', '/__init__.py')
+
             re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
                 f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
                 f"{app.config.copy_repo}/blob/{app.config.branch}/" + app.config.repo_whl + \
-                py_source_rel.split(app.config.cst_module_name)[-1] + '\n    :alt: View Source On Gitee\n\n'
+                py_source_rel + '\n    :alt: View Source On Gitee\n\n'
 
             if re_view not in content:
                 content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)

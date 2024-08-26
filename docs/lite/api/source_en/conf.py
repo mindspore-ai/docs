@@ -393,6 +393,11 @@ des_sir = "../include"
 if os.path.exists(des_sir):
     shutil.rmtree(des_sir)
 
+# 解压tar.gz包
+def extract_tar_gz(gz_file, extract_to):
+    with tarfile.open(gz_file, 'r:gz') as tar:
+        tar.extractall(path=extract_to)
+
 lite_package_path=os.getenv("LITE_PACKAGE_PATH", "null")
 if lite_package_path == "null":
     print("LITE_PACKAGE_PATH: This environment variable does not exist")
@@ -400,12 +405,8 @@ if lite_package_path == "null":
     quit()
 header_path = lite_package_path.split("/")[-1].split(".tar")[0]
 save_path = "../"
-os.makedirs(save_path, exist_ok=True)
-t = tarfile.open(lite_package_path)
-names = t.getnames()
-for name in names:
-    t.extract(name, save_path)
-t.close()
+
+extract_tar_gz(lite_package_path, save_path)
 
 source_path = "../" + header_path + "/"
 source_runtime_include = os.path.join(source_path, "runtime/include")
