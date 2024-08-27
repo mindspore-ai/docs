@@ -248,7 +248,7 @@ for cur, _, files in os.walk('./mindspore_lite'):
                     content = f.read()
                     new_content = re.sub(re_url, r'\1/r2.3.1', content)
                     if i.endswith('.rst'):
-                        new_content = re.sub(re_url2, r'\1/r2.3.1', new_content)
+                        new_content = re.sub(re_url2, r'\1/v2.3.1', new_content)
                     if new_content != content:
                         f.seek(0)
                         f.truncate()

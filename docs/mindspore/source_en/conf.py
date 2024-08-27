@@ -371,10 +371,10 @@ for cur, _, files in os.walk(des_sir):
                 new_content = re.sub(re_url, r'\1/r2.3.1', new_content)
                 if i.endswith('.rst'):
                     new_content = re.sub(re_url2, r'\1/v2.3.1', new_content)
-                if i.endswith('.md'):
-                    md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
-                    if 'resource/_static/logo_source' not in new_content:
-                        new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
+                # if i.endswith('.md'):
+                #     md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
+                #     if 'resource/_static/logo_source' not in new_content:
+                #         new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
                 if new_content != content:
                     f.seek(0)
                     f.truncate()
