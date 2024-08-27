@@ -1,6 +1,6 @@
 [
     {
-        "version": "r2.3.1",
+        "version": "r2.3.2",
         "label": {
             "zh": "MindSpore",
             "en": "MindSpore"
@@ -9,7 +9,7 @@
         "theme": "theme-docs"
     },
     {
-        "version": "r2.3.1",
+        "version": "r2.3.2",
         "label": {
             "zh": "教程",
             "en": "Tutorials"
@@ -19,36 +19,36 @@
             "zh": [
                 {
                     "label": "初学入门",
-                    "url": "/tutorials/zh-CN/r2.3.1/index.html"
+                    "url": "/tutorials/zh-CN/r2.3.2/index.html"
                 },
                 {
                     "label": "应用实践",
-                    "url": "/tutorials/application/zh-CN/r2.3.1/index.html"
+                    "url": "/tutorials/application/zh-CN/r2.3.2/index.html"
                 },
                 {
                     "label": "深度开发",
-                    "url": "/tutorials/experts/zh-CN/r2.3.1/index.html"
+                    "url": "/tutorials/experts/zh-CN/r2.3.2/index.html"
                 }
             ],
             "en": [
                 {
                     "label": "Quickstart",
-                    "url": "/tutorials/en/r2.3.1/index.html"
+                    "url": "/tutorials/en/r2.3.2/index.html"
                 },
                 {
                     "label": "Application",
-                    "url": "/tutorials/application/en/r2.3.1/index.html"
+                    "url": "/tutorials/application/en/r2.3.2/index.html"
                 },
                 {
                     "label": "Experts",
-                    "url": "/tutorials/experts/en/r2.3.1/index.html"
+                    "url": "/tutorials/experts/en/r2.3.2/index.html"
                 }
             ]
         },
         "theme": "theme-tutorials"
     },
     {
-        "version": "r2.3.1",
+        "version": "r2.3.2",
         "label": {
             "zh": "MindSpore Lite",
             "en": "MindSpore Lite"
@@ -58,73 +58,64 @@
             "zh": [
                 {
                     "label": "概述",
-                    "url": "/lite?version=r2.3.1"
+                    "url": "/lite?version=r2.3.2"
                 },
                 {
                     "label": "下载",
-                    "url": "/lite/docs/zh-CN/r2.3.1/use/downloads.html"
+                    "url": "/lite/docs/zh-CN/r2.3.2/use/downloads.html"
                 },
                 {
                     "label": "文档",
-                    "url": "/lite/docs/zh-CN/r2.3.1/index.html"
+                    "url": "/lite/docs/zh-CN/r2.3.2/index.html"
                 },
                 {
                     "label": "API",
-                    "url": "/lite/api/zh-CN/r2.3.1/index.html"
+                    "url": "/lite/api/zh-CN/r2.3.2/index.html"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/lite/faq/zh-CN/r2.3.1/faq.html"
+                    "url": "/lite/faq/zh-CN/r2.3.2/faq.html"
                 },
                 {
                     "label": "示例",
-                    "url": "/lite/examples?version=r2.3.1"
+                    "url": "/lite/examples?version=r2.3.2"
                 },
                 {
                     "label": "模型",
-                    "url": "/lite/models?version=r2.3.1"
+                    "url": "/lite/models?version=r2.3.2"
                 }
             ],
             "en": [
                 {
                     "label": "Overview",
-                    "url": "/lite/en?version=r2.3.1"
+                    "url": "/lite/en?version=r2.3.2"
                 },
                 {
                     "label": "Downloads",
-                    "url": "/lite/docs/en/r2.3.1/use/downloads.html"
+                    "url": "/lite/docs/en/r2.3.2/use/downloads.html"
                 },
                 {
                     "label": "Docs",
-                    "url": "/lite/docs/en/r2.3.1/index.html"
+                    "url": "/lite/docs/en/r2.3.2/index.html"
                 },
                 {
                     "label": "API",
-                    "url": "/lite/api/en/r2.3.1/index.html"
+                    "url": "/lite/api/en/r2.3.2/index.html"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/lite/faq/en/r2.3.1/faq.html"
+                    "url": "/lite/faq/en/r2.3.2/faq.html"
                 },
                 {
                     "label": "Examples",
-                    "url": "/lite/examples/en?version=r2.3.1"
+                    "url": "/lite/examples/en?version=r2.3.2"
                 },
                 {
                     "label": "Models",
-                    "url": "/lite/models/en?version=r2.3.1"
+                    "url": "/lite/models/en?version=r2.3.2"
                 }
             ]
         },
         "theme": "theme-lite"
-    },
-    {
-        "version": "r0.5.0",
-        "label": {
-            "zh": "MindSpore Golden Stick",
-            "en": "MindSpore Golden Stick"
-        },
-        "repo_name": "golden_stick",
-        "theme": "theme-docs"
     }
 ]
