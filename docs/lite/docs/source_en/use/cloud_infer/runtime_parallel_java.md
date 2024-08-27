@@ -19,7 +19,7 @@ To use the MindSpore Lite concurrent inference framework, perform the following 
 
 ## Preparation
 
-1. The following code samples are from [Sample code for performing cloud-side inference by C++ interface](https://gitee.com/mindspore/mindspore/tree/r2.3.1/mindspore/lite/examples/cloud_infer/quick_start_parallel_java).
+1. The following code samples are from [Sample code for performing cloud-side inference by C++ interface](https://gitee.com/mindspore/mindspore/tree/v2.3.1/mindspore/lite/examples/cloud_infer/quick_start_parallel_java).
 
 2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/r2.3.1/use/cloud_infer/converter_tool.html) and copy it to the `mindspore/lite/examples/cloud_infer/quick_start_parallel_java/model` directory, and you can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir).
 

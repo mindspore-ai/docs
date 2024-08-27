@@ -4,7 +4,7 @@
 
 ## 概述
 
-本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了C语言进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。本教程通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，打印获得输出数据。相关代码放置在[mindspore/lite/examples/quick_start_c](https://gitee.com/mindspore/mindspore/tree/r2.3.1/mindspore/lite/examples/quick_start_c)目录。
+本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了C语言进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。本教程通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，打印获得输出数据。相关代码放置在[mindspore/lite/examples/quick_start_c](https://gitee.com/mindspore/mindspore/tree/v2.3.1/mindspore/lite/examples/quick_start_c)目录。
 
 使用MindSpore Lite执行推理主要包括以下步骤：
 
@@ -31,7 +31,7 @@
 
 - 编译构建
 
-  在`mindspore/lite/examples/quick_start_c`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/lite/examples/quick_start_c/build.sh)，将自动下载MindSpore Lite推理框架库以及模型文件并编译Demo。
+  在`mindspore/lite/examples/quick_start_c`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/v2.3.1/mindspore/lite/examples/quick_start_c/build.sh)，将自动下载MindSpore Lite推理框架库以及模型文件并编译Demo。
 
   ```bash
   bash build.sh
@@ -74,7 +74,7 @@
 
     - 模型下载：请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms)，并将其拷贝到`mindspore\lite\examples\quick_start_c\model`目录。
 
-    - 编译：在`mindspore\lite\examples\quick_start_c`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/lite/examples/quick_start_c/build.bat)，将能够自动下载相关文件并编译Demo。
+    - 编译：在`mindspore\lite\examples\quick_start_c`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/v2.3.1/mindspore/lite/examples/quick_start_c/build.bat)，将能够自动下载相关文件并编译Demo。
 
   ```bash
   call build.bat

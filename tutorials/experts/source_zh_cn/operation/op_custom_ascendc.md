@@ -102,7 +102,7 @@ MindSpore的自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/z
 
 > 单算子执行模式推荐使用aclnn，包括PyNative模式或Graph模式下`jit_config`为`O0`或`O1`。
 
-完整Ascend C自定义算子的样例代码，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/r2.3.1/tests/st/graph_kernel/custom/custom_ascendc) ，样例工程的目录结构如下：
+完整Ascend C自定义算子的样例代码，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/v2.3.1/tests/st/graph_kernel/custom/custom_ascendc) ，样例工程的目录结构如下：
 
 ```text
 .

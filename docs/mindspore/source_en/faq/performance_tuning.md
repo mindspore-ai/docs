@@ -5,7 +5,7 @@
 ## Q: What can I do if the network performance is abnormal and weight initialization takes a long time during training after MindSpore is installed?
 
 A: The `scipy 1.4` series versions may be used in the environment. Run the `pip list | grep scipy` command to view the scipy version and change the `scipy` version to that required by MindSpore. You can view the third-party library dependency in the `requirement.txt` file.
-<https://gitee.com/mindspore/mindspore/blob/r2.3.1/requirements.txt>
+<https://gitee.com/mindspore/mindspore/blob/v2.3.1/requirements.txt>
 
 ## Q: How to choose the batchsize to achieve the best performance when training models on the Ascend chip?
 

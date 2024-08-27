@@ -11,7 +11,7 @@
 
 ## Kernel
 
-\#include <[kernel.h](https://gitee.com/mindspore/mindspore/blob/r2.3.1/include/api/kernel.h)>
+\#include <[kernel.h](https://gitee.com/mindspore/mindspore/blob/v2.3.1/include/api/kernel.h)>
 
 Kernel是算子实现的基类，定义了几个必须实现的接口。
 
@@ -243,7 +243,7 @@ std::map<std::string, std::string> GetConfig(const std::string &section) const
 
 ## KernelInterface
 
-\#include <[kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/lite/include/kernel_interface.h)>
+\#include <[kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/v2.3.1/mindspore/lite/include/kernel_interface.h)>
 
 算子扩展能力基类。
 
