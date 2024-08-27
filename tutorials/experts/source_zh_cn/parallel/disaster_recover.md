@@ -1,6 +1,6 @@
 # 动态组网场景下故障恢复
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.1/tutorials/experts/source_zh_cn/parallel/disaster_recover.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.2/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.3.2/tutorials/experts/source_zh_cn/parallel/disaster_recover.md)
 
 ## 概述
 
@@ -10,7 +10,7 @@
 
 > 动态组网场景下的容灾恢复仅支持GPU，需要在Graph模式下运行。
 
-更多详细说明请查看[动态组网环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.1/parallel/dynamic_cluster.html)。
+更多详细说明请查看[动态组网环境变量](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.2/parallel/dynamic_cluster.html)。
 
 ## 操作实践
 
@@ -18,7 +18,7 @@
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[disaster_recover](https://gitee.com/mindspore/docs/tree/r2.3.1/docs/sample_code/disaster_recover)。
+> 下载完整的样例代码：[disaster_recover](https://gitee.com/mindspore/docs/tree/r2.3.2/docs/sample_code/disaster_recover)。
 
 目录结构如下：
 
@@ -35,7 +35,7 @@
 
 ### 网络结构
 
-网络结构和数据集加载与[动态组网启动](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.1/parallel/dynamic_cluster.html)中的示例一致。
+网络结构和数据集加载与[动态组网启动](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.2/parallel/dynamic_cluster.html)中的示例一致。
 
 ### 定义训练过程
 

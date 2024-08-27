@@ -1,6 +1,6 @@
 # Distributed Parallel Supports Dynamic Shape
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.1/tutorials/experts/source_en/parallel/support_dynamic_shape_in_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.2/tutorials/experts/source_en/parallel/support_dynamic_shape_in_parallel.md)
 
 ## Overview
 
@@ -18,7 +18,7 @@ Related interface：
    ：Symbol is a data structure to indicate the symbolic info of shape. For dynamic shape networks, compared with only
    setting the unknown dimensions(None) in Tensor, providing more symbolic shape info can help the framework better
    optimize the computation graph, to improve the performance of network
-   execution. [Symbol API manual](https://www.mindspore.cn/docs/en/r2.3.1/api_python/mindspore/mindspore.Symbol.html).
+   execution. [Symbol API manual](https://www.mindspore.cn/docs/en/r2.3.2/api_python/mindspore/mindspore.Symbol.html).
 
 ## Basic Principles
 
@@ -39,7 +39,7 @@ graphs.
 
 > You can download the complete sample code here.
 >
-> <https://gitee.com/mindspore/docs/tree/r2.3.1/docs/sample_code/parallel_support_dynamic_shape>
+> <https://gitee.com/mindspore/docs/tree/r2.3.2/docs/sample_code/parallel_support_dynamic_shape>
 
 The directory structure is as follows:
 
