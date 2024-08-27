@@ -1,6 +1,6 @@
 # Debugging and Tuning
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.1/docs/mindspore/source_en/migration_guide/debug_and_tune.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.2/docs/mindspore/source_en/migration_guide/debug_and_tune.md)
 
 ## Debugging Tools
 
@@ -11,16 +11,16 @@
          The problem is mainly caused by the network reverse. This can be done with the help of [TroubleShooter comparing MindSpore to PyTorch ckpt/pth](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF2%E6%AF%94%E5%AF%B9mindspore%E4%B8%8Epytorch%E7%9A%84ckptpth) to check the results of the network reverse update by comparing the values of the corresponding parameters of ckpt and pth.
     - Loss appears NAN/INF:
          [TroubleShooter obtains INF/NAN value throw points](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/tracker.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF2%E8%8E%B7%E5%8F%96infnan%E5%80%BC%E6%8A%9B%E5%87%BA%E7%82%B9) is used to identify the first location in the network where a NAN or INF appears.
-         Overflow operator detection is also available via the [Dump](https://www.mindspore.cn/tutorials/experts/en/r2.3.1/debug/dump.html) tool.
+         Overflow operator detection is also available via the [Dump](https://www.mindspore.cn/tutorials/experts/en/r2.3.2/debug/dump.html) tool.
 - The following common problems may be encountered during the performance debugging phase:
     - The first step is time-consuming
-         This phase mainly completes operations such as graph conversion, graph fusion, graph optimization, etc, which is the process of generating executable models. Refer to [How to Optimize Compilation Performance](https://www.mindspore.cn/tutorials/en/r2.3.1/advanced/static_graph_expert_programming.html#how-to-optimize-compilation-performance).
+         This phase mainly completes operations such as graph conversion, graph fusion, graph optimization, etc, which is the process of generating executable models. Refer to [How to Optimize Compilation Performance](https://www.mindspore.cn/tutorials/en/r2.3.2/advanced/static_graph_expert_programming.html#how-to-optimize-compilation-performance).
     - Iteration gap is time-consuming
-         Most of the time consumption in this phase comes from data acquisition, see [Data Processing Performance Optimization](https://www.mindspore.cn/tutorials/experts/en/r2.3.1/dataset/optimize.html).
+         Most of the time consumption in this phase comes from data acquisition, see [Data Processing Performance Optimization](https://www.mindspore.cn/tutorials/experts/en/r2.3.2/dataset/optimize.html).
     - Forward and reverse computation is time-consuming
          This phase mainly executes the forward and reverse operators in the network and carries the main computational work of an iteration. Information such as operator time consumption during training can be recorded to a file via [Profiler](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling.html). The performance data provides the performance data of the framework host execution and operator execution, which can also be viewed and analyzed by users through the [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/index.html) visualization interface, helping users to debug neural network performance more efficiently.
     - Iteration trailing is time-consuming
-         This phase is time consuming, which may be caused by the collection communication, and you can set the fusion policy to optimize. Refer to [all_reduce_fusion_config set allreduce fusion policy](https://www.mindspore.cn/docs/en/r2.3.1/api_python/mindspore/mindspore.set_auto_parallel_context.html).
+         This phase is time consuming, which may be caused by the collection communication, and you can set the fusion policy to optimize. Refer to [all_reduce_fusion_config set allreduce fusion policy](https://www.mindspore.cn/docs/en/r2.3.2/api_python/mindspore/mindspore.set_auto_parallel_context.html).
 - The following common problems may be encountered during the graphics debugging phase:
     - Malloc device memory failed:
          MindSpore failed to request memory on the device side, the original memory is that the device is occupied by other processes, you can check the running processes by ps -ef | grep "python".
@@ -32,7 +32,7 @@
 ### Function Debugging
 
 During network migration, you are advised to use the PyNative mode for debugging. In PyNative mode, you can perform debugging, and log printing is user-friendly. After the debugging is complete, the graph mode is used. The graph mode is more user-friendly in execution performance. You can also find some problems in network compilation. For example, gradient truncation caused by third-party operators.
-For details, see [Error Analysis](https://www.mindspore.cn/tutorials/en/r2.3.1/advanced/error_analysis/error_scenario_analysis.html).
+For details, see [Error Analysis](https://www.mindspore.cn/tutorials/en/r2.3.2/advanced/error_analysis/error_scenario_analysis.html).
 
 ### Accuracy Debugging
 
@@ -146,15 +146,15 @@ trainable parameter numbers: 2
 
 #### 2. Model Verification
 
-The implementation of the model algorithm is irrelevant to the framework. The trained parameters can be converted into the [checkpoint](https://www.mindspore.cn/tutorials/en/r2.3.1/beginner/save_load.html) file of MindSpore and loaded to the network for inference verification.
+The implementation of the model algorithm is irrelevant to the framework. The trained parameters can be converted into the [checkpoint](https://www.mindspore.cn/tutorials/en/r2.3.2/beginner/save_load.html) file of MindSpore and loaded to the network for inference verification.
 
-For details about the model verification process, see [ResNet Network Migration](https://www.mindspore.cn/docs/en/r2.3.1/migration_guide/sample_code.html#model-validation).
+For details about the model verification process, see [ResNet Network Migration](https://www.mindspore.cn/docs/en/r2.3.2/migration_guide/sample_code.html#model-validation).
 
 #### 3. Inference Verification
 
 After confirming that the model structures are the same, you are advised to perform inference verification again. In addition to models, the entire inference process also involves datasets and metrics. When the inference results are inconsistent, you can use the control variable method to gradually rectify the fault.
 
-For details about the inference verification process, see [ResNet Network Migration](https://www.mindspore.cn/docs/en/r2.3.1/migration_guide/sample_code.html#inference-process).
+For details about the inference verification process, see [ResNet Network Migration](https://www.mindspore.cn/docs/en/r2.3.2/migration_guide/sample_code.html#inference-process).
 
 #### 4. Training Accuracy
 
@@ -201,7 +201,7 @@ After the inference verification is complete, the basic model, data processing, 
   model = Model(network=train_net)
   ```
 
-- Check whether overflow occurs. When loss scale is added, overflow detection is added by default to monitor the overflow result. If overflow occurs continuously, you are advised to use the [dump data](https://mindspore.cn/tutorials/experts/en/r2.3.1/debug/dump.html) of MindSpore Insight to check why overflow occurs.
+- Check whether overflow occurs. When loss scale is added, overflow detection is added by default to monitor the overflow result. If overflow occurs continuously, you are advised to use the [dump data](https://mindspore.cn/tutorials/experts/en/r2.3.2/debug/dump.html) of MindSpore Insight to check why overflow occurs.
 
   ```python
   import numpy as np
@@ -240,7 +240,7 @@ After the inference verification is complete, the basic model, data processing, 
   ```
 
 - Check the optimizer, loss, and parameter initialization. In addition to the model and dataset, only the optimizer, loss, and parameter initialization are added in the entire training process. If the training is abnormal, check the optimizer, loss, and parameter initialization. Especially for loss and parameter initialization, there is a high probability that the problem occurs.
-- Check whether to add seeds for multiple devices to ensure that the initialization of multiple SIM cards is consistent. Determine whether to perform gradient aggregation during [customized training](https://www.mindspore.cn/docs/en/r2.3.1/migration_guide/model_development/training_and_evaluation.html#training-process).
+- Check whether to add seeds for multiple devices to ensure that the initialization of multiple SIM cards is consistent. Determine whether to perform gradient aggregation during [customized training](https://www.mindspore.cn/docs/en/r2.3.2/migration_guide/model_development/training_and_evaluation.html#training-process).
 
   ```python
   import mindspore as ms
@@ -262,7 +262,7 @@ The performance tuning directions are as follows:
 3. Multi-Node synchronization performance tuning
 4. Data processing performance tuning
 
-For details, see [ResNet Network Migration](https://www.mindspore.cn/docs/en/r2.3.1/migration_guide/sample_code.html).
+For details, see [ResNet Network Migration](https://www.mindspore.cn/docs/en/r2.3.2/migration_guide/sample_code.html).
 
 > Some networks are large. In this case, the build is slow in graph mode. During performance tuning, distinguish graph build from network execution. This section describes the performance tuning policies in the network execution phase.
 
@@ -280,17 +280,17 @@ If you find an operator with poor performance, you are advised to contact [MindS
 
 - Using the Static Graph Mode
 
-  Generally, MindSpore in static graph mode is much faster than that in PyNative mode. It is recommended that training and inference be performed in static graph mode. For details, see [Combination of Dynamic and Static Graphs](https://mindspore.cn/docs/en/r2.3.1/design/dynamic_graph_and_static_graph.html).
+  Generally, MindSpore in static graph mode is much faster than that in PyNative mode. It is recommended that training and inference be performed in static graph mode. For details, see [Combination of Dynamic and Static Graphs](https://mindspore.cn/docs/en/r2.3.2/design/dynamic_graph_and_static_graph.html).
 
 - On-device Execution
 
-  MindSpore provides an [on-device execution method](https://www.mindspore.cn/docs/en/r2.3.1/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `False` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
+  MindSpore provides an [on-device execution method](https://www.mindspore.cn/docs/en/r2.3.2/design/overview.html) to concurrently process data and execute the network on the device. You only need to set `dataset_sink_mode=True` in `model.train`. Note that this configuration is `False` by default. When this configuration is enabled, one epoch returns the result of only one network. You are advised to change the value to `False` during debugging.
 
 - Using Automatic Mixed Precision
 
   The mixed precision training method accelerates the deep neural network training process by mixing the single-precision floating-point data format and the half-precision floating-point data format without compromising the network accuracy. Mixed precision training can accelerate the computing process, reduce memory usage and retrieval, and enable a larger model or batch size to be trained on specific hardware.
 
-  For details, see [Mixed Precision Tutorial](https://www.mindspore.cn/tutorials/en/r2.3.1/advanced/mixed_precision.html).
+  For details, see [Mixed Precision Tutorial](https://www.mindspore.cn/tutorials/en/r2.3.2/advanced/mixed_precision.html).
 
 - Enabling Graph Kernel Fusion
 
@@ -298,7 +298,7 @@ If you find an operator with poor performance, you are advised to contact [MindS
 
   Graph kernel fusion applies to scenarios that have high requirements on network execution time. Basic operators are combined to implement customized combination operators and these basic operators are automatically fused to improve the performance of the customized combination operators.
 
-  For details, see [Graph Kernel Fusion Tutorial](https://mindspore.cn/docs/en/r2.3.1/design/graph_fusion_engine.html).
+  For details, see [Graph Kernel Fusion Tutorial](https://mindspore.cn/docs/en/r2.3.2/design/graph_fusion_engine.html).
 
 - Others
 
@@ -306,7 +306,7 @@ If you find an operator with poor performance, you are advised to contact [MindS
 
   If there are too many conversion operators automatically generated by MindSpore, the MindSpore framework may not be fully optimized for some special cases. In this case, contact [MindSpore community](https://gitee.com/mindspore/mindspore/issues) for feedback.
 
-  In dynamic shape scenario, continuous graph build is required, which may cause a long end-to-end training time. You are advised to [avoid dynamic shape](https://www.mindspore.cn/docs/en/r2.3.1/migration_guide/dynamic_shape.html).
+  In dynamic shape scenario, continuous graph build is required, which may cause a long end-to-end training time. You are advised to [avoid dynamic shape](https://www.mindspore.cn/docs/en/r2.3.2/migration_guide/dynamic_shape.html).
 
 #### Multi-Node Synchronization Performance Tuning
 
@@ -343,4 +343,4 @@ When the data processing speed is slow, the empty queue is gradually consumed fr
 
 For details about data performance problems, see [Data Preparation Performance Analysis](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) of MindSpore Insight. This describes common data performance problems and solutions.
 
-For more performance debugging methods, see [Performance Optimization](https://www.mindspore.cn/tutorials/experts/en/r2.3.1/optimize/execution_opt.html).
+For more performance debugging methods, see [Performance Optimization](https://www.mindspore.cn/tutorials/experts/en/r2.3.2/optimize/execution_opt.html).

@@ -1,6 +1,6 @@
 # Implementing Device Training Based On Java Interface
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.1/docs/lite/docs/source_en/quick_start/train_lenet_java.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.2/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.3.2/docs/lite/docs/source_en/quick_start/train_lenet_java.md)
 
 ## Overview
 
@@ -30,7 +30,7 @@ cd mindspore
 bash build.sh -I x86_64 -j8
 ```
 
-Environment requirements and settings about the build, see [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.3.1/use/build.html).
+Environment requirements and settings about the build, see [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.3.2/use/build.html).
 The sample source code used in this tutorial is in the `mindspore/lite/examples/train_lenet_java` directory.
 
 ### Downloading the Dataset
@@ -64,7 +64,7 @@ MNIST_Data/
     ./prepare_and_run.sh -D /PATH/MNIST_Data/ -r ../../../../output/mindspore-lite-${version}-linux-x64.tar.gz
     ```
 
-    > ../resources/model/lenet_tod.ms is a LeNet training model preconfigured in the sample project. You can also convert it into a LeNet model by referring to [Creating MindSpore Lite Models](https://www.mindspore.cn/lite/docs/en/r2.3.1/use/converter_train.html).
+    > ../resources/model/lenet_tod.ms is a LeNet training model preconfigured in the sample project. You can also convert it into a LeNet model by referring to [Creating MindSpore Lite Models](https://www.mindspore.cn/lite/docs/en/r2.3.2/use/converter_train.html).
     >
     > /PATH/MNIST_Data/ is the path of MNIST dataset.
 
@@ -123,7 +123,7 @@ train_lenet_java
 
 ### Writing On-Device Inference Code
 
-For details about how to use Java APIs, visit <https://www.mindspore.cn/lite/api/en/r2.3.1/index.html>.
+For details about how to use Java APIs, visit <https://www.mindspore.cn/lite/api/en/r2.3.2/index.html>.
 
 1. Load the MindSpore Lite model file and build a session.
 

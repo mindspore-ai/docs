@@ -1,8 +1,8 @@
 Model Saving and Loading
 =========================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.1/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.3.1/tutorials/experts/source_en/parallel/model_save_load.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.2/resource/_static/logo_source_en.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.3.2/tutorials/experts/source_en/parallel/model_save_load.rst
     :alt: View Source on Gitee
 
 .. toctree::
@@ -15,6 +15,6 @@ Model Saving and Loading
 
 Model saving in MindSpore can be categorized into merged and non-merged saving, and model loading can also be categorized into complete loading and sliced loading. If the distributed slicing strategy or cluster card is changed after loading, the saved checkpoint file needs to be model transformed. For details, please refer to:
 
-- `Model Saving <https://www.mindspore.cn/tutorials/experts/en/r2.3.1/parallel/model_saving.html>`_
-- `Model Loading <https://www.mindspore.cn/tutorials/experts/en/r2.3.1/parallel/model_loading.html>`_
-- `Model Transformation <https://www.mindspore.cn/tutorials/experts/en/r2.3.1/parallel/model_transformation.html>`_
+- `Model Saving <https://www.mindspore.cn/tutorials/experts/en/r2.3.2/parallel/model_saving.html>`_
+- `Model Loading <https://www.mindspore.cn/tutorials/experts/en/r2.3.2/parallel/model_loading.html>`_
+- `Model Transformation <https://www.mindspore.cn/tutorials/experts/en/r2.3.2/parallel/model_transformation.html>`_

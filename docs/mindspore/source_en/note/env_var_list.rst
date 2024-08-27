@@ -1,8 +1,8 @@
 Environment Variables
 =====================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.1/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.3.1/docs/mindspore/source_en/note/env_var_list.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.3.2/resource/_static/logo_source_en.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.3.2/docs/mindspore/source_en/note/env_var_list.rst
     :alt: View Source on Gitee
 
 MindSpore environment variables are as follows:
@@ -59,7 +59,7 @@ Data Processing
        false: disables pipeline tree optimization.
      - 
 
-For more information, see `Single-Node Data Cache <https://mindspore.cn/tutorials/experts/en/r2.3.1/dataset/cache.html>`_ and `Optimizing the Data Processing <https://mindspore.cn/tutorials/experts/en/r2.3.1/dataset/optimize.html>`_.
+For more information, see `Single-Node Data Cache <https://mindspore.cn/tutorials/experts/en/r2.3.2/dataset/cache.html>`_ and `Optimizing the Data Processing <https://mindspore.cn/tutorials/experts/en/r2.3.2/dataset/optimize.html>`_.
 
 Graph Compilation and Execution
 ---------------------------------
@@ -84,14 +84,14 @@ Graph Compilation and Execution
      - Specify which modules in static graph mode require JIT static compilation, and their functions and methods will be compiled into static calculation graphs.
      - String
      - The module name, corresponding to the name of the imported top-level module. If there are more than one, separate them with commas. For example, `export MS_JIT_MODULES=mindflow,mindyolo`.
-     - By default, modules other than third-party libraries will be perform JIT static compilation, and MindSpore suites such as `mindflow` and `mindyolo` will not be treated as third-party libraries. See `Calling the Third-party Libraries <https://www.mindspore.cn/docs/en/r2.3.1/note/static_graph_syntax_support.html#calling-the-third-party-libraries>`_ for more details. If there is a module similar to MindSpore suites, which contains `nn.Cell`, `@ms.jit` decorated functions or functions to be compiled into static calculation graphs, you can configure the environment variable, so that the module will be perform JIT static compilation instead of being treated as third-party library.
+     - By default, modules other than third-party libraries will be perform JIT static compilation, and MindSpore suites such as `mindflow` and `mindyolo` will not be treated as third-party libraries. See `Calling the Third-party Libraries <https://www.mindspore.cn/docs/en/r2.3.2/note/static_graph_syntax_support.html#calling-the-third-party-libraries>`_ for more details. If there is a module similar to MindSpore suites, which contains `nn.Cell`, `@ms.jit` decorated functions or functions to be compiled into static calculation graphs, you can configure the environment variable, so that the module will be perform JIT static compilation instead of being treated as third-party library.
    * - MS_JIT_IGNORE_MODULES
      - Specify which modules are treated as third-party libraries in static graph mode without JIT static compilation. Their functions and methods will be interpreted and executed.
      - String
      - The module name, corresponding to the name of the imported top-level module. If there are more than one, separate them with commas. For example, `export MS_JIT_IGNORE_MODULES=numpy,scipy`.
      - Static graph mode can automatically recognize third-party libraries, and generally there is no need to set this environment variable for recognizable third-party libraries such as NumPy and Scipy. If `MS_JIT_IGNORE_MODULES` and `MS_JIT_MODULES` specify the same module name at the same time, the former takes effect and the latter does not.
    * - MS_DEV_FALLBACK_DUMP_NODE
-     - Print syntax expressions supported by `Static Graph Syntax Enhancement <https://www.mindspore.cn/docs/en/r2.3.1/design/dynamic_graph_and_static_graph.html#static-graph-syntax-enhancement>`_ in the code.
+     - Print syntax expressions supported by `Static Graph Syntax Enhancement <https://www.mindspore.cn/docs/en/r2.3.2/design/dynamic_graph_and_static_graph.html#static-graph-syntax-enhancement>`_ in the code.
      - Integer
      - 1: Enable printing.
 
@@ -284,13 +284,13 @@ Dump Debugging
      - Value Range
      - Description
    * - MINDSPORE_DUMP_CONFIG
-     - Specify the path of the configuration file that the `cloud-side Dump <https://www.mindspore.cn/tutorials/experts/en/r2.3.1/debug/dump.html#synchronous-dump>`_
-       or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/r2.3.1/use/benchmark_tool.html#dump>`_ depends on.
+     - Specify the path of the configuration file that the `cloud-side Dump <https://www.mindspore.cn/tutorials/experts/en/r2.3.2/debug/dump.html#synchronous-dump>`_
+       or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/r2.3.2/use/benchmark_tool.html#dump>`_ depends on.
      - String
      - File path, which can be a relative path or an absolute path.
      - 
    * - MS_DIAGNOSTIC_DATA_PATH
-     - When the `cloud-side Dump <https://www.mindspore.cn/tutorials/experts/en/r2.3.1/debug/dump.html#synchronous-dump>`_ is enabled, 
+     - When the `cloud-side Dump <https://www.mindspore.cn/tutorials/experts/en/r2.3.2/debug/dump.html#synchronous-dump>`_ is enabled, 
        if the `path` field is not set or set to an empty string in the Dump configuration file, then `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump is regarded as path. 
        If the `path` field in configuration file is not empty, it is still used as the path to save Dump data.
      - String
@@ -337,7 +337,7 @@ Dump Debugging
      - File path, which can be a relative path or an absolute path.
      - 
 
-For more information, see `Using Dump in the Graph Mode <https://www.mindspore.cn/tutorials/experts/en/r2.3.1/debug/dump.html>`_.
+For more information, see `Using Dump in the Graph Mode <https://www.mindspore.cn/tutorials/experts/en/r2.3.2/debug/dump.html>`_.
 
 Distributed Parallel
 ---------------------
@@ -392,7 +392,7 @@ Distributed Parallel
 
        MS_WORKER: represents the Worker process, which generally sets up the distributed training process for this role.
 
-       MS_PSERVER: represents the Parameter Server process, and this role is only valid in Parameter Server mode. Please refer to `Parameter Server mode <https://www.mindspore.cn/tutorials/experts/en/r2.3.1/parallel/parameter_server_training.html>`_ .
+       MS_PSERVER: represents the Parameter Server process, and this role is only valid in Parameter Server mode. Please refer to `Parameter Server mode <https://www.mindspore.cn/tutorials/experts/en/r2.3.2/parallel/parameter_server_training.html>`_ .
      - The Worker and Parameter Server processes register with the Scheduler process to complete the networking.
    * - MS_SCHED_HOST
      - Specifies the IP address of the Scheduler.
@@ -494,7 +494,7 @@ Distributed Parallel
        delete_depend_list(List[string]): A list of operator names that need to be deleted. If the operator name does not exist or does not match the graph_id, the action of deleting the node will be invalid.
 
 
-See `Dynamic Cluster <https://www.mindspore.cn/tutorials/experts/en/r2.3.1/parallel/dynamic_cluster.html>`_ for more details about Dynamic Cluster.
+See `Dynamic Cluster <https://www.mindspore.cn/tutorials/experts/en/r2.3.2/parallel/dynamic_cluster.html>`_ for more details about Dynamic Cluster.
 
 Operators Compile
 -----------------
@@ -516,7 +516,7 @@ Operators Compile
      -
    * - MS_COMPILER_CACHE_ENABLE
      - Specifies whether to save or load the compile cache.
-       The function is the same as the `enable_compile_cache <https://www.mindspore.cn/docs/en/r2.3.1/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ in MindSpore context.
+       The function is the same as the `enable_compile_cache <https://www.mindspore.cn/docs/en/r2.3.2/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ in MindSpore context.
 
        Note: This environment variable has lower precedence than the context `enable_compile_cache`.
      - Integer
@@ -578,7 +578,7 @@ Operators Compile
 
        Atlas A2 training series use only.
 
-For more information, see `FAQ <https://mindspore.cn/docs/en/r2.3.1/faq/operators_compile.html>`_.
+For more information, see `FAQ <https://mindspore.cn/docs/en/r2.3.2/faq/operators_compile.html>`_.
 
 Log
 ---
@@ -674,7 +674,7 @@ Log
 
      - The assignment way is:`MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`
 
-       The log level of the specified sub-module will override the setting of `GLOG_v` in this module, where the log level of the sub-module `LogLevel` has the same meaning as that of `GLOG_v`. For a detailed list of MindSpore sub-modules, see `sub-module_names <https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/core/utils/log_adapter.cc>`_.
+       The log level of the specified sub-module will override the setting of `GLOG_v` in this module, where the log level of the sub-module `LogLevel` has the same meaning as that of `GLOG_v`. For a detailed list of MindSpore sub-modules, see `sub-module_names <https://gitee.com/mindspore/mindspore/blob/v2.3.2/mindspore/core/utils/log_adapter.cc>`_.
 	   
        For example, you can set the log level of `PARSER` and `ANALYZER` modules to WARNING and the log level of other modules to INFO by `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`.
    * - GLOG_logfile_mode
@@ -717,7 +717,7 @@ Log
 
 Note: glog does not support log file wrapping. If you need to control the log file occupation of disk space, you can use the log file management tool provided by the operating system, for example: logrotate for Linux. Please set the log environment variables before `import mindspore` .
 
-For more detailed information about RDR, refer to `Running Data Recorder <https://www.mindspore.cn/tutorials/experts/en/r2.3.1/debug/rdr.html#running-data-recorder>`_ .
+For more detailed information about RDR, refer to `Running Data Recorder <https://www.mindspore.cn/tutorials/experts/en/r2.3.2/debug/rdr.html#running-data-recorder>`_ .
 
 Feature Value Detection
 ------------------------------
@@ -757,7 +757,7 @@ Feature Value Detection
        By default, if this environment variable is not configured, `NPU_ASD_SIGMA_THRESH=100000,5000`
      - 
 
-For more information on feature value detection, see `Feature Value Detection <https://www.mindspore.cn/tutorials/experts/en/r2.3.1/debug/sdc.html>`_.
+For more information on feature value detection, see `Feature Value Detection <https://www.mindspore.cn/tutorials/experts/en/r2.3.2/debug/sdc.html>`_.
 
 
 Third-party Library
