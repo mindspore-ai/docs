@@ -88,10 +88,10 @@
     "id" : 10 ,
     "name" : "mindinsight",
     "branch" : "master",
-    "whl_path" : "/mindinsight/website/any",
-    "whl_name" : "mindinsight-.*-py3-none-any.whl$",
+    "whl_path" : "",
+    "whl_name" : "",
     "environ" : "MI_PATH",
-    "uninstall_name" : "mindinsight"
+    "uninstall_name" : ""
 },
 {
     "id" : 11 ,
