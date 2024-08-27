@@ -93,7 +93,7 @@ If all similar communication operators are fused into one operator, in the curre
 
 In order to avoid the above problem, the network parameters can be fused in groups: while the next group of parameters is computed, the communication of the previous group of parameters is carried out, so that the computation and communication can be hidden from each other, to perform group fusion either by limiting the size of the fusion buffer, or by index partitioning.
 
-For more usage, you can refer to MindSpore [test cases](https://gitee.com/mindspore/mindspore/blob/r2.3.1/tests/ut/python/parallel/test_comm_fusion.py).
+For more usage, you can refer to MindSpore [test cases](https://gitee.com/mindspore/mindspore/blob/v2.3.1/tests/ut/python/parallel/test_comm_fusion.py).
 
 > Users can try the size and index modes of `comm_fusion` on their own, which are essentially methods of the fusion buffer class.
 

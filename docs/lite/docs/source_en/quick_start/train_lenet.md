@@ -6,7 +6,7 @@
 
 ## Overview
 
-This tutorial is based on [LeNet training example code](https://gitee.com/mindspore/mindspore/tree/r2.3.1/mindspore/lite/examples/train_lenet_cpp) and demonstrates training a LeNet on an Android device .
+This tutorial is based on [LeNet training example code](https://gitee.com/mindspore/mindspore/tree/v2.3.1/mindspore/lite/examples/train_lenet_cpp) and demonstrates training a LeNet on an Android device .
 
 The completed training procedure is as follows:
 
@@ -281,7 +281,7 @@ After successful conversion, the `lenet_tod.ms` model file is generated in the c
 
 ### Model Training
 
-The model training progress is in [net_runner.cc](https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc).
+The model training progress is in [net_runner.cc](https://gitee.com/mindspore/mindspore/blob/v2.3.1/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc).
 
 The main code continues as follows:
 

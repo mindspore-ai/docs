@@ -336,8 +336,7 @@ else:
 
 branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == copy_repo][0]
 docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if version_inf[i]['name'] == 'tutorials'][0]
-cst_module_name = 'mindspore'
-repo_whl = 'mindspore/python/mindspore'
+repo_whl = 'mindspore/python/'
 giturl = 'https://gitee.com/mindspore/'
 ops_yaml = 'mindspore/core/ops/ops_def/doc/'
 try:
@@ -371,7 +370,7 @@ for cur, _, files in os.walk(des_sir):
                 new_content = re.sub(re_url3, r'\1/master/', content)
                 new_content = re.sub(re_url, r'\1/r2.3.1', new_content)
                 if i.endswith('.rst'):
-                    new_content = re.sub(re_url2, r'\1/r2.3.1', new_content)
+                    new_content = re.sub(re_url2, r'\1/v2.3.1', new_content)
                 if i.endswith('.md'):
                     md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
                     if 'resource/_static/logo_source' not in new_content:
@@ -389,7 +388,7 @@ for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
                 content = f.read()
                 new_content = re.sub(re_url3, r'\1/master/', content)
                 new_content = re.sub(re_url, r'\1/r2.3.1', new_content)
-                new_content = re.sub(re_url2, r'\1/r2.3.1', new_content)
+                new_content = re.sub(re_url2, r'\1/v2.3.1', new_content)
                 if new_content != content:
                     f.seek(0)
                     f.truncate()
@@ -410,7 +409,6 @@ def setup(app):
     app.add_js_file('js/mermaid-9.3.0.js')
     app.add_config_value('docs_branch', '', True)
     app.add_config_value('branch', '', True)
-    app.add_config_value('cst_module_name', '', True)
     app.add_config_value('copy_repo', '', True)
     app.add_config_value('giturl', '', True)
     app.add_config_value('repo_whl', '', True)
@@ -419,6 +417,7 @@ def setup(app):
     app.add_config_value('primi_auto', [], True)
     app.add_config_value('func_name_dict', {}, True)
     app.add_config_value('mint_sum', [], True)
+    app.add_config_value('repo_path', '', True)
 
 # Copy images from mindspore repo.
 import imghdr

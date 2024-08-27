@@ -68,7 +68,7 @@ A: Due to hardware limitations of Protobuf, when exporting to ONNX formats, the 
 
 ## Q: Does MindSpore need a GPU computing unit? What hardware support is needed?
 
-A: MindSpore currently supports CPU, GPU, and Ascend. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [project release notes](https://gitee.com/mindspore/mindspore/blob/r2.3.1/RELEASE.md#).
+A: MindSpore currently supports CPU, GPU, and Ascend. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [project release notes](https://gitee.com/mindspore/mindspore/blob/v2.3.1/RELEASE.md#).
 
 <br/>
 

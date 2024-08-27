@@ -6,7 +6,7 @@
 
 ## 概述
 
-本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore/tree/r2.3.1/mindspore/lite/examples/train_lenet_cpp)，演示在Android设备上训练一个LeNet。
+本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore/tree/v2.3.1/mindspore/lite/examples/train_lenet_cpp)，演示在Android设备上训练一个LeNet。
 
 端侧训练流程如下：
 
@@ -281,7 +281,7 @@ print("finished exporting")
 
 ### 训练模型
 
-模型训练的处理详细流程请参考[net_runner.cc源码](https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc)。
+模型训练的处理详细流程请参考[net_runner.cc源码](https://gitee.com/mindspore/mindspore/blob/v2.3.1/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc)。
 
 模型训练的主函数为：
 

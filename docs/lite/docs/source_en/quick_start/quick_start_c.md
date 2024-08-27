@@ -4,7 +4,7 @@
 
 ## Overview
 
-This tutorial provides a sample program for MindSpore Lite to perform inference, which demonstrates the basic process of end-side inference with C-language by randomly typing, performing inference, and printing inference results, so that users can quickly understand the use of MindSpore Lite to perform inference-related APIs. This tutorial performs the inference of MobileNetV2 model by taking randomly generated data as input data and prints obtained output data. The related code is in the [mindspore/lite/examples/quick_start_c](https://gitee.com/mindspore/mindspore/tree/r2.3.1/mindspore/lite/examples/quick_start_c) directory.
+This tutorial provides a sample program for MindSpore Lite to perform inference, which demonstrates the basic process of end-side inference with C-language by randomly typing, performing inference, and printing inference results, so that users can quickly understand the use of MindSpore Lite to perform inference-related APIs. This tutorial performs the inference of MobileNetV2 model by taking randomly generated data as input data and prints obtained output data. The related code is in the [mindspore/lite/examples/quick_start_c](https://gitee.com/mindspore/mindspore/tree/v2.3.1/mindspore/lite/examples/quick_start_c) directory.
 
 Performing inference with MindSpore Lite consists of the following main steps:
 
@@ -31,7 +31,7 @@ Performing inference with MindSpore Lite consists of the following main steps:
 
 - Compiling and building
 
-  Execute the [build script](https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/lite/examples/quick_start_c/build.sh) in `mindspore/lite/examples/quick_start_c` directory, which will automatically download the MindSpore Lite inference framework library and the model file and compile the Demo.
+  Execute the [build script](https://gitee.com/mindspore/mindspore/blob/v2.3.1/mindspore/lite/examples/quick_start_c/build.sh) in `mindspore/lite/examples/quick_start_c` directory, which will automatically download the MindSpore Lite inference framework library and the model file and compile the Demo.
 
   ```bash
   bash build.sh
@@ -74,7 +74,7 @@ Performing inference with MindSpore Lite consists of the following main steps:
 
     - Model downloading: Please manually download the relevant model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore\ lite\examples\quick_start_c\model` directory.
 
-    - Compiling: Execute the [build script](https://gitee.com/mindspore/mindspore/blob/r2.3.1/mindspore/lite/examples/quick_start_c/build.bat) in the `mindspore\lite\examples\quick_start_c` directory, which can automatically download the relevant files and compile the Demo.
+    - Compiling: Execute the [build script](https://gitee.com/mindspore/mindspore/blob/v2.3.1/mindspore/lite/examples/quick_start_c/build.bat) in the `mindspore\lite\examples\quick_start_c` directory, which can automatically download the relevant files and compile the Demo.
 
   ```bash
   call build.bat
