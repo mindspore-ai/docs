@@ -214,7 +214,7 @@ Output:
 
 In the model training/inference scenario, there are the following constraints when obtaining `dict` data from the data pipeline.
 
-- In [data sink mode](https://mindspore.cn/tutorials/experts/en/master/optimize/execution_opt.html#data-sinking), since the data sink channel currently cannot support dictionary type data, sending dictionary type data to it will cause errors. Therefore, it is suggested to consider turning off the data sink mode (`dataset_sink_mode=False`), or expanding dictionary type data into list or tuple type data at the last data processing node, for example:
+- In [data sink mode](https://www.mindspore.cn/docs/en/master/model_train/train_process/train_optimize.html#sinking-mode), since the data sink channel currently cannot support dictionary type data, sending dictionary type data to it will cause errors. Therefore, it is suggested to consider turning off the data sink mode (`dataset_sink_mode=False`), or expanding dictionary type data into list or tuple type data at the last data processing node, for example:
 
   ```python
   import numpy as np
