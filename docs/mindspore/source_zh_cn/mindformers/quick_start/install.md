@@ -8,41 +8,27 @@
 
 当前套件建议使用的Python版本为3.9。
 
-| MindFormers |                 MindSpore                  |                                                                                                                                           CANN                                                                                                                                            |                                  驱动固件                                  |                                 镜像链接                                  |
-|:-----------:|:------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-|   r1.3.0    | [2.3.0](https://www.mindspore.cn/install/) | 8.0.RC2.beta1 <br/> [aarch64](https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%208.0.RC2/Ascend-cann-toolkit_8.0.RC2_linux-aarch64.run) <br/> [x86_64](https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%208.0.RC2/Ascend-cann-toolkit_8.0.RC2_linux-x86_64.run) | [driver](https://www.hiascend.com/hardware/firmware-drivers/community) | [image](http://mirrors.cn-central-221.ovaijisuan.com/detail/138.html) |
+| MindFormers |                 MindSpore                  |                                                                                                                                                                                                                  CANN                                                                                                                                                                                                                   |                                                   固件与驱动                                                    |                                 镜像链接                                  |
+|:-----------:|:------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------:|
+|   r1.3.0    | [2.3.0](https://www.mindspore.cn/install/) | 8.0.RC2.beta1 <br/> toolkit：[aarch64](https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%208.0.RC2/Ascend-cann-toolkit_8.0.RC2_linux-aarch64.run) [x86_64](https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%208.0.RC2/Ascend-cann-toolkit_8.0.RC2_linux-x86_64.run) <br/> kernels：[kernels](https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%208.0.RC2/Ascend-cann-kernels-910b_8.0.RC2_linux.run) | firmware：[firmware](https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/Ascend%20HDK/Ascend%20HDK%2024.1.RC2/Ascend-hdk-910b-npu-firmware_7.3.0.1.231.run) <br/> driver： [driver](https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/Ascend%20HDK/Ascend%20HDK%2024.1.RC2/Ascend-hdk-910b-npu-driver_24.1.rc2_linux-aarch64.run) | [image](http://mirrors.cn-central-221.ovaijisuan.com/detail/138.html) |
 
 **当前MindFormers仅支持如上的软件配套关系**。
 
-## 安装使用说明
+## 环境安装
 
-MindFormers提供了灵活的使用选项，以适应不同的使用场景和用户需求，用户可以根据自己的具体需求选择最合适的安装方式：
+1. 安装固件与驱动：通过[版本匹配关系](https://www.mindspore.cn/docs/zh-CN/master/mindformers/quick_start/install.html#%E7%89%88%E6%9C%AC%E5%8C%B9%E9%85%8D%E5%85%B3%E7%B3%BB)中的固件与驱动链接下载安装包，参考[昇腾官方教程](https://www.hiascend.com/document/detail/zh/quick-installation/24.0.RC1/quickinstg_train/800_9000A2/quickinstg_800_9000A2_0007.html)进行安装。
 
-### 手动安装：手动安装相关依赖
+2. 安装CANN和MindSpore：使用官方提供的Docker镜像（镜像中已包含CANN、MindSpore，无需手动安装）或者按照MindSpore官网的[手动安装](https://www.mindspore.cn/install/#%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85)章节进行安装。
 
-**安装步骤**
+## MindFormers安装
 
-（可以参考[Docker方式安装MindSpore](https://www.mindspore.cn/install)，里面有从驱动固件到CANN到MindSpore的安装说明）
+目前仅支持源码编译安装，用户可以执行如下命令安装MindFormers：
 
-1. 安装驱动固件：点击上文版本匹配关系中的驱动固件链接根据需要自行选择社区版或商用版进行下载；
-2. 安装CANN：点击上文版本匹配关系中的CANN链接即可下载安装包（CANN和驱动固件的安装都需与使用的机器匹配，请注意识别机器型号，选择对应架构的版本）；
-3. 安装MindSpore：点击上文版本匹配关系中的MindSpore链接，获取相应安装命令进行安装；
-4. 安装MindFormers：源码编译安装，用户可以执行如下命令安装MindFormers：
-
-    ```shell  
-    git clone -b dev https://gitee.com/mindspore/mindformers.git
-    cd mindformers
-    bash build.sh
-    ```
-
-### 使用镜像：在Docker中使用MindFormers
-
-镜像中已包含CANN、MindSpore、MindFormers，无需手动安装各种依赖。
-
-**安装步骤**
-
-1. 安装驱动固件：点击上文版本匹配关系中的驱动固件链接根据需要自行选择社区版或商用版进行下载；
-2. 安装镜像：点击上文版本匹配关系中的镜像链接选择镜像进行下载。
+```shell  
+git clone -b dev https://gitee.com/mindspore/mindformers.git
+cd mindformers
+bash build.sh
+```
 
 ## 安装验证
 
@@ -50,7 +36,7 @@ MindFormers提供了灵活的使用选项，以适应不同的使用场景和用
 
 ```shell
 import mindformers as mf
-mf.run_check('critical')
+mf.run_check()
 ```
 
 出现以下类似结果，证明安装成功：
