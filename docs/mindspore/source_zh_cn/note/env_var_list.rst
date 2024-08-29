@@ -258,6 +258,8 @@
        memory_statistics: 是否开启内存统计，默认值为false。
 
        compile_statistics: 是否开启编译性能统计，默认值为false。
+
+       ge_kernel: 是否使用GE kernel，默认值为true。
      -
 
    * - MS_ALLOC_CONF
@@ -270,6 +272,10 @@
        vmm_align_size: 设置虚拟内存对齐大小，单位为MB，仅在O0或O1模式下生效，默认值为2。
 
        memory_tracker: 是否开启memory tracker，默认值为false。
+
+       acl_allocator: 是否使用ACL内存分配器，默认值为true。
+
+       somas_whole_block: 是否使用SOMAS整块内存分配，默认值为false。
      -
        
 Dump调试
