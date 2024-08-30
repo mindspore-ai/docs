@@ -35,7 +35,7 @@ mindinsight start [-h] [--workspace <WORKSPACE>] [--port <PORT>]
 |`--port <PORT>`|可选|指定Web可视化服务端口。|Integer|8080|1~65535|-|
 |`--url-path-prefix <URL_PATH_PREFIX>`|可选|指定Web服务URL地址前缀。|String|空|-|URL地址前缀由斜杠(/)分隔成多个部分，各部分支持由字母/数字/下划线/连字符/点号组成的字符串，但不能是单点号(.)或双点号(..)。|
 |`--reload-interval <RELOAD_INTERVAL>`|可选|指定加载数据的时间间隔（单位：秒）。|Integer|3|0～300|设置为0时表示只加载一次数据。|
-|`--summary-base-dir <SUMMARY_BASE_DIR>`|可选|指定加载训练日志数据的根目录路径。|String|./|-|MindSpore Insight将遍历此路径下的直属子目录。若某个直属子目录包含日志文件，则该子目录被识别为日志文件目录，若根目录包含日志文件，则根目录被识别为日志文件目录。在ModelArts开发环境中，此参数可以指定为OBS路径，请参考[ModelArts文档](https://support.huaweicloud.com/devtool-modelarts/develop-modelarts-0068.html)以了解更多信息。|
+|`--summary-base-dir <SUMMARY_BASE_DIR>`|可选|指定加载训练日志数据的根目录路径。|String|./|-|MindSpore Insight将遍历此路径下的直属子目录。若某个直属子目录包含日志文件，则该子目录被识别为日志文件目录，若根目录包含日志文件，则根目录被识别为日志文件目录。在ModelArts开发环境中，此参数可以指定为OBS路径，请参考[ModelArts文档](https://support.huaweicloud.com/usermanual-standard-modelarts/develop-modelarts-0068.html)以了解更多信息。|
 
 `--workspace`日志目录说明：
 
