@@ -27,6 +27,14 @@
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: 模型构建
+
+   model_building/tensor_and_parameter
+   model_building/functional_and_cell
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: 训练流程
 
    train_process/overview
@@ -66,8 +74,6 @@
    custom_program/fusion_pass
    custom_program/network_custom
    custom_program/hook_program
-   custom_program/tensor_and_parameter
-   custom_program/functional_and_cell
 
 .. toctree::
    :glob:

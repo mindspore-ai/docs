@@ -39,7 +39,7 @@ MindSpore 文档
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./kits_tools/official_models.html" class="article-link">
+                     <a href="./model_train/models/official_models.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">模型库</span>

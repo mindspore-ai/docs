@@ -4,6 +4,6 @@
 .. toctree::
     :maxdepth: 1
 
-    sink_mode
-    opt_data_pipelines
-    vmap
+    optimize/sink_mode
+    optimize/opt_data_pipelines
+    optimize/vmap
