@@ -1,4 +1,4 @@
-静态图编程
+静态图
 ===============
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_notebook.svg
@@ -17,6 +17,7 @@
     static_graph_syntax/statements
     static_graph_syntax/python_builtin_functions
     static_graph_syntax/static_graph_expert_programming.ipynb
+    static_graph_syntax/dynamic_shape
 
 概述
 ----

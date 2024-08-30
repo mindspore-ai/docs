@@ -1,10 +1,14 @@
-# Tensor Index Support
+# Tensor and Parameter
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/program_form/index_support.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/model_building/tensor_and_parameter.md)
+
+## Tensor
+
+### Tensor Index Support
 
 Single-level and multi-level Tensor indexing is supported on both PyNative and Graph mode.
 
-## Index values
+#### Index Values
 
 The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `List`, or `Tuple`.
 
@@ -335,7 +339,7 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
       [14]]]
     ```
 
-## Index value assignment
+#### Index Value Assignment
 
 For a case like: `tensor_x[index] = value`, the type of the index can be `int`, `bool`, `ellipsis`, `slice`, `None`, `Tensor`, `List`, or`Tuple`.
 
@@ -676,7 +680,7 @@ Index value assignment can be understood as assigning values to indexed position
      [11. 12.  8.]]
     ```
 
-## Index value augmented-assignment
+#### Index Value Augmented-assignment
 
 Index value augmented-assignment supports seven augmented_assignment operations:  `+=`, `-=`, `*=`, `/=`, `%=`, `**=`, and `//=`. The rules and constraints of `index` and `value` are the same as index assignment. The index value supports eight types: `int`, `bool`, `ellipsis`, `slice`, `None`, `tensor`, `list` and `tuple`. The assignment value supports four types: `Number`, `Tensor`, `Tuple` and `List`.
 
@@ -718,3 +722,251 @@ Index value augmented-assignment can be regarded as taking the value of the posi
      [ 0.  2.  4.  6.]
      [ 8.  9. 10. 11.]]
     ```
+
+### Tensor View
+
+MindSpore allows a tensor to be a [view-class Operators](#view-class-operators) of an existing tensor. View tensor shares the same underlying data with its base tensor. Supporting View avoids explicit data copy, thus allows us to do fast and memory efficient reshaping, slicing and element-wise operations."
+
+For example, to get a view of an existing tensor t, you can call t.view(...).
+
+```python
+from mindspore import Tensor
+import numpy as np
+t = Tensor(np.array([[1, 2, 3], [2, 3, 4]], dtype=np.float32))
+b = t.view((3, 2))
+# Modifying view tensor changes base tensor as well.
+b[0][0] = 100
+print(t[0][0])
+# 100
+```
+
+Since views share underlying data with its base tensor, if you edit the data in the view, it will be reflected in the base tensor as well.
+
+Typically a MindSpore op returns a new tensor as output, e.g. [add()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.add.html). But in case of view ops, outputs are views of input tensors to avoid unnecessary data copy. No data movement occurs when creating a view, view tensor just changes the way it interprets the same data. Taking a view of contiguous tensor could potentially produce a non-contiguous tensor. Users should pay additional attention as contiguity might have implicit performance impact. [transpose()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.transpose.html) is a common example.
+
+```python
+from mindspore import Tensor
+import numpy as np
+base = Tensor([[0, 1], [2, 3]])
+base.is_contiguous()
+# True
+t = base.transpose(1, 0) # t is a view of base. No data movement happened here.
+t.is_contiguous()
+# False
+# To get a contiguous tensor, call `.contiguous()` to enforce
+# copying data when `t` is not contiguous.
+c = t.contiguous()
+c.is_contiguous()
+# True
+```
+
+#### view-class Operators
+
+For reference, here’s a full list of view ops in MindSpore:
+
+[broadcast_to()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.broadcast_to.html)
+
+[diagonal()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.diagonal.html)
+
+[expand_as()](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.expand_as.html)
+
+[movedim()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.movedim.html)
+
+[narrow()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.narrow.html)
+
+[permute()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.permute.html)
+
+[squeeze()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.squeeze.html)
+
+[transpose()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.transpose.html)
+
+[t()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.t.html)
+
+[T](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.T.html)
+
+[unsqueeze()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.unsqueeze.html)
+
+[view()](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.view.html)
+
+[view_as()](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.view_as.html)
+
+[unbind()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.unbind.html)
+
+[split()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.split.html)
+
+[hsplit()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.hsplit.html)
+
+[vsplit()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.vsplit.html)
+
+[tensor_split()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.tensor_split.html)
+
+[swapaxes()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.swapaxes.html)
+
+[swapdims()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.swapdims.html)
+
+## Parameter
+
+Parameter is a special class of Tensor, which is a variable whose value can be updated during model training. MindSpore provides the `mindspore.Parameter` class for Parameter construction. In order to distinguish between Parameter for different purposes, two different categories of Parameter are defined below. In order to distinguish between Parameter for different purposes, two different categories of Parameter are defined below:
+
+- Trainable parameter. Tensor that is updated after the gradient is obtained according to the backward propagation algorithm during model training, and `required_grad` needs to be set to `True`.
+- Untrainable parameters. Tensor that does not participate in backward propagation needs to update values (e.g. `mean` and `var` variables in BatchNorm), when `requires_grad` needs to be set to `False`.
+
+> Parameter is set to `required_grad=True` by default.
+
+We construct a simple fully-connected layer as follows:
+
+```python
+import numpy as np
+import mindspore
+from mindspore import nn
+from mindspore import ops
+from mindspore import Tensor, Parameter
+
+class Network(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.w = Parameter(Tensor(np.random.randn(5, 3), mindspore.float32), name='w') # weight
+        self.b = Parameter(Tensor(np.random.randn(3,), mindspore.float32), name='b') # bias
+
+    def construct(self, x):
+        z = ops.matmul(x, self.w) + self.b
+        return z
+
+net = Network()
+```
+
+In the `__init__` method of `Cell`, we define two parameters `w` and `b` and configure `name` for namespace management. Use `self.attr` in the `construct` method to call directly to participate in Tensor operations.
+
+### Obtaining Parameter
+
+After constructing the neural network layer by using Cell+Parameter, we can use various methods to obtain the Parameter managed by Cell.
+
+#### Obtaining a Single Parameter
+
+To get a particular parameter individually, just call a member variable of a Python class directly.
+
+```python
+print(net.b.asnumpy())
+```
+
+```text
+[-1.2192779  -0.36789745  0.0946381 ]
+```
+
+#### Obtaining a Trainable Parameter
+
+Trainable parameters can be obtained by using the `Cell.trainable_params` method, and this interface is usually called when configuring the optimizer.
+
+```python
+print(net.trainable_params())
+```
+
+```text
+[Parameter (name=w, shape=(5, 3), dtype=Float32, requires_grad=True), Parameter (name=b, shape=(3,), dtype=Float32, requires_grad=True)]
+```
+
+#### Obtaining All Parameters
+
+Use the `Cell.get_parameters()` method to get all parameters, at which point a Python iterator will be returned.
+
+```python
+print(type(net.get_parameters()))
+```
+
+```text
+<class 'generator'>
+```
+
+Or you can call `Cell.parameters_and_names` to return the parameter names and parameters.
+
+```python
+for name, param in net.parameters_and_names():
+    print(f"{name}:\n{param.asnumpy()}")
+```
+
+```text
+w:
+[[ 4.15680408e-02 -1.20311625e-01  5.02573885e-02]
+ [ 1.22175144e-04 -1.34980649e-01  1.17642188e+00]
+ [ 7.57667869e-02 -1.74758151e-01 -5.19092619e-01]
+ [-1.67846107e+00  3.27240258e-01 -2.06452996e-01]
+ [ 5.72323874e-02 -8.27963874e-02  5.94243526e-01]]
+b:
+[-1.2192779  -0.36789745  0.0946381 ]
+```
+
+### Modifying the Parameter
+
+#### Modifying Parameter Values Directly
+
+Parameter is a special kind of Tensor, so its value can be modified by using the Tensor index modification.
+
+```python
+net.b[0] = 1.
+print(net.b.asnumpy())
+```
+
+```text
+[ 1.         -0.36789745  0.0946381 ]
+```
+
+#### Overriding the Modified Parameter Values
+
+The `Parameter.set_data` method can be called to override the Parameter by using a Tensor with the same Shape. This method is commonly used for [Cell traversal initialization](https://www.mindspore.cn/docs/en/master/model_train/custom_program/initializer.html) by using Initializer.
+
+```python
+net.b.set_data(Tensor([3, 4, 5]))
+print(net.b.asnumpy())
+```
+
+```text
+[3. 4. 5.]
+```
+
+#### Modifying Parameter Values During Runtime
+
+The main role of parameters is to update their values during model training, which involves parameter modification during runtime after backward propagation to obtain gradients, or when untrainable parameters need to be updated. Due to the compiled design of MindSpore's [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html), it is necessary at this point to use the `mindspore.ops.assign` interface to assign parameters. This method is commonly used in [Custom Optimizer](https://www.mindspore.cn/docs/en/master/model_train/custom_program/optimizer.html) scenarios. The following is a simple sample modification of parameter values during runtime:
+
+```python
+import mindspore as ms
+
+@ms.jit
+def modify_parameter():
+    b_hat = ms.Tensor([7, 8, 9])
+    ops.assign(net.b, b_hat)
+    return True
+
+modify_parameter()
+print(net.b.asnumpy())
+```
+
+```text
+[7. 8. 9.]
+```
+
+### Parameter Tuple
+
+ParameterTuple, variable tuple, used to store multiple Parameter, is inherited from tuple tuples, and provides cloning function.
+
+The following example provides the ParameterTuple creation method:
+
+```python
+from mindspore.common.initializer import initializer
+from mindspore import ParameterTuple
+# Creation
+x = Parameter(default_input=ms.Tensor(np.arange(2 * 3).reshape((2, 3))), name="x")
+y = Parameter(default_input=initializer('ones', [1, 2, 3], ms.float32), name='y')
+z = Parameter(default_input=2.0, name='z')
+params = ParameterTuple((x, y, z))
+
+# Clone from params and change the name to "params_copy"
+params_copy = params.clone("params_copy")
+
+print(params)
+print(params_copy)
+```
+
+```text
+(Parameter (name=x, shape=(2, 3), dtype=Int64, requires_grad=True), Parameter (name=y, shape=(1, 2, 3), dtype=Float32, requires_grad=True), Parameter (name=z, shape=(), dtype=Float32, requires_grad=True))
+(Parameter (name=params_copy.x, shape=(2, 3), dtype=Int64, requires_grad=True), Parameter (name=params_copy.y, shape=(1, 2, 3), dtype=Float32, requires_grad=True), Parameter (name=params_copy.z, shape=(), dtype=Float32, requires_grad=True))
+```

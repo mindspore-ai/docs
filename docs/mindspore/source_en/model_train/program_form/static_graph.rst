@@ -1,4 +1,4 @@
-Static Graph Programming
+Static Graph
 =========================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg
@@ -13,6 +13,7 @@ Static Graph Programming
     static_graph_syntax/statements
     static_graph_syntax/python_builtin_functions
     static_graph_syntax/static_graph_expert_programming.ipynb
+    static_graph_syntax/dynamic_shape
 
 Overview
 --------
