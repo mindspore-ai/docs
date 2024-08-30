@@ -6,3 +6,4 @@ Algorithm Optimization
 
    optimize/gradient_accumulation
    optimize/thor
+   optimize/per_sample_gradients

@@ -1,10 +1,8 @@
-# Optimizing Training Performance
+# Sinking Mode
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/train_process/train_optimize.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/train_process/sink_mode.md)
 
-## Sinking Mode
-
-### Overview
+## Overview
 
 The Ascend chip integrates computational units such as AICORE and AICPU. The AICORE is responsible for dense Tensor and Vector operations, while the AICPU is responsible for processing complex control logic.
 
@@ -16,7 +14,7 @@ From the user's perspective, the process of network training is as follows:
 
 This tutorial introduces the principles and usage of data sink, graph sink and loop sink as an example of the execution flow of training.
 
-### Data Sinking
+## Data Sinking
 
 To improve the execution performance of the network, a dedicated chip is usually used to execute the operator. A chip corresponds to a Device, and the general interaction flow between Host and Device is as follows:
 
@@ -32,7 +30,7 @@ Both GPU backend and Ascend backend support data sinking, and the Host-Device in
 
 Users can control whether to enable data sink through `dataset_sink_mode` of the [train](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train) interface.
 
-### Graph Sinking
+## Graph Sinking
 
 In general, each training iteration needs to issue and trigger the execution of each operator on the device, and Host and Device interact frequently.
 
@@ -42,7 +40,7 @@ In order to reduce the interaction between Host and Device, the operators in the
 
 The GPU backend does not support graph sinking currently. When using the Ascend device, data sinking is turned on and the graph sinking is turned on at the same time.
 
-### Loop Sinking
+## Loop Sinking
 
 When data sinking and graph sinking are enabled, the computed results of each iteration are returned to Host, which determines whether it is necessary to move to the next iteration. To reduce the Device-Host interaction for each iteration, you can sink the loop judgment into the next iteration to the Device, so that the computation result is returned to the Host when all iterations are executed. The loop sinking Host-Device interaction flow is as follows:
 
@@ -50,9 +48,9 @@ When data sinking and graph sinking are enabled, the computed results of each it
 
 The users control the number of sink iterations per epoch through the `dataset_sink_mode` and `sink_size` parameters of the [train](https://mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train) interface, and the Device side executes `sink_size` iterations consecutively before returning to the Host.
 
-### Usage
+## Usage
 
-#### `Model.train` Implements Data Sinking
+### `Model.train` Implements Data Sinking
 
 `dataset_sink_mode`, the `train` interface parameter of `Model` can control whether the data is sunk. If `dataset_sink_mode` is True, it means data sinking, otherwise it is non-sunk. The so-called sink means that the data is sent directly to the Device through the channel.
 
@@ -251,7 +249,7 @@ When dataset_sink_mode is set to True, the results are returned once per epoch. 
 
 When dataset_sink_mode is False, the sink_size parameter setting is invalid.
 
-#### `data_sink` Implements Data Sinking
+### `data_sink` Implements Data Sinking
 
 In MindSpore functional programming paradigm, it is also possible to use the [data_sink interface](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.data_sink.html) to bind the execution functions and datasets of the modes for data sinking. The meaning of the parameters is as follows:
 
@@ -452,5 +450,3 @@ The code uses 3 calls to train 10 epochs separately.
 3. Sink 10 epochs of data at a time, and return loss at the end of 10 epochs. No need to loop on Host side.
 
 Among the above methods, method 1 interacts with Device once at the end of each step, which is less efficient. Method 3 does not need to interact with Device during training and has the most efficient execution, but can only return the loss of the last step.
-
-## Co-optimization with Data Flow

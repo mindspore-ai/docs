@@ -14,5 +14,4 @@
    all_scenarios
    graph_fusion_engine
    pluggable_device
-   official_models
    glossary
