@@ -257,6 +257,8 @@ Graph Compilation and Execution
        memory_statistics: Whether to enable memory statistics, with a default value of false.
 
        compile_statistics: Whether to enable compile statistics, with a default value of false.
+
+       ge_kernel: Whether to enable GE kernel, with a default value of true.
      -
 
    * - MS_ALLOC_CONF
@@ -269,6 +271,10 @@ Graph Compilation and Execution
        vmm_align_size: Set the virtual memory alignment size in MB, only effective in O0 or O1 mode, with a default value of 2.
 
        memory_tracker: Whether to enable memory tracker, with a default value of false.
+
+       acl_allocator: Whether to enable ACL memory allocator, with a default value of true.
+
+       somas_whole_block: Whether to use the entire Somas for memory allocation, with a default value of false.
      -
 
 Dump Debugging
