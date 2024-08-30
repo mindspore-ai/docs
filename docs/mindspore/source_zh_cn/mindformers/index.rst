@@ -33,7 +33,7 @@ MindFormers以其强大的功能集，为用户提供了灵活且易于使用的
 
    支持多种形式的数据集。
 
-4. `断点续训 <https://www.mindspore.cn/docs/zh-CN/master/mindformers/function/res_training.html>`_
+4. `权重保存与断点续训 <https://www.mindspore.cn/docs/zh-CN/master/mindformers/function/resume_training.html>`_
 
    支持step级断点续训，有效减少大规模训练时意外中断造成的时间和资源浪费。
 
@@ -85,7 +85,7 @@ MindFormers以其强大的功能集，为用户提供了灵活且易于使用的
    function/weight_conversion
    function/distributed_parallel
    function/dataset
-   function/res_training
+   function/resume_training
 
 .. toctree::
    :glob:

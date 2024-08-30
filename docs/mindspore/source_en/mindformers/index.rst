@@ -39,7 +39,7 @@ Large Model Development
    function/weight_conversion
    function/distributed_parallel
    function/dataset
-   function/res_training
+   function/resume_training
 
 .. toctree::
    :glob:
