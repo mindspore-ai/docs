@@ -137,7 +137,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
 
     - `common_dump_settings`:
 
-        - `op_debug_mode`: This attribute is used for operator overflow or operator exception debugging. 0: save all operators or specified operators; 3: only save overflow operators; 4: only save input of the exception operator. Set it to 0 when the data is dumped. If it is not set to 0, only the data of the overflow operator or exception operator will be dumped. Default: 0.
+        - `op_debug_mode`: This attribute is used for operator overflow or operator exception debugging. 0: save all operators or specified operators; 3: only save overflow operators, this feature only supports floating-point overflow and does not support integer types; 4: only save input of the exception operator. Set it to 0 when the data is dumped. If it is not set to 0, only the data of the overflow operator or exception operator will be dumped. Default: 0.
         - `dump_mode`: 0: all operator data in the network dumped out; 1: the operator data specified in Dump `"kernels"`; 2: dump target and its contents using [mindspore.set_dump](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_dump.html). Specified data dump is supported only when "dump_mode' is set to `0`.
         - `path`: The absolute path to Dump saved data.
         - `net_name`: The customized net name: "ResNet50".
@@ -476,7 +476,7 @@ Generate the numpy.array data.
 
     - `common_dump_settings`:
 
-        - `op_debug_mode`: This attribute is used for operator overflow debugging. 0: disable overflow check function; 3: enable overflow check function; 4: enable the lightweight exception dump function. Set it to 0 when Dump data is processed. If it is not set to 0, only the data of the overflow operator or exception operator will be dumped.
+        - `op_debug_mode`: This attribute is used for operator overflow debugging. 0: disable overflow check function; 3: enable overflow check function, this feature only supports floating-point overflow and does not support integer types; 4: enable the lightweight exception dump function. Set it to 0 when Dump data is processed. If it is not set to 0, only the data of the overflow operator or exception operator will be dumped.
         - `dump_mode`: 0: all operator data in the network dumped out; 1: dump kernels data in kernels list. When overflow detection is enabled, the setting of this field becomes invalid, and Dump only saves the data of the overflow node. 2: dump target and its contents using [mindspore.set_dump](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_dump.html). Specified data dump is supported only when "dump_mode' is set to `0`.
         - `path`: The absolute path to save Dump data.
         - `net_name`: The customized net name: "ResNet50".
