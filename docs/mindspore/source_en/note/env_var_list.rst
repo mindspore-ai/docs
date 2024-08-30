@@ -341,7 +341,17 @@ Dump Debugging
        The file will be saved to the path of `the_specified_directory` `/rank_${rank_id}/om/`.
      - String
      - File path, which can be a relative path or an absolute path.
-     - 
+     -
+   * - MS_DUMP_SLICE_SIZE
+     - Specify slice size of operator Print, TensorDump, TensorSummary, ImageSummary, ScalarSummary, HistogramSummary.
+     - Integer
+     - 0~2048, unit: MB, default value is 0. The value 0 means the data is not sliced.
+     -
+   * - MS_DUMP_WAIT_TIME
+     - Specify wait time of second stage for operator Print, TensorDump, TensorSummary, ImageSummary, ScalarSummary, HistogramSummary.
+     - Integer
+     - 0~600, unit: Seconds, default value is 0. The value 0 means using default wait time, i.e. the value of `mindspore.get_context("op_timeout")`.
+     - This environment variable only takes effect when value of `MS_DUMP_SLICE_SIZE` is greater than 0. Now the wait time can not exceed value of `mindspore.get_context("op_timeout")`.
 
 For more information, see `Using Dump in the Graph Mode <https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html>`_.
 

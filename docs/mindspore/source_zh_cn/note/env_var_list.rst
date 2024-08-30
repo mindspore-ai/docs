@@ -347,6 +347,16 @@ Dump调试
      - String
      - 文件路径，支持相对路径与绝对路径
      -
+   * - MS_DUMP_SLICE_SIZE
+     - 指定Print、TensorDump、TensorSummary、ImageSummary、ScalarSummary、HistogramSummary算子的数据切片大小。
+     - Integer
+     - 0~2048，单位：MB，默认值为0。当取值为0时，表示不对数据切片。
+     -
+   * - MS_DUMP_WAIT_TIME
+     - 指定Print、TensorDump、TensorSummary、ImageSummary、ScalarSummary、HistogramSummary算子的二阶段超时时间。
+     - Integer
+     - 0~600，单位：秒，默认值为0。当取值为0时，表示使用默认超时时间，即`mindspore.get_context("op_timeout")`的取值。
+     - 该环境变量仅仅在MS_DUMP_SLICE_SIZE不为零的情况下生效。目前二阶段的等待时间无法超过mindspore.get_context("op_timeout")的值。
 
 具体用法详见 `Dump功能调试 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html>`_ 。
 
