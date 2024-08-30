@@ -137,7 +137,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
 
     - `common_dump_settings`:
 
-        - `op_debug_mode`：该属性用于算子溢出或算子异常调试，设置成0，表示保存所有算子或指定算子；设置成3，表示只保存溢出算子；设置成4，表示只保存异常算子的输入。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子或异常算子的数据。默认值：0。
+        - `op_debug_mode`：该属性用于算子溢出或算子异常调试，设置成0，表示保存所有算子或指定算子；设置成3，表示只保存溢出算子，该功能仅支持浮点数溢出，不支持整数类型；设置成4，表示只保存异常算子的输入。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子或异常算子的数据。默认值：0。
         - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据；设置成2，表示使用[mindspore.set_dump](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_dump.html) Dump指定对象。仅在op_debug_mode设置为0时支持指定算子dump。
         - `path`：Dump保存数据的绝对路径。
         - `net_name`：自定义的网络名称，例如："ResNet50"。
@@ -465,7 +465,7 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float
 
     - `common_dump_settings`:
 
-        - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成3，表示开启溢出检测功能；设置成4，表示开启轻量异常Dump功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子或异常算子的数据。
+        - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成3，表示开启溢出检测功能，该功能仅支持浮点数溢出，不支持整数类型；设置成4，表示开启轻量异常Dump功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子或异常算子的数据。
         - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据。设置成2，表示使用[mindspore.set_dump](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_dump.html) Dump指定对象。仅在op_debug_mode设置为0时支持指定算子dump。op_debug_mode设置为非0值时，此字段的设置失效，Dump只会保存溢出算子的数据或者异常算子的数据。
         - `path`：Dump保存数据的绝对路径。
         - `net_name`：自定义的网络名称，例如："ResNet50"。
