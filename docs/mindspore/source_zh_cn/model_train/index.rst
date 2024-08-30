@@ -9,24 +9,6 @@
    program_form/overview
    program_form/pynative
    program_form/static_graph
-   program_form/jit
-   program_form/interface
-   program_form/index_support
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 自定义高阶编程
-
-   custom_program/overview
-   custom_program/layer
-   custom_program/op_custom
-   custom_program/initializer
-   custom_program/loss
-   custom_program/optimizer
-   custom_program/fusion_pass
-   custom_program/network_custom
-   custom_program/hook_program
 
 .. toctree::
    :glob:
@@ -49,9 +31,7 @@
 
    train_process/overview
    train_process/model
-   train_process/dynamic_shape
    train_process/train_optimize
-   train_process/func_programming
    train_process/derivation
    train_process/algorithm_optimize
 
@@ -76,10 +56,52 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 调试调优
+   :caption: 自定义高阶编程
+
+   custom_program/overview
+   custom_program/op_custom
+   custom_program/initializer
+   custom_program/loss
+   custom_program/optimizer
+   custom_program/fusion_pass
+   custom_program/network_custom
+   custom_program/hook_program
+   custom_program/tensor_and_parameter
+   custom_program/functional_and_cell
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 训练高可用
+
+   train_availability/fault_recover
+   train_availability/storage_sys
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 模型调试
 
    debug/overview
+   debug/dump
+   debug/rdr
+   debug/sdc
    debug/error_analysis
-   debug/debug_tools
-   debug/opt_tools
    报错地图↗ <https://www.hiascend.com/forum/thread-0229108045633055169-1-1.html>
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 模型调优
+
+   optimize/overview
+   optimize/graph_fusion_engine
+   optimize/mem_reuse
+   optimize/aoe
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 模型库
+
+   models/official_models

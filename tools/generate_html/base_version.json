@@ -37,10 +37,6 @@
                     "url": "/docs/zh-CN/master/orange_pi/index.html"
                 },
                 {
-                    "label": "模型与套件",
-                    "url": "/docs/zh-CN/master/kits_tools/overview.html"
-                },
-                {
                     "label": "FAQ",
                     "url": "/docs/zh-CN/master/faq/index.html"
                 },
@@ -77,10 +73,6 @@
                 {
                     "label": "Orange Pi Development",
                     "url": "/docs/en/master/orange_pi/index.html"
-                },
-                {
-                    "label": "Models and Kits",
-                    "url": "/docs/en/master/kits_tools/overview.html"
                 },
                 {
                     "label": "FAQ",
