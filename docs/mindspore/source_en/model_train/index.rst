@@ -27,6 +27,14 @@ Model Building and Training
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Model Building
+
+   model_building/tensor_and_parameter
+   model_building/functional_and_cell
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: Training Process
 
    train_process/overview
@@ -67,8 +75,6 @@ Model Building and Training
    custom_program/fusion_pass
    custom_program/network_custom
    custom_program/hook_program
-   custom_program/tensor_and_parameter
-   custom_program/functional_and_cell
 
 .. toctree::
    :glob:

@@ -15,7 +15,7 @@
 - 数据并行 + 不开启优化器并行：并行通信域内的rank持有相同权重切片。
 - 模型并行：并行通信域内的rank持有不同权重切片。
 
-另外，需要注意的是，本文档介绍分布式故障恢复方案，需要在[下沉模式](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/train_optimize.html#下沉模式) 下使用。
+另外，需要注意的是，本文档介绍分布式故障恢复方案，需要在[下沉模式](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/sink_mode.html) 下使用。
 
 相关环境变量：
 

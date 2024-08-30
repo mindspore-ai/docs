@@ -260,6 +260,6 @@ MindSpore provides framework developers with rich debugging tools. Debugging fea
 |                         |                          | graph execution order,                                        |                                                       |
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+
 | Specialized control     | Memory reuse             | Configure memory reuse on and off for troubleshooting         | `Memory Reuse <https://www.mindspore.cn/              |
-|                         |                          | or debugging suspected problems related to memory reuse.      | docs/en/master/model_train/debug                      |
+|                         |                          | or debugging suspected problems related to memory reuse.      | docs/en/master/model_train/optimize                   |
 |                         |                          |                                                               | /mem_reuse.html>`_                                    |
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+
