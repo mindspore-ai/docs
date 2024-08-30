@@ -422,7 +422,7 @@ wo-linear之后存在一个计算空档，结合IR图，可以看到在wo-linear
 
 #### 使用建议
 
-实际应用中，通常是多种并行策略组合使用。根据模型规模，机器数量确定适当的并行策略。本节介绍不同规模模型的推荐配置，示例配置中各配置项含义参考[配置说明](https://gitee.com/mindspore/mindformers/blob/dev/configs/README.md)。
+实际应用中，通常是多种并行策略组合使用。根据模型规模，机器数量确定适当的并行策略。本节介绍不同规模模型的推荐配置，示例配置中各配置项含义参考[Config配置说明](https://www.mindspore.cn/docs/zh-CN/master/mindformers/appendix/conf_files.html)。
 
 * 小参数模型
 
@@ -459,46 +459,6 @@ RmsNorm一般使用float32计算，计算之前需要将输入从fp16或bf16 Cas
 ![communicate](./images/communicate.png)
 
 ### 内存优化
-
-#### Host侧内存分析
-
-借助[profiler工具](#profiler工具)，profile_memory设置为True，可以收集内存信息。分析方法可以参考[Host侧内存使用情况](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#host侧内存使用情况)。
-
-在训练时遇到host侧宕机挂掉，常常是由于OOM导致，对于此类问题目前主要有以下三种场景：
-
-* 模型初始化时使用了numpy初始化了超大的Tensor
-
-  模型脚本初始化时常常会用到numpy初始化的数组来初始化一个MindSpore的Tensor，如果这个Tensor的大小很大则会导致host侧内存OOM，例如下面的代码中会申请一个seq_len*seq_len形状的Tensor，对于序列长度达到128K以上时，则会容易导致Host内存OOM。
-
-  ```python
-  class LowerTriangularMaskWithDynamic(Cell):
-      @_LogActionOnce(m_logger=logger, key='AttentionMask',
-                      no_warning=_get_parallel_mode() in (ParallelMode.STAND_ALONE,))
-      def __init__(self, seq_length, compute_type=mstype.float16,
-                   is_dynamic=False, pad_token_id=0, use_flash_attention=False,
-                   use_prompt_flash_attention=False, use_incre_flash_attention=False, use_attn_mask_compression=False):
-          super().__init__()
-          # 省略部分代码
-          self.multiply_data = Tensor([-10000.0], dtype=compute_type)
-          self.one = Tensor([1.0], dtype=compute_type)
-          self.lower_triangle_mask = Tensor(np.tril(np.ones(shape=(seq_length, seq_length), dtype=np.int8)), dtype=compute_type)
-  ```
-
-  针对此类场景，主要规避方法是在construct中根据输入进行生成，可以进行切分并行以及内存复用，从而降低host内存开销，也降低了host静态内存的开销。
-
-* 数据预处理内存优化
-
-  对于数据预处理中生成数据不宜出现seq_len*seq_len的数据项，在LLM中不建议将mask之类的数据在数据预处理阶段进行生成，MindFormers在训练时采用的是full batch方式，每张卡的进程都会处理global batch size的数据集，由于预处理是流水线模式，会导致host内存逐渐被消耗。
-
-* 权重加载时使用的是完整的权重
-
-  目前MindFormers中进行分布式训练时，加载权重时每个训练进程都会加载一份权重，例如对于参数为13B的模型，若均是半精度存储则需要2\*13=26GB的内存，若是8卡分布式训练则加载权重至少需要8\*26=208GB的内存；因此加载完整的权重时会消耗较多的Host内存。为此需要开启配置文件的中auto_trans_ckpt的开关，使能权重自动切分，进行切片加载，以此来降低host内存开销。
-
-  在Mindformers的配置文件中，开启如下开关：
-
-  ```yaml
-  auto_trans_ckpt: True
-  ```
 
 #### 峰值显存存分析
 

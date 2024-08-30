@@ -477,7 +477,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 ## 附录
 
-当前MindFormers暂不支持直接读取PyTorch的bin数据集。当前可参考如下方法，保证Megtron读取相同数据，将Megtron中训练数据保存为npy。修改[pretrain_gpt.py](https://github.com/NVIDIA/Megatron-LM/blob/main/pretrain_gpt.py)：
+当前MindFormers暂不支持直接读取PyTorch的bin数据集。当前可参考如下方法，保证Megtron读取相同数据。修改代码，使Megatron每个step训练的数据保存下来，MindFormers训练时读取相同的数据进行训练。修改[pretrain_gpt.py](https://github.com/NVIDIA/Megatron-LM/blob/main/pretrain_gpt.py)：
 
 ```python
 import numpy as np
@@ -491,9 +491,23 @@ def get_path(local_rank):
     return path
 
 def forward_step(data_iterator, model: GPTModel):
-    ...
-    tokens, labels, loss_mask, attention_mask, position_ids = get_batch(data_iterator)
+    """Forward training step.
 
+    Args:
+        data_iterator: Input data iterator
+        model (GPTModel): The GPT Model
+    """
+    args = get_args()
+    timers = get_timers()
+
+    # Get the batch.
+    timers('batch-generator', log_level=2).start()
+    global stimer
+    with stimer(bdata=True):
+        tokens, labels, loss_mask, attention_mask, position_ids = get_batch(
+            data_iterator)
+
+    # =========== 以下为新增代码 ===========
     local_rank = torch.distributed.get_rank()
     path = get_path(local_rank)
     print(f"paht is f{path}")
@@ -509,7 +523,16 @@ def forward_step(data_iterator, model: GPTModel):
     np.save(os.path.join(path, 'loss_mask.npy'), loss_mask_npy)
     attention_mask_npy = attention_mask.cpu().numpy()
     np.save(os.path.join(path, 'attention_mask.npy'), attention_mask_npy)
-    ...
+    # =========== 以上为新增代码 ===========
+
+    timers('batch-generator').stop()
+
+    with stimer:
+        output_tensor = model(tokens, position_ids, attention_mask,
+                              labels=labels)
+
+
+    return output_tensor, partial(loss_func, loss_mask)
 ```
 
 数据按照如下目录结构保存：
@@ -541,7 +564,7 @@ def forward_step(data_iterator, model: GPTModel):
 
 MindFormers中每个step读取相应的数据进行训练。方式如下：
 
-新建nump_dataset.py并放入mindformers/dataset/，nump_dataset.py代码如下：
+新建numpy_dataset.py并放入mindformers/dataset/，numpy_dataset.py代码如下：
 
 ```python
 import os
@@ -558,7 +581,7 @@ from mindformers.tools.utils import get_real_rank
 from .base_dataset import BaseDataset
 
 class NumpyDataset:
-    def __init__(self， dataset_dir， rank_id):
+    def __init__(self, dataset_dir, rank_id):
         self.token_list = []
         self.label_list = []
         self.index = []
@@ -596,12 +619,12 @@ class NumpyDataset:
 
 @MindFormerRegister.register(MindFormerModuleType.DATASET)
 class NumpyDataloader(BaseDataset):
-    def __new__(cls， dataset_config):
+    def __new__(cls, dataset_config):
         logger.info("Now create Numpy Dataset")
         dataset_config = cls.check_dataset_config(dataset_config, locals())
         dataset_config = copy.deepcopy(dataset_config)
         cls.init_dataset_config(dataset_config)
-        rank_id， device_num = cls._generate_shard_info()
+        rank_id, device_num = cls._generate_shard_info()
         dataset_config.rank_id = rank_id
         dataset_config.device_num = device_num
 
@@ -635,24 +658,68 @@ class NumpyDataloader(BaseDataset):
 from .numpy_dataset import NumpyDataloader
 ```
 
-yaml配置参考：
+修改训练yaml如下配置项，配置项含义参考[Config配置说明](https://www.mindspore.cn/docs/zh-CN/master/mindformers/appendix/conf_files.html)：
 
 ```yaml
 train_dataset: &train_dataset
   data_loader:
-    dataset_dir:   "xx/xx/path"  
+    dataset_dir: ""  
     shuffle: False #True
   input_columns: ["input_ids", "labels"]
-  num_parallel_workers: 8
-  python_multiprocessing: False
-  drop_remainder: True
-  batch_size: 1
-  repeat: 1
-  numa_enable: False
-  prefetch_size: 1
 train_dataset_task:
-  type: NumpyDataloader  
-  dataset_config: *train_dataset
+  type: NumpyDataloader
 ```
 
-启动训练，即可读Megatron保存下来的numpy数据进行训练。
+由于MindFormers与Megatron数据处理部分有差异，使用Megatron保存下来的numpy数据进行训练时，需要修改处理tokens、labels代码。以Llama为例，原代码是对input_ids进行slice操作获得tokens及labels，使用Megatron保存下来的数据则不需要。修改[mindformers/models/llama/llama.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama.py)
+
+```python
+class LlamaForCausalLM(LlamaPreTrainedModel):
+    def construct(self, input_ids, labels=None, input_position=None, position_ids=None, attention_mask=None,
+                  input_embeds=None, init_reset=None, batch_valid_length=None, batch_index=None, zactivate_len=None,
+                  block_tables=None, slot_mapping=None, prefix_keys_values=None, llm_boost_inputs=None):
+        if hasattr(self, 'llm_boost'):
+            if not self.is_set_kvcache:
+                self.llm_boost.set_kvcache()
+                self.is_set_kvcache = True
+            self.llm_boost.add_flags(is_first_iteration=self.is_first_iteration)
+            llm_boost_inputs["cos_embed"] = self.model.freqs_mgr.freqs_cos
+            llm_boost_inputs["sin_embed"] = self.model.freqs_mgr.freqs_sin
+            return self.llm_boost.forward(llm_boost_inputs)
+
+        bsz, seqlen = self.shape(input_ids)
+        if self.use_past:
+            if not isinstance(batch_valid_length, Tensor):
+                batch_valid_length = self.ones((bsz,), mstype.int32)
+
+        # =========== 以下为修改代码 ===========
+        # if self.training:
+        #     tokens = self.slice(input_ids, (0, 0), (bsz, seqlen - 1), (1, 1))
+        # else:
+        #     tokens = input_ids
+        tokens = input_ids
+        # =========== 以上为修改代码 ===========
+
+        if batch_valid_length is not None:
+            batch_valid_length = self.reshape(batch_valid_length, (-1,))
+        output = self.model(tokens, batch_valid_length, batch_index, zactivate_len, block_tables, \
+                            slot_mapping, prefix_keys_values)
+        pre_gather = (not self.use_past or self.is_first_iteration) and batch_valid_length is not None
+        if pre_gather:
+            output = self.gather(output, self.sub_batch_valid_len(batch_valid_length, 1), 1)
+        logits = self.lm_head(output)
+
+        input_mask = self.cast(self.not_equal(tokens, self.pad_token_id), mstype.float32)
+        if labels is None:
+            labels = self.slice(input_ids, (0, 1), (bsz, seqlen), (1, 1))
+        else:
+            if labels.ndim > 1:
+                # =========== 删掉以下代码 ===========
+                # if self.training:
+                #    labels = self.slice(labels, (0, 1), (bsz, seqlen), (1, 1))
+                # =========== 删掉以上代码 ===========
+                label_mask = self.cast(self.not_equal(labels, self.ignore_token_id), mstype.float32)
+                input_mask = self.mul(input_mask, label_mask)
+
+        # 后续代码省略
+```
+
