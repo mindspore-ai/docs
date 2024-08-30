@@ -230,6 +230,13 @@
      - 此环境变量后续将删除，不建议使用。
 
        仅限Ascend AI处理器环境图编译等级为O2流程使用。
+   * - MS_ENABLE_GRACEFUL_EXIT
+     - 设置使能进程优雅退出
+     - Integer
+     - 1：使用进程优雅退出功能。
+
+       不设置或者其他值: 不使用进程优雅退出功能。
+     - 使能进程优雅退出功能，依赖callback函数，具体请参考 `进程优雅退出用例 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/process_graceful_exit.html>`_ 。
    * - MS_DEV_BOOST_INFER
      - 针对前端图编译提供编译优化开关。该开关可加速类型推导模块，以加速网络编译。
      - Integer

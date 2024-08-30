@@ -82,6 +82,7 @@ Model Building and Training
    :caption: Training High Availability
 
    train_availability/fault_recover
+   train_availability/graceful_exit
    train_availability/storage_sys
 
 .. toctree::

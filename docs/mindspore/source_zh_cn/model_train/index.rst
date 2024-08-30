@@ -82,6 +82,7 @@
    :caption: 训练高可用
 
    train_availability/fault_recover
+   train_availability/graceful_exit
    train_availability/storage_sys
 
 .. toctree::
