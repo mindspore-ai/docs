@@ -186,12 +186,12 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             # ArraySource[data[i]['name'] + '/experts'] = data[i]["branch"]
         elif data[i]['name'] == "mindspore":
             ArraySource[data[i]['name']] = data[i]["branch"]
-        elif data[i]['name'] == "mindscience" or data[i]['name'] == "mindformers":
+        elif data[i]['name'] == "mindscience":
             pass
         else:
             ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
 
-        if data[i]['name'] != "mindscience" and data[i]['name'] != "mindformers":
+        if data[i]['name'] != "mindscience":
             generate_version_json(data[i]['name'], data[i]["branch"], data_b, flag_dev, target_version)
 
         # 卸载原来已有的安装包, 以防冲突

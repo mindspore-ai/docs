@@ -88,19 +88,19 @@ Model Building and Training
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Dubugging
+   :caption: Model Debugging
 
    debug/overview
    debug/dump
    debug/rdr
    debug/sdc
    debug/error_analysis
-   Error Map↗ <https://www.hiascend.com/forum/thread-0229108045633055169-1-1.html>
+   ErrorMap↗ <https://www.hiascend.com/forum/thread-0229108045633055169-1-1.html>
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Tuning
+   :caption: Model Tuning
 
    optimize/overview
    optimize/graph_fusion_engine
