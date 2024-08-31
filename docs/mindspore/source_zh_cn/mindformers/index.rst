@@ -21,7 +21,7 @@ MindFormers支持一键启动任意任务的单卡/多卡训练、微调、评�
 
 MindFormers以其强大的功能集，为用户提供了灵活且易于使用的个性化配置选项。具体来说，它具备以下几个关键特性：
 
-1. `权重切分与合并 <https://www.mindspore.cn/docs/zh-CN/master/mindformers/function/weight_conversion.html>`_
+1. `权重切分与合并 <https://www.mindspore.cn/docs/zh-CN/master/mindformers/function/transform_weight.html>`_
 
    不同分布式场景下的权重灵活地进行切分与合并。
 
@@ -82,7 +82,7 @@ MindFormers以其强大的功能集，为用户提供了灵活且易于使用的
    :caption: 功能说明
    :hidden:
 
-   function/weight_conversion
+   function/transform_weight
    function/distributed_parallel
    function/dataset
    function/resume_training
