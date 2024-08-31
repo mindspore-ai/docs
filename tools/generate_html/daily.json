@@ -105,10 +105,10 @@
 {
     "id" : 12 ,
     "name" : "mindformers",
-    "branch" : "",
+    "branch" : "dev",
     "whl_path" : "/mindformers/newest/any/",
     "whl_name" : "mindformers-.*-py3-none-any.whl$",
-    "environ" : "",
+    "environ" : "MFM_PATH",
     "uninstall_name" : "mindformers"
 },
 {

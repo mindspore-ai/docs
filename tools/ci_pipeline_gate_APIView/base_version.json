@@ -30,7 +30,7 @@
                 },
                 {
                     "label": "大模型开发",
-                    "url": "/docs/zh-CN/master/mindformers/index.html"
+                    "url": "/mindformers/docs/zh-CN/dev/index.html"
                 },
                 {
                     "label": "香橙派开发",
@@ -72,7 +72,7 @@
                 },
                 {
                     "label": "Large Model Development",
-                    "url": "/docs/en/master/mindformers/index.html"
+                    "url": "/mindformers/docs/en/dev/index.html"
                 },
                 {
                     "label": "Orange Pi Development",
