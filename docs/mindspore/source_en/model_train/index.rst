@@ -29,6 +29,7 @@ Model Building and Training
    :maxdepth: 1
    :caption: Model Building
 
+   model_building/overview
    model_building/tensor_and_parameter
    model_building/functional_and_cell
 
