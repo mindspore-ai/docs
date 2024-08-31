@@ -260,6 +260,8 @@
        compile_statistics: 是否开启编译性能统计，默认值为false。
 
        ge_kernel: 是否使用GE kernel，默认值为true。
+
+       kbk_cache: 是否使用图编译等级O0/O1下的后端编译缓存，仅在前端编译缓存（MS_COMPILER_CACHE_ENABLE）开启时生效，默认值为true。
      -
 
    * - MS_ALLOC_CONF
