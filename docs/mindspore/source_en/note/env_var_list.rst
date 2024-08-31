@@ -837,6 +837,11 @@ Third-party Library
      - String
      - Absolute path for MindIO TTP API library. Default Value: Empty.
      - Required for MS_ENABLE_MINDIO_GRACEFUL_EXIT enable only.
+   * - AITURBO
+     - Optimize settings to enable accelerated usage of Huawei Cloud Storage.
+     - String
+     - "1": Optimize settings to enable accelerated usage of Huawei Cloud Storage. Other values: Disable accelerated usage of Huawei Cloud Storage. Default value: Empty.
+     - Limited to the Huawei Cloud environment.
 
 CANN
 -----
