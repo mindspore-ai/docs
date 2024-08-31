@@ -109,12 +109,13 @@ Mixed precision calculations require type conversion of operations that require 
 
 ### Automatic Type Conversion
 
-The `mindspore.amp.auto_mixed_precision` interface provides the function to do automatic type conversion for networks. Automatic type conversion follows a blacklist and white list mechanism with four levels configured according to common operator precision conventions, as follows:
+The `mindspore.amp.auto_mixed_precision` interface provides the function to do automatic type conversion for networks. Automatic type conversion follows a blacklist and white list mechanism with five levels configured according to common operator precision conventions, as follows:
 
 - 'O0': Neural network keeps FP32.
 - 'O1': Operation cast to FP16 by whitelist.
 - 'O2': Retain FP32 by blacklist and the rest of operations cast to FP16.
 - 'O3': The neural network is fully cast to FP16.
+- 'auto': Cast operators in whitelist to FP16, cast operators in blacklist to FP32, and the rest of operators choose the highest floating-point precision of operator input for conversion.
 
 The following is an example of using automatic type conversion:
 
