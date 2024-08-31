@@ -566,7 +566,7 @@ select_recompute:
   'attention\.flash_attention': [20, 0]
 ```
 
-使用O0/O1和dvm图算融合，内存有进一步优化，将大部分算子的选择重计算改为部分层的完全重计算，其余层配置Silu和Mul的选择重计算， stage0、stage1分别完全重计算13层、5层，性能提升至2353tokens/s/p。逐步减少stage0、stage1完全重计算至4层、0层，性能提升至2562tokens/s/p(max_device_memory: 57.2GB)。参考配置如下：
+使用图编译等级为O0/O1图算融合，内存有进一步优化，将大部分算子的选择重计算改为部分层的完全重计算，其余层配置Silu和Mul的选择重计算， stage0、stage1分别完全重计算13层、5层，性能提升至2353tokens/s/p。逐步减少stage0、stage1完全重计算至4层、0层，性能提升至2562tokens/s/p(max_device_memory: 57.2GB)。参考配置如下：
 
 ```yaml
 recompute_config:
