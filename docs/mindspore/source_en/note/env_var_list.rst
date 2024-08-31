@@ -216,7 +216,7 @@ Graph Compilation and Execution
        0: not enabled.
 
        Default value: 0
-     - Ascend AI processor environment GE process use only.
+     - Ascend AI processor environment and graph compilation grade O2 process use only.
    * - MS_DISABLE_REF_MODE
      - Forcibly setting to turn off ref mode
      - Integer
@@ -228,7 +228,7 @@ Graph Compilation and Execution
 
      - This environment variable will be removed subsequently and is not recommended.
 
-       Ascend AI processor environment GE process use only.
+       Ascend AI processor environment and graph compilation grade O2 process use only.
    * - MS_DEV_BOOST_INFER
      - Compile optimization switch for graph compilation. This switch accelerates the type inference module to speed up network compilation.
      - Integer
@@ -853,7 +853,7 @@ For more information about CANN's environment variables, see `Ascend community <
      - Value Range
      - Description
    * - MS_FORMAT_MODE
-     - Set the default preferred format for Ascend GE processes, with the entire network set to ND format
+     - Set the default preferred format for Ascend and graph compilation grade O2 processes, with the entire network set to ND format
      - Integer
      - 1: The operator prioritizes the ND format.
 
@@ -862,4 +862,4 @@ For more information about CANN's environment variables, see `Ascend community <
        Default value: 1
      - This environment variable affects the choice of format for the operator, which has an impact on network execution performance and memory usage, and can be tested by setting this option to get a better choice of operator format in terms of performance and memory.
 
-       Ascend AI processor environment GE processes only.
+       Ascend AI processor environment and graph compilation grade O2 processes only.

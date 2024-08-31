@@ -217,7 +217,7 @@
        0：不使能。
 
        默认值：0
-     - 仅限Ascend AI处理器环境GE流程使用。
+     - 仅限Ascend AI处理器环境图编译等级为O2流程使用。
    * - MS_DISABLE_REF_MODE
      - 设置强制关闭ref模式
      - Integer
@@ -229,7 +229,7 @@
 
      - 此环境变量后续将删除，不建议使用。
 
-       仅限Ascend AI处理器环境GE流程使用。
+       仅限Ascend AI处理器环境图编译等级为O2流程使用。
    * - MS_DEV_BOOST_INFER
      - 针对前端图编译提供编译优化开关。该开关可加速类型推导模块，以加速网络编译。
      - Integer
@@ -859,7 +859,7 @@ CANN的环境变量详见 `昇腾社区 <https://www.hiascend.com/document/detai
      - 取值
      - 说明
    * - MS_FORMAT_MODE
-     - 设置Ascend GE流程的默认优选格式，整网设置为ND格式
+     - 设置Ascend 图编译等级为O2流程的默认优选格式，整网设置为ND格式
      - Integer
      - 1: 算子优先选择ND格式。
 
@@ -868,4 +868,4 @@ CANN的环境变量详见 `昇腾社区 <https://www.hiascend.com/document/detai
        默认值：1。
      - 此环境变量影响算子的format选择，从而对网络执行性能和内存占用产生影响，可通过设置此选项测试得到性能和内存更优的算子格式选择。
 
-       仅限Ascend AI处理器环境GE流程使用。
+       仅限Ascend AI处理器环境图编译等级为O2流程使用。

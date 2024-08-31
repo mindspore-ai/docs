@@ -202,4 +202,4 @@ mpirun -n $RANK_SIZE ./build/gpu_trt_distributed /your/path/to/Matmul.mindir
 
 ## Multiple Models Sharing Weights
 
-In the Ascend device GE scenario, a single card can deploy multiple models, and models deployed to the same card can share weights. For details, please refer to [Advanced Usage - Multiple Model Sharing Weights](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_cpp.html#multiple-models-sharing-weights).
+In the Ascend device and graph compilation grade O2 scenario, a single card can deploy multiple models, and models deployed to the same card can share weights. For details, please refer to [Advanced Usage - Multiple Model Sharing Weights](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_cpp.html#multiple-models-sharing-weights).
