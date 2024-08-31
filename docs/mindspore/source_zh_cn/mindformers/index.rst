@@ -70,7 +70,7 @@ MindFormers以其强大的功能集，为用户提供了灵活且易于使用的
    usage/dev_migration
    usage/pre_training
    usage/sft_tuning
-   usage/lora_tuning
+   usage/parameter_efficient_fine_tune
    usage/evaluation
    usage/inference
    usage/mindie_deployment
