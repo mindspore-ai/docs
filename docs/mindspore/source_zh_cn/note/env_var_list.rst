@@ -843,6 +843,11 @@ RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/
      - String
      - MindIO TTP API动态库安装的绝对路径。默认值：空。
      - 依赖MS_ENABLE_MINDIO_GRACEFUL_EXIT的开启。
+   * - AITURBO
+     - 使能华为云存储加速
+     - String
+     - "1": 使能华为云存储加速。 其他值：关闭华为云存储加速。 默认值：空。
+     - 仅限华为云环境。
 
 CANN
 --------
