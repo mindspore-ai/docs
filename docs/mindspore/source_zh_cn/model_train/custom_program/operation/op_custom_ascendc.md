@@ -94,42 +94,18 @@ CANN为AI开发者提供了Ascend C编程语言，这是一款专为算子开发
 ### 使用自定义算子
 
 MindSpore的自定义算子接口为[ops.Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html) ，
-使用Ascend C自定义算子时，您需要设置参数`func_type`为`"aot"`，并提供`func`参数来指定算子名字。以`AddCustom`算子为例，存在以下几种使用方式：
+使用Ascend C自定义算子时，您需要设置参数`func_type`为`"aot"`，并指定`func`参数为算子名字。根据`infer shape`函数的实现方式，存在以下两种使用方式：
 
-- **aclnn**：指定算子底层使用aclnn类型，则需要在算子名字前加上`aclnn`，例如：`func="aclnnAddCustom"`
-- **c++ infer**：算子的infer shape通过c++实现，则在func中传入c++的infer shape文件路径并用`:`隔开使用的算子名字，例如：`func="add_custom_infer.cc:aclnnAddCustom`
-- **TBE**：指定算子底层使用TBE类型，则设置`func="AddCustom"`
+- **python infer**：若算子的infer shape是python实现，即通过`out_shape`参数传入infer shape函数，则指定`func="CustomName"`
+- **c++ infer**：若算子的infer shape通过c++实现，则在func中传入infer shape实现文件的路径并用`:`隔开算子名字，例如：`func="add_custom_infer.cc:AddCustom`
 
-> 单算子执行模式推荐使用aclnn，包括PyNative模式或Graph模式下`jit_config`为`O0`或`O1`。
-
-完整Ascend C自定义算子的样例代码，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc) ，样例工程的目录结构如下：
-
-```text
-.
-├── compile_utils.py                //自定义算子编译公共文件
-├── infer_file
-│   ├── add_custom_infer.cc         //自定义算子c++侧infer shape
-│   └── custom_aot_extra.h          //自定义算子infer shape编译依赖头文件
-├── op_host                         //自定义算子源码op_host
-│   ├── add_custom.cpp
-│   └── add_custom_tiling.h
-├── op_kernel                       //自定义算子源码op_kernel
-│   └── add_custom.cpp
-├── test_compile_custom.py          //自定义算子编译用例
-├── test_custom_aclnn.py            //自定义算子aclnn使用样例
-├── test_custom_aclop.py            //自定义算子tbe使用样例
-└── test_custom_ascendc.py          //自定义算子启动脚本，包含编译和执行，可作为阅读入口
-```
-
-下面示范自定义算子的几种使用方式。
-
-**aclnn使用样例**：
+**使用样例**：
 
 ```python
-class AddCustomAclnnNet(Cell):
+class AddCustomNet(Cell):
     def __init__(self, func, out_shape):
-        super(AddCustomAclnnNet, self).__init__()
-        aclnn_reg_info = CustomRegOp("aclnnAddCustom") \
+        super(AddCustomNet, self).__init__()
+        reg_info = CustomRegOp("AddCustom") \
             .input(0, "x", "required") \
             .input(1, "y", "required") \
             .output(0, "z", "required") \
@@ -138,7 +114,7 @@ class AddCustomAclnnNet(Cell):
             .get_op_info()
 
         self.custom_add = ops.Custom(func=func, out_shape=out_shape, out_dtype=lambda x, _: x, func_type="aot", bprop=None,
-                                     reg_info=aclnn_reg_info)
+                                     reg_info=reg_info)
 
     def construct(self, x, y):
         res = self.custom_add(x, y)
@@ -148,48 +124,39 @@ context.set_context(device_target="Ascend", jit_config={"jit_level": "O0"})
 x = np.ones([8, 2048]).astype(np.float16)
 y = np.ones([8, 2048]).astype(np.float16)
 
-# 通过lambda实现infer shape函数，并指定底层使用aclnn算子
-net = AddCustomAclnnNet("aclnnAddCustom", lambda x, _: x)
+# 通过lambda实现infer shape函数
+net = AddCustomNet("AddCustom", lambda x, _: x)
 
-# 使用c++实现infer shape，在func中传入infer shape的路径，并指定底层使用aclnn算子
-net = AddCustomAclnnNet("./infer_file/add_custom_infer.cc:aclnnAddCustom", None)
+# 使用c++实现infer shape，在func中传入infer shape的路径
+net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None)
 ```
 
-**TBE使用样例**
+完整Ascend C自定义算子的样例代码，可以查看 [样例工程](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc) ，样例工程的目录结构如下：
 
-```python
-class CustomNet(Cell):
-    def __init__(self):
-        super(CustomNet, self).__init__()
-        aclop_reg_info = CustomRegOp("AddCustom") \
-            .input(0, "x", "required") \
-            .input(1, "y", "required") \
-            .output(0, "z", "required") \
-            .dtype_format(DataType.F16_Default, DataType.F16_Default, DataType.F16_Default) \
-            .target("Ascend") \
-            .get_op_info()
-
-        self.custom_add = ops.Custom(func="AddCustom", out_shape=lambda x, _: x, out_dtype=lambda x, _: x,
-                                     func_type="aot",reg_info=aclop_reg_info)
-
-    def construct(self, x, y):
-        res = self.custom_add(x, y)
-        return res
-
-x = np.ones([8, 2048]).astype(np.float16)
-y = np.ones([8, 2048]).astype(np.float16)
-net = CustomNet()
+```text
+.
+├── compile_utils.py                //自定义算子编译公共文件
+├── infer_file
+│   ├── custom_cpp_infer.cc         //自定义算子c++侧infer shape
+│   └── custom_aot_extra.h          //自定义算子infer shape编译依赖头文件
+├── op_host                         //自定义算子源码op_host
+│   ├── add_custom.cpp
+│   └── add_custom_tiling.h
+├── op_kernel                       //自定义算子源码op_kernel
+│   └── add_custom.cpp
+├── test_compile_custom.py          //自定义算子编译用例
+├── test_custom_aclnn.py            //自定义算子使用样例
+├── test_custom_aclop.py            //自定义算子走aclop流程使用样例
+└── test_custom_ascendc.py          //自定义算子启动脚本，包含编译和执行，可作为阅读入口
 ```
 
 **注意事项**
 
-1. **名称一致性**：注册信息中使用的算子名称必须与`ops.Custom`中的`func`参数传入的名称完全一致。如果指定算子使用`aclnn`，注册信息中的算子名称前也需要添加`aclnn`前缀。
+1. **名称一致性**：注册信息中使用的算子名称必须与`ops.Custom`中的`func`参数传入的名称完全一致。
 
 2. **输入输出名称匹配**：注册信息中定义的输入输出参数名称必须与源代码中定义的名称完全一致。
 
 3. **规格一致性**：注册信息中支持的规格也必须与源代码中定义的规格相匹配。
-
-4. **执行模式限制**：`aclnn`只能采用单算子执行模式，设置为PyNative模式或指定Graph模式下`jit_config`为`O0`或`O1`。`jit_config`配置说明参考[set_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html)。
 
 ### 进一步阅读
 

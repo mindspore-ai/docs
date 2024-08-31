@@ -92,42 +92,18 @@ Before you begin, please make sure that the development, compilation, and deploy
 
 ### Using Custom Operators
 
-MindSpore's custom operator interface is [ops.Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html). When using Ascend C custom operators, you need to set the parameter `func_type` to `"aot"` and provide the `func` parameter to specify the operator name. Taking the `AddCustom` operator as an example, there are several ways to use it:
+The custom operator interface in MindSpore is [ops.Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html). When using Ascend C to create a custom operator, you need to set the parameter `func_type` to `"aot"` and specify the `func` parameter as the name of the operator. Depending on the implementation of the `infer shape` function, there are two ways to use it:
 
-- **aclnn**: Specify that the underlying operator uses the aclnn type. You need to add `aclnn` in front of the operator name, for example: `func="aclnnAddCustom"`.
-- **C++ Inference**: If the operator's infer shape is implemented in C++, pass the path of the C++ infer shape file in the `func` and separate the operator name with `:`, for example: `func="add_custom_infer.cc:aclnnAddCustom"`.
-- **TBE**: Specify that the underlying operator uses the TBE type, and set `func="AddCustom"`.
+- **Python infer**: If the operator's infer shape is implemented in Python, that is, the infer shape function is passed through the `out_shape` parameter, specify `func="CustomName"`
+- **C++ infer**: If the operator's infer shape is implemented through C++, then pass the path of the infer shape implementation file in `func` and separate the operator name with `:`, for example: `func="add_custom_infer.cc:AddCustom"`
 
-> For single-operator execution mode, it is recommended to use aclnn, including in PyNative mode or Graph mode where `jit_config` is set to `O0` or `O1`.
-
-For a complete example of an Ascend C custom operator, you can refer to the [sample project](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc). The directory structure of the sample project is as follows:
-
-```text
-.
-├── compile_utils.py                // Custom operator compilation common file
-├── infer_file
-│   ├── add_custom_infer.cc         // Custom operator C++ side infer shape
-│   └── custom_aot_extra.h          // Custom operator infer shape compilation dependency header file
-├── op_host                         // Custom operator source code op_host
-│   ├── add_custom.cpp
-│   └── add_custom_tiling.h
-├── op_kernel                       // Custom operator source code op_kernel
-│   └── add_custom.cpp
-├── test_compile_custom.py          // Custom operator compilation test case
-├── test_custom_aclnn.py            // Custom operator aclnn usage example
-├── test_custom_aclop.py            // Custom operator tbe usage example
-└── test_custom_ascendc.py          // Custom operator startup script, including compilation and execution, can be used as an entry for reading
-```
-
-Below are several examples of how to use a custom operator.
-
-**aclnn Usage Example**:
+**Usage Example**:
 
 ```python
-class AddCustomAclnnNet(Cell):
+class AddCustomNet(Cell):
     def __init__(self, func, out_shape):
-        super(AddCustomAclnnNet, self).__init__()
-        aclnn_reg_info = CustomRegOp("aclnnAddCustom") \
+        super(AddCustomNet, self).__init__()
+        reg_info = CustomRegOp("AddCustom") \
             .input(0, "x", "required") \
             .input(1, "y", "required") \
             .output(0, "z", "required") \
@@ -136,7 +112,7 @@ class AddCustomAclnnNet(Cell):
             .get_op_info()
 
         self.custom_add = ops.Custom(func=func, out_shape=out_shape, out_dtype=lambda x, _: x, func_type="aot", bprop=None,
-                                     reg_info=aclnn_reg_info)
+                                     reg_info=reg_info)
 
     def construct(self, x, y):
         res = self.custom_add(x, y)
@@ -146,48 +122,39 @@ context.set_context(device_target="Ascend", jit_config={"jit_level": "O0"})
 x = np.ones([8, 2048]).astype(np.float16)
 y = np.ones([8, 2048]).astype(np.float16)
 
-# Implement the infer shape function through lambda and specify the underlying aclnn operator
-net = AddCustomAclnnNet("aclnnAddCustom", lambda x, _: x)
+# # Implement the infer shape function through lambda
+net = AddCustomNet("AddCustom", lambda x, _: x)
 
-# Use C++ to implement infer shape, pass the path of the infer shape in the func, and specify the underlying aclnn operator
-net = AddCustomAclnnNet("./infer_file/add_custom_infer.cc:aclnnAddCustom", None)
+# Use C++ to implement infer shape, pass the path of the infer shape in the func
+net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None)
 ```
 
-**TBE Usage Example**
+For a complete example of an Ascend C custom operator, you can refer to the [sample project](https://gitee.com/mindspore/mindspore/tree/master/tests/st/graph_kernel/custom/custom_ascendc). The directory structure of the sample project is as follows:
 
-```python
-class CustomNet(Cell):
-    def __init__(self):
-        super(CustomNet, self).__init__()
-        aclop_reg_info = CustomRegOp("AddCustom") \
-            .input(0, "x", "required") \
-            .input(1, "y", "required") \
-            .output(0, "z", "required") \
-            .dtype_format(DataType.F16_Default, DataType.F16_Default, DataType.F16_Default) \
-            .target("Ascend") \
-            .get_op_info()
-
-        self.custom_add = ops.Custom(func="AddCustom", out_shape=lambda x, _: x, out_dtype=lambda x, _: x,
-                                     func_type="aot",reg_info=aclop_reg_info)
-
-    def construct(self, x, y):
-        res = self.custom_add(x, y)
-        return res
-
-x = np.ones([8, 2048]).astype(np.float16)
-y = np.ones([8, 2048]).astype(np.float16)
-net = CustomNet()
+```text
+.
+├── compile_utils.py                // Custom operator compilation common file
+├── infer_file
+│   ├── custom_cpp_infer.cc         // Custom operator C++ side infer shape
+│   └── custom_aot_extra.h          // Custom operator infer shape compilation dependency header file
+├── op_host                         // Custom operator source code op_host
+│   ├── add_custom.cpp
+│   └── add_custom_tiling.h
+├── op_kernel                       // Custom operator source code op_kernel
+│   └── add_custom.cpp
+├── test_compile_custom.py          // Custom operator compilation test case
+├── test_custom_aclnn.py            // Custom operator usage example
+├── test_custom_aclop.py            // Custom operator aclop usage example
+└── test_custom_ascendc.py          // Custom operator startup script, including compilation and execution, can be used as an entry for reading
 ```
 
 **Precautions**
 
-1. **Name Consistency**: The operator name used in the registration information must be exactly the same as the name passed in the `func` parameter of `ops.Custom`. If the operator is specified to use `aclnn`, the operator name in the registration information must also be prefixed with `aclnn`.
+1. **Name Consistency**: The operator name used in the registration information must be exactly the same as the name passed in the `func` parameter of `ops.Custom`.
 
 2. **Input/Output Name Matching**: The names of the input and output parameters defined in the registration information must be exactly the same as those defined in the source code.
 
 3. **Specification Consistency**: The specifications supported in the registration information must also match those defined in the source code.
-
-4. **Execution Mode Limitations**: `aclnn` can only adopt a single-operator execution mode, set to PyNative mode or specify the Graph mode with `jit_config` set to `O0` or `O1`. For more information on `jit_config` configuration, refer to [set_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html).
 
 ### Further Reading
 
