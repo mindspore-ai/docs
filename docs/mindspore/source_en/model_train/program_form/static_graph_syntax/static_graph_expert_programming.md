@@ -267,6 +267,12 @@ Enable comile_cache cost time: 0.09379792213439941
 
 As you can see, when compilation cache is enabled, the 2nd execution of the sample takes only about 1/7th of the time for the first execution.
 
+Explanation: When the compile cache function is turned on, the first execution will not generate the cache yet, resulting in a warning.
+
+```text
+Warning: Check the consistency of dependency files hash failed. Execute all the compilation actions.
+```
+
 ## How to Optimize Execution Performance
 
 ### Using jit_class
