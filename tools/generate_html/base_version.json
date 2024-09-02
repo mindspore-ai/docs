@@ -26,7 +26,7 @@
                 {
                     "label": "模型迁移",
                     "url": "/docs/zh-CN/master/migration_guide/index.html",
-                    "id": "master-migration_guide"
+                    "id": "master-migration_guide,master-note-api_mapping"
                 },
                 {
                     "label": "API文档",
@@ -71,7 +71,7 @@
                 {
                     "label": "Model Migration",
                     "url": "/docs/en/master/migration_guide/index.html",
-                    "id": "master-migration_guide"
+                    "id": "master-migration_guide,master-note-api_mapping"
                 },
                 {
                     "label": "API",
