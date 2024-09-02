@@ -340,4 +340,4 @@ mpirun --allow-run-as-root -n $RANK_SIZE python ../train.py --config_path=$CONFI
 
 ## 离线推理
 
-除了可以在线推理外，MindSpore提供了很多离线推理的方法适用于不同的环境，详情请参考[模型推理](https://www.mindspore.cn/docs/zh-CN/master/model_infer/overview.html)。
+除了可以在线推理外，MindSpore提供了很多离线推理的方法适用于不同的环境，详情请参考[模型推理](https://www.mindspore.cn/docs/zh-CN/master/model_infer/ms_infer/overview.html)。

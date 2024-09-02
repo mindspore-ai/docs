@@ -272,7 +272,7 @@ trainable parameter numbers: 2
 
 - 使用静态图模式
 
-  MindSpore一般在静态图模式下比PYNATIVE模式下快很多，最好能在静态图模式下进行训练和推理，具体原理请参考[动静态图结合](https://www.mindspore.cn/docs/zh-CN/master/design/dynamic_graph_and_static_graph.html)。
+  MindSpore一般在静态图模式下比PYNATIVE模式下快很多，最好能在静态图模式下进行训练和推理，具体原理请参考[动静态图结合](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/overview.html)。
 
 - on-device执行
 

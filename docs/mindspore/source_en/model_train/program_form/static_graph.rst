@@ -1109,7 +1109,7 @@ Index value of ``Dictionary`` refers to chapter
 `Dictionary <#dictionary>`_ of this page.
 
 Index value of ``Tensor`` refers to `Tensor index value
-document <https://www.mindspore.cn/docs/en/master/model_train/program_form/index_support.html#index-values>`_.
+document <https://www.mindspore.cn/docs/en/master/model_train/model_building/tensor_and_parameter.html#index-values>`_.
 
 Calls
 ^^^^^

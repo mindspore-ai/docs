@@ -91,7 +91,7 @@ Graph Compilation and Execution
      - The module name, corresponding to the name of the imported top-level module. If there are more than one, separate them with commas. For example, `export MS_JIT_IGNORE_MODULES=numpy,scipy`.
      - Static graph mode can automatically recognize third-party libraries, and generally there is no need to set this environment variable for recognizable third-party libraries such as NumPy and Scipy. If `MS_JIT_IGNORE_MODULES` and `MS_JIT_MODULES` specify the same module name at the same time, the former takes effect and the latter does not.
    * - MS_DEV_FALLBACK_DUMP_NODE
-     - Print syntax expressions supported by `Static Graph Syntax Enhancement <https://www.mindspore.cn/docs/en/master/model_train/program_form/jit.html#static-graph-syntax-enhancement>`_ in the code.
+     - Print syntax expressions supported by Static Graph Syntax Enhancement in the code.
      - Integer
      - 1: Enable printing.
 

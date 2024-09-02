@@ -411,7 +411,7 @@ A: The "External" type indicates that an object that cannot be natively supporte
 ## Q: What can I do if an error "Nested execution during JIT execution for 'xxx' is not supported when 'xxx' compile and execute." is reported?
 
 A: When the compilation process is triggered, that is, when the code is compiled into a static computational diagram
-, see [Graph Mode Execution Principle](https://www.mindspore.cn/docs/en/master/design/dynamic_graph_and_static_graph.html), using the JIT Fallback feature by default, the above exception will be thrown when entering the compilation process again.
+, see [Graph Mode Execution Principle](https://www.mindspore.cn/docs/en/master/model_train/program_form/overview.html), using the JIT Fallback feature by default, the above exception will be thrown when entering the compilation process again.
 
 Taking JIT Fallback support for calling objects and methods from third-party libraries as an example:
 

@@ -272,7 +272,7 @@ If you find an operator with poor performance, you are advised to contact [MindS
 
 - Using the Static Graph Mode
 
-  Generally, MindSpore in static graph mode is much faster than that in PyNative mode. It is recommended that training and inference be performed in static graph mode. For details, see [Combination of Dynamic and Static Graphs](https://mindspore.cn/docs/en/master/design/dynamic_graph_and_static_graph.html).
+  Generally, MindSpore in static graph mode is much faster than that in PyNative mode. It is recommended that training and inference be performed in static graph mode. For details, see [Combination of Dynamic and Static Graphs](https://mindspore.cn/docs/en/master/model_train/program_form/overview.html).
 
 - On-device Execution
 
