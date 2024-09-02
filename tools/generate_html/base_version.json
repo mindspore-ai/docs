@@ -10,23 +10,28 @@
             "zh": [
                 {
                     "label": "设计理念",
-                    "url": "/docs/zh-CN/master/design/index.html"
+                    "url": "/docs/zh-CN/master/design/index.html",
+                    "id": "master-design"
                 },
                 {
                     "label": "模型构建与训练",
-                    "url": "/docs/zh-CN/master/model_train/index.html"
+                    "url": "/docs/zh-CN/master/model_train/index.html",
+                    "id": "master-model_train"
                 },
                 {
                     "label": "模型推理",
-                    "url": "/docs/zh-CN/master/model_infer/index.html"
+                    "url": "/docs/zh-CN/master/model_infer/index.html",
+                    "id": "master-model_infer"
                 },
                 {
                     "label": "模型迁移",
-                    "url": "/docs/zh-CN/master/migration_guide/index.html"
+                    "url": "/docs/zh-CN/master/migration_guide/index.html",
+                    "id": "master-migration_guide"
                 },
                 {
                     "label": "API文档",
-                    "url": "/docs/zh-CN/master/api_python/index.html"
+                    "url": "/docs/zh-CN/master/api_python/index.html",
+                    "id": "master-api_python"
                 },
                 {
                     "label": "大模型开发",
@@ -34,11 +39,13 @@
                 },
                 {
                     "label": "香橙派开发",
-                    "url": "/docs/zh-CN/master/orange_pi/index.html"
+                    "url": "/docs/zh-CN/master/orange_pi/index.html",
+                    "id": "master-orange_pi"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/docs/zh-CN/master/faq/index.html"
+                    "url": "/docs/zh-CN/master/faq/index.html",
+                    "id": "master-faq"
                 },
                 {
                     "label": "RELEASE NOTES",
@@ -48,23 +55,28 @@
             "en": [
                 {
                     "label": "Design Concept",
-                    "url": "/docs/en/master/design/index.html"
+                    "url": "/docs/en/master/design/index.html",
+                    "id": "master-design"
                 },
                 {
                     "label": "Model Building and Training",
-                    "url": "/docs/en/master/model_train/index.html"
+                    "url": "/docs/en/master/model_train/index.html",
+                    "id": "master-model_train"
                 },
                 {
                     "label": "Model Inference",
-                    "url": "/docs/en/master/model_infer/index.html"
+                    "url": "/docs/en/master/model_infer/index.html",
+                    "id": "master-model_infer"
                 },
                 {
                     "label": "Model Migration",
-                    "url": "/docs/en/master/migration_guide/index.html"
+                    "url": "/docs/en/master/migration_guide/index.html",
+                    "id": "master-migration_guide"
                 },
                 {
                     "label": "API",
-                    "url": "/docs/en/master/api_python/index.html"
+                    "url": "/docs/en/master/api_python/index.html",
+                    "id": "master-api_python"
                 },
                 {
                     "label": "Large Model Development",
@@ -72,11 +84,13 @@
                 },
                 {
                     "label": "Orange Pi Development",
-                    "url": "/docs/en/master/orange_pi/index.html"
+                    "url": "/docs/en/master/orange_pi/index.html",
+                    "id": "master-orange_pi"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/docs/en/master/faq/index.html"
+                    "url": "/docs/en/master/faq/index.html",
+                    "id": "master-faq"
                 },
                 {
                     "label": "RELEASE NOTES",
