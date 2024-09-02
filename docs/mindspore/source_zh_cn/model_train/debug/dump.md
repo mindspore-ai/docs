@@ -148,7 +148,7 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
   <tr>
    <td align="left">set_dump</td>
    <td align="left">不支持</td>
-   <td align="left">不支持</td>
+   <td align="left">支持</td>
   </tr>
   <tr>
    <td rowspan="2" align="left">辅助信息dump</td>
@@ -181,7 +181,8 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
             "input_output": 0,
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7],
-            "statistic_category": ["max", "min", "l2norm"]
+            "statistic_category": ["max", "min", "l2norm"],
+            "overflow_number": 0
         },
         "e2e_dump_settings": {
             "enable": true,
@@ -222,6 +223,7 @@ Ascend后端异步Dump支持情况如下表（GPU/CPU后端不支持）。
       以上除了标记了支持device统计的，其它都仅支持在host统计。
       该字段为可选，默认值为["max", "min", "l2norm"]。
 
+    - `overflow_number`：指定溢出dump的数据个数。该字段仅在`op_debug_mode`设置为3，只保存溢出算子时需要配置，可控制溢出数据按时间序dump，到指定数值后溢出数据不再dump。默认值为0，表示dump全部溢出数据。
     - `enable`：设置成true，表示开启同步Dump；设置成false时，在Ascend上会使用异步Dump，在GPU上仍然使用同步Dump。
     - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`True`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`False`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换。默认值：true。
     - `stat_calc_mode`：选择统计信息计算后端，可选"host"和"device"。选择"device"后可以使能device计算统计信息，当前只在Ascend生效，只支持`min/max/avg/l2norm`统计量。
@@ -518,13 +520,14 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7],
             "statistic_category": ["max", "min", "l2norm"],
-            "file_format": "npy"
+            "file_format": "npy",
+            "overflow_number": 0
         }
     }
     ```
 
     - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成3，表示开启溢出检测功能，该功能仅支持浮点数溢出，不支持整数类型；设置成4，表示开启轻量异常Dump功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子或异常算子的数据。
-    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据。仅在op_debug_mode设置为0时支持指定算子dump。op_debug_mode设置为非0值时，此字段的设置失效，Dump只会保存溢出算子的数据或者异常算子的数据。
+    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据。设置成2，表示使用[mindspore.set_dump](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_dump.html) Dump指定对象。仅在op_debug_mode设置为0时支持指定算子dump。op_debug_mode设置为非0值时，此字段的设置失效，Dump只会保存溢出算子的数据或者异常算子的数据。
     - `path`：Dump保存数据的绝对路径。在图编译等级为O0时，MindSpore会在path目录下新建每个step的子目录。
     - `net_name`：自定义的网络名称，例如："ResNet50"。
     - `iteration`：指定需要Dump的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。仅在op_debug_mode设置为0时支持保存指定迭代，op_debug_mode设置为3或4时不支持指定迭代。
@@ -552,6 +555,7 @@ MindSpore通过异步Dump提供了Ascend平台上大型网络的调试能力。
       该字段为可选，默认值为["max", "min", "l2norm"]。
 
     - `file_format`: dump数据的文件类型，只支持`npy`和`bin`两种取值。设置成`npy`，则dump出的算子张量数据将为host侧格式的npy文件；设置成`bin`，则dump出的数据将为device侧格式的protobuf文件，需要借助转换工具进行处理，详细步骤请参考[异步Dump数据分析样例](#数据分析样例-1)。默认取值为`bin`。
+    - `overflow_number`：指定溢出dump的数据个数。该字段仅在`op_debug_mode`设置为3开启溢出检测功能，且`file_format`设置为`npy`时需要配置，可控制溢出数据按时间序dump，到指定数值后溢出数据不再dump。默认值为0，表示dump全部溢出数据。
 
 2. 设置数据Dump的环境变量。
 
