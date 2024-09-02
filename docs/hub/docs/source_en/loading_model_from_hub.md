@@ -39,7 +39,7 @@ This document demonstrates the use of the models provided by MindSpore Hub for b
 
    ```
 
-3. After loading the model, you can use MindSpore to do inference. You can refer to [Multi-Platform Inference Overview](https://www.mindspore.cn/docs/en/master/model_infer/overview.html).
+3. After loading the model, you can use MindSpore to do inference. You can refer to [Multi-Platform Inference Overview](https://www.mindspore.cn/docs/en/master/model_infer/ms_infer/overview.html).
 
 ## For Transfer Training
 

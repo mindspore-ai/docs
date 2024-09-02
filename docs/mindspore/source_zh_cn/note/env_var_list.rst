@@ -92,7 +92,7 @@
      - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如：`export MS_JIT_IGNORE_MODULES=numpy,scipy`。
      - 静态图模式能够自动识别第三方库，一般情况下不需要为NumPy、SciPy这些可识别的第三方库设置该环境变量。如果 `MS_JIT_IGNORE_MODULES` 和 `MS_JIT_MODULES` 同时指定同一个模块名，前者生效，后者不生效。
    * - MS_DEV_FALLBACK_DUMP_NODE
-     - 是否打印代码中由 `静态图语法增强技术 <https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/jit.html#%E9%9D%99%E6%80%81%E5%9B%BE%E8%AF%AD%E6%B3%95%E5%A2%9E%E5%BC%BA%E6%8A%80%E6%9C%AF>`_ 支持的语法表达式
+     - 是否打印代码中由静态图语法增强技术支持的语法表达式
      - Integer
      - 1：开启打印功能。
 

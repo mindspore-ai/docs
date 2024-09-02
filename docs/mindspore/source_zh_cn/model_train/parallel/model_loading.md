@@ -4,7 +4,7 @@
 
 ## 概述
 
-分布式下的模型加载主要是指分布式推理，即推理阶段采用多卡进行推理。如果训练时采用数据并行或者模型参数是合并保存，那么每张卡均持有完整的权重，每张卡推理自身的输入数据，推理方式与[单卡推理](https://www.mindspore.cn/docs/zh-CN/master/model_infer/overview.html#modeleval模型验证)一致，只需要注意每卡加载同样的CheckPoint文件进行推理。
+分布式下的模型加载主要是指分布式推理，即推理阶段采用多卡进行推理。如果训练时采用数据并行或者模型参数是合并保存，那么每张卡均持有完整的权重，每张卡推理自身的输入数据，推理方式与[单卡推理](https://www.mindspore.cn/docs/zh-CN/master/model_infer/ms_infer/overview.html#modeleval模型验证)一致，只需要注意每卡加载同样的CheckPoint文件进行推理。
 本篇教程主要介绍在多卡训练过程中，每张卡上保存模型的切片，在推理阶段采用多卡形式，按照推理策略重新加载模型进行推理的过程。针对超大规模神经网络模型的参数个数过多，模型无法完全加载至单卡中进行推理的问题，可利用多卡进行分布式推理。
 
 > - 当模型非常大，本教程中使用[load_distributed_checkpoint](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.load_distributed_checkpoint.html)接口主机内存不足情况下，可以参考[模型转换](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_transformation.html#对目标网络执行编译) 章节，先对网络执行编译，然后执行分布式Checkpoint转换，就可以让每张卡加载自身对应的切片Checkpoint。

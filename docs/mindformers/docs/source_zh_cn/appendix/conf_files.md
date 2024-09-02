@@ -21,7 +21,7 @@ MindFormers提供的`YAML`文件中包含对于不同功能的配置项，下面
 | output_dir      | 设置保存log, checkpoint, strategy等文件的路径                                                                                                                                                                                     | str  |
 | load_checkpoint | 加载权重的文件或文件夹路径，目前有3个应用场景：<br/>1. 支持传入完整权重文件路径<br/>2. 支持传入离线切分后的权重文件夹路径<br/>3. 支持传入包含lora权重和base权重的文件夹路径<br/>各种权重的获取途径可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html) | str  |
 | auto_trans_ckpt | 开启在线权重自动转换功能，详情可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)                                                                                                      | bool |
-| resume_training | 开启断点续训功能，详情可参考[断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/res_training.html)                                                                                                               | bool |
+| resume_training | 开启断点续训功能，详情可参考[断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)                                                                                                               | bool |
 
 ### Context配置
 
@@ -139,7 +139,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 ### 模型优化配置
 
-MindFormers提供重计算相关配置，以降低模型在训练时的内存占用，详情可参考[重计算](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/recompute.html)。
+MindFormers提供重计算相关配置，以降低模型在训练时的内存占用，详情可参考[重计算](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/perf_optimize/perf_optimize.html#重计算)。
 
 | 参数                                                 | 说明                            | 类型        |
 |----------------------------------------------------|-------------------------------|-----------|
