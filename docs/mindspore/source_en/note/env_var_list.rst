@@ -259,6 +259,8 @@ Graph Compilation and Execution
        compile_statistics: Whether to enable compile statistics, with a default value of false.
 
        ge_kernel: Whether to enable GE kernel, with a default value of true.
+
+       kbk_cache: Whether to enable backend cache in O0/O1 mode, only effective when enable complie cache(MS_COMPILER_CACHE_ENABLE), with a default value of true.
      -
 
    * - MS_ALLOC_CONF
