@@ -79,7 +79,7 @@
     "id" : 9 ,
     "name" : "mindflow",
     "branch" : "master",
-    "whl_path" : "mindscience/website/mindflow/gpu/x86_64/cuda-11.1/",
+    "whl_path" : "/mindscience/website/mindflow/gpu/x86_64/cuda-11.1/",
     "whl_name" : "mindflow_gpu-.*-py3-none-any.whl$",
     "environ" : "MSC_PATH",
     "uninstall_name" : "mindflow_gpu"
@@ -119,5 +119,14 @@
     "whl_name" : "mindspore_gs-.*-py3-none-any.whl$",
     "environ" : "GS_PATH",
     "uninstall_name" : "mindspore_gs"
+},
+{
+    "id" : 14 ,
+    "name" : "mindchemistry",
+    "branch" : "master",
+    "whl_path" : "/mindscience/website/mindchemistry/gpu/x86_64/cuda-11.1/",
+    "whl_name" : "mindchemistry_gpu-.*-cp39-cp39-linux_x86_64.whl$",
+    "environ" : "MSC_PATH",
+    "uninstall_name" : "mindchemistry_gpu"
 }
 ]
