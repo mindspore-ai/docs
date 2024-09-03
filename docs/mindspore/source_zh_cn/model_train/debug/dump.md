@@ -12,7 +12,7 @@ MindSpore在不同模式下支持的Dump功能不完全相同，需要的配置�
 
 - [Ascend下O0/O1模式Dump](#ascend下o0o1模式dump)
 - [Ascend下O2模式Dump](#ascend下o2模式dump)
-- [CPU/GPU模式Dump](#cpugpu-dump)
+- [CPU/GPU模式Dump](#cpu/gpu模式dump)
 
 > - Ascend下O0/O1/O2模式的区别请见[set_context的参数jit_level](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html)。
 >

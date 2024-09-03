@@ -6,7 +6,6 @@
    :maxdepth: 1
 
    overview
-   tensor_view
    programming_paradigm
    distributed_training_design
    data_engine

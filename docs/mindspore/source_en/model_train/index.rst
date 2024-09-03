@@ -68,7 +68,6 @@ Model Building and Training
    :caption: Custom High-order Programming
 
    custom_program/overview
-   custom_program/layer
    custom_program/op_custom
    custom_program/initializer
    custom_program/loss
