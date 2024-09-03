@@ -82,6 +82,7 @@ MindFormers以其强大的功能集，为用户提供了灵活且易于使用的
    :caption: 功能说明
    :hidden:
 
+   function/weight_conversion
    function/transform_weight
    function/distributed_parallel
    function/dataset
