@@ -37,6 +37,7 @@ Large Model Development
    :caption: Function Description
 
    function/weight_conversion
+   function/transform_weight
    function/distributed_parallel
    function/dataset
    function/resume_training
