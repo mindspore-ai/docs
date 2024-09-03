@@ -761,7 +761,11 @@ RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/
      - Integer
      - 0：关闭特征值检测功能
 
-       1：开启特征值检测功能
+       1：检测到异常，只打印日志，但检测算子不抛异常
+
+       2：检测到异常，打印日志，检测算子抛出异常
+
+       3：特征值正常和异常场景下都会打印（备注：正常场景下只有CANN开启了INFO及DEBUG级别才会打印），检测到异常时检测算子抛出异常
      - 目前本特性仅支持Atlas A2 训练系列产品，仅支持检测Transformer类模型，bfloat16数据类型，训练过程中出现的特征值检测异常
    * - NPU_ASD_UPPER_THRESH
      - 控制检测的绝对数值阈值
