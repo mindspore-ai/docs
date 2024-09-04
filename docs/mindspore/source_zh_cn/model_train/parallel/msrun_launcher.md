@@ -172,6 +172,8 @@
     </tr>
 </table>
 
+msrun作为动态组网启动方式的封装，所有用户可自定义配置的环境变量可参考[动态组网环境变量](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/dynamic_cluster.html)。
+
 ## 操作实践
 
 启动脚本在各硬件平台下一致，下面以Ascend为例演示如何编写启动脚本：

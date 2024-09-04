@@ -172,6 +172,8 @@ The following table shows the environment variables can be used in user scripts,
     </tr>
 </table>
 
+msrun is used as an encapsulation of the Dynamic Cluster startup method, and all user-configurable environment variables can be found in [dynamic networking environment variables](https://www.mindspore.cn/docs/en/master/model_train/parallel/dynamic_cluster.html).
+
 ## Operating Practices
 
 The startup script is consistent across hardware platforms. The following is an example of how to write a startup script for Ascend:
