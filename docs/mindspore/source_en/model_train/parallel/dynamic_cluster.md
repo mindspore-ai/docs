@@ -112,7 +112,7 @@ The relevant environment variables:
         <td align="left">Whether to use LCCL as communication library.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">1 for yes, other values for no. The default is no.</td>
-        <td align="left">The LCCL communication library currently only supports single-machine multi-card scenario and must be executed when the graph compilation level is O0. LCCL does not support creating sub communication groups.</td>
+        <td align="left">The LCCL communication library currently only supports single-machine multi-card scenario and must be executed when the graph compilation level is O0.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">MS_TOPO_TIMEOUT</td>
