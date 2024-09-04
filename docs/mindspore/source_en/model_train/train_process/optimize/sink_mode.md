@@ -30,6 +30,8 @@ Both GPU backend and Ascend backend support data sinking, and the Host-Device in
 
 Users can control whether to enable data sink through `dataset_sink_mode` of the [train](https://mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train) interface.
 
+> Note: In data sinking mode, if error occurs, the data processing engine will stop working, and the [GetNext operator](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.GetNext.html) will raise a timeout error after failing to retrieve data within the specified time. In this case, pay attention to the error thrown by the data engine, correct it and restart the training. If the data engine does not throw errors, it may be due to slow data processing, you can adjust the parallelism of dataset engine or adjust the parameter `op_timeout` to prevent timeout error. Refer to [here](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html) for details.
+
 ## Graph Sinking
 
 In general, each training iteration needs to issue and trigger the execution of each operator on the device, and Host and Device interact frequently.
