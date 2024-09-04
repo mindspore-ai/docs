@@ -754,7 +754,11 @@ Feature Value Detection
      - Integer
      - 0: Disable feature value detection function
 
-       1: Enable feature value detection function
+       1: Enable feature value detection function, when error was detected, just print log, not thow exception
+
+       2: Enable feature value detection function, when error was detected, thow exception
+
+       3: Enable feature value detection function, when error was detected, thow exception, but at the same time write value detection info of each time to log file (this requires set ascend log level to info or debug)
      - Currently, this feature only supports Atlas A2 training series products, and only detects abnormal feature value that occur during the training of Transformer class models with bfloat16 data type
    * - NPU_ASD_UPPER_THRESH
      - Controls the absolute numerical threshold for detection

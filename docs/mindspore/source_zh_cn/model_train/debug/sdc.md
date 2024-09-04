@@ -12,7 +12,7 @@
 
 MindSpore框架提供了对Transformer结构模型的特征值检测方案。
 
-对于默认的特征值检测点，用户可以使用环境变量 `NPU_ASD_ENABLE=1` 使能检测能力，并且通过配置环境变量 `NPU_ASD_UPPER_THRESH`, `NPU_ASD_SIGMA_THRESH`，调整检测强度。
+对于默认的特征值检测点，用户可以设置环境变量 `NPU_ASD_ENABLE` 为`1`、`2`或`3`使能检测能力，并且通过配置环境变量 `NPU_ASD_UPPER_THRESH`, `NPU_ASD_SIGMA_THRESH`，调整检测强度。
 
 此外，MindSpore框架支持用户根据需求，自定义特征值检测点，进一步提升对于特征值检测异常的检测能力。
 
@@ -42,83 +42,11 @@ MindSpore框架提供了对Transformer结构模型的特征值检测方案。
 
 ## 特性开关及配置
 
-环境变量`NPU_ASD_ENABLE`作为特性开关，`export NPU_ASD_ENABLE=1`开启本特性；不配置该环境变量或`export NPU_ASD_ENABLE=0`关闭本特性。
+环境变量`NPU_ASD_ENABLE`作为特性开关，`export NPU_ASD_ENABLE=1`、`export NPU_ASD_ENABLE=2`或`export NPU_ASD_ENABLE=3`开启本特性；不配置该环境变量或`export NPU_ASD_ENABLE=0`关闭本特性。
 
 环境变量`NPU_ASD_UPPER_THRESH`控制检测的绝对数值阈值，格式为整型数据对，其中第一个元素控制绝对数值一级阈值，第二个元素控制绝对数值二级阈值；减小阈值可以检出波动更小的异常数据，增加检出率，增大阈值与之相反。在不配置该环境变量的默认情况下，`NPU_ASD_UPPER_THRESH=1000000,10000`。
 
 环境变量`NPU_ASD_SIGMA_THRESH`控制检测的相对数值阈值，格式与上者相同，其中第一个元素控制数值跳变一级阈值，第二个元素控制数值跳变二级阈值；默认情况下，`NPU_ASD_SIGMA_THRESH=100000,5000`。
-
-## 使用用例
-
-> 本文档介绍特征值检测的使用方法以及用例。
-
-### 模型与数据集准备
-
-为了提供完整的体验，这里基于 MindSpore Transformers Llama2 网络实现特征值检测的使用用例。
-
-模型与数据集准备流程可见 [Llama 2](https://mindformers.readthedocs.io/zh-cn/latest/docs/model_cards/llama2.html)。
-
-如已准备好，可直接跳过本章节。
-
-### 默认检测流程用例
-
-在`mindspore.ops.silent_check`模块下，已实现了`LayerNormASD`，作为集成了ASD检测能力的算子。
-
-如果开启了特性开关，`mindspore.ops.__init__`中，以上算子会自动替换`mindspore.ops.LayerNorm`，提供默认的检测能力。
-
-### 自定义检测流程用例
-
-如果需要在默认检测场景之外，对于自定义的特征值进行检测，除了开启特性开关`NPU_ASD_ENABLE`之外，还需要自行实现基于`ASDBase Jit Class`，集成ASD检测能力的自定义算子。
-
-这里使用 MindSpore Transformers Llama2 作示例，实现对 Embedding 层特征值的特征值检测。
-
-#### 特征值检测点确认
-
-检查`llama.llama_layer.LlamaEmbedding`的实现，这里选择采集`Gather`算子的反向传播梯度作为检测特征值。
-
-```python
-class LlamaEmbedding(Cell):
-    def construct(self, input_ids):
-        """Forward of vocab embedding."""
-        _check_input_dtype(F.dtype(input_ids), "input_ids", [mstype.int32, mstype.int64], self.cls_name)
-        output = self.gather(self.embedding_weight, input_ids, 0)
-        return output
-```
-
-#### ASD检测算子实现
-
-对于本用例，需要实现集成ASD检测能力的自定义Gather算子。
-
-在`llama.llama_layer`下，实现采集点对应算子，实现方法可参考如下用例以及`ops.silent_check.ASDBase` API方法注释。
-
-```python
-class GatherASD(ASDBase):
-    def __init__(self, *args, **kwargs):
-        super().__init__(P.Gather, *args, **kwargs)
-        self.pre_val, self.min_val, self.max_val, self.cnt = self.generate_params()
-
-    def __call__(self, input_params, input_indices, axis):
-        if self.enable_check:
-            input_params = self.check_op(
-                input_params, self.pre_val, self.min_val, self.max_val, self.cnt, None)
-            self.cnt += 1
-        return self.op(input_params, input_indices, axis)
-```
-
-并用自定义GatherASD算子替换Embedding层的默认Gather算子。
-
-```python
-class LlamaEmbedding(Cell):
-    def __init__(self, vocab_table_size, embedding_size, param_init_type=mstype.float32, param_init='normal',
-                 parallel_optimizer=False):
-        super().__init__()
-        self.vocab_table_size = vocab_table_size
-        self.embedding_size = embedding_size
-        self.embedding_weight = Parameter(
-            initializer(param_init, [self.vocab_table_size, self.embedding_size], dtype=param_init_type),
-            name='embedding_weight', parallel_optimizer=parallel_optimizer)
-        self.gather = GatherASD()# Gather()
-```
 
 ## 检测结果及处理
 

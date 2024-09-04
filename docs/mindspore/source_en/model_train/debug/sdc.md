@@ -12,7 +12,7 @@ During model training, processors may encounter feature value detection anomalie
 
 The MindSpore framework provides a solution for feature value detection of Transformer structure models.
 
-For default feature value detection checkpoints, users can enable detection capability using the environment variable `NPU_ASD_ENABLE=1`, and adjust the detection intensity by configuring the environment variables `NPU_ASD_UPPER_THRESH` and `NPU_ASD_SIGMA_THRESH`.
+For default feature value detection checkpoints, users can enable detection capability using the environment variable `NPU_ASD_ENABLE=1`, `NPU_ASD_ENABLE=2`  or `NPU_ASD_ENABLE=3`, and adjust the detection intensity by configuring the environment variables `NPU_ASD_UPPER_THRESH` and `NPU_ASD_SIGMA_THRESH`.
 
 In addition, the MindSpore framework supports users to customize feature value detection checkpoints according to their needs, further enhancing the detection capability for feature value detection anomalies.
 
@@ -42,83 +42,11 @@ Currently, this feature only supports Atlas A2 training series products, detects
 
 ## Feature Switches and Configuration
 
-The environment variable `NPU_ASD_ENABLE` serves as a feature switch, `export NPU_ASD_ENABLE=1` to enable this feature; if this environment variable is not configured or `export NPU_ASD_ENABLE=0`, this feature is disabled.
+The environment variable `NPU_ASD_ENABLE` serves as a feature switch, `export NPU_ASD_ENABLE=1`, `export NPU_ASD_ENABLE=2` or `export NPU_ASD_ENABLE=3` to enable this feature; if this environment variable is not configured or `export NPU_ASD_ENABLE=0`, this feature is disabled.
 
 The environment variable `NPU_ASD_UPPER_THRESH` controls the absolute numerical threshold of detection, in the format of integer pairs, where the first element controls the first-level threshold of absolute numerical values, and the second element controls the second-level threshold of absolute numerical values; reducing the threshold can detect smaller fluctuations in abnormal data, increase the detection rate, and increasing the threshold is the opposite. In the default case where this environment variable is not configured, `NPU_ASD_UPPER_THRESH=1000000,10000`.
 
 The environment variable `NPU_ASD_SIGMA_THRESH` controls the relative numerical threshold of detection, in the same format as the above, where the first element controls the first-level threshold of numerical changes, and the second element controls the second-level threshold of numerical changes; by default, `NPU_ASD_SIGMA_THRESH=100000,5000`.
-
-## Use Cases
-
-> This document describes the usage methods and use cases of feature value detection.
-
-### Model and Dataset Preparation
-
-To provide a complete experience, here we implement the usage case of feature value detection based on the MindSpore Transformers Llama2 network.
-
-For the model and dataset preparation process, see [Llama 2](https://mindformers.readthedocs.io/zh-cn/latest/docs/model_cards/llama2.html).
-
-If already prepared, you can skip this section directly.
-
-### Default Detection Process Use Case
-
-Under the `mindspore.ops.silent_check` module, `LayerNormASD` has been implemented as an operator integrated with ASD detection capabilities.
-
-If the feature switch is enabled, in `mindspore.ops.__init__`, the above operator will automatically replace `mindspore.ops.LayerNorm`, providing default detection capabilities.
-
-### Custom Detection Process Use Case
-
-If custom feature value detection is required beyond the default detection scenario, in addition to enabling the feature switch `NPU_ASD_ENABLE`, you also need to implement custom operators that integrate ASD detection capabilities based on `ASDBase Jit Class`.
-
-Here we use MindSpore Transformers Llama2 as an example to implement feature value detection of feature values in the Embedding layer.
-
-#### Confirmation of Feature Value Detection Checkpoints
-
-Check the implementation of `llama.llama_layer.LlamaEmbedding`, where we choose to collect the gradient of the `Gather` operator during backpropagation as the detection feature value.
-
-```python
-class LlamaEmbedding(Cell):
-    def construct(self, input_ids):
-        """Forward of vocab embedding."""
-        _check_input_dtype(F.dtype(input_ids), "input_ids", [mstype.int32, mstype.int64], self.cls_name)
-        output = self.gather(self.embedding_weight, input_ids, 0)
-        return output
-```
-
-#### Implementation of ASD Detection Operator
-
-For this use case, it is necessary to implement a custom Gather operator that integrates ASD detection capabilities.
-
-Under `llama.llama_layer`, implement the corresponding operator for the collection point and refer to the following use case and API method comments of `ops.silent_check.ASDBase` for implementation.
-
-```python
-class GatherASD(ASDBase):
-    def __init__(self, *args, **kwargs):
-        super().__init__(P.Gather, *args, **kwargs)
-        self.pre_val, self.min_val, self.max_val, self.cnt = self.generate_params()
-
-    def __call__(self, input_params, input_indices, axis):
-        if self.enable_check:
-            input_params = self.check_op(
-                input_params, self.pre_val, self.min_val, self.max_val, self.cnt, None)
-            self.cnt += 1
-        return self.op(input_params, input_indices, axis)
-```
-
-And replace the default Gather operator in the Embedding layer with the custom GatherASD operator.
-
-```python
-class LlamaEmbedding(Cell):
-    def __init__(self, vocab_table_size, embedding_size, param_init_type=mstype.float32, param_init='normal',
-                 parallel_optimizer=False):
-        super().__init__()
-        self.vocab_table_size = vocab_table_size
-        self.embedding_size = embedding_size
-        self.embedding_weight = Parameter(
-            initializer(param_init, [self.vocab_table_size, self.embedding_size], dtype=param_init_type),
-            name='embedding_weight', parallel_optimizer=parallel_optimizer)
-        self.gather = GatherASD()# Gather()
-```
 
 ## Detection Results and Handling
 
