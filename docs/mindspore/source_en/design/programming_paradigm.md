@@ -40,6 +40,7 @@ The following is an example of a neural network class constructed by using MindS
 ```python
 from mindspore import nn, Parameter
 from mindspore.common.initializer import initializer
+import mindspore.ops as ops
 
 class Linear(nn.Cell):
     def __init__(self, in_features, out_features, has_bias): # class constructor (code)
