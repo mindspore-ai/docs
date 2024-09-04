@@ -583,8 +583,6 @@ Ascend O2模式下Dump生成的数据文件是`bin`文件时，文件命名格�
 
 如果`op_type`和`op_name`中出现了“.”、“/”、“\”、空格时，会转换为下划线表示。
 
-Dump生成的原始数据文件也可以使用MindSpore Insight的数据解析工具DumpParser解析，DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/parser) 。MindSpore Insight解析出来的数据格式与Ascend O0/O1模式下Dump的数据格式完全相同。
-
 若配置`file_format`值为`npy`，则启用Ascend O2模式下Dump生成的数据文件命名规则与Ascend O0/O1模式下Dump相同，可以参考[Ascend O0/O1模式下Dump数据文件介绍](#数据对象目录和数据文件介绍)，溢出检测生成的溢出文件是`json`格式，溢出文件内容解析可参考[解析算子溢出数据文件](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/devguide/appdevg/aclpythondevg/aclpythondevg_0078.html#ZH-CN_TOPIC_0000001781325073__section6864050111619) 。
 
 选项`saved_data`只有在`file_format`为"npy"的时候生效。如`saved_data`是"statistic"或者"full"。张量统计数据会落盘到`statistic.csv`。如`saved_data`是"tensor"或者"full"完整张量数据会落盘到`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`。`statistic.csv`的格式与Ascend O0/O1模式下Dump相同，可以参考[Ascend O0/O1模式下Dump数据文件介绍](#数据对象目录和数据文件介绍)。
@@ -685,7 +683,7 @@ Ascend O2模式下Dump生成的数据文件可以通过以下3个步骤进行解
         - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。统计信息现只支持GPU场景，CPU场景若选"statistic"或"full"便会错误退出。默认取值为"tensor"。保存统计信息仅支持op_debug_mode设置为0的场景。
         - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。在op_debug_mode设置为4时，只能保存算子输入。
         - `kernels`：该项可以配置三种格式：
-          1. 算子的名称列表。开启IR保存开关`set_context(save_graphs=2)`并执行用例，从生成的IR文件`trace_code_graph_{graph_id}`中获取算子名称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/error_analysis/mindir.html#如何保存ir)。
+          1. 算子的名称列表。开启IR保存开关`set_context(save_graphs=2)`并执行用例，从生成的IR文件`trace_code_graph_{graph_id}`中获取算子名称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/mindir.html#如何保存ir)。
           需要注意的是，是否设置`set_context(save_graphs=2)`可能会导致同一个算子的id不同，所以在Dump指定算子时要在获取算子名称之后保持这一项设置不变。或者也可以在Dump保存的`ms_output_trace_code_graph_{graph_id}.ir`文件中获取算子名称，参考[CPU/GPU模式下Dump数据对象目录](#数据对象目录和数据文件介绍-2)。
           2. 还可以指定算子类型。当字符串中不带算子scope信息和算子id信息时，后台则认为其为算子类型，例如："conv"。算子类型的匹配规则为：当发现算子名中包含算子类型字符串时，则认为匹配成功（不区分大小写），例如："conv" 可以匹配算子 "Conv2D-op1234"、"Conv3D-op1221"。
           3. 算子名称的正则表达式。当字符串符合"name-regex(xxx)"格式时，后台则会将其作为正则表达式。例如，"name-regex(Default/.+)"可匹配算子名称以"Default/"开头的所有算子。

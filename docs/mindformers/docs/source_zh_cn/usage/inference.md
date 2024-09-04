@@ -23,7 +23,7 @@ MindFormers 提供了大模型推理能力，用户可以编写脚本调用pipel
   根据需要的推理任务选择不同的模型，如文本生成可以选择Llama2等。
 
 2. **准备模型权重：**
-  从 HuggingFace 模型库中下载相应模型的权重，参考[权重转换](https://www.mindspore.cn/docs/zh-CN/master/mindformers/function/weight_conversion.html)文档转换为ckpt格式。
+  从 HuggingFace 模型库中下载相应模型的权重，参考[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)文档转换为ckpt格式。
 
 3. **执行推理任务：**
   调用 pipeline 接口或使用run_mindformer统一脚本执行推理任务。
@@ -173,4 +173,4 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 
 ## 更多信息
 
-更多关于不同模型的推理示例，请访问[MindFormers已支持模型库](https://www.mindspore.cn/docs/zh-CN/master/mindformers/start/models.html)
+更多关于不同模型的推理示例，请访问[MindFormers已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html)
