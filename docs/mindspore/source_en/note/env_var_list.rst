@@ -258,7 +258,7 @@ Graph Compilation and Execution
 
        compile_statistics: Whether to enable compile statistics, with a default value of false.
 
-       ge_kernel: Whether to enable GE kernel, with a default value of true.
+       ge_kernel: Whether to enable O2/O1/O0 runtime unification, with a default value of true.
 
        kbk_cache: Whether to enable backend cache in O0/O1 mode, only effective when enable complie cache(MS_COMPILER_CACHE_ENABLE), with a default value of true.
      -
@@ -268,9 +268,9 @@ Graph Compilation and Execution
      - String
      - Configuration items, with the format "key: value", multiple configuration items separated by commas, for example, "export MS_ALLOC_CONF=enable_vmm:true,memory_tracker:true".
 
-       enable_vmm: Whether to enable virtual memory, only effective in O0 or O1 mode, with a default value of true.
+       enable_vmm: Whether to enable virtual memory, with a default value of true.
 
-       vmm_align_size: Set the virtual memory alignment size in MB, only effective in O0 or O1 mode, with a default value of 2.
+       vmm_align_size: Set the virtual memory alignment size in MB, with a default value of 2.
 
        memory_tracker: Whether to enable memory tracker, with a default value of false.
 

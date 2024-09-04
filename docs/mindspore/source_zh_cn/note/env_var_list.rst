@@ -259,7 +259,7 @@
 
        compile_statistics: 是否开启编译性能统计，默认值为false。
 
-       ge_kernel: 是否使用GE kernel，默认值为true。
+       ge_kernel: 是否使能O2/O1/O0运行时统一，默认值为true。
 
        kbk_cache: 是否使用图编译等级O0/O1下的后端编译缓存，仅在前端编译缓存（MS_COMPILER_CACHE_ENABLE）开启时生效，默认值为true。
      -
@@ -269,9 +269,9 @@
      - String
      - 配置项，格式为key:value，多个配置项以逗号分隔，例如`export MS_ALLOC_CONF=enable_vmm:true,memory_tracker:true`。
 
-       enable_vmm: 是否使能虚拟内存，仅在O0或O1模式下生效，默认值为true。
+       enable_vmm: 是否使能虚拟内存，默认值为true。
 
-       vmm_align_size: 设置虚拟内存对齐大小，单位为MB，仅在O0或O1模式下生效，默认值为2。
+       vmm_align_size: 设置虚拟内存对齐大小，单位为MB，默认值为2。
 
        memory_tracker: 是否开启memory tracker，默认值为false。
 
