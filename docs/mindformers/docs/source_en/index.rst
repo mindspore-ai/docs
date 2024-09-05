@@ -61,7 +61,16 @@ Large Model Development
    :caption: API
 
    mindformers
+   mindformers.core
+   mindformers.dataset
+   mindformers.generation
+   mindformers.models
+   mindformers.modules
    mindformers.pet
+   mindformers.pipeline
+   mindformers.tools
+   mindformers.trainer
+   mindformers.wrapper
 
 .. toctree::
    :glob:
