@@ -1,6 +1,6 @@
 # 使用Python接口执行Ascend后端多卡/多芯推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/cloud_infer/runtime_distributed_multicard_python.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/mindir/runtime_distributed_multicard_python.md)
 
 ## 概述
 
