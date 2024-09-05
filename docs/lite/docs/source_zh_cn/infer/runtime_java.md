@@ -4,11 +4,11 @@
 
 ## 概述
 
-通过[MindSpore Lite模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换成`.ms`模型后，即可在Runtime中执行模型的推理流程。本教程介绍如何使用[JAVA接口](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)执行推理。
+通过[MindSpore Lite模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)转换成`.ms`模型后，即可在Runtime中执行模型的推理流程。本教程介绍如何使用[JAVA接口](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)执行推理。
 
 Android项目中使用MindSpore Lite，可以选择采用[C++ API](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)或者[Java API](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)运行推理框架。Java API与C++ API相比较而言，Java API可以直接在Java Class中调用，用户无需实现JNI层的相关代码，具有更好的便捷性。运行MindSpore Lite推理框架主要包括以下步骤：
 
-1. 模型读取(可选)：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型。
+1. 模型读取(可选)：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)转换得到的`.ms`模型。
 2. 创建配置上下文：创建配置上下文[MSContext](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#mscontext)，保存需要的一些基本配置参数，用于指导模型编译和模型执行，包括设备类型、线程数、绑核模式和使能fp16混合精度推理。
 3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)的[build](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#build)接口进行模型加载和模型编译，目前支持加载文件和MappedByteBuffer两种方式。模型加载阶段将文件或者buffer解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间所以建议Model创建一次，编译一次，多次推理。
 4. 输入数据：模型执行之前需要向`输入Tensor`中填充数据。
@@ -18,7 +18,7 @@ Android项目中使用MindSpore Lite，可以选择采用[C++ API](https://www.m
 
 ![img](../images/lite_runtime.png)
 
-快速了解MindSpore Lite执行推理的完整调用流程，请参考[体验Java极简推理Demo](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_java.html)。
+快速了解MindSpore Lite执行推理的完整调用流程，请参考[体验Java极简推理Demo](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/quick_start_java.html)。
 
 ## 引用MindSpore Lite Java库
 

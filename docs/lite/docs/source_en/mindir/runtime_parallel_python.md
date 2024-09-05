@@ -6,7 +6,7 @@
 
 MindSpore Lite provides a multi-model concurrent inference interface [ModelParallelRunner](https://mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html), multi-model concurrent inference now supports Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), Atlas training series, Nvidia GPU, CPU backends.
 
-After exporting the `mindir` model by MindSpore or converting it by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) to obtain the ` mindir` model, the concurrent inference process of the model can be executed in Runtime. This tutorial describes how to use the [Python interface](https://mindspore.cn/lite/api/en/master/mindspore_lite.html) to perform concurrent inference with multiple models.
+After exporting the `mindir` model by MindSpore or converting it by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) to obtain the ` mindir` model, the concurrent inference process of the model can be executed in Runtime. This tutorial describes how to use the [Python interface](https://mindspore.cn/lite/api/en/master/mindspore_lite.html) to perform concurrent inference with multiple models.
 
 Concurrent inference with MindSpore Lite consists of the following main steps:
 
@@ -23,7 +23,7 @@ Concurrent inference with MindSpore Lite consists of the following main steps:
 
 1. The following code samples are from [Using Python interface to perform cloud-side inference sample code](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_python).
 
-2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) and copy it to the `mindspore/lite/examples/cloud_infer/quick_start_parallel_python` directory. You can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir) and input data [input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin).
+2. Export the MindIR model via MindSpore, or get the MindIR model by converting it with [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) and copy it to the `mindspore/lite/examples/cloud_infer/quick_start_parallel_python` directory. You can download the MobileNetV2 model file [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir) and input data [input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin).
 
 3. Install the MindSpore Lite cloud-side inference Python package for Python version 3.7 via pip.
 
@@ -74,7 +74,7 @@ context.cpu.inter_op_parallel_num = THREAD_NUM
 context.parallel.workers_num = WORKERS_NUM
 ```
 
-> The configuration method of the Context is detailed in [Context](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_python.html#creating-configuration-context).
+> The configuration method of the Context is detailed in [Context](https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_python.html#creating-configuration-context).
 >
 > Multi-model concurrent inference does not support FP32 type data inference. CPU pinning only supports unbinding or binding large cores, does not support the parameter setting of binding middle cores, and does not support the configuration of binding core list.
 

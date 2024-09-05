@@ -218,10 +218,10 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/build.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/build/build.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Building Device-side MindSpore Lite</span>
+											<span class="doc-head-content">Building Device-side</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -231,7 +231,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/build.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/build.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Building Cloud-side MindSpore Lite</span>
@@ -244,7 +244,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
                             <div class="doc-article-item all os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool_ascend.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool_ascend.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Ascend Conversion Tool Description</span>
@@ -256,7 +256,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
                             <div class="doc-article-item all os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool_graph_kernel.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool_graph_kernel.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Graph Kernel Fusion Configuration Instructions (Beta Feature)</span>
@@ -267,34 +267,8 @@ MindSpore Lite Documentation
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Data-Preparation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/one_hour_introduction.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">Quick Start to Device-side Inference</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										This document uses a model inference example to describe how to use basic device-side MindSpore Lite functions.
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Linux language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Data-Preparation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/one_hour_introduction_cloud.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">Quick Start to Cloud-Side Inference</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										This document uses a model inference example to describe how to use basic cloud-side MindSpore Lite functions.
-										</div>
-									</div>
-								</a>
-							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/infer/quick_start_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Experiencing C++ Simplified Inference Demo</span>
@@ -307,7 +281,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-java stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/infer/quick_start_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Experiencing Java Simplified Inference Demo</span>
@@ -320,7 +294,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-c stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_c.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/infer/quick_start_c.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Experiencing C-language Simplified Inference Demo</span>
@@ -333,7 +307,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/infer/quick_start.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Android Application Development Based on JNI Interface</span>
@@ -346,7 +320,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android language-java stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/image_segmentation.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/infer/image_segmentation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Android Application Development Based on Java Interface</span>
@@ -362,7 +336,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Post Training Quantization</span>
+											<span class="doc-head-content">Quantization</span>
 										</div>
 										<div class="doc-article-desc">
 										Converting a trained 'float32' model into an 'int8' model through quantization after training can reduce the model size and improve the inference performance.
@@ -372,10 +346,10 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/image_processing.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/advanced/image_processing.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Preprocessing Image Data</span>
+											<span class="doc-head-content">Preprocessing Data</span>
 										</div>
 										<div class="doc-article-desc">
 										This tutorial introduces how to process the image data before inference to meet the data format requirements for model inference by creating a LiteMat object.
@@ -384,10 +358,10 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Using C++ Interface to Perform Inference</span>
+											<span class="doc-head-content">Model Inference (C++)</span>
 										</div>
 										<div class="doc-article-desc">
 										After model conversion using MindSpore Lite, the model inference process needs to be completed in Runtime. This tutorial introduces how to use C++ interface to write inference code.
@@ -396,10 +370,10 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android language-java stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/runtime_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/infer/runtime_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Using Java Interface to Perform Inference</span>
+											<span class="doc-head-content">Model Inference (Java)</span>
 										</div>
 										<div class="doc-article-desc">
 										After model conversion using MindSpore Lite, the model inference process needs to be completed in Runtime. This tutorial introduces how to use Java interface to write inference code.
@@ -458,7 +432,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Export stage-Model-Converting stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/train_lenet.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/train/train_lenet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Implementing Device Training Based On C++ Interface</span>
@@ -471,7 +445,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android language-java stage-Whole-Process stage-Model-Loading stage-Model-Training stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/train_lenet_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/train/train_lenet_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Implementing Device Training Based On Java Interface</span>
@@ -484,10 +458,10 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Model-Training stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/runtime_train_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/train/runtime_train_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Using C++ Interface to Perform Training</span>
+											<span class="doc-head-content">Device-side Training (C++)</span>
 										</div>
 										<div class="doc-article-desc">
 										After model conversion using MindSpore Lite, the model training process needs to be completed in Runtime. This tutorial introduces how to use C++ interface to write training code.
@@ -496,10 +470,10 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-java stage-Model-Training stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/runtime_train_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/train/runtime_train_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Using Java Interface to Perform Training</span>
+											<span class="doc-head-content">Device-side Training (Java)</span>
 										</div>
 										<div class="doc-article-desc">
 										After model conversion using MindSpore Lite, the model training process needs to be completed in Runtime. This tutorial introduces how to use Java interface to write training code.
@@ -544,10 +518,10 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Offline Converting Models for Inference</span>
+											<span class="doc-head-content">Device-side Models Conversion</span>
 										</div>
 										<div class="doc-article-desc">
 										MindSpore Lite provides a tool for offline model conversion. It supports conversion of multiple types of models. The converted models can be used for inference. 
@@ -556,7 +530,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/converter_train.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/train/converter_train.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Converting MindSpore Lite Models</span>
@@ -629,7 +603,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_cpp.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/master/mindir/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using C++ Interface to Perform Cloud-side Inference</span>
@@ -642,7 +616,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-java stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_java.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/master/mindir/runtime_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using Java Interface to Perform Cloud-side Inference</span>
@@ -655,7 +629,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-python stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_python.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/master/mindir/runtime_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using Python Interface to Perform Cloud-side Inference</span>
@@ -668,7 +642,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_parallel_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_parallel_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using C++ Interface to Perform Concurrent Inference</span>
@@ -681,7 +655,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-java stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_parallel_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_parallel_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using Java Interface to Perform Concurrent Inference</span>
@@ -694,7 +668,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-python stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/runtime_parallel_python.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_parallel_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using Python Interface to Perform Concurrent Inference</span>
@@ -707,7 +681,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Offline Conversion of Inference Models</span>
@@ -719,7 +693,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-python stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_python.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/converter_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using Python Interface to Perform Model Conversions</span>
@@ -731,7 +705,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/benchmark_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/benchmark_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">benchmark</span>

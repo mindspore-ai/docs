@@ -13,7 +13,7 @@ MindSpore Lite quantization after training is classified into two types:
 
 ## Configuration Parameter
 
-Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html). The configuration file adopts the style of `INI`, For quantization, configurable parameters include `common quantization parameter [common_quant_param]`, `fixed bit weight quantization parameter [weight_quant_param]`, `mixed bit weight quantization parameter [mixed_bit_weight_quant_param]`,`full quantization parameter [full_quant_param]`, `data preprocess parameter [data_preprocess_param]` and `dynamic quantization parameter [dynamic_quant_param]`.
+Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html). The configuration file adopts the style of `INI`, For quantization, configurable parameters include `common quantization parameter [common_quant_param]`, `fixed bit weight quantization parameter [weight_quant_param]`, `mixed bit weight quantization parameter [mixed_bit_weight_quant_param]`,`full quantization parameter [full_quant_param]`, `data preprocess parameter [data_preprocess_param]` and `dynamic quantization parameter [dynamic_quant_param]`.
 
 ### Common Quantization Parameter
 
@@ -393,7 +393,7 @@ target_device=DSP
 
 ### Ascend
 
-Ascend quantization need to set `optimize` to `ascend_oriented` for [converter tools](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description) and we also need to set environment for Ascend.
+Ascend quantization need to set `optimize` to `ascend_oriented` for [converter tools](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html#parameter-description) and we also need to set environment for Ascend.
 
 Ascend quantization static shape parameter configuration
 
@@ -415,7 +415,7 @@ Ascend quantization static shape parameter configuration
     target_device=ASCEND
     ```
 
-Ascend quantization also support dynamic shape. It is worth noting that the conversion command must set the same inputShape as the calibration dataset. For details, please refer to [Conversion Tool Parameter Description](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description).
+Ascend quantization also support dynamic shape. It is worth noting that the conversion command must set the same inputShape as the calibration dataset. For details, please refer to [Conversion Tool Parameter Description](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html#parameter-description).
 
 - In the dynamic shape scenario, the general form of the conversion command for Ascend quantization as follow:
 

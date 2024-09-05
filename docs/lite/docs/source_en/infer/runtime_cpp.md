@@ -6,11 +6,11 @@
 
 ## Overview
 
-After the model is converted into a `.ms` model by using the MindSpore Lite model conversion tool, the inference process can be performed in Runtime. For details, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html). This tutorial describes how to use the [C++ API](https://www.mindspore.cn/lite/api/en/master/index.html) to perform inference.
+After the model is converted into a `.ms` model by using the MindSpore Lite model conversion tool, the inference process can be performed in Runtime. For details, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html). This tutorial describes how to use the [C++ API](https://www.mindspore.cn/lite/api/en/master/index.html) to perform inference.
 
 To use the MindSpore Lite inference framework, perform the following steps:
 
-1. Read the model: Read the `.ms` model file converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) from the file system.
+1. Read the model: Read the `.ms` model file converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html) from the file system.
 2. Create and configure context: Create and configure [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#class-context) to save some basic configuration parameters required to build and execute the model.
 3. Create, load and build a model: Use [Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build) of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to create and build the model, and configure the [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#class-context) obtained in the previous step. In the model loading phase, the file cache is parsed into a runtime model. In the model building phase, subgraph partition, operator selection and scheduling are performed, which will take a long time. Therefore, it is recommended that the model should be created once, built once, and performed for multiple times.
 4. Input data: Before the model is executed, data needs to be filled in the `Input Tensor`.
@@ -20,11 +20,11 @@ To use the MindSpore Lite inference framework, perform the following steps:
 
 ![img](../images/lite_runtime.png)
 
-> For details about the calling process of MindSpore Lite inference, see [Simplified MindSpore Lite C++ Demo](https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_cpp.html).
+> For details about the calling process of MindSpore Lite inference, see [Simplified MindSpore Lite C++ Demo](https://www.mindspore.cn/lite/docs/en/master/infer/quick_start_cpp.html).
 
 ## Model Reading
 
-When MindSpore Lite is used for model inference, read the `.ms` model file converted by using the model conversion tool from the file system and store it in the memory buffer. For details, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html).
+When MindSpore Lite is used for model inference, read the `.ms` model file converted by using the model conversion tool from the file system and store it in the memory buffer. For details, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html).
 
 The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L332) demonstrates how to load a MindSpore Lite model from the file system:
 
@@ -319,7 +319,7 @@ MindSpore Lite provides two methods to obtain the input tensor of a model.
    // Users need to free input_buf.
    ```
 
-> The data layout in the input tensor of the MindSpore Lite model must be `NHWC`. For more information about data pre-processing, see step 2 in [Writing On-Device Inference Code](https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start.html#writing-on-device-inference-code) in Android Application Development Based on JNI Interface to convert the input image into the Tensor format of the MindSpore model.
+> The data layout in the input tensor of the MindSpore Lite model must be `NHWC`. For more information about data pre-processing, see step 2 in [Writing On-Device Inference Code](https://www.mindspore.cn/lite/docs/en/master/infer/quick_start.html#writing-on-device-inference-code) in Android Application Development Based on JNI Interface to convert the input image into the Tensor format of the MindSpore model.
 >
 > [GetInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs) and [GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputbytensorname) methods return data that do not need to be released by users.
 

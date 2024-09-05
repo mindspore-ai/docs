@@ -4,7 +4,7 @@
 
 ## 概述
 
-MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)除了基本的模型转换功能之外，还支持用户对模型进行自定义的优化与构建，生成用户自定义算子的模型。
+MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)除了基本的模型转换功能之外，还支持用户对模型进行自定义的优化与构建，生成用户自定义算子的模型。
 
 我们提供了一套注册机制，允许用户基于转换工具进行能力扩展：包括节点解析扩展、模型解析扩展以及图优化扩展，用户可以根据自身的需要对模型实现自定义的解析与融合优化。
 
@@ -77,7 +77,7 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
 
 示例代码可参考[pass](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend/pass)。
 
-> 在离线转换阶段，我们会对模型的每一个节点的输出张量进行推断，包括输出张量的Format、DataType以及Shape，因此，离线转换阶段，用户需提供自己实现的算子的推断过程，这里用户可以参考[算子Infershape扩展](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#扩展使用)说明，示例代码可参考[infer](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend/infer)。
+> 在离线转换阶段，我们会对模型的每一个节点的输出张量进行推断，包括输出张量的Format、DataType以及Shape，因此，离线转换阶段，用户需提供自己实现的算子的推断过程，这里用户可以参考[算子Infershape扩展](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html#扩展使用)说明，示例代码可参考[infer](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend/infer)。
 
 ## 示例演示
 

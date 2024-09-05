@@ -6,7 +6,7 @@
 
 ### Environment Preparation
 
-Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/master/use/build.html), HUAWEI HiAI DDK, which contains
+Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/master/build/build.html), HUAWEI HiAI DDK, which contains
 APIs (including building, loading models and calculation processes) and interfaces implemented to encapsulate dynamic libraries (namely libhiai*.so),
 is required for the use of NPU. Download [DDK 100.510.010.010](https://developer.huawei.com/consumer/en/doc/development/hiai-Library/ddk-download-0000001053590180),
 and set the directory of extracted files as `${HWHIAI_DDK}`. Our build script uses this environment viriable to seek DDK.
@@ -23,7 +23,7 @@ export MSLITE_ENABLE_NPU=ON
 bash build.sh -I arm64 -j8
 ```
 
-For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux-environment-compilation).
+For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/master/build/build.html#linux-environment-compilation).
 
 ### Integration
 
@@ -31,10 +31,10 @@ For more information about compilation, see [Linux Environment Compilation](http
 
     When developers need to integrate the use of NPU features, it is important to note:
 
-    - [Configure the NPU backend](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html#configuring-the-npu-backend).
-     For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html).
+    - [Configure the NPU backend](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html#configuring-the-npu-backend).
+     For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html).
 
-    - Compile and execute the binary. If you use dynamic linking, refer to [compile output](https://www.mindspore.cn/lite/docs/en/master/use/build.html) when the compile option is `-I arm64` or `-I arm32`.
+    - Compile and execute the binary. If you use dynamic linking, refer to [compile output](https://www.mindspore.cn/lite/docs/en/master/build/build.html) when the compile option is `-I arm64` or `-I arm32`.
     Configured environment variables will dynamically load libhiai.so, libhiai_ir.so, libhiai_ir_build.so, libhiai_hcl_model_runtime.so. For example,
 
         ```bash

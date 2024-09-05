@@ -4,7 +4,7 @@
 
 ## 概述
 
-针对大规模神经网络模型参数多、无法完全加载至单设备推理的场景，可利用多设备进行分布式推理。本教程介绍如何使用[Python接口](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)执行MindSpore Lite云侧分布式推理。云侧分布式推理与[云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_python.html)流程大致相同，可以相互参考。关于分布式推理的相关内容可参考[MindSpore分布式推理](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_loading.html#推理)，相比之下，MindSpore Lite云侧分布式推理针对性能方面具有更多的优化。
+针对大规模神经网络模型参数多、无法完全加载至单设备推理的场景，可利用多设备进行分布式推理。本教程介绍如何使用[Python接口](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)执行MindSpore Lite云侧分布式推理。云侧分布式推理与[云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_python.html)流程大致相同，可以相互参考。关于分布式推理的相关内容可参考[MindSpore分布式推理](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_loading.html#推理)，相比之下，MindSpore Lite云侧分布式推理针对性能方面具有更多的优化。
 
 MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，支持的设备类型为Atlas训练系列产品和Nvidia GPU。如下图所示，当前通过多进程方式启动分布式推理，每个进程对应通信集合中的一个`Rank`，对各自已切分的模型进行加载、编译与执行，每个进程输入数据相同。
 
@@ -68,7 +68,7 @@ context.gpu.provider = "tensorrt"
 
 ## 模型创建、加载与编译
 
-与[MindSpore Lite云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_python.html)一致，分布式推理的主入口是[Model](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model)接口，可进行模型加载、编译和执行。创建[Model](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model)并调用[Model.build_from_file](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file)接口来实现模型加载与模型编译，示例代码如下。
+与[MindSpore Lite云侧单卡推理](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_python.html)一致，分布式推理的主入口是[Model](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model)接口，可进行模型加载、编译和执行。创建[Model](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model)并调用[Model.build_from_file](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file)接口来实现模型加载与模型编译，示例代码如下。
 
 ```python
 # create Model and build Model
@@ -139,4 +139,4 @@ mpirun -n $RANK_SIZE python3 ./main.py --model_path=/your/path/to/Matmul.mindir
 
 ## 多模型共享权重
 
-Ascend设备图编译等级为O2的场景下，单个卡可以部署多个模型，部署到同一张卡的模型可以共享权重，详情可参考[高级用法-多模型共享权重](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_cpp.html#%E5%A4%9A%E6%A8%A1%E5%9E%8B%E5%85%B1%E4%BA%AB%E6%9D%83%E9%87%8D)。
+Ascend设备图编译等级为O2的场景下，单个卡可以部署多个模型，部署到同一张卡的模型可以共享权重，详情可参考[高级用法-多模型共享权重](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_cpp.html#%E5%A4%9A%E6%A8%A1%E5%9E%8B%E5%85%B1%E4%BA%AB%E6%9D%83%E9%87%8D)。

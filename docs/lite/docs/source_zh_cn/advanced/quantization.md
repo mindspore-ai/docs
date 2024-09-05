@@ -13,7 +13,7 @@ MindSpore Lite训练后量化分为两类：
 
 ## 配置参数
 
-训练后量化可通过[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)配置`configFile`的方式启用训练后量化。配置文件采用`INI`的风格，针对量化场景，目前可配置的参数包括`通用量化参数[common_quant_param]`、`固定比特权重量化参数[weight_quant_param]`、`混合比特权重量化参数[mixed_bit_weight_quant_param]`、`全量化参数[full_quant_param]`、`数据预处理参数[data_preprocess_param]`和`动态量化参数[dynamic_quant_param]`。
+训练后量化可通过[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)配置`configFile`的方式启用训练后量化。配置文件采用`INI`的风格，针对量化场景，目前可配置的参数包括`通用量化参数[common_quant_param]`、`固定比特权重量化参数[weight_quant_param]`、`混合比特权重量化参数[mixed_bit_weight_quant_param]`、`全量化参数[full_quant_param]`、`数据预处理参数[data_preprocess_param]`和`动态量化参数[dynamic_quant_param]`。
 
 ### 通用量化参数
 
@@ -396,7 +396,7 @@ target_device=DSP
 
 ### Ascend
 
-Ascend量化仅支持[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html#%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%A6%BB%E7%BA%BF%E8%BD%AC%E6%8D%A2)时，配置好Ascend相关配置，即`optimize`需要设置为`ascend_oriented`，且转换时配置Ascend相关环境变量。
+Ascend量化仅支持[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html#%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%A6%BB%E7%BA%BF%E8%BD%AC%E6%8D%A2)时，配置好Ascend相关配置，即`optimize`需要设置为`ascend_oriented`，且转换时配置Ascend相关环境变量。
 
 Ascend全量化静态Shape参数配置
 
@@ -418,7 +418,7 @@ Ascend全量化静态Shape参数配置
     target_device=ASCEND
     ```
 
-Ascend全量化支持动态Shape参数，同时转换命令需要设置校准数据集相同的inputShape，具体可参考[转换工具参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)。
+Ascend全量化支持动态Shape参数，同时转换命令需要设置校准数据集相同的inputShape，具体可参考[转换工具参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)。
 
 - Ascend全量化动态Shape场景转换命令的一般形式为：
 

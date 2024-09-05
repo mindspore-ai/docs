@@ -6,7 +6,7 @@
 
 ### 环境准备
 
-在基本的[环境准备](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)之外，使用TensorRT需要集成CUDA、TensorRT。当前版本适配[CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) 和[TensorRT 6.0.1.5](https://developer.nvidia.com/nvidia-tensorrt-6x-download) 以及 [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) 和 [TensorRT 8.5.1](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
+在基本的[环境准备](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)之外，使用TensorRT需要集成CUDA、TensorRT。当前版本适配[CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) 和[TensorRT 6.0.1.5](https://developer.nvidia.com/nvidia-tensorrt-6x-download) 以及 [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) 和 [TensorRT 8.5.1](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
 
 安装相应版本的CUDA，并将安装后的目录设置为环境变量`${CUDA_HOME}`。构建脚本将使用这个环境变量寻找CUDA。
 
@@ -20,15 +20,15 @@
 bash build.sh -I x86_64
 ```
 
-有关编译详情见[Linux环境编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#linux环境编译)。
+有关编译详情见[Linux环境编译](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html#linux环境编译)。
 
 ### 集成使用
 
 - 集成说明
 
     开发者需要集成使用TensorRT功能时，需要注意：
-    - 在代码中[配置TensorRT后端](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#配置使用gpu后端)，有关使用Runtime执行推理详情见[使用Runtime执行推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
-    - 编译执行可执行程序。如采用动态加载方式，参考[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)中编译选项为`-I x86_64`时的内容，需要配置的环境变量如下，将会动态加载相关的so。
+    - 在代码中[配置TensorRT后端](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html#配置使用gpu后端)，有关使用Runtime执行推理详情见[使用Runtime执行推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html)。
+    - 编译执行可执行程序。如采用动态加载方式，参考[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)中编译选项为`-I x86_64`时的内容，需要配置的环境变量如下，将会动态加载相关的so。
 
     ```bash
     export LD_LIBRARY_PATH=mindspore-lite-{version}-{os}-{arch}/runtime/lib/:$LD_LIBRARY_PATH
@@ -38,7 +38,7 @@ bash build.sh -I x86_64
 
 - Benchmark测试TensorRT推理
 
-    用户也可以使用MindSpore Lite的Benchmark工具测试TensorRT推理。编译出的Benchmark位置见[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)。将构建包传到具有TensorRT环境（TensorRT 6.0.1.5）的设备上使用Benchmark工具测试TensorRT推理，示例如下：
+    用户也可以使用MindSpore Lite的Benchmark工具测试TensorRT推理。编译出的Benchmark位置见[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)。将构建包传到具有TensorRT环境（TensorRT 6.0.1.5）的设备上使用Benchmark工具测试TensorRT推理，示例如下：
 
     - 测性能
 
@@ -54,7 +54,7 @@ bash build.sh -I x86_64
 
     有关Benchmark使用详情，见[Benchmark使用](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark.html)。
 
-    有关环境变量设置，需要根据[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)中编译选项为`-I x86_64`时的目录结构，将`libmindspore-lite.so`（目录为`mindspore-lite-{version}-{os}-{arch}/runtime/lib`）、CUDA的`so`库所在的目录和TensorRT的`so`库所在的目录加入`${LD_LIBRARY_PATH}`。
+    有关环境变量设置，需要根据[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)中编译选项为`-I x86_64`时的目录结构，将`libmindspore-lite.so`（目录为`mindspore-lite-{version}-{os}-{arch}/runtime/lib`）、CUDA的`so`库所在的目录和TensorRT的`so`库所在的目录加入`${LD_LIBRARY_PATH}`。
 
 - 模型序列化
 

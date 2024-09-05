@@ -20,7 +20,7 @@ MindSpore Lite云侧推理支持通过Python接口进行模型转换，支持多
 
 使用MindSpore Lite云侧推理的Python接口进行模型转换，需要进行如下环境准备工作。
 
-- [编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)含Converter组件的MindSpore Lite云侧推理的Whl安装包。
+- [编译](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)含Converter组件的MindSpore Lite云侧推理的Whl安装包。
 
     > 当前，提供下载Python3.7版本对应的安装包，若需要其他Python版本，请使用编译功能生成安装包。
 
@@ -73,7 +73,7 @@ mindspore_lite
 
 MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置，用户可根据需要来选择使用。
 
-下面提供详细的属性说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)中参数的对应关系。
+下面提供详细的属性说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)中参数的对应关系。
 
 | Converter属性 | 返回值类型  | 对应模型离线转换的参数  |  说明  | 取值范围 | 备注 |
 | -------- | ----- | -------- | ----- | --- | ---- |
@@ -91,7 +91,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 | save_type | ModelType | `--saveType=<SAVETYPE>` | 设置导出模型文件的类型。| ModelType.MINDIR | MINDIR模型使用MindSpore Lite云侧推理安装包 |
 | weight_fp16 | bool | `--fp16=<FP16>` | 设置在模型序列化时是否需要将float32数据格式的权重存储为float16数据格式。 | True、False | - |
 
-> - 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/build.html) 时设置为 `MSLITE_ENABLE_MODEL_ENCRYPTION=on` 时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如encrypt_key设置为"30313233343536373839414243444546"，对应的十六进制表示为 `(b)0123456789ABCDEF` ，Linux平台用户可以使用 `xxd` 工具对字节表示的密钥进行十六进制表达转换。需要注意的是，加解密算法在1.7版本进行了更新，导致新版的Python接口不支持对1.6及其之前版本的MindSpore Lite加密导出的模型进行转换。
+> - 加解密功能仅在[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/build.html) 时设置为 `MSLITE_ENABLE_MODEL_ENCRYPTION=on` 时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如encrypt_key设置为"30313233343536373839414243444546"，对应的十六进制表示为 `(b)0123456789ABCDEF` ，Linux平台用户可以使用 `xxd` 工具对字节表示的密钥进行十六进制表达转换。需要注意的是，加解密算法在1.7版本进行了更新，导致新版的Python接口不支持对1.6及其之前版本的MindSpore Lite加密导出的模型进行转换。
 >
 > - `input_shape` 在以下场景下，用户可能需要设置该属性：
 >
@@ -110,7 +110,7 @@ MindSpore Lite云侧推理的Python接口模型转换提供了多种属性设置
 
 方法使用场景：将第三方模型转换生成MindSpore模型，可多次调用convert方法，转换多个模型。
 
-下面提供详细的参数说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)中参数的对应关系。
+下面提供详细的参数说明以及与[推理模型离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)中参数的对应关系。
 
 | convert方法参数 | 参数类型  | 对应模型离线转换的参数  |  是否必选   |  参数说明  | 取值范围 | 参数默认值 |
 | -------- | ----- | -------- | ----- | --- | ---- | ---- |

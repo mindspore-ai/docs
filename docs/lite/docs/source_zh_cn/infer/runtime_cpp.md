@@ -6,11 +6,11 @@
 
 ## 概述
 
-通过[MindSpore Lite模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换成`.ms`模型后，即可在Runtime中执行模型的推理流程。本教程介绍如何使用[C++接口](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)执行推理。
+通过[MindSpore Lite模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)转换成`.ms`模型后，即可在Runtime中执行模型的推理流程。本教程介绍如何使用[C++接口](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)执行推理。
 
 使用MindSpore Lite推理框架主要包括以下步骤：
 
-1. 模型读取：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型。
+1. 模型读取：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)转换得到的`.ms`模型。
 2. 创建配置上下文：创建配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)，保存需要的一些基本配置参数，用于指导模型编译和模型执行。
 3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)接口进行模型加载和模型编译。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间所以建议Model创建一次，编译一次，多次推理。
 4. 输入数据：模型执行之前需要向`输入Tensor`中填充数据。
@@ -20,11 +20,11 @@
 
 ![img](../images/lite_runtime.png)
 
-> 快速了解MindSpore Lite执行推理的完整调用流程，请参考[体验MindSpore Lite C++极简Demo](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_cpp.html)。
+> 快速了解MindSpore Lite执行推理的完整调用流程，请参考[体验MindSpore Lite C++极简Demo](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/quick_start_cpp.html)。
 
 ## 模型读取
 
-通过MindSpore Lite进行模型推理时，需要从文件系统读取[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型文件。
+通过MindSpore Lite进行模型推理时，需要从文件系统读取[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)转换得到的`.ms`模型文件。
 
 下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L332)演示了从文件系统读取MindSpore Lite模型。
 
@@ -318,7 +318,7 @@ MindSpore Lite提供两种方法来获取模型的输入Tensor。
    // Users need to free input_buf.
    ```
 
-> MindSpore Lite的模型输入Tensor中的数据排布必须是`NHWC`。如果需要了解更多数据前处理过程，可参考基于JNI接口的Android应用开发中[编写端侧推理代码](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start.html#编写端侧推理代码)的第2步，将输入图片转换为传入MindSpore模型的Tensor格式。
+> MindSpore Lite的模型输入Tensor中的数据排布必须是`NHWC`。如果需要了解更多数据前处理过程，可参考基于JNI接口的Android应用开发中[编写端侧推理代码](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/quick_start.html#编写端侧推理代码)的第2步，将输入图片转换为传入MindSpore模型的Tensor格式。
 >
 > [GetInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs)和[GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputbytensorname)方法返回的数据不需要用户释放。
 

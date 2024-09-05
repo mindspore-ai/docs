@@ -8,7 +8,7 @@
 
 使用MindSpore Lite执行推理主要包括以下步骤：
 
-1. 模型读取：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型。
+1. 模型读取：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)转换得到的`.ms`模型。
 2. 创建配置上下文：创建配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/context_c.html)，保存需要的一些基本配置参数，用于指导模型编译和模型执行。
 3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/model_c.html)的[MSModelBuildFromFile](https://www.mindspore.cn/lite/api/zh-CN/master/api_c/model_c.html#msmodelbuildfromfile)接口进行模型加载和模型编译，并将上一步得到的Context配置到Model中。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间，所以建议Model创建一次，编译一次，多次推理。
 4. 输入数据：模型执行之前需要向`输入Tensor`中填充数据。

@@ -18,7 +18,7 @@ Deploying a model for inference or training via the Micro involves the following
 ### Overview
 
 The Micro configuration item in the parameter configuration file is configured via the MindSpore Lite conversion tool `convert_lite`.
-This chapter describes the functions related to code generation in the conversion tool. For details about how to use the conversion tool, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html).
+This chapter describes the functions related to code generation in the conversion tool. For details about how to use the conversion tool, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html).
 
 ### Preparing Environment
 
@@ -36,7 +36,7 @@ The following describes how to prepare the environment for using the conversion 
 
         Download the release package whose OS is Linux-x86_64 and hardware platform is CPU.
 
-    - Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/build.html).
+    - Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/build/build.html).
 
 3. Decompress the downloaded package.
 
@@ -103,7 +103,7 @@ The following describes how to prepare the environment for using the conversion 
     CONVERT RESULT SUCCESS:0
     ```
 
-    For details about the parameters related to converter_lite, see [Converter Parameter Description](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description).
+    For details about the parameters related to converter_lite, see [Converter Parameter Description](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html#parameter-description).
 
     After the conversion tool is successfully executed, the generated code is saved in the specified `outputFile` directory. In this example, the mnist folder is in the current conversion directory. The content is as follows:
 
@@ -228,7 +228,7 @@ Table 1: micro_param Parameter Definition
     CONVERT RESULT SUCCESS:0
     ```
 
-   For details about the parameters related to converter_lite, see [Converter Parameter Description](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description).
+   For details about the parameters related to converter_lite, see [Converter Parameter Description](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html#parameter-description).
 
    After the conversion tool is successfully executed, the generated code is saved in the specified `save_path` + `project_name` directory. In this example, the mnist folder is in the current conversion directory. The content is as follows:
 
@@ -277,7 +277,7 @@ Table 1: micro_param Parameter Definition
 
 Usually, when generating code, you can reduce the probability of errors in the deployment process by configuring the model input shape as the input shape for actual inference.
 When the model contains a `Shape` operator or the original model has a non-fixed input shape value, the input shape value of the model must be configured to support the relevant shape optimization and code generation.
-The `--inputShape=` command of the conversion tool can be used to configure the input shape of the generated code. For specific parameter meanings, please refer to [Conversion Tool Instructions](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html).
+The `--inputShape=` command of the conversion tool can be used to configure the input shape of the generated code. For specific parameter meanings, please refer to [Conversion Tool Instructions](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html).
 
 ### (Optional) Dynamic Shape Configuration
 
@@ -411,7 +411,7 @@ target_device=DSP
 ### Overview
 
 The training code can be generated for the input model by using the MindSpore Lite conversion tool `converter_lite` and configuring the Micro configuration item in the parameter configuration file of the conversion tool.
-This chapter describes the functions related to code generation in the conversion tool. For details about how to use the conversion tool, see [Converting Models for Training](https://www.mindspore.cn/lite/docs/en/master/use/converter_train.html).
+This chapter describes the functions related to code generation in the conversion tool. For details about how to use the conversion tool, see [Converting Models for Training](https://www.mindspore.cn/lite/docs/en/master/train/converter_train.html).
 
 ### Preparing Environment
 
@@ -623,7 +623,7 @@ The STM32F767 uses the Cortex-M7 architecture. You can obtain the `Micro` lib of
 
     You need to download the release package whose OS is None and hardware platform is Cortex-M7.
 
-- Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/build.html).
+- Start from the source code for [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/build/build.html).
 
     You can run the `MSLITE_MICRO_PLATFORM=cortex-m7 bash build.sh -I x86_64` command to compile the Cortex-M7 release package.
 
@@ -1188,7 +1188,7 @@ Except for MCU, micro inference is a inference model that separates model struct
 
 ### Exporting Inference Model
 
-Users can directly refer to [Device-side training](https://www.mindspore.cn/lite/docs/en/master/use/runtime_train_cpp.html).
+Users can directly refer to [Device-side training](https://www.mindspore.cn/lite/docs/en/master/train/runtime_train_cpp.html).
 
 ### Generating Inference Code
 
