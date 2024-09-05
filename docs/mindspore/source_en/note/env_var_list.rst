@@ -261,7 +261,14 @@ Graph Compilation and Execution
        ge_kernel: Whether to enable O2/O1/O0 runtime unification, with a default value of true.
 
        kbk_cache: Whether to enable backend cache in O0/O1 mode, only effective when enable complie cache(MS_COMPILER_CACHE_ENABLE), with a default value of true.
+
+       view: Whether to enable view kernels, only effective in O0 or O1 mode, with a default value of true.
      -
+   * - MS_DEV_VIEW_OP
+     - Specify certain operators to replace by view with MS_DEV_RUNTIME_CONF enabled view
+     - String
+     - Op name, can set more than one name, split by ','
+     - Experimental environment variable.
 
    * - MS_ALLOC_CONF
      - Configure the memory allocation.

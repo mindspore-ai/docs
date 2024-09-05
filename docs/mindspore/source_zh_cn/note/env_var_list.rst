@@ -262,7 +262,14 @@
        ge_kernel: 是否使能O2/O1/O0运行时统一，默认值为true。
 
        kbk_cache: 是否使用图编译等级O0/O1下的后端编译缓存，仅在前端编译缓存（MS_COMPILER_CACHE_ENABLE）开启时生效，默认值为true。
+
+       view: 是否使能view算子功能，仅在O0或O1模式下生效，默认值为true。
      -
+   * - MS_DEV_VIEW_OP
+     - 在MS_DEV_RUNTIME_CONF开启view的情况下，指定某些算子进行view替换
+     - String
+     - 算子名称，可以指定多个算子，以","分隔
+     - 实验性质的环境变量
 
    * - MS_ALLOC_CONF
      - 设置内存策略
