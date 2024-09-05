@@ -1,9 +1,9 @@
 离线解析
 --------
 
-当训练进程出错导致异常退出时，性能文件不能被完全保存下来，Profiler提供了离线解析功能。
+当Profiler采集性能数据较大时，若在训练过程中直接使用Profiler.analyse()进行在线解析，则可能导致对系统资源占用过大，从而影响训练效率。Profiler提供了离线解析功能，支持采集完成性能数据后，使用Profiler.offline_analyse对采集数据进行离线解析。
 
-例如，训练脚本的部分代码如下：
+训练脚本采集性能数据且不在线解析的部分代码示例如下：
 
 .. code:: python
 
@@ -26,19 +26,63 @@
        net = Net()
        train(net)  # Error occur.
 
-       # Profiler end
-       profiler.analyse()
+       # Collection end
+       profiler.stop()
 
 
-假如上述代码在训练过程中出现异常，导致没有执行到最后一行的profiler.analyse()，那么性能数据就不会被完全解析。这时可以用离线接口来解析数据，示例代码如下：
+在上述代码采集性能数据后，可以用离线接口来解析数据，示例代码如下：
 
 .. code:: python
 
    from mindspore import Profiler
 
-   Profiler.offline_analyse(path='/path/to/profiler_data')
+   Profiler.offline_analyse(path='/path/to/profiler_data', pretty=False, step_list=None, data_simplification=True)
 
-离线解析之后，就可以在/path/to/profiler_data/profiler目录查看性能数据了。
+
+离线解析接口参数描述如下：
+
+- path (str) - 需要进行离线分析的profiling数据路径，指定到profiler上层目录。支持传入单卡和多卡数据路径。
+- pretty (bool, 可选) - 对json文件进行格式化处理。此参数默认值为 False，即不进行格式化。
+- step_list (list, 可选) - 只分析指定step的性能数据。此参数默认值为 None，即进行全解析。
+- data_simplification (bool, 可选) - 数据精简开关功能。默认值为 True，即开启数据精简。
+
+参数注意事项：
+
+- step_list参数只在解析graph模式的采集数据时生效，且指定的step必须连续。
+- data_simplification参数默认开启，若连续两次离线解析均打开该开关，第一次数据精简会将框架侧采集数据删除，进而导致第二次离线解析框架侧解析结果缺失。
+
+离线解析传入的path路径支持单卡和多卡数据路径，不同场景描述如下。
+
+单卡场景
+~~~~~~~~~~~~
+
+采用离线解析解析单卡数据时，传入的profiling数据路径/path/to/profiler_data的目录结构如下：
+
+.. code::
+
+    └──── profiler_data
+        └────profiler
+
+解析的性能数据在/path/to/profiler_data/profiler目录下生成。
+
+多卡场景
+~~~~~~~~~~~~
+
+采用离线解析解析多卡数据时，传入的profiling数据路径/path/to/profiler_data的目录结构如下：
+
+.. code::
+
+    └──── profiler_data
+        ├────rank_0
+        │   └────profiler
+        ├────rank_1
+        │   └────profiler
+        ├────rank_2
+        │   └────profiler
+        └────rank_3
+            └────profiler
+
+解析的性能数据在每张卡数据路径的profiler目录下生成。下面展示了解析生成性能数据的目录结构。
 
 目录结构
 ~~~~~~~~~~~~
@@ -95,7 +139,7 @@
         ├──── step_trace_point_info_*.json
         └──── step_trace_raw_*_detail_time.csv
         └──── dataset_*.csv
-    
+
 - \* 代表rank id
 
 性能数据文件描述

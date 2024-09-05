@@ -1,9 +1,9 @@
 Offline Analyse
 --------------------
 
-When an error occurs during the training process leading to an abnormal exit, the performance file cannot be fully saved, and the Profiler provides offline parsing functionality.
+When the Profiler collects a large volume of performance data, directly utilizing Profiler.analyse() for online parsing during the training process may result in excessive system resource usage, thereby impacting training efficiency. The Profiler offers an offline parsing capability, allowing for the use of Profiler.offline_analyse to parse collected data after the profiling is complete.
 
-For example, the partial code of the training script is as follows:
+A code example of the training script that collects performance data without online parsing is as follows:
 
 .. code:: python
 
@@ -26,20 +26,64 @@ For example, the partial code of the training script is as follows:
        net = Net()
        train(net)  # Error occur.
 
-       # Profiler end
-       profiler.analyse()
+       # Collection end
+       profiler.stop()
 
 
-If an exception occurs in above code during the training process, resulting in the `profiler.analyse()` at the last line not being executed, the performance data will not be completely parsed. At this point, the offline interface can be used to parse data, and the example code is as follows:
+Following the collection of performance data in the aforementioned code, the data can be parsed using an offline parsing interface. Here is an example of the code:
 
 .. code:: python
 
    from mindspore import Profiler
 
-   Profiler.offline_analyse(path='/path/to/profiler_data')
+   Profiler.offline_analyse(path='/path/to/profiler_data', pretty=False, step_list=None, data_simplification=True)
 
 
-After offline parsing, you can view the profiling data in the directory `/path/to/profiler_data/profile` .
+The offline parsing interface parameter descriptions are as follows:
+
+- path (str): The profiling data path which need to be analyzed offline. There needs to be a profiler directory in this path.
+- pretty (bool, optional): Whether to pretty json files. Default: ``False``.
+- step_list (list, optional): A list of steps that need to be analyzed. Default: ``None``. By default, all steps will be analyzed.
+- data_simplification (bool, optional): Whether to enable data simplification. Default: ``True``.
+
+Notes on parameters:
+
+- The step_list parameter is only effective when parsing data collected in graph mode, and the specified steps must be consecutive.
+- The data_simplification parameter is enabled by default. If this switch is turned on for two consecutive offline parsings, the first data simplification will delete the framework-side collected data, resulting in the absence of framework-side parsing results in the second offline parsing.
+
+The offline parsing of the input path supports both single-card and multi-card data paths, with different scenarios described as follows.
+
+Single-card scenario
+~~~~~~~~~~~~~~~~~~~~
+
+When using offline parsing to analyze single-card data, the directory structure of the profiling data path /path/to/profiler_data is as follows:
+
+.. code::
+
+    └──── profiler_data
+        └────profiler
+
+
+The parsed performance data is generated under the /path/to/profiler_data/profiler directory.
+
+Multi-card scenario
+~~~~~~~~~~~~~~~~~~~~
+
+When using offline parsing to analyze multi-card data, the directory structure of the profiling data path /path/to/profiler_data is as follows:
+
+.. code::
+
+    └──── profiler_data
+        ├────rank_0
+        │   └────profiler
+        ├────rank_1
+        │   └────profiler
+        ├────rank_2
+        │   └────profiler
+        └────rank_3
+            └────profiler
+
+The parsed performance data is generated under the profiler directory of each card's data path. The following shows the directory structure of the generated performance data.
 
 Directory Structure
 ~~~~~~~~~~~~~~~~~~~~
