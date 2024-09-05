@@ -55,25 +55,25 @@ bash  mindformers/scripts/msrun_launcher.sh "toolkit/benchmarks/eval_with_harnes
 
 Harness主要参数
 
+| 参数            | 类型  | 参数介绍                      | 是否必须 |
+|---------------|-----|---------------------------|------|
+| --model       | str | 须设置为mf，对应为MindFormers评估策略 | 是    |
+| --model_args  | str | 模型及评估相关参数，见下方模型参数介绍       | 是    |
+| --tasks       | str | 数据集名称，可传入多个数据集，逗号分割       | 是    |
+| --batch_size  | int | 批处理样本数                    | 否    |
+| --num_fewshot | int | Few_shot的样本数              | 否    |
+| --limit       | int | 每个任务的样本数，多用于功能测试          | 否    |
+
+MindFormers模型参数
+
 | 参数           | 类型   | 参数介绍                              | 是否必须 |
-  |--------------|------|-----------------------------------|------|
+|--------------|------|-----------------------------------|------|
 | pretrained   | str  | 模型目录路径                            | 是    |
 | use_past     | bool | 是否开启增量推理，generate_until类型的评测任务须开启 | 否    |
 | device_id    | int  | 设备id                              | 否    |
 | use_parallel | bool | 开启并行策略                            | 否    |
 | dp           | int  | 数据并行                              | 否    |
 | tp           | int  | 模型并行                              | 否    |
-
-MindFormers模型参数
-
-| 参数            | 类型  | 参数介绍                      | 是否必须 |
-  |---------------|-----|---------------------------|------|
-| --model       | str | 须设置为mf，对应为MindFormers评测策略 | 是    |
-| --model_args  | str | 模型及评测相关参数，见下方模型参数介绍       | 是    |
-| --tasks       | str | 数据集名称，可传入多个数据集，逗号分割       | 是    |
-| --batch_size  | int | 批处理样本数                    | 否    |
-| --num_fewshot | int | Few_shot的样本数              | 否    |
-| --limit       | int | 每个任务的样本数，多用于功能测试          | 否    |
 
 #### 评测前准备
 
