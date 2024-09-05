@@ -49,31 +49,33 @@ pip show mindspore_gs
 4. **量化配置文件准备：**
    使用mindformers内置的与模型配套的量化推理配置文件，其中量化相关的配置项为`model.model_config.quantization_config`
 
-   以`llama2_13b_w8a16`量化模型为例，默认量化配置如下
+   以`llama2_13b_rtn`量化模型为例，默认量化配置如下
 
    ```yaml
      quantization_config:
-       quant_method: 'ptq'
+       quant_method: 'rtn'
        weight_dtype: 'int8'
        activation_dtype: None
        kvcache_dtype: None
+       outliers_suppression: None
        modules_to_not_convert: ['lm_head']
        algorithm_args: {}
    ```
 
    | 参数                   | 属性 | 功能描述                                          | 参数类型  | 取值范围             |
    | ---------------------- | ---- |:----------------------------------------------| --------- |------------------|
-   | quant_method           | 必选 | 支持的量化算法，目前只支持RTN/Smooth_Quant算法               | str       | rtn/smooth_quant |
-   | weight_dtype           | 必选 | 量化的weight类型，目前只支持int8                         | str       | int8             |
+   | quant_method           | 必选 | 支持的量化算法，目前只支持RTN/Smooth_Quant/PTQ算法               | str       | rtn/smooth_quant/ptq |
+   | weight_dtype           | 必选 | 量化的weight类型，目前只支持int8                         | str       | int8/None           |
    | activation_dtype       | 必选 | 参数的激活类型，None表示维持网络原计算类型(compute_dtype)不变      | str       | int8/None        |
    | kvcache_dtype          | 可选 | KVCache量化类型，None和不配置表示维持原KVCache数据类型不变        | str       | int8/None        |
+   | outliers_suppression   | 可选 | 异常值抑制使用的算法类型，目前仅支持smooth平滑抑制        | str       | smooth/None        |
    | modules_to_not_convert | 必选 | 配置不进行量化的层                                     | List[str] | /                |
    | algorithm_args         | 必选 | 对接金箍棒不同的算法类型配置，例如：smooth_quant算法需要配置alpha=0.5 | Dict      | /                |
 
 5. **执行推理任务：**
    基于`generate`接口实现推理脚本，执行脚本即可得到推理结果。
 
-## 基于Llama2_13B模型进行w8a16量化推理实践
+## 基于Llama2_13B模型使用RTN量化算法进行A16W8量化推理实践
 
 ### 选择模型
 
@@ -82,7 +84,7 @@ pip show mindspore_gs
 本实践使用`AutoModel.from_pretrained()`通过传参模型配置/权重路径来实例化模型，预先创建存放目录。
 
 ```shell
-mkdir /data/tutorial/llama2_13b_w8a16_dir
+mkdir /data/tutorial/llama2_13b_rtn_a16w8_dir
 ```
 
 > 注：当前AutoModel.from_pretrained()接口暂不支持通过量化模型名称传参来实例化
@@ -90,9 +92,9 @@ mkdir /data/tutorial/llama2_13b_w8a16_dir
 单卡目录结构
 
 ```shell
-llama2_13b_w8a16_dir
-  ├── predict_llama2_13b_w8a16.yaml
-  └── llama2_13b_w8a16.ckpt
+llama2_13b_rtn_a16w8_dir
+  ├── predict_llama2_13b_rtn.yaml
+  └── llama2_13b_rtn_a16w8.ckpt
 ```
 
 ### 下载模型权重
@@ -111,25 +113,25 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
 进入mindspore_gs库根目录`golden-stick`，执行量化权重转换脚本
 
 ```bash
-python example/ptq/quant_ckpt.py -c /path/to/predict_llama2_13b.yaml -s /path/to/boolq/dev.jsonl -t boolq -a w8a16 > log_w8a16_quant 2>&
+python example/ptq/quant_ckpt.py -c /path/to/predict_llama2_13b.yaml -s /path/to/boolq/dev.jsonl -t boolq -a rtn-a16w8 > log_rtn_a16w8_quant 2>&
 ```
 
 其中`predict_llama2_13b.yaml`中的`load_checkpoint`配置为上一步下载的原始权重存放路径。
 
 转换过程中的检验数据集使用`boolq`，下载参考[boolq数据集链接](https://github.com/svinkapeppa/boolq)。下载完成后，在上述脚本中传入`dev.jsonl`存放路径。
 
-执行脚本，将生成的量化权重文件拷贝至`llama2_13b_w8a16_dir`目录中。
+执行脚本，将生成的量化权重文件拷贝至`llama2_13b_rtn_a16w8_dir`目录中。
 
 ```shell
-cp output/w8a16.ckpt /data/tutorial/llama2_13b_w8a16_dir
+cp output/rtn-a16w8_ckpt/rank_0/rtn-a16w8.ckpt /data/tutorial/llama2_13b_rtn_a16w8_dir/llama2_13b_rtn_a16w8.ckpt
 ```
 
 ### 量化配置文件准备
 
-MindFormers已提供[predict_llama2_13b_w8a16.yaml配置文件](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_13b_w8a16.yaml)，将其拷贝至`llama2_13b_w8a16_dir`目录中。
+MindFormers已提供[predict_llama2_13b_rtn.yaml配置文件](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_13b_rtn.yaml)，将其拷贝至`llama2_13b_rtn_a16w8_dir`目录中。
 
 ```shell
-cp configs/llama2/predict_llama2_13b_w8a16.yaml /data/tutorial/llama2_13b_w8a16_dir
+cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w8_dir
 ```
 
 ### 执行推理任务
@@ -184,7 +186,7 @@ cp configs/llama2/predict_llama2_13b_w8a16.yaml /data/tutorial/llama2_13b_w8a16_
        # 实例化tokenizer
        tokenizer = LlamaTokenizer.from_pretrained(model_name)
        # 实例化模型
-       network = AutoModel.from_pretrained("/data/tutorial/llama2_13b_w8a16_dir",
+       network = AutoModel.from_pretrained("/data/tutorial/llama2_13b_rtn_a16w8_dir",
                                            download_checkpoint=False)
        model = Model(network)
 
