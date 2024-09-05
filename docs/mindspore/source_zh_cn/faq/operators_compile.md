@@ -116,3 +116,18 @@ A: Ascend后端，算子有AI CORE算子和AI CPU算子之分，部分算子AI C
 2. 如果`AI CPU`候选算子信息不为空，或者`AI CORE`和`AI CPU`候选算子信息都不为空，则可能是用户给到该算子的输入数据类型不在候选列表中，在选择阶段被过滤掉导致，可以根据候选列表尝试修改该算子的输入data type。
 
 用户可以参考[官网教程](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/accelerate_with_static_graph.html)选择合适、统一的模式和写法来完成训练。
+
+<br/>
+
+## Q: MindSpore的算子输入的类型转换规则是什么？如果输入中存在零维Tensor，是否遵循这个规则？
+
+A: MindSpore的算子输入的类型转换，可以参考[类型转换规则](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.dtype.html)。与PyTorch不同的是，算子输入中存在零维Tensor时，MindSpore同样遵循这一规则。示例代码如下：
+
+```python
+import torch
+import mindspore as ms
+out_ms = ms.Tensor([1], dtype=ms.int32) + ms.Tensor(1, dtype=ms.int64)
+out_torch = torch.tensor([1], dtype=torch.int32) + torch.tensor(1, dtype=torch.int64)
+print(out_ms.dtype)    # 输出是：Int64
+print(out_torch.dtype) # 输出是：torch.int32
+```

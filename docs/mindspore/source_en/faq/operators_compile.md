@@ -115,3 +115,18 @@ A: The `Ascend` backend operators can be divided into AI CORE operators and AI C
 2. If the `AI CPU` candidate operator information is not empty, or the candidate operator information of `AI CORE` and `AI CPU` are both not empty, it may be that the given input data type was not in the candidate list and was filtered out in the selection stage. Try to modify the input data type of the operator according to the candidate list.
 
 You can select a proper mode and writing method to complete the training by referring to the [official website tutorial](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html).
+
+<br/>
+
+## Q: What are the type conversion rules for the inputs of MindSpore's operator? If there is a zero-dimensional Tensor in the inputs, do we follow the rulues?
+
+A: For the type conversion rules for the inputs of MindSpore's operator, please refer to [Type Conversion Rules](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.dtype.html#mindspore.dtype). Different from PyTorch, MindSpore also follows this rule when there is a zero-dimensional Tensor in the inputs. The sample code is as follows.
+
+```python
+import torch
+import mindspore as ms
+out_ms = ms.Tensor([1], dtype=ms.int32) + ms.Tensor(1, dtype=ms.int64)
+out_torch = torch.tensor([1], dtype=torch.int32) + torch.tensor(1, dtype=torch.int64)
+print(out_ms.dtype)    # The output is：Int64
+print(out_torch.dtype) # The output is：torch.int32
+```
