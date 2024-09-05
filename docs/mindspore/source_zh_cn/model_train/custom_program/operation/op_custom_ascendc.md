@@ -30,6 +30,7 @@ CANN为AI开发者提供了Ascend C编程语言，这是一款专为算子开发
 
 - **Ascend C源码**: 包括host侧和kernel侧的自定义算子实现。
 - **MindSpore安装**: 确保已安装2.3.0及以上版本的MindSpore。
+- **CMake**: CMake>=3.16.0
 
 ### 离线编译与部署
 

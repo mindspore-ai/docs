@@ -30,6 +30,7 @@ Make sure you have the following conditions to use MindSpore's Ascend C custom o
 
 - **Ascend C Source Code**: Including the implementation of host-side and kernel-side custom operators.
 - **MindSpore Installation**: Ensure that MindSpore version 2.3.0 or above is installed.
+- **CMake**: CMake>=3.16.0
 
 ### Offline Compilation and Deployment
 
