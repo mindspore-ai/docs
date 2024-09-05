@@ -143,7 +143,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
         - `net_name`：自定义的网络名称，例如："ResNet50"。
         - `iteration`：指定需要Dump数据的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。仅在op_debug_mode设置为0或3时支持保存指定迭代，op_debug_mode设置为4时不支持指定迭代。
         - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。默认取值为"tensor"。保存统计信息仅在op_debug_mode设置为0时生效。
-        - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。在op_debug_mode设置为4时，只能保存算子输入。
+        - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。在op_debug_mode设置为3时，只能设置`input_output`为同时保存算子输入和算子输出。在op_debug_mode设置为4时，只能保存算子输入。
         - `kernels`：该项可以配置三种格式：
            1. 算子的名称列表。开启IR保存开关`set_context(save_graphs=2)`并执行用例，从生成的IR文件`trace_code_graph_{graph_id}`中获取算子名称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/mindir.html#如何保存ir)。
            需要注意的是，是否设置`set_context(save_graphs=2)`可能会导致同一个算子的id不同，所以在Dump指定算子时要在获取算子名称之后保持这一项设置不变。或者也可以在Dump保存的`ms_output_trace_code_graph_{graph_id}.ir`文件中获取算子名称，参考[Ascend O0/O1模式下Dump数据对象目录](#数据对象目录和数据文件介绍)。
@@ -174,7 +174,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
 
         - `enable`：设置成true，表示开启同步Dump；设置成false时，采用异步Dump。不设置该字段时默认值为false，开启异步Dump。两者的区别是异步Dump对原本代码执行过程的影响更小。
         - `trans_flag`：开启格式转换，将设备上的数据格式转换成NCHW格式。若为`true`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`false`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换。默认值：true。
-        - `stat_calc_mode`：选择统计信息计算后端，可选"host"和"device"。选择"device"后可以使能device计算统计信息，当前只在Ascend生效，只支持`min/max/avg/l2norm`统计量。
+        - `stat_calc_mode`：选择统计信息计算后端，可选"host"和"device"。选择"device"后可以使能device计算统计信息，当前只在Ascend生效，只支持`min/max/avg/l2norm`统计量。在op_debug_mode设置为3时，仅支持将`stat_calc_mode`设置为"host"。
         - `sample_mode`（可选）：设置成0，表示不开启切片dump功能；设置成1时，在图编译等级为O0或O1的情况下开启切片dump功能。仅在op_debug_mode设置为0时生效，其它场景不会开启切片dump功能。
         - `sample_num`（可选）：用于控制切片dump中切片的大小。默认值为100。
         - `save_kernel_args`（可选）: 设置成true时，会保存算子的初始化信息。仅当`enable`设置为`true`时生效。
