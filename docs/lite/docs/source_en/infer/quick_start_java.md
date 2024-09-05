@@ -8,7 +8,7 @@ This tutorial provides an example program for MindSpore Lite to perform inferenc
 
 The MindSpore Lite inference steps are as follows:
 
-1. Load the model(optional): Read the `.ms` model converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) from the file system.
+1. Load the model(optional): Read the `.ms` model converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html) from the file system.
 2. Create and configure context: Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#mscontext) to save some basic configuration parameters required by a session to guide graph build and execution. including `deviceType` (device type), `threadNum` (number of threads), `cpuBindMode` (CPU binding mode), and `enable_float16` (whether to preferentially use the float16 operator).
 3. Build a graph: Before building a graph, the [build](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#build) interface of [model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) needs to be called to build the graph, including subgraph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with one [model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) created, one graph be built. In this case, the inference will be performed for multiple times.
 4. Input data: Before the graph is executed, data needs to be filled in the `Input Tensor`.
@@ -18,7 +18,7 @@ The MindSpore Lite inference steps are as follows:
 
 ![img](../images/lite_runtime.png)
 
-> To view the advanced usage of MindSpore Lite, see [Using Runtime to Perform Inference (Java)](https://www.mindspore.cn/lite/docs/en/master/use/runtime_java.html).
+> To view the advanced usage of MindSpore Lite, see [Using Runtime to Perform Inference (Java)](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_java.html).
 
 ## Building and Running
 

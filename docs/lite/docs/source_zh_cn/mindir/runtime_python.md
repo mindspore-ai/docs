@@ -34,7 +34,7 @@ MINDSPORE_LITE_VERSION=2.0.0 bash ./lite-cpu-pip.sh
 >
 > 若使用脚本下载MindSpore Lite推理框架失败，请手动下载对应硬件平台为CPU、操作系统为Linux-x86_64或Linux-aarch64的[MindSpore Lite 模型云侧推理框架](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，用户可以使用`uname -m`命令在终端上查询操作系统，并将其拷贝到`mindspore/lite/examples/cloud_infer/quick_start_python`目录下。
 >
-> 若需要使用Python3.7以上版本对应的MindSpore Lite，请在本地[编译](https://mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/build.html)，注意Python API模块编译依赖：Python >= 3.7.0、NumPy >= 1.17.0、wheel >= 0.32.0。编译成功后，将`output/`目录下生成的Whl安装包拷贝到`mindspore/lite/examples/cloud_infer/quick_start_python`目录下。
+> 若需要使用Python3.7以上版本对应的MindSpore Lite，请在本地[编译](https://mindspore.cn/lite/docs/zh-CN/master/mindir/build.html)，注意Python API模块编译依赖：Python >= 3.7.0、NumPy >= 1.17.0、wheel >= 0.32.0。编译成功后，将`output/`目录下生成的Whl安装包拷贝到`mindspore/lite/examples/cloud_infer/quick_start_python`目录下。
 >
 > 若`mindspore/lite/examples/cloud_infer/quick_start_python`目录下不存在MindSpore Lite安装包，则一键安装脚本将会卸载当前已安装的MindSpore Lite后，从华为镜像下载并安装MindSpore Lite。否则，若目录下存在MindSpore Lite安装包，则会优先安装该安装包。
 >
@@ -65,7 +65,7 @@ output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.000224
 
 使用MindSpore Lite推理框架主要包括以下步骤：
 
-1. 模型读取：通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)转换获得MindIR模型。
+1. 模型读取：通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得MindIR模型。
 2. 创建配置上下文：创建配置上下文[Context](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context)，保存需要的一些基本配置参数，用于指导模型编译和模型执行。
 3. 模型加载与编译：执行推理之前，需要调用[Model](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model)的[build_from_file](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file)接口进行模型加载和模型编译。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段会耗费较多时间所以建议Model创建一次，编译一次，多次推理。
 4. 输入数据：模型执行之前需要填充输入数据。

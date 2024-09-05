@@ -4,11 +4,11 @@
 
 ## Overview
 
-After the model is converted into a `.ms` model by using the MindSpore Lite model conversion tool, the inference process can be performed in Runtime. For details, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html). This tutorial describes how to use the [Java API](https://www.mindspore.cn/lite/api/en/master/index.html) to perform inference.
+After the model is converted into a `.ms` model by using the MindSpore Lite model conversion tool, the inference process can be performed in Runtime. For details, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html). This tutorial describes how to use the [Java API](https://www.mindspore.cn/lite/api/en/master/index.html) to perform inference.
 
 If MindSpore Lite is used in an Android project, you can use [C++ API](https://www.mindspore.cn/lite/api/en/master/index.html) or [Java API](https://www.mindspore.cn/lite/api/en/master/index.html) to run the inference framework. Compared with C++ APIs, Java APIs can be directly called in the Java class. Users do not need to implement the code at the JNI layer, which is more convenient. To run the MindSpore Lite inference framework, perform the following steps:
 
-1. Load the model(optional): Read the `.ms` model converted by the model conversion tool introduced in [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) from the file system.
+1. Load the model(optional): Read the `.ms` model converted by the model conversion tool introduced in [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html) from the file system.
 2. Create a configuration context: Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#mscontext) to save some basic configuration parameters required by a model to guide graph build and execution, including `deviceType` (device type), `threadNum` (number of threads), `cpuBindMode` (CPU core binding mode), and `enable_float16` (whether to preferentially use the float16 operator).
 3. Build a graph: Before building a graph, the [build](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#build) API of [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) needs to be called to build the graph, including graph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) created each time, one graph be built. In this case, the inference will be performed for multiple times.
 4. Input data: Before the graph is performed, data needs to be filled in to the `Input Tensor`.
@@ -18,7 +18,7 @@ If MindSpore Lite is used in an Android project, you can use [C++ API](https://w
 
 ![img](../images/lite_runtime.png)
 
-> For details about the calling process of MindSpore Lite inference, see [Experience Java Simple Inference Demo](https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_java.html).
+> For details about the calling process of MindSpore Lite inference, see [Experience Java Simple Inference Demo](https://www.mindspore.cn/lite/docs/en/master/infer/quick_start_java.html).
 
 ## Referencing the MindSpore Lite Java Library
 

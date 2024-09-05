@@ -56,7 +56,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 
 ### Full Quantization Conversion Failed
 
-1. For dynamic shape models, you need to set `--inputShape=<INPUTSHAPE>` listed in the [Parameter Description](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description). For example:
+1. For dynamic shape models, you need to set `--inputShape=<INPUTSHAPE>` listed in the [Parameter Description](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html#parameter-description). For example:
 
     ```
     ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --inputShape=intput_1:1,224,224,3;intput_2:1,48;
@@ -185,7 +185,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: TensorRT GPU graph construction does not support models with dynamic shapes. Specifically, the input shape of the model contains –1 or the model contains the shape operator.
-    - Solution: When using the converter to convert the model to MS, set `--inputShape=<INPUTSHAPE>` in the [conversion command](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description) to specify the shape information of the input tensor. If you need to change the input shape during inference, you can set the [inputShapes](https://mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#parameter-description) parameter when using the benchmark tool or call the [Resize](https://mindspore.cn/lite/api/en/master/generate/classmindspore_ops_Resize.html) method when using MindSpore Lite for integration and development. Note: The shape dimension of the [Resize](https://mindspore.cn/lite/api/en/master/generate/classmindspore_ops_Resize.html) input must be less than or equal to the dimension of the [Build](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#build) model.
+    - Solution: When using the converter to convert the model to MS, set `--inputShape=<INPUTSHAPE>` in the [conversion command](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html#parameter-description) to specify the shape information of the input tensor. If you need to change the input shape during inference, you can set the [inputShapes](https://mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#parameter-description) parameter when using the benchmark tool or call the [Resize](https://mindspore.cn/lite/api/en/master/generate/classmindspore_ops_Resize.html) method when using MindSpore Lite for integration and development. Note: The shape dimension of the [Resize](https://mindspore.cn/lite/api/en/master/generate/classmindspore_ops_Resize.html) input must be less than or equal to the dimension of the [Build](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#build) model.
 
 #### Failed to Execute a Graph
 
@@ -266,7 +266,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 ## Model Inference Accuracy Issues
 
 1. When MindSpore Lite is used for integration, the post-processing effect of the inference result is not ideal. How do I locate the issue of inference accuracy?
-    - Check whether the input data is correct. In MindSpore Lite 1.3.0 and earlier versions, the input data format of the MS model is NHWC. In MindSpore Lite 1.5.0 and later versions, the [inputDataFormat](https://mindspore.cn/lite/docs/en/master/use/converter_tool.html) parameter can be set to NHWC or NCHW. Ensure that the input data format is the same as that required by the MS model.
+    - Check whether the input data is correct. In MindSpore Lite 1.3.0 and earlier versions, the input data format of the MS model is NHWC. In MindSpore Lite 1.5.0 and later versions, the [inputDataFormat](https://mindspore.cn/lite/docs/en/master/converter/converter_tool.html) parameter can be set to NHWC or NCHW. Ensure that the input data format is the same as that required by the MS model.
     - Use the [benchmark](https://mindspore.cn/lite/docs/en/master/use/benchmark_tool.html) tool provided by MindSpore Lite to test the accuracy. If the following logs are displayed, the accuracy may be incorrect. Otherwise, the MindSpore Lite inference accuracy is correct. In this case, you need to check whether the data pre- and post-processing processes are correct.
 
       ```cpp
@@ -280,7 +280,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 
 2. What do I do if the FP32 inference result is correct but the FP16 inference result contains the NaN or Inf value?
     - If the NaN or Inf value is displayed in the result, value overflow occurs during inference. You can view the model structure, filter out the operator layer where value overflow may occur, and use the [Dump function](https://mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#dump) of the benchmark tool to save the output of the operator layer and confirm the operator where value overflow occurs.
-    - MindSpore Lite 1.5.0 and later versions provide the mixed-precision inference capability. When FP16 is preferentially used for the entire network inference, an operator at a certain layer can be set for FP32 inference. For details, see [Mixed Precision Inference](https://mindspore.cn/lite/docs/en/master/use/runtime_cpp.html#mixed-precision-inference). The overflow layer is set to FP32 to avoid the entire network inference accuracy issue during FP16 inference.
+    - MindSpore Lite 1.5.0 and later versions provide the mixed-precision inference capability. When FP16 is preferentially used for the entire network inference, an operator at a certain layer can be set for FP32 inference. For details, see [Mixed Precision Inference](https://mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html#mixed-precision-inference). The overflow layer is set to FP32 to avoid the entire network inference accuracy issue during FP16 inference.
 
 3. What do I do if the NaN or Inf value exists in the FP32 and FP16 inference results of MindSpore Lite?
     - Analysis: Operators that perform division operations exist on the entire network. During inference, if the division operation is performed and the divisor is 0, the NaN value may display. Take the following network structure as an example. If the network is used in the scenario where the input data is not normalized and the input data ranges from 0 to 255, the NaN value is displayed. The reason is that the input data is large and the output value of matmul is large when the input data is not normalized. As a result, the output value of the Tanh activation function is 1. As a result, the Div operator is divided by 0. However, if the network input data is normalized and the Tanh activation function is not 1, the network inference data does not have the NaN value.

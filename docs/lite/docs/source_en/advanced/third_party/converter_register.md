@@ -4,7 +4,7 @@
 
 ## Overview
 
-Our [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) is a highly flexible tool. In addition to the basic ability of model converter, we have designed a set of registration mechanism, which allows users to expand, including node-parse extension, model-parse extension and graph-optimization extension. The users can combined them as needed to achieve their own intention.
+Our [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html) is a highly flexible tool. In addition to the basic ability of model converter, we have designed a set of registration mechanism, which allows users to expand, including node-parse extension, model-parse extension and graph-optimization extension. The users can combined them as needed to achieve their own intention.
 
 node-parse extension: The users can define the process to parse a certain node of a model by themselves, which only support ONNX, CAFFE, TF and TFLITE. The related interface is [NodeParser](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_converter_NodeParser.html), [NodeParserRegistry](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_NodeParserRegistry.html).
 model-parse extension: The users can define the process to parse a model by themselves, which only support ONNX, CAFFE, TF and TFLITE. The related interface is [ModelParser](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_converter_ModelParser.html), [ModelParserRegistry](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_registry_ModelParserRegistry.html).
@@ -75,7 +75,7 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // register scheduling log
 
 For the sample code, please refer to [pass](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend/pass).
 
-> In the offline phase of conversion, we will infer the basic information of output tensors of each node of the model, including the format, data type and shape. So, in this phase, users need to provide the inferring process of self-defined operator. Here, users can refer to [Operator Infershape Extension](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html#operator-infershape-extension).
+> In the offline phase of conversion, we will infer the basic information of output tensors of each node of the model, including the format, data type and shape. So, in this phase, users need to provide the inferring process of self-defined operator. Here, users can refer to [Operator Infershape Extension](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html#operator-infershape-extension).
 
 ## Example
 

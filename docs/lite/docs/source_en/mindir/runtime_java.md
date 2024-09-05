@@ -4,11 +4,11 @@
 
 ## Overview
 
-After converting the `.mindir` model by [MindSpore Lite model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html), you can execute the inference process of the model in Runtime. This tutorial describes how to perform cloud-side inference by using the [JAVA interface](https://www.mindspore.cn/lite/api/en/master/index.html).
+After converting the `.mindir` model by [MindSpore Lite model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html), you can execute the inference process of the model in Runtime. This tutorial describes how to perform cloud-side inference by using the [JAVA interface](https://www.mindspore.cn/lite/api/en/master/index.html).
 
 Compared with C++ API, Java API can be called directly in Java Class, and users do not need to implement the code related to JNI layer, with better convenience. Running MindSpore Lite inference framework mainly consists of the following steps:
 
-1. Model reading: Export MindIR model via MindSpore or get MindIR model by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html).
+1. Model reading: Export MindIR model via MindSpore or get MindIR model by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html).
 2. Create configuration context: Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#mscontext) and save some basic configuration parameters used to guide model compilation and model execution, including device type, number of threads, CPU pinning, and enabling fp16 mixed precision inference.
 3. Model creation, loading and compilation: Before executing inference, you need to call [build](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#build) interface of [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) for model loading and model compilation. Both loading files and MappedByteBuffer are currently supported. The model loading phase parses the file or buffer into a runtime model.
 4. Input data: The model needs to be padded with data from the input Tensor before execution.
@@ -38,7 +38,7 @@ When using `Maven` as a build tool, you can copy `mindspore-lite-java.jar` to th
 
 ## Model Path
 
-To perform model inference with MindSpore Lite, you need to get the path of the `.mindir` model file in the file system converted by [Model Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html).
+To perform model inference with MindSpore Lite, you need to get the path of the `.mindir` model file in the file system converted by [Model Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html).
 
 ## Creating Configuration Context
 

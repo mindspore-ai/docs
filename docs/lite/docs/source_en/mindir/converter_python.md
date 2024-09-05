@@ -20,7 +20,7 @@ When the input model type is MindSpore, since it is already a `mindir` model, tw
 
 The following environment preparation is required for model conversion by using MindSpore Lite Python interface for cloud-side inference.
 
-- [Compile](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/build.html) or [download](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) whl installation package for MindSpore Lite cloud-side inference with Converter component.
+- [Compile](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html) or [download](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) whl installation package for MindSpore Lite cloud-side inference with Converter component.
 
     > Currently, the installation package corresponding to Python 3.7 is available for download. If you need other Python versions, please use the compile function to generate the installation package.
 
@@ -73,7 +73,7 @@ mindspore_lite
 
 MindSpore Lite cloud-side inference model converter provides various attribute settings that users can choose to use according to their needs.
 
-Detailed descriptions of the parameters and their correspondence to the parameters in [Offline Conversion of Inference Models](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) are provided below.
+Detailed descriptions of the parameters and their correspondence to the parameters in [Offline Conversion of Inference Models](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) are provided below.
 
 | Converter attributes | Types of attributes  | Parameters corresponding to the offline conversion of the model  | Description  | Value range | Remarks |
 | -------- | ----- | -------- | ------- | ---- | ---- |
@@ -91,7 +91,7 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 | save_type | ModelType | `--saveType=<SAVETYPE>` | Required | Set the model type needs to be export. | ModelType.MINDIR | The MINDIR model uses the MindSpore Lite cloud-side inference installation package |
 | weight_fp16 | bool | `--fp16=<FP16>` | Set whether the weights in float32 data format need to be stored in float16 data format during model serialization. | True, False | - |
 
-> - The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/build.html) time and only supports Linux x86 platforms. `decrypt_key` and `encrypt_key` are string expressed in hexadecimal. For example, if encrypt_key is set as "30313233343637383939414243444546", the corresponding hexadecimal expression is '(b)0123456789ABCDEF' . Linux platform users can use the' xxd 'tool to convert the key expressed in bytes into hexadecimal expressions.
+> - The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at [compile](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html) time and only supports Linux x86 platforms. `decrypt_key` and `encrypt_key` are string expressed in hexadecimal. For example, if encrypt_key is set as "30313233343637383939414243444546", the corresponding hexadecimal expression is '(b)0123456789ABCDEF' . Linux platform users can use the' xxd 'tool to convert the key expressed in bytes into hexadecimal expressions.
 >
 > - `input_shape` is a attribute that the user may need to set in the following scenarios:
 >
@@ -110,7 +110,7 @@ Detailed descriptions of the parameters and their correspondence to the paramete
 
 Usage scenario: Convert a third-party model into a MindSpore model. You can call the convert method multiple times to convert multiple models.
 
-Detailed descriptions of the parameters and their correspondence to the parameters in [Offline Conversion of Inference Models](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html) are provided below.
+Detailed descriptions of the parameters and their correspondence to the parameters in [Offline Conversion of Inference Models](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) are provided below.
 
 || Method of convert parameters | Tpyes of parameters  | Parameters corresponding to the offline conversion of the model  |  Required or not   |  Description of parameters  | Value range | Default values |
 | -------- | ----- | -------- | ------- | ----- | --- | ---- |

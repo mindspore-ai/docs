@@ -101,7 +101,7 @@ app
 
 ### Configuring MindSpore Lite Dependencies
 
-Related library files are required for Android to call MindSpore Android AAR. You can use MindSpore Lite [source code](https://www.mindspore.cn/lite/docs/en/master/use/build.html) to generate the `mindspore-lite-maven-{version}.zip` library file package (including the `mindspore-lite-{version}.aar` library file) and decompress it.
+Related library files are required for Android to call MindSpore Android AAR. You can use MindSpore Lite [source code](https://www.mindspore.cn/lite/docs/en/master/build/build.html) to generate the `mindspore-lite-maven-{version}.zip` library file package (including the `mindspore-lite-{version}.aar` library file) and decompress it.
 
 > version: version number in the output file, which is the same as the version number of the built branch code.
 

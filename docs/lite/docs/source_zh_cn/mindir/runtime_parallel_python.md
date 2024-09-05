@@ -6,7 +6,7 @@
 
 MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html)，多model并发推理现支持Atlas 200/300/500推理产品、Atlas推理系列产品（配置Ascend310P AI 处理器）、Atlas训练系列产品、Nvidia GPU、CPU后端。
 
-通过MindSpore导出`mindir`模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)转换获得`mindir`模型后，即可在Runtime中执行模型的并发推理流程。本教程介绍如何使用[Python接口](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)执行多model并发推理。
+通过MindSpore导出`mindir`模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得`mindir`模型后，即可在Runtime中执行模型的并发推理流程。本教程介绍如何使用[Python接口](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)执行多model并发推理。
 
 使用MindSpore Lite并发推理主要包括以下步骤：
 
@@ -23,7 +23,7 @@ MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://mind
 
 1. 以下代码样例来自于[使用Python接口执行云侧推理示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_python)。
 
-2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore/lite/examples/cloud_infer/quick_start_parallel_python`目录。可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)和输入数据[input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin)。
+2. 通过MindSpore导出MindIR模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得MindIR模型，并将其拷贝到`mindspore/lite/examples/cloud_infer/quick_start_parallel_python`目录。可以下载MobileNetV2模型文件[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.mindir)和输入数据[input.bin](https://download.mindspore.cn/model_zoo/official/lite/quick_start/input.bin)。
 
 3. 通过pip安装Python3.7版本的MindSpore Lite云侧推理Python包。
 
@@ -74,7 +74,7 @@ context.cpu.inter_op_parallel_num = THREAD_NUM
 context.parallel.workers_num = WORKERS_NUM
 ```
 
-> Context的配置方法详细见[Context](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_python.html#创建配置上下文)。
+> Context的配置方法详细见[Context](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_python.html#创建配置上下文)。
 >
 > 多model并发推理不支持FP32类型数据推理，绑核只支持不绑核或者绑大核，不支持绑中核的参数设置，且不支持配置绑核列表。
 

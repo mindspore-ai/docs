@@ -34,7 +34,7 @@ MINDSPORE_LITE_VERSION=2.0.0 bash ./lite-cpu-pip.sh
 >
 > If MindSpore Lite inference framework by using the script download fails, please manually download [MindSpore Lite model cloud-side inference framework](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) corresponding to the hardware platform of CPU and operating system of Linux-x86_64 or Linux-aarch64. Users can use the `uname -m` command to query the operating system in the terminal, and copy it to the `mindspore/lite/examples/cloud_infer/quick_start_python` directory.
 >
-> If you need to use MindSpore Lite corresponding to Python 3.7 or above, please [compile](https://mindspore.cn/lite/docs/en/master/use/cloud_infer/build.html) locally. Note that the Python API module compilation depends on Python >= 3.7.0, NumPy >= 1.17.0, wheel >= 0.32.0. After successful compilation, copy the Whl installation package generated in the `output/` directory to the `mindspore/lite/examples/cloud_infer/quick_start_python` directory.
+> If you need to use MindSpore Lite corresponding to Python 3.7 or above, please [compile](https://mindspore.cn/lite/docs/en/master/mindir/build.html) locally. Note that the Python API module compilation depends on Python >= 3.7.0, NumPy >= 1.17.0, wheel >= 0.32.0. After successful compilation, copy the Whl installation package generated in the `output/` directory to the `mindspore/lite/examples/cloud_infer/quick_start_python` directory.
 >
 > If the MindSpore Lite installation package does not exist in the `mindspore/lite/examples/cloud_infer/quick_start_python` directory, the one-click installation script will uninstall the currently installed MindSpore Lite and then download and install MindSpore Lite from the Huawei image. Otherwise, if the MindSpore Lite installation package exists in the directory, it will be installed first.
 >
@@ -65,7 +65,7 @@ output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.000224
 
 Running MindSpore Lite inference framework mainly consists of the following steps:
 
-1. Model reading: Export MindIR model via MindSpore or get MindIR model by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/cloud_infer/converter_tool.html).
+1. Model reading: Export MindIR model via MindSpore or get MindIR model by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html).
 2. Create configuration context: Create a configuration context [Context](https://mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Context.html#mindspore_lite.Context) and save some basic configuration parameters used to guide model compilation and model execution.
 3. Model creation and compilation: Before executing inference, you need to call [build_from_file](https://mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model.build_from_file) interface of [Model](https://mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.Model.html#mindspore_lite.Model) for model loading and model compilation. The model loading phase parses the file cache into a runtime model. The model compilation phase can take more time, so it is recommended that the model be created once, compiled once and performed inference about multiple times.
 4. Input data: The input data needs to be padded before the model execution.

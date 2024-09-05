@@ -6,7 +6,7 @@
 
 图算融合是MindSpore特有的网络性能优化技术。它可以通过自动分析和优化现有网络计算图逻辑，并结合目标硬件能力，对计算图进行计算化简和替代、算子拆分和融合、算子特例化编译等优化，以提升设备计算资源利用率，实现对网络性能的整体优化。相比传统优化技术，图算融合具有多算子跨边界联合优化、与MindSpore AKG（基于Polyhedral的算子编译器）跨层协同、即时编译等独特优势。
 
-MindSpore Lite的whl包和tar包默认内置AKG。通过源码安装的MindSpore Lite，需确保已[安装llvm 12.0.1](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/build.html#安装llvm-可选)。通过源码安装ascend后端则需要额外安装[git-lfs](https://git-lfs.com/)。
+MindSpore Lite的whl包和tar包默认内置AKG。通过源码安装的MindSpore Lite，需确保已[安装llvm 12.0.1](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/build.html#安装llvm-可选)。通过源码安装ascend后端则需要额外安装[git-lfs](https://git-lfs.com/)。
 
 ## AKG安装方法
 
@@ -47,7 +47,7 @@ opt_level=2
 
 编译Ascend后端的ONNX模型：
 
-Ascend后端需要安装AKG融合算子实现，具体方法见[部署Ascend自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool_ascend.html#%E9%83%A8%E7%BD%B2ascend%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AE%97%E5%AD%90)。
+Ascend后端需要安装AKG融合算子实现，具体方法见[部署Ascend自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool_ascend.html#%E9%83%A8%E7%BD%B2ascend%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AE%97%E5%AD%90)。
 
 部署完成之后执行如命令即可转换ONNX模型。
 

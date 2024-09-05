@@ -6,7 +6,7 @@
 
 ### Environment Preparation
 
-Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/master/use/build.html), CUDA and TensorRT is required as well. Current version supports [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) and [TensorRT 6.0.1.5](https://developer.nvidia.com/nvidia-tensorrt-6x-download), and [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) and [TensorRT 8.5.1](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
+Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/master/build/build.html), CUDA and TensorRT is required as well. Current version supports [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) and [TensorRT 6.0.1.5](https://developer.nvidia.com/nvidia-tensorrt-6x-download), and [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.1-download-archive) and [TensorRT 8.5.1](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
 
 Install the appropriate version of CUDA and set the installed directory as environment variable `${CUDA_HOME}`. Our build script uses this environment variable to seek CUDA.
 
@@ -20,17 +20,17 @@ In the Linux environment, use the build.sh script in the root directory of MindS
 bash build.sh -I x86_64
 ```
 
-For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux-environment-compilation).
+For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/master/build/build.html#linux-environment-compilation).
 
 ### Integration
 
 - Integration instructions
 
     When developers need to integrate the use of TensorRT features, it is important to note:
-    - [Configure the TensorRT backend](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html#configuring-the-gpu-backend),
-    For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html).
+    - [Configure the TensorRT backend](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html#configuring-the-gpu-backend),
+    For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html).
 
-    - Compile and execute the binary. If you use dynamic linking, please refer to [Compilation Output](https://www.mindspore.cn/lite/docs/en/master/use/build.html#directory-structure) with compilation option `-I x86_64`.
+    - Compile and execute the binary. If you use dynamic linking, please refer to [Compilation Output](https://www.mindspore.cn/lite/docs/en/master/build/build.html#directory-structure) with compilation option `-I x86_64`.
     Please set environment variables to dynamically link related libs.
 
     ```bash

@@ -216,10 +216,10 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">编译端侧MindSpore Lite</span>
+											<span class="doc-head-content">端侧编译</span>
 										</div>
 										<div class="doc-article-desc">
 										本章节介绍如何快速编译出MindSpore Lite。
@@ -228,7 +228,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/build.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/build.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">编译云侧MindSpore Lite</span>
@@ -240,7 +240,7 @@ MindSpore Lite文档
 								</a>
 							</div>
                             <div class="doc-article-item all os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool_ascend.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool_ascend.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Ascend转换工具功能说明</span>
@@ -252,7 +252,7 @@ MindSpore Lite文档
 								</a>
 							</div>
                             <div class="doc-article-item all os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool_graph_kernel.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool_graph_kernel.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">图算融合配置说明（beta特性）</span>
@@ -263,34 +263,8 @@ MindSpore Lite文档
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Data-Preparation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/one_hour_introduction.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">端侧推理快速入门</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										本文通过使用MindSpore Lite对一个模型执行端侧推理为例，向大家介绍MindSpore Lite的基础功能和用法。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Linux language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Data-Preparation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/one_hour_introduction_cloud.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">云侧推理快速入门</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										本文通过使用MindSpore Lite对一个模型执行云侧推理为例，向大家介绍MindSpore Lite的基础功能和用法。
-										</div>
-									</div>
-								</a>
-							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/infer/quick_start_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">体验C++极简推理Demo</span>
@@ -303,7 +277,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-java stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/infer/quick_start_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">体验Java极简推理Demo</span>
@@ -316,7 +290,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-c stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_c.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/infer/quick_start_c.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">体验C语言极简推理Demo</span>
@@ -329,7 +303,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/infer/quick_start.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">基于JNI接口的Android应用开发</span>
@@ -342,7 +316,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android language-java stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/image_segmentation.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/infer/image_segmentation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">基于Java接口的Android应用开发</span>
@@ -358,7 +332,7 @@ MindSpore Lite文档
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">训练后量化</span>
+											<span class="doc-head-content">量化</span>
 										</div>
 										<div class="doc-article-desc">
 										对于已经训练好的float32模型，通过训练后量化将其转为int8，不仅能减小模型大小，而且能显著提高推理性能。
@@ -370,7 +344,7 @@ MindSpore Lite文档
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/image_processing.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">预处理图像数据</span>
+											<span class="doc-head-content">数据预处理</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -380,10 +354,10 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使用C++接口执行推理</span>
+											<span class="doc-head-content">模型推理（C++接口）</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -393,10 +367,10 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android language-java stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使用Java接口执行推理</span>
+											<span class="doc-head-content">模型推理（Java接口）</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -455,7 +429,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Environment-Preparation stage-Model-Export stage-Model-Converting stage-Model-Loading stage-Model-Training stage-Data-Preparation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/train_lenet.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/train/train_lenet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">基于C++接口实现端侧训练</span>
@@ -468,7 +442,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-java stage-Environment-Preparation stage-Model-Converting stage-Model-Loading stage-Model-Training stage-Data-Preparation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/train_lenet_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/train/train_lenet_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">基于Java接口实现端侧训练</span>
@@ -481,10 +455,10 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Model-Training stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_train_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/train/runtime_train_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使用C++接口执行训练</span>
+											<span class="doc-head-content">端侧训练（C++接口）</span>
 										</div>
 										<div class="doc-article-desc">
 										通过MindSpore Lite模型转换后，需在Runtime中完成模型的训练执行流程。本教程介绍如何使用C++接口编写训练代码。
@@ -493,10 +467,10 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-java stage-Model-Training stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_train_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/train/runtime_train_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使用Java接口执行训练</span>
+											<span class="doc-head-content">端侧训练（Java接口）</span>
 										</div>
 										<div class="doc-article-desc">
 										通过MindSpore Lite模型转换后，需在Runtime中完成模型的训练执行流程。本教程介绍如何使用Java接口编写训练代码。
@@ -532,7 +506,7 @@ MindSpore Lite文档
 								<a href="https://mindspore.cn/lite/docs/zh-CN/master/use/delegate.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使用Delegate支持第三方AI框架接入</span>
+											<span class="doc-head-content">使用Delegate支持第三方AI框架接入（端上）</span>
 										</div>
 										<div class="doc-article-desc">
 										如果用户想通过MindSpore Lite框架调度到其他框架的推理流程，可参考本文。
@@ -541,10 +515,10 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux stage-Environment-Preparation stage-Data-Preparation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">推理模型离线转换</span>
+											<span class="doc-head-content">端侧模型转换</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -554,7 +528,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_train.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/train/converter_train.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">训练模型转换</span>
@@ -626,7 +600,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用C++接口执行云侧推理</span>
@@ -639,7 +613,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-java stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用Java接口执行云侧推理</span>
@@ -652,7 +626,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-python stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_python.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用Python接口执行云侧推理</span>
@@ -665,7 +639,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_parallel_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_parallel_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用C++接口执行并发推理</span>
@@ -678,7 +652,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-java stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_parallel_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_parallel_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用Java接口执行并发推理</span>
@@ -691,7 +665,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-python stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/runtime_parallel_python.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_parallel_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用Python接口执行并发推理</span>
@@ -704,7 +678,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Data-Preparation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">推理模型离线转换</span>
@@ -717,7 +691,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-python stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/converter_python.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/zh-CN/master/mindir/converter_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用Python接口模型转换</span>
@@ -729,7 +703,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Windows stage-Environment-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cloud_infer/benchmark_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/benchmark_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">benchmark</span>

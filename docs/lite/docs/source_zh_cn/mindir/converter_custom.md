@@ -4,11 +4,11 @@
 
 ## 概述
 
-MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)除了基本的模型转换功能之外，还支持对接自定义AscendC算子和自定义融合Pass，满足一些特殊场景对模型功能、性能的要求。
+MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)除了基本的模型转换功能之外，还支持对接自定义AscendC算子和自定义融合Pass，满足一些特殊场景对模型功能、性能的要求。
 
 ## 对接自定义算子
 
-本教程介绍了MindSpore Lite如何对接三方ONNX模型中的自定义算子，来使能云侧转换和推理。本教程建立在已熟悉[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)的基础上。
+本教程介绍了MindSpore Lite如何对接三方ONNX模型中的自定义算子，来使能云侧转换和推理。本教程建立在已熟悉[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)的基础上。
 
 对ONNX模型中的自定义算子节点有如下要求：
 
@@ -32,11 +32,11 @@ MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/
 
 2. 已按照如上要求修改了ONNX文件中的Custom算子；
 
-3. 已有MindSpore Lite云侧环境。详情请参考[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)。
+3. 已有MindSpore Lite云侧环境。详情请参考[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)。
 
 ### 模型转换与推理
 
-按照[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)的流程即可。
+按照[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)的流程即可。
 
 ## 对接自定义融合Pass
 
@@ -44,7 +44,7 @@ MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/
 
 ### 准备工作
 
-1. 已有MindSpore Lite云侧环境。详情请参考[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)。
+1. 已有MindSpore Lite云侧环境。详情请参考[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)。
 
 2. 已有ONNX文件。
 
@@ -61,4 +61,4 @@ REG_SCHEDULED_PASS(POSITION_ASCEND, {"PassTutorial"})
 
 ### 编译、转换、推理
 
-编译流程详见[端侧注册机制](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_register.html)，转换、推理详见[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)。
+编译流程详见[端侧注册机制](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_register.html)，转换、推理详见[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)。

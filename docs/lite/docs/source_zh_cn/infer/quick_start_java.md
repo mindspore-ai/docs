@@ -8,7 +8,7 @@
 
 使用MindSpore Lite执行推理主要包括以下步骤：
 
-1. 模型加载(可选)：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型。
+1. 模型加载(可选)：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)转换得到的`.ms`模型。
 2. 创建配置上下文：创建配置上下文[MSContext](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#mscontext)，保存会话所需的一些基本配置参数，用于指导图编译和图执行。主要包括`deviceType`：设备类型、`threadNum`：线程数、`cpuBindMode`：CPU绑定模式、`enable_float16`：是否优先使用float16算子。
 3. 图编译：在图执行前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)的[build](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#build)接口进行图编译，主要进行子图切分、算子选型调度。这部分会耗费较多时间，所以建议[model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)创建一次，编译一次，多次执行。
 4. 输入数据：图执行之前需要向输入Tensor中填充数据。
@@ -18,7 +18,7 @@
 
 ![img](../images/lite_runtime.png)
 
-> 如需查看MindSpore Lite高级用法，请参考[使用Runtime执行推理（Java）](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_java.html)。
+> 如需查看MindSpore Lite高级用法，请参考[使用Runtime执行推理（Java）](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_java.html)。
 
 ## 构建与运行
 
