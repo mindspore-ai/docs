@@ -7,36 +7,43 @@ MindSpore Lite Documentation
 =======================================
 
 .. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: Obtain MindSpore Lite
-   :hidden:
- 
-   use/downloads
-   use/build
-   use/cloud_infer/build
+    :glob:
+    :maxdepth: 1
+    :caption: Building
+    :hidden:
+
+    build/build
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Quick Start
+   :caption: Model Converter
    :hidden:
 
-   quick_start/one_hour_introduction
-   quick_start/one_hour_introduction_cloud
+   converter/converter_tool
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Device-side Inference
+   :caption: Model Inference
    :hidden:
 
-   device_infer_example
-   use/post_training_quantization
-   use/data_preprocessing
-   use/runtime
-   use/micro
-   use/asic
+   infer/runtime_cpp
+   infer/runtime_java
+   infer/runtime_c
+   infer/device_infer_example
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: MindIR Offline Inference
+   :hidden:
+
+   mindir/runtime
+   mindir/runtime_parallel
+   mindir/runtime_distributed
+   mindir/converter
+   mindir/benchmark
 
 .. toctree::
    :glob:
@@ -44,48 +51,30 @@ MindSpore Lite Documentation
    :caption: Device-side Training
    :hidden:
 
-   device_train_example
-   use/runtime_train
+   train/converter_train
+   train/runtime_train
+   train/device_train_example
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Third-party hardware docking
+   :caption: Advanced Development
    :hidden:
 
-   use/register
-   use/delegate
+   advanced/third_party
+   advanced/image_processing
+   advanced/quantization
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Device-side Tools
+   :caption: Tools
    :hidden:
 
-   use/converter
-   use/benchmark
-   use/cropper_tool
-   use/visual_tool
-   use/obfuscator_tool
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: Cloud-side Inference
-   :hidden:
-
-   use/cloud_infer/runtime
-   use/cloud_infer/runtime_parallel
-   use/cloud_infer/runtime_distributed
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: Cloud-side Tools
-   :hidden:
-   
-   use/cloud_infer/converter
-   use/cloud_infer/benchmark
+   tools/benchmark
+   tools/cropper_tool
+   tools/visual_tool
+   tools/obfuscator_tool
 
 .. toctree::
    :glob:
@@ -97,7 +86,7 @@ MindSpore Lite Documentation
    operator_list_lite
    operator_list_codegen
    model_lite
-   troubleshooting_guide
+   faq
    log
 
 .. toctree::

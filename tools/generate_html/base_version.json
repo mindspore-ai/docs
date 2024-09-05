@@ -133,18 +133,6 @@
                 {
                     "label": "API",
                     "url": "/lite/api/zh-CN/master/index.html"
-                },
-                {
-                    "label": "FAQ",
-                    "url": "/lite/faq/zh-CN/master/faq.html"
-                },
-                {
-                    "label": "示例",
-                    "url": "/lite/examples?version=master"
-                },
-                {
-                    "label": "模型",
-                    "url": "/lite/models?version=master"
                 }
             ],
             "en": [
@@ -163,18 +151,6 @@
                 {
                     "label": "API",
                     "url": "/lite/api/en/master/index.html"
-                },
-                {
-                    "label": "FAQ",
-                    "url": "/lite/faq/en/master/faq.html"
-                },
-                {
-                    "label": "Examples",
-                    "url": "/lite/examples/en?version=master"
-                },
-                {
-                    "label": "Models",
-                    "url": "/lite/models/en?version=master"
                 }
             ]
         },

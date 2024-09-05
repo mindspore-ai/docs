@@ -7,36 +7,43 @@ MindSpore Lite文档
 =================================
 
 .. toctree::
-	:glob:
-	:maxdepth: 1
-	:caption: 获取MindSpore Lite
-	:hidden:
- 
-	use/downloads
-	use/build
-	use/cloud_infer/build
- 
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 快速入门
-   :hidden:
+    :glob:
+    :maxdepth: 1
+    :caption: 编译
+    :hidden:
 
-   quick_start/one_hour_introduction
-   quick_start/one_hour_introduction_cloud
+    build/build
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 端侧推理
+   :caption: 模型转换
    :hidden:
 
-   device_infer_example
-   use/post_training_quantization
-   use/data_preprocessing
-   use/runtime
-   use/micro
-   use/asic
+   converter/converter_tool
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 模型推理
+   :hidden:
+
+   infer/runtime_cpp
+   infer/runtime_java
+   infer/runtime_c
+   infer/device_infer_example
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: MindIR离线推理
+   :hidden:
+
+   mindir/runtime
+   mindir/runtime_parallel
+   mindir/runtime_distributed
+   mindir/converter
+   mindir/benchmark
 
 .. toctree::
    :glob:
@@ -44,49 +51,30 @@ MindSpore Lite文档
    :caption: 端侧训练
    :hidden:
 
-   device_train_example
-   use/runtime_train
+   train/converter_train
+   train/runtime_train
+   train/device_train_example
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 端侧第三方接入
+   :caption: 高阶开发
    :hidden:
 
-   use/register
-   use/delegate
+   advanced/third_party
+   advanced/image_processing
+   advanced/quantization
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 端侧工具
+   :caption: 工具
    :hidden:
 
-   use/converter
-   use/benchmark
-   use/cropper_tool
-   use/visual_tool
-   use/obfuscator_tool
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 云侧推理
-   :hidden:
-
-   use/cloud_infer/runtime
-   use/cloud_infer/runtime_parallel
-   use/cloud_infer/runtime_distributed
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 云侧工具
-   :hidden:
-   
-   use/cloud_infer/converter
-   use/cloud_infer/benchmark
-   
+   tools/benchmark
+   tools/cropper_tool
+   tools/visual_tool
+   tools/obfuscator_tool
 
 .. toctree::
    :glob:
@@ -98,7 +86,7 @@ MindSpore Lite文档
    operator_list_lite
    operator_list_codegen
    model_lite
-   troubleshooting_guide
+   faq
    log
 
 .. toctree::
