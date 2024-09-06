@@ -67,4 +67,5 @@ Distributed parallel scenarios on how to use dynamic shapes can be found in the 
 
 ## API Support
 
-In the current version, only part of the API in MindSpore can support dynamic shape compilation and execution, and we will continue to improve the ability to support the full range of APIs. The current [mindspore.mint](https://www.mindspore.cn/docs/en/master/api_python/mindspore.mint.html) interfaces support dynamic shape.
+1. In the current version, only part of the API in MindSpore can support dynamic shape compilation and execution, and we will continue to improve the ability to support the full range of APIs. The current [mindspore.mint](https://www.mindspore.cn/docs/en/master/api_python/mindspore.mint.html) interfaces support dynamic shape.
+2. List[Tensor] and Tuple[Tensor] are not supported by set_inputs api for now.
