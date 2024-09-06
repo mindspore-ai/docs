@@ -78,4 +78,4 @@ Large Model Development
    faq/model_related
    faq/func_related
    faq/mindformers_contribution
-   faq/openmind_contribution
+   faq/modelers_contribution
