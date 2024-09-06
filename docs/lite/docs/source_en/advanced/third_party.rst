@@ -8,6 +8,6 @@ Third-party Access
 .. toctree::
    :maxdepth: 1
 
-   register
-   delegate
-   asic
+   third_party/register
+   third_party/delegate
+   third_party/asic

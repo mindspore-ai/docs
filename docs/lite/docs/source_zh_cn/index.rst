@@ -39,6 +39,7 @@ MindSpore Lite文档
    :caption: MindIR离线推理
    :hidden:
 
+   mindir/build
    mindir/runtime
    mindir/runtime_parallel
    mindir/runtime_distributed
@@ -61,9 +62,9 @@ MindSpore Lite文档
    :caption: 高阶开发
    :hidden:
 
-   advanced/third_party
    advanced/image_processing
    advanced/quantization
+   advanced/third_party
 
 .. toctree::
    :glob:
@@ -71,9 +72,9 @@ MindSpore Lite文档
    :caption: 工具
    :hidden:
 
+   tools/visual_tool
    tools/benchmark
    tools/cropper_tool
-   tools/visual_tool
    tools/obfuscator_tool
 
 .. toctree::
@@ -82,12 +83,12 @@ MindSpore Lite文档
    :caption: 参考文档
    :hidden:
 
-   architecture_lite
-   operator_list_lite
-   operator_list_codegen
-   model_lite
-   faq
-   log
+   reference/architecture_lite
+   reference/operator_list_lite
+   reference/operator_list_codegen
+   reference/model_lite
+   reference/faq
+   reference/log
 
 .. toctree::
    :maxdepth: 1

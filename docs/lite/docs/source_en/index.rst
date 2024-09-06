@@ -39,6 +39,7 @@ MindSpore Lite Documentation
    :caption: MindIR Offline Inference
    :hidden:
 
+   mindir/build
    mindir/runtime
    mindir/runtime_parallel
    mindir/runtime_distributed
@@ -61,9 +62,9 @@ MindSpore Lite Documentation
    :caption: Advanced Development
    :hidden:
 
-   advanced/third_party
    advanced/image_processing
    advanced/quantization
+   advanced/third_party
 
 .. toctree::
    :glob:
@@ -71,9 +72,9 @@ MindSpore Lite Documentation
    :caption: Tools
    :hidden:
 
+   tools/visual_tool
    tools/benchmark
    tools/cropper_tool
-   tools/visual_tool
    tools/obfuscator_tool
 
 .. toctree::
@@ -82,12 +83,12 @@ MindSpore Lite Documentation
    :caption: References
    :hidden:
 
-   architecture_lite
-   operator_list_lite
-   operator_list_codegen
-   model_lite
-   faq
-   log
+   reference/architecture_lite
+   reference/operator_list_lite
+   reference/operator_list_codegen
+   reference/model_lite
+   reference/faq
+   reference/log
 
 .. toctree::
    :glob:
