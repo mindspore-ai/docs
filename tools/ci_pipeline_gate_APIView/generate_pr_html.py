@@ -482,7 +482,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
     split_dict = {'mindspore_cn': "docs/api/api_python/",
                   'mindspore_en': "docs/api/api_python_en/",
                   'mindspore_py': "mindspore/python/mindspore/",
-                  'mindspore_yaml': "mindspore/core/ops/ops_def/"}
+                  'mindspore_yaml': "mindspore/ops/ops_def/yaml/"}
 
     wb_data = requests.get(pf_url)  # 引入requests库来请求数据
     result = wb_data.json()  # 将请求的数据转换为json格式
