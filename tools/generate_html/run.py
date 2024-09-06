@@ -179,7 +179,6 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         if data[i]['name'] == "lite":
             ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
             ArraySource[data[i]['name'] + '/api'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/faq'] = data[i]["branch"]
         elif data[i]['name'] == "tutorials":
             ArraySource[data[i]['name']] = data[i]["branch"]
             # ArraySource[data[i]['name'] + '/application'] = data[i]["branch"]
@@ -540,7 +539,6 @@ if __name__ == "__main__":
                 theme_list.append(dir_name)
             elif dir_name == 'lite':
                 theme_list.append(dir_name + '/docs')
-                theme_list.append(dir_name + '/faq')
                 theme_list.append(dir_name + '/api')
             else:
                 theme_list.append(dir_name + '/docs')
