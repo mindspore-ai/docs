@@ -229,6 +229,13 @@ Graph Compilation and Execution
      - This environment variable will be removed subsequently and is not recommended.
 
        Ascend AI processor environment and graph compilation grade O2 process use only.
+   * - MS_ENABLE_GRACEFUL_EXIT
+     - Enable training process exit gracefully
+     - Integer
+     - 1: Enable graceful exit.
+
+       No setting or other value: Disable graceful exit.
+     - Rely on the callback function to enable graceful exit. Refer to the `Example of Graceful Exit <https://www.mindspore.cn/docs/en/master/model_train/debug/process_graceful_exit.html>`_ .
    * - MS_DEV_BOOST_INFER
      - Compile optimization switch for graph compilation. This switch accelerates the type inference module to speed up network compilation.
      - Integer
