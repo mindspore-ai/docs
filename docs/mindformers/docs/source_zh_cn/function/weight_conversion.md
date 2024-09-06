@@ -41,7 +41,7 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 python convert_weight.py --model llama2 --input_path /home/user/torch_weights --output_path /home/user/ms_weights/llama.ckpt
 ```
 
-通过以上步骤，可将HuggingFace权重成功转换为MindFormers权重，方便在Mindformers中继续模型训练或推理。
+通过以上步骤，可将HuggingFace权重成功转换为MindFormers权重，方便在MindFormers中继续模型训练或推理。
 
 ## 已支持模型
 
