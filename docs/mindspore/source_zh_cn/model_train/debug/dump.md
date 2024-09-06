@@ -469,7 +469,7 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float
         - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据或算子类型数据。仅在op_debug_mode设置为0时支持指定算子dump。op_debug_mode设置为非0值时，此字段的设置失效，Dump只会保存溢出算子的数据或者异常算子的数据。
         - `path`：Dump保存数据的绝对路径。
         - `net_name`：自定义的网络名称，例如："ResNet50"。
-        - `iteration`：指定需要Dump的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。仅在op_debug_mode设置为0时支持保存指定迭代，op_debug_mode设置为3或4时不支持指定迭代。
+        - `iteration`：指定需要Dump的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。仅在op_debug_mode设置为0时支持保存指定迭代，op_debug_mode设置为3或4时不支持指定迭代。注意，使能Ascend O2模式下Dump时，sink size只能设置为1。
         - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。Ascend O2模式下Dump统计信息只有在`file_format`设置为`npy`时可以成功，若在`file_format`设置为`bin`时选"statistic"或"full"便会错误退出。保存统计信息仅支持op_debug_mode设置为0的场景。默认取值为"tensor"。
         - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
         - `kernels`：该项可以配置两种格式：
@@ -1013,3 +1013,4 @@ GE dump的目录结构如下：
 - complex64和complex128仅支持保存为npy文件，不支持保存为统计值信息。
 - Print算子内部有一个输入参数为string类型，string类型不属于Dump支持的数据类型，所以在脚本中包含Print算子时，会有错误日志，这不会影响其它类型数据的保存。
 - 使能Ascend O2模式下Dump时，不支持同时使用set_context(ascend_config={"exception_dump": "2"})配置轻量异常dump; 支持同时使用set_context(ascend_config={"exception_dump": "1"})配置全量异常dump。
+- 使能Ascend O2模式下Dump时，sink size只能设置为1。用户通常可以使用model.train()或ms.data_sink()接口配置sink size。下沉模式配置可参考使用说明链接<https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/sink_mode.html>。
