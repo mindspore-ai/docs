@@ -218,11 +218,13 @@ Note：
 
 - `timeline_limit` (int, optional) - Set the maximum storage size of the timeline file (unit M). When using this parameter, `op_time` must be set to true. Default value: 500.
 
-- `data_process` (bool, optional) - Indicates whether to collect data to prepare performance data. Default value: true.
+- `data_process` (bool, optional) - Indicates whether to collect data to prepare performance data. Default value: false.
 
-- `parallel_strategy` (bool, optional) - Indicates whether to collect parallel policy performance data. Default value: true.
+- `parallel_strategy` (bool, optional) - Indicates whether to collect parallel policy performance data. Default value: false.
 
 - `profile_framework` (str, optional) - Whether to collect host time, it must be one of ["all", "time", null]. Default: null.
+
+- `with_stack` (bool, optional) - Whether to collect frame host call stack data on the Python side. This data is presented in the form of a flame graph in the timeline. When using this parameter, the parameter op_time must be set to true. Default value: false .
 
 Method 3：Enable Dynamic Profile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

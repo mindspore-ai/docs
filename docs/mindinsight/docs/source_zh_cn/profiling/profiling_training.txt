@@ -217,11 +217,13 @@
 
 - `timeline_limit` (int, 可选) - 设置限制timeline文件存储上限大小（单位M），使用此参数时，`op_time` 必须设置成true。默认值：500。
 
-- `data_process` (bool, 可选) - 表示是否收集数据准备性能数据，默认值：true。
+- `data_process` (bool, 可选) - 表示是否收集数据准备性能数据，默认值：false。
 
-- `parallel_strategy` (bool, 可选) - 表示是否收集并行策略性能数据，默认值：true。
+- `parallel_strategy` (bool, 可选) - 表示是否收集并行策略性能数据，默认值：false。
 
-- `profile_framework` (str, 可选) - 是否需要收集Host侧的内存和时间，可选参数为["all", "time", null]。默认值："all"。
+- `profile_framework` (str, 可选) - 是否需要收集Host侧时间，可选参数为["all", "time", null]。默认值：null。
+
+- `with_stack` (bool, 可选) - 是否收集Python侧的调用栈的数据，此数据在timeline中采用火焰图的形式呈现，使用此参数时， `op_time` 必须设置成 true 。默认值： false。
 
 方式三：动态profile使能
 ~~~~~~~~~~~~~~~~~~~~~~~

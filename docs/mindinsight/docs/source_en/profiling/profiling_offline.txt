@@ -195,7 +195,7 @@ parallel_strategy_*.json                        Operator parallel strategy to ca
 
 profiler_info_*.json                            Profiler Configuration and other info
 
-dataset_*.csv                                   The time consuming of various stages of data processing module
+dataset_*.csv                                   The time consuming of various stages of data processing module (To collect these must turn the profiler on from the beginning of the task at least before the step 1 starts)
 ==============================================  ==============================================================================
 
 - \* represents rank id
