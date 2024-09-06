@@ -47,14 +47,26 @@ the other is through Callback based on step or epoch to open and close Profiler.
 
     .. code:: python
 
+       import os
        import mindspore as ms
+       from mindspore.communication import get_rank
+
+       def get_real_rank():
+           """get rank id"""
+           try:
+               return get_rank()
+           except RuntimeError:
+               return int(os.getenv("RANK_ID", "0"))
 
        class StopAtStep(ms.Callback):
            def __init__(self, start_step, stop_step):
                super(StopAtStep, self).__init__()
                self.start_step = start_step
                self.stop_step = stop_step
-               self.profiler = ms.Profiler(start_profile=False, output_path='./data_step')
+               # Set the path for performance data to disks as rank_id
+               rank_id = get_real_rank()
+               output_path = os.path.join("profiler_data", f"rank_{rank_id}")
+               self.profiler = ms.Profiler(start_profile=False, output_path=output_path)
 
            def on_train_step_begin(self, run_context):
                cb_params = run_context.original_args()
@@ -78,7 +90,10 @@ the other is through Callback based on step or epoch to open and close Profiler.
               super(StopAtEpoch, self).__init__()
               self.start_epoch = start_epoch
               self.stop_epoch = stop_epoch
-              self.profiler = ms.Profiler(start_profile=False, output_path='./data_epoch')
+               # Set the path for performance data to disks as rank_id
+               rank_id = get_real_rank()
+               output_path = os.path.join("profiler_data", f"rank_{rank_id}")
+               self.profiler = ms.Profiler(start_profile=False, output_path=output_path)
 
           def on_train_epoch_begin(self, run_context):
               cb_params = run_context.original_args()
@@ -208,3 +223,173 @@ Note：
 - `parallel_strategy` (bool, optional) - Indicates whether to collect parallel policy performance data. Default value: true.
 
 - `profile_framework` (str, optional) - Whether to collect host time, it must be one of ["all", "time", null]. Default: null.
+
+Method 3：Enable Dynamic Profile
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+mindspore.profiler.DynamicProfilerMonitor provides the ability to dynamically modify the configuration parameters of the profiler without interrupting the training process. The following is an example of the generated JSON configuration file for initialization.
+
+.. code:: python
+
+   {
+      "start_step": -1,
+      "stop_step": -1,
+      "aicore_metrics": -1,
+      "profiler_level": -1,
+      "profile_framework": -1,
+      "analyse_mode": -1,
+      "profile_communication": false,
+      "parallel_strategy": false,
+      "with_stack": false,
+      "data_simplification": true
+   }
+
+- `start_step` (int, mandatory) - Sets the number of steps at which the Profiler will start acquisition, as a relative value, with the first step of training being 1. The default value of -1 means that acquisition will not start throughout the training process.
+
+- `stop_step` (int, mandatory) - Sets the number of steps at which the Profiler starts and stops, as a relative value. The first step of training is 1, which needs to be satisfied that stop_step is greater than or equal to start_step. The default value of -1 means that acquisition will not be started throughout the training process.
+
+- `aicore_metrics` (int, optional) - Set to collect AI Core metrics data, the value range is consistent with Profiler. The default value of -1 means no AI Core metrics are collected.
+
+- `profiler_level` (int, optional) - Sets the performance data collection level, 0 for ProfilerLevel.Level0, 1 for ProfilerLevel.Level1, 2 for ProfilerLevel.Level2. The default value is -1, indicating that the performance data collection level is not controlled.
+
+- `profile_framework` (int, optional) - Set the category of host information to be collected, 0 for “all”, 1 for “time”. Default value is -1, which means no host information will be collected.
+
+- `analyse_mode` (int, optional) - Set the mode of online parsing, it corresponds to the analyse_mode parameter of mindspore.Profiler.analyse interface, 0 means “sync”, 1 means “async”. The default value is -1, which means online parsing is not used.
+
+- `profile_communication` (bool, optional) - Set whether to collect communication performance data in multi-device training. True indicates that communication performance data is collected, while false, the default value, indicates that communication performance data is not collected.
+
+- `parallel_strategy` (bool, optional) - Set whether to collect parallel strategy performance data. True indicates that parallel strategy performance data is collected, while false, the default value, indicates that parallel strategy performance data is not collected.
+
+- `with_stack` (bool, optional) - Set whether to capture call stack information. True indicates that the call stack information is collected, and false, the default value, indicates that the call stack information is not collected.
+
+- `data_simplification` (bool, optional) - Set to enable data simplification, true means on, false means off. The default value is true, which means data simplification is enabled.
+
+- Example 1: Use model.train for network training, register DynamicProfilerMonitor to model.train.
+
+   - Step 1: Add DynamicProfilerMonitor to the training code to register it to the training flow.
+
+     .. code:: python
+
+         import numpy as np
+         from mindspore import nn
+         from mindspore.train import Model
+         import mindspore as ms
+         import mindspore.dataset as ds
+         from mindspore.profiler import DynamicProfilerMonitor
+
+         class Net(nn.Cell):
+             def __init__(self):
+                 super(Net, self).__init__()
+                 self.fc = nn.Dense(2, 2)
+
+             def construct(self, x):
+                 return self.fc(x)
+
+
+         def generator():
+             for i in range(2):
+                 yield (np.ones([2, 2]).astype(np.float32), np.ones([2]).astype(np.int32))
+
+
+         def train(net):
+             optimizer = nn.Momentum(net.trainable_params(), 1, 0.9)
+             loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
+             data = ds.GeneratorDataset(generator, ["data", "label"])
+
+             # The cfg_path parameter is the path to the folder where the configuration file is to be shared, which needs to be accessible by all nodes in a cluster scenario
+             # The output_path parameter is the path where the dynamic profile data is saved.
+             profile_callback = DynamicProfilerMonitor(cfg_path="./dyn_cfg", output_path="./dynprof_data")
+             model = Model(net, loss, optimizer)
+             model.train(10, data, callbacks=[profile_callback])
+
+
+         if __name__ == '__main__':
+             ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
+
+             # Train Mode
+             net = Net()
+             train(net)
+
+   - Step 2: Pull up the training process and dynamically modify the configuration file to realize dynamic collection of performance data. After pulling up the training, DynamicProfilerMonitor will generate the configuration file profiler_config.json under the specified cfg_path, and the user can dynamically edit the configuration file, such as modifying it to the following configuration, which means that DynamicProfilerMonitor will start collecting performance data at the 10th step of training, and the online parsing will stop at the 10th step.
+
+     .. code:: python
+
+        {
+          "start_step": 10,
+          "stop_step": 10,
+          "aicore_metrics": -1,
+          "profiler_level": -1,
+          "profile_framework": -1,
+          "analyse_mode": 0,
+          "profile_communication": false,
+          "parallel_strategy": true,
+          "with_stack": true,
+          "data_simplification": false
+        }
+
+- Example 2：DynamicProfilerMonitor is used in MindFormers.
+
+    - Step 1: Add DynamicProfilerMonitor to MindFormers to register it to the training process. Modify the _build_profile_cb function in mindformers/trainer/trainer.py to change its default ProfileMonitor to DynamicProfilerMonitor, and the modification example is as follows.
+
+      .. code:: python
+
+          def _build_profile_cb(self):
+            """build profile callback from config."""
+            if self.config.profile:
+                sink_size = self.config.runner_config.sink_size
+                sink_mode = self.config.runner_config.sink_mode
+                if sink_mode:
+                    if self.config.profile_start_step % sink_size != 0:
+                        self.config.profile_start_step -= self.config.profile_start_step % sink_size
+                        self.config.profile_start_step = max(self.config.profile_start_step, sink_size)
+                        logger.warning("profile_start_step should divided by sink_size, \
+                            set profile_start_step to %s", self.config.profile_start_step)
+                    if self.config.profile_stop_step % sink_size != 0:
+                        self.config.profile_stop_step += self.config.profile_stop_step % sink_size
+                        self.config.profile_stop_step = max(self.config.profile_stop_step, \
+                            self.config.profile_start_step + sink_size)
+                        logger.warning("profile_stop_step should divided by sink_size, \
+                            set profile_stop_step to %s", self.config.profile_stop_step)
+
+                start_profile = self.config.init_start_profile
+                profile_communication = self.config.profile_communication
+
+                # Add DynamicProfilerMonitor to replace the existing ProfileMonitor.
+                from mindspore.profiler import DynamicProfilerMonitor
+
+                # The cfg_path parameter is the path to the folder where the configuration file is to be shared, which needs to be accessible by all nodes in a cluster scenario
+                # The output_path parameter is the path where the dynamic profile data is saved.
+                profile_cb = DynamicProfilerMonitor(cfg_path="./dyn_cfg", output_path="./dynprof_data")
+
+                # The original ProfileMonitor is no longer used.
+                # profile_cb = ProfileMonitor(
+                #     start_step=self.config.profile_start_step,
+                #     stop_step=self.config.profile_stop_step,
+                #     start_profile=start_profile,
+                #     profile_communication=profile_communication,
+                #     profile_memory=self.config.profile_memory,
+                #     output_path=self.config.profile_output,
+                #     config=self.config)
+                logger.warning(
+                    "Please reduce the data sample size with 'num_samples' in MindSpore data format according to "
+                    "https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html.")
+                logger.warning("In profiler mode, auto-tune will be turned off.")
+                self.config.auto_tune = False
+                self.config.profile_cb = profile_cb
+
+    - Step 2: After enabling the profile function in the model's yaml configuration file and pulling up the training, DynamicProfilerMonitor will generate the configuration file profiler_config.json under the specified cfg_path path after pulling up the training, and the user can dynamically edit the configuration file, for example, modify it to the following configuration, which means that DynamicProfilerMonitor will start to collect at the 10th step of training and stop collecting at the 10th step to parse online.
+
+      .. code:: python
+
+          {
+             "start_step": 10,
+             "stop_step": 10,
+             "aicore_metrics": -1,
+             "profiler_level": -1,
+             "profile_framework": -1,
+             "analyse_mode": 0,
+             "profile_communication": false,
+             "parallel_strategy": true,
+             "with_stack": true,
+             "data_simplification": false
+          }

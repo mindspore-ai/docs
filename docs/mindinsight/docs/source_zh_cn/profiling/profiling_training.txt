@@ -47,14 +47,26 @@
 
     .. code:: python
 
+       import os
        import mindspore as ms
+       from mindspore.communication import get_rank
+
+       def get_real_rank():
+           """get rank id"""
+           try:
+               return get_rank()
+           except RuntimeError:
+               return int(os.getenv("RANK_ID", "0"))
 
        class StopAtStep(ms.Callback):
            def __init__(self, start_step, stop_step):
                super(StopAtStep, self).__init__()
                self.start_step = start_step
                self.stop_step = stop_step
-               self.profiler = ms.Profiler(start_profile=False, output_path='./data_step')
+               # 按照rank_id设置性能数据落盘路径
+               rank_id = get_real_rank()
+               output_path = os.path.join("profiler_data", f"rank_{rank_id}")
+               self.profiler = ms.Profiler(start_profile=False, output_path=output_path)
 
            def on_train_step_begin(self, run_context):
                cb_params = run_context.original_args()
@@ -78,7 +90,10 @@
                super(StopAtEpoch, self).__init__()
                self.start_epoch = start_epoch
                self.stop_epoch = stop_epoch
-               self.profiler = ms.Profiler(start_profile=False, output_path='./data_epoch')
+               # 按照rank_id设置性能数据落盘路径
+               rank_id = get_real_rank()
+               output_path = os.path.join("profiler_data", f"rank_{rank_id}")
+               self.profiler = ms.Profiler(start_profile=False, output_path=output_path)
 
            def on_train_epoch_begin(self, run_context):
                cb_params = run_context.original_args()
@@ -207,3 +222,173 @@
 - `parallel_strategy` (bool, 可选) - 表示是否收集并行策略性能数据，默认值：true。
 
 - `profile_framework` (str, 可选) - 是否需要收集Host侧的内存和时间，可选参数为["all", "time", null]。默认值："all"。
+
+方式三：动态profile使能
+~~~~~~~~~~~~~~~~~~~~~~~
+
+mindspore.profiler.DynamicProfilerMonitor提供用户动态修改Profiler配置参数的能力，修改配置时无需中断训练流程，初始化生成的JSON配置文件示例如下。
+
+.. code:: python
+
+   {
+      "start_step": -1,
+      "stop_step": -1,
+      "aicore_metrics": -1,
+      "profiler_level": -1,
+      "profile_framework": -1,
+      "analyse_mode": -1,
+      "profile_communication": false,
+      "parallel_strategy": false,
+      "with_stack": false,
+      "data_simplification": true
+   }
+
+- `start_step` (int, 必选) - 设置Profiler开始采集的步数，为相对值，训练的第一步为1。默认值-1，表示在整个训练流程不会开始采集。
+
+- `stop_step` (int, 必选) - 设置Profiler开始停止的步数，为相对值，训练的第一步为1，需要满足stop_step大于等于start_step。默认值-1，表示在整个训练流程不会开始采集。
+
+- `aicore_metrics` (int, 可选) - 设置采集AI Core指标数据，取值范围与Profiler一致。默认值-1，表示不采集AI Core指标。
+
+- `profiler_level` (int, 可选) - 设置采集性能数据级别，0代表ProfilerLevel.Level0，1代表ProfilerLevel.Level1，2代表ProfilerLevel.Level2。默认值-1，表示不控制性能数据采集级别。
+
+- `profile_framework` (int, 可选) - 设置收集的host信息类别，0代表"all"，1代表"time"。默认值-1，表示不采集host信息。
+
+- `analyse_mode` (int, 可选) - 设置在线解析的模式，对应mindspore.Profiler.analyse接口的analyse_mode参数，0代表"sync"，1代表"async"。默认值-1，表示不使用在线解析。
+
+- `profile_communication` (bool, 可选) - 设置是否在多设备训练中采集通信性能数据，true代表采集，false代表不采集。默认值false，表示不采集集通信性能数据。
+
+- `parallel_strategy` (bool, 可选) - 设置是否采集并行策略性能数据，true代表采集，false代表不采集。默认值false，表示不采集并行策略性能数据。
+
+- `with_stack` (bool, 可选) - 设置是否采集调用栈信息，true代表采集，false代表不采集。默认值false，表示不采集调用栈。
+
+- `data_simplification` (bool, 可选) - 设置开启数据精简，true代表开启，false代表不开启。默认值true，表示开启数据精简。
+
+- 样例一：使用model.train进行网络训练，将DynamicProfilerMonitor注册到model.train。
+
+  - 步骤一：在训练代码中添加DynamicProfilerMonitor，将其注册到训练流程。
+
+    .. code:: python
+
+       import numpy as np
+       from mindspore import nn
+       from mindspore.train import Model
+       import mindspore as ms
+       import mindspore.dataset as ds
+       from mindspore.profiler import DynamicProfilerMonitor
+
+       class Net(nn.Cell):
+           def __init__(self):
+               super(Net, self).__init__()
+               self.fc = nn.Dense(2, 2)
+
+           def construct(self, x):
+               return self.fc(x)
+
+
+       def generator():
+           for i in range(2):
+               yield (np.ones([2, 2]).astype(np.float32), np.ones([2]).astype(np.int32))
+
+
+       def train(net):
+           optimizer = nn.Momentum(net.trainable_params(), 1, 0.9)
+           loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
+           data = ds.GeneratorDataset(generator, ["data", "label"])
+
+           # cfg_path参数为共享配置文件的文件夹路径，多机场景下需要满足此路径所有节点都能访问到
+           # output_path参数为动态profile数据保存路径
+           profile_callback = DynamicProfilerMonitor(cfg_path="./dyn_cfg", output_path="./dynprof_data")
+           model = Model(net, loss, optimizer)
+           model.train(10, data, callbacks=[profile_callback])
+
+
+       if __name__ == '__main__':
+           ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
+
+           # Train Mode
+           net = Net()
+           train(net)
+
+  - 步骤二：拉起训练流程，动态修改配置文件实现动态采集性能数据。拉起训练后，DynamicProfilerMonitor会在指定的cfg_path路径下生成配置文件profiler_config.json，用户可以动态编辑该配置文件，比如修改为下面的配置，表示DynamicProfilerMonitor将会在训练的第10个step开始采集，第10个step停止采集后在线解析。
+
+    .. code:: python
+
+       {
+         "start_step": 10,
+         "stop_step": 10,
+         "aicore_metrics": -1,
+         "profiler_level": -1,
+         "profile_framework": -1,
+         "analyse_mode": 0,
+         "profile_communication": false,
+         "parallel_strategy": true,
+         "with_stack": true,
+         "data_simplification": false
+       }
+
+- 样例二：MindFormers中使用DynamicProfilerMonitor。
+
+  - 步骤一：在MindFormers中添加DynamicProfilerMonitor，将其注册到训练流程。修改mindformers/trainer/trainer.py中的_build_profile_cb函数，将其默认的ProfileMonitor修改为DynamicProfilerMonitor，修改示例如下。
+
+    .. code:: python
+
+      def _build_profile_cb(self):
+        """build profile callback from config."""
+        if self.config.profile:
+            sink_size = self.config.runner_config.sink_size
+            sink_mode = self.config.runner_config.sink_mode
+            if sink_mode:
+                if self.config.profile_start_step % sink_size != 0:
+                    self.config.profile_start_step -= self.config.profile_start_step % sink_size
+                    self.config.profile_start_step = max(self.config.profile_start_step, sink_size)
+                    logger.warning("profile_start_step should divided by sink_size, \
+                        set profile_start_step to %s", self.config.profile_start_step)
+                if self.config.profile_stop_step % sink_size != 0:
+                    self.config.profile_stop_step += self.config.profile_stop_step % sink_size
+                    self.config.profile_stop_step = max(self.config.profile_stop_step, \
+                        self.config.profile_start_step + sink_size)
+                    logger.warning("profile_stop_step should divided by sink_size, \
+                        set profile_stop_step to %s", self.config.profile_stop_step)
+
+            start_profile = self.config.init_start_profile
+            profile_communication = self.config.profile_communication
+
+            # 添加DynamicProfilerMonitor，替换原有的ProfileMonitor
+            from mindspore.profiler import DynamicProfilerMonitor
+
+            # cfg_path参数为共享配置文件的文件夹路径，多机场景下需要满足此路径所有节点都能访问到
+            # output_path参数为动态profile数据保存路径
+            profile_cb = DynamicProfilerMonitor(cfg_path="./dyn_cfg", output_path="./dynprof_data")
+
+            # 原始的ProfileMonitor不再使用
+            # profile_cb = ProfileMonitor(
+            #     start_step=self.config.profile_start_step,
+            #     stop_step=self.config.profile_stop_step,
+            #     start_profile=start_profile,
+            #     profile_communication=profile_communication,
+            #     profile_memory=self.config.profile_memory,
+            #     output_path=self.config.profile_output,
+            #     config=self.config)
+            logger.warning(
+                "Please reduce the data sample size with 'num_samples' in MindSpore data format according to "
+                "https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html.")
+            logger.warning("In profiler mode, auto-tune will be turned off.")
+            self.config.auto_tune = False
+            self.config.profile_cb = profile_cb
+
+  - 步骤二：在模型的yaml配置文件中开启profile功能后拉起训练，拉起训练后，DynamicProfilerMonitor会在指定的cfg_path路径下生成配置文件profiler_config.json，用户可以动态编辑该配置文件，比如修改为下面的配置，表示DynamicProfilerMonitor将会在训练的第10个step开始采集，第10个step停止采集后在线解析。
+
+    .. code:: python
+
+       {
+         "start_step": 10,
+         "stop_step": 10,
+         "aicore_metrics": -1,
+         "profiler_level": -1,
+         "profile_framework": -1,
+         "analyse_mode": 0,
+         "profile_communication": false,
+         "parallel_strategy": true,
+         "with_stack": true,
+         "data_simplification": false
+       }
