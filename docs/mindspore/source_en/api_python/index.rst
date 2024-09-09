@@ -25,5 +25,6 @@ API
    mindspore.boost
    mindspore.numpy
    mindspore.scipy
+   mindspore.utils
    mindspore.experimental
    ../note/env_var_list
