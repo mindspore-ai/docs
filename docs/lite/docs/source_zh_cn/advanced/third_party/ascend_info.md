@@ -149,7 +149,7 @@ converter得到转换模型后，使用配套的Runtime推理框架执行推理�
 ## 执行benchmark
 
 MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模型前向推理的执行耗时进行定量分析（性能），还可以通过指定模型输出进行可对比的误差分析（精度）。
-关于推理工具的一般说明，可参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html)。
+关于推理工具的一般说明，可参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_tool.html)。
 
 - 测性能
 
@@ -254,4 +254,4 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 
 ## 算子支持
 
-算子支持见[Lite 算子支持](https://www.mindspore.cn/lite/docs/zh-CN/master/operator_list_lite.html)。
+算子支持见[Lite 算子支持](https://www.mindspore.cn/lite/docs/zh-CN/master/reference/operator_list_lite.html)。

@@ -39,7 +39,7 @@ MindSpore Lite 模型转换工具提供了多个参数，目前工具仅支持Li
 
 > 参数名称和数值之间使用等号连接且不能有空格。
 >
-> `configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html)。
+> `configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[量化](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/quantization.html)。
 
 ### 模型转换示例
 

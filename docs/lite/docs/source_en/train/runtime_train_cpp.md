@@ -487,4 +487,4 @@ The function `Serialization` calls the function `ExportModel` actually. The `Exp
 
 You can load the saved model to perform training or inference.
 
-> Please use [benchmark_train](https://www.mindspore.cn/lite/docs/en/master/use/benchmark_train_tool.html) to measure the performance and accuarcy of the trained models.
+> Please use [benchmark_train](https://www.mindspore.cn/lite/docs/en/master/tools/benchmark_train_tool.html) to measure the performance and accuarcy of the trained models.

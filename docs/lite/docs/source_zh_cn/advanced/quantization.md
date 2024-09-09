@@ -275,7 +275,7 @@ provider=ge
 
 全量化计算激活值的量化参数，用户需要提供校准数据集。校准数据集最好来自真实推理场景，能表征模型的实际输入情况，数量在100 - 500个左右，**且校准数据集需处理成`NHWC`的Format**。
 
-针对图片数据，目前支持通道调整、归一化、缩放、裁剪等预处理的功能。用户可以根据推理时所需的预处理操作，设置相应的[参数](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html#数据预处理)。
+针对图片数据，目前支持通道调整、归一化、缩放、裁剪等预处理的功能。用户可以根据推理时所需的预处理操作，设置相应的[参数](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/quantization.html#数据预处理)。
 
 用户配置全量化至少需要配置`[common_quant_param]`、`[data_preprocess_param]`、`[full_quant_param]`
 

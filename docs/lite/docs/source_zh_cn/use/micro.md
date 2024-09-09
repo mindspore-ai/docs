@@ -352,7 +352,7 @@ support_parallel=true
 
 #### 配置文件
 
-通过在配置文件中配置量化控制参数可以实现int8量化推理代码生成，关于量化控制参数（通用量化参数`common_quant_param`和全量化参数`full_quant_param`）的说明，请参考转换工具的[训练后量化文档](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html)。
+通过在配置文件中配置量化控制参数可以实现int8量化推理代码生成，关于量化控制参数（通用量化参数`common_quant_param`和全量化参数`full_quant_param`）的说明，请参考转换工具的[量化文档](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/quantization.html)。
 
 一个 `Cortex-M` 平台的int8量化推理代码生成配置文件的示例如下：
 
@@ -1120,7 +1120,7 @@ name: int8toft32_Softmax-7_post0/output-0, DataType: 43, Elements: 10, Shape: [1
 
 ## 自定义算子
 
-使用前请先参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register.html)了解基本概念。Micro目前仅支持custom类型的自定义算子注册和实现，暂不支持内建算子（比如conv2d、fc等）的注册和自定义实现。下面以海思Hi3516D开发板为例，说明如何在Micro中使用自定义算子。
+使用前请先参考[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/third_party/register.html)了解基本概念。Micro目前仅支持custom类型的自定义算子注册和实现，暂不支持内建算子（比如conv2d、fc等）的注册和自定义实现。下面以海思Hi3516D开发板为例，说明如何在Micro中使用自定义算子。
 
 模型生成代码方式与非自定义算子模型保持一致：
 

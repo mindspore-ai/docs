@@ -235,7 +235,7 @@ Graph Compilation and Execution
      - 1: Enable graceful exit.
 
        No setting or other value: Disable graceful exit.
-     - Rely on the callback function to enable graceful exit. Refer to the `Example of Graceful Exit <https://www.mindspore.cn/docs/en/master/model_train/debug/process_graceful_exit.html>`_ .
+     - Rely on the callback function to enable graceful exit. Refer to the `Example of Graceful Exit <https://www.mindspore.cn/docs/en/master/model_train/train_availability/graceful_exit.html>`_ .
    * - MS_DEV_BOOST_INFER
      - Compile optimization switch for graph compilation. This switch accelerates the type inference module to speed up network compilation.
      - Integer
@@ -307,7 +307,7 @@ Dump Debugging
      - Description
    * - MINDSPORE_DUMP_CONFIG
      - Specify the path of the configuration file that the `cloud-side Dump <https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html#synchronous-dump>`_
-       or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#dump>`_ depends on.
+       or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html#dump>`_ depends on.
      - String
      - File path, which can be a relative path or an absolute path.
      - 

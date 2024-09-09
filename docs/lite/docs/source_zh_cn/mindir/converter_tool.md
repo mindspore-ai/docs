@@ -1,4 +1,4 @@
-# 端侧模型转换
+# 推理模型离线转换
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/mindir/converter_tool.md)
 

@@ -133,4 +133,4 @@ Mean bias of all nodes: 0%
 
 ### Dump
 
-For specific usage, please refer to [Dump](https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#dump) of `benchmark` tool.
+For specific usage, please refer to [Dump](https://www.mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html#dump) of `benchmark` tool.

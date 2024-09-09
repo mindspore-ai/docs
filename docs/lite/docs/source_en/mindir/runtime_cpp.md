@@ -18,7 +18,7 @@ Using the MindSpore Lite inference framework consists of the following main step
 4. Input data: The input data needs to be padded before the model can be executed.
 5. Execute inference: Use Predict of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) for model inference.
 
-![img](../../images/lite_runtime.png)
+![img](../images/lite_runtime.png)
 
 ## Preparation
 
@@ -324,7 +324,7 @@ int SpecifyInputDataExample(const std::string &model_path, const std::string &de
 
 ## Compilation and Execution
 
-Set the environment variables as described in the [Environment Variables section in Quilk Start](https://www.mindspore.cn/lite/docs/en/master/quick_start/one_hour_introduction_cloud.html#environment-variables), and then compile the prograom as follows:
+Set the environment variables as described in the Environment Variables section in Quilk Start, and then compile the prograom as follows:
 
 ```bash
 mkdir build && cd build

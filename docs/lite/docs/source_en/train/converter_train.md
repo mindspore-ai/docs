@@ -39,7 +39,7 @@ The table below shows the parameters used in the MindSpore Lite model training t
 
 > The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 >
-> The calibration dataset configuration file uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [post training quantization](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html).
+> The calibration dataset configuration file uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [quantization](https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html).
 
 ### Example
 

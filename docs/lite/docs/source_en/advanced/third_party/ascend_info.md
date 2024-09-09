@@ -150,7 +150,7 @@ After obtaining the converted model, use the matching runtime inference framewor
 ## Executinge the Benchmark
 
 MindSpore Lite provides a benchmark test tool, which can be used to perform quantitative (performance) analysis on the execution time consumed by forward inference of the MindSpore Lite model. In addition, you can perform comparative error (accuracy) analysis based on the output of a specified model.
-For details about the inference tool, see [benchmark](https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html).
+For details about the inference tool, see [benchmark](https://www.mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html).
 
 - Performance analysis
 
@@ -255,4 +255,4 @@ The batch size is not fixed in certain scenarios. For example, in the target det
 
 ## Supported Operators
 
-For details about the supported operators, see [Lite Operator List](https://www.mindspore.cn/lite/docs/en/master/operator_list_lite.html).
+For details about the supported operators, see [Lite Operator List](https://www.mindspore.cn/lite/docs/en/master/reference/operator_list_lite.html).
