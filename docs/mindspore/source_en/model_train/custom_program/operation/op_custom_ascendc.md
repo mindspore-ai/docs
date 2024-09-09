@@ -1,10 +1,10 @@
-# Ascend C Custom Operator Development and Usage
+# AOT-Type Custom Operators(Ascend)
 
 [![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/custom_program/operation/op_custom_ascendc.md)
 
 ## Overview
 
-CANN provides AI developers with the Ascend C programming language, which is a highly efficient programming language specifically designed for operator development. This guide will start from the user's perspective and provide a detailed introduction to the development and usage process of custom operators based on Ascend C, including the following key steps:
+Custom operators of the AOT (Ahead-Of-Time) type adopt a pre-compilation approach, requiring network developers to manually implement the corresponding source code files for operator functions based on specific interfaces. The source code files need to be compiled into dynamic link libraries in advance, and then during network runtime, the framework will automatically invoke and execute the functions within these dynamic link libraries. The AOT-type custom operators support the Ascend C programming language on the Ascend platform, an efficient programming language specifically designed for operator development. This guide will start from the user's perspective and provide a detailed introduction to the development and usage process of custom operators based on Ascend C, including the following key steps:
 
 1. **Custom Operator Development**: Using the Ascend C programming language, you can quickly develop custom operators, reducing development costs and improving development efficiency.
 2. **Offline Compilation and Deployment**: After completing the operator development, perform offline compilation to ensure that the operator can run efficiently on the Ascend AI processor and deploy it.

@@ -614,6 +614,13 @@ Dump调试
        INF/NAN模式：遵循IEEE 754标准，根据定义输出INF/NAN的计算结果。
 
        仅限Atlas A2训练系列产品使用。
+   * - MS_CUSTOM_AOT_WHITE_LIST
+     - 指定自定义算子使用动态库的合法路径。
+     - String
+     - 动态库的合法路径。框架会根据自定义算子使用动态库的合法路径进行校验。当自定义算子使用的动态库不在路径中时，框架会报错并拒绝使用对应动态库。当设置为空时，不对自定义算子动态库进行校验。
+     
+       默认：空。
+     -
 
 常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/master/faq/operators_compile.html>`_ 。
 

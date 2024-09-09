@@ -1,26 +1,214 @@
-# Advanced Usage of aot-type Custom Operators
+# AOT-Type Custom Operators(CPU/GPU)
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/custom_program/operation/op_custom_aot.md)
 
 ## Overview
 
-aot-type custom operators use a pre-compilation approach, which requires developers to write the source code files for the corresponding function based on a specific interface, and compile the source code files in advance into a dynamic link library.
-Then, during network runtime, the framework will automatically call and execute the function in the dynamic link library.
-aot-type custom operators support CUDA language for GPU platforms and C and C++ languages for CPU platforms. For basic knowledge of developing aot-type custom operators, please refer to [basic tutorial](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom.html#defining-custom-operator-of-aot-type).
+AOT (Ahead-Of-Time) type of custom operators employ a pre-compilation approach, which requires network developers to manually write the source code files corresponding to the operator implementation functions based on specific interfaces. These source code files need to be compiled into dynamic link libraries (DLLs) in advance. During network runtime, the framework will automatically invoke and execute the functions contained within these dynamic link libraries.
 
-In this tutorial, we will demonstrate advanced features of aot-type custom operators, including:
+AOT-type custom operators support the CUDA language for GPU platforms and the C and C++ languages for CPU platforms. For the development of custom operators specifically on the Ascend platform, please refer to [AOT-Type Custom Operators(Ascend)](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_ascendc.html).
 
-- auto-compilation of aot type custom operators;
-- Attributes and intermediate variables of aot-type custom operators;
-- Dynamic shape support for aot-type custom operators.
+In this tutorial, we provide several simple use cases of AOT-type custom operators on both CPU and GPU platforms as demonstrations. For more comprehensive examples of AOT-type custom operators, please refer to the [examples](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot.py) section in the MindSpore source code.
+
+## The Introduction to the General Usage Features of AOT-type Custom Operators
+
+The custom operator of AOT-type adopts the AOT compilation method, which requires network developers to hand-write the source code file of the operator implementation based on a specific interface and compiles the source code file into a dynamic library in advance, and then the framework will automatically call and run the function defined in the dynamic library. In terms of the development language of the operator implementation, the GPU platform supports CUDA, and the CPU platform supports C and C++. The interface specification of the operator implementation in the source file is as follows:
+
+```cpp
+extern "C" int func_name(int nparam, void **params, int *ndims, int64_t **shapes, const char **dtypes, void *stream, void *extra);
+```
+
+where the function name `func_name` can be replaced with any valid function name. The return value is of type int. 0 means normal exit, and non-zero means an exception occurs. The meaning of the parameter list is as follows:
+
+- nparam (int): The number of inputs and outputs. For example, if an operator has 2 inputs and 1 output, then the value of nparam is 3.
+- params (void \*\*): An array of pointers, with each pointer pointing to the input or output data. For example, if an operator has 2 inputs and 1 output, then params[0] points to the first input data, params[1] points to the second input data, params[2] points to the output data.
+- ndims (int \*): An array of integers, each integer represents the dimensions of the shape of input or output. For example, if params[i] is a tensor with shape [1024, 1024], then ndims[i] is 2.
+- shapes (int64_t \*\*): An array of shapes, each element in array represents for the shape of input or output. For example, if params[i] is a tensor with shape [1024, 1024], then shapes[i][0] is 1024, shapes[i][1] is 1024.
+- dtypes (const char \*\*): Array of data types, each element in array represents for the data type of input or output. The value of data type can be "float32", "float16", "float", "float64", "int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", "bool".
+- stream (void \*): Stream pointer, only used in Cuda file.
+- extra (void \*): Used for further extension.
+
+In the Python script, the format for the `func` input in `Custom` is `Path_To_Func:CustomFunc`, where `CustomFunc` is the name of the function above and `Path_To_Func` is the path to the corresponding function source file or binary library.
+
+> - MindSpore recognizes the automatic compilation through the file name suffix. To use the automatic compilation feature, please use source files with suffixes such as `cpp`, `cc`, or `cu`. Otherwise, MindSpore will treat it as a binary library path;
+> - To prevent malicious third-party libraries from tampering, please set the environment variable `MS_CUSTOM_AOT_WHITE_LIST` to the path of legitimate third-party libraries. Only files in the directories specified by `MS_CUSTOM_AOT_WHITE_LIST` and its subdirectories will be called by custom operators.
+
+Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic.
+
+If the operator only supports some specific input and output data types, the operator information needs to be registered. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_adv.html#registering-the-operator-information).
+
+The following examples introduce the development process of AOT-type custom operator on GPU platform and CPU platform, where the custom operator implements the function of adding two input tensors.
+
+### A GPU Example
+
+Use the CUDA language to write the source file add.cu for the operator implementation:
+
+```cpp
+#define THREADS 1024
+__global__ void CustomAddKernel(float *input1, float *input2, float *output, size_t size) {
+  auto idx = blockIdx.x * THREADS + threadIdx.x;
+  if (idx < size) {
+    output[idx] = input1[idx] + input2[idx];
+  }
+}
+
+extern "C" int CustomAdd(int nparam, void **params, int *ndims, int64_t **shapes, const char **dtypes, void *stream,
+                         void *extra) {
+  cudaStream_t custream = static_cast<cudaStream_t>(stream);
+  if (nparam != 3) return 1;
+  void *input1 = params[0];
+  void *input2 = params[1];
+  void *output = params[2];
+  size_t size = 1;
+
+  for (int i = 0; i < ndims[2]; i++) {
+    size *= shapes[2][i];
+  }
+  int n = size / THREADS;
+  for (int i = 0; i < nparam; i++) {
+    if (strcmp(dtypes[i], "float32") != 0) {
+      return 2;
+    }
+  }
+  CustomAddKernel<<<n + 1, THREADS, 0, custream>>>(static_cast<float *>(input1), static_cast<float *>(input2),
+                                                   static_cast<float *>(output), size);
+  return 0;
+}
+```
+
+Compile add.cu into a dynamic library add.so:
+
+```bash
+nvcc --shared -Xcompiler -fPIC -o add.so add.cu
+```
+
+Write the test case test_custom_aot.py:
+
+```python
+import numpy as np
+import mindspore as ms
+import mindspore.ops as ops
+
+ms.set_context(device_target="GPU")
+
+if __name__ == "__main__":
+    # Define a custom operator of aot type
+    op = ops.Custom("./add.so:CustomAdd", out_shape=lambda x, _: x, out_dtype=lambda x, _: x, func_type="aot")
+
+    x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
+    x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
+    print(output)
+```
+
+The following points need to be explained in this example:
+
+- In this example, you need to place test_custom_aot.py and add.so in the same directory. If add.so is in another directory, you need to replace the value of the first parameter of `Custom` primitive with the absolute path of add.so.
+- Use Python lambda functions to infer the output shape and data type, and pass them to the `out_shape` and `out_dtype` parameters of the `Custom` primitive. In this example, the lambda function indicates that the output shape and data type are the same as the information of the first input tensor.
+- The operator information is not registered, so the operator information of the custom operator will be inferred from the inputs.
+
+Execute case:
+
+```bash
+python test_custom_aot.py
+```
+
+The execution result is as follows:
+
+```text
+[[2. 2.]
+ [4. 4.]]
+```
+
+### A CPU Example
+
+Use C/C++ language to write the source file add.cc for the operator implementation:
+
+```cpp
+#include <string.h>
+using size_t = decltype(sizeof(int));
+using int64_t = decltype(sizeof(long));
+
+extern "C" int CustomAdd(int nparam, void **params, int *ndims, int64_t **shapes, const char **dtypes, void *stream, void *extra) {
+  if (nparam != 3) return 1;
+  float *input1 = static_cast<float *>(params[0]);
+  float *input2 = static_cast<float *>(params[1]);
+  float *output = static_cast<float *>(params[2]);
+  size_t size = 1;
+  for (int i = 0; i < ndims[2]; i++) {
+    size *= shapes[2][i];
+  }
+  for (int i = 0; i < nparam; i++) {
+    if (strcmp(dtypes[i], "float32") != 0) {
+      return 2;
+    }
+  }
+  for (int i = 0; i < size; i++) {
+    output[i] = input1[i] + input2[i];
+  }
+  return 0;
+}
+```
+
+Compile add.cc into a dynamic library add.so:
+
+```bash
+g++ --shared -fPIC -o add.so add.cc
+```
+
+Write the test case test_custom_aot.py:
+
+```python
+import numpy as np
+import mindspore as ms
+import mindspore.ops as ops
+
+ms.set_context(device_target="CPU")
+
+if __name__ == "__main__":
+    # Define a custom operator of aot type
+    op = ops.Custom("./add.so:CustomAdd", out_shape=lambda x, _: x, out_dtype=lambda x, _: x, func_type="aot")
+
+    x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
+    x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
+    output = op(ms.Tensor(x0), ms.Tensor(x1))
+    print(output)
+```
+
+The following points need to be explained in this example:
+
+- In this example, you need to place test_custom_aot.py and add.so in the same directory. If add.so is in another directory, you need to replace the value of the first parameter of `Custom` primitive with the absolute path of add.so.
+- Use Python lambda functions to infer the output shape and data type, and pass them to the `out_shape` and `out_dtype` parameters of the `Custom` primitive. In this example, the lambda function indicates that the output shape and data type are the same as the information of the first input tensor.
+- The operator information is not registered, so the operator information of the custom operator will be inferred from the inputs.
+
+Execute case:
+
+```bash
+python test_custom_aot.py
+```
+
+The execution result is as follows:
+
+```text
+[[2. 2.]
+ [4. 4.]]
+```
+
+For more complete examples of AOT-type custom operators, see the [use cases](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot.py) in the MindSpore source code.
+
+## The Introduction to the Advanced Usage Features of AOT-type Custom Operators
+
+In the rest of tutorial, we will demonstrate advanced features of AOT-type custom operators, including:
+
+- Auto-compilation of AOT-type custom operators;
+- Attributes and intermediate variables of AOT-type custom operators;
+- Dynamic shape support for AOT-type custom operators.
 
 For the complete source code of the example, check [here](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot_fused.py) in the MindSpore source code.
 
-## The Introduction to the Advanced Usage Features of aot-type Custom Operators
+### Auto-compilation of AOT-type Custom Operators
 
-### Auto-compilation of aot-type Custom Operators
-
-When the user's aot type custom operator file is a single file and does not require custom compilation options during compilation, users can use the automatic compilation feature.
+When the user's AOT-type custom operator file is a single file and does not require custom compilation options during compilation, users can use the automatic compilation feature.
 In this way, users will provide the source file for the implementation of the custom operator, and MindSpore will automatically compile the source file into a binary library.
 Currently, this function supports C++ file compilation based on GCC and CUDA file compilation based on NVCC. When using the automatic compilation function, there are several points to note:
 
@@ -32,7 +220,7 @@ Currently, this function supports C++ file compilation based on GCC and CUDA fil
     - CUDA 11(or higher version): `nvcc --shared -Xcompiler -fPIC -O3 -gencode arch=compute_80, code=sm_80 --use_fast_math --expt-relaxed-constexpr -D_GLIBCXX_USE_CXX11_ABI=0 -I./ -o $object_path, $source_path`
 - MindSpore requires the compilation option of `-D_ GLIBCXX_ USE_ CXX11_ ABI = 0`, so please avoid using a CUDA software stack with a version lower than 10.1.168 on GPU platforms.
 
-### Attributes and Intermediate Variables of aot-type Custom Operators
+### Attributes and Intermediate Variables of AOT-type Custom Operators
 
 Many commonly used operators have attributes, such as the kernel size, padding, and strides of the convlution operator.
 Operators with different attribute values have the same computational logic, with the only difference being the values of the attributes during initialization.
@@ -49,23 +237,23 @@ Here, we need to add the following intermediate variables and attributes to the 
 - `tmp` as an intermediate variable to record the intermediate result of addition;
 - `axis` as an attribute of type `int`, and `keep_dims` as an attribute of type `bool`.
 
-aot-type custom operators provide functionality to add attributes, and then we can define a class of custom operators with a single source code.
+AOT-type custom operators provide functionality to add attributes, and then we can define a class of custom operators with a single source code.
 These operators have the same computational logic but achieve different computational effects by assigning values to the attributes during operator initialization.
-Additionally, to allow MindSpore to manage memory allocation and release, aot-type custom operators provide interfaces to specify the size of intermediate variables, allowing MindSpore to allocate memory for computation.
+Additionally, to allow MindSpore to manage memory allocation and release, AOT-type custom operators provide interfaces to specify the size of intermediate variables, allowing MindSpore to allocate memory for computation.
 
-### Dynamic Shape Support for aot-type Custom Operators
+### Dynamic Shape Support for AOT-type Custom Operators
 
 Dynamic Shape refers to that the shapes of inputs or outputs of an operator depends on the specific operation and cannot be calculated in advance at compile time.
 Specifically, there are two cases: the shapes of the operator's inputs are unknown at compile time, and the shapes of the operator's outputs depend on the specific input values.
 The case that the shapes of the operator's inputs are unknown at compile time is more common.
 Any operator, regardless of their own calculation logic, needs to support this case if it is used in a network that supports dynamic shape inputs.
 
-Currently, the aot type custom operators support the dynamic shape scenario when the shape of the operator's input is unknown at compile time.
+Currently, the AOT-type custom operators support the dynamic shape scenario when the shape of the operator's input is unknown at compile time.
 This is achieved by defining a C++ version of the shape derivation function to support type derivation for custom operators in this scenario.
 
 It should be noted that custom operators do not yet support dynamic shape scenarios where the shape of the operator output depends on the value of a specific input.
 
-## The Introduction aot-type Custom Operator Advanced Usage Interface
+## The Introduction AOT-type Custom Operator Advanced Usage Interface
 
 ### Main Function
 
@@ -126,12 +314,12 @@ def attr(self, name=None, param_type=None, value_type=None, default_value=None, 
 
 Please refer to the [CustomRegOp](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop) interface documentation for the meaning of each parameter. When registering a custom operator of Aot type, we set the following four parameters:
 
-- `name`: the name of the attribute of the aot-type custom operator;
-- `param_type`: the parameter type of the attribute. For attributes of aot-type custom operators, this input is fixed to be "required", which means it is a required parameter;
-- `value_type`: the numerical type of the attribute. For attributes of aot-type custom operators, this input can be a specific numerical type or "all", which means no restrictions on the type;
+- `name`: the name of the attribute of the AOT-type custom operator;
+- `param_type`: the parameter type of the attribute. For attributes of AOT-type custom operators, this input is fixed to be "required", which means it is a required parameter;
+- `value_type`: the numerical type of the attribute. For attributes of AOT-type custom operators, this input can be a specific numerical type or "all", which means no restrictions on the type;
 - The last input needs to specify the input name as `value=`, and the input value is the value of the attribute.
 
-## Advanced Usage Example of aot-type Custom Operator
+## Advanced Usage Example of AOT-type Custom Operator
 
 Now we introduce the advanced usage of custom Aot operators using an example of a fused Add and ReduceSum operator. The operator first adds two inputs, and then performs sum operation along a certain axis. The basic calculation logic is as follows:
 
@@ -306,7 +494,7 @@ In the computation of ReduceSum, we used the attribute value of the operator, an
 
 ### Operator Definition File: test_custom_aot.py
 
-To add aot-type custom operator to a MindSpore network using the above functions, we create the file `test_custom_aot.py`.
+To add AOT-type custom operator to a MindSpore network using the above functions, we create the file `test_custom_aot.py`.
 
 ```python
 import numpy as np
@@ -391,13 +579,13 @@ Execution result is as follows:
 
 ## Introduction to Multi-Output Custom Operators of the AOT Type
 
-Custom operators of the AOT type support multiple outputs (outputs as tuples). The definition of the operator file for a custom operator with multiple outputs is similar to that of a single-output operator, but corresponding modifications need to be made based on the multi-output scenario, including:
+Custom operators of the AOT-type support multiple outputs (outputs as tuples). The definition of the operator file for a custom operator with multiple outputs is similar to that of a single-output operator, but corresponding modifications need to be made based on the multi-output scenario, including:
 
 - Operator inference function: The output of the `infer` function needs to be written in the form of a tuple;
 - Operator registration file: The names and data type information of multiple outputs need to be listed;
 - Operator computation function: It needs to identify the pointers corresponding to multiple outputs.
 
-Below, we demonstrate the method of defining a custom operator of the AOT type with multiple outputs using an example. For specific file usage, please refer to [here](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot.py#L405).
+Below, we demonstrate the method of defining a custom operator of the AOT-type with multiple outputs using an example. For specific file usage, please refer to [here](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot.py#L405).
 
 ### Operator Inference Function
 
