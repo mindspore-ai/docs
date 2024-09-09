@@ -8,7 +8,7 @@ For scenarios where large-scale neural network models have many parameters and c
 
 MindSpore Lite cloud-side distributed inference is only supported to run in Linux environment deployments with Atlas training series and Nvidia GPU as the supported device types. As shown in the figure below, the distributed inference is currently initiated by a multi-process approach, where each process corresponds to a `Rank` in the communication set, loading, compiling and executing the respective sliced model, with the same input data for each process.
 
-![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/lite/docs/source_zh_cn/use/cloud_infer/images/lite_runtime_distributed.png)
+![img](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/lite/docs/source_zh_cn/mindir/images/lite_runtime_distributed.png)
 
 Each process consists of the following main steps:
 
@@ -28,7 +28,7 @@ Each process consists of the following main steps:
 
 3. For Ascend device type, generate the networking information file through hccl_tools.py as needed, store it in the sample code directory, and fill the path of the file into the configuration file `config_file.ini` in the sample code directory.
 
-4. Download the MindSpore Lite cloud-side inference installation package [mindspore-lite-{version}-linux-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) and store it to the sample code directory. Unzip this installation package and refer to the [Environment Variables](https://www.mindspore.cn/lite/docs/en/master/quick_start/one_hour_introduction_cloud.html#environment-variables) section in the Quick Start to set environment variables.
+4. Download the MindSpore Lite cloud-side inference installation package [mindspore-lite-{version}-linux-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) and store it to the sample code directory. Unzip this installation package and refer to the Environment Variables in the Quick Start to set environment variables.
 
 The main steps of MindSpore Lite cloud-side distributed inference will be described in the subsequent sections in conjunction with the code, and please refer to `main.cc` in the sample code directory for the complete code.
 

@@ -10,7 +10,7 @@ The full script to launch cross-silo federated image classification application 
 
 This example uses the federated learning dataset `FEMNIST` from [leaf dataset](https://github.com/TalwalkarLab/leaf), which contains 62 different categories of handwritten numbers and letters (numbers 0 to 9, 26 lowercase letters, 26 uppercase letters) with an image size of `28 x 28` pixels. The dataset contains handwritten digits and letters from 3500 users (up to 3500 clients can be simulated to participate in federated learning). The total data volume is 805263, the average amount of data contained per user is 226.83, and the variance of the data volume for all users is 88.94.
 
-You can refer to [Image classfication dataset process](https://www.mindspore.cn/federated/docs/en/master/image_classfication_dataset_process.html ) in steps 1 to 7 to obtain the 3500 user datasets `3500_client_img` in the form of images.
+You can refer to [Image classfication dataset process](https://www.mindspore.cn/federated/docs/en/master/image_classfication_dataset_process.html) in steps 1 to 7 to obtain the 3500 user datasets `3500_client_img` in the form of images.
 
 Due to the relatively small amount of data per user in the original 3500 user dataset, it will converge too fast in the cross-silo federated task to obviously reflect the convergence effect of the cross-silo federated framework. The following provides a reference script to merge the specified number of user data into one user to increase the amount of individual user data participating in the cross-silo federated task and better simulate the cross-silo federated framework experiment.
 

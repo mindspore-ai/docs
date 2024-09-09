@@ -41,7 +41,7 @@ pip show mindspore_gs
    选择一个语言模型，当前支持量化的模型为Llama2_13B和Llama2_70B。
 
 2. **下载模型权重：**
-   从 HuggingFace 模型库中下载相应模型的权重，参考[权重转换](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/mindformers/function/weight_conversion.md)文档转换为ckpt格式。
+   从 HuggingFace 模型库中下载相应模型的权重，参考[权重格式转换](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)文档转换为ckpt格式。
 
 3. **量化模型权重转换：**
    运行mindspore_gs库中的转换脚本`quant_ckpt.py`，将步骤2中的原始权重转换为量化权重。

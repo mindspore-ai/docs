@@ -55,7 +55,7 @@ For more information about compilation, see [Linux Environment Compilation](http
     ./benchmark --device=GPU --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
     ```
 
-    For more information about the use of Benchmark, see [Benchmark Use](https://www.mindspore.cn/lite/docs/en/master/use/benchmark.html).
+    For more information about the use of Benchmark, see [Benchmark Use](https://www.mindspore.cn/lite/docs/en/master/tools/benchmark.html).
 
     For environment variable settings, you need to set the directory where the `libmindspore-lite.so`
     (under the directory `mindspore-lite-{version}-{os}-{arch}/runtime/lib`), TensorRT and CUDA `so` libraries are located, to `${LD_LIBRARY_PATH}`.
@@ -102,4 +102,4 @@ For more information about compilation, see [Linux Environment Compilation](http
 
 ## Supported Operators
 
-For supported TensorRT operators, see [Lite Operator List](https://www.mindspore.cn/lite/docs/en/master/operator_list_lite.html).
+For supported TensorRT operators, see [Lite Operator List](https://www.mindspore.cn/lite/docs/en/master/reference/operator_list_lite.html).

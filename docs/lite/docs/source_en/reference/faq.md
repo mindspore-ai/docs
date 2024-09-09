@@ -116,7 +116,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: The input shape of the MS model contains -1, that is, the model input is a dynamic shape. During direct inference, the shape is invalid. As a result, the inference fails.
-    - Solution: MindSpore Lite requires that a proper shape be specified for a model that contains dynamic shape input during inference. When using the benchmark tool, set the [inputShapes](https://mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#parameter-description) parameter. When using MindSpore Lite for integration and development, call the [Resize](https://mindspore.cn/lite/api/en/master/generate/classmindspore_ops_Resize.html) method to set the shape.
+    - Solution: MindSpore Lite requires that a proper shape be specified for a model that contains dynamic shape input during inference. When using the benchmark tool, set the [inputShapes](https://mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html#parameter-description) parameter. When using MindSpore Lite for integration and development, call the [Resize](https://mindspore.cn/lite/api/en/master/generate/classmindspore_ops_Resize.html) method to set the shape.
 
 ### OpenCL GPU Inference Issues
 
@@ -185,7 +185,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: TensorRT GPU graph construction does not support models with dynamic shapes. Specifically, the input shape of the model contains –1 or the model contains the shape operator.
-    - Solution: When using the converter to convert the model to MS, set `--inputShape=<INPUTSHAPE>` in the [conversion command](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html#parameter-description) to specify the shape information of the input tensor. If you need to change the input shape during inference, you can set the [inputShapes](https://mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#parameter-description) parameter when using the benchmark tool or call the [Resize](https://mindspore.cn/lite/api/en/master/generate/classmindspore_ops_Resize.html) method when using MindSpore Lite for integration and development. Note: The shape dimension of the [Resize](https://mindspore.cn/lite/api/en/master/generate/classmindspore_ops_Resize.html) input must be less than or equal to the dimension of the [Build](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#build) model.
+    - Solution: When using the converter to convert the model to MS, set `--inputShape=<INPUTSHAPE>` in the [conversion command](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html#parameter-description) to specify the shape information of the input tensor. If you need to change the input shape during inference, you can set the [inputShapes](https://mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html#parameter-description) parameter when using the benchmark tool or call the [Resize](https://mindspore.cn/lite/api/en/master/generate/classmindspore_ops_Resize.html) method when using MindSpore Lite for integration and development. Note: The shape dimension of the [Resize](https://mindspore.cn/lite/api/en/master/generate/classmindspore_ops_Resize.html) input must be less than or equal to the dimension of the [Build](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#build) model.
 
 #### Failed to Execute a Graph
 
@@ -267,7 +267,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 
 1. When MindSpore Lite is used for integration, the post-processing effect of the inference result is not ideal. How do I locate the issue of inference accuracy?
     - Check whether the input data is correct. In MindSpore Lite 1.3.0 and earlier versions, the input data format of the MS model is NHWC. In MindSpore Lite 1.5.0 and later versions, the [inputDataFormat](https://mindspore.cn/lite/docs/en/master/converter/converter_tool.html) parameter can be set to NHWC or NCHW. Ensure that the input data format is the same as that required by the MS model.
-    - Use the [benchmark](https://mindspore.cn/lite/docs/en/master/use/benchmark_tool.html) tool provided by MindSpore Lite to test the accuracy. If the following logs are displayed, the accuracy may be incorrect. Otherwise, the MindSpore Lite inference accuracy is correct. In this case, you need to check whether the data pre- and post-processing processes are correct.
+    - Use the [benchmark](https://mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html) tool provided by MindSpore Lite to test the accuracy. If the following logs are displayed, the accuracy may be incorrect. Otherwise, the MindSpore Lite inference accuracy is correct. In this case, you need to check whether the data pre- and post-processing processes are correct.
 
       ```cpp
       Mean bias of all nodes/tensors is too big: **
@@ -275,11 +275,11 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
       Run MarkAccuracy error: -1
       ```
 
-    - If the accuracy of the entire network inference performed by MindSpore Lite is incorrect, you can use the [Dump function](https://mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#dump) of the benchmark tool to save the output of the operator layer and compare the output with the inference result of the original framework to further locate the operator with incorrect accuracy.
+    - If the accuracy of the entire network inference performed by MindSpore Lite is incorrect, you can use the [Dump function](https://mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html#dump) of the benchmark tool to save the output of the operator layer and compare the output with the inference result of the original framework to further locate the operator with incorrect accuracy.
     - For operators with accuracy issues, you can download the [MindSpore source code](https://gitee.com/mindspore/mindspore) to check the operator implementation and construct the corresponding single-operator network for debugging and fault locating. You can also [commit an issue](https://gitee.com/mindspore/mindspore/issues) in the MindSpore community to MindSpore Lite developers for troubleshooting.
 
 2. What do I do if the FP32 inference result is correct but the FP16 inference result contains the NaN or Inf value?
-    - If the NaN or Inf value is displayed in the result, value overflow occurs during inference. You can view the model structure, filter out the operator layer where value overflow may occur, and use the [Dump function](https://mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#dump) of the benchmark tool to save the output of the operator layer and confirm the operator where value overflow occurs.
+    - If the NaN or Inf value is displayed in the result, value overflow occurs during inference. You can view the model structure, filter out the operator layer where value overflow may occur, and use the [Dump function](https://mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html#dump) of the benchmark tool to save the output of the operator layer and confirm the operator where value overflow occurs.
     - MindSpore Lite 1.5.0 and later versions provide the mixed-precision inference capability. When FP16 is preferentially used for the entire network inference, an operator at a certain layer can be set for FP32 inference. For details, see [Mixed Precision Inference](https://mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html#mixed-precision-inference). The overflow layer is set to FP32 to avoid the entire network inference accuracy issue during FP16 inference.
 
 3. What do I do if the NaN or Inf value exists in the FP32 and FP16 inference results of MindSpore Lite?
@@ -287,7 +287,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
 
       ![image-20211214191139062](./images/troubleshooting_Fp32_NAN.png)
 
-    - Solution: If the input data is too large, you are advised to normalize the network input data during training. If the NaN value still exists after the input data is normalized, you need to use the [Dump function](https://mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#dump) of the benchmark tool to save the output of the operator layer to confirm the operator where the value overflow occurs and analyze the issue.
+    - Solution: If the input data is too large, you are advised to normalize the network input data during training. If the NaN value still exists after the input data is normalized, you need to use the [Dump function](https://mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html#dump) of the benchmark tool to save the output of the operator layer to confirm the operator where the value overflow occurs and analyze the issue.
 
 ## Model Inference Performance Issues
 
@@ -325,7 +325,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     - In most cases, the inference performance of the NPU is much better than that of the CPU. In a few cases, the inference performance of the NPU is poorer than that of the CPU.
 
     (1) Check whether there are a large number of Pad or StridedSlice operators in the model. The array format of the NPU is different from that of the CPU. The operation of these operators in the NPU involves array rearrangement. Therefore, the NPU has no advantage over the CPU and even is inferior to the CPU. If you need to run such an operator on the NPU, you are advised to remove or replace the operator.
-    (2) Use a tool (such as adb logcat) to capture background logs and search for the keyword **BuildIRModel build successfully**. It is found that related logs appear multiple times, indicating that the model is partitioned into multiple NPU-related subgraphs during online graph construction. Generally, subgraph partitioning is caused by the existence of Transpose and/or unsupported NPU operators in the graph. Currently, a maximum of 20 subgraphs can be partitioned. The more the subgraphs, the more time the NPU takes. You are advised to refer to the [NPU operators](https://www.mindspore.cn/lite/docs/en/master/operator_list_lite.html) supported by MindSpore Lite and avoid unsupported operators during model building. Alternatively, [commit an issue](https://gitee.com/mindspore/mindspore/issues) to MindSpore Lite developers.
+    (2) Use a tool (such as adb logcat) to capture background logs and search for the keyword **BuildIRModel build successfully**. It is found that related logs appear multiple times, indicating that the model is partitioned into multiple NPU-related subgraphs during online graph construction. Generally, subgraph partitioning is caused by the existence of Transpose and/or unsupported NPU operators in the graph. Currently, a maximum of 20 subgraphs can be partitioned. The more the subgraphs, the more time the NPU takes. You are advised to refer to the [NPU operators](https://www.mindspore.cn/lite/docs/en/master/reference/operator_list_lite.html) supported by MindSpore Lite and avoid unsupported operators during model building. Alternatively, [commit an issue](https://gitee.com/mindspore/mindspore/issues) to MindSpore Lite developers.
 
 ## Issues Related to Using Visual Studio
 
@@ -403,7 +403,7 @@ A： Currently NPU only supports system ROM version EMUI>=11. Chip support inclu
 
 <font size=3>**Q： Why does the static library after cutting with the cropper tool fail to compile during integration?**</font>
 
-A： Currently the cropper tool only supports CPU and GPU libraries. For details, please refer to [Use clipping tool to reduce library file size](https://www.mindspore.cn/lite/docs/en/master/use/cropper_tool.html) document.
+A： Currently the cropper tool only supports CPU and GPU libraries. For details, please refer to [Use clipping tool to reduce library file size](https://www.mindspore.cn/lite/docs/en/master/tools/cropper_tool.html) document.
 
 <br/>
 

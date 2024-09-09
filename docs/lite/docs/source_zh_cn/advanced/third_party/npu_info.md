@@ -53,7 +53,7 @@ bash build.sh -I arm64 -j8
     ./benchmark --device=NPU --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
     ```
 
-有关Benchmark使用详情，见[Benchmark使用](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html)。
+有关Benchmark使用详情，见[Benchmark使用](https://www.mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_tool.html)。
 
 有关环境变量设置，将libmindspore-lite.so（目录为`mindspore-lite-{version}-android-{arch}/runtime/lib`）和
 NPU库（目录为`mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/`）所在的目录加入`${LD_LIBRARY_PATH}`。
@@ -64,4 +64,4 @@ NPU芯片支持见[芯片与HUAWEI HiAI Version版本映射关系](https://devel
 
 ## 算子支持
 
-NPU算子支持见[Lite 算子支持](https://www.mindspore.cn/lite/docs/zh-CN/master/operator_list_lite.html)。
+NPU算子支持见[Lite 算子支持](https://www.mindspore.cn/lite/docs/zh-CN/master/reference/operator_list_lite.html)。

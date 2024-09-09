@@ -40,7 +40,7 @@ MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/
 
 ## 对接自定义融合Pass
 
-本教程介绍了MindSpore Lite如何编译、使用自定义融合Pass，来使能云侧转换和推理。本教程建立在已熟悉[端侧注册机制](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_register.html)的基础上。
+本教程介绍了MindSpore Lite如何编译、使用自定义融合Pass，来使能云侧转换和推理。本教程建立在已熟悉[端侧注册机制](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/third_party/converter_register.html)的基础上。
 
 ### 准备工作
 
@@ -50,7 +50,7 @@ MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/
 
 3. 实现自定义Pass，代码请参考[example](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_acl_custom_pass)。
 
-与[端侧注册机制](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_register.html)不同的是，注册位置的参数需要更改。
+与[端侧注册机制](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/third_party/converter_register.html)不同的是，注册位置的参数需要更改。
 
 ```c++
 // register customed Pass
@@ -61,4 +61,4 @@ REG_SCHEDULED_PASS(POSITION_ASCEND, {"PassTutorial"})
 
 ### 编译、转换、推理
 
-编译流程详见[端侧注册机制](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_register.html)，转换、推理详见[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)。
+编译流程详见[端侧注册机制](https://www.mindspore.cn/lite/docs/zh-CN/master/advanced/third_party/converter_register.html)，转换、推理详见[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)。

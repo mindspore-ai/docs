@@ -108,7 +108,7 @@ We provide [Federated Learning Image Classification Dataset FEMNIST](https://min
 
 3. Convert the MindIR file into an .ms file that can be used by the federated learning device-side framework.
 
-    For details about model conversion, see [Training Model Conversion Tutorial](https://www.mindspore.cn/lite/docs/en/master/use/converter_train.html).
+    For details about model conversion, see [Training Model Conversion Tutorial](https://www.mindspore.cn/lite/docs/en/master/train/converter_train.html).
 
     The following is an example of model conversion:
 

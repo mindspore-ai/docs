@@ -274,7 +274,7 @@ In CV scenarios where the model running speed needs to be improved and the model
 
 To calculate a quantization parameter of an activation value, you need to provide a calibration dataset. It is recommended that the calibration dataset be obtained from the actual inference scenario and can represent the actual input of a model. The number of data records is about 100 - 500, **and the calibration dataset needs to be processed into the Format of `NHWC`**.
 
-For image data, currently supports channel pack, normalization, resize, center crop processing. The user can set the corresponding [parameter](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html#data-preprocessing) according to the preprocessing operation requirements.
+For image data, currently supports channel pack, normalization, resize, center crop processing. The user can set the corresponding [parameter](https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html#data-preprocessing) according to the preprocessing operation requirements.
 
 Full quantization config's info must include `[common_quant_param]`, `[data_preprocess_param]`, `[full_quant_param]`.
 

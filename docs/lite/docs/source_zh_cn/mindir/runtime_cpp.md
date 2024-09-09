@@ -324,7 +324,7 @@ int SpecifyInputDataExample(const std::string &model_path, const std::string &de
 
 ## 编译和执行
 
-按照[快速入门环境变量](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/one_hour_introduction_cloud.html#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)一节所述，设置环境变量。接着按如下方式编译程序：
+按照快速入门环境变量（TODO），设置环境变量。接着按如下方式编译程序：
 
 ```bash
 mkdir build && cd build

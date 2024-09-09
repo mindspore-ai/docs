@@ -236,7 +236,7 @@
      - 1：使用进程优雅退出功能。
 
        不设置或者其他值: 不使用进程优雅退出功能。
-     - 使能进程优雅退出功能，依赖callback函数，具体请参考 `进程优雅退出用例 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/process_graceful_exit.html>`_ 。
+     - 使能进程优雅退出功能，依赖callback函数，具体请参考 `进程优雅退出用例 <https://www.mindspore.cn/docs/zh-CN/master/model_train/train_availability/graceful_exit.html>`_ 。
    * - MS_DEV_BOOST_INFER
      - 针对前端图编译提供编译优化开关。该开关可加速类型推导模块，以加速网络编译。
      - Integer
@@ -308,7 +308,7 @@ Dump调试
      - 说明
    * - MINDSPORE_DUMP_CONFIG
      - 指定 `云侧Dump功能 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#同步dump>`_
-       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
+       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
      - String
      - 文件路径，支持相对路径与绝对路径
      -

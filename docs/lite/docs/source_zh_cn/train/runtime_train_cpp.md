@@ -483,4 +483,4 @@ MindSpore的`Serialization`类实际调用的是`ExportModel`函数，`ExportMod
 
 保存的模型可继续用于训练或推理。
 
-> 请使用[benchmark_train](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_train_tool.html)进行训练模型性能和精度评估。
+> 请使用[benchmark_train](https://www.mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_train_tool.html)进行训练模型性能和精度评估。

@@ -52,7 +52,7 @@ bash build.sh -I x86_64
     ./benchmark --device=GPU --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
     ```
 
-    有关Benchmark使用详情，见[Benchmark使用](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark.html)。
+    有关Benchmark使用详情，见[Benchmark使用](https://www.mindspore.cn/lite/docs/zh-CN/master/tools/benchmark.html)。
 
     有关环境变量设置，需要根据[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/build/build.html)中编译选项为`-I x86_64`时的目录结构，将`libmindspore-lite.so`（目录为`mindspore-lite-{version}-{os}-{arch}/runtime/lib`）、CUDA的`so`库所在的目录和TensorRT的`so`库所在的目录加入`${LD_LIBRARY_PATH}`。
 
@@ -96,4 +96,4 @@ bash build.sh -I x86_64
 
 ## 算子支持
 
-TensorRT算子支持见[Lite 算子支持](https://www.mindspore.cn/lite/docs/zh-CN/master/operator_list_lite.html)。
+TensorRT算子支持见[Lite 算子支持](https://www.mindspore.cn/lite/docs/zh-CN/master/reference/operator_list_lite.html)。

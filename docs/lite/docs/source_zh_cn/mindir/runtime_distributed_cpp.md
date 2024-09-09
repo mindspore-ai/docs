@@ -28,7 +28,7 @@ MindSpore Lite云侧分布式推理仅支持在Linux环境部署运行，支持�
 
 3. 对于Ascend设备类型，通过hccl_tools.py按照需要生成组网信息文件，存放至示例代码目录，并将该文件路径填入示例代码目录下配置文件 `config_file.ini` 中。
 
-4. 下载MindSpore Lite云侧推理安装包[mindspore-lite-{version}-linux-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，存放至示例代码目录。解压该安装包，参考快速入门的[环境变量](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/one_hour_introduction_cloud.html#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)章节设置环境变量，
+4. 下载MindSpore Lite云侧推理安装包[mindspore-lite-{version}-linux-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，存放至示例代码目录。解压该安装包，参考快速入门的环境变量设置环境变量，
 
 后续章节将结合代码讲述MindSpore Lite云侧分布式推理主要步骤，完整代码请参考示例代码目录下`main.cc`。
 
