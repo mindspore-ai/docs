@@ -2,35 +2,21 @@
 
 # Lightweight Data Processing
 
-When resource conditions permit, in order to pursue higher performance, data transforms are generally executed in the data pipeline mode.
+MindSpore provides a lightweight data processing way, called Eager mode.
 
-The biggest character of execution based on pipeline mode users have to define the `map` operator. As shown in the figure below, the `Resize`, `Crop`, `HWC2CHW` operators are scheduled by the `map`, which is responsible for starting and executing the given transform, and mapping and transforming the data of Pipeline.
-
-![pipelinemode1](./images/pipeline_mode_en.jpeg)
-
-Although constructing a data pipeline can process input data in batches, the API design of the data pipeline requires the user to start from constructing the input source, and gradually defines the individual processing operators in the data pipeline. Only when defining the `map`, will it involve data augmentation operators that are highly related to the user input data.
-
-Undoubtedly, users only want to focus on the code that is most relevant to them, but other codes with less relevance add unnecessary burdens to the user throughout the code scene.
-
-Therefore, MindSpore provides a lightweight data processing way, called Eager mode.
-
-In the Eager mode, the execution of Transforms will not rely on constructing the data pipeline `map`. Instead, Transforms is executed in the form of a functional call. The code will be simpler and the results are obtained immediately. It is recommended to be used in lightweight scenarios such as small data augmentation experiments and model inference.
+In the Eager mode, transforms is executed in the form of a functional call. The code will be simpler and the results are obtained immediately. It is recommended to be used in lightweight scenarios such as small data augmentation experiments and model inference.
 
 ![eagermode1](./images/eager_mode_en.jpeg)
 
 MindSpore currently supports executing various Transforms in the Eager mode, as shown below. For more details, please refer to the API documentation.
 
-- [vision module](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision)
+- [vision module](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), data transform implemented based on OpenCV/Pillow.
 
-    - Submodule transforms, data transform implemented based on OpenCV/Pillow.
+- [text module](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), data transform implemented based on Jieba, ICU4C, etc.
 
-- [text module](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text)
+- [audio module](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio), data transform implemented based on C++, etc.
 
-    - Submodule transforms, data transform implemented based on Jieba, ICU4C, etc.
-
-- [transforms module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html)
-
-    - Submodule transforms, general-purpose data transform implemented based on C++/Python/NumPy.
+- [transforms module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html), general-purpose data transform implemented based on C++/Python/NumPy.
 
 ## Eager Mode
 
@@ -62,9 +48,7 @@ Successfully downloaded file to ./banana.jpg
 
 This example will use Transform in the `mindspore.dataset.vision` module to transform a given image.
 
-You only need to focus on what kind of data transform have to use, not any code for the data pipeline.
-
-The Eager mode of the Vision Transform supports `numpy.array` or `PIL.Image` type data as input parameters.
+The Eager mode of the Vision Transform supports `numpy.array` or `PIL.Image` type data as input parameters. For more examples, please refer to: [Illustration Of Vision Transforms](https://www.mindspore.cn/docs/en/master/api_python/samples/dataset/vision_gallery.html)
 
 ```python
 import numpy as np
@@ -113,7 +97,7 @@ Image.type: <class 'PIL.Image.Image'>, Image.shape: (360, 360)
 
 This example will transform the given text by using the Transforms in the `text` module.
 
-Eager mode of Text Transforms supports `numpy.array` type data as input parameters.
+Eager mode of Text Transforms supports `numpy.array` type data as input parameters. For more examples, please refer to: [Illustration Of Text Transforms](https://www.mindspore.cn/docs/en/master/api_python/samples/dataset/text_gallery.html)
 
 ```python
 import mindspore.dataset.text.transforms as text
@@ -136,6 +120,60 @@ Tokenize result: ['W' 'e' 'l' 'c' 'o' 'm' 'e' ' ' 't' 'o' ' ' 'B' 'e' 'i' 'j' 'i
  ' ' '!']
 ToNumber result: [123456], int32
 ```
+
+### audio
+
+This example will transform the given audio by using the Transforms in the `audio` module.
+
+Eager mode of Audio Transforms supports `numpy.array` type data as input parameters. For more examples, please refer to: [Illustration Of Audio Transforms](https://www.mindspore.cn/docs/en/master/api_python/samples/dataset/audio_gallery.html)
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.io.wavfile as wavfile
+from download import download
+
+import mindspore.dataset as ds
+import mindspore.dataset.audio as audio
+
+ds.config.set_seed(5)
+
+# cication: LibriSpeech http://www.openslr.org/12
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/84-121123-0000.wav"
+download(url, './84-121123-0000.wav', replace=True)
+wav_file = "84-121123-0000.wav"
+
+def plot_waveform(waveform, sr, title="Waveform"):
+    if waveform.ndim == 1:
+        waveform = waveform[np.newaxis, :]
+    num_channels, num_frames = waveform.shape
+    time_axis = np.arange(0, num_frames) / sr
+
+    figure, axes = plt.subplots(num_channels, 1)
+    axes.plot(time_axis, waveform[0], linewidth=1)
+    axes.grid(True)
+    figure.suptitle(title)
+    plt.show(block=False)
+```
+
+```text
+Downloading data from https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/84-121123-0000.wav (65 kB)
+
+file_sizes: 100%|███████████████████████████| 67.0k/67.0k [00:00<00:00, 605kB/s]
+Successfully downloaded file to ./84-121123-0000.wav
+```
+
+Transform BassBiquad performs a two-pole low-shelf filter on the input audio signal.
+
+```python
+sample_rate, waveform = wavfile.read(wav_file)
+
+bass_biquad = audio.BassBiquad(sample_rate, 10.0)
+transformed_waveform = bass_biquad(waveform.astype(np.float32))
+plot_waveform(transformed_waveform, sample_rate, title="BassBiquad Waveform")
+```
+
+![eager_mode_audio](./images/eager_mode_audio.png)
 
 ### transforms
 
