@@ -130,7 +130,7 @@ The [Normalize](https://www.mindspore.cn/docs/en/r2.3.1/api_python/dataset_visio
 
 - mean: the mean value of each channel in the image.
 - std: the standard deviation of each channel in the image.
-- is_hwc: bool, decide the format of input image. If True, input format is (height, width, channel), otherwise (channel, height, width).
+- is_hwc: bool, decide the format of input image. If True, input format is (height, width, channel), otherwise (channel, height, width). Default: True.
 
 Each channel of the image will be adjusted according to `mean` and `std`, and the formula is $output_{c} = \frac{input_{c} - mean_{c}}{std_{c}}$, where $c$ represents the channel index.
 

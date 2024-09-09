@@ -281,7 +281,7 @@ In some scenarios (such as recommendation systems, molecular dynamics, graph neu
 
 MindSpore now supports the two most commonly used `CSR` and `COO` sparse data formats.
 
-The common structure of the sparse tensor is `<indices:Tensor, values:Tensor, shape:Tensor>`. `indices` means the indexes of non-zero elements, `values` means the values of non-zero elements, and `shape` means the dense shape of the sparse tensor. In this structure, we define data structure `CSRTensor`, `COOTensor`, and `RowTensor`.
+The common structure of the sparse tensor is `<indices:Tensor, values:Tensor, shape:Tensor>`. `indices` means the indexes of non-zero elements, `values` means the values of non-zero elements, and `shape` means the dense shape of the sparse tensor. In this structure, we define data structure `CSRTensor` and `COOTensor`.
 
 ### CSRTensor
 
