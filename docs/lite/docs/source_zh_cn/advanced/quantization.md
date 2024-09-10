@@ -396,7 +396,7 @@ target_device=DSP
 
 ### Ascend
 
-Ascend量化仅支持[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html#%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B%E7%A6%BB%E7%BA%BF%E8%BD%AC%E6%8D%A2)时，配置好Ascend相关配置，即`optimize`需要设置为`ascend_oriented`，且转换时配置Ascend相关环境变量。
+Ascend量化仅支持[离线转换](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)时，配置好Ascend相关配置，即`optimize`需要设置为`ascend_oriented`，且转换时配置Ascend相关环境变量。
 
 Ascend全量化静态Shape参数配置
 

@@ -1,4 +1,4 @@
-## Training Process Exit Gracefully
+# Training Process Exit Gracefully
 
 [![view source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/train_availability/graceful_exit.md)
 
