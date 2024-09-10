@@ -73,7 +73,7 @@ output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.000224
 
 更多Python接口的高级用法与示例，请参考[Python API](https://www.mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)。
 
-![img](../../images/lite_runtime.png)
+![img](./images/lite_runtime.png)
 
 ### 创建配置上下文
 

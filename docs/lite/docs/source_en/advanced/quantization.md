@@ -393,7 +393,7 @@ target_device=DSP
 
 ### Ascend
 
-Ascend quantization need to set `optimize` to `ascend_oriented` for [converter tools](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html#parameter-description) and we also need to set environment for Ascend.
+Ascend quantization need to set `optimize` to `ascend_oriented` for [converter tools](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html#description-of-parameters) and we also need to set environment for Ascend.
 
 Ascend quantization static shape parameter configuration
 
