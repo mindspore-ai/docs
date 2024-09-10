@@ -24,7 +24,7 @@
 
 目前仅支持源码编译安装，用户可以执行如下命令安装MindFormers：
 
-```shell  
+```bash
 git clone -b dev https://gitee.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
@@ -34,14 +34,14 @@ bash build.sh
 
 判断MindFormers是否安装成功可以执行以下命令：
 
-```shell
+```python
 import mindformers as mf
 mf.run_check()
 ```
 
 出现以下类似结果，证明安装成功：
 
-```shell
+```text
 - INFO - MindFormers version: 1.2.0
 - INFO - MindSpore version: 2.3.0
 - INFO - Ascend-cann-toolkit version: 8.0.RC2
