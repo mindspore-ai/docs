@@ -201,7 +201,7 @@ Variables Generate Scenes
 
    .. code:: python
 
-      from mindspore import Tensor, jit, ops
+      from mindspore import Tensor, jit
 
       a = Tensor([1])
       b = Tensor([2])
@@ -338,7 +338,6 @@ The basic usage scenarios of 'List' are as follows:
 
    .. code:: python
 
-      import numpy as np
       import mindspore as ms
 
       @ms.jit
@@ -513,7 +512,7 @@ The basic usage scenarios of 'List' are as follows:
       list_object' of the 'List' object.
 
       Currently, 'List.append' does not support the inplace operation,
-      and a new object will be generated after index assignment. This
+      and a new object will be generated after append element. This
       operation will support the inplace operation in the future.
 
       Examples are as follows:
@@ -545,7 +544,7 @@ The basic usage scenarios of 'List' are as follows:
       'list_object'.
 
       Currently, 'List.clear' does not support inplace, and a new object
-      will be generated after index assignment. This operation will
+      will be generated after clear list. This operation will
       support inplace in the future.
 
       Examples are as follows:
@@ -1180,7 +1179,6 @@ and ``(grad_x, grad_y)`` is returned.
 
 .. code:: python
 
-   import numpy as np
    import mindspore as ms
    from mindspore import nn
 
@@ -1284,7 +1282,7 @@ compilation <https://www.mindspore.cn/docs/en/master/faq/network_compilation.htm
    in graph mode. For Python keywords, there are some keywords that are
    not supported in graph mode: AsyncFunctionDef, Delete, AnnAssign,
    AsyncFor, AsyncWith, Match, Try, Import, ImportFrom, Nonlocal,
-   NamedExpr, Set, SetComp, Await, Yield, YieldFrom, Starred. If the
+   NamedExpr, Set, SetComp, Await, Yield, YieldFrom. If the
    relevant syntax is used in graph mode, an error message will alert
    the user.
 
@@ -1475,8 +1473,7 @@ Calling the Third-party Libraries
 
       [2, 3, 4]
 
--  The assignment of subscripts for data types in third-party libraries
-   is not currently supported.
+-  The assignment of subscripts for data types in third-party libraries is supported.
 
    The code example is as follows.
 
@@ -1494,11 +1491,11 @@ Calling the Third-party Libraries
       res = func()
       print("res: ", res)
 
-   The error message is reported as follows:
+   The results are as follows:
 
    .. code:: text
 
-      RuntimeError: For operation 'setitem', current input arguments types are <External, Number, Number>. The 1-th argument type 'External' is not supported now.
+      res: [2 2 3]
 
 Supporting the Use of Custom Classes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1579,6 +1576,10 @@ syntax.
 In another example:
 
 .. code:: python
+
+   import mindspore as ms
+   import mindspore.nn as nn
+   ms.set_context(mode=ms.GRAPH_MODE)
 
    class InnerClass(nn.Cell):
        def construct(self):

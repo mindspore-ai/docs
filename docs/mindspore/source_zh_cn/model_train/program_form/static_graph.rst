@@ -148,7 +148,7 @@ API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn
 
    .. code:: python
 
-      from mindspore import Tensor, jit, ops
+      from mindspore import Tensor, jit
 
       a = Tensor([1])
       b = Tensor([2])
@@ -262,7 +262,6 @@ List
 
    .. code:: python
 
-      import numpy as np
       import mindspore as ms
 
       @ms.jit
@@ -413,7 +412,7 @@ List
       基础语义：向\ ``List``\ 对象\ ``list_object``\ 的最后追加元素\ ``target_element``\ 。
 
       目前，\ ``List.append``\ 不支持inplace操作,
-      索引赋值后将会生成一个新的对象。该操作后续将会支持inplace操作。
+      追加元素后将会生成一个新的对象。该操作后续将会支持inplace操作。
 
       示例如下：
 
@@ -443,7 +442,7 @@ List
       基础语义：清空\ ``List``\ 对象 ``list_object``\ 中包含的元素。
 
       目前，\ ``List.clear``\ 不支持inplace,
-      索引赋值后将会生成一个新的对象。该操作后续将会支持inplace。
+      清空元素后将会生成一个新的对象。该操作后续将会支持inplace。
 
       示例如下：
 
@@ -982,7 +981,6 @@ Python内置函数
 
 .. code:: python
 
-   import numpy as np
    import mindspore as ms
    from mindspore import nn
 
@@ -1072,10 +1070,9 @@ Python内置函数
 
    .. code:: text
 
-      TypeError: The parameters number of the function is 3, but the number
-      of provided arguments is 2.
+      TypeError: The parameters number of the function is 3, but the number of provided arguments is 2.
 
-3. 在图模式下，有些Python语法难以转换成图模式下的\ `中间表示MindIR <https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir>`_\ 。对标Python的关键字，存在部分关键字在图模式下是不支持的：AsyncFunctionDef、Delete、AnnAssign、AsyncFor、AsyncWith、Match、Try、Import、ImportFrom、Nonlocal、NamedExpr、Set、SetComp、Await、Yield、YieldFrom、Starred。如果在图模式下使用相关的语法，将会有相应的报错信息提醒用户。
+3. 在图模式下，有些Python语法难以转换成图模式下的\ `中间表示MindIR <https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir>`_\ 。对标Python的关键字，存在部分关键字在图模式下是不支持的：AsyncFunctionDef、Delete、AnnAssign、AsyncFor、AsyncWith、Match、Try、Import、ImportFrom、Nonlocal、NamedExpr、Set、SetComp、Await、Yield、YieldFrom。如果在图模式下使用相关的语法，将会有相应的报错信息提醒用户。
 
    如果使用Try语句，示例如下：
 
@@ -1225,7 +1222,7 @@ Python内置函数
 
       [2 3 4]
 
--  暂不支持对第三方库数据类型的下标索引赋值。
+-  支持对第三方库数据类型的下标索引赋值。
 
    示例如下：
 
@@ -1243,13 +1240,11 @@ Python内置函数
       res = func()
       print("res: ", res)
 
-   报错信息如下:
+   运行结果如下：
 
    .. code:: text
 
-      RuntimeError: For operation 'setitem', current input arguments types
-      are <External, Number, Number>. The 1-th argument type 'External' is
-      not supported now.
+      res: [2 2 3]
 
 支持自定义类的使用
 ~~~~~~~~~~~~~~~~~~
@@ -1321,6 +1316,10 @@ Python内置函数
 在另一个用例中：
 
 .. code:: python
+
+   import mindspore as ms
+   import mindspore.nn as nn
+   ms.set_context(mode=ms.GRAPH_MODE)
 
    class InnerClass(nn.Cell):
        def construct(self):
