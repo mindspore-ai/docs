@@ -144,7 +144,7 @@ API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn
  
 -  通过变量计算得到的是变量。
 
-   如果一个量是算子的输出，那么其多数情况下为常量。例如：
+   如果一个量是算子的输出，那么其多数情况下为变量。例如：
 
    .. code:: python
 

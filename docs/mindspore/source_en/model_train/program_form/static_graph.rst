@@ -197,7 +197,7 @@ Variables Generate Scenes
 -  What is calculated by variables is the variable
 
    If a quantity is the output of an operator, then it is in most cases
-   constant. For example:
+   variable. For example:
 
    .. code:: python
 
