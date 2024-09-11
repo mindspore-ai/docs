@@ -79,11 +79,11 @@
                     "id": "master-api_python"
                 },
                 {
-                    "label": "Large Model Development",
+                    "label": "Large Model",
                     "url": "/mindformers/docs/en/dev/index.html"
                 },
                 {
-                    "label": "Orange Pi Development",
+                    "label": "Orange Pi",
                     "url": "/docs/en/master/orange_pi/index.html",
                     "id": "master-orange_pi"
                 },
