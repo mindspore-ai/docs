@@ -224,6 +224,11 @@ for root,dirs,files in os.walk(src_dir_api):
             shutil.copy(os.path.join(root,file),'.'+root.split(copy_path)[-1]+'/'+file)
             copy_list.append('.'+root.split(copy_path)[-1]+'/'+file)
 
+if not os.path.exists(os.path.join(moment_dir, 'ptq/README.md')):
+    os.makedirs(os.path.join(moment_dir, 'ptq'), exist_ok=True)
+    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/ptq/README.md'),
+                os.path.join(moment_dir, 'ptq/ptq.md'))
+
 # add view
 import json
 

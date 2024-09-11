@@ -87,6 +87,7 @@ MindSpore Golden Stick初始版本包含一个稳定的API，并提供一个线�
    :maxdepth: 1
    :caption: 训练后量化算法
 
+   ptq/ptq
    ptq/round_to_nearest
 
 .. toctree::
