@@ -1,12 +1,12 @@
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/dataset.md)
 
-[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || **Data loading and processing** || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html) || [Mixed Precision](https://www.mindspore.cn/tutorials/en/master/beginner/mixed_precision.html)
+[Introduction](https://www.mindspore.cn/tutorials/en/master/beginner/introduction.html) || [Quick Start](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html) || [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html) || **Data Loading and Processing** || [Model](https://www.mindspore.cn/tutorials/en/master/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/master/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html) || [Mixed Precision](https://www.mindspore.cn/tutorials/en/master/beginner/mixed_precision.html)
 
-# Dataset
+# Data Loading and Processing
 
 Data is the foundation of deep learning, and high-quality data input is beneficial to the entire deep neural network.
 
-MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/zh-CN/master/design/data_engine.html) and achieves efficient data preprocessing through `Dataset`, `Transforms` and `batch` operator. The pipeline nodes are:
+MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/en/master/design/data_engine.html) and achieves efficient data preprocessing through `Dataset`, `Transforms` and `batch` operator. The pipeline nodes are:
 
 1. Dataset is the start of Pipeline and is used to load raw data to memory. `mindspore.dataset` provides [built-in dataset interfaces](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html) for loading text, image, audio, etc., and provides [interfaces](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#user-defined) for loading customized datasets.
 
@@ -253,7 +253,7 @@ Usually, the directly-loaded raw data cannot be directly fed into the neural net
 
 ### Built-in Transforms
 
-`mindpore.dataset` provides built-in data transformas: [vision transformas](https://www.mindspore.cn/docs/en/r2.3.1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), [nlp transforms](https://www.mindspore.cn/docs/en/r2.3.1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), [audio transforms](https://www.mindspore.cn/docs/en/r2.3.1/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio).
+`mindpore.dataset` provides built-in data transformas: [vision transformas](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), [nlp transforms](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), [audio transforms](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio).
 
 For example, `Rescale`, `Normalize`, and `HWC2CHW` operations are used for **data** in the Mnist dataset, and `TypeCast` operations are used for **label**.
 

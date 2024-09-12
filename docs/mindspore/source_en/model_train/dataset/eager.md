@@ -1,6 +1,6 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/dataset/eager.md)
-
 # Lightweight Data Processing
+
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/dataset/eager.md)
 
 MindSpore provides a lightweight data processing way, called Eager mode.
 
@@ -16,7 +16,7 @@ MindSpore currently supports executing various Transforms in the Eager mode, as 
 
 - [audio module](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio), data transform implemented based on C++, etc.
 
-- [transforms module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html), general-purpose data transform implemented based on C++/Python/NumPy.
+- [transforms module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.transforms), general-purpose data transform implemented based on C++/Python/NumPy.
 
 ## Eager Mode
 
