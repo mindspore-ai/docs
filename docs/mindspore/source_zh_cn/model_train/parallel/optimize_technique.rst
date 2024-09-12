@@ -12,6 +12,7 @@
   strategy_select
   split_technique
   multiple_copy
+  high_dimension_tensor_parallel
   distributed_gradient_accumulation
   recompute
   dataset_slice
@@ -27,6 +28,7 @@
   - `策略选择 <https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/strategy_select.html>`_：根据模型规模和数据量大小，可以选择不同的并行策略，以提高训练效率和资源利用率。
   - `切分技巧 <https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/split_technique.html>`_：切分技巧是指通过手动配置某些关键算子的切分策略，减少张量重排布来提升训练效率。
   - `多副本 <https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/multiple_copy.html>`_：多副本是指在一个迭代步骤中，将一个训练batch拆分成多个，将模型并行通信与计算进行并发，提升资源利用率。
+  - `高维张量并行 <https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/high_dimension_tensor_parallel.html>`_：高维张量并行是指对于模型并行中的MatMul计算中的激活、权重张量进行多维度切分，通过优化切分策略降低通信量，提高训练效率。
 
 - 内存优化：内存优化包括梯度累加、重计算、数据集切分、Host&Device异构和异构存储，主要目标是节省内存空间。
   
