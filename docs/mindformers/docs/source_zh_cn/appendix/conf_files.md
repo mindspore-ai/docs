@@ -17,8 +17,8 @@ MindFormers提供的`YAML`文件中包含对于不同功能的配置项，下面
 | 参数              | 说明                                                                                                                                                                                                                      | 类型   |
 |-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
 | seed            | 设置全局种子，详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)                                                                                               | int  |
-| run_mode        | 设置模型的运行模式，可选`train`, `finetune`, `eval`或`predict`                                                                                                                                                                       | str  |
-| output_dir      | 设置保存log, checkpoint, strategy等文件的路径                                                                                                                                                                                     | str  |
+| run_mode        | 设置模型的运行模式，可选`train`、`finetune`、`eval`或`predict`                                                                                                                                                                       | str  |
+| output_dir      | 设置保存log、checkpoint、strategy等文件的路径                                                                                                                                                                                     | str  |
 | load_checkpoint | 加载权重的文件或文件夹路径，目前有3个应用场景：<br/>1. 支持传入完整权重文件路径<br/>2. 支持传入离线切分后的权重文件夹路径<br/>3. 支持传入包含lora权重和base权重的文件夹路径<br/>各种权重的获取途径可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html) | str  |
 | auto_trans_ckpt | 开启在线权重自动转换功能，详情可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)                                                                                                      | bool |
 | resume_training | 开启断点续训功能，详情可参考[断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)                                                                                                               | bool |
@@ -126,7 +126,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | parallel.parallel_mode                                          | 设置并行模式，`0`表示数据并行模式, `1`表示半自动并行模式, `2`表示自动并行模式, `3`表示混合并行模式，一般设置为半自动并行模式                                                                                                                          | int  |
 | parallel.gradients_mean                                         | 是否在梯度AllReduce后执行平均算子。通常半自动并行模式下设为`False`，数据并行模式下设为`True`                                                                                                                                        | bool |
 | parallel.enable_alltoall                                        | 开启在通信期间生成AllToAll通信算子。通常仅在MOE场景下设为`True`，默认值为`False`                                                                                                                                             | bool |
-| parallel.full_batch                                             | 设置在并行模式下加载完整batch的数据集，在自动并行模式和半自动并行下设置为`True`，在数据并行模式下设置为`False`                                                                                                                                 | bool |
+| parallel.full_batch                                             | 设置在并行模式下加载完整batch的数据集，在自动并行模式和半自动并行模式下设置为`True`，在数据并行模式下设置为`False`                                                                                                                                 | bool |
 | parallel.search_mode                                            | 设置全自动并行策略搜索模式，可选`recursive_programming`, `dynamic_programming`和`sharding_propagation`，仅在全自动并行模式下生效，实验性接口                                                                                         | str  |
 | parallel.strategy_ckpt_save_file                                | 设置并行切分策略文件的保存路径                                                                                                                                                                                  | str  |
 | parallel.strategy_ckpt_config.only_trainable_params             | 是否仅保存（或加载）可训练参数的切分策略信息，默认为True，当网络中存在冻结的参数但又需要切分时将该参数设为`False`                                                                                                                                   | bool |
@@ -212,8 +212,8 @@ MindFormers提供模型评估功能，同时支持模型边训练边评估功能
 | eval_dataset_task   | 使用方式与`eval_dataset_task`相同                                  | -    |
 | metric.type         | 使用方式与`callbacks`相同                                          | -    |
 | do_eval             | 开启边训练边评估功能                                                  | bool |
-| eval_step_interval  | 设置评估的step间隔, 默认值为100，设置小于0表示关闭根据step间隔评估功能                  | int  |
-| eval_epoch_interval | 设置评估的epoch间隔, 默认值为-1，设置小于0表示关闭根据epoch间隔评估功能，不建议在数据下沉模式使用该配置 | int  |
+| eval_step_interval  | 设置评估的step间隔，默认值为100，设置小于0表示关闭根据step间隔评估功能                  | int  |
+| eval_epoch_interval | 设置评估的epoch间隔，默认值为-1，设置小于0表示关闭根据epoch间隔评估功能，不建议在数据下沉模式使用该配置 | int  |
 | metric.type         | 设置评估的类型                                                     | str  |
 
 ### Profile配置

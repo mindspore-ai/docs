@@ -82,8 +82,6 @@ print(ret)
 
 In the above use case, the tensor_cal function is modified by the @jit decorator, and the function follows the pattern of the static graph when it is called in order to capture the performance gains during the execution period of the function.
 
-**Advantages and Limitations of PSJit**
-
 **Advantages**
 
 - With the PSJit model, users have more programming autonomy and more precise performance optimization, allowing them to tune the performance of the network to the optimal level based on function characteristics and usage experience.
@@ -137,11 +135,6 @@ z = Tensor(np.ones(shape=[2, 4]), ms.float32)
 ret = tensor_cal(x, y, z)
 print(ret)
 ```
-
-**Usage Limitations**
-
-- It is not supported to run a function with decoration @jit(mode=\“PIJit\”) in static graph mode, in which case the decoration @jit(mode=\“PIJit\”) is considered invalid.
-- Calls to functions with decorated @jit(mode=\“PIJit\”) inside functions decorated with @jit(mode=\“PIJit\”) are not supported, and the decoration @jit(mode=\“PIJit\”) is considered invalid.
 
 **Advantages and Limitations of PIJit**
 
