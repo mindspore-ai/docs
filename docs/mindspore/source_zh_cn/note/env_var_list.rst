@@ -307,13 +307,13 @@ Dump调试
      - 取值
      - 说明
    * - MINDSPORE_DUMP_CONFIG
-     - 指定 `云侧Dump功能 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#同步dump>`_
+     - 指定 `云侧Dump功能 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html>`_
        或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/master/tools/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
      - String
      - 文件路径，支持相对路径与绝对路径
      -
    * - MS_DIAGNOSTIC_DATA_PATH
-     - 使用 `云侧Dump功能 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html#同步dump>`_ 时，
+     - 使用 `云侧Dump功能 <https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html>`_ 时，
        如果Dump配置文件没有设置 `path` 字段或者设置为空字符串，则 `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump` 就会被当做path的值。
        若Dump配置文件中设置了 `path` 字段，则仍以该字段的实际取值为准。
      - String

@@ -306,13 +306,13 @@ Dump Debugging
      - Value Range
      - Description
    * - MINDSPORE_DUMP_CONFIG
-     - Specify the path of the configuration file that the `cloud-side Dump <https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html#synchronous-dump>`_
+     - Specify the path of the configuration file that the `cloud-side Dump <https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html>`_
        or the `device-side Dump <https://www.mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html#dump>`_ depends on.
      - String
      - File path, which can be a relative path or an absolute path.
      - 
    * - MS_DIAGNOSTIC_DATA_PATH
-     - When the `cloud-side Dump <https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html#synchronous-dump>`_ is enabled, 
+     - When the `cloud-side Dump <https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html>`_ is enabled, 
        if the `path` field is not set or set to an empty string in the Dump configuration file, then `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump is regarded as path. 
        If the `path` field in configuration file is not empty, it is still used as the path to save Dump data.
      - String
