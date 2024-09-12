@@ -53,7 +53,7 @@ There are multiple methods for creating tensors. When building a tensor, you can
 
     - `init`: supports the subclass of [initializer](https://mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html). For example, [One()](https://www.mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.One) and [Normal()](https://www.mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal) below.
     - `shape`: supports `list`, `tuple`, and `int`.
-    - `dtype`: supports [mindspore.dtype](https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.dtype).
+    - `dtype`: supports [mindspore.dtype](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.dtype.html#mindspore.dtype).
 
     ```python
     from mindspore.common.initializer import One, Normal
