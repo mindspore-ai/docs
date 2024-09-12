@@ -879,6 +879,7 @@ Model()
 | [Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr<Context> &model_context = nullptr)](#build-2)     |    √    |    √    |
 | [Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr<Context> &model_context, const Key &dec_key, const std::string &dec_mode, const std::string &cropto_lib_path)](#build-3)     |    √    |    √    |
 | [Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr, const std::shared_ptr<TrainCfg> &train_cfg = nullptr)](#build-4)     |    ✕    |    √    |
+| [Status Build(const std::string &model_path, ModelType model_type, const std::shared_ptr<Context> &model_context, const CryptoInfo &cryptoInfo);](#build-5)     |    √    |    ✕    |
 | [Status BuildTransferLearning(GraphCell backbone, GraphCell head, const std::shared_ptr<Context> &context, const std::shared_ptr<TrainCfg> &train_cfg = nullptr)](#buildtransferlearning)     |    ✕    |    √    |
 | [Status Resize(const std::vector<MSTensor> &inputs, const std::vector<std::vector<int64_t>> &dims)](#resize)     |    √    |    √    |
 | [Status UpdateWeights(const std::vector<MSTensor> &new_weights)](#updateweights)     |    ✕    |    √    |
@@ -1017,6 +1018,26 @@ Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nu
     - `graph`: `GraphCell`是`Cell`的一个派生，`Cell`目前没有开放使用。`GraphCell`可以由`Graph`构造，如`model.Build(GraphCell(graph), context)`。
     - `model_context`: 模型[Context](#context)。
     - `train_cfg`: train配置文件[TrainCfg](#traincfg)。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### Build
+
+```cpp
+Status Build(const std::string &model_path, ModelType model_type,
+             const std::shared_ptr<Context> &model_context, const CryptoInfo &cryptoInfo);
+```
+
+根据路径读取加载密文模型，并将模型解密而后编译至可在Device上运行的状态。
+
+- 参数
+
+    - `model_path`: 密文模型文件路径。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR_Lite`、`ModelType::kMindIR`，分别对应`ms`模型（`converter_lite`工具导出）和`mindir`模型（MindSpore导出或`converter_lite`工具导出）。MindIR推理支持`ms`和`mindir`模型推理，需要将该参数设置为模型对应的选项值。MindIR推理对`ms`模型的支持，将在未来的迭代中删除，推荐通过`mindir`模型进行推理。
+    - `model_context`: 模型[Context](#context)。
+    - `cryptoInfo`: 解密相关配置信息。
 
 - 返回值
 
