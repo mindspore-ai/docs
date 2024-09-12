@@ -263,6 +263,9 @@ if os.path.exists('./model_train/program_form/static_graph_syntax/static_graph_s
 if os.path.exists('./model_train/train_process/model/model.ipynb'):
     os.remove('./model_train/train_process/model/model.ipynb')
 
+if os.path.exists('./model_train/custom_program/operation/op_custom.ipynb'):
+    os.remove('./model_train/custom_program/operation/op_custom.ipynb')
+
 # 删除并获取ops下多余的接口文件名
 white_list = ['mindspore.ops.comm_note.rst']
 
