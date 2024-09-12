@@ -2019,10 +2019,11 @@ Type机制。当\ ``tensor``\ 函数的\ ``dtype``\ 确定时，函数内部会�
          self.abs = ops.Abs()
 
       def construct(self, x, y):
-         y1 = ms.tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32)
-         y2 = ms.Tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32) # @jit.typing: () -> tensor_type[float32]
-         y3 = Tensor(x.asnumpy() + y.asnumpy())
-         y4 = Tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32)
+         z = x.asnumpy() + y.asnumpy()
+         y1 = ms.tensor(z, dtype=ms.float32)
+         y2 = ms.Tensor(z, dtype=ms.float32) # @jit.typing: () -> tensor_type[float32]
+         y3 = Tensor(z)
+         y4 = Tensor(z, dtype=ms.float32)
          return self.abs(y1), self.abs(y2), self.abs(y3), self.abs(y4)
 
    ms.set_context(mode=ms.GRAPH_MODE)
