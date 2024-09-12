@@ -609,6 +609,13 @@ Operators Compile
        INF/NAN mode: Follows the IEEE 754 standard and outputs INF/NAN calculations as defined.
 
        Atlas A2 training series use only.
+   * - MS_CUSTOM_AOT_WHITE_LIST
+     - Specify the valid path for custom operators to use dynamic libraries.
+     - String
+     - The path to validated dynamic libraries. The framework will validate based on the valid path specified for dynamic libraries used by custom operators. If the dynamic library used by a custom operator is not located in the specified path, the framework will report an error and refuse to use the corresponding dynamic library. When this setting is left empty, no validation will be performed on the dynamic libraries of custom operators.
+
+       Default value: empty string.
+     -
 
 For more information, see `FAQ <https://mindspore.cn/docs/en/master/faq/operators_compile.html>`_.
 
