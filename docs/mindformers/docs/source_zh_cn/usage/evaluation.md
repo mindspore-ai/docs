@@ -112,12 +112,4 @@ python toolkit/benchmarks/eval_with_harness.py --model mf --model_args "pretrain
 
 ### 支持特性说明
 
-Harness全量评测任务见[查看数据集评测任务](#查看数据集评测任务)，loglikelihood_rolling类型的评测任务暂未支持：
-
-- french_bench_perplexity
-- french_bench_opus_perplexity
-- french_bench_wikitext_fr
-- paloma
-- pile
-- pile_10k
-- wikitext
+支持Harness全量评测任务，见[查看数据集评测任务](#查看数据集评测任务)。
