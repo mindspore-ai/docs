@@ -31,8 +31,7 @@ MindSpore的静态图执行过程实际包含两步，对应静态图的Define�
 
 ``model(inputs) = model.compile(inputs) + model.construct(inputs)``\ ，其中\ ``model``\ 为实例化Cell对象。
 
-使用Graph模式有两种方式：一是调用\ ``@jit``\ 装饰器修饰函数或者类的成员方法，所修饰的函数或方法将会被编译成静态计算图。\ ``jit``\ 使用规则详见\ `jit
-API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.jit.html#mindspore.jit>`_\ 。二是设置\ ``ms.set_context(mode=ms.GRAPH_MODE)``\ ，使用\ ``Cell``\ 类并且在\ ``construct``\ 函数中编写执行代码，此时\ ``construct``\ 函数的代码将会被编译成静态计算图。\ ``Cell``\ 定义详见\ `Cell
+使用Graph模式需要设置\ ``ms.set_context(mode=ms.GRAPH_MODE)``\ ，使用\ ``Cell``\ 类并且在\ ``construct``\ 函数中编写执行代码，此时\ ``construct``\ 函数的代码将会被编译成静态计算图。\ ``Cell``\ 定义详见\ `Cell
 API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html>`_\ 。
 
 由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。借鉴传统JIT编译的思路，从图模式的角度考虑动静图的统一，扩展图模式的语法能力，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。为了便于用户选择是否扩展静态图语法，提供了JIT语法支持级别选项\ ``jit_syntax_level``\ ，其值必须在[STRICT，LAX]范围内，选择\ ``STRICT``\ 则认为使用基础语法，不扩展静态图语法。默认值为\ ``LAX``\ ，更多请参考本文的\ `扩展语法（LAX级别） <#扩展语法lax级别>`_\ 章节。全部级别都支持所有后端。
@@ -65,15 +64,20 @@ API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn
 
    .. code:: python
 
-      from mindspore import Tensor, jit
+      import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
+
+      context.set_context(mode=ms.GRAPH_MODE)
 
       a = 1
       b = [Tensor([1]), Tensor([2])]
       c = ["a", "b", "c"]
 
-      @jit
-      def foo(a, b, c):
-          return a, b, c
+      class Net(nn.Cell):
+         def construct(self, a, b, c):
+            return a, b, c
 
    上述代码中，输入\ ``a``\ ，\ ``b``\ ，\ ``c``\ 均为常量。
 
@@ -81,14 +85,19 @@ API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn
 
    .. code:: python
 
-      from mindspore import jit, Tensor
+      import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
 
-      @jit
-      def foo():
-          a = 1
-          b = "2"
-          c = Tensor([1, 2, 3])
-          return a, b, c
+      context.set_context(mode=ms.GRAPH_MODE)
+
+      class Net(nn.Cell):
+         def construct(self):
+            a = 1
+            b = "2"
+            c = Tensor([1, 2, 3])
+            return a, b, c
 
    上述代码中， ``a``\ ，\ ``b``\ ，\ ``c``\ 均为常量。
 
@@ -96,14 +105,19 @@ API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn
 
    .. code:: python
 
-      from mindspore import jit, Tensor
+      import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
 
-      @jit
-      def foo():
-          a = Tensor([1, 2, 3])
-          b = Tensor([1, 1, 1])
-          c = a + b
-          return c
+      context.set_context(mode=ms.GRAPH_MODE)
+
+      class Net(nn.Cell):
+         def construct(self):
+            a = Tensor([1, 2, 3])
+            b = Tensor([1, 1, 1])
+            c = a + b
+            return c
 
    上述代码中，\ ``a``\ 、\ ``b``\ 均为图模式内产生的Tensor为常量，因此其计算得到的结果也是常量。但如果其中之一为变量时，其返回值也会为变量。
 
@@ -114,16 +128,21 @@ API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn
 
    .. code:: python
 
-      from mindspore import Tensor, jit
       from mindspore import mutable
+      import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
+
+      context.set_context(mode=ms.GRAPH_MODE)
 
       a = mutable([Tensor([1]), Tensor([2])])
 
-      @jit
-      def foo(a):
-          b = mutable(Tensor([3]))
-          c = mutable((Tensor([1]), Tensor([2])))
-          return a, b, c
+      class Net(nn.Cell):
+         def construct(self, a):
+            b = mutable(Tensor([3]))
+            c = mutable((Tensor([1]), Tensor([2])))
+            return a, b, c
 
    上述代码中，\ ``a``\ 是在图外调用mutable接口的，\ ``b``\ 和\ ``c``\ 是在图内调用mutable接口生成的，\ ``a``\ 、\ ``b``\ 、\ ``c``\ 均为变量。
 
@@ -131,14 +150,19 @@ API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn
 
    .. code:: python
 
-      from mindspore import Tensor, jit
+      import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
+
+      context.set_context(mode=ms.GRAPH_MODE)
 
       a = Tensor([1])
       b = (Tensor([1]), Tensor([2]))
 
-      @jit
-      def foo(a, b):
-          return a, b
+      class Net(nn.Cell):
+         def construct(self, a, b):
+            return a, b
 
    上述代码中，\ ``a``\ 是作为图模式输入的Tensor，因此其为变量。但\ ``b``\ 是作为图模式输入的元组，非Tensor类型，即使其内部的元素均为Tensor，\ ``b``\ 也是常量。
  
@@ -148,15 +172,20 @@ API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn
 
    .. code:: python
 
-      from mindspore import Tensor, jit
+      import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
+
+      context.set_context(mode=ms.GRAPH_MODE)
 
       a = Tensor([1])
       b = Tensor([2])
 
-      @jit
-      def foo(a, b):
-          c = a + b
-          return c
+      class Net(nn.Cell):
+         def construct(self, a, b):
+            c = a + b
+            return c
 
    在这种情况下，\ ``c``\ 是\ ``a``\ 和\ ``b``\ 计算来的结果，且用来计算的输入\ ``a``\ 、\ ``b``\ 均为变量，因此\ ``c``\ 也是变量。
 
@@ -180,16 +209,22 @@ Number
 
 .. code:: python
 
-   from mindspore import Tensor, jit
+   import mindspore as ms
+   from mindspore import nn
+   from mindspore import context
+   from mindspore import Tensor
 
-   @jit
-   def foo(x):
-       out1 = int(11.1)
-       out2 = int(Tensor([10]))
-       out3 = int(x.asnumpy())
-       return out1, out2, out3
+   context.set_context(mode=ms.GRAPH_MODE)
 
-   res = foo(Tensor(2))
+   class Net(nn.Cell):
+      def construct(self, x):
+         out1 = int(11.1)
+         out2 = int(Tensor([10]))
+         out3 = int(x.asnumpy())
+         return out1, out2, out3
+
+   net = Net()
+   res = net(Tensor(2))
    print("res[0]:", res[0])
    print("res[1]:", res[1])
    print("res[2]:", res[2])
@@ -207,12 +242,18 @@ Number
 .. code:: python
 
    import mindspore as ms
+   from mindspore import nn
+   from mindspore import context
+   from mindspore import Tensor
 
-   @ms.jit
-   def test_return_scalar(x, y):
-       return x + y
+   context.set_context(mode=ms.GRAPH_MODE)
 
-   res = test_return_scalar(ms.mutable(1), ms.mutable(2))
+   class Net(nn.Cell):
+      def construct(self, x, y):
+         return x + y
+
+   net = Net()
+   res = net(ms.mutable(1), ms.mutable(2))
    print(res)
 
 运行结果如下：
@@ -230,17 +271,23 @@ String
 
 .. code:: python
 
-   from mindspore import jit
+   import mindspore as ms
+   from mindspore import nn
+   from mindspore import context
+   from mindspore import Tensor
 
-   @jit
-   def foo():
-       var1 = 'Hello!'
-       var2 = "MindSpore"
-       var3 = str(123)
-       var4 = "{} is {}".format("string", var3)
-       return var1[0], var2[4:9], var1 + var2, var2 * 2, "H" in var1, "My name is %s!" % var2, var4
+   context.set_context(mode=ms.GRAPH_MODE)
 
-   res = foo()
+   class Net(nn.Cell):
+      def construct(self):
+         var1 = 'Hello!'
+         var2 = "MindSpore"
+         var3 = str(123)
+         var4 = "{} is {}".format("string", var3)
+         return var1[0], var2[4:9], var1 + var2, var2 * 2, "H" in var1, "My name is %s!" % var2, var4
+
+   net = Net()
+   res = net()
    print("res:", res)
 
 运行结果如下：
@@ -262,15 +309,21 @@ List
 
    .. code:: python
 
+      import numpy as np
       import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
 
-      @ms.jit
-      def generate_list():
-          a = [1, 2, 3, 4]
-          b = ["1", "2", "a"]
-          c = [ms.Tensor([1]), ms.Tensor([2])]
-          d = [a, b, c, (4, 5)]
-          return d
+      context.set_context(mode=ms.GRAPH_MODE)
+
+      class Net(nn.Cell):
+         def construct(self):
+            a = [1, 2, 3, 4]
+            b = ["1", "2", "a"]
+            c = [ms.Tensor([1]), ms.Tensor([2])]
+            d = [a, b, c, (4, 5)]
+            return d
 
    上述示例代码中，所有的\ ``List``\ 对象都可以被正常的创建。
 
@@ -282,13 +335,19 @@ List
    .. code:: python
 
       import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
 
-      @ms.jit
-      def list_func():
-          a = [1, 2, 3, 4]
-          return a
+      context.set_context(mode=ms.GRAPH_MODE)
 
-      output = list_func()  # output: [1, 2, 3, 4]
+      class Net(nn.Cell):
+         def construct(self):
+            a = [1, 2, 3, 4]
+            return a
+
+      net = Net()
+      output = net()  # output: [1, 2, 3, 4]
 
    与图模式内创建\ ``List``
    相同，图模式返回\ ``List``\ 对象可以包括任意图模式支持的类型，也支持多层嵌套。
@@ -298,15 +357,21 @@ List
    .. code:: python
 
       import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
+
+      context.set_context(mode=ms.GRAPH_MODE)
 
       global_list = [1, 2, 3, 4]
 
-      @ms.jit
-      def list_func():
-          global_list.reverse()
-          return global_list
+      class Net(nn.Cell):
+         def construct(self):
+            global_list.reverse()
+            return global_list
 
-      output = list_func()  # output: [4, 3, 2, 1]
+      net = Net()
+      output = net()  # output: [4, 3, 2, 1]
 
    需要注意的是，在基础场景下图模式返回的列表与全局变量的列表不是同一个对象，当\ ``JIT_SYNTAX_LEVEL``\ 设置为\ ``LAX``\ 时，返回的对象与全局对象为统一对象。
 
@@ -317,14 +382,20 @@ List
    .. code:: python
 
       import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
+
+      context.set_context(mode=ms.GRAPH_MODE)
 
       list_input = [1, 2, 3, 4]
 
-      @ms.jit
-      def list_func(x):
-          return x
+      class Net(nn.Cell):
+         def construct(self, x):
+            return x
 
-      output = list_func(list_input)  # output: [1, 2, 3, 4]
+      net = Net()
+      output = net(list_input)  # output: [1, 2, 3, 4]
 
    需要注意的是，\ ``List``\ 作为静态图输入时，无论其内部的元素是什么类型，一律被视为常量。
 
@@ -345,15 +416,22 @@ List
       .. code:: python
 
          import mindspore as ms
-         @ms.jit()
-         def list_getitem_func():
-             x = [[1, 2], 3, 4]
-             a = x[0]
-             b = x[0][ms.Tensor([1])]
-             c = x[1:3:1]
-             return a, b, c
+         from mindspore import nn
+         from mindspore import context
+         from mindspore import Tensor
 
-         a, b, c = list_getitem_func()
+         context.set_context(mode=ms.GRAPH_MODE)
+         
+         class Net(nn.Cell):
+            def construct(self):
+               x = [[1, 2], 3, 4]
+               a = x[0]
+               b = x[0][ms.Tensor([1])]
+               c = x[1:3:1]
+               return a, b, c
+
+         net = Net()
+         a, b, c = net()
          print('a:{}'.format(a))
          print('b:{}'.format(b))
          print('c:{}'.format(c))
@@ -386,17 +464,24 @@ List
       .. code:: python
 
          import mindspore as ms
+         from mindspore import nn
+         from mindspore import context
+         from mindspore import Tensor
 
-         @ms.jit()
-         def test_setitem_func():
-             x = [[0, 1], 2, 3, 4]
-             x[1] = 10
-             x[2] = "ok"
-             x[3] = (1, 2, 3)
-             x[0][1] = 88
-             return x
+         context.set_context(mode=ms.GRAPH_MODE)
 
-         output = test_setitem_func()
+         
+         class Net(nn.Cell):
+            def construct(self):
+               x = [[0, 1], 2, 3, 4]
+               x[1] = 10
+               x[2] = "ok"
+               x[3] = (1, 2, 3)
+               x[0][1] = 88
+               return x
+
+         net = Net()
+         output = net()
          print('output:{}'.format(output))
 
       运行结果如下：
@@ -419,14 +504,20 @@ List
       .. code:: python
 
          import mindspore as ms
+         from mindspore import nn
+         from mindspore import context
+         from mindspore import Tensor
 
-         @ms.jit()
-         def test_list():
-             x = [1, 2, 3]
-             x.append(4)
-             return x
+         context.set_context(mode=ms.GRAPH_MODE)
 
-         x = test_list()
+         class Net(nn.Cell):
+            def construct(self):
+               x = [1, 2, 3]
+               x.append(4)
+               return x
+
+         net = Net()
+         x = net()
          print('x:{}'.format(x))
 
       运行结果如下：
@@ -449,14 +540,20 @@ List
       .. code:: python
 
          import mindspore as ms
+         from mindspore import nn
+         from mindspore import context
+         from mindspore import Tensor
 
-         @ms.jit()
-         def test_list_clear():
-             x = [1, 3, 4]
-             x.clear()
-             return x
+         context.set_context(mode=ms.GRAPH_MODE)
 
-         x = test_list_clear()
+         class Net(nn.Cell):
+            def construct(self):
+               x = [1, 3, 4]
+               x.clear()
+               return x
+
+         net = Net()
+         x = net()
          print('x:{}'.format(x))
 
       运行结果如下：
@@ -478,16 +575,22 @@ List
       .. code:: python
 
          import mindspore as ms
+         from mindspore import nn
+         from mindspore import context
+         from mindspore import Tensor
 
-         @ms.jit()
-         def test_list_extend():
-             x1 = [1, 2, 3]
-             x1.extend((4, "a"))
-             x2 = [1, 2, 3]
-             x2.extend(ms.Tensor([4, 5]))
-             return x1, x2
+         context.set_context(mode=ms.GRAPH_MODE)
 
-         output1, output2 = test_list_extend()
+         class Net(nn.Cell):
+            def construct(self):
+               x1 = [1, 2, 3]
+               x1.extend((4, "a"))
+               x2 = [1, 2, 3]
+               x2.extend(ms.Tensor([4, 5]))
+               return x1, x2
+
+         net = Net()
+         output1, output2 = net()
          print('output1:{}'.format(output1))
          print('output2:{}'.format(output2))
 
@@ -511,14 +614,20 @@ List
       .. code:: python
 
          import mindspore as ms
+         from mindspore import nn
+         from mindspore import context
+         from mindspore import Tensor
 
-         @ms.jit()
-         def test_list_pop():
-             x = [1, 2, 3]
-             b = x.pop()
-             return b, x
+         context.set_context(mode=ms.GRAPH_MODE)
+         
+         class Net(nn.Cell):
+            def construct(self):
+               x = [1, 2, 3]
+               b = x.pop()
+               return b, x
 
-         pop_element, res_list = test_list_pop()
+         net = Net()
+         pop_element, res_list = net()
          print('pop_element:{}'.format(pop_element))
          print('res_list:{}'.format(res_list))
 
@@ -540,14 +649,20 @@ List
       .. code:: python
 
          import mindspore as ms
+         from mindspore import nn
+         from mindspore import context
+         from mindspore import Tensor
 
-         @ms.jit()
-         def test_list_reverse():
-             x = [1, 2, 3]
-             x.reverse()
-             return x
+         context.set_context(mode=ms.GRAPH_MODE)
 
-         output = test_list_reverse()
+         class Net(nn.Cell):
+            def construct(self):
+               x = [1, 2, 3]
+               x.reverse()
+               return x
+
+         net = Net()
+         output = net()
          print('output:{}'.format(output))
 
       运行结果如下：
@@ -569,14 +684,20 @@ List
       .. code:: python
 
          import mindspore as ms
+         from mindspore import nn
+         from mindspore import context
+         from mindspore import Tensor
 
-         @ms.jit()
-         def test_list_insert():
-             x = [1, 2, 3]
-             x.insert(3, 4)
-             return x
+         context.set_context(mode=ms.GRAPH_MODE)
+         
+         class Net(nn.Cell):
+            def construct(self):
+               x = [1, 2, 3]
+               x.insert(3, 4)
+               return x
 
-         output = test_list_insert()
+         net = Net()
+         output = net()
          print('output:{}'.format(output))
 
       运行结果如下：
@@ -608,11 +729,16 @@ Tuple
 
       import numpy as np
       import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
+
+      context.set_context(mode=ms.GRAPH_MODE)
 
       t = ms.Tensor(np.array([1, 2, 3]))
-
-      @ms.jit()
-      def test_index():
+      
+      class Net(nn.Cell):
+         def construct(self):
             x = (1, (2, 3, 4), 3, 4, t)
             y = x[1][1]
             z = x[4]
@@ -620,7 +746,8 @@ Tuple
             n = x[-4]
             return y, z, m, n
 
-      y, z, m, n = test_index()
+      net = Net()
+      y, z, m, n = net()
       print('y:{}'.format(y))
       print('z:{}'.format(z))
       print('m:{}'.format(m))
@@ -645,15 +772,15 @@ Tuple
       set_context(mode=ms.GRAPH_MODE)
 
       class Net(nn.Cell):
-            def __init__(self):
-               super(Net, self).__init__()
-               self.relu = nn.ReLU()
-               self.softmax = nn.Softmax()
-               self.layers = (self.relu, self.softmax)
+         def __init__(self):
+            super(Net, self).__init__()
+            self.relu = nn.ReLU()
+            self.softmax = nn.Softmax()
+            self.layers = (self.relu, self.softmax)
 
-            def construct(self, x, index):
-               ret = self.layers[index](x)
-               return ret
+         def construct(self, x, index):
+            ret = self.layers[index](x)
+            return ret
 
       x = ms.Tensor([-1.0], ms.float32)
 
@@ -674,14 +801,20 @@ Tuple
    .. code:: python
 
       import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
 
-      @ms.jit()
-      def test_index():
-          x = (1, 2, 3)
-          y = (4, 5, 6)
-          return x + y, x * 2
+      context.set_context(mode=ms.GRAPH_MODE)
 
-      out1, out2 = test_index()
+      class Net(nn.Cell):
+         def construct(self):
+            x = (1, 2, 3)
+            y = (4, 5, 6)
+            return x + y, x * 2
+
+      net = Net()
+      out1, out2 = net()
       print('out1:{}'.format(out1))
       print('out2:{}'.format(out2))
 
@@ -721,24 +854,30 @@ Dictionary
 
    .. code:: python
 
-      import mindspore as ms
       import numpy as np
+      import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
+
+      context.set_context(mode=ms.GRAPH_MODE)
 
       x = {"a": ms.Tensor(np.array([1, 2, 3])), "b": ms.Tensor(np.array([4, 5, 6])), "c": ms.Tensor(np.array([7, 8, 9]))}
 
-      @ms.jit()
-      def test_dict():
-          x_keys = x.keys()
-          x_values = x.values()
-          x_items = x.items()
-          value_a = x.get("a")
-          check_key = x.has_key("a")
-          y = {"a": ms.Tensor(np.array([0, 0, 0]))}
-          x.update(y)
-          new_dict = x.fromkeys("abcd", 123)
-          return x_keys, x_values, x_items, value_a, check_key, x, new_dict
+      class Net(nn.Cell):
+         def construct(self):
+            x_keys = x.keys()
+            x_values = x.values()
+            x_items = x.items()
+            value_a = x.get("a")
+            check_key = x.has_key("a")
+            y = {"a": ms.Tensor(np.array([0, 0, 0]))}
+            x.update(y)
+            new_dict = x.fromkeys("abcd", 123)
+            return x_keys, x_values, x_items, value_a, check_key, x, new_dict
 
-      x_keys, x_values, x_items, value_a, check_key, new_x, new_dict = test_dict()
+      net = Net()
+      x_keys, x_values, x_items, value_a, check_key, new_x, new_dict = net()
       print('x_keys:{}'.format(x_keys))
       print('x_values:{}'.format(x_values))
       print('x_items:{}'.format(x_items))
@@ -778,12 +917,11 @@ API文档 <https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore
    import mindspore.nn as nn
 
    class Net(nn.Cell):
-       def __init__(self):
-           super(Net, self).__init__()
+      def __init__(self):
+         super(Net, self).__init__()
 
-       @ms.jit
-       def construct(self, x):
-           return ms.tensor(x.asnumpy(), dtype=ms.float32)
+      def construct(self, x):
+         return ms.tensor(x.asnumpy(), dtype=ms.float32)
 
    ms.set_context(mode=ms.GRAPH_MODE)
    net = Net()
@@ -812,13 +950,13 @@ Primitive
    set_context(mode=ms.GRAPH_MODE)
 
    class Net(nn.Cell):
-       def __init__(self):
-           super(Net, self).__init__()
+      def __init__(self):
+         super(Net, self).__init__()
 
-       def construct(self, x):
-           reduce_sum = ops.ReduceSum(True) #支持在construct里构造`Primitive`及其子类的实例
-           ret = reduce_sum(x, axis=2)
-           return ret
+      def construct(self, x):
+         reduce_sum = ops.ReduceSum(True) #支持在construct里构造`Primitive`及其子类的实例
+         ret = reduce_sum(x, axis=2)
+         return ret
 
    x = Tensor(np.random.randn(3, 4, 5, 6).astype(np.float32))
    net = Net()
@@ -888,16 +1026,16 @@ API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/minds
    set_context(mode=ms.GRAPH_MODE)
 
    class Net(nn.Cell):
-       def __init__(self):
-           super().__init__()
-           self.weight = ms.Parameter(ms.Tensor(3, ms.float32), name="w")
-           self.m = 2
+      def __init__(self):
+         super().__init__()
+         self.weight = ms.Parameter(ms.Tensor(3, ms.float32), name="w")
+         self.m = 2
 
-       def construct(self, x, y):
-           self.weight = x  # 满足条件可以修改
-           # self.m = 3     # self.m 非Parameter类型禁止修改
-           # y.weight = x   # y不是self，禁止修改
-           return x
+      def construct(self, x, y):
+         self.weight = x  # 满足条件可以修改
+         # self.m = 3     # self.m 非Parameter类型禁止修改
+         # y.weight = x   # y不是self，禁止修改
+         return x
 
    net = Net()
    ret = net(1, 2)
@@ -939,13 +1077,13 @@ API文档 <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/minds
    set_context(mode=ms.GRAPH_MODE)
 
    class Net(nn.Cell):
-       def __init__(self):
-           super().__init__()
-           self.matmul = ops.MatMul()
+      def __init__(self):
+         super().__init__()
+         self.matmul = ops.MatMul()
 
-       def construct(self, x, y):
-           out = self.matmul(x, y)  # Primitive调用
-           return out
+      def construct(self, x, y):
+         out = self.matmul(x, y)  # Primitive调用
+         return out
 
    x = ms.Tensor(np.ones(shape=[1, 3]), ms.float32)
    y = ms.Tensor(np.ones(shape=[3, 4]), ms.float32)
@@ -987,19 +1125,19 @@ Python内置函数
    ms.set_context(mode=ms.GRAPH_MODE)
 
    class Net(nn.Cell):
-       def __init__(self):
-           super(Net, self).__init__()
+      def __init__(self):
+         super(Net, self).__init__()
 
-       def construct(self, x, y, z):
-           return x + y + z
+      def construct(self, x, y, z):
+         return x + y + z
 
    class GradNet(nn.Cell):
-       def __init__(self, net):
-           super(GradNet, self).__init__()
-           self.forward_net = net
+      def __init__(self, net):
+         super(GradNet, self).__init__()
+         self.forward_net = net
 
-       def construct(self, x, y, z):
-           return ms.grad(self.forward_net, grad_position=(0, 1, 2))(x, y, z)
+      def construct(self, x, y, z):
+         return ms.grad(self.forward_net, grad_position=(0, 1, 2))(x, y, z)
 
    input_x = ms.Tensor([1])
    input_y = 2
@@ -1030,12 +1168,12 @@ Python内置函数
 
       set_context(mode=ms.GRAPH_MODE)
 
-         class Net(nn.Cell):
-          def __init__(self):
-              super(Net, self).__init__()
+      class Net(nn.Cell):
+         def __init__(self):
+            super(Net, self).__init__()
 
-          def construct(self, x):
-              return x + self.y
+         def construct(self, x):
+            return x + self.y
 
       net = Net()
       net(1)
@@ -1055,12 +1193,12 @@ Python内置函数
       ms.set_context(mode=ms.GRAPH_MODE)
 
       class Net(ms.nn.Cell):
-          @classmethod
-          def func(cls, x, y):
-              return x + y
+         @classmethod
+         def func(cls, x, y):
+            return x + y
 
-          def construct(self, x, y):
-              return self.func(x, y)
+         def construct(self, x, y):
+            return self.func(x, y)
 
       net = Net()
       out = net(ms.Tensor(1), ms.Tensor(2))
@@ -1079,17 +1217,23 @@ Python内置函数
    .. code:: python
 
       import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
 
-      @ms.jit
-      def test_try_except(x, y):
-          global_out = 1
-          try:
-              global_out = x / y
-          except ZeroDivisionError:
-              print("division by zero, y is zero.")
-          return global_out
+      context.set_context(mode=ms.GRAPH_MODE)
 
-      test_try_except_out = test_try_except(1, 0)
+      class Net(nn.Cell):
+         def construct(self, x, y):
+            global_out = 1
+            try:
+               global_out = x / y
+            except ZeroDivisionError:
+               print("division by zero, y is zero.")
+            return global_out
+
+      net = Net()
+      test_try_except_out = net(1, 0)
       print("out:", test_try_except_out)
 
    结果报错如下：
@@ -1114,12 +1258,12 @@ Python内置函数
 
       class Net(nn.Cell):
       def __init__(self):
-          super().__init__()
-          self.len = 1
+         super().__init__()
+         self.len = 1
 
       def construct(self, inputs):
-          x = inputs + self.len
-          return x
+         x = inputs + self.len
+         return x
 
       context.set_context(mode=ms.GRAPH_MODE)
       inputs = 2
@@ -1160,15 +1304,21 @@ Python内置函数
 
       import numpy as np
       import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
 
-      @ms.jit
-      def func():
-          a = np.array([1, 2, 3])
-          b = np.array([4, 5, 6])
-          out = a + b
-          return out
+      context.set_context(mode=ms.GRAPH_MODE)
 
-      print(func())
+      class Net(nn.Cell):
+         def construct(self):
+            a = np.array([1, 2, 3])
+            b = np.array([4, 5, 6])
+            out = a + b
+            return out
+
+      net = Net()
+      print(net())
 
    运行结果如下：
 
@@ -1184,13 +1334,19 @@ Python内置函数
 
       from scipy import linalg
       import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
 
-      @ms.jit
-      def func():
-          x = [[1, 2], [3, 4]]
-          return linalg.qr(x)
+      context.set_context(mode=ms.GRAPH_MODE)
 
-      out = func()
+      class Net(nn.Cell):
+         def construct(self):
+            x = [[1, 2], [3, 4]]
+            return linalg.qr(x)
+
+      net = Net()
+      out = net()
       print(out[0].shape)
 
    运行结果如下：
@@ -1207,14 +1363,20 @@ Python内置函数
 
       import numpy as np
       import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
 
-      @ms.jit
-      def func():
-          x = np.array([1, 2, 3])
-          out = ms.Tensor(x) + 1
-          return out
+      context.set_context(mode=ms.GRAPH_MODE)
 
-      print(func())
+      class Net(nn.Cell):
+         def construct(self):
+            x = np.array([1, 2, 3])
+            out = ms.Tensor(x) + 1
+            return out
+
+      net = Net()
+      print(net())
 
    运行结果如下：
 
@@ -1230,14 +1392,20 @@ Python内置函数
 
       import numpy as np
       import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
 
-      @ms.jit
-      def func():
-          x = np.array([1, 2, 3])
-          x[0] += 1
-          return ms.Tensor(x)
+      context.set_context(mode=ms.GRAPH_MODE)
 
-      res = func()
+      class Net(nn.Cell):
+         def construct(self):
+            x = np.array([1, 2, 3])
+            x[0] += 1
+            return ms.Tensor(x)
+
+      net = Net()
+      res = net()
       print("res: ", res)
 
    运行结果如下：
@@ -1260,20 +1428,20 @@ Python内置函数
    ms.set_context(mode=ms.GRAPH_MODE)
 
    class GetattrClass():
-       def __init__(self):
-           self.attr1 = 99
-           self.attr2 = 1
+      def __init__(self):
+         self.attr1 = 99
+         self.attr2 = 1
 
-       def method1(self, x):
-           return x + self.attr2
+      def method1(self, x):
+         return x + self.attr2
 
    class GetattrClassNet(ms.nn.Cell):
-       def __init__(self):
-           super(GetattrClassNet, self).__init__()
-           self.cls = GetattrClass()
+      def __init__(self):
+         super(GetattrClassNet, self).__init__()
+         self.cls = GetattrClass()
 
-       def construct(self):
-           return self.cls.method1(self.cls.attr1)
+      def construct(self):
+         return self.cls.method1(self.cls.attr1)
 
    net = GetattrClassNet()
    out = net()
@@ -1297,8 +1465,8 @@ Python内置函数
    ms.set_context(mode=ms.GRAPH_MODE)
 
    class InnerClass(nn.Cell):
-       def construct(self, x, y):
-           return x.asnumpy() + y.asnumpy()
+      def construct(self, x, y):
+         return x.asnumpy() + y.asnumpy()
 
    net = InnerClass()
    ret = net(Tensor([4, 5]), Tensor([1, 2]))
@@ -1322,8 +1490,8 @@ Python内置函数
    ms.set_context(mode=ms.GRAPH_MODE)
 
    class InnerClass(nn.Cell):
-       def construct(self):
-           return (None, 1) in ((None, 1), 1, 2, 3)
+      def construct(self):
+         return (None, 1) in ((None, 1), 1, 2, 3)
 
    net = InnerClass()
    print(net())
@@ -1367,15 +1535,21 @@ Python内置函数
    .. code:: python
 
       import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
+
+      context.set_context(mode=ms.GRAPH_MODE)
 
       global_list = [1, 2, 3, 4]
 
-      @ms.jit
-      def list_func():
-          global_list.reverse()
-          return global_list
+      class Net(nn.Cell):
+         def construct(self):
+            global_list.reverse()
+            return global_list
 
-      output = list_func()  # output: [4, 3, 2, 1]
+      net = Net()
+      output = net()  # output: [4, 3, 2, 1]
       assert id(global_list) == id(output)
 
 -  不支持对输入\ ``List``\ 对象进行inplace操作。
@@ -1385,15 +1559,21 @@ Python内置函数
    .. code:: python
 
       import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
+
+      context.set_context(mode=ms.GRAPH_MODE)
 
       list_input = [1, 2, 3, 4]
 
-      @ms.jit
-      def list_func(x):
-      x.reverse()
-      return x
+      class Net(nn.Cell):
+         def construct(self, x):
+            x.reverse()
+            return x
 
-      output = list_func(list_input)  # output: [4, 3, 2, 1]  list_input: [1, 2, 3, 4]
+      net = Net()
+      output = net(list_input)  # output: [4, 3, 2, 1]  list_input: [1, 2, 3, 4]
       assert id(output) != id(list_input)
 
    如上述用例所示，\ ``List``\ 对象作为图模式输入时无法在原有对象上进行inplace操作。图模式返回的对象与输入的对象id不同，为不同对象。
@@ -1411,15 +1591,21 @@ Python内置函数
    .. code:: python
 
       import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
+
+      context.set_context(mode=ms.GRAPH_MODE)
 
       list_input = [1, 2, 3, 4]
 
-      @ms.jit
-      def list_func():
-          list_input.reverse()
-          return list_input
+      class Net(nn.Cell):
+         def construct(self):
+            list_input.reverse()
+            return list_input
 
-      output = list_func()  # output: [4, 3, 2, 1]  list_input: [4, 3, 2, 1]
+      net = Net()
+      output = net()  # output: [4, 3, 2, 1]  list_input: [4, 3, 2, 1]
       assert id(output) == id(list_input)
 
 支持Dictionary的高阶用法
@@ -1432,15 +1618,21 @@ Python内置函数
    .. code:: python
 
       import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
 
-      @ms.jit()
-      def test_dict():
-          x = {'a': 'a', 'b': 'b'}
-          y = x.get('a')
-          z = dict(y=y)
-          return z
+      context.set_context(mode=ms.GRAPH_MODE)
 
-      out = test_dict()
+      class Net(nn.Cell):
+         def construct(self):
+            x = {'a': 'a', 'b': 'b'}
+            y = x.get('a')
+            z = dict(y=y)
+            return z
+
+      net = Net()
+      out = net()
       print("out:", out)
 
    运行结果如下：
@@ -1455,18 +1647,24 @@ Python内置函数
 
    .. code:: python
 
-      import mindspore as ms
       import numpy as np
+      import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
+
+      context.set_context(mode=ms.GRAPH_MODE)
 
       x = {"a": ms.Tensor(np.array([1, 2, 3])), "b": ms.Tensor(np.array([4, 5, 6])), "c": ms.Tensor(np.array([7, 8, 9]))}
 
-      @ms.jit()
-      def test_dict():
-          y = x["b"]
-          x["a"] = (2, 3, 4)
-          return x, y
+      class Net(nn.Cell):
+         def construct(self):
+            y = x["b"]
+            x["a"] = (2, 3, 4)
+            return x, y
 
-      out1, out2 = test_dict()
+      net = Net()
+      out1, out2 = net()
       print('out1:{}'.format(out1))
       print('out2:{}'.format(out2))
 
@@ -1487,12 +1685,18 @@ Python内置函数
 .. code:: python
 
    import mindspore as ms
+   from mindspore import nn
+   from mindspore import context
+   from mindspore import Tensor
 
-   @ms.jit
-   def test_return_none():
-       return 1, "a", None
+   context.set_context(mode=ms.GRAPH_MODE)
 
-   res = test_return_none()
+   class Net(nn.Cell):
+      def construct(self):
+         return 1, "a", None
+
+   net = Net()
+   res = net()
    print(res)
 
 运行结果如下：
@@ -1506,13 +1710,19 @@ Python内置函数
 .. code:: python
 
    import mindspore as ms
+   from mindspore import nn
+   from mindspore import context
+   from mindspore import Tensor
 
-   @ms.jit
-   def foo():
-       x = 3
-       print("x:", x)
+   context.set_context(mode=ms.GRAPH_MODE)
 
-   res = foo()
+   class Net(nn.Cell):
+      def construct(self):
+         x = 3
+         print("x:", x)
+
+   net = Net()
+   res = net()
    assert res is None
 
 运行结果如下：
@@ -1527,18 +1737,24 @@ Python内置函数
 .. code:: python
 
    import mindspore as ms
+   from mindspore import nn
+   from mindspore import context
+   from mindspore import Tensor
 
-   @ms.jit
-   def foo(x, y=None):
-       if y is not None:
-           print("y:", y)
-       else:
-           print("y is None")
-       print("x:", x)
-       return y
+   context.set_context(mode=ms.GRAPH_MODE)
+
+   class Net(nn.Cell):
+      def construct(self, x, y=None):
+         if y is not None:
+            print("y:", y)
+         else:
+            print("y is None")
+         print("x:", x)
+         return y
 
    x = [1, 2]
-   res = foo(x)
+   net = Net()
+   res = net(x)
    assert res is None
 
 运行结果如下：
@@ -1565,8 +1781,8 @@ Python内置函数
    ms.set_context(mode=ms.GRAPH_MODE)
 
    class Net(nn.Cell):
-       def construct(self, x):
-           return isinstance(x.asnumpy(), np.ndarray)
+      def construct(self, x):
+         return isinstance(x.asnumpy(), np.ndarray)
 
    x = ms.Tensor(np.array([-1, 2, 4]))
    net = Net()
@@ -1582,15 +1798,21 @@ Python内置函数
 
    import numpy as np
    import mindspore as ms
+   from mindspore import nn
+   from mindspore import context
+   from mindspore import Tensor
 
-   @ms.jit
-   def func():
-       x = np.array(1)
-       if x <= 1:
-           x += 1
-       return ms.Tensor(x)
+   context.set_context(mode=ms.GRAPH_MODE)
 
-   res = func()
+   class Net(nn.Cell):
+      def construct(self):
+         x = np.array(1)
+         if x <= 1:
+            x += 1
+         return ms.Tensor(x)
+
+   net = Net()
+   res = net()
    print("res: ", res)
 
 运行结果如下：
@@ -1610,19 +1832,25 @@ Python内置函数
 
    .. code:: python
 
-      from mindspore import jit
+      import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
+
+      context.set_context(mode=ms.GRAPH_MODE)
 
       class AssignClass():
-          def __init__(self):
-              self.x = 1
+         def __init__(self):
+            self.x = 1
 
       obj = AssignClass()
 
-      @jit
-      def foo():
-          obj.x = 100
+      class Net(nn.Cell):
+         def construct(self):
+            obj.x = 100
 
-      foo()
+      net = Net()
+      net()
       print(f"obj.x is: {obj.x}")
 
    运行结果如下：
@@ -1635,16 +1863,22 @@ Python内置函数
 
    .. code:: python
 
-      from mindspore import jit
       import numpy as np
+      import mindspore as ms
+      from mindspore import nn
+      from mindspore import context
+      from mindspore import Tensor
 
-      @jit
-      def foo():
-          a = np.array([1, 2, 3, 4])
-          a.shape = (2, 2)
-          return a.shape
+      context.set_context(mode=ms.GRAPH_MODE)
 
-      shape = foo()
+      class Net(nn.Cell):
+         def construct(self):
+            a = np.array([1, 2, 3, 4])
+            a.shape = (2, 2)
+            return a.shape
+
+      net = Net()
+      shape = net()
       print(f"shape is {shape}")
 
    运行结果如下：
@@ -1662,13 +1896,13 @@ Python内置函数
       set_context(mode=ms.GRAPH_MODE)
 
       class Net(nn.Cell):
-          def __init__(self):
-              super().__init__()
-              self.m = 2
+         def __init__(self):
+            super().__init__()
+            self.m = 2
 
-          def construct(self):
-              self.m = 3
-              return 0
+         def construct(self):
+            self.m = 3
+            return 0
 
       net = Net()
       net()
@@ -1689,13 +1923,13 @@ Python内置函数
       set_context(mode=ms.GRAPH_MODE)
 
       class Net(nn.Cell):
-          def __init__(self):
-              super().__init__()
-              self.m = 2
+         def __init__(self):
+            super().__init__()
+            self.m = 2
 
-          def construct(self):
-              self.m2 = 3
-              return 0
+         def construct(self):
+            self.m2 = 3
+            return 0
 
       net = Net()
       net()
@@ -1719,17 +1953,17 @@ Python内置函数
 
       @jit_class
       class InnerClass():
-          def __init__(self):
-              self.x = 10
+         def __init__(self):
+            self.x = 10
 
       class Net(nn.Cell):
-          def __init__(self):
-              super(Net, self).__init__()
-              self.inner = InnerClass()
+         def __init__(self):
+            super(Net, self).__init__()
+            self.inner = InnerClass()
 
-          def construct(self):
-              self.inner.x = 100
-              return 0
+         def construct(self):
+            self.inner.x = 100
+            return 0
 
       net = Net()
       net()
@@ -1749,15 +1983,16 @@ Python内置函数
 .. code:: python
 
    import mindspore as ms
-   from mindspore import ops, set_context
+   from mindspore import ops, set_context, nn
    set_context(mode=ms.GRAPH_MODE)
 
-   @ms.jit
-   def dict_net(a):
-       x = {'a': a, 'b': 2}
-       return a, (x, (1, 2))
+   class Net(nn.Cell):
+      def construct(self, a):
+         x = {'a': a, 'b': 2}
+         return a, (x, (1, 2))
 
-   out = ops.grad(dict_net)(ms.Tensor([1]))
+   net = Net()
+   out = ops.grad(net)(ms.Tensor([1]))
    assert out == 2
 
 Annotation Type
@@ -1779,17 +2014,16 @@ Type机制。当\ ``tensor``\ 函数的\ ``dtype``\ 确定时，函数内部会�
    from mindspore import ops, Tensor
 
    class Net(nn.Cell):
-       def __init__(self):
-           super(Net, self).__init__()
-           self.abs = ops.Abs()
+      def __init__(self):
+         super(Net, self).__init__()
+         self.abs = ops.Abs()
 
-       @ms.jit
-       def construct(self, x, y):
-           y1 = ms.tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32)
-           y2 = ms.Tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32) # @jit.typing: () -> tensor_type[float32]
-           y3 = Tensor(x.asnumpy() + y.asnumpy())
-           y4 = Tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32)
-           return self.abs(y1), self.abs(y2), self.abs(y3), self.abs(y4)
+      def construct(self, x, y):
+         y1 = ms.tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32)
+         y2 = ms.Tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32) # @jit.typing: () -> tensor_type[float32]
+         y3 = Tensor(x.asnumpy() + y.asnumpy())
+         y4 = Tensor(x.asnumpy() + y.asnumpy(), dtype=ms.float32)
+         return self.abs(y1), self.abs(y2), self.abs(y3), self.abs(y4)
 
    ms.set_context(mode=ms.GRAPH_MODE)
    net = Net()
