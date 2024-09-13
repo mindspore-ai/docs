@@ -18,6 +18,9 @@ $$
 It can be seen that `Threshold` determines whether the value of the Tensor is greater than the `threshold` value, keeps the value whose judgment result is `True`, and replaces the value whose judgment result is `False`. Therefore, the corresponding implementation is as follows:
 
 ```python
+import mindspore
+import numpy as np
+from mindspore import nn, ops, Tensor, Parameter
 class Threshold(nn.Cell):
     def __init__(self, threshold, value):
         super().__init__()
