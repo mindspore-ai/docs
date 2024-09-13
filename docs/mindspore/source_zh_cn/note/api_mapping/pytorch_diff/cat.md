@@ -68,7 +68,7 @@ ms_x1 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
 ms_x2 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float32))
 ms_x3 = Tensor(np.array([[0, 1], [2, 3]]).astype(np.float16))
 
-ms_x3 = mindspore.ops.cast(ms_x2, mindspore.float32)
+ms_x3 = mindspore.ops.cast(ms_x3, mindspore.float32)
 output = mindspore.ops.cat((ms_x1, ms_x2, ms_x3))
 print(output)
 # [[0. 1.]
