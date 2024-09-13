@@ -331,11 +331,11 @@ print("-------------\n", output)
 
 ```text
 (Tensor(shape=[1, 2, 1, 1], dtype=Float32, value=
-[[[[ 1.00000000e+00]],
-  [[ 1.00000000e+00]]]]),)
-(Tensor(shape=[1, 2, 1, 1], dtype=Float32, value=
 [[[[ 9.99994993e-01]],
   [[ 9.99994993e-01]]]]),)
+(Tensor(shape=[1, 2, 1, 1], dtype=Float32, value=
+[[[[ 1.00000000e+00]],
+  [[ 1.00000000e+00]]]]),)
 [[[[1.99999 1.99999]
    [1.99999 1.99999]]]]
 -------------
@@ -375,8 +375,8 @@ def backward_pre_hook_fn(cell, grad_output):
     print("grad input: ", grad_output)
 
 def backward_hook_fn(cell, grad_input, grad_output):
-    print("grad input: ", grad_input)
-    print("grad output: ", grad_output)
+    print("grad input: ", grad_output)
+    print("grad output: ", grad_input)
 
 class Net(nn.Cell):
     def __init__(self):

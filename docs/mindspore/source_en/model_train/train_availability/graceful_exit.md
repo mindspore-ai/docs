@@ -254,9 +254,9 @@ If the network model requires overriding `TrainOneStepCell`:
             ...
             self.use_graceful_exit = os.environ.get("MS_ENABLE_GRACEFUL_EXIT") == "1"
             if self.use_graceful_exit:
-            self.graceful_exit = ExitByRequest()
-            self.exit_param = Parameter(Tensor(False, mstype.bool_), name="graceful_exit")  # update by reduce value
-            self.init_param = Parameter(Tensor([0], mstype.int32), name="graceful_init")  # update by config file
+                self.graceful_exit = ExitByRequest()
+                self.exit_param = Parameter(Tensor(False, mstype.bool_), name="graceful_exit")  # update by reduce value
+                self.init_param = Parameter(Tensor([0], mstype.int32), name="graceful_init")  # update by config file
 
         def construct(self, *inputs):
             ...

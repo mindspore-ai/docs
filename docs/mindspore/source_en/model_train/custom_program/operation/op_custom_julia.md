@@ -14,6 +14,8 @@ Operator output shape and data type inference can be realized by defining Python
 
 If the custom operator only supports specific input and output data types, you need to define the operator information. For the creation of operator information, please refer to [Registering the Operator Information](https://www.mindspore.cn/docs/en/master/model_train/custom_program/operation/op_custom_adv.html#registering-the-operator-information).
 
+## Custom Operator Use Cases of julia Type
+
 Takes the function of adding two input tensors as an example to introduce how to define a custom operator of julia type.
 
 Firstly, users need to implement Julia functions via separate files, such as (add.jl):
