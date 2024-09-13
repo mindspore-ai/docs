@@ -80,6 +80,11 @@ ret = tensor_cal(x, y, z)
 print(ret)
 ```
 
+```text
+[[4. 4. 4. 4.]
+ [4. 4. 4. 4.]]
+```
+
 In the above use case, the tensor_cal function is modified by the @jit decorator, and the function follows the pattern of the static graph when it is called in order to capture the performance gains during the execution period of the function.
 
 **Advantages**
@@ -134,6 +139,11 @@ y = Tensor(np.ones(shape=[3, 4]), ms.float32)
 z = Tensor(np.ones(shape=[2, 4]), ms.float32)
 ret = tensor_cal(x, y, z)
 print(ret)
+```
+
+```text
+[[4. 4. 4. 4.]
+ [4. 4. 4. 4.]]
 ```
 
 **Advantages and Limitations of PIJit**
