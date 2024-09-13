@@ -4,6 +4,10 @@
 
 ## Tensor
 
+张量（[Tensor](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html)）是MindSpore网络运算中的基本数据结构，其功能类似[Numpy数组（ndarray）](https://numpy.org/doc/stable/user/quickstart.html#the-basics)，MindSpore使用Tensor来表示神经网络中传递的数据。
+
+关于Tensor创建、Tensor运算、Tensor与NumPy转换等操作，请参考[张量 Tensor](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/tensor.html)。
+
 ### Tensor索引支持
 
 Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动态图(PyNative)以及静态图(Graph)模式。
@@ -325,7 +329,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
 对于形如: `tensor_x[index] = value`， `index`的类型支持`int`、`bool`、`ellipsis`、`slice`、`None`、`Tensor`、`List`、`Tuple`。
 
-`value`的类型支持`Number`、`Tuple`、`List`和`Tensor`。被赋的值会首先被转换为张量，数据类型与原张量(`tensor_x`)相符。
+`value`的类型支持`Number`、`Tuple`、`List`和`Tensor`。被赋的值会首先被转换为Tensor，数据类型与原Tensor(`tensor_x`)相符。
 
 当`value`为`Number`时，可以理解为将`tensor_x[index]`索引对应元素都更新为`Number`。
 
@@ -337,7 +341,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
 索引赋值可以理解为对索引到的位置元素按照一定规则进行赋值，所有索引赋值都不会改变原`Tensor`的`shape`。
 
-> 当索引中有多个元素指向原张量的同一个位置时，该值的更新受底层算子限制，可能出现随机的情况。因此暂不支持索引中重复对张量中一个位置的值反复更新。详情请见:[TensorScatterUpdate 算子介绍](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TensorScatterUpdate.html)
+> 当索引中有多个元素指向原Tensor的同一个位置时，该值的更新受底层算子限制，可能出现随机的情况。因此暂不支持索引中重复对Tensor中一个位置的值反复更新。详情请见:[TensorScatterUpdate 算子介绍](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TensorScatterUpdate.html)
 >
 > 当前只支持单层索引(`tensor_x[index] = value`)，多层索引(`tensor_x[index1][index2]... = value`)暂不支持。
 
@@ -646,7 +650,7 @@ print(tensor_x)
 
 索引增强赋值可以理解为对索引到的位置元素按照一定规则进行取值，取值所得再与`value`进行操作符运算，最终将运算结果进行赋值，所有索引增强赋值都不会改变原`Tensor`的`shape`。
 
-> 当索引中有多个元素指向原张量的同一个位置时，该值的更新受底层算子限制，可能出现随机的情况。因此暂不支持索引中重复对张量中一个位置的值反复更新。详情请见:[TensorScatterUpdate 算子介绍](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TensorScatterUpdate.html)。
+> 当索引中有多个元素指向原Tensor的同一个位置时，该值的更新受底层算子限制，可能出现随机的情况。因此暂不支持索引中重复对Tensor中一个位置的值反复更新。详情请见:[TensorScatterUpdate 算子介绍](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TensorScatterUpdate.html)。
 >
 > 目前索引中包含 `True`、`False` 和 `None`的情况暂不支持。
 
@@ -680,9 +684,9 @@ print(tensor_x)
    [ 8.  9. 10. 11.]]
    ```
 
-### 张量视图
+### Tensor视图
 
-张量视图（Tensor Views）是指一个Tensor经过[view类算子](#view类算子)的返回值，与该Tensor共享内存数据，避免了数据复制，从而可以进行快速且内存高效的重塑、切片和逐元素操作。
+Tensor视图（Tensor Views）是指一个Tensor经过[view类算子](#view类算子)的返回值，与该Tensor共享内存数据，避免了数据复制，从而可以进行快速且内存高效的重塑、切片和逐元素操作。
 
 例如，要获取Tensor t的视图，可以用t.view(...)。
 
@@ -765,14 +769,14 @@ c.is_contiguous()
 
 ## Parameter
 
-参数(Parameter)是一类特殊的Tensor，是指在模型训练过程中可以对其值进行更新的变量。MindSpore提供`mindspore.Parameter`类进行Parameter的构造。为了对不同用途的Parameter进行区分，下面对两种不同类别的Parameter进行定义：
+参数（[Parameter](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html)）是一类特殊的Tensor，是指在模型训练过程中可以对其值进行更新的变量。MindSpore提供`mindspore.Parameter`类进行Parameter的构造。为了对不同用途的Parameter进行区分，下面对两种不同类别的Parameter进行定义：
 
-- 可训练参数。在模型训练过程中根据反向传播算法求得梯度后进行更新的Tensor，此时需要将`required_grad`设置为`True`。
+- 可训练参数。在模型训练过程中根据反向传播算法求得梯度后进行更新的Tensor，此时需要将`requires_grad`设置为`True`。
 - 不可训练参数。不参与反向传播，但需要更新值的Tensor（如BatchNorm中的`mean`和`var`变量），此时需要将`requires_grad`设置为`False`。
 
-> Parameter默认设置`required_grad=True`。
+> Parameter默认设置`requires_grad=True`。
 
-下面我们构造一个简单的全连接层："
+下面我们构造一个简单的全连接层：
 
 ```python
 import numpy as np
@@ -798,7 +802,7 @@ net = Network()
 
 ### 获取Parameter
 
-在使用Cell+Parameter构造神经网络层后，我们可以使用多种方法来获取Cell管理的Parameter。
+在使用Cell和Parameter构造神经网络层后，我们可以使用多种方法来获取Cell管理的Parameter。
 
 #### 获取单个参数
 
@@ -809,7 +813,7 @@ print(net.b.asnumpy())
 ```
 
 ```text
-  [-1.2192779  -0.36789745  0.0946381 ]
+[-1.2192779  -0.36789745  0.0946381 ]
 ```
 
 #### 获取可训练参数
@@ -821,7 +825,7 @@ print(net.trainable_params())
 ```
 
 ```text
-  [Parameter (name=w, shape=(5, 3), dtype=Float32, requires_grad=True), Parameter (name=b, shape=(3,), dtype=Float32, requires_grad=True)]
+[Parameter (name=w, shape=(5, 3), dtype=Float32, requires_grad=True), Parameter (name=b, shape=(3,), dtype=Float32, requires_grad=True)]
 ```
 
 #### 获取所有参数
@@ -833,25 +837,25 @@ print(type(net.get_parameters()))
 ```
 
 ```text
-  <class 'generator'>
+<class 'generator'>
 ```
 
 或者可以调用`Cell.parameters_and_names`返回参数名称及参数。
 
 ```python
 for name, param in net.parameters_and_names():
-    print(f"{name}:\\n{param.asnumpy()}")
+    print(f"{name}:\n{param.asnumpy()}")
 ```
 
 ```text
-  w:
-  [[ 4.15680408e-02 -1.20311625e-01  5.02573885e-02]
-   [ 1.22175144e-04 -1.34980649e-01  1.17642188e+00]
-   [ 7.57667869e-02 -1.74758151e-01 -5.19092619e-01]
-   [-1.67846107e+00  3.27240258e-01 -2.06452996e-01]
-   [ 5.72323874e-02 -8.27963874e-02  5.94243526e-01]]
-  b:
-  [-1.2192779  -0.36789745  0.0946381 ]
+w:
+[[ 4.15680408e-02 -1.20311625e-01  5.02573885e-02]
+ [ 1.22175144e-04 -1.34980649e-01  1.17642188e+00]
+ [ 7.57667869e-02 -1.74758151e-01 -5.19092619e-01]
+ [-1.67846107e+00  3.27240258e-01 -2.06452996e-01]
+ [ 5.72323874e-02 -8.27963874e-02  5.94243526e-01]]
+b:
+[-1.2192779  -0.36789745  0.0946381 ]
 ```
 
 ### 修改Parameter
@@ -879,12 +883,12 @@ print(net.b.asnumpy())
 ```
 
 ```text
-  [3. 4. 5.]
+[3. 4. 5.]
 ```
 
 #### 运行时修改参数值
 
-参数的主要作用为模型训练时对其值进行更新，在反向传播获得梯度后，或不可训练参数需要进行更新，都涉及到运行时参数修改。由于MindSpore的[使用静态图加速](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/accelerate_with_static_graph.html)编译设计，此时需要使用`mindspore.ops.assign`接口对参数进行赋值。该方法常用于[自定义优化器](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/optimizer.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BC%98%E5%8C%96%E5%99%A8)场景。下面是一个简单的运行时修改参数值样例：
+在深度学习模型训练中，参数的核心功能在于其值的迭代更新，从而优化模型性能。鉴于MindSpore[使用静态图加速](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/accelerate_with_static_graph.html)的编译设计，需要使用`mindspore.ops.assign`接口对参数进行赋值。该方法常用于[自定义优化器](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/optimizer.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BC%98%E5%8C%96%E5%99%A8)场景。下面是一个简单的运行时修改参数值样例：
 
 ```python
 import mindspore as ms
@@ -900,25 +904,25 @@ print(net.b.asnumpy())
 ```
 
 ```text
-  [7. 8. 9.]
+[7. 8. 9.]
 ```
 
 ### Parameter Tuple
 
-变量元组ParameterTuple，用于保存多个Parameter，继承于元组tuple，提供克隆功能。
+变量元组 `ParameterTuple` 用于保存多个Parameter，该数据类型继承于元组tuple，并提供了克隆功能。
 
-如下示例提供ParameterTuple创建方法：
+如下示例提供 `ParameterTuple` 创建和克隆方法：
 
 ```python
 from mindspore.common.initializer import initializer
 from mindspore import ParameterTuple
-# 创建
+# 创建ParameterTuple
 x = Parameter(default_input=ms.Tensor(np.arange(2 * 3).reshape((2, 3))), name="x")
 y = Parameter(default_input=initializer('ones', [1, 2, 3], ms.float32), name='y')
 z = Parameter(default_input=2.0, name='z')
 params = ParameterTuple((x, y, z))
 
-# 从params克隆并修改名称为\"params_copy\"
+# 克隆ParameterTuple
 params_copy = params.clone("params_copy")
 
 print(params)
