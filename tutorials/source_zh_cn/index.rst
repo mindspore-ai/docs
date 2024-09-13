@@ -16,7 +16,6 @@ MindSpore教程
    beginner/quick_start
    beginner/tensor
    beginner/dataset
-   beginner/transforms
    beginner/model
    beginner/autograd
    beginner/train

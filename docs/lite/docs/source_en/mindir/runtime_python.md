@@ -73,7 +73,7 @@ Running MindSpore Lite inference framework mainly consists of the following step
 
 For more advanced usage and examples of Python interfaces, please refer to the [Python API](https://www.mindspore.cn/lite/api/en/master/mindspore_lite.html).
 
-![img](./images/lite_runtime.png)
+![img](../images/lite_runtime.png)
 
 ### Creating Configuration Context
 

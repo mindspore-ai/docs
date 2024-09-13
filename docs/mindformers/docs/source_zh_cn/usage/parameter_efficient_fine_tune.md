@@ -1,6 +1,7 @@
 # 低参微调
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/usage/parameter_efficient_fine_tune.md)
+
 ## 概述
 
 在深度学习模型的微调过程中，通常需要更新模型所有的权重，这会导致大量的计算资源消耗。LoRA（Low-Rank Adaptation）是一种通过将模型的部分权重矩阵分解为低秩矩阵来显著减少微调所需参数量的技术。结合华为昇腾AI处理器及MindSpore深度学习框架，以及MindFormers大模型套件，LoRA能够轻松应用于大规模预训练模型（如Llama2）的低参微调，提供高效且灵活的模型定制化能力。

@@ -18,7 +18,7 @@ MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/
 4. 输入数据：模型执行之前需要填充输入数据。
 5. 执行推理：使用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#predict)进行模型推理。
 
-![img](./images/lite_runtime.png)
+![img](../images/lite_runtime.png)
 
 ## 准备工作
 

@@ -16,7 +16,7 @@
 6. 获得输出：图执行结束之后，可以通过输出Tensor得到推理结果。
 7. 释放内存：无需使用MindSpore Lite推理框架的时候，需要释放已创建的[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)。
 
-![img](./images/lite_runtime.png)
+![img](../images/lite_runtime.png)
 
 ## 引用MindSpore Lite Java库
 
