@@ -19,11 +19,11 @@ def shard(fn, in_strategy, out_strategy=None, parameter_plan=None, device="Ascen
     return shard_fn(fn, in_strategy, out_strategy, device, level)
 ```
 
-`in_strategy(tuple)`: Specify the sharding strategy of the input `Tensor`, each element is a tuple indicating the sharding strategy of the corresponding input `Tensor`, the length of each tuple should be equal to the dimension of the corresponding `Tensor`, indicating how each dimension is sliced. You can pass in `None`, the corresponding sharding strategy will be automatically deduced and generated.
+`in_strategy(tuple)`: Specify the sharding strategy of the input `Tensor`, each element is a tuple indicating the sharding strategy of the corresponding input `Tensor`, the length of each tuple should be equal to the dimension of the corresponding `Tensor`, indicating how each dimension is sliced. You can pass in `tuple(int)` or `mindspore.Layout` as each element int the tuple.
 
 `out_strategy(None, tuple)`: Specify the sharding strategy for the output `Tensor`, used in the same way as `in_strategy`, with a default value of None, which is not yet enabled and will be opened later. In deep learning models, the output strategy is replaced with data parallel (False) and repeated computation (True) based on the value of `full_batch` in `set_auto_parallel_context`.
 
-`parameter_plan(None, dict)`: Specify the sharding strategy of each parameter, when passed into the dictionary, the key is the parameter name of type str, the value is a one-dimensional integer tuple indicating the corresponding sharding strategy. If the parameter name is wrong or the corresponding parameter has already set the sharding strategy, the setting of this parameter will be skipped. Default: None, means not set.
+`parameter_plan(None, dict)`: Specify the sharding strategy of each parameter, when passed into the dictionary, the key is the parameter name of type str, the value is a one-dimensional `tuple(int)` or a one-dimensional `tuple(mindspore.Layout)`, indicating the corresponding sharding strategy. If the parameter name is wrong or the corresponding parameter has already set the sharding strategy, the setting of this parameter will be skipped. Default: None, means not set.
 
 `device(string)`: Specify the device for execution, optional range `Ascend`, `GPU` and `CPU`, default is `Ascend`. This is a reserved parameter and is not used currently.
 
@@ -217,8 +217,8 @@ x = Tensor(np.random.uniform(0, 1, (32, 128)), ms.float32)
 weight = Tensor(np.random.uniform(0, 1, (128, 10)), ms.float32)
 bias = Tensor(np.random.uniform(0, 1, (10,)), ms.float32)
 
-# Specify the sharding strategy for x to be (4, 2), and the weight and bias sharding strategies to be set to None via in_strategy to indicate automatic derivation generation.
-result = ms.shard(dense_relu, in_strategy=((4, 2), None, None))(x, weight, bias)
+# Specify the sharding strategy for x to be (4, 2), the weight to be (4, 2), and the bias to be (8,).
+result = ms.shard(dense_relu, in_strategy=((4, 2), (4, 2), (8,)))(x, weight, bias)
 print('result.shape:', result.shape)
 ```
 
