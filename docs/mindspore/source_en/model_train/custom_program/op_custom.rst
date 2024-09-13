@@ -2,7 +2,7 @@ Custom Operators
 =================
 
 .. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/custom_program/operation/op_custom.ipynb
+    :target: https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/custom_program/operation/op_custom.ipynb
     :alt: View Source on Gitee
 
 .. toctree::

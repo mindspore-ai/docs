@@ -16,7 +16,7 @@ Compared with C++ API, Java API can be called directly in Java Class, and users 
 6. Obtain the output: After the graph execution, the inference result can be obtained by outputting the Tensor.
 7. Release memory: When there is no need to use MindSpore Lite inference framework, you need to release the created [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model).
 
-![img](./images/lite_runtime.png)
+![img](../images/lite_runtime.png)
 
 ## Reference to MindSpore Lite Java Library
 

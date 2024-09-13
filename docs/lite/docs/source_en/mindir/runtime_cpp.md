@@ -18,7 +18,7 @@ Using the MindSpore Lite inference framework consists of the following main step
 4. Input data: The input data needs to be padded before the model can be executed.
 5. Execute inference: Use Predict of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) for model inference.
 
-![img](./images/lite_runtime.png)
+![img](../images/lite_runtime.png)
 
 ## Preparation
 

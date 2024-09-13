@@ -67,7 +67,7 @@ Deep Optimizing with MindFormers
    usage/dev_migration
    usage/pre_training
    usage/sft_tuning
-   usage/lora_tuning
+   usage/parameter_efficient_fine_tune
    usage/evaluation
    usage/inference
    usage/mindie_deployment
