@@ -44,18 +44,6 @@ A: MindSpore installs version 3.13.0 of Protobuf by default. If it is not the ve
 
 <br/>
 
-### Q: What should I do when an error `ProxyError(Cannot connect to proxy)` prompts during installing by using  pip?
-
-A: It is generally a proxy configuration problem. You can use `export http_proxy={your_proxy}`  to set proxy on Ubuntu environment, and use `set http_proxy={your_proxy}` in cmd on Windows environment to configure your proxy.
-
-<br/>
-
-### Q: What should I do when an error prompts during installing by using pip?
-
-A: Please execute `pip -V` to check if pip is linked to Python3.7+. If not, we recommend you use `python3.7 -m pip install` instead of `pip install` command.
-
-<br/>
-
 ### Q: What should I do when an error prompts `No matching distribution found for XXX` during pip installing dependencies?
 
 A: Please execute `pip config list` to check the software library index `index-url`. Sometimes software library index updates are out of sync. You can try other software library indexes instead.
@@ -65,12 +53,6 @@ A: Please execute `pip config list` to check the software library index `index-u
 ### Q: What should I do if I cannot find whl package for MindSpore Insight or MindSpore Armour on the installation page of MindSpore website?
 
 A: You can download whl package from the official [MindSpore Website download page](https://www.mindspore.cn/versions/en) and manually install it via `pip install`.
-
-<br/>
-
-### Q: What should I do when I install both CPU and GPU versions of MindSpore, an error `cannot import name 'context' from 'mindspore'` is displayed while importing?
-
-A: All versions of MindSpore are installed in the directory named `mindspore`, and installing them in one Python environment may overwrite each other and cause failures. If you wish to use alternate versions of MindSpore for different platforms (e.g. CPU and GPU versions), please uninstall the unused version and install the new version afterwards.
 
 <br/>
 
@@ -103,21 +85,11 @@ A: The later versions of scipy released on pypi only supports MacOS for ARM vers
 
 ### Q: For Ascend users, what should I do when `RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'` appears in personal Conda environment?
 
-A: When you encounter the error, the high probability is that there is no update te or topi or hccl package in the personal Conda environment after the run package is updated, and the above several tool packages in the current Conda environment can be uninstalled. You should use command `pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/{te/topi/hccl}-{version}-py3-none-any.whl` to reinstall.
+A: When you encounter the error, te or hccl packages in your personal Conda environment are most likely not updated when updating Ascend AI processor software packages, you may uninstall the abovementioned packages first, then execute environment variables configuration script provided in the Ascend packages to set PYTHONPATH that allocates the correct version of te and hccl packages automatically: `source /usr/local/Ascend/ascend-toolkit/set_env.sh`.
 
 <br/>
 
 ## Installing by Using Source
-
-### Q: What is the difference between `bash -p` and `bash -e` during compilation?
-
-A: MindSpore Serving build and running depend on MindSpore. Serving provides two compilation modes: 1. Use `bash -p {python site-packages}/mindspore/lib` to specify an installed MindSpore path to avoid recompiling MindSpore when compiling Serving. 2. When Compiling Serving, compile the corresponding MindSpore. Serving transparents the `-e`, `-V`, and `-j` options to MindSpore.
-For example, use `bash -e ascend -V 910 -j32` in the Serving directory as follows:
-
-- Compile MindSpore in the `third_party/mindspore` directory by using `bash -e ascend -V 910 -j32`.
-- Use the MindSpore compilation result as the Serving compilation dependency.
-
-<br/>
 
 ### Q: MindSpore installation: Version 0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5, manually download the whl package of the corresponding version, compile and install gmp6.1.2. Other Python library dependencies have been installed, the execution of the sample fails, and an error shows that the so file cannot be found.
 
@@ -167,7 +139,7 @@ A: While compiling MindSpore, if:
 
 ### Q: What should I do if it prompts that pthread cannot be found in CMakeError.txt after the compilation fails?
 
-A: The real reason for the failure will be showed in the stdout log. CMakeError.txt has no reference value. Please look for the first error in the stdout log.
+A: The real reason for the failure will be showed in the stdout log. Errors in CMakeError.txt usually do not imply the true reason of compilation failures. Please look for the first error in the stdout log.
 
 <br/>
 
