@@ -44,18 +44,6 @@ A: MindSpore默认安装Protobuf的3.13.0版本，如果不是该版本，在使
 
 <br/>
 
-### Q: 使用pip安装时报错`ProxyError(Cannot connect to proxy)`，应该怎么办？
-
-A: 此问题一般是代理配置问题，Ubuntu环境下可通过`export http_proxy={your_proxy}`设置代理；Windows环境可以在cmd中通过`set http_proxy={your_proxy}`进行代理设置。
-
-<br/>
-
-### Q: 使用pip安装时提示错误，应该怎么办？
-
-A: 请执行`pip -V`查看是否绑定了Python3.7+。如果绑定的版本不对，建议使用`python3.7 -m pip install`代替`pip install`命令。
-
-<br/>
-
 ### Q: 使用pip安装依赖库时提示`No matching distribution found for XXX`错误，应该怎么办？
 
 A: 请执行`pip config list`，查看当前软件库索引路径`index-url`。某些情况下，软件库索引会出现更新滞后，可尝试设置其它软件库索引路径。
@@ -65,12 +53,6 @@ A: 请执行`pip config list`，查看当前软件库索引路径`index-url`。�
 ### Q: MindSpore网站安装页面找不到MindSpore Insight和MindSpore Armour的whl包，无法安装怎么办？
 
 A: 您可以从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，通过`pip install`命令进行安装。
-
-<br/>
-
-### Q: pip同时安装MindSpore CPU和GPU版本，import时报错 `cannot import name 'context' from 'mindspore'`，应该怎么办？
-
-A: MindSpore不同版本的安装目录名同为`mindspore`，安装在同一个Python环境可能产生目录相互覆盖问题，导致无法使用，如果需要使用多平台版本的MindSpore时（例如同时使用CPU和GPU版本），请先卸载其他版本再安装新版本。
 
 <br/>
 
@@ -103,21 +85,11 @@ A: 对应ARM版macOS的scipy在pypi源的版本仅适配MacOS 12以上版本的�
 
 ### Q: Ascend硬件平台，在个人的Conda环境中，有时候出现报错RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'，该怎么处理？
 
-A: 出现这种类型的报错，大概率是run包更新后个人的Conda环境中没有更新te或topi或hccl工具包，可以将当前Conda环境中的上述几个工具包卸载，然后使用如下命令再重新安装: `pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/{te/topi/hccl}-{version}-py3-none-any.whl`。
+A: 出现这种类型的报错，大概率是昇腾AI处理器配套软件包更新后个人的Conda环境中没有更新te或hccl工具包，可以将当前Conda环境中的上述几个工具包卸载，然后执行软件包中提供的环境变量配置脚本，即可配置PYTHONPATH，自动找到安装目录中上述软件包的最新版本，无需手动安装到Conda环境: `source /usr/local/Ascend/ascend-toolkit/set_env.sh`。
 
 <br/>
 
 ## Source安装
-
-### Q: 编译时`bash -p`方式和 `bash -e`方式的区别？
-
-A: MindSpore Serving的编译和运行依赖MindSpore，Serving提供两种编译方式: 一种指定已安装的MindSpore路径，即`bash -p {python site-packages}/mindspore/lib`，避免编译Serving时再编译MindSpore；另一种，编译Serving时，编译配套的MindSpore，Serving会将`-e`、`-V`和`-j`选项透传给MindSpore。
-比如，在Serving目录下，`bash -e ascend -V 910 -j32`:
-
-- 首先将会以`bash -e ascend -V 910 -j32`方式编译`third_party/mindspore`目录下的MindSpore；
-- 其次，编译脚本将MindSpore编译结果作为Serving的编译依赖。
-
-<br/>
 
 ### Q: MindSpore安装: 版本0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5，手动下载对应版本的whl包，编译并安装gmp6.1.2。其他Python库依赖已经安装完成，执行样例失败，报错显示找不到so文件。
 
@@ -167,7 +139,7 @@ A: 在编译MindSpore时，如果:
 
 ### Q: 编译时报错，打开CMakeError.txt提示pthread找不到怎么办？
 
-A: 真正的失败原因会体现在打屏的日志里，CMakeError.txt无参考价值，请寻找打屏日志中的第一个报错。
+A: 真正的失败原因会体现在打屏的日志里，CMakeError.txt报错内容一般情况下与编译失败的真正原因无关，请寻找打屏日志中的第一个报错。
 
 <br/>
 
