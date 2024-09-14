@@ -13,10 +13,10 @@
    :maxdepth: 1
    :hidden:
 
-   operation/op_custom_adv
-   operation/op_custom_aot
    operation/op_custom_ascendc
+   operation/op_custom_aot
    operation/op_custom_julia
+   operation/op_custom_adv
 
 当开发网络遇到内置算子不足以满足需求时，你可以利用MindSpore的Python API中的 `Custom <https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom>`_ 原语方便快捷地进行不同类型自定义算子的定义和使用。
 
