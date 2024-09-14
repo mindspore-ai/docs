@@ -1,3 +1,11 @@
 # 了解香橙派
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/orange_pi/overview.md)
+
+OrangePi AIpro（香橙派 AIpro）采用昇腾AI技术路线，具体为4核64位处理器和AI处理器，集成图形处理器，目前支持8-12TOPS和20TOPS AI算力，其中8-12TOPS算力开发板拥有12GB/24GB LPDDR4X，20TOPS算力开发板拥8GB/16GB LPDDR4X。两种算力的开发板均可以外接32GB/64GB/256GB eMMC模块，支持双4K高清输出。
+
+目前已实现OrangePi AIpro开发板的系统镜像预置昇思MindSpore AI框架，并在后续版本迭代中持续演进，当前已支持MindSpore官网教程涵盖的全部网络模型。OrangePi AIpro开发板向开发者提供的官方系统镜像有openEuler版本预ubuntu版本，两个镜像版本均已预置昇思MindSpore，便于用户体验软硬协同优化后带来的高效开发体验。同时，欢迎开发者自定义配置MindSpore和CANN运行环境。
+
+接下来的教程将演示如何基于OrangePi AIpro进行自定义环境搭建，如何在OrangePi AIpro启动Jupyter Lab，并以手写数字识别为例，介绍OrangePi AIpro上基于MindSpore进行在线推理需要完成的操作。
+
+> 以下操作基于OrangePi AIpro 8-12TOPS 16G开发板，20TOPS开发板操作方式相同。

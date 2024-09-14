@@ -6,6 +6,6 @@
    :maxdepth: 1
 
    overview
-   quick_start
-   debug
+   environment_setup
    model_infer
+   dev_start
