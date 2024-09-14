@@ -896,3 +896,41 @@ CANN的环境变量详见 `昇腾社区 <https://www.hiascend.com/document/detai
      - 此环境变量影响算子的format选择，从而对网络执行性能和内存占用产生影响，可通过设置此选项测试得到性能和内存更优的算子格式选择。
 
        仅限Ascend AI处理器环境图编译等级为O2流程使用。
+
+Profiler
+-----------
+
+.. list-table::
+   :widths: 20 20 10 30 20
+   :header-rows: 1
+
+   * - 环境变量
+     - 功能
+     - 类型
+     - 取值
+     - 说明
+   * - MS_PROFILER_OPTIONS
+     - 设置Profiler的配置信息
+     - String
+     - 配置Profiler的采集选项，格式为JSON字符串。
+     - 此环境变量使能与输入参数实例化Profiler方式使能性能数据采集的方式二选一。
+   * - PROFILING_MODE
+     - 设置CANN Profiling的模式
+     - String
+     - true：开启Profiling功能。
+
+       false或者不配置：关闭Profiling功能。
+
+       dynamic：动态采集性能数据模式。
+
+     - 此环境变量为CANN Profiling使能环境变量，Profiler读取此环境变量用于检查避免重复开启CANN Profiling。用户不需要手动设置此环境变量。
+   * - PROFILER_SAMPLECONFIG
+     - 设置CANN msprof命令行的采集选项
+     - String
+     - CANN msprof配置字符串
+     - 此环境变量为CANN msprof配置环境变量，Profiler读取此环境变量用于检查是否使能msprof。用户不需要手动设置此环境变量。
+   * - MS_PROFILER_RUN_CONFIG
+     - 设置Profiler采集配置选项
+     - String
+     - Profiler采集配置选项，格式为JSON字符串。
+     - 此环境变量通常由程序自动设置，用户无需手动设置此环境变量。

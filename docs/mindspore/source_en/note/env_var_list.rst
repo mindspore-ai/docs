@@ -890,3 +890,40 @@ For more information about CANN's environment variables, see `Ascend community <
      - This environment variable affects the choice of format for the operator, which has an impact on network execution performance and memory usage, and can be tested by setting this option to get a better choice of operator format in terms of performance and memory.
 
        Ascend AI processor environment and graph compilation grade O2 processes only.
+
+Profiler
+-----------
+
+.. list-table::
+   :widths: 20 20 10 30 20
+   :header-rows: 1
+
+   * - Environment Variable
+     - Function
+     - Type
+     - Value Range
+     - Description
+   * - MS_PROFILER_OPTIONS
+     - Set the Profiler's collection options
+     - String
+     - Configure the Profiler's collection options in the format of a JSON string.
+     - This environment variable enables one of two ways to enable performance data collection with the input parameter Instantiation Profiler method.
+   * - PROFILING_MODE
+     - Set the mode of CANN Profiling
+     - String
+     - true：Enable Profiling.
+
+       false or not configured: Disable Profiling.
+
+       dynamic：Dynamic collection of performance data model.
+     - This environment variable is CANN Profiling enabled environment variable, Profiler reads this environment variable to check to avoid CANN Profiling is turned on repeatedly. Users don't need to set this environment variable manually.
+   * - PROFILER_SAMPLECONFIG
+     - Set the CANN msprof command line collection options
+     - String
+     - CANN msprof configuration string.
+     - This environment variable configures the environment variable for CANN msprof, which is read by Profiler to check whether msprof is enabled or not. Users do not need to set this environment variable manually.
+   * - MS_PROFILER_RUN_CONFIG
+     - Set the Profiler's collection options
+     - String
+     - Configure the Profiler's collection options in the format of a JSON string.
+     - This environment variable is usually set automatically by the program and the user does not need to set this environment variable manually.
