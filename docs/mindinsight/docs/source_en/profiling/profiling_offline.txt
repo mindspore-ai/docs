@@ -146,7 +146,7 @@ An example of the performance data catalog structure is shown below:
 Performance Data File Description
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-PROF_{number}_{timestamp}_{string} directory is the performance data collected by CANN Profiling, which is mainly stored in mindstudio_profiler_output. The data introduction can be referred to `Performance data file description <https://www.hiascend.com/document/detail/en/mindstudio/70RC2/mscommandtoolug/mscommandug/atlasprofiling_16_0062.html>`_.
+PROF_{number}_{timestamp}_{string} directory is the performance data collected by CANN Profiling, which is mainly stored in mindstudio_profiler_output. The data introduction can be found in the `Ascend Community Official Website <https://www.hiascend.com/zh>`_ by searching for "Profile Data File Overview".
 
 The profiler directory contains three types of files, csv, json, and txt, which cover performance data in terms of operator execution time, memory usage, communication, etc. The file descriptions are shown in the following table. For detailed descriptions of some files, refer to `Performance data <https://www.mindspore.cn/mindinsight/docs/en/master/profiler_files_description.html>`_.
 
