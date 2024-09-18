@@ -16,7 +16,7 @@ For more details, see [torch.Tensor.flip](https://pytorch.org/docs/1.8.1/tensors
 mindspore.Tensor.flip(dims)
 ```
 
-For more details, see [mindspore.Tensor.flip](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.flip.html).
+For more details, see [mindspore.Tensor.flip](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.flip.html).
 
 ## Differences
 
