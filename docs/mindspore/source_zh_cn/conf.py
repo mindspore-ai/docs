@@ -528,14 +528,7 @@ except Exception as e:
 
 primitive_list = ops_interface_name()
 
-try:
-    mint_sum = mint_interface_name()
-except Exception as e:
-    mint_p = 'mindspore.mint.rst'
-    src_target_path = os.path.join(src_dir, mint_p)
-    with open(src_target_path,'r+',encoding='utf8') as f:
-        content =  f.read()
-    mint_sum = re.findall(r"    (mindspore\.mint\..*)\n", content+'\n')
+mint_sum = mint_interface_name()
 
 try:
     nn_interface_name()
