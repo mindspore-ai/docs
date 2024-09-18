@@ -30,7 +30,7 @@ Based on experimental results, the following empirical conclusions are drawn:
 * Setting too many checkpoints will affect model training performance.
 * Based on experiments on the sensitivity of calculation errors, the MindSpore framework defaults to selecting the `Norm` activation value gradient in the backpropagation calculation process as the detection feature value, with performance loss less than 2% based on **Llama 2 - 7B** testing.
 
-After enabling the detection switch (set `NPU_ASD_ENABLE` to `1`, `2` or `3`), during the backpropagation phase of training Transformer structure models, abnormality is determined by collecting the activation value gradients of the Norm layer through calling the detection operator inserted before the communication operator in the backward graph, and using an algorithm to determine if an anomaly exists. If an anomaly occurs, training is terminated, the NPU status on the device where the anomaly is detected is set to Warning, and a fault event is reported.
+After enabling the detection switch (set `NPU_ASD_ENABLE` to `1`, `2` or `3`), during the backpropagation phase of training Transformer structure models, abnormality is determined by collecting the activation value gradients of the Norm layer through calling the detection operator inserted before the communication operator in the backward graph, and using an algorithm to determine if an anomaly exists. If an anomaly occurs, print the relevant logs or terminate the training depending on the different values of the environment variable `NPU_ASD_ENABLE`, and set the NPU state on the device where the anomaly is detected to Warning to report the fault event.
 
 The reasons for feature value anomalies can be divided into two categories: hardware errors and software errors, which can be referred to in the **Fault Handling** section for further analysis.
 
@@ -54,7 +54,7 @@ For details of above environment variables, see [Environment Variables](https://
 
 ### Model and Dataset Preparation
 
-To provide a complete experience, here we implement the usage case of feature value detection based on a simple network and a fake dataset.
+To provide a complete experience, simple neural networks and a simulated dataset are constructed here, and the use of feature value detection is demonstrated by simulating feature value anomalies through MindSpore's fault injection operator (a step that is not required in the actual network).
 
 The full python script (`silent_check.py`) is as below:
 
@@ -183,7 +183,7 @@ for epoch in range(1):
         i += 1
 ```
 
-### Running silent check script
+### Running Silent Check Script
 
 This silent check demo uses 4 NPU cards, the start script (`run_silent_check.sh`) is as follows:
 
@@ -196,9 +196,9 @@ export ASCEND_GLOBAL_LOG_LEVEL=1
 mpirun -n 4 --output-filename log_output --merge-stderr-to-stdout python silent_check.py
 ```
 
-### Different detection levels and running results
+### Different Detection Levels and Running Results
 
-#### Execution result of setting NPU_ASD_ENABLE to 1
+#### Execution Result of Setting NPU_ASD_ENABLE to 1
 
 When `NPU_ASD_ENABLE` was set to `1`, if error was detected, just print `ERROR` log, not stop training process.
 
@@ -221,7 +221,7 @@ device-0/device-109652_20240913141212740.log:2786:[ERROR] AICPU(24515,aicpu_sche
 device-0/device-109652_20240913141212740.log:2834:[ERROR] AICPU(24515,aicpu_scheduler):2024-09-13-14:12:29.062.242 [silent_check_v2.cc:136][ComputeL1Error][tid:24527]SilentCheck get L1 Error, input message: val = [nan], pre_val = [nan], min_val = [0.026273], max_val = [0.026949], step = [7],         c_min_steps = [100], c_thresh_l1 = [1000000.000000], c_coeff_l1 = [100000.000000], c_thresh_l2 = [10000.000000], c_coeff_l2 = [5000.000000] npu_asd_detect = [1].
 ```
 
-#### Execution result of setting NPU_ASD_ENABLE to 2
+#### Execution Result of Setting NPU_ASD_ENABLE to 2
 
 When `NPU_ASD_ENABLE` was set to `2`, if error was detected, print `ERROR` log and stop training process.
 
@@ -240,7 +240,7 @@ device-2/device-134035_20240913141623807.log:2204:[ERROR] AICPU(1685,aicpu_sched
 $
 ```
 
-#### Execution result of setting NPU_ASD_ENABLE to 3
+#### Execution Result of Setting NPU_ASD_ENABLE to 3
 
 When `NPU_ASD_ENABLE` was set to `3`, the action is similar to detection level `2`, i.e. if error was detected, print `ERROR` log and stop training process. Besides an `INFO` log as also output for
 non anomaly feature values (In oreder to see logs of level INFO, need to set `export ASCEND_GLOBAL_LOG_LEVEL=0` to enable log level `DEBUG` or set `export ASCEND_GLOBAL_LOG_LEVEL=1` to enable log level `INFO`).

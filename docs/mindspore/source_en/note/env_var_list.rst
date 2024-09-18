@@ -907,23 +907,23 @@ Profiler
      - Set the Profiler's collection options
      - String
      - Configure the Profiler's collection options in the format of a JSON string.
-     - This environment variable enables one of two ways to enable performance data collection with the input parameter Instantiation Profiler method.
+     - This environment variable enables one of two ways to enable performance data collection with the input parameter instantiation Profiler method.
    * - PROFILING_MODE
      - Set the mode of CANN Profiling
      - String
-     - true：Enable Profiling.
+     - true: Enable Profiling.
 
        false or not configured: Disable Profiling.
 
-       dynamic：Dynamic collection of performance data model.
-     - This environment variable is CANN Profiling enabled environment variable, Profiler reads this environment variable to check to avoid CANN Profiling is turned on repeatedly. Users don't need to set this environment variable manually.
+       dynamic: Dynamic collection of performance data model.
+     - This environment variable is enabled by CANN Profiling. Profiler reads this environment variable for checking to avoid repeatedly enabling CANN Profiling. Users don't need to set this environment variable manually.
    * - PROFILER_SAMPLECONFIG
      - Set the CANN msprof command line collection options
      - String
      - CANN msprof configuration string.
      - This environment variable configures the environment variable for CANN msprof, which is read by Profiler to check whether msprof is enabled or not. Users do not need to set this environment variable manually.
    * - MS_PROFILER_RUN_CONFIG
-     - Set the Profiler's collection options
+     - Set the Profiler collection options
      - String
-     - Configure the Profiler's collection options in the format of a JSON string.
+     - Configure the Profiler collection options in the format of a JSON string.
      - This environment variable is usually set automatically by the program and the user does not need to set this environment variable manually.
