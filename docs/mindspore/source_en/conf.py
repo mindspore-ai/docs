@@ -245,6 +245,24 @@ try:
 except:
     pass
 
+# add @functools.wraps
+try:
+    decorator_list = [("mindspore/common/_tensor_overload.py", ".*?_mint")]
+
+    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+    for i in decorator_list:
+        with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
+            content = f.read()
+            new_content = re.sub('(import .*\n)', r'\1import functools\n', content, 1)
+            new_content = re.sub(f'def ({i[1]})\((.*?)\):\n((?:.|\n|)+?)([ ]+?)def wrapper\(',
+                             rf'def \1(\2):\n\3\4@functools.wraps(\2)\n\4def wrapper(', new_content)
+            if new_content != content:
+                f.seek(0)
+                f.truncate()
+                f.write(new_content)
+except:
+    pass
+
 sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
 

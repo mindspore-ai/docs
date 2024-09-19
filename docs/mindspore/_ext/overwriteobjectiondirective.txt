@@ -64,7 +64,7 @@ def get_example(name: str):
     try:
         api_doc = inspect.getdoc(get_api(name))
         if '.mint.' in name:
-            spec_tp = [('ops.dense', 'ops.linear'), ('ops.inverse_ext', ['mint.linalg.inv', 'mint.inverse'])]
+            spec_tp = [('ops.dense', 'ops.linear'), ('ops.inverse_ext', ['mint.linalg.inv', 'mint.inverse']), ('get_group_size', 'get_world_size')]
             b_name = name.split('.')[-1]
             usename = name.replace('mindspore.', '')
             api_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', api_doc)
@@ -76,6 +76,10 @@ def get_example(name: str):
                 elif isinstance(j[1], str) and j[0] in api_doc:
                     api_doc = re.sub(f'(>>> .*?){j[0]}', rf'\1{j[1]}', api_doc)
                     break
+            if '.mint.distributed' in name:
+                api_doc = re.sub(f'>>> from mindspore.communication import init, {b_name}',
+                                f'>>> from mindspore.mint.distributed import init_process_group, {b_name}', api_doc)
+                api_doc = api_doc.replace('>>> init()', '>>> init_process_group()')
             if not re.findall(f'>>> .*?{usename}', api_doc):
                 api_doc = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext|_ext)?(?!\w)', rf'\1{usename}', api_doc)
         example_str = re.findall(r'(?<!Tutorial )Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
