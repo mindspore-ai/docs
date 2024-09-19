@@ -141,7 +141,7 @@
 
 步骤3 打开昇腾CANN官网访问社区版资源[下载地址](https://www.hiascend.com/developer/download/community/result?module=cann)，下载所需版本的toolkit包，该处以8.0.RC2.alpha003版本为例，如下图：
 
-![environment-setup-1-14](./images/environment_setup_1-15.png)
+![environment-setup-1-15](./images/environment_setup_1-15.png)
 
 > 执行如下命令，根据环境实际输出信息选择aarch64或是x86_64对应的软件包。
 
@@ -170,7 +170,7 @@
    ```
 
 安装时弹出此提示后输入Y，然后按回车键继续安装。
-![environment-setup-1-15](./images/environment_setup_1-16.png)
+![environment-setup-1-16](./images/environment_setup_1-16.png)
 
 升级完成后，若显示如下信息，则说明软件升级成功：
 
@@ -218,7 +218,7 @@ npu-smi info
 
 步骤3 打开昇腾CANN官网访问社区版资源[下载地址](https://www.hiascend.com/developer/download/community/result?module=cann)，下载与CANN包版本一致，并且匹配NPU型号的kernel包，如下图：
 
-![environment-setup-1-17](./images/environment_setup_1-18.png)
+![environment-setup-1-18](./images/environment_setup_1-18.png)
 
 步骤4 进入Kernels包下载目录。
 
