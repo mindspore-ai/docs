@@ -114,7 +114,7 @@
 
 ## 精度调试工具介绍
 
-精度定位中，主要使用MindSpore的Dump工具。主要支持O0/O1/O2模式，不同模式下支持的Dump功能不完全相同，需要的配置文件和以及生成的数据格式也不同。O0/O1支持host和device模式支持Dump数据格式`.npy`文件；O2仅支持host模式，支持Dump数据格式`.npy`和`.bin`文件。详细介绍参考[Dump功能调试](https://gitee.com/mindspore/docs/blob/feature-2.4-tools/docs/mindspore/source_zh_cn/model_train/debug/dump.md)，下面仅简单介绍两种Dump方式。
+精度定位中，主要使用MindSpore的Dump工具。主要支持O0/O1/O2模式，不同模式下支持的Dump功能不完全相同，需要的配置文件和以及生成的数据格式也不同。O0/O1支持host和device模式支持Dump数据格式`.npy`文件；O2仅支持host模式，支持Dump数据格式`.npy`和`.bin`文件。详细介绍参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)，下面仅简单介绍两种Dump方式。
 
 ### O0/O1 图模式Dump方式
 
@@ -140,7 +140,7 @@ MindSpore的Dump工具通过配置JSON文件进行使能，该方式Dump出网�
 }
 ```
 
-配置参数的字段含义参考[Dump功能调试](https://gitee.com/mindspore/docs/blob/feature-2.4-tools/docs/mindspore/source_zh_cn/model_train/debug/dump.md)。
+配置参数的字段含义参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)。
 
 配置好JSON文件后， 设置Dump环境变量指向配置的JSON文件，需要设置绝对路径：
 
@@ -172,7 +172,7 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 }
 ```
 
-配置参数的字段含义参考[Dump功能调试](https://gitee.com/mindspore/docs/blob/feature-2.4-tools/docs/mindspore/source_zh_cn/model_train/debug/dump.md)。
+配置参数的字段含义参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)。
 
 配置好JSON文件后， 设置Dump环境变量指向配置的JSON文件，需要设置绝对路径：
 
@@ -185,7 +185,7 @@ export MS_ACL_DUMP_CFG_PATH=${JSON_PATH}
 
 ### 其他介绍
 
-除了上述介绍的全量算子Dump，工具还支持部分数据Dump、溢出Dump、指定条件Dump等。限于篇幅，感兴趣的用户可以参考[Dump功能调试](https://gitee.com/mindspore/docs/blob/feature-2.4-tools/docs/mindspore/source_zh_cn/model_train/debug/dump.md)进行配置使用。此外，还提供了TroubleShooter的网络开发调试，可在权重转换、权重比对等场景使用，详细信息参考[TroubleShooter工具介绍](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)。
+除了上述介绍的全量算子Dump，工具还支持部分数据Dump、溢出Dump、指定条件Dump等。限于篇幅，感兴趣的用户可以参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)进行配置使用。此外，还提供了TroubleShooter的网络开发调试，可在权重转换、权重比对等场景使用，详细信息参考[TroubleShooter工具介绍](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)。
 
 ## 精度定位通用流程
 
@@ -226,7 +226,7 @@ export MS_ACL_DUMP_CFG_PATH=${JSON_PATH}
 
 #### 权重转换
 
-训练过程中，MindSpore与PyTorch加载同一份权重。若是预训练场景，可以使用PyTorch保存一个初始化权重后，转换为MindSpore权重。因为MindSpore的权重名称与PyTorch有差异，权重转换的本质是将PyTorch权重dict中的名字改为MindSpore权重名字以支持MindSpore加载。权重转换参考[权重转换指导](https://gitee.com/mindspore/mindformers/blob/r1.2.0/docs/feature_cards/Convert_Weight.md)。
+训练过程中，MindSpore与PyTorch加载同一份权重。若是预训练场景，可以使用PyTorch保存一个初始化权重后，转换为MindSpore权重。因为MindSpore的权重名称与PyTorch有差异，权重转换的本质是将PyTorch权重dict中的名字改为MindSpore权重名字以支持MindSpore加载。权重转换参考[权重转换指导](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)。
 
 保存PyTorch每个step训练的数据集。在MindSpore训练时，加载相同的数据集进行训练，从而保证每个step训练数据集一致。实现代码参考附录。
 
