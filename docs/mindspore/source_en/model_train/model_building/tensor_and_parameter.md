@@ -4,6 +4,10 @@
 
 ## Tensor
 
+A [Tensor](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html) is a basic data structure in MindSpore network operations whose functions is like a [Numpy array (ndarray)](https://numpy.org/doc/stable/user/quickstart.html#the-basics). MindSpore uses Tensor to represent the data passed in the neural network.
+
+For operations such as Tensor creation, Tensor operations, and Tensor to NumPy conversion, see [Tensor Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html).
+
 ### Tensor Index Support
 
 Single-level and multi-level Tensor indexing is supported on both PyNative and Graph mode.
@@ -742,7 +746,7 @@ print(t[0][0])
 
 Since views share underlying data with its base tensor, if you edit the data in the view, it will be reflected in the base tensor as well.
 
-Typically a MindSpore op returns a new tensor as output, e.g. [add()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.add.html). But in case of view ops, outputs are views of input tensors to avoid unnecessary data copy. No data movement occurs when creating a view, view tensor just changes the way it interprets the same data. Taking a view of contiguous tensor could potentially produce a non-contiguous tensor. Users should pay additional attention as contiguity might have implicit performance impact. [transpose()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.transpose.html) is a common example.
+Typically a MindSpore op returns a new tensor as output, e.g. [add()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.add.html). But in case of view ops, outputs are views of input tensors to avoid unnecessary data copy. No data movement occurs when creating a view, view tensor just changes the way it interprets the same data. Taking a view of contiguous tensor could potentially produce a non-contiguous tensor. Users should pay additional attention as contiguity might have implicit performance impact. [transpose()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.transpose.html) is a common example.
 
 ```python
 from mindspore import Tensor
@@ -764,54 +768,54 @@ c.is_contiguous()
 
 For reference, here’s a full list of view ops in MindSpore:
 
-[broadcast_to()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.broadcast_to.html)
+[broadcast_to()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.broadcast_to.html)
 
-[diagonal()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.diagonal.html)
+[diagonal()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.diagonal.html)
 
-[expand_as()](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.expand_as.html)
+[expand_as()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.expand_as.html)
 
-[movedim()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.movedim.html)
+[movedim()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.movedim.html)
 
-[narrow()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.narrow.html)
+[narrow()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.narrow.html)
 
-[permute()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.permute.html)
+[permute()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.permute.html)
 
-[squeeze()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.squeeze.html)
+[squeeze()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.squeeze.html)
 
-[transpose()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.transpose.html)
+[transpose()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.transpose.html)
 
-[t()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.t.html)
+[t()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.t.html)
 
-[T](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.T.html)
+[T](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.T.html)
 
-[unsqueeze()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.unsqueeze.html)
+[unsqueeze()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.unsqueeze.html)
 
-[view()](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.view.html)
+[view()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.view.html)
 
-[view_as()](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/Tensor/mindspore.Tensor.view_as.html)
+[view_as()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/Tensor/mindspore.Tensor.view_as.html)
 
-[unbind()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.unbind.html)
+[unbind()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.unbind.html)
 
-[split()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.split.html)
+[split()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.split.html)
 
-[hsplit()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.hsplit.html)
+[hsplit()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.hsplit.html)
 
-[vsplit()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.vsplit.html)
+[vsplit()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.vsplit.html)
 
-[tensor_split()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.tensor_split.html)
+[tensor_split()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.tensor_split.html)
 
-[swapaxes()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.swapaxes.html)
+[swapaxes()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.swapaxes.html)
 
-[swapdims()](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.swapdims.html)
+[swapdims()](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.swapdims.html)
 
 ## Parameter
 
-Parameter is a special class of Tensor, which is a variable whose value can be updated during model training. MindSpore provides the `mindspore.Parameter` class for Parameter construction. In order to distinguish between Parameter for different purposes, two different categories of Parameter are defined below. In order to distinguish between Parameter for different purposes, two different categories of Parameter are defined below:
+[Parameter](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html) is a special class of Tensor, which is a variable whose value can be updated during model training. MindSpore provides the `mindspore.Parameter` class for Parameter construction. In order to distinguish between Parameter for different purposes, two different categories of Parameter are defined below. In order to distinguish between Parameter for different purposes, two different categories of Parameter are defined below:
 
-- Trainable parameter. Tensor that is updated after the gradient is obtained according to the backward propagation algorithm during model training, and `required_grad` needs to be set to `True`.
+- Trainable parameter. Tensor that is updated after the gradient is obtained according to the backward propagation algorithm during model training, and `requires_grad` needs to be set to `True`.
 - Untrainable parameters. Tensor that does not participate in backward propagation needs to update values (e.g. `mean` and `var` variables in BatchNorm), when `requires_grad` needs to be set to `False`.
 
-> Parameter is set to `required_grad=True` by default.
+> Parameter is set to `requires_grad=True` by default.
 
 We construct a simple fully-connected layer as follows:
 
@@ -925,7 +929,7 @@ print(net.b.asnumpy())
 
 #### Modifying Parameter Values During Runtime
 
-The main role of parameters is to update their values during model training, which involves parameter modification during runtime after backward propagation to obtain gradients, or when untrainable parameters need to be updated. Due to the compiled design of MindSpore's [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html), it is necessary at this point to use the `mindspore.ops.assign` interface to assign parameters. This method is commonly used in [Custom Optimizer](https://www.mindspore.cn/docs/en/master/model_train/custom_program/optimizer.html) scenarios. The following is a simple sample modification of parameter values during runtime:
+In deep learning model training, the core function of parameters is the iterative updating of their values to optimize model performance. Due to the compiled design of MindSpore's [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html), it is necessary at this point to use the `mindspore.ops.assign` interface to assign parameters. This method is commonly used in [Custom Optimizer](https://www.mindspore.cn/docs/en/master/model_train/custom_program/optimizer.html) scenarios. The following is a simple sample modification of parameter values during runtime:
 
 ```python
 import mindspore as ms
@@ -946,20 +950,20 @@ print(net.b.asnumpy())
 
 ### Parameter Tuple
 
-ParameterTuple, variable tuple, used to store multiple Parameter, is inherited from tuple tuples, and provides cloning function.
+`ParameterTuple`, variable tuple, used to store multiple Parameter, is inherited from tuple tuples, and provides cloning function.
 
-The following example provides the ParameterTuple creation method:
+The following example provides the ParameterTuple creation and clone method:
 
 ```python
 from mindspore.common.initializer import initializer
 from mindspore import ParameterTuple
-# Creation
+# Create ParameterTuple
 x = Parameter(default_input=ms.Tensor(np.arange(2 * 3).reshape((2, 3))), name="x")
 y = Parameter(default_input=initializer('ones', [1, 2, 3], ms.float32), name='y')
 z = Parameter(default_input=2.0, name='z')
 params = ParameterTuple((x, y, z))
 
-# Clone from params and change the name to "params_copy"
+# Clone ParameterTuple
 params_copy = params.clone("params_copy")
 
 print(params)

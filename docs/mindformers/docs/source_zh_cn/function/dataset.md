@@ -154,8 +154,6 @@ train_dataset_task:
    cd ..
    ```
 
-> **注意事项：**
->
 > 当环境安装了 openmind-datasets 三方件时，默认对接的是魔乐开源社区，如果这是想对接 HuggingFace，环境变量 `USE_OM` 可以控制具体对接哪个社区，默认值为 `ON` 为魔乐社区，修改为 `OFF` 对接 HuggingFace 社区
 
 ### 自定义数据 handler

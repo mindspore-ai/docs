@@ -166,7 +166,7 @@ Cell name: sequential_block.2, type: <class 'mindspore.nn.layer.activation.ReLU'
 
 调试深度学习网络是每一个深度学习领域的从业者需要面对且投入精力较大的工作。由于深度学习网络隐藏了中间层算子的输入、输出数据以及反向梯度，只提供网络输入数据（特征量、权重）的梯度，导致无法准确地感知中间层算子的数据变化，从而降低了调试效率。为了方便用户准确、快速地对深度学习网络进行调试，MindSpore在动态图模式下设计了Hook功能，使用Hook功能可以捕获中间层算子的输入、输出数据以及反向梯度。
 
-目前，动态图模式下 `MindSpore.nn.Cell` 提供了四种形式的Hook功能，分别是：`register_forward_pre_hook` 、 `register_forward_hook` 、`register_backward_hook` 和 `register_backward_pre_hook` 功能。详见[Hook编程](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/hook_program.html) 。
+目前，动态图模式下 `MindSpore.nn.Cell` 提供了四种形式的Hook功能，分别是：`register_forward_pre_hook` 、 `register_forward_hook` 、`register_backward_hook` 和 `register_backward_pre_hook` 功能。详见[Hook编程](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/hook_program.html)。
 
 ### 重计算
 
