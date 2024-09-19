@@ -82,6 +82,9 @@ def get_example(name: str):
                 api_doc = api_doc.replace('>>> init()', '>>> init_process_group()')
             if not re.findall(f'>>> .*?{usename}', api_doc):
                 api_doc = re.sub(f'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(Ext|_ext)?(?!\w)', rf'\1{usename}', api_doc)
+        elif 'mindspore.is_tensor' in name:
+            api_doc = api_doc.replace('>>> from mindspore import Tensor, ops', '>>> from mindspore import Tensor, is_tensor')
+            api_doc = api_doc.replace('>>> ops.is_tensor', '>>> is_tensor')
         example_str = re.findall(r'(?<!Tutorial )Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
         if not example_str:
             return []

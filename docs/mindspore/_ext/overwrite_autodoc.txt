@@ -588,6 +588,10 @@ class Documenter:
                 docstring = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext)?(?!\w)', rf'\1{usename}', mint_doc)
             else:
                 docstring = mint_doc
+        elif docstring and 'mindspore.is_tensor' in self.fullname:
+            docstring = docstring.replace('>>> from mindspore import Tensor, ops', '>>> from mindspore import Tensor, is_tensor')
+            docstring = docstring.replace('>>> ops.is_tensor', '>>> is_tensor')
+
         if docstring:
             tab_width = self.directive.state.document.settings.tab_width
             return [prepare_docstring(docstring, ignore, tab_width)]
