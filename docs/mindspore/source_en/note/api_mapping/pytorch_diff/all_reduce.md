@@ -7,7 +7,7 @@
 ```python
 torch.distributed.all_reduce(
     tensor,
-    op=<ReduceOp.SUM: 0>,
+    ReduceOp.SUM,
     group=None,
     async_op=False
 )
@@ -15,27 +15,30 @@ torch.distributed.all_reduce(
 
 For more information, see [torch.distributed.all_reduce](https://pytorch.org/docs/1.8.1/distributed.html#torch.distributed.all_reduce).
 
-## mindspore.ops.AllReduce
+## mindspore.communication.comm_func.all_reduce
 
 ```python
-class mindspore.ops.AllReduce(
+from mindspore.communication.comm_func import all_reduce
+return_tensor = all_reduce(
+    tensor,
     op=ReduceOp.SUM,
-    group=GlobalComm.WORLD_COMM_GROUP
-)(input_x)
+    group=GlobalComm.WORLD_COMM_GROUP,
+    async_op=False
+)
 ```
 
-For more information, see [mindspore.ops.AllReduce](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.AllReduce.html#mindspore.ops.AllReduce).
+For more information, see [mindspore.communication.comm_func.all_reduce](https://www.mindspore.cn/docs/en/master/api_python/communication/mindspore.communication.comm_func.all_reduce.html#mindspore.communication.comm_func.all_reduce).
 
 ## Differences
 
-PyTorch: The inputs are the tensor broadcasted by the current process `tensor`, the AllReduce operation `op`, the communication group `group` and the async op flag `async_op`. After the AllReduce operation, the output is written back to `tensor`. The return is a async work handle if `async_op=True`, otherwise is `None`.
+PyTorch: The inputs are the tensor broadcasted by the current process `tensor`, the all_reduce operation `op`, the communication group `group` and the async op flag `async_op`. After the all_reduce operation, the output is written back to `tensor`. The return is a async work handle if `async_op=True`, otherwise is `None`.
 
-MindSpore: The input of this interface is `input_x` that is a `tensor`. The output `tensor` has the same shape as `input_x`, and is generated after the AllReduce operation configured by `op` in the communication group `group`. This interface currently not support the configuration of `async_op`.
+MindSpore: The inputs of this interface are the `tensor`, the all_reduce operation `op`, the communication group `group` and the async op flag `async_op`. The output `tensor` has the same shape as input `tensor`, and is generated after the all_reduce operation configured by `op` in the communication group `group`.
 
-| Class | Sub-class |PyTorch | MindSpore | Difference |
-| --- | --- | --- | --- |---|
-|Parameters | Parameter 1 | tensor | - |PyTorch: the input tensor, and the output is written back to it after AllReduce operation. MindSpore does not have this parameter|
-| | Parameter 2 | op | op |No difference|
-| | Parameter 3 | group | group |No difference|
-| | Parameter 4 | async_op | - |PyTorch: the async op flag. MindSpore does not have this parameter|
-| Input | Single input | - | input_x | PyTorch: not applied. MindSpore: the input tensor of AllReduce. |
+| Class      | Sub-class     |PyTorch | MindSpore | Difference                                                                                                                                           |
+|------------|---------------| --- |---------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Parameters | Parameter 1   | tensor | tensor  | PyTorch: the input tensor, and the output is written back to it after all_reduce operation. Mindpore does not write the output result into the input |
+|            | Parameter 2   | op | op      | No difference                                                                                                                                        |
+|            | Parameter 3   | group | group   | No difference                                                                                                                                        |
+|            | Parameter 4   | async_op | async_op       | No difference                                                                                                                                  |
+| Returns    | Single return | - | tensor | PyTorch: does not have a return. MindSpore: returns the output tensor after all_reduce operation.                                                    |
