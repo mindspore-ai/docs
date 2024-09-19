@@ -353,6 +353,31 @@ def mint_interface_name():
 
     return mint_list
 
+# 删除并获取numpy下多余的接口文件名
+def numpy_interface_name():
+    numpy_p = 'mindspore.numpy.rst'
+    src_target_path = os.path.join(src_dir, numpy_p)
+    with open(src_target_path,'r+',encoding='utf8') as f:
+        content =  f.read()
+    numpy_list = re.findall(r"    (mindspore\.numpy\..*)\n", content+'\n')
+
+    all_rst = []
+    for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/numpy')):
+        if j.split('.')[-1]=='rst':
+            all_rst.append(j.split('.rst')[0])
+
+    extra_interface_name = set(all_rst).difference(set(numpy_list))
+    print(extra_interface_name)
+    if extra_interface_name:
+        with open(os.path.join(os.path.dirname(__file__),'extra_interface_del.txt'),'a+',encoding='utf8') as g:
+            extra_write_list = []
+            for k in extra_interface_name:
+                k = k + '.rst'
+                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/numpy',k)):
+                    os.remove(os.path.join(os.path.dirname(__file__),'api_python/numpy',k))
+                    extra_write_list.append(k)
+            g.write(str(extra_write_list))
+
 # 删除并获取nn下多余的接口文件名
 def nn_interface_name():
     interface_name_list = []
@@ -534,6 +559,7 @@ try:
     nn_interface_name()
     tensor_interface_name()
     scipy_interface_name()
+    numpy_interface_name()
 except Exception as e:
     print(e)
 
