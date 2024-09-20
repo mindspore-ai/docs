@@ -694,7 +694,7 @@ class CustomAddKernel : public kernel::Kernel {
 
 5. 将常量输入转为合适格式的数据，并分配GPU内存
 
-    对注册为GPU的算子来说，除输入为常量的情况，其它情况下，输入数据已经为Image格式的GPU内存数据。
+    对注册为GPU的算子来说，除输入为常量的情况，其他情况下，输入数据已经为Image格式的GPU内存数据。
     为满足算子运算所需，用户需为常量输入设置合适的格式，必要时为其分配GPU内存。在此例，针对常量tensor的操作如下所示。
 
     首先通过`MSTensor::IsConst()`接口判断输入是否为常量，并通过`GpuTensorInfo`计算转为Image格式时所需的内存大小。

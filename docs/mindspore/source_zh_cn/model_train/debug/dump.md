@@ -165,7 +165,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
             - "md5": 表示Tensor的MD5值；
             - "l2norm": 表示Tensor的L2Norm值，支持在device统计和在host统计。
 
-        以上除了标记了支持device统计的，其它都仅支持在host统计。
+        以上除了标记了支持device统计的，其他都仅支持在host统计。
         该字段为可选，默认值为["max", "min", "l2norm"]。
 
         - `overflow_number`：指定溢出dump的数据个数。该字段仅在`op_debug_mode`设置为3，只保存溢出算子时需要配置，可控制溢出数据按时间序dump，到指定数值后溢出数据不再dump。默认值为0，表示dump全部溢出数据。
@@ -175,7 +175,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
         - `enable`：设置成true，表示开启同步Dump；设置成false时，采用异步Dump。不设置该字段时默认值为false，开启异步Dump。两者的区别是异步Dump对原本代码执行过程的影响更小。
         - `trans_flag`：开启格式转换，将设备上的数据格式转换成NCHW格式。若为`true`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`false`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换。默认值：true。
         - `stat_calc_mode`：选择统计信息计算后端，可选"host"和"device"。选择"device"后可以使能device计算统计信息，当前只在Ascend生效，只支持`min/max/avg/l2norm`统计量。在op_debug_mode设置为3时，仅支持将`stat_calc_mode`设置为"host"。
-        - `sample_mode`（可选）：设置成0，表示不开启切片dump功能；设置成1时，在图编译等级为O0或O1的情况下开启切片dump功能。仅在op_debug_mode设置为0时生效，其它场景不会开启切片dump功能。
+        - `sample_mode`（可选）：设置成0，表示不开启切片dump功能；设置成1时，在图编译等级为O0或O1的情况下开启切片dump功能。仅在op_debug_mode设置为0时生效，其他场景不会开启切片dump功能。
         - `sample_num`（可选）：用于控制切片dump中切片的大小。默认值为100。
         - `save_kernel_args`（可选）: 设置成true时，会保存算子的初始化信息。仅当`enable`设置为`true`时生效。
 
@@ -975,9 +975,9 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 
 生成numpy.array数据。
 
-## 其它说明
+## 其他说明
 
-### 其它dump方法
+### 其他dump方法
 
 在一些特殊场景下，可在开发指导下应用GE dump模式。
 
@@ -1011,6 +1011,6 @@ GE dump的目录结构如下：
 - `bfloat16`类型的算子保存到`npy`文件时，会转换成`float32`类型。
 - Dump仅支持bool、int、int8、in16、int32、int64、uint、uint8、uint16、uint32、uint64、float、float16、float32、float64、bfloat16、double、complex64、complex128类型数据的保存。
 - complex64和complex128仅支持保存为npy文件，不支持保存为统计值信息。
-- Print算子内部有一个输入参数为string类型，string类型不属于Dump支持的数据类型，所以在脚本中包含Print算子时，会有错误日志，这不会影响其它类型数据的保存。
+- Print算子内部有一个输入参数为string类型，string类型不属于Dump支持的数据类型，所以在脚本中包含Print算子时，会有错误日志，这不会影响其他类型数据的保存。
 - 使能Ascend O2模式下Dump时，不支持同时使用set_context(ascend_config={"exception_dump": "2"})配置轻量异常dump; 支持同时使用set_context(ascend_config={"exception_dump": "1"})配置全量异常dump。
 - 使能Ascend O2模式下Dump时，sink size只能设置为1。用户通常可以使用model.train()或ms.data_sink()接口配置sink size。下沉模式配置可参考使用说明链接<https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/sink_mode.html>。

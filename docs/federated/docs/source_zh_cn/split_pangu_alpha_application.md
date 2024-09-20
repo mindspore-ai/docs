@@ -103,9 +103,9 @@ MindSpore Federated纵向联邦学习框架采用FLModel（参见[纵向联邦�
 
     `inputs`和`outputs`字段下的`name`字段，为输入/输出张量名称。输入/输出张量的名称和顺序，需要与训练网络对应Python代码中`construct`方法的输入/输出严格对应。
 
-    `inputs`字段下的`source`字段标识输入张量的数据来源，`local`代表输入张量来源于本地数据加载，`remote`代表输入张量来源于其它参与方网络传输。
+    `inputs`字段下的`source`字段标识输入张量的数据来源，`local`代表输入张量来源于本地数据加载，`remote`代表输入张量来源于其他参与方网络传输。
 
-    `outputs`字段下的`destination`字段标识输出张量的数据去向，`local`代表输出张量仅用于本地，`remote`代表输出张量将通过网络传输给其它参与方。
+    `outputs`字段下的`destination`字段标识输出张量的数据去向，`local`代表输出张量仅用于本地，`remote`代表输出张量将通过网络传输给其他参与方。
 
 3. 可选的，采用类似方法建模本参与方待参与纵向联邦学习的评估网络。
 
@@ -185,7 +185,7 @@ grad_scalers:
     sens: 1024.0
 ```
 
-其中，`inputs`和`output`字段为`GradOperation`算子的输入和输出张量列表，其元素分别为一个输入/输出张量名称。`sens`字段为该`GradOperation`算子的梯度加权系数或灵敏度（参考[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)），如果为`float`或`int`型数值，则将构造一个常量张量作为梯度加权系数，如果为`str`型字符串，则将从其它参与方经网络传输的加权系数中，解析名称与其对应的张量作为加权系数。
+其中，`inputs`和`output`字段为`GradOperation`算子的输入和输出张量列表，其元素分别为一个输入/输出张量名称。`sens`字段为该`GradOperation`算子的梯度加权系数或灵敏度（参考[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation)），如果为`float`或`int`型数值，则将构造一个常量张量作为梯度加权系数，如果为`str`型字符串，则将从其他参与方经网络传输的加权系数中，解析名称与其对应的张量作为加权系数。
 
 ### 执行训练
 

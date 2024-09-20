@@ -12,13 +12,13 @@
 
 ## 基于问题checklist的精度问题初步定位
 
-当出现精度问题时，您可以参考以下checklist进行检查。若通过checklist发现了可疑的问题，则您应参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)尝试修复这些可疑问题。若checklist使用完毕后，未发现可疑问题，则您应尝试其它精度问题定位和调优手段，或者参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)。如果您怀疑精度问题和MindSpore框架相关，请在向我们求助前确认不存在checklist上列出的问题，求助方法请见本文末尾。
+当出现精度问题时，您可以参考以下checklist进行检查。若通过checklist发现了可疑的问题，则您应参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)尝试修复这些可疑问题。若checklist使用完毕后，未发现可疑问题，则您应尝试其他精度问题定位和调优手段，或者参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)。如果您怀疑精度问题和MindSpore框架相关，请在向我们求助前确认不存在checklist上列出的问题，求助方法请见本文末尾。
 
 ### checklist使用说明
 
 建议您将下列checklist全文拷贝到word中，逐项检查，在word中填写检查结论并保存。对于比较复杂的问题，建议您在检查结论后粘贴相关的截图和代码，这些信息可以在您向我们求助时帮助我们更好地判断您的问题。
 
-关于“检查方案”列：您可以根据实际情况选择等效或者效力更强的其它检查方案。
+关于“检查方案”列：您可以根据实际情况选择等效或者效力更强的其他检查方案。
 
 关于“检查结论”列：请根据实际情况从“发现问题”、“无问题”、“不涉及”三个选项中选择填写。
 
@@ -209,14 +209,14 @@
 
 ### 常见API使用问题
 
-#### api.01 使用API时未注意到MindSpore API和其它框架API的差异
+#### api.01 使用API时未注意到MindSpore API和其他框架API的差异
 
 检查方法：
 
-MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况下，要特别注意:
+MindSpore API同其他框架的API存在一定差异。有标杆脚本的情况下，要特别注意:
 
 1. MindSpore脚本的参数初始化方式是否同标杆脚本相同
-2. MindSpore中部分API的参数默认值，参数含义同其它框架不同
+2. MindSpore中部分API的参数默认值，参数含义同其他框架不同
 
 此处我们列举一些比较重要的差异供大家检查：
 
@@ -246,7 +246,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 推理脚本中，未使用model.predict API进行推理时需要进行本检查。
 
-根据是否为训练场景，在调用模型时提前设置cell.set_train()。若为训练场景，应该先调用 cell.set_train(True)，其它场景，则应该先调用cell.set_train(False)。
+根据是否为训练场景，在调用模型时提前设置cell.set_train()。若为训练场景，应该先调用 cell.set_train(True)，其他场景，则应该先调用cell.set_train(False)。
 
 备注：
 
@@ -388,7 +388,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 在脚本、超参、数据集未修改的情况下，若版本升级后在新版本上多次运行完全相同的脚本均存在明显的精度劣化（相较于旧版本），请向我们求助并提供相关信息。
 
-有其它框架下的标杆脚本时，可以通过对比MindSpore脚本和标杆脚本的现象来初步定位精度问题。标杆脚本是指，开发MindSpore脚本时镜像参考的脚本，也即，MindSpore脚本中的绝大多数细节由标杆脚本决定。迁移场景中，被迁移的脚本一般是标杆脚本。
+有其他框架下的标杆脚本时，可以通过对比MindSpore脚本和标杆脚本的现象来初步定位精度问题。标杆脚本是指，开发MindSpore脚本时镜像参考的脚本，也即，MindSpore脚本中的绝大多数细节由标杆脚本决定。迁移场景中，被迁移的脚本一般是标杆脚本。
 
 本方法操作步骤如下：
 
