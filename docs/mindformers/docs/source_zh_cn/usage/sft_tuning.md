@@ -70,7 +70,7 @@ python convert_weight.py --model llama --input_path TORCH_CKPT_DIR --output_path
 参数说明:
 
 ```commandline
-model:       模型名称（其它模型请参考模型说明文档）
+model:       模型名称（其他模型请参考模型说明文档）
 input_path:  下载HuggingFace权重的文件夹路径
 output_path: 转换后的MindSpore权重文件保存路径
 ```

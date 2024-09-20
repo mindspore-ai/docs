@@ -7,7 +7,7 @@
 A：引擎启动失败有多种可能性，下面列举了一些常见的原因，请参照检查。
 
 - 原因1：redis端口冲突。  
-  解决方案：可以在命令行中输入`ps -ef|grep redis`，查看系统中是否已经有其它redis服务正在运行，导致端口冲突。MindSpore Pandas的redis默认运行在6379端口，如需修改，可以在MindSpore Pandas的安装目录下修改`mindpandas/dist_executor/modules/config/config.xml`中的`redis_port`字段为其它不冲突的端口。
+  解决方案：可以在命令行中输入`ps -ef|grep redis`，查看系统中是否已经有其他redis服务正在运行，导致端口冲突。MindSpore Pandas的redis默认运行在6379端口，如需修改，可以在MindSpore Pandas的安装目录下修改`mindpandas/dist_executor/modules/config/config.xml`中的`redis_port`字段为其他不冲突的端口。
 - 原因2：etcd端口冲突。  
   解决方案：可以在命令行中输入`netstat -tunpl|grep -E "32379|32380"`，查看etcd的端口是否已被占用，如果发生冲突，请尝试解除相应端口的占用。
 

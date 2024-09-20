@@ -35,7 +35,7 @@ class Net(nn.Cell):
 
 <font size=3>**Q: 请问在Ubuntu上安装了MindSpore Insight，运行时提示port 8080不可使用于MindSpore Insight，应该怎么解决？**</font>
 
-A: 出现这个问题可能是因为8080端口已被其它进程（例如nginx）占用。可以尝试更换MindSpore Insight使用的端口，命令如：`mindinsight start --port 8081 --summary-base-dir xxx`，8081可以修改为其它端口。
+A: 出现这个问题可能是因为8080端口已被其他进程（例如nginx）占用。可以尝试更换MindSpore Insight使用的端口，命令如：`mindinsight start --port 8081 --summary-base-dir xxx`，8081可以修改为其他端口。
 
 <br/>
 

@@ -411,7 +411,7 @@ epoch: 1, step: 100, loss is 0.07113413
 ### 流水线并行模型转换
 
 [流水线并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/pipeline_parallel.html) 是对线性的网络进行切分，得到多个子网络，子网络之间在多卡间进行流水，因此每个子图存储下来的切分策略文件是不一致的，所有切分策略汇聚在一起才能得到完整的网络的切分信息。
-因此针对流水线并行的维度，相比于其它维度的转换，需要事先执行一次汇聚切分策略文件的操作，得到汇聚后的切分策略文件，以这一份文件作为分布式Checkpoint转换依赖的策略文件。此外，与前面的[执行分布式Checkpoint转换](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_transformation.html#执行分布式checkpoint转换)没有差异。
+因此针对流水线并行的维度，相比于其他维度的转换，需要事先执行一次汇聚切分策略文件的操作，得到汇聚后的切分策略文件，以这一份文件作为分布式Checkpoint转换依赖的策略文件。此外，与前面的[执行分布式Checkpoint转换](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_transformation.html#执行分布式checkpoint转换)没有差异。
 
 相关接口：
 

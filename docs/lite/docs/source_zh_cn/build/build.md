@@ -377,7 +377,7 @@ call build.bat lite 8
     ```
 
 > - 链接 MinGW 编译出的静态库时，需要在链接选项中，加`-Wl,--whole-archive mindspore-lite -Wl,--no-whole-archive`。
-> - 链接 Visual Studio 编译出的静态库时，需要在“属性->链接器->命令行->其它选项”中，加`/WHOLEARCHIVE:libmindspore-lite.lib`。
+> - 链接 Visual Studio 编译出的静态库时，需要在“属性->链接器->命令行->其他选项”中，加`/WHOLEARCHIVE:libmindspore-lite.lib`。
 > - 使用 Visual Studio 编译器时，读入 model 流必须加 std::ios::binary，否则会出现读取模型文件不完整的问题。
 > - 暂不支持在 Windows 进行端侧训练。
 

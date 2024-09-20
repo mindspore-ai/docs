@@ -17,7 +17,7 @@ $$
 p_{uv}=\begin{cases} -p_{vu}, &u{\neq}v\\\\ 0, &u=v \end{cases}
 $$
 
-于是每个客户端Client $u$ 在上传模型至服务端Server前，会在原模型权重$x_u$加上它与其它用户协商的扰动：
+于是每个客户端Client $u$ 在上传模型至服务端Server前，会在原模型权重$x_u$加上它与其他用户协商的扰动：
 
 $$
 x_{encrypt}=x_u+\sum\limits_{v{\in}U}p_{uv}

@@ -192,9 +192,9 @@ pd.set_adaptive_concurrency(True)
 
 自适应并发功能开启后，自动切换并行模式的条件如下：
 
-- 读取小于18MB的csv文件时会采用多线程模式，其它情况使用多进程模式。
-- 使用`pandas.DataFrame`初始化的`mindpandas.DataFrame`，内存占用小于1GB的将使用多线程模式，其它情况使用多进程模式。
-- 使用`numpy.ndarray`初始化的`mindpandas.DataFrame`，内存占用小于1GB的将使用多线程模式，其它情况使用多进程模式。
+- 读取小于18MB的csv文件时会采用多线程模式，其他情况使用多进程模式。
+- 使用`pandas.DataFrame`初始化的`mindpandas.DataFrame`，内存占用小于1GB的将使用多线程模式，其他情况使用多进程模式。
+- 使用`numpy.ndarray`初始化的`mindpandas.DataFrame`，内存占用小于1GB的将使用多线程模式，其他情况使用多进程模式。
 
 #### 注意事项
 

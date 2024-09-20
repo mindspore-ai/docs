@@ -341,7 +341,7 @@
 
     - 问题分析：链接静态库，默认不会导入静态库中的所有符号，Parameter的Creator函数是通过全局静态对象注册到单例对象去的。
 
-    - 解决方法：链接 Visual Studio 编译出的静态库时，需要在“属性->链接器->命令行->其它选项”中，加/WHOLEARCHIVE:libmindspore-lite.lib。
+    - 解决方法：链接 Visual Studio 编译出的静态库时，需要在“属性->链接器->命令行->其他选项”中，加/WHOLEARCHIVE:libmindspore-lite.lib。
 
 2. 模型校验失败，日志报错信息：
 

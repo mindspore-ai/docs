@@ -46,7 +46,7 @@ A: MindSpore默认安装Protobuf的3.13.0版本，如果不是该版本，在使
 
 ### Q: 使用pip安装依赖库时提示`No matching distribution found for XXX`错误，应该怎么办？
 
-A: 请执行`pip config list`，查看当前软件库索引路径`index-url`。某些情况下，软件库索引会出现更新滞后，可尝试设置其它软件库索引路径。
+A: 请执行`pip config list`，查看当前软件库索引路径`index-url`。某些情况下，软件库索引会出现更新滞后，可尝试设置其他软件库索引路径。
 
 <br/>
 
