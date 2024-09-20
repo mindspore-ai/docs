@@ -226,7 +226,7 @@ for root,dirs,files in os.walk(src_dir_api):
 
 if not os.path.exists(os.path.join(moment_dir, 'ptq/README.md')):
     os.makedirs(os.path.join(moment_dir, 'ptq'), exist_ok=True)
-    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/ptq/README.md'),
+    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/ptq/README_CN.md'),
                 os.path.join(moment_dir, 'ptq/ptq.md'))
 
 # add view

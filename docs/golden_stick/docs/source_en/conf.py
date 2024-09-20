@@ -193,7 +193,7 @@ for root,dirs,files in os.walk(src_dir_api):
 
 if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.md')):
     os.makedirs(os.path.join(moment_dir, 'ptq'), exist_ok=True)
-    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/round_to_nearest/README_EN.md'),
+    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/round_to_nearest/README.md'),
                 os.path.join(moment_dir, 'ptq/round_to_nearest.md'))
 
 # get params for add view source
