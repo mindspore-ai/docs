@@ -267,7 +267,7 @@ if os.path.exists('./model_train/custom_program/operation/op_custom.ipynb'):
     os.remove('./model_train/custom_program/operation/op_custom.ipynb')
 
 # 删除并获取ops下多余的接口文件名
-white_list = ['mindspore.ops.comm_note.rst']
+white_list = ['mindspore.ops.comm_note.rst', 'mindspore.mint.comm_note.rst']
 
 ops_adjust = []
 
@@ -346,7 +346,7 @@ def mint_interface_name():
             extra_write_list = []
             for k in extra_interface_name:
                 k = k + '.rst'
-                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/mint',k)):
+                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/mint',k)) and k not in white_list:
                     os.remove(os.path.join(os.path.dirname(__file__),'api_python/mint',k))
                     extra_write_list.append(k)
             g.write(str(extra_write_list))
