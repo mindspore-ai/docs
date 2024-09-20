@@ -12,9 +12,9 @@ MindFormers中大模型的基本组成包含配置、模型、分词器（适用
 
 模型配置是一个实例，它包含模型的所有信息。MindFormers中所有模型的`__init__`方法都接收一个模型配置的实例作为入参，模型的所有子模块都通过这个配置实例中所包含的信息来初始化。
 
-MindFormers提供了[PretrainedConfig]()类，它提供了一些配置的通用方法。所有模型的配置类都应该继承于PretrainedConfig类，开发者只需关心定义所有帮助构建大模型的配置参数：Transformer类大模型通常都拥有`seq_length`、`hidden_size`、`num_layers`、`num_heads`等配置参数，文本类的大模型通常还有`vocab_size`等。
+MindFormers提供了[PretrainedConfig](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.PretrainedConfig.html)类，它提供了一些配置的通用方法。所有模型的配置类都应该继承于PretrainedConfig类，开发者只需关心定义所有帮助构建大模型的配置参数：Transformer类大模型通常都拥有`seq_length`、`hidden_size`、`num_layers`、`num_heads`等配置参数，文本类的大模型通常还有`vocab_size`等。
 
-可以参考MindFormers中Llama模型的配置类[LlamaConfig]()。
+可以参考MindFormers中Llama模型的配置类[LlamaConfig](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.LlamaConfig.html)。
 
 > 如果您的模型与库内的模型非常相似，您可以复用与该模型相同的配置。
 
@@ -22,12 +22,12 @@ MindFormers提供了[PretrainedConfig]()类，它提供了一些配置的通用�
 
 MindFormers的大模型基于MindSpore框架进行开发，如果您的模型已基于PyTorch实现，可以参考[MindSpore网络搭建](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html)。其中开发者只需要关心模型网络本身的实现。
 
-MindFormers提供了[PretrainedModel]()类，它负责存储模型配置并处理加载、保存模型的方法。所有模型的类都应该继承于PretrainedModel类，并且模型的输入应该是统一的，即模型的`construct`方法的入参应该一致，具体入参和含义可以参考MindFormers中的Llama模型类[LlamaForCausalLM]()。同时，模型类必须实现基类的一些抽象方法，包括：
+MindFormers提供了[PretrainedModel](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.PreTrainedModel.html)类，它负责存储模型配置并处理加载、保存模型的方法。所有模型的类都应该继承于PretrainedModel类，并且模型的输入应该是统一的，即模型的`construct`方法的入参应该一致，具体入参和含义可以参考MindFormers中的Llama模型类[LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.LlamaForCausalLM.html)。同时，模型类必须实现基类的一些抽象方法，包括：
 
 - `prepare_inputs_for_generation`：为模型推理构建输入的方法。
 - `prepare_inputs_for_predict_layout`：为分布式加载模型权重构建虚拟输入的方法。
 
-关于它们的具体含义，可以参考[LlamaForCausalLM]()中的描述。
+关于它们的具体含义，可以参考[LlamaForCausalLM](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.LlamaForCausalLM.html)中的描述。
 
 > 如果您的模型结构与库内的模型非常相似，您可以复用该模型的实现。
 
@@ -35,18 +35,18 @@ MindFormers提供了[PretrainedModel]()类，它负责存储模型配置并处�
 
 分词器（Tokenizer）的作用是处理大语言模型的输入与输出。它在大语言模型的工作流程中是必需的。
 
-MindFormers提供了[PretrainedTokenizer]()类和[PretrainedTokenizerFast]()类，分别是一个纯Python的实现和一个使用Rust库的实现。后者实现的区别是：
+MindFormers提供了[PretrainedTokenizer](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.PreTrainedTokenizer.html)类和[PretrainedTokenizerFast](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.PreTrainedTokenizerFast.html)类，分别是一个纯Python的实现和一个使用Rust库的实现。后者实现的区别是：
 
 - 在进行批量处理时速度显著提高；
 - 额外包含一些在文本字符串和词元空间映射的方法（例如，获取包含给定字符的词元的索引或与给定词元相对应的字符跨度）
 
-所有分词器的类应该继承于PretrainedTokenizer类或PretrainedTokenizerFast类，具体实现可以参考[LlamaTokenizer]()和[LlamaTokenizerFast]()。
+所有分词器的类应该继承于PretrainedTokenizer类或PretrainedTokenizerFast类，具体实现可以参考[LlamaTokenizer](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.LlamaTokenizer.html)和[LlamaTokenizerFast](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.LlamaTokenizerFast.html)。
 
 > 如果您的分词器与库内的分词器非常相似，您可以复用该分词器的实现。
 
 ### 准备权重和数据集
 
-如已有基于PyTorch的模型权重，可以参考[权重转换文档]()将权重转换为MindSpore格式的权重。
+如已有基于PyTorch的模型权重，可以参考[权重转换文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)将权重转换为MindSpore格式的权重。
 
 数据集的准备可以参考[数据集文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/dataset.html)。或参考模型文档，如[Llama2说明文档——数据集准备](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
 
