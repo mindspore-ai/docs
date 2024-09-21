@@ -8,11 +8,9 @@
 - 确认安装Python 3.7.5或3.9.0版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
     - Python 3.7.5版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz)。
     - Python 3.9.0版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz)。
+    - Python 3.11.4版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.11.4/Python-3.11.4.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.11.4/Python-3.11.4.tgz)。
 - MindSpore Insight与MindSpore的版本需保持一致。
-- 若采用源码编译安装，还需确认安装以下依赖。
-    - 确认安装[node.js](https://nodejs.org/en/download/) 10.19.0及以上版本。
-    - 确认安装[wheel](https://pypi.org/project/wheel/) 0.32.0及以上版本。
-- 其他依赖参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt)。
+- 依赖参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt)。
 
 ## 安装方式
 
@@ -37,6 +35,10 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindIn
 > - MindSpore Insight支持使用x86 64位或ARM 64位架构的Linux发行版系统。
 
 ### 源码编译安装
+
+需确认安装以下依赖。
+- 确认安装[node.js](https://nodejs.org/en/download/) 10.19.0及以上，16及以下版本。
+- 确认安装[wheel](https://pypi.org/project/wheel/) 0.32.0及以上版本。
 
 #### 从代码仓下载源码
 

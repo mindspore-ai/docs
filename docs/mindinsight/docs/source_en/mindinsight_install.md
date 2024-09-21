@@ -8,11 +8,9 @@
 - Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed, download and install Python from:
     - Python 3.7.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz).
     - Python 3.9.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz).
+    - Python 3.11.4 (64-bit): [Python official website](https://www.python.org/ftp/python/3.11.4/Python-3.11.4.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.11.4/Python-3.11.4.tgz).
 - The versions of MindSpore Insight and MindSpore must be consistent.
-- If you use source code to compile and install, the following dependencies also need to be installed:
-    - Confirm that [node.js](https://nodejs.org/en/download/) 10.19.0 or later is installed.
-    - Confirm that [wheel](https://pypi.org/project/wheel/) 0.32.0 or later is installed.
-- All other dependencies are included in [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt).
+- All dependencies are included in [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt).
 
 ## Installation Methods
 
@@ -37,6 +35,10 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindIn
 > - MindSpore Insight supports only Linux distro with x86 architecture 64-bit or ARM architecture 64-bit.
 
 ### Installation by Source Code
+
+The following dependencies need to be installed:
+- Confirm that [node.js](https://nodejs.org/en/download/) 10.19.0 or later, 16 or earlier is installed.
+- Confirm that [wheel](https://pypi.org/project/wheel/) 0.32.0 or later is installed.
 
 #### Downloading Source Code from Gitee
 
