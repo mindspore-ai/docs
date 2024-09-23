@@ -910,6 +910,8 @@ Because of the framework mechanism, MindSpore does not provide the following par
 
 ## torchaudio
 
+> The current API mapping table corresponds to PyTorch version 1.8.1, and Python version is no higher than Python 3.9.
+
 | TorchAudio 0.8.1 APIs     | MindSpore APIs     | Descriptions        |
 | ----------------------- | ------------------------- | ------------------ |
 | [torchaudio.datasets.CMUARCTIC](https://pytorch.org/audio/0.8.0/datasets.html#cmuarctic)  | [mindspore.dataset.CMUArcticDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.CMUArcticDataset.html#mindspore.dataset.CMUArcticDataset) |  [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/CMUARCTIC.html)  |
@@ -942,6 +944,8 @@ Because of the framework mechanism, MindSpore does not provide the following par
 
 ## torchtext
 
+> The current API mapping table corresponds to PyTorch version 1.8.1, and Python version is no higher than Python 3.9.
+
 | TorchText 0.9.1 APIs                                        | MindSpore APIs                                               | Descriptions                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [torchtext.data.functional.custom_replace](https://pytorch.org/text/0.9.0/data_functional.html#custom-replace) | [mindspore.dataset.text.RegexReplace](https://mindspore.cn/docs/en/master/api_python/dataset_text/mindspore.dataset.text.RegexReplace.html#mindspore.dataset.text.RegexReplace) | [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/RegexReplace.html) |
@@ -971,6 +975,8 @@ Because of the framework mechanism, MindSpore does not provide the following par
 | [torchtext.datasets.YelpReviewPolarity](https://pytorch.org/text/0.9.0/datasets.html#yelpreviewpolarity)  | [mindspore.dataset.YelpReviewDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.YelpReviewDataset.html#mindspore.dataset.YelpReviewDataset) |  [diff](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/YelpReviewPolarity.html)  |
 
 ## torchvision
+
+> The current API mapping table corresponds to PyTorch version 1.8.1, and Python version is no higher than Python 3.9.
 
 | TorchVision 0.9.1 APIs                  | MindSpore APIs                       | Descriptions                      |
 | ---------------------------------------- | --------------------------------- | --------------------------------------- |

@@ -910,6 +910,8 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 
 ## torchaudio
 
+> 当前API映射表对应的PyTorch版本是1.8.1，Python版本不高于Python 3.9。
+
 | TorchAudio 0.8.1 APIs     | MindSpore APIs     | 说明        |
 | ----------------------- | ------------------------- | ------------------ |
 | [torchaudio.datasets.CMUARCTIC](https://pytorch.org/audio/0.8.0/datasets.html#cmuarctic)  | [mindspore.dataset.CMUArcticDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.CMUArcticDataset.html#mindspore.dataset.CMUArcticDataset) |  [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/CMUARCTIC.html)  |
@@ -942,6 +944,8 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 
 ## torchtext
 
+> 当前API映射表对应的PyTorch版本是1.8.1，Python版本不高于Python 3.9。
+
 | TorchText 0.9.1 APIs    | MindSpore APIs            | 说明           |
 | ---------------------- | ----------------------------- | ------------------------------ |
 | [torchtext.data.functional.custom_replace](https://pytorch.org/text/0.9.0/data_functional.html#custom-replace)      | [mindspore.dataset.text.RegexReplace](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.RegexReplace.html#mindspore.dataset.text.RegexReplace)       | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/RegexReplace.html)   |
@@ -971,6 +975,8 @@ mindspore.ops.argmax只有一种API形式，即mindspore.ops.argmax(input, dim=N
 | [torchtext.datasets.YelpReviewPolarity](https://pytorch.org/text/0.9.0/datasets.html#yelpreviewpolarity)  | [mindspore.dataset.YelpReviewDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.YelpReviewDataset.html#mindspore.dataset.YelpReviewDataset) |  [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/YelpReviewPolarity.html)  |
 
 ## torchvision
+
+> 当前API映射表对应的PyTorch版本是1.8.1，Python版本不高于Python 3.9。
 
 | TorchVision 0.9.1 APIs                                                                                                                    | MindSpore APIs                                                                                                                                                                                                                                                   | 说明                                                                                                                 |
 | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
