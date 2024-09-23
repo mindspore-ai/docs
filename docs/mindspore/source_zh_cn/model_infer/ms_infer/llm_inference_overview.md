@@ -113,7 +113,7 @@ python convert_weight.py --torch_ckpt_path "/path/to/huggingface_ckpt/" --mindsp
 
 具体转换脚本可以[convert_weight.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_weight.py)获取。
 
-详细教程见[大语言模型权重准备](./weights_prepare.md)
+详细教程见[大语言模型权重准备](./weight_prepare.md)
 
 ### 模型构建
 
