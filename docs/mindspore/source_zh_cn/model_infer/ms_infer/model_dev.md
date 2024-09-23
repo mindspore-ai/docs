@@ -28,7 +28,7 @@
 
     ![MHA](images/MHA.png)
 
-    Attention模块编码示例如下。
+    Attention模块编码示例如下：
 
     ```python
     class Attention(nn.Cell):
@@ -69,7 +69,7 @@
             return output
     ```
 
-    可以通过下面的代码来执行Attention计算。
+    可以通过下面的代码来执行Attention计算：
 
     ```python
     mask = np.ones(shape=(config.seq_length, config.seq_length), dtype=np.uint8)
@@ -82,7 +82,7 @@
 
 2. MLP
 
-   MLP模块由2个连续的全连接层构成，示例代码如下。
+   MLP模块由2个连续的全连接层构成，示例代码如下：
 
     ```python
     class MLP(nn.Cell):
@@ -108,7 +108,7 @@
             return output
     ```
 
-   可以通过下面的代码来执行Attention计算。
+   可以通过下面的代码来执行Attention计算：
 
     ```python
     mlp = ParallelMLP(config=config)
@@ -118,7 +118,7 @@
 
 3. TransformerLayer
 
-    通过的Attention模块和MLP模块，可以构建TransformerLayer，即DecodeLayer。
+    通过的Attention模块和MLP模块，可以构建TransformerLayer，即DecodeLaye，具体如下：
 
     ```python
     class TransformerLayer(nn.Cell):
@@ -140,7 +140,7 @@
             return output
     ```
 
-    可以通过下面的代码来执行TransformerLayer计算。
+    可以通过下面的代码来执行TransformerLayer计算：
 
     ```python
     transformerlayer = TransformerLayer(config=config)
@@ -175,7 +175,7 @@
             return hidden_state
     ```
 
-   可以通过下面的代码来执行TransformerModel计算。
+   可以通过下面的代码来执行TransformerModel计算：
 
     ```python
     transformer = TransformerModel(config=config)
@@ -183,4 +183,4 @@
     print(transformer_output.shape)
     ```
 
-具体端到端的大语言模型代码工程可以参考[大语言模型示例](待补充)，（设置并行度为1）
+具体端到端的大语言模型代码工程可以参考[大语言模型示例](待补充)，（设置并行度为1）。

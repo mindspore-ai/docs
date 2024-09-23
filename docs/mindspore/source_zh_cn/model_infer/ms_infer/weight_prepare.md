@@ -4,7 +4,7 @@
 
 模型权重作为大语言模型最为重要的参数，通常直接和模型最终效果强相关，因此获取有效可靠的模型权重文件，成为准备大语言模型推理非常重要的一步。总的来说，获取模型权重文件有两大类方案：
 
-- **自己通过数据集训练权重**：利用MindSpore框架训练能力，以及业务强相关的数据集，从头训练或者对模型进行微调，然后输出模型的权重文件，该方案需要使用MindSpore训练能力，同时需要较大的计算资源来训练模型，比较适合用户自己数据集比较特殊的场景。具体可以参考[MindSpore训练流程](../../model_train/train_process/overview.md) 和[保存模型权重CKPT文件](https://www.mindspore.cn/docs/zh-CN/r2.3.1/api_python/mindspore/mindspore.save_checkpoint.html?highlight=save#mindspore.save_checkpoint)
+- **自己通过数据集训练权重**：利用MindSpore框架训练能力，以及业务强相关的数据集，从头训练或者对模型进行微调，然后输出模型的权重文件，该方案需要使用MindSpore训练能力，同时需要较大的计算资源来训练模型，比较适合用户自己数据集比较特殊的场景。具体可以参考[MindSpore训练流程](../../model_train/train_process/overview.md) 和[保存模型权重CKPT文件](https://www.mindspore.cn/docs/zh-CN/r2.3.1/api_python/mindspore/mindspore.save_checkpoint.html?highlight=save#mindspore.save_checkpoint)。
 
 - **从官网获取预训练模型权重**：从主流模型官方网站上获取预训练好的模型配置、tokenizer和权重文件等，并通过MindSpore框架能力将模型权重转换成MindSpore的CKPT权重文件，作为大语言模型推理的输入。
 
@@ -14,7 +14,7 @@
 
 ### **下载官方预训练模型**
 
-Llama2-7B的预训练模型可以直接在Hugging Face的官方Hub上下载获取，Hugging Face官方提供了多种下载方式，此处主要以git方式进行下载
+Llama2-7B的预训练模型可以直接在Hugging Face的官方Hub上下载获取，Hugging Face官方提供了多种下载方式，此处主要以git方式进行下载。
 
 ```shell
 git lfs install
@@ -201,7 +201,7 @@ llama-2-7b-hf
     print(f"\rConvert huggingface checkpoint finished, the mindspore checkpoint is save in '{ms_ckpt_path}'.", flush=True)
     ```
 
-    设置好对应的ckpt路径后，运行脚本就可以完成权重转换
+    设置好对应的ckpt路径后，运行脚本就可以完成权重转换。
 
     ```shell
     python weight_convert.py
