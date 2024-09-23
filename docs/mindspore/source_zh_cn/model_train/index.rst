@@ -95,6 +95,7 @@
    debug/rdr
    debug/sdc
    debug/error_analysis
+   debug/pynative
    报错地图↗ <https://www.hiascend.com/forum/thread-0229108045633055169-1-1.html>
 
 .. toctree::
