@@ -173,7 +173,7 @@
             return output
     ```
 
-    列切矩阵乘法的推理
+    列切矩阵乘法的推理：
 
     ```python
     column_parallel_linear = ColumnParallelLinear(in_channels=config.hidden_size,
@@ -194,7 +194,7 @@
 
     与列切相同，`RowParallelLinear`根据模型并行域的大小切分权重；在初始化时，切分方向是行，因此切分`in_channels`维度后初始化；在模型前向，输入与权重进行矩阵乘后，需要对所有`device`上的结果进行`AllReduce`
 
-    行切矩阵乘模块实现如下。
+    行切矩阵乘模块实现如下：
 
     ```python
     class RowParallelLinear(nn.Cell):
@@ -232,7 +232,7 @@
             return out
     ```
 
-    行切矩阵乘法的推理
+    行切矩阵乘法的推理：
 
     ```python
     row_parallel_linear = RowParallelLinear(in_channels=config.hidden_size,
@@ -300,7 +300,7 @@
             return output
     ```
 
-    并行Embedding推理
+    并行Embedding推理：
 
     ```python
     input_ids = np.random.randint(0, config.vocab_size, size=(config.batch_size, config.seq_length), dtype=np.int32)
@@ -368,7 +368,7 @@
 
 2. MLP
 
-   MLP模块其实是2个全连接层，也可以使用矩阵乘的并行切分来处理，具体代码如下。
+   MLP模块其实是2个全连接层，也可以使用矩阵乘的并行切分来处理，具体代码如下：
 
     ```python
     class ParallelMLP(nn.Cell):
@@ -443,4 +443,4 @@
             return hidden_state
     ```
 
-具体端到端的大语言模型代码工程可以参考[M大语言模型示例](待补充)
+具体端到端的大语言模型代码工程可以参考[大语言模型示例](待补充)。

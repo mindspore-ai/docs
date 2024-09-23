@@ -13,15 +13,15 @@
 
 ## 模型原理
 
-在了解MindSpore大语言模型推理的能力之前，让我们先了解一下当前主流大语言模型是何如实现让人惊叹的智能水平的，下面我们将以当前最常见的文生文的大语言模型为例子，简单介绍大语言模型的推理原理，看模型是如何通过内部计算、完成和人对话、总结文章中心思想等复杂任务的。
+在了解MindSpore大语言模型推理的能力之前，让我们先了解一下当前主流大语言模型是何如实现让人惊叹的智能水平的，下面我们将以当前最常见的文本生成类大语言模型为例子，简单介绍大语言模型的推理原理，了解AI模型是如何通过计算、完成和人对话、总结文章中心思想等复杂任务的。
 
-构建一个大语言模型构建和普通的模型一样，主要分为训练和推理两个阶段：
+大语言模型构建和普通的模型相同，主要分为训练和推理两个阶段：
 
-- **训练**：大语言模型的训练过程，可以简单地理解为是模型在海量的文本数据中，不停地阅读所有的文字，这个过程中，模型会将各个文本的位置关系，以及出现频率记录在模型权重中，如“中国的面积有”这句话后面会有很高概率出现“960万平方公里”，训练过程通过海量数据的输入，让大语言模型记录了这两句话有较强的关联。
+- **训练**：大语言模型的训练过程，可以简单地理解为是模型在海量的文本数据中，不停地阅读和学习文本中的知识。这个过程中，模型会将各个文本元素的位置关系，以及出现频率记录在模型权重中，如“中国的面积有”这句话接下来会有很高概率出现“960万平方公里”，训练过程通过海量数据的输入，让大语言模型记录了这两句话有较强的关联。
 
-- **推理**：大语言模型的推理过程，就是针对用户给出的具体一段文本，在训练的数据库中找到和其最强相关的接下来的文本返回给用户，如用户提问“中国的面积有”，大语言模型就可以根据训练时记录“960万平方公里”的信息返回给用户，让用户获取其想要的答案。
+- **推理**：大语言模型的推理过程，就是针对用户给出的具体一段文本，在训练的数据库中找到和其最强相关的接下来的文本元素返回给用户，如用户提问“中国的面积有”，大语言模型就可以根据训练时记录“960万平方公里”的信息返回给用户，让用户获取其想要的答案。
 
-但是在实际文本处理过程中，语言是复杂多变的，因此很难直接找到两个句子的直接相关性，大语言模型技术通常会采用单词化的方法，即将“中国的面积有”分解为多个常见的单词组合，例如”中国“，”的“，”面积“，”有“，这种做法不仅可以更好的应对文本差异带来的影响，如"中国的面积是"和"中国的面积有"两个短语相似度可能为0，而【"中国"，"的"，"面积"，"是"】和【"中国"，"的"，"面积"，"有"】两个组合的相似度就可以认为有75%，可以有效帮助大语言模型识别出这类文本差异，这种技术我们通常称为tokenize，即把一段文本分解为一组单元token（通常可以理解为单词）的组合表示。大语言模型完成生成一句话的过程就是根据当前的token组合信息，每一轮推理出下一个token，并和之前的token组合到一起，形成新一轮的输入，反复迭代每次生成一个单词，逐步完成整段文本的生成。下表简单的描述一下大语言模型推理的一个例子：
+在实际文本处理场景中，语言是复杂多变的，因此很难直接找到两个句子的直接相关性，大语言模型技术通常会采用单词化的方法，即将“中国的面积有”分解为多个常见的单词组合，例如”中国“，”的“，”面积“，”有“，这种做法不仅可以更好的应对文本差异带来的影响，如"中国的面积是"和"中国的面积有"两个短语相似度可能为0，而["中国"，"的"，"面积"，"是"]和["中国"，"的"，"面积"，"有"]两个组合的相似度就可以认为有75%，可以有效帮助大语言模型识别出这类文本差异，这种技术我们通常称为tokenize，即把一段文本分解为一组token（通常是单词和标点符号之类的元素）的组合表示。大语言模型完成生成一句话的过程就是根据当前的token组合信息，每一轮推理出下一个token，并和之前的token组合到一起，形成新一轮的输入，反复迭代每次生成一个单词，逐步完成整段文本的生成。下表简单的描述一下大语言模型推理的一个例子：
 
 用户输入：中国的首都
 <table>
@@ -57,7 +57,7 @@
   </tr>
 </table>
 
-可以看到，每一轮迭代，实际上大语言模型会根据当前语境推理出下一个单词，与前面的语句拼装成下一轮迭代的输入，通过多轮迭代，当遇到生成的单词是END这个特殊token时，模型认为推理结束，则将结果返回给用户。
+可以看到，每一轮迭代，实际上大语言模型会根据当前语境推理出下一个token，与前面的语句拼装成下一轮迭代的输入，通过多轮迭代，当遇到生成的token是END这个特殊token时，模型认为推理结束，将结果返回给用户。
 
 ## 关键步骤
 
@@ -66,17 +66,17 @@ MindSpore大语言模型推理为用户提供了近乎“开箱即用”的大�
 ![llm-infer-flow](./images/llm_infer_flow.png)
 
 1. **权重准备**：权重数据是大语言模型的智能核心，因此部署模型的第一步就是获取和准备好对应模型的权重文件。
-2. **模型加载**：模型推理时，根据使用的不同优化技术，会需要加载不同的模型结构，因此需要根据模型网络结构将模型的主干网络构建出来，以方便后续进行推理计算。
-3. **状态判断**：根据推理请求的具体语义，判断是否需要继续推理，此判断主要用于多轮推理时判断是否结束，如果推理结束（如完成问题回答），则将推理内容返回给用户，否则会继续下一轮推理。
+2. **模型加载**：模型推理时，根据使用的不同优化技术，模型结构会有一定的差异，因此需要根据模型网络结构将模型的主干网络构建出来，以方便后续进行推理。
+3. **状态判断**：根据推理请求的具体语义，判断是否需要继续推理，此流程主要用于多轮推理时判断是否结束，如果推理结束（如完成问题回答），则将推理内容返回给用户，否则会继续下一轮推理。
 4. **推理前处理**：根据推理请求，对推理数据进行预处理，常见的前处理包括通过tokenizer将语句转换成索引表示的一组数字向量，让大语言模型可以正确识别其任务内容，以及构建一些模型推理的特殊输入用于加速（如KVCache增量推理的Cache信息）。
 5. **模型推理**：通过输入的数据进行模型推理，通常会返回语句中下一个token的概率分布。
-6. **推理后处理**： 根据模型推理的结果，计算出下一个token，返回给服务拼装成下一轮的推理输入。
+6. **推理后处理**： 根据模型推理的结果，计算出下一个token，将token转换成文本返回给用户，同时如果推理没有结束，将token拼装成下一轮推理的输入继续推理。
 
 ## 主要特性
 
 MindSpore大语言模型为了能够实现最优的性价比，针对大语言模型网络的特性，进行了多项的深度优化，其中主要包含以下特性：
 
-- **全量/增量推理**：大语言模型的核心网络结构是以transfomer为主的注意力机制，每一轮迭代都要计算所有token的注意力分数，而实际上相同的token序列计算的注意力分数时key和value结果是相同的，即【“中国”，“的”，“面积”，“是”】的key和value可以理解为是【“中国”，“的”，“面积”】和【“是”】拼接而成的，因此可以通过将前面的已经计算的序列的key和value值缓存起来，从而减少下一轮迭代推理过程的计算量，这种技术通常被称为KVCache优化。结合大语言模型推理的全过程可以发现，在N和N+1轮的两次连续迭代中，其中N+1轮可以完全复用N轮的key和value值，因为前N各序列是一致的，真正需要计算key和value的只有N+1轮的第一个token，这样我们可以将模型推理分为以下两个阶段：
+- **全量/增量推理**：大语言模型的核心网络结构是以transfomer为主的自注意力机制，每一轮迭代都要计算所有token的注意力分数，而实际上相同的token序列计算的注意力分数时key和value结果是相同的，即["中国"，"的"，"面积"，"是"]的key和value可以理解为是["中国"，"的"，"面积"]和["是"]拼接而成的，因此可以通过将前面的已经计算的序列的key和value值缓存起来，从而减少下一轮迭代推理过程的计算量，这种技术通常被称为KVCache优化。结合大语言模型推理的全过程可以发现，在N和N+1轮的两次连续迭代中，其中N+1轮可以完全复用N轮的key和value值，因为前N个序列是一致的，真正需要计算key和value的只有N+1轮的第一个token，这样我们可以将模型推理分为以下两个阶段：
 
     - **全量推理**：用户输入的第一轮迭代，此时用户给出的长度为N的语句，N的长度和内容都无法预测，需要计算全部key和value的值，成为全量推理。
 
@@ -84,7 +84,7 @@ MindSpore大语言模型为了能够实现最优的性价比，针对大语言�
 
 - **Attention优化**：大语言模型网络结构最主要的计算是对于Attention的计算，由于当前主流模型的Attention的size比较大（通常4K或以上），模型推理的整个过程性能强依赖于Attention计算的性能，因此当前有很多研究在关注如何优化Attention计算性能，其中比较主流的包括Flash Attention和Page Attention技术。
 
-    - **Flash Attention**：Attention计算中会存在两个大矩阵相乘（4K大小），实际计算会将大矩阵分解为多个芯片能够计算的小矩阵单元进行计算，由于芯片的最小级的缓存大小限制，需要不断地将待计算数据在缓存和主存间搬入搬出，导致计算资源实际用不满，因此当前主流芯片下，Attention计算实际上是带宽bound。Flash Attention技术将原本Attention进行分块，使得每一块计算都能够在芯片上独立计算完成，避免了在计算Key和Value时多次数据的测搬入和搬出，从而提升Attention计算性能，具体可以参考[Flash Attention](https://arxiv.org/abs/2205.14135)。
+    - **Flash Attention**：Attention计算中会存在两个大矩阵相乘（4K大小），实际计算会将大矩阵分解为多个芯片能够计算的小矩阵单元进行计算，由于芯片的最小级的缓存大小限制，需要不断地将待计算数据在缓存和主存间搬入搬出，导致计算资源实际无法充分利用，因此当前主流芯片下，Attention计算实际上是带宽bound。Flash Attention技术将原本Attention进行分块，使得每一块计算都能够在芯片上独立计算完成，避免了在计算Key和Value时多次数据的测搬入和搬出，从而提升Attention计算性能，具体可以参考[Flash Attention](https://arxiv.org/abs/2205.14135)。
 
     - **Page Attention显存优化**：标准的Flash Attention每次会读取和保存整个输入的Key和Value数据，这种方式虽然比较简单，但是会造成较多的资源浪费，如“中国的首都”和“中国的国旗”，都有共同的“中国的”作为公共前缀，其Attention对应的Key和Value值实际上是一样的，标准Flash Attention就需要存两份Key和Value，导致显存浪费。Page Attention基于Linux操作系统页表原理对KVCache进行优化，按照特定大小的块来存储Key和Value的数据，将上面例子中的Key和Value存储为“中国”、“的”、“首都”、“国旗”一共四份Key和Value数据，相比原来的六份数据，有效地节省了显存资源，在服务化的场景下，更多空闲显存可以让模型推理的batch更大，从而获得更高的吞吐量，具体可以参考[Page Attention](https://arxiv.org/pdf/2309.06180)。
 
@@ -93,6 +93,19 @@ MindSpore大语言模型为了能够实现最优的性价比，针对大语言�
 ## 推理教程
 
 本章节将会结合当前主流的Llama2开源大语言模型，演示如何通过MindSpore大语言模型推理提供的能力，逐步构建一个可以端到端进行文本生成的例子，主要可以分为下面几部分：
+
+### 环境准备
+
+MindSpore大语言模型主要依赖MindSpore框架以及MindFormers模型套件库，用户在使用前，需要先安装MindSpore和MindFormers的Python包。可以执行如下命令简单安装：
+
+```shell
+pip install mindspore
+pip install mindformers
+```
+
+同时，用户也可以参考官方安装文档来安装自己环境适配的Python包，具体见[MindSpore安装](https://gitee.com/mindspore/mindspore#安装)和[MindFormers安装](https://gitee.com/mindspore/mindformers/tree/dev/#二安装)。
+
+如果用户需要使用模型量化能力提升模型推理性能，还需要安装mindspore_gs包，具体可以参考[MindSpore GoldenStick安装](https://gitee.com/mindspore/golden-stick/blob/master/docs/docs/docs_zh_cn/install.md)
 
 ### 权重准备
 
@@ -111,19 +124,19 @@ git clone https://huggingface.co/daryl149/llama-2-7b-hf
 python convert_weight.py --torch_ckpt_path "/path/to/huggingface_ckpt/" --mindspore_ckpt_path "/path/to/mindspore_ckpt"
 ```
 
-具体转换脚本可以[convert_weight.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_weight.py)获取。
+具体转换脚本可以在[convert_weight.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_weight.py)获取。
 
-详细教程见[大语言模型权重准备](./weight_prepare.md)
+详细教程见[大语言模型权重获取和准备](./weight_prepare.md)。
 
 ### 模型构建
 
 用户可以通过使用MindFormers模型套件来构建大语言模型，其中包含了加载模型权重、构建模型主干网络、利用tokenizer进行前处理、完成模型推理、通过后处理选出最终输出token，以及多轮迭代实现文本生成等功能，端到端打通了模型文本生成流程，实现一键式部署和推理，同时，也集成了全量/增量推理、Flash Attention、Page Attention、融合算子等MindSpore内置加速技术，拥有较好的性能，建议用户优先使用该方式进行推理。用户可以通过下面的代码来使用MindFormers提供的模型：
 
 ```python
-import mindspore
+import mindspore as ms
 from mindformers import AutoConfig, AutoModel, LlamaTokenizer
 
-mindspore.set_context(mode=0, device_id=0)
+ms.set_context(mode=0, device_id=0)
 
 tokenizer = LlamaTokenizer.from_pretrained("/path/to/tokenizer.model")
 
@@ -186,6 +199,8 @@ model = AutoModel.from_config(config)
     ```
 
     可以看到，将模型推理的token id翻译后，即是一句可以被正常人理解的语句，实际验证过程中，由于do_sample的随机性，每次推理会有一定的差异，但是结果的逻辑基本都是可以被理解的。
+
+    注意：每轮推理实际都会有一部分后处理，即从token概率分布中选择生成的token，最简单的可以通过argmax计算获取概率最大的token，MindFormers的模型将此处理包含在了generate接口中，如果用户自己构建大语言模型，此部分需要单独实现。
 
 除了使用MindFormers模型套件提供的模型能力外，用户也可以自己构建自己的前处理和后处理，由于其逻辑比较复杂，用户可以参考MindFormers的相关实现进行实现。具体见[llama_tokenzier.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama_tokenizer.py)和[text_generator.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/generation/text_generator.py)。
 
@@ -267,7 +282,7 @@ MindSpore大语言模型支持以下量化技术，来提升模型推理性能�
     rtn.apply(model, llamaa_helper)
     rtn.convert(model)
 
-    ms.save_checkpoint(net.parameters_dict(), '/path/to/quantinized_weight_path')
+    ms.save_checkpoint(model.parameters_dict(), '/path/to/quantinized_weight_path')
     ```
 
 - **模型推理**：加载标准模型，将模型网络进行量化改造（插入相应量化算子），加载量化后的权重，调用模型推理。
@@ -288,18 +303,18 @@ MindSpore大语言模型支持以下量化技术，来提升模型推理性能�
     print(model_output[0])
     ```
 
-具体模型量化的详细资料可以参考[模型量化](./quantization.md).
+具体模型量化的详细资料可以参考[模型量化](./quantization.md)。
 
 ## 高级用法
 
 - **对模型推理性能Profiling**
 
-    MindSpore大语言模型推理支持用户对模型推理进行Profiling数据采集，以此分析网络结构中的关键性能瓶颈，作为后续模型推理性能调优的输入，具体可以参考[MindSpore大语言模型Profiler](./profiling.md).
+    MindSpore大语言模型推理支持用户对模型推理进行Profiling数据采集，以此分析网络结构中的关键性能瓶颈，作为后续模型推理性能调优的输入，具体可以参考[MindSpore大语言模型Profiler](./profiling.md)。
 
 - **使用自定义算子优化模型推理**
 
-    MindSpore大语言模型推理支持用户自定义算子接入，以实现用户特定场景的算子优化，或者实现网络中的算子融合，用户可以通过简单的修改网络脚本的算子API来实现自定义算子的使能与关闭，具体可以参考[MindSpore大语言模型自定义算子](./custom_operator.md).
+    MindSpore大语言模型推理支持用户自定义算子接入，以实现用户特定场景的算子优化，或者实现网络中的算子融合，用户可以通过简单的修改网络脚本的算子API来实现自定义算子的使能与关闭，具体可以参考[MindSpore大语言模型自定义算子](./custom_operator.md)。
 
 - **大语言模型离线推理**
 
-    由于大语言模型体积巨大，因此MindSpore大语言模型推理推荐用户使用更灵活的在线推理（权重CKPT+网络脚本），但是在一些特定场景，如端侧或者边缘侧大模型，由于运行环境受限，不一定有Python或者Mindspore包的环境下，用户可以使用MindSpore Lite离线推理方案。此时，用户需要将模型导出成MindSpore的统一模型表达MindIR文件，并将其传给MindSpore Lite运行时，具体教程可以参考[MindSpore大语言模型模型导出](./model_export.md)和[MindSpore Lite推理](../lite_infer/overview.md).
+    由于大语言模型体积巨大，因此MindSpore大语言模型推理推荐用户使用更灵活的在线推理（权重CKPT+网络脚本），但是在一些特定场景，如端侧或者边缘侧大模型，由于运行环境受限，不一定有Python或者Mindspore包的环境下，用户可以使用MindSpore Lite离线推理方案。此时，用户需要将模型导出成MindSpore的统一模型表达MindIR文件，并将其传给MindSpore Lite运行时，具体教程可以参考[MindSpore大语言模型模型导出](./model_export.md)和[MindSpore Lite推理](../lite_infer/overview.md)。
