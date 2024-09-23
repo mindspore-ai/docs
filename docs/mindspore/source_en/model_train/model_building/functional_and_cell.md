@@ -4,6 +4,51 @@
 
 ## Operator Functional Interface
 
+The MindSpore framework provides a rich set of Functional interfaces, defined under `mindspore.ops`, which define operations or calculations directly as functions, without the need to explicitly create an instance of the operator class. The Functional interface provides interfaces including neural network layer functions, mathematical operations, Tensor operations, Parameter operations, differentiation functions, debugging functions, and other types of interfaces, which can be used directly in the `construct` method of `Cell`, or as standalone operations in data processing or model training.
+
+The flow of MindSpore using the Functional interface in `Cell` is shown below:
+
+```python
+import mindspore as ms
+import mindspore.nn as nn
+import mindspore.ops as ops
+
+class MyCell(nn.Cell):
+    def construct(self, x, y):
+        output = ops.add(x, y)
+        return output
+
+net = MyCell()
+x = ms.Tensor([1, 2, 3], ms.float32)
+y = ms.Tensor([4, 5, 6], ms.float32)
+output = net(x, y)
+print(output)
+```
+
+The result is as follows:
+
+```text
+[5. 7. 9.]
+```
+
+The flow of MindSpore standalone use of the Functional interface is shown below:
+
+```python
+import mindspore as ms
+import mindspore.ops as ops
+
+x = ms.Tensor([1, 2, 3], ms.float32)
+y = ms.Tensor([4, 5, 6], ms.float32)
+output = ops.add(x, y)
+print(output)
+```
+
+The result is as follows:
+
+```text
+[5. 7. 9.]
+```
+
 ## Basic Network Elements Cell
 
 The core element of the MindSpore framework, `mindspore.nn.Cell`, is the basic module for building neural networks and is responsible for defining the computational logic of the network. `Cell` not only supports dynamic graphs (PyNative mode) as a base component of a network, but can also be compiled for efficient computational graph execution in static graphs (GRAPH mode). `Cell` defines the computational process of forward propagation through its `construct` method, and can be extended through inheritance mechanisms to implement customized network layers or complex structures. Through the `set_train` method, `Cell` is able to flexibly switch between training and inference modes to accommodate the behavior difference of different operators in the two modes. In addition, `Cell` provides rich APIs, such as mixed accuracy, parameter management, gradient setting, Hook function, recomputation, to support model optimization and training.

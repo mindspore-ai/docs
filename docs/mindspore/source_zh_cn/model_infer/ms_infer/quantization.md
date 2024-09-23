@@ -16,7 +16,7 @@ MindSpore的模型压缩能力由 [MindSpore Golden Stick](https://www.mindspore
 
 MindSpore Golden Stick量化算法主要可以分为两个阶段：量化阶段和部署阶段。量化阶段是部署前提前完成的，主要的工作是：收集权重的分布、计算量化参数、量化权重数据、插入反量化节点。部署阶段通常是指在生产环境，使用MindSpore框架对量化后的模型进行推理的过程。
 
-MindSpore Golden Stick主要通过`PTQConfig`来自定义如何量化和部署，通过`apply`和`convert`接口实现量化和部署过程。`PTQConfig`中可配置是否对权重、激活和KVCache进行量化及量化到的bit位，同时也可配置数据校准策略。详细说明可参考[PTQConfig的配置说明](#22-ptqconfig的配置说明)。
+MindSpore Golden Stick主要通过`PTQConfig`来自定义如何量化和部署，通过`apply`和`convert`接口实现量化和部署过程。`PTQConfig`中可配置是否对权重、激活和KVCache进行量化及量化到的bit位，同时也可配置数据校准策略。详细说明可参考[PTQConfig的配置说明](#ptqconfig的配置说明)。
 
 MindSpore Golden Stick的量化步骤如下:
 
@@ -61,7 +61,7 @@ ms.save_checkpoint(net.parameters_dict(), './simplenet_rtn.ckpt')
 ```
 
 1. 使用[nn.Cell定义网络](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/nn/mindspore.nn.Cell.html)，训练模型后得到浮点模型的权重，加载浮点权重到模型中。上述例子对该过程进行了简化，直接创建网络，使用初始浮点权重进行量化。
-2. 使用PTQConfig配置mode为量化模式，后端为Ascend，对权重进行8bit量化。详细说明可参考[PTQConfig的配置说明](#22-ptqconfig的配置说明)。
+2. 使用PTQConfig配置mode为量化模式，后端为Ascend，对权重进行8bit量化。详细说明可参考[PTQConfig的配置说明](#ptqconfig的配置说明)。
 3. 使用apply接口将网络转换为伪量化网络，根据`PTQConfig`中的配置统计量化对象的信息。
 4. 使用convert接口对上一步的伪量化网络进行真实量化，得到量化后的网络。
 
@@ -97,7 +97,7 @@ output = net(input)
 print(output)
 ```
 
-1. 使用PTQConfig配置mode为部署模式，后端为Ascend，对权重进行8bit量化。详细说明可参考[PTQConfig的配置说明](#22-ptqconfig的配置说明)。
+1. 使用PTQConfig配置mode为部署模式，后端为Ascend，对权重进行8bit量化。详细说明可参考[PTQConfig的配置说明](#ptqconfig的配置说明)。
 2. 使用apply和convert接口将网络转化为量化网络。部署阶段不进行实际的信息统计和量化计算，只将网络结构转换为量化网络。
 3. 加载量化后的权重至量化网络中，进行推理。
 
