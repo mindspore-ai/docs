@@ -4,6 +4,51 @@
 
 ## 算子Functional接口
 
+MindSpore框架提供了丰富的Functional接口，这些接口定义在 `mindspore.ops` 下，以函数的形式直接定义了操作或计算过程，无需显式创建算子类实例。Functional接口提供了包括神经网络层函数、数学运算函数、Tensor操作函数、Parameter操作函数、微分函数、调试函数等类型的接口，这些接口可以直接在 `Cell` 的 `construct` 方法中使用，也可以作为独立的操作在数据处理或模型训练中使用。
+
+MindSpore在 `Cell` 里使用Functional接口的流程如下所示：
+
+```python
+import mindspore as ms
+import mindspore.nn as nn
+import mindspore.ops as ops
+
+class MyCell(nn.Cell):
+    def construct(self, x, y):
+        output = ops.add(x, y)
+        return output
+
+net = MyCell()
+x = ms.Tensor([1, 2, 3], ms.float32)
+y = ms.Tensor([4, 5, 6], ms.float32)
+output = net(x, y)
+print(output)
+```
+
+运行结果：
+
+```text
+[5. 7. 9.]
+```
+
+MindSpore独立使用Functional接口的流程如下所示：
+
+```python
+import mindspore as ms
+import mindspore.ops as ops
+
+x = ms.Tensor([1, 2, 3], ms.float32)
+y = ms.Tensor([4, 5, 6], ms.float32)
+output = ops.add(x, y)
+print(output)
+```
+
+运行结果：
+
+```text
+[5. 7. 9.]
+```
+
 ## 网络基本构成单元 Cell
 
 MindSpore框架中的核心构成单元 `mindspore.nn.Cell` 是构建神经网络的基本模块，负责定义网络的计算逻辑。`Cell` 不仅支持动态图（PyNative模式）下作为网络的基础组件，也能够在静态图（GRAPH模式）下被编译成高效的计算图执行。`Cell` 通过其 `construct` 方法定义了前向传播的计算过程，并可通过继承机制扩展功能，实现自定义的网络层或复杂结构。通过 `set_train` 方法，`Cell` 能够灵活地在训练与推理模式间切换，以适应不同算子在两种模式下的行为差异。此外，`Cell` 还提供了丰富的API，如混合精度、参数管理、梯度设置、Hook功能、重计算等，以支持模型的优化与训练。
