@@ -2126,6 +2126,11 @@ class ExhaleRoot(object):
                     before_file = os.path.join(dirA, i)
                     after_file = os.path.join(dirB, new_name)
                     shutil.copy(before_file, after_file)
+                else:
+                    with open(os.path.join(dirA, i), 'r', encoding='utf-8') as h:
+                        generate_doc = h.read()
+                    if not re.findall(f'\n.*\n[=-]+\n(?:.|\n|)+?\w', generate_doc) and '.. toctree::' not in generate_doc:
+                        os.remove(os.path.join(dirA, i))
 
             for file in os.listdir(dirB):
                 if "deprecated" in file:
