@@ -1,4 +1,4 @@
-# MindSpore Insight Installation
+# MindSpore Insight Installation and Uninstallation
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/mindinsight_install.md)
 
@@ -37,6 +37,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindIn
 ### Installation by Source Code
 
 The following dependencies need to be installed:
+
 - Confirm that [node.js](https://nodejs.org/en/download/) 10.19.0 or later, 16 or earlier is installed.
 - Confirm that [wheel](https://pypi.org/project/wheel/) 0.32.0 or later is installed.
 
@@ -85,4 +86,10 @@ If it prompts the following information, the installation is successful:
 ```bash
 Web address: http://127.0.0.1:8080
 service start state: success
+```
+
+## Uninstallation Methods
+
+```bash
+pip uninstall mindinsight
 ```

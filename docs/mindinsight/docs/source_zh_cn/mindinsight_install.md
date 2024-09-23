@@ -1,4 +1,4 @@
-# 安装MindSpore Insight
+# 安装与卸载MindSpore Insight
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/mindinsight_install.md)
 
@@ -37,6 +37,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindIn
 ### 源码编译安装
 
 需确认安装以下依赖。
+
 - 确认安装[node.js](https://nodejs.org/en/download/) 10.19.0及以上，16及以下版本。
 - 确认安装[wheel](https://pypi.org/project/wheel/) 0.32.0及以上版本。
 
@@ -85,4 +86,10 @@ mindinsight start
 ```bash
 Web address: http://127.0.0.1:8080
 service start state: success
+```
+
+## 卸载方式
+
+```bash
+pip uninstall mindinsight
 ```
