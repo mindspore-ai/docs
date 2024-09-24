@@ -50,7 +50,7 @@ A: The formats of  `ckpt` of MindSpore and `ckpt`of TensorFlow are not generic. 
 
 ## Q: How do I use models trained by MindSpore on Atlas 200/300/500 inference product? Can they be converted to models used by HiLens Kit?
 
-A: Yes. HiLens Kit uses Atlas 200/300/500 inference product as the inference core. Therefore, the two questions are essentially the same, which both need to convert as OM model. Atlas 200/300/500 inference product requires a dedicated OM model. Use MindSpore to export the ONNX and convert it into an OM model supported by Atlas 200/300/500 inference product. For details, see [Multi-platform Inference](https://www.mindspore.cn/docs/en/master/model_infer/ms_infer/overview.html).
+A: Yes. HiLens Kit uses Atlas 200/300/500 inference product as the inference core. Therefore, the two questions are essentially the same, which both need to convert as OM model. Atlas 200/300/500 inference product requires a dedicated OM model. Use MindSpore to export the ONNX and convert it into an OM model supported by Atlas 200/300/500 inference product. For details, see [Multi-platform Inference](https://www.mindspore.cn/docs/en/master/model_infer/ms_infer/llm_inference_overview.html).
 
 <br/>
 

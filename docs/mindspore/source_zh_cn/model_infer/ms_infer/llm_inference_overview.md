@@ -105,7 +105,7 @@ pip install mindformers
 
 同时，用户也可以参考官方安装文档来安装自己环境适配的Python包，具体见[MindSpore安装](https://gitee.com/mindspore/mindspore#安装)和[MindFormers安装](https://gitee.com/mindspore/mindformers/tree/dev/#二安装)。
 
-如果用户需要使用模型量化能力提升模型推理性能，还需要安装mindspore_gs包，具体可以参考[MindSpore GoldenStick安装](https://gitee.com/mindspore/golden-stick/blob/master/docs/docs/docs_zh_cn/install.md)
+如果用户需要使用模型量化能力提升模型推理性能，还需要安装mindspore_gs包，具体可以参考[MindSpore GoldenStick安装](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/install.html)
 
 ### 权重准备
 
