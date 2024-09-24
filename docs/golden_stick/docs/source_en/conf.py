@@ -191,10 +191,22 @@ for root,dirs,files in os.walk(src_dir_api):
             os.remove(os.path.join(moment_dir,file))
         shutil.copy(os.path.join(src_dir_api,file),os.path.join(moment_dir,file))
 
+os.makedirs(os.path.join(moment_dir, 'ptq/images/en'), exist_ok=True)
+
 if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.md')):
     os.makedirs(os.path.join(moment_dir, 'ptq'), exist_ok=True)
     shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/round_to_nearest/README.md'),
                 os.path.join(moment_dir, 'ptq/round_to_nearest.md'))
+    with open(os.path.join(moment_dir, 'ptq/round_to_nearest.md'), 'r+', encoding='utf-8') as f:
+        content = f.read()
+        content = re.sub('.*?/README_CN.ipynb.*\n.*\n', '', content)
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+    images_path = os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/round_to_nearest/images/en')
+    if os.path.exists(images_path):
+        for i in os.listdir(images_path):
+            shutil.copy(os.path.join(images_path, i), os.path.join(moment_dir, 'ptq/images/en', i))
 
 # get params for add view source
 import json
