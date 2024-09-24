@@ -224,10 +224,22 @@ for root,dirs,files in os.walk(src_dir_api):
             shutil.copy(os.path.join(root,file),'.'+root.split(copy_path)[-1]+'/'+file)
             copy_list.append('.'+root.split(copy_path)[-1]+'/'+file)
 
+os.makedirs(os.path.join(moment_dir, 'ptq/images/zh_cn'), exist_ok=True)
+
 if not os.path.exists(os.path.join(moment_dir, 'ptq/README.md')):
     os.makedirs(os.path.join(moment_dir, 'ptq'), exist_ok=True)
     shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/ptq/README_CN.md'),
                 os.path.join(moment_dir, 'ptq/ptq.md'))
+    with open(os.path.join(moment_dir, 'ptq/ptq.md'), 'r+', encoding='utf-8') as f:
+        content = f.read()
+        content = re.sub('.*?/README.md.*\n.*\n', '', content)
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+    images_path = os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/ptq/images/zh_cn')
+    if os.path.exists(images_path):
+        for i in os.listdir(images_path):
+            shutil.copy(os.path.join(images_path, i), os.path.join(moment_dir, 'ptq/images/zh_cn', i))
 
 # add view
 import json
@@ -282,6 +294,16 @@ for cur, _, files in os.walk(moment_dir):
 if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb')):
     shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/round_to_nearest/README_CN.ipynb'),
                 os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb'))
+    with open(os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb'), 'r+', encoding='utf-8') as f:
+        content = f.read()
+        content = re.sub('.*?/README.md.*\n.*\n', '', content)
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+    images_path = os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/round_to_nearest/images/zh_cn')
+    if os.path.exists(images_path):
+        for i in os.listdir(images_path):
+            shutil.copy(os.path.join(images_path, i), os.path.join(moment_dir, 'ptq/images/zh_cn', i))
 
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
