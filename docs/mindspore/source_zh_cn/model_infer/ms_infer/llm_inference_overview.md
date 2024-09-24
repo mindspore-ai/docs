@@ -210,6 +210,35 @@ model = AutoModel.from_config(config)
 
 - **权重切分**：由于原来的权重文件太大，多卡执行时，需要将整体权重切分成每张卡上的多份权重，分别传给每张卡对应的模型进程。用户可以使用MindFormers模型套件中的脚本来进行权重切分。具体可以参考[权重CKPT转换和切分](https://gitee.com/mindspore/mindformers/blob/dev/docs/feature_cards/Transform_Ckpt.md)。
 
+    下面以Llama2-7B大语言模型为例，简单描述一下将模型切分为2卡并行的操作：
+
+    - **生成目标并行策略文件**：MindSpore进行切分，需要用户告诉框架切分的方式，这个信息存储在了并行切分策略文件中，实际中，可以通过[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)脚本进行生成。打开Llama2-7B模型对应的yaml文件，修改以下配置：
+
+        - 将only_save_strategy配置改为True，表示生成并行切分策略文件。
+
+        - 将use_parallel配置改为True，表示开启并行推理。
+
+        - 将parallel_config.model_parallel改为并行数，此例中配置为2，表示2卡并行推理。
+
+        执行如下命令，生成并行策略文件：
+
+        ```shell
+        msrun --worker_num=2 --local_worker_num=2 run_mindformer.py --config "/path/to/llama2_7b.yaml" --input_data "hello"
+        ```
+
+        msrun为MindSpore提供的并行执行工具，input_data参数可以任意传入内容，传入是为了保证模型流程能够正常执行，这段程序执行完会在output目录下生成strategy目录，即是切分成2卡执行的并行切分策略文件。
+
+    - **切分模型权重ckpt文件**：调用转换脚本，切分并生成权重ckpt文件，具体参考[transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.py)。
+
+        执行如下命令，利用脚本将权重切分成2卡并行权重：
+
+        ```shell
+        python transform_checkpoint.py --src_checkpoint="/path/to/llama2_7b.ckpt" \
+            --dst_checkpoint="/path/to/llama2_7b_2p_dir/" --dst_strategy="/path/to/llama2_7b_2p_strategy_dir/"
+        ```
+
+        其中，src_checkpoint是源ckpt文件路径，由于例子中是全量切分，所以不需要传源策略文件，但是路径一定要指定到ckpt文件路径，不能指定到目录；dst_checkpoint是切分结果的目标目录路径，切分完成后，会生成rank_0盒rank_1两个子目录，分别存放不同卡的权重ckpt文件；dst_strategy是前一步生成的策略文件路径。
+
 - **模型适配**：MindSpore大语言模型多卡运行时，通常使用模型并行，因此原始模型需要根据卡数进行切分，如[1024，4096]和[4096, 2048]矩阵乘法，可以切分成2个[1024，4096]和[4096, 1024]的矩阵乘法。而不同的切分可能带来不同的并行计算性能，MindFormers模型提供了MindSpore大语言模型验证较为优秀的切分方案，并使用MindSpore的并行框架进行了切分，下面为模型中部分切分代码：
 
     ```python
@@ -243,17 +272,17 @@ model = AutoModel.from_config(config)
 
     - 将use_parallel配置项从False改为True。
 
-    - 将model_parallel改为需要的并行卡数，data_parallel在推理场景下通常配置为1，不需要额外配置。
+    - 将parallel_config.model_parallel改为需要的并行卡数，data_parallel在推理场景下通常配置为1，不需要额外配置。
 
     具体的网络脚本代码可以参考[llama.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama.py)。
 
 - **模型推理**：和单卡推理不同，多卡推理需要同时启动多个进程来并行进行推理，因此在启动模型推理是，相比于直接运行脚本，多卡推理需要一次运行多组相关进程。MindSpore框架为用户提供了msrun的并行运行工具，具体使用方法如下：
 
     ```shell
-    msrun --worker_num=4 --local_worker_num=4 llm_infer.py
+    msrun --worker_num=2 --local_worker_num=2 run_mindformer.py --config "/path/to/llama2_7b.yaml" --input_data "hello"
     ```
 
-    上面命令会同时启动4个进程，进行4卡并行推理，llm_infer.py是单卡的模型推理脚本。
+    上面命令会同时启动2个进程，进行2卡并行推理，同时，config的yaml中的only_save_strategy需要改为False，表示正常推理。
 
 用户也可以使用MindSpore框架能力，自定义更复杂的并行策略，具体模型并行操作可以参考[构建可并行的大语言模型网络](./parallel.md)和[多卡模型权重切分](./weight_split.md)。
 
