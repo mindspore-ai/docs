@@ -2103,6 +2103,7 @@ class ExhaleRoot(object):
         self.generateNodeDocuments()
         self.generateAPIRootBody()
 
+        del_list_en = []
         dirA='./source_en/generate/'
         if os.path.exists(dirA):
             os.makedirs('./source_en/tmp_generate/')
@@ -2119,18 +2120,26 @@ class ExhaleRoot(object):
             #         old_name = str(file)
             #         new_name = str(file).replace('_runtime', '').replace('_converter', '')
             #         os.rename(os.path.join(dirA, old_name), os.path.join(dirA, new_name))
-
             for i in os.listdir(dirA):
                 if i.startswith('namespace_mindspore') and i != 'namespace_mindspore__dataset.rst':
                     new_name = i.replace("__", "_").split("_", 1)[-1]
                     before_file = os.path.join(dirA, i)
                     after_file = os.path.join(dirB, new_name)
                     shutil.copy(before_file, after_file)
-                else:
+                else: # 删除英文多余的空白文件
                     with open(os.path.join(dirA, i), 'r', encoding='utf-8') as h:
                         generate_doc = h.read()
                     if not re.findall(f'\n.*\n[=-]+\n(?:.|\n|)+?\w', generate_doc) and '.. toctree::' not in generate_doc:
                         os.remove(os.path.join(dirA, i))
+                        del_list_en.append(i)
+            if os.path.exists(os.path.join(dirA, 'unabridged_api.rst')):
+                with open(os.path.join(dirA, 'unabridged_api.rst'), 'r+', encoding='utf-8') as h:
+                    content = h.read()
+                    for j in del_list_en:
+                        content = re.sub(f'.. toctree::((?!toctree).|\n)+?{j}\n', '', content)
+                    h.seek(0)
+                    h.truncate()
+                    h.write(content)
 
             for file in os.listdir(dirB):
                 if "deprecated" in file:
@@ -2256,7 +2265,24 @@ MindSpore Lite API
                         p.write(result)
 
         dira='./source_zh_cn/generate/'
+        del_list_cn = []
         if os.path.exists(dira):
+            # 删除中文多余的空白文件
+            for i in os.listdir(dira):
+                with open(os.path.join(dira, i), 'r', encoding='utf-8') as h:
+                    generate_doc = h.read()
+                if not re.findall(f'\n.*\n[=-]+\n(?:.|\n|)+?\w', generate_doc) and '.. toctree::' not in generate_doc:
+                    os.remove(os.path.join(dira, i))
+                    del_list_cn.append(i)
+            if os.path.exists(os.path.join(dira, 'unabridged_api.rst')):
+                with open(os.path.join(dira, 'unabridged_api.rst'), 'r+', encoding='utf-8') as h:
+                    content = h.read()
+                    for j in del_list_cn:
+                        content = re.sub(f'.. toctree::((?!toctree).|\n)+?{j}\n', '', content)
+                    h.seek(0)
+                    h.truncate()
+                    h.write(content)
+
             dirc='./source_zh_cn/api_cpp/'
             dird='./source_zh_cn/api_java/'
 
