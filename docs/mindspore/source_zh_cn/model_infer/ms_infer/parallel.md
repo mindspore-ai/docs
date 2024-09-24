@@ -443,4 +443,4 @@
             return hidden_state
     ```
 
-具体端到端的大语言模型代码工程可以参考[大语言模型示例](待补充)。
+具体端到端的大语言模型代码工程可以参考[大语言模型示例](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_infer/ms_infer/code//model_dev.py)。

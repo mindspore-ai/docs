@@ -188,7 +188,7 @@ model = AutoModel.from_config(config)
 - **后处理**：根据网络推理的输出，利用tokenizer的反向能力，将token id的list转换成一句可理解的语句。
 
     ```python
-    response = tokenzier.decode(model_output[0])
+    response = tokenizer.decode(model_output[0])
     print(response)
     ```
 
@@ -210,7 +210,7 @@ model = AutoModel.from_config(config)
 
 - **权重切分**：由于原来的权重文件太大，多卡执行时，需要将整体权重切分成每张卡上的多份权重，分别传给每张卡对应的模型进程。用户可以使用MindFormers模型套件中的脚本来进行权重切分。具体可以参考[权重CKPT转换和切分](https://gitee.com/mindspore/mindformers/blob/dev/docs/feature_cards/Transform_Ckpt.md)。
 
-- **模型适配**：MindSpore大语言模型多卡运行时，通常使用模型并行，因此原始模型需要根据卡数进行切分，如[1024，4096]和[4096, 2048]矩阵乘法，可以切分成2个[1024，4096]和[4096, 1024]的矩阵乘法。而不同的切分可能带来不同的并行计算性能，MindFormers模型提供了MindSpore大语言模型验证较为优秀的切分方案，并使用MindSpore的并行框架进行了切分，具体可以参考如下代码：
+- **模型适配**：MindSpore大语言模型多卡运行时，通常使用模型并行，因此原始模型需要根据卡数进行切分，如[1024，4096]和[4096, 2048]矩阵乘法，可以切分成2个[1024，4096]和[4096, 1024]的矩阵乘法。而不同的切分可能带来不同的并行计算性能，MindFormers模型提供了MindSpore大语言模型验证较为优秀的切分方案，并使用MindSpore的并行框架进行了切分，下面为模型中部分切分代码：
 
     ```python
     if not (_get_parallel_mode() in (ParallelMode.AUTO_PARALLEL,) and _is_sharding_propagation()):
@@ -233,11 +233,11 @@ model = AutoModel.from_config(config)
 
     模型会根据其并行配置来调用MindSpore算子的shard切分接口，进行模型的切分，其中：
 
-    - dp表示数据并行配置。
+    - dp表示数据并行配置，将要计算的数据切分成可并行的多份，并行计算，在推理场景下通常可以通过batch实现多语句并行计算，通常配置成1。
 
-    - mp表示模型并行配置。
+    - mp表示模型并行配置，将模型要计算的算子按照网络脚本定义的方式切分，推理场景通常和卡数相等。
 
-    - cp表示上下文并行配。
+    - cp表示上下文并行配，将用户的文本切分成多句子句并行，由于全量/增量等优化，推理通常不使用这类并行，通常配置成1。
 
     用户可以简单地通过修改模型配置文件，使能模型套件中的并行能力：
 
@@ -245,7 +245,9 @@ model = AutoModel.from_config(config)
 
     - 将model_parallel改为需要的并行卡数，data_parallel在推理场景下通常配置为1，不需要额外配置。
 
-- **模型推理**：和单卡推理不同，多卡推理需要同时启动多个进程来并行进行推理，因此在启动模型推理是，相比于直接运行脚本，多卡推理需要一次运行多组相关进行。MindSpore框架为此提供了msrun的并行运行工具，具体使用方法如下：
+    具体的网络脚本代码可以参考[llama.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama.py)。
+
+- **模型推理**：和单卡推理不同，多卡推理需要同时启动多个进程来并行进行推理，因此在启动模型推理是，相比于直接运行脚本，多卡推理需要一次运行多组相关进程。MindSpore框架为用户提供了msrun的并行运行工具，具体使用方法如下：
 
     ```shell
     msrun --worker_num=4 --local_worker_num=4 llm_infer.py
