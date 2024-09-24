@@ -90,10 +90,10 @@ the other is through Callback based on step or epoch to open and close Profiler.
               super(StopAtEpoch, self).__init__()
               self.start_epoch = start_epoch
               self.stop_epoch = stop_epoch
-               # Set the path for performance data to disks as rank_id
-               rank_id = get_real_rank()
-               output_path = os.path.join("profiler_data", f"rank_{rank_id}")
-               self.profiler = ms.Profiler(start_profile=False, output_path=output_path)
+              # Set the path for performance data to disks as rank_id
+              rank_id = get_real_rank()
+              output_path = os.path.join("profiler_data", f"rank_{rank_id}")
+              self.profiler = ms.Profiler(start_profile=False, output_path=output_path)
 
            def on_train_epoch_begin(self, run_context):
                cb_params = run_context.original_args()

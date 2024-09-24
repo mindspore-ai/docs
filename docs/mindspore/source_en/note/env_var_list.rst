@@ -928,7 +928,7 @@ Profiler
      - Configure the Profiler collection options in the format of a JSON string.
      - This environment variable is usually set automatically by the program and the user does not need to set this environment variable manually.
 
-Dynamic graph
+Dynamic Graph
 --------------
 
 .. list-table::
@@ -941,8 +941,8 @@ Dynamic graph
      - Value Range
      - Description
    * - MS_TENSOR_API_ENABLE_MINT
-     - Tensor Api Pytorch Compatibility switch for Ascend platform in dynamic graph mode.
+     - Tensor Api PyTorch Compatibility switch for Ascend platform in dynamic graph mode.
      - String
-     - '1': switch on Tensor Api Pytorch Compatibility.
-       Others: switch off Tensor Api Pytorch Compatibility.
-     - If switch on, the following Api: repeat_interleave(repeats, dim=None), add(other), item(index=None), isnan(), flatten(order='C', \*, start_dim=0, end_dim=-1), max(axis=None, keepdims=False, \*, initial=None, where=True, return_indices=False), mean(axis=None, keep_dims=False), min(axis=None, keepdims=False, \*, initial=None, where=True, return_indices=False), split(split_size_or_sections, axis=0), sub(y) will be compatible with Pytorch conterparts.
+     - '1': Turn on Tensor Api PyTorch Compatibility.
+       Not setting or other values: Turn off Tensor Api PyTorch Compatibility.
+     - If turn on, the following Api: repeat_interleave(repeats, dim=None), add(other), item(index=None), isnan(), flatten(order='C', \*, start_dim=0, end_dim=-1), max(axis=None, keepdims=False, \*, initial=None, where=True, return_indices=False), mean(axis=None, keep_dims=False), min(axis=None, keepdims=False, \*, initial=None, where=True, return_indices=False), split(split_size_or_sections, axis=0), sub(y) will be compatible with PyTorch conterparts.

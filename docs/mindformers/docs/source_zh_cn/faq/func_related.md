@@ -10,7 +10,7 @@ A: 模型切分策略文件记录了模型权重在分布式场景下的切分�
 
 ## Q: 生成`rank_table`文件报错`socket.gaierror: [Errno -2] Name or service not known`或者`socket.gaierror: [Errno -3] Temporary failure in name resolution`，怎么解决？
 
-A: 主要原因是在`docker`中运行时，需要先获取到主机名。可以通过如下脚本获取主机名, 如`xxxx42`
+A: 主要原因是在`docker`中运行时，需要先获取到主机名。可以通过如下脚本获取主机名，如`xxxx42`
 
 ```python
 import socket
