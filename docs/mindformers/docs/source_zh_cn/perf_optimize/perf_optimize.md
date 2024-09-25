@@ -6,9 +6,9 @@
 
 本文档主要介绍大语言模型的性能调优，详细介绍了性能调优相关的基础理论知识、分析思路和相关工具使用指导，以及案例分享。
 
-性能一般讨论的是机器的模型训练性能，在指定模型和输入数据的情况下，以完成一次端到端训练所需要时间作为参考指标。端到端是指完成一个人工智能模型单步训练的过程，时间主要由以下部分构成：
+性能一般讨论的是模型训练性能，在指定模型和输入数据的情况下，以完成一次端到端训练所需要时间作为参考指标。端到端是指完成一个人工智能模型单步训练的过程，时间主要由以下部分构成：
 
-* 数据加载时间：指的是模型在加载训练数据、权重等数据的时间，包括将数据从硬件存储设备读取到CPU中、CPU中数据的预处理、CPU数据放到device上。对于一些需要切分在若干张卡上的模型，数据加载还包括从数据加载卡广播到其他卡上的时间。
+* 数据加载时间：指的是模型加载训练数据、权重等数据的时间，包括将数据从硬件存储设备读取到CPU中、CPU中数据的预处理、CPU数据搬运到NPU上。对于一些需要切分到若干张NPU上的模型，数据加载还包括从一张NPU广播到其他NPU上的时间。
 
 * 模型前向反向时间：特指深度学习模型的Forward和Backward，包含前向的数据计算和反向的数据微分求导。
 
@@ -16,7 +16,7 @@
 
 * 模型后处理时间：一般指的是优化器更新后的时间，包括数据的后处理或者一些必要的同步操作，通常取决于模型特有操作。
 
-* 通信时间：概念比较宽泛，我们一般将单节点内卡与卡和多节点间的通信行为归为通信时间。通过MindSpore包含的并行技术，通信和计算通常可以并行执行，即通信被掩盖，因此我们一般考虑未被计算掩盖的通信时间。
+* 通信时间：概念比较宽泛，我们一般将单节点的卡间通信耗时和多节点的节点间通信耗时归为通信时间。通过MindSpore包含的并行技术，通信和计算通常可以并行执行，此时部分通信时间会被掩盖，因此我们一般考虑未被计算掩盖的通信时间。
 
 * 调度时间：指的是模型从CPU的指令到调用NPU侧的核所需要的时间。
 
@@ -26,7 +26,7 @@
 
 ### 性能指标
 
-性能通常通过吞吐率、算力利用率（MFU和HFU）等指标进行评估。
+性能通常通过吞吐量、算力利用率（MFU和HFU）等指标进行评估。
 
 #### 吞吐量
 
@@ -40,9 +40,9 @@ $$
 
 各字段含义如下：
 
-* SeqLength：指的是序列的长度，进行文本处理的时候，我们需要将输入的文本转换成数字序列，然后将这些数字序列作为模型的输入。SeqLength就是指这些数字序列的长度，也就是文本的长度。在模型训练和预测的过程中，我们需要指定一个固定的SeqLength，以便进行批处理和计算。较长的SeqLength可以提高模型的准确性，但会增加计算量和内存消耗；而较短的SeqLength则会减少计算量和内存消耗，但可能会降低模型的准确性。
+* SeqLength：指的是序列的长度，进行文本处理的时候，我们需要将输入的文本转换成数字序列，然后将这些数字序列作为模型的输入。SeqLength就是指这些数字序列的长度，也就是文本的长度。在模型训练和推理的过程中，我们需要指定一个固定的SeqLength，以便进行批处理和计算。较长的SeqLength可以提高模型的准确性，但会增加计算量和内存消耗；而较短的SeqLength则会减少计算量和内存消耗，但可能会降低模型的准确性。
 
-* sample：其值等于global_batch_size。在分布式训练中，数据被分成多个部分，每个部分被送到不同的设备上进行计算。这些设备上的batch size加起来就是全局批量大小。 全局批量大小的选择是一个重要的决策，因为它会直接影响模型的训练速度和性能。如果全局批量大小太小，每个设备上的batch size可能会太小，导致模型的收敛速度变慢。如果全局批量大小太大，每个设备上的batch size可能会太大，导致显存不足或者模型的精度下降。要找到最佳Batch Size大小值，一个好的经验法则是达到处理器对给定数据类型的内存限制，即Batch Size占满内存。
+* sample：其值等于global_batch_size。在分布式训练中，数据被分成多个部分，每个部分被送到不同的NPU上进行计算。这些NPU上的batch size加起来就是全局批量大小。 全局批量大小的选择是一个重要的决策，因为它会直接影响模型的训练性能。如果全局批量太小，每个NPU上的batch size可能会太小，导致模型的收敛速度变慢。如果全局批量太大，每个NPU上的batch size可能会太大，导致NPU内存不足或者模型的精度下降。要找到最佳Batch Size大小值，一个好的经验法则是达到NPU对给定数据类型的内存限制，即Batch Size占满NPU内存。
 
 * s：即per_step_time，指在训练过程中，每一步所花费的时间。
 
@@ -50,7 +50,7 @@ $$
 
 #### 算力利用率
 
-MFU是衡量当前算力利用率的情况，不考虑重计算的情况，MFU越高说明当前的计算效率越好，统计的主要是GEMM的计算量。计算公式如下：
+MFU用于衡量当前算力利用率，不考虑重计算的情况，MFU越高说明当前的计算效率越好，统计的主要是GEMM的计算量。计算公式如下：
 
 $$
 MFU = \frac{FLOPs}{StepTime * HardwareCapacity}
@@ -70,8 +70,8 @@ StepTime指在训练过程中每一步所花费的时间，HardwareCapacity则�
 
 这里以GPT结构为例，理论估计的结果为：
 
-|                          | 激活的内存占用Byte                             |
-| ------------------------ | ---------------------------------------------- |
+|                          | 内存占用Byte                                      |
+| ------------------------ | ------------------------------------------------- |
 | 无重计算model flops      | 72 *  bLs$h^2$ * [1*corr +  s/(6h) + v/(12hL)]    |
 | 选择重计算hardware flops | 72 *  bLs$h^2$ * [1*corr + 4/3s/(6h) + v/(12hL)]  |
 | 完全重计算hardware flops | 72 *  bLs$h^2$ * [4/3*corr+ 4/3s/(6h) + v/(12hL)] |
@@ -126,9 +126,9 @@ HFU/MFU可以用于对于训练性能tokens/s/p的评价。一般HFU>50%属于�
 
 在大模型训练中，由于数据量和模型复杂度的增加，单个计算节点的计算能力难以满足训练的需求。为了提高训练效率和加速训练过程，通常采用并行策略来将计算任务分配给多个计算节点进行计算。
 
-并行策略通常分为数据并行（Data Parallelism，简称DP）、模型并行（一般指张量并行Tensor Parallelism，简称TP）、流水并行（Pipeline Parallelism，简称PP）、序列并行（Sequence Paralleism，简称SP）等多种并行模式。在实际应用中，通常会采用同时使用多种并行的混合并行策略，以及多种优化手段，例如使用优化器并行、重计算等方式，以减少模型对内存的使用，提高训练的效率和加速训练的过程。并行策略设计与模型的效率息息相关，在模型调优之前先确定一组或多组较优的并行策略，是至关重要的。
+并行策略通常分为数据并行（Data Parallelism，简称DP）、模型并行（一般指张量并行Tensor Parallelism，简称TP）、流水并行（Pipeline Parallelism，简称PP）、优化器并行（Optimizer Paralleism，简称OP）、序列并行（Sequence Paralleism，简称SP）、多副本并行等多种并行模式。在实际应用中，通常会采用多种并行策略，以及多种优化手段，例如使用优化器并行、重计算等方式，以减少模型对内存的使用，提高训练效率。并行策略设计与模型的效率息息相关，在模型调优之前先确定一组或多组较优的并行策略，是至关重要的。
 
-详细介绍参考文档并行策略指南。
+详细介绍参考文档[并行策略指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/distributed_parallel.html)。
 
 ### 内存分析
 
@@ -138,7 +138,7 @@ HFU/MFU可以用于对于训练性能tokens/s/p的评价。一般HFU>50%属于�
 
 #### 静态内存
 
-参数量定义：模型参数量是指一个神经网络或机器学习模型中可以进行学习和调整的参数的数量。这些参数包括权重（weights）和偏置（biases），它们在训练过程中会不断地更新以优化模型的性能。
+静态内存通常用来存储模型参数，模型参数量是指一个神经网络或机器学习模型中可以进行学习和调整的参数的数量。这些参数包括权重（weights）和偏置（biases），它们在训练过程中会不断地更新以优化模型的性能。
 
 以GPT结构为例，一层transfomer layer的参数量如下图所示：
 
@@ -156,20 +156,22 @@ HFU/MFU可以用于对于训练性能tokens/s/p的评价。一般HFU>50%属于�
 
 #### 动态内存
 
-以GPT为例，考虑pp、tp等情况，理论计算值如下：
+动态内存通常用于存储中间计算结果。
 
-|                              | 激活内存[Byte]          | 说明                                    |
-| ---------------------------- | ----------------------- |---------------------------------------|
-| 无并行                       | sbh * [34+5as/h]        | 总内存                                   |
+以GPT为例，考虑PP、TP等情况，理论计算值如下：
+
+|                              | 内存[Byte]              | 说明                                              |
+| ---------------------------- | ----------------------- | ------------------------------------------------- |
+| 无并行                       | sbh * [34+5as/h]        | 总内存                                            |
 | 模型并行                     | sbh * [10+(24+5as/h)/t] | attn/ffn输入、2*ln输入，2dropout mask没有被并行。 |
-| 模型并行+序列并行            | sbh * [34+5as/h]/t      | 进一步在t维度降低激活                           |
-| 模型并行+选择重计算          | sbh * [10+24/t]         | 重计算 $s^2$ 的激活                         |
-| 模型并行+序列并行+选择从计算 | sbh * [34/t]            | 重计算 $s^2$ 的激活                         |
-| 完全重计算                   | sbh * [2]               | 仅保存每层的输入                              |
+| 模型并行+序列并行            | sbh * [34+5as/h]/t      | 进一步在t维度降低内存                             |
+| 模型并行+选择重计算          | sbh * [10+24/t]         | 重计算 $s^2$ 的内存                               |
+| 模型并行+序列并行+选择从计算 | sbh * [34/t]            | 重计算 $s^2$ 的内存                               |
+| 完全重计算                   | sbh * [2]               | 仅保存每层的输入                                  |
 
 详细计算步骤为：
 
-| 模块                       | BP需要保存的变量      | 内存大小[Byte] |
+| 模块                       | 反向需要保存的变量      | 内存大小[Byte] |
 |--------------------------| --------------------- | -------------- |
 | Attention部分              |                       |                |
 | Query, key, Value MatMul | x                     | 2sbh           |
@@ -203,7 +205,7 @@ HFU/MFU可以用于对于训练性能tokens/s/p的评价。一般HFU>50%属于�
 
 浮点数据类型主要分为双精度（FP64）、单精度（FP32）、半精度（FP16）。在神经网络模型的训练过程中，一般默认采用单精度（FP32）浮点数据类型，来表示网络模型权重和其他参数。
 
-与FP32相比，FP16的存储空间是FP32的一半。类似地，FP32则是FP64的一半。因此使用FP16进行运算具备减少内存占用、计算效率更高、加快通讯效率等优势，但是使用FP16同样会带来数据溢出、舍入误差等问题。
+FP16的存储空间是FP32的一半，类似地，FP32则是FP64的一半。因此使用FP16进行运算具备内存占用较少、计算效率和通信效率更高等优势，但是使用FP16同样会带来数据溢出、舍入误差等问题。
 
 在使用混合精度获得训练加速和内存节省的同时，需要考虑FP16引入问题的解决。Loss Scale损失缩放，FP16类型数据下溢问题的解决方案，主要思想是在计算损失值loss的时候，将loss扩大一定的倍数。根据链式法则，梯度也会相应扩大，然后在优化器更新权重时再缩小相应的倍数，从而避免了数据下溢。
 
@@ -224,7 +226,7 @@ MindFormers本身集成了profiling数据采集的功能，使用步骤如下：
    profile_start_step: 1  #性能分析开始的step
    profile_stop_step: 10  #性能分析结束的step
    init_start_profile: False  #Profiler初始化的时候开启，开启后profile_start_step将不生效。
-   profile_communication: True #是否在多设备训练中收集通信性能数据
+   profile_communication: True #是否在多NPU训练中收集通信性能数据
    profile_memory: True  #收集Tensor内存数据
    ```
 
@@ -234,7 +236,7 @@ MindFormers本身集成了profiling数据采集的功能，使用步骤如下：
 
 3. 查看数据
 
-   采集的性能数据文件会保存到模型配置文件output_dir（默认“./output”）下创建一个profile的文件夹，按照rank id生成当前机器的每一张卡的性能数据。以rank_0为例，目录为output/profile/rank_0/profiler。
+   采集工具会在模型配置文件output_dir（默认“./output”）下创建一个profile的文件夹，按照rank id生成当前机器的每一张卡的性能数据。以rank_0为例，目录为output/profile/rank_0/profiler。
 
    生成的文件及介绍参考[profile文件介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#目录结构)，主要收集算子、任务等运行耗时，CPU利用率，内存消耗等信息，用于性能调优分析需要的各项数据。
 
@@ -272,7 +274,13 @@ MindStudio Insight工具以时间线（Timeline）的呈现方式为用户提供
 
 #### IR 图
 
-在MindFormers配置文件中，只需要将save_graphs的开关设置为True，运行时会输出一些图编译过程中生成的ir后缀结尾的中间文件，我们称为IR文件。默认会在当前任务执行目录下生成一个graph的目录，所有的IR图都会保存在这其中。是一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。
+在MindFormers配置文件中，只需要开启save_graphs，运行时会输出一些图编译过程中生成的ir后缀结尾的中间文件，我们称为IR文件。默认会在当前任务执行目录下生成一个graph的目录，所有的IR图都会保存在这其中。是一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)，配置方法如下：
+
+```yaml
+context:
+  save_graphs: True
+  save_graphs_path: "./graph"
+```
 
 节选部分IR图，如下：
 
@@ -323,7 +331,7 @@ MindStudio Insight工具以时间线（Timeline）的呈现方式为用户提供
 
 * 分析通信耗时，查看是否存在更优的分布式策略，分析是否存在不合理的重排布问题，提高整个集群的效率。
 
-* 分析内存，查看是否存在异常大内存Tensor，是否存在可融合的算子降低激活值内存；在有内存富裕的情况就可以探讨选择重计算的设置，或者是降低模型切分的份数，减少模型切分带来的通信开销。
+* 分析内存，查看是否存在异常大内存Tensor，是否存在可融合的算子降低内存；在有内存富裕的情况就可以探讨选择重计算的设置，或者是降低模型切分的份数，减少模型切分带来的通信开销。
 
 性能优化是一个循环往复的过程，正如下图所示，算子优化完毕后，就需要对集群分布式策略进行实验分析，分析通信耗时是否合理，是否存在额外的重排布开销；然后进行内存优化分析，完成内存优化后，是否可以重新调整集群策略设置，从而获取更优的策略设定。循环往复的去优化，进而一步步达到设定的性能目标。
 
@@ -351,31 +359,25 @@ MindStudio Insight工具以时间线（Timeline）的呈现方式为用户提供
 
 * 数据拆解关注点
 
-  上述[profiler工具](#profiler工具)产生的性能数据中，分析生成数据中的如下文件：rank-*_ascend_ms/ASCEND_PROFILER_OUTPUT/kernel_details.csv。该文件按照算子类型统计某一类型的算子整体占比，可以从中得到需要优化哪一类算子从而带来性能提升。如下图所示，可以看到当前网络TOP耗时的算子是MatMulV2、FA等相关算子。
+  上述[profiler工具](#profiler工具)产生的性能数据中，分析生成数据中的如下文件：rank-*_ascend_ms/ASCEND_PROFILER_OUTPUT/kernel_details.csv。该文件按照算子类型统计某一类型的算子整体占比，可以从中得到需要优化哪一类算子从而带来性能提升。
 
-  ![big_op](./images/big_op.png)
-
-  NPU和GPU待优化算子数据比对，输出分析结果表格。 以MatMul为例，比对NPU与GPU相同shape下的算子性能差异，重点关注算子耗时占比较高且算力利用率低的shape。
-
-  ![matmul](./images/matmul.png)
-
-#### 融合算子
-
-算子融合是通过将多个独立的算子组合成一个更大、更复杂的算子，从而减少运行时内存访问、提高计算效率。可以减少中间结果的存储和传输，有效的减少访存的开销；另外，合并多个算子可以减少计算的次数，在NPU等并行计算设备上，可以有效提高计算效率。
+算子融合是通过将多个独立的算子组合成一个更大、更复杂的算子，从而减少运行时内存访问、提高计算效率。可以减少中间结果的存储和传输，有效的减少内存的开销；另外，合并多个算子可以减少计算的次数，在NPU上可以有效提高计算效率。
 
 当前MindFormers默认会自动进行融合算子优化，将模型中符合条件的多个连续小算子自动合并成一个融合算子。
 
 ### 通信优化
 
-在半自动并行开发模式下，需要开发者配置每一个Op算子的输入输出Tensor的并行切分策略，如果存在算子配置不匹配的情况，则会导致MindSpore框架在编译时插入通信算子，对Tensor的进行重排布来适配后续算子的切分方式。常见的通信算子主要是关注AllGather、AllReduce等。
+在半自动并行开发模式下，需要开发者为每一个算子的输入Tensor和输出Tensor配置并行切分策略。如果存在算子配置不匹配的情况，会导致MindSpore框架在编译时插入通信算子，对Tensor进行重排布来适配后续算子的切分方式。常见的通信算子有AllGather、AllReduce等。
 
-分析通信重排布是否合理是利用存IR图加Profiling采集的timeline.json进行分析，通过timeline.json进行可视化查看当前的通信空档，然后更加OP编号去IR图进行通信算子的上下文分析，从而来检查此处的通信算子是否是符合预期（与自己配置的切分策略匹配）。
+通过可视化工具分析Profiling采集的timeline.json，然后根据算子编号结合IR图进行上下文分析，检查此处的通信算子是否与配置的切分策略匹配。
 
 使用[profiler工具](#profiler工具)生成文件ascend_timeline_display_0.json，然后在Chrome浏览器中输入"chrome://tracing"打开文件，也可以使用[MindStudio Insight](#mindstudio-insight)打开，解析出对应的计算通信任务流的时序图。如下：
 
 ![timeline](./images/timeline.png)
 
-wo-linear之后存在一个计算空档，结合IR图，可以看到在wo-linear之后存在一个AllReduce通信算子，AllReduce接收的是wo-linear的MatMul的输出。IR图如下所示：
+wo-linear之后存在一个计算空档，结合IR图，
+
+可以看到在wo-linear之后存在一个AllReduce通信算子，AllReduce接收的是wo-linear的MatMul的输出。IR图如下所示：
 
 ```text
 %100(equiv_loss)) = MatMul(%98, %99) {instance name: matmul) primitive_attrs: {IsFeatureMapInputList: (0), input names: [x1, x2], transpose_x2: Bool(1), transpose_b: Bool(1), in strategy: ((1, 4), (1,4)), output names: [output], transpose_a: Bool(0), IsFeatureMapOutput: Bool(1), transpose_x1: Bool(0)} cnode_attrs: (checkpoint: Bool(1), is dynamic_len: Bool(0)} cnode_primal_attrs: (unique id: "230416", micro: I64(0))}
@@ -414,7 +416,7 @@ wo-linear之后存在一个计算空档，结合IR图，可以看到在wo-linear
 
 * 序列并行
 
-  短序列并行在LayerNorm处对序列维按MP进行切分，通信量不变，减少激活内存与Norm的部分计算量；
+  短序列并行在LayerNorm处对序列维按MP进行切分，通信量不变，减少内存与Norm的部分计算量；
 
 * 多副本并行
 
@@ -440,27 +442,27 @@ wo-linear之后存在一个计算空档，结合IR图，可以看到在wo-linear
 
 #### cast重计算
 
-RmsNorm一般使用float32计算，计算之前需要将输入从fp16或bf16 Cast成fp32；RmsNorm需要存下输入用于反向计算。因此，对fp16至fp32的Cast进行重计算，可以将激活内存从RmsNorm的输入变为Cast的输入，Cast的输入的大小为RmsNorm输入大小的一半，从而达到节省内存的效果。
+RmsNorm一般使用float32计算，计算之前需要将输入从fp16或bf16 Cast成fp32；RmsNorm需要存下输入用于反向计算。因此，对fp16至fp32的Cast进行重计算，可以将内存从RmsNorm的输入变为Cast的输入，Cast的输入的大小为RmsNorm输入大小的一半，从而达到节省内存的效果。
 
 ![cast](./images/cast.png)
 
-从高精度到低精度的Cast算子做重计算，会导致后面的算子原本只需要存cast之后的低精度激活内存，Cast算子重计算后，需要存高精度激活内存，反而会导致激活内存变大。
+从高精度到低精度的Cast算子做重计算，会导致后面的算子原本只需要存cast之后的低精度内存，Cast算子重计算后，需要存高精度内存，反而会导致内存变大。
 
 #### Silu-Mul重计算
 
-在FeedForward中，中间部分激活内存往往会很大；Silu和Mul重计算代价小。对Silu和Mul算子重计算，可以省下w2的MatMul和Mul的第一个输入的激活内存。
+在FeedForward中，中间部分内存往往会很大；Silu和Mul重计算代价小。对Silu和Mul算子重计算，可以省下w2的MatMul和Mul的第一个输入的内存。
 
 ![silu_mul](./images/silu_mul.png)
 
 #### 通信重计算
 
-在开启序列并行后，RmsNorm会在序列维度切分，之后通过AllGather将不同卡的Tensor进行汇聚以供后面MatMul计算。如果将AllGather重计算，那么每张卡只需要存一份AllGather之前的激活内存，以达到减小内存的效果。
+在开启序列并行后，RmsNorm会在序列维度切分，之后通过AllGather将不同卡的Tensor进行汇聚以供后面MatMul计算。如果将AllGather重计算，那么每张卡只需要存一份AllGather之前的内存，以达到减小内存的效果。
 
 ![communicate](./images/communicate.png)
 
 ### 内存优化
 
-#### 峰值显存存分析
+#### NPU内存峰值分析
 
 内存分析时，峰值内存是一个重要的关注点，执行训练时，设置如下环境变量，可以统计内存基本情况。
 
@@ -478,11 +480,11 @@ Used peak memory usage (without fragments): 48874M
 Actual peak memory usage (with fragments): 48874M
 ```
 
-Used peak memory usage (without fragments)表示不包含碎片的显存使用峰值。
+Used peak memory usage (without fragments)表示不包含碎片的NPU内存使用峰值。
 
-Actual peak memory usage (with fragments)表示包含碎片的显存使用峰值。
+Actual peak memory usage (with fragments)表示包含碎片的NPU内存使用峰值。
 
-在正式训练前，可以使用dryrun的方式模拟训练，只需要一张卡即可模拟整体的显存峰值。dryrun脚本如下：
+在正式训练前，可以使用dryrun的方式模拟训练，只需要一张卡即可模拟整体的NPU内存峰值。dryrun脚本如下：
 
 ```shell
 export ENABLE_CELL_REUSE=1
@@ -534,7 +536,7 @@ recompute_config:
 
 经分析，13B性能瓶颈主要在于内存，无论是单机还是多机，如果不切MP，则需要开完全重计算，对Silu和Mul做选择重计算内存依然不够；完全重计算会额外多20%到25%的计算量，导致性能偏低；对MP切分可以关闭重计算，但性能比纯DP还要低些。
 
-用双机调整切分策略为DP: 8, MP: 1, PP: 2, micro: 128，开完全重计算，性能提升至2136tokens/s/p。将完全重计算改为选择重计算，并精细选择算子，使每层的激活内存尽可能减少，性能提升至2189tokens/s/p。
+用双机调整切分策略为DP: 8, MP: 1, PP: 2, micro: 128，开完全重计算，性能提升至2136tokens/s/p。将完全重计算改为选择重计算，并精细选择算子，使每层的内存尽可能减少，性能提升至2189tokens/s/p。
 
 ```yaml
 select_recompute: ['feed_forward\.mul', 'feed_forward\.w1\.activation', 'feed_forward\.w1\.reshape', 'feed_forward\.w1\.matmul', 'feed_forward\.w3\.matmul', 'feed_forward\.W3\.reshape', 'feed_forward\.w2\.matmul', 'feed_forward\.w2\.reshape', 'ffn_norm\.norm', 'ffn_norm\.rcast', 'attention_norm\.norm', 'attention_norm\.rcast', 'attention\.wq\.reshape', 'attention\.wk\.reshape', 'attention\.wv\.reshape', 'attention\.wo\.matmul', 'attention\.wo\.reshape', 'attention\.merger_head_transpose', 'add', 'attention\.flash attention']
