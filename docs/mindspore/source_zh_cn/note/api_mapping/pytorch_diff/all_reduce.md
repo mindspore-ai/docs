@@ -7,7 +7,7 @@
 ```python
 torch.distributed.all_reduce(
     tensor,
-    op=<ReduceOp.SUM: 0>,
+    op=ReduceOp.SUM,
     group=None,
     async_op=False
 )
@@ -15,27 +15,30 @@ torch.distributed.all_reduce(
 
 更多内容详见[torch.distributed.all_reduce](https://pytorch.org/docs/1.8.1/distributed.html#torch.distributed.all_reduce)。
 
-## mindspore.ops.AllReduce
+## mindspore.communication.comm_func.all_reduce
 
 ```python
-class mindspore.ops.AllReduce(
-    op=ReduceOp.SUM,
-    group=GlobalComm.WORLD_COMM_GROUP
-)(input_x)
+from mindspore.communication.comm_func import all_reduce
+return_tensor = all_reduce(
+    tensor,
+    op=<ReduceOp.SUM: 0>,
+    group=GlobalComm.WORLD_COMM_GROUP,
+    async_op=False
+)
 ```
 
-更多内容详见[mindspore.ops.AllReduce](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AllReduce.html#mindspore.ops.AllReduce)。
+更多内容详见[mindspore.communication.comm_func.all_reduce](https://www.mindspore.cn/docs/en/master/api_python/communication/mindspore.communication.comm_func.all_reduce.html#mindspore.communication.comm_func.all_reduce)。
 
-## 使用方式
+## 差异对比
 
-PyTorch：该接口输入tensor、操作类型op、通信域group及异步操作标志async_op，按op指定的操作进行AllReduce操作后，将结果写回tensor。当async_op=True时，返回异步work句柄，否则返回为空。
+PyTorch：该接口输入tensor、操作类型op、通信域group及异步操作标志async_op，按op指定的操作进行all_reduce操作后，将结果写回tensor。当async_op=True时，返回异步work句柄，否则返回为空。
 
-MindSpore：该接口输入tensor input_x，输出在通信域group中进行op指定的AllGather操作后得到的tensor，shape与输入tensor一致。当前该接口不支持async_op的配置。
+MindSpore：该接口输入tensor、操作类型op和通信域group及异步操作标志async_op。输出在通信域group中进行op指定的all_reduce操作后得到的tensor，shape与输入tensor一致。
 
-| 分类 | 子类 |PyTorch | MindSpore | 差异 |
-| --- | --- | --- | --- |---|
-|参数 | 参数1 | tensor | - |PyTorch：输入tensor，进行AllReduce操作后将结果写回tensor，MindSpore无此参数 |
-| | 参数2 | op | op | 一致|
-| | 参数3 | group | group |一致|
-| | 参数4 | async_op | - |PyTorch：异步操作标志，MindSpore无此参数 |
-|输入| 单输入| - |input_x| PyTorch：不适用，MindSpore：AllReduce算子的输入Tensor |
+| 分类 | 子类   |PyTorch | MindSpore | 差异                                                        |
+|----|------| --- |-----------|-----------------------------------------------------------|
+| 参数 | 参数1  | tensor | -         | PyTorch：输入tensor，进行all_reduce操作后将结果写回tensor，MindSpore无此参数 |
+|    | 参数2  | op | op        | 一致                                                        |
+|    | 参数3  | group | group     | 一致                                                        |
+|    | 参数4  | async_op | async_op    | 一致                                                         |
+| 返回值 | 单返回值 | - | tensor    | PyTorch：没有返回值。 MindSpore：返回all_reduce操作后返回的张量。            |

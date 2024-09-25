@@ -15,24 +15,29 @@ torch.distributed.all_gather(
 
 更多内容详见[torch.distributed.all_gather](https://pytorch.org/docs/1.8.1/distributed.html#torch.distributed.all_gather)。
 
-## mindspore.ops.AllGather
+## mindspore.communication.comm_func.all_gather_into_tensor
 
 ```python
-class mindspore.ops.AllGather(group=GlobalComm.WORLD_COMM_GROUP)(input_x)
+from mindspore.communication.comm_func import all_gather_into_tensor
+return_tensor = all_gather_into_tensor(
+    tensor,
+    group=None,
+    async_op=False
+)
 ```
 
-更多内容详见[mindspore.ops.AllGather](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.AllGather.html#mindspore.ops.AllGather)。
+更多内容详见[mindspore.communication.comm_func.all_gather_into_tensor](https://www.mindspore.cn/docs/en/master/api_python/communication/mindspore.communication.comm_func.all_gather_into_tensor.html#mindspore.communication.comm_func.all_gather_into_tensor)。
 
-## 使用方式
+## 差异对比
 
-PyTorch：该接口输入当前进程广播的tensor、通信域group及异步操作标志async_op，进行AllGather操作后输出tensor_list，类型为list[Tensor]，长度为通信域中设备数量N。当async_op=True时，返回异步work句柄，否则返回为空。
+PyTorch：该接口输入当前进程广播的`tensor`、通信域`group`及异步操作标志`async_op`，进行AllGather操作后输出tensor_list，类型为list[Tensor]，长度为通信域中设备数量N。当async_op=True时，返回异步work句柄，否则返回为空。
 
-MindSpore：该接口输入tensor input_x，输出tensor，第一维为通信域中设备数量N，其余维度与输入tensor一致，而不是像PyTorch对应接口输出list[Tensor]。当前该接口不支持async_op的配置。
+MindSpore：该接口有两个输入，输入张量 `tensor` 和通信组 `group` 及异步操作标志`async_op`。输入`tensor`第一个维度是通信域中的设备数量N，其余维度与输入张量相同，而不是像PyTorch接口那样输出list[Tensor]。
 
-| 分类 | 子类 |PyTorch | MindSpore | 差异 |
-| --- | --- | --- | --- |---|
-|参数 | 参数1 | tensor_list | - |PyTorch：进行AllGather操作后的输出，MindSpore无此参数 |
-| | 参数2 | tensor | - | PyTorch：当前进程广播的tensor，MindSpore无此参数|
-| | 参数3 | group | group |-|
-| | 参数4 | async_op | - |PyTorch：异步操作标志，MindSpore无此参数 |
-|输入| 单输入| - |input_x| PyTorch：不适用，MindSpore：AllGather算子的输入Tensor |
+| 分类 | 子类  |PyTorch | MindSpore | 差异                                                         |
+| --- |-----| --- | --- |------------------------------------------------------------|
+|参数 | 参数1 | tensor_list | - | PyTorch：进行all_gather操作后的输出，MindSpore无此参数。                  |
+| | 参数2 | tensor | tensor | 一致                                                          |
+| | 参数3 | group | group | 一致                                                          |
+| | 参数4 | async_op | async_op | 一致                              |
+|返回值| 单返回值 | - |tensor| PyTorch：没有返回值。 MindSpore：返回all_gather_into_tensor操作后返回的张量。 |
