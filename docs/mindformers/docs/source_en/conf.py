@@ -151,6 +151,9 @@ def get_obj(obj):
             test_source = inspect_.getsource(obj.__init__)
         except:
             return obj.__new__
+        obj_init = getattr(obj, '__init__', None)
+        if obj.__name__ not in str(obj_init) and hasattr(obj, '__new__'):
+            return obj.__new__
         return obj.__init__
 
     return obj
@@ -162,20 +165,22 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
-# Repair error content defined in mindspore.
+# add @functools.wraps
 try:
-    decorator_list = [("mindspore/common/dtype.py","restore error",
-                       "# generate api by del decorator.\nclass QuantDtype():","@enum.unique\nclass QuantDtype(enum.Enum):")]
+    decorator_list = [("mindformers/tools/logger.py", "__call__")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
             content = f.read()
-            if i[2] in content:
-                content = content.replace(i[2], i[3])
+            new_content = re.sub('(import .*\n)', r'\1import functools\n', content, 1)
+            new_content = re.sub(f'def ({i[1]})\((.*?)\):\n(((?!wraps).|\n)*?)([ ]+?)def wrapper\(',
+                             rf'def \1(\2):\n\5@functools.wraps(\2)\n\5def wrapper(', new_content)
+            new_content = re.sub('@functools.wraps\((self|cls),[ ]*', r'@functools.wraps(', new_content)
+            if new_content != content:
                 f.seek(0)
                 f.truncate()
-                f.write(content)
+                f.write(new_content)
 except:
     pass
 
