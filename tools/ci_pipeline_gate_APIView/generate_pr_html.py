@@ -413,7 +413,7 @@ def handle_config(pf_cn, pf_py, pf_yaml, pf_sum, target_path, repo_p, pr_need):
             conf_content = conf_content.replace('primitive_list = ops_interface_name()',
                                                 'primitive_list = ops_interface_name()\nprimitive_list = []')
             conf_content = conf_content.replace('mint_sum = mint_interface_name()',
-                                                f'mint_sum = mint_interface_name()\nmint_sum = {pr_need}')
+                                                f'# mint_sum = mint_interface_name()\nmint_sum = {pr_need}')
             conf_content = conf_content.replace('os.getenv("MS_PATH")', f'"{repo_p}"')
             conf_content = conf_content.replace('import search_code', '# import search_code')
             conf_content = conf_content.replace('import nbsphinx_mod', '# import nbsphinx_mod')
