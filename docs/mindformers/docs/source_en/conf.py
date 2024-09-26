@@ -167,15 +167,16 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
 
 # add @functools.wraps
 try:
-    decorator_list = [("mindformers/tools/logger.py", "__call__")]
+    decorator_list = [("mindformers/tools/logger.py", "__call__", "wrapper"),
+                      ("mindformers/version_control.py", "get_lazy_inline", "decorator")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
             content = f.read()
             new_content = re.sub('(import .*\n)', r'\1import functools\n', content, 1)
-            new_content = re.sub(f'def ({i[1]})\((.*?)\):\n(((?!wraps).|\n)*?)([ ]+?)def wrapper\(',
-                             rf'def \1(\2):\n\5@functools.wraps(\2)\n\5def wrapper(', new_content)
+            new_content = re.sub(f'def ({i[1]})\((.*?)\):\n(((?!wraps).|\n)*?)([ ]+?)def {i[2]}\(',
+                             rf'def \1(\2):\n\3\5@functools.wraps(\2)\n\5def {i[2]}(', new_content)
             new_content = re.sub('@functools.wraps\((self|cls),[ ]*', r'@functools.wraps(', new_content)
             if new_content != content:
                 f.seek(0)
