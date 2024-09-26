@@ -1,6 +1,6 @@
 # 比较与torch.distributed.reduce_scatter的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/reduce_scatter.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/reduce_scatter_tensor.md)
 
 ## torch.distributed.reduce_scatter
 
@@ -20,7 +20,7 @@ torch.distributed.reduce_scatter(
 
 ```python
 from mindspore.communication.comm_func import reduce_scatter_tensor
-output_tensor = reduce_scatter_tensor(
+return_tensor = reduce_scatter_tensor(
     tensor,
     op=ReduceOp.SUM,
     group=None,

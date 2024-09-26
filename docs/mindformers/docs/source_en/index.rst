@@ -47,6 +47,7 @@ Deep Optimizing with MindFormers
    :glob:
    :maxdepth: 1
    :caption: Start
+   :hidden:
 
    start/overview
    start/models
@@ -55,6 +56,7 @@ Deep Optimizing with MindFormers
    :glob:
    :maxdepth: 1
    :caption: Quick Start
+   :hidden:
 
    quick_start/install
    quick_start/source_code_start
@@ -63,6 +65,7 @@ Deep Optimizing with MindFormers
    :glob:
    :maxdepth: 1
    :caption: Usage Tutorials
+   :hidden:
 
    usage/dev_migration
    usage/pre_training
@@ -77,6 +80,7 @@ Deep Optimizing with MindFormers
    :glob:
    :maxdepth: 1
    :caption: Function Description
+   :hidden:
 
    function/weight_conversion
    function/transform_weight
@@ -88,19 +92,22 @@ Deep Optimizing with MindFormers
    :glob:
    :maxdepth: 1
    :caption: Precision Optimization
+   :hidden:
 
-   acc_optimize
+   acc_optimize/acc_optimize
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: Performance Optimization
+   :hidden:
 
    perf_optimize
 
 .. toctree::
    :maxdepth: 1
    :caption: API
+   :hidden:
 
    mindformers
    mindformers.core
@@ -116,6 +123,7 @@ Deep Optimizing with MindFormers
    :glob:
    :maxdepth: 1
    :caption: Appendix
+   :hidden:
 
    appendix/env_variables
    appendix/conf_files
@@ -124,6 +132,7 @@ Deep Optimizing with MindFormers
    :glob:
    :maxdepth: 1
    :caption: FAQ
+   :hidden:
 
    faq/model_related
    faq/func_related

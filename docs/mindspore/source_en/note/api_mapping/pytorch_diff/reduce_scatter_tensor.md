@@ -22,8 +22,9 @@ For more information, see [torch.distributed.reduce_scatter](https://pytorch.org
 from mindspore.communication.comm_func import reduce_scatter_tensor
 return_tensor = reduce_scatter_tensor(
     tensor,
-    op=<ReduceOp.SUM: 0>,
+    op=ReduceOp.SUM,
     group=None,
+    async_op=False
 )
 ```
 

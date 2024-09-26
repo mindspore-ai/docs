@@ -21,7 +21,7 @@ torch.distributed.all_reduce(
 from mindspore.communication.comm_func import all_reduce
 return_tensor = all_reduce(
     tensor,
-    op=<ReduceOp.SUM: 0>,
+    op=ReduceOp.SUM,
     group=GlobalComm.WORLD_COMM_GROUP,
     async_op=False
 )
