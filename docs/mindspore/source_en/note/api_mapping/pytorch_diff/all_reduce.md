@@ -7,7 +7,7 @@
 ```python
 torch.distributed.all_reduce(
     tensor,
-    ReduceOp.SUM,
+    op=ReduceOp.SUM,
     group=None,
     async_op=False
 )
