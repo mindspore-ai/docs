@@ -142,7 +142,7 @@ cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w
 
    此实践基于`AutoModel.from_pretrained()`接口实例化量化模型，需调整该接口内的参数为之前创建的目录路径。
 
-   通过调用`generate`接口获取推理结果。具体参数说明可参考[AutoModel]()和[generate]()接口文档。
+   通过调用`generate`接口获取推理结果。具体参数说明可参考[AutoModel](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/mindformers/mindformers.AutoModel.html#mindformers.AutoModel)和[generate](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/generation/mindformers.generation.GenerationMixin.html#mindformers.generation.GenerationMixin.generate)接口文档。
 
    ```python
    """llama2 predict example."""
