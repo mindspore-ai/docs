@@ -102,7 +102,7 @@ Deep Optimizing with MindFormers
    :caption: Performance Optimization
    :hidden:
 
-   perf_optimize
+   perf_optimize/perf_optimize
 
 .. toctree::
    :maxdepth: 1
