@@ -35,7 +35,7 @@
 | normal_eps        | 正则化的epsilon参数                                          | 检查是否与标杆保持一致                                                                                                                        |
 | dropout           | 网络中的dropout                                              | 当前MindSpore开启Dropout时，不能开重计算；若进行精度比对建议双边都关闭，减少随机因素。                                                                                |
 | 激活函数          | 常见的激活函数ReLU/GeLU/FastGeLU/SwigLU等                    | 检查是否与标杆保持一致                                                                                                                        |
-| 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 同硬件下进行精度比对时，若有使用融合算子，则需要保持一致 。不同硬件下进行精度比对时，则重点检查融合计算部分是否有计算差异。                                                                     |
+| 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 同硬件下进行精度比对时，若有使用融合算子，则需要保持一致。不同硬件下进行精度比对时，则重点检查融合计算部分是否有计算差异。                                                                     |
 | 位置编码          | /                                                            | 检查使用位置编码的方式：绝对/相对位置编码。                                                                                                             |
 | vocab_size        | 词表大小                                                     | vocab size建议为16的倍数；若奇数，可能会影响matmul的计算结果。在预训练场景，可以通过修改参数来改变词表大小。在SFT场景，如果预训练权重的词表为奇数，需要对权重进行pad。                                    |
 
@@ -81,7 +81,7 @@
 | compute_dtype          | 计算精度                                                     | 与标杆保持一致                                               |
 | layernorm_compute_type | layerNorm/RMSNorm的计算精度                                  | Megatron不可配置，需要检查实现是否保持一致。                 |
 | softmax_compute_type   | MindSpore使用FlashAttention时，内部Softmax固定用FA计算。     | Megatron不可配置，需要检查实现是否保持一致。                 |
-| 各权重计算             | embedding、lm_head等各权重精度计算    仅在小算子拼接实现时可配置计算类型 | Megatron不可配置，需要检查实现是否保持一致。                 |
+| 各权重计算             | embedding、lm_head等各权重精度计算，仅在小算子拼接实现时可配置计算类型 | Megatron不可配置，需要检查实现是否保持一致。                 |
 | rotary_dtype           | 旋转位置编码的计算精度                                       | 由于MindFormers权重初始化需要设置为fp32，而通常计算精度为bf16/fp16，需要检查权重计算前，是否将权重数据类型转为bf16/fp16。 |
 | bias add               | 线性层的Bias                                                 | 线性层若有bias，检查add的计算精度是否一致。                  |
 | residual add           | 残差相加                                                     | 检查残差的计算精度是否与标杆一致                             |
@@ -114,11 +114,11 @@
 
 ## 精度调试工具介绍
 
-精度定位中，主要使用MindSpore的Dump工具。主要支持O0/O1/O2模式，不同模式下支持的Dump功能不完全相同，需要的配置文件和以及生成的数据格式也不同。O0/O1支持host和device模式支持Dump数据格式`.npy`文件；O2仅支持host模式，支持Dump数据格式`.npy`和`.bin`文件。详细介绍参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)，下面仅简单介绍两种Dump方式。
+精度定位中，主要使用MindSpore的Dump工具。主要支持O0/O1/O2模式，不同模式下支持的Dump功能不完全相同，需要的配置文件以及生成的数据格式也不同。O0/O1支持host和device模式支持Dump数据格式`.npy`文件；O2仅支持host模式，支持Dump数据格式`.npy`和`.bin`文件。详细介绍参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)，下面仅简单介绍两种Dump方式。
 
 ### O0/O1 图模式Dump方式
 
-MindSpore的Dump工具通过配置JSON文件进行使能，该方式Dump出网络中的所有算子数据，保存tensor及统计信息的statistic.csv表格。 以下给出(O0，O1)模式下的全量算子Dump的JSON示例：
+MindSpore的Dump工具通过配置JSON文件进行使能，该方式Dump出网络中的所有算子数据，保存tensor及统计信息的statistic.csv表格。以下给出(O0，O1)模式下的全量算子Dump的JSON示例：
 
 ```json
 {
@@ -174,7 +174,7 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 
 配置参数的字段含义参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)。
 
-配置好JSON文件后， 设置Dump环境变量指向配置的JSON文件，需要设置绝对路径：
+配置好JSON文件后，设置Dump环境变量指向配置的JSON文件，需要设置绝对路径：
 
 ```shell
 export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
@@ -283,7 +283,7 @@ export MS_ACL_DUMP_CFG_PATH=${JSON_PATH}
 
 在固定权重、数据集、随机性后，对比训练第一个step的loss值差异。第一个step的loss值由网络的前向计算获得，若与标杆loss的差异较大，则可判定前向计算存在精度差异，这可能是由于模型结构未对齐、算子精度异常导致。可通过打印或者Dump工具获取MindSpore及PyTorch每层的tensor值。当前工具暂不具备自动比对功能，需要用户人工识别对应关系进行比对。MindSpore Dump工具介绍参考[精度调试工具介绍](#精度调试工具介绍)，PyTorch Dump工具使用可参考[精度工具功能说明](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/ptdbg_ascend/doc/ptdbg_ascend精度工具功能说明_v6.0.md)
 
-通过PyTorch的api_stack_dump.pkl文件，及MindSpore的statistc.csv文件找到层的对应关系，初步通过max， min， L2Norm判断输入输出的差异程度。若需要进一步的对比，可以加载相应的npy数据进行详细比对。
+通过PyTorch的api_stack_dump.pkl文件，及MindSpore的statistc.csv文件找到层的对应关系，初步通过max，min，L2Norm判断输入输出的差异程度。若需要进一步的对比，可以加载相应的npy数据进行详细比对。
 
 #### step1的local norm值对比
 
@@ -333,7 +333,7 @@ Local norm值仅作为反向计算是否正确的初步判断，若要深入对�
 
 在step1的loss和local norm对齐的情况下，若step2的loss差异较大，则需要进一步排查优化器计算。
 
-* 首先排查优影响梯度更新的参数，如learning rate、优化器参数、weight decay等是否与标杆一致。
+* 首先排查影响梯度更新的参数，如learning rate、优化器参数、weight decay等是否与标杆一致。
 
 * 其次排查优化器计算，步骤如下：
     * 保存PyTorch step1的梯度。
@@ -451,7 +451,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 计算精度对齐后，排查优化器计算也没有问题，开始进行长稳训练对齐。
 
-长稳训练排查将由单卡实验扩展到多卡实验，先设置learning rate=0， 即权重不更新。前向计算每个step的loss差异在0.001左右，前向计算误差符合预期。反向计算每个step的global norm差异在0.05左右，反向计算差异不大；初步判断模型迁移代码正确，模型结构一致，前反向计算差异不大。
+长稳训练排查将由单卡实验扩展到多卡实验，先设置learning rate=0，即权重不更新。前向计算每个step的loss差异在0.001左右，前向计算误差符合预期。反向计算每个step的global norm差异在0.05左右，反向计算差异不大；初步判断模型迁移代码正确，模型结构一致，前反向计算差异不大。
 
 ![loss4](./image/loss4.png)
 
@@ -465,7 +465,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 * Weight decay实现不一致，用户PyTorch网络所有权重均进行weight decay。MindFormers中bias权重及一维权重默认不进行weight decay。
 
-修复问题后，再次进行实验，训练1万step， loss差异在0轴附近波动，且小于0.03， 精度符合预期，单卡精度对齐。
+修复问题后，再次进行实验，训练1万step，loss差异在0轴附近波动，且小于0.03， 精度符合预期，单卡精度对齐。
 
 完成单卡训练后，启动多卡训练测试：设置learning rate=1e-5，训练1千step。训练后期收敛一致，但训练中期存在稳定的0.05误差。
 
