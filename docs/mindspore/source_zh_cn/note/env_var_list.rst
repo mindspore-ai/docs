@@ -516,7 +516,7 @@ Dump调试
    * - MS_CUSTOM_DEPEND_CONFIG_PATH
      - 根据用户指定路径下的配置文件xxx.json插入控制边，在MindSpore中使用原语ops.Depend表达依赖控制关系。
      - String
-     - 该环境变量只在Ascend硬件平台图模式下使能。
+     - 该环境变量只在Atlas A2系列产品图模式下使能。
      - json文件包含的字段含义如下：
 
        get_full_op_name_list(bool)：是否生成算子名称列表，可选，默认为false。
