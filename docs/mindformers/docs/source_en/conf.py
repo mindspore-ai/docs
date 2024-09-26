@@ -126,9 +126,12 @@ def get_param_func(func):
         if hasattr(func, '__dataclass_fields__'):
             for k, v in getattr(func, '__dataclass_fields__').items():
                 if hasattr(v, 'default'):
-                    all_params += f'{k} = {v.default}, '
+                    if isinstance(v.default, str):
+                        all_params += f"{k} = '{v.default}', "
+                    else:
+                        all_params += f"{k} = {v.default}, "
                 else:
-                    all_params += f'{k}, '
+                    all_params += f"{k}, "
             all_params = all_params.strip(', ')
         else:
             if func.__doc__:
