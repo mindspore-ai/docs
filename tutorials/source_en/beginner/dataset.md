@@ -19,6 +19,7 @@ MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/en
 In addition, MindSpore's domain development library also provides a large number of preloaded datasets that can be downloaded and used with one click through the API. This tutorial will provide a detailed explanation of different dataset loading methods: custom datasets, standard format datasets, and common datasets, data transforms and batch methods.
 
 ```python
+import os
 import numpy as np
 from mindspore import dtype as mstype
 from mindspore.dataset import transforms
@@ -154,6 +155,10 @@ For those datasets that MindSpore does not support yet, it is suggested to conve
 Firstly, create a new `MindRecord` format dataset using the `MindRecord` format interface **FileWriter**, where each sample contains three fields: `filename`, `label`, and `data`.
 
 ```python
+if os.path.exists("./test.mindrecord"):
+    os.remove("./test.mindrecord")
+if os.path.exists("./test.mindrecord.db"):
+    os.remove("./test.mindrecord.db")
 writer = FileWriter(file_name="test.mindrecord", shard_num=1, overwrite=True)
 schema_json = {"file_name": {"type": "string"},
                "label": {"type": "int32"},
