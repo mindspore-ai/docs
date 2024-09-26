@@ -213,6 +213,13 @@
     :exclude-members: eval_batch_size, get_device_id, get_device_num, get_rank_id, local_process_index, process_index, set_evaluate, set_push_to_hub, set_testing, to_dict, to_json_string, train_batch_size, world_size
     :members:
 
+{% elif fullname in ["mindformers.AutoModelForCausalLM", "mindformers.AutoModelForZeroShotImageClassification", "mindformers.AutoModel"] %}
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :exclude-members: construct
+    :members: register, from_config, from_pretrained
+
 {% elif objname[0].istitle() %}
 {{ fullname | underline }}
 
