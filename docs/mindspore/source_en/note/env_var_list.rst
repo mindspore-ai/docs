@@ -510,7 +510,7 @@ Distributed Parallel
    * - MS_CUSTOM_DEPEND_CONFIG_PATH
      - Insert the control edge based on the configuration file xxx.json specified by the user, and use the primitive ops.Depend in MindSpore expresses the dependency control relationship.
      - String
-     - This environment variable is only enabled in Ascend hardware platform graph mode.
+     - This environment variable is only enabled in Atlas A2 series product graph mode.
      - The fields contained in the json file have the following meanings:
 
        get_full_op_name_list(bool): Whether to generate an operator name list, optional, default is false.
