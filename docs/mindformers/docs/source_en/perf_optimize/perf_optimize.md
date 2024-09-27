@@ -116,11 +116,11 @@ Note: $\hat{h}$ is ffn hidden size
 
 The complete MFU estimates for the Llama series are given below:
 
-![Llama_memory](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/per_optimize/images/llama_memory.png)
+![Llama_memory](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/llama_memory.png)
 
 HFU/MFU can be used for the evaluation of tokens/s/p for training performance. Generally HFU>50% is considered as better hardware utilization, for example, Llama2-7B is 4695tokens/s/p, which corresponds to MFU=57%, HFU=65% and is considered as more desirable results. For large-parameter models such as Llama2-70B, the MFU/HFU decays at a linear ratio as the parallel scale expands. [PaLM](https://arxiv.org/pdf/2204.02311.pdf) counts the MFU for several common large models.
 
-![PaLM-MFU](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/per_optimize/images/PaLM-MFU.png)
+![PaLM-MFU](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/PaLM-MFU.png)
 
 ### Introduction to Parallel Feature
 
@@ -134,7 +134,7 @@ For details, refer to [Parallel Strategy Guide](https://www.mindspore.cn/mindfor
 
 The dominant structures of the large models are transformer decoder only structures, which consist of two sublayers, self attention and ffn. A typical model Llama2 is shown below:
 
-![llama_layer](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/per_optimize/images/llama_layer.png)
+![llama_layer](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/llama_layer.png)
 
 #### Static Memory
 
@@ -142,7 +142,7 @@ Static memory is typically used to store model parameters, and the number of mod
 
 Taking the GPT structure as an example, the number of parameters of a transformer layer is shown below:
 
-![static_memory](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/per_optimize/images/static_memory.png)
+![static_memory](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/static_memory.png)
 
 The static memory mainly contains the parameters of the model and the state of the optimizer, if the gradient accumulation or pipeline parallelism is enabled, there will be one more gradient; setting N as the number of model parameters and t as the size of the optimizer parallelism (the default is equal to DP). The memory occupancy for each scenario is as follows:
 
@@ -252,7 +252,7 @@ MindStudio Insight tool provides users with the full process of online inference
 
 The Timeline interface consists of four parts: the toolbar (Area I), the timeline tree (Area II), the graphical pane (Area III), and the data pane (Area IV), as shown in the figure.
 
-![studio](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/per_optimize/images/studio.png)
+![studio](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/studio.png)
 
 * Area I
 
@@ -335,7 +335,7 @@ After completing the performance data as well as memory data collection, the ove
 
 Performance optimization is a cyclic process, as shown in the figure below, after the operator optimization is completed, it is necessary to conduct experimental analysis of the cluster distributed strategy, to analyze whether the communication time consumption is reasonable, whether there is additional re-arrangement of the distribution of the overhead; and then carry out the analysis of the memory optimization, after the memory optimization is completed, whether it can be re-adjusted to the cluster strategy settings, so as to obtain a more optimal set of policies. The cycle is repeated to optimize, and then step by step to achieve the set performance goals.
 
-![process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/per_optimize/images/process.png)
+![process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/process.png)
 
 After completing a round of performance optimization, it is also necessary to ensure that the model accuracy is aligned, and the alignment applies this optimization strategy.
 
@@ -373,7 +373,7 @@ The timeline.json captured by Profiling is analyzed by a visualization tool, and
 
 Use [profiler tool](#profiler-tool) to generate the file ascend_timeline_display_0.json, and then open the file by typing “chrome://tracing” in Chrome, or you can use [MindStudio Insight](#mindstudio-insight) to open it and parse out the corresponding timing diagram of the computational communication task flow. This is shown below:
 
-![timeline](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/per_optimize/images/timeline.png)
+![timeline](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/timeline.png)
 
 A computational gap exists after the wo-linear, and in conjunction with the IR diagram,
 
@@ -444,7 +444,7 @@ In practice, multiple parallelization strategies are usually used in combination
 
 RmsNorm is generally computed using float32, and the input needs to be Cast from fp16 or bf16 to fp32 before computation; RmsNorm needs to save the input for reverse computation. Therefore, recalculating Cast from fp16 to fp32 can save memory by changing the memory from the input of RmsNorm to the input of Cast, which is half the size of the input of RmsNorm.
 
-![cast](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/per_optimize/images/cast.png)
+![cast](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/cast.png)
 
 Doing recalculation from high precision to low precision Cast operators will result in the later operators originally only needing to store the low precision memory after cast, and after the Cast operators are recalculated, they need to store the high precision memory, which will instead result in a larger memory.
 
@@ -452,13 +452,13 @@ Doing recalculation from high precision to low precision Cast operators will res
 
 In FeedForward, the middle part of the memory tends to be large. Silu and Mul recomputation is less costly. Recomputing the Silu and Mul operators saves memory for the first inputs of MatMul and Mul of w2.
 
-![silu_mul](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/per_optimize/images/silu_mul.png)
+![silu_mul](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/silu_mul.png)
 
 #### Communication Recomputation
 
 With sequence parallel is turned on, RmsNorm slices at the sequence dimension, and then aggregates Tensor from different cards via AllGather for later MatMul computation. If AllGather is recalculated, each card only needs to store one copy of the memory before AllGather to achieve the effect of memory reduction.
 
-![communicate](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/per_optimize/images/communicate.png)
+![communicate](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/communicate.png)
 
 ### Memory Optimization
 
@@ -520,7 +520,7 @@ Performing recomputation on Silu and Mul saves memory when fine-grained multicop
 
   The inputs to the reverse operators of Silu and Mul are checked in the IR diagram to see if they are as expected, and there are Reshape operators between Silu and Mul, and between Mul and MatMul when fine-grained multicopy is off, and Silu, Mul, and MatMul are connected when fine-grained multicopy is on. The process is as follows:
 
-![reshape](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/per_optimize/images/reshape.png)
+![reshape](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/reshape.png)
 
 It can be seen that the cause is that the input shape of Linear in the fine-grained multicopy scenario is two-dimensional, while the input shape of Linear in the non-fine-grained multicopy scenario is three-dimensional, resulting in a Reshape operator between Linear and Mul, and the lack of Reshape recalculation results in recalculation of Silu alone being optimized. The additional recalculation of the Reshape results in a normal memory reduction. The reference configuration is as follows:
 
