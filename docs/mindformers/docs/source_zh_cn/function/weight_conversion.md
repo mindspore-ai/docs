@@ -11,7 +11,7 @@ MindFormers提供了统一的权重转换工具，能够将模型权重在Huggin
 
 ## 转换步骤
 
-要进行权重转换，请执行`mindformers/convert_weight.py`
+要进行权重转换，首先请将待转换模型的HuggingFace仓库完整克隆到本地，然后执行`mindformers/convert_weight.py`
 脚本。该脚本能够自动将HuggingFace的模型权重文件转换为适用于MindFormers的权重文件。如若希望将MindFormers权重转为HuggingFace权重，请将
 `reversed`设置为`True`。
 
