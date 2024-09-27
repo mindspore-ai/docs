@@ -8,29 +8,8 @@ A: 模型切分策略文件记录了模型权重在分布式场景下的切分�
 
 <br/>
 
-## Q: 生成`rank_table`文件报错`socket.gaierror: [Errno -2] Name or service not known`或者`socket.gaierror: [Errno -3] Temporary failure in name resolution`，怎么解决？
+## Q: 生成`ranktable`文件报错`socket.gaierror: [Errno -2] Name or service not known`或者`socket.gaierror: [Errno -3] Temporary failure in name resolution`，怎么解决？
 
-A: 主要原因是在`docker`中运行时，需要先获取到主机名。可以通过如下脚本获取主机名，如`xxxx42`
-
-```python
-import socket
-
-def get_host_name():
-    try:
-        hostname = socket.gethostname()
-        print(f"Hostname: {hostname}")
-    except EOFError:
-        pass
-
-get_host_name()
-```
-
-然后将主机名添加到`/etc/hosts`中：
-
-```text
-127.0.0.1 xxxx42
-```
-
-再运行`hccl_tools.py`就可以了。
+A: 从`MindFormers r1.2.0`版本开始，集群启动统一使用`msrun`方式，`ranktable`启动方式已废弃。
 
 <br/>
