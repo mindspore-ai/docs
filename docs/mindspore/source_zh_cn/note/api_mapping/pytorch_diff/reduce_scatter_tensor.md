@@ -28,7 +28,7 @@ return_tensor = reduce_scatter_tensor(
 )
 ```
 
-更多内容详见[mindspore.communication.comm_func.reduce_scatter_tensor](https://www.mindspore.cn/docs/en/master/api_python/communication/mindspore.communication.comm_func.reduce.html#mindspore.communication.comm_func.reduce_scatter_tensor)。
+更多内容详见[mindspore.communication.comm_func.reduce_scatter_tensor](https://www.mindspore.cn/docs/zh-CN/master/api_python/communication/mindspore.communication.comm_func.reduce_scatter_tensor.html#mindspore.communication.comm_func.reduce_scatter_tensor)。
 
 ## 差异对比
 
