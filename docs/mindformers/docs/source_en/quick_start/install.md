@@ -42,7 +42,7 @@ mf.run_check()
 A similar result as below proves that the installation was successful:
 
 ```text
-- INFO - MindFormers version: 1.2.0
+- INFO - MindFormers version: 1.3.0
 - INFO - MindSpore version: 2.3.0
 - INFO - Ascend-cann-toolkit version: 8.0.RC2
 - INFO - Ascend driver version: 24.1.rc2
