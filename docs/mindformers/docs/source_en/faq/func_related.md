@@ -8,29 +8,8 @@ A: The model sharding strategy file documents the sharding strategy for model we
 
 <br/>
 
-## Q: How Can I Do When `socket.gaierror: [Errno -2] Name or service not known` or `socket.gaierror: [Errno -3] Temporary failure in name resolution` is Reported in `rank_table` Generation File?
+## Q: How Can I Do When `socket.gaierror: [Errno -2] Name or service not known` or `socket.gaierror: [Errno -3] Temporary failure in name resolution` is Reported in `ranktable` Generation File?
 
-A: The main reason for this is that when running in `docker`, you need to get the hostname first. You can get the hostname by using a script like `xxxx42`.
-
-```python
-import socket
-
-def get_host_name():
-    try:
-        hostname = socket.gethostname()
-        print(f"Hostname: {hostname}")
-    except EOFError:
-        pass
-
-get_host_name()
-```
-
-Then add the hostname to `/etc/hosts`:
-
-```text
-127.0.0.1 xxxx42
-```
-
-Just run `hccl_tools.py` again.
+A: Starting from `MindFormers r1.2.0` version, cluster startup is unified using `msrun` method, and `ranktable` startup method is deprecated.
 
 <br/>
