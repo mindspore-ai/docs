@@ -133,7 +133,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: add_flags_custom, prepare_inputs_for_predict_layout, to_embeddings, construct
+    :exclude-members: add_flags_custom, prepare_inputs_for_predict_layout, to_embeddings, construct, prepare_inputs_for_prefill_flatten
     :members:
 
 {% elif fullname=="mindformers.models.LlamaTokenizer" %}
