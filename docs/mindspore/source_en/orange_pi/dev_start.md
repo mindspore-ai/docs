@@ -31,7 +31,7 @@ mindspore.set_context(max_device_memory="2GB", mode=mindspore.GRAPH_MODE, device
 
 ## Processing Dataset
 
-MindSpore provides a Pipeline-based [data engine](https://www.mindspore.cn/docs/en/r2.3.0/design/data_engine.html) to realize efficient data preprocessing through [data loading and processing](https://www.mindspore.cn/tutorials/en/r2.3.0/beginner/transforms.html) to realize efficient data preprocessing. In this case, we use the Mnist dataset, which is automatically downloaded and then preprocessed using the data transforms provided by `mindspore.dataset`.
+MindSpore provides a Pipeline-based [data engine](https://www.mindspore.cn/docs/en/master/design/data_engine.html) to realize efficient data preprocessing through [data loading and processing](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) to realize efficient data preprocessing. In this case, we use the Mnist dataset, which is automatically downloaded and then preprocessed using the data transforms provided by `mindspore.dataset`.
 
 ```python
 # Download data from open datasets
