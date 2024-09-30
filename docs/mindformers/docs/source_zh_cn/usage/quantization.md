@@ -62,15 +62,15 @@ pip show mindspore_gs
        algorithm_args: {}
    ```
 
-   | 参数                   | 属性 | 功能描述                                          | 参数类型  | 取值范围             |
-   | ---------------------- | ---- |:----------------------------------------------| --------- |------------------|
-   | quant_method           | 必选 | 支持的量化算法，目前只支持RTN/Smooth_Quant/PTQ算法               | str       | rtn/smooth_quant/ptq |
-   | weight_dtype           | 必选 | 量化的weight类型，目前只支持int8                         | str       | int8/None           |
-   | activation_dtype       | 必选 | 参数的激活类型，None表示维持网络原计算类型(compute_dtype)不变      | str       | int8/None        |
-   | kvcache_dtype          | 可选 | KVCache量化类型，None和不配置表示维持原KVCache数据类型不变        | str       | int8/None        |
-   | outliers_suppression   | 可选 | 异常值抑制使用的算法类型，目前仅支持smooth平滑抑制        | str       | smooth/None        |
-   | modules_to_not_convert | 必选 | 配置不进行量化的层                                     | List[str] | /                |
-   | algorithm_args         | 必选 | 对接金箍棒不同的算法类型配置，例如：smooth_quant算法需要配置alpha=0.5 | Dict      | /                |
+   | 参数                   | 属性 | 功能描述                                                             | 参数类型  | 取值范围             |
+   | ---------------------- | ---- |:-----------------------------------------------------------------| --------- |------------------|
+   | quant_method           | 必选 | 支持的量化算法，目前只支持RTN/Smooth_Quant/PTQ算法                              | str       | rtn/smooth_quant/ptq |
+   | weight_dtype           | 必选 | 量化的weight类型，目前只支持int8                                            | str       | int8/None           |
+   | activation_dtype       | 必选 | 参数的激活类型，None表示维持网络原计算类型(compute_dtype)不变                         | str       | int8/None        |
+   | kvcache_dtype          | 可选 | KVCache量化类型，None和不配置表示维持原KVCache数据类型不变                           | str       | int8/None        |
+   | outliers_suppression   | 可选 | 异常值抑制使用的算法类型，目前仅支持smooth平滑抑制                                     | str       | smooth/None        |
+   | modules_to_not_convert | 必选 | 配置不进行量化的层                                                        | List[str] | /                |
+   | algorithm_args         | 必选 | 对接MindSpore Golden Stick不同的算法类型配置，例如：smooth_quant算法需要配置alpha=0.5 | Dict      | /                |
 
 5. **执行推理任务：**
    基于`generate`接口实现推理脚本，执行脚本即可得到推理结果。

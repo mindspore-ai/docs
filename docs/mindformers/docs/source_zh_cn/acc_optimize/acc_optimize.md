@@ -24,20 +24,20 @@
 
 * 通用结构（以Llama2为例）
 
-| 关键参数          | 说明                                                         | 检查项                                                                                                                                |
-| ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
-| num_layers        | transformer层数                                              | 检查是否与标杆保持一致                                                                                                                        |
-| num_heads         | transformer中attention heads数量                             | 检查是否与标杆保持一致                                                                                                                        |
-| hidden_size       | transformer隐藏层大小                                        | 检查是否与标杆保持一致                                                                                                                        |
-| intermediate_size | Feed-Forward Network的隐藏层大小                             | intermediate_size对应Megatron中ffn-hidden-size参数。MindFormers中若不配置，则通过multiple_of与ffn_dim_multiplier计算得到，检查是否与标杆保持一致。                  |
-| Attention         | transformer中的attention模块                                 | </br>- 检查以下结构及计算方式是否对齐：attention结构有MQA、GQA、MHA等不同结构。</br>- 稀疏计算模式：Causal/sliding window attention(SWA)等。</br>- wq/wk/wv的矩阵是否有融合计算。 |
-| normalization     | 正则化函数，常见结构有LayerNorm、RMSNorm                     | 检查是否与标杆保持一致                                                                                                                        |
-| normal_eps        | 正则化的epsilon参数                                          | 检查是否与标杆保持一致                                                                                                                        |
-| dropout           | 网络中的dropout                                              | 当前MindSpore开启Dropout时，不能开重计算；若进行精度比对建议双边都关闭，减少随机因素。                                                                                |
-| 激活函数          | 常见的激活函数ReLU/GeLU/FastGeLU/SwigLU等                    | 检查是否与标杆保持一致                                                                                                                        |
-| 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 同硬件下进行精度比对时，若有使用融合算子，则需要保持一致。不同硬件下进行精度比对时，则重点检查融合计算部分是否有计算差异。                                                                     |
-| 位置编码          | /                                                            | 检查使用位置编码的方式：绝对/相对位置编码。                                                                                                             |
-| vocab_size        | 词表大小                                                     | vocab size建议为16的倍数；若奇数，可能会影响matmul的计算结果。在预训练场景，可以通过修改参数来改变词表大小。在SFT场景，如果预训练权重的词表为奇数，需要对权重进行pad。                                    |
+| 关键参数          | 说明                                                | 检查项                                                                                                                                |
+| ----------------- |---------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| num_layers        | transformer层数                                     | 检查是否与标杆保持一致                                                                                                                        |
+| num_heads         | transformer中attention heads数量                     | 检查是否与标杆保持一致                                                                                                                        |
+| hidden_size       | transformer隐藏层大小                                  | 检查是否与标杆保持一致                                                                                                                        |
+| intermediate_size | Feed-Forward Network的隐藏层大小                        | intermediate_size对应Megatron中ffn-hidden-size参数。MindFormers中若不配置，则通过multiple_of与ffn_dim_multiplier计算得到，检查是否与标杆保持一致。                  |
+| Attention         | transformer中的attention模块                          | </br>- 检查以下结构及计算方式是否对齐：attention结构有MQA、GQA、MHA等不同结构。</br>- 稀疏计算模式：Causal/sliding window attention(SWA)等。</br>- Wq/Wk/Wv的矩阵是否有融合计算。 |
+| normalization     | 正则化函数，常见结构有LayerNorm、RMSNorm                      | 检查是否与标杆保持一致                                                                                                                        |
+| normal_eps        | 正则化的epsilon参数                                     | 检查是否与标杆保持一致                                                                                                                        |
+| dropout           | 网络中的Dropout                                       | 当前MindSpore开启Dropout时，不能开重计算；若进行精度比对建议双边都关闭，减少随机因素。                                                                                |
+| 激活函数          | 常见的激活函数ReLU/GeLU/FastGeLU/SwigLU等                 | 检查是否与标杆保持一致                                                                                                                        |
+| 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 同硬件下进行精度比对时，若有使用融合算子，则需要保持一致。不同硬件下进行精度比对时，则重点检查融合计算部分是否有计算差异。                                                                      |
+| 位置编码          | /                                                 | 检查使用位置编码的方式：绝对/相对位置编码。                                                                                                             |
+| vocab_size        | 词表大小                                              | vocab size建议为16的倍数；若奇数，可能会影响matmul的计算结果。在预训练场景，可以通过修改参数来改变词表大小。在SFT场景，如果预训练权重的词表为奇数，需要对权重进行pad。                                    |
 
 * MOE结构
 
@@ -76,17 +76,17 @@
 
 ### 混合精度CheckList
 
-| 关键参数               | 说明                                                         | 检查项                                                       |
-| ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| compute_dtype          | 计算精度                                                     | 与标杆保持一致                                               |
-| layernorm_compute_type | layerNorm/RMSNorm的计算精度                                  | Megatron不可配置，需要检查实现是否保持一致。                 |
-| softmax_compute_type   | MindSpore使用FlashAttention时，内部Softmax固定用FA计算。     | Megatron不可配置，需要检查实现是否保持一致。                 |
-| 各权重计算             | embedding、lm_head等各权重精度计算，仅在小算子拼接实现时可配置计算类型 | Megatron不可配置，需要检查实现是否保持一致。                 |
-| rotary_dtype           | 旋转位置编码的计算精度                                       | 由于MindFormers权重初始化需要设置为fp32，而通常计算精度为bf16/fp16，需要检查权重计算前，是否将权重数据类型转为bf16/fp16。 |
-| bias add               | 线性层的Bias                                                 | 线性层若有bias，检查add的计算精度是否一致。                  |
-| residual add           | 残差相加                                                     | 检查残差的计算精度是否与标杆一致                             |
-| loss                   | loss计算模块                                                 | 检查整个loss模块的计算精度是否与标杆一致                     |
-| 算子高精度模式         | 昇腾算子支持高精度模式                                       | 开启方式：  context.set_context(ascend_config=  {"ge_options":{  "global":{  "ge.opSelectImplmode":"high_precision"  }  }  }) |
+| 关键参数               | 说明                                           | 检查项                                                       |
+| ---------------------- |----------------------------------------------| ------------------------------------------------------------ |
+| compute_dtype          | 计算精度                                         | 与标杆保持一致                                               |
+| layernorm_compute_type | layerNorm/RMSNorm的计算精度                       | Megatron不可配置，需要检查实现是否保持一致。                 |
+| softmax_compute_type   | MindSpore使用FlashAttention时，内部Softmax固定用FA计算。 | Megatron不可配置，需要检查实现是否保持一致。                 |
+| 各权重计算             | embedding、lm_head等各权重精度计算，仅在小算子拼接实现时可配置计算类型  | Megatron不可配置，需要检查实现是否保持一致。                 |
+| rotary_dtype           | 旋转位置编码的计算精度                                  | 由于MindFormers权重初始化需要设置为fp32，而通常计算精度为bf16/fp16，需要检查权重计算前，是否将权重数据类型转为bf16/fp16。 |
+| bias add               | 线性层的bias                                     | 线性层若有bias，检查add的计算精度是否一致。                  |
+| residual add           | 残差相加                                         | 检查残差的计算精度是否与标杆一致                             |
+| loss                   | loss计算模块                                     | 检查整个loss模块的计算精度是否与标杆一致                     |
+| 算子高精度模式         | 昇腾算子支持高精度模式                                  | 开启方式：  context.set_context(ascend_config=  {"ge_options":{  "global":{  "ge.opSelectImplmode":"high_precision"  }  }  }) |
 
 ### 并行策略CheckList
 
@@ -325,7 +325,7 @@ def get_parameters(self):
 
 ![local norm](./image/local_norm.png)
 
-可发现在该图示的场景下，model.tok_embeddings.embedding_weight的local norm 值差异较大，可重点排查embedding的实现及计算精度等。
+可发现在该图示的场景下，model.tok_embeddings.embedding_weight的local norm值差异较大，可重点排查embedding的实现及计算精度等。
 
 Local norm值仅作为反向计算是否正确的初步判断，若要深入对比反向计算，需要通过Dump工具逐层对比MindSpore及PyTorch反向计算值。
 
@@ -443,7 +443,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 在定位前，先对照CheckList进行检查，确认无误后启动问题的定位。
 
-首先step1的loss对齐确认没问题。对比step1的local norm，计算每个权重的Local norm值与标杆的差异，Embedding权重的local norm值与标杆的差异大。
+首先step1的loss对齐确认没问题。对比step1的local norm，计算每个权重的local norm值与标杆的差异，Embedding权重的local norm值与标杆的差异大。
 
 ![local norm](./image/local_norm.png)
 
@@ -471,7 +471,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 ![loss6](./image/loss6.png)
 
-为验证该误差为合理范围内，关闭确定性计算，重复跑两次GPU实验。图中红线为MindSpore训练的曲线，蓝色、绿色线分别是第一次、第二次GPU训练的曲线。在7K step左右训练不稳定处，MindSpore训练的曲线正处于两次GPU训练的曲线之间，说明误差处于合理范围内，问题最终解决。
+为验证该误差为合理范围内，关闭确定性计算，重复跑两次GPU实验。图中红线为MindSpore训练的曲线，蓝色、绿色线分别是第一次、第二次GPU训练的曲线。在7千step左右训练不稳定处，MindSpore训练的曲线正处于两次GPU训练的曲线之间，说明误差处于合理范围内，问题最终解决。
 
 ![loss7](./image/loss7.png)
 

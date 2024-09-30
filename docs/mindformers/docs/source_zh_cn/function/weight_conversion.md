@@ -113,7 +113,7 @@ def convert_pt_to_ms(input_path, output_path, dtype=None, **kwargs):
     return True
 ```
 
-而若是希望转换MindFormers权重至HuggingFace权重，则需在[convert_reversed.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_reversed.py)内定义`conver_ms_to_pt`函数：
+而若是希望转换MindFormers权重至HuggingFace权重，则需在[convert_reversed.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_reversed.py)内定义`convert_ms_to_pt`函数：
 
 ```python
 def convert_ms_to_pt(input_path, output_path, dtype=None, **kwargs):
