@@ -35,7 +35,7 @@ MindFormers目前已经支持业界主流大模型，该实践流程选择以Lla
 
 ### 数据预处理
 
-其中Llama2-7B的数据集处理可参考[Wikitext2数据预处理](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md)，Llama3-70B的数据集处理可参考[Wiki103数据预处理](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3.md)。
+其中Llama2-7B的数据集处理可参考[Wikitext2数据预处理](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#数据及权重准备)，Llama3-70B的数据集处理可参考[Wiki103数据预处理](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3.md#数据集及权重准备)。
 
 ## 执行预训练任务
 
