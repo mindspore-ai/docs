@@ -13,6 +13,6 @@ The following operations are based on the OrangePi AIpro 8-12TOPS 16G developmen
    :glob:
    :maxdepth: 1
 
-   dev_start
-   debug
+   environment_setup
    model_infer
+   dev_start
