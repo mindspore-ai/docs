@@ -74,13 +74,13 @@ python convert_weight.py --model llama2 --input_path /home/user/torch_weights --
 ## 未支持模型权重转换开发
 
 1. 在扩展模型目录下新增`convert_weight.py`及`convert_reversed.py`文件。
-2. 在文件中分别编写`conver_pt_to_ms`及`conver_ms_to_pt`权重转换函数，函数参数为`input_path`、`output_path`、`dtype`及额外参数`**kwargs`。
+2. 在文件中分别编写`convert_pt_to_ms`及`convert_ms_to_pt`权重转换函数，函数参数为`input_path`、`output_path`、`dtype`及额外参数`**kwargs`。
 3. 在MindFormers根目录下`convert_weight.py`文件中的`convert_map`和`reversed_convert_map`字典中加入扩展模型名称及转换函数引入路径。
 4. 额外参数在`main`函数中通过调用`parser.add_argument()`方法新增。
 
 ## 模型权重转换开发示例
 
-此处以Llama为例。如若希望转换HuggingFace权重至MindFormers权重，需在[convert_weight.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_weight.py)内定义`conver_pt_to_ms`函数：
+此处以Llama为例。如若希望转换HuggingFace权重至MindFormers权重，需在[convert_weight.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_weight.py)内定义`convert_pt_to_ms`函数：
 
 ```python
 def convert_pt_to_ms(input_path, output_path, dtype=None, **kwargs):

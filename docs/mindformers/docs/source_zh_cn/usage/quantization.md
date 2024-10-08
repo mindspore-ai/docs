@@ -108,6 +108,7 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
 | llama2-13b      | [llama2-13b-fp16.ckpt](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/llama2-13b-fp16.ckpt) | [Llama-2-13b-hf](https://huggingface.co/meta-llama/Llama-2-13b-hf) |
 
 > 注：Llama2的所有权重都需要通过向Meta[提交申请](https://ai.meta.com/resources/models-and-libraries/llama-downloads)来获取，如有需要请自行申请。
+
 ### 模型权重转换
 
 进入mindspore_gs库根目录`golden-stick`，执行量化权重转换脚本

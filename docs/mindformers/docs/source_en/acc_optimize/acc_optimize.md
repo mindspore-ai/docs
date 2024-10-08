@@ -24,8 +24,8 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 * Generalized structure (Llama2 as an example)
 
-| Key parameters          | Descriptions                                                         | CheckList                                                                                                                                |
-| ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
+| Key parameters          | Descriptions            | CheckList    |
+| ----------------- | ------------------------- |---------------------------------|
 | num_layers        | transformer layers                                              | Check for alignment with benchmarks                                                                                                                        |
 | num_heads         | The number of attention heads in transformer                     | Check for alignment with benchmarks                                                                                                                        |
 | hidden_size       | Transformer hidden layer size                                        | Check for alignment with benchmarks                                                                                                                        |
@@ -33,7 +33,7 @@ Before locating the operator accuracy problem, we should first eliminate the int
 | Attention         | Attention module in transformer                                 | </br>- Check that the following structures and calculations are aligned: the attention structure has different structures such as MQA, GQA, and MHA.</br>- Sparse computational models: causal/sliding window attention (SWA), etc.</br>- Whether the matrix of wq/wk/wv has a fusion computation. |
 | normalization     | Regularization functions, common structures are LayerNorm, RMSNorm                     | Check for alignment with benchmarks                                                                                                                        |
 | normal_eps        | Regularized epsilon parameters                                          | Check for alignment with benchmarks                                                                                                                        |
-| dropout           | dropout in the network                                             | Currently, when MindSpore opens Dropout, recalculation cannot be enabled; if precision comparison is carried out, it is recommended that both sides be closed to reduce the random factor.                                                                                |
+| dropout           | Dropout in the network                                             | Currently, when MindSpore opens Dropout, recalculation cannot be enabled; if precision comparison is carried out, it is recommended that both sides be closed to reduce the random factor.                                                                                |
 | activation function          | Common activation functions ReLU/GeLU/FastGeLU/SwigLU etc.                    | Check for alignment with benchmarks                                                                                                                        |
 | fusion computation          | Common fusion operators include FA, ROPE, Norm, SwigLU; some users will fuse Wq, Wk, Wv for computation | When comparing accuracy on the same hardware, if fusion algorithms are used, they need to be consistent. When comparing accuracy on different hardware, focus on checking whether there are differences in the fusion calculation.                                                                     |
 | position code          | /                                                            | Check the way to use positional coding: absolute/relative positional coding.                                                                                                             |
@@ -76,14 +76,14 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 ### Mixed-precision CheckList
 
-| Key parameters          | Descriptions                                                         | CheckList                                                                                                                                |
-| ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
+| Key parameters          | Descriptions     | CheckList                |
+| ----------------- | ----------------------------------------- |---------------------------------------|
 | compute_dtype          | Compute accuracy                                                     | Keep alignment with benchmarks                                               |
 | layernorm_compute_type | layerNorm/RMSNorm compute precision | Megatron is not configurable, need to check that implementations are consistent.                 |
 | softmax_compute_type   | When MindSpore uses FlashAttention, the internal Softmax fix is calculated with FA.     | Megatron is not configurable, needs to check if the implementation is consistent.                 |MindSpore
 | Calculation of weights             | accuracy calculation for each weight such as, Embedding, lm_head, type of calculation is configurable only for small arithmetic splicing implementations | Megatron is not configurable, need to check that implementations are consistent.                 |
 | rotary_dtype           | Calculation accuracy of rotary position encoding                                       | Since MindFormers weight initialization needs to be set to fp32, and the usual calculation precision is bf16/fp16, it is necessary to check whether the weight data type is converted to bf16/fp16 before weight calculation. |
-| bias add               | Bias in the linear layer                                                 | If bias is present, Linear layer checks consistency in the computational accuracy of add.                  |
+| bias add               | bias in the linear layer                                                 | If bias is present, Linear layer checks consistency in the computational accuracy of add.                  |
 | residual add           | sum of residuals                                                     | Check that the accuracy of the calculation of the residuals is consistent with the benchmarks                             |
 | loss                   | Loss Calculation Module                                                 | Check that the accuracy of the calculation of the entire loss module is consistent with the benchmarks                     |
 | Operator High Precision Mode         | Ascend Calculator supports high precision mode                                       | Method:  context.set_context(ascend_config=  {"ge_options":{  "global":{  "ge.opSelectImplmode":"high_precision"  }  }  }) |
@@ -469,7 +469,7 @@ After completing the single card training, start the multi-card training test: s
 
 ![loss6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss6.png)
 
-To verify that this error is within reasonable limits, the deterministic computation was turned off and the GPU experiment was run twice repeatedly. The red line in the figure is the curve of MindSpore training, and the blue and green lines are the curves of the first and second GPU training, respectively. At the training instability around 7K steps, the curve of MindSpore training is right between the curves of the two GPU trainings, indicating that the error is within a reasonable range and the problem is finally solved.
+To verify that this error is within reasonable limits, the deterministic computation was turned off and the GPU experiment was run twice repeatedly. The red line in the figure is the curve of MindSpore training, and the blue and green lines are the curves of the first and second GPU training, respectively. At the training instability around 7000 steps, the curve of MindSpore training is right between the curves of the two GPU trainings, indicating that the error is within a reasonable range and the problem is finally solved.
 
 ![loss7](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss7.png)
 
