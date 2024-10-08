@@ -145,7 +145,7 @@ config：            模型的配置文件，文件在MindFormers代码仓中con
 load_checkpoint：   checkpoint文件的路径
 train_dataset_dir： 训练数据集路径
 use_parallel：      是否开启并行
-run_mode：          运行模式，train：训练，fintune：微调，predict：推理
+run_mode：          运行模式，train：训练，finetune：微调，predict：推理
 ```
 
 任务执行完成后，在mindformers/output目录下，会生成checkpoint文件夹，同时模型文件会保存在该文件夹下。
@@ -156,7 +156,7 @@ run_mode：          运行模式，train：训练，fintune：微调，predict�
 
 1. 增加启动脚本入参`--load_checkpoint /{path}/llama2_7b.ckpt`加载预训练权重。
 2. 设置启动脚本中的`--train_dataset_dir /{path}/alpaca-fastchat4096.mindrecord`加载微调数据集。
-3. 设置启动脚本中的`--run_mode finetune`，run_mode表示运行模式，train：训练，fintune：微调，predict：推理。
+3. 设置启动脚本中的`--run_mode finetune`，run_mode表示运行模式，train：训练，finetune：微调，predict：推理。
 
 任务执行完成后，在mindformers/output目录下，会生成checkpoint文件夹，同时模型文件会保存在该文件夹下。
 

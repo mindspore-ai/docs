@@ -96,5 +96,3 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  --use_parallel True \
  --run_mode finetune" 8
 ```
-
-
