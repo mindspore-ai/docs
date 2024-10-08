@@ -48,7 +48,7 @@ When data sinking and graph sinking are enabled, the computed results of each it
 
 ![loop-sink](./images/image-loop-sink.png)
 
-The users control the number of sink iterations per epoch through the `dataset_sink_mode` and `sink_size` parameters of the [train](https://mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train) interface, and the Device side executes `sink_size` iterations consecutively before returning to the Host.
+The users control the number of sink iterations per epoch through the `dataset_sink_mode` and `sink_size` parameters of the [train](https://mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model.train) interface, and the Device side executes `sink_size` iterations consecutively before returning to the Host. Currently MindSpore defaults to single-operator execution, in which case Device-Host interactions are performed every iteration, which is equivalent to setting to sink_size=1.
 
 ## Usage
 

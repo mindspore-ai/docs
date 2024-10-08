@@ -8,7 +8,7 @@
 
 ## 自定义算子
 
-当开发网络遇到内置算子不足以满足需求时，可以利用MindSpore的Python API中的 `Custom <https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom>`_ 原语方便快捷地进行不同类型自定义算子的定义和使用。
+当开发网络遇到内置算子不足以满足需求时，可以利用MindSpore的Python API中的 [Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语方便快捷地进行不同类型自定义算子的定义和使用。
 
 ## 自定义神经网络层
 
@@ -31,7 +31,7 @@ MindSpore提供了多种网络参数初始化的方式，并在部分算子中�
 
 ## 自定义优化器
 
-MindSpore中的nn模块提供了常用的优化器，如nn.SGD、nn.Adam、nn.Momentum等，当这些优化器如法满足开发需求时，用户可以自定义优化器。
+MindSpore中的nn模块提供了常用的优化器，如nn.SGD、nn.Adam、nn.Momentum等，当这些优化器无法满足开发需求时，用户可以自定义优化器。
 
 ## Hook编程
 
