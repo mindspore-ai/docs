@@ -20,7 +20,7 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
 
 2. 数据预处理
 
-    1. 执行[mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，使用fastchat工具添加prompts模板，将原始数据集转换为多轮对话格式。
+    1. 执行[mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，使用fastchat工具添加prompt模板，将原始数据集转换为多轮对话格式。
 
         ```shell
 

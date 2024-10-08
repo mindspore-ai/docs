@@ -134,4 +134,4 @@ Llama3-8B的参数命名和Llama2-7B一致，因此可以复用Llama2-7B的权�
 
 由于Llama3-8B的分词器与Llama2-7B不同，因此Llama3-8B需要在Llama2-7B的数据集处理脚本的基础上，替换Llama3-8B的分词器对数据进行预处理，参考[conversation.py](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/conversation.py)和[llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama_preprocess.py)。
 
-关于MindFormers中Llama3的具体实现，可以参考MindFormers仓库中[Llama3的文件夹](https://gitee.com/mindspore/mindformers/tree/dev/research/llama3)。关于MindFormers中Llama3的使用，可以参考[LLama3的说明文档](https://gitee.com/mindspore/mindformers/tree/dev/research/llama3)。
+关于MindFormers中Llama3的具体实现，可以参考MindFormers仓库中[Llama3的文件夹](https://gitee.com/mindspore/mindformers/tree/dev/research/llama3)。关于MindFormers中Llama3的使用，可以参考[LLama3的说明文档](https://gitee.com/mindspore/mindformers/tree/dev/research/llama3/llama3.md)。
