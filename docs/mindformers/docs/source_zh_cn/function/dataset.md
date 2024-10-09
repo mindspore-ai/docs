@@ -16,39 +16,57 @@ MindRecord 文件通常包含了模型训练所需的输入样本，这些样本
 MindRecord 模块提供了一些方法帮助用户将不同数据集转换为 MindRecord 格式，
 用户可以使用由 MindSpore 提供的 FileWriter 接口生成 MindRecord 格式数据集。
 
-下面提供一个基于 json 格式文件制作 MindRecord 数据集的案例：
+下面将以 Llama2 为例，提供一个基于 json 格式文件制作 MindRecord 数据集的案例：
 
-1. 读取 json 文件；
+1. 准备 json 文件；
+
+   准备类似这样的 json 文件，命名为 `mydata.json` ：
+
+   ```json
+   [
+      {
+        "input_ids": "I love Beijing, because it is a city that beautifully blends rich history with modern vibrancy."
+      },
+      {
+        "input_ids": "I love Hangzhou, because it is a city that seamlessly combines natural beauty with rich cultural heritage."
+      }
+   ]
+   ```
+
+2. 读取 json 文件；
 
    ```python
    import json
 
    raw_data = None
-   file = open("my_json_file.Json", "r")  # 打开 json 文件
+   file = open("mydata.json", "r")  # 打开 json 文件
    if file is not None:
       raw_data = json.load(file)  # 读取 json 文件到 raw_data 中
       file.close()
    ```
 
-2. 定义一个 MindRecord 的 ``schema`` ，并创建一个 ``FileWriter`` 对象；
+3. 定义一个 MindRecord 的 ``schema`` ，并创建一个 ``FileWriter`` 对象；
 
     ```python
     from mindspore.mindrecord import FileWriter
 
     # 定义一个 MindRecord 的 schema
-    schema = {'input_ids': {"type": "int32", "shape": [-1]}, 'labels': {"type": "int32", "shape": [-1]}}
+    schema = {'input_ids': {"type": "int32", "shape": [-1]}}
     # 创建一个 FileWriter 对象
     writer = FileWriter(file_name="output_file", shard_num=1)
     writer.add_schema(schema, "dataset_type")
     ```
 
-3. 遍历处理 json 文件中的每一个问答对，将其转换为 MindRecord 格式，并写入 MindRecord 文件中。
+4. 遍历处理 json 文件中的每一条数据，将其转换为 MindRecord 格式，并写入 MindRecord 文件中。
+
+   词表下载链接： [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/tokenizer.model)
 
     ```python
-    from internlm_tokenizer import InternLMTokenizer
+    import numpy as np
+    from mindformers import LlamaTokenizer
 
     def tokenize_json(tokenizer, raw_data):
-    """tokenize json file dataset"""
+        """tokenize json file dataset"""
         content = [] # 读取每个 json 数据，获取其 "input_ids"
         for line in raw_data:
             stripped_line = line.strip()
@@ -62,10 +80,10 @@ MindRecord 模块提供了一些方法帮助用户将不同数据集转换为 Mi
             yield sample
 
     # 将文本数据分词
-    word_tokenizer = LlamaTokenizer(vocab_file=r"my_tokenizer.model")
+    word_tokenizer = LlamaTokenizer(vocab_file=r"tokenizer.model")
 
-    # 遍历处理 json 文件中的每一个问答对，将其转化为 MindRecord 格式后写入 MindRecord 文件
-    # tokenize_json 为自定义的对 json 中对话数据进行分词的方法
+    # 遍历处理 json 文件中的每一条数据，将其转化为 MindRecord 格式后写入 MindRecord 文件
+    # tokenize_json 为自定义的对 json 中数据进行分词的方法
     for x in tokenize_json(word_tokenizer, raw_data):
         writer.write_raw_data([x])
     writer.commit()
