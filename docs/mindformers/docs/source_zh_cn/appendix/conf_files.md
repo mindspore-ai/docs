@@ -14,14 +14,14 @@ MindFormers提供的`YAML`文件中包含对于不同功能的配置项，下面
 
 基础配置主要用于指定MindSpore随机种子以及加载权重的相关设置。
 
-| 参数              | 说明                                                                                                                                                                                                                      | 类型   |
-|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
-| seed            | 设置全局种子，详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)                                                                                               | int  |
-| run_mode        | 设置模型的运行模式，可选`train`、`finetune`、`eval`或`predict`                                                                                                                                                                       | str  |
-| output_dir      | 设置保存log、checkpoint、strategy等文件的路径                                                                                                                                                                                     | str  |
+| 参数              | 说明                                                                                                                                                                                                                   | 类型   |
+|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
+| seed            | 设置全局种子，详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)                                                                                            | int  |
+| run_mode        | 设置模型的运行模式，可选`train`、`finetune`、`eval`或`predict`                                                                                                                                                                      | str  |
+| output_dir      | 设置保存log、checkpoint、strategy等文件的路径                                                                                                                                                                                    | str  |
 | load_checkpoint | 加载权重的文件或文件夹路径，目前有3个应用场景：<br/>1. 支持传入完整权重文件路径<br/>2. 支持传入离线切分后的权重文件夹路径<br/>3. 支持传入包含lora权重和base权重的文件夹路径<br/>各种权重的获取途径可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html) | str  |
-| auto_trans_ckpt | 开启在线权重自动转换功能，详情可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)                                                                                                      | bool |
-| resume_training | 开启断点续训功能，详情可参考[断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)                                                                                                               | bool |
+| auto_trans_ckpt | 是否开启在线权重自动转换功能，详情可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)                                                                                                    | bool |
+| resume_training | 是否开启断点续训功能，详情可参考[断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)                                                                     | bool |
 
 ### Context配置
 
@@ -32,7 +32,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | context.mode                | 设置后端执行模式，`0`表示GRAPH_MODE，MindFormers目前仅支持在GRAPH_MODE模式下运行                                                                                          | int      |
 | context.device_target       | 设置后端执行设备，MindFormers仅支持在`Ascend`设备上运行                                                                                                              | str      |
 | context.device_id           | 设置执行设备ID，其值必须在可用设备范围内，默认值为`0`                                                                                                                      | int      |
-| context.enable_graph_kernel | 开启图算融合去优化网络执行性能, 默认值为`False`，详情可参考[图算融合](https://www.mindspore.cn/docs/zh-CN/master/model_train/optimize/graph_fusion_engine.html)                    | bool     |
+| context.enable_graph_kernel | 是否开启图算融合去优化网络执行性能, 默认值为`False`，详情可参考[图算融合](https://www.mindspore.cn/docs/zh-CN/master/model_train/optimize/graph_fusion_engine.html)               | bool     |
 | context.max_call_depth      | 设置函数调用的最大深度，其值必须为正整数，默认值为`1000`                                                                                                                    | int      |
 | context.max_device_memory   | 设置设备可用的最大内存，格式为"xxGB"，默认值为`1024GB`                                                                                                                 | str      |
 | context.save_graphs         | 在执行过程中保存编译图。<br/>1. `False`或`0`表示不保存中间编译图。<br/>2. `1`表示运行时会输出图编译过程中生成的一些中间文件。<br/>3. `True`或`2`表示生成更多后端流程相关的IR文件。<br/>4. `3`表示生成可视化计算图和更多详细的前端IR图。 | bool/int |
@@ -51,7 +51,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | model.model_config.vocab_size              | 设置模型词表大小                                                                                         | int  |
 | model.model_config.top_k                   | 设置推理时从概率最大的`top_k`个tokens中采样                                                                     | int  |
 | model.model_config.top_p                   | 设置推理时从概率最大且概率累计不超过`top_p`的tokens中采样                                                              | int  |
-| model.model_config.use_past                | 开启模型增量推理，开启后可使用Paged Attention提升推理性能，在模型训练时必须设置为`False`                                          | bool |
+| model.model_config.use_past                | 是否开启模型增量推理，开启后可使用Paged Attention提升推理性能，在模型训练时必须设置为`False`                                        | bool |
 | model.model_config.max_decode_length       | 设置生成文本的最大长度，包括输入长度                                                                               | int  |
 | model.model_config.max_length              | 同`max_decode_length`，与`max_decode_length`同时设置时，`max_length`生效                                    | int  |
 | model.model_config.max_new_tokens          | 设置生成新文本的最大长度，不包括输入长度，与`max_length`同时设置时，`max_new_tokens`生效                                       | int  |
@@ -60,9 +60,9 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | model.model_config.repetition_penalty      | 设置生成重复文本的惩罚系数，`repetition_penalty`不小于1，等于1时不对重复输出进行惩罚                                            | int  |
 | model.model_config.block_size              | 设置Paged Attention中block的大小，仅`use_past=True`时生效                                                   | int  |
 | model.model_config.num_blocks              | 设置Paged Attention中block的总数，仅`use_past=True`时生效，应满足`batch_size×seq_length<=block_size×num_blocks` | int  |
-| model.model_config.return_dict_in_generate | 设置以字典形式返回`generate`接口的推理结果，默认为`False`                                                            | bool |
-| model.model_config.output_scores           | 设置以字典形式返回结果时，包含每次前向生成时的输入softmax前的分数，默认为`False`                                                  | bool |
-| model.model_config.output_logits           | 设置以字典形式返回结果时，包含每次前向生成时模型输出的logits，默认为`False`                                                     | bool |
+| model.model_config.return_dict_in_generate | 是否以字典形式返回`generate`接口的推理结果，默认为`False`                                                            | bool |
+| model.model_config.output_scores           | 是否以字典形式返回结果时，包含每次前向生成时的输入softmax前的分数，默认为`False`                                                  | bool |
+| model.model_config.output_logits           | 是否以字典形式返回结果时，包含每次前向生成时模型输出的logits，默认为`False`                                                     | bool |
 
 ### 模型训练配置
 
@@ -74,12 +74,12 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | trainer.model_name                          | 设置模型名称，格式为'{name}_xxb'，表示模型的某一规格                                                                                                                                    | str   |
 | runner_config.epochs                        | 设置模型训练的轮数                                                                                                                                                           | int   |
 | runner_config.batch_size                    | 设置批处理数据的样本数，该配置会覆盖数据集配置中的`batch_size`                                                                                                                               | int   |
-| runner_config.sink_mode                     | 开启数据下沉模式，详情可参考[下沉模式](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/sink_mode.html)                                                      | bool  |
+| runner_config.sink_mode                     | 是否开启数据下沉模式，详情可参考[下沉模式](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/sink_mode.html)                                                | bool  |
 | runner_config.sink_size                     | 设置每次从Host下发到Device的迭代数量，仅`sink_mode=True`时生效                                                                                                                        | int   |
 | runner_config.gradient_accumulation_steps   | 设置梯度累积步数，默认值为1，表示不开启梯度累积                                                                                                                                            | int   |
 | runner_wrapper.type                         | 设置wrapper类，一般设置'MFTrainOneStepCell'即可                                                                                                                               | str   |
 | runner_wrapper.scale_sense.type             | 设置梯度缩放类，一般设置'DynamicLossScaleUpdateCell'即可                                                                                                                          | str   |
-| runner_wrapper.scale_sense.use_clip_grad    | 开启梯度剪裁，开启可避免反向梯度过大导致训练无法收敛的情况                                                                                                                                       | bool  |
+| runner_wrapper.scale_sense.use_clip_grad    | 是否开启梯度剪裁，开启可避免反向梯度过大导致训练无法收敛的情况                                                                                                                                     | bool  |
 | runner_wrapper.scale_sense.loss_scale_value | 设置loss动态尺度系数，模型loss可以根据该参数配置动态变化                                                                                                                                    | int   |
 | lr_schedule.type                            | 设置lr_schedule类，lr_schedule主要用于调整模型训练中的学习率                                                                                                                           | str   |
 | lr_schedule.learning_rate                   | 设置初始化学习率大小                                                                                                                                                          | float |
@@ -94,7 +94,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | train_dataset.output_columns                | 设置训练数据集输出的数据列                                                                                                                                                       | list  |
 | train_dataset.column_order                  | 设置训练数据集输出数据列的顺序                                                                                                                                                     | list  |
 | train_dataset.num_parallel_workers          | 设置读取训练数据集的进程数                                                                                                                                                       | int   |
-| train_dataset.python_multiprocessing        | 开启Python多进程模式提升数据处理性能                                                                                                                                               | bool  |
+| train_dataset.python_multiprocessing        | 是否开启Python多进程模式提升数据处理性能                                                                                                                                             | bool  |
 | train_dataset.drop_remainder                | 是否在最后一个批处理数据包含样本数小于batch_size时，丢弃该批处理数据                                                                                                                             | bool  |
 | train_dataset.repeat                        | 设置数据集重复数据次数                                                                                                                                                         | int   |
 | train_dataset.numa_enable                   | 设置NUMA的默认状态为数据读取启动状态                                                                                                                                                | bool  |
@@ -102,10 +102,10 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | train_dataset.data_loader.type              | 设置数据加载类                                                                                                                                                             | str   |
 | train_dataset.data_loader.dataset_dir       | 设置加载数据的路径                                                                                                                                                           | str   |
 | train_dataset.data_loader.shuffle           | 是否在读取数据集时对数据进行随机排序                                                                                                                                                  | bool  |
-| train_dataset.transforms                    | 设置数据增强相关选项                                                                                                                                                          | bool  |
+| train_dataset.transforms                    | 设置数据增强相关选项                                                                                                                                                          | -     |
 | train_dataset_task.type                     | 设置dataset类，该类用于对数据加载类以及其他相关配置进行封装                                                                                                                                   | str   |
 | train_dataset_task.dataset_config           | 通常设置为`train_dataset`的引用，包含`train_dataset`的所有配置项                                                                                                                     | -     |
-| auto_tune                                   | 开启数据处理参数自动调优，详情可参考[set_enable_autotune](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.config.set_enable_autotune.html)            | bool  |
+| auto_tune                                   | 是否开启数据处理参数自动调优，详情可参考[set_enable_autotune](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.config.set_enable_autotune.html)          | bool  |
 | filepath_prefix                             | 设置数据优化后的参数配置的保存路径                                                                                                                                                   | str   |
 | autotune_per_step                           | 设置自动数据加速的配置调整step间隔，详情可参考[set_autotune_interval](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.config.set_autotune_interval.html) | int   |
 
@@ -115,7 +115,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 
 | 参数                                                              | 说明                                                                                                                                                                                               | 类型   |
 |-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
-| use_parallel                                                    | 开启并行模式                                                                                                                                                                                           | bool |
+| use_parallel                                                    | 是否开启并行模式                                                                                                                                                                                         | bool |
 | parallel_config.data_parallel                                   | 设置数据并行数                                                                                                                                                                                          | int  |
 | parallel_config.model_parallel                                  | 设置模型并行数                                                                                                                                                                                          | int  |
 | parallel_config.context_parallel                                | 设置序列并行数                                                                                                                                                                                          | int  |
@@ -125,12 +125,12 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | micro_batch_interleave_num                                      | 设置多副本并行数，大于1时开启多副本并行。通常在使用模型并行时开启，主要用于优化模型并行产生的通信损耗，仅使用流水并行时不建议开启。详情可参考[MicroBatchInterleaved](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MicroBatchInterleaved.html) | int  |
 | parallel.parallel_mode                                          | 设置并行模式，`0`表示数据并行模式, `1`表示半自动并行模式, `2`表示自动并行模式, `3`表示混合并行模式，一般设置为半自动并行模式                                                                                                                          | int  |
 | parallel.gradients_mean                                         | 是否在梯度AllReduce后执行平均算子。通常半自动并行模式下设为`False`，数据并行模式下设为`True`                                                                                                                                        | bool |
-| parallel.enable_alltoall                                        | 开启在通信期间生成AllToAll通信算子。通常仅在MOE场景下设为`True`，默认值为`False`                                                                                                                                             | bool |
-| parallel.full_batch                                             | 设置在并行模式下加载完整batch的数据集，在自动并行模式和半自动并行模式下设置为`True`，在数据并行模式下设置为`False`                                                                                                                                 | bool |
+| parallel.enable_alltoall                                        | 是否在通信期间生成AllToAll通信算子。通常仅在MOE场景下设为`True`，默认值为`False`                                                                                                                                             | bool |
+| parallel.full_batch                                             | 是否在并行模式下加载完整batch的数据集，在自动并行模式和半自动并行模式下设置为`True`，在数据并行模式下设置为`False`                                                                                                                               | bool |
 | parallel.search_mode                                            | 设置全自动并行策略搜索模式，可选`recursive_programming`, `dynamic_programming`和`sharding_propagation`，仅在全自动并行模式下生效，实验性接口                                                                                         | str  |
 | parallel.strategy_ckpt_save_file                                | 设置并行切分策略文件的保存路径                                                                                                                                                                                  | str  |
-| parallel.strategy_ckpt_config.only_trainable_params             | 是否仅保存（或加载）可训练参数的切分策略信息，默认为True，当网络中存在冻结的参数但又需要切分时将该参数设为`False`                                                                                                                                   | bool |
-| parallel.enable_parallel_optimizer                              | 开启优化器并行。<br/>1. 在数据并行模式下将模型权重参数按device数进行切分<br/>2. 在半自动并行模式下将模型权重参数按`parallel_config.data_parallel`进行切分                                                                                          | bool |
+| parallel.strategy_ckpt_config.only_trainable_params             | 是否仅保存（或加载）可训练参数的切分策略信息，默认为`True`，当网络中存在冻结的参数但又需要切分时将该参数设为`False`                                                                                                                                 | bool |
+| parallel.enable_parallel_optimizer                              | 是否开启优化器并行。<br/>1. 在数据并行模式下将模型权重参数按device数进行切分<br/>2. 在半自动并行模式下将模型权重参数按`parallel_config.data_parallel`进行切分                                                                                        | bool |
 | parallel.parallel_optimizer_config.gradient_accumulation_shard  | 设置累计的梯度变量是否在数据并行的维度上进行切分，仅`enable_parallel_optimizer=True`时生效                                                                                                                                    | bool |
 | parallel.parallel_optimizer_config.parallel_optimizer_threshold | 设置优化器权重参数切分的阈值，仅`enable_parallel_optimizer=True`时生效。                                                                                                                                             | int  |
 | parallel.parallel_optimizer_config.optimizer_weight_shard_size  | 设置优化器权重参数切分通信域的大小，要求该值可以整除`parallel_config.data_parallel`，仅`enable_parallel_optimizer=True`时生效。                                                                                                  | int  |
@@ -143,7 +143,7 @@ MindFormers提供重计算相关配置，以降低模型在训练时的内存占
 
 | 参数                                                 | 说明                            | 类型        |
 |----------------------------------------------------|-------------------------------|-----------|
-| recompute_config.recompute                         | 开启重计算                         | bool      |
+| recompute_config.recompute                         | 是否开启重计算                       | bool      |
 | recompute_config.select_recompute                  | 开启选择重计算，只针对attention层的算子进行重计算 | bool/list |
 | recompute_config.parallel_optimizer_comm_recompute | 是否对由优化器并行引入的AllGather通信进行重计算  | bool/list |
 | recompute_config.mp_comm_recompute                 | 是否对由模型并行引入的通信进行重计算            | bool      |
@@ -174,9 +174,9 @@ MindFormers提供封装后的Callbacks函数类，主要实现在模型训练过
    | keep_checkpoint_max           | 设置保存模型权重文件的最大数量，如果保存路径内存在超出数量的模型权重文件，会从创建时间最早的文件开始删除，以保证文件总数不超过`keep_checkpoint_max`                                                           | int  |
    | keep_checkpoint_per_n_minutes | 设置保存模型权重的间隔分钟数                                                                                                                                 | int  |
    | integrated_save               | 开启聚合保存权重文件。<br/>1. 设为True时表示在保存权重文件时聚合所有device的权重，即所有device权重一致<br/>2. 设为False时表示所有device各自保存自己的权重<br/>使用半自动并行模式时通常需要设置为False，以避免保存权重文件时出现内存问题 | bool |
-   | save_network_params           | 设置仅保存模型权重，默认值为`False`                                                                                                                          | bool |
-   | save_trainable_params         | 设置额外保存可训练的参数权重，即部分微调时模型的参数权重，默认为`False`。                                                                                                       | bool |
-   | async_save                    | 设置异步执行保存模型权重文件                                                                                                                                 | bool |
+   | save_network_params           | 是否仅保存模型权重，默认值为`False`                                                                                                                          | bool |
+   | save_trainable_params         | 是否额外保存可训练的参数权重，即部分微调时模型的参数权重，默认为`False`。                                                                                                       | bool |
+   | async_save                    | 是否异步执行保存模型权重文件                                                                                                                                 | bool |
 
 在`callbacks`字段下可同时配置多个Callbacks函数类，以下是`callbacks`配置示例。
 
@@ -206,25 +206,25 @@ Processor主要用于对输入模型的推理数据进行预处理，由于Proce
 
 MindFormers提供模型评估功能，同时支持模型边训练边评估功能，以下是模型评估相关配置。
 
-| 参数                  | 说明                                                          | 类型   |
-|---------------------|-------------------------------------------------------------|------|
-| eval_dataset        | 使用方式与`train_dataset`相同                                      | -    |
-| eval_dataset_task   | 使用方式与`eval_dataset_task`相同                                  | -    |
-| metric.type         | 使用方式与`callbacks`相同                                          | -    |
-| do_eval             | 开启边训练边评估功能                                                  | bool |
+| 参数                  | 说明                                                         | 类型   |
+|---------------------|------------------------------------------------------------|------|
+| eval_dataset        | 使用方式与`train_dataset`相同                                     | -    |
+| eval_dataset_task   | 使用方式与`eval_dataset_task`相同                                 | -    |
+| metric.type         | 使用方式与`callbacks`相同                                         | -    |
+| do_eval             | 是否开启边训练边评估功能                                               | bool |
 | eval_step_interval  | 设置评估的step间隔，默认值为100，设置小于0表示关闭根据step间隔评估功能                  | int  |
 | eval_epoch_interval | 设置评估的epoch间隔，默认值为-1，设置小于0表示关闭根据epoch间隔评估功能，不建议在数据下沉模式使用该配置 | int  |
-| metric.type         | 设置评估的类型                                                     | str  |
+| metric.type         | 设置评估的类型                                                    | str  |
 
 ### Profile配置
 
 MindFormers提供Profile作为模型性能调优的主要工具，详情可参考[性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/perf_optimize/perf_optimize.html)，以下是Profile相关配置。
 
-| 参数                    | 说明                                                                                                                          | 类型   |
-|-----------------------|-----------------------------------------------------------------------------------------------------------------------------|------|
-| profile               | 开启性能采集工具，详情可参考[mindspore.Profiler](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html) | bool |
-| profile_start_step    | 设置开始采集性能数据的step数                                                                                                            | int  |
-| profile_stop_step     | 设置停止采集性能数据的step数                                                                                                            | int  |
-| profile_communication | 设置是否在多设备训练中收集通信性能数据，使用单卡训练时，该参数无效，默认值为`False`                                                                               | bool |
-| profile_memory        | 设置是否收集Tensor内存数据                                                                                                            | bool |
-| init_start_profile    | 设置是否在Profiler初始化时开启采集性能数据，设置`profile_start_step`时该参数不生效。开启`profile_memory`时需要将该参数设为`True`。                                  | bool |
+| 参数                    | 说明                                                                                                                            | 类型   |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------|------|
+| profile               | 是否开启性能采集工具，详情可参考[mindspore.Profiler](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html) | bool |
+| profile_start_step    | 设置开始采集性能数据的step数                                                                                                              | int  |
+| profile_stop_step     | 设置停止采集性能数据的step数                                                                                                              | int  |
+| profile_communication | 设置是否在多设备训练中收集通信性能数据，使用单卡训练时，该参数无效，默认值为`False`                                                                                 | bool |
+| profile_memory        | 设置是否收集Tensor内存数据                                                                                                              | bool |
+| init_start_profile    | 设置是否在Profiler初始化时开启采集性能数据，设置`profile_start_step`时该参数不生效。开启`profile_memory`时需要将该参数设为`True`。                                    | bool |
