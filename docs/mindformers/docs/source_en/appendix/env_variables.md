@@ -23,6 +23,7 @@ This file describes MindFormers environment variables.
 | **ASCEND_GLOBAL_EVENT_ENABLE**  | 0      | Whether to enable event logging.                                                                       | `1`: turn on Event logging;<br>`0`: turn off Event logging.                                                                                                                                 |
 | **HCCL_EXEC_TIMEOUT**           | 1800   | HCCL process execution synchronization wait time.                                                                    | Execute the synchronization wait time (s).                                                                                                                                                    |
 | **HCCL_CONNECT_TIMEOUT**        | 120    | HCCL link setup timeout wait time.                                                                        | link setup wait time (s).                                                                                                                                                        |
+| **MS_NODE_ID**        | NA    | Specifies process rank id in dynamic cluster scenarios. | The rank_id of the process, unique within the cluster. |
 
 ## Other Variables
 
