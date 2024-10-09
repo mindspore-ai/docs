@@ -198,6 +198,8 @@ There are two main ideas for problem positioning:
 
 The training process of the model can be decomposed into the following processes: data input, forward computation, loss, backward computation, gradient, optimizer weight update, and next step. The following will describe how to rank each stage of the training in conjunction with the flow of the following figure.
 
+![general_process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/general_process.png)
+
 ### Stage 1: Pre-training Preparation
 
 Conducting accuracy comparison between GPU+PyTorch and Ascend+MindSpore requires simplifying the scenario and fixing the randomness before reproducing the problem. There are three main parts as follows:
@@ -215,7 +217,7 @@ In the parameter alignment session, some parameters need special instructions, a
 | Parameters                 | Suggestions | Descriptions                            |
 |--------------------| -------- |-------------------------------|
 | num_layers         | 2        | Reduced model size facilitates quick verification that a single card can run in data-only parallelism. |
-| learning rate type | constant | Fixed learning rates to ensure alignment with benchmarked learning rates.             |
+| learning_rate_type | constant | Fixed learning rates to ensure alignment with benchmarked learning rates.             |
 | warmup_steps       | 0        | Steps for warmup                     |
 | adam-eps           | 1e-8     | If the user has no special requirements, follow the default settings.             |
 | dropout            | 0        | Turn off the randomness parameter, and If there are other randomness parameters, they should be turned off.         |
@@ -469,7 +471,7 @@ After completing the single card training, start the multi-card training test: s
 
 ![loss6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss6.png)
 
-To verify that this error is within reasonable limits, the deterministic computation was turned off and the GPU experiment was run twice repeatedly. The red line in the figure is the curve of MindSpore training, and the blue and green lines are the curves of the first and second GPU training, respectively. At the training instability around 7000 steps, the curve of MindSpore training is right between the curves of the two GPU trainings, indicating that the error is within a reasonable range and the problem is finally solved.
+To verify that this error is within reasonable limits, the deterministic computation was turned off and the GPU experiment was run twice repeatedly. The red line in the figure is the curve of MindSpore training, and the blue and green lines are the curves of the first and second GPU training, respectively. At the training instability around 7,000 steps, the curve of MindSpore training is right between the curves of the two GPU trainings, indicating that the error is within a reasonable range and the problem is finally solved.
 
 ![loss7](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss7.png)
 
