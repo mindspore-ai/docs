@@ -19,7 +19,7 @@ The following key steps are required for LoRA PEFT:
 
 2. **Dataset preparation**: Select and prepare a dataset for fine-tuning. The dataset must be related to the target task, and the format must match the input format of the model.
 
-3. **Fine-tuning parameter settings**: Set fine-tuning parameters, including the learning rate, optimizer type, and batch size.
+3. **Fine-tuning parameter settings**: Set fine-tuning parameters, including the learning rate, optimizer type, and batch_size.
 
 4. **LoRA parameter settings**: Set the **pet_config** parameter at the key layer (such as the attention layer) of the model and adjust the low-rank matrix to update the model parameters.
 
@@ -29,7 +29,7 @@ The following key steps are required for LoRA PEFT:
 
 ## Using MindFormers for LoRA PEFT of Llama2
 
-In the distributed environment of Ascend AI processors, the MindFormers suite can be used to easily implement the LoRA PEFT. The following shows the core configuration part of the LoRA fine-tuning of the Llama2 model and details the **pet_config** parameters.
+In the distributed environment of Ascend AI processors, the MindFormers suite can be used to easily implement the LoRA PEFT. The following shows the core configuration part of the LoRA fine-tuning of the Llama2 model and details the `pet_config` parameters.
 
 ### YAML File Example
 

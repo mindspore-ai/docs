@@ -4,15 +4,15 @@
 
 ## Overview
 
-MindFormers provides the foundation model inference capability. You can write a script to call the high-level pipeline API or run the unified script run_mindformer to start inference. In inference mode, you can easily set and execute model inference tasks using the pipeline API. The pipeline API simplifies the overall process from data preparation to model inference. The modular design allows users to define each phase of data processing and inference through configuration files or APIs. In addition, users can customize data processing logic and inference policies based on requirements. If the unified script run_mindformer is used, you can directly start the system through the configuration file without writing code.
+MindFormers provides the foundation model inference capability. You can write a script to call the high-level `pipeline` API or run the unified script `run_mindformer` to start inference. In inference mode, you can easily set and execute model inference tasks using the `pipeline` API. The `pipeline` API simplifies the overall process from data preparation to model inference. The modular design allows users to define each phase of data processing and inference through configuration files or APIs. In addition, users can customize data processing logic and inference policies based on requirements. If the unified script `run_mindformer` is used, you can directly start the system through the configuration file without writing code.
 
 The following table lists the features supported by MindFormers text generation and inference.
 
 |Feature|Concept|Function|
 |:------------|:---------------------------------------|:-----------------------------------------------------|
-|[Incremental inference](#incremental-inference)|Incremental inference indicates that the model can generate text step by step instead of generating all content at a time.|You can accelerate the text generation speed when the text_generator method is called to generate autoregressive text. use_past is set to True in the YAML file by default to enable incremental inference.|
+|[Incremental inference](#incremental-inference)|Incremental inference indicates that the model can generate text step by step instead of generating all content at a time.|You can accelerate the text generation speed when the `text_generator` method is called to generate autoregressive text. use_past is set to True in the YAML file by default to enable incremental inference.|
 |[Batch inference](#multi-device-multi-batch-inference)|Batch inference is a method of processing multiple input samples at the same time.|You can input multiple samples to perform inference in batches. When the computing power of a single batch is insufficient, multi-batch inference can improve the inference throughput.|
-|[Stream inference](#stream-inference)|Stream inference is a processing method that allows a model to start to output a result after receiving a part of an input, instead of waiting for the entire input sequence to be completely received.|With the Streamer class provided, when the text_generator method is called to generate text, you can view each generated word in real time without waiting for all results to be generated.|
+|[Stream inference](#stream-inference)|Stream inference is a processing method that allows a model to start to output a result after receiving a part of an input, instead of waiting for the entire input sequence to be completely received.|With the Streamer class provided, when the `text_generator` method is called to generate text, you can view each generated word in real time without waiting for all results to be generated.|
 |[Distributed inference](#multi-device-inference)|Distributed inference is a method of distributing computing tasks on multiple compute nodes for execution.|For models that cannot be deployed on a single device, you need to split the models using the multi-device distributed model before inference.|
 
 ## Procedure
@@ -26,11 +26,11 @@ Based on actual operations, the inference process can be divided into the follow
   Download the weight of the corresponding model from the HuggingFace model library and convert the model to the CKPT format by referring to [Weight Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html).
 
 3. **Executing inference tasks:**
-  Call the pipeline API or use the unified script **run_mindformer** to execute inference tasks.
+  Call the `pipeline` API or use the unified script `run_mindformer` to execute inference tasks.
 
 ## Inference Based on the Pipeline API
 
-An inference task process can be generated based on the customized text of the pipeline API. Single-device inference and multi-device inference are supported. For details about how to use the pipeline API to start a task and output the result, see the following implementation. For details about the parameters, see [the pipeline API document](https://gitee.com/mindspore/mindformers/blob/dev/docs/api/api_python/mindformers.pipeline.rst).
+An inference task process can be generated based on the customized text of the `pipeline` API. Single-device inference and multi-device inference are supported. For details about how to use the `pipeline` API to start a task and output the result, see the following implementation. For details about the parameters, see [the pipeline API document](https://gitee.com/mindspore/mindformers/blob/dev/docs/api/api_python/mindformers.pipeline.rst).
 
 ### Incremental Inference
 
@@ -58,7 +58,7 @@ for output in outputs:
     print(output)
 ```
 
-Save the example to **pipeline_inference.py**, modify the path for loading the weight, and run the **pipeline_inference.py** script.
+Save the example to `pipeline_inference.py`, modify the path for loading the weight, and run the `pipeline_inference.py` script.
 
 ```shell
 python pipeline_inference.py
@@ -97,7 +97,7 @@ text_generation_pipeline = pipeline(task="text_generation", model=model, tokeniz
 _ = text_generation_pipeline(inputs, max_length=512, do_sample=False, top_k=3, top_p=1)
 ```
 
-Save the example to **pipeline_inference.py**, modify the path for loading the weight, and run the **pipeline_inference.py** script.
+Save the example to `pipeline_inference.py`, modify the path for loading the weight, and run the `pipeline_inference.py` script.
 
 ```shell
 python pipeline_inference.py
