@@ -18,6 +18,18 @@ import sphinx
 from sphinx.ext import autodoc as sphinx_autodoc
 import sphinx.ext.autosummary.generate as g
 
+# Fix some dl-label lack class='simple'
+from docutils.writers import _html_base
+
+with open(_html_base.__file__, "r", encoding="utf-8") as f:
+    code_str = f.read()
+    old_str = '''        if self.is_compactable(node):
+            classes.append('simple')'''
+    new_str = '''        if classes == []:
+            classes.append('simple')'''
+    code_str = code_str.replace(old_str, new_str)
+    exec(code_str, _html_base.__dict__)
+
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore'
