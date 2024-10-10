@@ -113,3 +113,104 @@ The evaluation result is as follows. Filter indicates the output mode of the mat
 ### Features
 
 For details about all Harness evaluation tasks, see [Viewing a Dataset Evaluation Task](#viewing-a-dataset-evaluation-task).
+
+## VLMEvalKit Evaluation
+
+### Overview
+
+[VLMEvalKit](https://github.com/open-compass/VLMEvalKit)
+is an open source toolkit designed for large visual language model evaluation, supporting one-click evaluation of large visual language models on various benchmarks, without the need for complicated data preparation, making the evaluation process easier. It supports a variety of graphic multimodal evaluation sets and video multimodal evaluation sets, a variety of API models and open source models based on PyTorch and HF, and customized prompts and evaluation metrics. After adapting MindFormers based on VLMEvalKit evaluation framework, it supports loading multimodal large models in MindFormers for evaluation.
+
+### Supported Feature Descriptions
+
+1. Supports automatic download of evaluation datasets;
+2. Support for user-defined input of multiple datasets and models (currently only `cogvlm2-llama3-chat-19B` is supported and will be added gradually in subsequent releases);
+3. Generate results with one click.
+
+### Installation
+
+```shell
+git clone https://github.com/open-compass/VLMEvalKit.git
+cd VLMEvalKit
+pip install -e .
+```
+
+### Usage
+
+Run the script [eval_with_vlmevalkit.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_vlmevalkit.py).
+
+#### Launching a Single-Card Evaluation Script
+
+```shell
+#!/bin/bash
+
+python eval_with_vlmevalkit.py \
+  --data MME \
+  --model cogvlm2-llama3-chat-19B \
+  --verbose \
+  --work-dir /{path}/evaluate_result \
+  --model-path /{path}/cogvlm2_model_path \
+  --config-path /{path}/cogvlm2_config_path
+```
+
+#### Evaluation Parameters
+
+VLMEvalKit main parameters
+
+| Parameters            | Type  | Descriptions                                                            | Compulsory(Y/N)|
+|---------------|-----|-----------------------------------------------------------------|------|
+| --data      | str | Name of the dataset, multiple datasets can be passed in, split by spaces.                                            | Y    |
+| --model  | str | Name of the model, multiple models can be passed in, split by spaces.                                              | Y    |
+| --verbose       | /   | Outputs logs from the evaluation run.                                                   | N    |
+| --work-dir  | str | The directory where the evaluation results are stored, by default, is stored in the folder with the same name as the model in the current directory.                                | N    |
+| --model-path | str | Contains the paths of all relevant files of the model (weights, tokenizer files, configuration files, processor files), multiple paths can be passed in, filled in according to the order of the model, split by spaces. | Y    |
+| --config-path       | str | Model configuration file path, multiple paths can be passed in, fill in according to the model order, split by space.                                 | Y   |
+
+#### Preparation Before Evaluation
+
+1. Create model directory model_path;
+2. Model directory must be placed MindFormers weights, yaml configuration file, tokenizer file, which can refer to the MindFormers model README document;
+3. Configure the yaml configuration file.
+
+The yaml configuration reference:
+
+```yaml
+load_checkpoint: "/{path}/model.ckpt"  # Specify the path to the weights file
+model:
+  model_config:
+    use_past: True                         # Turn on incremental inference
+    is_dynamic: False                       # Turn off dynamic shape
+
+  tokenizer:
+    vocab_file: "/{path}/tokenizer.model"  # Specify the tokenizer file path
+```
+
+### Evaluation Sample
+
+```shell
+#!/bin/bash
+
+export USE_ROPE_SELF_DEFINE=True
+python eval_with_vlmevalkit.py \
+  --data COCO_VAL \
+  --model cogvlm2-llama3-chat-19B \
+  --verbose \
+  --work-dir /{path}/evaluate_result \
+  --model-path /{path}/cogvlm2_model_path \
+  --config-path /{path}/cogvlm2_config_path
+```
+
+The results of the evaluation are as follows, where `Bleu` and `ROUGE_L` denote the metrics for evaluating the quality of the translation, and `CIDEr` denotes the metrics for evaluating the image description task.
+
+```json
+{
+   "Bleu": [
+      15.523950970070652,
+      8.971141548228058,
+      4.702477458554666,
+      2.486860744700995
+   ],
+   "ROUGE_L": 15.575063213115946,
+   "CIDEr": 0.01734615519604295
+}
+```
