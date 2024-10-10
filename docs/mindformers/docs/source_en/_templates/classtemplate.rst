@@ -7,7 +7,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: get_config_origin_mode, get_support_list, invalid_yaml_name, show_support_list
+    :exclude-members: get_config_origin_mode, get_support_list, invalid_yaml_name
     :members:
 
 {% elif fullname=="mindformers.AutoProcessor" %}
