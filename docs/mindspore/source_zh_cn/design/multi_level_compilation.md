@@ -1,4 +1,6 @@
-# MindSpore多级编译架构
+# 多级编译架构
+
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/multi_level_compilation.md)
 
 ## 背景
 
@@ -34,19 +36,19 @@ O0模式的图优化较少，基础的优化主要为后端LazyInline和No-task 
 
 - **后端LazyInline**
 
-**LazyInline**：主要思想是将函数调用的开销推迟到实际需要调用的时候，这样可以减少编译时的开销，提高编译效率。LazyInline在图编译阶段是将相同的子图结构复用，不展开放在图中，避免图规模较大导致影响编译性能。
+  **LazyInline**：主要思想是将函数调用的开销推迟到实际需要调用的时候，这样可以减少编译时的开销，提高编译效率。LazyInline在图编译阶段是将相同的子图结构复用，不展开放在图中，避免图规模较大导致影响编译性能。
 
-![jit_level_lazyinline](./images/multi_level_compilation/jit_level_lazyinline.png)
+  ![jit_level_lazyinline](./images/multi_level_compilation/jit_level_lazyinline.png)
 
-**流水线（Pipeline）并行**：将神经网络中的算子切分成多个Stage，再把Stage映射到不同的设备上，使得不同设备去计算神经网络的不同部分。为了提升效率，流水线并行进一步将小批次(MiniBatch)切分成更细粒度的微批次(MicroBatch)，在微批次中采用流水线式的调度，从而达到提升效率的目的。
+  **流水线（Pipeline）并行**：将神经网络中的算子切分成多个Stage，再把Stage映射到不同的设备上，使得不同设备去计算神经网络的不同部分。为了提升效率，流水线并行进一步将小批次(MiniBatch)切分成更细粒度的微批次(MicroBatch)，在微批次中采用流水线式的调度，从而达到提升效率的目的。
 
-**后端LazyInline**：由于Pipeline并行的MicroBatch切分会导致整个计算图扩张到MicroBatch的数量倍，从而导致模型规模巨大，编译性能时间较长（可能小时级别），而这些Micro子图结构都是一样的，为了解决编译性能问题，LazyInline技术则非常契合，不过LazyInline带来的问题就是运行时无法采用最优的方式进行内存复用和流分配、无法做跨图的优化（内存优化、通信融合、算子融合等）等问题，为此在图编译结束后，在图执行之前，将这些Micro子图做实际的节点Inline，以形成完整的全局整图，再通过图Inline后的内存优化、通信优化、冗余计算消除等方式，从而实现在编译性能、执行性能、执行内存方面都兼顾的目标。
+  **后端LazyInline**：由于Pipeline并行的MicroBatch切分会导致整个计算图扩张到MicroBatch的数量倍，从而导致模型规模巨大，编译性能时间较长（可能小时级别），而这些Micro子图结构都是一样的，为了解决编译性能问题，LazyInline技术则非常契合，不过LazyInline带来的问题就是运行时无法采用最优的方式进行内存复用和流分配、无法做跨图的优化（内存优化、通信融合、算子融合等）等问题，为此在图编译结束后，在图执行之前，将这些Micro子图做实际的节点Inline，以形成完整的全局整图，再通过图Inline后的内存优化、通信优化、冗余计算消除等方式，从而实现在编译性能、执行性能、执行内存方面都兼顾的目标。
 
 - **No-task node执行优化**
 
-![jit_level_no_task](./images/multi_level_compilation/jit_level_no_task.png)
+  ![jit_level_no_task](./images/multi_level_compilation/jit_level_no_task.png)
 
-No-task node指的是Reshape、ExpandDims、Squeeze、Flatten、FlattenGrad、Reformat等诸类算子没有计算逻辑，不修改内存排布，仅修改shape、format等信息，在图编译结束后，将No-task node转换成ref node，输出跟输入同地址，执行过程中跳过kernel launch，从而达到执行性能优化目的。
+  No-task node指的是Reshape、ExpandDims、Squeeze、Flatten、FlattenGrad、Reformat等诸类算子没有计算逻辑，不修改内存排布，仅修改shape、format等信息，在图编译结束后，将No-task node转换成ref node，输出跟输入同地址，执行过程中跳过kernel launch，从而达到执行性能优化目的。
 
 ### 图算融合
 
@@ -59,7 +61,7 @@ No-task node指的是Reshape、ExpandDims、Squeeze、Flatten、FlattenGrad、Re
 ![jit_level_kernelselect](./images/multi_level_compilation/jit_level_kernelselect.png)
 
 1. 算子类型：首先根据算子类型选择为计算算子还是通信算子。
-2. 硬件平台：如果硬件上有对应算子，则优先选择硬件上的算子，否则选择CPU上的异构算子，例如shape相关的计算算子可能只适合在CPU 上支持，没有对应的硬件算子。
+2. 硬件平台：如果硬件上有对应算子，则优先选择硬件上的算子，否则选择CPU上的异构算子，例如shape相关的计算算子可能只适合在CPU上支持，没有对应的硬件算子。
 3. 算子效率：Ascend上由于Aclnn算子较好的性能，因此计算类型算子如果有对应Aclnn kernel，则优先选择Aclnn kernel，否则就选择Aclop kernel。
 4. 如果上述3步都未选择到算子，则为不支持的算子，算子选择失败退出。
 
@@ -134,12 +136,12 @@ MindSpore的设备流管理是框架后端中的一项关键功能，旨在高�
 
 ![jit_level_stream_manage](./images/multi_level_compilation/jit_level_stream_manage.png)
 
-在MindSpore的架构中，**流管理器（Stream Manager）**扮演着核心角色。它负责流的创建、分配和销毁，确保每个计算任务都能在合适的流上执行。流管理器根据任务的类型、优先级以及设备的负载情况，将任务调度到不同的流上，以实现最佳的资源利用和任务并发度。
-**事件管理器（Event Manager）**则负责监控和管理流之间的同步和依赖关系。通过事件的记录和触发，事件管理器确保不同流上的任务能够按照正确的顺序执行，避免数据竞争和资源冲突。事件管理器还支持异步事件（如内存回收）的触发和处理，进一步提升了系统的并发性和响应速度。
+在MindSpore的架构中， **流管理器（Stream Manager）** 扮演着核心角色。它负责流的创建、分配和销毁，确保每个计算任务都能在合适的流上执行。流管理器根据任务的类型、优先级以及设备的负载情况，将任务调度到不同的流上，以实现最佳的资源利用和任务并发度。
+**事件管理器（Event Manager）** 则负责监控和管理流之间的同步和依赖关系。通过事件的记录和触发，事件管理器确保不同流上的任务能够按照正确的顺序执行，避免数据竞争和资源冲突。事件管理器还支持异步事件（如内存回收）的触发和处理，进一步提升了系统的并发性和响应速度。
 
 ### HAL管理
 
-为了后端架构解耦和第三方硬件对接，在MindSpore中提供了硬件抽象层，定义了标准化的硬件对接接口，实现了框架跟硬件的解耦，详见https://www.mindspore.cn/docs/zh-CN/master/design/pluggable_device.html。
+为了后端架构解耦和第三方硬件对接，在MindSpore中提供了硬件抽象层，定义了标准化的硬件对接接口，实现了框架跟硬件的解耦，详见[三方硬件对接](https://www.mindspore.cn/docs/zh-CN/master/design/pluggable_device.html)。
 
 ## O1模式介绍
 
@@ -159,4 +161,4 @@ O2级别采用图下沉的执行方式，将计算图下沉到Device侧执行。
 1. O2模式的编译时间较长，特别是在模型规模较大时。
 2. O2模式的执行粒度为计算图，与算子粒度的用户脚本相比，存在一定的差异，因而调试调优难度较高。
 
-- 因此在中小模型中，容易出现host bound，若想获得极致的执行性能，建议使用O2模式。
+因此在中小模型中，容易出现host bound，若想获得极致的执行性能，建议使用O2模式。
