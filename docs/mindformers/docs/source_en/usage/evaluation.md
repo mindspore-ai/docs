@@ -57,23 +57,23 @@ Harness parameters
 
 | Parameter           | Type | Description                     | Required|
 |---------------|-----|---------------------------|------|
-| --model       | str | The value must be **mf**, indicating the MindFormers evaluation policy.| Yes   |
-| --model_args  | str | Model and evaluation parameters. For details, see "MindFormers model parameters."      | Yes   |
-| --tasks       | str | Dataset name. Multiple datasets can be specified and separated by commas (,).      | Yes   |
-| --batch_size  | int | Number of batch processing samples.                   | No   |
-| --num_fewshot | int | Number of few-shot samples.             | No   |
-| --limit       | int | Number of samples for each task. This parameter is mainly used for function tests.         | No   |
+| `--model`       | str | The value must be **mf**, indicating the MindFormers evaluation policy.| Yes   |
+| `--model_args`  | str | Model and evaluation parameters. For details, see "MindFormers model parameters."      | Yes   |
+| `--tasks`       | str | Dataset name. Multiple datasets can be specified and separated by commas (,).      | Yes   |
+| `--batch_size`  | int | Number of batch processing samples.                   | No   |
+| `--num_fewshot` | int | Number of few-shot samples.             | No   |
+| `--limit`       | int | Number of samples for each task. This parameter is mainly used for function tests.         | No   |
 
 MindFormers model parameters
 
 | Parameter          | Type  | Description                             | Required|
 |--------------|------|-----------------------------------|------|
-| pretrained   | str  | Model directory.                           | Yes   |
-| use_past     | bool | Specifies whether to enable incremental inference. This parameter must be enabled for evaluation tasks of the generate_until type.| No   |
-| device_id    | int  | Device ID.                             | No   |
-| use_parallel | bool | Specifies whether to enable the parallel policy.                           | No   |
-| dp           | int  | Data parallelism.                             | No   |
-| tp           | int  | Model parallelism.                             | No   |
+| `pretrained`   | str  | Model directory.                           | Yes   |
+| `use_past`     | bool | Specifies whether to enable incremental inference. This parameter must be enabled for evaluation tasks of the generate_until type.| No   |
+| `device_id`    | int  | Device ID.                             | No   |
+| `use_parallel` | bool | Specifies whether to enable the parallel policy.                           | No   |
+| `dp`           | int  | Data parallelism.                             | No   |
+| `tp`           | int  | Model parallelism.                             | No   |
 
 #### Preparations Before Evaluation
 

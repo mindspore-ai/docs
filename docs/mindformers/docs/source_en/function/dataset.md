@@ -16,39 +16,57 @@ For more information about the implementation of MindRecord related interfaces a
 The MindRecord module provides methods to convert different datasets into MindRecord format.
 You can use the FileWriter interface provided by MindSpore to generate MindRecord format datasets.
 
-The following is an example of a MindRecord dataset based on a json format file:
+The following is an example of a MindRecord dataset based on a json format file, taking Llama2 as an example:
 
-1. Read json file
+1. Prepara json file
+
+   Prepare a json file like this, named `mydata.json`:
+
+   ```json
+   [
+      {
+        "input_ids": "I love Beijing, because it is a city that beautifully blends rich history with modern vibrancy."
+      },
+      {
+        "input_ids": "I love Hangzhou, because it is a city that seamlessly combines natural beauty with rich cultural heritage."
+      }
+   ]
+   ```
+
+2. Read json file
 
    ```python
    import json
 
    raw_data = None
-   file = open("my_json_file.Json", "r")  # Open json file
+   file = open("mydata.json", "r")  # Open json file
    if file is not None:
       raw_data = json.load(file)  # Read json file into raw_data
       file.close()
    ```
 
-2. Define a MindRecord ``schema`` and create a ``FileWriter`` object;
+3. Define a MindRecord ``schema`` and create a ``FileWriter`` object;
 
     ```python
     from mindspore.mindrecord import FileWriter
 
     # Define a schema for MindRecord
-    schema = {'input_ids': {"type": "int32", "shape": [-1]}, 'labels': {"type": "int32", "shape": [-1]}}
+    schema = {'input_ids': {"type": "int32", "shape": [-1]}
     # Create a FileWriter object
     writer = FileWriter(file_name="output_file", shard_num=1)
     writer.add_schema(schema, "dataset_type")
     ```
 
-3. Iterate through each Q&A pair in the processed json file, convert it to MindRecord format, and write it to a MindRecord file.
+4. Iterate through each piece of data in the processed json file, convert it to MindRecord format, and write it to a MindRecord file.
+
+   Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/tokenizer.model)
 
     ```python
-    from internlm_tokenizer import InternLMTokenizer
+    import numpy as np
+    from mindformers import LlamaTokenizer
 
     def tokenize_json(tokenizer, raw_data):
-    """tokenize json file dataset"""
+        """tokenize json file dataset"""
         content = [] # Read each json data and get its “input_ids”.
         for line in raw_data:
             stripped_line = line.strip()
@@ -62,9 +80,9 @@ The following is an example of a MindRecord dataset based on a json format file:
             yield sample
 
     # Tokenize the text data
-    word_tokenizer = LlamaTokenizer(vocab_file=r"my_tokenizer.model")
+    word_tokenizer = LlamaTokenizer(vocab_file=r"tokenizer.model")
 
-    # Iterate through each Q&A pair in the processed json file, convert it to MindRecord format and write it to the MindRecord file
+    # Iterate through each piece of data in the processed json file, convert it to MindRecord format and write it to the MindRecord file
     # tokenize_json is a custom method to tokenize the dialog data in json.
     for x in tokenize_json(word_tokenizer, raw_data):
         writer.write_raw_data([x])
@@ -107,6 +125,81 @@ Configure the following parameters to use MindRecord format datasets:
 - input_columns: Sets the data columns for the input of the training dataset. Currently a pre-training scenario, set to `["input_ids"]`.
 
 The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
+
+## BIN Format Dataset
+
+The use of datasets in binary format (BIN format) can lead to significant performance and efficiency gains during large model training. The current MindFormers framework also adapts the ability to work with BIN format datasets, including how to make BIN format datasets and use BIN format datasets in tasks.
+
+### How to Make a BIN Format Dataset
+
+Currently the preprocessing script provided by MindFormers only supports processing files in json format, which requires the user to convert the file format of the original dataset to a file in json format that meets the support of the preprocessing script before using the preprocessing script, and the supported file formats in json format are as follows:
+
+```json
+{"src": "www.nvidia.com", "text": "The quick brown fox", "type": "Eng", "id": "0", "title": "First Part"}
+{"src": "The Internet", "text": "jumps over the lazy dog", "type": "Eng", "id": "42", "title": "Second Part"}
+```
+
+Llama2 processing of a Wiki dataset as an example, for the download of the original Wiki dataset, see [Example of data preprocessing in Llama2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)，Call [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) directly after processing the dataset into a format that matches the format supported by the preprocessing scripts. The specific commands are as follows:
+
+```shell
+python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
+--input /path/to/wiki.json \
+--output-prefix /path/to/my_wiki_1024 \
+--tokenizer-type LlamaTokenizer \
+--vocab-file /path/to/tokenizer.model \
+--add_bos_token True \
+--add_eos_token True \
+--pad_or_stitch stitch \
+--seq-length 1024 \
+--workers 1
+```
+
+The parameters of preprocessing script is described below:
+
+- input: Path to the file where the dataset to be processed will be processed into json format.
+- output-prefix: The prefix of the output file after preprocessing.
+- tokenizer-type: The type of the corresponding tokenizer for the model
+- vocab-file: tokenizer.model of the model or vocab file in other formats.
+- add_bos_token: whether to add bos_token at the first position of the data, default is False, please refer to each model's requirement.
+- add_eos_token: whether to add eos_token at the end of the data, default is False, please refer to each model's requirement for details.
+- pad_or_stitch: according to the requirements of the training task, set whether to splice or stitch, pad is to stitch, stitch is to splice.
+- seq-length: the length of data to be processed in the dataset, need to be set by the user.
+- workers: number of parallel workers for preprocessing.
+
+After executing the above command, you will get two files in .bin and .idx format.
+
+### Using BIN Format Datasets in Tasks
+
+The training task can be made to use a prepared BIN format dataset by configuring dataset-related parameters in the yaml configuration file.
+
+Here, taking the Llama2-7B model pretraining task as an example, the configuration parameters in the [pretrain_llama2_7b.yaml file](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml#L39) are modified and described as follows:
+
+```yaml
+# dataset
+train_dataset: &train_dataset
+  data_loader:
+    type: IndexedDataLoader
+    path_prefix: ""
+    shuffle: False
+  input_columns: ["input_ids"]
+  num_parallel_workers: 8
+  python_multiprocessing: False
+  drop_remainder: True
+  batch_size: 6
+  repeat: 1
+  numa_enable: False
+  prefetch_size: 1
+
+train_dataset_task:
+  type: CausalLanguageModelDataset
+  dataset_config: *train_dataset
+```
+
+Configure the following parameters to use the BIN format dataset:
+
+- data_loader.type: the type of the dataloader, which should be set to `IndexedDataLoader`.
+- data_loader.path_prefix: the prefix of the dataset file name.
+- input_columns: set the data columns for training dataset input. Currently a pre-training scenario, set to `[“input_ids”]` .
 
 ## Online Dataset
 
