@@ -24,7 +24,7 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
     ```
 
     ${PACKAGE_ROOT_PATH}是编译或下载得到的包解压后的路径。
-- 编译MindSpore Lite包时若使用的时Python3.11，则使用转换工具时需要将使用的Python动态链接库加入环境变量LD_LIBRARY_PATH。
+- 编译MindSpore Lite包时若使用的是Python3.11，则使用转换工具以及推理工具时需要将使用的Python动态链接库加入环境变量LD_LIBRARY_PATH。
 
     ```bash
     export LD_LIBRARY_PATH=${PATHON_ROOT_PATH}/lib:${LD_LIBRARY_PATH}
