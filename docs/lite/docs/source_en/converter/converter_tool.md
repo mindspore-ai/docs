@@ -22,9 +22,16 @@ To use the MindSpore Lite model conversion tool, you need to prepare the environ
 
     ```bash
     export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${LD_LIBRARY_PATH}
-    ````
+    ```
 
     ${PACKAGE_ROOT_PATH} is the decompressed package path obtained by compiling or downloading.
+- If you use Python 3.11 when compiling the MindSpore Lite package, you need to add the Python dynamic link library to the environment variable LD_LIBRARY_PATH when using the conversion tool.
+
+    ```bash
+    export LD_LIBRARY_PATH=${PATHON_ROOT_PATH}/lib:${LD_LIBRARY_PATH}
+    ```
+
+  ${PATHON_ROOT_PATH} is the path of the Python environment used. After decoupling the Python dependency, the environment variable does not need to be set.
 
 ### Directory Structure
 
