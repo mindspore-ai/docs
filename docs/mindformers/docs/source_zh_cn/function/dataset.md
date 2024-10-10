@@ -108,6 +108,81 @@ train_dataset_task:
 
 其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
 
+## BIN 格式数据集
+
+在大模型训练过程中，使用二进制格式（BIN格式）的数据集可以带来显著的性能和效率提升。当前 MindFormers 框架也适配了对 BIN 格式数据集的处理能力，包括如何制作 BIN 格式数据集和在任务中使用 BIN 格式数据集。
+
+### 如何制作 BIN 格式数据集
+
+当前 MindFormers 提供的预处理脚本仅支持处理 json 格式的文件，需要用户在使用预处理脚本前将原始数据集的文件格式转换成符合预处理脚本支持的 json 格式的文件，支持的 json 格式的文件格式如下：
+
+```json
+{"src": "www.nvidia.com", "text": "The quick brown fox", "type": "Eng", "id": "0", "title": "First Part"}
+{"src": "The Internet", "text": "jumps over the lazy dog", "type": "Eng", "id": "42", "title": "Second Part"}
+```
+
+以 Llama2 处理 Wiki数据集为例，原始Wiki数据集的下载参考 [Llama2 中的数据预处理案例](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)，在处理成符合预处理脚本支持格式的数据集后，直接调用 [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py)，具体命令如下：
+
+```shell
+python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
+--input /path/to/wiki.json \
+--output-prefix /path/to/my_wiki_1024 \
+--tokenizer-type LlamaTokenizer \
+--vocab-file /path/to/tokenizer.model \
+--add_bos_token True \
+--add_eos_token True \
+--pad_or_stitch stitch \
+--seq-length 1024 \
+--workers 1
+```
+
+预处理脚本的入参说明如下：
+
+- input: 待处理的数据集处理成 json 格式后的文件路径
+- output-prefix: 预处理后的输出文件的文件名前缀
+- tokenizer-type: 模型对应的 tokenizer 的类型
+- vocab-file: 模型的 tokenizer.model 或者其他格式的 vocab file
+- add_bos_token: 是否在数据的首位置添加 bos_token，默认 False，具体设置参考各个模型要求
+- add_eos_token: 是否在数据的末位置添加 eos_token，默认 False，具体设置参考各个模型要求
+- pad_or_stitch: 根据训练任务的要求，设置是否拼接还是补齐，pad 为补齐，stitch 为拼接
+- seq-length: 数据集处理的数据长度，需用户自行设置
+- workers: 预处理时并行 worker 的数量
+
+执行以上命令之后，会得到两个文件，分别为 .bin 和 .idx 格式的文件。
+
+### 在任务中使用 BIN 格式数据集
+
+通过在 yaml 配置文件中配置数据集相关参数，可以让训练任务使用准备好的 BIN 格式数据集。
+
+此处，以 Llama2-7B 模型预训练任务来举例说明，在 [pretrain_llama2_7b.yaml 文件](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml#L39) 中的配置参数的修改及说明如下：
+
+```yaml
+# dataset
+train_dataset: &train_dataset
+  data_loader:
+    type: IndexedDataLoader
+    path_prefix: ""
+    shuffle: False
+  input_columns: ["input_ids"]
+  num_parallel_workers: 8
+  python_multiprocessing: False
+  drop_remainder: True
+  batch_size: 6
+  repeat: 1
+  numa_enable: False
+  prefetch_size: 1
+
+train_dataset_task:
+  type: CausalLanguageModelDataset
+  dataset_config: *train_dataset
+```
+
+配置如下参数以使用 BIN 格式数据集：
+
+- data_loader.type：dataloader 的类型，此处需要设置为 `IndexedDataLoader` 。
+- data_loader.path_prefix：数据集文件名的前缀。
+- input_columns：设置训练数据集输入的数据列。当前为预训练场景，设置为 `["input_ids"]` 。
+
 ## 在线数据集
 
 接入 [魔乐仓库](https://modelers.cn/datasets)、[HuggingFace 仓库](https://huggingface.co/datasets)，在线加载数据集，扩大数据集来源。
