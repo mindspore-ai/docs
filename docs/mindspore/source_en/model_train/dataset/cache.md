@@ -280,12 +280,8 @@ Listing sessions for server on port 50052
 
 After the training is complete, you can destroy the current cache and release the memory.
 
-```python
-destroy_session = 'cache_admin --destroy_session' + str(session_id)
-```
-
 ```bash
-destroy_session
+cache_admin --destroy_session 780643335
 ```
 
 ```text
