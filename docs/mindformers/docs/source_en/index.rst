@@ -114,6 +114,7 @@ Deep Optimizing with MindFormers
    mindformers.dataset
    mindformers.generation
    mindformers.models
+   mindformers.modules
    mindformers.pet
    mindformers.pipeline
    mindformers.tools
