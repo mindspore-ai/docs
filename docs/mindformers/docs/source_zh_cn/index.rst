@@ -114,6 +114,7 @@ MindFormers以其强大的功能集，为用户提供了灵活且易于使用的
    mindformers.dataset
    mindformers.generation
    mindformers.models
+   mindformers.modules
    mindformers.pet
    mindformers.pipeline
    mindformers.tools
