@@ -118,6 +118,7 @@ MindFormers以其强大的功能集，为用户提供了灵活且易于使用的
    mindformers.pipeline
    mindformers.tools
    mindformers.wrapper
+   mindformers.experimental
 
 .. toctree::
    :glob:
