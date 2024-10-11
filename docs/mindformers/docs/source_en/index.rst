@@ -118,6 +118,7 @@ Deep Optimizing with MindFormers
    mindformers.pipeline
    mindformers.tools
    mindformers.wrapper
+   mindformers.experimental
 
 .. toctree::
    :glob:
