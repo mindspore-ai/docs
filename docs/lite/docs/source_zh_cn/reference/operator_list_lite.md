@@ -364,3 +364,5 @@ MindSpore Lite转换工具支持第三方框架的算子列表：
 [4] [转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/converter/converter_tool.html)支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。
 
 [5] 当前支持使用环境变量export KEEP_ORIGIN_DTYPE=1来保持数据类型为int64，当使用int32数据类型存在溢出时可以考虑使用该选项，但是目前仅为实验性选项，后续将移除。
+
+[6] 目前MindSpore导出的MindIR中部分算子不支持，对应的MindSpore接口为ops.matmul、ops.dense、ops.max、ops.min。其中Max以及Min算子只在axis参数为None时不支持，其他场景支持。

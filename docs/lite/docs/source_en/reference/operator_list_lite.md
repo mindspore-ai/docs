@@ -364,3 +364,5 @@ MindSpore Lite conversion tool supports operator lists for third-party framework
 [4] Operators supported by [converter](https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html) but do not require specific implementation. Generally, such operators are optimized by the conversion tool, such as being merged or replaced by other operators.
 
 [5] Currently, we support using the environment variable export KEEP_ORIGIN_DTYPE=1 to keep the data type int64, and this option can be considered when there is an overflow using int32 data type, but it is only an experimental option and will be removed later.
+
+[6] Currently, some operators in the MindIR produced by MindSpore are not supported. The interfaces are ops.matmul, ops.dense, ops.max, and ops.min. Among them, the Max and Min operators only do not support when the axis parameter is None, and other scenarios are supported.
