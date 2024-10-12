@@ -46,7 +46,7 @@ MindSpore框架2.4版本提供了网络模型的特征值检测方案，该方�
 
 环境变量`NPU_ASD_SIGMA_THRESH`控制检测的相对数值阈值，格式与上者相同，其中第一个元素控制数值跳变一级阈值，第二个元素控制数值跳变二级阈值；默认情况下，`NPU_ASD_SIGMA_THRESH=100000,5000`。
 
-上述环境变量的详细说明参见[环境变量](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html)。
+上述环境变量的详细说明参见[环境变量](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)。
 
 ## 使用用例
 

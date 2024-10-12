@@ -4,8 +4,8 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 编程形态
    :hidden:
+   :caption: 编程形态
 
    program_form/overview
    program_form/pynative
@@ -14,8 +14,8 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 数据加载与处理
    :hidden:
+   :caption: 数据加载与处理
 
    dataset/overview
    dataset/sampler
@@ -29,8 +29,8 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 模型构建
    :hidden:
+   :caption: 模型构建
 
    model_building/overview
    model_building/tensor_and_parameter
@@ -39,8 +39,8 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 训练流程
    :hidden:
+   :caption: 训练流程
 
    train_process/overview
    train_process/model
@@ -51,8 +51,8 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 分布式并行
    :hidden:
+   :caption: 分布式并行
 
    parallel/overview
    parallel/startup_method
@@ -70,8 +70,8 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 自定义高阶编程
    :hidden:
+   :caption: 自定义高阶编程
 
    custom_program/overview
    custom_program/op_custom
@@ -85,8 +85,8 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 训练高可用
    :hidden:
+   :caption: 训练高可用
 
    train_availability/fault_recover
    train_availability/graceful_exit
@@ -97,8 +97,8 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 模型调试
    :hidden:
+   :caption: 模型调试
 
    debug/overview
    debug/dump
@@ -111,8 +111,8 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 模型调优
    :hidden:
+   :caption: 模型调优
 
    optimize/overview
    optimize/graph_fusion_engine
@@ -122,8 +122,8 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 模型库
    :hidden:
+   :caption: 模型库
 
    models/official_models
 

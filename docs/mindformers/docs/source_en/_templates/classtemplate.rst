@@ -133,7 +133,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: add_flags_custom, prepare_inputs_for_predict_layout, to_embeddings, construct, prepare_inputs_for_prefill_flatten
+    :exclude-members: add_flags_custom, prepare_inputs_for_predict_layout, to_embeddings, construct, prepare_inputs_for_prefill_flatten, convert_map_dict, convert_weight_dict, convert_name
     :members:
 
 {% elif fullname=="mindformers.models.LlamaTokenizer" %}
@@ -161,7 +161,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: base_model, framework, from_pretrained_experimental_mode, from_pretrained_origin_mode, fuse_weight_from_ckpt, get_support_list, is_experimental_mode, load_checkpoint, prepare_inputs_for_predict_layout, remove_type, save_pretrained_experimental_mode, save_pretrained_origin_mode, set_dynamic_inputs, show_support_list
+    :exclude-members: base_model, framework, from_pretrained_experimental_mode, from_pretrained_origin_mode, fuse_weight_from_ckpt, get_support_list, is_experimental_mode, load_checkpoint, prepare_inputs_for_predict_layout, remove_type, save_pretrained_experimental_mode, save_pretrained_origin_mode, set_dynamic_inputs, show_support_list, convert_map_dict, convert_weight_dict, convert_name
     :members:
 
 {% elif fullname=="mindformers.models.PreTrainedTokenizer" %}

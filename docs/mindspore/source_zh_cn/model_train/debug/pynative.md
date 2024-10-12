@@ -82,7 +82,7 @@ def some_function():
 - 3-ERROR，表示程序执行出现报错，输出错误日志，程序可能不会终止
 - 4-CRITICAL，表示程序执行出现异常，将会终止执行程序
 
-详细的日志控制方法见[环境变量](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html#日志)
+详细的日志控制方法见[环境变量](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html#日志)
 
 ### 常见PDB调试命令
 

@@ -27,4 +27,4 @@ API
    mindspore.scipy
    mindspore.utils
    mindspore.experimental
-   ../note/env_var_list
+   env_var_list

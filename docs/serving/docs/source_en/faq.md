@@ -38,7 +38,7 @@ A: Check whether MindSpore that MindSpore Serving depends on is installed. In Se
 
 <font size=3>**Q：How to control the output of Serving log?**</font>
 
-A：MindSpore Serving uses glog to output logs, for more details, please refer to [Log-related Environment Variables and Configurations](https://www.mindspore.cn/docs/en/master/note/env_var_list.html). On this basis, additional supplementary contents are as follows:
+A：MindSpore Serving uses glog to output logs, for more details, please refer to [Log-related Environment Variables and Configurations](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html). On this basis, additional supplementary contents are as follows:
 
 - MS_SUBMODULE_LOG_v
 

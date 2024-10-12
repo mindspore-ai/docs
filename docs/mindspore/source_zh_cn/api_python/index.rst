@@ -28,7 +28,7 @@ API 文档
    mindspore.scipy
    mindspore.utils
    mindspore.experimental
-   ../note/env_var_list
+   env_var_list
 
 MindSpore提供了丰富的模型构建、训练、推理等接口，各模块接口功能说明如下。
 
@@ -77,10 +77,10 @@ MindSpore提供了丰富的模型构建、训练、推理等接口，各模块�
    * - `mindspore.numpy <./mindspore.numpy.html>`_
      - 类NumPy接口。
    * - `mindspore.scipy <./mindspore.scipy.html>`_
-     - 类Scipy接口。
+     - 类SciPy接口。
    * - `mindspore.utils <./mindspore.utils.html>`_
      - 工具接口。
    * - `mindspore.experimental <./mindspore.experimental.html>`_
      - 实验性接口。
-   * - `环境变量 <../note/env_var_list.html>`_
+   * - `环境变量 <./env_var_list.html>`_
      - 环境变量相关说明。
