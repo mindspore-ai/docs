@@ -76,7 +76,7 @@
                 {
                     "label": "API",
                     "url": "/docs/en/master/api_python/index.html",
-                    "id": "master-api_python,master-note-env_var_list"
+                    "id": "master-api_python"
                 },
                 {
                     "label": "Large Model",

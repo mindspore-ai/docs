@@ -4,8 +4,8 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: MindSpore推理
    :hidden:
+   :caption: MindSpore推理
 
    ms_infer/llm_inference_overview
    ms_infer/weight_prepare
@@ -20,8 +20,8 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: MindSpore Lite推理
    :hidden:
+   :caption: MindSpore Lite推理
 
    lite_infer/overview
 

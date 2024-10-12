@@ -1552,7 +1552,7 @@ Calling the Third-party Libraries
       ``MS_JIT_IGNORE_MODULES``. In contrast, there is the environment
       variable ``MS_JIT_MODULES``. For more details, please refer to
       `Environment
-      Variables <https://www.mindspore.cn/docs/en/master/note/env_var_list.html>`_.
+      Variables <https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html>`_.
 
 -  Supporting data types of third-party libraries, allowing calling and
    returning objects of third-party libraries.

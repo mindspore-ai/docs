@@ -46,7 +46,7 @@ The environment variable `NPU_ASD_UPPER_THRESH` controls the absolute numerical 
 
 The environment variable `NPU_ASD_SIGMA_THRESH` controls the relative numerical threshold of detection, in the same format as the above, where the first element controls the first-level threshold of numerical changes, and the second element controls the second-level threshold of numerical changes; by default, `NPU_ASD_SIGMA_THRESH=100000,5000`.
 
-For details of above environment variables, see [Environment Variables](https://www.mindspore.cn/docs/en/master/note/env_var_list.html).
+For details of above environment variables, see [Environment Variables](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html).
 
 ## Use Cases
 

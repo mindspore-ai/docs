@@ -44,5 +44,3 @@ MindSpore: This interface takes the shapes of the tensors to be received, the te
 |  | Parameter 4 | input_split_sizes | input_split_sizes | Function is consistent |
 |  | Parameter 5 | group | group | Function is consistent, types are different. PyTorch passes in a communication group object; MindSpore passes in the string name of the communication group. |
 |  | Parameter 6 | async_op | async_op | The functionality is consistent |
-
----
