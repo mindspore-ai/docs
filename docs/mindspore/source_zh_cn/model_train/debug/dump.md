@@ -124,8 +124,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
             "input_output": 0,
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7],
-            "statistic_category": ["max", "min", "l2norm"],
-            "overflow_number": 0
+            "statistic_category": ["max", "min", "l2norm"]
         },
         "e2e_dump_settings": {
             "enable": true,
@@ -458,8 +457,7 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7],
             "statistic_category": ["max", "min", "l2norm"],
-            "file_format": "npy",
-            "overflow_number": 0
+            "file_format": "npy"
         }
     }
     ```
