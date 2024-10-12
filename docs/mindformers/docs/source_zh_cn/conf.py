@@ -216,6 +216,12 @@ for i in os.listdir(src_dir_api):
         shutil.copytree(os.path.join(src_dir_api,i),'./'+i)
         copy_list.append(os.path.join(moment_dir,i))
 
+if os.path.exists('./mindformers.experimental.rst'):
+    os.remove('./mindformers.experimental.rst')
+
+if os.path.exists('./experimental'):
+    shutil.rmtree('./experimental')
+
 # add view
 import json
 

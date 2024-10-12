@@ -139,7 +139,6 @@ FAQ
    mindformers.pipeline
    mindformers.tools
    mindformers.wrapper
-   mindformers.experimental
 
 .. toctree::
    :glob:
