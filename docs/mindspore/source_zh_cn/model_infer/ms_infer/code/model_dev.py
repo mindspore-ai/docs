@@ -21,7 +21,7 @@ from mindspore import Parameter, Tensor, nn, ops
 from mindspore.common import dtype as mstype
 from mindspore.common.initializer import initializer
 from mindspore.communication import create_group, get_group_size, get_rank, init
-from mindspore.communication.comm_func import all_gather_into_tensor, all_reduce
+import mindspore.communication as comm
 
 
 class ConfigHelper:
@@ -125,7 +125,7 @@ class GatherLastDim(nn.Cell):
         self.split = ops.Split(axis=0, output_num=self.world_size)
 
     def construct(self, input_):
-        output = all_gather_into_tensor(input_, group=COMMUN_HELPER.get_tensor_model_parallel_group())[0]
+        output = comm.comm_func.all_gather_into_tensor(input_, group=COMMUN_HELPER.get_tensor_model_parallel_group())[0]
         tensor_list = self.split(output)
         output = ops.cat(tensor_list, axis=-1)
         return output
@@ -163,7 +163,7 @@ class RowParallelLinear(nn.Cell):
         output_parallel = self.bmm(x, self.weight)
         if self.has_bias:
             output_parallel = self.bias_add(output_parallel, self.cast(self.bias, self.dtype))
-        output = all_reduce(output_parallel, group=COMMUN_HELPER.get_tensor_model_parallel_group())[0]
+        output = comm.comm_func.all_reduce(output_parallel, group=COMMUN_HELPER.get_tensor_model_parallel_group())[0]
         output = self.cast(output, origin_dtype)
         return output
 
@@ -222,7 +222,7 @@ class VocabParallelEmbedding(nn.Cell):
         input_mask = self.expand_dims(input_mask, -1)
         output_parallel = self.gather(self.embedding_weight, truncated_x, 0)
         output_parallel = self.mul(output_parallel, input_mask)
-        output = all_reduce(output_parallel, group=COMMUN_HELPER.get_tensor_model_parallel_group())[0]
+        output = comm.comm_func.all_reduce(output_parallel, group=COMMUN_HELPER.get_tensor_model_parallel_group())[0]
         return output
 
     def sharded_state_dict(self):

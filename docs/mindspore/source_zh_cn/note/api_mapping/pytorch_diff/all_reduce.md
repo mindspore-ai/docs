@@ -18,8 +18,8 @@ torch.distributed.all_reduce(
 ## mindspore.communication.comm_func.all_reduce
 
 ```python
-from mindspore.communication.comm_func import all_reduce
-return_tensor = all_reduce(
+import mindspore.communication as comm
+return_tensor = comm.comm_func.all_reduce(
     tensor,
     op=ReduceOp.SUM,
     group=GlobalComm.WORLD_COMM_GROUP,

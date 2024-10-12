@@ -18,8 +18,8 @@ For more information, see [torch.distributed.all_gather](https://pytorch.org/doc
 ## mindspore.communication.comm_func.all_gather_into_tensor
 
 ```python
-from mindspore.communication.comm_func import all_gather_into_tensor
-return_tensor = all_gather_into_tensor(
+import mindspore.communication as comm
+return_tensor = comm.comm_func.all_gather_into_tensor(
     tensor,
     group=None,
     async_op=False
