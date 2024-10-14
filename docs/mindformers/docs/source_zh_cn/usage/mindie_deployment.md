@@ -64,17 +64,17 @@ vim config.json
 
 其他相关参数如下：
 
-| 可选配置项          | 取值类型 | 取值范围             | 配置说明                                                                                                                       |
-| ------------------- | -------- | -------------------- |----------------------------------------------------------------------------------------------------------------------------|
-| maxSeqLen           | int32    | 按用户需求自定义，>0 | 最大序列长度。输入的长度+输出的长度<=maxSeqLen，用户根据自己的推理场景选择maxSeqLen                                                                       |
-| npuDeviceIds        | list     | 按模型需求自定义     | 可使用NPU卡的索引值。例如可见卡为4-7卡，该值需设定为[[0,1,2,3]]，对应该4卡的索引值。设置为其他值则会报越界错误。  可见卡默认为机器全量卡，需调整资源参考[CANN环境变量](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC3alpha003/apiref/envref/envref_07_0029.html)                         |
-| worldSize           | int32    | 按模型需求自定义     | 使用的总卡数                                                                                                                     |
-| npuMemSize          | int32    | 按显存自定义         | NPU中可以用来申请KVCache的size上限（GB），可按部署模型的实际大小计算得出：npuMemSize=(总空闲-权重/mp数量)*系数，其中系数取0.8。建议值：8                                    |
-| cpuMemSize          | int32    | 按内存自定义         | CPU中可以用来申请KVCache的size上限（GB），和swap功能有关，cpuMemSize不足时会将Cache释放进行重计算。建议值：5                                                   |
+| 可选配置项          | 取值类型 | 取值范围             | 配置说明                                                                                                                                                                             |
+| ------------------- | -------- | -------------------- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| maxSeqLen           | int32    | 按用户需求自定义，>0 | 最大序列长度。输入的长度+输出的长度<=maxSeqLen，用户根据自己的推理场景选择maxSeqLen                                                                                                                             |
+| npuDeviceIds        | list     | 按模型需求自定义     | 此配置项暂不生效。实际运行的卡由可见卡环境变量和worldSize配置控制。可见卡需调整资源参考[CANN环境变量](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC3alpha003/apiref/envref/envref_07_0029.html)     |
+| worldSize           | int32    | 按模型需求自定义     | 可见卡的使用卡数。例：ASCEND_RT_VISIBLE_DEVICES=4,0,1,2且worldSize=2，则取第4，0卡运行。                                                                                                              |
+| npuMemSize          | int32    | 按显存自定义         | NPU中可以用来申请KVCache的size上限（GB），可按部署模型的实际大小计算得出：npuMemSize=(总空闲-权重/mp数量)*系数，其中系数取0.8。建议值：8                                                                                          |
+| cpuMemSize          | int32    | 按内存自定义         | CPU中可以用来申请KVCache的size上限（GB），和swap功能有关，cpuMemSize不足时会将Cache释放进行重计算。建议值：5                                                                                                         |
 | maxPrefillBatchSize | int32    | [1, maxBatchSize]    | 最大prefill batch size。maxPrefillBatchSize和maxPrefillTokens谁先达到各自的取值就完成本次组batch。该参数主要是在明确需要限制prefill阶段batch size的场景下使用，否则可以设置为0（此时引擎将默认取maxBatchSize值）或与maxBatchSize值相同。必填，默认值：50。 |
-| maxPrefillTokens    | int32    | [5120, 409600]       | 每次prefill时，当前batch中所有input token总数，不能超过maxPrefillTokens。maxPrefillTokens和maxPrefillBatchSize谁先达到各自的取值就完成本次组batch。必填，默认值：8192。                                                                                |
-| maxBatchSize        | int32    | [1, 5000]            | 最大decode batch size，根据模型规模和NPU显存估算得出                                                                                       |
-| maxIterTimes        | int32    | [1, maxSeqLen-1]     | 可以进行的decode次数，即一句话最大可生成长度。请求级别里面有一个max_output_length参数，maxIterTimes是一个全局设置，与max_output_length取小作为最终output的最长length         |
+| maxPrefillTokens    | int32    | [5120, 409600]       | 每次prefill时，当前batch中所有input token总数，不能超过maxPrefillTokens。maxPrefillTokens和maxPrefillBatchSize谁先达到各自的取值就完成本次组batch。必填，默认值：8192。                                                    |
+| maxBatchSize        | int32    | [1, 5000]            | 最大decode batch size，根据模型规模和NPU显存估算得出                                                                                                                                             |
+| maxIterTimes        | int32    | [1, maxSeqLen-1]     | 可以进行的decode次数，即一句话最大可生成长度。请求级别里面有一个max_output_length参数，maxIterTimes是一个全局设置，与max_output_length取小作为最终output的最长length                                                               |
 
 全量配置参数可查阅 [MindIE Service开发指南-快速开始-配置参数说明(待发布)]()
 
