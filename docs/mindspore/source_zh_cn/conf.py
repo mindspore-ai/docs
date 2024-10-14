@@ -477,6 +477,7 @@ for root, dirs, files in os.walk(api_file_dir, topdown=True):
 from rename_include import rename_include
 
 rename_include('api_python')
+rename_include('migration_guide')
 
 # modify urls
 import json
