@@ -1,6 +1,6 @@
 # Dataset
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/function/dataset.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_en/function/dataset.md)
 
 ## MindRecord Dataset
 
@@ -9,7 +9,7 @@ MindRecord is an efficient data format developed by MindSpore for storing machin
 The MindRecord format is designed to improve data processing efficiency, especially in large-scale data training scenarios where data can be loaded and processed faster.
 MindRecord files typically contain the input samples needed for model training, which are preprocessed (e.g., encoded, normalized) to optimize read speed and memory usage.
 
-For more information about the implementation of MindRecord related interfaces and examples, please refer to the [documentation about MindRecord in MindSpore](https://www.mindspore.cn/docs/en/master/api_python/mindspore.mindrecord.html).
+For more information about the implementation of MindRecord related interfaces and examples, please refer to the [documentation about MindRecord in MindSpore](https://www.mindspore.cn/docs/en/r2.4.0/api_python/mindspore.mindrecord.html).
 
 ### How to Make a MindRecord Dataset
 
@@ -89,13 +89,13 @@ The following is an example of a MindRecord dataset based on a json format file,
     writer.commit()
     ```
 
-For the detailed cases, refer to [Examples of Data Preprocessing in Llama2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
+For the detailed cases, refer to [Examples of Data Preprocessing in Llama2](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
 
 ### Using MindRecord Format Datasets in Tasks
 
 You can make a training or evaluation task use a prepared MindRecord format dataset by configuring dataset-related parameters in the yaml configuration file.
 
-Here, as an example, for the Llama2-7B model pretraining task, the default configuration parameters and descriptions in the [pretrain_llama2_7b.yaml file](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml#L39) are as follows:
+Here, as an example, for the Llama2-7B model pretraining task, the default configuration parameters and descriptions in the [pretrain_llama2_7b.yaml file](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/pretrain_llama2_7b.yaml#L39) are as follows:
 
 ```yaml
 # dataset
@@ -124,7 +124,7 @@ Configure the following parameters to use MindRecord format datasets:
 - data_loader.dataset_dir: The path to the dataset file.
 - input_columns: Sets the data columns for the input of the training dataset. Currently a pre-training scenario, set to `["input_ids"]`.
 
-The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
+The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/appendix/conf_files.html).
 
 ## BIN Format Dataset
 
@@ -139,7 +139,7 @@ Currently the preprocessing script provided by MindFormers only supports process
 {"src": "The Internet", "text": "jumps over the lazy dog", "type": "Eng", "id": "42", "title": "Second Part"}
 ```
 
-Llama2 processing of a Wiki dataset as an example, for the download of the original Wiki dataset, see [Example of data preprocessing in Llama2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)，Call [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) directly after processing the dataset into a format that matches the format supported by the preprocessing scripts. The specific commands are as follows:
+Llama2 processing of a Wiki dataset as an example, for the download of the original Wiki dataset, see [Example of data preprocessing in Llama2](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)，Call [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py) directly after processing the dataset into a format that matches the format supported by the preprocessing scripts. The specific commands are as follows:
 
 ```shell
 python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
@@ -172,7 +172,7 @@ After executing the above command, you will get two files in .bin and .idx forma
 
 The training task can be made to use a prepared BIN format dataset by configuring dataset-related parameters in the yaml configuration file.
 
-Here, taking the Llama2-7B model pretraining task as an example, the configuration parameters in the [pretrain_llama2_7b.yaml file](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml#L39) are modified and described as follows:
+Here, taking the Llama2-7B model pretraining task as an example, the configuration parameters in the [pretrain_llama2_7b.yaml file](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/pretrain_llama2_7b.yaml#L39) are modified and described as follows:
 
 ```yaml
 # dataset
@@ -294,7 +294,7 @@ If you want to process the data directly for the whole dataset instead of proces
 
 #### Training Processes Loaded Directly from the Remote Repository
 
-Modify the task configuration file [finetune_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/finetune_llama2_7b.yaml).
+Modify the task configuration file [finetune_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/finetune_llama2_7b.yaml).
 
 Modify the following parameters:
 
@@ -329,7 +329,7 @@ Configure the following parameters to use the alpaca dataset:
 - data_loader.handler.prompt_key: name of the data column after adding prompt processing.
 - data_loader.handler.output_columns: columns to be output after data preprocessing.
 
-The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
+The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/appendix/conf_files.html).
 
 Custom data handler：
 
@@ -409,7 +409,7 @@ class AlpacaInstructDataHandler(BaseInstructDataHandler):
 
 #### Training Processes Loaded Directly from the Remote Repository
 
-Modify the task configuration file [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml).
+Modify the task configuration file [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml).
 
 Modify the following parameters:
 
@@ -454,7 +454,7 @@ Configure the following parameters to use the ADGEN dataset:
 - data_loader.handler.type: name of the type of the custom data handler.
 - data_loader.handler.output_columns: the names of the dataset columns that will be output after processing.
 
-The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
+The rest of the parameters can be described in "model training configuration" and "model evaluation configuration [Configuration File Description](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/appendix/conf_files.html).
 
 Custom adgen_handler:
 

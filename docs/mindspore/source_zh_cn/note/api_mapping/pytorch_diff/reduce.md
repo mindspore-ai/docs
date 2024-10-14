@@ -1,6 +1,6 @@
 # 比较与torch.distributed.reduce的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/reduce.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/reduce.md)
 
 ## torch.distributed.reduce
 
@@ -28,7 +28,7 @@ return_tensor = comm.comm_func.reduce(
 )
 ```
 
-更多内容详见[mindspore.communication.comm_func.reduce](https://www.mindspore.cn/docs/en/master/api_python/communication/mindspore.communication.comm_func.reduce.html#mindspore.communication.comm_func.reduce)。
+更多内容详见[mindspore.communication.comm_func.reduce](https://www.mindspore.cn/docs/en/r2.4.0/api_python/communication/mindspore.communication.comm_func.reduce.html#mindspore.communication.comm_func.reduce)。
 
 ## 差异对比
 

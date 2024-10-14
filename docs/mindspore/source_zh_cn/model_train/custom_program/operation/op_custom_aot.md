@@ -1,12 +1,12 @@
 # AOT类型自定义算子（CPU/GPU平台）
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/custom_program/operation/op_custom_aot.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_zh_cn/model_train/custom_program/operation/op_custom_aot.md)
 
 ## 概述
 
-AOT类型的自定义算子采用预编译的方式，要求网络开发者基于特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后在网络运行时框架会自动调用执行动态链接库中的函数。AOT类型的自定义算子支持GPU平台的CUDA语言，和CPU平台的C和C++语言。对于Ascend平台的自定义算子开发，参考[AOT类型自定义算子（Ascend平台）](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_ascendc.html)。
+AOT类型的自定义算子采用预编译的方式，要求网络开发者基于特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后在网络运行时框架会自动调用执行动态链接库中的函数。AOT类型的自定义算子支持GPU平台的CUDA语言，和CPU平台的C和C++语言。对于Ascend平台的自定义算子开发，参考[AOT类型自定义算子（Ascend平台）](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/custom_program/operation/op_custom_ascendc.html)。
 
-这篇教程中，我们提供几个简单的AOT类型自定义算子在CPU和GPU平台的用例作为展示。对于更多完整的AOT类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot.py)。
+这篇教程中，我们提供几个简单的AOT类型自定义算子在CPU和GPU平台的用例作为展示。对于更多完整的AOT类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/v2.4.0/tests/st/graph_kernel/custom/test_custom_aot.py)。
 
 ## AOT类型自定义算子基础用法特性简介
 
@@ -33,7 +33,7 @@ extern "C" int CustomFunc(int nparam, void **params, int *ndims, int64_t **shape
 
 算子输出shape和数据类型推理可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
 
-若自定义算子只支持特定的输入输出数据类型，则需要定义算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_adv.html#算子信息注册)。
+若自定义算子只支持特定的输入输出数据类型，则需要定义算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/custom_program/operation/op_custom_adv.html#算子信息注册)。
 
 下面通过例子介绍GPU平台和CPU平台上AOT类型的自定义算子开发流程，其中自定义算子实现两个输入张量相加的功能。
 
@@ -200,7 +200,7 @@ python test_custom_aot.py
 - AOT类型自定义算子的属性和中间变量；
 - AOT类型自定义算子的动态shape支持。
 
-对于下面用例的完整代码，请查阅[这里](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot_fused.py)。
+对于下面用例的完整代码，请查阅[这里](https://gitee.com/mindspore/mindspore/blob/v2.4.0/tests/st/graph_kernel/custom/test_custom_aot_fused.py)。
 
 ### AOT类型自定义算子的自动编译
 
@@ -271,7 +271,7 @@ extern "C" int FuncNameInit(int *ndims, int64_t **shapes, const char **dtypes, A
 - ndims (int \*): 输入输出shape维度数组。
 - shapes (int64_t \*\*): 输入输出shape数组。
 - dtypes (const char \*\*): 输入输出数据类型数组。
-- extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
+- extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/v2.4.0/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
 
 ### Shape推导函数
 
@@ -285,7 +285,7 @@ extern "C" std::vector<int64_t> FuncNameInferShape(int *ndims, int64_t **shapes,
 
 - ndims (int \*): 输入shape维度数组。
 - shapes (int64_t \*\*): 输入shape数组。
-- extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
+- extra (AotExtra \*): 用于带属性的自定义算子扩展。其中`AotExtra`类型定义在MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/v2.4.0/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)。
 
 ### 算子属性注册（Python）
 
@@ -295,7 +295,7 @@ extern "C" std::vector<int64_t> FuncNameInferShape(int *ndims, int64_t **shapes,
 def attr(self, name=None, param_type=None, value_type=None, default_value=None, **kwargs)
 ```
 
-其参数含义参见[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)相关接口文档。其中，在AOT类型自定义算子注册时，我们注册时需要注意一下四个参数：
+其参数含义参见[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)相关接口文档。其中，在AOT类型自定义算子注册时，我们注册时需要注意一下四个参数：
 
 - name: AOT类型自定义算子的属性的名称；
 - param_type: 属性的参数类型。对于AOT类型自定义算子的属性，这个输入固定为”required“，即必选参数；
@@ -322,7 +322,7 @@ output = ReduceSum(tmp, axis, keep_dims)
 
 #### 算子属性类
 
-首先我们定义一个数据结构贮存算子属性，该数据接口继承自`AotKernelData`。`AotKernelData`是自定义算子属性数据结构的统一基类，通过下载MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)放在源文件同一目录下并在文件前`#include "custom_aot_extra.h"`便可以使用相关接口。
+首先我们定义一个数据结构贮存算子属性，该数据接口继承自`AotKernelData`。`AotKernelData`是自定义算子属性数据结构的统一基类，通过下载MindSpore提供的头文件[custom_aot_extra.h](https://gitee.com/mindspore/mindspore/blob/v2.4.0/tests/st/graph_kernel/custom/aot_test_files/custom_aot_extra.h)放在源文件同一目录下并在文件前`#include "custom_aot_extra.h"`便可以使用相关接口。
 
 ```c++
 #include <vector>
@@ -507,7 +507,7 @@ class ReduceDynNet(Cell):
 
 #### 算子注册
 
-算子属性的在初始化时的赋值通过算子注册文件实现。关于自定义算子注册的函数，参见[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)相关文档。对于每一个属性，我们为算子注册文件`reduce_cpu_info`创建一个`attr`，设置属性名和属性的值。
+算子属性的在初始化时的赋值通过算子注册文件实现。关于自定义算子注册的函数，参见[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)相关文档。对于每一个属性，我们为算子注册文件`reduce_cpu_info`创建一个`attr`，设置属性名和属性的值。
 
 这里每一个`attr`项有四个输入：第一个为名字，如`"axis"`或`"keep_dim"`；中间两个为`"required"`和`"all"`；最后一个输入需要指定输入名为`value=`，输入的值为属性的值，例如这里`value=axis`和`value=keep_dim`。这里我们从网络的输入确定这两个参数的值，这两个值应该和上面初始化函数和shape推导函数中使用的`extra->Attr<T>`模板接口的类型匹配。
 
@@ -561,7 +561,7 @@ AOT类型的自定义算子支持多输出（输出为tuple)的情况。多输�
 - 算子注册文件：需要列出多个输出的名字和数据类型信息；
 - 算子计算函数：需要识别多个输出对应的指针。
 
-下面我们用一个例子来展现多输出AOT类型自定义算子的定义方法，具体的文件用例参见[这里](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_aot.py#L405)。
+下面我们用一个例子来展现多输出AOT类型自定义算子的定义方法，具体的文件用例参见[这里](https://gitee.com/mindspore/mindspore/blob/v2.4.0/tests/st/graph_kernel/custom/test_custom_aot.py#L405)。
 
 ### 算子推导文件
 
@@ -664,7 +664,7 @@ void *output2 = params[3];
 void *output3 = params[4];
 ```
 
-完整的算子计算文件参见[这里](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/aot_test_files/add_mul_div.cu).
+完整的算子计算文件参见[这里](https://gitee.com/mindspore/mindspore/blob/v2.4.0/tests/st/graph_kernel/custom/aot_test_files/add_mul_div.cu).
 
 ### 算子使用文件
 

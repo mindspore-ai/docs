@@ -1,6 +1,6 @@
 # Large Model Accuracy Optimization Guide
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/acc_optimize/acc_optimize.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_en/acc_optimize/acc_optimize.md)
 
 ## Overview and Scenarios of Accuracy Issues
 
@@ -114,7 +114,7 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 ## Introduction to Accuracy Debugging Tools
 
-In accuracy localization, MindSpore's Dump tool is mainly used. Mainly support O0/O1/O2 mode, different modes support Dump function is not exactly the same, the required configuration files and the data format generated is also different. O0/O1 supports host and device modes to support Dump data format `.npy` file; O2 only supports host mode, supports Dump data format `.npy` and `.bin` file. For details, please refer to [Dump Function Debugging](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html), and the following is only a brief introduction to the two Dump methods.
+In accuracy localization, MindSpore's Dump tool is mainly used. Mainly support O0/O1/O2 mode, different modes support Dump function is not exactly the same, the required configuration files and the data format generated is also different. O0/O1 supports host and device modes to support Dump data format `.npy` file; O2 only supports host mode, supports Dump data format `.npy` and `.bin` file. For details, please refer to [Dump Function Debugging](https://www.mindspore.cn/docs/en/r2.4.0/model_train/debug/dump.html), and the following is only a brief introduction to the two Dump methods.
 
 ### O0/O1 Graph Mode Dump
 
@@ -140,7 +140,7 @@ MindSpore's Dump tool is enabled by configuring a JSON file, which Dumps out all
 }
 ```
 
-Refer to [Dump Function Debug](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html) for the field meanings of the configuration parameters.
+Refer to [Dump Function Debug](https://www.mindspore.cn/docs/en/r2.4.0/model_train/debug/dump.html) for the field meanings of the configuration parameters.
 
 After configuring the JSON file, set the Dump environment variable to point to the configured JSON file, you need to set the absolute path:
 
@@ -172,7 +172,7 @@ This method dumps out all the operator data in the network and saves the statist
 }
 ```
 
-Refer to [Dump Function Debug](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html) for the field meanings of the configuration parameters.
+Refer to [Dump Function Debug](https://www.mindspore.cn/docs/en/r2.4.0/model_train/debug/dump.html) for the field meanings of the configuration parameters.
 
 After configuring the JSON file, set the Dump environment variable to point to the configured JSON file, you need to set the absolute path:
 
@@ -185,7 +185,7 @@ After setting the environment variables, start the program training to get the c
 
 ### Other Introductions
 
-In addition to the full amount of operator Dump introduced above, the tool also supports partial data Dump, overflow Dump, specified-condition Dump and so on. Limited to space, interested users can refer to [Dump function debugging](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html) for configuration and use. In addition, TroubleShooter web development debugging is also provided, can be used in the weight conversion, weight comparison and other scenarios. For more information, refer to [TroubleShooter tool introduction](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter).
+In addition to the full amount of operator Dump introduced above, the tool also supports partial data Dump, overflow Dump, specified-condition Dump and so on. Limited to space, interested users can refer to [Dump function debugging](https://www.mindspore.cn/docs/en/r2.4.0/model_train/debug/dump.html) for configuration and use. In addition, TroubleShooter web development debugging is also provided, can be used in the weight conversion, weight comparison and other scenarios. For more information, refer to [TroubleShooter tool introduction](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter).
 
 ## Generalized Processes for Accuracy Positioning
 
@@ -198,7 +198,7 @@ There are two main ideas for problem positioning:
 
 The training process of the model can be decomposed into the following processes: data input, forward computation, loss, backward computation, gradient, optimizer weight update, and next step. The following will describe how to rank each stage of the training in conjunction with the flow of the following figure.
 
-![general_process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/general_process.png)
+![general_process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindformers/docs/source_zh_cn/acc_optimize/image/general_process.png)
 
 ### Stage 1: Pre-training Preparation
 
@@ -226,7 +226,7 @@ Features such as model parallelism, flow parallelism, sequence parallelism, opti
 
 #### Weight Conversion
 
-During training, MindSpore is loaded with the same weights as PyTorch. In case of pre-training scenarios, you can use PyTorch to save an initialized weight and then convert it to MindSpore weights. Because MindSpore weight names differ from PyTorch, the essence of weight conversion is to change the names in the PyTorch weight dict to MindSpore weight names to support MindSpore loading. Refer to [weight conversion guide](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html) for weight conversion.
+During training, MindSpore is loaded with the same weights as PyTorch. In case of pre-training scenarios, you can use PyTorch to save an initialized weight and then convert it to MindSpore weights. Because MindSpore weight names differ from PyTorch, the essence of weight conversion is to change the names in the PyTorch weight dict to MindSpore weight names to support MindSpore loading. Refer to [weight conversion guide](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/function/weight_conversion.html) for weight conversion.
 
 Save the dataset for each step of PyTorch training. During MindSpore training, load the same dataset for training, thus ensuring the same training dataset for each step. Refer to the Appendix for the implementation code.
 
@@ -261,7 +261,7 @@ The training process fixes randomness and turns on deterministic computation in 
           torch_npu.npu.manual_seed(seed)
   ```
 
-* PyTorch code, add the following to [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py):
+* PyTorch code, add the following to [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/run_mindformer.py):
 
   ```python
   from mindspore import context
@@ -323,7 +323,7 @@ def get_parameters(self):
 
 Below is an example of a local norm comparison, comparing the local norm values corresponding to the weights.
 
-![local norm](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/local_norm.png)
+![local norm](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindformers/docs/source_zh_cn/acc_optimize/image/local_norm.png)
 
 It can be found that in the scenario shown in this figure, the local norm value of model.tok_embeddings.embedding_weight has a large difference, which can be focused on troubleshooting the implementation of the embedding and the calculation accuracy, etc.
 
@@ -359,7 +359,7 @@ def get_parameters(self):
     return params
 ```
 
-MindFormers loads the gradient reference implementation. Note that it requires the user to find the correspondence between MindFormers and PyTorch gradients on their own by modifying [mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/wrapper/wrapper.py):
+MindFormers loads the gradient reference implementation. Note that it requires the user to find the correspondence between MindFormers and PyTorch gradients on their own by modifying [mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/wrapper/wrapper.py):
 
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
@@ -399,7 +399,7 @@ Before the training of weight update, it is necessary to confirm the benchmark e
 
 The learning rate is set > 0, the weights are updated, and the long stability test is performed. The training to a certain step appeared the phenomenon of large differences in the loss, after which the training loss began to diverge, as shown in Fig:
 
-![loss1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss1.png)
+![loss1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss1.png)
 
 In this scenario, the training before and after the mutation can be targeted for troubleshooting, and the following troubleshooting can be tried:
 
@@ -413,7 +413,7 @@ In this scenario, the training before and after the mutation can be targeted for
 
 It is also possible to have a better fit in the early part of the training period and a large difference in the convergence loss in the later part of the training period in the long stability test, as shown in Fig:
 
-![loss2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss2.png)
+![loss2](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss2.png)
 
 In this scenario, troubleshooting can be done from the following perspectives:
 
@@ -435,7 +435,7 @@ This section will introduce the completion of accuracy ranking based on the abov
 
 Training the model with a 128-card cluster and comparing training with Ascend+MindSpore training with GPU+PyTorch training reveals that the late training convergence loss is about 0.1 higher than GPU+PyTorch. As shown in the figure, the convergence is not as expected:
 
-![loss3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss3.png)
+![loss3](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss3.png)
 
 The blue line is the Ascend+MindSpore training curve and the red line is the GPU+PyTorch training curve.
 
@@ -445,7 +445,7 @@ Before locating the problem, check against the CheckList to confirm that there i
 
 First the loss alignment of step1 is confirmed to be OK. Compare the local norm of step1 and calculate the difference between the Local norm value of each weight and the benchmark, the Embedding weight has a large difference between the local norm value and the benchmark.
 
-![local norm](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/local_norm.png)
+![local norm](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindformers/docs/source_zh_cn/acc_optimize/image/local_norm.png)
 
 The reason for this is that MindFormers uses fp32 for weight initialization, and fp32 precision is used for both forward and backward embedding calculations, while PyTorch forward and backward calculations are bf16, which leads to differences in the calculated local norm values.
 
@@ -453,11 +453,11 @@ Once the computational accuracy is aligned, the exhaustive optimizer computation
 
 The long stable training exhaustion will be extended from single card experiments to multi-card experiments by first setting the LEARNING RATE=0, i.e., the weights are not updated. Forward computation of the loss difference of each step is around 0.001, and the forward computation error is as expected. The difference of global norm of each step is about 0.05, and the difference of reverse calculation is not significant. It is initially judged that the model migration code is correct, the model structure is consistent, and the difference of forward and reverse calculation is not significant.
 
-![loss4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss4.png)
+![loss4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss4.png)
 
 Re-weight update, single card training, set learning rate=1e-5, train 1k steps. Convergence late loss has a steady 0.1 difference, reproducing the problem.
 
-![loss5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss5.png)
+![loss5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss5.png)
 
 Perform problem troubleshooting. Identify the following problems:
 
@@ -469,11 +469,11 @@ After fixing the problem, experiment again, train 10,000 steps, the loss differe
 
 After completing the single card training, start the multi-card training test: set the learning rate=1e-5, train 1,000 steps. convergence is consistent in the late stage of training, but there is a stable 0.05 error in the middle stage of training.
 
-![loss6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss6.png)
+![loss6](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss6.png)
 
 To verify that this error is within reasonable limits, the deterministic computation was turned off and the GPU experiment was run twice repeatedly. The red line in the figure is the curve of MindSpore training, and the blue and green lines are the curves of the first and second GPU training, respectively. At the training instability around 7,000 steps, the curve of MindSpore training is right between the curves of the two GPU trainings, indicating that the error is within a reasonable range and the problem is finally solved.
 
-![loss7](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss7.png)
+![loss7](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss7.png)
 
 ## Appendix
 
@@ -652,13 +652,13 @@ class NumpyDataloader(BaseDataset):
         return dataloader
 ```
 
-[mindformers/dataset/\_\_init\_\_.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/dataset/__init__.py) adds:
+[mindformers/dataset/\_\_init\_\_.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/dataset/__init__.py) adds:
 
 ```python
 from .numpy_dataset import NumpyDataloader
 ```
 
-Modify the following configuration item of the training yaml, refer to [Config Configuration Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html) for the meaning of the configuration item:
+Modify the following configuration item of the training yaml, refer to [Config Configuration Description](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/appendix/conf_files.html) for the meaning of the configuration item:
 
 ```yaml
 train_dataset: &train_dataset
@@ -670,7 +670,7 @@ train_dataset_task:
   type: NumpyDataloader
 ```
 
-Due to the difference between MindFormers and Megatron data processing part, when using Megatron saved numpy data for training, we need to modify the code for processing tokens and labels. Taking Llama as an example, the original code is to perform slice operation on input_ids to get tokens and labels, which is not needed when using Megatron saved data. Modify [mindformers/models/llama/llama.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama.py):
+Due to the difference between MindFormers and Megatron data processing part, when using Megatron saved numpy data for training, we need to modify the code for processing tokens and labels. Taking Llama as an example, the original code is to perform slice operation on input_ids to get tokens and labels, which is not needed when using Megatron saved data. Modify [mindformers/models/llama/llama.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/models/llama/llama.py):
 
 ```python
 class LlamaForCausalLM(LlamaPreTrainedModel):

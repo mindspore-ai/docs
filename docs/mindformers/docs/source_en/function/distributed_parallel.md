@@ -1,6 +1,6 @@
 # Distributed Parallelism
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/function/distributed_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_en/function/distributed_parallel.md)
 
 ## Parallel Modes and Application Scenarios
 
@@ -25,15 +25,15 @@ MindFormers supports multiple parallelism features. You can use these features t
 
 | **Parallelism Feature**                     | **Description**                                                                         |
 |-----------------------------------|---------------------------------------------------------------------------------|
-| **[Data parallelism](https://www.mindspore.cn/docs/en/master/model_train/parallel/data_parallel.html)**                    | Splits data to multiple devices and trains the data on each device at the same time. This mode applies to training a simple model with a lot of data.                                   |
-| **[Model parallelism](https://www.mindspore.cn/docs/en/master/model_train/parallel/operator_parallel.html)**                    | Distributes model parameters to multiple devices. This mode applies to the scenario where a single device cannot accommodate the entire model.                                               |
-| **[Pipeline parallelism](https://www.mindspore.cn/docs/en/master/model_train/parallel/pipeline_parallel.html)**                  | Divides an ultra-large model into multiple phases with each running on different devices for efficient training.                                       |
-| **[Optimizer parallelism](https://www.mindspore.cn/docs/en/master/model_train/parallel/optimizer_parallel.html)**                  | Distributes the optimizer computation to multiple devices to reduce memory usage and improve training efficiency.                                                  |
-| **[Sequence parallelism](https://gitee.com/mindspore/mindformers/blob/dev/docs/feature_cards/Long_Sequence_Training.md)**                    | Slices the LayerNorm and Dropout inputs at the Transformer layer by sequence to reduce the GPU memory pressure of a single device. This mode applies to a model for processing long sequence inputs.       |
+| **[Data parallelism](https://www.mindspore.cn/docs/en/r2.4.0/model_train/parallel/data_parallel.html)**                    | Splits data to multiple devices and trains the data on each device at the same time. This mode applies to training a simple model with a lot of data.                                   |
+| **[Model parallelism](https://www.mindspore.cn/docs/en/r2.4.0/model_train/parallel/operator_parallel.html)**                    | Distributes model parameters to multiple devices. This mode applies to the scenario where a single device cannot accommodate the entire model.                                               |
+| **[Pipeline parallelism](https://www.mindspore.cn/docs/en/r2.4.0/model_train/parallel/pipeline_parallel.html)**                  | Divides an ultra-large model into multiple phases with each running on different devices for efficient training.                                       |
+| **[Optimizer parallelism](https://www.mindspore.cn/docs/en/r2.4.0/model_train/parallel/optimizer_parallel.html)**                  | Distributes the optimizer computation to multiple devices to reduce memory usage and improve training efficiency.                                                  |
+| **[Sequence parallelism](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/feature_cards/Long_Sequence_Training.md)**                    | Slices the LayerNorm and Dropout inputs at the Transformer layer by sequence to reduce the GPU memory pressure of a single device. This mode applies to a model for processing long sequence inputs.       |
 | **Context parallelism** | Slices all inputs and output activations by sequence to further reduce the GPU memory usage of the model for processing long sequence inputs.|
-| **[Multi-copy parallelism](https://www.mindspore.cn/docs/en/master/model_train/parallel/pipeline_parallel.html#mindspore-interleaved-pipeline-scheduler)**                  | Implements fine-grained parallel control among multiple copies to optimize performance and resource utilization. This mode is suitable for efficient training of models with large specifications.                                    |
+| **[Multi-copy parallelism](https://www.mindspore.cn/docs/en/r2.4.0/model_train/parallel/pipeline_parallel.html#mindspore-interleaved-pipeline-scheduler)**                  | Implements fine-grained parallel control among multiple copies to optimize performance and resource utilization. This mode is suitable for efficient training of models with large specifications.                                    |
 
-For details about how to configure distributed parallel parameters, see [MindFormers Configuration Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html).
+For details about how to configure distributed parallel parameters, see [MindFormers Configuration Description](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/appendix/conf_files.html).
 
 ## MindFormers Distributed Parallel Application Practices
 

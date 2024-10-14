@@ -1,24 +1,24 @@
 # Higher-order Operator-level Parallelism
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/parallel/advanced_operator_parallel.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_en/model_train/parallel/advanced_operator_parallel.md)
 
 ## Overview
 
-[Operator-level Parallelism](https://www.mindspore.cn/docs/en/master/model_train/parallel/operator_parallel.html) is a commonly used parallelism technique in large model training inference, which can slice the tensor across multiple cards and effectively reduce GPU memory on a single card. MindSpore is configured for operator-level parallelism by describing tensor slicing in tuples for each input of the operator through mindspore.ops.Primitive.shard() interface, which is easy to configure for most scenarios. Accordingly, this type of slicing only describes the tensor slicing but shields the tensor layout on the device rank from the users, and thus expresses a limited mapping between tensor slicing and device ranking, which cannot support slicing for some more complex scenarios. Therefore, this tutorial will introduce an operator-level parallel configuration method of the open device layout description.
+[Operator-level Parallelism](https://www.mindspore.cn/docs/en/r2.4.0/model_train/parallel/operator_parallel.html) is a commonly used parallelism technique in large model training inference, which can slice the tensor across multiple cards and effectively reduce GPU memory on a single card. MindSpore is configured for operator-level parallelism by describing tensor slicing in tuples for each input of the operator through mindspore.ops.Primitive.shard() interface, which is easy to configure for most scenarios. Accordingly, this type of slicing only describes the tensor slicing but shields the tensor layout on the device rank from the users, and thus expresses a limited mapping between tensor slicing and device ranking, which cannot support slicing for some more complex scenarios. Therefore, this tutorial will introduce an operator-level parallel configuration method of the open device layout description.
 
 > Hardware platforms supported for advanced operator-level parallel models include Ascend, GPUs, and need to be run in Graph mode.
 
 ## Background
 
-[Operator-level Parallelism](https://www.mindspore.cn/docs/en/master/model_train/parallel/operator_parallel.html) describes MindSpore basic slicing logic for tensors, but cannot express all the slicing scenarios. For a 2D tensor "[[a0, a1, a2, a3], [a4, a5, a6, a7]]", the tensor layout is shown below:
+[Operator-level Parallelism](https://www.mindspore.cn/docs/en/r2.4.0/model_train/parallel/operator_parallel.html) describes MindSpore basic slicing logic for tensors, but cannot express all the slicing scenarios. For a 2D tensor "[[a0, a1, a2, a3], [a4, a5, a6, a7]]", the tensor layout is shown below:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/model_train/parallel/images/advanced_operator_parallel_view1.PNG)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindspore/source_zh_cn/model_train/parallel/images/advanced_operator_parallel_view1.PNG)
 
 *Figure: Schematic of 2D tensor arrangement*
 
 It can be seen that the 0-axis of the tensor, e.g. "[a0, a1, a2, a3]" slices to the discontinuous card "[Rank0, Rank4, Rank2, Rank6]" and the tensor is sliced according to strategy=(2, 4), the arrangement should be as follows:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/model_train/parallel/images/advanced_operator_parallel_view2.PNG)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindspore/source_zh_cn/model_train/parallel/images/advanced_operator_parallel_view2.PNG)
 
 *Figure: Schematic of a 2D tensor arranged according to a sharding strategy*
 
@@ -26,9 +26,9 @@ As can be seen from the above example, directly slicing the input and output ten
 
 ## Interface Configuration
 
-In order to express sharding as in the above scenario, functional extensions are made to the [shard](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.shard.html) interface.
+In order to express sharding as in the above scenario, functional extensions are made to the [shard](https://www.mindspore.cn/docs/en/r2.4.0/api_python/mindspore/mindspore.shard.html) interface.
 
-The parameters in_strategy and out_strategy both additionally receive the new quantity type tuple(Layout) type. [Layout](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Layout.html) is initialized using the device matrix, while requiring an alias for each axis of the device matrix, such as " layout = Layout((8, 4, 4), name = ("dp", "sp", "mp"))".
+The parameters in_strategy and out_strategy both additionally receive the new quantity type tuple(Layout) type. [Layout](https://www.mindspore.cn/docs/en/r2.4.0/api_python/mindspore/mindspore.Layout.html) is initialized using the device matrix, while requiring an alias for each axis of the device matrix, such as " layout = Layout((8, 4, 4), name = ("dp", "sp", "mp"))".
 
 The device matrix describes a total of 128 cards arranged in the shape of (8, 4, 4), and each axis is aliased to "dp", "sp", "mp", and the call to the Layout passes in these axes, and each tensor selects the axes of each dimension according to its shape to map to the device, and also determines the number of copies, such as here "dp" denotes 8 cuts within 8 devices in the highest dimension of the device layout, "sp" denotes 4 cuts within 4 devices in the middle dimension of the device layout, and "mp" denotes 4 cuts within 4 devices in the lowest dimension of the device layout. In particular, one dimension of the tensor may be mapped to multiple dimensions of the device to express multiple slices in one dimension.
 
@@ -43,7 +43,7 @@ a_strategy = layout("mp", ("sp", "dp"))
 
 Notice that the "[a0, a1, a2, a3]" of the tensor a is sliced twice to the "sp" and "mp" axes of the device, so that the result comes out as:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/model_train/parallel/images/advanced_operator_parallel_view1.PNG)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindspore/source_zh_cn/model_train/parallel/images/advanced_operator_parallel_view1.PNG)
 
 The following is exemplified by a concrete example in which the user computes a two-dimensional matrix multiplication over 8 cards: `Y = (X * W)` , where the devices are organized according to `2 * 2 * 2`, and the cut of X coincides with the cut of the tensor a described above:
 
@@ -72,7 +72,7 @@ The following is an illustration of operator-level parallel operation using an A
 
 ### Sample Code Description
 
-> Download the complete sample code: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_operator_parallel).
+> Download the complete sample code: [distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.4.0/docs/sample_code/distributed_operator_parallel).
 
 The directory structure is as follows:
 
@@ -237,4 +237,4 @@ epoch: 0, step: 90, loss is 0.7807965
 ...
 ```
 
-Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/docs/en/master/model_train/parallel/startup_method.html).
+Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/docs/en/r2.4.0/model_train/parallel/startup_method.html).

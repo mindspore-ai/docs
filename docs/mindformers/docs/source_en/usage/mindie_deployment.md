@@ -1,6 +1,6 @@
 # MindIE Service Deployment
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/usage/mindie_deployment.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_en/usage/mindie_deployment.md)
 
 ## Introduction
 
@@ -8,7 +8,7 @@ MindIE, full name Mind Inference Engine, is a high-performance inference framewo
 
 MindFormers are hosted in the model application layer MindIE LLM, and large models in MindFormers can be deployed through MindIE Service.
 
-The model support for MindIE inference can be found in [model repository](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
+The model support for MindIE inference can be found in [model repository](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/start/models.html).
 
 ## Environment Setup
 
@@ -16,7 +16,7 @@ The model support for MindIE inference can be found in [model repository](https:
 
 1. Install MindFormers
 
-   Refer to [MindFormers Official Installation Guide](https://www.mindspore.cn/mindformers/docs/en/dev/quick_start/install.html) for installation.
+   Refer to [MindFormers Official Installation Guide](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/quick_start/install.html) for installation.
 
 2. Install MindIE
 
@@ -166,7 +166,7 @@ The configuration of the following fields are as follows:
    model_config.save_pretrained(save_directory="./json/qwen1_5_72b/", save_json=True)
    ```
 
-   Model weights can be downloaded and converted in [Guide to Weight Format Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html).
+   Model weights can be downloaded and converted in [Guide to Weight Format Conversion](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/function/weight_conversion.html).
 
    After preparing the model configuration directory, set the parameter `modelWeightPath` to that directory path.
 
@@ -308,4 +308,4 @@ The validation is successful with the following returned inference result:
 
 ## Model List
 
-Examples of MindIE inference for other models can be found in the introduction documentation for each model in [Model Library](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
+Examples of MindIE inference for other models can be found in the introduction documentation for each model in [Model Library](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/start/models.html).

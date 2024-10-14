@@ -1,6 +1,6 @@
 # Evaluation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/usage/evaluation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_en/usage/evaluation.md)
 
 ## Harness Evaluation
 
@@ -17,7 +17,7 @@ pip install lm_eval==0.4.3
 
 ### Usage
 
-Run the [eval_with_harness.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_harness.py) script.
+Run the [eval_with_harness.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/toolkit/benchmarks/eval_with_harness.py) script.
 
 #### Viewing a Dataset Evaluation Task
 
@@ -137,7 +137,7 @@ pip install -e .
 
 ### Usage
 
-Run the script [eval_with_vlmevalkit.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_vlmevalkit.py).
+Run the script [eval_with_vlmevalkit.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/toolkit/benchmarks/eval_with_vlmevalkit.py).
 
 #### Launching a Single-Card Evaluation Script
 

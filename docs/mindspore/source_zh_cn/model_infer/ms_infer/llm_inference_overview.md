@@ -1,6 +1,6 @@
 # MindSpore大语言模型推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_infer/ms_infer/llm_inference_overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_zh_cn/model_infer/ms_infer/llm_inference_overview.md)
 
 ## 特性背景
 
@@ -103,9 +103,9 @@ pip install mindspore
 pip install mindformers
 ```
 
-同时，用户也可以参考官方安装文档来安装自己环境适配的Python包，具体见[MindSpore安装](https://gitee.com/mindspore/mindspore#安装)和[MindFormers安装](https://gitee.com/mindspore/mindformers/tree/dev/#二安装)。
+同时，用户也可以参考官方安装文档来安装自己环境适配的Python包，具体见[MindSpore安装](https://gitee.com/mindspore/mindspore#安装)和[MindFormers安装](https://gitee.com/mindspore/mindformers/tree/r1.3.0/#二安装)。
 
-如果用户需要使用模型量化能力提升模型推理性能，还需要安装mindspore_gs包，具体可以参考[MindSpore GoldenStick安装](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/install.html)
+如果用户需要使用模型量化能力提升模型推理性能，还需要安装mindspore_gs包，具体可以参考[MindSpore GoldenStick安装](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.6.0/install.html)
 
 ### 权重准备
 
@@ -124,7 +124,7 @@ git clone https://huggingface.co/daryl149/llama-2-7b-hf
 python convert_weight.py --torch_ckpt_path "/path/to/huggingface_ckpt/" --mindspore_ckpt_path "/path/to/mindspore_ckpt"
 ```
 
-具体转换脚本可以在[convert_weight.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/convert_weight.py)获取。
+具体转换脚本可以在[convert_weight.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/models/llama/convert_weight.py)获取。
 
 详细教程见[大语言模型权重获取和准备](./weight_prepare.md)。
 
@@ -144,7 +144,7 @@ config = "/path/to/llama2_7b.yaml"
 model = AutoModel.from_config(config)
 ```
 
-其中，tokenizer.model是从Hugging Face官网下载权重一起的tokenizer.model文件，里面记录了tokens的映射表；config是MindFormers的模型配置文件，其中包含了Llama2模型运行的相关参数，样例可以在[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml)获取（注意：需要将ckpt权重路径改为实际的权重路径）。更详细的教程可以在[MindFormers推理LLAMA2模型](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#-18)获取。
+其中，tokenizer.model是从Hugging Face官网下载权重一起的tokenizer.model文件，里面记录了tokens的映射表；config是MindFormers的模型配置文件，其中包含了Llama2模型运行的相关参数，样例可以在[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_7b.yaml)获取（注意：需要将ckpt权重路径改为实际的权重路径）。更详细的教程可以在[MindFormers推理LLAMA2模型](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#-18)获取。
 
 此外，如果用户对于模型有自己的特殊需求，或者对深度学习有较深认识，也可以选择自己构建模型，详细教程见[构建自己的大语言模型推理](./model_dev.md)。
 
@@ -202,17 +202,17 @@ model = AutoModel.from_config(config)
 
     注意：每轮推理实际都会有一部分后处理，即从token概率分布中选择生成的token，最简单的可以通过argmax计算获取概率最大的token，MindFormers的模型将此处理包含在了generate接口中，如果用户自己构建大语言模型，此部分需要单独实现。
 
-除了使用MindFormers模型套件提供的模型能力外，用户也可以自己构建自己的前处理和后处理，由于其逻辑比较复杂，用户可以参考MindFormers的相关实现进行实现。具体见[llama_tokenzier.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama_tokenizer.py)和[text_generator.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/generation/text_generator.py)。
+除了使用MindFormers模型套件提供的模型能力外，用户也可以自己构建自己的前处理和后处理，由于其逻辑比较复杂，用户可以参考MindFormers的相关实现进行实现。具体见[llama_tokenzier.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/models/llama/llama_tokenizer.py)和[text_generator.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/generation/text_generator.py)。
 
 ### 模型并行
 
 对于模型参数比较多的大语言模型，如Llama2-70B、Qwen2-72B，由于其参数规模通常会超过一张GPU或者NPU的内存容量，因此需要采用多卡并行推理，MindSpore大语言模型推理支持将原始大语言模型切分成N份可并行的子模型，使其能够分别在多卡上并行执行，在实现超大模型推理同时，也利用多卡更多资源提升性能。MindForerms模型套件提供的模型脚本天然支持将模型切分成多卡模型执行，用户可以通过以下步骤在多卡上部署模型。
 
-- **权重切分**：由于原来的权重文件太大，多卡执行时，需要将整体权重切分成每张卡上的多份权重，分别传给每张卡对应的模型进程。用户可以使用MindFormers模型套件中的脚本来进行权重切分。具体可以参考[权重CKPT转换和切分](https://gitee.com/mindspore/mindformers/blob/dev/docs/feature_cards/Transform_Ckpt.md)。
+- **权重切分**：由于原来的权重文件太大，多卡执行时，需要将整体权重切分成每张卡上的多份权重，分别传给每张卡对应的模型进程。用户可以使用MindFormers模型套件中的脚本来进行权重切分。具体可以参考[权重CKPT转换和切分](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/feature_cards/Transform_Ckpt.md)。
 
     下面以Llama2-7B大语言模型为例，简单描述一下将模型切分为2卡并行的操作：
 
-    - **生成目标并行策略文件**：MindSpore进行切分，需要用户告诉框架切分的方式，这个信息存储在了并行切分策略文件中，实际中，可以通过[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)脚本进行生成。打开Llama2-7B模型对应的yaml文件，修改以下配置：
+    - **生成目标并行策略文件**：MindSpore进行切分，需要用户告诉框架切分的方式，这个信息存储在了并行切分策略文件中，实际中，可以通过[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/run_mindformer.py)脚本进行生成。打开Llama2-7B模型对应的yaml文件，修改以下配置：
 
         - 将only_save_strategy配置改为True，表示生成并行切分策略文件。
 
@@ -228,7 +228,7 @@ model = AutoModel.from_config(config)
 
         msrun为MindSpore提供的并行执行工具，input_data参数可以任意传入内容，传入是为了保证模型流程能够正常执行，这段程序执行完会在output目录下生成strategy目录，即是切分成2卡执行的并行切分策略文件。
 
-    - **切分模型权重ckpt文件**：调用转换脚本，切分并生成权重ckpt文件，具体参考[transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.py)。
+    - **切分模型权重ckpt文件**：调用转换脚本，切分并生成权重ckpt文件，具体参考[transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/ckpt_transform/transform_checkpoint.py)。
 
         执行如下命令，利用脚本将权重切分成2卡并行权重：
 
@@ -274,7 +274,7 @@ model = AutoModel.from_config(config)
 
     - 将parallel_config.model_parallel改为需要的并行卡数，data_parallel在推理场景下通常配置为1，不需要额外配置。
 
-    具体的网络脚本代码可以参考[llama.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama.py)。
+    具体的网络脚本代码可以参考[llama.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/models/llama/llama.py)。
 
 - **模型推理**：和单卡推理不同，多卡推理需要同时启动多个进程来并行进行推理，因此在启动模型推理是，相比于直接运行脚本，多卡推理需要一次运行多组相关进程。MindSpore框架为用户提供了msrun的并行运行工具，具体使用方法如下：
 

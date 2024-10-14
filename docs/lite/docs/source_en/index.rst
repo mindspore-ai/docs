@@ -206,7 +206,7 @@ MindSpore Lite Documentation
 
 						<div class="doc-article-list">
 							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos os-iot stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/downloads.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/use/downloads.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Downloading MindSpore Lite</span>
@@ -219,7 +219,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/build/build.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/build/build.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Building Device-side</span>
@@ -232,7 +232,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/build.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/mindir/build.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Building Cloud-side MindSpore Lite</span>
@@ -245,7 +245,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
                             <div class="doc-article-item all os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool_ascend.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/mindir/converter_tool_ascend.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Ascend Conversion Tool Description</span>
@@ -257,7 +257,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
                             <div class="doc-article-item all os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool_graph_kernel.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/mindir/converter_tool_graph_kernel.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Graph Kernel Fusion Configuration Instructions (Beta Feature)</span>
@@ -269,7 +269,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/infer/quick_start_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/infer/quick_start_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Experiencing C++ Simplified Inference Demo</span>
@@ -282,7 +282,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-java stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/infer/quick_start_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/infer/quick_start_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Experiencing Java Simplified Inference Demo</span>
@@ -295,7 +295,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-c stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/infer/quick_start_c.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/infer/quick_start_c.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Experiencing C-language Simplified Inference Demo</span>
@@ -308,7 +308,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/infer/quick_start.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/infer/quick_start.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Android Application Development Based on JNI Interface</span>
@@ -321,7 +321,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android language-java stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/infer/image_segmentation.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/infer/image_segmentation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Android Application Development Based on Java Interface</span>
@@ -334,7 +334,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux stage-Model-Converting stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/advanced/quantization.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/advanced/quantization.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Quantization</span>
@@ -347,7 +347,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/advanced/image_processing.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/advanced/image_processing.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Preprocessing Data</span>
@@ -359,7 +359,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/infer/runtime_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/infer/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Model Inference (C++)</span>
@@ -371,7 +371,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android language-java stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/infer/runtime_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/infer/runtime_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Model Inference (Java)</span>
@@ -383,7 +383,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-iot language-cpp stage-Model-Code-Generation stage-Inference user-Beginner user-Intermediate hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/micro.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/use/micro.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Performing Inference or Training on MCU or Small Systems</span>
@@ -396,7 +396,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android os-Linux hardware-NPU stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/advanced/third_party/npu_info.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/advanced/third_party/npu_info.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">NPU Integration Information</span>
@@ -408,7 +408,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all hardware-TensorRT os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/advanced/third_party/tensorrt_info.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/advanced/third_party/tensorrt_info.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">TensorRT Integration Information</span>
@@ -420,7 +420,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android hardware-Ascend stage-Environment-Preparation stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/advanced/third_party/ascend_info.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/advanced/third_party/ascend_info.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Integrated Ascend</span>
@@ -433,7 +433,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Export stage-Model-Converting stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/train/train_lenet.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/train/train_lenet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Implementing Device Training Based On C++ Interface</span>
@@ -446,7 +446,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android language-java stage-Whole-Process stage-Model-Loading stage-Model-Training stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/train/train_lenet_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/train/train_lenet_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Implementing Device Training Based On Java Interface</span>
@@ -459,7 +459,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Model-Training stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/train/runtime_train_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/train/runtime_train_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Device-side Training (C++)</span>
@@ -471,7 +471,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-java stage-Model-Training stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/train/runtime_train_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/train/runtime_train_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Device-side Training (Java)</span>
@@ -483,7 +483,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-cpp stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/advanced/third_party/converter_register.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/advanced/third_party/converter_register.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Building Custom Operators Offline</span>
@@ -495,7 +495,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-cpp stage-Inference user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/advanced/third_party/register_kernel.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/advanced/third_party/register_kernel.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Building Custom Operators Online</span>
@@ -507,7 +507,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-cpp user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/advanced/third_party/delegate.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/advanced/third_party/delegate.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using Delegate to Support Third-party AI Framework</span>
@@ -519,7 +519,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/converter/converter_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/converter/converter_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Device-side Models Conversion</span>
@@ -531,7 +531,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/train/converter_train.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/train/converter_train.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Converting MindSpore Lite Models</span>
@@ -543,7 +543,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Windows stage-Environment-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/tools/benchmark_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/tools/benchmark_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">benchmark</span>
@@ -556,7 +556,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Data-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/tools/benchmark_train_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/tools/benchmark_train_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">benchmark_train</span>
@@ -568,7 +568,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Static-Library-Cropping user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/tools/cropper_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/tools/cropper_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Static Library Cropper Tool</span>
@@ -580,7 +580,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux stage-Visualization">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/tools/visual_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/tools/visual_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Visualization Tool</span>
@@ -592,7 +592,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Model-Obfuscator user-Expert">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/tools/obfuscator_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/tools/obfuscator_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Model Obfuscation Tool</span>
@@ -604,7 +604,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/mindir/runtime_cpp.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/r2.4.0/mindir/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using C++ Interface to Perform Cloud-side Inference</span>
@@ -617,7 +617,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-java stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/mindir/runtime_java.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/r2.4.0/mindir/runtime_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using Java Interface to Perform Cloud-side Inference</span>
@@ -630,7 +630,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-python stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/mindir/runtime_python.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/r2.4.0/mindir/runtime_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using Python Interface to Perform Cloud-side Inference</span>
@@ -643,7 +643,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_parallel_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/mindir/runtime_parallel_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using C++ Interface to Perform Concurrent Inference</span>
@@ -656,7 +656,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-java stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_parallel_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/mindir/runtime_parallel_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using Java Interface to Perform Concurrent Inference</span>
@@ -669,7 +669,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-python stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_parallel_python.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/mindir/runtime_parallel_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using Python Interface to Perform Concurrent Inference</span>
@@ -682,7 +682,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/mindir/converter_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Offline Conversion of Inference Models</span>
@@ -694,7 +694,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-python stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/converter_python.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/mindir/converter_python.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using Python Interface to Perform Model Conversions</span>
@@ -706,7 +706,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/mindir/benchmark_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/r2.4.0/mindir/benchmark_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">benchmark</span>
@@ -719,7 +719,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos os-iot user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/reference/architecture_lite.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/r2.4.0/reference/architecture_lite.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Overall Architecture (Lite)</span>
@@ -732,7 +732,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/reference/operator_list_lite.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/r2.4.0/reference/operator_list_lite.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Lite Operator List</span>
@@ -745,7 +745,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-iot user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/reference/operator_list_codegen.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/r2.4.0/reference/operator_list_codegen.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Codegen Operator List</span>
@@ -758,7 +758,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/reference/image_classification_lite.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/r2.4.0/reference/image_classification_lite.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Image Classification Model</span>
@@ -771,7 +771,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/reference/object_detection_lite.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/r2.4.0/reference/object_detection_lite.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Object Detection Model</span>
@@ -784,7 +784,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/reference/image_segmentation_lite.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/r2.4.0/reference/image_segmentation_lite.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Image Segmentation Model</span>
@@ -797,7 +797,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/reference/style_transfer_lite.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/r2.4.0/reference/style_transfer_lite.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Style Transfer Model</span>
@@ -810,7 +810,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/reference/scene_detection_lite.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/r2.4.0/reference/scene_detection_lite.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Scene Detection Model</span>
@@ -823,7 +823,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos os-iot user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/reference/faq.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/r2.4.0/reference/faq.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Troubleshooting</span>
@@ -836,7 +836,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/reference/log.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/r2.4.0/reference/log.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Log</span>
@@ -849,7 +849,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos os-iot user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/en/master/RELEASE.html" class="article-link">
+								<a href="https://mindspore.cn/lite/docs/en/r2.4.0/RELEASE.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Release Notes</span>

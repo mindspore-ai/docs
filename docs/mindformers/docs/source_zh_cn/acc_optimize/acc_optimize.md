@@ -1,6 +1,6 @@
 # 大模型精度调优指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/acc_optimize/acc_optimize.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_zh_cn/acc_optimize/acc_optimize.md)
 
 ## 精度问题概述和场景
 
@@ -114,7 +114,7 @@
 
 ## 精度调试工具介绍
 
-精度定位中，主要使用MindSpore的Dump工具。主要支持O0/O1/O2模式，不同模式下支持的Dump功能不完全相同，需要的配置文件以及生成的数据格式也不同。O0/O1支持host和device模式支持Dump数据格式`.npy`文件；O2仅支持host模式，支持Dump数据格式`.npy`和`.bin`文件。详细介绍参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)，下面仅简单介绍两种Dump方式。
+精度定位中，主要使用MindSpore的Dump工具。主要支持O0/O1/O2模式，不同模式下支持的Dump功能不完全相同，需要的配置文件以及生成的数据格式也不同。O0/O1支持host和device模式支持Dump数据格式`.npy`文件；O2仅支持host模式，支持Dump数据格式`.npy`和`.bin`文件。详细介绍参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/dump.html)，下面仅简单介绍两种Dump方式。
 
 ### O0/O1 图模式Dump方式
 
@@ -140,7 +140,7 @@ MindSpore的Dump工具通过配置JSON文件进行使能，该方式Dump出网�
 }
 ```
 
-配置参数的字段含义参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)。
+配置参数的字段含义参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/dump.html)。
 
 配置好JSON文件后， 设置Dump环境变量指向配置的JSON文件，需要设置绝对路径：
 
@@ -172,7 +172,7 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 }
 ```
 
-配置参数的字段含义参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)。
+配置参数的字段含义参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/dump.html)。
 
 配置好JSON文件后，设置Dump环境变量指向配置的JSON文件，需要设置绝对路径：
 
@@ -185,7 +185,7 @@ export MS_ACL_DUMP_CFG_PATH=${JSON_PATH}
 
 ### 其他介绍
 
-除了上述介绍的全量算子Dump，工具还支持部分数据Dump、溢出Dump、指定条件Dump等。限于篇幅，感兴趣的用户可以参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)进行配置使用。此外，还提供了TroubleShooter的网络开发调试，可在权重转换、权重比对等场景使用，详细信息参考[TroubleShooter工具介绍](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)。
+除了上述介绍的全量算子Dump，工具还支持部分数据Dump、溢出Dump、指定条件Dump等。限于篇幅，感兴趣的用户可以参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/dump.html)进行配置使用。此外，还提供了TroubleShooter的网络开发调试，可在权重转换、权重比对等场景使用，详细信息参考[TroubleShooter工具介绍](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter)。
 
 ## 精度定位通用流程
 
@@ -226,7 +226,7 @@ export MS_ACL_DUMP_CFG_PATH=${JSON_PATH}
 
 #### 权重转换
 
-训练过程中，MindSpore与PyTorch加载同一份权重。若是预训练场景，可以使用PyTorch保存一个初始化权重后，转换为MindSpore权重。因为MindSpore的权重名称与PyTorch有差异，权重转换的本质是将PyTorch权重dict中的名字改为MindSpore权重名字以支持MindSpore加载。权重转换参考[权重转换指导](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)。
+训练过程中，MindSpore与PyTorch加载同一份权重。若是预训练场景，可以使用PyTorch保存一个初始化权重后，转换为MindSpore权重。因为MindSpore的权重名称与PyTorch有差异，权重转换的本质是将PyTorch权重dict中的名字改为MindSpore权重名字以支持MindSpore加载。权重转换参考[权重转换指导](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/function/weight_conversion.html)。
 
 保存PyTorch每个step训练的数据集。在MindSpore训练时，加载相同的数据集进行训练，从而保证每个step训练数据集一致。实现代码参考附录。
 
@@ -261,7 +261,7 @@ export MS_ACL_DUMP_CFG_PATH=${JSON_PATH}
           torch_npu.npu.manual_seed(seed)
   ```
 
-* MindSpore代码，在[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)中添加如下内容：
+* MindSpore代码，在[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/run_mindformer.py)中添加如下内容：
 
   ```python
   from mindspore import context
@@ -359,7 +359,7 @@ def get_parameters(self):
     return params
 ```
 
-MindFormers加载梯度参考实现，注意，需要用户自行找到MindFormers与PyTorch梯度的对应关系，修改[mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/wrapper/wrapper.py)：
+MindFormers加载梯度参考实现，注意，需要用户自行找到MindFormers与PyTorch梯度的对应关系，修改[mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/wrapper/wrapper.py)：
 
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
@@ -652,13 +652,13 @@ class NumpyDataloader(BaseDataset):
         return dataloader
 ```
 
-[mindformers/dataset/\_\_init\_\_.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/dataset/__init__.py) 添加:
+[mindformers/dataset/\_\_init\_\_.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/dataset/__init__.py) 添加:
 
 ```python
 from .numpy_dataset import NumpyDataloader
 ```
 
-修改训练yaml如下配置项，配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)：
+修改训练yaml如下配置项，配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/appendix/conf_files.html)：
 
 ```yaml
 train_dataset: &train_dataset
@@ -670,7 +670,7 @@ train_dataset_task:
   type: NumpyDataloader
 ```
 
-由于MindFormers与Megatron数据处理部分有差异，使用Megatron保存下来的numpy数据进行训练时，需要修改处理tokens、labels代码。以Llama为例，原代码是对input_ids进行slice操作获得tokens及labels，使用Megatron保存下来的数据则不需要。修改[mindformers/models/llama/llama.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama.py)
+由于MindFormers与Megatron数据处理部分有差异，使用Megatron保存下来的numpy数据进行训练时，需要修改处理tokens、labels代码。以Llama为例，原代码是对input_ids进行slice操作获得tokens及labels，使用Megatron保存下来的数据则不需要。修改[mindformers/models/llama/llama.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/models/llama/llama.py)
 
 ```python
 class LlamaForCausalLM(LlamaPreTrainedModel):
