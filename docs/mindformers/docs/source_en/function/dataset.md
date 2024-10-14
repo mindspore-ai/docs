@@ -69,7 +69,7 @@ The following is an example of a MindRecord dataset based on a json format file,
         """tokenize json file dataset"""
         content = [] # Read each json data and get its “input_ids”.
         for line in raw_data:
-            stripped_line = line.strip()
+            stripped_line = line['input_ids'].strip()
             if stripped_line:
                 line_ids = tokenizer(stripped_line)["input_ids"]
                 content.append(line_ids)
