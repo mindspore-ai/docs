@@ -216,6 +216,11 @@ for i in os.listdir(src_dir_api):
         shutil.copytree(os.path.join(src_dir_api,i),'./'+i)
         copy_list.append(os.path.join(moment_dir,i))
 
+# Rename .rst file to .txt file for include directive.
+from rename_include import rename_include
+
+rename_include('experimental')
+
 if os.path.exists('./mindformers.experimental.rst'):
     os.remove('./mindformers.experimental.rst')
 
