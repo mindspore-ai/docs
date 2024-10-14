@@ -250,8 +250,6 @@ net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None)
         this->SetInferShape(ge::InferShape);
         this->AICore().SetTiling(optiling::TilingFunc);
         this->AICore().AddConfig("ascend910");
-        this->AICore().AddConfig("ascend310p");
-        this->AICore().AddConfig("ascend910b");
       }
     };
     ```
