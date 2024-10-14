@@ -207,7 +207,7 @@ After the configuration is successful, you can start the multi-machine task with
     ```bash
     export DATA_PATH=./MNIST_Data/train/
     HOSTFILE=$1
-    mpirun -n 16 --hostfile $HOSTFILE --output-filename log_output --merge-stderr-to-stdout python net.sh
+    mpirun -n 16 --hostfile $HOSTFILE --output-filename log_output --merge-stderr-to-stdout python net.py
     ```
 
     Execute on one of the nodes:
