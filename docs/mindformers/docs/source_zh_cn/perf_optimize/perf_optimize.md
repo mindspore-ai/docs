@@ -1,6 +1,6 @@
 # 大模型性能调优指南
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/perf_optimize/perf_optimize.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_zh_cn/perf_optimize/perf_optimize.md)
 
 ## 性能调优概述
 
@@ -128,7 +128,7 @@ HFU/MFU可以用于对于训练性能tokens/s/p的评价。一般HFU>50%属于�
 
 并行策略通常分为数据并行（Data Parallelism，简称DP）、模型并行（一般指张量并行Tensor Parallelism，简称TP）、流水并行（Pipeline Parallelism，简称PP）、优化器并行（Optimizer Paralleism，简称OP）、序列并行（Sequence Paralleism，简称SP）、多副本并行等多种并行模式。在实际应用中，通常会采用多种并行策略，以及多种优化手段，例如使用优化器并行、重计算等方式，以减少模型对内存的使用，提高训练效率。并行策略设计与模型的效率息息相关，在模型调优之前先确定一组或多组较优的并行策略，是至关重要的。
 
-详细介绍参考文档[并行策略指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/distributed_parallel.html)。
+详细介绍参考文档[并行策略指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/function/distributed_parallel.html)。
 
 ### 内存分析
 
@@ -209,7 +209,7 @@ FP16的存储空间是FP32的一半，类似地，FP32则是FP64的一半。因�
 
 在使用混合精度获得训练加速和内存节省的同时，需要考虑FP16引入问题的解决。Loss Scale损失缩放，FP16类型数据下溢问题的解决方案，主要思想是在计算损失值loss的时候，将loss扩大一定的倍数。根据链式法则，梯度也会相应扩大，然后在优化器更新权重时再缩小相应的倍数，从而避免了数据下溢。
 
-详细介绍参考文档[自动混合精度](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/mixed_precision.html)。
+详细介绍参考文档[自动混合精度](https://www.mindspore.cn/tutorials/zh-CN/r2.4.0/beginner/mixed_precision.html)。
 
 ### 工具介绍
 
@@ -274,7 +274,7 @@ MindStudio Insight工具以时间线（Timeline）的呈现方式为用户提供
 
 #### IR 图
 
-在MindFormers配置文件中，只需要开启save_graphs，运行时会输出一些图编译过程中生成的ir后缀结尾的中间文件，我们称为IR文件。默认会在当前任务执行目录下生成一个graph的目录，所有的IR图都会保存在这其中。是一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)，配置方法如下：
+在MindFormers配置文件中，只需要开启save_graphs，运行时会输出一些图编译过程中生成的ir后缀结尾的中间文件，我们称为IR文件。默认会在当前任务执行目录下生成一个graph的目录，所有的IR图都会保存在这其中。是一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/appendix/conf_files.html)，配置方法如下：
 
 ```yaml
 context:
@@ -317,7 +317,7 @@ context:
 
   上述15%的输出，Transpose得到<Tensor[Float16], (1, 4, 4096, 128)>。
 
-在保存IR图时建议将模型的层数改小，减少编译存图的时间，方便快速调试。详细内容参考[IR文件介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/mindir.html#ir文件介绍)和[分析示例](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/mindir.html#如何根据analyze-failir文件分析图推导失败的原因)。
+在保存IR图时建议将模型的层数改小，减少编译存图的时间，方便快速调试。详细内容参考[IR文件介绍](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/error_analysis/mindir.html#ir文件介绍)和[分析示例](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/error_analysis/mindir.html#如何根据analyze-failir文件分析图推导失败的原因)。
 
 ## 性能调优指南
 
@@ -424,19 +424,19 @@ wo-linear之后存在一个计算空档，结合IR图，
 
 #### 使用建议
 
-实际应用中，通常是多种并行策略组合使用。根据模型规模，机器数量确定适当的并行策略。本节介绍不同规模模型的推荐配置，示例配置中各配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)。
+实际应用中，通常是多种并行策略组合使用。根据模型规模，机器数量确定适当的并行策略。本节介绍不同规模模型的推荐配置，示例配置中各配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/appendix/conf_files.html)。
 
 * 小参数模型
 
-  模型规模较小时（如7B），可使用纯数据并行+优化器并行，如果内存富裕可进一步开启梯度累积。使用8卡训练，[Llama2-7B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml)。
+  模型规模较小时（如7B），可使用纯数据并行+优化器并行，如果内存富裕可进一步开启梯度累积。使用8卡训练，[Llama2-7B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/pretrain_llama2_7b.yaml)。
 
 * 中等参数模型
 
-  模型规模适中时（如13B），可进一步使用流水线并行，并调整重计算。使用8卡训练，[Llama2-13B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_13b.yaml)。
+  模型规模适中时（如13B），可进一步使用流水线并行，并调整重计算。使用8卡训练，[Llama2-13B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/pretrain_llama2_13b.yaml)。
 
 * 大参数模型
 
-  模型规模较大时（如70B），需开启模型并行，同时序列并行与多副本并行也建议开启。使用64卡训练，[Llama2-70B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_70b.yaml)。
+  模型规模较大时（如70B），需开启模型并行，同时序列并行与多副本并行也建议开启。使用64卡训练，[Llama2-70B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_70b.yaml)。
 
 ### 重计算
 

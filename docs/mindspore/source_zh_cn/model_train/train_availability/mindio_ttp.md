@@ -1,6 +1,6 @@
 # 临终Checkpoint保存
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/train_availability/mindio_ttp.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_zh_cn/model_train/train_availability/mindio_ttp.md)
 
 ## 概述
 
@@ -12,7 +12,7 @@ MindSpore临终CKPT功能基于[MindIO TTP](https://www.hiascend.com/document/de
 
 > 您可以在这里下载完整的样例代码：
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/mindio_ttp>。
+> <https://gitee.com/mindspore/docs/tree/r2.4.0/docs/sample_code/mindio_ttp>。
 
 目录结构如下：
 
@@ -152,7 +152,7 @@ dataset = create_dataset(32)
 
 ## 优化器定义与封装
 
-开启临终CKPT功能需要设置TFT优化器, 设置后可在梯度计算完成后，优化器更新前向MindIO TFT上报状态。TFT优化器用`OptTFTWrapper`来配置, 详情参见[OptTFTWrapper](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.OptTFTWrapper.html)。
+开启临终CKPT功能需要设置TFT优化器, 设置后可在梯度计算完成后，优化器更新前向MindIO TFT上报状态。TFT优化器用`OptTFTWrapper`来配置, 详情参见[OptTFTWrapper](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/nn/mindspore.nn.OptTFTWrapper.html)。
 
 ```python
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
@@ -170,7 +170,7 @@ model = ms.Model(net,  optimizer=optimizer_wrapper)
 
 ## Callback配置
 
-开启临终CKPT功能需要设置 `TFTRegister` Callback对象，并传入参数来配置，详情参见[TFTRegister](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.TFTRegister.html)。
+开启临终CKPT功能需要设置 `TFTRegister` Callback对象，并传入参数来配置，详情参见[TFTRegister](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/train/mindspore.train.TFTRegister.html)。
 
 ```python
 time_monitor = train.TimeMonitor(data_size=1)

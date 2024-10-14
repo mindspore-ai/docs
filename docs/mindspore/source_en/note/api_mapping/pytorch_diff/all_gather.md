@@ -1,6 +1,6 @@
 # Differences with torch.distributed.all_gather
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/all_gather.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/all_gather.md)
 
 ## torch.distributed.all_gather
 
@@ -26,7 +26,7 @@ return_tensor = comm.comm_func.all_gather_into_tensor(
 )
 ```
 
-For more information, see [mindspore.communication.comm_func.all_gather_into_tensor](https://www.mindspore.cn/docs/en/master/api_python/communication/mindspore.communication.comm_func.all_gather_into_tensor.html#mindspore.communication.comm_func.all_gather_into_tensor).
+For more information, see [mindspore.communication.comm_func.all_gather_into_tensor](https://www.mindspore.cn/docs/en/r2.4.0/api_python/communication/mindspore.communication.comm_func.all_gather_into_tensor.html#mindspore.communication.comm_func.all_gather_into_tensor).
 
 ## Differences
 

@@ -1,6 +1,6 @@
 # Distributed Weight Slicing and Merging
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/function/transform_weight.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_zh_cn/function/transform_weight.md)
 
 ## Overview
 
@@ -104,7 +104,7 @@ Parameters in the `yaml` file related to **offline weight conversion** are descr
 
 #### Single-Process Conversion
 
-Use [mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.py) to perform single-process conversion on the loaded weight.
+Use [mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/ckpt_transform/transform_checkpoint.py) to perform single-process conversion on the loaded weight.
 
 **Run the command.**
 
@@ -121,7 +121,7 @@ If no target strategy file is available during offline conversion, you can set `
 
 #### Multi-Process Conversion
 
-Use [mindformers/tools/ckpt_transform/transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.sh) to perform multi-process conversion on the loaded weight.
+Use [mindformers/tools/ckpt_transform/transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/ckpt_transform/transform_checkpoint.sh) to perform multi-process conversion on the loaded weight.
 
 **Run the command.**
 
@@ -136,7 +136,7 @@ bash transform_checkpoint.sh \
 
 **Precautions**:
 
-- When the [transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.sh) script is used, `8` indicates the number of target devices, and `2` indicates that two processes are used for conversion.
+- When the [transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/ckpt_transform/transform_checkpoint.sh) script is used, `8` indicates the number of target devices, and `2` indicates that two processes are used for conversion.
 - If no target strategy file is available, you can set `only_save_strategy: True` to generate a strategy file.
 
 #### Parameter Configuration Examples
@@ -230,7 +230,7 @@ If there is a shared disk between servers, you can use MindFormers to automatica
 
   **Start a task.**
 
-  Use [mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh) to start the task.
+  Use [mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/r1.3.0/scripts/msrun_launcher.sh) to start the task.
 
   ```shell
   # First server (main node)
@@ -281,7 +281,7 @@ If there is no shared disk between servers, you need to use the offline weight c
 
 - **Offline weight conversion**
 
-  On the server where all strategy files are stored, use [mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.py) to perform offline weight conversion.
+  On the server where all strategy files are stored, use [mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/ckpt_transform/transform_checkpoint.py) to perform offline weight conversion.
 
   **Single-process conversion**
 
@@ -336,7 +336,7 @@ For details about the principles and implementation of LoRA, see the following r
 
 ### Instructions
 
-Use the [LoRA weight merging script](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/transform_ckpt_lora.py) provided by MindFormers to merge LoRA weights as follows:
+Use the [LoRA weight merging script](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/transform_ckpt_lora.py) provided by MindFormers to merge LoRA weights as follows:
 
 ```shell
 python mindformers/tools/transform_ckpt_lora.py \

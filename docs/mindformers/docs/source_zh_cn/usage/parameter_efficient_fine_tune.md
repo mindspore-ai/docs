@@ -1,6 +1,6 @@
 # 低参微调
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/usage/parameter_efficient_fine_tune.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_zh_cn/usage/parameter_efficient_fine_tune.md)
 
 ## 概述
 
@@ -33,7 +33,7 @@ LoRA通过将原始模型的权重矩阵分解为两个低秩矩阵来实现参�
 
 ### 示例配置文件（YAML）
 
-完整的YAML配置文件可以通过以下链接访问：[Llama2 LoRA微调 YAML 文件](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/lora_llama2_7b.yaml)。
+完整的YAML配置文件可以通过以下链接访问：[Llama2 LoRA微调 YAML 文件](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/lora_llama2_7b.yaml)。
 
 ```yaml
 # model config
@@ -71,7 +71,7 @@ model:
 
 ### Llama2-7B 的 LoRA 微调示例
 
-MindFormers 提供了 Llama2-7B 的 [LoRA 微调示例](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#lora%E5%BE%AE%E8%B0%83)。微调过程中使用的数据集可以参考[数据集下载](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json)获得。
+MindFormers 提供了 Llama2-7B 的 [LoRA 微调示例](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#lora%E5%BE%AE%E8%B0%83)。微调过程中使用的数据集可以参考[数据集下载](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json)获得。
 
 以 Llama2-7B 为例，可以执行以下 msrun 启动脚本，进行 8 卡分布式微调。
 

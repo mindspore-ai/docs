@@ -1,6 +1,6 @@
 # Inference
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/usage/inference.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_en/usage/inference.md)
 
 ## Overview
 
@@ -23,14 +23,14 @@ Based on actual operations, the inference process can be divided into the follow
   Select a model based on the required inference task. For example, select Llama2 for text generation.
 
 2. **Preparing the model weight:**
-  Download the weight of the corresponding model from the HuggingFace model library and convert the model to the CKPT format by referring to [Weight Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html).
+  Download the weight of the corresponding model from the HuggingFace model library and convert the model to the CKPT format by referring to [Weight Conversion](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/function/weight_conversion.html).
 
 3. **Executing inference tasks:**
   Call the `pipeline` API or use the unified script `run_mindformer` to execute inference tasks.
 
 ## Inference Based on the Pipeline API
 
-An inference task process can be generated based on the customized text of the `pipeline` API. Single-device inference and multi-device inference are supported. For details about how to use the `pipeline` API to start a task and output the result, see the following implementation. For details about the parameters, see [the pipeline API document](https://gitee.com/mindspore/mindformers/blob/dev/docs/api/api_python/mindformers.pipeline.rst).
+An inference task process can be generated based on the customized text of the `pipeline` API. Single-device inference and multi-device inference are supported. For details about how to use the `pipeline` API to start a task and output the result, see the following implementation. For details about the parameters, see [the pipeline API document](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/api/api_python/mindformers.pipeline.rst).
 
 ### Incremental Inference
 
@@ -113,7 +113,7 @@ The inference result is as follows:
 
 ## Inference Based on the run_mindformer Script
 
-For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh). Take Llama2 as an example. You are advised to configure the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml) file.
+For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/r1.3.0/scripts/msrun_launcher.sh). Take Llama2 as an example. You are advised to configure the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_7b.yaml) file.
 
 ## Single-Device Inference
 
@@ -173,4 +173,4 @@ The results of running the preceding single-device and multi-device inference co
 
 ## More Information
 
-For more inference examples of different models, see [the models supported by MindFormers](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
+For more inference examples of different models, see [the models supported by MindFormers](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/start/models.html).

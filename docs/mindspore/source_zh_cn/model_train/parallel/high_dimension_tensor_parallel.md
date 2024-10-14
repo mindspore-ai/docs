@@ -1,6 +1,6 @@
 # 高维张量并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/parallel/high_dimension_tensor_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_zh_cn/model_train/parallel/high_dimension_tensor_parallel.md)
 
 ## 概述
 
@@ -70,7 +70,7 @@
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[high_dimension_tensor_parallel](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/high_dimension_tensor_parallel)。
+> 下载完整的样例代码：[high_dimension_tensor_parallel](https://gitee.com/mindspore/docs/tree/r2.4.0/docs/sample_code/high_dimension_tensor_parallel)。
 
 目录结构如下：
 

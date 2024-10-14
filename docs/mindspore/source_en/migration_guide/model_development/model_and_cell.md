@@ -1,6 +1,6 @@
 # Network Construction
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/model_development/model_and_cell.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_en/migration_guide/model_development/model_and_cell.md)
 
 ## Basic Logic
 
@@ -10,7 +10,7 @@ The basic logic of PyTorch and MindSpore is shown below:
 
 It can be seen that PyTorch and MindSpore generally require network definition, forward computation, backward computation, and gradient update steps in the implementation process.
 
-- Network definition: In the network definition, the desired forward network, loss function, and optimizer are generally defined. To define the forward network in Net(), PyTorch network inherits from nn.Module; similarly, MindSpore network inherits from nn.Cell. In MindSpore, the loss function and optimizers can be customized in addition to using those provided in MindSpore. You can refer to [Model Module Customization](https://mindspore.cn/docs/en/master/model_train/index.html). Interfaces such as functional/nn can be used to splice the required forward networks, loss functions and optimizers.
+- Network definition: In the network definition, the desired forward network, loss function, and optimizer are generally defined. To define the forward network in Net(), PyTorch network inherits from nn.Module; similarly, MindSpore network inherits from nn.Cell. In MindSpore, the loss function and optimizers can be customized in addition to using those provided in MindSpore. You can refer to [Model Module Customization](https://mindspore.cn/docs/en/r2.4.0/model_train/index.html). Interfaces such as functional/nn can be used to splice the required forward networks, loss functions and optimizers.
 
 - Forward computation: Run the instantiated network to get the logit, and use the logit and target as inputs to calculate the loss. It should be noted that if the forward function has more than one output, you need to pay attention to the effect of more than one output on the result when calculating the backward function.
 
@@ -20,7 +20,7 @@ It can be seen that PyTorch and MindSpore generally require network definition, 
 
 ## Network Basic Unit: Cell
 
-MindSpore uses [Cell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell) to construct graphs. You need to define a class that inherits the `Cell` base class, declare the required APIs and submodules in `init`, and perform calculation in `construct`. `Cell` compiles a computational graph in `GRAPH_MODE` (static graph mode). It is used as the basic module of neural network in `PYNATIVE_MODE` (dynamic graph mode).
+MindSpore uses [Cell](https://www.mindspore.cn/docs/en/r2.4.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell) to construct graphs. You need to define a class that inherits the `Cell` base class, declare the required APIs and submodules in `init`, and perform calculation in `construct`. `Cell` compiles a computational graph in `GRAPH_MODE` (static graph mode). It is used as the basic module of neural network in `PYNATIVE_MODE` (dynamic graph mode).
 
 The basic `Cell` setup process in PyTorch and MindSpore are as follows:
 
@@ -122,7 +122,7 @@ print(diff)
 
 The output of MindSpore is different from that of PyTorch. Why?
 
-According to the [Function Differences with torch.nn.Conv2d](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Conv2d.html), the default parameters of `Conv2d` are different in MindSpore and PyTorch.
+According to the [Function Differences with torch.nn.Conv2d](https://www.mindspore.cn/docs/en/r2.4.0/note/api_mapping/pytorch_diff/Conv2d.html), the default parameters of `Conv2d` are different in MindSpore and PyTorch.
 By default, MindSpore uses the `same` mode, and PyTorch uses the `pad` mode. During migration, you need to modify the `pad_mode` of MindSpore `Conv2d`.
 
 ```python
@@ -165,9 +165,9 @@ The overall error is about 0.01%, which basically meets the expectation. **Durin
 
 ### Manual Mixed-precision
 
-MindSpore provides an auto mixed precision method. For details, see the amp_level attribute in [Model](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model).
+MindSpore provides an auto mixed precision method. For details, see the amp_level attribute in [Model](https://www.mindspore.cn/docs/en/r2.4.0/api_python/train/mindspore.train.Model.html#mindspore.train.Model).
 
-However, sometimes the hybrid precision policy is expected to be more flexible during network development. MindSpore also provides the [to_float](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.to_float) method to manually add hybrid precision.
+However, sometimes the hybrid precision policy is expected to be more flexible during network development. MindSpore also provides the [to_float](https://mindspore.cn/docs/en/r2.4.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.to_float) method to manually add hybrid precision.
 
 `to_float(dst_type)`: adds type conversion to the input of the `Cell` and all child `Cell` to run with a specific floating-point type.
 
@@ -360,7 +360,7 @@ Outputs:
 
 In addition to using `requires_grad=False` to set the Parameter to not update the Parameter, you can also use `stop_gradient` to block the gradient calculation to freeze the Parameter. So when to use `requires_grad=False` and when to use `stop_gradient`?
 
-![parameter-freeze](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_en/migration_guide/model_development/images/parameter_freeze.png)
+![parameter-freeze](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindspore/source_en/migration_guide/model_development/images/parameter_freeze.png)
 
 As shown above, `requires_grad=False` does not update some of the Parameter, but the reverse gradient calculation is still performed normally;
 `stop_gradient` will directly truncate the reverse gradient, and the two are functionally equivalent when the frozen Parameter is not preceded by a Parameter to be trained.
@@ -499,7 +499,7 @@ For a network without normalization, for example, a GAN network without the Batc
 
 ##### Parameter Initializations APIs Comparison
 
-Every API from `torch.nn.init` could correspond to MindSpore, except `torch.nn.init.calculate_gain()`. For more information, please refer to [PyTorch and MindSpore API Mapping Table](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html).
+Every API from `torch.nn.init` could correspond to MindSpore, except `torch.nn.init.calculate_gain()`. For more information, please refer to [PyTorch and MindSpore API Mapping Table](https://www.mindspore.cn/docs/en/r2.4.0/note/api_mapping/pytorch_api_mapping.html).
 
 > `gain` is used to describe the influence of the non-linearity to the standard deviation of the data. Because non-linearity will affect the standard deviation, the gradient may explode or vanish.
 
@@ -538,15 +538,15 @@ x = initializer(Uniform(), [1, 2, 3], mindspore.float32)
 
 ##### Customizing Initialization Parameters
 
-Generally, the high-level API encapsulated by MindSpore initializes parameters by default. Sometimes, the initialization distribution is inconsistent with the required initialization and PyTorch initialization. In this case, you need to customize initialization. [Initializing Network Arguments](https://mindspore.cn/docs/en/master/model_train/custom_program/initializer.html#customized-parameter-initialization) describes a method of initializing parameters during using API attributes. This section describes a method of initializing parameters by using Cell.
+Generally, the high-level API encapsulated by MindSpore initializes parameters by default. Sometimes, the initialization distribution is inconsistent with the required initialization and PyTorch initialization. In this case, you need to customize initialization. [Initializing Network Arguments](https://mindspore.cn/docs/en/r2.4.0/model_train/custom_program/initializer.html#customized-parameter-initialization) describes a method of initializing parameters during using API attributes. This section describes a method of initializing parameters by using Cell.
 
-For details about the parameters, see [Network Parameters](https://mindspore.cn/docs/zh-CN/master/model_train/custom_program/initializer.html). This section uses `Cell` as an example to describe how to obtain all parameters in `Cell` and how to initialize the parameters in `Cell`.
+For details about the parameters, see [Network Parameters](https://mindspore.cn/docs/zh-CN/r2.4.0/model_train/custom_program/initializer.html). This section uses `Cell` as an example to describe how to obtain all parameters in `Cell` and how to initialize the parameters in `Cell`.
 
-> Note that the method described in this section cannot be performed in `construct`. To change the value of a parameter on the network, use [assign](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.assign.html).
+> Note that the method described in this section cannot be performed in `construct`. To change the value of a parameter on the network, use [assign](https://www.mindspore.cn/docs/en/r2.4.0/api_python/ops/mindspore.ops.assign.html).
 
-For details about the parameter initialization methods supported by MindSpore, see [mindspore.common.initializer](https://www.mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html). You can also directly transfer a defined [Parameter](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter) object.
+For details about the parameter initialization methods supported by MindSpore, see [mindspore.common.initializer](https://www.mindspore.cn/docs/en/r2.4.0/api_python/mindspore.common.initializer.html). You can also directly transfer a defined [Parameter](https://www.mindspore.cn/docs/en/r2.4.0/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter) object.
 
-The created Parameter can use [set_data(data, slice_shape=False)](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html?highlight=set_data#mindspore.Parameter.set_data) to set parameter data.
+The created Parameter can use [set_data(data, slice_shape=False)](https://www.mindspore.cn/docs/en/r2.4.0/api_python/mindspore/mindspore.Parameter.html?highlight=set_data#mindspore.Parameter.set_data) to set parameter data.
 
 ```python
 import math
@@ -762,11 +762,11 @@ ms_net = mindspore.nn.Dense(3, 4)
 
 ## Dynamic and Static Graphs
 
-For `Cell`, MindSpore provides two image modes: `GRAPH_MODE` (static image) and `PYNATIVE_MODE` (dynamic image). For details, see [Dynamic Image and Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html).
+For `Cell`, MindSpore provides two image modes: `GRAPH_MODE` (static image) and `PYNATIVE_MODE` (dynamic image). For details, see [Dynamic Image and Static Graphs](https://www.mindspore.cn/tutorials/en/r2.4.0/beginner/accelerate_with_static_graph.html).
 
 The **inference** behavior of the model in `PyNative` mode is the same as that of common Python code. However, during training, **once a tensor is converted into NumPy for other operations, the gradient of the network is truncated, which is equivalent to detach of PyTorch**.
 
-When `GRAPH_MODE` is used, syntax restrictions usually occur. In this case, graph compilation needs to be performed on the Python code. However, MindSpore does not support the complete Python syntax set. Therefore, there are some restrictions on compiling the `construct` function. For details about the restrictions, see [MindSpore Static Graph Syntax](https://www.mindspore.cn/docs/en/master/model_train/program_form/static_graph.html).
+When `GRAPH_MODE` is used, syntax restrictions usually occur. In this case, graph compilation needs to be performed on the Python code. However, MindSpore does not support the complete Python syntax set. Therefore, there are some restrictions on compiling the `construct` function. For details about the restrictions, see [MindSpore Static Graph Syntax](https://www.mindspore.cn/docs/en/r2.4.0/model_train/program_form/static_graph.html).
 
 Compared with the detailed syntax description, the common restrictions are as follows:
 
@@ -881,7 +881,7 @@ dx (Tensor(shape=[2, 5], dtype=Float32, value=
  [0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000, 0.00000000e+000]]),)
 ```
 
-Now, let's see how to [customize backward network construction](https://www.mindspore.cn/docs/en/master/model_train/custom_program/network_custom.html#custom-cell-reverse).
+Now, let's see how to [customize backward network construction](https://www.mindspore.cn/docs/en/r2.4.0/model_train/custom_program/network_custom.html#custom-cell-reverse).
 
 ```python
 import numpy as np

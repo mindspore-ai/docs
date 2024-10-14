@@ -1,6 +1,6 @@
 # 推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/usage/inference.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_zh_cn/usage/inference.md)
 
 ## 概述
 
@@ -23,14 +23,14 @@ MindFormers 提供了大模型推理能力，用户可以编写脚本调用 `pip
   根据需要的推理任务选择不同的模型，如文本生成可以选择 Llama2 等。
 
 2. **准备模型权重：**
-  从 HuggingFace 模型库中下载相应模型的权重，参考[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)文档转换为ckpt格式。
+  从 HuggingFace 模型库中下载相应模型的权重，参考[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/function/weight_conversion.html)文档转换为ckpt格式。
 
 3. **执行推理任务：**
   调用 `pipeline` 接口或使用 `run_mindformer` 统一脚本执行推理任务。
 
 ## 基于 pipeline 接口推理
 
-基于 `pipeline` 接口的自定义文本生成推理任务流程，支持单卡推理和多卡推理。关于如何使用 `pipeline` 接口启动任务并输出结果，可以参考以下实现方式，具体参数说明可以查看 [pipeline 接口的API文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/mindformers/mindformers.pipeline.html#mindformers.pipeline)。
+基于 `pipeline` 接口的自定义文本生成推理任务流程，支持单卡推理和多卡推理。关于如何使用 `pipeline` 接口启动任务并输出结果，可以参考以下实现方式，具体参数说明可以查看 [pipeline 接口的API文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/mindformers/mindformers.pipeline.html#mindformers.pipeline)。
 
 ### 增量推理
 
@@ -113,7 +113,7 @@ python pipeline_inference.py
 
 ## 基于 run_mindformer 脚本推理
 
-单卡推理可以直接执行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)，多卡推理需要借助 [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh) 启动。以 Llama2 为例，推荐配置为[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml)文件。
+单卡推理可以直接执行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/run_mindformer.py)，多卡推理需要借助 [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/r1.3.0/scripts/msrun_launcher.sh) 启动。以 Llama2 为例，推荐配置为[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_7b.yaml)文件。
 
 ## 单卡推理
 
@@ -173,4 +173,4 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 
 ## 更多信息
 
-更多关于不同模型的推理示例，请访问[MindFormers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html)
+更多关于不同模型的推理示例，请访问[MindFormers 已支持模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/start/models.html)

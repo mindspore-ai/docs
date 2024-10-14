@@ -1,6 +1,6 @@
 # 评测
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/usage/evaluation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_zh_cn/usage/evaluation.md)
 
 ## Harness评测
 
@@ -16,7 +16,7 @@ pip install lm_eval==0.4.3
 
 ### 使用方式
 
-执行脚本[eval_with_harness.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_harness.py)
+执行脚本[eval_with_harness.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/toolkit/benchmarks/eval_with_harness.py)
 
 #### 查看数据集评测任务
 
@@ -136,7 +136,7 @@ pip install -e .
 
 ### 使用方式
 
-执行脚本[eval_with_vlmevalkit.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_vlmevalkit.py)。
+执行脚本[eval_with_vlmevalkit.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/toolkit/benchmarks/eval_with_vlmevalkit.py)。
 
 #### 启动单卡评测脚本
 

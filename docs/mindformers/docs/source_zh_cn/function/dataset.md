@@ -1,6 +1,6 @@
 # 数据集
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/function/dataset.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_zh_cn/function/dataset.md)
 
 ## MindRecord 数据集
 
@@ -9,7 +9,7 @@ MindRecord 是由 MindSpore 开发的一种高效数据格式，用于存储机�
 MindRecord 格式旨在提高数据处理效率，尤其是在大规模数据训练场景下，可以更快地加载和处理数据。
 MindRecord 文件通常包含了模型训练所需的输入样本，这些样本经过预处理（如编码、归一化等），以优化读取速度和内存使用。
 
-更多关于 MindRecord 相关接口的实现及案例，请参考 [MindSpore 中关于 《MindRecord》 的相关文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.mindrecord.html)
+更多关于 MindRecord 相关接口的实现及案例，请参考 [MindSpore 中关于 《MindRecord》 的相关文档](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/mindspore.mindrecord.html)
 
 ### 如何制作 MindRecord 数据集
 
@@ -89,13 +89,13 @@ MindRecord 模块提供了一些方法帮助用户将不同数据集转换为 Mi
     writer.commit()
     ```
 
-详细案例可以参考 [Llama2 中的数据预处理案例](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
+详细案例可以参考 [Llama2 中的数据预处理案例](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
 
 ### 在任务中使用 MindRecord 格式数据集
 
 通过在 yaml 配置文件中配置数据集相关参数，可以让训练或评测任务使用准备好的 MindRecord 格式数据集。
 
-此处，以 Llama2-7B 模型预训练任务来举例说明，在 [pretrain_llama2_7b.yaml 文件](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml#L39) 中的默认配置参数及说明如下：
+此处，以 Llama2-7B 模型预训练任务来举例说明，在 [pretrain_llama2_7b.yaml 文件](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/pretrain_llama2_7b.yaml#L39) 中的默认配置参数及说明如下：
 
 ```yaml
 # dataset
@@ -124,7 +124,7 @@ train_dataset_task:
 - data_loader.dataset_dir：数据集文件路径。
 - input_columns：设置训练数据集输入的数据列。当前为预训练场景，设置为 `["input_ids"]` 。
 
-其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
+其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
 
 ## BIN 格式数据集
 
@@ -139,7 +139,7 @@ train_dataset_task:
 {"src": "The Internet", "text": "jumps over the lazy dog", "type": "Eng", "id": "42", "title": "Second Part"}
 ```
 
-以 Llama2 处理 Wiki数据集为例，原始Wiki数据集的下载参考 [Llama2 中的数据预处理案例](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)，在处理成符合预处理脚本支持格式的数据集后，直接调用 [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py)，具体命令如下：
+以 Llama2 处理 Wiki数据集为例，原始Wiki数据集的下载参考 [Llama2 中的数据预处理案例](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)，在处理成符合预处理脚本支持格式的数据集后，直接调用 [mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py)，具体命令如下：
 
 ```shell
 python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
@@ -172,7 +172,7 @@ python mindformers/tools/dataset_preprocess/preprocess_indexed_dataset.py \
 
 通过在 yaml 配置文件中配置数据集相关参数，可以让训练任务使用准备好的 BIN 格式数据集。
 
-此处，以 Llama2-7B 模型预训练任务来举例说明，在 [pretrain_llama2_7b.yaml 文件](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml#L39) 中的配置参数的修改及说明如下：
+此处，以 Llama2-7B 模型预训练任务来举例说明，在 [pretrain_llama2_7b.yaml 文件](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/pretrain_llama2_7b.yaml#L39) 中的配置参数的修改及说明如下：
 
 ```yaml
 # dataset
@@ -296,7 +296,7 @@ class XXXInstructDataHandler(BaseInstructDataHandler):
 
 #### 训练流程直接从远端仓库加载
 
-修改任务配置文件 [finetune_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/finetune_llama2_7b.yaml) 。
+修改任务配置文件 [finetune_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/finetune_llama2_7b.yaml) 。
 
 修改如下参数：
 
@@ -331,7 +331,7 @@ train_dataset:
 - data_loader.handler.prompt_key：增加 prompt 处理后数据列名称。
 - data_loader.handler.output_columns：数据预处理后输出的数据列。
 
-其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
+其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
 
 自定义数据 handler：
 
@@ -411,7 +411,7 @@ class AlpacaInstructDataHandler(BaseInstructDataHandler):
 
 #### 训练流程直接从远端仓库加载
 
-修改任务配置文件 [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml) 。
+修改任务配置文件 [run_glm3_6b_finetune_2k_800T_A2_64G.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/glm3/run_glm3_6b_finetune_2k_800T_A2_64G.yaml) 。
 
 修改如下参数：
 
@@ -456,7 +456,7 @@ train_dataset: &train_dataset
 - data_loader.handler.type：自定义数据处理器类型名称。
 - data_loader.handler.output_columns：处理完后输出的数据集列名。
 
-其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
+其余参数介绍可以参考 [配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/appendix/conf_files.html) 的 “模型训练配置” 和 “模型评估配置”。
 
 自定义 adgen_handler：
 

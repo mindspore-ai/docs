@@ -1,6 +1,6 @@
 # 调试调优
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/debug_and_tune.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_zh_cn/migration_guide/debug_and_tune.md)
 
 ## 调优常见问题及解决办法
 
@@ -11,7 +11,7 @@
          这个大概率是网络反向出现问题。可借助[TroubleShooter比对MindSpore与PyTorch的ckpt/pth](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/migrator.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF2%E6%AF%94%E5%AF%B9mindspore%E4%B8%8Epytorch%E7%9A%84ckptpth)通过比较ckpt与pth的对应参数的值来检验网络反向更新的结果。
     - loss出现NAN/INF：
          可以通过[TroubleShooter获取INF/NAN值抛出点](https://gitee.com/mindspore/toolkits/blob/master/troubleshooter/docs/tracker.md#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF2%E8%8E%B7%E5%8F%96infnan%E5%80%BC%E6%8A%9B%E5%87%BA%E7%82%B9)识别网络中第一个出现NAN或INF的位置。
-         也可通过[Dump](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)工具进行溢出算子检测。
+         也可通过[Dump](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/dump.html)工具进行溢出算子检测。
 
 - 显存调试阶段，可能遇到以下常见问题：
     - Malloc device memory failed:
@@ -24,7 +24,7 @@
 ### 功能调试
 
 在网络的迁移过程，建议优先使用PYNATIVE模式进行调试，在PYNATIVE模式下可以进行debug，日志打印也比较友好。在调试ok后转成图模式运行，图模式在执行性能上会更友好，也可以找到一些在编写网络中的问题，比如使用了三方的算子导致梯度截断。
-详情请参考[错误分析](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/error_scenario_analysis.html)。
+详情请参考[错误分析](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/error_analysis/error_scenario_analysis.html)。
 
 ### 精度调优
 
@@ -138,15 +138,15 @@ trainable parameter numbers: 2
 
 #### 2.模型验证
 
-由于模型算法的实现是和框架没有关系的，训练好的参数可以先转换成MindSpore的[checkpoint](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html)文件加载到网络中进行推理验证。
+由于模型算法的实现是和框架没有关系的，训练好的参数可以先转换成MindSpore的[checkpoint](https://www.mindspore.cn/tutorials/zh-CN/r2.4.0/beginner/save_load.html)文件加载到网络中进行推理验证。
 
-整个模型验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html#%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81)。
+整个模型验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/sample_code.html#%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81)。
 
 #### 3.推理验证
 
 确认模型结构完全一致后，最好再做一次推理验证。整个推理过程除了模型外还有数据集和metrics，当推理结果不一致时，可以采用控制变量法，逐步排除问题。
 
-整个推理验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html#%E6%8E%A8%E7%90%86%E6%B5%81%E7%A8%8B)。
+整个推理验证的流程请参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/sample_code.html#%E6%8E%A8%E7%90%86%E6%B5%81%E7%A8%8B)。
 
 #### 4.训练精度
 
@@ -193,7 +193,7 @@ trainable parameter numbers: 2
   model = Model(network=train_net)
   ```
 
-- 排查是否溢出，添加loss scale时，默认会加上溢出检测，可以将是否溢出的结果进行监测，如果持续溢出的话建议优先排查为什么溢出，建议使用MindSpore Insight的[dump数据](https://mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)。
+- 排查是否溢出，添加loss scale时，默认会加上溢出检测，可以将是否溢出的结果进行监测，如果持续溢出的话建议优先排查为什么溢出，建议使用MindSpore Insight的[dump数据](https://mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/dump.html)。
 
   ```python
   import numpy as np
@@ -232,7 +232,7 @@ trainable parameter numbers: 2
   ```
 
 - 排查优化器、loss和参数初始化，整个训练过程除了模型、数据集外新加的部分只有优化器、loss和参数初始化，训练有问题时需要重点排查。尤其是loss和参数初始化，出现问题的概率较大。
-- 多卡确认是否加seed保证多卡初始化一致，[自定义训练](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_evaluation.html#训练流程)确认是否进行梯度聚合。
+- 多卡确认是否加seed保证多卡初始化一致，[自定义训练](https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/model_development/training_and_evaluation.html#训练流程)确认是否进行梯度聚合。
 
   ```python
   import mindspore as ms
@@ -254,7 +254,7 @@ trainable parameter numbers: 2
 3. 多机同步性能优化
 4. 数据处理性能优化
 
-可以参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html)串通整个过程。
+可以参考[resnet网络迁移](https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/sample_code.html)串通整个过程。
 
 > 有的网络很大，这种情况在图模式下编译会很慢。在性能调优过程请区分图编译和网络执行，本节主要介绍网络执行阶段的性能调优策略。
 
@@ -272,17 +272,17 @@ trainable parameter numbers: 2
 
 - 使用静态图模式
 
-  MindSpore一般在静态图模式下比PYNATIVE模式下快很多，最好能在静态图模式下进行训练和推理，具体原理请参考[动静态图结合](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/overview.html)。
+  MindSpore一般在静态图模式下比PYNATIVE模式下快很多，最好能在静态图模式下进行训练和推理，具体原理请参考[动静态图结合](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/program_form/overview.html)。
 
 - on-device执行
 
-  MindSpore提供了一种[on-device执行](https://www.mindspore.cn/docs/zh-CN/master/design/overview.html#面向昇腾硬件的竞争力优化)的方法将数据处理和网络在device上的执行并行起来，只需要在`model.train`中设置`dataset_sink_mode=True`即可，注意这个配置默认是`False`，当打开这个配置时，一个epoch只会返回一个网络的结果，当进行调试时建议先将这个值改成`False`。
+  MindSpore提供了一种[on-device执行](https://www.mindspore.cn/docs/zh-CN/r2.4.0/design/overview.html#面向昇腾硬件的竞争力优化)的方法将数据处理和网络在device上的执行并行起来，只需要在`model.train`中设置`dataset_sink_mode=True`即可，注意这个配置默认是`False`，当打开这个配置时，一个epoch只会返回一个网络的结果，当进行调试时建议先将这个值改成`False`。
 
 - 使用自动混合精度
 
   混合精度训练方法是通过混合使用单精度和半精度数据格式来加速深度神经网络训练的过程，同时保持了单精度训练所能达到的网络精度。混合精度训练能够加速计算过程，同时减少内存使用和存取，并使得在特定的硬件上可以训练更大的模型或 batch size。
 
-  具体可参考 [混合精度教程](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/mixed_precision.html)。
+  具体可参考 [混合精度教程](https://www.mindspore.cn/tutorials/zh-CN/r2.4.0/beginner/mixed_precision.html)。
 
 - 使能图算融合
 
@@ -290,7 +290,7 @@ trainable parameter numbers: 2
 
   图算融合的适用场景包括：对网络执行时间具有较高性能要求的场景；通过拼接基本算子实现自定义组合算子，并希望对这些基本算子进行自动融合，以提升自定义组合算子性能的场景。
 
-  具体可参考 [图算融合教程](https://www.mindspore.cn/docs/zh-CN/master/design/graph_fusion_engine.html)。
+  具体可参考 [图算融合教程](https://www.mindspore.cn/docs/zh-CN/r2.4.0/design/graph_fusion_engine.html)。
 
 - 其他
 
@@ -298,7 +298,7 @@ trainable parameter numbers: 2
 
   如果是MindSpore自动生成的转换算子过多，可能是MindSpore框架针对某些特殊情况没有充分优化，可联系 [MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈。
 
-  动态shape场景目前需要不断的编图，可能会造成端到端的训练时间较长，建议优先[规避动态shape](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/dynamic_shape.html)。
+  动态shape场景目前需要不断的编图，可能会造成端到端的训练时间较长，建议优先[规避动态shape](https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/dynamic_shape.html)。
 
 #### 多机同步性能优化
 
@@ -335,4 +335,4 @@ if rank_size > 1:
 
 关于数据的性能问题，可以参考 MindSpore Insight 组件的 [数据准备性能分析](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析)，其给出了数据性能的常见问题及解决方法。
 
-更多性能调试方法请参考[性能优化](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/train_optimize.html)。
+更多性能调试方法请参考[性能优化](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/train_process/train_optimize.html)。

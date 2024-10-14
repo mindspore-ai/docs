@@ -1,6 +1,6 @@
 # 比较与torch.distributed.barrier的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/distributed.barrier.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/distributed.barrier.md)
 
 ## torch.distributed.barrier
 
@@ -20,7 +20,7 @@ torch.distributed.barrier(
 mindspore.communication.comm_func.barrier(group=GlobalComm.WORLD_COMM_GROUP)
 ```
 
-更多内容详见[mindspore.communication.comm_func.barrier](https://www.mindspore.cn/docs/zh-CN/master/api_python/communication/mindspore.communication.comm_func.barrier.html#mindspore.communication.comm_func.barrier)。
+更多内容详见[mindspore.communication.comm_func.barrier](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/communication/mindspore.communication.comm_func.barrier.html#mindspore.communication.comm_func.barrier)。
 
 ## 差异对比
 

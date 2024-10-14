@@ -1,6 +1,6 @@
 # SFT微调
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/usage/sft_tuning.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_zh_cn/usage/sft_tuning.md)
 
 ## 概述
 
@@ -61,7 +61,7 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
 - `tokenizer.json`：分词器的词汇配置文件<br>
 - `tokenizer.model`：模型的分词器<br>
 
-MindFormers提供权重转换脚本，通过执行[convert_weight.py转换脚本](https://gitee.com/mindspore/mindformers/blob/dev/convert_weight.py)，可以将HuggingFace的权重转换为完整的ckpt权重。
+MindFormers提供权重转换脚本，通过执行[convert_weight.py转换脚本](https://gitee.com/mindspore/mindformers/blob/r1.3.0/convert_weight.py)，可以将HuggingFace的权重转换为完整的ckpt权重。
 
 ```bash
 python convert_weight.py --model llama --input_path TORCH_CKPT_DIR --output_path {path}/MS_CKPT_NAME
@@ -87,7 +87,7 @@ MindFormers提供**WikiText2**作为预训练数据集，**alpaca**作为微调�
 
 **alpaca 数据预处理**
 
-1. 执行MindFormers中的[alpaca_converter.py脚本](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，将数据集转换为多轮对话格式。
+1. 执行MindFormers中的[alpaca_converter.py脚本](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，将数据集转换为多轮对话格式。
 
     ```bash
     python alpaca_converter.py \
@@ -102,7 +102,7 @@ MindFormers提供**WikiText2**作为预训练数据集，**alpaca**作为微调�
     output_path: 输出文件的保存路径
     ```
 
-2. 执行MindFormers中的[llama_preprocess.py脚本](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，将数据转换为MindRecord格式。该操作依赖fastchat工具包解析prompt模板, 请提前安装fastchat >= 0.2.13 python = 3.9。
+2. 执行MindFormers中的[llama_preprocess.py脚本](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，将数据转换为MindRecord格式。该操作依赖fastchat工具包解析prompt模板, 请提前安装fastchat >= 0.2.13 python = 3.9。
 
     ```bash
     python llama_preprocess.py \

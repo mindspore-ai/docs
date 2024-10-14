@@ -1,6 +1,6 @@
 # Differences with torch.distributed.scatter
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/distributed.scatter.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/distributed.scatter.md)
 
 ## torch.distributed.scatter
 
@@ -22,7 +22,7 @@ For more information, see [torch.distributed.scatter](https://pytorch.org/docs/1
 mindspore.communication.comm_func.scatter_tensor(tensor, src=0, group=GlobalComm.WORLD_COMM_GROUP)
 ```
 
-For more information, see [mindspore.communication.comm_func.scatter_tensor](https://www.mindspore.cn/docs/en/master/api_python/communication/mindspore.communication.comm_func.scatter_tensor.html#mindspore.communication.comm_func.scatter_tensor)。
+For more information, see [mindspore.communication.comm_func.scatter_tensor](https://www.mindspore.cn/docs/en/r2.4.0/api_python/communication/mindspore.communication.comm_func.scatter_tensor.html#mindspore.communication.comm_func.scatter_tensor)。
 
 ## Differences
 

@@ -1,6 +1,6 @@
 # Configuration File Descriptions
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/appendix/conf_files.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_en/appendix/conf_files.md)
 
 ## Overview
 
@@ -16,23 +16,23 @@ The base configuration is mainly used to specify MindSpore random seeds and rela
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
-| seed            | Set the global seed. For details, refer to [mindspore.set_seed](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_seed.html)                                                                                               | int  |
+| seed            | Set the global seed. For details, refer to [mindspore.set_seed](https://www.mindspore.cn/docs/en/r2.4.0/api_python/mindspore/mindspore.set_seed.html)                                                                                               | int  |
 | run_mode        | Set the running mode of the model, either `train`, `finetune`, `eval` or `predict`.                                                                                                                                                                       | str  |
 | output_dir      | Set the path where log, checkpoint, strategy, etc. files are saved.                                                                                                                                                                        | str  |
-| load_checkpoint | File or folder paths for loading weights。 Currently there are 3 application scenarios<br/>1. Support for passing in full weight file paths<br/>2. Support for passing in offline sliced weight folder paths<br/>3. Support for passing in folder paths containing lora weights and base weights<br/>Refer to [Weight Conversion Function](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html) for the ways of obtaining various weights. | str  |
-| auto_trans_ckpt | Enable online weight automatic conversion. Refer to [Weight Conversion Function](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html)                                                                                                      | bool |
-| resume_training | Turn on resumable training after breakpoint. For details, refer to [Resumable Training After Breakpoint](https://www.mindspore.cn/mindformers/docs/en/dev/function/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)                                                                                                               | bool |
+| load_checkpoint | File or folder paths for loading weights。 Currently there are 3 application scenarios<br/>1. Support for passing in full weight file paths<br/>2. Support for passing in offline sliced weight folder paths<br/>3. Support for passing in folder paths containing lora weights and base weights<br/>Refer to [Weight Conversion Function](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/function/weight_conversion.html) for the ways of obtaining various weights. | str  |
+| auto_trans_ckpt | Enable online weight automatic conversion. Refer to [Weight Conversion Function](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/function/weight_conversion.html)                                                                                                      | bool |
+| resume_training | Turn on resumable training after breakpoint. For details, refer to [Resumable Training After Breakpoint](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/function/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)                                                                                                               | bool |
 
 ### Context Conguration
 
-Context configuration is mainly used to specify the [mindspore.set_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html) in the related parameters.
+Context configuration is mainly used to specify the [mindspore.set_context](https://www.mindspore.cn/docs/en/r2.4.0/api_python/mindspore/mindspore.set_context.html) in the related parameters.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|----------|
 | context.mode                | Set the backend execution mode, `0` means GRAPH_MODE. MindFormers currently only supports running in GRAPH_MODE mode.                                                                                          | int      |
 | context.device_target       | Set the backend execution device. MindFormers is only supported on `Ascend` devices.                                                                                                              | str      |
 | context.device_id           | Set the execution device ID. The value must be within the range of available devices, and the default value is `0`.                                                                                                                      | int      |
-| context.enable_graph_kernel | Enable graph fusion to optimize network execution performance, defaults to `False`. See [graph fusion](https://www.mindspore.cn/docs/en/master/model_train/optimize/graph_fusion_engine.html) for details.                    | bool     |
+| context.enable_graph_kernel | Enable graph fusion to optimize network execution performance, defaults to `False`. See [graph fusion](https://www.mindspore.cn/docs/en/r2.4.0/model_train/optimize/graph_fusion_engine.html) for details.                    | bool     |
 | context.max_call_depth      | Set the maximum depth of a function call. The value must be a positive integer, and the default value is `1000`.                                                                                                                    | int      |
 | context.max_device_memory   | Set the maximum memory available to the device in the format “xxGB”, and the default value is `1024GB`.                                                                                                                 | str      |
 | context.save_graphs         | Save the compilation graph during execution.<br/>1. `False` or `0` indicates that the intermediate compilation map is not saved.<br/>2. `1` means outputting some of the intermediate files generated during the compilation of the diagram.<br/>3. `True` or `2` indicates the generation of more backend-process-related IR files. <br/>4. `3` indicates the generation of visualized computational diagrams and more detailed front-end IR diagrams. | bool/int |
@@ -74,7 +74,7 @@ When starting model training, in addition to model-related parameters, you also 
 | trainer.model_name                          | Set the model name in the format '{name}_xxb', indicating a certain specification of the model                                                                                                                                    | str   |
 | runner_config.epochs                        | Set the number of rounds for model training                                                                                                                                                           | int   |
 | runner_config.batch_size                    | Set the sample size of the batch data, which overrides the `batch_size` in the dataset configuration.                                                                                                                               | int   |
-| runner_config.sink_mode                     | Enable data sink mode, see [Sink Mode](https://www.mindspore.cn/docs/en/master/model_train/train_process/optimize/sink_mode.html) for details                                                     | bool  |
+| runner_config.sink_mode                     | Enable data sink mode, see [Sink Mode](https://www.mindspore.cn/docs/en/r2.4.0/model_train/train_process/optimize/sink_mode.html) for details                                                     | bool  |
 | runner_config.sink_size                     | Set the number of iterations to be sent down from Host to Device per iteration, effective only when `sink_mode=True`                                                                                                                        | int   |
 | runner_config.gradient_accumulation_steps   | Set the number of gradient accumulation steps, the default value is 1, which means that gradient accumulation is not enabled.                                                                                                                                            | int   |
 | runner_wrapper.type                         | Set the wrapper class, generally set 'MFTrainOneStepCell'                                                                                                                              | str   |
@@ -105,13 +105,13 @@ When starting model training, in addition to model-related parameters, you also 
 | train_dataset.transforms                    | Set options related to data enhancement                                                                                                                                                          | -     |
 | train_dataset_task.type                     | Set up the dataset class, which is used to encapsulate the data loading class and other related configurations                                                                                                                                   | str   |
 | train_dataset_task.dataset_config           | Typically set as a reference to `train_dataset`, containing all configuration entries for `train_dataset`.                                                                                                                     | -     |
-| auto_tune                                   | Enable auto-tuning of data processing parameters, see [set_enable_autotune](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_enable_autotune.html) for details            | bool  |
+| auto_tune                                   | Enable auto-tuning of data processing parameters, see [set_enable_autotune](https://www.mindspore.cn/docs/en/r2.4.0/api_python/dataset/mindspore.dataset.config.set_enable_autotune.html) for details            | bool  |
 | filepath_prefix                             | Set the save path for parameter configurations after data optimization                                                                                                                                                   | str   |
-| autotune_per_step                           | Set the configuration tuning step interval for automatic data acceleration, for details see [set_autotune_interval](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_autotune_interval.html) | int   |
+| autotune_per_step                           | Set the configuration tuning step interval for automatic data acceleration, for details see [set_autotune_interval](https://www.mindspore.cn/docs/en/r2.4.0/api_python/dataset/mindspore.dataset.config.set_autotune_interval.html) | int   |
 
 ### Parallel Conguration
 
-In order to improve the performance of the model, it is usually necessary to configure the parallelism strategy for the model in large-scale cluster usage scenarios. For details, please refer to [Distributed Parallelism](https://www.mindspore.cn/mindformers/docs/en/dev/function/distributed_parallel.html), the parallel configuration in MindFormers is as follows.
+In order to improve the performance of the model, it is usually necessary to configure the parallelism strategy for the model in large-scale cluster usage scenarios. For details, please refer to [Distributed Parallelism](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/function/distributed_parallel.html), the parallel configuration in MindFormers is as follows.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
@@ -122,7 +122,7 @@ In order to improve the performance of the model, it is usually necessary to con
 | parallel_config.pipeline_stage                                  | Set the number of pipeline parallel                                                                                                                                                                                         | int  |
 | parallel_config.micro_batch_num                                 | Set the pipeline parallel microbatch size, which should satisfy `parallel_config.micro_batch_num` >= `parallel_config.pipeline_stage` when `parallel_config.pipeline_stage` is greater than 1                                                                     | int  |
 | parallel_config.gradient_aggregation_group                      | Set the size of the gradient communication operator fusion group                                                                                                                                                                                   | int  |
-| micro_batch_interleave_num                                      | Set the number of multicopy parallel, enable multicopy parallelism if it is greater than 1. Usually enabled when using model parallel, mainly used to optimize the communication loss generated by model parallel, and not recommended to be enabled when only using streaming parallel. For details, please refer to [MicroBatchInterleaved](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.MicroBatchInterleaved.html) | int  |
+| micro_batch_interleave_num                                      | Set the number of multicopy parallel, enable multicopy parallelism if it is greater than 1. Usually enabled when using model parallel, mainly used to optimize the communication loss generated by model parallel, and not recommended to be enabled when only using streaming parallel. For details, please refer to [MicroBatchInterleaved](https://www.mindspore.cn/docs/en/r2.4.0/api_python/nn/mindspore.nn.MicroBatchInterleaved.html) | int  |
 | parallel.parallel_mode                                          | Set parallel mode, `0` means data parallel mode, `1` means semi-automatic parallel mode, `2` means automatic parallel mode, `3` means mixed parallel mode, usually set to semi-automatic parallel mode.                                                                                                                          | int  |
 | parallel.gradients_mean                                         | Whether to execute the averaging operator after the gradient AllReduce. Typically set to `False` in semi-automatic parallel mode and `True` in data parallel mode                                                                                                                                        | bool |
 | parallel.enable_alltoall                                        | Enables generation of the AllToAll communication operator during communication. Typically set to `True` only in MOE scenarios, default value is `False`                                                                                                                                             | bool |
@@ -139,7 +139,7 @@ In order to improve the performance of the model, it is usually necessary to con
 
 ### Model Optimization Conguration
 
-MindFormers provides recomputation-related configurations to reduce the memory footprint of the model during training, see [Recomputation](https://www.mindspore.cn/mindformers/docs/en/dev/perf_optimize/perf_optimize.html#recompute) for details.
+MindFormers provides recomputation-related configurations to reduce the memory footprint of the model during training, see [Recomputation](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/perf_optimize/perf_optimize.html#recompute) for details.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |----------------------------------------------------|-------------------------------|-----------|
@@ -159,7 +159,7 @@ MindFormers provides encapsulated Callbacks function class, mainly to achieve to
 
 2. SummaryMonitor
 
-   This callback function class is mainly used to collect Summary data, see [mindspore.SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryCollector.html) for details.
+   This callback function class is mainly used to collect Summary data, see [mindspore.SummaryCollector](https://www.mindspore.cn/docs/en/r2.4.0/api_python/mindspore/mindspore.SummaryCollector.html) for details.
 
 3. CheckpointMonitor
 
@@ -218,11 +218,11 @@ MindFormers provides model evaluation function, and also supports model evaluati
 
 ### Profile Conguration
 
-MindFormers provides Profile as the main tool for model performance tuning, please refer to [Performance Tuning Guide](https://www.mindspore.cn/mindformers/docs/en/dev/perf_optimize/perf_optimize.html) for more details. The following is the Profile related configuration.
+MindFormers provides Profile as the main tool for model performance tuning, please refer to [Performance Tuning Guide](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/perf_optimize/perf_optimize.html) for more details. The following is the Profile related configuration.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------|------|
-| profile               | Enable the performance capture tool, see [mindspore.Profiler](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html) for details | bool |
+| profile               | Enable the performance capture tool, see [mindspore.Profiler](https://www.mindspore.cn/docs/en/r2.4.0/api_python/mindspore/mindspore.Profiler.html) for details | bool |
 | profile_start_step    | Set the number of steps to start collecting performance data                                                                                                            | int  |
 | profile_stop_step     | Set the number of steps to stop collecting performance data                                                                                                            | int  |
 | profile_communication | Set whether communication performance data is collected in multi-device training, this parameter is invalid when using single card training. Default: `False`                                                                               | bool |

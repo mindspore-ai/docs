@@ -1,6 +1,6 @@
 # Feature Value Detection
 
-[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/debug/sdc.md)
+[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_en/model_train/debug/sdc.md)
 
 ## Overview
 
@@ -46,7 +46,7 @@ The environment variable `NPU_ASD_UPPER_THRESH` controls the absolute numerical 
 
 The environment variable `NPU_ASD_SIGMA_THRESH` controls the relative numerical threshold of detection, in the same format as the above, where the first element controls the first-level threshold of numerical changes, and the second element controls the second-level threshold of numerical changes; by default, `NPU_ASD_SIGMA_THRESH=100000,5000`.
 
-For details of above environment variables, see [Environment Variables](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html).
+For details of above environment variables, see [Environment Variables](https://www.mindspore.cn/docs/en/r2.4.0/api_python/env_var_list.html).
 
 ## Use Cases
 

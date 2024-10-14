@@ -1,6 +1,6 @@
 # 分布式并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/function/distributed_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_zh_cn/function/distributed_parallel.md)
 
 ## 并行模式与应用场景
 
@@ -25,15 +25,15 @@ MindFormers 支持多种并行特性，开发者可以利用这些特性来优�
 
 | **并行特性**                      | **描述**                                                                          |
 |-----------------------------------|---------------------------------------------------------------------------------|
-| **[数据并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/data_parallel.html)**                     | 将数据拆分到多个设备上，并在每个设备上同时进行训练。适用于数据量大且模型相对简单的任务。                                    |
-| **[模型并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/operator_parallel.html)**                     | 将模型参数分布到多个设备上，适合单个设备无法容纳整个模型的情况。                                                |
-| **[流水线并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/pipeline_parallel.html)**                   | 将模型分割成多个阶段，每个阶段在不同的设备上运行，以实现超大规模模型的高效训练。                                        |
-| **[优化器并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/optimizer_parallel.html)**                   | 将优化器计算分布到多个设备上，减少内存占用，提高训练效率。                                                   |
-| **[序列并行](https://gitee.com/mindspore/mindformers/blob/dev/docs/feature_cards/Long_Sequence_Training.md)**                     | 设计用于处理长序列输入的模型，将Transformer层中的LayerNorm及Dropout的输入按照序列维度进行切分，减少单设备的显存压力。        |
+| **[数据并行](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/parallel/data_parallel.html)**                     | 将数据拆分到多个设备上，并在每个设备上同时进行训练。适用于数据量大且模型相对简单的任务。                                    |
+| **[模型并行](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/parallel/operator_parallel.html)**                     | 将模型参数分布到多个设备上，适合单个设备无法容纳整个模型的情况。                                                |
+| **[流水线并行](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/parallel/pipeline_parallel.html)**                   | 将模型分割成多个阶段，每个阶段在不同的设备上运行，以实现超大规模模型的高效训练。                                        |
+| **[优化器并行](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/parallel/optimizer_parallel.html)**                   | 将优化器计算分布到多个设备上，减少内存占用，提高训练效率。                                                   |
+| **[序列并行](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/feature_cards/Long_Sequence_Training.md)**                     | 设计用于处理长序列输入的模型，将Transformer层中的LayerNorm及Dropout的输入按照序列维度进行切分，减少单设备的显存压力。        |
 | **上下文并行**  | 设计用于处理长序列输入的模型，对所有的input输入和所有的输出activation在sequence维度上进行切分，对于超长序列输入场景进一步减少显存占用。 |
-| **[多副本并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/pipeline_parallel.html#mindspore%E4%B8%AD%E7%9A%84interleaved-pipeline%E8%B0%83%E5%BA%A6)**                   | 用于在多个副本之间实现精细的并行控制，优化性能和资源利用率，适合大规格模型的高效训练。                                     |
+| **[多副本并行](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/parallel/pipeline_parallel.html#mindspore%E4%B8%AD%E7%9A%84interleaved-pipeline%E8%B0%83%E5%BA%A6)**                   | 用于在多个副本之间实现精细的并行控制，优化性能和资源利用率，适合大规格模型的高效训练。                                     |
 
-关于分布式并行参数的配置方法，参见 [MindFormers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
+关于分布式并行参数的配置方法，参见 [MindFormers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/appendix/conf_files.html) 中的并行配置章节下的具体内容。
 
 ## MindFormers 分布式并行应用实践
 

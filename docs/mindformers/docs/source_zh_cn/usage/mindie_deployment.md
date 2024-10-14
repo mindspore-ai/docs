@@ -1,6 +1,6 @@
 # MindIE服务化部署
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/usage/mindie_deployment.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_zh_cn/usage/mindie_deployment.md)
 
 ## MindIE介绍
 
@@ -8,7 +8,7 @@ MindIE，全称Mind Inference Engine，是基于昇腾硬件的高性能推理�
 
 MindFormers承载在模型应用层MindIE LLM中，通过MindIE Service可以部署MindFormers中的大模型。
 
-MindIE推理的模型支持度可参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html)。
+MindIE推理的模型支持度可参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/start/models.html)。
 
 ## 环境搭建
 
@@ -16,7 +16,7 @@ MindIE推理的模型支持度可参考[模型库](https://www.mindspore.cn/mind
 
 1. 安装MindFormers
 
-   参考[MindFormers官方安装指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/install.html)进行安装。
+   参考[MindFormers官方安装指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/quick_start/install.html)进行安装。
 
 2. 安装MindIE
 
@@ -166,7 +166,7 @@ vim /usr/local/Ascend/mindie/1.0.RC3/mindie-service/conf/config.json
    model_config.save_pretrained(save_directory="./json/qwen1_5_72b/", save_json=True)
    ```
 
-   模型权重下载和转换可参考 [权重格式转换指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)。
+   模型权重下载和转换可参考 [权重格式转换指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/function/weight_conversion.html)。
 
    准备好模型配置目录后，设置参数`modelWeightPath`为该目录路径。
 
@@ -308,4 +308,4 @@ curl -w "\ntime_total=%{time_total}\n" -H "Accept: application/json" -H "Content
 
 ## 模型列表
 
-其他模型的MindIE推理示例可参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html)中的各模型的介绍文档。
+其他模型的MindIE推理示例可参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/start/models.html)中的各模型的介绍文档。

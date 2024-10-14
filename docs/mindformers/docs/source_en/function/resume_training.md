@@ -1,6 +1,6 @@
 # Weight Saving and Resumable Training
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/function/resume_training.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_en/function/resume_training.md)
 
 ## Weight Saving
 
@@ -119,7 +119,7 @@ If `resume_training` is set to `True`, the system automatically resumes training
 ### Example of Distributed Training
 
 The following example shows how to enable resumable training in single-device and multi-device environments. The example is based on the `llama2_7b` model.
-For related configuration files, see [configs/llama2/pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml).
+For related configuration files, see [configs/llama2/pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/pretrain_llama2_7b.yaml).
 
 #### Complete Training
 
@@ -149,7 +149,7 @@ For related configuration files, see [configs/llama2/pretrain_llama2_7b.yaml](ht
      ...
    ```
 
-2. Prepare a dataset. The following uses [wikitext2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87) as an example to describe how to start four-device distributed training.
+2. Prepare a dataset. The following uses [wikitext2](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87) as an example to describe how to start four-device distributed training.
 
    ```shell
    bash scripts/msrun_launcher.sh "run_mindformer.py \
