@@ -248,8 +248,6 @@ For a complete example of an Ascend C custom operator, you can refer to the [sam
         this->SetInferShape(ge::InferShape);
         this->AICore().SetTiling(optiling::TilingFunc);
         this->AICore().AddConfig("ascend910");
-        this->AICore().AddConfig("ascend310p");
-        this->AICore().AddConfig("ascend910b");
       }
     };
     ```
