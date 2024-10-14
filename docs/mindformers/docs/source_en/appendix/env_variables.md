@@ -22,7 +22,6 @@ The following environment variables are supported by MindFormers.
 | **ASCEND_GLOBAL_EVENT_ENABLE**  | 0      | Whether to enable event logging.                                                                       | `1`: turn on Event logging;<br>`0`: turn off Event logging.                                                                                                                                 |
 | **HCCL_EXEC_TIMEOUT**           | 1836   | This environment variable allows you to control the amount of time to wait for synchronization when executing between devices, where each device process waits for the other device to perform communication synchronization for the configured amount of time.| The range is: (0, 17340], and the default value is 1836 in s.                                                                         |
 | **HCCL_CONNECT_TIMEOUT**        | 120    | Used in distributed training or inference scenarios to limit the timeout wait time of the socket building process between different devices. | The environment variable needs to be configured as an integer in the range [120,7200], with default value 120s.     |
-| **MS_NODE_ID**        | NA    | Specifies process rank id in dynamic cluster scenarios. | The rank_id of the process, unique within the cluster. |
 
 ## Other Variables
 
