@@ -19,24 +19,40 @@ from lxml import etree
 from replace_html_menu import replace_html_menu
 
 # 下载仓库
-def git_clone(repo_url, repo_dir):
+def git_clone(repo_url, repo_dir, v_tag):
+    """
+    克隆git仓库。
+    """
     if not os.path.exists(repo_dir):
         print("Cloning repo.....")
         os.makedirs(repo_dir, exist_ok=True)
-        Repo.clone_from(repo_url, repo_dir, branch="master")
+        if v_tag:
+            Repo.clone_from(repo_url, repo_dir, branch=v_tag)
+        else:
+            Repo.clone_from(repo_url, repo_dir, branch="master")
         print("Cloning Repo Done.")
 
 # 更新仓库
-def git_update(repo_dir, branch):
+def git_update(repo_dir, branch, cmt_id, v_tag):
+    """
+    更新git仓库的信息。
+    """
     repo = Repo(repo_dir)
     str1 = repo.git.execute(["git", "clean", "-dfx"])
     print(str1)
     str2 = repo.git.execute(["git", "reset", "--hard", "HEAD"])
     print(str2)
-    str3 = repo.git.execute(["git", "checkout", branch])
-    print(str3)
-    str4 = repo.git.execute(["git", "pull", "origin", branch])
-    print(str4)
+    if v_tag:
+        str3 = repo.git.execute(["git", "checkout", v_tag])
+        print(str3)
+    else:
+        str3 = repo.git.execute(["git", "checkout", branch])
+        print(str3)
+        str4 = repo.git.execute(["git", "pull", "origin", branch])
+        print(str4)
+        if cmt_id:
+            str5 = repo.git.execute(["git", "reset", "--hard", cmt_id])
+            print(str5)
 
 def deal_err(err, pylib_dir):
     extra_str_re = re.compile(r"\[3.*?m")
@@ -104,9 +120,9 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                /115.0.0.0 Safari/537.36"}
 
     # 读取json文件数据
-    if version == "daily":
+    if version == "daily" or not os.path.exists(os.path.join(os.path.dirname(__file__), "version.json")):
         flag_dev = 1
-        with open(os.path.join(os.path.dirname(__file__), "daily.json"), 'r+', encoding='utf-8') as f:
+        with open(os.path.join(os.path.dirname(__file__), "daily_dev.json"), 'r+', encoding='utf-8') as f:
             data = json.load(f)
     else:
         flag_dev = 0
@@ -162,36 +178,43 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             try:
                 status_code = requests.get(repo_url, headers=headers).status_code
                 if status_code == 200:
+                    commit_id = ""
+                    tag = ""
+                    if 'commit_id' in data[i].keys():
+                        commit_id = data[i]['commit_id']
+                    if 'tag' in data[i].keys():
+                        tag = data[i]['tag']
                     if not os.path.exists(repo_path):
-                        git_clone(repo_url, repo_path)
+                        git_clone(repo_url, repo_path, tag)
                     if data[i]['environ'] == "MSC_PATH":
                         if data[i]['name'] == "mindscience":
-                            git_update(repo_path, branch_)
+                            git_update(repo_path, branch_, commit_id, tag)
                         elif msc_branch:
-                            git_update(repo_path, msc_branch)
+                            git_update(repo_path, msc_branch, commit_id, tag)
                     else:
-                        git_update(repo_path, branch_)
+                        git_update(repo_path, branch_, commit_id, tag)
                     print(f'{repo_name}仓库克隆更新成功')
             except KeyError:
                 print(f'{repo_name}仓库克隆或更新失败')
 
         # 特殊与一般性的往ArraySource中加入键值对
         if data[i]['name'] == "lite":
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/api'] = data[i]["branch"]
+            ArraySource[data[i]['name'] + '/docs'] = data[i]["html_version"]
+            ArraySource[data[i]['name'] + '/api'] = data[i]["html_version"]
+            ArraySource[data[i]['name'] + '/faq'] = data[i]["html_version"]
         elif data[i]['name'] == "tutorials":
-            ArraySource[data[i]['name']] = data[i]["branch"]
-            # ArraySource[data[i]['name'] + '/application'] = data[i]["branch"]
-            # ArraySource[data[i]['name'] + '/experts'] = data[i]["branch"]
+            ArraySource[data[i]['name']] = data[i]["html_version"]
+            # ArraySource[data[i]['name'] + '/application'] = data[i]["html_version"]
+            # ArraySource[data[i]['name'] + '/experts'] = data[i]["html_version"]
         elif data[i]['name'] == "mindspore":
-            ArraySource[data[i]['name']] = data[i]["branch"]
+            ArraySource[data[i]['name']] = data[i]["html_version"]
         elif data[i]['name'] == "mindscience":
             pass
         else:
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
+            ArraySource[data[i]['name'] + '/docs'] = data[i]["html_version"]
 
         if data[i]['name'] != "mindscience":
-            generate_version_json(data[i]['name'], data[i]["branch"], data_b, flag_dev, target_version)
+            generate_version_json(data[i]['name'], data[i]["html_version"], data_b, flag_dev, target_version)
 
         # 卸载原来已有的安装包, 以防冲突
         if data[i]['uninstall_name']:
@@ -518,7 +541,7 @@ if __name__ == "__main__":
              release_url=args.release_url, generate_list=generate_list_p)
 
         # 替换页面左侧目录部分
-        ms_path = f"{MAINDIR}/{args.version}/output/docs/zh-CN/master"
+        ms_path = f"{MAINDIR}/{args.version}/output/docs/zh-CN/r2.4.0"
         if os.path.exists(ms_path):
             replace_html_menu(ms_path, os.path.join(DOCDIR, "../../docs/mindspore/source_zh_cn"))
             print('docs中文目录大纲调整完成！')
@@ -539,6 +562,7 @@ if __name__ == "__main__":
                 theme_list.append(dir_name)
             elif dir_name == 'lite':
                 theme_list.append(dir_name + '/docs')
+                # theme_list.append(dir_name + '/faq')
                 theme_list.append(dir_name + '/api')
             else:
                 theme_list.append(dir_name + '/docs')
