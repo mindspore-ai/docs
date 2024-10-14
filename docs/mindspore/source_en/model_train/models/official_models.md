@@ -4,25 +4,7 @@
 
 ## Domain Suite and Extension Packages
 
-### Large Language Model
-
-|  model   |  supported by mindformers |
-| :---   |  :--  |
-| [llama2](https://gitee.com/mindspore/mindformers/blob/r1.1.0/docs/model_cards/llama2.md) | llama2_7b, llama2_13b, llama2_7b_lora, llama2_13b_lora, llama2_70b |
-| [llama3](https://gitee.com/mindspore/mindformers/blob/r1.1.0/research/llama3/llama3.md)  | llama3_8b   |
-| [glm2](https://gitee.com/mindspore/mindformers/blob/r1.1.0/docs/model_cards/glm2.md)     | glm2_6b, glm2_6b_lora  |
-| [glm3](https://gitee.com/mindspore/mindformers/blob/r1.1.0/docs/model_cards/glm3.md)     | glm3_6b, glm3_6b_lora  |
-| [gpt2](https://gitee.com/mindspore/mindformers/blob/r1.1.0/docs/model_cards/gpt2.md)      | gpt2, gpt2_13b    |
-| [baichuan2](https://gitee.com/mindspore/mindformers/blob/r1.1.0/research/baichuan2/baichuan2.md) | baichuan2_7b, baichuan2_13b, baichuan2_7b_lora, baichuan2_13b_lora |
-| [qwen](https://gitee.com/mindspore/mindformers/blob/r1.1.0/research/qwen/qwen.md)        | qwen_7b, qwen_14b, qwen_7b_lora, qwen_14b_lora   |
-| [qwen1.5](https://gitee.com/mindspore/mindformers/blob/r1.1.0/research/qwen1_5/qwen1_5.md)     | qwen1.5-14b, qwen1.5-72b  |
-| [codegeex2](https://gitee.com/mindspore/mindformers/blob/r1.1.0/docs/model_cards/codegeex2.md)    | codegeex2_6b       |
-| [codellama](https://gitee.com/mindspore/mindformers/blob/r1.1.0/docs/model_cards/codellama.md)     | codellama_34b |
-| [deepseek](https://gitee.com/mindspore/mindformers/blob/r1.1.0/research/deepseek/deepseek.md)      | deepseek-coder-33b-instruct  |
-| [internlm](https://gitee.com/mindspore/mindformers/blob/r1.1.0/research/internlm/internlm.md)      | internlm_7b, internlm_20b, internlm_7b_lora  |
-| [mixtral](https://gitee.com/mindspore/mindformers/blob/r1.1.0/research/mixtral/mixtral.md)       | mixtral-8x7b |
-| [wizardcoder](https://gitee.com/mindspore/mindformers/blob/r1.1.0/research/wizardcoder/wizardcoder.md) | wizardcoder_15b |
-| [yi](https://gitee.com/mindspore/mindformers/blob/r1.1.0/research/yi/yi.md)   | yi_6b,yi_34b |
+See [MindSpore Transformers documentation](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html) for details on large language model libraries.
 
 ### Image Classification (backbone)
 
