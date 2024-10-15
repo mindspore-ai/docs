@@ -128,7 +128,7 @@ python run_mindformer.py \
 
 ## 多卡推理
 
-执行脚本会拉起多卡进程，日志会重定向至 `./output/msrun_log` 下，请查看其中的日志文件。当有推理结果打印，证明推理成功。
+执行脚本会拉起多卡进程，日志会重定向至 `./output/msrun_log` 下。当前目录下出现 `text_generation_result.txt` 文件时，证明推理成功。若未出现该文件，可查看日志文件。
 
 ```shell
 bash scripts/msrun_launcher.sh "python run_mindformer.py \
