@@ -207,7 +207,7 @@ epoch: 0, step: 100, loss is 0.6298542
     ```bash
     export DATA_PATH=./MNIST_Data/train/
     HOSTFILE=$1
-    mpirun -n 16 --hostfile $HOSTFILE --output-filename log_output --merge-stderr-to-stdout python net.sh
+    mpirun -n 16 --hostfile $HOSTFILE --output-filename log_output --merge-stderr-to-stdout python net.py
     ```
 
     在其中一个节点执行：
