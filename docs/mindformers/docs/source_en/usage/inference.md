@@ -128,7 +128,7 @@ python run_mindformer.py \
 
 ## Multi-Device Inference
 
-Executing the script will start the multi card process, and the logs will be redirected to the `./output/msrun_log` directory. Please check the log files in it. When the inference result is printed, it proves that the inference is successful.
+Executing the script will start the multi card process, and the logs will be redirected to the `./output/msrun_log` directory. When the `text_generation_result.txt` file appears in the current directory, it proves successful inference. If the file does not appear, you can view the log file.
 
 ```shell
 bash scripts/msrun_launcher.sh "python run_mindformer.py \
