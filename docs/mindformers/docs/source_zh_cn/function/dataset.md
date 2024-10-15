@@ -25,10 +25,10 @@ MindRecord 模块提供了一些方法帮助用户将不同数据集转换为 Mi
    ```json
    [
       {
-        "input_ids": "I love Beijing, because it is a city that beautifully blends rich history with modern vibrancy."
+        "text": "I love Beijing, because it is a city that beautifully blends rich history with modern vibrancy."
       },
       {
-        "input_ids": "I love Hangzhou, because it is a city that seamlessly combines natural beauty with rich cultural heritage."
+        "text": "I love Hangzhou, because it is a city that seamlessly combines natural beauty with rich cultural heritage."
       }
    ]
    ```
@@ -69,7 +69,7 @@ MindRecord 模块提供了一些方法帮助用户将不同数据集转换为 Mi
         """tokenize json file dataset"""
         content = [] # 读取每个 json 数据，获取其 "input_ids"
         for line in raw_data:
-            stripped_line = line['input_ids'].strip()
+            stripped_line = line['text'].strip()
             if stripped_line:
                 line_ids = tokenizer(stripped_line)["input_ids"]
                 content.append(line_ids)
