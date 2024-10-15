@@ -40,7 +40,7 @@
 
   步骤1 下载balenaEtcher。
 
-  点击[此链接](https://etcher.balena.io/)可跳转到软件官网，点击绿色的下载按钮会跳到软件下载的地方。
+  点击[此链接](https://github.com/pbatard/rufus/releases/download/v4.5/rufus-4.5.exe)可跳转到软件官网，点击绿色的下载按钮会跳到软件下载的地方。
 
   ![environment-setup-1-4](./images/environment_setup_1-4.png)
 
