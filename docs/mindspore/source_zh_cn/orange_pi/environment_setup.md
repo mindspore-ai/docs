@@ -64,7 +64,7 @@
 
   步骤1 Rufus下载。
 
-  点击[此链接](https://etcher.balena.io/)，进行下载、安装。
+  点击[此链接](https://github.com/pbatard/rufus/releases/download/v4.5/rufus-4.5.exe)，进行下载、安装。
 
 ### 1.4 选择和烧录镜像
 
