@@ -25,10 +25,10 @@ The following is an example of a MindRecord dataset based on a json format file,
    ```json
    [
       {
-        "input_ids": "I love Beijing, because it is a city that beautifully blends rich history with modern vibrancy."
+        "text": "I love Beijing, because it is a city that beautifully blends rich history with modern vibrancy."
       },
       {
-        "input_ids": "I love Hangzhou, because it is a city that seamlessly combines natural beauty with rich cultural heritage."
+        "text": "I love Hangzhou, because it is a city that seamlessly combines natural beauty with rich cultural heritage."
       }
    ]
    ```
@@ -69,7 +69,7 @@ The following is an example of a MindRecord dataset based on a json format file,
         """tokenize json file dataset"""
         content = [] # Read each json data and get its “input_ids”.
         for line in raw_data:
-            stripped_line = line['input_ids'].strip()
+            stripped_line = line['text'].strip()
             if stripped_line:
                 line_ids = tokenizer(stripped_line)["input_ids"]
                 content.append(line_ids)
