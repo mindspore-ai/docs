@@ -38,38 +38,28 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 ，并保存在路径`/home/user/torch_weights`中，用户希望将其转换为MindFormers权重并保存在路径`/home/user/ms_weights`中，可以使用以下命令：
 
 ```bash
-python convert_weight.py --model llama2 --input_path /home/user/torch_weights --output_path /home/user/ms_weights/llama.ckpt
+python convert_weight.py --model llama --input_path /home/user/torch_weights --output_path /home/user/ms_weights/llama.ckpt
 ```
 
 通过以上步骤，可将HuggingFace权重成功转换为MindFormers权重，方便在MindFormers中继续模型训练或推理。
 
 ## 已支持模型
 
-- Baichuan
-- BLIP
-- BLOOM
-- CodeGeeX2
-- CogVLM2
-- DeepSeek
-- GLM
-- GLM-n
-- GPT
-- InternLM
-- InternLM2
-- knowlm
-- Llama
-- MAE
-- Mixtral
-- Qwen
-- Qwen2
-- Qwen2-MoE
-- Qwen-VL
-- Skywork
-- Swin
-- TeleChat
-- ViT
-- WizardCoder
-- Yi
+| 参数取值      | 支持模型                                      |
+|-----------|-------------------------------------------|
+| llama     | Llama2、Llama3、Llama3.1、CodeLlama          |
+| baichuan2 | Baichuan2                                 |
+| glm-n     | GLM2、GLM3、GLM3-32K、GLM4                   |
+| cogvlm2   | CogVLM2-Video、CogVLM2-Image               |
+| qwen      | Qwen、Qwen1.5、Qwen2                        |
+| qwenvl    | QwenVL                                    |
+| internlm  | InternLM                                  |
+| internlm2 | InternLM2                                 |
+| yi        | Yi                                        |
+| mixtral   | Mixtral                                   |
+| deepseek  | DeepSeekCoder、DeepSeekCoder1.5、DeepSeekV2 |
+| gpt       | GPT2                                      |
+| whisper   | Whisper                                   |
 
 ## 未支持模型权重转换开发
 

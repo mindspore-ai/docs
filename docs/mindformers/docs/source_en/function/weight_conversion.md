@@ -36,38 +36,28 @@ python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH
 Assume that you have downloaded the [Llama2 model weight](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD) and saved it in the `/home/user/torch_weights` path. To convert it to the MindFormers weight and save it in the `/home/user/ms_weights` path, run the following command:
 
 ```bash
-python convert_weight.py --model llama2 --input_path /home/user/torch_weights --output_path /home/user/ms_weights/llama.ckpt
+python convert_weight.py --model llama --input_path /home/user/torch_weights --output_path /home/user/ms_weights/llama.ckpt
 ```
 
 After the preceding steps are performed, the HuggingFace weight is successfully converted to a MindFormers weight, facilitating model training or inference on MindFormers.
 
 ## Supported Models
 
-- Baichuan
-- BLIP
-- BLOOM
-- CodeGeeX2
-- CogVLM2
-- DeepSeek
-- GLM
-- GLM-n
-- GPT
-- InternLM
-- InternLM2
-- knowlm
-- Llama
-- MAE
-- Mixtral
-- Qwen
-- Qwen2
-- Qwen2-MoE
-- Qwen-VL
-- Skywork
-- Swin
-- TeleChat
-- ViT
-- WizardCoder
-- Yi
+| Parameter Value      | Supported models                            |
+|-----------|---------------------------------------------|
+| llama     | Llama2, Llama3, Llama3.1, CodeLlama         |
+| baichuan2 | Baichuan2                                   |
+| glm-n     | GLM2, GLM3, GLM3-32K, GLM4                  |
+| cogvlm2   | CogVLM2-Video, CogVLM2-Image                |
+| qwen      | Qwen, Qwen1.5, Qwen2                        |
+| qwenvl    | QwenVL                                      |
+| internlm  | InternLM                                    |
+| internlm2 | InternLM2                                   |
+| yi        | Yi                                          |
+| mixtral   | Mixtral                                     |
+| deepseek  | DeepSeekCoder, DeepSeekCoder1.5, DeepSeekV2 |
+| gpt       | GPT2                                        |
+| whisper   | Whisper                                     |
 
 ## Developing Weight Conversion for Unsupported Models
 
