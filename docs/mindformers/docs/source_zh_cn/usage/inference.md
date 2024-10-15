@@ -113,7 +113,7 @@ python pipeline_inference.py
 
 ## 基于 run_mindformer 脚本推理
 
-单卡推理可以直接执行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)，多卡推理需要借助 [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh) 启动。以 Llama2 为例，推荐配置为[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml)文件。
+单卡推理可以直接执行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)，多卡推理需要借助 [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh) 启动。以 Llama2 为例，推荐配置为[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml)文件。推理时会自动下载Llama2模型所需词表文件 `tokenizer.model` （需要保障网络畅通）。如果本地有这个文件，可以提前把它放在 `./checkpoint_download/llama2/` 目录下。
 
 ## 单卡推理
 
@@ -127,6 +127,8 @@ python run_mindformer.py \
 ```
 
 ## 多卡推理
+
+执行脚本会拉起多卡进程，日志会重定向至 `./output/msrun_log` 下，请查看其中的日志文件。当有推理结果打印，证明推理成功。
 
 ```shell
 bash scripts/msrun_launcher.sh "python run_mindformer.py \

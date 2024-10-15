@@ -113,7 +113,7 @@ The inference result is as follows:
 
 ## Inference Based on the run_mindformer Script
 
-For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh). Take Llama2 as an example. You are advised to configure the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml) file.
+For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh). Take Llama2 as an example. You are advised to configure the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml) file. During inference, the vocabulary file `tokenizer.model` required for the Llama2 model will be automatically downloaded (ensuring smooth network connectivity). If the file exists locally, you can place it in the `./checkpoint_dewnload/Llama2/` directory in advance.
 
 ## Single-Device Inference
 
@@ -127,6 +127,8 @@ python run_mindformer.py \
 ```
 
 ## Multi-Device Inference
+
+Executing the script will start the multi card process, and the logs will be redirected to the `./output/msrun_log` directory. Please check the log files in it. When the inference result is printed, it proves that the inference is successful.
 
 ```shell
 bash scripts/msrun_launcher.sh "python run_mindformer.py \
