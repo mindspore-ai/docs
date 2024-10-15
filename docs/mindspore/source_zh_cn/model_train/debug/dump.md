@@ -174,7 +174,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
         - `enable`：设置成true，表示开启同步Dump；设置成false时，采用异步Dump。不设置该字段时默认值为false，开启异步Dump。两者的区别是异步Dump对原本代码执行过程的影响更小。
         - `trans_flag`：开启格式转换，将设备上的数据格式转换成NCHW格式。若为`true`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`false`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换。默认值：true。
         - `stat_calc_mode`：选择统计信息计算后端，可选"host"和"device"。选择"device"后可以使能device计算统计信息，当前只在Ascend生效，只支持`min/max/avg/l2norm`统计量。在op_debug_mode设置为3时，仅支持将`stat_calc_mode`设置为"host"。
-        - `device_stat_precison_mode`（可选）：device统计信息精度模式，可选"high"和"low"。选择"high"时，`avg/l2norm`统计量使用float32进行计算，会增加device内存占用，精度更高；为"low"时使用与原始数据相同的类型进行计算，device内存占用较少，但在处理较大数值时可能会导致统计量溢出。默认值为"high"。
+        - `device_stat_precision_mode`（可选）：device统计信息精度模式，可选"high"和"low"。选择"high"时，`avg/l2norm`统计量使用float32进行计算，会增加device内存占用，精度更高；为"low"时使用与原始数据相同的类型进行计算，device内存占用较少，但在处理较大数值时可能会导致统计量溢出。默认值为"high"。
         - `sample_mode`（可选）：设置成0，表示不开启切片dump功能；设置成1时，在图编译等级为O0或O1的情况下开启切片dump功能。仅在op_debug_mode设置为0时生效，其他场景不会开启切片dump功能。
         - `sample_num`（可选）：用于控制切片dump中切片的大小。默认值为100。
         - `save_kernel_args`（可选）: 设置成true时，会保存算子的初始化信息。仅当`enable`设置为`true`时生效。
