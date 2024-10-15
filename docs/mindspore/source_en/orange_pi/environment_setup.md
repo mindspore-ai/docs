@@ -40,7 +40,7 @@ There are two card-making tools balenaEtcher, Rufus, and you can choose any one 
 
   Step 1 Download balenaEtcher.
 
-  Click [here](https://github.com/pbatard/rufus/releases/download/v4.5/rufus-4.5.exe) to jump to the official website, and click the green download button to jump to where the software is downloaded.
+  Click [here](https://etcher.balena.io/) to jump to the official website, and click the green download button to jump to where the software is downloaded.
 
   ![environment-setup-1-4](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindspore/source_zh_cn/orange_pi/images/environment_setup_1-4.png)
 
@@ -64,7 +64,7 @@ There are two card-making tools balenaEtcher, Rufus, and you can choose any one 
 
   Step 1 Download Rufus
 
-  Click [this link](https://etcher.balena.io/) to download and install.
+  Click [this link](https://github.com/pbatard/rufus/releases/download/v4.5/rufus-4.5.exe) to download and install.
 
 ### 1.4 Selecting and Burning Images
 
