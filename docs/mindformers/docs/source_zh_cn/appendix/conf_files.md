@@ -27,14 +27,15 @@ MindFormers提供的`YAML`文件中包含对于不同功能的配置项，下面
 
 Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/mindspore/mindspore.set_context.html)中的相关参数。
 
-| 参数                          | 说明                                                                                                                                                 | 类型       |
-|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| context.mode                | 设置后端执行模式，`0`表示GRAPH_MODE，MindFormers目前仅支持在GRAPH_MODE模式下运行                                                                                          | int      |
-| context.device_target       | 设置后端执行设备，MindFormers仅支持在`Ascend`设备上运行                                                                                                              | str      |
-| context.device_id           | 设置执行设备ID，其值必须在可用设备范围内，默认值为`0`                                                                                                                      | int      |
-| context.enable_graph_kernel | 是否开启图算融合去优化网络执行性能, 默认值为`False`，详情可参考[图算融合](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/optimize/graph_fusion_engine.html)               | bool     |
-| context.max_call_depth      | 设置函数调用的最大深度，其值必须为正整数，默认值为`1000`                                                                                                                    | int      |
-| context.max_device_memory   | 设置设备可用的最大内存，格式为"xxGB"，默认值为`1024GB`                                                                                                                 | str      |
+| 参数                        | 说明                                                         | 类型     |
+| --------------------------- | ------------------------------------------------------------ | -------- |
+| context.mode                | 设置后端执行模式，`0`表示GRAPH_MODE，MindFormers目前仅支持在GRAPH_MODE模式下运行 | int      |
+| context.device_target       | 设置后端执行设备，MindFormers仅支持在`Ascend`设备上运行      | str      |
+| context.device_id           | 设置执行设备ID，其值必须在可用设备范围内，默认值为`0`        | int      |
+| context.enable_graph_kernel | 是否开启图算融合去优化网络执行性能, 默认值为`False`，详情可参考[图算融合](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/optimize/graph_fusion_engine.html) | bool     |
+| context.max_call_depth      | 设置函数调用的最大深度，其值必须为正整数，默认值为`1000`     | int      |
+| context.max_device_memory   | 设置设备可用的最大内存，格式为"xxGB"，默认值为`1024GB`       | str      |
+| context.mempool_block_size  | 设置内存块大小，格式为"xxGB"，默认值为`1GB`                  | str      |
 | context.save_graphs         | 在执行过程中保存编译图。<br/>1. `False`或`0`表示不保存中间编译图。<br/>2. `1`表示运行时会输出图编译过程中生成的一些中间文件。<br/>3. `True`或`2`表示生成更多后端流程相关的IR文件。<br/>4. `3`表示生成可视化计算图和更多详细的前端IR图。 | bool/int |
 
 ### 模型配置
