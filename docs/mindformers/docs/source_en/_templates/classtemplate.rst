@@ -10,6 +10,13 @@
     :exclude-members: get_config_origin_mode, get_support_list, invalid_yaml_name
     :members:
 
+{% elif fullname=="mindformers.modules.OpParallelConfig" %}
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :exclude-members: construct, get_ulysses_cp_num, to_dict, to_diff_dict
+    :members:
+
 {% elif fullname=="mindformers.AutoProcessor" %}
 {{ fullname | underline }}
 
