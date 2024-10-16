@@ -35,6 +35,7 @@ Context configuration is mainly used to specify the [mindspore.set_context](http
 | context.enable_graph_kernel | Enable graph fusion to optimize network execution performance, defaults to `False`. See [graph fusion](https://www.mindspore.cn/docs/en/master/model_train/optimize/graph_fusion_engine.html) for details.                    | bool     |
 | context.max_call_depth      | Set the maximum depth of a function call. The value must be a positive integer, and the default value is `1000`.                                                                                                                    | int      |
 | context.max_device_memory   | Set the maximum memory available to the device in the format “xxGB”, and the default value is `1024GB`.                                                                                                                 | str      |
+| context.mempool_block_size | Set the size of the memory pool block for devices. The format is "xxGB". Default value is `"1GB"` | str |
 | context.save_graphs         | Save the compilation graph during execution.<br/>1. `False` or `0` indicates that the intermediate compilation map is not saved.<br/>2. `1` means outputting some of the intermediate files generated during the compilation of the diagram.<br/>3. `True` or `2` indicates the generation of more backend-process-related IR files. <br/>4. `3` indicates the generation of visualized computational diagrams and more detailed front-end IR diagrams. | bool/int |
 
 ### Model Conguration
