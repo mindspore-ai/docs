@@ -284,6 +284,8 @@ def copy_source(sourcedir, des_sir):
                 shutil.rmtree(os.path.join(des_sir, i))
             shutil.copytree(os.path.join(sourcedir, i), os.path.join(des_sir, i))
 
+no_viewsource_list = [os.path.join(des_sir,i) for i in os.listdir(des_sir)]
+
 copy_source(src_dir_en, des_sir)
 
 Tensor_list_path = "./api_python/Tensor_list.rst"
@@ -374,6 +376,8 @@ for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/op_def/yaml')):
 
 for cur, _, files in os.walk(des_sir):
     for i in files:
+        if os.path.join(cur, i) in no_viewsource_list:
+            continue
         if i.endswith('.md'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()

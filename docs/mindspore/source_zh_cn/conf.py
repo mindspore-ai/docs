@@ -251,6 +251,8 @@ def copy_source(sourcedir, des_sir):
                 shutil.rmtree(os.path.join(des_sir, i))
             shutil.copytree(os.path.join(sourcedir, i), os.path.join(des_sir, i))
 
+no_viewsource_list = [os.path.join(des_sir,i) for i in os.listdir(des_sir)]
+
 copy_source(src_dir, des_sir)
 
 probability_dir = './api_python/probability'
@@ -505,6 +507,8 @@ re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.
 
 for cur, _, files in os.walk(des_sir):
     for i in files:
+        if os.path.join(cur, i) in no_viewsource_list:
+            continue
         if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
             try:
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
