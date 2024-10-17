@@ -239,4 +239,39 @@ In `xx_validate_xxx.ir`, you can see that the input and output tensor of each op
 
 For the first MatMul operator, its two inputs are sliced from the original (256, 784), (512, 784) into (64, 392), (512, 392), and after the transpose of the second input, the output of the operator is (64, 512).
 
-Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/docs/en/r2.4.0/model_train/parallel/startup_method.html).
+Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/docs/en/master/model_train/parallel/startup_method.html).
+
+### Interfered SAPP(optional)
+
+For some operators in a model, users can configure parallel policies. For example, the operator is a new custom operator, which is not well modeled by the current automatic-parallel algorithm. Alternatively, users have preferred strategies and want SAPP to yield based on their own experience.
+
+Set the environment variable:
+
+```bash
+export MS_INTERFERED_SAPP=1
+```
+
+Now, If strategies are configured for operators in network scripts through the shard interface, the SAPP algorithm complies with these configurations.
+
+For instance, setting an input strategy for Add in a network:
+
+```python
+class Net(nn.Cell):
+    def __init__(self):
+        ......
+        self.add = ops.Add()
+        self.add.shard(((1, 1, 8), (1, 1, 8)))
+        ......
+```
+
+The log shows that the strategy is enabled.
+
+```plain
+[INFO] PARALLEL(908361,ffffbeb69010,python):2024-08-02-20:52:25.043.613 [mindspore/ccsrc/frontend/parallel/auto_parallel/rec_core/rec_parse_graph.cc:258] MakeNewOperator] environment variable INTERFERED_SAPP is set.
+```
+
+Now IR shows that user-customized strategies were used by SAPP algorithm.
+
+```plain
+%50(h) = PrimFunc_Add(%4, %49) {instance name: add} primitive_attrs: {slice_activation: Bool(1), in_strategy: ((1, 1, 8), (1, 1, 8))} {in_strategy: ((1, 1, 8), (1, 1, 8))}
+```
