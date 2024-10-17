@@ -464,6 +464,11 @@ Distributed Parallel
      - Integer
      - Integers greater than 0.
      - The setting is only required in Parameter Server training mode.
+   * - MS_INTERFERED_SAPP
+     - Turn on interfered sapp.
+     - Integer
+     - 1 for on. No setting or other value: off.
+     -
    * - MS_ENABLE_RECOVERY
      - Turn on disaster tolerance.
      - Integer
