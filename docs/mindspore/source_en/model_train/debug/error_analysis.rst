@@ -250,7 +250,7 @@ MindSpore provides framework developers with rich debugging tools. Debugging fea
 +=========================+==========================+===============================================================+=======================================================+
 | Process records         | Logs                     | used to record information at each stage of the framework     | `Log-related environment variables and configurations |
 |                         |                          | implementation to provide information for understanding       | <https://www.mindspore.cn/docs/en/master              |
-|                         |                          | the framework implementation process or for problem diagnosis.| /note/env_var_list.html>`_                            |
+|                         |                          | the framework implementation process or for problem diagnosis.| /api_python/env_var_list.html>`_                      |
 |                         |                          |                                                               |                                                       |
 +-------------------------+--------------------------+---------------------------------------------------------------+-------------------------------------------------------+
 | Data records            | RDR                      | Running Data Recorder (RDR) provides the ability              | `Running Data Recorder                                |

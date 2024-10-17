@@ -114,7 +114,7 @@ class MyStridedSlice(nn.Cell):
 
 Error cause:
 
-The piece of code performs the slice operation on dimension 0. However, the configured policy (2,1) indicates that the slice operation is performed on both dimension 0 and dimension 1 of the input tensor. According to the description of operator slicing in the [MindSpore API](https://www.mindspore.cn/docs/en/master/note/operator_list_parallel.html),
+The piece of code performs the slice operation on dimension 0. However, the configured policy (2,1) indicates that the slice operation is performed on both dimension 0 and dimension 1 of the input tensor. According to the description of operator slicing in the [MindSpore API](https://www.mindspore.cn/docs/en/master/api_python/operator_list_parallel.html),
 
 > only the mask whose value is all 0s is supported. All dimensions that are sliced must be extracted together. The input dimensions whose strides is not set to 1 cannot be sliced.
 
