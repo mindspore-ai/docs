@@ -114,7 +114,7 @@ class MyStridedSlice(nn.Cell):
 
 错误原因：
 
-这段代码在第零维度进行了取切片操作。但是配置的策略(2,1)表示分别对输入Tensor的第零维度和第一维度进行取切片操作。根据目前[MindSpore API文档](https://www.mindspore.cn/docs/zh-CN/r2.4.0/note/operator_list_parallel.html)中对算子切分的说明，
+这段代码在第零维度进行了取切片操作。但是配置的策略(2,1)表示分别对输入Tensor的第零维度和第一维度进行取切片操作。根据目前[MindSpore API文档](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/operator_list_parallel.html)中对算子切分的说明，
 
 > 仅支持值为全0的mask；需要切分的维度必须全部提取；输入在strides不为1对应的维度不支持切分
 
