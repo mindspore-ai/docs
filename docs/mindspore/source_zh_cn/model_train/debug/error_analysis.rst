@@ -275,7 +275,7 @@ MindSpore为框架开发者提供了丰富的调试手段，调试功能涵盖�
 |               |                       | 的信息，为了解框架执行过程\ | <https://www              |
 |               |                       | 或者进行问题诊断提供信息。  | .mindspore.cn             |
 |               |                       |                             | /docs                     |
-|               |                       |                             | /zh-CN/master/note        |
+|               |                       |                             | /zh-CN/master/api_python  |
 |               |                       |                             | /env_var_list.html>`_     |
 |               |                       |                             |                           |
 |               |                       |                             |                           |
