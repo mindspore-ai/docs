@@ -82,7 +82,7 @@ In the debugging process, it is often necessary to view the log to locate the pr
 - 3-ERROR, indicates that there is an error in the execution of the program, the error log is output, and the program may not be terminated.
 - 4-CRITICAL, indicates that the program execution is abnormal and will be terminated.
 
-See [environment variables](https://www.mindspore.cn/docs/en/r2.4.0/note/env_var_list.html#log) for detailed logging controls.
+See [environment variables](https://www.mindspore.cn/docs/en/r2.4.0/api_python/env_var_list.html#log) for detailed logging controls.
 
 ### Common PDB Debugging Commands
 
