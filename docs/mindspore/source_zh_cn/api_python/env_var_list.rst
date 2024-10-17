@@ -468,6 +468,11 @@ Dump调试
      - Integer
      - 大于0的整数。
      - 只在Parameter Server训练模式下需要设置。
+   * - MS_INTERFERED_SAPP
+     - 开启自动并行SAPP的手自一体功能。
+     - Integer
+     - 1代表开启，不设置或其他值：关闭。
+     -
    * - MS_ENABLE_RECOVERY
      - 开启容灾。
      - Integer

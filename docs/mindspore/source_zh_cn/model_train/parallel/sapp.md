@@ -240,3 +240,38 @@ input_names: [x1, x2], transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b
 对于第一个MatMul算子，其两个输入从原来的(256, 784)、(512, 784)被切分为(64, 392)、(512, 392)，第二个输入转置后，算子的输出为(64, 512)。
 
 其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/startup_method.html)。
+
+### 手自一体（可选）
+
+对于网络中的某些算子，用户可以强制配上并行策略，比如这个算子是一个新的自定义算子，目前的自动并行算法没有对其进行比较好的建模，或者用户基于自身经验认为某种策略配置收益较大，可以使用手自一体特性。
+
+打开环境变量：
+
+```bash
+export MS_INTERFERED_SAPP=1
+```
+
+此时，网络脚本中的算子，如果通过shard接口配置了策略，SAPP算法会遵从这些配置。
+
+比如，给网络中任一算子手动配置一个策略：
+
+```python
+class Net(nn.Cell):
+    def __init__(self):
+        ......
+        self.add = ops.Add()
+        self.add.shard(((1, 1, 8), (1, 1, 8)))
+        ......
+```
+
+从日志中可以看到策略被启用：
+
+```plain
+[INFO] PARALLEL(908361,ffffbeb69010,python):2024-08-02-20:52:25.043.613 [mindspore/ccsrc/frontend/parallel/auto_parallel/rec_core/rec_parse_graph.cc:258] MakeNewOperator] environment variable INTERFERED_SAPP is set.
+```
+
+这时检视IR图，可以看到此时手动配置的策略被采用了。
+
+```plain
+%50(h) = PrimFunc_Add(%4, %49) {instance name: add} primitive_attrs: {slice_activation: Bool(1), in_strategy: ((1, 1, 8), (1, 1, 8))} {in_strategy: ((1, 1, 8), (1, 1, 8))}
+```
