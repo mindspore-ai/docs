@@ -27,7 +27,7 @@ return_tensor = comm.comm_func.all_reduce(
 )
 ```
 
-更多内容详见[mindspore.communication.comm_func.all_reduce](https://www.mindspore.cn/docs/en/r2.4.0/api_python/communication/mindspore.communication.comm_func.all_reduce.html#mindspore.communication.comm_func.all_reduce)。
+更多内容详见[mindspore.communication.comm_func.all_reduce](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/communication/mindspore.communication.comm_func.all_reduce.html#mindspore.communication.comm_func.all_reduce)。
 
 ## 差异对比
 
