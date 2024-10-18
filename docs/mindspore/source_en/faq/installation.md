@@ -262,6 +262,12 @@ A: There are 2 common reasons: an incorrect version of Ascend AI processor softw
 
 <br/>
 
+### Q: What should I do when multiple versions of Ascend AI processor software are installed on the same environment, errors such as segmentation fault, cannot open shared object file: No such file or directory occurs?
+
+A: Versions prior to MindSpore 2.4.0 sets environment path using RPATH, on environments where both CANN-nnae and CANN-toolkit packages are installed, this may result in CANN related binaries being loaded in wrong sequences. MindSpore has removed this limitation since version 2.4.0, and requires users to set environment paths before use manually. If you have to install the abovementioned CANN packages at the same time, please upgrade to MindSpore 2.4.0 or higher, and configure environment paths using script provided by CANN. Please refer to [Install](https://www.mindspore.cn/install/en) to set environment variables.
+
+<br/>
+
 ## Verifying the Installation
 
 ### Q: Does MindSpore of the GPU version have requirements on the computing capability of devices?
