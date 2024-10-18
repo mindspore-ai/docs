@@ -6,11 +6,11 @@
 
 The currently supported hardware is the [Atlas 800T A2](https://www.hiascend.com/hardware/ai-server?tag=900A2) training server.
 
-The current recommended Python version for the suite is 3.9.
+The current recommended Python version for the suite is 3.10.
 
-| MindFormers |                 MindSpore                  |                                                                                                                                                                                                                  CANN                                                                                                                                                                                                                   |                                                   Firmware & Drivers                                                    |                                 Mirror Links                                  |
-|:-----------:|:------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-|   r1.3.0    | [2.3.0](https://www.mindspore.cn/install/) | 8.0.RC2.beta1 <br/> toolkit：[aarch64](https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%208.0.RC2/Ascend-cann-toolkit_8.0.RC2_linux-aarch64.run) [x86_64](https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%208.0.RC2/Ascend-cann-toolkit_8.0.RC2_linux-x86_64.run) <br/> kernels：[kernels](https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%208.0.RC2/Ascend-cann-kernels-910b_8.0.RC2_linux.run) | firmware：[firmware](https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/Ascend%20HDK/Ascend%20HDK%2024.1.RC2/Ascend-hdk-910b-npu-firmware_7.3.0.1.231.run) <br/> driver： [driver](https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/Ascend%20HDK/Ascend%20HDK%2024.1.RC2/Ascend-hdk-910b-npu-driver_24.1.rc2_linux-aarch64.run) | [image](http://mirrors.cn-central-221.ovaijisuan.com/detail/138.html) |
+| MindFormers |                 MindSpore                  | CANN | Firmware & Drivers | Mirror Links |
+|:-----------:|:------------------------------------------:|:----:|:------------------:|:------------:|
+|   r1.3.0    | [2.4.0](https://www.mindspore.cn/install/) | TBD  |        TBD         |     TBD      |
 
 **Currently MindFormers recommends using a software package relationship as above.**
 
@@ -51,9 +51,5 @@ mf.run_check()
 A similar result as below proves that the installation was successful:
 
 ```text
-- INFO - MindFormers version: 1.3.0
-- INFO - MindSpore version: 2.3.0
-- INFO - Ascend-cann-toolkit version: 8.0.RC2
-- INFO - Ascend driver version: 24.1.rc2
 - INFO - All checks passed, used **** seconds, the environment is correctly set up!
 ```
