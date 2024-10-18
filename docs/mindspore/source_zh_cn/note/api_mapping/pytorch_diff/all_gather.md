@@ -26,7 +26,7 @@ return_tensor = comm.comm_func.all_gather_into_tensor(
 )
 ```
 
-更多内容详见[mindspore.communication.comm_func.all_gather_into_tensor](https://www.mindspore.cn/docs/en/r2.4.0/api_python/communication/mindspore.communication.comm_func.all_gather_into_tensor.html#mindspore.communication.comm_func.all_gather_into_tensor)。
+更多内容详见[mindspore.communication.comm_func.all_gather_into_tensor](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/communication/mindspore.communication.comm_func.all_gather_into_tensor.html#mindspore.communication.comm_func.all_gather_into_tensor)。
 
 ## 差异对比
 
