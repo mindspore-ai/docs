@@ -165,7 +165,7 @@ print(diff)
 
 ### 手动混合精度
 
-MindSpore提供了一种自动混合精度的方法，详见[Model](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.Model.html#mindspore.train.Model)的amp_level属性。
+MindSpore提供了一种自动混合精度的方法，详见[Model](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.Model.html)的amp_level属性。
 
 但是有的时候开发网络时希望混合精度策略更加的灵活，MindSpore也提供了[to_float](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.to_float)的方法手动地添加混合精度。
 
