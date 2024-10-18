@@ -51,7 +51,7 @@ print(loss)
 ```
 
 ```text
-Tensor(shape=[], dtype=Float32, value= 0.914285)
+0.914285
 ```
 
 ## Differential Functions and Gradient Computing

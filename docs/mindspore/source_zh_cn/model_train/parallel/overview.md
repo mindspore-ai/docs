@@ -86,5 +86,5 @@ MindSpore目前支持四种启动方式：
 - GPU支持除了通信子图提取与复用以外的优化特性。
 - CPU不支持优化特性。
 
-详细过程请参考[优化方法](https://www.mindspore.cn/docs/en/master/model_train/parallel/optimize_technique.html)。
+详细过程请参考[优化方法](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/optimize_technique.html)。
 

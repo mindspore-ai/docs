@@ -125,8 +125,10 @@ def get_param_func(func):
         all_params = ''
         if hasattr(func, '__dataclass_fields__'):
             for k, v in getattr(func, '__dataclass_fields__').items():
-                if hasattr(v, 'default'):
+                if hasattr(v, 'default') and not re.findall('<.*?>', str(v.default)):
                     all_params += f'{k} = {v.default}, '
+                elif hasattr(v, 'default') and hasattr(v, 'default_factory'):
+                    all_params += f'{k} = {v.default_factory}, '
                 else:
                     all_params += f'{k}, '
             all_params = all_params.strip(', ')
