@@ -90,8 +90,6 @@ conda activate mindspore_py39
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
-当默认路径存在安装包的时候，LD_LIBRARY_PATH环境变量不起作用；默认路径优先级别为：/usr/local/Ascend/nnae高于/usr/local/Ascend/ascend-toolkit；原因是MindSpore采用DT_RPATH方式支持无环境变量启动，减少用户设置；DT_RPATH优先级比LD_LIBRARY_PATH环境变量高。
-
 ### 安装Conda
 
 执行以下指令安装Miniconda。
@@ -179,23 +177,11 @@ conda install mindspore -c mindspore -c conda-forge
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
-# Conda environmental options
+# environment variables
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
-# lib libraries that the run package depends on
-export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/built-in/op_impl/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
-
-# Environment variables that must be configured
-## TBE operator implementation tool path
-export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/built-in/op_impl/ai_core/tbe
-## OPP path
-export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp
-## AICPU path
-export ASCEND_AICPU_PATH=${ASCEND_OPP_PATH}/..
-## TBE operator compilation tool path
-export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/compiler/ccec_compiler/bin/:${PATH}
-## Python library that TBE implementation depends on
-export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
+# set environmet variables using script provided by CANN, swap "ascend-toolkit" with "nnae" if you are using CANN-nnae package instead
+source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
 ```
 
 ## 验证是否成功安装
