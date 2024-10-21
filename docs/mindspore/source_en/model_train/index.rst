@@ -90,7 +90,6 @@ Model Building and Training
 
    train_availability/fault_recover
    train_availability/graceful_exit
-   train_availability/storage_sys
 
 .. toctree::
    :glob:
@@ -98,7 +97,6 @@ Model Building and Training
    :hidden:
    :caption: Model Debugging
 
-   debug/overview
    debug/dump
    debug/rdr
    debug/sdc
@@ -112,7 +110,6 @@ Model Building and Training
    :hidden:
    :caption: Model Tuning
 
-   optimize/overview
    optimize/graph_fusion_engine
    optimize/mem_reuse
    optimize/aoe
