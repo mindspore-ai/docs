@@ -103,7 +103,7 @@ pip install mindspore
 pip install mindformers
 ```
 
-同时，用户也可以参考官方安装文档来安装自己环境适配的Python包，具体见[MindSpore安装](https://gitee.com/mindspore/mindspore#安装)和[MindFormers安装](https://gitee.com/mindspore/mindformers/tree/r1.3.0/#二安装)。
+同时，用户也可以参考官方安装文档来安装自己环境适配的Python包，具体见[MindSpore安装](https://www.mindspore.cn/install)和[MindFormers安装](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/quick_start/install.html)。
 
 如果用户需要使用模型量化能力提升模型推理性能，还需要安装mindspore_gs包，具体可以参考[MindSpore GoldenStick安装](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.6.0/install.html)
 
@@ -144,9 +144,9 @@ config = "/path/to/llama2_7b.yaml"
 model = AutoModel.from_config(config)
 ```
 
-其中，tokenizer.model是从Hugging Face官网下载权重一起的tokenizer.model文件，里面记录了tokens的映射表；config是MindFormers的模型配置文件，其中包含了Llama2模型运行的相关参数，样例可以在[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_7b.yaml)获取（注意：需要将ckpt权重路径改为实际的权重路径）。更详细的教程可以在[MindFormers推理LLAMA2模型](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#-18)获取。
+其中，tokenizer.model是从Hugging Face官网下载权重一起的tokenizer.model文件，里面记录了tokens的映射表；config是MindFormers的模型配置文件，其中包含了Llama2模型运行的相关参数，样例可以在[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_7b.yaml)获取（注意：需要将ckpt权重路径改为实际的权重路径）。更详细的教程可以在[Llama 2](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#-18)获取。
 
-此外，如果用户对于模型有自己的特殊需求，或者对深度学习有较深认识，也可以选择自己构建模型，详细教程见[构建自己的大语言模型推理](./model_dev.md)。
+此外，如果用户对于模型有自己的特殊需求，或者对深度学习有较深认识，也可以选择自己构建模型，详细教程见[从零构建大语言模型推理网络](./model_dev.md)。
 
 ### 模型推理
 
@@ -155,7 +155,7 @@ model = AutoModel.from_config(config)
 - **前处理**：利用tokenizer的数据，将一句话分解为多个token id表示的list。
 
     ```python
-    user_input = "I love BeiJing, because"
+    user_input = "I love Beijing, because"
     model_input = tokenizer(user_input)["input_ids"]
     print(model_input)
     ```
@@ -166,7 +166,7 @@ model = AutoModel.from_config(config)
     [1, 306, 5360, 1522, 823, 292, 29892, 1363]
     ```
 
-    将"I love BeiJing because"分解为了8个token，其中：1表示文本或者段落的起始token，306表示I对应的token，1522表示love对应的token，292表示Beijing对应的toekn, 29892表示逗号对应的token，1363表示because对应的token，5360、823、分别表示了两个词间的空格（具体根据模型的tokenizer而定），这个格式可以直接传给模型进行推理。
+    将"I love Beijing, because"分解为了8个token，其中：1表示文本或者段落的起始token，306表示I对应的token，1522表示love对应的token，292表示Beijing对应的toekn, 29892表示逗号对应的token，1363表示because对应的token，5360、823、分别表示了两个词间的空格（具体根据模型的tokenizer而定），这个格式可以直接传给模型进行推理。
 
 - **整网计算**：传入当前的输入token的数据和配置，让模型对象通过多轮的推理出每轮的token结果。
 
@@ -206,9 +206,9 @@ model = AutoModel.from_config(config)
 
 ### 模型并行
 
-对于模型参数比较多的大语言模型，如Llama2-70B、Qwen2-72B，由于其参数规模通常会超过一张GPU或者NPU的内存容量，因此需要采用多卡并行推理，MindSpore大语言模型推理支持将原始大语言模型切分成N份可并行的子模型，使其能够分别在多卡上并行执行，在实现超大模型推理同时，也利用多卡更多资源提升性能。MindForerms模型套件提供的模型脚本天然支持将模型切分成多卡模型执行，用户可以通过以下步骤在多卡上部署模型。
+对于模型参数比较多的大语言模型，如Llama2-70B、Qwen2-72B，由于其参数规模通常会超过一张GPU或者NPU的内存容量，因此需要采用多卡并行推理，MindSpore大语言模型推理支持将原始大语言模型切分成N份可并行的子模型，使其能够分别在多卡上并行执行，在实现超大模型推理同时，也利用多卡更多资源提升性能。MindFormers模型套件提供的模型脚本天然支持将模型切分成多卡模型执行，用户可以通过以下步骤在多卡上部署模型。
 
-- **权重切分**：由于原来的权重文件太大，多卡执行时，需要将整体权重切分成每张卡上的多份权重，分别传给每张卡对应的模型进程。用户可以使用MindFormers模型套件中的脚本来进行权重切分。具体可以参考[权重CKPT转换和切分](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/feature_cards/Transform_Ckpt.md)。
+- **权重切分**：由于原来的权重文件太大，多卡执行时，需要将整体权重切分成每张卡上的多份权重，分别传给每张卡对应的模型进程。用户可以使用MindFormers模型套件中的脚本来进行权重切分。具体可以参考[权重转换](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/feature_cards/Transform_Ckpt.md)。
 
     下面以Llama2-7B大语言模型为例，简单描述一下将模型切分为2卡并行的操作：
 
@@ -290,7 +290,7 @@ model = AutoModel.from_config(config)
 
 MindSpore大语言模型支持以下量化技术，来提升模型推理性能：
 
-- **A16W8/A16W4量化**：对大语言模型权重进行量化，将float16的权重用8-bits的int8或者4-bts的int4数据进行保存，在计算前反量化为float16进行计算，降低显存占用，提升模型并发度，提高推理吞吐量。
+- **A16W8/A16W4量化**：对大语言模型权重进行量化，将float16的权重用8-bits的int8或者4-bits的int4数据进行保存，在计算前反量化为float16进行计算，降低显存占用，提升模型并发度，提高推理吞吐量。
 
 - **A8W8量化**：对大语言模型整网进行量化，将float16的计算转换成8-bits的int8数据进行计算，让GPU或NPU计算单元的计算效率翻倍（如原来16\*16的计算单元变为32\*16的计算单元），需要特定的量化算子支持，不仅能够减少显存占用，还能有效提升计算性能。
 
@@ -340,12 +340,12 @@ MindSpore大语言模型支持以下量化技术，来提升模型推理性能�
 
 - **对模型推理性能Profiling**
 
-    MindSpore大语言模型推理支持用户对模型推理进行Profiling数据采集，以此分析网络结构中的关键性能瓶颈，作为后续模型推理性能调优的输入，具体可以参考[MindSpore大语言模型Profiler](./profiling.md)。
+    MindSpore大语言模型推理支持用户对模型推理进行Profiling数据采集，以此分析网络结构中的关键性能瓶颈，作为后续模型推理性能调优的输入，具体可以参考[模型性能Profiler](./profiling.md)。
 
 - **使用自定义算子优化模型推理**
 
-    MindSpore大语言模型推理支持用户自定义算子接入，以实现用户特定场景的算子优化，或者实现网络中的算子融合，用户可以通过简单的修改网络脚本的算子API来实现自定义算子的使能与关闭，具体可以参考[MindSpore大语言模型自定义算子](./custom_operator.md)。
+    MindSpore大语言模型推理支持用户自定义算子接入，以实现用户特定场景的算子优化，或者实现网络中的算子融合，用户可以通过简单的修改网络脚本的算子API来实现自定义算子的使能与关闭，具体可以参考[自定义算子](./custom_operator.md)。
 
 - **大语言模型离线推理**
 
-    由于大语言模型体积巨大，因此MindSpore大语言模型推理推荐用户使用更灵活的在线推理（权重CKPT+网络脚本），但是在一些特定场景，如端侧或者边缘侧大模型，由于运行环境受限，不一定有Python或者Mindspore包的环境下，用户可以使用MindSpore Lite离线推理方案。此时，用户需要将模型导出成MindSpore的统一模型表达MindIR文件，并将其传给MindSpore Lite运行时，具体教程可以参考[MindSpore大语言模型模型导出](./model_export.md)和[MindSpore Lite推理](../lite_infer/overview.md)。
+    由于大语言模型体积巨大，因此MindSpore大语言模型推理推荐用户使用更灵活的在线推理（权重CKPT+网络脚本），但是在一些特定场景，如端侧或者边缘侧大模型，由于运行环境受限，不一定有Python或者Mindspore包的环境下，用户可以使用MindSpore Lite离线推理方案。此时，用户需要将模型导出成MindSpore的统一模型表达MindIR文件，并将其传给MindSpore Lite运行时，具体教程可以参考[模型导出](./model_export.md)和[Lite推理概述](../lite_infer/overview.md)。

@@ -6,4 +6,4 @@
 
 因此我们提供相应接口使用户可以开发自定义算子，并将其接入到MindSpore框架中。自定义算子可以实现针对性的性能优化，比如通过算子融合技术，将多个操作合并为一个更高效的操作，减少I/O及下发耗时，并提升算子执行性能，实现对大语言模型推理性能的深度优化。
 
-用户可以参考[自定义算子教程](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/custom_program/operation/op_custom_ascendc.html)，了解如何开发自定义算子，以及如何将它们有效地集成到MindSpore框架中。
+用户可以参考[AOT类型自定义算子（Ascend平台）](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/custom_program/operation/op_custom_ascendc.html)，了解如何开发自定义算子，以及如何将它们有效地集成到MindSpore框架中。
