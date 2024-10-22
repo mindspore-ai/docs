@@ -12,7 +12,7 @@
 
 - **Embedding**：将每个token对应的索引转换成一个向量，实现特征分散效果，类似onehot向量化，embedding的权重会参与训练过程，可以更好的适配语言模型中上下文语义，其实现就是一个Embedding算子既可完成。
 
-- **DecodeLayer**：即Transformer结构，是大语言模型关键计算，通常根据配置不同，会重复多层计算，每一层实际就是一个Transformers结构，是大语言模型核心之一。
+- **DecodeLayer**：即Transformer结构，是大语言模型关键计算，通常根据配置不同，会重复多层计算，每一层实际就是一个Transformer结构，是大语言模型核心之一。
 
 - **RmsNorm&Linear**：输出线性归一层，在Transformer结构计算完后，将结果归一成和模型词表一样的维度，最终输出成每个token的概率分布返回。
 
@@ -20,7 +20,7 @@
 
 ## TransformerModel
 
-在典型的Transformer大语言模型中，每一层layer都由Normalization、Attention模块、残差链接、MLP(MuliLayer Perception)组成。其中Attention和MLP都符合两个连续矩阵乘的要求。
+在典型的Transformer大语言模型中，每一层layer都由Normalization、Attention、残差连接、MLP(MuliLayer Perception)组成。其中Attention和MLP都符合两个连续矩阵乘的要求。
 
 1. Attention
 
@@ -118,7 +118,7 @@
 
 3. TransformerLayer
 
-    通过的Attention模块和MLP模块，可以构建TransformerLayer，即DecodeLaye，具体如下：
+    通过的Attention模块和MLP模块，可以构建TransformerLayer，即DecodeLayer，具体如下：
 
     ```python
     class TransformerLayer(nn.Cell):
@@ -183,7 +183,7 @@
     print(transformer_output.shape)
     ```
 
-具体端到端的大语言模型代码工程可以参考[model_dev.py](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_infer/ms_infer/code/model_dev.py)，（设置CommunicationHelper的size为1）脚本，运行下面命令进行验证：
+具体端到端的大语言模型代码工程可以参考[model_dev.py](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_infer/ms_infer/code/model_dev.py)脚本（设置CommunicationHelper的size为1），运行下面命令进行验证：
 
 ```shell
 msrun --worker_num 1 --local_worker_num 1 --master_port 8124 --log_dir msrun_log --join True --cluster_time_out 300 model_dev.py
