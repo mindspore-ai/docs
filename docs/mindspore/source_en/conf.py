@@ -460,7 +460,8 @@ with open(src_release, "r", encoding="utf-8") as f:
 hide_release = ['2.4.0']
 if len(re.findall("\n## (.*?)\n",data)) > 1:
     for i in hide_release:
-        if del_doc:=re.findall(f"(\n## MindSpore {i}[\s\S\n]*?)\n## ", data):
+        del_doc = re.findall(f"(\n## MindSpore {i}[\s\S\n]*?)\n## ", data)
+        if del_doc:
             data = data.replace(del_doc[0], '')
     content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
     repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
