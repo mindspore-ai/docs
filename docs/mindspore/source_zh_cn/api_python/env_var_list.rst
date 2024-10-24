@@ -960,12 +960,6 @@ Profiler
      - 类型
      - 取值
      - 说明
-   * - MS_TENSOR_API_ENABLE_MINT
-     - 昇腾平台，动态图模式Tensor接口PyTorch兼容性开关。
-     - String
-     - '1'：开启特定接口的PyTorch兼容性。
-       不设置或其他值：关闭该功能。
-     - 开启该功能后，repeat_interleave(repeats, dim=None)、add(other)、item(index=None)、isnan()、flatten(order='C', \*, start_dim=0, end_dim=-1)、max(axis=None, keepdims=False, \*, initial=None, where=True, return_indices=False)、mean(axis=None, keep_dims=False)、min(axis=None, keepdims=False, \*, initial=None, where=True, return_indices=False)、split(split_size_or_sections, axis=0)、sub(y)这些Tensor接口将兼容PyTorch用法。
    * - MS_PYNATIVE_CONFIG_STATIC_SHAPE
      - 动态图模式反向整图下发开关。
      - String
