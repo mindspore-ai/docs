@@ -90,14 +90,6 @@ MindSpore Lite Documentation
    reference/faq
    reference/log
 
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: RELEASE NOTES
-   :hidden:
-
-   RELEASE
-
 .. raw:: html
 
     <div class="container">
@@ -844,19 +836,6 @@ MindSpore Lite Documentation
 							
 										<div class="doc-article-desc">
 										Only server inference version and windows version support environment variables below, except GLOG_v.
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos os-iot user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/en/r2.4.0/RELEASE.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">Release Notes</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										Release Notes
 										</div>
 									</div>
 								</a>
