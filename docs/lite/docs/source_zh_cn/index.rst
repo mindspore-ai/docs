@@ -90,13 +90,6 @@ MindSpore Lite文档
    reference/faq
    reference/log
 
-.. toctree::
-   :maxdepth: 1
-   :caption: RELEASE NOTES
-   :hidden:
-
-   RELEASE
-
 .. raw:: html
 
     <div class="container">
@@ -841,19 +834,6 @@ MindSpore Lite文档
 							
 										<div class="doc-article-desc">
 										可以通过日志报错信息定位错误。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios os-ohos os-iot user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://mindspore.cn/lite/docs/zh-CN/r2.4.0/RELEASE.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">Release Notes</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										Release Notes
 										</div>
 									</div>
 								</a>
