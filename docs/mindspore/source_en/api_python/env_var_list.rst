@@ -952,12 +952,6 @@ Dynamic Graph
      - Type
      - Value Range
      - Description
-   * - MS_TENSOR_API_ENABLE_MINT
-     - Tensor Api PyTorch Compatibility switch for Ascend platform in dynamic graph mode.
-     - String
-     - '1': Turn on Tensor Api PyTorch Compatibility.
-       Not setting or other values: Turn off Tensor Api PyTorch Compatibility.
-     - If turn on, the following Api: repeat_interleave(repeats, dim=None), add(other), item(index=None), isnan(), flatten(order='C', \*, start_dim=0, end_dim=-1), max(axis=None, keepdims=False, \*, initial=None, where=True, return_indices=False), mean(axis=None, keep_dims=False), min(axis=None, keepdims=False, \*, initial=None, where=True, return_indices=False), split(split_size_or_sections, axis=0), sub(y) will be compatible with PyTorch conterparts.
    * - MS_PYNATIVE_CONFIG_STATIC_SHAPE
      - We use this switch to turn on graph distribution for calculating gradient in PyNative mode.
      - String
