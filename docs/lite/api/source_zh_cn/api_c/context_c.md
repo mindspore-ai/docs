@@ -189,10 +189,6 @@ void MSContextAddDeviceInfo(MSContextHandle context, MSDeviceInfoHandle device_i
     - `context`: 指向MSContext的指针。
     - `device_info`: 指向设备类型信息的指针。
 
-- 返回值
-
-  运行设备添加是否成功。
-
 ### MSDeviceInfoCreate
 
 ```C
