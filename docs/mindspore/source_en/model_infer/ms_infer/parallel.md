@@ -319,7 +319,7 @@ Starting with the original implementation of `nn.Dense` in MindSpore, we can bui
 
 It can be seen that the tensor is processed sequentially. First, it passes through the `ColumnParallelLinear` column-wise MatMul to obtain the parallel results. Then, it is input to the `RowParallelLinear` row-wise MatMul, resulting in the complete output of the two MatMul operations.
 
-![Column+Row](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/model_infer/ms_infer/images/column+row.png)
+![Column+Row](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/model_infer/ms_infer/images/column%2Brow.png)
 
 Based on the preceding analysis, you can change the TransformerModel built in [Building a Large Language Model Inference Network from Scratch](./model_dev.md) to a model structure that supports parallelism.
 
