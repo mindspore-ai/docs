@@ -202,9 +202,9 @@ AICPU算子执行失败，可能是数据输入不匹配、访问越界、AICPU�
 
 Runtime模块对上承接MindSpore、ACL、GE、HCCL的调用，对下通过Driver模块对NPU上的各个模块进行调度，Runtime模块的错误码以`EE`开头。
 
-### EE9999: HBM显存分配失败
+### EE9999: 片上显存分配失败
 
-当框架申请的HBM显存超过Device剩余显存时，就会报`halMemAlloc failed`错误，如下述错误场景所示：
+当框架申请的片上显存超过Device剩余显存时，就会报`halMemAlloc failed`错误，如下述错误场景所示：
 
 ```c++
 [EXCEPTION] DEVICE(170414,fffe397fa1e0,python):2021-09-13-15:29:07.465.388 [mindspore/ccsrc/runtime/device/ascend/ascend_memory_manager.cc:62] MallocDeviceMemory] Malloc device memory failed, size[32212254720], ret[207001], Device 6 may be other processes occupying this card, check as: ps -ef|grep python
