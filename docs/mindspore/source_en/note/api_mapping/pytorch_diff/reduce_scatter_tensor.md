@@ -19,8 +19,7 @@ For more information, see [torch.distributed.reduce_scatter](https://pytorch.org
 ## mindspore.communication.comm_func.reduce_scatter_tensor
 
 ```python
-import mindspore.communication as comm
-return_tensor = comm.comm_func.reduce_scatter_tensor(
+mindspore.communication.comm_func.reduce_scatter_tensor(
     tensor,
     op=ReduceOp.SUM,
     group=None,
