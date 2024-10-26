@@ -1,7 +1,7 @@
 香橙派开发
 ===============
 
-`OrangePi AIpro(香橙派 AIpro) <http://www.orangepi.cn/index.html>`_ 采用昇腾AI技术路线，具体为4核64位处理器和AI处理器，集成图形处理器，目前支持8-12TOPS和20TOPS AI算力，其中8-12TOPS算力开发板拥有12GB/24GB LPDDR4X，20TOPS算力开发板拥有8GB/16GB LPDDR4X。两种算力的开发板均可以外接32GB/64GB/256GB eMMC模块，支持双4K高清输出。
+`OrangePi AIpro(香橙派 AIpro) <http://www.orangepi.cn/index.html>`_ 采用昇腾AI技术路线，具体为4核64位处理器和AI处理器，集成图形处理器。
 
 目前已实现OrangePi AIpro开发板的系统镜像预置昇思MindSpore AI框架，并在后续版本迭代中持续演进，当前已支持MindSpore官网教程涵盖的全部网络模型。OrangePi AIpro开发板向开发者提供的官方系统镜像有openEuler版本预ubuntu版本，两个镜像版本均已预置昇思MindSpore，便于用户体验软硬协同优化后带来的高效开发体验。同时，欢迎开发者自定义配置MindSpore和CANN运行环境。
 

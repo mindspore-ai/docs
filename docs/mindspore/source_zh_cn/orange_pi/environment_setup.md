@@ -18,7 +18,7 @@
 
 步骤1 点击[此链接](http://www.orangepi.cn/html/hardWare/computerAndMicrocontrollers/service-and-support/Orange-Pi-AIpro.html)进入镜像下载页面。
 
-> 此处演示为8-12T算力开发板镜像下载地址，20T算力开发板镜像下载请点击[此链接](http://www.orangepi.cn/html/hardWare/computerAndMicrocontrollers/details/Orange-Pi-AIpro(20T).html)，请注意区分两种不同算力开发板的镜像。
+> 此处仅做示意，不同算力开发板镜像下载地址不同，详细请查看[此链接](http://www.orangepi.cn/html/hardWare/computerAndMicrocontrollers/details/Orange-Pi-AIpro(20T).html)。
 
 步骤2 点击图片中箭头图标跳转百度网盘下载页面。
 
