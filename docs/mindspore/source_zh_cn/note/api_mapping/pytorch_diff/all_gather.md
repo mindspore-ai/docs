@@ -18,8 +18,7 @@ torch.distributed.all_gather(
 ## mindspore.communication.comm_func.all_gather_into_tensor
 
 ```python
-import mindspore.communication as comm
-return_tensor = comm.comm_func.all_gather_into_tensor(
+mindspore.communication.comm_func.all_gather_into_tensor(
     tensor,
     group=None,
     async_op=False
