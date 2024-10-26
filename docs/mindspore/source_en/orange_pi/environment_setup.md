@@ -18,7 +18,7 @@ Step 1 Insert the Micro SD card into the card reader and the card reader into th
 
 Step 1 Click [here](http://www.orangepi.cn/html/hardWare/computerAndMicrocontrollers/service-and-support/Orange-Pi-AIpro.html) to go to the mirror download page.
 
-> This demonstration is 8-12T arithmetic development board mirror download address. For 20T arithmetic development board mirror download, please click [here](http://www.orangepi.cn/html/hardWare/computerAndMicrocontrollers/details/Orange-Pi-AIpro(20T).html). Please pay attention to differentiate between the mirrors of two different arithmetic development boards.
+> This is only for illustration. Different power development board image download address is different, please check [here](http://www.orangepi.cn/html/hardWare/computerAndMicrocontrollers/details/Orange-Pi-AIpro(20T).html).
 
 Step 2 Click the arrow icon in the picture to jump to the Baidu Wangpan download page.
 
