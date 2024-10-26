@@ -19,8 +19,7 @@ torch.distributed.reduce(
 ## mindspore.communication.comm_func.reduce
 
 ```python
-import mindspore.communication as comm
-return_tensor = comm.comm_func.reduce(
+mindspore.communication.comm_func.reduce(
     tensor,
     dst,
     op=ReduceOp.SUM,
