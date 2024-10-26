@@ -263,12 +263,27 @@ loss: 0.353044  [400/938]
 loss: 0.392116  [500/938]
 loss: 0.396438  [600/938]
 loss: 0.231412  [700/938]
-...
+loss: 0.194819  [800/938]
+loss: 0.228290  [900/938]
+Test:
+ Accuracy: 93.0%, Avg loss: 0.249993
+
+Epoch 3
+-------------------------------
+loss: 0.343888  [  0/938]
+loss: 0.307786  [100/938]
+loss: 0.153425  [200/938]
+loss: 0.254917  [300/938]
+loss: 0.198072  [400/938]
+loss: 0.108963  [500/938]
+loss: 0.202033  [600/938]
+loss: 0.340418  [700/938]
+loss: 0.144911  [800/938]
+loss: 0.175447  [900/938]
 Test:
  Accuracy: 93.7%, Avg loss: 0.212180
 
 Done!
-Output is truncated. View as a scrollable element or open in a text editor. Adjust cell output settings...
 ```
 
 ## Saving Models
