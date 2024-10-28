@@ -202,9 +202,9 @@ AICPU算子执行失败，可能是数据输入不匹配、访问越界、AICPU�
 
 Runtime模块对上承接MindSpore、ACL、GE、HCCL的调用，对下通过Driver模块对NPU上的各个模块进行调度，Runtime模块的错误码以`EE`开头。
 
-### EE9999: HBM显存分配失败
+### EE9999: 片上显存分配失败
 
-当框架申请的HBM显存超过Device剩余显存时，就会报`halMemAlloc failed`错误，如下述错误场景所示：
+当框架申请的片上内存超过Device剩余显存时，就会报`halMemAlloc failed`错误，如下述错误场景所示：
 
 ```c++
 [EXCEPTION] DEVICE(170414,fffe397fa1e0,python):2021-09-13-15:29:07.465.388 [mindspore/ccsrc/runtime/device/ascend/ascend_memory_manager.cc:62] MallocDeviceMemory] Malloc device memory failed, size[32212254720], ret[207001], Device 6 may be other processes occupying this card, check as: ps -ef|grep python
@@ -246,7 +246,7 @@ RuntimeError: mindspore/ccsrc/runtime/device/ascend/ascend_memory_manager.cc:62 
 
 遇到此类报错，可以先排查跑程序的卡是否已经被其他程序占用。目前MindSpore在Ascend环境上同一Device（即同一张卡）只支持同时跑一个程序，在910训练服务器上执行程序时会一次性申请32212254720KB（即30GB）的显存，故若报错信息中显示申请失败的显存大小为32212254720，则很有可能是该Device已经被其他程序占用，导致新程序申请显存失败。遇到这个问题只需确认卡未被其他程序占用后重新启动程序即可。若报错信息中显示申请失败的显存大小不为32212254720，而是其他任意数字，则可能是网络模型太大，超过了Device的显存（910服务器为32GB），可以考虑改小batchsize、对网络模型进行优化或者使用模型并行等手段来作训练。
 
-另外，当前MindSpore在程序初始化时会对Device的剩余HBM显存做校验，若剩余HBM显存小于总量的一半，就会报以下错误提示卡被占用：
+另外，当前MindSpore在程序初始化时会对Device的剩余片上显存做校验，若剩余片上内存小于总量的一半，就会报以下错误提示卡被占用：
 
 ```c++
 [CRITICAL] DEVICE(164104,ffff841795d0,python):2022-12-01-03:58:52.033.238 [mindspore/ccsrc/runtime/device/kernel_runtime.cc:124] LockRuntime] The pointer[stream] is null.
