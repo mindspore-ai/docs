@@ -22,7 +22,7 @@
 - **Health**: 芯片健康指数。
 - **IP Address**: 芯片IP地址。
 - **AI Core(%)**: 芯片利用率。
-- **HBM-Usage(MB)**: 芯片已用的HBM内存。
+- **片上-Usage(MB)**: 芯片已用的片上内存。
 - **Power(W)**: 芯片功率。
 - **Temp(°C)**: 芯片温度。
 
