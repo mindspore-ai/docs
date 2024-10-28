@@ -202,9 +202,9 @@ The AICPU operator execution failure may be due to data input mismatch, access o
 
 The Runtime module takes over the calls of MindSpore, ACL, GE, HCCL and schedules each module on the NPU through the Driver module. The error code of the Runtime module starts with `EE`.
 
-### EE9999: HBM Video Memory Allocation Failure
+### EE9999: On-Chip Video Memory Allocation Failure
 
-When the HBM memory requested by the framework exceeds the remaining memory of the Device, a `halMemAlloc failed` error is reported, as shown in the following error scenario:
+When the On-Chip memory requested by the framework exceeds the remaining memory of the Device, a `halMemAlloc failed` error is reported, as shown in the following error scenario:
 
 ```c++
 [EXCEPTION] DEVICE(170414,fffe397fa1e0,python):2021-09-13-15:29:07.465.388 [mindspore/ccsrc/runtime/device/ascend/ascend_memory_manager.cc:62] MallocDeviceMemory] Malloc device memory failed, size[32212254720], ret[207001], Device 6 may be other processes occupying this card, check as: ps -ef|grep python
