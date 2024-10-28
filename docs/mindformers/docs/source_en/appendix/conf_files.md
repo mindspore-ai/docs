@@ -10,7 +10,7 @@ Different parameters usually need to be configured during the training and infer
 
 The `YAML` file provided by MindFormers contains configuration items for different functions, which are described below according to their contents.
 
-### Basic Conguration
+### Basic Configuration
 
 The base configuration is mainly used to specify MindSpore random seeds and related settings for loading weights.
 
@@ -23,7 +23,7 @@ The base configuration is mainly used to specify MindSpore random seeds and rela
 | auto_trans_ckpt | Enable online weight automatic conversion. Refer to [Weight Conversion Function](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html)                                                                                                      | bool |
 | resume_training | Turn on resumable training after breakpoint. For details, refer to [Resumable Training After Breakpoint](https://www.mindspore.cn/mindformers/docs/en/dev/function/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)                                                                                                               | bool |
 
-### Context Conguration
+### Context Configuration
 
 Context configuration is mainly used to specify the [mindspore.set_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html) in the related parameters.
 
@@ -38,7 +38,7 @@ Context configuration is mainly used to specify the [mindspore.set_context](http
 | context.mempool_block_size | Set the size of the memory pool block for devices. The format is "xxGB". Default value is `"1GB"` | str |
 | context.save_graphs         | Save the compilation graph during execution.<br/>1. `False` or `0` indicates that the intermediate compilation map is not saved.<br/>2. `1` means outputting some of the intermediate files generated during the compilation of the diagram.<br/>3. `True` or `2` indicates the generation of more backend-process-related IR files. <br/>4. `3` indicates the generation of visualized computational diagrams and more detailed front-end IR diagrams. | bool/int |
 
-### Model Conguration
+### Model Configuration
 
 Since the configuration will vary from model to model, only the generic configuration of models in MindFormers is described here.
 
@@ -65,7 +65,7 @@ Since the configuration will vary from model to model, only the generic configur
 | model.model_config.output_scores           | Set to include score before the input softmax for each forward generation when returning the result as a dictionary, defaults to `False`                                                  | bool |
 | model.model_config.output_logits           | Set to include the logits output by the model at each forward generation when returning results as a dictionary, defaults to `False`.                                                     | bool |
 
-### Model Training Conguration
+### Model Training Configuration
 
 When starting model training, in addition to model-related parameters, you also need to set the parameters of trainer, runner_config, learning rate, and optimizer and other modules required for training, MindFormers provides the following configuration items.
 
@@ -110,7 +110,7 @@ When starting model training, in addition to model-related parameters, you also 
 | filepath_prefix                             | Set the save path for parameter configurations after data optimization                                                                                                                                                   | str   |
 | autotune_per_step                           | Set the configuration tuning step interval for automatic data acceleration, for details see [set_autotune_interval](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.config.set_autotune_interval.html) | int   |
 
-### Parallel Conguration
+### Parallel Configuration
 
 In order to improve the performance of the model, it is usually necessary to configure the parallelism strategy for the model in large-scale cluster usage scenarios. For details, please refer to [Distributed Parallelism](https://www.mindspore.cn/mindformers/docs/en/dev/function/distributed_parallel.html), the parallel configuration in MindFormers is as follows.
 
@@ -138,7 +138,7 @@ In order to improve the performance of the model, it is usually necessary to con
 
 > Configure the parallel strategy to satisfy device_num = data_parallel × model_parallel × context_parallel × pipeline_stage
 
-### Model Optimization Conguration
+### Model Optimization Configuration
 
 MindFormers provides recomputation-related configurations to reduce the memory footprint of the model during training, see [Recomputation](https://www.mindspore.cn/mindformers/docs/en/dev/perf_optimize/perf_optimize.html#recompute) for details.
 
@@ -150,13 +150,31 @@ MindFormers provides recomputation-related configurations to reduce the memory f
 | recompute_config.mp_comm_recompute                 | Whether to recompute communications introduced by model parallel           | bool      |
 | recompute_config.recompute_slice_activation        | Whether to output slices for Cells kept in memory            | bool      |
 
-### Callbacks Conguration
+### Callbacks Configuration
 
 MindFormers provides encapsulated Callbacks function class, mainly to achieve to return to the model training state and output in the model training process, save the model weight file and other operations. Currently the following Callbacks function class is supported.
 
 1. MFLossMonitor
 
-   This callback function class is mainly used to print information such as training progress, model Loss, and learning rate during the training process.
+   This callback function class is mainly used to print information such as training progress, model Loss, and learning rate during the training process and has several configurable items as follows:
+
+   | Parameters                     | Descriptions                                                                                                                                                                                                                                                                                                | Types |
+   |--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
+   | learning_rate                  | Set the initial learning rate in `MFLossMonitor`. The default value is `None`                                                                                                                                                                                                                               | float |
+   | per_print_times                | Set the interval for printing log information in `MFLossMonitor`. The default value is `1`, that is, the log information is printed every step                                                                                                                                                              | int   |
+   | micro_batch_num                | Set the size of the micro batch data in each step in the training, which is used to calculate the actual loss value. If this parameter is not set, the value of this parameter is the same as that of `parallel_config.micro_batch_num` in [Parallel Configuration](#Parallel-Configuration)                | int   |
+   | micro_batch_interleave_num     | Set the size of the interleave micro batch data in each step of the training. This parameter is used to calculate the actual loss value. If this parameter is not set, the value of this parameter is the same as that of `micro_batch_interleave_num` in [Parallel Configuration](#Parallel-Configuration) | int   |
+   | origin_epochs                  | Set the initial number of training epochs in `MFLossMonitor`. If this parameter is not set, the value of this parameter is the same as that of `runner_config.epochs` in [Model Training Configuration](#Model-Training-Configuration)                                                                      | int   |
+   | dataset_size                   | Set initial size of the dataset in `MFLossMonitor`. If this parameter is not set, the size of the initialized dataset is the same as the size of the actual dataset used for training                                                                                                                       | int   |
+   | initial_epoch                  | Set start epoch number of training in `MFLossMonitor`. The default value is `0`                                                                                                                                                                                                                             | int   |
+   | initial_step                   | Set start step number of training in `MFLossMonitor`. The default value is `0`                                                                                                                                                                                                                              | int   |
+   | global_batch_size              | Set the number of global batch data samples in `MFLossMonitor`. If this parameter is not set, the system automatically calculates the number of global batch data samples based on the dataset size and parallel strategy                                                                                   | int   |
+   | gradient_accumulation_steps    | Set the number of gradient accumulation steps in `MFLossMonitor`. If this parameter is not set, the value of this parameter is the same as that of `gradient_accumulation_steps` in [Model Training Configuration](#Model-Training-Configuration)                                                           | int   |
+   | enable_tensorboard             | Whether to enable TensorBoard to record logs in `MFLossMonitor`. The default value is `False`                                                                                                                                                                                                               | bool  |
+   | tensorboard_path               | Set the path for saving tensorboard logs in `MFLossMonitor`. This parameter is valid only when `enable_tensorboard=True`                                                                                                                                                                                    | str   |
+   | check_for_nan_in_loss_and_grad | Whether to enable overflow detection in `MFLossMonitor`. After overflow detection is enabled, the training exits if overflow occurs during model training. The default value is `False`                                                                                                                     | bool  |
+
+   > If you do not need to enable TensorBoard log recording or overflow detection, you are advised to use the default settings.
 
 2. SummaryMonitor
 
@@ -191,7 +209,7 @@ callbacks:
     async_save: False
 ```
 
-### Processor Conguration
+### Processor Configuration
 
 Processor is mainly used to preprocess the inference data of the input model. Since the Processor configuration items are not fixed, only the generic configuration items of Processor in MindFormers are explained here.
 
@@ -203,7 +221,7 @@ Processor is mainly used to preprocess the inference data of the input model. Si
 | processor.tokenizer.type       | Set the text tokenizer class                       | str |
 | processor.tokenizer.vocab_file | Set the path of the file to be read by the text tokenizer, which needs to correspond to the tokenizer class | str |
 
-### Model Evaluation Conguration
+### Model Evaluation Configuration
 
 MindFormers provides model evaluation function, and also supports model evaluation while training. The following is the configuration related to model evaluation.
 
@@ -217,7 +235,7 @@ MindFormers provides model evaluation function, and also supports model evaluati
 | eval_epoch_interval | Set the epoch interval for evaluation, the default value is -1. The value less than 0 means disable the function of evaluating according to epoch interval, it is not recommended to use this configuration in data sinking mode. | int  |
 | metric.type         | Set the type of evaluation                                                     | str  |
 
-### Profile Conguration
+### Profile Configuration
 
 MindFormers provides Profile as the main tool for model performance tuning, please refer to [Performance Tuning Guide](https://www.mindspore.cn/mindformers/docs/en/dev/perf_optimize/perf_optimize.html) for more details. The following is the Profile related configuration.
 
