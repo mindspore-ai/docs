@@ -27,7 +27,7 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 | 软件名称              | 版本             | 作用                          |
 | --------------------- | ---------------- | ----------------------------- |
 | Ubuntu                | 18.04            | 运行MindSpore的操作系统       |
-| [Python](#安装python) | 3.7-3.9          | MindSpore的使用依赖Python环境 |
+| [Python](#安装python) | 3.9-3.11          | MindSpore的使用依赖Python环境 |
 | [GCC](#安装gcc和gmp)  | 7.3.0到9.4.0之间 | 用于编译MindSpore的C++编译器  |
 
 下面给出第三方依赖的安装方法。
@@ -51,11 +51,11 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 
   安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
 
-  创建虚拟环境，以Python 3.7.5为例：
+  创建虚拟环境，以Python 3.9.11为例：
 
   ```bash
-  conda create -n mindspore_py37 python=3.7.5 -y
-  conda activate mindspore_py37
+  conda create -n mindspore_py39 python=3.9.11 -y
+  conda activate mindspore_py9
   ```
 
 - 通过APT安装Python，命令如下。
@@ -64,16 +64,16 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
   sudo apt-get update
   sudo apt-get install software-properties-common -y
   sudo add-apt-repository ppa:deadsnakes/ppa -y
-  sudo apt-get install python3.7 python3.7-dev python3.7-distutils python3-pip -y
+  sudo apt-get install python3.9 python3.9-dev python3.9-distutils python3-pip -y
   # 将新安装的Python设为默认
-  sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 100
+  sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.9 100
   # 安装pip
   python -m pip install pip -i https://repo.huaweicloud.com/repository/pypi/simple
-  sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.7 100
+  sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.9 100
   pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
   ```
 
-  若要安装其他Python版本，只需更改命令中的`3.7`。
+  若要安装其他Python版本，只需更改命令中的`3.9`。
 
 可以通过以下命令查看Python版本。
 

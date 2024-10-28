@@ -32,7 +32,7 @@
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh
-# 默认安装Python 3.7
+# 安装Python 3.9
 bash ./ubuntu-cpu-source.sh
 # 如需指定Python版本，以Python 3.9为例，使用以下方式
 # PYTHON_VERSION=3.9 bash ./ubuntu-cpu-source.sh
@@ -55,7 +55,7 @@ bash ./ubuntu-cpu-source.sh
 |软件名称|版本|作用|
 |-|-|-|
 |Ubuntu|18.04|编译和运行MindSpore的操作系统|
-|[Python](#安装python)|3.7-3.9|MindSpore的使用依赖Python环境|
+|[Python](#安装python)|3.9-3.11|MindSpore的使用依赖Python环境|
 |[wheel](#安装wheel-setuptools和numpy)|0.32.0及以上|MindSpore使用的Python打包工具|
 |[setuptools](#安装wheel-setuptools和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
 |[Numpy](#安装wheel-setuptools和numpy)|1.19.3及以上|MindSpore里的Numpy相关功能依赖Numpy模块|
@@ -88,11 +88,11 @@ bash ./ubuntu-cpu-source.sh
 
     安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
 
-    创建虚拟环境，以Python 3.7.5为例：
+    创建虚拟环境，以Python 3.9.11为例：
 
     ```bash
-    conda create -n mindspore_py37 python=3.7.5 -y
-    conda activate mindspore_py37
+    conda create -n mindspore_py39 python=3.9.11 -y
+    conda activate mindspore_py39
     ```
 
 - 通过APT安装Python，命令如下。
@@ -101,16 +101,16 @@ bash ./ubuntu-cpu-source.sh
     sudo apt-get update
     sudo apt-get install software-properties-common -y
     sudo add-apt-repository ppa:deadsnakes/ppa -y
-    sudo apt-get install python3.7 python3.7-dev python3.7-distutils python3-pip -y
+    sudo apt-get install python3.9 python3.9-dev python3.9-distutils python3-pip -y
     # 将新安装的Python设为默认
-    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 100
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.9 100
     # 安装pip
     python -m pip install pip -i https://repo.huaweicloud.com/repository/pypi/simple
-    sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.7 100
+    sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.9 100
     pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
     ```
 
-    若要安装其他Python版本，只需更改命令中的`3.7`。
+    若要安装其他Python版本，只需更改命令中的`3.9`。
 
 可以通过以下命令查看Python版本。
 
