@@ -170,11 +170,11 @@ MindFormers提供封装后的Callbacks函数类，主要实现在模型训练过
    | initial_step                   | 设置`MFLossMonitor`中训练起始步数，默认值为`0`                                                        | int   |
    | global_batch_size              | 设置`MFLossMonitor`中全局批数据样本数，若不配置该参数，则会根据数据集大小以及并行策略自动计算                                  | int   |
    | gradient_accumulation_steps    | 设置`MFLossMonitor`中梯度累计步数，若不配置该参数，则与[模型训练配置](#模型训练配置)中`gradient_accumulation_steps`一致    | int   |
-   | enable_tensorboard             | 设置是否在`MFLossMonitor`中开启tensorboard记录日志信息，默认值为`False`                                    | bool  |
-   | tensorboard_path               | 设置`MFLossMonitor`中设置tensorboard日志保存路径，仅在`enable_tensorboard=True`时生效                    | str   |
+   | enable_tensorboard             | 设置是否在`MFLossMonitor`中开启TensorBoard记录日志信息，默认值为`False`                                    | bool  |
+   | tensorboard_path               | 设置`MFLossMonitor`中设置TensorBoard日志保存路径，仅在`enable_tensorboard=True`时生效                    | str   |
    | check_for_nan_in_loss_and_grad | 设置是否在`MFLossMonitor`中开启溢出检测，开启后在模型训练过程中出现溢出则退出训练，默认值为`False`                            | bool  |
 
-   > 若无需开启tensorboard记录日志信息或溢出检测，则推荐用户使用默认配置即可。
+   > 若无需开启TensorBoard记录日志信息或溢出检测，则推荐用户使用默认配置即可。
 
 2. SummaryMonitor
 
