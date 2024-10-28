@@ -23,7 +23,7 @@ Figure 1 is a table, each row shows the information of each NPU chip at a certai
 - **Health**: The chip health status.
 - **IP Address**: The chip IP address.
 - **AI Core(%)**: The chip utilization.
-- **On-Chip-Usage(MB)**: The chip used On-Chip memory.
+- **HBM-Usage(MB)**: The chip used On-Chip memory.
 - **Power(W)**: The chip power.
 - **Temp(°C)**: The chip temperature.
 
