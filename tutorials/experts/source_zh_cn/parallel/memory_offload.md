@@ -37,7 +37,7 @@ mindspore.set_offload_context(offload_config=offload_config)
     - `"auto_offload": False` 设置关闭自动offload策略，parameter数据将严格按照上一条配置选项执行。
     - `"offload_cpu_size": "512GB", "offload_disk_size": "1024GB"` 分别设置了可用于offload的cpu内存和磁盘大小。
     - `"offload_path": "./offload/"` 设置用于offload的磁盘文件路径。
-    - `"enable_pinned_mem": True` 设置开启锁页，开启后可加速HBM-CPU内存之间的拷贝。
+    - `"enable_pinned_mem": True` 设置开启锁页，开启后可加速片上内存-CPU内存之间的拷贝。
     - `"host_mem_block_size":"1GB"` 设置cpu锁页内存池block大小。
     - `"enable_aio": True` 设置开启文件异步IO，开启后可加速DDR-磁盘之间的拷贝。（需要编译时带上-o选项，且仅支持安装了aio的Linux环境）
 
