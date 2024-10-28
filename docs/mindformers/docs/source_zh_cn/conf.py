@@ -227,6 +227,16 @@ if os.path.exists('./mindformers.experimental.rst'):
 if os.path.exists('./experimental'):
     shutil.rmtree('./experimental')
 
+if os.path.exists('./usage/pretrain_gpt.md'):
+    os.remove('./usage/pretrain_gpt.md')
+
+with open('./index.rst', 'r+', encoding='utf-8') as f:
+    ind_content = f.read()
+    ind_content = re.sub('.*usage/pretrain_gpt.*\n', '', ind_content)
+    f.seek(0)
+    f.truncate()
+    f.write(ind_content)
+
 # add view
 import json
 
