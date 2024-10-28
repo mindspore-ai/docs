@@ -156,7 +156,25 @@ MindFormers提供封装后的Callbacks函数类，主要实现在模型训练过
 
 1. MFLossMonitor
 
-   该回调函数类主要用于在训练过程中对训练进度、模型Loss、学习率等信息进行打印。
+   该回调函数类主要用于在训练过程中对训练进度、模型Loss、学习率等信息进行打印，有如下几个可配置项：
+
+   | 参数                             | 说明                                                                                      | 类型    |
+   |--------------------------------|-----------------------------------------------------------------------------------------|-------|
+   | learning_rate                  | 设置`MFLossMonitor`中初始化学习率，默认值为`None`                                                     | float |
+   | per_print_times                | 设置`MFLossMonitor`中日志信息打印间隔，默认值为`1`，即每一步打印一次日志信息                                         | int   |
+   | micro_batch_num                | 设置训练中每一步的批数据大小，用于计算实际的loss值，若不配置该参数，则与[并行配置](#并行配置)中`parallel_config.micro_batch_num`一致 | int   |
+   | micro_batch_interleave_num     | 设置训练中每一步的多副本批数据大小，用于计算实际的loss值，若不配置该参数，则与[并行配置](#并行配置)中`micro_batch_interleave_num`一致   | int   |
+   | origin_epochs                  | 设置`MFLossMonitor`中训练的轮数，若不配置该参数，则与[模型训练配置](#模型训练配置)中`runner_config.epochs`一致            | int   |
+   | dataset_size                   | 设置`MFLossMonitor`中初始化数据集大小，若不配置该参数，则与实际训练使用的数据集大小一致                                     | int   |
+   | initial_epoch                  | 设置`MFLossMonitor`中训练起始轮数，默认值为`0`                                                        | int   |
+   | initial_step                   | 设置`MFLossMonitor`中训练起始步数，默认值为`0`                                                        | int   |
+   | global_batch_size              | 设置`MFLossMonitor`中全局批数据样本数，若不配置该参数，则会根据数据集大小以及并行策略自动计算                                  | int   |
+   | gradient_accumulation_steps    | 设置`MFLossMonitor`中梯度累计步数，若不配置该参数，则与[模型训练配置](#模型训练配置)中`gradient_accumulation_steps`一致    | int   |
+   | enable_tensorboard             | 设置是否在`MFLossMonitor`中开启TensorBoard记录日志信息，默认值为`False`                                    | bool  |
+   | tensorboard_path               | 设置`MFLossMonitor`中设置TensorBoard日志保存路径，仅在`enable_tensorboard=True`时生效                    | str   |
+   | check_for_nan_in_loss_and_grad | 设置是否在`MFLossMonitor`中开启溢出检测，开启后在模型训练过程中出现溢出则退出训练，默认值为`False`                            | bool  |
+
+   > 若无需开启TensorBoard记录日志信息或溢出检测，则推荐用户使用默认配置即可。
 
 2. SummaryMonitor
 
