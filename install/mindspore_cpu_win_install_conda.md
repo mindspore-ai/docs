@@ -28,24 +28,10 @@
 ## 创建并进入Conda虚拟环境
 
 根据您希望使用的Python版本创建对应的Conda虚拟环境并进入虚拟环境。
-如果您希望使用Python3.7.5版本：
+如果您希望使用Python3.9.11版本：
 
 ```bash
-conda create -c conda-forge -n mindspore_py37 -c conda-forge python=3.7.5
-conda activate mindspore_py37
-```
-
-如果您希望使用Python3.8.0版本：
-
-```bash
-conda create -c conda-forge -n mindspore_py38 -c conda-forge python=3.8.0
-conda activate mindspore_py38
-```
-
-如果您希望使用Python3.9.0版本：
-
-```bash
-conda create -c conda-forge -n mindspore_py39 -c conda-forge python=3.9.0
+conda create -c conda-forge -n mindspore_py39 -c conda-forge python=3.9.11
 conda activate mindspore_py39
 ```
 
