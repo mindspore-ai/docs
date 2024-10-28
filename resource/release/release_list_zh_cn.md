@@ -1,175 +1,61 @@
 # 发布版本列表
 
-<!-- TOC -->
-
 - [发布版本列表](#发布版本列表)
-    - [配套资料](#配套资料)
-    - [Ascend配套软件包](#ascend配套软件包)
-    - [下载地址](#下载地址)
-        - [2.3.1](#231)
-        - [2.3.0](#230)
-        - [2.3.0-rc2](#230-rc2)
-        - [2.3.0-rc1](#230-rc1)
-        - [2.2.14](#2214)
-        - [2.2.13](#2213)
-        - [2.2.12](#2212)
-        - [2.2.11](#2211)
-        - [2.2.10](#2210)
-        - [2.2.1](#221)
-        - [2.2.0](#220)
-        - [2.1.1](#211)
-        - [2.1.0](#210)
-        - [2.0.0](#200)
-        - [2.0.0-rc1](#200-rc1)
-        - [2.0.0-alpha](#200-alpha)
-        - [1.10.1](#1101)
-        - [1.10.0](#1100)
-        - [1.9.0](#190)
-        - [1.8.1](#181)
-        - [1.8.0](#180)
-        - [1.7.1](#171)
-        - [1.7.0](#170)
-        - [1.6.2](#162)
-        - [1.6.1](#161)
-        - [1.6.0](#160)
-        - [1.5.2](#152)
-        - [1.5.1](#151)
-        - [1.5.0](#150)
-        - [1.5.0-rc1](#150-rc1)
-        - [1.4.1](#141)
-        - [1.4.0](#140)
-        - [1.3.0](#130)
-        - [1.2.1](#121)
-        - [1.2.0](#120)
-        - [1.2.0-rc1](#120-rc1)
-        - [1.1.1](#111)
-        - [1.1.0](#110)
-        - [1.0.1](#101)
-        - [1.0.0](#100)
-        - [0.7.0-beta](#070-beta)
-        - [0.6.0-beta](#060-beta)
-        - [0.5.2-beta](#052-beta)
-        - [0.5.0-beta](#050-beta)
-        - [0.3.0-alpha](#030-alpha)
-        - [0.2.0-alpha](#020-alpha)
-        - [0.1.0-alpha](#010-alpha)
+    - [2.3.1](#231)
+    - [2.3.0](#230)
+    - [2.3.0-rc2](#230-rc2)
+    - [2.3.0-rc1](#230-rc1)
+    - [2.2.14](#2214)
+    - [2.2.13](#2213)
+    - [2.2.12](#2212)
+    - [2.2.11](#2211)
+    - [2.2.10](#2210)
+    - [2.2.1](#221)
+    - [2.2.0](#220)
+    - [2.1.1](#211)
+    - [2.1.0](#210)
+    - [2.0.0](#200)
+    - [2.0.0-rc1](#200-rc1)
+    - [2.0.0-alpha](#200-alpha)
+    - [1.10.1](#1101)
+    - [1.10.0](#1100)
+    - [1.9.0](#190)
+    - [1.8.1](#181)
+    - [1.8.0](#180)
+    - [1.7.1](#171)
+    - [1.7.0](#170)
+    - [1.6.2](#162)
+    - [1.6.1](#161)
+    - [1.6.0](#160)
+    - [1.5.2](#152)
+    - [1.5.1](#151)
+    - [1.5.0](#150)
+    - [1.5.0-rc1](#150-rc1)
+    - [1.4.1](#141)
+    - [1.4.0](#140)
+    - [1.3.0](#130)
+    - [1.2.1](#121)
+    - [1.2.0](#120)
+    - [1.2.0-rc1](#120-rc1)
+    - [1.1.1](#111)
+    - [1.1.0](#110)
+    - [1.0.1](#101)
+    - [1.0.0](#100)
+    - [0.7.0-beta](#070-beta)
+    - [0.6.0-beta](#060-beta)
+    - [0.5.2-beta](#052-beta)
+    - [0.5.0-beta](#050-beta)
+    - [0.3.0-alpha](#030-alpha)
+    - [0.2.0-alpha](#020-alpha)
+    - [0.1.0-alpha](#010-alpha)
 
 <!-- /TOC -->
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/resource/release/release_list_zh_cn.md)
 
-## 配套资料
+## 2.3.1
 
-|   类别   |   子类别   |      版本      |
-|    ---   |    ---   |       ---      |
-| 版本说明和接口变更 | |[2.3.1](https://gitee.com/mindspore/mindspore/blob/master/RELEASE_CN.md#mindspore-231-release-notes) &nbsp;&nbsp; [2.3.0](https://gitee.com/mindspore/mindspore/blob/master/RELEASE_CN.md#mindspore-230-release-notes) &nbsp;&nbsp; [2.3.0-rc2](https://gitee.com/mindspore/mindspore/blob/master/RELEASE_CN.md#mindspore-230-rc2-release-notes) &nbsp;&nbsp; [2.3.0-rc1](https://gitee.com/mindspore/mindspore/blob/master/RELEASE_CN.md#mindspore-230-rc1-release-notes) &nbsp;&nbsp; [2.2.14](https://gitee.com/mindspore/mindspore/blob/r2.2/RELEASE_CN.md#) &nbsp;&nbsp; [2.1.1](https://gitee.com/mindspore/mindspore/blob/r2.1/RELEASE_CN.md#) &nbsp;&nbsp; [2.0.0](https://gitee.com/mindspore/mindspore/blob/r2.0/RELEASE_CN.md#) &nbsp;&nbsp; [2.0.0-alpha](https://gitee.com/mindspore/mindspore/blob/r2.0.0-alpha/RELEASE_CN.md#) &nbsp;&nbsp; [1.10.1](https://gitee.com/mindspore/mindspore/blob/r1.10/RELEASE_CN.md#) &nbsp;&nbsp; [1.9.0](https://gitee.com/mindspore/mindspore/blob/r1.9/RELEASE_CN.md#) &nbsp;&nbsp; [1.8.1](https://gitee.com/mindspore/mindspore/blob/r1.8/RELEASE_CN.md#) &nbsp;&nbsp; [1.7.1](https://gitee.com/mindspore/mindspore/blob/r1.7/RELEASE_CN.md#) &nbsp;&nbsp; <br> [1.6.2](https://gitee.com/mindspore/mindspore/blob/r1.6/RELEASE.md#) &nbsp;&nbsp; [1.5.2](https://gitee.com/mindspore/mindspore/blob/r1.5/RELEASE.md#) &nbsp;&nbsp; [1.3.0](https://gitee.com/mindspore/mindspore/blob/r1.3/RELEASE.md#) &nbsp;&nbsp; [1.2.1](https://gitee.com/mindspore/mindspore/blob/r1.2/RELEASE.md#) &nbsp;&nbsp; [1.1.1](https://gitee.com/mindspore/mindspore/blob/r1.1/RELEASE.md#) &nbsp;&nbsp; [1.0.1](https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md#) &nbsp;&nbsp; [0.7.0-beta](https://gitee.com/mindspore/mindspore/blob/r0.7/RELEASE.md#) &nbsp;&nbsp; [0.6.0-beta](https://gitee.com/mindspore/mindspore/blob/r0.6/RELEASE.md#) &nbsp;&nbsp; <br> [0.5.2-beta](https://gitee.com/mindspore/mindspore/blob/r0.5/RELEASE.md#) &nbsp;&nbsp; [0.3.0-alpha](https://gitee.com/mindspore/mindspore/blob/r0.3/RELEASE.md#) &nbsp;&nbsp; [0.2.0-alpha](https://gitee.com/mindspore/mindspore/blob/r0.2/RELEASE.md#) &nbsp;&nbsp; [0.1.0-alpha](https://gitee.com/mindspore/mindspore/blob/r0.1/RELEASE.md#)|
-| 安装 | | [2.3.1](https://gitee.com/mindspore/docs/tree/r2.3.1/install) &nbsp;&nbsp; [2.3.0](https://gitee.com/mindspore/docs/tree/r2.3.0/install) &nbsp;&nbsp; [2.3.0-rc2](https://gitee.com/mindspore/docs/tree/r2.3.0rc2/install) &nbsp;&nbsp;[2.3.0-rc1](https://gitee.com/mindspore/docs/tree/r2.3.q1/install) &nbsp;&nbsp; [2.2.14](https://gitee.com/mindspore/docs/tree/r2.2/install) &nbsp;&nbsp; [2.1.1](https://gitee.com/mindspore/docs/tree/r2.1/install) &nbsp;&nbsp; [2.0.0](https://gitee.com/mindspore/docs/tree/r2.0/install) &nbsp;&nbsp; [2.0.0-alpha](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/install) &nbsp;&nbsp; [1.10.1](https://gitee.com/mindspore/docs/tree/r1.10/install) &nbsp;&nbsp; [1.9.0](https://gitee.com/mindspore/docs/tree/r1.9/install) &nbsp;&nbsp; [1.8.1](https://gitee.com/mindspore/docs/tree/r1.8/install) &nbsp;&nbsp; [1.7.1](https://gitee.com/mindspore/docs/tree/r1.7/install) &nbsp;&nbsp; <br> [1.6.2](https://gitee.com/mindspore/docs/tree/r1.6/install) &nbsp;&nbsp; [1.5.2](https://gitee.com/mindspore/docs/tree/r1.5/install) &nbsp;&nbsp; [1.3.0](https://gitee.com/mindspore/docs/tree/r1.3/install) &nbsp;&nbsp; [1.2.1](https://gitee.com/mindspore/docs/tree/r1.2/install) &nbsp;&nbsp; [1.1.1](https://gitee.com/mindspore/docs/tree/r1.1/install) &nbsp;&nbsp; [1.0.1](https://gitee.com/mindspore/docs/tree/r1.0/install) &nbsp;&nbsp; [0.7.0-beta](https://gitee.com/mindspore/docs/tree/r0.7/install) &nbsp;&nbsp; [0.6.0-beta](https://gitee.com/mindspore/docs/tree/r0.6/install) &nbsp;&nbsp; <br> [0.5.2-beta](https://gitee.com/mindspore/docs/tree/r0.5/install) &nbsp;&nbsp; [0.3.0-alpha](https://gitee.com/mindspore/docs/tree/r0.3/install) &nbsp;&nbsp; [0.2.0-alpha](https://gitee.com/mindspore/docs/tree/r0.2/install) &nbsp;&nbsp; [0.1.0-alpha](https://gitee.com/mindspore/docs/tree/r0.1/install)|
-| 教程 |  | [2.3.1](https://www.mindspore.cn/tutorials/zh-CN/r2.3.1/index.html) &nbsp;&nbsp; [2.3.0](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0/index.html) &nbsp;&nbsp; [2.3.0-rc2](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc2/index.html) &nbsp;&nbsp; [2.3.0-rc1](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc1/index.html) &nbsp;&nbsp; [2.2.14](https://www.mindspore.cn/tutorials/zh-CN/r2.2/index.html) &nbsp;&nbsp; [2.1.1](https://www.mindspore.cn/tutorials/zh-CN/r2.1/index.html) &nbsp;&nbsp; [2.0.0](https://www.mindspore.cn/tutorials/zh-CN/r2.0/index.html) &nbsp;&nbsp; [2.0.0-alpha](https://www.mindspore.cn/tutorials/zh-CN/r2.0.0-alpha/index.html) &nbsp;&nbsp; [1.10.1](https://www.mindspore.cn/tutorials/zh-CN/r1.10/index.html) &nbsp;&nbsp; [1.9.0](https://www.mindspore.cn/tutorials/zh-CN/r1.9/index.html) &nbsp;&nbsp; [1.8.1](https://www.mindspore.cn/tutorials/zh-CN/r1.8/index.html) &nbsp;&nbsp; [1.7.1](https://www.mindspore.cn/tutorials/zh-CN/r1.7/index.html) &nbsp;&nbsp; <br> [1.6.2](https://www.mindspore.cn/tutorials/zh-CN/r1.6/index.html) &nbsp;&nbsp; [1.5.2](https://www.mindspore.cn/tutorials/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/tutorials/zh-CN/r1.3/index.html) &nbsp;&nbsp; [1.2.1-训练](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/index.html) &nbsp;&nbsp; [1.2.1-推理](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/index.html) &nbsp;&nbsp; [1.2.1-手机&IoT](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/index.html) &nbsp;&nbsp; [1.1.1-训练](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/index.html) &nbsp;&nbsp; <br> [1.1.1-推理](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.1/index.html) &nbsp;&nbsp; [1.1.1-手机&IoT](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/index.html) &nbsp;&nbsp; [1.0.1-训练](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/index.html) &nbsp;&nbsp; [1.0.1-推理](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/index.html) &nbsp;&nbsp; [1.0.0-手机&IoT](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/index.html)&nbsp;&nbsp; <br> [0.7.0-beta](https://www.mindspore.cn/tutorial/zh-CN/r0.7/index.html) &nbsp;&nbsp; [0.7.0-beta手机&IoT](https://www.mindspore.cn/lite/tutorial/zh-CN/r0.7/index.html) &nbsp;&nbsp; [0.6.0-beta](https://www.mindspore.cn/tutorial/zh-CN/r0.6/index.html) &nbsp;&nbsp; [0.5.2-beta](https://www.mindspore.cn/tutorial/zh-CN/r0.5/index.html) &nbsp;&nbsp; [0.3.0-alpha](https://www.mindspore.cn/tutorial/zh-CN/0.3.0-alpha/index.html) &nbsp;&nbsp; <br> [0.2.0-alpha](https://www.mindspore.cn/tutorial/zh-CN/0.2.0-alpha/index.html) &nbsp;&nbsp; [0.1.0-alpha](https://www.mindspore.cn/tutorial/zh-CN/0.1.0-alpha/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/tutorials/zh-CN/master/index.html) |
-| 文档 |MindSpore  | [2.3.1](https://www.mindspore.cn/docs/zh-CN/r2.3.1/index.html) &nbsp;&nbsp; [2.3.0](https://www.mindspore.cn/docs/zh-CN/r2.3.0/index.html) &nbsp;&nbsp; [2.3.0-rc2](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/index.html) &nbsp;&nbsp; [2.3.0-rc1](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/index.html) &nbsp;&nbsp; [2.2.14](https://www.mindspore.cn/docs/zh-CN/r2.2/index.html) &nbsp;&nbsp; [2.1.1](https://www.mindspore.cn/docs/zh-CN/r2.1/index.html) &nbsp;&nbsp; [2.0.0](https://www.mindspore.cn/docs/zh-CN/r2.0/index.html) &nbsp;&nbsp; [2.0.0-alpha](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/index.html) &nbsp;&nbsp; [1.10.1](https://www.mindspore.cn/docs/zh-CN/r1.10/index.html) &nbsp;&nbsp; [1.9.0](https://www.mindspore.cn/docs/zh-CN/r1.9/index.html) &nbsp;&nbsp; [1.8.1](https://www.mindspore.cn/docs/zh-CN/r1.8/index.html) &nbsp;&nbsp; [1.7.1](https://www.mindspore.cn/docs/zh-CN/r1.7/index.html) &nbsp;&nbsp; <br> [1.6.2](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/index.html) &nbsp;&nbsp; [1.5.2](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/index.html) &nbsp;&nbsp; [1.2.1-编程指南](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/index.html) &nbsp;&nbsp; [1.2.1-设计和规格](https://www.mindspore.cn/doc/note/zh-CN/r1.2/index.html) &nbsp;&nbsp; [1.2.1-FAQ](https://www.mindspore.cn/doc/faq/zh-CN/r1.2/index.html) &nbsp;&nbsp; <br> [1.1.1-编程指南](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/index.html) &nbsp;&nbsp; [1.1.1-设计和规格](https://www.mindspore.cn/doc/note/zh-CN/r1.1/index.html) &nbsp;&nbsp; [1.1.1-FAQ](https://www.mindspore.cn/doc/faq/zh-CN/r1.1/index.html) &nbsp;&nbsp; [1.0.1-编程指南](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/index.html) &nbsp;&nbsp; <br> [1.0.1-设计和规格](https://www.mindspore.cn/doc/note/zh-CN/r1.0/index.html) &nbsp;&nbsp; [1.0.1-FAQ](https://www.mindspore.cn/doc/faq/zh-CN/r1.0/index.html) &nbsp;&nbsp; [0.7.0-beta](https://www.mindspore.cn/docs/zh-CN/r0.7/index.html) &nbsp;&nbsp; [0.6.0-beta](https://www.mindspore.cn/docs/zh-CN/r0.6/index.html) &nbsp;&nbsp; [0.5.2-beta](https://www.mindspore.cn/docs/zh-CN/r0.5/index.html) &nbsp;&nbsp; <br> [0.3.0-alpha](https://www.mindspore.cn/docs/zh-CN/0.3.0-alpha/index.html) &nbsp;&nbsp; [0.2.0-alpha](https://www.mindspore.cn/docs/zh-CN/0.2.0-alpha/index.html) &nbsp;&nbsp; [0.1.0-alpha](https://www.mindspore.cn/docs/zh-CN/0.1.0-alpha/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/docs/zh-CN/master/index.html) |
-| |MindSpore Lite  | [2.3.1](https://www.mindspore.cn/lite/docs/zh-CN/r2.3.1/index.html) &nbsp;&nbsp; [2.3.0](https://www.mindspore.cn/lite/docs/zh-CN/r2.3.0/index.html) &nbsp;&nbsp; [2.3.0-rc2](https://www.mindspore.cn/lite/docs/zh-CN/r2.3.0rc2/index.html) &nbsp;&nbsp; [2.3.0-rc1](https://www.mindspore.cn/lite/docs/zh-CN/r2.3.0rc1/index.html) &nbsp;&nbsp; [2.2.14](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/index.html) &nbsp;&nbsp; [2.1.1](https://www.mindspore.cn/lite/docs/zh-CN/r2.1/index.html) &nbsp;&nbsp; [2.0.0](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/index.html) &nbsp;&nbsp; [2.0.0-alpha](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/index.html) &nbsp;&nbsp; [1.10.1](https://www.mindspore.cn/lite/docs/zh-CN/r1.10/index.html) &nbsp;&nbsp; [1.9.0](https://www.mindspore.cn/lite/docs/zh-CN/r1.9/index.html) &nbsp;&nbsp; [1.8.1](https://www.mindspore.cn/lite/docs/zh-CN/r1.8/index.html) &nbsp;&nbsp; [1.7.0](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/index.html) &nbsp;&nbsp; <br> [1.6.1](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/index.html) &nbsp;&nbsp; [1.5.0](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/index.html) &nbsp;&nbsp; [0.7.0-beta](https://www.mindspore.cn/lite/docs/zh-CN/r0.7/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/lite/docs/zh-CN/master/index.html) |
-| |MindSpore Insight  | [2.3.0](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/index.html) &nbsp;&nbsp; [2.2.10](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/index.html) &nbsp;&nbsp; [2.1.0](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.1/index.html) &nbsp;&nbsp; [2.0.0](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/index.html) &nbsp;&nbsp; [2.0.0-alpha](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0.0-alpha/index.html) &nbsp;&nbsp; [1.10.1](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.10/index.html) &nbsp;&nbsp; [1.9.0](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/index.html) &nbsp;&nbsp; [1.8.0](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.8/index.html) &nbsp;&nbsp; [1.7.0](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/index.html) &nbsp;&nbsp; <br> [1.6.1](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/index.html) &nbsp;&nbsp; [1.5.0](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html) |
-| |MindSpore Hub  | [1.9.0](https://www.mindspore.cn/hub/docs/zh-CN/r1.9/index.html) &nbsp;&nbsp; [1.6.0](https://www.mindspore.cn/hub/docs/zh-CN/r1.6/index.html) &nbsp;&nbsp; [1.5.0](https://www.mindspore.cn/hub/docs/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/hub/docs/zh-CN/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/hub/docs/zh-CN/master/index.html) |
-| |MindSpore Armour  | [2.0.0](https://www.mindspore.cn/mindarmour/docs/zh-CN/r2.0/index.html) &nbsp;&nbsp; [1.9.0](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.9/index.html) &nbsp;&nbsp; [1.8.1](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.8/index.html) &nbsp;&nbsp; [1.7.0](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.7/index.html) &nbsp;&nbsp; [1.6.0](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.6/index.html) &nbsp;&nbsp; [1.5.0](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.3/index.html) &nbsp;&nbsp; <br> [master](https://www.mindspore.cn/mindarmour/docs/zh-CN/master/index.html) |
-| |MindSpore Federated  | [new-0.1.0](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/index.html) &nbsp;&nbsp; [1.7.0](https://www.mindspore.cn/federated/docs/zh-CN/r1.7/index.html) &nbsp;&nbsp; [1.6.0](https://www.mindspore.cn/federated/docs/zh-CN/r1.6/index.html) &nbsp;&nbsp; [1.5.0](https://www.mindspore.cn/federated/docs/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/federated/docs/zh-CN/master/index.html) |
-| |MindSpore Serving  | [2.0.2](https://www.mindspore.cn/serving/docs/zh-CN/r2.0/index.html) &nbsp;&nbsp; [1.9.0](https://www.mindspore.cn/serving/docs/zh-CN/r1.9/index.html) &nbsp;&nbsp; [1.8.0](https://www.mindspore.cn/serving/docs/zh-CN/r1.8/index.html) &nbsp;&nbsp; [1.7.0](https://www.mindspore.cn/serving/docs/zh-CN/r1.7/index.html) &nbsp;&nbsp; [1.6.0](https://www.mindspore.cn/serving/docs/zh-CN/r1.6/index.html) &nbsp;&nbsp; [1.5.0](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/serving/docs/zh-CN/r1.3/index.html) &nbsp;&nbsp; <br> [master](https://www.mindspore.cn/serving/docs/zh-CN/master/index.html) |
-| |MindSpore Probability  | [1.7.0](https://www.mindspore.cn/probability/docs/zh-CN/r1.7/index.html) &nbsp;&nbsp; [1.6.0](https://www.mindspore.cn/probability/docs/zh-CN/r1.6/index.html) &nbsp;&nbsp; [1.5.0](https://www.mindspore.cn/probability/docs/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/probability/docs/zh-CN/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/probability/docs/zh-CN/master/index.html) |
-| |MindSpore Quantum  | [0.9.11](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.9/index.html) &nbsp;&nbsp; [0.8.0](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.8/index.html) &nbsp;&nbsp; [0.7.0](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.7/index.html) &nbsp;&nbsp; [0.6.0](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.6/index.html) &nbsp;&nbsp; [0.5.0](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.5/index.html) &nbsp;&nbsp; [0.3.1](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.3/index.html) &nbsp;&nbsp; [0.2.0](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.2/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindquantum/docs/zh-CN/master/index.html) |
-| |MindScience  | [0.1.0](https://www.mindspore.cn/mindscience/docs/zh-CN/r0.1/index.html) |
-| |MindSpore SciAI  | [0.1.0](https://www.mindspore.cn/sciai/docs/zh-CN/r0.1/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/sciai/docs/zh-CN/master/index.html) |
-| |MindSpore Earth  | [0.2.0](https://www.mindspore.cn/mindearth/docs/zh-CN/r0.2/index.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/mindearth/docs/zh-CN/r0.1/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindearth/docs/zh-CN/master/index.html) |
-| |MindSpore Elec  | [0.2.0-rc1](https://mindspore.cn/mindelec/docs/zh-CN/r0.2/index.html) &nbsp;&nbsp; [0.2.0-alpha](https://mindspore.cn/mindelec/docs/zh-CN/r0.2.0-alpha/index.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/mindscience/docs/zh-CN/r0.1/mindelec/intro_and_install.html) &nbsp;&nbsp; [master](https://mindspore.cn/mindelec/docs/zh-CN/master/index.html) |
-| |MindSpore SPONGE  | [1.0.0-rc2](https://www.mindspore.cn/mindsponge/docs/zh-CN/r1.0.0-rc2/index.html) &nbsp;&nbsp; [1.0.0-rc1](https://mindspore.cn/mindsponge/docs/zh-CN/r1.0/index.html) &nbsp;&nbsp; [1.0.0-alpha](https://mindspore.cn/mindsponge/docs/zh-CN/r1.0.0-alpha/index.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/mindscience/docs/zh-CN/r0.1/mindsponge/intro_and_install.html) &nbsp;&nbsp; [master](https://mindspore.cn/mindsponge/docs/zh-CN/master/index.html) |
-| |MindSpore Flow  | [0.2.0](https://mindspore.cn/mindflow/docs/zh-CN/r0.2/index.html) &nbsp;&nbsp; [0.1.0](https://mindspore.cn/mindflow/docs/zh-CN/r0.1/index.html) &nbsp;&nbsp; [0.1.0-alpha](https://mindspore.cn/mindflow/docs/zh-CN/r0.1.0-alpha/index.html) &nbsp;&nbsp; [master](https://mindspore.cn/mindflow/docs/zh-CN/master/index.html) |
-| |MindSpore Reinforcement | [0.7.0](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.7/index.html) &nbsp;&nbsp; [0.6.0](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.6/index.html) &nbsp;&nbsp; [0.6.0-alpha](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.6.0-alpha/index.html) &nbsp;&nbsp; [0.5.0](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.5/index.html) &nbsp;&nbsp; [0.3.0](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.3/index.html) &nbsp;&nbsp; [0.2.1](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.2/index.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.1/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/reinforcement/docs/zh-CN/master/index.html) |
-| |MindSpore Graph Learning | [0.2.0](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/index.html) &nbsp;&nbsp; [0.2.0-alpha](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2.0-alpha/index.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.1/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/index.html) |
-| |MindSpore Golden Stick | [0.5.0](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.5.0/index.html) &nbsp;&nbsp; [0.4.0](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.4/index.html) &nbsp;&nbsp; [0.3.0](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.3/index.html) &nbsp;&nbsp; [0.3.0-alpha](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.3.0-alpha/index.html) &nbsp;&nbsp; [0.2.0](http://www.mindspore.cn/golden_stick/docs/zh-CN/r0.2/index.html) &nbsp;&nbsp; [0.1.0](http://www.mindspore.cn/golden_stick/docs/zh-CN/r0.1/index.html) &nbsp;&nbsp; [master](http://www.mindspore.cn/golden_stick/docs/zh-CN/master/index.html)|
-| |MindSpore XAI  | [1.8.1](https://www.mindspore.cn/xai/docs/zh-CN/r1.8/index.html) &nbsp;&nbsp; [1.5.0](https://www.mindspore.cn/xai/docs/zh-CN/r1.5/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/xai/docs/zh-CN/master/index.html) |
-| |MindSpore Recommender | [0.3.0](https://www.mindspore.cn/recommender/docs/zh-CN/r0.3/index.html) &nbsp;&nbsp; [0.2.0](https://www.mindspore.cn/recommender/docs/zh-CN/r0.2/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/recommender/docs/zh-CN/master/index.html) |
-| |MindSpore Dev Toolkit(IDE_PLUGING_VERSION_URL) | [2.2.0](https://www.mindspore.cn/devtoolkit/docs/zh-CN/r2.2/index.html) &nbsp;&nbsp; [2.1.0](https://www.mindspore.cn/devtoolkit/docs/zh-CN/r2.1/index.html) &nbsp;&nbsp; [2.0.0](https://www.mindspore.cn/devtoolkit/docs/zh-CN/r2.0/index.html) &nbsp;&nbsp; [1.8.0](http://www.mindspore.cn/devtoolkit/docs/zh-CN/r1.8/index.html) &nbsp;&nbsp; [master](http://www.mindspore.cn/devtoolkit/docs/zh-CN/master/index.html)|
-| |MindSpore Pandas | [0.2.0](https://www.mindspore.cn/mindpandas/docs/zh-CN/r0.2/index.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/mindpandas/docs/zh-CN/r0.1/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn//mindpandas/docs/zh-CN/master/index.html) |
-| |MindSpore Vision | [0.1.0](http://www.mindspore.cn/vision/docs/zh-CN/r0.1/index.html) |
-| API |MindSpore  | [2.3.1](https://www.mindspore.cn/docs/zh-CN/r2.3.1/api_python/mindspore.html) &nbsp;&nbsp; [2.3.0](https://www.mindspore.cn/docs/zh-CN/r2.3.0/api_python/mindspore.html) &nbsp;&nbsp; [2.3.0rc2](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/api_python/mindspore.html) &nbsp;&nbsp; [2.3.0rc1](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/mindspore.html) &nbsp;&nbsp; [2.2.14](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore.html) &nbsp;&nbsp; [2.1.1](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore.html) &nbsp;&nbsp; [2.0.0](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/mindspore.html) &nbsp;&nbsp; [2.0.0-alpha](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore.html) &nbsp;&nbsp; [1.10.1](https://www.mindspore.cn/docs/zh-CN/r1.10/api_python/mindspore.html) &nbsp;&nbsp; [1.9.0](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore.html) &nbsp;&nbsp; [1.8.1](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/mindspore.html) &nbsp;&nbsp; [1.7.1](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.html) &nbsp;&nbsp; <br> [1.6.2](https://www.mindspore.cn/docs/api/zh-CN/r1.6/index.html) &nbsp;&nbsp; [1.5.2](https://www.mindspore.cn/docs/api/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/docs/api/zh-CN/r1.3/index.html) &nbsp;&nbsp; [1.2.1](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/index.html) &nbsp;&nbsp; [1.1.1](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/index.html) &nbsp;&nbsp; [1.0.1](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/index.html) &nbsp;&nbsp; [0.7.0-beta](https://www.mindspore.cn/api/zh-CN/r0.7/index.html) &nbsp;&nbsp; <br> [0.6.0-beta](https://www.mindspore.cn/api/zh-CN/r0.6/index.html) &nbsp;&nbsp; [0.5.2-beta](https://www.mindspore.cn/api/zh-CN/r0.5/index.html) &nbsp;&nbsp; [0.3.0-alpha](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/index.html) &nbsp;&nbsp; [0.2.0-alpha](https://www.mindspore.cn/api/zh-CN/0.2.0-alpha/index.html) &nbsp;&nbsp; <br> [0.1.0-alpha](https://www.mindspore.cn/api/zh-CN/0.1.0-alpha/index.html)&nbsp;&nbsp; [master](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.html) |
-| |MindSpore Lite  |[2.3.1](https://www.mindspore.cn/lite/api/zh-CN/r2.3.1/index.html) &nbsp;&nbsp; [2.3.0](https://www.mindspore.cn/lite/api/zh-CN/r2.3.0/index.html) &nbsp;&nbsp; [2.3.0-rc2](https://www.mindspore.cn/lite/api/zh-CN/r2.3.0rc2/index.html) &nbsp;&nbsp; [2.3.0-rc1](https://www.mindspore.cn/lite/api/zh-CN/r2.3.0rc1/index.html) &nbsp;&nbsp; [2.2.14](https://www.mindspore.cn/lite/api/zh-CN/r2.2/index.html) &nbsp;&nbsp; [2.1.1](https://www.mindspore.cn/lite/api/zh-CN/r2.1/index.html) &nbsp;&nbsp; [2.0.0](https://www.mindspore.cn/lite/api/zh-CN/r2.0/index.html) &nbsp;&nbsp; [2.0.0-alpha](https://www.mindspore.cn/lite/api/zh-CN/r2.0.0-alpha/index.html) &nbsp;&nbsp; [1.10.1](https://www.mindspore.cn/lite/api/zh-CN/r1.10/index.html) &nbsp;&nbsp; [1.9.0](https://www.mindspore.cn/lite/api/zh-CN/r1.9/index.html) &nbsp;&nbsp; [1.8.1](https://www.mindspore.cn/lite/api/zh-CN/r1.8/index.html) &nbsp;&nbsp; [1.7.0](https://www.mindspore.cn/lite/api/zh-CN/r1.7/index.html) &nbsp;&nbsp; <br> [1.6.1](https://www.mindspore.cn/lite/api/zh-CN/r1.6/index.html) &nbsp;&nbsp; [1.5.0](https://www.mindspore.cn/lite/api/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/lite/api/zh-CN/r1.3/index.html) &nbsp;&nbsp; [1.2.1-C++](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.2/index.html) &nbsp;&nbsp; [1.2.1-Java](https://www.mindspore.cn/doc/api_java/zh-CN/r1.2/index.html) &nbsp;&nbsp; [1.1.1-C++](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/index.html) &nbsp;&nbsp; <br> [1.1.1-Java](https://www.mindspore.cn/doc/api_java/zh-CN/r1.1/index.html) &nbsp;&nbsp; [1.0.0](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/lite/api/zh-CN/master/index.html) |
-| |MindSpore Insight  | [2.3.0](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/mindinsight.debugger.html) &nbsp;&nbsp; [2.2.10](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/mindinsight.debugger.html) &nbsp;&nbsp; [2.1.0](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.1/mindinsight.debugger.html) &nbsp;&nbsp; [2.0.0](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/mindinsight.debugger.html) &nbsp;&nbsp; [2.0.0-alpha](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0.0-alpha/mindinsight.debugger.html) &nbsp;&nbsp; [1.10.1](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.10/mindinsight.debugger.html) &nbsp;&nbsp; [1.9.0](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/mindinsight.debugger.html) &nbsp;&nbsp; [1.8.0](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.8/mindinsight.debugger.html) &nbsp;&nbsp; [1.7.0](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/mindinsight.debugger.html) &nbsp;&nbsp; <br> [1.6.1](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/mindinsight.debugger.html)  |
-| |MindSpore Hub  | [1.9.0](https://www.mindspore.cn/hub/docs/zh-CN/r1.9/hub.html) &nbsp;&nbsp; [1.6.0](https://www.mindspore.cn/hub/docs/zh-CN/r1.6/hub.html) &nbsp;&nbsp; [1.5.0](https://www.mindspore.cn/hub/api/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/hub/api/zh-CN/r1.3/index.html) &nbsp;&nbsp; [1.2.0](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore_hub/mindspore_hub.html) &nbsp;&nbsp; [1.1.1](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore_hub/mindspore_hub.html) &nbsp;&nbsp; <br> [1.0.1](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore_hub/mindspore_hub.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/hub/docs/zh-CN/master/hub.html) |
-| |MindSpore Armour  | [2.0.0](https://www.mindspore.cn/mindarmour/docs/zh-CN/r2.0/mindarmour.html) &nbsp;&nbsp; [1.9.0](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.9/mindarmour.html) &nbsp;&nbsp; [1.8.1](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.8/mindarmour.html) &nbsp;&nbsp; [1.7.0](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.7/mindarmour.html) &nbsp;&nbsp; [1.6.0](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.6/mindarmour.html) &nbsp;&nbsp; [1.5.0](https://www.mindspore.cn/mindarmour/api/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/mindarmour/api/zh-CN/r1.3/index.html) &nbsp;&nbsp; <br> [1.2.1](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindarmour/mindarmour.html) &nbsp;&nbsp; [1.1.1](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindarmour/mindarmour.html) &nbsp;&nbsp; [1.0.1](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindarmour/mindarmour.html) &nbsp;&nbsp; [0.7.0-beta](https://www.mindspore.cn/api/zh-CN/r0.7/api/python/mindarmour/mindarmour.html) &nbsp;&nbsp; [0.6.0-beta](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindarmour/mindarmour.html) &nbsp;&nbsp; [0.5.0-beta](https://www.mindspore.cn/api/zh-CN/r0.5/api/python/mindarmour/mindarmour.html) &nbsp;&nbsp; <br> [0.3.0-alpha](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindarmour/mindarmour.html) &nbsp;&nbsp; [0.2.0-alpha](https://www.mindspore.cn/api/zh-CN/0.2.0-alpha/api/python/mindarmour/mindarmour.html) &nbsp;&nbsp; [0.1.0-alpha](https://www.mindspore.cn/api/zh-CN/0.1.0-alpha/api/python/mindarmour/mindarmour.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindarmour/docs/zh-CN/master/mindarmour.html) |
-| |MindSpore Federated  | [new-0.1.0](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/horizontal/federated_server.html) &nbsp;&nbsp; [1.7.0](https://www.mindspore.cn/federated/docs/zh-CN/r1.7/federated_server.html) &nbsp;&nbsp; [1.6.0](https://www.mindspore.cn/federated/docs/zh-CN/r1.6/federated_server.html) &nbsp;&nbsp; [1.5.0](https://www.mindspore.cn/federated/api/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/federated/api/zh-CN/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/federated/docs/zh-CN/master/horizontal/federated_server.html) |
-| |MindSpore Serving | [2.0.2](https://www.mindspore.cn/serving/docs/zh-CN/r2.0/server.html) &nbsp;&nbsp; [1.9.0](https://www.mindspore.cn/serving/docs/zh-CN/r1.9/server.html) &nbsp;&nbsp; [1.8.0](https://www.mindspore.cn/serving/docs/zh-CN/r1.8/server.html) &nbsp;&nbsp; [1.7.0](https://www.mindspore.cn/serving/docs/zh-CN/r1.7/server.html) &nbsp;&nbsp; [1.6.0](https://www.mindspore.cn/serving/docs/zh-CN/r1.6/server.html) &nbsp;&nbsp; [1.5.0](https://www.mindspore.cn/serving/api/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/serving/api/zh-CN/r1.3/index.html) &nbsp;&nbsp; <br> [1.2.1](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore_serving/mindspore_serving.html) &nbsp;&nbsp; [1.1.1](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore_serving/mindspore_serving.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/serving/docs/zh-CN/master/server.html) |
-| |MindSpore Probability  | [1.7.0](https://www.mindspore.cn/probability/docs/zh-CN/r1.7/mindspore.nn.probability.html) &nbsp;&nbsp; [1.6.0](https://www.mindspore.cn/probability/docs/zh-CN/r1.6/mindspore.nn.probability.html) &nbsp;&nbsp; [1.5.0](https://www.mindspore.cn/probability/api/zh-CN/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/probability/api/zh-CN/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/probability/docs/zh-CN/master/mindspore.nn.probability.html) |
-| |MindSpore Quantum | [0.9.11](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.9/overview.html) &nbsp;&nbsp; [0.8.0](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.8/mindquantum.core.html) &nbsp;&nbsp; [0.7.0](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.7/mindquantum.core.html) &nbsp;&nbsp; [0.6.0](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.6/mindquantum.core.html) &nbsp;&nbsp; [0.5.0](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.5/mindquantum.core.html) &nbsp;&nbsp; [0.3.1](https://www.mindspore.cn/mindquantum/api/zh-CN/r0.3/index.html) &nbsp;&nbsp; [0.2.0](https://www.mindspore.cn/mindquantum/api/zh-CN/r0.2/index.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindquantum/mindquantum.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindquantum/docs/zh-CN/master/mindquantum.core.html) |
-| |MindScience  | [0.1.0](https://www.mindspore.cn/mindscience/api/zh-CN/r0.1/index.html) |
-| |MindSpore SciAI  | [0.1.0](https://www.mindspore.cn/sciai/docs/zh-CN/r0.1/sciai.architecture.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/sciai/docs/zh-CN/master/sciai.architecture.html) |
-| |MindSpore Earth  | [0.2.0](https://www.mindspore.cn/mindearth/docs/zh-CN/r0.2/mindearth.cell.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/mindearth/docs/zh-CN/r0.1/mindearth.cell.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindearth/docs/zh-CN/master/mindearth.cell.html) |
-| |MindSpore Elec  | [0.2.0-rc1](https://mindspore.cn/mindelec/docs/zh-CN/r0.2/mindelec.architecture.html) &nbsp;&nbsp; [0.2.0-alpha](https://mindspore.cn/mindelec/docs/zh-CN/r0.2.0-alpha/mindelec.architecture.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/mindscience/api/zh-CN/r0.1/mindelec.html) &nbsp;&nbsp; [master](https://mindspore.cn/mindelec/docs/zh-CN/master/mindelec.architecture.html) |
-| |MindSpore SPONGE  | [1.0.0-rc2](https://www.mindspore.cn/mindsponge/docs/zh-CN/r1.0.0-rc2/index.html) &nbsp;&nbsp; [1.0.0-rc1](https://mindspore.cn/mindsponge/docs/zh-CN/r1.0/mindsponge.cell.html) &nbsp;&nbsp; [1.0.0-alpha](https://mindspore.cn/mindsponge/docs/zh-CN/r1.0.0-alpha/mindsponge.cell.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/mindscience/api/zh-CN/r0.1/mindsponge.html) &nbsp;&nbsp; [master](https://mindspore.cn/mindsponge/docs/zh-CN/master/mindsponge.cell.html) |
-| |MindSpore Flow  | [0.2.0](https://mindspore.cn/mindflow/docs/zh-CN/r0.2/mindflow.cell.html) &nbsp;&nbsp; [0.1.0](https://mindspore.cn/mindflow/docs/zh-CN/r0.1/mindflow.cell.html) &nbsp;&nbsp; [0.1.0-alpha](https://mindspore.cn/mindflow/docs/zh-CN/r0.1.0-alpha/mindflow.cell.html) &nbsp;&nbsp; [master](https://mindspore.cn/mindflow/docs/zh-CN/master/mindflow.cell.html) |
-| |MindSpore Reinforcement | [0.7.0](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.7/reinforcement.html) &nbsp;&nbsp; [0.6.0](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.6/reinforcement.html) &nbsp;&nbsp; [0.6.0-alpha](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.6.0-alpha/reinforcement.html) &nbsp;&nbsp; [0.5.0](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.5/reinforcement.html) &nbsp;&nbsp; [0.3.0](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.3/reinforcement.html) &nbsp;&nbsp; [0.2.1](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.2/reinforcement.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/reinforcement/api/zh-CN/r0.1/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/reinforcement/docs/zh-CN/master/reinforcement.html) |
-| |MindSpore Graph Learning | [0.2.0](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/mindspore_gl.dataset.html) &nbsp;&nbsp; [0.2.0-alpha](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2.0-alpha/mindspore_gl.dataset.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.1/mindspore_gl.dataset.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/graphlearning/docs/zh-CN/master/mindspore_gl.dataset.html) |
-| |MindSpore Golden Stick | [0.5.0](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.5.0/mindspore_gs.quantization.html) &nbsp;&nbsp; [0.4.0](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.4/mindspore_gs.quantization.html) &nbsp;&nbsp; [0.3.0](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.3/mindspore_gs.quantization.html) &nbsp;&nbsp; [0.3.0-alpha](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.3.0-alpha/mindspore_gs.quantization.html) &nbsp;&nbsp; [0.2.0](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.2/mindspore_gs.quantization.html) &nbsp;&nbsp; [0.1.0](http://www.mindspore.cn/golden_stick/docs/zh-CN/r0.1/mindspore_gs.html) &nbsp;&nbsp; [master](http://www.mindspore.cn/golden_stick/docs/zh-CN/master/mindspore_gs.html)|
-| |MindSpore XAI  | [1.8.1](https://www.mindspore.cn/xai/docs/zh-CN/r1.8/mindspore_xai.explainer.html) &nbsp;&nbsp; [1.5.0](https://www.mindspore.cn/xai/api/zh-CN/r1.5/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/xai/docs/zh-CN/master/mindspore_xai.explainer.html) |
-| |MindSpore Recommender | [0.3.0](https://mindspore.cn/recommender/docs/zh-CN/r0.3/recommender.html) &nbsp;&nbsp; [0.2.0](https://mindspore.cn/recommender/docs/zh-CN/r0.2/recommender.html) &nbsp;&nbsp; [master](https://mindspore.cn/recommender/docs/zh-CN/master/recommender.html) |
-| |MindSpore Pandas | [0.2.0](https://www.mindspore.cn/mindpandas/docs/zh-CN/r0.2/mindpandas.config.html) &nbsp;&nbsp; [0.1.0](https://www.mindspore.cn/mindpandas/docs/zh-CN/r0.1/mindpandas.config.html) &nbsp;&nbsp; [master](https://www.mindspore.cn//mindpandas/docs/zh-CN/master/mindpandas.config.html) |
-| |MindSpore Vision | [0.1.0](https://www.mindspore.cn/vision/docs/zh-CN/r0.1/classification.html) |
-
-## Ascend配套软件包
-
-| MindSpore版本 | 硬件平台   | 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
-|-------------|--------|-----------|------------------|
-| 2.3.1   | Ascend | TBD      | [CANN 8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.3.0   | Ascend | TBD      | [CANN 8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.3.0-rc2   | Ascend | [Ascend Training Solution 24.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100373131)      | [CANN 8.0.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.3.0-rc1   | Ascend | [Ascend Training Solution 24.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100373131)       | [CANN 8.0.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.2.14      | Ascend 910 | [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.2.13      | Ascend 910 | [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.2.12      | Ascend 910 | [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.2.11      | Ascend 910 | [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.2.10      | Ascend 910 | [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.2.1       | Ascend 910 | [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.RC1.3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.2.0       | Ascend 910 | [Ascend Training Solution 23.0.RC3](https://support.huawei.com/enterprise/zh/doc/EDOC1100336282) | [CANN 7.0.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.1.1       | Ascend 910 | [Ascend Training Solution 23.0.RC2](https://support.huawei.com/enterprise/zh/doc/EDOC1100348301) | [CANN 6.3.RC2.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-|             | Ascend 310 | [Ascend Training Solution 23.0.RC2](https://support.huawei.com/enterprise/zh/doc/EDOC1100348301) | [CANN 6.3.RC2.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.1.0       | Ascend 910 | [Ascend Training Solution 23.0.RC2](https://support.huawei.com/enterprise/zh/doc/EDOC1100348301) | [CANN 6.3.RC2.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-|             | Ascend 310 | [Ascend Training Solution 23.0.RC2](https://support.huawei.com/enterprise/zh/doc/EDOC1100348301) | [CANN 6.3.RC2.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.0.0       | Ascend 910 | [Ascend Training Solution 23.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100321901) | [CANN 6.3.RC1.alpha003](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-|             | Ascend 310 | [Ascend Training Solution 23.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100321901) | [CANN 6.3.RC1.alpha003](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.0.0-rc1   | Ascend 910 | [Ascend Training Solution 23.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100321901) | [CANN 6.3.RC1.alpha003](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-|             | Ascend 310 | [Ascend Training Solution 23.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100321901) | [CANN 6.3.RC1.alpha003](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 2.0.0-alpha       | Ascend 910 | [Ascend Data Center Solution 22.0.RC3] | [CANN 6.0.RC1.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-|             | Ascend 310 | [Ascend Data Center Solution 22.0.RC3] | [CANN 6.0.RC1.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 1.10.1 | Ascend 910 | [Ascend Data Center Solution 22.0.0] | [CANN 6.0.1.alpha001](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-|        | Ascend 310 | [Ascend Data Center Solution 22.0.0] | [CANN 6.0.1.alpha001](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 1.10.0 | Ascend 910 | [Ascend Data Center Solution 22.0.0] | [CANN 6.0.1.alpha001](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-|        | Ascend 310 | [Ascend Data Center Solution 22.0.0] | [CANN 6.0.1.alpha001](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 1.9.0       | Ascend 910 | [Ascend Data Center Solution 22.0.RC3] | [CANN 6.0.RC1.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-|             | Ascend 310 | [Ascend Data Center Solution 22.0.RC3] | [CANN 6.0.RC1.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 1.8.1       | Ascend 910 | [Ascend Data Center Solution 22.0.RC2] | [CANN 5.1.RC2.alpha008](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-|             | Ascend 310 | [Ascend Data Center Solution 22.0.RC2] | [CANN 5.1.RC2.alpha008](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 1.8.0       | Ascend 910 | [Ascend Data Center Solution 22.0.RC2] | [CANN 5.1.RC2.alpha008](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-|             | Ascend 310 | [Ascend Data Center Solution 22.0.RC2] | [CANN 5.1.RC2.alpha008](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
-| 1.7.1       | Ascend 910 | [Ascend Data Center Solution 22.0.RC1] |   |
-|             | Ascend 310 | [Ascend Data Center Solution 22.0.RC1] |   |
-| 1.7.0       | Ascend 910 | [Ascend Data Center Solution 22.0.RC1]                                              |  |
-|             | Ascend 310 | [Ascend Data Center Solution 22.0.RC1]                                              |  |
-| 1.6.2       | Ascend 910 | [Ascend Data Center Solution 21.0.4]                                                |                                                                                   |
-|             | Ascend 310 | [Ascend Data Center Solution 21.0.4]                                                |                                                                                   |
-| 1.6.1       | Ascend 910 | [Ascend Data Center Solution 21.0.4]                                                |                                                                                   |
-|             | Ascend 310 | [Ascend Data Center Solution 21.0.4]                                                |                                                                                   |
-| 1.6.0       | Ascend 910 | [Ascend Data Center Solution 21.0.4]                                                |                                                                                   |
-|             | Ascend 310 | [Ascend Data Center Solution 21.0.4]                                                |                                                                                   |
-| 1.5.2       | Ascend 910 | [Ascend Data Center Solution 21.0.3]                                   |                                                                                   |
-|             | Ascend 310 | [Ascend Data Center Solution 21.0.3]                                   |                                                                                   |
-| 1.5.0       | Ascend 910 | [Ascend Data Center Solution 21.0.3]                                   |                                                                                   |
-|             | Ascend 310 | [Ascend Data Center Solution 21.0.3]                                   |                                                                                   |
-| 1.3.0       | Ascend 910 | [Ascend Data Center Solution 21.0.2]        |                                                                                   |
-|             | Ascend 310 | [Ascend Data Center Solution 21.0.2]        |                                                                                   |
-| 1.2.1       | Ascend 910 | [Ascend Data Center Solution 21.0.1.SPC001] |                                                                                   |
-|             | Ascend 310 | [Ascend Data Center Solution 21.0.1.SPC001] |                                                                                   |
-| 1.2.0       | Ascend 910 | [Ascend Data Center Solution 21.0.1]        |                                                                                   |
-|             | Ascend 310 | [Ascend Data Center Solution 21.0.1]        |
-
-## 下载地址
-
-### 2.3.1
+**下载地址**
 
 | 组件                           | 硬件平台   | 操作系统          | Python版本   | 链接                                                                                                                                                                                 | SHA-256                                                          |
 |------------------------------|--------|---------------|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -182,7 +68,21 @@
 |MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.3.1/use/downloads.html#2-3-1)   |      |
 | MindSpore<br>Golden<br>Stick |        | any           | Python3    | [mindspore_gs-0.5.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.1/GoldenStick/any/mindspore_gs-0.5.0-py3-none-any.whl)                               | eb1c37e35468fef1e4ff1237ab88b1d718acd47f65117ec532bdb04da9d5372b |
 
-### 2.3.0
+**Ascend配套软件包**
+
+|  商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|--------|------------------|
+|TBD      | [CANN 8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---      |    ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.3.1/RELEASE.html)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.3.1/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.3.1/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.3.1/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.1/index.html)    | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.3.1/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.3.1/index.html) <br>  [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.5.0/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.3.1/api_python/mindspore.html) <br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.3.1/index.html) <br>  [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.5.0/mindspore_gs.quantization.html)      |
+
+## 2.3.0
+
+**下载地址**
 
 | 组件                        | 硬件平台   | 操作系统          | Python版本   | 链接                                                                                                                                                                                 | SHA-256                                                          |
 |---------------------------|--------|---------------|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -196,7 +96,21 @@
 | MindSpore<br>Insight      |        | any           | Python3    | [mindinsight-2.3.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.0/MindInsight/any/mindinsight-2.3.0-py3-none-any.whl)                                 | 1f1ae7290a0f861e72875ec5080333d3b70ba7864fc51dbeffa62a6a3cf27538 |
 | MindSpore<br>Transformers |        | any           | Python3    | [mindformers-1.2.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.0/MindFormers/any/mindformers-1.2.0-py3-none-any.whl)                                 | 03e6094248324c1e5d9616783f8a6fa6e7e319c83f246dcdd402889663860e02                                                              |
 
-### 2.3.0-rc2
+**Ascend配套软件包**
+
+| 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|--------------|------------------|
+| TBD      | [CANN 8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    | API|
+|    ---  |    ---   |       ---      |     ---      |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.3.0/RELEASE.html)   |[安装指南](https://gitee.com/mindspore/docs/tree/r2.3.0/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0/index.html)           <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.3.0/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0/index.html)    | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.3.0/index.html)  <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.3.0/index.html) <br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/index.html) |   [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.3.0/api_python/mindspore.html)  <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.3.0/index.html) <br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/mindinsight.debugger.html)      |
+
+## 2.3.0-rc2
+
+**下载地址**
 
 | 组件                        | 硬件平台   | 操作系统          | Python版本  | 链接                                                                                                                                                                                        | SHA-256                                                          |
 |---------------------------|--------|---------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -210,7 +124,21 @@
 | MindSpore<br>Insight      |        | any           | Python3   | [mindinsight-2.3.0rc2-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.0rc2/MindInsight/any/mindinsight-2.3.0rc2-py3-none-any.whl)                               | f927eece46f7f6e9dc7be78759cdbf25a98c8cd0aa01ef42a2e28445959ab96d |
 | MindSpore<br>Transformers |        | any           | Python3   | [mindformers-1.1.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.0rc2/MindFormers/any/mindformers-1.1.0-py3-none-any.whl)                                     | b2dedb2bf4c15a91f89b92c4c60eba9cf7f162a56781e31783d66832cf00e801 |
 
-### 2.3.0-rc1
+**Ascend配套软件包**
+
+| 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|
+| [Ascend Training Solution 24.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100373131)      | [CANN 8.0.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/RELEASE.html)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.3.0rc2/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc2/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.3.0rc2/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0rc2/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.3.0rc2/index.html)<br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc2/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.3.0rc2/index.html)<br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/mindinsight.debugger.html)      |
+
+## 2.3.0-rc1
+
+**下载地址**
 
 | 组件                           | 硬件平台   | 操作系统          | Python版本  | 链接                                                                                                                                                                                        | SHA-256                                                          |
 |------------------------------|--------|---------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -225,7 +153,21 @@
 | MindSpore<br>Golden<br>Stick |        | any           | Python3   | [mindspore_gs-0.4.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.0rc1/GoldenStick/any/mindspore_gs-0.4.0-py3-none-any.whl)                                   | 184e03720e20fc1209377941da6d098c87fc251a02bf63b5bc986cf89add21df |
 | MindSpore<br>Transformers    |        | any           | Python3   | [mindformers-1.1.0rc1-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.0rc1/MindFormers/any/mindformers-1.1.0rc1-py3-none-any.whl)                               | c6398ee766d305694ec63e7fe3ed5dda774d40ad786e9799951797665697a03d |
 
-### 2.2.14
+**Ascend配套软件包**
+
+| 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|
+|  [Ascend Training Solution 24.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100373131)       | [CANN 8.0.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/RELEASE.html)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.3.0rc1/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.3.0rc1/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.3.0rc1/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.3.0rc1/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.3.0rc1/index.html) <br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/index.html) <br>[MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.4/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.3.0rc1/index.html) <br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.3/mindinsight.debugger.html) <br>[MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.4/mindspore_gs.html)      |
+
+## 2.2.14
+
+**下载地址**
 
 | 组件                        | 硬件平台                                                                | 操作系统          | Python版本  | 链接                                                                                                                                                                                         | SHA-256                                                          |
 |---------------------------|---------------------------------------------------------------------|---------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -246,7 +188,21 @@
 |MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/use/downloads.html#2-2-14)   |      |
 | MindSpore<br>Transformers |                                                                     | any           | Python3   | [mindformers-1.0.2-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.14/MindFormers/any/mindformers-1.0.2-py3-none-any.whl)                                        | 064bfbe1184fe8000fcd8ce01f3a1a3e47537fe79578bb21f4a1b4acf8f65fd8 |
 
-### 2.2.13
+**Ascend配套软件包**
+
+| 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|
+| [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.2/RELEASE.html#mindspore-2-2-14-release-notes)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.2/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.2/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.2/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.2/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.2/index.html)       |
+
+## 2.2.13
+
+**下载地址**
 
 | 组件        | 硬件平台                                                                | 操作系统          | Python版本  | 链接                                                                                                                                                                                         | SHA-256                                                          |
 |-----------|---------------------------------------------------------------------|---------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -266,7 +222,21 @@
 |           |                                                                     |               | Python3.9 | [mindspore-2.2.13-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.13/MindSpore/cpu/x86_64/mindspore-2.2.13-cp39-cp39-macosx_10_15_x86_64.whl)   | 696af147e974d74da63f8a61273df6c7ae7a3f887cfc8eb827e88fa24a0afb35 |
 |MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/use/downloads.html#2-2-13)   |      |
 
-### 2.2.12
+**Ascend配套软件包**
+
+| 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|
+| [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.2/RELEASE.html#mindspore-2-2-13-release-notes)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.2/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.2/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.2/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.2/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.2/index.html)       |
+
+## 2.2.12
+
+**下载地址**
 
 | 组件        | 硬件平台                                                                | 操作系统          | Python版本  | 链接                                                                                                                                                                                         | SHA-256                                                          |
 |-----------|---------------------------------------------------------------------|---------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -291,7 +261,21 @@
 | MindScience<br>(MindSpore<br>Earth) | Ascend910                                                           | Linux-aarch64 | Python3   | [mindearth_ascend-0.2.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.12/MindScience/mindearth/ascend/aarch64/mindearth_ascend-0.2.0-py3-none-any.whl)         | 64efd2ee34b3c78f27d2b7a01de8ab226e8a4d6d1cb8356345bafad7d5bc90c9 |
 |                                     | GPU CUDA 11.1<br>CPU                                                | Linux-x86_64  | Python3.7 | [mindearth_gpu-0.2.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.12/MindScience/mindearth/gpu/x86_64/cuda-11.1/mindearth_gpu-0.2.0-py3-none-any.whl)         | aa94dd1dbb57857bdf06e9b604bcb25721f0f81124ffd6b17c9a6fa4d73fc260 |
 
-### 2.2.11
+**Ascend配套软件包**
+
+| 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|
+|[Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.2/RELEASE.html#mindspore-2-2-12-release-notes)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.2/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.2/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.2/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.2/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/index.html) <br> [MindSpore Flow](https://mindspore.cn/mindflow/docs/zh-CN/r0.2/index.html) <br>[MindSpore Earth](https://www.mindspore.cn/mindearth/docs/zh-CN/r0.2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.3.0rc1/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.3.0rc1/index.html) <br> [MindSpore Flow](https://www.mindspore.cn/mindflow/docs/zh-CN/r0.2/mindflow.cell.html) <br>[MindSpore Earth](https://www.mindspore.cn/mindearth/docs/zh-CN/r0.2/mindearth.cell.html)      |
+
+## 2.2.11
+
+**下载地址**
 
 | 组件                        | 硬件平台                                                                | 操作系统          | Python版本  | 链接                                                                                                                                                                                           | SHA-256                                                          |
 |---------------------------|---------------------------------------------------------------------|---------------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -327,7 +311,21 @@
 | MindSpore<br>OCR          |                                                                     | any           | Python3   | [mindocr-0.3.1-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.11/MindOCR/any/mindocr-0.3.1-py3-none-any.whl)                                                      | 50d37f0970300fc9fbbd4009250cf44362fecd8c8c548a55b6e0976222c0a577 |
 | MindSpore<br>Yolo         |                                                                     | any           | Python3   | [mindyolo-0.3.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.11/MindYolo/any/mindyolo-0.3.0-py3-none-any.whl)                                                   | aca8bef2eed37039679ecea61c04379b68749c73bb35093cbe691c59db48b310 |
 
-### 2.2.10
+**Ascend配套软件包**
+
+| 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|
+| [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.2/RELEASE.html#mindspore-2-2-11-release-notes)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.2/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.2/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.2/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.2/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/index.html)<br> [MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.9/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.2/index.html)<br> [MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.9/overview.html)   |
+
+## 2.2.10
+
+**下载地址**
 
 | 组件                   | 硬件平台                                               | 操作系统          | Python版本  | 链接                                                                                                                                                                                         | SHA-256                                                          |
 |----------------------|----------------------------------------------------|---------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -347,7 +345,21 @@
 |                      |                                                    |               | Python3.9 | [mindspore-2.2.10-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.10/MindSpore/cpu/x86_64/mindspore-2.2.10-cp39-cp39-macosx_10_15_x86_64.whl)   | 729c80d36ef37098284d0cc0c56cfac157aa5da5b9db6fd5b3d6496112f6b657 |
 | MindSpore<br>Insight |                                                    | any           | Python3   | [mindinsight-2.2.10-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.10/MindInsight/any/mindinsight-2.2.10-py3-none-any.whl)                                      | a744038c32601663c2c79335852f794d2d14e4deb2f3c1f87cd2fa6dc4ce3df8 |
 
-### 2.2.1
+**Ascend配套软件包**
+
+| 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|
+| [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.0.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.2/RELEASE.html#mindspore-2-2-10-release-notes)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.2/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.2/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.2/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.2/index.html)  <br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/index.html)  |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore.html)  <br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/mindinsight.debugger.html)    |
+
+## 2.2.1
+
+**下载地址**
 
 | 组件                                   | 硬件平台                                               | 操作系统          | Python版本  | 链接                                                                                                                                                                                      | SHA-256                                                          |
 |--------------------------------------|----------------------------------------------------|---------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -372,7 +384,21 @@
 |                                      | GPU CUDA 10.1 | Linux-x86_64 | Python3 | [mindsponge_gpu-1.0.0rc2-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.1/MindScience/mindsponge/gpu/x86_64/cuda-10.1/mindsponge_gpu-1.0.0rc2-py3-none-any.whl) | 5f880cbcd44572a24b51957882aee770be118442958e108461df4b30c5b82e15 |
 |                                      | GPU CUDA 11.1 | Linux-x86_64 | Python3 | [mindsponge_gpu-1.0.0rc2-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.1/MindScience/mindsponge/gpu/x86_64/cuda-11.1/mindsponge_gpu-1.0.0rc2-py3-none-any.whl) | d8ec1d9b391c98bfb1189f0c36765966aacc9476b276c1af31d54e17ac6b4871 |
 
-### 2.2.0
+**Ascend配套软件包**
+
+| 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|
+| [Ascend Training Solution 23.0.0](https://support.huawei.com/enterprise/zh/doc/EDOC1100351217)      | [CANN 7.0.RC1.3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.2/RELEASE.html#mindspore-2-2-1-release-notes)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.2/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.2/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.2/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.2/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/index.html) <br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/index.html) <br>[MindSpore SPONGE](https://www.mindspore.cn/mindsponge/docs/zh-CN/r1.0.0-rc2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.2/index.html) <br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/mindinsight.debugger.html) <br>[MindSpore SPONGE](https://www.mindspore.cn/mindsponge/docs/zh-CN/r1.0.0-rc2/mindsponge.cell.html)      |
+
+## 2.2.0
+
+**下载地址**
 
 | 组件                                  | 硬件平台                                               | 操作系统          | Python版本  | 链接                                                                                                                                                                                        | SHA-256                                                          |
 |-------------------------------------|----------------------------------------------------|---------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -416,7 +442,21 @@
 | MindSpore<br>Dev<br>Toolkit<br>(Ide-Plugin) |  | Linux-x86_64<br>Windows-x64 | any | [MindSpore_Dev_ToolKit-2.2.0.zip](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/IdePlugin/any/MindSpore_Dev_ToolKit-2.2.0.zip)   | 0c5f1d0de1d6aa392ab08b7a323d69f6a491c719656924ff761acffff06d687e |
 |                                             |  |                             |     | [mindspore-dev-toolkit-2.2.0.vsix](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/IdePlugin/any/mindspore-dev-toolkit-2.2.0.vsix) | 1b32da971d2508fd14550f3eb1e4ec7e6f79ed2d8dcb0c44c237260c7fe6e2f7 |
 
-### 2.1.1
+**Ascend配套软件包**
+
+| 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|
+| [Ascend Training Solution 23.0.RC3](https://support.huawei.com/enterprise/zh/doc/EDOC1100336282) | [CANN 7.0.RC1.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.2/RELEASE.html#mindspore-2-2-0-release-notes)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.2/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.2/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.2/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.2/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.2/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.2/index.html) <br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/index.html) <br>[MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r2.0/index.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.9/index.html)<br>[MindSpore SciAI](https://www.mindspore.cn/sciai/docs/zh-CN/r0.1/index.html)<br>[MindSpore Earth](https://www.mindspore.cn/mindearth/docs/zh-CN/r0.1/index.html)<br>[MindSpore Dev Toolkit](https://www.mindspore.cn/devtoolkit/docs/zh-CN/r2.2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.2/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.2/index.html) <br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.2/mindinsight.debugger.html) <br> [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r2.0/server.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.9/overview.html)<br>[MindSpore SciAI](https://www.mindspore.cn/sciai/docs/zh-CN/r0.1/sciai.architecture.html)<br>[MindSpore Earth](https://www.mindspore.cn/mindearth/docs/zh-CN/r0.1/mindearth.cell.html)     |
+
+## 2.1.1
+
+**下载地址**
 
 | 组件                         | 硬件平台                                                            | 操作系统          | Python版本                              | 链接                                                                                                                                                                                      | SHA-256                                                          |
 |----------------------------|-----------------------------------------------------------------|---------------|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -438,7 +478,22 @@
 |                            |                                                                 |               | Python3.9                             | [mindspore-2.1.1-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.1/MindSpore/cpu/x86_64/mindspore-2.1.1-cp39-cp39-macosx_10_15_x86_64.whl)   | fe4f4c7280a2fb9b987c36e86c901850ba90021d13f61e1b8d161c7b66d233c1 |
 |MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.1/use/downloads.html#2-1-1)   |      |
 
-### 2.1.0
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------|------------------|
+| Ascend 910 | [Ascend Training Solution 23.0.RC2](https://support.huawei.com/enterprise/zh/doc/EDOC1100348301) | [CANN 6.3.RC2.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| Ascend 310 | [Ascend Training Solution 23.0.RC2](https://support.huawei.com/enterprise/zh/doc/EDOC1100348301) | [CANN 6.3.RC2.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.1/RELEASE.html#mindspore-2-1-1-release-notes)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.1/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.1/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.1/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.1/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.1/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.1/index.html)  |
+
+## 2.1.0
+
+**下载地址**
 
 | 组件                                          | 硬件平台                                                            | 操作系统                        | Python版本                              | 链接                                                                                                                                                                                      | SHA-256                                                          |
 |---------------------------------------------|-----------------------------------------------------------------|-----------------------------|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -468,7 +523,22 @@
 |                                             |                                                                 | Linux-x86_64                | Python3                               | [mindspore_rl-0.7.0-py3-none-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.0/Reinforcement/x86_64/mindspore_rl-0.7.0-py3-none-linux_x86_64.whl)             | 6dd8dabdb4b5611e3fb140cd79fd80fc20c6ef41193ab2bbdb311a6421eec0df |
 | MindSpore<br>Recommender                    |                                                                 | any                         | Python3                               | [mindspore_rec-0.3.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.1.0/Recommender/any/mindspore_rec-0.3.0-py3-none-any.whl)                                  | 12813a2c471cd5b546d15c09fffb1fa098085b57fab275a4680c063db57180b0 |
 
-### 2.0.0
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|-------------|
+| Ascend 910 | [Ascend Training Solution 23.0.RC2](https://support.huawei.com/enterprise/zh/doc/EDOC1100348301) | [CANN 6.3.RC2.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+|  Ascend 310 | [Ascend Training Solution 23.0.RC2](https://support.huawei.com/enterprise/zh/doc/EDOC1100348301) | [CANN 6.3.RC2.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.1/RELEASE.html#mindspore-2-1-0-release-notes)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.1/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.1/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.1/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.1/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.1/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.1/index.html)<br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.1/index.html)<br>[MindSpore Flow](https://mindspore.cn/mindflow/docs/zh-CN/r0.1/index.html)<br>[MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.7/index.html)<br>[MindSpore Recommender](https://www.mindspore.cn/recommender/docs/zh-CN/r0.3/index.html)<br>[MindSpore Dev Toolkit](https://www.mindspore.cn/devtoolkit/docs/zh-CN/r2.1/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.1/index.html)<br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.1/mindinsight.debugger.html)<br>[MindSpore Flow](https://www.mindspore.cn/mindflow/docs/zh-CN/r0.1/mindflow.cell.html)<br>[MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.7/reinforcement.html)<br>[MindSpore Recommender](https://www.mindspore.cn/recommender/docs/zh-CN/r0.3/recommender.html)  |
+
+## 2.0.0
+
+**下载地址**
 
 | 组件                                          | 硬件平台                                                            | 操作系统                        | Python版本                              | 链接                                                                                                                                                                                      | SHA-256                                                          |
 |---------------------------------------------|-----------------------------------------------------------------|-----------------------------|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -493,7 +563,22 @@
 | MindSpore<br>Dev<br>Toolkit<br>(Ide-Plugin) |                                                                 | Linux-x86_64<br>Windows-x64 | any                                   | [MindSpore_Dev_ToolKit-2.0.0.zip](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0/IdePlugin/any/MindSpore_Dev_ToolKit-2.0.0.zip)                                              | 5dbb6f195cf6acb623fd7983cd758aa858ac4739bbaf0df279b013f8f71af09e |
 |                                             |                                                                 |                             |                                       | [mindspore-dev-toolkit-2.0.0.vsix](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0/IdePlugin/any/mindspore-dev-toolkit-2.0.0.vsix)                                            | 9a7fd30862a2fd1c47b57fd0cda208aae4f4a877bc9611ef5f9b12930272fb0f |
 
-### 2.0.0-rc1
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|-------------|
+|  Ascend 910 | [Ascend Training Solution 23.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100321901) | [CANN 6.3.RC1.alpha003](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| Ascend 310 | [Ascend Training Solution 23.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100321901) | [CANN 6.3.RC1.alpha003](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.0/RELEASE.html#mindspore-2-0-0-release-notes)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.0/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.0/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.0/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.0/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.0/index.html)<br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/index.html)<br>[MindSpore Dev Toolkit](https://www.mindspore.cn/devtoolkit/docs/zh-CN/r2.0/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.0/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.0/index.html) <br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/mindinsight.debugger.html) |
+
+## 2.0.0-rc1
+
+**下载地址**
 
 | 组件                                          | 硬件平台                                                            | 操作系统                        | Python版本                              | 链接                                                                                                                                                                                                                      | SHA-256                                                          |
 |---------------------------------------------|-----------------------------------------------------------------|-----------------------------|---------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -553,7 +638,22 @@
 |                                             |                                                                 |                             | Python3.9                             | [mindpandas-0.2.0-cp39-cp39-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0rc1/MindPandas/any/mindpandas-0.2.0-cp39-cp39-linux_x86_64.whl)                                                  | 3bc2f0d2e5f06d1fc39db998366c3342312829c28c9159f71e22b806973dbf68 |
 | MindSpore<br>Recommender |  | any | Python3 | [mindspore_rec-0.2.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0rc1/Recommender/any/mindspore_rec-0.2.0-py3-none-any.whl) | 78a29af42fe49f9cf708f7e3276d1157cf54f4578ad4719a084a1cea99979c74 |
 
-### 2.0.0-alpha
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|-------------|
+| Ascend 910 | [Ascend Training Solution 23.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100321901) | [CANN 6.3.RC1.alpha003](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| Ascend 310 | [Ascend Training Solution 23.0.RC1](https://support.huawei.com/enterprise/zh/doc/EDOC1100321901) | [CANN 6.3.RC1.alpha003](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.0/RELEASE.html)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.0/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.0/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.0/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.0/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.1/index.html)<br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/index.html) <br>[MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r2.0/index.html)<br> [MindSpore Federated](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/index.html)<br>[MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r2.0/index.html)<br> [MindSpore Elec](https://mindspore.cn/mindelec/docs/zh-CN/r0.2/index.html)<br> [MindSpore SPONGE](https://mindspore.cn/mindsponge/docs/zh-CN/r1.0/index.html) <br> [MindSpore Flow](https://mindspore.cn/mindflow/docs/zh-CN/r0.1/index.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.6/index.html)<br> [MindSpore Graph Learning](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/index.html)<br> [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.3/index.html)<br> [MindSpore Pandas](https://www.mindspore.cn/mindpandas/docs/zh-CN/r0.2/index.html)<br>[MindSpore Dev Toolkit](https://www.mindspore.cn/devtoolkit/docs/zh-CN/r2.1/index.html)<br>[MindSpore Recommender](https://www.mindspore.cn/recommender/docs/zh-CN/r0.2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.1/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.1/index.html) <br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0/mindinsight.debugger.html) <br>[MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r2.0/mindarmour.html)<br> [MindSpore Federated](https://www.mindspore.cn/federated/docs/zh-CN/r0.1/horizontal/federated_server.html)<br>[MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r2.0/server.html)<br> [MindSpore Elec](https://www.mindspore.cn/mindelec/docs/zh-CN/r0.2/mindelec.architecture.html)<br> [MindSpore SPONGE](https://www.mindspore.cn/mindsponge/docs/zh-CN/r1.0/mindsponge.cell.html) <br> [MindSpore Flow](https://www.mindspore.cn/mindflow/docs/zh-CN/r0.1/mindflow.cell.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.6/reinforcement.html)<br> [MindSpore Graph Learning](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/mindspore_gl.html)<br> [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.3/mindspore_gs.html)<br> [MindSpore Pandas](https://www.mindspore.cn/mindpandas/docs/zh-CN/r0.2/mindpandas.channel.html)<br>[MindSpore Recommender](https://www.mindspore.cn/recommender/docs/zh-CN/r0.2/recommender.html) |
+
+## 2.0.0-alpha
+
+**下载地址**
 
 | 组件                             | 硬件平台                                                            | 操作系统          | Python版本                              | 链接                                                                                                                                                                                                                   | SHA-256                                                          |
 |--------------------------------|-----------------------------------------------------------------|---------------|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -619,7 +719,22 @@
 |                                |                                                                 |               | Python3.8                             | [mindquantum-0.8.0-cp38-cp38-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0a0/MindQuantum/x86_64/mindquantum-0.8.0-cp38-cp38-macosx_10_15_x86_64.whl)                            | ef4f997ddaa7fffddf73b0b6a7163c0abc0ea9a8aee72277758f54874866a44e |
 |                                |                                                                 |               | Python3.9                             | [mindquantum-0.8.0-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0a0/MindQuantum/x86_64/mindquantum-0.8.0-cp39-cp39-macosx_10_15_x86_64.whl)                            | dd543981da53b0763f2575da6ecb6df78e1dd8dfaa5dc80aa45199ec457d8dd2 |
 
-### 1.10.1
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|-------------|
+| Ascend 910 | [Ascend Data Center Solution 22.0.RC3] | [CANN 6.0.RC1.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| Ascend 310 | [Ascend Data Center Solution 22.0.RC3] | [CANN 6.0.RC1.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/RELEASE.html)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.0.0-alpha/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r2.0.0-alpha/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r2.0.0-alpha/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r2.0.0-alpha/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.0.0-alpha/index.html)<br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0.0-alpha/index.html)<br> [MindSpore Elec](https://mindspore.cn/mindelec/docs/zh-CN/r0.2/index.html)<br> [MindSpore SPONGE](https://mindspore.cn/mindsponge/docs/zh-CN/r1.0/index.html) <br> [MindSpore Flow](https://mindspore.cn/mindflow/docs/zh-CN/r0.1/index.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.6/index.html)<br> [MindSpore Graph Learning](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/index.html)<br> [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.3/index.html)<br> [MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.8/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.0.0-alpha/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.0.0-alpha/index.html) <br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r2.0.0-alpha/mindinsight.debugger.html)<br> [MindSpore Elec](https://www.mindspore.cn/mindelec/docs/zh-CN/r0.2/mindelec.architecture.html)<br> [MindSpore SPONGE](https://www.mindspore.cn/mindsponge/docs/zh-CN/r1.0/mindsponge.cell.html) <br> [MindSpore Flow](https://www.mindspore.cn/mindflow/docs/zh-CN/r0.1/mindflow.cell.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.6/reinforcement.html)<br> [MindSpore Graph Learning](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.2/mindspore_gl.html)<br> [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.3/mindspore_gs.html)<br> [MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.8/mindquantum.core.html) |
+
+## 1.10.1
+
+**下载地址**
 
 | 组件          | 硬件平台                   | 操作系统          | Python版本                              | 链接                                                                                                                                                                                               | SHA-256                                                          |
 |-------------|------------------------|---------------|---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -654,7 +769,22 @@
 |MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r1.10/use/downloads.html#1-10-1)   |      |
 | MindSpore Insight |                        | any           | Python3                               | [mindinsight-1.10.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.1/MindInsight/any/mindinsight-1.10.0-py3-none-any.whl)                                            | 51793e1eb6b13b7c9971146a1ba23b51984cf4ef1566a9c6533882f51d8625e4 |
 
-### 1.10.0
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|-------------|
+| Ascend 910 | [Ascend Data Center Solution 22.0.0] | [CANN 6.0.1.alpha001](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+|Ascend 310 | [Ascend Data Center Solution 22.0.0] | [CANN 6.0.1.alpha001](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r1.10/RELEASE.html#1-10-1-release-notes)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.10/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.10/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r1.10/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r1.10/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r1.10/index.html)<br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.10/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r1.10/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r1.10/index.html)<br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.10/mindinsight.debugger.html)  |
+
+## 1.10.0
+
+**下载地址**
 
 | 组件                             | 硬件平台                   | 操作系统                        | Python版本                              | 链接                                                                                                                                                                                                                    | SHA-256                                                          |
 |--------------------------------|------------------------|-----------------------------|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -688,7 +818,22 @@
 |                                |                        |                             | Python3.9                             | [mindspore-1.10.0-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.10.0/MindSpore/cpu/x86_64/mindspore-1.10.0-cp39-cp39-macosx_10_15_x86_64.whl)                              | 35adc66b6b92002fc02de34da2758c29e6a200c6a91a0526132c98cc419c6508 |
 |MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r1.10/use/downloads.html#1-10-0)   |      |
 
-### 1.9.0
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|-------------|
+|  Ascend 910 | [Ascend Data Center Solution 22.0.0] | [CANN 6.0.1.alpha001](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+|  Ascend 310 | [Ascend Data Center Solution 22.0.0] | [CANN 6.0.1.alpha001](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r1.10/RELEASE.html)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.10/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.10/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r1.10/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.10/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r1.10/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r1.10/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r1.10/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r1.10/index.html)  |
+
+## 1.9.0
+
+**下载地址**
 
 | 组件                           | 硬件平台                           | 操作系统          | Python版本                              | 链接                                                                                                                                                                                            | SHA-256                                                          |
 |------------------------------|--------------------------------|---------------|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -739,7 +884,22 @@
 | MindSpore<br>NLP                            |                                                                 | any                         | Python3                               | [mindnlp-0.1.1-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0rc1/MindsporeNLP/any/mindnlp-0.1.1-py3-none-any.whl)                                                                          | 5e9481bc6c3cb90fb5f7d6ff1775e972be6c707b5ed39b60757a12ae2d0e2f2f |
 | MindSpore<br>OCR                            |                                                                 | any                         | Python3                               | [mindocr-0.1.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0rc1/MindOCR/any/mindocr-0.1.0-py3-none-any.whl)                                                                               | 1511799b235552ee2f7e7856107363d1e738251d55e0e63961821205ce93a377 |
 
-### 1.8.1
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|-------------|
+|  Ascend 910 | [Ascend Data Center Solution 22.0.RC3] | [CANN 6.0.RC1.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+|  Ascend 310 | [Ascend Data Center Solution 22.0.RC3] | [CANN 6.0.RC1.alpha005](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r1.9/RELEASE.html)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.9/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.9/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r1.9/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.9/index.html)  |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r1.9/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r1.9/index.html)<br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/index.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.5/index.html)<br> [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r1.9/index.html)<br> [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.2/index.html)<br> [MindSpore Pandas](https://www.mindspore.cn/mindpandas/docs/zh-CN/r0.1/index.html)<br> [MindSpore Hub](https://www.mindspore.cn/hub/docs/zh-CN/r1.9/index.html)<br> [MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.9/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r1.9/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r1.9/index.html) <br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.9/mindinsight.debugger.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.5/reinforcement.html)<br> [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r1.9/server.html)<br> [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.2/mindspore_gs.quantization.html)<br> [MindSpore Pandas](https://www.mindspore.cn/mindpandas/docs/zh-CN/r0.1/mindpandas.config.html)<br> [MindSpore Hub](https://www.mindspore.cn/hub/docs/zh-CN/r1.9/hub.html)<br> [MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.9/mindarmour.html) |
+
+## 1.8.1
+
+**下载地址**
 
 | 组件             | 硬件平台                   | 操作系统          | Python版本                              | 链接                                                                                                                                                                                            | SHA-256                                                          |
 |---------------|------------------------|---------------|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -776,7 +936,22 @@
 | MindSpore XAI |                        | any           | Python3                               | [mindspore_xai-1.8.1-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.8.1/Xai/any/mindspore_xai-1.8.1-py3-none-any.whl)                                                | 551de7c7cc9e7a5b3f99d0d3fdd33dc76ba6a8c7d48535521538dbea2d355b48 |
 | MindSpore<br>Transformers                   |                                                                 | any                         | Python3                               | [mindformers-0.3.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.0.0rc1/MindFormers/any/mindformers-0.3.0-py3-none-any.whl)                                                                   | e9b3b43b7ba5fa020851cfeff0227f24f0199add5e5f30310e26abaaa5029ca7 |
 
-### 1.8.0
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|-------------|
+|  Ascend 910 | [Ascend Data Center Solution 22.0.RC2] | [CANN 5.1.RC2.alpha008](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+|  Ascend 310 | [Ascend Data Center Solution 22.0.RC2] | [CANN 5.1.RC2.alpha008](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r1.8/RELEASE.html#1-8-1-release-notes)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.8/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.8/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r1.8/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r1.8/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r1.8/index.html)<br>[MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.8/index.html)<br> [MindSpore XAI](https://www.mindspore.cn/xai/docs/zh-CN/r1.8/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r1.8/index.html)<br>[MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.8/mindarmour.html)<br> [MindSpore XAI](https://www.mindspore.cn/xai/docs/zh-CN/r1.8/mindspore_xai.explainer.html)  |
+
+## 1.8.0
+
+**下载地址**
 
 | 组件                           | 硬件平台                           | 操作系统                        | Python版本                              | 链接                                                                                                                                                                                            | SHA-256                                                          |
 |------------------------------|--------------------------------|-----------------------------|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -830,7 +1005,22 @@
 | Ide-Plugin                   |                                | Linux-x86_64<br>Windows-x64 | any                                   | [MindSpore_Dev_ToolKit-1.8.0.zip](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.8.0/IdePlugin/any/MindSpore_Dev_ToolKit-1.8.0.zip)                                                    | 5acaa44caacf15075d1c41cb950a3e29cc29652073688d7ede907741a15e71e9 |
 | MindSpore<br>Golden<br>Stick |                                | any                         | Python3                               | [mindspore_gs-0.1.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.8.0/GoldenStick/any/mindspore_gs-0.1.0-py3-none-any.whl)                                          | 2ce684346bfeb24edaea111b66a851eaee1f43f208d568fe32210706686a28c2 |
 
-### 1.7.1
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|-------------|------------------|-------------|
+| Ascend 910 | [Ascend Data Center Solution 22.0.RC2] | [CANN 5.1.RC2.alpha008](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+| Ascend 310 | [Ascend Data Center Solution 22.0.RC2] | [CANN 5.1.RC2.alpha008](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r1.8/RELEASE.html)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.8/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.8/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r1.8/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.8/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r1.8/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r1.8/index.html)<br>[MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.8/index.html)<br> [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r1.8/index.html)<br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.8/index.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.7/index.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.5/index.html)<br> [MindSpore Golden Stick](http://www.mindspore.cn/golden_stick/docs/zh-CN/r0.1/index.html)<br> [MindSpore Dev Toolkit](http://www.mindspore.cn/devtoolkit/docs/zh-CN/r1.8/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r1.8/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r1.8/index.html)<br>[MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.8/mindarmour.html)<br> [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r1.8/server.html)<br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.8/mindinsight.debugger.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.7/mindquantum.core.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.5/reinforcement.html)<br> [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.1/mindspore_gs.html)  |
+
+## 1.7.1
+
+**下载地址**
 
 | 组件        | 硬件平台                   | 操作系统          | Python版本                              | 链接                                                                                                                                                                                            | SHA-256                                                          |
 |-----------|------------------------|---------------|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -863,7 +1053,22 @@
 |           |                        |               | Python3.8                             | [mindspore-1.7.1-cp38-cp38-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.1/MindSpore/cpu/x86_64/mindspore-1.7.1-cp38-cp38-macosx_10_15_x86_64.whl)         | 0d0276c8b7bed56773e4a688c6eb204ad4affaf7575cab81c63adbdb101d807d |
 |           |                        |               | Python3.9                             | [mindspore-1.7.1-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.1/MindSpore/cpu/x86_64/mindspore-1.7.1-cp39-cp39-macosx_10_15_x86_64.whl)         | e2046ffdc819db3fe37e7dcf6bbdccf43e7361d32fbdde392501471e3587207a |
 
-### 1.7.0
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 |
+|-------------|------------------|
+| Ascend 910 | [Ascend Data Center Solution 22.0.RC1] |
+|  Ascend 310 | [Ascend Data Center Solution 22.0.RC1] |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r1.7/RELEASE.html#1-7-1-release-notes)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.7/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.7/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r1.7/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r1.7/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.html) |
+
+## 1.7.0
+
+**下载地址**
 
 | 组件                    | 硬件平台                | 操作系统                    | Python版本                  | 链接                                                         | SHA-256                                                      |
 | ----------------------- | ----------------------- | --------------------------- | --------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -912,7 +1117,22 @@
 | Ide-Plugin              |                         | Linux-x86_64<br>Windows-x64 | any                         | [MindSpore_Dev_ToolKit-1.7.0.zip](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.0/IdePlugin/any/MindSpore_Dev_ToolKit-1.7.0.zip) | 8d7312a85fa1029f06e658216fd778b27c6085efb14211dd6a66cb7cfa22954f |
 | MindSpore Vision |                         | any | Python3 | [mindvision-0.1.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.0/Vision/any/mindvision-0.1.0-py3-none-any.whl) | 0f135c5b9c0e238462559168c99bad5665e5506d9e8d65509f0a74de27d8ac21 |
 
-### 1.6.2
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 |
+|-------------|------------------|
+| Ascend 910 | [Ascend Data Center Solution 22.0.RC1]                                              |
+| Ascend 310 | [Ascend Data Center Solution 22.0.RC1]                                              |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r1.7/RELEASE.html#mindspore-1-7-0-release-notes)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.7/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.7/index.html)      <br> [应用实践](https://www.mindspore.cn/tutorials/application/zh-CN/r1.7/index.html)      <br>  [深度开发](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r1.7/index.html) <br>[MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/index.html)<br>[MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.7/index.html)<br> [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r1.7/index.html)<br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/index.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.6/index.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.3/index.html)<br> [MindSpore Vision](http://www.mindspore.cn/vision/docs/zh-CN/r0.1/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r1.7/index.html)<br>[MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.7/mindarmour.html)<br> [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r1.7/server.html)<br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/mindinsight.debugger.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.6/mindquantum.core.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.3/reinforcement.html)<br> [MindSpore Vision](https://www.mindspore.cn/vision/docs/zh-CN/r0.1/classification.html)  |
+
+## 1.6.2
+
+**下载地址**
 
 | 组件        | 硬件平台                    | 操作系统          | Python版本                    | 链接                                                                                                                                                                                            | SHA-256                                                          |
 |-----------|-------------------------|---------------|-----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
@@ -936,7 +1156,22 @@
 |           |                         | MacOS-x64     | Python3.7.5                 | [mindspore-1.6.2-cp37-cp37m-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.2/MindSpore/cpu/x86_64/mindspore-1.6.2-cp37-cp37m-macosx_10_15_x86_64.whl)       | ef68b6025c0076b556d362cf645d5502520e28fc9256b0ca302a1a6e7586d797 |
 |           |                         |               | Python3.9.0                 | [mindspore-1.6.2-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.2/MindSpore/cpu/x86_64/mindspore-1.6.2-cp39-cp39-macosx_10_15_x86_64.whl)         | c69078bb761f79d4de7cd6f5ddde79cf3aa2cbeaceba415f1dfc5106c52bbaec |
 
-### 1.6.1
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 |
+|-------------|------------------|
+| Ascend 910 | [Ascend Data Center Solution 21.0.4]                                                |
+|Ascend 310 | [Ascend Data Center Solution 21.0.4]                                                |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r1.6/RELEASE.md#mindspore-162)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.6/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.6/index.html)  | [MindSpore](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/index.html) |  [MindSpore](https://www.mindspore.cn/docs/api/zh-CN/r1.6/index.html) |
+
+## 1.6.1
+
+**下载地址**
 
 | 组件                    | 硬件平台                | 操作系统                    | Python版本                  | 链接                                                         | SHA-256                                                      |
 | ----------------------- | ----------------------- | --------------------------- | --------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -969,7 +1204,22 @@
 | Ide-Plugin              |                         | Linux-x86_64<br>Windows-x64 | any                         | [MindSpore_Dev_ToolKit-1.6.1.zip](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/IdePlugin/any/MindSpore_Dev_ToolKit-1.6.1.zip) | 1409615e3a92a87faa08e86c4833da7ea025942130b61854e7e2fe3aa29d2dd0 |
 | MindSpore Graph Learning |                         | Linux-x86_64                | Python3.7.5                 | [mindspore_gl_gpu-0.1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/GraphLearning/any/mindspore_gl_gpu-0.1-cp37-cp37m-linux_x86_64.whl) | c3936bede6ae6b33636c1879e6be984fe3e915b61c644bdce8a75eb707397b4a |
 
-### 1.6.0
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 |
+|-------------|------------------|
+| Ascend 910 | [Ascend Data Center Solution 21.0.4]                                                |
+| Ascend 310 | [Ascend Data Center Solution 21.0.4]                                                |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r1.6/RELEASE.md#mindspore-161)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.6/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.6/index.html)  | [MindSpore](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/index.html)<br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/index.html)<br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/index.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.5/index.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.2/index.html)<br> [MindSpore Graph Learning](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.1/index.html) |  [MindSpore](https://www.mindspore.cn/docs/api/zh-CN/r1.6/index.html) <br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r1.6/index.html)<br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/mindinsight.debugger.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.5/mindquantum.core.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.2/reinforcement.html)<br> [MindSpore Graph Learning](https://www.mindspore.cn/graphlearning/docs/zh-CN/r0.1/mindspore_gl.dataset.html)|
+
+## 1.6.0
+
+**下载地址**
 
 | 组件                    | 硬件平台                       | 操作系统                    | Python版本                  | 链接                                                         | SHA-256                                                      |
 | ----------------------- | ------------------------------ | --------------------------- | --------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -1007,7 +1257,22 @@
 | MindSpore Reinforcement |                                | any                         | Python3                     | [mindspore_rl-0.2.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/Reinforcement/any/mindspore_rl-0.2.0-py3-none-any.whl) | a1461746e27e8532a8b00bf16a9e8b63fdc2412bdeaf769c33b650a80154708a |
 | Ide-Plugin              |                                | Linux-x86_64<br>Windows-x64 | any                         | [MindSpore_Dev_ToolKit-1.6.0.zip](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/IdePlugin/any/MindSpore_Dev_ToolKit-1.6.0.zip) | 835e14f4b2c85118f54512348edc9fc3239c198dd1dbd6c9441843154b330d40 |
 
-### 1.5.2
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 |
+|-------------|------------------|
+|Ascend 910 | [Ascend Data Center Solution 21.0.4]                                                |
+|Ascend 310 | [Ascend Data Center Solution 21.0.4]                                                |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r1.6/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.6/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.6/index.html)  | [MindSpore](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/index.html)<br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/index.html)<br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/index.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.5/index.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.2/index.html)<br> [MindSpore Hub](https://www.mindspore.cn/hub/docs/zh-CN/r1.6/index.html)<br> [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r1.6/index.html)<br> [MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.6/index.html) |  [MindSpore](https://www.mindspore.cn/docs/api/zh-CN/r1.6/index.html) <br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r1.6/index.html)<br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/mindinsight.debugger.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.5/mindquantum.core.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.2/reinforcement.html)<br> [MindSpore Hub](https://www.mindspore.cn/hub/docs/zh-CN/r1.6/hub.html)<br> [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r1.6/server.html)<br> [MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.6/mindarmour.html)|
+
+## 1.5.2
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      Python版本      |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |    ---   |
@@ -1027,7 +1292,22 @@
 | | |  | Python3.9.0 | [mindspore-1.5.2-cp39-cp39-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.2/MindSpore/cpu/x86_64/mindspore-1.5.2-cp39-cp39-linux_x86_64.whl) | ff1ff15df8b3c56cb563e3cd039c6ef033efbd851c3ae2f2dd4abe48ee4c4636 |
 |      |         |   Windows-x64   |   Python3.7.5   |   [mindspore-1.5.2-cp37-cp37m-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.2/MindSpore/cpu/x86_64/mindspore-1.5.2-cp37-cp37m-win_amd64.whl)   | 0d87855997b9a4fb5ff38c445ea75257e5e216a3134aee9dad5cbf8230561067 |
 
-### 1.5.1
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 |
+|-------------|------------------|
+|Ascend 910 | [Ascend Data Center Solution 21.0.3]                                   |
+| Ascend 310 | [Ascend Data Center Solution 21.0.3]                                   |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r1.5/RELEASE.md#mindspore-152)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.5/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.5/index.html)  | [MindSpore](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/index.html) |  [MindSpore](https://www.mindspore.cn/docs/api/zh-CN/r1.5/index.html) |
+
+## 1.5.1
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      Python版本      |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |    ---   |
@@ -1038,7 +1318,15 @@
 | | Ascend 310-Binary | Linux-aarch64 | Python3.7.5<br/>Python3.9.0 | [mindspore_ascend-1.5.1-linux_aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.1/MindSpore/ascend/aarch64/mindspore_ascend-1.5.1-linux_aarch64.tar.gz) | 8f26d9ad78071ebc0c74b883e294f31db189b26a143f03562a9b18c571eaf312 |
 |      |      |   Linux-x86_64   | Python3.7.5<br/>Python3.9.0 |   [mindspore_ascend-1.5.1-linux_x86_64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.1/MindSpore/ascend/x86_64/mindspore_ascend-1.5.1-linux_x86_64.tar.gz)   | 52c3b1c77ad678a77e7ba1e0d6a828c47da37882624d598af813846541f26f7e |
 
-### 1.5.0
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r1.5/RELEASE.md#mindspore-151)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.5/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.5/index.html)  | [MindSpore](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/index.html) |  [MindSpore](https://www.mindspore.cn/docs/api/zh-CN/r1.5/index.html) |
+
+## 1.5.0
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      Python版本      |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |    ---   |
@@ -1073,7 +1361,22 @@
 | MindScience (MindSpore SPONGE) | GPU CUDA 10.1<br/>GPU CUDA 11.1 | any | Python3 | [mindscience_mindsponge_gpu-0.1.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindScience/any/mindscience_mindsponge_gpu-0.1.0-py3-none-any.whl) | eccc97895ca9f09d52f44a337e1e82b854d28929abec1c8ec2b8f2b2ff219262 |
 | MindSpore Reinforcement |  | any | Python3 | [mindspore_rl-0.1.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/Reinforcement/any/mindspore_rl-0.1.0-py3-none-any.whl) | e60f4e199d94b188342bc20be8e1b768708024f3a4f0dec7644620330804b996 |
 
-### 1.5.0-rc1
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 |
+|-------------|------------------|
+| Ascend 910 | [Ascend Data Center Solution 21.0.3]                                   |
+|Ascend 310 | [Ascend Data Center Solution 21.0.3]                                   |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r1.5/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.5/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.5/index.html)  | [MindSpore](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/index.html)<br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/index.html)<br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.5/index.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.3/index.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.1/index.html)<br> [MindSpore Hub](https://www.mindspore.cn/hub/docs/zh-CN/r1.5/index.html)<br> [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/index.html)<br> [MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.5/index.html) <br> [MindSpore XAI](https://www.mindspore.cn/xai/docs/zh-CN/r1.5/index.html)<br> [MindSpore Elec](https://www.mindspore.cn/mindscience/docs/zh-CN/r0.1/mindelec/intro_and_install.html)<br> [MindSpore SPONGE](https://www.mindspore.cn/mindscience/docs/zh-CN/r0.1/mindsponge/intro_and_install.html)|  [MindSpore](https://www.mindspore.cn/docs/api/zh-CN/r1.5/index.html) <br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r1.5/index.html)<br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.5/mindinsight.debugger.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.5/mindquantum.core.html)<br> [MindSpore Reinforcement](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.1/reinforcement.html)<br> [MindSpore Hub](https://www.mindspore.cn/hub/docs/zh-CN/r1.5/hub.html)<br> [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/server.html)<br> [MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.5/mindarmour.html)<br> [MindSpore XAI](https://www.mindspore.cn/xai/api/zh-CN/r1.5/index.html)<br> [MindSpore Elec](https://www.mindspore.cn/mindscience/api/zh-CN/r0.1/mindelec.html)<br> [MindSpore SPONGE](https://www.mindspore.cn/mindscience/api/zh-CN/r0.1/mindsponge.html)|
+
+## 1.5.0-rc1
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      Python版本      |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |    ---   |
@@ -1107,7 +1410,15 @@
 |  |  | Linux-x86_64 | Python3.7.5 | [mindscience_mindelec_ascend-0.1.0rc1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindScience/x86_64/mindscience_mindelec_ascend-0.1.0rc1-cp37-cp37m-linux_x86_64.whl) | 5f3431c21faa525d7ac555921c1eba6ac99b4d81750e39cd2de99dae761505a9 |
 | MindScience (MindSpore SPONGE) | GPU CUDA 10.1<br/>GPU CUDA 11.1 | any | Python3 | [mindscience_mindsponge_gpu-0.1.0rc1-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindScience/any/mindscience_mindsponge_gpu-0.1.0rc1-py3-none-any.whl) | b5f92468921812776b8cf66e675123df29cb23a5cfe40cc13b4f02a31f45cf22 |
 
-### 1.4.1
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r1.5/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.5/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.5/index.html)  | [MindSpore](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/index.html)<br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/index.html)<br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.5/index.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.3/index.html)<br> [MindSpore Hub](https://www.mindspore.cn/hub/docs/zh-CN/r1.5/index.html)<br> [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/index.html)<br> [MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.5/index.html) <br> [MindSpore XAI](https://www.mindspore.cn/xai/docs/zh-CN/r1.5/index.html)<br> [MindSpore Elec](https://www.mindspore.cn/mindscience/docs/zh-CN/r0.1/mindelec/intro_and_install.html)<br> [MindSpore SPONGE](https://www.mindspore.cn/mindscience/docs/zh-CN/r0.1/mindsponge/intro_and_install.html)|  [MindSpore](https://www.mindspore.cn/docs/api/zh-CN/r1.5/index.html) <br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r1.5/index.html)<br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.5/mindinsight.debugger.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.3/mindquantum.core.html)<br> [MindSpore Hub](https://www.mindspore.cn/hub/docs/zh-CN/r1.5/hub.html)<br> [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/server.html)<br> [MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.5/mindarmour.html)<br> [MindSpore XAI](https://www.mindspore.cn/xai/api/zh-CN/r1.5/index.html)<br> [MindSpore Elec](https://www.mindspore.cn/mindscience/api/zh-CN/r0.1/mindelec.html)<br> [MindSpore SPONGE](https://www.mindspore.cn/mindscience/api/zh-CN/r0.1/mindsponge.html)|
+
+## 1.4.1
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1121,7 +1432,9 @@
 |      |      |   Linux-x86_64   |   [mindspore-1.4.1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.4.1/MindSpore/cpu/x86_64/mindspore-1.4.1-cp37-cp37m-linux_x86_64.whl)   | 44ada49089225b9f5866585ab5fa29ceabf0b5ac15c0ec400b6d314115616665 |
 |      |         |   Windows-x64   |   [mindspore-1.4.1-cp37-cp37m-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.4.1/MindSpore/cpu/x86_64/mindspore-1.4.1-cp37-cp37m-win_amd64.whl)   | 81c633959e7fba28a57c2cd3ac67a9d1e032d5fb41cc3e0b284a335f74585ca7 |
 
-### 1.4.0
+## 1.4.0
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1141,7 +1454,9 @@
 |   MindSpore<br>Serving   |   Ascend 910<br>Ascend310   |   Linux-aarch64   |   [mindspore_serving-1.4.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.4.0/Serving/aarch64/mindspore_serving-1.4.0-cp37-cp37m-linux_aarch64.whl)   | 88bf58e8fd382bdea3c89f289cb9b9f319492acc02befca47d23c3483c1dee0a |
 |      |      |   Linux-x86_64   |   [mindspore_serving-1.4.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.4.0/Serving/x86_64/mindspore_serving-1.4.0-cp37-cp37m-linux_x86_64.whl)   | 3426897a89d94615f468d6888b7e78f9ccaf1c348e966d8b484ff90b82f84302 |
 
-### 1.3.0
+## 1.3.0
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1162,7 +1477,22 @@
 |   MindSpore<br>Serving   |   Ascend 910<br>Ascend310   |   Linux-aarch64   |   [mindspore_serving-1.3.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.3.0/Serving/aarch64/mindspore_serving-1.3.0-cp37-cp37m-linux_aarch64.whl)   | 3d29b3fd9abb958dabebc0017556f9e9eb8cbbcef57df7104a40343b5aa7a66e |
 |      |      |   Linux-x86_64   |   [mindspore_serving-1.3.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.3.0/Serving/x86_64/mindspore_serving-1.3.0-cp37-cp37m-linux_x86_64.whl)   | e3c30d629b9720f93f1b2835df894634bc90a616dca75d8934771963baaf8606 |
 
-### 1.2.1
+**Ascend配套软件包**
+
+| 硬件平台 | 商用版安装指引文档 |
+|-------------|------------------|
+|Ascend 910 | [Ascend Data Center Solution 21.0.2]        |
+|Ascend 310 | [Ascend Data Center Solution 21.0.2]        |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r1.3/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.3/install)  |  [初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.3/index.html)  | [MindSpore](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/index.html)<br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/index.html)<br>[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/index.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.2/index.html)<br> [MindSpore Hub](https://www.mindspore.cn/hub/docs/zh-CN/r1.3/index.html)<br> [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r1.3/index.html)<br> [MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.3/index.html)|  [MindSpore](https://www.mindspore.cn/docs/api/zh-CN/r1.3/index.html) <br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r1.3/index.html)<br> [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/mindinsight.debugger.html)<br>[MindSpore Quantum](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.2/mindquantum.core.html)<br> [MindSpore Hub](https://www.mindspore.cn/hub/docs/zh-CN/r1.3/hub.html)<br> [MindSpore Serving](https://www.mindspore.cn/serving/docs/zh-CN/r1.3/server.html)<br> [MindSpore Armour](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.3/mindarmour.html)|
+
+## 1.2.1
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1190,44 +1520,22 @@
 |      |      |   Ubuntu-aarch64<br>EulerOS-aarch64<br>CentOS-aarch64   |   [mindarmour-1.2.1-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.1/MindArmour/aarch64/mindarmour-1.2.1-cp37-cp37m-linux_aarch64.whl)   | 114d63dc56ab164fa3db0cd8c6af11072bb09c44195d94c6c333a688aed89b09 |
 |      |   GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   [mindarmour-1.2.1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.1/MindArmour/x86_64/mindarmour-1.2.1-cp37-cp37m-linux_x86_64.whl)   | 4e0759b5c12ae107167eef4f9d608dba4d4c9e3f30907541ca5038bdd3271342 |
 
-### 1.2.0
+**Ascend配套软件包**
 
-|   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
-|    ---   |    ---   |    ---   |       ---      |    ---      |
-|   MindSpore   |   Ascend 910   |   Ubuntu-x86   |   [mindspore_ascend-1.2.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/ascend/ubuntu_x86/mindspore_ascend-1.2.0-cp37-cp37m-linux_x86_64.whl)   | 3666923c62ebf012ce5b8ab458d3cfd279cf68ad444509ccdcfe21aa38c9d2e7 |
-|      |      |   Ubuntu-aarch64   |   [mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/ascend/ubuntu_aarch64/mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl)   | cca1f78a0402aa6319d1e77ca49be78c8e0180d480def0079e0d209378eaefb1 |
-|      |      |   EulerOS-aarch64   |   [mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/ascend/euleros_aarch64/mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl)   | 1181415cc603ddeff4cfd660e736b57a3cb5eb781c9649d828dcbebb6d90cb5f |
-|      |      |   CentOS-x86   |   [mindspore_ascend-1.2.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/ascend/centos_x86/mindspore_ascend-1.2.0-cp37-cp37m-linux_x86_64.whl)   | 510ac1c470b5d5a4321f90f8c9130e76025d75a339766f16c7bc42efcee3da81 |
-|      |      |   CentOS-aarch64   |   [mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/ascend/centos_aarch64/mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl)   | cb0443a05d39ffa8c36cf289a279d29700a54eb9dc150fb4ad9807a723b1ef42 |
-|      |      |   Kylin-aarch64   |   [mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/ascend/kylin_aarch64/mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl)   | 1181415cc603ddeff4cfd660e736b57a3cb5eb781c9649d828dcbebb6d90cb5f |
-| | Ascend 310 | Ubuntu-x86 | [mindspore_ascend-1.2.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/ascend/ascend310/ubuntu_x86/mindspore_ascend-1.2.0-cp37-cp37m-linux_x86_64.whl) | d00d24efd0ce811f0de8ea13dee19e30663e5954eba1161ecf9f51d92e58cc73 |
-| | | Ubuntu-aarch64 | [mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/ascend/ascend310/ubuntu_aarch64/mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl) | 2c5d0572bba2f9e0edaa1b6076af3ecf7a23c3486b4d8c3d2abaf39e25667822 |
-| | | EulerOS-aarch64 | [mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/ascend/ascend310/euleros_aarch64/mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl) | 09c936c07297d2d16df581335f1f51651855e0eb9f1ea64b4d3b66d6978a0428 |
-| | | CentOS-x86 | [mindspore_ascend-1.2.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/ascend/ascend310/centos_x86/mindspore_ascend-1.2.0-cp37-cp37m-linux_x86_64.whl) | 13590cbb66df53430773732a6a54427565fd510cd184688df186c8510302201a |
-| | | CentOS-aarch64 | [mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/ascend/ascend310/centos_aarch64/mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl) | 377bac45c0e46e27afd0b6eb144eb9ea7ea13e61326d923e219fbe6577fcc61a |
-|      |   GPU CUDA 10.1   |   Ubuntu-x86   |   [mindspore_gpu-1.2.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/gpu/ubuntu_x86/cuda-10.1/mindspore_gpu-1.2.0-cp37-cp37m-linux_x86_64.whl)   | 6efe2ce935703572ff2cc8ebaacc76104308f979dd0444769e4c6a77fc11880d |
-|      |   CPU   |   Ubuntu-x86   |   [mindspore-1.2.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/cpu/ubuntu_x86/mindspore-1.2.0-cp37-cp37m-linux_x86_64.whl)   | 92421a45b0e5352621b6d17bcd6deafdbc9965b7ecd9f1219b83a8c02384c8d3 |
-|      |      |   Ubuntu-aarch64   |   [mindspore-1.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/cpu/ubuntu_aarch64/mindspore-1.2.0-cp37-cp37m-linux_aarch64.whl)   | 8042752a39c92fe39efc2208e236a3f989a4bb3d0ab4543b364d00fa79f11913 |
-|      |         |   Windows-x64   |   [mindspore-1.2.0-cp37-cp37m-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/cpu/windows_x64/mindspore-1.2.0-cp37-cp37m-win_amd64.whl)   | 6038b1c28d574c565bf6a62a317421418960ee7df03bca9487d8f7c909ddb208 |
-|MindSpore<br>Lite  |     |   | [安装包汇总链接](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html)   |      |
-|   MindSpore Insight   |   Ascend 910   |   Ubuntu-x86   |   [mindinsight-1.2.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindInsight/ascend/ubuntu_x86/mindinsight-1.2.0-cp37-cp37m-linux_x86_64.whl) | 24e83c1732caa1943aa7a5f5b2aaf350f47f04f5ba37c3fc4792231e86f5f36e |
-|      |      |   Ubuntu-aarch64   |   [mindinsight-1.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindInsight/ascend/ubuntu_aarch64/mindinsight-1.2.0-cp37-cp37m-linux_aarch64.whl)   | c0f99217649e227b44c8e33644a1c8a3b054966c0e07541be336322d23ccc93a |
-|      |      |   EulerOS-aarch64   |   [mindinsight-1.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindInsight/ascend/euleros_aarch64/mindinsight-1.2.0-cp37-cp37m-linux_aarch64.whl)  | 2d4991636bd6ebe2f0e22e21fb2dc44625362a9a2154168720f1db95c3b5f8a5 |
-|      |      |   CentOS-x86   |   [mindinsight-1.2.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindInsight/ascend/centos_x86/mindinsight-1.2.0-cp37-cp37m-linux_x86_64.whl)   | a99f07c820419d4fbb35bbb04c30be70f7ece5cc77578d405318d58d414499ba |
-|      |      |   CentOS-aarch64   |   [mindinsight-1.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindInsight/ascend/centos_aarch64/mindinsight-1.2.0-cp37-cp37m-linux_aarch64.whl)   | 7192be74e05a97cec81d003978d691d65ee768c8d90d5e97237524a286076b43 |
-|      |   GPU CUDA 10.1   |   Ubuntu-x86   |   [mindinsight-1.2.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindInsight/ascend/ubuntu_x86/mindinsight-1.2.0-cp37-cp37m-linux_x86_64.whl)   | 24e83c1732caa1943aa7a5f5b2aaf350f47f04f5ba37c3fc4792231e86f5f36e |
-|   MindSpore Armour   |   Ascend 910   |   Ubuntu-x86<br>CentOS-x86   |   [mindarmour-1.2.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindArmour/x86_64/mindarmour-1.2.0-cp37-cp37m-linux_x86_64.whl)  | f1387b5208049c25938c320056673c7df5a7e31c13b72ca8994c2da2e139971b |
-|      |      |   Ubuntu-aarch64<br>EulerOS-aarch64<br>CentOS-aarch64   |   [mindarmour-1.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindArmour/aarch64/mindarmour-1.2.0-cp37-cp37m-linux_aarch64.whl)   | ccb8356f17513588117df52dc13d8b652ea4040b90a8f32fd8d1494ec488065b |
-|      |   GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   [mindarmour-1.2.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindArmour/x86_64/mindarmour-1.2.0-cp37-cp37m-linux_x86_64.whl)   | f1387b5208049c25938c320056673c7df5a7e31c13b72ca8994c2da2e139971b |
-|   MindSpore<br>Hub   |      |   any   |   [mindspore_hub-1.2.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/Hub/any/mindspore_hub-1.2.0-py3-none-any.whl)   | 6a6ac6695b859f6d5d22a0531e5ff2c27e390793b25d74ac67fe130189cda387 |
-|   MindSpore Quantum   |   CPU   |   Ubuntu-x86   |   [mindquantum-0.1.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindQuantum/ubuntu_x86/mindquantum-0.1.0-py3-none-any.whl)   | 94a08dec7907756d063e97205c977c0463f5461ca60f5cc6526cef9c90ab8da2 |
-|   MindSpore<br>Serving   |   Ascend 910<br>Ascend310<br>GPU cuda 10.1   |   Ubuntu-x86   |   [mindspore_serving-1.2.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/Serving/ubuntu_x86/mindspore_serving-1.2.0-cp37-cp37m-linux_x86_64.whl)   | 5775984408f3f93907fbb876c68c52abd2053d2382fd99cb5ad67d6d320e03c1 |
-|      |      |   Ubuntu-aarch64   |   [mindspore_serving-1.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/Serving/ubuntu_aarch64/mindspore_serving-1.2.0-cp37-cp37m-linux_aarch64.whl)   | 7008fc0f9feb8f40951d14726fd04c1fa17ad515026cd90ebeeec013b8da9c53 |
-|      |      |   EulerOS-aarch64   |   [mindspore_serving-1.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/Serving/euleros_aarch64/mindspore_serving-1.2.0-cp37-cp37m-linux_aarch64.whl)   | baea936bdf45aaa2e55cf590a058d471bb62ecbe5333c82dc2f6b6c195cd8844 |
-|      |      |   CentOS-x86   |   [mindspore_serving-1.2.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/Serving/centos_x86/mindspore_serving-1.2.0-cp37-cp37m-linux_x86_64.whl)   | 68ecc2233302acb27b6aa5c6e79b532c89303d388b1432566bf12ec7985fd523 |
-|      |      |   CentOS-aarch64   |   [mindspore_serving-1.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/Serving/centos_aarch64/mindspore_serving-1.2.0-cp37-cp37m-linux_aarch64.whl)   | 377e791bd463ff192b51cbe41bab83db533d7f79723663a8562436211d417ac7 |
+| 硬件平台 | 商用版安装指引文档 |
+|-------------|------------------|
+|Ascend 910 | [Ascend Data Center Solution 21.0.1.SPC001] |
+| Ascend 310 | [Ascend Data Center Solution 21.0.1.SPC001] |
 
-### 1.2.0-rc1
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r1.2/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.2/install)  |  [初学入门](https://www.mindspore.cn/tutorial/zh-CN/r1.2/index.html) <br>[训练](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/index.html) <br>[推理](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/index.html)  <br> [手机&IoT](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/index.html)  | [MindSpore](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/index.html)  |  [MindSpore](https://www.mindspore.cn/docs/api/zh-CN/r1.2/index.html)|
+
+## 1.2.0-rc1
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1257,7 +1565,15 @@
 |   MindSpore<br>Hub   |      |   any   |   [mindspore_hub-1.2.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0-rc1/Hub/any/mindspore_hub-1.2.0-py3-none-any.whl)   | [mindspore_hub-1.2.0-py3-none-any.whl.sha256](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0-rc1/Hub/any/mindspore_hub-1.2.0-py3-none-any.whl.sha256) |
 |   MindSpore Quantum   |   CPU   |   Ubuntu-x86   |   [mindquantum-0.1.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0-rc1/MindQuantum/ubuntu_x86/mindquantum-0.1.0-py3-none-any.whl)   | [mindquantum-0.1.0-py3-none-any.whl.sha256](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0-rc1/MindQuantum/ubuntu_x86/mindquantum-0.1.0-py3-none-any.whl.sha256) |
 
-### 1.1.1
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r1.2/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.2/install)  |  [初学入门](https://www.mindspore.cn/tutorial/zh-CN/r1.2/index.html) <br>[训练](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/index.html) <br>[推理](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/index.html)  <br> [手机&IoT](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/index.html)  | [MindSpore](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/index.html)  |  [MindSpore](https://www.mindspore.cn/docs/api/zh-CN/r1.2/index.html)|
+
+## 1.1.1
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1291,7 +1607,15 @@
 |      |      |   CentOS-x86   |   [mindspore_serving-1.1.1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/centos_x86/mindspore_serving-1.1.1-cp37-cp37m-linux_x86_64.whl)   | [mindspore_serving-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/centos_x86/mindspore_serving-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256) |
 |      |      |   CentOS-aarch64   |   [mindspore_serving-1.1.1-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/centos_aarch64/mindspore_serving-1.1.1-cp37-cp37m-linux_aarch64.whl)   | [mindspore_serving-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/centos_aarch64/mindspore_serving-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256) |
 
-### 1.1.0
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r1.1/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.1/install)  |  [训练](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/index.html) <br>[推理](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.1/index.html)  <br> [手机&IoT](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/index.html)  | [MindSpore](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/index.html)  |  [MindSpore](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/index.html)|
+
+## 1.1.0
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1326,7 +1650,15 @@
 |      |      |   CentOS-x86   |   [mindspore_serving-1.1.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/Serving/ascend/centos_x86/mindspore_serving-1.1.0-cp37-cp37m-linux_x86_64.whl)   |   ed0cc466efad7fb717527a511611c1fb2d72db4caf0f66e6fcbde0ecf7d6e525   |
 |      |      |   CentOS-aarch64   |   [mindspore_serving-1.1.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/Serving/ascend/centos_aarch64/mindspore_serving-1.1.0-cp37-cp37m-linux_aarch64.whl)   |e6ed84cfe0ff9b51b94cd2575f62238c95a73ac386e2d09adf75d3ea74177420   |
 
-### 1.0.1
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r1.1/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.1/install)  | [训练](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/index.html) <br>[推理](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.1/index.html)  <br> [手机&IoT](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/index.html)  | [MindSpore](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/index.html)  |  [MindSpore](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/index.html)|
+
+## 1.0.1
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1350,7 +1682,15 @@
 |      |   GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   [mindarmour-1.0.1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.1/MindArmour/x86_64/mindarmour-1.0.1-cp37-cp37m-linux_x86_64.whl)   |   5f6cee4c36e009bc7cf0cb65d8c5d9a01d87b00dd9e4c48fb9c836fdd4be38ab   |
 |   MindSpore<br>Hub   |      |   any   |   [mindspore_hub-1.0.1-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.1/Hub/any/mindspore_hub-1.0.1-py3-none-any.whl)   |   5a0dc560c86aa35a54f4d8e20ba6e9b2b6084a5143fb4d6d73c2f6f3e55ab49e   |
 
-### 1.0.0
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.0/install)  | [训练](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/index.html) <br>[推理](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/index.html)  <br> [手机&IoT](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/index.html)  | [MindSpore](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/index.html)  |  [MindSpore](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/index.html)|
+
+## 1.0.0
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1383,7 +1723,15 @@
 |   MindSpore<br>Lite Minddata   |   CPU   |   Android-aarch32   |   [mindspore-lite-1.0.0-minddata-arm32-cpu.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch32/mindspore-lite-1.0.0-minddata-arm32-cpu.tar.gz)   |d998c5eba81b254c057eae61aeacd72cee24ad75eb01be89321133e6e035a330   |
 |      |      |   Android-aarch64   |   [mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch64/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz)   |9f6bd53663d029b7638274fca94e47efbfa33ff7dab5dbe1cf328379e3cbbc18   |
 
-### 0.7.0-beta
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r1.0/install)  | [训练](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/index.html) <br>[推理](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/index.html)  <br> [手机&IoT](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/index.html)  | [MindSpore](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/index.html)  |  [MindSpore](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/index.html)|
+
+## 0.7.0-beta
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1404,7 +1752,15 @@
 |      |      |   Ubuntu-aarch64<br>EulerOS-aarch64   |   [mindarmour-0.7.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.7.0-beta/MindArmour/aarch64/mindarmour-0.7.0-cp37-cp37m-linux_aarch64.whl)   |   928754efcde8c2106e1af4fb883899d8f66aa864e0ac1ba7358a291792d898a2   |
 |      |   GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   [mindarmour-0.7.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.7.0-beta/MindArmour/x86_64/mindarmour-0.7.0-cp37-cp37m-linux_x86_64.whl)   |   bd3725991f227dde57afb1d11baf694a6ae0591d68355de18465a05b161bab14   |
 
-### 0.6.0-beta
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r0.7/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r0.7/install)  | [训练及推理](https://www.mindspore.cn/tutorial/zh-CN/r0.7/index.html)<br> [手机&IoT](https://www.mindspore.cn/lite/tutorial/zh-CN/r0.7/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r0.7/index.html)<br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r0.7/index.html)  |  [MindSpore](https://www.mindspore.cn/api/zh-CN/r0.7/index.html)<br> [MindSpore Lite](https://www.mindspore.cn/api/zh-CN/r0.7/index.html)|
+
+## 0.6.0-beta
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1424,7 +1780,15 @@
 |      |      |   Ubuntu-aarch64<br>EulerOS-aarch64   |   [mindarmour-0.6.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.6.0-beta/MindArmour/aarch64/mindarmour-0.6.0-cp37-cp37m-linux_aarch64.whl)   |   8da35bbf7e909bdce7972f7cd11aa495de2c18b9334052e60609dadd82649922   |
 |      |   GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   [mindarmour-0.6.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.6.0-beta/MindArmour/x86_64/mindarmour-0.6.0-cp37-cp37m-linux_x86_64.whl)   |   18f245bdff972414010c9f53de402d790cdef9a74f94ac41e5b6341e778e93b3   |
 
-### 0.5.2-beta
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r0.6/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r0.6/install)  | [快速入门](https://www.mindspore.cn/tutorial/zh-CN/r0.6/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r0.6/index.html)  |  [MindSpore](https://www.mindspore.cn/api/zh-CN/r0.6/index.html)|
+
+## 0.5.2-beta
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1444,7 +1808,15 @@
 |      |      |   Ubuntu-aarch64<br>EulerOS-aarch64   |   [mindarmour-0.5.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.0-beta/MindArmour/aarch64/mindarmour-0.5.0-cp37-cp37m-linux_aarch64.whl)   |   51d2dfd9e65d6d919da36c29fa9420b68c3fb71aa33b54ec35aa5d6bb011c1a8   |
 |      |   GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   [mindarmour-0.5.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.0-beta/MindArmour/x86_64/mindarmour-0.5.0-cp37-cp37m-linux_x86_64.whl)   |   09aa2887b0acbe9b31d07fb8d740c0bceefd6b8751aebdddd533f752f7564efc   |
 
-### 0.5.0-beta
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r0.5/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r0.5/install)  | [快速入门](https://www.mindspore.cn/tutorial/zh-CN/r0.5/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r0.5/index.html)  |  [MindSpore](https://www.mindspore.cn/api/zh-CN/r0.5/index.html)|
+
+## 0.5.0-beta
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1464,7 +1836,15 @@
 |      |      |   Ubuntu-aarch64<br>EulerOS-aarch64   |   [mindarmour-0.5.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.0-beta/MindArmour/aarch64/mindarmour-0.5.0-cp37-cp37m-linux_aarch64.whl)   |   51d2dfd9e65d6d919da36c29fa9420b68c3fb71aa33b54ec35aa5d6bb011c1a8   |
 |      |   GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   [mindarmour-0.5.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.0-beta/MindArmour/x86_64/mindarmour-0.5.0-cp37-cp37m-linux_x86_64.whl)   |   09aa2887b0acbe9b31d07fb8d740c0bceefd6b8751aebdddd533f752f7564efc   |
 
-### 0.3.0-alpha
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r0.5/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r0.5/install)  | [快速入门](https://www.mindspore.cn/tutorial/zh-CN/r0.5/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r0.5/index.html)  |  [MindSpore](https://www.mindspore.cn/api/zh-CN/r0.5/index.html)|
+
+## 0.3.0-alpha
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1485,7 +1865,15 @@
 |      |      |   Ubuntu-aarch64<br>EulerOS-aarch64   |   [mindarmour-0.3.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.3.0-alpha/MindArmour/aarch64/mindarmour-0.3.0-cp37-cp37m-linux_aarch64.whl)   |   6d5f96cc004579d98664d018dca860d3b7f935df5b479f1192161f18a091d9c9   |
 |      |   GPU CUDA 9.2<br>GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   [mindarmour-0.3.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.3.0-alpha/MindArmour/x86_64/mindarmour-0.3.0-cp37-cp37m-linux_x86_64.whl)   |   7a2bd6174be9e5a47e8ae6bcdd592ecdafc6e53e6f1cd5f0261fcb8337b5b337   |
 
-### 0.2.0-alpha
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r0.3/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r0.3/install)  | [快速入门](https://www.mindspore.cn/tutorial/zh-CN/0.3.0-alpha/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/0.3.0-alpha/index.html)  |  [MindSpore](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/index.html)|
+
+## 0.2.0-alpha
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1505,7 +1893,15 @@
 |      |      |   EulerOS-aarch64   |   [mindarmour-0.2.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.2.0-alpha/MindArmour/aarch64/mindarmour-0.2.0-cp37-cp37m-linux_aarch64.whl)   |   5d5e532b9c4e466d89cf503f07c2d530b42216a14f193f685b9a81e190c8db44   |
 |      |   GPU CUDA 9.2<br>GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   [mindarmour-0.2.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.2.0-alpha/MindArmour/x86_64/mindarmour-0.2.0-cp37-cp37m-linux_x86_64.whl)   |   4146790bc73a5846e92b943dfd3febb6c62052b217eeb45b6c48aa82b51e7cc3   |
 
-### 0.1.0-alpha
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r0.2/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r0.2/install)  | [快速入门](https://www.mindspore.cn/tutorial/zh-CN/0.2.0-alpha/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/0.2.0-alpha/index.html)  |  [MindSpore](https://www.mindspore.cn/api/zh-CN/0.2.0-alpha/index.html)|
+
+## 0.1.0-alpha
+
+**下载地址**
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -1522,3 +1918,9 @@
 |      |      |   EulerOS-x86   |   [mindarmour-0.1.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.1.0-alpha/MindArmour/x86_64/mindarmour-0.1.0-cp37-cp37m-linux_x86_64.whl)   |   7796b6c114ee4962ce605da59a9bc47390c8910acbac318ecc0598829aad6e8c   |
 |      |      |   EulerOS-aarch64   |   [mindarmour-0.1.0-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.1.0-alpha/MindArmour/aarch64/mindarmour-0.1.0-cp37-cp37m-linux_aarch64.whl)   |   f354fcdbb3d8b4022fda5a6636e763f8091aca2167dc23e60b7f7b6d710523cb   |
 |      |   GPU CUDA 9.2<br>GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   [mindarmour-0.1.0-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.1.0-alpha/MindArmour/x86_64/mindarmour-0.1.0-cp37-cp37m-linux_x86_64.whl)   |   7796b6c114ee4962ce605da59a9bc47390c8910acbac318ecc0598829aad6e8c   |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://gitee.com/mindspore/mindspore/blob/r0.1/RELEASE.md#)   | [安装指南](https://gitee.com/mindspore/docs/tree/r0.1/install)  | [快速入门](https://www.mindspore.cn/tutorial/zh-CN/0.1.0-alpha/index.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/0.1.0-alpha/index.html)  |  [MindSpore](https://www.mindspore.cn/api/zh-CN/0.1.0-alpha/index.html)|
