@@ -24,7 +24,7 @@ Figure 1 is a table, each row shows the information of each NPU chip at a certai
 - **Available**: Whether the chip is available.
 - **Health**: The chip health status.
 - **IP Address**: The chip IP address.
-- **HBM-Usage(MB)**: The chip used HBM memory.
+- **HBM-Usage(MB)**: The chip used On-Chip memory.
 - **Power(W)**: The chip power.
 - **Temp(°C)**: The chip temperature.
 
