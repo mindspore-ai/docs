@@ -6,6 +6,28 @@ Welcome to MindSpore Lite. We provide functions such as model conversion, model 
 
 The Linux-x86_64 and Linux-aarch64 target have been tested and verified on the Linux distribution versions Euleros2.0, Centos7.8 and Ubuntu18.04.
 
+## 2.4.0
+
+Inference runtime
+|  Module Name  | Hardware Platform |  Operating System  | Download Links |   SHA-256   |
+|      ---      |       ---         |         ---        |      ---       |    ---      |
+| Cloud-side inference runtime lib, inference jar package, benchmark tool, converter tool | CPU/GPU/Ascend         | Linux-x86_64 | [mindspore-lite-2.4.0-linux-x64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindSpore/lite/release/linux/x86_64/cloud_fusion/python37/mindspore-lite-2.4.0-linux-x64.tar.gz) | 2d07704f3ea81cd00248647f16ee606867a78ff6d92e47770a08bf835df11322 |
+| Cloud-side inference runtime lib, inference jar package, benchmark tool, converter tool | CPU/Ascend         | Linux-aarch64 | [mindspore-lite-2.4.0-linux-aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindSpore/lite/release/linux/aarch64/cloud_fusion/python37/mindspore-lite-2.4.0-linux-aarch64.tar.gz) | 107bf19348b84c8cd50dca47793c0a3a48bec73c74dc47cd510a651676099018 |
+| Inference/training runtime lib, inference/training aar package, Micro lib, benchmark tool | CPU/GPU     | Android-aarch64 | [mindspore-lite-2.4.0-android-aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindSpore/lite/release/android/gpu/mindspore-lite-2.4.0-android-aarch64.tar.gz) | 1ca6dee07205dc541705370a514b108883245dba43b96d1774a3e3a3e5e2cd38 |
+| Device-side inference/training runtime lib, inference/training jar package, Micro lib, benchmark tool, converter tool, cropper tool | CPU         | Linux-x86_64 | [mindspore-lite-2.4.0-linux-x64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindSpore/lite/release/linux/x86_64/mindspore-lite-2.4.0-linux-x64.tar.gz) | 06a33fbf3fc9fd375327009a14902e3bf5ef0eeb366b42a8aa0ad4b1930778ea |
+| Device-side inference runtime lib, Micro lib, benchmark tool, converter tool | CPU         | Linux-aarch64 | [mindspore-lite-2.4.0-linux-aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindSpore/lite/release/linux/aarch64/mindspore-lite-2.4.0-linux-aarch64.tar.gz) | 8b8fb357b83df0cd62290bafc92e3577677825b1efcad97eca657f875419047d |
+| Inference runtime lib, Micro lib, benchmark tool, converter tool | CPU         | Windows-x86_64 | [mindspore-lite-2.4.0-win-x64.zip](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindSpore/lite/release/windows/mindspore-lite-2.4.0-win-x64.zip) | 169f363ecbbc0703d4a3f9d3f3d0dbf78d1c52a122fa468850d8a4e4f3eed94a |
+
+Python API wheel package
+|  Module Name  | Hardware Platform |  Operating System  |  Python Version  | Download Links |   SHA-256   |
+|      ---      |       ---         |         ---        |      ---       |      ---         |    ---      |
+| Cloud-side inference runtime and converter  | CPU/GPU/Ascend     | Linux-x86_64 | Python3.8 | [mindspore_lite-2.4.0-cp38-cp38-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindSpore/lite/release/linux/x86_64/cloud_fusion/python38/mindspore_lite-2.4.0-cp38-cp38-linux_x86_64.whl)          | a95f4323407be5b2258780559619cea04ed98786990b3059f20bf97efceab0ae |
+| Cloud-side inference runtime and converter | CPU/Ascend     | Linux-aarch64 | Python3.8 | [mindspore_lite-2.4.0-cp38-cp38-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindSpore/lite/release/linux/aarch64/cloud_fusion/python38/mindspore_lite-2.4.0-cp38-cp38-linux_aarch64.whl)        | 49776a4ecea8e1608fc9a501655ca3df9596f8960321b0886dc42b4494eab82f |
+| Cloud-side inference runtime and converter  | CPU/GPU/Ascend     | Linux-x86_64 | Python3.9 | [mindspore_lite-2.4.0-cp39-cp39-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindSpore/lite/release/linux/x86_64/cloud_fusion/python39/mindspore_lite-2.4.0-cp39-cp39-linux_x86_64.whl)          | 5f61c95fb39ac2e19f1dce09bb86c3ae1b4cf8101a0054477c6855f147ec6b8d |
+| Cloud-side inference runtime and converter | CPU/Ascend     | Linux-aarch64 | Python3.9 | [mindspore_lite-2.4.0-cp39-cp39-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindSpore/lite/release/linux/aarch64/cloud_fusion/python39/mindspore_lite-2.4.0-cp39-cp39-linux_aarch64.whl)        | 8e654d2edb6826eae96bdb8435e239aa5c6fd1ac0502606061b0dd3dbcfdccab |
+| Cloud-side inference runtime and converter  | CPU/GPU/Ascend     | Linux-x86_64 | Python3.10 | [mindspore_lite-2.4.0-cp310-cp310-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindSpore/lite/release/linux/x86_64/cloud_fusion/python310/mindspore_lite-2.4.0-cp310-cp310-linux_x86_64.whl)          | 95395337033c28fe09c7f70d0c8a8365f68099af2d47b8fe1709339c37727eb2 |
+| Cloud-side inference runtime and converter | CPU/Ascend     | Linux-aarch64 | Python3.10 | [mindspore_lite-2.4.0-cp310-cp310-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindSpore/lite/release/linux/aarch64/cloud_fusion/python310/mindspore_lite-2.4.0-cp310-cp310-linux_aarch64.whl)        | 80c2f3533c823d628c9b3dc834d19c48ee8fb95234e0b14ced644bdb41db933b |
+
 ## 2.3.1
 
 Inference runtime
