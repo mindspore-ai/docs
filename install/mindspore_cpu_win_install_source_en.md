@@ -22,7 +22,7 @@ This document describes how to install MindSpore by compiling source code on Win
 - Ensure that [Microsoft Visual Studio Community 2019](https://learn.microsoft.com/zh-cn/visualstudio/releases/2019/release-notes) is installed. Workloads select `Desktop development with C++` and `Universal Windows Platform development`, Individual components select `Select C++ CMake tools for Windows`.
 - Ensure that [git](https://github.com/git-for-windows/git/releases/download/v2.29.2.windows.2/Git-2.29.2.2-64-bit.exe) tool is installed. Meanwhile, put Git insitall directory into `Path` environment variable. If git is installed in `D:\Program Files\Git`,then add `D:\Program Files\Git\usr\bin` into `Path` variable.
 - Ensure that [CMake 3.18.3](https://cmake.org/files/v3.18/cmake-3.18.3-win64-x64.msi) is installed. After installing, add the path of `cmake.exe` to the environment variable `Path`.
-- Ensure that you have Python(>=3.7.5) installed. If not installed, follow the links to [Python official website](https://www.python.org/downloads/windows/) or [Huawei Cloud](https://repo.huaweicloud.com/python/) to download and install Python.
+- Ensure that you have Python(>=3.9.0) installed. If not installed, follow the links to [Python official website](https://www.python.org/downloads/windows/) or [Huawei Cloud](https://repo.huaweicloud.com/python/) to download and install Python.
 - Ensure that [wheel 0.32.0 and later](https://pypi.org/project/wheel/) is installed.
 - Ensure that [MSYS2 software](https://www.msys2.org/) is installed. For details, please check [Installing MSYS2 Software on Windows](https://gitee.com/mindspore/docs/blob/r2.4.0/install/third_party/msys_software_install_en.md).
 

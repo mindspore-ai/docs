@@ -28,24 +28,10 @@ The following describes how to install MindSpore by Conda on Windows in the CPU 
 ## Creating and Accessing the Conda Virtual Environment
 
 Create a Conda virtual environment based on the Python version you want to use and go to the virtual environment.
-If you want to use Python 3.7.5:
+If you want to use Python 3.9.11:
 
 ```bash
-conda create -c conda-forge -n mindspore_py37 -c conda-forge python=3.7.5
-conda activate mindspore_py37
-```
-
-If you want to use Python 3.8.0:
-
-```bash
-conda create -c conda-forge -n mindspore_py37 -c conda-forge python=3.8.0
-conda activate mindspore_py38
-```
-
-If you want to use Python 3.9.0:
-
-```bash
-conda create -c conda-forge -n mindspore_py39 -c conda-forge python=3.9.0
+conda create -c conda-forge -n mindspore_py39 -c conda-forge python=3.9.11
 conda activate mindspore_py39
 ```
 
