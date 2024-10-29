@@ -145,7 +145,7 @@ You can customize PTQConfig to enable different quantization capabilities. For d
 
 The following provides a complete process of quantization and deployment of the PTQ algorithm and the RoundToNearest algorithm on the Llama2 network.
 
-- [PTQ algorithm](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/ptq/ptq.html): supports 8-bit weight quantization, 8-bit full quantization, and KVCacheInt8 quantization. SmoothQuant can be used to improve the quantization accuracy. Combining different quantization algorithms can improve the quantization inference performance.
+- [PTQ algorithm](https://www.mindspore.cn/golden_stick/docs/en/master/ptq/ptq.html): supports 8-bit weight quantization, 8-bit full quantization, and KVCacheInt8 quantization. SmoothQuant can be used to improve the quantization accuracy. Combining different quantization algorithms can improve the quantization inference performance.
 - [RoundToNearest algorithm](https://www.mindspore.cn/golden_stick/docs/en/master/ptq/round_to_nearest.html): the simplest 8-bit PTQ algorithm, which supports linear weight quantization and KVCacheInt8 quantization. This algorithm will be discarded in the future. You are advised to use the PTQ algorithm.
 
 ### Perceptual Quantization Training
