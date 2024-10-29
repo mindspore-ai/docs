@@ -23,10 +23,8 @@ This document describes how to install MindSpore by Conda in a macOS system.
 
     |Chip|Architecture|macOS Version|Supported Python Version|Supported Conda Version|
     |-|-|-|-|-|
-    |M1|ARM|11.3|Python 3.8-3.9|Mambaforge or Miniforge|
-    |Intel|x86_64|10.15/11.3|Python 3.7-3.9|Anaconda or Miniconda|
-
-> Note: [Python 3.8.10](https://www.python.org/downloads/release/python-3810/) or Python 3.8.5 via Conda are the oldest Python releases that supports macOS for ARM
+    |M1|ARM|11.3|Python 3.9-3.11|Mambaforge or Miniforge|
+    |Intel|x86_64|10.15/11.3|Python 3.9-3.11|Anaconda or Miniconda|
 
 - Ensure that the Conda version is compatible with the current system and chip.
 
@@ -37,24 +35,10 @@ This document describes how to install MindSpore by Conda in a macOS system.
 
 Create a Conda virtual environment based on the Python version you want to use and go to the virtual environment.
 
-- If you want to use Python 3.7.5 (for 64-bit macOS 10.15):
+- If you want to use Python 3.9.11 (for 64-bit macOS 10.15 and 11.3):
 
   ```bash
-  conda create -c conda-forge -n mindspore_py37 -c conda-forge python=3.7.5
-  conda activate mindspore_py37
-  ```
-
-- If you want to use Python 3.8.5 (for 64-bit macOS 10.15 and 11.3):
-
-  ```bash
-  conda create -c conda-forge -n mindspore_py38 -c conda-forge python=3.8.5
-  conda activate mindspore_py38
-  ```
-
-- If you want to use Python 3.9.0 (for 64-bit macOS 10.15 and 11.3):
-
-  ```bash
-  conda create -c conda-forge -n mindspore_py39 -c conda-forge python=3.9.0
+  conda create -c conda-forge -n mindspore_py39 -c conda-forge python=3.9.11
   conda activate mindspore_py39
   ```
 

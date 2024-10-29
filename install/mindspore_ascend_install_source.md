@@ -40,9 +40,9 @@ wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-as
 # 默认安装Python 3.9
 # 默认LOCAL_ASCEND路径为/usr/local/Ascend
 PYTHON_VERSION=3.9 bash -i ./euleros-ascend-source.sh
-# 如需指定安装Python 3.8，并且安装可选依赖Open MPI
+# 如需指定安装Python 3.9，并且安装可选依赖Open MPI
 # 且指定LOCAL_ASCEND路径为/home/xxx/Ascend，使用以下方式
-# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.8 OPENMPI=on bash -i ./euleros-ascend-source.sh
+# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.9 OPENMPI=on bash -i ./euleros-ascend-source.sh
 ```
 
 该脚本会执行以下操作：
@@ -76,7 +76,7 @@ conda activate mindspore_py39
 |软件名称|版本|作用|
 |-|-|-|
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/openEuler 20.03/KylinV10 SP1|-|编译和运行MindSpore的操作系统|
-|[Python](#安装python)|3.8-3.10|MindSpore的使用依赖Python环境|
+|[Python](#安装python)|3.9-3.11|MindSpore的使用依赖Python环境|
 |[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
 |[wheel](#安装wheel-setuptools和numpy)|0.32.0及以上|MindSpore使用的Python打包工具|
 |[setuptools](#安装wheel-setuptools和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
@@ -128,7 +128,7 @@ python --version
 
 - 商用版下载需要申请权限，下载链接即将发布。
 
-- 社区版下载不受限制，下载链接请前往[CANN社区版](https://www.hiascend.com/developer/download/community/result?module=cann)，选择`8.0.RC2.beta1`版本，以及在[固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community)链接中获取对应的固件和驱动安装包，安装包的选择与安装方式请参照上述的商用版安装指引文档。
+- 社区版下载不受限制，下载链接即将发布。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 

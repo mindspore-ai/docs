@@ -19,7 +19,7 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 ## 确认系统环境信息
 
 - 确认安装Windows 10是x86架构64位操作系统。
-- 确认安装Python（>=3.7.5）。可以从[Python官网](https://www.python.org/downloads/windows/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
+- 确认安装Python（>=3.9.0）。可以从[Python官网](https://www.python.org/downloads/windows/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
 
 ## 下载安装MindSpore
 

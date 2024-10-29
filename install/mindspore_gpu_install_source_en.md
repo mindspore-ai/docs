@@ -51,8 +51,8 @@ The root permission is required because the automatic installation script needs 
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh
-# install Python 3.7 and CUDA 11.6 by default
-bash -i ./ubuntu-gpu-source.sh
+# install Python 3.9 and CUDA 11.6
+PYTHON_VERSION=3.9 bash -i ./ubuntu-gpu-source.sh
 # to specify Python 3.9 and CUDA 10.1, and the installation optionally relying on Open MPI, use the following manners
 # PYTHON_VERSION=3.9 CUDA_VERSION=10.1 OPENMPI=on bash -i ./ubuntu-gpu-source.sh
 ```
@@ -79,7 +79,7 @@ The following table lists the system environment and third-party dependencies re
 |Ubuntu|18.04|OS for compiling and running MindSpore|
 |[CUDA](#installing-cuda)|10.1 or 11.1 or 11.6|parallel computing architecture for MindSpore GPU|
 |[cuDNN](#installing-cudnn)|7.6.x or 8.0.x or 8.5.x|deep neural network acceleration library used by MindSpore GPU|
-|[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends on|
+|[Python](#installing-python)|3.9-3.11|Python environment that MindSpore depends on|
 |[wheel](#installing-wheel-setuptools-and-numpy)|0.32.0 or later|Python packaging tool used by MindSpore|
 |[setuptools](#installing-wheel-setuptools-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
 |[Numpy](#installing-wheel-setuptools-and-numpy)|1.19.3 or later|Numpy module that Numpy-related functions in MindSpore depends on|
@@ -175,11 +175,11 @@ If a different version of CUDA have been installed or the CUDA installation path
 
     After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
-    Create a virtual environment, taking Python 3.7.5 as an example:
+    Create a virtual environment, taking Python 3.9.11 as an example:
 
     ```bash
-    conda create -n mindspore_py37 python=3.7.5 -y
-    conda activate mindspore_py37
+    conda create -n mindspore_py39 python=3.9.11 -y
+    conda activate mindspore_py39
     ```
 
 - Or install Python via APT with the following command.
@@ -188,16 +188,16 @@ If a different version of CUDA have been installed or the CUDA installation path
     sudo apt-get update
     sudo apt-get install software-properties-common -y
     sudo add-apt-repository ppa:deadsnakes/ppa -y
-    sudo apt-get install python3.7 python3.7-dev python3.7-distutils python3-pip -y
+    sudo apt-get install python3.9 python3.9-dev python3.9-distutils python3-pip -y
     # set new installed Python as default
-    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 100
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.9 100
     # install pip
     python -m pip install pip -i https://repo.huaweicloud.com/repository/pypi/simple
-    sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.7 100
+    sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.9 100
     pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
     ```
 
-    To install other Python versions, just change `3.7` in the command.
+    To install other Python versions, just change `3.9` in the command.
 
 Run the following command to check the Python version.
 

@@ -23,10 +23,8 @@
 
     |芯片|计算架构|macOS版本|支持Python版本|支持Conda版本|
     |-|-|-|-|-|
-    |M1|ARM|11.3|Python 3.8-3.9|Mambaforge 或 Miniforge|
-    |Intel|x86_64|10.15/11.3|Python 3.7-3.9|Anaconda 或 MiniConda|
-
-> 注意：[Python 3.8.10](https://www.python.org/downloads/release/python-3810/) 或通过Conda安装的Python 3.8.5版本是支持M1芯片（ARM架构）macOS的最低Python版本
+    |M1|ARM|11.3|Python 3.9-3.11|Mambaforge 或 Miniforge|
+    |Intel|x86_64|10.15/11.3|Python 3.9-3.11|Anaconda 或 MiniConda|
 
 - 确认安装与当前系统及芯片型号兼容的Conda版本。
 
@@ -37,24 +35,10 @@
 
 根据您希望使用的Python版本创建对应的Conda虚拟环境并进入虚拟环境。
 
-- 如果您希望使用Python3.7.5版本(适配64-bit macOS 10.15)：
+- 如果您希望使用Python3.9.11版本(适配64-bit macOS 10.15或11.3)：
 
   ```bash
-  conda create -c conda-forge -n mindspore_py37 -c conda-forge python=3.7.5
-  conda activate mindspore_py37
-  ```
-
-- 如果您希望使用Python3.8.5版本(适配64-bit macOS 10.15或11.3)：
-
-  ```bash
-  conda create -c conda-forge -n mindspore_py38 -c conda-forge python=3.8.5
-  conda activate mindspore_py38
-  ```
-
-- 如果您希望使用Python3.9.0版本(适配64-bit macOS 10.15或11.3)：
-
-  ```bash
-  conda create -c conda-forge -n mindspore_py39 -c conda-forge python=3.9.0
+  conda create -c conda-forge -n mindspore_py39 -c conda-forge python=3.9.11
   conda activate mindspore_py39
   ```
 

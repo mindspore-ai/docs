@@ -19,7 +19,7 @@ This document describes how to install MindSpore Nightly by pip on Linux in a CP
 ## System Environment Information Confirmation
 
 - Ensure that Windows 10 is installed with the x86 architecture 64-bit operating system.
-- Ensure that you have Python(>=3.7.5) installed. If not installed, follow the links to [Python official website](https://www.python.org/downloads/windows/) or [Huawei Cloud](https://repo.huaweicloud.com/python/) to download and install Python.
+- Ensure that you have Python(>=3.9.0) installed. If not installed, follow the links to [Python official website](https://www.python.org/downloads/windows/) or [Huawei Cloud](https://repo.huaweicloud.com/python/) to download and install Python.
 
 ## Installing MindSpore
 

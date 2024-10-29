@@ -22,7 +22,7 @@
 - 确认安装[Microsoft Visual Studio Community 2019](https://learn.microsoft.com/zh-cn/visualstudio/releases/2019/release-notes)。安装时保证工作负荷勾选`使用C++的桌面开发`和`通用Windows平台开发`选项，单个组件勾选`用于Windows的C++CMake工具`。
 - 确认安装了[git](https://github.com/git-for-windows/git/releases/download/v2.29.2.windows.2/Git-2.29.2.2-64-bit.exe)工具。同时将Git目录加到`Path`环境变量中，如果git安装在`D:\Program Files\Git`时，那么需要把`D:\Program Files\Git\usr\bin`加入到`Path`环境变量中。
 - 确认安装[CMake 3.18.3版本](https://cmake.org/files/v3.18/cmake-3.18.3-win64-x64.msi)。并将安装路径（不能出现中文等特殊字符）添加到系统环境变量`Path`中。
-- 确认安装Python（>=3.7.5）。可以从[Python官网](https://www.python.org/downloads/windows/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
+- 确认安装Python（>=3.9.0）。可以从[Python官网](https://www.python.org/downloads/windows/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
 - 确认安装[MSYS2软件](https://www.msys2.org/)。详细请查看[Windows上安装MSYS2软件](https://gitee.com/mindspore/docs/blob/master/install/third_party/msys_software_install.md)。
 

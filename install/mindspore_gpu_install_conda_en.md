@@ -48,10 +48,10 @@ The automatic installation script needs to replace the source list and install d
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-conda.sh
-# install Python 3.7, CUDA 11.6 and the latest MindSpore by default
-bash -i ./ubuntu-gpu-conda.sh
+# install Python 3.9, CUDA 11.6 and the latest MindSpore
+PYTHON_VERSION=3.9 bash -i ./ubuntu-gpu-conda.sh
 # to specify Python, CUDA and MindSpore version, taking Python 3.9, CUDA 10.1 and MindSpore 1.6.0 as examples, use the following manners
-# PYTHON_VERSION=3.9 CUDA_VERSION=10.1 MINDSPORE_VERSION=1.6.0 bash -i ./ubuntu-gpu-conda.sh
+#  CUDA_VERSION=10.1 MINDSPORE_VERSION=1.6.0 bash -i ./ubuntu-gpu-conda.sh
 ```
 
 This script performs the following operations:
@@ -63,16 +63,16 @@ This script performs the following operations:
 - Install MindSpore GPU by Conda.
 - Install Open MPI if OPENMPI is set to `on`.
 
-After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect. The automatic installation script creates a virtual environment named `mindspore_pyXX` for MindSpore. Where `XX` is the Python version, such as Python 3.7, the virtual environment name is `mindspore_py37`. Run the following command to show all virtual environments.
+After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect. The automatic installation script creates a virtual environment named `mindspore_pyXX` for MindSpore. Where `XX` is the Python version, such as Python 3.9, the virtual environment name is `mindspore_py39`. Run the following command to show all virtual environments.
 
 ```bash
 conda env list
 ```
 
-To activate the virtual environment, take Python 3.7 as an example, execute the following command.
+To activate the virtual environment, take Python 3.9 as an example, execute the following command.
 
 ```bash
-conda activate mindspore_py37
+conda activate mindspore_py39
 ```
 
 For more usage, see the script header description.
@@ -205,14 +205,14 @@ cd -
 
 Create a Conda virtual environment based on the Python version you want to use and go to the virtual environment.
 
-If you want to use Python 3.7.5:
+If you want to use Python 3.9.11:
 
 ```bash
-conda create -c conda-forge -n mindspore_py37 python=3.7.5 -y
-conda activate mindspore_py37
+conda create -c conda-forge -n mindspore_py39 python=3.9.11 -y
+conda activate mindspore_py39
 ```
 
-If you wish to use another version of Python, just change the Python version in the above command. Python 3.7, Python 3.8 and Python 3.9 are currently supported.
+If you wish to use another version of Python, just change the Python version in the above command. Python 3.9, Python 3.10 and Python 3.11 are currently supported.
 
 ### Installing MindSpore
 

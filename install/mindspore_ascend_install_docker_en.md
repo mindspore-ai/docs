@@ -26,7 +26,7 @@ The current support for containerized build options is as follows:
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
 | Ascend | `mindspore/mindspore-ascend` | `x.y.z` | The production environment of MindSpore Ascend x.y.z together with the corresponding version of Ascend Data Center Solution. |
 
-> `x.y.z` corresponds to the MindSpore version number. For example, when MindSpore version 2.3.0 is installed, `x.y.z` should be written as 2.3.0.
+> `x.y.z` corresponds to the MindSpore version number. For example, when MindSpore version 2.4.0 is installed, `x.y.z` should be written as 2.4.0.
 
 ## System Environment Information Confirmation
 
@@ -40,7 +40,7 @@ Ascend software package provides two distributions, commercial edition and commu
 
 - Commercial edition needs approval from Ascend to download, release date is TBD.
 
-- Community edition has no restrictions, choose `8.0.RC2.beta1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
+- Community edition has no restrictions, release date is TBD.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
