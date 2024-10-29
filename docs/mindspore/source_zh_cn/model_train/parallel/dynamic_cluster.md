@@ -154,7 +154,7 @@ MindSpore**动态组网**特性通过**复用Parameter Server模式训练架构*
         <td align="left">关闭集群中节点间心跳业务。</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">默认开启心跳业务</td>
-        <td align="left">若设置为1，则关闭集群节点间心跳，此场景下Scheduler不会检测到Worker异常，集群不会被Scheduler控制退出。此变量可以降低Scheduler节点消息并发量。</td>
+        <td align="left">若设置为1，则关闭集群节点间心跳，此场景下Scheduler不会检测到Worker异常，集群不会被Scheduler控制退出。此变量可以降低Scheduler节点消息并发量。<br>在使用`gdb attach`指令调试时，建议开启此环境变量。</td>
     </tr>
 </table>
 

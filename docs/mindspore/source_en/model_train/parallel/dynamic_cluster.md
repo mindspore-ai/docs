@@ -154,7 +154,7 @@ The relevant environment variables:
         <td align="left">Disable the heartbeat feature between nodes in the cluster.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">Heartbeat feature is enabled by default.</td>
-        <td align="left">If set to 1, the heartbeat between cluster nodes will be disabled. In this scenario, Scheduler will not detect Workers' exception and will not control the cluster to exit. This variable can reduce the message concurrency of the Scheduler.</td>
+        <td align="left">If set to 1, the heartbeat between cluster nodes will be disabled. In this scenario, Scheduler will not detect Workers' exception and will not control the cluster to exit. This variable can reduce the message concurrency of the Scheduler.<br>It is recommended to set this environment variable when using `gdb attach` command for debugging.</td>
     </tr>
 </table>
 
