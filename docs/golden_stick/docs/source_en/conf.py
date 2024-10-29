@@ -195,6 +195,14 @@ for root,dirs,files in os.walk(src_dir_api):
 
 os.makedirs(os.path.join(moment_dir, 'ptq/images/en'), exist_ok=True)
 
+re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
+re_url2 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))[\w\d/_.-]*?)/(master)"
+
+re_url3 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
+
 if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.md')):
     os.makedirs(os.path.join(moment_dir, 'ptq'), exist_ok=True)
     shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/round_to_nearest/README.md'),
@@ -202,6 +210,9 @@ if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.md')):
     with open(os.path.join(moment_dir, 'ptq/round_to_nearest.md'), 'r+', encoding='utf-8') as f:
         content = f.read()
         content = re.sub('.*?/README_CN.ipynb.*\n.*\n', '', content)
+        content = re.sub(re_url, r'\1/r2.4.0', content)
+        content = re.sub(re_url2, r'\1/r0.6.0', content)
+        content = re.sub(re_url3, r'\1/r1.3.0', content)
         f.seek(0)
         f.truncate()
         f.write(content)

@@ -230,6 +230,12 @@ if os.path.exists('./experimental'):
 # add view
 import json
 
+re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
+re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
+
 if os.path.exists('../../../../tools/generate_html/version.json'):
     with open('../../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
         version_inf = json.load(f)
@@ -263,7 +269,8 @@ for cur, _, files in os.walk(moment_dir):
                 try:
                     with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                         content = f.read()
-                        new_content = content
+                        new_content = re.sub(re_url, r'\1/r2.4.0', content)
+                        new_content = re.sub(re_url2, r'\1/v2.4.0', new_content)
                         if '.. include::' in content and '.. automodule::' in content:
                             continue
                         if 'autosummary::' not in content and "\n=====" in content:
