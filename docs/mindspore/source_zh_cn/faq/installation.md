@@ -260,6 +260,12 @@ A: 常见原因有两种: Ascend AI处理器配套软件包或固件/驱动包�
 
 <br/>
 
+### Q: 同一环境安装多个昇腾AI处理器配套软件包时，运行MindSpore出现卡死、segmentation fault、cannot open shared object file: No such file or directory等问题时该怎么办？
+
+A: MindSpore 2.4.0之前的版本通过RPATH指定环境变量，可能导致同时安装CANN-nnae和CANN-toolkit包的环境出现二进制加载顺序错误问题，MindSpore 2.4.0已经删除该限制并要求用户手动设置环境变量。如果需要同时安装上述CANN软件包，请升级MindSpore到2.4.0或更高版本，通过CANN提供的环境变量配置脚本设置环境变量。请参照[安装页面](https://www.mindspore.cn/install/)进行环境变量设置。
+
+<br/>
+
 ## 安装验证
 
 ### Q: MindSpore的GPU版本对设备的计算能力有限制吗？

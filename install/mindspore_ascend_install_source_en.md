@@ -146,8 +146,6 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
 
-The LD_LIBRARY_PATH environment variable does not work when the installation package exists in the default path. The default path priority is: /usr/local/Ascend/nnae is higher than /usr/local/Ascend/ascend-toolkit. The reason is that MindSpore uses DT_RPATH to support startup without environment variables, reducing user settings. DT_RPATH has a higher priority than the LD_LIBRARY_PATH environment variable.
-
 ### Installing wheel setuptools and Numpy
 
 After installing Python, use the following command to install it.
@@ -311,23 +309,11 @@ When the network is connected, dependencies of MindSpore are automatically downl
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
-# Conda environmental options
+# environment variables
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
-# lib libraries that the run package depends on
-export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/built-in/op_impl/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
-
-# Environment variables that must be configured
-## TBE operator implementation tool path
-export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/built-in/op_impl/ai_core/tbe
-## OPP path
-export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp
-## AICPU path
-export ASCEND_AICPU_PATH=${ASCEND_OPP_PATH}/..
-## TBE operator compilation tool path
-export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/compiler/ccec_compiler/bin/:${PATH}
-## Python library that TBE implementation depends on
-export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
+# set environmet variables using script provided by CANN, swap "ascend-toolkit" with "nnae" if you are using CANN-nnae package instead
+source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
 ```
 
 ## Installation Verification
