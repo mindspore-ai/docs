@@ -199,3 +199,28 @@ def replace_html_menu(html_path, hm_ds_path):
                     else:
                         print(os.path.join(root, file))
                     break
+
+    # 用别的页面覆盖index并调整链接
+    old_ind = f'{html_path}/index.html'
+    new_ind = f'{html_path}/model_train/index.html'
+    with open(new_ind, 'r', encoding='utf-8') as f:
+        new_doc = f.read()
+
+    for href in re.findall('href="(.*?)"', new_doc):
+        if href.startswith('http') or href.startswith('#'):
+            continue
+        abs_p1 = os.path.join(f'{html_path}/model_train', href)
+        rel_p = os.path.relpath(abs_p1, html_path)
+        rel_p = rel_p.replace('\\', '/')
+        new_doc = re.sub(f'href="{href}"', f'href="{rel_p}"', new_doc)
+
+    for href in re.findall('src="(.*?)"', new_doc):
+        if href.startswith('http') or href.startswith('#'):
+            continue
+        abs_p1 = os.path.join(f'{html_path}/model_train', href)
+        rel_p = os.path.relpath(abs_p1, html_path)
+        rel_p = rel_p.replace('\\', '/')
+        new_doc = re.sub(f'src="{href}"', f'src="{rel_p}"', new_doc)
+
+    with open(old_ind, 'w', encoding='utf-8') as f:
+        f.write(new_doc)
