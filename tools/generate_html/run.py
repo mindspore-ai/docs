@@ -201,7 +201,7 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         if data[i]['name'] == "lite":
             ArraySource[data[i]['name'] + '/docs'] = data[i]["html_version"]
             ArraySource[data[i]['name'] + '/api'] = data[i]["html_version"]
-            ArraySource[data[i]['name'] + '/faq'] = data[i]["html_version"]
+            # ArraySource[data[i]['name'] + '/faq'] = data[i]["html_version"]
         elif data[i]['name'] == "tutorials":
             ArraySource[data[i]['name']] = data[i]["html_version"]
             # ArraySource[data[i]['name'] + '/application'] = data[i]["html_version"]
