@@ -200,8 +200,6 @@ try:
 except:
     pass
 
-import mindformers
-
 # Copy source files of chinese python api from golden-stick repository.
 from sphinx.util import logging
 import shutil
@@ -221,6 +219,25 @@ if os.path.exists('./mindformers.experimental.rst'):
 
 # get params for add view source
 import json
+
+re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
+re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
+
+base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+for cur, _, files in os.walk(os.path.join(base_path, 'mindformers')):
+    for i in files:
+        if i.endswith('.py'):
+            with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                content = f.read()
+                new_content = re.sub(re_url, r'\1/r2.4.0', content)
+                new_content = re.sub(re_url2, r'\1/v2.4.0', new_content)
+                if new_content != content:
+                    f.seek(0)
+                    f.truncate()
+                    f.write(new_content)
 
 if os.path.exists('../../../../tools/generate_html/version.json'):
     with open('../../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
@@ -242,6 +259,8 @@ docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if vers
 cst_module_name = 'mindformers'
 repo_whl = 'mindformers'
 giturl = 'https://gitee.com/mindspore/'
+
+import mindformers
 
 def setup(app):
     app.add_config_value('docs_branch', '', True)

@@ -378,12 +378,18 @@ re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs
 
 re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
 
+re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))[\w\d/_.-]*?)/(master)"
+
+re_url4 = r"(((gitee.com/mindspore/mindformers)|(mindspore.cn/mindformers))[\w\d/_.-]*?)/(dev)"
+
 for cur, _, files in os.walk(des_sir):
     for i in files:
         if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
                 new_content = re.sub(re_url, r'\1/r2.4.0', content)
+                new_content = re.sub(re_url3, r'\1/r0.6.0', new_content)
+                new_content = re.sub(re_url4, r'\1/r1.3.0', new_content)
                 if i.endswith('.rst'):
                     new_content = re.sub(re_url2, r'\1/v2.4.0', new_content)
                 # if i.endswith('.md'):
@@ -403,6 +409,8 @@ for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
                 content = f.read()
                 new_content = re.sub(re_url, r'\1/r2.4.0', content)
                 new_content = re.sub(re_url2, r'\1/v2.4.0', new_content)
+                new_content = re.sub(re_url3, r'\1/r0.6.0', new_content)
+                new_content = re.sub(re_url4, r'\1/r1.3.0', new_content)
                 if new_content != content:
                     f.seek(0)
                     f.truncate()
