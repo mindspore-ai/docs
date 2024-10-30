@@ -75,6 +75,7 @@
 |                              |               | MacOS-x64     | Python3.9  | [mindspore-2.4.0-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindSpore/cpu/x86_64/mindspore-2.4.0-cp39-cp39-macosx_10_15_x86_64.whl)     | c55ee021d7a46ca943d354eafb127987edd983413c4c6a891e29305ad84a4023 |
 |                              |               |               | Python3.10 | [mindspore-2.4.0-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindSpore/cpu/x86_64/mindspore-2.4.0-cp310-cp310-macosx_10_15_x86_64.whl) | d218c4edc0aace63d30dad6a664ac518590f979c38a7ce76b7dcf13f956df594 |
 |                              |               |               | Python3.11 | [mindspore-2.4.0-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindSpore/cpu/x86_64/mindspore-2.4.0-cp311-cp311-macosx_10_15_x86_64.whl) | bca6bcb38b23838feb2baae59e4e140b6641d5af422d87a744b515848a7f5205 |
+|MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.4.0/use/downloads.html#2-4-0)   |      |
 | MindSpore<br>Transformers    |               | any           | Python3    | [mindformers-1.3.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/MindFormers/any/mindformers-1.3.0-py3-none-any.whl)                                        | 6d9cd227bf788cad5649e2a8fa862dfd66ee4ffe3f6f20add0e818c2bc15cd34 |
 | MindSpore<br>Golden<br>Stick |               | any           | Python3    | [mindspore_gs-0.6.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.0/GoldenStick/any/mindspore_gs-0.6.0-py3-none-any.whl)                                      | 14961462194fb03117bb758af24bcf50bae2c0b8db982cd0cded26cd85e73fd0                                                      |
 
@@ -87,8 +88,8 @@
 **配套资料**
 
 |   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
-|    ---  |    ---   |       ---      |     ---      |    ---      |
-|    ---  |    ---   |       ---      |     ---      |    ---      |
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.4.0/RELEASE.html)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.4.0/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.4.0/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.4.0/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.4.0/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.4.0/index.html) <br>  [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.6.0/index.html) <br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/mindspore.html) <br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.4.0/index.html) <br>  [MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/r0.6.0/mindspore_gs.quantization.html) <br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/mindformers.html)      |
 
 ## 2.3.1
 
