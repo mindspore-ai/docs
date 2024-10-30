@@ -37,7 +37,7 @@ Run the following command to obtain and run the automatic installation script. T
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
-# install Python 3.9 by default
+# install Python 3.9
 # the default value of LOCAL_ASCEND is /usr/local/Ascend
 PYTHON_VERSION=3.9 bash -i ./euleros-ascend-source.sh
 # to specify the Python 3.9 installation and install the optional dependencies Open MPI
