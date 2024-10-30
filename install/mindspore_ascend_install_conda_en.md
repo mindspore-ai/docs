@@ -35,7 +35,7 @@ Run the following command to obtain and run the automatic installation script. T
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-conda.sh
-# install Python 3.9 and the latest MindSpore by default
+# install Python 3.9 and the latest MindSpore
 # the default value of LOCAL_ASCEND is /usr/local/Ascend
 PYTHON_VERSION=3.9 bash -i ./euleros-ascend-conda.sh
 # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.6.0 as examples
@@ -150,6 +150,7 @@ Install the .whl package provided with the Ascend AI Processor software package 
 
 ```bash
 pip install sympy
+pip install "numpy>=1.20.0,<2.0.0"
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-{version}-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-{version}-py3-none-any.whl
 ```

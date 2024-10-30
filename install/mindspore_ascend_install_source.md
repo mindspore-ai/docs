@@ -37,7 +37,7 @@
 
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
-# 默认安装Python 3.9
+# 安装Python 3.9
 # 默认LOCAL_ASCEND路径为/usr/local/Ascend
 PYTHON_VERSION=3.9 bash -i ./euleros-ascend-source.sh
 # 如需指定安装Python 3.9，并且安装可选依赖Open MPI
