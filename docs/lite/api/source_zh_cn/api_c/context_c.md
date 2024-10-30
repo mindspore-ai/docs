@@ -321,7 +321,7 @@ void MSDeviceInfoSetFrequency(MSDeviceInfoHandle device_info, int frequency)
 
 - 参数
     - `device_info`: 指向设备类型信息的指针。
-    - `frequency`: 频率类型，取值范围为0-4，默认是3。1表示低功耗，2表示平衡，3表示高性能，4表示超高性能。
+    - `frequency`: 频率类型，取值范围为1-4，默认是3。1表示低功耗，2表示平衡，3表示高性能，4表示超高性能。
 
 ### MSDeviceInfoGetFrequency
 

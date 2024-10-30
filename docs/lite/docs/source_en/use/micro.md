@@ -404,7 +404,7 @@ target_device=DSP
 
 - The `target_device` of the `full quantization parameter` in the configuration file usually needs to be set to DSP to support more operators for post quantization.
 
-- At present, Micro has supported 34 Int8 quantization operators. If a related quantization operator does not support it when generating code, you can circumvent the operator through the `skip_quant_node` of the `universal quantization parameter`. The circumvented operator node still uses float32 inference.
+- At present, Micro has supported 8 Int8 quantization operators(add, batchnorm, concat, conv, convolution, matmul, resize, slice). If a related quantization operator does not support it when generating code, you can circumvent the operator through the `skip_quant_node` of the `universal quantization parameter`. The circumvented operator node still uses float32 inference.
 
 ## Generating Model Training Code
 

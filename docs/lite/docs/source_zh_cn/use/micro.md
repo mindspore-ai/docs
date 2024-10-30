@@ -402,7 +402,7 @@ target_device=DSP
 
 - 配置文件中全量化参数`full_quant_param`的target_device通常需设置为DSP，以支持更多的算子进行后量化。
 
-- 目前Micro已支持34个int8量化算子，如果在生成代码时，有相关量化算子不支持，可通过通用量化参数`common_quant_param`的`skip_quant_node`来规避该算子，被规避的算子节点仍然采用float32推理。
+- 目前Micro已支持8个int8量化算子（add、batchnorm、concat、conv、convolution、matmul、resize、slice），如果在生成代码时，有相关量化算子不支持，可通过通用量化参数`common_quant_param`的`skip_quant_node`来规避该算子，被规避的算子节点仍然采用float32推理。
 
 ## 模型训练代码生成
 
