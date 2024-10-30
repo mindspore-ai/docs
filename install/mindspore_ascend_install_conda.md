@@ -149,6 +149,7 @@ conda activate mindspore_py39
 
 ```bash
 pip install sympy
+pip install "numpy>=1.20.0,<2.0.0"
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
