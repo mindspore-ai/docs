@@ -21,7 +21,7 @@ The base configuration is mainly used to specify MindSpore random seeds and rela
 | output_dir      | Set the path where log, checkpoint, strategy, etc. files are saved.                                                                                                                                                                        | str  |
 | load_checkpoint | File or folder paths for loading weights。 Currently there are 3 application scenarios<br/>1. Support for passing in full weight file paths<br/>2. Support for passing in offline sliced weight folder paths<br/>3. Support for passing in folder paths containing lora weights and base weights<br/>Refer to [Weight Conversion Function](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/function/weight_conversion.html) for the ways of obtaining various weights. | str  |
 | auto_trans_ckpt | Enable online weight automatic conversion. Refer to [Weight Conversion Function](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/function/weight_conversion.html)                                                                                                      | bool |
-| resume_training | Turn on resumable training after breakpoint. For details, refer to [Resumable Training After Breakpoint](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/function/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)                                                                                                               | bool |
+| resume_training | Turn on resumable training after breakpoint. For details, refer to [Resumable Training After Breakpoint](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/function/resume_training.html#resumable-training)                                                                                                               | bool |
 
 ### Context Configuration
 
@@ -140,7 +140,7 @@ In order to improve the performance of the model, it is usually necessary to con
 
 ### Model Optimization Configuration
 
-MindFormers provides recomputation-related configurations to reduce the memory footprint of the model during training, see [Recomputation](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/perf_optimize/perf_optimize.html#recompute) for details.
+MindFormers provides recomputation-related configurations to reduce the memory footprint of the model during training, see [Recomputation](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/perf_optimize/perf_optimize.html#recomputation) for details.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |----------------------------------------------------|-------------------------------|-----------|
