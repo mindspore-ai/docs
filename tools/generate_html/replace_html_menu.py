@@ -2,6 +2,22 @@
 import re
 import os
 
+def replace_relurls(docs, old_p, new_p, re_list):
+    """为替换后的文件内容修正相对路径"""
+    for re_doc in re_list:
+        re_cp = f'{re_doc}="(.*?)"'
+        for href in re.findall(re_cp, docs):
+            if href.startswith('http') or href.startswith('#'):
+                continue
+            base_p1 = os.path.split(new_p)[0]
+            now_dir = os.path.split(old_p)[0]
+            abs_p1 = os.path.join(base_p1, href)
+            rel_p = os.path.relpath(abs_p1, now_dir)
+            rel_p = rel_p.replace('\\', '/')
+            docs = re.sub(f'{re_doc}="{href}"', f'{re_doc}="{rel_p}"', docs)
+
+    return docs
+
 # pylint: disable=C0301
 
 # 为有index的目录生成基础大纲目录 --> dict
@@ -202,25 +218,23 @@ def replace_html_menu(html_path, hm_ds_path):
 
     # 用别的页面覆盖index并调整链接
     old_ind = f'{html_path}/index.html'
-    new_ind = f'{html_path}/model_train/index.html'
-    with open(new_ind, 'r', encoding='utf-8') as f:
-        new_doc = f.read()
+    api_ind = f'{html_path}/api_python/index.html'
+    with open(api_ind, 'r', encoding='utf-8') as f:
+        api_doc = f.read()
 
-    for href in re.findall('href="(.*?)"', new_doc):
-        if href.startswith('http') or href.startswith('#'):
-            continue
-        abs_p1 = os.path.join(f'{html_path}/model_train', href)
-        rel_p = os.path.relpath(abs_p1, html_path)
-        rel_p = rel_p.replace('\\', '/')
-        new_doc = re.sub(f'href="{href}"', f'href="{rel_p}"', new_doc)
-
-    for href in re.findall('src="(.*?)"', new_doc):
-        if href.startswith('http') or href.startswith('#'):
-            continue
-        abs_p1 = os.path.join(f'{html_path}/model_train', href)
-        rel_p = os.path.relpath(abs_p1, html_path)
-        rel_p = rel_p.replace('\\', '/')
-        new_doc = re.sub(f'src="{href}"', f'src="{rel_p}"', new_doc)
+    new_api_doc = replace_relurls(api_doc, old_ind, api_ind, ['href', 'src', 'action', 'data-url_root'])
 
     with open(old_ind, 'w', encoding='utf-8') as f:
-        f.write(new_doc)
+        f.write(new_api_doc)
+
+    # 替换搜索页的左侧目录为API
+    search_p = f'{html_path}/search.html'
+    menu_doc = re.findall(r'data-spy="affix" role="navigation"(?:.|\n|)+?</ul>\n\n', api_doc)
+    if menu_doc:
+        new_menu_doc = replace_relurls(menu_doc[0], search_p, api_ind, ['href'])
+    with open(search_p, 'r+', encoding='utf-8') as f:
+        search_doc = f.read()
+        search_doc = re.sub(r'data-spy="affix" role="navigation"(?:.|\n|)+?</ul>\n\n', new_menu_doc, search_doc)
+        f.seek(0)
+        f.truncate()
+        f.write(search_doc)
