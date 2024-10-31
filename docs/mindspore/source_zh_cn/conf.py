@@ -610,7 +610,7 @@ release_source = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
 
-hide_release = ['2.4.0']
+hide_release = []
 if len(re.findall("\n## (.*?)\n",data)) > 1:
     for i in hide_release:
         del_doc = re.findall(f"(\n## MindSpore {i}[\s\S\n]*?)\n## ", data)
