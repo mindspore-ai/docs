@@ -494,6 +494,40 @@ else:
     content = re.findall("(\n## [\s\S\n]*)", data)
     content = content[0]
 
+# replace some content fix indent.
+old_content = """
+  def all_to_all_single_with_output_shape(output_shape,
+                                          tensor, output_split_sizes=None,
+                                          input_split_sizes=None,
+                                          group=None, async_op=False)->
+                                          tuple(Tensor, CommHandle)"""
+
+new_content = """
+  def all_to_all_single_with_output_shape(output_shape,
+                                          tensor,
+                                          output_split_sizes=None,
+                                          input_split_sizes=None,
+                                          group=None,
+                                          async_op=False)->
+                                          tuple(Tensor, CommHandle)"""
+
+content = content.replace(old_content, new_content)
+
+old_content = """
+  def all_to_all_single_with_output_shape(output_shape,
+                                          tensor, output_split_sizes=None,
+                                          input_split_sizes=None,
+                                          group=None)->Tensor"""
+
+new_content = """
+  def all_to_all_single_with_output_shape(output_shape,
+                                          tensor,
+                                          output_split_sizes=None,
+                                          input_split_sizes=None,
+                                          group=None)->Tensor"""
+
+content = content.replace(old_content, new_content)
+
 with open(des_release, "w", encoding="utf-8") as p:
     p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content)
