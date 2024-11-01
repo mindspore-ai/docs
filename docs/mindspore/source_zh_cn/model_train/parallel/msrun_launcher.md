@@ -35,10 +35,10 @@
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--master_addr</td>
-        <td align="left">指定Scheduler的IP地址。</td>
+        <td align="left">指定Scheduler的IP地址或者主机名。</td>
         <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">合法的IP地址。默认为127.0.0.1。</td>
-        <td align="left">msrun会自动检测在哪个节点拉起Scheduler进程，用户无需关心。<br>若无法查找到对应的地址，训练任务会拉起失败。<br>当前版本暂不支持IPv6地址。<br>当前版本msrun使用<code>ip -j addr</code>指令查询当前节点地址，<br>需要用户环境支持此指令。</td>
+        <td align="left">合法的IP地址或者主机名。默认为IP地址127.0.0.1。</td>
+        <td align="left">msrun会自动检测在哪个节点拉起Scheduler进程，用户无需关心。<br>若无法查找到对应的地址或主机名无法被DNS解析，训练任务会拉起失败。<br>当前版本暂不支持IPv6地址。<br>若传入主机名时，msrun会自动将其解析为IP地址，需要用户环境支持DNS服务。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--master_port</td>
@@ -101,7 +101,7 @@
         <td align="left">rank_table配置文件，只在昇腾平台下有效。</td>
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">rank_table配置文件路径，默认为空。</td>
-        <td align="left">此参数代表昇腾平台下的rank_table配置文件，描述当前分布式集群。</td>
+        <td align="left">此参数代表昇腾平台下的rank_table配置文件，描述当前分布式集群。<br>由于rank_table配置文件反映的是物理层面分布式集群信息，在使用该配置时，请确保对于当前进程可见的Device与rank_table配置保持一致。<br>可通过环境变量<code>ASCEND_RT_VISIBLE_DEVICES</code>设置对于当前进程可见的Device。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">task_script</td>
