@@ -472,7 +472,7 @@ numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.float
         - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。Ascend O2模式下Dump统计信息只有在`file_format`设置为`npy`时可以成功，若在`file_format`设置为`bin`时选"statistic"或"full"便会错误退出。保存统计信息仅支持op_debug_mode设置为0的场景。默认取值为"tensor"。
         - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
         - `kernels`：该项可以配置两种格式：
-          1. 算子的名称列表。指定算子需要先设置保存图文件的环境变量来保存图，再从保存的图文件中获取算子名称。保存图文件的环境变量请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0011.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0012.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0013.html) 。
+          1. 算子的名称列表。指定算子需要先设置保存图文件的环境变量来保存图，再从保存的图文件中获取算子名称。保存图文件的环境变量请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0011.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0012.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0013.html) 。
           2. 算子名称的正则表达式。当字符串符合"name-regex(xxx)"格式时，后台则会将其作为正则表达式。例如，"name-regex(Default/.+)"可匹配算子名称以"Default/"开头的所有算子。
         - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
         - `statistic_category`: 该属性用于用户配置要保存的统计信息类别，仅在开启了保存统计信息(即`saved_data`设置为"statistic"或"full")时生效。类型为字符串列表，其中的字符串可选值如下：
@@ -568,9 +568,9 @@ Opdebug.Node_OpDebug.{task_id}.{stream_id}.{timestamp}.output.0.json
 
 若配置文件中`file_format`值设置为`npy`，可以直接用`numpy.load`加载。
 
-若未配置`file_format`值或`file_format`值为`bin`，启动训练后，Ascend O2模式下Dump生成的原始数据文件或溢出检测生成的溢出文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[如何查看dump数据文件](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/devaids/auxiliarydevtool/atlasaccuracy_16_0059.html)。
+若未配置`file_format`值或`file_format`值为`bin`，启动训练后，Ascend O2模式下Dump生成的原始数据文件或溢出检测生成的溢出文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[如何查看dump数据文件](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devaids/devtools/modelaccuracy/atlasaccuracy_16_0055.html)。
 
-数据在Device侧的格式可能和Host侧计算图中的定义不同，Ascend O2模式下Dump的bin数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[如何进行dump数据文件Format转换](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/devaids/auxiliarydevtool/atlasaccuracy_16_0057.html)。
+数据在Device侧的格式可能和Host侧计算图中的定义不同，Ascend O2模式下Dump的bin数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[如何进行dump数据文件Format转换](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devaids/devtools/modelaccuracy/atlasaccuracy_16_0054.html)。
 
 Ascend O2模式下Dump生成的数据文件是`bin`文件时，文件命名格式为：
 
@@ -582,13 +582,13 @@ Ascend O2模式下Dump生成的数据文件是`bin`文件时，文件命名格�
 
 如果`op_type`和`op_name`中出现了“.”、“/”、“\”、空格时，会转换为下划线表示。
 
-若配置`file_format`值为`npy`，则启用Ascend O2模式下Dump生成的数据文件命名规则与Ascend O0/O1模式下Dump相同，可以参考[Ascend O0/O1模式下Dump数据文件介绍](#数据对象目录和数据文件介绍)，溢出检测生成的溢出文件是`json`格式，溢出文件内容解析可参考[解析算子溢出数据文件](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/devguide/appdevg/aclpythondevg/aclpythondevg_0078.html#ZH-CN_TOPIC_0000001781325073__section6864050111619) 。
+若配置`file_format`值为`npy`，则启用Ascend O2模式下Dump生成的数据文件命名规则与Ascend O0/O1模式下Dump相同，可以参考[Ascend O0/O1模式下Dump数据文件介绍](#数据对象目录和数据文件介绍)，溢出检测生成的溢出文件是`json`格式，溢出文件内容解析可参考[解析算子溢出数据文件](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devguide/appdevg/aclpythondevg/aclpythondevg_0078.html#ZH-CN_TOPIC_0000001781325073__section6864050111619) 。
 
 选项`saved_data`只有在`file_format`为"npy"的时候生效。如`saved_data`是"statistic"或者"full"。张量统计数据会落盘到`statistic.csv`。如`saved_data`是"tensor"或者"full"完整张量数据会落盘到`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`。`statistic.csv`的格式与Ascend O0/O1模式下Dump相同，可以参考[Ascend O0/O1模式下Dump数据文件介绍](#数据对象目录和数据文件介绍)。
 
 ### 数据分析样例
 
-Ascend O2模式下Dump不会自动保存`.ir`文件，要想查看`.ir`文件，可以在执行用例前通过MindSpore的IR保存开关`set_context(save_graphs=2)`, 执行用例后查看保存的`trace_code_graph_{xxx}`文件， 可以用vi打开。文件查看方式请参考Ascend O0模式下的数据分析样例。Ascend O2模式下，由于`.ir`文件中并不是最终执行图，不能保证算子文件和`.ir`文件中的算子名一一对应。保存最终的执行图请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0011.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0012.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/apiref/envref/envref_07_0013.html) 。
+Ascend O2模式下Dump不会自动保存`.ir`文件，要想查看`.ir`文件，可以在执行用例前通过MindSpore的IR保存开关`set_context(save_graphs=2)`, 执行用例后查看保存的`trace_code_graph_{xxx}`文件， 可以用vi打开。文件查看方式请参考Ascend O0模式下的数据分析样例。Ascend O2模式下，由于`.ir`文件中并不是最终执行图，不能保证算子文件和`.ir`文件中的算子名一一对应。保存最终的执行图请参考昇腾社区文档[DUMP_GE_GRAPH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0011.html) 、[DUMP_GRAPH_LEVEL](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0012.html) 和[DUMP_GRAPH_PATH](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/apiref/envref/envref_07_0013.html) 。
 
 Ascend O2模式下Dump生成的数据文件可以通过以下3个步骤进行解析。如果Ascend O2模式下Dump配置文件中设置的`file_format`为"npy"，可以跳过以下步骤中的1、2，如果没有设置`file_format`，或者设置为"bin"，需要先转换成`.npy`格式的文件。
 
@@ -608,7 +608,7 @@ Ascend O2模式下Dump生成的数据文件可以通过以下3个步骤进行解
 
     {file path of dump} 可以是单个`.bin`文件的路径，也可以是包含`.bin`文件的文件夹路径。
 
-    若需要转换数据格式，可参考使用说明链接<https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC1alpha001/devaids/auxiliarydevtool/atlasaccuracy_16_0057.html> 。
+    若需要转换数据格式，可参考使用说明链接<https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha001/devaids/devtools/modelaccuracy/atlasaccuracy_16_0054.html> 。
 
     如Dump生成的数据文件为：
 
