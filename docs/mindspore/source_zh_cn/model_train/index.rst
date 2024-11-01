@@ -91,6 +91,7 @@
    train_availability/fault_recover
    train_availability/graceful_exit
    train_availability/mindio_ttp
+
 .. toctree::
    :glob:
    :maxdepth: 1
@@ -284,7 +285,7 @@
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./debug/overview.html" class="article-link">
+                     <a href="./debug/dump.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">模型调试</span>
@@ -302,7 +303,7 @@
             <div class="col-md-6">
                   <div class="doc-article-list">
                      <div class="doc-article-item">
-                        <a href="./optimize/overview.html" class="article-link">
+                        <a href="./optimize/graph_fusion_engine.html" class="article-link">
                            <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">模型调优</span>

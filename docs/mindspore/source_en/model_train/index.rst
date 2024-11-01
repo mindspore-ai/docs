@@ -284,7 +284,7 @@ Debugging and Optimization
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./debug/overview.html" class="article-link">
+                     <a href="./debug/dump.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">Model Debugging</span>
@@ -302,7 +302,7 @@ Debugging and Optimization
             <div class="col-md-6">
                   <div class="doc-article-list">
                      <div class="doc-article-item">
-                        <a href="./optimize/overview.html" class="article-link">
+                        <a href="./optimize/graph_fusion_engine.html" class="article-link">
                            <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Model Tuning</span>
