@@ -301,7 +301,21 @@ if os.path.exists(Tensor_list_path):
 if os.path.exists(dataset_list_path):
     os.remove(dataset_list_path)
 
-def ops_interface_name():
+# mint页面临时新增API差异对比
+if os.path.exists('./api_python/mindspore.mint.rst'):
+    with open('./api_python/mindspore.mint.rst', 'r+', encoding='utf-8') as f:
+        mint_content = f.read()
+        sec_title_1 = re.findall(r'.*\n[-]+\n', mint_content)[0]
+        mint_content = mint_content.replace(sec_title_1, f"Compared with the previous version, the added, deleted and supported platforms change information of `mindspore.mint` operators in MindSpore, please refer to the link `mindspore.mint API Interface Change <https://gitee.com/mindspore/docs/blob/r2.4.0/resource/api_updates/mint_api_updates_en.md>`_ .\n\n{sec_title_1}")
+        f.seek(0)
+        f.truncate()
+        f.write(mint_content)
+
+func_adjust = ['add_layer_norm', 'rotary_position_embedding']
+
+mint_adjust = ['triu', 'logaddexp']
+
+def primitive_interface_name():
 
     src_target_path = os.path.join(src_dir_en, 'mindspore.ops.primitive.rst')
     with open(src_target_path,'r+',encoding='utf8') as f:
@@ -310,17 +324,37 @@ def ops_interface_name():
 
     return primi_list
 
+def func_interface_name():
+
+    src_target_path = os.path.join(src_dir_en, 'mindspore.ops.rst')
+    with open(src_target_path,'r+',encoding='utf8') as f:
+        content =  f.read()
+        for name in func_adjust:
+            new_content = content.replace('    mindspore.ops.' + name + '\n', '')
+        if content != new_content:
+            f.seek(0)
+            f.truncate()
+            f.write(new_content)
+
+
 def mint_interface_name():
     mint_p = 'mindspore.mint.rst'
     src_target_path = os.path.join(src_dir_en, mint_p)
     with open(src_target_path,'r+',encoding='utf8') as f:
         content =  f.read()
+        for name in mint_adjust:
+            new_content = content.replace('    mindspore.mint.' + name + '\n', '')
+        if content != new_content:
+            f.seek(0)
+            f.truncate()
+            f.write(new_content)
     mint_list = re.findall(r"    (mindspore\.mint\..*)\n", content+'\n')
 
     return mint_list
 
 try:
-    primitive_list = ops_interface_name()
+    primitive_list = primitive_interface_name()
+    func_interface_name()
 except:
     pass
 

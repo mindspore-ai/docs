@@ -266,6 +266,16 @@ if os.path.exists('./model_train/train_process/model/model.ipynb'):
 if os.path.exists('./model_train/custom_program/operation/op_custom.ipynb'):
     os.remove('./model_train/custom_program/operation/op_custom.ipynb')
 
+# mint页面临时新增API差异对比
+if os.path.exists('./api_python/mindspore.mint.rst'):
+    with open('./api_python/mindspore.mint.rst', 'r+', encoding='utf-8') as f:
+        mint_content = f.read()
+        sec_title_1 = re.findall(r'.*\n[-]+\n', mint_content)[0]
+        mint_content = mint_content.replace(sec_title_1, f"MindSpore中 `mindspore.mint` 接口与上一版本相比，新增、删除和支持平台的变化信息请参考 `mindspore.mint API接口变更 <https://gitee.com/mindspore/docs/blob/r2.4.0/resource/api_updates/mint_api_updates_cn.md>`_ 。\n\n{sec_title_1}")
+        f.seek(0)
+        f.truncate()
+        f.write(mint_content)
+
 # 删除并获取ops下多余的接口文件名
 white_list = ['mindspore.ops.comm_note.rst', 'mindspore.mint.comm_note.rst']
 
@@ -273,7 +283,9 @@ ops_adjust = []
 
 refer_ops_adjust = []
 
-func_adjust = []
+func_adjust = ['add_layer_norm', 'rotary_position_embedding']
+
+mint_adjust = ['triu', 'logaddexp']
 
 def ops_interface_name():
     dir_list = ['mindspore.ops.primitive.rst', 'mindspore.ops.rst']
@@ -332,6 +344,12 @@ def mint_interface_name():
     src_target_path = os.path.join(src_dir, mint_p)
     with open(src_target_path,'r+',encoding='utf8') as f:
         content =  f.read()
+        for name in mint_adjust:
+            new_content = content.replace('    mindspore.mint.' + name + '\n', '')
+        if content != new_content:
+            f.seek(0)
+            f.truncate()
+            f.write(new_content)
     mint_list = re.findall(r"    (mindspore\.mint\..*)\n", content+'\n')
 
     all_rst = []
