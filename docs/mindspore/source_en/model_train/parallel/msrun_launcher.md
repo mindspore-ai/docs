@@ -35,10 +35,10 @@ A parameters list of command line:
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--master_addr</td>
-        <td align="left">Specifies the IP address of the Scheduler.</td>
+        <td align="left">Specifies the IP address or hostname of the Scheduler.</td>
         <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">Legal IP address. The default is 127.0.0.1.</td>
-        <td align="left">msrun will automatically detect on which node to pull up the Scheduler process, and users do not need to care. <br>If the corresponding address cannot be found, the training task will pull up and fail. <br>IPv6 addresses are not supported in the current version<br>The current version of msrun uses the <code>ip -j addr</code> command to query the current node address, which requires the user's environment to support this command.</td>
+        <td align="left">Legal IP address or hostname. The default is the IP address 127.0.0.1.</td>
+        <td align="left">msrun will automatically detect on which node to pull up the Scheduler process, and users do not need to care. <br>If the corresponding IP address cannot be found or the hostname cannot be resolved by DNS, the training task will pull up and fail.<br>IPv6 addresses are not supported in the current version.<br>If a hostname is input as a parameter, msrun will automatically resolve it to an IP address, which requires the user's environment to support DNS service.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--master_port</td>
@@ -101,7 +101,7 @@ A parameters list of command line:
         <td align="left">rank_table configuration. Only valid on Ascend platform.</td>
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">File path of rank_table configuration. Default: empty string.</td>
-        <td align="left">This parameter represents the rank_table configuration file on Ascend platform, describing current distributed cluster.</td>
+        <td align="left">This parameter represents the rank_table configuration file on Ascend platform, describing current distributed cluster. <br>Since the rank_table configuration file reflects distributed cluster information at the physical level, when using this configuration, make sure that the Devices visible to the current process are consistent with the rank_table configuration. <br>The Device visible to the current process can be set via the environment variable <code>ASCEND_RT_VISIBLE_DEVICES</code>.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--worker_log_name</td>
