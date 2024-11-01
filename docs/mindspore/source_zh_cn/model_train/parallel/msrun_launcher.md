@@ -104,6 +104,20 @@
         <td align="left">此参数代表昇腾平台下的rank_table配置文件，描述当前分布式集群。</td>
     </tr>
     <tr>
+        <td align="left" style="white-space:nowrap">--worker_log_name</td>
+        <td align="left">设置worker日志名。</td>
+        <td align="left" style="white-space:nowrap">String</td>
+        <td align="left">worker日志文件名。默认为空。</td>
+        <td align="left">此参数代表支持用户配置worker日志名，worker日志名的后缀默认为<code>rank</code>。<br>用户可以分别使用<code>{ip}</code>和<code>{hostname}</code>在worker日志名中配置<code>ip</code>和<code>hostname</code>。<br>如果不配置此参数，worker日志名为<code>worker_[rank].log</code>。</td>
+    </tr>
+    <tr>
+        <td align="left" style="white-space:nowrap">--tail_worker_log</td>
+        <td align="left">输出worker日志到控制台。</td>
+        <td align="left" style="white-space:nowrap">String</td>
+        <td align="left">一个或多个与worker进程rank_id关联的整数。默认为-1。</td>
+        <td align="left">此参数代表默认输出当前节点所有worker日志到控制台，并且支持用户指定一个或多个卡的worker日志输出到控制台。 <br>这个参数需要在[0, local_worker_num]范围内。</td>
+    </tr>
+    <tr>
         <td align="left" style="white-space:nowrap">task_script</td>
         <td align="left">用户Python脚本。</td>
         <td align="left" style="white-space:nowrap">String</td>
