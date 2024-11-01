@@ -20,8 +20,8 @@ MindFormers has the following compatible relationships with MindSpore:
 
 | MindFormers | MindSpore | Compatibility |
 |:-----------:|:---------:|:-------------:|
-|    1.3.0    |    2.3    |       √       |
-|    1.2.0    |    2.4    |       √       |
+|    1.3.0    | 2.3, 2.4  |       √       |
+|    1.2.0    | 2.3, 2.4  |       √       |
 
 ## Environment Installation
 
