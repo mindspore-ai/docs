@@ -175,6 +175,12 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             except KeyError:
                 print(f'{repo_name}仓库克隆或更新失败')
 
+        # 组件仓内有.sh需提前运行
+        if 'golden_stick' in repo_path:
+            os.chdir(repo_path)
+            cmd_reppath = ["sh", "./docs/adapte_to_docs.sh", f"{branch_}"]
+            subprocess.run(cmd_reppath)
+
         # 特殊与一般性的往ArraySource中加入键值对
         if data[i]['name'] == "lite":
             ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]

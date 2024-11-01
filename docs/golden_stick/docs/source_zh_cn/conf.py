@@ -226,7 +226,7 @@ for root,dirs,files in os.walk(src_dir_api):
 
 os.makedirs(os.path.join(moment_dir, 'ptq/images/zh_cn'), exist_ok=True)
 
-if not os.path.exists(os.path.join(moment_dir, 'ptq/README.md')):
+if not os.path.exists(os.path.join(moment_dir, 'ptq/ptq.md')):
     os.makedirs(os.path.join(moment_dir, 'ptq'), exist_ok=True)
     shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/ptq/README_CN.md'),
                 os.path.join(moment_dir, 'ptq/ptq.md'))
@@ -305,6 +305,18 @@ if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb')):
         for i in os.listdir(images_path):
             shutil.copy(os.path.join(images_path, i), os.path.join(moment_dir, 'ptq/images/zh_cn', i))
 
+if not os.path.exists(os.path.join(moment_dir, 'ptq/overview.md')):
+    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/README_CN.md'),
+                os.path.join(moment_dir, 'ptq/overview.md'))
+    with open(os.path.join(moment_dir, 'ptq/overview.md'), 'r+', encoding='utf-8') as f:
+        content = f.read()
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+    images_path = os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/images/zh_cn')
+    if os.path.exists(images_path):
+        for i in os.listdir(images_path):
+            shutil.copy(os.path.join(images_path, i), os.path.join(moment_dir, 'ptq/images/zh_cn', i))
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 # import anchor_mod

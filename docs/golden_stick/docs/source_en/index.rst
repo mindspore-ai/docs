@@ -87,6 +87,7 @@ The current release version of MindSpore Golden Stick provides a stable API and 
    :maxdepth: 1
    :caption: Post Training Quantization Algorithms
 
+   ptq/ptq
    ptq/round_to_nearest
 
 .. toctree::

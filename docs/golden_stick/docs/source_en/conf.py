@@ -210,6 +210,21 @@ if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.md')):
         for i in os.listdir(images_path):
             shutil.copy(os.path.join(images_path, i), os.path.join(moment_dir, 'ptq/images/en', i))
 
+if not os.path.exists(os.path.join(moment_dir, 'ptq/ptq.md')):
+    os.makedirs(os.path.join(moment_dir, 'ptq'), exist_ok=True)
+    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/ptq/README.md'),
+                os.path.join(moment_dir, 'ptq/ptq.md'))
+    with open(os.path.join(moment_dir, 'ptq/ptq.md'), 'r+', encoding='utf-8') as f:
+        content = f.read()
+        content = re.sub('.*?/README_CN.md.*\n.*\n', '', content)
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+    images_path = os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/ptq/images/zh_cn')
+    if os.path.exists(images_path):
+        for i in os.listdir(images_path):
+            shutil.copy(os.path.join(images_path, i), os.path.join(moment_dir, 'ptq/images/zh_cn', i))
+
 # get params for add view source
 import json
 
