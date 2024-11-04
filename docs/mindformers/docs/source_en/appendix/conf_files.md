@@ -65,6 +65,25 @@ Since the configuration will vary from model to model, only the generic configur
 | model.model_config.output_scores           | Set to include score before the input softmax for each forward generation when returning the result as a dictionary, defaults to `False`                                                  | bool |
 | model.model_config.output_logits           | Set to include the logits output by the model at each forward generation when returning results as a dictionary, defaults to `False`.                                                     | bool |
 
+### MoE Configuration
+
+In addition to the basic configuration of the model above, the MoE model needs to be configured separately with some superparameters of the moe module, and since the parameters used will vary from model to model, only the generic configuration will be explained:
+
+| Parameters                                         | Descriptions                                                                                               | Types   |
+|--------------------------------------------|--------------------------------------------------------------------------------------------------|------|
+| moe_config.expert_num                    | Set the number of routing expert                                                    | int  |
+| moe_config.shared_expert_num                    | Set the number of sharing expert                                                     | int  |
+| moe_config.moe_intermediate_size                    | Set the size of the intermediate dimension of the expert layer                                                     | int  |
+| moe_config.capacity_factor              | Set the expert capacity factor                                                                     | int  |
+| moe_config.num_experts_chosen             | Set the number of experts to select per token                                                                                      | int  |
+| moe_config.enable_sdrop              | Set whether to enable token drop policy `sdrop`, since MindFormers's MoE is a static shape implementation so it can't retain all tokens                                                                       | bool  |
+| moe_config.aux_loss_factor              | Set the weights of the equilibrium loss                                                                       | list[float]  |
+| moe_config.first_k_dense_replace              | Set the enable block of the moe layer, generally set to 1 to indicate that the first block is not enabled moe                                                                       | int  |
+| moe_config.balance_via_topk_bias              | Set whether to enable `aux_loss_free` load balancing algorithm                                                                                         | bool  |
+| moe_config.topk_bias_update_rate                   | Set `aux_loss_free` load balancing algorithm `bias` update step size                                                                     | float  |
+| moe_config.comp_comm_parallel                   | Sets whether or not to enable computational communication parallelism for ffn. Default value: False                                                              | bool  |
+| moe_config.comp_comm_parallel_degree                   | Set ffn to compute the number of communication splits. The higher the number, the more overlap there is, but it will consume more memory. This parameter is only valid when comp_com_parallel is enabled                               | int  |
+
 ### Model Training Configuration
 
 When starting model training, in addition to model-related parameters, you also need to set the parameters of trainer, runner_config, learning rate, and optimizer and other modules required for training, MindFormers provides the following configuration items.
