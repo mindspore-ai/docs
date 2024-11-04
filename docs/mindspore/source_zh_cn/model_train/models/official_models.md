@@ -238,13 +238,6 @@
 | [Policy Gradient](https://github.com/mindspore-lab/mindrl/tree/master/example/pg) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://www.gymlibrary.dev/environments/classic_control/cart_pole/) | 195 |
 | [Dueling DQN](https://github.com/mindspore-lab/mindrl/tree/master/example/dueling_dqn) | ✅ | / | ✅ | ✅ | ✅ | [CartPole-v0](https://www.gymlibrary.dev/environments/classic_control/cart_pole/) | 195 |
 
-### 推荐
-
-| model | dataset | auc | mindrec  |  mindspore |
-| --- | --- | --- | --- | --- |
-| Wide&Deep  | Criteo | 0.8 | [link](https://github.com/mindspore-lab/mindrec/tree/master/models/wide_deep) | [link](https://gitee.com/mindspore/models/tree/master/official/recommend/Wide_and_Deep) |
-| Deep&Cross Network (DCN) | Criteo | 0.8 | [link](https://github.com/mindspore-lab/mindrec/tree/master/models/deep_and_cross) | [link](https://gitee.com/mindspore/models/tree/master/research/recommend/deep_and_cross) |
-
 ## 科学计算套件
 
 | 领域    | 网络                                                                                                                                                                     |                                                                    MindSpore实现                                                                     | Ascend | GPU |
