@@ -8,15 +8,5 @@
     "whl_name" : "mindspore-.*-cp39-cp39-linux_x86_64.whl$",
     "environ" : "MS_PATH",
     "uninstall_name" : "mindspore"
-},
-{
-    "id" : 2 ,
-    "name" : "tutorials",
-    "branch" : "br_ops",
-    "html_version" : "br_ops",
-    "whl_path" : "",
-    "whl_name" : "",
-    "environ" : "",
-    "uninstall_name" : ""
 }
 ]
