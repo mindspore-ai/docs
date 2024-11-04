@@ -231,10 +231,13 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                         title = link_.get("title", "")
                         href = link_.get("href", "")
                         if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
-                            download_url = url+'/'+href
-                            dowmloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
+                            download_url = url+href
+                            downloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
                             with open(title, 'wb') as fd:
-                                shutil.copyfileobj(dowmloaded.raw, fd)
+                                #shutil.copyfileobj(dowmloaded.raw, fd)
+                                for chunk in downloaded.iter_content(chunk_size=512):
+                                    if chunk:
+                                        fd.write(chunk)
                             print(f"Download {title} success!")
                             time.sleep(1)
 
@@ -253,10 +256,13 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                         title = link_.get("title", "")
                         href = link_.get("href", "")
                         if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
-                            download_url = url+'/'+href
-                            dowmloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
+                            download_url = url+href
+                            downloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
                             with open(title, 'wb') as fd:
-                                shutil.copyfileobj(dowmloaded.raw, fd)
+                                #shutil.copyfileobj(dowmloaded.raw, fd)
+                                for chunk in downloaded.iter_content(chunk_size=512):
+                                    if chunk:
+                                        fd.write(chunk)
                             print(f"Download {title} success!")
                             time.sleep(1)
 
@@ -275,34 +281,46 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             title = link_.get("title", "")
                             href = link_.get("href", "")
                             if re.findall(name, title):
-                                download_url = url+'/'+href
-                                dowmloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
+                                download_url = url+href
+                                downloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
                                 with open(title, 'wb') as fd:
-                                    shutil.copyfileobj(dowmloaded.raw, fd)
+                                    #shutil.copyfileobj(dowmloaded.raw, fd)
+                                    for chunk in downloaded.iter_content(chunk_size=512):
+                                        if chunk:
+                                            fd.write(chunk)
                                 print(f"Download {title} success!")
 
         elif version != "daily":
             if data[i]['whl_path'] != "":
                 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
                 download_url = release_url + data[i]['whl_path'] + data[i]['whl_name']
-                dowmloaded = requests.get(download_url, stream=True, verify=False)
+                downloaded = requests.get(download_url, stream=True, verify=False)
                 with open(data[i]['whl_name'], 'wb') as fd:
-                    shutil.copyfileobj(dowmloaded.raw, fd)
+                    #shutil.copyfileobj(dowmloaded.raw, fd)
+                    for chunk in downloaded.iter_content(chunk_size=512):
+                        if chunk:
+                            fd.write(chunk)
                 print(f"Download {data[i]['whl_name']} success!")
             if 'extra_whl_path' in data[i] and data[i]['extra_whl_path'] != "":
                 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
                 download_url = release_url + data[i]['extra_whl_path'] + data[i]['extra_whl_name']
-                dowmloaded = requests.get(download_url, stream=True, verify=False)
+                downloaded = requests.get(download_url, stream=True, verify=False)
                 with open(data[i]['extra_whl_name'], 'wb') as fd:
-                    shutil.copyfileobj(dowmloaded.raw, fd)
+                    #shutil.copyfileobj(dowmloaded.raw, fd)
+                    for chunk in downloaded.iter_content(chunk_size=512):
+                        if chunk:
+                            fd.write(chunk)
                 print(f"Download {data[i]['extra_whl_name']} success!")
             if 'tar_path' in data[i].keys():
                 if data[i]['tar_path'] != '':
                     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
                     download_url = release_url + data[i]['tar_path'] + data[i]['tar_name']
-                    dowmloaded = requests.get(download_url, stream=True, verify=False)
+                    downloaded = requests.get(download_url, stream=True, verify=False)
                     with open(data[i]['tar_name'], 'wb') as fd:
-                        shutil.copyfileobj(dowmloaded.raw, fd)
+                        #shutil.copyfileobj(dowmloaded.raw, fd)
+                        for chunk in downloaded.iter_content(chunk_size=512):
+                            if chunk:
+                                fd.write(chunk)
                     print(f"Download {data[i]['tar_name']} success!")
 
     # 安装opencv-python额外依赖
