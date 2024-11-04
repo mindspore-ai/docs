@@ -65,6 +65,21 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | model.model_config.output_scores           | 是否以字典形式返回结果时，包含每次前向生成时的输入softmax前的分数，默认为`False`                                                  | bool |
 | model.model_config.output_logits           | 是否以字典形式返回结果时，包含每次前向生成时模型输出的logits，默认为`False`                                                     | bool |
 
+### MoE配置
+
+除了上述模型的基本配置，MoE模型需要单独配置一些moe模块的超参，由于不同模型使用的参数会有不同，仅对通用配置进行说明：
+
+| 参数                                         | 说明                                                                                               | 类型   |
+|--------------------------------------------|--------------------------------------------------------------------------------------------------|------|
+| moe_config.expert_num                    | 设置路由专家数量                                                     | int  |
+| moe_config.shared_expert_num                    | 设置共享专家数量                                                     | int  |
+| moe_config.moe_intermediate_size                    | 设置专家层中间维度大小                                                     | int  |
+| moe_config.capacity_factor              | 设置专家容量因子                                                                     | int  |
+| moe_config.num_experts_chosen             | 设置每个token选择专家数目                                                                                      | int  |
+| moe_config.enable_sdrop              | 设置是否使能token丢弃策略`sdrop`，由于MindFormers的MoE是静态shape实现所以不能保留所有token                                                                       | bool  |
+| moe_config.aux_loss_factor              | 设置均衡性loss的权重                                                                       | list[float]  |
+| moe_config.first_k_dense_replace              | 设置moe层的使能block，一般设置为1，表示第一个block不使能moe                                                                       | int  |
+
 ### 模型训练配置
 
 启动模型训练时，除了模型相关参数，还需要设置trainer、runner_config、学习率以及优化器等训练所需模块的参数，MindFormers提供了如下配置项。
