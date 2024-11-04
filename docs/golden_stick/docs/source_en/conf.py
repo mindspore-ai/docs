@@ -220,10 +220,10 @@ if not os.path.exists(os.path.join(moment_dir, 'ptq/ptq.md')):
         f.seek(0)
         f.truncate()
         f.write(content)
-    images_path = os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/ptq/images/zh_cn')
+    images_path = os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/ptq/images/en')
     if os.path.exists(images_path):
         for i in os.listdir(images_path):
-            shutil.copy(os.path.join(images_path, i), os.path.join(moment_dir, 'ptq/images/zh_cn', i))
+            shutil.copy(os.path.join(images_path, i), os.path.join(moment_dir, 'ptq/images/en', i))
 
 # get params for add view source
 import json
