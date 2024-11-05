@@ -201,7 +201,7 @@ shutil.copy(layout_src, layout_target)
 
 html_search_language = 'zh'
 
-html_search_options = {'dict': '../../resource/jieba.txt'}
+html_search_options = {'dict': '../../../resource/jieba.txt'}
 
 sys.path.append(os.path.abspath('../../../resource/sphinx_ext'))
 # import anchor_mod
@@ -497,6 +497,19 @@ from rename_include import rename_include
 rename_include('api_python')
 rename_include('migration_guide')
 
+# 对汇总列表进行处理
+primitive_list = ops_interface_name()
+
+mint_sum = mint_interface_name()
+
+try:
+    nn_interface_name()
+    tensor_interface_name()
+    scipy_interface_name()
+    numpy_interface_name()
+except Exception as e:
+    print(e)
+
 # modify urls
 import json
 
@@ -581,18 +594,6 @@ try:
         for filename in os.listdir(tp[0]):
             newname = filename.replace(tp[1], tp[2])
             os.rename(os.path.join(tp[0], filename),os.path.join(tp[0], newname))
-except Exception as e:
-    print(e)
-
-primitive_list = ops_interface_name()
-
-mint_sum = mint_interface_name()
-
-try:
-    nn_interface_name()
-    tensor_interface_name()
-    scipy_interface_name()
-    numpy_interface_name()
 except Exception as e:
     print(e)
 
