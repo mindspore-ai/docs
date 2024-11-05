@@ -115,7 +115,7 @@ A parameters list of command line:
         <td align="left">Enable output worker log to console.</td>
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">One or multiple integers associated with the worker process rank_id. Default: -1.</td>
-        <td align="left">This parameter represents output all worker logs of the current node to console by default and support users specify one or more worker logs output to console. <br>This parameter should be in [0, local_worker_num].</td>
+        <td align="left">This parameter represents output all worker logs of the current node to console by default and supports users specify one or more worker logs output to console. <br>This parameter should be in [0, local_worker_num].</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">task_script</td>
