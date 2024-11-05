@@ -71,17 +71,17 @@ In addition to the basic configuration of the model above, the MoE model needs t
 
 | Parameters                                         | Descriptions                                                                                               | Types   |
 |--------------------------------------------|--------------------------------------------------------------------------------------------------|------|
-| moe_config.expert_num                    | Set the number of routing expert                                                    | int  |
-| moe_config.shared_expert_num                    | Set the number of sharing expert                                                     | int  |
+| moe_config.expert_num                    | Set the number of routing experts                                                    | int  |
+| moe_config.shared_expert_num                    | Set the number of sharing experts                                                     | int  |
 | moe_config.moe_intermediate_size                    | Set the size of the intermediate dimension of the expert layer                                                     | int  |
 | moe_config.capacity_factor              | Set the expert capacity factor                                                                     | int  |
 | moe_config.num_experts_chosen             | Set the number of experts to select per token                                                                                      | int  |
 | moe_config.enable_sdrop              | Set whether to enable token drop policy `sdrop`, since MindFormers's MoE is a static shape implementation so it can't retain all tokens                                                                       | bool  |
 | moe_config.aux_loss_factor              | Set the weights of the equilibrium loss                                                                       | list[float]  |
-| moe_config.first_k_dense_replace              | Set the enable block of the moe layer, generally set to 1 to indicate that the first block is not enabled moe                                                                       | int  |
+| moe_config.first_k_dense_replace              | Set the enable block of the moe layer, generally set to 1 to indicate that moe is not enabled in the first block                                                                       | int  |
 | moe_config.balance_via_topk_bias              | Set whether to enable `aux_loss_free` load balancing algorithm                                                                                         | bool  |
 | moe_config.topk_bias_update_rate                   | Set `aux_loss_free` load balancing algorithm `bias` update step size                                                                     | float  |
-| moe_config.comp_comm_parallel                   | Sets whether or not to enable computational communication parallelism for ffn. Default value: False                                                              | bool  |
+| moe_config.comp_comm_parallel                   | Set whether to enable computational communication parallelism for ffn. Default value: False                                                              | bool  |
 | moe_config.comp_comm_parallel_degree                   | Set ffn to compute the number of communication splits. The higher the number, the more overlap there is, but it will consume more memory. This parameter is only valid when comp_com_parallel is enabled                               | int  |
 
 ### Model Training Configuration
