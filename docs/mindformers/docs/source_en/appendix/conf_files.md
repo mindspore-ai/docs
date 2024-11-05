@@ -12,7 +12,7 @@ The `YAML` file provided by MindFormers contains configuration items for differe
 
 ### Basic Configuration
 
-The base configuration is mainly used to specify MindSpore random seeds and related settings for loading weights.
+The basic configuration is mainly used to specify MindSpore random seeds and related settings for loading weights.
 
 | Parameters              | Descriptions                                                                                                                                                                                                                      | Types   |
 |-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
