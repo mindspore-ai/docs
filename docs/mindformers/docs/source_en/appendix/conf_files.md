@@ -71,14 +71,14 @@ In addition to the basic configuration of the model above, the MoE model needs t
 
 | Parameters                                         | Descriptions                                                                                               | Types   |
 |--------------------------------------------|--------------------------------------------------------------------------------------------------|------|
-| moe_config.expert_num                    | Set the number of routing expert                                                    | int  |
-| moe_config.shared_expert_num                    | Set the number of sharing expert                                                     | int  |
+| moe_config.expert_num                    | Set the number of routing experts                                                    | int  |
+| moe_config.shared_expert_num                    | Set the number of sharing experts                                                     | int  |
 | moe_config.moe_intermediate_size                    | Set the size of the intermediate dimension of the expert layer                                                     | int  |
 | moe_config.capacity_factor              | Set the expert capacity factor                                                                     | int  |
 | moe_config.num_experts_chosen             | Set the number of experts to select per token                                                                                      | int  |
 | moe_config.enable_sdrop              | Set the enable token drop policy `sdrop`, since MindFormer's MoE is a static shape implementation so it can't retain all tokens                                                                       | bool  |
 | moe_config.aux_loss_factor              | Set the weights of the equilibrium loss                                                                       | list[float]  |
-| moe_config.first_k_dense_replace              | Set the enable block of the moe layer, generally set to 1 to indicate that the first block is not enabled moe                                                                       | int  |
+| moe_config.first_k_dense_replace              | Set the enable block of the moe layer, generally set to 1 to indicate that moe is not enabled in the first block                                                                     | int  |
 
 ### Model Training Configuration
 
