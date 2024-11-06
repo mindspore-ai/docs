@@ -189,11 +189,7 @@ MindFormers provides encapsulated Callbacks function class, mainly to achieve to
    | initial_step                   | Set start step number of training in `MFLossMonitor`. The default value is `0`                                                                                                                                                                                                                              | int   |
    | global_batch_size              | Set the number of global batch data samples in `MFLossMonitor`. If this parameter is not set, the system automatically calculates the number of global batch data samples based on the dataset size and parallel strategy                                                                                   | int   |
    | gradient_accumulation_steps    | Set the number of gradient accumulation steps in `MFLossMonitor`. If this parameter is not set, the value of this parameter is the same as that of `gradient_accumulation_steps` in [Model Training Configuration](#model-training-configuration)                                                           | int   |
-   | enable_tensorboard             | Whether to enable TensorBoard to record logs in `MFLossMonitor`. The default value is `False`                                                                                                                                                                                                               | bool  |
-   | tensorboard_path               | Set the path for saving TensorBoard logs in `MFLossMonitor`. This parameter is valid only when `enable_tensorboard=True`                                                                                                                                                                                    | str   |
    | check_for_nan_in_loss_and_grad | Whether to enable overflow detection in `MFLossMonitor`. After overflow detection is enabled, the training exits if overflow occurs during model training. The default value is `False`                                                                                                                     | bool  |
-
-   > If you do not need to enable TensorBoard log recording or overflow detection, you are advised to use the default settings.
 
 2. SummaryMonitor
 
@@ -266,3 +262,25 @@ MindFormers provides Profile as the main tool for model performance tuning, plea
 | profile_communication | Set whether communication performance data is collected in multi-device training, this parameter is invalid when using single card training. Default: `False`                                                                               | bool |
 | profile_memory        | Set whether to collect Tensor memory data                                                                                                            | bool |
 | init_start_profile    | Set whether to turn on collecting performance data when the Profiler is initialized; this parameter does not take effect when `profile_start_step` is set. This parameter needs to be set to `True` when `profile_memory` is turned on.                                  | bool |
+
+### TensorBoard Configuration
+
+The TensorBoard configuration is primarily used to configure parameters related to TensorBoard during training, allowing for real-time monitoring and visualization of training metrics. Below is a description of the common TensorBoard configuration options in MindFormers:
+
+| Parameters                                | Descriptions                                                                                                                         | Types  |
+|-------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|--------|
+| tensorboard.tensorboard_dir               | Set the TensorBoard log directory, specifying the path where TensorBoard saves the log files.                                        | str    |
+| tensorboard.tensorboard_queue_size        | Sets the maximum queue size for TensorBoard, controlling the speed of log writing.                                                   | int    |
+| tensorboard.log_loss_scale_to_tensorboard | Whether to log loss scale information to TensorBoard.                                                                                | bool   |
+| tensorboard.log_timers_to_tensorboard     | Whether to log timer information to TensorBoard, including the duration and throughput of the current training step (or iteration).  | bool   |
+
+The actual path for saving event files (events.*) is `tensorboard.tensorboard_dir/rank_id`. You can start the TensorBoard Web visualization service with the following command:
+
+```bash
+tensorboard --logdir=/path/events.* --host=0.0.0.0 --port=6006
+
+# parameter description
+logdir: The path to the directory where TensorBoard event files are saved.
+host:   Default is 127.0.0.1, meaning it only allows access from the local machine. Set it to 0.0.0.0 to allow access from external devices. Be mindful of security.
+port:   The port that the service listens on. Default is 6006.
+```

@@ -189,11 +189,7 @@ MindFormers提供封装后的Callbacks函数类，主要实现在模型训练过
    | initial_step                   | 设置`MFLossMonitor`中训练起始步数，默认值为`0`                                                        | int   |
    | global_batch_size              | 设置`MFLossMonitor`中全局批数据样本数，若不配置该参数，则会根据数据集大小以及并行策略自动计算                                  | int   |
    | gradient_accumulation_steps    | 设置`MFLossMonitor`中梯度累计步数，若不配置该参数，则与[模型训练配置](#模型训练配置)中`gradient_accumulation_steps`一致    | int   |
-   | enable_tensorboard             | 设置是否在`MFLossMonitor`中开启TensorBoard记录日志信息，默认值为`False`                                    | bool  |
-   | tensorboard_path               | 设置`MFLossMonitor`中设置TensorBoard日志保存路径，仅在`enable_tensorboard=True`时生效                    | str   |
    | check_for_nan_in_loss_and_grad | 设置是否在`MFLossMonitor`中开启溢出检测，开启后在模型训练过程中出现溢出则退出训练，默认值为`False`                            | bool  |
-
-   > 若无需开启TensorBoard记录日志信息或溢出检测，则推荐用户使用默认配置即可。
 
 2. SummaryMonitor
 
@@ -266,3 +262,25 @@ MindFormers提供Profile作为模型性能调优的主要工具，详情可参�
 | profile_communication | 设置是否在多设备训练中收集通信性能数据，使用单卡训练时，该参数无效，默认值为`False`                                                                                 | bool |
 | profile_memory        | 设置是否收集Tensor内存数据                                                                                                              | bool |
 | init_start_profile    | 设置是否在Profiler初始化时开启采集性能数据，设置`profile_start_step`时该参数不生效。开启`profile_memory`时需要将该参数设为`True`。                                    | bool |
+
+### TensorBoard配置
+
+TensorBoard配置主要用于配置训练过程中与TensorBoard相关的参数，便于在训练过程中实时查看和监控训练信息。以下是MindFormers中通用的TensorBoard配置项说明：
+
+| 参数                                        | 说明                                                    | 类型   |
+|-------------------------------------------|-------------------------------------------------------|------|
+| tensorboard.tensorboard_dir               | 设置 TensorBoard 日志目录，指定 TensorBoard 保存日志的文件夹路径         | str  |
+| tensorboard.tensorboard_queue_size        | 设置 TensorBoard 最大队列长度，控制日志写入的速度                       | int  |
+| tensorboard.log_loss_scale_to_tensorboard | 设置是否将 loss scale 信息记录到 TensorBoard                    | bool |
+| tensorboard.log_timers_to_tensorboard     | 设置是否将计时器信息记录到 TensorBoard，计时器信息包含当前训练步骤（或迭代）的时长以及吞吐量  | bool |
+
+Tensorboard保存事件文件（events.*）的实际路径是`tensorboard.tensorboard_dir/rank_id`，使用以下命令可以启动Tensorboard Web可视化服务：
+
+```bash
+tensorboard --logdir=/path/events.* --host=0.0.0.0 --port=6006
+
+# 参数说明
+logdir: TensorBoard保存事件文件的路径
+host:   默认是 127.0.0.1，表示只允许本机访问；设置为 0.0.0.0 可以允许外部设备访问，请注意信息安全
+port:   设置服务监听的端口，默认是 6006
+```
