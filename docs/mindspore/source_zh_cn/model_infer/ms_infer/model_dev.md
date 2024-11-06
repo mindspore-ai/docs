@@ -183,7 +183,7 @@
     print(transformer_output.shape)
     ```
 
-具体端到端的大语言模型代码工程可以参考[model_dev.py](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_infer/ms_infer/code/model_dev.py)脚本（设置CommunicationHelper的size为1），运行下面命令进行验证：
+具体端到端的大语言模型代码工程可以参考[model_dev.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/model_dev.py)脚本（设置CommunicationHelper的size为1），运行下面命令进行验证：
 
 ```shell
 msrun --worker_num 1 --local_worker_num 1 --master_port 8124 --log_dir msrun_log --join True --cluster_time_out 300 model_dev.py
