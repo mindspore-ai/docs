@@ -30,9 +30,9 @@ mindspore.communication.comm_func.all_reduce(
 
 ## 差异对比
 
-PyTorch：该接口输入tensor、操作类型op、通信域group及异步操作标志async_op，按op指定的操作进行all_reduce操作后，PyTorch将结果写回输入`tensor`。当async_op=True时，返回异步work句柄，否则返回为空。
+PyTorch：该接口输入tensor、操作类型op、通信域group及异步操作标志async_op，按op指定的操作进行all_reduce操作后，PyTorch将结果写回输入`tensor`。当 `async_op=True` 时，返回异步work句柄，否则返回为空。
 
-MindSpore：该接口输入tensor、操作类型op和通信域group及异步操作标志async_op。按op指定的操作进行all_reduce操作后，MindSpore返回结果`tensor`，其shape与输入`tensor`一致。当async_op=True时，返回异步work句柄，否则返回为空。
+MindSpore：该接口输入tensor、操作类型op和通信域group及异步操作标志async_op。按op指定的操作进行all_reduce操作后，MindSpore返回结果`tensor`，其shape与输入`tensor`一致。当 `async_op=True` 时，返回异步work句柄，否则返回为空。
 
 | 分类 | 子类   |PyTorch | MindSpore | 差异                                                                                                                                                            |
 |----|------| --- |-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
