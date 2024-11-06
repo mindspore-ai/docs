@@ -21,10 +21,11 @@ mindspore.communication.comm_func.all_to_all_with_output_shape(
     output_shape_list,
     input_tensor_list,
     group=None
+    async_op=False
 )
 ```
 
-更多内容详见[mindspore.communication.all_to_all_with_output_shape](https://www.mindspore.cn/docs/zh-CN/master/api_python/communication/mindspore.communication.comm_func.all_to_all_with_output_shape.html#mindspore.communication.comm_func.all_to_all_with_output_shape)。
+更多内容详见[mindspore.communication.comm_func.all_to_all_with_output_shape](https://www.mindspore.cn/docs/zh-CN/master/api_python/communication/mindspore.communication.comm_func.all_to_all_with_output_shape.html#mindspore.communication.comm_func.all_to_all_with_output_shape)。
 
 ## 使用方式
 
