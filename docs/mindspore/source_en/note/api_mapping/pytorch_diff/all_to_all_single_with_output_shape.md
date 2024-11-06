@@ -25,6 +25,7 @@ mindspore.communication.comm_func.all_to_all_single_with_output_shape(
     output_split_sizes=None,
     input_split_sizes=None,
     group=None
+    async_op=False
 )
 ```
 
