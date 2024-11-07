@@ -497,6 +497,21 @@ from rename_include import rename_include
 rename_include('api_python')
 rename_include('migration_guide')
 
+# rename file name to solve Case sensitive.
+
+rename_list = [("./api_python/ops/", "func_", ""),
+               ("./api_python/mindspore/", "func_", ""),
+               ("./api_python/mindspore/Tensor/", "method_", ""),
+               ("./api_python/mint/", "func_", "")]
+
+try:
+    for tp in rename_list:
+        for filename in os.listdir(tp[0]):
+            newname = filename.replace(tp[1], tp[2])
+            os.rename(os.path.join(tp[0], filename),os.path.join(tp[0], newname))
+except Exception as e:
+    print(e)
+
 # 对汇总列表进行处理
 primitive_list = ops_interface_name()
 
@@ -581,21 +596,6 @@ for cur, _, files in os.walk(des_sir):
         #                 f.write(new_content)
         #     except Exception:
         #         print(f'打开{i}文件失败')
-
-# rename file name to solve Case sensitive.
-
-rename_list = [("./api_python/ops/", "func_", ""),
-               ("./api_python/mindspore/", "func_", ""),
-               ("./api_python/mindspore/Tensor/", "method_", ""),
-               ("./api_python/mint/", "func_", "")]
-
-try:
-    for tp in rename_list:
-        for filename in os.listdir(tp[0]):
-            newname = filename.replace(tp[1], tp[2])
-            os.rename(os.path.join(tp[0], filename),os.path.join(tp[0], newname))
-except Exception as e:
-    print(e)
 
 # auto generate rst by en
 from generate_rst_by_en import generate_rst_by_en
