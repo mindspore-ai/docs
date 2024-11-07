@@ -175,3 +175,17 @@ A: 在多卡训练并使能图算融合情况下，框架采用共享内存机�
 ## Q: Ascend平台下训练较小规模网络，但在分布式模块初始化过程中，依然提示设备侧内存不足，如何解决？
 
 A: 这是因为在Ascend平台下，MindSpore后端默认会预分配一块内存，约80%的NPU内存会被占用，剩余的20%内存则用于HCCL集合通信库的初始化。每个HCCL通信组会默认占用200MB的内存，那么在通信组较多的场景下，就容易出现设备侧内存不足的报错。解决方法是设置`HCCL_BUFFSIZE`环境变量修改通信域内存占用，具体配置方式可参考[HCCL官方文档](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/apiref/envvar/envref_07_0088.html)。
+
+<br/>
+
+## Q: 使用msrun启动分布式框架时，若传入的hostname作为master_addr，但报错DNS解析失败，如何解决？
+
+```text
+RuntimeError: DNS resolution failed: [Errno -2] Name or service not known. Please check whether the correct host name is input.
+```
+
+A: 这是因为在使用msrun启动分布式框架且通过hostname指定主节点时，环境上的DNS服务器无法正常将传入的主机名解析成IP地址。这有可能是因为：
+
+1. 输入的主机名是错误的，或者该主机名在DNS中不存在。Linux中可以通过命令`nslookup <hostname>`或`dig <hostname>`来手动查询DNS记录，也可以通过命令`cat /etc/hosts`查看环境上的静态DNS解析文件信息。
+2. DNS服务器无法正常访问。Linux中可以通过命令`cat /etcresolv.conf`来查看DNS服务器配置。
+3. 防火墙或者安全软件组织了DNS查询。Linux中可以通过命令`systemctl status firewalld`和`service iptables status`来查看防火墙和iptable状态。
