@@ -48,7 +48,7 @@ The offline parsing interface parameter descriptions are as follows:
 
 Notes on parameters:
 
-- The step_list parameter is only effective when parsing data collected in graph mode, and the specified steps must be consecutive.
+- The step_list parameter is only effective when parsing data collected in graph mode, and the specified steps must be consecutive, with the step range starting from 1 based on the actual number of collected steps. For example: if 5 steps are collected, the available range is [1,2,3,4,5].
 - The data_simplification parameter is enabled by default. If this switch is turned on for two consecutive offline parsings, the first data simplification will delete the framework-side collected data, resulting in the absence of framework-side parsing results in the second offline parsing.
 
 The offline parsing of the input path supports both single-card and multi-card data paths, with different scenarios described as follows.
