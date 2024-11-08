@@ -29,6 +29,8 @@ Related interfaces:
 
 4. `mindspore.load_segmented_checkpoints(ckpt_file_dir)` : Load all `.ckpt` checkpoint files in the specified `ckpt_file_dir` path. Return a combined parameter dict.
 
+5. `mindspore.load_distributed_checkpoint(network, checkpoint_filenames=None, predict_strategy=None, train_strategy_filename=None, strict_load=False, dec_key=None, dec_mode='AES-GCM', format='ckpt', unified_safetensors_dir=None, dst_safetensors_dir=None, rank_id=None, output_format='safetensors', name_map=None, max_process_num=64)` : Load distributed weight safetensors directly into the network or store them on the local disk according to the target strategy.
+
 ## Operation Practice
 
 As an example of training on an Ascend 8-card and fine-tuning on 4-card, the overall procedure is as follows:
@@ -580,3 +582,68 @@ net = Network()
 param_dict = ms.load_segmented_checkpoints(checkpoint_file_dir)
 param_not_load, _ = ms.load_param_into_net(net, param_dict)
 ```
+
+### Safetensors Weight Conversion Process
+
+Safetensors is a new model storage format introduced by the Hugging Face community, known for its security, high performance, and strong generality compared to traditional file formats.
+
+MindSpore has added support for the safetensors format in the current version, including weight saving and loading, ckpt and safetensors format conversion, offline splitting, offline aggregation, and online loading.
+
+As explained in the previous process, when the cluster scale changes, weights need to be re-split and converted. For the safetensors process, there are currently two main methods: offline conversion and online conversion, as detailed below:
+
+#### Offline Conversion
+
+The offline conversion process uses the `transform_checkpoint` method. For the safetensors format, the usage process is identical to the previous methods, with the interface automatically recognizing whether the input weight file format is ckpt or safetensors and performing subsequent processing.
+
+When it recognizes the input weight file format as safetensors, it triggers optimized code logic, significantly enhancing performance compared to ckpt. Additionally, the interface introduces parameters `process_num` and `output_format`, allowing manual control over the number of parallel conversions and output file format. See details in [transform_checkpoints](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.transform_checkpoints.html#mindspore.transform_checkpoints).
+
+```python
+# Weight files stored in the src_checkpoints_dir directory must be in safetensors format
+import mindspore as ms
+ms.transform_checkpoints(src_checkpoints_dir, dst_checkpoints_dir, "dst_checkpoint",
+                      "./src_strategy.ckpt", "./dst_strategy.ckpt", process_num=8, output_format='safetensors')
+```
+
+#### Online Conversion
+
+1. **Weight File Preparation**
+
+   Before online loading, the distributed weights obtained through MindSpore training need to be aggregated into a complete set of weights (automatically sharded by weight count and stored in multiple files). This aggregation process removes the original weight splitting strategy information, retaining only the weight names and values.
+
+   After aggregation, when loading the network, only the necessary part of the complete weight is read according to the target cluster's split strategy and loaded into the network.
+
+   The specific process is as follows:
+
+   1. Call the [mindspore.unified_safetensors](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.unified_safetensors.html) method, passing the source weight directory, the source weight training strategy (which needs to be merged through the `mindspore.merge_pipeline_strategy` interface), and the target weight generation directory.
+   2. Several shard files will be generated in the specified directory, including three main types:
+      1. `param_name_map.json`: name mapping table, indicating the mapping relationship between each parameter and the storage file name.
+      2. `xxx_partxx.safetensors`: specific weight storage files.
+      3. `hyper_param.safetensors`: hyperparameter storage file.
+
+   Note: The online loading process also requires an offline merge operation, but this only needs to be executed once. Subsequent loading and inference can be performed based on this weight, consistent with Hugging Face's behavior.
+
+   ```python
+   import mindspore as ms
+   src_dir = "/usr/safetensors/llama31B/4p_safetensors/"
+   src_strategy_file = "/usr/safetensors/llama31B/strategy_4p.ckpt"
+   dst_dir = "/usr/safetensors/llama31B/merge_llama31B_4p/"
+   ms.unified_safetensors(src_dir, src_strategy_file, dst_dir)
+   ```
+
+2. **Executing Online Loading or Offline Splitting**
+
+   Online loading is implemented by extending the [mindspore.load_distributed_checkpoint](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.load_distributed_checkpoint.html) method.
+
+   To perform online loading or offline splitting, configure the parameters as follows:
+
+   1. `network`: the target distributed prediction network where the split weights need to be loaded. When set to `None`, the offline splitting process is performed, and the split network is stored on local disk as a drop disk. Otherwise, weights are directly loaded into the network, saving one round of save and load time compared to disk storage.
+   2. `predict_strategy`: target splitting strategy. When set to `None`, weights are merged into a complete weight file.
+   3. `format`: input weight format, which must be configured as `safetensors` for the current process.
+   4. `unified_safetensors_dir`: weights aggregated in the first step using `mindspore.unified_safetensors`.
+   5. `dst_safetensors_dir`: save directory for safetensors in offline splitting storage mode.
+   6. `rank_id`: logical sequence number of the card. In non-storage mode, this is automatically obtained globally when the network is initialized; in storage mode, files are saved in order of the input sequence number. If not specified, all files are saved.
+
+    ```python
+    import mindspore as ms
+    mindspore.load_distributed_checkpoint(network=None, predict_strategy="./strategy_8p.ckpt", format='safetensors', unified_safetensors_dir="./merge_llama31B_4p/", dst_safetensors_dir="./dst_dir")
+    ```
