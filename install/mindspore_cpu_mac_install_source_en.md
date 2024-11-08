@@ -31,7 +31,7 @@ This document describes how to install MindSpore by compiling source code on mac
 
 - Ensure that `Command Line Tools for Xcode` is installed. If not, use `sudo xcode-select --install` command to install Command Line Tools.
 
-- Ensure that [CMake 3.18.3 and the later version](https://cmake.org/download/) is installed. Use `brew install cmake` if it's not installed.
+- Ensure that [CMake 3.22.2 and the later version](https://cmake.org/download/) is installed. Use `brew install cmake` if it's not installed.
 
 - Ensure that [patch 2.5](https://ftp.gnu.org/gnu/patch/) is installed. Use `brew install patch` if it's not installed.
 
