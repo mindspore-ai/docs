@@ -3,8 +3,7 @@
 <!-- TOC -->
 
 - [Installing MindSpore in CPU by pip](#installing-mindspore-in-cpu-by-pip)
-    - [Automatic Installation](#automatic-installation)
-    - [Manual Installation](#manual-installation)
+    - [Installing MindSpore and dependencies](#installing-mindspore-and-dependencies)
         - [Installing Python](#installing-python)
         - [Installing GCC](#installing-gcc)
         - [Installing MindSpore](#installing-mindspore)
@@ -17,34 +16,7 @@
 
 This document describes how to install MindSpore by pip on Linux in a CPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
-- If you want to install MindSpore by pip on a fresh Ubuntu 18.04, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/v2.4.0/scripts/install/ubuntu-cpu-pip.sh) for one-click installation. For details, see [Automatic Installation](#automatic-installation). The script will automatically install MindSpore and its dependencies.
-
-- If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Manual Installation](#manual-installation).
-
-## Automatic Installation
-
-The root permission is required because the automatic installation script needs to change the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script. The automatic installation script supports only MindSpore>=1.6.0 or later.
-
-```bash
-wget https://gitee.com/mindspore/mindspore/raw/v2.4.0/scripts/install/ubuntu-cpu-pip.sh
-# 安装Python 3.9以及最新版本的MindSpore
-PYTHON_VERSION=3.9 bash ./ubuntu-cpu-pip.sh
-# to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.6.0 as examples, use the following manners
-# PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.6.0 bash ./ubuntu-cpu-pip.sh
-```
-
-This script performs the following operations:
-
-- Change the software source configuration to a HUAWEI CLOUD source
-- Install the dependencies required by MindSpore, such as GCC.
-- Install Python3 and pip3 via APT and set them as default.
-- Install MindSpore in CPU by pip.
-
-After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect.
-
-For more usage, see the script header description.
-
-## Manual Installation
+## Installing MindSpore and dependencies
 
 The following table lists the system environment and third-party dependencies required to install MindSpore.
 

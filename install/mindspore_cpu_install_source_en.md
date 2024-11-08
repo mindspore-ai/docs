@@ -3,8 +3,7 @@
 <!-- TOC -->
 
 - [Installing MindSpore in CPU by Source Code](#installing-mindspore-in-cpu-by-source-code)
-    - [Environment Preparation-automatic recommended](#environment-preparation-automatic-recommended)
-    - [Environment Preparation-manual](#environment-preparation-manual)
+    - [Installing dependencies](#installing-dependencies)
         - [Installing Python](#installing-python)
         - [Installing wheel setuptools and Numpy](#installing-wheel-setuptools-and-numpy)
         - [Installing GCC git tclsh patch and NUMA](#installing-gcc-git-tclsh-patch-and-numa)
@@ -22,33 +21,7 @@
 
 This document describes how to install MindSpore by compiling source code on Linux system in the CPU environment. The following takes Ubuntu 18.04 as an example to describe how to compile and install MindSpore.
 
-- If you need to configure an environment for building MindSpore on the Ubuntu 18.04 that never installed MindSpore and its dependencies, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/v2.4.0/scripts/install/ubuntu-cpu-source.sh) for one-click configuration, see [Environment Preparation -automatic, recommended](#environment-preparation-automatic-recommended) section. The script installs the dependencies required for building MindSpore.
-
-- If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation-manual](#environment-preparation-manual) section.
-
-## Environment Preparation-automatic recommended
-
-The root permission is required because the automatic installation script needs to change the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script. The environment configured by the automatic installation script only supports compiling MindSpore>=1.6.0.
-
-```bash
-wget https://gitee.com/mindspore/mindspore/raw/v2.4.0/scripts/install/ubuntu-cpu-source.sh
-# install latest MindSpore and Python 3.9
-PYTHON_VERSION=3.9 bash ./ubuntu-cpu-source.sh
-# to specify Python version, taking Python 3.9 as an example, use the following manner
-# PYTHON_VERSION=3.9 bash ./ubuntu-cpu-source.sh
-```
-
-This script performs the following operations:
-
-- Change the software source configuration to a HUAWEI CLOUD source.
-- Install the compilation dependencies required by MindSpore, such as GCC, CMake, etc.
-- Install Python3 and pip3 via APT and set them as default.
-
-After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect, then move on to [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository) to compile MindSpore from source code.
-
-For more usage, see the script header description.
-
-## Environment Preparation-manual
+## Installing dependencies
 
 |Software|Version|Description|
 |-|-|-|
@@ -59,7 +32,7 @@ For more usage, see the script header description.
 |[Numpy](#installing-wheel-setuptools-and-numpy)|1.19.3 or later|Numpy module that Numpy-related functions in MindSpore depends on|
 |[GCC](#installing-gcc-git-gmp-tclsh-patch-and-numa)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
 |[git](#installing-gcc-git-gmp-tclsh-patch-and-numa)|-|Source code management tools used by MindSpore|
-|[CMake](#installing-cmake)|3.18.3 or later|Compilation tool that builds MindSpore|
+|[CMake](#installing-cmake)|3.22.2 or later|Compilation tool that builds MindSpore|
 |[tclsh](#installing-gcc-git-gmp-tclsh-patch-and-numa)|-|MindSpore SQLite compilation dependency|
 |[patch](#installing-gcc-git-gmp-tclsh-patch-and-numa)|2.5 or later|Source code patching tool used by MindSpore|
 |[NUMA](#installing-gcc-git-gmp-tclsh-patch-and-numa)|2.0.11 or later|Non-uniform memory access library used by MindSpore|
