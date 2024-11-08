@@ -3,8 +3,7 @@
 <!-- TOC -->
 
 - [Installing MindSpore in Ascend by Source Code](#installing-mindspore-in-ascend-by-source-code)
-    - [Environment Preparation-automatic recommended](#environment-preparation-automatic-recommended)
-    - [Environment Preparation-manual](#environment-preparation-manual)
+    - [Installing dependencies](#installing-dependencies)
         - [Installing Python](#installing-python)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing wheel setuptools and Numpy](#installing-wheel-setuptools-and-numpy)
@@ -25,51 +24,7 @@
 
 This document describes how to install MindSpore by compiling source code on Linux in an Ascend environment.
 
-- If you want to configure an environment that can compile MindSpore on EulerOS 2.8 with Ascend AI processor software package installed, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh) for one-click configuration, see [Environment Preparation -automatic, recommended](#environment-preparation-automatic-recommended) section. The script will automatically install the dependencies required to compile MindSpore.
-
-- If your system is Ubuntu 18.04, CentOS 7.6, openEuler 20.03, or KylinV10 SP1, or some dependencies, such as Python and GCC, have been installed, it is advised to manually install MindSpore by referring to [Environment Preparation-manual](#environment-preparation-manual) section.
-
-## Environment Preparation-automatic recommended
-
-Before running the automatic installation script, you need to make sure that the Ascend AI processor software package is correctly installed on your system. If it is not installed, please refer to the section [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package) to install it.
-
-Run the following command to obtain and run the automatic installation script. The environment configured by the automatic installation script only supports compiling MindSpore>=1.6.0.
-
-```bash
-wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
-# install Python 3.9
-# the default value of LOCAL_ASCEND is /usr/local/Ascend
-PYTHON_VERSION=3.9 bash -i ./euleros-ascend-source.sh
-# to specify the Python 3.9 installation and install the optional dependencies Open MPI
-# and set LOCAL_ASCEND to /home/xxx/Ascend, use the following manners
-# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.9 OPENMPI=on bash -i ./euleros-ascend-source.sh
-```
-
-This script performs the following operations:
-
-- Install the compilation dependencies required by MindSpore, such as GCC, CMake, etc.
-- Install Python3 and pip3 and set them as default.
-- Install Open MPI if OPENMPI is set to `on`.
-
-After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect.
-
-The automatic installation script creates a virtual environment named `mindspore_pyXX` for MindSpore. Where `XX` is the Python version, such as Python 3.9, the virtual environment name is `mindspore_py39`. Run the following command to show all virtual environments.
-
-```bash
-conda env list
-```
-
-To activate the virtual environment, take Python 3.9 as an example, execute the following command.
-
-```bash
-conda activate mindspore_py39
-```
-
-Now you can jump to the [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository) section to downloading and compiling MindSpore.
-
-For more usage, see the script header description.
-
-## Environment Preparation-manual
+## Installing dependencies
 
 The following table lists the system environment and third-party dependencies required for building and installing MindSpore.
 
@@ -84,7 +39,7 @@ The following table lists the system environment and third-party dependencies re
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
 |[git](#installing-git-gmp-tclsh-patch-numa-and-flex)|-|Source code management tool used by MindSpore|
 |[git-lfs](#installing-git-lfs)|-|Source code management tool used by MindSpore|
-|[CMake](#installing-cmake)|3.18.3 or later|Build tool for MindSpore|
+|[CMake](#installing-cmake)|3.22.2 or later|Build tool for MindSpore|
 |[Flex](#installing-git-gmp-tclsh-patch-numa-and-flex)|2.5.35 or later|lexical analyzer used by MindSpore|
 |[tclsh](#installing-git-gmp-tclsh-patch-numa-and-flex)|-|MindSpore SQLite build dependency|
 |[patch](#installing-git-gmp-tclsh-patch-numa-and-flex)|2.5 or later|Source code patching tool used by MindSpore|
@@ -239,36 +194,28 @@ The Numpy version used in the runtime environment must be no less than the Numpy
 
 ### Installing CMake
 
-- On Ubuntu 18.04, run the following commands to install [CMake](https://cmake.org/).
-
-    ```bash
-    wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
-    sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
-    sudo apt-get install cmake -y
-    ```
-
-- Other Linux systems can be installed with the following commands.
+- Install CMake with the following commands.
 
     Choose different download links based on the system architecture.
 
     ```bash
     # x86 run
-    curl -O https://cmake.org/files/v3.19/cmake-3.19.8-Linux-x86_64.sh
+    curl -O https://cmake.org/files/v3.22/cmake-3.22.2-Linux-x86_64.sh
     # aarch64 run
-    curl -O https://cmake.org/files/v3.19/cmake-3.19.8-Linux-aarch64.sh
+    curl -O https://cmake.org/files/v3.22/cmake-3.22.2-Linux-aarch64.sh
     ```
 
     Run the script to install CMake, which is installed in the `/usr/local` by default.
 
     ```bash
-    sudo mkdir /usr/local/cmake-3.19.8
-    sudo bash cmake-3.19.8-Linux-*.sh --prefix=/usr/local/cmake-3.19.8 --exclude-subdir
+    sudo mkdir /usr/local/cmake-3.22.2
+    sudo bash cmake-3.22.2-Linux-*.sh --prefix=/usr/local/cmake-3.22.2 --exclude-subdir
     ```
 
     Finally, add CMake to the `PATH` environment variable. Run the following commands if it is installed in the default path, other installation paths need to be modified accordingly.
 
     ```bash
-    echo -e "export PATH=/usr/local/cmake-3.19.8/bin:\$PATH" >> ~/.bashrc
+    echo -e "export PATH=/usr/local/cmake-3.22.2/bin:\$PATH" >> ~/.bashrc
     source ~/.bashrc
     ```
 

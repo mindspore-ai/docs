@@ -3,8 +3,7 @@
 <!-- TOC -->
 
 - [Installing MindSpore in GPU by pip](#installing-mindspore-in-gpu-by-pip)
-    - [Automatic Installation](#automatic-installation)
-    - [Manual Installation](#manual-installation)
+    - [Installing MindSpore and dependencies](#installing-mindspore-and-dependencies)
         - [Installing CUDA](#installing-cuda)
         - [Installing cuDNN](#installing-cudnn)
         - [Installing Python](#installing-python)
@@ -20,52 +19,7 @@
 
 This document describes how to install MindSpore by pip on Linux in a GPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
-- If you want to install MindSpore by pip on a fresh Ubuntu 18.04 with a GPU environment, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh) for one-click installation. For details, see [Automatic Installation](#automatic-installation). The script will automatically install MindSpore and its dependencies.
-
-- If some dependencies, such as CUDA, Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Manual Installation](#manual-installation).
-
-## Automatic Installation
-
-Before using the automatic installation script, you need to make sure that the NVIDIA GPU driver is correctly installed on the system. The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. The minimum required GPU driver versi1on of CUDA 11.1 is 450.80.02. Execute the following command to check the driver version.
-
-```bash
-nvidia-smi
-```
-
-If the GPU driver is not installed, run the following command to install it.
-
-```bash
-sudo apt-get update
-sudo apt-get install ubuntu-drivers-common
-sudo ubuntu-drivers autoinstall
-```
-
-After the installation is complete, please reboot your system.
-
-The root permission is required because the automatic installation script needs to change the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script. The automatic installation script supports only MindSpore>=1.6.0 or later.
-
-```bash
-wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh
-# install latest MindSpore, Python 3.9 and CUDA 11.1
-PYTHON_VERSION=3.9 bash -i ./ubuntu-gpu-pip.sh
-# to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.6.0 as examples, use the following manners
-# PYTHON_VERSION=3.9 CUDA_VERSION=10.1 MINDSPORE_VERSION=1.6.0 bash -i ./ubuntu-gpu-pip.sh
-```
-
-This script performs the following operations:
-
-- Change the software source configuration to a HUAWEI CLOUD source.
-- Install the dependencies required by MindSpore, such as GCC.
-- Install Python3 and pip3 via APT and set them as default.
-- Download and install CUDA and cuDNN.
-- Install MindSpore GPU by pip.
-- Install Open MPI if OPENMPI is set to `on`.
-
-After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect.
-
-For more usage, see the script header description.
-
-## Manual Installation
+## Installing MindSpore and dependencies
 
 The following table lists the system environment and third-party dependencies required to install MindSpore.
 

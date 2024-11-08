@@ -3,8 +3,7 @@
 <!-- TOC -->
 
 - [pip方式安装MindSpore GPU版本](#pip方式安装mindspore-gpu版本)
-    - [自动安装](#自动安装)
-    - [手动安装](#手动安装)
+    - [安装MindSpore与依赖软件](#安装mindspore与依赖软件)
         - [安装CUDA](#安装cuda)
         - [安装cuDNN](#安装cudnn)
         - [安装Python](#安装python)
@@ -20,52 +19,7 @@
 
 本文档介绍如何在GPU环境的Linux系统上，使用pip方式快速安装MindSpore。下面以Ubuntu 18.04为例说明MindSpore安装步骤。
 
-- 如果您想在一个全新的带有GPU的Ubuntu 18.04上通过pip安装MindSpore，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh)进行一键式安装，参见[自动安装](#自动安装)小节。自动安装脚本会安装MindSpore及其所需的依赖。
-
-- 如果您的系统已经安装了部分依赖，如CUDA，Python，GCC等，则推荐参照[手动安装](#手动安装)小节的安装步骤手动安装。
-
-## 自动安装
-
-在使用自动安装脚本之前，需要确保系统正确安装了NVIDIA GPU驱动。CUDA 10.1要求最低显卡驱动版本为418.39；CUDA 11.1要求最低显卡驱动版本为450.80.02；CUDA 11.6要求最低显卡驱动为510.39.01。执行以下指令检查驱动版本。
-
-```bash
-nvidia-smi
-```
-
-如果未安装GPU驱动，执行如下命令安装。
-
-```bash
-sudo apt-get update
-sudo apt-get install ubuntu-drivers-common
-sudo ubuntu-drivers autoinstall
-```
-
-安装完成后请重启系统。
-
-自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要申请root权限。使用以下命令获取自动安装脚本并执行。自动安装脚本仅支持安装MindSpore>=1.6.0。
-
-```bash
-wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh
-# 安装最新版本MindSpore，Python 3.9和CUDA 11.1。
-PYTHON_VERSION=3.9 bash -i ./ubuntu-gpu-pip.sh
-# 如需指定安装Python 3.9，CUDA 10.1以及MindSpore 1.6.0，使用以下方式
-# PYTHON_VERSION=3.9 CUDA_VERSION=10.1 MINDSPORE_VERSION=1.6.0 bash -i ./ubuntu-gpu-pip.sh
-```
-
-该脚本会执行以下操作：
-
-- 更改软件源配置为华为云源。
-- 安装MindSpore所需的依赖，如GCC。
-- 通过APT安装Python3和pip3，并设为默认。
-- 下载CUDA和cuDNN并安装。
-- 通过pip安装MindSpore GPU版本。
-- 如果OPENMPI设置为`on`，则安装Open MPI。
-
-自动安装脚本执行完成后，需要重新打开终端窗口以使环境变量生效。
-
-更多的用法请参看脚本头部的说明。
-
-## 手动安装
+## 安装MindSpore与依赖软件
 
 下表列出了编译安装MindSpore GPU所需的系统环境和第三方依赖。
 
