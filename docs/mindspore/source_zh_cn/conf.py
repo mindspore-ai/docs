@@ -437,7 +437,7 @@ with open(os.path.join(src_dir, 'mindspore.ops.primitive.rst'), 'r', encoding='u
     content = f.read()
 for i in primi_del:
     content = re.sub(r'[ ]{3,4}'+i+'\n', '', content)
-primitive_sum = re.findall(r"[ ]{3,4}(mindspore\.ops\.\w+)\n", content)
+primitive_sum = re.findall(r"[ ]{3,4}(mindspore\.ops\..+)\n", content)
 
 exist_rst_file, primi_auto = generate_rst_by_en(primitive_sum, './api_python/ops')
 if exist_rst_file:
@@ -447,7 +447,7 @@ with open(os.path.join(src_dir, 'mindspore.mint.rst'), 'r', encoding='utf-8') as
     content = f.read()
 for i in mint_del:
     content = re.sub(r'[ ]{3,4}'+i+'\n', '', content)
-mint_sum = re.findall(r"[ ]{3,4}(mindspore\.mint\.\w+)\n", content)
+mint_sum = re.findall(r"[ ]{3,4}(mindspore\.mint\..+)\n", content)
 
 exist_rst_file, mint_auto = generate_rst_by_en(mint_sum, './api_python/mint')
 if exist_rst_file:
