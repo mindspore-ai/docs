@@ -175,3 +175,17 @@ A: In the case of multi-card training and enabling graph operator fusion, the fr
 ## Q: I try to train a small network on Ascend platform but during initializing distributed module, `device memory not enough` exception is still thrown. How should I solve this issue?
 
 A: This is because under the Ascend platform, the MindSpore backend defaults to pre-allocate a block of memory, with approximately 80% of NPU memory occupied and the remaining 20% used for initializing the HCCL collection communication library. Each HCCL communication group occupies 200 MB memory by default, so in scenarios with more communication groups, it is easy to encounter device side memory shortage errors. The solution is to set up `HCCL_BUFFSIZE` environment variable to change communication domain memory usage. Specific configuration method can refer to [HCCL official document](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/apiref/envvar/envref_07_0088.html).
+
+<br/>
+
+## Q: When using msrun to start a distributed framework, if I pass in the hostname as the master_addr but report an error that DNS resolution failed, how can I fix it?
+
+```text
+RuntimeError: DNS resolution failed: [Errno -2] Name or service not known. Please check whether the correct host name is input.
+```
+
+A: This is because when starting the distributed framework with msrun and specifying the master node by hostname, the DNS servers on the environment do not properly resolve the input hostname to an IP address. This can be due to the following:
+
+1. The input hostname is incorrect, or the hostname does not exist in DNS. You can manually query the DNS information in Linux by using the command `nslookup <hostname>` or `dig <hostname>`, or you can query the static DNS resolution on the environment by using the command `cat /etc/hosts`.
+2. DNS servers cannot be accessed normally. You can check the DNS server configuration in Linux with the command `cat /etc/resolv.conf`.
+3. The firewall or security software organizes DNS queries. You can use the commands `systemctl status firewalld` and `service iptables status` in Linux to query the firewall and iptable status.
