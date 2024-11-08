@@ -3,8 +3,7 @@
 <!-- TOC -->
 
 - [pip方式安装MindSpore CPU版本](#pip方式安装mindspore-cpu版本)
-    - [自动安装](#自动安装)
-    - [手动安装](#手动安装)
+    - [安装MindSpore与依赖软件](#安装mindspore与依赖软件)
         - [安装Python](#安装python)
         - [安装GCC](#安装gcc)
         - [安装MindSpore](#安装mindspore)
@@ -17,34 +16,7 @@
 
 本文档介绍如何在CPU环境的Linux系统上，使用pip方式快速安装MindSpore。下面以Ubuntu 18.04为例说明MindSpore安装步骤。
 
-- 如果您想在一个全新的Ubuntu 18.04上通过pip安装MindSpore，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh)进行一键式安装，参见[自动安装](#自动安装)小节。自动安装脚本会安装MindSpore及其所需的依赖。
-
-- 如果您的系统已经安装了部分依赖，如Python，GCC等，则推荐参照[手动安装](#手动安装)小节的安装步骤手动安装。
-
-## 自动安装
-
-自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要申请root权限。使用以下命令获取自动安装脚本并执行。自动安装脚本仅支持安装MindSpore>=1.6.0。
-
-```bash
-wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh
-# 安装最新版本MindSpore和Python 3.9
-PYTHON_VERSION=3.9 bash ./ubuntu-cpu-pip.sh
-# 如需指定Python和MindSpore版本，以Python 3.9和MindSpore 1.6.0为例，使用以下方式
-# PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.6.0 bash ./ubuntu-cpu-pip.sh
-```
-
-该脚本会执行以下操作：
-
-- 更改软件源配置为华为云源。
-- 安装MindSpore所需的依赖，如GCC。
-- 通过APT安装Python3和pip3，并设为默认。
-- 通过pip安装MindSpore CPU版本。
-
-自动安装脚本执行完成后，需要重新打开终端窗口以使环境变量生效。
-
-更多的用法请参看脚本头部的说明。
-
-## 手动安装
+## 安装MindSpore与依赖软件
 
 下表列出了安装MindSpore所需的系统环境和第三方依赖。
 

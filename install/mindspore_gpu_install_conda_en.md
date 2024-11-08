@@ -3,8 +3,7 @@
 <!-- TOC -->
 
 - [Installing MindSpore GPU by Conda](#installing-mindspore-gpu-by-conda)
-    - [Automatic Installation](#automatic-installation)
-    - [Manual Installation](#manual-installation)
+    - [Installing MindSpore and dependencies](#installing-mindspore-and-dependencies)
         - [Installing CUDA](#installing-cuda)
         - [Installing cuDNN](#installing-cudnn)
         - [Installing Conda](#installing-conda)
@@ -13,6 +12,7 @@
         - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
         - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
+    - [Version Update](#version-update)
 
 <!-- /TOC -->
 
@@ -22,62 +22,7 @@
 
 This document describes how to install MindSpore by Conda on Linux in a GPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
-- If you want to install MindSpore by Conda on a fresh Ubuntu 18.04 with a GPU environment, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-conda.sh) for one-click installation. For details, see [Automatic Installation](#automatic-installation). The script will automatically install MindSpore and its dependencies.
-
-- If some dependencies, such as CUDA, Conda and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Manual Installation](#manual-installation).
-
-## Automatic Installation
-
-Before using the automatic installation script, you need to make sure that the NVIDIA GPU driver is correctly installed on the system. The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. The minimum required GPU driver version of CUDA 11.6 is 510.39.01. Execute the following command to check the driver version.
-
-```bash
-nvidia-smi
-```
-
-If the GPU driver is not installed, run the following command to install it.
-
-```bash
-sudo apt-get update
-sudo apt-get install ubuntu-drivers-common
-sudo ubuntu-drivers autoinstall
-```
-
-After the installation is complete, please reboot your system.
-
-The automatic installation script needs to replace the source list and install dependencies via APT, it will apply for root privileges during execution. Use the following commands to get the automatic installation script and execute. The automatic installation script supports only MindSpore>=1.6.0 or later.
-
-```bash
-wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-conda.sh
-# install Python 3.9, CUDA 11.6 and the latest MindSpore
-PYTHON_VERSION=3.9 bash -i ./ubuntu-gpu-conda.sh
-# to specify Python, CUDA and MindSpore version, taking Python 3.9, CUDA 10.1 and MindSpore 1.6.0 as examples, use the following manners
-#  CUDA_VERSION=10.1 MINDSPORE_VERSION=1.6.0 bash -i ./ubuntu-gpu-conda.sh
-```
-
-This script performs the following operations:
-
-- Change the software source configuration to a HUAWEI CLOUD source.
-- Install the dependencies required by MindSpore, such as GCC.
-- Download and install CUDA and cuDNN.
-- Install Conda and create a virtual environment for MindSpore.
-- Install MindSpore GPU by Conda.
-- Install Open MPI if OPENMPI is set to `on`.
-
-After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect. The automatic installation script creates a virtual environment named `mindspore_pyXX` for MindSpore. Where `XX` is the Python version, such as Python 3.9, the virtual environment name is `mindspore_py39`. Run the following command to show all virtual environments.
-
-```bash
-conda env list
-```
-
-To activate the virtual environment, take Python 3.9 as an example, execute the following command.
-
-```bash
-conda activate mindspore_py39
-```
-
-For more usage, see the script header description.
-
-## Manual Installation
+## Installing MindSpore and dependencies
 
 The following table lists the system environment and third-party dependencies required to install MindSpore.
 

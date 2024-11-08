@@ -3,8 +3,7 @@
 <!-- TOC -->
 
 - [Installing MindSpore in GPU by Source Code](#installing-mindspore-in-gpu-by-source-code)
-    - [Environment Preparation-automatic recommended](#environment-preparation-automatic-recommended)
-    - [Environment Preparation-manual](#environment-preparation-manual)
+    - [Installing dependencies](#installing-dependencies)
         - [Installing CUDA](#installing-cuda)
         - [Installing cuDNN](#installing-cudnn)
         - [Installing Python](#installing-python)
@@ -25,52 +24,7 @@
 
 This document describes how to install MindSpore by compiling source code on Linux in a GPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
-- If you want to configure an environment that can compile MindSpore on a fresh Ubuntu 18.04 with a GPU environment, you may use an [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh) for one-click configuration, see [Environment Preparation -automatic, recommended](#environment-preparation-automatic-recommended) section. The script will automatically install the dependencies required to compile MindSpore.
-
-- If some dependencies, such as CUDA, Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation-manual](#environment-preparation-manual) section.
-
-## Environment Preparation-automatic recommended
-
-Before using the automatic installation script, you need to make sure that the NVIDIA GPU driver is correctly installed on the system. The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver versi1on of CUDA 11.1 is 450.80.02. The minimum required GPU driver version of CUDA 11.6 is 510.39.01. Execute the following command to check the driver version.
-
-```bash
-nvidia-smi
-```
-
-If the GPU driver is not installed, run the following command to install it.
-
-```bash
-sudo apt-get update
-sudo apt-get install ubuntu-drivers-common
-sudo ubuntu-drivers autoinstall
-```
-
-After the installation is complete, please reboot your system.
-
-The root permission is required because the automatic installation script needs to change the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script. The environment configured by the automatic installation script only supports compiling MindSpore>=1.6.0.
-
-```bash
-wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh
-# install Python 3.9 and CUDA 11.6
-PYTHON_VERSION=3.9 bash -i ./ubuntu-gpu-source.sh
-# to specify Python 3.9 and CUDA 10.1, and the installation optionally relying on Open MPI, use the following manners
-# PYTHON_VERSION=3.9 CUDA_VERSION=10.1 OPENMPI=on bash -i ./ubuntu-gpu-source.sh
-```
-
-This script performs the following operations:
-
-- Change the software source configuration to a HUAWEI CLOUD source
-- Install the compilation dependencies required by MindSpore, such as GCC, CMake, etc.
-- Install Python3 and pip3 via APT and set them as default.
-- Download and install CUDA and cuDNN.
-- Install Open MPI if OPENMPI is set to `on`.
-- Install LLVM if LLVM is set to `on`.
-
-After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect, then move on to [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository) to compile MindSpore from source code.
-
-For more usage, see the script header description.
-
-## Environment Preparation-manual
+## Installing dependencies
 
 The following table lists the system environment and third-party dependencies required to compile and install MindSpore GPU.
 
@@ -85,7 +39,7 @@ The following table lists the system environment and third-party dependencies re
 |[Numpy](#installing-wheel-setuptools-and-numpy)|1.19.3 or later|Numpy module that Numpy-related functions in MindSpore depends on|
 |[GCC](#installing-gcc-git-and-other-dependencies)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
 |[git](#installing-gcc-git-and-other-dependencies)|-|source code management tools used by MindSpore|
-|[CMake](#installing-cmake)|3.18.3 or later|Compilation tool that builds MindSpore|
+|[CMake](#installing-cmake)|3.22.2 or later|Compilation tool that builds MindSpore|
 |[Autoconf](#installing-gcc-git-and-other-dependencies)|2.69 or later|Compilation tool that builds MindSpore|
 |[Libtool](#installing-gcc-git-and-other-dependencies)|2.4.6-29.fc30 or later|Compilation tool that builds MindSpore|
 |[Automake](#installing-gcc-git-and-other-dependencies)|1.15.1 or later|Compilation tool that builds MindSpore|
