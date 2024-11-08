@@ -412,8 +412,8 @@ def handle_config(pf_cn, pf_py, pf_yaml, pf_sum, target_path, repo_p, pr_need):
             conf_content = conf_content.replace('\ncopy_source(', '\n# copy_source(')
             conf_content = conf_content.replace('primitive_list = ops_interface_name()',
                                                 'primitive_list = ops_interface_name()\nprimitive_list = []')
-            conf_content = conf_content.replace('mint_sum = mint_interface_name()',
-                                                f'# mint_sum = mint_interface_name()\nmint_sum = {pr_need}')
+            conf_content = conf_content.replace('\nprimitive_sum = ', f'\nprimitive_sum = []\n# primitive_sum = ')
+            conf_content = conf_content.replace('\nmint_sum = ', f'\nmint_sum = {pr_need}\n# mint_sum = ')
             conf_content = conf_content.replace('os.getenv("MS_PATH")', f'"{repo_p}"')
             conf_content = conf_content.replace('import search_code', '# import search_code')
             conf_content = conf_content.replace('import nbsphinx_mod', '# import nbsphinx_mod')
@@ -482,7 +482,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
     split_dict = {'mindspore_cn': "docs/api/api_python/",
                   'mindspore_en': "docs/api/api_python_en/",
                   'mindspore_py': "mindspore/python/mindspore/",
-                  'mindspore_yaml': "mindspore/core/ops/ops_def/"}
+                  'mindspore_yaml': "mindspore/ops/op_def/yaml/"}
 
     wb_data = requests.get(pf_url)  # 引入requests库来请求数据
     result = wb_data.json()  # 将请求的数据转换为json格式
