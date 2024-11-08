@@ -3,8 +3,7 @@
 <!-- TOC -->
 
 - [Conda方式安装MindSpore Ascend版本](#conda方式安装mindspore-ascend版本)
-    - [自动安装](#自动安装)
-    - [手动安装](#手动安装)
+    - [安装MindSpore与依赖软件](#安装mindspore与依赖软件)
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
         - [安装Conda](#安装conda)
         - [安装GCC](#安装gcc)
@@ -22,52 +21,7 @@
 
 本文档介绍如何在Ascend环境的Linux系统上，使用Conda方式快速安装MindSpore。
 
-- 如果想在一个已经配置好昇腾AI处理器配套软件包的EulerOS 2.8上通过Conda安装MindSpore，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/v2.3.1/scripts/install/euleros-ascend-conda.sh)进行一键式安装，参见[自动安装](#自动安装)小节。自动安装脚本会安装MindSpore及其所需的依赖。
-
-- 如果您的系统是Ubuntu 18.04、CentOS 7.6、openEuler 20.03或KylinV10 SP1其中之一，或者已经安装了部分依赖，如CUDA，Conda，GCC等，则推荐参照[手动安装](#手动安装)小节的安装步骤手动安装。
-
-## 自动安装
-
-在使用自动安装脚本之前，需要确保系统正确安装了昇腾AI处理器配套软件包。如果没有安装，请先参考[安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)小节进行安装。
-
-使用以下命令获取自动安装脚本并执行。自动安装脚本仅支持安装MindSpore>=1.6.0。
-
-```bash
-wget https://gitee.com/mindspore/mindspore/raw/v2.3.1/scripts/install/euleros-ascend-conda.sh
-# 默认安装Python 3.9以及最新版本的MindSpore
-# 默认LOCAL_ASCEND路径为/usr/local/Ascend
-PYTHON_VERSION=3.9 bash -i ./euleros-ascend-conda.sh
-# 如需指定Python和MindSpore版本，以Python 3.8和MindSpore 1.6.0为例
-# 且指定LOCAL_ASCEND路径为/home/xxx/Ascend，使用以下方式
-# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.8 MINDSPORE_VERSION=1.6.0 bash -i ./euleros-ascend-conda.sh
-```
-
-该脚本会执行以下操作：
-
-- 安装MindSpore所需的依赖，如GCC。
-- 安装Conda并为MindSpore创建虚拟环境。
-- 通过Conda安装MindSpore Ascend版本。
-- 如果OPENMPI设置为`on`，则安装Open MPI。
-
-在脚本执行完成后，需要重新打开终端窗口以使环境变量生效。
-
-自动安装脚本会为MindSpore创建名为`mindspore_pyXX`的虚拟环境。其中`XX`为Python版本，如Python 3.9则虚拟环境名为`mindspore_py39`。执行以下命令查看所有虚拟环境。
-
-```bash
-conda env list
-```
-
-要激活虚拟环境，以Python 3.9为例，执行以下命令。
-
-```bash
-conda activate mindspore_py39
-```
-
-现在您可以跳转到[配置环境变量](#配置环境变量)小节设置相关环境变量。
-
-更多的用法请参看脚本头部的说明。
-
-## 手动安装
+## 安装MindSpore与依赖软件
 
 下表列出了安装MindSpore所需的系统环境和第三方依赖。
 
