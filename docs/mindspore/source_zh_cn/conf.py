@@ -201,7 +201,7 @@ shutil.copy(layout_src, layout_target)
 
 html_search_language = 'zh'
 
-html_search_options = {'dict': '../../resource/jieba.txt'}
+html_search_options = {'dict': '../../../resource/jieba.txt'}
 
 sys.path.append(os.path.abspath('../../../resource/sphinx_ext'))
 # import anchor_mod
@@ -268,190 +268,57 @@ if os.path.exists('./model_train/train_process/model/model.ipynb'):
 if os.path.exists('./model_train/custom_program/operation/op_custom.ipynb'):
     os.remove('./model_train/custom_program/operation/op_custom.ipynb')
 
-# 删除并获取ops下多余的接口文件名
+# 删除多余的接口的文件
 white_list = ['mindspore.ops.comm_note.rst', 'mindspore.mint.comm_note.rst']
-
-ops_adjust = []
 
 refer_ops_adjust = []
 
-func_adjust = []
+primi_del = []
+ops_del = []
+nn_del = []
+mint_del = []
+numpy_del = []
+scipy_del = []
+tensor_del = []
 
-def ops_interface_name():
-    dir_list = ['mindspore.ops.primitive.rst', 'mindspore.ops.rst']
+def del_redundant_api_file(base_path, f_path, d_path, re_str, del_list, spec_str=''):
     interface_name_list = []
-    all_rst = []
+    all_dir_rst = []
+    d_path = os.path.join(base_path, d_path)
+    for fp in f_path:
+        fp_ = os.path.join(base_path, fp)
+        if not os.path.exists(fp_):
+            print(f'{fp_}不存在！')
+            return False
+        with open(fp_, 'r+', encoding='utf8') as g:
+            content =  g.read()
+            new_content = content
+            for dn in del_list:
+                new_content = re.sub(r'[ ]{3,4}'+dn+'\n', '', new_content)
+            if interface_name_list:
+                interface_name_list = interface_name_list + re.findall('[ ]{3,4}('+re_str+'.+)\n', new_content)
+            else:
+                interface_name_list = re.findall('[ ]{3,4}('+re_str+'.+)\n', new_content)
 
-    for i in dir_list:
-        target_path = os.path.join(src_dir, i)
-        with open(target_path,'r+',encoding='utf8') as f:
-            content =  f.read()
-        new_content = content
-        if 'primitive' in i:
-            for name in ops_adjust:
-                new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
-            for name in refer_ops_adjust:
-                new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
-            primi_list = re.findall("    (mindspore\.ops\.\w*?)\n", new_content)
-            if not os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python', i)):
-                return primi_list
-        else:
-            for name in func_adjust:
-                new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
-        if interface_name_list:
-            interface_name_list = interface_name_list + re.findall("(mindspore\.ops\.\w*)", new_content)
-        else:
-            interface_name_list = re.findall("(mindspore\.ops\.\w*)", new_content)
-
-        if new_content != content and os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python', i)):
-            with open(os.path.join(os.path.dirname(__file__), 'api_python', i),'r+',encoding='utf8') as g:
-
+            if new_content != content:
                 g.seek(0)
                 g.truncate()
                 g.write(new_content)
-
-    for j in os.listdir(os.path.join(src_dir, 'ops')):
-        if j.split('.')[-1]=='rst' and 'ops.silent_check.' not in j:
-            all_rst.append(j.replace('.rst', '').replace("func_", ''))
-
-    extra_interface_name = set(all_rst).difference(set(interface_name_list))
-    print(extra_interface_name)
-    if extra_interface_name:
-        with open(os.path.join(os.path.dirname(__file__),'extra_interface_del.txt'),'w+',encoding='utf8') as g:
-            extra_write_list = []
-            for k in extra_interface_name:
-                extra_file = k +'.rst'
-                if os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python/ops', extra_file)) and extra_file not in white_list:
-                    os.remove(os.path.join(os.path.dirname(__file__), 'api_python/ops', extra_file))
-                    extra_write_list.append(extra_file)
-            g.write(str(extra_write_list))
-
-    return primi_list
-
-# 获取mint下汇总接口列表，删除并获取mint下多余的接口文件名
-def mint_interface_name():
-    mint_p = 'mindspore.mint.rst'
-    src_target_path = os.path.join(src_dir, mint_p)
-    with open(src_target_path,'r+',encoding='utf8') as f:
-        content =  f.read()
-    mint_list = re.findall(r"    (mindspore\.mint\..*)\n", content+'\n')
-
-    all_rst = []
-    for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/mint')):
+    for j in os.listdir(d_path):
         if j.split('.')[-1]=='rst':
-            all_rst.append(j.split('.rst')[0])
+            if spec_str and spec_str in j:
+                continue
+            else:
+                all_dir_rst.append(j.replace('.rst', '').replace("func_", '').replace("method_", ''))
 
-    extra_interface_name = set(all_rst).difference(set(mint_list))
-    print(extra_interface_name)
-    if extra_interface_name:
-        with open(os.path.join(os.path.dirname(__file__),'extra_interface_del.txt'),'a+',encoding='utf8') as g:
-            extra_write_list = []
-            for k in extra_interface_name:
-                k = k + '.rst'
-                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/mint',k)) and k not in white_list:
-                    os.remove(os.path.join(os.path.dirname(__file__),'api_python/mint',k))
-                    extra_write_list.append(k)
-            g.write(str(extra_write_list))
+    extra_interface_name = set(all_dir_rst).difference(set(interface_name_list))
 
-    return mint_list
-
-# 删除并获取numpy下多余的接口文件名
-def numpy_interface_name():
-    numpy_p = 'mindspore.numpy.rst'
-    src_target_path = os.path.join(src_dir, numpy_p)
-    with open(src_target_path,'r+',encoding='utf8') as f:
-        content =  f.read()
-    numpy_list = re.findall(r"    (mindspore\.numpy\..*)\n", content+'\n')
-
-    all_rst = []
-    for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/numpy')):
-        if j.split('.')[-1]=='rst':
-            all_rst.append(j.split('.rst')[0])
-
-    extra_interface_name = set(all_rst).difference(set(numpy_list))
-    print(extra_interface_name)
-    if extra_interface_name:
-        with open(os.path.join(os.path.dirname(__file__),'extra_interface_del.txt'),'a+',encoding='utf8') as g:
-            extra_write_list = []
-            for k in extra_interface_name:
-                k = k + '.rst'
-                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/numpy',k)):
-                    os.remove(os.path.join(os.path.dirname(__file__),'api_python/numpy',k))
-                    extra_write_list.append(k)
-            g.write(str(extra_write_list))
-
-# 删除并获取nn下多余的接口文件名
-def nn_interface_name():
-    interface_name_list = []
-    target_path = os.path.join(os.path.dirname(__file__),'api_python','mindspore.nn.rst')
-    with open(target_path,'r+',encoding='utf8') as f:
-        content =  f.read()
-    interface_name_list = re.findall("mindspore\.nn\.(\w*)",content)
-    all_rst = []
-    for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/nn')):
-        if j.split('.')[-1]=='rst':
-            if 'optim_' not in j:
-                all_rst.append(j.split('.')[-2])
-
-    extra_interface_name = set(all_rst).difference(set(interface_name_list))
-    print(extra_interface_name)
-    if extra_interface_name:
-        with open(os.path.join(os.path.dirname(__file__),'extra_interface_del.txt'),'a+',encoding='utf8') as g:
-            extra_write_list = []
-            for k in extra_interface_name:
-                k = "mindspore.nn." + k +'.rst'
-                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/nn',k)):
-                    os.remove(os.path.join(os.path.dirname(__file__),'api_python/nn',k))
-                    extra_write_list.append(k)
-            g.write(str(extra_write_list))
-
-# 删除并获取Tensor下多余的接口文件名
-def tensor_interface_name():
-    interface_name_list = []
-    target_path = os.path.join(os.path.dirname(__file__),'api_python/mindspore','mindspore.Tensor.rst')
-    with open(target_path,'r+',encoding='utf8') as f:
-        content =  f.read()
-    interface_name_list = re.findall("mindspore\.Tensor\.(\w*)",content)
-    all_rst = []
-    for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/mindspore/Tensor')):
-        if j.split('.')[-1]=='rst':
-            all_rst.append(j.split('.')[-2])
-
-    extra_interface_name = set(all_rst).difference(set(interface_name_list))
-    print(extra_interface_name)
-    if extra_interface_name:
-        with open(os.path.join(os.path.dirname(__file__),'extra_interface_del.txt'),'a+',encoding='utf8') as g:
-            extra_write_list = []
-            for k in extra_interface_name:
-                k = "mindspore.Tensor." + k +'.rst'
-                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/mindspore/Tensor',k)):
-                    os.remove(os.path.join(os.path.dirname(__file__),'api_python/mindspore/Tensor',k))
-                    extra_write_list.append(k)
-            g.write(str(extra_write_list))
-
-# 删除并获取scipy下多余的接口文件名
-def scipy_interface_name():
-    interface_name_list = []
-    target_path = os.path.join(os.path.dirname(__file__),'api_python','mindspore.scipy.rst')
-    with open(target_path,'r+',encoding='utf8') as f:
-        content =  f.read()
-    interface_name_list = re.findall("    mindspore\.scipy\.(.*)", content)
-    all_rst = []
-    for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/scipy')):
-        if j.split('.')[-1]=='rst':
-            all_rst.append(j.split('mindspore.scipy.')[-1].replace('.rst', ''))
-
-    extra_interface_name = set(all_rst).difference(set(interface_name_list))
-    print(extra_interface_name)
-    if extra_interface_name:
-        with open(os.path.join(os.path.dirname(__file__),'extra_interface_del.txt'),'a+',encoding='utf8') as g:
-            extra_write_list = []
-            for k in extra_interface_name:
-                k = "mindspore.scipy." + k +'.rst'
-                if os.path.exists(os.path.join(os.path.dirname(__file__),'api_python/scipy',k)):
-                    os.remove(os.path.join(os.path.dirname(__file__),'api_python/scipy',k))
-                    extra_write_list.append(k)
-            g.write(str(extra_write_list))
+    print(f'冗余文件的接口名如下:\n{extra_interface_name}')
+    for k in extra_interface_name:
+        extra_file = k +'.rst'
+        if os.path.exists(os.path.join(d_path, extra_file)) and extra_file not in white_list:
+            os.remove(os.path.join(d_path, extra_file))
+    return True
 
 # Convert encoding for api files.
 import chardet
@@ -556,24 +423,31 @@ try:
 except Exception as e:
     print(e)
 
-primitive_list = ops_interface_name()
-
-mint_sum = mint_interface_name()
-
-try:
-    nn_interface_name()
-    tensor_interface_name()
-    scipy_interface_name()
-    numpy_interface_name()
-except Exception as e:
-    print(e)
+del_redundant_api_file(des_sir, ['mindspore.ops.rst', 'mindspore.ops.primitive.rst'], f'ops', 'mindspore.ops.', ops_del+primi_del, 'ops.silent_check.')
+del_redundant_api_file(des_sir, ['mindspore.nn.rst'], 'nn', 'mindspore.nn.', nn_del, 'optim_')
+del_redundant_api_file(des_sir, ['mindspore.mint.rst'], 'mint', 'mindspore.mint.', mint_del)
+del_redundant_api_file(des_sir, ['mindspore.numpy.rst'], 'numpy', 'mindspore.numpy.', numpy_del)
+del_redundant_api_file(des_sir, ['mindspore.scipy.rst'], 'scipy', 'mindspore.scipy.', scipy_del)
+del_redundant_api_file(des_sir, ['mindspore/mindspore.Tensor.rst'], 'mindspore/Tensor', 'mindspore.Tensor.', tensor_del)
 
 # auto generate rst by en
 from generate_rst_by_en import generate_rst_by_en
 
-exist_rst_file, primi_auto = generate_rst_by_en(primitive_list, './api_python/ops')
+with open(os.path.join(src_dir, 'mindspore.ops.primitive.rst'), 'r', encoding='utf-8') as f:
+    content = f.read()
+for i in primi_del:
+    content = re.sub(r'[ ]{3,4}'+i+'\n', '', content)
+primitive_sum = re.findall(r"[ ]{3,4}(mindspore\.ops\.\w+)\n", content)
+
+exist_rst_file, primi_auto = generate_rst_by_en(primitive_sum, './api_python/ops')
 if exist_rst_file:
     print(f'自动生成 ops API 中文时被覆盖的rst文件如下：\n{exist_rst_file}')
+
+with open(os.path.join(src_dir, 'mindspore.mint.rst'), 'r', encoding='utf-8') as f:
+    content = f.read()
+for i in mint_del:
+    content = re.sub(r'[ ]{3,4}'+i+'\n', '', content)
+mint_sum = re.findall(r"[ ]{3,4}(mindspore\.mint\.\w+)\n", content)
 
 exist_rst_file, mint_auto = generate_rst_by_en(mint_sum, './api_python/mint')
 if exist_rst_file:

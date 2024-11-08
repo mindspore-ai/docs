@@ -49,7 +49,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: record_last_ckpt_to_json, save_checkpoint, save_checkpoint_network
+    :exclude-members: record_last_ckpt_to_json, save_checkpoint, save_checkpoint_network, print_savetime, remove_redundancy
     :members:
 
 {% elif fullname=="mindformers.core.EmF1Metric" %}
