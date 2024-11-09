@@ -6,7 +6,7 @@
     - [Installing dependencies](#installing-dependencies)
         - [Installing Python](#installing-python)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
-        - [Installing wheel setuptools and Numpy](#installing-wheel-setuptools-and-numpy)
+        - [Installing wheel setuptools PyYAML and Numpy](#installing-wheel-setuptools-pyyaml-and-numpy)
         - [Installing GCC](#installing-gcc)
         - [Installing git tclsh patch NUMA and Flex](#installing-git-tclsh-patch-numa-and-flex)
         - [Installing git-lfs](#installing-git-lfs)
@@ -33,9 +33,10 @@ The following table lists the system environment and third-party dependencies re
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/openEuler 20.03/KylinV10 SP1|-|OS for running MindSpore|
 |[Python](#installing-python)|3.9-3.11|Python environment that MindSpore depends on|
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
-|[wheel](#installing-wheel-setuptools-and-numpy)|0.32.0 or later|Python packaging tool used by MindSpore|
-|[setuptools](#installing-wheel-setuptools-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
-|[Numpy](#installing-wheel-setuptools-and-numpy)|1.19.3 or later|Numpy module that Numpy-related functions in MindSpore depends on|
+|[wheel](#installing-wheel-setuptools-pyyaml-and-numpy)|0.32.0 or later|Python packaging tool used by MindSpore|
+|[setuptools](#installing-wheel-setuptools-pyyaml-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
+|[PyYAML](#installing-wheel-setuptools-pyyaml-and-numpy)|6.0-6.0.2|PyYAML module that operator compliation in MindSpore depends on|
+|[Numpy](#installing-wheel-setuptools-pyyaml-and-numpy)|1.19.3 or later|Numpy module that Numpy-related functions in MindSpore depends on|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
 |[git](#installing-git-gmp-tclsh-patch-numa-and-flex)|-|Source code management tool used by MindSpore|
 |[git-lfs](#installing-git-lfs)|-|Source code management tool used by MindSpore|
@@ -101,13 +102,14 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
 
-### Installing wheel setuptools and Numpy
+### Installing wheel setuptools PyYAML and Numpy
 
 After installing Python, use the following command to install it.
 
 ```bash
 pip install wheel
 pip install -U setuptools
+pip install pyyaml
 pip install numpy>=1.19.3
 ```
 
