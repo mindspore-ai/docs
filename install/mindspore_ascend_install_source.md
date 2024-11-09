@@ -6,7 +6,7 @@
     - [安装依赖软件](#安装依赖软件)
         - [安装Python](#安装python)
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
-        - [安装wheel setuptools和Numpy](#安装wheel-setuptools和numpy)
+        - [安装wheel-setuptools-PyYAML和Numpy](#安装wheel-setuptools-pyyaml和numpy)
         - [安装GCC](#安装gcc)
         - [安装git tclsh patch NUMA Flex](#安装git-tclsh-patch-numa-flex)
         - [安装git-lfs](#安装git-lfs)
@@ -33,9 +33,10 @@
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/openEuler 20.03/KylinV10 SP1|-|编译和运行MindSpore的操作系统|
 |[Python](#安装python)|3.9-3.11|MindSpore的使用依赖Python环境|
 |[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
-|[wheel](#安装wheel-setuptools和numpy)|0.32.0及以上|MindSpore使用的Python打包工具|
-|[setuptools](#安装wheel-setuptools和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
-|[Numpy](#安装wheel-setuptools和numpy)|1.19.3及以上|MindSpore里的Numpy相关功能依赖Numpy模块|
+|[wheel](#安装wheel-setuptools-PyYAML和numpy)|0.32.0及以上|MindSpore使用的Python打包工具|
+|[setuptools](#安装wheel-setuptools-PyYAML和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
+|[PyYAML](#安装wheel-setuptools-PyYAML和numpy)|6.0-6.0.2|MindSpore里的算子编译功能依赖PyYAML模块|
+|[Numpy](#安装wheel-setuptools-PyYAML和numpy)|1.19.3及以上|MindSpore里的Numpy相关功能依赖Numpy模块|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
 |[git](#安装git-gmp-tclsh-patch-numa-flex)|-|MindSpore使用的源代码管理工具|
 |[git-lfs](#安装git-lfs)|-|MindSpore使用的源代码管理工具|
@@ -101,13 +102,14 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
 
-### 安装wheel setuptools和Numpy
+### 安装wheel setuptools PyYAML和Numpy
 
 在安装完成Python后，使用以下命令安装。
 
 ```bash
 pip install wheel
 pip install -U setuptools
+pip install pyyaml
 pip install numpy>=1.19.3
 ```
 
