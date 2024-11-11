@@ -168,7 +168,7 @@ A: 当前MindSpore只提供版本配套关系，需要您手动进行配套软�
 
 <br/>
 
-### Q: 执行用例报错`No module named 'mindpore.version'`，应该怎么办？
+### Q: 执行用例报错`No module named 'mindspore.version'`，应该怎么办？
 
 A: 当有这种报错时，有可能是在创建了和MindSpore安装包相同名字的路径中执行用例，导致Python导入包的时候优先找到了当前目录下，而当前目录没有version.py这个文件。解决方法就是目录重命名或者向上退出一级或者多级目录。
 
