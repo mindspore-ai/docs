@@ -90,6 +90,7 @@ Model Building and Training
 
    train_availability/fault_recover
    train_availability/graceful_exit
+   train_availability/mindio_ttp
    train_availability/storage_sys
 
 .. toctree::

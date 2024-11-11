@@ -1,28 +1,28 @@
-# 临终Checkpoint保存
+# Power-off Checkpoint Preservation
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/train_availability/mindio_ttp.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/train_availability/mindio_ttp.md)
 
-## 概述
+## Overview
 
-MindSpore临终CKPT功能基于[MindIO TTP](https://www.hiascend.com/document/detail/zh/mindx-dl/60rc2/mindio/mindiottp/mindiottp001.html)，主要针对大模型训练过程中故障恢复加速，临终Checkpoint特性通过在训练过程中发生故障后，校验中间状态数据的完整性和一致性，生成一次临时CheckPoint数据，恢复训练时能够通过该CheckPoint数据恢复，减少故障造成的训练迭代损失。
+MindSpore power-off CKPT is based on [MindIO TTP](https://www.hiascend.com/document/detail/en/mindx-dl/500/mindio/mindioug/mindio_001.html), which is mainly aimed at accelerating fault recovery during large model training, the power-off Checkpoint feature generates temporary CheckPoint data once by verifying the integrity and consistency of the intermediate state data after a fault occurs during the training process, which can be recovered by the CheckPoint data when resuming the training to reduce the loss of training iterations caused by faults.
 
-下面以一个4卡数据并行网络训练为例，介绍如何配置临终CKPT功能。配置完成后，在训练中如遇到功能故障（主要包括：训练进程异常，训练进程异常退出），MindSpore和MindIO会停止所有卡的训练，检查最新的训练状态，并基于训练卡间的副本关系，确认是否存在可用的副本卡（好卡），如果存在则将对好卡进行临终CKPT的保存，否则按异常退出处理。如果发生故障后，能保存第n个step的CKPT文件，则下一次训练可从第n+1个step开始。
+The following is an example of how to configure the power-off CKPT function for a 4-card data parallel network training. After the configuration is completed, if there is a functional failure during training (mainly including: abnormal training process, abnormal exit of training process), MindSpore and MindIO will stop the training of all cards, check the latest training status, and based on the replica relationship between the training cards, confirm whether there is an available replica card (good card), if there is, then it will save the power-off CKPT for the good card, otherwise, it will be treated as abnormal exit treatment. If the CKPT file of the nth step can be saved after the failure, the next training can start from the n+1th step.
 
-### 使用约束
+### Use Constraints
 
-1. 仅支持Ascend后端的静态图模式。
-2. 仅支持sink_size=1，用于保证step的正确性。
-3. 仅支持父类类型为MindSpore Optimizer的优化器。
-4. 仅支持数据并行度大于1的网络，以确保模型参数存在副本关系。
-5. 如果网络开启优化器并行，必须使能optimizer_weight_shard_size:2，并确保其生效，以使优化器参数存在副本关系，详细可以参考[优化器并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/optimizer_parallel.html#%E9%AB%98%E7%BA%A7%E6%8E%A5%E5%8F%A3)。
+1. Only static graph mode is supported for the Ascend backend.
+2. Only sink_size=1 is supported for step correctness.
+3. Only optimizers whose parent class type is MindSpore Optimizer are supported.
+4. Only networks with data parallelism greater than 1 are supported to ensure that replica relationships exist for model parameters.
+5. If the network turns on optimizer parallelism, you must enable optimizer_weight_shard_size:2 and make sure it is in effect so that there is a replica relationship for the optimizer parameters, see [Optimizer Parallelism](https://www.mindspore.cn/docs/en/master/model_train/parallel/optimizer_parallel.html#advanced-interfaces) for details.
 
-## 样例代码说明
+## Sample Code Description
 
-> 您可以在这里下载完整的样例代码：
+> You can download the full sample code here:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/mindio_ttp>。
+> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/mindio_ttp>.
 
-目录结构如下：
+The directory structure is as follows:
 
 ```text
 └─ sample_code
@@ -33,15 +33,15 @@ MindSpore临终CKPT功能基于[MindIO TTP](https://www.hiascend.com/document/de
     ...
 ```
 
-其中，`mindio_ttp_case.py`是定义网络结构和训练过程的脚本。`msrun.sh`是训练脚本。`msrun-resume.sh`是续训脚本。
+Among them, `mindio_ttp_case.py` is the script that defines the network structure and the training process. `msrun.sh` is the training script. `msrun-resume.sh` is the renewal script.
 
-## 环境准备
+## Environment Preparation
 
-临终CKPT功能开启需要先安装`MindIO TTP`, 详情参见[MindIO TTP](https://www.hiascend.com/document/detail/zh/mindx-dl/60rc2/mindio/mindiottp/mindiottp001.html)。
+To enable the power-off CKPT function, you need to install `MindIO TTP`, see [MindIO TTP](https://www.hiascend.com/document/detail/zh/mindx-dl/60rc2/mindio/mindiottp/mindiottp001.html) for details.
 
-## 准备数据
+## Preparing Data
 
-下载MNIST数据集，并解压数据集到项目目录。
+Download the MNIST dataset and extract the dataset to the project directory.
 
 ```bash
 EXEC_PATH=$(pwd)
@@ -55,9 +55,9 @@ fi
 export DATA_PATH=${EXEC_PATH}/MNIST_Data/train/
 ```
 
-## 模型定义
+## Model Defining
 
-如下代码定义一个包含5层的网络结构。其中设置并行模式为数据并行，让每张卡都互为备份关系，以便发生异常时，临终Checkpoint功能找到有效的副本进行保存。
+The following code defines a network structure containing 5 layers. The parallel mode is set to data parallelism so that each card is in a backup relationship with each other so that in case of an exception, the power-off Checkpoint function finds a valid copy to save.
 
 ```python
 
@@ -137,7 +137,7 @@ net = Network()
 
 ```
 
-## 数据集定义
+## Dataset Defining
 
 ```python
 def create_dataset(batch_size):
@@ -158,17 +158,17 @@ def create_dataset(batch_size):
 dataset = create_dataset(32)
 ```
 
-## 优化器定义与封装
+## Optimizer Definition and Encapsulation
 
-开启临终CKPT功能需要设置TFT优化器，设置后可在梯度计算完成后，优化器更新前向MindIO TFT上报状态。TFT优化器用`OptTFTWrapper`来配置，详情参见[OptTFTWrapper](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.OptTFTWrapper.html)。
+The TFT optimizer needs to be set up to enable the power-off CKPT function. After setting up the TFT optimizer, the status can be reported to MindIO TFT after the gradient calculation is completed and before the optimizer is updated. The TFT optimizer is configured with `OptTFTWrapper`, see [OptTFTWrapper](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.OptTFTWrapper.html).
 
 ```python
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
-#配置TFT优化器
+# Configure TFT optimizer
 optimizer_wrapper = nn.OptTFTWrapper(optimizer)
 ```
 
-## 创建loss函数并配置model对象
+## Creating the Loss Function and Configuring the Model Object
 
 ```python
 loss_fn = nn.CrossEntropyLoss()
@@ -176,28 +176,28 @@ net.set_train()
 model = ms.Model(net,  optimizer=optimizer_wrapper)
 ```
 
-## Callback配置
+## Callback Configuration
 
-开启临终CKPT功能需要设置 `TFTRegister` Callback对象，并传入参数来配置，详情参见[TFTRegister](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.TFTRegister.html)。
+To enable the power-off CKPT feature, you need to set the `TFTRegister` Callback object and pass in the parameters to configure it, see [TFTRegister](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.TFTRegister.html) for details.
 
 ```python
 time_monitor = train.TimeMonitor(data_size=1)
 loss_cb = train.LossMonitor(1)
 
-# 设置TFT callback对象
+# Set the TFT callback object
 tft_cb = train.TFTRegister(0, "127.0.0.1", 30051, "./ttp_checkpoints/")
 ```
 
-## 续训配置
+## Renewal Configuration
 
-续训可从临终Chckpoint恢复，由于临终Checkpoint对于多个副本只会保存一份Checkpoint文件，因此需要查看生成的Checkpoint文件，并配置相应的Checkpoint文件进行续训。
+Renewal training can be resumed from the power-off Chckpoint, and since the power-off Checkpoint will only save one Checkpoint file for multiple copies, you need to look at the generated Checkpoint file and configure the appropriate Checkpoint file for renewal training.
 
 ```python
 init_epoch = 0
 
 if bool(args_opt.is_recover):
-    cur_epoch = 2 # 设置成异常保存的epoch值
-    cur_step = 1215 # 设置成异常保存的step值
+    cur_epoch = 2 # Set to the epoch value of the exception save
+    cur_step = 1215 # Set to the step value of the exception save
     ckpt_step = (cur_epoch - 1) * dataset.get_dataset_size() + cur_step
     if context.get_auto_parallel_context("parallel_mode") == "data_parallel":
         cur_rank = 0
@@ -213,17 +213,17 @@ if bool(args_opt.is_recover):
     init_epoch = int(param_dict["epoch_num"]) - 1
 ```
 
-## 启动训练
+## Initiating Training
 
 ```python
 model.train(5, dataset, callbacks=[time_monitor, loss_cb, tft_cb])
 ```
 
-## 配置环境变量并启动训练
+## Configuring Environment Variables and Initiating Training
 
-开启临终Checkpoint功能，需要设置环境变量 `MS_ENABLE_TFT='{TTP:1}'`。此外还需要设置环境变量 `MINDIO_FOR_MINDSPORE=1`， 使能 `MindIO` 适配 MindSpore。
+To enable power-off Checkpoint, set the environment variable `MS_ENABLE_TFT='{TTP:1}'`. You also need to set the environment variable `MINDIO_FOR_MINDSPORE=1` to enable `MindIO` to adapt to MindSpore.
 
-使用 `msrun` 命令启动训练。
+Use the `msrun` command to initiate training.
 
 ```bash
 export MS_ENABLE_TFT='{TTP:1}'
@@ -233,17 +233,17 @@ export DATA_PATH=${EXEC_PATH}/MNIST_DATA/train/
 msrun --worker_num=4 --local_worker_num=4 --master_port=10970 --join=False --log_dir=msrun_log --cluster_time_out=300  mindio_ttp_case.py
 ```
 
-## 异常注入
+## Exception Injection
 
-常见的异常注入为查看训练的进程，并直接杀掉相应的进程来检验是否有临终Checkpoint文件生成。
-注意：由于MindIo的Controller控制器默认在0卡启动，因此杀死rank0的进程并不会生成Checkpoint文件。
+A common exception injection is to look at the training process and kill the corresponding process directly to check if a power-off Checkpoint file has been generated.
+Note: Since MindIo's controller starts on card 0 by default, killing the rank0 process does not generate a Checkpoint file.
 
 ```bash
-npu-smi info # 查看训练进程
-kill -9 pid  # 杀死对应的训练进程
+npu-smi info # Check training process
+kill -9 pid  # Kill corresponding training process
 ```
 
-## 配置环境变量并恢复训练
+## Configuring Environment Variables and Re-training
 
 ```bash
 export MS_ENABLE_TFT='{TTP:1}'
@@ -254,7 +254,7 @@ msrun --worker_num=4 --local_worker_num=4 --master_port=10970 --join=False --log
 
 ```
 
-## 临终Checkpoint文件生成说明
+## Power-off Checkpoint Document Generation Instructions
 
 ```text
 └─ sample_code
