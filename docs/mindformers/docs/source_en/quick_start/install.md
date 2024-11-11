@@ -14,15 +14,6 @@ The current recommended Python version for the suite is 3.10.
 
 **Currently MindFormers recommends using a software package relationship as above.**
 
-### Compatibility Notes
-
-MindFormers has the following compatible relationships with MindSpore:
-
-| MindFormers | MindSpore | Compatibility |
-|:-----------:|:---------:|:-------------:|
-|    1.3.0    | 2.3, 2.4  |       √       |
-|    1.2.0    | 2.3, 2.4  |       √       |
-
 ## Environment Installation
 
 1. Install Firmware and Driver: Download the firmware and driver package through the [Version Matching Relationship](https://www.mindspore.cn/mindformers/docs/en/dev/quick_start/install.html#version-matching-relationship) to download the installation package, and refer to the [Ascend official tutorial](https://www.hiascend.com/document/detail/zh/quick-installation/24.0.RC1/quickinstg_train/800_9000A2/quickinstg_800_9000A2_0007.html) for installation.
