@@ -113,6 +113,11 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
     # python安装包文件夹位置
     pythonlib_dir = os.path.dirname(os.path.dirname(sphinx.__file__))
 
+    # 删除sphinx中多余的语言文件
+    mo_path = os.path.join(pythonlib_dir, 'locale/zh_CN/LC_MESSAGES/sphinx.mo')
+    if os.path.exists(mo_path):
+        os.remove(mo_path)
+
     # 开始计时
     time_start = time.perf_counter()
 
