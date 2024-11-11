@@ -8,6 +8,14 @@ MindSpore临终CKPT功能基于[MindIO TTP](https://www.hiascend.com/document/de
 
 下面以一个4卡数据并行网络训练为例，介绍如何配置临终CKPT功能。 配置完成后，在训练中如遇到功能故障（主要包括：训练进程异常，训练进程异常退出），MindSpore和MindIO会停止所有卡的训练，检查最新的训练状态，并基于训练卡间的副本关系，确认是否存在可用的副本卡（好卡），如果存在则将对好卡进行临终CKPT的保存， 否则按异常退出处理。如果发生故障后，能保存第n个step的CKPT文件， 则下一次训练可从第n+1个step开始。
 
+### 使用约束
+
+1. 仅支持Ascend后端的静态图模式。
+2. 仅支持sink_size=1， 用于保证step的正确性。
+3. 仅支持父类类型为MindSpore Optimizer的优化器。
+4. 仅支持数据并行度大于1的网络，以确保模型参数存在副本关系。
+5. 如果网络开启优化器并行，必须使能optimizer_weight_shard_size:2，并确保其生效，以使优化器参数存在副本关系，详细可以参考[优化器并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/optimizer_parallel.html#%E9%AB%98%E7%BA%A7%E6%8E%A5%E5%8F%A3) 。
+
 ## 样例代码说明
 
 > 您可以在这里下载完整的样例代码：
