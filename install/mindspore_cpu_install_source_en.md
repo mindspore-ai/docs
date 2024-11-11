@@ -5,7 +5,7 @@
 - [Installing MindSpore in CPU by Source Code](#installing-mindspore-in-cpu-by-source-code)
     - [Installing dependencies](#installing-dependencies)
         - [Installing Python](#installing-python)
-        - [Installing wheel setuptools and Numpy](#installing-wheel-setuptools-and-numpy)
+        - [Installing wheel setuptools PyYAML and Numpy](#installing-wheel-setuptools-pyyaml-and-numpy)
         - [Installing GCC git tclsh patch and NUMA](#installing-gcc-git-tclsh-patch-and-numa)
         - [Installing CMake](#installing-cmake)
         - [Installing LLVM-optional](#installing-llvm-optional)
@@ -27,9 +27,10 @@ This document describes how to install MindSpore by compiling source code on Lin
 |-|-|-|
 |Ubuntu|18.04|OS for compiling and running MindSpore|
 |[Python](#installing-python)|3.9-3.11|Python environment that MindSpore depends|
-|[wheel](#installing-wheel-setuptools-and-numpy)|0.32.0 or later|Python packaging tool used by MindSpore|
-|[setuptools](#installing-wheel-setuptools-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
-|[Numpy](#installing-wheel-setuptools-and-numpy)|1.19.3 or later|Numpy module that Numpy-related functions in MindSpore depends on|
+|[wheel](#installing-wheel-setuptools-pyyaml-and-numpy)|0.32.0 or later|Python packaging tool used by MindSpore|
+|[setuptools](#installing-wheel-setuptools-pyyaml-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
+|[PyYAML](#installing-wheel-setuptools-pyyaml-and-numpy)|6.0-6.0.2|PyYAML module that operator compliation in MindSpore depends on|
+|[Numpy](#installing-wheel-setuptools-pyyaml-and-numpy)|1.19.3 or later|Numpy module that Numpy-related functions in MindSpore depends on|
 |[GCC](#installing-gcc-git-gmp-tclsh-patch-and-numa)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
 |[git](#installing-gcc-git-gmp-tclsh-patch-and-numa)|-|Source code management tools used by MindSpore|
 |[CMake](#installing-cmake)|3.22.2 or later|Compilation tool that builds MindSpore|
@@ -89,13 +90,14 @@ Run the following command to check the Python version.
 python --version
 ```
 
-### Installing wheel setuptools and Numpy
+### Installing wheel setuptools PyYAML and Numpy
 
 After installing Python, run the following command to install them.
 
 ```bash
 pip install wheel
 pip install -U setuptools
+pip install pyyaml
 pip install numpy>=1.19.3
 ```
 
