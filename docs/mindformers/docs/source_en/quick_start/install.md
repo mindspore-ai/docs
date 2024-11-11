@@ -10,18 +10,9 @@ The current recommended Python version for the suite is 3.10.
 
 | MindFormers |                 MindSpore                  | CANN | Firmware & Drivers | Mirror Links |
 |:-----------:|:------------------------------------------:|:----:|:------------------:|:------------:|
-|   r1.3.0    | [2.4.0](https://www.mindspore.cn/install/) | TBD  |        TBD         |     TBD      |
+|   r1.3.0    | [2.4.0](https://www.mindspore.cn/install/) | [CANN](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC3.beta1)  |       [Driver](https://www.hiascend.com/hardware/firmware-drivers/community)         |     TBD      |
 
 **Currently MindFormers recommends using a software package relationship as above.**
-
-### Compatibility Notes
-
-MindFormers has the following compatible relationships with MindSpore:
-
-| MindFormers | MindSpore | Compatibility |
-|:-----------:|:---------:|:-------------:|
-|    1.3.0    | 2.3, 2.4  |       √       |
-|    1.2.0    | 2.3, 2.4  |       √       |
 
 ## Environment Installation
 

@@ -8,20 +8,11 @@
 
 当前套件建议使用的Python版本为3.10。
 
-| MindFormers |                 MindSpore                  | CANN | 固件与驱动 | 镜像链接 |
-|:-----------:|:------------------------------------------:|:----:|:-----:|:----:|
-|   r1.3.0    | [2.4.0](https://www.mindspore.cn/install/) | TBD  |  TBD  | TBD  |
+| MindFormers |                 MindSpore                  |   CANN   |   固件与驱动    | 镜像链接 |
+|:-----------:|:------------------------------------------:|:--------:|:----------:|:----:|
+|   r1.3.0    | [2.4.0](https://www.mindspore.cn/install/) | [CANN](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC3.beta1) | [Driver](https://www.hiascend.com/hardware/firmware-drivers/community) | TBD  |
 
 **当前MindFormers建议使用如上的软件配套关系。**
-
-### 兼容性说明
-
-MindFormers与MindSpore有如下兼容关系：
-
-| MindFormers | MindSpore | 兼容性 |
-|:-----------:|:---------:|:---:|
-|    1.3.0    | 2.3, 2.4  |  √  |
-|    1.2.0    | 2.3, 2.4  |  √  |
 
 ## 环境安装
 
