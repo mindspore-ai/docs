@@ -10,7 +10,7 @@ MindSpore provides Pipeline-based [Data Engine](https://www.mindspore.cn/docs/en
 
 1. Dataset is the start of Pipeline and is used to load raw data to memory. `mindspore.dataset` provides [built-in dataset interfaces](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html) for loading text, image, audio, etc., and provides [interfaces](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#user-defined) for loading customized datasets.
 
-2. Data transforms perform further transform operations on data in memory. [mindpore.dataset.transforms](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.transforms) provides general data transform operations, [mindpore.dataset.transforms.vision](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision) provides image data transform operations, [mindpore.dataset.transforms.text](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text) provides text data transform operations, and [mindpore.dataset.transforms.audio](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio) provides audio data transform operations.
+2. Data transforms perform further transform operations on data in memory. [mindspore.dataset.transforms](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.transforms) provides general data transform operations, [mindspore.dataset.transforms.vision](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision) provides image data transform operations, [mindspore.dataset.transforms.text](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text) provides text data transform operations, and [mindspore.dataset.transforms.audio](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio) provides audio data transform operations.
 
 3. The dataset batch operation is used to batch the transformed data group for the final neural network training. The batch operation is performed on the dataset object. The interface can be referred to [batch operator](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MindDataset.html#batch);
 
@@ -31,7 +31,7 @@ import matplotlib.pyplot as plt
 
 ## Loading a Dataset
 
-The `mindpore.dataset` module provides loading APIs for custom datasets, standard format datasets, and commonly used publicly datasets.
+The `mindspore.dataset` module provides loading APIs for custom datasets, standard format datasets, and commonly used publicly datasets.
 
 ### Customizing Dataset
 
@@ -258,7 +258,7 @@ Usually, the directly-loaded raw data cannot be directly fed into the neural net
 
 ### Built-in Transforms
 
-`mindpore.dataset` provides built-in data transformas: [vision transformas](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), [nlp transforms](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), [audio transforms](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio).
+`mindspore.dataset` provides built-in data transformas: [vision transformas](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.vision), [nlp transforms](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.text), [audio transforms](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html#module-mindspore.dataset.audio).
 
 For example, `Rescale`, `Normalize`, and `HWC2CHW` operations are used for **data** in the Mnist dataset, and `TypeCast` operations are used for **label**.
 

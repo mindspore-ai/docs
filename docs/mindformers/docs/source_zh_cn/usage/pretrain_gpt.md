@@ -26,9 +26,12 @@
 
 ### 模型结构
 
-GPT以`Transformer`模型为主要架构，网络结构主要围绕`Transformer`的基本构建块构建。  
+GPT以`Transformer`模型为主要架构，网络结构主要围绕`Transformer`的基本构建块构建。
+
 在模型中，初始化五个参数，`config`是模型配置项（在yaml文件的`model_config`中），`num_tokentypes`指定embedding的类型，`parallel_output`用来确认是否输出每一个并行Tensor的输出，`pre_process`和`post_process`分别指定是否为第一阶段和最后一阶段。
-调用的`get_language_model`是一个基于`Transformer`模型的接口，详情请看`get_language_model`的api文档。  
+
+调用的`get_language_model`是一个基于`Transformer`模型的接口，详情请看`get_language_model`的api文档。
+
 注意：数据集返回值要与模型定义的前向过程所需要的参数相对应。
 
 ```python
@@ -326,7 +329,7 @@ set_seed(training_config.seed)
 
 ### 创建网络对象
 
-从模型库获取GPT模型，根据配置文件创建网络模型对象。通过`set_weight_decay`来为不同参数设置不同的权重衰减系数，这个函数会将参数分为两组，一组应用特定的权重衰减值，另一组权重衰减为`0`，然后返回一个包含参数分组信息的列表，赋值给`group_params`变量。 调用`get_optimizer`函数，传入`optimizer_config`（优化器配置）、`training_config`（训练配置）、`group_params`（前面得到的参数分组信息）、`network_with_loss`（包含模型和损失的对象）以及一个梯度归约操作（从`training_config.loss_reduction`获取），返回一个优化器对象，并赋值给`optimizer`变量。
+从模型库获取GPT模型，根据配置文件创建网络模型对象。通过`set_weight_decay`来为不同参数设置不同的权重衰减系数，这个函数会将参数分为两组，一组应用特定的权重衰减值，另一组权重衰减为`0`，然后返回一个包含参数分组信息的列表，赋值给`group_params`变量。调用`get_optimizer`函数，传入`optimizer_config`（优化器配置）、`training_config`（训练配置）、`group_params`（前面得到的参数分组信息）、`network_with_loss`（包含模型和损失的对象）以及一个梯度归约操作（从`training_config.loss_reduction`获取），返回一个优化器对象，并赋值给`optimizer`变量。
 创建一个`TrainOneStepCell`对象，它通常用于在训练过程中执行一步优化。传入`network_with_loss`、`optimizer`及配置作为参数，并将其赋值给train_one_step_cell变量。
 
 完整的创建网络对象代码：
@@ -430,7 +433,7 @@ else
 fi
 ```
 
-#### 设置日志存储路径。
+#### 设置日志存储路径
 
 获取当前脚本所在的目录路径并存储在`project_dir`变量中，同时设置日志路径变量`log_path="msrun_log"`。先删除名为`msrun_log`的目录（如果存在），然后重新创建这个目录。
 

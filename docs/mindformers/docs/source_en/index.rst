@@ -95,6 +95,7 @@ FAQ
    usage/inference
    usage/mindie_deployment
    usage/quantization
+   usage/pretrain_gpt
 
 .. toctree::
    :glob:
