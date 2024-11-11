@@ -15,6 +15,7 @@ import shutil
 import IPython
 import re
 import sys
+import sphinx
 
 # Fix mathjax tags
 from sphinx.ext import mathjax as sphinx_mathjax
@@ -37,7 +38,14 @@ with open(sphinx_mathjax.__file__, "r", encoding="utf-8") as f:
 project = 'MindSpore'
 copyright = 'MindSpore'
 author = 'MindSpore'
+
+mo_target = os.path.join(os.path.dirname(sphinx.__file__), 'locale/zh_CN/LC_MESSAGES/sphinx.mo')
+if os.path.exists(mo_target):
+    os.remove(mo_target)
+
 language = 'zh_CN'
+locale_dirs = ['../../resource/locale/']
+gettext_compact = False
 # The full version, including alpha/beta/rc tags
 release = 'master'
 
@@ -106,7 +114,7 @@ shutil.copy(layout_src, layout_target)
 
 html_search_language = 'zh'
 
-html_search_options = {'dict': '../resource/jieba.txt'}
+html_search_options = {'dict': '../../resource/jieba.txt'}
 
 html_static_path = ['_static']
 
