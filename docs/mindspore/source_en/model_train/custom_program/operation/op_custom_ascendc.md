@@ -20,7 +20,7 @@ The Ascend platform provides comprehensive tutorials for Ascend C operator devel
 
 **Operator Implementation**: Focus on learning [kernel-side operator implementation](https://www.hiascend.com/document/detail/en/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0024.html) and [host-side operator implementation](https://www.hiascend.com/document/detail/en/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0024.html), learning the core logic of device-side operator execution and the implementation method of host-side operator operations.
 
-**Development Samples**: Ascend Community provides a wealth of [Ascend C Operator Development Samples](https://gitee.com/ascend/samples/tree/master/operator), covering various types of operators, helping you quickly understand the practical application of operator development. You can also view the [AddCustom Custom Operator Development Sample](https://gitee.com/ascend/samples/tree/master/operator/AddCustomSample/FrameworkLaunch/AddCustom), which simply shows the core work needed for custom operator development.
+**Development Samples**: Ascend Community provides a wealth of [Ascend C Operator Development Samples](https://gitee.com/ascend/samples/tree/master/operator/ascendc), covering various types of operators, helping you quickly understand the practical application of operator development. You can also view the [AddCustom Custom Operator Development Sample](https://gitee.com/ascend/samples/tree/master/operator/ascendc/0_introduction/1_add_frameworklaunch/AddCustom), which simply shows the core work needed for custom operator development.
 
 ## Offline Compilation and Deployment
 
