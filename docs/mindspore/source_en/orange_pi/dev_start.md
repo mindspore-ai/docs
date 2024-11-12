@@ -335,4 +335,4 @@ for data, label in test_dataset:
 Predicted: "[1 2 0 4 6 4 9 0 2 2]", Actual: "[1 2 0 4 6 9 9 0 2 2]"
 ```
 
-## More examples of MindSpore-based OrangePi development boards are detailed in: [GitHub link](https://github.com/mindspore-courses/orange-pi-mindspore/tree/master/tutorial)
+## More examples of MindSpore-based OrangePi development boards are detailed in: [GitHub link](https://github.com/mindspore-courses/orange-pi-mindspore)
