@@ -14,15 +14,6 @@
 
 **当前MindFormers建议使用如上的软件配套关系。**
 
-### 兼容性说明
-
-MindFormers与MindSpore有如下兼容关系：
-
-| MindFormers | MindSpore | 兼容性 |
-|:-----------:|:---------:|:---:|
-|    1.3.0    | 2.3, 2.4  |  √  |
-|    1.2.0    | 2.3, 2.4  |  √  |
-
 ## 环境安装
 
 1. 安装固件与驱动：通过[版本匹配关系](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/install.html#%E7%89%88%E6%9C%AC%E5%8C%B9%E9%85%8D%E5%85%B3%E7%B3%BB)中的固件与驱动链接下载安装包，参考[昇腾官方教程](https://www.hiascend.com/document/detail/zh/quick-installation/24.0.RC1/quickinstg_train/800_9000A2/quickinstg_800_9000A2_0007.html)进行安装。
