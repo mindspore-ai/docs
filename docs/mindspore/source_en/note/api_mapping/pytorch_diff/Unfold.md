@@ -22,7 +22,7 @@ For more information, see [mindspore.nn.Unfold](https://mindspore.cn/docs/en/r2.
 
 PyTorch: Extracts the sliding local area blocks from the batch input tensor. The shape of the input tensor is (N, C, H, W), where N is the batch size, C is the number of channels, H is the height, and W is the width. The output is a three-dimensional Tensor.
 
-MindSpore: Implementation function of API in MinSpore differs from that of PyTorch. kernel_size, stride, and dilation of PyTorch support int and tuple inputs, and padding supports implicit zero padding added on either side of the input, while MindSpore ksizes, strides and rates three parameters must be the format of (1, row, col, 1), and padding parameters support two formats same and valid. MindSpore input is a four-dimensional tensor with shape (in_batch, in_depth, in_row, int_col), and output is a four-dimensional Tensor with shape (out_batch, out_depth, out_row, out_col), where out_batch and in_batch are the same.
+MindSpore: Implementation function of API in MindSpore differs from that of PyTorch. kernel_size, stride, and dilation of PyTorch support int and tuple inputs, and padding supports implicit zero padding added on either side of the input, while MindSpore ksizes, strides and rates three parameters must be the format of (1, row, col, 1), and padding parameters support two formats same and valid. MindSpore input is a four-dimensional tensor with shape (in_batch, in_depth, in_row, int_col), and output is a four-dimensional Tensor with shape (out_batch, out_depth, out_row, out_col), where out_batch and in_batch are the same.
 
 | Categories | Subcategories |PyTorch | MindSpore | Difference |
 | --- | --- | --- | --- |---|
