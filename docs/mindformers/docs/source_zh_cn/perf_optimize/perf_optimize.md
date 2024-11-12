@@ -355,7 +355,7 @@ context:
 
   NPU的算子耗时统计可直接从profiling中获取，分析出当前主要的耗时算子以及低效算子，从而找出需要优化的算子。参考[profiler工具使用介绍](#profiler工具)。
 
-  GPU 算子耗时统计，参考MindStudio提供的[PyTorch训练Profiling分析方法](https://www.hiascend.com/document/detail/zh/mindstudio/60RC1/quickstart/systemprofilerpt_000001.html)。
+  GPU 算子耗时统计，参考MindStudio提供的[PyTorch训练Profiling分析方法](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/profiling/atlasprofiling_16_0006.html)。
 
 * 数据拆解关注点
 

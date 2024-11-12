@@ -355,7 +355,7 @@ After completing a round of performance optimization, it is also necessary to en
 
   NPU operator elapsed time statistics can be obtained directly from profiling, which analyzes the current major time consumption operators as well as the inefficient ones, so as to find out the operators that need to be optimized. Refer to [Introduction to using profiler tool](#profiler-tool).
 
-  GPU operator elapsed time statistics, refer to [PyTorch Training Profiling Analysis Method](https://www.hiascend.com/document/detail/zh/mindstudio/60RC1/quickstart/systemprofilerpt_000001.html) provided by MindStudio.
+  GPU operator elapsed time statistics, refer to [PyTorch Training Profiling Analysis Method](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/profiling/atlasprofiling_16_0006.html) provided by MindStudio.
 
 * Data dismantling concerns
 
