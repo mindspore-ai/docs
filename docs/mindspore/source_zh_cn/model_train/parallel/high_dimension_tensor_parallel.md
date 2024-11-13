@@ -5,6 +5,7 @@
 ## 概述
 
 大模型训练中，模型并行能够有效减少内存负荷，但其引入的通信是一个显著的性能瓶颈。因此需要优化整网模型切分策略以期引入最小的通信量。
+
 张量并行（Tensor Parallel，简称TP）训练是将一个张量沿特定维度分成 `N` 块，每个设备只持有整个张量的 `1/N`，进行MatMul/BatchMatMul等算子计算，并引入额外通信保证最终结果正确。而高维张量并行则允许灵活控制对张量的切分次数和切分轴，支持1D、2D、3D切分。2D/3D切分相对与1D切分，在合适的切分策略下，通信量随着TP设备数增长更慢，在TP设备数较大时有着更低的额外通信量，达到提高训练速度的目的。
 
 > 本特性支持的硬件平台为Ascend，需要在Graph模式、半自动并行下运行。
@@ -43,7 +44,7 @@
 
 ![image](images/high_dimension_tensor_parallel_image_1.png)
 
-*图：2D张量并行算通信行为（以4卡并行下，一个MatMul计算为例）*
+*图：2D张量并行计算通信行为（以4卡并行下，一个MatMul计算为例）*
 
 ### 3D张量并行计算通信行为
 
@@ -55,7 +56,7 @@
 
 综合对比1D/2D/3D的理论计算、存储、通信开销如下：
 
-| TP Type | Compution | Memory(parameters) | Memory(activation) | Communication Volume(Single Device)) |
+| TP Type | Compution | Memory(parameters) | Memory(activation) | Communication Volume(Single Device) |
 | ----------- | ----------- | ----------- | ----------- | ----------- |
 | 1D张量并行 | O(1/P) | O(1/P) | O(1) | 2(P-1)bsh/P |
 | 2D张量并行 | O(1/xy) | O(1/xy) | O(1/xy) | 2bs[e(x-1)+h (y-1)]/xy |
