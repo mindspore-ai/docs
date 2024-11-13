@@ -114,7 +114,7 @@ You can download the vocabulary at [tokenizer.model](https://ascend-repo-modelzo
 Go to the root directory `golden-stick` of the mindspore_gs library and run the quantization weight conversion script.
 
 ```bash
-python example/ptq/quant_ckpt.py -c /path/to/predict_llama2_13b.yaml -s /path/to/boolq/dev.jsonl -t boolq -a rtn-a16w8 > log_rtn_a16w8_quant 2>&
+python example/ptq/quant_ckpt.py -c /path/to/predict_llama2_13b.yaml -s /path/to/boolq/dev.jsonl -t boolq -q rtn-a16w8 > log_rtn_a16w8_quant 2>&
 ```
 
 Set `load_checkpoint` in `predict_llama2_13b.yaml` to the path for storing the original weight downloaded in the previous step.
