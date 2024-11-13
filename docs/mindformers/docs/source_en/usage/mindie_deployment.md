@@ -20,7 +20,7 @@ The model support for MindIE inference can be found in [model repository](https:
 
 2. Install MindIE
 
-   Refer to [MindIE Installation Dependencies Documentation (to be released)]() to complete the dependency installation. After that, go to [MindIE Resource Download Center (to be released)]() to download the package and install it.
+   Refer to [MindIE Installation Dependencies Documentation](https://www.hiascend.com/document/detail/zh/mindie/10RC3/envdeployment/instg/mindie_instg_0010.html) to complete the dependency installation. After that, go to [MindIE Resource Download Center](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) to download the package and install it.
 
 ### Environment Variables
 
@@ -178,7 +178,7 @@ The final modified config.json is as follows:
 
 ```json
 {
-    "Version": "1.0.0",
+    "Version" : "1.0.0",
     "LogConfig" :
     {
         "logLevel" : "Info",
@@ -190,9 +190,11 @@ The final modified config.json is as follows:
     "ServerConfig" :
     {
         "ipAddress" : "127.0.0.1",
-        "managementIpAddress": "127.0.0.2",
+        "managementIpAddress" : "127.0.0.2",
         "port" : 1025,
         "managementPort" : 1026,
+        "metricsPort" : 1027,
+        "allowAllZeroIpListening" : false,
         "maxLinkNum" : 1000,
         "httpsEnabled" : false,
         "fullTextEnabled" : false,
@@ -203,74 +205,75 @@ The final modified config.json is as follows:
         "tlsPkPwd" : "security/pass/key_pwd.txt",
         "tlsCrl" : "security/certs/server_crl.pem",
         "managementTlsCaFile" : ["management_ca.pem"],
-        "managementTlsCert" : "security/certs/management_server.pem",
-        "managementTlsPk" : "security/keys/management_server.key.pem",
-        "managementTlsPkPwd" : "security/pass/management_mindie_server_key_pwd.txt",
-        "managementTlsCrl" : "security/certs/management_server_crl.pem",
+        "managementTlsCert" : "security/certs/management/server.pem",
+        "managementTlsPk" : "security/keys/management/server.key.pem",
+        "managementTlsPkPwd" : "security/pass/management/key_pwd.txt",
+        "managementTlsCrl" : "security/certs/management/server_crl.pem",
         "kmcKsfMaster" : "tools/pmt/master/ksfa",
         "kmcKsfStandby" : "tools/pmt/standby/ksfb",
         "inferMode" : "standard",
-        "pdInterNodeTLSEnabled": false,
-        "pdCommunicationPort": 1121,
-        "interNodeTlsCaFile": "security/ca/ca.pem",
-        "interNodeTlsCert": "security/certs/server.pem",
-        "interNodeTlsPk": "security/keys/server.key.pem",
-        "interNodeTlsPkPwd": "security/pass/mindie_server_key_pwd.txt",
-        "interNodeKmcKsfMaster": "tools/pmt/master/ksfa",
-        "interNodeKmcKsfStandby": "tools/pmt/standby/ksfb"
+        "interCommTLSEnabled" : false,
+        "interCommPort" : 1121,
+        "interCommTlsCaFile" : "security/grpc/ca/ca.pem",
+        "interCommTlsCert" : "security/grpc/certs/server.pem",
+        "interCommPk" : "security/grpc/keys/server.key.pem",
+        "interCommPkPwd" : "security/grpc/pass/key_pwd.txt",
+        "interCommTlsCrl" : "security/certs/server_crl.pem",
+        "openAiSupport" : "vllm"
     },
 
-    "BackendConfig": {
+    "BackendConfig" : {
         "backendName" : "mindieservice_llm_engine",
         "modelInstanceNumber" : 1,
         "npuDeviceIds" : [[0,1,2,3]],
         "tokenizerProcessNumber" : 8,
-        "multiNodesInferEnabled": false,
-        "multiNodesInferPort": 1120,
-        "interNodeTLSEnabled": true,
-        "interNodeTlsCaFile": "security/ca/ca.pem",
-        "interNodeTlsCert": "security/certs/server.pem",
-        "interNodeTlsPk": "security/keys/server.key.pem",
-        "interNodeTlsPkPwd": "security/pass/mindie_server_key_pwd.txt",
-        "interNodeKmcKsfMaster": "tools/pmt/master/ksfa",
-        "interNodeKmcKsfStandby": "tools/pmt/standby/ksfb",
-        "ModelDeployConfig":
+        "multiNodesInferEnabled" : false,
+        "multiNodesInferPort" : 1120,
+        "interNodeTLSEnabled" : true,
+        "interNodeTlsCaFile" : "security/grpc/ca/ca.pem",
+        "interNodeTlsCert" : "security/grpc/certs/server.pem",
+        "interNodeTlsPk" : "security/grpc/keys/server.key.pem",
+        "interNodeTlsPkPwd" : "security/grpc/pass/mindie_server_key_pwd.txt",
+        "interNodeTlsCrl" : "security/grpc/certs/server_crl.pem",
+        "interNodeKmcKsfMaster" : "tools/pmt/master/ksfa",
+        "interNodeKmcKsfStandby" : "tools/pmt/standby/ksfb",
+        "ModelDeployConfig" :
         {
-            "maxSeqLen" : 16384,
-            "maxInputTokenLen" : 16384,
+            "maxSeqLen" : 8192,
+            "maxInputTokenLen" : 8192,
             "truncation" : false,
             "ModelConfig" : [
                 {
-                    "modelInstanceType": "Standard",
+                    "modelInstanceType" : "Standard",
                     "modelName" : "Qwen1.5-72B-Chat",
                     "modelWeightPath" : "/mf_model/qwen1_5_72b",
                     "worldSize" : 4,
-                    "cpuMemSize" : 16,
-                    "npuMemSize" : 16,
-                    "backendType": "ms"
+                    "cpuMemSize" : 15,
+                    "npuMemSize" : 15,
+                    "backendType" : "ms"
                 }
             ]
         },
 
-        "ScheduleConfig":
+        "ScheduleConfig" :
         {
-            "templateType": "Standard",
+            "templateType" : "Standard",
             "templateName" : "Standard_LLM",
             "cacheBlockSize" : 128,
 
-            "maxPrefillBatchSize" : 1,
-            "maxPrefillTokens" : 16384,
-            "prefillTimeMsPerReq" : 60,
+            "maxPrefillBatchSize" : 50,
+            "maxPrefillTokens" : 8192,
+            "prefillTimeMsPerReq" : 150,
             "prefillPolicyType" : 0,
 
-            "decodeTimeMsPerReq" : 60,
+            "decodeTimeMsPerReq" : 50,
             "decodePolicyType" : 0,
 
-            "maxBatchSize" : 128,
-            "maxIterTimes" : 8192,
+            "maxBatchSize" : 200,
+            "maxIterTimes" : 4096,
             "maxPreemptCount" : 0,
-            "supportSelectBatch" : true,
-            "maxQueueDelayMicroseconds" : 500
+            "supportSelectBatch" : false,
+            "maxQueueDelayMicroseconds" : 5000
         }
     }
 }
