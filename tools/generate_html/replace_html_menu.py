@@ -14,6 +14,8 @@ def replace_relurls(docs, old_p, new_p, re_list):
             abs_p1 = os.path.join(base_p1, href)
             rel_p = os.path.relpath(abs_p1, now_dir)
             rel_p = rel_p.replace('\\', '/')
+            if '/' not in rel_p and not rel_p.endswith('.html'):
+                rel_p += '/'
             docs = re.sub(f'{re_doc}="{href}"', f'{re_doc}="{rel_p}"', docs)
 
     return docs
@@ -216,16 +218,10 @@ def replace_html_menu(html_path, hm_ds_path):
                         print(os.path.join(root, file))
                     break
 
-    # 用别的页面覆盖index并调整链接
-    old_ind = f'{html_path}/index.html'
+    first_ind = f'{html_path}/index.html'
     api_ind = f'{html_path}/api_python/index.html'
     with open(api_ind, 'r', encoding='utf-8') as f:
         api_doc = f.read()
-
-    new_api_doc = replace_relurls(api_doc, old_ind, api_ind, ['href', 'src', 'action', 'data-url_root'])
-
-    with open(old_ind, 'w', encoding='utf-8') as f:
-        f.write(new_api_doc)
 
     # 替换搜索页的左侧目录为API
     search_p = f'{html_path}/search.html'
@@ -238,3 +234,65 @@ def replace_html_menu(html_path, hm_ds_path):
         f.seek(0)
         f.truncate()
         f.write(search_doc)
+
+    # 为每个模块适配单独的search页面
+    for mod in os.listdir(html_path):
+        if os.path.isdir(os.path.join(html_path, mod)) and not mod.startswith('_'):
+            new_search = os.path.join(html_path, mod, 'search.html')
+            new_search_doc = replace_relurls(search_doc, new_search, search_p, ['href', 'src', 'action', 'data-url_root'])
+            if mod == 'note':
+                mod_ind = os.path.join(html_path, 'migration_guide', 'index.html')
+            else:
+                mod_ind = os.path.join(html_path, mod, 'index.html')
+            with open(mod_ind, 'r', encoding='utf-8') as f:
+                mod_ind_doc = f.read()
+            mod_ind_menu = re.findall(r'data-spy="affix" role="navigation"(?:.|\n|)+?</ul>\n\n', mod_ind_doc)
+            if mod_ind_menu:
+                mod_ind_menu = replace_relurls(mod_ind_menu[0], new_search, mod_ind, ['href'])
+                new_search_doc = re.sub(r'data-spy="affix" role="navigation"(?:.|\n|)+?</ul>\n\n', mod_ind_menu, new_search_doc)
+
+            new_search_doc = new_search_doc.replace('Search.loadIndex("searchindex.js")', 'Search.loadIndex("../searchindex.js")')
+            with open(new_search, 'w', encoding='utf-8') as f:
+                f.write(new_search_doc)
+
+    # 修改搜索引擎内的逻辑适配单独模块搜索
+    searchtools_path = os.path.join(html_path, '_static/searchtools.js')
+    old_searchtools_content = '// let the scorer override scores with a custom scoring function'
+    new_searchtools_content = r"""var pathname = window.location.pathname;
+    let spec_re = /(zh-CN|en)\/[^\/]+?\/search.html/;
+
+    if (!spec_re.test(pathname)) {
+      var results = results.filter(function(e,i,arry) {
+        if (pathname.includes('migration_guide')) {
+          return pathname.includes(arry[i][0].split('/')[0]) || arry[i][0].includes('note/')
+        } else {
+          return pathname.includes(arry[i][0].split('/')[0])
+        }
+      })
+    }
+
+    // let the scorer override scores with a custom scoring function"""
+    with open(searchtools_path, 'r+', encoding='utf-8') as f:
+        searchtools_content = f.read()
+        new_content = searchtools_content.replace(old_searchtools_content, new_searchtools_content)
+        new_content = new_content.replace('linkUrl +', 'requestUrl +')
+        if new_content != searchtools_content:
+            f.seek(0)
+            f.truncate()
+            f.write(new_content)
+
+    # 用别的页面覆盖index并调整链接
+    new_api_doc = replace_relurls(api_doc, first_ind, api_ind, ['href', 'src', 'action', 'data-url_root'])
+
+    with open(first_ind, 'w', encoding='utf-8') as f:
+        f.write(new_api_doc)
+
+    # releasenote页面去除搜索框
+    release_p = f'{html_path}/RELEASE.html'
+    if os.path.exists(release_p):
+        with open(release_p, 'r+', encoding='utf-8') as f:
+            release_content = f.read()
+            release_content = re.sub('<div role="search">(?:.|\n|)+?</div>', '', release_content)
+            f.seek(0)
+            f.truncate()
+            f.write(release_content)
