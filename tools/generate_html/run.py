@@ -11,6 +11,7 @@ import re
 import shutil
 import subprocess
 import time
+from multiprocessing import Pool
 import requests
 import sphinx
 import urllib3
@@ -96,6 +97,11 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
 
     # python安装包文件夹位置
     pythonlib_dir = os.path.dirname(os.path.dirname(sphinx.__file__))
+
+    # 删除sphinx中多余的语言文件
+    mo_path = os.path.join(pythonlib_dir, 'locale/zh_CN/LC_MESSAGES/sphinx.mo')
+    if os.path.exists(mo_path):
+        os.remove(mo_path)
 
     # 开始计时
     time_start = time.perf_counter()
@@ -503,6 +509,35 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
     minutes, seconds = divmod(all_time, 60)
     print(f"运行完成，总计耗时 {minutes}分 {seconds}秒.")
 
+def yield_files(directory):
+    """
+    逐个给予需要处理的文件路径
+    """
+    # pylint: disable=W0612
+    for root, dirs, files_ in os.walk(directory):
+        for file in files_:
+            if file.endswith('.html'):
+                yield os.path.join(root, file)
+
+def process_file(file_path):
+    """
+    替换文件内容（search页面路径）
+    """
+    try:
+        with open(file_path, "r+", encoding='utf8') as g:
+            content = g.read()
+
+            new_docs = 'search.html'
+            old_docs = '../search.html'
+            new_content = content.replace(old_docs, new_docs)
+            if new_content != content:
+                g.seek(0)
+                g.truncate()
+                g.write(new_content)
+    # pylint: disable=W0703
+    except Exception:
+        print(f"{file_path}替换失败")
+
 if __name__ == "__main__":
     # 配置一个工作目录
     try:
@@ -538,17 +573,26 @@ if __name__ == "__main__":
 
     # 开始执行
     try:
+        # 主函数组件html构建
         main(version=args.version, user=args.user, pd=password, WGETDIR=args.wgetdir,
              release_url=args.release_url, generate_list=generate_list_p)
 
         # 替换页面左侧目录部分
-        ms_path = f"{MAINDIR}/{args.version}/output/docs/zh-CN/master"
+        ms_path = f"{MAINDIR}/{args.version}/output/docs"
         if os.path.exists(ms_path):
-            replace_html_menu(ms_path, os.path.join(DOCDIR, "../../docs/mindspore/source_zh_cn"))
+            replace_html_menu(ms_path+'/zh-CN/master', os.path.join(DOCDIR, "../../docs/mindspore/source_zh_cn"))
             print('docs中文目录大纲调整完成！')
-            replace_html_menu(ms_path.replace('zh-CN', 'en'), os.path.join(DOCDIR, "../../docs/mindspore/source_en"))
+            replace_html_menu(ms_path+'/en/master', os.path.join(DOCDIR, "../../docs/mindspore/source_en"))
             print('docs英文目录大纲调整完成！')
+            # 修改每个页面内搜索页面的链接
+            pool = Pool(processes=4)
+            files = yield_files(ms_path)
+            pool.map(process_file, files)
+            pool.close()
+            pool.join()
+            print('docs所有页面search链接已修改！')
 
+        # 替换样式相关内容
         theme_list = []
         output_path = f"{MAINDIR}/{args.version}/output"
         version_path = f"{MAINDIR}/{args.version}_version/"
