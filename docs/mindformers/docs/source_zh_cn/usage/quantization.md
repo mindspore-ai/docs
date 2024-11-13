@@ -114,7 +114,7 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
 进入mindspore_gs库根目录`golden-stick`，执行量化权重转换脚本
 
 ```bash
-python example/ptq/quant_ckpt.py -c /path/to/predict_llama2_13b.yaml -s /path/to/boolq/dev.jsonl -t boolq -a rtn-a16w8 > log_rtn_a16w8_quant 2>&
+python example/ptq/quant_ckpt.py -c /path/to/predict_llama2_13b.yaml -s /path/to/boolq/dev.jsonl -t boolq -q rtn-a16w8 > log_rtn_a16w8_quant 2>&
 ```
 
 其中`predict_llama2_13b.yaml`中的`load_checkpoint`配置为上一步下载的原始权重存放路径。
