@@ -260,7 +260,7 @@ Graph Compilation and Execution
 
        switch_inline: Whether to enable backend control flow inline, only effective in O0 or O1 mode, with a default value of true.
 
-       multi_stream: The backend stream diversion method, with possible values being 1) true (default value): One stream for communication and one for computation. 2) false: Disable multi-streaming, use a single stream for both communication and computation, effective only in O0 and O1 modes. 3) group: Communication operators are diverted based on their communication domain, effective only in PyNative mode.
+       multi_stream: The backend stream diversion method, with possible values being 1) true: One stream for communication and one for computation. 2) false: Disable multi-streaming, use a single stream for both communication and computation. 3) group (default value): Communication operators are diverted based on their communication domain.
 
        pipeline: Whether to enable runtime pipeline, only effective in O0 or O1 mode, with a default value of true.
 
