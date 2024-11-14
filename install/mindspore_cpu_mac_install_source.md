@@ -27,7 +27,7 @@
 
 - 确认安装对应的Python版本。如果未安装或者已安装其他版本的Python，可以从[Python官网](https://www.python.org/downloads/macos/)或者[华为云](https://repo.huaweicloud.com/python/)选择合适的版本进行安装。
 
-- 确认安装[Xcode](https://xcodereleases.com/) (>=12.4 and <= 13.0) ，12.4(X86)及13.0(M1) 已测试。
+- 确认安装[Xcode](https://xcodereleases.com/) (>=12.4 并且 <= 13.0) ，12.4(X86)及13.0(M1) 已测试。
 
 - 确认安装`Command Line Tools for Xcode`。如果未安装，使用命令 `sudo xcode-select --install` 安装Command Line Tools。
 
