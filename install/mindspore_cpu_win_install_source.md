@@ -26,6 +26,7 @@
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
 - 确认安装[PyYAML](https://pypi.org/project/pyyaml/) (>=6.0 并且 <= 6.0.2)。如果没有安装，可以使用 `pip install pyyaml` 进行安装。
 - 确认安装[MSYS2软件](https://www.msys2.org/)。详细请查看[Windows上安装MSYS2软件](https://gitee.com/mindspore/docs/blob/r2.4.0/install/third_party/msys_software_install.md)。
+- 确认安装[Numpy](https://pypi.org/project/numpy/) (>=1.19.3 并且 <= 1.26.4)。如果没有安装，可以使用 `pip install numpy` 进行安装。
 
 ## 从代码仓下载源码
 
