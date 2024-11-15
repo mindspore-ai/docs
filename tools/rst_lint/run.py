@@ -32,6 +32,22 @@ class CustomDirective(Directive):
         self.state.nested_parse(self.content, self.content_offset, node)
         return [node]
 
+class CustomDirectiveMethod(Directive):
+    """Base class of customized directives for python method in sphinx."""
+    has_content = True
+    required_arguments = 1
+    optional_arguments = 3
+    final_argument_whitespace = True
+
+    def run(self):
+        """run method."""
+        text = '\n'.join(self.content)
+        classes = []
+        node = nodes.container(text)
+        node['classes'].extend(classes)
+        self.add_name(node)
+        self.state.nested_parse(self.content, self.content_offset, node)
+        return [node]
 
 class CustomDirectiveNoNested(CustomDirective):
     """Customizing CustomDirective with nonest."""
@@ -113,7 +129,7 @@ class CustomPyModule(PyModule):
 
 # Register directive.
 register_directive('py:class', CustomDirective)
-register_directive('py:method', CustomDirective)
+register_directive('py:method', CustomDirectiveMethod)
 register_directive('py:function', CustomDirective)
 register_directive('py:property', CustomDirective)
 register_directive('py:data', CustomDirective)
