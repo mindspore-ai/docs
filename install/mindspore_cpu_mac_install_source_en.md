@@ -41,6 +41,8 @@ This document describes how to install MindSpore by compiling source code on mac
 
 - Ensure that [autoconf](https://ftp.gnu.org/gnu/autoconf/) is installed. Use `brew install autoconf` if it's not installed.
 
+- Ensure that [Numpy](https://pypi.org/project/numpy/) (>=1.19.3 and <= 1.26.4) is installed. Use `pip install numpy` if it's not installed.
+
 ## Downloading Source Code from Code Repository
 
 ```bash
