@@ -29,6 +29,8 @@
 
 4. `mindspore.load_segmented_checkpoints(ckpt_file_dir)`：读取指定`ckpt_file_dir`路径下所有`.ckpt`权重文件并合并，返回合并后的参数字典。
 
+5. `mindspore.load_distributed_checkpoint(network, checkpoint_filenames=None, predict_strategy=None, train_strategy_filename=None, strict_load=False, dec_key=None, dec_mode='AES-GCM', format='ckpt', unified_safetensors_dir=None, dst_safetensors_dir=None, rank_id=None, output_format='safetensors', name_map=None, max_process_num=64)`：将分布式权重safetensors按照目标策略直接加载到网络中或者存储到本地磁盘上。
+
 ## 操作实践
 
 以在Ascend 8卡上训练，并在4卡上微调为例，整体操作流程如下：
@@ -581,3 +583,69 @@ net = Network()
 param_dict = ms.load_segmented_checkpoints(checkpoint_file_dir)
 param_not_load, _ = ms.load_param_into_net(net, param_dict)
 ```
+
+### 对接safetensors的权重转换流程
+
+safetensors是 Hugging Face 社区推出的一种新的模型存储格式，相比传统文件格式，具有安全，性能好，通用性较强等特点。
+
+MindSpore在当前版本新增了对safetensors格式的支持，包括权重保存和加载，ckpt与safetensors格式互转，对safetensors格式进行离线切分，离线聚合，在线加载等功能。
+
+如上文流程讲解，在集群规模改变时，都需要对权重进行重新切分转换的操作，对safetensors流程来说，当前主要有两种方式：离线转换、在线转换，具体如下：
+
+#### 离线转换
+
+离线转换流程使用 `transform_checkpoint` 方法，针对safetensors格式，使用流程与前文使用方式一模一样，接口会自动识别传入的权重文件格式为ckpt还是safetensors并自动的进行后续的处理。
+
+在识别到传入权重文件格式为safetensors格式时，会自动触发代码的优化逻辑，转换性能相比ckpt会有极大的性能提升，同时接口会新增参数 `process_num` 和 `output_format`，可以手动控制转换并行数以及输出文件的格式，具体参考[transform_checkpoints](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.transform_checkpoints.html#mindspore.transform_checkpoints)。
+
+```python
+# src_checkpoints_dir目录下存储的权重文件需要为safetensors格式
+import mindspore as ms
+ms.transform_checkpoints(src_checkpoints_dir, dst_checkpoints_dir, "dst_checkpoint",
+                      "./src_strategy.ckpt", "./dst_strategy.ckpt", process_num=8, output_format='safetensors')
+
+```
+
+#### 在线转换
+
+1. **权重文件准备**
+
+    在进行在线加载之前，需要先把通过MindSpore训练得到的分布式权重进行聚合，聚合成一份完整的权重（按照权重个数进行自动分片，以多个文件的形式进行存储），聚合过程会抹除原始权重的切分策略信息，仅保留权重的名字和值。
+
+    聚合完成后，后续进行网络加载时，会按照目标集群的切分策略，按需读取完全权重的一部分，将其加载到网络中去。
+
+    具体流程如下：
+
+    1. 调用 [mindspore.unified_safetensors](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.unified_safetensors.html)方法，传入源权重目录，源权重训练策略（需要被 `mindspore.merge_pipeline_stratrge` 接口合并过后的策略），目标权重生成目录。
+    2. 在指定目录下会生成多个分片的文件，主要包括三类：
+        1. `param_name_map.json`：name映射表，表示每个param与存储文件名的映射关系。
+        2. `xxx_partxx.safetensors`：具体权重存储文件。
+        3. `hyper_param.safetensors`：超参存储文件。
+
+    注：在线加载流程也需要执行离线合并操作，但该操作只需要执行一次，后续加载推理都可以基于这份权重执行在线加载，该行为与Hugging Face保持一致。
+
+    ```python
+    import mindspore as ms
+    src_dir = "/usr/safetensors/llama31B/4p_safetensors/"
+    src_strategy_file = "/usr/safetensors/llama31B/strategy_4p.ckpt"
+    dst_dir = "/usr/safetensors/llama31B/merge_llama31B_4p/"
+    ms.unified_safetensors(src_dir, src_strategy_file, dst_dir)
+    ```
+
+2. **执行在线加载或离线切分**
+
+    在线加载是通过扩展 [mindspore.load_distributed_checkpoint](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.load_distributed_checkpoint.html) 方法实现的。
+
+    想执行在线加载或者离线切分时，需要配置参数如下：
+
+    1. `network`：权重切分完需要加载到的目标分布式预测网络，该参数配置为 `None` 时，会执行离线切分流程，将切分完的网络以落盘的形式存储到本地磁盘上，否则会将权重直接加载到网络中，相比落盘场景，能节省一次保存和加载的时间。
+    2. `predict_strategy`：目标切分策略，配置为 `None` 时则为权重合并场景，会将权重合并为一个完整的权重文件。
+    3. `format`：输入权重格式，使用当前流程必须配置为 `safetensors`。
+    4. `unified_safetensors_dir`：第一步执行 `mindspore.unified_safetensors` 聚合完的权重。
+    5. `dst_safetensors_dir`：离线切分保存模式场景下，safetensors的保存目录。
+    6. `rank_id`：卡的逻辑序号。非保存模式下，通过初始化网络全局自动获取；保存模式下，按传入序号保存文件，若未传入，则全量保存。
+
+    ```python
+    import mindspore as ms
+    mindspore.load_distributed_checkpoint(network=None, predict_strategy="./strategy_8p.ckpt", format='safetensors', unified_safetensors_dir="./merge_llama31B_4p/", dst_safetensors_dir="./dst_dir")
+    ```
