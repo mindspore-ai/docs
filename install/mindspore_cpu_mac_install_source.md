@@ -41,6 +41,8 @@
 
 - 确认安装[autoconf](https://ftp.gnu.org/gnu/autoconf/)。如果没有安装，可以使用 `brew install autoconf` 进行安装。
 
+- 确认安装[Numpy](https://pypi.org/project/numpy/) (>=1.19.3 并且 <= 1.26.4)。如果没有安装，可以使用 `pip install numpy` 进行安装。
+
 ## 从代码仓下载源码
 
 ```bash
