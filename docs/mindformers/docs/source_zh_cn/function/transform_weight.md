@@ -385,3 +385,58 @@ python mindformers/tools/transform_ckpt_lora.py \
   --prefix "checkpoint_" \
   --lora_scaling lora_alpha/lora_rank
 ```
+
+## Safetensors权重离线合并
+
+### 使用说明
+
+使用MindFormers提供的[safetensors权重合并脚本](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/unified_safetensors.py)，按照如下方式进行safetensors权重合并。
+
+```shell
+python mindformers/tools/convert_reversed.py \
+  --src_strategy_dirs src_strategy_path_or_dir \
+  --mindspore_ckpt_dir mindspore_ckpt_dir\
+  --tmp_dir tmp_dir \
+  --file_suffix "1_1" \
+  --has_redundancy has_redundancy
+```
+
+#### 参数说明
+
+- **src_strategy_dirs**：源权重对应的分布式策略文件路径，通常在启动训练任务后默认保存在 `output/strategy/` 目录下。分布式权重需根据以下情况填写：
+    - **源权重开启了流水线并行**：权重转换基于合并的策略文件，填写分布式策略文件夹路径。脚本会自动将文件夹内的所有 `ckpt_strategy_rank_x.ckpt` 文件合并，并在文件夹下生成 `merged_ckpt_strategy.ckpt`。如果已经存在 `merged_ckpt_strategy.ckpt`，可以直接填写该文件的路径。
+    - **源权重未开启流水线并行**：权重转换可基于任一策略文件，填写任意一个 `ckpt_strategy_rank_x.ckpt` 文件的路径即可。
+
+    **注意**：如果策略文件夹下已存在 `merged_ckpt_strategy.ckpt` 且仍传入文件夹路径，脚本会首先删除旧的 `merged_ckpt_strategy.ckpt`，再合并生成新的 `merged_ckpt_strategy.ckpt` 以用于权重转换。因此，请确保该文件夹具有足够的写入权限，否则操作将报错。
+- **mindspore_ckpt_dir**：分布式权重路径，请填写源权重所在文件夹的路径，源权重应按 `model_dir/rank_x/xxx.safetensors` 格式存放，并将文件夹路径填写为 `model_dir`。
+- **tmp_dir**：目标权重的保存路径，默认值为 "/new_llm_data/******/ckpt/nbg3_31b/tmp"，即目标权重将放置在 `/new_llm_data/******/ckpt/nbg3_31b/tmp` 目录下。
+- **file_suffix**：目标权重文件的命名后缀，默认值为 "1_1"，即目标权重将按照 `*1_1.safetensors` 格式查找。
+- **has_redundancy**：合并的权重是否是去除冗余的权重，默认为 `True`。
+
+### 示例
+
+#### 场景一：去除冗余的safetensors权重
+
+如果合并去除冗余的safetensors权重，可以按照以下方式填写参数：
+
+```shell
+python mindformers/tools/convert_reversed.py \
+  --src_strategy_dirs src_strategy_path_or_dir \
+  --mindspore_ckpt_dir mindspore_ckpt_dir\
+  --tmp_dir tmp_dir \
+  --file_suffix "1_1" \
+  --has_redundancy True
+```
+
+#### 场景二：不去除冗余的safetensors权重
+
+如果合并非去除冗余的safetensors权重，可以按照以下方式填写参数：
+
+```shell
+python mindformers/tools/convert_reversed.py \
+  --src_strategy_dirs src_strategy_path_or_dir \
+  --mindspore_ckpt_dir mindspore_ckpt_dir\
+  --tmp_dir tmp_dir \
+  --file_suffix "1_1" \
+  --has_redundancy False
+```
