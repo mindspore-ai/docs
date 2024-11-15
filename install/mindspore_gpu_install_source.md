@@ -37,7 +37,7 @@
 |[wheel](#安装wheel-setuptools-PyYAML和numpy)|0.32.0及以上|MindSpore使用的Python打包工具|
 |[setuptools](#安装wheel-setuptools-PyYAML和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
 |[PyYAML](#安装wheel-setuptools-PyYAML和numpy)|6.0-6.0.2|MindSpore里的算子编译功能依赖PyYAML模块|
-|[Numpy](#安装wheel-setuptools-PyYAML和numpy)|1.19.3及以上|MindSpore里的Numpy相关功能依赖Numpy模块|
+|[Numpy](#安装wheel-setuptools-PyYAML和numpy)|1.19.3-1.26.4|MindSpore里的Numpy相关功能依赖Numpy模块|
 |[GCC](#安装gcc-git等依赖)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
 |[git](#安装gcc-git等依赖)|-|MindSpore使用的源代码管理工具|
 |[CMake](#安装cmake)|3.22.2及以上|编译构建MindSpore的工具|
@@ -168,7 +168,7 @@ python --version
 pip install wheel
 pip install -U setuptools
 pip install pyyaml
-pip install numpy>=1.19.3
+pip install "numpy>=1.19.3,<=1.26.4"
 ```
 
 运行环境使用的Numpy版本需不小于编译环境的Numpy版本，以保证框架内Numpy相关能力的正常使用。
