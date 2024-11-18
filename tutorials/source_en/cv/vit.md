@@ -310,9 +310,9 @@ The traditional Transformer structure is mainly used to deal with Word Embedding
 
 In the ViT model:
 
-1. By dividing the input image into 16*16 patches on each channel, this step is done by a convolution operation, which can of course be done manually, but the convolution operation can also serve the purpose while still allowing for the same data processing. **For example, an input 224 x 224 image is first convolved to get 16 x 16 patches, so the size of each patch is 14 x 14.**
+1. By dividing the input image into 16 x 16 patches on each channel, this step is done by a convolution operation, which can of course be done manually. However, convolutional operations can also serve the purpose while still allowing for data processing once and for all. **For example, an input 224 x 224 image is first convolved to get 14 x 14 patches, so the size of each patch is 16 x 16.**
 
-2. The matrix of each patch is then stretched into a 1-dimensional vector, thus obtaining an approximate word vector stacking effect. **The 14 x 14 patch obtained in the previous step is then converted to a vector of length 196.**
+2. The matrix of each patch is then stretched into a 1-dimensional vector, thus obtaining an approximate word vector stacking effect. **The series of patches of size 16 x 16 obtained in the previous step is then converted to a vector of length 196.**
 
 This is the first processing step of the image input network. The code for the specific Patch Embedding is shown below:
 
@@ -346,7 +346,7 @@ After the input image is divided into patches, it goes through two processes, po
 
 1. class_embedding mainly borrows from the BERT model for text classification, adding a class value before each word vector, usually in the first position of the vector. **The 196-dimensional vector obtained in the previous step becomes 197-dimension after adding class_embedding.**
 
-2. The added class_embedding is a parameter that can be learned. After continuous training of the network, the output of the first dimension in the output vector is ultimately used to determine the final output class. **Since the input is 16 x 16 patch, the output is classified by taking 16 x 16 class_embeddings for classification.**
+2. The added class_embedding is a parameter that can be learned. After continuous training of the network, the output of the first dimension in the output vector is ultimately used to determine the final output class. **Since the input is 14 x 14 patch, the output is classified by taking 14 x 14 class_embeddings for classification.**
 
 3. The pos_embedding is also a set of parameters that can be learned and will be added to the processed patch matrix.
 
