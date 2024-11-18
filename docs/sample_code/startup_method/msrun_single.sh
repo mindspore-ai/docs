@@ -2,7 +2,7 @@
 
 echo "=========================================="
 echo "Please run the script as: "
-echo "bash msrun_1.sh"
+echo "bash msrun_single.sh"
 echo "==========================================="
 
 EXEC_PATH=$(pwd)
@@ -18,4 +18,4 @@ rm -rf msrun_log
 mkdir msrun_log
 echo "start training"
 
-msrun --worker_num=8 --local_worker_num=4 --master_port=8118 --log_dir=msrun_log --join=True --cluster_time_out=300 net.py
+msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log --join=True --cluster_time_out=300 net.py
