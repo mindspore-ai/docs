@@ -169,6 +169,13 @@
      - String
      - 文件名或文件名的一部分。如果有多个，使用逗号隔开。例如`export MS_DEV_DUMP_IR_PASSES=recompute,renormalize`。
      - 设置该环境变量时，无论MS_DEV_SAVE_GRAPHS设置为什么等级，详细的前端IR文件都会参与筛选和打印。
+   * - MS_DEV_DUMP_IR_PARALLEL_DETAIL
+     - 控制是否打印 DUMP IR 图的详细信息 tensor_map 和 device_matrix。
+     - Integer
+     - 1: 打印 DUMP IR 图详细信息，输出 inputs_tensor_map、outputs_tensor_map 和 device_matrix。
+       
+       不设置或其他值：不打印上述 DUMP IR 相关详细信息。
+     -
    * - MS_JIT_DISPLAY_PROGRESS
      - 指定是否打印编译进度的信息。
      - Integer

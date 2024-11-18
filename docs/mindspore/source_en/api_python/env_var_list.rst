@@ -168,6 +168,14 @@ Graph Compilation and Execution
      - String
      - Pass's name of part of its name. If there are multiple, use commas to separate them. For example, `export MS_DEV_DUMP_IR_PASSES=recompute,renormalize`.
      - When setting this environment variable, regardless of the value of MS_DEV_SAVE_GRAPHS, detailed frontend IR files will be filtered and printed.
+   * - MS_DEV_DUMP_IR_PARALLEL_DETAIL
+     - Set to print detailed information about the DUMP IR, image tensor_map and device_matrix.
+
+     - Integer
+     - 1: Print detailed information about the DUMP IR, including inputs_tensor_map, outputs_tensor_map, and device_matrix.
+       
+       No setting or other value: Not print detailed information of Dump IR.
+     -
    * - MS_JIT_DISPLAY_PROGRESS
      - Specify whether to print compilation progress information.
      - Integer
