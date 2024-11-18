@@ -14,14 +14,16 @@ MindFormers提供的`YAML`文件中包含对于不同功能的配置项，下面
 
 基础配置主要用于指定MindSpore随机种子以及加载权重的相关设置。
 
-| 参数              | 说明                                                                                                                                                                                                                   | 类型   |
-|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
-| seed            | 设置全局种子，详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)                                                                                            | int  |
-| run_mode        | 设置模型的运行模式，可选`train`、`finetune`、`eval`或`predict`                                                                                                                                                                      | str  |
-| output_dir      | 设置保存log、checkpoint、strategy等文件的路径                                                                                                                                                                                    | str  |
-| load_checkpoint | 加载权重的文件或文件夹路径，目前有3个应用场景：<br/>1. 支持传入完整权重文件路径<br/>2. 支持传入离线切分后的权重文件夹路径<br/>3. 支持传入包含lora权重和base权重的文件夹路径<br/>各种权重的获取途径可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html) | str  |
-| auto_trans_ckpt | 是否开启在线权重自动转换功能，详情可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)                                                                                                    | bool |
-| resume_training | 是否开启断点续训功能，详情可参考[断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)                                                                     | bool |
+| 参数                | 说明                                                                                                                                                                                                                   | 类型   |
+|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
+| seed              | 设置全局种子，详情可参考[mindspore.set_seed](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)                                                                                            | int  |
+| run_mode          | 设置模型的运行模式，可选`train`、`finetune`、`eval`或`predict`                                                                                                                                                                      | str  |
+| output_dir        | 设置保存log、checkpoint、strategy等文件的路径                                                                                                                                                                                    | str  |
+| load_checkpoint   | 加载权重的文件或文件夹路径，目前有3个应用场景：<br/>1. 支持传入完整权重文件路径<br/>2. 支持传入离线切分后的权重文件夹路径<br/>3. 支持传入包含lora权重和base权重的文件夹路径<br/>各种权重的获取途径可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html) | str  |
+| auto_trans_ckpt   | 是否开启在线权重自动转换功能，详情可参考[权重转换功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)                                                                                                    | bool |
+| resume_training   | 是否开启断点续训功能，详情可参考[断点续训功能](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/resume_training.html#%E6%96%AD%E7%82%B9%E7%BB%AD%E8%AE%AD)                                                                     | bool |
+| load_ckpt_format  | 加载的模型权重的格式，可选`ckpt`、`safetensors`                                                                                                                                                                                    | str  |
+| remove_redundancy | 加载的模型权重是否去除了冗余。默认值为`False`                                                                                                                                                                                           | bool |
 
 ### Context配置
 
@@ -211,6 +213,8 @@ MindFormers提供封装后的Callbacks函数类，主要实现在模型训练过
    | save_network_params           | 是否仅保存模型权重，默认值为`False`                                                                                                                          | bool |
    | save_trainable_params         | 是否额外保存可训练的参数权重，即部分微调时模型的参数权重，默认为`False`。                                                                                                       | bool |
    | async_save                    | 是否异步执行保存模型权重文件                                                                                                                                 | bool |
+   | remove_redundancy             | 是否去除模型权重的冗余，默认值为`False`                                                                                                                        | bool |                                                                                                                                            |      |
+   | checkpoint_format             | 保存的模型权重的格式，默认值为`ckpt`。可选`ckpt`，`safetensors`                                                                                                   | str  |
 
 在`callbacks`字段下可同时配置多个Callbacks函数类，以下是`callbacks`配置示例。
 

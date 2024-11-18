@@ -385,3 +385,59 @@ python mindformers/tools/transform_ckpt_lora.py \
   --prefix "checkpoint_" \
   --lora_scaling lora_alpha/lora_rank
 ```
+
+## Safetensors Weight Merging
+
+### Instructions
+
+Use the [safetensors weight merging script](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/unified_safetensors.py) provided by MindFormers to perform safetensors weight merging.
+
+```shell
+python mindformers/tools/convert_reversed.py \
+  --src_strategy_dirs src_strategy_path_or_dir \
+  --mindspore_ckpt_dir mindspore_ckpt_dir\
+  --tmp_dir tmp_dir \
+  --file_suffix "1_1" \
+  --has_redundancy has_redundancy
+```
+
+#### Parameters
+
+- **src_strategy_dirs**: specifies the path of the distributed strategy file corresponding to the source weight. The file is stored in the `output/strategy/` directory by default after the training task is started. Set the distributed weight based on the following conditions:
+    - **Pipeline parallelism enabled for the source weights**: Weight conversion is based on the merging strategy file. Set the parameter to the path of the distributed strategy folder. The script automatically merges all `ckpt_strategy_rank_x.ckpt` files in the folder into `merged_ckpt_strategy.ckpt` in the folder. If `merged_ckpt_strategy.ckpt` already exists, set the parameter to the path of the file.
+    - **Pipeline parallelism not enabled for the source weights**: Weight conversion can be based on any strategy file. Set the parameter to the path of any `ckpt_strategy_rank_x.ckpt` file.
+
+    **Note**: If a `merged_ckpt_strategy.ckpt` already exists in the strategy folder and is still transferred to the folder path, the script deletes the old `merged_ckpt_strategy.ckpt` and then merges files into a new `merged_ckpt_strategy.ckpt` for weight conversion. Therefore, ensure that the folder has enough write permission. Otherwise, an error will be reported.
+- **mindspore_ckpt_dir**: The path of distributed weight, please fill in the path of the folder where the source weight is located, the source weights should be stored as `model_dir/rank_x/xxx.safetensors`, and fill in the folder path as `model_dir`。
+- **tmp_dir**: Path for saving target weights, default value is "/new_llm_data/******/ckpt/nbg3_31b/tmp", target weights will be saved in `/new_llm_data/******/ckpt/nbg3_31b/tmp`.
+- **file_suffix**: Naming suffix of target weight file, default value is "1_1", The target weight will be searched in the format of `*1_1.safetensors`.
+- **has_redundancy**: Is the merged weights which remove redundancy, default value is `True`.
+
+### Examples
+
+#### Scenario 1: Safetensors weights removed redundancy
+
+If merging the safetensors weights which have removed redundancy, you can set the parameters as follows:
+
+```shell
+python mindformers/tools/convert_reversed.py \
+  --src_strategy_dirs src_strategy_path_or_dir \
+  --mindspore_ckpt_dir mindspore_ckpt_dir\
+  --tmp_dir tmp_dir \
+  --file_suffix "1_1" \
+  --has_redundancy True
+```
+
+#### Scenario 2: Safetensors weights did not remove redundancy
+
+If merging the safetensors weights which did not remove redundancy, you can set the parameters as follows:
+
+```shell
+python mindformers/tools/convert_reversed.py \
+  --src_strategy_dirs src_strategy_path_or_dir \
+  --mindspore_ckpt_dir mindspore_ckpt_dir\
+  --tmp_dir tmp_dir \
+  --file_suffix "1_1" \
+  --has_redundancy False
+```
+
