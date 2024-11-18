@@ -34,6 +34,16 @@ with open(_html_base.__file__, "r", encoding="utf-8") as f:
     code_str = code_str.replace(old_str, new_str)
     exec(code_str, _html_base.__dict__)
 
+# Adjust the display of definition names for Tensor overloaded functions
+from sphinx.domains import python as domain_py
+with open(domain_py.__file__, 'r', encoding="utf8") as f:
+    code_str = f.read()
+    old_str = "signode += addnodes.desc_addname(nodetext, nodetext)"
+    new_str = """signode += addnodes.desc_addname(nodetext, nodetext)
+        elif 'Tensor' == classname:
+            signode += addnodes.desc_addname('Tensor.', 'Tensor.')"""
+    code_str = code_str.replace(old_str, new_str)
+    exec(code_str, domain_py.__dict__)
 
 # Fix mathjax tags
 from sphinx.ext import mathjax as sphinx_mathjax

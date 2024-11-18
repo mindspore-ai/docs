@@ -57,11 +57,15 @@ def get_api(fullname):
     except ModuleNotFoundError:
         module_name, api_name = ".".join(fullname.split('.')[:-2]), ".".join(fullname.split('.')[-2:])
         module_import = importlib.import_module(module_name)
+    except ModuleNotFoundError:
+        return False
     api = eval(f"module_import.{api_name}")
     return api
 
 def get_example(name: str):
     try:
+        if not name.startswith('mindspore.'):
+            name = 'mindspore.' + name
         api_doc = inspect.getdoc(get_api(name))
         if '.mint.' in name:
             spec_tp = [('ops.dense', 'ops.linear'), ('ops.inverse_ext', ['mint.linalg.inv', 'mint.inverse'])]
@@ -91,18 +95,25 @@ def get_example(name: str):
             example_str = example_str.strip()
             example_list = example_str.split('\n')
             return [""] + example_list + [""]
-        if '\n     ' in example_str[0][0]:
-            example_str = re.sub(r'\n    ', r'\n', example_str[0][0])
-        else:
-            example_str = re.sub(r'\n\s+', r'\n', example_str[0][0])
-        example_str = example_str.strip()
-        example_list = example_str.split('\n')
-        return ["", "**样例：**", ""] + example_list + [""]
+        all_example = []
+        for i in range(len(example_str)):
+            if '\n     ' in example_str[i][0]:
+                new_example_str = re.sub(r'\n    ', r'\n', example_str[i][0])
+            else:
+                new_example_str = re.sub(r'\n\s+', r'\n', example_str[i][0])
+            new_example_str = new_example_str.strip()
+            example_list = new_example_str.split('\n')
+            all_example.append(["", "**样例：**", ""] + example_list + [""])
+        if len(all_example) > 1:
+            logger.warning(f'{name} has more example')
+        return all_example
     except:
         return []
 
 def get_platforms(name: str):
     try:
+        if not name.startswith('mindspore.'):
+            name = 'mindspore.' + name
         if '.mint.' in name:
             return ["", "支持平台：", "    ``Ascend``", ""]
         api_doc = inspect.getdoc(get_api(name))
@@ -115,10 +126,13 @@ def get_platforms(name: str):
                 platform_list = ['    ' + platform_list[0]]
                 return ["", "支持平台："] + platform_list + [""]
             return []
-        platform_str = platform_str[0].strip()
-        platform_list = platform_str.split('\n')
-        platform_list = ['    ' + platform_list[0]]
-        return ["", "支持平台："] + platform_list + [""]
+        all_platform = []
+        for i in range(len(platform_str)):
+            new_platform_str = platform_str[i].strip()
+            platform_list = new_platform_str.split('\n')
+            platform_list = ['    ' + platform_list[0]]
+            all_platform.append(["", "支持平台："] + platform_list + [""])
+        return all_platform
     except:
         return []
 
@@ -301,8 +315,25 @@ class ObjectDescription(SphinxDirective, Generic[N]):
             example = ''
             platforms = ''
             logger.warning(f'Error API names in {self.arguments[0]}.')
-        extra = platforms + example
-        if "**样例：**" not in example and example:
+        extra = []
+
+        if example and '' not in example and len(example) == len(platforms):
+            for i in range(len(example)):
+                extra.append(platforms[i]+example[i])
+        else:
+            if '' not in example and example:
+                example = example[0]
+            if '' not in platforms and platforms:
+                platforms = platforms[0]
+            extra.append(platforms + example)
+
+        extra_len = 0
+        directive_content = True
+        if not self.content.data and 'Tensor.' in self.names[0][0]:
+            directive_content = False
+
+        if example and "**样例：**" not in example and '' in example:
+            extra_len = len(example+platforms)
             try:
                 if self.objtype == "method":
                     index_platforms = 0
@@ -390,48 +421,62 @@ class ObjectDescription(SphinxDirective, Generic[N]):
                             self.content.data.extend(example)
             except Exception as e:
                 logger.warning(e)
-        elif extra:
-            index_example = 0
-            for num, i in enumerate(self.content.data):
-                if i.startswith('教程样例：'):
-                    index_example = num
-                    break
-            if self.objtype == "method" and index_example:
-                count = len(self.content.data)
-                for i in extra:
-                    self.content.data.insert(index_example-count, i)
-            elif self.objtype == "method":
-                self.content.data.extend(extra)
-            else:
-                index_num = 0
+        elif extra and directive_content:
+            method_ind = 0
+            for ext in extra:
+                extra_len += len(ext)
                 index_example = 0
                 for num, i in enumerate(self.content.data):
-                    if i.startswith('.. py:method::') or self.check_class_end(self.content.data[num:]):
-                        index_num = num
+                    if i.startswith('教程样例：'):
+                        index_example = num
                         break
-                if index_num:
-                    for num, i in enumerate(self.content.data[:index_num]):
-                        if i.startswith('教程样例：'):
-                            index_example = num
-                            break
-                    if index_example:
-                        index_num = index_example
+                if self.objtype == "method" and index_example:
                     count = len(self.content.data)
-                    for i in extra:
-                        self.content.data.insert(index_num-count, i)
-                else:
-                    for num, i in enumerate(self.content.data):
-                        if i.startswith('教程样例：'):
-                            index_example = num
+                    for i in ext:
+                        self.content.data.insert(index_example-count, i)
+                elif self.objtype == "method":
+                    index_num = 0
+                    count = len(self.content.data)
+                    for num, i in enumerate(self.content.data[method_ind:]):
+                        if i.startswith('.. py:method::'):
+                            index_num = num
+                            method_ind = num - count + 1
                             break
-                    if index_example:
-                        count = len(self.content.data)
-                        for i in extra:
-                            self.content.data.insert(index_example-count, i)
+                    if index_num:
+                        for i in ext:
+                            self.content.data.insert(index_num-count, i)
                     else:
-                        self.content.data.extend(extra)
+                        self.content.data.extend(ext)
+                else:
+                    index_num = 0
+                    index_example = 0
+                    for num, i in enumerate(self.content.data):
+                        if i.startswith('.. py:method::') or self.check_class_end(self.content.data[num:]):
+                            index_num = num
+                            break
+                    if index_num:
+                        for num, i in enumerate(self.content.data[:index_num]):
+                            if i.startswith('教程样例：'):
+                                index_example = num
+                                break
+                        if index_example:
+                            index_num = index_example
+                        count = len(self.content.data)
+                        for i in ext:
+                            self.content.data.insert(index_num-count, i)
+                    else:
+                        for num, i in enumerate(self.content.data):
+                            if i.startswith('教程样例：'):
+                                index_example = num
+                                break
+                        if index_example:
+                            count = len(self.content.data)
+                            for i in ext:
+                                self.content.data.insert(index_example-count, i)
+                        else:
+                            self.content.data.extend(ext)
         try:
-            self.content.items.extend(self.extend_items(self.content.items[0][0], self.content.items[-1][1], len(extra)))
+            self.content.items.extend(self.extend_items(self.content.items[0][0], self.content.items[-1][1], extra_len))
         except IndexError:
             logger.warning(f'{self.names[0][0]} has error format.')
         self.state.nested_parse(self.content, self.content_offset, contentnode)
