@@ -3,7 +3,7 @@
 ## 类 Class
 
 ```text
-.. py:class:: Tensor(default_input, dtype=None, init_with_data=True)
+.. py:class:: mindspore.Tensor(default_input, dtype=None, init_with_data=True)
 
     Tensor简介。
 
@@ -29,7 +29,7 @@
 
     异常：
         - **Error1** – 异常描述1。
-        - **Error1** – 异常描述2。
+        - **Error2** – 异常描述2。
 ```
 
 ## 属性 Property
@@ -61,7 +61,7 @@
 该接口与func接口同名时写法如下：
 
 ```text
-.. py:method:: mindspore.Tensor.abs()
+.. py:method:: Tensor.abs()
 
     详情请参考 :func:`mindspore.ops.abs`。
 ```
@@ -69,9 +69,65 @@
 该接口是其他Tensor接口别名时写法如下：
 
 ```text
-.. py:method:: mindspore.Tensor.absolute()
+.. py:method:: Tensor.absolute()
 
-    :func:`mindspore.Tensor.abs` 的别名。
+    :func:`Tensor.abs` 的别名。
+```
+
+基于yaml自动生成的Tensor接口写法如下：
+
+无重载函数：
+
+```text
+.. py:method:: Tensor.gather(参数)
+
+    描述函数功能。
+
+    参数：
+        - **参数1** (Tensor) – 参数1说明。
+        - **参数2** (int) – 参数2说明。
+
+    返回：
+        返回说明。
+
+    异常：
+        - **Error1** – 异常描述1。
+        - **Error2** – 异常描述2。
+```
+
+有重载函数：
+
+```text
+.. py:method:: Tensor.gather(参数)
+
+    描述函数功能。
+
+    参数：
+        - **参数1** (Tensor) – 参数1说明。
+        - **参数2** (int) – 参数2说明。
+
+    返回：
+        返回说明。
+
+    异常：
+        - **Error1** – 异常描述1。
+        - **Error2** – 异常描述2。
+
+    .. py:method:: Tensor.gather(参数)
+        :noindex:
+
+    描述函数功能。
+
+    参数：
+        - **参数1** (Tensor) – 参数1说明。
+        - **参数2** (int) – 参数2说明。
+
+    返回：
+        返回说明。
+
+    异常：
+        - **Error1** – 异常描述1。
+        - **Error2** – 异常描述2。
 ```
 
 ## 函数 Function
@@ -90,7 +146,7 @@
 
     异常：
         - **Error1** – 异常描述1。
-        - **Error1** – 异常描述2。
+        - **Error2** – 异常描述2。
 ```
 
 ## Note
@@ -215,6 +271,8 @@
     a. 引用其他类的内容，类的全称类似于mindspore.train.Metric，包含一级二级类别的名称。引用其他函数的内容，函数的全称类似于mindspore.ops.dropout。
 
     b. 如果简写为Metric，英文书写为 :class:`Metric`，中文书写为 :class:`.Metric`，简写中文前面需要加.。
+
+    c. 如果需要引用mindspore.Tensor.xxx相关接口的内容，英文书写为 :func:`mindspore.Tensor.xxx` 或者 :func:`Tensor.xxx` 都可，中文书写为 :func:`Tensor.xxx` 。
 
 ## 参考
 

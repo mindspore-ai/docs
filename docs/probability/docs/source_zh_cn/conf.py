@@ -10,7 +10,6 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-from genericpath import exists
 import glob
 import os
 import shutil
@@ -183,7 +182,7 @@ copy_path = 'docs/api/api_python/probability'
 src_dir = os.path.join(os.getenv("MS_PATH"), copy_path)
 des_sir = "./nn_probability"
 
-if not exists(src_dir):
+if not os.path.exists(src_dir):
     logger.warning(f"不存在目录：{src_dir}！")
 if os.path.exists(des_sir):
     shutil.rmtree(des_sir)

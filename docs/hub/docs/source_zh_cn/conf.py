@@ -15,7 +15,6 @@ import IPython
 import re
 import sys
 from sphinx.ext import autodoc as sphinx_autodoc
-from genericpath import exists
 import shutil
 
 import mindspore_hub
