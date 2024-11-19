@@ -702,6 +702,15 @@ Log
 
        Default: 2.
      - After a log level is specified, output log messages greater than or equal to that level
+   * - VLOG_v
+     - Specifies the MindSpore verbose log level.
+     - String
+     - format1: `VLOG_v=number`: Only logs whose verbose level value is `number` will be output.
+
+       format2: `VLOG_v=(number1,number2)`: Only logs whose verbose level is between `number1` and `number2` (including `number1` and `number2`) are output. Specially, `VLOG_v=(,number2)` outputs logs with verbose levels ranging from `1 to number2`, while `VLOG_v=(number1,)` outputs logs with verbose levels ranging from `number1 to 0x7fffffff`.
+
+       The value of `number`, `number1` and `number2` must be a non-negative decimal integer. The maximum value is `0x7fffffff` the maximum value of the `int` type. Value of `VLOG_v` can not contain whitespace characters.
+     - Note: Braces `()` is special for bash, when exporting `VLOG_v` variable containing `()`, need use `'` or `"` to wrap it, for example, `export VLOG_v="(number1,number2)"` or `export VLOG_v='(number1,number2)'`. If put environment in the commandline, the quotation marks, `'` and `"`, are not necessary, for example, execute command `VLOG_v=(1,) python -c 'import mindspore'` to display the verbose tag already used by MindSpore.
    * - logger_backupCount
      - Controls the number of mindspore Python module log files.
      - Integer

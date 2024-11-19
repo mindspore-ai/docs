@@ -707,6 +707,16 @@ Dump调试
 
        默认值：2
      - 指定日志级别后，将会输出大于或等于该级别的日志信息
+   * - VLOG_v
+     - 控制verbose日志的输出
+     - String
+     - 格式1： `VLOG_v=number`，仅输出verbose level值等于 `number` 的日志。
+
+       格式2： `VLOG_v=(number1,number2)`，仅输出verbose level值介于 `number1` 和 `number2` 之间（包含 `number1` 和 `number2`）的日志。特别地， `VLOG_v=(,number2)` 输出 verbose level 介于 `1 ~ number2` 的日志，而 `VLOG_v=(number1,)` 输出 verbose level 介于 `number1 ~ 0x7fffffff` 的日志。
+
+       上面 `number`、 `number1`、 `number2` 的取值只接受非负十进制整数值，最大值取值为 `int` 类型的最大值 `0x7fffffff`。`VLOG_v` 字符串中不能包含空白字符。
+
+     - 注意：扩号 `()` 对于 `bash` 有特殊含义，当指定范围时，需要用引号包起来，如 `export VLOG_v="(number1,number2)"` 或 `export VLOG_v='(number1,number2)'`。如果直接把环境变量的设置写到命令行中，可以不加引号，如通过命令 `VLOG_v=(1,) python -c 'import mindspore'` 查看 MindSpore 已经使用的 verbose tag 标志。
    * - logger_backupCount
      - 用于控制MindSpore Python模块日志文件数量
      - Integer
