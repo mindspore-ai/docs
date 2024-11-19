@@ -8,11 +8,17 @@
 
 当前套件建议使用的Python版本为3.10。
 
-| MindFormers |                 MindSpore                  |   CANN   |   固件与驱动    | 镜像链接 |
-|:-----------:|:------------------------------------------:|:--------:|:----------:|:----:|
-|   r1.3.0    | [2.4.0](https://www.mindspore.cn/install/) | [CANN](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC3.beta1) | [Driver](https://www.hiascend.com/hardware/firmware-drivers/community) | TBD  |
+| MindFormers |                 MindSpore                  |                                                     CANN                                                     |                                  固件与驱动                                   |                                 镜像链接                                  |
+|:-----------:|:------------------------------------------:|:------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------:|:---------------------------------------------------------------------:|
+|   r1.3.0    | [2.4.0](https://www.mindspore.cn/install/) | [8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC3.beta1) | [24.1.RC3](https://www.hiascend.com/hardware/firmware-drivers/community) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/154.html) |
 
 **当前MindFormers建议使用如上的软件配套关系。**
+
+历史版本配套关系：
+
+| MindFormers |                 MindSpore                  |                                                     CANN                                                     |                                  固件与驱动                                   |                                 镜像链接                                 |
+|:-----------:|:------------------------------------------:|:------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------:|:--------------------------------------------------------------------:|
+|   r1.2.0    | [2.3.0](https://www.mindspore.cn/install/) | [8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC2.beta1) | [24.1.RC2](https://www.hiascend.com/hardware/firmware-drivers/community) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/138.html) |
 
 ## 环境安装
 
