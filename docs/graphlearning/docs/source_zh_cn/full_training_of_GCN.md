@@ -103,13 +103,15 @@ ds = CoraV2(args.data_path)
 
 ```python
 import mindspore as ms
+import os
 
 if train_args.fuse:
     ms.set_context(device_target="GPU", save_graphs=2, save_graphs_path="./computational_graph/",
-                        mode=ms.GRAPH_MODE, enable_graph_kernel=True,
-                        graph_kernel_flags="--enable_expand_ops=Gather --enable_cluster_ops=TensorScatterAdd,"
-                                           "UnsortedSegmentSum, GatherNd --enable_recompute_fusion=false "
-                                           "--enable_parallel_fusion=true ")
+                        mode=ms.GRAPH_MODE, enable_graph_kernel=True)
+    graph_kernel_flags="--enable_expand_ops=Gather --enable_cluster_ops=TensorScatterAdd,"
+                       "UnsortedSegmentSum, GatherNd --enable_recompute_fusion=false "
+                       "--enable_parallel_fusion=true "
+    os.environ['MS_DEV_GRAPH_KERNEL_FLAGS'] = graph_kernel_flags
 else:
     ms.set_context(device_target="GPU", mode=ms.PYNATIVE_MODE)
 ```
