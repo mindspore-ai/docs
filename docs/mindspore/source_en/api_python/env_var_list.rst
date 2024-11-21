@@ -57,7 +57,7 @@ Data Processing
      - True: Enable the dataset independent process mode.
 
        False: Disable the dataset independent process mode.
-     - Default: False. This feature is currently in beta testing. Does not support use with Profiling, AutoTune, Offload, Cache, DSCallback or DVPP transforms. If you encounter any problems during use, please feel free to provide feedback.
+     - Default: False. This feature is currently in beta testing. Does not support use with AutoTune, Offload, Cache or DSCallback. If you encounter any problems during use, please feel free to provide feedback.
    * - OPTIMIZE
      - Determines whether to optimize the pipeline tree for dataset during data processing. This variable can improve the data processing efficiency in the data processing operator fusion scenario.
      - String

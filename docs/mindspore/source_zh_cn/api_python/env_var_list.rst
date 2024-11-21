@@ -57,7 +57,7 @@
      - True: 开启Dataset独立进程模式
 
        False: 关闭Dataset独立进程模式
-     - 默认值：False。此功能当前处于Beta测试阶段，不支持与Profiling、AutoTune、Offload、Cache、DSCallback、DVPP变换增强一同使用。如果在使用中遇到问题，欢迎反馈。
+     - 默认值：False。此功能当前处于Beta测试阶段，不支持与AutoTune、Offload、Cache、DSCallback一同使用。如果在使用中遇到问题，欢迎反馈。
    * - OPTIMIZE
      - 是否执行dataset数据处理 pipeline 树优化，在适合数据处理算子融合的场景下，可以提升数据处理效率
      - String
