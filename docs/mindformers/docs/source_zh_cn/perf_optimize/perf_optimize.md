@@ -26,11 +26,7 @@
 
 ### 性能指标
 
-性能通常通过吞吐量、算力利用率（MFU和HFU）等指标进行评估。
-
-#### 吞吐量
-
-对于大语言模型来说，吞吐量主要是看每秒钟每张卡消耗的token数量；计算公式如下：
+性能通常通过吞吐量指标进行评估，对于大语言模型来说，吞吐量主要是看每秒钟每张卡消耗的token数量。计算公式如下：
 
 $$
 Throughput = SeqLength * (sample/s/p)
@@ -48,80 +44,6 @@ $$
 
 * p：即parallel_num，数据并行维度大小。
 
-#### 算力利用率
-
-MFU用于衡量当前算力利用率，不考虑重计算的情况，MFU越高说明当前的计算效率越好，统计的主要是GEMM的计算量。计算公式如下：
-
-$$
-MFU = \frac{FLOPs}{StepTime * HardwareCapacity}
-$$
-
-HFU是在MFU的基础上，将反向传播中的重计算计算量考虑在内：
-
-$$
-MFU = \frac{FLOPs_{recompute}}{StepTime * HardwareCapacity}
-$$
-
-FLOPs（floating point operations）表示浮点数运算次数，衡量了计算量的大小。如计算矩阵A(m,n)\*B(n,p)，需要进行 m\*n\*p 次乘法运算和 m\*n\*p 次加法运算，共计 2\*m\*n\*p 次浮点数运算，即FLOPs为2mnp。
-
-StepTime指在训练过程中每一步所花费的时间，HardwareCapacity则为集群中芯片的标称算力。
-
-在统计transformer layer的计算量时，根据链式法则，反向传播中，MatMul需要对 $d_x$ 和 $d_w$ 分别求导，因此反向过程的计算量大约是正向的2倍。我们只需要计算出正向传播过程的计算量，然后估算出反向传播的计算量。
-
-这里以GPT结构为例，理论估计的结果为：
-
-|                          | 内存占用Byte                                      |
-| ------------------------ | ------------------------------------------------- |
-| 无重计算model flops      | 72 *  bLs$h^2$ * [1*corr +  s/(6h) + v/(12hL)]    |
-| 选择重计算hardware flops | 72 *  bLs$h^2$ * [1*corr + 4/3s/(6h) + v/(12hL)]  |
-| 完全重计算hardware flops | 72 *  bLs$h^2$ * [4/3*corr+ 4/3s/(6h) + v/(12hL)] |
-
-其中corr = (60+12/q)/72，q为GQA的倍数，q=n_heads/n_kv_heads。重计算带来的增加2倍，原因是Attention中的Q、K、V的前向需要重计算。如果只有前向需要重计算，应该在非重计算 4b$s^2$h(正向) + 8b$s^2$h(反向) = 12b$s^2$h 的基础上变成 4b$s^2$h(正向) + 8b$s^2$h(反向) + 4b$s^2$h(正向)= 16b$s^2$h。重计算增加的开销为16/12=4/3倍。
-
-详细计算步骤为：
-
-| 模块                      | 规格                               | FLOPS                                  |
-|-------------------------|----------------------------------|----------------------------------------|
-| attention               |                                  |                                        |
-| Query, key, Value  MatMul | [b, s, h] * [h, h]               | (2+4/q)*bs$h^2$   q=n_heads/n_kv_heads |
-| QK BatchMatMul          | [b, a, s, h/a] *  [b, a, h/a, s] | 2b$s^2$h                               |
-| score \* V              | [b, a, s, s] * [b, a, s, h/a]    | 2b$s^2$h                                  |
-| attention projection    | [b, s, h] * [h,h]                | 2bs$h^2$                               |
-| MLP                     |                                  |                                        |
-| MLP mapping             | [b, s, h] * [h, 4h]              | 8bs$h^2$                               |
-| MLP projection          | [b, s, 4h] * [4h, h]             | 8bs$h^2$                               |
-| LmHead                  |                                  |                                        |
-| lmHead projection       | [b, s, h] * [v, h]               | 2bshv                                  |
-| Total                   |                                  | 2bshv                                  |
-| GPTlayer-Total          |                                  | (20+4/q)bs$h^2$ + 4b$s^2$h+2bshv          |
-
-各字符含义如下：
-
-* b：micro batch size
-* h：hidden size
-* s：seq length
-* v：vocab size
-* L：layers
-
-Llama结构(gated FFN，8路GQA)稍有不同，和GPT的差别主要在于mlp层存在差异，在Llama系列中使用的GatedMLP，具体的flops计算如下：
-
-| MLP mapping      | [b, s, h] * [h, $\hat{h}$]           | 2bsh$\hat{h}$                                |
-| ---------------- | ------------------------------------ |----------------------------------------------|
-| MLP gate         | [b, s, h] * [h, $\hat{h}$]           | 2bsh$\hat{h}$                                |
-| MLP projection   | [b, s, $\hat{h}$]  * [$\hat{h}$,  h] | 2bsh$\hat{h}$                                |
-| Total            |                                      | 6bsh$\hat{h}$                                |
-| Llamalayer-Total |                                      | (4+4/q)bs$h^2$ + 4b$s^2$h+6bsh$\hat{h}$ + 2bshv |
-
-注：$\hat{h}$ 为 ffn hidden size
-
-Llama系列完整的MFU估计值如下：
-
-![Llama_memory](./images/llama_memory.png)
-
-HFU/MFU可以用于对于训练性能tokens/s/p的评价。一般HFU>50%属于比较优秀的硬件利用，比如Llama2-7B为4695tokens/s/p，对应的MFU=57%，HFU=65%，属于比较理想的效果。对于大参数模型如Llama2-70B，MFU/HFU会随着并行尺度扩大而线性比衰减。[PaLM](https://arxiv.org/pdf/2204.02311.pdf)统计了几个常见大模型的MFU。
-
-![PaLM-MFU](./images/PaLM-MFU.png)
-
 ### 并行特性简介
 
 在大模型训练中，由于数据量和模型复杂度的增加，单个计算节点的计算能力难以满足训练的需求。为了提高训练效率和加速训练过程，通常采用并行策略来将计算任务分配给多个计算节点进行计算。
@@ -130,86 +52,35 @@ HFU/MFU可以用于对于训练性能tokens/s/p的评价。一般HFU>50%属于�
 
 详细介绍参考文档[并行策略指南](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/function/distributed_parallel.html)。
 
-### 内存分析
+### 重计算
 
-大模型的主流结构都是transformer decoder only的结构，该结构由self attention和ffn两个子层构成。典型的模型Llama2如下图所示：
+MindSpore采用反向模式的自动微分，根据正向图计算流程来自动推导出反向图，正向图和反向图一起构成了完整的计算图。在计算某些反向算子时，需要用到一些正向算子的计算结果，导致这些正向算子的计算结果需要驻留在内存中，直到依赖它们的反向算子计算完，这些正向算子的计算结果占用的内存才会被复用。这一现象推高了训练的内存峰值，在大规模网络模型中尤为显著。
 
-![llama_layer](./images/llama_layer.png)
+为了解决这个问题，MindSpore提供了重计算的功能，可以不保存正向算子的计算结果，让这些内存可以被复用，然后在计算反向算子时，如果需要正向的结果，再重新计算正向算子。
 
-#### 静态内存
+重计算分为以下两种方式：
 
-静态内存通常用来存储模型参数，模型参数量是指一个神经网络或机器学习模型中可以进行学习和调整的参数的数量。这些参数包括权重（weights）和偏置（biases），它们在训练过程中会不断地更新以优化模型的性能。
+* 完全重计算
 
-以GPT结构为例，一层transfomer layer的参数量如下图所示：
+  适用于内存资源极为受限的极端环境。在这种模式下，除了保存输入数据外，所有激活值均在需要时重新计算，最大限度地减少了对内存的依赖。但是相应的计算量也会显著增加。
 
-![static_memory](./images/static_memory.png)
+* 选择性重计算
 
-静态内存主要是包含模型的参数和优化器的状态，若使能了梯度累积或者流水线并行则会多一份梯度；设定N为模型参数量，t为优化器并行的规模（默认等于DP），则各个场景下的内存占用如下：
+  该策略保留了那些占用较小内存空间但重计算成本较高的激活值，如Cast、SiLU-Mul。同时，对占用较大内存但重计算成本相对较低的激活值执行激活重计算。此方法在保证模型性能的同时，实现了内存使用的高效管理。
 
-|                     | 静态内存占用       | 说明                                                          |
-| ------------------- | ------------------ |-------------------------------------------------------------|
-| 无并行              | 2N + 4N + 4N = 10N | FP16 weight (2N)  FP32 AdamVar (4N)  FP32 AdamMomentum (4N) |
-| 优化器并行          | 10N / t            | 权重和优化器状态切分                                                  |
-| 优化器并行+梯度累计 | 10N / t + 2N       | 权重切分和优化器状态切分，梯度累积不切分。                                      |
+#### Cast重计算
 
-例如一个7B的模型，若t=8，则上述三种场景下的静态内存理论预估值分别为70GB、8.75GB、22.75GB。
+RMSNorm一般使用高精度（FP32）计算，计算之前需要将输入从低精度（FP16或BF16）通过Cast转成高精度（FP32）；RMSNorm需要存下输入用于反向计算。因此，对此处的Cast进行重计算，可以使内存中保存Cast的低精度输入，而非RMSNorm的高精度输入，此举可以减少该输入一半的内存占用，从而达到节省内存的效果。
 
-#### 动态内存
+![cast](./images/cast.png)
 
-动态内存通常用于存储中间计算结果。
+从高精度到低精度的Cast算子做重计算，会导致后面的算子原本只需要存Cast之后的低精度内存，Cast算子重计算后，需要存高精度内存，反而会导致内存变大。
 
-以GPT为例，考虑PP、TP等情况，理论计算值如下：
+#### SiLU-Mul重计算
 
-|                              | 内存[Byte]              | 说明                                              |
-| ---------------------------- | ----------------------- | ------------------------------------------------- |
-| 无并行                       | sbh * [34+5as/h]        | 总内存                                            |
-| 模型并行                     | sbh * [10+(24+5as/h)/t] | attn/ffn输入、2*ln输入，2dropout mask没有被并行。 |
-| 模型并行+序列并行            | sbh * [34+5as/h]/t      | 进一步在t维度降低内存                             |
-| 模型并行+选择重计算          | sbh * [10+24/t]         | 重计算 $s^2$ 的内存                               |
-| 模型并行+序列并行+选择重计算 | sbh * [34/t]            | 重计算 $s^2$ 的内存                               |
-| 完全重计算                   | sbh * [2]               | 仅保存每层的输入                                  |
+在FeedForward中，中间部分内存往往会很大；SiLU和Mul重计算代价小。对SiLU和Mul算子重计算，可以省下w2的MatMul和Mul的第一个输入的内存。
 
-详细计算步骤为：
-
-| 模块                       | 反向需要保存的变量      | 内存大小[Byte] |
-|--------------------------| --------------------- | -------------- |
-| Attention部分              |                       |                |
-| Query, key, Value MatMul | x                     | 2sbh           |
-| QK BatchedMatMul         | Q, K                  | 4sbh           |
-| softmax                  | softmax  result       | 2a$s^2$b          |
-| softmax dropout          | dropout  mask         | a$s^2$b           |
-| prob-value BatchedMatMul | dropout  result and V | 2a$s^2$b + 2sbh   |
-| attenton projection      | dropout  mask+output  | sbh + 2sbh     |
-| Totoal                   |                       | 11sbh + 5a$s^2$   |
-| FFN部分                    |                       |                |
-| MLP  mapping             | x                     | 2sbh           |
-| MLP  activation          | hidden                | 8sbh           |
-| MLP  projection          | activated  hidden     | 8sbh           |
-| MLP  dropout             | dropout  mask         | sbh            |
-| Totoal                   |                       | 19sbh          |
-| LayerNorm部分              |                       |                |
-| two lanyernorm           | input                 | 2sbh + 2sbh    |
-
-各字符含义如下：
-
-* a：number of attention heads
-* b：micro batch size
-* h：hidden size
-* L：number of transformer layers
-* p：pipeline parallel size
-* s：seq length
-* t：tensor parallel size
-* v：vocab size
-
-#### 混合精度
-
-浮点数据类型主要分为双精度（FP64）、单精度（FP32）、半精度（FP16）。在神经网络模型的训练过程中，一般默认采用单精度（FP32）浮点数据类型，来表示网络模型权重和其他参数。
-
-FP16的存储空间是FP32的一半，类似地，FP32则是FP64的一半。因此使用FP16进行运算具备内存占用较少、计算效率和通信效率更高等优势，但是使用FP16同样会带来数据溢出、舍入误差等问题。
-
-在使用混合精度获得训练加速和内存节省的同时，需要考虑FP16引入问题的解决。Loss Scale损失缩放，FP16类型数据下溢问题的解决方案，主要思想是在计算损失值loss的时候，将loss扩大一定的倍数。根据链式法则，梯度也会相应扩大，然后在优化器更新权重时再缩小相应的倍数，从而避免了数据下溢。
-
-详细介绍参考文档[自动混合精度](https://www.mindspore.cn/tutorials/zh-CN/r2.4.0/beginner/mixed_precision.html)。
+![SiLU_mul](./images/silu_mul.png)
 
 ### 工具介绍
 
@@ -219,24 +90,22 @@ MindFormers本身集成了profiling数据采集的功能，使用步骤如下：
 
 1. 修改配置文件
 
-   在模型的配置文件中（例如run_llama2_7b.yaml）开启profiling开关，需修改的参数如下：
+   在模型的配置文件中开启profiling开关，需修改的参数如下：
 
    ```yaml
    profile: True  #是否开启性能分析工具
-   profile_start_step: 1  #性能分析开始的step
-   profile_stop_step: 10  #性能分析结束的step
+   profile_start_step: 5  #性能分析开始的step
+   profile_stop_step: 6  #性能分析结束的step
    init_start_profile: False  #Profiler初始化的时候开启，开启后profile_start_step将不生效。
-   profile_communication: True #是否在多NPU训练中收集通信性能数据
+   profile_communication: False #是否在多NPU训练中收集通信性能数据
    profile_memory: True  #收集Tensor内存数据
    ```
 
-2. 简化模型
+  profile_start_step和profile_stop_step确定采集区间，因为采集耗时较长，不推荐区间设置过大，一般设置2~4即可。且第一个step涉及编译，因此推荐采集第3步之后的区间。
 
-   建议将模型的层数（num_layers）改为2层，方便快速采集数据。
+2. 查看数据
 
-3. 查看数据
-
-   采集工具会在模型配置文件output_dir（默认“./output”）下创建一个profile的文件夹，按照rank id生成当前机器的每一张卡的性能数据。以rank_0为例，目录为output/profile/rank_0/profiler。
+   采集工具默认会在`./output`路径下创建一个`profile`的文件夹，该路径可通过模型yaml配置文件的output_dir字段进行设置。
 
    生成的文件及介绍参考[profile文件介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#目录结构)，主要收集算子、任务等运行耗时，CPU利用率，内存消耗等信息，用于性能调优分析需要的各项数据。
 
@@ -244,7 +113,7 @@ MindFormers本身集成了profiling数据采集的功能，使用步骤如下：
 
 MindStudio Insight提供了性能数据的多种呈现形式，包括Timeline视图、通信分析、计算耗时等的可视化呈现，以便用户分析潜在的性能瓶颈，并指导如何采取措施消除或减少这些瓶颈。MindStudio Insight支持在Timeline查看集群场景下Profiling导出的数据，并以单卡为维度进行展示，可以支持20GB以上的集群性能文件分析。
 
-点击[MindStudio Insight下载链接](https://www.hiascend.com/zh/developer/download/commercial/result?module=sto)，选择合适的版本安装。
+点击[MindStudio Insight下载链接](https://www.hiascend.com/developer/download/community/result?module=pt+sto+cann)，选择合适的版本安装。
 
 打开MindStudio Insight工具，单击界面左上方工具栏中的“加号”，在弹窗中选择解析并导出的文件或目录，然后单击“确认”导入。
 
@@ -270,7 +139,7 @@ MindStudio Insight工具以时间线（Timeline）的呈现方式为用户提供
 
   数据窗格，统计信息或算子详情信息展示区，选中详情（Slice Detail）为选中单个算子的详细信息、选中列表（Slice List）为某一泳道选中区域的算子列表信息、以及系统视图（System View）为某类算子的汇总信息。
 
-单击时间线页面树状图或者图形化窗格任意位置，可以使用键盘中的W（放大）、A（左移）、S（缩小）、D（右移）键进行操作，支持放大的最大精度为1ns。本工具可以提供概览、内存、算子、通信等多个维度的分析，辅助进行性能调优。详细使用方法参考[MindStudio Insight用户指南](https://www.hiascend.com/document/detail/zh/mindstudio/70RC2/msinsightug/msascendinsightug/AscendInsight_0002.html)。
+单击时间线页面树状图或者图形化窗格任意位置，可以使用键盘中的W（放大）、A（左移）、S（缩小）、D（右移）键进行操作，支持放大的最大精度为1ns。本工具可以提供概览、内存、算子、通信等多个维度的分析，辅助进行性能调优。详细使用方法参考[MindStudio Insight用户指南](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/msinsightug/msascendinsightug/Insight_userguide_0002.html)。
 
 #### IR 图
 
@@ -319,78 +188,21 @@ context:
 
 在保存IR图时建议将模型的层数改小，减少编译存图的时间，方便快速调试。详细内容参考[IR文件介绍](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/error_analysis/mindir.html#ir文件介绍)和[分析示例](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/error_analysis/mindir.html#如何根据analyze-failir文件分析图推导失败的原因)。
 
+#### SAPP自动负载均衡工具
+
+大模型训练性能调优需要同时考虑多维混合并行策略配置与内存限制，工程师需要在集群上尝试不同的组合方案才有可能找到性能达标的并行策略，这一过程常常耗费数周时间，且消耗大量算力成本。
+
+MindSpore提供了SAPP（Symbolic Automatic Parallel Planner）自动负载均衡工具。输入模型的内存和时间信息，以及部分流水线并行性能相关的超参（如重计算对性能的影响），工具将自行构建线性规划问题，通过全局求解的方式，为大模型自动生成流水线并行中的stage-layer配比，调整各layer重计算策略，自动优化集群算力和内存利用率，降低空等时间，实现Pipeline并行分钟级策略寻优，大幅度降低性能调优成本，显著提升端到端训练性能。
+
+详细使用方法，请参考[SAPP流水线负载均衡](SAPP流水线负载均衡)工具介绍。
+
 ## 性能调优指南
 
 ### 整体思路
 
-大模型的性能优化主要依赖于profiling数据分析以及内存分析，分析当前性能的瓶颈以及与竞品的差距；MindSpore框架上的耗时主要是算子耗时以及通信耗时两部分，其中算子耗时主要是拆解出核心算子与竞品的差距，通信分析查看是否存在不合理的重排布等。
-
-完成性能数据以及内存数据采集后，整体优化的流程如下：
-
-* 分析算子性能，尽量使用融合算子替换中小算子。
-
-* 分析通信耗时，查看是否存在更优的分布式策略，分析是否存在不合理的重排布问题，提高整个集群的效率。
-
-* 分析内存，查看是否存在异常大内存Tensor，是否存在可融合的算子降低内存；在有内存富裕的情况就可以探讨选择重计算的设置，或者是降低模型切分的份数，减少模型切分带来的通信开销。
-
-性能优化是一个循环往复的过程，正如下图所示，算子优化完毕后，就需要对集群分布式策略进行实验分析，分析通信耗时是否合理，是否存在额外的重排布开销；然后进行内存优化分析，完成内存优化后，是否可以重新调整集群策略设置，从而获取更优的策略设定。循环往复的去优化，进而一步步达到设定的性能目标。
-
-![process](./images/process.png)
+大模型的性能调优主要包含并行策略配置，内存优化，耗时分析三部分工作。性能优化是一个循环往复的过程，并行策略配置完毕后，就需要进行内存优化分析，并进行内存优化；然后对集群分布式策略进行实验分析，分析通信耗时是否合理，是否存在额外的重排布开销。然后根据分析结果，调整并行策略，继续内存、耗时分析，循环往复的去优化，进而一步步达到设定的性能目标。
 
 完成一轮性能优化后，还需要确保模型精度对齐，对齐则应用该优化策略。
-
-### 算子性能优化
-
-#### GPU与NPU数据对比
-
-* 基本思路
-
-  NPU与GPU算子耗时统计，通过profiling获取数据。
-
-  对比GPU和NPU数据，找到单算子耗时差异点。
-
-  性能详细分析，根据算子PMU数据分析单case性能，精确识别待优化算子。
-
-* 算子耗时统计
-
-  NPU的算子耗时统计可直接从profiling中获取，分析出当前主要的耗时算子以及低效算子，从而找出需要优化的算子。参考[profiler工具使用介绍](#profiler工具)。
-
-  GPU 算子耗时统计，参考MindStudio提供的[PyTorch训练Profiling分析方法](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/profiling/atlasprofiling_16_0006.html)。
-
-* 数据拆解关注点
-
-  上述[profiler工具](#profiler工具)产生的性能数据中，分析生成数据中的如下文件：rank-*_ascend_ms/ASCEND_PROFILER_OUTPUT/kernel_details.csv。该文件按照算子类型统计某一类型的算子整体占比，可以从中得到需要优化哪一类算子从而带来性能提升。
-
-算子融合是通过将多个独立的算子组合成一个更大、更复杂的算子，从而减少运行时内存访问、提高计算效率。可以减少中间结果的存储和传输，有效的减少内存的开销；另外，合并多个算子可以减少计算的次数，在NPU上可以有效提高计算效率。
-
-当前MindFormers默认会自动进行融合算子优化，将模型中符合条件的多个连续小算子自动合并成一个融合算子。
-
-### 通信优化
-
-在半自动并行开发模式下，需要开发者为每一个算子的输入Tensor和输出Tensor配置并行切分策略。如果存在算子配置不匹配的情况，会导致MindSpore框架在编译时插入通信算子，对Tensor进行重排布来适配后续算子的切分方式。常见的通信算子有AllGather、AllReduce等。
-
-通过可视化工具分析Profiling采集的timeline.json，然后根据算子编号结合IR图进行上下文分析，检查此处的通信算子是否与配置的切分策略匹配。
-
-使用[profiler工具](#profiler工具)生成文件ascend_timeline_display_0.json，然后在Chrome浏览器中输入"chrome://tracing"打开文件，也可以使用[MindStudio Insight](#mindstudio-insight)打开，解析出对应的计算通信任务流的时序图。如下：
-
-![timeline](./images/timeline.png)
-
-wo-linear之后存在一个计算空档，结合IR图，
-
-可以看到在wo-linear之后存在一个AllReduce通信算子，AllReduce接收的是wo-linear的MatMul的输出。IR图如下所示：
-
-```text
-%100(equiv_loss)) = MatMul(%98, %99) {instance name: matmul) primitive_attrs: {IsFeatureMapInputList: (0), input names: [x1, x2], transpose_x2: Bool(1), transpose_b: Bool(1), in strategy: ((1, 4), (1,4)), output names: [output], transpose_a: Bool(0), IsFeatureMapOutput: Bool(1), transpose_x1: Bool(0)} cnode_attrs: (checkpoint: Bool(1), is dynamic_len: Bool(0)} cnode_primal_attrs: (unique id: "230416", micro: I64(0))}
-    : (<Tensor[Float16], (2048, 1024)>, <Tensor[Float16], (4096, 1024)>) -> (<Tensor[Float16], (2048, 4096)>)
-    # Fullname with scope:
-    (Default/network-_VirtualDatasetCell/_backbone-GradAccumulationCell/network-LlamaForCausalLM/model-LlamaModel/lavers-Celllist/1-LLamaDecodeLaver/attention-LhamaAttention/wo-Linear/MatMul-op8)
-%101(equiv_CNode_3914) = AllReduce(%100) {instance name: forward_op_6937918150211178578} primitive_attrs: {IaFeatureMapInputList: (0), comm_reuse: Bool(1), group: "hcel_world_group", fusion: 164(0), op: "sum", rank_list: (0, 1, 2, 3), group_ranks: "WORLD_GROUP", index: 164(0), group_rank ids: (0, 1, 2, 3), IsFeatureMapOutput: Bool(1), _parallel_group: "hcel_world_group", no_eliminate: Bool(1)} cnode_attrs: {checkpoint: Bool(1), is_dynamic_len: Bool(0)} cnode_primal_attrs: {unique_id: "231701", forward_comm_node_unique_id: "224263", micro: I64(0)}
-    : (<Tensor[Float16], (2048, 4096)>) -> (<Tensor[Float16], (2048, 4096)>)
-    # Fullname with scope:
-    (Default/network- VirtualDatasetCell/ backbone-GradAccumulationCell/network-LlamaForCausalLM/model-LlamaModel/layers-CellList/1-LLamaDecodeLayer/attention-LLamaAttention/wo-Linear/AllReduce-op0)
-```
-
-可以发现MatMul算子对于两个输入都进行了切分，对第一个输入进行了列切分，第二个输入进行了行切分，此时符合TensorParallel中的Row Parallel Linear的切分方式，此时若要保持MatMul的数学等价则需要对计算结果做AllReduce操作，则此时插入的AllReduce是符合预期。
 
 ### 并行策略
 
@@ -416,7 +228,7 @@ wo-linear之后存在一个计算空档，结合IR图，
 
 * 序列并行
 
-  短序列并行在LayerNorm处对序列维按MP进行切分，通信量不变，减少内存与Norm的部分计算量；
+  短序列并行在LayerNorm处对序列按MP进行切分，通信量不变，减少内存与Norm的部分计算量；
 
 * 多副本并行
 
@@ -438,39 +250,27 @@ wo-linear之后存在一个计算空档，结合IR图，
 
   模型规模较大时（如70B），需开启模型并行，同时序列并行与多副本并行也建议开启。使用64卡训练，[Llama2-70B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_70b.yaml)。
 
-### 重计算
-
-#### cast重计算
-
-RmsNorm一般使用float32计算，计算之前需要将输入从fp16或bf16 Cast成fp32；RmsNorm需要存下输入用于反向计算。因此，对fp16至fp32的Cast进行重计算，可以将内存从RmsNorm的输入变为Cast的输入，Cast的输入的大小为RmsNorm输入大小的一半，从而达到节省内存的效果。
-
-![cast](./images/cast.png)
-
-从高精度到低精度的Cast算子做重计算，会导致后面的算子原本只需要存cast之后的低精度内存，Cast算子重计算后，需要存高精度内存，反而会导致内存变大。
-
-#### Silu-Mul重计算
-
-在FeedForward中，中间部分内存往往会很大；Silu和Mul重计算代价小。对Silu和Mul算子重计算，可以省下w2的MatMul和Mul的第一个输入的内存。
-
-![silu_mul](./images/silu_mul.png)
-
-#### 通信重计算
-
-在开启序列并行后，RmsNorm会在序列维度切分，之后通过AllGather将不同卡的Tensor进行汇聚以供后面MatMul计算。如果将AllGather重计算，那么每张卡只需要存一份AllGather之前的内存，以达到减小内存的效果。
-
-![communicate](./images/communicate.png)
-
 ### 内存优化
 
-#### NPU内存峰值分析
+模型训练过程中，计算资源是有限的，内存不足时需要开重计算。内存优化主要优化重计算的配置，可以借助上述SAPP工具，自动生成当前并行配置下的推荐重计算配置。
 
-内存分析时，峰值内存是一个重要的关注点，执行训练时，设置如下环境变量，可以统计内存基本情况。
+MindSpore还提供DryRun功能，能够在本地环境中模拟大集群中每个rank的内存消耗情况，从而在不依赖实际大集群资源的情况下，进行高效的设备内存模拟。
 
-```shell
-export MS_MEMORY_STATISTIC=1
+完成重计算配置后，先使用DryRun分析，所需内存是否超过最大可用内存，如果超过，需要重新调整配置。最大可用内存，通过如下字段配置。推荐值为`58G`，如果设置过大，可能导致其他组件内存不足。
+
+```yaml
+context:
+  max_device_memory: "58GB"
 ```
 
-训练完成后，会在日志文件的末尾输出如下信息：
+设置如下环境变量，即可开启DryRun。
+
+```shell
+export MS_SIMULATION_LEVEL=1
+export MS_KERNEL_LAUNCH_SKIP=all
+```
+
+设置后，正常启动训练任务。模拟训练完成后，会在日志文件的末尾输出如下信息：
 
 ```text
 Device HBM memory size: 62432M
@@ -484,32 +284,25 @@ Used peak memory usage (without fragments)表示不包含碎片的NPU内存使�
 
 Actual peak memory usage (with fragments)表示包含碎片的NPU内存使用峰值。
 
-在正式训练前，可以使用dryrun的方式模拟训练，只需要一张卡即可模拟整体的NPU内存峰值。dryrun脚本如下：
+### 耗时分析
 
-```shell
-export ENABLE_CELL_REUSE=1
-export MS_MEMORY_STATISTIC=1
-export MS_SIMULATION_LEVEL=1
-export RANK_SIZE=16
-export RANK_ID=0
-python run_mindformer.py --config ${CONFIG} --run_mode train > dry_run.log 2>&1 &
-```
+耗时主要是算子耗时以及通信耗时两部分，依赖于profiling数据分析，分析方法参考上述章节。重点分析任意rank的profiler文件夹下ascend_timeline_display_0.json和rank-*_ascend_ms/ASCEND_PROFILER_OUTPUT/kernel_details.csv两个文件。
 
-其中RANK_SIZE表示要模拟的卡数，RANK_ID表示进行模拟的卡，ENABLE_CELL_REUSE、MS_MEMORY_STATISTIC、MS_SIMULATION_LEVEL三个环境变量用于设置dryrun模式。
+使用上述MindStudio Insight工具解析ascend_timeline_display_0.json，统计分析计算、通信耗时是否符合预期。再查看kernel_details.csv，分析各算子详细情况。
 
 ### 典型案例
 
-#### Silu-Mul重计算未生效
+#### SiLU-Mul重计算未生效
 
-在开细粒度多副本时，对Silu和Mul做重计算可以节省内存，但关细粒度多副本时，对Silu和Mul做重计算不能节省内存。定位过程如下：
+在开细粒度多副本时，对SiLU和Mul做重计算可以节省内存，但关细粒度多副本时，对SiLU和Mul做重计算不能节省内存。定位过程如下：
 
 * 确认配置了重计算
 
-  在IR图中检查Cast、Silu和Mul算子是否有“recompute: Bool(1)”的标签，有标签说明算子配了重计算。
+  在IR图中检查Cast、SiLU和Mul算子是否有“recompute: Bool(1)”的标签，有标签说明算子配了重计算。
 
 * 检查重计算生效算子
 
-  在IR图中检查是否有Cast、Silu和Mul的duplicated标签的算子，没有带标签的算子说明实际计算图没有重计算这部分算子。这里只有Cast算子带了duplicated标签。
+  在IR图中检查是否有Cast、SiLU和Mul的duplicated标签的算子，没有带标签的算子说明实际计算图没有重计算这部分算子。这里只有Cast算子带了duplicated标签。
 
   ```text
   %1834(CNode_108839) = PrimFunc_Cast(%1833, I64(43)) {instance name: cast} primitive_attrs: {output_names: [output], input_names: [x, dst_type], recompute: Bool(1)} cnode_attrs: {recompute_sub_graph: U64(64), recompute_id: I64(65), duplicated: Bool(1), need_cse_after_recompute: Bool(1)} cnode_primal_attrs: {micro: I64(0)}
@@ -518,11 +311,11 @@ python run_mindformer.py --config ${CONFIG} --run_mode train > dry_run.log 2>&1 
 
 * 检查反向计算输入
 
-  在IR图中检查Silu和Mul的反向算子的输入是否符合预期，在关细粒度多副本时，Silu和Mul之间、 Mul和MatMul之间均有Reshape算子，而开启细粒度多副本时，Silu、Mul和MatMul是相连的。绘制相关流程如下：
+  在IR图中检查SiLU和Mul的反向算子的输入是否符合预期，在关细粒度多副本时，SiLU和Mul之间、 Mul和MatMul之间均有Reshape算子，而开启细粒度多副本时，SiLU、Mul和MatMul是相连的。绘制相关流程如下：
 
 ![reshape](./images/reshape.png)
 
-由此可知跟因在于，细粒度多副本场景中Linear的输入shape是二维的，而非细粒度多副本中Linear的输入shape是三维的，导致Linear和Mul之间有Reshape算子，没对这个Reshape重计算导致单纯对Silu的重计算没有用而被优化掉。额外对Reshape重计算后内存可以正常减小。参考配置如下：
+由此可知跟因在于，细粒度多副本场景中Linear的输入shape是二维的，而非细粒度多副本中Linear的输入shape是三维的，导致Linear和Mul之间有Reshape算子，没对这个Reshape重计算导致单纯对SiLU的重计算没有用而被优化掉。额外对Reshape重计算后内存可以正常减小。参考配置如下：
 
 ```yaml
 recompute_config:
@@ -532,11 +325,11 @@ recompute_config:
 
 #### Llama2-13B极致性能优化
 
-13B默认用单机DP: 8, MP: 1, PP: 1，开完全重计算，性能在1860tokens/s/p左右，MFU40%，相较于7B（MFU53%）与70B（MFU47%），性能明显偏低。
+13B默认用单机DP: 8, MP: 1, PP: 1，开完全重计算，性能在1860tokens/s/p左右，相较于7B（2465tokens/s/p）与70B（1974tokens/s/p），性能明显偏低。
 
-经分析，13B性能瓶颈主要在于内存，无论是单机还是多机，如果不切MP，则需要开完全重计算，对Silu和Mul做选择重计算内存依然不够；完全重计算会额外多20%到25%的计算量，导致性能偏低；对MP切分可以关闭重计算，但性能比纯DP还要低些。
+经分析，13B性能瓶颈主要在于内存，无论是单机还是多机，如果不开MP，对SiLU和Mul做选择重计算内存依然不够，则需要开完全重计算。完全重计算会额外多20%到25%的计算量，导致性能偏低。
 
-用双机调整切分策略为DP: 8, MP: 1, PP: 2, micro: 128，开完全重计算，性能提升至2136tokens/s/p。将完全重计算改为选择重计算，并精细选择算子，使每层的内存尽可能减少，性能提升至2189tokens/s/p。
+经过实测，开MP关闭重计算，性能比纯DP还要低。双机并行策略调整为DP: 8, MP: 1, PP: 2, micro: 128，开完全重计算，性能提升至2136tokens/s/p。将完全重计算改为选择重计算，并精细选择算子，使每层的内存尽可能减少，性能提升至2189tokens/s/p。
 
 ```yaml
 select_recompute: ['feed_forward\.mul', 'feed_forward\.w1\.activation', 'feed_forward\.w1\.reshape', 'feed_forward\.w1\.matmul', 'feed_forward\.w3\.matmul', 'feed_forward\.W3\.reshape', 'feed_forward\.w2\.matmul', 'feed_forward\.w2\.reshape', 'ffn_norm\.norm', 'ffn_norm\.rcast', 'attention_norm\.norm', 'attention_norm\.rcast', 'attention\.wq\.reshape', 'attention\.wk\.reshape', 'attention\.wv\.reshape', 'attention\.wo\.matmul', 'attention\.wo\.reshape', 'attention\.merger_head_transpose', 'add', 'attention\.flash attention']
@@ -568,7 +361,7 @@ select_recompute:
   'attention\.flash_attention': [20, 0]
 ```
 
-使用图编译等级为O0/O1图算融合，内存有进一步优化，将大部分算子的选择重计算改为部分层的完全重计算，其余层配置Silu和Mul的选择重计算，stage0、stage1分别完全重计算13层、5层，性能提升至2353tokens/s/p。逐步减少stage0、stage1完全重计算至4层、0层，性能提升至2562tokens/s/p(max_device_memory: 57.2GB)。参考配置如下：
+使用图编译等级为O0/O1图算融合，内存有进一步优化，将大部分算子的选择重计算改为部分层的完全重计算，其余层配置SiLU和Mul的选择重计算，stage0、stage1分别完全重计算13层、5层，性能提升至2353tokens/s/p。逐步减少stage0、stage1完全重计算至4层、0层，性能提升至2562tokens/s/p(max_device_memory: 57.2GB)。参考配置如下：
 
 ```yaml
 recompute_config:
@@ -576,4 +369,4 @@ recompute_config:
   select_recompute: ['feed_forward\.mul', 'feed_forward\.w1\.activation', 'feed_forward\.w1\.reshape', 'feed_forward\.w2\.reshape']
 ```
 
-最终经过调优后，Llama2-13B性能优化至2562tokens/s/p，MFU55.4%，HFU60.4%，总计提升提升37%。
+最终经过调优后，Llama2-13B性能优化至2562tokens/s/p，总计提升37%。
