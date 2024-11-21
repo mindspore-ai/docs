@@ -253,7 +253,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
 - `input_output_index`：输入或输出标号，例如`output.0`表示该文件是该算子的第1个输出Tensor的数据。
 - `slot`：slot标号。
 - `format`: 数据格式。
-- `dtype`: 原始的数据类型。如果是`bfloat16`或`int4`类型，保存在`.npy`文件中的数据会分别被转换成`float32`或`int8`。
+- `dtype`: 原始的数据类型。如果是`bfloat16`、`int4`或`uint1`类型，保存在`.npy`文件中的数据会分别被转换成`float32`、`int8`或`uint8`类型。
 - `data_id`: 常量数据标号。
 
 对于多图网络，由于存在控制流，某些子图可能不会被执行，Dump只保存执行过的节点，所以graphs目录下`.pb`文件名中的{graph_id}并不一定在{net_name}下存在对应的{graph_id}目录。
