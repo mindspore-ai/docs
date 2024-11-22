@@ -26,11 +26,7 @@ Performance tuning that is, through the optimization of model algorithms, parame
 
 ### Performance Indicators
 
-Performance is usually evaluated by metrics such as throughput, arithmetic utilization (MFU and HFU).
-
-#### Throughput
-
-For the large language model, the throughput mainly looks at the number of tokens consumed per card per second. The formula is as follows:
+Performance is usually evaluated by throughput. For the large language model, the throughput mainly looks at the number of tokens consumed per card per second. The formula is as follows:
 
 $$
 Throughput = SeqLength * (sample/s/p)
@@ -48,80 +44,6 @@ The meaning of each field is as follows:
 
 * p: i.e., parallel_num, data parallel dimension size.
 
-#### Computing Capability Utilization
-
-MFU is used to measure the current computing capability utilization without considering the case of recalculation, the higher MFU indicates the better the current computational efficiency, and the statistics are mainly the computation of GEMM. The calculation formula is as follows:
-
-$$
-MFU = \frac{FLOPs}{StepTime * HardwareCapacity}
-$$
-
-HFU takes into account the recomputation calculations in backpropagation based on MFU:
-
-$$
-MFU = \frac{FLOPs_{recompute}}{StepTime * HardwareCapacity}
-$$
-
-FLOPs (floating point operations) represent the number of floating point operations and measure the size of the computation. For example, to calculate matrix A(m,n)\*B(n,p), m\*n\*p multiplication operations and m\*n\*p addition operations are required, totaling 2\*m\*n\*p floating point operations, i.e., FLOPs are 2mnp.
-
-StepTime refers to the time spent on each step in the training process, and HardwareCapacity is the nominal computing capability of the chips in the cluster.
-
-When counting the computation of the transformer layer, according to the chain rule, in the backpropagation, MatMul needs to derive $d_x$ and $d_w$ separately, so the computation of the backward process is about twice as much as that of the forward one. We only need to calculate the computational amount of the forward propagation process and then estimate the computational amount of the backward propagation.
-
-Here the GPT structure is used as an example for the theoretical estimation:
-
-|                          | Memory Usage Byte                                      |
-| ------------------------ | ------------------------------------------------- |
-| No recomputation model flops      | 72 *  bLs$h^2$ * [1*corr +  s/(6h) + v/(12hL)]    |
-| Selective recomputation hardware flops | 72 *  bLs$h^2$ * [1*corr + 4/3s/(6h) + v/(12hL)]  |
-| Full recomputation hardware flops | 72 *  bLs$h^2$ * [4/3*corr+ 4/3s/(6h) + v/(12hL)] |
-
-where corr = (60+12/q)/72, q is the multiplicity of GQA, and q = n_heads/n_kv_heads. The reason for the 2-fold increase from recomputation is that the forward direction of Q, K, and V in Attention needs to be recomputed. If only the forward direction needs to be recomputed, it should become 4b$s^2$h(forward) + 8b$s^2$h(reverse) = 12b$s^2$h based on the non-recomputed 4b$s^2$h(forward) + 8b$s^2$h(reverse) + 4b$s^2$h(forward) = 16b$s^2$h. The recomputation increases the overhead by 16/12 = 4/3 times.
-
-The detailed calculation steps are:
-
-| Module                      | Specifications                               | FLOPS                                  |
-|-------------------------|----------------------------------|----------------------------------------|
-| attention               |                                  |                                        |
-| Query, key, Value  MatMul | [b, s, h] * [h, h]               | (2+4/q)*bs$h^2$   q=n_heads/n_kv_heads |
-| QK BatchMatMul          | [b, a, s, h/a] *  [b, a, h/a, s] | 2b$s^2$h                               |
-| score \* V              | [b, a, s, s] * [b, a, s, h/a]    | 2b$s^2$h                                  |
-| attention projection    | [b, s, h] * [h,h]                | 2bs$h^2$                               |
-| MLP                     |                                  |                                        |
-| MLP mapping             | [b, s, h] * [h, 4h]              | 8bs$h^2$                               |
-| MLP projection          | [b, s, 4h] * [4h, h]             | 8bs$h^2$                               |
-| LmHead                  |                                  |                                        |
-| lmHead projection       | [b, s, h] * [v, h]               | 2bshv                                  |
-| Total                   |                                  | 2bshv                                  |
-| GPTlayer-Total          |                                  | (20+4/q)bs$h^2$ + 4b$s^2$h+2bshv          |
-
-The meaning of each character is as follows:
-
-* b：micro batch size
-* h：hidden size
-* s：seq length
-* v：vocab size
-* L：layers
-
-The Llama structure (gated FFN, 8-way GQA) is slightly different from the GPT, and differs from the GPT mainly in that there are differences in the mlp layer, and in the Gated MLP used in the Llama series, the specific flops are calculated as follows:
-
-| MLP mapping      | [b, s, h] * [h, $\hat{h}$]           | 2bsh$\hat{h}$                                |
-| ---------------- | ------------------------------------ |----------------------------------------------|
-| MLP gate         | [b, s, h] * [h, $\hat{h}$]           | 2bsh$\hat{h}$                                |
-| MLP projection   | [b, s, $\hat{h}$]  * [$\hat{h}$,  h] | 2bsh$\hat{h}$                                |
-| Total            |                                      | 6bsh$\hat{h}$                                |
-| Llamalayer-Total |                                      | (4+4/q)bs$h^2$ + 4b$s^2$h+6bsh$\hat{h}$ + 2bshv |
-
-Note: $\hat{h}$ is ffn hidden size
-
-The complete MFU estimates for the Llama series are given below:
-
-![Llama_memory](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/llama_memory.png)
-
-HFU/MFU can be used for the evaluation of tokens/s/p for training performance. Generally HFU>50% is considered as better hardware utilization, for example, Llama2-7B is 4695tokens/s/p, which corresponds to MFU=57%, HFU=65% and is considered as more desirable results. For large-parameter models such as Llama2-70B, the MFU/HFU decays at a linear ratio as the parallel scale expands. [PaLM](https://arxiv.org/pdf/2204.02311.pdf) counts the MFU for several common large models.
-
-![PaLM-MFU](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/PaLM-MFU.png)
-
 ### Introduction to Parallel Feature
 
 In large model training, due to the increase of data volume and model complexity, the computational capacity of a single computing node is difficult to meet the training demand. In order to improve the training efficiency and accelerate the training process, a parallel strategy is usually used to distribute the computational tasks to multiple computational nodes for computation.
@@ -130,86 +52,35 @@ Parallelism strategies are usually classified into various parallel modes such a
 
 For details, refer to [Parallel Strategy Guide](https://www.mindspore.cn/mindformers/docs/en/dev/function/distributed_parallel.html).
 
-### Memory Analysis
+### Recomputation
 
-The dominant structures of the large models are transformer decoder only structures, which consist of two sublayers, self attention and ffn. A typical model Llama2 is shown below:
+MindSpore uses automatic differentiation in reverse mode to automatically derive the reverse diagram based on the forward diagram computation flow, and the forward and reverse diagrams together form a complete computation diagram. When computing some inverse operators, the results of some forward operators need to be used, resulting in the need for the results of these forward operators to reside in memory until the inverse operators that depend on them have been computed, and the memory occupied by the results of these forward operators will not be reused. This phenomenon pushes up the memory spikes for training, and is particularly significant in large-scale network models.
 
-![llama_layer](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/llama_layer.png)
+To solve this problem, MindSpore provides the ability to recompute the forward operator without saving the results of the forward operator, so that this memory can be reused, and then recompute the forward operator when computing the reverse operator, if the forward result is needed.
 
-#### Static Memory
+Re-computation is categorized in the following two ways:
 
-Static memory is typically used to store model parameters, and the number of model parameters is the number of parameters that can be learned and tuned in a neural network or machine learning model. These parameters include weights and biases, which are continuously updated during training to optimize the model's performance.
+* Full-recomputation
 
-Taking the GPT structure as an example, the number of parameters of a transformer layer is shown below:
+  For extreme environments where memory resources are extremely limited. In this mode, all activation values are recalculated when needed, except for saving the input data, minimizing the dependence on memory. However, the corresponding amount of computation increases significantly.
 
-![static_memory](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/static_memory.png)
+* Partial-recomputation
 
-The static memory mainly contains the parameters of the model and the state of the optimizer, if the gradient accumulation or pipeline parallelism is enabled, there will be one more gradient; setting N as the number of model parameters and t as the size of the optimizer parallelism (the default is equal to DP). The memory occupancy for each scenario is as follows:
+  This strategy preserves activation values that take up less memory space but are more expensive to recompute, such as Cast, SiLU-Mul. At the same time, activation recomputation is performed for activation values that occupy a large amount of memory but have relatively low recomputation costs. This method achieves efficient management of memory usage while ensuring model performance.
 
-|                     | Static Memory Usage       | Descriptions                                                          |
-| ------------------- | ------------------ |-------------------------------------------------------------|
-| no parallel              | 2N + 4N + 4N = 10N | FP16 weight (2N)  FP32 AdamVar (4N)  FP32 AdamMomentum (4N) |
-| Optimizer Parallel          | 10N / t            | 权重和优化器状态切分                                                  |
-| Optimizer Parallel+gradient accumulation | 10N / t + 2N       | Weight slicing and optimizer state slicing, gradient accumulation not slicing.                                      |
+#### Cast Recomputation
 
-For example, a 7B model, if t = 8, the theoretical predictions of static memory for the above three scenarios are 70GB, 8.75GB, and 22.75GB, respectively.
+RMSNorm generally uses high-precision (FP32) computation, and the input needs to be converted from low-precision (FP16 or BF16) to high-precision (FP32) via Cast before computation; RMSNorm needs to save the input for reverse computation. Therefore, recomputing Cast here allows the memory to hold the low-precision input of Cast instead of the high-precision input of RMSNorm, a move that reduces the memory footprint of that input by half, resulting in memory savings.
 
-#### Dynamic Memory
+![cast](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/cast.png)
 
-Dynamic memory is typically used to store the results of intermediate computations.
+Performing recomputation from high precision to low precision Cast operator will result in the later operators originally only need to store the low precision memory after Cast, and after the Cast operator recomputation, they need to store the high precision memory, which will result in larger memory instead.
 
-Taking GPT as an example and considering PP, TP, etc., the theoretically calculated values are as follows:
+#### SiLU-Mul Recomputation
 
-|                              | Memory[Byte]              | Descriptions                                              |
-| ---------------------------- | ----------------------- | ------------------------------------------------- |
-| no parallel                       | sbh * [34+5as/h]        | total memory                                            |
-| Model Parallel                     | sbh * [10+(24+5as/h)/t] | attn/ffn inputs, 2*ln inputs, 2dropout masks are not being parallelized. |
-| Model Parallel+Sequence Parallel            | sbh * [34+5as/h]/t      | Further memory reduction in dimension t                             |
-| Model Parallel+selective recomputation          | sbh * [10+24/t]         | recompute $s^2$ memory                               |
-| Model Parallel+Sequence Parallel+selective recomputation | sbh * [34/t]            | recompute $s^2$ memory                               |
-| full recomputation               | sbh * [2]               | Save only the inputs for each layer                                  |
+In FeedForward, the middle part of the memory tends to be large; SiLU and Mul recomputation is less costly. Recomputing the SiLU and Mul operators saves memory for the first inputs of MatMul and Mul of w2.
 
-The detailed calculation steps are:
-
-| Module                       | Variables that need to be saved reversely      | Memory size[Byte] |
-|--------------------------| --------------------- | -------------- |
-| Attention part           |                       |                |
-| Query, key, Value MatMul | x                     | 2sbh           |
-| QK BatchedMatMul         | Q, K                  | 4sbh           |
-| softmax                  | softmax  result       | 2a$s^2$b          |
-| softmax dropout          | dropout  mask         | a$s^2$b           |
-| prob-value BatchedMatMul | dropout  result and V | 2a$s^2$b + 2sbh   |
-| attenton projection      | dropout  mask+output  | sbh + 2sbh     |
-| Totoal                   |                       | 11sbh + 5a$s^2$   |
-| FFN part                    |                       |                |
-| MLP  mapping             | x                     | 2sbh           |
-| MLP  activation          | hidden                | 8sbh           |
-| MLP  projection          | activated  hidden     | 8sbh           |
-| MLP  dropout             | dropout  mask         | sbh            |
-| Totoal                   |                       | 19sbh          |
-| LayerNorm part             |                       |                |
-| two lanyernorm           | input                 | 2sbh + 2sbh    |
-
-The meaning of each character is as follows:
-
-* a：number of attention heads
-* b：micro batch size
-* h：hidden size
-* L：number of transformer layers
-* p：pipeline parallel size
-* s：seq length
-* t：tensor parallel size
-* v：vocab size
-
-#### Mixed Precision
-
-Floating point data types are mainly categorized into double precision (FP64), single precision (FP32), and half precision (FP16). In the training process of the neural network model, the single precision (FP32) floating point data type is generally used by default to represent the network model weights and other parameters.
-
-FP16 has half the storage space of FP32, and similarly, FP32 is half the size of FP64. Therefore, the use of FP16 for computing has the advantages of less memory occupation, higher computational efficiency and communication efficiency, but the use of FP16 also brings problems such as data overflow and rounding errors.
-
-While using mixed precision to gain training speedup and memory savings, the solution to the problem introduced by FP16 needs to be considered. The main idea of Loss Scale, a solution to the FP16 type data overflow problem, is to expand the loss by a certain number of times when calculating the value loss. According to the chain rule, the gradient will be expanded accordingly, and then scaled down by the corresponding multiple when the optimizer updates the weights, thus avoiding data underflow.
-
-For details, refer to [automatic mixed precision](https://www.mindspore.cn/tutorials/en/master/beginner/mixed_precision.html)。
+![SiLU_mul](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/silu_mul.png)
 
 ### Tools Introduction
 
@@ -219,24 +90,22 @@ MindFormers itself integrates profiling data collection with the following steps
 
 1. Modify the configuration files
 
-   Turn on the profiling switch in the model configuration file (e.g. run_llama2_7b.yaml) with the following parameters to be changed:
+   Turn on the profiling switch in the model configuration file with the following parameters to be changed:
 
    ```yaml
    profile: True  # Whether to enable performance analysis tools
-   profile_start_step: 1  # Step that starts performance analysis
-   profile_stop_step: 10  # Step that ends performance analysis
+   profile_start_step: 5  # Step that starts performance analysis
+   profile_stop_step: 6  # Step that ends performance analysis
    init_start_profile: False  # Enabled when Profiler is initialized, profile_start_step will not take effect after it is enabled.
-   profile_communication: True # Whether to collect communication performance data in multi-NPU training
+   profile_communication: False # Whether to collect communication performance data in multi-NPU training
    profile_memory: True  # Collect Tensor memory data
    ```
 
-2. Simplify model
+  profile_start_step and profile_stop_step determine the collection interval, because the collection takes a long time. It is not recommended to set the interval too large, generally set 2~4 can be. The first step involves compilation, so it is recommended to collect the interval after step 3.
 
-   It is recommended that the number of layers (num_layers) of the model be changed to 2 to facilitate fast data collection.
+2. View Data
 
-3. View Data
-
-   The collection tool will create a profile folder under the model configuration file output_dir (default “. /output") to generate performance data for each card of the current machine according to the rank id. Taking rank_0 for example, the directory is output/profile/rank_0/profiler.
+   By default, the collection tool creates a `profile` folder under the `. /output` path, which can be set via the output_dir field of the model's yaml configuration file.
 
    The generated file and its introduction refer to [Introduction to profile file](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#directory-structure), which mainly collects information such as running time of operators and tasks, CPU utilization and memory consumption, and all data required in performance tuning analysis.
 
@@ -244,7 +113,7 @@ MindFormers itself integrates profiling data collection with the following steps
 
 MindStudio Insight provides multiple presentations of performance data, including visual presentations of Timeline views, communication analysis, computational elapsed time, so that users can analyze potential performance bottlenecks and provide guidance on how to take steps to eliminate or reduce them. MindStudio Insight supports viewing data exported by Profiling in Timeline for cluster scenarios and displaying it in a single-card dimension, and can support cluster performance file analysis of more than 20GB.
 
-Click [MindStudio Insight download link](https://www.hiascend.com/zh/developer/download/commercial/result?module=sto) and select the appropriate version to install.
+Click [MindStudio Insight download link](https://www.hiascend.com/developer/download/community/result?module=pt+sto+cann) and select the appropriate version to install.
 
 Open MindStudio Insight, click the “plus sign” in the toolbar at the top left of the interface, select the file or directory to be parsed and exported in the pop-up window, and then click “Confirm” to import.
 
@@ -270,7 +139,7 @@ The Timeline interface consists of four parts: the toolbar (Area I), the timelin
 
   Data pane, statistical information or operator detail information display area, Slice Detail for detailed information on selected individual operators, Slice List for a list of operators in the selected area of a lane, and System View for a summary of operators in a category.
 
-Click anywhere on the timeline page tree or graphical pane can be performed using the W (zoom in), A (move left), S (zoom out), and D (move right) keys in the keyboard, which support zooming in with a maximum precision of 1ns. This tool can provide overview, memory, arithmetic, communication and other dimensions of analysis to assist in performance tuning. Refer to [MindStudio Insight User Guide](https://www.hiascend.com/document/detail/zh/mindstudio/70RC2/msinsightug/msascendinsightug/AscendInsight_0002.html) for detailed usage.
+Click anywhere on the timeline page tree or graphical pane can be performed using the W (zoom in), A (move left), S (zoom out), and D (move right) keys in the keyboard, which support zooming in with a maximum precision of 1ns. This tool can provide overview, memory, arithmetic, communication and other dimensions of analysis to assist in performance tuning. Refer to [MindStudio Insight User Guide](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/msinsightug/msascendinsightug/Insight_userguide_0002.html) for detailed usage.
 
 #### IR Graph
 
@@ -319,78 +188,21 @@ An excerpt of some of the IR graph:
 
 It is recommended to change the number of layers of the model to a smaller size when saving IR graph, to reduce the time of compiling and saving graph, and to facilitate fast debugging. For details, please refer to [Introduction to IR file](https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/mindir.html#ir-introduction) and [Analysis samples](https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/mindir.html#how-to-derive-the-cause-of-the-failure-based-on-the-analyze-fail-ir-file-analysis-graph).
 
+### SAPP Automatic Load Balancing Tool
+
+Large model training performance tuning requires simultaneous consideration of multi-dimensional hybrid parallel strategy configurations and memory constraints, and engineers need to try different combinations of schemes on the cluster to find a parallel strategy that achieves the required performance, and the process often takes weeks and consumes a lot of arithmetic costs.
+
+MindSpore provides SAPP (Symbolic Automatic Parallel Planner) automatic load balancing tool. Inputting the model memory and time information, as well as some of the pipeline parallel performance-related hyper-references (e.g., the impact of recomputation on performance), the tool will construct the linear programming problem by itself, through the global solution, automatically generate stage-layer ratios in the pipeline parallel for the large model, adjust the recalculation strategy of each layer, automatically optimize the cluster arithmetic power and memory utilization, reduce the idle waiting time, realize the Pipeline parallel minute-level strategy optimization, greatly reduce the performance tuning cost, and significantly improve the end-to-end training performance.
+
+For detailed usage, please refer to [SAPP Pipelined Load Balancing](https://gitee.com/mindspore/mindformers/tree/dev/toolkit/pipeline_balance) tool introduction.
+
 ## Performance Tuning Guide
 
 ### Overall Concept
 
-The performance optimization of large models mainly relies on profiling data analysis and memory analysis to analyze the current performance bottlenecks and the gap with competitors. The time consumption on the MindSpore framework mainly consists of operator time consumption and communication time consumption, in which the operator time consumption is mainly to dismantle the core operators and the gap with competitors, and the communication analysis is to see whether there is an irrational rearranged distribution, and so on.
-
-After completing the performance data as well as memory data collection, the overall optimization flow is as follows:
-
-* Analyze the performance of operators and try to use fusion operators to replace small and medium-sized operators.
-
-* Analyze the communication time consumption, check whether there exists a better distributed strategy, analyze whether there exists an unreasonable rearranging problem, and improve the efficiency of the whole cluster.
-
-* Analyze the memory, check whether there is an abnormally large memory Tensor, whether there is a fusible operator to reduce the memory. In the case of memory affluence you can explore the choice of recomputation settings, or reduce the number of copies of the model slicing to reduce the communication overhead caused by the model slicing.
-
-Performance optimization is a cyclic process, as shown in the figure below, after the operator optimization is completed, it is necessary to conduct experimental analysis of the cluster distributed strategy, to analyze whether the communication time consumption is reasonable, whether there is additional re-arrangement of the distribution of the overhead; and then carry out the analysis of the memory optimization, after the memory optimization is completed, whether it can be re-adjusted to the cluster strategy settings, so as to obtain a more optimal set of policies. The cycle is repeated to optimize, and then step by step to achieve the set performance goals.
-
-![process](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/process.png)
+The performance tuning of the large model mainly contains three parts of work: parallel strategy configuration, memory optimization, and time-consumption analysis. Performance optimization is a cyclic process, after the parallel strategy configuration is completed, it is necessary to carry out memory optimization analysis and memory optimization; and then conduct experimental analysis of the cluster distributed strategy to analyze whether the communication time consumption is reasonable and whether there is additional rearranging distribution overhead. Then according to the analysis results, adjust the parallel strategy, continue the memory, time-consumption analysis, the cycle of optimization, and then step by step to achieve the set performance goals.
 
 After completing a round of performance optimization, it is also necessary to ensure that the model accuracy is aligned, and the alignment applies this optimization strategy.
-
-### Operator Performance Optimization
-
-#### Comparison of GPU and NPU data
-
-* Basic idea
-
-  NPU and GPU operator elapsed time statistics, get data by profiling.
-
-  Compare GPU and NPU data to find the difference of single operator time consumption.
-
-  Detailed performance analysis, analyze the performance of a single case according to the operator PMU data, and accurately identify the operators to be optimized.
-
-* Operator time consumption statistics
-
-  NPU operator elapsed time statistics can be obtained directly from profiling, which analyzes the current major time consumption operators as well as the inefficient ones, so as to find out the operators that need to be optimized. Refer to [Introduction to using profiler tool](#profiler-tool).
-
-  GPU operator elapsed time statistics, refer to [PyTorch Training Profiling Analysis Method](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/devaids/devtools/profiling/atlasprofiling_16_0006.html) provided by MindStudio.
-
-* Data dismantling concerns
-
-  In the performance data generated by the above [profiler tool](#profiler-tool), analyze the following file in the generated data: rank-*_ascend_ms/ASCEND_PROFILER_OUTPUT/kernel_details.csv. This file counts the overall percentage of a certain type of operator by operator type, from which we can get which type of operator needs to be optimized to bring about a performance improvement.
-
-Operator fusion is used to reduce runtime memory access and improve computational efficiency by combining multiple independent operators into a larger and more complex one. It can reduce the storage and transmission of intermediate results, effectively reducing the memory overhead. In addition, combining multiple operators can reduce the number of computations, which can effectively improve the computational efficiency on the NPU.
-
-Currently MindFormers automatically performs fusion operator optimization by default, automatically merging multiple consecutive small operators in the model that meet the conditions into a single fusion operator.
-
-### Communication Optimization
-
-In the semi-automatic parallel development mode, the developer is required to configure the parallel slicing strategy for the input Tensor and output Tensor of each operator. If there is a mismatch of operator configurations, it will result in the MindSpore framework inserting communication operators at compile time and rearranging the Tensor to fit the subsequent operator's slicing method. Common communication operators are AllGather, AllReduce, and so on.
-
-The timeline.json captured by Profiling is analyzed by a visualization tool, and then contextual analysis is performed based on the operator number in conjunction with the IR graph to check whether the communication operator here matches the configured cut strategy.
-
-Use [profiler tool](#profiler-tool) to generate the file ascend_timeline_display_0.json, and then open the file by typing “chrome://tracing” in Chrome, or you can use [MindStudio Insight](#mindstudio-insight) to open it and parse out the corresponding timing diagram of the computational communication task flow. This is shown below:
-
-![timeline](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/timeline.png)
-
-A computational gap exists after the wo-linear, and in conjunction with the IR diagram,
-
-It can be seen that there exists an AllReduce communication operator after the wo-linear and AllReduce receives the output of the MatMul of the wo-linear. The IR diagram is shown below:
-
-```text
-%100(equiv_loss)) = MatMul(%98, %99) {instance name: matmul) primitive_attrs: {IsFeatureMapInputList: (0), input names: [x1, x2], transpose_x2: Bool(1), transpose_b: Bool(1), in strategy: ((1, 4), (1,4)), output names: [output], transpose_a: Bool(0), IsFeatureMapOutput: Bool(1), transpose_x1: Bool(0)} cnode_attrs: (checkpoint: Bool(1), is dynamic_len: Bool(0)} cnode_primal_attrs: (unique id: "230416", micro: I64(0))}
-    : (<Tensor[Float16], (2048, 1024)>, <Tensor[Float16], (4096, 1024)>) -> (<Tensor[Float16], (2048, 4096)>)
-    # Fullname with scope:
-    (Default/network-_VirtualDatasetCell/_backbone-GradAccumulationCell/network-LlamaForCausalLM/model-LlamaModel/lavers-Celllist/1-LLamaDecodeLaver/attention-LhamaAttention/wo-Linear/MatMul-op8)
-%101(equiv_CNode_3914) = AllReduce(%100) {instance name: forward_op_6937918150211178578} primitive_attrs: {IaFeatureMapInputList: (0), comm_reuse: Bool(1), group: "hcel_world_group", fusion: 164(0), op: "sum", rank_list: (0, 1, 2, 3), group_ranks: "WORLD_GROUP", index: 164(0), group_rank ids: (0, 1, 2, 3), IsFeatureMapOutput: Bool(1), _parallel_group: "hcel_world_group", no_eliminate: Bool(1)} cnode_attrs: {checkpoint: Bool(1), is_dynamic_len: Bool(0)} cnode_primal_attrs: {unique_id: "231701", forward_comm_node_unique_id: "224263", micro: I64(0)}
-    : (<Tensor[Float16], (2048, 4096)>) -> (<Tensor[Float16], (2048, 4096)>)
-    # Fullname with scope:
-    (Default/network- VirtualDatasetCell/ backbone-GradAccumulationCell/network-LlamaForCausalLM/model-LlamaModel/layers-CellList/1-LLamaDecodeLayer/attention-LLamaAttention/wo-Linear/AllReduce-op0)
-```
-
-It can be found that MatMul operator for both inputs are sliced, the first input is sliced in columns, and the second input is sliced in rows, which is in line with the TensorParallel Row Parallel Linear slicing. At this time if we want to maintain the MatMul mathematical equivalence needs on the results of the computation of the AllReduce operation. At this point, the AllReduce inserted at this time is in line with expectations.
 
 ### Parallel Strategy
 
@@ -416,7 +228,7 @@ The features of different parallel strategies are summarized below:
 
 * Sequence parallelism
 
-  Short sequence parallelism slices the sequence dimension by MP at LayerNorm, unchanged communication, reducing memory and some computation of Norm;
+  Short sequence parallelism slices the sequence by MP at LayerNorm, unchanged communication, reducing memory and some computation of Norm;
 
 * Multi-copy parallelism
 
@@ -438,39 +250,27 @@ In practice, multiple parallelization strategies are usually used in combination
 
   When the model size is large (e.g., 70B), model parallelism needs to be turned on, while sequence parallelism and multicopy parallelism are also recommended. Use 64-card training, [Llama2-70B parallel strategy recommended configuration](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_70b.yaml).
 
-### Recomputation
-
-#### cast Recomputation
-
-RmsNorm is generally computed using float32, and the input needs to be Cast from fp16 or bf16 to fp32 before computation; RmsNorm needs to save the input for reverse computation. Therefore, recalculating Cast from fp16 to fp32 can save memory by changing the memory from the input of RmsNorm to the input of Cast, which is half the size of the input of RmsNorm.
-
-![cast](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/cast.png)
-
-Doing recalculation from high precision to low precision Cast operators will result in the later operators originally only needing to store the low precision memory after cast, and after the Cast operators are recalculated, they need to store the high precision memory, which will instead result in a larger memory.
-
-#### Silu-Mul Recomputation
-
-In FeedForward, the middle part of the memory tends to be large. Silu and Mul recomputation is less costly. Recomputing the Silu and Mul operators saves memory for the first inputs of MatMul and Mul of w2.
-
-![silu_mul](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/silu_mul.png)
-
-#### Communication Recomputation
-
-With sequence parallel is turned on, RmsNorm slices at the sequence dimension, and then aggregates Tensor from different cards via AllGather for later MatMul computation. If AllGather is recalculated, each card only needs to store one copy of the memory before AllGather to achieve the effect of memory reduction.
-
-![communicate](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/perf_optimize/images/communicate.png)
-
 ### Memory Optimization
 
-#### NPU Memory Peak Analysis
+During model training, computational resources are limited, and recomputation is required when memory is insufficient. Memory optimization mainly optimizes the configuration of recomputation, which can automatically generate the recommended recomputation configuration under the current parallel configuration with the help of the above SAPP tool.
 
-Peak memory is an important concern when analyzing memory. When executing training, set the following environment variables to count the memory basics.
+MindSpore also provides DryRun functionality to simulate the memory consumption of each rank in a large cluster in a local environment for efficient device memory simulation without relying on actual large cluster resources.
 
-```shell
-export MS_MEMORY_STATISTIC=1
+After completing the recomputation configuration, first use DryRun to analyze, whether the required memory exceeds the maximum available memory, and if it does, the configuration needs to be readjusted. The maximum available memory is configured by the following field. The recommended value is `58G`, if it is set too large, it may cause other components to run out of memory.
+
+```yaml
+context:
+  max_device_memory: "58GB"
 ```
 
-When training is complete, the following message is output at the end of the log file:
+Set the following environment variables to enable DryRun.
+
+```shell
+export MS_SIMULATION_LEVEL=1
+export MS_KERNEL_LAUNCH_SKIP=all
+```
+
+Once set, start the training task normally. When the simulation training is completed, the following message is output at the end of the log file:
 
 ```text
 Device HBM memory size: 62432M
@@ -484,18 +284,11 @@ Used peak memory usage (without fragments) indicates the peak NPU memory usage w
 
 Actual peak memory usage (with fragments) represents the peak NPU memory usage with fragments.
 
-Before formal training, you can use dryrun to simulate the training, which requires only one card to simulate the overall NPU memory peak. dryrun script is as follows:
+### Time-consumption Analysis
 
-```shell
-export ENABLE_CELL_REUSE=1
-export MS_MEMORY_STATISTIC=1
-export MS_SIMULATION_LEVEL=1
-export RANK_SIZE=16
-export RANK_ID=0
-python run_mindformer.py --config ${CONFIG} --run_mode train > dry_run.log 2>&1 &
-```
+The two main components of time consumption are operator time consumption as well as communication time consumption, which relies on profiling data analysis, which is referenced in the above sections. Focus on analyzing the files ascend_timeline_display_0.json and rank-*_ascend_ms/ASCEND_PROFILER_OUTPUT/kernel_details.csv in the profiler folder of any rank.
 
-RANK_SIZE indicates the number of cards to be simulated, the RANK_ID indicates the card to be simulated, and the three environment variables, ENABLE_CELL_REUSE, MS_MEMORY_STATISTIC, and MS_SIMULATION_LEVEL, are used to set the dryrun mode.
+Use the above MindStudio Insight tool to parse ascend_timeline_display_0.json and statistically analyze whether the computation and communication time consumption is as expected. Then check kernel_details.csv to analyze the details of each operator.
 
 ### Typical Case
 
@@ -576,4 +369,4 @@ recompute_config:
   select_recompute: ['feed_forward\.mul', 'feed_forward\.w1\.activation', 'feed_forward\.w1\.reshape', 'feed_forward\.w2\.reshape']
 ```
 
-After the final tuning, the Llama2-13B performance was optimized to 2562tokens/s/p, MFU 55.4% and HFU 60.4%, for a total improvement of 37%.
+After the final tuning, the Llama2-13B performance was optimized to 2562tokens/s/p, for a total improvement of 37%.

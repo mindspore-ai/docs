@@ -12,7 +12,7 @@ This paper summarizes the common accuracy problems in the training process of la
 
 ### Categorized Summary of Common Problems
 
-Various accuracy problems often occur in large model training, and the common problems include that the loss fails to converge, the loss converges poorly, the loss runs away at the late stage of training, the accuracy overflows, and the loss can not be fitted to the benchmark in the process of descending. These accuracy problems may be caused by a variety of sources, including the structure of the model, the dataset, the hyperparameters, the precision of the forward and reverse computation, the calculation of the optimizer, the floating-point computational accuracy, and randomness.
+Various accuracy problems often occur in large model training, and the common problems include that the loss fails to converge, the loss converges poorly, the loss fails to converge at the late stage of training, the accuracy overflows, and the loss can not be fitted to the benchmark in the process of descending. These accuracy problems may be caused by a variety of sources, including the structure of the model, the dataset, the hyperparameters, the precision of the forward and reverse computation, the calculation of the optimizer, the floating-point computational accuracy, and randomness.
 
 When accuracy problems occur, the problem can be analyzed from the source of these accuracy errors. A quick troubleshooting based on CheckList is performed first, followed by parameter and weight alignment, fixed randomness and turning on deterministic calculations before executing in/out problem troubleshooting and long stable training elimination. At the current stage, this paper mainly introduces the general method of accuracy localization for the scenarios with accuracy benchmarks, and the content of accuracy problem localization without accuracy benchmarks will be added successively.
 
@@ -22,41 +22,36 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 ### Network Structure CheckList
 
-* Generalized structure (Llama2 as an example)
+#### Generalized structure
 
-| Key parameters          | Descriptions            | CheckList    |
+| **Key parameters**          | **Descriptions**            | **CheckList**    |
 | ----------------- | ------------------------- |---------------------------------|
-| num_layers        | transformer layers                                              | Check for alignment with benchmarks                                                                                                                        |
-| num_heads         | The number of attention heads in transformer                     | Check for alignment with benchmarks                                                                                                                        |
-| hidden_size       | Transformer hidden layer size                                        | Check for alignment with benchmarks                                                                                                                        |
-| intermediate_size | Feed-Forward Network hidden layer size                             | intermediate_size corresponds to the ffn-hidden-size parameter in Megatron, which is not configured in MindFormers, but is calculated from multiple_of and ffn_dim_multiplier. Check for alignment with benchmarks.                 |
-| Attention         | Attention module in transformer                                 | </br>- Check that the following structures and calculations are aligned: the attention structure has different structures such as MQA, GQA, and MHA.</br>- Sparse computational models: causal/sliding window attention (SWA), etc.</br>- Whether the matrix of wq/wk/wv has a fusion computation. |
-| normalization     | Regularization functions, common structures are LayerNorm, RMSNorm                     | Check for alignment with benchmarks                                                                                                                        |
-| normal_eps        | Regularized epsilon parameters                                          | Check for alignment with benchmarks                                                                                                                        |
-| dropout           | Dropout in the network                                             | Currently, when MindSpore opens Dropout, recalculation cannot be enabled; if precision comparison is carried out, it is recommended that both sides be closed to reduce the random factor.                                                                                |
-| activation function          | Common activation functions ReLU/GeLU/FastGeLU/SwigLU etc.                    | Check for alignment with benchmarks                                                                                                                        |
-| fusion computation          | Common fusion operators include FA, ROPE, Norm, SwigLU; some users will fuse Wq, Wk, Wv for computation | When comparing accuracy on the same hardware, if fusion algorithms are used, they need to be consistent. When comparing accuracy on different hardware, focus on checking whether there are differences in the fusion calculation.                                                                     |
-| position code          | /                                                            | Check the way to use positional coding: absolute/relative positional coding.                                                                                                             |
-| vocab_size        | vocabulary size                                                     | The vocab size is recommended to be a multiple of 16; if it is odd, it may affect the computational results of matmul. In the pre-training scenario, the vocabulary size can be changed by modifying the parameters. In the SFT scenario, if the vocabulary size of the pre-training weights is odd, the weights need to be padded.                                    |
+| num_layers        | Number of transformer layers                                              | Correspond to the Megatron num-layers parameter and check for consistency.                                             |
+| num_heads         | Number of attention heads in transformer                             | Correspond to the Megatron num-attention-heads parameter and check for consistency.                                    |
+| hidden_size       | Transformer hidden layer size                                        | Correspond to the Megatron hidden-size parameter and check for consistency.                                            |
+| intermediate_size | Feed-Forward Network hidden layer size                             | Correspond to the Megatron ffn-hidden-size parameter and check for consistency.                                        |
+| n_kv_heads        | Number of kv groups                                                     | Correspond to the Megatron num-query-groups parameter and check for consistency.                                        |
+| Regularization function        | Regularization functions, common structures are LayerNorm, RMSNorm                     | Configuration parameters for the no-regularization function in MindFormers, consistent with the configuration in each model paper. The configuration can be customized in Megatron by normalization to check for consistency. |
+| rms_norm_eps      | Regularized epsilon parameters                                          | Correspond to the Megatron layernorm_epsilon parameter and check for consistency.                                         |
+| dropout           | dropout in the network                                              | Currently, when MindSpore enables Dropout, recalculation cannot be enabled; if precision comparison is carried out, it is recommended that both sides be closed to reduce the random factor.|
+| Fusion computation          | Common fusion operators include FA, ROPE, Norm, SwigLU; some users will fuse Wq, Wk, Wv for computation | 1. For accuracy comparison under the same hardware, if fusion algorithms are used, they should be consistent. <br>2. When comparing accuracy on different hardware, focus on checking whether there is any difference in the calculation of the fusion calculation part.    |
 
-* MOE Structure
+#### MOE Structure
 
-| Key parameters          | Descriptions                                                         | CheckList                                                                                                                                |
+| **Key parameters**         | **Descriptions**                                                         | **CheckList**                                                                                                                                |
 | ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
-| expert_num               | Number of experts                                          | Check for alignment with benchmarks                                                                                                       |
-| shared_expert_num        | Number of shared experts                                      | Check for alignment with benchmarks                                                                                                       |
-| num_experts_chosen       | Number of experts selected per token                             | Check for alignment with benchmarks                                                                                                       |
-| capacity_factor          | Expert capacity factor                                      | Capacity factor requirement 1.0 <= Capacity factor <= expert_num/num_experts_chosen, which is recommended for accuracy comparison. When capacity factor < 0, it is dynamic capacity, corresponding to dropless MoE operation, i.e., no token is discarded. |
-| aux_loss_factor          | Load balancing loss contribution factor                              | When turned on, it is recommended to be less than 0.05; if precision alignment is performed, it is recommended not to turn it on, LOSS prints in an inconsistent manner.                                                                         |
-| routing_policy           | routing expert policy                                      | Currently MindFormers has TopkRouterV1 and TopkRouterV2; V2 is a high-performance mathematical equivalent implementation of V1, and it is recommended to use V2, V1 will be deprecated subsequently.                                     |
-| enable_sdrop             | Whether to enable the sdrop method                                 | It is recommended to set it to true, corresponding to Megatron need to set the parameter as follows parameters:</br> moe-token-drop-policy: position</br> moe-pad-expert-input-to-capacity: True. |
-| router_dense_type        | Decide on the expert's dense layer                                 | It needs to be calculated using fp32 to prevent overflow.                                                                                                |
-| use_fused_ops_topkrouter | Whether to use the fusion operator for dispatch as well as combine indexing calculations | The parameter takes effect when enbable_sdrop=True, and precision alignment is recommended to be set to True.                                                                        |
-| use_shared_expert_gating | Whether the gating factor is used in the shared expert network                  | Check if the shared expert network has a gating factor, if so set it to True.                                                                                |
+| expert_num               | Number of experts                                          | Correspond to the Megatron num-experts parameter and check for consistency.                    |
+| num_experts_chosen       | Number of experts selected per token                             | Correspond to the Megatron moe-router-topk parameter and check for consistency.                |
+| capacity_factor          | Expert capacity factor                                      | Correspond to the Megatron moe_expert_capacity_factor parameter and check for consistency. |
+| aux_loss_factor          | Load balancing loss contribution factor                              | When turned on, it is recommended to be less than 0.05. If precision alignment is performed, it is not recommended to be turned on, and is inconsistent with Megatron loss printing method. |
+| enable_sdrop             | Whether to enable the sdrop method                                 | It is recommended to set it to true; the corresponding Megatron needs to set the following parameters:<br>  moe-token-drop-policy: position <br>  moe-pad-expert-input-to-capacity: True |
+| router_dense_type        | Decide the expert sense layer                                 | Configurable in MindFormers, fp32 calculations are recommended to prevent overflow; not configurable in Megatron. |
+| use_fused_ops_topkrouter | Whether to use the fusion operator for dispatch as well as combine indexing calculations | Fusion operator in MindFormers, the parameter takes effect when enbable_sdrop=True, precision alignment is recommended to be set to True. |
+| use_shared_expert_gating | Whether the gating factor is used in the shared expert network                  | Check if the network sharing expert has a gating factor, if so set it to True.       |
 
 ### Optimizer CheckList
 
-| Key parameters          | Descriptions                                                         | CheckList                                                                                                                                |
+| **Key parameters**          | **Descriptions**                                                         | **CheckList**                                                                                                                                |
 | ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
 | adam optimizer           | optimizer type             | If Megatron uses the adam optimizer, the mathematically equivalent implementation of MindFormers is AdamW. |
 | eps               | adam optimizer minimal value parameter   | Check the parameters for consistency, recommended value is 1e-8.                            |
@@ -64,40 +59,41 @@ Before locating the operator accuracy problem, we should first eliminate the int
 | beta2             | adam optimizer gradient variance parameter | Check the parameters for consistency, recommended value is 0.95。                            |
 | weight_decay      | weight decay               | By default bias and one-dimensional weights are not decayed and the user is checked for special operations.             |
 | lr                | learning rate                 | After setting up warmup, learning rate decay, draw a graph to see if the learning rate change is consistent.             |
-| warmup_ratio      | Learning rate warmup step percentage     | refer to the last parameter                                        |
+| lr_warmup_fraction      | Learning rate warmup step percentage     | After setting up warmup, learning rate decay, draw a graph to see if the learning rate change is consistent.                                        |
 | clip_grad         | clipping gradient               | Check the parameters for consistency, recommended value is 1.0.                             |
 | global_batch_size | Global batch size             | Consistency with the benchmark can be checked by printing a log during training.                    |
 
 ### Weight CheckList
 
-| Key parameters          | Descriptions                                                         | CheckList                                                                                                                                |
+| **Key parameters**          | **Descriptions**                                                         | **CheckList**                                                                                                                                |
 | ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
 | param_init_type | Weight initialization type       | MindFormers usually sets the param_init_dtype type to fp32. This is because the gradient communication type needs to be the same as the weight type, controlling the communication type to be fp32. Megatron gradient communication type defaults to fp32 and is not tied to the weight type. |
+| init-method-std | Distribution of weights randomly initialized | If weighted random initialization is used, parameters such as mean/std in the random distribution need to be checked for consistency. |
 
 ### Mixed-precision CheckList
 
-| Key parameters          | Descriptions     | CheckList                |
+| **Key parameters**          | **Descriptions**     | **CheckList**                |
 | ----------------- | ----------------------------------------- |---------------------------------------|
-| compute_dtype          | Compute accuracy                                                     | Keep alignment with benchmarks                                               |
-| layernorm_compute_type | layerNorm/RMSNorm compute precision | Megatron is not configurable, need to check that implementations are consistent.                 |
-| softmax_compute_type   | When MindSpore uses FlashAttention, the internal Softmax fix is calculated with FA.     | Megatron is not configurable, needs to check if the implementation is consistent.                 |MindSpore
-| Calculation of weights             | accuracy calculation for each weight such as, Embedding, lm_head, type of calculation is configurable only for small arithmetic splicing implementations | Megatron is not configurable, need to check that implementations are consistent.                 |
-| rotary_dtype           | Calculation accuracy of rotary position encoding                                       | Since MindFormers weight initialization needs to be set to fp32, and the usual calculation precision is bf16/fp16, it is necessary to check whether the weight data type is converted to bf16/fp16 before weight calculation. |
+| compute_dtype          | Compute accuracy                   | Megatron sets `-bf16: true` to FP16 otherwise.  |
+| layernorm_compute_type | LayerNorm/RMSNorm compute precision | Megatron is not configurable, need to check that implementations are consistent.                 |
+| softmax_compute_type   | When MindSpore uses FA, the internal Softmax fix is calculated with FA. Type of calculation is configurable only for small arithmetic splicing implementations     | Megatron is not configurable, needs to check if the implementation is consistent.                 |
+| rotary_dtype           | Calculation accuracy of rotary position encoding                                       | Megatron is not configurable, needs to check if the implementation is consistent. |
+| Calculation of weights             | accuracy calculation for each weight such as, Embedding, lm_head | Since MindFormers weight initialization needs to be set to FP32, and the usual calculation precision is BF16/FP16, it is necessary to check whether the weight data type is converted to BF16/FP16 before weight calculation.|
 | bias add               | bias in the linear layer                                                 | If bias is present, Linear layer checks consistency in the computational accuracy of add.                  |
 | residual add           | sum of residuals                                                     | Check that the accuracy of the calculation of the residuals is consistent with the benchmarks                             |
-| loss                   | Loss Calculation Module                                                 | Check that the accuracy of the calculation of the entire loss module is consistent with the benchmarks                     |
+| loss                   | Loss Calculation Module               | Check that the accuracy of the calculation in the entire loss module is consistent with the benchmarks                     |
 | Operator High Precision Mode         | Ascend Calculator supports high precision mode                                       | Method:  context.set_context(ascend_config=  {"ge_options":{  "global":{  "ge.opSelectImplmode":"high_precision"  }  }  }) |
 
 ### Parallel Strategy CheckList
 
-| Key parameters          | Descriptions                                                         | CheckList                                                                                                                                |
+| **Key parameters**          | **Descriptions**     | **CheckList**  |
 | ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
 | data_parallel              | data parallel                               | Parallel slicing affects the communication behavior, and the calculations that introduce communication after slicing may be slightly different from the single-card calculations.                    |
-| model_parallel             | model parallel                               | No effect on accuracy                                                   |
-| pipeline_stage             | pipeline parallel                              | No effect on accuracy                                                        |
-| use_seq_parallel           | Enable Megatron Short Sequence Parallelism, only effective when tp>1 | No effect on accuracy                                                        |
+| model_parallel             | model parallel                               | Parallel slicing affects the communication behavior, and the calculations that introduce communication after slicing may be slightly different from the single-card calculations.      |
+| pipeline_stage             | pipeline parallel                              | Parallel slicing affects the communication behavior, and the calculations that introduce communication after slicing may be slightly different from the single-card calculations.             |
+| use_seq_parallel           | Corresponding to Megatron Short Sequence Parallelism | Parallel slicing affects the communication behavior, and the calculations that introduce communication after slicing may be slightly different from the single-card calculations.      |
 | enable_parallel_optimizer  | optimizer parallel                             | For optimizer parallel, MindSpore and PyTorch have different implementation schemes and inconsistent communication behavior. It is recommended to turn it off when performing precision alignment. |
-| micro_batch_interleave_num | multicopy parallel                             | When performing performance optimizations, you need to check whether turning on multiple copies affects accuracy.                              |
+| micro_batch_interleave_num | multicopy parallel                             | For optimizer parallel, MindSpore and PyTorch have different implementation schemes and inconsistent communication behavior. It is recommended to turn it off. |
 
 ### Other CheckList
 
@@ -228,7 +224,7 @@ Features such as model parallelism, flow parallelism, sequence parallelism, opti
 
 During training, MindSpore is loaded with the same weights as PyTorch. In case of pre-training scenarios, you can use PyTorch to save an initialized weight and then convert it to MindSpore weights. Because MindSpore weight names differ from PyTorch, the essence of weight conversion is to change the names in the PyTorch weight dict to MindSpore weight names to support MindSpore loading. Refer to [weight conversion guide](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html) for weight conversion.
 
-Save the dataset for each step of PyTorch training. During MindSpore training, load the same dataset for training, thus ensuring the same training dataset for each step. Refer to the Appendix for the implementation code.
+Both MindSpore and PyTorch support `bin` format data, loading the same dataset for training ensures consistency from step to step.
 
 #### Fixed Randomness and Start Deterministic Computation
 
@@ -241,29 +237,36 @@ The training process fixes randomness and turns on deterministic computation in 
   export ASCEND_LAUNCH_BLOCKING=1  # Hardware deterministic
   ```
 
-* PyTorch code, add the following to [pretrain_gpt.py](https://github.com/NVIDIA/Megatron-LM/blob/main/pretrain_gpt.py):
+* PyTorch code, in [pretrain_gpt.py](https://github.com/NVIDIA/Megatron-LM/blob/main/pretrain_gpt.py), the new seed_all method is added and called in the main method, adding the method as follows:
 
   ```python
+  import numpy as np
+  import random
+
   def seed_all(seed=42):
-        random.seed(seed)
+      random.seed(seed)
       os.environ['PYTHONHASHSEED'] = str(seed)
       np.random.seed(seed)
       torch.manual_seed(seed)
       torch.use_deterministic_algorithms(True)
-      if is_gpu:
-          torch.cuda.manual_seed_all(seed)
-          torch.cuda.manual_seed(seed)
-          torch.backends.cudnn.deterministic = True
-          torch.backends.cudnn.enable = False
-          torch.backends.cudnn.benchmark = False
-      else:
-          torch_npu.npu.manual_seed_all(seed)
-          torch_npu.npu.manual_seed(seed)
+      torch.cuda.manual_seed_all(seed)
+      torch.cuda.manual_seed(seed)
+      torch.backends.cudnn.deterministic = True
+      torch.backends.cudnn.enable = False
+      torch.backends.cudnn.benchmark = False
+
+  if __name__ == "__main__":
+      seed_all()
+
+      # Original code
   ```
 
-* PyTorch code, add the following to [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py):
+* MindSpore code, in [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py), the new seed_all method is added and called in the main method, adding the method as follows:
 
   ```python
+  import numpy as np
+  import random
+
   from mindspore import context
 
   def seed_all(seed=42):
@@ -271,6 +274,11 @@ The training process fixes randomness and turns on deterministic computation in 
       os.environ['PYTHONHASHSEED'] = str(seed)
       np.random.seed(seed)
       context.set_context(deterministic="ON")
+
+  def main(config):
+      seed_all()
+
+      # Original code
   ```
 
 After completing the above preparations, single card training is initiated. If the problem is not reproduced, the scenario is gradually complicated, such as adding relevant features, expanding the model size, etc., until the problem is reproduced, so as to locate the cause of the problem. If the problem is reproduced, or the time needed to reproduce is longer, then the problem localization in stage 2 can be opened.
@@ -308,6 +316,8 @@ runner_wrapper:
 There is no configuration in Megatron to print local parameters, and you need to embedded modify the file [megatron/core/optimizer/optimizer.py](https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/optimizer/optimizer.py):
 
 ```python
+from megatron.training import get_args, print_rank_0
+
 def get_parameters(self):
     params = []
     grad_norm_list = []
@@ -316,6 +326,7 @@ def get_parameters(self):
             grad_norm = torch.norm(param.grad, 2)
             grad_norm_list.append(grad_norm ** 2)
             params.append(param)
+    # Embedded modifications
     print_rank_0(f"print torch local norm:")
     print_rank_0(grad_norm_list)
     return params
@@ -347,15 +358,17 @@ If there is a significant difference, there is a problem with the optimizer upda
 PyTorch saves the weight gradients, and to use apex as an example, modify the file [apex.optimizers](https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/optimizer/optimizer.py) file.
 
 ```python
+import numpy as np
+
 def get_parameters(self):
     params = []
     grad_id = 0
     for param_group in self.optimizer.param_groups:
         for param in param_group['params']:
             params.append(param)
-             # Embedded modification to save the gradient of torch as numpy
-            np.save(f"xx/grad_{grad_id}.npy", param)
             grad_id += 1
+            # Embedded modification to save the gradient of torch as numpy
+            np.save(f"xx/grad_{grad_id}.npy", param)
     return params
 ```
 
@@ -364,7 +377,7 @@ MindFormers loads the gradient reference implementation. Note that it requires t
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
     ...
-    def __init__(self...):
+    def __init__(self):
         # Embedded modification to load the weight of torch
         grad_0 = Tensor(np.load(f"xxx/grad_1.npy"))
         grad_1 = Tensor(np.load(f"xxx/grad_x.npy"))
@@ -474,251 +487,3 @@ After completing the single card training, start the multi-card training test: s
 To verify that this error is within reasonable limits, the deterministic computation was turned off and the GPU experiment was run twice repeatedly. The red line in the figure is the curve of MindSpore training, and the blue and green lines are the curves of the first and second GPU training, respectively. At the training instability around 7,000 steps, the curve of MindSpore training is right between the curves of the two GPU trainings, indicating that the error is within a reasonable range and the problem is finally solved.
 
 ![loss7](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_zh_cn/acc_optimize/image/loss7.png)
-
-## Appendix
-
-Currently MindFormers does not support reading PyTorch's bin dataset directly. Currently you can refer to the following method to ensure that Megtron reads the same data. Modify the code so that the data trained by Megatron in each step is saved and MindFormers reads the same data for training. Modify [pretrain_gpt.py](https://github.com/NVIDIA/Megatron-LM/blob/main/pretrain_gpt.py):
-
-```python
-import numpy as np
-import os
-
-step_num = 0
-def get_path(local_rank):
-    global step_num
-    path = f"path/step_{step_num}/rank_{local_rank}"
-    os.makedirs(path， exist_ok=True)
-    return path
-
-def forward_step(data_iterator, model: GPTModel):
-    """Forward training step.
-
-    Args:
-        data_iterator: Input data iterator
-        model (GPTModel): The GPT Model
-    """
-    args = get_args()
-    timers = get_timers()
-
-    # Get the batch.
-    timers('batch-generator', log_level=2).start()
-    global stimer
-    with stimer(bdata=True):
-        tokens, labels, loss_mask, attention_mask, position_ids = get_batch(
-            data_iterator)
-
-    # =========== The following code has been added ===========
-    local_rank = torch.distributed.get_rank()
-    path = get_path(local_rank)
-    print(f"paht is f{path}")
-
-    global step_num
-    step_num += 1
-
-    tokens_npy = tokens.cpu().numpy()
-    np.save(os.path.join(path, 'tokens.npy'), tokens_npy)
-    labels_npy = labels.cpu().numpy()
-    np.save(os.path.join(path, 'labels.npy'), labels_npy)
-    loss_mask_npy = loss_mask.cpu().numpy()
-    np.save(os.path.join(path, 'loss_mask.npy'), loss_mask_npy)
-    attention_mask_npy = attention_mask.cpu().numpy()
-    np.save(os.path.join(path, 'attention_mask.npy'), attention_mask_npy)
-    # =========== The above is the new code ===========
-
-    timers('batch-generator').stop()
-
-    with stimer:
-        output_tensor = model(tokens, position_ids, attention_mask,
-                              labels=labels)
-
-
-    return output_tensor, partial(loss_func, loss_mask)
-```
-
-The data is saved according to the following directory structure:
-
-```text
-├── step_0
-│   ├── rank_0
-│   │   ├── attention_mask.npy
-│   │   ├── labels.npy
-│   │   ├── loss_mask.npy
-│   │   └── tokens.npy
-│   ├── rank_1
-│   │   ├── attention_mask.npy
-│   │   ├── labels.npy
-│   │   ├── loss_mask.npy
-│   │   └── tokens.npy
-│   ├── rank_2
-.......
-│   └── rank_7
-│       ├── attention_mask.npy
-│       ├── labels.npy
-│       ├── loss_mask.npy
-│       └── tokens.npy
-├── step_1
-.......
-├── step_2
-.......
-```
-
-Each step in MindFormers reads the corresponding data for training. The way is as follows:
-
-Create a new numpy_dataset.py and put it into mindformers/dataset/. The numpy_dataset.py code is as follows:
-
-```python
-import os
-import copy
-from glob import glob
-import numpy as np
-import mindspore as ms
-from mindspore.dataset.transforms import TypeCast
-from mindspore.dataset import GeneratorDataset
-from mindformers.tools.logger import logger
-from mindformers.version_control import get_dataset_map
-from mindformers.tools.register import MindFormerRegister, MindFormerModuleType
-from mindformers.tools.utils import get_real_rank
-from .base_dataset import BaseDataset
-
-class NumpyDataset:
-    def __init__(self, dataset_dir, rank_id):
-        self.token_list = []
-        self.label_list = []
-        self.index = []
-        logger.info("dataset rank_id: %d", rank_id)
-        logger.info("dataset dir: %s", dataset_dir)
-        steps_dir = os.listdir(dataset_dir)
-        logger.info(f"steps dir: {steps_dir}")
-        new_steps_dir = []
-        for step_dir in steps_dir:
-            if not step_dir.startswith("step_"):
-                continue
-            new_steps_dir.append(step_dir)
-        steps_dir = new_steps_dir
-        logger.info(steps_dir)
-        steps_dir.sort(key=lambda x: int(x.split("_")[1]))
-        for step_dir in steps_dir:
-            step_index = int(step_dir.split("_")[1])
-            data_dir = os.path.join(dataset_dir, step_dir, f"rank_{rank_id}")
-            token_path = os.path.join(data_dir, "tokens.npy")
-            label_path = os.path.join(data_dir, "labels.npy")
-            token = np.load(token_path)
-            self.token_list.append(token[0])
-            label = np.load(label_path)
-            self.label_list.append(label[0])
-            self.index.append(step_index)
-        logger.info(self.index)
-        logger.info("get %d numpy data.", len(self.index))
-        logger.info("==========NumpyDataset init succeed==========")
-
-    def __len__(self):
-        return len(self.token_list)
-
-    def __getitem__(self, index):
-        return self.token_list[index], self.label_list[index]
-
-@MindFormerRegister.register(MindFormerModuleType.DATASET)
-class NumpyDataloader(BaseDataset):
-    def __new__(cls, dataset_config):
-        logger.info("Now create Numpy Dataset")
-        dataset_config = cls.check_dataset_config(dataset_config, locals())
-        dataset_config = copy.deepcopy(dataset_config)
-        cls.init_dataset_config(dataset_config)
-        rank_id, device_num = cls._generate_shard_info()
-        dataset_config.rank_id = rank_id
-        dataset_config.device_num = device_num
-
-        dataset = cls._process_numpy_data(dataset_config)
-
-        type_cast_op = TypeCast(ms.int32)
-        dataset = dataset.batch(dataset_config.batch_size, drop_remainder=dataset_config.drop_remainder,
-                                output_columns=dataset_config.input_columns,
-                                num_parallel_workers=dataset_config.num_parallel_workers)
-        dataset = dataset.project(columns=dataset_config.input_columns)
-        for input_arg in dataset_config.input_columns:
-            dataset = get_dataset_map(dataset, type_cast_op,
-                                      input_columns=input_arg)
-        dataset = dataset.repeat(dataset_config.repeat)
-        return dataset
-
-    @classmethod
-    def _process_numpy_data(cls, dataset_config):
-        dataset_dir = dataset_config.data_loader.dataset_dir
-        rank_id = get_real_rank()
-        dataset = NumpyDataset(dataset_dir, rank_id)
-        dataloader = GeneratorDataset(source=dataset, column_names=dataset_config.input_columns,
-                                      num_shards=None, shard_id=None, shuffle=dataset_config.data_loader.shuffle,
-                                      python_multiprocessing=dataset_config.python_multiprocessing)
-        return dataloader
-```
-
-[mindformers/dataset/\_\_init\_\_.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/dataset/__init__.py) adds:
-
-```python
-from .numpy_dataset import NumpyDataloader
-```
-
-Modify the following configuration item of the training yaml, refer to [Config Configuration Description](https://www.mindspore.cn/mindformers/docs/en/dev/appendix/conf_files.html) for the meaning of the configuration item:
-
-```yaml
-train_dataset: &train_dataset
-  data_loader:
-    dataset_dir: ""  
-    shuffle: False #True
-  input_columns: ["input_ids", "labels"]
-train_dataset_task:
-  type: NumpyDataloader
-```
-
-Due to the difference between MindFormers and Megatron data processing part, when using Megatron saved numpy data for training, we need to modify the code for processing tokens and labels. Taking Llama as an example, the original code is to perform slice operation on input_ids to get tokens and labels, which is not needed when using Megatron saved data. Modify [mindformers/models/llama/llama.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/models/llama/llama.py):
-
-```python
-class LlamaForCausalLM(LlamaPreTrainedModel):
-    def construct(self, input_ids, labels=None, input_position=None, position_ids=None, attention_mask=None,
-                  input_embeds=None, init_reset=None, batch_valid_length=None, batch_index=None, zactivate_len=None,
-                  block_tables=None, slot_mapping=None, prefix_keys_values=None, llm_boost_inputs=None):
-        if hasattr(self, 'llm_boost'):
-            if not self.is_set_kvcache:
-                self.llm_boost.set_kvcache()
-                self.is_set_kvcache = True
-            self.llm_boost.add_flags(is_first_iteration=self.is_first_iteration)
-            llm_boost_inputs["cos_embed"] = self.model.freqs_mgr.freqs_cos
-            llm_boost_inputs["sin_embed"] = self.model.freqs_mgr.freqs_sin
-            return self.llm_boost.forward(llm_boost_inputs)
-
-        bsz, seqlen = self.shape(input_ids)
-        if self.use_past:
-            if not isinstance(batch_valid_length, Tensor):
-                batch_valid_length = self.ones((bsz,), mstype.int32)
-
-        # =========== The following is the modification code ===========
-        # if self.training:
-        #     tokens = self.slice(input_ids, (0, 0), (bsz, seqlen - 1), (1, 1))
-        # else:
-        #     tokens = input_ids
-        tokens = input_ids
-        # =========== The above is the modification code ===========
-
-        if batch_valid_length is not None:
-            batch_valid_length = self.reshape(batch_valid_length, (-1,))
-        output = self.model(tokens, batch_valid_length, batch_index, zactivate_len, block_tables, \
-                            slot_mapping, prefix_keys_values)
-        pre_gather = (not self.use_past or self.is_first_iteration) and batch_valid_length is not None
-        if pre_gather:
-            output = self.gather(output, self.sub_batch_valid_len(batch_valid_length, 1), 1)
-        logits = self.lm_head(output)
-
-        input_mask = self.cast(self.not_equal(tokens, self.pad_token_id), mstype.float32)
-        if labels is None:
-            labels = self.slice(input_ids, (0, 1), (bsz, seqlen), (1, 1))
-        else:
-            if labels.ndim > 1:
-                # =========== Delete the following code ===========
-                # if self.training:
-                #    labels = self.slice(labels, (0, 1), (bsz, seqlen), (1, 1))
-                # =========== Delete the above code ===========
-                label_mask = self.cast(self.not_equal(labels, self.ignore_token_id), mstype.float32)
-                input_mask = self.mul(input_mask, label_mask)
-
-        # Omit the subsequent code
-```

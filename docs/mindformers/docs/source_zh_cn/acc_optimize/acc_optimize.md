@@ -22,7 +22,7 @@
 
 ### 网络结构CheckList
 
-* 通用结构
+#### 通用结构
 
 | **关键参数**      | **说明**                                                     | **检查项**                                                                     |
 | ----------------- | ------------------------------------------------------------ |-----------------------------------------------------------------------------|
@@ -31,12 +31,12 @@
 | hidden_size       | transformer隐藏层大小                                        | 对应Megatron hidden-size参数，检查是否一致。                                            |
 | intermediate_size | Feed-Forward Network的隐藏层大小                             | 对应Megatron中ffn-hidden-size参数，检查是否一致。                                        |
 | n_kv_heads        | kv分组数                                                     | 对应Megatron中的num-query-groups，检查是否一致。                                        |
-| 正则化函数        | 正则化函数，常见结构有LayerNorm、RMSNorm                     | MindFormers中的无正则化函数配置参数，与各模型论文中配置一致。 Megatron中可通过normalization自定义配置，检查是否一致。 |
+| 正则化函数        | 正则化函数，常见结构有LayerNorm、RMSNorm                     | MindFormers中的无正则化函数配置参数，与各模型论文中配置一致。Megatron中可通过normalization自定义配置，检查是否一致。 |
 | rms_norm_eps      | 正则化的epsilon参数                                          | 对应Megatron的layernorm_epsilon，检查是否一致。                                        |
 | dropout           | 网络中的dropout                                              | 当前MindSpore开启Dropout时，不能开重计算；若进行精度比对建议双边都关闭，减少随机因素。                         |
 | 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 1. 同硬件下进行精度比对时，若有使用融合算子，则需要保持一致。 <br>2. 不同硬件下进行精度比对时，则重点检查融合计算部分是否有计算差异。    |
 
-* MOE结构
+#### MOE结构
 
 | **关键参数**             | **说明**                                          | **检查项**                                                   |
 | ------------------------ | ------------------------------------------------- | ------------------------------------------------------------ |
@@ -44,7 +44,7 @@
 | num_experts_chosen       | 每个token选择专家数目                             | 对应Megatron的moe-router-topk，检查是否一致。                |
 | capacity_factor          | 专家容量系数                                      | 对应Megatron的moe_expert_capacity_factor参数，检查是否一致。 |
 | aux_loss_factor          | 负载均衡loss贡献因子                              | 开启时，建议小于0.05。若进行精度对齐，不建议开启，与Megatron的loss打印方式不一致。 |
-| enable_sdrop             | 是否开启sdrop方式                                 | 建议设置成true;对应Megatron需要设置参数如下参数：<br>  moe-token-drop-policy: position <br>  moe-pad-expert-input-to-capacity: True |
+| enable_sdrop             | 是否开启sdrop方式                                 | 建议设置成true;对应Megatron需要设置如下参数：<br>  moe-token-drop-policy: position <br>  moe-pad-expert-input-to-capacity: True |
 | router_dense_type        | 决定专家的dense层                                 | MindFormers中可配置，建议使用fp32计算，防止溢出；Megatron中不可配置。 |
 | use_fused_ops_topkrouter | 是否使用融合算子进行dispatch以及combine的索引计算 | MindFormers中融合算子，当enbable_sdrop=True时参数才生效，精度对齐建议设置成True。 |
 | use_shared_expert_gating | 共享专家网络中是否使用gating系数                  | 检查网络的共享专家是否有gating系数，如果有设置成True。       |
@@ -79,7 +79,7 @@
 | softmax_compute_type   | MindSpore使用FA时，内部Softmax固定用FA计算，仅在小算子拼接实现时可配置计算类型。 | Megatron不可配置，需要检查实现是否保持一致。                 |
 | rotary_dtype           | 旋转位置编码的计算精度                                        | Megatron不可配置，需要检查实现是否保持一致。                 |
 | 各权重计算             | embedding、lm_head等各权重精度计算                          | 由于MindFormers权重初始化需要设置为FP32，而通常计算精度为BF16/FP16，需要检查权重计算前，是否将权重数据类型转为BF16/FP16。 |
-| bias add               | 线性层的Bias                                           | 线性层若有bias，检查add的计算精度是否一致。                  |
+| bias add               | 线性层的bias                                           | 线性层若有bias，检查add的计算精度是否一致。                  |
 | residual add           | 残差相加                                               | 检查残差的计算精度是否与标杆一致                             |
 | loss                   | loss计算模块                                           | 检查整个loss模块的计算精度是否与标杆一致                     |
 | 算子高精度模式         | 昇腾算子支持高精度模式                                        | 开启方式： `context.set_context(ascend_config= {"ge_options":{ "global":{ "ge.opSelectImplmode":"high_precision" } } })` |
