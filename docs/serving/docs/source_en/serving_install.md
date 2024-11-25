@@ -6,7 +6,7 @@
 
 Currently, MindSpore Serving can be deployed only in the Linux environment.
 
-MindSpore Serving wheel packages are common to various hardware platforms(Nvidia GPU, Atlas training series, Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), CPU). The inference task depends on the MindSpore or MindSpore Lite inference framework. We need to select one of them as the Serving Inference backend. When these two inference backend both exist, Mindspore Lite inference framework will be used.
+MindSpore Serving wheel packages are common to various hardware platforms(Nvidia GPU, Atlas training series, Atlas 200/300/500 inference product, Atlas inference series, CPU). The inference task depends on the MindSpore or MindSpore Lite inference framework. We need to select one of them as the Serving Inference backend. When these two inference backend both exist, Mindspore Lite inference framework will be used.
 
 MindSpore and MindSpore Lite have different build packages for different hardware platforms. The following table lists the target devices and model formats supported by each build package.
 
@@ -15,7 +15,7 @@ MindSpore and MindSpore Lite have different build packages for different hardwar
 |MindSpore| Nvidia GPU | Nvidia GPU | `MindIR` |
 |  | Ascend | Atlas training series | `MindIR` |
 |MindSpore Lite| Nvidia GPU | Nvidia GPU, CPU | `MindIR_Lite` |
-|  | Ascend | Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), CPU | `MindIR_Lite` |
+|  | Ascend | Atlas 200/300/500 inference product, Atlas inference series, CPU | `MindIR_Lite` |
 |  | CPU | CPU | `MindIR_Lite` |
 
 When [MindSpore](https://www.mindspore.cn/) is used as the inference backend, MindSpore Serving supports the Atlas training series and Nvidia GPU environments. Atlas training series and GPU environment only supports the `MindIR` model format.
@@ -31,13 +31,13 @@ Due to the dependency between MindSpore Serving and MindSpore, please follow the
 
 For details about how to install and configure MindSpore, see [Installing MindSpore](https://gitee.com/mindspore/mindspore/blob/master/README.md#installation) and [Configuring MindSpore](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source_en.md#configuring-environment-variables).
 
-When [MindSpore Lite](https://www.mindspore.cn/lite) is used as the inference backend, MindSpore Serving supports Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), Nvidia GPU and CPU environments. Only the `MindIR_Lite` model formats is supported. Models of format `MindIR` exported from MindSpore or models of other frameworks need be be converted to `MindIR_Lite` format by the MindSpore Lite conversion tool. The `MindIR_Lite` models converted from `Ascend310` and `Ascend310P` environments are different, and the `MindIR_Lite` models must be running on the corresponding `Ascend310` or `Ascend310P` environments. `MindIR_Lite` models converted from Nvidia GPU and CPU environments can be running only in the Nvidia GPU and CPU environments.
+When [MindSpore Lite](https://www.mindspore.cn/lite) is used as the inference backend, MindSpore Serving supports Atlas 200/300/500 inference product, Atlas inference series, Nvidia GPU and CPU environments. Only the `MindIR_Lite` model formats is supported. Models of format `MindIR` exported from MindSpore or models of other frameworks need be be converted to `MindIR_Lite` format by the MindSpore Lite conversion tool. The `MindIR_Lite` models converted from `Ascend310` and `Ascend310P` environments are different, and the `MindIR_Lite` models must be running on the corresponding `Ascend310` or `Ascend310P` environments. `MindIR_Lite` models converted from Nvidia GPU and CPU environments can be running only in the Nvidia GPU and CPU environments.
 
 | Inference backend  | Running environment of Lite conversion tool  | Target device of `MindIR_Lite` models |
 | -------------- | ---------------- | --------------- |
 | MindSpore Lite | Nvidia GPU, CPU  | Nvidia GPU, CPU |
 |                | Atlas 200/300/500 inference product       | Atlas 200/300/500 inference product      |
-|                | Atlas inference series (with Ascend 310P AI processor)      | Atlas inference series (with Ascend 310P AI processor)      |
+|                | Atlas inference series      | Atlas inference series      |
 
 For details about how to compile and install MindSpore Lite, see the [MindSpore Lite Documentation](https://www.mindspore.cn/lite/docs/en/master/index.html).
 We should configure the environment variable `LD_LIBRARY_PATH` to indicates the installation path of `libmindspore-lite.so`.
