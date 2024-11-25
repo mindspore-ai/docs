@@ -300,7 +300,39 @@
 
        somas_whole_block: 是否使用SOMAS整块内存分配，默认值为false。
      -
-       
+
+   * - MS_DEV_GRAPH_KERNEL_FLAGS
+     - 设置图算融合的融合策略
+     - String
+     - 配置项，格式为“--key=value”，多个配置项以空格分隔，多个value以逗号分隔，例如`export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"`
+
+       opt_level：设置优化级别。默认值： `2` 。
+
+       enable_expand_ops：将不在默认列表的算子强行展开，需有相应算子的expander实现。
+
+       disable_expand_ops：禁止对应算子展开。
+
+       enable_expand_ops_only：仅允许对应算子展开。当设置该选项时，忽略以上两个选项。
+
+       enable_cluster_ops：在默认融合算子名单的基础上，把对应算子加入参与融合的算子集合。
+
+       disable_cluster_ops：禁止对应算子加入参与融合的算子集合。
+
+       enable_cluster_ops_only：仅允许对应算子加入参与融合的算子集合。当设置该选项时，忽略以上两个选项。
+
+       enable_packet_ops_only：使能kernel packet功能时，设置该选项则仅融合指定算子。
+
+       disable_packet_ops：使能kernel packet功能时，设置该选项则禁止融合指定算子。
+
+       enable_pass：默认关闭的pass可以通过该选项强制使能。
+
+       disable_pass：默认使能的pass可以通过该选项强制关闭。
+
+       dump_as_text：将关键过程的详细信息生成文本文件保存到`graph_kernel_dump`目录里。默认值： `False` 。
+
+       enable_debug_mode：在图算kernelmod launch前后插同步，并在launch失败时打印调试信息，仅支持GPU后端。默认值： `False` 。
+     - 详细说明参考 `自定义融合 <https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/fusion_pass.html>`_
+
 Dump调试
 --------
 

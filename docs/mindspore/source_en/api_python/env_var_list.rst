@@ -300,6 +300,38 @@ Graph Compilation and Execution
        somas_whole_block: Whether to use the entire Somas for memory allocation, with a default value of false.
      -
 
+   * - MS_DEV_GRAPH_KERNEL_FLAGS
+     - Configure the graph kernel fusion strategy.
+     - String
+     - Configuration items, with the format "--key=value", multiple configuration items separated by space, multiple value items separated by commas, for example, `export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"`
+
+       opt_level: Set the optimization level. Default: `2` .
+
+       enable_expand_ops: Forcefully expand operators that are not in the default list, requiring an expander implementation for the corresponding operator.
+
+       disable_expand_ops: Disable the expansion of the specified operators.
+
+       enable_expand_ops_only: Allow only the specified operators to expand. When this option is set, the above two options are ignored.
+
+       enable_cluster_ops: Add specified operators to the set of operators participating in fusion based on the default fusion operator list.
+
+       disable_cluster_ops: Prevent the specified operators from participating in the fusion set.
+
+       enable_cluster_ops_only: Allow only the specified operators to participate in the fusion set. When this option is set, the above two options are ignored.
+
+       enable_packet_ops_only: When enabling the kernel packet feature, this option restricts fusion to the specified operators only.
+
+       disable_packet_ops: When enabling the kernel packet feature, this option prohibits fusion for the specified operators.
+
+       enable_pass: Enable passes that are disabled by default using this option.
+
+       disable_pass: Disable passes that are enabled by default using this option.
+
+       dump_as_text: Save detailed information about key processes as text files in the `graph_kernel_dump` directory. Default value: `False`.
+
+       enable_debug_mode: Insert synchronization points before and after the graph kernel mod launch, and print debugging information if the launch fails. This is supported only for the GPU backend. Default value: `False`.
+     - Refer to the `Custom Fusion <https://www.mindspore.cn/docs/en/master/model_train/custom_program/fusion_pass.html>`_
+
 Dump Debugging
 ---------------
 
