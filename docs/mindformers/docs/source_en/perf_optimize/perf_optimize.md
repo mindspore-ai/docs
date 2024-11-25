@@ -188,7 +188,7 @@ An excerpt of some of the IR graph:
 
 It is recommended to change the number of layers of the model to a smaller size when saving IR graph, to reduce the time of compiling and saving graph, and to facilitate fast debugging. For details, please refer to [Introduction to IR file](https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/mindir.html#ir-introduction) and [Analysis samples](https://www.mindspore.cn/docs/en/master/model_train/debug/error_analysis/mindir.html#how-to-derive-the-cause-of-the-failure-based-on-the-analyze-fail-ir-file-analysis-graph).
 
-### SAPP Automatic Load Balancing Tool
+#### SAPP Automatic Load Balancing Tool
 
 Large model training performance tuning requires simultaneous consideration of multi-dimensional hybrid parallel strategy configurations and memory constraints, and engineers need to try different combinations of schemes on the cluster to find a parallel strategy that achieves the required performance, and the process often takes weeks and consumes a lot of arithmetic costs.
 
