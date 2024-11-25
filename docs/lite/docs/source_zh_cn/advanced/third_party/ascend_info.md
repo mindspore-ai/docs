@@ -7,7 +7,7 @@
 > - [云侧模型转换工具](https://mindspore.cn/lite/docs/zh-CN/master/mindir/converter.html)
 > - [云侧基准测试工具](https://mindspore.cn/lite/docs/zh-CN/master/mindir/benchmark.html)
 
-本文档介绍如何在Ascend环境的Linux系统上，使用MindSpore Lite 进行推理，以及动态shape功能的使用。目前，MindSpore Lite支持Atlas 200/300/500推理产品和Atlas推理系列产品（配置Ascend310P AI 处理器）芯片。
+本文档介绍如何在Ascend环境的Linux系统上，使用MindSpore Lite 进行推理，以及动态shape功能的使用。目前，MindSpore Lite支持Atlas 200/300/500推理产品和Atlas推理系列产品芯片。
 
 ## 环境准备
 
