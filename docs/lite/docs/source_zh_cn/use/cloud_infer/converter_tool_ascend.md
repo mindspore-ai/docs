@@ -253,7 +253,7 @@ AOE是一款专门为Davinci平台打造的计算图形性能自动调优工具�
 
 3. 清除缓存
 
-    为了模型编译能命中AOE生成的知识库，在使能AOE之前，最好先删除编译缓存，以免缓存复用，以Atlas推理系列产品（配置Ascend310P AI 处理器）环境，用户为root为例，删除``/root/atc_data/kernel_cache/Ascend310P3``和``/root/atc_data/fuzzy_kernel_cache/Ascend310P3``目录。
+    为了模型编译能命中AOE生成的知识库，在使能AOE之前，最好先删除编译缓存，以免缓存复用，以Atlas推理系列产品环境，用户为root为例，删除``/root/atc_data/kernel_cache/Ascend310P3``和``/root/atc_data/fuzzy_kernel_cache/Ascend310P3``目录。
 
 4. 配置文件指定选项
 
@@ -410,7 +410,7 @@ MindSpore Lite converter支持将带有MindSpore Lite自定义Ascend算子的模
         │   │       ├── config                                         # 不同芯片的算子配置
         │   │       │   ├── ascend310                                  # Atlas 200/300/500推理产品芯片的算子配置
         │   │       │       └── aic_ascend310-ops-info.json
-        │   │       │   ├── ascend310p                                 # Atlas推理系列产品（配置Ascend310P AI 处理器）芯片的算子配置
+        │   │       │   ├── ascend310p                                 # Atlas推理系列产品芯片的算子配置
         │   │       │       └── aic_ascend310p-ops-info.json
         │   │       │   ├── ascend910                                  # Atlas训练系列产品芯片的算子配置
         │   │       │       └── aic_ascend910-ops-info.json

@@ -6,7 +6,7 @@
 
 本教程介绍如何使用[C++接口](https://www.mindspore.cn/lite/api/zh-CN/r2.3.0rc2/index.html)执行MindSpore Lite云侧推理。
 
-MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/300/500推理产品、Atlas推理系列产品（配置Ascend310P AI 处理器）、Atlas训练系列产品、Nvidia GPU和CPU硬件后端。
+MindSpore Lite云侧推理仅支持在Linux环境部署运行。支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品、Nvidia GPU和CPU硬件后端。
 
 如需体验MindSpore Lite端侧推理流程，请参考文档[使用C++接口执行端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/r2.3.0rc2/use/runtime_cpp.html)。
 
@@ -134,7 +134,7 @@ device_list.push_back(gpu_device_info);
 
 ### 配置使用Ascend后端
 
-当需要执行的后端为Ascend时(目前支持Atlas 200/300/500推理产品、Atlas推理系列产品（配置Ascend310P AI 处理器）、Atlas训练系列产品)，需要设置[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3.0rc2/api_cpp/mindspore.html#ascenddeviceinfo)为推理后端。其中AscendDeviceInfo通过`SetDeviceID`来设置设备ID。Ascend默认使能float16精度，可通过`AscendDeviceInfo.SetPrecisionMode`更改精度模式。
+当需要执行的后端为Ascend时(目前支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品)，需要设置[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r2.3.0rc2/api_cpp/mindspore.html#ascenddeviceinfo)为推理后端。其中AscendDeviceInfo通过`SetDeviceID`来设置设备ID。Ascend默认使能float16精度，可通过`AscendDeviceInfo.SetPrecisionMode`更改精度模式。
 
 下面示例代码演示如何创建Ascend推理后端，同时设备ID设置为0：
 
@@ -146,13 +146,13 @@ if (context == nullptr) {
 }
 auto &device_list = context->MutableDeviceInfo();
 
-// for Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), Atlas training series
+// for Atlas 200/300/500 inference product, Atlas inference series, Atlas training series
 auto device_info = std::make_shared<mindspore::AscendDeviceInfo>();
 if (device_info == nullptr) {
   std::cerr << "New AscendDeviceInfo failed." << std::endl;
   return nullptr;
 }
-// Set Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), Atlas training series device id.
+// Set Atlas 200/300/500 inference product, Atlas inference series, Atlas training series device id.
 device_info->SetDeviceID(device_id);
 // The Ascend device context needs to be push_back into device_list to work.
 device_list.push_back(device_info);
