@@ -238,3 +238,16 @@ def replace_html_menu(html_path, hm_ds_path):
         f.seek(0)
         f.truncate()
         f.write(search_doc)
+
+    # 修改搜索引擎内的逻辑适配单独模块搜索
+    searchtools_path = os.path.join(html_path, '_static/searchtools.js')
+    old_searchtools_content1 = """docContent = htmlElement.find('[role=main]')[0];"""
+    new_searchtools_content1 = """htmlElement.find('[role=main]').find('[itemprop=articleBody]').find('style').remove();
+      docContent = htmlElement.find('[role=main]')[0];"""
+    with open(searchtools_path, 'r+', encoding='utf-8') as f:
+        searchtools_content = f.read()
+        new_content = searchtools_content.replace(old_searchtools_content1, new_searchtools_content1)
+        if new_content != searchtools_content:
+            f.seek(0)
+            f.truncate()
+            f.write(new_content)
