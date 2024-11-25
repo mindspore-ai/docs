@@ -6,7 +6,7 @@
 
 This tutorial describes how to perform cloud-side inference with MindSpore Lite by using the [C++ interface](https://www.mindspore.cn/lite/api/en/r2.3.1/index.html).
 
-MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), Atlas training series, Nvidia GPU and CPU hardware backends are supported.
+MindSpore Lite cloud-side inference is supported to run in Linux environment deployment only. Atlas 200/300/500 inference product, Atlas inference series, Atlas training series, Nvidia GPU and CPU hardware backends are supported.
 
 To experience the MindSpore Lite device-side inference process, please refer to the document [Using C++ Interface to Perform Cloud-side Inference](https://www.mindspore.cn/lite/docs/en/r2.3.1/use/runtime_cpp.html).
 
@@ -134,7 +134,7 @@ Whether the `SetEnableFP16` is set successfully depends on the [CUDA computing p
 
 ### Configuring Using Ascend Backend
 
-When the backend to be executed is Ascend (Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), or Atlas training series are currently supported), you need to set [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3.1/generate/classmindspore_AscendDeviceInfo.html#class-ascenddeviceinfo) as the inference backend. AscendDeviceInfo sets the device ID by `SetDeviceID`. Ascend enables float16 precision by default, and the precision mode can be changed by `AscendDeviceInfo.SetPrecisionMode`.
+When the backend to be executed is Ascend (Atlas 200/300/500 inference product, Atlas inference series, or Atlas training series are currently supported), you need to set [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/r2.3.1/generate/classmindspore_AscendDeviceInfo.html#class-ascenddeviceinfo) as the inference backend. AscendDeviceInfo sets the device ID by `SetDeviceID`. Ascend enables float16 precision by default, and the precision mode can be changed by `AscendDeviceInfo.SetPrecisionMode`.
 
 The following sample code demonstrates how to create Ascend inference backend while the device ID is set to 0:
 
@@ -146,13 +146,13 @@ if (context == nullptr) {
 }
 auto &device_list = context->MutableDeviceInfo();
 
-// for Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), and Atlas training series
+// for Atlas 200/300/500 inference product, Atlas inference series, and Atlas training series
 auto device_info = std::make_shared<mindspore::AscendDeviceInfo>();
 if (device_info == nullptr) {
   std::cerr << "New AscendDeviceInfo failed." << std::endl;
   return nullptr;
 }
-// Set Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), and Atlas training series device id.
+// Set Atlas 200/300/500 inference product, Atlas inference series, and Atlas training series device id.
 device_info->SetDeviceID(device_id);
 // The Ascend device context needs to be push_back into device_list to work.
 device_list.push_back(device_info);
