@@ -7,7 +7,7 @@
 > - [Cloud-side Model Converter](https://mindspore.cn/lite/docs/en/r2.4.0/mindir/converter.html)
 > - [Cloud-side Benchmark Tool](https://mindspore.cn/lite/docs/en/r2.4.0/mindir/benchmark.html)
 
-This document describes how to use MindSpore Lite to perform inference and use the dynamic shape function on Linux in the Ascend environment. Currently, MindSpore Lite supports the Atlas 200/300/500 inference product and Atlas inference series (with Ascend 310P AI processor).
+This document describes how to use MindSpore Lite to perform inference and use the dynamic shape function on Linux in the Ascend environment. Currently, MindSpore Lite supports the Atlas 200/300/500 inference product and Atlas inference series.
 
 ## Environment Preparation
 
