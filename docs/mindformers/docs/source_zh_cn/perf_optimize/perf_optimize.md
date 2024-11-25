@@ -188,7 +188,7 @@ context:
 
 在保存IR图时建议将模型的层数改小，减少编译存图的时间，方便快速调试。详细内容参考[IR文件介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/mindir.html#ir文件介绍)和[分析示例](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/error_analysis/mindir.html#如何根据analyze-failir文件分析图推导失败的原因)。
 
-### SAPP自动负载均衡工具
+#### SAPP自动负载均衡工具
 
 大模型训练性能调优需要同时考虑多维混合并行策略配置与内存限制，工程师需要在集群上尝试不同的组合方案才有可能找到性能达标的并行策略，这一过程常常耗费数周时间，且消耗大量算力成本。
 
