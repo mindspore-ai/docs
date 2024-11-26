@@ -38,7 +38,7 @@ Model Inference
                               <span class="doc-head-content">MindSpore Inference</span>
                            </div>
                            <div class="doc-article-desc">
-                              Provides near “out-of-the-box” deployment of large language models and inference capabilities to achieve optimal performance based on model characteristics.
+                              Provides “out-of-the-box” deployment of large language models and inference capabilities to achieve optimal performance based on model characteristics.
                            </div>
                         </div>
                      </a>
