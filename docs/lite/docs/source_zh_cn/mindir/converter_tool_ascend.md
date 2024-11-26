@@ -30,7 +30,7 @@
 | 参数                          |  属性  | 功能描述                                      | 参数类型 | 取值说明 |
 | ---------------------------- | ----- | -------------------------------------------- | -------- | ------ |
 | `ge.engineType`              |  可选  | 设置网络模型使用的Core类型。 | String | 可选有`"VectorCore"`、`"AiCore"` |
-| `ge.socVersion`              |  可选  | 昇腾AI处理器的版本。 | String | 可选有`"Ascend310"`、`"Ascend710"`、`"Ascend910"` |
+| `ge.socVersion`              |  可选  | 昇腾AI处理器的版本。 | String | 可选有`"Ascend310"`、`"Ascend710"`、`"Ascend910"`  |
 | `ge.bufferOptimize`          |  可选  | 数据缓存优化开关。 | String | 可选有`"l1_optimize"`、`"l2_optimize"`、`"off_optimize"`，默认为`"l2_optimize"` |
 | `ge.enableCompressWeight`    |  可选  | 可以对Weight进行数据压缩，提升性能。 | String | 可选有`"true"`、`"false"` |
 | `compress_weight_conf`       |  可选  | 要压缩的node节点列表配置文件路径，node节点主要为conv算子、fc算子。 | String | 配置文件路径 |

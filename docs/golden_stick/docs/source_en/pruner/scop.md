@@ -220,7 +220,7 @@ After the pruned model is exported, [use MindSpore for inference](https://www.mi
 
 Training in graph mode based on [MindSpore](https://gitee.com/mindspore/mindspore/tree/v1.9.0)，[MindSpore Golden Stick](https://gitee.com/mindspore/golden-stick/tree/v0.2.0/)，[MindSpore Models](https://gitee.com/mindspore/models/tree/r1.9/).
 
-| algorithm| network  |  dataset     |  CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc | pruning rate | parameter size(MB) |
+| algorithm| network  |  dataset     |  CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend Top1Acc | Ascend Top5Acc | pruning rate | parameter size(MB) |
 | -------- | -------- | ------------ | --------------- | -------------- | ----------------- | ----------------- | ------------ | ------------------ |
 | baseline | resnet50 | CIFAR10      |     94.20%      |     99.88%     |        -          |        -          |      NA      |         24         |
 | SCOP     | resnet50 | CIFAR10      |     92.74%      |       -        |      92.84%       |        -          |      45%     |         11         |
