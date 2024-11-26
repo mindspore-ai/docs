@@ -339,7 +339,7 @@ print(acc)
 
 W4表示weight权重量化为4bit，W2表示权重量化为2bit，W1表示权重量化为1bit，A8表示激活量化为8bit。
 
-| 算法     | 网络      | 数据集       |  CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc |
+| 算法     | 网络      | 数据集       |  CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend Top1Acc | Ascend Top5Acc |
 | -------- | -------- | ------------ | --------------- | -------------- | ----------------- | ----------------- |
 | baseline | resnet18 | CIFAR10      |     94.25%      |     99.93%     |        -          |        -          |
 | SLB W4   | resnet18 | CIFAR10      |     95.18%      |     99.67%     |        NS         |        NS         |

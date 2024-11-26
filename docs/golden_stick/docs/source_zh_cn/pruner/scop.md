@@ -220,7 +220,7 @@ if __name__ == "__main__":
 
 使用图模式进行训练，使用的代码为：[MindSpore](https://gitee.com/mindspore/mindspore/tree/v1.9.0)，[MindSpore Golden Stick](https://gitee.com/mindspore/golden-stick/tree/v0.2.0/)，[MindSpore Models](https://gitee.com/mindspore/models/tree/r1.9/)。
 
-| 算法     | 网络      | 数据集       |  CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend910 Top1Acc | Ascend910 Top5Acc |    剪枝率    |  参数量(MB)  |
+| 算法     | 网络      | 数据集       |  CUDA11 Top1Acc | CUDA11 Top5Acc | Ascend Top1Acc | Ascend Top5Acc |    剪枝率    |  参数量(MB)  |
 | -------- | -------- | ------------ | --------------- | -------------- | ----------------- | ----------------- | ----------- | ------------ |
 | baseline | resnet50 | CIFAR10      |     94.20%      |     99.88%     |        -          |        -          |      NA     |     24       |
 | SCOP     | resnet50 | CIFAR10      |     92.74%      |       -        |      92.84%       |        -          |      45%    |     11       |
