@@ -467,13 +467,13 @@ class MsCnAutoSummary(Autosummary):
                 display_name = name.split('.')[-1]
 
             dir_name = self.options['toctree']
-            spec_path = os.path.join('api_python', dir_name, display_name)
             file_path = os.path.join(doc_path, dir_name, display_name+'.rst')
+            spec_path = os.path.join('api_python', dir_name, display_name)
             if os.path.exists(file_path) and spec_path not in generated_files:
                 summary_spec_re = re.compile(rf'\.\. \w+:\w+::\s+{display_name}.*?\n\s+:.*?:\n\n\s+(.*?)[。\n]')
                 summary_re = self.get_summary_re(display_name)
                 content = ''
-                with open(os.path.join(doc_path, dir_name, display_name+'.rst'), 'r', encoding='utf-8') as f:
+                with open(file_path, 'r', encoding='utf-8') as f:
                     content = f.read()
                 if content:
                     summary_str = summary_re.findall(content)
