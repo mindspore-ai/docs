@@ -17,7 +17,7 @@
 5. 执行概念漂移检测函数。
 6. 查看结果。
 
-> 本例面向CPU、GPU、Ascend 910 AI处理器，目前仅支持GRAPH_MODE。你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindarmour/blob/r2.0/examples/reliability/concept_drift_check_images_lenet.py>。
+> 本例面向CPU、GPU、Ascend AI处理器，目前仅支持GRAPH_MODE。你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindarmour/blob/r2.0/examples/reliability/concept_drift_check_images_lenet.py>。
 
 ## 准备环节
 

@@ -14,7 +14,7 @@ At the beginning of AI algorithm design, related security threats are sometimes 
 
 This section describes how to use MindSpore Armour in adversarial attack and defense by taking the Fast Gradient Sign Method (FGSM) attack algorithm and Natural Adversarial Defense (NAD) algorithm as examples.
 
-> The current sample is for CPU, GPU and Ascend 910 AI processor. You can find the complete executable sample code at
+> The current sample is for CPU, GPU and Ascend AI processor. You can find the complete executable sample code at
 > <https://gitee.com/mindspore/mindarmour/blob/r2.0/examples/model_security/model_defenses/mnist_defense_nad.py>
 
 ## Creating an Target Model
