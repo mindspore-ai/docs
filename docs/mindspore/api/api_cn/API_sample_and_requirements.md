@@ -61,7 +61,7 @@
 该接口与func接口同名时写法如下：
 
 ```text
-.. py:method:: Tensor.abs()
+.. py:method:: mindspore.Tensor.abs()
 
     详情请参考 :func:`mindspore.ops.abs`。
 ```
@@ -69,9 +69,9 @@
 该接口是其他Tensor接口别名时写法如下：
 
 ```text
-.. py:method:: Tensor.absolute()
+.. py:method:: mindspore.Tensor.absolute()
 
-    :func:`Tensor.abs` 的别名。
+    :func:`mindspore.Tensor.abs` 的别名。
 ```
 
 基于yaml自动生成的Tensor接口写法如下：
@@ -79,7 +79,7 @@
 无重载函数：
 
 ```text
-.. py:method:: Tensor.gather(参数)
+.. py:method:: mindspore.Tensor.gather(参数)
 
     描述函数功能。
 
@@ -98,7 +98,7 @@
 有重载函数：
 
 ```text
-.. py:method:: Tensor.gather(参数)
+.. py:method:: mindspore.Tensor.gather(参数)
 
     描述函数功能。
 
@@ -113,7 +113,7 @@
         - **Error1** – 异常描述1。
         - **Error2** – 异常描述2。
 
-    .. py:method:: Tensor.gather(参数)
+    .. py:method:: mindspore.Tensor.gather(参数)
         :noindex:
 
     描述函数功能。
@@ -271,8 +271,6 @@
     a. 引用其他类的内容，类的全称类似于mindspore.train.Metric，包含一级二级类别的名称。引用其他函数的内容，函数的全称类似于mindspore.ops.dropout。
 
     b. 如果简写为Metric，英文书写为 :class:`Metric`，中文书写为 :class:`.Metric`，简写中文前面需要加.。
-
-    c. 如果需要引用mindspore.Tensor.xxx相关接口的内容，英文书写为 :func:`mindspore.Tensor.xxx` 或者 :func:`Tensor.xxx` 都可，中文书写为 :func:`Tensor.xxx` 。
 
 ## 参考
 
