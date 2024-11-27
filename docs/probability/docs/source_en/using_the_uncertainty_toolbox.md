@@ -16,7 +16,7 @@ This example will use the MNIST dataset and the LeNet5 network model example for
 3. Initialize the uncertainty assessment toolbox.
 4. Assess cognitive uncertainty.
 
-> This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/r1.7/tests/st/probability/toolbox>.
+> This example is for the GPU or Ascend AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/r1.7/tests/st/probability/toolbox>.
 
 ## Data Preparation
 

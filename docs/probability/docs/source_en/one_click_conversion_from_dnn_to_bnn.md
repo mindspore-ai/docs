@@ -11,7 +11,7 @@ For DNN researchers unfamiliar with the Bayesian model, MDP provides an advanced
 3. Function 1: Convert the entire model.
 4. Function 2: Convert a layer of a specified type.
 
-> This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/r1.7/tests/st/probability/transforms>.
+> This example is for the GPU or Ascend AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/r1.7/tests/st/probability/transforms>.
 
 ### Defining the DNN Model
 
