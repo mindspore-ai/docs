@@ -10,7 +10,7 @@ The following describes how to use the variational and dpn modules in MDP to imp
 4. Train the network.
 5. Generate new samples or rebuild input samples.
 
-> This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/r1.7/tests/st/probability/dpn>.
+> This example is for the GPU or Ascend AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/r1.7/tests/st/probability/dpn>.
 
 ## Data Preparation
 
