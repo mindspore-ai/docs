@@ -7,3 +7,4 @@ IPython
 jieba
 descriptastorus == 2.6.0
 sympy
+tqdm
