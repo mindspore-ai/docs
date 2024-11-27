@@ -38,7 +38,7 @@
                               <span class="doc-head-content">MindSpore推理</span>
                            </div>
                            <div class="doc-article-desc">
-                              提供近乎“开箱即用”的大语言模型部署和推理能力，根据模型特点实现最优性价比。
+                              提供“开箱即用”的大语言模型部署和推理能力，根据模型特点实现最优性价比。
                            </div>
                         </div>
                      </a>
