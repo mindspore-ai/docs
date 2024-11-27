@@ -58,6 +58,8 @@ Based on actual operations, quantization may be decomposed into the following st
        activation_dtype: None
        kvcache_dtype: None
        outliers_suppression: None
+       act_quant_granularity: "per_tensor"
+       kvcache_quant_granularity: "per_channel"
        modules_to_not_convert: ['lm_head']
        algorithm_args: {}
    ```
@@ -69,6 +71,8 @@ Based on actual operations, quantization may be decomposed into the following st
    | activation_dtype       | Required| Activation type of the parameter. **None** indicates that the original computing type (**compute_dtype**) of the network remains unchanged.     | str       | int8/None        |
    | kvcache_dtype          | Optional| KVCache quantization type. If the value is **None** or not specified, the original KVCache data type remains unchanged.       | str       | int8/None        |
    | outliers_suppression   | Optional| Algorithm type used for abnormal value suppression. Currently, only smooth suppression is supported.       | str       | smooth/None        |
+   | act_quant_granularity  | Optional | Activation quantization granularity, defaults to per_tensor                                          | str       | per_tensor/per_token        |
+   | kvcache_quant_granularity  | Optional | KVCache quantization granularity, defaults to per_channel                                          | str       | per_channel/per_token  |
    | modules_to_not_convert | Required| Layer that is not quantized.                                    | List[str] | /                |
    | algorithm_args         | Required| Configurations of different algorithm types for connecting to the MindSpore Golden Stick. For example, **alpha** is set to **0.5** for the Smooth_Quant algorithm.| Dict      | /                |
 
