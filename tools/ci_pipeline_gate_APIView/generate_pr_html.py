@@ -106,7 +106,7 @@ def copy_image(sourcedir, des_dir):
                 except:
                     print(f'picture {os.path.join(os.path.relpath(cur, sourcedir), i)} copy failed.')
 
-def get_all_copy_list(pr_list, rp_n, branch, repo_path):
+def get_all_copy_list(pr_list, rp_n, branch, repo_path, raw_rst_list):
     """
     获取所有需要拷贝的文件。
     """
@@ -115,9 +115,8 @@ def get_all_copy_list(pr_list, rp_n, branch, repo_path):
     for i in pr_list:
         if i == 'need_auto':
             continue
-        raw_url = f'https://gitee.com/mindspore/{rp_n}/raw/{branch}/{i}'
-        if raw_url.endswith('.rst'):
-            raw_content = requests.get(raw_url).text
+        if i.endswith('.rst'):
+            raw_content = requests.get(raw_rst_list[i]).text
             other_file_path = re.findall('.. include:: (.*?)\n', raw_content)
             for j in other_file_path:
                 file_list.append(os.path.join(
@@ -516,6 +515,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
     # pr_file_en = []
     pr_file_yaml = []
     auto_need = []
+    all_raw_rst = dict()
 
     generate_pr_list_en_sum = []
 
@@ -572,6 +572,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                         continue
                 if os.path.exists(os.path.join(rp_dir, filename)) and filename not in white_list:
                     pr_file_cn.append(filename)
+                    all_raw_rst[filename] = raw_url
         elif split_dict['mindspore_en'] in filename:
             if not filename.split(split_dict['mindspore_en'])[-1].startswith('mindspore.'):
                 continue
@@ -711,7 +712,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
         pr_file_cn = list(set(pr_file_cn))
         print(f'涉及修改的中文api如下：\n{pr_file_cn}')
         copy_file_list = get_all_copy_list(
-            pr_file_cn, re.findall('([^/]*?)/pulls/', file_url)[0], clone_branch, rp_dir)
+            pr_file_cn, re.findall('([^/]*?)/pulls/', file_url)[0], clone_branch, rp_dir, all_raw_rst)
         copy_source(os.path.join(rp_dir, 'docs/api/api_python'),
                     os.path.join(generate_path, 'source_zh_cn', 'api_python'),
                     'docs/api/api_python/', fp_list=copy_file_list)
