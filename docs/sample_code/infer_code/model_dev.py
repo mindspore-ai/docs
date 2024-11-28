@@ -59,10 +59,10 @@ class CommunicationHelper:
     def create_tensor_model_parallel_group(self):
         create_group(group=self.group_name, rank_ids=self.rank_list)
 
-    def get_tensor_model_paralell_group_size(self):
+    def get_tensor_model_parallel_group_size(self):
         return get_group_size(group=self.group_name)
 
-    def get_tensor_model_paralell_group_rank(self):
+    def get_tensor_model_parallel_group_rank(self):
         return get_rank(group=self.group_name)
 
     def get_tensor_model_parallel_group(self):
@@ -84,7 +84,7 @@ class ColumnParallelLinear(nn.Cell):
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.has_bias = has_bias
-        self.tensor_parallel_group_size = COMMUN_HELPER.get_tensor_model_paralell_group_size()
+        self.tensor_parallel_group_size = COMMUN_HELPER.get_tensor_model_parallel_group_size()
         self.out_channels_per_partition = out_channels // self.tensor_parallel_group_size
         self.dtype = dtype
         weight_shape = (self.out_channels_per_partition, self.in_channels)
@@ -121,7 +121,7 @@ class GatherLastDim(nn.Cell):
 
     def __init__(self):
         super().__init__()
-        self.world_size = COMMUN_HELPER.get_tensor_model_paralell_group_size()
+        self.world_size = COMMUN_HELPER.get_tensor_model_parallel_group_size()
         self.split = ops.Split(axis=0, output_num=self.world_size)
 
     def construct(self, input_):
@@ -146,7 +146,7 @@ class RowParallelLinear(nn.Cell):
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.has_bias = has_bias
-        self.tensor_parallel_group_size = COMMUN_HELPER.get_tensor_model_paralell_group_size()
+        self.tensor_parallel_group_size = COMMUN_HELPER.get_tensor_model_parallel_group_size()
         self.in_channels_per_partition = in_channels // self.tensor_parallel_group_size
         self.dtype = dtype
         weight_shape = (self.out_channels, self.in_channels_per_partition)
@@ -190,9 +190,9 @@ class VocabParallelEmbedding(nn.Cell):
         super().__init__()
         self.num_embeddings = num_embeddings
         self.embedding_dim = embedding_dim
-        self.tensor_parallel_group_size = COMMUN_HELPER.get_tensor_model_paralell_group_size()
+        self.tensor_parallel_group_size = COMMUN_HELPER.get_tensor_model_parallel_group_size()
         per_partition_vocab_size = self.num_embeddings // self.tensor_parallel_group_size
-        self.vocab_start_index = COMMUN_HELPER.get_tensor_model_paralell_group_rank() * per_partition_vocab_size
+        self.vocab_start_index = COMMUN_HELPER.get_tensor_model_parallel_group_rank() * per_partition_vocab_size
         self.vocab_end_index = self.vocab_start_index + per_partition_vocab_size
         self.num_embeddings_per_partition = (
             self.vocab_end_index - self.vocab_start_index
@@ -240,7 +240,7 @@ class ParallelAttention(nn.Cell):
 
     def __init__(self, config):
         super().__init__()
-        self.tensor_parallel_group_size = COMMUN_HELPER.get_tensor_model_paralell_group_size()
+        self.tensor_parallel_group_size = COMMUN_HELPER.get_tensor_model_parallel_group_size()
         self.num_heads_per_partition = config.num_heads // self.tensor_parallel_group_size
         self.head_dim = config.hidden_size // config.num_heads
         self.norm_factor = math.sqrt(self.head_dim)
