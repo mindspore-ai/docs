@@ -1,6 +1,6 @@
 # 比较与torch.prod的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/prod.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/prod.md)
 
 以下映射关系均可参考本文。
 
@@ -23,7 +23,7 @@ torch.prod(input, dim, keepdim=False, *, dtype=None) -> Tensor
 mindspore.ops.prod(input, axis=(), keep_dims=False) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.prod](https://mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.prod.html)。
+更多内容详见[mindspore.ops.prod](https://mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.prod.html)。
 
 ## 差异对比
 

@@ -1,6 +1,6 @@
 # PengCheng·PanGu Model Network Multi-dimension Hybrid Parallel Analysis
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_en/model_train/parallel/pangu_alpha.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/model_train/parallel/pangu_alpha.md)
 
 ## Overview
 
@@ -118,7 +118,7 @@ class EmbeddingLayer(nn.Cell):
 
 The key difficulty in training large-scale Transformer networks is how to solve the computational and memory bottlenecks caused by the increasing number of layers, and it is especially important to choose a reasonable slicing. The main network of the PengCheng-PanGu model consists of multiple Decoders with the same structure but do not share weights, and the Decoder is composed of two parts, Self-Attention and FeedForward. The principle of slicing is to minimize the communication, and their slicing can be referred to the following figure:
 
-![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindspore/source_zh_cn/model_train/parallel/images/pangu_strategy.png)
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/docs/mindspore/source_zh_cn/model_train/parallel/images/pangu_strategy.png)
 
 *Figure 6：parallel strategy of PanguAlpha（Source：[PanguAlpha Technical report](https://openi.pcl.ac.cn/PCL-Platform.Intelligence/PanGu-Alpha/src/branch/master/PANGU-%ce%b1.pdf)）*
 

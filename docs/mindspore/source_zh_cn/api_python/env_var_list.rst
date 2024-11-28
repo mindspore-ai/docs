@@ -1,8 +1,8 @@
 环境变量
 ========
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_zh_cn/api_python/env_var_list.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/api_python/env_var_list.rst
     :alt: 查看源文件
 
 本文介绍MindSpore的环境变量。
@@ -66,8 +66,8 @@
        false: 关闭pipeline树优化
      -
 
-具体用法详见 `单节点数据缓存 <https://mindspore.cn/docs/zh-CN/r2.4.0/model_train/dataset/cache.html>`_
-和 `数据处理性能优化 <https://mindspore.cn/docs/zh-CN/r2.4.0/model_train/dataset/optimize.html>`_ 。
+具体用法详见 `单节点数据缓存 <https://mindspore.cn/docs/zh-CN/r2.4.1/model_train/dataset/cache.html>`_
+和 `数据处理性能优化 <https://mindspore.cn/docs/zh-CN/r2.4.1/model_train/dataset/optimize.html>`_ 。
 
 图编译执行
 ----------
@@ -92,7 +92,7 @@
      - 指定静态图模式下哪些模块需要JIT静态编译，其函数方法会被编译成静态计算图
      - String
      - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如：`export MS_JIT_MODULES=mindflow,mindyolo`。
-     - 默认情况下，第三方库之外的模块都会进行JIT静态编译。MindSpore套件等一些模块如 `mindflow`、`mindyolo` 等并不会被视作第三方库，请参考 `调用第三方库 <https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/program_form/static_graph.html#%E8%B0%83%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93-1>`_ 。如果有类似MindSpore套件的模块，内部存在 `nn.Cell`、`@ms.jit` 修饰函数或需要编译成静态计算图的函数方法，可以通过配置该环境变量，使该模块进行JIT静态编译而不会被当成第三方库。
+     - 默认情况下，第三方库之外的模块都会进行JIT静态编译。MindSpore套件等一些模块如 `mindflow`、`mindyolo` 等并不会被视作第三方库，请参考 `调用第三方库 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/program_form/static_graph.html#%E8%B0%83%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93-1>`_ 。如果有类似MindSpore套件的模块，内部存在 `nn.Cell`、`@ms.jit` 修饰函数或需要编译成静态计算图的函数方法，可以通过配置该环境变量，使该模块进行JIT静态编译而不会被当成第三方库。
    * - MS_JIT_IGNORE_MODULES
      - 指定静态图模式下哪些模块是第三方库，不进行JIT静态编译，其函数方法会被解释执行。
      - String
@@ -243,7 +243,7 @@
      - 1：使用进程优雅退出功能。
 
        不设置或者其他值: 不使用进程优雅退出功能。
-     - 使能进程优雅退出功能，依赖callback函数，具体请参考 `进程优雅退出用例 <https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/train_availability/graceful_exit.html>`_ 。
+     - 使能进程优雅退出功能，依赖callback函数，具体请参考 `进程优雅退出用例 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/train_availability/graceful_exit.html>`_ 。
    * - MS_DEV_BOOST_INFER
      - 针对前端图编译提供编译优化开关。该开关可加速类型推导模块，以加速网络编译。
      - Integer
@@ -315,13 +315,13 @@ Dump调试
      - 取值
      - 说明
    * - MINDSPORE_DUMP_CONFIG
-     - 指定 `云侧Dump功能 <https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/dump.html>`_
-       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/r2.4.0/tools/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
+     - 指定 `云侧Dump功能 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/debug/dump.html>`_
+       或 `端侧Dump功能 <https://www.mindspore.cn/lite/docs/zh-CN/r2.4.1/tools/benchmark_tool.html#dump功能>`_ 所依赖的配置文件的路径
      - String
      - 文件路径，支持相对路径与绝对路径
      -
    * - MS_DIAGNOSTIC_DATA_PATH
-     - 使用 `云侧Dump功能 <https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/dump.html>`_ 时，
+     - 使用 `云侧Dump功能 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/debug/dump.html>`_ 时，
        如果Dump配置文件没有设置 `path` 字段或者设置为空字符串，则 `$MS_DIAGNOSTIC_DATA_PATH` `/debug_dump` 就会被当做path的值。
        若Dump配置文件中设置了 `path` 字段，则仍以该字段的实际取值为准。
      - String
@@ -382,7 +382,7 @@ Dump调试
      - 0~600，单位：秒，默认值为0。当取值为0时，表示使用默认超时时间，即`mindspore.get_context("op_timeout")`的取值。
      - 该环境变量仅仅在MS_DUMP_SLICE_SIZE不为零的情况下生效。目前二阶段的等待时间无法超过mindspore.get_context("op_timeout")的值。
 
-具体用法详见 `Dump功能调试 <https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/dump.html>`_ 。
+具体用法详见 `Dump功能调试 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/debug/dump.html>`_ 。
 
 分布式并行
 -----------
@@ -436,7 +436,7 @@ Dump调试
 
        MS_WORKER: 代表Worker进程，一般设置分布式训练进程为此角色。
 
-       MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考 `Parameter Server模式 <https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/parallel/parameter_server_training.html>`_ 。
+       MS_PSERVER: 代表Parameter Server进程，只有在Parameter Server模式下此角色生效，具体请参考 `Parameter Server模式 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/parallel/parameter_server_training.html>`_ 。
      - Worker和Parameter Server进程会向Scheduler进程注册从而完成组网。
    * - MS_SCHED_HOST
      - 指定Scheduler的IP地址。
@@ -545,7 +545,7 @@ Dump调试
        delete_depend_list(List[string])：需要被删除的算子名称列表，算子名称不存在或者和graph_id不匹配，删除节点的动作将失效。
 
 
-动态组网相关的具体用法详见 `动态组网 <https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/parallel/dynamic_cluster.html>`_ 。
+动态组网相关的具体用法详见 `动态组网 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/parallel/dynamic_cluster.html>`_ 。
 
 算子编译
 --------
@@ -566,7 +566,7 @@ Dump调试
      - 1~24：允许设置并行进程数取值范围
      -
    * - MS_COMPILER_CACHE_ENABLE
-     - 指定是否保存和加载编译缓存。该功能与 mindspore context 中的 `enable_compile_cache <https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ 相同。
+     - 指定是否保存和加载编译缓存。该功能与 mindspore context 中的 `enable_compile_cache <https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ 相同。
 
        注意：该环境变量优先级低于 `enable_compile_cache` context。
      - Integer
@@ -635,7 +635,7 @@ Dump调试
        默认：空。
      -
 
-常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/r2.4.0/faq/operators_compile.html>`_ 。
+常见问题详见 `FAQ <https://mindspore.cn/docs/zh-CN/r2.4.1/faq/operators_compile.html>`_ 。
 
 日志
 ----
@@ -733,7 +733,7 @@ Dump调试
 
        其中被指定子模块的日志级别将覆盖 `GLOG_v` 在此模块内的设置，
        此处子模块的日志级别 `LogLevel` 与 `GLOG_v` 的日志级别含义相同，
-       MindSpore子模块列表详见 `sub-module_names <https://gitee.com/mindspore/mindspore/blob/v2.4.0/mindspore/core/utils/log_adapter.cc>`_。
+       MindSpore子模块列表详见 `sub-module_names <https://gitee.com/mindspore/mindspore/blob/v2.4.1/mindspore/core/utils/log_adapter.cc>`_。
 
        例如可以通过 `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`
        把 `PARSER` 和 `ANALYZER` 模块的日志级别设为WARNING，其他模块的日志级别设为INFO
@@ -776,7 +776,7 @@ Dump调试
 
 注意：glog不支持日志文件的绕接，如果需要控制日志文件对磁盘空间的占用，可选用操作系统提供的日志文件管理工具，例如：Linux的logrotate。请在 `import mindspore` 之前设置日志相关环境变量。
 
-RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/rdr.html#running-data-recorder>`_ 。
+RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/debug/rdr.html#running-data-recorder>`_ 。
 
 特征值检测
 ------------
@@ -820,7 +820,7 @@ RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/
        在不配置该环境变量的默认情况下，`NPU_ASD_SIGMA_THRESH=100000,5000`
      - 
 
-特征值检测的更多内容详见 `特征值检测 <https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/sdc.html>`_ 。
+特征值检测的更多内容详见 `特征值检测 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/debug/sdc.html>`_ 。
 
 三方库
 ------

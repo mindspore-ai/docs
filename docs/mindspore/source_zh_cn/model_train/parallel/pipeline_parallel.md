@@ -1,6 +1,6 @@
 # 流水线并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_zh_cn/model_train/parallel/pipeline_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/model_train/parallel/pipeline_parallel.md)
 
 ## 概述
 
@@ -64,7 +64,7 @@ MindSpore在Megatron-LM的interleaved pipeline调度的基础上做了内存优�
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.4.0/docs/sample_code/distributed_pipeline_parallel)。
+> 下载完整的样例代码：[distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.4.1/docs/sample_code/distributed_pipeline_parallel)。
 
 目录结构如下：
 
@@ -273,7 +273,7 @@ Tensor(shape=[8, 512], dtype=Float32, value=
 [  4.89746094e-01 3.56689453e-01 -4.90966797e-01 ... -3.30078125e-e01 -2.38525391e-01 7.33398438e-01]])
 ```
 
-其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/parallel/startup_method.html)。
+其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/parallel/startup_method.html)。
 
 ## 推理操作实践
 
@@ -281,7 +281,7 @@ Tensor(shape=[8, 512], dtype=Float32, value=
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.4.0/docs/sample_code/distributed_pipeline_parallel)。
+> 下载完整的样例代码：[distributed_pipeline_parallel](https://gitee.com/mindspore/docs/tree/r2.4.1/docs/sample_code/distributed_pipeline_parallel)。
 
 目录结构如下：
 

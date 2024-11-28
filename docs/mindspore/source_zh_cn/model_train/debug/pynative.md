@@ -1,6 +1,6 @@
 # 动态图调试
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_zh_cn/model_train/debug/pynative.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/model_train/debug/pynative.md)
 
 ## 概述
 
@@ -82,7 +82,7 @@ def some_function():
 - 3-ERROR，表示程序执行出现报错，输出错误日志，程序可能不会终止
 - 4-CRITICAL，表示程序执行出现异常，将会终止执行程序
 
-详细的日志控制方法见[环境变量](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/env_var_list.html#日志)
+详细的日志控制方法见[环境变量](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/env_var_list.html#日志)
 
 ### 常见PDB调试命令
 
@@ -126,7 +126,7 @@ def some_function():
   print(output)
   ```
 
-  详细API使用说明可以[参考](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/mindspore/Tensor/mindspore.Tensor.register_hook.html#mindspore.Tensor.register_hook)
+  详细API使用说明可以[参考](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/mindspore/Tensor/mindspore.Tensor.register_hook.html#mindspore.Tensor.register_hook)
 
 - 查看执行过程中的梯度，可以通过`mindspore.ops.HookBackward`，例如：
 
@@ -155,7 +155,7 @@ def some_function():
   print(output)
   ```
 
-  详细API使用说明可以[参考](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.HookBackward.html)
+  详细API使用说明可以[参考](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.HookBackward.html)
 
 - 查看某个Cell的梯度，可以通过`mindspore.nn.Cell.register_backward_hook`，例如：
 
@@ -185,7 +185,7 @@ def some_function():
   print(output)
   ```
 
-  详细API使用说明可以[参考](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook)
+  详细API使用说明可以[参考](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook)
 
 ## 更多实际案例
 

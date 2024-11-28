@@ -1,6 +1,6 @@
 # Feature Advice
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_en/faq/feature_advice.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/faq/feature_advice.md)
 
 ## Q: Is the `input=np.random.uniform(...)` format fixed when the MindIR format is exported?
 
@@ -50,7 +50,7 @@ A: The formats of  `ckpt` of MindSpore and `ckpt`of TensorFlow are not generic. 
 
 ## Q: How do I use models trained by MindSpore on Atlas 200/300/500 inference product? Can they be converted to models used by HiLens Kit?
 
-A: Yes. HiLens Kit uses Atlas 200/300/500 inference product as the inference core. Therefore, the two questions are essentially the same, which both need to convert as OM model. Atlas 200/300/500 inference product requires a dedicated OM model. Use MindSpore to export the ONNX and convert it into an OM model supported by Atlas 200/300/500 inference product. For details, see [Multi-platform Inference](https://www.mindspore.cn/docs/en/r2.4.0/model_infer/ms_infer/llm_inference_overview.html).
+A: Yes. HiLens Kit uses Atlas 200/300/500 inference product as the inference core. Therefore, the two questions are essentially the same, which both need to convert as OM model. Atlas 200/300/500 inference product requires a dedicated OM model. Use MindSpore to export the ONNX and convert it into an OM model supported by Atlas 200/300/500 inference product. For details, see [Multi-platform Inference](https://www.mindspore.cn/docs/en/r2.4.1/model_infer/ms_infer/llm_inference_overview.html).
 
 <br/>
 
@@ -68,7 +68,7 @@ A: Due to hardware limitations of Protobuf, when exporting to ONNX formats, the 
 
 ## Q: Does MindSpore need a GPU computing unit? What hardware support is needed?
 
-A: MindSpore currently supports CPU, GPU, and Ascend. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [project release notes](https://gitee.com/mindspore/mindspore/blob/v2.4.0/RELEASE.md#).
+A: MindSpore currently supports CPU, GPU, and Ascend. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [project release notes](https://gitee.com/mindspore/mindspore/blob/v2.4.1/RELEASE.md#).
 
 <br/>
 

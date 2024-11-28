@@ -1,12 +1,12 @@
 # Training Process Exit Gracefully
 
-[![view source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_en/model_train/train_availability/graceful_exit.md)
+[![view source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/model_train/train_availability/graceful_exit.md)
 
 ## Overview
 
 When there are suboptimal devices in the training cluster, saving checkpoint and exiting the cluster training process before the failure occurs can effectively prevent the loss of weight data when the cluster is damaged. This also avoids issues such as training data rollback and loading checkpoint rollback when training recovery, effectively preventing the waste of training resources.
 
-> This document is an example of the training process exit gracefully. To illustrate the specific usage, we assume that the exit configuration detected at the first training step, and the training process is ended in advance. You can get the full sample code here: [process_graceful_exit](https://gitee.com/mindspore/docs/tree/r2.4.0/docs/sample_code/graceful_exit/) .
+> This document is an example of the training process exit gracefully. To illustrate the specific usage, we assume that the exit configuration detected at the first training step, and the training process is ended in advance. You can get the full sample code here: [process_graceful_exit](https://gitee.com/mindspore/docs/tree/r2.4.1/docs/sample_code/graceful_exit/) .
 
 `graceful_exit.py` is the source code, `train.sh` is the start training script, and `graceful_exit.json` is the graceful exit config json file.
 
@@ -156,7 +156,7 @@ config_json = r"./graceful_exit.json"
 cb = OnRequestExit(file_name="LeNet", config_file=config_json)
 ```
 
-When configuring the `OnRequestExit` callback function, you can configure saving mindir, saving checkpoint, and other configuration parameters as required. For more details, please refer to the documentation [OnRequestExit](https://www.mindspore.cn/docs/en/r2.4.0/api_python/train/mindspore.train.OnRequestExit.html) .
+When configuring the `OnRequestExit` callback function, you can configure saving mindir, saving checkpoint, and other configuration parameters as required. For more details, please refer to the documentation [OnRequestExit](https://www.mindspore.cn/docs/en/r2.4.1/api_python/train/mindspore.train.OnRequestExit.html) .
 
 ```python
 def graceful_exit_case():

@@ -1,10 +1,10 @@
 # Advanced Automatic Differentiation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_en/model_train/train_process/derivation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/model_train/train_process/derivation.md)
 
 The `grad` and `value_and_grad` provided by the `mindspore.ops` module generate the gradients of the network model. `grad` computes the network gradient, and `value_and_grad` computes both the forward output and the gradient of the network. This article focuses on how to use the main functions of the `grad`, including first-order and second-order derivations, derivation of the input or network weights separately, returning auxiliary variables, and stopping calculating the gradient.
 
-> For more information about the derivative interface, please refer to the [API documentation](https://mindspore.cn/docs/en/r2.4.0/api_python/mindspore/mindspore.grad.html).
+> For more information about the derivative interface, please refer to the [API documentation](https://mindspore.cn/docs/en/r2.4.1/api_python/mindspore/mindspore.grad.html).
 
 ## First-order Derivation
 

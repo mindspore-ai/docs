@@ -1,6 +1,6 @@
 # Double Recursive Strategy Search Algorithm
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_en/model_train/parallel/sapp.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/model_train/parallel/sapp.md)
 
 ## Overview
 
@@ -35,7 +35,7 @@ The following is an illustration of the double recursive strategy search algorit
 
 ### Example Code Description
 
-> Download the complete example code: [sapp](https://gitee.com/mindspore/docs/tree/r2.4.0/docs/sample_code/sapp).
+> Download the complete example code: [sapp](https://gitee.com/mindspore/docs/tree/r2.4.1/docs/sample_code/sapp).
 
 The directory structure is as follows:
 

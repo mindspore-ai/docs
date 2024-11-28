@@ -1,8 +1,8 @@
 Application Specific Integrated Circuit Integration Instructions
 ================================================================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.4.0/docs/lite/docs/source_en/advanced/third_party/asic.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.4.1/docs/lite/docs/source_en/advanced/third_party/asic.rst
     :alt: View Source on Gitee
 
 .. toctree::

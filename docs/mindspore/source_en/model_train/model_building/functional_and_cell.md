@@ -1,6 +1,6 @@
 # Functional and Cell
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_en/model_train/model_building/functional_and_cell.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/model_train/model_building/functional_and_cell.md)
 
 ## Operator Functional Interface
 
@@ -211,10 +211,10 @@ Cell name: sequential_block.2, type: <class 'mindspore.nn.layer.activation.ReLU'
 
 Debugging deep learning network is a task that every practitioner in the field of deep learning needs to face and invest a lot of effort. Since the deep learning network hides the input and output data and the inverse gradient of the intermediate layer operator and only provides the gradient of the network input data (feature quantity, weight), it leads to the inability to accurately perceive the data changes of the intermediate layer operator, which reduces the debugging efficiency. In order to facilitate users to debug the deep learning network accurately and quickly, MindSpore designs the Hook function in the dynamic graph mode. Using hook function can capture the input and output data of the middle layer operator and the inverse gradient.
 
-Currently, `MindSpore.nn.Cell` provides four forms of Hook function in dynamic graph mode, namely: `register_forward_pre_hook`, `register_forward_hook`, `register_backward_hook` and `register_backward_pre_hook` functions. See [Hook Programming](https://www.mindspore.cn/docs/en/r2.4.0/model_train/custom_program/hook_program.html) for details.
+Currently, `MindSpore.nn.Cell` provides four forms of Hook function in dynamic graph mode, namely: `register_forward_pre_hook`, `register_forward_hook`, `register_backward_hook` and `register_backward_pre_hook` functions. See [Hook Programming](https://www.mindspore.cn/docs/en/r2.4.1/model_train/custom_program/hook_program.html) for details.
 
 ### Recomputation
 
 MindSpore uses automatic differentiation in reverse mode to automatically derive the reverse graph based on the forward graph computation flow, and the forward and reverse graphs together form a complete computation graphs. When computing some inverse operators, the results of some forward operators need to be used, resulting in the need for the results of these forward operators to reside in memory until the inverse operators that depend on them have been computed, and the memory occupied by the results of these forward operators will not be reused. This phenomenon pushes up the memory spikes for training, and is particularly significant in large-scale network models.
 
-To solve this problem, the `mindspore.nn.Cell.recompute` interface provides a recomputation function. The recomputation function allows the results of the forward operator to not be saved, allowing the memory to be reused, and then recomputing the forward operator if the forward result is needed when computing the reverse operator. See [recomputation](https://www.mindspore.cn/docs/en/r2.4.0/model_train/parallel/recompute.html) for details.
+To solve this problem, the `mindspore.nn.Cell.recompute` interface provides a recomputation function. The recomputation function allows the results of the forward operator to not be saved, allowing the memory to be reused, and then recomputing the forward operator if the forward result is needed when computing the reverse operator. See [recomputation](https://www.mindspore.cn/docs/en/r2.4.1/model_train/parallel/recompute.html) for details.

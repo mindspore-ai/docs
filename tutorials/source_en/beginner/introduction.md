@@ -1,6 +1,6 @@
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/tutorials/source_en/beginner/introduction.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/tutorials/source_en/beginner/introduction.md)
 
-**Introduction** || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.4.0/beginner/quick_start.html#) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.4.0/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.4.0/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.4.0/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.4.0/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.4.0/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.4.0/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.4.0/beginner/accelerate_with_static_graph.html) || [Mixed Precision](https://www.mindspore.cn/tutorials/en/r2.4.0/beginner/mixed_precision.html)
+**Introduction** || [Quick Start](https://www.mindspore.cn/tutorials/en/r2.4.1/beginner/quick_start.html#) || [Tensor](https://www.mindspore.cn/tutorials/en/r2.4.1/beginner/tensor.html) || [Data Loading and Processing](https://www.mindspore.cn/tutorials/en/r2.4.1/beginner/dataset.html) || [Model](https://www.mindspore.cn/tutorials/en/r2.4.1/beginner/model.html) || [Autograd](https://www.mindspore.cn/tutorials/en/r2.4.1/beginner/autograd.html) || [Train](https://www.mindspore.cn/tutorials/en/r2.4.1/beginner/train.html) || [Save and Load](https://www.mindspore.cn/tutorials/en/r2.4.1/beginner/save_load.html) || [Accelerating with Static Graphs](https://www.mindspore.cn/tutorials/en/r2.4.1/beginner/accelerate_with_static_graph.html) || [Mixed Precision](https://www.mindspore.cn/tutorials/en/r2.4.1/beginner/mixed_precision.html)
 
 # Overview
 
@@ -14,7 +14,7 @@ Easy development features user-friendly APIs and low debugging difficulty. Effic
 
 The following figure shows the overall MindSpore architecture:
 
-![MindSpore-arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/tutorials/source_en/beginner/images/introduction2.png)
+![MindSpore-arch](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/tutorials/source_en/beginner/images/introduction2.png)
 
 - **Multi-domain Expansion**: Provide large model suite, domain suite, AI4S suite, provide users with usable-upon-unpacking models and functional interfaces, which are easy to use for R&D and reference realization based on the pre-built models of the suite.
 - **Developer-Friendly**: MindExpression layer provides users with interfaces for AI model development, training, and inference, and supports users to develop and debug neural networks with native Python syntax, and its unique ability to unify dynamic and static graphs enables developers to take into account the development efficiency and execution performance, while the layer provides unified C++/Python interfaces for the whole scenario in the production and deployment phases.
@@ -30,7 +30,7 @@ The following figure shows the overall MindSpore architecture:
 
 With an understanding of the overall architecture of MindSpore, we can look at the overall coordination relationship between the various modules, as shown in the figure:
 
-![MindSpore](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/tutorials/source_en/beginner/images/introduction4.png)
+![MindSpore](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/tutorials/source_en/beginner/images/introduction4.png)
 
 As an all-scenario AI framework, MindSpore supports different series of hardware in the device (mobile phone and IoT device), edge (base station and routing device), and cloud (server) scenarios, including Ascend series products and NVIDIA series products, Qualcomm Snapdragon in the ARM series, and Huawei Kirin chips.
 
@@ -75,7 +75,7 @@ After the neural network model is trained, you can export the model or load the 
 
 MindSpore provides users with three different levels of APIs to support AI application (algorithm/model) development, from high to low: High-Level Python API, Medium-Level Python API and Low-Level Python API. The High-Level API provides better encapsulation, the Low-Level API provides better flexibility, and the Mid-Level API combines flexibility and encapsulation to meet the needs of developers in different fields and levels.
 
-![MindSpore API](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/tutorials/source_en/beginner/images/introduction3.png)
+![MindSpore API](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/tutorials/source_en/beginner/images/introduction3.png)
 
 - High-Level Python API
 
@@ -97,7 +97,7 @@ Huawei Atlas AI computing solution is based on Ascend series AI processors and u
 
 Th Ascend AI full stack is shown below:
 
-![Ascend full stack](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/tutorials/source_en/beginner/images/introduction1.png)
+![Ascend full stack](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/tutorials/source_en/beginner/images/introduction1.png)
 
 The functions of each module are described as follows:
 

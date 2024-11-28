@@ -1,6 +1,6 @@
 # Differences with torch.all
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/all.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/all.md)
 
 The following mapping relationships can be found in this file.
 
@@ -23,7 +23,7 @@ For more information, see [torch.all](https://pytorch.org/docs/1.8.1/generated/t
 mindspore.ops.all(x, axis=(), keep_dims=False) -> Tensor
 ```
 
-For more information, see [mindspore.ops.all](https://mindspore.cn/docs/en/r2.4.0/api_python/ops/mindspore.ops.all.html).
+For more information, see [mindspore.ops.all](https://mindspore.cn/docs/en/r2.4.1/api_python/ops/mindspore.ops.all.html).
 
 ## Differences
 
