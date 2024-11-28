@@ -1,16 +1,16 @@
 # 高阶算子级并行
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_zh_cn/model_train/parallel/advanced_operator_parallel.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/model_train/parallel/advanced_operator_parallel.md)
 
 ## 概述
 
-[算子级并行](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/parallel/operator_parallel.html) 是大模型训练推理中常用的并行技术，它可以将张量切分到多卡上，有效降低单卡上的显存。MindSpore进行算子级并行的配置是通过mindspore.ops.Primitive.shard()接口，对算子的每个输入，以tuple描述张量的切分，对于大多数场景配置简易，相应地，该种切分方式仅描述了张量切分，却向用户屏蔽了张量在设备rank上的排布，因此表达的张量切分与设备排布的映射关系有限，无法支撑一些更为复杂的场景的切分。因此，本教程将介绍开放设备排布描述的算子级并行配置方法。
+[算子级并行](https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/parallel/operator_parallel.html) 是大模型训练推理中常用的并行技术，它可以将张量切分到多卡上，有效降低单卡上的显存。MindSpore进行算子级并行的配置是通过mindspore.ops.Primitive.shard()接口，对算子的每个输入，以tuple描述张量的切分，对于大多数场景配置简易，相应地，该种切分方式仅描述了张量切分，却向用户屏蔽了张量在设备rank上的排布，因此表达的张量切分与设备排布的映射关系有限，无法支撑一些更为复杂的场景的切分。因此，本教程将介绍开放设备排布描述的算子级并行配置方法。
 
 > 高级算子级并行模型支持的硬件平台包括Ascend、GPU，需要在Graph模式下运行。
 
 ## 背景
 
-[算子级并行](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/parallel/operator_parallel.html) 章节中介绍了MindSpore对张量的基本切分逻辑，但是不能表达出所有的切分场景。对于一个二维张量 "[[a0, a1, a2, a3], [a4, a5, a6, a7]]"如下图所示的张量分布：
+[算子级并行](https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/parallel/operator_parallel.html) 章节中介绍了MindSpore对张量的基本切分逻辑，但是不能表达出所有的切分场景。对于一个二维张量 "[[a0, a1, a2, a3], [a4, a5, a6, a7]]"如下图所示的张量分布：
 
 ![image](images/advanced_operator_parallel_view1.PNG)
 
@@ -26,8 +26,8 @@
 
 ## 接口配置
 
-为了表达出如上述场景下的切分，对[shard](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/mindspore/mindspore.shard.html) 接口进行功能扩展。
-in_strategy/out_strategy两个入参，都额外接收新的数量类型tuple(Layout)类型。其中[Layout](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/mindspore/mindspore.Layout.html) 使用设备矩阵进行初始化，同时要求给设备矩阵的每个轴取一个别名，如"layout = Layout((8, 4, 4), name = ("dp", "sp", "mp"))"，
+为了表达出如上述场景下的切分，对[shard](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/mindspore/mindspore.shard.html) 接口进行功能扩展。
+in_strategy/out_strategy两个入参，都额外接收新的数量类型tuple(Layout)类型。其中[Layout](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/mindspore/mindspore.Layout.html) 使用设备矩阵进行初始化，同时要求给设备矩阵的每个轴取一个别名，如"layout = Layout((8, 4, 4), name = ("dp", "sp", "mp"))"，
 该设备矩阵即描述的是共有128卡，按照(8, 4, 4)的形状进行排列，而每个轴分别取了别名"dp", "sp", "mp"，而对Layout进行调用传入的则是这几个轴，每个张量按照其shape选取每个维度期望映射到设备的哪个轴，同时也确定了切分的份数，如这里"dp"就表示在设备排布的最高维度的8个设备内切分8份，而"sp"表示在设备排布的中间维度的4个设备内切分4份，"mp"表示在设备排布的最低维度的4个设备内切分为4份。特别地，张量的一个维度可以映射到设备的多个维度，以表达在一个维度进行多次切分。
 
 上述例子中"[[a0, a1, a2, a3], [a4, a5, a6, a7]]"切分到不连续的卡上，可以如下通过Layout表达
@@ -70,7 +70,7 @@ class DenseMatMulNet(nn.Cell):
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.4.0/docs/sample_code/distributed_operator_parallel)。
+> 下载完整的样例代码：[distributed_operator_parallel](https://gitee.com/mindspore/docs/tree/r2.4.1/docs/sample_code/distributed_operator_parallel)。
 
 目录结构如下：
 
@@ -235,4 +235,4 @@ epoch: 0, step: 90, loss is 0.7807965
 ...
 ```
 
-其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/parallel/startup_method.html)。
+其他启动方式如动态组网、`rank table`的启动可参考[启动方式](https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/parallel/startup_method.html)。

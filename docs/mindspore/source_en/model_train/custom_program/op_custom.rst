@@ -1,8 +1,8 @@
 Custom Operators
 =================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_en/model_train/custom_program/op_custom.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/model_train/custom_program/op_custom.rst
     :alt: View Source on Gitee
 
 .. toctree::
@@ -14,7 +14,7 @@ Custom Operators
    operation/op_custom_ascendc
    operation/op_custom_julia
 
-When built-in operators cannot meet requirements during network development, you can call the Python API `Custom <https://www.mindspore.cn/docs/en/r2.4.0/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom>`_ primitive defined in MindSpore to quickly create different types of custom operators for use.
+When built-in operators cannot meet requirements during network development, you can call the Python API `Custom <https://www.mindspore.cn/docs/en/r2.4.1/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom>`_ primitive defined in MindSpore to quickly create different types of custom operators for use.
 
 Traditional methods to add a custom operator need three steps: registering the operator primitive, implementing the operator, and registering the operator information.
 
@@ -32,7 +32,7 @@ Compared with traditional custom operator creating methods, creating custom oper
 Custom operator classification and adaptation scenarios
 -----------------------------------------------------------
 
-The operator development methods supported by custom operator based on the `Custom <https://www.mindspore.cn/docs/en/r2.4.0/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom>`_ primitive include: aot, pyfunc, and julia.
+The operator development methods supported by custom operator based on the `Custom <https://www.mindspore.cn/docs/en/r2.4.1/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom>`_ primitive include: aot, pyfunc, and julia.
 
 The difference between these operator development methods are as follows:
 
@@ -48,11 +48,11 @@ The difference between these operator development methods are as follows:
      - Python
      - `CPU`
      - Fast algorithm verification scenarios
-   * - `aot <https://www.mindspore.cn/docs/en/r2.4.0/model_train/custom_program/operation/op_custom_aot.html>`_
+   * - `aot <https://www.mindspore.cn/docs/en/r2.4.1/model_train/custom_program/operation/op_custom_aot.html>`_
      - Ascend C/CUDA/C++
      - `Ascend` `GPU` `CPU`
      - high-performance scenarios
-   * - `julia <https://www.mindspore.cn/docs/en/r2.4.0/model_train/custom_program/operation/op_custom_julia.html>`_
+   * - `julia <https://www.mindspore.cn/docs/en/r2.4.1/model_train/custom_program/operation/op_custom_julia.html>`_
      - Julia
      - `CPU`
      - Science compute scenarios / use Julia scenarios
@@ -68,12 +68,12 @@ Different custom operator defining methods use different development languages t
 
 To help you better use custom operators, we have used [the pyfunc-type custom operator](#an-example-of-custom-operators) as an example of a custom operator. In addition, we provide tutorials for other custom operators including:
 
-- AOT-type custom op on `Ascend backend <https://www.mindspore.cn/docs/en/r2.4.0/model_train/custom_program/operation/op_custom_ascendc.html>`_ and `GPU/CPU backend <https://www.mindspore.cn/docs/en/r2.4.0/model_train/custom_program/operation/op_custom_aot.html>`_ ；
-- `Julia-type custom op <https://www.mindspore.cn/docs/en/r2.4.0/model_train/custom_program/operation/op_custom_julia.html>`_ ；
-- `Advanced usage of custom operators <https://www.mindspore.cn/docs/en/r2.4.0/model_train/custom_program/operation/op_custom_adv.html>`_ ：registering the operator information and defining the backward functions for operators.
+- AOT-type custom op on `Ascend backend <https://www.mindspore.cn/docs/en/r2.4.1/model_train/custom_program/operation/op_custom_ascendc.html>`_ and `GPU/CPU backend <https://www.mindspore.cn/docs/en/r2.4.1/model_train/custom_program/operation/op_custom_aot.html>`_ ；
+- `Julia-type custom op <https://www.mindspore.cn/docs/en/r2.4.1/model_train/custom_program/operation/op_custom_julia.html>`_ ；
+- `Advanced usage of custom operators <https://www.mindspore.cn/docs/en/r2.4.1/model_train/custom_program/operation/op_custom_adv.html>`_ ：registering the operator information and defining the backward functions for operators.
 
 .. note::
-    More examples can be found in the MindSpore source code `tests/st/graph_kernel/custom <https://gitee.com/mindspore/mindspore/tree/v2.4.0/tests/st/graph_kernel/custom>`_ .
+    More examples can be found in the MindSpore source code `tests/st/graph_kernel/custom <https://gitee.com/mindspore/mindspore/tree/v2.4.1/tests/st/graph_kernel/custom>`_ .
 
 An Example of Custom Operators
 --------------------------------
@@ -160,4 +160,4 @@ Then we have the following results as sin values of above inputs.
     [0.         0.841471   0.19866933 0.29552022 0.38941833]
     </pre></div>
 
-Then we have completed the definition of a custom operator of type pyfunc. For more complete examples of pyfunc-type custom operators, see the `use cases <https://gitee.com/mindspore/mindspore/blob/v2.4.0/tests/st/graph_kernel/custom/test_custom_pyfunc.py>`_ in the MindSpore source code.
+Then we have completed the definition of a custom operator of type pyfunc. For more complete examples of pyfunc-type custom operators, see the `use cases <https://gitee.com/mindspore/mindspore/blob/v2.4.1/tests/st/graph_kernel/custom/test_custom_pyfunc.py>`_ in the MindSpore source code.

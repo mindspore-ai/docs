@@ -1,12 +1,12 @@
 # Tensor与Parameter
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_zh_cn/model_train/model_building/tensor_and_parameter.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/model_train/model_building/tensor_and_parameter.md)
 
 ## Tensor
 
-张量（[Tensor](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/mindspore/mindspore.Tensor.html)）是MindSpore网络运算中的基本数据结构，其功能类似[Numpy数组（ndarray）](https://numpy.org/doc/stable/user/quickstart.html#the-basics)，MindSpore使用Tensor来表示神经网络中传递的数据。
+张量（[Tensor](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/mindspore/mindspore.Tensor.html)）是MindSpore网络运算中的基本数据结构，其功能类似[Numpy数组（ndarray）](https://numpy.org/doc/stable/user/quickstart.html#the-basics)，MindSpore使用Tensor来表示神经网络中传递的数据。
 
-关于Tensor创建、Tensor运算、Tensor与NumPy转换等操作，请参考[张量 Tensor](https://www.mindspore.cn/tutorials/zh-CN/r2.4.0/beginner/tensor.html)。
+关于Tensor创建、Tensor运算、Tensor与NumPy转换等操作，请参考[张量 Tensor](https://www.mindspore.cn/tutorials/zh-CN/r2.4.1/beginner/tensor.html)。
 
 ### Tensor索引支持
 
@@ -341,7 +341,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
 索引赋值可以理解为对索引到的位置元素按照一定规则进行赋值，所有索引赋值都不会改变原`Tensor`的`shape`。
 
-> 当索引中有多个元素指向原Tensor的同一个位置时，该值的更新受底层算子限制，可能出现随机的情况。因此暂不支持索引中重复对Tensor中一个位置的值反复更新。详情请见:[TensorScatterUpdate 算子介绍](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.TensorScatterUpdate.html)
+> 当索引中有多个元素指向原Tensor的同一个位置时，该值的更新受底层算子限制，可能出现随机的情况。因此暂不支持索引中重复对Tensor中一个位置的值反复更新。详情请见:[TensorScatterUpdate 算子介绍](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.TensorScatterUpdate.html)
 >
 > 当前只支持单层索引(`tensor_x[index] = value`)，多层索引(`tensor_x[index1][index2]... = value`)暂不支持。
 
@@ -650,7 +650,7 @@ print(tensor_x)
 
 索引增强赋值可以理解为对索引到的位置元素按照一定规则进行取值，取值所得再与`value`进行操作符运算，最终将运算结果进行赋值，所有索引增强赋值都不会改变原`Tensor`的`shape`。
 
-> 当索引中有多个元素指向原Tensor的同一个位置时，该值的更新受底层算子限制，可能出现随机的情况。因此暂不支持索引中重复对Tensor中一个位置的值反复更新。详情请见:[TensorScatterUpdate 算子介绍](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.TensorScatterUpdate.html)。
+> 当索引中有多个元素指向原Tensor的同一个位置时，该值的更新受底层算子限制，可能出现随机的情况。因此暂不支持索引中重复对Tensor中一个位置的值反复更新。详情请见:[TensorScatterUpdate 算子介绍](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.TensorScatterUpdate.html)。
 >
 > 目前索引中包含 `True`、`False` 和 `None`的情况暂不支持。
 
@@ -703,9 +703,9 @@ print(t[0][0])
 
 由于视图与其原来的Tensor共享底层数据，因此如果在视图中修改数据，它也会反映在原来的Tensor中。
 
-通常，MindSpore算子操作会返回一个新的Tensor作为输出，例如[add()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.add.html)。
+通常，MindSpore算子操作会返回一个新的Tensor作为输出，例如[add()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.add.html)。
 但在视图操作的情况下，输出是输入Tensor的视图，以避免不必要的数据复制。创建视图时不会发生数据移动，视图Tensor只是改变它解析相同数据的方式。
-使用Tensor Views可能会使内存储存连续的Tensor产生内存存储非连续的Tensor。用户应格外注意，因为连续性可能会对性能产生隐式影响。[transpose()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.transpose.html)是一个常见的例子。
+使用Tensor Views可能会使内存储存连续的Tensor产生内存存储非连续的Tensor。用户应格外注意，因为连续性可能会对性能产生隐式影响。[transpose()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.transpose.html)是一个常见的例子。
 
 ```python
 from mindspore import Tensor
@@ -727,49 +727,49 @@ c.is_contiguous()
 
 作为参考，以下是MindSpore中支持view特性算子的完整列表：
 
-[broadcast_to()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.broadcast_to.html)
+[broadcast_to()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.broadcast_to.html)
 
-[diagonal()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.diagonal.html)
+[diagonal()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.diagonal.html)
 
-[expand_as()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/mindspore/Tensor/mindspore.Tensor.expand_as.html)
+[expand_as()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/mindspore/Tensor/mindspore.Tensor.expand_as.html)
 
-[movedim()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.movedim.html)
+[movedim()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.movedim.html)
 
-[narrow()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.narrow.html)
+[narrow()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.narrow.html)
 
-[permute()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.permute.html)
+[permute()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.permute.html)
 
-[squeeze()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.squeeze.html)
+[squeeze()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.squeeze.html)
 
-[transpose()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.transpose.html)
+[transpose()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.transpose.html)
 
-[t()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.t.html)
+[t()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.t.html)
 
-[T](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/mindspore/Tensor/mindspore.Tensor.T.html)
+[T](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/mindspore/Tensor/mindspore.Tensor.T.html)
 
-[unsqueeze()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.unsqueeze.html)
+[unsqueeze()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.unsqueeze.html)
 
-[view()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/mindspore/Tensor/mindspore.Tensor.view.html)
+[view()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/mindspore/Tensor/mindspore.Tensor.view.html)
 
-[view_as()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/mindspore/Tensor/mindspore.Tensor.view_as.html)
+[view_as()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/mindspore/Tensor/mindspore.Tensor.view_as.html)
 
-[unbind()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.unbind.html)
+[unbind()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.unbind.html)
 
-[split()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.split.html)
+[split()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.split.html)
 
-[hsplit()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.hsplit.html)
+[hsplit()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.hsplit.html)
 
-[vsplit()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.vsplit.html)
+[vsplit()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.vsplit.html)
 
-[tensor_split()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.tensor_split.html)
+[tensor_split()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.tensor_split.html)
 
-[swapaxes()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.swapaxes.html)
+[swapaxes()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.swapaxes.html)
 
-[swapdims()](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.swapdims.html)"
+[swapdims()](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.swapdims.html)"
 
 ## Parameter
 
-参数（[Parameter](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/mindspore/mindspore.Parameter.html)）是一类特殊的Tensor，是指在模型训练过程中可以对其值进行更新的变量。MindSpore提供`mindspore.Parameter`类进行Parameter的构造。为了对不同用途的Parameter进行区分，下面对两种不同类别的Parameter进行定义：
+参数（[Parameter](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/mindspore/mindspore.Parameter.html)）是一类特殊的Tensor，是指在模型训练过程中可以对其值进行更新的变量。MindSpore提供`mindspore.Parameter`类进行Parameter的构造。为了对不同用途的Parameter进行区分，下面对两种不同类别的Parameter进行定义：
 
 - 可训练参数。在模型训练过程中根据反向传播算法求得梯度后进行更新的Tensor，此时需要将`requires_grad`设置为`True`。
 - 不可训练参数。不参与反向传播，但需要更新值的Tensor（如BatchNorm中的`mean`和`var`变量），此时需要将`requires_grad`设置为`False`。
@@ -875,7 +875,7 @@ print(net.b.asnumpy())
 
 #### 覆盖修改参数值
 
-可调用`Parameter.set_data`方法，使用相同Shape的Tensor对Parameter进行覆盖。该方法常用于使用Initializer进行[Cell遍历初始化](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/custom_program/initializer.html#cell%E9%81%8D%E5%8E%86%E5%88%9D%E5%A7%8B%E5%8C%96)。
+可调用`Parameter.set_data`方法，使用相同Shape的Tensor对Parameter进行覆盖。该方法常用于使用Initializer进行[Cell遍历初始化](https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/custom_program/initializer.html#cell%E9%81%8D%E5%8E%86%E5%88%9D%E5%A7%8B%E5%8C%96)。
 
 ```python
 net.b.set_data(Tensor([3, 4, 5]))
@@ -888,7 +888,7 @@ print(net.b.asnumpy())
 
 #### 运行时修改参数值
 
-在深度学习模型训练中，参数的核心功能在于其值的迭代更新，从而优化模型性能。鉴于MindSpore[使用静态图加速](https://www.mindspore.cn/tutorials/zh-CN/r2.4.0/beginner/accelerate_with_static_graph.html)的编译设计，需要使用`mindspore.ops.assign`接口对参数进行赋值。该方法常用于[自定义优化器](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/custom_program/optimizer.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BC%98%E5%8C%96%E5%99%A8)场景。下面是一个简单的运行时修改参数值样例：
+在深度学习模型训练中，参数的核心功能在于其值的迭代更新，从而优化模型性能。鉴于MindSpore[使用静态图加速](https://www.mindspore.cn/tutorials/zh-CN/r2.4.1/beginner/accelerate_with_static_graph.html)的编译设计，需要使用`mindspore.ops.assign`接口对参数进行赋值。该方法常用于[自定义优化器](https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/custom_program/optimizer.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BC%98%E5%8C%96%E5%99%A8)场景。下面是一个简单的运行时修改参数值样例：
 
 ```python
 import mindspore as ms

@@ -1,6 +1,6 @@
 # 临终Checkpoint保存
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_zh_cn/model_train/train_availability/mindio_ttp.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/model_train/train_availability/mindio_ttp.md)
 
 ## 概述
 
@@ -14,13 +14,13 @@ MindSpore临终CKPT功能基于[MindIO TTP](https://www.hiascend.com/document/de
 2. 仅支持sink_size=1， 用于保证step的正确性。
 3. 仅支持父类类型为MindSpore Optimizer的优化器。
 4. 仅支持数据并行度大于1的网络，以确保模型参数存在副本关系。
-5. 如果网络开启优化器并行，必须使能optimizer_weight_shard_size:2，并确保其生效，以使优化器参数存在副本关系，详细可以参考[优化器并行](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/parallel/optimizer_parallel.html#%E9%AB%98%E7%BA%A7%E6%8E%A5%E5%8F%A3) 。
+5. 如果网络开启优化器并行，必须使能optimizer_weight_shard_size:2，并确保其生效，以使优化器参数存在副本关系，详细可以参考[优化器并行](https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/parallel/optimizer_parallel.html#%E9%AB%98%E7%BA%A7%E6%8E%A5%E5%8F%A3) 。
 
 ## 样例代码说明
 
 > 您可以在这里下载完整的样例代码：
 >
-> <https://gitee.com/mindspore/docs/tree/r2.4.0/docs/sample_code/mindio_ttp>。
+> <https://gitee.com/mindspore/docs/tree/r2.4.1/docs/sample_code/mindio_ttp>。
 
 目录结构如下：
 
@@ -160,7 +160,7 @@ dataset = create_dataset(32)
 
 ## 优化器定义与封装
 
-开启临终CKPT功能需要设置TFT优化器, 设置后可在梯度计算完成后，优化器更新前向MindIO TFT上报状态。TFT优化器用`OptTFTWrapper`来配置, 详情参见[OptTFTWrapper](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/nn/mindspore.nn.OptTFTWrapper.html)。
+开启临终CKPT功能需要设置TFT优化器, 设置后可在梯度计算完成后，优化器更新前向MindIO TFT上报状态。TFT优化器用`OptTFTWrapper`来配置, 详情参见[OptTFTWrapper](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/nn/mindspore.nn.OptTFTWrapper.html)。
 
 ```python
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
@@ -178,7 +178,7 @@ model = ms.Model(net,  optimizer=optimizer_wrapper)
 
 ## Callback配置
 
-开启临终CKPT功能需要设置 `TFTRegister` Callback对象，并传入参数来配置，详情参见[TFTRegister](https://www.mindspore.cn/docs/zh-CN/r2.4.0/api_python/train/mindspore.train.TFTRegister.html)。
+开启临终CKPT功能需要设置 `TFTRegister` Callback对象，并传入参数来配置，详情参见[TFTRegister](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/train/mindspore.train.TFTRegister.html)。
 
 ```python
 time_monitor = train.TimeMonitor(data_size=1)

@@ -306,7 +306,7 @@ if os.path.exists('./api_python/mindspore.mint.rst'):
     with open('./api_python/mindspore.mint.rst', 'r+', encoding='utf-8') as f:
         mint_content = f.read()
         sec_title_1 = re.findall(r'.*\n[-]+\n', mint_content)[0]
-        mint_content = mint_content.replace(sec_title_1, f"Compared with the previous version, the added, deleted and supported platforms change information of `mindspore.mint` operators in MindSpore, please refer to the link `mindspore.mint API Interface Change <https://gitee.com/mindspore/docs/blob/r2.4.0/resource/api_updates/mint_api_updates_en.md>`_ .\n\n{sec_title_1}")
+        mint_content = mint_content.replace(sec_title_1, f"Compared with the previous version, the added, deleted and supported platforms change information of `mindspore.mint` operators in MindSpore, please refer to the link `mindspore.mint API Interface Change <https://gitee.com/mindspore/docs/blob/r2.4.1/resource/api_updates/mint_api_updates_en.md>`_ .\n\n{sec_title_1}")
         f.seek(0)
         f.truncate()
         f.write(mint_content)

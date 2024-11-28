@@ -1,6 +1,6 @@
 # Differences with torch.nn.LayerNorm
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_en/note/api_mapping/pytorch_diff/LayerNorm.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/LayerNorm.md)
 
 ## torch.nn.LayerNorm
 
@@ -27,7 +27,7 @@ class mindspore.nn.LayerNorm(
 )(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.LayerNorm](https://mindspore.cn/docs/en/r2.4.0/api_python/nn/mindspore.nn.LayerNorm.html).
+For more information, see [mindspore.nn.LayerNorm](https://mindspore.cn/docs/en/r2.4.1/api_python/nn/mindspore.nn.LayerNorm.html).
 
 ## Differences
 

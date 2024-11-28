@@ -1,6 +1,6 @@
 # 比较与torch.bucketize的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/bucketize.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/bucketize.md)
 
 ## torch.bucketize
 
@@ -16,7 +16,7 @@ torch.bucketize(input, boundaries, *, out_int32=False, right=False, out=None)
 class mindspore.ops.bucketize(input, boundaries, *, right=False)
 ```
 
-更多内容详见[mindspore.ops.bucketize](https://mindspore.cn/docs/zh-CN/r2.4.0/api_python/ops/mindspore.ops.bucketize.html#mindspore.ops.bucketize)。
+更多内容详见[mindspore.ops.bucketize](https://mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.bucketize.html#mindspore.ops.bucketize)。
 
 ## 使用方式
 
