@@ -1,6 +1,6 @@
 [
     {
-        "version": "r2.4.0",
+        "version": "r2.4.1",
         "label": {
             "zh": "MindSpore",
             "en": "MindSpore"
@@ -10,28 +10,28 @@
             "zh": [
                 {
                     "label": "设计理念",
-                    "url": "/docs/zh-CN/r2.4.0/design/overview.html",
-                    "id": "r2.4.0-design"
+                    "url": "/docs/zh-CN/r2.4.1/design/overview.html",
+                    "id": "r2.4.1-design"
                 },
                 {
                     "label": "模型构建与训练",
-                    "url": "/docs/zh-CN/r2.4.0/model_train/index.html",
-                    "id": "r2.4.0-model_train"
+                    "url": "/docs/zh-CN/r2.4.1/model_train/index.html",
+                    "id": "r2.4.1-model_train"
                 },
                 {
                     "label": "模型推理",
-                    "url": "/docs/zh-CN/r2.4.0/model_infer/index.html",
-                    "id": "r2.4.0-model_infer"
+                    "url": "/docs/zh-CN/r2.4.1/model_infer/index.html",
+                    "id": "r2.4.1-model_infer"
                 },
                 {
                     "label": "模型迁移",
-                    "url": "/docs/zh-CN/r2.4.0/migration_guide/overview.html",
-                    "id": "r2.4.0-migration_guide,r2.4.0-note-api_mapping"
+                    "url": "/docs/zh-CN/r2.4.1/migration_guide/overview.html",
+                    "id": "r2.4.1-migration_guide,r2.4.1-note-api_mapping"
                 },
                 {
                     "label": "API文档",
-                    "url": "/docs/zh-CN/r2.4.0/api_python/index.html",
-                    "id": "r2.4.0-api_python"
+                    "url": "/docs/zh-CN/r2.4.1/api_python/index.html",
+                    "id": "r2.4.1-api_python"
                 },
                 {
                     "label": "大模型开发",
@@ -39,44 +39,44 @@
                 },
                 {
                     "label": "香橙派开发",
-                    "url": "/docs/zh-CN/r2.4.0/orange_pi/index.html",
-                    "id": "r2.4.0-orange_pi"
+                    "url": "/docs/zh-CN/r2.4.1/orange_pi/index.html",
+                    "id": "r2.4.1-orange_pi"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/docs/zh-CN/r2.4.0/faq/installation.html",
-                    "id": "r2.4.0-faq"
+                    "url": "/docs/zh-CN/r2.4.1/faq/installation.html",
+                    "id": "r2.4.1-faq"
                 },
                 {
                     "label": "RELEASE NOTES",
-                    "url": "/docs/zh-CN/r2.4.0/RELEASE.html"
+                    "url": "/docs/zh-CN/r2.4.1/RELEASE.html"
                 }
             ],
             "en": [
                 {
                     "label": "Design Concept",
-                    "url": "/docs/en/r2.4.0/design/overview.html",
-                    "id": "r2.4.0-design"
+                    "url": "/docs/en/r2.4.1/design/overview.html",
+                    "id": "r2.4.1-design"
                 },
                 {
                     "label": "Model Building and Training",
-                    "url": "/docs/en/r2.4.0/model_train/index.html",
-                    "id": "r2.4.0-model_train"
+                    "url": "/docs/en/r2.4.1/model_train/index.html",
+                    "id": "r2.4.1-model_train"
                 },
                 {
                     "label": "Model Inference",
-                    "url": "/docs/en/r2.4.0/model_infer/index.html",
-                    "id": "r2.4.0-model_infer"
+                    "url": "/docs/en/r2.4.1/model_infer/index.html",
+                    "id": "r2.4.1-model_infer"
                 },
                 {
                     "label": "Model Migration",
-                    "url": "/docs/en/r2.4.0/migration_guide/overview.html",
-                    "id": "r2.4.0-migration_guide,r2.4.0-note-api_mapping"
+                    "url": "/docs/en/r2.4.1/migration_guide/overview.html",
+                    "id": "r2.4.1-migration_guide,r2.4.1-note-api_mapping"
                 },
                 {
                     "label": "API",
-                    "url": "/docs/en/r2.4.0/api_python/index.html",
-                    "id": "r2.4.0-api_python"
+                    "url": "/docs/en/r2.4.1/api_python/index.html",
+                    "id": "r2.4.1-api_python"
                 },
                 {
                     "label": "Large Model",
@@ -84,24 +84,24 @@
                 },
                 {
                     "label": "Orange Pi",
-                    "url": "/docs/en/r2.4.0/orange_pi/index.html",
-                    "id": "r2.4.0-orange_pi"
+                    "url": "/docs/en/r2.4.1/orange_pi/index.html",
+                    "id": "r2.4.1-orange_pi"
                 },
                 {
                     "label": "FAQ",
-                    "url": "/docs/en/r2.4.0/faq/installation.html",
-                    "id": "r2.4.0-faq"
+                    "url": "/docs/en/r2.4.1/faq/installation.html",
+                    "id": "r2.4.1-faq"
                 },
                 {
                     "label": "RELEASE NOTES",
-                    "url": "/docs/en/r2.4.0/RELEASE.html"
+                    "url": "/docs/en/r2.4.1/RELEASE.html"
                 }
             ]
         },
         "theme": "theme-tutorials"
     },
     {
-        "version": "r2.4.0",
+        "version": "r2.4.1",
         "label": {
             "zh": "教程",
             "en": "Tutorials"
@@ -110,7 +110,7 @@
         "theme": "theme-docs"
     },
     {
-        "version": "r2.4.0",
+        "version": "r2.4.1",
         "label": {
             "zh": "MindSpore Lite",
             "en": "MindSpore Lite"
@@ -120,58 +120,40 @@
             "zh": [
                 {
                     "label": "概述",
-                    "url": "/lite?version=r2.4.0"
+                    "url": "/lite?version=r2.4.1"
                 },
                 {
                     "label": "下载",
-                    "url": "/lite/docs/zh-CN/r2.4.0/use/downloads.html"
+                    "url": "/lite/docs/zh-CN/r2.4.1/use/downloads.html"
                 },
                 {
                     "label": "文档",
-                    "url": "/lite/docs/zh-CN/r2.4.0/index.html"
+                    "url": "/lite/docs/zh-CN/r2.4.1/index.html"
                 },
                 {
                     "label": "API",
-                    "url": "/lite/api/zh-CN/r2.4.0/index.html"
+                    "url": "/lite/api/zh-CN/r2.4.1/index.html"
                 }
             ],
             "en": [
                 {
                     "label": "Overview",
-                    "url": "/lite/en?version=r2.4.0"
+                    "url": "/lite/en?version=r2.4.1"
                 },
                 {
                     "label": "Downloads",
-                    "url": "/lite/docs/en/r2.4.0/use/downloads.html"
+                    "url": "/lite/docs/en/r2.4.1/use/downloads.html"
                 },
                 {
                     "label": "Docs",
-                    "url": "/lite/docs/en/r2.4.0/index.html"
+                    "url": "/lite/docs/en/r2.4.1/index.html"
                 },
                 {
                     "label": "API",
-                    "url": "/lite/api/en/r2.4.0/index.html"
+                    "url": "/lite/api/en/r2.4.1/index.html"
                 }
             ]
         },
         "theme": "theme-lite"
-    },
-    {
-        "version": "r0.6.0",
-        "label": {
-            "zh": "MindSpore Golden Stick",
-            "en": "MindSpore Golden Stick"
-        },
-        "repo_name": "golden_stick",
-        "theme": "theme-docs"
-    },
-    {
-        "version": "r1.3.0",
-        "label": {
-            "zh": "MindSpore Transformers",
-            "en": "MindSpore Transformers"
-        },
-        "repo_name": "mindformers",
-        "theme": "theme-docs"
     }
 ]
