@@ -136,14 +136,14 @@ The current list of models supported by MindFormers is as follows:
   </tbody>
   <tbody>
     <tr>
-      <td rowspan="1"> <a href="https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/glm3.md"> GLM3-32K </a> </td>
+      <td rowspan="1"> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/glm32k/glm32k.md"> GLM3-32K </a> </td>
       <td> 6B </td>
       <td> 32K </td>
       <td style="text-align: center"> - </td>
-      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/glm3.md#%E5%BE%AE%E8%B0%83"> finetune </a> </td>
-      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/glm3.md#%E6%8E%A8%E7%90%86"> predict </a> </td>
-      <td> 3450 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/configs/glm3/finetune_glm3_6b_bf16.yaml"> Configuration </a> <br> Atlas 800T A2 </td>
-      <td> 627 tokens/s <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/configs/glm3/predict_glm3_6b.yaml"> Configuration </a> <br> Atlas 800T A2 </td>
+      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/glm32k/glm32k.md#%E5%BE%AE%E8%B0%83"> finetune </a> </td>
+      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/glm32k/glm32k.md#%E6%8E%A8%E7%90%86"> predict </a> </td>
+      <td> 1583 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/glm32k/finetune_glm32k.yaml"> Configuration </a> <br> Atlas 800T A2 </td>
+      <td> 876 tokens/s <br> <a href="hhttps://gitee.com/mindspore/mindformers/blob/dev/research/glm32k/predict_glm32k.yaml"> Configuration </a> <br> Atlas 800T A2 </td>
     </tr>
   </tbody>
   <tbody>
@@ -391,7 +391,7 @@ The current list of models supported by MindFormers is as follows:
   </tbody>
   <tbody>
     <tr>
-      <td rowspan="1"> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek/deepseek.md"> DeepSeek Coder1.5 </a> </td>
+      <td rowspan="1"> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek1_5/deepseek1_5.md"> DeepSeek Coder1.5 </a> </td>
       <td> 7B </td>
       <td> 4K </td>
       <td style="text-align: center"> - </td>
