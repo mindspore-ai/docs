@@ -12,7 +12,7 @@
 
 ### 常见问题归类总结
 
-大模型训练中经常出现各种精度问题，常见的问题现象包括loss无法收敛、loss收敛效果不佳、训练后期loss跑飞、精度溢出、loss下降过程中与标杆无法拟合等；这些精度问题可能是多种来源造成的，包括模型结构、数据集、超参数、前反向计算精度、优化器计算、浮点计算精度、随机性等方面。
+大模型训练中经常出现各种精度问题，常见的问题现象包括loss无法收敛、loss收敛效果不佳、训练后期loss不收敛、精度溢出、loss下降过程中与标杆无法拟合等；这些精度问题可能是多种来源造成的，包括模型结构、数据集、超参数、前反向计算精度、优化器计算、浮点计算精度、随机性等方面。
 
 当出现精度问题时，可以从这些精度误差的来源进行问题分析。先根据CheckList进行快速的排查，再进行参数、权重对齐，固定随机性和开启确定性计算后，再执行进出问题排查和长稳训练排除。当前阶段本文主要针对有精度标杆的场景介绍精度定位的通用方法，后续将陆续添加无精度标杆下的精度问题定位内容。
 
@@ -22,82 +22,78 @@
 
 ### 网络结构CheckList
 
-* 通用结构（以Llama2为例）
+* 通用结构
 
-| 关键参数          | 说明                                                  | 检查项                                                                                                                                |
-| ----------------- |-----------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| num_layers        | transformer层数                                       | 检查是否与标杆保持一致                                                                                                                        |
-| num_heads         | transformer中attention_heads数量                       | 检查是否与标杆保持一致                                                                                                                        |
-| hidden_size       | transformer隐藏层大小                                    | 检查是否与标杆保持一致                                                                                                                        |
-| intermediate_size | Feed-Forward Network的隐藏层大小                          | intermediate_size对应Megatron中ffn-hidden-size参数。MindFormers中若不配置，则通过multiple_of与ffn_dim_multiplier计算得到，检查是否与标杆保持一致。                  |
-| Attention         | transformer中的attention模块                            | </br>- 检查以下结构及计算方式是否对齐：attention结构有MQA、GQA、MHA等不同结构。</br>- 稀疏计算模式：Causal/sliding window attention(SWA)等。</br>- Wq/Wk/Wv的矩阵是否有融合计算。 |
-| normalization     | 正则化函数，常见结构有LayerNorm、RMSNorm                        | 检查是否与标杆保持一致                                                                                                                        |
-| normal_eps        | 正则化的epsilon参数                                       | 检查是否与标杆保持一致                                                                                                                        |
-| dropout           | 网络中的Dropout                                         | 当前MindSpore开启Dropout时，不能开重计算；若进行精度比对建议双边都关闭，减少随机因素。                                                                                |
-| 激活函数          | 常见的激活函数ReLU/GeLU/FastGeLU/SwigLU等                   | 检查是否与标杆保持一致                                                                                                                        |
-| 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算   | 同硬件下进行精度比对时，若有使用融合算子，则需要保持一致。不同硬件下进行精度比对时，则重点检查融合计算部分是否有计算差异。                                                                      |
-| 位置编码          | /                                                   | 检查使用位置编码的方式：绝对/相对位置编码。                                                                                                             |
-| vocab_size        | 词表大小                                                | vocab_size建议为16的倍数；若奇数，可能会影响matmul的计算结果。在预训练场景，可以通过修改参数来改变词表大小。在SFT场景，如果预训练权重的词表为奇数，需要对权重进行pad。                                    |
+| **关键参数**      | **说明**                                                     | **检查项**                                                                     |
+| ----------------- | ------------------------------------------------------------ |-----------------------------------------------------------------------------|
+| num_layers        | transformer层数                                              | 对应Megatron num-layers参数，检查是否一致。                                             |
+| num_heads         | transformer中attention heads数量                             | 对应Megatron num-attention-heads参数，检查是否一致。                                    |
+| hidden_size       | transformer隐藏层大小                                        | 对应Megatron hidden-size参数，检查是否一致。                                            |
+| intermediate_size | Feed-Forward Network的隐藏层大小                             | 对应Megatron中ffn-hidden-size参数，检查是否一致。                                        |
+| n_kv_heads        | kv分组数                                                     | 对应Megatron中的num-query-groups，检查是否一致。                                        |
+| 正则化函数        | 正则化函数，常见结构有LayerNorm、RMSNorm                     | MindFormers中的无正则化函数配置参数，与各模型论文中配置一致。 Megatron中可通过normalization自定义配置，检查是否一致。 |
+| rms_norm_eps      | 正则化的epsilon参数                                          | 对应Megatron的layernorm_epsilon，检查是否一致。                                        |
+| dropout           | 网络中的dropout                                              | 当前MindSpore开启Dropout时，不能开重计算；若进行精度比对建议双边都关闭，减少随机因素。                         |
+| 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 1. 同硬件下进行精度比对时，若有使用融合算子，则需要保持一致。 <br>2. 不同硬件下进行精度比对时，则重点检查融合计算部分是否有计算差异。    |
 
 * MOE结构
 
-| 关键参数                 | 说明                                              | 检查项                                                                                                             |
-| ------------------------ | ------------------------------------------------- |-----------------------------------------------------------------------------------------------------------------|
-| expert_num               | 专家数量                                          | 检查是否与标杆一致                                                                                                       |
-| shared_expert_num        | 共享专家数量                                      | 检查是否与标杆一致                                                                                                       |
-| num_experts_chosen       | 每个token选择专家数目                             | 检查是否与标杆一致                                                                                                       |
-| capacity_factor          | 专家容量系数                                      | 容量系数要求 1.0 <= 容量系数 <=  expert_num/num_experts_chosen，精度对比时，建议使用该方式。当容量系数<0时，为动态容量，对应dropless MoE操作，即不丢弃任何token。 |
-| aux_loss_factor          | 负载均衡loss贡献因子                              | 开启时，建议小于0.05；若进行精度对齐，建议不开启，loss打印方式不一致。                                                                         |
-| routing_policy           | 路由专家策略                                      | 当前MindFormers有TopkRouterV1、TopkRouterV2两种方式；V2是V1的高性能数学等价实现，建议使用V2，V1后续会废弃。                                     |
-| enable_sdrop             | 是否开启sdrop方式                                 | 建议设置成true，对应Megatron需要设置参数如下参数：</br> moe-token-drop-policy: position</br>moe-pad-expert-input-to-capacity: True。 |
-| router_dense_type        | 决定专家的dense层                                 | 需要使用fp32计算，防止溢出。                                                                                                |
-| use_fused_ops_topkrouter | 是否使用融合算子进行dispatch以及combine的索引计算 | 当enbable_sdrop=True时参数才生效，精度对齐建议设置成True。                                                                        |
-| use_shared_expert_gating | 共享专家网络中是否使用gating系数                  | 检查网络的共享专家是否有gating系数，如果有设置成True。                                                                                |
+| **关键参数**             | **说明**                                          | **检查项**                                                   |
+| ------------------------ | ------------------------------------------------- | ------------------------------------------------------------ |
+| expert_num               | 专家数量                                          | 对应Megatron的num-experts，检查是否一致。                    |
+| num_experts_chosen       | 每个token选择专家数目                             | 对应Megatron的moe-router-topk，检查是否一致。                |
+| capacity_factor          | 专家容量系数                                      | 对应Megatron的moe_expert_capacity_factor参数，检查是否一致。 |
+| aux_loss_factor          | 负载均衡loss贡献因子                              | 开启时，建议小于0.05。若进行精度对齐，不建议开启，与Megatron的loss打印方式不一致。 |
+| enable_sdrop             | 是否开启sdrop方式                                 | 建议设置成true;对应Megatron需要设置参数如下参数：<br>  moe-token-drop-policy: position <br>  moe-pad-expert-input-to-capacity: True |
+| router_dense_type        | 决定专家的dense层                                 | MindFormers中可配置，建议使用fp32计算，防止溢出；Megatron中不可配置。 |
+| use_fused_ops_topkrouter | 是否使用融合算子进行dispatch以及combine的索引计算 | MindFormers中融合算子，当enbable_sdrop=True时参数才生效，精度对齐建议设置成True。 |
+| use_shared_expert_gating | 共享专家网络中是否使用gating系数                  | 检查网络的共享专家是否有gating系数，如果有设置成True。       |
 
 ### 优化器CheckList
 
-| 关键参数              | 说明                   | 检查项                                          |
-|-------------------| ---------------------- |----------------------------------------------|
-| adam优化器           | 优化器类型             | 若Megatron使用adam优化器，MindFormers的数学等价实现为AdamW。 |
-| eps               | adam优化器极小值参数   | 检查参数是否一致，推荐值1e-8。                            |
-| beta1             | adam优化器梯度动量参数 | 检查参数是否一致，推荐值0.9。                             |
-| beta2             | adam优化器梯度方差参数 | 检查参数是否一致，推荐值0.95。                            |
-| weight_decay      | 权重衰减               | 默认情况下bias及一维权重不进行衰减，检查用户是否有特殊操作。             |
-| lr                | 学习率                 | 在设置了warmup、学习率衰减后，画图查看学习率变化是否一致。             |
-| warmup_ratio      | 学习率预热步数占比     | 参考上一条                                        |
-| clip_grad         | 修剪梯度               | 检查参数是否一致，推荐值1.0。                             |
-| global_batch_size | 全局批大小             | 与标杆保持一致，可以通过训练过程中的打印日志检查。                    |
+| **关键参数**       | **说明**               | **检查项**                                                   |
+| ------------------ | ---------------------- | ------------------------------------------------------------ |
+| adam优化器         | 优化器类型             | 若Megatron使用adam优化器，MindFormers的数学等价实现为AdamW。 |
+| eps                | adam优化器极小值参数   | 检查参数是否一致，推荐值1e-8。                               |
+| beta1              | adam优化器梯度动量参数 | 检查参数是否一致，推荐值0.9。                                |
+| beta2              | adam优化器梯度方差参数 | 检查参数是否一致，推荐值0.95。                               |
+| weight_decay       | 权重衰减               | 默认情况下bias及一维权重不进行衰减，检查用户是否有特殊操作。 |
+| lr                 | 学习率                 | 在设置了warmup、学习率衰减后，画图查看学习率变化是否一致。   |
+| lr_warmup_fraction | 学习率预热步数占比     | 在设置了warmup、学习率衰减后，画图查看学习率变化是否一致。   |
+| clip_grad          | 修剪梯度               | 检查参数是否一致，推荐值1.0。                                |
+| global_batch_size  | 全局批大小             | 检查参数是否一致，可以通过训练过程中的打印日志检查。         |
 
 ### 权重CheckList
 
-| 关键参数        | 说明                 | 检查项                                                                                                       |
-| --------------- | -------------------- |-----------------------------------------------------------------------------------------------------------|
-| param_init_type | 权重初始化类型       | MindFormers通常会设置param_init_dtype类型为fp32，这是因为梯度通信类型需要跟权重类型一致，控制通信类型为fp32。而Megatron的梯度通信类型默认为fp32，不与权重类型绑定。 |
+| **关键参数**    | **说明**             | **检查项**                                                   |
+| --------------- | -------------------- | ------------------------------------------------------------ |
+| param_init_type | 权重初始化类型       | MindFormers通常会设置param_init_dtype类型为FP32，这是因为梯度通信类型是跟权重类型一致，控制通信类型为FP32。而Megatron的梯度通信类型默认为FP32，不与权重类型绑定。 |
+| init-method-std | 权重随机初始化的分布 | 若使用权重随机初始化，需要检查随机分布中的mean/std等参数是否一致。 |
 
 ### 混合精度CheckList
 
-| 关键参数               | 说明                                           | 检查项                                                                                                                      |
-| ---------------------- |----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| compute_dtype          | 计算精度                                         | 与标杆保持一致                                                                                                                  |
-| layernorm_compute_type | layerNorm/RMSNorm的计算精度                       | Megatron不可配置，需要检查实现是否保持一致。                                                                                               |
-| softmax_compute_type   | MindSpore使用FlashAttention时，内部Softmax固定用FA计算。 | Megatron不可配置，需要检查实现是否保持一致。                                                                                               |
-| 各权重计算             | embedding、lm_head等各权重精度计算，仅在小算子拼接实现时可配置计算类型  | Megatron不可配置，需要检查实现是否保持一致。                                                                                               |
-| rotary_dtype           | 旋转位置编码的计算精度                                  | 由于MindFormers权重初始化需要设置为fp32，而通常计算精度为bf16/fp16，需要检查权重计算前，是否将权重数据类型转为bf16/fp16。                                            |
-| bias add               | 线性层的bias                                     | 线性层若有bias，检查add的计算精度是否一致。                                                                                                |
-| residual add           | 残差相加                                         | 检查残差的计算精度是否与标杆一致                                                                                                         |
-| loss                   | loss计算模块                                     | 检查整个loss模块的计算精度是否与标杆一致                                                                                                   |
-| 算子高精度模式         | 昇腾算子支持高精度模式                                  | 开启方式：  context.set_context(ascend_config=  {"ge_options":{  "global":{  "ge.opSelectImplmode":"high_precision"  }  }  }) |
+| **关键参数**           | **说明**                                             | **检查项**                                                   |
+| ---------------------- |----------------------------------------------------| ------------------------------------------------------------ |
+| compute_dtype          | 计算精度                                               | Megatron 设置 `--bf16: true` 则为FP16，否则为FP16。          |
+| layernorm_compute_type | LayerNorm/RMSNorm的计算精度                             | Megatron不可配置，需要检查实现是否保持一致。                 |
+| softmax_compute_type   | MindSpore使用FA时，内部Softmax固定用FA计算，仅在小算子拼接实现时可配置计算类型。 | Megatron不可配置，需要检查实现是否保持一致。                 |
+| rotary_dtype           | 旋转位置编码的计算精度                                        | Megatron不可配置，需要检查实现是否保持一致。                 |
+| 各权重计算             | embedding、lm_head等各权重精度计算                          | 由于MindFormers权重初始化需要设置为FP32，而通常计算精度为BF16/FP16，需要检查权重计算前，是否将权重数据类型转为BF16/FP16。 |
+| bias add               | 线性层的Bias                                           | 线性层若有bias，检查add的计算精度是否一致。                  |
+| residual add           | 残差相加                                               | 检查残差的计算精度是否与标杆一致                             |
+| loss                   | loss计算模块                                           | 检查整个loss模块的计算精度是否与标杆一致                     |
+| 算子高精度模式         | 昇腾算子支持高精度模式                                        | 开启方式： `context.set_context(ascend_config= {"ge_options":{ "global":{ "ge.opSelectImplmode":"high_precision" } } })` |
 
 ### 并行策略CheckList
 
-| 关键参数                   | 说明                                   | 检查项                                                     |
-| -------------------------- | -------------------------------------- |---------------------------------------------------------|
-| data_parallel              | 数据并行                               | 并行切分会影响通信行为，切分后引入通信的计算跟单卡计算可能会有细微差异。                    |
-| model_parallel             | 模型并行                               | 不影响精度                                                   |
-| pipeline_stage             | 流水并行                               | 不影响精度                                                        |
-| use_seq_parallel           | 使能Megatron短序列并行，仅在tp>1时生效 | 不影响精度                                                        |
-| enable_parallel_optimizer  | 优化器并行                             | 优化器并行MindSpore与PyTorch两个框架的实现方案不同，通信行为不一致。进行精度对齐时，建议关闭。 |
-| micro_batch_interleave_num | 多副本并行                             | 在进行性能优化时，需要检查开启多副本是否会影响精度。                              |
+| **关键参数**               | **说明**               | **检查项**                                                   |
+| -------------------------- | ---------------------- | ------------------------------------------------------------ |
+| data_parallel              | 数据并行               | 并行切分会影响通信行为，切分后引入通信的计算跟单卡计算可能会有细微差异。 |
+| model_parallel             | 模型并行               | 并行切分会影响通信行为，切分后引入通信的计算跟单卡计算可能会有细微差异。 |
+| pipeline_stage             | 流水并行               | 并行切分会影响通信行为，切分后引入通信的计算跟单卡计算可能会有细微差异。 |
+| use_seq_parallel           | 对应Megatron短序列并行 | 并行切分会影响通信行为，切分后引入通信的计算跟单卡计算可能会有细微差异。 |
+| enable_parallel_optimizer  | 优化器并行             | 优化器并行MindSpore与PyTorch两个框架的实现方案不同，通信行为不一致。进行精度对齐时，建议关闭。 |
+| micro_batch_interleave_num | 多副本并行             | 优化器并行MindSpore与PyTorch两个框架的实现方案不同，进行精度对齐时，建议关闭。 |
 
 ### 其他CheckList
 
@@ -228,7 +224,7 @@ export MS_ACL_DUMP_CFG_PATH=${JSON_PATH}
 
 训练过程中，MindSpore与PyTorch加载同一份权重。若是预训练场景，可以使用PyTorch保存一个初始化权重后，转换为MindSpore权重。因为MindSpore的权重名称与PyTorch有差异，权重转换的本质是将PyTorch权重dict中的名字改为MindSpore权重名字以支持MindSpore加载。权重转换参考[权重转换指导](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/function/weight_conversion.html)。
 
-保存PyTorch每个step训练的数据集。在MindSpore训练时，加载相同的数据集进行训练，从而保证每个step训练数据集一致。实现代码参考附录。
+MindSpore与PyTorch均支持`bin`格式数据，加载相同的数据集进行训练，保证每个step一致。
 
 #### 固定随机性，开启确定性计算
 
@@ -241,29 +237,36 @@ export MS_ACL_DUMP_CFG_PATH=${JSON_PATH}
   export ASCEND_LAUNCH_BLOCKING=1  # 硬件确定性
   ```
 
-* PyTorch代码，在[pretrain_gpt.py](https://github.com/NVIDIA/Megatron-LM/blob/main/pretrain_gpt.py)中添加如下内容：
+* PyTorch代码，在[pretrain_gpt.py](https://github.com/NVIDIA/Megatron-LM/blob/main/pretrain_gpt.py)中，新增seed_all方法，并在main方法中调用，添加方法如下：
 
   ```python
+  import numpy as np
+  import random
+
   def seed_all(seed=42):
-        random.seed(seed)
+      random.seed(seed)
       os.environ['PYTHONHASHSEED'] = str(seed)
       np.random.seed(seed)
       torch.manual_seed(seed)
       torch.use_deterministic_algorithms(True)
-      if is_gpu:
-          torch.cuda.manual_seed_all(seed)
-          torch.cuda.manual_seed(seed)
-          torch.backends.cudnn.deterministic = True
-          torch.backends.cudnn.enable = False
-          torch.backends.cudnn.benchmark = False
-      else:
-          torch_npu.npu.manual_seed_all(seed)
-          torch_npu.npu.manual_seed(seed)
+      torch.cuda.manual_seed_all(seed)
+      torch.cuda.manual_seed(seed)
+      torch.backends.cudnn.deterministic = True
+      torch.backends.cudnn.enable = False
+      torch.backends.cudnn.benchmark = False
+
+  if __name__ == "__main__":
+      seed_all()
+
+      # 原始代码
   ```
 
-* MindSpore代码，在[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/run_mindformer.py)中添加如下内容：
+* MindSpore代码，在[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/run_mindformer.py)中，新增seed_all方法，并在main方法中调用，添加方法如下：
 
   ```python
+  import numpy as np
+  import random
+
   from mindspore import context
 
   def seed_all(seed=42):
@@ -271,6 +274,11 @@ export MS_ACL_DUMP_CFG_PATH=${JSON_PATH}
       os.environ['PYTHONHASHSEED'] = str(seed)
       np.random.seed(seed)
       context.set_context(deterministic="ON")
+
+  def main(config):
+      seed_all()
+
+      # 原始代码
   ```
 
 完成上面的准备工作后，启动单卡训练。若问题未复现，则将场景逐步复杂化，如添加相关特性、扩大模型规模等，直至问题复现，从而定位到问题原因。若问题复现，或者需要复现的时间比较久，则可以开启阶段2的问题定位。
@@ -308,6 +316,8 @@ runner_wrapper:
 Megatron中无配置打印local的入参，需要嵌入式修改文件[megatron/core/optimizer/optimizer.py](https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/optimizer/optimizer.py)：
 
 ```python
+from megatron.training import get_args, print_rank_0
+
 def get_parameters(self):
     params = []
     grad_norm_list = []
@@ -316,6 +326,7 @@ def get_parameters(self):
             grad_norm = torch.norm(param.grad, 2)
             grad_norm_list.append(grad_norm ** 2)
             params.append(param)
+    # 嵌入式修改
     print_rank_0(f"print torch local norm:")
     print_rank_0(grad_norm_list)
     return params
@@ -347,15 +358,17 @@ Local norm值仅作为反向计算是否正确的初步判断，若要深入对�
 PyTorch保存权重梯度，以使用apex为例，修改文件[apex.optimizers](https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/optimizer/optimizer.py)文件:
 
 ```python
+import numpy as np
+
 def get_parameters(self):
     params = []
     grad_id = 0
     for param_group in self.optimizer.param_groups:
         for param in param_group['params']:
             params.append(param)
-             # 嵌入式修改，将torch的梯度保存为numpy
-            np.save(f"xx/grad_{grad_id}.npy", param)
             grad_id += 1
+            # 嵌入式修改，将torch的梯度保存为numpy
+            np.save(f"xx/grad_{grad_id}.npy", param)
     return params
 ```
 
@@ -364,7 +377,7 @@ MindFormers加载梯度参考实现，注意，需要用户自行找到MindForme
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
     ...
-    def __init__(self...):
+    def __init__(self):
         # 嵌入式修改，加载torch的权重
         grad_0 = Tensor(np.load(f"xxx/grad_1.npy"))
         grad_1 = Tensor(np.load(f"xxx/grad_x.npy"))
@@ -474,252 +487,3 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 为验证该误差为合理范围内，关闭确定性计算，重复跑两次GPU实验。图中红线为MindSpore训练的曲线，蓝色、绿色线分别是第一次、第二次GPU训练的曲线。在7千step左右训练不稳定处，MindSpore训练的曲线正处于两次GPU训练的曲线之间，说明误差处于合理范围内，问题最终解决。
 
 ![loss7](./image/loss7.png)
-
-## 附录
-
-当前MindFormers暂不支持直接读取PyTorch的bin数据集。当前可参考如下方法，保证Megtron读取相同数据。修改代码，使Megatron每个step训练的数据保存下来，MindFormers训练时读取相同的数据进行训练。修改[pretrain_gpt.py](https://github.com/NVIDIA/Megatron-LM/blob/main/pretrain_gpt.py)：
-
-```python
-import numpy as np
-import os
-
-step_num = 0
-def get_path(local_rank):
-    global step_num
-    path = f"path/step_{step_num}/rank_{local_rank}"
-    os.makedirs(path， exist_ok=True)
-    return path
-
-def forward_step(data_iterator, model: GPTModel):
-    """Forward training step.
-
-    Args:
-        data_iterator: Input data iterator
-        model (GPTModel): The GPT Model
-    """
-    args = get_args()
-    timers = get_timers()
-
-    # Get the batch.
-    timers('batch-generator', log_level=2).start()
-    global stimer
-    with stimer(bdata=True):
-        tokens, labels, loss_mask, attention_mask, position_ids = get_batch(
-            data_iterator)
-
-    # =========== 以下为新增代码 ===========
-    local_rank = torch.distributed.get_rank()
-    path = get_path(local_rank)
-    print(f"paht is f{path}")
-
-    global step_num
-    step_num += 1
-
-    tokens_npy = tokens.cpu().numpy()
-    np.save(os.path.join(path, 'tokens.npy'), tokens_npy)
-    labels_npy = labels.cpu().numpy()
-    np.save(os.path.join(path, 'labels.npy'), labels_npy)
-    loss_mask_npy = loss_mask.cpu().numpy()
-    np.save(os.path.join(path, 'loss_mask.npy'), loss_mask_npy)
-    attention_mask_npy = attention_mask.cpu().numpy()
-    np.save(os.path.join(path, 'attention_mask.npy'), attention_mask_npy)
-    # =========== 以上为新增代码 ===========
-
-    timers('batch-generator').stop()
-
-    with stimer:
-        output_tensor = model(tokens, position_ids, attention_mask,
-                              labels=labels)
-
-
-    return output_tensor, partial(loss_func, loss_mask)
-```
-
-数据按照如下目录结构保存：
-
-```text
-├── step_0
-│   ├── rank_0
-│   │   ├── attention_mask.npy
-│   │   ├── labels.npy
-│   │   ├── loss_mask.npy
-│   │   └── tokens.npy
-│   ├── rank_1
-│   │   ├── attention_mask.npy
-│   │   ├── labels.npy
-│   │   ├── loss_mask.npy
-│   │   └── tokens.npy
-│   ├── rank_2
-.......
-│   └── rank_7
-│       ├── attention_mask.npy
-│       ├── labels.npy
-│       ├── loss_mask.npy
-│       └── tokens.npy
-├── step_1
-.......
-├── step_2
-.......
-```
-
-MindFormers中每个step读取相应的数据进行训练。方式如下：
-
-新建numpy_dataset.py并放入mindformers/dataset/，numpy_dataset.py代码如下：
-
-```python
-import os
-import copy
-from glob import glob
-import numpy as np
-import mindspore as ms
-from mindspore.dataset.transforms import TypeCast
-from mindspore.dataset import GeneratorDataset
-from mindformers.tools.logger import logger
-from mindformers.version_control import get_dataset_map
-from mindformers.tools.register import MindFormerRegister, MindFormerModuleType
-from mindformers.tools.utils import get_real_rank
-from .base_dataset import BaseDataset
-
-class NumpyDataset:
-    def __init__(self, dataset_dir, rank_id):
-        self.token_list = []
-        self.label_list = []
-        self.index = []
-        logger.info("dataset rank_id: %d", rank_id)
-        logger.info("dataset dir: %s", dataset_dir)
-        steps_dir = os.listdir(dataset_dir)
-        logger.info(f"steps dir: {steps_dir}")
-        new_steps_dir = []
-        for step_dir in steps_dir:
-            if not step_dir.startswith("step_"):
-                continue
-            new_steps_dir.append(step_dir)
-        steps_dir = new_steps_dir
-        logger.info(steps_dir)
-        steps_dir.sort(key=lambda x: int(x.split("_")[1]))
-        for step_dir in steps_dir:
-            step_index = int(step_dir.split("_")[1])
-            data_dir = os.path.join(dataset_dir, step_dir, f"rank_{rank_id}")
-            token_path = os.path.join(data_dir, "tokens.npy")
-            label_path = os.path.join(data_dir, "labels.npy")
-            token = np.load(token_path)
-            self.token_list.append(token[0])
-            label = np.load(label_path)
-            self.label_list.append(label[0])
-            self.index.append(step_index)
-        logger.info(self.index)
-        logger.info("get %d numpy data.", len(self.index))
-        logger.info("==========NumpyDataset init succeed==========")
-
-    def __len__(self):
-        return len(self.token_list)
-
-    def __getitem__(self, index):
-        return self.token_list[index], self.label_list[index]
-
-@MindFormerRegister.register(MindFormerModuleType.DATASET)
-class NumpyDataloader(BaseDataset):
-    def __new__(cls, dataset_config):
-        logger.info("Now create Numpy Dataset")
-        dataset_config = cls.check_dataset_config(dataset_config, locals())
-        dataset_config = copy.deepcopy(dataset_config)
-        cls.init_dataset_config(dataset_config)
-        rank_id, device_num = cls._generate_shard_info()
-        dataset_config.rank_id = rank_id
-        dataset_config.device_num = device_num
-
-        dataset = cls._process_numpy_data(dataset_config)
-
-        type_cast_op = TypeCast(ms.int32)
-        dataset = dataset.batch(dataset_config.batch_size, drop_remainder=dataset_config.drop_remainder,
-                                output_columns=dataset_config.input_columns,
-                                num_parallel_workers=dataset_config.num_parallel_workers)
-        dataset = dataset.project(columns=dataset_config.input_columns)
-        for input_arg in dataset_config.input_columns:
-            dataset = get_dataset_map(dataset, type_cast_op,
-                                      input_columns=input_arg)
-        dataset = dataset.repeat(dataset_config.repeat)
-        return dataset
-
-    @classmethod
-    def _process_numpy_data(cls, dataset_config):
-        dataset_dir = dataset_config.data_loader.dataset_dir
-        rank_id = get_real_rank()
-        dataset = NumpyDataset(dataset_dir, rank_id)
-        dataloader = GeneratorDataset(source=dataset, column_names=dataset_config.input_columns,
-                                      num_shards=None, shard_id=None, shuffle=dataset_config.data_loader.shuffle,
-                                      python_multiprocessing=dataset_config.python_multiprocessing)
-        return dataloader
-```
-
-[mindformers/dataset/\_\_init\_\_.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/dataset/__init__.py) 添加:
-
-```python
-from .numpy_dataset import NumpyDataloader
-```
-
-修改训练yaml如下配置项，配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/appendix/conf_files.html)：
-
-```yaml
-train_dataset: &train_dataset
-  data_loader:
-    dataset_dir: ""  
-    shuffle: False #True
-  input_columns: ["input_ids", "labels"]
-train_dataset_task:
-  type: NumpyDataloader
-```
-
-由于MindFormers与Megatron数据处理部分有差异，使用Megatron保存下来的numpy数据进行训练时，需要修改处理tokens、labels代码。以Llama为例，原代码是对input_ids进行slice操作获得tokens及labels，使用Megatron保存下来的数据则不需要。修改[mindformers/models/llama/llama.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/models/llama/llama.py)
-
-```python
-class LlamaForCausalLM(LlamaPreTrainedModel):
-    def construct(self, input_ids, labels=None, input_position=None, position_ids=None, attention_mask=None,
-                  input_embeds=None, init_reset=None, batch_valid_length=None, batch_index=None, zactivate_len=None,
-                  block_tables=None, slot_mapping=None, prefix_keys_values=None, llm_boost_inputs=None):
-        if hasattr(self, 'llm_boost'):
-            if not self.is_set_kvcache:
-                self.llm_boost.set_kvcache()
-                self.is_set_kvcache = True
-            self.llm_boost.add_flags(is_first_iteration=self.is_first_iteration)
-            llm_boost_inputs["cos_embed"] = self.model.freqs_mgr.freqs_cos
-            llm_boost_inputs["sin_embed"] = self.model.freqs_mgr.freqs_sin
-            return self.llm_boost.forward(llm_boost_inputs)
-
-        bsz, seqlen = self.shape(input_ids)
-        if self.use_past:
-            if not isinstance(batch_valid_length, Tensor):
-                batch_valid_length = self.ones((bsz,), mstype.int32)
-
-        # =========== 以下为修改代码 ===========
-        # if self.training:
-        #     tokens = self.slice(input_ids, (0, 0), (bsz, seqlen - 1), (1, 1))
-        # else:
-        #     tokens = input_ids
-        tokens = input_ids
-        # =========== 以上为修改代码 ===========
-
-        if batch_valid_length is not None:
-            batch_valid_length = self.reshape(batch_valid_length, (-1,))
-        output = self.model(tokens, batch_valid_length, batch_index, zactivate_len, block_tables, \
-                            slot_mapping, prefix_keys_values)
-        pre_gather = (not self.use_past or self.is_first_iteration) and batch_valid_length is not None
-        if pre_gather:
-            output = self.gather(output, self.sub_batch_valid_len(batch_valid_length, 1), 1)
-        logits = self.lm_head(output)
-
-        input_mask = self.cast(self.not_equal(tokens, self.pad_token_id), mstype.float32)
-        if labels is None:
-            labels = self.slice(input_ids, (0, 1), (bsz, seqlen), (1, 1))
-        else:
-            if labels.ndim > 1:
-                # =========== 删掉以下代码 ===========
-                # if self.training:
-                #    labels = self.slice(labels, (0, 1), (bsz, seqlen), (1, 1))
-                # =========== 删掉以上代码 ===========
-                label_mask = self.cast(self.not_equal(labels, self.ignore_token_id), mstype.float32)
-                input_mask = self.mul(input_mask, label_mask)
-
-        # 后续代码省略
-```
-
