@@ -16,13 +16,13 @@
 
 **自动权重转换**相关`yaml`文件参数说明如下：
 
-| 参数名称              | 说明                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| ------------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| load_checkpoint     | 预加载权重的绝对路径或文件夹路径。<br> - 如果是完整权重，则填写绝对路径；<br> - 如果是分布式权重，则填写文件夹路径，分布式权重须按照`model_dir/rank_x/xxx.ckpt`格式存放，文件夹路径填写为`model_dir`。<br>**如果rank_x文件夹下存在多个ckpt，将会使用文件名默认排序最后的ckpt文件用于转换。**                                                                                                                                                                                                                                                  |
-| src_strategy        | 预加载权重对应的分布式策略文件路径。<br> - 如果预加载权重是完整权重，则**不填写**；<br> - 如果预加载权重是分布式权重，且预加载权重保存时使用了流水线并行，则填写**合并的策略文件路径**或**分布式策略文件夹路径**；<br> - 如果预加载权重是分布式权重，且预加载权重保存时未使用流水线并行，则填写任一**ckpt_strategy_rank_x.ckpt**路径；                                                                                                                                                                                                                                   |
-| auto_trans_ckpt     | 权重自动转换开关，为True开启，默认False。                                                                                                                                                                                                                                                                                                                                                                                                            |
+| 参数名称              | 说明                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ------------------- |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| load_checkpoint     | 预加载权重的绝对路径或文件夹路径。<br> - 如果是完整权重，则填写绝对路径；<br> - 如果是分布式权重，则填写文件夹路径，分布式权重须按照`model_dir/rank_x/xxx.ckpt`格式存放，文件夹路径填写为`model_dir`。<br>**如果rank_x文件夹下存在多个ckpt，将会使用文件名默认排序最后的ckpt文件用于转换。**                                                                                                                                                                                                                                                |
+| src_strategy        | 预加载权重对应的[分布式策略文件](#生成分布式策略)路径。<br> - 如果预加载权重是完整权重，则**不填写**；<br> - 如果预加载权重是分布式权重，且预加载权重保存时使用了流水线并行，则填写**合并的策略文件路径**或**分布式策略文件夹路径**；<br> - 如果预加载权重是分布式权重，且预加载权重保存时未使用流水线并行，则填写任一**ckpt_strategy_rank_x.ckpt**路径；                                                                                                                                                                                                                     |
+| auto_trans_ckpt     | 权重自动转换开关，为True开启，默认False。                                                                                                                                                                                                                                                                                                                                                                                                          |
 | transform_process_num | 权重自动转换使用的进程数，默认为1。<br> - 如果transform_process_num = 1，使用**单进程转换**，转换时只有rank_0负责权重转换，其他进程等待rank_0转换结束；<br> - 如果transform_process_num > 1，使用**多进程转换**，比如8卡任务，transform_process_num=2时，转换时rank_0负责rank_0/1/2/3切片权重的转换，rank_4负责rank_4/5/6/7切片权重的转换，其他进程等待rank_0/4转换结束；<br>**注意**：<br> 1. transform_process_num越大，转换时间越短，**转换所占用的host内存越大**；当出现host侧内存不足时，需要减少transform_process_num。<br> 2. transform_process_num必须能够整除NPU卡数，且最大不得超过NPU卡数。 |
-| transform_by_rank   | 是否使用mindspore.transform_checkpoint_by_rank接口做权重转换。<br> - transform_process_num > 1时，自动设置为`True`；<br> - transform_process_num = 1时，如果目标权重为分布式权重，则循环调用mindspore.transform_checkpoint_by_rank串行转换每一个rank切片权重。<br>- transform_process_num = 1时，如果目标权重为完整权重，则自动设置为`False`，使用mindspore.transform_checkpoints接口做权重转换；                                                                                                                       |
+| transform_by_rank   | 是否使用mindspore.transform_checkpoint_by_rank接口做权重转换。<br> - transform_process_num > 1时，自动设置为`True`；<br> - transform_process_num = 1时，如果目标权重为分布式权重，则循环调用mindspore.transform_checkpoint_by_rank串行转换每一个rank切片权重。<br>- transform_process_num = 1时，如果目标权重为完整权重，则自动设置为`False`，使用mindspore.transform_checkpoints接口做权重转换；                                                                                                                     |
 
 ### 不同场景下yaml配置说明
 
@@ -102,6 +102,12 @@ transform_process_num: 2
 
 ### 离线转换配置说明
 
+#### 生成分布式策略
+
+MindSpore每次运行分布式任务后都会在`output/strategy`文件夹下生成对应卡数的分布式策略文件（ckpt格式），可以在离线权重转换中使用。
+
+如果当前没有分布式策略文件，可以通过这种方式快速生成：在原有分布式训练/推理任务的基础上，在yaml配置文件中设置`only_save_strategy:True`来生成策略文件。设置之后任务会在生成分布式策略文件后立即停止，而不会实际执行训练或推理。
+
 #### 单进程转换
 
 使用[mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.py)对载入权重进行单进程转换。
@@ -114,10 +120,6 @@ python transform_checkpoint.py \
   --dst_checkpoint=/worker/transform_ckpt/llama3_8b_1to8/ \
   --dst_strategy=/worker/mindformers/output/strategy/
 ```
-
-**注意事项**：
-
-如果离线转换过程中没有目标策略文件，可以通过设置`only_save_strategy: True`来生成策略文件。运行一次任务即可获取该策略文件。
 
 #### 多进程转换
 
@@ -137,44 +139,6 @@ bash transform_checkpoint.sh \
 **注意事项**：
 
 - 使用[transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.sh)脚本时，参数`8`表示目标设备数，参数`2`表示使用2个进程进行转换。
-- 同样，如果没有目标策略文件，可以通过设置`only_save_strategy: True`来生成策略文件。
-
-#### 参数配置示例
-
-- **策略文件保存**：
-
-  ```yaml
-  only_save_strategy: True
-  ```
-
-- **数据集配置**：
-
-  ```yaml
-  train_dataset: &train_dataset
-    data_loader:
-      type: MindDataset
-      dataset_dir: "/worker/dataset/wiki103/"
-      shuffle: True
-  ```
-
-- **8卡分布式策略配置**：
-
-  ```yaml
-  parallel_config:
-    data_parallel: 2
-    model_parallel: 2
-    pipeline_stage: 2
-    micro_batch_num: 2
-  ```
-
-- **模型配置**：
-
-  ```yaml
-  model:
-    model_config:
-      seq_length: 512
-      num_layers: 2
-  ```
 
 ## 特殊场景
 
