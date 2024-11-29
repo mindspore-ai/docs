@@ -224,7 +224,7 @@ The Numpy version used in the runtime environment must be no less than the Numpy
 ## Downloading the Source Code from the Code Repository
 
 ```bash
-git clone -b r2.4.0 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.4.0 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## Compiling MindSpore
