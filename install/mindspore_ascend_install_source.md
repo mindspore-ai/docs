@@ -211,7 +211,7 @@ pip install numpy>=1.19.3
 
     ```bash
     sudo mkdir /usr/local/cmake-3.22.2
-    sudo bash cmake-3.22.2-Linux-*.sh --prefix=/usr/local/cmake-3.22.2 --exclude-subdir
+    sudo bash cmake-3.22.2-linux-*.sh --prefix=/usr/local/cmake-3.22.2 --exclude-subdir
     ```
 
     最后需要将CMake添加到`PATH`环境变量中。如果使用默认安装目录执行以下命令，其他安装目录需要做相应修改。
