@@ -224,7 +224,7 @@ pip install "numpy>=1.19.3,<=1.26.4"
 ## 从代码仓下载源码
 
 ```bash
-git clone -b r2.4.0 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.4.0 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## 编译MindSpore
