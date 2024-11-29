@@ -46,7 +46,7 @@ This document describes how to install MindSpore by compiling source code on mac
 ## Downloading Source Code from Code Repository
 
 ```bash
-git clone -b r2.4.1 https://gitee.com/mindspore/mindspore.git
+git clone -b v2.4.1 https://gitee.com/mindspore/mindspore.git
 ```
 
 ## Compiling MindSpore
