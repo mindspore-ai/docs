@@ -33,7 +33,7 @@
 | n_kv_heads        | kv分组数                                                     | 对应Megatron中的num-query-groups，检查是否一致。                                        |
 | 正则化函数        | 正则化函数，常见结构有LayerNorm、RMSNorm                     | MindFormers中的无正则化函数配置参数，与各模型论文中配置一致。 Megatron中可通过normalization自定义配置，检查是否一致。 |
 | rms_norm_eps      | 正则化的epsilon参数                                          | 对应Megatron的layernorm_epsilon，检查是否一致。                                        |
-| dropout           | 网络中的dropout                                              | 当前MindSpore开启Dropout时，不能开重计算；若进行精度比对建议双边都关闭，减少随机因素。                         |
+| dropout           | 网络中的dropout                                              | 当前MindSpore开启dropout时，不能开重计算；若进行精度比对，建议双边都关闭，减少随机因素。                         |
 | 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 1. 同硬件下进行精度比对时，若有使用融合算子，则需要保持一致。 <br>2. 不同硬件下进行精度比对时，则重点检查融合计算部分是否有计算差异。    |
 
 * MOE结构
@@ -44,9 +44,9 @@
 | num_experts_chosen       | 每个token选择专家数目                             | 对应Megatron的moe-router-topk，检查是否一致。                |
 | capacity_factor          | 专家容量系数                                      | 对应Megatron的moe_expert_capacity_factor参数，检查是否一致。 |
 | aux_loss_factor          | 负载均衡loss贡献因子                              | 开启时，建议小于0.05。若进行精度对齐，不建议开启，与Megatron的loss打印方式不一致。 |
-| enable_sdrop             | 是否开启sdrop方式                                 | 建议设置成true;对应Megatron需要设置参数如下参数：<br>  moe-token-drop-policy: position <br>  moe-pad-expert-input-to-capacity: True |
+| enable_sdrop             | 是否开启sdrop方式                                 | 建议设置成true；对应Megatron需要设置如下参数：<br>  `moe-token-drop-policy: position` <br>  `moe-pad-expert-input-to-capacity: True` |
 | router_dense_type        | 决定专家的dense层                                 | MindFormers中可配置，建议使用fp32计算，防止溢出；Megatron中不可配置。 |
-| use_fused_ops_topkrouter | 是否使用融合算子进行dispatch以及combine的索引计算 | MindFormers中融合算子，当enbable_sdrop=True时参数才生效，精度对齐建议设置成True。 |
+| use_fused_ops_topkrouter | 是否使用融合算子进行dispatch以及combine的索引计算 | MindFormers中融合算子，当`enbable_sdrop=True`时参数才生效，精度对齐建议设置成True。 |
 | use_shared_expert_gating | 共享专家网络中是否使用gating系数                  | 检查网络的共享专家是否有gating系数，如果有设置成True。       |
 
 ### 优化器CheckList
@@ -74,12 +74,12 @@
 
 | **关键参数**           | **说明**                                             | **检查项**                                                   |
 | ---------------------- |----------------------------------------------------| ------------------------------------------------------------ |
-| compute_dtype          | 计算精度                                               | Megatron 设置 `--bf16: true` 则为FP16，否则为FP16。          |
+| compute_dtype          | 计算精度                                               | Megatron 设置 `--bf16: true` 则为FP16，否则为BF16。          |
 | layernorm_compute_type | LayerNorm/RMSNorm的计算精度                             | Megatron不可配置，需要检查实现是否保持一致。                 |
 | softmax_compute_type   | MindSpore使用FA时，内部Softmax固定用FA计算，仅在小算子拼接实现时可配置计算类型。 | Megatron不可配置，需要检查实现是否保持一致。                 |
 | rotary_dtype           | 旋转位置编码的计算精度                                        | Megatron不可配置，需要检查实现是否保持一致。                 |
-| 各权重计算             | embedding、lm_head等各权重精度计算                          | 由于MindFormers权重初始化需要设置为FP32，而通常计算精度为BF16/FP16，需要检查权重计算前，是否将权重数据类型转为BF16/FP16。 |
-| bias add               | 线性层的Bias                                           | 线性层若有bias，检查add的计算精度是否一致。                  |
+| 各权重计算             | Embedding、lm_head等各权重精度计算                          | 由于MindFormers权重初始化需要设置为FP32，而通常计算精度为BF16/FP16，需要检查权重计算前，是否将权重数据类型转为BF16/FP16。 |
+| bias add               | 线性层的bias                                           | 线性层若有bias，检查add的计算精度是否一致。                  |
 | residual add           | 残差相加                                               | 检查残差的计算精度是否与标杆一致                             |
 | loss                   | loss计算模块                                           | 检查整个loss模块的计算精度是否与标杆一致                     |
 | 算子高精度模式         | 昇腾算子支持高精度模式                                        | 开启方式： `context.set_context(ascend_config= {"ge_options":{ "global":{ "ge.opSelectImplmode":"high_precision" } } })` |
@@ -97,12 +97,12 @@
 
 ### 其他CheckList
 
-| 关键点        | 检查项                                                                                          |
+| **关键点**        | **检查项**                                                                                          |
 | ------------- |----------------------------------------------------------------------------------------------|
 | 数据检查      | 查看数据是否异常，可随机抽取部分数据进行decode、encode检查，查看input与label的位置是否正确对应。                                  |
 | 特殊词检查    | 检查bos_token_id、eos_token_id、pad_token_id等特殊ids是否与数据制作时的ids保持一致。                              |
-| input_ids校验 | 检查embedding中的inputs_id是否符合0<=inputs_id<vocab_size；若有越界行为，会取脏数据，导致精度异常。                       |
-| 溢出检测      | 溢出状态对齐PyTorch方式，建议使用INFNAN_MODE，即export MS_ASCEND_CHECK_OVERFLOW_MODE=INFNAN_MODE。           |
+| input_ids校验 | 检查Embedding中的inputs_id是否符合0<=inputs_id<vocab_size；若有越界行为，会取脏数据，导致精度异常。                       |
+| 溢出检测      | 溢出状态对齐PyTorch方式，建议使用INFNAN_MODE，即`export MS_ASCEND_CHECK_OVERFLOW_MODE=INFNAN_MODE`。           |
 | 图算融合      | 关闭图算融合，即enable_graph_kernel: False。                                                          |
 | 训推模板一致  | 若进行SFT训练，需要确认训练推理时使用的输入模板一致。                                                                 |
 | 版本检查      | 检查MindSpore、MindFormers、CANN版本是否配套，建议使用最新的配套版本。                                              |
@@ -110,7 +110,7 @@
 
 ## 精度调试工具介绍
 
-精度定位中，主要使用MindSpore的Dump工具。主要支持O0/O1/O2模式，不同模式下支持的Dump功能不完全相同，需要的配置文件以及生成的数据格式也不同。O0/O1支持host和device模式支持Dump数据格式`.npy`文件；O2仅支持host模式，支持Dump数据格式`.npy`和`.bin`文件。详细介绍参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/dump.html)，下面仅简单介绍两种Dump方式。
+精度定位中，主要使用MindSpore的Dump工具。主要支持O0/O1/O2模式，不同模式下支持的Dump功能不完全相同，需要的配置文件以及生成的数据格式也不同。O0/O1支持host和device模式，支持Dump数据格式`.npy`文件；O2仅支持host模式，支持Dump数据格式`.npy`和`.bin`文件。详细介绍参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)，下面仅简单介绍两种Dump方式。
 
 ### O0/O1 图模式Dump方式
 
@@ -138,7 +138,7 @@ MindSpore的Dump工具通过配置JSON文件进行使能，该方式Dump出网�
 
 配置参数的字段含义参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/dump.html)。
 
-配置好JSON文件后， 设置Dump环境变量指向配置的JSON文件，需要设置绝对路径：
+配置好JSON文件后，设置Dump环境变量指向配置的JSON文件，需要设置绝对路径：
 
 ```shell
 export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
@@ -148,7 +148,7 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 
 ### O2 图模式Dump
 
-该方式Dump出网络中的所有算子数据，保存tensor及统计信息的statistic.csv表格。O2模式下的全量算子Dump的JSON示例如下，
+该方式Dump出网络中的所有算子数据，保存tensor及统计信息的statistic.csv表格。O2模式下的全量算子Dump的JSON示例如下：
 
 ```json
 {
@@ -185,7 +185,7 @@ export MS_ACL_DUMP_CFG_PATH=${JSON_PATH}
 
 ## 精度定位通用流程
 
-通过章节[精度问题定位CheckList](#精度问题定位checklist)进行快速的排查。若完成CheckList的检查后，精度问题依然存在且无明显指向时，可通过本章节的精度定位通用流程缩小问题范围排查。当前通用流程主要针对有标杆的场景，下文将以GPU+PyTorch与Ascend+MindSpore精度对比的场景为例，对精度定位流程进行介绍。
+通过章节[精度问题定位CheckList](#精度问题定位checklist)进行快速的排查。若完成CheckList的检查后，精度问题依然存在且无明显指向时，可通过本章节的精度定位通用流程缩小问题范围排查。当前通用流程主要针对有标杆的场景，下文将以 GPU+PyTorch 与 Ascend+MindSpore 精度对比的场景为例，对精度定位流程进行介绍。
 
 问题定位的主要思路有两点：
 
@@ -196,9 +196,9 @@ export MS_ACL_DUMP_CFG_PATH=${JSON_PATH}
 
 ![general_process](./image/general_process.png)
 
-### 阶段一：训练前准备
+### 阶段1：训练前准备
 
-进行GPU+PyTorch与Ascend+MindSpore精度对比，需要简化场景及固定随机性，再进行问题的复现。主要有如下三个部分：
+进行 GPU+PyTorch 与 Ascend+MindSpore 精度对比，需要简化场景及固定随机性，再进行问题的复现。主要有如下三个部分：
 
 * 对齐参数，缩小模型规模，单卡/单机复现问题；
 
@@ -222,7 +222,7 @@ export MS_ACL_DUMP_CFG_PATH=${JSON_PATH}
 
 #### 权重转换
 
-训练过程中，MindSpore与PyTorch加载同一份权重。若是预训练场景，可以使用PyTorch保存一个初始化权重后，转换为MindSpore权重。因为MindSpore的权重名称与PyTorch有差异，权重转换的本质是将PyTorch权重dict中的名字改为MindSpore权重名字以支持MindSpore加载。权重转换参考[权重转换指导](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/function/weight_conversion.html)。
+训练过程中，MindSpore与PyTorch加载同一份权重。若是预训练场景，可以使用PyTorch保存一个初始化权重后，转换为MindSpore权重。因为MindSpore的权重名称与PyTorch有差异，权重转换的本质是将PyTorch权重dict中的名字改为MindSpore权重名字，以支持MindSpore加载。权重转换参考[权重转换指导](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/function/weight_conversion.html)。
 
 MindSpore与PyTorch均支持`bin`格式数据，加载相同的数据集进行训练，保证每个step一致。
 
@@ -283,15 +283,15 @@ MindSpore与PyTorch均支持`bin`格式数据，加载相同的数据集进行�
 
 完成上面的准备工作后，启动单卡训练。若问题未复现，则将场景逐步复杂化，如添加相关特性、扩大模型规模等，直至问题复现，从而定位到问题原因。若问题复现，或者需要复现的时间比较久，则可以开启阶段2的问题定位。
 
-### 阶段二：基础问题排查
+### 阶段2：基础问题排查
 
 通过对比第一个step（step1）和第二个step（step2）的loss及local norm，依次排查前向计算、反向计算、优化器计算。
 
 #### step1的loss对比
 
-在固定权重、数据集、随机性后，对比训练第一个step的loss值差异。第一个step的loss值由网络的前向计算获得，若与标杆loss的差异较大，则可判定前向计算存在精度差异，这可能是由于模型结构未对齐、算子精度异常导致。可通过打印或者Dump工具获取MindSpore及PyTorch每层的tensor值。当前工具暂不具备自动比对功能，需要用户人工识别对应关系进行比对。MindSpore Dump工具介绍参考[精度调试工具介绍](#精度调试工具介绍)，PyTorch Dump工具使用可参考[精度工具功能说明](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)
+在固定权重、数据集、随机性后，对比训练第一个step的loss值差异。第一个step的loss值由网络的前向计算获得，若与标杆loss的差异较大，则可判定前向计算存在精度差异，这可能是由于模型结构未对齐、算子精度异常导致。可通过打印或者Dump工具获取MindSpore及PyTorch每层的tensor值。当前工具暂不具备自动比对功能，需要用户人工识别对应关系进行比对。MindSpore Dump工具介绍参考[精度调试工具介绍](#精度调试工具介绍)，PyTorch Dump工具使用可参考[精度工具功能说明](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)。
 
-通过PyTorch的api_stack_dump.pkl文件，及MindSpore的statistc.csv文件找到层的对应关系，初步通过max，min，L2Norm判断输入输出的差异程度。若需要进一步的对比，可以加载相应的npy数据进行详细比对。
+通过PyTorch的api_stack_dump.pkl文件，及MindSpore的statistic.csv文件找到层的对应关系，初步通过max、min、L2Norm判断输入输出的差异程度。若需要进一步的对比，可以加载相应的npy数据进行详细比对。
 
 #### step1的local norm值对比
 
@@ -336,7 +336,7 @@ def get_parameters(self):
 
 ![local norm](./image/local_norm.png)
 
-可发现在该图示的场景下，model.tok_embeddings.embedding_weight的local norm值差异较大，可重点排查embedding的实现及计算精度等。
+可发现在该图示的场景下，model.tok_embeddings.embedding_weight的local norm值差异较大，可重点排查Embedding的实现及计算精度等。
 
 Local norm值仅作为反向计算是否正确的初步判断，若要深入对比反向计算，需要通过Dump工具逐层对比MindSpore及PyTorch反向计算值。
 
@@ -396,7 +396,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 若排查出优化器计算不存在问题，同时第二个step的loss差异较大，则需要通过Dump方式重新详细对比第一个step的反向计算。
 
-### 阶段三：长稳训练排查
+### 阶段3：长稳训练排查
 
 经过上述操作对齐step1和step2的loss及local norm，排查前向计算、反向计算、优化器更新后，启动长稳训练，对比每个step的loss。
 
@@ -406,17 +406,17 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 #### 标杆误差确认
 
-在进行权重更新的训练前，需要先确认标杆误差，即关闭确定性计算，重复跑两次标杆训练，查看标杆自身的误差，作为判断误差是否合理的参考。由于硬件或底层调用算子的差异，训练的计算过程会不可避免的存在一定的误差。MindSpore训练与PyTorch进行loss对比时，若误差在标杆误差范围内，且误差围绕0轴上下波动，则可以认为误差合理。
+在进行权重更新的训练前，需要先确认标杆误差，即关闭确定性计算，重复跑两次标杆训练，查看标杆自身的误差，作为判断误差是否合理的参考。由于硬件或底层调用算子的差异，训练的计算过程会不可避免地存在一定的误差。MindSpore训练与PyTorch进行loss对比时，若误差在标杆误差范围内，且误差围绕0轴上下波动，则可以认为误差合理。
 
 #### loss发散
 
-设置learning rate > 0，权重更新，进行长稳测试。训练至某个step出现loss差异较大现象，之后训练loss开始发散，如图所示：
+设置learning rate > 0，权重更新，进行长稳测试。训练至某个step出现loss差异较大的现象，之后训练loss开始发散，如图所示：
 
 ![loss1](./image/loss1.png)
 
 在该场景下，可针对突变前后的训练进行排查，可尝试如下排查方式：
 
-* 检查loss突变附近的数据情况，排查是否有异常数据。通过tokenizer将数据decode为文字查看数据是否异常；同时可尝试跳过这批数据进行训练，验证是否由数据导致。
+* 检查loss突变附近的数据情况，排查是否有异常数据。通过tokenizer将数据decode为文字，查看数据是否异常；同时可尝试跳过这批数据进行训练，验证是否由数据导致。
 
 * 检查在突变附近是否有精度溢出情况。
 
@@ -460,7 +460,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 ![local norm](./image/local_norm.png)
 
-排查原因为MindFormers使用fp32进行权重初始化，前向计算及反向计算embedding时均使用fp32精度计算；而PyTorch的前向及反向计算均为bf16，由此导致了计算出来的local norm值存在差异。
+排查原因为MindFormers使用fp32进行权重初始化，前向计算及反向计算Embedding时均使用fp32精度计算；而PyTorch的前向及反向计算均为bf16，由此导致了计算出来的local norm值存在差异。
 
 计算精度对齐后，排查优化器计算也没有问题，开始进行长稳训练对齐。
 
@@ -486,4 +486,4 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 为验证该误差为合理范围内，关闭确定性计算，重复跑两次GPU实验。图中红线为MindSpore训练的曲线，蓝色、绿色线分别是第一次、第二次GPU训练的曲线。在7千step左右训练不稳定处，MindSpore训练的曲线正处于两次GPU训练的曲线之间，说明误差处于合理范围内，问题最终解决。
 
-![loss7](./image/loss7.png)
+![loss7](./image/loss7.png)  
