@@ -38,7 +38,7 @@ $$
 
 * SeqLength：指的是序列的长度，进行文本处理的时候，我们需要将输入的文本转换成数字序列，然后将这些数字序列作为模型的输入。SeqLength就是指这些数字序列的长度，也就是文本的长度。在模型训练和推理的过程中，我们需要指定一个固定的SeqLength，以便进行批处理和计算。较长的SeqLength可以提高模型的准确性，但会增加计算量和内存消耗；而较短的SeqLength则会减少计算量和内存消耗，但可能会降低模型的准确性。
 
-* sample：其值等于global_batch_size。在分布式训练中，数据被分成多个部分，每个部分被送到不同的NPU上进行计算。这些NPU上的batch size加起来就是全局批量大小。全局批量大小的选择是一个重要的决策，因为它会直接影响模型的训练性能。如果全局批量太小，每个NPU上的batch size可能会太小，导致模型的收敛速度变慢。如果全局批量太大，每个NPU上的batch size可能会太大，导致NPU内存不足或者模型的精度下降。要找到最佳Batch Size大小值，一个好的经验法则是达到NPU对给定数据类型的内存限制，即Batch Size占满NPU内存。
+* sample：其值等于global_batch_size。在分布式训练中，数据被分成多个部分，每个部分被送到不同的NPU上进行计算。这些NPU上的Batch Size加起来就是全局批量大小。全局批量大小的选择是一个重要的决策，因为它会直接影响模型的训练性能。如果全局批量太小，每个NPU上的Batch Size可能会太小，导致模型的收敛速度变慢。如果全局批量太大，每个NPU上的Batch Size可能会太大，导致NPU内存不足或者模型的精度下降。要找到最佳Batch Size大小值，一个好的经验法则是达到NPU对给定数据类型的内存限制，即Batch Size占满NPU内存。
 
 * s：即per_step_time，指在训练过程中，每一步所花费的时间。
 
@@ -48,7 +48,7 @@ $$
 
 在大模型训练中，由于数据量和模型复杂度的增加，单个计算节点的计算能力难以满足训练的需求。为了提高训练效率和加速训练过程，通常采用并行策略来将计算任务分配给多个计算节点进行计算。
 
-并行策略通常分为数据并行（Data Parallelism，简称DP）、模型并行（一般指张量并行Tensor Parallelism，简称TP）、流水并行（Pipeline Parallelism，简称PP）、优化器并行（Optimizer Paralleism，简称OP）、序列并行（Sequence Paralleism，简称SP）、多副本并行等多种并行模式。在实际应用中，通常会采用多种并行策略，以及多种优化手段，例如使用优化器并行、重计算等方式，以减少模型对内存的使用，提高训练效率。并行策略设计与模型的效率息息相关，在模型调优之前先确定一组或多组较优的并行策略，是至关重要的。
+并行策略通常分为数据并行（Data Parallelism，简称DP）、模型并行（一般指张量并行Tensor Parallelism，简称TP）、流水并行（Pipeline Parallelism，简称PP）、优化器并行（Optimizer Parallelism，简称OP）、序列并行（Sequence Parallelism，简称SP）、多副本并行等多种并行模式。在实际应用中，通常会采用多种并行策略，以及多种优化手段，例如使用优化器并行、重计算等方式，以减少模型对内存的使用，提高训练效率。并行策略设计与模型的效率息息相关，在模型调优之前先确定一组或多组较优的并行策略，是至关重要的。
 
 详细介绍参考文档[并行策略指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/distributed_parallel.html)。
 
@@ -143,7 +143,7 @@ MindStudio Insight工具以时间线（Timeline）的呈现方式为用户提供
 
 #### IR 图
 
-在MindFormers配置文件中，只需要开启save_graphs，运行时会输出一些图编译过程中生成的ir后缀结尾的中间文件，我们称为IR文件。默认会在当前任务执行目录下生成一个graph的目录，所有的IR图都会保存在这其中。是一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)，配置方法如下：
+在MindFormers配置文件中，只需要开启save_graphs，运行时会输出一些图编译过程中生成的ir后缀结尾的中间文件，我们称为IR文件。默认会在当前任务执行目录下生成一个graph的目录，所有的IR图都会保存在这其中。IR文件是一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)，配置方法如下：
 
 ```yaml
 context:
@@ -294,11 +294,11 @@ Actual peak memory usage (with fragments)表示包含碎片的NPU内存使用峰
 
 #### SiLU-Mul重计算未生效
 
-在开细粒度多副本时，对SiLU和Mul做重计算可以节省内存，但关细粒度多副本时，对SiLU和Mul做重计算不能节省内存。定位过程如下：
+在开启细粒度多副本时，对SiLU和Mul做重计算可以节省内存，但关闭细粒度多副本时，对SiLU和Mul做重计算不能节省内存。定位过程如下：
 
 * 确认配置了重计算
 
-  在IR图中检查Cast、SiLU和Mul算子是否有“recompute: Bool(1)”的标签，有标签说明算子配了重计算。
+  在IR图中检查Cast、SiLU和Mul算子是否有“recompute: Bool(1)”的标签，有标签说明算子配置了重计算。
 
 * 检查重计算生效算子
 
@@ -311,11 +311,11 @@ Actual peak memory usage (with fragments)表示包含碎片的NPU内存使用峰
 
 * 检查反向计算输入
 
-  在IR图中检查SiLU和Mul的反向算子的输入是否符合预期，在关细粒度多副本时，SiLU和Mul之间、 Mul和MatMul之间均有Reshape算子，而开启细粒度多副本时，SiLU、Mul和MatMul是相连的。绘制相关流程如下：
+  在IR图中检查SiLU和Mul的反向算子的输入是否符合预期，在关闭细粒度多副本时，SiLU和Mul之间、 Mul和MatMul之间均有Reshape算子，而开启细粒度多副本时，SiLU、Mul和MatMul是相连的。绘制相关流程如下：
 
 ![reshape](./images/reshape.png)
 
-由此可知跟因在于，细粒度多副本场景中Linear的输入shape是二维的，而非细粒度多副本中Linear的输入shape是三维的，导致Linear和Mul之间有Reshape算子，没对这个Reshape重计算导致单纯对SiLU的重计算没有用而被优化掉。额外对Reshape重计算后内存可以正常减小。参考配置如下：
+由此可知根因在于，细粒度多副本场景中Linear的输入shape是二维的，而非细粒度多副本中Linear的输入shape是三维的，导致Linear和Mul之间有Reshape算子，没对这个Reshape重计算导致单纯对SiLU的重计算没有用而被优化掉。额外对Reshape重计算后内存可以正常减小。参考配置如下：
 
 ```yaml
 recompute_config:
