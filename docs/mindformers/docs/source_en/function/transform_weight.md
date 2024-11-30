@@ -16,13 +16,13 @@ When a model loads a weight, it automatically checks whether the weight is match
 
 Parameters in the `yaml` file related to **automatic weight conversion** are described as follows:
 
-| Parameter             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| ------------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| load_checkpoint     | Absolute path or folder path of the pre-loaded weights.<br> - For a complete set of weights, set this parameter to an absolute path.<br> - For a distributed weight, set this parameter to the folder path. The distributed weight must be stored in the `model_dir/rank_x/xxx.ckpt` format. The folder path is `model_dir`.<br>**If there are multiple CKPT files in the rank_x folder, the last CKPT file in the file name sequence is used for conversion by default.**                                                                                                                                                                                                                                                 |
-| src_strategy        | Path of the distributed strategy file corresponding to the pre-loaded weights.<br> - If the pre-loaded weights are a complete set of weights, leave this parameter **blank**.<br> - If the pre-loaded weights are distributed and pipeline parallelism is used when the pre-loaded weights are saved, set this parameter to the **merged strategy file path** or **distributed strategy folder path**.<br> - If the pre-loaded weights are distributed and pipeline parallelism is not used when the pre-load weights are saved, set this parameter to any **ckpt_strategy_rank_x.ckpt** path.                                                                                                                                                                                                                                  |
-| auto_trans_ckpt     | Specifies whether to enable automatic weight conversion. The value True indicates that it is enabled. The default value is False.                                                                                                                                                                                                                                                                                                                                                                                                           |
-| transform_process_num | Number of processes used for automatic weight conversion. The default value is 1.<br> - If transform_process_num is set to 1, only rank_0 is used for weight conversion. Other processes wait until the conversion ends.<br> - If transform_process_num is larger than 1, **multiple processes conduct conversion**. For example, for an 8-device task, if transform_process_num is set to 2, rank_0 is used for converting the weights of slices rank_0, rank_1, rank_2, and rank_3, and rank_4 is used for converting the weights of slices rank_4, rank_5, rank_6, and rank_7, and other processes wait until rank_0 and rank_4 complete the conversion.<br>**Note**:<br> 1. A larger value of transform_process_num indicates a shorter conversion time and **a larger host memory occupied by the conversion**. If the host memory is insufficient, decrease the value of transform_process_num.<br> 2. The value of transform_process_num must be a number that can be exactly divided by and cannot exceed that of NPUs.|
-| transform_by_rank   | Specifies whether to use the mindspore.transform_checkpoint_by_rank API for weight conversion.<br> - If transform_process_num is larger than 1, the value is automatically set to `True`.<br> - If transform_process_num is set to 1, if the target weight is a distributed weight, the mindspore.transform_checkpoint_by_rank API is cyclically called to convert the weight of each rank slice in serial mode.<br>- If transform_process_num is set to 1, if the target weight is a complete weight, the value is automatically set to `False`, and the mindspore.transform_checkpoints API is called for weight conversion.                                                                                                                      |
+| Parameter             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ------------------- |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| load_checkpoint     | Absolute path or folder path of the pre-loaded weights.<br> - For a complete set of weights, set this parameter to an absolute path.<br> - For a distributed weight, set this parameter to the folder path. The distributed weight must be stored in the `model_dir/rank_x/xxx.ckpt` format. The folder path is `model_dir`.<br>**If there are multiple CKPT files in the rank_x folder, the last CKPT file in the file name sequence is used for conversion by default.**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| src_strategy        | Path of [the distributed strategy file](#generating-distributed-strategy) corresponding to the pre-loaded weights.<br> - If the pre-loaded weights are a complete set of weights, leave this parameter **blank**.<br> - If the pre-loaded weights are distributed and pipeline parallelism is used when the pre-loaded weights are saved, set this parameter to the **merged strategy file path** or **distributed strategy folder path**.<br> - If the pre-loaded weights are distributed and pipeline parallelism is not used when the pre-load weights are saved, set this parameter to any **ckpt_strategy_rank_x.ckpt** path.                                                                                                                                                                                                                                                                                                                                                                                              |
+| auto_trans_ckpt     | Specifies whether to enable automatic weight conversion. The value True indicates that it is enabled. The default value is False.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| transform_process_num | Number of processes used for automatic weight conversion. The default value is 1.<br> - If transform_process_num is set to 1, only rank_0 is used for weight conversion. Other processes wait until the conversion ends.<br> - If transform_process_num is larger than 1, **multiple processes conduct conversion**. For example, for an 8-device task, if transform_process_num is set to 2, rank_0 is used for converting the weights of slices rank_0, rank_1, rank_2, and rank_3, and rank_4 is used for converting the weights of slices rank_4, rank_5, rank_6, and rank_7, and other processes wait until rank_0 and rank_4 complete the conversion.<br>**Note**:<br> 1. A larger value of transform_process_num indicates a shorter conversion time and **a larger host memory occupied by the conversion**. If the host memory is insufficient, decrease the value of transform_process_num.<br> 2. The value of transform_process_num must be a number that can be exactly divided by and cannot exceed that of NPUs. |
+| transform_by_rank   | Specifies whether to use the mindspore.transform_checkpoint_by_rank API for weight conversion.<br> - If transform_process_num is larger than 1, the value is automatically set to `True`.<br> - If transform_process_num is set to 1, if the target weight is a distributed weight, the mindspore.transform_checkpoint_by_rank API is cyclically called to convert the weight of each rank slice in serial mode.<br>- If transform_process_num is set to 1, if the target weight is a complete weight, the value is automatically set to `False`, and the mindspore.transform_checkpoints API is called for weight conversion.                                                                                                                                                                                                                                                                                                                                                                                                  |
 
 ### YAML Configurations in Different Scenarios
 
@@ -102,6 +102,12 @@ Parameters in the `yaml` file related to **offline weight conversion** are descr
 
 ### Offline Conversion Configuration
 
+#### Generating Distributed strategy
+
+MindSpore generates a distributed strategy file (ckpt format) corresponding to the number of cards in the `output/strategy` folder after running a distributed task, which can be used in offline weight conversion.
+
+If there is currently no distributed strategy file, it can be quickly generated by setting `only_save_strategy:True` in the yaml configuration file on the basis of the original distributed training/inference task. After setting, the task will stop immediately after generating the distributed strategy file, without actually executing training or inference.
+
 #### Single-Process Conversion
 
 Use [mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.py) to perform single-process conversion on the loaded weight.
@@ -114,10 +120,6 @@ python transform_checkpoint.py \
   --dst_checkpoint=/worker/transform_ckpt/llama3_8b_1to8/ \
   --dst_strategy=/worker/mindformers/output/strategy/
 ```
-
-**Precautions**:
-
-If no target strategy file is available during offline conversion, you can set `only_save_strategy: True` to generate a strategy file and run the task once to obtain it.
 
 #### Multi-Process Conversion
 
@@ -137,44 +139,6 @@ bash transform_checkpoint.sh \
 **Precautions**:
 
 - When the [transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/ckpt_transform/transform_checkpoint.sh) script is used, `8` indicates the number of target devices, and `2` indicates that two processes are used for conversion.
-- If no target strategy file is available, you can set `only_save_strategy: True` to generate a strategy file.
-
-#### Parameter Configuration Examples
-
-- **Save the strategy file.**
-
-  ```yaml
-  only_save_strategy: True
-  ```
-
-- **Configure the dataset.**
-
-  ```yaml
-  train_dataset: &train_dataset
-    data_loader:
-      type: MindDataset
-      dataset_dir: "/worker/dataset/wiki103/"
-      shuffle: True
-  ```
-
-- **Configure an 8-device distributed strategy.**
-
-  ```yaml
-  parallel_config:
-    data_parallel: 2
-    model_parallel: 2
-    pipeline_stage: 2
-    micro_batch_num: 2
-  ```
-
-- **Configure the model.**
-
-  ```yaml
-  model:
-    model_config:
-      seq_length: 512
-      num_layers: 2
-  ```
 
 ## Special Scenarios
 
