@@ -26,33 +26,28 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 | Key parameters          | Descriptions            | CheckList    |
 | ----------------- | ------------------------- |---------------------------------|
-| num_layers        | transformer layers                                              | Check for alignment with benchmarks                                                                                                                        |
-| num_heads         | The number of attention heads in transformer                     | Check for alignment with benchmarks                                                                                                                        |
-| hidden_size       | Transformer hidden layer size                                        | Check for alignment with benchmarks                                                                                                                        |
-| intermediate_size | Feed-Forward Network hidden layer size                             | intermediate_size corresponds to the ffn-hidden-size parameter in Megatron, which is not configured in MindFormers, but is calculated from multiple_of and ffn_dim_multiplier. Check for alignment with benchmarks.                 |
-| Attention         | Attention module in transformer                                 | </br>- Check that the following structures and calculations are aligned: the attention structure has different structures such as MQA, GQA, and MHA.</br>- Sparse computational models: causal/sliding window attention (SWA), etc.</br>- Whether the matrix of wq/wk/wv has a fusion computation. |
-| normalization     | Regularization functions, common structures are LayerNorm, RMSNorm                     | Check for alignment with benchmarks                                                                                                                        |
-| normal_eps        | Regularized epsilon parameters                                          | Check for alignment with benchmarks                                                                                                                        |
-| dropout           | Dropout in the network                                             | Currently, when MindSpore opens Dropout, recalculation cannot be enabled; if precision comparison is carried out, it is recommended that both sides be closed to reduce the random factor.                                                                                |
-| activation function          | Common activation functions ReLU/GeLU/FastGeLU/SwigLU etc.                    | Check for alignment with benchmarks                                                                                                                        |
-| fusion computation          | Common fusion operators include FA, ROPE, Norm, SwigLU; some users will fuse Wq, Wk, Wv for computation | When comparing accuracy on the same hardware, if fusion algorithms are used, they need to be consistent. When comparing accuracy on different hardware, focus on checking whether there are differences in the fusion calculation.                                                                     |
-| position code          | /                                                            | Check the way to use positional coding: absolute/relative positional coding.                                                                                                             |
-| vocab_size        | vocabulary size                                                     | The vocab size is recommended to be a multiple of 16; if it is odd, it may affect the computational results of matmul. In the pre-training scenario, the vocabulary size can be changed by modifying the parameters. In the SFT scenario, if the vocabulary size of the pre-training weights is odd, the weights need to be padded.                                    |
+| num_layers        | Number of transformer layers                                              | Correspond to the Megatron num-layers parameter and check for consistency.                                             |
+| num_heads         | Number of attention heads in transformer                             | Correspond to the Megatron num-attention-heads parameter and check for consistency.                                    |
+| hidden_size       | Transformer hidden layer size                                        | Correspond to the Megatron hidden-size parameter and check for consistency.                                            |
+| intermediate_size | Feed-Forward Network hidden layer size                             | Correspond to the Megatron ffn-hidden-size parameter and check for consistency.                                        |
+| n_kv_heads        | Number of kv groups                                                     | Correspond to the Megatron num-query-groups parameter and check for consistency.                                        |
+| Regularization function        | Regularization functions, common structures are LayerNorm, RMSNorm                     | Configuration parameters for the no-regularization function in MindFormers, consistent with the configuration in each model paper. The configuration can be customized in Megatron by normalization to check for consistency. |
+| rms_norm_eps      | Regularized epsilon parameters                                          | Correspond to the Megatron layernorm_epsilon parameter and check for consistency.                                         |
+| dropout           | dropout in the network                                              | Currently, when MindSpore enables dropout, recalculation cannot be enabled; if precision comparison is carried out, it is recommended that both sides be closed to reduce the random factor.|
+| Fusion computation          | Common fusion operators include FA, ROPE, Norm, SwigLU; some users will fuse Wq, Wk, Wv for computation | 1. For accuracy comparison under the same hardware, if fusion algorithms are used, they should be consistent. <br>2. When comparing accuracy on different hardware, focus on checking whether there is any difference in the calculation of the fusion calculation part.    |
 
 * MOE Structure
 
 | Key parameters          | Descriptions                                                         | CheckList                                                                                                                                |
 | ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
-| expert_num               | Number of experts                                          | Check for alignment with benchmarks                                                                                                       |
-| shared_expert_num        | Number of shared experts                                      | Check for alignment with benchmarks                                                                                                       |
-| num_experts_chosen       | Number of experts selected per token                             | Check for alignment with benchmarks                                                                                                       |
-| capacity_factor          | Expert capacity factor                                      | Capacity factor requirement 1.0 <= Capacity factor <= expert_num/num_experts_chosen, which is recommended for accuracy comparison. When capacity factor < 0, it is dynamic capacity, corresponding to dropless MoE operation, i.e., no token is discarded. |
-| aux_loss_factor          | Load balancing loss contribution factor                              | When turned on, it is recommended to be less than 0.05; if precision alignment is performed, it is recommended not to turn it on, LOSS prints in an inconsistent manner.                                                                         |
-| routing_policy           | routing expert policy                                      | Currently MindFormers has TopkRouterV1 and TopkRouterV2; V2 is a high-performance mathematical equivalent implementation of V1, and it is recommended to use V2, V1 will be deprecated subsequently.                                     |
-| enable_sdrop             | Whether to enable the sdrop method                                 | It is recommended to set it to true, corresponding to Megatron need to set the parameter as follows parameters:</br> moe-token-drop-policy: position</br> moe-pad-expert-input-to-capacity: True. |
-| router_dense_type        | Decide on the expert's dense layer                                 | It needs to be calculated using fp32 to prevent overflow.                                                                                                |
-| use_fused_ops_topkrouter | Whether to use the fusion operator for dispatch as well as combine indexing calculations | The parameter takes effect when enbable_sdrop=True, and precision alignment is recommended to be set to True.                                                                        |
-| use_shared_expert_gating | Whether the gating factor is used in the shared expert network                  | Check if the shared expert network has a gating factor, if so set it to True.                                                                                |
+| expert_num               | Number of experts                                          | Correspond to the Megatron num-experts parameter and check for consistency.                    |
+| num_experts_chosen       | Number of experts selected per token                             | Correspond to the Megatron moe-router-topk parameter and check for consistency.                |
+| capacity_factor          | Expert capacity factor                                      | Correspond to the Megatron moe_expert_capacity_factor parameter and check for consistency. |
+| aux_loss_factor          | Load balancing loss contribution factor                              | When turned on, it is recommended to be less than 0.05. If precision alignment is performed, it is not recommended to be turned on, and is inconsistent with Megatron loss printing method. |
+| enable_sdrop             | Whether to enable the sdrop method                                 | It is recommended to set it to true; the corresponding Megatron needs to set the following parameters:<br>  `moe-token-drop-policy: position` <br>  `moe-pad-expert-input-to-capacity: True` |
+| router_dense_type        | Decide the expert sense layer                                 | Configurable in MindFormers, fp32 calculations are recommended to prevent overflow; not configurable in Megatron. |
+| use_fused_ops_topkrouter | Whether to use the fusion operator for dispatch as well as combine indexing calculations | Fusion operator in MindFormers, the parameter takes effect when enbable_sdrop=True, precision alignment is recommended to be set to True. |
+| use_shared_expert_gating | Whether the gating factor is used in the shared expert network                  | Check if the network sharing expert has a gating factor, if so set it to True.       |
 
 ### Optimizer CheckList
 
@@ -78,15 +73,15 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 | Key parameters          | Descriptions     | CheckList                |
 | ----------------- | ----------------------------------------- |---------------------------------------|
-| compute_dtype          | Compute accuracy                                                     | Keep alignment with benchmarks                                               |
-| layernorm_compute_type | layerNorm/RMSNorm compute precision | Megatron is not configurable, need to check that implementations are consistent.                 |
-| softmax_compute_type   | When MindSpore uses FlashAttention, the internal Softmax fix is calculated with FA.     | Megatron is not configurable, needs to check if the implementation is consistent.                 |MindSpore
-| Calculation of weights             | accuracy calculation for each weight such as, Embedding, lm_head, type of calculation is configurable only for small arithmetic splicing implementations | Megatron is not configurable, need to check that implementations are consistent.                 |
-| rotary_dtype           | Calculation accuracy of rotary position encoding                                       | Since MindFormers weight initialization needs to be set to fp32, and the usual calculation precision is bf16/fp16, it is necessary to check whether the weight data type is converted to bf16/fp16 before weight calculation. |
+| compute_dtype          | Compute accuracy                   | Megatron set `-bf16: true` to FP16, otherwise BF16.  |
+| layernorm_compute_type | LayerNorm/RMSNorm compute precision | Megatron is not configurable, need to check that implementations are consistent.                 |
+| softmax_compute_type   | When MindSpore uses FA, the internal Softmax fix is calculated with FA. Type of calculation is configurable only for small arithmetic splicing implementations     | Megatron is not configurable, needs to check if the implementation is consistent.                 |
+| rotary_dtype           | Calculation accuracy of rotary position encoding                                       | Megatron is not configurable, needs to check if the implementation is consistent. |
+| Calculation of weights             | accuracy calculation for each weight such as, Embedding, lm_head | Since MindFormers weight initialization needs to be set to FP32, and the usual calculation precision is BF16/FP16, it is necessary to check whether the weight data type is converted to BF16/FP16 before weight calculation.|
 | bias add               | bias in the linear layer                                                 | If bias is present, Linear layer checks consistency in the computational accuracy of add.                  |
 | residual add           | sum of residuals                                                     | Check that the accuracy of the calculation of the residuals is consistent with the benchmarks                             |
-| loss                   | Loss Calculation Module                                                 | Check that the accuracy of the calculation of the entire loss module is consistent with the benchmarks                     |
-| Operator High Precision Mode         | Ascend Calculator supports high precision mode                                       | Method:  context.set_context(ascend_config=  {"ge_options":{  "global":{  "ge.opSelectImplmode":"high_precision"  }  }  }) |
+| loss                   | Loss Calculation Module               | Check that the accuracy of the calculation in the entire loss module is consistent with the benchmarks                     |
+| Operator High Precision Mode         | Ascend Calculator supports high precision mode                                       | Method:  `context.set_context(ascend_config=  {"ge_options":{  "global":{  "ge.opSelectImplmode":"high_precision"  }  }  })` |
 
 ### Parallel Strategy CheckList
 
@@ -101,12 +96,12 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 ### Other CheckList
 
-| Key parameters          |  CheckList               |
+| **Key parameters**          |  **CheckList**               |
 | ----------------- | ---------------------------|
 | Data Check | Check if the data is abnormal, you can randomly select part of the data for decode, encode check to see if the position of input and label is correctly corresponding.                                  |
 | Special Words Check | Check whether the special ids such as bos_token_id, eos_token_id, pad_token_id are consistent with the ids when the data is produced.                              |
-| input_ids check | Check whether inputs_id in embedding is consistent with 0<=inputs_id<vocab_size; if there is out-of-bounds behavior, it will fetch dirty data and lead to precision anomaly.                       |
-| Overflow Detection | Overflow Status Aligns PyTorch, suggest to use INFNAN_MODE, i.e., export MS_ASCEND_CHECK_OVERFLOW_MODE=INFNAN_MODE. |
+| input_ids check | Check whether inputs_id in Embedding is consistent with 0<=inputs_id<vocab_size; if there is out-of-bounds behavior, it will fetch dirty data and lead to precision anomaly.                       |
+| Overflow Detection | Overflow Status Aligns PyTorch, suggest to use INFNAN_MODE, i.e., `export MS_ASCEND_CHECK_OVERFLOW_MODE=INFNAN_MODE`. |
 | Graph Operator Fusion | Turn off graph operator fusion, i.e. enable_graph_kernel: False. |
 | Training Inference Template Consistency | If training SFT, you need to make sure that the input template used for training inference is consistent.  |
 | Version Check | Check whether the versions of MindSpore, MindFormers and CANN are compatible, it is recommended to use the latest compatible version.          |
@@ -283,7 +278,7 @@ By comparing the loss and local norm of the first step (step1) and the second st
 
 After fixing the weights, dataset, and randomness, the difference in the loss value of the first step of training is compared. The loss value of the first step is obtained from the forward computation of the network. If the difference with the benchmark loss is large, it can be determined that there is an accuracy difference in the forward computation, which may be due to the model structure is not aligned, and the accuracy of the operator is abnormal. The tensor values of each layer of MindSpore and PyTorch can be obtained by printing or Dump tool. Currently, the tool does not have automatic comparison function, users need to manually identify the correspondence for comparison. For the introduction of MindSpore Dump tool, please refer to [Introduction of Accuracy Debugging Tools](#introduction-to-accuracy-debugging-tools), and for the use of PyTorch Dump tool, please refer to [Function Explanation of Accuracy Tools](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)
 
-Find the correspondence of layers through PyTorch api_stack_dump.pkl file, and MindSpore statistc.csv file, and initially determine the degree of difference between input and output through max, min, and L2Norm. If you need further comparison, you can load the corresponding npy data for detailed comparison.
+Find the correspondence of layers through PyTorch api_stack_dump.pkl file, and MindSpore statistic.csv file, and initially determine the degree of difference between input and output through max, min, and L2Norm. If you need further comparison, you can load the corresponding npy data for detailed comparison.
 
 #### Comparison of local norm Values for step1
 
@@ -325,7 +320,7 @@ Below is an example of a local norm comparison, comparing the local norm values 
 
 ![local norm](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindformers/docs/source_zh_cn/acc_optimize/image/local_norm.png)
 
-It can be found that in the scenario shown in this figure, the local norm value of model.tok_embeddings.embedding_weight has a large difference, which can be focused on troubleshooting the implementation of the embedding and the calculation accuracy, etc.
+It can be found that in the scenario shown in this figure, the local norm value of model.tok_embeddings.embedding_weight has a large difference, which can be focused on troubleshooting the implementation of the Embedding and the calculation accuracy, etc.
 
 The local norm value only serves as a preliminary judgment of whether the reverse computation is correct, if we want to compare the reverse computation in depth, we need to compare the MindSpore and PyTorch reverse computation values layer by layer by using the Dump tool.
 
@@ -447,7 +442,7 @@ First the loss alignment of step1 is confirmed to be OK. Compare the local norm 
 
 ![local norm](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/docs/mindformers/docs/source_zh_cn/acc_optimize/image/local_norm.png)
 
-The reason for this is that MindFormers uses fp32 for weight initialization, and fp32 precision is used for both forward and backward embedding calculations, while PyTorch forward and backward calculations are bf16, which leads to differences in the calculated local norm values.
+The reason for this is that MindFormers uses fp32 for weight initialization, and fp32 precision is used for both forward and backward Embedding calculations, while PyTorch forward and backward calculations are bf16, which leads to differences in the calculated local norm values.
 
 Once the computational accuracy is aligned, the exhaustive optimizer computation is also fine, and the long stable training alignment starts.
 
