@@ -202,16 +202,16 @@ The Numpy version used in the runtime environment must be no less than the Numpy
 
     ```bash
     # x86 run
-    curl -O https://cmake.org/files/v3.22/cmake-3.22.2-Linux-x86_64.sh
+    curl -O https://cmake.org/files/v3.22/cmake-3.22.2-linux-x86_64.sh
     # aarch64 run
-    curl -O https://cmake.org/files/v3.22/cmake-3.22.2-Linux-aarch64.sh
+    curl -O https://cmake.org/files/v3.22/cmake-3.22.2-linux-aarch64.sh
     ```
 
     Run the script to install CMake, which is installed in the `/usr/local` by default.
 
     ```bash
     sudo mkdir /usr/local/cmake-3.22.2
-    sudo bash cmake-3.22.2-Linux-*.sh --prefix=/usr/local/cmake-3.22.2 --exclude-subdir
+    sudo bash cmake-3.22.2-linux-*.sh --prefix=/usr/local/cmake-3.22.2 --exclude-subdir
     ```
 
     Finally, add CMake to the `PATH` environment variable. Run the following commands if it is installed in the default path, other installation paths need to be modified accordingly.
