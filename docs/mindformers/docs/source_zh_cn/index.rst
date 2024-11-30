@@ -117,6 +117,7 @@ FAQ
    :hidden:
 
    acc_optimize/acc_optimize
+   acc_optimize/pynative_acc_optimize
 
 .. toctree::
    :glob:
