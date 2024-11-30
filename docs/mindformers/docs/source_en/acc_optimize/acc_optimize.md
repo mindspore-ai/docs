@@ -24,7 +24,7 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 * Generalized structure (Llama2 as an example)
 
-| Key parameters          | Descriptions            | CheckList    |
+| **Key parameters**          | **Descriptions**            | **CheckList**    |
 | ----------------- | ------------------------- |---------------------------------|
 | num_layers        | Number of transformer layers                                              | Correspond to the Megatron num-layers parameter and check for consistency.                                             |
 | num_heads         | Number of attention heads in transformer                             | Correspond to the Megatron num-attention-heads parameter and check for consistency.                                    |
@@ -38,7 +38,7 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 * MOE Structure
 
-| Key parameters          | Descriptions                                                         | CheckList                                                                                                                                |
+| **Key parameters**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;         | **Descriptions**                                                         | **CheckList**                                                                                                                                |
 | ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
 | expert_num               | Number of experts                                          | Correspond to the Megatron num-experts parameter and check for consistency.                    |
 | num_experts_chosen       | Number of experts selected per token                             | Correspond to the Megatron moe-router-topk parameter and check for consistency.                |
@@ -51,7 +51,7 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 ### Optimizer CheckList
 
-| Key parameters          | Descriptions                                                         | CheckList                                                                                                                                |
+| **Key parameters**          | **Descriptions**                                                         | **CheckList**                                                                                                                                |
 | ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
 | adam optimizer           | optimizer type             | If Megatron uses the adam optimizer, the mathematically equivalent implementation of MindFormers is AdamW. |
 | eps               | adam optimizer minimal value parameter   | Check the parameters for consistency, recommended value is 1e-8.                            |
@@ -65,13 +65,13 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 ### Weight CheckList
 
-| Key parameters          | Descriptions                                                         | CheckList                                                                                                                                |
+| **Key parameters**          | **Descriptions**                                                         | **CheckList**                                                                                                                                |
 | ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
 | param_init_type | Weight initialization type       | MindFormers usually sets the param_init_dtype type to fp32. This is because the gradient communication type needs to be the same as the weight type, controlling the communication type to be fp32. Megatron gradient communication type defaults to fp32 and is not tied to the weight type. |
 
 ### Mixed-precision CheckList
 
-| Key parameters          | Descriptions     | CheckList                |
+| **Key parameters**          | **Descriptions**     | **CheckList**                |
 | ----------------- | ----------------------------------------- |---------------------------------------|
 | compute_dtype          | Compute accuracy                   | Megatron set `-bf16: true` to FP16, otherwise BF16.  |
 | layernorm_compute_type | LayerNorm/RMSNorm compute precision | Megatron is not configurable, need to check that implementations are consistent.                 |
@@ -81,11 +81,11 @@ Before locating the operator accuracy problem, we should first eliminate the int
 | bias add               | bias in the linear layer                                                 | If bias is present, Linear layer checks consistency in the computational accuracy of add.                  |
 | residual add           | sum of residuals                                                     | Check that the accuracy of the calculation of the residuals is consistent with the benchmarks                             |
 | loss                   | Loss Calculation Module               | Check that the accuracy of the calculation in the entire loss module is consistent with the benchmarks                     |
-| Operator High Precision Mode         | Ascend Calculator supports high precision mode                                       | Method:  `context.set_context(ascend_config=  {"ge_options":{  "global":{  "ge.opSelectImplmode":"high_precision"  }  }  })` |
+| Operator High Precision Mode         | Ascend Calculator supports high precision mode                                       | Method:  `context.set_context(ascend_config= {"ge_options":{ "global":{ "ge.opSelectImplmode":"high_precision" } } })` |
 
 ### Parallel Strategy CheckList
 
-| Key parameters          | Descriptions                                                         | CheckList                                                                                                                                |
+| **Key parameters**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          | **Descriptions**     | **CheckList**  |
 | ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
 | data_parallel              | data parallel                               | Parallel slicing affects the communication behavior, and the calculations that introduce communication after slicing may be slightly different from the single-card calculations.                    |
 | model_parallel             | model parallel                               | No effect on accuracy                                                   |
