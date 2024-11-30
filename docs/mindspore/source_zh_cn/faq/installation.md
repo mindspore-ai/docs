@@ -89,6 +89,12 @@ A: 出现这种类型的报错，大概率是昇腾AI处理器配套软件包更
 
 <br/>
 
+### Q: ARM版macOS在Python3.9环境中安装mindspore包执行报错 `ImportError: dlopen ... Library not loaded: @rpath/libffi.7.dylib`怎么办？
+
+A: ARM版macOS上配置python3.9的conda环境时，在部分设备上没有自动安装libffi，导致该问题出现。手动执行安装命令`conda install libffi`即可修复。
+
+<br/>
+
 ## Source安装
 
 ### Q: MindSpore安装: 版本0.6.0-beta + Ascend + Ubuntu_aarch64 + Python3.7.5，手动下载对应版本的whl包，编译并安装gmp6.1.2。其他Python库依赖已经安装完成，执行样例失败，报错显示找不到so文件。
