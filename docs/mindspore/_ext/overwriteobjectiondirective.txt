@@ -422,7 +422,7 @@ class ObjectDescription(SphinxDirective, Generic[N]):
             except Exception as e:
                 logger.warning(e)
         elif extra and directive_content:
-            method_ind = 0
+            method_ind = []
             for ext in extra:
                 extra_len += len(ext)
                 index_example = 0
@@ -437,10 +437,10 @@ class ObjectDescription(SphinxDirective, Generic[N]):
                 elif self.objtype == "method":
                     index_num = 0
                     count = len(self.content.data)
-                    for num, i in enumerate(self.content.data[method_ind:]):
-                        if i.startswith('.. py:method::'):
+                    for num, i in enumerate(self.content.data):
+                        if i.startswith('.. py:method::') and num not in method_ind:
+                            method_ind.append(num+len(ext))
                             index_num = num
-                            method_ind = num - count + 1
                             break
                     if index_num:
                         for i in ext:
