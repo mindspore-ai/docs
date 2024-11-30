@@ -89,6 +89,12 @@ A: When you encounter the error, te or hccl packages in your personal Conda envi
 
 <br/>
 
+### Q: What should I do if error message `ImportError: dlopen ... Library not loaded: @rpath/libffi.7.dylib` is generated when I execute MindSpore on macOS for ARM with Python3.9?
+
+A: libffi is not installed automatically on some devices when creating Python 3.9 virtual environments using Conda. You may fix it by manually running `conda install libffi` to install libffi.
+
+<br/>
+
 ## Installing by Using Source
 
 ### Q: MindSpore installation: Version 0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5, manually download the whl package of the corresponding version, compile and install gmp6.1.2. Other Python library dependencies have been installed, the execution of the sample fails, and an error shows that the so file cannot be found.
