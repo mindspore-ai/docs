@@ -97,6 +97,7 @@ Run the following command to install the .whl packages in the default path. If t
 
 ```bash
 pip install sympy
+pip install protobuf
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
@@ -227,29 +228,6 @@ The Numpy version used in the runtime environment must be no less than the Numpy
 git clone -b r2.3.1 https://gitee.com/mindspore/mindspore.git
 ```
 
-## Compiling MindSpore
-
-Go to the root directory of mindspore, then run the build script.
-
-```bash
-cd mindspore
-bash build.sh -e ascend -S on
-```
-
-Where:
-
-- In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads, for example, `bash build.sh -e ascend -j4`.
-- By default, the dependent source code is downloaded from gitHub. When -S is set to `on`, the source code is downloaded from the corresponding gitee image.
-- For details about how to use `build.sh`, see the script header description.
-
-## Installing MindSpore
-
-```bash
-pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
-```
-
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/v2.3.1/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/v2.3.1/requirements.txt).
-
 ## Configuring Environment Variables
 
 **If Ascend AI processor software is installed in a non-default path**, after MindSpore is installed, export Runtime-related environment variables. `/usr/local/Ascend` in the following command `LOCAL_ASCEND=/usr/local/Ascend` denotes the installation path of the software package, and you need to replace it as the actual installation path of the software package.
@@ -275,7 +253,31 @@ export ASCEND_AICPU_PATH=${ASCEND_OPP_PATH}/..
 export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/compiler/ccec_compiler/bin/:${PATH}
 ## Python library that TBE implementation depends on
 export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
+export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit/
 ```
+
+## Compiling MindSpore
+
+Go to the root directory of mindspore, then run the build script.
+
+```bash
+cd mindspore
+bash build.sh -e ascend -S on
+```
+
+Where:
+
+- In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads, for example, `bash build.sh -e ascend -j4`.
+- By default, the dependent source code is downloaded from gitHub. When -S is set to `on`, the source code is downloaded from the corresponding gitee image.
+- For details about how to use `build.sh`, see the script header description.
+
+## Installing MindSpore
+
+```bash
+pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/v2.3.1/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/v2.3.1/requirements.txt).
 
 ## Installation Verification
 
