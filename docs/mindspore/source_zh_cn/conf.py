@@ -266,16 +266,6 @@ if os.path.exists('./model_train/train_process/model/model.ipynb'):
 if os.path.exists('./model_train/custom_program/operation/op_custom.ipynb'):
     os.remove('./model_train/custom_program/operation/op_custom.ipynb')
 
-# mint页面临时新增API差异对比
-if os.path.exists('./api_python/mindspore.mint.rst'):
-    with open('./api_python/mindspore.mint.rst', 'r+', encoding='utf-8') as f:
-        mint_content = f.read()
-        sec_title_1 = re.findall(r'.*\n[-]+\n', mint_content)[0]
-        mint_content = mint_content.replace(sec_title_1, f"MindSpore中 `mindspore.mint` 接口与上一版本相比，新增、删除和支持平台的变化信息请参考 `mindspore.mint API接口变更 <https://gitee.com/mindspore/docs/blob/r2.4.1/resource/api_updates/mint_api_updates_cn.md>`_ 。\n\n{sec_title_1}")
-        f.seek(0)
-        f.truncate()
-        f.write(mint_content)
-
 # 删除并获取ops下多余的接口文件名
 white_list = ['mindspore.ops.comm_note.rst', 'mindspore.mint.comm_note.rst']
 
@@ -594,6 +584,18 @@ for cur, _, files in os.walk(des_sir):
         #                 f.write(new_content)
         #     except Exception:
         #         print(f'打开{i}文件失败')
+
+add_tensor_property = ['shape', 'size']
+tensor_rst_path = './api_python/mindspore/Tensor'
+for i in add_tensor_property:
+    tensor_file = f'mindspore.Tensor.{i}.rst'
+    if os.path.exists(os.path.join(tensor_rst_path, tensor_file)):
+        with open(os.path.join(tensor_rst_path, tensor_file), 'r+', encoding='utf-8') as f:
+            content = f.read()
+            new_content = re.sub('py:method::(.*)\n', r'py:method::\1\n    :property:\n', content)
+            f.seek(0)
+            f.truncate()
+            f.write(new_content)
 
 # auto generate rst by en
 from generate_rst_by_en import generate_rst_by_en
