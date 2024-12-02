@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.0/docs/mindformers/docs/source_en/perf_optimize/perf_optimize.md)
 
-## Performance Optimization Descritions
+## Performance Optimization Descriptions
 
 This document mainly introduces the performance tuning of large language model, detailed introduction to the basic theoretical knowledge related to performance tuning, analysis ideas and related tools to use guidance, as well as case sharing.
 
@@ -185,6 +185,8 @@ It is recommended to change the number of layers of the model to a smaller size 
 Large model training performance tuning requires simultaneous consideration of multi-dimensional hybrid parallel strategy configurations and memory constraints, and engineers need to try different combinations of schemes on the cluster to find a parallel strategy that achieves the required performance, and the process often takes weeks and consumes a lot of arithmetic costs.
 
 MindSpore provides SAPP (Symbolic Automatic Parallel Planner) automatic load balancing tool. Inputting the model memory and time information, as well as some of the pipeline parallel performance-related hyper-references (e.g., the impact of recomputation on performance), the tool will construct the linear programming problem by itself, through the global solution, automatically generate stage-layer ratios in the pipeline parallel for the large model, adjust the recalculation strategy of each layer, automatically optimize the cluster arithmetic power and memory utilization, reduce the idle waiting time, realize the Pipeline parallel minute-level strategy optimization, greatly reduce the performance tuning cost, and significantly improve the end-to-end training performance.
+
+For detailed usage, please refer to the [SAPP Pipeline Load Balancing](https://gitee.com/mindspore/mindformers/tree/dev/toolkit/pipeline_balance) tool introduction.
 
 ## Performance Tuning Guide
 

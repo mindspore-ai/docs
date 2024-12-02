@@ -75,7 +75,7 @@ Before locating the operator accuracy problem, we should first eliminate the int
 | **Key parameters**          | **Descriptions**     | **CheckList**                |
 | ----------------- | ----------------------------------------- |---------------------------------------|
 | compute_dtype          | Compute accuracy                   | Megatron set `-bf16: true` to FP16, otherwise BF16.  |
-| layernorm_compute_type | LayerNorm/RMSNorm compute precision | Megatron is not configurable, need to check that implementations are consistent.                 |
+| layernorm_compute_type | LayerNorm/RMSNorm compute precision | Megatron is not configurable, needs to check that implementations are consistent.                 |
 | softmax_compute_type   | When MindSpore uses FA, the internal Softmax fix is calculated with FA. Type of calculation is configurable only for small arithmetic splicing implementations     | Megatron is not configurable, needs to check if the implementation is consistent.                 |
 | rotary_dtype           | Calculation accuracy of rotary position encoding                                       | Megatron is not configurable, needs to check if the implementation is consistent. |
 | Calculation of weights             | accuracy calculation for each weight such as, Embedding, lm_head | Since MindFormers weight initialization needs to be set to FP32, and the usual calculation precision is BF16/FP16, it is necessary to check whether the weight data type is converted to BF16/FP16 before weight calculation.|
@@ -114,7 +114,7 @@ In accuracy localization, MindSpore's Dump tool is mainly used. Mainly support O
 
 ### O0/O1 Graph Mode Dump
 
-MindSpore's Dump tool is enabled by configuring a JSON file, which Dumps out all the operator data in the network, saving the tensor and statistics in the statistic.csv table. The following gives a JSON example of full operator Dump in (O0, O1) mode:
+MindSpore's Dump tool is enabled by configuring a JSON file, which dumps out all the operator data in the network, saving the tensor and statistics in the statistic.csv table. The following gives a JSON example of full operator Dump in (O0, O1) mode:
 
 ```json
 {
