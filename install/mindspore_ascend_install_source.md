@@ -98,6 +98,7 @@ pip uninstall te topi hccl -y
 
 ```bash
 pip install sympy
+pip install protobuf
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
@@ -227,6 +228,22 @@ pip install "numpy>=1.19.3,<=1.26.4"
 git clone https://gitee.com/mindspore/mindspore.git
 ```
 
+## 配置环境变量
+
+**如果昇腾AI处理器配套软件包没有安装在默认路径**，源码编译前以及安装好MindSpore之后，需要导出Runtime相关环境变量，下述命令中`LOCAL_ASCEND=/usr/local/Ascend`的`/usr/local/Ascend`表示配套软件包的安装路径，需注意将其改为配套软件包的实际安装路径。
+
+```bash
+# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
+export GLOG_v=2
+
+# environment variables
+LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
+
+# set environmet variables using script provided by CANN, swap "ascend-toolkit" with "nnae" if you are using CANN-nnae package instead
+source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
+export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit/
+```
+
 ## 编译MindSpore
 
 进入MindSpore根目录，然后执行编译脚本。
@@ -249,21 +266,6 @@ pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
-
-## 配置环境变量
-
-**如果昇腾AI处理器配套软件包没有安装在默认路径**，安装好MindSpore之后，需要导出Runtime相关环境变量，下述命令中`LOCAL_ASCEND=/usr/local/Ascend`的`/usr/local/Ascend`表示配套软件包的安装路径，需注意将其改为配套软件包的实际安装路径。
-
-```bash
-# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
-export GLOG_v=2
-
-# environment variables
-LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
-
-# set environmet variables using script provided by CANN, swap "ascend-toolkit" with "nnae" if you are using CANN-nnae package instead
-source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
-```
 
 ## 验证是否成功安装
 
