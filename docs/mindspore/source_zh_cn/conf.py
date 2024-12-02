@@ -597,6 +597,18 @@ for cur, _, files in os.walk(des_sir):
         #     except Exception:
         #         print(f'打开{i}文件失败')
 
+add_tensor_property = ['shape', 'size']
+tensor_rst_path = './api_python/mindspore/Tensor'
+for i in add_tensor_property:
+    tensor_file = f'mindspore.Tensor.{i}.rst'
+    if os.path.exists(os.path.join(tensor_rst_path, tensor_file)):
+        with open(os.path.join(tensor_rst_path, tensor_file), 'r+', encoding='utf-8') as f:
+            content = f.read()
+            new_content = re.sub('py:method::(.*)\n', r'py:method::\1\n    :property:\n', content)
+            f.seek(0)
+            f.truncate()
+            f.write(new_content)
+
 # auto generate rst by en
 from generate_rst_by_en import generate_rst_by_en
 
