@@ -98,6 +98,7 @@ Run the following command to install the .whl packages in the default path. If t
 
 ```bash
 pip install sympy
+pip install protobuf
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
 pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
 ```
@@ -227,6 +228,22 @@ The Numpy version used in the runtime environment must be no less than the Numpy
 git clone -b v2.4.1 https://gitee.com/mindspore/mindspore.git
 ```
 
+## Configuring Environment Variables
+
+**If Ascend AI processor software is installed in a non-default path**, before compiling and after installing MindSpore, export Runtime-related environment variables. `/usr/local/Ascend` in the following command `LOCAL_ASCEND=/usr/local/Ascend` denotes the installation path of the software package, and you need to replace it as the actual installation path of the software package.
+
+```bash
+# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
+export GLOG_v=2
+
+# environment variables
+LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
+
+# set environmet variables using script provided by CANN, swap "ascend-toolkit" with "nnae" if you are using CANN-nnae package instead
+source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
+export ASCEND_CUSTOM_PATH=${LOCAL_ASCEND}/ascend-toolkit/
+```
+
 ## Compiling MindSpore
 
 Go to the root directory of mindspore, then run the build script.
@@ -249,21 +266,6 @@ pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/v2.4.0/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/v2.4.0/requirements.txt).
-
-## Configuring Environment Variables
-
-**If Ascend AI processor software is installed in a non-default path**, after MindSpore is installed, export Runtime-related environment variables. `/usr/local/Ascend` in the following command `LOCAL_ASCEND=/usr/local/Ascend` denotes the installation path of the software package, and you need to replace it as the actual installation path of the software package.
-
-```bash
-# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
-export GLOG_v=2
-
-# environment variables
-LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
-
-# set environmet variables using script provided by CANN, swap "ascend-toolkit" with "nnae" if you are using CANN-nnae package instead
-source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
-```
 
 ## Installation Verification
 
