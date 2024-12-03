@@ -31,7 +31,7 @@ Before locating the operator accuracy problem, we should first eliminate the int
 | hidden_size       | Transformer hidden layer size                                        | Correspond to the Megatron hidden-size parameter and check for consistency.                                            |
 | intermediate_size | Feed-Forward Network hidden layer size                             | Correspond to the Megatron ffn-hidden-size parameter and check for consistency.                                        |
 | n_kv_heads        | Number of kv groups                                                     | Correspond to the Megatron num-query-groups parameter and check for consistency.                                        |
-| Regularization function        | Regularization functions, common structures are LayerNorm, RMSNorm                     | Configuration parameters for the no-regularization function in MindFormers, consistent with the configuration in each model paper. The configuration can be customized in Megatron by normalization to check for consistency. |
+| Regularization function        | Regularization functions, common structures are LayerNorm, RMSNorm                     | The specified regularization function is used in MindFormers and cannot be modified by configuration. The configuration can be customized in Megatron by normalization to check for consistency. |
 | rms_norm_eps      | Regularized epsilon parameters                                          | Correspond to the Megatron layernorm_epsilon parameter and check for consistency.                                         |
 | dropout           | dropout in the network                                              | Currently, when MindSpore enables dropout, recalculation cannot be enabled; if precision comparison is carried out, it is recommended that both sides be closed to reduce the random factor.|
 | Fusion computation          | Common fusion operators include FA, ROPE, Norm, SwigLU; some users will fuse Wq, Wk, Wv for computation | 1. For accuracy comparison under the same hardware, if fusion algorithms are used, they should be consistent. <br>2. When comparing accuracy on different hardware, focus on checking whether there is any difference in the calculation of the fusion calculation part.    |
@@ -44,9 +44,9 @@ Before locating the operator accuracy problem, we should first eliminate the int
 | num_experts_chosen       | Number of experts selected per token                             | Correspond to the Megatron moe-router-topk parameter and check for consistency.                |
 | capacity_factor          | Expert capacity factor                                      | Correspond to the Megatron moe_expert_capacity_factor parameter and check for consistency. |
 | aux_loss_factor          | Load balancing loss contribution factor                              | When turned on, it is recommended to be less than 0.05. If precision alignment is performed, it is not recommended to be turned on, and is inconsistent with Megatron loss printing method. |
-| enable_sdrop             | Whether to enable the sdrop method                                 | It is recommended to set it to true; the corresponding Megatron needs to set the following parameters:<br>  `moe-token-drop-policy: position` <br>  `moe-pad-expert-input-to-capacity: True` |
-| router_dense_type        | Decide the expert sense layer                                 | Configurable in MindFormers, fp32 calculations are recommended to prevent overflow; not configurable in Megatron. |
-| use_fused_ops_topkrouter | Whether to use the fusion operator for dispatch as well as combine indexing calculations | Fusion operator in MindFormers, the parameter takes effect when enbable_sdrop=True, precision alignment is recommended to be set to True. |
+| enable_sdrop             | Whether to enable the sdrop (drop implementation) method                                 | It is recommended to set it to true; the corresponding Megatron needs to set the following parameters:<br>  `moe-token-drop-policy: position` <br>  `moe-pad-expert-input-to-capacity: True` |
+| router_dense_type        | Decide the expert sense layer                                 | Configurable in MindFormers, FP32 calculations are recommended to prevent overflow; not configurable in Megatron. |
+| use_fused_ops_topkrouter | Whether to use the fusion operator for dispatch as well as combine indexing calculations | Fusion operator in MindFormers takes effect when `enable_sdrop=True`, precision alignment is recommended to be set to True. |
 | use_shared_expert_gating | Whether the gating factor is used in the shared expert network                  | Check if the network sharing expert has a gating factor, if so set it to True.       |
 
 ### Optimizer CheckList
@@ -67,14 +67,14 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 | **Key parameters**          | **Descriptions**                                                         | **CheckList**                                                                                                                                |
 | ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
-| param_init_type | Weight initialization type       | MindFormers usually sets the param_init_dtype type to fp32. This is because the gradient communication type needs to be the same as the weight type, controlling the communication type to be fp32. Megatron gradient communication type defaults to fp32 and is not tied to the weight type. |
+| param_init_type | Weight initialization type       | MindFormers usually sets the param_init_dtype type to FP32. This is because the gradient communication type needs to be the same as the weight type, controlling the communication type to be FP32. Megatron gradient communication type defaults to FP32 and is not tied to the weight type. |
 | init-method-std | Distribution of weights randomly initialized | If weighted random initialization is used, parameters such as mean/std in the random distribution need to be checked for consistency. |
 
 ### Mixed-precision CheckList
 
 | **Key parameters**          | **Descriptions**     | **CheckList**                |
 | ----------------- | ----------------------------------------- |---------------------------------------|
-| compute_dtype          | Compute accuracy                   | Megatron set `-bf16: true` to FP16, otherwise BF16.  |
+| compute_dtype          | Compute accuracy                   | Megatron set `-bf16: true` to BF16, otherwise FP16.  |
 | layernorm_compute_type | LayerNorm/RMSNorm compute precision | Megatron is not configurable, needs to check that implementations are consistent.                 |
 | softmax_compute_type   | When MindSpore uses FA, the internal Softmax fix is calculated with FA. Type of calculation is configurable only for small arithmetic splicing implementations     | Megatron is not configurable, needs to check if the implementation is consistent.                 |
 | rotary_dtype           | Calculation accuracy of rotary position encoding                                       | Megatron is not configurable, needs to check if the implementation is consistent. |
@@ -110,11 +110,9 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 ## Introduction to Accuracy Debugging Tools
 
-In accuracy localization, MindSpore's Dump tool is mainly used. Mainly support O0/O1/O2 mode, different modes support Dump function is not exactly the same, the required configuration files and the data format generated is also different. O0/O1 supports host and device modes to support Dump data format `.npy` file; O2 only supports host mode, supports Dump data format `.npy` and `.bin` file. For details, please refer to [Dump Function Debugging](https://www.mindspore.cn/docs/en/r2.4.0/model_train/debug/dump.html), and the following is only a brief introduction to the two Dump methods.
+In accuracy localization, MindSpore's Dump tool is mainly used. For details, please refer to [Dump Function Debugging](https://www.mindspore.cn/docs/en/r2.4.0/model_train/debug/dump.html).
 
-### O0/O1 Graph Mode Dump
-
-MindSpore's Dump tool is enabled by configuring a JSON file, which dumps out all the operator data in the network, saving the tensor and statistics in the statistic.csv table. The following gives a JSON example of full operator Dump in (O0, O1) mode:
+MindSpore's Dump tool is enabled by configuring a JSON file, which Dumps out all the operator data in the network, saving the tensor and statistics in the statistic.csv table. The following gives a JSON example of full operator Dump:
 
 ```json
 {
@@ -146,39 +144,6 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 
 After setting the environment variables, start the program training to get the corresponding Dump data.
 
-### O2 Graph Mode Dump Way
-
-This method dumps out all the operator data in the network and saves the statistic.csv table of tensor and statistical information. The JSON example of full operator Dump in O2 mode is as follows.
-
-```json
-{
-    "common_dump_settings": {
-        "op_debug_mode": 0,
-        "dump_mode": 0,
-        "path": "/absolute_path",
-        "net_name": "ResNet50",
-        "iteration": "0|5-8|100-120",
-        "saved_data": "tensor",
-        "input_output": 0,
-        "kernels": ["Default/Conv-op12"],
-        "support_device": [0,1,2,3,4,5,6,7],
-        "statistic_category": ["max", "min", "l2norm"],
-        "file_format": "npy"
-    }
-}
-```
-
-Refer to [Dump Function Debug](https://www.mindspore.cn/docs/en/r2.4.0/model_train/debug/dump.html) for the field meanings of the configuration parameters.
-
-After configuring the JSON file, set the Dump environment variable to point to the configured JSON file, you need to set the absolute path:
-
-```shell
-export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
-export MS_ACL_DUMP_CFG_PATH=${JSON_PATH}
-```
-
-After setting the environment variables, start the program training to get the corresponding Dump data.
-
 ### Other Introductions
 
 In addition to the full amount of operator Dump introduced above, the tool also supports partial data Dump, overflow Dump, specified-condition Dump and so on. Limited to space, interested users can refer to [Dump function debugging](https://www.mindspore.cn/docs/en/r2.4.0/model_train/debug/dump.html) for configuration and use. In addition, TroubleShooter web development debugging is also provided, can be used in the weight conversion, weight comparison and other scenarios. For more information, refer to [TroubleShooter tool introduction](https://gitee.com/mindspore/toolkits/tree/master/troubleshooter).
@@ -192,7 +157,9 @@ There are two main ideas for problem positioning:
 * Simplified training scenarios based on single card/standalone, small-scale model replication problems.
 * Fix the random factor and compare the loss difference with the benchmark during training to locate the cause of the accuracy difference.
 
-The training process of the model can be decomposed into the following processes: data input, forward computation, loss, backward computation, gradient, optimizer weight update, and next step.
+The training process of the model can be decomposed into the following processes: data input, forward computation, loss, backward computation, gradient, optimizer weight update, and next step. The following will describe how to rank each stage of the training in conjunction with the flow of the following figure.
+
+![general_process](./image/general_process.png)
 
 ### Stage 1: Pre-training Preparation
 
@@ -213,7 +180,7 @@ In the parameter alignment session, some parameters need special instructions, a
 | num_layers         | 2        | Reduced model size facilitates quick verification that a single card can run in data-only parallelism. |
 | learning_rate_type | constant | Fixed learning rates to ensure alignment with benchmarked learning rates.             |
 | warmup_steps       | 0        | Steps for warmup                     |
-| adam-eps           | 1e-8     | If the user has no special requirements, follow the default settings.             |
+| adam_eps           | 1e-8     | If the user has no special requirements, follow the default settings.             |
 | dropout            | 0        | Turn off the randomness parameter, and If there are other randomness parameters, they should be turned off.         |
 
 Features such as model parallelism, flow parallelism, sequence parallelism, optimizer parallelism, etc. are recommended to be turned off first, and then parallel features are gradually added after the accuracy is aligned.
@@ -330,7 +297,11 @@ def get_parameters(self):
     return params
 ```
 
-The local norm value of model.tok_embeddings.embedding_weight has a large difference, which can be focused on troubleshooting the implementation of the Embedding and the calculation accuracy, etc.
+Below is an example of a local norm comparison, comparing the local norm values corresponding to the weights.
+
+![local norm](./image/local_norm.png)
+
+It can be found that in the scenario shown in this figure, the local norm value of model.tok_embeddings.embedding_weight has a large difference, which can be focused on troubleshooting the implementation of the Embedding and the calculation accuracy, etc.
 
 The local norm value only serves as a preliminary judgment of whether the reverse computation is correct, if we want to compare the reverse computation in depth, we need to compare the MindSpore and PyTorch reverse computation values layer by layer by using the Dump tool.
 
@@ -381,14 +352,14 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
     def construct(self, *inputs):
         ...
         # Embedded modification to force replacement of gradient with torch gradient
-         grads = self.grads
+        grads = self.grads
         if self.use_clip_grad:
             grads, global_norm = self.clip_grad_norm(grads)
 ```
 
 The above code, only for the realization of the reference, needs to modify the code according to the actual situation.
 
-If it is found that there is no problem with the optimizer calculation, and the loss difference of the second step is large, then it is necessary to re-compare the inverse calculation of the first step in detail through the Dump method.
+If you troubleshoot that there is no problem with the optimizer computation, and at the same time there is a large difference in the loss of step2, you need to re-compare the reverse computation of step1 in detail by means of Dump.
 
 ### Stage 3: Long and Stable Training Troubleshooting
 
@@ -400,11 +371,13 @@ Set learning rate = 0, i.e., weights are not updated, and train 1k step; compare
 
 #### Benchmark Error Confirmation
 
-Before the training of weight update, it is necessary to confirm the benchmark error, that is, turn off the deterministic computation, repeat running the benchmark training twice to see the error of the benchmark itself, as a reference to determine whether the error is reasonable. Due to the differences in hardware or the underlying calling operator, the computational process of training will inevitably have a certain degree of error. When MindSpore training is compared with PyTorch for loss, if the error is within the benchmark error range and the error fluctuates up and down along the 0-axis, the error can be considered reasonable.
+Before the training of weight update, it is necessary to confirm the benchmark error, that is, turn off the deterministic computation, repeat running the benchmark training twice to see the error of the benchmark itself, as a reference to determine whether the error is reasonable. Due to the differences in hardware or the underlying calling operator, the computational process of training will inevitably have a certain degree of error. When a loss comparison is performed between MindSpore and benchmarking model, if the error is within the benchmark error range and the error fluctuates up and down along the 0-axis, the error can be considered reasonable.
 
 #### Loss Diffusion
 
-The learning rate is set > 0, the weights are updated, and the long stability test is performed. The training to a certain step appeared the phenomenon of large differences in the loss, after which the training loss began to diverge.
+The learning rate is set > 0, the weights are updated, and the long stability test is performed. The training to a certain step appeared the phenomenon of large differences in the loss, after which the training loss began to diverge, as shown in Fig:
+
+![loss1](./image/loss1.png)
 
 In this scenario, the training before and after the mutation can be targeted for troubleshooting, and the following troubleshooting can be tried:
 
@@ -416,7 +389,9 @@ In this scenario, the training before and after the mutation can be targeted for
 
 #### Loss Varies Greatly in the Later Stages
 
-It is also possible to have a better fit in the early part of the training period and a large difference in the convergence loss in the later part of the training period in the long stability test.
+It is also possible to have a better fit in the early part of the training period and a large difference in the convergence loss in the later part of the training period in the long stability test, as shown in Fig:
+
+![loss2](./image/loss2.png)
 
 In this scenario, troubleshooting can be done from the following perspectives:
 
@@ -436,7 +411,11 @@ This section will introduce the completion of accuracy ranking based on the abov
 
 #### Problem Phenomenon
 
-Training the model with a 128-card cluster and comparing training with Ascend+MindSpore training with GPU+PyTorch training reveals that the late training convergence loss is about 0.1 higher than GPU+PyTorch.
+Training the model with a 128-card cluster and comparing training with Ascend+MindSpore training with GPU+PyTorch training reveals that the late training convergence loss is about 0.1 higher than GPU+PyTorch. As shown in the figure, the convergence is not as expected:
+
+![loss3](./image/loss3.png)
+
+The blue line is the Ascend+MindSpore training curve and the red line is the GPU+PyTorch training curve.
 
 #### Problem Location Process
 
@@ -444,13 +423,19 @@ Before locating the problem, check against the CheckList to confirm that there i
 
 First the loss alignment of step1 is confirmed to be OK. Compare the local norm of step1 and calculate the difference between the Local norm value of each weight and the benchmark, the Embedding weight has a large difference between the local norm value and the benchmark.
 
-The reason for this is that MindFormers uses fp32 for weight initialization, and fp32 precision is used for both forward and backward Embedding calculations, while PyTorch forward and backward calculations are bf16, which leads to differences in the calculated local norm values.
+![local norm](./image/local_norm.png)
+
+The reason for this is that MindFormers uses FP32 for weight initialization, and FP32 precision is used for both forward and backward Embedding calculations, while PyTorch forward and backward calculations are bf16, which leads to differences in the calculated local norm values.
 
 Once the computational accuracy is aligned, the exhaustive optimizer computation is also fine, and the long stable training alignment starts.
 
 The long stable training exhaustion will be extended from single card experiments to multi-card experiments by first setting the LEARNING RATE=0, i.e., the weights are not updated. Forward computation of the loss difference of each step is around 0.001, and the forward computation error is as expected. The difference of global norm of each step is about 0.05, and the difference of reverse calculation is not significant. It is initially judged that the model migration code is correct, the model structure is consistent, and the difference of forward and reverse calculation is not significant.
 
+![loss4](./image/loss4.png)
+
 Re-weight update, single card training, set learning rate=1e-5, train 1k steps. Convergence late loss has a steady 0.1 difference, reproducing the problem.
+
+![loss5](./image/loss5.png)
 
 Perform problem troubleshooting. Identify the following problems:
 
@@ -462,4 +447,8 @@ After fixing the problem, experiment again, train 10,000 steps, the loss differe
 
 After completing the single card training, start the multi-card training test: set the learning rate=1e-5, train 1,000 steps. convergence is consistent in the late stage of training, but there is a stable 0.05 error in the middle stage of training.
 
-To verify that this error is within reasonable limits, the deterministic computation was turned off and the GPU experiment was run twice repeatedly.
+![loss6](./image/loss6.png)
+
+To verify that this error is within reasonable limits, the deterministic computation was turned off and the GPU experiment was run twice repeatedly. The red line in the figure is the curve of MindSpore training, and the blue and green lines are the curves of the first and second GPU training, respectively. At the training instability around 7,000 steps, the curve of MindSpore training is right between the curves of the two GPU trainings, indicating that the error is within a reasonable range and the problem is finally solved.
+
+![loss7](./image/loss7.png)
