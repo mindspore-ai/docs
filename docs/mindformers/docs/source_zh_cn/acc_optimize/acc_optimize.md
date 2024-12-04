@@ -24,30 +24,30 @@
 
 * 通用结构
 
-| **关键参数**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          | **说明**                                                     | **检查项**                                                                     |
-| ----------------- | ------------------------------------------------------------ |-----------------------------------------------------------------------------|
-| num_layers        | transformer层数                                              | 对应Megatron num-layers参数，检查是否一致。                                             |
-| num_heads         | transformer中attention heads数量                             | 对应Megatron num-attention-heads参数，检查是否一致。                                    |
-| hidden_size       | transformer隐藏层大小                                        | 对应Megatron hidden-size参数，检查是否一致。                                            |
-| intermediate_size | Feed-Forward Network的隐藏层大小                             | 对应Megatron中ffn-hidden-size参数，检查是否一致。                                        |
-| n_kv_heads        | kv分组数                                                     | 对应Megatron中的num-query-groups，检查是否一致。                                        |
-| 正则化函数        | 正则化函数，常见结构有LayerNorm、RMSNorm                     | MindFormers中的无正则化函数配置参数，与各模型论文中配置一致。 Megatron中可通过normalization自定义配置，检查是否一致。 |
-| rms_norm_eps      | 正则化的epsilon参数                                          | 对应Megatron的layernorm_epsilon，检查是否一致。                                        |
-| dropout           | 网络中的dropout                                              | 当前MindSpore开启dropout时，不能开重计算；若进行精度比对，建议双边都关闭，减少随机因素。                         |
-| 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 1. 同硬件下进行精度比对时，若有使用融合算子，则需要保持一致。 <br>2. 不同硬件下进行精度比对时，则重点检查融合计算部分是否有计算差异。    |
+| **关键参数**      | **说明**                                                     | **检查项**                                                                  |
+| ----------------- | ------------------------------------------------------------ |--------------------------------------------------------------------------|
+| num_layers        | transformer层数                                              | 对应Megatron num-layers参数，检查是否一致。                                          |
+| num_heads         | transformer中attention heads数量                             | 对应Megatron num-attention-heads参数，检查是否一致。                                 |
+| hidden_size       | transformer隐藏层大小                                        | 对应Megatron hidden-size参数，检查是否一致。                                         |
+| intermediate_size | Feed-Forward Network的隐藏层大小                             | 对应Megatron中ffn-hidden-size参数，检查是否一致。                                     |
+| n_kv_heads        | kv分组数                                                     | 对应Megatron中的num-query-groups，检查是否一致。                                     |
+| 正则化函数        | 正则化函数，常见结构有LayerNorm、RMSNorm                     | MindFormers中使用指定的正则化函数，无法通过配置修改。Megatron中可通过normalization自定义配置，检查是否一致。   |
+| rms_norm_eps      | 正则化的epsilon参数                                          | 对应Megatron的layernorm_epsilon，检查是否一致。                                     |
+| dropout           | 网络中的dropout                                              | 当前MindSpore开启dropout时，不能开重计算；若进行精度比对，建议双边都关闭，减少随机因素。                     |
+| 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 1. 同硬件下进行精度比对时，若有使用融合算子，则需要保持一致。 <br>2. 不同硬件下进行精度比对时，则重点检查融合计算部分是否有计算差异。 |
 
 * MOE结构
 
-| **关键参数**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           | **说明**                                          | **检查项**                                                   |
-| ------------------------ | ------------------------------------------------- | ------------------------------------------------------------ |
-| expert_num               | 专家数量                                          | 对应Megatron的num-experts，检查是否一致。                    |
-| num_experts_chosen       | 每个token选择专家数目                             | 对应Megatron的moe-router-topk，检查是否一致。                |
-| capacity_factor          | 专家容量系数                                      | 对应Megatron的moe_expert_capacity_factor参数，检查是否一致。 |
-| aux_loss_factor          | 负载均衡loss贡献因子                              | 开启时，建议小于0.05。若进行精度对齐，不建议开启，与Megatron的loss打印方式不一致。 |
-| enable_sdrop             | 是否开启sdrop方式                                 | 建议设置成true；对应Megatron需要设置如下参数：<br>  `moe-token-drop-policy: position` <br>  `moe-pad-expert-input-to-capacity: True` |
-| router_dense_type        | 决定专家的dense层                                 | MindFormers中可配置，建议使用fp32计算，防止溢出；Megatron中不可配置。 |
-| use_fused_ops_topkrouter | 是否使用融合算子进行dispatch以及combine的索引计算 | MindFormers中融合算子，当`enbable_sdrop=True`时参数才生效，精度对齐建议设置成True。 |
-| use_shared_expert_gating | 共享专家网络中是否使用gating系数                  | 检查网络的共享专家是否有gating系数，如果有设置成True。       |
+| **关键参数**             | **说明**                           | **检查项**                                                                                                            |
+| ------------------------ |----------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| expert_num               | 专家数量                             | 对应Megatron的num-experts，检查是否一致。                                                                                     |
+| num_experts_chosen       | 每个token选择的专家数目                   | 对应Megatron的moe-router-topk，检查是否一致。                                                                                 |
+| capacity_factor          | 专家容量系数                           | 对应Megatron的moe_expert_capacity_factor参数，检查是否一致。                                                                    |
+| aux_loss_factor          | 负载均衡loss贡献因子                     | 开启时，建议小于0.05。若进行精度对齐，不建议开启，否则会与Megatron的loss打印方式不一致。                                                               |
+| enable_sdrop             | 是否开启sdrop（drop实现）方式              | 建议设置成true，对应Megatron需要设置如下参数：<br>  `moe-token-drop-policy: position` <br>  `moe-pad-expert-input-to-capacity: True` |
+| router_dense_type        | 决定专家的dense层                      | MindFormers中可配置，建议使用FP32计算，防止溢出；Megatron中不可配置。                                                                     |
+| use_fused_ops_topkrouter | 是否使用融合算子进行dispatch以及combine的索引计算 | MindFormers中融合算子只有在设置`enable_sdrop=True`时才生效，精度对齐建议设置成True。                                                        |
+| use_shared_expert_gating | 共享专家网络中是否使用gating系数              | 检查网络的共享专家是否有gating系数，如果有设置成True。                                                                                   |
 
 ### 优化器CheckList
 
@@ -74,7 +74,7 @@
 
 | **关键参数**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            | **说明**                                             | **检查项**                                                   |
 | ---------------------- |----------------------------------------------------| ------------------------------------------------------------ |
-| compute_dtype          | 计算精度                                               | Megatron 设置 `--bf16: true` 则为FP16，否则为BF16。          |
+| compute_dtype          | 计算精度                                               | Megatron 设置 `--bf16: true` 则为BF16，否则为FP16。          |
 | layernorm_compute_type | LayerNorm/RMSNorm的计算精度                             | Megatron不可配置，需要检查实现是否保持一致。                 |
 | softmax_compute_type   | MindSpore使用FA时，内部Softmax固定用FA计算，仅在小算子拼接实现时可配置计算类型。 | Megatron不可配置，需要检查实现是否保持一致。                 |
 | rotary_dtype           | 旋转位置编码的计算精度                                        | Megatron不可配置，需要检查实现是否保持一致。                 |
@@ -110,11 +110,9 @@
 
 ## 精度调试工具介绍
 
-精度定位中，主要使用MindSpore的Dump工具。主要支持O0/O1/O2模式，不同模式下支持的Dump功能不完全相同，需要的配置文件以及生成的数据格式也不同。O0/O1支持host和device模式，支持Dump数据格式`.npy`文件；O2仅支持host模式，支持Dump数据格式`.npy`和`.bin`文件。详细介绍参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)，下面仅简单介绍两种Dump方式。
+精度定位中，主要使用MindSpore的Dump工具，详细介绍参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)。
 
-### O0/O1 图模式Dump方式
-
-MindSpore的Dump工具通过配置JSON文件进行使能，该方式Dump出网络中的所有算子数据，保存tensor及统计信息的statistic.csv表格。以下给出(O0，O1)模式下的全量算子Dump的JSON示例：
+MindSpore的Dump工具通过配置JSON文件进行使能，该方式Dump出网络中的所有算子数据，保存tensor及统计信息的statistic.csv表格。以下给出全量算子Dump的JSON示例：
 
 ```json
 {
@@ -142,39 +140,6 @@ MindSpore的Dump工具通过配置JSON文件进行使能，该方式Dump出网�
 
 ```shell
 export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
-```
-
-设置环境变量后，启动程序训练，即可获取相应的Dump数据。
-
-### O2 图模式Dump
-
-该方式Dump出网络中的所有算子数据，保存tensor及统计信息的statistic.csv表格。O2模式下的全量算子Dump的JSON示例如下：
-
-```json
-{
-    "common_dump_settings": {
-        "op_debug_mode": 0,
-        "dump_mode": 0,
-        "path": "/absolute_path",
-        "net_name": "ResNet50",
-        "iteration": "0|5-8|100-120",
-        "saved_data": "tensor",
-        "input_output": 0,
-        "kernels": ["Default/Conv-op12"],
-        "support_device": [0,1,2,3,4,5,6,7],
-        "statistic_category": ["max", "min", "l2norm"],
-        "file_format": "npy"
-    }
-}
-```
-
-配置参数的字段含义参考[Dump功能调试](https://www.mindspore.cn/docs/zh-CN/r2.4.0/model_train/debug/dump.html)。
-
-配置好JSON文件后，设置Dump环境变量指向配置的JSON文件，需要设置绝对路径：
-
-```shell
-export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
-export MS_ACL_DUMP_CFG_PATH=${JSON_PATH}
 ```
 
 设置环境变量后，启动程序训练，即可获取相应的Dump数据。
@@ -211,12 +176,12 @@ export MS_ACL_DUMP_CFG_PATH=${JSON_PATH}
 在参数对齐环节，部分参数需要特别说明，参考如下设置。其余参数按照原场景设置，保证PyTorch与MindSpore参数一致即可。参数设置说明：
 
 | 参数                 | 参数建议 | 说明                            |
-|--------------------| -------- |-------------------------------|
-| num_layers         | 2        | 缩小模型规模，方便快速验证在仅有数据并行情况下单卡可运行。 |
-| learning_rate_type | constant | 固定学习率，保证与标杆学习率一致。             |
-| warmup_steps       | 0        | warmup的步数                     |
-| adam-eps           | 1e-8     | 用户若无特殊要求，按照默认值设置。             |
-| dropout            | 0        | 关闭随机性参数，如有其他随机性参数均关闭。         |
+|--------------------|------|-------------------------------|
+| num_layers         | 2    | 缩小模型规模，方便快速验证在仅有数据并行情况下单卡可运行。 |
+| learning_rate_type | 常量   | 固定学习率，保证与标杆学习率一致。             |
+| warmup_steps       | 0    | warmup的步数                     |
+| adam_eps           | 1e-8 | 用户若无特殊要求，按照默认值设置。             |
+| dropout            | 0    | 关闭随机性参数，如有其他随机性参数均关闭。         |
 
 模型并行、流水并行、序列并行、优化器并行等特性建议先关闭，精度对齐后再逐步增加并行特性。
 
@@ -355,7 +320,7 @@ Local norm值仅作为反向计算是否正确的初步判断，若要深入对�
 
 若有显著差异，则说明优化器更新存在问题，需要进一步针对优化器进行定位。
 
-PyTorch保存权重梯度，以使用apex为例，修改文件[apex.optimizers](https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/optimizer/optimizer.py)文件:
+PyTorch保存权重梯度，以使用apex为例，修改文件[megatron/core/optimizer/optimizer.py](https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/optimizer/optimizer.py)文件:
 
 ```python
 import numpy as np
@@ -387,14 +352,14 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
     def construct(self, *inputs):
         ...
         # 嵌入式修改，将梯度强制替换为torch梯度
-         grads = self.grads
+        grads = self.grads
         if self.use_clip_grad:
             grads, global_norm = self.clip_grad_norm(grads)
 ```
 
 以上代码，仅为实现参考，需要根据实际情况进行代码修改。
 
-若排查出优化器计算不存在问题，同时第二个step的loss差异较大，则需要通过Dump方式重新详细对比第一个step的反向计算。
+若排查出优化器计算不存在问题，同时step2的loss差异较大，则需要通过Dump方式重新详细对比step1的反向计算。
 
 ### 阶段3：长稳训练排查
 
@@ -406,7 +371,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 #### 标杆误差确认
 
-在进行权重更新的训练前，需要先确认标杆误差，即关闭确定性计算，重复跑两次标杆训练，查看标杆自身的误差，作为判断误差是否合理的参考。由于硬件或底层调用算子的差异，训练的计算过程会不可避免地存在一定的误差。MindSpore训练与PyTorch进行loss对比时，若误差在标杆误差范围内，且误差围绕0轴上下波动，则可以认为误差合理。
+在进行权重更新的训练前，需要先确认标杆误差，即关闭确定性计算，重复跑两次标杆训练，查看标杆自身的误差，作为判断误差是否合理的参考。由于硬件或底层调用算子的差异，训练的计算过程会不可避免地存在一定的误差。MindSpore与标杆模型进行loss对比时，若误差在标杆误差范围内，且误差围绕0轴上下波动，则可以认为误差合理。
 
 #### loss发散
 
@@ -420,7 +385,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 * 检查在突变附近是否有精度溢出情况。
 
-* 可以查看local norm是否有异常，Dump突变step的训练数据，排查计算的突变点，分析是否算子异常输出。
+* 可以查看local norm是否有异常，Dump突变step的训练数据，排查计算的突变点，分析是否有算子异常输出。
 
 #### loss后期差异较大
 
@@ -460,7 +425,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 ![local norm](./image/local_norm.png)
 
-排查原因为MindFormers使用fp32进行权重初始化，前向计算及反向计算Embedding时均使用fp32精度计算；而PyTorch的前向及反向计算均为bf16，由此导致了计算出来的local norm值存在差异。
+排查原因为MindFormers使用FP32进行权重初始化，前向计算及反向计算Embedding时均使用FP32精度计算；而PyTorch的前向及反向计算均为BF16，由此导致了计算出来的local norm值存在差异。
 
 计算精度对齐后，排查优化器计算也没有问题，开始进行长稳训练对齐。
 
