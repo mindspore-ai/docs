@@ -22,6 +22,12 @@ MindIE推理的模型支持度可参考[模型库](https://www.mindspore.cn/mind
 
    参考[MindIE安装依赖文档](https://www.hiascend.com/document/detail/zh/mindie/10RC3/envdeployment/instg/mindie_instg_0010.html)完成依赖安装。之后前往[MindIE资源下载中心](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann)下载软件包进行安装。
 
+   MindIE与CANN版本必须配套使用，其版本配套关系如下所示。
+
+   |                                            MindIE                                             |                                            CANN-toolkit                                             |                                            CANN-kernels                                             |
+   |:---------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------:|
+   | [1.0.RC3](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) | [8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) | [8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=ie%2Bpt%2Bcann) |
+
 ### 环境变量
 
 若安装路径为默认路径，可以运行以下命令初始化各组件环境变量。
