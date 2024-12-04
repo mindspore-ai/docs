@@ -496,58 +496,58 @@ def copy_image(sourcedir, des_dir):
 
 copy_image(src_dir, des_dir)
 
-src_release = os.path.join(repo_path, 'RELEASE.md')
-des_release = "./RELEASE.md"
-release_source = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
+# src_release = os.path.join(repo_path, 'RELEASE.md')
+# des_release = "./RELEASE.md"
+# release_source = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + 'RELEASE.md)\n'
 
-with open(src_release, "r", encoding="utf-8") as f:
-    data = f.read()
-if len(re.findall("\n## (.*?)\n",data)) > 1:
-    content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
-    repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
-    content_new = ''
-    for i in content:
-        if re.findall(f"\n## MindSpore ({repo_version[0]}\.[0-9]+?)[ -]", i):
-            content_new += i
-    content = content_new
-else:
-    content = re.findall("(\n## [\s\S\n]*)", data)
-    content = content[0]
+# with open(src_release, "r", encoding="utf-8") as f:
+#     data = f.read()
+# if len(re.findall("\n## (.*?)\n",data)) > 1:
+#     content = regex.findall("(\n## MindSpore [^L][\s\S\n]*?)\n## ", data, overlapped=True)
+#     repo_version = re.findall("\n## MindSpore ([0-9]+?\.[0-9]+?)\.([0-9]+?)[ -]", content[0])[0]
+#     content_new = ''
+#     for i in content:
+#         if re.findall(f"\n## MindSpore ({repo_version[0]}\.[0-9]+?)[ -]", i):
+#             content_new += i
+#     content = content_new
+# else:
+#     content = re.findall("(\n## [\s\S\n]*)", data)
+#     content = content[0]
 
-# replace some content fix indent.
-old_content = """
-  def all_to_all_single_with_output_shape(output_shape,
-                                          tensor, output_split_sizes=None,
-                                          input_split_sizes=None,
-                                          group=None, async_op=False)->
-                                          tuple(Tensor, CommHandle)"""
+# # replace some content fix indent.
+# old_content = """
+#   def all_to_all_single_with_output_shape(output_shape,
+#                                           tensor, output_split_sizes=None,
+#                                           input_split_sizes=None,
+#                                           group=None, async_op=False)->
+#                                           tuple(Tensor, CommHandle)"""
 
-new_content = """
-  def all_to_all_single_with_output_shape(output_shape,
-                                          tensor,
-                                          output_split_sizes=None,
-                                          input_split_sizes=None,
-                                          group=None,
-                                          async_op=False)->
-                                          tuple(Tensor, CommHandle)"""
+# new_content = """
+#   def all_to_all_single_with_output_shape(output_shape,
+#                                           tensor,
+#                                           output_split_sizes=None,
+#                                           input_split_sizes=None,
+#                                           group=None,
+#                                           async_op=False)->
+#                                           tuple(Tensor, CommHandle)"""
 
-content = content.replace(old_content, new_content)
+# content = content.replace(old_content, new_content)
 
-old_content = """
-  def all_to_all_single_with_output_shape(output_shape,
-                                          tensor, output_split_sizes=None,
-                                          input_split_sizes=None,
-                                          group=None)->Tensor"""
+# old_content = """
+#   def all_to_all_single_with_output_shape(output_shape,
+#                                           tensor, output_split_sizes=None,
+#                                           input_split_sizes=None,
+#                                           group=None)->Tensor"""
 
-new_content = """
-  def all_to_all_single_with_output_shape(output_shape,
-                                          tensor,
-                                          output_split_sizes=None,
-                                          input_split_sizes=None,
-                                          group=None)->Tensor"""
+# new_content = """
+#   def all_to_all_single_with_output_shape(output_shape,
+#                                           tensor,
+#                                           output_split_sizes=None,
+#                                           input_split_sizes=None,
+#                                           group=None)->Tensor"""
 
-content = content.replace(old_content, new_content)
+# content = content.replace(old_content, new_content)
 
-with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes" + "\n\n" + release_source)
-    p.write(content)
+# with open(des_release, "w", encoding="utf-8") as p:
+#     p.write("# Release Notes" + "\n\n" + release_source)
+#     p.write(content)
