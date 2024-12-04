@@ -253,7 +253,7 @@ After starting the training, the data objects saved under the Ascend O0/O1 Dump 
 - `input_output_index` : the index of input or output. For example, `output_0` means that the file is the data of the first output Tensor of the operator.
 - `slot`: the id of the slot.
 - `format`: the format of the data.
-- `dtype`: the original data type. When it is `bfloat16` or `int4`, the saved data in the `.npy` file is converted to `float32` or `int8` respectively.
+- `dtype`: the original data type. When it is `bfloat16`, `int4` or `uint1`, the saved data in the `.npy` file is converted to `float32`, `int8` or `uint8` respectively.
 - `data_id`: the id of constant data.
 
 For multi-graph networks, due to the control flow, some subgraphs may not be executed, but Dump only saves the executed nodes, so the {graph_id} in the `.pb` file name in the graphs directory does not necessarily exist in the {graph_id} directory under {net_name}.
