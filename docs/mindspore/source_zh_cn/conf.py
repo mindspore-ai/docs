@@ -597,6 +597,24 @@ for i in add_tensor_property:
             f.truncate()
             f.write(new_content)
 
+# 临时处理错误文档
+try:
+    with open('./api_python/communication/mindspore.communication.comm_func.recv.rst', 'r+', encoding='utf-8') as f:
+        rep_content = f.read()
+        rep_content = rep_content.replace('同步发送张量到指定线程', '同步接收张量到指定线程')
+        f.seek(0)
+        f.truncate()
+        f.write(rep_content)
+
+    with open('./api_python/samples/ops/communicate_ops.md', 'r+', encoding='utf-8') as f:
+        rep_content = f.read()
+        rep_content = re.sub('## Receive\n\n`Send`发送张量到指定线程', '## Receive\n\n`Receive`从src_rank接收张量', rep_content)
+        f.seek(0)
+        f.truncate()
+        f.write(rep_content)
+except Exception as e:
+    pass
+
 # auto generate rst by en
 from generate_rst_by_en import generate_rst_by_en
 
