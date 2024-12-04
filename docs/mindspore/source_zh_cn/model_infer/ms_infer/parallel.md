@@ -149,8 +149,8 @@
             x = self.cast(x, self.dtype)
             out = self.matmul(x, self.weight)
             if self.has_bias:
-                output_parallel = self.bias_add(
-                    output_parallel, self.cast(self.bias, self.dtype)
+                out = self.bias_add(
+                    out, self.cast(self.bias, self.dtype)
                 )
             out = self.cast(out, origin_dtype)
             return out

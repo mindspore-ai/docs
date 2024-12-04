@@ -72,7 +72,7 @@ Re-computation is categorized in the following two ways:
 
 RMSNorm generally uses high-precision (FP32) computation, and the input needs to be converted from low-precision (FP16 or BF16) to high-precision (FP32) via Cast before computation; RMSNorm needs to save the input for reverse computation. Therefore, recomputing Cast here allows the memory to hold the low-precision input of Cast instead of the high-precision input of RMSNorm, a move that reduces the memory footprint of that input by half, resulting in memory savings.
 
-![cast](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_en/perf_optimize/images/cast.png)
+![cast](./images/cast.png)
 
 Performing recomputation from high precision to low precision Cast operator will result in the later operators originally only need to store the low precision memory after Cast, and after the Cast operator recomputation, they need to store the high precision memory, which will result in larger memory instead.
 
@@ -80,7 +80,7 @@ Performing recomputation from high precision to low precision Cast operator will
 
 In FeedForward, the middle part of the memory tends to be large; SiLU and Mul recomputation is less costly. Recomputing the SiLU and Mul operators saves memory for the first inputs of MatMul and Mul of w2.
 
-![SiLU_mul](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_en/perf_optimize/images/silu_mul.png)
+![SiLU_mul](./images/silu_mul.png)
 
 ### Tools Introduction
 
@@ -121,7 +121,7 @@ MindStudio Insight tool provides users with the full process of online inference
 
 The Timeline interface consists of four parts: the toolbar (Area I), the timeline tree (Area II), the graphical pane (Area III), and the data pane (Area IV), as shown in the figure.
 
-![studio](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_en/perf_optimize/images/studio.png)
+![studio](./images/studio.png)
 
 * Area I
 
@@ -313,7 +313,7 @@ Performing recomputation on Silu and Mul saves memory when fine-grained multicop
 
   The inputs to the reverse operators of Silu and Mul are checked in the IR diagram to see if they are as expected, and there are Reshape operators between Silu and Mul, and between Mul and MatMul when fine-grained multicopy is off, and Silu, Mul, and MatMul are connected when fine-grained multicopy is on. The process is as follows:
 
-![reshape](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindformers/docs/source_en/perf_optimize/images/reshape.png)
+![reshape](./images/reshape.png)
 
 It can be seen that the cause is that the input shape of Linear in the fine-grained multicopy scenario is two-dimensional, while the input shape of Linear in the non-fine-grained multicopy scenario is three-dimensional, resulting in a Reshape operator between Linear and Mul, and the lack of Reshape recalculation results in recalculation of Silu alone being optimized. The additional recalculation of the Reshape results in a normal memory reduction. The reference configuration is as follows:
 
