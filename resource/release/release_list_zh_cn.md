@@ -74,6 +74,7 @@
 |           |               | MacOS-x64     | Python3.9  | [mindspore-2.4.1-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.1/MindSpore/cpu/x86_64/mindspore-2.4.1-cp39-cp39-macosx_10_15_x86_64.whl)     | 8b19d60f02134e78918bdbba7327e8faee3f7531e020286b7a994bb40758cb01 |
 |           |               |               | Python3.10 | [mindspore-2.4.1-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.1/MindSpore/cpu/x86_64/mindspore-2.4.1-cp310-cp310-macosx_10_15_x86_64.whl) | bf039bf8039b7e013d7db367958024ef55cd983e73df7a66a01f5269b8e99e17 |
 |           |               |               | Python3.11 | [mindspore-2.4.1-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.1/MindSpore/cpu/x86_64/mindspore-2.4.1-cp311-cp311-macosx_10_15_x86_64.whl) | e4913cda2c61dd22b943a75bf791aff4cd2370eff5f79ed405443ef30fcaa184 |
+|MindSpore<br>Lite  |     |  |   | [安装包汇总链接](https://www.mindspore.cn/lite/docs/zh-CN/r2.4.1/use/downloads.html#2-4-1)   |      |
 
 **Ascend配套软件包**
 
