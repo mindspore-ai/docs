@@ -8,17 +8,17 @@
 
 当前套件建议使用的Python版本为3.10。
 
-| MindFormers |                 MindSpore                  |                                                     CANN                                                     |                                  固件与驱动                                   |                                 镜像链接                                  |
-|:-----------:|:------------------------------------------:|:------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-|   r1.3.0    | [2.4.0](https://www.mindspore.cn/install/) | [8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC3.beta1) | [24.1.RC3](https://www.hiascend.com/hardware/firmware-drivers/community) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/154.html) |
+|                     MindFormers                      |                 MindSpore                  |                                                     CANN                                                     |                                  固件与驱动                                   |                                 镜像链接                                 |
+|:----------------------------------------------------:|:------------------------------------------:|:------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------:|:--------------------------------------------------------------------:|
+| [1.3.0](https://pypi.org/project/mindformers/1.3.0/) | [2.4.0](https://www.mindspore.cn/install/) | [8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC3.beta1) | [24.1.RC3](https://www.hiascend.com/hardware/firmware-drivers/community) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/154.html) |
 
 **当前MindFormers建议使用如上的软件配套关系。**
 
 历史版本配套关系：
 
-| MindFormers |                 MindSpore                  |                                                     CANN                                                     |                                  固件与驱动                                   |                                 镜像链接                                 |
-|:-----------:|:------------------------------------------:|:------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------:|:--------------------------------------------------------------------:|
-|   r1.2.0    | [2.3.0](https://www.mindspore.cn/install/) | [8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC2.beta1) | [24.1.RC2](https://www.hiascend.com/hardware/firmware-drivers/community) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/138.html) |
+|                     MindFormers                      |                 MindSpore                  |                                                     CANN                                                     |                                  固件与驱动                                   |                                 镜像链接                                 |
+|:----------------------------------------------------:|:------------------------------------------:|:------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------:|:--------------------------------------------------------------------:|
+| [1.2.0](https://pypi.org/project/mindformers/1.2.0/) | [2.3.0](https://www.mindspore.cn/install/) | [8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC2.beta1) | [24.1.RC2](https://www.hiascend.com/hardware/firmware-drivers/community) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/138.html) |
 
 ## 环境安装
 
@@ -28,13 +28,27 @@
 
 ## MindFormers安装
 
-目前仅支持源码编译安装，用户可以执行如下命令安装MindFormers：
+MindFormers支持源码编译安装和pip安装两种方式。
+
+### 源码编译安装
+
+用户可以执行如下命令编译并安装MindFormers：
 
 ```bash
-git clone -b r1.3.0 https://gitee.com/mindspore/mindformers.git
+git clone -b v1.3.0 https://gitee.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```
+
+### pip安装
+
+用户可以执行如下命令下载并安装MindFormers：
+
+```bash
+pip install mindformers==1.3.0
+```
+
+> 注意：此方式只安装了MindFormers基础软件包，模型文件和脚本等请从MindFormers gitee仓库中获取。
 
 ## 安装验证
 
