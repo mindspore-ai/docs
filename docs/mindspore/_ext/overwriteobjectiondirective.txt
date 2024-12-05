@@ -85,6 +85,25 @@ def get_example(name: str):
         elif 'mindspore.is_tensor' in name:
             api_doc = api_doc.replace('>>> from mindspore import Tensor, ops', '>>> from mindspore import Tensor, is_tensor')
             api_doc = api_doc.replace('>>> ops.is_tensor', '>>> is_tensor')
+
+        all_example = []
+        if re.findall('\.\. (method|function)::', api_doc):
+            for i in re.split('\.\. (method|function)::.*\n', api_doc):
+                if i in ('method', 'function'):
+                    continue
+                example_str = re.findall(r'(?<!Tutorial )Examples:\n([\w\W]*?)(\n\n|$)', i)
+                if not example_str:
+                    all_example.append([''])
+                    continue
+                elif '\n     ' in example_str[0][0]:
+                    new_example_str = re.sub(r'\n    ', r'\n', example_str[0][0])
+                else:
+                    new_example_str = re.sub(r'\n\s+', r'\n', example_str[0][0])
+                new_example_str = new_example_str.strip()
+                example_list = new_example_str.split('\n')
+                all_example.append(["", "**样例：**", ""] + example_list + [""])
+            return all_example
+
         example_str = re.findall(r'(?<!Tutorial )Examples:\n([\w\W]*?)(\n\n|$)', api_doc)
         if not example_str:
             return []
@@ -95,7 +114,6 @@ def get_example(name: str):
             example_str = example_str.strip()
             example_list = example_str.split('\n')
             return [""] + example_list + [""]
-        all_example = []
         for i in range(len(example_str)):
             if '\n     ' in example_str[i][0]:
                 new_example_str = re.sub(r'\n    ', r'\n', example_str[i][0])
@@ -104,8 +122,6 @@ def get_example(name: str):
             new_example_str = new_example_str.strip()
             example_list = new_example_str.split('\n')
             all_example.append(["", "**样例：**", ""] + example_list + [""])
-        if len(all_example) > 1:
-            logger.warning(f'{name} has more example')
         return all_example
     except:
         return []
@@ -117,6 +133,22 @@ def get_platforms(name: str):
         if '.mint.' in name:
             return ["", "支持平台：", "    ``Ascend``", ""]
         api_doc = inspect.getdoc(get_api(name))
+        all_platform = []
+        if re.findall('\.\. (method|function)::', api_doc):
+            for i in re.split('\.\. (method|function)::.*\n', api_doc):
+                platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', i)
+                if i in ('method', 'function'):
+                    continue
+                if not platform_str:
+                    all_platform.append([''])
+                    continue
+                else:
+                    new_platform_str = platform_str[0].strip()
+                    platform_list = new_platform_str.split('\n')
+                    platform_list = ['    ' + platform_list[0]]
+                    all_platform.append(["", "支持平台："] + platform_list + [""])
+            return all_platform
+
         platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
         if not platform_str:
             platform_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
@@ -126,7 +158,6 @@ def get_platforms(name: str):
                 platform_list = ['    ' + platform_list[0]]
                 return ["", "支持平台："] + platform_list + [""]
             return []
-        all_platform = []
         for i in range(len(platform_str)):
             new_platform_str = platform_str[i].strip()
             platform_list = new_platform_str.split('\n')
@@ -476,7 +507,8 @@ class ObjectDescription(SphinxDirective, Generic[N]):
                         else:
                             self.content.data.extend(ext)
         try:
-            self.content.items.extend(self.extend_items(self.content.items[0][0], self.content.items[-1][1], extra_len))
+            if directive_content:
+                self.content.items.extend(self.extend_items(self.content.items[0][0], self.content.items[-1][1], extra_len))
         except IndexError:
             logger.warning(f'{self.names[0][0]} has error format.')
         self.state.nested_parse(self.content, self.content_offset, contentnode)
