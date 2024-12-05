@@ -11,7 +11,7 @@ fi
 dataset_path=$1
 
 # generate a session id that these parallel pipelines can share
-result=$(cache_admin -g 2>&1)
+result=$(dataset-cache -g 2>&1)
 rc=$?
 if [ $rc -ne 0 ]; then
     echo "some error"
