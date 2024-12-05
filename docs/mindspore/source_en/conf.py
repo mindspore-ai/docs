@@ -231,7 +231,9 @@ try:
     decorator_list = [("mindspore/common/dtype.py","del decorator",
                        "@enum.unique","# generate api by del decorator."),
                       ("mindspore/common/dtype.py","del class",
-                       "class QuantDtype(enum.Enum):","class QuantDtype():")]
+                       "class QuantDtype(enum.Enum):","class QuantDtype():"),
+                      ("mindspore/ops/operations/comm_ops.py","fix param err",
+                       "ops.Send(st_tag=0","ops.Send(sr_tag=0")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
