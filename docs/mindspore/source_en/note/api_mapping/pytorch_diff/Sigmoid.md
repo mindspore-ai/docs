@@ -1,6 +1,6 @@
 # Differences with torch.nn.Sigmoid
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Sigmoid.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Sigmoid.md)
 
 ## torch.nn.Sigmoid
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.Sigmoid](https://pytorch.org/docs/1.8.1/gene
 class mindspore.nn.Sigmoid()(input_x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.Sigmoid](https://www.mindspore.cn/docs/en/r2.4.1/api_python/nn/mindspore.nn.Sigmoid.html).
+For more information, see [mindspore.nn.Sigmoid](https://www.mindspore.cn/docs/en/r2.4.10/api_python/nn/mindspore.nn.Sigmoid.html).
 
 ## Differences
 

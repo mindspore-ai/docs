@@ -1,6 +1,6 @@
 # MSTensor
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/lite/api/source_en/api_java/mstensor.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/lite/api/source_en/api_java/mstensor.md)
 
 ```java
 import com.mindspore.MSTensor;
@@ -83,7 +83,7 @@ Get the shape of the MindSpore MSTensor.
 public int getDataType()
 ```
 
-DataType is defined in [com.mindspore.DataType](https://gitee.com/mindspore/mindspore/blob/v2.4.1/mindspore/lite/java/src/main/java/com/mindspore/config/DataType.java).
+DataType is defined in [com.mindspore.DataType](https://gitee.com/mindspore/mindspore/blob/v2.4.10/mindspore/lite/java/src/main/java/com/mindspore/config/DataType.java).
 
 - Returns
 

@@ -1,6 +1,6 @@
 # Differences with torch.distributed.all_to_all_single
 
-[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/all_to_all_single_with_output_shape.md)
+[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/all_to_all_single_with_output_shape.md)
 
 ## torch.distributed.all_to_all_single
 
@@ -29,7 +29,7 @@ mindspore.communication.comm_func.all_to_all_single_with_output_shape(
 )
 ```
 
-For more details, see [mindspore.communication.comm_func.all_to_all_single_with_output_shape](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/communication/mindspore.communication.comm_func.all_to_all_single_with_output_shape.html#mindspore.communication.comm_func.all_to_all_single_with_output_shape).
+For more details, see [mindspore.communication.comm_func.all_to_all_single_with_output_shape](https://www.mindspore.cn/docs/zh-CN/r2.4.10/api_python/communication/mindspore.communication.comm_func.all_to_all_single_with_output_shape.html#mindspore.communication.comm_func.all_to_all_single_with_output_shape).
 
 ## Usage
 

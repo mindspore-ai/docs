@@ -1,6 +1,6 @@
 # 自定义高阶编程概述
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/model_train/custom_program/overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_zh_cn/model_train/custom_program/overview.md)
 
 在训练过程中，当框架提供的高级方法不能满足开发者的某些场景，或开发者对性能有较高要求时，可以采用自定义的方法添加或修改某些流程，以满足开发或调试需求。
 
@@ -8,7 +8,7 @@
 
 ## 自定义算子
 
-当开发网络遇到内置算子不足以满足需求时，可以利用MindSpore的Python API中的 [Custom](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语方便快捷地进行不同类型自定义算子的定义和使用。
+当开发网络遇到内置算子不足以满足需求时，可以利用MindSpore的Python API中的 [Custom](https://www.mindspore.cn/docs/zh-CN/r2.4.10/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语方便快捷地进行不同类型自定义算子的定义和使用。
 
 ## 自定义神经网络层
 

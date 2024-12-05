@@ -1,6 +1,6 @@
 # Multi-Level Compilation Architecture
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/design/multi_level_compilation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_en/design/multi_level_compilation.md)
 
 ## Background
 
@@ -52,7 +52,7 @@ There are fewer graph optimizations for the O0 mode, and the basic optimizations
 
 ### Graph-Kernel Fusion
 
-Primarily for an O1 model. Refer to [Introduction to the O1 Model](https://www.mindspore.cn/docs/en/r2.4.1/design/multi_level_compilation.html#introduction-to-the-o1-model) for details.
+Primarily for an O1 model. Refer to [Introduction to the O1 Model](https://www.mindspore.cn/docs/en/r2.4.10/design/multi_level_compilation.html#introduction-to-the-o1-model) for details.
 
 ### Operator Selection
 
@@ -141,13 +141,13 @@ The **Event Manager** monitors and manages synchronization and dependencies betw
 
 ### HAL Management
 
-In order to decouple the back-end architecture and third-party hardware docking, MindSpore provides a hardware abstraction layer, defines a standardized hardware docking interface, and realizes the decoupling of the framework and the hardware, see [three-party hardware interconnection](https://www.mindspore.cn/docs/en/r2.4.1/design/pluggable_device.html).
+In order to decouple the back-end architecture and third-party hardware docking, MindSpore provides a hardware abstraction layer, defines a standardized hardware docking interface, and realizes the decoupling of the framework and the hardware, see [three-party hardware interconnection](https://www.mindspore.cn/docs/en/r2.4.10/design/pluggable_device.html).
 
 ## Introduction to the O1 Model
 
 O1 is mainly targeted at implementing general-purpose, generalizable AI compilation optimizations on top of O0 to support better execution performance requirements for most general-purpose training and inference scenarios.
 
-In the current phase, O1 mainly supports graph-kernel fusion optimization. The main idea is to automatically identify neighboring fusable nodes in the computational graph during the static graph compilation phase, and then fuse them into executable operators with larger granularity. Through graph-kernel fusion, optimization effects such as increasing the computational locality of operators and reducing the overall global memory access bandwidth overhead are achieved. As verified by real-world tests on 15+ networks, O1 is able to achieve an average of 15% performance acceleration compared to O0. Especially for access-intensive networks, the optimization effect of O1 is more significant. For details on the design of graph fusion, please refer to: [Graph Fusion Engine](https://www.mindspore.cn/docs/en/r2.4.1/design/graph_fusion_engine.html).
+In the current phase, O1 mainly supports graph-kernel fusion optimization. The main idea is to automatically identify neighboring fusable nodes in the computational graph during the static graph compilation phase, and then fuse them into executable operators with larger granularity. Through graph-kernel fusion, optimization effects such as increasing the computational locality of operators and reducing the overall global memory access bandwidth overhead are achieved. As verified by real-world tests on 15+ networks, O1 is able to achieve an average of 15% performance acceleration compared to O0. Especially for access-intensive networks, the optimization effect of O1 is more significant. For details on the design of graph fusion, please refer to: [Graph Fusion Engine](https://www.mindspore.cn/docs/en/r2.4.10/design/graph_fusion_engine.html).
 
 In addition to graph-kernel fusion, O1 may be gradually extended to add some other graph optimization techniques in subsequent releases. For example:
 

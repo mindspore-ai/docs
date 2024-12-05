@@ -1,6 +1,6 @@
 # Style Transfer Model
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/lite/docs/source_en/reference/style_transfer_lite.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/lite/docs/source_en/reference/style_transfer_lite.md)
 
 ## Style Transfer Introduction
 

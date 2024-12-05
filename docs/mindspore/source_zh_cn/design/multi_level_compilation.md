@@ -1,6 +1,6 @@
 # 多级编译架构
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/design/multi_level_compilation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_zh_cn/design/multi_level_compilation.md)
 
 ## 背景
 
@@ -52,7 +52,7 @@ O0模式的图优化较少，基础的优化主要为后端LazyInline和No-task 
 
 ### 图算融合
 
-主要为O1模式体现，详见下面的[O1模式介绍](https://www.mindspore.cn/docs/zh-CN/r2.4.1/design/multi_level_compilation.html#o1模式介绍)。
+主要为O1模式体现，详见下面的[O1模式介绍](https://www.mindspore.cn/docs/zh-CN/r2.4.10/design/multi_level_compilation.html#o1模式介绍)。
 
 ### 算子选择
 
@@ -141,13 +141,13 @@ MindSpore的设备流管理是框架后端中的一项关键功能，旨在高�
 
 ### HAL管理
 
-为了后端架构解耦和第三方硬件对接，在MindSpore中提供了硬件抽象层，定义了标准化的硬件对接接口，实现了框架跟硬件的解耦，详见[三方硬件对接](https://www.mindspore.cn/docs/zh-CN/r2.4.1/design/pluggable_device.html)。
+为了后端架构解耦和第三方硬件对接，在MindSpore中提供了硬件抽象层，定义了标准化的硬件对接接口，实现了框架跟硬件的解耦，详见[三方硬件对接](https://www.mindspore.cn/docs/zh-CN/r2.4.10/design/pluggable_device.html)。
 
 ## O1模式介绍
 
 O1主要定位于在O0基础上实现通用、可泛化的AI编译优化，以支持大部分通用训练、推理场景的更好执行性能需求。
 
-在当前阶段，O1主要支持了图算融合优化。其主要思路是在静态图编译阶段，自动识别计算图中相邻的可融合节点，然后将其融合为更大粒度的可执行算子。通过图算融合，实现增加算子计算局部性、减少整体全局内存访存带宽开销等优化效果。通过对15+网络的实测验证，O1能够实现相比O0平均15%的性能加速。特别是对于访存密集型网络，O1优化效果更加显著。图算融合的具体设计细节可参考：[图算融合引擎](https://www.mindspore.cn/docs/zh-CN/r2.4.1/design/graph_fusion_engine.html)。
+在当前阶段，O1主要支持了图算融合优化。其主要思路是在静态图编译阶段，自动识别计算图中相邻的可融合节点，然后将其融合为更大粒度的可执行算子。通过图算融合，实现增加算子计算局部性、减少整体全局内存访存带宽开销等优化效果。通过对15+网络的实测验证，O1能够实现相比O0平均15%的性能加速。特别是对于访存密集型网络，O1优化效果更加显著。图算融合的具体设计细节可参考：[图算融合引擎](https://www.mindspore.cn/docs/zh-CN/r2.4.10/design/graph_fusion_engine.html)。
 
 除了图算融合之外，在后续版本中，O1可能会逐步扩展增加一些其它图优化技术。比如：
 

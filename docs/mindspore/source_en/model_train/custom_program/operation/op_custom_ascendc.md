@@ -1,6 +1,6 @@
 # AOT-Type Custom Operators(Ascend)
 
-[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/model_train/custom_program/operation/op_custom_ascendc.md)
+[![View Source File](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_en/model_train/custom_program/operation/op_custom_ascendc.md)
 
 ## Overview
 
@@ -93,7 +93,7 @@ Before you begin, please make sure that the development, compilation, and deploy
 
 ### Using Custom Operators
 
-The custom operator interface in MindSpore is [ops.Custom](https://www.mindspore.cn/docs/en/r2.4.1/api_python/ops/mindspore.ops.Custom.html). When using Ascend C to create a custom operator, you need to set the parameter `func_type` to `"aot"` and specify the `func` parameter as the name of the operator. Depending on the implementation of the `infer shape` function, there are two ways to use it:
+The custom operator interface in MindSpore is [ops.Custom](https://www.mindspore.cn/docs/en/r2.4.10/api_python/ops/mindspore.ops.Custom.html). When using Ascend C to create a custom operator, you need to set the parameter `func_type` to `"aot"` and specify the `func` parameter as the name of the operator. Depending on the implementation of the `infer shape` function, there are two ways to use it:
 
 - **Python infer**: If the operator's infer shape is implemented in Python, that is, the infer shape function is passed through the `out_shape` parameter, specify `func="CustomName"`
 - **C++ infer**: If the operator's infer shape is implemented through C++, then pass the path of the infer shape implementation file in `func` and separate the operator name with `:`, for example: `func="add_custom_infer.cc:AddCustom"`
@@ -130,7 +130,7 @@ net = AddCustomNet("AddCustom", lambda x, _: x)
 net = AddCustomNet("./infer_file/add_custom_infer.cc:AddCustom", None)
 ```
 
-For a complete example of an Ascend C custom operator, you can refer to the [sample project](https://gitee.com/mindspore/mindspore/tree/v2.4.1/tests/st/graph_kernel/custom/custom_ascendc). The directory structure of the sample project is as follows:
+For a complete example of an Ascend C custom operator, you can refer to the [sample project](https://gitee.com/mindspore/mindspore/tree/v2.4.10/tests/st/graph_kernel/custom/custom_ascendc). The directory structure of the sample project is as follows:
 
 ```text
 .
@@ -159,8 +159,8 @@ For a complete example of an Ascend C custom operator, you can refer to the [sam
 
 ### Further Reading
 
-- **Custom Operator Registration**: For more information on custom operator registration and the writing of backward functions, please refer to [Custom Operator Registration](https://www.mindspore.cn/docs/en/r2.4.1/model_train/custom_program/operation/op_custom_adv.html).
-- **AOT Custom Operators**: For the implementation of C++ shape inference functions and advanced usage of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/docs/en/r2.4.1/model_train/custom_program/operation/op_custom_aot.html).
+- **Custom Operator Registration**: For more information on custom operator registration and the writing of backward functions, please refer to [Custom Operator Registration](https://www.mindspore.cn/docs/en/r2.4.10/model_train/custom_program/operation/op_custom_adv.html).
+- **AOT Custom Operators**: For the implementation of C++ shape inference functions and advanced usage of AOT type custom operators, please refer to [Advanced Usage of AOT Type Custom Operators](https://www.mindspore.cn/docs/en/r2.4.10/model_train/custom_program/operation/op_custom_aot.html).
 
 ## Common Issues
 

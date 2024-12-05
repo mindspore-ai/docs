@@ -1,6 +1,6 @@
 # Differences with torch.flatten
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/flatten.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_en/note/api_mapping/pytorch_diff/flatten.md)
 
 ## torch.flatten
 
@@ -21,7 +21,7 @@ mindspore.ops.flatten(input, order='C', *, start_dim=1, end_dim=-1)
 ```
 
 For more information,
-see [mindspore.ops.flatten](https://mindspore.cn/docs/en/r2.4.1/api_python/ops/mindspore.ops.flatten.html).
+see [mindspore.ops.flatten](https://mindspore.cn/docs/en/r2.4.10/api_python/ops/mindspore.ops.flatten.html).
 
 ## Differences
 

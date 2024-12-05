@@ -1,6 +1,6 @@
 # Differences with torchtext.datasets.IWSLT2017
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/IWSLT2017.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_en/note/api_mapping/pytorch_diff/IWSLT2017.md)
 
 ## torchtext.datasets.IWSLT2017
 
@@ -28,7 +28,7 @@ class mindspore.dataset.IWSLT2017Dataset(
     cache=None)
 ```
 
-For more information, see [mindspore.dataset.IWSLT2017Dataset](https://mindspore.cn/docs/en/r2.4.1/api_python/dataset/mindspore.dataset.IWSLT2017Dataset.html#mindspore.dataset.IWSLT2017Dataset).
+For more information, see [mindspore.dataset.IWSLT2017Dataset](https://mindspore.cn/docs/en/r2.4.10/api_python/dataset/mindspore.dataset.IWSLT2017Dataset.html#mindspore.dataset.IWSLT2017Dataset).
 
 ## Differences
 

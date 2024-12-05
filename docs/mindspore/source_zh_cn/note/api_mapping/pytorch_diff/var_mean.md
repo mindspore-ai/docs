@@ -1,6 +1,6 @@
 # 比较与torch.var_mean的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/var_mean.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/var_mean.md)
 
 ## torch.var_mean
 
@@ -16,7 +16,7 @@ torch.var_mean(input, dim, unbiased=True, keepdim=False, *, out=None)
 mindspore.ops.var_mean(input, axis=None, ddof=0, keepdims=False)
 ```
 
-更多内容详见[mindspore.ops.var_mean](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.var_mean.html)。
+更多内容详见[mindspore.ops.var_mean](https://www.mindspore.cn/docs/zh-CN/r2.4.10/api_python/ops/mindspore.ops.var_mean.html)。
 
 ## 差异对比
 

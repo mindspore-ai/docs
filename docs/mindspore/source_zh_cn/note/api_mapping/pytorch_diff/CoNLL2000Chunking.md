@@ -1,6 +1,6 @@
 # 比较与torchtext.datasets.CoNLL2000Chunking的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/CoNLL2000Chunking.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/CoNLL2000Chunking.md)
 
 ## torchtext.datasets.CoNLL2000Chunking
 
@@ -26,7 +26,7 @@ class mindspore.dataset.CoNLL2000Dataset(
     cache=None)
 ```
 
-更多内容详见[mindspore.dataset.CoNLL2000Dataset](https://mindspore.cn/docs/zh-CN/r2.4.1/api_python/dataset/mindspore.dataset.CoNLL2000Dataset.html#mindspore.dataset.CoNLL2000Dataset)。
+更多内容详见[mindspore.dataset.CoNLL2000Dataset](https://mindspore.cn/docs/zh-CN/r2.4.10/api_python/dataset/mindspore.dataset.CoNLL2000Dataset.html#mindspore.dataset.CoNLL2000Dataset)。
 
 ## 差异对比
 

@@ -1,6 +1,6 @@
 # Overview of Migration Guide
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/migration_guide/overview.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_en/migration_guide/overview.md)
 
 This migration guide contains the complete steps for migrating neural networks to MindSpore from other machine learning frameworks, mainly PyTorch.
 
@@ -36,20 +36,20 @@ C-.-text13(The network migration sample, taking ResNet50 as an example.)
 A-->D(<font color=blue>FAQs</font>)
 D-.-text14(Provides the frequently-asked questions and corresponding solutions in migration process.)
 
-click C "https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/sample_code.html"
-click D "https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/faq.html"
+click C "https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/sample_code.html"
+click D "https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/faq.html"
 
-click E "https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/enveriment_preparation.html"
-click F "https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/analysis_and_preparation.html"
-click G "https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/model_development/model_development.html"
-click H "https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/debug_and_tune.html#function-debugging"
-click I "https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/debug_and_tune.html#precision-tuning"
-click J "https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/debug_and_tune.html#performance-tuning"
+click E "https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/enveriment_preparation.html"
+click F "https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/analysis_and_preparation.html"
+click G "https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/model_development/model_development.html"
+click H "https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/debug_and_tune.html#function-debugging"
+click I "https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/debug_and_tune.html#precision-tuning"
+click J "https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/debug_and_tune.html#performance-tuning"
 
-click K "https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/model_development/dataset.html"
-click L "https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/model_development/model_and_cell.html"
-click M "https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/model_development/learning_rate_and_optimizer.html"
-click N "https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/model_development/gradient.html"
-click O "https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/model_development/training_and_evaluation.html"
-click P "https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/model_development/loss_function.html"
+click K "https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/model_development/dataset.html"
+click L "https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/model_development/model_and_cell.html"
+click M "https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/model_development/learning_rate_and_optimizer.html"
+click N "https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/model_development/gradient.html"
+click O "https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/model_development/training_and_evaluation.html"
+click P "https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/model_development/loss_function.html"
 ```

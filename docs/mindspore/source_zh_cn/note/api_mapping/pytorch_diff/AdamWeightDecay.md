@@ -1,6 +1,6 @@
 # 比较与torch.optim.AdamW的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/AdamWeightDecay.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/AdamWeightDecay.md)
 
 ## torch.optim.AdamW
 
@@ -30,7 +30,7 @@ class mindspore.nn.AdamWeightDecay(
 )
 ```
 
-更多内容详见[mindspore.nn.AdamWeightDecay](https://mindspore.cn/docs/zh-CN/r2.4.1/api_python/nn/mindspore.nn.AdamWeightDecay.html#mindspore.nn.AdamWeightDecay)。
+更多内容详见[mindspore.nn.AdamWeightDecay](https://mindspore.cn/docs/zh-CN/r2.4.10/api_python/nn/mindspore.nn.AdamWeightDecay.html#mindspore.nn.AdamWeightDecay)。
 
 ## 使用方式
 

@@ -1,8 +1,8 @@
 常见问题
 ===========
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg
-    :target: https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/migration_guide/faq.rst
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source.svg
+    :target: https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_zh_cn/migration_guide/faq.rst
     :alt: 查看源文件
 
 .. toctree::
@@ -11,7 +11,7 @@
 
   use_third_party_op
 
-MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://mindspore.cn/docs/zh-CN/r2.4.1/faq/installation.html>`_ ，本章也整理了一下在迁移文档中提及的常见问题及解决方法。
+MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://mindspore.cn/docs/zh-CN/r2.4.10/faq/installation.html>`_ ，本章也整理了一下在迁移文档中提及的常见问题及解决方法。
 
 - 环境准备
 
@@ -19,13 +19,13 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   A: MindSpore目前支持在昇腾、GPU、CPU等多种设备上运行，但在安装过程中需要注意选择配套的硬件平台、操作系统、Python版本，否则会出现很多不可预测的报错。详细可参考 `安装指导 <https://www.mindspore.cn/install/>`_ 。
 
-  更多环境准备常见问题请参考 `环境准备常见问题分析 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/faq/installation.html>`_ 。
+  更多环境准备常见问题请参考 `环境准备常见问题分析 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/faq/installation.html>`_ 。
 
 - 模型分析与准备
 
   **Q: 如何查看MindSpore对迁移代码中的API支持程度？**
 
-  A: 可以使用API自动扫描工具MindSpore Dev Toolkit（推荐），或手动查询API映射表进行分析。详细可参考 `分析API满足度 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/migration_guide/analysis_and_preparation.html#%E5%88%86%E6%9E%90api%E6%BB%A1%E8%B6%B3%E5%BA%A6>`_ 。
+  A: 可以使用API自动扫描工具MindSpore Dev Toolkit（推荐），或手动查询API映射表进行分析。详细可参考 `分析API满足度 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/migration_guide/analysis_and_preparation.html#%E5%88%86%E6%9E%90api%E6%BB%A1%E8%B6%B3%E5%BA%A6>`_ 。
 
 - 数据处理
 
@@ -58,7 +58,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 为什么在迭代数据的时候会报错：“The actual amount of data read from generator xx is different from generator.len xx, you should adjust generator.len to make them match” ？**
 
-  A: 在定义可随机访问数据集时， `__len__` 方法返回的结果一定要是真实的数据集大小，设置大了在 `__getitem__` 取值时会有越界问题。如数据集大小未确定，可以使用可迭代数据集，详见 `自定义数据集 <https://www.mindspore.cn/tutorials/zh-CN/r2.4.1/beginner/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86>`_ 。
+  A: 在定义可随机访问数据集时， `__len__` 方法返回的结果一定要是真实的数据集大小，设置大了在 `__getitem__` 取值时会有越界问题。如数据集大小未确定，可以使用可迭代数据集，详见 `自定义数据集 <https://www.mindspore.cn/tutorials/zh-CN/r2.4.10/beginner/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86>`_ 。
 
 
   **Q: 为什么在迭代数据的时候会报错：“Invalid Python function, the 'source' of 'GeneratorDataset' should return same number of NumPy arrays as specified in column_names, the size of column_names is:xx and number of returned NumPy array is:xx” ？**
@@ -68,35 +68,35 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   **Q: 使用 GeneratorDataset 或 map 进行加载/处理数据时，可能会因为语法错误、计算溢出等问题导致数据报错，如何进行排查和调试？**
 
-  A: 观察报错栈信息，由报错栈信息大概定位到出错代码块，在出错的代码块附近添加打印或调试点，进一步调试。详细可参考 `数据处理调试方法一 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/debug/error_analysis/minddata_debug.html#%E6%96%B9%E6%B3%951-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%89%A7%E8%A1%8C%E5%87%BA%E9%94%99%E6%B7%BB%E5%8A%A0%E6%89%93%E5%8D%B0%E6%88%96%E8%B0%83%E8%AF%95%E7%82%B9%E5%88%B0%E4%BB%A3%E7%A0%81%E4%B8%AD%E8%B0%83%E8%AF%95>`_ 。
+  A: 观察报错栈信息，由报错栈信息大概定位到出错代码块，在出错的代码块附近添加打印或调试点，进一步调试。详细可参考 `数据处理调试方法一 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/model_train/debug/error_analysis/minddata_debug.html#%E6%96%B9%E6%B3%951-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%89%A7%E8%A1%8C%E5%87%BA%E9%94%99%E6%B7%BB%E5%8A%A0%E6%89%93%E5%8D%B0%E6%88%96%E8%B0%83%E8%AF%95%E7%82%B9%E5%88%B0%E4%BB%A3%E7%A0%81%E4%B8%AD%E8%B0%83%E8%AF%95>`_ 。
 
 
   **Q: 数据增强 map 操作出错，如何调试 map 操作中各个数据处理算子？**
 
-  A: 可以通过单个算子执行的方式调试或者通过数据管道调试模式调试 map 操作。详细可参考 `数据处理调试方法二 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/debug/error_analysis/minddata_debug.html#%E6%96%B9%E6%B3%952-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BAmap%E6%93%8D%E4%BD%9C%E5%87%BA%E9%94%99%E8%B0%83%E8%AF%95map%E6%93%8D%E4%BD%9C%E4%B8%AD%E5%90%84%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%AE%97%E5%AD%90>`_ 。
+  A: 可以通过单个算子执行的方式调试或者通过数据管道调试模式调试 map 操作。详细可参考 `数据处理调试方法二 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/model_train/debug/error_analysis/minddata_debug.html#%E6%96%B9%E6%B3%952-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BAmap%E6%93%8D%E4%BD%9C%E5%87%BA%E9%94%99%E8%B0%83%E8%AF%95map%E6%93%8D%E4%BD%9C%E4%B8%AD%E5%90%84%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%AE%97%E5%AD%90>`_ 。
 
 
   **Q: 在训练的时候，会获得非常多warning提示我们数据集性能较慢应该怎么处理？**
 
-  A: 可以单独迭代数据集，查看每条数据的处理时间，以此判断数据集的性能如何。详细可参考 `数据处理调试方法三 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/debug/error_analysis/minddata_debug.html#%E6%96%B9%E6%B3%953-%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9A%84%E6%80%A7%E8%83%BD>`_ 。 
+  A: 可以单独迭代数据集，查看每条数据的处理时间，以此判断数据集的性能如何。详细可参考 `数据处理调试方法三 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/model_train/debug/error_analysis/minddata_debug.html#%E6%96%B9%E6%B3%953-%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9A%84%E6%80%A7%E8%83%BD>`_ 。 
 
 
   **Q: 在对数据进行处理的过程中，如果因为计算错误、数值溢出等因素，产生了异常的结果数值，从而导致训练网络时算子计算溢出、权重更新异常等问题该怎么排查？**
 
-  A: 关闭混洗，固定随机种子，确保可重现性，然后利用NumPy等工具快速校验结果。详细可参考 `数据处理调试方法四 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/debug/error_analysis/minddata_debug.html#%E6%96%B9%E6%B3%954-%E6%A3%80%E6%9F%A5%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%E6%95%B0%E6%8D%AE>`_ 。
+  A: 关闭混洗，固定随机种子，确保可重现性，然后利用NumPy等工具快速校验结果。详细可参考 `数据处理调试方法四 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/model_train/debug/error_analysis/minddata_debug.html#%E6%96%B9%E6%B3%954-%E6%A3%80%E6%9F%A5%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%E6%95%B0%E6%8D%AE>`_ 。
 
 
-  更多数据处理常见问题请参考 `数据处理常见问题分析 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/debug/error_analysis/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90>`_ 以及迁移中的数据处理差异请参考 `MindSpore和PyTorch的数据处理差异 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/migration_guide/model_development/dataset.html#数据处理差异对比>`_ 。
+  更多数据处理常见问题请参考 `数据处理常见问题分析 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/model_train/debug/error_analysis/minddata_debug.html#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90>`_ 以及迁移中的数据处理差异请参考 `MindSpore和PyTorch的数据处理差异 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/migration_guide/model_development/dataset.html#数据处理差异对比>`_ 。
 
 - 梯度求导
 
   **Q: 如何自己实现算子的反向计算？**
 
-  A: MindSpore提供了自动的梯度求导接口，该功能对用户屏蔽了大量的求导细节和过程。但如果有某些特殊场景，用户需要手动控制其反向的计算，用户也可以通过Cell.bprop接口对其反向进行定义。详细可参考 `自定义Cell反向 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/custom_program/network_custom.html#%E8%87%AA%E5%AE%9A%E4%B9%89cell%E5%8F%8D%E5%90%91>`_ 。
+  A: MindSpore提供了自动的梯度求导接口，该功能对用户屏蔽了大量的求导细节和过程。但如果有某些特殊场景，用户需要手动控制其反向的计算，用户也可以通过Cell.bprop接口对其反向进行定义。详细可参考 `自定义Cell反向 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/model_train/custom_program/network_custom.html#%E8%87%AA%E5%AE%9A%E4%B9%89cell%E5%8F%8D%E5%90%91>`_ 。
 
   **Q: 如何处理梯度溢出造成训练不稳定的问题？**
 
-  A: 网络溢出一般表现为loss Nan/INF，loss突然变得很大等。MindSpore提供 `dump数据 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/debug/dump.html>`_ 获取到溢出算子信息。当网络中出现梯度下溢时，可使用loss scale配套梯度求导使用，详细可参考 `loss scale <https://www.mindspore.cn/docs/zh-CN/r2.4.1/migration_guide/model_development/gradient.html#loss-scale>`_ ；当网络出现梯度爆炸时，可考虑添加梯度裁剪，详细可参考 `梯度裁剪 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/migration_guide/model_development/gradient.html#%E6%A2%AF%E5%BA%A6%E8%A3%81%E5%89%AA>`_ 。
+  A: 网络溢出一般表现为loss Nan/INF，loss突然变得很大等。MindSpore提供 `dump数据 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/model_train/debug/dump.html>`_ 获取到溢出算子信息。当网络中出现梯度下溢时，可使用loss scale配套梯度求导使用，详细可参考 `loss scale <https://www.mindspore.cn/docs/zh-CN/r2.4.10/migration_guide/model_development/gradient.html#loss-scale>`_ ；当网络出现梯度爆炸时，可考虑添加梯度裁剪，详细可参考 `梯度裁剪 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/migration_guide/model_development/gradient.html#%E6%A2%AF%E5%BA%A6%E8%A3%81%E5%89%AA>`_ 。
 
 - 调试调优
 
@@ -136,13 +136,13 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
   `MindSpore模型精度调优实战（三）常见精度问题简介 <https://www.hiascend.com/forum/thread-0235121941523411032-1-1.html>`_ 。
 
   更多调试调优常见问题请参考
-  `功能调试 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/migration_guide/debug_and_tune.html#功能调试>`_ 、
-  `精度调优 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/migration_guide/debug_and_tune.html#精度调优>`_ 、
-  `性能调优 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/migration_guide/debug_and_tune.html#性能调优>`_ 。
+  `功能调试 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/migration_guide/debug_and_tune.html#功能调试>`_ 、
+  `精度调优 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/migration_guide/debug_and_tune.html#精度调优>`_ 、
+  `性能调优 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/migration_guide/debug_and_tune.html#性能调优>`_ 。
 
   **Q: 模型训练过程中，第一个step耗时很长，该怎么优化？**
 
-  A: 模型训练过程中，第一个step包含网络编译时长，如果想要优化第一个step的性能，可分析模型编译是否能进行优化。详细可参考 `静态图网络编译性能优化 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html>`_ 。
+  A: 模型训练过程中，第一个step包含网络编译时长，如果想要优化第一个step的性能，可分析模型编译是否能进行优化。详细可参考 `静态图网络编译性能优化 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/model_train/program_form/static_graph_syntax/static_graph_expert_programming.html>`_ 。
 
   **Q: 模型训练过程中，非首个step耗时很长，该怎么优化？**
 
@@ -154,7 +154,7 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
 
   A: load_checkpoint过程中，如果有权重未加载上，MindSpore会给出warning提示，一般加载失败有两种原因：1、权重名称对不上；2、权重在网络中缺失。
 
-  如果权重名称对不上，需要打印MindSpore的权重名称和标杆的权重名称，看是否MindSpore的权重名称多了backbone或network等前缀，如果是，检查MindSpore在初始化 `Cell <https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/nn/mindspore.nn.Cell.html>`_ 时是否加上auto_prefix=False。
+  如果权重名称对不上，需要打印MindSpore的权重名称和标杆的权重名称，看是否MindSpore的权重名称多了backbone或network等前缀，如果是，检查MindSpore在初始化 `Cell <https://www.mindspore.cn/docs/zh-CN/r2.4.10/api_python/nn/mindspore.nn.Cell.html>`_ 时是否加上auto_prefix=False。
 
   如果权重名称缺失，需要分析是否合理，如果合理，可忽略告警提示，如果不合理，需要分析网络定义是否错误，进行定位修改。
 
@@ -180,21 +180,21 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
       loss = loss/response_gt
       return loss
 
-  详细可参考 `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/program_form/static_graph.html>`_ 。
+  详细可参考 `静态图语法支持 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/model_train/program_form/static_graph.html>`_ 。
 
   **Q: 训练过程中出现报错：“RuntimeError: Launch kernel failed, name:Default/...” 怎么办？**
 
-  A: 这类报错一般是MindSpore不支持某个算子，可能需要用户自己实现该算子。详细可参考 `PyTorch与MindSpore API映射表 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/note/api_mapping/pytorch_api_mapping.html>`_ 。
+  A: 这类报错一般是MindSpore不支持某个算子，可能需要用户自己实现该算子。详细可参考 `PyTorch与MindSpore API映射表 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/note/api_mapping/pytorch_api_mapping.html>`_ 。
 
   **Q: PyNative动态图迁移过程中出现报错，该怎么有效地定位到报错原因？**
 
-  A: 如果遇到动态图问题，可以设置mindspore.set_context(pynative_synchronize=True)查看报错栈协助定位。详细可参考 `pynative_synchronize说明 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/mindspore/mindspore.set_context.html?highlight=pynative_synchronize>`_ 。
+  A: 如果遇到动态图问题，可以设置mindspore.set_context(pynative_synchronize=True)查看报错栈协助定位。详细可参考 `pynative_synchronize说明 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/api_python/mindspore/mindspore.set_context.html?highlight=pynative_synchronize>`_ 。
 
   **Q: Graph模式静态图训练过程中出现报错，该怎么有效地定位到报错原因？**
 
   A: 引发静态图报错的原因很多，一般失败会有日志打印，如果不能直观地从日志中获取报错信息，可通过export GLOG_v=1指定日志级别获取更详细的报错信息进行分析。
 
-  同时计算图编译发生报错时，会自动保存analyze_failed.ir文件，可帮助分析报错代码的位置。详细可参考 `静态图模式错误分析 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/debug/error_analysis/error_scenario_analysis.html>`_ 。
+  同时计算图编译发生报错时，会自动保存analyze_failed.ir文件，可帮助分析报错代码的位置。详细可参考 `静态图模式错误分析 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/model_train/debug/error_analysis/error_scenario_analysis.html>`_ 。
 
   **Q: Graph模式静态图训练过程中出现Out Of Memory报错，怎么办？**
 
@@ -204,6 +204,6 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
      
   当显存不够时，可尝试降低batch_size；分析内存查看是否通信算子太多导致整体内存复用率较低。
      
-  详细可参考 `资源不够问题分析 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/model_train/debug/error_analysis/mindrt_debug.html#%E8%B5%84%E6%BA%90%E4%B8%8D%E8%B6%B3>`_ 。
+  详细可参考 `资源不够问题分析 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/model_train/debug/error_analysis/mindrt_debug.html#%E8%B5%84%E6%BA%90%E4%B8%8D%E8%B6%B3>`_ 。
 
-  更多调优常见问题请参考 `执行问题 <https://www.mindspore.cn/docs/zh-CN/r2.4.1/faq/implement_problem.html>`_ 。
+  更多调优常见问题请参考 `执行问题 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/faq/implement_problem.html>`_ 。
