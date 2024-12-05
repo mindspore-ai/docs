@@ -1,6 +1,6 @@
 # 比较与torch.distributed.gather的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/distributed.gather.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/distributed.gather.md)
 
 ## torch.distributed.gather
 
@@ -22,7 +22,7 @@ torch.distributed.gather(
 mindspore.communication.comm_func.gather_into_tensor(tensor, dst=0, group=GlobalComm.WORLD_COMM_GROUP)
 ```
 
-更多内容详见[mindspore.communication.comm_func.gather_into_tensor](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/communication/mindspore.communication.comm_func.gather_into_tensor.html#mindspore.communication.comm_func.gather_into_tensor)。
+更多内容详见[mindspore.communication.comm_func.gather_into_tensor](https://www.mindspore.cn/docs/zh-CN/r2.4.10/api_python/communication/mindspore.communication.comm_func.gather_into_tensor.html#mindspore.communication.comm_func.gather_into_tensor)。
 
 ## 差异对比
 

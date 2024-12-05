@@ -1,6 +1,6 @@
 # Differences with torch.distributed.barrier
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/distributed.barrier.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_en/note/api_mapping/pytorch_diff/distributed.barrier.md)
 
 ## torch.distributed.barrier
 
@@ -20,7 +20,7 @@ For more information, see [torch.distributed.barrier](https://pytorch.org/docs/1
 mindspore.communication.comm_func.barrier(group=GlobalComm.WORLD_COMM_GROUP)
 ```
 
-For more information, see [mindspore.communication.comm_func.barrier](https://www.mindspore.cn/docs/en/r2.4.1/api_python/communication/mindspore.communication.comm_func.barrier.html#mindspore.communication.comm_func.barrier)。
+For more information, see [mindspore.communication.comm_func.barrier](https://www.mindspore.cn/docs/en/r2.4.10/api_python/communication/mindspore.communication.comm_func.barrier.html#mindspore.communication.comm_func.barrier)。
 
 ## Differences
 

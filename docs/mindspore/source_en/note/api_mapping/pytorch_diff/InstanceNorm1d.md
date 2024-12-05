@@ -1,6 +1,6 @@
 # Differences with torch.nn.InstanceNorm1d
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/InstanceNorm1d.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_en/note/api_mapping/pytorch_diff/InstanceNorm1d.md)
 
 ## torch.nn.InstanceNorm1d
 
@@ -29,7 +29,7 @@ class mindspore.nn.InstanceNorm1d(
 )(x) -> Tensor
 ```
 
-For more information, see [mindspore.nn.InstanceNorm1d](https://www.mindspore.cn/docs/en/r2.4.1/api_python/nn/mindspore.nn.InstanceNorm1d.html).
+For more information, see [mindspore.nn.InstanceNorm1d](https://www.mindspore.cn/docs/en/r2.4.10/api_python/nn/mindspore.nn.InstanceNorm1d.html).
 
 ## Differences
 

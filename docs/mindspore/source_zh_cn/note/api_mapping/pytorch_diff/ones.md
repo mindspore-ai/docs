@@ -1,6 +1,6 @@
 # 比较与torch.ones的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/ones.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/ones.md)
 
 ## torch.ones
 
@@ -16,7 +16,7 @@ torch.ones(*size, *, out=None, dtype=None, layout=torch.strided, device=None, re
 mindspore.ops.ones(shape, dtype=dtype) -> Tensor
 ```
 
-更多内容详见[mindspore.ops.ones](https://mindspore.cn/docs/zh-CN/r2.4.1/api_python/ops/mindspore.ops.ones.html)。
+更多内容详见[mindspore.ops.ones](https://mindspore.cn/docs/zh-CN/r2.4.10/api_python/ops/mindspore.ops.ones.html)。
 
 ## 差异对比
 

@@ -1,6 +1,6 @@
 # rank table Startup
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/model_train/parallel/rank_table.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_en/model_train/parallel/rank_table.md)
 
 ## Overview
 
@@ -37,7 +37,7 @@ The parameter items that need to be modified according to the actual training en
 
 ## Operation Practice
 
-> You can download the full sample code here: [startup_method](https://gitee.com/mindspore/docs/tree/r2.4.1/docs/sample_code/startup_method).
+> You can download the full sample code here: [startup_method](https://gitee.com/mindspore/docs/tree/r2.4.10/docs/sample_code/startup_method).
 
 The directory structure is as follows:
 

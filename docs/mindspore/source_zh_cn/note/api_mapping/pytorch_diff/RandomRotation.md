@@ -1,6 +1,6 @@
 # 比较与torchvision.transforms.RandomRotation的差异
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/RandomRotation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/RandomRotation.md)
 
 ## torchvision.transforms.RandomRotation
 
@@ -16,7 +16,7 @@ class torchvision.transforms.RandomRotation(degrees, interpolation=<Interpolatio
 class mindspore.dataset.vision.RandomRotation(degrees, resample=Inter.NEAREST, expand=False, center=None, fill_value=0)
 ```
 
-更多内容详见[mindspore.dataset.vision.RandomRotation](https://mindspore.cn/docs/zh-CN/r2.4.1/api_python/dataset_vision/mindspore.dataset.vision.RandomRotation.html)。
+更多内容详见[mindspore.dataset.vision.RandomRotation](https://mindspore.cn/docs/zh-CN/r2.4.10/api_python/dataset_vision/mindspore.dataset.vision.RandomRotation.html)。
 
 ## 差异对比
 

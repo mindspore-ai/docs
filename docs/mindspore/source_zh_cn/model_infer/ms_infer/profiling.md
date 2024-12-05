@@ -1,6 +1,6 @@
 # 模型性能Profiler
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_zh_cn/model_infer/ms_infer/profiling.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_zh_cn/model_infer/ms_infer/profiling.md)
 
 MindSpore中提供了profiler接口，可以对神经网络的性能进行采集。目前支持AICORE算子、AICPU算子、HostCPU算子、内存、设备通信、集群等数据的分析。
 
@@ -15,7 +15,7 @@ from mindspore import Profiler
 
 input_data = Tensor(np.random.randint(0, 255, [1, 1, 32, 32]), mindspore.float32)
 # Define the network structure of LeNet5. Refer to
-# https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/code/lenet.py
+# https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/code/lenet.py
 # Init Profiler
 # Note that the Profiler should be initialized before model.predict
 profiler = Profiler()
@@ -29,4 +29,4 @@ profiler.analyse()
 
 推理方面性能调试方式与训练基本一致，收集到性能数据后，可参考：[性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html)进行性能分析。推理上重点关注算子性能分析、计算量性能分析、Timeline分析等。
 
-详细接口参考：[mindspore.Profiler](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/mindspore/mindspore.Profiler.html?highlight=profiler#mindspore.Profiler)。
+详细接口参考：[mindspore.Profiler](https://www.mindspore.cn/docs/zh-CN/r2.4.10/api_python/mindspore/mindspore.Profiler.html?highlight=profiler#mindspore.Profiler)。

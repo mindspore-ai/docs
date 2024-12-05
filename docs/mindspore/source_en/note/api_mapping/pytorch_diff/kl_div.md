@@ -1,6 +1,6 @@
 # Differences with torch.nn.functional.kl_div
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/note/api_mapping/pytorch_diff/kl_div.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_en/note/api_mapping/pytorch_diff/kl_div.md)
 
 ## torch.nn.functional.kl_div
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.functional.kl_div](https://pytorch.org/docs/
 mindspore.ops.kl_div(logits, labels, reduction='mean')
 ```
 
-For more information, see [mindspore.ops.kl_div](https://www.mindspore.cn/docs/en/r2.4.1/api_python/ops/mindspore.ops.kl_div.html#mindspore.ops.kl_div).
+For more information, see [mindspore.ops.kl_div](https://www.mindspore.cn/docs/en/r2.4.10/api_python/ops/mindspore.ops.kl_div.html#mindspore.ops.kl_div).
 
 ## Differnnces
 

@@ -1,6 +1,6 @@
 # Reproducing Algorithm Implementation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/mindspore/source_en/migration_guide/reproducing_algorithm.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindspore/source_en/migration_guide/reproducing_algorithm.md)
 
 ## Obtaining Sample Code
 
@@ -13,7 +13,7 @@ When you obtain a paper to implement migration on MindSpore, you need to find th
 
 If the results are not reproducible in the reference project or the version information is missing, check the project issue for information.
 
-If a new paper has no reference implementation, you can refer to [Network Constructing Comparison](https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/model_development/model_development.html).
+If a new paper has no reference implementation, you can refer to [Network Constructing Comparison](https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/model_development/model_development.html).
 
 ## Analyzing Algorithm and Network Structure
 
@@ -81,8 +81,8 @@ After obtaining the reference code, you need to reproduce the accuracy of the re
 2. Obtain some reference data for the MindSpore migration process.
 
     - Obtain the loss decrease trend to check whether the training convergence trend on MindSpore is normal.
-    - Obtain the parameter file for conversion and inference verification. For details, see [Inference and Training Process](https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/model_development/training_and_evaluation.html).
+    - Obtain the parameter file for conversion and inference verification. For details, see [Inference and Training Process](https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/model_development/training_and_evaluation.html).
     - Obtain the performance baseline for performance tuning. For details, see
-      [Function Debugging](https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/debug_and_tune.html#function-debugging),
-      [Precision Tuning](https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/debug_and_tune.html#precision-tuning),
-      [Performance Tuning](https://www.mindspore.cn/docs/en/r2.4.1/migration_guide/debug_and_tune.html#performance-tuning).
+      [Function Debugging](https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/debug_and_tune.html#function-debugging),
+      [Precision Tuning](https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/debug_and_tune.html#precision-tuning),
+      [Performance Tuning](https://www.mindspore.cn/docs/en/r2.4.10/migration_guide/debug_and_tune.html#performance-tuning).
