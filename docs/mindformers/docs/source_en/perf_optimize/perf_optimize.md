@@ -10,15 +10,15 @@ Performance generally includes in terms of model training performance, with the 
 
 * Data loading time: it refers to the time for the model to load the training data, weights, and other data, including reading the data from the hardware storage device into the CPU, preprocessing the data in the CPU, and carrying the CPU data to the NPU. For some models that need to be sliced onto several NPUs, the data loading also includes the time to broadcast from one NPU to other NPUs.
 
-* Model Forward and Backward Time: Specifically refers to the forward and backward of the deep learning model, which contains the forward data computation and the reverse data differential derivation.
+* Model Forward and Backward Time: it refers to the forward and backward of the deep learning model, which contains the forward data computation and the reverse data differential derivation.
 
-* Optimizer time: usually refers to the model parameter update time.
+* Optimizer time: it refers to the model parameter update time.
 
-* Model post-processing time: generally refers to the time after the optimizer is updated, including post-processing of data or some necessary synchronization operations, usually depending on model-specific operations.
+* Model post-processing time: it refers to the time after the optimizer is updated, including post-processing of data or some necessary synchronization operations, usually depending on model-specific operations.
 
-* Communication time: a broad concept, we generally categorize the communication time as the inter-card communication elapsed time for single nodes and the inter-node communication elapsed time for multiple nodes. With the parallelization technique included in MindSpore, communication and computation can usually be executed in parallel, at which time part of the communication time is masked, so we generally consider the communication time that is not masked by computation.
+* Communication time: a broad concept, we generally categorize the communication time as the inter-card communication elapsed time for single nodes and the inter-node communication elapsed time for multiple nodes. With the parallelization technique in MindSpore, communication and computation can usually be executed in parallel, at which time part of the communication time is masked, so we generally consider the communication time that is not masked by computation.
 
-* Scheduling time: This refers to the time it takes for the model to go from an instruction of the CPU to invoking a core on the NPU side.
+* Scheduling time: it refers to the time it takes for the model to go from an instruction of the CPU to invoking a core on the NPU side.
 
 Performance tuning that is, through the optimization of model algorithms, parameters, optimization of parallelism strategy and other means to reduce the time of the above parts, generally focusing on the optimization of the model forward-backward time, communication time.
 
@@ -101,7 +101,7 @@ MindFormers itself integrates profiling data collection with the following steps
    profile_memory: True  # Collect Tensor memory data
    ```
 
-  profile_start_step and profile_stop_step determine the collection interval, because the collection takes a long time. It is not recommended to set the interval too large, generally set 2~4 can be. The first step involves compilation, so it is recommended to collect the interval after step 3.
+   profile_start_step and profile_stop_step determine the collection interval, because the collection takes a long time. It is not recommended to set the interval too large, generally set 2~4 can be. The first step involves compilation, so it is recommended to collect the interval after step 3.
 
 2. View Data
 
@@ -212,27 +212,27 @@ The features of different parallel strategies are summarized below:
 
 * Data parallelism
 
-  Multiple pieces of data are trained at the same time and communicated only once at the gradient update for optimal performance without memory reduction;
+  Multiple pieces of data are trained at the same time and communicated only once at the gradient update for optimal performance without memory reduction.
 
 * Model Parallelism
 
-  Slicing the whole model into different Devices, the network computes the respective parts in parallel and communicates at locations such as LayerNorm, which saves the most memory but has a large amount of communication;
+  Slicing the whole model into different Devices, the network computes the respective parts in parallel and communicates at locations such as LayerNorm, which saves the most memory but has a large amount of communication.
 
 * Pipeline Parallelism
 
-  Slices different stages of the model into different Devices, the network computes the respective stages serially and communicates when switching stages, saves some memory by recomputing, less communication, but there will be computational idleness (bubble);
+  Slices different stages of the model into different Devices, the network computes the respective stages serially and communicates when switching stages, saves some memory by recomputing, less communication, but there will be computational idleness (bubble).
 
 * Optimizer parallelism
 
-  Slicing the optimizer weights, model weights by DP (DP can exactly divide the 0th dimension of the weights shape) and communicating when the gradient is updated, which can save memory significantly and the communication is small;
+  Slicing the optimizer weights, model weights by DP (DP can exactly divide the 0th dimension of the weights shape) and communicating when the gradient is updated, which can save memory significantly and the communication is small.
 
 * Sequence parallelism
 
-  Short sequence parallelism slices the sequence by MP at LayerNorm, unchanged communication, reducing memory and some computation of Norm;
+  Short sequence parallelism slices the sequence by MP at LayerNorm, unchanged communication, reducing memory and some computation of Norm.
 
 * Multi-copy parallelism
 
-  In model parallelism, MatMul and other operators are sliced into multiple copies, and the computational communication between different copies is interleaved to achieve communication masking;
+  In model parallelism, MatMul and other operators are sliced into multiple copies, and the computational communication between different copies is interleaved to achieve communication masking.
 
 #### Suggestions
 
@@ -302,7 +302,7 @@ Performing recomputation on Silu and Mul saves memory when fine-grained multicop
 
 * Checking for recomputation operators
 
-  The IR graph is checked for operators with duplicated labels for Cast, Silu, and Mul. The absence of labeled operators indicates that the actual computational graph does not recompute this part of the operator. Here only Cast operator is with duplicated label.
+  Check if the Cast, Silu and Mul operators have the label duplicated in IR graphs. The absence of labeled operators indicates that the actual computational graph does not recompute this part of the operator. Here only Cast operator is with duplicated label.
 
   ```text
   %1834(CNode_108839) = PrimFunc_Cast(%1833, I64(43)) {instance name: cast} primitive_attrs: {output_names: [output], input_names: [x, dst_type], recompute: Bool(1)} cnode_attrs: {recompute_sub_graph: U64(64), recompute_id: I64(65), duplicated: Bool(1), need_cse_after_recompute: Bool(1)} cnode_primal_attrs: {micro: I64(0)}
