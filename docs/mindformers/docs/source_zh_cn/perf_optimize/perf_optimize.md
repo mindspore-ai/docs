@@ -200,7 +200,7 @@ MindSpore提供了SAPP（Symbolic Automatic Parallel Planner）自动负载均�
 
 ### 整体思路
 
-大模型的性能调优主要包含并行策略配置，内存优化，耗时分析三部分工作。性能优化是一个循环往复的过程，并行策略配置完毕后，就需要进行内存优化分析，并进行内存优化；然后对集群分布式策略进行实验分析，分析通信耗时是否合理，是否存在额外的重排布开销。然后根据分析结果，调整并行策略，继续内存、耗时分析，循环往复的去优化，进而一步步达到设定的性能目标。
+大模型的性能调优主要包含并行策略配置、内存优化、耗时分析三部分工作。性能优化是一个循环往复的过程，并行策略配置完毕后，就需要进行内存优化分析，并进行内存优化；然后对集群分布式策略进行实验分析，分析通信耗时是否合理，是否存在额外的重排布开销。然后根据分析结果，调整并行策略，继续内存、耗时分析，循环往复的去优化，进而一步步达到设定的性能目标。
 
 完成一轮性能优化后，还需要确保模型精度对齐，对齐则应用该优化策略。
 
@@ -220,7 +220,7 @@ MindSpore提供了SAPP（Symbolic Automatic Parallel Planner）自动负载均�
 
 * 流水线并行
 
-  将模型的不同阶段(stage)切分到不同Device中，网络串行计算各个阶段并在转换阶段时进行通信，通过重计算节省部分内存，通信量较小，但会存在计算闲置(bubble)。
+  将模型的不同阶段（stage）切分到不同Device中，网络串行计算各个阶段并在转换阶段时进行通信，通过重计算节省部分内存，通信量较小，但会存在计算闲置（bubble）。
 
 * 优化器并行
 
@@ -296,22 +296,22 @@ Actual peak memory usage (with fragments)表示包含碎片的NPU内存使用峰
 
 在开启细粒度多副本时，对SiLU和Mul做重计算可以节省内存，但关闭细粒度多副本时，对SiLU和Mul做重计算不能节省内存。定位过程如下：
 
-* 确认配置了重计算
+1. 确认配置了重计算
 
-  在IR图中检查Cast、SiLU和Mul算子是否有“recompute: Bool(1)”的标签，有标签说明算子配置了重计算。
+   在IR图中检查Cast、SiLU和Mul算子是否有“recompute: Bool(1)”的标签，有标签说明算子配置了重计算。
 
-* 检查重计算生效算子
+2. 检查重计算生效算子
 
-  在IR图中检查Cast、SiLU和Mul等算子是否有duplicated标签，没有带标签的算子说明实际计算图没有重计算这部分算子。这里只有Cast算子带了duplicated标签。
+   在IR图中检查Cast、SiLU和Mul等算子是否有duplicated标签，没有带标签的算子说明实际计算图没有重计算这部分算子。这里只有Cast算子带了duplicated标签。
 
-  ```text
-  %1834(CNode_108839) = PrimFunc_Cast(%1833, I64(43)) {instance name: cast} primitive_attrs: {output_names: [output], input_names: [x, dst_type], recompute: Bool(1)} cnode_attrs: {recompute_sub_graph: U64(64), recompute_id: I64(65), duplicated: Bool(1), need_cse_after_recompute: Bool(1)} cnode_primal_attrs: {micro: I64(0)}
-      : (<Tensor[Float16], (1, 4096, 4096)>, <Int64, NoShape>) -> (<Tensor[Float32], (1, 4096, 4096)>)
-  ```
+   ```text
+   %1834(CNode_108839) = PrimFunc_Cast(%1833, I64(43)) {instance name: cast} primitive_attrs: {output_names: [output], input_names: [x, dst_type], recompute: Bool(1)} cnode_attrs: {recompute_sub_graph: U64(64), recompute_id: I64(65), duplicated: Bool(1), need_cse_after_recompute: Bool(1)} cnode_primal_attrs: {micro: I64(0)}
+       : (<Tensor[Float16], (1, 4096, 4096)>, <Int64, NoShape>) -> (<Tensor[Float32], (1, 4096, 4096)>)
+   ```
 
-* 检查反向计算输入
+3. 检查反向计算输入
 
-  在IR图中检查SiLU和Mul的反向算子的输入是否符合预期，在关闭细粒度多副本时，SiLU和Mul之间、 Mul和MatMul之间均有Reshape算子，而开启细粒度多副本时，SiLU、Mul和MatMul是相连的。绘制相关流程如下：
+   在IR图中检查SiLU和Mul的反向算子的输入是否符合预期，在关闭细粒度多副本时，SiLU和Mul之间、 Mul和MatMul之间均有Reshape算子，而开启细粒度多副本时，SiLU、Mul和MatMul是相连的。绘制相关流程如下：
 
 ![reshape](./images/reshape.png)
 
@@ -325,11 +325,11 @@ recompute_config:
 
 #### Llama2-13B极致性能优化
 
-13B默认用单机DP: 8, MP: 1, PP: 1，开完全重计算，性能在1860tokens/s/p左右，相较于7B（2465tokens/s/p）与70B（1974tokens/s/p），性能明显偏低。
+13B默认用单机DP: 8、MP: 1、PP: 1，开完全重计算，性能在1860tokens/s/p左右，相较于7B（2465tokens/s/p）与70B（1974tokens/s/p），性能明显偏低。
 
 经分析，13B性能瓶颈主要在于内存，无论是单机还是多机，如果不开MP，对SiLU和Mul做选择重计算内存依然不够，则需要开完全重计算。完全重计算会额外多20%到25%的计算量，导致性能偏低。
 
-经过实测，开MP关闭重计算，性能比纯DP还要低。双机并行策略调整为DP: 8, MP: 1, PP: 2, micro: 128，开完全重计算，性能提升至2136tokens/s/p。将完全重计算改为选择重计算，并精细选择算子，使每层的内存尽可能减少，性能提升至2189tokens/s/p。
+经过实测，开MP关闭重计算，性能比纯DP还要低。双机并行策略调整为DP: 8、MP: 1、PP: 2、micro: 128，开完全重计算，性能提升至2136tokens/s/p。将完全重计算改为选择重计算，并精细选择算子，使每层的内存尽可能减少，性能提升至2189tokens/s/p。
 
 ```yaml
 select_recompute: ['feed_forward\.mul', 'feed_forward\.w1\.activation', 'feed_forward\.w1\.reshape', 'feed_forward\.w1\.matmul', 'feed_forward\.w3\.matmul', 'feed_forward\.W3\.reshape', 'feed_forward\.w2\.matmul', 'feed_forward\.w2\.reshape', 'ffn_norm\.norm', 'ffn_norm\.rcast', 'attention_norm\.norm', 'attention_norm\.rcast', 'attention\.wq\.reshape', 'attention\.wk\.reshape', 'attention\.wv\.reshape', 'attention\.wo\.matmul', 'attention\.wo\.reshape', 'attention\.merger_head_transpose', 'add', 'attention\.flash attention']
