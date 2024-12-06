@@ -319,22 +319,28 @@ class MsCnAutoSummary(Autosummary):
             spec_path = os.path.join('api_python', dir_name, display_name)
             file_path = os.path.join(doc_path, dir_name, display_name+'.rst')
             if os.path.exists(file_path) and spec_path not in generated_files:
-                summary_spec_re = re.compile(rf'\.\. \w+:\w+::\s+{display_name}.*?\n\s+:.*?:\n\n\s+(.*?)[。\n]')
+                summary_re_tag = re.compile(rf'\.\. \w+:\w+::\s+{display_name}.*?\n\s+:.*?:\n\n\s+(.*?)[。\n]')
+                summary_re_line = re.compile(rf'\.\. \w+:\w+::\s+{display_name}(?:.|\n|)+?\n\n\s+(.*?)[。\n]')
                 summary_re = self.get_summary_re(display_name)
                 content = ''
-                with open(os.path.join(doc_path, dir_name, display_name+'.rst'), 'r', encoding='utf-8') as f:
+                with open(file_path, 'r', encoding='utf-8') as f:
                     content = f.read()
                 if content:
                     summary_str = summary_re.findall(content)
-                    summary_str_spec = summary_spec_re.findall(content)
+                    summary_str_tag = summary_re_tag.findall(content)
+                    summary_str_line = summary_re_line.findall(content)
                     if summary_str:
                         if re.findall("[:：,，。.;；]", summary_str[0][-1]):
                             logger.warning(f"{display_name}接口的概述格式需调整")
                         summary_str = summary_str[0] + '。'
-                    elif summary_str_spec:
-                        if re.findall("[:：,，。.;；]", summary_str_spec[0][-1]):
+                    elif summary_str_tag:
+                        if re.findall("[:：,，。.;；]", summary_str_tag[0][-1]):
                             logger.warning(f"{display_name}接口的概述格式需调整")
-                        summary_str = summary_str_spec[0] + '。'
+                        summary_str = summary_str_tag[0] + '。'
+                    elif summary_str_line:
+                        if re.findall("[:：,，。.;；]", summary_str_line[0][-1]):
+                            logger.warning(f"{display_name}接口的概述格式需调整")
+                        summary_str = summary_str_line[0] + '。'
                     else:
                         summary_str = ''
                     if not self.table_head:
