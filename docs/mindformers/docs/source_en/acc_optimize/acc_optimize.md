@@ -309,9 +309,10 @@ The local norm value only serves as a preliminary judgment of whether the revers
 
 In the case where the loss of step1 is aligned with the local norm, if the difference in the loss of step2 is large, further troubleshooting of the optimizer computation is required.
 
-* Firstly, check whether the parameters that affect the gradient update, such as learning rate, optimizer parameters, weight decay, are consistent with the benchmark.
+1. Firstly, check whether the parameters that affect the gradient update, such as learning rate, optimizer parameters, weight decay, are consistent with the benchmark.
 
-* Secondly troubleshoot the optimizer computation with the following steps:
+2. Secondly troubleshoot the optimizer computation with the following steps:
+
     * Save the gradient from PyTorch step1.
 
     * Load the gradient of PyTorch at MindSpore step1 for optimizer update.
@@ -320,7 +321,7 @@ In the case where the loss of step1 is aligned with the local norm, if the diffe
 
 If there is a significant difference, there is a problem with the optimizer update and further targeting of the optimizer is required.
 
-PyTorch saves the weight gradients, and to use apex as an example, modify the file [apex.optimizers](https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/optimizer/optimizer.py) file.
+PyTorch saves the weight gradients, and to use apex as an example, modify [apex.optimizers](https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/optimizer/optimizer.py) file.
 
 ```python
 import numpy as np
@@ -425,7 +426,7 @@ First the loss alignment of step1 is confirmed to be OK. Compare the local norm 
 
 ![local norm](./image/local_norm.png)
 
-The reason for this is that MindFormers uses FP32 for weight initialization, and FP32 precision is used for both forward and backward Embedding calculations, while PyTorch forward and backward calculations are bf16, which leads to differences in the calculated local norm values.
+The reason for this is that MindFormers uses FP32 for weight initialization, and FP32 precision is used for both forward and backward Embedding calculations, while PyTorch forward and backward calculations are BF16, which leads to differences in the calculated local norm values.
 
 Once the computational accuracy is aligned, the exhaustive optimizer computation is also fine, and the long stable training alignment starts.
 

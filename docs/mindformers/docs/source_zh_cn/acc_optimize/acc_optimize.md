@@ -44,7 +44,7 @@
 | num_experts_chosen       | 每个token选择的专家数目                   | 对应Megatron的moe-router-topk，检查是否一致。                                                                                 |
 | capacity_factor          | 专家容量系数                           | 对应Megatron的moe_expert_capacity_factor参数，检查是否一致。                                                                    |
 | aux_loss_factor          | 负载均衡loss贡献因子                     | 开启时，建议小于0.05。若进行精度对齐，不建议开启，否则会与Megatron的loss打印方式不一致。                                                               |
-| enable_sdrop             | 是否开启sdrop（drop实现）方式              | 建议设置成true，对应Megatron需要设置如下参数：<br>  `moe-token-drop-policy: position` <br>  `moe-pad-expert-input-to-capacity: True` |
+| enable_sdrop             | 是否开启sdrop（drop实现）方式              | 建议设置为true，对应Megatron需要设置如下参数：<br>  `moe-token-drop-policy: position` <br>  `moe-pad-expert-input-to-capacity: True` |
 | router_dense_type        | 决定专家的dense层                      | MindFormers中可配置，建议使用FP32计算，防止溢出；Megatron中不可配置。                                                                     |
 | use_fused_ops_topkrouter | 是否使用融合算子进行dispatch以及combine的索引计算 | MindFormers中融合算子只有在设置`enable_sdrop=True`时才生效。精度对齐建议设置为True。                                                        |
 | use_shared_expert_gating | 共享专家网络中是否使用gating系数              | 检查网络的共享专家是否有gating系数，如果有设置为True。                                                                                   |
@@ -157,7 +157,7 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 * 简化训练的场景，基于单卡/单机、小规模模型复现问题。
 * 固定随机因素，对比训练过程中与标杆的loss差异，定位出产生精度差异的原因。
 
-模型的训练过程可以分解为如下过程：数据输入、前向计算、loss、反向计算、梯度、优化器权重更新、下一个step。下面将结合如下图的流程，介绍如何对训练各阶段进行排查。
+模型的训练过程可以分解为如下过程：数据输入、前向计算、loss、反向计算、梯度、优化器权重更新、下一个step。下面将结合下图的流程，介绍如何对训练各阶段进行排查。
 
 ![general_process](./image/general_process.png)
 
@@ -179,7 +179,7 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 |--------------------|------|-------------------------------|
 | num_layers         | 2    | 缩小模型规模，方便快速验证在仅有数据并行情况下单卡可运行。 |
 | learning_rate_type | 常量   | 固定学习率，保证与标杆学习率一致。             |
-| warmup_steps       | 0    | warmup的步数                     |
+| warmup_steps       | 0    | warmup的步数。                     |
 | adam_eps           | 1e-8 | 用户若无特殊要求，按照默认值设置。             |
 | dropout            | 0    | 关闭随机性参数，如有其他随机性参数均关闭。         |
 
@@ -256,7 +256,7 @@ MindSpore与PyTorch均支持`bin`格式数据，加载相同的数据集进行�
 
 在固定权重、数据集、随机性后，对比训练第一个step的loss值差异。第一个step的loss值由网络的前向计算获得，若与标杆loss的差异较大，则可判定前向计算存在精度差异，这可能是由于模型结构未对齐、算子精度异常导致。可通过打印或者Dump工具获取MindSpore及PyTorch每层的tensor值。当前工具暂不具备自动比对功能，需要用户人工识别对应关系进行比对。MindSpore Dump工具介绍参考[精度调试工具介绍](#精度调试工具介绍)，PyTorch Dump工具使用可参考[精度工具功能说明](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/05.data_dump_PyTorch.md)。
 
-通过PyTorch的api_stack_dump.pkl文件，及MindSpore的statistic.csv文件找到层的对应关系，初步通过max、min、L2Norm判断输入输出的差异程度。若需要进一步的对比，可以加载相应的npy数据进行详细比对。
+通过PyTorch的api_stack_dump.pkl文件及MindSpore的statistic.csv文件找到层的对应关系，初步通过max、min、L2Norm判断输入输出的差异程度。若需要进一步的对比，可以加载相应的npy数据进行详细比对。
 
 #### step1的local norm值对比
 
@@ -309,9 +309,10 @@ Local norm值仅作为反向计算是否正确的初步判断，若要深入对�
 
 在step1的loss和local norm对齐的情况下，若step2的loss差异较大，则需要进一步排查优化器计算。
 
-* 首先排查影响梯度更新的参数，如learning rate、优化器参数、weight decay等是否与标杆一致。
+1. 首先排查影响梯度更新的参数，如learning rate、优化器参数、weight decay等是否与标杆一致。
 
-* 其次排查优化器计算，步骤如下：
+2. 其次排查优化器计算，步骤如下：
+
     * 保存PyTorch step1的梯度。
 
     * 在MindSpore step1加载PyTorch的梯度进行优化器更新。
@@ -320,7 +321,7 @@ Local norm值仅作为反向计算是否正确的初步判断，若要深入对�
 
 若有显著差异，则说明优化器更新存在问题，需要进一步针对优化器进行定位。
 
-PyTorch保存权重梯度，以使用apex为例，修改文件[megatron/core/optimizer/optimizer.py](https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/optimizer/optimizer.py)文件:
+PyTorch保存权重梯度，以使用apex为例，修改[megatron/core/optimizer/optimizer.py](https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/optimizer/optimizer.py)文件：
 
 ```python
 import numpy as np
@@ -389,7 +390,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 #### loss后期差异较大
 
-长稳测试中，还可能出现训练前期拟合较好，后期收敛loss出现较大差异，如图所示：
+长稳测试中，还可能出现训练前期拟合较好，后期收敛loss出现较大差异的情况，如图所示：
 
 ![loss2](./image/loss2.png)
 
@@ -397,7 +398,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 * 排查参数是否对齐：重点排查与优化器相关的参数，如优化器类型、learning rate、weight decay等。可通过画图对比训练过程中的learning rate变化是否一致，另外需要确认进行weight decay的权重是否与标杆一致。
 
-* 混合精度排查：通过Dump工具，细致排查计算过程中混合精度是否与标杆一致；
+* 混合精度排查：通过Dump工具，细致排查计算过程中混合精度是否与标杆一致。
 
 * 若收敛时loss存在差异，但差异很小，如小于1%，可通过评测下游任务进行精度验收。
 
