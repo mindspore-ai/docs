@@ -6,19 +6,19 @@
 
 ### 描述
 
-随着昇腾AI处理器（以下简称为NPU）在深度学习中的广泛应用，基于昇腾NPU原生开发的MindSpore框架也展现出了更好的性能优势。在大规模集群训练过程中，性能的提升将极大节省用户进行大模型开发的成本。因此，越来越多的用户也逐渐将原本训练模型迁移至MindSpore中。然而，由于硬件以及框架使用上的差异，用户在完成模型迁移后可能会遇到精度问题。
+随着昇腾AI处理器（以下简称为NPU）在深度学习中的广泛应用，基于昇腾NPU原生开发的MindSpore框架展现出了更好的性能优势。在大规模集群训练过程中，性能的提升将极大节省用户进行大模型开发的成本。因此，越来越多的用户逐渐将原本训练模型迁移至MindSpore中。然而，由于硬件以及框架使用上的差异，用户在完成模型迁移后可能会遇到精度问题。
 
 本文总结了大模型训练过程中常见精度问题及通用的精度问题定位方法，力求帮助用户快速排查精度问题，缩短模型精度问题定位的时间。
 
 ### 常见问题归类总结
 
-大模型训练中经常出现各种精度问题，常见的问题现象包括loss无法收敛、loss收敛效果不佳、训练后期loss不收敛、精度溢出、loss下降过程中与标杆无法拟合等；这些精度问题可能是多种来源造成的，包括模型结构、数据集、超参数、前反向计算精度、优化器计算、浮点计算精度、随机性等方面。
+大模型训练中经常出现各种精度问题，常见的问题现象包括loss无法收敛、loss收敛效果不佳、训练后期loss不收敛、精度溢出、loss下降过程中与标杆无法拟合等。这些精度问题可能是多种来源造成的，包括模型结构、数据集、超参数、前反向计算精度、优化器计算、浮点计算精度、随机性等方面。
 
-当出现精度问题时，可以从这些精度误差的来源进行问题分析。先根据CheckList进行快速的排查，再进行参数、权重对齐，固定随机性和开启确定性计算后，再执行进出问题排查和长稳训练排除。当前阶段本文主要针对有精度标杆的场景介绍精度定位的通用方法，后续将陆续添加无精度标杆下的精度问题定位内容。
+当出现精度问题时，可以从这些精度误差的来源进行问题分析。先根据CheckList进行快速排查，在进行参数、权重对齐，固定随机性和开启确定性计算后，再执行进出问题排查和长稳训练排除。当前阶段本文主要针对有精度标杆的场景介绍精度定位的通用方法，后续将陆续添加无精度标杆下的精度问题定位内容。
 
 ## 精度问题定位CheckList
 
-在定位算子精度问题之前，首先要排除其他非算子因素的干扰。结合以往精度定位案例，总结了精度定位前的CheckList。为了在定位过程中少走弯路，用户可先根据CheckList进行快速的排查。
+在定位算子精度问题之前，首先要排除其他非算子因素的干扰。结合以往精度定位案例，总结了精度定位前的CheckList。为了在定位过程中少走弯路，用户可先根据CheckList进行快速排查。
 
 ### 网络结构CheckList
 
@@ -46,8 +46,8 @@
 | aux_loss_factor          | 负载均衡loss贡献因子                     | 开启时，建议小于0.05。若进行精度对齐，不建议开启，否则会与Megatron的loss打印方式不一致。                                                               |
 | enable_sdrop             | 是否开启sdrop（drop实现）方式              | 建议设置成true，对应Megatron需要设置如下参数：<br>  `moe-token-drop-policy: position` <br>  `moe-pad-expert-input-to-capacity: True` |
 | router_dense_type        | 决定专家的dense层                      | MindFormers中可配置，建议使用FP32计算，防止溢出；Megatron中不可配置。                                                                     |
-| use_fused_ops_topkrouter | 是否使用融合算子进行dispatch以及combine的索引计算 | MindFormers中融合算子只有在设置`enable_sdrop=True`时才生效，精度对齐建议设置成True。                                                        |
-| use_shared_expert_gating | 共享专家网络中是否使用gating系数              | 检查网络的共享专家是否有gating系数，如果有设置成True。                                                                                   |
+| use_fused_ops_topkrouter | 是否使用融合算子进行dispatch以及combine的索引计算 | MindFormers中融合算子只有在设置`enable_sdrop=True`时才生效。精度对齐建议设置为True。                                                        |
+| use_shared_expert_gating | 共享专家网络中是否使用gating系数              | 检查网络的共享专家是否有gating系数，如果有设置为True。                                                                                   |
 
 ### 优化器CheckList
 
@@ -80,8 +80,8 @@
 | rotary_dtype           | 旋转位置编码的计算精度                                        | Megatron不可配置，需要检查实现是否保持一致。                 |
 | 各权重计算             | Embedding、lm_head等各权重精度计算                          | 由于MindFormers权重初始化需要设置为FP32，而通常计算精度为BF16/FP16，需要检查权重计算前，是否将权重数据类型转为BF16/FP16。 |
 | bias add               | 线性层的bias                                           | 线性层若有bias，检查add的计算精度是否一致。                  |
-| residual add           | 残差相加                                               | 检查残差的计算精度是否与标杆一致                             |
-| loss                   | loss计算模块                                           | 检查整个loss模块的计算精度是否与标杆一致                     |
+| residual add           | 残差相加                                               | 检查残差的计算精度是否与标杆一致。                             |
+| loss                   | loss计算模块                                           | 检查整个loss模块的计算精度是否与标杆一致。                     |
 | 算子高精度模式         | 昇腾算子支持高精度模式                                        | 开启方式： `context.set_context(ascend_config= {"ge_options":{ "global":{ "ge.opSelectImplmode":"high_precision" } } })` |
 
 ### 并行策略CheckList
@@ -103,7 +103,7 @@
 | 特殊词检查    | 检查bos_token_id、eos_token_id、pad_token_id等特殊ids是否与数据制作时的ids保持一致。                              |
 | input_ids校验 | 检查Embedding中的inputs_id是否符合0<=inputs_id<vocab_size；若有越界行为，会取脏数据，导致精度异常。                       |
 | 溢出检测      | 溢出状态对齐PyTorch方式，建议使用INFNAN_MODE，即`export MS_ASCEND_CHECK_OVERFLOW_MODE=INFNAN_MODE`。           |
-| 图算融合      | 关闭图算融合，即enable_graph_kernel: False。                                                          |
+| 图算融合      | 关闭图算融合，即`enable_graph_kernel: False`。                                                          |
 | 训推模板一致  | 若进行SFT训练，需要确认训练推理时使用的输入模板一致。                                                                 |
 | 版本检查      | 检查MindSpore、MindFormers、CANN版本是否配套，建议使用最新的配套版本。                                              |
 | 与开源差异    | MindFormers中的已支持了主流的开源LLM模型，并经过了较为充分的测试。如果用户基于MindFormers中开源模型进行开发，可以重点排查与MindFormers开源模型的差异。 |

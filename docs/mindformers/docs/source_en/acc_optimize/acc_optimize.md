@@ -6,7 +6,7 @@
 
 ### Descriptions
 
-As the Ascend AI processor (hereinafter referred to as NPU) is widely used in deep learning, the MindSpore framework, which is developed natively based on the Ascend NPU, also shows better performance advantages. During large-scale cluster training, the performance improvement will greatly save users the cost of large model development. Therefore, more and more users are gradually migrating their original training models to MindSpore. However, due to the differences in hardware and framework usage, users may encounter accuracy problems after completing the model migration.
+As the Ascend AI processor (hereinafter referred to as NPU) is widely used in deep learning, the MindSpore framework, which is developed natively based on the Ascend NPU, shows better performance advantages. During large-scale cluster training, the performance improvement will greatly save users the cost of large model development. Therefore, more and more users are gradually migrating their original training models to MindSpore. However, due to the differences in hardware and framework usage, users may encounter accuracy problems after completing the model migration.
 
 This paper summarizes the common accuracy problems in the training process of large models and general accuracy problem localization methods, and seeks to help users quickly troubleshoot accuracy problems and shorten the time for model accuracy problem localization.
 
@@ -103,7 +103,7 @@ Before locating the operator accuracy problem, we should first eliminate the int
 | Special Words Check | Check whether the special ids such as bos_token_id, eos_token_id, pad_token_id are consistent with the ids when the data is produced.                              |
 | input_ids check | Check whether inputs_id in Embedding is consistent with 0<=inputs_id<vocab_size; if there is out-of-bounds behavior, it will fetch dirty data and lead to precision anomaly.                       |
 | Overflow Detection | Overflow Status Aligns PyTorch, suggest to use INFNAN_MODE, i.e., `export MS_ASCEND_CHECK_OVERFLOW_MODE=INFNAN_MODE`. |
-| Graph Operator Fusion | Turn off graph operator fusion, i.e. enable_graph_kernel: False. |
+| Graph Operator Fusion | Turn off graph operator fusion, i.e. `enable_graph_kernel: False`. |
 | Training Inference Template Consistency | If training SFT, you need to make sure that the input template used for training inference is consistent.  |
 | Version Check | Check whether the versions of MindSpore, MindFormers and CANN are compatible, it is recommended to use the latest compatible version.          |
 | Differences with Open Source | MindFormers has supported the mainstream open source LLM models, and has been more fully tested. If you are developing based on the open source models in MindFormers, you can focus on checking the differences with the open source models in MindFormers. |

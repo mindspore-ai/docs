@@ -8,15 +8,15 @@
 
 性能一般讨论的是模型训练性能，在指定模型和输入数据的情况下，以完成一次端到端训练所需要时间作为参考指标。端到端是指完成一个人工智能模型单步训练的过程，时间主要由以下部分构成：
 
-* 数据加载时间：指的是模型加载训练数据、权重等数据的时间，包括将数据从硬件存储设备读取到CPU中、CPU中数据的预处理、CPU数据搬运到NPU上。对于一些需要切分到若干张NPU上的模型，数据加载还包括从一张NPU广播到其他NPU上的时间。
+* 数据加载时间：指的是模型加载训练数据、权重等数据的时间，包括将数据从硬件存储设备读取到CPU中、CPU中数据的预处理、CPU数据搬运到NPU上的过程。对于一些需要切分到若干张NPU上的模型，数据加载还包括从一张NPU广播到其他NPU上的时间。
 
-* 模型前向反向时间：特指深度学习模型的Forward和Backward，包含前向的数据计算和反向的数据微分求导。
+* 模型前向反向时间：深度学习模型的Forward和Backward，包含前向的数据计算和反向的数据微分求导。
 
-* 优化器时间：通常指的是模型参数更新时间。
+* 优化器时间：指的是模型参数更新时间。
 
-* 模型后处理时间：一般指的是优化器更新后的时间，包括数据的后处理或者一些必要的同步操作，通常取决于模型特有操作。
+* 模型后处理时间：指的是优化器更新后的时间，包括数据的后处理或者一些必要的同步操作，通常取决于模型特有操作。
 
-* 通信时间：概念比较宽泛，我们一般将单节点的卡间通信耗时和多节点的节点间通信耗时归为通信时间。通过MindSpore包含的并行技术，通信和计算通常可以并行执行，此时部分通信时间会被掩盖，因此我们一般考虑未被计算掩盖的通信时间。
+* 通信时间：概念比较宽泛，我们一般将单节点的卡间通信耗时和多节点的节点间通信耗时归为通信时间。通过MindSpore的并行技术，通信和计算通常可以并行执行，此时部分通信时间会被掩盖，因此我们一般考虑未被计算掩盖的通信时间。
 
 * 调度时间：指的是模型从CPU的指令到调用NPU侧的核所需要的时间。
 
@@ -38,7 +38,7 @@ $$
 
 * SeqLength：指的是序列的长度，进行文本处理的时候，我们需要将输入的文本转换成数字序列，然后将这些数字序列作为模型的输入。SeqLength就是指这些数字序列的长度，也就是文本的长度。在模型训练和推理的过程中，我们需要指定一个固定的SeqLength，以便进行批处理和计算。较长的SeqLength可以提高模型的准确性，但会增加计算量和内存消耗；而较短的SeqLength则会减少计算量和内存消耗，但可能会降低模型的准确性。
 
-* sample：其值等于global_batch_size。在分布式训练中，数据被分成多个部分，每个部分被送到不同的NPU上进行计算。这些NPU上的Batch Size加起来就是全局批量大小。全局批量大小的选择是一个重要的决策，因为它会直接影响模型的训练性能。如果全局批量太小，每个NPU上的Batch Size可能会太小，导致模型的收敛速度变慢。如果全局批量太大，每个NPU上的Batch Size可能会太大，导致NPU内存不足或者模型的精度下降。要找到最佳Batch Size大小值，一个好的经验法则是达到NPU对给定数据类型的内存限制，即Batch Size占满NPU内存。
+* sample：其值等于全局批量大小，即global_batch_size的值。在分布式训练中，数据被分成多个部分，每个部分被送到不同的NPU上进行计算。这些NPU上的Batch Size加起来就是全局批量大小。全局批量大小的选择是一个重要的决策，因为它会直接影响模型的训练性能。如果全局批量太小，每个NPU上的Batch Size可能会太小，导致模型的收敛速度变慢；如果全局批量太大，每个NPU上的Batch Size可能会太大，导致NPU内存不足或者模型的精度下降。要找到最佳Batch Size大小值，一个好的经验法则是达到NPU对给定数据类型的内存限制，即Batch Size占满NPU内存。
 
 * s：即per_step_time，指在训练过程中，每一步所花费的时间。
 
@@ -46,7 +46,7 @@ $$
 
 ### 并行特性简介
 
-在大模型训练中，由于数据量和模型复杂度的增加，单个计算节点的计算能力难以满足训练的需求。为了提高训练效率和加速训练过程，通常采用并行策略来将计算任务分配给多个计算节点进行计算。
+在大模型训练中，由于数据量和模型复杂度的增加，单个计算节点的计算能力难以满足训练的需求。为了提高训练效率和加速训练过程，通常采用并行策略将计算任务分配给多个计算节点进行计算。
 
 并行策略通常分为数据并行（Data Parallelism，简称DP）、模型并行（一般指张量并行Tensor Parallelism，简称TP）、流水并行（Pipeline Parallelism，简称PP）、优化器并行（Optimizer Parallelism，简称OP）、序列并行（Sequence Parallelism，简称SP）、多副本并行等多种并行模式。在实际应用中，通常会采用多种并行策略，以及多种优化手段，例如使用优化器并行、重计算等方式，以减少模型对内存的使用，提高训练效率。并行策略设计与模型的效率息息相关，在模型调优之前先确定一组或多组较优的并行策略，是至关重要的。
 
@@ -54,7 +54,7 @@ $$
 
 ### 重计算
 
-MindSpore采用反向模式的自动微分，根据正向图计算流程来自动推导出反向图，正向图和反向图一起构成了完整的计算图。在计算某些反向算子时，需要用到一些正向算子的计算结果，导致这些正向算子的计算结果需要驻留在内存中，直到依赖它们的反向算子计算完，这些正向算子的计算结果占用的内存才会被复用。这一现象推高了训练的内存峰值，在大规模网络模型中尤为显著。
+MindSpore采用反向模式的自动微分，根据正向图计算流程自动推导出反向图，正向图和反向图一起构成了完整的计算图。在计算某些反向算子时，需要用到一些正向算子的计算结果，导致这些正向算子的计算结果需要驻留在内存中，直到依赖它们的反向算子计算完，这些正向算子的计算结果占用的内存才会被复用。这一现象推高了训练的内存峰值，在大规模网络模型中尤为显著。
 
 为了解决这个问题，MindSpore提供了重计算的功能，可以不保存正向算子的计算结果，让这些内存可以被复用，然后在计算反向算子时，如果需要正向的结果，再重新计算正向算子。
 
@@ -101,13 +101,13 @@ MindFormers本身集成了profiling数据采集的功能，使用步骤如下：
    profile_memory: True  #收集Tensor内存数据
    ```
 
-  profile_start_step和profile_stop_step确定采集区间，因为采集耗时较长，不推荐区间设置过大，一般设置2~4即可。且第一个step涉及编译，因此推荐采集第3步之后的区间。
+   profile_start_step和profile_stop_step确定采集区间，因为采集耗时较长，不推荐区间设置过大，一般设置2~4即可。且第一个step涉及编译，因此推荐采集第3步之后的区间。
 
 2. 查看数据
 
    采集工具默认会在`./output`路径下创建一个`profile`的文件夹，该路径可通过模型yaml配置文件的output_dir字段进行设置。
 
-   生成的文件及介绍参考[profile文件介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#目录结构)，主要收集算子、任务等运行耗时，CPU利用率，内存消耗等信息，用于性能调优分析需要的各项数据。
+   生成的文件及介绍参考[profile文件介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#目录结构)，主要收集算子、任务等运行耗时、CPU利用率、内存消耗等信息，用于性能调优分析需要的各项数据。
 
 #### MindStudio Insight
 
@@ -143,7 +143,7 @@ MindStudio Insight工具以时间线（Timeline）的呈现方式为用户提供
 
 #### IR 图
 
-在MindFormers配置文件中，只需要开启save_graphs，运行时会输出一些图编译过程中生成的ir后缀结尾的中间文件，我们称为IR文件。默认会在当前任务执行目录下生成一个graph的目录，所有的IR图都会保存在这其中。IR文件是一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)，配置方法如下：
+在MindFormers配置文件中，只需要开启save_graphs，运行时会输出一些图编译过程中生成的.ir后缀结尾的中间文件，我们称为IR文件。默认会在当前任务执行目录下生成一个graph目录，所有的IR图都会保存在该目录下。IR文件是一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)，配置方法如下：
 
 ```yaml
 context:
@@ -212,35 +212,35 @@ MindSpore提供了SAPP（Symbolic Automatic Parallel Planner）自动负载均�
 
 * 数据并行
 
-  多路数据同时训练，仅在梯度更新进行一次通信，性能最优，但内存不会减少；
+  多路数据同时训练，仅在梯度更新进行一次通信，性能最优，但内存不会减少。
 
 * 模型并行
 
-  将整个模型切分到不同Device中，网络并行计算各自部分并在LayerNorm等位置进行通信，最省内存，但通信量很大；
+  将整个模型切分到不同Device中，网络并行计算各自部分并在LayerNorm等位置进行通信，最省内存，但通信量很大。
 
 * 流水线并行
 
-  将模型的不同阶段(stage)切分到不同Device中，网络串行计算各个阶段并在转换阶段时进行通信，通过重计算节省部分内存，通信量较小，但会存在计算闲置(bubble)；
+  将模型的不同阶段(stage)切分到不同Device中，网络串行计算各个阶段并在转换阶段时进行通信，通过重计算节省部分内存，通信量较小，但会存在计算闲置(bubble)。
 
 * 优化器并行
 
-  将优化器权重、模型权重按DP切分（DP能整除权重shape的第0维），梯度更新时进行通信，可以明显节省内存，通信量较小；
+  将优化器权重、模型权重按DP切分（DP能整除权重shape的第0维），梯度更新时进行通信，可以明显节省内存，通信量较小。
 
 * 序列并行
 
-  短序列并行在LayerNorm处对序列按MP进行切分，通信量不变，减少内存与Norm的部分计算量；
+  短序列并行在LayerNorm处对序列按MP进行切分，通信量不变，减少内存与Norm的部分计算量。
 
 * 多副本并行
 
-  在模型并行中，MatMul等算子切分为多份，不同副本之间计算通信交错进行，实现通信掩盖；
+  在模型并行中，MatMul等算子切分为多份，不同副本之间计算通信交错进行，实现通信掩盖。
 
 #### 使用建议
 
-实际应用中，通常是多种并行策略组合使用。根据模型规模，机器数量确定适当的并行策略。本节介绍不同规模模型的推荐配置，示例配置中各配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)。
+实际应用中，通常是多种并行策略组合使用。根据模型规模、机器数量确定适当的并行策略。本节介绍不同规模模型的推荐配置，示例配置中各配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)。
 
 * 小参数模型
 
-  模型规模较小时（如7B），可使用纯数据并行+优化器并行，如果内存富裕可进一步开启梯度累积。使用8卡训练，[Llama2-7B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml)。
+  模型规模较小时（如7B），可使用纯数据并行+优化器并行，如果内存充足可进一步开启梯度累积。使用8卡训练，[Llama2-7B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml)。
 
 * 中等参数模型
 
@@ -256,7 +256,7 @@ MindSpore提供了SAPP（Symbolic Automatic Parallel Planner）自动负载均�
 
 MindSpore还提供DryRun功能，能够在本地环境中模拟大集群中每个rank的内存消耗情况，从而在不依赖实际大集群资源的情况下，进行高效的设备内存模拟。
 
-完成重计算配置后，先使用DryRun分析，所需内存是否超过最大可用内存，如果超过，需要重新调整配置。最大可用内存，通过如下字段配置。推荐值为`58G`，如果设置过大，可能导致其他组件内存不足。
+完成重计算配置后，先使用DryRun分析，所需内存是否超过最大可用内存，如果超过，需要重新调整配置。最大可用内存，通过如下字段配置，推荐值为`58GB`，如果设置过大，可能导致其他组件内存不足。
 
 ```yaml
 context:
@@ -302,7 +302,7 @@ Actual peak memory usage (with fragments)表示包含碎片的NPU内存使用峰
 
 * 检查重计算生效算子
 
-  在IR图中检查是否有Cast、SiLU和Mul的duplicated标签的算子，没有带标签的算子说明实际计算图没有重计算这部分算子。这里只有Cast算子带了duplicated标签。
+  在IR图中检查Cast、SiLU和Mul等算子是否有duplicated标签，没有带标签的算子说明实际计算图没有重计算这部分算子。这里只有Cast算子带了duplicated标签。
 
   ```text
   %1834(CNode_108839) = PrimFunc_Cast(%1833, I64(43)) {instance name: cast} primitive_attrs: {output_names: [output], input_names: [x, dst_type], recompute: Bool(1)} cnode_attrs: {recompute_sub_graph: U64(64), recompute_id: I64(65), duplicated: Bool(1), need_cse_after_recompute: Bool(1)} cnode_primal_attrs: {micro: I64(0)}
@@ -315,7 +315,7 @@ Actual peak memory usage (with fragments)表示包含碎片的NPU内存使用峰
 
 ![reshape](./images/reshape.png)
 
-由此可知根因在于，细粒度多副本场景中Linear的输入shape是二维的，而非细粒度多副本中Linear的输入shape是三维的，导致Linear和Mul之间有Reshape算子，没对这个Reshape重计算导致单纯对SiLU的重计算没有用而被优化掉。额外对Reshape重计算后内存可以正常减小。参考配置如下：
+由此可知根因在于，细粒度多副本场景中Linear的输入shape是二维的，而非细粒度多副本中Linear的输入shape是三维的，导致Linear和Mul之间有Reshape算子，没对这个Reshape重计算导致单纯对SiLU的重计算没有生效而被优化掉。额外对Reshape重计算后内存可以正常减小。参考配置如下：
 
 ```yaml
 recompute_config:
