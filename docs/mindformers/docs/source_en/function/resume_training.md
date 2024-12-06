@@ -91,8 +91,9 @@ You can modify the configuration file to control resumable training. The main pa
 
 | Parameter              | Description                                                                 |
 |------------------|---------------------------------------------------------------------|
-| load_checkpoint  | Weight path loaded during resumable training. The path can be a folder path (used to load distributed weights) or a specific weight file path. The default value is an empty string, indicating that no weight is loaded.    |
+| load_checkpoint  | Weight path loaded during resumable training. The path can be a folder path (used to load distributed weights) or a specific weight file path. The default value is an empty string, indicating that no weight is loaded (required for resumable training). |
 | resume_training  | Specifies whether to enable resumable training. You can set it to `True` or specify a weight file name. If the value is `True`, the system automatically resumes the training from the last interruption. The default value is `False`.   |
+| load_ckpt_async | Determines whether to load model weights and compile in parallel (this configuration does not take effect when auto_trans_ckpt is set to true). The default value is False (serial execution). <br /> When it is `True`, the parallel capability of loading ckpt weights and building model is enabled to reduce the overall time  resume training. |
 
 Based on the input parameters, there are four cases.
 
