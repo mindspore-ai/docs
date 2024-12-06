@@ -61,6 +61,7 @@ pip show mindspore_gs
        act_quant_granularity: "per_tensor"
        kvcache_quant_granularity: "per_channel"
        weight_quant_granularity: "per_channel"
+       precision_recovery: None
        modules_to_not_convert: ['lm_head']
        algorithm_args: {}
    ```
@@ -75,6 +76,7 @@ pip show mindspore_gs
    | act_quant_granularity  | 可选 | 激活的量化粒度，默认为per_tensor量化                                           | str       | per_tensor/per_token        |
    | kvcache_quant_granularity  | 可选 | KVCache的量化粒度，默认为per_channel量化                                           | str       | per_channel/per_token  |
    | weight_quant_granularity  | 可选 | weight的量化粒度，默认为per_channel量化                                           | str       | per_channel/per_group  |
+   | precision_recovery  | 可选 | 精度恢复算法，默认为None                                           | str       | GPTQ/None  |
    | modules_to_not_convert | 必选 | 配置不进行量化的层                                                        | List[str] | /                |
    | algorithm_args         | 必选 | 对接MindSpore Golden Stick不同的算法类型配置，例如：smooth_quant算法需要配置alpha=0.5 | Dict      | /                |
    | group_size         | 可选 | per_group量化时对应的group_size大小。当weight_quant_granularity为per_group量化时，group_size为必选。 | int      | 64/128                |
