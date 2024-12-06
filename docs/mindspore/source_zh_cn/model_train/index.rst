@@ -92,6 +92,7 @@
    train_availability/graceful_exit
    train_availability/mindio_ttp
    train_availability/storage_sys
+   train_availability/UCE_fault_recover
 
 .. toctree::
    :glob:
