@@ -157,7 +157,7 @@ MindStudio Insight工具以时间线（Timeline）的形式呈现全流程在线
 
 #### IR 图
 
-在[MindFormers配置文件](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/appendix/conf_files.html)中，只需要开启save_graphs，运行时会输出一些图编译过程中生成的.ir后缀的中间文件，这些被称为IR文件。默认情况下，这些文件会保存在当前执行目录下的graph目录中。IR文件是一种比较直观易懂的文本格式文件，用于描述模型结构的文件，可以直接用文本编辑软件查看。配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)，配置方法如下：
+在[MindFormers配置文件](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/appendix/conf_files.html)中，只需要开启save_graphs，运行时会输出一些图编译过程中生成的.ir后缀的中间文件，这些被称为IR文件。默认情况下，这些文件会保存在当前执行目录下的graph目录中。IR文件是一种比较直观易懂的文本格式文件，用于描述模型结构的文件，可以直接用文本编辑软件查看。配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/appendix/conf_files.html)，配置方法如下：
 
 ```yaml
 context:
@@ -314,7 +314,7 @@ bash dry_run.sh $train.yaml $rank_size $stage
 
 * $train.yaml：需要调试的配置文件
 * $rank_size：模拟卡数
-* $stage：阶段书，等于流水线并行数量
+* $stage：阶段数，等于流水线并行数量
 
 执行完成后，输出目录`output_dryrun`下会生成每个stage的日志信息，每个日志末尾会打印如下信息。
 
