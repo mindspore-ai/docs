@@ -288,8 +288,8 @@ PIPELINE_STAGES=$3
 RANK_GAP=$((RANK_SIZE/PIPELINE_STAGES))
 ROOT_PATH=`pwd`
 
+export MS_SIMULATION_LEVEL=1
 export RANK_SIZE=$RANK_SIZE
-unset RANK_TABLE_FILE
 
 rm -rf output_dryrun
 mkdir output_dryrun
