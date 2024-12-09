@@ -428,7 +428,7 @@ train_dataset: &train_dataset
       output_columns: ["content", "summary"]
   tokenizer:
     type: ChatGLM3Tokenizer
-    vocab_file: "/data/z00827078/GLM3/tokenizer.model"
+    vocab_file: "/path/to/tokenizer.model"
   input_columns: ["input_ids", "labels"]
   max_source_length: 1024
   max_target_length: 1023
