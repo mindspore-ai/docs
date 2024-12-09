@@ -179,7 +179,6 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 |--------------------|------|-------------------------------|
 | num_layers         | 2    | 缩小模型规模，方便快速验证在仅有数据并行情况下单卡可运行。 |
 | learning_rate_type | 常量   | 固定学习率，保证与标杆学习率一致。             |
-
 | warmup_steps       | 0    | warmup的步数。                    |
 | adam_eps           | 1e-8 | 用户若无特殊要求，按照默认值设置。             |
 | dropout            | 0    | 关闭随机性参数，如有其他随机性参数均关闭。         |
