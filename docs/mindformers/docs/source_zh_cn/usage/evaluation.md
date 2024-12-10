@@ -77,7 +77,7 @@ MindFormers模型参数
 #### 评测前准备
 
 1. 创建模型目录MODEL_DIR；
-2. 模型目录下须放置MindFormers权重、yaml配置文件、分词器文件，获取方式参考MindFormers模型README文档；
+2. 模型目录下须放置MindFormers权重（\*.ckpt）、yaml配置文件（\*.yaml）、分词器文件（\*_tokenizer.model）。获取方式参考MindFormers各模型的README文档，文档通常在[model_cards](https://gitee.com/mindspore/mindformers/tree/r1.3.0/model_cards)目录下或者在[research](https://gitee.com/mindspore/mindformers/tree/r1.3.0/research)目录下，根据用户所使用的模型而定；
 3. 配置yaml配置文件。
 
 yaml配置参考：
@@ -168,7 +168,7 @@ VLMEvalKit主要参数
 #### 评测前准备
 
 1. 创建模型目录model_path；
-2. 模型目录下须放置MindFormers权重、yaml配置文件、分词器文件，获取方式参考MindFormers模型README文档；
+2. 模型目录下须放置MindFormers权重（\*.ckpt）、yaml配置文件（\*.yaml）、分词器文件（\*_tokenizer.model）。获取方式参考MindFormers各模型的README文档，文档通常在[model_cards](https://gitee.com/mindspore/mindformers/tree/r1.3.0/model_cards)目录下或者在[research](https://gitee.com/mindspore/mindformers/tree/r1.3.0/research)目录下，根据用户所使用的模型而定；
 3. 配置yaml配置文件。
 
 yaml配置参考：
