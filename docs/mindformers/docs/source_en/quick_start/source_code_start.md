@@ -27,12 +27,12 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
           python alpaca_converter.py \
             --data_path /{path}/alpaca_data.json \
             --output_path /{path}/alpaca-data-conversation.json
-
-          # Parameter descriptions
-          data_path:   Input the path to the downloaded file
-          output_path: Save path of the output file
-
         ```
+
+        **Parameter descriptions**
+
+        - data_path:   Input the path to the downloaded file.
+        - output_path: Save path of the output file.
 
     2. Execute [mindformers/tools/dataset_preprocess/llama/llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py), and generate MindRecord data and convert data with prompt templates to MindRecord format.
 
@@ -44,19 +44,22 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
             --model_file /{path}/tokenizer.model \
             --seq_length 4096 \
             --output_file /{path}/alpaca-fastchat4096.mindrecord
-
-          # Parameter descriptions
-          dataset_type: Preprocessed data types
-          input_glob:   Path to the converted alpaca file
-          model_file:   Path to the model tokenizer.model file
-          seq_length:   Sequence length of the output data
-          output_file:  Save path of the output file
         ```
 
-        The console outputs the following, proving that the format conversion was successful.
+        **Parameter descriptions**
+
+        - dataset_type: Preprocessed data types. The options include "wiki" and "qa."
+            - "wiki" is used to process the Wikitext2 dataset, which is suitable for the pre-training and evaluation stages.
+            - "qa" is used to process the Alpaca dataset, converting it into a question-answer format, which is suitable for the fine-tuning stage.
+            For other dataset conversion scripts, please refer to the corresponding  [model documentation](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/start/models.html).
+        - input_glob:   Path to the converted alpaca file.
+        - model_file:   Path to the model tokenizer.model file.
+        - seq_length:   Sequence length of the output data.
+        - output_file:  Save path of the output file.
+
+    3. The console outputs the following, proving that the format conversion was successful.
 
         ```shell
-
           # Console outputs
           Transformed 52002 records.
           Transform finished, output files refer: {path}/alpaca-fastchat4096.mindrecord

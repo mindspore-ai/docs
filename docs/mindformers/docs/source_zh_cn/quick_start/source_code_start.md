@@ -27,12 +27,12 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
           python alpaca_converter.py \
             --data_path /{path}/alpaca_data.json \
             --output_path /{path}/alpaca-data-conversation.json
-
-          # 参数说明
-          data_path:   输入下载的文件路径
-          output_path: 输出文件的保存路径
-
         ```
+
+        **参数说明**
+
+        - data_path:   输入下载的文件路径。
+        - output_path: 输出文件的保存路径。
 
     2. 执行[mindformers/tools/dataset_preprocess/llama/llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，生成MindRecord数据，将带有prompt模板的数据转换为MindRecord格式。
 
@@ -44,19 +44,22 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
             --model_file /{path}/tokenizer.model \
             --seq_length 4096 \
             --output_file /{path}/alpaca-fastchat4096.mindrecord
-
-          # 参数说明
-          dataset_type: 预处理数据类型
-          input_glob:   转换后的alpaca的文件路径
-          model_file:   模型tokenizer.model文件路径
-          seq_length:   输出数据的序列长度
-          output_file:  输出文件的保存路径
         ```
 
-        控制台输出如下内容，证明格式转换成功。
+        **参数说明**
+
+        - dataset_type: 预处理数据类型。选项包括 "wiki" 和 "qa" 两种。
+            - "wiki" 用于处理 Wikitext2 数据集，该数据集适用于预训练和评测阶段。
+            - "qa" 用于处理 alpaca 数据集，将该数据集转换为问答格式，该数据集适用于微调阶段。
+            其他的数据集转换脚本请参考对应的[模型文档](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.0/start/models.html)。
+        - input_glob: 转换后的alpaca的文件路径。
+        - model_file: 模型tokenizer.model文件路径。
+        - seq_length: 输出数据的序列长度。
+        - output_file: 输出文件的保存路径。
+
+    3. 控制台输出如下内容，证明格式转换成功。
 
         ```shell
-
           # 控制台输出
           Transformed 52002 records.
           Transform finished, output files refer: {path}/alpaca-fastchat4096.mindrecord
