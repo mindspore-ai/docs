@@ -421,7 +421,7 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
 
 ### 指定输入输出host内存
 
-指定设备内存支持CPU、Asend和GPU硬件后端。指定的输入host内存，缓存中的数据将直接拷贝到设备（device）内存上，指定的输出host内存，设备（device）内存的数据将直接拷贝到这块缓存中。避免了额外的host之间的数据拷贝，提升推理性能。
+指定设备内存支持CPU、Ascend和GPU硬件后端。指定的输入host内存，缓存中的数据将直接拷贝到设备（device）内存上，指定的输出host内存，设备（device）内存的数据将直接拷贝到这块缓存中。避免了额外的host之间的数据拷贝，提升推理性能。
 
 通过[SetData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#setdata-1)可单独或者同时指定输入和输出host内存。建议参数`own_data`为false，当`own_data`为false，用户需要维护host内存的生命周期，负责host内存的申请和释放。当参数`own_data`为true时，在MSTensor析构时释放指定的内存。
 
@@ -471,7 +471,7 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
 
 ### 指定输入输出设备（device）内存
 
-指定设备内存支持Asend和GPU硬件后端。指定输入输出设备内存可以避免device到host内存之间的相互拷贝，比如经过芯片dvpp预处理产生的device内存输入直接作为模型推理的输入，避免预处理结果从device内存拷贝到host内存，host结果作为模型推理输入，推理前重新拷贝到device上。
+指定设备内存支持Ascend和GPU硬件后端。指定输入输出设备内存可以避免device到host内存之间的相互拷贝，比如经过芯片dvpp预处理产生的device内存输入直接作为模型推理的输入，避免预处理结果从device内存拷贝到host内存，host结果作为模型推理输入，推理前重新拷贝到device上。
 
 指定输入输出设备内存样例可参考[设备内存样例](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/device_example_cpp)。
 
