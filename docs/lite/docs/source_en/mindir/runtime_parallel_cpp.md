@@ -61,7 +61,7 @@ runner_config->SetContext(context);
 runner_config->SetWorkersNum(kNumWorkers);
 ```
 
-> For details on the configuration method of Context, see [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html).
+> For details on the configuration method of Context, see [Context](https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_cpp.html#%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E4%B8%8A%E4%B8%8B%E6%96%87).
 >
 > Multi-model concurrent inference currently only supports [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html), and [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html) several different hardware backends. When setting the GPU backend, you need to set the GPU backend first and then the CPU backend, otherwise it will report an error and exit.
 >
@@ -100,6 +100,22 @@ if (predict_ret != mindspore::kSuccess) {
 ```
 
 > It is recommended to use GetInputs and GetOutputs to obtain the inputs and outputs of the Predict interface. Users can set the memory address of the data and Shape-related information through SetData.
+
+## Compiling And Executing
+
+Follow the [quickstart](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#excuting-compilation)Environment variables, set the environment variables. Then compile the program as follows:
+
+```bash
+mkdir build && cd build
+cmake ../
+make
+```
+
+After the compilation is successful, you can get the quick_start_parallel_cpp executable in the 'build' directory. Example of executing program 'quick_start_parallel_cpp':
+
+```bash
+./quick_start_parallel_cpp --model_path=../model/mobilenetv2.mindir --device_type=CPU
+```
 
 ## Memory Release
 
