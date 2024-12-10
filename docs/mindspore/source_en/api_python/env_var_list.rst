@@ -970,7 +970,13 @@ Profiler
    * - MS_PROFILER_OPTIONS
      - Set the Profiler's collection options
      - String
-     - Configure the Profiler's collection options in the format of a JSON string.
+     - Configure the Profiler's collection options in the format of a JSON string. The following parameters are different from the instantiation Profiler method, but the value meanings are the same:
+
+       activities (list, optional) - Set the devices for collecting performance data, multiple devices can be specified, default value: [CPU, NPU]. Possible values: [CPU], [NPU], [CPU, NPU].
+
+       aicore_metrics (str, optional) - Set the type of AI Core metrics. Default value: AicoreNone. Possible values: AicoreNone, ArithmeticUtilization, PipeUtilization, Memory, MemoryL0, ResourceConflictRatio, MemoryUB, L2Cache.
+
+       profiler_level (str, optional) - Set the level of performance data collection. Default value: Level0. Possible values: Level0, Level1, Level2.
      - This environment variable enables one of two ways to enable performance data collection with the input parameter instantiation Profiler method.
    * - PROFILING_MODE
      - Set the mode of CANN Profiling
