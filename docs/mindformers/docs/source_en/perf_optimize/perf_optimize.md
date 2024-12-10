@@ -4,29 +4,29 @@
 
 ## Performance Optimization Descriptions
 
-This document mainly introduces the performance tuning of large language model, detailed introduction to the basic theoretical knowledge related to performance tuning, analysis ideas and related tools to use guidance, as well as case sharing.
+This document introduces the performance tuning of large language models, detailing the basic theoretical knowledge related to performance tuning, guidance on the use of related tools and the overall idea of performance tuning, as well as case sharing. When you start to work on performance tuning of large models, you should have the basic knowledge of large models. In order to avoid dispersion, this document will not explain the basic concepts related to large models, and focus on performance tuning introduction.
 
-Performance generally includes in terms of model training performance, with the time required to complete a single end-to-end training session as a reference metric, given a specified model and input data. End-to-end refers to the process of completing a single-step training of an AI model, and the time is mainly composed of the following components:
+Performance generally includes in terms of model training performance, with the time required to complete a single end-to-end training session, given a specified model and input data. End-to-end refers to the process of completing a single-step training of an AI model, and the time is mainly composed of the following components:
 
-* Data loading time: it refers to the time for the model to load the training data, weights, and other data, including reading the data from the hardware storage device into the CPU, preprocessing the data in the CPU, and carrying the CPU data to the NPU. For some models that need to be sliced onto several NPUs, the data loading also includes the time to broadcast from one NPU to other NPUs.
+* Data loading time: it refers to the time for the model to load the training data and weights, including reading the data from the hardware storage device into the CPU, preprocessing the data in the CPU, and carrying the CPU data to the NPU. For some models that need to be sliced onto several NPUs, the data loading time also includes the time to broadcast from one NPU to other NPUs.
 
-* Model Forward and Backward Time: Specifically refers to the forward and backward of the deep learning model, which contains the forward data computation and the reverse data differential derivation.
+* Model Forward Computation and Backward Computation Time: contains the forward data computation and the reverse data differential derivation.
 
 * Optimizer time: usually refers to the model parameter update time.
 
-* Model post-processing time: generally refers to the time after the optimizer is updated, including post-processing of data or some necessary synchronization operations, usually depending on model-specific operations.
+* Model post-processing time: it refers to after the optimizer is updated, including post-processing of data or necessary synchronization operations, usually depending on model-specific operations.
 
-* Communication time: a broad concept, we generally categorize the communication time as the inter-card communication elapsed time for single nodes and the inter-node communication elapsed time for multiple nodes. With the parallelization technique included in MindSpore, communication and computation can usually be executed in parallel, at which time part of the communication time is masked, so we generally consider the communication time that is not masked by computation.
+* Communication time: a broad concept, including the inter-card communication elapsed time for single nodes and the inter-node communication elapsed time for multiple nodes. With the parallelization technique in MindSpore, communication and computation can usually be executed in parallel, at which time part of the communication time is masked, so we generally consider the communication time that is not masked by computation.
 
-* Scheduling time: This refers to the time it takes for the model to go from an instruction of the CPU to invoking a core on the NPU side.
+* Scheduling time: it refers to the time it takes for the model to go from a CPU instruction to invoking the NPU kernel.
 
-Performance tuning that is, through the optimization of model algorithms, parameters, optimization of parallelism strategy and other means to reduce the time of the above parts, generally focusing on the optimization of the model forward-backward time, communication time.
+Performance tuning that is, through the optimization of model algorithms, parameters, parallelism strategy and other means to reduce the time of the above parts, generally focusing on the optimization of the model forward-backward time, communication time.
 
 ## Introduction to Performance Tuning Basics
 
 ### Performance Indicators
 
-Performance is usually evaluated by throughput. For the large language model, the throughput mainly looks at the number of tokens consumed per card per second. The formula is as follows:
+Performance is usually evaluated by throughput. For the large language model, the throughput mainly looks at the number of tokens processed per card per second. The formula is as follows:
 
 $$
 Throughput = SeqLength * (sample/s/p)
@@ -40,23 +40,37 @@ The meaning of each field is as follows:
 
 * sample: its value is equal to global_batch_size. in distributed training, the data is divided into multiple parts, and each part is sent to a different NPU for computation. The batch size on these NPUs adds up to the global batch size. The choice of global batch size is an important decision because it directly affects the training performance of the model. If the global batch size is too small, the batch size on each NPU may be too small, resulting in slower convergence of the model. If the global batch size is too large, the batch size on each NPU may be too large, resulting in either a lack of NPU memory or a decrease in the accuracy of the model. A good rule to find the optimal Batch Size is to reach the NPU's memory limit for a given data type, i.e., the Batch Size fills up the NPU memory.
 
-* s: i.e., per_step_time, refers to the time spent on each step in the training process.
+* s: i.e., per_step_time in seconds, refers to the time spent on each step in the training process.
 
 * p: i.e., parallel_num, data parallel dimension size.
 
 ### Introduction to Parallel Feature
 
-In large model training, due to the increase of data volume and model complexity, the computational capacity of a single computing node is difficult to meet the training demand. In order to improve the training efficiency and accelerate the training process, a parallel strategy is usually used to distribute the computational tasks to multiple computational nodes for computation.
+In large model training, due to the increase of data volume and model complexity, the computational capacity of a single computing node is difficult to meet the training demand. In order to improve the training efficiency and accelerate the training process, a parallel strategy is usually used to distribute the computational tasks to multiple computational nodes.
 
-Parallelism strategies are usually classified into various parallel modes such as Data Parallelism (DP), Model Parallelism (generally referred to as Tensor Parallelism (TP)), Pipeline Parallelism (PP), Optimizer Parallelism (OP), Sequence Parallelism (SP), and Multi-Copy Parallelism. In practice, multiple parallel strategies, as well as multiple optimizations, such as using optimizer parallelism and recomputation, are usually employed to reduce the model's use of memory and improve training efficiency. Parallel strategy design is closely related to the efficiency of the model, and it is crucial to identify one or more sets of better parallel strategies before model tuning.
+Parallelism strategies are usually classified into various parallel modes:
+
+* Data Parallelism (DP for short)
+
+* Model Parallelism (generally referred to as Tensor Parallelism, TP for short)
+
+* Pipeline Parallelism (PP for short)
+
+* Optimizer Parallelism (OP for short)
+
+* Sequence Parallelism (SP for short)
+
+* Multi-Copy Parallelism
+
+In practice, multiple parallel strategies and multiple optimizations, such as using optimizer parallelism and recomputation, are usually employed to reduce the model's use of memory and improve training efficiency. Parallel strategy design is closely related to the efficiency of the model, and it is crucial to identify one or more sets of better parallel strategies before model tuning.
 
 For details, refer to [Parallel Strategy Guide](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/function/distributed_parallel.html).
 
 ### Recomputation
 
-MindSpore uses automatic differentiation in reverse mode to automatically derive the reverse diagram based on the forward diagram computation flow, and the forward and reverse diagrams together form a complete computation diagram. When computing some inverse operators, the results of some forward operators need to be used, resulting in the need for the results of these forward operators to reside in memory until the inverse operators that depend on them have been computed, and the memory occupied by the results of these forward operators will not be reused. This phenomenon pushes up the memory spikes for training, and is particularly significant in large-scale network models.
+MindSpore uses automatic differentiation in backward mode to automatically derive the backward diagram based on the forward diagram computation flow, and the forward and backward diagrams together form a complete computation diagram. When computing some backward operators, the results of some forward operators need to be used, resulting in the need for the results to reside in memory. Until the backward operators that depend on them have been computed, the memory occupied by the results of these forward operators will not be reused. This phenomenon pushes up the memory spikes for training, and is particularly significant in large-scale network models.
 
-To solve this problem, MindSpore provides the ability to recompute the forward operator without saving the results of the forward operator, so that this memory can be reused, and then recompute the forward operator when computing the reverse operator, if the forward result is needed.
+To solve this problem, MindSpore provides the ability to recompute the forward operator without saving the results of the forward operator, so that this memory can be reused, and then recompute the forward operator when computing the backward operator, if the forward result is needed.
 
 Re-computation is categorized in the following two ways:
 
@@ -70,15 +84,15 @@ Re-computation is categorized in the following two ways:
 
 #### Cast Recomputation
 
-RMSNorm generally uses high-precision (FP32) computation, and the input needs to be converted from low-precision (FP16 or BF16) to high-precision (FP32) via Cast before computation; RMSNorm needs to save the input for reverse computation. Therefore, recomputing Cast here allows the memory to hold the low-precision input of Cast instead of the high-precision input of RMSNorm, a move that reduces the memory footprint of that input by half, resulting in memory savings.
+RMSNorm generally uses high-precision (FP32) computation, and the input needs to be converted from low-precision (FP16 or BF16) to high-precision (FP32) via Cast before computation. RMSNorm needs to save the input for reverse computation. Therefore, recomputing Cast here only saves the low-precision input of Cast instead of the high-precision input of RMSNorm, a move that reduces the memory usage of that input by half, resulting in memory savings.
 
 ![cast](./images/cast.png)
 
-Performing recomputation from high precision to low precision Cast operator will result in the later operators originally only need to store the low precision memory after Cast, and after the Cast operator recomputation, they need to store the high precision memory, which will result in larger memory instead.
+Performing recomputation from high precision to low precision Cast operator will result in the later operators originally only need to store the low precision memory after Cast, and after the Cast operator recomputation, they need to store the high precision memory, which will result in larger memory usage instead.
 
 #### SiLU-Mul Recomputation
 
-In FeedForward, the middle part of the memory tends to be large; SiLU and Mul recomputation is less costly. Recomputing the SiLU and Mul operators saves memory for the first inputs of MatMul and Mul of w2.
+In FeedForward, the middle part of the memory tends to be large. SiLU and Mul recomputation is less costly, so recomputing the SiLU and Mul operators saves memory for the first inputs of MatMul and Mul of w2.
 
 ![SiLU_mul](./images/silu_mul.png)
 
@@ -101,23 +115,23 @@ MindFormers itself integrates profiling data collection with the following steps
    profile_memory: True  # Collect Tensor memory data
    ```
 
-  profile_start_step and profile_stop_step determine the collection interval, because the collection takes a long time. It is not recommended to set the interval too large, generally set 2~4 can be. The first step involves compilation, so it is recommended to collect the interval after step 3.
+   profile_start_step and profile_stop_step determine the collection interval, because the collection takes a long time. It is not recommended to set the interval too large, and it should be set to 2 to 4 steps. Since the first step involves compilation, it is recommended to start collecting from step 3.
 
 2. View Data
 
    By default, the collection tool creates a `profile` folder under the `. /output` path, which can be set via the output_dir field of the model's yaml configuration file.
 
-   The generated file and its introduction refer to [Introduction to profile file](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#directory-structure), which mainly collects information such as running time of operators and tasks, CPU utilization and memory consumption, and all data required in performance tuning analysis.
+   The generated file and its introduction refer to [Introduction to profile file](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#directory-structure), which mainly collects information such as running time of operators and tasks, CPU utilization and memory consumption for performance tuning analysis.
 
 #### MindStudio Insight
 
-MindStudio Insight provides multiple presentations of performance data, including visual presentations of Timeline views, communication analysis, computational elapsed time, so that users can analyze potential performance bottlenecks and provide guidance on how to take steps to eliminate or reduce them. MindStudio Insight supports viewing data exported by Profiling in Timeline for cluster scenarios and displaying it in a single-card dimension, and can support cluster performance file analysis of more than 20GB.
+MindStudio Insight provides multiple presentations of performance data, including visual presentations of Timeline views, communication analysis, computational elapsed time, so that users can analyze potential performance bottlenecks and provide guidance on how to take steps to eliminate or reduce them. MindStudio Insight supports viewing data exported by Profiling in Timeline View for cluster scenarios and displaying it in a single-card dimension, and can support cluster performance file analysis of more than 20GB.
 
 Click [MindStudio Insight download link](https://www.hiascend.com/developer/download/community/result?module=pt+sto+cann) and select the appropriate version to install.
 
-Open MindStudio Insight, click the “plus sign” in the toolbar at the top left of the interface, select the file or directory to be parsed and exported in the pop-up window, and then click “Confirm” to import.
+Open MindStudio Insight, click the "+" in the toolbar at the top left of the interface, select the file or directory to be parsed and exported in the pop-up window, and then click “Confirm” to import.
 
-MindStudio Insight tool provides users with the full process of online inference, training process operation in the timeline (Timeline) presentation, and in accordance with the scheduling process to present the overall operating conditions, and MindStudio Insight support cluster Timeline display. By analyzing the timeline, users can analyze the online inference/training process at a fine-grained level, such as whether the iteration gap is too long, the execution time of operators, and provide some easy-to-use functions to assist users to quickly locate the performance bottlenecks.
+MindStudio Insight tool presents the full process of online inference, training process in the form of a Timeline, and in accordance with the scheduling process to present the overall operating conditions, and the tool supports cluster Timeline display. By analyzing the timeline, users can analyze the online inference/training process at a fine-grained level, such as whether the iteration gap is too long, operator execution time, and provide easy-to-use features to assist users to quickly locate performance bottlenecks.
 
 The Timeline interface consists of four parts: the toolbar (Area I), the timeline tree (Area II), the graphical pane (Area III), and the data pane (Area IV), as shown in the figure.
 
@@ -129,7 +143,7 @@ The Timeline interface consists of four parts: the toolbar (Area I), the timelin
 
 * Area II
 
-  Timeline tree diagram showing the hierarchical information of each “Card” in the cluster scenario, with “Card” at the first level, process or specialization hierarchies at the second level, and threads and other names at the third level. This includes upper application data (containing elapsed time information of upper application arithmetic), CANN layer data (containing elapsed time data of AscendCL, GE, and Runtime components), underlying NPU data (containing elapsed time data and iteration trajectory data of each Stream task flow under Ascend Hardware, HCCL and Overlap Analysis communication data, and other Rise AI processor system data), hitpoint data, and the AI Core Freq hierarchy.
+  Timeline tree diagram showing the hierarchical information of each “Card” in the cluster scenario, with “Card” at the first level, process or specialization hierarchies at the second level, and threads at the third level. This includes upper application data (containing elapsed time information of upper application arithmetic), CANN layer data (containing elapsed time data of AscendCL, GE, and Runtime components), underlying NPU data (containing elapsed time data and iteration trajectory data of each Stream task flow under Ascend Hardware, HCCL and Overlap Analysis communication data, and other Rise AI processor system data), hitpoint data, and the AI Core Freq hierarchy.
 
 * Area III
 
@@ -143,7 +157,7 @@ Click anywhere on the timeline page tree or graphical pane can be performed usin
 
 #### IR Graph
 
-In the MindFormers configuration file, just turn on save_graphs, and the runtime will output some intermediate files ending with the ir suffix generated during the graph compilation process, which we call IR files. By default, a directory of graphs will be generated in the current task execution directory, and all IR graphs will be saved in this. It is a relatively intuitive and easy to understand document describing the structure of the model in text format, which can be viewed directly with text editing software. Refer to [Config Configuration Description](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/appendix/conf_files.html) for the meaning of the configuration items, and the configuration method is as follows:
+In the [MindFormers configuration file](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/appendix/conf_files.html), just turn on save_graphs, and the runtime will output some intermediate files ending with the .ir suffix generated during the graph compilation process, which we call IR files. By default, a directory of graphs will be generated in the current task execution directory, and all IR graphs will be saved in this. It is a relatively intuitive and easy to understand document describing the structure of the model in text format, which can be viewed directly with text editing software. Refer to [Config Configuration Description](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/appendix/conf_files.html) for the meaning of the configuration items, and the configuration method is as follows:
 
 ```yaml
 context:
@@ -180,11 +194,11 @@ An excerpt of some of the IR graph:
 
 * `%15`
 
-  For the 14% output above, Reshape gets <Tensor[Float16], (1, 4096, 4, 128)>.
+  Reshape with the 14% output above to get <Tensor[Float16], (1, 4096, 4, 128)>.
 
 * `%16`
 
-  For the 15% output above, Transpose gets <Tensor[Float16], (1, 4, 4096, 128)>.
+  Transpose with the 15% output above to get <Tensor[Float16], (1, 4, 4096, 128)>.
 
 It is recommended to change the number of layers of the model to a smaller size when saving IR graph, to reduce the time of compiling and saving graph, and to facilitate fast debugging. For details, please refer to [Introduction to IR file](https://www.mindspore.cn/docs/en/r2.4.0/model_train/debug/error_analysis/mindir.html#ir-introduction) and [Analysis samples](https://www.mindspore.cn/docs/en/r2.4.0/model_train/debug/error_analysis/mindir.html#how-to-derive-the-cause-of-the-failure-based-on-the-analyze-fail-ir-file-analysis-graph).
 
@@ -196,7 +210,7 @@ MindSpore provides SAPP (Symbolic Automatic Parallel Planner) automatic load bal
 
 For detailed usage, please refer to the [SAPP Pipeline Load Balancing](https://gitee.com/mindspore/mindformers/tree/dev/toolkit/pipeline_balance) tool introduction.
 
-## Performance Tuning Guide
+## Overall Idea of Performance Tuning
 
 ### Overall Concept
 
@@ -212,27 +226,27 @@ The features of different parallel strategies are summarized below:
 
 * Data parallelism
 
-  Multiple pieces of data are trained at the same time and communicated only once at the gradient update for optimal performance without memory reduction;
+  Multiple pieces of data are trained at the same time and communicated only once at the gradient update, which is optimal performance without memory reduction.
 
 * Model Parallelism
 
-  Slicing the whole model into different Devices, the network computes the respective parts in parallel and communicates at locations such as LayerNorm, which saves the most memory but has a large amount of communication;
+  Slicing the whole model into different Devices, the network computes the respective parts in parallel and communicates at locations such as LayerNorm, which saves the most memory but has a large amount of communication.
 
 * Pipeline Parallelism
 
-  Slices different stages of the model into different Devices, the network computes the respective stages serially and communicates when switching stages, saves some memory by recomputing, less communication, but there will be computational idleness (bubble);
+  Slices different stages of the model into different Devices, the network computes the respective stages serially and communicates when switching stages, saves some memory by recomputing, less communication, but there will be computational idleness (bubble).
 
 * Optimizer parallelism
 
-  Slicing the optimizer weights, model weights by DP (DP can exactly divide the 0th dimension of the weights shape) and communicating when the gradient is updated, which can save memory significantly and the communication is small;
+  Slicing the optimizer weights, model weights by DP (DP can exactly divide the 0th dimension of the weights shape) and communicating when the gradient is updated, which can save memory significantly and the communication is small.
 
 * Sequence parallelism
 
-  Short sequence parallelism slices the sequence by MP at LayerNorm, unchanged communication, reducing memory and some computation of Norm;
+  Short sequence parallelism slices the sequence by MP at LayerNorm, unchanged communication, reducing memory and some computation of Norm.
 
 * Multi-copy parallelism
 
-  In model parallelism, MatMul and other operators are sliced into multiple copies, and the computational communication between different copies is interleaved to achieve communication masking;
+  In model parallelism, MatMul and other operators are sliced into multiple copies, and the computation and the communication between different copies are interleaved to achieve communication masking.
 
 #### Suggestions
 
@@ -263,32 +277,64 @@ context:
   max_device_memory: "58GB"
 ```
 
-Set the following environment variables to enable DryRun.
+Create a new script `dry_run.sh` with the following contents:
 
 ```shell
+#!/bin/bash
+
+YAML_FILE=$1
+RANK_SIZE=$2
+PIPELINE_STAGES=$3
+RANK_GAP=$((RANK_SIZE/PIPELINE_STAGES))
+ROOT_PATH=`pwd`
+
 export MS_SIMULATION_LEVEL=1
-export MS_KERNEL_LAUNCH_SKIP=all
+export RANK_SIZE=$RANK_SIZE
+
+rm -rf output_dryrun
+mkdir output_dryrun
+for((i=0; i<$PIPELINE_STAGES; i++))
+do
+    export DEVICE_ID=$i
+    export RANK_ID=$((i*RANK_GAP))
+    echo "start training for rank $RANK_ID, device $DEVICE_ID"
+    # The run_mindformer.py path needs to be specified correctly
+    python ./run_mindformer.py --config $ROOT_PATH/$1 &> ./output_dryrun/rank_$RANK_ID.log &
+done
+
 ```
 
-Once set, start the training task normally. When the simulation training is completed, the following message is output at the end of the log file:
+Executing script
+
+```shell
+bash dry_run.sh $train.yaml $rank_size $stage
+```
+
+The meanings of the three parameters are as follows:
+
+* $train.yaml: configuration file to be debugged
+* $rank_size: the number of simulation cards
+* $stage: the number of stages, equal to the number of pipeline parallels
+
+After execution is complete, log messages for each stage are generated in the output directory `output_dryrun`, and the following message is printed at the end of each log.
 
 ```text
-Device HBM memory size: 62432M
+Device MOC memory size: 62432M
 MindSpore Used memory size: 59392M
 MindSpore memory base address: 0
 Used peak memory usage (without fragments): 48874M
 Actual peak memory usage (with fragments): 48874M
 ```
 
-Used peak memory usage (without fragments) indicates the peak NPU memory usage without fragments.
+Used peak memory usage (without fragments): indicates the peak NPU memory usage without fragments, focus on this value and recommend not exceeding the maximum available memory.
 
-Actual peak memory usage (with fragments) represents the peak NPU memory usage with fragments.
+Actual peak memory usage (with fragments): represents the peak NPU memory usage with fragments.
 
 ### Time-consumption Analysis
 
 The two main components of time consumption are operator time consumption as well as communication time consumption, which relies on profiling data analysis, which is referenced in the above sections. Focus on analyzing the files ascend_timeline_display_0.json and rank-*_ascend_ms/ASCEND_PROFILER_OUTPUT/kernel_details.csv in the profiler folder of any rank.
 
-Use the above MindStudio Insight tool to parse ascend_timeline_display_0.json and statistically analyze whether the computation and communication time consumption is as expected. Then check kernel_details.csv to analyze the details of each operator.
+Use the MindStudio Insight tool mentioned in the above section to parse ascend_timeline_display_0.json and statistically analyze whether the computation and communication time consumption is as expected. Then check kernel_details.csv to analyze the details of each operator.
 
 ### Typical Case
 
@@ -302,7 +348,7 @@ Performing recomputation on Silu and Mul saves memory when fine-grained multicop
 
 * Checking for recomputation operators
 
-  The IR graph is checked for operators with duplicated labels for Cast, Silu, and Mul. The absence of labeled operators indicates that the actual computational graph does not recompute this part of the operator. Here only Cast operator is with duplicated label.
+  Check if the Cast, Silu and Mul operators have the label duplicated in IR graphs. The absence of labeled operators indicates that the actual computational graph does not recompute this part of the operator. Only Cast operator is with duplicated label in the following example.
 
   ```text
   %1834(CNode_108839) = PrimFunc_Cast(%1833, I64(43)) {instance name: cast} primitive_attrs: {output_names: [output], input_names: [x, dst_type], recompute: Bool(1)} cnode_attrs: {recompute_sub_graph: U64(64), recompute_id: I64(65), duplicated: Bool(1), need_cse_after_recompute: Bool(1)} cnode_primal_attrs: {micro: I64(0)}
@@ -315,7 +361,7 @@ Performing recomputation on Silu and Mul saves memory when fine-grained multicop
 
 ![reshape](./images/reshape.png)
 
-It can be seen that the cause is that the input shape of Linear in the fine-grained multicopy scenario is two-dimensional, while the input shape of Linear in the non-fine-grained multicopy scenario is three-dimensional, resulting in a Reshape operator between Linear and Mul, and the lack of Reshape recalculation results in recalculation of Silu alone being optimized. The additional recalculation of the Reshape results in a normal memory reduction. The reference configuration is as follows:
+It can be seen that the cause is that the input shape of Linear in the fine-grained multicopy scenario is two-dimensional, while the input shape of Linear in the non-fine-grained multicopy scenario is three-dimensional, so a Reshape operator between Linear and Mul, and the lack of Reshape recalculation results in recalculation of Silu being optimized. The additional recalculation of the Reshape results in a normal memory reduction. The reference configuration is as follows:
 
 ```yaml
 recompute_config:

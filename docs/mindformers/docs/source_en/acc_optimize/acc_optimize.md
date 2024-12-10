@@ -8,13 +8,13 @@
 
 As the Ascend AI processor (hereinafter referred to as NPU) is widely used in deep learning, the MindSpore framework, which is developed natively based on the Ascend NPU, also shows better performance advantages. During large-scale cluster training, the performance improvement will greatly save users the cost of large model development. Therefore, more and more users are gradually migrating their original training models to MindSpore. However, due to the differences in hardware and framework usage, users may encounter accuracy problems after completing the model migration.
 
-This paper summarizes the common accuracy problems in the training process of large models and general accuracy problem localization methods, and seeks to help users quickly troubleshoot accuracy problems and shorten the time for model accuracy problem localization.
+This paper summarizes the common accuracy problems in the training process of large models and general accuracy problem localization methods, and seeks to help users quickly troubleshoot accuracy problems and shorten the time for model accuracy problem localization. When starting the work on large model accuracy optimization, you should have the basic knowledge of large model. To avoid dispersion, this document will not explain the basic concepts related to large models and focus on the introduction of accuracy optimization.
 
 ### Categorized Summary of Common Problems
 
-Various accuracy problems often occur in large model training, and the common problems include that the loss fails to converge, the loss converges poorly, the loss fails to converge at the late stage of training, the accuracy overflows, and the loss can not be fitted to the benchmark in the process of descending. These accuracy problems may be caused by a variety of sources, including the structure of the model, the dataset, the hyperparameters, the precision of the forward and reverse computation, the calculation of the optimizer, the floating-point computational accuracy, and randomness.
+Various accuracy problems often occur in large model training, and the common problems include that the loss fails to converge, the loss converges poorly, the loss fails to converge at the late stage of training, the accuracy overflows, and the loss can not be fitted to the benchmark in the process of descending. There can be a variety of reasons for these accuracy problems, including the structure of the model, the dataset, the hyperparameters, the precision of the forward and reverse computation, the calculation of the optimizer, the floating-point computational accuracy, and randomness.
 
-When accuracy problems occur, the problem can be analyzed from the source of these accuracy errors. A quick troubleshooting based on CheckList is performed first, followed by parameter and weight alignment, fixed randomness and turning on deterministic calculations before executing in/out problem troubleshooting and long stable training elimination. At the current stage, this paper mainly introduces the general method of accuracy localization for the scenarios with accuracy benchmarks, and the content of accuracy problem localization without accuracy benchmarks will be added successively.
+When accuracy problems occur, the problem can be analyzed from the reasons for these accuracy problems. A quick troubleshooting based on CheckList is performed first, followed by parameter and weight alignment, fixed randomness and turning on deterministic calculations before executing in/out problem troubleshooting and long stable training elimination. At the current stage, this paper mainly introduces the general method of accuracy localization for the scenarios with accuracy benchmarks, and the content of accuracy problem localization without accuracy benchmarks will be added successively.
 
 ## Accuracy Problems Location CheckList
 
@@ -150,7 +150,7 @@ In addition to the full amount of operator Dump introduced above, the tool also 
 
 ## Generalized Processes for Accuracy Positioning
 
-Quickly troubleshoot the problem by using the [Accuracy Problems Location CheckList](#accuracy-problems-location-checklist) section. If the accuracy problem still exists after completing the CheckList and there is no obvious direction, you can narrow down the scope of the problem by using the accuracy location generic process in this section. The current generalized process is mainly for benchmarked scenarios, and the following section will take the scenario of comparing the accuracy of GPU+PyTorch and Ascend+MindSpore as an example to introduce the accuracy localization process.
+Quickly troubleshoot the problem by using the [Accuracy Problems Location CheckList](#accuracy-problems-location-checklist) section. If the accuracy problem still exists after completing the CheckList and there is no obvious direction, you can narrow down the scope of the problem by using the accuracy location generic process in this section for further troubleshooting. The current generalized process is mainly for benchmarked scenarios, and the following section will take the scenario of comparing the accuracy of GPU+PyTorch and Ascend+MindSpore as an example to introduce the accuracy localization process.
 
 There are two main ideas for problem positioning:
 
@@ -173,7 +173,7 @@ Conducting accuracy comparison between GPU+PyTorch and Ascend+MindSpore requires
 
 #### Aligning Parameters
 
-In the parameter alignment session, some parameters need special instructions, and refer to the following settings. The rest of the parameters are set according to the original scene, to ensure that PyTorch and MindSpore parameters are consistent. Parameter setting instructions:
+In the parameter alignment session, the following parameters need special instructions, to ensure that PyTorch and MindSpore parameters are consistent. Parameter setting instructions:
 
 | Parameters                 | Suggestions | Descriptions                            |
 |--------------------| -------- |-------------------------------|
@@ -183,7 +183,7 @@ In the parameter alignment session, some parameters need special instructions, a
 | adam_eps           | 1e-8     | If the user has no special requirements, follow the default settings.             |
 | dropout            | 0        | Turn off the randomness parameter, and If there are other randomness parameters, they should be turned off.         |
 
-Features such as model parallelism, flow parallelism, sequence parallelism, optimizer parallelism, etc. are recommended to be turned off first, and then parallel features are gradually added after the accuracy is aligned.
+Since features such as model parallelism, flow parallelism, sequence parallelism, optimizer parallelism increase the difficulty of precision alignment, it is recommended to turn them off first, and then gradually add parallel features after alignment.
 
 #### Weight Conversion
 
@@ -246,7 +246,7 @@ The training process fixes randomness and turns on deterministic computation in 
       # Original code
   ```
 
-After completing the above preparations, single card training is initiated. If the problem is not reproduced, the scenario is gradually complicated, such as adding relevant features, expanding the model size, etc., until the problem is reproduced, so as to locate the cause of the problem. If the problem is reproduced, or the time needed to reproduce is longer, then the problem localization in stage 2 can be opened.
+After completing the above preparations, single card training is initiated. If the problem is not reproduced, the scenario is expanded, such as adding relevant features, expanding the model size, etc., until the problem is reproduced, so as to locate the cause of the problem. If the problem is reproduced, or the time needed to reproduce is longer, then the problem localization in stage 2 can be opened.
 
 ### Stage 2: Basic Problem Identification
 
@@ -307,16 +307,16 @@ The local norm value only serves as a preliminary judgment of whether the revers
 
 #### Optimizer Computational Troubleshooting
 
-In the case where the loss of step1 is aligned with the local norm, if the difference in the loss of step2 is large, further troubleshooting of the optimizer computation is required.
+In the case where the loss of step1 is aligned with the local norm, if the difference in the loss of step2 is large, further troubleshooting of the optimizer computation is required. The specific steps are as follows:
 
-* Firstly, check whether the parameters that affect the gradient update, such as learning rate, optimizer parameters, weight decay, are consistent with the benchmark.
+1. Firstly, check whether the parameters that affect the gradient update, such as checking learning rate, optimizer parameters, weight decay, are consistent with the benchmark.
 
-* Secondly troubleshoot the optimizer computation with the following steps:
-    * Save the gradient from PyTorch step1.
+2. Secondly troubleshoot the optimizer computation with the following steps:
+    1. Save the gradient from PyTorch step1.
 
-    * Load the gradient of PyTorch at MindSpore step1 for optimizer update.
+    2. Load the gradient of PyTorch at MindSpore step1 for optimizer update.
 
-    * Compare the difference in weights after the update or the difference in loss values at step2.
+    3. Compare the difference in weights after the update or the difference in loss values at step2.
 
 If there is a significant difference, there is a problem with the optimizer update and further targeting of the optimizer is required.
 
@@ -337,7 +337,7 @@ def get_parameters(self):
     return params
 ```
 
-MindFormers loads the gradient reference implementation. Note that it requires the user to find the correspondence between MindFormers and PyTorch gradients on their own by modifying [mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/wrapper/wrapper.py):
+For MindFormers loading gradient, refer to [mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/wrapper/wrapper.py) implementation. Note that users need to find the correspondence between MindFormers and PyTorch gradient. Refer to the following modified code:
 
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
@@ -385,7 +385,7 @@ In this scenario, the training before and after the mutation can be targeted for
 
 * Check if there is precision overflow in the vicinity of the mutation.
 
-* You can check whether there is any abnormality in the local norm, Dump the training data of the mutation step, troubleshoot the calculated mutation points, and analyze whether the operator outputs abnormally.
+* You can check whether there is any abnormality in the local norm, check the training data of the Dump mutation step, troubleshoot the calculated mutation points, and analyze whether the operator outputs abnormally.
 
 #### Loss Varies Greatly in the Later Stages
 
@@ -421,7 +421,7 @@ The blue line is the Ascend+MindSpore training curve and the red line is the GPU
 
 Before locating the problem, check against the CheckList to confirm that there is no error and then start locating the problem.
 
-First the loss alignment of step1 is confirmed to be OK. Compare the local norm of step1 and calculate the difference between the Local norm value of each weight and the benchmark, the Embedding weight has a large difference between the local norm value and the benchmark.
+First the loss alignment of step1 is confirmed to be OK. Comparing the local norm of step1 and calculating the difference between the local norm value of each weight and the benchmark, it is found that the local norm value of Embedding weight has a large difference with the benchmark.
 
 ![local norm](./image/local_norm.png)
 
