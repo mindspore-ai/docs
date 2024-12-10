@@ -38,9 +38,9 @@ $$
 
 * SeqLength：指序列的长度，在文本处理过程中，输入的文本需要转换成数字序列，这些数字序列作为模型的输入。SeqLength就是指这些数字序列的长度，即文本的长度。在模型训练和推理的过程中，需要设置一个固定的SeqLength，以便进行批处理和计算。较长的SeqLength可以提高模型的准确性，但会增加计算量和内存消耗；而较短的SeqLength则会减少计算量和内存消耗，但可能会降低模型的准确性。
 
-* sample：其值等于全局批量大小，即global_batch_size的值。在分布式训练中，数据被分成多个部分，每个部分被送到不同的NPU上进行计算。这些NPU上的Batch Size之和就是全局批量大小。全局批量大小的选择是一个重要的决策，因为它会直接影响模型的训练性能。如果全局批量过小，每个NPU上的Batch Size可能会太小，导致模型的收敛速度变慢；如果全局批量过大，每个NPU上的Batch Size可能会太大，导致NPU内存不足或者模型的精度下降。找到最佳Batch Size的一个经验法则是使其达到NPU对给定数据类型的内存限制，即Batch Size占满NPU内存。
+* sample：其值等于全局批量大小，即global_batch_size的值。在分布式训练中，数据被分成多个部分，每个部分被送到不同的NPU上进行计算。这些NPU上的Batch Size之和就是全局批量大小。全局批量大小的选择是一个重要的决策，因为它会直接影响模型的训练性能。如果全局批量过小，每个NPU上的Batch Size可能会太小，导致模型的收敛速度变慢；如果全局批量过大，每个NPU上的Batch Size可能会太大，导致NPU内存不足或者模型的精度下降。一个找到最佳Batch Size的经验法则是使其达到NPU对给定数据类型的内存限制，即Batch Size占满NPU内存。
 
-* s：即per_step_time，单位秒，指在训练过程中，每一步所花费的时间。
+* s：即per_step_time，以秒为单位，指在训练过程中，每一步所花费的时间。
 
 * p：即parallel_num，指数据并行维度大小。
 
@@ -332,7 +332,7 @@ Actual peak memory usage (with fragments)：表示包含碎片的NPU内存使用
 
 ### 耗时分析
 
-耗时主分为是算子耗时以及通信耗时两部分，依赖于profiling数据分析，分析方法参考上述章节。重点分析任意rank的profiler文件夹下ascend_timeline_display_0.json和rank-*_ascend_ms/ASCEND_PROFILER_OUTPUT/kernel_details.csv两个文件。
+耗时主要分为算子耗时以及通信耗时两部分，依赖于profiling数据分析，分析方法参考上述章节。重点分析任意rank的profiler文件夹下ascend_timeline_display_0.json和rank-*_ascend_ms/ASCEND_PROFILER_OUTPUT/kernel_details.csv两个文件。
 
 使用上述章节提到的MindStudio Insight工具解析ascend_timeline_display_0.json，统计分析计算、通信耗时是否符合预期，再查看kernel_details.csv，分析各算子详细情况。
 
@@ -361,7 +361,7 @@ Actual peak memory usage (with fragments)：表示包含碎片的NPU内存使用
 
 ![reshape](./images/reshape.png)
 
-由此可知根因在于，细粒度多副本场景中Linear的输入shape是二维的，而非细粒度多副本中Linear的输入shape是三维的，导致Linear和Mul之间有Reshape算子，没对这个Reshape重计算导致单纯对SiLU的重计算没有生效。额外对Reshape重计算后内存可以正常减小。参考配置如下：
+由此可知根因在于，细粒度多副本场景中Linear的输入shape是二维的，而非细粒度多副本中Linear的输入shape是三维的，所以Linear和Mul之间有Reshape算子，没对这个Reshape算子重计算导致对SiLU的重计算没有生效。额外对Reshape重计算后内存可以正常减小。参考配置如下：
 
 ```yaml
 recompute_config:
