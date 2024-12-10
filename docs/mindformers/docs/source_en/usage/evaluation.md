@@ -169,7 +169,7 @@ VLMEvalKit main parameters
 #### Preparation Before Evaluation
 
 1. Create model directory model_path;
-2. Model directory must be placed MindFormers weights, yaml configuration file, tokenizer file, which can refer to the MindFormers model README document;
+2. Store the MindFormers weight(\*.ckpt), YAML file(\*.yaml), and tokenizer file(\*_tokenizer.model) in the model directory. For details, Please refer to the README documentation of each MindFormers model for the method of obtaining, which is usually located in [model_cards](https://gitee.com/mindspore/mindformers/tree/dev/model_cards) directory or in [research](https://gitee.com/mindspore/mindformers/tree/dev/research) directory, depending on the model used by the user;
 3. Configure the yaml configuration file.
 
 The yaml configuration reference:
