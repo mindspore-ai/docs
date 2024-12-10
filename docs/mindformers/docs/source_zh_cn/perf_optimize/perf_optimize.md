@@ -332,7 +332,7 @@ Actual peak memory usage (with fragments)：表示包含碎片的NPU内存使用
 
 ### 耗时分析
 
-耗时主要分为是算子耗时以及通信耗时两部分，依赖于profiling数据分析，分析方法参考上述章节。重点分析任意rank的profiler文件夹下ascend_timeline_display_0.json和rank-*_ascend_ms/ASCEND_PROFILER_OUTPUT/kernel_details.csv两个文件。
+耗时主要分为算子耗时以及通信耗时两部分，依赖于profiling数据分析，分析方法参考上述章节。重点分析任意rank的profiler文件夹下ascend_timeline_display_0.json和rank-*_ascend_ms/ASCEND_PROFILER_OUTPUT/kernel_details.csv两个文件。
 
 使用上述章节提到的MindStudio Insight工具解析ascend_timeline_display_0.json，统计分析计算、通信耗时是否符合预期，再查看kernel_details.csv，分析各算子详细情况。
 
