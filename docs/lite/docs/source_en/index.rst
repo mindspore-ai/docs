@@ -9,6 +9,14 @@ MindSpore Lite Documentation
 .. toctree::
     :glob:
     :maxdepth: 1
+    :caption: Quick Start
+    :hidden:
+
+    quick_start/one_hour_introduction
+   
+.. toctree::
+    :glob:
+    :maxdepth: 1
     :caption: Building
     :hidden:
 
@@ -64,6 +72,7 @@ MindSpore Lite Documentation
 
    advanced/image_processing
    advanced/quantization
+   advanced/micro
    advanced/third_party
 
 .. toctree::
@@ -214,6 +223,19 @@ MindSpore Lite Documentation
 							
 										<div class="doc-article-desc">
 										Welcome to MindSpore Lite. You can download the version package suitable for the local environment and use it directly.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Data-Preparation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/one_hour_introduction.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Quick Start to Device-side Inference</span>
+										</div>
+
+										<div class="doc-article-desc">
+										This document uses a model inference example to describe how to use basic device-side MindSpore Lite functions.
 										</div>
 									</div>
 								</a>
@@ -383,7 +405,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-iot language-cpp stage-Model-Code-Generation stage-Inference user-Beginner user-Intermediate hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/micro.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/advanced/micro.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Performing Inference or Training on MCU or Small Systems</span>
