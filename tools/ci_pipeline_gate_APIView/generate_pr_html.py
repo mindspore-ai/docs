@@ -224,13 +224,23 @@ def yaml_file_handle(yaml_file_list, repo_path, dict1):
             elif dict1['mindspore_Tensor_yaml'] in yaml_fp:
                 tensor_op_name = yaml_file.replace('_doc.yaml', '.yaml')
                 op_fp = os.path.join(
-                    repo_path, dict1['mindspore_Tensor_yaml'], tensor_op_name)
+                    repo_path, '/'.join(dict1['mindspore_Tensor_yaml'].split('/')[:-2]), tensor_op_name)
 
                 if not os.path.exists(op_fp):
                     continue
                 tensor_name = tensor_op_name.split('.')[0]
                 generate_interface_list.append(
                     f'.. automethod:: mindspore.Tensor.{tensor_name}&&&{yaml_fp}')
+            elif dict1['mindspore_mint_yaml'] in yaml_fp:
+                mint_op_name = yaml_file.replace('_doc.yaml', '.yaml')
+                op_fp = os.path.join(
+                    repo_path, '/'.join(dict1['mindspore_mint_yaml'].split('/')[:-2]), mint_op_name)
+
+                if not os.path.exists(op_fp):
+                    continue
+                mint_name = mint_op_name.split('.')[0]
+                generate_interface_list.append(
+                    f'.. autofunction:: mindspore.mint.{mint_name}&&&{yaml_fp}')
 
     return list(set(generate_interface_list))
 
@@ -500,7 +510,8 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                   'mindspore_en': "docs/api/api_python_en/",
                   'mindspore_py': "mindspore/python/mindspore/",
                   'mindspore_yaml': "mindspore/ops/op_def/yaml/",
-                  'mindspore_Tensor_yaml': "mindspore/ops/api_def/"}
+                  'mindspore_Tensor_yaml': "mindspore/ops/api_def/method_doc/",
+                  'mindspore_mint_yaml': "mindspore/ops/api_def/function_doc/"}
 
     wb_data = requests.get(pf_url)  # 引入requests库来请求数据
     result = wb_data.json()  # 将请求的数据转换为json格式
@@ -536,9 +547,12 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
             continue
         # 记录yaml文件
         # pylint: disable=R1702
-        if split_dict['mindspore_yaml'] in filename or split_dict['mindspore_Tensor_yaml'] in filename:
-            if filename.endswith('.yaml'):
+        if filename.endswith('.yaml'):
+            if split_dict['mindspore_yaml'] in filename or split_dict['mindspore_Tensor_yaml'] in filename:
                 pr_file_yaml.append(filename)
+            elif split_dict['mindspore_mint_yaml'] in filename:
+                pr_file_yaml.append(filename)
+
         # 记录中文API相关文件
         elif split_dict['mindspore_cn'] in filename:
             if filename.endswith('.md') or filename.endswith('.ipynb') or filename.endswith('.rst'):

@@ -132,8 +132,45 @@
 
 ## 函数 Function
 
+无重载函数：
+
 ```text
 .. py:function:: name(参数)
+
+    描述函数功能。
+
+    参数：
+        - **参数1** (Tensor) – 参数1说明。
+        - **参数2** (int) – 参数2说明。
+
+    返回：
+        返回说明。
+
+    异常：
+        - **Error1** – 异常描述1。
+        - **Error2** – 异常描述2。
+```
+
+有重载函数：
+
+```text
+.. py:function:: mindspore.mint.max(参数)
+
+    描述函数功能。
+
+    参数：
+        - **参数1** (Tensor) – 参数1说明。
+        - **参数2** (int) – 参数2说明。
+
+    返回：
+        返回说明。
+
+    异常：
+        - **Error1** – 异常描述1。
+        - **Error2** – 异常描述2。
+
+    .. py:function:: mindspore.mint.max(参数)
+        :noindex:
 
     描述函数功能。
 

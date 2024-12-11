@@ -24,7 +24,7 @@
 
 #### 通用结构
 
-| **关键参数**      | **说明**                                                     | **检查项**                                                                  |
+| **关键参数**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          | **说明**                                                     | **检查项**                                                                  |
 | ----------------- | ------------------------------------------------------------ |--------------------------------------------------------------------------|
 | num_layers        | transformer层数                                              | 对应Megatron num-layers参数，检查是否一致。                                          |
 | num_heads         | transformer中attention heads数量                             | 对应Megatron num-attention-heads参数，检查是否一致。                                 |
@@ -38,7 +38,7 @@
 
 #### MOE结构
 
-| **关键参数**             | **说明**                           | **检查项**                                                                                                             |
+| **关键参数**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           | **说明**                           | **检查项**                                                                                                             |
 | ------------------------ |----------------------------------|---------------------------------------------------------------------------------------------------------------------|
 | expert_num               | 专家数量                             | 对应Megatron的num-experts，检查是否一致。                                                                                      |
 | num_experts_chosen       | 每个token选择的专家数目                   | 对应Megatron的moe-router-topk，检查是否一致。                                                                                  |
@@ -72,7 +72,7 @@
 
 ### 混合精度CheckList
 
-| **关键参数**           | **说明**                                             | **检查项**                                                                                                             |
+| **关键参数**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            | **说明**                                             | **检查项**                                                                                                             |
 | ---------------------- |----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
 | compute_dtype          | 计算精度                                               | Megatron 设置 `--bf16: true` 则为BF16，否则为FP16。                                                                          |
 | layernorm_compute_type | LayerNorm/RMSNorm的计算精度                             | Megatron不可配置，需要检查实现是否保持一致。                                                                                          |
