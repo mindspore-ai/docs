@@ -61,7 +61,7 @@ runner_config->SetContext(context);
 runner_config->SetWorkersNum(kNumWorkers);
 ```
 
-> Context的配置方法详细见[Context](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html##创建配置上下文)。
+> Context的配置方法详细见[Context](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_cpp.html#%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E4%B8%8A%E4%B8%8B%E6%96%87)。
 >
 > 多model并发推理现阶段支持[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)几种不同的硬件后端。在设置GPU后端的时候需要先设置GPU后端再设置CPU后端，否则会报错退出。
 >
@@ -100,6 +100,22 @@ if (predict_ret != mindspore::kSuccess) {
 ```
 
 > Predict接口的inputs和outputs，建议使用GetInputs、GetOutputs获得，用户通过SetData的方式设置数据的内存地址、以及Shape相关信息。
+
+## 编译和执行
+
+按照[快速入门](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/build.html#%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91)环境变量，设置环境变量。接着按如下方式编译程序：
+
+```bash
+mkdir build && cd build
+cmake ../
+make
+```
+
+在编译成功后，可以在`build`目录下得到`quick_start_parallel_cpp`可执行程序。执行程序`quick_start_parallel_cpp`运行样例：
+
+```bash
+./quick_start_parallel_cpp --model_path=../model/mobilenetv2.mindir --device_type=CPU
+```
 
 ## 释放内存
 

@@ -56,14 +56,12 @@ if (context == nullptr) {
   return nullptr;
 }
 auto &device_list = context->MutableDeviceInfo();
-auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
-if (cpu_device_info == nullptr) {
+auto device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+if (device_info == nullptr) {
   std::cerr << "New CPUDeviceInfo failed." << std::endl;
   return nullptr;
 }
-// CPU use float16 operator as priority.
-cpu_device_info->SetEnableFP16(true);
-device_list.push_back(cpu_device_info);
+device_list.push_back(device_info);
 ```
 
 可选择性地额外设置线程数、线程亲和性、并行策略等特性。
@@ -110,17 +108,15 @@ if (context == nullptr) {
 }
 auto &device_list = context->MutableDeviceInfo();
 
-auto gpu_device_info = std::make_shared<mindspore::GPUDeviceInfo>();
-if (gpu_device_info == nullptr) {
+auto device_info = std::make_shared<mindspore::GPUDeviceInfo>();
+if (device_info == nullptr) {
   std::cerr << "New GPUDeviceInfo failed." << std::endl;
   return nullptr;
 }
 // Set NVIDIA device id.
-gpu_device_info->SetDeviceID(0);
-// GPU use float16 operator as priority.
-gpu_device_info->SetEnableFP16(true);
+device_info->SetDeviceID(0);
 // The GPU device context needs to be push_back into device_list to work.
-device_list.push_back(gpu_device_info);
+device_list.push_back(device_info);
 ```
 
 `SetEnableFP16`属性是否设置成功取决于当前设备的[CUDA计算能力](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix)。
@@ -324,7 +320,7 @@ int SpecifyInputDataExample(const std::string &model_path, const std::string &de
 
 ## 编译和执行
 
-按照快速入门环境变量（TODO），设置环境变量。接着按如下方式编译程序：
+按照[快速入门](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/build.html#%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91)环境变量，设置环境变量。接着按如下方式编译程序：
 
 ```bash
 mkdir build && cd build
@@ -336,6 +332,13 @@ make
 
 ```bash
 ./runtime_cpp --model_path=../model/mobilenetv2.mindir --device_type=CPU
+```
+
+执行完成后将能得到如下结果，打印输出Tensor的名称、输出Tensor的大小，输出Tensor的数量以及前50个数据：
+
+```bash
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+5.07133e-05 0.000487101 0.000312544 0.000356227 0.000202192 8.58929e-05 0.000187139 0.000365922 0.000281059 0.000255725 0.00108958 0.00390981 0.00230405 0.00128981 0.00307465 0.00147602 0.00106772 0.000589862 0.000848084 0.00143688 0.000685757 0.00219349 0.00160633 0.00215146 0.000444297 0.000151986 0.000317547 0.000539767 0.000187023 0.000643928 0.000218261 0.00093152 0.000127113 0.000544328 0.000887909 0.000303908 0.000273898 0.000353338 0.00229071 0.00045319 0.0011987 0.000621188 0.000628328 0.000838533 0.000611027 0.00037259 0.00147737 0.000270712 8.29846e-05 0.00011697 0.000876204
 ```
 
 ## 高级用法
@@ -430,43 +433,42 @@ int ResizeModel(std::shared_ptr<mindspore::Model> model, int32_t batch_size) {
     输入host内存的值，一般来源于host侧的C++、Python等预处理的结果。
 
     ```c++
-      std::vector<void *> host_buffers;
-      // ... get host buffer from preprocessing etc.
-      // Get Input
-      auto inputs = model->GetInputs();
-      for (size_t i = 0; i < tensors.size(); i++) {
-        auto &tensor = tensors[i];
-        auto host_data = host_buffers[i];
-        tensor.SetData(host_data, false);
-        tensor.SetDeviceData(nullptr);
-      }
-
-      std::vector<mindspore::MSTensor> outputs;
-      if (model->Predict(inputs, &outputs) != 0) {
-        return -1;
-      }
+    int SetTensorHostData(std::vector<mindspore::MSTensor> *tensors, std::vector<MemBuffer> *buffers) {
+        for (size_t i = 0; i < tensors->size(); i++) {
+          auto &tensor = (*tensors)[i];
+          auto &buffer = (*buffers)[i];
+          if (tensor.DataSize() != buffer.size()) {
+            std::cerr << "Tensor data size " << tensor.DataSize() << " != buffer size " << buffer.size() << std::endl;
+            return -1;
+          }
+          // set tensor data, and the memory should be freed by user
+          tensor.SetData(buffer.data(), false);
+          tensor.SetDeviceData(nullptr);
+        }
+        return 0;
+    }
     ```
 
 2. 指定输出host内存
 
     ```c++
-      // Get Output from model
-      auto outputs = model->GetOutputs();
-      std::vector<void *> output_buffers;
-      ResourceGuard output_device_rel([&output_buffers]() {
-        for (auto &item : output_buffers) {
-          free(item);
+    int CopyTensorHostData(std::vector<mindspore::MSTensor> *tensors, std::vector<MemBuffer> *buffers) {
+      for (size_t i = 0; i < tensors->size(); i++) {
+        auto &tensor = (*tensors)[i];
+        auto &buffer = (*buffers)[i];
+        if (tensor.DataSize() != buffer.size()) {
+          std::cerr << "Tensor data size " << tensor.DataSize() << " != buffer size " << buffer.size() << std::endl;
+          return -1;
         }
-      });
-      for (auto &tensor : outputs) {
-        auto buffer = malloc(tensor.DataSize());
-        tensor.SetData(buffer, false);
-        tensor.SetDeviceData(nullptr);
-        output_buffers.push_back(buffer); // for free
+        auto dst_mem = tensor.MutableData();
+        if (dst_mem == nullptr) {
+          std::cerr << "Tensor MutableData return nullptr" << std::endl;
+          return -1;
+        }
+        memcpy(tensor.MutableData(), buffer.data(), buffer.size());
       }
-      if (model->Predict(inputs, &outputs) != 0) {
-        return -1;
-      }
+      return 0;
+    }
     ```
 
 ### 指定输入输出设备（device）内存
@@ -594,7 +596,7 @@ model.build_from_file("seq_1024.mindir", mslite.ModelType.MINDIR, context, "conf
 auto device_info = std::make_shared<mindspore::AscendDeviceInfo>();
 if (device_info == nullptr) {
   std::cerr << "New AscendDeviceInfo failed." << std::endl;
-  return -1;
+  return nullptr;
 }
 // Set Atlas training series device id, rank id and provider.
 device_info->SetDeviceID(0);
@@ -603,17 +605,18 @@ device_info->SetProvider("ge");
 // Device context needs to be push_back into device_list to work.
 device_list.push_back(device_info);
 
-mindspore::Model model;
-if (model.LoadConfig("config.ini") != mindspore::kSuccess) {
-  std::cerr << "Failed to load config file " << "config.ini" << std::endl;
-  return -1;
+if (!config_file.empty()) {
+    if (model->LoadConfig(config_file) != mindspore::kSuccess) {
+      std::cerr << "Failed to load config file " << config_file << std::endl;
+      return nullptr;
+    }
 }
 
 // Build model
-auto build_ret = model.Build("seq_1024.mindir", mindspore::kMindIR, context);
+auto build_ret = model->Build(model_path, mindspore::kMindIR, context);
 if (build_ret != mindspore::kSuccess) {
-  std::cerr << "Build model error " << build_ret << std::endl;
-  return -1;
+  std::cerr << "Build model failed." << std::endl;
+  return nullptr;
 }
 ```
 
