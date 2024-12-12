@@ -55,22 +55,22 @@ python toolkit/benchmarks/eval_with_harness.py --tasks list
 
 - Preparations Before Evaluation
 
-1. Create a model directory MODEL_DIR.
-2. Store the YAML file(\*.yaml), and tokenizer file(\*_tokenizer.py) in the model directory. For details, Please refer to the description documents of each model in the [model library](../start/models.md);
-3. Configure the yaml file. Refer to [configuration description](../appendix/conf_files.md).
+  1. Create a model directory MODEL_DIR.
+  2. Store the YAML file(\*.yaml), and tokenizer file(\*_tokenizer.py) in the model directory. For details, Please refer to the description documents of each model in the [model library](../start/models.md);
+  3. Configure the yaml file. Refer to [configuration description](../appendix/conf_files.md).
 
-    YAML configuration example:
+      YAML configuration example:
 
-    ```yaml
-    run_mode: 'predict'    # Set inference mode
-    model:
-      model_config:
-        use_past: True
-        checkpoint_name_or_path: "model.ckpt"    # path of ckpt
-    processor:
-      tokenizer:
-        vocab_file: "tokenizer.model"    # path of tokenizer
-    ```
+      ```yaml
+      run_mode: 'predict'    # Set inference mode
+      model:
+        model_config:
+          use_past: True
+          checkpoint_name_or_path: "model.ckpt"    # path of ckpt
+      processor:
+        tokenizer:
+          vocab_file: "tokenizer.model"    # path of tokenizer
+      ```
 
 - Executing the Following Evaluation Command
 
