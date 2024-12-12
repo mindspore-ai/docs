@@ -9,17 +9,41 @@
 [LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) is an open-source language model evaluation framework that provides evaluation of more than 60 standard academic datasets, supports multiple evaluation modes such as HuggingFace model evaluation, PEFT adapter evaluation, and vLLM inference evaluation, and supports customized prompts and evaluation metrics, including the evaluation tasks of the loglikelihood, generate_until, and loglikelihood_rolling types.
 After MindFormers is adapted based on the Harness evaluation framework, the MindFormers model can be loaded for evaluation.
 
+The currently adapted models and supported evaluation tasks are shown in the table below (the remaining models and evaluation tasks are actively being adapted, please pay attention to version updates):
+
+| Adapted models | Supported evaluation tasks |
+|----------------|----------------------------|
+| Llama3-8B      | Gsm8k、Boolq、Mmlu、Ceval     |
+| Qwen2-7B       | Gsm8k、Boolq、Mmlu、Ceval     |
+
 ### Installation
 
+Harness supports two installation methods: pip installation and source code compilation installation. Pip installation is simpler and faster, source code compilation and installation are easier to debug and analyze, and users can choose the appropriate installation method according to their needs.
+
+#### pip Installation
+
+Users can execute the following command to install Harness:
+
 ```shell
-pip install lm_eval==0.4.3
+pip install lm_eval==0.4.4
+```
+
+#### Source Code Compilation Installation
+
+Users can execute the following command to compile and install Harness:
+
+```bash
+git clone --depth 1 https://github.com/EleutherAI/lm-evaluation-harness
+cd lm-evaluation-harness
+git checkout v0.4.4
+pip install -e .
 ```
 
 ### Usage
 
-Run the [eval_with_harness.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_harness.py) script.
-
 #### Viewing a Dataset Evaluation Task
+
+Users can view all the evaluation tasks supported by Harness through the following command:
 
 ```shell
 #!/bin/bash
@@ -29,27 +53,34 @@ python toolkit/benchmarks/eval_with_harness.py --tasks list
 
 #### Starting the Single-Device Evaluation Script
 
-```shell
-#!/bin/bash
+- Preparations Before Evaluation
 
-python toolkit/benchmarks/eval_with_harness.py --model mf --model_args "pretrained=MODEL_DIR,device_id=0" --tasks TASKS
-```
+1. Create a model directory MODEL_DIR.
+2. Store the YAML file(\*.yaml), and tokenizer file(\*_tokenizer.py) in the model directory. For details, Please refer to the description documents of each model in the [model library](../start/models.md);
+3. Configure the yaml file. Refer to [configuration description](../appendix/conf_files.md).
 
-#### Starting the Multi-Device Parallel Evaluation Script
+    YAML configuration example:
 
-```shell
-#!/bin/bash
+    ```yaml
+    run_mode: 'predict'    # Set inference mode
+    model:
+      model_config:
+        use_past: True
+        checkpoint_name_or_path: "model.ckpt"    # path of ckpt
+    processor:
+      tokenizer:
+        vocab_file: "tokenizer.model"    # path of tokenizer
+    ```
 
-export ASCEND_RT_VISIBLE_DEVICES=0,1,2,3
+- Executing the Following Evaluation Command
 
-bash  mindformers/scripts/msrun_launcher.sh "toolkit/benchmarks/eval_with_harness.py \
-    --model mf \
-    --model_args pretrained=MODEL_DIR,use_parallel=True,tp=1,dp=4 \
-    --tasks TASKS \
-    --batch_size 4" 4
-```
+   ```shell
+   #!/bin/bash
 
-You can set multiple device numbers through the environment variable ASCEND_RT_VISIBLE_DEVICES.
+   python toolkit/benchmarks/eval_with_harness.py --model mf --model_args "pretrained=MODEL_DIR,device_id=0" --tasks TASKS
+   ```
+
+   > Notice: Execute script path:[eval_with_harness.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_harness.py)
 
 #### Evaluation Parameters
 
@@ -61,7 +92,6 @@ Harness parameters
 | `--model_args`  | str | Model and evaluation parameters. For details, see "MindFormers model parameters."      | Yes   |
 | `--tasks`       | str | Dataset name. Multiple datasets can be specified and separated by commas (,).      | Yes   |
 | `--batch_size`  | int | Number of batch processing samples.                   | No   |
-| `--num_fewshot` | int | Number of few-shot samples.             | No   |
 | `--limit`       | int | Number of samples for each task. This parameter is mainly used for function tests.         | No   |
 
 MindFormers model parameters
@@ -71,28 +101,6 @@ MindFormers model parameters
 | `pretrained`   | str  | Model directory.                           | Yes   |
 | `use_past`     | bool | Specifies whether to enable incremental inference. This parameter must be enabled for evaluation tasks of the generate_until type.| No   |
 | `device_id`    | int  | Device ID.                             | No   |
-| `use_parallel` | bool | Specifies whether to enable the parallel policy.                           | No   |
-| `dp`           | int  | Data parallelism.                             | No   |
-| `tp`           | int  | Model parallelism.                             | No   |
-
-#### Preparations Before Evaluation
-
-1. Create a model directory MODEL_DIR.
-2. Store the MindFormers weight(\*.ckpt), YAML file(\*.yaml), and tokenizer file(\*_tokenizer.model) in the model directory. For details, Please refer to the README documentation of each MindFormers model for the method of obtaining, which is usually located in [model_cards](https://gitee.com/mindspore/mindformers/tree/dev/model_cards) directory or in [research](https://gitee.com/mindspore/mindformers/tree/dev/research) directory, depending on the model used by the user;
-3. Configure the yaml file.
-
-YAML configuration references:
-
-```yaml
-run_mode: 'predict'
-model:
-  model_config:
-    use_past: True
-    checkpoint_name_or_path: "model.ckpt"
-processor:
-  tokenizer:
-    vocab_file: "tokenizer.model"
-```
 
 ### Evaluation Example
 
@@ -100,7 +108,6 @@ processor:
 #!/bin/bash
 
 python toolkit/benchmarks/eval_with_harness.py --model mf --model_args "pretrained=./llama3-8b,use_past=True" --tasks gsm8k
-
 ```
 
 The evaluation result is as follows. Filter indicates the output mode of the matching model, Metric indicates the evaluation metric, Value indicates the evaluation score, and Stderr indicates the score error.
@@ -109,10 +116,6 @@ The evaluation result is as follows. Filter indicates the output mode of the mat
 |-------|--------:|------------------|-------:|-------------|---|--------|---|--------|
 | gsm8k |       3 | flexible-extract |      5 | exact_match | ↑ | 0.5034 | ± | 0.0138 |
 |       |         | strict-match     |      5 | exact_match | ↑ | 0.5011 | ± | 0.0138 |
-
-### Features
-
-For details about all Harness evaluation tasks, see [Viewing a Dataset Evaluation Task](#viewing-a-dataset-evaluation-task).
 
 ## VLMEvalKit Evaluation
 
@@ -169,10 +172,10 @@ VLMEvalKit main parameters
 #### Preparation Before Evaluation
 
 1. Create model directory model_path;
-2. Store the MindFormers weight(\*.ckpt), YAML file(\*.yaml), and tokenizer file(\*_tokenizer.model) in the model directory. For details, Please refer to the README documentation of each MindFormers model for the method of obtaining, which is usually located in [model_cards](https://gitee.com/mindspore/mindformers/tree/dev/model_cards) directory or in [research](https://gitee.com/mindspore/mindformers/tree/dev/research) directory, depending on the model used by the user;
-3. Configure the yaml configuration file.
+2. Store the YAML file(\*.yaml), and tokenizer file(\*_tokenizer.model) in the model directory. For details, Please refer to the description documents of each model in the [model library](../start/models.md);
+3. Configure the yaml file, refer to [configuration description](../appendix/conf_files.md).
 
-The yaml configuration reference:
+The yaml configuration example:
 
 ```yaml
 load_checkpoint: "/{path}/model.ckpt"  # Specify the path to the weights file
