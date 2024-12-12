@@ -54,22 +54,22 @@ python toolkit/benchmarks/eval_with_harness.py --tasks list
 
 - 评测前准备
 
-1. 创建模型目录MODEL_DIR；
-2. 模型目录下须放置yaml配置文件（\*.yaml）、分词器文件（\*_tokenizer.py），获取方式参考[模型库](../start/models.md)中各模型说明文档；
-3. 配置yaml配置文件，参考[配置文件说明](../appendix/conf_files.md)。
+  1. 创建模型目录MODEL_DIR；
+  2. 模型目录下须放置yaml配置文件（\*.yaml）、分词器文件（\*_tokenizer.py），获取方式参考[模型库](../start/models.md)中各模型说明文档；
+  3. 配置yaml配置文件，参考[配置文件说明](../appendix/conf_files.md)。
 
-      yaml配置样例：
+        yaml配置样例：
 
-      ```yaml
-      run_mode: 'predict'       # 设置推理模式
-      model:
-        model_config:
-          use_past: True
-          checkpoint_name_or_path: "model.ckpt"      # 权重路径
-      processor:
-        tokenizer:
-          vocab_file: "tokenizer.model"     # tokenizer路径
-      ```
+        ```yaml
+        run_mode: 'predict'       # 设置推理模式
+        model:
+          model_config:
+            use_past: True
+            checkpoint_name_or_path: "model.ckpt"      # 权重路径
+        processor:
+          tokenizer:
+            vocab_file: "tokenizer.model"     # tokenizer路径
+        ```
 
 - 执行以下评测命令
 
