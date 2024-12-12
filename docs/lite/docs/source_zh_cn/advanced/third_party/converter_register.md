@@ -136,7 +136,7 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
 4. 将转换工具需要的动态链接库加入环境变量`LD_LIBRARY_PATH`
 
    ```bash
-   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/tools/converter/lib
+   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${PACKAGE_ROOT_PATH}/tools/converter/lib
    ```
 
 5. 执行converter

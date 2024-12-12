@@ -134,7 +134,7 @@ For the sample code, please refer to [pass](https://gitee.com/mindspore/mindspor
 4. Add the required dynamic library to the environment variable `LD_LIBRARY_PATH`
 
    ```bash
-   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/tools/converter/lib
+   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${PACKAGE_ROOT_PATH}/tools/converter/lib
    ```
 
 5. Execute the script
