@@ -1,6 +1,6 @@
 # 在MCU或小型系统上执行推理或训练
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/lite/docs/source_zh_cn/use/micro.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.1/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.4.1/docs/lite/docs/source_zh_cn/advanced/micro.md)
 
 ## 概述
 
@@ -347,7 +347,7 @@ support_parallel=true
 
 在Cortex-M等MCU场景下，受限于设备的内存大小及算力，通常需要使用int8量化算子来进行部署推理以减少运行时内存大小并加速运算。
 
-如果用户已经有一个int8全量化模型，可参考[执行converter_lite生成推理代码](https://www.mindspore.cn/lite/docs/zh-CN/r2.4.1/use/micro.html#执行converter-lite生成推理代码)章节尝试直接生成int8量化推理代码而不需要阅读本章内容。
+如果用户已经有一个int8全量化模型，可参考[执行converter_lite生成推理代码](https://www.mindspore.cn/lite/docs/zh-CN/r2.4.1/advanced/micro.html#执行converter-lite生成推理代码)章节尝试直接生成int8量化推理代码而不需要阅读本章内容。
 在通常的情况下，用户只有一个训练好的float32模型，此时若要生成int8量化推理代码，则需配合转换工具的后量化功能进行代码生成，具体步骤可参考下文。
 
 #### 配置文件
