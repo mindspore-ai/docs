@@ -9,6 +9,14 @@ MindSpore Lite文档
 .. toctree::
     :glob:
     :maxdepth: 1
+    :caption: 快速入门
+    :hidden:
+
+    quick_start/one_hour_introduction
+
+.. toctree::
+    :glob:
+    :maxdepth: 1
     :caption: 编译
     :hidden:
 
@@ -64,6 +72,7 @@ MindSpore Lite文档
 
    advanced/image_processing
    advanced/quantization
+   advanced/micro
    advanced/third_party
 
 .. toctree::
@@ -205,6 +214,18 @@ MindSpore Lite文档
 							
 										<div class="doc-article-desc">
 										欢迎使用MindSpore Lite，我们提供了支持多种操作系统和硬件平台的模型转换、模型推理、图像处理等功能，你可以下载适用于本地环境的版本包直接使用。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Data-Preparation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r2.4.0/quick_start/one_hour_introduction.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">端侧推理快速入门</span>
+										</div>
+										<div class="doc-article-desc">
+										本文通过使用MindSpore Lite对一个模型执行端侧推理为例，向大家介绍MindSpore Lite的基础功能和用法。
 										</div>
 									</div>
 								</a>
@@ -374,7 +395,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-iot language-cpp stage-Model-Code-Generation stage-Inference user-Beginner user-Intermediate hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r2.4.0/use/micro.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r2.4.0/advanced/micro.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">在MCU或小型系统上执行推理</span>
