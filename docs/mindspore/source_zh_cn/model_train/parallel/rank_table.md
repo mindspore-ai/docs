@@ -47,12 +47,12 @@
        ├── allgather_test.py
        ├── rank_table_8pcs.json
        ├── rank_table_16pcs.json
-       ├── run_ran_table.sh
-       ├── run_ran_table_cluster.sh
+       ├── run_rank_table.sh
+       ├── run_rank_table_cluster.sh
     ...
 ```
 
-其中，`allgather_test.py`是定义网络结构，`run_ran_table.sh`、`run_ran_table_cluster.sh`是执行脚本。`rank_table_8pcs.json`、`rank_table_16pcs.json`分别是8卡、16卡rank_table配置文件。
+其中，`allgather_test.py`是定义网络结构，`run_rank_table.sh`、`run_rank_table_cluster.sh`是执行脚本。`rank_table_8pcs.json`、`rank_table_16pcs.json`分别是8卡、16卡rank_table配置文件。
 
 ### 1. 准备Python训练脚本
 
@@ -184,7 +184,7 @@ done
 在当前路径配置好`rank_table_8pcs.json`后，执行以下指令：
 
 ```bash
-bash run_ran_table.sh
+bash run_rank_table.sh
 ```
 
 运行结束后，日志文件保存`device0`、 `device1`等目录下，`env*.log`中记录了环境变量的相关信息，输出结果保存在`train*.log`中，示例如下：
@@ -322,9 +322,9 @@ done
 
 ```bash
 # server0
-bash run_ran_table_cluster.sh 0
+bash run_rank_table_cluster.sh 0
 # server1
-bash run_ran_table_cluster.sh 8
+bash run_rank_table_cluster.sh 8
 ```
 
 运行结束后，日志文件保存`device_0`、 `device_1`等目录下，`env*.log`中记录了环境变量的相关信息，输出结果保存在`train*.log`中。
