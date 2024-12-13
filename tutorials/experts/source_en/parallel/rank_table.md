@@ -47,12 +47,12 @@ The directory structure is as follows:
        ├── allgather_test.py
        ├── rank_table_8pcs.json
        ├── rank_table_16pcs.json
-       ├── run_ran_table.sh
-       ├── run_ran_table_cluster.sh
+       ├── run_rank_table.sh
+       ├── run_rank_table_cluster.sh
     ...
 ```
 
-`allgather_test.py` defines the network structure, `run_ran_table.sh`, and `run_ran_table_cluster.sh` are executing the scripts. `rank_table_8pcs.json`, `rank_table_16pcs.json` are 8 cards and 16 cards rank_table config file.
+`allgather_test.py` defines the network structure, `run_rank_table.sh`, and `run_rank_table_cluster.sh` are executing the scripts. `rank_table_8pcs.json`, `rank_table_16pcs.json` are 8 cards and 16 cards rank_table config file.
 
 ### 1. Preparing Python Training Scripts
 
@@ -184,7 +184,7 @@ Distributed-related environment variables are:
 After configuring `rank_table_8pcs.json` in the current path, execute the following command:
 
 ```bash
-bash run_ran_table.sh
+bash run_rank_table.sh
 ```
 
 After running, the log files are saved in `device0`, `device1` and other directories, `env*.log` records information about environment variables, and the output is saved in `train*.log`, as shown in the example below:
@@ -322,9 +322,9 @@ During execution, the following commands are executed on the two machines, where
 
 ```bash
 # server0
-bash run_ran_table_cluster.sh 0
+bash run_rank_table_cluster.sh 0
 # server1
-bash run_ran_table_cluster.sh 8
+bash run_rank_table_cluster.sh 8
 ```
 
 After running, the log files are saved in the directories `device_0`, `device_1`. The information about the environment variables is recorded in `env*.log`, and the output is saved in `train*.log`.
