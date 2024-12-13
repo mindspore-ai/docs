@@ -168,7 +168,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: base_model, framework, from_pretrained_experimental_mode, from_pretrained_origin_mode, fuse_weight_from_ckpt, get_support_list, is_experimental_mode, load_checkpoint, prepare_inputs_for_predict_layout, remove_type, save_pretrained_experimental_mode, save_pretrained_origin_mode, set_dynamic_inputs, show_support_list, convert_map_dict, convert_weight_dict, convert_name
+    :exclude-members: base_model, framework, from_pretrained_experimental_mode, from_pretrained_origin_mode, fuse_weight_from_ckpt, get_support_list, is_experimental_mode, load_checkpoint, prepare_inputs_for_predict_layout, remove_type, save_pretrained_experimental_mode, save_pretrained_origin_mode, set_dynamic_inputs, show_support_list, convert_map_dict, convert_weight_dict, convert_name, obtain_qkv_ffn_concat_keys
     :members:
 
 {% elif fullname=="mindformers.models.PreTrainedTokenizer" %}
@@ -197,6 +197,13 @@
 
 .. autoclass:: {{ name }}
     :exclude-members: preprocess
+    :members:
+
+{% elif fullname=="mindformers.tools.MindFormerConfig" %}
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :exclude-members: set_value, get_value
     :members:
 
 {% elif fullname=="mindformers.tools.register.MindFormerRegister" %}

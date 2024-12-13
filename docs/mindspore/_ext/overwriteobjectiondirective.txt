@@ -130,15 +130,16 @@ def get_platforms(name: str):
     try:
         if not name.startswith('mindspore.'):
             name = 'mindspore.' + name
-        if '.mint.' in name:
-            return ["", "支持平台：", "    ``Ascend``", ""]
         api_doc = inspect.getdoc(get_api(name))
+        is_overload = re.findall('\.\. (method|function)::', api_doc)
+        if '.mint.' in name and not is_overload:
+            return ["", "支持平台：", "    ``Ascend``", ""]
         all_platform = []
-        if re.findall('\.\. (method|function)::', api_doc):
+        if is_overload:
             for i in re.split('\.\. (method|function)::.*\n', api_doc):
-                platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', i)
                 if i in ('method', 'function'):
                     continue
+                platform_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', i)
                 if not platform_str:
                     all_platform.append([''])
                     continue
@@ -360,8 +361,9 @@ class ObjectDescription(SphinxDirective, Generic[N]):
 
         extra_len = 0
         directive_content = True
-        if not self.content.data and 'Tensor.' in self.names[0][0]:
-            directive_content = False
+        if not self.content.data:
+            if 'Tensor.' in self.names[0][0] or '.mint.' in self.names[0][0]:
+                directive_content = False
 
         if example and "**样例：**" not in example and '' in example:
             extra_len = len(example+platforms)
@@ -454,6 +456,7 @@ class ObjectDescription(SphinxDirective, Generic[N]):
                 logger.warning(e)
         elif extra and directive_content:
             method_ind = []
+            func_ind = []
             for ext in extra:
                 extra_len += len(ext)
                 index_example = 0
@@ -505,7 +508,18 @@ class ObjectDescription(SphinxDirective, Generic[N]):
                             for i in ext:
                                 self.content.data.insert(index_example-count, i)
                         else:
-                            self.content.data.extend(ext)
+                            overload_num = 0
+                            for num, i in enumerate(self.content.data):
+                                if i.startswith('.. py:function::') and num not in func_ind:
+                                    func_ind.append(num+len(ext))
+                                    overload_num = num
+                                    break
+                            if overload_num:
+                                count = len(self.content.data)
+                                for i in ext:
+                                    self.content.data.insert(overload_num-count, i)
+                            else:
+                                self.content.data.extend(ext)
         try:
             if directive_content:
                 self.content.items.extend(self.extend_items(self.content.items[0][0], self.content.items[-1][1], extra_len))

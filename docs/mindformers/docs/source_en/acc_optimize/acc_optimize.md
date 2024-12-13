@@ -38,7 +38,7 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 #### MOE Structure
 
-| **Key parameters**         | **Descriptions**                                                         | **CheckList**                                                                                                                                |
+| **Key parameters**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;         | **Descriptions**                                                         | **CheckList**                                                                                                                                |
 | ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
 | expert_num               | Number of experts                                          | Correspond to the Megatron num-experts parameter and check for consistency.                    |
 | num_experts_chosen       | Number of experts selected per token                             | Correspond to the Megatron moe-router-topk parameter and check for consistency.                |
@@ -86,7 +86,7 @@ Before locating the operator accuracy problem, we should first eliminate the int
 
 ### Parallel Strategy CheckList
 
-| **Key parameters**          | **Descriptions**     | **CheckList**  |
+| **Key parameters**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          | **Descriptions**     | **CheckList**  |
 | ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
 | data_parallel              | data parallel                               | Parallel slicing affects the communication behavior, and the calculations that introduce communication after slicing may be slightly different from the single-card calculations.                    |
 | model_parallel             | model parallel                               | Parallel slicing affects the communication behavior, and the calculations that introduce communication after slicing may be slightly different from the single-card calculations.      |
