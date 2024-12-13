@@ -70,7 +70,7 @@ for语句以及while语句可能存在循环次数过大，导致函数调用栈
 RuntimeError: Exceed function call depth limit 1000, (function call depth: 1001, simulate call depth: 997).
 ```
 
-超出函数调用栈限制问题，一种解决方式是简化网络的结构，减少循环次数。另一种方式是使用`set_context(max_call_depth=value)`调大函数调用栈的阈值。
+超出函数调用栈限制问题，一种解决方式是简化网络的结构，减少循环次数。另一种方式是使用`mindspore.set_recursion_limit(recursion_limit=value)`调大函数调用栈的阈值。
 
 参考实例链接：
 

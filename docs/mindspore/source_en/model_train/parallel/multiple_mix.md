@@ -31,10 +31,12 @@ The directory structure is as follows:
 Specify the run mode, run device, run card number, etc. through the context interface. Unlike single-card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` as auto-parallel and the search mode `search_mode` as double recursive strategy search mode `recursive_programming` for auto-slicing of the data parallel and model parallel, and initialize HCCL or NCCL communication with init. `pipeline_stages` is the number of stages in pipeline parallel, and optimizer parallel is enabled by enabling `enable_parallel_optimizer`. `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
 
 ```python
+import os
 import mindspore as ms
 from mindspore.communication import init
 
-ms.set_context(mode=ms.GRAPH_MODE, save_graphs=2)
+os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
+ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_context(max_device_memory="25GB")
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
 ms.set_auto_parallel_context(pipeline_stages=2, enable_parallel_optimizer=True)

@@ -20,7 +20,8 @@ import mindspore.dataset as ds
 from mindspore import nn
 from mindspore.communication import init
 
-ms.set_context(mode=ms.GRAPH_MODE, save_graphs=2)
+os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
+ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
 init()
 ms.set_seed(1)

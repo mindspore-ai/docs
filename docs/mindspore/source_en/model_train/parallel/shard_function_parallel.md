@@ -301,8 +301,8 @@ bash run_shard_function_example.sh 8 ../rank_table_8pcs.json
 
 During the execution process, the framework automatically performs operator-level model parallelization for the input function of `shard`, and the parallelization strategy for each operator is obtained by the framework search, and the whole process is user-agnostic. The graph can be saved as follows:
 
-```python
-ms.set_context(save_graphs=2)
+```bash
+export MS_DEV_SAVE_GRAPHS=2
 ```
 
 The parallelization strategy for each specific operator can be seen in `step_parallel_end.ir`.

@@ -58,13 +58,15 @@ The directory structure is as follows:
 
 ### Configuring a Distributed Environment
 
-Specify the run mode, run device, run card number via the context interface. The parallel mode is data parallel and HCCL or NCCL communication is initialized by init. Setting `save_graphs=2` prints out the computational graph structure for comparison. `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
+Specify the run mode, run device, run card number via the context interface. The parallel mode is data parallel and HCCL or NCCL communication is initialized by init. Setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 to prints out the computational graph structure for comparison. `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
 
 ```python
+import os
 import mindspore as ms
 from mindspore.communication import init
 
-ms.set_context(mode=ms.GRAPH_MODE, save_graphs=2)
+os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
+ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 init()
 ms.set_seed(1)
@@ -168,7 +170,7 @@ Next, the corresponding script is called by the command. Take the `mpirun` start
 bash run.sh
 ```
 
-After training, the log files are saved to the `log_output` directory, and by setting context: `save_graphs=2` in `train.py`, you can print out the IR graphs of the compilation process, where some of the file directories are structured as follows:
+After training, the log files are saved to the `log_output` directory, and by setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2, you can print out the IR graphs of the compilation process, where some of the file directories are structured as follows:
 
 ```text
 ├─ log_output

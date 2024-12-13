@@ -31,10 +31,12 @@
 通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为自动并行模式，搜索模式`search_mode`为双递归策略搜索模式`recursive_programming`，用于自动切分数据并行和模型并行，并通过init初始化HCCL或NCCL通信。`pipeline_stages`为流水线并行中stage的数量，且通过使能`enable_parallel_optimizer`开启优化器并行。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
+import os
 import mindspore as ms
 from mindspore.communication import init
 
-ms.set_context(mode=ms.GRAPH_MODE, save_graphs=2)
+os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
+ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_context(max_device_memory="25GB")
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
 ms.set_auto_parallel_context(pipeline_stages=2, enable_parallel_optimizer=True)

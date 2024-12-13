@@ -4,22 +4,23 @@
 
 ## Overview
 
-When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and `set_context(save_graphs=2)` is set in the configuration, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. Currently, there are two IR files:
+When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. Currently, there are two IR files:
 
 - .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors.
-- .dot file: When `set_context(save_graphs=3)` is set in the configuration, an IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize computing graphs.
+- .dot file: When setting the environment variable `MS_DEV_SAVE_GRAPHS` to 3, an IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize computing graphs.
 
 ## Saving IR
 
-`set_context(save_graphs=2)` is used to save the intermediate code in each compilation phase. The intermediate code can be saved in two formats, and the .ir file with the extension '.ir' is saved by default. If `set_context(save_graphs=3)` is set, a graphical .ir file with the extension `.dot` is printed. When the network scale is small, you are advised to use the graphical format that is more intuitive. When the network scale is large, you are advised to use the text format that is more efficient.
+Save the intermediate code in each compilation phase by setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2. The intermediate code can be saved in two formats, and the .ir file with the extension '.ir' is saved by default. If set the environment variable `MS_DEV_SAVE_GRAPHS` to 3, a graphical .ir file with the extension `.dot` is printed. When the network scale is small, you are advised to use the graphical format that is more intuitive. When the network scale is large, you are advised to use the text format that is more efficient.
 
 You can run the graphviz command to convert a .dot file to the picture format. For example, you can run the `dot -Tpng *.dot -o *.png` command to convert a `.dot` file to a .png file.
 
-In the training script `train.py`, we add the following code to the `set_context` function, when running the training script, MindSpore will automatically store the IR file generated during compilation to the specified path.
+In the training script `train.py`, we add the following code, when running the training script, MindSpore will automatically store the IR file generated during compilation to the specified path.
 
 ```python
-if __name__ == "__main__":
-    set_context(save_graphs=3, save_graphs_path="path/to/ir/files")
+import os
+os.environ['MS_DEV_SAVE_GRAPHS'] = "3"
+os.environ['MS_DEV_SAVE_GRAPHS_PATH'] = "path/to/ir/files"
 ```
 
 After the training command is executed, several files were generated under the specified path.
@@ -57,12 +58,14 @@ As the IR file number is located at the end of the file, when the files are sort
 The following is an example to describe the contents of the IR file. Run the script:
 
 ```python
+import os
 import mindspore as ms
 import mindspore.nn as nn
 from mindspore import ops
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_context(save_graphs=2, save_graphs_path="./ir")
+os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
+os.environ['MS_DEV_SAVE_GRAPHS_PATH'] = './ir'
 
 class Net(nn.Cell):
     def __init__(self):
@@ -276,30 +279,32 @@ In the graph compilation process, MindSpore often reports a graph derivation fai
 ### Example 1: parameters number mismatch
 
 ```python
-  1 import mindspore as ms
-  2 import mindspore.nn as nn
-  3 from mindspore import ops
-  4
-  5 ms.set_context(mode=ms.GRAPH_MODE)
-  6 ms.set_context(save_graphs=2, save_graphs_path="./ir")
-  7
-  8 class Net(nn.Cell):
-  9     def __init__(self):
- 10         super().__init__()
- 11
- 12     def func(x, y):
- 13         return ops.div(x, y)
- 14
- 15     def construct(self, x, y):
- 16         a = ops.sub(x, 1)
- 17         b = ops.add(a, y)
- 18         c = ops.mul(b, self.func(a, a, b))
- 19
- 20 input1 = ms.Tensor(3, ms.float32)
- 21 input2 = ms.Tensor(2, ms.float32)
- 22 net = Net()
- 23 out = net(input1, input2)
- 24 print(out)
+  1 import os
+  2 import mindspore as ms
+  3 import mindspore.nn as nn
+  4 from mindspore import ops
+  5
+  6 ms.set_context(mode=ms.GRAPH_MODE)
+  7 os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
+  8 os.environ['MS_DEV_SAVE_GRAPHS_PATH'] = './ir'
+  9
+ 10 class Net(nn.Cell):
+ 11     def __init__(self):
+ 12         super().__init__()
+ 13
+ 14     def func(x, y):
+ 15         return ops.div(x, y)
+ 16
+ 17     def construct(self, x, y):
+ 18         a = ops.sub(x, 1)
+ 19         b = ops.add(a, y)
+ 20         c = ops.mul(b, self.func(a, a, b))
+ 21
+ 22 input1 = ms.Tensor(3, ms.float32)
+ 23 input2 = ms.Tensor(2, ms.float32)
+ 24 net = Net()
+ 25 out = net(input1, input2)
+ 26 print(out)
 ```
 
 An error happens.
