@@ -180,6 +180,52 @@
 
 引用其他`.rst`或`.txt`文件的内容，其中`{relative_file_path.rst}`为待引用文件的相对路径。
 
+## 默认行为的描述方法
+
+1. 参数有默认值，且不为None，直接表达为实际的默认值。
+
+    中文：
+
+    ```text
+    默认值：``XXX``。
+    ```
+
+    英文：
+
+    ```text
+    Default: ``XXX``.
+    ```
+
+2. 参数有默认值，为None，需补充说明None的含义。
+
+    中文：
+
+    ```text
+    默认值：``None``，表示框架默认设置为XXX。
+    ```
+
+    英文：
+
+    ```text
+    Default: ``None``, indicates that the default value in the framework is XXX.
+    ```
+
+3. 参数没有默认值，框架有默认值，在接口描述里写框架默认行为。
+
+    中文：
+
+    ```text
+    框架默认***。
+    ```
+
+    英文：
+
+    ```text
+    The framework *** by default.
+    ```
+
+4. 参数没有默认值，框架也没有默认值，不需要任何说明。
+
 ## 内容注意事项
 
 1. 类（class，如mindspore.nn模块）文档中包含参数、输入、输出、异常；函数（function，如mindspore.ops模块）和方法（method，如mindspore.Tensor中的方法）文档中包含参数、返回、异常。
