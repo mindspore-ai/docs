@@ -129,7 +129,7 @@ cp output/rtn-a16w8_ckpt/rank_0/rtn-a16w8.ckpt /data/tutorial/llama2_13b_rtn_a16
 
 ### 量化配置文件准备
 
-MindFormers已提供[predict_llama2_13b_rtn.yaml配置文件](https://gitee.com/mindspore/mindformers/blob/r1.3.2/configs/llama2/predict_llama2_13b_rtn.yaml)，将其拷贝至`llama2_13b_rtn_a16w8_dir`目录中。
+MindFormers已提供[predict_llama2_13b_rtn.yaml配置文件](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_13b_rtn.yaml)，将其拷贝至`llama2_13b_rtn_a16w8_dir`目录中。
 
 ```shell
 cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w8_dir
@@ -139,7 +139,7 @@ cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w
 
 1. **脚本实例**
 
-   替换MindFormers下的[run_llama2_generate.py](https://gitee.com/mindspore/mindformers/blob/r1.3.2/scripts/examples/llama2/run_llama2_generate.py)脚本为以下代码。
+   替换MindFormers下的[run_llama2_generate.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/scripts/examples/llama2/run_llama2_generate.py)脚本为以下代码。
 
    此实践基于`AutoModel.from_pretrained()`接口实例化量化模型，需调整该接口内的参数为之前创建的目录路径。
 

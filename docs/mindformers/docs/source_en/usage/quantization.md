@@ -129,7 +129,7 @@ cp output/rtn-a16w8_ckpt/rank_0/rtn-a16w8.ckpt /data/tutorial/llama2_13b_rtn_a16
 
 ### Preparing the Quantization Configuration File
 
-The configuration file [predict_llama2_13b_rtn.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.2/configs/llama2/predict_llama2_13b_rtn.yaml) is provided in MindFormers. You need to copy it to the `llama2_13b_rtn_a16w8_dir` directory.
+The configuration file [predict_llama2_13b_rtn.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_13b_rtn.yaml) is provided in MindFormers. You need to copy it to the `llama2_13b_rtn_a16w8_dir` directory.
 
 ```shell
 cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w8_dir
@@ -139,7 +139,7 @@ cp configs/llama2/predict_llama2_13b_rtn.yaml /data/tutorial/llama2_13b_rtn_a16w
 
 1. **Script instances**
 
-   Replace the [run_llama2_generate.py](https://gitee.com/mindspore/mindformers/blob/r1.3.2/scripts/examples/llama2/run_llama2_generate.py) script in MindFormers with the following code.
+   Replace the [run_llama2_generate.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/scripts/examples/llama2/run_llama2_generate.py) script in MindFormers with the following code.
 
    In this practice, the quantization model is instantiated based on the `AutoModel.from_pretrained()` API. You need to modify the parameters in the API to the created directory.
 

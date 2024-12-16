@@ -119,7 +119,7 @@ MindFormers支持**step级断点续训**功能，允许在训练中保存模型�
 ### 分布式训练示例
 
 以下示例演示了如何在单卡和多卡环境中启动断点续训。示例基于`llama2_7b`
-模型，相关配置文件[configs/llama2/pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.2/configs/llama2/pretrain_llama2_7b.yaml)。
+模型，相关配置文件[configs/llama2/pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/pretrain_llama2_7b.yaml)。
 
 #### 完整训练
 
@@ -149,7 +149,7 @@ MindFormers支持**step级断点续训**功能，允许在训练中保存模型�
      ...
    ```
 
-2. 准备数据集，此处以[wikitext2](https://gitee.com/mindspore/mindformers/blob/r1.3.2/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)为例，启动4卡分布式训练：
+2. 准备数据集，此处以[wikitext2](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)为例，启动4卡分布式训练：
 
    ```shell
    bash scripts/msrun_launcher.sh "run_mindformer.py \

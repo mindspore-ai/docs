@@ -35,13 +35,13 @@ Currently, MindFormers supports mainstream foundation models in the industry. In
 
 ### Data Preprocessing
 
-For details about how to process the Llama2-7B and Llama3-70B datasets, see [the Wikitext2 data preprocessing](https://gitee.com/mindspore/mindformers/blob/r1.3.2/docs/model_cards/llama2.md) and [the Wiki103 data preprocessing](https://gitee.com/mindspore/mindformers/blob/r1.3.2/research/llama3/llama3.md), respectively.
+For details about how to process the Llama2-7B and Llama3-70B datasets, see [the Wikitext2 data preprocessing](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md) and [the Wiki103 data preprocessing](https://gitee.com/mindspore/mindformers/blob/r1.3.0/research/llama3/llama3.md), respectively.
 
 ## Executing a Pretrained Task
 
 ### Single-Node Training
 
-Take Llama2-7B as an example. Specify the configuration file [pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.2/configs/llama2/pretrain_llama2_7b.yaml) and start the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.2/run_mindformer.py) script in msrun mode to perform 8-device distributed training. The startup command is as follows:
+Take Llama2-7B as an example. Specify the configuration file [pretrain_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/pretrain_llama2_7b.yaml) and start the [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/run_mindformer.py) script in msrun mode to perform 8-device distributed training. The startup command is as follows:
 
 ```bash
 bash scripts/msrun_launcher.sh "run_mindformer.py \
@@ -61,7 +61,7 @@ After the task is executed, the **checkpoint** folder is generated in the **mind
 
 ### Multi-Node Training
 
-Take Llama3-70B as an example. Use the [pretrain_llama3_70b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.2/research/llama3/pretrain_llama3_70b.yaml) configuration file to run [run_llama3.py](https://gitee.com/mindspore/mindformers/blob/r1.3.2/research/llama3/run_llama3.py) in msrun mode to perform 8-node 64-device pretraining. To perform distributed training on a multi-node multi-device script, you need to run the script on different nodes and set the **MASTER_ADDR** parameter to the IP address of the primary node. The IP addresses of all nodes are the same, and only the values of **NODE_RANK** are different for different nodes. For details about the parameter positions, see [msrun Launching Guide](https://www.mindspore.cn/docs/en/r2.4.10/model_train/parallel/msrun_launcher.html).
+Take Llama3-70B as an example. Use the [pretrain_llama3_70b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/research/llama3/pretrain_llama3_70b.yaml) configuration file to run [run_llama3.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/research/llama3/run_llama3.py) in msrun mode to perform 8-node 64-device pretraining. To perform distributed training on a multi-node multi-device script, you need to run the script on different nodes and set the **MASTER_ADDR** parameter to the IP address of the primary node. The IP addresses of all nodes are the same, and only the values of **NODE_RANK** are different for different nodes. For details about the parameter positions, see [msrun Launching Guide](https://www.mindspore.cn/docs/en/r2.4.10/model_train/parallel/msrun_launcher.html).
 
 ```shell
 # Node 0: Set the IP address of node 0 to the value of MASTER_ADDR, which is used as the IP address of the primary node. There are 64 devices in total with 8 devices for each node.

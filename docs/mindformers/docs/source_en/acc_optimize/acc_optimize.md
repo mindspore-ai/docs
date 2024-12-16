@@ -226,7 +226,7 @@ The training process fixes randomness and turns on deterministic computation in 
       # Original code
   ```
 
-* MindSpore code, in [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.2/run_mindformer.py), the new seed_all method is added and called in the main method, adding the method as follows:
+* MindSpore code, in [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/run_mindformer.py), the new seed_all method is added and called in the main method, adding the method as follows:
 
   ```python
   import numpy as np
@@ -337,7 +337,7 @@ def get_parameters(self):
     return params
 ```
 
-For MindFormers loading gradient, refer to [mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/r1.3.2/mindformers/wrapper/wrapper.py) implementation. Note that users need to find the correspondence between MindFormers and PyTorch gradient. Refer to the following modified code:
+For MindFormers loading gradient, refer to [mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/wrapper/wrapper.py) implementation. Note that users need to find the correspondence between MindFormers and PyTorch gradient. Refer to the following modified code:
 
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):

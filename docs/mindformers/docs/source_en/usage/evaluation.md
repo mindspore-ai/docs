@@ -80,7 +80,7 @@ python toolkit/benchmarks/eval_with_harness.py --tasks list
    python toolkit/benchmarks/eval_with_harness.py --model mf --model_args "pretrained=MODEL_DIR,device_id=0" --tasks TASKS
    ```
 
-   > Notice: Execute script path:[eval_with_harness.py](https://gitee.com/mindspore/mindformers/blob/r1.3.2/toolkit/benchmarks/eval_with_harness.py)
+   > Notice: Execute script path:[eval_with_harness.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/toolkit/benchmarks/eval_with_harness.py)
 
 #### Evaluation Parameters
 
@@ -140,7 +140,7 @@ pip install -e .
 
 ### Usage
 
-Run the script [eval_with_vlmevalkit.py](https://gitee.com/mindspore/mindformers/blob/r1.3.2/toolkit/benchmarks/eval_with_vlmevalkit.py).
+Run the script [eval_with_vlmevalkit.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/toolkit/benchmarks/eval_with_vlmevalkit.py).
 
 #### Launching a Single-Card Evaluation Script
 

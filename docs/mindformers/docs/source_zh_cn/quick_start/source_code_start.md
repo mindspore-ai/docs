@@ -20,7 +20,7 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
 
 2. 数据预处理
 
-    1. 执行[mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/r1.3.2/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，使用fastchat工具添加prompt模板，将原始数据集转换为多轮对话格式。
+    1. 执行[mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，使用fastchat工具添加prompt模板，将原始数据集转换为多轮对话格式。
 
         ```shell
 
@@ -34,7 +34,7 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
         - data_path:   输入下载的文件路径。
         - output_path: 输出文件的保存路径。
 
-    2. 执行[mindformers/tools/dataset_preprocess/llama/llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/r1.3.2/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，生成MindRecord数据，将带有prompt模板的数据转换为MindRecord格式。
+    2. 执行[mindformers/tools/dataset_preprocess/llama/llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，生成MindRecord数据，将带有prompt模板的数据转换为MindRecord格式。
 
         ```shell
           # 此工具依赖fschat工具包解析prompt模板，请提前安装fschat >= 0.2.13 python = 3.9
@@ -103,4 +103,4 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 ## 说明
 
-关于Llama2更多细节，以及更多的启动方式，请具体参考`Llama2` 的 [README](https://gitee.com/mindspore/mindformers/blob/r1.3.2/docs/model_cards/llama2.md#llama-2)文档获取更多支持。
+关于Llama2更多细节，以及更多的启动方式，请具体参考`Llama2` 的 [README](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#llama-2)文档获取更多支持。
