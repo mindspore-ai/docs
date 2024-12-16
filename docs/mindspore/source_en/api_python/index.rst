@@ -7,6 +7,7 @@ API
    :hidden:
 
    mindspore
+   mindspore.device_context
    mindspore.nn
    mindspore.ops
    mindspore.ops.primitive
@@ -16,7 +17,7 @@ API
    mindspore.communication
    mindspore.communication.comm_func
    mindspore.common.initializer
-   mindspore.hal
+   mindspore.runtime
    mindspore.dataset
    mindspore.dataset.transforms
    mindspore.mindrecord
@@ -27,6 +28,7 @@ API
    mindspore.numpy
    mindspore.scipy
    mindspore.utils
+   mindspore.hal
    mindspore.experimental
    env_var_list
 
