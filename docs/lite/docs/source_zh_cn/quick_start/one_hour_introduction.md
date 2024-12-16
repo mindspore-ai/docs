@@ -420,7 +420,7 @@ mindspore-lite-{version}-linux-x64
 
 6. 高级功能
 
-    关于`benchmark`的更详细说明，以及关于如何使用`benchmark`来进行基准测试、耗时定量分析、误差分析、Dump数据等，可以参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/r2.4.1/use/benchmark_tool.html)。
+    关于`benchmark`的更详细说明，以及关于如何使用`benchmark`来进行基准测试、耗时定量分析、误差分析、Dump数据等，可以参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/r2.4.1/tools/benchmark_tool.html)。
 
 表2：benchmark参数定义
 
