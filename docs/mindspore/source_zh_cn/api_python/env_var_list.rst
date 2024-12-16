@@ -207,7 +207,7 @@
      - 1：对未使用的Cell对象进行垃圾回收
 
        不设置或其他值：不会显示调用垃圾回收机制
-     -
+     - 此环境变量后续将删除，不建议使用。
    * - MS_DEV_USE_PY_BPROP
      - 指定算子的bprop使用python版本，不使用cpp expander
      - String

@@ -207,7 +207,7 @@ Graph Compilation and Execution
      - 1: Perform garbage collection on unused Cell objects
 
        No setting or other value: not calling the garbage collection
-     - 
+     - This environment variable will be removed subsequently and is not recommended.
    * - MS_DEV_USE_PY_BPROP
      - The op which set by environment will use python bprop instead of cpp expander bprop
      - String
