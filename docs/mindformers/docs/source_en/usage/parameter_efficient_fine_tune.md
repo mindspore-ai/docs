@@ -33,7 +33,7 @@ In the distributed environment of Ascend AI processors, the MindFormers suite ca
 
 ### YAML File Example
 
-For details about the complete YAML file, see [the Llama2 LoRA fine-tuning YAML file](https://gitee.com/mindspore/mindformers/blob/r1.3.2/configs/llama2/lora_llama2_7b.yaml).
+For details about the complete YAML file, see [the Llama2 LoRA fine-tuning YAML file](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/lora_llama2_7b.yaml).
 
 ```yaml
 # model config
@@ -71,7 +71,7 @@ By configuring these parameters, LoRA can effectively reduce the computing resou
 
 ### Examples of LoRA Fine-Tuning for Llama2-7B
 
-MindFormers provides [the LoRA fine-tuning examples](https://gitee.com/mindspore/mindformers/blob/r1.3.2/docs/model_cards/llama2.md#lora%E5%BE%AE%E8%B0%83) of Llama2-7B. For details about the dataset used during fine-tuning, see [dataset downloading](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json).
+MindFormers provides [the LoRA fine-tuning examples](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#lora%E5%BE%AE%E8%B0%83) of Llama2-7B. For details about the dataset used during fine-tuning, see [dataset downloading](https://github.com/tatsu-lab/stanford_alpaca/blob/main/alpaca_data.json).
 
 Take Llama2-7B as an example. You can run the following **msrun** startup script to perform 8-device distributed fine-tuning.
 

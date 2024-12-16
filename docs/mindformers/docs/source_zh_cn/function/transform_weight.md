@@ -104,7 +104,7 @@ transform_process_num: 2
 
 #### 单进程转换
 
-使用[mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/r1.3.2/mindformers/tools/ckpt_transform/transform_checkpoint.py)对载入权重进行单进程转换。
+使用[mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/ckpt_transform/transform_checkpoint.py)对载入权重进行单进程转换。
 
 **运行命令**：
 
@@ -121,7 +121,7 @@ python transform_checkpoint.py \
 
 #### 多进程转换
 
-使用[mindformers/tools/ckpt_transform/transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/r1.3.2/mindformers/tools/ckpt_transform/transform_checkpoint.sh)对载入权重进行多进程转换。
+使用[mindformers/tools/ckpt_transform/transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/ckpt_transform/transform_checkpoint.sh)对载入权重进行多进程转换。
 
 **运行命令**：
 
@@ -136,7 +136,7 @@ bash transform_checkpoint.sh \
 
 **注意事项**：
 
-- 使用[transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/r1.3.2/mindformers/tools/ckpt_transform/transform_checkpoint.sh)脚本时，参数`8`表示目标设备数，参数`2`表示使用2个进程进行转换。
+- 使用[transform_checkpoint.sh](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/ckpt_transform/transform_checkpoint.sh)脚本时，参数`8`表示目标设备数，参数`2`表示使用2个进程进行转换。
 - 同样，如果没有目标策略文件，可以通过设置`only_save_strategy: True`来生成策略文件。
 
 #### 参数配置示例
@@ -230,7 +230,7 @@ bash transform_checkpoint.sh \
 
   **启动任务：**
 
-  使用[mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/r1.3.2/scripts/msrun_launcher.sh)进行任务启动。
+  使用[mindformers/scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/r1.3.0/scripts/msrun_launcher.sh)进行任务启动。
 
   ```shell
   # 第一台服务器（主节点）
@@ -281,7 +281,7 @@ bash transform_checkpoint.sh \
 
 - **离线权重转换**
 
-  在保存有所有策略文件的服务器上，使用[mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/r1.3.2/mindformers/tools/ckpt_transform/transform_checkpoint.py)进行离线权重转换。
+  在保存有所有策略文件的服务器上，使用[mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/ckpt_transform/transform_checkpoint.py)进行离线权重转换。
 
   **单进程转换：**
 
@@ -336,7 +336,7 @@ LoRA（Low-Rank Adaptation）的基本原理是对原始模型的参数进行低
 
 ### 使用说明
 
-使用MindFormers提供的[LoRA权重合并脚本](https://gitee.com/mindspore/mindformers/blob/r1.3.2/mindformers/tools/transform_ckpt_lora.py)，按照如下方式进行LoRA权重合并。
+使用MindFormers提供的[LoRA权重合并脚本](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/transform_ckpt_lora.py)，按照如下方式进行LoRA权重合并。
 
 ```shell
 python mindformers/tools/transform_ckpt_lora.py \

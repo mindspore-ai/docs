@@ -30,7 +30,7 @@ Based on actual operations, the inference process can be divided into the follow
 
 ## Inference Based on the Pipeline API
 
-An inference task process can be generated based on the customized text of the `pipeline` API. Single-device inference and multi-device inference are supported. For details about how to use the `pipeline` API to start a task and output the result, see the following implementation. For details about the parameters, see [the pipeline API document](https://gitee.com/mindspore/mindformers/blob/r1.3.2/docs/api/api_python/mindformers.pipeline.rst).
+An inference task process can be generated based on the customized text of the `pipeline` API. Single-device inference and multi-device inference are supported. For details about how to use the `pipeline` API to start a task and output the result, see the following implementation. For details about the parameters, see [the pipeline API document](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/api/api_python/mindformers.pipeline.rst).
 
 ### Incremental Inference
 
@@ -113,7 +113,7 @@ The inference result is as follows:
 
 ## Inference Based on the run_mindformer Script
 
-For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.2/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/r1.3.2/scripts/msrun_launcher.sh). Take Llama2 as an example. You are advised to configure the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.2/configs/llama2/predict_llama2_7b.yaml) file. During inference, the vocabulary file `tokenizer.model` required for the Llama2 model will be automatically downloaded (ensuring smooth network connectivity). If the file exists locally, you can place it in the `./checkpoint_dewnload/Llama2/` directory in advance.
+For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/r1.3.0/scripts/msrun_launcher.sh). Take Llama2 as an example. You are advised to configure the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/r1.3.0/configs/llama2/predict_llama2_7b.yaml) file. During inference, the vocabulary file `tokenizer.model` required for the Llama2 model will be automatically downloaded (ensuring smooth network connectivity). If the file exists locally, you can place it in the `./checkpoint_dewnload/Llama2/` directory in advance.
 
 ## Single-Device Inference
 
