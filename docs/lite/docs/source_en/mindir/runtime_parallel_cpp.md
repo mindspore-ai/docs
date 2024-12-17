@@ -103,18 +103,23 @@ if (predict_ret != mindspore::kSuccess) {
 
 ## Compiling And Executing
 
-Follow the [quickstart](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#excuting-compilation)Environment variables, set the environment variables. Then compile the program as follows:
+Follow the [quickstart](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#excuting-compilation)Environment variables, set the environment variables. Run the build.sh script in the `mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp` directory to automatically download the MindSpore Lite inference framework library and model files and compile the demo.
 
 ```bash
-mkdir build && cd build
-cmake ../
-make
+bash build.sh
 ```
 
-After the compilation is successful, you can get the quick_start_parallel_cpp executable in the 'build' directory. Example of executing program 'quick_start_parallel_cpp':
+After the compilation is successful, you can obtain the `mindspore_quick_start_cpp` executable program in the `build` directory. Run the `mindspore_quick_start_cpp` program to run the example.
 
 ```bash
-./quick_start_parallel_cpp --model_path=../model/mobilenetv2.mindir --device_type=CPU
+./mindspore_quick_start_cpp ../model/mobilenetv2.mindir CPU
+```
+
+After the execution is complete, the following information is displayed, including the tensor name, tensor size, number of tensors, and the first 50 records:
+
+```bash
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is:5.07133e-05 0.000487101 0.000312544 0.000356227 0.000202192 8.58929e-05 0.000187139 0.000365922 0.000281059 0.000255725 0.00108958 0.00390981 0.00230405 0.00128981 0.00307465 0.00147602 0.00106772 0.000589862 0.000848084 0.00143688 0.000685757 0.00219348 0.00160633 0.00215146 0.000444297 0.000151986 0.000317547 0.000539767 0.000187023 0.000643929 0.000218261 0.000931519 0.000127113 0.000544328 0.00088791 0.000303908 0.000273898 0.000353338 0.00229071 0.00045319 0.0011987 0.000621188 0.000628328 0.000838533 0.000611027 0.00037259 0.00147737 0.000270712 8.29846e-05 0.00011697 0.000876204
 ```
 
 ## Memory Release
