@@ -14,6 +14,10 @@
 
 精度定位通用流程请参考[精度定位通用流程](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/acc_optimize/acc_optimize.html#精度定位通用流程)章节。
 
+## 大模型迁移精度标准
+
+大模型迁移精度标准请参考[大模型迁移精度标准](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/acc_optimize/acc_optimize.html#大模型迁移精度标准)章节，该标准仅作为参考。
+
 ## msprobe工具介绍
 
 **msprobe** 是 MindStudio Training Tools 工具链下精度调试部分的工具包，主要适用于MindSpore动态图场景的精度问题定位。安装过程请参考[工具安装文档](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/01.installation.md)， 主要包括以下几个功能：
@@ -25,17 +29,17 @@
 | 溢出检测    | msprobe 工具提供溢出检测功能，针对网络中的每一个API进行输出数据的溢出检测。 | [溢出检测使用说明](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/13.overflow_check_MindSpore.md) |
 | 梯度状态监测 | 采集梯度数据并进行梯度相似度比对，可以精准定位出现问题的 step。 | [梯度状态检测使用说明](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/17.grad_probe.md) |  
 
-msprobe工具定位流程请参考[msprobe工具精度比对定位案例](#msprobe工具精度比对定位案例)。  
+以下将以两个常用的功能 **精度比对** 和 **精度预检** 为例，介绍 msprobe 工具使用的基本流程。
 
-## msprobe工具精度比对定位案例
+### 精度比对定位案例
 
-### 总体定位流程
+#### 总体定位流程
 
 1. 首先针对MindSpore实现的模型和PyTorch实现的模型进行数据dump，由于两侧代码在API粒度上可能无法完全对齐，因此可以先使用模块级数据dump，进行模块粒度的比对分析。
 2. 根据模块级数据的比对结果，找到第一个精度无法对齐的模块，对模块进行更细粒度的API级别数据dump。
 3. 对展开后的模块内部数据进行比对分析，确认问题点。
 
-### 详细步骤
+#### 详细步骤
 
 1. **工具配置**  
 
@@ -324,9 +328,9 @@ msprobe工具定位流程请参考[msprobe工具精度比对定位案例](#mspro
 
     通过查看json文件我们发现在这两个模块间的反向计算中，MindSpore侧对于swiglu的实现是通过手动实现的3个API拼接而成，而PyTorch侧的swiglu则直接使用了融合API，直接调用了npu\_swiglu进行计算，因此怀疑两边可能会存在精度误差。随后将PyTorch侧的融合api改写成相同api拼接计算，发现精度问题消失。
 
-## msprobe工具精度预检案例
+### msprobe工具精度预检案例
 
-### 数据采集
+#### 数据采集
 
 首先需要使用数据采集功能将网络中所有的API采集出来，若将"task"配置为"tensor"采集，在预检进行单元测试时就会使用真实数据输入。若将"task"配置为"statistics"采集，则单元测试时会随机生成数据输入，"level"需设置为"L1"代表进行API级别dump。
 
@@ -345,7 +349,7 @@ msprobe工具定位流程请参考[msprobe工具精度比对定位案例](#mspro
 }  
 ```
 
-### 精度预检 (只支持mint API)
+#### 精度预检 (只支持mint API)
 
 使用msprobe工具进行精度预检，命令如下：
 
@@ -353,7 +357,7 @@ msprobe工具定位流程请参考[msprobe工具精度比对定位案例](#mspro
 msprobe -f mindspore run_ut -api_info ./tensor_l1_ms/step0/rank0/dump.json -o ./output  
 ```
 
-### 精度预检结果分析  
+#### 精度预检结果分析  
 
 预检执行结果包括 `accuracy_checking_result_{timestamp}.csv` 和 `accuracy_checking_details_{timestamp}.csv` 两个文件。`accuracy_checking_result_{timestamp}.csv` 属于 API 级，标明每个 API 是否通过测试。建议用户先查看 `accuracy_checking_result_{timestamp}.csv` 文件，对于其中没有通过测试的或者特定感兴趣的 API，根据其 API Name 字段在 `accuracy_checking_details_{timestamp}.csv` 中查询其各个输出的达标情况以及比较指标。通过分析具体指标来定位到底哪些 API 存在精度问题，详细介绍请参见[预检结果说明](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/09.accuracy_checker_MindSpore.md#4-%E9%A2%84%E6%A3%80%E7%BB%93%E6%9E%9C)。
 
