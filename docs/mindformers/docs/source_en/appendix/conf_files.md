@@ -40,6 +40,7 @@ Context configuration is mainly used to specify the [mindspore.set_context](http
 | context.mempool_block_size | Set the size of the memory pool block for devices. The format is "xxGB". Default value is `"1GB"` | str |
 | context.save_graphs         | Save the compilation graph during execution.<br/>1. `False` or `0` indicates that the intermediate compilation map is not saved.<br/>2. `1` means outputting some of the intermediate files generated during the compilation of the diagram.<br/>3. `True` or `2` indicates the generation of more backend-process-related IR files. <br/>4. `3` indicates the generation of visualized computational diagrams and more detailed front-end IR diagrams. | bool/int |
 | context.save_graphs_path | Path for saving the compilation diagram. | str |
+| context.affinity_cpu_list   | Optional configuration option, used to implement user-defined binding policies. Enable default binding policy when not configured. `None` means to disable the binding function. Default value is `{}`. If you want to enable custom binding policies, you need to pass in' dict '. See [mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/en/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html) for details. | dict/str      |
 
 ### Model Configuration
 
