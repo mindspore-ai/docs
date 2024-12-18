@@ -80,7 +80,13 @@
 
 |  商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
 |--------|------------------|
-|TBD      | [CANN 8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
+|TBD      | [CANN 8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
+
+**配套资料**
+
+|   版本说明和接口变更   |   安装   |      教程      |  文档    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/zh-CN/r2.4.1/RELEASE.html)   | [安装指南](https://gitee.com/mindspore/docs/tree/r2.4.1/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.4.1/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.4.1/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.4.1/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.4.1/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.4.1/api_python/mindspore.html) <br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.4.1/index.html)     |
 
 ## 2.4.0
 
@@ -111,7 +117,7 @@
 
 |  商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
 |--------|------------------|
-|TBD      | [CANN 8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
+|TBD      | [CANN 8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [固件与驱动](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
 **配套资料**
 
