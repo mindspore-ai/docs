@@ -85,7 +85,6 @@ if __name__ == '__main__':
     # Define a network of training models
     net = Net()
     for i in range(STEP_NUM):
-        print(f"step {i}")
         train(net)
         # Modify the configuration file after step 7. For example, change start_step to 8 and stop_step to 10
         if i == 7:

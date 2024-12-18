@@ -14,7 +14,7 @@
 
 3. 运行训练脚本；
 
-4. 通过[MindSpore Insight](https://www.hiascend.com/document/detail/zh/mindstudio/70RC2/msinsightug/msascendinsightug/AscendInsight_0002.html)软件查看性能数据。
+4. 通过[MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/70RC2/msinsightug/msascendinsightug/AscendInsight_0002.html)软件查看性能数据。
 
 ## 使用方法
 
@@ -31,25 +31,14 @@
 ```python
 import os
 import mindspore as ms
-from mindspore.communication import get_rank
 from mindspore import Profiler
-
-def get_real_rank():
-    """get rank id"""
-    try:
-        return get_rank()
-    except RuntimeError:
-        return int(os.getenv("RANK_ID", "0"))
 
 class StopAtStep(ms.Callback):
     def __init__(self, start_step, stop_step):
         super(StopAtStep, self).__init__()
         self.start_step = start_step
         self.stop_step = stop_step
-        # 按照rank_id设置性能数据落盘路径
-        rank_id = get_real_rank()
-        output_path = os.path.join("profiler_data", f"rank_{rank_id}")
-        self.profiler = Profiler(start_profile=False, output_path=output_path)
+        self.profiler = Profiler(start_profile=False, output_path='./profiler_data')
 
     def on_train_step_begin(self, run_context):
         cb_params = run_context.original_args()
@@ -85,8 +74,7 @@ STEP_NUM = 15
 net = Net()
 with Profiler(schedule=schedule(wait=0, warm_up=0, active=2, repeat=1, skip_first=0),
               on_trace_ready=tensor_board_trace_handler) as prof:
-    for i in range(STEP_NUM):
-        print(f"step {i}")
+    for _ in range(STEP_NUM):
         train(net)
         # 调用step采集
         prof.step()
@@ -119,12 +107,11 @@ JSON配置样例如下：
 
 1. 用户需要在实例化DynamicProfilerMonitor前配置如上的JSON配置文件，详细参数介绍请参考[DynamicProfilerMonitor参数详解](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html)，将配置文件保存在cfg_path中；
 2. 在模型训练后调用DynamicProfilerMonitor的step接口采集数据；
-3. 用户如果想在训练中变更采集、解析任务，可以设置短暂的暂停时间，用于修改JSON配置文件，如变更上述JSON配置中的start_step为8，stop_step为10，保存后，DynamicProfilerMonitor会自动识别出配置文件变更成新的采集、解析任务。
+3. 用户如果想在训练中变更采集、解析任务，可以去修改JSON配置文件，如变更上述JSON配置中的start_step为8，stop_step为10，保存后，DynamicProfilerMonitor会自动识别出配置文件变更成新的采集、解析任务。
 
 样例如下：
 
 ```python
-import time
 from mindspore.profiler import DynamicProfilerMonitor
 
 # cfg_path中包括上述的json配置文件路径，output_path为输出路径
@@ -132,13 +119,8 @@ dp = DynamicProfilerMonitor(cfg_path="./cfg_path", output_path="./output_path")
 STEP_NUM = 15
 # 定义训练模型网络
 net = Net()
-for i in range(STEP_NUM):
-    print(f"step {i}")
+for _ in range(STEP_NUM):
     train(net)
-    # 在第7步后修改配置文件，如把start_step修改为8，stop_step为10
-    if i == 7:
-        # 暂停10s，用于修改JSON配置文件，修改后务必保存才能生效
-        time.sleep(10)
     # 调用step采集
     dp.step()
 ```
@@ -190,7 +172,10 @@ export MS_PROFILER_OPTIONS='
     │   ├── kernel_details.csv         // activities中配置ProfilerActivity.NPU生成
     │   ├── l2_cache.csv               // 配置l2_cache=True生成
     │   ├── memory_record.csv          // 配置profile_memory=True生成
-    │   ├── npu_module_mem.csv
+    │   ├── minddata_pipeline_raw_*.csv
+    │   ├── minddata_pipeline_summary_*.csv
+    │   ├── minddata_pipeline_summary_*.json
+    │   ├── npu_module_mem.csv         // 配置profile_memory=True生成
     │   ├── operator_memory.csv        // 配置profile_memory=True生成
     │   ├── op_statistic.csv           // AI Core和AI CPU算子调用次数及耗时数据
     │   ├── step_trace_time.csv        // 迭代中计算和通信的时间统计
