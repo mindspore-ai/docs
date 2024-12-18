@@ -515,6 +515,8 @@ def yield_files(directory):
     """
     # pylint: disable=W0612
     for root, dirs, files_ in os.walk(directory):
+        if f'{directory}/_' in root:
+            continue
         for file in files_:
             if file.endswith('.html'):
                 yield os.path.join(root, file)
@@ -578,11 +580,11 @@ if __name__ == "__main__":
              release_url=args.release_url, generate_list=generate_list_p)
 
         # 替换页面左侧目录部分
-        ms_path = f"{MAINDIR}/{args.version}/output/docs"
+        ms_path = f"{MAINDIR}/{args.version}/output/docs/zh-CN/master"
         if os.path.exists(ms_path):
-            replace_html_menu(ms_path+'/zh-CN/master', os.path.join(DOCDIR, "../../docs/mindspore/source_zh_cn"))
+            replace_html_menu(ms_path, os.path.join(DOCDIR, "../../docs/mindspore/source_zh_cn"))
             print('docs中文目录大纲调整完成！')
-            replace_html_menu(ms_path+'/en/master', os.path.join(DOCDIR, "../../docs/mindspore/source_en"))
+            replace_html_menu(ms_path.replace('zh-CN', 'en'), os.path.join(DOCDIR, "../../docs/mindspore/source_en"))
             print('docs英文目录大纲调整完成！')
             # 修改每个页面内搜索页面的链接
             pool = Pool(processes=4)

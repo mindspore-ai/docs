@@ -132,9 +132,15 @@ def get_platforms(name: str):
             name = 'mindspore.' + name
         api_doc = inspect.getdoc(get_api(name))
         is_overload = re.findall('\.\. (method|function)::', api_doc)
+        all_platform = []
+        # mint 相关接口限定支持平台为Ascend
         if '.mint.' in name and not is_overload:
             return ["", "支持平台：", "    ``Ascend``", ""]
-        all_platform = []
+        elif '.mint.' in name and is_overload:
+            for num in range(len(is_overload)+1):
+                all_platform.append(["", "支持平台：", "    ``Ascend``", ""])
+            return all_platform
+
         if is_overload:
             for i in re.split('\.\. (method|function)::.*\n', api_doc):
                 if i in ('method', 'function'):
