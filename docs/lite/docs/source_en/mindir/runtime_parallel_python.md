@@ -78,7 +78,7 @@ context.parallel.workers_num = WORKERS_NUM
 >
 > Multi-model concurrent inference does not support FP32 type data inference. CPU pinning only supports unbinding or binding large cores, does not support the parameter setting of binding middle cores, and does not support the configuration of binding core list.
 
-## ModelParallelRunner creation and compilation
+### ModelParallelRunner creation and compilation
 
 When using MindSpore Lite to perform concurrent inference, ModelParallelRunner is the main entry point for concurrent inference, you need to call [build_from_file](https://mindspore.cn/lite/api/en/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.build_from_file) interface of ModelParallelRunner for ModelParallelRunner loading and compilation.
 
@@ -155,3 +155,56 @@ for th in threads:
 total_end_time = time.time()
 print("total run time: ", total_end_time - total_start_time, " s")
 ```
+
+## One-click configuration of the Python environment
+
+Run the lite-server-cpu-pip.sh script in the [mindspore/lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_python) directory.The script installs python, pip, numpy, and wheel, downloads the model file and model input data, reinstalls the Mindspore Lite whl package, and checks the installation status of the MindSpore Lite whl package.
+
+```bash
+bash lite-server-cpu-pip.sh
+```
+
+## Executing the Demo
+
+After the one-click installation, run the following command in the [mindspore/lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_python) directory to experience the MobileNetV2 model for concurrent inference by MindSpore Lite.
+
+```bash
+python quick_start_parallel_python.py
+```
+
+After the execution is complete, the following information is displayed, including the ID of each concurrent inference process, single inference time, output tensor name, output tensor data size, number of output tensor elements, first five data records, and total concurrent inference time.
+
+```bash
+parallel id:  1  | task index:  1  | run once time:  0.0703895092010498  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  3  | task index:  1  | run once time:  0.08791518211364746  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  2  | task index:  1  | run once time:  0.0899653434753418  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  0  | task index:  1  | run once time:  0.09056544303894043  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  4  | task index:  1  | run once time:  0.10554099082946777  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  3  | task index:  2  | run once time:  0.01802825927734375  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  1  | task index:  2  | run once time:  0.03823208808898926  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  2  | task index:  2  | run once time:  0.03249311447143555  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  4  | task index:  2  | run once time:  0.01858806610107422  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  0  | task index:  2  | run once time:  0.0355989933013916  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+total run time:  0.13214898109436035  s
+```
+
