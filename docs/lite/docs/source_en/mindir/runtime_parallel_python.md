@@ -156,9 +156,9 @@ total_end_time = time.time()
 print("total run time: ", total_end_time - total_start_time, " s")
 ```
 
-## One-click configuration of the Python environment
+## One-click Configuration of the Python Environment
 
-Run the lite-server-cpu-pip.sh script in the [mindspore/lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_python) directory.The script installs python, pip, numpy, and wheel, downloads the model file and model input data, reinstalls the Mindspore Lite whl package, and checks the installation status of the MindSpore Lite whl package.
+Run the lite-server-cpu-pip.sh script in the [mindspore/lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_python) directory. The script installs python, pip, numpy, and wheel, downloads the model file and model input data, reinstalls the Mindspore Lite whl package, and checks the installation status of the MindSpore Lite whl package.
 
 ```bash
 bash lite-server-cpu-pip.sh
