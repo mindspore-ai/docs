@@ -82,6 +82,12 @@
 |--------|------------------|
 |TBD      | [CANN 8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann) <br> [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community) |
 
+**Related Documents**
+
+|   Releasenotes and API Updates   |   Installation  |      Tutorials      |  Document    |  API|
+|    ---  |    ---   |       ---      |     ---     |     ---      |
+|   [ReleaseNotes](https://www.mindspore.cn/docs/en/r2.4.1/RELEASE.html)   | [Installation Guide](https://gitee.com/mindspore/docs/tree/r2.4.1/install)  |  [Quick Start](https://www.mindspore.cn/tutorials/en/r2.4.1/beginner/quick_start.html)      <br> [Practical Cases](https://www.mindspore.cn/tutorials/en/r2.4.1/cv.html)    | [MindSpore](https://www.mindspore.cn/docs/en/r2.4.1/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.4.1/index.html) |  [MindSpore](https://www.mindspore.cn/docs/en/r2.4.1/api_python/mindspore.html) <br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/en/r2.4.1/index.html)   |
+
 ## 2.4.0
 
 **Downloads**
