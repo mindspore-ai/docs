@@ -405,6 +405,44 @@ In this scenario, troubleshooting can be done from the following perspectives:
 
 After completing the single-card alignment, gradually expand from single-card to multi-card testing and cluster testing; model size and related features such as model parallelism, flow parallelism, optimizer parallelism are added as appropriate. Gradually expand from simple scenarios to actual training scenarios, so as to troubleshoot the impact of the added features on the accuracy.
 
+### Large Model Migration Accuracy Standard
+
+Accuracy standard for large model migration refers to the accuracy standard set for key indicators to ensure that the model accuracy before and after migration is basically the same after migrating the models trained by other third-party hardware or frameworks to MindSpore and Ascend Hardware. It is summarized based on the actual migration scenarios of MindSpore's large models for developers' reference. Since the accuracy of large models is strongly related to the application domain, model structure, number of parameters, and hyperparameters, and is not fully interpretable, there is no complete and unified mandatory standard. Therefore, this standard is only used as a reference standard to help users make a basic judgment on the accuracy of model migration.
+
+#### Accuracy Standard Specifications
+
+1. Relative discrepancy is uniformly described as a percentage (x.x%) and absolute discrepancy is uniformly described as a decimal (0.xx);
+2. If the accuracy fluctuations of the third-party model training no longer meet this accuracy standard, the original model should be adequately tested and the standard should be relaxed in accordance with the fluctuations of the original model;
+
+#### Default Configuration
+
+| Classes               | Default Values | Descriptions                      |
+|--------------------|------|-------------------------------|
+| Dataset         | [pretrain] wikitext-103 </br>[sft] alpaca   | |
+| Accuracy mode       | BF16   | Mixed-accuracy configurations are consistent, and distinguish between actual FP32/FP16/BF16 configurations for each API in the network.             |
+| Parallel method       | Data parallel    | The parallelism can be adjusted according to the computational resources. |
+| Cluster size       | Stand-alone 8 cards | Can be adjusted according to the computational resources.             |
+| checkpoint     | [pretrain] Script initialization by default </br> [sft]Loading pre-training weights    | ckpt has a large impact on the accuracy metrics, prioritizing weights with small fluctuations in loss and a clear downward trend in overall loss.|
+|determinism|Turn on|The accuracy indicator determination phase can turn off determinism. The comparison phase needs to turn on determinism in order to minimize random error interference.|
+
+#### Accuracy Standard Indicator
+
+* Test Standard
+
+    1. Without user's special designation, the default continuous observation is 5000 steps or 12 hours, the number of steps can be reduced according to the resource situation, but it is not recommended to be less than 1000 steps.
+    2. Load the same weights, keep all hyperparameters configured the same, and turn off all randomness.
+    3. The fluctuation of indicators such as loss is greatly influenced by the model, weights, and hyperparameters, and the combination with smooth loss fluctuation is preferred as a benchmark to reduce the judgment of random fluctuation on the accuracy results.
+    4. The randomness of the third-party model was adequately tested by repeating the experiment at least 2 times with determinism turned off and observing the range of fluctuations in the accuracy metrics.
+
+* loss Accuracy Standard
+
+    1. The absolute error of first loss is less than 0.005, or the relative error is less than 0.5%.
+    2. The average absolute error is less than 0.01, or the average relative error is less than 1%.
+
+* Monitoring Indicators
+
+    The average relative error of the global norm does not exceed 10%.
+
 ### Case Details
 
 This section will introduce the completion of accuracy ranking based on the above accuracy localization process with practical examples.
