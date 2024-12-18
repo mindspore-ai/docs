@@ -103,7 +103,7 @@ if (predict_ret != mindspore::kSuccess) {
 
 ## Compiling And Executing
 
-Follow the [quickstart](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#excuting-compilation)Environment variables, set the environment variables. Run the build.sh script in the `mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp` directory to automatically download the MindSpore Lite inference framework library and model files and compile the demo.
+Follow the [quick start](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#excuting-compilation)Environment variables, set the environment variables. Run the build.sh script in the `mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp` directory to automatically download the MindSpore Lite inference framework library and model files and compile the demo.
 
 ```bash
 bash build.sh
