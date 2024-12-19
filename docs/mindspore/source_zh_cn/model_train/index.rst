@@ -114,6 +114,7 @@
    optimize/graph_fusion_engine
    optimize/mem_reuse
    optimize/aoe
+   optimize/profiler
 
 .. toctree::
    :glob:
