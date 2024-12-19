@@ -172,9 +172,9 @@ After collecting performance data, the original data will be stored according to
     │   ├── kernel_details.csv         // Generated when activities contains ProfilerActivity.NPU
     │   ├── l2_cache.csv               // Generated when l2_cache=True
     │   ├── memory_record.csv          // Generated when profile_memory=True
-    │   ├── minddata_pipeline_raw_*.csv
-    │   ├── minddata_pipeline_summary_*.csv
-    │   ├── minddata_pipeline_summary_*.json
+    │   ├── minddata_pipeline_raw_*.csv       // Generated when data_process=True and call mindspore.dataset
+    │   ├── minddata_pipeline_summary_*.csv   // Generated when data_process=True and call mindspore.dataset
+    │   ├── minddata_pipeline_summary_*.json  // Generated when data_process=True and call mindspore.dataset
     │   ├── npu_module_mem.csv         // Generated when profile_memory=True
     │   ├── operator_memory.csv        // Generated when profile_memory=True
     │   ├── op_statistic.csv           // AI Core and AI CPU operator call count and time data
@@ -273,6 +273,48 @@ The information of this performance data file is as follows:
 `kernel_details.csv` file is controlled by the `ProfilerActivity.NPU` switch, the file contains the information of all operators executed on NPU. If the user calls `schedule` in the front end to collect `step` data, the `Step Id` field will be added.
 
 The difference from the data collected by the Ascend PyTorch Profiler interface is that when the `with_stack` switch is turned on, MindSpore Profiler will concatenate the stack information to the `Name` field.
+
+### minddata_pipeline_raw_*.csv
+
+`minddata_pipeline_raw_*.csv` records the performance metrics of the dataset operation.
+
+| Field Name | Field Explanation |
+|----------|----------|
+| op_id | Dataset operation ID |
+| op_type | Operation type |
+| num_workers | Number of operation workers |
+| output_queue_size | Output queue size |
+| output_queue_average_size | Output queue average size |
+| output_queue_length | Output queue length |
+| output_queue_usage_rate | Output queue usage rate |
+| sample_interval | Sampling interval |
+| parent_id | Parent operation ID |
+| children_id | Child operation ID |
+
+### minddata_pipeline_summary_*.csv
+
+`minddata_pipeline_summary_*.csv` and `minddata_pipeline_summary_*.json` have the same content, but different file formats. They record more detailed performance metrics of dataset operations and provide optimization suggestions based on these metrics.
+
+| Field Name | Field Explanation |
+|----------|----------|
+| op_ids | Dataset operation ID |
+| op_names | Operation name |
+| pipeline_ops | Operation pipeline |
+| num_workers | Number of operation workers |
+| queue_queue_size | Output queue size |
+| queue_utilization_pct | Output queue usage rate |
+| queue_empty_freq_pct | Output queue idle frequency |
+| children_ids | Child operation ID |
+| parent_id | Parent operation ID |
+| avg_cpu_pct | Average CPU usage rate |
+| per_pipeline_time | Time for each pipeline execution |
+| per_push_queue_time | Time for each push queue |
+| per_batch_time | Time for each data batch execution |
+| avg_cpu_pct_per_worker | Average CPU usage rate per thread |
+| cpu_analysis_details | CPU analysis details |
+| queue_analysis_details | Queue analysis details |
+| bottleneck_warning | Performance bottleneck warning |
+| bottleneck_suggestion | Performance bottleneck suggestion |
 
 ### trace_view.json
 
