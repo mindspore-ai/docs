@@ -226,10 +226,10 @@ Starting with the original implementation of `nn.Dense` in MindSpore, we can bui
         def construct(self, x):
             origin_dtype = x.dtype
             x = self.cast(x, self.dtype)
-            out = self.bmm(x, self.weight)
+            output_parallel = self.bmm(x, self.weight)
             if self.has_bias:
                 output_parallel = self.bias_add(output_parallel, self.cast(self.bias, self.dtype))
-            out = self.all_reduce(out)
+            out = self.all_reduce(output_parallel)
             out = self.cast(out, origin_dtype)
             return out
     ```
