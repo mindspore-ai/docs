@@ -14,7 +14,7 @@ This tutorial introduces how to use MindSpore Profiler for performance tuning on
 
 3. Run the training script;
 
-4. View the performance data through [MindSpore Insight](https://www.hiascend.com/document/detail/zh/mindstudio/70RC2/msinsightug/msascendinsightug/AscendInsight_0002.html).
+4. View the performance data through [MindStudio Insight](https://www.hiascend.com/document/detail/zh/mindstudio/70RC2/msinsightug/msascendinsightug/AscendInsight_0002.html).
 
 ## Usage
 
@@ -31,25 +31,14 @@ In **Graph** mode, users can enable Profiler through Callback.
 ```python
 import os
 import mindspore as ms
-from mindspore.communication import get_rank
 from mindspore import Profiler
-
-def get_real_rank():
-    """get rank id"""
-    try:
-        return get_rank()
-    except RuntimeError:
-        return int(os.getenv("RANK_ID", "0"))
 
 class StopAtStep(ms.Callback):
     def __init__(self, start_step, stop_step):
         super(StopAtStep, self).__init__()
         self.start_step = start_step
         self.stop_step = stop_step
-        # Set the performance data to the disk according to rank_id
-        rank_id = get_real_rank()
-        output_path = os.path.join("profiler_data", f"rank_{rank_id}")
-        self.profiler = Profiler(start_profile=False, output_path=output_path)
+        self.profiler = Profiler(start_profile=False, output_path='./profiler_data')
 
     def on_train_step_begin(self, run_context):
         cb_params = run_context.original_args()
@@ -85,8 +74,7 @@ STEP_NUM = 15
 net = Net()
 with Profiler(schedule=schedule(wait=0, warm_up=0, active=2, repeat=1, skip_first=0),
               on_trace_ready=tensor_board_trace_handler) as prof:
-    for i in range(STEP_NUM):
-        print(f"step {i}")
+    for _ in range(STEP_NUM):
         train(net)
         # Call step to collect
         prof.step()
@@ -119,12 +107,11 @@ JSON configuration example as follows:
 
 1. Users need to configure the above JSON configuration file before instantiating DynamicProfilerMonitor, see [DynamicProfilerMonitor parameter details](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html) for details, and save the configuration file to cfg_path;
 2. Call the step interface of DynamicProfilerMonitor after the model training to collect data;
-3. If users want to change the collection and analysis tasks during training, they can set a short pause time to modify the JSON configuration file, such as changing the start_step in the above JSON configuration to 8, stop_step to 10, save it, and DynamicProfilerMonitor will automatically identify that the configuration file has changed to the new collection and analysis tasks.
+3. If users want to change the collection and analysis tasks during training, they can modify the JSON configuration file, such as changing the start_step in the above JSON configuration to 8, stop_step to 10, save it, and DynamicProfilerMonitor will automatically identify that the configuration file has changed to the new collection and analysis tasks.
 
 Sample as follows:
 
 ```python
-import time
 from mindspore.profiler import DynamicProfilerMonitor
 
 # cfg_path includes the path of the above JSON configuration file, output_path is the output path
@@ -132,13 +119,8 @@ dp = DynamicProfilerMonitor(cfg_path="./cfg_path", output_path="./output_path")
 STEP_NUM = 15
 # Define the training model network
 net = Net()
-for i in range(STEP_NUM):
-    print(f"step {i}")
+for _ in range(STEP_NUM):
     train(net)
-    # Modify the configuration file after the 7th step, such as changing start_step to 8 and stop_step to 10
-    if i == 7:
-        # Pause for 10s to modify the JSON configuration file, and save it after modification
-        time.sleep(10)
     # Call step to collect
     dp.step()
 ```
@@ -190,7 +172,10 @@ After collecting performance data, the original data will be stored according to
     │   ├── kernel_details.csv         // Generated when activities contains ProfilerActivity.NPU
     │   ├── l2_cache.csv               // Generated when l2_cache=True
     │   ├── memory_record.csv          // Generated when profile_memory=True
-    │   ├── npu_module_mem.csv
+    │   ├── minddata_pipeline_raw_*.csv
+    │   ├── minddata_pipeline_summary_*.csv
+    │   ├── minddata_pipeline_summary_*.json
+    │   ├── npu_module_mem.csv         // Generated when profile_memory=True
     │   ├── operator_memory.csv        // Generated when profile_memory=True
     │   ├── op_statistic.csv           // AI Core and AI CPU operator call count and time data
     │   ├── step_trace_time.csv        // Iteration calculation and communication time statistics

@@ -33,7 +33,7 @@ class StopAtStep(ms.Callback):
         super(StopAtStep, self).__init__()
         self.start_step = start_step
         self.stop_step = stop_step
-        self.profiler = Profiler(start_profile=False, output_path='./data_step')
+        self.profiler = Profiler(start_profile=False, output_path='./profiler_data')
 
     def on_train_step_begin(self, run_context):
         cb_params = run_context.original_args()
