@@ -172,9 +172,9 @@ export MS_PROFILER_OPTIONS='
     │   ├── kernel_details.csv         // activities中配置ProfilerActivity.NPU生成
     │   ├── l2_cache.csv               // 配置l2_cache=True生成
     │   ├── memory_record.csv          // 配置profile_memory=True生成
-    │   ├── minddata_pipeline_raw_*.csv
-    │   ├── minddata_pipeline_summary_*.csv
-    │   ├── minddata_pipeline_summary_*.json
+    │   ├── minddata_pipeline_raw_*.csv       // 配置data_process=True且调用mindspore.dataset接口时生成
+    │   ├── minddata_pipeline_summary_*.csv   // 配置data_process=True且调用mindspore.dataset接口时生成
+    │   ├── minddata_pipeline_summary_*.json  // 配置data_process=True且调用mindspore.dataset接口时生成
     │   ├── npu_module_mem.csv         // 配置profile_memory=True生成
     │   ├── operator_memory.csv        // 配置profile_memory=True生成
     │   ├── op_statistic.csv           // AI Core和AI CPU算子调用次数及耗时数据
@@ -273,6 +273,48 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 `kernel_details.csv` 文件由 `ProfilerActivity.NPU` 开关控制，文件包含在NPU上执行的所有算子的信息，若用户前端调用了 `schedule` 进行 `step` 打点，则会增加 `Step Id` 字段。
 
 与Ascend PyTorch Profiler接口采集数据结果的不同之处在于当 `with_stack` 开关开启之后，MindSpore Profiler会将堆栈信息拼接到 `Name` 字段中。
+
+### minddata_pipeline_raw_*.csv
+
+`minddata_pipeline_raw_*.csv` 记录dataset数据集操作的性能指标。
+
+| 字段名 | 字段解释 |
+|----------|----------|
+| op_id | 数据集操作编号 |
+| op_type | 操作类型 |
+| num_workers | 操作进程数量 |
+| output_queue_size | 输出队列大小 |
+| output_queue_average_size | 输出队列平均大小 |
+| output_queue_length | 输出队列长度 |
+| output_queue_usage_rate | 输出队列使用率 |
+| sample_interval | 采样间隔 |
+| parent_id | 父操作编号 |
+| children_id | 子操作编号 |
+
+### minddata_pipeline_summary_*.csv
+
+`minddata_pipeline_summary_*.csv` 与 `minddata_pipeline_summary_*.json` 文件内容相同，只是文件格式不同。它们记录更详细的dataset数据集操作性能指标并根据性能指标给出优化建议。
+
+| 字段名 | 字段解释 |
+|----------|----------|
+| op_ids | 数据集操作编号 |
+| op_names | 操作名称 |
+| pipeline_ops | 操作管道 |
+| num_workers | 操作进程数量 |
+| queue_queue_size | 输出队列大小 |
+| queue_utilization_pct | 输出队列使用率 |
+| queue_empty_freq_pct | 输出队列空闲频率 |
+| children_ids | 子操作编号 |
+| parent_id | 父操作编号 |
+| avg_cpu_pct | 平均CPU使用率 |
+| per_pipeline_time | 每个管道执行时间 |
+| per_push_queue_time | 每个推送队列时间 |
+| per_batch_time | 每个数据批次执行时间 |
+| avg_cpu_pct_per_worker | 平均每个线程CPU使用率 |
+| cpu_analysis_details | CPU分析详情 |
+| queue_analysis_details | 队列分析详情 |
+| bottleneck_warning | 性能瓶颈警告 |
+| bottleneck_suggestion | 性能瓶颈建议 |
 
 ### trace_view.json
 
