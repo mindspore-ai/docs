@@ -49,21 +49,21 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: record_last_ckpt_to_json, save_checkpoint, save_checkpoint_network
+    :exclude-members: record_last_ckpt_to_json, save_checkpoint, save_checkpoint_network, print_savetime
     :members:
 
 {% elif fullname=="mindformers.core.EmF1Metric" %}
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: calc_em_score, calc_f1_score, clear, eval, evaluate_pairs, find_lcs, mixed_segmentation, remove_punctuation, update
+    :exclude-members: calc_em_score, calc_f1_score, evaluate_pairs, find_lcs, mixed_segmentation, remove_punctuation
     :members:
 
 {% elif fullname=="mindformers.core.EntityScore" %}
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: clear, compute, eval, get_entities_bios, update
+    :exclude-members: compute, get_entities_bios
     :members:
 
 {% elif fullname=="mindformers.core.MFLossMonitor" %}
@@ -71,13 +71,6 @@
 
 .. autoclass:: {{ name }}
     :exclude-members: dump_info_to_modelarts, epoch_begin, epoch_end, print_output_info, step_begin, step_end
-    :members:
-
-{% elif fullname=="mindformers.core.PerplexityMetric" %}
-{{ fullname | underline }}
-
-.. autoclass:: {{ name }}
-    :exclude-members: clear, eval, update
     :members:
 
 {% elif fullname=="mindformers.core.ProfileMonitor" %}
@@ -91,7 +84,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: calculate_circle, clear, eval, update
+    :exclude-members: calculate_circle
     :members:
 
 {% elif fullname=="mindformers.core.SQuADMetric" %}
