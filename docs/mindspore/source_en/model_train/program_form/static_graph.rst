@@ -855,8 +855,7 @@ supported.
       output type must be the same as the output ``shape``.
 
    -  The index ``Tensor`` is a scalar ``Tensor`` whose ``dtype`` is
-      ``int32``. The value range is ``[-tuple_len, tuple_len)``, and
-      negative index is not supported in ``Ascend`` backend.
+      ``int32``. The value range is ``[-tuple_len, tuple_len)``.
 
    -  ``CPU``, ``GPU`` and ``Ascend`` backend is supported.
 
@@ -2390,7 +2389,3 @@ points:
 3. When extending the static graph syntax, more syntax is supported, and
    the ability to import and export cannot be used with MindIR due to
    use Python.
-
-4. It is not currently supported that the repeated definition of global
-   variables with the same name across Python files, and these global
-   variables are used in the network.
