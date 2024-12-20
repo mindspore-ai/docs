@@ -2389,7 +2389,3 @@ points:
 3. When extending the static graph syntax, more syntax is supported, and
    the ability to import and export cannot be used with MindIR due to
    use Python.
-
-4. It is not currently supported that the repeated definition of global
-   variables with the same name across Python files, and these global
-   variables are used in the network.
