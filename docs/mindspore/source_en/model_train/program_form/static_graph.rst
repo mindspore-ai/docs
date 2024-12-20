@@ -855,8 +855,7 @@ supported.
       output type must be the same as the output ``shape``.
 
    -  The index ``Tensor`` is a scalar ``Tensor`` whose ``dtype`` is
-      ``int32``. The value range is ``[-tuple_len, tuple_len)``, and
-      negative index is not supported in ``Ascend`` backend.
+      ``int32``. The value range is ``[-tuple_len, tuple_len)``.
 
    -  ``CPU``, ``GPU`` and ``Ascend`` backend is supported.
 
