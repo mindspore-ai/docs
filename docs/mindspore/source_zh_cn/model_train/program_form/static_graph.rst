@@ -719,7 +719,7 @@ Tuple
 
    -  ``Tuple``\ 里存放的都是\ ``Cell``\ ，每个\ ``Cell``\ 要在\ ``Tuple``\ 定义之前完成定义，每个\ ``Cell``\ 的入参个数、入参类型和入参\ ``shape``\ 要求一致，每个\ ``Cell``\ 的输出个数、输出类型和输出\ ``shape``\ 也要求一致。
 
-   -  索引\ ``Tensor``\ 是一个\ ``dtype``\ 为\ ``int32``\ 的标量\ ``Tensor``\ ，取值范围在\ ``[-tuple_len, tuple_len)``\ ，\ ``Ascend``\ 后端不支持负数索引。
+   -  索引\ ``Tensor``\ 是一个\ ``dtype``\ 为\ ``int32``\ 的标量\ ``Tensor``\ ，取值范围在\ ``[-tuple_len, tuple_len)``\ 。
 
    -  支持\ ``CPU``\ 、\ ``GPU``\ 和\ ``Ascend``\ 后端。
 
