@@ -453,7 +453,7 @@ Training the model with a 128-card cluster and comparing training with Ascend+Mi
 
 ![loss3](./image/loss3.png)
 
-The blue line is the Ascend+MindSpore training curve and the red line is the GPU+PyTorch training curve.
+The red line is the Ascend+MindSpore training curve and the blue line is the GPU+PyTorch training curve.
 
 #### Problem Location Process
 
