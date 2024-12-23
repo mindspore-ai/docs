@@ -549,7 +549,7 @@ A: 在使用数据下沉模式（此时 `数据预处理` -> `发送队列` -> `
 
 <br/>
 
-## Q: 数据处理阶段报错 `Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device HBM total size:65464696832 Device HBM free size:3596279808 may be other processes occupying this card, ...` 怎么办？
+## Q: 数据处理阶段报错 `Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device MOC total size:65464696832 Device MOC free size:3596279808 may be other processes occupying this card, ...` 怎么办？
 
 A：通常是使用了自定义数据增强操作（其中包含了基于Ascend的数据增强操作）且使用了多进程模式，导致多进程使用同一个卡资源出现设备内存不足。
 
@@ -587,7 +587,7 @@ E
 E    ----------------------------------------------------
 E    - Framework Error Message:
 E    ----------------------------------------------------
-E    Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device HBM total size:65464696832 Device HBM free size:3596279808 may be other processes occupying this card, check as: ps -ef|grep python
+E    Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device MOC total size:65464696832 Device MOC free size:3596279808 may be other processes occupying this card, check as: ps -ef|grep python
 E
 E    ----------------------------------------------------
 E    - C++ Call Stack: (For framework developers)

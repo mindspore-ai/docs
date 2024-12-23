@@ -209,7 +209,7 @@ When training with batch_size=96 without turning on heterogeneous storage, an er
 - Framework Error Message:
 ----------------------------------------------------
 Out of Memory!!! Request memory size: 1088627200B, Memory Statistic:
-Device HBM memory size: 32768M
+Device MOC memory size: 32768M
 MindSpore Used memory size: 1024M
 MindSpore memory base address: 0x124140000000
 Total Static Memory size: 56M
