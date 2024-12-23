@@ -84,6 +84,31 @@ if (!ret) {
 }
 ```
 
+## 构建与运行
+
+### 编译构建
+
+设置环境变量，在`mindspore/lite/examples/cloud_infer/quick_start_parallel_java`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_java/build.sh)，将自动下载MindSpore Lite推理框架库以及模型文件并编译Demo。
+
+```bash
+export JAVA_HOME=/{path}/default-java
+export M2_HOME=/{path}/maven
+export MAVEN_HOME=/{path}/maven
+export PATH=/{path}/maven/bin:$PATH
+
+bash build.sh
+```
+
+### 执行推理
+
+编译构建后，进入`mindspore/lite/examples/cloud_infer/quick_start_parallel_java/target`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
+
+```java
+java -classpath .:./quick_start_parallel_java.jar:../lib/runtime/lib/mindspore-lite-java.jar  com.mindspore.lite.demo.Main ../model/mobilenetv2.mindir
+```
+
+执行完成后显示模型并发推理成功。
+
 ## 释放内存
 
 无需使用MindSpore Lite推理框架时，需要释放已经创建的ModelParallelRunner。
