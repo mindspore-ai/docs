@@ -49,42 +49,110 @@ export MS_SCHED_PORT=8090          # scheduler节点服务端口
 
 ## 推理服务部署基本流程
 
-### 修改MindIE启动配置
+### 准备模型文件
+
+创建一个文件夹，用于存放MindIE后端的指定模型相关文件，如模型tokenizer文件、yaml配置文件和config文件等。
+
+```bash
+mkdir -p mf_model/qwen1_5_72b
+```
+
+以Qwen1.5-72B为例，文件夹目录结构如下：
+
+```reStructuredText
+mf_model
+ └── qwen1_5_72b
+        ├── config.json                 # 模型json配置文件，Hugging Face上对应模型下载
+        ├── vocab.json                  # 模型vocab文件，Hugging Face上对应模型下载
+        ├── merges.txt                  # 模型merges文件，Hugging Face上对应模型下载
+        ├── predict_qwen1_5_72b.yaml    # 模型yaml配置文件
+        ├── qwen1_5_tokenizer.py        # 模型tokenizer文件，从mindformers仓中research目录下找到对应模型复制
+        └── qwen1_5_72b_ckpt_dir        # 模型分布式权重文件夹
+```
+
+predict_qwen1_5_72b.yaml需要关注以下配置：
+
+```yaml
+load_checkpoint: '/mf_model/qwen1_5_72b/qwen1_5_72b_ckpt_dir' # 为存放模型分布式权重文件夹路径
+use_parallel: True
+auto_trans_ckpt: False    # 是否开启自动权重转换，离线切分设置为False
+parallel_config:
+  data_parallel: 1
+  model_parallel: 4       # 多卡推理配置模型切分，一般与使用卡数一致
+  pipeline_parallel: 1
+processor:
+  tokenizer:
+    vocab_file: "/path/to/mf_model/qwen1_5_72b/vocab.json"  # vocab文件绝对路径
+    merges_file: "/path/to/mf_model/qwen1_5_72b/merges.txt"  # merges文件绝对路径
+```
+
+模型权重下载和转换可参考 [权重格式转换指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)。
+
+不同模型的所需文件和配置可能会有差异，详情参考[模型库](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html)中具体模型的推理章节。
+
+### 启动MindIE
+
+#### 1. 一键启动（推荐）
+
+mindformers仓上提供一键拉起MindIE脚本，脚本中已预置环境变量设置和服务化配置，仅需输入模型文件目录后即可快速拉起服务。
+
+进入`scripts`目录下，执行MindIE启动脚本：
+
+```shell
+cd ./scripts
+bash run_mindie.sh --model-name xxx --model-path /path/to/model
+
+# 参数说明
+--model-name: 必传，设置MindIE后端名称
+--model-path：必传，设置模型文件夹路径，如/path/to/mf_model/qwen1_5_72b
+--help      : 脚本使用说明
+```
+
+查看日志：
+
+```bash
+tail -f output.log
+```
+
+当log日志中出现`Daemon start success!`，表示服务启动成功。
+
+#### 2. 自定义启动
+
+MindIE安装路径均为默认路径`/usr/local/Ascend/.` 如自定义安装路径，同步修改以下例子中的路径。
 
 打开mindie-service目录中的config.json，修改server相关配置。
 
 ```bash
-cd {MindIE安装目录}/
-cd mindie-service/conf
-vim config.json
+vim /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
 ```
 
 其中`modelWeightPath`和`backendType`必须修改配置为：
 
-```json
-"modelWeightPath": "/path/to/mf_model"
+```bash
+"modelWeightPath": "/path/to/mf_model/qwen1_5_72b"
 "backendType": "ms"
 ```
 
-`modelWeightPath`为模型配置文件目录，放置模型和tokenizer等相关文件；`backendType`后端启动方式为`ms`。
+`modelWeightPath`为上一步创建出的模型文件夹，放置模型和tokenizer等相关文件；`backendType`后端启动方式必须为`ms`。
 
 其他相关参数如下：
 
 | 可选配置项          | 取值类型 | 取值范围             | 配置说明                                                                                                                                                                             |
 | ------------------- | -------- | -------------------- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| maxSeqLen           | int32    | 按用户需求自定义，>0 | 最大序列长度。输入的长度+输出的长度<=maxSeqLen，用户根据自己的推理场景选择maxSeqLen                                                                                                                             |
-| npuDeviceIds        | list     | 按模型需求自定义     | 此配置项暂不生效。实际运行的卡由可见卡环境变量和worldSize配置控制。可见卡需调整资源参考[CANN环境变量](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC3alpha003/apiref/envref/envref_07_0029.html)     |
+| httpsEnabled        | Bool     | True/False           | 是否开启HTTPS通信安全认证，默认为True。便于启动，建议设置为False。                                                                                                                                         |
+| maxSeqLen           | int32    | 按用户需求自定义，>0 | 最大序列长度。输入的长度+输出的长度<=maxSeqLen，用户根据自己的推理场景选择maxSeqLen。                                                                                                                            |
+| npuDeviceIds        | list     | 按模型需求自定义     | 此配置项暂不生效。实际运行的卡由可见卡环境变量和worldSize配置控制。可见卡需调整资源参考[CANN环境变量](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC3alpha003/apiref/envref/envref_07_0029.html)。    |
 | worldSize           | int32    | 按模型需求自定义     | 可见卡的使用卡数。例：ASCEND_RT_VISIBLE_DEVICES=4,0,1,2且worldSize=2，则取第4，0卡运行。                                                                                                              |
-| npuMemSize          | int32    | 按显存自定义         | NPU中可以用来申请KVCache的size上限（GB），可按部署模型的实际大小计算得出：npuMemSize=(总空闲-权重/mp数量)*系数，其中系数取0.8。建议值：8                                                                                          |
-| cpuMemSize          | int32    | 按内存自定义         | CPU中可以用来申请KVCache的size上限（GB），和swap功能有关，cpuMemSize不足时会将Cache释放进行重计算。建议值：5                                                                                                         |
+| npuMemSize          | int32    | 按显存自定义         | NPU中可以用来申请KVCache的size上限（GB），可按部署模型的实际大小计算得出：npuMemSize=(总空闲-权重/mp数量)*系数，其中系数取0.8。建议值：8。                                                                                         |
+| cpuMemSize          | int32    | 按内存自定义         | CPU中可以用来申请KVCache的size上限（GB），和swap功能有关，cpuMemSize不足时会将Cache释放进行重计算。建议值：5。                                                                                                        |
 | maxPrefillBatchSize | int32    | [1, maxBatchSize]    | 最大prefill batch size。maxPrefillBatchSize和maxPrefillTokens谁先达到各自的取值就完成本次组batch。该参数主要是在明确需要限制prefill阶段batch size的场景下使用，否则可以设置为0（此时引擎将默认取maxBatchSize值）或与maxBatchSize值相同。必填，默认值：50。 |
 | maxPrefillTokens    | int32    | [5120, 409600]       | 每次prefill时，当前batch中所有input token总数，不能超过maxPrefillTokens。maxPrefillTokens和maxPrefillBatchSize谁先达到各自的取值就完成本次组batch。必填，默认值：8192。                                                    |
-| maxBatchSize        | int32    | [1, 5000]            | 最大decode batch size，根据模型规模和NPU显存估算得出                                                                                                                                             |
-| maxIterTimes        | int32    | [1, maxSeqLen-1]     | 可以进行的decode次数，即一句话最大可生成长度。请求级别里面有一个max_output_length参数，maxIterTimes是一个全局设置，与max_output_length取小作为最终output的最长length                                                               |
+| maxBatchSize        | int32    | [1, 5000]            | 最大decode batch size，根据模型规模和NPU显存估算得出。                                                                                                                                            |
+| maxIterTimes        | int32    | [1, maxSeqLen-1]     | 可以进行的decode次数，即一句话最大可生成长度。请求级别里面有一个max_output_length参数，maxIterTimes是一个全局设置，与max_output_length取小作为最终output的最长length。                                                              |
 
-全量配置参数可查阅 [MindIE Service开发指南-快速开始-配置参数说明(待发布)]()
+全量配置参数可查阅 [MindIE Service开发指南-快速开始-配置参数说明](https://www.hiascend.com/document/detail/zh/mindie/10RC3/mindieservice/servicedev/mindie_service0285.html)。
 
-### 启动服务
+运行启动脚本:
 
 ```bash
 cd /path/to/mindie/latest/mindie-service
@@ -94,93 +162,54 @@ tail -f output.log
 
 当log日志中出现`Daemon start success!`，表示服务启动成功。
 
-### 查看日志
-
-MindIE Service相关日志：
-
-```bash
-tail -f path/to/mindie/mindie-service/latest/mindie-service/output.log
-```
-
 Python相关日志：
 
 ```bash
-tail -f path/to/mindie/mindie-service/latest/mindie-llm/logs/pythonlog.log
+export MINDIE_LLM_PYTHON_LOG_TO_FILE=1
+export MINDIE_LLM_PYTHON_LOG_PATH=/usr/local/Ascend/mindie/latest/mindie-service/logs/pythonlog.log
+tail -f /usr/local/Ascend/mindie/latest/mindie-service/logs/pythonlog.log
 ```
 
 ## MindIE服务化部署及推理示例
 
 以下例子各组件安装路径均为默认路径`/usr/local/Ascend/.` ， 模型使用`Qwen1.5-72B`。
 
-### 修改MindIE启动配置
+### 准备模型文件
 
-打开mindie-service目录中的config.json文件，修改server相关配置。
+以Qwen1.5-72B为例，准备模型文件目录。目录结构及配置详情可参考[准备模型文件](#准备模型文件)：
 
 ```bash
-vim /usr/local/Ascend/mindie/1.0.RC3/mindie-service/conf/config.json
+mkdir -p mf_model/qwen1_5_72b
 ```
 
-需要关注以下字段的配置
+### 启动MindIE
 
-1. `ModelDeployConfig.ModelConfig.backendType`
+#### 1. 一键启动（推荐）
 
-   该配置为对应的后端类型，必填"ms"。
+进入`scripts`目录下，执行mindie启动脚本：
 
-   ```json
-   "backendType": "ms"
-   ```
+```shell
+cd ./scripts
+bash run_mindie.sh --model-name qwen1_5_72b --model-path /path/to/mf_model/qwen1_5_72b
+```
 
-2. `ModelDeployConfig.ModelConfig.modelWeightPath`
+查看日志：
 
-   该配置为模型配置文件目录，放置模型和tokenizer等相关文件。
+```bash
+tail -f output.log
+```
 
-   以Qwen1.5-72B为例，`modelWeightPath`的组织结构如下：
+当log日志中出现`Daemon start success!`，表示服务启动成功。
 
-   ```reStructuredText
-   mf_model
-    └── qwen1_5_72b
-           ├── config.json                 # 模型json配置文件
-           ├── vocab.json                  # 模型vocab文件，hf上对应模型下载
-           ├── merges.txt                  # 模型merges文件，hf上对应模型下载
-           ├── predict_qwen1_5_72b.yaml    # 模型yaml配置文件
-           ├── qwen1_5_tokenizer.py        # 模型tokenizer文件，从mindformers仓中research目录下找到对应模型复制
-           └── qwen1_5_72b_ckpt_dir        # 模型分布式权重文件夹
-   ```
+#### 2. 自定义启动
 
-   predict_qwen1_5_72b.yaml需要关注以下配置：
+打开mindie-service目录中的config.json，修改server相关配置。
 
-   ```yaml
-   load_checkpoint: '/mf_model/qwen1_5_72b/qwen1_5_72b_ckpt_dir' # 为存放模型分布式权重文件夹路径
-   use_parallel: True
-   auto_trans_ckpt: False    # 是否开启自动权重转换，离线切分设置为False
-   parallel_config:
-     data_parallel: 1
-     model_parallel: 4       # 多卡推理配置模型切分，一般与使用卡数一致
-     pipeline_parallel: 1
-   processor:
-     tokenizer:
-       vocab_file: "/mf_model/qwen1_5_72b/vocab.json"  # vocab文件路径
-       merges_file: "/mf_model/qwen1_5_72b/merges.txt"  # merges文件路径
-   ```
+```bash
+vim /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+```
 
-   模型的config.json文件可以使用`save_pretrained`接口生成，示例如下：
-
-   ```python
-   from mindformers import AutoConfig
-
-   model_config = AutoConfig.from_pretrained("/mf_model/qwen1_5_72b/predict_qwen1_5_72b.yaml")
-   model_config.save_pretrained(save_directory="./json/qwen1_5_72b/", save_json=True)
-   ```
-
-   模型权重下载和转换可参考 [权重格式转换指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)。
-
-   准备好模型配置目录后，设置参数`modelWeightPath`为该目录路径。
-
-   ```json
-   "modelWeightPath": "/mf_model/qwen1_5_72b"
-   ```
-
-最终修改完后的config.json如下：
+修改完后的config.json如下：
 
 ```json
 {
@@ -287,7 +316,7 @@ vim /usr/local/Ascend/mindie/1.0.RC3/mindie-service/conf/config.json
 
 > 为便于测试，`httpsEnabled`参数设置为`false`，忽略后续https通信相关参数。
 
-### 启动服务
+进入mindie-service目录启动服务：
 
 ```bash
 cd /usr/local/Ascend/mindie/1.0.RC3/mindie-service
@@ -297,7 +326,7 @@ tail -f output.log
 
 打印如下信息，启动成功。
 
-```json
+```bash
 Daemon start success!
 ```
 
