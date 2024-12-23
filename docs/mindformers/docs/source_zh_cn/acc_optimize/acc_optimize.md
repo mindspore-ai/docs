@@ -415,7 +415,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 ![loss3](./image/loss3.png)
 
-蓝色线为 Ascend+MindSpore 训练曲线，红色线为 GPU+PyTorch 训练曲线。
+红色线为 Ascend+MindSpore 训练曲线，蓝色线为 GPU+PyTorch 训练曲线。
 
 #### 问题定位过程
 
