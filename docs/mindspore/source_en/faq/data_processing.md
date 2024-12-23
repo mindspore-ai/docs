@@ -552,7 +552,7 @@ A: When using the data sinking mode (where `data preprocessing` -> `sending queu
 
 <br/>
 
-## Q: How to handle data processing error `Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device HBM total size:65464696832 Device HBM free size:3596279808 may be other processes occupying this card, ...` ?
+## Q: How to handle data processing error `Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device MOC total size:65464696832 Device MOC free size:3596279808 may be other processes occupying this card, ...` ?
 
 A：This is usually caused by the use of customized data enhancement operations (which include Ascend-based data enhancement operations) and enabling multiprocessing mode, resulting in multiple processes using the same card resources to run out of device memory.
 
@@ -590,7 +590,7 @@ E
 E    ----------------------------------------------------
 E    - Framework Error Message:
 E    ----------------------------------------------------
-E    Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device HBM total size:65464696832 Device HBM free size:3596279808 may be other processes occupying this card, check as: ps -ef|grep python
+E    Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device MOC total size:65464696832 Device MOC free size:3596279808 may be other processes occupying this card, check as: ps -ef|grep python
 E
 E    ----------------------------------------------------
 E    - C++ Call Stack: (For framework developers)

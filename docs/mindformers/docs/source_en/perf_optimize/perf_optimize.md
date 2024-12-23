@@ -473,7 +473,7 @@ export MS_MEMORY_STATISTIC=1
 When training is complete, the following message is output at the end of the log file:
 
 ```text
-Device HBM memory size: 62432M
+Device MOC memory size: 62432M
 MindSpore Used memory size: 59392M
 MindSpore memory base address: 0
 Used peak memory usage (without fragments): 48874M

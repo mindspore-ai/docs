@@ -289,7 +289,7 @@ RuntimeError: Ascend kernel runtime initialization failed. The details refer to 
 ----------------------------------------------------
 - Framework Error Message:
 ----------------------------------------------------
-Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device HBM total size:34359738368 Device HBM free size:2140602368 may be other processes occupying this card, check as: ps -ef|grep python
+Malloc device memory failed, free memory size is less than half of total memory size.Device 0 Device MOC total size:34359738368 Device MOC free size:2140602368 may be other processes occupying this card, check as: ps -ef|grep python
 ```
 
 ### EE9999: Runtime Task Execution Failure

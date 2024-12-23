@@ -473,7 +473,7 @@ export MS_MEMORY_STATISTIC=1
 训练完成后，会在日志文件的末尾输出如下信息：
 
 ```text
-Device HBM memory size: 62432M
+Device MOC memory size: 62432M
 MindSpore Used memory size: 59392M
 MindSpore memory base address: 0
 Used peak memory usage (without fragments): 48874M
