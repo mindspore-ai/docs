@@ -76,8 +76,8 @@
       <td style="text-align: center"> - </td>
       <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md#%E5%85%A8%E5%8F%82%E5%BE%AE%E8%B0%83"> finetune </a> </td>
       <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md#%E6%8E%A8%E7%90%86"> predict </a> </td>
-      <td> 2703 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/finetune_llama3_1_8b.yaml"> 配置 </a> <br> Atlas 900 A2 PoDc </td>
-      <td> 591 tokens/s <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/predict_llama3_1_8b.yaml"> 配置 </a> <br> Atlas 800T A2 </td>
+      <td> 2703 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml"> 配置 </a> <br> Atlas 900 A2 PoDc </td>
+      <td> 591 tokens/s <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml"> 配置 </a> <br> Atlas 800T A2 </td>
     </tr>
     <tr>
       <td> 70B </td>
@@ -85,8 +85,8 @@
       <td style="text-align: center"> - </td>
       <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md#%E5%85%A8%E5%8F%82%E5%BE%AE%E8%B0%83"> finetune </a> </td>
       <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md#%E6%8E%A8%E7%90%86"> predict </a> </td>
-      <td> 337 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/finetune_llama3_1_70b.yaml"> 配置 </a> <br> Atlas 900 A2 PoDc </td>
-      <td> 509 tokens/s <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/predict_llama3_1_70b.yaml"> 配置 </a> <br> Atlas 800T A2 </td>
+      <td> 337 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_70b/finetune_llama3_1_70b.yaml"> 配置 </a> <br> Atlas 900 A2 PoDc </td>
+      <td> 509 tokens/s <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_70b/predict_llama3_1_70b.yaml"> 配置 </a> <br> Atlas 800T A2 </td>
     </tr>
   </tbody>
   <tbody>
@@ -346,23 +346,23 @@
   </tbody>
   <tbody>
     <tr>
-      <td rowspan="2"> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/yi.md"> Yi </a> </td>
+      <td rowspan="2"> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/README.md"> Yi </a> </td>
       <td> 6B </td>
       <td> 2K </td>
-      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/yi.md#%E9%A2%84%E8%AE%AD%E7%BB%83"> pretrain </a> </td>
-      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/yi.md#%E5%BE%AE%E8%B0%83"> finetune </a> </td>
-      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/yi.md#%E6%8E%A8%E7%90%86"> predict </a> </td>
-      <td> 3324 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/finetune_yi_6b.yaml"> 配置 </a> <br> Atlas 800T A2 </td>
-      <td> 31 tokens/s <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/predict_yi_6b.yaml"> 配置 </a> <br> Atlas 800T A2 </td>
+      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/README.md#%E9%A2%84%E8%AE%AD%E7%BB%83"> pretrain </a> </td>
+      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/README.md#%E5%BE%AE%E8%B0%83"> finetune </a> </td>
+      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/README.md#%E6%8E%A8%E7%90%86"> predict </a> </td>
+      <td> 3324 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/yi_6b/finetune_yi_6b.yaml"> 配置 </a> <br> Atlas 800T A2 </td>
+      <td> 31 tokens/s <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/yi_6b/predict_yi_6b.yaml"> 配置 </a> <br> Atlas 800T A2 </td>
     </tr>
     <tr>
       <td> 34B </td>
       <td> 4K </td>
-      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/yi.md#%E9%A2%84%E8%AE%AD%E7%BB%83"> pretrain </a> </td>
-      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/yi.md#%E5%BE%AE%E8%B0%83"> finetune </a> </td>
-      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/yi.md#%E6%8E%A8%E7%90%86"> predict </a> </td>
-      <td> 660 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/finetune_yi_34b.yaml"> 配置 </a> <br> Atlas 800T A2 </td>
-      <td> 41 tokens/s <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/predict_yi_34b_chat.yaml"> 配置 </a> <br> Atlas 800T A2 </td>
+      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/README.md#%E9%A2%84%E8%AE%AD%E7%BB%83"> pretrain </a> </td>
+      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/README.md#%E5%BE%AE%E8%B0%83"> finetune </a> </td>
+      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/README.md#%E6%8E%A8%E7%90%86"> predict </a> </td>
+      <td> 660 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/yi_34b/finetune_yi_34b.yaml"> 配置 </a> <br> Atlas 800T A2 </td>
+      <td> 41 tokens/s <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/yi/yi_34b/predict_yi_34b_chat.yaml"> 配置 </a> <br> Atlas 800T A2 </td>
     </tr>
   </tbody>
   <tbody>
@@ -391,25 +391,25 @@
   </tbody>
   <tbody>
     <tr>
-      <td rowspan="1"> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek1_5/deepseek1_5.md"> DeepSeek Coder1.5 </a> </td>
+      <td rowspan="1"> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek1_5/README.md"> DeepSeek Coder1.5 </a> </td>
       <td> 7B </td>
       <td> 4K </td>
       <td style="text-align: center"> - </td>
-      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek1_5/deepseek1_5.md#%E5%85%A8%E5%8F%82%E5%BE%AE%E8%B0%83"> finetune </a> </td>
-      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek1_5/deepseek1_5.md#%E6%8E%A8%E7%90%86"> predict </a> </td>
-      <td> 340 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek1_5/finetune_deepseek_coder1_5_7b.yaml"> 配置 </a> <br> Atlas 900 A2 PoDc </td>
-      <td> 60 tokens/s <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek1_5/predict_deepseek_coder1_5_7b.yaml"> 配置 </a> <br> Atlas 800T A2 </td>
+      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek1_5/README.md#%E5%85%A8%E5%8F%82%E5%BE%AE%E8%B0%83"> finetune </a> </td>
+      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek1_5/README.md#%E6%8E%A8%E7%90%86"> predict </a> </td>
+      <td> 340 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek1_5/deepseek1_5_7b/finetune_deepseek_coder1_5_7b.yaml"> 配置 </a> <br> Atlas 900 A2 PoDc </td>
+      <td> 60 tokens/s <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek1_5/deepseek1_5_7b/predict_deepseek_coder1_5_7b.yaml"> 配置 </a> <br> Atlas 800T A2 </td>
     </tr>
   </tbody>
   <tbody>
     <tr>
-      <td rowspan="1"> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek2/deepseek2.md"> DeepSeekV2 </a> </td>
+      <td rowspan="1"> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek2/readme.md"> DeepSeekV2 </a> </td>
       <td> 236B </td>
       <td> 4K </td>
       <td style="text-align: center"> - </td>
-      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek2/deepseek2.md#%E5%85%A8%E5%8F%82%E5%BE%AE%E8%B0%83"> finetune </a> </td>
-      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek2/deepseek2.md#%E6%8E%A8%E7%90%86"> predict </a> </td>
-      <td> 36 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek2/finetune_deepseek2_236B.yaml"> 配置 </a> <br> Atlas 900 A2 PoDc </td>
+      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek2/readme.md#%E5%85%A8%E5%8F%82%E5%BE%AE%E8%B0%83"> finetune </a> </td>
+      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek2/readme.md#%E6%8E%A8%E7%90%86"> predict </a> </td>
+      <td> 36 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/deepseek2/deepseek2_236b/finetune_deepseek2_236B.yaml"> 配置 </a> <br> Atlas 900 A2 PoDc </td>
       <td style="text-align: center"> - </td>
     </tr>
   </tbody>
