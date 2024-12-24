@@ -29,27 +29,20 @@ import mindspore as ms
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
 
 # Forward computation of custom operator
 def square(x):
-    y = output_tensor(x.shape, x.dtype)
-    for i0 in range(x.shape[0]):
-        y[i0] = y[i0] * y[i0]
-    return y
+    return x * x
 
 # Backward computation of custom operator
 def square_grad(x, dout):
-    dx = output_tensor(x.shape, x.dtype)
-    for i0 in range(x.shape[0]):
-        dx[i0] = 2.0 * x[i0]
-    for i0 in range(x.shape[0]):
-        dx[i0] = dx[i0] * dout[i0]
+    dx = 2.0 * x * dout
     return dx
 
 # Backpropagation function
 def bprop():
-    op = ops.Custom(square_grad, lambda x, _: x, lambda x, _: x, func_type="akg")
+    op = ops.Custom(square_grad, lambda x, _: x, lambda x, _: x, func_type="pyfunc")
 
     def custom_bprop(x, out, dout):
         dx = op(x, dout)
@@ -60,8 +53,8 @@ def bprop():
 class Net(Cell):
     def __init__(self):
         super(Net, self).__init__()
-        # Define a custom operator of akg type and provide a backpropagation function
-        self.op = ops.Custom(square, lambda x: x, lambda x: x, bprop=bprop(), func_type="akg")
+        # Define a custom operator of pyfunc type and provide a backpropagation function
+        self.op = ops.Custom(square, lambda x: x, lambda x: x, bprop=bprop(), func_type="pyfunc")
 
     def construct(self, x):
         return self.op(x)
