@@ -47,12 +47,14 @@
        ├── allgather_test.py
        ├── rank_table_8pcs.json
        ├── rank_table_16pcs.json
-       ├── run_ran_table.sh
-       ├── run_ran_table_cluster.sh
+       ├── rank_table_cross_cluster_16pcs.json
+       ├── run_rank_table.sh
+       ├── run_rank_table_cluster.sh
+       ├── run_rank_table_cross_cluster.sh
     ...
 ```
 
-其中，`allgather_test.py`是定义网络结构，`run_ran_table.sh`、`run_ran_table_cluster.sh`是执行脚本。`rank_table_8pcs.json`、`rank_table_16pcs.json`分别是8卡、16卡rank_table配置文件。
+其中，`allgather_test.py`是定义网络结构，`run_rank_table.sh`、`run_rank_table_cluster.sh`、`run_rank_table_cross_cluster.sh`是执行脚本。`rank_table_8pcs.json`、`rank_table_16pcs.json`、`rank_table_cross_cluster_16pcs.json`分别是8卡、16卡和跨集群16卡的rank_table配置文件。
 
 ### 1. 准备Python训练脚本
 
@@ -184,7 +186,7 @@ done
 在当前路径配置好`rank_table_8pcs.json`后，执行以下指令：
 
 ```bash
-bash run_ran_table.sh
+bash run_rank_table.sh
 ```
 
 运行结束后，日志文件保存`device0`、 `device1`等目录下，`env*.log`中记录了环境变量的相关信息，输出结果保存在`train*.log`中，示例如下：
@@ -248,7 +250,7 @@ net health status: Success
 net health status: Fault
 ```
 
-在确认了机器之间的NPU单元的网络是通畅后，配置多机的json配置文件，本教程以16卡的配置文件为例，详细的配置文件说明可以参照本教程单机多卡部分的介绍。需要注意的是，在多机的json文件配置中，要求rank_id的排序，与server_id的字典序一致。
+在确认了机器之间的NPU单元的网络是通畅后，配置多机的json配置文件，本文档以16卡的配置文件为例，详细的配置文件说明可以参照本文档单机多卡部分的介绍。需要注意的是，在多机的json文件配置中，要求rank_id的排序，与server_id的字典序一致。
 
 ```json
 {
@@ -322,9 +324,133 @@ done
 
 ```bash
 # server0
-bash run_ran_table_cluster.sh 0
+bash run_rank_table_cluster.sh 0
 # server1
-bash run_ran_table_cluster.sh 8
+bash run_rank_table_cluster.sh 8
 ```
 
 运行结束后，日志文件保存`device_0`、 `device_1`等目录下，`env*.log`中记录了环境变量的相关信息，输出结果保存在`train*.log`中。
+
+#### 跨集群
+
+对于如今的大模型而言，使用计算集群进行训练已经成为一种常态。然而，随着模型规模的不断提升，单一集群的资源难以满足模型训练所需的显存要求，因此支持跨集群通信成为了训练超大规模模型的前提。目前，昇腾硬件的HCCL通信库暂不支持跨集群通信，因此MindSpore框架提供了一套跨集群通信库，使得不同集群的NPU之间能够实现高效通信。借助这一通信库，用户可以突破单一集群的显存限制，实现超大规模模型的跨集群并行训练。
+
+目前，MindSpore框架仅需在多机多卡的json配置文件中添加跨集群的`cluster_list`配置项即可开启这一功能，本文档同样以2机16卡（假设两个机器不在同一集群）配置文件为例，介绍跨集群相关配置项的编写方法，详细的配置文件说明可以参照本文档单机多卡部分的介绍。
+
+```json
+{
+  "version": "1.0",
+  "server_count": "2",
+  "server_list": [
+    {
+      "server_id": "server_0_10.*.*.*",
+      "server_ip": "10.*.*.*",
+      "device": [
+        {"device_id": "0", "device_ip": "192.1.*.6", "rank_id": "0", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "1", "device_ip": "192.2.*.6", "rank_id": "1", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "2", "device_ip": "192.3.*.6", "rank_id": "2", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "3", "device_ip": "192.4.*.6", "rank_id": "3", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "4", "device_ip": "192.1.*.7", "rank_id": "4", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "5", "device_ip": "192.2.*.7", "rank_id": "5", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "6", "device_ip": "192.3.*.7", "rank_id": "6", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "7", "device_ip": "192.4.*.7", "rank_id": "7", "dpu_ip": "8.2.17.60", "numa_id": ""}],
+      "host_nic_ip": "reserve",
+      "pod_ip": "127.0.0.1"
+    },
+    {
+      "server_id": "server_1_10.*.*.*",
+      "server_ip": "10.*.*.*",
+      "device": [
+        {"device_id": "0", "device_ip": "192.1.*.8", "rank_id": "8", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "1", "device_ip": "192.2.*.8", "rank_id": "9", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "2", "device_ip": "192.3.*.8", "rank_id": "10", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "3", "device_ip": "192.4.*.8", "rank_id": "11", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "4", "device_ip": "192.1.*.9", "rank_id": "12", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "5", "device_ip": "192.2.*.9", "rank_id": "13", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "6", "device_ip": "192.3.*.9", "rank_id": "14", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "7", "device_ip": "192.4.*.9", "rank_id": "15", "dpu_ip": "8.2.17.60", "numa_id": ""}],
+      "host_nic_ip": "reserve",
+      "pod_ip": "127.0.0.1"
+    }
+  ],
+  "cluster_list": [
+    {
+      "cluster_id": "cluster_0",
+      "network_type": "ROCE",
+      "az_id": "az_0",
+      "region_id": "region_0",
+      "server_list": [
+        {
+          "server_id": "server_0_10.*.*.*"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cluster_1",
+      "network_type": "ROCE",
+      "az_id": "az_1",
+      "region_id": "region_1",
+      "server_list": [
+        {
+          "server_id": "server_1_10.*.*.*"
+        }
+      ]
+    }
+  ],
+  "status": "completed"
+}
+```
+
+其中跨集群需要根据实际训练环境添加和修改的参数项有：
+
+- `server_id`表示当前机器的全局唯一标识。
+- `server_ip`表示当前机器的IP地址。
+- `dpu_ip`表示卡在租户VPC内的虚拟IP地址，用于跨集群通信。
+- `numa_id`表示卡在当前机器上NUMA亲和的CPU核序号。
+- `cluster_id`表示集群的全局唯一标识。
+- `network_type`表示集群内的机器间的网络类型，目前都是"ROCE"。
+- `az_id`表示集群所在的AZ id。
+- `server_list`表示当前集群包含的机器列表。
+
+准备好配置文件后，跨集群的分布式训练脚本与本文档多机多卡的分布式训练脚本保持一致，以2集群16卡为例，两个集群的两台机器上编写的脚本与多机多卡的运行脚本相同，区别在于指定不同的rank_id变量。
+
+```bash
+RANK_SIZE=16
+EXEC_PATH=$(pwd)
+if [ ! -d "${EXEC_PATH}/MNIST_Data" ]; then
+    if [ ! -f "${EXEC_PATH}/MNIST_Data.zip" ]; then
+        wget http://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip
+    fi
+    unzip MNIST_Data.zip
+fi
+export DATA_PATH=${EXEC_PATH}/MNIST_Data/train/
+
+export RANK_TABLE_FILE=${EXEC_PATH}/rank_table_2_cluster_16pcs.json
+export RANK_SIZE=$RANK_SIZE
+
+RANK_START=$1
+DEVICE_START=0
+
+for((i=0;i<=7;i++));
+do
+  export RANK_ID=$[i+RANK_START]
+  export DEVICE_ID=$[i+DEVICE_START]
+  rm -rf ./device_$RANK_ID
+  mkdir ./device_$RANK_ID
+  cp ./allgather_test.py ./device_$RANK_ID
+  cd ./device_$RANK_ID
+  env > env$i.log
+  python ./allgather_test.py >train$RANK_ID.log 2>&1 &
+done
+```
+
+执行时，两个集群中的两台机器分别执行如下命令，其中`rank_table_cross_cluster_16pcs.json`按照本章节展示的2集群16卡的跨集群分布式json文件参考配置，每个集群的每台机器上使用的`rank_table_cross_cluster_16pcs.json`配置需要保持一致。
+
+```bash
+# server0
+bash run_rank_table_cross_cluster.sh 0
+# server1
+bash run_rank_table_cross_cluster.sh 8
+```
+
+运行结束后，日志文件保存在各个集群中每台机器的`device_0`、 `device_1`等目录下，`env*.log`中记录了环境变量的相关信息，输出结果保存在`train*.log`中。

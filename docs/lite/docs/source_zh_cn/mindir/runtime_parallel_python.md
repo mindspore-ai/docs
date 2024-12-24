@@ -4,7 +4,7 @@
 
 ## 概述
 
-MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html)，多model并发推理现支持Atlas 200/300/500推理产品、Atlas推理系列产品（配置Ascend310P AI 处理器）、Atlas训练系列产品、Nvidia GPU、CPU后端。
+MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html)，多model并发推理现支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品、Nvidia GPU、CPU后端。
 
 通过MindSpore导出`mindir`模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得`mindir`模型后，即可在Runtime中执行模型的并发推理流程。本教程介绍如何使用[Python接口](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite.html)执行多model并发推理。
 
@@ -78,7 +78,7 @@ context.parallel.workers_num = WORKERS_NUM
 >
 > 多model并发推理不支持FP32类型数据推理，绑核只支持不绑核或者绑大核，不支持绑中核的参数设置，且不支持配置绑核列表。
 
-## 并发模型加载与编译
+### 并发模型加载与编译
 
 使用MindSpore Lite执行并发推理时，ModelParallelRunner是并发推理的主入口，调用`ModelParallelRunner`的[build_from_file](https://mindspore.cn/lite/api/zh-CN/master/mindspore_lite/mindspore_lite.ModelParallelRunner.html#mindspore_lite.ModelParallelRunner.build_from_file)接口进行并发模型加载和并发模型编译。
 
@@ -155,3 +155,56 @@ for th in threads:
 total_end_time = time.time()
 print("total run time: ", total_end_time - total_start_time, " s")
 ```
+
+## 一键配置Python环境
+
+在[mindspore/lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_python)目录下执行lite-server-cpu-pip.sh脚本。该脚本会安装python、pip、numpy以及wheel，下载模型文件和模型输入数据，重新安装Mindspore Lite whl包，检查MindSpore Lite whl包安装情况。
+
+```bash
+bash lite-server-cpu-pip.sh
+```
+
+## 执行Demo
+
+一键安装后，在[mindspore/lite/examples/cloud_infer/quick_start_parallel_python](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_python)目录，执行以下命令，体验MindSpore Lite并发推理MobileNetV2模型。
+
+```bash
+python quick_start_parallel_python.py
+```
+
+执行完成后将能得到如下结果，打印每个并发推理进程的id、单次推理时间、输出Tensor的名称、输出Tensor的数据大小、输出Tensor的元素数量以及前5个数据和并发推理总时间。
+
+```bash
+parallel id:  1  | task index:  1  | run once time:  0.0703895092010498  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  3  | task index:  1  | run once time:  0.08791518211364746  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  2  | task index:  1  | run once time:  0.0899653434753418  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  0  | task index:  1  | run once time:  0.09056544303894043  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  4  | task index:  1  | run once time:  0.10554099082946777  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  3  | task index:  2  | run once time:  0.01802825927734375  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  1  | task index:  2  | run once time:  0.03823208808898926  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  2  | task index:  2  | run once time:  0.03249311447143555  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  4  | task index:  2  | run once time:  0.01858806610107422  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+parallel id:  0  | task index:  2  | run once time:  0.0355989933013916  s
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is: 5.3937547e-05 0.00037763786 0.00034193686 0.00037316754 0.00022436169
+total run time:  0.13214898109436035  s
+```
+

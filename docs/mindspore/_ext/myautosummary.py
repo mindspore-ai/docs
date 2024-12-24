@@ -305,7 +305,7 @@ class MsPlatWarnAutoSummary(MsAutosummary):
         self.default_doc_fourth = "None"
         self.find_doc_name = "Supported Platforms:"
         self.third_title = "**{}**".format(self.find_doc_name[:-1])
-        self.default_doc = "``Ascend`` ``GPU`` ``CPU``"
+        self.default_doc = ""
 
     def get_refer_platform(self, name=None):
         """Get the `Supported Platforms`."""
@@ -362,7 +362,7 @@ class MsPlatformAutoSummary(MsAutosummary):
         """
         self.find_doc_name = "Supported Platforms:"
         self.third_title = "**{}**".format(self.find_doc_name[:-1])
-        self.default_doc = "``Ascend`` ``GPU`` ``CPU``"
+        self.default_doc = ""
         self.find_doc_name_fourth = ""
         self.fourth_title = ""
         self.default_doc_fourth = ""
@@ -467,17 +467,19 @@ class MsCnAutoSummary(Autosummary):
                 display_name = name.split('.')[-1]
 
             dir_name = self.options['toctree']
-            spec_path = os.path.join('api_python', dir_name, display_name)
             file_path = os.path.join(doc_path, dir_name, display_name+'.rst')
+            spec_path = os.path.join('api_python', dir_name, display_name)
             if os.path.exists(file_path) and spec_path not in generated_files:
-                summary_spec_re = re.compile(rf'\.\. \w+:\w+::\s+{display_name}.*?\n\s+:.*?:\n\n\s+(.*?)[。\n]')
+                summary_re_tag = re.compile(rf'\.\. \w+:\w+::\s+{display_name}.*?\n\s+:.*?:\n\n\s+(.*?)[。\n]')
+                summary_re_line = re.compile(rf'\.\. \w+:\w+::\s+{display_name}(?:.|\n|)+?\n\n\s+(.*?)[。\n]')
                 summary_re = self.get_summary_re(display_name)
                 content = ''
-                with open(os.path.join(doc_path, dir_name, display_name+'.rst'), 'r', encoding='utf-8') as f:
+                with open(file_path, 'r', encoding='utf-8') as f:
                     content = f.read()
                 if content:
                     summary_str = summary_re.findall(content)
-                    summary_str_spec = summary_spec_re.findall(content)
+                    summary_str_tag = summary_re_tag.findall(content)
+                    summary_str_line = summary_re_line.findall(content)
                     if '.ops.' in display_name and '更多详情请查看：' in content.split('\n')[-2]:
                         summary_str = content.split('\n')[-2].strip()
                     elif '.mint.' in display_name and '更多详情请查看：' in content.split('\n')[-2]:
@@ -486,10 +488,14 @@ class MsCnAutoSummary(Autosummary):
                         if re.findall("[:：,，。.;；]", summary_str[0][-1]):
                             logger.warning(f"{display_name}接口的概述格式需调整")
                         summary_str = summary_str[0] + '。'
-                    elif summary_str_spec:
-                        if re.findall("[:：,，。.;；]", summary_str_spec[0][-1]):
+                    elif summary_str_tag:
+                        if re.findall("[:：,，。.;；]", summary_str_tag[0][-1]):
                             logger.warning(f"{display_name}接口的概述格式需调整")
-                        summary_str = summary_str_spec[0] + '。'
+                        summary_str = summary_str_tag[0] + '。'
+                    elif summary_str_line:
+                        if re.findall("[:：,，。.;；]", summary_str_line[0][-1]):
+                            logger.warning(f"{display_name}接口的概述格式需调整")
+                        summary_str = summary_str_line[0] + '。'
                     else:
                         summary_str = ''
                     if not self.table_head:
@@ -708,7 +714,7 @@ class MsCnPlatformAutoSummary(MsCnAutoSummary):
                 if platform_str_leak:
                     return platform_str_leak
                 logger.warning(f"not find Supported Platforms: {name}")
-                return ["``Ascend`` ``GPU`` ``CPU``"]
+                return []
             return platform_str
         except: #pylint: disable=bare-except
             return []
@@ -741,10 +747,10 @@ class MsCnPlatWarnAutoSummary(MsCnAutoSummary):
                 if platform_str_leak:
                     return platform_str_leak
                 logger.warning(f"not find Supported Platforms: {name}")
-                return ["``Ascend`` ``GPU`` ``CPU``"]
+                return []
             return platform_str
         except: #pylint: disable=bare-except
-            return ["``Ascend`` ``GPU`` ``CPU``"]
+            return []
 
     def get_fourth_column(self, name=None, content=''):
         """Get the `Warning`."""

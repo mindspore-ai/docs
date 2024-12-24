@@ -128,7 +128,7 @@ def doctree_read(app: Sphinx, doctree: Node) -> None:
                 continue
             modname = signode.get('module')
             fullname = signode.get('fullname')
-            if not fullname.startswith('mindspore.'):
+            if fullname and not fullname.startswith('mindspore.'):
                 fullname = 'mindspore.' + fullname
             try:
                 if fullname and modname==None:

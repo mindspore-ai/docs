@@ -39,6 +39,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | context.max_device_memory   | 设置设备可用的最大内存，格式为"xxGB"，默认值为`1024GB`       | str      |
 | context.mempool_block_size  | 设置内存块大小，格式为"xxGB"，默认值为`1GB`                  | str      |
 | context.save_graphs         | 在执行过程中保存编译图。<br/>1. `False`或`0`表示不保存中间编译图。<br/>2. `1`表示运行时会输出图编译过程中生成的一些中间文件。<br/>3. `True`或`2`表示生成更多后端流程相关的IR文件。<br/>4. `3`表示生成可视化计算图和更多详细的前端IR图。 | bool/int |
+| context.save_graphs_path    | 保存编译图的路径                                             | str      |
 
 ### 模型配置
 
@@ -143,6 +144,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | parallel_config.context_parallel                                | 设置序列并行数                                                                                                                                                                                          | int  |
 | parallel_config.pipeline_stage                                  | 设置流水线并行数                                                                                                                                                                                         | int  |
 | parallel_config.micro_batch_num                                 | 设置流水线并行的微批次大小，在`parallel_config.pipeline_stage`大于1时，应满足`parallel_config.micro_batch_num` >= `parallel_config.pipeline_stage`                                                                     | int  |
+| parallel_config.seq_split_num                                   | 在序列流水线并行中设置序列分割数，该数应为序列长度的除数                                                                     | int  |
 | parallel_config.gradient_aggregation_group                      | 设置梯度通信算子融合组的大小                                                                                                                                                                                   | int  |
 | micro_batch_interleave_num                                      | 设置多副本并行数，大于1时开启多副本并行。通常在使用模型并行时开启，主要用于优化模型并行产生的通信损耗，仅使用流水并行时不建议开启。详情可参考[MicroBatchInterleaved](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MicroBatchInterleaved.html) | int  |
 | parallel.parallel_mode                                          | 设置并行模式，`0`表示数据并行模式, `1`表示半自动并行模式, `2`表示自动并行模式, `3`表示混合并行模式，一般设置为半自动并行模式                                                                                                                          | int  |

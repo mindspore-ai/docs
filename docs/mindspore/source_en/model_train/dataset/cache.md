@@ -33,7 +33,7 @@ Before using the cache service, you need to install MindSpore and set the releva
 Before using the single-node cache serve, you need to enter the following command at the command line to start the cache server:
 
 ```bash
-cache_admin --start
+dataset-cache --start
 ```
 
 ```text
@@ -48,14 +48,14 @@ If the above information is output, it means that the cache server starts succes
 
 The preceding commands can use the `-h` and `-p` parameters to specify the server, or the user can specify it by configuring environment variables `MS_CACHE_HOST` and `MS_CACHE_PORT`. If not specified, the default operation is performed on servers with IP 127.0.0.1 and port number 50052.
 
-The `ps -ef|grep cache_server` command can be used to check if the server is started and query server parameters.
+The `ps -ef|grep dataset-cache-server` command can be used to check if the server is started and query server parameters.
 
-The `cache_admin --server_info` command can also be used to check a detailed list of parameters for the server.
+The `dataset-cache --server_info` command can also be used to check a detailed list of parameters for the server.
 
 To enable the data overflow feature, the user must set the overflow path with the `-s` parameter when starting the cache server, or the feature is turned off by default.
 
 ```bash
-cache_admin --server_info
+dataset-cache --server_info
 ```
 
 ```text
@@ -75,7 +75,7 @@ No active sessions.
 
 The Cache Server Configuration table lists the IP address, port number, number of worker threads, log level, overflow path and other detailed configuration information of the current server. The Active sessions module displays a list of session IDs that are enabled in the current server.
 
-The cache server log file is named in the format "cache_server.\<host name>.\<user name>.log.\<log level>.\<data-time>.\<process number>".
+The cache server log file is named in the format "dataset-cache-server.\<host name>.\<user name>.log.\<log level>.\<data-time>.\<process number>".
 
 When `GLOG_v=0`, DEBUG log may be displayed on the screen.
 
@@ -84,7 +84,7 @@ When `GLOG_v=0`, DEBUG log may be displayed on the screen.
 If there is no cache session in the cache server, you need to create a cache session and get the cache session id:
 
 ```bash
-cache_admin -g
+dataset-cache -g
 ```
 
 ```text
@@ -93,10 +93,10 @@ Session created for server on port 50052: 780643335
 
 where 780643335 is the cache session id assigned to the server on port 50052, and the cache session id is assigned by the server.
 
-The `cache_admin --list_sessions` command can be used to check all cache session information existing in the current server.
+The `dataset-cache --list_sessions` command can be used to check all cache session information existing in the current server.
 
 ```bash
-cache_admin --list_sessions
+dataset-cache --list_sessions
 ```
 
 ```text
@@ -124,13 +124,13 @@ import os
 import mindspore.dataset as ds
 
 # define a variable named `session_id` to receive the cache session ID created in the previous step
-session_id = int(os.popen('cache_admin --list_sessions | tail -1 | awk -F " " \'{{print $1;}}\'').read())
+session_id = int(os.popen('dataset-cache --list_sessions | tail -1 | awk -F " " \'{{print $1;}}\'').read())
 test_cache = ds.DatasetCache(session_id=session_id, size=0, spilling=False)
 ```
 
 `DatasetCache` supports the following parameters:
 
-- `session_id`: specifies the cache session ID, which can be created and obtained by running the `cache_admin -g` command.
+- `session_id`: specifies the cache session ID, which can be created and obtained by running the `dataset-cache -g` command.
 - `size`: specifies the maximum memory space occupied by the cache. The unit is MB. For example, if the cache space is 512 GB, set `size=524288`. The default value is 0.
 - `spilling`: determines whether to spill the remaining data to disks when the memory space exceeds the upper limit. The default value is False.
 - `hostname`: specifies the IP address for connecting to the cache server. The default value is 127.0.0.1.
@@ -140,11 +140,11 @@ test_cache = ds.DatasetCache(session_id=session_id, size=0, spilling=False)
 
 The following things that needs to be noted:
 
-In actual use, you are advised to run the `cache_admin -g` command to obtain a cache session id from the cache server and use it as the parameter of `session_id` to prevent errors caused by cache session nonexistence.
+In actual use, you are advised to run the `dataset-cache -g` command to obtain a cache session id from the cache server and use it as the parameter of `session_id` to prevent errors caused by cache session nonexistence.
 
 `size=0` indicates that the memory space used by the cache is not limited manually, but automically controlled by the cache server according to system's total memory resources, and cache server's memory usage would be limited to within 80% of the total system memory.
 
-Users can also manually set `size` to a proper value based on the idle memory of the machine. Note that before setting the `size` parameter, make sure to check the available memory of the system and the size of the dataset to be loaded. If the memory space occupied by the cache_server or the space of the dataset to be loaded exceeds the available memory of the system, it may cause problems such as machine downtime/restart, automatic shutdown of cache_server, and failure of training process execution.
+Users can also manually set `size` to a proper value based on the idle memory of the machine. Note that before setting the `size` parameter, make sure to check the available memory of the system and the size of the dataset to be loaded. If the memory space occupied by the dataset-cache-server or the space of the dataset to be loaded exceeds the available memory of the system, it may cause problems such as machine downtime/restart, automatic shutdown of dataset-cache-server, and failure of training process execution.
 
 `spilling=True` indicates that the remaining data is written to disks when the memory space is insufficient. Therefore, ensure that you have the writing permission and the sufficient disk space on the configured disk path is  to store the cache data that spills to the disk. Note that if no spilling path is set when cache server starts, setting `spilling=True` will raise an error when calling the API.
 
@@ -217,10 +217,10 @@ for item in data.create_dict_iterator(num_epochs=1):  # each data is a dictionar
 3 image shape: (32, 32, 3)
 ```
 
-You can run the `cache_admin --list_sessions` command to check whether there are four data records in the current session. If yes, the data is successfully cached.
+You can run the `dataset-cache --list_sessions` command to check whether there are four data records in the current session. If yes, the data is successfully cached.
 
 ```bash
-cache_admin --list_sessions
+dataset-cache --list_sessions
 ```
 
 ```text
@@ -262,10 +262,10 @@ for item in data.create_dict_iterator(num_epochs=1):  # each data is a dictionar
 4 image shape: (32, 32, 3)
 ```
 
-You can run the `cache_admin --list_sessions` command to check whether there are five data records in the current session. If yes, the data is successfully cached.
+You can run the `dataset-cache --list_sessions` command to check whether there are five data records in the current session. If yes, the data is successfully cached.
 
 ```bash
-cache_admin --list_sessions
+dataset-cache --list_sessions
 ```
 
 ```text
@@ -281,7 +281,7 @@ Listing sessions for server on port 50052
 After the training is complete, you can destroy the current cache and release the memory.
 
 ```bash
-cache_admin --destroy_session 780643335
+dataset-cache --destroy_session 780643335
 ```
 
 ```text
@@ -297,7 +297,7 @@ If you choose not to destroy the cache, the cached data still exists in the cach
 After using the cache server, you can stop it. This operation will destroy all cache sessions on the current server and release the memory.
 
 ```bash
-cache_admin --stop
+dataset-cache --stop
 ```
 
 ```text
@@ -315,7 +315,7 @@ During the single-node multi-device distributed training, the cache operation al
 1. Start the cache server.
 
     ```bash
-    $cache_admin --start
+    $dataset-cache --start
     Cache server startup completed successfully!
     The cache server daemon has been created as process id 39337 and listening on port 50052
     Recommendation:
@@ -339,7 +339,7 @@ During the single-node multi-device distributed training, the cache operation al
     dataset_path=$1
 
     # generate a session id that these parallel pipelines can share
-    result=$(cache_admin -g 2>&1)
+    result=$(dataset-cache -g 2>&1)
     rc=$?
     if [ $rc -ne 0 ]; then
         echo "some error"
@@ -420,10 +420,10 @@ During the single-node multi-device distributed training, the cache operation al
     Got 4 samples on device 3
     ```
 
-    You can run the `cache_admin --list_sessions` command to check whether only one group of data exists in the current session. If yes, cache sharing is successful.
+    You can run the `dataset-cache --list_sessions` command to check whether only one group of data exists in the current session. If yes, cache sharing is successful.
 
     ```bash
-    $ cache_admin --list_sessions
+    $ dataset-cache --list_sessions
     Listing sessions for server on port 50052
 
     Session    Cache Id  Mem cached Disk cached  Avg cache size  Numa hit
@@ -435,14 +435,14 @@ During the single-node multi-device distributed training, the cache operation al
     After the training is complete, you can destroy the current cache and release the memory.
 
     ```bash
-    $ cache_admin --destroy_session 3392558708
+    $ dataset-cache --destroy_session 3392558708
     Drop session successfully for server on port 50052
     ```
 
 7. Stop the cache server, after using the cache server, you can stop it.
 
     ```bash
-    $ cache_admin --stop
+    $ dataset-cache --stop
     Cache server on port 50052 has been stopped successfully.
     ```
 
@@ -468,13 +468,13 @@ For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mi
     bootup_cache_server()
     {
       echo "Booting up cache server..."
-      result=$(cache_admin --start 2>&1)
+      result=$(dataset-cache --start 2>&1)
       echo "${result}"
     }
 
     generate_cache_session()
     {
-      result=$(cache_admin -g | awk 'END {print $NF}')
+      result=$(dataset-cache -g | awk 'END {print $NF}')
       echo "${result}"
     }
     ```
@@ -586,7 +586,7 @@ For complete sample code, refer to ModelZoo's [MobileNetV2](https://gitee.com/mi
 7. When finish using, you can choose to shut down the cache server:
 
     ```text
-    $ cache_admin --stop
+    $ dataset-cache --stop
     Cache server on port 50052 has been stopped successfully.
     ```
 

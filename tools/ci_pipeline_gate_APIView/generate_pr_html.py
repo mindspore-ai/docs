@@ -39,9 +39,14 @@ def update_repo(clone_branch, rp_dir_docs):
         if not re.findall(f'remotes/origin/{clone_branch}', str1):
             if len(clone_branch.split('.')) >= 3:
                 clone_branch = '.'.join(clone_branch.split('.')[:-1])
+        try:
+            str3 = repo.git.execute(["git", "checkout", clone_branch])
+            print(str3)
+        # pylint: disable=W0702
+        except:
+            print(f'docs repo does not have the {clone_branch} branch, the default branch is used for build.')
+            clone_branch = re.findall(rf'\* (.*)', str1)[0].strip()
 
-        str3 = repo.git.execute(["git", "checkout", clone_branch])
-        print(str3)
     return clone_branch
 
 def copy_source(sourcedir, des_sir, cp_rel_path, fp_list=''):
@@ -101,7 +106,7 @@ def copy_image(sourcedir, des_dir):
                 except:
                     print(f'picture {os.path.join(os.path.relpath(cur, sourcedir), i)} copy failed.')
 
-def get_all_copy_list(pr_list, rp_n, branch, repo_path):
+def get_all_copy_list(pr_list, rp_n, branch, repo_path, raw_rst_list):
     """
     获取所有需要拷贝的文件。
     """
@@ -110,9 +115,8 @@ def get_all_copy_list(pr_list, rp_n, branch, repo_path):
     for i in pr_list:
         if i == 'need_auto':
             continue
-        raw_url = f'https://gitee.com/mindspore/{rp_n}/raw/{branch}/{i}'
-        if raw_url.endswith('.rst'):
-            raw_content = requests.get(raw_url).text
+        if i.endswith('.rst'):
+            raw_content = requests.get(raw_rst_list[i]).text
             other_file_path = re.findall('.. include:: (.*?)\n', raw_content)
             for j in other_file_path:
                 file_list.append(os.path.join(
@@ -178,43 +182,66 @@ def yaml_file_handle(yaml_file_list, repo_path, dict1):
         if yaml_file.endswith('.yaml') and '_grad_' not in yaml_file:
             # if re.findall('_v[0-9]+_', yaml_file):
             #     yaml_file = re.sub('_v[0-9]+_', '_', yaml_file)
-            op_fp = os.path.join(
-                repo_path, dict1['mindspore_yaml'], yaml_file.replace('_doc.yaml', '_op.yaml'))
-            if not os.path.exists(op_fp):
-                continue
-            with open(op_fp, 'r+', encoding='utf-8') as f:
-                op_content = f.read()
-            class_name = re.findall(r'class:\n\s+?name:(.*)', op_content)
-            func_name = re.findall(r'function:\n\s+?name:(.*)', op_content)
-            mint_flag = 0
-            if '_ext_op.yaml' in op_fp:
-                mint_flag = 1
-            if re.findall(r'function:\n\s+?disable: True', op_content):
-                if class_name:
-                    class_name = class_name[0]
+            if dict1['mindspore_yaml'] in yaml_fp:
+                op_fp = os.path.join(
+                    repo_path, dict1['mindspore_yaml'], yaml_file.replace('_doc.yaml', '_op.yaml'))
+
+                if not os.path.exists(op_fp):
+                    continue
+                with open(op_fp, 'r', encoding='utf-8') as f:
+                    op_content = f.read()
+                class_name = re.findall(r'class:\n\s+?name:(.*)', op_content)
+                func_name = re.findall(r'function:\n\s+?name:(.*)', op_content)
+                mint_flag = 0
+                if '_ext_op.yaml' in op_fp:
+                    mint_flag = 1
+                if re.findall(r'function:\n\s+?disable: True', op_content):
+                    if class_name:
+                        class_name = class_name[0]
+                    else:
+                        class_name = ''.join([i.title() for i in yaml_file.split('_')[:-1]])
+                    if class_name.endswith('_ext'):
+                        class_name = class_name.replace('_ext', '')
+                    if mint_flag:
+                        generate_interface_list.append(
+                            f'.. autoclass:: mindspore.mint.{class_name.strip()}&&&{yaml_fp}')
+                    else:
+                        generate_interface_list.append(
+                            f'.. autoclass:: mindspore.ops.{class_name.strip()}&&&{yaml_fp}')
                 else:
-                    class_name = ''.join([i.title() for i in yaml_file.split('_')[:-1]])
-                if class_name.endswith('_ext'):
-                    class_name = class_name.replace('_ext', '')
-                if mint_flag:
-                    generate_interface_list.append(
-                        f'.. autoclass:: mindspore.mint.{class_name.strip()}&&&{yaml_fp}')
-                else:
-                    generate_interface_list.append(
-                        f'.. autoclass:: mindspore.ops.{class_name.strip()}&&&{yaml_fp}')
-            else:
-                if func_name:
-                    func_name = func_name[0]
-                else:
-                    func_name = yaml_file.replace('_doc.yaml', '').replace('_op.yaml', '')
-                if func_name.endswith('_ext'):
-                    func_name = func_name.replace('_ext', '')
-                if mint_flag:
-                    generate_interface_list.append(
-                        f'.. autofunction:: mindspore.mint.{func_name.strip()}&&&{yaml_fp}')
-                else:
-                    generate_interface_list.append(
-                        f'.. autofunction:: mindspore.ops.{func_name.strip()}&&&{yaml_fp}')
+                    if func_name:
+                        func_name = func_name[0]
+                    else:
+                        func_name = yaml_file.replace('_doc.yaml', '').replace('_op.yaml', '')
+                    if func_name.endswith('_ext'):
+                        func_name = func_name.replace('_ext', '')
+                    if mint_flag:
+                        generate_interface_list.append(
+                            f'.. autofunction:: mindspore.mint.{func_name.strip()}&&&{yaml_fp}')
+                    else:
+                        generate_interface_list.append(
+                            f'.. autofunction:: mindspore.ops.{func_name.strip()}&&&{yaml_fp}')
+            elif dict1['mindspore_Tensor_yaml'] in yaml_fp:
+                tensor_op_name = yaml_file.replace('_doc.yaml', '.yaml')
+                op_fp = os.path.join(
+                    repo_path, '/'.join(dict1['mindspore_Tensor_yaml'].split('/')[:-2]), tensor_op_name)
+
+                if not os.path.exists(op_fp):
+                    continue
+                tensor_name = tensor_op_name.split('.')[0]
+                generate_interface_list.append(
+                    f'.. automethod:: mindspore.Tensor.{tensor_name}&&&{yaml_fp}')
+            elif dict1['mindspore_mint_yaml'] in yaml_fp:
+                mint_op_name = yaml_file.replace('_doc.yaml', '.yaml')
+                op_fp = os.path.join(
+                    repo_path, '/'.join(dict1['mindspore_mint_yaml'].split('/')[:-2]), mint_op_name)
+
+                if not os.path.exists(op_fp):
+                    continue
+                mint_name = mint_op_name.split('.')[0]
+                generate_interface_list.append(
+                    f'.. autofunction:: mindspore.mint.{mint_name}&&&{yaml_fp}')
+
     return list(set(generate_interface_list))
 
 
@@ -482,7 +509,9 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
     split_dict = {'mindspore_cn': "docs/api/api_python/",
                   'mindspore_en': "docs/api/api_python_en/",
                   'mindspore_py': "mindspore/python/mindspore/",
-                  'mindspore_yaml': "mindspore/ops/op_def/yaml/"}
+                  'mindspore_yaml': "mindspore/ops/op_def/yaml/",
+                  'mindspore_Tensor_yaml': "mindspore/ops/api_def/method_doc/",
+                  'mindspore_mint_yaml': "mindspore/ops/api_def/function_doc/"}
 
     wb_data = requests.get(pf_url)  # 引入requests库来请求数据
     result = wb_data.json()  # 将请求的数据转换为json格式
@@ -497,6 +526,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
     # pr_file_en = []
     pr_file_yaml = []
     auto_need = []
+    all_raw_rst = dict()
 
     generate_pr_list_en_sum = []
 
@@ -517,9 +547,12 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
             continue
         # 记录yaml文件
         # pylint: disable=R1702
-        if split_dict['mindspore_yaml'] in filename:
-            if filename.endswith('.yaml'):
+        if filename.endswith('.yaml'):
+            if split_dict['mindspore_yaml'] in filename or split_dict['mindspore_Tensor_yaml'] in filename:
                 pr_file_yaml.append(filename)
+            elif split_dict['mindspore_mint_yaml'] in filename:
+                pr_file_yaml.append(filename)
+
         # 记录中文API相关文件
         elif split_dict['mindspore_cn'] in filename:
             if filename.endswith('.md') or filename.endswith('.ipynb') or filename.endswith('.rst'):
@@ -553,6 +586,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                         continue
                 if os.path.exists(os.path.join(rp_dir, filename)) and filename not in white_list:
                     pr_file_cn.append(filename)
+                    all_raw_rst[filename] = raw_url
         elif split_dict['mindspore_en'] in filename:
             if not filename.split(split_dict['mindspore_en'])[-1].startswith('mindspore.'):
                 continue
@@ -568,6 +602,8 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                                 if api_name in api_list:
                                     if filename.lower() != filename:
                                         generate_pr_list_en_sum.append(f'.. autoclass:: {api_name}&&&{filename}')
+                                    elif '.Tensor.' in api_name:
+                                        generate_pr_list_en_sum.append(f'.. automethod:: {api_name}&&&{filename}')
                                     else:
                                         generate_pr_list_en_sum.append(f'.. autofunction:: {api_name}&&&{filename}')
                                     break
@@ -658,6 +694,13 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
     print(f'从汇总页中提取到的api如下：\n{generate_pr_list_en_sum}')
     generate_apien_sum_list = get_rst_en(generate_pr_list_en_sum)
 
+    # 清理 api_python 文件夹
+    if os.path.exists(os.path.join(generate_path, 'source_en', 'api_python')):
+        shutil.rmtree(os.path.join(generate_path, 'source_en', 'api_python'))
+    if os.path.exists(os.path.join(generate_path, 'source_zh_cn', 'api_python')):
+        shutil.rmtree(os.path.join(generate_path, 'source_zh_cn', 'api_python'))
+
+    # 英文文档汇总写入
     if pr_file_py or pr_file_yaml or generate_apien_sum_list:
         all_en_rst = generate_apien_yaml_list + generate_apien_list + generate_apien_sum_list
         en_set = set()
@@ -683,7 +726,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
         pr_file_cn = list(set(pr_file_cn))
         print(f'涉及修改的中文api如下：\n{pr_file_cn}')
         copy_file_list = get_all_copy_list(
-            pr_file_cn, re.findall('([^/]*?)/pulls/', file_url)[0], clone_branch, rp_dir)
+            pr_file_cn, re.findall('([^/]*?)/pulls/', file_url)[0], clone_branch, rp_dir, all_raw_rst)
         copy_source(os.path.join(rp_dir, 'docs/api/api_python'),
                     os.path.join(generate_path, 'source_zh_cn', 'api_python'),
                     'docs/api/api_python/', fp_list=copy_file_list)
@@ -781,12 +824,9 @@ def modify_style_files(pre_path, rp_dn, theme_p, version_p, lge_list):
     if rp_dn == 'docs':
         theme_list.append(rp_dn)
     elif rp_dn == 'tutorials':
-        theme_list.append(rp_dn + '/application')
-        theme_list.append(rp_dn + '/experts')
         theme_list.append(rp_dn)
     elif rp_dn == 'lite':
         theme_list.append(rp_dn + '/docs')
-        theme_list.append(rp_dn + '/faq')
         theme_list.append(rp_dn + '/api')
     else:
         theme_list.append(rp_dn + '/docs')
@@ -826,9 +866,12 @@ def modify_style_files(pre_path, rp_dn, theme_p, version_p, lge_list):
 
                 static_path_version = glob.glob(f"{output_path}/{out_name}/{lg}/*/_static/js/")[0]
                 static_path_version = os.path.join(static_path_version, "version.json")
-                if 'lite' in out_name or 'tutorials' in out_name:
+                if 'lite' in out_name:
                     css_path = f"theme-{out_name.split('/')[0]}/theme.css"
                     js_path = f"theme-{out_name.split('/')[0]}/theme.js"
+                elif '/docs' in out_name:
+                    css_path = "theme-tutorials/theme.css"
+                    js_path = "theme-tutorials/theme.js"
                 else:
                     css_path = "theme-docs/theme.css"
                     js_path = "theme-docs/theme.js"

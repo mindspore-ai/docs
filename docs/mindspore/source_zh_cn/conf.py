@@ -43,8 +43,10 @@ with open(domain_py.__file__, 'r', encoding="utf8") as f:
     code_str = f.read()
     old_str = "signode += addnodes.desc_addname(nodetext, nodetext)"
     new_str = """signode += addnodes.desc_addname(nodetext, nodetext)
-        elif 'Tensor' == classname:
-            signode += addnodes.desc_addname('Tensor.', 'Tensor.')"""
+        elif 'mindspore.Tensor' in classname:
+            signode += addnodes.desc_addname('mindspore.Tensor.', 'mindspore.Tensor.')
+        elif 'mindspore.mint' in classname:
+            signode += addnodes.desc_addname('mindspore.mint.', 'mindspore.mint.')"""
     code_str = code_str.replace(old_str, new_str)
     exec(code_str, domain_py.__dict__)
 

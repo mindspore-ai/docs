@@ -20,7 +20,7 @@ torch.distributed.all_to_all(
 mindspore.communication.comm_func.all_to_all_with_output_shape(
     output_shape_list,
     input_tensor_list,
-    group=None
+    group=None,
     async_op=False
 )
 ```

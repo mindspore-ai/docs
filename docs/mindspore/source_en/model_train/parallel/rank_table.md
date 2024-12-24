@@ -47,12 +47,14 @@ The directory structure is as follows:
        ├── allgather_test.py
        ├── rank_table_8pcs.json
        ├── rank_table_16pcs.json
-       ├── run_ran_table.sh
-       ├── run_ran_table_cluster.sh
+       ├── rank_table_cross_cluster_16pcs.json
+       ├── run_rank_table.sh
+       ├── run_rank_table_cluster.sh
+       ├── run_rank_table_cross_cluster.sh
     ...
 ```
 
-`allgather_test.py` defines the network structure, `run_ran_table.sh`, and `run_ran_table_cluster.sh` are executing the scripts. `rank_table_8pcs.json`, `rank_table_16pcs.json` are 8 cards and 16 cards rank_table config file.
+`allgather_test.py` defines the network structure, `run_rank_table.sh`, `run_rank_table_cluster.sh` and `run_rank_table_cross_cluster.sh` are executing the scripts. `rank_table_8pcs.json`, `rank_table_16pcs.json` and `rank_table_cross_cluster_16pcs.json` are 8 cards, 16 cards and cross cluster 16 cards rank_table config file.
 
 ### 1. Preparing Python Training Scripts
 
@@ -184,7 +186,7 @@ Distributed-related environment variables are:
 After configuring `rank_table_8pcs.json` in the current path, execute the following command:
 
 ```bash
-bash run_ran_table.sh
+bash run_rank_table.sh
 ```
 
 After running, the log files are saved in `device0`, `device1` and other directories, `env*.log` records information about environment variables, and the output is saved in `train*.log`, as shown in the example below:
@@ -248,7 +250,7 @@ If the connection fails, the corresponding output is as follows:
 net health status: Fault
 ```
 
-After confirming that the network of the NPU units between the machines is smooth, configure the json configuration file of the multi-machine, this tutorial takes the configuration file of the 16 cards as an example. The detailed description of the configuration file can be referred to the introduction of single-machine multi-card part in this tutorial. It should be noted that in the configuration of the multi-machine json file, it is required that the order of rank_id is consistent with the dictionary order of server_id.
+After confirming that the network of the NPU units between the machines is smooth, configure the json configuration file of the multi-machine, this document takes the configuration file of the 16 cards as an example. The detailed description of the configuration file can be referred to the introduction of single-machine multi-card part in this document. It should be noted that in the configuration of the multi-machine json file, it is required that the order of rank_id is consistent with the dictionary order of server_id.
 
 ```json
 {
@@ -322,9 +324,133 @@ During execution, the following commands are executed on the two machines, where
 
 ```bash
 # server0
-bash run_ran_table_cluster.sh 0
+bash run_rank_table_cluster.sh 0
 # server1
-bash run_ran_table_cluster.sh 8
+bash run_rank_table_cluster.sh 8
 ```
 
 After running, the log files are saved in the directories `device_0`, `device_1`. The information about the environment variables is recorded in `env*.log`, and the output is saved in `train*.log`.
+
+#### Cross Cluster
+
+For today's large-scale models, using compute clusters for training has become the norm. However, as model sizes continue to grow, the resources of a single cluster can no longer meet the memory requirements for model training. Therefore, support for cross-cluster communication has become a prerequisite for training ultra-large-scale models. Currently, the HCCL communication library of Ascend hardware does not support cross-cluster communication. To address this issue, MindSpore provides a cross-cluster communication library that enables efficient communication between NPUs in different clusters. With this library, users can overcome the memory limitations of a single cluster and achieve cross-cluster parallel training for ultra-large-scale models.
+
+Currently, the MindSpore framework enables this feature simply by adding the `cluster_list` configuration item for cross-cluster communication in the multi-node, multi-card JSON configuration file. This document uses a 2-node, 16-card setup (assuming the two machines are not in the same cluster) as an example to illustrate how to write the relevant configuration items for cross-cluster scenarios. For detailed information about the configuration file, please refer to the single-node, multi-card section in this document.
+
+```json
+{
+  "version": "1.0",
+  "server_count": "2",
+  "server_list": [
+    {
+      "server_id": "server_0_10.*.*.*",
+      "server_ip": "10.*.*.*",
+      "device": [
+        {"device_id": "0", "device_ip": "192.1.*.6", "rank_id": "0", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "1", "device_ip": "192.2.*.6", "rank_id": "1", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "2", "device_ip": "192.3.*.6", "rank_id": "2", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "3", "device_ip": "192.4.*.6", "rank_id": "3", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "4", "device_ip": "192.1.*.7", "rank_id": "4", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "5", "device_ip": "192.2.*.7", "rank_id": "5", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "6", "device_ip": "192.3.*.7", "rank_id": "6", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "7", "device_ip": "192.4.*.7", "rank_id": "7", "dpu_ip": "8.2.17.60", "numa_id": ""}],
+      "host_nic_ip": "reserve",
+      "pod_ip": "127.0.0.1"
+    },
+    {
+      "server_id": "server_1_10.*.*.*",
+      "server_ip": "10.*.*.*",
+      "device": [
+        {"device_id": "0", "device_ip": "192.1.*.8", "rank_id": "8", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "1", "device_ip": "192.2.*.8", "rank_id": "9", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "2", "device_ip": "192.3.*.8", "rank_id": "10", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "3", "device_ip": "192.4.*.8", "rank_id": "11", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "4", "device_ip": "192.1.*.9", "rank_id": "12", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "5", "device_ip": "192.2.*.9", "rank_id": "13", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "6", "device_ip": "192.3.*.9", "rank_id": "14", "dpu_ip": "8.2.17.60", "numa_id": ""},
+        {"device_id": "7", "device_ip": "192.4.*.9", "rank_id": "15", "dpu_ip": "8.2.17.60", "numa_id": ""}],
+      "host_nic_ip": "reserve",
+      "pod_ip": "127.0.0.1"
+    }
+  ],
+  "cluster_list": [
+    {
+      "cluster_id": "cluster_0",
+      "network_type": "ROCE",
+      "az_id": "az_0",
+      "region_id": "region_0",
+      "server_list": [
+        {
+          "server_id": "server_0_10.*.*.*"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cluster_1",
+      "network_type": "ROCE",
+      "az_id": "az_1",
+      "region_id": "region_1",
+      "server_list": [
+        {
+          "server_id": "server_1_10.*.*.*"
+        }
+      ]
+    }
+  ],
+  "status": "completed"
+}
+```
+
+For cross-cluster scenarios, the parameters that need to be added or modified based on the actual training environment are as follows:
+
+- `server_id` represents the globally unique identifier of the current machine.
+- `server_ip` represents the IP address of the current machine.
+- `dpu_ip` represents the virtual IP address of the card within the tenant VPC, used for cross-cluster communication.
+- `numa_id` represents the NUMA-affined CPU core ID of the card on the current machine.
+- `cluster_id` represents the globally unique identifier of the cluster.
+- `network_type` represents the type of network between machines within the cluster, currently set to "ROCE."
+- `az_id` represents the AZ (Availability Zone) ID where the cluster is located.
+- `server_list` represents the list of machines included in the current cluster.
+
+Once the configuration file is prepared, the distributed training script for cross-cluster scenarios remains consistent with the distributed training script for multi-node, multi-card setups described in this document. Using a 2-cluster, 16-card setup as an example, the scripts on the two machines in the two clusters are the same as those used in multi-node, multi-card scenarios. The only difference lies in specifying different rank_id variables.
+
+```bash
+RANK_SIZE=16
+EXEC_PATH=$(pwd)
+if [ ! -d "${EXEC_PATH}/MNIST_Data" ]; then
+    if [ ! -f "${EXEC_PATH}/MNIST_Data.zip" ]; then
+        wget http://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip
+    fi
+    unzip MNIST_Data.zip
+fi
+export DATA_PATH=${EXEC_PATH}/MNIST_Data/train/
+
+export RANK_TABLE_FILE=${EXEC_PATH}/rank_table_2_cluster_16pcs.json
+export RANK_SIZE=$RANK_SIZE
+
+RANK_START=$1
+DEVICE_START=0
+
+for((i=0;i<=7;i++));
+do
+  export RANK_ID=$[i+RANK_START]
+  export DEVICE_ID=$[i+DEVICE_START]
+  rm -rf ./device_$RANK_ID
+  mkdir ./device_$RANK_ID
+  cp ./allgather_test.py ./device_$RANK_ID
+  cd ./device_$RANK_ID
+  env > env$i.log
+  python ./allgather_test.py >train$RANK_ID.log 2>&1 &
+done
+```
+
+During execution, the two machines in the two clusters run the following commands, respectively. The `rank_table_cross_cluster_16pcs.json` file is configured based on the 2-cluster, 16-card cross-cluster distributed JSON file example shown in this section. The `rank_table_cross_cluster_16pcs.json` configuration used on each machine in both clusters must remain consistent.
+
+```bash
+# server0
+bash run_rank_table_cross_cluster.sh 0
+# server1
+bash run_rank_table_cross_cluster.sh 8
+```
+
+After execution, log files are saved in the `device_0`, `device_1`, and other corresponding directories on each machine in the clusters. The `env*.log` files record information about the environment variables, while the output results are stored in the `train*.log` files.

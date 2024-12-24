@@ -515,7 +515,7 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
             if re_view not in content and py_source_rel:
                 content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
 
-        elif py_source_rel and '_c_expression' not in py_source_rel:
+        elif py_source_rel and '_c_expression' not in py_source_rel and 'functional_overload' not in py_source_rel:
             if not os.path.exists(os.path.join(app.config.repo_path, app.config.repo_whl, py_source_rel)):
                 py_source_rel = py_source_rel.replace('.py', '/__init__.py')
 

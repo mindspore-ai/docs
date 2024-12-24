@@ -160,7 +160,7 @@ np.save("output.npy", out.asnumpy())
 
 ## Q: How to handle cache server exception shutdown?
 
-A: During the use of the cache server, system resources such as IPC share memory and socket files are allocated. If overflow is allowed, there will be overflowing data files on disk space. In general, if the server is shut down normally via the `cache_admin --stop` command, these resources will be automatically cleaned up.
+A: During the use of the cache server, system resources such as IPC share memory and socket files are allocated. If overflow is allowed, there will be overflowing data files on disk space. In general, if the server is shut down normally via the `dataset-cache --stop` command, these resources will be automatically cleaned up.
 
 However, if the cache server is shut down abnormally, such as the cache service process is killed, the user needs to try to restart the server first. If the startup fails, you should follow the following steps to manually clean up the system resources:
 

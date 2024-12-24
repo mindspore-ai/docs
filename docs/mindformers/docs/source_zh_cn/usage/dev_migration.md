@@ -56,7 +56,7 @@ MindFormers使用`YAML`配置文件配置一个任务所需的所有参数，包
 
 由于自定义模型的代码不在MindFormers库内，代码中的自定义模块没有注册在MindFormers中，因而不能被自动实例化。这些代码也称为外挂代码（如`research`目录下代码）。因此需要在编写的`YAML`配置文件中的对应模块配置下添加自动注册任意模块的配置项`auto_register`，设置为要注册的API接口的相对导入路径。后续在执行run_mindformer.py脚本拉起任务时添加注册路径的入参`--register_path`，设置为外挂代码所在目录的相对路径。
 
-例如，`research`目录下的Llama3.1-8B模型的推理`YAML`配置文件[`research/llama3_1/predict_llama3_1_8b.yaml`](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/predict_llama3_1_8b.yaml)中，添加了自动注册的配置项`auto_register`，以注册[`research/llama3_1/llama3_1_tokenizer.py`](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_tokenizer.py)中自定义的`Llama3Tokenizer`：
+例如，`research`目录下的Llama3.1-8B模型的推理`YAML`配置文件[`research/llama3_1/predict_llama3_1_8b.yaml`](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml)中，添加了自动注册的配置项`auto_register`，以注册[`research/llama3_1/llama3_1_tokenizer.py`](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_tokenizer.py)中自定义的`Llama3Tokenizer`：
 
 ```yaml
 ...
@@ -89,7 +89,7 @@ python run_mindformer.py --config research/llama3_1/predict_llama3_1_8b.yaml --l
 |  register_path  | 外挂代码所在目录的路径   |
 |  predict_data   | 推理的输入数据       |
 
-其中设置了`register_path`为外挂代码所在目录的路径`research/llama3_1`，模型权重的准备参考[Llama3.1说明文档——模型权重下载](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)。
+其中设置了`register_path`为外挂代码所在目录的路径`research/llama3_1`，模型权重的准备参考[Llama3.1说明文档——模型权重下载](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E4%B8%8B%E8%BD%BD)。
 
 配置文件的详细内容及可配置项可以参考[配置文件说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)。在实际编写配置文件时，也可以参考库内已有的配置文件，例如[Llama2-7B微调的配置文件](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/finetune_llama2_7b.yaml)。
 
@@ -120,7 +120,7 @@ Llama3-8B与Llama2-7B拥有相同的模型结构，只有部分模型参数、�
 - Llama3-8B修改了特殊词元索引，修改`bos_token_id`为`128000`、`eos_token_id`为`128001`、`pad_token_id`为`128002`。
 - Llama3-8B修改了旋转位置编码中的theta值为500000，修改`theta`为`500000`。
 
-修改Llama2-7B的`YAML`配置文件中的对应内容即可得到[Llama3-8B的配置文件](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/finetune_llama3_8b_8k_800T_A2_64G.yaml)。
+修改Llama2-7B的`YAML`配置文件中的对应内容即可得到[Llama3-8B的配置文件](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_8b/finetune_llama3_8b.yaml)。
 
 #### 分词器
 
@@ -128,10 +128,10 @@ Llama3-8B重新实现了分词器。对照官方的实现，继承MindFormers中
 
 #### 权重转换
 
-Llama3-8B的参数命名和Llama2-7B一致，因此可以复用Llama2-7B的权重转换流程，参考[Llama3文档的权重转换章节](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E8%BD%AC%E6%8D%A2)。
+Llama3-8B的参数命名和Llama2-7B一致，因此可以复用Llama2-7B的权重转换流程，参考[Llama3文档的权重转换章节](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/README.md#%E6%A8%A1%E5%9E%8B%E6%9D%83%E9%87%8D%E8%BD%AC%E6%8D%A2)。
 
 #### 数据集处理
 
-由于Llama3-8B的分词器与Llama2-7B不同，因此Llama3-8B需要在Llama2-7B的数据集处理脚本的基础上，替换Llama3-8B的分词器对数据进行预处理，参考[conversation.py](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/conversation.py)和[llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama_preprocess.py)。
+由于Llama3-8B的分词器与Llama2-7B不同，因此Llama3-8B需要在Llama2-7B的数据集处理脚本的基础上，替换Llama3-8B的分词器对数据进行预处理，参考[conversation.py](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_conversation.py)和[llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_preprocess.py)。
 
-关于MindFormers中Llama3的具体实现，可以参考MindFormers仓库中[Llama3的文件夹](https://gitee.com/mindspore/mindformers/tree/dev/research/llama3)。关于MindFormers中Llama3的使用，可以参考[LLama3的说明文档](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3.md)。
+关于MindFormers中Llama3的具体实现，可以参考MindFormers仓库中[Llama3的文件夹](https://gitee.com/mindspore/mindformers/tree/dev/research/llama3)。关于MindFormers中Llama3的使用，可以参考[LLama3的说明文档](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/README.md)。

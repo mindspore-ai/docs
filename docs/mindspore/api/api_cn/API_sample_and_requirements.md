@@ -61,7 +61,7 @@
 该接口与func接口同名时写法如下：
 
 ```text
-.. py:method:: Tensor.abs()
+.. py:method:: mindspore.Tensor.abs()
 
     详情请参考 :func:`mindspore.ops.abs`。
 ```
@@ -69,9 +69,9 @@
 该接口是其他Tensor接口别名时写法如下：
 
 ```text
-.. py:method:: Tensor.absolute()
+.. py:method:: mindspore.Tensor.absolute()
 
-    :func:`Tensor.abs` 的别名。
+    :func:`mindspore.Tensor.abs` 的别名。
 ```
 
 基于yaml自动生成的Tensor接口写法如下：
@@ -79,7 +79,7 @@
 无重载函数：
 
 ```text
-.. py:method:: Tensor.gather(参数)
+.. py:method:: mindspore.Tensor.gather(参数)
 
     描述函数功能。
 
@@ -98,7 +98,7 @@
 有重载函数：
 
 ```text
-.. py:method:: Tensor.gather(参数)
+.. py:method:: mindspore.Tensor.gather(参数)
 
     描述函数功能。
 
@@ -113,7 +113,7 @@
         - **Error1** – 异常描述1。
         - **Error2** – 异常描述2。
 
-    .. py:method:: Tensor.gather(参数)
+    .. py:method:: mindspore.Tensor.gather(参数)
         :noindex:
 
     描述函数功能。
@@ -132,8 +132,45 @@
 
 ## 函数 Function
 
+无重载函数：
+
 ```text
 .. py:function:: name(参数)
+
+    描述函数功能。
+
+    参数：
+        - **参数1** (Tensor) – 参数1说明。
+        - **参数2** (int) – 参数2说明。
+
+    返回：
+        返回说明。
+
+    异常：
+        - **Error1** – 异常描述1。
+        - **Error2** – 异常描述2。
+```
+
+有重载函数：
+
+```text
+.. py:function:: mindspore.mint.max(参数)
+
+    描述函数功能。
+
+    参数：
+        - **参数1** (Tensor) – 参数1说明。
+        - **参数2** (int) – 参数2说明。
+
+    返回：
+        返回说明。
+
+    异常：
+        - **Error1** – 异常描述1。
+        - **Error2** – 异常描述2。
+
+    .. py:function:: mindspore.mint.max(参数)
+        :noindex:
 
     描述函数功能。
 
@@ -179,6 +216,52 @@
 ```
 
 引用其他`.rst`或`.txt`文件的内容，其中`{relative_file_path.rst}`为待引用文件的相对路径。
+
+## 默认行为的描述方法
+
+1. 参数有默认值，且不为None，直接表达为实际的默认值。
+
+    中文：
+
+    ```text
+    默认值：``XXX``。
+    ```
+
+    英文：
+
+    ```text
+    Default: ``XXX``.
+    ```
+
+2. 参数有默认值，为None，需补充说明None的含义。
+
+    中文：
+
+    ```text
+    默认值：``None``，表示框架默认设置为XXX。
+    ```
+
+    英文：
+
+    ```text
+    Default: ``None``, indicates that the default value in the framework is XXX.
+    ```
+
+3. 参数没有默认值，框架有默认值，在接口描述里写框架默认行为。
+
+    中文：
+
+    ```text
+    框架默认***。
+    ```
+
+    英文：
+
+    ```text
+    The framework *** by default.
+    ```
+
+4. 参数没有默认值，框架也没有默认值，不需要任何说明。
 
 ## 内容注意事项
 
@@ -271,8 +354,6 @@
     a. 引用其他类的内容，类的全称类似于mindspore.train.Metric，包含一级二级类别的名称。引用其他函数的内容，函数的全称类似于mindspore.ops.dropout。
 
     b. 如果简写为Metric，英文书写为 :class:`Metric`，中文书写为 :class:`.Metric`，简写中文前面需要加.。
-
-    c. 如果需要引用mindspore.Tensor.xxx相关接口的内容，英文书写为 :func:`mindspore.Tensor.xxx` 或者 :func:`Tensor.xxx` 都可，中文书写为 :func:`Tensor.xxx` 。
 
 ## 参考
 

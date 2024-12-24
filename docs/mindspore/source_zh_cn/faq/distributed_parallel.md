@@ -152,7 +152,7 @@ Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2
 ```
 
 A: OpenMPI启动时，当前版本的hccl下，创建通信域时，相应的卡需要分配大约300M的device内存，因此每张卡所在的通信域的数量越多，则额外需要的内存越多，因此会有内存不足的问题。
-可以设置`context`中的`variable_memory_max_size`来减少Ascend进程可用的内存，从而为hccl预留足够的内存创建通信域。
+可以设置`context`中的`max_device_memory`来减少Ascend进程可用的内存，从而为hccl预留足够的内存创建通信域。
 
 <br/>
 

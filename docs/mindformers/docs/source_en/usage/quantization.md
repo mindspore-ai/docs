@@ -58,6 +58,10 @@ Based on actual operations, quantization may be decomposed into the following st
        activation_dtype: None
        kvcache_dtype: None
        outliers_suppression: None
+       act_quant_granularity: "per_tensor"
+       kvcache_quant_granularity: "per_channel"
+       weight_quant_granularity: "per_channel"
+       precision_recovery: None
        modules_to_not_convert: ['lm_head']
        algorithm_args: {}
    ```
@@ -69,8 +73,13 @@ Based on actual operations, quantization may be decomposed into the following st
    | activation_dtype       | Required| Activation type of the parameter. **None** indicates that the original computing type (**compute_dtype**) of the network remains unchanged.     | str       | int8/None        |
    | kvcache_dtype          | Optional| KVCache quantization type. If the value is **None** or not specified, the original KVCache data type remains unchanged.       | str       | int8/None        |
    | outliers_suppression   | Optional| Algorithm type used for abnormal value suppression. Currently, only smooth suppression is supported.       | str       | smooth/None        |
+   | act_quant_granularity  | Optional | Activation quantization granularity, defaults to per_tensor                                          | str       | per_tensor/per_token        |
+   | kvcache_quant_granularity  | Optional | KVCache quantization granularity, defaults to per_channel                                          | str       | per_channel/per_token  |
+   | weight_quant_granularity  | Optional | weight quantization granularity, defaults to per_channel                                           | str       | per_channel/per_group  |
+   | precision_recovery  | Optional | precision recovery algorithms, defaults to None                                           | str       | GPTQ/None  |
    | modules_to_not_convert | Required| Layer that is not quantized.                                    | List[str] | /                |
    | algorithm_args         | Required| Configurations of different algorithm types for connecting to the MindSpore Golden Stick. For example, **alpha** is set to **0.5** for the Smooth_Quant algorithm.| Dict      | /                |
+   | group_size         | Optional | The size of the group for per_group quantization. When weight_quant_granularity is set to per_group, group_size is required. | int      | 64/128                |
 
 5. **Executing inference tasks:**
    Implement the inference script based on the `generate` API and run the script to obtain the inference result.

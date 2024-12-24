@@ -1,4 +1,4 @@
-# 自定义融合Pass
+# 自定义融合
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/custom_program/fusion_pass.md)
 
@@ -6,26 +6,57 @@
 
 算子融合是通过将多个独立的算子组合成一个更大、更复杂的算子，从而减少运行时内存访问、提高计算效率。可以减少中间结果的存储和传输，有效的减少访存的开销；另外，合并多个算子可以减少计算的次数，在NPU等并行计算设备上，可以有效提高计算效率。
 
-当前MindSpore默认会自动进行融合算子优化，将模型中符合条件的多个连续小算子自动合并成一个融合算子。每一个融合算子对应一个融合Pass。MindSpore的IR图通过融合Pass之后实现算子融合替换的效果。MindSpore提供大量算子融合的优化Pass，这些融合算子是根据常见用户需求提取总结的，可以满足大部分用户的需求。
+当前MindSpore有两种融合方式：
 
-但是，在实际网络调试过程中，用户可能希望手动控制算子融合Pass的开关，例如：
+1. 设置jit_level=O1，使能图算融合。该功能会自动将复杂大算子展开为基础小算子，并根据指定的融合规则自动融合为融合算子，然后经过AKG自动生成融合算子的底层实现。
+2. 通过融合pass融合，默认使能。该功能将模型中符合特定条件的多个连续小算子自动合并成一个融合算子。每一个融合算子对应一个融合Pass。MindSpore的IR图通过融合Pass之后实现算子融合替换的效果。MindSpore提供大量算子融合的优化Pass，这些融合算子是根据常见用户需求提取总结的，可以满足大部分用户的需求。
 
-- 调试网络时，用户根据自己的场景手动控制融合Pass的开关，排除一些在该场景效果不佳的融合算子，或者使用更加激进的融合策略，提升网络计算的速度；
+在实际网络调试过程中，用户可能希望手动控制算子融合的开关，例如：
+
+- 调试网络时，用户根据自己的场景手动控制融合的开关，排除一些在该场景效果不佳的融合算子，或者使用更加激进的融合策略，提升网络计算的速度；
 - 遇到精度问题时，用户希望通过关闭部分算子融合进行问题定位问题，确定网络精度对应的算子问题。
 
-因此我们对于融合算子相关优化Pass提供了相关接口，帮助用户开关融合Pass进行调试。
+因此我们对于融合算子相关优化提供了相关接口，帮助用户自定义融合策略进行调试。
 
 ## 调试接口
 
 当前算子融合相关优化Pass已经纳入图算优化控制点额范围。
-`set_context`的相关设定中，我们提供了选项`graph_kernel_flags`可以控制相关图算优化Pass的开关，包括
+我们提供了环境变量`MS_DEV_GRAPH_KERNEL_FLAGS`可以控制相关图算优化Pass的开关，包括
 
-- 关闭Pass：`set_context(graph_kernel_flags="--disable_pass=xxx")` 来配置，`xxx`为需要关闭Pass的名称。
-- 打开Pass：`set_context(graph_kernel_flags="--enable_pass=xxx")` 来配置，`xxx`为需要打开Pass的名称。
+### 指定优化等级
+
+- **opt_level**：设置优化级别。默认值： `2` 。当opt_level的值大于0时，启动图算融合。可选值包括：
+    - 0：关闭图算融合。
+    - 1：启动算子的基本融合。
+    - 2：包括级别1的所有优化，并打开更多的优化，如CSE优化算法、算术简化等。
+    - 3：包括级别2的所有优化，并打开更多的优化，如SitchingFusion、ParallelFusion等。在某些场景下，该级别的优化激进且不稳定。使用此级别时要小心。
+
+### 指定自动融合策略
+
+- **enable_expand_ops**：将不在默认列表的算子强行展开，需有相应算子的expander实现。例如，通过设置 `--enable_expand_ops=Square` 可以让Square算子强行展开。默认展开的算子名单见附录1。
+- **disable_expand_ops**：禁止对应算子展开。
+- **enable_expand_ops_only**：仅允许对应算子展开。当设置该选项时，忽略以上两个选项。
+- **enable_cluster_ops**：在默认融合算子名单的基础上，把对应算子加入参与融合的算子集合。例如，通过设置 `--enable_cluster_ops=MatMul` 可以让MatMul算子参与融合。当前默认融合的算子名单见附录2。
+- **disable_cluster_ops**：禁止对应算子加入参与融合的算子集合。
+- **enable_cluster_ops_only**：仅允许对应算子加入参与融合的算子集合。当设置该选项时，忽略以上两个选项。
+- **enable_packet_ops_only**：使能kernel packet功能时，设置该选项则仅融合指定算子。
+- **disable_packet_ops**：使能kernel packet功能时，设置该选项则禁止融合指定算子。
+
+### 指定自动/手动融合pass是否使能
+
+- **enable_pass**：默认关闭的pass可以通过该选项强制使能。
+- **disable_pass**：默认使能的pass可以通过该选项强制关闭。
+
+### 打开调试信息
+
+- **dump_as_text**：将关键过程的详细信息生成文本文件保存到`graph_kernel_dump`目录里。默认值： `False` 。
+- **enable_debug_mode**：在图算kernelmod launch前后插同步，并在launch失败时打印调试信息，仅支持GPU后端。默认值： `False` 。
+
+> 说明： 格式为--key=value，多个配置项以空格分隔，多个value以逗号分隔，例如`export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"`
 
 ## 获得Pass名称
 
-用户在调试时有两种获取对应Pass名称的方式，也可以通过本文附录列表查询支持列表。
+用户在调试时有两种获取对应Pass名称的方式，也可以通过本文附录3列表查询支持列表。
 
 ### 通过IR名字
 
@@ -53,7 +84,164 @@
     [INFO] GRAPH_KERNEL(631369,ffffb5450af0,python):2024-08-22-15:34:17.640.771 [mindspore/ccsrc/backend/common/graph_kernel/core/graph_kernel_pass_manager.cc:73] Run] graph kernel pass fusion_group_11_add_rms_norm_fusion is disabled.
     ```
 
-## 附录：相关后端使能Pass列表
+## 附录1：相关后端默认expander列表
+
+**注意**：该列表会随着相关框架更新定时更新。
+
+| 算子名称 | Ascend | CPU | GPU |
+|:-------:|:------:|:---:|:---:|
+|Adam|Y|Y|N|
+|AdamApplyOneWithDecayAssign|Y|N|N|
+|Addcmul|Y|N|N|
+|AddN|Y|Y|Y|
+|BiasAdd|Y|Y|Y|
+|BiasAddGrad|Y|Y|Y|
+|FillV2|Y|N|N|
+|GeLU|Y|Y|Y|
+|Gelu|Y|Y|Y|
+|FastGelu|Y|N|N|
+|FastGeluGrad|Y|N|N|
+|FastGeLU|Y|N|N|
+|FastGeLUGrad|Y|N|N|
+|SiLU|Y|N|N|
+|SiLUGrad|Y|N|N|
+|GeLUGrad|Y|Y|Y|
+|RsqrtGrad|Y|N|N|
+|SqrtGrad|Y|Y|Y|
+|Square|Y|Y|Y|
+|Tile|Y|Y|Y|
+|ClipByNormNoDivSum|Y|N|N|
+|FusedMulAdd|Y|N|N|
+|Sigmoid|Y|N|Y|
+|SigmoidGrad|Y|N|Y|
+|SigmoidCrossEntropyWithLogits|Y|N|Y|
+|SigmoidCrossEntropyWithLogitsGrad|Y|N|Y|
+|SquaredDifference|Y|N|Y|
+|TanhGrad|Y|Y|N|
+|OnesLike|Y|Y|Y|
+|ZerosLike|Y|N|N|
+|ReduceMean|Y|N|Y|
+|LogSoftmaxGrad|N|N|Y|
+|ReLU|Y|Y|Y|
+|ReluGrad|Y|N|Y|
+|AssignAdd|Y|Y|Y|
+|LambApplyOptimizerAssign|Y|N|N|
+|LambApplyWeightAssign|Y|N|N|
+|AdamApplyOneWithDecay|Y|N|N|
+|ExpandDims|N|Y|Y|
+|Squeeze|N|N|Y|
+|SoftmaxGradExt|N|N|N|
+|ApplyMomentum|N|N|N|
+|LeakyReLUExt|Y|N|N|
+|EluExt|Y|N|N|
+|SoftplusExt|Y|N|N|
+|SoftplusGradExt|Y|N|N|
+|RepeatInterleaveInt|Y|N|N|
+|HShrink|Y|N|N|
+|HSigmoid|Y|N|N|
+|HSwish|Y|N|N|
+|BinaryCrossEntropy|Y|N|N|
+|Erf|Y|N|N|
+|Tanh|Y|N|N|
+|Cosh|Y|N|N|
+|Sinh|Y|N|N|
+|ClampScalar|Y|N|N|
+|DivMod|Y|N|N|
+|BCEWithLogitsLoss|Y|N|N|
+|AcoshExt|Y|N|N|
+|AsinhExt|Y|N|N|
+|MeanExt|Y|N|N|
+|Erfc|N|N|Y|
+|AdamWeightDecay|N|N|Y|
+|BatchMatMul|N|N|Y|
+|Dropout|N|N|Y|
+|DropoutGrad|N|N|Y|
+|MaximumGrad|N|Y|Y|
+|MinimumGrad|N|Y|Y|
+|LayerNorm|N|N|Y|
+|LayerNormGrad|N|N|Y|
+|LogSoftmax|N|N|Y|
+|MatMul|N|N|Y|
+|ArgMaxWithValue|N|N|Y|
+|ArgMinWithValue|N|N|Y|
+|Slice|N|N|Y|
+|Softmax|N|N|Y|
+|SoftmaxCrossEntropyWithLogits|N|N|Y|
+|EqualCount|N|N|Y|
+|SquareSumAll|N|N|Y|
+|IdentityMath|N|N|Y|
+|StandardNormal|N|N|Y|
+|Softplus|N|Y|N|
+|SoftplusGrad|N|Y|N|
+
+## 附录2：相关后端默认cluster列表
+
+**注意**：该列表会随着相关框架更新定时更新。
+
+| 算子名称 | Ascend | CPU | GPU |
+|:-------:|:------:|:---:|:---:|
+|Abs|Y|Y|Y|
+|Add|Y|Y|Y|
+|BroadcastTo|Y|N|N|
+|Cast|Y|Y|Y|
+|Exp|Y|Y|Y|
+|Log|Y|Y|Y|
+|Maximum|Y|Y|Y|
+|Minimum|Y|Y|Y|
+|Mul|Y|Y|Y|
+|Neg|Y|Y|Y|
+|Pow|Y|Y|Y|
+|Div|Y|N|Y|
+|RealDiv|Y|Y|Y|
+|Reciprocal|Y|Y|Y|
+|Rsqrt|Y|Y|Y|
+|Sqrt|Y|Y|Y|
+|Sub|Y|Y|Y|
+|Equal|Y|Y|Y|
+|NotEqual|Y|N|Y|
+|Greater|Y|N|Y|
+|GreaterEqual|Y|N|Y|
+|Less|Y|Y|Y|
+|LessEqual|Y|Y|Y|
+|LogicalAnd|Y|N|Y|
+|LogicalOr|Y|N|Y|
+|LogicalNot|Y|Y|Y|
+|Select|Y|Y|Y|
+|Assign|Y|N|Y|
+|ReduceSum|Y|Y|Y|
+|IsFinite|Y|N|Y|
+|Reshape|N|Y|Y|
+|Transpose|Y|Y|Y|
+|Floor|Y|N|Y|
+|Ceil|Y|N|N|
+|Trunc|Y|N|Y|
+|Round|N|Y|Y|
+|Tanh|N|Y|Y|
+|ACos|N|N|Y|
+|Acosh|N|N|Y|
+|ArgMax|N|N|N|
+|Argmin|N|N|N|
+|Asin|N|N|Y|
+|Asinh|N|N|Y|
+|Atan|N|N|Y|
+|Atan2|N|N|Y|
+|Cos|N|N|Y|
+|Erf|N|N|Y|
+|Expm1|N|N|Y|
+|FloorDiv|N|N|Y|
+|FloorMod|N|N|Y|
+|IsInf|N|N|Y|
+|IsNan|N|N|Y|
+|Mod|N|Y|Y|
+|ReduceMax|N|Y|Y|
+|ReduceMin|N|N|Y|
+|Sign|N|N|Y|
+|Sin|N|N|Y|
+|StridedSlice|N|N|Y|
+|CumSum|N|N|Y|
+|OneHot|N|N|Y|
+
+## 附录3：相关后端使能Pass列表
 
 **注意**：该列表会随着相关框架更新实时更新，但是仅供参考，具体使能Pass以上面两种方式为准。
 

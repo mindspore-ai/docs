@@ -4,7 +4,7 @@
 
 ## 概述
 
-MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#modelparallelrunner)，多model并发推理现支持Atlas 200/300/500推理产品、Atlas推理系列产品（配置Ascend310P AI 处理器）、Atlas训练系列产品、Nvidia GPU、CPU后端。
+MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#modelparallelrunner)，多model并发推理现支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品、Nvidia GPU、CPU后端。
 
 通过MindSpore导出`mindir`模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得`mindir`模型后，即可在Runtime中执行模型的并发推理流程。本教程介绍如何使用[C++接口](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)执行多model并发推理。
 
@@ -61,7 +61,7 @@ runner_config->SetContext(context);
 runner_config->SetWorkersNum(kNumWorkers);
 ```
 
-> Context的配置方法详细见[Context](https://www.mindspore.cn/lite/docs/zh-CN/master/infer/runtime_cpp.html##创建配置上下文)。
+> Context的配置方法详细见[Context](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/runtime_cpp.html#%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E4%B8%8A%E4%B8%8B%E6%96%87)。
 >
 > 多model并发推理现阶段支持[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)、[AscendDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#ascenddeviceinfo)几种不同的硬件后端。在设置GPU后端的时候需要先设置GPU后端再设置CPU后端，否则会报错退出。
 >
@@ -100,6 +100,27 @@ if (predict_ret != mindspore::kSuccess) {
 ```
 
 > Predict接口的inputs和outputs，建议使用GetInputs、GetOutputs获得，用户通过SetData的方式设置数据的内存地址、以及Shape相关信息。
+
+## 编译和执行
+
+按照[快速入门](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/build.html#%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91)环境变量，设置环境变量。在`mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp`目录下执行build.sh脚本，将自动下载MindSpore Lite推理框架库以及模型文件并编译Demo。
+
+```bash
+bash build.sh
+```
+
+在编译成功后，可以在`build`目录下得到`mindspore_quick_start_cpp`可执行程序。执行程序`mindspore_quick_start_cpp`运行样例：
+
+```bash
+./mindspore_quick_start_cpp ../model/mobilenetv2.mindir CPU
+```
+
+执行完成后将能得到如下结果，打印输出Tensor的名称、输出Tensor的大小，输出Tensor的数量以及前50个数据：
+
+```bash
+tensor name is:shape1 tensor size is:4000 tensor elements num is:1000
+output data is:5.07133e-05 0.000487101 0.000312544 0.000356227 0.000202192 8.58929e-05 0.000187139 0.000365922 0.000281059 0.000255725 0.00108958 0.00390981 0.00230405 0.00128981 0.00307465 0.00147602 0.00106772 0.000589862 0.000848084 0.00143688 0.000685757 0.00219348 0.00160633 0.00215146 0.000444297 0.000151986 0.000317547 0.000539767 0.000187023 0.000643929 0.000218261 0.000931519 0.000127113 0.000544328 0.00088791 0.000303908 0.000273898 0.000353338 0.00229071 0.00045319 0.0011987 0.000621188 0.000628328 0.000838533 0.000611027 0.00037259 0.00147737 0.000270712 8.29846e-05 0.00011697 0.000876204
+```
 
 ## 释放内存
 

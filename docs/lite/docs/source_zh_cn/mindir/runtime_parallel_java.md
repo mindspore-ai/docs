@@ -4,7 +4,7 @@
 
 ## 概述
 
-MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html)，多model并发推理现支持Atlas 200/300/500推理产品、Atlas推理系列产品（配置Ascend310P AI 处理器）、Atlas训练系列产品、Nvidia GPU、CPU后端。
+MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html)，多model并发推理现支持Atlas 200/300/500推理产品、Atlas推理系列产品、Atlas训练系列产品、Nvidia GPU、CPU后端。
 
 通过MindSpore导出`mindir`模型，或者由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/mindir/converter_tool.html)转换获得`mindir`模型后，即可在Runtime中执行模型的并发推理流程。本教程介绍如何使用[Java接口](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/class_list.html)执行多model并发推理。
 
@@ -83,6 +83,31 @@ if (!ret) {
     return;
 }
 ```
+
+## 构建与运行
+
+### 编译构建
+
+设置环境变量，在`mindspore/lite/examples/cloud_infer/quick_start_parallel_java`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_java/build.sh)，将自动下载MindSpore Lite推理框架库以及模型文件并编译Demo。
+
+```bash
+export JAVA_HOME=/{path}/default-java
+export M2_HOME=/{path}/maven
+export MAVEN_HOME=/{path}/maven
+export PATH=/{path}/maven/bin:$PATH
+
+bash build.sh
+```
+
+### 执行推理
+
+编译构建后，进入`mindspore/lite/examples/cloud_infer/quick_start_parallel_java/target`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
+
+```java
+java -classpath .:./quick_start_parallel_java.jar:../lib/runtime/lib/mindspore-lite-java.jar  com.mindspore.lite.demo.Main ../model/mobilenetv2.mindir
+```
+
+执行完成后显示模型并发推理成功。
 
 ## 释放内存
 

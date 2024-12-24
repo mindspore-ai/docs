@@ -61,7 +61,7 @@ In each training step, the large language model infers the next token based on t
 
 ## Key Steps
 
-MindSpore large language model inference provides you with an almost "out-of-the-box" deployment and inference capability. You can use the large language model APIs provided by MindSpore to quickly deploy your own large language models and optimize them based on model features, achieving the optimal cost-effectiveness and bringing large language model capabilities to practical applications. The following figure shows the key steps of model inference using the MindSpore large language model inference feature.
+MindSpore large language model inference provides you with an "out-of-the-box" deployment and inference capability. You can use the large language model APIs provided by MindSpore to quickly deploy your own large language models and optimize them based on model features, achieving the optimal cost-effectiveness and bringing large language model capabilities to practical applications. The following figure shows the key steps of model inference using the MindSpore large language model inference feature.
 
 ![llm-infer-flow](./images/llm_infer_flow.png)
 

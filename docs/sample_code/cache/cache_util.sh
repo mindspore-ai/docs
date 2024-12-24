@@ -16,22 +16,22 @@
 bootup_cache_server()
 {
   echo "Booting up cache server..."
-  result=$(cache_admin --start 2>&1)
+  result=$(dataset-cache --start 2>&1)
   rc=$?
   echo "${result}"
   if [ "${rc}" -ne 0 ] && [[ ! ${result} =~ "Cache server is already up and running" ]]; then
-    echo "cache_admin command failure!" "${result}"
+    echo "dataset-cache command failure!" "${result}"
     exit 1
   fi
 }
 
 generate_cache_session()
 {
-  result=$(cache_admin -g | awk 'END {print $NF}')
+  result=$(dataset-cache -g | awk 'END {print $NF}')
   rc=$?
   echo "${result}"
   if [ "${rc}" -ne 0 ]; then
-    echo "cache_admin command failure!" "${result}"
+    echo "dataset-cache command failure!" "${result}"
     exit 1
   fi
 }
@@ -39,11 +39,11 @@ generate_cache_session()
 shutdown_cache_server()
 {
   echo "Shutting down cache server..."
-  result=$(cache_admin --stop 2>&1)
+  result=$(dataset-cache --stop 2>&1)
   rc=$?
   echo "${result}"
   if [ "${rc}" -ne 0 ] && [[ ! ${result} =~ "Server on port 50052 is not up or has been shutdown already" ]]; then
-    echo "cache_admin command failure!" "${result}"
+    echo "dataset-cache command failure!" "${result}"
     exit 1
   fi
 }

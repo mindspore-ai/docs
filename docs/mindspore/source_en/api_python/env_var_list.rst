@@ -57,7 +57,7 @@ Data Processing
      - True: Enable the dataset independent process mode.
 
        False: Disable the dataset independent process mode.
-     - Default: False. This feature is currently in beta testing. Does not support use with Profiling, AutoTune, Offload, Cache, DSCallback or DVPP transforms. If you encounter any problems during use, please feel free to provide feedback.
+     - Default: False. This feature is currently in beta testing. Does not support use with AutoTune, Offload, Cache or DSCallback. If you encounter any problems during use, please feel free to provide feedback.
    * - OPTIMIZE
      - Determines whether to optimize the pipeline tree for dataset during data processing. This variable can improve the data processing efficiency in the data processing operator fusion scenario.
      - String
@@ -168,6 +168,14 @@ Graph Compilation and Execution
      - String
      - Pass's name of part of its name. If there are multiple, use commas to separate them. For example, `export MS_DEV_DUMP_IR_PASSES=recompute,renormalize`.
      - When setting this environment variable, regardless of the value of MS_DEV_SAVE_GRAPHS, detailed frontend IR files will be filtered and printed.
+   * - MS_DEV_DUMP_IR_PARALLEL_DETAIL
+     - Set to print detailed information about the DUMP IR, image tensor_map and device_matrix.
+
+     - Integer
+     - 1: Print detailed information about the DUMP IR, including inputs_tensor_map, outputs_tensor_map, and device_matrix.
+       
+       No setting or other value: Not print detailed information of Dump IR.
+     -
    * - MS_JIT_DISPLAY_PROGRESS
      - Specify whether to print compilation progress information.
      - Integer
@@ -199,7 +207,7 @@ Graph Compilation and Execution
      - 1: Perform garbage collection on unused Cell objects
 
        No setting or other value: not calling the garbage collection
-     - 
+     - This environment variable will be removed subsequently and is not recommended.
    * - MS_DEV_USE_PY_BPROP
      - The op which set by environment will use python bprop instead of cpp expander bprop
      - String
@@ -299,6 +307,38 @@ Graph Compilation and Execution
 
        somas_whole_block: Whether to use the entire Somas for memory allocation, with a default value of false.
      -
+
+   * - MS_DEV_GRAPH_KERNEL_FLAGS
+     - Configure the graph kernel fusion strategy.
+     - String
+     - Configuration items, with the format "--key=value", multiple configuration items separated by space, multiple value items separated by commas, for example, `export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"`
+
+       opt_level: Set the optimization level. Default: `2` .
+
+       enable_expand_ops: Forcefully expand operators that are not in the default list, requiring an expander implementation for the corresponding operator.
+
+       disable_expand_ops: Disable the expansion of the specified operators.
+
+       enable_expand_ops_only: Allow only the specified operators to expand. When this option is set, the above two options are ignored.
+
+       enable_cluster_ops: Add specified operators to the set of operators participating in fusion based on the default fusion operator list.
+
+       disable_cluster_ops: Prevent the specified operators from participating in the fusion set.
+
+       enable_cluster_ops_only: Allow only the specified operators to participate in the fusion set. When this option is set, the above two options are ignored.
+
+       enable_packet_ops_only: When enabling the kernel packet feature, this option restricts fusion to the specified operators only.
+
+       disable_packet_ops: When enabling the kernel packet feature, this option prohibits fusion for the specified operators.
+
+       enable_pass: Enable passes that are disabled by default using this option.
+
+       disable_pass: Disable passes that are enabled by default using this option.
+
+       dump_as_text: Save detailed information about key processes as text files in the `graph_kernel_dump` directory. Default value: `False`.
+
+       enable_debug_mode: Insert synchronization points before and after the graph kernel mod launch, and print debugging information if the launch fails. This is supported only for the GPU backend. Default value: `False`.
+     - Refer to the `Custom Fusion <https://www.mindspore.cn/docs/en/master/model_train/custom_program/fusion_pass.html>`_
 
 Dump Debugging
 ---------------
@@ -705,12 +745,15 @@ Log
    * - VLOG_v
      - Specifies the MindSpore verbose log level.
      - String
+     - By command:
+       `export VLOG_v=20000;python -c 'import mindspore';` view the available verbose log levels for MindSpore.
      - format1: `VLOG_v=number`: Only logs whose verbose level value is `number` will be output.
 
        format2: `VLOG_v=(number1,number2)`: Only logs whose verbose level is between `number1` and `number2` (including `number1` and `number2`) are output. Specially, `VLOG_v=(,number2)` outputs logs with verbose levels ranging from `1 to number2`, while `VLOG_v=(number1,)` outputs logs with verbose levels ranging from `number1 to 0x7fffffff`.
 
        The value of `number`, `number1` and `number2` must be a non-negative decimal integer. The maximum value is `0x7fffffff` the maximum value of the `int` type. Value of `VLOG_v` can not contain whitespace characters.
-     - Note: Braces `()` is special for bash, when exporting `VLOG_v` variable containing `()`, need use `'` or `"` to wrap it, for example, `export VLOG_v="(number1,number2)"` or `export VLOG_v='(number1,number2)'`. If put environment in the commandline, the quotation marks, `'` and `"`, are not necessary, for example, execute command `VLOG_v=(1,) python -c 'import mindspore'` to display the verbose tag already used by MindSpore.
+
+       Note: Braces `()` is special for bash, when exporting `VLOG_v` variable containing `()`, need use `'` or `"` to wrap it, for example, `export VLOG_v="(number1,number2)"` or `export VLOG_v='(number1,number2)'`. If put environment in the commandline, the quotation marks, `'` and `"`, are not necessary, for example, execute command `VLOG_v=(1,) python -c 'import mindspore'` to display the verbose tag already used by MindSpore.
    * - logger_backupCount
      - Controls the number of mindspore Python module log files.
      - Integer
@@ -927,7 +970,13 @@ Profiler
    * - MS_PROFILER_OPTIONS
      - Set the Profiler's collection options
      - String
-     - Configure the Profiler's collection options in the format of a JSON string.
+     - Configure the Profiler's collection options in the format of a JSON string. The following parameters are different from the instantiation Profiler method, but the value meanings are the same:
+
+       activities (list, optional) - Set the devices for collecting performance data, multiple devices can be specified, default value: [CPU, NPU]. Possible values: [CPU], [NPU], [CPU, NPU].
+
+       aicore_metrics (str, optional) - Set the type of AI Core metrics. Default value: AicoreNone. Possible values: AicoreNone, ArithmeticUtilization, PipeUtilization, Memory, MemoryL0, ResourceConflictRatio, MemoryUB, L2Cache.
+
+       profiler_level (str, optional) - Set the level of performance data collection. Default value: Level0. Possible values: Level0, Level1, Level2.
      - This environment variable enables one of two ways to enable performance data collection with the input parameter instantiation Profiler method.
    * - PROFILING_MODE
      - Set the mode of CANN Profiling

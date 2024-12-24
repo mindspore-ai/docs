@@ -295,6 +295,7 @@ class ObjectDescription(SphinxDirective, Generic[T]):
                     else:
                         self.content.data[index_platforms] = '**样例：**'
                         self.content.data.insert(index_platforms+1, '')
+                    self.content.data.extend(example)
                 else:
                     index_num = 0
                     index_platforms = 0
@@ -316,6 +317,10 @@ class ObjectDescription(SphinxDirective, Generic[T]):
                         else:
                             self.content.data[index_platforms] = '**样例：**'
                             self.content.data.insert(index_platforms+1, '')
+                        count = len(self.content.data)
+                        count_plat = len(platforms)
+                        for i in example:
+                            self.content.data.insert(index_num-count+count_plat, i)
                     else:
                         index_platforms = 0
                         for num, i in enumerate(self.content.data):
@@ -331,6 +336,7 @@ class ObjectDescription(SphinxDirective, Generic[T]):
                         else:
                             self.content.data[index_platforms] = '**样例：**'
                             self.content.data.insert(index_platforms+1, '')
+                        self.content.data.extend(example)
             except Exception as e:
                 logger.warning(e)
         elif extra:

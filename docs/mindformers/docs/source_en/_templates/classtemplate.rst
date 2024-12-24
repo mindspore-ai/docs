@@ -56,14 +56,14 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: calc_em_score, calc_f1_score, clear, eval, evaluate_pairs, find_lcs, mixed_segmentation, remove_punctuation, update
+    :exclude-members: calc_em_score, calc_f1_score, evaluate_pairs, find_lcs, mixed_segmentation, remove_punctuation
     :members:
 
 {% elif fullname=="mindformers.core.EntityScore" %}
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: clear, compute, eval, get_entities_bios, update
+    :exclude-members: compute, get_entities_bios
     :members:
 
 {% elif fullname=="mindformers.core.MFLossMonitor" %}
@@ -71,13 +71,6 @@
 
 .. autoclass:: {{ name }}
     :exclude-members: dump_info_to_modelarts, epoch_begin, epoch_end, print_output_info, step_begin, step_end
-    :members:
-
-{% elif fullname=="mindformers.core.PerplexityMetric" %}
-{{ fullname | underline }}
-
-.. autoclass:: {{ name }}
-    :exclude-members: clear, eval, update
     :members:
 
 {% elif fullname=="mindformers.core.ProfileMonitor" %}
@@ -91,7 +84,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: calculate_circle, clear, eval, update
+    :exclude-members: calculate_circle
     :members:
 
 {% elif fullname=="mindformers.core.SQuADMetric" %}
@@ -112,7 +105,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: add_flags_custom, get_logits_processor, get_logits_warper, prepare_inputs_for_generation, process_logits, slice_incremental_inputs, update_model_kwargs_before_generate
+    :exclude-members: add_flags_custom, get_logits_processor, get_logits_warper, prepare_inputs_for_generation, process_logits, slice_incremental_inputs, update_model_kwargs_before_generate, chunk_prefill_infer
     :members:
 
 {% elif fullname=="mindformers.models.glm2.ChatGLM2ForConditionalGeneration" %}
@@ -140,7 +133,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: add_flags_custom, prepare_inputs_for_predict_layout, to_embeddings, construct, prepare_inputs_for_prefill_flatten, convert_map_dict, convert_weight_dict, convert_name
+    :exclude-members: add_flags_custom, prepare_inputs_for_predict_layout, to_embeddings, construct, prepare_inputs_for_prefill_flatten, convert_map_dict, convert_weight_dict, convert_name, pre_gather_func
     :members:
 
 {% elif fullname=="mindformers.models.LlamaTokenizer" %}
@@ -168,7 +161,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: base_model, framework, from_pretrained_experimental_mode, from_pretrained_origin_mode, fuse_weight_from_ckpt, get_support_list, is_experimental_mode, load_checkpoint, prepare_inputs_for_predict_layout, remove_type, save_pretrained_experimental_mode, save_pretrained_origin_mode, set_dynamic_inputs, show_support_list, convert_map_dict, convert_weight_dict, convert_name
+    :exclude-members: base_model, framework, from_pretrained_experimental_mode, from_pretrained_origin_mode, fuse_weight_from_ckpt, get_support_list, is_experimental_mode, load_checkpoint, prepare_inputs_for_predict_layout, remove_type, save_pretrained_experimental_mode, save_pretrained_origin_mode, set_dynamic_inputs, show_support_list, convert_map_dict, convert_weight_dict, convert_name, obtain_qkv_ffn_concat_keys
     :members:
 
 {% elif fullname=="mindformers.models.PreTrainedTokenizer" %}
@@ -197,6 +190,13 @@
 
 .. autoclass:: {{ name }}
     :exclude-members: preprocess
+    :members:
+
+{% elif fullname=="mindformers.tools.MindFormerConfig" %}
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :exclude-members: set_value, get_value
     :members:
 
 {% elif fullname=="mindformers.tools.register.MindFormerRegister" %}

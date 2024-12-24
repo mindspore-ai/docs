@@ -4,7 +4,7 @@
 
 ## Overview
 
-MindSpore Lite provides multi-model concurrent inference interface [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/master/api_java/model_parallel_runner.html#modelparallelrunner). Multi model concurrent inference now supports Atlas 200/300/500 inference product, Atlas inference series (with Ascend 310P AI processor), Atlas training series, Nvidia GPU and CPU backends.
+MindSpore Lite provides multi-model concurrent inference interface [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/master/api_java/model_parallel_runner.html#modelparallelrunner). Multi model concurrent inference now supports Atlas 200/300/500 inference product, Atlas inference series, Atlas training series, Nvidia GPU and CPU backends.
 
 After exporting the `mindir` model by MindSpore or converting it by [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) to obtain the `mindir` model, the concurrent inference process of the model can be executed in Runtime. This tutorial describes how to perform concurrent inference with multiple modes by using the [Java interface](https://www.mindspore.cn/lite/api/en/master/api_java/class_list.html).
 
@@ -82,6 +82,31 @@ if (!ret) {
     return;
 }
 ```
+
+## Building and Running
+
+### Build
+
+Set environment variables, and Run the [build script](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_java/build.sh) in the `mindspore/lite/examples/quick_start_parallel_java` directory to automatically download the MindSpore Lite inference framework library and model files and build the Demo.
+
+```bash
+export JAVA_HOME=/{path}/default-java
+export M2_HOME=/{path}/maven
+export MAVEN_HOME=/{path}/maven
+export PATH=/{path}/maven/bin:$PATH
+
+bash build.sh
+```
+
+### Inference
+
+After the build, go to the `mindspore/lite/examples/cloud_infer/quick_start_parallel_java/target` directory and run the following command to experience MindSpore Lite inference on the MobileNetV2 model:
+
+```java
+java -classpath .:./quick_start_parallel_java.jar:../lib/runtime/lib/mindspore-lite-java.jar  com.mindspore.lite.demo.Main ../model/mobilenetv2.mindir
+```
+
+After the execution is completed, it will show the model concurrent inference success.
 
 ## Memory release
 

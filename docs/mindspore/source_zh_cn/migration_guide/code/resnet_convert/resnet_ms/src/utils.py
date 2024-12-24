@@ -9,7 +9,8 @@ def set_graph_kernel_context(device_target, net_name):
     """When device_target is GPU and network is resnet101 set `enable_graph_kernel=True`."""
     if device_target == "GPU" and net_name == "resnet101":
         ms.set_context(enable_graph_kernel=True)
-        ms.set_context(graph_kernel_flags="--enable_parallel_fusion --enable_expand_ops=Conv2D")
+        graph_kernel_flags = "--enable_parallel_fusion --enable_expand_ops=Conv2D"
+        os.environ['MS_DEV_GRAPH_KERNEL_FLAGS'] = graph_kernel_flags
 
 
 def init_env(cfg):

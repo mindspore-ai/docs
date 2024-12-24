@@ -57,7 +57,7 @@
      - True: 开启Dataset独立进程模式
 
        False: 关闭Dataset独立进程模式
-     - 默认值：False。此功能当前处于Beta测试阶段，不支持与Profiling、AutoTune、Offload、Cache、DSCallback、DVPP变换增强一同使用。如果在使用中遇到问题，欢迎反馈。
+     - 默认值：False。此功能当前处于Beta测试阶段，不支持与AutoTune、Offload、Cache、DSCallback一同使用。如果在使用中遇到问题，欢迎反馈。
    * - OPTIMIZE
      - 是否执行dataset数据处理 pipeline 树优化，在适合数据处理算子融合的场景下，可以提升数据处理效率
      - String
@@ -169,6 +169,13 @@
      - String
      - 文件名或文件名的一部分。如果有多个，使用逗号隔开。例如`export MS_DEV_DUMP_IR_PASSES=recompute,renormalize`。
      - 设置该环境变量时，无论MS_DEV_SAVE_GRAPHS设置为什么等级，详细的前端IR文件都会参与筛选和打印。
+   * - MS_DEV_DUMP_IR_PARALLEL_DETAIL
+     - 控制是否打印 DUMP IR 图的详细信息 tensor_map 和 device_matrix。
+     - Integer
+     - 1: 打印 DUMP IR 图详细信息，输出 inputs_tensor_map、outputs_tensor_map 和 device_matrix。
+       
+       不设置或其他值：不打印上述 DUMP IR 相关详细信息。
+     -
    * - MS_JIT_DISPLAY_PROGRESS
      - 指定是否打印编译进度的信息。
      - Integer
@@ -200,7 +207,7 @@
      - 1：对未使用的Cell对象进行垃圾回收
 
        不设置或其他值：不会显示调用垃圾回收机制
-     -
+     - 此环境变量后续将删除，不建议使用。
    * - MS_DEV_USE_PY_BPROP
      - 指定算子的bprop使用python版本，不使用cpp expander
      - String
@@ -300,7 +307,39 @@
 
        somas_whole_block: 是否使用SOMAS整块内存分配，默认值为false。
      -
-       
+
+   * - MS_DEV_GRAPH_KERNEL_FLAGS
+     - 设置图算融合的融合策略
+     - String
+     - 配置项，格式为“--key=value”，多个配置项以空格分隔，多个value以逗号分隔，例如`export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"`
+
+       opt_level：设置优化级别。默认值： `2` 。
+
+       enable_expand_ops：将不在默认列表的算子强行展开，需有相应算子的expander实现。
+
+       disable_expand_ops：禁止对应算子展开。
+
+       enable_expand_ops_only：仅允许对应算子展开。当设置该选项时，忽略以上两个选项。
+
+       enable_cluster_ops：在默认融合算子名单的基础上，把对应算子加入参与融合的算子集合。
+
+       disable_cluster_ops：禁止对应算子加入参与融合的算子集合。
+
+       enable_cluster_ops_only：仅允许对应算子加入参与融合的算子集合。当设置该选项时，忽略以上两个选项。
+
+       enable_packet_ops_only：使能kernel packet功能时，设置该选项则仅融合指定算子。
+
+       disable_packet_ops：使能kernel packet功能时，设置该选项则禁止融合指定算子。
+
+       enable_pass：默认关闭的pass可以通过该选项强制使能。
+
+       disable_pass：默认使能的pass可以通过该选项强制关闭。
+
+       dump_as_text：将关键过程的详细信息生成文本文件保存到`graph_kernel_dump`目录里。默认值： `False` 。
+
+       enable_debug_mode：在图算kernelmod launch前后插同步，并在launch失败时打印调试信息，仅支持GPU后端。默认值： `False` 。
+     - 详细说明参考 `自定义融合 <https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/fusion_pass.html>`_
+
 Dump调试
 --------
 
@@ -710,13 +749,16 @@ Dump调试
    * - VLOG_v
      - 控制verbose日志的输出
      - String
+     - 通过命令：
+       `export VLOG_v=20000;python -c 'import mindspore';` 查看MindSpore可用的 verbose 日志级别。
+
      - 格式1： `VLOG_v=number`，仅输出verbose level值等于 `number` 的日志。
 
        格式2： `VLOG_v=(number1,number2)`，仅输出verbose level值介于 `number1` 和 `number2` 之间（包含 `number1` 和 `number2`）的日志。特别地， `VLOG_v=(,number2)` 输出 verbose level 介于 `1 ~ number2` 的日志，而 `VLOG_v=(number1,)` 输出 verbose level 介于 `number1 ~ 0x7fffffff` 的日志。
 
        上面 `number`、 `number1`、 `number2` 的取值只接受非负十进制整数值，最大值取值为 `int` 类型的最大值 `0x7fffffff`。`VLOG_v` 字符串中不能包含空白字符。
 
-     - 注意：扩号 `()` 对于 `bash` 有特殊含义，当指定范围时，需要用引号包起来，如 `export VLOG_v="(number1,number2)"` 或 `export VLOG_v='(number1,number2)'`。如果直接把环境变量的设置写到命令行中，可以不加引号，如通过命令 `VLOG_v=(1,) python -c 'import mindspore'` 查看 MindSpore 已经使用的 verbose tag 标志。
+       注意：扩号 `()` 对于 `bash` 有特殊含义，当指定范围时，需要用引号包起来，如 `export VLOG_v="(number1,number2)"` 或 `export VLOG_v='(number1,number2)'`。如果直接把环境变量的设置写到命令行中，可以不加引号，如通过命令 `VLOG_v=(1,) python -c 'import mindspore'` 查看 MindSpore 已经使用的 verbose tag 标志。
    * - logger_backupCount
      - 用于控制MindSpore Python模块日志文件数量
      - Integer
@@ -934,7 +976,13 @@ Profiler
    * - MS_PROFILER_OPTIONS
      - 设置Profiler的配置信息
      - String
-     - 配置Profiler的采集选项，格式为JSON字符串。
+     - 配置Profiler的采集选项，格式为JSON字符串。其中以下几个参数类型与实例化Profiler方式有差异，取值含义相同：
+
+       activities (list, 可选) - 设置采集性能数据的设备，可传多个设备，默认值：[CPU, NPU]。可取值：[CPU]、[NPU]、[CPU, NPU]。
+
+       aicore_metrics (str, 可选) - 设置AI Core指标类型。默认值：AicoreNone。可取值：AicoreNone、ArithmeticUtilization、PipeUtilization、Memory、MemoryL0、ResourceConflictRatio、MemoryUB、L2Cache。
+
+       profiler_level (str, 可选) - 设置采集性能数据级别。默认值：Level0。可取值：Level0、Level1、Level2。
      - 此环境变量使能与输入参数实例化Profiler方式使能性能数据采集的方式二选一。
    * - PROFILING_MODE
      - 设置CANN Profiling的模式

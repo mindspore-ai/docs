@@ -3,8 +3,8 @@
 
 echo "=============================================================================================================="
 echo "Please run the script as: "
-echo "bash run_ran_table_cluster.sh RANK_START"
-echo "For example: bash run_ran_table_cluster.sh 8"
+echo "bash run_rank_table_cluster.sh RANK_START"
+echo "For example: bash run_rank_table_cluster.sh 8"
 echo "=============================================================================================================="
 RANK_SIZE=16
 EXEC_PATH=$(pwd)
