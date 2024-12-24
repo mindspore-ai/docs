@@ -61,19 +61,21 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 
 ### 多机训练
 
-以Llama3-70B为例，使用[pretrain_llama3_70b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_70b/pretrain_llama3_70b.yaml)配置文件，以msrun方式运行[run_llama3.py](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/run_llama3.py)执行8机64卡预训练。多机多卡执行脚本进行分布式训练需要分别在不同节点运行脚本，并将参数**MASTER_ADDR**设置为主节点的ip地址，所有节点设置的ip地址相同，不同节点之间仅参数**NODE_RANK**不同，各个参数位置含义参见[msrun启动使用指南](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/msrun_launcher.html)。
+以Llama3-70B为例，使用[pretrain_llama3_70b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_70b/pretrain_llama3_70b.yaml)配置文件，以msrun方式运行[run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py)执行8机64卡预训练。多机多卡执行脚本进行分布式训练需要分别在不同节点运行脚本，并将参数**MASTER_ADDR**设置为主节点的ip地址，所有节点设置的ip地址相同，不同节点之间仅参数**NODE_RANK**不同，各个参数位置含义参见[msrun启动使用指南](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/msrun_launcher.html)。
 
 ```shell
 # 节点0，设0节点ip为MASTER_ADDR，作为主节点ip，总共64卡且每个节点8卡
 # 节点0、节点1、...节点7 依此修改node_num，比如8机，node_num为0~7。
-bash scripts/msrun_launcher.sh "run_llama3.py \
-  --config pretrain_llama3_70b.yaml \
- --train_dataset dataset_dir
+bash scripts/msrun_launcher.sh "run_mindformer.py \
+ --register_path research/llama3 \
+ --config research/llama3/llama3_70b/pretrain_llama3_70b.yaml \
+ --train_dataset dataset_dir \
  --use_parallel True \
  --run_mode train" \
  64 8 {MASTER_ADDR} 8118 {node_num} output/msrun_log False 300
 
  # 参数说明：
+ register_path：     模型API的注册路径，是一个包含模型Python文件的目录路径（可以是research目录下模型文件夹的路径）
  config：            模型的配置文件，文件在MindFormers代码仓中config目录下
  train_dataset_dir： 训练数据集路径
  use_parallel：      是否开启并行
