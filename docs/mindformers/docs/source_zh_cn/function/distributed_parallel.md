@@ -30,8 +30,96 @@ MindFormers 支持多种并行特性，开发者可以利用这些特性来优�
 | **[流水线并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/pipeline_parallel.html)**                   | 将模型分割成多个阶段，每个阶段在不同的设备上运行，以实现超大规模模型的高效训练。                                        |
 | **[优化器并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/optimizer_parallel.html)**                   | 将优化器计算分布到多个设备上，减少内存占用，提高训练效率。                                                   |
 | **[序列并行](https://gitee.com/mindspore/mindformers/blob/dev/docs/feature_cards/Long_Sequence_Training.md)**                     | 设计用于处理长序列输入的模型，将Transformer层中的LayerNorm及Dropout的输入按照序列维度进行切分，减少单设备的显存压力。        |
-| **上下文并行**  | 设计用于处理长序列输入的模型，对所有的input输入和所有的输出activation在sequence维度上进行切分，对于超长序列输入场景进一步减少显存占用。 |
+| **[长序列并行](#长序列并行)**  | 设计用于处理长序列输入的模型，对所有的input输入和所有的输出activation在sequence维度上进行切分，对于超长序列输入场景进一步减少显存占用。 |
 | **[多副本并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/pipeline_parallel.html#mindspore%E4%B8%AD%E7%9A%84interleaved-pipeline%E8%B0%83%E5%BA%A6)**                   | 用于在多个副本之间实现精细的并行控制，优化性能和资源利用率，适合大规格模型的高效训练。                                     |
+
+关于分布式并行参数的配置方法，参见 [MindFormers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
+
+## 并行特性介绍
+
+### 长序列并行
+
+从生成性AI到科研模型，长序列训练正在变得非常重要。现有的数据、张量和流水线等并行方法无法在序列维度进行切分。当序列维度（S）增长时，训练内存开销会以O（$S^2$）的速度增长。序列并行对所有的input输入和所有的输出activation在sequence维度上进行切分，用于减少输入序列长度的限制，有效地支持超长序列训练。
+
+#### Ring Attention序列并行
+
+长序列并行算法 Ring Attention 是当前业界长序列并行的代表性技术，用于解决长序列训练时的内存开销问题，同时实现计算与通信掩盖。Ring Attention 算法利用 Attention 的分块计算性质，当序列并行度为 N 时，将 Q，K，V 分别切分为 N 个子块，每张卡分别调用 Flash Attention 算子来计算本地 QKV 子块的 Attention 结果。由于每张卡只需要计算切分后 QKV 子块的 Attention，其内存占用大幅降低。Ring Attention 在做 FA 计算的同时采用环形通信向相邻卡收集和发送子块，实现计算与通信的最大化掩盖，保障了长序列并行的整体性能。
+
+MindFormers已支持配置Ring Attention序列并行方案，可通过以下配置项使能：
+
+```yaml
+model:
+  model_config:
+    ...
+    use_ring_attention: True
+    ...
+parallel_config:
+  ...
+  context_parallel: 2
+  ...
+```
+
+参数说明：
+
+- use_ring_attention：是否开启Ring Attention，默认为False。
+- context_parallel：序列并行切分数量，默认为1，根据用户需求配置。
+
+关于分布式并行参数的配置方法，参见 [MindFormers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
+
+#### Ulysses序列并行
+
+DeepSpeed提出的[Ulysses长序列并行方案](https://arxiv.org/abs/2309.14509)，将各个样本在seq维度切分给不同的计算卡；然后，在attention计算之前，对QKV执行all-to-all通信操作，以使每个计算卡接收完整的序列，使得各计算卡可以并行计算不同的注意力头；最后，在attention计算后使用另一个all-to-all来在注意力头上收集结果，同时重新在seq维度上进行切分。该方案可以有效扩展训练的序列长度，同时保持相对较低的通信量。
+
+MindFormers已支持配置Ulysses序列并行方案，可通过以下配置项使能：
+
+```yaml
+model:
+  model_config:
+    ...
+    use_attn_mask_compression: True #使能attention_mask压缩
+    ...
+parallel:
+  ...
+  enable_alltoall: True  # 允许插入alltoall算子
+  ...
+parallel_config:
+  ...
+  context_parallel: 2
+  context_parallel_algo: ulysses_cp  # 使能Ulysses序列并行
+  ...
+```
+
+参数说明：
+
+- use_attn_mask_compression：是否对Self-Attention中的Score矩阵进行掩码操作，默认为False，Ulysses序列并行方案下建议开启减少显存占用。
+- enable_alltoall：生成alltoall通信算子，默认为False，不启用时将会由allgather等其他算子组合完成等价替代，可参考MindSpore `set_auto_parallel_context`[接口文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_auto_parallel_context.html)；启用Ulysses方案时我们期望能够直接插入alltoall通信算子，因此将该配置项打开。
+- context_parallel_algo：设置为`ulysses_cp`开启Ulysses序列并行。
+
+关于分布式并行参数的配置方法，参见 [MindFormers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
+
+#### 混合序列并行
+
+目前Ulysses和Ring Attention序列并行方案均存在一定局限性，Ring Attention序列并行方案虽然理论上序列长度能够无限拓展，但通信和计算带宽利用率较低，在序列块大小较低时性能劣于Ulysses序列并行方案。而Ulysses在GQA、MQA场景下的序列并行受Head数量限制，序列长度的扩展有限。混合序列并行融合了Ulysses和Ring Attention序列并行方案，可以解决上述缺陷。
+
+MindFormers已支持配置混合序列并行方案，可通过以下配置项使能：
+
+```yaml
+parallel:
+  ...
+  enable_alltoall: True  # 允许插入alltoall算子
+  ...
+parallel_config:
+  ...
+  context_parallel: 16
+  context_parallel_algo: hybird_cp  # 使能混合序列并行
+  ulysses_degree_in_cp: 8
+  ...
+```
+
+参数说明：
+
+- context_parallel_algo：设置为`hybird_cp`时开启混合序列并行。
+- ulysses_degree_in_cp：Ulysses序列并行切分数量。
 
 关于分布式并行参数的配置方法，参见 [MindFormers 配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html) 中的并行配置章节下的具体内容。
 
