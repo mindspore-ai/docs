@@ -1779,7 +1779,9 @@ class ClassDocumenter(DocstringSignatureMixin, ModuleLevelDocumenter):  # type: 
                     docstrings = [initdocstring]
                 else:
                     docstrings.append(initdocstring)
-        spec_tp = [('ops.dense', 'ops.linear')]
+        spec_tp = [('ops.dense', 'ops.linear'), ('nn.HShrink', 'mint.nn.Hardshrink'),
+                   ('nn.HSigmoid', 'mint.nn.Hardsigmoid'), ('nn.HSwish', 'mint.nn.Hardswish'),
+                   ('nn.SoftShrink', 'mint.nn.Softshrink')]
         if docstrings and '.mint.' in self.fullname:
             b_name = self.fullname.split('.')[-1]
             usename = self.fullname.replace('mindspore.', '')
