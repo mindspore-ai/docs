@@ -35,7 +35,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
    <td align="left">Full Dump</td>
    <td align="left">Full network data dump</td>
    <td align="left">Supported</td>
-   <td align="left">Supported, but without full_name information</td>
+   <td align="left">Supported</td>
    <td align="left">Supported</td>
   </tr>
   <tr>
@@ -680,7 +680,7 @@ In Ascend O2 mode, dump data files will be generated in the corresponding direct
         },
         "e2e_dump_settings": {
             "enable": true,
-            "trans_flag": true,
+            "trans_flag": true
         }
     }
     ```
