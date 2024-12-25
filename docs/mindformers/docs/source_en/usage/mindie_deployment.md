@@ -49,42 +49,110 @@ export MS_SCHED_PORT=8090          # Scheduler node service port
 
 ## Basic Process of Inference Service Deployment
 
-### Modifying MindIE Startup Configuration
+### Preparing Model Files
+
+Create a folder for the specified model related files in the MindIE backend, such as model tokenizer files, yaml configuration files and config files.
+
+```bash
+mkdir -p mf_model/qwen1_5_72b
+```
+
+Taking Qwen1.5-72B as an example, the folder directory structure is as follows:
+
+```reStructuredText
+mf_model
+ └── qwen1_5_72b
+        ├── config.json                 # Model json configuration file, corresponding model download on Hugging Face
+        ├── vocab.json                  # Model vocab file, corresponding model download on Hugging Face
+        ├── merges.txt                  # Model merges file, corresponding model download on Hugging Face
+        ├── predict_qwen1_5_72b.yaml    # Model yaml configuration file
+        ├── qwen1_5_tokenizer.py        # Model tokenizer file, copy the corresponding model from the search directory in the mindformers repository
+        └── qwen1_5_72b_ckpt_dir        # Model distributed weight folder
+```
+
+predict_qwen1_5_72b.yaml needs to be concerned with the following configuration:
+
+```yaml
+load_checkpoint: '/mf_model/qwen1_5_72b/qwen1_5_72b_ckpt_dir' # Path to the folder that holds the model distributed weight
+use_parallel: True
+auto_trans_ckpt: False    # Whether to enable automatic weight conversion, with offline splitting set to False
+parallel_config:
+  data_parallel: 1
+  model_parallel: 4       # Multi-card inference configures the model splitting, which generally corresponds to the number of cards used
+  pipeline_parallel: 1
+processor:
+  tokenizer:
+    vocab_file: "/path/to/mf_model/qwen1_5_72b/vocab.json"  # vocab file absolute path
+    merges_file: "/path/to/mf_model/qwen1_5_72b/merges.txt"  # merges file absolute path
+```
+
+For model weight downloading and conversions, refer to the [Weight Format Conversion Guide](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html).
+
+Required files and configurations may vary from model to model. Refer to the model-specific inference sections in [Model Repository](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html) for details.
+
+### Starting MindIE
+
+#### 1. One-click Start (Recommended)
+
+The mindformers repository provides a one-click pull-up MindIE script with preconfigured environment variable settings and servitization configurations, which allows you to quickly pull up the service by simply entering the directory of the model file.
+
+Go to the `scripts` directory and execute the MindIE startup script:
+
+```shell
+cd ./scripts
+bash run_mindie.sh --model-name xxx --model-path /path/to/model
+
+# Parameter descriptions
+--model-name: Mandatory, set MindIE backend name
+--model-path：Mandatory, set model folder path, such as /path/to/mf_model/qwen1_5_72b
+--help      : Instructions for using the script
+```
+
+View logs:
+
+```bash
+tail -f output.log
+```
+
+When `Daemon start success!` appears in the log, it means the service started successfully.
+
+#### 2. Customized Startup
+
+The MindIE installation paths are all the default paths `/usr/local/Ascend/.` If you customize the installation path, synchronize the path in the following example.
 
 Open config.json in the mindie-service directory and modify the server-related configuration.
 
 ```bash
-cd {MindIE installation directory}/
-cd mindie-service/conf
-vim config.json
+vim /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
 ```
 
 where `modelWeightPath` and `backendType` must be modified to configure:
 
-```json
-"modelWeightPath": "/path/to/mf_model"
+```bash
+"modelWeightPath": "/path/to/mf_model/qwen1_5_72b"
 "backendType": "ms"
 ```
 
-`modelWeightPath` is the model configuration file directory, where model and tokenizer and other related files are placed; `backendType` backend startup method is `ms`.
+`modelWeightPath` is the model folder created in the previous step, where model and tokenizer and other related files are placed; `backendType` backend startup method is `ms`.
 
 Other relevant parameters are as follows:
 
 | Optional Configurations          | Value Type | Range of Values             | Configuration Descriptions                                                                                                                       |
 | ------------------- | -------- | -------------------- |----------------------------------------------------------------------------------------------------------------------------|
+| httpsEnabled        | Bool     | True/False           | Whether to enable HTTPS communication security authentication, the default is True. Easy to start, it is recommended to set to False.  |
 | maxSeqLen           | int32    | Customized by user requirements, >0 | MaxSeqLen. Length of input + length of output <= maxSeqLen, user selects maxSeqLen according to inference scenario                                                                       |
 | npuDeviceIds        | list     | Customization by model requirements     | This configuration item is temporarily disabled. The actual running card is controlled by the visible card environment variable and the worldSize configuration. Resource reference needs to be adjusted by visible card according to [CANN Environment Variables](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/80RC3alpha003/apiref/envref/envref_07_0029.html).                         |
 | worldSize           | int32    | Customization by model requirements     | The number of cards used for the visible card. Example: ASCEND_RT_VISIBLE_DEVICES=4,0,1,2 and worldSize=2, then take the 4th, 0th card to run.    |
-| npuMemSize          | int32    | Customization by Video Memory         | The upper limit of the size (GB) that can be used to request KVCache in the NPU can be calculated according to the actual size of the deployment model: npuMemSize=(total free - weight/mp number)*factor, where the factor is taken as 0.8. Recommended value: 8                                    |
-| cpuMemSize          | int32    |  Customization by Memory         | The upper limit of the size (GB) that can be used to request KVCache in CPU is related to the swap function, and the Cache will be released for recalculation when cpuMemSize is insufficient. Recommended value: 5                                                   |
+| npuMemSize          | int32    | Customization by Video Memory         | The upper limit of the size (GB) that can be used to request KVCache in the NPU can be calculated according to the actual size of the deployment model: npuMemSize=(total free - weight/mp number)*factor, where the factor is taken as 0.8. Recommended value: 8.                                    |
+| cpuMemSize          | int32    |  Customization by Memory         | The upper limit of the size (GB) that can be used to request KVCache in CPU is related to the swap function, and the Cache will be released for recalculation when cpuMemSize is insufficient. Recommended value: 5.                                                   |
 | maxPrefillBatchSize | int32    | [1, maxBatchSize]    | Maximum prefill batch size. maxPrefillBatchSize and maxPrefillTokens will complete the batch if they reach their respective values first. This parameter is mainly used in scenarios where there is a clear need to limit the batch size of the prefill phase, otherwise it can be set to 0 (at this point, the engine will take the maxBatchSize value by default) or the same as maxBatchSize. Required, default value: 50. |
 | maxPrefillTokens    | int32    | [5120, 409600]       | At each prefill, the total number of all input tokens in the current batch must not exceed maxPrefillTokens. maxPrefillTokens and maxPrefillBatchSize will complete the current group batch if they reach their respective values first. Required, default value: 8192.                                                                                |
-| maxBatchSize        | int32    | [1, 5000]            | Maximum decode batch size, estimated based on model size and NPU graphics memory                                                                                       |
+| maxBatchSize        | int32    | [1, 5000]            | Maximum decode batch size, estimated based on model size and NPU graphics memory.                                                                                       |
 | maxIterTimes        | int32    | [1, maxSeqLen-1]     | The number of decodes that can be performed, i.e. the maximum length of a sentence that can be generated. There is a max_output_length parameter inside the request level, maxIterTimes is a global setting, and max_output_length is taken as the maximum length of the final output.         |
 
-The full set of configuration parameters is available in [MindIE Service Developer's Guide - Quick Start - Configuration Parameter Descriptions (to be released)]()
+The full set of configuration parameters is available in [MindIE Service Developer's Guide - Quick Start - Configuration Parameter Descriptions](https://www.hiascend.com/document/detail/zh/mindie/10RC3/mindieservice/servicedev/mindie_service0285.html).
 
-### Starting Service
+Run the startup script:
 
 ```bash
 cd /path/to/mindie/latest/mindie-service
@@ -94,91 +162,52 @@ tail -f output.log
 
 When `Daemon start success!` appears in the log, it means the service started successfully.
 
-### Viewing Logs
-
-The related logs of MindIE Service:
-
-```bash
-tail -f path/to/mindie/mindie-service/latest/mindie-service/output.log
-```
-
 The related logs of Python:
 
 ```bash
-tail -f path/to/mindie/mindie-service/latest/mindie-llm/logs/pythonlog.log
+export MINDIE_LLM_PYTHON_LOG_TO_FILE=1
+export MINDIE_LLM_PYTHON_LOG_PATH=/usr/local/Ascend/mindie/latest/mindie-service/logs/pythonlog.log
+tail -f /usr/local/Ascend/mindie/latest/mindie-service/logs/pythonlog.log
 ```
 
 ## MindIE Service Deployment and Inference Example
 
 The following example installs each component to the default path `/usr/local/Ascend/.` and the model uses `Qwen1.5-72B`.
 
-### Modifying the MindIE Startup Configuration
+### Preparing Model Files
 
-Open the config.json file in the mindie-service directory and modify the server-related configuration.
+Take Qwen1.5-72B as an example to prepare the model file directory. For details of the directory structure and configuration, refer to [Preparing Model Files](#preparing-model-files):
 
 ```bash
-vim /usr/local/Ascend/mindie/1.0.RC3/mindie-service/conf/config.json
+mkdir -p mf_model/qwen1_5_72b
 ```
 
-The configuration of the following fields are as follows:
+### Starting MindIE
 
-1. `ModelDeployConfig.ModelConfig.backendType`
+#### 1. One-click Start (Recommended)
 
-   This configuration is the corresponding backend type, required “ms”.
+Go to the `scripts` directory and execute the mindie startup script:
 
-   ```json
-   "backendType": "ms"
-   ```
+```shell
+cd ./scripts
+bash run_mindie.sh --model-name qwen1_5_72b --model-path /path/to/mf_model/qwen1_5_72b
+```
 
-2. `ModelDeployConfig.ModelConfig.modelWeightPath`
+View log:
 
-   This configuration is the model configuration file directory, which holds the model and tokenizer and other related files.
+```bash
+tail -f output.log
+```
 
-   Using Qwen 1.5-72B as an example, `modelWeightPath` is organized as follows:
+When `Daemon start success!` appears in the log, it means the service started successfully.
 
-   ```reStructuredText
-   mf_model
-    └── qwen1_5_72b
-           ├── config.json                 # Model json configuration file
-           ├── vocab.json                  # Model vocab file, corresponding model download on hf
-           ├── merges.txt                  # Model merges file, corresponding model download on hf
-           ├── predict_qwen1_5_72b.yaml    # Model yaml configuration file
-           ├── qwen1_5_tokenizer.py        # Model tokenizer file, copy the corresponding model from the research directory in the mindformers bin
-           └── qwen1_5_72b_ckpt_dir        # Model Distributed Weights Folder
-   ```
+#### 2. Customized Startup
 
-   predict_qwen1_5_72b.yaml needs to be concerned with the following configurations:
+Open config.json in the mindie-service directory and modify the server-related configuration.
 
-   ```yaml
-   load_checkpoint: '/mf_model/qwen1_5_72b/qwen1_5_72b_ckpt_dir' # Path to the folder that holds the model distributed weights
-   use_parallel: True
-   auto_trans_ckpt: False    # Whether to enable automatic weight conversion, with offline slicing set to False
-   parallel_config:
-     data_parallel: 1
-     model_parallel: 4       # Multi-card inference configures the model slicing, which generally corresponds to the number of cards used
-     pipeline_parallel: 1
-   processor:
-     tokenizer:
-       vocab_file: "/mf_model/qwen1_5_72b/vocab.json"  # vocab path
-       merges_file: "/mf_model/qwen1_5_72b/merges.txt"  # merges path
-   ```
-
-   The model's config.json file can be generated using the `save_pretrained` interface. An example of which is shown below:
-
-   ```python
-   from mindformers import AutoConfig
-
-   model_config = AutoConfig.from_pretrained("/mf_model/qwen1_5_72b/predict_qwen1_5_72b.yaml")
-   model_config.save_pretrained(save_directory="./json/qwen1_5_72b/", save_json=True)
-   ```
-
-   Model weights can be downloaded and converted in [Guide to Weight Format Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html).
-
-   After preparing the model configuration directory, set the parameter `modelWeightPath` to that directory path.
-
-   ```json
-   "modelWeightPath": "/mf_model/qwen1_5_72b"
-   ```
+```bash
+vim /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+```
 
 The final modified config.json is as follows:
 
@@ -287,7 +316,7 @@ The final modified config.json is as follows:
 
 > For testing purposes, the `httpsEnabled` parameter is set to `false`, ignoring subsequent https communication related parameters.
 
-### Starting Service
+Go to the mindie-service directory to start the service:
 
 ```bash
 cd /usr/local/Ascend/mindie/1.0.RC3/mindie-service
@@ -295,9 +324,9 @@ nohup ./bin/mindieservice_daemon > output.log 2>&1 &
 tail -f output.log
 ```
 
-The startup was successful, with the following printed message.
+The following message is printed, indicating that the startup was successful.
 
-```json
+```bash
 Daemon start success!
 ```
 
