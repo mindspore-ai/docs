@@ -11,7 +11,7 @@ When a model compiled using MindSpore runs in the graph mode `set_context(mode=G
 
 ## Saving IR
 
-Save the intermediate code in each compilation phase by setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2. The intermediate code can be saved in two formats, and the .ir file with the extension '.ir' is saved by default. If set the environment variable `MS_DEV_SAVE_GRAPHS` to 3, a graphical .ir file with the extension `.dot` is printed. When the network scale is small, you are advised to use the graphical format that is more intuitive. When the network scale is large, you are advised to use the text format that is more efficient.
+Save the intermediate code in each compilation phase by setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2. The intermediate code can be saved in two formats, and the .ir file with the extension '.ir' is saved by default. If the environment variable `MS_DEV_SAVE_GRAPHS` is set to 3, a graphical .ir file with the extension `.dot` is printed. When the network scale is small, you are advised to use the graphical format that is more intuitive. When the network scale is large, you are advised to use the text format that is more efficient.
 
 You can run the graphviz command to convert a .dot file to the picture format. For example, you can run the `dot -Tpng *.dot -o *.png` command to convert a `.dot` file to a .png file.
 
