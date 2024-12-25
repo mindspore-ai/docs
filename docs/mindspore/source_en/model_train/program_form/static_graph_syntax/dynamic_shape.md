@@ -32,7 +32,7 @@ Detailed instructions for using the Symbol Engine can be found in the [Symbol AP
 
 MindSpore enables network dynamic shape compilation by setting the axis corresponding to the static graph input Tensor to dynamic via the set_inputs interface.
 For example, to add two matrices, the size of the matrix changes. At this time we want to compile the computation logic corresponding to the matrix adding only once, and the same compilation process can be reused for calculating different sizes of matrices.
-To set up dynamic shape compilation, you can use the symbol engine and the set_inputs interface to specify that the corresponding axis is dynamic, and the mindspore.jit decorator method can set it up using the input_signature parameter.
+To set up dynamic shape compilation, you can use the symbol engine and the set_inputs interface to specify that the corresponding axis is dynamic.
 The following is an example of adding multiple different sizes of matrices:
 
 ```python
@@ -60,8 +60,6 @@ out = net(input_x2)
 ```
 
 Detailed instructions for using set_inputs can be found in the [Cell.set_inputs API Ducumentation](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_inputs).
-
-Detailed instructions for using input_signature can be found in the [mindspore.jit API Ducumentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.jit.html).
 
 Distributed parallel scenarios on how to use dynamic shapes can be found in the [Distributed Parallel Support for Dynamic Shape Documentation](https://www.mindspore.cn/docs/en/master/model_train/parallel/support_dynamic_shape_in_parallel.html).
 
