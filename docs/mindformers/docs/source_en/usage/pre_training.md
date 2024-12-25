@@ -61,19 +61,21 @@ After the task is executed, the **checkpoint** folder is generated in the **mind
 
 ### Multi-Node Training
 
-Take Llama3-70B as an example. Use the [pretrain_llama3_70b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_70b/pretrain_llama3_70b.yaml) configuration file to run [run_llama3.py](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/run_llama3.py) in msrun mode to perform 8-node 64-device pretraining. To perform distributed training on a multi-node multi-device script, you need to run the script on different nodes and set the **MASTER_ADDR** parameter to the IP address of the primary node. The IP addresses of all nodes are the same, and only the values of **NODE_RANK** are different for different nodes. For details about the parameter positions, see [msrun Launching Guide](https://www.mindspore.cn/docs/en/master/model_train/parallel/msrun_launcher.html).
+Take Llama3-70B as an example. Use the [pretrain_llama3_70b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/research/llama3/llama3_70b/pretrain_llama3_70b.yaml) configuration file to run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py) in msrun mode to perform 8-node 64-device pretraining. To perform distributed training on a multi-node multi-device script, you need to run the script on different nodes and set the **MASTER_ADDR** parameter to the IP address of the primary node. The IP addresses of all nodes are the same, and only the values of **NODE_RANK** are different for different nodes. For details about the parameter positions, see [msrun Launching Guide](https://www.mindspore.cn/docs/en/master/model_train/parallel/msrun_launcher.html).
 
 ```shell
 # Node 0: Set the IP address of node 0 to the value of MASTER_ADDR, which is used as the IP address of the primary node. There are 64 devices in total with 8 devices for each node.
 # Change the value of node_num for nodes 0 to 7 in sequence. For example, if there are eight nodes, the value of node_num ranges from 0 to 7.
-bash scripts/msrun_launcher.sh "run_llama3.py \
-  --config pretrain_llama3_70b.yaml \
- --train_dataset dataset_dir
+bash scripts/msrun_launcher.sh "run_mindformer.py \
+ --register_path research/llama3 \
+ --config research/llama3/llama3_70b/pretrain_llama3_70b.yaml \
+ --train_dataset dataset_dir \
  --use_parallel True \
  --run_mode train" \
  64 8 {MASTER_ADDR} 8118 {node_num} output/msrun_log False 300
 
  # Parameters:
+ register_path:     The registered path of the model API is a directory path that contains Python scripts of the model (can be the path of the model folder in the 'research' directory).
  config:            model configuration file, which is stored in the config directory of the MindFormers code repository.
  train_dataset_dir: path of the training dataset.
  use_parallel:      specifies whether to enable parallelism.
