@@ -152,7 +152,7 @@ vim /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
 
 全量配置参数可查阅 [MindIE Service开发指南-快速开始-配置参数说明](https://www.hiascend.com/document/detail/zh/mindie/10RC3/mindieservice/servicedev/mindie_service0285.html)。
 
-运行启动脚本:
+运行启动脚本：
 
 ```bash
 cd /path/to/mindie/latest/mindie-service
