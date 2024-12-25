@@ -35,7 +35,7 @@ MindSpore在不同模式下支持的Dump功能如下表所示：
    <td align="left">全量dump</td>
    <td align="left">整网数据dump</td>
    <td align="left">支持</td>
-   <td align="left">支持，但无full_name信息</td>
+   <td align="left">支持</td>
    <td align="left">支持</td>
   </tr>
   <tr>
@@ -667,7 +667,7 @@ Ascend O2模式下Dump生成的数据文件可以通过以下3个步骤进行解
         },
         "e2e_dump_settings": {
             "enable": true,
-            "trans_flag": true,
+            "trans_flag": true
         }
     }
     ```
