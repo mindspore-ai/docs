@@ -54,10 +54,12 @@
 通过context接口指定运行模式、运行设备、运行卡号等，与单卡脚本不同，并行脚本还需指定并行模式`parallel_mode`为自动并行模式，搜索模式`search_mode`为双递归策略，并通过init初始化HCCL或NCCL通信。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
+import os
 import mindspore as ms
 from mindspore.communication import init
 
-ms.set_context(mode=ms.GRAPH_MODE, save_graphs=2)
+os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
+ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
 init()
 ms.set_seed(1)
@@ -143,7 +145,7 @@ for epoch in range(10):
 bash run.sh
 ```
 
-训练完后，日志文件保存到`log_output`目录下，通过在`train.py`中设置context: `save_graphs=2`，可以打印出编译过程中的IR图，其中部分文件目录结构如下：
+训练完后，日志文件保存到`log_output`目录下，通过设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2，可以打印出编译过程中的IR图，其中部分文件目录结构如下：
 
 ```text
 ├─ log_output

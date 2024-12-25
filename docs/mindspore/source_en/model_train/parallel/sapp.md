@@ -54,10 +54,12 @@ The directory structure is as follows:
 Specify the run mode, run device, run card number through the context interface. Unlike single card scripts, parallel scripts also need to specify the parallel mode `parallel_mode` as auto-parallel mode, the search mode `search_mode` as double recursive strategy, and initialize HCCL or NCCL communication through init. The `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
 
 ```python
+import os
 import mindspore as ms
 from mindspore.communication import init
 
-ms.set_context(mode=ms.GRAPH_MODE, save_graphs=2)
+os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
+ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
 init()
 ms.set_seed(1)
@@ -143,7 +145,7 @@ Next, the corresponding scripts are invoked by commands, using the `mpirun` star
 bash run.sh
 ```
 
-After training, the log files are saved to the `log_output` directory. Set context: `save_graphs=2` in `train.py`, and you can print out the IR graphs of the compilation process, where some of the file directories are structured as follows:
+After training, the log files are saved to the `log_output` directory. Set the environment variable `MS_DEV_SAVE_GRAPHS` to 2 in `train.py`, and you can print out the IR graphs of the compilation process, where some of the file directories are structured as follows:
 
 ```text
 ├─ log_output

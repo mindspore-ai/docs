@@ -58,13 +58,15 @@ MindSpore根据正向图计算流程来自动推导出反向图，正向图和�
 
 ### 配置分布式环境
 
-首先通过context接口指定运行模式、运行设备、运行卡号等，并行模式为数据并行模式，并通过init初始化HCCL或NCCL通信。设置`save_graphs=2`可以打印出计算图结构进行对比。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
+首先通过context接口指定运行模式、运行设备、运行卡号等，并行模式为数据并行模式，并通过init初始化HCCL或NCCL通信。通过设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2，可以打印出计算图结构进行对比。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
 
 ```python
+import os
 import mindspore as ms
 from mindspore.communication import init
 
-ms.set_context(mode=ms.GRAPH_MODE, save_graphs=2)
+os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
+ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 init()
 ms.set_seed(1)
@@ -168,7 +170,7 @@ for epoch in range(1):
 bash run.sh
 ```
 
-训练完后，日志文件保存到`log_output`目录下，通过在`train.py`中设置context: `save_graphs=2`，可以打印出编译过程中的IR图，其中部分文件目录结构如下：
+训练完后，日志文件保存到`log_output`目录下，通过设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2，可以打印出编译过程中的IR图，其中部分文件目录结构如下：
 
 ```text
 ├─ log_output

@@ -21,7 +21,8 @@ from mindspore import nn, ops
 from mindspore.communication import init
 from mindspore.common.initializer import initializer
 
-ms.set_context(mode=ms.GRAPH_MODE, save_graphs=2)
+os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
+ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="sharding_propagation")
 init()
 ms.set_seed(1)

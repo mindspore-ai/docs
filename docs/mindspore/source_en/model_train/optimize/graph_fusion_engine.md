@@ -31,6 +31,7 @@ ms.set_context(enable_graph_kernel=True)
 To illustrate the fusion scenario, we construct a simple network `MyNet`, including multiplication and addition operators. The two operators will be fused together with enabled graph kernel:
 
 ```python
+import os
 import numpy as np
 import mindspore as ms
 from mindspore.nn import Cell
@@ -38,7 +39,7 @@ import mindspore.ops as ops
 
 ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 # save graph ir to view fusion detail.
-ms.set_context(save_graphs=2)
+os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
 # enable graph kernel optimization.
 ms.set_context(enable_graph_kernel=True)
 

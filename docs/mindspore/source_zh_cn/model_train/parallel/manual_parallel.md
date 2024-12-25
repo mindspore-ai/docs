@@ -149,7 +149,7 @@ model.train(10, data_set, callbacks=[loss_cb])
 bash run.sh
 ```
 
-训练完后，日志文件保存到`log_output`目录下，通过在`train.py`中设置context: `save_graphs=2`，可以打印出编译过程中的IR图，其中部分文件目录结构如下：
+训练完后，日志文件保存到`log_output`目录下，通过设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2，可以打印出编译过程中的IR图，其中部分文件目录结构如下：
 
 ```text
 └─ log_output

@@ -33,7 +33,9 @@ def init_env(cfg):
     context_mode = ms.GRAPH_MODE if cfg.context_mode == "graph" else ms.PYNATIVE_MODE
     if not os.path.isabs(cfg.save_graphs_path):
         cfg.save_graphs_path = os.path.join(cfg.output_path, cfg.save_graphs_path)
-    ms.set_context(mode=context_mode, save_graphs=cfg.save_graphs, save_graphs_path=cfg.save_graphs_path)
+    os.environ['MS_DEV_SAVE_GRAPHS'] = cfg.save_graphs
+    os.environ['MS_DEV_SAVE_GRAPHS_PATH'] = cfg.save_graphs_path
+    ms.set_context(mode=context_mode)
     if not isinstance(cfg.device_id, int):
         ms.set_context(device_id=cfg.device_id)
     cfg.need_boost = hasattr(cfg, "boost_level") and cfg.boost_level in ["O1", "O2"]

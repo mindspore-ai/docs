@@ -531,7 +531,7 @@ Distributed Parallel
      - 
 
    * - DUMP_PARALLEL_INFO
-     - Enable dump parallel-related communication information in auto-parallel/semi-automatic parallelism mode. The dump path can be set by set_context(save_graphs_path="path/to/parallel_info_files")
+     - Enable dump parallel-related communication information in auto-parallel/semi-automatic parallelism mode. The dump path can be set by the environment variable `MS_DEV_SAVE_GRAPHS_PATH`.
      - Integer
      - 1: Enable dump parallel information.
 
@@ -599,15 +599,17 @@ Operators Compile
      - The number of parallel operator build processes ranges from 1 to 24.
      -
    * - MS_COMPILER_CACHE_ENABLE
-     - Specifies whether to save or load the compile cache.
-       The function is the same as the `enable_compile_cache <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ in MindSpore context.
+     - Whether to save or load the compiled cache of the graph. After `MS_COMPILER_CACHE_ENABLE` is set to `1`, during the first execution, a compilation cache
+       is generated and exported to a MINDIR file. When the network is executed again, if `MS_COMPILER_CACHE_ENABLE` is still set to `1` and the network scripts
+       are not changed, the compile cache is loaded.
 
-       Note: This environment variable has lower precedence than the context `enable_compile_cache`.
+       Note: Only limited automatic detection for the changes of python scripts is supported by now, which means that there is a correctness risk. Currently, do not
+       support the graph which is larger than 2G after compiled. This is an experimental prototype that is subject to change and/or deletion.
      - Integer
      - 0: Disable the compile cache
 
        1: Enable the compile cache
-     - If it is used together with `MS_COMPILER_CACHE_PATH`, the directory for storing the cache files is `${MS_COMPILER_CACHE_PATH}` `/rank_${RANK_ID}` `/graph_cache/`. 
+     - If it is used together with `MS_COMPILER_CACHE_PATH`, the directory for storing the cache files is `${MS_COMPILER_CACHE_PATH}` `/rank_${RANK_ID}`.
        `RANK_ID` is the unique ID for multi-cards training, the single card scenario defaults to `RANK_ID=0`.
    * - MS_COMPILER_CACHE_PATH
      - MindSpore compile cache directory and save the graph or operator cache files like `graph_cache`, `kernel_meta`, `somas_meta`.

@@ -538,7 +538,7 @@ Dump调试
      - 为0时只处理硬件无关编译；为1时进一步处理硬件相关编译。默认不开启。
      - 此环境变量主要用于单卡模拟分布式多卡特定rank卡的编译情况，需要RANK_SIZE和RANK_ID配合使用。
    * - DUMP_PARALLEL_INFO
-     - 导出自动并行/半自动并行模式下的并行相关通信信息。dump文件路径可以通过set_context(save_graphs_path="path/to/parallel_info_files")设置。
+     - 导出自动并行/半自动并行模式下的并行相关通信信息。dump文件路径可以通过环境变量 `MS_DEV_SAVE_GRAPHS_PATH` 设置。
      - Integer
      - 1代表开启该dump功能，其他值或者不设置该环境变量代表关闭。
      - 每张卡保存的json文件包含的字段含义如下：
@@ -604,14 +604,14 @@ Dump调试
      - 1~24：允许设置并行进程数取值范围
      -
    * - MS_COMPILER_CACHE_ENABLE
-     - 指定是否保存和加载编译缓存。该功能与 mindspore context 中的 `enable_compile_cache <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context>`_ 相同。
+     - 表示是否加载或者保存图编译缓存。当 `MS_COMPILER_CACHE_ENABLE` 被设置为 `1` 时，在第一次执行的过程中，一个编译缓存会被生成并且导出为一个MINDIR文件。当该网络被再次执行时，如果 `MS_COMPILER_CACHE_ENABLE` 仍然为 `1` 并且网络脚本没有被更改，那么这个编译缓存会被加载。
 
-       注意：该环境变量优先级低于 `enable_compile_cache` context。
+       注意：目前只支持有限的Python脚本更改的自动检测，这意味着可能有正确性风险。当前不支持编译后大于2G的图。这是一个实验特性，可能会被更改或者删除。
      - Integer
      - 0：关闭编译缓存功能
 
        1：开启编译缓存功能
-     - 如果与 `MS_COMPILER_CACHE_PATH` 一起使用，编译缓存文件将保存在 `${MS_COMPILER_CACHE_PATH}` `/rank_${RANK_ID}/graph_cache/` 目录下。
+     - 如果与 `MS_COMPILER_CACHE_PATH` 一起使用，编译缓存文件将保存在 `${MS_COMPILER_CACHE_PATH}` `/rank_${RANK_ID}/` 目录下。
 
        其中 `RANK_ID` 为多卡训练场景中的卡号，单卡场景默认 `RANK_ID=0` 。
    * - MS_COMPILER_CACHE_PATH

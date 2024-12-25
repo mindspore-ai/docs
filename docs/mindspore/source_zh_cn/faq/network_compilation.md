@@ -174,8 +174,8 @@ A: 当出现There isn't any branch that can be evaluated 时，说明代码中�
 ## Q: 编译时报错"Exceed function call depth limit 1000"怎么办？
 
 A: 当出现Exceed function call depth limit 1000 时，说明代码中出现了无穷递归死循环，或者是代码过于复杂，类型推导过程中导致栈深度超过设置的最大深度。
-此时可以通过设置 `set_context(max_call_depth = value)` 更改栈的最大深度，并考虑简化代码逻辑或者检查代码中是否存在无穷递归或死循环。
-需要注意的是，设置max_call_depth虽然可以改变MindSpore的递归深度，但是可能会超过系统栈的最大深度，进而出现段错误。此时可能还需要设置系统栈深度。
+此时可以通过设置 `mindspore.set_recursion_limit(recursion_limit=value)` 更改栈的最大深度，并考虑简化代码逻辑或者检查代码中是否存在无穷递归或死循环。
+需要注意的是，设置recursion_limit虽然可以改变MindSpore的递归深度，但是可能会超过系统栈的最大深度，进而出现段错误。此时可能还需要设置系统栈深度。
 
 <br/>
 

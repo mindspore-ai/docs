@@ -70,7 +70,7 @@ The number of loops of the for and while statements may exceed the permitted ran
 RuntimeError: Exceed function call depth limit 1000, (function call depth: 1001, simulate call depth: 997).
 ```
 
-One solution to the problem that the function call stack exceeds the threshold is to simplify the network structure and reduce the number of loops. Another method is to use `set_context(max_call_depth=value)` to increase the threshold of the function call stack.
+One solution to the problem that the function call stack exceeds the threshold is to simplify the network structure and reduce the number of loops. Another method is to use `mindspore.set_recursion_limit(recursion_limit=value)` to increase the threshold of the function call stack.
 
 For details, visit the following website:
 

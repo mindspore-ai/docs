@@ -175,9 +175,9 @@ A: When an error "There isn't any branch that can be evaluated" appears, it mean
 
 A: When Exceed function call depth limit 1000 is displayed, this indicates that there is an infinite recursive loop in the code, or the code is too complex. The type derivation process causes the stack depth to exceed the set maximum depth.
 
-At this time, you can set `set_context(max_call_depth = value)` to change the maximum depth of the stack, and consider simplifying the code logic or checking whether there is infinite recursion or loop in the code.
+At this time, you can set `mindspore.set_recursion_limit(recursion_limit=value)` to change the maximum depth of the stack, and consider simplifying the code logic or checking whether there is infinite recursion or loop in the code.
 
-Otherwise, setting max_call_depth can change the recursive depth of MindSpore, and it may also cause exceed the maximum depth of the system stack and cause segment fault. At this time, you may also need to set the system stack depth.
+Otherwise, setting recursion_limit can change the recursive depth of MindSpore, and it may also cause exceed the maximum depth of the system stack and cause segment fault. At this time, you may also need to set the system stack depth.
 
 <br/>
 
