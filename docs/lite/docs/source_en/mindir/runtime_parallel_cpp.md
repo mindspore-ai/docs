@@ -61,7 +61,7 @@ runner_config->SetContext(context);
 runner_config->SetWorkersNum(kNumWorkers);
 ```
 
-> For details on the configuration method of Context, see [Context](https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_cpp.html#%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E4%B8%8A%E4%B8%8B%E6%96%87).
+> For details on the configuration method of Context, see [Context](https://www.mindspore.cn/lite/docs/en/master/mindir/runtime_cpp.html#creating-configuration-context).
 >
 > Multi-model concurrent inference currently only supports [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html), and [AscendDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_AscendDeviceInfo.html) several different hardware backends. When setting the GPU backend, you need to set the GPU backend first and then the CPU backend, otherwise it will report an error and exit.
 >
@@ -103,7 +103,7 @@ if (predict_ret != mindspore::kSuccess) {
 
 ## Compiling And Executing
 
-Follow the [quick start](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#excuting-compilation)Environment variables, set the environment variables. Run the build.sh script in the `mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp` directory to automatically download the MindSpore Lite inference framework library and model files and compile the demo.
+Follow the [quick start](https://www.mindspore.cn/lite/docs/en/master/mindir/build.html#executing-compilation) environment variables, set the environment variables. Run the build.sh script in the `mindspore/lite/examples/cloud_infer/quick_start_parallel_cpp` directory to automatically download the MindSpore Lite inference framework library and model files and compile the demo.
 
 ```bash
 bash build.sh

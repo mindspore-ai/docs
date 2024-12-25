@@ -6,7 +6,7 @@ To meet training requirements and solve problems such as too large datasets or u
 
 MindSpore provides multiple samplers, such as `RandomSampler`, `WeightedRandomSampler`, and `SubsetRandomSampler`. In addition, users can customize sampler classes as required.
 
-> For details about how to use the sampler, see [Sampler API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#sampler).
+> For details about how to use the sampler, see [Sampler API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html#sampler-1).
 
 ## Samplers
 

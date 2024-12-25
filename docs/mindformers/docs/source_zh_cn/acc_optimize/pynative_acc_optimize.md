@@ -4,7 +4,7 @@
 
 ## 精度问题概述和场景
 
-详细介绍请参考[精度问题概述及场景](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/acc_optimize/acc_optimize.html#精度定位通用流程)章节。
+详细介绍请参考[精度问题概述及场景](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/acc_optimize/acc_optimize.html#%E7%B2%BE%E5%BA%A6%E9%97%AE%E9%A2%98%E6%A6%82%E8%BF%B0%E5%92%8C%E5%9C%BA%E6%99%AF)章节。
 
 ## 精度问题定位CheckList
 
@@ -12,7 +12,7 @@
 
 ## 精度定位通用流程
 
-精度定位通用流程请参考[精度定位通用流程](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/acc_optimize/acc_optimize.html#精度定位通用流程)章节。
+精度定位通用流程请参考[精度定位通用流程](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/acc_optimize/acc_optimize.html#%E6%A8%A1%E5%9E%8B%E8%BF%81%E7%A7%BB%E7%B2%BE%E5%BA%A6%E5%AE%9A%E4%BD%8D%E9%80%9A%E7%94%A8%E6%B5%81%E7%A8%8B)章节。
 
 ## 大模型迁移精度标准
 

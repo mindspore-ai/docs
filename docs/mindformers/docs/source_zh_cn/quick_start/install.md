@@ -25,7 +25,7 @@
 
 1. 安装固件与驱动：通过[版本匹配关系](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/install.html#%E7%89%88%E6%9C%AC%E5%8C%B9%E9%85%8D%E5%85%B3%E7%B3%BB)中的固件与驱动链接下载安装包，参考[昇腾官方教程](https://www.hiascend.com/document/detail/zh/quick-installation/24.0.RC1/quickinstg_train/800_9000A2/quickinstg_800_9000A2_0007.html)进行安装。
 
-2. 安装CANN和MindSpore：使用官方提供的Docker镜像（镜像中已包含CANN、MindSpore，无需手动安装）或者按照MindSpore官网的[手动安装](https://www.mindspore.cn/install/#%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85)章节进行安装。
+2. 安装CANN和MindSpore：使用官方提供的Docker镜像（镜像中已包含CANN、MindSpore，无需手动安装）或者按照MindSpore官网的[手动安装](https://www.mindspore.cn/install/)章节进行安装。
 
 ## MindFormers安装
 
