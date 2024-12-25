@@ -25,7 +25,7 @@ Historical version matching relationship:
 
 1. Install Firmware and Driver: Download the firmware and driver package through the [Version Matching Relationship](https://www.mindspore.cn/mindformers/docs/en/dev/quick_start/install.html#version-matching-relationship) to download the installation package, and refer to the [Ascend official tutorial](https://www.hiascend.com/document/detail/zh/quick-installation/24.0.RC1/quickinstg_train/800_9000A2/quickinstg_800_9000A2_0007.html) for installation.
 
-2. Install CANN and MindSpore: Use the officially provided Docker image (CANN, MindSpore are already included in the image, no need to install them manually) or follow the [Manual Installation](https://www.mindspore.cn/install/en#manual-installation) section on the MindSpore website for installation.
+2. Install CANN and MindSpore: Use the officially provided Docker image (CANN, MindSpore are already included in the image, no need to install them manually) or follow the [Manual Installation](https://www.mindspore.cn/install/en) section on the MindSpore website for installation.
 
 ## MindFormers Installation
 
