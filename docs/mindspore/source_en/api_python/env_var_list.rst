@@ -183,6 +183,13 @@ Graph Compilation and Execution
 
        No setting or other value: Do not print compilation progress information.
      -
+   * - MS_DEV_PRECOMPILE_ONLY
+     - Specify whether the network is precompiled only and not executed.
+     - Integer
+     - 1: The network is precompiled only and not executed.
+
+       No setting or other value: Do not precompile the network, that is, compile and execute the network.
+     -
    * - MS_KERNEL_LAUNCH_SKIP
      - Specifies the kernel or subgraph to skip during execution.
      - String
