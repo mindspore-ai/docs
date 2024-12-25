@@ -276,7 +276,7 @@ class SaveCkptMonitor(ms.train.Callback):
         cb_params = run_context.original_args()
         cur_loss = cb_params.net_outputs.asnumpy() # Obtain the current loss value.
 
-        # If the current loss value is less than the preset threshold, the training stops.
+        # If the current loss value is less than the preset threshold, the model is saved.
         if cur_loss < self.loss:
             # Name the file to be saved.
             file_name = f"./checkpoint/{cb_params.cur_epoch_num}_{cb_params.cur_step_num}.ckpt"
