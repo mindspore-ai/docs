@@ -86,7 +86,7 @@ MindSpore supports different Dump functionalities under various modes, as shown 
   <tr>
    <td align="left">set_dump</td>
    <td align="left">Supported</td>
-   <td align="left">Not Supported</td>
+   <td align="left">Supported</td>
    <td align="left">Supported</td>
   </tr>
   <tr>
