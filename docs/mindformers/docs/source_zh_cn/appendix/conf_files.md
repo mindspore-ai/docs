@@ -86,6 +86,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | moe_config.topk_bias_update_rate                   | 设置`aux_loss_free`负载均衡算法`bias`更新步长                                                                     | float  |
 | moe_config.comp_comm_parallel                   | 设置是否开启ffn的计算通信并行。默认值：False                                                              | bool  |
 | moe_config.comp_comm_parallel_degree                   | 设置ffn计算通信的分割数。数字越大，重叠越多，但会消耗更多内存。此参数仅在comp_com_parallel启用时有效                                                              | int  |
+| moe_config.moe_shared_expert_overlap                   | 设置是否开启共享专家和路由专家的计算通信并行。默认值：False                                                              | bool  |
 
 ### 模型训练配置
 

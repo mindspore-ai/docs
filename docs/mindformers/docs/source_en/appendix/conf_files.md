@@ -86,6 +86,7 @@ In addition to the basic configuration of the model above, the MoE model needs t
 | moe_config.topk_bias_update_rate                   | Set `aux_loss_free` load balancing algorithm `bias` update step size                                                                     | float  |
 | moe_config.comp_comm_parallel                   | Set whether to enable computational communication parallelism for ffn. Default value: False                                                              | bool  |
 | moe_config.comp_comm_parallel_degree                   | Set ffn to compute the number of communication splits. The higher the number, the more overlap there is, but it will consume more memory. This parameter is only valid when comp_com_parallel is enabled                               | int  |
+| moe_config.moe_shared_expert_overlap                   | Set whether to enable computational communication parallelism for shared experts and routing experts. Default value: False                                                              | bool  |
 
 ### Model Training Configuration
 
