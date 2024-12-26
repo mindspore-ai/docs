@@ -93,8 +93,8 @@ FAQ
    usage/parameter_efficient_fine_tune
    usage/evaluation
    usage/inference
-   usage/mindie_deployment
    usage/quantization
+   usage/mindie_deployment
 
 .. toctree::
    :glob:
