@@ -145,7 +145,7 @@ Next, the corresponding scripts are invoked by commands, using the `mpirun` star
 bash run.sh
 ```
 
-After training, the log files are saved to the `log_output` directory. Set the environment variable `MS_DEV_SAVE_GRAPHS` to 2 in `train.py`, and you can print out the IR graphs of the compilation process, where some of the file directories are structured as follows:
+After training, the log files are saved to the `log_output` directory. Set the environment variable `MS_DEV_SAVE_GRAPHS` to 2, and you can print out the IR graphs of the compilation process, where some of the file directories are structured as follows:
 
 ```text
 ├─ log_output

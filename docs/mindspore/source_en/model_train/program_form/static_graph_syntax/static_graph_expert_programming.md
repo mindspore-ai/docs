@@ -207,7 +207,6 @@ A code sample that optimizes compilation performance by enabling compilation cac
 ```python
 import os
 import time
-from mindspore import set_context
 from mindspore import dtype
 import mindspore as ms
 
@@ -239,7 +238,6 @@ It can be seen that when the compilation cache is turned off, the 2nd execution 
 ```python
 import os
 import time
-from mindspore import set_context
 from mindspore import dtype
 import mindspore as ms
 
