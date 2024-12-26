@@ -87,7 +87,7 @@ pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ## Installation Verification
 
 ```bash
-python -c "import mindspore;mindspore.set_context(device_target='CPU');mindspore.run_check()"
+python -c "import mindspore;mindspore.set_device(device_target='CPU');mindspore.run_check()"
 ```
 
 The outputs should be the same as:

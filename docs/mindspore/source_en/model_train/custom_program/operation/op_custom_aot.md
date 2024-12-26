@@ -89,7 +89,7 @@ import numpy as np
 import mindspore as ms
 import mindspore.ops as ops
 
-ms.set_context(device_target="GPU")
+ms.set_device(device_target="GPU")
 
 if __name__ == "__main__":
     # Define a custom operator of aot type
@@ -163,7 +163,7 @@ import numpy as np
 import mindspore as ms
 import mindspore.ops as ops
 
-ms.set_context(device_target="CPU")
+ms.set_device(device_target="CPU")
 
 if __name__ == "__main__":
     # Define a custom operator of aot type
@@ -552,7 +552,7 @@ if __name__ == "__main__":
     shape = (4, 5)
     axis = 1
     keep_dim = False
-    ms.set_context(device_target="CPU")
+    ms.set_device(device_target="CPU")
 
     input_x = np.ones(shape).astype(np.float32)
     input_y = np.ones(shape).astype(np.float32)

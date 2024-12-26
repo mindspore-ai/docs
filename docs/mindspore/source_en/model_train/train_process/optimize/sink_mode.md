@@ -201,7 +201,8 @@ def download_dataset(dataset_url, path):
 
 
 if __name__ == "__main__":
-    ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
+    ms.set_context(mode=ms.GRAPH_MODE)
+    ms.set_device(device_target="GPU")
     ds_train_path = "./datasets/MNIST_Data/train/"
     download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte", ds_train_path)
     download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte", ds_train_path)
@@ -394,7 +395,8 @@ def download_dataset(dataset_url, path):
     print("The {} file is downloaded and saved in the path {} after processing".format(os.path.basename(dataset_url), path))
 
 if __name__ == "__main__":
-    ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
+    ms.set_context(mode=ms.GRAPH_MODE)
+    ms.set_device(device_target="GPU")
     ds_train_path = "./datasets/MNIST_Data/train/"
     download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte", ds_train_path)
     download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte", ds_train_path)

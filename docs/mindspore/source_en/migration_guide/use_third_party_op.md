@@ -161,7 +161,7 @@ import mindspore as ms
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-ms.set_context(device_target="CPU")
+ms.set_device(device_target="CPU")
 
 def LeakyRelu():
     return ops.Custom("./leaky_relu_cpu.so:LeakyRelu", out_shape=lambda x : x, out_dtype=lambda x : x, func_type="aot")
@@ -199,14 +199,14 @@ Note:
 If you are using the PyTorch Aten `GPU` operator, `device_target` needs to be set to `"GPU"`.
 
 ```python
-set_context(device_target="GPU")
+ms.set_device(device_target="GPU")
 op = ops.Custom("./leaky_relu_gpu.so:LeakyRelu", out_shape=lambda x : x, out_dtype=lambda x : x, func_type="aot")
 ```
 
 If the PyTorch Aten `CPU` operator is used and the `device_target` is set to `"GPU"`, you need to add the following settings:
 
 ```python
-set_context(device_target="GPU")
+ms.set_device(device_target="GPU")
 op = ops.Custom("./leaky_relu_cpu.so:LeakyRelu", out_shape=lambda x : x, out_dtype=lambda x : x, func_type="aot")
 op.set_device("CPU")
 ```

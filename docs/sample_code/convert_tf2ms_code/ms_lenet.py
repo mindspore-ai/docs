@@ -61,7 +61,8 @@ class LeNet5(nn.Cell):
 
 
 def mindspore_running(ckpt_path):
-    ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
+    ms.set_context(mode=ms.GRAPH_MODE)
+    ms.set_device(device_target="GPU")
     np_in = Tensor(np.ones([8, 1, 32, 32]).astype(np.float32))
     network = LeNet5()
     params_dict = load_checkpoint(ckpt_path)

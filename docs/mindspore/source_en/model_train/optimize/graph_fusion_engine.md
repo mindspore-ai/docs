@@ -37,7 +37,8 @@ import mindspore as ms
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_device(device_target="GPU")
 # save graph ir to view fusion detail.
 os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
 # enable graph kernel optimization.
@@ -88,7 +89,9 @@ import mindspore as ms
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_device(device_target="GPU")
+
 # enable graph kernel optimization.
 ms.set_context(enable_graph_kernel=True)
 

@@ -323,7 +323,7 @@ def set_seed(seed):
 
 
 ms.set_context(mode=ms.PYNATIVE_MODE)
-ms.set_device("Ascend")
+ms.set_device(device_target="Ascend")
 set_parallel_context(parallel_config)
 set_seed(training_config.seed)
 ```

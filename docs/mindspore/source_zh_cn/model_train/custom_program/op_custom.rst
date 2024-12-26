@@ -132,7 +132,8 @@
     import mindspore as ms
     from mindspore import ops
 
-    ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
+    ms.set_context(mode=ms.GRAPH_MODE)
+    ms.set_device(device_target="CPU")
 
     def sin_by_numpy(x):
         return np.sin(x)

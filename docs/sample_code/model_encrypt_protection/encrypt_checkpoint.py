@@ -97,7 +97,8 @@ class LeNet5(nn.Cell):
 
 
 if __name__ == "__main__":
-    ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
+    ms.set_context(mode=ms.GRAPH_MODE)
+    ms.set_device(device_target="CPU")
     lr = 0.01
     momentum = 0.9
 

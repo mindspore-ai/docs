@@ -254,7 +254,7 @@ import mindspore.ops as ops
 from mindspore import Tensor, Parameter
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_device("Ascend")
+ms.set_device(device_target="Ascend")
 
 class InnerNet(nn.Cell):
     def __init__(self):
@@ -315,7 +315,8 @@ import mindspore.nn as nn
 import mindspore.ops as ops
 from mindspore import Tensor
 
-ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_device(device_target="CPU")
 
 class Net(nn.Cell):
     """ReLU Net"""
@@ -354,7 +355,8 @@ import mindspore.nn as nn
 import mindspore.ops as ops
 from mindspore import Tensor
 
-ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_device(device_target="CPU")
 
 class Net(nn.Cell):
     """ReLU Net"""

@@ -173,7 +173,7 @@ A typical computational process for MindSpore heterogeneous parallel training is
 
    ```python
    import mindspore as ms
-   ms.set_context(device_target="GPU")
+   ms.set_device(device_target="GPU")
    ```
 
 2. Users set execution backend of specific operators

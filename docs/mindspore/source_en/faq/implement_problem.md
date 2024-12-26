@@ -411,7 +411,8 @@ For example, the following code is executed in GRAPH mode, and the type of input
 import mindspore as ms
 from mindspore import nn
 
-ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_device(device_target="CPU")
 
 class MyTest(nn.Cell):
     def __init__(self):
