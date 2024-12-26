@@ -57,9 +57,14 @@ def get_api(fullname):
     except ModuleNotFoundError:
         module_name, api_name = ".".join(fullname.split('.')[:-2]), ".".join(fullname.split('.')[-2:])
         module_import = importlib.import_module(module_name)
-    except ModuleNotFoundError:
+    except:
         return False
-    api = eval(f"module_import.{api_name}")
+    try:
+        api = eval(f"module_import.{api_name}")
+    except AttributeError:
+        module_name, api_name = ".".join(fullname.split('.')[:-2]), ".".join(fullname.split('.')[-2:])
+        module_import = importlib.import_module(module_name)
+        api = eval(f"module_import.{api_name}")
     return api
 
 def get_example(name: str):
