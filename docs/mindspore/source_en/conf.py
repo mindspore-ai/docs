@@ -215,14 +215,16 @@ try:
                        ("mindspore/ops/primitive.py", "fix for `shard`",
                        "    @_LogActionOnce(logger=logger, key='Primitive')", "    # The decorator has been deleted."),
                        ("mindspore/dataset/engine/datasets.py","generate api",
-                       "    @deprecated(\"1.5\")","    # The decorator has been deleted."),
+                       "    @deprecated(\"1.5\")","    # The decorator has been deleted(id1)."),
                        ("mindspore/dataset/engine/datasets.py","generate api",
-                       "    @check_bucket_batch_by_length","    # The decorator has been deleted."),
+                       "    @check_bucket_batch_by_length","    # The decorator has been deleted(id2)."),
                        ("mindspore/train/summary/summary_record.py", "summary_record",
                        "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo,\n                LossLandscape]): The value to store.\n\n", 
                        "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo, LossLandscape]): The value to store.\n\n"),
                        ("mindspore/nn/cell.py","generate api",
-                       "    @jit_forbidden_register","    # generate api by del decorator.")]
+                       "    @jit_forbidden_register","    # generate api by del decorator."),
+                       ("mindspore/profiler/dynamic_profiler.py","generate api",
+                       "    @no_exception_func()","    # generate api by del decorator.")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
