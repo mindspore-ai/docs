@@ -10,9 +10,9 @@ Ascend Optimization Engine (AOE) is an automatic tuning tool that makes full use
 
 [Environment Variable Configuration](https://www.hiascend.com/document/detail/en/canncommercial/700/devtools/auxiliarydevtool/aoe_16_060.html).
 
-Set `aoe_tune_mode` the set_context to enable the AOE tool for online tuning. The value of `aoe_tune_mode` is `"online"`，which turns on online tuning.
+Set `mindspore.device_context.ascend.op_tuning.aoe_tune_mode(mode)` to enable the AOE tool for online tuning. The value of `mode` is `"online"`，which turns on online tuning.
 
-Set `aoe_config` in set_context for tuning configuration. `job_type` is tuning type，and the value should be in `["1", "2"]`，default value is `2`.
+Set `mindspore.device_context.ascend.op_tuning.aoe_job_type(type)` for tuning configuration. `type` is tuning type，and the value should be in `["1", "2"]`，default value is `2`.
 
 1: subgraph tune.
 
@@ -22,7 +22,8 @@ Example of online tuning:
 
 ```python
 import mindspore as ms
-ms.set_context(aoe_tune_mode="online", aoe_config={"job_type": "2"})
+ms.device_context.ascend.op_tuning.aoe_tune_mode("online")
+ms.device_context.ascend.op_tuning.aoe_job_type("2")
 ....
 ```
 

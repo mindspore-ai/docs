@@ -98,7 +98,7 @@ if __name__ == "__main__":
     download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte",
                      ds_train_path)
 
-    ms.set_context(device_target="Ascend")
+    ms.set_device("Ascend")
     profiler = Profiler(output_path="profiler_data")
 
     epochs, learning_rate = 2, 1e-2

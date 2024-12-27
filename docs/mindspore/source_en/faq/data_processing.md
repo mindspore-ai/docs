@@ -498,7 +498,7 @@ A: When using the data sinking mode (where `data preprocessing` -> `sending queu
     2022-05-09-11:36:01.893.412 -> 2022-05-09-11:36:02.006.771
     ```
 
-    Improvement method: View the time difference between the last item of `push_end_time` and GetNext error reporting time. If the default GetNext timeout is exceeded (default: 1900s, and can be modified through `mindspore.set_context(op_timeout=xx)`), it indicates poor data preprocessing performance. Please refer to [Optimizing the Data Processing](https://www.mindspore.cn/docs/en/master/model_train/dataset/optimize.html) to improve data preprocessing performance.
+    Improvement method: View the time difference between the last item of `push_end_time` and GetNext error reporting time. If the default GetNext timeout is exceeded (default: 1900s, and can be modified through  `mindspore.device_context.ascend.op_debug.execute_timeout(xx)`), it indicates poor data preprocessing performance. Please refer to [Optimizing the Data Processing](https://www.mindspore.cn/docs/en/master/model_train/dataset/optimize.html) to improve data preprocessing performance.
 
 4. When the log output is similar to the following, it indicates that data preprocessing has generated 182 batches of data and the 183st batch of data is being sent to the device. And the `device_queue` shows that there is sufficient data cache on the device side.
 

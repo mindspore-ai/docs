@@ -253,7 +253,8 @@ import mindspore as ms
 import mindspore.ops as ops
 from mindspore import Tensor, Parameter
 
-ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_device("Ascend")
 
 class InnerNet(nn.Cell):
     def __init__(self):

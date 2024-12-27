@@ -121,7 +121,8 @@ class AddCustomNet(Cell):
         res = self.custom_add(x, y)
         return res
 
-context.set_context(device_target="Ascend", jit_config={"jit_level": "O0"})
+mindspore.set_context(jit_config={"jit_level": "O0"})
+mindspore.set_device("Ascend")
 x = np.ones([8, 2048]).astype(np.float16)
 y = np.ones([8, 2048]).astype(np.float16)
 

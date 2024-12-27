@@ -94,7 +94,8 @@ A: 遇到这种情况，
 ## Q: 使用ExpandDims算子报错: `Pynative run op ExpandDims failed`。具体代码：
 
 ```python
-set_context(mode=GRAPH_MODE,device_target='Ascend')
+set_context(mode=GRAPH_MODE)
+mindspore.set_device("Ascend")
 input_tensor=Tensor(np.array([[2,2],[2,2]]),mindspore.float32)
 expand_dims=ops.ExpandDims()
 output=expand_dims(input_tensor,0)

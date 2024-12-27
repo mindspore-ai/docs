@@ -16,6 +16,7 @@
 """Process Graceful Exit"""
 
 import os
+import mindspore as ms
 import mindspore.context as context
 import mindspore.dataset as ds
 import mindspore.dataset.transforms as C
@@ -126,7 +127,8 @@ def graceful_exit_ascend_8p():
     """run case"""
     # init
     device_num = 8
-    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+    context.set_context(mode=context.GRAPH_MODE)
+    ms.set_device("Ascend")
     context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, device_num=device_num)
     init()
 

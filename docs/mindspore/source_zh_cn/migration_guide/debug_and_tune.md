@@ -317,7 +317,8 @@ rank_size = int(os.getenv('RANK_SIZE', '1'))
 rank_id = int(os.getenv('RANK_ID', '0'))
 
 # init context
-ms.set_context(mode=ms.GRAPH_MODE, device_target='Ascend', device_id=device_id)
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_device("Ascend", device_id)
 if rank_size > 1:
     ms.set_auto_parallel_context(device_num=rank_size, parallel_mode=ms.ParallelMode.DATA_PARALLEL,
                                 gradients_mean=True)

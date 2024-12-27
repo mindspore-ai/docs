@@ -495,7 +495,7 @@ A: 在使用数据下沉模式（此时 `数据预处理` -> `发送队列` -> `
     2022-05-09-11:36:01.893.412 -> 2022-05-09-11:36:02.006.771
     ```
 
-    改进方法：查看最后一条 `push_end_time` 时间与GetNext报错时间，如果超过默认GetNext超时时间（默认：1900s，且可通过 `mindspore.set_context(op_timeout=xx)` 来进行修改），说明数据预处理性能差，可参考 [数据处理性能优化](https://www.mindspore.cn/docs/zh-CN/master/model_train/dataset/optimize.html) 对数据预处理部分进行优化。
+    改进方法：查看最后一条 `push_end_time` 时间与GetNext报错时间，如果超过默认GetNext超时时间（默认：1900s，且可通过 `mindspore.device_context.ascend.op_debug.execute_timeout(xx)`来进行修改），说明数据预处理性能差，可参考 [数据处理性能优化](https://www.mindspore.cn/docs/zh-CN/master/model_train/dataset/optimize.html) 对数据预处理部分进行优化。
 
 4. 当日志输出类似如下时，表示数据预处理产生了182条数据，正在向设备发送第183条数据，并且 `device_queue` 显示设备侧有充足的数据缓存。
 

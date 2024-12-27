@@ -647,7 +647,8 @@ import mindspore.nn as nn
 from mindspore import ops, set_context, Tensor
 from mindspore import dtype as mstype
 
-set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
+set_context(mode=ms.GRAPH_MODE)
+ms.set_device("Ascend")
 
 class Net(nn.Cell):
     def __init__(self):
