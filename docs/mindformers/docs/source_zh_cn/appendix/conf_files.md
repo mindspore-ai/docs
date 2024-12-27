@@ -68,6 +68,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | model.model_config.return_dict_in_generate | 是否以字典形式返回`generate`接口的推理结果，默认为`False`                                                            | bool |
 | model.model_config.output_scores           | 是否以字典形式返回结果时，包含每次前向生成时的输入softmax前的分数，默认为`False`                                                  | bool |
 | model.model_config.output_logits           | 是否以字典形式返回结果时，包含每次前向生成时模型输出的logits，默认为`False`                                                     | bool |
+| model.model_config.layers_per_stage        | 设置开启pipeline stage时，每个stage分配到的transformer层数，默认为`None`，表示每个stage平均分配。设置的值为一个长度为pipeline stage数量的整数列表，第i位表示第i个stage被分配到的transformer层数。                                                | list |
 
 ### MoE配置
 
