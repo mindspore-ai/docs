@@ -77,6 +77,8 @@ class DummyApplication:
         self.config.add('giturl', '', True, None)
         self.config.add('repo_whl', '', True, None)
         self.config.add('ops_yaml', '', True, None)
+        self.config.add('tensor_yaml', '', True, None)
+        self.config.add('mint_yaml', '', True, None)
         self.config.add('ops_yaml_list', [], True, None)
         self.config.add('primi_auto', [], True, None)
         self.config.add('func_name_dict', {}, True, None)
@@ -515,7 +517,27 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
             if re_view not in content and py_source_rel:
                 content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
 
-        elif py_source_rel and '_c_expression' not in py_source_rel and 'functional_overload' not in py_source_rel:
+        elif '_c_expression' in py_source_rel and '.Tensor.' in name:
+            py_source_rel = app.config.tensor_yaml + name.split('.')[-1] + '_doc.yaml'
+            re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
+                f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
+                f"{app.config.copy_repo}/blob/{app.config.branch}/" + \
+                py_source_rel + '\n    :alt: View Source On Gitee\n\n'
+
+            if re_view not in content:
+                content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
+
+        elif 'functional_overload' in py_source_rel and '.mint.' in name:
+            py_source_rel = app.config.mint_yaml + name.split('.')[-1] + '_doc.yaml'
+            re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
+                f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
+                f"{app.config.copy_repo}/blob/{app.config.branch}/" + \
+                py_source_rel + '\n    :alt: View Source On Gitee\n\n'
+
+            if re_view not in content:
+                content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
+
+        elif py_source_rel:
             if not os.path.exists(os.path.join(app.config.repo_path, app.config.repo_whl, py_source_rel)):
                 py_source_rel = py_source_rel.replace('.py', '/__init__.py')
 
