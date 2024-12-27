@@ -94,7 +94,8 @@ A: In this case,
 ## Q: What can I do if the error message `Pynative run op ExpandDims failed` is displayed when the ExpandDims operator is used? The code is as follows:
 
 ```python
-set_context(mode=GRAPH_MODE,device_target='Ascend')
+set_context(mode=GRAPH_MODE)
+ms.set_device("Ascend")
 input_tensor=Tensor(np.array([[2,2],[2,2]]),mindspore.float32)
 expand_dims=ops.ExpandDims()
 output=expand_dims(input_tensor,0)

@@ -26,7 +26,9 @@ from mindspore.dataset import MnistDataset
 
 ```python
 import mindspore
-mindspore.set_context(max_device_memory="2GB", mode=mindspore.GRAPH_MODE, device_target="Ascend", jit_config={"jit_level":"O2"}, ascend_config={"precision_mode":"allow_mix_precision"})
+mindspore.set_context(max_device_memory="2GB", mode=mindspore.GRAPH_MODE, jit_config={"jit_level":"O2"})
+mindspore.set_device("Ascend")
+mindspore.device_context.ascend.op_precision.precision_mode("allow_mix_precision")
 ```
 
 ## Processing Dataset

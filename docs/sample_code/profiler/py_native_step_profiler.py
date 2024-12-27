@@ -46,7 +46,8 @@ def train(test_net):
 
 
 if __name__ == '__main__':
-    context.set_context(mode=ms.PYNATIVE_MODE, device_target="Ascend")
+    context.set_context(mode=ms.PYNATIVE_MODE)
+    ms.set_device("Ascend")
 
     net = Net()
     STEP_NUM = 15

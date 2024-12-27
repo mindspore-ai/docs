@@ -63,7 +63,8 @@ def generator():
 
 
 if __name__ == '__main__':
-    ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
+    ms.set_context(mode=ms.GRAPH_MODE)
+    ms.set_device("Ascend")
 
     profile_call_back = StopAtStep(5, 8)
 

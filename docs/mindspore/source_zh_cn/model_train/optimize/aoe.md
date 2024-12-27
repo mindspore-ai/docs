@@ -10,9 +10,9 @@ AOE（Ascend Optimization Engine）是一款自动调优工具，作用是充分
 
 [配置环境变量](https://www.hiascend.com/document/detail/zh/canncommercial/700/devtools/auxiliarydevtool/aoe_16_060.html)。
 
-在set_context接口中设置`aoe_tune_mode`，即可开启AOE工具进行在线调优。`aoe_tune_mode`的取值为`"online"`， 开启在线调优。
+在`mindspore.device_context.ascend.op_tuning.aoe_tune_mode(mode)`接口中设置`mode`，即可开启AOE工具进行在线调优。`mode`的取值为`"online"`， 开启在线调优。
 
-在set_context接口中设置`aoe_config`，可设置调优配置。`job_type`是设置调优类型，取值在`["1", "2"]`中，默认值是`2`。其中：
+在`mindspore.device_context.ascend.op_tuning.aoe_job_type(type)`接口中设置`type`，可设置调优配置。`type`是设置调优类型，取值在`["1", "2"]`中，默认值是`2`。其中：
 
 1：表示子图调优。
 
@@ -22,7 +22,8 @@ AOE（Ascend Optimization Engine）是一款自动调优工具，作用是充分
 
 ```python
 import mindspore as ms
-ms.set_context(aoe_tune_mode="online", aoe_config={"job_type": "2"})
+ms.device_context.ascend.op_tuning.aoe_tune_mode("online")
+ms.device_context.ascend.op_tuning.aoe_job_type("2")
 ....
 ```
 

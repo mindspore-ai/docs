@@ -730,7 +730,7 @@ The `torch.nn.Module` provides the `train(mode=True)` interface to set the model
 
 `torch.nn.Module` provides interfaces such as `CPU`, `cuda`, `ipu`. to move the model to the specified device.
 
-The `device_target` parameter of `mindspore.set_context()` performs a similar function, where `device_target` specifies the ``CPU``, ``GPU`` and ``Ascend`` devices. Unlike PyTorch, once the device is set, the input data and model will be copied to the specified device by default, and there is no need or possibility to change the type of device on which the data and model will be executed.
+The `device_target` parameter of `mindspore.set_device()` performs a similar function, where `device_target` specifies the ``CPU``, ``GPU`` and ``Ascend`` devices. Unlike PyTorch, once the device is set, the input data and model will be copied to the specified device by default, and there is no need or possibility to change the type of device on which the data and model will be executed.
 
 <table class="colwidths-auto docutils align-default">
 <tr>
@@ -751,7 +751,7 @@ torch_net.cpu()
 
 ```python
 import mindspore
-mindspore.set_context(device_target="CPU")
+mindspore.set_device("CPU")
 ms_net = mindspore.nn.Dense(3, 4)
 ```
 

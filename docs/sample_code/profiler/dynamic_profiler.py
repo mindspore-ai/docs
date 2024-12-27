@@ -69,7 +69,8 @@ if __name__ == '__main__':
         "parallel_strategy": True,
         "data_simplification": False,
     }
-    context.set_context(mode=mindspore.PYNATIVE_MODE, device_target="Ascend")
+    context.set_context(mode=mindspore.PYNATIVE_MODE)
+    mindspore.set_device("Ascend")
 
     cfg_path = os.path.join("./cfg_path", "profiler_config.json")
     # set cfg file

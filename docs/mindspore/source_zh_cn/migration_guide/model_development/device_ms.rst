@@ -1,7 +1,7 @@
 .. code-block::
 
     import mindspore as ms
-    ms.set_context(device_target='Ascend', device_id=0)
+    ms.set_device("Ascend", 0)
 
     # 定义网络
     Model = ..
