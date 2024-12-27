@@ -12,7 +12,7 @@
 
 1. `mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, search_mode="sharding_propagation")`：设置并行模式为自动并行，且搜索模式为切分策略传播算法。
 
-2. `mindspore.nn.Cell.shard()`以及`mindspore.ops.Primitive.shard()`：指定算子切分策略，其余算子的策略通过传播算法推导得到。目前`mindspore.nn.Cell.shard()`接口仅可在PyNative模式下使用；`mindspore.ops.Primitive.shard()`接口仅可在图模式下使用。
+2. `mindspore.nn.Cell.shard()`以及`mindspore.ops.Primitive.shard()`：指定算子切分策略，其余算子的策略通过传播算法推导得到。目前`mindspore.nn.Cell.shard()`接口同时支持PyNative模式与图模式；`mindspore.ops.Primitive.shard()`接口仅可在图模式下使用。
 
 总而言之，切分策略传播算法需要用户手动配置关键算子的切分策略。
 
