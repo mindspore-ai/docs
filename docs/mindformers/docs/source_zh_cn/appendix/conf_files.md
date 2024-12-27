@@ -40,6 +40,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | context.mempool_block_size  | 设置内存块大小，格式为"xxGB"，默认值为`1GB`                  | str      |
 | context.save_graphs         | 在执行过程中保存编译图。<br/>1. `False`或`0`表示不保存中间编译图。<br/>2. `1`表示运行时会输出图编译过程中生成的一些中间文件。<br/>3. `True`或`2`表示生成更多后端流程相关的IR文件。<br/>4. `3`表示生成可视化计算图和更多详细的前端IR图。 | bool/int |
 | context.save_graphs_path    | 保存编译图的路径                                             | str      |
+| context.affinity_cpu_list   | 可选配置项，用于实现用户自定义绑核策略。不配置时，默认绑核。`None`表示关闭绑核。默认值为`{}`，如想使能自定义绑核策略，需传入`dict`，详情可参考[mindspore.runtime.set_cpu_affinity](https://www.mindspore.cn/docs/zh-CN/master/api_python/runtime/mindspore.runtime.set_cpu_affinity.html#mindspore.runtime.set_cpu_affinity) | dict/str      |
 
 ### 模型配置
 
