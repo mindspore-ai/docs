@@ -25,7 +25,7 @@
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 数据采集         | msprobe 工具通过在训练脚本内添加 dump 接口、启动训练的方式采集网络中API或模块的输入输出数据。 | [数据采集使用说明](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md) |
 | 精度比对         | msprobe 工具可以对采集下来的数据，进行精度比对。               | [精度比对使用说明](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/11.accuracy_compare_MindSpore.md) |
-| 精度预检     | MindSpore 动态图精度预检通过扫描昇腾 NPU 上用户训练 MindSpore 模型中的所有 mint API，输出精度情况的诊断和分析。工具以模型中所有 mint API 前反向的 dump 结果为输入，构造相应的 API 单元测试，将 NPU 输出与标杆（CPU 高精度）比对，计算对应的精度指标，从而找出 NPU 中存在精度问题的 mint API。 | [精度预检使用说明](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/09.accuracy_checker_MindSpore.md) |
+| 精度预检     | MindSpore 动态图精度预检通过扫描昇腾 NPU 上用户训练 MindSpore 模型中的所有 mint API以及部分 Tensor API，输出精度情况的诊断和分析。工具以模型中所有 mint API 前反向的 dump 结果为输入，构造相应的 API 单元测试，将 NPU 输出与标杆（CPU 高精度）比对，计算对应的精度指标，从而找出 NPU 中存在精度问题的 mint API。 | [精度预检使用说明](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/09.accuracy_checker_MindSpore.md) |
 | 溢出检测    | msprobe 工具提供溢出检测功能，针对网络中的每一个API进行输出数据的溢出检测。 | [溢出检测使用说明](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/13.overflow_check_MindSpore.md) |
 | 梯度状态监测 | 采集梯度数据并进行梯度相似度比对，可以精准定位出现问题的 step。 | [梯度状态检测使用说明](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/17.grad_probe.md) |  
 
@@ -166,42 +166,42 @@
     ```json
     {
     "Cell.model.language_model.embedding.word_embeddings.reduce_scatter_to_sp_region.ReduceScatterToSequenceParallelRegion.forward.0": [
-    "File /opt/miniconda3/envs/lib/python3.9/site-packages/mindspore/nn/cell.py, line 507, in _run_construct, \n output = self._run_forward_hook(inputs, output)",
-    "File /opt/miniconda3/envs/lib/python3.9/site-packages/mindspore/nn/cell.py, line 759, in _complex_call, \n output = self._run_construct(*args, **kwargs)",
-    "File /opt/miniconda3/envs/lib/python3.9/site-packages/mindspore/nn/cell.py, line 747, in __call__, \n return self._complex_call(*args, **kwargs)",
-    "File /home/38bv3_show/third_party/dynamic-parallel/mindformers/experimental/distri_cores/tensor_parallel/layers.py, line 770, in construct, \n output = self.reduce_scatter_to_sp_region(output_parallel)",
-    "File /opt/miniconda3/envs/lib/python3.9/site-packages/mindspore/nn/cell.py, line 2462, in _backward_hook_construct, \n outputs = self.construct(outputs, **kwargs)",
-    "File /opt/miniconda3/envs/lib/python3.9/site-packages/mindspore/nn/cell.py, line 498, in _run_construct, \n output = self._backward_hook_construct(*inputs, **kwargs)",
-    "File /opt/miniconda3/envs/lib/python3.9/site-packages/mindspore/nn/cell.py, line 745, in __call__, \n return self._run_construct(*args, **kwargs)",
-    "File /home/38bv3_show/third_party/dynamic-parallel/mindformers/experimental/distri_cores/transformer/language_model.py, line 151, in construct, \n embeddings = self.word_embeddings(input_ids)",
-    "File /opt/miniconda3/envs/sxy/lib/python3.9/site-packages/mindspore/nn/cell.py, line 2460, in _backward_hook_construct, \n outputs = self.construct(*outputs, **kwargs)",
-    "File /opt/miniconda3/envs/sxy/lib/python3.9/site-packages/mindspore/nn/cell.py, line 498, in _run_construct, \n output = self._backward_hook_construct(*inputs, **kwargs)",
-    "File /opt/miniconda3/envs/sxy/lib/python3.9/site-packages/mindspore/nn/cell.py, line 745, in __call__, \n return self._run_construct(*args, **kwargs)",
-    "File /home/38bv3_show/third_party/dynamic-parallel/mindformers/experimental/distri_cores/transformer/language_model.py, line 391, in construct, \n text_embedding_out = self.embedding(enc_input_ids, enc_position_ids,",
-    "File /opt/miniconda3/envs/lib/python3.9/site-packages/mindspore/nn/cell.py, line 2460, in _backward_hook_construct, \n outputs = self.construct(*outputs, **kwargs)",
-    "File /opt/miniconda3/envs/lib/python3.9/site-packages/mindspore/nn/cell.py, line 498, in _run_construct, \n output = self._backward_hook_construct(*inputs, **kwargs)",
-    "File /opt/miniconda3/envs/lib/python3.9/site-packages/mindspore/nn/cell.py, line 745, in __call__, \n return self._run_construct(*args, **kwargs)",
-    "File /home/38bv3_show/PanGu_ms_show/pangu/gpt_model.py, line 104, in construct, \n lm_output = self.language_model(tokens,",
-    "File /opt/miniconda3/envs/lib/python3.9/site-packages/mindspore/nn/cell.py, line 2460, in _backward_hook_construct, \n outputs = self.construct(*outputs, **kwargs)",
-    "File /opt/miniconda3/envs//lib/python3.9/site-packages/mindspore/nn/cell.py, line 498, in _run_construct, \n output = self._backward_hook_construct(*inputs, **kwargs)",
-    "File /opt/miniconda3/envs/lib/python3.9/site-packages/mindspore/nn/cell.py, line 745, in __call__, \n return self._run_construct(*args, **kwargs)",
-    "File /home/38bv3_show/third_party/dynamic-parallel/mindformers/experimental/distri_cores/pipeline_parallel/pipeline_cell.py, line 429, in construct, \n return self.model(*inputs)",
-    "File /opt/miniconda3/envs/lib/python3.9/site-packages/mindspore/nn/cell.py, line 757, in _complex_call, \n output = self.construct(*args, **kwargs)",
-    "File /opt/miniconda3/envs//lib/python3.9/site-packages/mindspore/nn/cell.py, line 747, in __call__, \n return self._complex_call(*args, **kwargs)",
-    "File /home/38bv3_show/third_party/dynamic-parallel/mindformers/experimental/distri_cores/pipeline_parallel/schedules.py, line 121, in run_forward, \n output_tensor = model(*input_data, recv_data=None)",
-    "File /home/38bv3_show/third_party/dynamic-parallel/mindformers/experimental/distri_cores/pipeline_parallel/schedules.py, line 735, in forward_backward_pipelining_without_interleaving, \n micro_input_data = run_forward(*micro_input_data,",
-    "File /home/38bv3_show/third_party/dynamic-parallel/mindformers/experimental/distri_cores/training.py, line 409, in forward_backward_with_pipelining, \n loss, logits, grads = forward_backward_pipelining_without_interleaving(",
-    "File /home/38bv3_show/third_party/dynamic-parallel/mindformers/experimental/distri_cores/training.py, line 533, in construct, \n (loss, _), grads = self.forward_backward_func(*inputs_tuple, loss_scale=current_step_loss_scale, **inputs_dict)",
-    "File /opt/miniconda3/envs/lib/python3.9/site-packages/mindspore/nn/cell.py, line 757, in _complex_call, \n output = self.construct(*args, **kwargs)",
-    "File /opt/miniconda3/envs/lib/python3.9/site-packages/mindspore/nn/cell.py, line 747, in __call__, \n return self._complex_call(*args, **kwargs)",
-    "File /home/38bv3_show/third_party/dynamic-parallel/mindformers/experimental/distri_cores/training.py, line 655, in train, \n loss, is_finite, loss_scale, learning_rate = train_one_step_cell(**data)",
-    "File /home/38bv3_show/PanGu_ms_show/pretrain_gpt.py, line 303, in main, \n train(",
-    "File /home/38bv3_show/PanGu_ms_show/pretrain_gpt.py, line 316, in <module>, \n main()"
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 507, in _run_construct, \n output = self._run_forward_hook(inputs, output)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 759, in _complex_call, \n output = self._run_construct(*args, **kwargs)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 747, in __call__, \n return self._complex_call(*args, **kwargs)",
+    "File /home/mindformers/experimental/distri_cores/tensor_parallel/layers.py, line 770, in construct, \n output = self.reduce_scatter_to_sp_region(output_parallel)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 2462, in _backward_hook_construct, \n outputs = self.construct(outputs, **kwargs)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 498, in _run_construct, \n output = self._backward_hook_construct(*inputs, **kwargs)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 745, in __call__, \n return self._run_construct(*args, **kwargs)",
+    "File /home/mindformers/experimental/distri_cores/transformer/language_model.py, line 151, in construct, \n embeddings = self.word_embeddings(input_ids)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 2460, in _backward_hook_construct, \n outputs = self.construct(*outputs, **kwargs)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 498, in _run_construct, \n output = self._backward_hook_construct(*inputs, **kwargs)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 745, in __call__, \n return self._run_construct(*args, **kwargs)",
+    "File /home/mindformers/experimental/distri_cores/transformer/language_model.py, line 391, in construct, \n text_embedding_out = self.embedding(enc_input_ids, enc_position_ids,",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 2460, in _backward_hook_construct, \n outputs = self.construct(*outputs, **kwargs)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 498, in _run_construct, \n output = self._backward_hook_construct(*inputs, **kwargs)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 745, in __call__, \n return self._run_construct(*args, **kwargs)",
+    "File /home/model/gpt_model.py, line 104, in construct, \n lm_output = self.language_model(tokens,",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 2460, in _backward_hook_construct, \n outputs = self.construct(*outputs, **kwargs)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 498, in _run_construct, \n output = self._backward_hook_construct(*inputs, **kwargs)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 745, in __call__, \n return self._run_construct(*args, **kwargs)",
+    "File /home/mindformers/experimental/distri_cores/pipeline_parallel/pipeline_cell.py, line 429, in construct, \n return self.model(*inputs)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 757, in _complex_call, \n output = self.construct(*args, **kwargs)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 747, in __call__, \n return self._complex_call(*args, **kwargs)",
+    "File /home/mindformers/experimental/distri_cores/pipeline_parallel/schedules.py, line 121, in run_forward, \n output_tensor = model(*input_data, recv_data=None)",
+    "File /home//mindformers/experimental/distri_cores/pipeline_parallel/schedules.py, line 735, in forward_backward_pipelining_without_interleaving, \n micro_input_data = run_forward(*micro_input_data,",
+    "File /home/mindformers/experimental/distri_cores/training.py, line 409, in forward_backward_with_pipelining, \n loss, logits, grads = forward_backward_pipelining_without_interleaving(",
+    "File /home/mindformers/experimental/distri_cores/training.py, line 533, in construct, \n (loss, _), grads = self.forward_backward_func(*inputs_tuple, loss_scale=current_step_loss_scale, **inputs_dict)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 757, in _complex_call, \n output = self.construct(*args, **kwargs)",
+    "File /home/python3.9/site-packages/mindspore/nn/cell.py, line 747, in __call__, \n return self._complex_call(*args, **kwargs)",
+    "File /home/mindformers/experimental/distri_cores/training.py, line 655, in train, \n loss, is_finite, loss_scale, learning_rate = train_one_step_cell(**data)",
+    "File /home/model/pretrain_gpt.py, line 303, in main, \n train(",
+    "File /home/model/pretrain_gpt.py, line 316, in <module>, \n main()"
     ]
     }
     ```
 
-    **connstruct.json**: 包括模型的结构信息，记录每个模块或API的父模块 ("level"为"L1"时，该文件内容为空)。 示例如下：
+    **construct.json**: 包括模型的结构信息，记录每个模块或API的父模块 ("level"为"L1"时，该文件内容为空)。 示例如下：
 
     ```json
     {
@@ -318,7 +318,7 @@
 
     由于我们已经锁定了区间，因此dump数据个数并不多，先分别查看MindSpore侧的dump.json文件和PyTorch侧的dump.json文件进行分析。
 
-    **MidnSpore**:
+    **MindSpore**:
 
     ![ms_mix_dump](./image/ms_mix_dump.png)
 
@@ -349,7 +349,7 @@
 }  
 ```
 
-#### 精度预检 (只支持mint API)
+#### 精度预检 (只支持mint API和部分Tensor API)
 
 使用msprobe工具进行精度预检，命令如下：
 
@@ -362,4 +362,6 @@ msprobe -f mindspore run_ut -api_info ./tensor_l1_ms/step0/rank0/dump.json -o ./
 预检执行结果包括 `accuracy_checking_result_{timestamp}.csv` 和 `accuracy_checking_details_{timestamp}.csv` 两个文件。`accuracy_checking_result_{timestamp}.csv` 属于 API 级，标明每个 API 是否通过测试。建议用户先查看 `accuracy_checking_result_{timestamp}.csv` 文件，对于其中没有通过测试的或者特定感兴趣的 API，根据其 API Name 字段在 `accuracy_checking_details_{timestamp}.csv` 中查询其各个输出的达标情况以及比较指标。通过分析具体指标来定位到底哪些 API 存在精度问题，详细介绍请参见[预检结果说明](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/09.accuracy_checker_MindSpore.md#4-%E9%A2%84%E6%A3%80%E7%BB%93%E6%9E%9C)。
 
 预检结果示例：  
-![accuracy_checking_result](./image/accuracy_checking_result.png)
+![accuracy_checking_result](./image/accuracy_checking_result.png)  
+
+上图中的Status字段表示API是否通过测试，通过测试的API的Status字段为"pass"，不通过测试的API的Status字段为"error"。当余弦相似度大于0.99，并且最大绝对误差小于0.0001时，API的Status字段为"pass"，否则为"error"。通过精度预检可以发现相同的API在MindSpore和PyTorch的精度表现是否存在差异，以及差异的大小，从而定位到哪些API可能存在精度问题，并进一步分析产生精度差异的原因。
