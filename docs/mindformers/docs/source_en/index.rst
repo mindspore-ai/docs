@@ -12,7 +12,7 @@ MindFormers supports one-click start of single/multi-card training, fine-tuning,
 - `Development Migration <https://www.mindspore.cn/mindformers/docs/en/r1.3.0/usage/dev_migration.html>`_
 - `Pretraining <https://www.mindspore.cn/mindformers/docs/en/r1.3.0/usage/pre_training.html>`_
 - `SFT Tuning <https://www.mindspore.cn/mindformers/docs/en/r1.3.0/usage/sft_tuning.html>`_
-- `Low-Parameter Fine-Tuning <https://www.mindspore.cn/mindformers/docs/en/r1.3.0/usage/parameter_efficient_fine_tune.html>`_
+- `Parameter-Efficient Fine-Tuning (PEFT) <https://www.mindspore.cn/mindformers/docs/en/r1.3.0/usage/parameter_efficient_fine_tune.html>`_
 - `Evaluation <https://www.mindspore.cn/mindformers/docs/en/r1.3.0/usage/evaluation.html>`_
 - `Inference <https://www.mindspore.cn/mindformers/docs/en/r1.3.0/usage/inference.html>`_
 - `Quantization <https://www.mindspore.cn/mindformers/docs/en/r1.3.0/usage/quantization.html>`_
@@ -58,8 +58,8 @@ Appendix
 FAQ
 ------------------------------------
 
-- `Model Related <https://www.mindspore.cn/mindformers/docs/en/r1.3.0/faq/model_related.html>`_
-- `Function Related <https://www.mindspore.cn/mindformers/docs/en/r1.3.0/faq/func_related.html>`_
+- `Model-Related <https://www.mindspore.cn/mindformers/docs/en/r1.3.0/faq/model_related.html>`_
+- `Function-Related <https://www.mindspore.cn/mindformers/docs/en/r1.3.0/faq/func_related.html>`_
 - `MindFormers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/r1.3.0/faq/mindformers_contribution.html>`_
 - `Modelers Contribution Guide <https://www.mindspore.cn/mindformers/docs/en/r1.3.0/faq/modelers_contribution.html>`_
 
