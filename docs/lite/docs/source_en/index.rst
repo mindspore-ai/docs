@@ -38,7 +38,6 @@ MindSpore Lite Documentation
 
    infer/runtime_cpp
    infer/runtime_java
-   infer/runtime_c
    infer/device_infer_example
 
 .. toctree::
