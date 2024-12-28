@@ -281,8 +281,6 @@ Graph Compilation and Execution
 
        all_finite: Whether to enable Allfitine in overflow detection, only effective in O0 or O1 mode, with a default value of true.
 
-       synchronize:  Whether to execute synchronously, only effective in O0 or O1 mode, with a default value of true.
-
        memory_statistics: Whether to enable memory statistics, with a default value of false.
 
        compile_statistics: Whether to enable compile statistics, with a default value of false.
