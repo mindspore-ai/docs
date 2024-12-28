@@ -2,7 +2,7 @@
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/perf_optimize/perf_optimize.md)
 
-## 性能调优概述
+## 概述
 
 本文档主要介绍大语言模型的性能调优，详细介绍了性能调优相关的基础理论知识、相关工具使用指导和性能调优整体思路，以及案例分享。开始大模型性能调优工作时，应具备大模型的基础知识。为避免发散，本文档将不会解释大模型相关基础概念，聚焦性能调优介绍。
 
@@ -22,7 +22,7 @@
 
 性能调优旨在通过优化模型算法、参数和并行策略等手段，降低上述各部分时间，一般重点关注模型前向反向时间以及通信时间进行优化。
 
-## 性能调优基础简介
+## 基础简介
 
 ### 性能指标
 
@@ -65,6 +65,13 @@ $$
 在实际应用中，通常会采用多种并行策略和优化手段，例如使用优化器并行和重计算等方式，以减少模型对内存的使用并提高训练效率。并行策略设计与模型的效率密切相关，因此在模型调优之前先确定一组或多组较优的并行策略，是至关重要的。
 
 详细介绍参考文档[并行策略指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/distributed_parallel.html)。
+
+对于不同的参数量规格的模型，可参考以下并行策略选择方向：
+
+* 模型规模较小时(~7B)，可使用纯数据并行+优化器并行，如果内存富裕可以进一步开启梯度累积；
+* 模型规模适中时(~13B)，可进一步使用流水线并行，并调整重计算，让单卡显存能够支持切分后的模型训练，并减少引入的通信量；
+* 模型规模较大时，需开启模型并行以降低权重的显存占用，同时短序列并行与多副本并行也建议开启以提升性能；
+* 在训练长序列时(>=32k)，可使用长序列并行及相关特性以减小长序列激活值的显存使用。
 
 ### 重计算
 
@@ -122,6 +129,78 @@ MindFormers本身集成了profiling数据采集的功能，使用步骤如下：
    采集工具默认会在`./output`路径下创建一个`profile`文件夹，该路径可通过模型yaml配置文件的output_dir字段进行设置。
 
    生成的文件及介绍参考[profile文件介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#目录结构)，主要收集算子、任务等运行耗时、CPU利用率及内存消耗等信息，用于性能调优分析。
+
+   此外还可以通过统计集群中每个rank的计算时间、通信时间、未掩盖通信时间，分析集群中不同rank间的性能情况，以此判断是否存在计算负载不均衡的情况，影响了集群的整体效率，并对此进行针对性优化。
+
+#### DryRun内存评估工具
+
+当前内存评估工具主要使用MindSpore的模拟编译(dryrun)。模拟编译使用方式在MindSpore的[环境变量文档](https://www.mindspore.cn/docs/zh-CN/master/api_python/env_var_list.html)和[msrun文档](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/msrun_launcher.html)中呈现。可以通过在训练进程开始前使能环境变量`export MS_SIMULATION_LEVEL=1`或者在msrun启动项配置`--sim_level`功能，即可拉起模拟编译的训练进程。
+
+可以使用DryRun分析所需内存是否超过最大可用内存。如果超过，需要重新调整配置。最大可用内存可通过如下字段配置，推荐值为`58GB`，如果设置过大，可能导致其他组件内存不足。通常使用的集群训练规模越大，其他组件内存占用越大，MindSpore进程可用的最大内存也会随之降低，例如在千卡集群上，该最大可用内存值一般设置为`54GB`。
+
+```yaml
+context:
+  max_device_memory: "58GB"
+```
+
+新建脚本`dry_run.sh`，脚本内容如下：
+
+```shell
+#!/bin/bash
+
+YAML_FILE=$1
+RANK_SIZE=$2
+PIPELINE_STAGES=$3
+RANK_GAP=$((RANK_SIZE/PIPELINE_STAGES))
+ROOT_PATH=`pwd`
+
+export MS_SIMULATION_LEVEL=1
+export RANK_SIZE=$RANK_SIZE
+
+rm -rf output_dryrun
+mkdir output_dryrun
+for((i=0; i<$PIPELINE_STAGES; i++))
+do
+    export DEVICE_ID=$i
+    export RANK_ID=$((i*RANK_GAP))
+    echo "start training for rank $RANK_ID, device $DEVICE_ID"
+    # 需要正确指定 run_mindformer.py 路径
+    python ./run_mindformer.py --config $ROOT_PATH/$1 &> ./output_dryrun/rank_$RANK_ID.log &
+done
+```
+
+执行脚本
+
+```shell
+bash dry_run.sh $train.yaml $rank_size $stage
+```
+
+三个参数含义如下：
+
+* $train.yaml：需要调试的配置文件
+* $rank_size：模拟卡数
+* $stage：阶段数，等于流水线并行数量
+
+执行完成后，输出目录`output_dryrun`下会生成每个stage的日志信息，每个日志末尾会打印如下信息：
+
+```text
+Device MOC memory size: 62432M
+MindSpore Used memory size: 59392M
+MindSpore memory base address: 0
+Used peak memory usage (without fragments): 48874M
+Actual peak memory usage (with fragments): 48874M
+```
+
+Used peak memory usage (without fragments)：表示不包含碎片的NPU内存使用峰值，重点关注该值，建议不超过最大可用内存。
+
+Actual peak memory usage (with fragments)：表示包含碎片的NPU内存使用峰值。
+
+注意事项：
+
+1. 使用`dryrun`模拟编译时，若数据集过大，会导致运行时间过长，因此需要控制数据集大小，只需跑完几个step即可；
+2. 在pipeline并行场景下，每个PP stage在训练过程中所需的内存不同，因此至少每个stage都需要一个rank进行dryrun；换言之，同一个PP stage内所有rank的内存情况都完全一致，仅需跑一个rank的模拟编译即可分析整体内存情况；
+3. `dryrun`任务也会生成分布式策略文件，启动`dryrun`任务即可生成各PP stage的策略文件，由于相同stage的分布式策略文件完全相同，因此只需要每个PP stage获得一个策略文件即可；
+4. 运行结束后将会在日志中打印当前任务所消耗的内存大小，可根据该信息评估内存使用，进行内存调优。
 
 #### MindStudio Insight
 
@@ -210,135 +289,162 @@ MindSpore提供了SAPP（Symbolic Automatic Parallel Planner）自动负载均�
 
 详细使用方法，请参考[SAPP流水线负载均衡](https://gitee.com/mindspore/mindformers/tree/dev/toolkit/pipeline_balance)工具介绍。
 
-## 性能调优整体思路
+## 整体思路
 
-### 整体思路
+大模型的性能优化方法主要依赖于profiling数据分析以及内存分析，分析当前性能的瓶颈，并做出针对性优化动作，然后验证性能收益，分析进一步的优化方向。整体调优流程如下：
 
-大模型的性能调优主要包含并行策略配置、内存优化、耗时分析三部分工作。性能优化是一个循环往复的过程，并行策略配置完毕后，就需要进行内存优化分析及优化，然后对集群分布式策略进行实验分析，分析通信耗时是否合理，是否存在额外的重排布开销。最后根据分析结果，调整并行策略，继续内存、耗时分析，循环往复的去优化，进而一步步达到设定的性能目标。
+1. 分析profiling数据，查看是否存在耗时明显异常高的算子，如存在，可尝试替换等价算子，并将异常算子的耗时信息提交issue进行反馈；
+2. 分析通信耗时，查看是否存在更优的分布式策略，查看IR图分析是否存在不合理的重排布问题，解决这些影响通信效率的问题，以提升整个集群的训练效率；
+3. 分析内存使用情况，查看是否存在异常大内存Tensor，是否存在可融合的算子降低激活值内存，在有内存富裕的情况可以调整选择重计算的配置策略，利用空余内存以换取训练性能，或是降低模型切分的份数，减少模型切分带来的通信开销从而提高性能。
+
+性能优化是一个循环往复的过程，算子性能无明显异常后，就可对分布式策略进行试验分析，优化异常的通信耗时与重排布开销；然后进行内存的优化分析，消除异常的大内存Tensor；完成内存优化后需要进一步查看，空余显存是否支持重新调整并行策略设置，以获取通信开销更小的策略设定，充分利用内存以换取更优性能；这样循环往复地优化，进而一步步达到设定的性能目标。
 
 完成一轮性能优化后，还需要确保模型精度对齐，若对齐则应用该优化策略。
 
-### 并行策略
+## 瓶颈分析与优化
 
-#### 并行策略特点
+在明确整体的调优思路后，就可以通过性能分析工具和内存评估工具分析训练模型的性能瓶颈，并针对瓶颈点应用优化手段，验证收益，分析新的瓶颈点进一步优化，这样一步步地逼近模型训练性能的最优解。下面列出常见的性能瓶颈，并给出对应可用的优化措施。
 
-不同的并行策略特点总结如下：
+### 内存瓶颈
 
-* 数据并行
+内存瓶颈是大模型训练场景下需要解决的第一道问题；随着模型规模的扩大，训练大模型所需要的内存资源也随之上涨，而单卡所提供的内存容量是有限的，因此需要通过分布式并行策略，结合重计算，优化器并行等手段，在多卡集群上摊分模型训练所需的资源以解决内存不足问题。
 
-  多路数据同时训练，仅在梯度更新时进行一次通信，此方法性能最优，但内存不会减少。
+下面列出针对内存瓶颈场景下的优化手段：
 
-* 模型并行
+* **模型并行(MP)/张量并行(TP)**：
+    * 适用场景：模型参数量大，需大量降低权重占用内存的场景；
+    * 收益：使用多卡切分模型权重，内存使用量降低最多；
+    * 开销：使用更多的硬件资源，引入大量通信开销；
+    * 使用建议：建议在参数量超过20B的模型上使用，且限制在8以内，避免产生跨机通信开销。
+* **流水线并行(PP)**：
+    * 适用场景：模型权重，优化器状态等静态内存放不下的场景；
+    * 收益：使用多卡切分模型阶段，通信开销较MP小很多；
+    * 开销：引入计算时空闲(bubble)，以及较小的stage间通信开销；
+    * 使用建议：权重需要切分的场景都可尝试使用，并通过超参调整降低bubble性能损耗。
+* **长序列并行(CP)**：
+    * 适用场景：训练长序列任务(>=32k)，激活值过高的场景；
+    * 收益：长序列训练场景分摊激活值开销，使得通过扩充机器资源以拓展长序列能力成为可能；
+    * 开销：引入通信开销。
 
-  将整个模型切分到不同Device中，网络并行计算各自部分，并在LayerNorm等位置进行通信，此方法最省内存，但通信量很大。
+以上三种并行策略都是使用更多的计算设备来分摊内存消耗，以解决内存瓶颈问题；花费的代价就是需要更多的硬件资源，并引入了额外的通信量，在同等规模的集群上训练吞吐率不如数据并行训练。
 
-* 流水线并行
+* **优化器并行**：
+    * 适用场景：在有数据并行DP的场景下，将模型权重与优化器状态在DP域内切分到每张卡上，大幅降低显存消耗；
+    * 收益：模型权重与优化器状态在DP域内切分，节省大量内存使用；
+    * 开销：计算时引入一定量的通信来完成权重聚合；
+    * 使用建议：大部分情况下都建议开启，节省的显存可用于调整并行切分策略以整体提升性能。
+* **[完全重计算&选择重计算](#重计算)**：
+    * 适用场景：切分策略确定后，内存使用仍有部分超出，可调整完全重计算&选择重计算策略，进一步优化内存使用；
+    * 收益：节省内存使用；
+    * 开销：计算时间进一步增长；
+    * 使用建议：优先使用选择重计算，不超过内存使用时尽可能控制重计算带来的计算开销。
+* **短序列并行**：
+    * 适用场景：在MP切分下，使能短序列并行，在LayerNorm处对序列维按MP进行切分，通信量不变，减少激活值内存与Norm部分计算量；
+    * 收益：节省内存使用与计算时间，同时不增加通信量，不需要额外卡数资源；
+    * 使用建议：建议在MP场景下都开启。
 
-  将模型的不同阶段（stage）切分到不同Device中，网络串行计算各个阶段并在转换阶段时进行通信，通过重计算节省部分内存，此方法通信量较小，但会存在计算闲置（bubble）。
+### 计算时长瓶颈
 
-* 优化器并行
+正常情况下，计算时长应主要集中于matmul、flash attention等计算密集的算子上，如果在profiling分析中发现耗时异常的计算算子导致性能瓶颈的，可尝试替换等价算子，并同步提交算子性能issue至MindFormers或MindSpore。
 
-  将优化器权重、模型权重按DP切分（DP能整除权重shape的第0维），梯度更新时进行通信，此方法可以明显节省内存，通信量较小。
+在模型调优层面，可以尝试以下方法解决缓解计算时长瓶颈：
 
-* 序列并行
+* **融合算子替换**：
+    * 使用融合算子等价替换部分算子组合，融合算子通常会带来性能和内存上的收益。
+* **重计算&选择重计算**：
+    * 涉及到时间和空间的平衡取舍，在有空余内存时，减少重计算的层数能够有效利用空余内存来提升计算性能。
 
-  短序列并行在LayerNorm处对序列按MP进行切分，通信量不变，减少内存与Norm的部分计算量。
+### 未掩盖通信瓶颈
 
-* 多副本并行
+通过profiling工具可以获取训练进程的通信时长占比，其中包括已掩盖通信和未掩盖通信；已掩盖通信和计算同时执行，不影响训练效率，而未掩盖的通信则会导致计算等待通信，这部分通信耗时过长将影响训练性能，需要优化。
 
-  在模型并行中，将MatMul等算子切分为多份，不同副本之间计算和通信交错进行，实现通信掩盖。
+* **IR图分析冗余通信算子**：
+  通过配置环境变量`export MS_DEV_SAVE_GRAPHS=1`，保存训练IR图，分析模型前向过程中的通信算子分布，看是否符合预期；
+  如在不合理的位置出现一连串的通信算子，则很可能是模型中配置的算子切分策略有误，导致触发了tensor重排布，框架自动插入了较多通信算子以保证计算等价；
+  这部分由于通信重排引入的冗余通信很可能导致出现大量的未掩盖通信，造成性能瓶颈，解决办法就是将对应位置算子的shard策略修改配置正确，解决通信重排问题。
+* **多副本&细粒度多副本并行**：
+  分析并解决通信重排问题后，如仍存在较多未掩盖通信，可尝试使用多副本或细粒度多副本并行策略；
+  在模型并行场景下，使能多副本或细粒度多副本并行，通信时间和计算时间可以部分相互掩盖，从而减少通信瓶颈。
 
-#### 使用建议
+### IO瓶颈
 
-实际应用中，通常是多种并行策略组合使用。根据模型规模、机器数量确定适当的并行策略。本节介绍不同规模模型的推荐配置，示例配置中各配置项含义参考[Config配置说明](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/appendix/conf_files.html)。
+IO效率仅在特定情况下会成为模型训练的性能瓶颈，即IO读取一个step所需的训练数据的时间大于完成一个step前反向所有计算通信的时间。由于数据读取进程与训练进程异步，因此只要IO速度大于训练速度，每次训练下一个step时都能保证训练数据已经就绪，IO就不会阻塞训练进程；反之，IO速度大于训练速度时，每次训练下一个step，都需等待训练数据读取就绪，这部分阻塞时间就计入了训练整体时间，成为性能瓶颈。
 
-* 小参数模型
+这种IO瓶颈通常出现于大集群共享存储的场景下，大集群的多个训练进程共同访问同一共享存储，导致IO压力上涨，效率降低。IO瓶颈在Profiling中表现为，timeline上，每个step间存在较大的数据读取空隙，期间计算闲置。
 
-  模型规模较小时（如7B），可使用纯数据并行+优化器并行，如果内存充足可进一步开启梯度累积。使用8卡训练，[Llama2-7B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_7b.yaml)。
+IO瓶颈的解决思路就是优化IO量与IO行为。
 
-* 中等参数模型
+**full_batch=false**：
 
-  模型规模适中时（如13B），可进一步使用流水线并行，并调整重计算。使用8卡训练，[Llama2-13B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/pretrain_llama2_13b.yaml)。
-
-* 大参数模型
-
-  模型规模较大时（如70B），需开启模型并行，同时序列并行与多副本并行也建议开启。使用64卡训练，[Llama2-70B并行策略推荐配置](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_70b.yaml)。
-
-### 内存优化
-
-模型训练过程中，计算资源是有限的，内存不足时需要开重计算。内存优化主要优化重计算的配置，可以借助上述SAPP工具，自动生成当前并行配置下的推荐重计算配置。
-
-MindSpore还提供DryRun功能，能够在本地环境模拟大集群中每个rank的内存消耗情况，从而在不依赖实际大集群资源的情况下，进行高效的设备内存模拟。
-
-完成重计算配置后，先使用DryRun分析所需内存是否超过最大可用内存。如果超过，需要重新调整配置。最大可用内存可通过如下字段配置，推荐值为`58GB`，如果设置过大，可能导致其他组件内存不足。
+full_batch是MindSpore的数据聚合行为的控制项，在配置为true时，每张卡都取global batch size的数据量，然后在图内完成数据的切分，只取对应DP域内所需数据进行训练；这种做法会导致大规模集群下对IO的压力陡增，每张卡读取IO量都存在DP倍的冗余，这种冗余发生在每张卡上，汇总起来对共享存储的压力过大，影响IO性能；建议在遇到IO瓶颈时，改用full_batch=false的行为模式，已验证能够较为明显地优化IO效率，配置方式可参考MindSpore[set_auto_parallel_context接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_auto_parallel_context.html#mindspore.set_auto_parallel_context)，yaml样例如下：
 
 ```yaml
-context:
-  max_device_memory: "58GB"
+#yaml文件配置
+parallel:             # 在parallel模块下
+  ...
+  full_batch: False   # 配置full batch为False
+  dataset_strategy: [[dp, 1], [dp, 1]] # dp替换为实际的dp配置数
+  ...
 ```
 
-新建脚本`dry_run.sh`，脚本内容如下：
+其中，`dataset_strategy`数组两个[dp, 1]分别对应数据集两项输入的[bs, seq_len]维度，需根据数据集输入的个数和shape实际情况进行配置，dp切分对应bs维度即可。
 
-```shell
-#!/bin/bash
+也可从数据集入手优化IO量，数据集应尽量减小空间复杂度，如`attention_mask`这样空间复杂度为O(N^2)的输入项，就不太适合直接落盘至存储中；可以通过读取其他空间复杂度更小的相关信息，在训练进程读取数据的流程中，利用cpu即时生成，以减小IO访问量，整体加快数据读取速度。
 
-YAML_FILE=$1
-RANK_SIZE=$2
-PIPELINE_STAGES=$3
-RANK_GAP=$((RANK_SIZE/PIPELINE_STAGES))
-ROOT_PATH=`pwd`
+### pp场景bubble过多
 
-export MS_SIMULATION_LEVEL=1
-export RANK_SIZE=$RANK_SIZE
+pipeline场景下主要开销是引入了计算闲置（bubble），其大概估算公式为：$bubble\ ratio=\frac{p-1}{m+p-1}$，其中，$p$为pipeline的stage数量，$m$为设定的micro batch num。
 
-rm -rf output_dryrun
-mkdir output_dryrun
-for((i=0; i<$PIPELINE_STAGES; i++))
-do
-    export DEVICE_ID=$i
-    export RANK_ID=$((i*RANK_GAP))
-    echo "start training for rank $RANK_ID, device $DEVICE_ID"
-    # 需要正确指定 run_mindformer.py 路径
-    python ./run_mindformer.py --config $ROOT_PATH/$1 &> ./output_dryrun/rank_$RANK_ID.log &
-done
+为减小bubble空闲，可以从公式入手，在stage数量固定的情况下，可以增大micro batch num，使得整体的bubble占比降低，能够有效提高训练效率；
 
+然而在部分训练场景下，global batch size是一个较为关键的训练超参数，可能无法随意调整；这时可以尝试使用多流水交织（pp interleave）特性来优化bubble占比。
+
+**多流水交织 pipeline interleave**：
+
+pipeline_interleave(virtual pipeline)官网配置介绍：[set_auto_parallel_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_auto_parallel_context.html?highlight=pipeline_interleave)。
+
+MindFormers中，开启多流水交织需要在parallel中配置，例如使用1f1b排布方式：
+
+```yaml
+parallel:
+  ...
+  pipeline_config:
+    pipeline_interleave: True
+    pipeline_scheduler: '1f1b'
+  ...
 ```
 
-执行脚本
+之后在model_config中配置pp_interleave_num，例如按如下yaml配置为2：
 
-```shell
-bash dry_run.sh $train.yaml $rank_size $stage
+```yaml
+model:
+  model_config:
+    ...
+    pp_interleave_num: 2
+    ...
 ```
 
-三个参数含义如下：
+收益：pp interleave场景下的bubble占比公式为$bubble\ ratio=\frac{p-1}{vm+p-1}$，其中$v$为配置的pp_interleave_num，从公式中可以发现，提高v也可以达到减小bubble占比的作用。
 
-* $train.yaml：需要调试的配置文件
-* $rank_size：模拟卡数
-* $stage：阶段数，等于流水线并行数量
+开销：pp interleave算法理论上会使用更多的内存，是一种空间换时间的策略，使用时需要根据内存变化情况重新调整内存使用策略。
 
-执行完成后，输出目录`output_dryrun`下会生成每个stage的日志信息，每个日志末尾会打印如下信息。
+### 负载均衡策略调整
 
-```text
-Device MOC memory size: 62432M
-MindSpore Used memory size: 59392M
-MindSpore memory base address: 0
-Used peak memory usage (without fragments): 48874M
-Actual peak memory usage (with fragments): 48874M
-```
+在分布式训练中，pipeline并行策略涉及到不同卡间的负载不均现象。
 
-Used peak memory usage (without fragments)：表示不包含碎片的NPU内存使用峰值，重点关注该值，建议不超过最大可用内存。
+在pipeline并行下，由于模型按层切分stage，使得首尾两个stage设计layer外的模块实现，如embedding、head、loss计算等模块，使得首尾两个stage的计算时长会高于中间stage，这是时间上的负载不均衡；而由于pipeline流水执行前反向的特性，最早执行的stage最晚释放所有内存，使得不同stage的内存消耗不同，越靠前的stage消耗内存越多，这是空间上的不均衡。
 
-Actual peak memory usage (with fragments)：表示包含碎片的NPU内存使用峰值。
+这种情况下可以通过配置模型层数偏移offset，来手动调整各个stage间的负载层数；
 
-### 耗时分析
+例如，在PP stage为4，首个stage消耗内存过高的场景，可以这样设置`offset：[-2, 1, 1, 0]`，将stage 0的两层负载分别放到stage 1和stage 2上，这样可以降低首个stage的空间消耗，同时计算负载从首尾两个stage的限制转移到中间stage的额外层上，也没有过多降低计算效率。
 
-耗时主要分为算子耗时以及通信耗时两部分，依赖于profiling数据分析，分析方法参考上述章节。重点分析任意rank的profiler文件夹下ascend_timeline_display_0.json和rank-*_ascend_ms/ASCEND_PROFILER_OUTPUT/kernel_details.csv两个文件。
+尽量不要出现一个stage上分配过多层数的情况，否则会形成计算效率的短板stage，拖慢整个训练进程；可以结合重计算对内存空间的利用，进行更为精细化的负载均衡调整。
 
-使用上述章节提到的MindStudio Insight工具解析ascend_timeline_display_0.json，统计分析计算、通信耗时是否符合预期，再查看kernel_details.csv，分析各算子详细情况。
+建议尝试使用[自动负载工具](#sapp自动负载均衡工具)以获取一个最优的负载均衡策略配置。
 
-### 典型案例
+## 典型案例
 
-#### SiLU-Mul重计算未生效
+### SiLU-Mul重计算未生效
 
 在开启细粒度多副本时，对SiLU和Mul做重计算可以节省内存，但关闭细粒度多副本时，对SiLU和Mul做重计算不能节省内存。定位过程如下：
 
@@ -369,7 +475,7 @@ recompute_config:
   select_recompute: ['feed_forward\.mul', 'feed_forward\.w1\.activation', 'feed_forward\.w1\.reshape', 'feed_forward\.w2\.reshape']
 ```
 
-#### Llama2-13B极致性能优化
+### Llama2-13B极致性能优化
 
 13B默认用单机DP: 8、MP: 1、PP: 1，开完全重计算，性能在1860tokens/s/p左右，相较于7B（2465tokens/s/p）与70B（1974tokens/s/p），性能明显偏低。
 
@@ -416,3 +522,125 @@ recompute_config:
 ```
 
 最终经过调优后，Llama2-13B性能优化至2562tokens/s/p，总计提升37%。
+
+### Llama千卡集群训练调优
+
+基于Llama2-70B模型配置，调整模型超参，扩充参数量至xxxB，使用1024卡集群+共享存储进行训练，设定GBS (global batch size)为128；下面针对对该案例进行性能瓶颈分析，给出优化方式参考。
+
+**案例瓶颈分析**：
+
+首先通过DryRun测试模型训练所需的大致内存，确定整体的切分策略，在此基础上进行调整，初步得到的切分策略：`DP=8 MP=8 PP=16 micro_batch_num=16`。
+
+对初步的切分策略进行测试，收集性能和内存数据，分析该场景下的性能瓶颈如下：
+
+* **IO瓶颈**：千卡同时访问共享存储读取数据，存储压力过大赶不上训练速度，导致性能波动；
+* **大词表内存瓶颈**：自定义超参的vocab_size偏大，导致embedding和lm_head结构占用内存过多；
+* **未掩盖通信瓶颈**：mp并行数设置为8后，通信量相对较高，出现较多未掩盖通信；
+* **bubble过多**：PP stage切分达到了16，而micro_batch_num受限于gbs，只能开到16，这样pipeline流程中出现了过多的bubble；
+* **stage间负载不均衡**：stage 0和stage 1内存消耗过高，需要调整负载均衡策略。
+
+**优化方法**：
+
+针对上述分析的瓶颈点，我们可以应用以下优化方法：
+
+1. 使用full_batch=false读取数据：优化IO读取量，减轻IO压力，解决IO瓶颈导致的性能波动问题；
+
+   full_batch相关使用介绍参考[IO瓶颈章节](#io瓶颈)。这里dp8的配置样例为：
+
+   ```yaml
+   parallel:             # 在parallel模块下
+     ...
+     full_batch: False   # 配置full batch为False
+     dataset_strategy: [[8, 1],] # dp为8，仅一项输入
+     ...
+   ```
+
+2. embedding参数配置优化器并行：大词表占用内存过多，且词表权重的优化器并行需额外配置，配置后有效缓解首个stage显存不足问题；
+
+   优化器并行使用介绍可参考[MindSpore优化器并行文档](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/optimizer_parallel.html)；此外，Llama模型还对embedding层的优化器有额外配置，[LlamaConfig API文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/models/mindformers.models.LlamaConfig.html#mindformers.models.LlamaConfig)中的`parallel_optimizer`项即为控制embedding优化器并行的控制项；
+   配置样例如下：
+
+   ```yaml
+   parallel:
+     ...
+     enable_parallel_optimizer: True  # 启用全局优化器并行
+     ...
+
+   model:
+     model_config:
+       ...
+       parallel_optimizer: True       # 给embedding层配置优化器并行
+       ...
+   ```
+
+3. 使能Llama的`细粒度多副本`策略，掩盖模型并行策略下的大部分通信行为；
+
+   多副本并行的介绍可以参考[MindSpore多副本并行文档](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/multiple_copy.html)，在MindFormers中通过`fine_grain_interleave`项来配置细粒度多副本的行为，参考配置如下：
+
+   ```yaml
+   model:
+     model_config:
+       ...
+       fine_grain_interleave: 2       # 配置细粒度多副本份数，默认值为1表示不启用，为2时则启用计算通信掩盖
+       ...
+   ```
+
+4. 使能`pp_interleave`并行策略，将`pp_interleave_num`配置为3，有效减小bubble占比；
+
+   多流水交织特性介绍可以参考[MindSpore流水线并行文档](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/pipeline_parallel.html)，在MindFormers中的参考配置如下：
+
+   ```yaml
+   parallel:
+     ...
+     pipeline_config:
+       pipeline_interleave: true    # 启用多流水交织
+       pipeline_scheduler: '1f1b'   # 调度方式使用1f1b
+     ...
+
+   model:
+     model_config:
+       ...
+       pp_interleave_num: 3    # 流水交织份数配置为3
+       ...
+   ```
+
+5. 调整stage间的负载，配置`offset`，将前两个stage的层数分摊至后续显存空余的层中；
+
+   负载均衡介绍可参照[前文负载均衡章节](#负载均衡策略调整)，这里结合`pp_interleave_num: 3`的配置后，offset配置如下：
+
+   ```yaml
+   model:
+     model_config:
+       ...
+       offset: [[-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]]
+       ...
+   ```
+
+   `pp_interleave_num`为3时，offset应配置为3个子列表，与流水切分数目对应；每个子列表长度为pipeline stage的数目，代表该位置需要增加或减少的层数；对上述配置来说，stage 0减少了两层负载，分配到了倒数两个stage上。
+
+6. 精细调整每个stage的重计算策略，使每个stage尽可能地用满显存以获取最佳性能。
+
+   这部分可以借助[SAPP自动负载均衡工具](#sapp自动负载均衡工具)来完成；优化后得到的重计算策略配置如下：
+
+   ```yaml
+   select_recompute:
+     'feed_forward\.mul': [[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 1]]
+     'feed_forward\.w1\.activation\.silu': [[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 1]]
+     'feed_forward\.w1\.reshape': [[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 1]]
+     'feed_forward\.w2\.reshape': [[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 1]]
+     'add': [[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 1]]
+     'cast_up': [[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 1]]
+   select_comm_recompute:
+     '.*\.norm': [[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1]]
+     'attention\.wq\.reshape': [[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1]]
+     'attention\.wk\.reshape': [[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1]]
+     'attention\.wv\.reshape': [[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1]]
+     'feed_forward\.w1\.reshape': [[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1]]
+     'feed_forward\.w3\.reshape': [[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1]]
+   ```
+
+**优化结果**：
+
+经过上述的瓶颈分析与针对性的优化调整，训练性能有了明显的提升，达到优化前的1.7倍（在当时环境下的实测数据，仅供参考）。
+
+上述调优案例体现了我们如何通过分析性能瓶颈点，找到可用的优化手段，逐步逼近性能最优配置的调优思路；希望本文能够帮助读者掌握整体调优思路，在各个不同调优场景下都能够通过分析明确性能优化的方向，获取良好的训练性能。
