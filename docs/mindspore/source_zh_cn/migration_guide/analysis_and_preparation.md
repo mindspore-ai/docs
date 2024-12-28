@@ -107,23 +107,7 @@ MindSpore提供了Dump功能，用来将模型训练中的图以及算子的输�
 
 ### 性能问题
 
-性能问题常用定位方法可参考：[性能调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_tuning_guide.html)。
-这里主要介绍几个定位性能问题可用的工具：
-
-1. Profiler。
-2. MindSpore Insight。
-
-#### Profiler
-
-Profiler可将训练和推理过程中的算子耗时等信息记录到文件中，主要提供框架的host执行、以及算子执行的Profiler分析功能，帮助用户更高效地调试神经网络性能。
-当前MindSpore提供两种方式来使能Profiler：[修改脚本来获取性能数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#%E6%96%B9%E5%BC%8F%E4%B8%80-%E4%BF%AE%E6%94%B9%E8%AE%AD%E7%BB%83%E8%84%9A%E6%9C%AC)和[环境变量使能获取性能数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#%E6%96%B9%E5%BC%8F%E4%BA%8C-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%BD%BF%E8%83%BD)。
-
-#### MindSpore Insight
-
-MindSpore Insight是一款可视化调试调优工具，帮助用户获得更优的模型精度和性能。通过Profiler获取性能数据之后，可使用MindSpore Insight可视化数据，进而查看训练过程、优化模型性能、调试精度问题。
-MindSpore Insight启动等使用介绍可查看[MindSpore Insight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html#mindspore-insight%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4)。
-可视化数据之后，可通过[解析性能数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#%E8%AE%AD%E7%BB%83%E6%80%A7%E8%83%BD)进行数据分析。
-更多介绍可查看[MindSpore Insight文档](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html)。
+Profiler可将训练和推理过程中的算子耗时等信息记录到文件中，主要提供框架的host执行、以及算子执行的Profiler分析功能，帮助用户更高效地调试神经网络性能。详情请参考[Ascend性能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/optimize/profiler.html)。
 
 ### [动态图与静态图](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/accelerate_with_static_graph.html)
 
@@ -154,10 +138,6 @@ MindSpore除了可以让用户自定义数据增强的使用，还提供了一�
 ### [梯度累加](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/gradient_accumulation.html)
 
 梯度累加是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算。目的是为了解决由于内存不足，导致Batch size过大神经网络无法训练或者网络模型过大无法加载的OOM（Out Of Memory）问题。
-
-### [Summary](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)
-
-训练过程中的标量、图像、计算图、训练优化过程以及模型超参等信息记录到文件中，通过可视化界面供用户查看。
 
 ### [Golden Stick](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/index.html)
 

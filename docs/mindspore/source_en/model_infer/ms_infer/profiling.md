@@ -27,6 +27,6 @@ profiler.analyse()
 
 ```
 
-The performance profiling method for inference is basically the same as that for training. After collecting the performance data, you can analyze the performance by referring to [Performance Profiling (Ascend)](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html). Inference focuses on operator performance analysis, computation workload performance analysis, and timeline analysis.
+The performance profiling method for inference is basically the same as that for training. After collecting the performance data, you can analyze the performance by referring to [Performance Profiling](https://www.mindspore.cn/docs/en/master/model_train/optimize/profiler.html). Inference focuses on operator performance analysis, computation workload performance analysis, and timeline analysis.
 
 For details about the API, see [mindspore.Profiler](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html?highlight=profiler#mindspore.Profiler).

@@ -27,6 +27,6 @@ profiler.analyse()
 
 ```
 
-推理方面性能调试方式与训练基本一致，收集到性能数据后，可参考：[性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html)进行性能分析。推理上重点关注算子性能分析、计算量性能分析、Timeline分析等。
+推理方面性能调试方式与训练基本一致，收集到性能数据后，可参考：[性能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/optimize/profiler.html)进行性能分析。推理上重点关注算子性能分析、计算量性能分析、Timeline分析等。
 
 详细接口参考：[mindspore.Profiler](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Profiler.html?highlight=profiler#mindspore.Profiler)。

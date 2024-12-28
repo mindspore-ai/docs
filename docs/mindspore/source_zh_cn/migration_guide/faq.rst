@@ -147,8 +147,6 @@ MindSpore官网提供了一份在使用MindSpore过程中的 `FAQ <https://minds
   **Q: 模型训练过程中，非首个step耗时很长，该怎么优化？**
 
   A: 模型训练过程中，非首个step的耗时包括迭代间隙、前反向计算和迭代拖尾，如果想要优化非首step的性能，需要先获取网络的迭代轨迹，再分析哪部分是性能瓶颈，最近进行性能优化。
-     
-  详细可参考 `性能调优指南 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_tuning_guide.html>`_ ；和 `性能调试案例 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_optimization.html>`_ 。
 
   **Q: 加载标杆权重进行模型推理验证正向流程时，有warning警告显示权重未加载成功，该如何解决？**
 

@@ -193,7 +193,7 @@ trainable parameter numbers: 2
   model = Model(network=train_net)
   ```
 
-- 排查是否溢出，添加loss scale时，默认会加上溢出检测，可以将是否溢出的结果进行监测，如果持续溢出的话建议优先排查为什么溢出，建议使用MindSpore Insight的[dump数据](https://mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)。
+- 排查是否溢出，添加loss scale时，默认会加上溢出检测，可以将是否溢出的结果进行监测，如果持续溢出的话建议优先排查为什么溢出，建议使用[dump数据](https://mindspore.cn/docs/zh-CN/master/model_train/debug/dump.html)。
 
   ```python
   import numpy as np
@@ -241,11 +241,9 @@ trainable parameter numbers: 2
 
 - 排查数据处理，通过可视化等方法查看数据处理是否符合预期，重点查看数据shuffle，是否有数据不匹配的情况。
 
-更多精度调试策略请参考[精度调试](https://mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_problem_preliminary_location.html)。
-
 ### 性能调优
 
-首先需要做性能数据获取，具体的获取方式见[性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html)、[性能调试（GPU）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_gpu.html)。
+首先需要做性能数据获取，具体的获取方式见[Ascend性能调试](https://www.mindspore.cn/docs/zh-CN/master/model_train/optimize/profiler.html)。
 
 性能优化方向主要包含：
 
@@ -326,14 +324,10 @@ if rank_size > 1:
     init()
 ```
 
-更多请参考[集群性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_of_cluster.html)。
-
 #### 数据处理性能优化
 
 单Step性能抖动、数据队列一段时间内持续为空的情况都是由于数据预处理部分性能较差，使得数据处理速度跟不上单Step迭代速度导致，这两个现象通常成对出现。
 
 当数据处理速度较慢时，队列从最开始的满队列情况逐渐消耗为空队列，训练进程会开始等待空队列填入数据，一旦有新的数据填入，网络才会继续进行单Step训练。由于数据处理没有队列作为缓冲，数据处理的性能抖动直接体现在单Step的性能上，因此还会造成单Step性能抖动。
-
-关于数据的性能问题，可以参考 MindSpore Insight 组件的 [数据准备性能分析](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析)，其给出了数据性能的常见问题及解决方法。
 
 更多性能调试方法请参考[性能优化](https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/train_optimize.html)。

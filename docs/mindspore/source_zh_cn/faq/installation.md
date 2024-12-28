@@ -50,7 +50,7 @@ A: 请执行`pip config list`，查看当前软件库索引路径`index-url`。�
 
 <br/>
 
-### Q: MindSpore网站安装页面找不到MindSpore Insight和MindSpore Armour的whl包，无法安装怎么办？
+### Q: MindSpore网站安装页面找不到MindSpore Armour的whl包，无法安装怎么办？
 
 A: 您可以从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，通过`pip install`命令进行安装。
 

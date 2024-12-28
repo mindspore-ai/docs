@@ -107,23 +107,7 @@ See [Dump](https://www.mindspore.cn/docs/en/master/model_train/debug/dump.html) 
 
 ### Performance Issues
 
-Common methods for locating performance problems can be found in: [Performance Tuning Guide](https://www.mindspore.cn/mindinsight/docs/en/master/performance_tuning_guide.html).
-Here are a few of the main tools available for locating performance issues:
-
-1. Profiler.
-2. MindSpore Insight.
-
-#### Profiler
-
-Profiler can record information such as operator time consumption during the training and inference process into a file, and mainly provides the host execution of the framework, as well as the Profiler analysis function of operator execution to help users debug neural network performance more efficiently.
-Currently MindSpore offers two ways to enable Profiler: [Modify the script to get performance data](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#method-1-modify-the-training-script) and [Environment variables get access to performance data](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#method-2-enable-environment-variables).
-
-#### MindSpore Insight
-
-MindSpore Insight is a visual debugging and tuning tool to help users get better model accuracy and performance. After obtaining performance data through Profiler, you can use MindSpore Insight to visualize the data and then view the training process, optimize model performance, and debug accuracy issues.
-An introduction to MindSpore Insight startup and other uses can be found at [MindSpore Insight related commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html#mindspore-insight-commands).
-After visualizing the data, the data can be analyzed by [parsing performance data](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#training-performance) for data analysis.
-More introduction can be found in [MindSpore Insight documentation](https://www.mindspore.cn/mindinsight/docs/en/master/index.html).
+Profiler can record information such as operator time consumption during the training and inference process into a file, and mainly provides the host execution of the framework, as well as the Profiler analysis function of operator execution to help users debug neural network performance more efficiently. For more details, refer to [Ascend Performance Profiling](https://www.mindspore.cn/docs/en/master/model_train/optimize/profiler.html).
 
 ### [Dynamic and Static Graphs](https://www.mindspore.cn/tutorials/en/master/beginner/accelerate_with_static_graph.html)
 
@@ -154,10 +138,6 @@ MindSpore not only allows you to customize data augmentation, but also provides 
 ### [Gradient Accumulation](https://www.mindspore.cn/docs/en/master/model_train/train_process/optimize/gradient_accumulation.html)
 
 Gradient accumulation is a method of splitting data samples for training neural networks into several small batches by batch and then calculating the batches in sequence. The purpose is to solve the out of memory (OOM) problem that the neural network cannot be trained or the network model cannot be loaded due to insufficient memory.
-
-### [Summary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html)
-
-Scalars, images, computational graphs, training optimization processes, and model hyperparameters during training are recorded in files and can be viewed on the web page.
 
 ### [Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/master/index.html)
 

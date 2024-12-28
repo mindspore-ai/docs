@@ -7,7 +7,7 @@
 在图模式`set_context(mode=GRAPH_MODE)`下运行用MindSpore编写的模型时，若设置了环境变量`MS_DEV_SAVE_GRAPHS`的值为2，运行时会输出一些图编译过程中生成的中间文件，我们称为IR文件。当前主要有两种格式的IR文件：
 
 - ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。
-- dot后缀结尾的IR文件：若设置了环境变量`MS_DEV_SAVE_GRAPHS`的值为3, 运行时会输出后缀为dot的ir文件。该文件描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
+- dot后缀结尾的IR文件：若设置了环境变量`MS_DEV_SAVE_GRAPHS`的值为3, 运行时会输出后缀为dot的ir文件。该文件描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。
 
 ## 如何保存IR
 
@@ -270,8 +270,6 @@ dot -Tpng -o 01_type_inference_0003.png 01_type_inference_0003.dot
 转换之后得到类似下图的模型示意图，我们可以观察构建的静态图模型结构。不同的黑框区分了不同的子图，图与图之间的蓝色箭头表示相互之间的调用。蓝色区域表示参数，矩形表示图的参数列表，六边形和黑色箭头表示该参数作为CNode的输入参与计算过程。黄色矩形表示CNode节点，从图中可以看出，CNode输入从下标0开始，第0个输入（即紫色或绿色区域）表示该算子将要进行怎样的计算，通过虚箭头连接。类型一般为算子原语，也可以是另一张图。下标1之后的输入则为计算所需要的参数。
 
 ![01_type_inference_0003.png](./images/dot_to_png.png)
-
-对于算子比较多的模型，图片会过于庞大，推荐使用可视化组件[MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
 
 ## 如何根据analyze_fail.ir文件分析图推导失败的原因
 
