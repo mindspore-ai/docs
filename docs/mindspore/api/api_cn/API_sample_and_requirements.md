@@ -45,6 +45,8 @@
 
 ## 方法 Method
 
+普通方法：
+
 ```text
 .. py:method:: abs()
 
@@ -55,6 +57,39 @@
 ```
 
 注意：相对于类要增加4空格的缩进。
+
+静态方法：
+
+```text
+.. py:method:: abs()
+    :staticmethod:
+
+    方法说明。
+
+    返回：
+        返回说明。
+```
+
+抽象方法：
+
+```text
+.. py:method:: abs()
+    :abstractmethod:
+
+    方法说明。
+```
+
+类方法：
+
+```text
+.. py:method:: abs()
+    :classmethod:
+
+    方法说明。
+
+    返回：
+        返回说明。
+```
 
 ## 特殊方法 mindspore.Tensor
 
