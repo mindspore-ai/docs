@@ -7,7 +7,7 @@
 When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. Currently, there are two IR files:
 
 - .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors.
-- .dot file: When setting the environment variable `MS_DEV_SAVE_GRAPHS` to 3, an IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize computing graphs.
+- .dot file: When setting the environment variable `MS_DEV_SAVE_GRAPHS` to 3, an IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure.
 
 ## Saving IR
 
@@ -269,8 +269,6 @@ dot -Tpng -o 01_type_inference_0003.png 01_type_inference_0003.dot
 After the conversion, we obtain a model diagram similar to the one below, which allows us to observe the structure of the constructed static graph model. The different black boxes distinguish different subgraphs, and the blue arrows between graphs represent calling another graph. The blue area represents the parameter, the rectangle represents the parameter list of the graph, the hexagon and the black arrow represent the parameter as the input of the CNode to participate in the calculation process. The yellow rectangle represents the CNode. As can be seen from the picture, the CNode input starts from index 0, and the 0th input (that is, the purple or green area) represents what calculation the operator will perform, which is connected by a dotted arrow. The type is usually an operator primitive, or it can also be another graph. The rest inputs are the parameters required for the calculation.
 
 ![01_type_inference_0003.png](./images/dot_to_png.png)
-
-For models with multiple operators, the picture will be very large. It is recommended by using the visualization component [MindSpore Insight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize compute graphs.
 
 ## How to derive the cause of the failure based on the analyze_fail.ir file analysis graph
 

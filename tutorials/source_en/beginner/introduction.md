@@ -36,7 +36,7 @@ As an all-scenario AI framework, MindSpore supports different series of hardware
 
 The blue box on the left is the main MindSpore framework, which mainly provides the basic API functions related to the training and verification of neural networks, and also provides automatic differentiation and automatic parallelism by default.
 
-Below the blue box is the MindSpore Data module, which can be used for data preprocessing, including data sampling, data iteration, data format conversion, and other data operations. Many debugging and tuning problems may occur during training. Therefore, the MindSpore Insight module visualizes debugging and tuning data such as the loss curve, operator execution status, and weight parameter variables, facilitating debugging and optimization during training.
+Below the blue box is the MindSpore Data module, which can be used for data preprocessing, including data sampling, data iteration, data format conversion, and other data operations. Many debugging and tuning problems may occur during training. Therefore, the debugging and tuning toolset visualizes debugging and tuning data such as the loss curve, operator execution status, and weight parameter variables, facilitating debugging and optimization during training.
 
 The simplest scenario to ensure AI security is from the perspective of attack and defense. For example, attackers inject malicious data in the training phase to affect the inference capability of AI models. Therefore, MindSpore launches the MindSpore Armour module to provide an AI security mechanism for MindSpore.
 

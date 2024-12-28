@@ -193,7 +193,7 @@ After the inference verification is complete, the basic model, data processing, 
   model = Model(network=train_net)
   ```
 
-- Check whether overflow occurs. When loss scale is added, overflow detection is added by default to monitor the overflow result. If overflow occurs continuously, you are advised to use the [dump data](https://mindspore.cn/docs/en/master/model_train/debug/dump.html) of MindSpore Insight to check why overflow occurs.
+- Check whether overflow occurs. When loss scale is added, overflow detection is added by default to monitor the overflow result. If overflow occurs continuously, you are advised to use the [dump data](https://mindspore.cn/docs/en/master/model_train/debug/dump.html) to check why overflow occurs.
 
   ```python
   import numpy as np
@@ -241,11 +241,9 @@ After the inference verification is complete, the basic model, data processing, 
 
 - Check whether the data processing meets the expectation through visualization. Focus on data shuffle and check whether data mismatch occurs.
 
-For details about more accuracy debugging policies, see [Accuracy Debugging](https://mindspore.cn/mindinsight/docs/en/master/accuracy_problem_preliminary_location.html).
-
 ### Performance Tuning
 
-Firstly, it is necessary to obtain performance data, as shown in the specific acquisition method: [Performance Profiling (Ascend)](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html) and [Performance Profiling (GPU)](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_gpu.html).
+Firstly, it is necessary to obtain performance data, as shown in the specific acquisition method: [Ascend Performance Profiling](https://www.mindspore.cn/docs/en/master/model_train/optimize/profiler.html).
 
 The performance tuning directions are as follows:
 
@@ -326,14 +324,10 @@ if rank_size > 1:
     init()
 ```
 
-For details, see [Cluster Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_of_cluster.html).
-
 #### Data Processing Performance Tuning
 
 The performance jitter of a single step and the empty data queue for a period of time are caused by the poor performance of the data preprocessing part. As a result, the data processing speed cannot keep up with the iteration speed of a single step. The two symptoms usually occur in pairs.
 
 When the data processing speed is slow, the empty queue is gradually consumed from the beginning when the queue is full. The training process starts to wait for the empty queue to fill in data. Once new data is filled in, the network continues single-step training. Because no queue is used as the buffer for data processing, the performance jitter of data processing is directly reflected by the performance of a single step. Therefore, the performance jitter of a single step is also caused.
-
-For details about data performance problems, see [Data Preparation Performance Analysis](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) of MindSpore Insight. This describes common data performance problems and solutions.
 
 For more performance debugging methods, see [Performance Optimization](https://www.mindspore.cn/docs/en/master/model_train/train_process/train_optimize.html).

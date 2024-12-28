@@ -394,11 +394,6 @@ Dump调试
 
        0：关闭Debugger
      - 与MS_DEBUGGER_HOST、MS_DEBUGGER_PORT一起使用
-   * - MS_DEBUGGER_HOST
-     - MindSpore Insight Debugger服务的IP
-     - String
-     - 启动MindSpore Insight调试器的机器的IP
-     - 与ENABLE_MS_DEBUGGER=1、MS_DEBUGGER_PORT一起使用
    * - MS_DEBUGGER_PARTIAL_MEM
      - 是否开启部分内存复用（只有在Debugger选中的节点才会关闭这些节点的内存复用）
      - Boolean
@@ -406,11 +401,6 @@ Dump调试
 
        0：关闭Debugger选中节点的内存复用
      -
-   * - MS_DEBUGGER_PORT
-     - 连接MindSpore Insight Debugger Server的端口
-     - Integer
-     - 1~65536，连接MindSpore Insight Debugger Server的端口
-     - 与ENABLE_MS_DEBUGGER=1、MS_DEBUGGER_HOST一起使用
    * - MS_OM_PATH
      - 配置task异常时dump数据路径以及图编译出错时dump的analyze_fail.ir文件的保存目录，保存路径为：指定的路径/rank_${rand_id}/om
      - String

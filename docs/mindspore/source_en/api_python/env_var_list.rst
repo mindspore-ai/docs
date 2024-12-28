@@ -389,11 +389,6 @@ Dump Debugging
 
        0: disables Debugger.
      - This variable is used together with MS_DEBUGGER_HOST and MS_DEBUGGER_PORT.
-   * - MS_DEBUGGER_HOST
-     - Specifies the IP of the MindSpore Insight Debugger Server.
-     - String
-     - IP address of the host where the MindSpore Insight Debugger Server is located.
-     - This variable is used together with ENABLE_MS_DEBUGGER=1 and MS_DEBUGGER_PORT.
    * - MS_DEBUGGER_PARTIAL_MEM
      - Determines whether to enable partial memory overcommitment. (Memory overcommitment is disabled only for nodes selected on Debugger.)
      - Boolean
@@ -401,11 +396,6 @@ Dump Debugging
 
        0: disables memory overcommitment for nodes selected on Debugger.
      - 
-   * - MS_DEBUGGER_PORT
-     - Specifies the port for connecting to the MindSpore Insight Debugger Server.
-     - Integer
-     - Port number ranges from 1 to 65536.
-     - This variable is used together with ENABLE_MS_DEBUGGER=1 and MS_DEBUGGER_HOST.
    * - MS_OM_PATH
      - Specifies the save path for the file `analyze_fail.ir/*.npy` which is dumped if task exception or a compiling graph error occurred. 
        The file will be saved to the path of `the_specified_directory` `/rank_${rank_id}/om/`.
