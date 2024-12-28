@@ -281,8 +281,6 @@
 
        all_finite: 是否使能溢出检测大算子，仅在O0或O1模式下生效，默认值为true。
 
-       synchronize: 是否同步执行，仅在O0或O1模式下生效，默认值为false。
-
        memory_statistics: 是否开启内存统计，默认值为false。
 
        compile_statistics: 是否开启编译性能统计，默认值为false。
