@@ -122,7 +122,7 @@ docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia swr.cn-south
 i:
 
 ```bash
-python -c "import mindspore;mindspore.set_context(device_target='GPU');mindspore.run_check()"
+python -c "import mindspore;mindspore.set_device(device_target="GPU");mindspore.run_check()"
 ```
 
 - The outputs should be the same as:
@@ -141,7 +141,7 @@ import numpy as np
 import mindspore as ms
 import mindspore.ops as ops
 
-set_context(device_target="GPU")
+ms.set_device(device_target="GPU")
 
 x = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
 y = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))

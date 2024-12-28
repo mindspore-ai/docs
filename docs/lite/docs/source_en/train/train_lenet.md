@@ -224,7 +224,8 @@ from train_utils import TrainWrap
 
 n = LeNet5()
 n.set_train()
-ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU", save_graphs=False)
+ms.set_context(mode=ms.GRAPH_MODE, save_graphs=False)
+ms.set_device(device_target="CPU")
 ```
 
 Then define the input and label tensor sizes:

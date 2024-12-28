@@ -271,7 +271,8 @@ from mindspore import Tensor, nn
 from mindspore.train import ModelCheckpoint, CheckpointConfig, TimeMonitor, LossMonitor, Model, Top1CategoricalAccuracy, Top5CategoricalAccuracy
 
 def train():
-    mindspore.set_context(mode=mindspore.PYNATIVE_MODE, device_target="GPU")
+    mindspore.set_context(mode=mindspore.PYNATIVE_MODE)
+    mindspore.set_device(device_target="GPU")
     net = ShuffleNetV1(model_size="2.0x", n_class=10)
     loss = nn.CrossEntropyLoss(weight=None, reduction='mean', label_smoothing=0.1)
     min_lr = 0.0005
@@ -332,7 +333,8 @@ After setting the path of the evaluation model, load the dataset, set the top 1 
 from mindspore import load_checkpoint, load_param_into_net
 
 def test():
-    mindspore.set_context(mode=mindspore.GRAPH_MODE, device_target="GPU")
+    mindspore.set_context(mode=mindspore.GRAPH_MODE)
+    mindspore.set_device(device_target="GPU")
     dataset = get_dataset("./dataset/cifar-10-batches-bin", 128, "test")
     net = ShuffleNetV1(model_size="2.0x", n_class=10)
     param_dict = mindspore.load_checkpoint("shufflenetv1-250_391.ckpt")

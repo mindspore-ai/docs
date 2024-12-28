@@ -29,7 +29,8 @@ import mindspore as ms
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_device(device_target="CPU")
 
 # Forward computation of custom operator
 def square(x):

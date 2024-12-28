@@ -751,7 +751,7 @@ torch_net.cpu()
 
 ```python
 import mindspore
-mindspore.set_device("CPU")
+mindspore.set_device(device_target="CPU")
 ms_net = mindspore.nn.Dense(3, 4)
 ```
 

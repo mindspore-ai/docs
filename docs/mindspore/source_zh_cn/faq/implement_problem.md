@@ -411,7 +411,8 @@ A: 在静态图模式下，由于使用的是静态编译，对于算子输出�
 import mindspore as ms
 from mindspore import nn
 
-ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_device(device_target="CPU")
 
 class MyTest(nn.Cell):
     def __init__(self):

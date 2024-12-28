@@ -37,7 +37,7 @@ import numpy as np
 import mindspore as ms
 import mindspore.ops as ops
 
-ms.set_context(device_target="CPU")
+ms.set_device(device_target="CPU")
 
 if __name__ == "__main__":
     op = ops.Custom("./add.jl:Add:add", out_shape=lambda x, _: x, out_dtype=lambda x, _: x, func_type="julia")

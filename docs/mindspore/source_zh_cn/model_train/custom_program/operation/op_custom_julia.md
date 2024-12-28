@@ -36,7 +36,7 @@ import numpy as np
 import mindspore as ms
 import mindspore.ops as ops
 
-ms.set_context(device_target="CPU")
+ms.set_device(device_target="CPU")
 
 if __name__ == "__main__":
     # 定义julia类型的自定义算子
