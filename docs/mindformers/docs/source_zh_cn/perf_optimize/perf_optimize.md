@@ -121,7 +121,7 @@ MindFormers本身集成了profiling数据采集的功能，使用步骤如下：
 
    采集工具默认会在`./output`路径下创建一个`profile`文件夹，该路径可通过模型yaml配置文件的output_dir字段进行设置。
 
-   生成的文件及介绍参考[profile文件介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#目录结构)，主要收集算子、任务等运行耗时、CPU利用率及内存消耗等信息，用于性能调优分析。
+   生成的文件及介绍参考[profile文件介绍](https://www.mindspore.cn/docs/zh-CN/master/model_train/optimize/profiler.html)，主要收集算子、任务等运行耗时、CPU利用率及内存消耗等信息，用于性能调优分析。
 
 #### MindStudio Insight
 

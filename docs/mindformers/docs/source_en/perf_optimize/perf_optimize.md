@@ -121,7 +121,7 @@ MindFormers itself integrates profiling data collection with the following steps
 
    By default, the collection tool creates a `profile` folder under the `. /output` path, which can be set via the output_dir field of the model's yaml configuration file.
 
-   The generated file and its introduction refer to [Introduction to profile file](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#directory-structure), which mainly collects information such as running time of operators and tasks, CPU utilization and memory consumption for performance tuning analysis.
+   The generated file and its introduction refer to [Introduction to profile file](https://www.mindspore.cn/docs/en/master/model_train/optimize/profiler.html), which mainly collects information such as running time of operators and tasks, CPU utilization and memory consumption for performance tuning analysis.
 
 #### MindStudio Insight
 
