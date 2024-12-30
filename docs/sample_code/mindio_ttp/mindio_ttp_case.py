@@ -39,7 +39,8 @@ parser.add_argument(
 )
 args_opt = parser.parse_args()
 
-ms.set_context(mode=ms.GRAPH_MODE, jit_level="O1", device_target="Ascend")
+ms.set_context(mode=ms.GRAPH_MODE, jit_level="O1")
+ms.set_device(device_target="Ascend")
 
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL)
 init()

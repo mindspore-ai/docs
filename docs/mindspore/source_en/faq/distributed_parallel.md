@@ -152,7 +152,7 @@ Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2
 ```
 
 A: Currently, when training via OpenMPI, hccl needs to allocate about 300M device memory for each card within a communicator. The more communicators one card involved in, the more extra device memory needed. This probably cause memory issue.
-You can set `max_device_memory` in `context`to reduce variable memory for Ascend processes, so that hccl will have enough memory to create communicators.
+You can set `max_size` in `set_memory`to reduce variable memory for Ascend processes, so that hccl will have enough memory to create communicators.
 
 <br/>
 

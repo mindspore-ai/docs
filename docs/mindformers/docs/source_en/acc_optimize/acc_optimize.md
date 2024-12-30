@@ -232,13 +232,13 @@ The training process fixes randomness and turns on deterministic computation in 
   import numpy as np
   import random
 
-  from mindspore import context
+  import mindspore
 
   def seed_all(seed=42):
       random.seed(seed)
       os.environ['PYTHONHASHSEED'] = str(seed)
       np.random.seed(seed)
-      context.set_context(deterministic="ON")
+      mindspore.set_deterministic(True)
 
   def main(config):
       seed_all()

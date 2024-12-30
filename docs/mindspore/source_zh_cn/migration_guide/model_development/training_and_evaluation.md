@@ -36,7 +36,8 @@ def init_env(cfg):
 
     # 设置运行时使用的卡
     if hasattr(cfg, "device_id") and isinstance(cfg.device_id, int):
-        ms.set_context(device_id=cfg.device_id)
+        ms.set_device(device_id=cfg.device_id)
+
 
     if cfg.device_num > 1:
         # init方法用于多卡的初始化，不区分Ascend和GPU，get_group_size和get_rank方法只能在init后使用

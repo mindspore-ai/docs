@@ -136,7 +136,8 @@ python convert_weight.py --torch_ckpt_path "/path/to/huggingface_ckpt/" --mindsp
 import mindspore as ms
 from mindformers import AutoConfig, AutoModel, LlamaTokenizer
 
-ms.set_context(mode=0, device_id=0)
+ms.set_context(mode=0)
+ms.set_device(device_id=0)
 
 tokenizer = LlamaTokenizer.from_pretrained("/path/to/tokenizer.model")
 

@@ -227,7 +227,8 @@ def train(ds_train):
     max_step = 10
     device_target = args.device_target
     device_id = args.device_id
-    ms.set_context(mode=ms.GRAPH_MODE, device_target=device_target, device_id=device_id)
+    ms.set_context(mode=ms.GRAPH_MODE)
+    ms.set_device(device_target=device_target, device_id=device_id)
     network = AlexNet(num_classes=10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_with_loss = nn.WithLossCell(network, net_loss)

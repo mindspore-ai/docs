@@ -609,7 +609,7 @@ E    ------------------------------------------------------------------
 E    mindspore/ccsrc/minddata/dataset/engine/datasetops/map_op/map_job.h(57).
 ```
 
-It can be resolved through the following methods, set `ms.set_context(max_device_memory="2GB")` in the custom function to reduce device memory usage for multiple processes.
+It can be resolved through the following methods, set `ms.runtime.set_memory(max_size="2GB")` in the custom function to reduce device memory usage for multiple processes.
 
 The error script is as follows:
 
@@ -634,7 +634,7 @@ The repaired script is as follows:
 
 ```python
 def pyfunc(img_bytes):
-    ms.set_context(max_device_memory="2GB")
+    ms.runtime.set_memory(max_size="2GB")
 
     img_decode = vision.Decode().device("Ascend")(img_bytes)
 

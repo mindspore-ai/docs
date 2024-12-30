@@ -17,12 +17,13 @@
 import os
 import mindspore as ms
 import mindspore.dataset as ds
+import mindspore.runtime as rt
 from mindspore import nn, train
 from mindspore.communication import init
 
 os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_context(max_device_memory="25GB")
+rt.set_memory(max_size="25GB")
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
 ms.set_auto_parallel_context(pipeline_stages=2, enable_parallel_optimizer=True)
 init()

@@ -23,13 +23,14 @@ offload_config = {"offload_param": "cpu",
                   "host_mem_block_size":"1GB",
                   "enable_aio": True,
                   "enable_pinned_mem": True}
-mindspore.set_context(mode=mindspore.GRAPH_MODE, memory_offload='ON', max_device_memory='30GB')
+mindspore.set_context(mode=mindspore.GRAPH_MODE, memory_offload='ON')
+mindspore.runtime.set_memory(max_size="30GB")
 mindspore.set_offload_context(offload_config=offload_config)
 ```
 
 - `memory_offload`：是否开启异构存储功能，在内存不足场景下将空闲数据临时拷贝至Host侧内存。
 
-- `max_device_memory`：设置设备可用的最大内存。
+- `max_size`：设置设备可用的最大内存。
 
 - `offload_config` 是异构存储的配置选项，其中：
 
@@ -80,7 +81,7 @@ from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
-ms.set_context(max_device_memory="1GB")
+ms.runtime.set_memory(max_size="1GB")
 if args_opt.memory_offload == "ON":
     ms.set_context(memory_offload="ON")
     offload_config = {"offload_path": args_opt.offload_path, "auto_offload": args_opt.auto_offload,
@@ -94,7 +95,7 @@ init()
 ms.set_seed(1)
 ```
 
-`offload_config`是异构存储的配置字典，配置内容详见本章概述中相关配置说明。此处`max_device_memory`配置为"1GB"，是为了让显存无法加载完整网络，以此触发异构存储，此处的"1GB"仅代表我们在Atlas训练系列产品上测试的边界显存，不同的硬件设备可能会有所不同。
+`offload_config`是异构存储的配置字典，配置内容详见本章概述中相关配置说明。此处`max_size`配置为"1GB"，是为了让显存无法加载完整网络，以此触发异构存储，此处的"1GB"仅代表我们在Atlas训练系列产品上测试的边界显存，不同的硬件设备可能会有所不同。
 
 ### 数据集加载
 
@@ -235,7 +236,7 @@ step: 3, loss is 2.3037016
 
 ### 自动生成offload策略
 
-除了严格按照用户`"offload_param"`的配置进行数据拷贝，MindSpore还支持自动生成异构存储策略。MindSpore可以通过分析网络的显存使用信息，并结合用户配置的`"max_device_memory"`、`"offload_cpu_size"`、`"offload_disk_size"`、`"hbm_ratio"`、`"cpu_ratio"`等参数生成异构存储策略，并按照既定策略在多种存储介质中进行数据搬移。
+除了严格按照用户`"offload_param"`的配置进行数据拷贝，MindSpore还支持自动生成异构存储策略。MindSpore可以通过分析网络的显存使用信息，并结合用户配置的`"max_size"`、`"offload_cpu_size"`、`"offload_disk_size"`、`"hbm_ratio"`、`"cpu_ratio"`等参数生成异构存储策略，并按照既定策略在多种存储介质中进行数据搬移。
 
 ```python
 import mindspore
@@ -248,7 +249,8 @@ offload_config = {"offload_path": "./offload/",
                   "host_mem_block_size":"1GB",
                   "enable_aio": True,
                   "enable_pinned_mem": True}
-mindspore.set_context(mode=mindspore.GRAPH_MODE, memory_offload='ON', max_device_memory='30GB')
+mindspore.set_context(mode=mindspore.GRAPH_MODE, memory_offload='ON')
+mindspore.runtime.set_memory(max_size="30GB")
 mindspore.set_offload_context(offload_config=offload_config)
 ```
 
