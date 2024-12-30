@@ -161,28 +161,28 @@ export MS_PROFILER_OPTIONS='
 
 ```sh
 └── localhost.localdomain_*_ascend_ms  // 解析结果目录，命名格式：{worker_name}_{时间戳}_ascend_ms，默认情况下{worker_name}为{hostname}_{pid}
-    ├── profiler_info.json             // 多卡或集群场景命名规则为profiler_info_{Rank_ID}.json，用于记录Profiler相关的元数据
+    ├── profiler_info.json             // 多卡或集群场景命名规则为 profiler_info_{Rank_ID}.json，用于记录Profiler相关的元数据
     ├── profiler_metadata.json
     ├── ASCEND_PROFILER_OUTPUT         // MindSpore Profiler接口采集性能数据
-    │   ├── api_statistic.csv          // 配置profiler_level=ProfilerLevel.Level1或profiler_level=ProfilerLevel.Level2生成
+    │   ├── api_statistic.csv          // 配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
     │   ├── communication.json         // 为多卡或集群等存在通信的场景性能分析提供可视化数据基础，配置profiler_level=ProfilerLevel.Level1或profiler_level=ProfilerLevel.Level2生成
-    │   ├── communication_matrix.json  // 通信小算子基本信息文件，配置profiler_level=ProfilerLevel.Level1或profiler_level=ProfilerLevel.Level2生成
+    │   ├── communication_matrix.json  // 通信小算子基本信息文件，配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
     │   ├── dataset.csv                // activities中配置ProfilerActivity.CPU生成
-    │   ├── data_preprocess.csv        // 配置profiler_level=ProfilerLevel.Level2生成
+    │   ├── data_preprocess.csv        // 配置 profiler_level=ProfilerLevel.Level2 生成
     │   ├── kernel_details.csv         // activities中配置ProfilerActivity.NPU生成
-    │   ├── l2_cache.csv               // 配置l2_cache=True生成
-    │   ├── memory_record.csv          // 配置profile_memory=True生成
-    │   ├── minddata_pipeline_raw_*.csv       // 配置data_process=True且调用mindspore.dataset接口时生成
-    │   ├── minddata_pipeline_summary_*.csv   // 配置data_process=True且调用mindspore.dataset接口时生成
-    │   ├── minddata_pipeline_summary_*.json  // 配置data_process=True且调用mindspore.dataset接口时生成
-    │   ├── npu_module_mem.csv         // 配置profile_memory=True生成
-    │   ├── operator_memory.csv        // 配置profile_memory=True生成
+    │   ├── l2_cache.csv               // 配置 l2_cache=True 生成
+    │   ├── memory_record.csv          // 配置 profile_memory=True 生成
+    │   ├── minddata_pipeline_raw_*.csv       // 配置 data_process=True 且调用mindspore.dataset接口时生成
+    │   ├── minddata_pipeline_summary_*.csv   // 配置 data_process=True 且调用mindspore.dataset接口时生成
+    │   ├── minddata_pipeline_summary_*.json  // 配置 data_process=True 且调用mindspore.dataset接口时生成
+    │   ├── npu_module_mem.csv         // 配置 profile_memory=True 生成
+    │   ├── operator_memory.csv        // 配置 profile_memory=True 生成
     │   ├── op_statistic.csv           // AI Core和AI CPU算子调用次数及耗时数据
     │   ├── step_trace_time.csv        // 迭代中计算和通信的时间统计
     │   └── trace_view.json
     ├── FRAMEWORK                      // 框架侧的性能原始数据，无需关注，data_simplification=True时删除此目录
     └── PROF_000001_20230628101435646_FKFLNPEPPRRCFCBA  // CANN层的性能数据，命名格式：PROF_{数字}_{时间戳}_{字符串}，data_simplification=True时，仅保留此目录下的原始性能数据，删除其他数据
-          ├── analyze                  // 配置profiler_level=ProfilerLevel.Level1或profiler_level=ProfilerLevel.Level2生成
+          ├── analyze                  // 配置 profiler_level=ProfilerLevel.Level1 或 profiler_level=ProfilerLevel.Level2 生成
           ├── device_*
           ├── host
           ├── mindstudio_profiler_log
@@ -318,7 +318,7 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 
 ### trace_view.json
 
-`trace_view.json` 建议使用 [MindStudio Insight工具](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_install.html) 或 chrome://tracing/ 打开。MindSpore Profiler暂时不支持record_shapes与GC功能。
+`trace_view.json` 建议使用MindStudio Insight工具 或 chrome://tracing/ 打开。MindSpore Profiler暂时不支持record_shapes与GC功能。
 
 ### 其他性能数据
 

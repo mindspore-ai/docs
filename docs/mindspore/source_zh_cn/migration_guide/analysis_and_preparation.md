@@ -76,7 +76,6 @@ MindSpore网络迁移过程中，主要的问题为：精度问题和性能问�
 
 ### 精度问题
 
-精度问题常用定位方法可参考：[精度问题初步定位指导](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_problem_preliminary_location.html)和[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)。
 这里主要介绍几个定位精度问题使用到的工具：
 
 1. 可视化数据集。

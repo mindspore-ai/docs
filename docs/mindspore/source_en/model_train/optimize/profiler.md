@@ -318,7 +318,7 @@ The difference from the data collected by the Ascend PyTorch Profiler interface 
 
 ### trace_view.json
 
-`trace_view.json` is recommended to be opened using [MindStudio Insight tool](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_install.html) or chrome://tracing/. MindSpore Profiler does not support the record_shapes and GC functions.
+`trace_view.json` is recommended to be opened using MindStudio Insight tool or chrome://tracing/. MindSpore Profiler does not support the record_shapes and GC functions.
 
 ### Other Performance Data
 
