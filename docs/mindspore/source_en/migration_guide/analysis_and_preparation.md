@@ -76,7 +76,6 @@ The main problems in the MindSpore network migration process are: accuracy probl
 
 ### Accuracy Problem
 
-Common localization methods for accuracy problems can be found in: [Preliminary Localization Guide for Accuracy Problems](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_problem_preliminary_location.html) and [Accuracy problem detailed localization and tuning guide](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_optimization.html).
 Here are a few of the main tools used for positioning accuracy issues:
 
 1. Visualize the dataset.
