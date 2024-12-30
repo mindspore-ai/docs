@@ -71,7 +71,7 @@ from mindspore.common.initializer import initializer
 
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_context(max_device_memory="2GB")
+ms.runtime.set_memory(max_size="2GB")
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 init()
 ms.set_seed(1)

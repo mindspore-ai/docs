@@ -19,6 +19,7 @@ import os
 import argparse
 import mindspore as ms
 import mindspore.dataset as ds
+import mindspore.runtime as rt
 from mindspore import nn
 from mindspore.communication import init, get_rank, get_group_size
 
@@ -46,7 +47,7 @@ args_opt = parser.parse_args()
 
 ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
-ms.set_context(max_device_memory="1GB")
+rt.set_memory(max_size="1GB")
 if args_opt.memory_offload == "ON":
     ms.set_context(memory_offload="ON")
     offload_config = {"offload_path": args_opt.offload_path, "auto_offload": args_opt.auto_offload,

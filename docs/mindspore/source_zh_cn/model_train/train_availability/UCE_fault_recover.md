@@ -44,8 +44,8 @@ from mindspore.common.initializer import initializer, HeUniform
 
 
 ms.set_context(mode=ms.GRAPH_MODE,
-                jit_level='O1',
-                device_target="Ascend")
+                jit_level='O1')
+ms.set_device(device_target="Ascend")
 
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 init()

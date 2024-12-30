@@ -321,7 +321,7 @@ mpirun -n ${DEVICE_NUM} --output-filename log_output --allow-run-as-root python 
 bash run_mpirun_shard_function_example.sh
 ```
 
-> 注意，在Ascend上通过mpirun启动且子Group数量较多时，可能会碰到创建通信域失败的错误，具体报错信息如："Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2"。可以减少`context`里的`max_device_memory`来给hccl预留足够的内存创建通信域。
+> 注意，在Ascend上通过mpirun启动且子Group数量较多时，可能会碰到创建通信域失败的错误，具体报错信息如："Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2"。可以减少`set_memory`里的`max_size`来给hccl预留足够的内存创建通信域。
 
 ### 运行结果
 

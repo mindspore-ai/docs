@@ -606,7 +606,7 @@ E    ------------------------------------------------------------------
 E    mindspore/ccsrc/minddata/dataset/engine/datasetops/map_op/map_job.h(57).
 ```
 
-可以通过如下方式解决，在自定义函数中设置 `ms.set_context(max_device_memory="2GB")` 减少多进程的设备内存占用。
+可以通过如下方式解决，在自定义函数中设置 `ms.runtime.set_memory(max_size="2GB")` 减少多进程的设备内存占用。
 
 出错的脚本如下：
 
@@ -631,7 +631,7 @@ data2 = data2.map(pyfunc, input_columns="image", python_multiprocessing=True)
 
 ```python
 def pyfunc(img_bytes):
-    ms.set_context(max_device_memory="2GB")
+    ms.runtime.set_memory(max_size="2GB")
 
     img_decode = vision.Decode().device("Ascend")(img_bytes)
 

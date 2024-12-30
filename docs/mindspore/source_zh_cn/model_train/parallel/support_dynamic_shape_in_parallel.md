@@ -56,7 +56,7 @@ from mindspore import nn
 from mindspore import Parameter
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_context(max_device_memory="28GB")
+ms.runtime.set_memory(max_size="28GB")
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL)
 init()
 

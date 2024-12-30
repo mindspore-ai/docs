@@ -23,13 +23,14 @@ offload_config = {"offload_param": "cpu",
                   "host_mem_block_size":"1GB",
                   "enable_aio": True,
                   "enable_pinned_mem": True}
-mindspore.set_context(mode=mindspore.GRAPH_MODE, memory_offload='ON', max_device_memory='30GB')
+mindspore.set_context(mode=mindspore.GRAPH_MODE, memory_offload='ON')
+mindspore.runtime.set_memory(max_size="30GB")
 mindspore.set_offload_context(offload_config=offload_config)
 ```
 
 - `memory_offload`: : Whether to enable heterogeneous storage to temporarily copy free data to Host-side memory in out-of-memory scenarios.
 
-- `max_device_memory`: Sets the maximum memory available to the device.
+- `max_size`: Sets the maximum memory available to the device.
 
 - `offload_config` is a configuration option for heterogeneous storage where:
 
@@ -80,7 +81,7 @@ from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
-ms.set_context(max_device_memory="1GB")
+ms.runtime.set_memory(max_size="1GB")
 if args_opt.memory_offload == "ON":
     ms.set_context(memory_offload="ON")
     offload_config = {"offload_path": args_opt.offload_path, "auto_offload": args_opt.auto_offload,
@@ -94,7 +95,7 @@ init()
 ms.set_seed(1)
 ```
 
-`offload_config` is the configuration dictionary for heterogeneous storage, and see the relevant configuration notes in the overview of this chapter for details of the configuration. Here `max_device_memory` is configured to `1GB` to trigger heterogeneous storage by preventing the video memory from loading the full network. The "1GB" here only represents the borderline video memory we tested on the Atlas training series, which may vary from device to device.
+`offload_config` is the configuration dictionary for heterogeneous storage, and see the relevant configuration notes in the overview of this chapter for details of the configuration. Here `max_size` is configured to `1GB` to trigger heterogeneous storage by preventing the video memory from loading the full network. The "1GB" here only represents the borderline video memory we tested on the Atlas training series, which may vary from device to device.
 
 ### Loading the Dataset
 
@@ -235,7 +236,7 @@ step: 3, loss is 2.3037016
 
 ### Automatically Generating offload Strategies
 
-In addition to copying data strictly according to the user `"offload_param"` configuration, MindSpore also supports automatic generation of heterogeneous storage strategies. MindSpore can analyze the network video memory usage information and combine the user-configured `"max_device_memory"`, `"offload_cpu_size"`, `"offload_disk_size"`, `"hbm_ratio"`, and `"cpu_ratio"` to generate eterogeneous storage strategies, and then follow the established strategy to move data across multiple storage media.
+In addition to copying data strictly according to the user `"offload_param"` configuration, MindSpore also supports automatic generation of heterogeneous storage strategies. MindSpore can analyze the network video memory usage information and combine the user-configured `"max_size"`, `"offload_cpu_size"`, `"offload_disk_size"`, `"hbm_ratio"`, and `"cpu_ratio"` to generate eterogeneous storage strategies, and then follow the established strategy to move data across multiple storage media.
 
 ```python
 import mindspore
@@ -248,7 +249,8 @@ offload_config = {"offload_path": "./offload/",
                   "host_mem_block_size":"1GB",
                   "enable_aio": True,
                   "enable_pinned_mem": True}
-mindspore.set_context(mode=mindspore.GRAPH_MODE, memory_offload='ON', max_device_memory='30GB')
+mindspore.set_context(mode=mindspore.GRAPH_MODE, memory_offload='ON')
+mindspore.runtime.set_memory(max_size="30GB")
 mindspore.set_offload_context(offload_config=offload_config)
 ```
 

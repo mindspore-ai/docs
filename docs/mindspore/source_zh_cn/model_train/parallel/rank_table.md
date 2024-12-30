@@ -68,7 +68,7 @@ import mindspore as ms
 from mindspore.communication import init
 
 device_id = int(os.getenv('DEVICE_ID'))
-ms.set_context(device_id=device_id)
+ms.set_device(device_id=device_id)
 ms.set_context(mode=ms.GRAPH_MODE)
 ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
 init()

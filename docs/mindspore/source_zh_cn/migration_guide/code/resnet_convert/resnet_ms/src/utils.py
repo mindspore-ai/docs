@@ -37,7 +37,7 @@ def init_env(cfg):
     os.environ['MS_DEV_SAVE_GRAPHS_PATH'] = cfg.save_graphs_path
     ms.set_context(mode=context_mode)
     if not isinstance(cfg.device_id, int):
-        ms.set_context(device_id=cfg.device_id)
+        ms.set_device(device_id=cfg.device_id)
     cfg.need_boost = hasattr(cfg, "boost_level") and cfg.boost_level in ["O1", "O2"]
     set_graph_kernel_context(cfg.device_target, cfg.model_name)
     if cfg.device_num > 1:

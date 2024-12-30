@@ -321,7 +321,7 @@ Take the sample code as an example, and start 8 cards, the corresponding command
 bash run_mpirun_shard_function_example.sh
 ```
 
-> Note that when startup from mpirun on Ascend with a large number of subgroups, you may run into an error that creating a communication domain fails. The error message is "Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2". You can reduce the `max_device_memory` in `context` to reserve enough memory for hccl to create the communication domain.
+> Note that when startup from mpirun on Ascend with a large number of subgroups, you may run into an error that creating a communication domain fails. The error message is "Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2". You can reduce the `max_size` in `set_memory` to reserve enough memory for hccl to create the communication domain.
 
 ### Running Results
 

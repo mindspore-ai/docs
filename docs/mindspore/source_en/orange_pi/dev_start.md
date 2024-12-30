@@ -14,7 +14,7 @@ from mindspore.dataset import MnistDataset
 
 > Since Mindspore 2.3 and earlier versions do not support dynamic memory request on demand, and CANN lacks corresponding dynamic operators, we need to set the environment via set_context before executing the cases. The above problems will be solved in the future with the continuous updating of the version, so that the cases can be executed directly without the need to configure the environment.
 
-  max_device_memory="2GB" : Set the maximum memory available to the device to 2GB.
+  max_size="2GB" : Set the maximum memory available to the device to 2GB.
 
   mode=mindspore.GRAPH_MODE : Indicates running in GRAPH_MODE mode.
 
@@ -26,7 +26,8 @@ from mindspore.dataset import MnistDataset
 
 ```python
 import mindspore
-mindspore.set_context(max_device_memory="2GB", mode=mindspore.GRAPH_MODE, jit_config={"jit_level":"O2"})
+mindspore.set_context(mode=mindspore.GRAPH_MODE, jit_config={"jit_level":"O2"})
+mindspore.runtime.set_memory(max_size="2GB")
 mindspore.set_device("Ascend")
 mindspore.device_context.ascend.op_precision.precision_mode("allow_mix_precision")
 ```

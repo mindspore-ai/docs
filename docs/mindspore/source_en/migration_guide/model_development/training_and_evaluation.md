@@ -36,7 +36,7 @@ def init_env(cfg):
 
     # Set the card to be used at runtime
     if hasattr(cfg, "device_id") and isinstance(cfg.device_id, int):
-        ms.set_context(device_id=cfg.device_id)
+        ms.set_device(device_id=cfg.device_id)
 
     if cfg.device_num > 1:
         # The init method is used to initialize multiple cards, and does not distinguish between Ascend and GPU. get_group_size and get_rank can only be used after init
