@@ -67,7 +67,7 @@
 在`[INFO]`信息中，我们提供了所有支持自定义开关的Pass列表。用户可以通过`export GLOG_v=1`来生成`[INFO]`信息。在`[INFO]`信息中，用户通过搜索`graph kernel pass`来获取的该Pass列表。比如下面的信息示例中，`graph kernel pass：`后为 所有可以自定义开关的Pass的名称。
 
 ```shell
-[INFO] PRE_ACT(631369,ffffb5450af0,python):2024-08-22-15:34:16.978.158 [mindspore/ccsrc/plugin/device/ascend/optimizer/backend_common_unify_mindir.cc:191] GetBackendFusionGroupPassManager] graph kernel passes: FlashAttentionFusionV1,FlashAttentionFusionV2,add_layer_norm_fusion,add_layer_norm_v3_fusion,add_layer_norm_ext_fusion,inference_swiglu_fusion,inference_matmul_split_fusion,shape_reshape,shape_reshape_2,add_rms_norm_quant_fusion,rms_norm_quant_fusion,add_rms_norm_fusion,add_cast_rms_norm_cast_fusion,MatMulAllReduce,split_concat_fusion,matmul_elem_biasadd_fusion,matmul_elem_add_fusion,matmul_elem_relu_fusion,matmul_elem_gelu_fusion,inference_qbmm_add_fusion,inference_qbmm_allreduce_add_fusion.
+[INFO] PRE_ACT(631369,ffffb5450af0,python):2024-08-22-15:34:16.978.158 [mindspore/ccsrc/plugin/device/ascend/optimizer/backend_common_unify_mindir.cc:191] GetBackendFusionGroupPassManager] graph kernel passes: FlashAttentionFusionV1,FlashAttentionFusionV2,add_layer_norm_fusion,add_layer_norm_v3_fusion,add_layer_norm_ext_fusion,inference_swiglu_fusion,inference_matmul_split_fusion,shape_reshape,add_rms_norm_quant_fusion,rms_norm_quant_fusion,add_rms_norm_fusion,add_cast_rms_norm_cast_fusion,MatMulAllReduce,split_concat_fusion,matmul_elemwise_fusion,inference_qbmm_add_fusion,inference_qbmm_allreduce_add_fusion.
 ```
 
 对于单个Pass，我们也可以通过日志信息确认它是否使能，比如：
@@ -255,16 +255,12 @@
 | inference_swiglu_fusion             | Ascend   |
 | inference_matmul_split_fusion       | Ascend   |
 | shape_reshape                       | Ascend   |
-| shape_reshape_2                     | Ascend   |
 | add_rms_norm_quant_fusion           | Ascend   |
 | rms_norm_quant_fusion               | Ascend   |
 | add_rms_norm_fusion                 | Ascend   |
 | add_cast_rms_norm_cast_fusion       | Ascend   |
 | MatMulAllReduce                     | Ascend   |
 | split_concat_fusion                 | Ascend   |
-| matmul_elem_biasadd_fusion          | Ascend   |
-| matmul_elem_add_fusion              | Ascend   |
-| matmul_elem_relu_fusion             | Ascend   |
-| matmul_elem_gelu_fusion             | Ascend   |
+| matmul_elemwise_fusion              | Ascend   |
 | inference_qbmm_add_fusion           | Ascend   |
 | inference_qbmm_allreduce_add_fusion | Ascend   |

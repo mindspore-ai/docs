@@ -80,7 +80,7 @@ If users have dumped the relevant IR, they can obtain the related fusion pass na
 In `[INFO]` messages, we provide a list of all passes that support custom switches. Users can generate `[INFO]` messages by setting `export GLOG_v=1`. In the `[INFO]` messages, users can search for `graph kernel pass` to obtain the list of these passes. For example, in the following message, the names of all passes that can be customized are listed after `graph kernel pass:`.
 
 ```shell
-[INFO] PRE_ACT(631369,ffffb5450af0,python):2024-08-22-15:34:16.978.158 [mindspore/ccsrc/plugin/device/ascend/optimizer/backend_common_unify_mindir.cc:191] GetBackendFusionGroupPassManager] graph kernel passes: FlashAttentionFusionV1,FlashAttentionFusionV2,add_layer_norm_fusion,add_layer_norm_v3_fusion,add_layer_norm_ext_fusion,inference_swiglu_fusion,inference_matmul_split_fusion,shape_reshape,shape_reshape_2,add_rms_norm_quant_fusion,rms_norm_quant_fusion,add_rms_norm_fusion,add_cast_rms_norm_cast_fusion,MatMulAllReduce,split_concat_fusion,matmul_elem_biasadd_fusion,matmul_elem_add_fusion,matmul_elem_relu_fusion,matmul_elem_gelu_fusion,inference_qbmm_add_fusion,inference_qbmm_allreduce_add_fusion.
+[INFO] PRE_ACT(631369,ffffb5450af0,python):2024-08-22-15:34:16.978.158 [mindspore/ccsrc/plugin/device/ascend/optimizer/backend_common_unify_mindir.cc:191] GetBackendFusionGroupPassManager] graph kernel passes: FlashAttentionFusionV1,FlashAttentionFusionV2,add_layer_norm_fusion,add_layer_norm_v3_fusion,add_layer_norm_ext_fusion,inference_swiglu_fusion,inference_matmul_split_fusion,shape_reshape,add_rms_norm_quant_fusion,rms_norm_quant_fusion,add_rms_norm_fusion,add_cast_rms_norm_cast_fusion,MatMulAllReduce,split_concat_fusion,matmul_elemwise_fusion,inference_qbmm_add_fusion,inference_qbmm_allreduce_add_fusion.
 ```
 
 For individual passes, users can also confirm whether they are enabled through log messages. For example:
@@ -268,16 +268,12 @@ For individual passes, users can also confirm whether they are enabled through l
 | inference_swiglu_fusion             | Ascend   |
 | inference_matmul_split_fusion       | Ascend   |
 | shape_reshape                       | Ascend   |
-| shape_reshape_2                     | Ascend   |
 | add_rms_norm_quant_fusion           | Ascend   |
 | rms_norm_quant_fusion               | Ascend   |
 | add_rms_norm_fusion                 | Ascend   |
 | add_cast_rms_norm_cast_fusion       | Ascend   |
 | MatMulAllReduce                     | Ascend   |
 | split_concat_fusion                 | Ascend   |
-| matmul_elem_biasadd_fusion          | Ascend   |
-| matmul_elem_add_fusion              | Ascend   |
-| matmul_elem_relu_fusion             | Ascend   |
-| matmul_elem_gelu_fusion             | Ascend   |
+| matmul_elemwise_fusion              | Ascend   |
 | inference_qbmm_add_fusion           | Ascend   |
 | inference_qbmm_allreduce_add_fusion | Ascend   |
