@@ -187,5 +187,5 @@ RuntimeError: DNS resolution failed: [Errno -2] Name or service not known. Pleas
 A: 这是因为在使用msrun启动分布式框架且通过hostname指定主节点时，环境上的DNS服务器无法正常将传入的主机名解析成IP地址。这有可能是因为：
 
 1. 输入的主机名是错误的，或者该主机名在DNS中不存在。Linux中可以通过命令`nslookup <hostname>`或`dig <hostname>`来手动查询DNS记录，也可以通过命令`cat /etc/hosts`查看环境上的静态DNS解析文件信息。
-2. DNS服务器无法正常访问。Linux中可以通过命令`cat /etcresolv.conf`来查看DNS服务器配置。
+2. DNS服务器无法正常访问。Linux中可以通过命令`cat /etc/resolv.conf`来查看DNS服务器配置。
 3. 防火墙或者安全软件组织了DNS查询。Linux中可以通过命令`systemctl status firewalld`和`service iptables status`来查看防火墙和iptable状态。
