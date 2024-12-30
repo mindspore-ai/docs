@@ -292,12 +292,12 @@
   </tbody>
   <tbody>
     <tr>
-      <td rowspan="1"> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/qwenvl/qwenvl.md"> Qwen-VL </a> </td>
+      <td rowspan="1"> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/qwenvl/README.md"> Qwen-VL </a> </td>
       <td> 9.6B </td>
       <td> 2K </td>
       <td style="text-align: center"> - </td>
-      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/qwenvl/qwenvl.md#%E5%BE%AE%E8%B0%83"> finetune </a> </td>
-      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/qwenvl/qwenvl.md#%E6%8E%A8%E7%90%86"> predict </a> </td>
+      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/qwenvl/README.md#%E5%BE%AE%E8%B0%83"> finetune </a> </td>
+      <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/qwenvl/README.md#%E6%8E%A8%E7%90%86"> predict </a> </td>
       <td> 2587 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_72b/finetune_qwen2_72b_32k.yaml"> 配置 </a> <br> - </td>
       <td> 42 tokens/s <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/qwen2/qwen2_72b/predict_qwen2_72b_instruct.yaml"> 配置 </a> <br> - </td>
     </tr>

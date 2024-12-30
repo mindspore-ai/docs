@@ -18,7 +18,7 @@ The Ascend platform provides comprehensive tutorials for Ascend C operator devel
 
 **Basic Tutorial**: Visit [Ascend C Operator Development](https://www.hiascend.com/document/detail/en/canncommercial/700/operatordev/Ascendcopdevg/atlas_ascendc_10_0001.html) to obtain introductory knowledge.
 
-**Operator Implementation**: Focus on learning [kernel-side operator implementation](https://www.hiascend.com/document/detail/en/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0024.html) and [host-side operator implementation](https://www.hiascend.com/document/detail/en/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0024.html), learning the core logic of device-side operator execution and the implementation method of host-side operator operations.
+**Operator Implementation**: Focus on learning [kernel-side operator implementation](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0067.html) and [host-side operator implementation](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0068.html), learning the core logic of device-side operator execution and the implementation method of host-side operator operations.
 
 **Development Samples**: Ascend Community provides a wealth of [Ascend C Operator Development Samples](https://gitee.com/ascend/samples/tree/master/operator/ascendc), covering various types of operators, helping you quickly understand the practical application of operator development. You can also view the [AddCustom Custom Operator Development Sample](https://gitee.com/ascend/samples/tree/master/operator/ascendc/0_introduction/1_add_frameworklaunch/AddCustom), which simply shows the core work needed for custom operator development.
 
@@ -83,7 +83,7 @@ Make sure you have the following conditions to use MindSpore's Ascend C custom o
 
 ### Additional Information
 
-This tool is based on the encapsulation of CANN's `msopgen` tool. You can also choose to use the native `msopgen` tool for compilation. For more information, please refer to [Creating Operator Projects Based on the msopgen Tool](https://www.hiascend.com/document/detail/en/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0023.html) and [Operator Compilation and Deployment](https://www.hiascend.com/document/detail/en/canncommercial/70RC1/operatordev/Ascendcopdevg/atlas_ascendc_10_0031.html).
+This tool is based on the encapsulation of CANN's `msopgen` tool. You can also choose to use the native `msopgen` tool for compilation. For more information, please refer to [Creating Operator Projects Based on the msopgen Tool](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha002/devaids/opdev/optool/atlasopdev_16_0018.html) and [Operator Compilation and Deployment](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha002/devaids/opdev/optool/atlasopdev_16_0024.html).
 
 ## Using Custom Operators in MindSpore
 
