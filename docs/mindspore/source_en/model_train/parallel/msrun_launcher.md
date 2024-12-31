@@ -107,15 +107,15 @@ A parameters list of command line:
         <td align="left" style="white-space:nowrap">--worker_log_name</td>
         <td align="left">Specifies the worker log name.</td>
         <td align="left" style="white-space:nowrap">String</td>
-        <td align="left">File name of worker log. Default: empty string.</td>
-        <td align="left">This parameter represents support for users to configure the worker log name, the suffix of worker log name is <code>rank</code> by default. <br>Users can configure <code>ip</code> and <code>hostname</code> to worker log name by <code>{ip}</code> and <code>{hostname}</code> separately. <br>If not set this parameter, the worker log name will be <code>worker_[rank].log</code>.</td>
+        <td align="left">File name of worker log. Default: <code>worker_[rank].log</code>.</td>
+        <td align="left">This parameter represents support users configure worker log name, and support configure <code>ip</code> and <code>hostname</code> to worker log name by <code>{ip}</code> and <code>{hostname}</code> separately. <br>The suffix of worker log name is <code>rank</code> by default.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--tail_worker_log</td>
         <td align="left">Enable output worker log to console.</td>
         <td align="left" style="white-space:nowrap">String</td>
         <td align="left">One or multiple integers associated with the worker process rank_id. Default: -1.</td>
-        <td align="left">This parameter represents output all worker logs of the current node to console by default and supports users specify one or more worker logs output to console. <br>This parameter should be in [0, local_worker_num].</td>
+        <td align="left">This parameter represents output all worker logs of the current node to console by default, and supports users specify one or more worker logs output to console when <code>--join=True</code>. <br>This parameter should be in [0, local_worker_num].</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">task_script</td>
