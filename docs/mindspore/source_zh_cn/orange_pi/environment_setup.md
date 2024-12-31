@@ -287,7 +287,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.1/MindSpore/
 
   ![environment-setup-1-19](./images/environment_setup_1-19.png)
 
-> 本教程旨在让开发者体验到最新的版本特定，但由于daily包并不是正式发布版本，在运行中可能会出现一些问题，开发者可通过[社区](https://gitee.com/mindspore/mindspore)提交issue，或可自行修改并提交PR。
+> 本教程旨在让开发者体验到最新的版本特性，但由于daily包并不是正式发布版本，在运行中可能会出现一些问题，开发者可通过[社区](https://gitee.com/mindspore/mindspore)提交issue，或可自行修改并提交PR。
 
 - 下载whl包进行安装，终端运行如下命令。
 
