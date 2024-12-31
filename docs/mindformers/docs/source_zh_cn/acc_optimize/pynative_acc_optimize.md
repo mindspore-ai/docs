@@ -286,10 +286,38 @@
     msprobe -f mindspore compare -i ./compare.json -o ./output -lm ./layer_mapping.yaml
     ```
 
-    **-i**传入参数为compare.json文件路径， **-o**传入参数为输出目录，输出目录下会生成精度对比的结果文件。  
-    **-lm**传入参数为层映射文件的路径（当前由于MindSpore动态图并行库中的代码结构无法与Megatron中的代码结构完全对应，因此需要将两侧的层通过映射表来进行映射，layer\_mapping.yaml中对两侧不同的模块进行了层名的映射，如下图所示，对于同一个模块的子模块，两侧存在命名不同的情况。以ParallelTransformerLayer为例，在MindSpore动态图并行库中其中一个子模块的层名为attention， 而在megatron中同一层则命名为self\_attention， 因此在比对时需要传入该映射文件）。
+    **参数说明**
 
-    ![layer_mapping_1](./image/layer_mapping_1.png)
+    | 参数名               | 说明                                                         | 是否必选 |
+    | -------------------- | ------------------------------------------------------------ | -------- |
+    | -i或--input_path           | compare.json文件路径。 | 是       |
+    | -o或--output_path          | 配置比对结果文件存盘目录，默认会在当前目录创建output目录。| 否       |
+    | -lm或--layer_mapping       | 跨框架比对。配置该参数时表示开启跨框架Layer层的比对功能，指定模型代码中的Layer层后，可以识别对应dump数据中的模块或API。需要指定自定义映射文件*.yaml。自定义映射文件可从MindSpore动态图并行库中获取，也可以参考下方示例自行配置，仅跨框架的Layer层比对场景需要配置。         | 否      |
+
+    **layer\_mapping.yaml** 映射文件内容可参考如下示例：
+
+    ```yaml
+    TopLayer:                           # Layer层名称
+      network_with_loss: module         # 冒号左侧为MindSpore框架模型代码中嵌套的Layer层名称，冒号右侧为PyTorch框架模型代码中嵌套的Layer层名称
+
+    Embedding:
+      dropout: embedding_dropout
+
+    ParallelTransformerLayer:
+      attention: self_attention
+
+    ParallelAttention:
+      qkv_proj: query_key_value
+      out_proj: dense
+
+    ParallelMLP:
+      mapping: dense_h_to_4h
+      projection: dense_4h_to_h
+    ```
+
+    Layer层名称需要从模型代码中获取。
+    映射文件中只需配置MindSpore与PyTorch模型代码中功能一致但名称不同的Layer层，名称相同的Layer层会被自动识别并映射。
+
     ![layer_mapping_2](./image/layer_mapping_2.png)
 
     **分析比对结果**  
