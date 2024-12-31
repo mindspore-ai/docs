@@ -287,7 +287,7 @@ The Orange Pi development board supports custom installation of MindSpore daily 
 
   ![environment-setup-1-19](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/orange_pi/images/environment_setup_1-19.png)
 
-> This tutorial aims to let developers experience the latest version-specific, but because the daily package is not the official release version, there may be some problems during operation. Developers can submit issues through the [community](https://gitee.com/mindspore/mindspore), or can be modified and submit their own PR.
+> This tutorial aims to let developers experience the latest version features, but because the daily package is not the official release version, there may be some problems during operation. Developers can submit issues through the [community](https://gitee.com/mindspore/mindspore), or can be modified and submit their own PR.
 
 - Download the whl package for installation and run the following command in the terminal.
 
