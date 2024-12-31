@@ -221,6 +221,73 @@
         - **Error2** – 异常描述2。
 ```
 
+## 样例特殊情况
+
+注意：重载接口暂不支持特殊样例的写法！
+
+英文样例内有note时，中文需要特殊处理（class、function、method相同写法，以function为例）：
+
+```text
+.. py:function:: name(参数)
+
+    描述函数功能。
+
+    参数：
+        - **参数1** (Tensor) – 参数1说明。
+        - **参数2** (int) – 参数2说明。
+
+    返回：
+        返回说明。
+
+    异常：
+        - **Error1** – 异常描述1。
+        - **Error2** – 异常描述2。
+
+    样例：
+
+    .. note::
+        xxxx
+
+```
+
+英文注释内有教程样例时，中文需要特殊处理（class、function、method相同写法，以function为例）：
+
+```text
+.. py:function:: name(参数)
+
+    描述函数功能。
+
+    参数：
+        - **参数1** (Tensor) – 参数1说明。
+        - **参数2** (int) – 参数2说明。
+
+    返回：
+        返回说明。
+
+    异常：
+        - **Error1** – 异常描述1。
+        - **Error2** – 异常描述2。
+
+    教程样例：
+        - `自动混合精度 - 损失缩放
+          <https://mindspore.cn/tutorials/zh-CN/master/beginner/mixed_precision.html#损失缩放>`_
+
+```
+
+如果英文既有教程样例，还有有note的样例，则教程样例的格式写在note样例的下面：
+
+```text
+    样例：
+
+    .. note::
+        xxxx
+
+    教程样例：
+        - `自动混合精度 - 损失缩放
+          <https://mindspore.cn/tutorials/zh-CN/master/beginner/mixed_precision.html#损失缩放>`_
+
+```
+
 ## Note
 
 ```text
