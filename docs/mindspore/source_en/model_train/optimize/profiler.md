@@ -54,7 +54,7 @@ class StopAtStep(ms.Callback):
             self.profiler.analyse()
 ```
 
-For the complete case, refer to [graph mode collection complete code example](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/profiler/graph_start_stop_profiler.py)
+For the complete case, refer to [graph mode collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/graph_start_stop_profiler.py)
 
 **PyNative mode collection example:**
 
@@ -82,7 +82,7 @@ with Profiler(schedule=schedule(wait=0, warm_up=0, active=2, repeat=1, skip_firs
 
 After enabling, the Step ID column information is included in the kernel_details.csv file, and the Step ID is 0,1, indicating that the data collected is the 0th and 1st step data.
 
-For the complete case, refer to [PyNative mode collection complete code example](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/profiler/py_native_step_profiler.py)
+For the complete case, refer to [PyNative mode collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/py_native_step_profiler.py)
 
 ### Method 2: Dynamic Profiler Enabling
 
@@ -127,7 +127,7 @@ for _ in range(STEP_NUM):
 
 At this point, the results include two folders: rank0_start2_stop5 and rank0_start8_stop10, representing the collection of steps 2-5 and 8-10 respectively.
 
-For the complete case, refer to [dynamic profiler enabling method case](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/profiler/dynamic_profiler.py).
+For the complete case, refer to [dynamic profiler enabling method case](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/dynamic_profiler.py).
 
 ### Method 3: Environment Variable Enabling
 

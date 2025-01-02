@@ -88,7 +88,7 @@ if (!ret) {
 
 ### 编译构建
 
-设置环境变量，在`mindspore/lite/examples/cloud_infer/quick_start_parallel_java`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_java/build.sh)，将自动下载MindSpore Lite推理框架库以及模型文件并编译Demo。
+设置环境变量，在`mindspore/lite/examples/cloud_infer/quick_start_parallel_java`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_java/build.sh)，将自动下载MindSpore Lite推理框架库以及模型文件并编译Demo。
 
 ```bash
 export JAVA_HOME=/{path}/default-java

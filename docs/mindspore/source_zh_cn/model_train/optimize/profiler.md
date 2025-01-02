@@ -54,7 +54,7 @@ class StopAtStep(ms.Callback):
             self.profiler.analyse()
 ```
 
-完整案例请参考[graph模式采集完整代码样例](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/profiler/graph_start_stop_profiler.py)
+完整案例请参考[graph模式采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/graph_start_stop_profiler.py)。
 
 **PyNative模式采集样例：**
 
@@ -82,7 +82,7 @@ with Profiler(schedule=schedule(wait=0, warm_up=0, active=2, repeat=1, skip_firs
 
 使能后落盘数据中kernel_details.csv中包含了Step ID一列信息，且Step ID为0,1，表示采集的是第0个step以及第1个step数据。
 
-完整案例参考[PyNative模式采集完整代码样例](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/profiler/py_native_step_profiler.py)
+完整案例参考[PyNative模式采集完整代码样例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/py_native_step_profiler.py)
 
 ### 方式二：动态profiler使能
 
@@ -127,7 +127,7 @@ for _ in range(STEP_NUM):
 
 此时生成的结果文件包含两个文件夹：rank0_start2_stop5以及rank0_start8_stop10，分别代表采集的step为2-5和8-10。
 
-完整案例请参考[动态Profiler使能方式案例](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/profiler/dynamic_profiler.py)。
+完整案例请参考[动态Profiler使能方式案例](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/dynamic_profiler.py)。
 
 ### 方式三：环境变量使能
 
