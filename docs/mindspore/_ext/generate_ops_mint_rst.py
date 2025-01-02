@@ -29,7 +29,11 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need='all'):
                     modulename += '.functional'
                 mint_ops_dict[modulename] = []
                 # pylint: disable=eval-used
-                reg_all = eval(f"{modulename}.__all__")
+                try:
+                    reg_all = eval(f"{modulename}.__all__")
+                except AttributeError as e:
+                    print(f'模块名有误：{e}')
+                    continue
                 one_p = re.findall(r'from mindspore\.(ops|nn).*?(?<!extend) import (.*?)(\n|# )', content)
                 two_p = [i[1] for i in one_p]
                 for i in two_p:
@@ -47,6 +51,7 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need='all'):
                             if j.strip() in reg_all:
                                 mint_ops_dict[modulename].append(j.strip())
 
+    exist_mint_file = []
     print('已自动生成与ops内容一致的mint接口:')
     if pr_need != 'all':
         os.makedirs(mint_path, exist_ok=True)
@@ -63,9 +68,10 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need='all'):
                     continue
                 elif pr_need != 'all' and f'{k}.{name2}' not in pr_need:
                     continue
+                if os.path.exists(os.path.join(mint_path, f'{k}.{name2}.rst')):
+                    exist_mint_file.append(f'{k}.{name2}')
+                    continue
                 if os.path.exists(os.path.join(ops_path, f'mindspore.ops.func_{name1}.rst')):
-                    if os.path.exists(os.path.join(mint_path, f'{k}.{name2}.rst')):
-                        os.remove(os.path.join(mint_path, f'{k}.{name2}.rst'))
                     shutil.copy(os.path.join(ops_path, f'mindspore.ops.func_{name1}.rst'),
                                 os.path.join(mint_path, f'{k}.{name2}.rst'))
                     with open(os.path.join(mint_path, f'{k}.{name2}.rst'), 'r+', encoding='utf-8') as f:
@@ -81,5 +87,8 @@ def generate_ops_mint_rst(repo_path, ops_path, mint_path, pr_need='all'):
                         f.truncate()
                         f.write(content)
                     print(f'{k}.{name2}')
+    print('已存在mint中文文档，未覆盖成功的如下：')
+    for i in exist_mint_file:
+        print(i)
 
     return 1

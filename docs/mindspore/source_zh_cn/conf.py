@@ -11,7 +11,6 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 
-from genericpath import exists
 import re
 import os
 import sys
@@ -33,10 +32,25 @@ with open(_html_base.__file__, "r", encoding="utf-8") as f:
     code_str = code_str.replace(old_str, new_str)
     exec(code_str, _html_base.__dict__)
 
+# 提取样例、支持平台至中文
 from sphinx import directives
 with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
     exec(f.read(), directives.__dict__)
 
+# 调整 Tensor 重载函数的定义名称显示
+from sphinx.domains import python as domain_py
+with open(domain_py.__file__, 'r', encoding="utf8") as f:
+    code_str = f.read()
+    old_str = "signode += addnodes.desc_addname(nodetext, nodetext)"
+    new_str = """signode += addnodes.desc_addname(nodetext, nodetext)
+        elif 'mindspore.Tensor' in classname:
+            signode += addnodes.desc_addname('mindspore.Tensor.', 'mindspore.Tensor.')
+        elif 'mindspore.mint' in classname:
+            signode += addnodes.desc_addname('mindspore.mint.', 'mindspore.mint.')"""
+    code_str = code_str.replace(old_str, new_str)
+    exec(code_str, domain_py.__dict__)
+
+# 添加源代码链接
 from sphinx.ext import viewcode
 with open('../_ext/overwriteviewcode.txt', 'r', encoding="utf8") as f:
     exec(f.read(), viewcode.__dict__)

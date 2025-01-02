@@ -34,6 +34,16 @@ with open(_html_base.__file__, "r", encoding="utf-8") as f:
     code_str = code_str.replace(old_str, new_str)
     exec(code_str, _html_base.__dict__)
 
+# Adjust the display of definition names for Tensor overloaded functions
+from sphinx.domains import python as domain_py
+with open(domain_py.__file__, 'r', encoding="utf8") as f:
+    code_str = f.read()
+    old_str = "signode += addnodes.desc_addname(nodetext, nodetext)"
+    new_str = """signode += addnodes.desc_addname(nodetext, nodetext)
+        elif 'Tensor' == classname:
+            signode += addnodes.desc_addname('Tensor.', 'Tensor.')"""
+    code_str = code_str.replace(old_str, new_str)
+    exec(code_str, domain_py.__dict__)
 
 # Fix mathjax tags
 from sphinx.ext import mathjax as sphinx_mathjax
@@ -205,14 +215,16 @@ try:
                        ("mindspore/ops/primitive.py", "fix for `shard`",
                        "    @_LogActionOnce(logger=logger, key='Primitive')", "    # The decorator has been deleted."),
                        ("mindspore/dataset/engine/datasets.py","generate api",
-                       "    @deprecated(\"1.5\")","    # The decorator has been deleted."),
+                       "    @deprecated(\"1.5\")","    # The decorator has been deleted(id1)."),
                        ("mindspore/dataset/engine/datasets.py","generate api",
-                       "    @check_bucket_batch_by_length","    # The decorator has been deleted."),
+                       "    @check_bucket_batch_by_length","    # The decorator has been deleted(id2)."),
                        ("mindspore/train/summary/summary_record.py", "summary_record",
                        "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo,\n                LossLandscape]): The value to store.\n\n", 
                        "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo, LossLandscape]): The value to store.\n\n"),
                        ("mindspore/nn/cell.py","generate api",
-                       "    @jit_forbidden_register","    # generate api by del decorator.")]
+                       "    @jit_forbidden_register","    # generate api by del decorator."),
+                       ("mindspore/profiler/dynamic_profiler.py","generate api",
+                       "    @no_exception_func()","    # generate api by del decorator.")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
@@ -242,6 +254,24 @@ try:
                 f.seek(0)
                 f.truncate()
                 f.write(content)
+except:
+    pass
+
+# add @functools.wraps
+try:
+    decorator_list = [("mindspore/common/_tensor_overload.py", ".*?_mint")]
+
+    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+    for i in decorator_list:
+        with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
+            content = f.read()
+            new_content = re.sub('(import .*\n)', r'\1import functools\n', content, 1)
+            new_content = re.sub(f'def ({i[1]})\((.*?)\):\n((?:.|\n|)+?)([ ]+?)def wrapper\(',
+                             rf'def \1(\2):\n\3\4@functools.wraps(\2)\n\4def wrapper(', new_content)
+            if new_content != content:
+                f.seek(0)
+                f.truncate()
+                f.write(new_content)
 except:
     pass
 
@@ -341,6 +371,9 @@ docs_branch = [version_inf[i]['branch'] for i in range(len(version_inf)) if vers
 repo_whl = 'mindspore/python/'
 giturl = 'https://gitee.com/mindspore/'
 ops_yaml = 'mindspore/ops/op_def/yaml/doc/'
+tensor_yaml = 'mindspore/ops/api_def/method_doc/'
+mint_yaml = 'mindspore/ops/api_def/function_doc/'
+
 try:
     ops_yaml_list = [i for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/op_def/yaml/doc')) if i.endswith('_doc.yaml') and '_grad' not in i]
 except:
@@ -362,7 +395,7 @@ for cur, _, files in os.walk(des_sir):
         if i.endswith('.rst') or i.endswith('.md') or i.endswith('.ipynb'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
-                new_content = re.sub(re_url, r'\1/br_base', content)
+                new_content = re.sub(re_url, r'\1/br_ops', content)
                 if i.endswith('.md'):
                     md_view = f'[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
                     if 'resource/_static/logo_source' not in new_content:
@@ -378,7 +411,7 @@ for cur, _, files in os.walk(os.path.join(base_path, 'mindspore')):
         if i.endswith('.py'):
             with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                 content = f.read()
-                new_content = re.sub(re_url, r'\1/br_base', content)
+                new_content = re.sub(re_url, r'\1/br_ops', content)
                 if new_content != content:
                     f.seek(0)
                     f.truncate()
@@ -403,6 +436,8 @@ def setup(app):
     app.add_config_value('giturl', '', True)
     app.add_config_value('repo_whl', '', True)
     app.add_config_value('ops_yaml', '', True)
+    app.add_config_value('tensor_yaml', '', True)
+    app.add_config_value('mint_yaml', '', True)
     app.add_config_value('ops_yaml_list', [], True)
     app.add_config_value('primi_auto', [], True)
     app.add_config_value('func_name_dict', {}, True)
