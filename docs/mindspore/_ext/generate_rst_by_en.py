@@ -17,7 +17,7 @@ def get_api(fullname):
     try:
         api = eval(f"module_import.{api_name}")
     except AttributeError:
-        print(f'failed to import {api_name}')
+        print(f'failed to {module_import}.{api_name}')
         return ''
     return api
 
@@ -29,7 +29,11 @@ def generate_rst_by_en(sum_list, target_path, language='cn'):
     for i in sum_list:
         if i.lower() == i:
             continue
-        module_api = get_api(i)
+        try:
+            module_api = get_api(i)
+        # pylint: disable=W0702
+        except:
+            continue
         if not module_api:
             continue
         try:

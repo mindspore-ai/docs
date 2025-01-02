@@ -305,7 +305,7 @@ class MsPlatWarnAutoSummary(MsAutosummary):
         self.default_doc_fourth = "None"
         self.find_doc_name = "Supported Platforms:"
         self.third_title = "**{}**".format(self.find_doc_name[:-1])
-        self.default_doc = "``Ascend`` ``GPU`` ``CPU``"
+        self.default_doc = ""
 
     def get_refer_platform(self, name=None):
         """Get the `Supported Platforms`."""
@@ -362,7 +362,7 @@ class MsPlatformAutoSummary(MsAutosummary):
         """
         self.find_doc_name = "Supported Platforms:"
         self.third_title = "**{}**".format(self.find_doc_name[:-1])
-        self.default_doc = "``Ascend`` ``GPU`` ``CPU``"
+        self.default_doc = ""
         self.find_doc_name_fourth = ""
         self.fourth_title = ""
         self.default_doc_fourth = ""
@@ -714,7 +714,7 @@ class MsCnPlatformAutoSummary(MsCnAutoSummary):
                 if platform_str_leak:
                     return platform_str_leak
                 logger.warning(f"not find Supported Platforms: {name}")
-                return ["``Ascend`` ``GPU`` ``CPU``"]
+                return []
             return platform_str
         except: #pylint: disable=bare-except
             return []
@@ -747,10 +747,10 @@ class MsCnPlatWarnAutoSummary(MsCnAutoSummary):
                 if platform_str_leak:
                     return platform_str_leak
                 logger.warning(f"not find Supported Platforms: {name}")
-                return ["``Ascend`` ``GPU`` ``CPU``"]
+                return []
             return platform_str
         except: #pylint: disable=bare-except
-            return ["``Ascend`` ``GPU`` ``CPU``"]
+            return []
 
     def get_fourth_column(self, name=None, content=''):
         """Get the `Warning`."""

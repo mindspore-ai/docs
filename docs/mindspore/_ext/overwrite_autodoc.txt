@@ -584,6 +584,10 @@ class Documenter:
                 docstring = re.sub(rf'(>>> .*?)(ops|nn)\.[\w\.]*?{b_name}(_ext)?(?!\w)', rf'\1{usename}', mint_doc)
             else:
                 docstring = mint_doc
+        elif docstring and 'mindspore.is_tensor' in self.fullname:
+            docstring = docstring.replace('>>> from mindspore import Tensor, ops', '>>> from mindspore import Tensor, is_tensor')
+            docstring = docstring.replace('>>> ops.is_tensor', '>>> is_tensor')
+
         if docstring:
             tab_width = self.directive.state.document.settings.tab_width
             return [prepare_docstring(docstring, ignore, tab_width)]
@@ -1775,8 +1779,9 @@ class ClassDocumenter(DocstringSignatureMixin, ModuleLevelDocumenter):  # type: 
                     docstrings = [initdocstring]
                 else:
                     docstrings.append(initdocstring)
-        spec_tp = [('nn.HShrink', 'mint.nn.Hardshrink'), ('nn.HSigmoid', 'mint.nn.Hardsigmoid'),
-                   ('nn.HSwish', 'mint.nn.Hardswish')]
+        spec_tp = [('ops.dense', 'ops.linear'), ('nn.HShrink', 'mint.nn.Hardshrink'),
+                   ('nn.HSigmoid', 'mint.nn.Hardsigmoid'), ('nn.HSwish', 'mint.nn.Hardswish'),
+                   ('nn.SoftShrink', 'mint.nn.Softshrink')]
         if docstrings and '.mint.' in self.fullname:
             b_name = self.fullname.split('.')[-1]
             usename = self.fullname.replace('mindspore.', '')
