@@ -77,8 +77,7 @@ The current list of models supported by MindFormers is as follows:
       <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md#%E5%85%A8%E5%8F%82%E5%BE%AE%E8%B0%83"> finetune </a> </td>
       <td> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/README.md#%E6%8E%A8%E7%90%86"> predict </a> </td>
       <td> 2703 tokens/s/p <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/finetune_llama3_1_8b.yaml"> Configuration </a> <br> Atlas 900 A2 PoDc </td>
-      <td> 591 tokens/s <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/
-      predict_llama3_1_8b.yaml"> Configuration </a> <br> Atlas 800T A2 </td>
+      <td> 591 tokens/s <br> <a href="https://gitee.com/mindspore/mindformers/blob/dev/research/llama3_1/llama3_1_8b/predict_llama3_1_8b.yaml"> Configuration </a> <br> Atlas 800T A2 </td>
     </tr>
     <tr>
       <td> 70B </td>

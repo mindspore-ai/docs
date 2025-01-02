@@ -87,7 +87,7 @@ if (!ret) {
 
 ### Build
 
-Set environment variables, and Run the [build script](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_java/build.sh) in the `mindspore/lite/examples/quick_start_parallel_java` directory to automatically download the MindSpore Lite inference framework library and model files and build the Demo.
+Set environment variables, and Run the [build script](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/cloud_infer/quick_start_parallel_java/build.sh) in the `mindspore/lite/examples/quick_start_parallel_java` directory to automatically download the MindSpore Lite inference framework library and model files and build the Demo.
 
 ```bash
 export JAVA_HOME=/{path}/default-java
