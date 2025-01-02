@@ -73,7 +73,9 @@ def get_example(name: str):
             name = 'mindspore.' + name
         api_doc = inspect.getdoc(get_api(name))
         if '.mint.' in name:
-            spec_tp = [('ops.dense', 'ops.linear'), ('ops.inverse_ext', ['mint.linalg.inv', 'mint.inverse'])]
+            spec_tp = [('ops.dense', 'ops.linear'), ('ops.inverse_ext', ['mint.linalg.inv', 'mint.inverse']),
+                       ('nn.HShrink', 'mint.nn.Hardshrink'), ('nn.SoftShrink', 'mint.nn.Softshrink'),
+                       ('nn.HSigmoid', 'mint.nn.Hardsigmoid'), ('nn.HSwish', 'mint.nn.Hardswish')]
             b_name = name.split('.')[-1]
             usename = name.replace('mindspore.', '')
             api_doc = re.sub('(>>> from mindspore import .*?)(ops|nn)', r'\1mint', api_doc)
