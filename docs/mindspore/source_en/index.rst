@@ -13,7 +13,6 @@ MindSpore Documentation
    api_python/index
    orange_pi/index
    faq/index
-   RELEASE
 
 .. raw:: html
 
