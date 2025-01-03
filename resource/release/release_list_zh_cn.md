@@ -3,6 +3,7 @@
 <!-- TOC -->
 
 - [发布版本列表](#发布版本列表)
+    - [2.4.10](#2410)
     - [2.4.1](#241)
     - [2.4.0](#240)
     - [2.3.1](#231)
@@ -55,6 +56,35 @@
 <!-- /TOC -->
 
 [![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/resource/release/release_list_zh_cn.md)
+
+## 2.4.10
+
+**下载地址**
+
+| 组件                        | 硬件平台          | 操作系统          | Python版本   | 链接                                                                                                                                                                                           | SHA-256                                                          |
+|---------------------------|---------------|---------------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
+| MindSpore                 | Ascend<br>CPU | Linux-aarch64 | Python3.9  | [mindspore-2.4.10-cp39-cp39-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/unified/aarch64/mindspore-2.4.10-cp39-cp39-linux_aarch64.whl)            | 74daa0703c215f1d01c8ba31c9c7b45d4c41dd7beab09e313cb9ebda24b6ef1a |
+|                           |               |               | Python3.10 | [mindspore-2.4.10-cp310-cp310-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/unified/aarch64/mindspore-2.4.10-cp310-cp310-linux_aarch64.whl)        | dc744a3a05b97f7ca88b1f683794b3f99b3f74739c6ba597aa2daee8225e8809 |
+|                           |               |               | Python3.11 | [mindspore-2.4.10-cp311-cp311-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/unified/aarch64/mindspore-2.4.10-cp311-cp311-linux_aarch64.whl)        | c37240d248d95eece2a0db03f856c70e38133b74852bb23389ab97d4e1496baf |
+|                           | Ascend<br>CPU | Linux-x86_64  | Python3.9  | [mindspore-2.4.10-cp39-cp39-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/unified/x86_64/mindspore-2.4.10-cp39-cp39-linux_x86_64.whl)               | 41548d653413376389ae5d606aeba25ba0bc3dff546833462249dfe2ea86d65c |
+|                           |               |               | Python3.10 | [mindspore-2.4.10-cp310-cp310-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/unified/x86_64/mindspore-2.4.10-cp310-cp310-linux_x86_64.whl)           | 4d1082b81ee8db4f37de658b91b590f9bcda5f0ef30669a72dd18e61ef153686 |
+|                           |               |               | Python3.11 | [mindspore-2.4.10-cp311-cp311-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/unified/x86_64/mindspore-2.4.10-cp311-cp311-linux_x86_64.whl)           | a1a146966f8103fbcbd60ac85697c2d10906fe5d5b4cf0df1cbc9929a3d59762 |
+|                           | CPU           | Windows-x64   | Python3.9  | [mindspore-2.4.10-cp39-cp39-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/cpu/x86_64/mindspore-2.4.10-cp39-cp39-win_amd64.whl)                         | 0dfaaef3eaf0fdea3eab014ed15d9496845b7884edd69e3c5e8b822ba657ec75 |
+|                           |               |               | Python3.10 | [mindspore-2.4.10-cp310-cp310-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/cpu/x86_64/mindspore-2.4.10-cp310-cp310-win_amd64.whl)                     | f09cb53ab60c9fb1403f9263ad4016154fa585ae0ff3e12fc271c7c65de1852b |
+|                           |               |               | Python3.11 | [mindspore-2.4.10-cp311-cp311-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/cpu/x86_64/mindspore-2.4.10-cp311-cp311-win_amd64.whl)                     | e2b8f1ae7ff7325ff74746744ba79d28e07a78bc3958491afaba7e98ce640cca |
+|                           |               | MacOS-aarch64 | Python3.9  | [mindspore-2.4.10-cp39-cp39-macosx_11_0_arm64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/cpu/aarch64/mindspore-2.4.10-cp39-cp39-macosx_11_0_arm64.whl)        | d99736df3b8937cf98e792e0cf0c27a6aecf2093e351b51e5914adbdb4dd30d1 |
+|                           |               |               | Python3.10 | [mindspore-2.4.10-cp310-cp310-macosx_11_0_arm64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/cpu/aarch64/mindspore-2.4.10-cp310-cp310-macosx_11_0_arm64.whl)    | 228ff7986f37e7c936845c5e8dc582b31016ca77be36c46244665918e94f913e |
+|                           |               |               | Python3.11 | [mindspore-2.4.10-cp311-cp311-macosx_11_0_arm64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/cpu/aarch64/mindspore-2.4.10-cp311-cp311-macosx_11_0_arm64.whl)    | fe39652f7968508af7018c7d15ebf64dc69c32023fb54d0c440d496a46b6317f |
+|                           |               | MacOS-x64     | Python3.9  | [mindspore-2.4.10-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/cpu/x86_64/mindspore-2.4.10-cp39-cp39-macosx_10_15_x86_64.whl)     | 4d2d920381a692f5b797c1732c3c0420ac5ab26d2be16fa66e68cf8f0a182579 |
+|                           |               |               | Python3.10 | [mindspore-2.4.10-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/cpu/x86_64/mindspore-2.4.10-cp310-cp310-macosx_10_15_x86_64.whl) | 10ece54f68a5d33df04a0f89a7a4ea09b7a5d61d9c39c0fca5003f02e90a6c68 |
+|                           |               |               | Python3.11 | [mindspore-2.4.10-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/cpu/x86_64/mindspore-2.4.10-cp311-cp311-macosx_10_15_x86_64.whl) | 97e2b2cf8e4793aa7b069c1c82fa6a0ac5b67d44833a87a2f6384997c0b82860 |
+| MindSpore<br>Transformers |               | any           | Python3    | [mindformers-1.3.2-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindFormers/any/mindformers-1.3.2-py3-none-any.whl)                                          | e3c96ac5b08b8f2cd34b89883dd49f4a250555c7b615251543ba76b44f16353e |
+
+**Ascend配套软件包**
+
+|  商用版安装指引文档 | 社区版下载地址（安装参考商用版） |
+|--------|------------------|
+|TBD      | TBD |
 
 ## 2.4.1
 
