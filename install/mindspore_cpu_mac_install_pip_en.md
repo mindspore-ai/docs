@@ -43,10 +43,10 @@ Create a Conda virtual environment based on the Python version you want to use a
 
 ## Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.4.1 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 2.4.10 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=2.4.1
+export MS_VERSION=2.4.10
 ```
 
 Then run the following commands to install MindSpore according to the system architecture and Python version.
