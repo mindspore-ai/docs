@@ -29,10 +29,10 @@
 |-|-|-|
 |Ubuntu|18.04|编译和运行MindSpore的操作系统|
 |[Python](#安装python)|3.9-3.11|MindSpore的使用依赖Python环境|
-|[wheel](#安装wheel-setuptools-PyYAML和numpy)|0.32.0及以上|MindSpore使用的Python打包工具|
-|[setuptools](#安装wheel-setuptools-PyYAML和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
-|[PyYAML](#安装wheel-setuptools-PyYAML和numpy)|6.0-6.0.2|MindSpore里的算子编译功能依赖PyYAML模块|
-|[Numpy](#安装wheel-setuptools-PyYAML和numpy)|1.19.3-1.26.4|MindSpore里的Numpy相关功能依赖Numpy模块|
+|[wheel](#安装wheel-setuptools-pyyaml和numpy)|0.32.0及以上|MindSpore使用的Python打包工具|
+|[setuptools](#安装wheel-setuptools-pyyaml和numpy)|44.0及以上|MindSpore使用的Python包管理工具|
+|[PyYAML](#安装wheel-setuptools-pyyaml和numpy)|6.0-6.0.2|MindSpore里的算子编译功能依赖PyYAML模块|
+|[Numpy](#安装wheel-setuptools-pyyaml和numpy)|1.19.3-1.26.4|MindSpore里的Numpy相关功能依赖Numpy模块|
 |[GCC](#安装gcc-git-gmp-tclsh-patch和numa)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
 |[git](#安装gcc-git-gmp-tclsh-patch和numa)|-|MindSpore使用的源代码管理工具|
 |[CMake](#安装cmake)|3.22.2及以上|编译构建MindSpore的工具|
