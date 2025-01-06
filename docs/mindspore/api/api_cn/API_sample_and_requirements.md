@@ -457,6 +457,32 @@
 
     b. 如果简写为Metric，英文书写为 :class:`Metric`，中文书写为 :class:`.Metric`，简写中文前面需要加.。
 
+10. rst文档内换行的用法
+
+    a. rst文档没有一行内字数的限制，完整的一句话可以写在一行内；
+
+    b. 如果需要换行书写，尽量在标点或连接特殊格式处换行。
+
+    c. 上述两种情况都无法满足时，需在换行末尾加上换行符, 例如：
+
+    ```text
+    生成的配置文件内容示例如下，"remark"字段描述是否进行了数据处理参数调优，"summary"字段简要展示了数据处理流水线中\
+    各个操作及其对应的最优配置，而"tree"字段则为完整的数据处理流水线结构信息。
+
+    它由美国马萨诸塞理工学院的Gary B. Huang等人于2007年发布。该数据集包含13,233个人的近\
+    50,000张图像，这些图像来自互联网上不同来源的人物照片，并包含了不同的姿势、光照
+
+    .. note::
+        - 当 `self` 和 `other` 的shape不同时，
+          它们必须能够广播到一个共同的shape。
+        - `self`、 `other` 和 `alpha` 遵守隐式类型转换规则以使数据类型\
+          保持一致。
+
+    参数：
+        - **all_nodes** (bool) - 获取所有节点，包括在 `CallFunction` 节点、 `CellContainer` 节点和\
+          子SymbolTree里面的节点。默认值： ``False`` 。
+    ```
+
 ## 参考
 
 - 有关rst的书写规则，请参考[rst入门](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)。
