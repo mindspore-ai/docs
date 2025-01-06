@@ -32,7 +32,7 @@
 |[CUDA](#安装cuda)|10.1或11.1或11.6|MindSpore GPU使用的并行计算架构|
 |[cuDNN](#安装cudnn)|7.6.x或8.0.x或8.5.x|MindSpore GPU使用的深度神经网络加速库|
 |[Conda](#安装conda)|Anaconda3或Miniconda3|Python环境管理工具|
-|[GCC](#安装gcc和gmp)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
+|[GCC](#安装gcc)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
 |[TensorRT](#安装tensorrt-可选)|7.2.2或8.4|MindSpore使用的高性能深度学习推理SDK（可选，Serving推理需要）|
 
 下面给出第三方依赖的安装方法。

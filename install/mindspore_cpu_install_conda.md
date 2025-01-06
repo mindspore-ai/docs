@@ -27,7 +27,7 @@
 |-|-|-|
 |Ubuntu|18.04|运行MindSpore的操作系统|
 |[Conda](#安装conda)|Anaconda3或Miniconda3|Python环境管理工具|
-|[GCC](#安装gcc和gmp)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
+|[GCC](#安装gcc)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
 
 下面给出第三方依赖的安装方法。
 
