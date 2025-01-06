@@ -354,7 +354,7 @@ python mindformers/tools/transform_ckpt_lora.py \
 
 ### 使用说明
 
-使用MindFormers提供的[safetensors权重合并脚本](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/unified_safetensors.py)，按照如下方式进行safetensors权重合并。
+使用MindFormers提供的[safetensors权重合并脚本](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/safetensors/unified_safetensors.py)，按照如下方式进行safetensors权重合并。
 
 ```shell
 python mindformers/tools/convert_reversed.py \
