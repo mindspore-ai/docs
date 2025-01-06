@@ -390,7 +390,7 @@ python mindformers/tools/transform_ckpt_lora.py \
 
 ### Instructions
 
-Use the [safetensors weight merging script](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/unified_safetensors.py) provided by MindFormers to perform safetensors weight merging.
+Use the [safetensors weight merging script](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/safetensors/unified_safetensors.py) provided by MindFormers to perform safetensors weight merging.
 
 ```shell
 python mindformers/tools/convert_reversed.py \
