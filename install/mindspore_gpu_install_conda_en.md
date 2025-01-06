@@ -32,7 +32,7 @@ The following table lists the system environment and third-party dependencies re
 |[CUDA](#installing-cuda)|10.1 or 11.1 or 11.6|parallel computing architecture for MindSpore GPU|
 |[cuDNN](#installing-cudnn)|7.6.x or 8.0.x or 8.5.x|deep neural network acceleration library used by MindSpore GPU|
 |[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
-|[GCC](#installing-gcc-and-gmp)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
+|[GCC](#installing-gcc)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
 |[TensorRT](#installing-tensorrt-optional)|7.2.2 or 8.4|high performance deep learning inference SDK used by MindSpore(optional, required for serving inference)|
 
 The following describes how to install the third-party dependencies.
