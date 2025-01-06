@@ -78,6 +78,7 @@
 |                           |               | MacOS-x64     | Python3.9  | [mindspore-2.4.10-cp39-cp39-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/cpu/x86_64/mindspore-2.4.10-cp39-cp39-macosx_10_15_x86_64.whl)     | 4d2d920381a692f5b797c1732c3c0420ac5ab26d2be16fa66e68cf8f0a182579 |
 |                           |               |               | Python3.10 | [mindspore-2.4.10-cp310-cp310-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/cpu/x86_64/mindspore-2.4.10-cp310-cp310-macosx_10_15_x86_64.whl) | 10ece54f68a5d33df04a0f89a7a4ea09b7a5d61d9c39c0fca5003f02e90a6c68 |
 |                           |               |               | Python3.11 | [mindspore-2.4.10-cp311-cp311-macosx_10_15_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindSpore/cpu/x86_64/mindspore-2.4.10-cp311-cp311-macosx_10_15_x86_64.whl) | 97e2b2cf8e4793aa7b069c1c82fa6a0ac5b67d44833a87a2f6384997c0b82860 |
+|MindSpore<br>Lite  |     |  |   | [Installation Packages Links](https://www.mindspore.cn/lite/docs/en/r2.4.10/use/downloads.html#2-4-10)   |      |
 | MindSpore<br>Transformers |               | any           | Python3    | [mindformers-1.3.2-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.4.10/MindFormers/any/mindformers-1.3.2-py3-none-any.whl)                                          | e3c96ac5b08b8f2cd34b89883dd49f4a250555c7b615251543ba76b44f16353e |
 
 **Ascend Supporting Software Package**
@@ -85,6 +86,12 @@
 |  Commercial edition Installation Guide  | Community edition download link (refer to commercial edition for instructions) |
 |--------|------------------|
 |TBD      | TBD |
+
+**Related Documents**
+
+|    Installation  |      Tutorials      |  Document    |  API|
+|     ---   |       ---      |     ---     |     ---      |
+|  [Installation Guide](https://gitee.com/mindspore/docs/tree/r2.4.10/install)  |  [Quick Start](https://www.mindspore.cn/tutorials/en/r2.4.10/beginner/quick_start.html)      <br> [Practical Cases](https://www.mindspore.cn/tutorials/en/r2.4.10/cv.html)    | [MindSpore](https://www.mindspore.cn/docs/en/r2.4.10/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.4.10/index.html) <br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/index.html)|  [MindSpore](https://www.mindspore.cn/docs/en/r2.4.10/api_python/mindspore.html) <br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/en/r2.4.10/index.html)<br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/mindformers.html)    |
 
 ## 2.4.1
 
