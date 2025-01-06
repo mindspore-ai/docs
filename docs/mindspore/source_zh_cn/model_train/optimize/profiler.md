@@ -29,7 +29,6 @@
 **Graph**模式下，用户可以通过Callback方式来使能Profiler。
 
 ```python
-import os
 import mindspore as ms
 from mindspore import Profiler
 
@@ -65,7 +64,6 @@ class StopAtStep(ms.Callback):
 样例如下：
 
 ```python
-import mindspore
 from mindspore import Profiler
 from mindspore.profiler import schedule, tensor_board_trace_handler
 
@@ -323,6 +321,83 @@ MindSpore Profiler接口将框架侧的数据与CANN Profling的数据关联整�
 ### 其他性能数据
 
 其他性能数据文件的具体字段与含义可以参考[昇腾官网文档](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0035.html)。
+
+## 性能调优案例
+
+在大模型训练过程中，由于一些不可预知的引入，导致模型出现了一些性能劣化的问题，例如算子计算时间慢、通信快慢卡等。需要定位性能劣化的根本原因，并解决问题。
+
+![profiler_process.png](images%2Fprofiler_process.png)
+
+性能调优最重要的就是对症下药，先定界问题，再对问题进行针对性调优。
+首先使用[MindStudio Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html)可视化工具定界性能问题，定界结果通常分为计算、调度、通信三个方向的问题。最后，用户可以根据MindStudio Insight专家建议进行性能调优，
+每次调优后重跑训练，采集性能数据，并使用MindStudio Insight工具查看调优手段是否产生效果。重复这个过程，直到解决性能问题。
+
+MindStudio Insight提供了丰富的调优分析手段，可视化呈现真实软硬件运行数据，多维度分析性能数位，定位性能瓶颈点，支持百卡、千卡及以上规模的可视化集群性能分析。用户在MindStudio Insight中导入上一步采集的性能数据，根据下述流程使用可视化能力分析性能数据。
+
+### 1. 概览界面总览数据情况
+
+可以通过概览界面了解每个模块的具体内容。
+
+- 首先，在MindStudio Insight界面中选择'导入数据'按钮，导入采集的profiler数据，以下为导入多卡性能数据。
+
+  ![load_data.png](images%2Fload_data.png)
+  ![load_data_path.png](images%2Fload_data_path.png)
+可以在时间线界面看出导入了8卡数据，如下图：
+  ![time_line.png](images%2Ftime_line.png)
+
+- 接下来，可以在概览界面展示所选通信域下每张卡的计算、通信、空闲时间占比情况，并提供专家建议。
+
+  ![overview.png](images%2Foverview.png)
+
+各图例相关数据指标的含义如下：
+
+| 图例           | 含义      |
+|--------------|---------|
+| 总计算时间        | 昇腾设备上的内核时间总和 |
+| 纯计算时间     | 纯计算时间 = 总计算时间 – 通信时间（被覆盖）    |
+| 通信时间（被覆盖） | 被覆盖的通信时长，即计算和通信同时进行的时长    |
+| 通信时间（未被覆盖）  | 未被覆盖的通信时长，即纯通信时长  |
+| 空闲时间   | 未进行计算或通信的时长  |
+
+### 2. 定界、分析问题
+
+不同的指标现象可以定界不同的性能问题：
+
+- （1）计算问题：通常表现为通信域中总计算时间占比的极大值和极小值差异过大。如果某些计算卡的计算时间明显超出了正常范围，那很可能意味着这张卡承担了过于繁重的计算任务，比如要处理的数据量过大，或者模型计算的复杂程度过高，也有可能是卡本身的性能受到了限制。
+
+- （2）调度问题：通常表现为通信域中空闲时间占比的极大值和极小值差异过大。如果计算卡的空闲时间过长，那就说明任务分配可能不太均衡，或者是存在卡之间互相等待数据的情况，这同样会对集群的性能造成不利影响。
+
+- （3）通信问题：如果通信时间（未被覆盖）过长，那就表明计算和通信之间的协同出现了问题，可能对应多种情况。也许是通信协议不够优化，又或者是网络带宽不稳定，导致通信无法和计算良好配合。
+
+#### 2.1 计算问题
+
+当数据指标现象指示为**计算**问题时，可以直接查看异常卡的算子数据，并与正常卡进行比较。此时可以使用MindStudio Insight的卡间性能比对功能，设置两卡进入比对模式，并在算子界面查看结果。其中饼状图展示了各类算子的耗时占比，表格展示了各类算子的详细信息。
+![operations.png](images%2Foperations.png)
+
+#### 2.2 调度问题
+
+当数据指标现象指示为**调度**问题时，需要到时间线界面将异常卡和正常卡进行比较，进一步定位出现问题的算子。
+![time_line_on_line.png](images%2Ftime_line_on_line.png)
+进入时间线界面，选择HostToDevice连线类型，HostToDevice展示了CANN层算子到AscendHardware的算子的下发执行关系和CANN层算子到HCCL通信算子的下发执行关系，用于定位调度问题。
+![time_line_cann.png](images%2Ftime_line_cann.png)
+HostToDevice的连线通常有两种形态，倾斜和竖直。下图是一个存在调度问题的案例，如果HostToDevice连线如左侧所示，是倾斜的，说明此时间段调度任务安排合理，昇腾设备是满负荷执行计算和通信任务的。如果HostToDevice连线如右侧所示，是竖直的，说明昇腾设备此时快速执行完了CPU下发的任务，未满负荷进行计算和通信任务，这一般表示存在调度问题。
+![time_line_cann_details.png](images%2Ftime_line_cann_details.png)
+
+#### 2.3 通信问题
+
+当数据指标现象指示为**通信**问题时，需要进入通信界面进一步分析。通信界面用于展示集群中全网链路性能以及所有节点的通信性能，通过集群通信与计算重叠时间的分析可以找出集群训练中的慢主机或慢节点。通常，我们会根据关键指标通信矩阵、通信时长来分析性能问题。
+
+- 通信矩阵：
+
+  下图是MindStudio Insight通信矩阵可视化界面，可以获取各个通信域下，卡间的带宽、传输大小、链路方式和传输时长情况等信息。
+  分析时可以先查看传输大小，分析在这个集合通信中，每张卡的传输量是否存在差异，是否有分配不均的情况。其次，再查看传输时长，如果某张卡的传输时长非常短，那它极有可能是在处理其他事情，导致下游卡长时间等待。最后可以查看带宽情况，如果不同卡间的带宽数据差异过大或带宽数值异常，那都意味着通信域中存在异常卡。
+  ![communication_matrix.png](images%2Fcommunication_matrix.png)
+
+- 通信时长：
+
+  通信时长是指计算卡之间进行一次通信所花费的时间。导致通信耗时过长的因素很多，比如通信协议配置错误、传输数据量过大等等，只有找到这些通信耗时过长的链路并妥善解决问题，才能让数据在计算卡之间更加顺畅地传输，进而提高集群的整体性能。
+  用户选择具体通信域后，即可在通信时长界面中查看通信域中各个计算卡的耗时汇总情况，以及每个通信算子的时序图和通信时长的分布图，从而快速获得通信算子的相对位置关系以及详细通信数据。
+  ![communication_time.png](images%2Fcommunication_time.png)
 
 ## 常见工具问题及解决办法
 
