@@ -61,13 +61,13 @@ if __name__ == '__main__':
     cfg_json = {
         "start_step": 2,
         "stop_step": 5,
-        "aicore_metrics": 1,
-        "profiler_level": -1,
-        "profile_framework": 1,
-        "analyse_mode": 0,
-        "with_stack": True,
-        "parallel_strategy": True,
-        "data_simplification": False,
+        "aicore_metrics": -1,
+        "profiler_level": 0,
+        "activities": 0,
+        "analyse_mode": -1,
+        "with_stack": False,
+        "parallel_strategy": False,
+        "data_simplification": True,
     }
     context.set_context(mode=mindspore.PYNATIVE_MODE)
     mindspore.set_device("Ascend")
