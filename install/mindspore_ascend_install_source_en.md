@@ -38,13 +38,13 @@ The following table lists the system environment and third-party dependencies re
 |[PyYAML](#installing-wheel-setuptools-pyyaml-and-numpy)|6.0-6.0.2|PyYAML module that operator compliation in MindSpore depends on|
 |[Numpy](#installing-wheel-setuptools-pyyaml-and-numpy)|1.19.3-1.26.4|Numpy module that Numpy-related functions in MindSpore depends on|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
-|[git](#installing-git-gmp-tclsh-patch-numa-and-flex)|-|Source code management tool used by MindSpore|
+|[git](#installing-git-tclsh-patch-numa-and-flex)|-|Source code management tool used by MindSpore|
 |[git-lfs](#installing-git-lfs)|-|Source code management tool used by MindSpore|
 |[CMake](#installing-cmake)|3.22.2 or later|Build tool for MindSpore|
-|[Flex](#installing-git-gmp-tclsh-patch-numa-and-flex)|2.5.35 or later|lexical analyzer used by MindSpore|
-|[tclsh](#installing-git-gmp-tclsh-patch-numa-and-flex)|-|MindSpore SQLite build dependency|
-|[patch](#installing-git-gmp-tclsh-patch-numa-and-flex)|2.5 or later|Source code patching tool used by MindSpore|
-|[NUMA](#installing-git-gmp-tclsh-patch-numa-and-flex)|2.0.11 or later|Non-uniform memory access library used by MindSpore|
+|[Flex](#installing-git-tclsh-patch-numa-and-flex)|2.5.35 or later|lexical analyzer used by MindSpore|
+|[tclsh](#installing-git-tclsh-patch-numa-and-flex)|-|MindSpore SQLite build dependency|
+|[patch](#installing-git-tclsh-patch-numa-and-flex)|2.5 or later|Source code patching tool used by MindSpore|
+|[NUMA](#installing-git-tclsh-patch-numa-and-flex)|2.0.11 or later|Non-uniform memory access library used by MindSpore|
 
 The following describes how to install the third-party dependencies.
 
