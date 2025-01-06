@@ -27,7 +27,7 @@ The following table lists the system environment and third-party dependencies re
 |-|-|-|
 |Ubuntu|18.04|OS for running MindSpore|
 |[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
-|[GCC](#installing-gcc-and-gmp)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
+|[GCC](#installing-gcc)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
 
 The following describes how to install the third-party dependencies.
 
