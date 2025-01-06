@@ -38,13 +38,13 @@
 |[PyYAML](#安装wheel-setuptools-pyyaml和numpy)|6.0-6.0.2|MindSpore里的算子编译功能依赖PyYAML模块|
 |[Numpy](#安装wheel-setuptools-pyyaml和numpy)|1.19.3-1.26.4|MindSpore里的Numpy相关功能依赖Numpy模块|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
-|[git](#安装git-gmp-tclsh-patch-numa-flex)|-|MindSpore使用的源代码管理工具|
+|[git](#安装git-tclsh-patch-numa-flex)|-|MindSpore使用的源代码管理工具|
 |[git-lfs](#安装git-lfs)|-|MindSpore使用的源代码管理工具|
 |[CMake](#安装cmake)|3.22.2及以上|编译构建MindSpore的工具|
-|[Flex](#安装git-gmp-tclsh-patch-numa-flex)|2.5.35及以上版本|MindSpore使用的词法分析器|
-|[tclsh](#安装git-gmp-tclsh-patch-numa-flex)|-|MindSpore sqlite编译依赖|
-|[patch](#安装git-gmp-tclsh-patch-numa-flex)|2.5及以上|MindSpore使用的源代码补丁工具|
-|[NUMA](#安装git-gmp-tclsh-patch-numa-flex)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
+|[Flex](#安装git-tclsh-patch-numa-flex)|2.5.35及以上版本|MindSpore使用的词法分析器|
+|[tclsh](#安装git-tclsh-patch-numa-flex)|-|MindSpore sqlite编译依赖|
+|[patch](#安装git-tclsh-patch-numa-flex)|2.5及以上|MindSpore使用的源代码补丁工具|
+|[NUMA](#安装git-tclsh-patch-numa-flex)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
 
 下面给出第三方依赖的安装方法。
 
