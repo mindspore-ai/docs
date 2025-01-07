@@ -70,7 +70,7 @@ from mindspore.profiler import schedule, tensor_board_trace_handler
 STEP_NUM = 15
 # 定义训练模型网络
 net = Net()
-with Profiler(schedule=schedule(wait=0, warm_up=0, active=2, repeat=1, skip_first=0),
+with Profiler(schedule=schedule(wait=0, warmup=0, active=2, repeat=1, skip_first=0),
               on_trace_ready=tensor_board_trace_handler) as prof:
     for _ in range(STEP_NUM):
         train(net)
@@ -415,8 +415,8 @@ HostToDevice的连线通常有两种形态，倾斜和竖直。下图是一个�
 
 #### schedule配置错误问题
 
-schedule配置相关参数有5个，wait、warm_up、active、repeat、skip_first。每个参数大小必须**大于等于0**；其中**active**必须**大于等于1**，否则抛出警告，并设置为默认值1；如果repeat设置为0，表示repeat参数不生效，Profiler会根据模型训练的次数来确定循环次数。
+schedule配置相关参数有5个，wait、warmup、active、repeat、skip_first。每个参数大小必须**大于等于0**；其中**active**必须**大于等于1**，否则抛出警告，并设置为默认值1；如果repeat设置为0，表示repeat参数不生效，Profiler会根据模型训练的次数来确定循环次数。
 
 #### schedule与step配置不匹配问题
 
-正常来说schedule的配置应小于模型训练的次数，即repeat*(wait+warm_up+active)+skip_first应小于模型训练的次数。如果schedule的配置大于模型训练的次数，Profiler会抛出异常警告，但这并不会打断模型训练，但可能存在采集解析的数据不全的情况。
+正常来说schedule的配置应小于模型训练的次数，即repeat*(wait+warmup+active)+skip_first应小于模型训练的次数。如果schedule的配置大于模型训练的次数，Profiler会抛出异常警告，但这并不会打断模型训练，但可能存在采集解析的数据不全的情况。
