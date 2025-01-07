@@ -322,36 +322,26 @@ The difference from the data collected by the Ascend PyTorch Profiler interface 
 
 The specific field and meaning of other performance data files can be referred to [Ascend official documentation](https://www.hiascend.com/document/detail/zh/mindstudio/70RC3/T&ITools/Profiling/atlasprofiling_16_0035.html).
 
-## Performance tuning case
+## Performance Tuning Case
 
 In the process of large model training, due to some unpredictable introduction, the model has some performance deterioration problems, such as slow operator calculation time, communication speed and slow card. The root cause of performance degradation needs to be identified and the problem addressed.
 
 ![profiler_process.png](images%2Fprofiler_process.png)
 
 The most important thing in performance tuning is to apply the right medicine to the problem, delimit the problem first, and then perform targeted tuning to the problem.
-The first to use [MindStudio Insight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html) visualization tools and bound performance issues, The results of delimiting are usually divided into three aspects: computation, scheduling and communication. Finally, users can tune performance based on expert advice from MindStudio Insight,
-Re-run the training after each tuning, collect performance data, and use the MindStudio Insight tool to see if the tuning method produced results. Repeat this process until the performance issue is resolved.
-
-### performance tuning
+The first to use [MindStudio Insight](https://www.mindspore.cn/mindinsight/docs/en/master/index.html) visualization tools and bound performance issues. The results of delimiting are usually divided into three aspects: computation, scheduling and communication. Finally, users can tune performance based on expert advice from MindStudio Insight. Re-run the training after each tuning, collect performance data, and use the MindStudio Insight tool to see if the tuning method produced results. Repeat this process until the performance issue is resolved.
 
 MindStudio Insight provides a wealth of tuning and analysis methods, visualizing the real software and hardware operation data, analyzing performance data in multiple dimensions, locating performance bottlenecks, and supporting visual cluster performance analysis of the scale of heckcal, kcal and above. The user imports the performance data collected in the previous step into MindStudio Insight and uses the visualization capabilities to analyze the performance data according to the following process.
 
-### Overview Overview of the data
+### 1. Overview of the data
 
 You can learn about each module through the overview interface.
 
 - First, select the 'Import Data' button in the MindStudio Insight interface to import collected profiler data, and then import multi-card performance data.
 
-![load_data.png](..%2F..%2F..%2Fsource_zh_cn%2Fmodel_train%2Foptimize%2Fimages%2Fload_data.png)
-![load_data_path.png](..%2F..%2F..%2Fsource_zh_cn%2Fmodel_train%2Foptimize%2Fimages%2Fload_data_path.png)
-At the same time, it can be seen in the timeline interface that 8 cards of data are imported, as shown in the following figure.
-
-![time_line.png](..%2F..%2F..%2Fsource_zh_cn%2Fmodel_train%2Foptimize%2Fimages%2Ftime_line.png)
-
 - Next, the overview interface can display the calculation, communication, idle time ratio of each card under the selected communication domain, and provide expert advice.
 
-![overview.png](..%2F..%2F..%2Fsource_zh_cn%2Fmodel_train%2Foptimize%2Fimages%2Foverview.png)
-The meanings of data indicators related to each legend are as follows:
+  The meanings of data indicators related to each legend are as follows:
 
 | legend           | Meaning      |
 |--------------|---------|
@@ -361,6 +351,8 @@ The meanings of data indicators related to each legend are as follows:
 | communication duration (not covered)  | The communication duration that is not covered, that is, the pure communication duration  |
 | Idle time   | Duration of no calculation or communication  |
 
+### 2. Definition and Analysis of Problems
+
 Different indicator phenomena can delimit different performance problems:
 
 - (1) Calculation problem: usually manifested as a large difference between the maximum value and the minimum value of the total calculation time in the communication domain. If the calculation time of some computing cards is obviously beyond the normal range, it is likely to mean that the card has undertaken too heavy computing tasks, such as the amount of data to be processed is too large, or the complexity of the model calculation is too high, or the performance of the card itself is limited.
@@ -369,37 +361,30 @@ Different indicator phenomena can delimit different performance problems:
 
 - (3) Communication problems: If the communication time (not covered) is too long, it indicates that there is a problem with the coordination between calculation and communication, which may correspond to a variety of situations. Perhaps the communication protocol is not optimized enough, or the network bandwidth is unstable, resulting in communication and calculation can not be well matched.
 
-#### 2.1 Calculation and analyze problems
+#### 2.1 Computation Problems
 
-When the data indicator phenomenon indicates a **computation** problem, the operator data of the abnormal card can be directly viewed and compared with the normal card. In this case, you can use the performance comparison function of MindStudio Insight to set the two cards to the comparison mode and view the result on the operator interface. The pie chart shows the time proportion of each type of operator, and the table shows the detailed information of each type of operator.
-![operations.png](..%2F..%2F..%2Fsource_zh_cn%2Fmodel_train%2Foptimize%2Fimages%2Foperations.png)
+When the data indicator phenomenon indicates a **computation** problem, the operator data of the abnormal card can be directly viewed and compared with the normal card. In this case, you can use the performance comparison function of MindStudio Insight to set the two cards to the comparison mode and view the result on the operator interface.
 
-#### 2.2 Scheduling problems
+#### 2.2 Scheduling Problems
 
 When the data indicator phenomenon indicates a **scheduling** problem, it is necessary to go to the timeline interface to compare the abnormal card with the normal card to further locate the operator that has the problem.
-![time_line_on_line.png](..%2F..%2F..%2Fsource_zh_cn%2Fmodel_train%2Foptimize%2Fimages%2Ftime_line_on_line.png)
-On the timeline screen, select the connection type of HostToDevice. HostToDevice displays the delivery and execution relationship between the CANN layer operator and the AscendHardware operator and the CANN layer operator and the HCCL communication operator for locating scheduling problems.
-![time_line_cann.png](..%2F..%2F..%2Fsource_zh_cn%2Fmodel_train%2Foptimize%2Fimages%2Ftime_line_cann.png)
-The connection of HostToDevice usually has two forms, inclined and vertical. The following figure shows a case of scheduling problems. If the connection of HostToDevice is inclined as shown on the left, it indicates that the scheduling task is arranged properly during this time period, and the ascending device performs calculation and communication tasks at full load. If the HostToDevice cable is vertical as shown on the right, it indicates that the ascending device quickly completes the tasks sent by the CPU and performs calculation and communication tasks under full load. This generally indicates a scheduling problem.
-![time_line_cann_details.png](..%2F..%2F..%2Fsource_zh_cn%2Fmodel_train%2Foptimize%2Fimages%2Ftime_line_cann_details.png)
 
-#### 2.3 Communication faults
+On the timeline screen, select the connection type of HostToDevice. HostToDevice shows the downward execution relationship of CANN layer operators to AscendHardware operators and the downward execution relationship of CANN layer operators to HCCL communication operators for locating scheduling problems.
+
+The connection of HostToDevice usually has two forms, inclined and vertical. The following figure shows a case of scheduling problems. If the connection of HostToDevice is inclined as shown on the left, it indicates that the scheduling task is arranged properly during this time period, and the ascending device performs calculation and communication tasks at full load. If the HostToDevice cable is vertical as shown on the right, it indicates that the ascending device quickly completes the tasks sent by the CPU and performs calculation and communication tasks under full load. This generally indicates a scheduling problem.
+
+#### 2.3 Communication Problems
 
 When the data indicator symptom indicates a **communication** problem, you need to enter the communication interface for further analysis. The communication interface is used to display the link performance of the whole network and the communication performance of all nodes in the cluster. By analyzing the overlap time of cluster communication and calculation, the slow host or slow node in the cluster training can be found out. Typically, we analyze performance issues in terms of key metrics communication matrix, communication duration.
 
 - Communication matrix
 
-The figure above is the visual interface of MindStudio Insight communication matrix, which can obtain information such as bandwidth, transmission size, link mode and transmission duration between cards in each communication domain.
-When analyzing, you can first check the transmission size, analyze whether there is a difference in the transmission volume of each card in this collection communication, and whether there is an uneven distribution. Second, look at the transmission time, if the transmission time of a card is very short, it is most likely to be dealing with other things, resulting in a long wait for the downstream card. Finally, you can view the bandwidth situation, if the bandwidth data difference between different cards is too large or the bandwidth value is abnormal, it means that there is an abnormal card in the communication domain.
-
-![communication_matrix.png](..%2F..%2F..%2Fsource_zh_cn%2Fmodel_train%2Foptimize%2Fimages%2Fcommunication_matrix.png)
+  When analyzing, you can first check the transmission size, analyze whether there is a difference in the transmission volume of each card in this collection communication, and whether there is an uneven distribution. Second, look at the transmission time, if the transmission time of a card is very short, it is most likely to be dealing with other things, resulting in a long wait for the downstream card. Finally, you can view the bandwidth situation, if the bandwidth data difference between different cards is too large or the bandwidth value is abnormal, it means that there is an abnormal card in the communication domain.
 
 - Communication duration
 
-Communication time refers to the time taken for a communication between computing cards. There are many factors that lead to excessive communication time, such as incorrect configuration of communication protocols, excessive data transmission, and so on. Only by finding these links that take too long to communicate and properly solving the problems, can data be transmitted between computing cards more smoothly, thereby improving the overall performance of the cluster.
-After the user selects a specific communication domain, the user can view the time summary of each calculation card in the communication domain in the communication duration interface, as well as the timing diagram and communication duration distribution diagram of each communication operator, so as to quickly obtain the relative position relationship and detailed communication data of the communication operator.
-
-![communication_time.png](..%2F..%2F..%2Fsource_zh_cn%2Fmodel_train%2Foptimize%2Fimages%2Fcommunication_time.png)
+  Communication time refers to the time taken for a communication between computing cards. There are many factors that lead to excessive communication time, such as incorrect configuration of communication protocols, excessive data transmission, and so on. Only by finding these links that take too long to communicate and properly solving the problems, can data be transmitted between computing cards more smoothly, thereby improving the overall performance of the cluster.
+  After the user selects a specific communication domain, the user can view the time summary of each calculation card in the communication domain in the communication duration interface, as well as the timing diagram and communication duration distribution diagram of each communication operator, so as to quickly obtain the relative position relationship and detailed communication data of the communication operator.
 
 ## Common Tool Issues and Solutions
 
