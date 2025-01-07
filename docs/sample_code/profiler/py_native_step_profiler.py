@@ -53,8 +53,8 @@ if __name__ == '__main__':
     STEP_NUM = 15
 
     # with mode
-    # Note that the result of skip_first + (wait + warm_up + active) * repeat should not be greater than STEP_NUM
-    with Profiler(schedule=schedule(wait=1, warm_up=1, active=2, repeat=1, skip_first=2),
+    # Note that the result of skip_first + (wait + warmup + active) * repeat should not be greater than STEP_NUM
+    with Profiler(schedule=schedule(wait=1, warmup=1, active=2, repeat=1, skip_first=2),
                   on_trace_ready=tensor_board_trace_handler) as prof:
         for _ in range(STEP_NUM):
             train(net)

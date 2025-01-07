@@ -70,7 +70,7 @@ from mindspore.profiler import schedule, tensor_board_trace_handler
 STEP_NUM = 15
 # Define the training model network
 net = Net()
-with Profiler(schedule=schedule(wait=0, warm_up=0, active=2, repeat=1, skip_first=0),
+with Profiler(schedule=schedule(wait=0, warmup=0, active=2, repeat=1, skip_first=0),
               on_trace_ready=tensor_board_trace_handler) as prof:
     for _ in range(STEP_NUM):
         train(net)
@@ -392,8 +392,8 @@ When the data indicator symptom indicates a **communication** problem, you need 
 
 #### schedule Configuration Error Problem
 
-schedule configuration related parameters have 5 parameters: wait, warm_up, active, repeat, skip_first. Each parameter must be **greater than or equal to 0**; **active** must be **greater than or equal to 1**, otherwise a warning will be thrown and set to the default value 1; if repeat is set to 0, it means that the repeat parameter does not take effect, Profiler will determine the number of loops according to the number of model training times.
+schedule configuration related parameters have 5 parameters: wait, warmup, active, repeat, skip_first. Each parameter must be **greater than or equal to 0**; **active** must be **greater than or equal to 1**, otherwise a warning will be thrown and set to the default value 1; if repeat is set to 0, it means that the repeat parameter does not take effect, Profiler will determine the number of loops according to the number of model training times.
 
 #### schedule and step Configuration Mismatch Problem
 
-Normally, the schedule configuration should be less than the number of model training times, that is, repeat*(wait+warm_up+active)+skip_first should be less than the number of model training times. If the schedule configuration is greater than the number of model training times, Profiler will throw an exception warning, but this will not interrupt the model training, but there may be incomplete data collection and analysis.
+Normally, the schedule configuration should be less than the number of model training times, that is, repeat*(wait+warmup+active)+skip_first should be less than the number of model training times. If the schedule configuration is greater than the number of model training times, Profiler will throw an exception warning, but this will not interrupt the model training, but there may be incomplete data collection and analysis.
