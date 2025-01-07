@@ -57,12 +57,6 @@ of which,
 
 - `{tag}` corresponds to the label in the above table.
 
-If you want to use MindSpore Insight, you need to set the `--network` parameter to `host` mode, for example:
-
-```bash
-docker run -it --network host swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-cpu:{tag} /bin/bash
-```
-
 ## Installation Verification
 
 - If you are installing the container of the specified version `x.y.z`.
@@ -116,10 +110,6 @@ When the code is successfully run, the outputs should be the same as:
 ```
 
 So far, it means MindSpore CPU has been installed by Docker successfully.
-
-- If you need to verify the MindSpore Insight installation:
-
-    Enter ```mindinsight start --port 8080```, and if it prompts that the startup status is successful, it means MindSpore Insight has been installed successfully.
 
 - If you install a container with the label of `runtime`, you need to install MindSpore yourself.
 

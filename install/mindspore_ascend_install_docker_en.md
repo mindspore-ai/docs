@@ -83,28 +83,6 @@ of which,
 
 - `{tag}` corresponds to the label in the above table.
 
-If you want to use MindSpore Insight, you need to set the `--network` parameter to "host" mode, for example:
-
-```bash
-docker run -it -u root --ipc=host \
-               --network host \
-               --device=/dev/davinci0 \
-               --device=/dev/davinci1 \
-               --device=/dev/davinci2 \
-               --device=/dev/davinci3 \
-               --device=/dev/davinci4 \
-               --device=/dev/davinci5 \
-               --device=/dev/davinci6 \
-               --device=/dev/davinci7 \
-               --device=/dev/davinci_manager \
-               --device=/dev/devmm_svm \
-               --device=/dev/hisi_hdc \
-               -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
-               -v /var/log/npu/:/usr/slog \
-               swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag} \
-               /bin/bash
-```
-
 ## Installation Verification
 
 After entering the MindSpore container according to the above steps, to test whether the Docker container is working properly, please run the following Python code and check the output:
@@ -154,10 +132,6 @@ The outputs should be the same as:
 ```
 
 So far, it means MindSpore Ascend has been installed by Docker successfully.
-
-If you need to verify the MindSpore Insight installation:
-
-Enter ```mindinsight start --port 8080```, if it prompts that the startup status is successful, it means MindSpore Insight has been installed successfully.
 
 ## Version Update
 

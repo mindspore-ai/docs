@@ -57,12 +57,6 @@ docker run -it swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-cpu:{tag} /b
 
 - `{tag}`对应上述表格中的标签。
 
-如需使用可视化调试调优工具MindSpore Insight，需设置`--network`参数为`host`模式，例如:
-
-```bash
-docker run -it --network host swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-cpu:{tag} /bin/bash
-```
-
 ## 验证是否安装成功
 
 - 如果你安装的是指定版本`x.y.z`的容器。
@@ -116,10 +110,6 @@ print(ops.add(x, y))
 ```
 
 至此，你已经成功通过Docker方式安装了MindSpore CPU版本。
-
-- 验证MindSpore Insight安装：
-
-    输入```mindinsight start --port 8080```，如提示启动status为success，则安装成功。
 
 - 如果你安装的是`runtime`标签的容器，需要自行安装MindSpore。
 
