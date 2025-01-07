@@ -83,28 +83,6 @@ docker run -it -u root --ipc=host \
 
 - `{tag}`对应上述表格中的标签。
 
-如需使用MindSpore Insight，需设置`--network`参数为”host”模式, 例如:
-
-```bash
-docker run -it -u root --ipc=host \
-               --network host \
-               --device=/dev/davinci0 \
-               --device=/dev/davinci1 \
-               --device=/dev/davinci2 \
-               --device=/dev/davinci3 \
-               --device=/dev/davinci4 \
-               --device=/dev/davinci5 \
-               --device=/dev/davinci6 \
-               --device=/dev/davinci7 \
-               --device=/dev/davinci_manager \
-               --device=/dev/devmm_svm \
-               --device=/dev/hisi_hdc \
-               -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
-               -v /var/log/npu/:/usr/slog \
-               swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag} \
-               /bin/bash
-```
-
 ## 验证是否安装成功
 
 按照上述步骤进入MindSpore容器后，测试Docker容器是否正常工作，请运行下面的Python代码并检查输出：
@@ -154,10 +132,6 @@ print(ops.add(x, y))
 ```
 
 至此，你已经成功通过Docker方式安装了MindSpore Ascend版本。
-
-验证MindSpore Insight安装：
-
-输入```mindinsight start --port 8080```, 如提示启动status为success，则安装成功。
 
 ## 升级MindSpore版本
 
