@@ -9,6 +9,8 @@ The next tutorials will demonstrate how to build a customized environment based 
 
 The following operations are based on the OrangePi AIpro 8-12TOPS 16G development board, and the 20TOPS development board operates in the same way.
 
+For more examples of OrangePi AIpro development boards based on MindSpore, please refer to: `GitHub link <https://github.com/mindspore-courses/orange-pi-mindspore>`_ 
+
 .. toctree::
    :glob:
    :maxdepth: 1
