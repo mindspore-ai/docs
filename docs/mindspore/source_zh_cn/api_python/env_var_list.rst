@@ -887,7 +887,7 @@ RDR相关的具体用法详见 `Running Data Recorder <https://www.mindspore.cn/
 CANN
 --------
 
-CANN的环境变量详见 `昇腾社区 <https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/reference/envvar/envref_07_0001.html>`_ 。请在 `import mindspore` 之前设置CANN的环境变量。
+CANN的环境变量详见 `昇腾社区 <https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/apiref/envvar/envref_07_0001.html>`_ 。请在 `import mindspore` 之前设置CANN的环境变量。
 
 .. list-table::
    :widths: 20 20 10 30 20
