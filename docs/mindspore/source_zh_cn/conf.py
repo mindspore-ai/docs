@@ -612,6 +612,13 @@ try:
         f.seek(0)
         f.truncate()
         f.write(rep_content)
+    
+    with open('./api_python/mindspore/mindspore.set_context.rst', 'r+', encoding='utf-8') as f:
+        rep_content = f.read()
+        rep_content = rep_content.replace('70RC1/inferapplicationdev/graphdevg/atlasgeapi_07_0119.html', '80RC3/apiref/ascendgraphapi/atlasgeapi_07_0146.html')
+        f.seek(0)
+        f.truncate()
+        f.write(rep_content)
 except Exception as e:
     pass
 
