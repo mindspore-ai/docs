@@ -16,9 +16,9 @@ AOT类型的自定义算子采用预编译的方式，要求网络开发者基�
 
 昇腾平台提供了全面的Ascend C算子开发教程，帮助开发者深入理解并实现自定义算子。以下是关键的开发步骤和资源链接：
 
-**基础教程**：访问[Ascend C算子开发](https://www.hiascend.com/document/detail/zh/canncommercial/700/operatordev/Ascendcopdevg/atlas_ascendc_10_0001.html) 获取入门知识。
+**基础教程**：访问[Ascend C算子开发](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0001.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit) 获取入门知识。
 
-**算子实现**：重点学习[kernel侧算子实现](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0067.html) 和[host侧算子实现](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0068.html) ，学习设备端执行算子的核心逻辑和主机端进行算子操作的实现方法。
+**算子实现**：学习[基于自定义算子工程的算子开发](https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/developmentguide/opdevg/Ascendcopdevg/atlas_ascendc_10_0006.html?Mode=PmIns&OS=Ubuntu&Software=cannToolKit) ，快速了解自定义算子开发的端到端流程，重点关注kernel侧实现和host侧实现。
 
 **开发样例**：昇腾社区提供了丰富的 [Ascend C算子开发样例](https://gitee.com/ascend/samples/tree/master/operator/ascendc) ，覆盖了多种类型算子，帮助您快速理解算子开发的实际应用。也可以查看 [AddCustom自定义算子开发样例](https://gitee.com/ascend/samples/tree/master/operator/ascendc/0_introduction/1_add_frameworklaunch/AddCustom) ，它简洁展示了一个自定义算子开发需要的核心工作。
 
@@ -33,6 +33,9 @@ AOT类型的自定义算子采用预编译的方式，要求网络开发者基�
 - **CMake**: CMake>=3.16.0
 
 ### 离线编译与部署
+
+若在上述步骤中，已通过CANN的自定义算子编译工程完成编译和部署，则可跳过该步骤。MindSpore同样提供了自定义的编译工具，在您开发完自定义算子后，准备好自定义算子的
+kernel侧和host侧，您可按照下述步骤进行自定义算子的编译部署。
 
 1. **获取编译工具**：
    将MindSpore安装包中的`custom_compiler`工具目录拷贝到您的工作目录。
@@ -80,11 +83,6 @@ AOT类型的自定义算子采用预编译的方式，要求网络开发者基�
    ```shell
    export ASCEND_CUSTOM_OPP_PATH={build_out_path}/build_out/_CPack_Package/Linux/External/custom_opp_euleros_aarch64.run/packages/vendors/{your_custom_name}:$ASCEND_CUSTOM_OPP_PATH
    ```
-
-### 补充说明
-
-本工具基于CANN的`msopgen`工具封装，您也可以选择使用原生`msopgen`工具进行编译。有关更多信息，请参考[基于msopgen工具创建算子工程](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha002/devaids/opdev/optool/atlasopdev_16_0018.html) 和
-[算子编译部署](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/800alpha002/devaids/opdev/optool/atlasopdev_16_0024.html)。
 
 ## MindSpore使用自定义算子
 
