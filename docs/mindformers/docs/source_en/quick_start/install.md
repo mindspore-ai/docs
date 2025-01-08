@@ -8,9 +8,9 @@ The currently supported hardware is the [Atlas 800T A2](https://www.hiascend.com
 
 The current recommended Python version for the suite is 3.10.
 
-|                     MindFormers                      |                 MindSpore                  |                                                     CANN                                                     |                            Firmware & Drivers                            |                             Mirror Links                             |
-|:----------------------------------------------------:|:------------------------------------------:|:------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------:|:--------------------------------------------------------------------:|
-| [1.3.0](https://pypi.org/project/mindformers/1.3.0/) | [2.4.0](https://www.mindspore.cn/install/) | [8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC3.beta1) | [24.1.RC3](https://www.hiascend.com/hardware/firmware-drivers/community) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/154.html) |
+|                    MindFormers                     |                  MindSpore                  |                                                     CANN                                                     |                            Firmware & Drivers                            |                             Mirror Links                             |
+|:--------------------------------------------------:|:-------------------------------------------:|:------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------:|:--------------------------------------------------------------------:|
+|                       1.3.2                        | [2.4.10](https://www.mindspore.cn/install/) | [8.0.RC3.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC3.beta1) | [24.1.RC3](https://www.hiascend.com/hardware/firmware-drivers/community) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/154.html) |
 
 **Currently MindFormers recommends using a software package relationship as above.**
 
@@ -35,18 +35,14 @@ MindFormers supports both source code compiled installation and pip installation
 Users can compile and install MindFormers by executing the following command:
 
 ```bash
-git clone -b v1.3.0 https://gitee.com/mindspore/mindformers.git
+git clone -b v1.3.2 https://gitee.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```
 
 ### pip Installation
 
-Users can download and install MindFormers by executing the following command:
-
-```bash
-pip install mindformers==1.3.0
-```
+The current version of MindFormers does not support installation through pip for the time being. It can be installed in this way after the pypi is uploaded recently.
 
 > Note: This method only installs the MindFormers base package, please get the model files, scripts, etc. from the MindFormers gitee repository.
 
