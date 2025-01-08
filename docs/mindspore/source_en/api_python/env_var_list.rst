@@ -880,7 +880,7 @@ Third-party Library
 CANN
 -----
 
-For more information about CANN's environment variables, see `Ascend community <https://www.hiascend.com/document/detail/zh/canncommercial/70RC1/reference/envvar/envref_07_0001.html>`_ . Please set the environment variables for CANN before `import mindspore` .
+For more information about CANN's environment variables, see `Ascend community <https://www.hiascend.com/document/detail/zh/canncommercial/80RC3/apiref/envvar/envref_07_0001.html>`_ . Please set the environment variables for CANN before `import mindspore` .
 
 .. list-table::
    :widths: 20 20 10 30 20
