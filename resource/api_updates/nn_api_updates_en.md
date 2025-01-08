@@ -1,7 +1,7 @@
 # mindspore.nn API Interface Change
 
-Compared with the previous version, the added, deleted and supported platforms change information of `mindspore.nn` operators in MindSpore, is shown in the following table.
+Compared with the previous version 2.4.1, the added, deleted and supported platforms change information of `mindspore.nn` operators in MindSpore, is shown in the following table.
 
 |API|Status|Description|Support Platform|Class
 |:----|:----|:----|:----|:----
-[mindspore.nn.OptTFTWrapper](https://mindspore.cn/docs/en/r2.4.0/api_python/nn/mindspore.nn.OptTFTWrapper.html#mindspore.nn.OptTFTWrapper)|New|Implements TFT optimizer wrapper, this wrapper is used to report status to MindIO TFT before optimizer updating.|r2.4.0: Ascend|Optimizer
+[mindspore.nn.utils.no_init_parameters](https://mindspore.cn/docs/en/r2.4.10/api_python/nn/mindspore.nn.utils.no_init_parameters.html#mindspore.nn.utils.no_init_parameters)|New|This interface is used to skip parameter initialization.|r2.4.10: Ascend/GPU/CPU|Tools
