@@ -108,21 +108,21 @@
     :exclude-members: add_flags_custom, get_logits_processor, get_logits_warper, prepare_inputs_for_generation, process_logits, slice_incremental_inputs, update_model_kwargs_before_generate, chunk_prefill_infer
     :members:
 
-{% elif fullname=="mindformers.models.glm2.ChatGLM2ForConditionalGeneration" %}
+{% elif fullname=="mindformers.models.ChatGLM2ForConditionalGeneration" %}
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
     :exclude-members: add_flags_custom, prepare_inputs_for_generation, prepare_inputs_for_predict_layout, construct
     :members:
 
-{% elif fullname=="mindformers.models.glm2.ChatGLM3Tokenizer" %}
+{% elif fullname=="mindformers.models.ChatGLM3Tokenizer" %}
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
     :exclude-members: build_batch_input, build_chat_input, build_inputs_with_special_tokens, convert_tokens_to_ids, get_vocab, save_vocabulary, tokenize
     :members:
 
-{% elif fullname=="mindformers.models.glm2.ChatGLM4Tokenizer" %}
+{% elif fullname=="mindformers.models.ChatGLM4Tokenizer" %}
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
