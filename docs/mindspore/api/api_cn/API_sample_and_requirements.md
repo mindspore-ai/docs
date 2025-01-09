@@ -446,16 +446,20 @@
 9. 引用类/函数的用法
 
     ```text
-
     :class:`类的全称`
 
     :func:`函数的全称`
 
+    :attr:`属性的全称`
     ```
 
     a. 引用其他类的内容，类的全称类似于mindspore.train.Metric，包含一级二级类别的名称。引用其他函数的内容，函数的全称类似于mindspore.ops.dropout。
 
-    b. 如果简写为Metric，英文书写为 :class:`Metric`，中文书写为 :class:`.Metric`，简写中文前面需要加.。
+    b. 如果文档内不想写全称，可写成 :class:`.Metric`，html页面会正常显示全称链接。
+
+    c. 如果html页面不想显示全称链接，只显示接口名，可写成 :class:`~.Metric`。
+
+    注意：其中b,c两种写法，如果不同模块有同名接口，请多加上一些判断用模块，比如 :class:`.train.Metric`，:class:`~.train.Metric`。
 
 10. rst文档内换行的用法
 
