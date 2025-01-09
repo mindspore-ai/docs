@@ -64,12 +64,12 @@ Finished Training
 
   | PyTorch 使用API       | MindSpore 对应API | 是否有差异 |
   | ---------------------- | ------------------ | ------|
-  | `nn.Conv2D`            | `nn.Conv2d`        | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/Conv2d.html) |
-  | `nn.BatchNorm2D`       | `nn.BatchNom2d`    | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/BatchNorm2d.html) |
+  | `nn.Conv2D`            | `nn.Conv2d`        | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/r2.4.0/note/api_mapping/pytorch_diff/Conv2d.html) |
+  | `nn.BatchNorm2D`       | `nn.BatchNom2d`    | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/r2.4.0/note/api_mapping/pytorch_diff/BatchNorm2d.html) |
   | `nn.ReLU`              | `nn.ReLU`          | 无 |
-  | `nn.MaxPool2D`         | `nn.MaxPool2d`     | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/MaxPool2d.html) |
+  | `nn.MaxPool2D`         | `nn.MaxPool2d`     | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/r2.4.0/note/api_mapping/pytorch_diff/MaxPool2d.html) |
   | `nn.AdaptiveAvgPool2D` | `nn.AdaptiveAvgPool2D` |  无  |
-  | `nn.Linear`            | `nn.Dense`         | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/Dense.html) |
+  | `nn.Linear`            | `nn.Dense`         | 有，[差异对比](https://www.mindspore.cn/docs/zh-CN/r2.4.0/note/api_mapping/pytorch_diff/Dense.html) |
   | `torch.flatten`        | `nn.Flatten`       | 无 |
 
   可通过借助[MindSpore Dev Toolkit](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/migrator_with_tools.html#%E7%BD%91%E7%BB%9C%E8%BF%81%E7%A7%BB%E5%BC%80%E5%8F%91)API扫描工具，或查看[PyTorch API映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)来获取API差异。

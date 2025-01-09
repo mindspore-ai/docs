@@ -64,12 +64,12 @@ You can download training logs and saved parameter files from [resnet_pytorch_re
 
   | PyTorch API      | MindSpore API| Different or Not|
   | ---------------------- | ------------------ | ------|
-  | `nn.Conv2D`            | `nn.Conv2d`        | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Conv2d.html)|
-  | `nn.BatchNorm2D`       | `nn.BatchNom2d`    | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/BatchNorm2d.html)|
+  | `nn.Conv2D`            | `nn.Conv2d`        | Yes. [Difference](https://www.mindspore.cn/docs/en/r2.4.0/note/api_mapping/pytorch_diff/Conv2d.html)|
+  | `nn.BatchNorm2D`       | `nn.BatchNom2d`    | Yes. [Difference](https://www.mindspore.cn/docs/en/r2.4.0/note/api_mapping/pytorch_diff/BatchNorm2d.html)|
   | `nn.ReLU`              | `nn.ReLU`          | No|
-  | `nn.MaxPool2D`         | `nn.MaxPool2d`     | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/MaxPool2d.html)|
+  | `nn.MaxPool2D`         | `nn.MaxPool2d`     | Yes. [Difference](https://www.mindspore.cn/docs/en/r2.4.0/note/api_mapping/pytorch_diff/MaxPool2d.html)|
   | `nn.AdaptiveAvgPool2D` | `nn.AdaptiveAvgPool2D` |  No |
-  | `nn.Linear`            | `nn.Dense`         | Yes. [Difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/Dense.html)|
+  | `nn.Linear`            | `nn.Dense`         | Yes. [Difference](https://www.mindspore.cn/docs/en/r2.4.0/note/api_mapping/pytorch_diff/Dense.html)|
   | `torch.flatten`        | `nn.Flatten`       | No|
 
   By using [MindSpore Dev Toolkit](https://www.mindspore.cn/docs/en/master/migration_guide/migrator_with_tools.html#network-migration-development) tool or checking [PyTorch API Mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html), we find that four APIs are different.

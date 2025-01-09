@@ -10,7 +10,7 @@ The MindSpore official website tutorial on loss functions explains built-in, cus
 | -------- | ------------------- | ------------ | ------------- | ------- |
 | torch.nn.L1Loss | torch.nn.functional.l1_loss | mindspore.nn.L1Loss| mindspore.ops.l1_loss| consistent |
 | torch.nn.MSELoss | torch.nn.functional.mse_loss | mindspore.nn.MSELoss| mindspore.ops.mse_loss| consistent |
-| torch.nn.CrossEntropyLoss | torch.nn.functional.cross_entropy | mindspore.nn.CrossEntropyLoss| mindspore.ops.cross_entropy| [nn interface difference](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/CrossEntropyLoss.html) |
+| torch.nn.CrossEntropyLoss | torch.nn.functional.cross_entropy | mindspore.nn.CrossEntropyLoss| mindspore.ops.cross_entropy| [nn interface difference](https://www.mindspore.cn/docs/en/r2.4.0/note/api_mapping/pytorch_diff/CrossEntropyLoss.html) |
 | torch.nn.CTCLoss | torch.nn.functional.ctc_loss | mindspore.nn.CTCLoss| mindspore.ops.ctc_loss| consistent |
 | torch.nn.NLLLoss | torch.nn.functional.nll_loss | mindspore.nn.NLLLoss| mindspore.ops.nll_loss| consistent |
 | torch.nn.PoissonNLLLoss | torch.nn.functional.poisson_nll_loss | mindspore.nn.PoissonNLLLoss| - | consistent |
@@ -27,5 +27,5 @@ The MindSpore official website tutorial on loss functions explains built-in, cus
 | torch.nn.MultiLabelSoftMarginLoss | torch.nn.functional.multilabel_soft_margin_loss | mindspore.nn.MultiLabelSoftMarginLoss| mindspore.ops.multilabel_soft_margin_loss| consistent |
 | torch.nn.CosineEmbeddingLoss | torch.nn.functional.cosine_embedding_loss | mindspore.nn.CosineEmbeddingLoss| mindspore.ops.cosine_embedding_loss| consistent |
 | torch.nn.MultiMarginLoss | torch.nn.functional.multi_margin_loss | mindspore.nn.MultiMarginLoss | mindspore.ops.multi_margin_loss | consistent |
-| torch.nn.TripletMarginLoss | torch.nn.functional.triplet_margin_loss | mindspore.nn.TripletMarginLoss| mindspore.ops.triplet_margin_loss | [Functionality is consistent, but the number or order of parameters is not consistent](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/TripletMarginLoss.html) |
+| torch.nn.TripletMarginLoss | torch.nn.functional.triplet_margin_loss | mindspore.nn.TripletMarginLoss| mindspore.ops.triplet_margin_loss | [Functionality is consistent, but the number or order of parameters is not consistent](https://www.mindspore.cn/docs/en/r2.4.0/note/api_mapping/pytorch_diff/TripletMarginLoss.html) |
 | torch.nn.TripletMarginWithDistanceLoss | torch.nn.functional.triplet_margin_with_distance_loss | mindspore.nn.TripletMarginWithDistanceLoss | - | consistent |
