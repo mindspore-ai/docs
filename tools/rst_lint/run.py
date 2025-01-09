@@ -155,6 +155,7 @@ register_directive('literalinclude', CustomLiteralInclude)
 # Register roles.
 register_generic_role('class', nodes.literal)
 register_generic_role('func', nodes.literal)
+register_generic_role('attr', nodes.literal)
 register_generic_role('doc', nodes.literal)
 register_generic_role('py:obj', nodes.literal)
 
