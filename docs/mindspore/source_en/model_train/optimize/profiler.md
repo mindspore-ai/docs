@@ -326,7 +326,7 @@ The specific field and meaning of other performance data files can be referred t
 
 In the process of large model training, due to some unpredictable introduction, the model has some performance deterioration problems, such as slow operator calculation time, communication speed and slow card. The root cause of performance degradation needs to be identified and the problem addressed.
 
-![profiler_process.png](images%2Fprofiler_process.png)
+![profiler_process.png](images/profiler_process.png)
 
 The most important thing in performance tuning is to apply the right medicine to the problem, delimit the problem first, and then perform targeted tuning to the problem.
 The first to use [MindStudio Insight](https://www.mindspore.cn/mindinsight/docs/en/master/index.html) visualization tools and bound performance issues. The results of delimiting are usually divided into three aspects: computation, scheduling and communication. Finally, users can tune performance based on expert advice from MindStudio Insight. Re-run the training after each tuning, collect performance data, and use the MindStudio Insight tool to see if the tuning method produced results. Repeat this process until the performance issue is resolved.
