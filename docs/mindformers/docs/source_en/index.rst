@@ -17,6 +17,7 @@ MindFormers supports one-click start of single/multi-card training, fine-tuning,
 - `Inference <https://www.mindspore.cn/mindformers/docs/en/dev/usage/inference.html>`_
 - `Quantization <https://www.mindspore.cn/mindformers/docs/en/dev/usage/quantization.html>`_
 - `MindIE Service Deployment <https://www.mindspore.cn/mindformers/docs/en/dev/usage/mindie_deployment.html>`_
+- `Multimodal Model Development Guide <https://www.mindspore.cn/mindformers/docs/en/dev/usage/multi_modal.html>`_
 
 Flexible and Easy-to-Use Personalized Configuration with MindFormers
 ----------------------------------------------------------------------
@@ -96,6 +97,7 @@ FAQ
    usage/quantization
    usage/mindie_deployment
    usage/pretrain_gpt
+   usage/multi_modal
 
 .. toctree::
    :glob:
