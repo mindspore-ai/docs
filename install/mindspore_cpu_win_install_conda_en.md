@@ -27,6 +27,8 @@ The following describes how to install MindSpore by Conda on Windows in the CPU 
 
 ## Creating and Accessing the Conda Virtual Environment
 
+To run Anaconda on Windows, you should open an Anaconda prompt via `Start | Anaconda3 | Anaconda Promt`.
+
 Create a Conda virtual environment based on the Python version you want to use and go to the virtual environment.
 If you want to use Python 3.9.11:
 
