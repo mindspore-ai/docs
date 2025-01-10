@@ -469,63 +469,64 @@ def generate_autosummary_docs(sources: List[str], output_dir: str = None,
                                                imported_members, app, entry.recursive, context,
                                                modname, qualname)
 
-        # 获取对象所在文件的部分路径
-        try:
-            py_source_rel = get_full_modname(modname, qualname).replace('.', '/') + '.py'
-        except:
-            py_source_rel = ''
+        if not app.config.branch.startswith('v'):
+            # 获取对象所在文件的部分路径
+            try:
+                py_source_rel = get_full_modname(modname, qualname).replace('.', '/') + '.py'
+            except:
+                py_source_rel = ''
 
-        # 自动生成的ops模块单独处理
-        if 'mindspore/ops/auto_generate/' in py_source_rel:
-            name1 = name
-            spec_tp = [('mint.nn.functional.dense', 'mint.nn.functional.linear')]
-            for i in spec_tp:
-                if name.endswith(i[1]):
-                    name1 = name.replace(i[1], i[0])
-            # 根据接口名内大写字母个数分类处理primitive，得到yaml文件名
-            if name1 not in app.config.primi_auto:
-                if len(re.findall('[A-Z]', name1)) == 1:
-                    name1 = name1.lower()
-                elif len(re.findall('[A-Z]', name1)) > 1:
-                    name1 = 'mindspore.ops.' + '_'.join(re.split('(?=[A-Z])', name1)[1:]).lower()
-                    if name1.split('.')[-1] + '_doc.yaml' not in app.config.ops_yaml_list:
-                        if name.split('.')[-1].lower() + '_doc.yaml' in app.config.ops_yaml_list:
-                            name1 = name.lower()
-            # 根据yaml文件名查询文件是否存在，分别再处理
-            if name1.split('.')[-1] + '_doc.yaml' not in app.config.ops_yaml_list:
-                for f_yaml in app.config.ops_yaml_list:
-                    # 对文件名中存在v[0-9]的特殊处理
-                    if re.findall(f"{name1.split('.')[-1]}_v[0-9]+_doc.yaml", f_yaml):
-                        py_source_rel = app.config.ops_yaml + re.findall(f"{name1.split('.')[-1]}_v[0-9]+_doc.yaml", f_yaml)[0]
-                        break
+            # 自动生成的ops模块单独处理
+            if 'mindspore/ops/auto_generate/' in py_source_rel:
+                name1 = name
+                spec_tp = [('mint.nn.functional.dense', 'mint.nn.functional.linear')]
+                for i in spec_tp:
+                    if name.endswith(i[1]):
+                        name1 = name.replace(i[1], i[0])
+                # 根据接口名内大写字母个数分类处理primitive，得到yaml文件名
+                if name1 not in app.config.primi_auto:
+                    if len(re.findall('[A-Z]', name1)) == 1:
+                        name1 = name1.lower()
+                    elif len(re.findall('[A-Z]', name1)) > 1:
+                        name1 = 'mindspore.ops.' + '_'.join(re.split('(?=[A-Z])', name1)[1:]).lower()
+                        if name1.split('.')[-1] + '_doc.yaml' not in app.config.ops_yaml_list:
+                            if name.split('.')[-1].lower() + '_doc.yaml' in app.config.ops_yaml_list:
+                                name1 = name.lower()
+                # 根据yaml文件名查询文件是否存在，分别再处理
+                if name1.split('.')[-1] + '_doc.yaml' not in app.config.ops_yaml_list:
+                    for f_yaml in app.config.ops_yaml_list:
+                        # 对文件名中存在v[0-9]的特殊处理
+                        if re.findall(f"{name1.split('.')[-1]}_v[0-9]+_doc.yaml", f_yaml):
+                            py_source_rel = app.config.ops_yaml + re.findall(f"{name1.split('.')[-1]}_v[0-9]+_doc.yaml", f_yaml)[0]
+                            break
+                    else:
+                        py_source_rel = ''
                 else:
-                    py_source_rel = ''
-            else:
-                py_source_rel = app.config.ops_yaml + name1.split('.')[-1] + '_doc.yaml'
+                    py_source_rel = app.config.ops_yaml + name1.split('.')[-1] + '_doc.yaml'
 
-            if name1.split('.')[-1] in app.config.func_name_dict and not py_source_rel:
-                py_source_rel = app.config.ops_yaml + app.config.func_name_dict[name1.split('.')[-1]] + '_doc.yaml'
+                if name1.split('.')[-1] in app.config.func_name_dict and not py_source_rel:
+                    py_source_rel = app.config.ops_yaml + app.config.func_name_dict[name1.split('.')[-1]] + '_doc.yaml'
 
-            # 拼接源文件链接格式文档
-            re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
-                f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
-                f"{app.config.copy_repo}/blob/{app.config.branch}/" + \
-                py_source_rel + '\n    :alt: View Source On Gitee\n\n'
-            # 写入源文件链接文档
-            if re_view not in content and py_source_rel:
-                content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
+                # 拼接源文件链接格式文档
+                re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
+                    f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
+                    f"{app.config.copy_repo}/blob/{app.config.branch}/" + \
+                    py_source_rel + '\n    :alt: View Source On Gitee\n\n'
+                # 写入源文件链接文档
+                if re_view not in content and py_source_rel:
+                    content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
 
-        elif py_source_rel:
-            if not os.path.exists(os.path.join(app.config.repo_path, app.config.repo_whl, py_source_rel)):
-                py_source_rel = py_source_rel.replace('.py', '/__init__.py')
+            elif py_source_rel:
+                if not os.path.exists(os.path.join(app.config.repo_path, app.config.repo_whl, py_source_rel)):
+                    py_source_rel = py_source_rel.replace('.py', '/__init__.py')
 
-            re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
-                f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
-                f"{app.config.copy_repo}/blob/{app.config.branch}/" + app.config.repo_whl + \
-                py_source_rel + '\n    :alt: View Source On Gitee\n\n'
+                re_view = f"\n.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{app.config.docs_branch}/" + \
+                    f"resource/_static/logo_source_en.svg\n    :target: " + app.config.giturl + \
+                    f"{app.config.copy_repo}/blob/{app.config.branch}/" + app.config.repo_whl + \
+                    py_source_rel + '\n    :alt: View Source On Gitee\n\n'
 
-            if re_view not in content:
-                content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
+                if re_view not in content:
+                    content = re.sub('([=]{5,})\n', r'\1\n' + re_view, content, 1)
         filename = os.path.join(path, filename_map.get(name, name) + suffix)
         if os.path.isfile(filename):
             with open(filename, encoding=encoding) as f:
