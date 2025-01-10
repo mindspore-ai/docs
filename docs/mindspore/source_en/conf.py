@@ -374,7 +374,7 @@ repo_whl = 'mindspore/python/'
 giturl = 'https://gitee.com/mindspore/'
 ops_yaml = 'mindspore/ops/op_def/yaml/doc/'
 tensor_yaml = 'mindspore/ops/api_def/method_doc/'
-mint_yaml = 'mindspore/ops/api_def/function_doc/'
+func_yaml = 'mindspore/ops/api_def/function_doc/'
 
 try:
     ops_yaml_list = [i for i in os.listdir(os.path.join(repo_path, 'mindspore/ops/op_def/yaml/doc')) if i.endswith('_doc.yaml') and '_grad' not in i]
@@ -425,7 +425,7 @@ def setup(app):
     app.add_config_value('repo_whl', '', True)
     app.add_config_value('ops_yaml', '', True)
     app.add_config_value('tensor_yaml', '', True)
-    app.add_config_value('mint_yaml', '', True)
+    app.add_config_value('func_yaml', '', True)
     app.add_config_value('ops_yaml_list', [], True)
     app.add_config_value('primi_auto', [], True)
     app.add_config_value('func_name_dict', {}, True)
