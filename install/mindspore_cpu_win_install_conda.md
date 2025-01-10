@@ -27,6 +27,8 @@
 
 ## 创建并进入Conda虚拟环境
 
+在Windows上使用Anaconda，请通过`开始 | Anaconda3 | Anaconda Promt`打开Anaconda命令行。
+
 根据您希望使用的Python版本创建对应的Conda虚拟环境并进入虚拟环境。
 如果您希望使用Python3.9.11版本：
 
