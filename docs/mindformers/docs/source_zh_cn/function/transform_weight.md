@@ -116,9 +116,9 @@ MindSpore每次运行分布式任务后都会在`output/strategy`文件夹下生
 
 ```shell
 python transform_checkpoint.py \
-  --src_checkpoint=/worker/checkpoint/llama3-8b-2layer/rank_0/llama3_8b.ckpt \
-  --dst_checkpoint=/worker/transform_ckpt/llama3_8b_1to8/ \
-  --dst_strategy=/worker/mindformers/output/strategy/
+  --src_checkpoint /worker/checkpoint/llama3-8b-2layer/rank_0/llama3_8b.ckpt \
+  --dst_checkpoint /worker/transform_ckpt/llama3_8b_1to8/ \
+  --dst_strategy /worker/mindformers/output/strategy/
 ```
 
 #### 多进程转换
@@ -251,9 +251,9 @@ bash transform_checkpoint.sh \
 
   ```shell
   python mindformers/tools/ckpt_transform/transform_checkpoint.py \
-    --src_checkpoint=/worker/checkpoint/llama3-8b/rank_0/llama_7b.ckpt \
-    --dst_checkpoint=./output/llama3_8b_dp2mp4pp2 \
-    --dst_strategy=./output/strategy
+    --src_checkpoint /worker/checkpoint/llama3-8b/rank_0/llama_7b.ckpt \
+    --dst_checkpoint ./output/llama3_8b_dp2mp4pp2 \
+    --dst_strategy ./output/strategy
   ```
 
   **多进程转换（可选）：**
