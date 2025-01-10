@@ -129,7 +129,8 @@ data_set = create_dataset(32)
 
 流水线并行网络结构与单卡网络结构基本一致，区别在于增加了流水线并行策略配置。流水线并行需要用户去定义并行的策略，通过调用`pipeline_stage`接口来指定每个layer要在哪个stage上去执行。`pipeline_stage`接口的粒度为`Cell`。所有包含训练参数的`Cell`都需要配置`pipeline_stage`，并且`pipeline_stage`要按照网络执行的先后顺序，从小到大进行配置。如果要使能interleaved pipeline调度，`pipeline_stage`要按照前面章节中介绍的非连续模型层进行交错式配置。在单卡模型基础上，增加`pipeline_stage`配置后如下：
 
-> 在pipeline并行下，使能Print/Summary/TensorDump相关算子时，需要把该算子放到有pipeline_stage属性的Cell中使用，否则有概率由pipeline并行切分导致算子不生效。
+> - 在pipeline并行下，使能Print/Summary/TensorDump相关算子时，需要把该算子放到有pipeline_stage属性的Cell中使用，否则有概率由pipeline并行切分导致算子不生效。
+> - 在pipeline并行下，网络的输出不支持动态shape。
 
 ```python
 from mindspore import nn, ops, Parameter

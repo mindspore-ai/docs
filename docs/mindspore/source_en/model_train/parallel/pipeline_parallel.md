@@ -129,7 +129,8 @@ data_set = create_dataset(32)
 
 The pipeline parallel network structure is basically the same as the single-card network structure, and the difference is the addition of pipeline parallel strategy configuration. Pipeline parallel requires the user to define the parallel strategy by calling the `pipeline_stage` interface to specify the stage on which each layer is to be executed. The granularity of the `pipeline_stage` interface is `Cell`. All `Cells` containing training parameters need to be configured with `pipeline_stage`, and `pipeline_stage` should be configured in the order of network execution, from smallest to largest. If you want to enable interleaved pipeline scheduling, the `pipeline_stage` should be configured in an interleaved manner according to the non-continuous model layer introduced in the previous chapter. After adding `pipeline_stage` configuration based on the single-card model is as follows:
 
-> Under pipeline parallelism, when enabling Print/Summary/TensorDump related operators, the operator needs to be used in a Cell with the pipeline_stage attribute. Otherwise, there is a possibility that the operator will not take effect due to pipeline parallel split.
+> - Under pipeline parallelism, when enabling Print/Summary/TensorDump related operators, the operator needs to be used in a Cell with the pipeline_stage attribute. Otherwise, there is a possibility that the operator will not take effect due to pipeline parallel split.
+> - Under pipeline parallelism, the output of the network does not support dynamic shapes.
 
 ```python
 from mindspore import nn, ops, Parameter
