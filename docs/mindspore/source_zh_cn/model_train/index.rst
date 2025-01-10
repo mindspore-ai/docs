@@ -91,7 +91,6 @@
    train_availability/fault_recover
    train_availability/graceful_exit
    train_availability/mindio_ttp
-   train_availability/storage_sys
    train_availability/UCE_fault_recover
 
 .. toctree::
@@ -100,7 +99,6 @@
    :hidden:
    :caption: 模型调试
 
-   debug/overview
    debug/dump
    debug/rdr
    debug/sdc
@@ -114,7 +112,6 @@
    :hidden:
    :caption: 模型调优
 
-   optimize/overview
    optimize/graph_fusion_engine
    optimize/mem_reuse
    optimize/aoe
