@@ -110,9 +110,9 @@ Use [mindformers/tools/ckpt_transform/transform_checkpoint.py](https://gitee.com
 
 ```shell
 python transform_checkpoint.py \
-  --src_checkpoint=/worker/checkpoint/llama3-8b-2layer/rank_0/llama3_8b.ckpt \
-  --dst_checkpoint=/worker/transform_ckpt/llama3_8b_1to8/ \
-  --dst_strategy=/worker/mindformers/output/strategy/
+  --src_checkpoint /worker/checkpoint/llama3-8b-2layer/rank_0/llama3_8b.ckpt \
+  --dst_checkpoint /worker/transform_ckpt/llama3_8b_1to8/ \
+  --dst_strategy /worker/mindformers/output/strategy/
 ```
 
 **Precautions**:
@@ -287,9 +287,9 @@ If there is no shared disk between servers, you need to use the offline weight c
 
   ```shell
   python mindformers/tools/ckpt_transform/transform_checkpoint.py \
-    --src_checkpoint=/worker/checkpoint/llama3-8b/rank_0/llama_7b.ckpt \
-    --dst_checkpoint=./output/llama3_8b_dp2mp4pp2 \
-    --dst_strategy=./output/strategy
+    --src_checkpoint /worker/checkpoint/llama3-8b/rank_0/llama_7b.ckpt \
+    --dst_checkpoint ./output/llama3_8b_dp2mp4pp2 \
+    --dst_strategy ./output/strategy
   ```
 
   **Multi-process conversion (optional)**
