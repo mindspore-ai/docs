@@ -320,37 +320,39 @@ mint_adjust = ['triu', 'logaddexp']
 def primitive_interface_name():
 
     src_target_path = os.path.join(src_dir_en, 'mindspore.ops.primitive.rst')
-    with open(src_target_path,'r+',encoding='utf8') as f:
+    with open(src_target_path,'r',encoding='utf8') as f:
         content =  f.read()
     primi_list = re.findall("    (mindspore\.ops\.\w*?)\n", content)
 
     return primi_list
 
 def func_interface_name():
-
     src_target_path = os.path.join(src_dir_en, 'mindspore.ops.rst')
-    with open(src_target_path,'r+',encoding='utf8') as f:
+    with open(src_target_path,'r',encoding='utf8') as f:
         content =  f.read()
-        for name in func_adjust:
-            new_content = content.replace('    mindspore.ops.' + name + '\n', '')
-        if content != new_content:
-            f.seek(0)
-            f.truncate()
-            f.write(new_content)
-
+    new_content = content
+    for name in func_adjust:
+        new_content = new_content.replace('    mindspore.ops.' + name + '\n', '')
+    if new_content != content and os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python/mindspore.ops.rst')):
+        with open(os.path.join(os.path.dirname(__file__), 'api_python/mindspore.ops.rst'),'r+',encoding='utf8') as g:
+            g.seek(0)
+            g.truncate()
+            g.write(new_content)
 
 def mint_interface_name():
     mint_p = 'mindspore.mint.rst'
     src_target_path = os.path.join(src_dir_en, mint_p)
-    with open(src_target_path,'r+',encoding='utf8') as f:
+    with open(src_target_path,'r',encoding='utf8') as f:
         content =  f.read()
-        for name in mint_adjust:
-            new_content = content.replace('    mindspore.mint.' + name + '\n', '')
-        if content != new_content:
-            f.seek(0)
-            f.truncate()
-            f.write(new_content)
+    new_content = content
+    for name in mint_adjust:
+        new_content = new_content.replace('    mindspore.mint.' + name + '\n', '')
     mint_list = re.findall(r"    (mindspore\.mint\..*)\n", content+'\n')
+    if new_content != content and os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python/mindspore.mint.rst')):
+        with open(os.path.join(os.path.dirname(__file__), 'api_python/mindspore.mint.rst'),'r+',encoding='utf8') as g:
+            g.seek(0)
+            g.truncate()
+            g.write(new_content)
 
     return mint_list
 
