@@ -284,7 +284,7 @@ def ops_interface_name():
 
     for i in dir_list:
         target_path = os.path.join(src_dir, i)
-        with open(target_path,'r+',encoding='utf8') as f:
+        with open(target_path,'r',encoding='utf8') as f:
             content =  f.read()
         new_content = content
         if 'primitive' in i:
@@ -305,7 +305,6 @@ def ops_interface_name():
 
         if new_content != content and os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python', i)):
             with open(os.path.join(os.path.dirname(__file__), 'api_python', i),'r+',encoding='utf8') as g:
-
                 g.seek(0)
                 g.truncate()
                 g.write(new_content)
@@ -330,17 +329,19 @@ def ops_interface_name():
 
 # 获取mint下汇总接口列表，删除并获取mint下多余的接口文件名
 def mint_interface_name():
-    mint_p = 'mindspore.mint.rst'
-    src_target_path = os.path.join(src_dir, mint_p)
-    with open(src_target_path,'r+',encoding='utf8') as f:
+    src_target_path = os.path.join(src_dir, 'mindspore.mint.rst')
+    with open(src_target_path,'r',encoding='utf8') as f:
         content =  f.read()
+        new_content = content
         for name in mint_adjust:
-            new_content = content.replace('    mindspore.mint.' + name + '\n', '')
-        if content != new_content:
-            f.seek(0)
-            f.truncate()
-            f.write(new_content)
-    mint_list = re.findall(r"    (mindspore\.mint\..*)\n", content+'\n')
+            new_content = new_content.replace('    mindspore.mint.' + name + '\n', '')
+    mint_list = re.findall(r"    (mindspore\.mint\..*)\n", new_content+'\n')
+
+    if new_content != content and os.path.exists(os.path.join(os.path.dirname(__file__), 'api_python/mindspore.mint.rst')):
+        with open(os.path.join(os.path.dirname(__file__), 'api_python/mindspore.mint.rst'),'r+',encoding='utf8') as g:
+            g.seek(0)
+            g.truncate()
+            g.write(new_content)
 
     all_rst = []
     for j in os.listdir(os.path.join(os.path.dirname(__file__),'api_python/mint')):
@@ -365,7 +366,7 @@ def mint_interface_name():
 def numpy_interface_name():
     numpy_p = 'mindspore.numpy.rst'
     src_target_path = os.path.join(src_dir, numpy_p)
-    with open(src_target_path,'r+',encoding='utf8') as f:
+    with open(src_target_path,'r',encoding='utf8') as f:
         content =  f.read()
     numpy_list = re.findall(r"    (mindspore\.numpy\..*)\n", content+'\n')
 
@@ -390,7 +391,7 @@ def numpy_interface_name():
 def nn_interface_name():
     interface_name_list = []
     target_path = os.path.join(os.path.dirname(__file__),'api_python','mindspore.nn.rst')
-    with open(target_path,'r+',encoding='utf8') as f:
+    with open(target_path,'r',encoding='utf8') as f:
         content =  f.read()
     interface_name_list = re.findall("mindspore\.nn\.(\w*)",content)
     all_rst = []
@@ -415,7 +416,7 @@ def nn_interface_name():
 def tensor_interface_name():
     interface_name_list = []
     target_path = os.path.join(os.path.dirname(__file__),'api_python/mindspore','mindspore.Tensor.rst')
-    with open(target_path,'r+',encoding='utf8') as f:
+    with open(target_path,'r',encoding='utf8') as f:
         content =  f.read()
     interface_name_list = re.findall("mindspore\.Tensor\.(\w*)",content)
     all_rst = []
@@ -439,7 +440,7 @@ def tensor_interface_name():
 def scipy_interface_name():
     interface_name_list = []
     target_path = os.path.join(os.path.dirname(__file__),'api_python','mindspore.scipy.rst')
-    with open(target_path,'r+',encoding='utf8') as f:
+    with open(target_path,'r',encoding='utf8') as f:
         content =  f.read()
     interface_name_list = re.findall("    mindspore\.scipy\.(.*)", content)
     all_rst = []
