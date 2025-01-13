@@ -102,7 +102,7 @@ The following uses the alpaca dataset as an example. After downloading the datas
     output_path: path for storing output files.
     ```
 
-2. Run the [llama_preprocess.py script](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py) in MindFormers to convert the data into the MindRecord format. This operation depends on the fastchat tool package to parse the prompt template. You need to install fastchat 0.2.13 or later and Python 3.9 in advance.
+2. Run the [llama_preprocess.py script](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py) in MindFormers to convert the data into the MindRecord format. This operation depends on the fastchat tool package to parse the prompt template. You need to install fastchat 0.2.13 or later in advance.
 
     ```bash
     python llama_preprocess.py \

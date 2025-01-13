@@ -102,7 +102,7 @@ MindFormers提供**WikiText2**作为预训练数据集，**alpaca**作为微调�
     output_path: 输出文件的保存路径
     ```
 
-2. 执行MindFormers中的[llama_preprocess.py脚本](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，将数据转换为MindRecord格式。该操作依赖fastchat工具包解析prompt模板, 请提前安装fastchat >= 0.2.13 python = 3.9。
+2. 执行MindFormers中的[llama_preprocess.py脚本](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，将数据转换为MindRecord格式。该操作依赖fastchat工具包解析prompt模板, 请提前安装fastchat >= 0.2.13。
 
     ```bash
     python llama_preprocess.py \
