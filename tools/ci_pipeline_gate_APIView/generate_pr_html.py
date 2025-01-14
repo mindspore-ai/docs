@@ -10,6 +10,7 @@ import os
 import re
 import shutil
 import subprocess
+import importlib
 import requests
 from git import Repo
 
@@ -110,7 +111,6 @@ def get_all_copy_list(pr_list, rp_n, branch, repo_path, raw_rst_list):
     """
     获取所有需要拷贝的文件。
     """
-    print(pr_list, rp_n, branch, repo_path)
     file_list = []
     for i in pr_list:
         if i == 'need_auto':
@@ -125,22 +125,97 @@ def get_all_copy_list(pr_list, rp_n, branch, repo_path, raw_rst_list):
 
     return file_list
 
+def get_api(fullname):
+    """
+    获取接口对象。
+    """
+    try:
+        module_name, api_name = ".".join(fullname.split('.')[:-1]), fullname.split('.')[-1]
+        # pylint: disable=W0612
+        module_import = importlib.import_module(module_name)
+    except ModuleNotFoundError:
+        return False
+    try:
+        # pylint: disable=W0123
+        api = eval(f"module_import.{api_name}")
+    except AttributeError:
+        return False
+    return api
 
-def get_rst_en(en_list):
+def get_all_samedefinition(api_obj, fullname):
+    """
+    返回同定义的接口。
+    """
+    all_fullname = []
+
+    if 'mindspore.mint.' in fullname:
+        ops_fullname = 'mindspore.ops.' + fullname.split('.')[-1]
+        ops_obj = get_api(ops_fullname)
+        nn_fullname = 'mindspore.nn.' + fullname.split('.')[-1]
+        nn_obj = get_api(nn_fullname)
+        mint_func_fullname = 'mindspore.mint.nn.functional.' + fullname.split('.')[-1]
+        mint_func_obj = get_api(mint_func_fullname)
+        if ops_obj and id(ops_obj) == id(api_obj):
+            all_fullname.append(ops_fullname)
+        elif nn_obj and id(nn_obj) == id(api_obj):
+            all_fullname.append(nn_fullname)
+        if mint_func_obj and id(mint_func_obj) == id(api_obj):
+            all_fullname.append(mint_func_fullname)
+    elif 'mindspore.ops.' in fullname:
+        mint_fullname = 'mindspore.mint.' + fullname.split('.')[-1]
+        mint_obj = get_api(mint_fullname)
+        mint_func_fullname = 'mindspore.mint.nn.functional.' + fullname.split('.')[-1]
+        mint_func_obj = get_api(mint_func_fullname)
+        if mint_obj and id(mint_obj) == id(api_obj):
+            all_fullname.append(mint_fullname)
+        if mint_func_obj and id(mint_func_obj) == id(api_obj):
+            all_fullname.append(mint_func_fullname)
+    elif 'mindspore.nn.' in fullname:
+        mint_nn_fullname = 'mindspore.mint.nn.' + fullname.split('.')[-1]
+        mint_nn_obj = get_api(mint_nn_fullname)
+        if mint_nn_obj and id(mint_nn_obj) == id(api_obj):
+            all_fullname.append(mint_nn_fullname)
+
+    if fullname in all_fullname:
+        all_fullname.remove(fullname)
+
+    return all_fullname
+
+def get_rst_en(en_list, all_samedfn, samedfn_rst):
     """
     生成英文API文档内容。
     """
     generate_api_en_list = []
     diff_name = []
+    all_list = []
+
     for i in en_list:
+        samedfn_rst_list = []
+        all_list.append(i)
         one_doc = i.split('&&&')[0]
-        if one_doc not in diff_name:
-            diff_name.append(one_doc)
+        api_name = re.findall(r'\.\. .*?:: (.*)', one_doc)[0]
+        api_name_obj = get_api(api_name)
+        if api_name_obj:
+            samedef_list = get_all_samedefinition(api_name_obj, api_name)
+            if samedef_list:
+                all_samedfn.add(api_name)
+                samedfn_rst_list.append(api_name)
+            for name in samedef_list:
+                all_list.append(i.replace(api_name, name))
+                all_samedfn.add(name)
+                samedfn_rst_list.append(name)
+            if samedef_list:
+                samedfn_rst.append(sorted(samedfn_rst_list))
+
+    for i in all_list:
+        one_doc = i.split('&&&')[0]
+        api_name = re.findall(r'\.\. .*?:: (.*)', one_doc)[0]
+        if api_name not in diff_name:
+            diff_name.append(api_name)
         else:
             continue
         two_doc = i.split('&&&')[1]
 
-        api_name = re.findall(r'\.\. .*?:: (.*)', one_doc)[0]
         if 'nn.probability' in one_doc:
             generate_api_en_list.append(
                 [api_name + '.rst', 'nn_probability', '', two_doc])
@@ -200,8 +275,8 @@ def yaml_file_handle(yaml_file_list, repo_path, dict1):
                         class_name = class_name[0]
                     else:
                         class_name = ''.join([i.title() for i in yaml_file.split('_')[:-1]])
-                    if class_name.endswith('_ext'):
-                        class_name = class_name.replace('_ext', '')
+                    if class_name.endswith('Ext'):
+                        class_name = class_name[:-3]
                     if mint_flag:
                         generate_interface_list.append(
                             f'.. autoclass:: mindspore.mint.{class_name.strip()}&&&{yaml_fp}')
@@ -214,13 +289,19 @@ def yaml_file_handle(yaml_file_list, repo_path, dict1):
                     else:
                         func_name = yaml_file.replace('_doc.yaml', '').replace('_op.yaml', '')
                     if func_name.endswith('_ext'):
-                        func_name = func_name.replace('_ext', '')
+                        func_name = func_name[:-4]
                     if mint_flag:
                         generate_interface_list.append(
                             f'.. autofunction:: mindspore.mint.{func_name.strip()}&&&{yaml_fp}')
+                        generate_interface_list.append(
+                            f'.. autofunction:: mindspore.mint.nn.functional.{func_name.strip()}&&&{yaml_fp}')
                     else:
                         generate_interface_list.append(
                             f'.. autofunction:: mindspore.ops.{func_name.strip()}&&&{yaml_fp}')
+                        generate_interface_list.append(
+                            f'.. autofunction:: mindspore.mint.{func_name.strip()}&&&{yaml_fp}')
+                        generate_interface_list.append(
+                            f'.. autofunction:: mindspore.mint.nn.functional.{func_name.strip()}&&&{yaml_fp}')
             elif dict1['mindspore_Tensor_yaml'] in yaml_fp:
                 tensor_op_name = yaml_file.replace('_doc.yaml', '.yaml')
                 op_fp = os.path.join(
@@ -231,16 +312,18 @@ def yaml_file_handle(yaml_file_list, repo_path, dict1):
                 tensor_name = tensor_op_name.split('.')[0]
                 generate_interface_list.append(
                     f'.. automethod:: mindspore.Tensor.{tensor_name}&&&{yaml_fp}')
-            elif dict1['mindspore_mint_yaml'] in yaml_fp:
-                mint_op_name = yaml_file.replace('_doc.yaml', '.yaml')
+            elif dict1['mindspore_function_yaml'] in yaml_fp:
+                func_op_name = yaml_file.replace('_doc.yaml', '.yaml')
                 op_fp = os.path.join(
-                    repo_path, '/'.join(dict1['mindspore_mint_yaml'].split('/')[:-2]), mint_op_name)
+                    repo_path, '/'.join(dict1['mindspore_function_yaml'].split('/')[:-2]), func_op_name)
 
                 if not os.path.exists(op_fp):
                     continue
-                mint_name = mint_op_name.split('.')[0]
+                func_name = func_op_name.split('.')[0]
                 generate_interface_list.append(
-                    f'.. autofunction:: mindspore.mint.{mint_name}&&&{yaml_fp}')
+                    f'.. autofunction:: mindspore.mint.{func_name}&&&{yaml_fp}')
+                generate_interface_list.append(
+                    f'.. autofunction:: mindspore.ops.{func_name}&&&{yaml_fp}')
 
     return list(set(generate_interface_list))
 
@@ -252,6 +335,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
 
     # 接口模块分类
     module_path_name = [
+        ['mindspore/python/mindspore/runtime', 'mindspore.runtime'],
         ['mindspore/python/mindspore/rewrite', 'mindspore.rewrite'],
         ['mindspore/python/mindspore/hal', 'mindspore.hal'],
         ['mindspore/python/mindspore/mindrecord', 'mindspore.mindrecord'],
@@ -297,7 +381,7 @@ def en_file_handle(py_file_list, repo_path, dict1):
 
         interface_doc_dict = {}
         interface_doc = re.findall(
-            r'(\nclass|\ndef|\n[ ]+?def) ([^_].+?:|[^_].+?,\n(?:.|\n|)+?)\n.*?("""(?:.|\n|)+?)"""', content)
+            r'(\nclass|\ndef|\n[ ]+?def) ([^_].+?:|[^_].+?:[ ]+# .*|[^_].+?,\n(?:.|\n|)+?)\n.*?("""(?:.|\n|)+?)"""', content)
 
         for doc in interface_doc:
             first_p = doc[0]
@@ -377,14 +461,29 @@ def en_file_handle(py_file_list, repo_path, dict1):
                         for mpn in module_path_name:
                             if mpn[0] in repo_py_path:
                                 if k.endswith('.'):
-                                    generate_interface_list.append(
-                                        '.. autofunction:: ' + mpn[1] + '.' + k.replace('.', '') + f'&&&{i[0]}')
+                                    fullname = mpn[1] + '.' + k.replace('.', '')
+                                    if fullname.endswith('_ext') and mpn[1] == 'mindspore.ops':
+                                        new_fullname = 'mindspore.mint.' + fullname[:-4].split('.')[-1]
+                                        generate_interface_list.append(
+                                            '.. autofunction:: ' + new_fullname + f'&&&{i[0]}')
+                                        new_fullname = 'mindspore.mint.nn.functional.' + fullname[:-4].split('.')[-1]
+                                        generate_interface_list.append(
+                                            '.. autofunction:: ' + new_fullname + f'&&&{i[0]}')
+                                    else:
+                                        generate_interface_list.append(
+                                            '.. autofunction:: ' + fullname + f'&&&{i[0]}')
                                 elif '.' in k:
                                     generate_interface_list.append(
                                         '.. automethod:: ' + mpn[1] + '.' + k + f'&&&{i[0]}')
                                 else:
-                                    generate_interface_list.append(
-                                        '.. autoclass:: ' + mpn[1] + '.' + k + f'&&&{i[0]}')
+                                    fullname = mpn[1] + '.' + k
+                                    if fullname.endswith('Ext') and mpn[1] == 'mindspore.nn':
+                                        new_fullname = 'mindspore.mint.nn.' + fullname[:-3].split('.')[-1]
+                                        generate_interface_list.append(
+                                            '.. autoclass:: ' + new_fullname + f'&&&{i[0]}')
+                                    else:
+                                        generate_interface_list.append(
+                                            '.. autoclass:: ' + fullname + f'&&&{i[0]}')
                                 break
                         else:
                             if k.endswith('.'):
@@ -401,6 +500,46 @@ def en_file_handle(py_file_list, repo_path, dict1):
 
     return list(set(generate_interface_list))
 
+def supplement_pr_file_cn(pr_cn, repo_path, samedfn_rst, pr_need, base_raw_url, raw_rst_list):
+    """
+    get same definition apiname from cn files.
+    """
+    samedfn_cn = []
+    for fp in pr_cn:
+        if fp == 'need_auto':
+            continue
+        samedfn_rst_list = []
+        filename = fp.split('/')[-1]
+        api_name = '.'.join(filename.split('.')[:-1]).replace('.func_', '.')
+        api_name_obj = get_api(api_name)
+        if api_name_obj:
+            samedef_list = get_all_samedefinition(api_name_obj, api_name)
+            if samedef_list:
+                samedfn_rst_list.append(api_name)
+            for name in samedef_list:
+                mod_name = name.split('.')[1]
+                end_name = name.split('.')[-1]
+                samedfn_fpath = glob.glob(f'{repo_path}/docs/api/api_python/{mod_name}/*{end_name}.rst')
+                ori_p = f'{repo_path}/docs/api/api_python/{mod_name}/{name}.rst'
+
+                for j in samedfn_fpath:
+                    rel_filename = j.split(repo_path)[1][1:]
+                    if j == ori_p:
+                        samedfn_cn.append(rel_filename)
+                        raw_rst_list[rel_filename] = f'{base_raw_url}/{rel_filename}'
+                        break
+                    elif j == ori_p.replace('.func_', '.'):
+                        samedfn_cn.append(rel_filename)
+                        raw_rst_list[rel_filename] = f'{base_raw_url}/{rel_filename}'
+                        break
+                else:
+                    if 'mindspore.mint.' in name and not re.findall(r'\.nn\.(?!functional).*', name):
+                        pr_need.append(name)
+                samedfn_rst_list.append(name)
+            if samedef_list:
+                samedfn_rst.append(sorted(samedfn_rst_list))
+
+    return samedfn_cn
 
 def make_index_rst(target_path, language_f):
     """
@@ -419,14 +558,31 @@ def make_index_rst(target_path, language_f):
     for rt, dirs, files in os.walk(os.path.join(target_path, 'api_python')):
         for file in files:
             if file.endswith('.rst') and rt.split('api_python')[-1] not in dir_set:
-                if not os.path.basename(rt).startswith('_'):
+                if not rt.split('api_python')[-1]:
+                    content += f"    api_python/{file}\n"
+                elif not os.path.basename(rt).startswith('_'):
                     content += f"    api_python{rt.split('api_python')[-1]}/*\n"
-                    dir_set.add(rt.split('api_python')[-1])
+                dir_set.add(rt.split('api_python')[-1])
 
     content += "    api_python/mint/*\n"
     with open(os.path.join(target_path, 'index.rst'), 'w+', encoding='utf-8') as f:
         f.write(content)
 
+def generate_samedfn_rst(samedfn_list):
+    """
+    Display the same defined interface.
+    """
+    rst_content = '同定义接口\n================\n\n'
+    rst_content += '.. list-table::\n   :widths: 30 30 40\n\n'
+    for i in samedfn_list:
+        for j in i:
+            if j == i[0]:
+                rst_content += f'   * - {j}\n'
+            else:
+                rst_content += f'     - {j}\n'
+        if len(i) == 2:
+            rst_content += '     -\n'
+    return rst_content
 
 def handle_config(pf_cn, pf_py, pf_yaml, pf_sum, target_path, repo_p, pr_need):
     """
@@ -511,7 +667,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                   'mindspore_py': "mindspore/python/mindspore/",
                   'mindspore_yaml': "mindspore/ops/op_def/yaml/",
                   'mindspore_Tensor_yaml': "mindspore/ops/api_def/method_doc/",
-                  'mindspore_mint_yaml': "mindspore/ops/api_def/function_doc/"}
+                  'mindspore_function_yaml': "mindspore/ops/api_def/function_doc/"}
 
     wb_data = requests.get(pf_url)  # 引入requests库来请求数据
     result = wb_data.json()  # 将请求的数据转换为json格式
@@ -529,6 +685,8 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
     all_raw_rst = dict()
 
     generate_pr_list_en_sum = []
+
+    sha_num = result[0]['sha']
 
     # pr文件处理
     # pylint: disable=R1702
@@ -550,7 +708,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
         if filename.endswith('.yaml'):
             if split_dict['mindspore_yaml'] in filename or split_dict['mindspore_Tensor_yaml'] in filename:
                 pr_file_yaml.append(filename)
-            elif split_dict['mindspore_mint_yaml'] in filename:
+            elif split_dict['mindspore_function_yaml'] in filename:
                 pr_file_yaml.append(filename)
 
         # 记录中文API相关文件
@@ -672,27 +830,60 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
         print('未检测到修改API相关内容，无生成！')
         return generate_path, 0, 0
 
+    all_samedfn_set_en = set()
+    all_samedfn_rslist = []
+
+    # 找出中文接口同定义
+    base_raw = f'https://gitee.com/mindspore/mindspore/raw/{sha_num}'
+    if pr_file_cn:
+        samedfn_cn_list = supplement_pr_file_cn(
+            pr_file_cn, rp_dir, all_samedfn_rslist, auto_need, base_raw, all_raw_rst)
+        pr_file_cn += samedfn_cn_list
+
     # 提取出修改的英文接口名
+
+    # 为英文生成中文同定义的相关接口
+    generate_pr_list_en_samedfn_auto = []
+    generate_apien_samedfn_list = []
+    for rel_p in samedfn_cn_list:
+        samedfn_filename = rel_p.split('/')[-1].replace('.func_', '.')
+        samedfn_name = '.'.join(samedfn_filename.split('.')[:-1])
+        if samedfn_name.lower() != samedfn_name:
+            generate_pr_list_en_samedfn_auto.append(
+                f'.. autoclass:: {samedfn_name}&&&samedfn_from_cn')
+        else:
+            generate_pr_list_en_samedfn_auto.append(
+                f'.. autofunction:: {samedfn_name}&&&samedfn_from_cn')
+    generate_apien_samedfn_list = get_rst_en(generate_pr_list_en_samedfn_auto, all_samedfn_set_en, all_samedfn_rslist)
+
     # yaml
     generate_pr_list_en_yaml_auto = []
     generate_apien_yaml_list = []
     if pr_file_yaml:
         generate_pr_list_en_yaml_auto = yaml_file_handle(
             pr_file_yaml, rp_dir, split_dict)
-        print(f'从yaml中提取到api的如下：\n{generate_pr_list_en_yaml_auto}')
-        generate_apien_yaml_list = get_rst_en(generate_pr_list_en_yaml_auto)
+        print(f'从yaml中提取到api的如下：')
+        for print_api in generate_pr_list_en_yaml_auto:
+            print(print_api)
+        generate_apien_yaml_list = get_rst_en(generate_pr_list_en_yaml_auto, all_samedfn_set_en, all_samedfn_rslist)
 
     # py
     generate_pr_list_en_auto = []
     generate_apien_list = []
     if pr_file_py:
         generate_pr_list_en_auto = en_file_handle(pr_file_py, rp_dir, split_dict)
-        print(f'从py文件中提取到的api如下：\n{generate_pr_list_en_auto}')
-        generate_apien_list = get_rst_en(generate_pr_list_en_auto)
+        print(f'从py文件中提取到的api如下：')
+        for print_api in generate_pr_list_en_auto:
+            print(print_api)
+        generate_apien_list = get_rst_en(generate_pr_list_en_auto, all_samedfn_set_en, all_samedfn_rslist)
 
     # autosummary
-    print(f'从汇总页中提取到的api如下：\n{generate_pr_list_en_sum}')
-    generate_apien_sum_list = get_rst_en(generate_pr_list_en_sum)
+    generate_apien_sum_list = []
+    if generate_pr_list_en_sum:
+        print(f'从汇总页中提取到的api如下：')
+        for print_api in generate_pr_list_en_sum:
+            print(print_api)
+        generate_apien_sum_list = get_rst_en(generate_pr_list_en_sum, all_samedfn_set_en, all_samedfn_rslist)
 
     # 清理 api_python 文件夹
     if os.path.exists(os.path.join(generate_path, 'source_en', 'api_python')):
@@ -700,9 +891,16 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
     if os.path.exists(os.path.join(generate_path, 'source_zh_cn', 'api_python')):
         shutil.rmtree(os.path.join(generate_path, 'source_zh_cn', 'api_python'))
 
+    all_samedfn_rsset = [list(t) for t in set(tuple(sublist) for sublist in all_samedfn_rslist)]
+
+    print(f'相关同定义接口如下：')
+    for print_api in all_samedfn_rsset:
+        print(print_api)
+    samedfn_content = generate_samedfn_rst(all_samedfn_rsset)
+
     # 英文文档汇总写入
+    all_en_rst = generate_apien_samedfn_list + generate_apien_yaml_list + generate_apien_list + generate_apien_sum_list
     if pr_file_py or pr_file_yaml or generate_apien_sum_list:
-        all_en_rst = generate_apien_yaml_list + generate_apien_list + generate_apien_sum_list
         en_set = set()
         for i in all_en_rst:
             if i[0] in en_set:
@@ -719,12 +917,45 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
             generate_path, 'source_en', 'api_python'), 'docs/api/api_python_en')
         copy_image(os.path.join(rp_dir, 'docs/api/api_python'),
                    os.path.join(generate_path, 'source_en', 'api_python'))
+        with open(os.path.join(generate_path, 'source_en/api_python/samedfn.rst'), 'w', encoding='utf-8') as f:
+            f.write(samedfn_content.replace('同定义接口', 'Same definition interface'))
 
     # 中文处理
+    if all_samedfn_set_en:
+        for name in all_samedfn_set_en:
+            mod_name = name.split('.')[1]
+            end_name = name.split('.')[-1]
+            samedfn_fpath = glob.glob(f'{rp_dir}/docs/api/api_python/{mod_name}/*{end_name}.rst')
+            ori_p = f'{rp_dir}/docs/api/api_python/{mod_name}/{name}.rst'
+            for j in samedfn_fpath:
+                rel_filename = j.split(rp_dir)[1][1:]
+                if j == ori_p:
+                    pr_file_cn.append(rel_filename)
+                    all_raw_rst[rel_filename] = f'{base_raw}/{rel_filename}'
+                    break
+                elif j == ori_p.replace('.func_', '.'):
+                    pr_file_cn.append(rel_filename)
+                    all_raw_rst[rel_filename] = f'{base_raw}/{rel_filename}'
+                    break
+            else:
+                if 'mindspore.mint.' in name and not re.findall(r'\.nn\.(?!functional).*', name):
+                    auto_need.append(name)
+
+    # 自动生成的接口列表
+    if auto_need:
+        auto_need = list(set(auto_need))
+        pr_file_cn.append('need_auto')
+
+    print(f'需要自动生成中文的mint接口如下:')
+    for print_api in auto_need:
+        print(print_api)
+
     if pr_file_cn:
         cn_flag = 1
         pr_file_cn = list(set(pr_file_cn))
-        print(f'涉及修改的中文api如下：\n{pr_file_cn}')
+        print(f'涉及修改的中文api如下：')
+        for print_api in pr_file_cn:
+            print(print_api)
         copy_file_list = get_all_copy_list(
             pr_file_cn, re.findall('([^/]*?)/pulls/', file_url)[0], clone_branch, rp_dir, all_raw_rst)
         copy_source(os.path.join(rp_dir, 'docs/api/api_python'),
@@ -732,6 +963,8 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
                     'docs/api/api_python/', fp_list=copy_file_list)
         copy_image(os.path.join(rp_dir, 'docs/api/api_python'),
                    os.path.join(generate_path, 'source_zh_cn', 'api_python'))
+        with open(os.path.join(generate_path, 'source_zh_cn/api_python/samedfn.rst'), 'w', encoding='utf-8') as f:
+            f.write(samedfn_content)
 
     handle_config(pr_file_cn, pr_file_py, pr_file_yaml, generate_apien_sum_list, generate_path, rp_dir, auto_need)
 
