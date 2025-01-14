@@ -149,3 +149,9 @@ The combination of MindSpore and Ascend is overlapping, and this part of the mod
 ## Q: What is the relationship between Ascend and NPU?
 
 A: NPU refers to a dedicated processor for neural network algorithms. Different companies have different NPU architectures. Ascend is an NPU processor based on the DaVinci architecture developed by Huawei.
+
+<br/>
+
+## Q: What if I get stuck in model encryption process?
+
+A: First, figure out if the problem is due to the model size it self. As encryption usually costs time, we can estimate the expected time for encryption stage using model size and encryption speed of our machine. If the cost is far more than the expected time, we should consider the problem with secure random number generation by checking the status of system entropy pool. Using Linux as an example, we first query the system entropy threshold by executing `cat /proc/sys/kernel/random/read_wakeup_threshold`. Then we query the number of the currently available entropy using `cat /proc/sys/kernel/random/entropy_avail`. If the number of the currently available entropy is always smaller than system entropy threshold, we can confirm that the problem is caused by the lack of system entropy. In this case, we suggest launch the system entropy gathering and expansion service like `haveged`, in order to accelerate the update speed of system entropy pool.
