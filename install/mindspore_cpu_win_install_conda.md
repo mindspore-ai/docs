@@ -39,7 +39,7 @@ conda activate mindspore_py39
 
 ## 安装MindSpore
 
-确认您处于Conda虚拟环境中，并执行如下命令安装最新版本的MindSpore。如需安装其他版本，可参考[版本列表](https://www.mindspore.cn/versions)在`mindspore=`后指定版本号。
+确认您处于Conda虚拟环境中，并执行如下命令安装最新版本的MindSpore。如需安装其他版本，可参考[版本列表](https://www.mindspore.cn/versions)在`mindspore-cpu=`后指定版本号。
 
 ```bash
 conda install mindspore-cpu -c mindspore -c conda-forge
