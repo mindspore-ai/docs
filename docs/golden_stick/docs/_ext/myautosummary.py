@@ -344,6 +344,8 @@ class MsCnAutoSummary(Autosummary):
                         summary_str = summary_str_line[0] + '。'
                     else:
                         summary_str = ''
+                    if '.. deprecated::' in summary_str:
+                        summary_str = re.findall('.. deprecated::.*\n.*', content)[0]
                     if not self.table_head:
                         items.append((display_name, summary_str))
                     else:
