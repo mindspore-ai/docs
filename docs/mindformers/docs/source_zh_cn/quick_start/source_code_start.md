@@ -20,11 +20,12 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
 
 2. 数据预处理
 
+    需要在MindFormers根目录下执行以下操作：
+
     1. 执行[mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py)，使用fastchat工具添加prompt模板，将原始数据集转换为多轮对话格式。
 
         ```shell
-
-          python alpaca_converter.py \
+          python mindformers/tools/dataset_preprocess/llama/alpaca_converter.py \
             --data_path /{path}/alpaca_data.json \
             --output_path /{path}/alpaca-data-conversation.json
         ```
@@ -37,8 +38,8 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
     2. 执行[mindformers/tools/dataset_preprocess/llama/llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，生成MindRecord数据，将带有prompt模板的数据转换为MindRecord格式。
 
         ```shell
-          # 此工具依赖fschat工具包解析prompt模板，请提前安装fschat >= 0.2.13 python = 3.9
-          python llama_preprocess.py \
+          # 此工具依赖fschat工具包解析prompt模板，请提前安装fschat >= 0.2.13
+          python mindformers/tools/dataset_preprocess/llama/llama_preprocess.py \
             --dataset_type qa \
             --input_glob /{path}/alpaca-data-conversation.json \
             --model_file /{path}/tokenizer.model \
@@ -67,7 +68,7 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
 
 ## 启动微调
 
-使用`run_mindformer.py`统一脚本拉起任务：
+在MindFormers根目录下，使用`run_mindformer.py`统一脚本拉起任务：
 
 - 通过 `--config` 指定`config`路径 `configs/llama2/lora_llama2_7b.yaml`。
 - 通过 `--train_dataset_dir` 指定数据集路径  `/{path}/alpaca-fastchat4096.mindrecord`。
