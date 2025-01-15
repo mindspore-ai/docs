@@ -20,11 +20,12 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
 
 2. Data Preprocessing
 
+    The following command needs to be executed in the MindFormers root directory:
+
     1. Execute [mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py), and use the fastchat tool to add prompt templates to convert the raw dataset into a multi-round conversation format.
 
         ```shell
-
-          python alpaca_converter.py \
+          python mindformers/tools/dataset_preprocess/llama/alpaca_converter.py \
             --data_path /{path}/alpaca_data.json \
             --output_path /{path}/alpaca-data-conversation.json
         ```
@@ -37,8 +38,8 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
     2. Execute [mindformers/tools/dataset_preprocess/llama/llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py), and generate MindRecord data and convert data with prompt templates to MindRecord format.
 
         ```shell
-          # This tool relies on the fschat toolkit to parse prompt templates, please install fschat >= 0.2.13 python = 3.9 in advance.
-          python llama_preprocess.py \
+          # This tool relies on the fschat toolkit to parse prompt templates, please install fschat >= 0.2.13 in advance.
+          python mindformers/tools/dataset_preprocess/llama/llama_preprocess.py \
             --dataset_type qa \
             --input_glob /{path}/alpaca-data-conversation.json \
             --model_file /{path}/tokenizer.model \
@@ -67,7 +68,7 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
 
 ## Initiating Fine-tuning
 
-Use the `run_mindformer.py` unified script to pull up tasks:
+In the MindFormers root directory, use the `run_mindformer.py` unified script to pull up tasks:
 
 - Specify the `config` path `configs/llama2/lora_llama2_7b.yaml` via `--config`.
 - Specify dataset path `/{path}/alpaca-fastchat4096.mindrecord` via `-train_dataset_dir`.
