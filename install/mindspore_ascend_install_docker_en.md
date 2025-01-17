@@ -90,7 +90,7 @@ After entering the MindSpore container according to the above steps, to test whe
 i:
 
 ```bash
-python -c "import mindspore;mindspore.set_device("Ascend");mindspore.run_check()"
+python -c "import mindspore;mindspore.set_device('Ascend');mindspore.run_check()"
 ```
 
 The outputs should be the same as:

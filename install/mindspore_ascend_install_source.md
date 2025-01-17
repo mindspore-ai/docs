@@ -272,7 +272,7 @@ pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 方法一：
 
 ```bash
-python -c "import mindspore;mindspore.set_device("Ascend");mindspore.run_check()"
+python -c "import mindspore;mindspore.set_device('Ascend');mindspore.run_check()"
 ```
 
 如果输出：
