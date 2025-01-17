@@ -22,7 +22,7 @@ from mindspore.dataset import MnistDataset
 
   jit_config={"jit_level":"O2"} : The compilation optimization level turns on extreme performance optimization and uses sinking execution.
 
-  scend_config={"precision_mode":"allow_mix_precision"} : Auto mixed-precision, which automatically reduces the precision of some operators to float16 or bfloat16.
+  ascend_config={"precision_mode":"allow_mix_precision"} : Auto mixed-precision, which automatically reduces the precision of some operators to float16 or bfloat16.
 
 ```python
 import mindspore
