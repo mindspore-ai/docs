@@ -144,7 +144,7 @@ source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
 i:
 
 ```bash
-python -c "import mindspore;mindspore.set_device("Ascend");mindspore.run_check()"
+python -c "import mindspore;mindspore.set_device('Ascend');mindspore.run_check()"
 ```
 
 The output should be like:
