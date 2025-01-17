@@ -22,7 +22,7 @@ from mindspore import nn
 from mindspore.communication import init
 
 ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(full_batch=True, parallel_mode=ms.ParallelMode.AUTO_PARALLEL)
+ms.set_auto_parallel_context(full_batch=True, parallel_mode=ms.ParallelMode.DATA_PARALLEL)
 ms.set_ps_context(enable_ps=True)
 init()
 ms.set_seed(1)
