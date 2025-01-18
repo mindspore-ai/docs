@@ -182,8 +182,12 @@ def get_param_func(func):
         all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
         if "@classmethod" in source_code:
             all_params = re.sub("(self|cls)(,|, )?", '', all_params_str[0][0].replace("\n", ""))
+            if ',' in all_params_str[0][0]:
+                all_params = re.sub("(self|cls)(, |,)", '', all_params_str[0][0].replace("\n", ""))
         else:
             all_params = re.sub("(self)(,|, )?", '', all_params_str[0][0].replace("\n", ""))
+            if ',' in all_params_str[0][0]:
+                all_params = re.sub("(self)(, |,)", '', all_params_str[0][0].replace("\n", ""))
         return all_params
     except:
         return ''
