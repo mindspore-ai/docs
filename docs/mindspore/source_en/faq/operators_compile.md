@@ -95,7 +95,7 @@ A: In this case,
 
 ```python
 set_context(mode=GRAPH_MODE)
-ms.set_device("Ascend")
+mindspore.set_device("Ascend")
 input_tensor=Tensor(np.array([[2,2],[2,2]]),mindspore.float32)
 expand_dims=ops.ExpandDims()
 output=expand_dims(input_tensor,0)
