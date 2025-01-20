@@ -102,7 +102,7 @@
         #    2. sin函数是逐元素计算，输入的形状和输出的一样
         return x
 
-    def infer_shape(x):
+    def infer_dtype(x):
         #    1. 这里的输入x是算子输入张量的数据类型
         #    2. sin函数输入的数据类型和输出的一样
         return x

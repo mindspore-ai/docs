@@ -102,7 +102,7 @@ Then we need to define two more functions. One is the infer shape function, whil
         #    2. sin is elements, so the shape of the output is the same as that of the input.
         return x
 
-    def infer_shape(x):
+    def infer_dtype(x):
         #    1. here x is the dtype of the input tensor
         #    2. sin keeps the dtype, so the dtype of the output is the same as that of the input.
         return x
