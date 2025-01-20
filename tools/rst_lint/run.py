@@ -8,7 +8,9 @@ from docutils.parsers.rst import Directive
 from docutils.parsers.rst import directives
 from docutils.parsers.rst.directives import register_directive
 from docutils.parsers.rst.roles import register_generic_role
+from sphinx import addnodes
 from sphinx.ext.autodoc.directive import AutodocDirective
+from sphinx.domains.changeset import VersionChange
 from sphinx.domains.python import PyCurrentModule, PyModule
 from sphinx.directives.other import TocTree
 from sphinx.directives.code import LiteralInclude
@@ -127,6 +129,29 @@ class CustomPyModule(PyModule):
         """run method."""
         return []
 
+class CustomVersionChange(VersionChange):
+    """Customizing VersionChange."""
+    has_content = True
+    required_arguments = 1
+    optional_arguments = 1
+    final_argument_whitespace = True
+
+    def run(self):
+        """run method."""
+        node = addnodes.versionmodified()
+        self.set_source_info(node)
+        node['type'] = self.name
+        node['version'] = self.arguments[0]
+        if len(self.arguments) == 2:
+            inodes, messages = self.state.inline_text(self.arguments[1],
+                                                      self.lineno + 1)
+            para = nodes.paragraph(self.arguments[1], '', *inodes, translatable=False)
+            self.set_source_info(para)
+            node.append(para)
+        else:
+            messages = []
+        return [node]+messages
+
 # Register directive.
 register_directive('py:class', CustomDirective)
 register_directive('py:method', CustomDirectiveMethod)
@@ -151,6 +176,7 @@ register_directive('mscnmathautosummary', CustomDirectiveNoNested)
 register_directive('mscnplatwarnautosummary', CustomDirectiveNoNested)
 register_directive('currentmodule', CurrentModule)
 register_directive('literalinclude', CustomLiteralInclude)
+register_directive('deprecated', CustomVersionChange)
 
 # Register roles.
 register_generic_role('class', nodes.literal)
