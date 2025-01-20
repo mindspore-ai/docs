@@ -10,6 +10,8 @@ The currently supported input formats are MindSpore, TensorFlow Lite, Caffe, Ten
 
 The `mindir` model converted by the converter supports the converter companion and higher versions of the Runtime inference framework to perform inference.
 
+Note: Due to interface compatibility issues, the conversion tool cannot be run in CANN packages below version 7.5 due to interface compatibility issues. The version number of the CANN package is the content in the latest/version.cfg directory of the CANN package installation directory.
+
 ## Linux Environment Usage Instructions
 
 ### Environment Preparation
