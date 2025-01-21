@@ -58,15 +58,6 @@
     "uninstall_name" : ""
 },
 {
-    "id" : 7 ,
-    "name" : "mindformers",
-    "branch" : "dev",
-    "whl_path" : "/mindformers/newest/any/",
-    "whl_name" : "mindformers-.*-py3-none-any.whl$",
-    "environ" : "MFM_PATH",
-    "uninstall_name" : "mindformers"
-},
-{
     "id" : 8 ,
     "name" : "golden_stick",
     "branch" : "master",
