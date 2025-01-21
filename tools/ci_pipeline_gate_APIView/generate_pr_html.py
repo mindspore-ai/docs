@@ -834,6 +834,7 @@ def api_generate_prepare(pf_url, pf_diff, rp_dir_docs, rp_dir, clone_branch):
     all_samedfn_rslist = []
 
     # 找出中文接口同定义
+    samedfn_cn_list = []
     base_raw = f'https://gitee.com/mindspore/mindspore/raw/{sha_num}'
     if pr_file_cn:
         samedfn_cn_list = supplement_pr_file_cn(
