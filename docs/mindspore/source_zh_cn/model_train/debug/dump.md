@@ -1013,3 +1013,4 @@ GE dump的目录结构如下：
 - Print算子内部有一个输入参数为string类型，string类型不属于Dump支持的数据类型，所以在脚本中包含Print算子时，会有错误日志，这不会影响其他类型数据的保存。
 - 使能Ascend O2模式下Dump时，不支持同时使用set_context(ascend_config={"exception_dump": "2"})配置轻量异常dump; 支持同时使用set_context(ascend_config={"exception_dump": "1"})配置全量异常dump。
 - 使能Ascend O2模式下Dump时，sink size只能设置为1。用户通常可以使用model.train()或ms.data_sink()接口配置sink size。下沉模式配置可参考使用说明链接<https://www.mindspore.cn/docs/zh-CN/master/model_train/train_process/optimize/sink_mode.html>。
+- 使能Ascend O2模式下Dump时，**统计值dump**如果是大数据量dump场景（如网络本身规模庞大，连续dump多个step等），可能会导致host侧内存被占满，导致数据流同步失败，建议使用新版[**统计值dump**](https://gitee.com/ascend/mstt/blob/master/debug/accuracy_tools/msprobe/docs/06.data_dump_MindSpore.md#51-%E9%9D%99%E6%80%81%E5%9B%BE%E5%9C%BA%E6%99%AF)替代。
