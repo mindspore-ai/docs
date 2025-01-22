@@ -91,7 +91,7 @@
 
 |        安装   |      教程      |  文档    |  API|
 |        ---   |       ---      |     ---     |     ---      |
-| [安装指南](https://gitee.com/mindspore/docs/tree/r2.4.10/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.4.10/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.4.10/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.4.10/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.4.10/index.html)|  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.4.10/api_python/mindspore.html) <br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.4.10/index.html)   |
+| [安装指南](https://gitee.com/mindspore/docs/tree/r2.4.10/install)  |  [快速上手](https://www.mindspore.cn/tutorials/zh-CN/r2.4.10/beginner/quick_start.html)      <br> [实践案例](https://www.mindspore.cn/tutorials/zh-CN/r2.4.10/cv.html)  | [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.4.10/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r2.4.10/index.html) <br>   [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/index.html) |  [MindSpore](https://www.mindspore.cn/docs/zh-CN/r2.4.10/api_python/mindspore.html)<br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/zh-CN/r2.4.10/index.html) <br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/mindformers.html)    |
 
 ## 2.4.1
 
