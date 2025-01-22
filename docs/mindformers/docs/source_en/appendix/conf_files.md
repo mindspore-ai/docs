@@ -276,7 +276,7 @@ MindFormers provides Profile as the main tool for model performance tuning, plea
 
 ### TensorBoard Configuration
 
-The TensorBoard configuration is primarily used to configure parameters related to TensorBoard during training, allowing for real-time monitoring and visualization of training metrics. Below is a description of the common TensorBoard configuration options in MindFormers:
+The TensorBoard configuration is primarily used to configure parameters related to TensorBoard during training, allowing for real-time monitoring and visualization of training metrics, please refer to [TensorBoard Visual Training Monitoring](https://www.mindspore.cn/mindformers/docs/en/dev/function/tensorboard.html) for more details. Below is a description of the common TensorBoard configuration options in MindFormers:
 
 | Parameters                                | Descriptions                                                                                                                         | Types  |
 |-------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|--------|
@@ -285,13 +285,3 @@ The TensorBoard configuration is primarily used to configure parameters related 
 | tensorboard.log_loss_scale_to_tensorboard | Whether to log loss scale information to TensorBoard.                                                                                | bool   |
 | tensorboard.log_timers_to_tensorboard     | Whether to log timer information to TensorBoard, including the duration and throughput of the current training step (or iteration).  | bool   |
 
-The actual path for saving event files (events.*) is `tensorboard.tensorboard_dir/rank_id`. You can start the TensorBoard Web visualization service with the following command:
-
-```bash
-tensorboard --logdir=/path/events.* --host=0.0.0.0 --port=6006
-
-# parameter description
-logdir: The path to the directory where TensorBoard event files are saved.
-host:   Default is 127.0.0.1, meaning it only allows access from the local machine. Set it to 0.0.0.0 to allow access from external devices. Be mindful of security.
-port:   The port that the service listens on. Default is 6006.
-```
