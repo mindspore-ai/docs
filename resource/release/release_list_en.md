@@ -90,8 +90,8 @@
 **Related Documents**
 
 |    Installation  |      Tutorials      |  Document    |  API|
-|     ---   |       ---      |     ---     |     ---      |
-|  [Installation Guide](https://gitee.com/mindspore/docs/tree/r2.4.10/install)  |  [Quick Start](https://www.mindspore.cn/tutorials/en/r2.4.10/beginner/quick_start.html)      <br> [Practical Cases](https://www.mindspore.cn/tutorials/en/r2.4.10/cv.html)    | [MindSpore](https://www.mindspore.cn/docs/en/r2.4.10/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.4.10/index.html) |  [MindSpore](https://www.mindspore.cn/docs/en/r2.4.10/api_python/mindspore.html) <br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/en/r2.4.10/index.html)  |
+|       ---   |       ---      |     ---     |     ---      |
+|  [Installation Guide](https://gitee.com/mindspore/docs/tree/r2.4.10/install)  |  [Quick Start](https://www.mindspore.cn/tutorials/en/r2.4.10/beginner/quick_start.html)      <br> [Practical Cases](https://www.mindspore.cn/tutorials/en/r2.4.10/cv.html)    | [MindSpore](https://www.mindspore.cn/docs/en/r2.4.10/index.html) <br> [MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r2.4.10/index.html) <br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/index.html)|  [MindSpore](https://www.mindspore.cn/docs/en/r2.4.10/api_python/mindspore.html) <br>  [MindSpore Lite](https://www.mindspore.cn/lite/api/en/r2.4.10/index.html)<br>  [MindSpore Transformers](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/mindformers.html)    |
 
 ## 2.4.1
 
