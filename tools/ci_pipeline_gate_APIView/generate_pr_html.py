@@ -562,6 +562,8 @@ def make_index_rst(target_path, language_f):
                     content += f"    api_python/{file}\n"
                 elif not os.path.basename(rt).startswith('_'):
                     content += f"    api_python{rt.split('api_python')[-1]}/*\n"
+                else:
+                    continue
                 dir_set.add(rt.split('api_python')[-1])
 
     content += "    api_python/mint/*\n"
