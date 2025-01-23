@@ -40,6 +40,7 @@
       "name" : "mindformers",
       "branch" : "r1.3.0",
       "html_version" : "r1.3.2",
+      "commit_id" : "99d6e23aeb115a13b10b36d3b01d773c92c0905c",
       "whl_path" : "2.4.10/MindFormers/any/",
       "whl_name" : "mindformers-1.3.2-py3-none-any.whl",
       "environ" : "MFM_PATH",
