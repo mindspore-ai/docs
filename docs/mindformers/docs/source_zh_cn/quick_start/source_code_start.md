@@ -4,7 +4,7 @@
 
 本节展示如何使用MindFormers快速拉起一个基于 Llama2-7B 模型的LoRA低参微调任务。如果想要通过MindFormers使用其他模型和任务，请阅读对应的[模型文档](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/start/models.html)。
 
-## 权重文件准备
+## 准备权重文件
 
 MindFormers提供已经转换完成的预训练权重、词表文件用于预训练、微调和推理，用户也可以下载HuggingFace官方权重经过模型权重转换后进行使用。为了方便起见，这里不对转换原始权重过多赘述，有需要请参考`Llama2`文档以及[权重转换](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/weight_conversion.html)了解更多细节。这里请直接下载`MindSpore`权重，下载转换后的`.ckpt`文件以及`tokenizer.model`文件进行后续的处理。
 
@@ -14,7 +14,7 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
 
 词表下载链接：[tokenizer.model](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/tokenizer.model)
 
-## 数据集准备
+## 准备数据集
 
 1. 微调过程中使用的数据集在[数据集下载](https://github.com/tatsu-lab/stanford_alpaca)获得。
 
@@ -101,7 +101,5 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 ```
 
 说明启动微调成功。
-
-## 说明
 
 关于Llama2更多细节，以及更多的启动方式，请具体参考`Llama2` 的 [README](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#llama-2)文档获取更多支持。
