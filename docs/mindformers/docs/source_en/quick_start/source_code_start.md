@@ -4,7 +4,7 @@
 
 This section shows how to use MindFormers to quickly pull up a LoRA low-parameter fine-tuning task based on the Llama2-7B model. To use other models and tasks via MindFormers, please read the corresponding [model documentation](https://www.mindspore.cn/mindformers/docs/en/dev/start/models.html).
 
-## Weights File Preparation
+## Preparing Weights File
 
 MindFormers provides pre-trained weights and word list files that have been converted for pre-training, fine-tuning and inference. Users can also download the official HuggingFace weights and use them after converting the model weights. For convenience, this file won't go into too much detail about converting the original weights here, but you can refer to the `Llama2` documentation and [weight conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html) for more details. Please download the `MindSpore` weights, the converted `.ckpt` file, and the `tokenizer.model` file for subsequent processing.
 
@@ -14,7 +14,7 @@ MindFormers provides pre-trained weights and word list files that have been conv
 
 Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-east-2.myhuaweicloud.com/MindFormers/llama2/tokenizer.model)
 
-## Dataset Preparation
+## Preparing Dataset
 
 1. The datasets used in the fine-tuning process can be obtained at [dataset download](https://github.com/tatsu-lab/stanford_alpaca).
 
@@ -101,7 +101,5 @@ When the following log appears on the console:
 ```
 
 It indicates that the startup fine-tuning was successful.
-
-## Notes
 
 For more details on Llama2, and more startup approaches, please refer specifically to the `Llama2` [README](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#llama-2) documentation for more support.
