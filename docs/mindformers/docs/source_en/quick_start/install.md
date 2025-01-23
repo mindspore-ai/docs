@@ -2,7 +2,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.4.10/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.4.10/docs/mindformers/docs/source_en/quick_start/install.md)
 
-## Version Matching Relationship
+## Confirming Version Matching Relationship
 
 The currently supported hardware is the [Atlas 800T A2](https://www.hiascend.com/hardware/ai-server?tag=900A2) training server.
 
@@ -20,17 +20,17 @@ Historical version matching relationship:
 |:----------------------------------------------------:|:------------------------------------------:|:------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------:|:--------------------------------------------------------------------:|
 | [1.2.0](https://pypi.org/project/mindformers/1.2.0/) | [2.3.0](https://www.mindspore.cn/install/) | [8.0.RC2.beta1](https://www.hiascend.com/developer/download/community/result?module=cann&cann=8.0.RC2.beta1) | [24.1.RC2](https://www.hiascend.com/hardware/firmware-drivers/community) | [Link](http://mirrors.cn-central-221.ovaijisuan.com/detail/138.html) |
 
-## Environment Installation
+## Installing Dependent Software
 
 1. Install Firmware and Driver: Download the firmware and driver package through the [Version Matching Relationship](https://www.mindspore.cn/mindformers/docs/en/r1.3.2/quick_start/install.html#version-matching-relationship) to download the installation package, and refer to the [Ascend official tutorial](https://www.hiascend.com/document/detail/zh/quick-installation/24.0.RC1/quickinstg_train/800_9000A2/quickinstg_800_9000A2_0007.html) for installation.
 
 2. Install CANN and MindSpore: Use the officially provided Docker image (CANN, MindSpore are already included in the image, no need to install them manually) or follow the [Manual Installation](https://www.mindspore.cn/install/en#manual-installation) section on the MindSpore website for installation.
 
-## MindFormers Installation
+## Installing MindFormers
 
 MindFormers supports both source code compiled installation and pip installation.
 
-### Source Code Compiled Installation
+### Installation by Source Code Compilation
 
 Users can compile and install MindFormers by executing the following command:
 
@@ -40,7 +40,7 @@ cd mindformers
 bash build.sh
 ```
 
-### pip Installation
+### Installation by pip
 
 The current version of MindFormers does not support installation through pip for the time being. It can be installed in this way after the pypi is uploaded recently.
 
