@@ -91,12 +91,12 @@
    * - MS_JIT_MODULES
      - 指定静态图模式下哪些模块需要JIT静态编译，其函数方法会被编译成静态计算图
      - String
-     - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如：`export MS_JIT_MODULES=mindflow,mindyolo`。
+     - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如： `export MS_JIT_MODULES=mindflow,mindyolo`。
      - 默认情况下，第三方库之外的模块都会进行JIT静态编译。MindSpore套件等一些模块如 `mindflow`、`mindyolo` 等并不会被视作第三方库，请参考 `调用第三方库 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/model_train/program_form/static_graph.html#%E8%B0%83%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93-1>`_ 。如果有类似MindSpore套件的模块，内部存在 `nn.Cell`、`@ms.jit` 修饰函数或需要编译成静态计算图的函数方法，可以通过配置该环境变量，使该模块进行JIT静态编译而不会被当成第三方库。
    * - MS_JIT_IGNORE_MODULES
      - 指定静态图模式下哪些模块是第三方库，不进行JIT静态编译，其函数方法会被解释执行。
      - String
-     - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如：`export MS_JIT_IGNORE_MODULES=numpy,scipy`。
+     - 模块名，对应import导入的顶层模块的名称。如果有多个，使用英文逗号分隔。例如： `export MS_JIT_IGNORE_MODULES=numpy,scipy`。
      - 静态图模式能够自动识别第三方库，一般情况下不需要为NumPy、SciPy这些可识别的第三方库设置该环境变量。如果 `MS_JIT_IGNORE_MODULES` 和 `MS_JIT_MODULES` 同时指定同一个模块名，前者生效，后者不生效。
    * - MS_DEV_FALLBACK_DUMP_NODE
      - 是否打印代码中由静态图语法增强技术支持的语法表达式
@@ -167,7 +167,7 @@
    * - MS_DEV_DUMP_IR_PASSES
      - 根据文件名指定保存哪些IR文件。
      - String
-     - 文件名或文件名的一部分。如果有多个，使用逗号隔开。例如`export MS_DEV_DUMP_IR_PASSES=recompute,renormalize`。
+     - 文件名或文件名的一部分。如果有多个，使用逗号隔开。例如 `export MS_DEV_DUMP_IR_PASSES=recompute,renormalize`。
      - 设置该环境变量时，无论MS_DEV_SAVE_GRAPHS设置为什么等级，详细的前端IR文件都会参与筛选和打印。
    * - MS_JIT_DISPLAY_PROGRESS
      - 指定是否打印编译进度的信息。
@@ -255,7 +255,7 @@
    * - MS_DEV_RUNTIME_CONF
      - 设置运行时控制选项
      - String
-     - 配置项，格式为key:value，多个配置项以逗号分隔，例如`export MS_DEV_RUNTIME_CONF=inline:false,pipeline:false`。
+     - 配置项，格式为key:value，多个配置项以逗号分隔，例如 `export MS_DEV_RUNTIME_CONF=inline:false,pipeline:false`。
 
        inline: 子图cell共享场景下，是否开启后端inline，仅在O0或O1模式下生效，默认值为true。
 
@@ -289,7 +289,7 @@
    * - MS_ALLOC_CONF
      - 设置内存策略
      - String
-     - 配置项，格式为key:value，多个配置项以逗号分隔，例如`export MS_ALLOC_CONF=enable_vmm:true,memory_tracker:true`。
+     - 配置项，格式为key:value，多个配置项以逗号分隔，例如 `export MS_ALLOC_CONF=enable_vmm:true,memory_tracker:true`。
 
        enable_vmm: 是否使能虚拟内存，默认值为true。
 
@@ -379,7 +379,7 @@ Dump调试
    * - MS_DUMP_WAIT_TIME
      - 指定Print、TensorDump、TensorSummary、ImageSummary、ScalarSummary、HistogramSummary算子的二阶段超时时间。
      - Integer
-     - 0~600，单位：秒，默认值为0。当取值为0时，表示使用默认超时时间，即`mindspore.get_context("op_timeout")`的取值。
+     - 0~600，单位：秒，默认值为0。当取值为0时，表示使用默认超时时间，即 `mindspore.get_context("op_timeout")` 的取值。
      - 该环境变量仅仅在MS_DUMP_SLICE_SIZE不为零的情况下生效。目前二阶段的等待时间无法超过mindspore.get_context("op_timeout")的值。
 
 具体用法详见 `Dump功能调试 <https://www.mindspore.cn/docs/zh-CN/r2.4.10/model_train/debug/dump.html>`_ 。
