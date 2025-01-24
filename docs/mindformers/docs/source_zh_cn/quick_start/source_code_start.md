@@ -18,7 +18,13 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
 
 1. 微调过程中使用的数据集在[数据集下载](https://github.com/tatsu-lab/stanford_alpaca)获得。
 
-2. 数据预处理
+2. 安装fastchat工具，版本要求>=0.2.13。
+
+    ```shell
+      pip install fastchat>=0.2.13
+    ```
+
+3. 数据预处理。
 
     需要在MindFormers根目录下执行以下操作：
 
@@ -38,7 +44,6 @@ MindFormers提供已经转换完成的预训练权重、词表文件用于预训
     2. 执行[mindformers/tools/dataset_preprocess/llama/llama_preprocess.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/mindformers/tools/dataset_preprocess/llama/llama_preprocess.py)，生成MindRecord数据，将带有prompt模板的数据转换为MindRecord格式。
 
         ```shell
-          # 此工具依赖fschat工具包解析prompt模板，请提前安装fschat >= 0.2.13
           python mindformers/tools/dataset_preprocess/llama/llama_preprocess.py \
             --dataset_type qa \
             --input_glob /{path}/alpaca-data-conversation.json \
