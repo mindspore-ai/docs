@@ -78,7 +78,7 @@ Execution order scheduling is a complex problem of solving optimal operator conc
 
 - First, the optimization module needs to address the complexity of solving for optimal operator concurrency. Due to the large number of operators in the computational graph and their interdependencies, finding an execution order that maximizes concurrency while maintaining the logical correctness of the computational graph is a challenging task.
 - Second, memory constraints are a critical factor that cannot be ignored in execution order optimization. Increasing concurrency, while improving computational efficiency, tends to significantly increase peak memory requirements, which may lead to Overflow of Memory (OOM) errors, especially in resource-constrained environments. Therefore, the optimization module must weigh the relationship between concurrency and memory usage to ensure that concurrency is increased without exceeding the memory capacity of the system.
-- MindSpore's execution order adjustment module combines rule-based and heuristic-based strategies to provide three execution order scheduling algorithms, bfs/dfs/gpto, to realize fine-tuning of the execution order of computational graphs, thus ensuring computational efficiency while effectively coping with multiple challenges such as memory constraints and system stability.
+- MindSpore's execution order adjustment module combines rule-based and heuristic-based strategies to provide two execution order scheduling algorithms, bfs/dfs, to realize fine-tuning of the execution order of computational graphs, thus ensuring computational efficiency while effectively coping with multiple challenges such as memory constraints and system stability.
 
 ### Compilation Cache
 
