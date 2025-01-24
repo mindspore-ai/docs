@@ -38,7 +38,7 @@ MindSpore根据正向图计算流程来自动推导出反向图，正向图和�
 
 ## 操作实践
 
-下面以Ascend或者GPU单机8卡为例，进行重计算操作说明：
+下面以Ascend为例，进行重计算操作说明：
 
 ### 样例代码说明
 
@@ -49,204 +49,192 @@ MindSpore根据正向图计算流程来自动推导出反向图，正向图和�
 ```text
 └─ sample_code
     ├─ recompute
-       ├── train.py
-       └── run.sh
+       └── example.py
     ...
 ```
 
-其中，`train.py`是定义网络结构和训练过程的脚本。`run.sh`是执行脚本。
-
-### 配置分布式环境
-
-首先通过context接口指定运行模式、运行设备、运行卡号等，并行模式为数据并行模式，并通过init初始化HCCL或NCCL通信。通过设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2，可以打印出计算图结构进行对比。`device_target`会自动指定为MindSpore包对应的后端硬件设备。
-
-```python
-import os
-import mindspore as ms
-from mindspore.communication import init
-
-os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
-ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
-init()
-ms.set_seed(1)
-```
-
-### 数据集加载
-
-此处数据集加载采用数据并行模式，指定`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，代码如下：
-
-```python
-import os
-import mindspore.dataset as ds
-from mindspore import nn
-
-def create_dataset(batch_size):
-    dataset_path = os.getenv("DATA_PATH")
-    rank_id = get_rank()
-    rank_size = get_group_size()
-    dataset = ds.MnistDataset(dataset_path, num_shards=rank_size, shard_id=rank_id)
-    image_transforms = [
-        ds.vision.Rescale(1.0 / 255.0, 0),
-        ds.vision.Normalize(mean=(0.1307,), std=(0.3081,)),
-        ds.vision.HWC2CHW()
-    ]
-    label_transform = ds.transforms.TypeCast(ms.int32)
-    dataset = dataset.map(image_transforms, 'image')
-    dataset = dataset.map(label_transform, 'label')
-    dataset = dataset.batch(batch_size)
-    return dataset
-
-data_set = create_dataset(32)
-```
+其中，`example.py`是定义网络结构和执行流程的脚本。为了对比重计算开启前后的差异，该样例默认未开启重计算，如需开启请参考下文配置。
 
 ### 网络定义
 
-网络在单卡模型的基础上，给激活函数算子配置了重计算，以减少内存占用：
+网络`Net`由`nn.CellList`中的10个子网络`Block`依次连接而成，`Grad`用于对`Net`进行求导，得到关于网络输入的导数。
 
 ```python
-from mindspore import nn, ops
+import numpy as np
+from mindspore.nn import Cell
+from mindspore.common import Tensor, Parameter
+from mindspore import ops, nn
 
-class Network(nn.Cell):
+
+class Block(Cell):
     def __init__(self):
-        super().__init__()
-        self.flatten = nn.Flatten()
-        self.layer1 = nn.Dense(28*28, 512)
-        self.relu1 = ops.ReLU()
-        self.layer2 = nn.Dense(512, 512)
-        self.relu2 = ops.ReLU()
-        self.layer3 = nn.Dense(512, 10)
+        super(Block, self).__init__()
+        self.transpose1 = ops.Transpose()
+        self.transpose2 = ops.Transpose()
+        self.transpose3 = ops.Transpose()
+        self.transpose4 = ops.Transpose()
+        self.real_div1 = ops.RealDiv()
+        self.real_div2 = ops.RealDiv()
+        self.batch_matmul1 = ops.BatchMatMul()
+        self.batch_matmul2 = ops.BatchMatMul()
+        self.add = ops.Add()
+        self.softmax = ops.Softmax(-1)
+        self.dropout = ops.Dropout(0.9)
+        self.expand_dims = ops.ExpandDims()
+        self.sub = ops.Sub()
+        self.mul = ops.Mul()
+        self.y = Parameter(Tensor(np.ones((8, 128, 128)).astype(np.float32)))
 
     def construct(self, x):
-        x = self.flatten(x)
-        x = self.layer1(x)
-        x = self.relu1(x)
-        x = self.layer2(x)
-        x = self.relu2(x)
-        logits = self.layer3(x)
-        return logits
+        transpose1 = self.transpose1(x, (0, 2, 1, 3))
+        real_div1 = self.real_div1(transpose1, Tensor(2.37891))
+        transpose2 = self.transpose2(x, (0, 2, 3, 1))
+        real_div2 = self.real_div2(transpose2, Tensor(2.37891))
+        batch_matmul1 = self.batch_matmul1(real_div1, real_div2)
+        expand_dims = self.expand_dims(self.y, 1)
+        sub = self.sub(Tensor([1.0]), expand_dims)
+        mul = self.mul(sub, Tensor([-0.0001]))
+        add = self.add(mul, batch_matmul1)
+        soft_max = self.softmax(add)
+        dropout = self.dropout(soft_max)
+        transpose3 = self.transpose3(x, (0, 2, 1, 3))
+        batch_matmul2 = self.batch_matmul2(dropout[0], transpose3)
+        transpose4 = self.transpose4(batch_matmul2, (0, 2, 1, 3))
+        return transpose4
 
-net = Network()
-# 配置relu算子的重计算
-net.relu1.recompute()
-net.relu2.recompute()
+
+class Net(Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.blocks = nn.CellList()
+        for _ in range(10):
+            b = Block()
+            self.blocks.append(b)
+
+    def construct(self, x):
+        out = x
+        for i in range(10):
+            out = self.blocks[i](out)
+        return out
+
+
+class Grad(Cell):
+    def __init__(self, net):
+        super(Grad, self).__init__()
+        self.grad = ops.GradOperation()
+        self.net = net
+
+    def construct(self, x):
+        grad_net = self.grad(self.net)
+        return grad_net(x)
 ```
 
-### 训练网络
+### 执行网络
 
-在这一步，我们需要定义损失函数、优化器以及训练过程，这个部分与数据并行模型一致：
+在这一步，我们需要定义网络输入，然后调用`Grad`以获取导数，代码如下：
 
 ```python
-from mindspore import nn
-import mindspore as ms
+import numpy as np
+from mindspore.common import Tensor
 
-optimizer = nn.SGD(net.trainable_params(), 1e-2)
-loss_fn = nn.CrossEntropyLoss()
-
-def forward_fn(data, target):
-    logits = net(data)
-    loss = loss_fn(logits, target)
-    return loss, logits
-
-grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
-grad_reducer = nn.DistributedGradReducer(optimizer.parameters)
-
-for epoch in range(1):
-    i = 0
-    for image, label in data_set:
-        (loss_value, _), grads = grad_fn(image, label)
-        grads = grad_reducer(grads)
-        optimizer(grads)
-        if i % 10 == 0:
-            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_value))
-        i += 1
+input_x = Tensor(np.ones((8, 128, 16, 32)).astype(np.float32))
+network = Net()
+grad_network = Grad(network)
+output = grad_network(input_x)
+print(output)
 ```
 
-### 运行单机8卡脚本
+### 运行脚本
 
-接下来通过命令调用对应的脚本，以`mpirun`启动方式，8卡的分布式训练脚本为例，进行分布式训练：
+接下来通过命令调用对应的脚本，如下所示：
 
 ```bash
-bash run.sh
+GLOG_v=1 python example.py
 ```
 
-训练完后，日志文件保存到`log_output`目录下，通过设置环境变量`MS_DEV_SAVE_GRAPHS`的值为2，可以打印出编译过程中的IR图，其中部分文件目录结构如下：
+通过`GLOG_v=1`命令，我们可以打印出INFO级别的日志，从而查看网络执行内存占用大小，如下所示：
 
 ```text
-├─ log_output
-|   └─ 1
-|       ├─ rank.0
-|       |   └─ stdout
-|       ├─ rank.1
-|       |   └─ stdout
-|       ...
-├─ rank_0
-|   ├─ xx_validate_xxx.ir
-|   ...
-├─ rank_1
-|   ├─ xx_validate_xxx.ir
-|   ...
-...
+Device MOC memory size: 32768M
+MindSpore Used memory size: 30682M
+MindSpore memory base address: 0x12c100000000
+Total Static Memory size: 1032M
+Total Dynamic memory size: 167M
+Actual peak memory usage: 1199M
+Dynamic memory size of this graph: 0M
 ```
 
-关于Loss部分结果保存在`log_output/1/rank.*/stdout`中，示例如下：
+可以看到执行该网络的动态内存占用大小为167 MB。如果我们在执行脚本前，设置环境变量`export MS_DEV_SAVE_GRAPHS=1`，可以看到在执行脚本的目录下，会生成`xx_validate_xxx.ir`文件。打开`xx_validate_xxx.ir`文件，如下所示，我们可以看到节点%38的计算结果，需要供节点%41（正向传播算子）和节点%291（反向传播算子）计算时使用，所以节点%38的计算结果占用的内存，需要等到节点%291计算完成，才会被释放掉（此处%后面的序号与算子执行序相关）。节点%38计算结果的内存占用时间长的原因是，反向传播的顺序与正向传播相反，正向传播中的10个`Block`里面，第一个`Block`对应的反向传播函数反而是最后执行的。
 
 ```text
-epoch: 0, step: 0, loss is 2.2929618
-epoch: 0, step: 10, loss is 2.2396836
-epoch: 0, step: 20, loss is 2.2097976
-epoch: 0, step: 30, loss is 2.1942225
-epoch: 0, step: 40, loss is 2.0986974
-epoch: 0, step: 50, loss is 2.0612597
+%38(equiv_11_real_div1) = PrimFunc_RealDiv(%37, Tensor(shape=[], dtype=Float32, value=2.37891)) {instance name: real_div2} cnode_attrs: {checkpoint: Bool(1)} cnode_primal_attrs: {unique_id: "10058"}
+      : (<Tensor[Float32], (8, 16, 128, 32)>, <Tensor[Float32], (), value=...>) -> (<Tensor[Float32], (8, 16, 128, 32)>)
+      # Fullname with scope: (Default/net-Net/blocks-CellList/0-Block/RealDiv-op0)
 ...
+%41(equiv_8_batch_matmul1) = PrimFunc_BatchMatMul(%38, %40, Bool(0), Bool(0)) cnode_attrs: {checkpoint: Bool(1)} cnode_primal_attrs: {unique_id: "10055"}
+      : (<Tensor[Float32], (8, 16, 128, 32)>, <Tensor[Float32], (8, 16, 32, 128)>, <Bool, NoShape>, <Bool, NoShape>) -> (<Tensor[Float32], (8, 16, 128, 128)>)
+      # Fullname with scope: (Default/net-Net/blocks-CellList/0-Block/BatchMatMul-op0)
+...
+%291(CNode_401) = PrimFunc_BatchMatMul(%38, %287, Bool(1), Bool(0)) cnode_attrs: {checkpoint: Bool(1)} cnode_primal_attrs: {forward_node_name: "BatchMatMul_10055", forward_unique_id: "10055"}
+      : (<Tensor[Float32], (8, 16, 128, 32)>, <Tensor[Float32], (8, 16, 128, 128)>, <Bool, NoShape>, <Bool, NoShape>) -> (<Tensor[Float32], (8, 16, 32, 128)>)
+      # Fullname with scope: (Gradients/Default/net-Net/blocks-CellList/0-Block/Grad_BatchMatMul/BatchMatMul-op38)
 ```
 
-计算图结果在`xx_validate_xxx.ir`中，设置重计算前：
+如果我们对第一个`Block`做重计算，那么就可以使得第一个`Block`在正向部分计算结束后，计算结果立即被释放掉，在反向传播时才去重新计算，从而可以显著缩短内存占用的时间，降低内存峰值。使用重计算的代码如下：
+
+```python
+class Net(Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.blocks = nn.CellList()
+        for _ in range(10):
+            b = Block()
+            # 对每个Block调用recompute接口来开启重计算功能
+            b.recompute()
+            self.blocks.append(b)
+
+    def construct(self, x):
+        out = x
+        for i in range(10):
+            out = self.blocks[i](out)
+        return out
+```
+
+使用重计算后，我们再运行脚本，如下所示：
+
+```bash
+GLOG_v=1 python example.py
+```
+
+再次查看网络执行内存占用大小，如下所示，执行该网络的动态内存占用减少为69 MB。
 
 ```text
-...
-  %81(1285) = MatMul(%80, %11) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24422", forward_unique_id: "24422"}
-      : (<Tensor[Float32], (32, 10)>, <Tensor[Float32], (512, 10)>) -> (<Tensor[Float32], (32, 512)>)
-...
-  %82(1286) = ReluGrad(%81, %10) primitive_attrs: {output_names: (output), input_names: (x)} cnode_primal_attrs: {forward_node_name: "ReLU_24405", forward_unique_id: "24405"}
-      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
-...
-  %83(1285) = MatMul(%82, %6) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24434", forward_unique_id: "24434"}
-      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (512, 512)>) -> (<Tensor[Float32], (32, 512)>)
-...
-  %84(1286) = ReluGrad(%83, %5) primitive_attrs: {output_names: (output), input_names: (x)} cnode_primal_attrs: {forward_node_name: "ReLU_24408", forward_unique_id: "24408"}
-      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
-...
-  %85(1285) = MatMul(%0, %84) primitive_attrs: {output_names: (output), transpose_a: Bool(1), input_names: (x1, x2), transpose_x2: Bool(0), transpose_x1: Bool(1), transpose_b: Bool(0)} cnode_primal_attrs: {forward_node_name: "MatMul_24446", forward_unique_id: "24446"}
-      : (<Tensor[Float32], (32, 784)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (784, 512)>)
-...
+Device MOC memory size: 32768M
+MindSpore Used memory size: 30680M
+MindSpore memory base address: 0x12c100000000
+Total Static Memory size: 1032M
+Total Dynamic memory size: 69M
+Actual peak memory usage: 1101M
+Dynamic memory size of this graph: 0M
 ```
 
-设置重计算后：
+再次打开`xx_validate_xxx.ir`文件，如下所示，可以看到反向传播节点%429的第一个输入为节点%416，节点%416是根据正向传播节点%38复制得到的，而节点%38的计算结果占用的内存，在节点%41计算完后就可以被释放，从而提高了内存复用率。
 
 ```text
+%38(equiv_93_real_div1) = PrimFunc_RealDiv(%37, Tensor(shape=[], dtype=Float32, value=2.37891)) {instance name: real_div2} cnode_attrs: {recompute_sub_graph: U64(0), recompute_id: I64(5), recompute: Bool(1), need_cse_after_recompute: Bool(1)} cnode_primal_attrs: {unique_id: "13860"}
+      : (<Tensor[Float32], (8, 16, 128, 32)>, <Tensor[Float32], (), value=...>) -> (<Tensor[Float32], (8, 16, 128, 32)>)
+      # Fullname with scope: (recompute_Default/net-Net/blocks-CellList/0-Block/RealDiv-op0)
 ...
-  %81(1285) = MatMul(%80, %11) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24422", forward_unique_id: "24422"}
-      : (<Tensor[Float32], (32, 10)>, <Tensor[Float32], (512, 10)>) -> (<Tensor[Float32], (32, 512)>)
+%41(equiv_90_batch_matmul1) = PrimFunc_BatchMatMul(%38, %40, Bool(0), Bool(0)) {instance name: batch_matmul2} cnode_attrs: {recompute_sub_graph: U64(0), recompute_id: I64(8), recompute: Bool(1), need_cse_after_recompute: Bool(1)} cnode_primal_attrs: {unique_id: "13857"}
+      : (<Tensor[Float32], (8, 16, 128, 32)>, <Tensor[Float32], (8, 16, 32, 128)>, <Bool, NoShape>, <Bool, NoShape>) -> (<Tensor[Float32], (8, 16, 128, 128)>)
+      # Fullname with scope: (recompute_Default/net-Net/blocks-CellList/0-Block/BatchMatMul-op0)
 ...
-  %84([CNode]1292) = ReLU(%83) {instance name: relu2} primitive_attrs: {output_names: [output], input_names: [x], recompute: Bool(1)} cnode_attrs: {recompute_sub_graph: U64(1), recompute_id: I64(2), duplicated: Bool(1), need_cse_after_recompute: Bool(1)}
-      : (<Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
-      # Scope: (Default)
-  %85([CNode]1293) = ReluGrad(%81, %84) primitive_attrs: {output_names: (output), input_names: (x)} cnode_attrs: {recompute_sub_graph: U64(1), target_grad: Bool(1)} cnode_primal_attrs: {forward_node_name: "ReLU_24405", forward_unique_id: "24405"}
-      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
+%416(CNode_1062) = PrimFunc_RealDiv(%410, Tensor(shape=[], dtype=Float32, value=2.37891)) {instance name: real_div2} cnode_attrs: {recompute_sub_graph: U64(0), recompute_id: I64(5), duplicated: Bool(1), need_cse_after_recompute: Bool(1)}
+      : (<Tensor[Float32], (8, 16, 128, 32)>, <Tensor[Float32], (), value=...>) -> (<Tensor[Float32], (8, 16, 128, 32)>)
+      # Fullname with scope: (recompute_Default/net-Net/blocks-CellList/0-Block/RealDiv-op2)
 ...
-  %86(1285) = MatMul(%85, %6) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24434", forward_unique_id: "24434"}
-      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (512, 512)>) -> (<Tensor[Float32], (32, 512)>)
-...
-  %89([CNode]1296) = ReLU(%88) {instance name: relu2} primitive_attrs: {output_names: [output], input_names: [x], recompute: Bool(1)} cnode_attrs: {recompute_sub_graph: U64(0), recompute_id: I64(1), duplicated: Bool(1), need_cse_after_recompute: Bool(1)}
-      : (<Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
-      # Scope: (Default)
-  %90([CNode]1297) = ReluGrad(%86, %89) primitive_attrs: {output_names: (output), input_names: (x)} cnode_attrs: {recompute_sub_graph: U64(0), target_grad: Bool(1)} cnode_primal_attrs: {forward_node_name: "ReLU_24408", forward_unique_id: "24408"}
-      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
-...
-  %91(1285) = MatMul(%0, %90) primitive_attrs: {output_names: (output), transpose_a: Bool(1), input_names: (x1, x2), transpose_x2: Bool(0), transpose_x1: Bool(1), transpose_b: Bool(0)} cnode_primal_attrs: {forward_node_name: "MatMul_24446", forward_unique_id: "24446"}
-      : (<Tensor[Float32], (32, 784)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (784, 512)>)
-...
+%429(CNode_1075) = PrimFunc_BatchMatMul(%416, %425, Bool(1), Bool(0)) {instance name: batch_matmul2} cnode_attrs: {recompute_sub_graph: U64(0), target_grad: Bool(1), checkpoint: Bool(1)} cnode_primal_attrs: {forward_node_name: "BatchMatMul_13857", forward_unique_id: "13857"}
+      : (<Tensor[Float32], (8, 16, 128, 32)>, <Tensor[Float32], (8, 16, 128, 128)>, <Bool, NoShape>, <Bool, NoShape>) -> (<Tensor[Float32], (8, 16, 32, 128)>)
+      # Fullname with scope: (Gradients/recompute_Default/net-Net/blocks-CellList/0-Block/Grad_BatchMatMul/BatchMatMul-op38)
 ```
 
-可见，`ReLU`算子被复制出来了一份，作为反向算子`ReluGrad`的输入。
