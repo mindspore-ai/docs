@@ -100,6 +100,6 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 [mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:7, log file:output/msrun_log/worker_7.log. Environment variable [RANK_ID] is exported.
 ```
 
-说明启动微调成功。
+说明微调任务已拉起，微调进度可在`output/msrun_log/`目录下查看。
 
 关于Llama2更多细节，以及更多的启动方式，请具体参考`Llama2` 的 [README](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#llama-2)文档获取更多支持。
