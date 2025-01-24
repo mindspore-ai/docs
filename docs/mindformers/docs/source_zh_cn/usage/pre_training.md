@@ -66,7 +66,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
 ```shell
 # 节点0，设0节点ip为MASTER_ADDR，作为主节点ip，总共64卡且每个节点8卡
 # 节点0、节点1、...节点7 依此修改node_num，比如8机，node_num为0~7。
-bash scripts/msrun_launcher.sh "run_llama3.py \
+bash scripts/msrun_launcher.sh "research/llama3/run_llama3.py \
   --config pretrain_llama3_70b.yaml \
  --train_dataset dataset_dir
  --use_parallel True \

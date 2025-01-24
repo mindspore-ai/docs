@@ -66,7 +66,7 @@ Take Llama3-70B as an example. Use the [pretrain_llama3_70b.yaml](https://gitee.
 ```shell
 # Node 0: Set the IP address of node 0 to the value of MASTER_ADDR, which is used as the IP address of the primary node. There are 64 devices in total with 8 devices for each node.
 # Change the value of node_num for nodes 0 to 7 in sequence. For example, if there are eight nodes, the value of node_num ranges from 0 to 7.
-bash scripts/msrun_launcher.sh "run_llama3.py \
+bash scripts/msrun_launcher.sh "research/llama3/run_llama3.py \
   --config pretrain_llama3_70b.yaml \
  --train_dataset dataset_dir
  --use_parallel True \
