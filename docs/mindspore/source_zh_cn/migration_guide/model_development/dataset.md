@@ -339,9 +339,9 @@ data (10, 32, 32, 3)
 
 以下是社区中的MindSpore开发者/用户贡献的迁移实战案例，供参考和交流，同时也非常欢迎大家向社区提供更多的案例。
 
-[从PyTorch迁移至MindSpore--数据处理](https://www.hiascend.com/forum/thread-0263137175098201010-1-1.html)
+[从PyTorch迁移至MindSpore-数据处理](https://www.hiascend.com/forum/thread-0263137175098201010-1-1.html)
 
-[从PyTorch迁移至MindSpore--数据处理（实战篇）](https://www.hiascend.com/forum/thread-0283137235691918013-1-1.html)
+[从PyTorch迁移至MindSpore-数据处理（实战篇）](https://www.hiascend.com/forum/thread-0283137235691918013-1-1.html)
 
 [PyTorch迁移至MindSpore记录（上）](https://www.hiascend.com/forum/thread-0244128586212080089-1-1.html)
 

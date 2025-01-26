@@ -5,7 +5,7 @@
 本迁移指导包含以PyTorch为主的其他机器学习框架将神经网络迁移到MindSpore的完整步骤。
 
 ```{mermaid}
-graph LR
+flowchart LR
 A(总览)-->B(迁移流程)
 B-->|Step 1|E(<font color=blue>环境准备</font>)
 E-.-text1(本地安装MindSpore)
@@ -13,43 +13,52 @@ E-.-text2(在线使用ModelArts)
 B-->|Step 2|F(<font color=blue>模型分析与准备</font>)
 F-.-text3(算法复现/MindSpore Dev Toolkit 工具分析API满足度/分析功能满足度)
 B-->|Step 3|G(<font color=blue>网络搭建对比</font>)
-G-->K(<font color=blue>数据处理</font>)
-K-.-text4(数据集加载/增强/读取对齐)
-G-->L(<font color=blue>网络搭建</font>)
-L-.-text5(网络对齐)
-G-->P(<font color=blue>损失函数</font>)
-P-.-text6(损失函数对齐)
-G-->M(<font color=blue>学习率与优化器</font>)
-M-.-text7(优化器执行和学习率策略对齐)
-G-->N(<font color=blue>梯度求导</font>)
-N-.-text8(反向梯度对齐)
-G-->O(<font color=blue>训练及推理流程</font>)
-O-.-text9(训练与推理对齐)
-B-->|Step 4|H(<font color=blue>功能调试</font>)
-H-.-text10(功能方面对齐)
-B-->|Step 5|I(<font color=blue>精度调优</font>)
-I-.-text11(精度方面对齐)
-B-->|Step 6|J(<font color=blue>性能调优</font>)
-J-.-text12(性能方面对齐)
+G-->I(<font color=blue>数据处理</font>)
+I-.-text4(数据集加载/增强/读取对齐)
+G-->J(<font color=blue>网络搭建</font>)
+J-.-text5(网络对齐)
+G-->K(<font color=blue>损失函数</font>)
+K-.-text6(损失函数对齐)
+G-->L(<font color=blue>学习率与优化器</font>)
+L-.-text7(优化器执行和学习率策略对齐)
+G-->M(<font color=blue>梯度求导</font>)
+M-.-text8(反向梯度对齐)
+G-->N(<font color=blue>训练及推理流程</font>)
+N-.-text9(训练与推理对齐)
+B-->|Step 4|H(<font color=blue>调试调优</font>)
+H-->O(<font color=blue>功能调试</font>)
+O-.-text10(功能方面对齐)
+H-->P(<font color=blue>精度调优</font>)
+P-.-text11(精度方面对齐)
+H-->Q(<font color=blue>性能调优</font>)
+Q-.-text12(性能方面对齐)
 A-->C(<font color=blue>网络迁移调试实例</font>)
 C-.-text13(以ReNet50为例的网络迁移样例)
-A-->D(<font color=blue>常见问题</font>)
-D-.-text14(迁移过程中的常见问题与解决方法)
+A-->D(<font color=blue>参考</font>)
+D-->R(<font color=blue>PyTorch与MindSpore API映射表</font>)
+D-->S(<font color=blue>网络迁移工具应用实践指南</font>)
+D-->T(<font color=blue>常见问题</font>)
 
 click C "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/sample_code.html"
-click D "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/faq.html"
+click D "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/reference.html"
 
 click E "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/enveriment_preparation.html"
 click F "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/analysis_and_preparation.html"
 click G "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/model_development/model_development.html"
-click H "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/debug_and_tune.html#功能调试"
-click I "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/debug_and_tune.html#精度调优"
-click J "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/debug_and_tune.html#性能调优"
+click H "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/debug_and_tune.html#调试调优"
 
-click K "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/model_development/dataset.html"
-click L "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/model_development/model_and_cell.html"
-click M "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/model_development/learning_rate_and_optimizer.html"
-click N "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/model_development/gradient.html"
-click O "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/model_development/training_and_evaluation.html"
-click P "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/model_development/loss_function.html"
+click I "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/model_development/dataset.html"
+click J "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/model_development/model_and_cell.html"
+click K "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/model_development/loss_function.html"
+click L "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/model_development/learning_rate_and_optimizer.html"
+click M "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/model_development/gradient.html"
+click N "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/model_development/training_and_evaluation.html"
+
+click O "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/debug_and_tune.html#功能调试"
+click P "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/debug_and_tune.html#精度调优"
+click Q "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/debug_and_tune.html#性能调优"
+
+click R "https://www.mindspore.cn/docs/zh-CN/r2.4.0/note/api_mapping/pytorch_api_mapping.html"
+click S "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/migrator_with_tools.html"
+click T "https://www.mindspore.cn/docs/zh-CN/r2.4.0/migration_guide/faq.html"
 ```
