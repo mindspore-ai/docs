@@ -52,7 +52,7 @@
 - **dump_as_text**：将关键过程的详细信息生成文本文件保存到`graph_kernel_dump`目录里。默认值： `False` 。
 - **enable_debug_mode**：在图算kernelmod launch前后插同步，并在launch失败时打印调试信息，仅支持GPU后端。默认值： `False` 。
 
-> 说明： 格式为--key=value，多个配置项以空格分隔，多个value以逗号分隔，例如`export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"`
+> 说明： 格式为`--key=value`，多个配置项以空格分隔，多个value以逗号分隔，例如`export MS_DEV_GRAPH_KERNEL_FLAGS="--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add"`
 
 ## 获得Pass名称
 

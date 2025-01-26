@@ -112,7 +112,7 @@ Usage scenario: Convert a third-party model into a MindSpore model. You can call
 
 Detailed descriptions of the parameters and their correspondence to the parameters in [Offline Conversion of Inference Models](https://www.mindspore.cn/lite/docs/en/master/mindir/converter_tool.html) are provided below.
 
-|| Method of convert parameters | Tpyes of parameters  | Parameters corresponding to the offline conversion of the model  |  Required or not   |  Description of parameters  | Value range | Default values |
+| Method of convert parameters | Tpyes of parameters  | Parameters corresponding to the offline conversion of the model  |  Required or not   |  Description of parameters  | Value range | Default values |
 | -------- | ----- | -------- | ------- | ----- | --- | ---- |
 | fmk_type | FmkType | `--fmk=<FMK>`  | Required | Input model frame type. | FmkType.TF, FmkType.CAFFE, FmkType.ONNX, FmkType.TFLITE | - |
 | model_file | str | `--modelFile=<MODELFILE>` | Required | The path of the input model file for the conversion. | - | - |

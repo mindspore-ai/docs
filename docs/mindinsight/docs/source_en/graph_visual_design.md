@@ -25,7 +25,7 @@ The computational graph visualization function is mainly used in the following s
 | Aggregation node                    | Node type, which is also a scope type. In the same scope, if there are too many nodes of the same type, an aggregation node is created to replace these nodes. These nodes are folded as subnodes of the aggregation node. |
 | Proxy node                          | Node type. If the connection line between node A and node B is too complicated, a node C that can represent node B is created next to node A. A connection line between node A and node C is created, indicating that the data flows from node A to node B. In this way, the connection lines in a graph are optimized, preventing the layout from being disordered. |
 | Data edge                           | Connection type, indicating the data flow direction using a solid line and an arrow. For example, A->B indicates that data flows from A to B. |
-| Control edge                        | Connection type, indicating the dependency between operator nodes using a dashed line and an arrow. For example, A-->B indicates that A is executed before B. |
+| Control edge                        | Connection type, indicating the dependency between operator nodes using a dashed line and an arrow. For example, A -> B indicates that A is executed before B. |
 | Independent layout                  | In complex connection scenarios, a node is removed from the original connection so that other nodes cannot connect to it. Instead, proxy nodes are created on other nodes for connection, simplifying the connection relationship. For example, nodes of the parameter type are aggregated, which simplifies a connection relationship between the parameter node and other nodes. |
 
 ### Backend Design

@@ -64,8 +64,8 @@ Currently, operator fusion-related optimization passes are included in the graph
 - **dump_as_text**: Save detailed information about key processes as text files in the `graph_kernel_dump` directory. Default value: `False`.
 - **enable_debug_mode**: Insert synchronization points before and after the graph kernelmod launch, and print debugging information if the launch fails. This is supported only for the GPU backend. Default value: `False`.
 
-> Note: with the format "--key=value", multiple configuration items separated by space, multiple value items separated by commas, for example:
-> export MS_DEV_GRAPH_KERNEL_FLAGS='--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add'
+> Note: with the format `"--key=value"`, multiple configuration items separated by space, multiple value items separated by commas, for example:
+> export `MS_DEV_GRAPH_KERNEL_FLAGS='--enable_expand_ops=Square --enable_cluster_ops=MatMul,Add'`
 
 ## Obtaining Pass Names
 

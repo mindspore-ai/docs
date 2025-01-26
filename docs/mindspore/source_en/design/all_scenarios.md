@@ -190,7 +190,6 @@ In the example, `a` and `b` are free variables because the variables `a` and `b`
 ### References
 
 [1] C. Click and M. Paleczny. A simple graph-based intermediate representation.
-SIGPLAN Not., 30:35–49, March 1995.
+SIGPLAN Not., 30:35-49, March 1995.
 
-[2] Roland Leißa, Marcel Köster, and Sebastian Hack. A graph-based higher-order intermediate representation. In Proceedings of the 13th Annual IEEE/ACM International Symposium on Code Generation and Optimization, pages 202–212. IEEE Computer Society, 2015.
-
+[2] Roland Leißa, Marcel Köster, and Sebastian Hack. A graph-based higher-order intermediate representation. In Proceedings of the 13th Annual IEEE/ACM International Symposium on Code Generation and Optimization, pages 202-212. IEEE Computer Society, 2015.
