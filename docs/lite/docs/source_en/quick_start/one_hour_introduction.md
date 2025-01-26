@@ -796,7 +796,7 @@ In the previous section, the official inference test tool is used to perform the
 
     For details about how to use the Java API for integration and development, see [Using Java Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/r2.4.10/infer/runtime_java.html).
 
-    For details about Android integration and development, see [Android Application Development Based on JNI Interface](https://www.mindspore.cn/lite/docs/en/r2.4.10r/infer/quick_start.html), [Android Application Development Based on Java Interface](https://www.mindspore.cn/lite/docs/en/r2.4.10/infer/image_segmentation.html), and [Model List](https://www.mindspore.cn/lite/docs/en/r2.4.10/reference/model_lite.html).
+    For details about Android integration and development, see [Android Application Development Based on JNI Interface](https://www.mindspore.cn/lite/docs/en/r2.4.10/infer/quick_start.html), [Android Application Development Based on Java Interface](https://www.mindspore.cn/lite/docs/en/r2.4.10/infer/image_segmentation.html), and [Model List](https://www.mindspore.cn/lite/docs/en/r2.4.10/reference/model_lite.html).
 
 ## For Windows
 
