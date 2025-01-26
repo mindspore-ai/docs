@@ -209,12 +209,12 @@ Execute script path: [eval_with_vlmevalkit.py](https://gitee.com/mindspore/mindf
 
 | Parameters            | Type  | Descriptions                                                                                                                                        | Compulsory(Y/N)|
 |---------------|-----|-----------------------------------------------------------------------------------------------------------------------------------------------------|------|
-| --data      | str | Name of the dataset, multiple datasets can be passed in, split by spaces.                                                                           | Y    |
-| --model  | str | Name of the model.                                                                                                                                  | Y    |
-| --verbose       | /   | Outputs logs from the evaluation run.                                                                                                               | N    |
-| --work-dir  | str | Directory for storing evaluation results. By default, evaluation results are stored in the folder whose name is the same as the model name. | N    |
-| --model-path | str | The folder path containing the model tokenizer files and configuration files.                                       | Y    |
-| --config-path       | str | Model configuration file path.                               | Y   |
+| `--data`      | str | Name of the dataset, multiple datasets can be passed in, split by spaces.                                                                           | Y    |
+| `--model`  | str | Name of the model.                                                                                                                                  | Y    |
+| `--verbose`       | /   | Outputs logs from the evaluation run.                                                                                                               | N    |
+| `--work-dir`  | str | Directory for storing evaluation results. By default, evaluation results are stored in the folder whose name is the same as the model name. | N    |
+| `--model-path` | str | The folder path containing the model tokenizer files and configuration files.                                       | Y    |
+| `--config-path`       | str | Model configuration file path.                               | Y   |
 
 If the server does not support online downloading of image datasets due to network limitations, you can upload the downloaded .tsv dataset file to the ~/LMUData directory on the server for offline evaluation. (For example: ~/LMUData/MME.tsv or ~/LMUData/MMBench_DEV_EN.tsv or ~/LMUData/COCO_VAL.tsv)
 

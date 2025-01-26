@@ -440,4 +440,4 @@ Link to [create issues](https://gitee.com/mindspore/mindspore/issues/new).
 
 ## References
 
-Smith, L. N. (2017). [Cyclical learning rates for training neural networks](https://doi.org/10.1109/WACV.2017.58). Proceedings - 2017 IEEE Winter Conference on Applications of Computer Vision, WACV 2017, 464–472.
+Smith, L. N. (2017). [Cyclical learning rates for training neural networks](https://doi.org/10.1109/WACV.2017.58). Proceedings - 2017 IEEE Winter Conference on Applications of Computer Vision, WACV 2017, 464-472.

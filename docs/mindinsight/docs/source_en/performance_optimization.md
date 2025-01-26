@@ -35,13 +35,13 @@ With comprehensive analysis, during normal training, data processing is a perfor
 
 ![dataset_process_step_interval](images/profiler_case1_data_processing_step_interval.png)
 
-*Figure 2: Data Preparation Details -- Step Interval*
+*Figure 2: Data Preparation Details - Step Interval*
 
 By observing the `queue relationship between operators` in the Data Processing tab, we find that the queue usage of the `Queue_3` and later is low, that is, the speed `MapOp_3` of production data as a producer is slower, so we can determine that there is still room for optimization of the performance of `MapOp_3`, and try to optimize the performance of the operator.
 
 ![data_processing](images/profiler_case1_dataset_processing.png)
 
-*Figure 3: Data Preparation Details -- Data Processing*
+*Figure 3: Data Preparation Details - Data Processing*
 
 We can refer to [Optimizing the Data Processing](https://www.mindspore.cn/docs/en/master/model_train/dataset/optimize.html ) to adjust dataset operations to improve dataset performance.
 

@@ -440,4 +440,4 @@ MindSpore API同其他框架的API存在一定差异。有标杆脚本的情况�
 
 ## 参考文献
 
-Smith, L. N. (2017). Cyclical learning rates for training neural networks. Proceedings - 2017 IEEE Winter Conference on Applications of Computer Vision, WACV 2017, 464–472. <https://doi.org/10.1109/WACV.2017.58>
+Smith, L. N. (2017). Cyclical learning rates for training neural networks. Proceedings - 2017 IEEE Winter Conference on Applications of Computer Vision, WACV 2017, 464-472. <https://doi.org/10.1109/WACV.2017.58>
