@@ -124,7 +124,7 @@ Switch the root user, root user password: Mind@123.
 
 # Open a terminal on the development board and run the following command
 
-(base) HwHiAiUser@orangepiaipro:~$ su – root
+(base) HwHiAiUser@orangepiaipro:~$ su - root
  Password:
 (base) root@orangepiaipro: ~#
 
@@ -205,7 +205,7 @@ Password for root user: Mind@123.
 
 # Open a terminal on the development board and run the following command
 
-(base) HwHiAiUser@orangepiaipro:~$ su – root
+(base) HwHiAiUser@orangepiaipro:~$ su - root
  Password:
 (base) root@orangepiaipro: ~#
 

@@ -213,7 +213,7 @@ Usage:
 
 - `x = y if (cond) else z`
 
-Parameter: `cond` -- Variables of `bool` type and constants of `bool`, `List`, `Tuple`, `Dict` and `String` types are supported.
+Parameter: `cond` - Variables of `bool` type and constants of `bool`, `List`, `Tuple`, `Dict` and `String` types are supported.
 
 Restrictions:
 
@@ -319,7 +319,7 @@ Usage:
 
 - `for i in sequence  statements... if (cond) continue`
 
-Parameter: `sequence` -- Iterative sequences (`Tuple`, `List`, `range` and so on).
+Parameter: `sequence` - Iterative sequences (`Tuple`, `List`, `range` and so on).
 
 Restrictions:
 
@@ -363,7 +363,7 @@ Usage:
 
 - `while (cond)  statements... if (cond1) continue`
 
-Parameter: `cond` -- Variables of `bool` type and constants of `bool`, `list`, `tuple`, `dict` and `string` types are supported.
+Parameter: `cond` - Variables of `bool` type and constants of `bool`, `list`, `tuple`, `dict` and `string` types are supported.
 
 Restrictions:
 
@@ -494,9 +494,9 @@ Function: partial function, fixed function input parameter. Usage: `partial(func
 
 Input parameter:
 
-- `func` -- function.
+- `func` - function.
 
-- `arg` -- One or more parameters to be fixed, support positional parameters and key-value pair parameters.
+- `arg` - One or more parameters to be fixed, support positional parameters and key-value pair parameters.
 
 Return Value: Returns some functions with fixed input value.
 

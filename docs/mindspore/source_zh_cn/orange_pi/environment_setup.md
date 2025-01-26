@@ -124,7 +124,7 @@
 
 # 打开开发板的一个终端，运行如下命令
 
-(base) HwHiAiUser@orangepiaipro:~$ su – root
+(base) HwHiAiUser@orangepiaipro:~$ su - root
  Password:
 (base) root@orangepiaipro: ~#
 
@@ -205,7 +205,7 @@ root用户密码：Mind@123。
 
 # 打开开发板的一个终端，运行如下命令
 
-(base) HwHiAiUser@orangepiaipro:~$ su – root
+(base) HwHiAiUser@orangepiaipro:~$ su - root
  Password:
 (base) root@orangepiaipro: ~#
 

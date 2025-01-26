@@ -86,7 +86,7 @@ MindSpore Lite云侧推理模型转换工具提供了多种参数设置，用户
 
     不需要经过离线转换，直接进行推理执行。
 
-    使用离线转换，CPU/GPU后端设置--optimize为general（使能通用优化），GPU后端设置--optimize为gpu_oriented（在通用优化的基础上，使能针对GPU的额外优化），NPU后端设置--optimize为ascend_oriented，在离线阶段完成相关优化，减少推理执行的初始化时间。
+    使用离线转换，CPU/GPU后端设置`--optimize`为general（使能通用优化），GPU后端设置`--optimize`为gpu_oriented（在通用优化的基础上，使能针对GPU的额外优化），NPU后端设置`--optimize`为ascend_oriented，在离线阶段完成相关优化，减少推理执行的初始化时间。
 
 ### 使用示例
 
