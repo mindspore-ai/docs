@@ -32,7 +32,7 @@ Install AKG in advance to enable graph kernel in the MindSpore Lite. Currently, 
 
 ## Usage
 
-During the model conversion phase, the graph kernel is enabled by configuring the --configFile and --optimize options of converter_lite.
+During the model conversion phase, the graph kernel is enabled by configuring the `--configFile` and `--optimize` options of converter_lite.
 
 Writing configuration file is preferred:
 

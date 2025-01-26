@@ -162,12 +162,12 @@ VLMEvalKit main parameters
 
 | Parameters            | Type  | Descriptions                                                            | Compulsory(Y/N)|
 |---------------|-----|-----------------------------------------------------------------|------|
-| --data      | str | Name of the dataset, multiple datasets can be passed in, split by spaces.                                            | Y    |
-| --model  | str | Name of the model, multiple models can be passed in, split by spaces.                                              | Y    |
-| --verbose       | /   | Outputs logs from the evaluation run.                                                   | N    |
-| --work-dir  | str | The directory where the evaluation results are stored, by default, is stored in the folder with the same name as the model in the current directory.                                | N    |
-| --model-path | str | Contains the paths of all relevant files of the model (weights, tokenizer files, configuration files, processor files), multiple paths can be passed in, filled in according to the order of the model, split by spaces. | Y    |
-| --config-path       | str | Model configuration file path, multiple paths can be passed in, fill in according to the model order, split by space.                                 | Y   |
+| `--data`      | str | Name of the dataset, multiple datasets can be passed in, split by spaces.                                            | Y    |
+| `--model`  | str | Name of the model, multiple models can be passed in, split by spaces.                                              | Y    |
+| `--verbose`       | /   | Outputs logs from the evaluation run.                                                   | N    |
+| `--work-dir`  | str | The directory where the evaluation results are stored, by default, is stored in the folder with the same name as the model in the current directory.                                | N    |
+| `--model-path` | str | Contains the paths of all relevant files of the model (weights, tokenizer files, configuration files, processor files), multiple paths can be passed in, filled in according to the order of the model, split by spaces. | Y    |
+| `--config-path`       | str | Model configuration file path, multiple paths can be passed in, fill in according to the model order, split by space.                                 | Y   |
 
 #### Preparation Before Evaluation
 

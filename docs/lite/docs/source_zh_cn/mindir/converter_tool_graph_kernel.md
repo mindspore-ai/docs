@@ -33,7 +33,7 @@ MindSpore Lite的whl包和tar包默认内置AKG。通过源码安装的MindSpore
 
 ## 使用方法
 
-在模型转换阶段，通过配置converter_lite 的--configFile和--optimize选项来使能图算。
+在模型转换阶段，通过配置converter_lite 的`--configFile`和`--optimize`选项来使能图算。
 
 首选编写配置文件：
 
