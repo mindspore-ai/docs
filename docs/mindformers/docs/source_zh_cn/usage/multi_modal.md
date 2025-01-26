@@ -113,14 +113,14 @@ from mindformers.tools.register.config import MindFormerConfig
 from mindformers.dataset.modal_to_text_sft_dataset import ModalToTextSFTDataset
 
 # load configs
-configs = MindFormerConfig("configs/cogvlm2/predict_cogvlm2_video_llama3_chat_13b.yaml")
+configs = MindFormerConfig("configs/cogvlm2/finetune_cogvlm2_video_llama3_chat_13b_lora.yaml")
 # build dataset
 multi_modal_dataset = ModalToTextSFTDataset(**configs.train_dataset)
 # iterate dataset
 for item in multi_modal_dataset:
     print(len(item))
     break
-# <class 'list'>
+# 5, output 5 columns
 ```
 
 ### 模型推理数据处理

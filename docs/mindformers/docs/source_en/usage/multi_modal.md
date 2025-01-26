@@ -79,6 +79,8 @@ Below is an example of the data preprocessing code for training and inference in
 
 In multimodal model training tasks, data preprocessing configurations are typically written in the `train_dataset` section. The following is an example of the dataset-related configuration in the `CogVLM2-Video` model training configuration file:
 
+[finetune_cogvlm2_video_llama3_chat_13b_lora.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/cogvlm2/finetune_cogvlm2_video_llama3_chat_13b_lora.yaml)
+
 ```yaml
 train_dataset: &train_dataset
   data_loader:
@@ -110,14 +112,14 @@ from mindformers.tools.register.config import MindFormerConfig
 from mindformers.dataset.modal_to_text_sft_dataset import ModalToTextSFTDataset
 
 # load configs
-configs = MindFormerConfig("configs/cogvlm2/predict_cogvlm2_video_llama3_chat_13b.yaml")
+configs = MindFormerConfig("configs/cogvlm2/finetune_cogvlm2_video_llama3_chat_13b_lora.yaml")
 # build dataset
 multi_modal_dataset = ModalToTextSFTDataset(**configs.train_dataset)
 # iterate dataset
 for item in multi_modal_dataset:
     print(len(item))
     break
-# <class 'list'>
+# 5, output 5 columns
 ```
 
 ### Model Inference Data Processing
