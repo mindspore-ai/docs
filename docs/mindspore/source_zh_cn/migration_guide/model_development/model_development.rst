@@ -17,7 +17,7 @@
 
 整个网络的训练过程包含5个模块：
 
--  dataset：用于获取数据，包含网络的输入，标签等。MindSpore提供了基本的\ `常见的数据集处理接口 <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.html>`__\ ，同时也支持利用python的迭代器构建数据集。
+-  dataset：用于获取数据，包含网络的输入，标签等。MindSpore提供了基本的\ `常见的数据集处理接口 <https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.loading.html>`__\ ，同时也支持利用python的迭代器构建数据集。
 
 -  network：网络模型实现，一般使用Cell包装。在init里声明需要的模块和算子，在construct里构图实现。
 

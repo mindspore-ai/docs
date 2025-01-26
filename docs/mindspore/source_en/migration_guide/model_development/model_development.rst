@@ -25,7 +25,7 @@ The training process of the whole network consists of 5 modules:
 
 -  dataset: for obtaining data, containing input of network and labels.
    MindSpore provides a basic `common dataset processing
-   interface <https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html>`__,
+   interface <https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.loading.html>`__,
    and also supports constructing datasets by using python iterators.
 
 -  network: network model implementation, typically encapsulated by

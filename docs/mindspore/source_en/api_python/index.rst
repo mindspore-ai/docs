@@ -19,8 +19,6 @@ API
    mindspore.common.initializer
    mindspore.runtime
    mindspore.dataset
-   mindspore.dataset.transforms
-   mindspore.mindrecord
    mindspore.nn.probability
    mindspore.rewrite
    mindspore.multiprocessing
@@ -62,7 +60,7 @@ MindSpore provides rich interfaces for model building, training, and inference. 
      - Parameter initialization.
    * - `mindspore.hal <./mindspore.hal.html>`_
      - Interface of device management, stream management, event management and memory management.
-   * - `mindspore.dataset <./mindspore.dataset.html>`_
+   * - `mindspore.dataset.loading <./mindspore.dataset.loading.html>`_
      - Interfaces for loading and processing various datasets.
    * - `mindspore.dataset.transforms <./mindspore.dataset.transforms.html>`_
      - Generalized data transformations.
