@@ -186,6 +186,18 @@ net.relu2.pipeline_stage = 1
 net.layer3.pipeline_stage = 1
 ```
 
+To enable interleaved pipeline scheduling, the non-contiguous model layers need to be configured in an interleaved manner as follows:
+
+```python
+net.layer1.pipeline_stage = 0
+net.relu1.pipeline_stage = 1
+net.layer2.pipeline_stage = 0
+net.relu2.pipeline_stage = 1
+net.layer3.pipeline_stage = 1
+```
+
+Stage 0 includes layer 0 and layer 2, while stage 1 includes layer 1, layer 3, and layer 4.
+
 ### Training the Network
 
 In this step, we need to define the loss function, the optimizer, and the training process, and unlike the single-card model, two interfaces need to be called in this section to configure the pipeline parallel:
