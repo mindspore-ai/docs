@@ -187,6 +187,18 @@ net.relu2.pipeline_stage = 1
 net.layer3.pipeline_stage = 1
 ```
 
+使能interleaved pipeline调度，`pipeline_stage`的非连续模型层需要进行交错式配置，配置如下：
+
+```python
+net.layer1.pipeline_stage = 0
+net.relu1.pipeline_stage = 1
+net.layer2.pipeline_stage = 0
+net.relu2.pipeline_stage = 1
+net.layer3.pipeline_stage = 1
+```
+
+stage0有第0层和第2层，stage1有第1层、第3层和第4层。
+
 ### 训练网络
 
 在这一步，我们需要定义损失函数、优化器以及训练过程，与单卡模型不同，在这部分需要调用两个接口来配置流水线并行：
