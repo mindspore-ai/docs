@@ -287,7 +287,7 @@ A: Use the msnpureport tool to set the on-device log level. The tool is stored i
 /usr/local/Ascend/latest/driver/tools/msnpureport -d 1 -g warning
 ```
 
-Assume that the value range of deviceID is [0, 7], and `devices 0–3` and `devices 4–7` are on the same OS. `devices 0` to `device3` share the same log configuration file and `device4` to `device7` share the same configuration file. In this way, changing any log level in `devices 0` to `device3` will change that of other `device`. This rule also applies to `device4` to `device7` .
+Assume that the value range of deviceID is [0, 7], and `devices 0-3` and `devices 4-7` are on the same OS. `devices 0` to `device3` share the same log configuration file and `device4` to `device7` share the same configuration file. In this way, changing any log level in `devices 0` to `device3` will change that of other `device`. This rule also applies to `device4` to `device7` .
 
 After the `Driver` package is installed (assuming that the installation path is /usr/local/HiAI and the execution file `msnpureport.exe` is in the C:\ProgramFiles\Huawei\Ascend\Driver\tools\ directory on Windows), suppose the user executes the command line directly in the /home/shihangbo/directory, the Device side logs are exported to the current directory and stored in a timestamp-named folder.
 
