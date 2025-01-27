@@ -100,6 +100,6 @@ When the following log appears on the console:
 [mindspore/parallel/cluster/process_entity/_api.py:224] Start worker process with rank id:7, log file:output/msrun_log/worker_7.log. Environment variable [RANK_ID] is exported.
 ```
 
-It indicates that the startup fine-tuning was successful.
+It indicates that the fine-tuning task is started, the progress can be monitored in the `output/msrun_log/` directory.
 
 For more details on Llama2, and more startup approaches, please refer specifically to the `Llama2` [README](https://gitee.com/mindspore/mindformers/blob/r1.3.0/docs/model_cards/llama2.md#llama-2) documentation for more support.
