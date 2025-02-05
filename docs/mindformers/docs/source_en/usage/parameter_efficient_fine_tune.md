@@ -85,7 +85,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  --run_mode finetune" 8
 ```
 
-If the weight can be loaded only after conversion, the weight loading path must be set to the upper-layer path of **rank_0** and the automatic weight conversion function must be enabled (**--auto_trans_ckpt** is set to **True**).
+If the weight can be loaded only after conversion, the weight loading path must be set to the upper-layer path of **rank_0** and the automatic weight conversion function must be enabled (`--auto_trans_ckpt` is set to **True**).
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
