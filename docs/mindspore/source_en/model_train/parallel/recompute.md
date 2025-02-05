@@ -38,7 +38,7 @@ Taking the GPT-3 model as an example, the policy is set to recalculate the cell 
 
 ## Operation Practice
 
-The following is an illustration of the recomputation operation using an Ascend or GPU stand-alone 8-card as an example:
+The following is an illustration of the recomputation operation using an Ascend as an example:
 
 ### Sample Code Description
 
@@ -49,204 +49,191 @@ The directory structure is as follows:
 ```text
 └─ sample_code
     ├─ recompute
-       ├── train.py
-       └── run.sh
+       └── example.py
     ...
 ```
 
-`train.py` is the script that defines the network structure and inference. `run.sh` is the execution script.
-
-### Configuring a Distributed Environment
-
-Specify the run mode, run device, run card number via the context interface. The parallel mode is data parallel and HCCL or NCCL communication is initialized by init. Setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2 to prints out the computational graph structure for comparison. `device_target` is automatically specified as the backend hardware device corresponding to the MindSpore package.
-
-```python
-import os
-import mindspore as ms
-from mindspore.communication import init
-
-os.environ['MS_DEV_SAVE_GRAPHS'] = '2'
-ms.set_context(mode=ms.GRAPH_MODE)
-ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
-init()
-ms.set_seed(1)
-```
-
-### Loading the Dataset
-
-Here the dataset is loaded in data parallel mode, specifying the `num_shards` and `shard_id` parameters, corresponding to the number of cards and the logical serial number, respectively, with the following code:
-
-```python
-import os
-import mindspore.dataset as ds
-from mindspore import nn
-
-def create_dataset(batch_size):
-    dataset_path = os.getenv("DATA_PATH")
-    rank_id = get_rank()
-    rank_size = get_group_size()
-    dataset = ds.MnistDataset(dataset_path, num_shards=rank_size, shard_id=rank_id)
-    image_transforms = [
-        ds.vision.Rescale(1.0 / 255.0, 0),
-        ds.vision.Normalize(mean=(0.1307,), std=(0.3081,)),
-        ds.vision.HWC2CHW()
-    ]
-    label_transform = ds.transforms.TypeCast(ms.int32)
-    dataset = dataset.map(image_transforms, 'image')
-    dataset = dataset.map(label_transform, 'label')
-    dataset = dataset.batch(batch_size)
-    return dataset
-
-data_set = create_dataset(32)
-```
+`example.py` is the script that defines the network structure and execution flow. In order to emphasize the difference between before and after recomputation, recomputation is not enabled by default in this sample. If you need to enable it, please refer to the following configuration.
 
 ### Network Definition
 
-The network configures the activation function operator with recomputation based on the single-card model to reduce the memory footprint:
+The network `Net` is formed by connecting the 10 sub-networks `Block` in `nn.CellList` in sequence, and `Grad` is used to derive `Net` to get the derivative with respect to the inputs of the network.
 
 ```python
-from mindspore import nn, ops
+import numpy as np
+from mindspore.nn import Cell
+from mindspore.common import Tensor, Parameter
+from mindspore import ops, nn
 
-class Network(nn.Cell):
+
+class Block(Cell):
     def __init__(self):
-        super().__init__()
-        self.flatten = nn.Flatten()
-        self.layer1 = nn.Dense(28*28, 512)
-        self.relu1 = ops.ReLU()
-        self.layer2 = nn.Dense(512, 512)
-        self.relu2 = ops.ReLU()
-        self.layer3 = nn.Dense(512, 10)
+        super(Block, self).__init__()
+        self.transpose1 = ops.Transpose()
+        self.transpose2 = ops.Transpose()
+        self.transpose3 = ops.Transpose()
+        self.transpose4 = ops.Transpose()
+        self.real_div1 = ops.RealDiv()
+        self.real_div2 = ops.RealDiv()
+        self.batch_matmul1 = ops.BatchMatMul()
+        self.batch_matmul2 = ops.BatchMatMul()
+        self.add = ops.Add()
+        self.softmax = ops.Softmax(-1)
+        self.dropout = ops.Dropout(0.9)
+        self.expand_dims = ops.ExpandDims()
+        self.sub = ops.Sub()
+        self.mul = ops.Mul()
+        self.y = Parameter(Tensor(np.ones((8, 128, 128)).astype(np.float32)))
 
     def construct(self, x):
-        x = self.flatten(x)
-        x = self.layer1(x)
-        x = self.relu1(x)
-        x = self.layer2(x)
-        x = self.relu2(x)
-        logits = self.layer3(x)
-        return logits
+        transpose1 = self.transpose1(x, (0, 2, 1, 3))
+        real_div1 = self.real_div1(transpose1, Tensor(2.37891))
+        transpose2 = self.transpose2(x, (0, 2, 3, 1))
+        real_div2 = self.real_div2(transpose2, Tensor(2.37891))
+        batch_matmul1 = self.batch_matmul1(real_div1, real_div2)
+        expand_dims = self.expand_dims(self.y, 1)
+        sub = self.sub(Tensor([1.0]), expand_dims)
+        mul = self.mul(sub, Tensor([-0.0001]))
+        add = self.add(mul, batch_matmul1)
+        soft_max = self.softmax(add)
+        dropout = self.dropout(soft_max)
+        transpose3 = self.transpose3(x, (0, 2, 1, 3))
+        batch_matmul2 = self.batch_matmul2(dropout[0], transpose3)
+        transpose4 = self.transpose4(batch_matmul2, (0, 2, 1, 3))
+        return transpose4
 
-net = Network()
-# Configure the recompute of relu operator
-net.relu1.recompute()
-net.relu2.recompute()
+
+class Net(Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.blocks = nn.CellList()
+        for _ in range(10):
+            b = Block()
+            self.blocks.append(b)
+
+    def construct(self, x):
+        out = x
+        for i in range(10):
+            out = self.blocks[i](out)
+        return out
+
+
+class Grad(Cell):
+    def __init__(self, net):
+        super(Grad, self).__init__()
+        self.grad = ops.GradOperation()
+        self.net = net
+
+    def construct(self, x):
+        grad_net = self.grad(self.net)
+        return grad_net(x)
 ```
 
-### Training the Network
+### Executing the Network
 
-In this step, we need to define the loss function, the optimizer, and the training process, and this part is consistent with the data-parallel model:
+In this step, we need to define the network inputs and then call `Grad` to get the derivatives, the code is as follows:
 
 ```python
-from mindspore import nn
-import mindspore as ms
+import numpy as np
+from mindspore.common import Tensor
 
-optimizer = nn.SGD(net.trainable_params(), 1e-2)
-loss_fn = nn.CrossEntropyLoss()
-
-def forward_fn(data, target):
-    logits = net(data)
-    loss = loss_fn(logits, target)
-    return loss, logits
-
-grad_fn = ms.value_and_grad(forward_fn, None, net.trainable_params(), has_aux=True)
-grad_reducer = nn.DistributedGradReducer(optimizer.parameters)
-
-for epoch in range(1):
-    i = 0
-    for image, label in data_set:
-        (loss_value, _), grads = grad_fn(image, label)
-        grads = grad_reducer(grads)
-        optimizer(grads)
-        if i % 10 == 0:
-            print("epoch: %s, step: %s, loss is %s" % (epoch, i, loss_value))
-        i += 1
+input_x = Tensor(np.ones((8, 128, 16, 32)).astype(np.float32))
+network = Net()
+grad_network = Grad(network)
+output = grad_network(input_x)
+print(output)
 ```
 
-### Running Stand-alone 8-card Script
+### Running Script
 
-Next, the corresponding script is called by the command. Take the `mpirun` startup method, the 8-card distributed training script as an example, and perform the distributed training:
+The next command calls the corresponding script as follows:
 
 ```bash
-bash run.sh
+GLOG_v=1 python example.py
 ```
 
-After training, the log files are saved to the `log_output` directory, and by setting the environment variable `MS_DEV_SAVE_GRAPHS` to 2, you can print out the IR graphs of the compilation process, where some of the file directories are structured as follows:
+With the `GLOG_v=1` command, we can print out the INFO level logs to see the network execution memory footprint as follows:
 
 ```text
-├─ log_output
-|   └─ 1
-|       ├─ rank.0
-|       |   └─ stdout
-|       ├─ rank.1
-|       |   └─ stdout
-|       ...
-├─ rank_0
-|   ├─ xx_validate_xxx.ir
-|   ...
-├─ rank_1
-|   ├─ xx_validate_xxx.ir
-|   ...
-...
+Device MOC memory size: 32768M
+MindSpore Used memory size: 30682M
+MindSpore memory base address: 0x12c100000000
+Total Static Memory size: 1032M
+Total Dynamic memory size: 167M
+Actual peak memory usage: 1199M
+Dynamic memory size of this graph: 0M
 ```
 
-The results on the Loss section are saved in `log_output/1/rank.*/stdout`, and the example is as below:
+You can see that the size of the dynamic memory footprint for executing this network is 167 MB. If we set the environment variable `export MS_DEV_SAVE_GRAPHS=1` before executing the script, you can see that the `xx_validate_xxx.ir` file is generated in the directory where the script is executed. Open the `xx_validate_xxx.ir` file as follows, we can see that the calculation result of node %38 is needed for the calculation of node %41 (forward propagation operator) and node %291 (backward propagation operator), so the memory occupied by the calculation result of node %38 needs to wait until the calculation of node %291 is completed before it is released (here the % followed by the sequence number is related to the operator execution sequence). The reason for the long memory footprint of the node %38 computation result is that the order of the backpropagation is reversed from the forward propagation, and the backpropagation function corresponding to the first `Block` inside the 10 `Blocks` in the forward propagation is the last to be executed instead.
 
 ```text
-epoch: 0, step: 0, loss is 2.2929618
-epoch: 0, step: 10, loss is 2.2396836
-epoch: 0, step: 20, loss is 2.2097976
-epoch: 0, step: 30, loss is 2.1942225
-epoch: 0, step: 40, loss is 2.0986974
-epoch: 0, step: 50, loss is 2.0612597
+%38(equiv_11_real_div1) = PrimFunc_RealDiv(%37, Tensor(shape=[], dtype=Float32, value=2.37891)) {instance name: real_div2} cnode_attrs: {checkpoint: Bool(1)} cnode_primal_attrs: {unique_id: "10058"}
+      : (<Tensor[Float32], (8, 16, 128, 32)>, <Tensor[Float32], (), value=...>) -> (<Tensor[Float32], (8, 16, 128, 32)>)
+      # Fullname with scope: (Default/net-Net/blocks-CellList/0-Block/RealDiv-op0)
 ...
+%41(equiv_8_batch_matmul1) = PrimFunc_BatchMatMul(%38, %40, Bool(0), Bool(0)) cnode_attrs: {checkpoint: Bool(1)} cnode_primal_attrs: {unique_id: "10055"}
+      : (<Tensor[Float32], (8, 16, 128, 32)>, <Tensor[Float32], (8, 16, 32, 128)>, <Bool, NoShape>, <Bool, NoShape>) -> (<Tensor[Float32], (8, 16, 128, 128)>)
+      # Fullname with scope: (Default/net-Net/blocks-CellList/0-Block/BatchMatMul-op0)
+...
+%291(CNode_401) = PrimFunc_BatchMatMul(%38, %287, Bool(1), Bool(0)) cnode_attrs: {checkpoint: Bool(1)} cnode_primal_attrs: {forward_node_name: "BatchMatMul_10055", forward_unique_id: "10055"}
+      : (<Tensor[Float32], (8, 16, 128, 32)>, <Tensor[Float32], (8, 16, 128, 128)>, <Bool, NoShape>, <Bool, NoShape>) -> (<Tensor[Float32], (8, 16, 32, 128)>)
+      # Fullname with scope: (Gradients/Default/net-Net/blocks-CellList/0-Block/Grad_BatchMatMul/BatchMatMul-op38)
 ```
 
-Computation graph results is in `xx_validate_xxx.ir` before setting up the recomputation:
+If we do recomputation of the first `Block`, we can make the first `Block` to be released immediately after the forward part of the calculation is finished, and go for recomputation only at the time of reverse propagation, thus we can significantly shorten the time of memory occupancy and reduce the memory spikes. The code for using recomputation is as follows:
+
+```python
+class Net(Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.blocks = nn.CellList()
+        for _ in range(10):
+            b = Block()
+            # Call the recompute interface on each Block to turn on recomputation
+            b.recompute()
+            self.blocks.append(b)
+
+    def construct(self, x):
+        out = x
+        for i in range(10):
+            out = self.blocks[i](out)
+        return out
+```
+
+After using recomputation, we then run the script as follows:
+
+```bash
+GLOG_v=1 python example.py
+```
+
+Checking the network execution memory footprint size again, as shown below, the dynamic memory footprint for executing this network is reduced to 69 MB.
 
 ```text
-...
-  %81(1285) = MatMul(%80, %11) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24422", forward_unique_id: "24422"}
-      : (<Tensor[Float32], (32, 10)>, <Tensor[Float32], (512, 10)>) -> (<Tensor[Float32], (32, 512)>)
-...
-  %82(1286) = ReluGrad(%81, %10) primitive_attrs: {output_names: (output), input_names: (x)} cnode_primal_attrs: {forward_node_name: "ReLU_24405", forward_unique_id: "24405"}
-      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
-...
-  %83(1285) = MatMul(%82, %6) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24434", forward_unique_id: "24434"}
-      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (512, 512)>) -> (<Tensor[Float32], (32, 512)>)
-...
-  %84(1286) = ReluGrad(%83, %5) primitive_attrs: {output_names: (output), input_names: (x)} cnode_primal_attrs: {forward_node_name: "ReLU_24408", forward_unique_id: "24408"}
-      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
-...
-  %85(1285) = MatMul(%0, %84) primitive_attrs: {output_names: (output), transpose_a: Bool(1), input_names: (x1, x2), transpose_x2: Bool(0), transpose_x1: Bool(1), transpose_b: Bool(0)} cnode_primal_attrs: {forward_node_name: "MatMul_24446", forward_unique_id: "24446"}
-      : (<Tensor[Float32], (32, 784)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (784, 512)>)
-...
+Device MOC memory size: 32768M
+MindSpore Used memory size: 30680M
+MindSpore memory base address: 0x12c100000000
+Total Static Memory size: 1032M
+Total Dynamic memory size: 69M
+Actual peak memory usage: 1101M
+Dynamic memory size of this graph: 0M
 ```
 
-After setting the recomputation:
+Open the `xx_validate_xxx.ir` file again, as shown below, and you can see that the first input to the backpropagation node %429 is node %416, which is copied based on the forward propagation node %38, and the memory occupied by the computation results of node %38 can be released after the computation of node %41, thus improving the memory reuse rate.
 
 ```text
+%38(equiv_93_real_div1) = PrimFunc_RealDiv(%37, Tensor(shape=[], dtype=Float32, value=2.37891)) {instance name: real_div2} cnode_attrs: {recompute_sub_graph: U64(0), recompute_id: I64(5), recompute: Bool(1), need_cse_after_recompute: Bool(1)} cnode_primal_attrs: {unique_id: "13860"}
+      : (<Tensor[Float32], (8, 16, 128, 32)>, <Tensor[Float32], (), value=...>) -> (<Tensor[Float32], (8, 16, 128, 32)>)
+      # Fullname with scope: (recompute_Default/net-Net/blocks-CellList/0-Block/RealDiv-op0)
 ...
-  %81(1285) = MatMul(%80, %11) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24422", forward_unique_id: "24422"}
-      : (<Tensor[Float32], (32, 10)>, <Tensor[Float32], (512, 10)>) -> (<Tensor[Float32], (32, 512)>)
+%41(equiv_90_batch_matmul1) = PrimFunc_BatchMatMul(%38, %40, Bool(0), Bool(0)) {instance name: batch_matmul2} cnode_attrs: {recompute_sub_graph: U64(0), recompute_id: I64(8), recompute: Bool(1), need_cse_after_recompute: Bool(1)} cnode_primal_attrs: {unique_id: "13857"}
+      : (<Tensor[Float32], (8, 16, 128, 32)>, <Tensor[Float32], (8, 16, 32, 128)>, <Bool, NoShape>, <Bool, NoShape>) -> (<Tensor[Float32], (8, 16, 128, 128)>)
+      # Fullname with scope: (recompute_Default/net-Net/blocks-CellList/0-Block/BatchMatMul-op0)
 ...
-  %84([CNode]1292) = ReLU(%83) {instance name: relu2} primitive_attrs: {output_names: [output], input_names: [x], recompute: Bool(1)} cnode_attrs: {recompute_sub_graph: U64(1), recompute_id: I64(2), duplicated: Bool(1), need_cse_after_recompute: Bool(1)}
-      : (<Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
-      # Scope: (Default)
-  %85([CNode]1293) = ReluGrad(%81, %84) primitive_attrs: {output_names: (output), input_names: (x)} cnode_attrs: {recompute_sub_graph: U64(1), target_grad: Bool(1)} cnode_primal_attrs: {forward_node_name: "ReLU_24405", forward_unique_id: "24405"}
-      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
+%416(CNode_1062) = PrimFunc_RealDiv(%410, Tensor(shape=[], dtype=Float32, value=2.37891)) {instance name: real_div2} cnode_attrs: {recompute_sub_graph: U64(0), recompute_id: I64(5), duplicated: Bool(1), need_cse_after_recompute: Bool(1)}
+      : (<Tensor[Float32], (8, 16, 128, 32)>, <Tensor[Float32], (), value=...>) -> (<Tensor[Float32], (8, 16, 128, 32)>)
+      # Fullname with scope: (recompute_Default/net-Net/blocks-CellList/0-Block/RealDiv-op2)
 ...
-  %86(1285) = MatMul(%85, %6) primitive_attrs: {output_names: (output), transpose_a: Bool(0), input_names: (x1, x2), transpose_x2: Bool(1), transpose_x1: Bool(0), transpose_b: Bool(1)} cnode_primal_attrs: {forward_node_name: "MatMul_24434", forward_unique_id: "24434"}
-      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (512, 512)>) -> (<Tensor[Float32], (32, 512)>)
-...
-  %89([CNode]1296) = ReLU(%88) {instance name: relu2} primitive_attrs: {output_names: [output], input_names: [x], recompute: Bool(1)} cnode_attrs: {recompute_sub_graph: U64(0), recompute_id: I64(1), duplicated: Bool(1), need_cse_after_recompute: Bool(1)}
-      : (<Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
-      # Scope: (Default)
-  %90([CNode]1297) = ReluGrad(%86, %89) primitive_attrs: {output_names: (output), input_names: (x)} cnode_attrs: {recompute_sub_graph: U64(0), target_grad: Bool(1)} cnode_primal_attrs: {forward_node_name: "ReLU_24408", forward_unique_id: "24408"}
-      : (<Tensor[Float32], (32, 512)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (32, 512)>)
-...
-  %91(1285) = MatMul(%0, %90) primitive_attrs: {output_names: (output), transpose_a: Bool(1), input_names: (x1, x2), transpose_x2: Bool(0), transpose_x1: Bool(1), transpose_b: Bool(0)} cnode_primal_attrs: {forward_node_name: "MatMul_24446", forward_unique_id: "24446"}
-      : (<Tensor[Float32], (32, 784)>, <Tensor[Float32], (32, 512)>) -> (<Tensor[Float32], (784, 512)>)
-...
+%429(CNode_1075) = PrimFunc_BatchMatMul(%416, %425, Bool(1), Bool(0)) {instance name: batch_matmul2} cnode_attrs: {recompute_sub_graph: U64(0), target_grad: Bool(1), checkpoint: Bool(1)} cnode_primal_attrs: {forward_node_name: "BatchMatMul_13857", forward_unique_id: "13857"}
+      : (<Tensor[Float32], (8, 16, 128, 32)>, <Tensor[Float32], (8, 16, 128, 128)>, <Bool, NoShape>, <Bool, NoShape>) -> (<Tensor[Float32], (8, 16, 32, 128)>)
+      # Fullname with scope: (Gradients/recompute_Default/net-Net/blocks-CellList/0-Block/Grad_BatchMatMul/BatchMatMul-op38)
 ```
-
-It can be seen that the `ReLU` operator is copied out in one copy as input to the reverse operator `ReluGrad`.
