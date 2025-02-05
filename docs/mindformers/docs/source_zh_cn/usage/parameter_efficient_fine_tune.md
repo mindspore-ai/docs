@@ -85,7 +85,7 @@ bash scripts/msrun_launcher.sh "run_mindformer.py \
  --run_mode finetune" 8
 ```
 
-如果加载的权重需要转换后才能加载，加载权重路径应设置为 rank_0 的上一层路径，同时开启权重自动转换功能 --auto_trans_ckpt True：
+如果加载的权重需要转换后才能加载，加载权重路径应设置为 rank_0 的上一层路径，同时开启权重自动转换功能 `--auto_trans_ckpt True`：
 
 ```shell
 bash scripts/msrun_launcher.sh "run_mindformer.py \
