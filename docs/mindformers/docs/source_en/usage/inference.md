@@ -23,7 +23,7 @@ Based on actual operations, the inference process can be divided into the follow
   Select a model based on the required inference task. For example, select Llama2 for text generation.
 
 2. **Preparing the model weight:**
-  Download the weight of the corresponding model from the HuggingFace model library and convert the model to the CKPT format by referring to [Weight Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html).
+  There are two ways to obtain weights. One is to use open-source weights, which can be downloaded from the HuggingFace model library for the corresponding model and then converted to the ckpt format by referring to the [Weight Format Conversion](https://www.mindspore.cn/mindformers/docs/en/dev/function/weight_conversion.html) document. The other is to use distributed weights after pre-training or fine-tuning. You can refer to the [Merging and Splitting of Distributed Weights](https://www.mindspore.cn/mindformers/docs/en/dev/function/transform_weight.html) document to obtain a single inference weight after merging. Then, for single-card inference, it can be used directly, while for multi-card inference, you can choose to use it through offline splitting or online splitting.
 
 3. **Executing inference tasks:**
   Call the `pipeline` API or use the unified script `run_mindformer` to execute inference tasks.
@@ -113,9 +113,13 @@ The inference result is as follows:
 
 ## Inference Based on the run_mindformer Script
 
-For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh). Take Llama2 as an example. You are advised to configure the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml) file. During inference, the vocabulary file `tokenizer.model` required for the Llama2 model will be automatically downloaded (ensuring smooth network connectivity). If the file exists locally, you can place it in the `./checkpoint_dewnload/Llama2/` directory in advance.
+For single-device inference, you can directly run [run_mindformer.py](https://gitee.com/mindspore/mindformers/blob/dev/run_mindformer.py). For multi-device inference, you need to run [scripts/msrun_launcher.sh](https://gitee.com/mindspore/mindformers/blob/dev/scripts/msrun_launcher.sh). Take Llama2 as an example. You are advised to configure the [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml) file.
+
+> During inference, the vocabulary file `tokenizer.model` required for the Llama2 model will be automatically downloaded (ensuring smooth network connectivity). If the file exists locally, you can place it in the `./checkpoint_dewnload/Llama2/` directory in advance.
 
 ## Single-Device Inference
+
+The startup of single-card inference is relatively simple. You just need to execute the following command to start the inference task:
 
 ```shell
 python run_mindformer.py \
@@ -128,7 +132,29 @@ python run_mindformer.py \
 
 ## Multi-Device Inference
 
-Executing the script will start the multi card process, and the logs will be redirected to the `./output/msrun_log` directory. When the `text_generation_result.txt` file appears in the current directory, it proves successful inference. If the file does not appear, you can view the log file.
+In addition to the startup mode dependent on the 'msrun_launcher.sh' script, there are also two places to pay attention to, one is the parallel configuration, the other is the weight loading method.
+
+The current version of inference mode only supports model parallelism. The original parallel configuration needs to be modified before running the command:
+
+```yaml
+# Configuration before modification
+parallel_config:
+  data_parallel: 8
+  model_parallel: 1
+  pipeline_stage: 1
+```
+
+```yaml
+# The modified configuration
+parallel_config:
+  data_parallel: 1
+  model_parallel: 2
+  pipeline_stage: 1
+```
+
+> model_parallel configuration is consistent with the number of cards used, and the parallel configuration used by the weight offline segmentation generation policy file needs to be consistent with the parallel configuration of the actual inference task. The current use case model_parallel is set to 2.
+
+When full weight inference is used, you need to enable the online segmentation mode to load weights. For details, see the following command:
 
 ```shell
 bash scripts/msrun_launcher.sh "python run_mindformer.py \
@@ -140,6 +166,21 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 --predict_data 'I love Beijing, because'" \
 2
 ```
+
+If distributed weight inference is used, you need to disable the online segmentation mode to load weights. For details, see the following command:
+
+```shell
+bash scripts/msrun_launcher.sh "python run_mindformer.py \
+--config configs/llama2/predict_llama2_7b.yaml \
+--run_mode predict \
+--use_parallel True \
+--auto_trans_ckpt False \
+--load_checkpoint path/to/checkpoint_dir \
+--predict_data 'I love Beijing, because'" \
+2
+```
+
+Executing the script will start the multi card process, and the logs will be redirected to the `./output/msrun_log` directory. When the `text_generation_result.txt` file appears in the current directory, it proves successful inference. If the file does not appear, you can view the log file.
 
 ## Multi-Device Multi-Batch Inference
 
