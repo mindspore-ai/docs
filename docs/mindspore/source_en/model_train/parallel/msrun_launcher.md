@@ -24,7 +24,7 @@ A parameters list of command line:
         <td align="left">The total number of Worker processes participating in the distributed task.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">An integer greater than 0. The default value is 8.</td>
-        <td align="left">The total number of Workers started on each node should be equal to this parameter:<br> if the total number is greater than this parameter, the extra Worker processes will fail to register; <br>if the total number is less than this parameter, the cluster will wait for a certain period of timeout before prompting the task to pull up the failed task and exit, <br>and the size of the timeout window can be configured by the parameter <code>cluster_time_out</code>.</td>
+        <td align="left">The total number of Workers started on all nodes should be equal to this parameter:<br> if the total number is greater than this parameter, the extra Worker processes will fail to register; <br>if the total number is less than this parameter, the cluster will wait for a certain period of timeout before prompting the task to pull up the failed task and exit, <br>and the size of the timeout window can be configured by the parameter <code>cluster_time_out</code>.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--local_worker_num</td>
@@ -188,7 +188,7 @@ The following table shows the environment variables can be used in user scripts,
 
 msrun is used as an encapsulation of the Dynamic Cluster startup method, and all user-configurable environment variables can be found in [dynamic networking environment variables](https://www.mindspore.cn/docs/en/master/model_train/parallel/dynamic_cluster.html).
 
-## Operating Practices
+## Starting Distributed Tasks
 
 The startup script is consistent across hardware platforms. The following is an example of how to write a startup script for Ascend:
 
@@ -411,3 +411,93 @@ epoch: 0, step: 80, loss is 1.0076828
 epoch: 0, step: 90, loss is 0.88950706
 ...
 ```
+
+## Multi-Card Parallel Debugging
+
+Multi-card parallel debugging can be done in distributed environments using Python's built-in debugger (pdb), by breaking and synchronizing operations on all or a particular rank. After pulling up a worker process with the `msrun` parameter set to `--join=True`, the standard input of all worker processes is inherited from the `msrun` master process, and the standard output is output to a shell window via the `msrun` log redirection feature. Details of how to use pdb in a distributed environment are given below:
+
+### 1. Starting the pdb Debugger
+
+Users can start the pdb debugger in various ways, such as inserting `import pdb; pdb.set_trace()` or `breakpoint()` in the python training script to perform breakpoint operations.
+
+#### Python Training Script
+
+```python
+import pdb
+import mindspore as ms
+from mindspore.communication import init
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
+init()
+pdb.set_trace()
+ms.set_seed(1)
+```
+
+#### Startup Script
+
+In the startup script, the `msrun` parameter needs to be set to `--join=True` to ensure that pdb commands are passed through stdin and debugging is displayed through stdout.
+
+```bash
+msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log --join=True --cluster_time_out=300 net.py
+```
+
+### 2. Debugging Particular Ranks
+
+In a distributed environment, users may need to debug for a particular rank, which can be accomplished by placing breakpoints in the training script for that particular rank. For example, in the standalone eight-card task, debugging is done only for rank 7:
+
+```python
+import pdb
+import mindspore as ms
+from mindspore.communication import init, get_rank
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
+init()
+if get_rank() == 7:
+    pdb.set_trace()
+ms.set_seed(1)
+```
+
+> The `mindspore.communication.get_rank()` interface needs to be called after the `mindspore.communication.init()` interface has completed its distributed initialization to get the rank information properly, otherwise `get_rank()` will return 0 by default.
+
+After a breakpoint operation on a rank, it will cause the execution of that rank process to stop at the breakpoint and wait for subsequent interactions, while other rank processes will continue to run, which may lead to different processes to be faster or slower. So users can use the `mindspore.communication.comm_func.barrier()` operator and the `mindspore.communication.api._pynative_executor.sync()` to synchronize the running of all ranks, ensuring that other ranks block and wait, and that the stops of other ranks are released once the debugging rank continues to run. For example, in a standalone eight-card task, debugging breakpoints only for rank 7 and blocking all other ranks:
+
+```python
+import pdb
+import mindspore as ms
+from mindspore.communication import init, get_rank
+from mindspore.communication.comm_func import barrier
+from mindspore.common.api import _pynative_executor
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
+init()
+if get_rank() == 7:
+    pdb.set_trace()
+barrier()
+_pynative_executor.sync()
+ms.set_seed(1)
+```
+
+### 3. Stdin and Stdout to Shell Terminial
+
+`msrun` supports outputting specific worker logs to the shell's stdout via `--tail_worker_log`. To make the standard output more observable, it is recommended to use this parameter to specify the rank to be debugged. For example, in the standalone eight-card task, only breakpoints for rank 7 are debugged:
+
+```bash
+msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log --join=True --cluster_time_out=300 --tail_worker_log=7 net.py
+```
+
+> - `msrun`'s default behavior without the `--tail_worker_log` parameter will output the logs of all workers on this node to the shell's stdout.
+> - When debugging multiple ranks at the same time, a single pdb command will be passed to a single rank in turn via stdin.
+
+### 4. Common pdb Debugging Commands
+
+- `n` (next): Execute the current line of code and jump to the next one.
+- `s` (step): Enter the function called in the current line of code, step by step.
+- `c` (continue): Continue executing the program until the next breakpoint.
+- `q` (quit): Exit the debugger and terminate program execution.
+- `p` (print): Print the value of a variable. For example, `p variable` displays the current value of the variable `variable`.
+- `l` (list): Display the context of the current code.
+- `b` (break): Set a breakpoint, either by line number or function name.
+- `h` (help): Display help information, list all available commands.

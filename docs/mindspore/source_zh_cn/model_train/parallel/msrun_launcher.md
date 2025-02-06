@@ -24,7 +24,7 @@
         <td align="left">参与分布式任务的Worker进程总数。</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">大于0的整数。默认值为8。</td>
-        <td align="left">每个节点上启动的Worker总数应当等于此参数：<br>若总数大于此参数，多余的Worker进程会注册失败；<br>若总数小于此参数，集群会在等待一段超时时间后，<br>提示任务拉起失败并退出，<br>超时时间窗大小可通过参数<code>cluster_time_out</code>配置。</td>
+        <td align="left">所有节点上启动的Worker总数应当等于此参数：<br>若总数大于此参数，多余的Worker进程会注册失败；<br>若总数小于此参数，集群会在等待一段超时时间后，<br>提示任务拉起失败并退出，<br>超时时间窗大小可通过参数<code>cluster_time_out</code>配置。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--local_worker_num</td>
@@ -188,7 +188,7 @@
 
 msrun作为动态组网启动方式的封装，所有用户可自定义配置的环境变量可参考[动态组网环境变量](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/dynamic_cluster.html)。
 
-## 操作实践
+## 启动分布式任务
 
 启动脚本在各硬件平台下一致，下面以Ascend为例演示如何编写启动脚本：
 
@@ -411,3 +411,93 @@ epoch: 0, step: 80, loss is 1.0076828
 epoch: 0, step: 90, loss is 0.88950706
 ...
 ```
+
+## 多卡并行调试
+
+在分布式环境中可以使用Python内置的调试器（pdb）来进行多卡并行的调试，通过对所有或者某一rank进行断点和同步操作来实现。在`msrun`参数设置为`--join=True`拉起worker进程后，所有worker进程的标准输入从`msrun`主进程继承，且标准输出通过`msrun`日志重定向功能输出到shell窗口。以下会给出如何在分布式环境下使用pdb的操作细节：
+
+### 1. 启动pdb调试器
+
+用户可以通过多种方式来启动pdb调试器，比如在Python训练脚本中插入`import pdb; pdb.set_trace()`或者`breakpoint()`来进行断点操作。
+
+#### Python训练脚本
+
+```python
+import pdb
+import mindspore as ms
+from mindspore.communication import init
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
+init()
+pdb.set_trace()
+ms.set_seed(1)
+```
+
+#### 启动脚本
+
+在启动脚本中，`msrun`的参数需要设置为`--join=True`来保证通过标准输入传递pdb命令，且通过标准输出显示调试情况。
+
+```bash
+msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log --join=True --cluster_time_out=300 net.py
+```
+
+### 2. 针对rank进行调试
+
+在分布式环境中，用户可能需要针对某一rank进行调试，这可以通过在训练脚本中对特定的rank进行断点操作实现。比如在单机八卡任务中，仅针对rank 7进行断点调试：
+
+```python
+import pdb
+import mindspore as ms
+from mindspore.communication import init, get_rank
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
+init()
+if get_rank() == 7:
+    pdb.set_trace()
+ms.set_seed(1)
+```
+
+> `mindspore.communication.get_rank()`接口需要在调用`mindspore.communication.init()`接口完成分布式初始化后才能正常获取rank信息，否则`get_rank()`默认返回0。
+
+在对某一rank进行断点操作之后，会导致该rank进程执行停止在断点处等待后续交互操作，而其他未断点rank进程会继续运行，这样可能会导致快慢卡的情况，所以可以使用`mindspore.communication.comm_func.barrier()`算子和`mindspore.common.api._pynative_executor.sync()`来同步所有rank的运行，确保其他rank阻塞等待，且一旦调试的rank继续运行则其他rank的停止会被释放。比如在单机八卡任务中，仅针对rank 7进行断点调试且阻塞所有其他rank：
+
+```python
+import pdb
+import mindspore as ms
+from mindspore.communication import init, get_rank
+from mindspore.communication.comm_func import barrier
+from mindspore.common.api import _pynative_executor
+
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.DATA_PARALLEL, gradients_mean=True)
+init()
+if get_rank() == 7:
+    pdb.set_trace()
+barrier()
+_pynative_executor.sync()
+ms.set_seed(1)
+```
+
+### 3. shell终端的标准输入和标准输出
+
+`msrun`支持通过`--tail_worker_log`将特定的worker日志输出到shell的标准输出，为了使标准输出更利于观察，推荐使用此参数来指定输出需要断点调试的rank。比如在单机八卡任务中，仅针对rank 7进行断点调试：
+
+```bash
+msrun --worker_num=8 --local_worker_num=8 --master_port=8118 --log_dir=msrun_log --join=True --cluster_time_out=300 --tail_worker_log=7 net.py
+```
+
+> - `msrun`不使用`--tail_worker_log`参数的默认行为会把本节点所有worker的日志输出到shell的标准输出。
+> - 在同时调试多个rank时，一个pdb的指令会依次通过标准输入传递到一个rank上。
+
+### 4. 常用pdb调试命令
+
+- `n` (next)：执行当前行代码，跳到下一行代码。
+- `s` (step)：进入当前行代码调用的函数，逐步调试。
+- `c` (continue)：继续执行程序，直到下一个断点。
+- `q` (quit)：退出调试器并终止程序执行。
+- `p` (print)：打印变量的值。例如，`p variable`会显示变量`variable`的当前值。
+- `l` (list)：显示当前代码的上下文。
+- `b` (break)：设置断点，可以指定行号或函数名。
+- `h` (help)：显示帮助信息，列出所有可用命令。
