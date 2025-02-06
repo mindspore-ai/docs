@@ -46,5 +46,6 @@ print(y.item())
 
 # PyTorch
 z = torch.tensor([1.0])
+print(z.item())
 # 1.0
 ```
