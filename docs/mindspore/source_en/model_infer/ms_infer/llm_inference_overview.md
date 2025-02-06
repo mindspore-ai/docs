@@ -1,6 +1,6 @@
 # MindSpore Large Language Model Inference
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_infer/ms_infer/llm_inference_overview.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_en/model_infer/ms_infer/llm_inference_overview.md)
 
 ## Background
 
@@ -105,7 +105,7 @@ pip install mindformers
 
 You can also install the Python package that adapts to your environment by referring to the official installation document. For details, see [MindSpore Installation](https://www.mindspore.cn/install/en) and [MindFormers Installation](https://www.mindspore.cn/mindformers/docs/en/dev/quick_start/install.html).
 
-If you wish to use model quantization to enhance inference performance, you need to install the **mindspore_gs** package. For details, see [Installing MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/master/install.html).
+If you wish to use model quantization to enhance inference performance, you need to install the **mindspore_gs** package. For details, see [Installing MindSpore Golden Stick](https://www.mindspore.cn/golden_stick/docs/en/r1.0.0/install.html).
 
 ### Weight Preparation
 

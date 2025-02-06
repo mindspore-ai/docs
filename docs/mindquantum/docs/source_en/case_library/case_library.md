@@ -1,6 +1,6 @@
 # Case Library
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/case_library/case_library.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindquantum/docs/source_en/case_library/case_library.md)
 
 Comprehensive case tutorials in the field of universal quantum algorithms and variational quantum algorithms that can help you quickly get started in related research areas.
 

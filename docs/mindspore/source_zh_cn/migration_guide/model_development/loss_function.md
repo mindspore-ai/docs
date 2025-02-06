@@ -1,8 +1,8 @@
 # 损失函数
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/model_development/loss_function.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_zh_cn/migration_guide/model_development/loss_function.md)
 
-在阅读本章节之前，请先阅读MindSpore官网教程[损失函数](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/loss.html)。
+在阅读本章节之前，请先阅读MindSpore官网教程[损失函数](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/custom_program/loss.html)。
 
 MindSpore官网教程损失函数中讲解了内置、自定义和多标签损失函数，以及在模型训练中的使用指导，这里就MindSpore的损失函数与PyTorch的损失函数在功能和接口差异方面给出差异列表。
 

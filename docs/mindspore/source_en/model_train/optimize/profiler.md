@@ -1,6 +1,6 @@
 # Ascend Performance Tuning
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/optimize/profiler.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_en/model_train/optimize/profiler.md)
 
 ## Overview
 
@@ -22,7 +22,7 @@ There are three ways to collect training performance data, users can use the Pro
 
 ### Method 1: mindspore.Profiler Interface Enabling
 
-Add the MindSpore Profiler related interfaces in the training script, see [MindSpore Profiler parameter details](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html) for details.
+Add the MindSpore Profiler related interfaces in the training script, see [MindSpore Profiler parameter details](https://www.mindspore.cn/docs/en/r2.5.0/api_python/mindspore/mindspore.Profiler.html) for details.
 
 **Graph mode collection example:**
 
@@ -53,7 +53,7 @@ class StopAtStep(ms.Callback):
             self.profiler.analyse()
 ```
 
-For the complete case, refer to [graph mode collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/graph_start_stop_profiler.py)
+For the complete case, refer to [graph mode collection complete code example](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/sample_code/profiler/graph_start_stop_profiler.py)
 
 **PyNative mode collection example:**
 
@@ -80,7 +80,7 @@ with Profiler(schedule=schedule(wait=0, warmup=0, active=2, repeat=1, skip_first
 
 After enabling, the Step ID column information is included in the kernel_details.csv file, and the Step ID is 0,1, indicating that the data collected is the 0th and 1st step data.
 
-For the complete case, refer to [PyNative mode collection complete code example](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/py_native_step_profiler.py)
+For the complete case, refer to [PyNative mode collection complete code example](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/sample_code/profiler/py_native_step_profiler.py)
 
 ### Method 2: Dynamic Profiler Enabling
 
@@ -103,7 +103,7 @@ JSON configuration example as follows:
 }
 ```
 
-1. Users need to configure the above JSON configuration file before instantiating DynamicProfilerMonitor, see [DynamicProfilerMonitor parameter details](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html) for details, and save the configuration file to cfg_path;
+1. Users need to configure the above JSON configuration file before instantiating DynamicProfilerMonitor, see [DynamicProfilerMonitor parameter details](https://www.mindspore.cn/docs/en/r2.5.0/api_python/mindspore/mindspore.profiler.DynamicProfilerMonitor.html) for details, and save the configuration file to cfg_path;
 2. Call the step interface of DynamicProfilerMonitor after the model training to collect data;
 3. If users want to change the collection and analysis tasks during training, they can modify the JSON configuration file, such as changing the start_step in the above JSON configuration to 8, stop_step to 10, save it, and DynamicProfilerMonitor will automatically identify that the configuration file has changed to the new collection and analysis tasks.
 
@@ -125,11 +125,11 @@ for _ in range(STEP_NUM):
 
 At this point, the results include two folders: rank0_start2_stop5 and rank0_start8_stop10, representing the collection of steps 2-5 and 8-10 respectively.
 
-For the complete case, refer to [dynamic profiler enabling method case](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/profiler/dynamic_profiler.py).
+For the complete case, refer to [dynamic profiler enabling method case](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/sample_code/profiler/dynamic_profiler.py).
 
 ### Method 3: Environment Variable Enabling
 
-Users can use the environment variable enabling method to enable Profiler most simply, this method only needs to configure the parameters to the environment variables, and the performance data will be automatically collected during the model training, but this method does not support the schedule parameter collection data, other parameters can be used. See [environment variable enabling method parameter details](https://www.mindspore.cn/docs/en/master/api_python/env_var_list.html) for details.
+Users can use the environment variable enabling method to enable Profiler most simply, this method only needs to configure the parameters to the environment variables, and the performance data will be automatically collected during the model training, but this method does not support the schedule parameter collection data, other parameters can be used. See [environment variable enabling method parameter details](https://www.mindspore.cn/docs/en/r2.5.0/api_python/env_var_list.html) for details.
 
 Environment variable enabling method related configuration items, sample as follows:
 

@@ -1,6 +1,6 @@
 # MindSpore大语言模型推理
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_infer/ms_infer/llm_inference_overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_zh_cn/model_infer/ms_infer/llm_inference_overview.md)
 
 ## 特性背景
 
@@ -105,7 +105,7 @@ pip install mindformers
 
 同时，用户也可以参考官方安装文档来安装自己环境适配的Python包，具体见[MindSpore安装](https://www.mindspore.cn/install)和[MindFormers安装](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/quick_start/install.html)。
 
-如果用户需要使用模型量化能力提升模型推理性能，还需要安装mindspore_gs包，具体可以参考[MindSpore GoldenStick安装](https://www.mindspore.cn/golden_stick/docs/zh-CN/master/install.html)
+如果用户需要使用模型量化能力提升模型推理性能，还需要安装mindspore_gs包，具体可以参考[MindSpore GoldenStick安装](https://www.mindspore.cn/golden_stick/docs/zh-CN/r1.0.0/install.html)
 
 ### 权重准备
 

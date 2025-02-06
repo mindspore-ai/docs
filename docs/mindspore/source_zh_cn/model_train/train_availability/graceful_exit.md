@@ -1,12 +1,12 @@
 # 进程优雅退出
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/train_availability/graceful_exit.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_zh_cn/model_train/train_availability/graceful_exit.md)
 
 ## 概述
 
 当训练集群中存在亚健康设备时，在亚健康设备发生故障之前完成checkpoint保存，并结束集群训练进程，可以有效避免集群损坏时权重数据丢失问题，同时也可以避免训练恢复时的训练数据数据回滚，加载checkpoint回滚等问题，有效避免训练资源浪费。
 
-> 本文档为介绍使用进程优雅退出功能的用例，为说明具体使用方式，我们假设在第一个训练step时，就检测到退出配置信息，提前结束训练进程。你可以在这里下载完整代码：[process_graceful_exit](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/graceful_exit/) 。
+> 本文档为介绍使用进程优雅退出功能的用例，为说明具体使用方式，我们假设在第一个训练step时，就检测到退出配置信息，提前结束训练进程。你可以在这里下载完整代码：[process_graceful_exit](https://gitee.com/mindspore/docs/tree/r2.5.0/docs/sample_code/graceful_exit/) 。
 
 其中，`graceful_exit.py` 为训练脚本，`train.sh` 为 `msrun` 启动脚本, `graceful_exit.json` 为优雅退出配置文件。
 
@@ -157,7 +157,7 @@ config_json = r"./graceful_exit.json"
 cb = OnRequestExit(file_name="LeNet", config_file=config_json)
 ```
 
-另外，在配置 `OnRequestExit` callback函数时，保存mindir、保存checkpoint以及其他配置参数可以根据需要自行配置，详情参见[OnRequestExit](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.OnRequestExit.html) 。
+另外，在配置 `OnRequestExit` callback函数时，保存mindir、保存checkpoint以及其他配置参数可以根据需要自行配置，详情参见[OnRequestExit](https://www.mindspore.cn/docs/zh-CN/r2.5.0/api_python/train/mindspore.train.OnRequestExit.html) 。
 
 ```python
 def graceful_exit_case():

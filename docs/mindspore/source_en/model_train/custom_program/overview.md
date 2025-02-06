@@ -1,6 +1,6 @@
 # Overview of Custom Higher-Order Programming
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/custom_program/overview.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_en/model_train/custom_program/overview.md)
 
 During the training process, when the advanced methods provided by the framework cannot satisfy certain scenarios of the developer, or when the developer has high performance requirements, a customized method can be used to add or modify certain processes to meet development or debugging requirements.
 
@@ -8,7 +8,7 @@ Currently MindSpore provides some ways to customize higher-order programming, an
 
 ## Customizing Operators
 
-When the built-in operators are not sufficient, you can utilize the [Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) principle to quickly and easily define and use different types of custom operators.
+When the built-in operators are not sufficient, you can utilize the [Custom](https://www.mindspore.cn/docs/en/r2.5.0/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) principle to quickly and easily define and use different types of custom operators.
 
 ## Customizing Neural Network Layers
 

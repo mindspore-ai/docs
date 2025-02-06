@@ -1,12 +1,12 @@
 # Network Migration Debugging Example
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/sample_code.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_en/migration_guide/sample_code.md)
 
 The following uses the classic network ResNet50 as an example to describe the network migration method in detail based on the code.
 
 ## Model Analysis and Preparation
 
-Assume that the MindSpore operating environment has been configured according to [Environment Preparation and Information Acquisition](https://www.mindspore.cn/docs/en/master/migration_guide/enveriment_preparation.html). Assume that ResNet-50 has not been implemented in the models repository.
+Assume that the MindSpore operating environment has been configured according to [Environment Preparation and Information Acquisition](https://www.mindspore.cn/docs/en/r2.5.0/migration_guide/enveriment_preparation.html). Assume that ResNet-50 has not been implemented in the models repository.
 
 First, analyze the algorithm and network structure.
 
@@ -14,7 +14,7 @@ The Residual Neural Network (ResNet) was proposed by Kaiming He et al. from Micr
 
 [Paper](https://arxiv.org/pdf/1512.03385.pdf): Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun."Deep Residual Learning for Image Recognition"
 
-The [sample code of PyTorch ResNet-50 CIFAR-10](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch) contains the PyTorch ResNet implementation, CIFAR-10 data processing, network training, and inference processes.
+The [sample code of PyTorch ResNet-50 CIFAR-10](https://gitee.com/mindspore/docs/tree/r2.5.0/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch) contains the PyTorch ResNet implementation, CIFAR-10 data processing, network training, and inference processes.
 
 ### Checklist
 
@@ -72,7 +72,7 @@ You can download training logs and saved parameter files from [resnet_pytorch_re
   | `nn.Linear`            | `nn.Dense`         | Yes. [Difference](https://www.mindspore.cn/docs/en/r2.4.0/note/api_mapping/pytorch_diff/Dense.html)|
   | `torch.flatten`        | `nn.Flatten`       | No|
 
-  By using [MindSpore Dev Toolkit](https://www.mindspore.cn/docs/en/master/migration_guide/migrator_with_tools.html#network-migration-development) tool or checking [PyTorch API Mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html), we find that four APIs are different.
+  By using [MindSpore Dev Toolkit](https://www.mindspore.cn/docs/en/r2.5.0/migration_guide/migrator_with_tools.html#network-migration-development) tool or checking [PyTorch API Mapping](https://www.mindspore.cn/docs/en/r2.5.0/note/api_mapping/pytorch_api_mapping.html), we find that four APIs are different.
 
 - Function analysis
 
@@ -201,7 +201,7 @@ def create_cifar_dataset(dataset_path, do_train, batch_size=32,
 
 ### Network Model Implementation
 
-By referring to [PyTorch ResNet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py), we have implemented [MindSpore ResNet](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py). The comparison tool shows that the implementation is different in the following aspects:
+By referring to [PyTorch ResNet](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch/resnet.py), we have implemented [MindSpore ResNet](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_ms/src/resnet.py). The comparison tool shows that the implementation is different in the following aspects:
 
 <table class="colwidths-auto docutils align-default">
 <tr>
@@ -914,7 +914,7 @@ When inference results are inconsistent, here the tool [TroubleShooter compares 
 
 ## Training Process
 
-For details about the PyTorch training process, see [PyToch ResNet-50 CIFAR-10 Sample Code](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch). The log file and trained path are stored in [resnet_pytorch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytorch_res.zip).
+For details about the PyTorch training process, see [PyToch ResNet-50 CIFAR-10 Sample Code](https://gitee.com/mindspore/docs/tree/r2.5.0/docs/mindspore/source_zh_cn/migration_guide/code/resnet_convert/resnet_pytorch). The log file and trained path are stored in [resnet_pytorch_res](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/resnet_pytorch_res.zip).
 
 The corresponding MindSpore code is as follows:
 

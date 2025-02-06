@@ -1,6 +1,6 @@
 # 应用SCOP算法
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/golden_stick/docs/source_zh_cn/pruner/scop.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/golden_stick/docs/source_zh_cn/pruner/scop.md)
 
 ## 背景
 
@@ -46,7 +46,7 @@ SCOP训练分为Knockoff阶段和Finetune阶段，Knockoff阶段对应于前文�
 
 ### Knockoff Data阶段
 
-初始化ResNet50网络，加载预训练模型，通过PrunerKfCompressAlgo进行节点替换(详情用户可参考[API](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/scop/scop_pruner.py))，得到Knockoff阶段的网络，并进行训练。(注：Knockoff Data阶段的dataset_sink_mode必须设置为False，因为在Knockoff Data阶段SCOP算法会修改数据。)
+初始化ResNet50网络，加载预训练模型，通过PrunerKfCompressAlgo进行节点替换(详情用户可参考[API](https://gitee.com/mindspore/golden-stick/blob/r1.0.0/mindspore_gs/pruner/scop/scop_pruner.py))，得到Knockoff阶段的网络，并进行训练。(注：Knockoff Data阶段的dataset_sink_mode必须设置为False，因为在Knockoff Data阶段SCOP算法会修改数据。)
 
 ```python
 from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
@@ -95,7 +95,7 @@ step_5: loss=4.715785
 
 ### Finetune阶段
 
-通过Knockoff阶段确认冗余的卷积核，通过PrunerFtCompressAlgo进行节点替换(详情用户可参考[API](https://gitee.com/mindspore/golden-stick/blob/master/mindspore_gs/pruner/scop/scop_pruner.py))删除冗余卷积核，进行完整的训练并保存模型。
+通过Knockoff阶段确认冗余的卷积核，通过PrunerFtCompressAlgo进行节点替换(详情用户可参考[API](https://gitee.com/mindspore/golden-stick/blob/r1.0.0/mindspore_gs/pruner/scop/scop_pruner.py))删除冗余卷积核，进行完整的训练并保存模型。
 
 ```python
 from mindspore_gs import PrunerFtCompressAlgo
@@ -210,7 +210,7 @@ if __name__ == "__main__":
     export(network, inputs, file_name="ResNet_SCOP", file_format='MINDIR')
 ```
 
-导出剪枝模型后，请[使用MindSpore进行推理](https://www.mindspore.cn/docs/zh-CN/master/model_infer/ms_infer/llm_inference_overview.html)。
+导出剪枝模型后，请[使用MindSpore进行推理](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_infer/ms_infer/llm_inference_overview.html)。
 
 ## 算法效果汇总
 

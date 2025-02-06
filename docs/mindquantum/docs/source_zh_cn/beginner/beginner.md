@@ -1,6 +1,6 @@
 # 初级使用教程
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_zh_cn/beginner/beginner.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindquantum/docs/source_zh_cn/beginner/beginner.md)
 
 了解 MindSpore Quantum 的基本组成元素，包括量子门、量子线路、哈密顿量和量子模拟器的生成与使用。
 

@@ -1,6 +1,6 @@
 # Sharding Strategy Propagation Algorithm
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/parallel/sharding_propagation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_en/model_train/parallel/sharding_propagation.md)
 
 ## Overview
 
@@ -36,7 +36,7 @@ The following is an illustration of the sharding strategy propagation operation 
 
 ### Sample Code Description
 
-> Download the complete sample code: [sharding_propagation](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/sharding_propagation).
+> Download the complete sample code: [sharding_propagation](https://gitee.com/mindspore/docs/tree/r2.5.0/docs/sample_code/sharding_propagation).
 
 The directory structure is as follows:
 
@@ -279,8 +279,8 @@ In `xx_validate_xxx.ir`, you can see that the input and output tensor of each op
 
 For the first MatMul operator, after its inputs are sliced according to the strategy ((2, 1), (1, 4)), the shapes of the first and second inputs are sliced into (128, 784), (784, 16) from the original (256, 784), (784, 64), respectively, and thus the output shape of (128, 16) is obtained.
 
-Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/docs/en/master/model_train/parallel/startup_method.html).
+Other startup methods such as dynamic networking and `rank table` startup can be found in [startup methods](https://www.mindspore.cn/docs/en/r2.5.0/model_train/parallel/startup_method.html).
 
 ### Empirical Principles on Configuring Sharding Strategies
 
-Given a new model with numerous operators, from the user's perspective, a key problem is to determine which operators should be configured, with what sharding strategies. Since the goal of Sharding Propagation is to minimize Tensor Redistribution cost, instead of finding the global minima of end-to-end step time, it is crucial to configure proper sharding strategies for "key operators". There is no compulsory standard specifying which operators must be configured. However, based on our experience of training large models, there are indeed some principles guiding users to annotate shardings. We have summarized 3 empirical principles for reference, as detailed in [Split Technique](https://www.mindspore.cn/docs/en/master/model_train/parallel/split_technique.html).
+Given a new model with numerous operators, from the user's perspective, a key problem is to determine which operators should be configured, with what sharding strategies. Since the goal of Sharding Propagation is to minimize Tensor Redistribution cost, instead of finding the global minima of end-to-end step time, it is crucial to configure proper sharding strategies for "key operators". There is no compulsory standard specifying which operators must be configured. However, based on our experience of training large models, there are indeed some principles guiding users to annotate shardings. We have summarized 3 empirical principles for reference, as detailed in [Split Technique](https://www.mindspore.cn/docs/en/r2.5.0/model_train/parallel/split_technique.html).

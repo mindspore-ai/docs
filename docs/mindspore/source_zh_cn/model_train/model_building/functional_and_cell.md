@@ -1,6 +1,6 @@
 # Functional与Cell
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/model_building/functional_and_cell.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_zh_cn/model_train/model_building/functional_and_cell.md)
 
 ## 算子Functional接口
 
@@ -211,10 +211,10 @@ Cell name: sequential_block.2, type: <class 'mindspore.nn.layer.activation.ReLU'
 
 调试深度学习网络是每一个深度学习领域的从业者需要面对且投入精力较大的工作。由于深度学习网络隐藏了中间层算子的输入、输出数据以及反向梯度，只提供网络输入数据（特征量、权重）的梯度，导致无法准确地感知中间层算子的数据变化，从而降低了调试效率。为了方便用户准确、快速地对深度学习网络进行调试，MindSpore在动态图模式下设计了Hook功能，使用Hook功能可以捕获中间层算子的输入、输出数据以及反向梯度。
 
-目前，动态图模式下 `MindSpore.nn.Cell` 提供了四种形式的Hook功能，分别是：`register_forward_pre_hook` 、 `register_forward_hook` 、`register_backward_hook` 和 `register_backward_pre_hook` 功能。详见[Hook编程](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/hook_program.html)。
+目前，动态图模式下 `MindSpore.nn.Cell` 提供了四种形式的Hook功能，分别是：`register_forward_pre_hook` 、 `register_forward_hook` 、`register_backward_hook` 和 `register_backward_pre_hook` 功能。详见[Hook编程](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/custom_program/hook_program.html)。
 
 ### 重计算
 
 MindSpore采用反向模式的自动微分，根据正向图计算流程来自动推导出反向图，正向图和反向图一起构成了完整的计算图。在计算某些反向算子时，需要用到一些正向算子的计算结果，导致这些正向算子的计算结果需要驻留在内存中，直到依赖它们的反向算子计算完，这些正向算子的计算结果占用的内存才会被复用。这一现象推高了训练的内存峰值，在大规模网络模型中尤为显著。
 
-为了解决这个问题，`mindspore.nn.Cell.recompute` 接口提供了重计算的功能。重计算功能可以不保存正向算子的计算结果，让这些内存可以被复用，在计算反向算子时，如果需要正向的结果，再重新计算正向算子。详见[重计算](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/recompute.html)。
+为了解决这个问题，`mindspore.nn.Cell.recompute` 接口提供了重计算的功能。重计算功能可以不保存正向算子的计算结果，让这些内存可以被复用，在计算反向算子时，如果需要正向的结果，再重新计算正向算子。详见[重计算](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/parallel/recompute.html)。

@@ -1,6 +1,6 @@
 # Power-off Checkpoint Preservation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/train_availability/mindio_ttp.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_en/model_train/train_availability/mindio_ttp.md)
 
 ## Overview
 
@@ -14,13 +14,13 @@ The following is an example of how to configure the power-off CKPT function for 
 2. Only sink_size=1 is supported for step correctness.
 3. Only optimizers whose parent class type is MindSpore Optimizer are supported.
 4. Only networks with data parallelism greater than 1 are supported to ensure that replica relationships exist for model parameters.
-5. If the network turns on optimizer parallelism, you must enable optimizer_weight_shard_size:2 and make sure it is in effect so that there is a replica relationship for the optimizer parameters, see [Optimizer Parallelism](https://www.mindspore.cn/docs/en/master/model_train/parallel/optimizer_parallel.html#advanced-interfaces) for details.
+5. If the network turns on optimizer parallelism, you must enable optimizer_weight_shard_size:2 and make sure it is in effect so that there is a replica relationship for the optimizer parameters, see [Optimizer Parallelism](https://www.mindspore.cn/docs/en/r2.5.0/model_train/parallel/optimizer_parallel.html#advanced-interfaces) for details.
 
 ## Sample Code Description
 
 > You can download the full sample code here:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/mindio_ttp>.
+> <https://gitee.com/mindspore/docs/tree/r2.5.0/docs/sample_code/mindio_ttp>.
 
 The directory structure is as follows:
 
@@ -161,7 +161,7 @@ dataset = create_dataset(32)
 
 ## Optimizer Definition and Encapsulation
 
-The TFT optimizer needs to be set up to enable the power-off CKPT function. After setting up the TFT optimizer, the status can be reported to MindIO TFT after the gradient calculation is completed and before the optimizer is updated. The TFT optimizer is configured with `OptTFTWrapper`, see [OptTFTWrapper](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.OptTFTWrapper.html).
+The TFT optimizer needs to be set up to enable the power-off CKPT function. After setting up the TFT optimizer, the status can be reported to MindIO TFT after the gradient calculation is completed and before the optimizer is updated. The TFT optimizer is configured with `OptTFTWrapper`, see [OptTFTWrapper](https://www.mindspore.cn/docs/en/r2.5.0/api_python/nn/mindspore.nn.OptTFTWrapper.html).
 
 ```python
 optimizer = nn.SGD(net.trainable_params(), 1e-2)
@@ -179,7 +179,7 @@ model = ms.Model(net,  optimizer=optimizer_wrapper)
 
 ## Callback Configuration
 
-To enable the power-off CKPT feature, you need to set the `TFTRegister` Callback object and pass in the parameters to configure it, see [TFTRegister](https://www.mindspore.cn/docs/en/master/api_python/train/mindspore.train.TFTRegister.html) for details.
+To enable the power-off CKPT feature, you need to set the `TFTRegister` Callback object and pass in the parameters to configure it, see [TFTRegister](https://www.mindspore.cn/docs/en/r2.5.0/api_python/train/mindspore.train.TFTRegister.html) for details.
 
 ```python
 time_monitor = train.TimeMonitor(data_size=1)
