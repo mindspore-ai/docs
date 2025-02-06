@@ -1,6 +1,6 @@
 # 高级使用教程
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_zh_cn/advanced/advanced.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindquantum/docs/source_zh_cn/advanced/advanced.md)
 
 了解 MindSpore Quantum 针对 NISQ 算法的设计与使用，特别是如何设计变分量子算法以及与 MindSpore 协同完成量子-经典混合算法的训练。
 

@@ -1,6 +1,6 @@
 # Gradient Accumulation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/parallel/distributed_gradient_accumulation.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_en/model_train/parallel/distributed_gradient_accumulation.md)
 
 ## Overview
 
@@ -30,7 +30,7 @@ The following is an illustration of the gradient accumulation operation using As
 
 ### Example Code Description
 
-> Download the complete example code: [distributed_gradient_accumulation](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_gradient_accumulation).
+> Download the complete example code: [distributed_gradient_accumulation](https://gitee.com/mindspore/docs/tree/r2.5.0/docs/sample_code/distributed_gradient_accumulation).
 
 The directory structure is as follows:
 

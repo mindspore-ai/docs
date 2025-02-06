@@ -1,6 +1,6 @@
 # Supporting Python Objects in Dataset Pipeline
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/dataset/python_objects.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_en/model_train/dataset/python_objects.md)
 
 Dataset pipeline accepts any Python type as input for some operations(such as user-defined dataset `GeneratorDataset`、user-defined `map` augmentation operation、`batch(per_batch_map=...)`). To achieve this feature, Dataset pipeline uses Python `dict` to manager different types. The main difference compared to other data types is that Python `dict` will not be converted to a C++ type, and instead a reference will be maintained in the pipeline.
 
@@ -214,7 +214,7 @@ Output:
 
 In the model training/inference scenario, there are the following constraints when obtaining `dict` data from the data pipeline.
 
-- In [data sink mode](https://www.mindspore.cn/docs/en/master/model_train/train_process/optimize/sink_mode.html), since the data sink channel currently cannot support dictionary type data, sending dictionary type data to it will cause errors. Therefore, it is suggested to consider turning off the data sink mode (`dataset_sink_mode=False`), or expanding dictionary type data into list or tuple type data at the last data processing node, for example:
+- In [data sink mode](https://www.mindspore.cn/docs/en/r2.5.0/model_train/train_process/optimize/sink_mode.html), since the data sink channel currently cannot support dictionary type data, sending dictionary type data to it will cause errors. Therefore, it is suggested to consider turning off the data sink mode (`dataset_sink_mode=False`), or expanding dictionary type data into list or tuple type data at the last data processing node, for example:
 
   ```python
   import numpy as np

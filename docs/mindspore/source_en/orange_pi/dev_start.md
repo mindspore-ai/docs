@@ -1,6 +1,6 @@
 # Quick Start
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/orange_pi/dev_start.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_en/orange_pi/dev_start.md)
 
 Since developers may perform custom model and case development in OrangePi AIpro (hereinafter: OrangePi Development Board), this chapter illustrates the development considerations in the OrangePi Development Board through a handwritten digit recognition case based on MindSpore.
 
@@ -34,7 +34,7 @@ mindspore.device_context.ascend.op_precision.precision_mode("allow_mix_precision
 
 ## Processing Dataset
 
-MindSpore provides a Pipeline-based [data engine](https://www.mindspore.cn/docs/en/master/design/data_engine.html) to realize efficient data preprocessing through [data loading and processing](https://www.mindspore.cn/tutorials/en/master/beginner/dataset.html) to realize efficient data preprocessing. In this case, we use the Mnist dataset, which is automatically downloaded and then preprocessed using the data transforms provided by `mindspore.dataset`.
+MindSpore provides a Pipeline-based [data engine](https://www.mindspore.cn/docs/en/r2.5.0/design/data_engine.html) to realize efficient data preprocessing through [data loading and processing](https://www.mindspore.cn/tutorials/en/r2.5.0/beginner/dataset.html) to realize efficient data preprocessing. In this case, we use the Mnist dataset, which is automatically downloaded and then preprocessed using the data transforms provided by `mindspore.dataset`.
 
 ```python
 # Download data from open datasets
@@ -105,7 +105,7 @@ train_dataset = datapipe(train_dataset, 64)
 test_dataset = datapipe(test_dataset, 64)
 ```
 
-The dataset can be accessed iteratively using [create_tuple_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_tuple_iterator.html) or [create_dict_iterator](https://www.mindspore.cn/docs/en/master/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html) to see the shape and datatype of the data and labels.
+The dataset can be accessed iteratively using [create_tuple_iterator](https://www.mindspore.cn/docs/en/r2.5.0/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_tuple_iterator.html) or [create_dict_iterator](https://www.mindspore.cn/docs/en/r2.5.0/api_python/dataset/dataset_method/iterator/mindspore.dataset.Dataset.create_dict_iterator.html) to see the shape and datatype of the data and labels.
 
 ```python
 for image, label in test_dataset.create_tuple_iterator():
@@ -178,8 +178,8 @@ In model training, a complete training process (STEP) requires the realization o
 MindSpore uses a functional automatic differentiation mechanism, so for the above steps need to be implemented:
 
 1. Define the forward computation function.
-2. Use [value_and_grad](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.value_and_grad.html) to obtain the gradient computation function by functional transformation.
-3. Define the training function and use [set_train](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_train) to set to training mode, perform forward computation, backpropagation and parameter optimization.
+2. Use [value_and_grad](https://www.mindspore.cn/docs/en/r2.5.0/api_python/mindspore/mindspore.value_and_grad.html) to obtain the gradient computation function by functional transformation.
+3. Define the training function and use [set_train](https://www.mindspore.cn/docs/en/r2.5.0/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.set_train) to set to training mode, perform forward computation, backpropagation and parameter optimization.
 
 ```python
 # Instantiate loss function and optimizer

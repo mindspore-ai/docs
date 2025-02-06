@@ -1,6 +1,6 @@
 # 模型转换
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/parallel/model_transformation.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_zh_cn/model_train/parallel/model_transformation.md)
 
 ## 概述
 
@@ -49,7 +49,7 @@
 
 ### 样例代码说明
 
-> 下载完整的样例代码：[model_saving_loading](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/model_saving_loading)。
+> 下载完整的样例代码：[model_saving_loading](https://gitee.com/mindspore/docs/tree/r2.5.0/docs/sample_code/model_saving_loading)。
 
 目录结构如下：
 
@@ -87,7 +87,7 @@
 
 ### 分布式模型保存
 
-首先，按照[模型保存](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_saving.html)教程执行8卡分布式训练，并行模式为`SEMI_AUTO_PARALLEL`或者`AUTO_PARALLEL`，同时通过调用`set_auto_parallel_context`接口自定义`strategy_ckpt_config`参数配置模型切分策略文件存储路径，训练一段时间后，调用存储Checkpoint的`train.ModelCheckpoint`函数，将分布式的Checkpoint存储下来。
+首先，按照[模型保存](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/parallel/model_saving.html)教程执行8卡分布式训练，并行模式为`SEMI_AUTO_PARALLEL`或者`AUTO_PARALLEL`，同时通过调用`set_auto_parallel_context`接口自定义`strategy_ckpt_config`参数配置模型切分策略文件存储路径，训练一段时间后，调用存储Checkpoint的`train.ModelCheckpoint`函数，将分布式的Checkpoint存储下来。
 
 训练结束后，将会在当前路径生成源Checkpoint文件目录以及源切分策略文件：
 
@@ -247,7 +247,7 @@ model.infer_predict_layout(predict_data)
     ms.transform_checkpoints(args_opt.src_checkpoints_dir, args_opt.dst_checkpoints_dir, "checkpoint_", args_opt.src_strategy_file, args_opt.dst_strategy_file)
     ```
 
-    示例代码[`model_transformation_retrain.py`](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/model_saving_loading/model_transformation_retrain.py)中采用此方法。
+    示例代码[`model_transformation_retrain.py`](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/sample_code/model_saving_loading/model_transformation_retrain.py)中采用此方法。
 
 2. 调用`transform_checkpoint_by_rank`接口对当前rank对应的原始Checkpoint进行参数合并。
 
@@ -266,7 +266,7 @@ model.infer_predict_layout(predict_data)
     ms.transform_checkpoint_by_rank(get_rank(), checkpoint_file_map, save_checkpoint_path, args_opt.src_strategy_file, args_opt.dst_strategy_file)
     ```
 
-    示例代码[`model_transformation_infer.py`](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/model_saving_loading/model_transformation_infer.py)中采用此方法。
+    示例代码[`model_transformation_infer.py`](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/sample_code/model_saving_loading/model_transformation_infer.py)中采用此方法。
 
 执行完后，将会生成转换后的目标Checkpoint文件目录：
 
@@ -412,8 +412,8 @@ epoch: 1, step: 100, loss is 0.07113413
 
 ### 流水线并行模型转换
 
-[流水线并行](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/pipeline_parallel.html) 是对线性的网络进行切分，得到多个子网络，子网络之间在多卡间进行流水，因此每个子图存储下来的切分策略文件是不一致的，所有切分策略汇聚在一起才能得到完整的网络的切分信息。
-因此针对流水线并行的维度，相比于其他维度的转换，需要事先执行一次汇聚切分策略文件的操作，得到汇聚后的切分策略文件，以这一份文件作为分布式Checkpoint转换依赖的策略文件。此外，与前面的[执行分布式Checkpoint转换](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_transformation.html#执行分布式checkpoint转换)没有差异。
+[流水线并行](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/parallel/pipeline_parallel.html) 是对线性的网络进行切分，得到多个子网络，子网络之间在多卡间进行流水，因此每个子图存储下来的切分策略文件是不一致的，所有切分策略汇聚在一起才能得到完整的网络的切分信息。
+因此针对流水线并行的维度，相比于其他维度的转换，需要事先执行一次汇聚切分策略文件的操作，得到汇聚后的切分策略文件，以这一份文件作为分布式Checkpoint转换依赖的策略文件。此外，与前面的[执行分布式Checkpoint转换](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/parallel/model_transformation.html#执行分布式checkpoint转换)没有差异。
 
 相关接口：
 
@@ -421,7 +421,7 @@ epoch: 1, step: 100, loss is 0.07113413
 
 首先，执行8卡的流水线并行训练，其中pipeline并行维度为2，且开启优化器并行。
 
-训练代码在[pipeline_train.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/model_saving_loading/pipeline_train.py)中，网络结构在[模型保存](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_saving.html)这一章的基础上增加了流水线并行的配置，并行维度为2。
+训练代码在[pipeline_train.py](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/sample_code/model_saving_loading/pipeline_train.py)中，网络结构在[模型保存](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/parallel/model_saving.html)这一章的基础上增加了流水线并行的配置，并行维度为2。
 
 核心代码为：
 
@@ -477,11 +477,11 @@ bash run_pipeline_train.sh
 ...
 ```
 
-参考[对目标网络执行编译](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_transformation.html#%E5%AF%B9%E7%9B%AE%E6%A0%87%E7%BD%91%E7%BB%9C%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91)章节，同样编译目标网络以得到目标网络的切分策略文件。
+参考[对目标网络执行编译](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/parallel/model_transformation.html#%E5%AF%B9%E7%9B%AE%E6%A0%87%E7%BD%91%E7%BB%9C%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91)章节，同样编译目标网络以得到目标网络的切分策略文件。
 
 下一步展开包含pipeline并行维度的分布式Checkpoint维度转换，首先使用接口`merge_pipeline_strategys`对pipline训练得到的切分策略文件进行合并，而后使用接口`transform_checkpoints`或者`transform_checkpoint_by_rank`进行分布式Checkpoint转换。
 
-示例给出使用`transform_checkpoints`的接口，使用`transform_checkpoint_by_rank`接口请参考[执行分布式Checkpoint转换](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_transformation.html#执行分布式checkpoint转换) 章节的介绍。
+示例给出使用`transform_checkpoints`的接口，使用`transform_checkpoint_by_rank`接口请参考[执行分布式Checkpoint转换](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/parallel/model_transformation.html#执行分布式checkpoint转换) 章节的介绍。
 
 ```python
 import mindspore as ms
@@ -498,7 +498,7 @@ ms.transform_checkpoints(args_opt.src_checkpoints_dir, args_opt.dst_checkpoints_
 bash run_retrain_pipeline_convert.sh
 ```
 
-转换完成后，参照[加载转换得到的Checkpoint文件](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_transformation.html#%E5%8A%A0%E8%BD%BD%E8%BD%AC%E6%8D%A2%E5%BE%97%E5%88%B0%E7%9A%84checkpoint%E6%96%87%E4%BB%B6)章节，执行没有pipeline维度的分布式网络。
+转换完成后，参照[加载转换得到的Checkpoint文件](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/parallel/model_transformation.html#%E5%8A%A0%E8%BD%BD%E8%BD%AC%E6%8D%A2%E5%BE%97%E5%88%B0%E7%9A%84checkpoint%E6%96%87%E4%BB%B6)章节，执行没有pipeline维度的分布式网络。
 
 示例中，加载转换后的Checkpoint进行二阶段微调训练的脚本执行命令为：
 
@@ -544,7 +544,7 @@ epoch: 1, step: 120, loss is 0.10741685
 ...
 ```
 
-参考[对目标网络执行编译](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_transformation.html#%E5%AF%B9%E7%9B%AE%E6%A0%87%E7%BD%91%E7%BB%9C%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91)章节，同样编译目标网络以得到目标网络的切分策略文件。
+参考[对目标网络执行编译](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/parallel/model_transformation.html#%E5%AF%B9%E7%9B%AE%E6%A0%87%E7%BD%91%E7%BB%9C%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91)章节，同样编译目标网络以得到目标网络的切分策略文件。
 
 网络训练并行策略中流水线并行维度为2，网络将被切分为两个子网络进行训练，分别取两个子网络的策略文件`src_strategy_0.ckpt`和`src_strategy_4.ckpt`使用`transform_checkpoints`接口进行单个子网络的权重转换。
 
@@ -596,7 +596,7 @@ MindSpore在当前版本新增了对safetensors格式的支持，包括权重保
 
 离线转换流程使用 `transform_checkpoint` 方法，针对safetensors格式，使用流程与前文使用方式一模一样，接口会自动识别传入的权重文件格式为ckpt还是safetensors并自动的进行后续的处理。
 
-在识别到传入权重文件格式为safetensors格式时，会自动触发代码的优化逻辑，转换性能相比ckpt会有极大的性能提升，同时接口会新增参数 `process_num` 和 `output_format`，可以手动控制转换并行数以及输出文件的格式，具体参考[transform_checkpoints](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.transform_checkpoints.html#mindspore.transform_checkpoints)。
+在识别到传入权重文件格式为safetensors格式时，会自动触发代码的优化逻辑，转换性能相比ckpt会有极大的性能提升，同时接口会新增参数 `process_num` 和 `output_format`，可以手动控制转换并行数以及输出文件的格式，具体参考[transform_checkpoints](https://www.mindspore.cn/docs/zh-CN/r2.5.0/api_python/mindspore/mindspore.transform_checkpoints.html#mindspore.transform_checkpoints)。
 
 ```python
 # src_checkpoints_dir目录下存储的权重文件需要为safetensors格式
@@ -616,7 +616,7 @@ ms.transform_checkpoints(src_checkpoints_dir, dst_checkpoints_dir, "dst_checkpoi
 
     具体流程如下：
 
-    1. 调用 [mindspore.unified_safetensors](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.unified_safetensors.html)方法，传入源权重目录，源权重训练策略（需要被 `mindspore.merge_pipeline_stratrge` 接口合并过后的策略），目标权重生成目录。
+    1. 调用 [mindspore.unified_safetensors](https://www.mindspore.cn/docs/zh-CN/r2.5.0/api_python/mindspore/mindspore.unified_safetensors.html)方法，传入源权重目录，源权重训练策略（需要被 `mindspore.merge_pipeline_stratrge` 接口合并过后的策略），目标权重生成目录。
     2. 在指定目录下会生成多个分片的文件，主要包括三类：
         1. `param_name_map.json`：name映射表，表示每个param与存储文件名的映射关系。
         2. `xxx_partxx.safetensors`：具体权重存储文件。
@@ -634,7 +634,7 @@ ms.transform_checkpoints(src_checkpoints_dir, dst_checkpoints_dir, "dst_checkpoi
 
 2. **执行在线加载或离线切分**
 
-    在线加载是通过扩展 [mindspore.load_distributed_checkpoint](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.load_distributed_checkpoint.html) 方法实现的。
+    在线加载是通过扩展 [mindspore.load_distributed_checkpoint](https://www.mindspore.cn/docs/zh-CN/r2.5.0/api_python/mindspore/mindspore.load_distributed_checkpoint.html) 方法实现的。
 
     想执行在线加载或者离线切分时，需要配置参数如下：
 

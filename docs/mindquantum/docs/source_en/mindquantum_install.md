@@ -1,6 +1,6 @@
 # MindSpore Quantum Installation
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/mindquantum_install.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindquantum/docs/source_en/mindquantum_install.md)
 
 ## Confirming System Environment Information
 
@@ -24,7 +24,7 @@ pip install mindquantum
 
     ```bash
     cd ~
-    git clone https://gitee.com/mindspore/mindquantum.git
+    git clone -b v2.5.0 https://gitee.com/mindspore/mindquantum.git
     ```
 
 2. Compiling MindSpore Quantum
@@ -44,4 +44,4 @@ python -c 'import mindquantum'
 
 ## Installing with Docker
 
-Mac or Windows users can install MindSpore Quantum through Docker. Please refer to [Docker installation guide](https://gitee.com/mindspore/mindquantum/blob/master/install_with_docker_en.md#).
+Mac or Windows users can install MindSpore Quantum through Docker. Please refer to [Docker installation guide](https://gitee.com/mindspore/mindquantum/blob/r0.10/install_with_docker_en.md#).

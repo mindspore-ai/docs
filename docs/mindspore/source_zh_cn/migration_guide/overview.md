@@ -1,6 +1,6 @@
 # 迁移指南概述
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/overview.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_zh_cn/migration_guide/overview.md)
 
 本迁移指导包含以PyTorch为主的其他机器学习框架将神经网络迁移到MindSpore的完整步骤。
 
@@ -39,26 +39,26 @@ D-->R(<font color=blue>PyTorch与MindSpore API映射表</font>)
 D-->S(<font color=blue>网络迁移工具应用实践指南</font>)
 D-->T(<font color=blue>常见问题</font>)
 
-click C "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/sample_code.html"
-click D "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/reference.html"
+click C "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/sample_code.html"
+click D "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/reference.html"
 
-click E "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/enveriment_preparation.html"
-click F "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/analysis_and_preparation.html"
-click G "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_development.html"
-click H "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tune.html#调试调优"
+click E "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/enveriment_preparation.html"
+click F "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/analysis_and_preparation.html"
+click G "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/model_development/model_development.html"
+click H "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/debug_and_tune.html#调试调优"
 
-click I "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/dataset.html"
-click J "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/model_and_cell.html"
-click K "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/loss_function.html"
-click L "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/learning_rate_and_optimizer.html"
-click M "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/gradient.html"
-click N "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/model_development/training_and_evaluation.html"
+click I "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/model_development/dataset.html"
+click J "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/model_development/model_and_cell.html"
+click K "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/model_development/loss_function.html"
+click L "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/model_development/learning_rate_and_optimizer.html"
+click M "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/model_development/gradient.html"
+click N "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/model_development/training_and_evaluation.html"
 
-click O "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tune.html#功能调试"
-click P "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tune.html#精度调优"
-click Q "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/debug_and_tune.html#性能调优"
+click O "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/debug_and_tune.html#功能调试"
+click P "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/debug_and_tune.html#精度调优"
+click Q "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/debug_and_tune.html#性能调优"
 
-click R "https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html"
-click S "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/migrator_with_tools.html"
-click T "https://www.mindspore.cn/docs/zh-CN/master/migration_guide/faq.html"
+click R "https://www.mindspore.cn/docs/zh-CN/r2.5.0/note/api_mapping/pytorch_api_mapping.html"
+click S "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/migrator_with_tools.html"
+click T "https://www.mindspore.cn/docs/zh-CN/r2.5.0/migration_guide/faq.html"
 ```

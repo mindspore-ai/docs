@@ -1,6 +1,6 @@
 # UCE故障快速恢复
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/train_availability/UCE_fault_recover.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_zh_cn/model_train/train_availability/UCE_fault_recover.md)
 
 ## 概述
 
@@ -30,7 +30,7 @@ unzip MNIST_Data.zip
 
 ### 模型定义
 
-开启UCE快速恢复功能需要设置TFT优化器, 在优化器更新前向MindIO TFT上报状态。用`OptTFTWrapper`来配置, 详情参见[OptTFTWrapper](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.OptTFTWrapper.html)。
+开启UCE快速恢复功能需要设置TFT优化器, 在优化器更新前向MindIO TFT上报状态。用`OptTFTWrapper`来配置, 详情参见[OptTFTWrapper](https://www.mindspore.cn/docs/zh-CN/r2.5.0/api_python/nn/mindspore.nn.OptTFTWrapper.html)。
 
 ```python
 
@@ -123,7 +123,7 @@ model = ms.Model(net, loss_fn=loss_fn, optimizer=optimizer_wrapper)
 
 ### Callback
 
-开启UCE快速恢复功能需要设置 `TFTRegister` Callback对象，并传入参数来配置，详情参见[TFTRegister](https://www.mindspore.cn/docs/zh-CN/master/api_python/train/mindspore.train.TFTRegister.html)。
+开启UCE快速恢复功能需要设置 `TFTRegister` Callback对象，并传入参数来配置，详情参见[TFTRegister](https://www.mindspore.cn/docs/zh-CN/r2.5.0/api_python/train/mindspore.train.TFTRegister.html)。
 
 ```python
 time_monitor = train.TimeMonitor(data_size=1)

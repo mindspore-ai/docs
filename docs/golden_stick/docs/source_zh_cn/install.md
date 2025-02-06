@@ -1,6 +1,6 @@
 # 安装MindSpore Golden Stick
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/golden_stick/docs/source_zh_cn/install.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/golden_stick/docs/source_zh_cn/install.md)
 
 ## 环境限制
 
@@ -11,7 +11,7 @@
 | Ubuntu  |  18.04  |
 | Python  |  3.7-3.9 |
 
-> 其他的三方依赖请参考[requirements文件](https://gitee.com/mindspore/golden-stick/blob/master/requirements.txt)。
+> 其他的三方依赖请参考[requirements文件](https://gitee.com/mindspore/golden-stick/blob/r1.0.0/requirements.txt)。
 > 当前MindSpore Golden Stick仅能在Ubuntu18.04上运行。
 
 ## MindSpore版本依赖关系

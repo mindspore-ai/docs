@@ -1,6 +1,6 @@
 # Custom Neural Network Layers
 
-[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/model_train/custom_program/network_custom.md)
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_en/model_train/custom_program/network_custom.md)
 
 Normally, the neural network layer interface and function interface provided by MindSpore can meet the model construction requirements, but since the AI field is constantly updating, it is possible to encounter new network structures without built-in modules. At this point, we can customize the neural network layer through the function interface provided by MindSpore, Primitive operator, and can use the `Cell.bprop` method to customize the reverse. The following are the details of each of the three customization methods.
 

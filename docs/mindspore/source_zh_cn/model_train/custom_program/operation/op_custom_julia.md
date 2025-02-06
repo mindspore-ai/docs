@@ -1,6 +1,6 @@
 # 自定义算子接入第三方前端
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_train/custom_program/operation/op_custom_julia.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_zh_cn/model_train/custom_program/operation/op_custom_julia.md)
 
 作为MindSpore未来的发展方向之一，AI和科学计算的融合越来越受到业界的重视。MindSpore自定义算子基于自身表达的灵活性，也在科学计算方面做出了探索：把面向HPC的编程前端以自定义算子的方式接入MindSpore。
 
@@ -11,7 +11,7 @@ julia类型的自定义算子使用Julia语法定义算子实现函数，描述�
 
 算子输出shape和数据类型推导可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
 
-若自定义算子只支持特定的输入输出数据类型，则需要定义算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/docs/zh-CN/master/model_train/custom_program/operation/op_custom_adv.html#算子信息注册)。
+若自定义算子只支持特定的输入输出数据类型，则需要定义算子信息，算子信息生成方式请参考[算子信息注册](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/custom_program/operation/op_custom_adv.html#算子信息注册)。
 
 ## julia类型的自定义算子开发用例
 
@@ -148,4 +148,4 @@ python test_custom_julia.py
    end
    ```
 
-对于更多完整的jullia类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/graph_kernel/custom/test_custom_julia.py)。
+对于更多完整的jullia类型自定义算子的例子，参见MindSpore源码中的[用例](https://gitee.com/mindspore/mindspore/blob/v2.5.0/tests/st/graph_kernel/custom/test_custom_julia.py)。

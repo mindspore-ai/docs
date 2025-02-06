@@ -1,6 +1,6 @@
 # 多卡模型权重切分
 
-[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/model_infer/ms_infer/weight_split.md)
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r2.5.0/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/mindspore/source_zh_cn/model_infer/ms_infer/weight_split.md)
 
 模型在完成训练后，可以加载训练好的权重进行推理，而推理所需的显存较训练时显著降低，因此需要对模型权重进行重新切分和加载。
 
@@ -151,10 +151,10 @@ def save_strategy_file(state_dict, strategy_file_name):
         raise e
 ```
 
-得到推理网络的并行策略文件后，可以根据[执行分布式checkpoint转换](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_transformation.html#执行分布式checkpoint转换)方法，将训练权重转换为推理所需权重。
+得到推理网络的并行策略文件后，可以根据[执行分布式checkpoint转换](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/parallel/model_transformation.html#执行分布式checkpoint转换)方法，将训练权重转换为推理所需权重。
 
-具体端到端的权重切分代码工程可以参考[权重切分](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/infer_code/param_split.py)。
+具体端到端的权重切分代码工程可以参考[权重切分](https://gitee.com/mindspore/docs/blob/r2.5.0/docs/sample_code/infer_code/param_split.py)。
 
 ## 权重加载
 
-分布式权重加载可以参考[加载转换得到的checkpoint文件](https://www.mindspore.cn/docs/zh-CN/master/model_train/parallel/model_transformation.html#加载转换得到的checkpoint文件)教程。
+分布式权重加载可以参考[加载转换得到的checkpoint文件](https://www.mindspore.cn/docs/zh-CN/r2.5.0/model_train/parallel/model_transformation.html#加载转换得到的checkpoint文件)教程。
