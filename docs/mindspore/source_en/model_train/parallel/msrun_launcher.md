@@ -24,7 +24,7 @@ A parameters list of command line:
         <td align="left">The total number of Worker processes participating in the distributed task.</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">An integer greater than 0. The default value is 8.</td>
-        <td align="left">The total number of Workers started on each node should be equal to this parameter:<br> if the total number is greater than this parameter, the extra Worker processes will fail to register; <br>if the total number is less than this parameter, the cluster will wait for a certain period of timeout before prompting the task to pull up the failed task and exit, <br>and the size of the timeout window can be configured by the parameter <code>cluster_time_out</code>.</td>
+        <td align="left">The total number of Workers started on all nodes should be equal to this parameter:<br> if the total number is greater than this parameter, the extra Worker processes will fail to register; <br>if the total number is less than this parameter, the cluster will wait for a certain period of timeout before prompting the task to pull up the failed task and exit, <br>and the size of the timeout window can be configured by the parameter <code>cluster_time_out</code>.</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--local_worker_num</td>
