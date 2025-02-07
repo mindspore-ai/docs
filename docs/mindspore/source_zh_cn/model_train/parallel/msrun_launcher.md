@@ -24,7 +24,7 @@
         <td align="left">参与分布式任务的Worker进程总数。</td>
         <td align="left" style="white-space:nowrap">Integer</td>
         <td align="left">大于0的整数。默认值为8。</td>
-        <td align="left">每个节点上启动的Worker总数应当等于此参数：<br>若总数大于此参数，多余的Worker进程会注册失败；<br>若总数小于此参数，集群会在等待一段超时时间后，<br>提示任务拉起失败并退出，<br>超时时间窗大小可通过参数<code>cluster_time_out</code>配置。</td>
+        <td align="left">所有节点上启动的Worker总数应当等于此参数：<br>若总数大于此参数，多余的Worker进程会注册失败；<br>若总数小于此参数，集群会在等待一段超时时间后，<br>提示任务拉起失败并退出，<br>超时时间窗大小可通过参数<code>cluster_time_out</code>配置。</td>
     </tr>
     <tr>
         <td align="left" style="white-space:nowrap">--local_worker_num</td>
