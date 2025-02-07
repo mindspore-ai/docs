@@ -44,7 +44,7 @@ The directory structure is as follows:
 ```text
 └─ sample_code
     ├─ startup_method
-       ├── allgather_test.py
+       ├── net.py
        ├── rank_table_8pcs.json
        ├── rank_table_16pcs.json
        ├── run_rank_table.sh
@@ -52,7 +52,7 @@ The directory structure is as follows:
     ...
 ```
 
-`allgather_test.py` defines the network structure, `run_rank_table.sh`, and `run_rank_table_cluster.sh` are executing the scripts. `rank_table_8pcs.json`, `rank_table_16pcs.json` are 8 cards and 16 cards rank_table config file.
+`net.py` defines the network structure and the training process, `run_rank_table.sh`, and `run_rank_table_cluster.sh` are executing the scripts. `rank_table_8pcs.json`, `rank_table_16pcs.json` are 8 cards and 16 cards rank_table config file.
 
 ### 1. Preparing Python Training Scripts
 
@@ -311,10 +311,10 @@ do
   export DEVICE_ID=$[i+DEVICE_START]
   rm -rf ./device_$RANK_ID
   mkdir ./device_$RANK_ID
-  cp ./allgather_test.py ./device_$RANK_ID
+  cp ./net.py ./device_$RANK_ID
   cd ./device_$RANK_ID
   env > env$i.log
-  python ./allgather_test.py >train$RANK_ID.log 2>&1 &
+  python ./net.py >train$RANK_ID.log 2>&1 &
 done
 ```
 
