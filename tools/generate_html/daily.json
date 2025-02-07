@@ -74,5 +74,15 @@
     "whl_name" : "mindchemistry_gpu-.*-cp39-cp39-linux_x86_64.whl$",
     "environ" : "MSC_PATH",
     "uninstall_name" : "mindchemistry_gpu"
+},
+{
+    "id" : 10 ,
+    "name" : "mindformers",
+    "branch" : "dev",
+    "whl_search" : "any/",
+    "whl_path" : "/mindformers/version/",
+    "whl_name" : "mindformers-.*-py3-none-any.whl$",
+    "environ" : "MFM_PATH",
+    "uninstall_name" : "mindformers"
 }
 ]

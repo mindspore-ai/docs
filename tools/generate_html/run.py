@@ -3,6 +3,7 @@
 """
 import argparse
 import copy
+import datetime
 import glob
 import json
 import os
@@ -187,21 +188,6 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             cmd_reppath = ["sh", "./docs/adapte_to_docs.sh", f"{branch_}"]
             subprocess.run(cmd_reppath)
 
-        # 特殊与一般性的往ArraySource中加入键值对
-        if data[i]['name'] == "lite":
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/api'] = data[i]["branch"]
-        elif data[i]['name'] == "tutorials":
-            ArraySource[data[i]['name']] = data[i]["branch"]
-            # ArraySource[data[i]['name'] + '/application'] = data[i]["branch"]
-            # ArraySource[data[i]['name'] + '/experts'] = data[i]["branch"]
-        elif data[i]['name'] == "mindspore":
-            ArraySource[data[i]['name']] = data[i]["branch"]
-        elif data[i]['name'] == "mindscience":
-            pass
-        else:
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
-
         if data[i]['name'] != "mindscience":
             generate_version_json(data[i]['name'], data[i]["branch"], data_b, flag_dev, target_version)
 
@@ -223,7 +209,44 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             res = s.get(wgetdir, auth=(user, pd), verify=False)
             requests.packages.urllib3.disable_warnings()
             # 下载组件whl包
-            if data[i]['whl_path'] != "":
+            if data[i]['whl_path'] != ""  and 'whl_search' in data[i]:
+                today_str = datetime.date.today().strftime('%Y%m%d')
+                month_str = datetime.date.today().strftime('%Y%m')
+                search_url = f"{wgetdir}/{data[i]['whl_path']}/{month_str}/{today_str}/"
+                res = s.get(search_url, auth=(user, pd), verify=False)
+                html = etree.HTML(res.text, parser=etree.HTMLParser())
+                links = html.xpath("//a[@title]")
+                url = ''
+                if links:
+                    for link_ in links[::-1]:
+                        href = link_.get("href", "")
+                        if href.startswith('dev_'):
+                            url = search_url+href+data[i]['whl_search']
+                            break
+                if not url:
+                    continue
+
+                re_name = data[i]['whl_name'].replace('.whl', '\\.whl')
+                name = rf"{re_name}"
+                res = s.get(url, auth=(user, pd), verify=False)
+                html = etree.HTML(res.text, parser=etree.HTMLParser())
+                links = html.xpath("//a[@title]")
+                if links:
+                    for link_ in links:
+                        title = link_.get("title", "")
+                        href = link_.get("href", "")
+                        if re.findall(name, title) and not os.path.exists(os.path.join(WHLDIR, title)):
+                            download_url = url+href
+                            downloaded = requests.get(download_url, stream=True, auth=(user, pd), verify=False)
+                            with open(title, 'wb') as fd:
+                                #shutil.copyfileobj(dowmloaded.raw, fd)
+                                for chunk in downloaded.iter_content(chunk_size=512):
+                                    if chunk:
+                                        fd.write(chunk)
+                            print(f"Download {title} success!")
+                            time.sleep(1)
+
+            elif data[i]['whl_path'] != "":
                 url = f"{wgetdir}/{data[i]['whl_path']}"
                 if not url.endswith(".html") and not url.endswith("/"):
                     url += "/"
@@ -328,6 +351,23 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
                             if chunk:
                                 fd.write(chunk)
                     print(f"Download {data[i]['tar_name']} success!")
+
+        # 特殊与一般性的往ArraySource中加入键值对
+        if not branch_:
+            continue
+        if data[i]['name'] == "lite":
+            ArraySource[data[i]['name'] + '/docs'] = branch_
+            ArraySource[data[i]['name'] + '/api'] = branch_
+        elif data[i]['name'] == "tutorials":
+            ArraySource[data[i]['name']] = branch_
+            # ArraySource[data[i]['name'] + '/application'] = branch_
+            # ArraySource[data[i]['name'] + '/experts'] = branch_
+        elif data[i]['name'] == "mindspore":
+            ArraySource[data[i]['name']] = branch_
+        elif data[i]['name'] == "mindscience":
+            pass
+        else:
+            ArraySource[data[i]['name'] + '/docs'] = branch_
 
     # 安装opencv-python额外依赖
     cmd = ["pip", "install", "opencv-python"]
