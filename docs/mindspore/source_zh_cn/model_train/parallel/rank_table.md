@@ -44,7 +44,7 @@
 ```text
 └─ sample_code
     ├─ startup_method
-       ├── allgather_test.py
+       ├── net.py
        ├── rank_table_8pcs.json
        ├── rank_table_16pcs.json
        ├── rank_table_cross_cluster_16pcs.json
@@ -54,7 +54,7 @@
     ...
 ```
 
-其中，`allgather_test.py`是定义网络结构，`run_rank_table.sh`、`run_rank_table_cluster.sh`、`run_rank_table_cross_cluster.sh`是执行脚本。`rank_table_8pcs.json`、`rank_table_16pcs.json`、`rank_table_cross_cluster_16pcs.json`分别是8卡、16卡和跨集群16卡的rank_table配置文件。
+其中，`net.py`是定义网络结构和训练过程，`run_rank_table.sh`、`run_rank_table_cluster.sh`、`run_rank_table_cross_cluster.sh`是执行脚本。`rank_table_8pcs.json`、`rank_table_16pcs.json`、`rank_table_cross_cluster_16pcs.json`分别是8卡、16卡和跨集群16卡的rank_table配置文件。
 
 ### 1. 准备Python训练脚本
 
@@ -313,10 +313,10 @@ do
   export DEVICE_ID=$[i+DEVICE_START]
   rm -rf ./device_$RANK_ID
   mkdir ./device_$RANK_ID
-  cp ./allgather_test.py ./device_$RANK_ID
+  cp ./net.py ./device_$RANK_ID
   cd ./device_$RANK_ID
   env > env$i.log
-  python ./allgather_test.py >train$RANK_ID.log 2>&1 &
+  python ./net.py >train$RANK_ID.log 2>&1 &
 done
 ```
 
@@ -437,10 +437,10 @@ do
   export DEVICE_ID=$[i+DEVICE_START]
   rm -rf ./device_$RANK_ID
   mkdir ./device_$RANK_ID
-  cp ./allgather_test.py ./device_$RANK_ID
+  cp ./net.py ./device_$RANK_ID
   cd ./device_$RANK_ID
   env > env$i.log
-  python ./allgather_test.py >train$RANK_ID.log 2>&1 &
+  python ./net.py >train$RANK_ID.log 2>&1 &
 done
 ```
 
