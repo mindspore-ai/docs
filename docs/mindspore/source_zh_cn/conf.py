@@ -365,6 +365,20 @@ rename_include('migration_guide')
 # modify urls
 import json
 
+re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
+re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
+
+re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))[\w\d/_.-]*?)/(master)"
+
+re_url4 = r"(((gitee.com/mindspore/mindquantum)|(mindspore.cn/mindquantum))[\w\d/_.-]*?)/(master)"
+
+re_url5 = r"(gitee.com/mindspore/mindformers[\w\d/_.-]*?)/(dev)"
+
+re_url6 = r"(mindspore.cn/mindformers[\w\d/_.-]*?)/(dev)"
+
 if os.path.exists('../../../tools/generate_html/version.json'):
     with open('../../../tools/generate_html/version.json', 'r+', encoding='utf-8') as f:
         version_inf = json.load(f)
@@ -394,27 +408,17 @@ for cur, _, files in os.walk(des_sir):
             try:
                 with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
                     content = f.read()
-                    new_content = content
-                    if i.endswith('.md'):
-                        md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
-                        if 'resource/_static/logo_source' not in new_content:
-                            new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
-                    if new_content != content:
-                        f.seek(0)
-                        f.truncate()
-                        f.write(new_content)
-            except Exception:
-                print(f'打开{i}文件失败')
-        if i.endswith('.rst'):
-            try:
-                with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
-                    content = f.read()
-                    new_content = content
-                    if '.. include::' in content and '.. automodule::' in content:
-                        continue
-                    if 'autosummary::' not in content and "\n=====" in content:
-                        re_view_ = re_view + copy_path + cur.split('api_python')[-1] + '/' + i +'\n    :alt: 查看源文件\n\n'
-                        new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
+                    new_content = re.sub(re_url, r'\1/r2.5.0', content)
+                    new_content = re.sub(re_url3, r'\1/r1.0.0', new_content)
+                    new_content = re.sub(re_url4, r'\1/r0.10', new_content)
+                    new_content = re.sub(re_url5, r'\1/v1.3.2', new_content)
+                    new_content = re.sub(re_url6, r'\1/r1.3.2', new_content)
+                    if i.endswith('.rst'):
+                        new_content = re.sub(re_url2, r'\1/v2.5.0', new_content)
+                    # if i.endswith('.md'):
+                    #     md_view = f'[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/{docs_branch}/resource/_static/logo_source.svg)](https://gitee.com/mindspore/{copy_repo}/blob/{branch}/' + copy_path + cur.split('api_python')[-1] + '/' + i + ')\n\n'
+                    #     if 'resource/_static/logo_source' not in new_content:
+                    #         new_content = re.sub('(# .*\n\n)', r'\1'+ md_view, new_content, 1)
                     if new_content != content:
                         f.seek(0)
                         f.truncate()
@@ -516,5 +520,7 @@ else:
     content = content[0]
 
 with open(des_release, "w", encoding="utf-8") as p:
+    release_source = re.sub(re_url, r'\1/r2.5.0', release_source)
+    release_source = re.sub(re_url2, r'\1/v2.5.0', release_source)
     p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content)

@@ -226,6 +226,20 @@ for root,dirs,files in os.walk(src_dir_api):
 
 os.makedirs(os.path.join(moment_dir, 'ptq/images/zh_cn'), exist_ok=True)
 
+re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
+re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
+
+re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))[\w\d/_.-]*?)/(master)"
+
+re_url4 = r"(((gitee.com/mindspore/mindquantum)|(mindspore.cn/mindquantum))[\w\d/_.-]*?)/(master)"
+
+re_url5 = r"(gitee.com/mindspore/mindformers[\w\d/_.-]*?)/(dev)"
+
+re_url6 = r"(mindspore.cn/mindformers[\w\d/_.-]*?)/(dev)"
+
 if not os.path.exists(os.path.join(moment_dir, 'ptq/ptq.md')):
     os.makedirs(os.path.join(moment_dir, 'ptq'), exist_ok=True)
     shutil.copy(os.path.join(os.getenv("GS_PATH"), 'mindspore_gs/ptq/ptq/README_CN.md'),
@@ -233,6 +247,12 @@ if not os.path.exists(os.path.join(moment_dir, 'ptq/ptq.md')):
     with open(os.path.join(moment_dir, 'ptq/ptq.md'), 'r+', encoding='utf-8') as f:
         content = f.read()
         content = re.sub('.*?/README.md.*\n.*\n', '', content)
+        content = re.sub(re_url, r'\1/r2.5.0', content)
+        content = re.sub(re_url2, r'\1/v2.5.0', content)
+        content = re.sub(re_url3, r'\1/r1.0.0', content)
+        content = re.sub(re_url4, r'\1/r0.10', content)
+        content = re.sub(re_url5, r'\1/v1.3.2', content)
+        content = re.sub(re_url6, r'\1/r1.3.2', content)
         f.seek(0)
         f.truncate()
         f.write(content)
@@ -284,6 +304,12 @@ for cur, _, files in os.walk(moment_dir):
                             re_view_ = re_view + copy_path + cur.split(moment_dir)[-1] + '/' + i + \
                                        '\n    :alt: 查看源文件\n\n'
                             new_content = re.sub('([=]{5,})\n', r'\1\n' + re_view_, content, 1)
+                        new_content = re.sub(re_url, r'\1/r2.5.0', new_content)
+                        new_content = re.sub(re_url2, r'\1/v2.5.0', new_content)
+                        new_content = re.sub(re_url3, r'\1/r1.0.0', new_content)
+                        new_content = re.sub(re_url4, r'\1/r0.10', new_content)
+                        new_content = re.sub(re_url5, r'\1/v1.3.2', new_content)
+                        new_content = re.sub(re_url6, r'\1/r1.3.2', new_content)
                         if new_content != content:
                             f.seek(0)
                             f.truncate()
@@ -297,6 +323,12 @@ if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb')):
     with open(os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb'), 'r+', encoding='utf-8') as f:
         content = f.read()
         content = re.sub('.*?/README.md.*\n.*\n', '', content)
+        content = re.sub(re_url, r'\1/r2.5.0', content)
+        content = re.sub(re_url2, r'\1/v2.5.0', content)
+        content = re.sub(re_url3, r'\1/r1.0.0', content)
+        content = re.sub(re_url4, r'\1/r0.10', content)
+        content = re.sub(re_url5, r'\1/v1.3.2', content)
+        content = re.sub(re_url6, r'\1/r1.3.2', content)
         f.seek(0)
         f.truncate()
         f.write(content)

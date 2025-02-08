@@ -160,12 +160,13 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
 # Repair error content defined in mindspore.
 try:
     decorator_list = [("mindspore/common/dtype.py","restore error",
                        "# generate api by del decorator.\nclass QuantDtype():","@enum.unique\nclass QuantDtype(enum.Enum):")]
 
-    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+    
     for i in decorator_list:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
             content = f.read()
@@ -176,6 +177,36 @@ try:
                 f.write(content)
 except:
     pass
+
+re_url = r"(((gitee.com/mindspore/docs)|(github.com/mindspore-ai/(mindspore|docs))|" + \
+         r"(mindspore.cn/(docs|tutorials|lite))|(obs.dualstack.cn-north-4.myhuaweicloud)|" + \
+         r"(mindspore-website.obs.cn-north-4.myhuaweicloud))[\w\d/_.-]*?)/(master)"
+
+re_url2 = r"(gitee.com/mindspore/mindspore[\w\d/_.-]*?)/(master)"
+
+re_url3 = r"(((gitee.com/mindspore/golden-stick)|(mindspore.cn/golden_stick))[\w\d/_.-]*?)/(master)"
+
+re_url4 = r"(((gitee.com/mindspore/mindquantum)|(mindspore.cn/mindquantum))[\w\d/_.-]*?)/(master)"
+
+re_url5 = r"(gitee.com/mindspore/mindformers[\w\d/_.-]*?)/(dev)"
+
+re_url6 = r"(mindspore.cn/mindformers[\w\d/_.-]*?)/(dev)"
+
+for cur, _, files in os.walk(os.path.join(base_path, 'mindspore_gs')):
+    for i in files:
+        if i.endswith('.py'):
+            with open(os.path.join(cur, i), 'r+', encoding='utf-8') as f:
+                content = f.read()
+                new_content = re.sub(re_url, r'\1/r2.5.0', content)
+                new_content = re.sub(re_url2, r'\1/v2.5.0', new_content)
+                new_content = re.sub(re_url3, r'\1/r1.0.0', new_content)
+                new_content = re.sub(re_url4, r'\1/r0.10', new_content)
+                new_content = re.sub(re_url5, r'\1/v1.3.2', new_content)
+                new_content = re.sub(re_url6, r'\1/r1.3.2', new_content)
+                if new_content != content:
+                    f.seek(0)
+                    f.truncate()
+                    f.write(new_content)
 
 import mindspore_gs
 
@@ -202,6 +233,12 @@ if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.md')):
     with open(os.path.join(moment_dir, 'ptq/round_to_nearest.md'), 'r+', encoding='utf-8') as f:
         content = f.read()
         content = re.sub('.*?/README_CN.ipynb.*\n.*\n', '', content)
+        content = re.sub(re_url, r'\1/r2.5.0', content)
+        content = re.sub(re_url2, r'\1/v2.5.0', content)
+        content = re.sub(re_url3, r'\1/r1.0.0', content)
+        content = re.sub(re_url4, r'\1/r0.10', content)
+        content = re.sub(re_url5, r'\1/v1.3.2', content)
+        content = re.sub(re_url6, r'\1/r1.3.2', content)
         f.seek(0)
         f.truncate()
         f.write(content)
