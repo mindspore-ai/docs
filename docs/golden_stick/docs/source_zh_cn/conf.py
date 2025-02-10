@@ -296,7 +296,7 @@ if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb')):
                 os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb'))
     with open(os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb'), 'r+', encoding='utf-8') as f:
         content = f.read()
-        content = re.sub('.*?/README.md.*\n.*\n', '', content)
+        content = re.sub('\n.*\[View English\].*\n.*\n', '\n', content, 1)
         f.seek(0)
         f.truncate()
         f.write(content)
@@ -310,6 +310,7 @@ if not os.path.exists(os.path.join(moment_dir, 'ptq/overview.md')):
                 os.path.join(moment_dir, 'ptq/overview.md'))
     with open(os.path.join(moment_dir, 'ptq/overview.md'), 'r+', encoding='utf-8') as f:
         content = f.read()
+        content = re.sub('\n\[View English\].*\n', '', content, 1)
         f.seek(0)
         f.truncate()
         f.write(content)
@@ -317,6 +318,16 @@ if not os.path.exists(os.path.join(moment_dir, 'ptq/overview.md')):
     if os.path.exists(images_path):
         for i in os.listdir(images_path):
             shutil.copy(os.path.join(images_path, i), os.path.join(moment_dir, 'ptq/images/zh_cn', i))
+
+if not os.path.exists(os.path.join(moment_dir, 'install.md')):
+    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'docs/zh_cn/install.md'),
+                os.path.join(moment_dir, 'install.md'))
+    with open(os.path.join(moment_dir, 'install.md'), 'r+', encoding='utf-8') as f:
+        content = f.read()
+        content = re.sub('\n\[View English\].*\n', '', content, 1)
+        f.seek(0)
+        f.truncate()
+        f.write(content)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 # import anchor_mod
