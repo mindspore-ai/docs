@@ -355,19 +355,20 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
         # 特殊与一般性的往ArraySource中加入键值对
         if not branch_:
             continue
+        html_branch = branch_
+        if "html_version" in data[i]:
+            html_branch = data[i]["html_version"]
         if data[i]['name'] == "lite":
-            ArraySource[data[i]['name'] + '/docs'] = branch_
-            ArraySource[data[i]['name'] + '/api'] = branch_
+            ArraySource[data[i]['name'] + '/docs'] = html_branch
+            ArraySource[data[i]['name'] + '/api'] = html_branch
         elif data[i]['name'] == "tutorials":
-            ArraySource[data[i]['name']] = branch_
-            # ArraySource[data[i]['name'] + '/application'] = branch_
-            # ArraySource[data[i]['name'] + '/experts'] = branch_
+            ArraySource[data[i]['name']] = html_branch
         elif data[i]['name'] == "mindspore":
-            ArraySource[data[i]['name']] = branch_
+            ArraySource[data[i]['name']] = html_branch
         elif data[i]['name'] == "mindscience":
             pass
         else:
-            ArraySource[data[i]['name'] + '/docs'] = branch_
+            ArraySource[data[i]['name'] + '/docs'] = html_branch
 
     # 安装opencv-python额外依赖
     cmd = ["pip", "install", "opencv-python"]
