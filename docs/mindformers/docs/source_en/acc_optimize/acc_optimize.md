@@ -14,7 +14,7 @@ This paper summarizes the common accuracy problems in the training process of la
 
 Various accuracy problems often occur in large model training, and the common problems include that the loss fails to converge, the loss converges poorly, the loss fails to converge at the late stage of training, the accuracy overflows, and the loss can not be fitted to the benchmark in the process of descending. There can be a variety of reasons for these accuracy problems, including the structure of the model, the dataset, the hyperparameters, the precision of the forward and reverse computation, the calculation of the optimizer, the floating-point computational accuracy, and randomness.
 
-When accuracy problems occur, the problem can be analyzed from the reasons for these accuracy problems. A quick troubleshooting based on CheckList is performed first, followed by parameter and weight alignment, fixed randomness and turning on deterministic calculations before executing in/out problem troubleshooting and long stable training elimination. At the current stage, this paper mainly introduces the general method of accuracy localization for the scenarios with accuracy benchmarks, and the content of accuracy problem localization without accuracy benchmarks will be added successively.
+When accuracy problems occur, the problem can be analyzed from the reasons for these accuracy problems. A quick troubleshooting based on CheckList is performed first, followed by parameter and weight alignment, fixed randomness and turning on deterministic calculations. Then the base problem is troubleshooted, and finally the anomalous step is troubleshooted by long stable training. At the current stage, this paper mainly introduces the general method of accuracy localization for the scenarios with accuracy benchmarks, and the content of accuracy problem localization without accuracy benchmarks will be added successively.
 
 ## Accuracy Problems Location CheckList
 
@@ -55,8 +55,8 @@ Before locating the operator accuracy problem, we should first eliminate the int
 | ----------------- | ------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------|
 | adam optimizer           | optimizer type             | If Megatron uses the adam optimizer, the mathematically equivalent implementation of MindFormers is AdamW. |
 | eps               | adam optimizer minimal value parameter   | Check the parameters for consistency, recommended value is 1e-8.                            |
-| beta1             | adam optimizer gradient momentum parameters | Check the parameters for consistency, recommended value is 0.9。                             |
-| beta2             | adam optimizer gradient variance parameter | Check the parameters for consistency, recommended value is 0.95。                            |
+| beta1             | adam optimizer gradient momentum parameters | Check the parameters for consistency, recommended value is 0.9.                             |
+| beta2             | adam optimizer gradient variance parameter | Check the parameters for consistency, recommended value is 0.95.                            |
 | weight_decay      | weight decay               | By default bias and one-dimensional weights are not decayed and the user is checked for special operations.             |
 | lr                | learning rate                 | After setting up warmup, learning rate decay, draw a graph to see if the learning rate change is consistent.             |
 | lr_warmup_fraction      | Learning rate warmup step percentage     | After setting up warmup, learning rate decay, draw a graph to see if the learning rate change is consistent.                                        |
@@ -101,7 +101,7 @@ Before locating the operator accuracy problem, we should first eliminate the int
 | ----------------- | ---------------------------|
 | Data Check | Check if the data is abnormal, you can randomly select part of the data for decode, encode check to see if the position of input and label is correctly corresponding.                                  |
 | Special Words Check | Check whether the special ids such as bos_token_id, eos_token_id, pad_token_id are consistent with the ids when the data is produced.                              |
-| input_ids check | Check whether inputs_id in Embedding is consistent with 0<=inputs_id<vocab_size; if there is out-of-bounds behavior, it will fetch dirty data and lead to precision anomaly.                       |
+| inputs_id check | Check whether inputs_id in Embedding is consistent with 0<=inputs_id<vocab_size; if there is out-of-bounds behavior, it will fetch dirty data and lead to precision anomaly.                       |
 | Overflow Detection | Overflow Status Aligns PyTorch, suggest to use INFNAN_MODE, i.e., `export MS_ASCEND_CHECK_OVERFLOW_MODE=INFNAN_MODE`. |
 | Graph Operator Fusion | Turn off graph operator fusion, i.e. `enable_graph_kernel: False`. |
 | Training Inference Template Consistency | If training SFT, you need to make sure that the input template used for training inference is consistent.  |
@@ -371,7 +371,7 @@ Set learning rate = 0, i.e., weights are not updated, and train 1k step; compare
 
 #### Benchmark Error Confirmation
 
-Before the training of weight update, it is necessary to confirm the benchmark error, that is, turn off the deterministic computation, repeat running the benchmark training twice to see the error of the benchmark itself, as a reference to determine whether the error is reasonable. Due to the differences in hardware or the underlying calling operator, the computational process of training will inevitably have a certain degree of error. When a loss comparison is performed between MindSpore and benchmarking model, if the error is within the benchmark error range and the error fluctuates up and down along the 0-axis, the error can be considered reasonable.
+Before the training of weight update, it is necessary to confirm the benchmark error, that is, turn off the deterministic computation, repeat running the benchmark training twice to see the error of the benchmark itself, to determine whether the error is reasonable. Due to the differences in hardware or the underlying calling operator, the computational process of training will inevitably have a certain degree of error. When a loss comparison is performed between MindSpore and benchmarking model, if the error is within the benchmark error range and the error fluctuates up and down along the 0-axis, the error can be considered reasonable.
 
 #### Loss Diffusion
 

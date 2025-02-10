@@ -4,7 +4,7 @@
 
 ## Upload a Model to the Modelers Community
 
-Modelers Community is a model hosting platform where users can upload custom models to [Magic Music Community](https://modelers.cn/) for hosting.
+Modelers Community is a model hosting platform where users can upload custom models to [Modelers Community](https://modelers.cn/) for hosting.
 
 ### MindFormers Built-in Models
 

@@ -372,7 +372,7 @@ python mindformers/tools/convert_reversed.py \
     - **Pipeline parallelism not enabled for the source weights**: Weight conversion can be based on any strategy file. Set the parameter to the path of any `ckpt_strategy_rank_x.ckpt` file.
 
     **Note**: If a `merged_ckpt_strategy.ckpt` already exists in the strategy folder and is still transferred to the folder path, the script deletes the old `merged_ckpt_strategy.ckpt` and then merges files into a new `merged_ckpt_strategy.ckpt` for weight conversion. Therefore, ensure that the folder has enough write permission. Otherwise, an error will be reported.
-- **mindspore_ckpt_dir**: The path of distributed weight, please fill in the path of the folder where the source weight is located, the source weights should be stored as `model_dir/rank_x/xxx.safetensors`, and fill in the folder path as `model_dir`。
+- **mindspore_ckpt_dir**: The path of distributed weight, please fill in the path of the folder where the source weight is located, the source weights should be stored as `model_dir/rank_x/xxx.safetensors`, and fill in the folder path as `model_dir`.
 - **tmp_dir**: Path for saving target weights, default value is "/new_llm_data/******/ckpt/nbg3_31b/tmp", target weights will be saved in `/new_llm_data/******/ckpt/nbg3_31b/tmp`.
 - **file_suffix**: Naming suffix of target weight file, default value is "1_1", The target weight will be searched in the format of `*1_1.safetensors`.
 - **has_redundancy**: Is the merged weights which remove redundancy, default value is `True`.
