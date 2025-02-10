@@ -322,7 +322,7 @@ if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb')):
                 os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb'))
     with open(os.path.join(moment_dir, 'ptq/round_to_nearest.ipynb'), 'r+', encoding='utf-8') as f:
         content = f.read()
-        content = re.sub('.*?/README.md.*\n.*\n', '', content)
+        content = re.sub('\n.*\[View English\].*\n.*\n', '\n', content, 1)
         content = re.sub(re_url, r'\1/r2.5.0', content)
         content = re.sub(re_url2, r'\1/v2.5.0', content)
         content = re.sub(re_url3, r'\1/r1.0.0', content)
@@ -342,6 +342,13 @@ if not os.path.exists(os.path.join(moment_dir, 'ptq/overview.md')):
                 os.path.join(moment_dir, 'ptq/overview.md'))
     with open(os.path.join(moment_dir, 'ptq/overview.md'), 'r+', encoding='utf-8') as f:
         content = f.read()
+        content = re.sub('\n\[View English\].*\n', '', content, 1)
+        content = re.sub(re_url, r'\1/r2.5.0', content)
+        content = re.sub(re_url2, r'\1/v2.5.0', content)
+        content = re.sub(re_url3, r'\1/r1.0.0', content)
+        content = re.sub(re_url4, r'\1/r0.10', content)
+        content = re.sub(re_url5, r'\1/v1.3.2', content)
+        content = re.sub(re_url6, r'\1/r1.3.2', content)
         f.seek(0)
         f.truncate()
         f.write(content)
@@ -349,6 +356,22 @@ if not os.path.exists(os.path.join(moment_dir, 'ptq/overview.md')):
     if os.path.exists(images_path):
         for i in os.listdir(images_path):
             shutil.copy(os.path.join(images_path, i), os.path.join(moment_dir, 'ptq/images/zh_cn', i))
+
+if not os.path.exists(os.path.join(moment_dir, 'install.md')):
+    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'docs/zh_cn/install.md'),
+                os.path.join(moment_dir, 'install.md'))
+    with open(os.path.join(moment_dir, 'install.md'), 'r+', encoding='utf-8') as f:
+        content = f.read()
+        content = re.sub('\n\[View English\].*\n', '', content, 1)
+        content = re.sub(re_url, r'\1/r2.5.0', content)
+        content = re.sub(re_url2, r'\1/v2.5.0', content)
+        content = re.sub(re_url3, r'\1/r1.0.0', content)
+        content = re.sub(re_url4, r'\1/r0.10', content)
+        content = re.sub(re_url5, r'\1/v1.3.2', content)
+        content = re.sub(re_url6, r'\1/r1.3.2', content)
+        f.seek(0)
+        f.truncate()
+        f.write(content)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 # import anchor_mod

@@ -188,19 +188,22 @@ def main(version, user, pd, WGETDIR, release_url, generate_list):
             subprocess.run(cmd_reppath)
 
         # 特殊与一般性的往ArraySource中加入键值对
+        if not branch_:
+            continue
+        html_branch = branch_
+        if "html_version" in data[i]:
+            html_branch = data[i]["html_version"]
         if data[i]['name'] == "lite":
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
-            ArraySource[data[i]['name'] + '/api'] = data[i]["branch"]
+            ArraySource[data[i]['name'] + '/docs'] = html_branch
+            ArraySource[data[i]['name'] + '/api'] = html_branch
         elif data[i]['name'] == "tutorials":
-            ArraySource[data[i]['name']] = data[i]["branch"]
-            # ArraySource[data[i]['name'] + '/application'] = data[i]["branch"]
-            # ArraySource[data[i]['name'] + '/experts'] = data[i]["branch"]
+            ArraySource[data[i]['name']] = html_branch
         elif data[i]['name'] == "mindspore":
-            ArraySource[data[i]['name']] = data[i]["branch"]
+            ArraySource[data[i]['name']] = html_branch
         elif data[i]['name'] == "mindscience":
             pass
         else:
-            ArraySource[data[i]['name'] + '/docs'] = data[i]["branch"]
+            ArraySource[data[i]['name'] + '/docs'] = html_branch
 
         if data[i]['name'] != "mindscience":
             generate_version_json(data[i]['name'], data[i]["branch"], data_b, flag_dev, target_version)
