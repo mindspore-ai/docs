@@ -42,7 +42,11 @@ bash build.sh
 
 ### pip方式安装
 
-当前版本MindFormers暂不支持通过pip进行安装，待近期上传pypi后可以通过此方式进行安装。
+用户可以执行如下命令安装MindFormers：
+
+```bash
+pip install mindformers=1.3.2
+```
 
 > 注意：此方式只安装了MindFormers基础软件包，模型文件和脚本等请从MindFormers gitee仓库中获取。
 
