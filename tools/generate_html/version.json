@@ -54,6 +54,8 @@
       "whl_path" : "2.4.0/GoldenStick/any/",
       "whl_name" : "mindspore_gs-0.6.0-py3-none-any.whl",
       "environ" : "GS_PATH",
-      "uninstall_name" : "mindspore_gs"
+      "uninstall_name" : "mindspore_gs",
+      "extra_whl_path" : "2.4.0/MindFormers/any/",
+      "extra_whl_name" : "mindformers-1.3.0-py3-none-any.whl"
   }
 ]
