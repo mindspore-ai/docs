@@ -221,6 +221,19 @@ if not os.path.exists(os.path.join(moment_dir, 'ptq/round_to_nearest.md')):
         for i in os.listdir(images_path):
             shutil.copy(os.path.join(images_path, i), os.path.join(moment_dir, 'ptq/images/en', i))
 
+if not os.path.exists(os.path.join(moment_dir, 'install.md')):
+    shutil.copy(os.path.join(os.getenv("GS_PATH"), 'docs/en/install.md'),
+                os.path.join(moment_dir, 'install.md'))
+    with open(os.path.join(moment_dir, 'install.md'), 'r+', encoding='utf-8') as f:
+        content = f.read()
+        content = re.sub('\n\[查看中文\].*\n', '', content, 1)
+        content = re.sub(re_url, r'\1/r2.4.0', content)
+        content = re.sub(re_url2, r'\1/r0.6.0', content)
+        content = re.sub(re_url3, r'\1/r1.3.0', content)
+        f.seek(0)
+        f.truncate()
+        f.write(content)
+
 # get params for add view source
 import json
 
