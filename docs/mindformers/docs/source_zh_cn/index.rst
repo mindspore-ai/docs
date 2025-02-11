@@ -45,6 +45,10 @@ MindFormers以其强大的功能集，为用户提供了灵活且易于使用的
 
    支持step级断点续训，有效减少大规模训练时意外中断造成的时间和资源浪费。
 
+6. `Tensorboard可视化训练监控 <https://www.mindspore.cn/mindformers/docs/zh-CN/dev/function/tensorboard.html>`_
+
+   提供大模型训练阶段的可视化服务，用于监控和分析训练过程中的各种指标和信息。
+
 使用MindFormers进行深度调优
 ------------------------------------
 
@@ -111,6 +115,7 @@ FAQ
    function/distributed_parallel
    function/dataset
    function/resume_training
+   function/tensorboard
 
 .. toctree::
    :glob:
