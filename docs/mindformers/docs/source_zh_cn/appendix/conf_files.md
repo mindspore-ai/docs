@@ -156,7 +156,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | parallel.gradients_mean                                         | 是否在梯度AllReduce后执行平均算子。通常半自动并行模式下设为`False`，数据并行模式下设为`True`                                                                                                                                        | bool |
 | parallel.enable_alltoall                                        | 是否在通信期间生成AllToAll通信算子。通常仅在MOE场景下设为`True`，默认值为`False`                                                                                                                                             | bool |
 | parallel.full_batch                                             | 是否在并行模式下加载完整batch的数据集，在自动并行模式和半自动并行模式下设置为`True`，在数据并行模式下设置为`False`                                                                                                                               | bool |
-| parallel.search_mode                                            | 设置全自动并行策略搜索模式，可选`recursive_programming`, `dynamic_programming`和`sharding_propagation`，仅在全自动并行模式下生效，实验性接口                                                                                         | str  |
+| parallel.search_mode                                            | 设置全自动并行策略搜索模式，可选`recursive_programming`、`dynamic_programming`和`sharding_propagation`，仅在全自动并行模式下生效，实验性接口                                                                                         | str  |
 | parallel.strategy_ckpt_save_file                                | 设置并行切分策略文件的保存路径                                                                                                                                                                                  | str  |
 | parallel.strategy_ckpt_config.only_trainable_params             | 是否仅保存（或加载）可训练参数的切分策略信息，默认为`True`，当网络中存在冻结的参数但又需要切分时将该参数设为`False`                                                                                                                                 | bool |
 | parallel.enable_parallel_optimizer                              | 是否开启优化器并行。<br/>1. 在数据并行模式下将模型权重参数按device数进行切分<br/>2. 在半自动并行模式下将模型权重参数按`parallel_config.data_parallel`进行切分                                                                                        | bool |
@@ -164,7 +164,7 @@ Context配置主要用于指定[mindspore.set_context](https://www.mindspore.cn/
 | parallel.parallel_optimizer_config.parallel_optimizer_threshold | 设置优化器权重参数切分的阈值，仅`enable_parallel_optimizer=True`时生效。                                                                                                                                             | int  |
 | parallel.parallel_optimizer_config.optimizer_weight_shard_size  | 设置优化器权重参数切分通信域的大小，要求该值可以整除`parallel_config.data_parallel`，仅`enable_parallel_optimizer=True`时生效。                                                                                                  | int  |
 
-> 配置并行策略时应满足device_num = data_parallel × model_parallel × context_parallel × pipeline_stage
+> 配置并行策略时应满足device_num = data_parallel × model_parallel × context_parallel × pipeline_stage。
 
 ### 模型优化配置
 
@@ -263,7 +263,7 @@ MindFormers提供模型评估功能，同时支持模型边训练边评估功能
 
 ### Profile配置
 
-MindFormers提供Profile作为模型性能调优的主要工具，详情可参考[性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/perf_optimize/perf_optimize.html)，以下是Profile相关配置。
+MindFormers提供Profile作为模型性能调优的主要工具，详情可参考[性能调优指南](https://www.mindspore.cn/mindformers/docs/zh-CN/dev/perf_optimize/perf_optimize.html)。以下是Profile相关配置。
 
 | 参数                    | 说明                                                                                                                            | 类型   |
 |-----------------------|-------------------------------------------------------------------------------------------------------------------------------|------|

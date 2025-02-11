@@ -164,7 +164,7 @@ In order to improve the performance of the model, it is usually necessary to con
 | parallel.parallel_optimizer_config.parallel_optimizer_threshold | Set the threshold for the optimizer weight parameter cut, effective only if `enable_parallel_optimizer=True`.                                                                                                                                             | int  |
 | parallel.parallel_optimizer_config.optimizer_weight_shard_size  | Set the size of the optimizer weight parameter to slice the communication domain, requiring the value to be integrable by `parallel_config.data_parallel`, effective only if `enable_parallel_optimizer=True`.                                                                                                  | int  |
 
-> Configure the parallel strategy to satisfy device_num = data_parallel × model_parallel × context_parallel × pipeline_stage
+> Configure the parallel strategy to satisfy device_num = data_parallel × model_parallel × context_parallel × pipeline_stage.
 
 ### Model Optimization Configuration
 

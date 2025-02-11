@@ -14,7 +14,7 @@
 
 大模型训练中经常出现各种精度问题，常见的问题包括loss无法收敛、loss收敛效果不佳、训练后期loss不收敛、精度溢出、loss下降过程中与标杆无法拟合等；造成这些精度问题可能有多种原因，包括模型结构、数据集、超参数、前反向计算精度、优化器计算、浮点计算精度、随机性等。
 
-当出现精度问题时，可以从造成这些精度误差的原因进行问题分析。先根据CheckList进行快速的排查，然后进行参数、权重对齐，固定随机性和开启确定性计算，最后执行进出问题排查和长稳训练排除。当前阶段本文主要针对有精度标杆的场景，介绍精度定位的通用方法，后续将陆续添加无精度标杆下的精度问题定位内容。
+当出现精度问题时，可以从造成这些精度误差的原因进行问题分析。先根据CheckList快速排查，然后对齐参数和权重、固定随机性和开启确定性计算，接着排查基础问题，最后通过长稳训练排查异常Step的问题。在当前阶段，本文主要针对有精度标杆的场景，介绍精度定位的通用方法，后续将陆续添加无精度标杆下的精度问题定位内容。
 
 ## 精度问题定位CheckList
 
@@ -34,7 +34,7 @@
 | 正则化函数        | 正则化函数，常见结构有LayerNorm、RMSNorm                     | MindFormers中使用指定的正则化函数，无法通过配置修改。Megatron中可通过normalization自定义配置，检查是否一致。   |
 | rms_norm_eps      | 正则化的epsilon参数                                          | 对应Megatron的layernorm_epsilon，检查是否一致。                                     |
 | dropout           | 网络中的dropout                                              | 当前MindSpore开启dropout时，不能开重计算；若进行精度比对，建议两边都关闭，减少随机因素。                     |
-| 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 1. 同硬件下进行精度比对时，若有使用融合算子，则需要保持一致。 <br>2. 不同硬件下进行精度比对时，则重点检查融合计算部分是否有计算差异。 |
+| 融合计算          | 常见的融合算子包括FA、ROPE、Norm、SwigLU；部分用户会将Wq、Wk、Wv进行融合计算 | 1. 同硬件下进行精度比对时，若有使用融合算子，需要保持一致。 <br>2. 不同硬件下进行精度比对时，重点检查融合计算部分是否有计算差异。 |
 
 #### MOE结构
 
@@ -47,7 +47,7 @@
 | enable_sdrop             | 是否开启sdrop（drop实现）方式              | 建议设置成true，对应Megatron需要设置如下参数：<br>  `moe-token-drop-policy: position` <br>  `moe-pad-expert-input-to-capacity: True` |
 | router_dense_type        | 决定专家的dense层                      | MindFormers中可配置，建议使用FP32计算，防止溢出；Megatron中不可配置。                                                                      |
 | use_fused_ops_topkrouter | 是否使用融合算子进行dispatch以及combine的索引计算 | MindFormers中融合算子只有在设置`enable_sdrop=True`时才生效，精度对齐建议设置成True。                                                         |
-| use_shared_expert_gating | 共享专家网络中是否使用gating系数              | 检查网络的共享专家是否使用gating系数，如果有设置成True。                                                                                   |
+| use_shared_expert_gating | 共享专家网络中是否使用gating系数              | 检查网络的共享专家是否使用gating系数，如果有，设置成True。                                                                                   |
 
 ### 优化器CheckList
 
@@ -101,12 +101,12 @@
 | ------------- |----------------------------------------------------------------------------------------------|
 | 数据检查      | 查看数据是否异常，可随机抽取部分数据进行decode、encode检查，查看input与label的位置是否正确对应。                                  |
 | 特殊词检查    | 检查bos_token_id、eos_token_id、pad_token_id等特殊ids是否与数据制作时的ids保持一致。                              |
-| input_ids校验 | 检查Embedding中的inputs_id是否符合0<=inputs_id<vocab_size；若有越界行为，会取脏数据，导致精度异常。                       |
+| inputs_id校验 | 检查Embedding中的inputs_id是否符合0<=inputs_id<vocab_size；若有越界行为，会取脏数据，导致精度异常。                       |
 | 溢出检测      | 溢出状态对齐PyTorch方式，建议使用INFNAN_MODE，即`export MS_ASCEND_CHECK_OVERFLOW_MODE=INFNAN_MODE`。         |
 | 图算融合      | 关闭图算融合，即`enable_graph_kernel: False`。                                                          |
 | 训推模板一致  | 若进行SFT训练，需要确认训练推理时使用的输入模板一致。                                                                 |
 | 版本检查      | 检查MindSpore、MindFormers、CANN版本是否配套，建议使用最新的配套版本。                                              |
-| 与开源差异    | MindFormers中的已支持了主流的开源LLM模型，并经过了较为充分的测试。如果用户基于MindFormers中开源模型进行开发，可以重点排查与MindFormers开源模型的差异。 |
+| 与开源差异    | MindFormers中已支持主流的开源LLM模型，也经过了较为充分的测试。如果用户基于MindFormers中开源模型进行开发，可以重点排查与MindFormers开源模型的差异。 |
 
 ## 精度调试工具介绍
 
@@ -163,7 +163,7 @@ export MINDSPORE_DUMP_CONFIG=${JSON_PATH}
 
 ### 阶段1：训练前准备
 
-进行 GPU+PyTorch 与 Ascend+MindSpore 精度对比，需要简化场景及固定随机性，再进行问题的复现。主要有如下三个部分：
+对比 GPU+PyTorch 与 Ascend+MindSpore 精度，需要简化场景及固定随机性，再进行问题的复现。主要有如下三个部分：
 
 * 对齐参数，缩小模型规模，单卡/单机复现问题；
 
@@ -337,7 +337,7 @@ def get_parameters(self):
     return params
 ```
 
-MindFormers加载梯度参考[mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/wrapper/wrapper.py)实现，注意，需要用户自行找到MindFormers与PyTorch梯度的对应关系，参考如下修改代码：
+MindFormers加载梯度参考[mindformers/wrapper/wrapper.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/wrapper/wrapper.py)实现。注意，需要用户自行找到MindFormers与PyTorch梯度的对应关系，参考如下修改代码：
 
 ```python
 class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
@@ -371,7 +371,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 #### 标杆误差确认
 
-在进行权重更新的训练前，需要先确认标杆误差，即关闭确定性计算，重复跑两次标杆训练，查看标杆自身的误差，以此作为判断误差是否合理的参考。由于硬件或底层调用算子的差异，训练的计算过程会不可避免地存在一定的误差。MindSpore与标杆模型进行loss对比时，若误差在标杆误差范围内，且误差围绕0轴上下波动，则可以认为误差合理。
+在进行权重更新的训练前，需要先确认标杆误差，即关闭确定性计算，重复跑两次标杆训练，查看标杆自身的误差，以此判断误差是否合理。由于硬件或底层调用算子的差异，训练的计算过程会不可避免地存在一定的误差。MindSpore与标杆模型进行loss对比时，若误差在标杆误差范围内，且误差围绕0轴上下波动，则可以认为误差合理。
 
 #### loss发散
 
@@ -407,7 +407,7 @@ class MFTrainOneStepCell(nn.TrainOneStepWithLossScaleCell):
 
 ### 大模型迁移精度标准
 
-大模型迁移精度标准是指，将其他第三方硬件或框架训练完成的模型，迁移至 MindSpore 和昇腾硬件后，为保证迁移前后模型精度基本持平，对关键指标设置的精度标准，该标准根据 MindSpore 大模型实际迁移场景总结形成，供开发者参考。由于大模型的精度与应用领域、模型结构、参数量、超参等强相关，且不具备完全的可解释性，目前没有形成完整统一的强制标准。因此，该标准仅作为参考标准，仅帮助用户对模型迁移精度做出基本的判断。
+大模型迁移精度标准是指，将其他第三方硬件或框架训练完成的模型，迁移至 MindSpore 和昇腾硬件后，为保证迁移前后模型精度基本持平，对关键指标设置的精度标准，该标准根据 MindSpore 大模型实际迁移场景总结形成，供开发者参考。由于大模型的精度与应用领域、模型结构、参数量、超参等强相关，且不具备完全的可解释性，目前没有形成完整统一的强制标准。因此，该标准仅作为参考标准，帮助用户对模型迁移精度做出基本的判断。
 
 #### 精度标准规范
 

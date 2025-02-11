@@ -89,7 +89,7 @@ The following is an example of a MindRecord dataset based on a json format file,
     writer.commit()
     ```
 
-For the detailed cases, refer to [Examples of Data Preprocessing in Llama2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87)。
+For the detailed cases, refer to [Examples of Data Preprocessing in Llama2](https://gitee.com/mindspore/mindformers/blob/dev/docs/model_cards/llama2.md#%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%9D%83%E9%87%8D%E5%87%86%E5%A4%87).
 
 ### Using MindRecord Format Datasets in Tasks
 
