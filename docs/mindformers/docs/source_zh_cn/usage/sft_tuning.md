@@ -152,7 +152,7 @@ run_mode：          运行模式，train：训练，finetune：微调，predict
 
 #### 多机训练
 
-多机多卡微调任务与启动预训练类似，可参考多机多卡的预训练命令，并对命令进行如下修改：
+多机多卡微调任务与启动预训练类似，可参考[多机多卡的预训练命令](https://www.mindspore.cn/mindformers/docs/zh-CN/r1.3.2/usage/pre_training.html#%E5%A4%9A%E6%9C%BA%E8%AE%AD%E7%BB%83)，并对命令进行如下修改：
 
 1. 增加启动脚本入参`--load_checkpoint /{path}/llama2_7b.ckpt`加载预训练权重。
 2. 设置启动脚本中的`--train_dataset_dir /{path}/alpaca-fastchat4096.mindrecord`加载微调数据集。

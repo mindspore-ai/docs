@@ -182,7 +182,7 @@ context:
       # Fullname with scope: (Default/network-MFPipelineWithLossScaleCell/network-_VirtualDatasetCell/_backbone-GradAccumulationCell/network-LlamaForCausalLM/model-LlamaModel/layers-CellList/0-LLamaDecodeLayer/attention-LLamaAttention/Transpose-op0)
 ```
 
-`%XX` 表示步骤，后面对应算子名称，括号内包含入参及输出。Fullname with scope则包含了完成的class、方法名等信息。
+`%XX` 表示步骤，后面对应算子名称，括号内包含入参及输出。Fullname with scope包含了完成的class、方法名等信息。
 
 * `%13`
 

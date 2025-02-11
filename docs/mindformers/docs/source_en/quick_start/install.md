@@ -48,7 +48,7 @@ The current version of MindFormers does not support installation through pip for
 
 ## Installation Verification
 
-To determine whether MindFormers has been successfully installed, execute the following command:
+To determine whether MindFormers has been successfully installed, execute the following code:
 
 ```python
 import mindformers as mf

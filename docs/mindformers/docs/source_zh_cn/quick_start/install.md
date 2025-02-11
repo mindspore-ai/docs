@@ -48,7 +48,7 @@ bash build.sh
 
 ## 验证是否成功安装
 
-判断MindFormers是否安装成功可以执行以下命令：
+判断MindFormers是否安装成功可以执行以下代码：
 
 ```python
 import mindformers as mf
