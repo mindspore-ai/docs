@@ -156,4 +156,45 @@ print(ret)
 
 - Users can't explicitly do performance acceleration for certain code, and for scenarios with more cracked graphs, the performance acceleration may not be obvious.
 
+#### trace
+
+MindSpore also offers another static acceleration mechanism called trace. Users can decorate a function with the `@jit(capture_mode=“trace”)` decorator to execute the function in trace mode. In this mode, the code first runs in pynative mode, during which the operators executed at runtime are recorded and captured into the computation graph. Subsequent executions of the decorated code will directly execute the computation graph constructed during the first execution. This mechanism does not parse syntax but only captures the operators called during runtime, thus avoiding syntax-related errors. It captures the operators invoked during the execution of the pynative mode, captures the Python execution flow into a graph, and compiles the captured operators into the computation graph. Operations without corresponding operators will have their return values recorded as constants in the computation graph. The generated computation graph runs in the manner of static graph execution.
+
+**trace Usage**
+
+Setting the capture_mode parameter of jit to trace switches the mode of operation of the modifier function to trace, for example:
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import ops
+from mindspore import jit
+from mindspore import Tensor
+
+@jit(capture_mode="trace")
+def tensor_cal(x, y, z):
+    return ops.matmul(x, y) + z
+
+x = Tensor(np.ones(shape=[2, 3]), ms.float32)
+y = Tensor(np.ones(shape=[3, 4]), ms.float32)
+z = Tensor(np.ones(shape=[2, 4]), ms.float32)
+ret = tensor_cal(x, y, z)
+print(ret)
+```
+
+```text
+[[4. 4. 4. 4.]
+ [4. 4. 4. 4.]]
+```
+
+**Advantages of trace**
+
+- The graph construction capability is robust; as long as the code has corresponding operators, they can be captured into the graph without the need for additional adaptation. There will be no syntax-related errors when building the static graph.
+- Good user experience, no human intervention, user-written web code always runs properly.
+
+**Limitations of trace**
+
+- It is unable to detect the control flow within the code, and correctness cannot be ensured in scenarios where different branches of the control flow are entered during multiple executions.
+- Operations in the code that are not defined as operators, such as calls to third-party libraries, are fixed as constants in the computation graph, and correctness cannot be guaranteed across multiple runs.
+
 ### Shard
