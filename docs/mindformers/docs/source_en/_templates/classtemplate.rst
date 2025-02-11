@@ -154,7 +154,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
-    :exclude-members: dict_ms_dtype_to_str, get_config_origin_mode, get_support_list, inverse_parse_config, register_for_auto_class, remove_type, save_config_origin_mode, show_support_list
+    :exclude-members: dict_ms_dtype_to_str, get_config_origin_mode, get_support_list, inverse_parse_config, register_for_auto_class, remove_type, save_config_origin_mode, show_support_list, delete_from_dict
     :members:
 
 {% elif fullname=="mindformers.models.PreTrainedModel" %}
