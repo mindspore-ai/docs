@@ -11,9 +11,7 @@ MindFormers提供了统一的权重转换工具，能够将模型权重在Huggin
 
 ## 转换步骤
 
-要进行权重转换，首先请将待转换模型的HuggingFace仓库完整克隆到本地，然后执行`mindformers/convert_weight.py`
-脚本。该脚本能够自动将HuggingFace的模型权重文件转换为适用于MindFormers的权重文件。如若希望将MindFormers权重转为HuggingFace权重，请将
-`reversed`设置为`True`。
+要进行权重转换，首先请将待转换模型的HuggingFace仓库完整克隆到本地，然后执行`mindformers/convert_weight.py`脚本。该脚本能够自动将HuggingFace的模型权重文件转换为适用于MindFormers的权重文件。如若希望将MindFormers权重转为HuggingFace权重，请将`reversed`设置为`True`。
 
 ```shell
 python convert_weight.py [-h] --model MODEL [--reversed] --input_path INPUT_PATH  --output_path OUTPUT_PATH [--dtype DTYPE] [--n_head N_HEAD] [--hidden_size HIDDEN_SIZE] [--layers LAYERS] [--is_pretrain IS_PRETRAIN] [--telechat_type TELECHAT_TYPE]
@@ -66,7 +64,7 @@ python convert_weight.py --model llama --input_path /home/user/torch_weights --o
 1. 在扩展模型目录下新增`convert_weight.py`及`convert_reversed.py`文件。
 2. 在文件中分别编写`convert_pt_to_ms`及`convert_ms_to_pt`权重转换函数，函数参数为`input_path`、`output_path`、`dtype`及额外参数`**kwargs`。
 3. 在MindFormers根目录下`convert_weight.py`文件中的`convert_map`和`reversed_convert_map`字典中加入扩展模型名称及转换函数引入路径。
-4. 额外参数在`main`函数中通过调用`parser.add_argument()`方法新增。
+4. 在`main`函数中通过调用`parser.add_argument()`方法新增额外参数。
 
 ## 模型权重转换开发示例
 

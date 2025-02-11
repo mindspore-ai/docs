@@ -52,7 +52,7 @@ pip install mindformers==1.3.0
 
 ## Installation Verification
 
-To determine whether MindFormers has been successfully installed, execute the following command:
+To determine whether MindFormers has been successfully installed, execute the following code:
 
 ```python
 import mindformers as mf

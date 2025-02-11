@@ -152,7 +152,7 @@ After the task is executed, the **checkpoint** folder is generated in the **mind
 
 #### Multi-Node Training
 
-The multi-node multi-device fine-tuning task is similar to the pretrained task. You can refer to the multi-node multi-device pretraining command and modify the command as follows:
+The multi-node multi-device fine-tuning task is similar to the pretrained task. You can refer to the [multi-node multi-device pretraining command](https://www.mindspore.cn/mindformers/docs/en/r1.3.0/usage/pre_training.html#multi-node-training) and modify the command as follows:
 
 1. Add the input parameter `--load_checkpoint /{path}/llama2_7b.ckpt` to the startup script to load the pretrained weights.
 2. Set `--train_dataset_dir /{path}/alpaca-fastchat4096.mindrecord` in the startup script to load the fine-tuning dataset.

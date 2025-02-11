@@ -134,7 +134,7 @@ python run_mindformer.py \
 
 In addition to the startup mode dependent on the 'msrun_launcher.sh' script, there are also two places to pay attention to, one is the parallel configuration, the other is the weight loading method.
 
-The current version of inference mode only supports model parallelism. The original parallel configuration needs to be modified before running the command:
+The current version of inference mode only supports model parallelism. The original [predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml) parallel configuration needs to be modified before running the command:
 
 ```yaml
 # Configuration before modification
@@ -184,6 +184,19 @@ Executing the script will start the multi card process, and the logs will be red
 
 ## Multi-Device Multi-Batch Inference
 
+Multi-card multi-batch inference is initiated in the same way as multi-card inference, but requires the addition of the `predict_batch_size` and the modification of the `predict_data`.
+
+The content and format of the `input_predict_data.txt` file is an input each line, and the number of questions is the same as the `predict_batch_size`, which can be found in the following format:
+
+```txt
+I love Beijing, because
+I love Beijing, because
+I love Beijing, because
+I love Beijing, because
+```
+
+Refer to the following commands to perform inference tasks:
+
 ```shell
 bash scripts/msrun_launcher.sh "python run_mindformer.py \
 --config configs/llama2/predict_llama2_7b.yaml \
@@ -197,6 +210,7 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 ```
 
 The following table describes the input parameters for script execution.
+
 |Parameter|Description|
 |:---------------------------------|:-------------------------------------------------------------------------|
 |config|Path of the YAML file.|
