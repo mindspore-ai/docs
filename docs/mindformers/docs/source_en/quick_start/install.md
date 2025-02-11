@@ -39,7 +39,7 @@ bash build.sh
 
 ## Installation Verification
 
-To determine whether MindFormers has been successfully installed, execute the following command:
+To determine whether MindFormers has been successfully installed, execute the following code:
 
 ```python
 import mindformers as mf

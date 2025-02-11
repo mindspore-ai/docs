@@ -16,7 +16,7 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
 
 ## Preparing Dataset
 
-1. The datasets used in the fine-tuning process can be obtained at [dataset download](https://github.com/tatsu-lab/stanford_alpaca).
+1. The dataset file alpaca_data.json used in the fine-tuning process can be obtained at [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca).
 
 2. Install the fastchat tool. The version must be greater than or equal to 0.2.13.
 
@@ -26,7 +26,7 @@ Word list download link: [tokenizer.model](https://ascend-repo-modelzoo.obs.cn-e
 
 3. Data Preprocessing
 
-    The following command needs to be executed in the MindFormers root directory:
+    The following command needs to be executed in the MindFormers root directory, and replaces {path} with the local path below.
 
     1. Execute [mindformers/tools/dataset_preprocess/llama/alpaca_converter.py](https://gitee.com/mindspore/mindformers/blob/dev/mindformers/tools/dataset_preprocess/llama/alpaca_converter.py), and use the fastchat tool to add prompt templates to convert the raw dataset into a multi-round conversation format.
 

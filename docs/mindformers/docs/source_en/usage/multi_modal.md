@@ -1,5 +1,7 @@
 # Multimodal Model Development Guide
 
+[![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_en/usage/multi_modal.md)
+
 Multimodal models refer to artificial intelligence models capable of processing and combining information from different modalities (such as text, images, audio, video, etc.) for learning and inference. Traditional single-modality models typically focus on a single type of data, such as text classification models handling only text data or image recognition models handling only image data. In contrast, multimodal models integrate data from different sources to accomplish more complex tasks, enabling them to understand and generate richer and more comprehensive content.
 
 This document aims to introduce the multimodal models in MindFormers, providing detailed steps and examples to guide users in building custom multimodal models and data processing modules using MindFormers. Additionally, users can follow the document to complete tasks such as model training and inference.
