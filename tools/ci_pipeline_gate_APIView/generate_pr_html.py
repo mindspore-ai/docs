@@ -133,12 +133,24 @@ def get_api(fullname):
         module_name, api_name = ".".join(fullname.split('.')[:-1]), fullname.split('.')[-1]
         # pylint: disable=W0612
         module_import = importlib.import_module(module_name)
-    except ModuleNotFoundError:
-        return False
-    try:
         # pylint: disable=W0123
         api = eval(f"module_import.{api_name}")
+    except ModuleNotFoundError:
+        print(f"not find module: {module_import}, name: {api_name}")
+        return False
     except AttributeError:
+        try:
+            module_name, api_name = ".".join(fullname.split('.')[:-2]), ".".join(fullname.split('.')[-2:])
+            # pylint: disable=W0612
+            module_import = importlib.import_module(module_name)
+            # pylint: disable=W0123
+            api = eval(f"module_import.{api_name}")
+        # pylint: disable=W0702
+        except:
+            print(f'error get_api: {fullname}')
+            return False
+    except: # pylint: disable=W0702
+        print(f'error get_api: {fullname}')
         return False
     return api
 
