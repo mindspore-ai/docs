@@ -160,13 +160,27 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+# replace py_files that have too many errors.
+replace_list = [("mindspore_gs/ptq/ptq_config.py", "mindspore_gs/ptq/ptq_config.py")]
+
 base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+repo_path = os.getenv("GS_PATH")
+for i in replace_list:
+    try:
+        if os.path.exists(os.path.join(base_path, os.path.normpath(i[0]))):
+            os.remove(os.path.join(base_path, os.path.normpath(i[0])))
+            shutil.copy(os.path.join(repo_path, i[1]),os.path.join(base_path, os.path.normpath(i[0])))
+        else:
+            print(f'{i[0]}文件不存在')
+    except:
+        print(f'{i[0]}替换失败')
+        continue
+
 # Repair error content defined in mindspore.
 try:
     decorator_list = [("mindspore/common/dtype.py","restore error",
                        "# generate api by del decorator.\nclass QuantDtype():","@enum.unique\nclass QuantDtype(enum.Enum):")]
 
-    
     for i in decorator_list:
         with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
             content = f.read()
