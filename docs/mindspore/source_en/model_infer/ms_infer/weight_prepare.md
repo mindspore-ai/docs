@@ -40,7 +40,7 @@ llama-2-7b-hf
 └── tokenizer.model
 ```
 
-In the preceding information, **pytorch_model-00001-of-00002.bin** and **pytorch_model-00001-of-00002.bin** are weight files, **config.jso** contains the model configuration, and **tokenizer.model** is the token mapping table, which are the primary files used in subsequent steps.
+In the preceding information, **pytorch_model-00001-of-00002.bin** and **pytorch_model-00001-of-00002.bin** are weight files, **config.json** contains the model configuration, and **tokenizer.model** is the token mapping table, which are the primary files used in subsequent steps.
 
 ### Using the MindSpore Framework to Convert the Weight Files
 
