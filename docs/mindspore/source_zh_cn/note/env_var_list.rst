@@ -171,15 +171,6 @@
 
        子图名字（如kernel_graph_1）：跳过子图kernel_graph_1的执行，用于子图下沉模式
      -
-   * - MS_PYNATIVE_GE
-     - 设置动态图模式下是否执行GE
-     - Integer
-     - 0: 不执行GE。
-
-       1: 执行GE。
-
-       默认值: 0
-     - 实验性质的环境变量
    * - GC_COLLECT_IN_CELL
      - 是否对未使用的Cell对象进行垃圾回收
      - Integer
