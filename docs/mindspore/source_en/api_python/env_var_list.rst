@@ -920,9 +920,19 @@ Third-party Library
      - Absolute path for CUDA package installation
      - Required for GPU environment only, generally no need to set. If multiple versions of CUDA are installed in the GPU environment, it is recommended to configure this environment variable in order to avoid confusion.
    * - MS_ENABLE_TFT
-     - Enable MindIO TFT feature
+     - Enable `MindIO TFT <https://www.hiascend.com/document/detail/zh/mindx-dl/600/clusterscheduling/ref/mindiottp/mindiotft001.html>`_ feature. Turn on TTP, UCE or ARF feature.
      - String
-     - "{TTP:1,UCE:1}": enable MindIO TFT TTP and UCE feature, can enable only TTP or UCE separated. Default value: Empty.
+     - "{TTP:1,UCE:1,ARF:1}". TTP (Try To Persist): End of life CKPT, UCE (Uncorrectable Memory Error): Fault tolerance and recovery, ARF (Air Refuelling): Process level rescheduling and recovery feature. The three features can be enabled separately. If you only want to enable one of them, set the corresponding value to 1. Other values: MindIO TFT not turned on. (When using UCE or ARF, TTP is enabled by default.)
+     - Required for Ascend graph mode only.
+   * - MS_TFT_IP
+     - The IP address where the MindIO controller thread is located for processor connections.
+     - String
+     - The IP address.
+     - Required for Ascend graph mode only.
+   * - MS_TFT_PORT
+     - The MindIO controller thread binds to a port for processor connections.
+     - Integer
+     - Positive integer.
      - Required for Ascend graph mode only.
    * - AITURBO
      - Optimize settings to enable accelerated usage of Huawei Cloud Storage.

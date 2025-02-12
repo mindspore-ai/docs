@@ -160,7 +160,7 @@ time_monitor = train.TimeMonitor(data_size=1)
 loss_cb = train.LossMonitor(1)
 
 # 设置TFT callback对象
-tft_cb = train.TFTRegister(0, "127.0.0.1", 30051, "./ttp_checkpoints/")
+tft_cb = train.TrainFaultTolerance()
 
 model.train(
     5, mini_dataset, callbacks=[time_monitor, loss_cb, tft_cb], initial_epoch=init_epoch
