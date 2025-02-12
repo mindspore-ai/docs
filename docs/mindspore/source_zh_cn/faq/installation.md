@@ -4,12 +4,6 @@
 
 ## Pip安装
 
-### Q: 安装MindSpore版本: GPU、CUDA 10.1、0.5.0-beta，出现问题: `cannot open shared object file:No such file or directory`。
-
-A: 从报错情况来看，是cuBLAS库没有找到。一般的情况下是cuBLAS库没有安装，或者是因为没有加入到环境变量中去。通常cuBLAS是随着CUDA以及驱动一起安装的，确认安装后把cuBLAS所在的目录加入`LD_LIBRARY_PATH`环境变量中即可。
-
-<br/>
-
 ### Q: 使用pip安装时报错: `ERROR: mindspore_{VERSION}.whl is not a supported wheel on this platform`应该怎么办？
 
 A: pip会通过wheel安装包的文件名来判断该安装包是否与当前Python环境兼容，例如安装mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl时，pip会检查:
@@ -81,6 +75,12 @@ A: 对应ARM版macOS的scipy在pypi源的版本仅适配MacOS 12以上版本的�
 
 <br/>
 
+### Q: 安装MindSpore版本: GPU、CUDA 10.1、0.5.0-beta，出现问题: `cannot open shared object file:No such file or directory`。
+
+A: 从报错情况来看，是cuBLAS库没有找到。一般的情况下是cuBLAS库没有安装，或者是因为没有加入到环境变量中去。通常cuBLAS是随着CUDA以及驱动一起安装的，确认安装后把cuBLAS所在的目录加入`LD_LIBRARY_PATH`环境变量中即可。
+
+<br/>
+
 ## Conda安装
 
 ### Q: Ascend硬件平台，在个人的Conda环境中，有时候出现报错RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'，该怎么处理？
@@ -96,12 +96,6 @@ A: ARM版macOS上配置python3.9的conda环境时，在部分设备上没有自�
 <br/>
 
 ## Source安装
-
-### Q: MindSpore安装: 版本0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5，手动下载对应版本的whl包，编译并安装gmp6.1.2。其他Python库依赖已经安装完成，执行样例失败，报错显示找不到so文件。
-
-A: `libdatatransfer.so`动态库是`fwkacllib/lib64`目录下的，请先在`/usr/local`目录查找到这个库所在的路径，然后把这个路径加到`LD_LIBRARY_PATH`环境变量中，确认设置生效后，再执行。
-
-<br/>
 
 ### Q: 在Linux中已经安装了交叉编译工具，但是编译命令要怎么写呢？
 
@@ -177,6 +171,11 @@ A: 当前MindSpore只提供版本配套关系，需要您手动进行配套软�
 ### Q: 执行用例报错`No module named 'mindspore.version'`，应该怎么办？
 
 A: 当有这种报错时，有可能是在创建了和MindSpore安装包相同名字的路径中执行用例，导致Python导入包的时候优先找到了当前目录下，而当前目录没有version.py这个文件。解决方法就是目录重命名或者向上退出一级或者多级目录。
+
+<br/>
+### Q: MindSpore安装: 版本0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5，手动下载对应版本的whl包，编译并安装gmp6.1.2。其他Python库依赖已经安装完成，执行样例失败，报错显示找不到so文件。
+
+A: `libdatatransfer.so`动态库是`fwkacllib/lib64`目录下的，请先在`/usr/local`目录查找到这个库所在的路径，然后把这个路径加到`LD_LIBRARY_PATH`环境变量中，确认设置生效后，再执行。
 
 <br/>
 
@@ -328,7 +327,7 @@ A: 上述问题较为常见，当前有两种可行的解决方法，可任选�
 
 <br/>
 
-### Q: mindspore和gmp都已经通过源码编译安装后，在脚本中执行`import mindspore`，提示如下错误(`ImportError: libgmpxx.so: cannot open shared object file: No such file or directory`)该怎么解决?
+### Q: MindSpore和gmp都已经通过源码编译安装后，在脚本中执行`import mindspore`，提示如下错误(`ImportError: libgmpxx.so: cannot open shared object file: No such file or directory`)该怎么解决?
 
 A: 上述问题的原因是在编译安装gmp库的时候没有设置`--enable-cxx`，正确的gmp编译安装方式如下（假设已经下载了gmp6.1.2安装包）：
 

@@ -8,36 +8,36 @@ A: 静态图模式能够支持覆盖Python常用语法子集，以支持神经�
 
 <br/>
 
-## Q: 编译时报错“'self.xx' should be initialized as a 'Parameter' type in the '`__init__`' function”怎么办？
+## Q: 编译时报错'self.xx' should be initialized as a 'Parameter' type in the '`__init__`' function怎么办？
 
 A: 在 `construct` 函数内，如果想对类成员 `self.xx` 赋值，那么 `self.xx` 必须已经在 `__init__` 函数中被定义为 [Parameter](<https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html>) 类型，其他类型则不支持。局部变量 `xx` 不受这个限制。
 
 <br/>
 
-## Q: 编译时报错“For syntax like 'a is not b', b supports True, False and None”怎么办？
+## Q: 编译时报错`For syntax like 'a is not b', b supports True, False and None`怎么办？
 
 A: 对于语法 `is` 或 `is not` 而言，当前 `MindSpore` 仅支持与 `True`、`False` 和 `None` 的比较。暂不支持其他类型，如字符串等。
 
 <br/>
 
-## Q: 编译时报错“TypeError: For 'Cell', the function construct requires 1 positional argument and 0 default argument, total 1, but got 2”怎么办？
+## Q: 编译时报错`TypeError: For 'Cell', the function construct requires 1 positional argument and 0 default argument, total 1, but got 2`怎么办？
 
 A: 网络的实例被调用时，会执行 `construct` 方法，然后会检查 `construct` 方法需要的参数个数和实际传入的参数个数，如果不一致则会抛出以上异常。
 请检查脚本中调用网络实例时传入的参数个数，和定义的网络中 `construct` 函数需要的参数个数是否一致。
 
 <br/>
 
-## Q: 编译时报错“Unsupported expression 'Yield'”怎么办？
+## Q: 编译时报错`Unsupported expression 'Yield'`怎么办？
 
 A: MindSpore在静态图模式下不支持 `yield` 语法。
 
 <br/>
 
-## Q: 编译时报错“Type Join Failed”怎么办？
+## Q: 编译时报错`Type Join Failed`怎么办？
 
 A: 在前端编译的推理阶段，会对节点的抽象类型(包含 `type`、`shape` 等)进行推导，常见抽象类型包括 `AbstractScalar`、`AbstractTensor`、`AbstractFunction`、`AbstractTuple`、`AbstractList` 等。在一些场景比如多分支场景，会对不同分支返回值的抽象类型进行 `join` 合并，推导出返回结果的抽象类型。如果抽象类型不匹配，或者 `type`/`shape` 不一致，则会抛出以上异常。
 
-当出现类似“Type Join Failed: dtype1 = Float32, dtype2 = Float16”的报错时，说明数据类型不一致，导致抽象类型合并失败。根据提供的数据类型和代码行信息，可以快速定位出错范围。此外，报错信息中提供了具体的抽象类型信息、节点信息，可以通过 `analyze_fail.ir` 文件查看MindIR信息，定位解决问题。关于MindIR的具体介绍，可以参考[MindSpore IR（MindIR）](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir)。代码样例如下：
+当出现类似`Type Join Failed: dtype1 = Float32, dtype2 = Float16`的报错时，说明数据类型不一致，导致抽象类型合并失败。根据提供的数据类型和代码行信息，可以快速定位出错范围。此外，报错信息中提供了具体的抽象类型信息、节点信息，可以通过 `analyze_fail.ir` 文件查看MindIR信息，定位解决问题。关于MindIR的具体介绍，可以参考[MindSpore IR（MindIR）](https://www.mindspore.cn/docs/zh-CN/master/design/all_scenarios.html#中间表示mindir)。代码样例如下：
 
 ```python
 import numpy as np
@@ -82,7 +82,7 @@ The function call stack (See file 'analyze_fail.ir' for more details. Get instru
         ^
 ```
 
-当出现如“Type Join Failed: abstract type AbstractTensor can not join with AbstractTuple”的报错时，说明抽象类型不匹配，导致抽象类型合并失败，代码样例如下：
+当出现如`Type Join Failed: abstract type AbstractTensor can not join with AbstractTuple`的报错时，说明抽象类型不匹配，导致抽象类型合并失败，代码样例如下：
 
 ```python
 import mindspore.ops as ops
@@ -125,7 +125,7 @@ The function call stack:
 
 <br/>
 
-## Q: 编译时报错“The params of function 'bprop' of Primitive or Cell requires the forward inputs as well as the 'out' and 'dout'”怎么办？
+## Q: 编译时报错`The params of function 'bprop' of Primitive or Cell requires the forward inputs as well as the 'out' and 'dout'`怎么办？
 
 A: 用户自定义的Cell的反向传播函数 `bprop`，它的输入需要包含正向网络的输入，以及 `out` 和 `dout`，代码样例如下：
 
@@ -165,13 +165,13 @@ In file test.py(13)
 
 <br/>
 
-## Q: 编译时报错“There isn't any branch that can be evaluated”怎么办？
+## Q: 编译时报错`There isn't any branch that can be evaluated`怎么办？
 
 A: 当出现There isn't any branch that can be evaluated 时，说明代码中可能出现了无穷递归或者死循环，导致if条件的每一个分支都无法推导出正确的类型和维度信息。
 
 <br/>
 
-## Q: 编译时报错"Exceed function call depth limit 1000"怎么办？
+## Q: 编译时报错`Exceed function call depth limit 1000`怎么办？
 
 A: 当出现Exceed function call depth limit 1000 时，说明代码中出现了无穷递归死循环，或者是代码过于复杂，类型推导过程中导致栈深度超过设置的最大深度。
 此时可以通过设置 `mindspore.set_recursion_limit(recursion_limit=value)` 更改栈的最大深度，并考虑简化代码逻辑或者检查代码中是否存在无穷递归或死循环。
@@ -179,15 +179,15 @@ A: 当出现Exceed function call depth limit 1000 时，说明代码中出现了
 
 <br/>
 
-## Q: 编译时报错“could not get source code”以及“Mindspore can not compile temporary source code in terminal. Please write source code to a python file and run the file.”是什么原因？
+## Q: 编译时报错`could not get source code`以及`Mindspore can not compile temporary source code in terminal. Please write source code to a python file and run the file.`是什么原因？
 
 A: MindSpore编译网络时通过 `inspect.getsourcelines(self.fn)` 获取网络代码所在的文件，如果网络是编辑在命令行中的临时代码，那么会出现如标题所示的报错，需要将网络写在Python文件中去执行才能避免该错误。
 
 <br/>
 
-## Q: 报错提示中的“Corresponding forward node candidate:”或“Corresponding code candidate:”是什么意思？
+## Q: 报错提示中的`Corresponding forward node candidate:”或“Corresponding code candidate:`是什么意思？
 
-A: “Corresponding forward node candidate:”为关联的正向网络中的代码，表示该反向传播算子与该正向代码对应。“Corresponding code candidate:”表示该算子是由这些代码融合而来，其中分符“-”用以区分不同的代码。
+A: `Corresponding forward node candidate:`为关联的正向网络中的代码，表示该反向传播算子与该正向代码对应。`Corresponding code candidate:`表示该算子是由这些代码融合而来，其中分符“-”用以区分不同的代码。
 
 例如：
 
@@ -226,7 +226,7 @@ A: “Corresponding forward node candidate:”为关联的正向网络中的代�
 
 <br/>
 
-## Q: 为什么运行代码时屏幕中会出现“Start compiling and it will take a while. Please wait...”和“End compiling.”的打印？
+## Q: 为什么运行代码时屏幕中会出现`Start compiling and it will take a while. Please wait...`和`End compiling.`的打印？
 
 A: 当需要加速执行时，MindSpore会将Python源码转换成一种基于图表示的函数式IR，并进行相关的优化。这个过程也被称为编译流程。
 当出现“Start compiling and it will take a while. Please wait...”的打印时，MindSpore开始了图编译流程；当出现“End compiling.”则表明图编译流程结束。
@@ -240,7 +240,7 @@ A: 当需要加速执行时，MindSpore会将Python源码转换成一种基于�
 
 <br/>
 
-## Q: 编译时报出告警:“On the Ascend platform, if you read-only access to the parameter, you can take the value of the parameter, so that the system can do more optimization.”，是什么意思？
+## Q: 编译时报出告警:`On the Ascend platform, if you read-only access to the parameter, you can take the value of the parameter, so that the system can do more optimization.`，是什么意思？
 
 A: 由于Ascend平台不能真正返回一个内存地址，导致在整图下沉模式下，对于控制流场景中返回值存在参数的情况，会存在一些问题。为了避免出现问题，会对这种场景切换到统一运行时模式，从整图下沉模式切换到统一运行时模式，网络性能可能会劣化。如果控制流子图的返回值仅使用参数的值，可以通过参数的value接口获取参数的值，从而避免模式切换导致的性能劣化。
 
@@ -292,7 +292,7 @@ out: (Tensor(shape=[], dtype=Int64, value=8), Tensor(shape=[], dtype=Int64, valu
 
 <br/>
 
-## Q: load MindIR 时，出现 “The input number of parameters is not Compatible.” 该怎么办？
+## Q: load MindIR 时，出现 `The input number of parameters is not Compatible.`该怎么办？
 
 A: 首先检查导出参数和导入执行的参数个数是否是匹配的。如果是匹配的，则需要检查一下导出时候的参数是不是存在非Tensor的场景。
 
@@ -302,7 +302,7 @@ A: 首先检查导出参数和导入执行的参数个数是否是匹配的。�
 
 <br/>
 
-## Q: 编译时报错"ValueError: The shape of sense must not be dynamic shape."怎么办？
+## Q: 编译时报错`ValueError: The shape of sense must not be dynamic shape.`怎么办？
 
 A: 在图模式中，当调用GradOperation接口且参数sens_param=True时，通过nn.Cell.set_inputs传入动态shape的sense参数时会导致报错。代码样例如下：
 
@@ -403,13 +403,13 @@ print(net(Tensor(x)))
 
 <br/>
 
-## Q: 编译时报错 "'External' TypeError" 怎么办？
+## Q: 编译时报错 `'External' TypeError`怎么办？
 
 A: “External” 类型表示在图模式中使用了无法原生支持的对象。例如：第三方库对象是 “External” 类型。
 
 <br/>
 
-## Q: 编译时报错"Nested execution during JIT execution for 'xxx' is not supported when 'xxx' compile and execute."怎么办？
+## Q: 编译时报错`Nested execution during JIT execution for 'xxx' is not supported when 'xxx' compile and execute.`怎么办？
 
 A: 当触发编译流程，即代码编译成静态计算图时，见[Graph模式执行原理](https://www.mindspore.cn/docs/zh-CN/master/model_train/program_form/overview.html)，同时在默认使用JIT Fallback特性时，再次进入编译流程时，则会抛出以上异常。
 
@@ -620,7 +620,7 @@ print("out:", out)
 
 <br/>
 
-## Q: 编译时报错 "ValueError: The value Parameter (name=name_a, shape=(1,), dtype=Float32, requires_grad=True) , its name 'name_a' already exists. Please set a unique name for the parameter."，是什么含义？应该怎么处理？
+## Q: 编译时报错 `ValueError: The value Parameter (name=name_a, shape=(1,), dtype=Float32, requires_grad=True) , its name 'name_a' already exists. Please set a unique name for the parameter.`，是什么含义？应该怎么处理？
 
 A: 图模式下要求Parameter的name拥有唯一性，如果存在同名的两个或者多个Parameter，网络中区分不出不同的对象，将造成错误。我们可以从下面几个角度来排查脚本中的同名的Parameter，对其中的Parameter设置唯一的name。
 
@@ -652,7 +652,7 @@ net = ParamNet()
 res = net()
 ```
 
-如上脚本，ParameterTuple中定义了两个同名name_a的Parameter，是不允许的。param_tuple和param_list中定义了同名name_b的Parameter，也是不允许的。还有一种情况是脚本中在同一个Cell中实例化某个网络，如下面例子，也将报错“its name 'name_a' already exists.”。
+如上脚本，ParameterTuple中定义了两个同名name_a的Parameter，是不允许的。param_tuple和param_list中定义了同名name_b的Parameter，也是不允许的。还有一种情况是脚本中在同一个Cell中实例化某个网络，如下面例子，也将报错`its name 'name_a' already exists.`。
 
 ```python
 import mindspore as ms
