@@ -56,19 +56,13 @@ A: Atlas 200/300/500推理产品需要运行专用的OM模型，先使用MindSpo
 
 ## Q: MindSpore只能在华为自己的`Ascend`上跑么？
 
-A: MindSpore同时支持华为自己的`Ascend`、`GPU`与`CPU`，是支持异构算力的。
+A: MindSpore除了支持华为自己的`Ascend`之外，也支持`GPU`与`CPU`，是支持异构算力的。
 
 <br/>
 
 ## Q: MindSpore对导出、导入模型的单个Tensor输入大小有什么限制？
 
 A: 由于Protobuf的硬件限制，导出ONNX格式时，模型参数大小不能超过2G；导出MINDIR格式时，模型参数大小没有限制，MindSpore不支持导入ONNX格式，只支持导入MINDIR。 MINDIR的导入不存在模型参数大小限制。
-
-<br/>
-
-## Q: 安装运行MindSpore时，是否要求平台有GPU计算单元？需要什么硬件支持？
-
-A: MindSpore当前支持CPU/GPU/Ascend。目前笔记本电脑或者有GPU的环境，都可以通过Docker镜像来使用。当前MindSpore Model Zoo中有部分模型已经支持GPU的训练和推理，其他模型也在不断地进行完善。在分布式并行训练方面，MindSpore当前支持GPU多卡训练。你可以通过项目[Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#)获取最新信息。
 
 <br/>
 
@@ -80,7 +74,7 @@ A: MindSpore提供了可插拔式的设备管理接口，其他计算单元（�
 
 ## Q: MindSpore与ModelArts是什么关系，在ModelArts中能使用MindSpore吗？
 
-A: ModelArts是华为公有云线上训练及推理平台，MindSpore是华为深度学习框架。
+A: ModelArts是华为公有云线上训练及推理平台，MindSpore是华为AI框架。
 
 <br/>
 

@@ -63,7 +63,7 @@ A: `Tile`算子的`multiples input`必须是一个常量（该值不能直接或
 
 <br/>
 
-## Q: 使用conv2d算子将卷积核设置为(3,10)，Tensor设置为[2,2,10,10]，在ModelArts上利用Ascend跑，报错: `FM_W+pad_left+pad_right-KW>=strideW`，CPU下不报错。
+## Q: 使用conv2d算子将卷积核设置为(3,10)，Tensor设置为[2,2,10,10]，在ModelArts上利用Ascend跑，报错: `FM_W+pad_left+pad_right-KW>=strideW`，而CPU下不报错，怎么回事？
 
 A: TBE(Tensor Boost Engine)算子是华为自研的Ascend算子开发工具，在TVM框架基础上扩展，进行自定义算子开发。上述问题是这个TBE算子的限制，x的width必须大于kernel的width。CPU的这个算子没有这个限制，所以不报错。
 
@@ -91,7 +91,9 @@ A: 遇到这种情况，
 
 <br/>
 
-## Q: 使用ExpandDims算子报错: `Pynative run op ExpandDims failed`。具体代码：
+## Q: 使用ExpandDims算子报错: `Pynative run op ExpandDims failed`，怎么办？
+
+具体代码：
 
 ```python
 set_context(mode=GRAPH_MODE)
