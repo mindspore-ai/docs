@@ -79,7 +79,7 @@ python toolkit/benchmarks/eval_with_harness.py --tasks list
    python toolkit/benchmarks/eval_with_harness.py --model mf --model_args "pretrained=MODEL_DIR,device_id=0" --tasks TASKS
    ```
 
-   > 注: 执行脚本路径：[eval_with_harness.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/toolkit/benchmarks/eval_with_harness.py)
+   > 执行脚本路径：[eval_with_harness.py](https://gitee.com/mindspore/mindformers/blob/r1.3.0/toolkit/benchmarks/eval_with_harness.py)
 
 #### 评测参数
 
