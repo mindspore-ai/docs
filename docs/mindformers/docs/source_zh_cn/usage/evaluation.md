@@ -79,7 +79,7 @@ python toolkit/benchmarks/eval_with_harness.py --tasks list
    python toolkit/benchmarks/eval_with_harness.py --model mf --model_args "pretrained=MODEL_DIR,device_id=0" --tasks TASKS
    ```
 
-   > 注: 执行脚本路径：[eval_with_harness.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_harness.py)
+   > 执行脚本路径：[eval_with_harness.py](https://gitee.com/mindspore/mindformers/blob/dev/toolkit/benchmarks/eval_with_harness.py)
 
 #### 评测参数
 
@@ -337,4 +337,4 @@ python Step3_merge_into_one_json.py \
 
 上述评测打分命令中的脚本路径为：[Step2_chatgpt_judge.py](https://github.com/PKU-YuanGroup/Video-Bench/blob/main/Step2_chatgpt_judge.py)、[Step3_merge_into_one_json.py](https://github.com/PKU-YuanGroup/Video-Bench/blob/main/Step3_merge_into_one_json.py)
 
-由于ChatGPT可能会将部分问题的回答视为格式错误，因此需要多次运行Step2_chatgpt_judge.py以确保每个问题都由ChatGPT进行验证。
+ChatGPT可能会将部分问题的回答视为格式错误，因此需要多次运行Step2_chatgpt_judge.py以确保每个问题都由ChatGPT进行验证。

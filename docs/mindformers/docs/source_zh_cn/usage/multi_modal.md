@@ -1,5 +1,7 @@
 # 多模态理解模型开发指南
 
+[![查看源文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.svg)](https://gitee.com/mindspore/docs/blob/master/docs/mindformers/docs/source_zh_cn/usage/multi_modal.md)
+
 多模态理解模型（Multimodal Model）是指能够处理并结合来自不同模态（如文字、图像、音频、视频等）的信息进行学习和推理的人工智能模型。
 传统的单一模态模型通常只关注单一数据类型，如文本分类模型只处理文本数据，图像识别模型只处理图像数据。而多模态理解模型则通过融合不同来源的数据来完成更复杂的任务，从而能够理解和生成更加丰富、全面的内容。
 
