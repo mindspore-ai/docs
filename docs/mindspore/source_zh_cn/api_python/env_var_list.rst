@@ -583,12 +583,6 @@ Dump调试
      - 类型
      - 取值
      - 说明
-   * - MS_BUILD_PROCESS_NUM
-     - Ascend后端编译时，指定并行编译进程数。
-
-     - Integer
-     - 1~24：允许设置并行进程数取值范围
-     -
    * - MS_COMPILER_CACHE_ENABLE
      - 表示是否加载或者保存图编译缓存。当 `MS_COMPILER_CACHE_ENABLE` 被设置为 `1` 时，在第一次执行的过程中，一个编译缓存会被生成并且导出为一个MINDIR文件。当该网络被再次执行时，如果 `MS_COMPILER_CACHE_ENABLE` 仍然为 `1` 并且网络脚本没有被更改，那么这个编译缓存会被加载。
 
@@ -622,21 +616,6 @@ Dump调试
 
        4：生成TBE指令映射文件 `*.cce` 和UB融合计算描述文件 `{$kernel_name}_compute.json`
      - 发生AICore Error时，如果需要保存算子cce文件，可以设置 `MS_COMPILER_OP_LEVEL` 为1或2。
-   * - MS_DEV_DISABLE_PREBUILD
-     - Ascend后端编译时，关闭算子预编译，默认不设置此环境变量。算子预编译可能会修正算子注册的fusion_type属性进而影响到算子融合，如遇到融合算子性能较差时，可尝试开启此环境变量验证是否是融合算子本身问题。
-
-     - Boolean
-     - true：关闭预编译
-
-       false：使能预编译
-     -
-   * - MINDSPORE_OP_INFO_PATH
-     - 指定算子信息库加载文件路径
-     - string
-     - 文件绝对路径
-
-       默认：不设置。
-     - 仅推理使用
    * - MS_ASCEND_CHECK_OVERFLOW_MODE
      - 设置浮点计算结果输出模式
      - String
