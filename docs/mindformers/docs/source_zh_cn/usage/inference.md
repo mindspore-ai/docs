@@ -132,9 +132,9 @@ python run_mindformer.py \
 
 ## 多卡推理
 
-多卡推理除了启动方式依赖 `msrun_launcher.sh` 脚本，还需要注意两个地方，一个是并行配置，另一个是权重加载方式。
+除了启动方式依赖 `msrun_launcher.sh` 脚本，多卡推理还需要注意两个地方，一个是并行配置，另一个是权重加载方式。
 
-当前版本推理模式仅支持模型并行，执行命令之前需要修改原有的并行配置：
+当前版本推理模式仅支持模型并行，执行命令之前需要修改原有的[predict_llama2_7b.yaml](https://gitee.com/mindspore/mindformers/blob/dev/configs/llama2/predict_llama2_7b.yaml)并行配置：
 
 ```yaml
 # 修改前的配置
@@ -195,7 +195,7 @@ I love Beijing, because
 I love Beijing, because
 ```
 
-执行命令可以参考以下命令：
+可以参考以下命令执行推理任务：
 
 ```shell
 bash scripts/msrun_launcher.sh "python run_mindformer.py \
@@ -210,6 +210,7 @@ bash scripts/msrun_launcher.sh "python run_mindformer.py \
 ```
 
 脚本执行入参的说明列表：
+
 |参数|参数说明|
 |:---------------------------------|:-------------------------------------------------------------------------|
 |config|yaml 配置文件的路径|

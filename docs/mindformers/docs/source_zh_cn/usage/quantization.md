@@ -10,7 +10,7 @@ MindFormers 集成 MindSpore Golden Stick 工具组件，提供统一量化推�
 
 ## 配套安装
 
-使用量化推理功能前请安装MindSpore Golden Stick，参考[安装指南](https://gitee.com/mindspore/golden-stick#%E5%AE%89%E8%A3%85)
+使用量化推理功能前请安装MindSpore Golden Stick，参考[安装指南](https://gitee.com/mindspore/golden-stick#%E5%AE%89%E8%A3%85)。
 
 下载源码，下载后进入`golden_stick`目录。
 
