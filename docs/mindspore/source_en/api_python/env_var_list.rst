@@ -198,16 +198,7 @@ Graph Compilation and Execution
        kernel name (such as ReLU) : skip the execution of all ReLU kernels
 
        subgraph name (such as kernel_graph_1) : skip the execution of subgraph kernel_graph_1, used for subgraph sink mode
-     - 
-   * - MS_PYNATIVE_GE
-     - Whether GE is executed in PyNative mode.
-     - Integer
-     - 0: GE is not executed.
-
-       1: GE is executed.
-
-       Default: 0
-     - Experimental environment variable.
+     -
    * - GC_COLLECT_IN_CELL
      - Whether to perform garbage collection on unused Cell objects
      - Integer
