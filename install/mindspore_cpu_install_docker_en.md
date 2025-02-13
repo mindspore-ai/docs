@@ -12,7 +12,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_docker_en.md)
 
-[Docker](https://docs.docker.com/get-docker/) is an open source application container engine, and developers can package their applications and dependencies into a lightweight, portable container. By using Docker, MindSpore can be rapidly deployed and separated from the system environment.
+[Docker](https://docs.docker.com/get-docker/) is an open source application container engine, and supports packaging developers' applications and dependency packages into a lightweight, portable container. By using Docker, MindSpore can be rapidly deployed and separated from the system environment.
 
 This document describes how to install MindSpore by Docker on Linux in a CPU environment.
 
@@ -63,53 +63,57 @@ of which,
 
     After entering the MindSpore container according to the above steps, to test whether the Docker is working properly, please run the following Python code and check the output:
 
-i:
+    **Method 1:**
 
-```bash
-python -c "import mindspore;mindspore.set_device(device_target='CPU');mindspore.run_check()"
-```
+    Execute the following command:
 
-- The outputs should be the same as:
+    ```bash
+    python -c "import mindspore;mindspore.set_device(device_target='CPU');mindspore.run_check()"
+    ```
 
-```text
-MindSpore version: __version__
-The result of multiplication calculation is correct, MindSpore has been installed on platform [CPU] successfully!
-```
+    - The outputs should be the same as:
 
-So far, it means MindSpore CPU has been installed by Docker successfully.
+    ```text
+    MindSpore version: __version__
+    The result of multiplication calculation is correct, MindSpore has been installed on platform [CPU] successfully!
+    ```
 
-ii:
+    So far, it means MindSpore CPU has been installed by Docker successfully.
 
-```python
-import numpy as np
-import mindspore as ms
-import mindspore.ops as ops
+    **Method 2:**
 
-ms.set_context(mode=ms.PYNATIVE_MODE)
-ms.set_device(device_target="CPU")
+    Execute the following command:
 
-x = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
-y = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
-print(ops.add(x, y))
-```
+    ```python
+    import numpy as np
+    import mindspore as ms
+    import mindspore.ops as ops
 
-When the code is successfully run, the outputs should be the same as:
+    ms.set_context(mode=ms.PYNATIVE_MODE)
+    ms.set_device(device_target="CPU")
 
-```text
-[[[[2. 2. 2. 2.]
-   [2. 2. 2. 2.]
-   [2. 2. 2. 2.]]
+    x = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
+    y = ms.Tensor(np.ones([1,3,3,4]).astype(np.float32))
+    print(ops.add(x, y))
+    ```
 
-  [[2. 2. 2. 2.]
-   [2. 2. 2. 2.]
-   [2. 2. 2. 2.]]
+    When the code is successfully run, the outputs should be the same as:
 
-  [[2. 2. 2. 2.]
-   [2. 2. 2. 2.]
-   [2. 2. 2. 2.]]]]
-```
+    ```text
+    [[[[2. 2. 2. 2.]
+    [2. 2. 2. 2.]
+    [2. 2. 2. 2.]]
 
-So far, it means MindSpore CPU has been installed by Docker successfully.
+    [[2. 2. 2. 2.]
+    [2. 2. 2. 2.]
+    [2. 2. 2. 2.]]
+
+    [[2. 2. 2. 2.]
+    [2. 2. 2. 2.]
+    [2. 2. 2. 2.]]]]
+    ```
+
+    So far, it means MindSpore CPU has been installed by Docker successfully.
 
 - If you install a container with the label of `runtime`, you need to install MindSpore yourself.
 

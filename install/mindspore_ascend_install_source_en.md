@@ -30,7 +30,7 @@ The following table lists the system environment and third-party dependencies re
 
 |Software|Version|Description|
 |-|-|-|
-|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/openEuler 20.03/KylinV10 SP1|-|OS for running MindSpore|
+|Ubuntu 18.04 / CentOS 7.6 / EulerOS 2.8 / openEuler 20.03 / KylinV10 SP1|-|OS for running MindSpore|
 |[Python](#installing-python)|3.9-3.11|Python environment that MindSpore depends on|
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
 |[wheel](#installing-wheel-setuptools-pyyaml-and-numpy)|0.32.0 or later|Python packaging tool used by MindSpore|
@@ -84,7 +84,7 @@ Ascend software package provides two distributions, commercial edition and commu
 
 - Commercial edition needs approval from Ascend to download, release date is TBD.
 
-- Community edition has no restrictions, choose `8.0.0.beta1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
+- Community edition has no restrictions, choose `8.0.0.beta1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and obtain firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
@@ -114,7 +114,7 @@ pip install pyyaml
 pip install "numpy>=1.19.3,<=1.26.4"
 ```
 
-The Numpy version used in the runtime environment must be no less than the Numpy version in the compilation environment to ensure the normal use of Numpy related capabilities in the framework.
+Note: The Numpy version used in the runtime environment must be no less than the Numpy version in the compilation environment to ensure the normal use of Numpy related capabilities in the framework.
 
 ### Installing GCC
 
@@ -255,8 +255,8 @@ bash build.sh -e ascend -S on
 
 Where:
 
-- In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads, for example, `bash build.sh -e ascend -j4`.
-- By default, the dependent source code is downloaded from gitHub. When -S is set to `on`, the source code is downloaded from the corresponding gitee image.
+- In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add `-j{Number of threads}` in to script to reduce the number of threads, for example, `bash build.sh -e ascend -j4`.
+- By default, the dependent source code is downloaded from gitHub. When -S is set to `on`, the source code is downloaded from the corresponding Gitee image.
 - For details about how to use `build.sh`, see the script header description.
 
 ## Installing MindSpore
@@ -265,11 +265,13 @@ Where:
 pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)). In other cases, you need to install dependencies by yourself.
 
 ## Installation Verification
 
-i:
+**Method 1:**
+
+Execute the following command:
 
 ```bash
 python -c "import mindspore;mindspore.set_device('Ascend');mindspore.run_check()"
@@ -284,7 +286,9 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 It means MindSpore has been installed successfully.
 
-ii:
+**Method 2:**
+
+Execute the following command:
 
 ```python
 import numpy as np

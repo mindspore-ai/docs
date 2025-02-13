@@ -28,7 +28,7 @@ The following table lists the system environment and third-party dependencies re
 | ------------------------------ | ----------- | ------------------------------------------------------- |
 | Ubuntu                         | 18.04       | OS for running MindSpore                                |
 | [Python](#installing-python)   | 3.9-3.11     | Python environment that MindSpore depends               |
-| [GCC](#installing-gcc) | 7.3.0~9.4.0 | C++ compiler for compiling MindSpore                    |
+| [GCC](#installing-gcc) | 7.3.0-9.4.0 | C++ compiler for compiling MindSpore                    |
 
 The following describes how to install the third-party dependencies.
 
@@ -114,10 +114,12 @@ pip install mindspore-dev -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 Of which,
 
-- When the network is connected, dependencies are automatically downloaded during .whl package installation. (For details about the dependencies, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+- When the network is connected, dependencies are automatically downloaded during .whl package installation. (For details about the dependencies, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)). In other cases, you need to install dependencies by yourself.
 - pip will be installing the latest version of MindSpore Nightly automatically. If you wish to specify the version to be installed, please refer to the instruction below regarding to version update, and specify version manually.
 
 ## Installation Verification
+
+Execute the following command:
 
 ```bash
 python -c "import mindspore;mindspore.set_device(device_target='CPU');mindspore.run_check()"

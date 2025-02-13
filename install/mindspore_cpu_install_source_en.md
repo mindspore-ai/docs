@@ -31,7 +31,7 @@ This document describes how to install MindSpore by compiling source code on Lin
 |[setuptools](#installing-wheel-setuptools-pyyaml-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
 |[PyYAML](#installing-wheel-setuptools-pyyaml-and-numpy)|6.0-6.0.2|PyYAML module that operator compliation in MindSpore depends on|
 |[Numpy](#installing-wheel-setuptools-pyyaml-and-numpy)|1.19.3-1.26.4|Numpy module that Numpy-related functions in MindSpore depends on|
-|[GCC](#installing-gcc-git-tclsh-patch-and-numa)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
+|[GCC](#installing-gcc-git-tclsh-patch-and-numa)|7.3.0-9.4.0|C++ compiler for compiling MindSpore|
 |[git](#installing-gcc-git-tclsh-patch-and-numa)|-|Source code management tools used by MindSpore|
 |[CMake](#installing-cmake)|3.22.2 or later|Compilation tool that builds MindSpore|
 |[tclsh](#installing-gcc-git-tclsh-patch-and-numa)|-|MindSpore SQLite compilation dependency|
@@ -155,9 +155,11 @@ Where:
 pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. For details about dependencies, see required_package in the [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py). In other cases, install the dependencies by yourself. When running a model, you need to install additional dependencies based on the requirements.txt file specified by different models in the [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. For details about dependencies, see required_package in the [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py). In other cases, install the dependencies by yourself.
 
 ## Installation Verification
+
+Execute the following command:
 
 ```bash
 python -c "import mindspore;mindspore.set_device(device_target='CPU');mindspore.run_check()"

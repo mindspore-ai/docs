@@ -27,7 +27,7 @@ The following table lists the system environment and third-party dependencies re
 
 |Software|Version|Description|
 |-|-|-|
-|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/openEuler 20.03/KylinV10 SP1|-|OS for running MindSpore|
+|Ubuntu 18.04 / CentOS 7.6 / EulerOS 2.8 / openEuler 20.03 / KylinV10 SP1|-|OS for running MindSpore|
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
 |[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
@@ -40,7 +40,7 @@ Ascend software package provides two distributions, commercial edition and commu
 
 - Commercial edition needs approval from Ascend to download, release date is TBD.
 
-- Community edition has no restrictions, choose `8.0.0.beta1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
+- Community edition has no restrictions, choose `8.0.0.beta1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and obtain firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
@@ -116,13 +116,13 @@ pip uninstall te topi hccl -y
 
 ### Installing MindSpore
 
-Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified the version of [Version List](https://www.mindspore.cn/versions) after `mindspore=`.
+Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified the version of [Version List](https://www.mindspore.cn/versions) after `conda install mindspore=`.
 
 ```bash
 conda install mindspore -c mindspore -c conda-forge
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)). In other cases, you need to install dependencies by yourself.
 
 ## Configuring Environment Variables
 
@@ -141,7 +141,9 @@ source ${LOCAL_ASCEND}/ascend-toolkit/set_env.sh
 
 ## Installation Verification
 
-i:
+**Method 1:**
+
+Execute the following command:
 
 ```bash
 python -c "import mindspore;mindspore.set_device('Ascend');mindspore.run_check()"
@@ -156,7 +158,9 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 It means MindSpore has been installed successfully.
 
-ii:
+**Method 2:**
+
+Execute the following command:
 
 ```python
 import numpy as np
@@ -207,7 +211,9 @@ When upgrading from MindSpore 2.x:
 conda update mindspore -c mindspore -c conda-forge
 ```
 
-Please reinstall .whl packages provided with the Ascend AI Processor software package. First, uninstall old versions:
+Please reinstall .whl packages provided with the Ascend AI Processor software package.
+
+First, uninstall old versions:
 
 ```bash
 pip uninstall te topi hccl -y
