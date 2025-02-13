@@ -520,7 +520,7 @@ else:
     content = content[0]
 
 with open(des_release, "w", encoding="utf-8") as p:
-    release_source = re.sub(re_url, r'\1/r2.5.0', release_source)
-    release_source = re.sub(re_url2, r'\1/v2.5.0', release_source)
+    content = re.sub(re_url, r'\1/r2.5.0', content)
+    content = re.sub(re_url2, r'\1/v2.5.0', content)
     p.write("# Release Notes" + "\n\n" + release_source)
     p.write(content)
