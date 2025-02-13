@@ -173,7 +173,7 @@ A: 当前MindSpore只提供版本配套关系，需要您手动进行配套软�
 A: 当有这种报错时，有可能是在创建了和MindSpore安装包相同名字的路径中执行用例，导致Python导入包的时候优先找到了当前目录下，而当前目录没有version.py这个文件。解决方法就是目录重命名或者向上退出一级或者多级目录。
 
 <br/>
-### Q: MindSpore安装: 版本0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5，手动下载对应版本的whl包，编译并安装gmp6.1.2。其他Python库依赖已经安装完成，执行样例失败，报错显示找不到so文件。
+### Q: MindSpore安装: 版本0.6.0-beta + Ascend + Ubuntu_aarch64 + Python3.7.5，手动下载对应版本的whl包，编译并安装gmp6.1.2。其他Python库依赖已经安装完成，执行样例失败，报错显示找不到so文件。
 
 A: `libdatatransfer.so`动态库是`fwkacllib/lib64`目录下的，请先在`/usr/local`目录查找到这个库所在的路径，然后把这个路径加到`LD_LIBRARY_PATH`环境变量中，确认设置生效后，再执行。
 

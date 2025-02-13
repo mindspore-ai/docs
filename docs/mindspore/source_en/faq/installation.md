@@ -4,12 +4,6 @@
 
 ## Installing by Using Pip
 
-### Q: When installing GPU, CUDA 10.1, 0.5.0-beta version of MindSpore, it prompts `cannot open shared object file:No such file or directory`, what should I do?
-
-A: The error message indicates that the cuBLAS library is not found. Generally, the cause is that the cuBLAS library is not installed or is not added to the environment variable. Generally, cuBLAS is installed together with CUDA and the driver. After the installation, add the directory where cuBLAS is located to the `LD_LIBRARY_PATH` environment variable.
-
-<br/>
-
 ### Q: What should I do if an error message `ERROR: mindspore_{VERSION}.whl is not a supported wheel on this platform` is displayed when I install MindSpore using pip?
 
 A: pip checks compatibility of wheel package and current Python environment by verifying the file name. For example, when installing mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl, pip checks whether:
@@ -81,6 +75,12 @@ A: The later versions of scipy released on pypi only supports MacOS for ARM vers
 
 <br/>
 
+### Q: When installing GPU, CUDA 10.1, 0.5.0-beta version of MindSpore, it prompts `cannot open shared object file:No such file or directory`, what should I do?
+
+A: The error message indicates that the cuBLAS library is not found. Generally, the cause is that the cuBLAS library is not installed or is not added to the environment variable. Generally, cuBLAS is installed together with CUDA and the driver. After the installation, add the directory where cuBLAS is located to the `LD_LIBRARY_PATH` environment variable.
+
+<br/>
+
 ## Installing by Using Conda
 
 ### Q: For Ascend users, what should I do when `RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'` appears in personal Conda environment?
@@ -96,12 +96,6 @@ A: libffi is not installed automatically on some devices when creating Python 3.
 <br/>
 
 ## Installing by Using Source
-
-### Q: MindSpore installation: Version 0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5, manually download the whl package of the corresponding version, compile and install gmp6.1.2. Other Python library dependencies have been installed, the execution of the sample fails, and an error shows that the so file cannot be found.
-
-A: The `libdatatransfer.so` dynamic library is in the `fwkacllib/lib64` directory. Find the path of the library in the `/usr/local` directory, and then add the path to the `LD_LIBRARY_PATH` environment variable. After the settings take effect, execute the sample again.
-
-<br/>
 
 ### Q: A cross compiler has been installed on Linux, but how do I write compilation commands?
 
@@ -177,6 +171,12 @@ A: Currently, MindSpore only provides version matching relationships, which requ
 ### Q: What should I do when the error message `No module named 'mindspore.version` is displayed when the use case is executed?
 
 A: When there is such an error, it is possible to execute a use case in the path that created the same name as the MindSpore installation package, causing Python to preferentially find the current directory when importing the package, and the current directory does not version.py the file. The solution is to rename the directory or exit the one- or multi-level directory upwards.
+
+<br/>
+
+### Q: MindSpore installation: Version 0.6.0-beta + Ascend + Ubuntu_aarch64 + Python3.7.5, manually download the whl package of the corresponding version, compile and install gmp6.1.2. Other Python library dependencies have been installed, the execution of the sample fails, and an error shows that the so file cannot be found.
+
+A: The `libdatatransfer.so` dynamic library is in the `fwkacllib/lib64` directory. Find the path of the library in the `/usr/local` directory, and then add the path to the `LD_LIBRARY_PATH` environment variable. After the settings take effect, execute the sample again.
 
 <br/>
 

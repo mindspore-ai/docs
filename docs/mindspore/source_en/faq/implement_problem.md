@@ -443,17 +443,6 @@ Therefore, in the scenario where the subsequent operator clearly needs to use in
 
 <br/>
 
-## Q: Why will running the script on GPU stuck for a long time on version 1.8?
-
-A: In order to be compatible with more GPU architectures, NVCC compiles CUDA files into PTX files first, and compiles them into binary executable files when using them for the first time. Therefore, compilation time will be consumed.
-Compared with the previous version, version 1.8 has added many CUDA operators, resulting in an increase in the compilation time of this part (The time varies according to the equipment. For example, the first compilation time on V100 is about 5 minutes).
-This compilation will generate a cache file (taking the Ubuntu system as an example, the cache file is located in `~/.nv/ComputeCache`), and the cache file will be directly loaded during subsequent execution.
-Therefore, it will be stuck for several minutes during the first use, and the subsequent use will be a normal time consumption.
-
-Subsequent versions will be pre-compiled and optimized.
-
-<br/>
-
 ## Q: What can I do when the error message `MemoryError: std::bad_alloc` is reported during the execution of the operator?
 
 A: The reason for this error is that the user did not configure the operator parameters correctly, so that the memory space applied by the operator exceeded the system memory limit, and the system failed to allocate memory. The following uses mindspore.ops.UniformCandidateSampler as an example for description.
@@ -531,5 +520,16 @@ The result is as follows:
 [5 7 9]
 [5 7 9]
 ```
+
+<br/>
+
+## Q: Why will running the script on GPU stuck for a long time on version 1.8?
+
+A: In order to be compatible with more GPU architectures, NVCC compiles CUDA files into PTX files first, and compiles them into binary executable files when using them for the first time. Therefore, compilation time will be consumed.
+Compared with the previous version, version 1.8 has added many CUDA operators, resulting in an increase in the compilation time of this part (The time varies according to the equipment. For example, the first compilation time on V100 is about 5 minutes).
+This compilation will generate a cache file (taking the Ubuntu system as an example, the cache file is located in `~/.nv/ComputeCache`), and the cache file will be directly loaded during subsequent execution.
+Therefore, it will be stuck for several minutes during the first use, and the subsequent use will be a normal time consumption.
+
+Subsequent versions will be pre-compiled and optimized.
 
 <br/>

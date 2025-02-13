@@ -93,6 +93,8 @@ A: In this case,
 
 ## Q: What can I do if the error message `Pynative run op ExpandDims failed` is displayed when the ExpandDims operator is used? The code is as follows:
 
+The code is as follows:
+
 ```python
 set_context(mode=GRAPH_MODE)
 mindspore.set_device("Ascend")

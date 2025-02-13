@@ -8,7 +8,7 @@ A: When the user starts distributed training on the Ascend and meets the error t
 
 <br/>
 
-## Q: In the GPU distributed training scenario, if the number of environment variables CUDA_VISIBLE_DEVICES set incorrectly is less than the number of processes executed, the process blocking problem may occur.
+## Q: In the GPU distributed training scenario, what should I do if the number of environment variables CUDA_VISIBLE_DEVICES set incorrectly is less than the number of processes executed, the process blocking problem may occur?
 
 A: In this scenario, some training processes will prompt the following error:
 
@@ -109,7 +109,7 @@ The above command sets the `NCCL` to select the network card name with `eth` in 
 
 <br/>
 
-## Q: After selecting RDMA NIC with a specific name (set via NCCL_SOCKET_IFNAME) for communication for multiple machines and multiple cards, the training still reports an error:
+## Q: What can we do when after selecting RDMA NIC with a specific name (set via NCCL_SOCKET_IFNAME) for communication for multiple machines and multiple cards, the training still reports an error?
 
 ```text
 misc/ibvwrap.cc:284 NCCL WARN Call to ibv_modify_qp failed with error Invalid argument
@@ -127,7 +127,7 @@ export NCCL_IB_HCA=mlx
 
 <br/>
 
-## Q：Single-machine multi-card training can be successful, but after expanding the script to multi-machine multi-card, other hosts prompt all kinds of errors:
+## Q：What can we do when single-machine multi-card training is successful, but after expanding the script to multi-machine multi-card, other hosts prompt all kinds of errors?
 
 There are various types of errors reported. Here are a few typical ones:
 
@@ -145,7 +145,7 @@ The above command exports some environment variables that have been set on this 
 
 <br/>
 
-## Q: Performing the distributed training via OpenMPI on Ascend, got `HcclCommInitRootInfo` error message:
+## Q: Performing the distributed training via OpenMPI on Ascend, got `HcclCommInitRootInfo` error message. How can we deal it?
 
 ```text
 Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2
@@ -156,7 +156,7 @@ You can set `max_size` in `set_memory`to reduce variable memory for Ascend proce
 
 <br/>
 
-## Q: When executing a distributed network under `auto_parallel`, an error is reported that the tensor cannot be split by the strategy. How can I solve it?
+## Q: When executing a distributed network under `auto_parallel`, an error is reported that the tensor cannot be split by the strategy. How can we solve it?
 
 ```text
 np_tensor can not be split by strategy!
