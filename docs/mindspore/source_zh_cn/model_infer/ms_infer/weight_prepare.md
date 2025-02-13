@@ -40,7 +40,7 @@ llama-2-7b-hf
 └── tokenizer.model
 ```
 
-其中：pytorch_model-00001-of-00002.bin和pytorch_model-00001-of-00002.bin为权重文件，config.jso是模型配置，tokenizer.model是token映射表，为后续主要使用的文件。
+其中：pytorch_model-00001-of-00002.bin和pytorch_model-00001-of-00002.bin为权重文件，config.json是模型配置，tokenizer.model是token映射表，为后续主要使用的文件。
 
 ### 利用MindSpore框架转换权重文件
 
