@@ -14,7 +14,7 @@
 
 [![View Source On Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.svg)](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_docker_en.md)
 
-[Docker](https://docs.docker.com/get-docker/) is an open source application container engine, and developers can package their applications and dependencies into a lightweight, portable container. By using Docker, MindSpore can be rapidly deployed and separated from the system environment.
+[Docker](https://docs.docker.com/get-docker/) is an open source application container engine, and supports packaging developers' applications and dependency packages into a lightweight, portable container. By using Docker, MindSpore can be rapidly deployed and separated from the system environment.
 
 This document describes how to install MindSpore by Docker on Linux in an Ascend environment.
 
@@ -30,7 +30,7 @@ The current support for containerized build options is as follows:
 
 ## System Environment Information Confirmation
 
-- Ensure that Ubuntu 18.04/CentOS 7.6 is installed with the 64-bit ARM architecture operating system.
+- Ensure that Ubuntu 18.04 / CentOS 7.6 is installed with the 64-bit ARM architecture operating system.
 
 - Ensure that [Docker 18.03 or later](https://docs.docker.com/get-docker/) is installed.
 
@@ -40,7 +40,7 @@ Ascend software package provides two distributions, commercial edition and commu
 
 - Commercial edition needs approval from Ascend to download, release date is TBD.
 
-- Community edition has no restrictions, choose `8.0.RC3.beta1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
+- Community edition has no restrictions, choose `8.0.RC3.beta1` in [CANN community edition](https://www.hiascend.com/developer/download/community/result?module=cann), then choose relevant driver and obtain firmware packages in [firmware and driver](https://www.hiascend.com/hardware/firmware-drivers/community). Please refer to the abovementioned commercial edition installation guide to choose which packages are to be installed and how to install them.
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
@@ -85,9 +85,11 @@ of which,
 
 ## Installation Verification
 
-After entering the MindSpore container according to the above steps, to test whether the Docker container is working properly, please run the following Python code and check the output:
+After entering the MindSpore container according to the above steps, to test whether the Docker container is working properly, please execute the following Python code and check the output:
 
-i:
+**Method 1:**
+
+Execute the following command:
 
 ```bash
 python -c "import mindspore;mindspore.set_device('Ascend');mindspore.run_check()"
@@ -102,7 +104,9 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 So far, it means MindSpore Ascend has been installed by Docker successfully.
 
-ii:
+**Method 2:**
+
+Execute the following command:
 
 ```python
 import numpy as np
@@ -140,10 +144,10 @@ When you need to update the MindSpore version:
 - update corresponding Ascend AI processor software package according to MindSpore package version of which you wish to update.
 - directly use the following command to obtain the latest stable image:
 
-```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag}
-```
+    ```bash
+    docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-ascend:{tag}
+    ```
 
-of which,
+    of which,
 
-- `{tag}` corresponds to the label in the above table.
+    - `{tag}` corresponds to the label in the above table.

@@ -337,6 +337,6 @@ pip install mindspore-*.whl
 
 从MindSpore 2.x版本升级到最新版本时，执行以下命令：
 
- ```bash
+```bash
 pip install --upgrade mindspore-*.whl
 ```

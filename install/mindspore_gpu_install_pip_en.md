@@ -29,7 +29,7 @@ The following table lists the system environment and third-party dependencies re
 |[CUDA](#installing-cuda)|10.1 or 11.1 or 11.6|parallel computing architecture for MindSpore GPU|
 |[cuDNN](#installing-cudnn)|7.6.x or 8.0.x or 8.5.x|deep neural network acceleration library used by MindSpore GPU|
 |[Python](#installing-python)|3.9-3.11|Python environment that MindSpore depends on|
-|[GCC](#installing-gcc)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
+|[GCC](#installing-gcc)|7.3.0-9.4.0|C++ compiler for compiling MindSpore|
 |[TensorRT](#installing-tensorrt-optional)|7.2.2 or 8.4|high performance deep learning inference SDK used by MindSpore (optional, required for serving inference)|
 
 The following describes how to install the third-party dependencies.
@@ -77,7 +77,7 @@ echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >>
 source ~/.bashrc
 ```
 
-When the default path /usr/local/cuda has an installation package, the LD_LIBRARY_PATH environment variable does not work. The reason is that MindSpore uses DT_RPATH to support startup without environment variables, reducing user settings. DT_RPATH has a higher priority than the LD_LIBRARY_PATH environment variable.
+When the default path `/usr/local/cuda` has an installation package, the LD_LIBRARY_PATH environment variable does not work. The reason is that MindSpore uses DT_RPATH to support startup without environment variables, reducing user settings. DT_RPATH has a higher priority than the LD_LIBRARY_PATH environment variable.
 
 ### Installing cuDNN
 
@@ -196,7 +196,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/Mi
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/unified/x86_64/mindspore-${MS_VERSION/-/}-cp311-cp311-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-When the network is connected, dependency items are automatically downloaded during MindSpore installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+When the network is connected, dependency items are automatically downloaded during MindSpore installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)). In other cases, you need to install dependency by yourself.
 
 ## Installation Verification
 
@@ -209,7 +209,9 @@ export LD_LIBRARY_PATH=/usr/local/cuda-11.6/lib64:$LD_LIBRARY_PATH
 
 If a different version of CUDA have been installed or the CUDA installation path is different, replace `/usr/local/cuda-11.6` in the above command with the currently installed CUDA path.
 
-i:
+**Method 1:**
+
+Execute the following command:
 
 ```bash
 python -c "import mindspore;mindspore.set_device(device_target='GPU');mindspore.run_check()"
@@ -224,7 +226,9 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 It means MindSpore has been installed successfully.
 
-ii:
+**Method 2:**
+
+Execute the following command:
 
 ```python
 import numpy as np

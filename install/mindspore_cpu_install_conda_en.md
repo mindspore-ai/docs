@@ -27,7 +27,7 @@ The following table lists the system environment and third-party dependencies re
 |-|-|-|
 |Ubuntu|18.04|OS for running MindSpore|
 |[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
-|[GCC](#installing-gcc)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
+|[GCC](#installing-gcc)|7.3.0-9.4.0|C++ compiler for compiling MindSpore|
 
 The following describes how to install the third-party dependencies.
 
@@ -73,7 +73,7 @@ sudo apt-get install gcc-9 -y
 
 Create a Conda virtual environment based on the Python version you want and activate the virtual environment.
 
-If you want to use Python 3.9.11:
+If you want to use Python 3.9.11, execute the following command:
 
 ```bash
 conda create -c conda-forge -n mindspore_py39 python=3.9.11 -y
@@ -84,15 +84,17 @@ If you wish to use another version of Python, just change the Python version in 
 
 ### Installing MindSpore
 
-Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified version number of [Version List](https://www.mindspore.cn/versions) after `mindspore=`.
+Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified version number of [Version List](https://www.mindspore.cn/versions) after `conda install mindspore=`.
 
 ```bash
 conda install mindspore -c mindspore -c conda-forge
 ```
 
-When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)). In other cases, you need to install dependency by yourself.
 
 ## Installation Verification
+
+Execute the following command:
 
 ```bash
 python -c "import mindspore;mindspore.set_device(device_target='CPU');mindspore.run_check()"

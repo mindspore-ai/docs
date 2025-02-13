@@ -38,7 +38,7 @@ The following table lists the system environment and third-party dependencies re
 |[setuptools](#installing-wheel-setuptools-pyyaml-and-numpy)|44.0 or later|Python package management tool used by MindSpore|
 |[PyYAML](#installing-wheel-setuptools-pyyaml-and-numpy)|6.0-6.0.2|PyYAML module that operator compliation in MindSpore depends on|
 |[Numpy](#installing-wheel-setuptools-pyyaml-and-numpy)|1.19.3-1.26.4|Numpy module that Numpy-related functions in MindSpore depends on|
-|[GCC](#installing-gcc-git-and-other-dependencies)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
+|[GCC](#installing-gcc-git-and-other-dependencies)|7.3.0-9.4.0|C++ compiler for compiling MindSpore|
 |[git](#installing-gcc-git-and-other-dependencies)|-|source code management tools used by MindSpore|
 |[CMake](#installing-cmake)|3.22.2 or later|Compilation tool that builds MindSpore|
 |[Autoconf](#installing-gcc-git-and-other-dependencies)|2.69 or later|Compilation tool that builds MindSpore|
@@ -96,7 +96,7 @@ echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >>
 source ~/.bashrc
 ```
 
-When the default path /usr/local/cuda has an installation package, the LD_LIBRARY_PATH environment variable does not work. The reason is that MindSpore uses DT_RPATH to support startup without environment variables, reducing user settings. DT_RPATH has a higher priority than the LD_LIBRARY_PATH environment variable.
+When the default path `/usr/local/cuda` has an installation package, the LD_LIBRARY_PATH environment variable does not work. The reason is that MindSpore uses DT_RPATH to support startup without environment variables, reducing user settings. DT_RPATH has a higher priority than the LD_LIBRARY_PATH environment variable.
 
 ### Installing cuDNN
 
@@ -257,8 +257,8 @@ bash build.sh -e gpu -S on
 
 Where:
 
-- In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads. For example, `bash build.sh -e ascend -j4`.
-- By default, the dependent source code is downloaded from github. You may set -S option to `on` to download from the corresponding gitee mirror.
+- In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add `-j{Number of threads}` in to script to reduce the number of threads. For example, `bash build.sh -e ascend -j4`.
+- By default, the dependent source code is downloaded from github. You may set -S option to `on` to download from the corresponding Gitee image.
 - For more usage of `build.sh`, please refer to the description at the head of the script.
 
 ## Installing MindSpore
@@ -267,11 +267,13 @@ Where:
 pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py).) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)). In other cases, you need to install dependencies by yourself.
 
 ## Installation Verification
 
-i:
+**Method 1:**
+
+Execute the following command:
 
 ```bash
 python -c "import mindspore;mindspore.set_device(device_target='GPU');mindspore.run_check()"
@@ -286,7 +288,9 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 It means MindSpore has been installed successfully.
 
-ii:
+**Method 2:**
+
+Execute the following command:
 
 ```python
 import numpy as np
