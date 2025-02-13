@@ -2,8 +2,9 @@
 
 <!-- TOC -->
 
-- [Installing MindSpore CPU Nightly by pip-macOS](#installing-mindspore-cpu-200-nightly-by-pip-macos)
+- [Installing MindSpore CPU Nightly by pip-macOS](#installing-mindspore-cpu-nightly-by-pip-macos)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
+    - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
     - [Downloading and Installing MindSpore](#downloading-and-installing-mindspore)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)

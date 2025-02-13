@@ -2,7 +2,7 @@
 
 <!-- TOC -->
 
-- [Installing MindSpore CPU Nightly by pip-Windows](#installing-mindspore-cpu-200-nightly-by-pip-windows)
+- [Installing MindSpore CPU Nightly by pip-Windows](#installing-mindspore-cpu-nightly-by-pip-windows)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)

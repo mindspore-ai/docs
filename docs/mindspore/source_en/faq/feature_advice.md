@@ -138,14 +138,6 @@ A: PyNative mode is compatible with transfer learning.
 
 <br/>
 
-## Q: What is the difference between [MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md#) and [Ascend ModelZoo](https://www.hiascend.com/software/modelzoo)?
-
-A: `MindSpore ModelZoo` contains models mainly implemented by MindSpore. But these models support different devices including Ascend, GPU, CPU and Mobile. `Ascend ModelZoo` contains models only running on Ascend which are implemented by different ML platform including MindSpore, PyTorch, TensorFlow and Caffe. You can refer to the corresponding [gitee repository](https://gitee.com/ascend/modelzoo).
-
-The combination of MindSpore and Ascend is overlapping, and this part of the model will be based on MindSpore's ModelZoo as the main version, and will be released to Ascend ModelZoo regularly.
-
-<br/>
-
 ## Q: What is the relationship between Ascend and NPU?
 
 A: NPU refers to a dedicated processor for neural network algorithms. Different companies have different NPU architectures. Ascend is an NPU processor based on the DaVinci architecture developed by Huawei.
