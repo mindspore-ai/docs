@@ -136,7 +136,7 @@ def get_api(fullname):
         # pylint: disable=W0123
         api = eval(f"module_import.{api_name}")
     except ModuleNotFoundError:
-        print(f"not find module: {module_import}, name: {api_name}")
+        print(f"not find module, api name: {api_name}")
         return False
     except AttributeError:
         try:
@@ -206,7 +206,9 @@ def get_rst_en(en_list, all_samedfn, samedfn_rst):
         all_list.append(i)
         one_doc = i.split('&&&')[0]
         api_name = re.findall(r'\.\. .*?:: (.*)', one_doc)[0]
-        api_name_obj = get_api(api_name)
+        api_name_obj = ''
+        if 'mindspore.nn.' in api_name or 'mindspore.ops.' in api_name or 'mindspore.mint.' in api_name:
+            api_name_obj = get_api(api_name)
         if api_name_obj:
             samedef_list = get_all_samedefinition(api_name_obj, api_name)
             if samedef_list:
@@ -523,7 +525,9 @@ def supplement_pr_file_cn(pr_cn, repo_path, samedfn_rst, pr_need, base_raw_url, 
         samedfn_rst_list = []
         filename = fp.split('/')[-1]
         api_name = '.'.join(filename.split('.')[:-1]).replace('.func_', '.')
-        api_name_obj = get_api(api_name)
+        api_name_obj = ''
+        if 'mindspore.nn.' in api_name or 'mindspore.ops.' in api_name or 'mindspore.mint.' in api_name:
+            api_name_obj = get_api(api_name)
         if api_name_obj:
             samedef_list = get_all_samedefinition(api_name_obj, api_name)
             if samedef_list:
