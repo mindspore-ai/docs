@@ -160,7 +160,7 @@ MindFormers提供重计算相关配置，以降低模型在训练时的内存占
 
 | 参数                                                 | 说明                            | 类型        |
 |----------------------------------------------------|-------------------------------|-----------|
-| recompute_config.recompute                         | 是否开启重计算                       | bool      |
+| recompute_config.recompute                         | 是否开启重计算                       | bool/list/tuple      |
 | recompute_config.select_recompute                  | 开启选择重计算，只针对attention层的算子进行重计算 | bool/list |
 | recompute_config.parallel_optimizer_comm_recompute | 是否对由优化器并行引入的AllGather通信进行重计算  | bool/list |
 | recompute_config.mp_comm_recompute                 | 是否对由模型并行引入的通信进行重计算            | bool      |
